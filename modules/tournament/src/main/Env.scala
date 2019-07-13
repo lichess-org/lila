@@ -41,7 +41,7 @@ final class Env(
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
     val RankingCacheTtl = config duration "ranking.cache.ttl"
-    val UidTimeout = config duration "uid.timeout"
+    val SriTimeout = config duration "sri.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
     val ApiActorName = config getString "api_actor.name"
@@ -145,7 +145,7 @@ final class Env(
       history = new History(ttl = HistoryMessageTtl),
       jsonView = jsonView,
       lightUser = lightUserApi.async,
-      uidTtl = UidTimeout,
+      sriTtl = SriTimeout,
       keepMeAlive = () => socketMap touch tournamentId
     ),
     accessTimeout = SocketTimeout,

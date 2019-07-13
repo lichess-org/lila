@@ -14,7 +14,7 @@ import lila.common.PimpedJson._
 import lila.hub.actorApi.map._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.makeMessage
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
@@ -38,8 +38,8 @@ final class SocketHandler(
     key = "study_invite.user"
   )
 
-  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, uid: Uid, member: StudySocket.Member) =
-    AnaRateLimit(uid, member) {
+  private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts, sri: Sri, member: StudySocket.Member) =
+    AnaRateLimit(sri, member) {
       m.branch match {
         case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
           member push makeMessage("node", m json branch)
@@ -52,7 +52,7 @@ final class SocketHandler(
             studyId,
             Position.Ref(Chapter.Id(chapterId), Path(m.path)),
             Node.fromBranch(branch) withClock opts.clock,
-            uid,
+            sri,
             opts
           )
         case scalaz.Success(branch) =>
@@ -65,7 +65,7 @@ final class SocketHandler(
   def makeController(
     socket: StudySocket,
     studyId: Study.Id,
-    uid: Uid,
+    sri: Sri,
     member: StudySocket.Member,
     user: Option[User]
   ): Handler.Controller = ({
@@ -73,44 +73,44 @@ final class SocketHandler(
       member.userId foreach { api.talk(_, studyId, text) }
     }
     case ("anaMove", o) => AnaMove parse o foreach {
-      moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
+      moveOrDrop(studyId, _, MoveOpts parse o, sri, member)
     }
     case ("anaDrop", o) => AnaDrop parse o foreach {
-      moveOrDrop(studyId, _, MoveOpts parse o, uid, member)
+      moveOrDrop(studyId, _, MoveOpts parse o, sri, member)
     }
-    case ("setPath", o) => AnaRateLimit(uid, member) {
+    case ("setPath", o) => AnaRateLimit(sri, member) {
       reading[AtPosition](o) { position =>
         member.userId foreach { userId =>
-          api.setPath(userId, studyId, position.ref, uid)
+          api.setPath(userId, studyId, position.ref, sri)
         }
       }
     }
-    case ("deleteNode", o) => AnaRateLimit(uid, member) {
+    case ("deleteNode", o) => AnaRateLimit(sri, member) {
       reading[AtPosition](o) { position =>
         for {
           jumpTo <- (o \ "d" \ "jumpTo").asOpt[String] map Path.apply
           userId <- member.userId
-        } api.setPath(userId, studyId, position.ref.withPath(jumpTo), uid) >>
-          api.deleteNodeAt(userId, studyId, position.ref, uid)
+        } api.setPath(userId, studyId, position.ref.withPath(jumpTo), sri) >>
+          api.deleteNodeAt(userId, studyId, position.ref, sri)
       }
     }
-    case ("promote", o) => AnaRateLimit(uid, member) {
+    case ("promote", o) => AnaRateLimit(sri, member) {
       reading[AtPosition](o) { position =>
         for {
           toMainline <- (o \ "d" \ "toMainline").asOpt[Boolean]
           userId <- member.userId
-        } api.promote(userId, studyId, position.ref, toMainline, uid)
+        } api.promote(userId, studyId, position.ref, toMainline, sri)
       }
     }
-    case ("forceVariation", o) => AnaRateLimit(uid, member) {
+    case ("forceVariation", o) => AnaRateLimit(sri, member) {
       reading[AtPosition](o) { position =>
         for {
           force <- (o \ "d" \ "force").asOpt[Boolean]
           userId <- member.userId
-        } api.forceVariation(userId, studyId, position.ref, force, uid)
+        } api.forceVariation(userId, studyId, position.ref, force, sri)
       }
     }
-    case ("setRole", o) => AnaRateLimit(uid, member) {
+    case ("setRole", o) => AnaRateLimit(sri, member) {
       reading[SetRole](o) { d =>
         member.userId foreach { userId =>
           api.setRole(userId, studyId, d.userId, d.role)
@@ -139,55 +139,55 @@ final class SocketHandler(
         for {
           shapes <- (o \ "d" \ "shapes").asOpt[List[Shape]]
           userId <- member.userId
-        } api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), uid)
+        } api.setShapes(userId, studyId, position.ref, Shapes(shapes take 32), sri)
       }
 
     case ("addChapter", o) =>
       reading[ChapterMaker.Data](o) { data =>
         member.userId foreach { byUserId =>
           val sticky = o.obj("d").flatMap(_.boolean("sticky")) | true
-          api.addChapter(byUserId, studyId, data, sticky = sticky, uid)
+          api.addChapter(byUserId, studyId, data, sticky = sticky, sri)
         }
       }
 
     case ("setChapter", o) => for {
       byUserId <- member.userId
       chapterId <- o.get[Chapter.Id]("d")
-    } api.setChapter(byUserId, studyId, chapterId, uid)
+    } api.setChapter(byUserId, studyId, chapterId, sri)
 
     case ("editChapter", o) =>
       reading[ChapterMaker.EditData](o) { data =>
         member.userId foreach {
-          api.editChapter(_, studyId, data, uid)
+          api.editChapter(_, studyId, data, sri)
         }
       }
 
     case ("descStudy", o) => for {
       desc <- o str "d"
       userId <- member.userId
-    } api.descStudy(userId, studyId, desc, uid)
+    } api.descStudy(userId, studyId, desc, sri)
 
     case ("descChapter", o) =>
       reading[ChapterMaker.DescData](o) { data =>
         member.userId foreach {
-          api.descChapter(_, studyId, data, uid)
+          api.descChapter(_, studyId, data, sri)
         }
       }
 
     case ("deleteChapter", o) => for {
       byUserId <- member.userId
       id <- o.get[Chapter.Id]("d")
-    } api.deleteChapter(byUserId, studyId, id, uid)
+    } api.deleteChapter(byUserId, studyId, id, sri)
 
     case ("clearAnnotations", o) => for {
       byUserId <- member.userId
       id <- o.get[Chapter.Id]("d")
-    } api.clearAnnotations(byUserId, studyId, id, uid)
+    } api.clearAnnotations(byUserId, studyId, id, sri)
 
     case ("sortChapters", o) => for {
       byUserId <- member.userId
       ids <- o.get[List[Chapter.Id]]("d")
-    } api.sortChapters(byUserId, studyId, ids, uid)
+    } api.sortChapters(byUserId, studyId, ids, sri)
 
     case ("editStudy", o) => for {
       byUserId <- member.userId
@@ -197,7 +197,7 @@ final class SocketHandler(
     case ("setTag", o) =>
       reading[actorApi.SetTag](o) { setTag =>
         member.userId foreach { byUserId =>
-          api.setTag(byUserId, studyId, setTag, uid)
+          api.setTag(byUserId, studyId, setTag, sri)
         }
       }
 
@@ -206,7 +206,7 @@ final class SocketHandler(
         for {
           userId <- member.userId
           text <- (o \ "d" \ "text").asOpt[String]
-        } api.setComment(userId, studyId, position.ref, Comment sanitize text, uid)
+        } api.setComment(userId, studyId, position.ref, Comment sanitize text, sri)
       }
 
     case ("deleteComment", o) =>
@@ -214,7 +214,7 @@ final class SocketHandler(
         for {
           userId <- member.userId
           id <- (o \ "d" \ "id").asOpt[String]
-        } api.deleteComment(userId, studyId, position.ref, Comment.Id(id), uid)
+        } api.deleteComment(userId, studyId, position.ref, Comment.Id(id), sri)
       }
 
     case ("setGamebook", o) =>
@@ -222,7 +222,7 @@ final class SocketHandler(
         for {
           userId <- member.userId
           gamebook <- (o \ "d" \ "gamebook").asOpt[Gamebook].map(_.cleanUp)
-        } api.setGamebook(userId, studyId, position.ref, gamebook, uid)
+        } api.setGamebook(userId, studyId, position.ref, gamebook, sri)
       }
 
     case ("toggleGlyph", o) =>
@@ -230,27 +230,27 @@ final class SocketHandler(
         for {
           userId <- member.userId
           glyph <- (o \ "d" \ "id").asOpt[Int] flatMap Glyph.find
-        } api.toggleGlyph(userId, studyId, position.ref, glyph, uid)
+        } api.toggleGlyph(userId, studyId, position.ref, glyph, sri)
       }
 
     case ("explorerGame", o) =>
       reading[actorApi.ExplorerGame](o) { data =>
         member.userId foreach { byUserId =>
-          api.explorerGame(byUserId, studyId, data, uid)
+          api.explorerGame(byUserId, studyId, data, sri)
         }
       }
 
     case ("like", o) => for {
       byUserId <- member.userId
       v <- (o \ "d" \ "liked").asOpt[Boolean]
-    } api.like(studyId, byUserId, v, uid)
+    } api.like(studyId, byUserId, v, sri)
 
     case ("requestAnalysis", o) => for {
       byUserId <- member.userId
       chapterId <- o.get[Chapter.Id]("d")
     } api.analysisRequest(studyId, chapterId, byUserId)
 
-  }: Handler.Controller) orElse evalCacheHandler(uid, member, user) orElse lila.chat.Socket.in(
+  }: Handler.Controller) orElse evalCacheHandler(sri, member, user) orElse lila.chat.Socket.in(
     chatId = Chat.Id(studyId.value),
     member = member,
     chat = chat,
@@ -288,31 +288,31 @@ final class SocketHandler(
 
   def join(
     studyId: Study.Id,
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     version: Option[SocketVersion],
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] = {
     val socket = getSocket(studyId)
-    join(studyId, uid, user, socket, member => makeController(socket, studyId, uid, member, user = user), version, apiVersion)
+    join(studyId, sri, user, socket, member => makeController(socket, studyId, sri, member, user = user), version, apiVersion)
   }
 
   def join(
     studyId: Study.Id,
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     socket: StudySocket,
     controller: StudySocket.Member => Handler.Controller,
     version: Option[SocketVersion],
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] =
-    socket.ask[StudySocket.Connected](StudySocket.Join(uid, user.map(_.id), user.??(_.troll), version, _)) map {
+    socket.ask[StudySocket.Connected](StudySocket.Join(sri, user.map(_.id), user.??(_.troll), version, _)) map {
       case StudySocket.Connected(enum, member) => Handler.iteratee(
         hub,
         controller(member),
         member,
         socket,
-        uid,
+        sri,
         apiVersion
       ) -> enum
     }

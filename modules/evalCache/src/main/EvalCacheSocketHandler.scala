@@ -15,24 +15,24 @@ final class EvalCacheSocketHandler(
 
   import EvalCacheEntry._
 
-  def apply(uid: Socket.Uid, member: SocketMember, user: Option[User]): Handler.Controller =
-    makeController(uid, member, user map truster.makeTrusted)
+  def apply(sri: Socket.Sri, member: SocketMember, user: Option[User]): Handler.Controller =
+    makeController(sri, member, user map truster.makeTrusted)
 
   private def makeController(
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     member: SocketMember,
     trustedUser: Option[TrustedUser]
   ): Handler.Controller = {
 
     case ("evalPut", o) => trustedUser foreach { tu =>
-      JsonHandlers.readPut(tu, o) foreach { api.put(tu, _, uid) }
+      JsonHandlers.readPut(tu, o) foreach { api.put(tu, _, sri) }
     }
 
-    case ("evalGet", o) => o obj "d" foreach { evalGet(uid, _, member.push) }
+    case ("evalGet", o) => o obj "d" foreach { evalGet(sri, _, member.push) }
   }
 
   private[evalCache] def evalGet(
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     d: JsObject,
     push: JsObject => Unit
   ): Unit = for {
@@ -47,14 +47,14 @@ final class EvalCacheSocketHandler(
         pushData(json + ("path" -> JsString(path)))
       }
     }
-    if (d.value contains "up") upgrade.register(uid, variant, fen, multiPv, path)(pushData)
+    if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
   }
 
-  private[evalCache] def untrustedEvalPut(uid: Socket.Uid, userId: User.ID, data: JsObject): Unit =
+  private[evalCache] def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
     truster cachedTrusted userId foreach {
       _ foreach { tu =>
         JsonHandlers.readPutData(tu, data) foreach {
-          api.put(tu, _, uid)
+          api.put(tu, _, sri)
         }
       }
     }

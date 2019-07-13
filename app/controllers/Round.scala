@@ -20,7 +20,7 @@ object Round extends LilaController with TheftPrevention {
   def websocketWatcher(gameId: String, color: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     proxyPov(gameId, color) flatMap {
       _ ?? { pov =>
-        getSocketUid("sri") ?? { uid =>
+        getSocketSri("sri") ?? { sri =>
           val userTv = get("userTv") map UserModel.normalize map { userId =>
             lila.round.actorApi.UserTv(
               userId,
@@ -29,7 +29,7 @@ object Round extends LilaController with TheftPrevention {
           }
           env.socketHandler.watcher(
             pov = pov,
-            uid = uid,
+            sri = sri,
             user = ctx.me,
             ip = ctx.ip,
             userTv = userTv,
@@ -46,10 +46,10 @@ object Round extends LilaController with TheftPrevention {
     proxyPov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))
-        else getSocketUid("sri") match {
-          case Some(uid) =>
+        else getSocketSri("sri") match {
+          case Some(sri) =>
             requestAiMove(pov) >>
-              env.socketHandler.player(pov, uid, ctx.me, ctx.ip, getSocketVersion, apiVersion, getMobile) map Right.apply
+              env.socketHandler.player(pov, sri, ctx.me, ctx.ip, getSocketVersion, apiVersion, getMobile) map Right.apply
           case None => fuccess(Left(NotFound))
         }
       case None => fuccess(Left(NotFound))

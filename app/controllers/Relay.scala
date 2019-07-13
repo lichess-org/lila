@@ -93,12 +93,12 @@ object Relay extends LilaController {
   } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { uid =>
+    get("sri") ?? { sri =>
       env.api byId id flatMap {
         _ ?? { relay =>
           env.socketHandler.join(
             relayId = relay.id,
-            uid = lila.socket.Socket.Uid(uid),
+            sri = lila.socket.Socket.Sri(sri),
             user = ctx.me,
             getSocketVersion,
             apiVersion

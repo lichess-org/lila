@@ -30,8 +30,8 @@ final class EvalCacheApi(
       }
     }
 
-  def put(trustedUser: TrustedUser, candidate: Input.Candidate, uid: Socket.Uid): Funit =
-    candidate.input ?? { put(trustedUser, _, uid) }
+  def put(trustedUser: TrustedUser, candidate: Input.Candidate, sri: Socket.Sri): Funit =
+    candidate.input ?? { put(trustedUser, _, sri) }
 
   def shouldPut = truster shouldPut _
 
@@ -62,7 +62,7 @@ final class EvalCacheApi(
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 
-  private def put(trustedUser: TrustedUser, input: Input, uid: Socket.Uid): Funit = Validator(input) match {
+  private def put(trustedUser: TrustedUser, input: Input, sri: Socket.Sri): Funit = Validator(input) match {
     case Some(error) =>
       logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
       funit
@@ -76,13 +76,13 @@ final class EvalCacheApi(
         )
         coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
           cache.put(input.id, entry.some) >>-
-          upgrade.onEval(input, uid)
+          upgrade.onEval(input, sri)
       case Some(oldEntry) =>
         val entry = oldEntry add input.eval
         !(entry similarTo oldEntry) ?? {
           coll.update($id(entry.id), entry, upsert = true).void >>-
             cache.put(input.id, entry.some) >>-
-            upgrade.onEval(input, uid)
+            upgrade.onEval(input, sri)
         }
 
     }

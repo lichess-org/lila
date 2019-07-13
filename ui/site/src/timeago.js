@@ -1,20 +1,17 @@
 /** based on https://github.com/hustcc/timeago.js Copyright (c) 2016 hustcc License: MIT **/
 lichess.timeago = (function() {
 
-  const TIME_FORMATS = [
-    // Seconds
-    {limit: 60, divider: 1},
-    // Minutes
-    {limit: 60 * 60, divider: 60},
-    // Hours
-    {limit: 60 * 60 * 24 * 2, divider: 60 * 60},
-    // Days
-    {limit: 60 * 60 * 24 * 7, divider: 60 * 60 * 24},
-    // Weeks
-    {limit: 60 * 60 * 2 * 365, divider: 60 * 60 * 24 * 7},
-    // Months
-    {limit: 60 * 60 * 24 * 365, divider: 60 * 60 * 2 * 365},
-  ];
+
+  // divisors for minutes, hours, days, weeks, months, years
+  const DIVS = [60,
+                60 * 60,
+                60 * 60 * 24,
+                60 * 60 * 24 * 7,
+                60 * 60 * 2 * 365, // 24/12 = 2
+                60 * 60 * 24 * 365];
+
+  const LIMITS = [...DIVS];
+  LIMITS[2] *= 2; // Show hours up to 2 days.
 
   // format Date / string / timestamp to Date instance.
   function toDate(input) {
@@ -25,15 +22,16 @@ lichess.timeago = (function() {
 
   // format the diff second to *** time ago
   function formatDiff(diff) {
-    var i = 0, agoin = 0;
+    let agoin = 0;
     if (diff < 0) {
       agoin = 1;
       diff = -diff;
     }
     var total_sec = diff;
 
-    for (;i < TIME_FORMATS.length - 1 && diff >= TIME_FORMATS[i].limit;) i++;
-    diff /= TIME_FORMATS[i].divider;
+    let i = 0;
+    for (;i < 6 && diff >= LIMITS[i]; i++);
+    if (i > 0) diff /= DIVS[i-1];
 
     diff = Math.floor(diff);
     i *= 2;

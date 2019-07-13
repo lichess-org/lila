@@ -12,9 +12,9 @@ final class Env(
     system: ActorSystem
 ) {
 
-  private val SocketUidTtl = config duration "socket.uid.ttl"
+  private val SocketSriTtl = config duration "socket.sri.ttl"
 
-  private val socket = new Socket(system, SocketUidTtl)
+  private val socket = new Socket(system, SocketSriTtl)
 
   lazy val socketHandler = new SocketHandler(socket, hub)
 }

@@ -5,7 +5,7 @@ import play.api.libs.json._
 
 class JsonStringifyPerfTest extends Specification {
 
-  val jsonStr = """{"t":"had","d":{"id":"Xng0Mqgw","uid":"kxukwt3ngu","u":"Mihail_Shatohin","rating":1778,"ra":1,"clock":"5+0","t":300,"s":2,"c":"white","perf":"Blitz"}}"""
+  val jsonStr = """{"t":"had","d":{"id":"Xng0Mqgw","sri":"kxukwt3ngu","u":"Mihail_Shatohin","rating":1778,"ra":1,"clock":"5+0","t":300,"s":2,"c":"white","perf":"Blitz"}}"""
   val jsonObj = Json.parse(jsonStr)
 
   val nb = 100000

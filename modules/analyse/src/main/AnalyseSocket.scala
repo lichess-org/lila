@@ -9,8 +9,8 @@ import lila.socket._
 
 private final class AnalyseSocket(
     system: akka.actor.ActorSystem,
-    uidTtl: FiniteDuration
-) extends SocketTrouper[AnalyseSocket.Member](system, uidTtl) with LoneSocket {
+    sriTtl: FiniteDuration
+) extends SocketTrouper[AnalyseSocket.Member](system, sriTtl) with LoneSocket {
 
   def monitoringName = "analyse"
   def broomFrequency = 4027 millis
@@ -19,10 +19,10 @@ private final class AnalyseSocket(
 
   def receiveSpecific = {
 
-    case Join(uid, userId, promise) =>
+    case Join(sri, userId, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId)
-      addMember(uid, member)
+      addMember(sri, member)
       promise success Connected(enumerator, member)
   }
 }
@@ -34,6 +34,6 @@ private object AnalyseSocket {
       userId: Option[lila.user.User.ID]
   ) extends DirectSocketMember
 
-  private[analyse] case class Join(uid: Socket.Uid, userId: Option[String], promise: Promise[Connected])
+  private[analyse] case class Join(sri: Socket.Sri, userId: Option[String], promise: Promise[Connected])
   private[analyse] case class Connected(enumerator: JsEnumerator, member: Member)
 }

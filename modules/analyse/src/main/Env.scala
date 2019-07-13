@@ -15,7 +15,7 @@ final class Env(
   private val CollectionAnalysis = config getString "collection.analysis"
   private val CollectionRequester = config getString "collection.requester"
   private val NetDomain = config getString "net.domain"
-  private val SocketUidTtl = config duration "socket.uid.ttl"
+  private val SocketSriTtl = config duration "socket.sri.ttl"
 
   lazy val analysisColl = db(CollectionAnalysis)
 
@@ -29,7 +29,7 @@ final class Env(
 
   lazy val annotator = new Annotator(NetDomain)
 
-  private val socket = new AnalyseSocket(system, SocketUidTtl)
+  private val socket = new AnalyseSocket(system, SocketSriTtl)
 
   lazy val socketHandler = new AnalyseSocketHandler(socket, hub, evalCacheHandler)
 }

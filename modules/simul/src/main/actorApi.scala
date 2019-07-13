@@ -5,7 +5,7 @@ import scala.concurrent.Promise
 import play.api.libs.json.JsObject
 
 import lila.game.Game
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.socket.RemoteSocketMember
 import lila.user.User
 
@@ -18,7 +18,7 @@ private[simul] case class SimulSocketMember(
 private[simul] case class Messadata(trollish: Boolean = false)
 
 private[simul] case class Join(
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     version: Option[SocketVersion],
     promise: Promise[Connected]

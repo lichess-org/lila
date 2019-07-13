@@ -7,7 +7,7 @@ import akka.actor._
 import akka.pattern.pipe
 
 import lila.user.User
-import lila.socket.Socket.{ Uid, Uids }
+import lila.socket.Socket.{ Sri, Sris }
 
 private final class PoolActor(
     config: PoolConfig,
@@ -97,9 +97,9 @@ private final class PoolActor(
       scheduleWave
     }
 
-    case Uids(uids) =>
+    case Sris(sris) =>
       members = members.filter { m =>
-        uids contains m.uid
+        sris contains m.sri
       }
   }
 

@@ -5,13 +5,13 @@ import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.socket.DirectSocketMember
-import lila.socket.Socket.{ Uid, Uids }
+import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
 private[lobby] case class Member(
     channel: JsChannel,
     user: Option[LobbyUser],
-    uid: Uid,
+    sri: Sri,
     mobile: Boolean
 ) extends DirectSocketMember {
 
@@ -20,10 +20,10 @@ private[lobby] case class Member(
 
 private[lobby] object Member {
 
-  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], uid: Uid, mobile: Boolean): Member = Member(
+  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], sri: Sri, mobile: Boolean): Member = Member(
     channel = channel,
     user = user map { LobbyUser.make(_, blocking) },
-    uid = uid,
+    sri = sri,
     mobile = mobile
   )
 }
@@ -39,22 +39,22 @@ private[lobby] case class RemoveHook(hookId: String)
 private[lobby] case class RemoveSeek(seekId: String)
 private[lobby] case class RemoveHooks(hooks: Set[Hook])
 private[lobby] object SendHookRemovals
-private[lobby] case class CancelHook(uid: Uid)
+private[lobby] case class CancelHook(sri: Sri)
 private[lobby] case class CancelSeek(seekId: String, user: LobbyUser)
-private[lobby] case class BiteHook(hookId: String, uid: Uid, user: Option[LobbyUser])
+private[lobby] case class BiteHook(hookId: String, sri: Sri, user: Option[LobbyUser])
 private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
-private[lobby] case class JoinHook(uid: Uid, hook: Hook, game: Game, creatorColor: chess.Color)
+private[lobby] case class JoinHook(sri: Sri, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
-private[lobby] case class Join(uid: Uid, user: Option[User], blocking: Set[String], mobile: Boolean, promise: Promise[Connected])
+private[lobby] case class Join(sri: Sri, user: Option[User], blocking: Set[String], mobile: Boolean, promise: Promise[Connected])
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 
-private[lobby] case class SetIdle(uid: Uid, value: Boolean)
+private[lobby] case class SetIdle(sri: Sri, value: Boolean)
 
 private[lobby] case class HookSub(member: Member, value: Boolean)
 private[lobby] case class AllHooksFor(member: Member, hooks: Vector[Hook])
 
-private[lobby] case class GetUidsP(promise: Promise[Uids])
+private[lobby] case class GetSrisP(promise: Promise[Sris])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)

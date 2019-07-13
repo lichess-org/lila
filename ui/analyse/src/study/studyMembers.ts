@@ -82,8 +82,8 @@ export function ctrl(opts: Opts) {
     myId: opts.myId,
     inviteForm,
     update(members: StudyMemberMap) {
-      if (isOwner()) confing(Object.keys(members).find(function(uid) {
-        return !dict()[uid];
+      if (isOwner()) confing(Object.keys(members).find(function(sri) {
+        return !dict()[sri];
       }));
       const wasViewer = myMember() && !canContribute();
       const wasContrib = myMember() && canContribute();

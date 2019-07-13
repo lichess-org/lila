@@ -7,7 +7,7 @@ import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
 import lila.common.{ IpAddress, IsMobile }
-import lila.socket.Socket.{ SocketVersion, Uid }
+import lila.socket.Socket.{ SocketVersion, Sri }
 import lila.socket.DirectSocketMember
 import lila.user.User
 
@@ -70,7 +70,7 @@ case class Watcher(
 }
 
 case class Join(
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     color: Color,
     playerId: Option[String],

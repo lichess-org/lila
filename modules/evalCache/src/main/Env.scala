@@ -5,7 +5,7 @@ import play.api.libs.json.JsValue
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.socket.{ RemoteSocketTellSriIn, RemoteSocketTellSriOut }
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 
 final class Env(
     config: Config,
@@ -35,17 +35,17 @@ final class Env(
   )
 
   system.lilaBus.subscribeFun('socketLeave) {
-    case lila.socket.actorApi.SocketLeave(uid, _) => upgrade unregister uid
+    case lila.socket.actorApi.SocketLeave(sri, _) => upgrade unregister sri
   }
 
   // remote socket support
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
     case RemoteSocketTellSriIn(sri, _, d) =>
-      socketHandler.evalGet(Uid(sri), d, res => system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut))
+      socketHandler.evalGet(Sri(sri), d, res => system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut))
   }
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
     case RemoteSocketTellSriIn(sri, Some(userId), d) =>
-      socketHandler.untrustedEvalPut(Uid(sri), userId, d)
+      socketHandler.untrustedEvalPut(Sri(sri), userId, d)
   }
   // END remote socket support
 

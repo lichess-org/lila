@@ -5,6 +5,7 @@ import org.joda.time.Instant
 import scala.concurrent.duration.Duration
 
 import lila.common.base.StringUtils.levenshtein
+import lila.user.User
 
 final class Flood(duration: Duration) {
 
@@ -12,14 +13,14 @@ final class Flood(duration: Duration) {
 
   private val floodNumber = 4
 
-  private val cache: Cache[String, Messages] = Scaffeine()
+  private val cache: Cache[User.ID, Messages] = Scaffeine()
     .expireAfterAccess(duration)
-    .build[String, Messages]
+    .build[User.ID, Messages]
 
-  def filterMessage[A](uid: String, text: String)(op: => Unit): Unit =
+  private def filterMessage[A](uid: User.ID, text: String)(op: => Unit): Unit =
     if (allowMessage(uid, text)) op
 
-  def allowMessage(uid: String, text: String): Boolean = {
+  def allowMessage(uid: User.ID, text: String): Boolean = {
     val msg = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {

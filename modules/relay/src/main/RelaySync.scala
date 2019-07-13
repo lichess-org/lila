@@ -3,7 +3,7 @@ package lila.relay
 import org.joda.time.DateTime
 
 import chess.format.pgn.{ Tag, Tags }
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 import lila.study._
 
 private final class RelaySync(
@@ -23,7 +23,7 @@ private final class RelaySync(
               case Some(chapter) => updateChapter(study, chapter, game)
               case None => createChapter(study, game) flatMap { chapter =>
                 chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                  studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketUid)
+                  studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketSri)
                 } inject chapter.root.mainline.size
               }
             }
@@ -58,7 +58,7 @@ private final class RelaySync(
                 studyId = study.id,
                 position = Position(chapter, path).ref,
                 clock = c.some,
-                uid = socketUid
+                sri = socketSri
               )
             }
             path -> none
@@ -73,7 +73,7 @@ private final class RelaySync(
             studyId = study.id,
             position = Position(chapter, path).ref,
             toMainline = true,
-            uid = socketUid
+            sri = socketSri
           ) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
           lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
@@ -82,7 +82,7 @@ private final class RelaySync(
               studyId = study.id,
               position = position,
               node = n,
-              uid = socketUid,
+              sri = socketSri,
               opts = moveOpts.copy(clock = n.clock),
               relay = Chapter.Relay(
                 index = game.index,
@@ -117,7 +117,7 @@ private final class RelaySync(
         studyId = study.id,
         chapterId = chapter.id,
         tags = chapterNewTags,
-        uid = socketUid
+        sri = socketSri
       ) >> {
         chapterNewTags.resultColor.isDefined ?? onChapterEnd(study.id, chapter.id)
       }
@@ -161,7 +161,7 @@ private final class RelaySync(
           lastMoveAt = DateTime.now
         ).some
       )
-      studyApi.doAddChapter(study, chapter, sticky = false, uid = socketUid) inject chapter
+      studyApi.doAddChapter(study, chapter, sticky = false, sri = socketSri) inject chapter
     }
 
   private val moveOpts = MoveOpts(
@@ -171,7 +171,7 @@ private final class RelaySync(
     clock = none
   )
 
-  private val socketUid = Uid("")
+  private val socketSri = Sri("")
 
   private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
 

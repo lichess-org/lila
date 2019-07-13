@@ -20,7 +20,7 @@ object forms {
     form,
     "hook",
     trans.createAGame(),
-    routes.Setup.hook("uid-placeholder")
+    routes.Setup.hook("sri-placeholder")
   ) {
       frag(
         renderVariant(form, translatedVariantChoicesWithVariants),

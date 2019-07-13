@@ -35,7 +35,7 @@ private[lobby] final class SocketHandler(
 
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     HookPoolLimitPerMember(
-      k = member.uid.value,
+      k = member.sri.value,
       cost = cost,
       msg = s"$msg mobile=${member.mobile}"
     )(op)
@@ -43,11 +43,11 @@ private[lobby] final class SocketHandler(
   private def controller(socket: LobbySocket, member: Member, isBot: Boolean): Handler.Controller = {
     case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
-        lobby ! BiteHook(id, member.uid, member.user)
+        lobby ! BiteHook(id, member.sri, member.user)
       }
     }
     case ("cancel", _) => HookPoolLimit(member, cost = 1, msg = "cancel") {
-      lobby ! CancelHook(member.uid)
+      lobby ! CancelHook(member.sri)
     }
     case ("joinSeek", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
       for {
@@ -61,7 +61,7 @@ private[lobby] final class SocketHandler(
         user <- member.user
       } lobby ! CancelSeek(id, user)
     }
-    case ("idle", o) => socket ! SetIdle(member.uid, ~(o boolean "d"))
+    case ("idle", o) => socket ! SetIdle(member.sri, ~(o boolean "d"))
     // entering a pool
     case ("poolIn", o) if !isBot => HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
       for {
@@ -71,12 +71,12 @@ private[lobby] final class SocketHandler(
         ratingRange = d str "range" flatMap RatingRange.apply
         blocking = d str "blocking"
       } {
-        lobby ! CancelHook(member.uid) // in case there's one...
+        lobby ! CancelHook(member.sri) // in case there's one...
         poolApi.join(
           PoolConfig.Id(id),
           PoolApi.Joiner(
             userId = user.id,
-            uid = member.uid,
+            sri = member.sri,
             ratingMap = user.perfMap.mapValues(_.rating),
             ratingRange = ratingRange,
             lame = user.lame,
@@ -101,22 +101,22 @@ private[lobby] final class SocketHandler(
   }
 
   def apply(
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     user: Option[User],
     mobile: Boolean,
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      socket.ask[Connected](Join(uid, user, blockedUserIds, mobile, _)) map {
+      socket.ask[Connected](Join(sri, user, blockedUserIds, mobile, _)) map {
         case Connected(enum, member) => Handler.iteratee(
           hub,
           controller(socket, member, user.exists(_.isBot)),
           member,
           socket,
-          uid,
+          sri,
           apiVersion,
           onPing = (_, _, _, _) => {
-            socket setAlive uid
+            socket setAlive sri
             member push pong
           }
         ) -> enum
