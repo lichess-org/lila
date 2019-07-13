@@ -7,7 +7,8 @@ module.exports = function(element, cfg) {
   var partialTree = function(n) { return n.children.length && (!n.eval || partialTree(n.children[0])); }
   var partialList = function(n) {
     for (let i = 0; i < n.length - 2; i++) {
-      if (!n[i].eval || !Object.keys(n[i].eval).length)
+      var skip = i > 0 && n[i].ply === n[i - 1].ply;
+      if (!skip && (!n[i].eval || !Object.keys(n[i].eval).length))
         return true;
     }
     return false;
