@@ -11,11 +11,20 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   import BSONHandlers._
 
+  private object F {
+    val uids = "uids"
+    val likers = "likers"
+    val views = "views"
+    val rank = "rank"
+    val likes = "likes"
+    val createdAt = "createdAt"
+  }
+
   private[study] val projection = $doc(
-    "sris" -> false,
-    "likers" -> false,
-    "views" -> false,
-    "rank" -> false
+    F.uids -> false,
+    F.likers -> false,
+    F.views -> false,
+    F.rank -> false
   )
 
   private[study] val lightProjection = $doc(
@@ -41,10 +50,10 @@ final class StudyRepo(private[study] val coll: Coll) {
   def exists(id: Study.Id) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
-  private[study] def selectMemberId(memberId: User.ID) = $doc("sris" -> memberId)
+  private[study] def selectMemberId(memberId: User.ID) = $doc(F.uids -> memberId)
   private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
   private[study] val selectPrivateOrUnlisted = "visibility" $ne VisibilityHandler.write(Study.Visibility.Public)
-  private[study] def selectLiker(userId: User.ID) = $doc("likers" -> userId)
+  private[study] def selectLiker(userId: User.ID) = $doc(F.likers -> userId)
   private[study] def selectContributorId(userId: User.ID) =
     selectMemberId(userId) ++ // use the index
       $doc("ownerId" $ne userId) ++
@@ -55,9 +64,9 @@ final class StudyRepo(private[study] val coll: Coll) {
   def insert(s: Study): Funit = coll.insert {
     StudyBSONHandler.write(s) ++ $doc(
       "updatedAt" -> DateTime.now,
-      "sris" -> s.members.ids,
-      "likers" -> List(s.ownerId),
-      "rank" -> Study.Rank.compute(s.likes, s.createdAt)
+      F.uids -> s.members.ids,
+      F.likers -> List(s.ownerId),
+      F.rank -> Study.Rank.compute(s.likes, s.createdAt)
     )
   }.void
 
@@ -86,7 +95,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       )
     ).void
 
-  def incViews(study: Study) = coll.incFieldUnchecked($id(study.id), "views")
+  def incViews(study: Study) = coll.incFieldUnchecked($id(study.id), F.views)
 
   def updateNow(s: Study) =
     coll.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now)
@@ -94,13 +103,13 @@ final class StudyRepo(private[study] val coll: Coll) {
   def addMember(study: Study, member: StudyMember): Funit =
     coll.update(
       $id(study.id),
-      $set(s"members.${member.id}" -> member) ++ $addToSet("sris" -> member.id)
+      $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
     ).void
 
   def removeMember(study: Study, userId: User.ID): Funit =
     coll.update(
       $id(study.id),
-      $unset(s"members.$userId") ++ $pull("sris" -> userId)
+      $unset(s"members.$userId") ++ $pull(F.uids -> userId)
     ).void
 
   def setRole(study: Study, userId: User.ID, role: StudyMember.Role): Funit =
@@ -109,8 +118,8 @@ final class StudyRepo(private[study] val coll: Coll) {
       $set(s"members.$userId.role" -> role)
     ).void
 
-  def sris(studyId: Study.Id): Fu[Set[User.ID]] =
-    coll.primitiveOne[Set[User.ID]]($id(studyId), "sris") map (~_)
+  def uids(studyId: Study.Id): Fu[Set[User.ID]] =
+    coll.primitiveOne[Set[User.ID]]($id(studyId), F.uids) map (~_)
 
   private val idNameProjection = $doc("name" -> true)
 
@@ -148,10 +157,10 @@ final class StudyRepo(private[study] val coll: Coll) {
         coll.update(
           $id(studyId),
           $set(
-            "likes" -> likes,
-            "rank" -> Study.Rank.compute(likes, createdAt)
+            F.likes -> likes,
+            F.rank -> Study.Rank.compute(likes, createdAt)
           ) ++ {
-              if (v) $addToSet("likers" -> userId) else $pull("likers" -> userId)
+              if (v) $addToSet(F.likers -> userId) else $pull(F.likers -> userId)
             }
         ) inject likes
     }
@@ -163,14 +172,14 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
 
   def resetAllRanks: Fu[Int] = coll.find(
-    $empty, $doc("likes" -> true, "createdAt" -> true)
+    $empty, $doc(F.likes -> true, F.createdAt -> true)
   ).cursor[Bdoc]().foldWhileM(0) { (count, doc) =>
     ~(for {
       id <- doc.getAs[Study.Id]("_id")
-      likes <- doc.getAs[Study.Likes]("likes")
-      createdAt <- doc.getAs[DateTime]("createdAt")
+      likes <- doc.getAs[Study.Likes](F.likes)
+      createdAt <- doc.getAs[DateTime](F.createdAt)
     } yield coll.update(
-      $id(id), $set("rank" -> Study.Rank.compute(likes, createdAt))
+      $id(id), $set(F.rank -> Study.Rank.compute(likes, createdAt))
     ).void) inject Cursor.Cont(count + 1)
   }
 
@@ -179,14 +188,14 @@ final class StudyRepo(private[study] val coll: Coll) {
       Match($id(studyId)),
       List(Project($doc(
         "_id" -> false,
-        "likes" -> $doc("$size" -> "$likers"),
-        "createdAt" -> true
+        F.likes -> $doc("$size" -> F.likers),
+        F.createdAt -> true
       )))
     ).map { docOption =>
         for {
           doc <- docOption
-          likes <- doc.getAs[Study.Likes]("likes")
-          createdAt <- doc.getAs[DateTime]("createdAt")
+          likes <- doc.getAs[Study.Likes](F.likes)
+          createdAt <- doc.getAs[DateTime](F.createdAt)
         } yield likes -> createdAt
       }
 }
