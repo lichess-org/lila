@@ -266,7 +266,7 @@ module.exports = function(cfg, element) {
         var poolMember = hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
         var call = {
-          url: $form.attr('action').replace(/sri-placeholder/, lichess.StrongSocket.sri),
+          url: $form.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
           data: $form.serialize() + "&color=" + color,
           type: 'post'
         };
