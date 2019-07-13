@@ -6,14 +6,14 @@ import play.api.libs.json.JsObject
 
 import lila.game.Game
 import lila.socket.Socket.{ Uid, SocketVersion }
-import lila.socket.SocketMember
+import lila.socket.RemoteSocketMember
 import lila.user.User
 
-private[simul] case class SimulMember(
+private[simul] case class SimulSocketMember(
     push: JsObject => Unit,
     userId: Option[String],
     troll: Boolean
-)
+) extends RemoteSocketMember
 
 private[simul] case class Messadata(trollish: Boolean = false)
 
@@ -29,7 +29,7 @@ private[simul] case class StartSimul(firstGame: Game, hostId: String)
 private[simul] case class HostIsOn(gameId: String)
 private[simul] case object Reload
 private[simul] case object Aborted
-private[simul] case class Connected(member: SimulMember)
+private[simul] case class Connected(member: SimulSocketMember)
 
 private[simul] case object NotifyCrowd
 

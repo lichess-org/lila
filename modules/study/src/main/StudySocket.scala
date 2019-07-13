@@ -11,7 +11,7 @@ import chess.format.pgn.Glyphs
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
-import lila.socket.{ SocketTrouper, History, Historical, AnaDests }
+import lila.socket.{ SocketTrouper, History, Historical, AnaDests, DirectSocketMember }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 import lila.chat.Chat
@@ -278,7 +278,7 @@ object StudySocket {
       channel: JsChannel,
       userId: Option[String],
       troll: Boolean
-  ) extends lila.socket.SocketMember
+  ) extends DirectSocketMember
 
   case class Who(u: String, s: Uid)
   import JsonView.uidWriter

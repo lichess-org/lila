@@ -9,7 +9,7 @@ import scala.concurrent.Promise
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.SocketTrouper
 import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
-import lila.socket.{ History, Historical }
+import lila.socket.{ History, Historical, DirectSocketMember }
 
 private final class ChallengeSocket(
     system: ActorSystem,
@@ -55,7 +55,7 @@ private object ChallengeSocket {
       channel: JsChannel,
       userId: Option[String],
       owner: Boolean
-  ) extends lila.socket.SocketMember {
+  ) extends DirectSocketMember {
     val troll = false
   }
 

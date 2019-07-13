@@ -4,8 +4,8 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.Socket.{ Uid, DirectSocketVersion }
-import lila.socket.SocketMember
+import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.DirectSocketMember
 import lila.user.User
 
 private[tournament] case class Member(
