@@ -102,7 +102,7 @@ final class CrosstableApi(
     UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
-          GF.playerSris $all List(u1, u2),
+          GF.playerUids $all List(u1, u2),
           GF.status $gte chess.Status.Mate.id
         )
 

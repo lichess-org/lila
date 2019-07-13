@@ -152,7 +152,7 @@ object BSONHandlers {
     def writes(w: BSON.Writer, o: Game) = BSONDocument(
       F.id -> o.id,
       F.playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
-      F.playerSris -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
+      F.playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
       F.whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
       F.blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
       F.status -> o.status,
@@ -208,17 +208,17 @@ object BSONHandlers {
     def readsWithPlayerIds(r: BSON.Reader, playerIds: String): LightGame = {
       val (whiteId, blackId) = playerIds splitAt 4
       val winC = r boolO F.winnerColor map Color.apply
-      val sris = ~r.getO[List[lila.user.User.ID]](F.playerSris)
-      val (whiteSri, blackSri) = (sris.headOption.filter(_.nonEmpty), sris.lift(1).filter(_.nonEmpty))
-      def makePlayer(field: String, color: Color, id: Player.ID, sri: Player.UserId): Player = {
+      val uids = ~r.getO[List[lila.user.User.ID]](F.playerUids)
+      val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
+      def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
         val win = winC map (_ == color)
-        builder(color)(id)(sri)(win)
+        builder(color)(id)(uid)(win)
       }
       LightGame(
         id = r str F.id,
-        whitePlayer = makePlayer(F.whitePlayer, White, whiteId, whiteSri),
-        blackPlayer = makePlayer(F.blackPlayer, Black, blackId, blackSri),
+        whitePlayer = makePlayer(F.whitePlayer, White, whiteId, whiteUid),
+        blackPlayer = makePlayer(F.blackPlayer, Black, blackId, blackUid),
         status = r.get[Status](F.status)
       )
     }

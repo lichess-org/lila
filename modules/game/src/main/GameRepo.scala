@@ -237,7 +237,7 @@ object GameRepo {
 
   private val finishUnsets = $doc(
     F.positionHashes -> true,
-    F.playingSris -> true,
+    F.playingUids -> true,
     F.unmovedRooks -> true,
     ("p0." + Player.BSONFields.lastDrawOffer) -> true,
     ("p1." + Player.BSONFields.lastDrawOffer) -> true,
@@ -291,7 +291,7 @@ object GameRepo {
     val bson = (gameBSONHandler write g2) ++ $doc(
       F.initialFen -> fen,
       F.checkAt -> checkInHours.map(DateTime.now.plusHours),
-      F.playingSris -> (g2.started && userIds.nonEmpty).option(userIds)
+      F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll insert bson addFailureEffect {
       case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision()
@@ -313,8 +313,8 @@ object GameRepo {
   def unsetCheckAt(g: Game) =
     coll.update($id(g.id), $doc("$unset" -> $doc(F.checkAt -> true)))
 
-  def unsetPlayingSris(g: Game): Unit =
-    coll.update($id(g.id), $unset(F.playingSris), writeConcern = GetLastError.Unacknowledged)
+  def unsetPlayingUids(g: Game): Unit =
+    coll.update($id(g.id), $unset(F.playingUids), writeConcern = GetLastError.Unacknowledged)
 
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
@@ -377,18 +377,18 @@ object GameRepo {
   private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(
-      Match($doc(F.playerSris -> userId)),
+      Match($doc(F.playerUids -> userId)),
       List(
-        Match($doc(F.playerSris -> $doc("$size" -> 2))),
+        Match($doc(F.playerUids -> $doc("$size" -> 2))),
         Sort(Descending(F.createdAt)),
         Limit(1000), // only look in the last 1000 games
         Project($doc(
-          F.playerSris -> true,
+          F.playerUids -> true,
           F.id -> false
         )),
-        UnwindField(F.playerSris),
-        Match($doc(F.playerSris -> $doc("$ne" -> userId))),
-        GroupField(F.playerSris)("gs" -> SumValue(1)),
+        UnwindField(F.playerUids),
+        Match($doc(F.playerUids -> $doc("$ne" -> userId))),
+        GroupField(F.playerUids)("gs" -> SumValue(1)),
         Sort(Descending("gs")),
         Limit(limit)
       ),
@@ -414,22 +414,22 @@ object GameRepo {
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.uno[Game]($doc(
-      F.playerSris $all List(u1, u2),
+      F.playerUids $all List(u1, u2),
       F.createdAt $gt since
     ))
 
   def lastGamesBetween(u1: User, u2: User, since: DateTime, nb: Int): Fu[List[Game]] =
     List(u1, u2).forall(_.count.game > 0) ??
       coll.find($doc(
-        F.playerSris $all List(u1.id, u2.id),
+        F.playerUids $all List(u1.id, u2.id),
         F.createdAt $gt since
       )).list[Game](nb, ReadPreference.secondaryPreferred)
 
   def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
-    coll.uno[Bdoc]($id(id), $doc(F.playerSris -> true, F.source -> true)) map {
+    coll.uno[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) map {
       _.fold(none[Source] -> List.empty[User.ID]) { doc =>
         (doc.getAs[Int](F.source) flatMap Source.apply,
-          ~doc.getAs[List[User.ID]](F.playerSris))
+          ~doc.getAs[List[User.ID]](F.playerUids))
       }
     }
 

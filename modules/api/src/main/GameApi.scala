@@ -43,7 +43,7 @@ private[api] final class GameApi(
         selector = {
           if (~playing) lila.game.Query.nowPlaying(user.id)
           else $doc(
-            G.playerSris -> user.id,
+            G.playerUids -> user.id,
             G.status $gte chess.Status.Mate.id,
             G.analysed -> analysed.map[BSONValue] {
               case true => BSONBoolean(true)

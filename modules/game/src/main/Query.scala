@@ -46,25 +46,25 @@ object Query {
 
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
 
-  def user(u: String): Bdoc = F.playerSris $eq u
-  def user(u: User): Bdoc = F.playerSris $eq u.id
+  def user(u: String): Bdoc = F.playerUids $eq u
+  def user(u: User): Bdoc = F.playerUids $eq u.id
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,
     "p1.ai" $exists false
   )
 
-  def nowPlaying(u: String) = $doc(F.playingSris -> u)
+  def nowPlaying(u: String) = $doc(F.playingUids -> u)
 
   def recentlyPlaying(u: String) =
     nowPlaying(u) ++ $doc(F.movedAt $gt DateTime.now.minusMinutes(5))
 
-  def nowPlayingVs(u1: String, u2: String) = $doc(F.playingSris $all List(u1, u2))
+  def nowPlayingVs(u1: String, u2: String) = $doc(F.playingUids $all List(u1, u2))
 
   def nowPlayingVs(userIds: Iterable[String]) = $doc(
-    F.playingSris $in userIds, // as to use the index
-    s"${F.playingSris}.0" $in userIds,
-    s"${F.playingSris}.1" $in userIds
+    F.playingUids $in userIds, // as to use the index
+    s"${F.playingUids}.0" $in userIds,
+    s"${F.playingUids}.1" $in userIds
   )
 
   // use the us index
@@ -79,12 +79,12 @@ object Query {
   )
 
   def opponents(u1: User, u2: User) =
-    $doc(F.playerSris $all List(u1, u2).sortBy(_.count.game).map(_.id))
+    $doc(F.playerUids $all List(u1, u2).sortBy(_.count.game).map(_.id))
 
   def opponents(userIds: Iterable[String]) = $doc(
-    F.playerSris $in userIds, // as to use the index
-    s"${F.playerSris}.0" $in userIds,
-    s"${F.playerSris}.1" $in userIds
+    F.playerUids $in userIds, // as to use the index
+    s"${F.playerUids}.0" $in userIds,
+    s"${F.playerUids}.1" $in userIds
   )
 
   val noProvisional: Bdoc = $doc(

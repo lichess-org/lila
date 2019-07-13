@@ -45,7 +45,7 @@ final class PlayTimeApi(
 
       gameColl.aggregateList(
         Match($doc(
-          F.playerSris -> userId,
+          F.playerUids -> userId,
           F.clock $exists true
         )),
         List(
