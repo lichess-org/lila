@@ -123,7 +123,7 @@ object faq {
         question(
           "usernames",
           "What can my username be?",
-          p("In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the ", a(href := "https://github.com/ornicar/lila/wiki/Username-policy")("gsrielines"), ".")
+          p("In general, usernames should not be: offensive, impersonating someone else, or advertising. You can read more about the ", a(href := "https://github.com/ornicar/lila/wiki/Username-policy")("guidelines"), ".")
         ),
         question(
           "trophies",
