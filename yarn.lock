@@ -945,6 +945,11 @@ chalk@^2.3.0, chalk@^2.4.2:
   version "0.10.2"
   resolved "https://codeload.github.com/ornicar/chess.js/tar.gz/ad0709c0b07773d9d0da8e4605a9a2a28f00d249"
 
+chessground@7.6.5:
+  version "7.6.5"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.5.tgz#17892411f18e04ad15667c14eff934411d17a9ad"
+  integrity sha512-WXs6OKANrs7Bka99wpxy+vj1S4J5p+XyhMysKeMPDEIm21DoTFFmdBro6XLJ7MTVQmLkK+HWKRLyZaEHJjzgSg==
+
 chessground@^4.4:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-4.4.2.tgz#582912aabb5ed32131abdeb6cfcb54d1c4cda7aa"
@@ -952,11 +957,6 @@ chessground@^4.4:
   dependencies:
     merge "1.2.0"
     mithril "github:ornicar/mithril.js#v1.0.1"
-
-chessground@^7.6:
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.6.tgz#543bc57ef9e988712b1d5f7d2c722ac64caaa97f"
-  integrity sha512-4jz5XKMF+h/OI61qi0FnvPfC+6gKW+9ZJMjvbAAU+JC2c+/NIZ6M4BmhuIZJf44+k4mD9NSJHFK8YYw2O8TaqQ==
 
 chokidar@^2.0.0, chokidar@^2.0.4, chokidar@^2.1.1:
   version "2.1.6"
