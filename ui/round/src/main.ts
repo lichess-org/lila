@@ -17,6 +17,7 @@ export interface RoundApi {
   toggleZen(): void;
   trans: Trans;
   redraw: Redraw;
+  draughtsResult: boolean;
 }
 
 export interface RoundMain {
@@ -44,7 +45,8 @@ export function app(opts: RoundOpts): RoundApi {
         moveOn: ctrl.moveOn,
         toggleZen: ctrl.toggleZen,
         trans: ctrl.trans,
-        redraw: ctrl.redraw
+        redraw: ctrl.redraw,
+        draughtsResult: ctrl.data.pref.draughtsResult
     };
 };
 

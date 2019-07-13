@@ -106,9 +106,9 @@
         @sim.targetPct.map { target =>
           @trans.targetWinningPercentage(s"$target%")
           <br/>
-          @trans.currentWinningPercentage((sim.finished == 0).fold("-", sim.winningPercentageStr))
+          @trans.currentWinningPercentage(Html(s"""<span class="simul_pct_${sim.id}">${(sim.finished == 0).fold("-", sim.winningPercentageStr)}</span>"""))
           <br/>
-          @trans.relativeScoreRequired(sim.relativeScoreStr(ctx.pref.draughtsResult))
+          @trans.relativeScoreRequired(Html(s"""<span class="simul_rel_${sim.id}">${sim.relativeScoreStr(ctx.pref.draughtsResult)}</span>"""))
         }
       }
       @if(sim.isFinished && sim.hasFmjd) {

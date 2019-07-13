@@ -4,18 +4,21 @@ export interface SimulStanding {
   d: number; // draws
   l: number; // losses
   g: number; // ongoing
+  r: number; // relative score required
   pct?: string; // winning percentage
   rw?: number; // wins required for target (10000=success, -10000=failed)
   rd?: number; // draws required for target
   fg?: string; // id of game that just finished
 }
 
-export function updateSimulStanding(s: SimulStanding, trans: Trans) {
+export function updateSimulStanding(s: SimulStanding, trans: Trans, draughtsResult: boolean) {
   $('#simul_w_' + s.id).text(s.w.toString());
   $('#simul_d_' + s.id).text(s.d.toString());
   $('#simul_l_' + s.id).text(s.l.toString());
   $('#simul_g_' + s.id).text(s.g.toString());
-  $('#simul_pct_' + s.id).text(s.pct ? s.pct : '');
+  $('.simul_pct_' + s.id).text(s.pct ? s.pct : '');
+  const score = draughtsResult ? s.r * 2 : s.r;
+  $('.simul_rel_' + s.id).text((score < 0 ? '' : '+') + Math.round(score * 10) / 10);
   var req = '';
   if (s.rw === 10000) {
     req += '<span class="win">' + trans('succeeded') + '</span>';

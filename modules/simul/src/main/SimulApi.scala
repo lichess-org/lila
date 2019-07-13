@@ -335,7 +335,8 @@ final class SimulApi(
         "w" -> simul.wins,
         "d" -> simul.draws,
         "l" -> simul.losses,
-        "g" -> simul.ongoing
+        "g" -> simul.ongoing,
+        "r" -> simul.relativeScore
       ).add("pct" -> simul.targetPct ?? { _ => simul.winningPercentageStr.some })
         .add("rw" -> reqWins)
         .add("rd" -> simul.requiredDraws)

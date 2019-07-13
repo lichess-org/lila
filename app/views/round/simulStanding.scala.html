@@ -8,7 +8,7 @@
   @s.targetPct.map { pct =>
     <br/>
     <span class="simul-targets">
-    @trans.winningPercentage()<span class="pct" id="simul_pct_@s.id">@s.winningPercentageStr</span>@trans.withTarget()<span class="pct">@pct%</span><br/>
+    @trans.winningPercentage()<span class="pct simul_pct_@s.id">@s.winningPercentageStr</span>@trans.withTarget()<span class="pct">@pct%</span><br/>
     </span>
     <span class="simul-targets">
     @trans.toReachTarget()

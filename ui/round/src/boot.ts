@@ -60,7 +60,7 @@ export default function (opts: RoundOpts, element: HTMLElement): void {
                           $('.simul_timeouts').hide();
                     }
                     if (data.simul && data.simul.id == s.id) {
-                        updateSimulStanding(s, round.trans);
+                        updateSimulStanding(s, round.trans, round.draughtsResult);
                         if (data.simul.nbPlaying != s.g) {
                           data.simul.nbPlaying = s.g;
                           if (s.g <= 1) round.redraw();
