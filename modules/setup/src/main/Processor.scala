@@ -28,14 +28,14 @@ private[setup] final class Processor(
 
   def hook(
     configBase: HookConfig,
-    uid: lila.socket.Socket.Uid,
+    sri: lila.socket.Socket.Sri,
     sid: Option[String],
     blocking: Set[String]
   )(implicit ctx: UserContext): Fu[Processor.HookResult] = {
     import Processor.HookResult._
     val config = configBase.fixColor
     saveConfig(_ withHook config) >> {
-      config.hook(uid, ctx.me, sid, blocking) match {
+      config.hook(sri, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
           bus.publish(AddHook(hook), 'lobbyTrouper)
           Created(hook.id)

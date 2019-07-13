@@ -24,7 +24,7 @@ final class Env(
   private val SequencerTimeout = config duration "sequencer.timeout"
   private val CreatedCacheTtl = config duration "created.cache.ttl"
   private val HistoryMessageTtl = config duration "history.message.ttl"
-  private val UidTimeout = config duration "uid.timeout"
+  private val SriTimeout = config duration "sri.timeout"
   private val SocketTimeout = config duration "socket.timeout"
   private val FeatureViews = config getInt "feature.views"
 
@@ -53,7 +53,7 @@ final class Env(
       history = new History(ttl = HistoryMessageTtl),
       getSimul = repo.find,
       jsonView = jsonView,
-      uidTtl = UidTimeout,
+      sriTtl = SriTimeout,
       lightUser = lightUser,
       keepMeAlive = () => socketMap touch simulId
     ),

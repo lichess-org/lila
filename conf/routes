@@ -311,8 +311,8 @@ POST  /setup/ai                        controllers.Setup.ai
 GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
 GET   /setup/hook                      controllers.Setup.hookForm
-POST  /setup/hook/:uid/like/:gameId    controllers.Setup.like(uid: String, gameId: String)
-POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
+POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
+POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen

@@ -16,25 +16,25 @@ import lila.memo.ExpireCallbackMemo
 private final class EvalCacheUpgrade {
   import EvalCacheUpgrade._
 
-  private val members = AnyRefMap.empty[UidString, WatchingMember]
-  private val evals = AnyRefMap.empty[SetupId, Set[UidString]]
-  private val expirableUids = new ExpireCallbackMemo(20 minutes, uid => unregister(Socket.Uid(uid)))
+  private val members = AnyRefMap.empty[SriString, WatchingMember]
+  private val evals = AnyRefMap.empty[SetupId, Set[SriString]]
+  private val expirableSris = new ExpireCallbackMemo(20 minutes, sri => unregister(Socket.Sri(sri)))
 
-  def register(uid: Socket.Uid, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit = {
-    members get uid.value foreach { wm =>
-      unregisterEval(wm.setupId, uid)
+  def register(sri: Socket.Sri, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit = {
+    members get sri.value foreach { wm =>
+      unregisterEval(wm.setupId, sri)
     }
     val setupId = makeSetupId(variant, fen, multiPv)
-    members += (uid.value -> WatchingMember(push, setupId, path))
-    evals += (setupId -> (~evals.get(setupId) + uid.value))
-    expirableUids put uid.value
+    members += (sri.value -> WatchingMember(push, setupId, path))
+    evals += (setupId -> (~evals.get(setupId) + sri.value))
+    expirableSris put sri.value
   }
 
-  def onEval(input: EvalCacheEntry.Input, uid: Socket.Uid): Unit = {
+  def onEval(input: EvalCacheEntry.Input, sri: Socket.Sri): Unit = {
     (1 to input.eval.multiPv) flatMap { multiPv =>
       evals get makeSetupId(input.id.variant, input.fen, multiPv)
-    } foreach { uids =>
-      val wms = uids.filter(uid.value !=) flatMap members.get
+    } foreach { sris =>
+      val wms = sris.filter(sri.value !=) flatMap members.get
       if (wms.nonEmpty) {
         val json = JsonHandlers.writeEval(input.eval, input.fen)
         wms foreach { wm =>
@@ -43,29 +43,29 @@ private final class EvalCacheUpgrade {
         lila.mon.evalCache.upgrade.hit(wms.size)
         lila.mon.evalCache.upgrade.members(members.size)
         lila.mon.evalCache.upgrade.evals(evals.size)
-        lila.mon.evalCache.upgrade.expirable(expirableUids.count)
+        lila.mon.evalCache.upgrade.expirable(expirableSris.count)
       }
     }
   }
 
-  def unregister(uid: Socket.Uid): Unit = members get uid.value foreach { wm =>
-    unregisterEval(wm.setupId, uid)
-    members -= uid.value
-    expirableUids remove uid.value
+  def unregister(sri: Socket.Sri): Unit = members get sri.value foreach { wm =>
+    unregisterEval(wm.setupId, sri)
+    members -= sri.value
+    expirableSris remove sri.value
   }
 
-  private def unregisterEval(setupId: SetupId, uid: Socket.Uid): Unit =
-    evals get setupId foreach { uids =>
-      val newUids = uids - uid.value
-      if (newUids.isEmpty) evals -= setupId
-      else evals += (setupId -> newUids)
+  private def unregisterEval(setupId: SetupId, sri: Socket.Sri): Unit =
+    evals get setupId foreach { sris =>
+      val newSris = sris - sri.value
+      if (newSris.isEmpty) evals -= setupId
+      else evals += (setupId -> newSris)
     }
 
 }
 
 private object EvalCacheUpgrade {
 
-  private type UidString = String
+  private type SriString = String
   private type SetupId = String
   private type Push = JsObject => Unit
 

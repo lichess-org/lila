@@ -30,10 +30,10 @@ private[lobby] final class LobbyTrouper(
 
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create()
-      HookRepo byUid hook.uid foreach remove
+      HookRepo bySri hook.sri foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       !hook.compatibleWithPools ?? findCompatible(hook) match {
-        case Some(h) => biteHook(h.id, hook.uid, hook.user)
+        case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
           HookRepo save msg.hook
           socket ! msg
@@ -50,15 +50,15 @@ private[lobby] final class LobbyTrouper(
       socket ! msg
     }
 
-    case CancelHook(uid) =>
-      HookRepo byUid uid foreach remove
+    case CancelHook(sri) =>
+      HookRepo bySri sri foreach remove
 
     case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
       socket ! RemoveSeek(seekId)
     }
 
-    case BiteHook(hookId, uid, user) => NoPlayban(user) {
-      biteHook(hookId, uid, user)
+    case BiteHook(hookId, sri, user) => NoPlayban(user) {
+      biteHook(hookId, sri, user)
     }
 
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
@@ -89,28 +89,28 @@ private[lobby] final class LobbyTrouper(
     case Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
-      socket.ask[Socket.Uids](GetUidsP).chronometer
-        .logIfSlow(100, logger) { r => s"GetUids size=${r.uids.size}" }
-        .mon(_.lobby.socket.getUids)
+      socket.ask[Socket.Sris](GetSrisP).chronometer
+        .logIfSlow(100, logger) { r => s"GetSris size=${r.sris.size}" }
+        .mon(_.lobby.socket.getSris)
         .result
-        .logFailure(logger, err => s"broom cannot get uids from socket: $err")
+        .logFailure(logger, err => s"broom cannot get sris from socket: $err")
         .foreach { this ! WithPromise(_, promise) }
 
-    case WithPromise(Socket.Uids(uids), promise) =>
-      poolApi socketIds uids
+    case WithPromise(Socket.Sris(sris), promise) =>
+      poolApi socketIds sris
       val createdBefore = DateTime.now minusSeconds 5
       val hooks = {
-        (HookRepo notInUids uids).filter {
+        (HookRepo notInSris sris).filter {
           _.createdAt isBefore createdBefore
         } ++ HookRepo.cleanupOld
       }.toSet
       // logger.debug(
-      //   s"broom uids:${uids.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
+      //   s"broom sris:${sris.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
       if (hooks.nonEmpty) {
         // logger.debug(s"remove ${hooks.size} hooks")
         this ! RemoveHooks(hooks)
       }
-      lila.mon.lobby.socket.member(uids.size)
+      lila.mon.lobby.socket.member(sris.size)
       lila.mon.lobby.hook.size(HookRepo.size)
       lila.mon.trouper.queueSize("lobby")(queueSize)
       promise.success(())
@@ -137,11 +137,11 @@ private[lobby] final class LobbyTrouper(
     }
   }
 
-  private def biteHook(hookId: String, uid: Socket.Uid, user: Option[LobbyUser]) =
+  private def biteHook(hookId: String, sri: Socket.Sri, user: Option[LobbyUser]) =
     HookRepo byId hookId foreach { hook =>
       remove(hook)
-      HookRepo byUid uid foreach remove
-      Biter(hook, uid, user) foreach this.!
+      HookRepo bySri sri foreach remove
+      Biter(hook, sri, user) foreach this.!
     }
 
   private def findCompatible(hook: Hook): Option[Hook] =

@@ -13,17 +13,17 @@ private[analyse] final class AnalyseSocketHandler(
   import AnalyseSocket._
 
   def join(
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     user: Option[User],
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] =
-    socket.ask[Connected](Join(uid, user.map(_.id), _)) map {
+    socket.ask[Connected](Join(sri, user.map(_.id), _)) map {
       case Connected(enum, member) => Handler.iteratee(
         hub,
-        evalCacheHandler(uid, member, user),
+        evalCacheHandler(sri, member, user),
         member,
         socket,
-        uid,
+        sri,
         apiVersion
       ) -> enum
     }

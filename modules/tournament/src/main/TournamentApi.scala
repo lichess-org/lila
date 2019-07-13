@@ -377,9 +377,9 @@ final class TournamentApi(
             _ foreach { currentPairing =>
               roundMap.tell(currentPairing.gameId, AbortForce)
             }
-          } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
+          } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { sris =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>
-              lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
+              lila.common.Future.applySequentially(sris.toList)(updatePlayer(tour, none))
           }
         else if (tour.isFinished && tour.winnerId.contains(userId))
           PlayerRepo winner tour.id flatMap {

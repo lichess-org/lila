@@ -12,8 +12,8 @@ import lila.socket.actorApi.SendToFlag
 
 private[site] final class Socket(
     system: akka.actor.ActorSystem,
-    uidTtl: Duration
-) extends SocketTrouper[Member](system, uidTtl) with LoneSocket {
+    sriTtl: Duration
+) extends SocketTrouper[Member](system, sriTtl) with LoneSocket {
 
   def monitoringName = "site"
   def broomFrequency = 4159 millis
@@ -24,11 +24,11 @@ private[site] final class Socket(
 
   def receiveSpecific = {
 
-    case Join(uid, userId, flag, promise) =>
+    case Join(sri, userId, flag, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, userId, flag)
-      addMember(uid, member)
-      flags.add(uid, member)
+      addMember(sri, member)
+      flags.add(sri, member)
       promise success Connected(enumerator, member)
 
     case SendToFlag(flag, msg) =>
@@ -40,12 +40,12 @@ private[site] final class Socket(
   // don't eject non-pinging API socket clients
   override def broom: Unit = {
     members foreach {
-      case (uid, member) => if (!aliveUids.get(uid) && !member.isApi) ejectUidString(uid)
+      case (sri, member) => if (!aliveSris.get(sri) && !member.isApi) ejectSriString(sri)
     }
     lila.mon.socket.count.site(members.size)
   }
 
-  override protected def afterQuit(uid: Socket.Uid, member: Member) = {
-    flags.remove(uid, member)
+  override protected def afterQuit(sri: Socket.Sri, member: Member) = {
+    flags.remove(sri, member)
   }
 }

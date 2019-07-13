@@ -46,7 +46,7 @@ case class HookConfig(
   }
 
   def hook(
-    uid: lila.socket.Socket.Uid,
+    sri: lila.socket.Socket.Sri,
     user: Option[User],
     sid: Option[String],
     blocking: Set[String]
@@ -54,7 +54,7 @@ case class HookConfig(
     case TimeMode.RealTime =>
       val clock = justMakeClock
       Left(Hook.make(
-        uid = uid,
+        sri = sri,
         variant = variant,
         clock = clock,
         mode = if (lila.game.Game.allowRated(variant, clock.some)) mode else Mode.Casual,

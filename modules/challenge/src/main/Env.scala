@@ -27,7 +27,7 @@ final class Env(
     val CollectionChallenge = config getString "collection.challenge"
     val MaxPerUser = config getInt "max_per_user"
     val HistoryMessageTtl = config duration "history.message.ttl"
-    val UidTimeout = config duration "uid.timeout"
+    val SriTimeout = config duration "sri.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val MaxPlaying = config getInt "max_playing"
   }
@@ -40,7 +40,7 @@ final class Env(
       challengeId = challengeId,
       history = new lila.socket.History(ttl = HistoryMessageTtl),
       getChallenge = repo.byId,
-      uidTtl = UidTimeout,
+      sriTtl = SriTimeout,
       keepMeAlive = () => socketMap touch challengeId
     ),
     accessTimeout = SocketTimeout,

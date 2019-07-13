@@ -90,8 +90,8 @@ object PairingRepo {
       maxDocs = 10000
     ).map {
         _.flatMap { doc =>
-          doc.getAs[Game.ID]("_id") flatMap { uid =>
-            doc.getAs[Int]("nb") map { uid -> _ }
+          doc.getAs[Game.ID]("_id") flatMap { sri =>
+            doc.getAs[Int]("nb") map { sri -> _ }
           }
         }(breakOut)
       }
@@ -129,8 +129,8 @@ object PairingRepo {
     ).void
 
   def setBerserk(pairing: Pairing, userId: User.ID) = (userId match {
-    case uid if pairing.user1 == uid => "b1".some
-    case uid if pairing.user2 == uid => "b2".some
+    case sri if pairing.user1 == sri => "b1".some
+    case sri if pairing.user2 == sri => "b2".some
     case _ => none
   }) ?? { field =>
     coll.update(

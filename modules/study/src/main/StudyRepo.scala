@@ -12,7 +12,7 @@ final class StudyRepo(private[study] val coll: Coll) {
   import BSONHandlers._
 
   private[study] val projection = $doc(
-    "uids" -> false,
+    "sris" -> false,
     "likers" -> false,
     "views" -> false,
     "rank" -> false
@@ -41,7 +41,7 @@ final class StudyRepo(private[study] val coll: Coll) {
   def exists(id: Study.Id) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
-  private[study] def selectMemberId(memberId: User.ID) = $doc("uids" -> memberId)
+  private[study] def selectMemberId(memberId: User.ID) = $doc("sris" -> memberId)
   private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
   private[study] val selectPrivateOrUnlisted = "visibility" $ne VisibilityHandler.write(Study.Visibility.Public)
   private[study] def selectLiker(userId: User.ID) = $doc("likers" -> userId)
@@ -55,7 +55,7 @@ final class StudyRepo(private[study] val coll: Coll) {
   def insert(s: Study): Funit = coll.insert {
     StudyBSONHandler.write(s) ++ $doc(
       "updatedAt" -> DateTime.now,
-      "uids" -> s.members.ids,
+      "sris" -> s.members.ids,
       "likers" -> List(s.ownerId),
       "rank" -> Study.Rank.compute(s.likes, s.createdAt)
     )
@@ -94,13 +94,13 @@ final class StudyRepo(private[study] val coll: Coll) {
   def addMember(study: Study, member: StudyMember): Funit =
     coll.update(
       $id(study.id),
-      $set(s"members.${member.id}" -> member) ++ $addToSet("uids" -> member.id)
+      $set(s"members.${member.id}" -> member) ++ $addToSet("sris" -> member.id)
     ).void
 
   def removeMember(study: Study, userId: User.ID): Funit =
     coll.update(
       $id(study.id),
-      $unset(s"members.$userId") ++ $pull("uids" -> userId)
+      $unset(s"members.$userId") ++ $pull("sris" -> userId)
     ).void
 
   def setRole(study: Study, userId: User.ID, role: StudyMember.Role): Funit =
@@ -109,8 +109,8 @@ final class StudyRepo(private[study] val coll: Coll) {
       $set(s"members.$userId.role" -> role)
     ).void
 
-  def uids(studyId: Study.Id): Fu[Set[User.ID]] =
-    coll.primitiveOne[Set[User.ID]]($id(studyId), "uids") map (~_)
+  def sris(studyId: Study.Id): Fu[Set[User.ID]] =
+    coll.primitiveOne[Set[User.ID]]($id(studyId), "sris") map (~_)
 
   private val idNameProjection = $doc("name" -> true)
 

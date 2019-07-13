@@ -29,7 +29,7 @@ private[round] final class RoundSocket(
     gameId: Game.ID,
     history: History,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](dependencies.system, dependencies.uidTtl) {
+) extends SocketTrouper[Member](dependencies.system, dependencies.sriTtl) {
 
   import dependencies._
 
@@ -169,10 +169,10 @@ private[round] final class RoundSocket(
         )
       }
 
-    case Join(uid, user, color, playerId, onTv, version, mobile, promise) => {
+    case Join(sri, user, color, playerId, onTv, version, mobile, promise) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, onTv.map(_.userId))
-      addMember(uid, member)
+      addMember(sri, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
       val reloadTvEvent = onTv ?? {
@@ -261,7 +261,7 @@ private[round] final class RoundSocket(
     }
   }
 
-  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
+  override protected def afterQuit(sri: Socket.Sri, member: Member) = notifyCrowd
 
   def debugString = s"sid:$uniqueId,sv(${history.versionDebugString})"
 
@@ -314,8 +314,8 @@ private[round] final class RoundSocket(
       m.owner && m.color == color
     }
 
-  def ownerOf(uid: Socket.Uid): Option[Member] =
-    members get uid.value filter (_.owner)
+  def ownerOf(sri: Socket.Sri): Option[Member] =
+    members get sri.value filter (_.owner)
 
   def foreachWatcher(f: Member => Unit): Unit = members.foreachValue { m =>
     if (m.watcher) f(m)
@@ -341,7 +341,7 @@ object RoundSocket {
   private[round] case class Dependencies(
       system: ActorSystem,
       lightUser: LightUser.Getter,
-      uidTtl: FiniteDuration,
+      sriTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
       ragequitTimeout: FiniteDuration
   )

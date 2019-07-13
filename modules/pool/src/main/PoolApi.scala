@@ -4,7 +4,7 @@ import akka.actor._
 
 import lila.game.Game
 import lila.rating.RatingRange
-import lila.socket.Socket.{ Uid, Uids }
+import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
 final class PoolApi(
@@ -36,8 +36,8 @@ final class PoolApi(
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
 
-  def socketIds(ids: Set[Uid]) = {
-    val msg = Uids(ids)
+  def socketIds(ids: Set[Sri]) = {
+    val msg = Sris(ids)
     actors.values.foreach(_ ! msg)
   }
 
@@ -49,7 +49,7 @@ object PoolApi {
 
   case class Joiner(
       userId: User.ID,
-      uid: Uid,
+      sri: Sri,
       ratingMap: Map[String, Int],
       ratingRange: Option[RatingRange],
       lame: Boolean,
@@ -59,5 +59,5 @@ object PoolApi {
     def is(member: PoolMember) = userId == member.userId
   }
 
-  case class Pairing(game: Game, whiteUid: Uid, blackUid: Uid)
+  case class Pairing(game: Game, whiteSri: Sri, blackSri: Sri)
 }

@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.SocketTrouper
-import lila.socket.Socket.{ Uid, GetVersion, SocketVersion }
+import lila.socket.Socket.{ Sri, GetVersion, SocketVersion }
 import lila.socket.{ History, Historical }
 
 private final class ChallengeSocket(
@@ -16,9 +16,9 @@ private final class ChallengeSocket(
     challengeId: String,
     protected val history: History[Unit],
     getChallenge: Challenge.ID => Fu[Option[Challenge]],
-    uidTtl: Duration,
+    sriTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[ChallengeSocket.Member](system, uidTtl) with Historical[ChallengeSocket.Member, Unit] {
+) extends SocketTrouper[ChallengeSocket.Member](system, sriTtl) with Historical[ChallengeSocket.Member, Unit] {
 
   def receiveSpecific = {
 
@@ -31,10 +31,10 @@ private final class ChallengeSocket(
 
     case GetVersion(promise) => promise success history.version
 
-    case ChallengeSocket.Join(uid, userId, owner, version, promise) =>
+    case ChallengeSocket.Join(sri, userId, owner, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = ChallengeSocket.Member(channel, userId, owner)
-      addMember(uid, member)
+      addMember(sri, member)
       promise success ChallengeSocket.Connected(
         prependEventsSince(version, enumerator, member),
         member
@@ -59,7 +59,7 @@ private object ChallengeSocket {
     val troll = false
   }
 
-  case class Join(uid: Uid, userId: Option[String], owner: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
+  case class Join(sri: Sri, userId: Option[String], owner: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
   case class Connected(enumerator: JsEnumerator, member: Member)
 
   case object Reload

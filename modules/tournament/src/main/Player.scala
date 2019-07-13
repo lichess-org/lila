@@ -22,7 +22,7 @@ private[tournament] case class Player(
 
   def active = !withdraw
 
-  def is(uid: User.ID): Boolean = uid == userId
+  def is(sri: User.ID): Boolean = sri == userId
   def is(user: User): Boolean = is(user.id)
   def is(other: Player): Boolean = is(other.userId)
 

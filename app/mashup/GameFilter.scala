@@ -109,7 +109,7 @@ object GameFilterMenu {
         sort = $empty,
         nb = nb
       )(page) addEffect { p =>
-        p.currentPageResults.filter(_.finishedOrAborted) foreach GameRepo.unsetPlayingUids
+        p.currentPageResults.filter(_.finishedOrAborted) foreach GameRepo.unsetPlayingSris
       }
       case Search => userGameSearch(user, page)
     }

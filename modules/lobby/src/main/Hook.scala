@@ -8,12 +8,12 @@ import play.api.libs.json._
 import lila.game.PerfPicker
 import lila.rating.RatingRange
 import lila.user.User
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 
 // realtime chess, volatile
 case class Hook(
     id: String,
-    uid: Uid, // owner socket uid
+    sri: Sri, // owner socket sri
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
     clock: Clock.Config,
@@ -60,7 +60,7 @@ case class Hook(
 
   lazy val render: JsObject = Json.obj(
     "id" -> id,
-    "uid" -> uid,
+    "sri" -> sri,
     "clock" -> clock.show,
     "t" -> clock.estimateTotalSeconds,
     "s" -> speed.id
@@ -87,7 +87,7 @@ case class Hook(
     hookId = id,
     member = lila.pool.PoolMember(
       userId = user.??(_.id),
-      uid = uid,
+      sri = sri,
       rating = rating | lila.rating.Glicko.defaultIntRating,
       ratingRange = realRatingRange,
       lame = user.??(_.lame),
@@ -104,7 +104,7 @@ object Hook {
   val idSize = 8
 
   def make(
-    uid: Uid,
+    sri: Sri,
     variant: chess.variant.Variant,
     clock: Clock.Config,
     mode: Mode,
@@ -115,7 +115,7 @@ object Hook {
     blocking: Set[String]
   ): Hook = new Hook(
     id = Random nextString idSize,
-    uid = uid,
+    sri = sri,
     variant = variant.id,
     clock = clock,
     mode = mode.id,

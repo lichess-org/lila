@@ -25,7 +25,7 @@ private[tournament] final class SocketHandler(
 
   def join(
     tourId: String,
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     user: Option[User],
     version: Option[Socket.SocketVersion],
     apiVersion: ApiVersion
@@ -33,7 +33,7 @@ private[tournament] final class SocketHandler(
     TournamentRepo exists tourId flatMap {
       _ ?? {
         val socket = socketMap getOrMake tourId
-        socket.ask[Connected](Join(uid, user, version, _)) map {
+        socket.ask[Connected](Join(sri, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
             lila.chat.Socket.in(
@@ -44,7 +44,7 @@ private[tournament] final class SocketHandler(
             ),
             member,
             socket,
-            uid,
+            sri,
             apiVersion
           ) -> enum
         } map some

@@ -19,9 +19,9 @@ private[tournament] final class TournamentSocket(
     protected val history: History[Messadata],
     jsonView: JsonView,
     lightUser: lila.common.LightUser.Getter,
-    uidTtl: Duration,
+    sriTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](system, uidTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[Member](system, sriTtl) with Historical[Member, Messadata] {
 
   private var delayedCrowdNotification = false
   private var delayedReloadNotification = false
@@ -65,10 +65,10 @@ private[tournament] final class TournamentSocket(
 
     case lila.socket.Socket.GetVersion(promise) => promise success history.version
 
-    case Join(uid, user, version, promise) =>
+    case Join(sri, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user)
-      addMember(uid, member)
+      addMember(sri, member)
       notifyCrowd
       promise success Connected(
         prependEventsSince(version, enumerator, member),
@@ -94,7 +94,7 @@ private[tournament] final class TournamentSocket(
     if (members.nonEmpty) keepMeAlive()
   }
 
-  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
+  override protected def afterQuit(sri: Socket.Sri, member: Member) = notifyCrowd
 
   private def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {

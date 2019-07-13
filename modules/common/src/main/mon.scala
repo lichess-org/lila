@@ -131,7 +131,7 @@ object mon {
       def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
-      val getUids = rec("lobby.socket.get_uids")
+      val getSris = rec("lobby.socket.get_sris")
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")

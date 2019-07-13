@@ -39,7 +39,7 @@ private[round] final class SocketHandler(
     gameId: Game.ID,
     chat: Option[Chat.Setup], // if using a non-game chat (tournament, simul, ...)
     socket: RoundSocket,
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     ref: PovRef,
     member: Member,
     ip: IpAddress,
@@ -60,7 +60,7 @@ private[round] final class SocketHandler(
       case ("talk", o) => o str "d" foreach { messenger.watcher(gameId, member, _) }
       case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
-    }: Handler.Controller) orElse evalCacheHandler(uid, member, me) orElse lila.chat.Socket.in(
+    }: Handler.Controller) orElse evalCacheHandler(sri, member, me) orElse lila.chat.Socket.in(
       chatId = Chat.Id(s"$gameId/w"),
       member = member,
       chat = messenger.chat,
@@ -72,7 +72,7 @@ private[round] final class SocketHandler(
           case (move, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid)
+              case _: Exception => socket ! Resync(sri)
             }
             send(HumanPlay(playerId, move, blur, lag, promise.some))
             member.push(ackMessage(ackId))
@@ -81,7 +81,7 @@ private[round] final class SocketHandler(
           case (drop, blur, lag, ackId) =>
             val promise = Promise[Unit]
             promise.future onFailure {
-              case _: Exception => socket ! Resync(uid)
+              case _: Exception => socket ! Resync(sri)
             }
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member.push(ackMessage(ackId))
@@ -126,30 +126,30 @@ private[round] final class SocketHandler(
 
   def watcher(
     pov: Pov,
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     user: Option[User],
     ip: IpAddress,
     userTv: Option[UserTv],
     version: Option[Socket.SocketVersion],
     apiVersion: ApiVersion,
     mobile: IsMobile
-  ): Fu[JsSocketHandler] = join(pov, none, uid, user, ip, userTv, version, apiVersion, mobile)
+  ): Fu[JsSocketHandler] = join(pov, none, sri, user, ip, userTv, version, apiVersion, mobile)
 
   def player(
     pov: Pov,
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     user: Option[User],
     ip: IpAddress,
     version: Option[Socket.SocketVersion],
     apiVersion: ApiVersion,
     mobile: IsMobile
   ): Fu[JsSocketHandler] =
-    join(pov, Some(pov.playerId), uid, user, ip, none, version, apiVersion, mobile)
+    join(pov, Some(pov.playerId), sri, user, ip, none, version, apiVersion, mobile)
 
   private def join(
     pov: Pov,
     playerId: Option[String],
-    uid: Socket.Uid,
+    sri: Socket.Sri,
     user: Option[User],
     ip: IpAddress,
     userTv: Option[UserTv],
@@ -159,7 +159,7 @@ private[round] final class SocketHandler(
   ): Fu[JsSocketHandler] = {
     val socket = socketMap getOrMake pov.gameId
     socket.ask[Connected](promise => Join(
-      uid = uid,
+      sri = sri,
       user = user,
       color = pov.color,
       playerId = playerId,
@@ -180,18 +180,18 @@ private[round] final class SocketHandler(
         }
         val onPing: Handler.OnPing =
           if (member.owner) (_, _, _, _) => {
-            Handler.defaultOnPing(socket, member, uid, apiVersion)
+            Handler.defaultOnPing(socket, member, sri, apiVersion)
             if (member.owner) socket.playerDo(member.color, _.ping)
           }
           else Handler.defaultOnPing
 
         Handler.iteratee(
           hub,
-          controller(pov.gameId, chatSetup, socket, uid, pov.ref, member, ip, user, mobile,
-            () => onPing(socket, member, uid, apiVersion)),
+          controller(pov.gameId, chatSetup, socket, sri, pov.ref, member, ip, user, mobile,
+            () => onPing(socket, member, sri, apiVersion)),
           member,
           socket,
-          uid,
+          sri,
           apiVersion,
           onPing = onPing
         ) -> enum

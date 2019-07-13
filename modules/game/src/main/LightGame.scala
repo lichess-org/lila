@@ -28,7 +28,7 @@ object LightGame {
   def projection = lila.db.dsl.$doc(
     F.whitePlayer -> true,
     F.blackPlayer -> true,
-    F.playerUids -> true,
+    F.playerSris -> true,
     F.winnerColor -> true,
     F.status -> true
   )

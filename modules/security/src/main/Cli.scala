@@ -6,13 +6,13 @@ private[security] final class Cli extends lila.common.Cli {
 
   def process = {
 
-    case "security" :: "roles" :: uid :: Nil =>
-      UserRepo named uid map {
-        _.fold("User %s not found" format uid)(_.roles mkString " ")
+    case "security" :: "roles" :: sri :: Nil =>
+      UserRepo named sri map {
+        _.fold("User %s not found" format sri)(_.roles mkString " ")
       }
 
-    case "security" :: "grant" :: uid :: roles =>
-      perform(uid, user =>
+    case "security" :: "grant" :: sri :: roles =>
+      perform(sri, user =>
         UserRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
   }
 

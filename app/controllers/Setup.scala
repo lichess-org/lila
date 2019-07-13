@@ -12,7 +12,7 @@ import lila.common.{ HTTPRequest, LilaCookie, IpAddress }
 import lila.game.{ GameRepo, Pov, AnonCookie }
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 import lila.user.UserRepo
 import views._
 
@@ -134,7 +134,7 @@ object Setup extends LilaController with TheftPrevention {
 
   private val hookSaveOnlyResponse = Ok(Json.obj("ok" -> true))
 
-  def hook(uid: String) = OpenBody { implicit ctx =>
+  def hook(sri: String) = OpenBody { implicit ctx =>
     NoBot {
       implicit val req = ctx.body
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
@@ -146,7 +146,7 @@ object Setup extends LilaController with TheftPrevention {
               if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
               else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
                 blocking =>
-                  env.processor.hook(config, Uid(uid), HTTPRequest sid req, blocking) map hookResponse
+                  env.processor.hook(config, Sri(sri), HTTPRequest sid req, blocking) map hookResponse
               }
             }
           )
@@ -155,7 +155,7 @@ object Setup extends LilaController with TheftPrevention {
     }
   }
 
-  def like(uid: String, gameId: String) = Open { implicit ctx =>
+  def like(sri: String, gameId: String) = Open { implicit ctx =>
     NoBot {
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         NoPlaybanOrCurrent {
@@ -165,7 +165,7 @@ object Setup extends LilaController with TheftPrevention {
             blocking <- ctx.userId ?? Env.relation.api.fetchBlocking
             hookConfig = game.fold(config)(config.updateFrom)
             sameOpponents = game.??(_.userIds)
-            hookResult <- env.processor.hook(hookConfig, Uid(uid), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+            hookResult <- env.processor.hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
           } yield hookResponse(hookResult)
         }
       }

@@ -16,14 +16,14 @@ final class Flood(duration: Duration) {
     .expireAfterAccess(duration)
     .build[String, Messages]
 
-  def filterMessage[A](uid: String, text: String)(op: => Unit): Unit =
-    if (allowMessage(uid, text)) op
+  def filterMessage[A](sri: String, text: String)(op: => Unit): Unit =
+    if (allowMessage(sri, text)) op
 
-  def allowMessage(uid: String, text: String): Boolean = {
+  def allowMessage(sri: String, text: String): Boolean = {
     val msg = Message(text, Instant.now)
-    val msgs = ~cache.getIfPresent(uid)
+    val msgs = ~cache.getIfPresent(sri)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
-      _ ?? cache.put(uid, msg :: msgs)
+      _ ?? cache.put(sri, msg :: msgs)
     }
   }
 
