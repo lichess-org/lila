@@ -17,7 +17,7 @@ object PlayerRepo {
   private def selectTour(tourId: String) = $doc("tid" -> tourId)
   private def selectTourUser(tourId: String, userId: String) = $doc(
     "tid" -> tourId,
-    "sri" -> userId
+    "uid" -> userId
   )
   private val selectActive = $doc("w" $ne true)
   private val selectWithdraw = $doc("w" -> true)
@@ -51,7 +51,7 @@ object PlayerRepo {
   def filterExists(tourIds: List[Tournament.ID], userId: String): Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID]($doc(
       "tid" $in tourIds,
-      "sri" -> userId
+      "uid" -> userId
     ), "tid")
 
   def existsActive(tourId: String, userId: String) =
@@ -87,11 +87,11 @@ object PlayerRepo {
     ).list[Player]()
 
   private[tournament] def userIds(tourId: String): Fu[List[String]] =
-    coll.distinct[String, List]("sri", selectTour(tourId).some)
+    coll.distinct[String, List]("uid", selectTour(tourId).some)
 
   private[tournament] def activeUserIds(tourId: String): Fu[List[String]] =
     coll.distinct[String, List](
-      "sri", (selectTour(tourId) ++ selectActive).some
+      "uid", (selectTour(tourId) ++ selectActive).some
     )
 
   def winner(tourId: String): Fu[Option[Player]] =
@@ -101,15 +101,15 @@ object PlayerRepo {
   private[tournament] def computeRanking(tourId: String): Fu[Ranking] =
     coll.aggregateOne(Match(selectTour(tourId)), List(
       Sort(Descending("m")),
-      Group(BSONNull)("sris" -> PushField("sri"))
+      Group(BSONNull)("uids" -> PushField("uid"))
     )) map {
       _ ?? {
-        _ get "sris" match {
-          case Some(BSONArray(sris)) =>
+        _ get "uids" match {
+          case Some(BSONArray(uids)) =>
             // mutable optimized implementation
             val b = Map.newBuilder[String, Int]
             var r = 0
-            for (u <- sris) {
+            for (u <- uids) {
               b += (u.get.asInstanceOf[BSONString].value -> r)
               r = r + 1
             }
@@ -131,7 +131,7 @@ object PlayerRepo {
     }
 
   def byTourAndUserIds(tourId: String, userIds: Iterable[String]): Fu[List[Player]] =
-    coll.find(selectTour(tourId) ++ $doc("sri" $in userIds))
+    coll.find(selectTour(tourId) ++ $doc("uid" $in userIds))
       .list[Player]()
       .chronometer.logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
@@ -164,11 +164,11 @@ object PlayerRepo {
       term.nonEmpty ?? coll.primitive[User.ID](
         selector = $doc(
           "tid" -> tourId,
-          "sri" $startsWith term.toLowerCase
+          "uid" $startsWith term.toLowerCase
         ),
         sort = $sort desc "m",
         nb = nb,
-        field = "sri"
+        field = "uid"
       )
     }
 

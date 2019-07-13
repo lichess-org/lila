@@ -114,7 +114,7 @@ object BSONHandlers {
     def reads(r: BSON.Reader) = Player(
       _id = r str "_id",
       tourId = r str "tid",
-      userId = r str "sri",
+      userId = r str "uid",
       rating = r int "r",
       provisional = r boolD "pr",
       withdraw = r boolD "w",
@@ -125,7 +125,7 @@ object BSONHandlers {
     def writes(w: BSON.Writer, o: Player) = $doc(
       "_id" -> o._id,
       "tid" -> o.tourId,
-      "sri" -> o.userId,
+      "uid" -> o.userId,
       "r" -> o.rating,
       "pr" -> w.boolO(o.provisional),
       "w" -> w.boolO(o.withdraw),
