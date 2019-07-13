@@ -142,7 +142,7 @@ object faq {
           p("Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system)."),
           p("""Fundamentally, Glicko ratings use "confidence intervals" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval."""),
           p("Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease."),
-          p("""Another point to note is that the confidence interval changes over time. If you win or lose many games (or rather "points") in a row, the confidence interval will increase allowing you to gain/lose points points more rapidly. This is because a winning/losing streak means that you are incorrectly rated/seeded and the rating system should compensate for that.""")
+          p("Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.")
         ),
         question(
           "provisional",
@@ -150,7 +150,7 @@ object faq {
           p("The question mark means the rating is provisional. Reasons include:"),
           ul(
             li("The player has not yet finished enough rated games against ", em("opponents of similar strength"), " in the rating category."),
-            li("The player's strength has recently improved or dropped significantly.")
+            li("The player hasn't played enough recent games. Depending on the number of games you've played, it might take around a year of inactivity for your rating to become provisional again.")
           ),
           p("Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.")
         ),

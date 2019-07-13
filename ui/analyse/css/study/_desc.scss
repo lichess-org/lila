@@ -29,6 +29,8 @@
   }
   .embed {
     @extend %video;
+    width: calc(100% + 2em);
+    margin: -.7em -1em;
   }
 }
 .study-desc-form {

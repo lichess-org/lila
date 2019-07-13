@@ -912,9 +912,9 @@ camelcase@^3.0.0:
   integrity sha1-MvxLn82vhF/N9+c7uXysImHwqwo=
 
 caniuse-lite@^1.0.30000980, caniuse-lite@^1.0.30000981:
-  version "1.0.30000983"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000983.tgz#ab3c70061ca2a3467182a10ac75109b199b647f8"
-  integrity sha512-/llD1bZ6qwNkt41AsvjsmwNOoA4ZB+8iqmf5LVyeSXuBODT/hAMFNVOh84NdUzoiYiSKqo5vQ3ZzeYHSi/olDQ==
+  version "1.0.30000984"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000984.tgz#dc96c3c469e9bcfc6ad5bdd24c77ec918ea76fe0"
+  integrity sha512-n5tKOjMaZ1fksIpQbjERuqCyfgec/m9pferkFQbLmWtqLUdmt12hNhjSwsmPdqeiG2NkITOQhr1VYIwWSAceiA==
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -954,9 +954,9 @@ chessground@^4.4:
     mithril "github:ornicar/mithril.js#v1.0.1"
 
 chessground@^7.6:
-  version "7.6.6"
-  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.6.tgz#543bc57ef9e988712b1d5f7d2c722ac64caaa97f"
-  integrity sha512-4jz5XKMF+h/OI61qi0FnvPfC+6gKW+9ZJMjvbAAU+JC2c+/NIZ6M4BmhuIZJf44+k4mD9NSJHFK8YYw2O8TaqQ==
+  version "7.6.7"
+  resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.7.tgz#521f04c8eb54f6b2c07ac8aace378e1567f17326"
+  integrity sha512-o9UQ+A4fFJAk19t0vKFI6ti7ZR8sY6FpiQf5zIQ+fZ+woTNR+fkuUKVzzhuIowsBML8KKFAdNzg2ujFQwYDODw==
 
 chokidar@^2.0.0, chokidar@^2.0.4, chokidar@^2.1.1:
   version "2.1.6"
@@ -5122,7 +5122,7 @@ stockfish.pexe@^10.1.0:
   resolved "https://registry.yarnpkg.com/stockfish.pexe/-/stockfish.pexe-10.1.0.tgz#5c585f2b974fdc13bf9928bf2878ba09ce7d9691"
   integrity sha512-dn0X7NrpFxg8Uz+bMy0gsi5hGejHb8cBsSjFKblqO1FXbpMxdRWt1IdXKDrJ0h6r4mBHkZkn6HGv5rnrxLbJ5A==
 
-stockfish.wasm@^0.5.6:
+stockfish.wasm@^0.5.7:
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/stockfish.wasm/-/stockfish.wasm-0.5.7.tgz#d50f620dc8e26ae173ed0d417f0ecca6066f4492"
   integrity sha512-wDkhaA+wy0GzOlb8RDCZXQa6yK2+eDGlXd2n9piEE6hYyL562pK6NbsbBKdbI6T9vOsS+finDH6AKOjoKszzLg==
