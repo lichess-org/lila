@@ -15,8 +15,21 @@
     <item quantity="one">%s Üye</item>
     <item quantity="other">%s Üye</item>
   </plurals>
+  <string name="inviteToTheStudy">Bu çalışmaya davet edin</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Lütfen sadece tanıdığınız ve katkı sağlayacağını düşündüğünüz kişileri davet ediniz.</string>
+  <string name="searchByUsername">Kullanıcı adına göre ara</string>
+  <string name="spectator">İzleyici</string>
+  <string name="contributor">Katılımcı</string>
+  <string name="kick">Çıkar</string>
+  <string name="leaveTheStudy">Çalışmadan ayrıl</string>
+  <string name="youAreNowAContributor">Şu anda bir katılımcısınız</string>
+  <string name="youAreNowASpectator">Şu anda bir izleyicisiniz</string>
+  <string name="pgnTags">PGN etiketleri</string>
+  <string name="like">Beğen</string>
+  <string name="newTag">Yeni etiket</string>
   <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
   <string name="commentThisMove">Bu hamle için bir yorum yap</string>
+  <string name="annotateWithGlyphs">Glifler ile açıkla</string>
   <string name="open">Aç</string>
   <string name="xBroughtToYouByY">%2$s sana %1$s getirdi</string>
   <string name="studyNotFound">Böyle bir çalışma bulunamadı</string>
