@@ -38,5 +38,5 @@ final class LastPostCache(
       lastNotifiedId = last.id.some
     }
 
-  def apply: List[MiniPost] = Nil //cache sync true
+  def apply: List[MiniPost] = cache sync true
 }
