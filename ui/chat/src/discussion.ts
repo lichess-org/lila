@@ -77,6 +77,8 @@ function renderInput(ctrl: Ctrl): VNode | undefined {
   });
 }
 
+let mouchListener: EventListener;
+
 const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
   chatEl.addEventListener('keypress',
     (e: KeyboardEvent) => setTimeout(() => {
@@ -106,6 +108,31 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
   });
 
   window.Mousetrap(chatEl).bind('esc', () => chatEl.blur());
+
+
+  // Ensure clicks remove chat focus.
+  // See ornicar/chessground#109
+
+  const mouchEvents = ['touchstart', 'mousedown'];
+
+  if (mouchListener) mouchEvents.forEach(event =>
+    document.body.removeEventListener(event, mouchListener)
+  );
+
+  mouchListener = (e: MouseEvent) => {
+    if (!e.shiftKey && e.buttons !== 2 && e.button !== 2) chatEl.blur();
+  };
+
+  chatEl.onfocus = () =>
+    mouchEvents.forEach(event =>
+      document.body.addEventListener(event, mouchListener,
+        {passive: true, capture: true}
+    ));
+
+  chatEl.onblur = () =>
+    mouchEvents.forEach(event =>
+      document.body.removeEventListener(event, mouchListener, {capture: true})
+    );
 };
 
 function sameLines(l1: Line, l2: Line) {
