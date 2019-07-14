@@ -327,7 +327,7 @@ Thank you all, you rock!"""
           case _ => Rapid
         }
         List(
-          1500 -> 0,
+          1400 -> 0,
           1700 -> 1,
           2000 -> 2
         ).flatMap {
