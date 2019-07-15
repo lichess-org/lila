@@ -1,18 +1,19 @@
 package lila.simul
 package actorApi
 
-import scala.concurrent.Promise
 import play.api.libs.json.JsObject
+import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.socket.RemoteSocketMember
+import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.user.User
 
 private[simul] case class SimulSocketMember(
-    push: JsObject => Unit,
+    sri: Sri,
     userId: Option[String],
-    troll: Boolean
+    troll: Boolean,
+    bus: lila.common.Bus
 ) extends RemoteSocketMember
 
 private[simul] case class Messadata(trollish: Boolean = false)

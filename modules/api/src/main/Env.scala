@@ -33,6 +33,8 @@ final class Env(
     isPlaying: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     challengeJsonView: lila.challenge.JsonView,
+    remoteSocketApi: lila.socket.RemoteSocket,
+    siteRemoteSocket: lila.site.SiteRemoteSocket,
     val isProd: Boolean
 ) {
 
@@ -148,6 +150,10 @@ final class Env(
 
   lazy val cli = new Cli(system.lilaBus)
 
+  //   new RemoteSocket(remoteSocketApi, Map(
+  //     "site-in" -> siteRemoteSocket.handler
+  //   ))
+
   KamonPusher.start(system) {
     new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
   }
@@ -192,6 +198,8 @@ object Env {
     isPlaying = lila.relation.Env.current.online.isPlaying,
     pools = lila.pool.Env.current.api.configs,
     challengeJsonView = lila.challenge.Env.current.jsonView,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
+    siteRemoteSocket = lila.site.Env.current.remoteSocket,
     isProd = lila.common.PlayApp.isProd
   )
 }

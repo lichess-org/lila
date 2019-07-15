@@ -32,10 +32,10 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketTrouper[M] =>
     enum: Enumerator[JsValue],
     member: M
   ): Enumerator[JsValue] =
-    lila.common.Iteratee.prepend(
-      since
-        .fold(history.getRecent(5).some)(history.since)
-        .fold(List(SocketTrouper.resyncMessage))(_ map filteredMessage(member)),
-      enum
-    )
+    lila.common.Iteratee.prepend(getEventsSince(since, member), enum)
+
+  protected def getEventsSince(since: Option[Socket.SocketVersion], member: M): List[JsValue] =
+    since
+      .fold(history.getRecent(5).some)(history.since)
+      .fold(List(SocketTrouper.resyncMessage))(_ map filteredMessage(member))
 }

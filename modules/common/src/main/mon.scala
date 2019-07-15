@@ -332,8 +332,14 @@ object mon {
       object redis {
         val publishTime = rec("socket.remote.redis.publish_time")
         val publishTimeSync = rec("socket.remote.redis.publish_time.sync")
-        def in(path: String) = inc(s"socket.remote.redis.in.$path")
-        def out(path: String) = inc(s"socket.remote.redis.out.$path")
+        object in {
+          def channel(channel: String) = inc(s"socket.remote.redis.in.channel.$channel")
+          def path(channel: String, path: String) = inc(s"socket.remote.redis.in.path.$channel:$path")
+        }
+        object out {
+          def channel(channel: String) = inc(s"socket.remote.redis.out.channel.$channel")
+          def path(channel: String, path: String) = inc(s"socket.remote.redis.out.path.$channel:$path")
+        }
       }
     }
   }

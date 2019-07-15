@@ -142,11 +142,7 @@ object Simul extends LilaController {
     }
   }
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      env.socketHandler.join(id, sri, ctx.me, getSocketVersion, apiVersion)
-    }
-  }
+  def websocket(id: String, apiVersion: Int) = Action(NotFound)
 
   private def AsHost(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
     env.repo.find(simulId) flatMap {

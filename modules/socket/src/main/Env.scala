@@ -17,20 +17,18 @@ final class Env(
 
   private val RedisUri = config getString "redis.uri"
 
-  private val population = new Population(system)
+  val population = new SocketPopulation(system)
 
   private val moveBroadcast = new MoveBroadcast(system)
 
   private val userRegister = new UserRegister(system)
 
-  private val remoteSocket = new RemoteSocket(
+  val remoteSocket = new RemoteSocket(
     redisClient = RedisClient create RedisURI.create(RedisUri),
-    chanIn = "site-in",
-    chanOut = "site-out",
-    lifecycle = lifecycle,
     notificationActor = hub.notification,
     setNb = nb => population ! actorApi.RemoteNbMembers(nb),
-    bus = system.lilaBus
+    bus = system.lilaBus,
+    lifecycle = lifecycle
   )
 
   system.scheduler.schedule(5 seconds, 1 seconds) { population ! PopulationTell }
