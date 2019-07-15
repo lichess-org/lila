@@ -238,7 +238,7 @@ object Condition {
       val default = MaxRatingSetup(perfAuto._1, 9999)
       def apply(x: MaxRating): MaxRatingSetup = MaxRatingSetup(x.perf.key, x.rating)
     }
-    val minRatings = List(0, 1600, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
+    val minRatings = List(0, 1500, 1600, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
     val minRatingChoices = options(minRatings, "Min rating of %d") map {
       case (0, name) => (0, "No restriction")
       case x => x
