@@ -213,11 +213,14 @@ object Team extends LilaController {
     }
   }
 
-  def quit(id: String) = Auth { implicit ctx => implicit me =>
-    OptionResult(api quit id) { team =>
+  def quit(id: String) = AuthOrScoped(_.Team.Write)(
+    auth = ctx => me => OptionResult(api.quit(id, me)) { team =>
       Redirect(routes.Team.show(team.id))
+    }(ctx),
+    scoped = req => me => api.quit(id, me) flatMap {
+      _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
     }
-  }
+  )
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>

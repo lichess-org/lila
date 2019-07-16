@@ -146,12 +146,12 @@ final class TeamApi(
     } recover lila.db.recoverDuplicateKey(_ => ())
   }
 
-  def quit(teamId: Team.ID)(implicit ctx: UserContext): Fu[Option[Team]] = for {
-    teamOption ← coll.team.byId[Team](teamId)
-    result ← ~(teamOption |@| ctx.me)({
-      case (team, user) => doQuit(team, user.id) inject team.some
-    })
-  } yield result
+  def quit(teamId: Team.ID, me: User): Fu[Option[Team]] =
+    coll.team.byId[Team](teamId) flatMap {
+      _ ?? { team =>
+        doQuit(team, me.id) inject team.some
+      }
+    }
 
   def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
     _ ?? {
