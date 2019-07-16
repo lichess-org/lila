@@ -61,8 +61,8 @@
   <string name="deleteFromHere">מחק מכאן והלאה</string>
   <string name="forceVariation">וריאנט יחיד</string>
   <string name="move">מסע</string>
-  <string name="variantLoss">וראצית הפסד</string>
-  <string name="variantWin">וריאצית ניצחון</string>
+  <string name="variantLoss">הפסד כפוי</string>
+  <string name="variantWin">ניצחון כפוי</string>
   <string name="insufficientMaterial">אין מספיק כלים</string>
   <string name="pawnMove">מסע רגלי</string>
   <string name="capture">הכאה</string>
@@ -78,13 +78,13 @@
   <string name="topGames">המשחקים המובילים</string>
   <string name="masterDbExplanation">שני מיליון משחקים על לוח פיזי של %1$s+ שחקני פידה מ %2$s עד %3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">מט בעוד %s חצי מהלך</item>
+    <item quantity="one">מט בעוד חצי מהלך</item>
     <item quantity="two">מט בעוד %s חצאי מהלכים</item>
     <item quantity="many">מט בעוד %s חצאי מהלכים</item>
-    <item quantity="other">מט בעוד %s חצי מהלך</item>
+    <item quantity="other">מט בעוד %s חצאי מהלך</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
+    <item quantity="one">לקיחת כלי או מהלך רגלי בחצי המהלך הבא (מרחק לאיפוס צובר למהלך ה50)</item>
     <item quantity="two">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
     <item quantity="many">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
     <item quantity="other">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
