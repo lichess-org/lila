@@ -764,6 +764,11 @@
   <string name="youCannotChallengeX">לא ניתן לאתגר את %s.</string>
   <string name="xDoesNotAcceptChallenges">%s לא מקבל אתגרים.</string>
   <string name="yourXRatingIsTooFarFromY">דירוג שלך %1$s רחוק מדי מ-%2$s.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">אינו יכול לבקש משחק חוזר כי דירוג %s שלו עדיין זמני.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s רק מחבר בין מנויים הרשומים כחברים.</string>
+  <string name="conditionalPremoves">מסעים מותנים מראש</string>
   <string name="addCurrentVariation">תוסיף וריאציה הנוכחית</string>
+  <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>
+  <string name="noConditionalPremoves">ללא מהלכים מותנים מראש</string>
   <string name="playX">תשחק %s</string>
 </resources>
