@@ -159,6 +159,12 @@
   <string name="forgotPassword">שכחת סיסמה?</string>
   <string name="rank">דרוג</string>
   <string name="rankX">דירוג: %s</string>
+  <plurals name="nbPuzzles">
+    <item quantity="one">חידה</item>
+    <item quantity="two">%s פאזלים</item>
+    <item quantity="many">%s פאזלים</item>
+    <item quantity="other">חידות מסוג %s</item>
+  </plurals>
   <string name="gamesPlayed">משחקים ששוחקו</string>
   <string name="cancel">בטל</string>
   <string name="timeOut">נגמר הזמן</string>
