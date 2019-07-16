@@ -14,21 +14,32 @@
   <string name="rookIntro">הצריח הוא כלי עוצמתי. אתה מוכן לפקד עליו?</string>
   <string name="rookGoal">הקש על הצריח כדי להזיזו לכוכב!</string>
   <string name="grabAllTheStars">אסוף את כל הכוכבים!</string>
+  <string name="theFewerMoves">ככל שתמעט במסעים, תרבה בנקודות!</string>
+  <string name="useTwoRooks">השתמש ב-2 צריחים להאצה!</string>
+  <string name="rookComplete">יפה, אתה שולט בצריחים.</string>
   <string name="theBishop">הרץ</string>
   <string name="itMovesDiagonally">הוא זז באלכסון</string>
+  <string name="bishopIntro">כעת נלמד את מהלכי הרץ!</string>
   <string name="youNeedBothBishops">רץ אחד על המשבצות הבהירות,
 רץ אחד על המשבצות הכהות,
 אתה צריך את שניהם!</string>
+  <string name="bishopComplete">יפה, אתה שולט ברצים!</string>
   <string name="theQueen">המלכה</string>
   <string name="queenCombinesRookAndBishop">צריח + רץ = מלכה</string>
   <string name="queenIntro">כלי השחמט החזק ביותר נכנס. הוד מלכותה, המלכה!</string>
+  <string name="queenComplete">יפה, פיצחת את סודות המלכה!</string>
   <string name="theKing">המלך</string>
   <string name="theMostImportantPiece">הכלי החשוב ביותר</string>
   <string name="kingIntro">אתה המלך. אם אתה נופל בקרב, אתה מפסיד את המשחק.</string>
   <string name="theKingIsSlow">המלך איטי.</string>
   <string name="lastOne">אחרון!</string>
+  <string name="kingComplete">כעת אתה הבוס של הבוס!</string>
   <string name="theKnight">הפרש</string>
   <string name="itMovesInAnLShape">הוא נע בצורת האות L</string>
+  <string name="knightIntro">הפרש יציג בפניך אתגר... יותר קשה.</string>
+  <string name="knightsHaveAFancyWay">לפרשים יש קפיצה קצת מוזרה!</string>
+  <string name="knightsCanJumpOverObstacles">הפרש מדלג על מכשולים ויכול להגיע רחוק בדרכו לפסגה!</string>
+  <string name="knightComplete">יפה, אתה רוכב מנוסה!</string>
   <string name="thePawn">הרגלי</string>
   <string name="itMovesForwardOnly">הוא נע קדימה בלבד</string>
   <string name="pawnIntro">רגלים הם חלשים, אך בעלי פוטנציאל רב.</string>
@@ -38,6 +49,7 @@
 אך לפעמים פרש יכול להיות שימושי!</string>
   <string name="pawnsMoveForward">רגלים נעים קדימה,
 אך מכים באלכסון!</string>
+  <string name="captureThenPromote">הרגלי אוכל את יריביו בדרך להכתרה.</string>
   <string name="aPawnOnTheSecondRank">רגלי על השורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
   <string name="pawnPromotion">הכתרת רגלי</string>
   <string name="yourPawnReachedTheEndOfTheBoard">הרגלי שלך הגיע לשורה האחרונה על הלוח!</string>
