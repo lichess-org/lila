@@ -186,4 +186,5 @@
   <string name="next">עבור לפרק הבא</string>
   <string name="backToMenu">חזור לתפריט</string>
   <string name="puzzleFailed">נכשלת בתרגיל!</string>
+  <string name="retry">נסה שוב</string>
 </resources>
