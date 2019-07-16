@@ -91,6 +91,14 @@
   <string name="escapeOrBlock">בריחת המלך או חסימת האיום!</string>
   <string name="outOfCheckComplete">יפה, אתה שומר היטב על מלכך!</string>
   <string name="mateInOne">מט בשניים</string>
+  <string name="defeatTheOpponentsKing">הבס את מלך היריב</string>
+  <string name="mateInOneIntro">נצחונך מובטח אם היריב לא מצליח להגן על מלכו.</string>
+  <string name="attackYourOpponentsKing">חפש התקפות שח שאין להן הגנה!</string>
+  <string name="mateInOneComplete">יפה, זו הדרך לנצחונות בשחמט!</string>
+  <string name="boardSetup">מצב הלוח</string>
+  <string name="howTheGameStarts">פתיחת המשחק</string>
+  <string name="boardSetupIntro">שני הצבאות מוכנים לקרב, זה מול זה.</string>
+  <string name="thisIsTheInitialPosition">זהו מצב הלוח בתחילת כל משחק שחמט! בצע מהלך כלשהו להמשך המשחק.</string>
   <string name="castling">הצרחה</string>
   <string name="theSpecialKingMove">מהלך מיוחד של המלך</string>
   <string name="enPassant">הכאה דרך הילוכו</string>
