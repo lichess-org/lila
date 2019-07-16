@@ -89,6 +89,14 @@ private[controllers] trait LidraughtsController
     else anon(req)
   }
 
+  protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
+    auth: Context => UserModel => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[Unit] = Action.async(parse.empty) { req =>
+    if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
+    else handleAuth(auth, req)
+  }
+
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
     Auth(parse.empty)(f)
 

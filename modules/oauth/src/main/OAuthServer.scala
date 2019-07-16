@@ -18,23 +18,28 @@ final class OAuthServer(
   import AccessToken.{ BSONFields => F }
   import OAuthServer._
 
-  def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] = {
-    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) match {
-      case Some(Array("Bearer", tokenStr)) =>
-        val tokenId = AccessToken.Id(tokenStr)
-        accessTokenCache.get(tokenId) flattenWith NoSuchToken flatMap {
-          case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-          case at => UserRepo enabledById at.userId flatMap {
-            case None => fufail(NoSuchUser)
-            case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
-          }
-        } map Right.apply
-      case Some(_) => fufail(InvalidAuthorizationHeader)
-      case None => fufail(MissingAuthorizationHeader)
+  def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
+    reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) { tokenId =>
+      accessTokenCache.get(tokenId) flattenWith NoSuchToken flatMap {
+        case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
+        case at => UserRepo enabledById at.userId flatMap {
+          case None => fufail(NoSuchUser)
+          case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
+        }
+      } map Right.apply
+    } recover {
+      case e: AuthError => Left(e)
     }
-  } recover {
-    case e: AuthError => Left(e)
-  }
+
+  def fetchAppOwner(req: RequestHeader): Fu[Option[User.ID]] =
+    reqToTokenId(req) ?? { tokenId =>
+      tokenColl.primitiveOne[User.ID]($doc(F.id -> tokenId), F.clientId)
+    }
+
+  private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =
+    req.headers.get(AUTHORIZATION).map(_.split(" ", 2)) collect {
+      case Array("Bearer", tokenStr) => AccessToken.Id(tokenStr)
+    }
 
   private val accessTokenCache = asyncCache.multi[AccessToken.Id, Option[AccessToken.ForAuth]](
     name = "oauth.server.personal_access_token",
