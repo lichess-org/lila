@@ -12,6 +12,13 @@
   <string name="youAreNowAContributor">כעת אתה תורם</string>
   <string name="youAreNowASpectator">כעת אתה צופה</string>
   <string name="newTag">תג חדש</string>
+  <string name="commentThisPosition">הערה לגבי המצב במשחק</string>
+  <string name="commentThisMove">הערה לגבי המסע</string>
+  <string name="annotateWithGlyphs">השתמש בסימנים מוסכמים</string>
+  <string name="theChapterIsTooShortToBeAnalysed">פרק זה קצר מכדי להצדיק ניתוח.</string>
+  <string name="onlyContributorsCanRequestAnalysis">רק תורמי הניתוח יכולים לבקש ניתוח מחשב.</string>
+  <string name="getAFullComputerAnalysis">לקבלת ניתוח-שרת מלא של הוריאנט הראשי.</string>
+  <string name="makeSureTheChapterIsComplete">וודא שהפרק הוא שלם. תוכל לבקש ניתוח מחשב רק פעם אחת.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">כל חברי SYNC נשארים באותו מצב</string>
   <string name="shareChanges">שתף שינויים עם הצופים ושמור אותם על השרת</string>
   <string name="playing">משחק</string>
