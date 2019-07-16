@@ -59,6 +59,11 @@
   <string name="promoteVariation">קידום וראציה</string>
   <string name="makeMainLine">הפוך לליין הראשי</string>
   <string name="deleteFromHere">מחק וריאציה</string>
+  <string name="forceVariation">וריאנט כפוי
+
+ברירת מחדל המצמצמת את האנליזה לוריאנט הראשי, והחורגת גם מעבר למשחק ששוחק. 
+
+\"וריאנט כפוי\" מציג את האנליזה כוריאנט אלטרנטיבי, בשונה מהמהלכים ששוחקו בפועל</string>
   <string name="move">מסע</string>
   <string name="variantLoss">וראצית הפסד</string>
   <string name="variantWin">וריאצית ניצחון</string>
@@ -147,6 +152,9 @@
   <string name="ratingStats">סטטיסטיקת דירוג</string>
   <string name="username">שם משתמש</string>
   <string name="usernameOrEmail">שם משתמש או כתובת דואר אלקטרוני</string>
+  <string name="changeUsername">שנה שם משתמש
+
+מופיע בתפריט ההגדרות https://lichess.org/account/username בקובץ Website and mobile app</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שנה סיסמה</string>
   <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
