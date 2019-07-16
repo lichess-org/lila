@@ -50,13 +50,24 @@
   <string name="pawnsMoveForward">רגלים נעים קדימה,
 אך מכים באלכסון!</string>
   <string name="captureThenPromote">הרגלי אוכל את יריביו בדרך להכתרה.</string>
+  <string name="useAllThePawns">השתמש בכל הרגלים! ההכתרה אינה חובה.</string>
   <string name="aPawnOnTheSecondRank">רגלי על השורה השנייה יכול לנוע 2 משבצות קדימה במהלך אחד!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">קח את כל הכוכבים! אין חובה להכתיר.</string>
+  <string name="pawnComplete">יפה, אתה שולט בחיל הרגלים!</string>
   <string name="pawnPromotion">הכתרת רגלי</string>
   <string name="yourPawnReachedTheEndOfTheBoard">הרגלי שלך הגיע לשורה האחרונה על הלוח!</string>
   <string name="itNowPromotesToAStrongerPiece">הוא עכשיו מוכתר לכלי חזק יותר.</string>
   <string name="selectThePieceYouWant">בחר/י את הכלי שאת/ה רוצה!</string>
   <string name="fundamentals">יסודות</string>
   <string name="capture">הכאה</string>
+  <string name="takeTheEnemyPieces">אכול את כלי היריב</string>
+  <string name="captureIntro">אתר ותפוס כלים לא מוגנים של היריב!</string>
+  <string name="takeTheBlackPieces">קח את הכלים השחורים!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">קח את הכלים השחורים בלי לאבד משלך!</string>
+  <string name="captureComplete">יפה, אתה מבין את עקרונות לוחמת השחמט!</string>
+  <string name="protection">הגנה</string>
+  <string name="keepYourPiecesSafe">שמור על כליך</string>
+  <string name="protectionIntro">אתר את הכלים המאוימים ע\"י היריב והגן עליהם!</string>
   <string name="castling">הצרחה</string>
   <string name="theSpecialKingMove">מהלך מיוחד של המלך</string>
   <string name="enPassant">הכאה דרך הילוכו</string>
