@@ -84,12 +84,12 @@
     <item quantity="other">מט בעוד %s חצאי מהלך</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">לקיחת כלי או מהלך רגלי בחצי המהלך הבא (מרחק לאיפוס צובר למהלך ה50)</item>
+    <item quantity="one">לקיחת כלי או מהלך רגלי בחצי המהלך הבא (עבור חישוב סף 50 המהלכים)</item>
     <item quantity="two">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
     <item quantity="many">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
-    <item quantity="other">לקיחת רגלי או מהלך פיאון הבא בעוד %s חצי מהלך (מרחק לאיפוס צובר למהלך ה50)</item>
+    <item quantity="other">לקיחת כלי או מהלך רגלי ב-%s חצאי המהלך הבאים (עבור חישוב סף 50 המהלכים)</item>
   </plurals>
-  <string name="noGameFound">משחק לא נמצא</string>
+  <string name="noGameFound">אין משחק זמין</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">להוסיף עוד משחקים מתפריט ההגדרות?</string>
   <string name="openingExplorer">סייר הפתיחות</string>
   <string name="xOpeningExplorer">חוקר פתיחות %s</string>
