@@ -179,4 +179,11 @@
   <string name="wayToGo">אנחנו מתקדמים!</string>
   <string name="yesYesYes">זהו זה!</string>
   <string name="youreGoodAtThis">אתה גדול!</string>
+  <string name="nailedIt">אין אפס.</string>
+  <string name="rightOn">המשך כך!</string>
+  <string name="stageXComplete">הושלם שלב %s</string>
+  <string name="yourScore">התוצאה שלך</string>
+  <string name="next">עבור לפרק הבא</string>
+  <string name="backToMenu">חזור לתפריט</string>
+  <string name="puzzleFailed">נכשלת בתרגיל!</string>
 </resources>
