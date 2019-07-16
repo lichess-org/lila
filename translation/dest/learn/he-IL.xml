@@ -87,6 +87,10 @@
   <string name="escapeWithTheKing">מלך ברח!</string>
   <string name="theKingCannotEscapeButBlock">אין לאן לנוס, אך יש הגנה!</string>
   <string name="youCanGetOutOfCheckByTaking">דרך אחת לצאת משח היא לקחת את הכלי המאיים.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">אי אפשר לחסום איום שח של פרש!</string>
+  <string name="escapeOrBlock">בריחת המלך או חסימת האיום!</string>
+  <string name="outOfCheckComplete">יפה, אתה שומר היטב על מלכך!</string>
+  <string name="mateInOne">מט בשניים</string>
   <string name="castling">הצרחה</string>
   <string name="theSpecialKingMove">מהלך מיוחד של המלך</string>
   <string name="enPassant">הכאה דרך הילוכו</string>
