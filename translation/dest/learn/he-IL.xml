@@ -121,6 +121,7 @@
   <string name="castlingComplete">יפה, זכור שההצרחה מתבצעת ברובם המכריע של המשחקים.</string>
   <string name="enPassant">הכאה דרך הילוכו</string>
   <string name="theSpecialPawnMove">מהלך מיוחד של רגלי</string>
+  <string name="enPassantIntro">כאשר רגלי היריב מתקדם שני צעדים, ניתן לקחת אותו כאילו הלך רק צעד אחד.</string>
   <string name="blackJustMovedThePawnByTwoSquares">השחור קידם רגלי פעמיים בבת אחת! קח אותו \"דרך מהלכו\".</string>
   <string name="enPassantOnlyWorksImmediately">לקיחה \"דרך מהלכו\" אפשרית רק מיידית אחרי מהלכו של רגלי היריב.</string>
   <string name="enPassantOnlyWorksOnFifthRank">לקיחה \"דרך מהלכו\" אפשרית רק אחרי שרגלי היריב הגיע לשורה 5.</string>
@@ -142,5 +143,23 @@
 רגלי = 1
 המלך לא יסולא בפז! הפסדת המלך משמעותה הפסדת המשחק.</string>
   <string name="queenOverBishop">עדיף לקחת מהיריב כלים יותר חזקים! מלכה &gt; רץ</string>
+  <string name="takeThePieceWithTheHighestValue">קח את הכלי החזק יותר!</string>
+  <string name="pieceValueComplete">יפה, אתה מכיר את הערך של הכלים! 
+מלכה=9, 
+צריח=5,
+רץ=3,
+פרש=3,
+רגלי=1.</string>
   <string name="checkInTwo">שח בשני מהלכים</string>
+  <string name="twoMovesToGiveCheck">איך לתת שח בשני מסעים</string>
+  <string name="checkInTwoIntro">מצא שילוב שני מסעים שבסופו תאיים על מלך היריב!</string>
+  <string name="checkInTwoGoal">איים שח בשני מסעים!</string>
+  <string name="checkInTwoComplete">יפה, איימת על מלך היריב ואילצת אותו להתגונן!</string>
+  <string name="whatNext">ומה עכשיו?</string>
+  <string name="youKnowHowToPlayChess">יפה, למדת את יסודות השחמט! כעת, למד להיות שחקן חזק יותר!</string>
+  <string name="register">הרשמה</string>
+  <string name="getAFreeLichessAccount">פתח חשבון חינם ב-Lichess</string>
+  <string name="practice">אימון</string>
+  <string name="learnCommonChessPositions">למד מערכים שגורים</string>
+  <string name="puzzles">חידות</string>
 </resources>
