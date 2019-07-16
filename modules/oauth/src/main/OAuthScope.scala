@@ -46,6 +46,7 @@ object OAuthScope {
     Challenge.Read, Challenge.Write,
     Tournament.Write,
     Puzzle.Read,
+    Team.Write,
     Bot.Play
   )
 
