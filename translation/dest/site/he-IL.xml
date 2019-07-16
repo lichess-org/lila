@@ -155,6 +155,10 @@
   <string name="changeUsername">שנה שם משתמש
 
 מופיע בתפריט ההגדרות https://lichess.org/account/username בקובץ Website and mobile app</string>
+  <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ-\"johndoe\" ל-\"JohnDoe\"
+
+זוהי הערה בקשר לשינוי שם משתמש, ראה https://lichess.org/account/username בקובץ Website and mobile app.</string>
+  <string name="changeUsernameDescription">שנוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שנה סיסמה</string>
   <string name="changeEmail">שנה כתובת דואר אלקטרוני</string>
@@ -319,6 +323,7 @@
   <string name="clickOnTheBoardToMakeYourMove">לחץ על הלוח כדי לעשות מהלך, והוכח שאתה בן אנוש.</string>
   <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
   <string name="notACheckmate">לא מט.</string>
+  <string name="whiteCheckmatesInOneMove">הלבן כופה מט במסע אחד</string>
   <string name="retry">נסה שוב</string>
   <string name="reconnecting">מתחבר מחדש</string>
   <string name="onlineFriends">החברים המחוברים עכשיו</string>
