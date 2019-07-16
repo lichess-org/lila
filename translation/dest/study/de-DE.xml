@@ -42,11 +42,13 @@
   <string name="previous">Vorheriger</string>
   <string name="next">Nächstes</string>
   <string name="last">Letztes</string>
+  <string name="shareAndExport">Teilen und exportieren</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">Studien PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
   <string name="studyUrl">Studien URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kannst dies im Forum einfügen um das Kapitel einzubetten</string>
   <string name="startAtX">Beginne als %s</string>
   <string name="embedThisChapter">Bette dieses Kapitel auf deiner Webseite oder Blog ein</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Weitere Informationen über das Einbetten eines Studienkapitels</string>
