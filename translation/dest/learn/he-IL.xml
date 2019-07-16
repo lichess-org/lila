@@ -79,6 +79,14 @@
   <string name="checkInOne">שח במסע אחד</string>
   <string name="attackTheOpponentsKing">התקפה על מלך היריב</string>
   <string name="checkInOneIntro">לאיום השח, עליך להתקיף את מלך היריב. הוא חייב להתגונן!</string>
+  <string name="checkInOneGoal">האם אתה יכול לאיים על מלך היריב במסע  יחיד?</string>
+  <string name="checkInOneComplete">יפה, איימת בשח ויריבך חייב להגן על מלכו!</string>
+  <string name="outOfCheck">ההחלצות מאיום שח</string>
+  <string name="defendYourKing">הגן על מלכך</string>
+  <string name="outOfCheckIntro">אתה בשח! עליך או לברוח עם המלך או להגן עליו.</string>
+  <string name="escapeWithTheKing">מלך ברח!</string>
+  <string name="theKingCannotEscapeButBlock">אין לאן לנוס, אך יש הגנה!</string>
+  <string name="youCanGetOutOfCheckByTaking">דרך אחת לצאת משח היא לקחת את הכלי המאיים.</string>
   <string name="castling">הצרחה</string>
   <string name="theSpecialKingMove">מהלך מיוחד של המלך</string>
   <string name="enPassant">הכאה דרך הילוכו</string>
