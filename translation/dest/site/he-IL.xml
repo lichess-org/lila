@@ -59,11 +59,7 @@
   <string name="promoteVariation">קידום וראציה</string>
   <string name="makeMainLine">הפוך לליין הראשי</string>
   <string name="deleteFromHere">מחק וריאציה</string>
-  <string name="forceVariation">וריאנט כפוי
-
-ברירת מחדל המצמצמת את האנליזה לוריאנט הראשי, והחורגת גם מעבר למשחק ששוחק. 
-
-\"וריאנט כפוי\" מציג את האנליזה כוריאנט אלטרנטיבי, בשונה מהמהלכים ששוחקו בפועל</string>
+  <string name="forceVariation">וריאנט כפוי</string>
   <string name="move">מסע</string>
   <string name="variantLoss">וראצית הפסד</string>
   <string name="variantWin">וריאצית ניצחון</string>
@@ -152,12 +148,8 @@
   <string name="ratingStats">סטטיסטיקת דירוג</string>
   <string name="username">שם משתמש</string>
   <string name="usernameOrEmail">שם משתמש או כתובת דואר אלקטרוני</string>
-  <string name="changeUsername">שנה שם משתמש
-
-מופיע בתפריט ההגדרות https://lichess.org/account/username בקובץ Website and mobile app</string>
-  <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ-\"johndoe\" ל-\"JohnDoe\"
-
-זוהי הערה בקשר לשינוי שם משתמש, ראה https://lichess.org/account/username בקובץ Website and mobile app.</string>
+  <string name="changeUsername">שנה שם משתמש</string>
+  <string name="changeUsernameNotSame">באותיות לועזיות ניתן להחליף אותיות קטנות בגדולות, למשל מ-\"johndoe\" ל-\"JohnDoe\".</string>
   <string name="changeUsernameDescription">שנוי שם המשתמש. ניתן לעשותו פעם אחת בלבד, ורק על ידי החלפת אותיות גדולות בקטנות ולהיפך.</string>
   <string name="password">סיסמה</string>
   <string name="changePassword">שנה סיסמה</string>
@@ -324,6 +316,7 @@
   <string name="captcha.fail">אנא בצע את המהלך הנכון בלוח, לצורך captcha.</string>
   <string name="notACheckmate">לא מט.</string>
   <string name="whiteCheckmatesInOneMove">הלבן כופה מט במסע אחד</string>
+  <string name="blackCheckmatesInOneMove">השחור כופה מט במסע אחד</string>
   <string name="retry">נסה שוב</string>
   <string name="reconnecting">מתחבר מחדש</string>
   <string name="onlineFriends">החברים המחוברים עכשיו</string>
@@ -576,6 +569,8 @@
   <string name="inCorrespondenceGames">במשחקים בהתכתבות</string>
   <string name="ifRatingIsPlusMinusX">אלו מדורגים ± %s</string>
   <string name="onlyFriends">חברים בלבד</string>
+  <string name="displayBoardResizeHandle">לחצן לשינוי גודל הלוח במיצג</string>
+  <string name="onlyOnInitialPosition">רק במצב ההתחלתי</string>
   <string name="menu">תפריט</string>
   <string name="castling">הצרחה</string>
   <string name="whiteCastlingKingside">הצרחה קצרה לצד לבן</string>
