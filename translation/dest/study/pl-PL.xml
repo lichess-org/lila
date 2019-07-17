@@ -36,10 +36,10 @@
   <string name="commentThisPosition">Skomentuj tę pozycję</string>
   <string name="commentThisMove">Skomentuj ten ruch</string>
   <string name="annotateWithGlyphs">Oceń ruch symbolem</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki aby go analizować.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Tylko współautorzy omówienia mogą prosić o jego analizę.</string>
-  <string name="getAFullComputerAnalysis">Uzyskaj pełną analizę komputerową głównego wariantu.</string>
-  <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. Możesz tylko raz poprosić o jego analizę.</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Rozdział jest zbyt krótki do analizy.</string>
+  <string name="onlyContributorsCanRequestAnalysis">O analizę mogą prosić tylko współautorzy omówienia.</string>
+  <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
+  <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
   <string name="shareChanges">Współdziel zmiany z obserwatorami i zapisz je na serwerze</string>
   <string name="playing">W toku</string>
