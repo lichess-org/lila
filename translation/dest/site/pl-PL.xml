@@ -348,7 +348,7 @@
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) ma charakter przejściowy</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
-  <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
+  <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest za niski</string>
   <string name="ratedMoreThanInPerf">Ranking ≥ %1$s (%2$s)</string>
   <string name="ratedLessThanInPerf">Ranking ≤ %1$s (%2$s)</string>
   <string name="mustBeInTeam">Musisz należeć do klubu %s</string>
