@@ -85,15 +85,21 @@ final class TeamApi(
     case (request, user) => RequestWithUser(request, user)
   }
 
-  def join(teamId: Team.ID)(implicit ctx: UserContext): Fu[Option[Requesting]] = for {
-    teamOption ← coll.team.byId[Team](teamId)
-    result ← ~(teamOption |@| ctx.me.filter(_.canTeam))({
-      case (team, user) if team.open =>
-        (doJoin(team, user.id) inject Joined(team).some): Fu[Option[Requesting]]
-      case (team, user) =>
-        fuccess(Motivate(team).some: Option[Requesting])
-    })
-  } yield result
+  def join(teamId: Team.ID, me: User): Fu[Option[Requesting]] =
+    coll.team.byId[Team](teamId) flatMap {
+      _ ?? { team =>
+        if (team.open) doJoin(team, me) inject Joined(team).some
+        else fuccess(Motivate(team).some)
+      }
+    }
+
+  def joinApi(teamId: Team.ID, me: User, oAuthAppOwner: User.ID): Fu[Option[Requesting]] =
+    coll.team.byId[Team](teamId) flatMap {
+      _ ?? { team =>
+        if (team.open || team.createdBy == oAuthAppOwner) doJoin(team, me) inject Joined(team).some
+        else fuccess(Motivate(team).some)
+      }
+    }
 
   def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] = for {
     teamOption ← coll.team.byId[Team](teamId)
@@ -118,7 +124,7 @@ final class TeamApi(
     _ = cached.nbRequests invalidate team.createdBy
     userOption ← UserRepo byId request.user
     _ ← userOption.filter(_ => accept).??(user =>
-      doJoin(team, user.id) >>- notifier.acceptRequest(team, request))
+      doJoin(team, user) >>- notifier.acceptRequest(team, request))
   } yield ()
 
   def deleteRequestsByUserId(userId: lila.user.User.ID) =
@@ -129,23 +135,23 @@ final class TeamApi(
       }.sequenceFu
     }
 
-  def doJoin(team: Team, userId: User.ID): Funit = !belongsTo(team.id, userId) flatMap {
+  def doJoin(team: Team, user: User): Funit = !belongsTo(team.id, user.id) flatMap {
     _ ?? {
-      MemberRepo.add(team.id, userId) >>
+      MemberRepo.add(team.id, user.id) >>
         TeamRepo.incMembers(team.id, +1) >>- {
-          cached invalidateTeamIds userId
-          timeline ! Propagate(TeamJoin(userId, team.id)).toFollowersOf(userId)
-          bus.publish(JoinTeam(id = team.id, userId = userId), 'team)
+          cached invalidateTeamIds user.id
+          timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
+          bus.publish(JoinTeam(id = team.id, userId = user.id), 'team)
         }
     } recover lila.db.recoverDuplicateKey(_ => ())
   }
 
-  def quit(teamId: Team.ID)(implicit ctx: UserContext): Fu[Option[Team]] = for {
-    teamOption ← coll.team.byId[Team](teamId)
-    result ← ~(teamOption |@| ctx.me)({
-      case (team, user) => doQuit(team, user.id) inject team.some
-    })
-  } yield result
+  def quit(teamId: Team.ID, me: User): Fu[Option[Team]] =
+    coll.team.byId[Team](teamId) flatMap {
+      _ ?? { team =>
+        doQuit(team, me.id) inject team.some
+      }
+    }
 
   def doQuit(team: Team, userId: User.ID): Funit = belongsTo(team.id, userId) flatMap {
     _ ?? {

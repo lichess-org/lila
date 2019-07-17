@@ -14,7 +14,7 @@ case class Team(
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
-    createdBy: String
+    createdBy: User.ID
 ) {
 
   def id = _id

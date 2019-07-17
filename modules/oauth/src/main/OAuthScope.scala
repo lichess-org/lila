@@ -28,6 +28,10 @@ object OAuthScope {
     case object Read extends OAuthScope("puzzle:read", "Read puzzle activity")
   }
 
+  object Team {
+    case object Write extends OAuthScope("team:write", "Join and leave teams")
+  }
+
   object Bot {
     case object Play extends OAuthScope("bot:play", "Play as a bot")
   }
@@ -42,6 +46,7 @@ object OAuthScope {
     Challenge.Read, Challenge.Write,
     Tournament.Write,
     Puzzle.Read,
+    Team.Write,
     Bot.Play
   )
 
