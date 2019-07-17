@@ -137,6 +137,8 @@ object RemoteSocket {
       case class TellSri(sri: Sri, userId: Option[String], typ: String, data: JsObject) extends In
 
       def read(path: String, args: String): Option[In] = path match {
+        case "connect" => ConnectUser(args).some // deprecated
+        case "disconnect" => DisconnectUser(args).some // deprecated
         case "connect/user" => ConnectUser(args).some
         case "disconnect/user" => DisconnectUser(args).some
         case "connect/sri" => args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
