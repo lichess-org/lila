@@ -69,10 +69,14 @@ private[simul] final class Socket(
     case GetUserIdsP(promise) => promise success members.values.flatMap(_.userId)
 
     case Join(sri, user, version, promise) =>
-      val member = SimulSocketMember(sri, user.map(_.id), user.exists(_.troll), lilaBus)
+      val (enumerator, channel) = Concurrent.broadcast[JsValue]
+      val member = SimulSocketMember(channel, user)
       addMember(sri, member)
       notifyCrowd
-      getEventsSince(version, member) foreach member.push
+      promise success Connected(
+        prependEventsSince(version, enumerator, member),
+        member
+      )
 
     case NotifyCrowd =>
       delayedCrowdNotification = false

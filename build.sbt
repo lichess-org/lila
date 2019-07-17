@@ -205,7 +205,7 @@ lazy val lobby = module("lobby", Seq(
   common, db, memo, hub, socket, game, user,
   round, timeline, relation, playban, security, pool
 )).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
 )
 
 lazy val setup = module("setup", Seq(
@@ -238,7 +238,7 @@ lazy val tournament = module("tournament", Seq(
 lazy val simul = module("simul", Seq(
   common, hub, socket, game, round, chat, memo, quote
 )).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
 lazy val fishnet = module("fishnet", Seq(common, game, analyse, db, evalCache)).settings(

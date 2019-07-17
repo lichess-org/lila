@@ -5,13 +5,12 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.hub.{ Duct, DuctMap, TrouperMap }
-import lila.socket.{ History, RemoteSocket }
+import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 final class Env(
     config: Config,
     system: ActorSystem,
-    remoteSocket: RemoteSocket,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
     hub: lila.hub.Env,
@@ -63,8 +62,7 @@ final class Env(
     broomFrequency = 3691 millis
   )
 
-  lazy val socketHandler = new SimulSocketHandler(
-    remoteSocket = remoteSocket,
+  lazy val socketHandler = new SocketHandler(
     hub = hub,
     socketMap = socketMap,
     chat = hub.chat,
@@ -140,7 +138,6 @@ object Env {
   lazy val current = "simul" boot new Env(
     config = lila.common.PlayApp loadConfig "simul",
     system = lila.common.PlayApp.system,
-    remoteSocket = lila.socket.Env.current.remoteSocket,
     scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
