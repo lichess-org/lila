@@ -40,7 +40,7 @@
   <string name="onlyContributorsCanRequestAnalysis">O analizę mogą prosić tylko współautorzy omówienia.</string>
   <string name="getAFullComputerAnalysis">Uzyskaj pełną, zdalną analizę komputerową głównego wariantu.</string>
   <string name="makeSureTheChapterIsComplete">Upewnij się, że rozdział jest kompletny. O jego analizę możesz poprosić tylko raz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Zsynchronizowani uczestnicy mają tę samą pozycję</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Wszyscy zsynchronizowani uczestnicy pozostają na tej samej pozycji</string>
   <string name="shareChanges">Współdzielenie zmian z obserwatorami i ich zapis na serwerze</string>
   <string name="playing">W toku</string>
   <string name="onlyOngoingGames">Tylko partie w toku</string>
