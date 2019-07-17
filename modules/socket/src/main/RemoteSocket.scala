@@ -35,15 +35,26 @@ final class RemoteSocket(
     val Friends = "friends"
     val TellSri = "tell/sri"
   }
+  private abstract class Out(path: String) {
+    def apply(args: String*): String = s"$path ${args mkString " "}"
+  }
   private object Out {
-    val Move = "move"
-    val TellUser = "tell/user"
-    val TellUsers = "tell/users"
-    val TellAll = "tell/all"
-    val TellFlag = "tell/flag"
-    val TellSri = "tell/sri"
-    val Mlat = "mlat"
-    val DisconnectUser = "disconnect/user"
+    def move(gameId: String, move: String, fen: String) =
+      s"move $gameId $move $fen"
+    def tellUser(userId: String, payload: JsObject) =
+      s"tell/user $userId ${Json stringify payload}"
+    def tellUsers(userIds: Set[String], payload: JsObject) =
+      s"tell/users ${userIds mkString ","} ${Json stringify payload}"
+    def tellAll(payload: JsObject) =
+      s"tell/all ${Json stringify payload}"
+    def tellFlag(flag: String, payload: JsObject) =
+      s"tell/flag $flag ${Json stringify payload}"
+    def tellSri(sri: String, payload: JsValue) =
+      s"tell/sri $sri ${Json stringify payload}"
+    def mlat(lat: Int) =
+      s"mlat $lat"
+    def disconnectUser(userId: String) =
+      s"disconnect/user $userId"
   }
 
   private val connectedUserIds = collection.mutable.Set.empty[String]
@@ -84,24 +95,24 @@ final class RemoteSocket(
 
   bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose) {
     case MoveEvent(gameId, fen, move) =>
-      if (watchedGameIds(gameId)) send(Out.Move, gameId, move, fen)
+      if (watchedGameIds(gameId)) send(Out.move(gameId, move, fen))
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect connectedUserIds
-      if (connectedUsers.nonEmpty) send(Out.TellUsers, connectedUsers mkString ",", Json stringify payload)
+      if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
     case SendTo(userId, payload) if connectedUserIds(userId) =>
-      send(Out.TellUser, userId, Json stringify payload)
+      send(Out.tellUser(userId, payload))
     case d: Deploy =>
-      send(Out.TellAll, Json stringify Json.obj("t" -> d.key))
+      send(Out.tellAll(Json.obj("t" -> d.key)))
     case Announce(msg) =>
-      send(Out.TellAll, Json stringify Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg)))
+      send(Out.tellAll(Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg))))
     case Mlat(ms) =>
-      send(Out.Mlat, ms.toString)
+      send(Out.mlat(ms))
     case SendToFlag(flag, payload) =>
-      send(Out.TellFlag, flag, Json stringify payload)
+      send(Out.tellFlag(flag, payload))
     case RemoteSocketTellSriOut(sri, payload) =>
-      send(Out.TellSri, sri, Json stringify payload)
+      send(Out.tellSri(sri, payload))
     case CloseAccount(userId) =>
-      send(Out.DisconnectUser, userId)
+      send(Out.disconnectUser(userId))
     case WithUserIds(f) =>
       f(connectedUserIds)
   }
