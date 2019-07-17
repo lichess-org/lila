@@ -8,7 +8,7 @@ import lila.socket.DirectSocketMember
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
-private[lobby] case class Member(
+private[lobby] case class LobbySocketMember(
     channel: JsChannel,
     user: Option[LobbyUser],
     sri: Sri,
@@ -18,9 +18,9 @@ private[lobby] case class Member(
   val userId = user.map(_.id)
 }
 
-private[lobby] object Member {
+private[lobby] object LobbySocketMember {
 
-  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], sri: Sri, mobile: Boolean): Member = Member(
+  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], sri: Sri, mobile: Boolean): LobbySocketMember = LobbySocketMember(
     channel = channel,
     user = user map { LobbyUser.make(_, blocking) },
     sri = sri,
@@ -32,7 +32,7 @@ private[lobby] case class HookMeta(hookId: Option[String] = None)
 
 private[lobby] case class Messadata(hook: Option[Hook] = None)
 
-private[lobby] case class Connected(enumerator: JsEnumerator, member: Member)
+private[lobby] case class Connected(enumerator: JsEnumerator, member: LobbySocketMember)
 private[lobby] case class WithHooks(op: Iterable[String] => Unit)
 private[lobby] case class SaveSeek(msg: AddSeek)
 private[lobby] case class RemoveHook(hookId: String)
@@ -51,8 +51,8 @@ private[lobby] case class HookIds(ids: Vector[String])
 
 private[lobby] case class SetIdle(sri: Sri, value: Boolean)
 
-private[lobby] case class HookSub(member: Member, value: Boolean)
-private[lobby] case class AllHooksFor(member: Member, hooks: Vector[Hook])
+private[lobby] case class HookSub(member: LobbySocketMember, value: Boolean)
+private[lobby] case class AllHooksFor(member: LobbySocketMember, hooks: Vector[Hook])
 
 private[lobby] case class GetSrisP(promise: Promise[Sris])
 

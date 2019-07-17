@@ -16,7 +16,7 @@ import lila.socket.{ Socket, SocketTrouper, LoneSocket }
 private[lobby] final class LobbySocket(
     system: ActorSystem,
     sriTtl: FiniteDuration
-) extends SocketTrouper[Member](system, sriTtl) with LoneSocket {
+) extends SocketTrouper[LobbySocketMember](system, sriTtl) with LoneSocket {
 
   def monitoringName = "lobby"
   def broomFrequency = 4073 millis
@@ -45,7 +45,7 @@ private[lobby] final class LobbySocket(
 
     case Join(sri, user, blocks, mobile, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, sri, mobile)
+      val member = LobbySocketMember(channel, user, blocks, sri, mobile)
       addMember(sri, member)
       promise success Connected(enumerator, member)
 
@@ -148,10 +148,10 @@ private[lobby] final class LobbySocket(
       case (sri, member) => if (!idleSris(sri)) member push msg
     }
 
-  private def withActiveMemberBySriString(sri: String)(f: Member => Unit): Unit =
+  private def withActiveMemberBySriString(sri: String)(f: LobbySocketMember => Unit): Unit =
     if (!idleSris(sri)) members get sri foreach f
 
-  override protected def afterQuit(sri: Socket.Sri, member: Member) = {
+  override protected def afterQuit(sri: Socket.Sri, member: LobbySocketMember) = {
     idleSris -= sri.value
     hookSubscriberSris -= sri.value
   }

@@ -33,14 +33,14 @@ private[lobby] final class SocketHandler(
     key = "lobby.hook_pool.member"
   )
 
-  private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
+  private def HookPoolLimit[A: Zero](member: LobbySocketMember, cost: Int, msg: => String)(op: => A) =
     HookPoolLimitPerMember(
       k = member.sri.value,
       cost = cost,
       msg = s"$msg mobile=${member.mobile}"
     )(op)
 
-  private def controller(socket: LobbySocket, member: Member, isBot: Boolean): Handler.Controller = {
+  private def controller(socket: LobbySocket, member: LobbySocketMember, isBot: Boolean): Handler.Controller = {
     case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.sri, member.user)
