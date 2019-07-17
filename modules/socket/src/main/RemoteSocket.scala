@@ -21,73 +21,23 @@ final class RemoteSocket(
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
-  import RemoteSocket._
-
-  private object In {
-    val Connect = "connect"
-    val Disconnect = "disconnect"
-    val DisconnectAll = "disconnect/all"
-    val Watch = "watch"
-    val Unwatch = "unwatch"
-    val Notified = "notified"
-    val Connections = "connections"
-    val Lag = "lag"
-    val Friends = "friends"
-    val TellSri = "tell/sri"
-  }
-  private abstract class Out(path: String) {
-    def apply(args: String*): String = s"$path ${args mkString " "}"
-  }
-  private object Out {
-    def move(gameId: String, move: String, fen: String) =
-      s"move $gameId $move $fen"
-    def tellUser(userId: String, payload: JsObject) =
-      s"tell/user $userId ${Json stringify payload}"
-    def tellUsers(userIds: Set[String], payload: JsObject) =
-      s"tell/users ${userIds mkString ","} ${Json stringify payload}"
-    def tellAll(payload: JsObject) =
-      s"tell/all ${Json stringify payload}"
-    def tellFlag(flag: String, payload: JsObject) =
-      s"tell/flag $flag ${Json stringify payload}"
-    def tellSri(sri: String, payload: JsValue) =
-      s"tell/sri $sri ${Json stringify payload}"
-    def mlat(lat: Int) =
-      s"mlat $lat"
-    def disconnectUser(userId: String) =
-      s"disconnect/user $userId"
-  }
+  import RemoteSocket._, Protocol._
 
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  val defaultHandler: Handler = {
-    case (In.Connect, userId) => connectedUserIds += userId
-    case (In.Disconnect, userId) => connectedUserIds -= userId
-    case (In.Watch, gameId) => watchedGameIds += gameId
-    case (In.Unwatch, gameId) => watchedGameIds -= gameId
-    case (In.Notified, userId) => notificationActor ! lila.hub.actorApi.notify.Notified(userId)
-    case (In.Connections, nbStr) =>
-      parseIntOption(nbStr) foreach { nb =>
-        setNb(nb)
-        tick(nb)
-      }
-    case (In.Friends, userId) => bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
-    case (In.Lag, args) => args split ' ' match {
-      case Array(user, l) => parseIntOption(l) foreach { lag =>
-        UserLagCache.put(user, Centis(lag))
-      }
-      case _ =>
-    }
-    case (In.TellSri, args) => args.split(" ", 3) match {
-      case Array(sri, userOrAnon, payload) => for {
-        obj <- Json.parse(payload).asOpt[JsObject]
-        typ <- obj str "t"
-        dat <- obj obj "d"
-        userId = userOrAnon.some.filter("-" !=)
-      } bus.publish(RemoteSocketTellSriIn(sri, userId, dat), Symbol(s"remoteSocketIn:$typ"))
-      case a => logger.warn(s"Invalid tell/sri $args")
-    }
-    case (In.DisconnectAll, _) =>
+  val baseHandler: Handler = {
+    case In.ConnectUser(userId) => connectedUserIds += userId
+    case In.DisconnectUser(userId) => connectedUserIds -= userId
+    case In.Watch(gameId) => watchedGameIds += gameId
+    case In.Unwatch(gameId) => watchedGameIds -= gameId
+    case In.Notified(userId) => notificationActor ! lila.hub.actorApi.notify.Notified(userId)
+    case In.Connections(nb) => tick(nb)
+    case In.Friends(userId) => bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
+    case In.Lag(userId, lag) => UserLagCache.put(userId, lag)
+    case In.TellSri(sri, userId, typ, dat) =>
+      bus.publish(RemoteSocketTellSriIn(sri.value, userId, dat), Symbol(s"remoteSocketIn:$typ"))
+    case In.DisconnectAll =>
       logger.info("Remote socket disconnect all")
       connectedUserIds.clear
       watchedGameIds.clear
@@ -118,6 +68,7 @@ final class RemoteSocket(
   }
 
   private def tick(nbConn: Int): Unit = {
+    setNb(nbConn)
     mon.connections(nbConn)
     mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
@@ -148,7 +99,10 @@ final class RemoteSocket(
         val path = parts(0)
         mon.redis.in.channel(channel)()
         mon.redis.in.path(channel, path)()
-        handler(path, ~parts.lift(1))
+        In.read(path, ~parts.lift(1)) collect handler match {
+          case Some(_) => // processed
+          case None => logger.warn(s"Unhandled $message")
+        }
       }
     })
     conn.async.subscribe(channel)
@@ -163,8 +117,72 @@ final class RemoteSocket(
 }
 
 object RemoteSocket {
+
+  object Protocol {
+
+    trait In
+    object In {
+      import Socket.Sri
+      case class ConnectUser(userId: String) extends In
+      case class DisconnectUser(userId: String) extends In
+      case class ConnectSri(sri: Sri, userId: Option[String]) extends In
+      case class DisconnectSri(sri: Sri, userId: Option[String]) extends In
+      case object DisconnectAll extends In
+      case class Watch(gameId: String) extends In
+      case class Unwatch(gameId: String) extends In
+      case class Notified(userId: String) extends In
+      case class Connections(nb: Int) extends In
+      case class Lag(userId: String, lag: Centis) extends In
+      case class Friends(userId: String) extends In
+      case class TellSri(sri: Sri, userId: Option[String], typ: String, data: JsObject) extends In
+
+      def read(path: String, args: String): Option[In] = path match {
+        case "connect/user" => ConnectUser(args).some
+        case "disconnect/user" => DisconnectUser(args).some
+        case "connect/sri" => args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
+        case "disconnect/sri" => args.split(' ') |> { s => DisconnectSri(Sri(s(0)), s lift 1).some }
+        case "disconnect/all" => DisconnectAll.some
+        case "watch" => Watch(args).some
+        case "unwatch" => Unwatch(args).some
+        case "notified" => Notified(args).some
+        case "connections" => parseIntOption(args) map Connections.apply
+        case "lag" => args.split(' ') |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
+        case "friends" => Friends(args).some
+        case "tell/sri" => args.split(" ", 3) match {
+          case Array(sri, userOrAnon, payload) => for {
+            obj <- Json.parse(payload).asOpt[JsObject]
+            typ <- obj str "t"
+            dat <- obj obj "d"
+            userId = userOrAnon.some.filter("-" !=)
+          } yield TellSri(Sri(sri), userId, typ, dat)
+          case _ => none
+        }
+        case _ => none
+      }
+    }
+
+    object Out {
+      def move(gameId: String, move: String, fen: String) =
+        s"move $gameId $move $fen"
+      def tellUser(userId: String, payload: JsObject) =
+        s"tell/user $userId ${Json stringify payload}"
+      def tellUsers(userIds: Set[String], payload: JsObject) =
+        s"tell/users ${userIds mkString ","} ${Json stringify payload}"
+      def tellAll(payload: JsObject) =
+        s"tell/all ${Json stringify payload}"
+      def tellFlag(flag: String, payload: JsObject) =
+        s"tell/flag $flag ${Json stringify payload}"
+      def tellSri(sri: String, payload: JsValue) =
+        s"tell/sri $sri ${Json stringify payload}"
+      def mlat(lat: Int) =
+        s"mlat $lat"
+      def disconnectUser(userId: String) =
+        s"disconnect/user $userId"
+    }
+  }
+
   type Channel = String
   type Path = String
   type Args = String
-  type Handler = PartialFunction[(Path, Args), Unit]
+  type Handler = PartialFunction[Protocol.In, Unit]
 }

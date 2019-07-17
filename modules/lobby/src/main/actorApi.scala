@@ -4,28 +4,51 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.DirectSocketMember
+import lila.socket.{ SocketMember, DirectSocketMember, RemoteSocketMember }
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
-private[lobby] case class LobbySocketMember(
+private[lobby] sealed trait LobbySocketMember extends SocketMember {
+  val user: Option[LobbyUser]
+  val sri: Sri
+  val mobile: Boolean
+}
+
+private[lobby] case class LobbyDirectSocketMember(
     channel: JsChannel,
     user: Option[LobbyUser],
     sri: Sri,
     mobile: Boolean
-) extends DirectSocketMember {
+) extends LobbySocketMember with DirectSocketMember {
+  val userId = user.map(_.id)
+}
 
+private[lobby] case class LobbyRemoteSocketMember(
+    bus: lila.common.Bus,
+    user: Option[LobbyUser],
+    sri: Sri,
+    mobile: Boolean
+) extends LobbySocketMember with RemoteSocketMember {
   val userId = user.map(_.id)
 }
 
 private[lobby] object LobbySocketMember {
 
-  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], sri: Sri, mobile: Boolean): LobbySocketMember = LobbySocketMember(
-    channel = channel,
-    user = user map { LobbyUser.make(_, blocking) },
-    sri = sri,
-    mobile = mobile
-  )
+  def apply(channel: JsChannel, user: Option[User], blocking: Set[String], sri: Sri, mobile: Boolean): LobbyDirectSocketMember =
+    LobbyDirectSocketMember(
+      channel = channel,
+      user = user map { LobbyUser.make(_, blocking) },
+      sri = sri,
+      mobile = mobile
+    )
+
+  def apply(bus: lila.common.Bus, user: Option[User], blocking: Set[String], sri: Sri, mobile: Boolean): LobbyRemoteSocketMember =
+    LobbyRemoteSocketMember(
+      bus = bus,
+      user = user map { LobbyUser.make(_, blocking) },
+      sri = sri,
+      mobile = mobile
+    )
 }
 
 private[lobby] case class HookMeta(hookId: Option[String] = None)
@@ -46,6 +69,7 @@ private[lobby] case class BiteSeek(seekId: String, user: LobbyUser)
 private[lobby] case class JoinHook(sri: Sri, hook: Hook, game: Game, creatorColor: chess.Color)
 private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creatorColor: chess.Color)
 private[lobby] case class Join(sri: Sri, user: Option[User], blocking: Set[String], mobile: Boolean, promise: Promise[Connected])
+private[lobby] case class JoinRemote(member: LobbyRemoteSocketMember)
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 

@@ -8,5 +8,5 @@ final class SiteRemoteSocket(
     remoteSocketApi: lila.socket.RemoteSocket
 ) {
 
-  remoteSocketApi.subscribe("site-in")(remoteSocketApi.defaultHandler)
+  remoteSocketApi.subscribe("site-in")(remoteSocketApi.baseHandler)
 }

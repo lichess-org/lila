@@ -49,6 +49,8 @@ private[lobby] final class LobbySocket(
       addMember(sri, member)
       promise success Connected(enumerator, member)
 
+    case JoinRemote(member) => addMember(member.sri, member)
+
     case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
 
     case ReloadSimuls(html) => notifyAllActive(makeMessage("simuls", html))
