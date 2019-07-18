@@ -320,6 +320,13 @@
     <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Tvoj %s rejting je privremen</string>
+  <string name="yourPerfRatingIsTooHigh">Tvoj %1$s rejting (%2$s) je previsok</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Tvoj najviši tjedni %1$s rejting (%2$s) je previsok</string>
+  <string name="yourPerfRatingIsTooLow">Tvoj %1$s rejting (%2$s) je prenizak</string>
+  <string name="ratedMoreThanInPerf">%2$s rejting ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s rejting ≤ %1$s</string>
+  <string name="mustBeInTeam">Moraš biti u timu %s</string>
+  <string name="youAreNotInTeam">Nisi u timu %s</string>
   <string name="backToGame">Vrati se igri</string>
   <string name="siteDescription">Besplatni internetski šah. Igrajte šah s čistim interfejsom. Registracija nije obavezna, nema reklama, ne zahtijevaju se dodaci za preglednik. Igrajte protiv računara, prijatelja ili slučajnih protivnika.</string>
   <string name="teams">Ekipe</string>
@@ -354,6 +361,8 @@
   <string name="fromPosition">Od pozicije</string>
   <string name="continueFromHere">Nastavite odavde</string>
   <string name="importGame">Uvezite partiju</string>
+  <string name="importGameExplanation">Kada zalijepiš PGN neke partije, dobivaš reprizu partije (koju možeš pretraživati), 
+računalnu analizu, chat partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
     <item quantity="few">%s uvezenih partija</item>
@@ -361,12 +370,16 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Ovo je šahovski CAPTCHA.</string>
   <string name="clickOnTheBoardToMakeYourMove">Odigrajte potez da dokažete da ste ljudsko biće</string>
+  <string name="captcha.fail">Molimo riješi šahovski Captcha.</string>
   <string name="notACheckmate">Nije mat</string>
+  <string name="whiteCheckmatesInOneMove">Bijeli matira u jednom potezu</string>
+  <string name="blackCheckmatesInOneMove">Crnu matira u jednom potezu</string>
   <string name="retry">Pokušajte ponovo</string>
   <string name="reconnecting">Ponovno povezivanje</string>
   <string name="onlineFriends">Prisutni prijatelji</string>
   <string name="noFriendsOnline">Nema prisutnih prijatelja</string>
   <string name="findFriends">Nađite prijatelje</string>
+  <string name="favoriteOpponents">Omiljeni protivnici</string>
   <string name="follow">Pratite</string>
   <string name="following">Pratite igrača</string>
   <string name="unfollow">Prekinite praćenje</string>
@@ -403,6 +416,15 @@
   <string name="winner">Pobjednik</string>
   <string name="standing">Tabela</string>
   <string name="createANewTournament">Kreirajte novi turnir</string>
+  <string name="tournamentCalendar">Kalendar turnira</string>
+  <string name="conditionOfEntry">Uvjet za sudjelovanje:</string>
+  <string name="advancedSettings">Napredne postavke</string>
+  <string name="safeTournamentName">Odaberi vrlo siguran naziv za turnir.</string>
+  <string name="inappropriateNameWarning">Sve imalo neprikladno može trajno zatvoriti tvoj profil.</string>
+  <string name="emptyTournamentName">Ako ostaviš prazno, turnir će se nazvati po nasumičnom velemajstoru.</string>
+  <string name="recommendNotTouching">Preporučamo da ne ovo ne dira.</string>
+  <string name="fewerPlayers">Ako se postavi uvjet za sudjelovanje, turnir će imati manje igrača.</string>
+  <string name="showAdvancedSettings">Prikaži napredne postavke</string>
   <string name="join">Pridružite se</string>
   <string name="withdraw">Povucite se</string>
   <string name="points">Bodovi</string>
@@ -411,6 +433,19 @@
   <string name="winStreak">Uzastopne pobjede</string>
   <string name="createdBy">Kreirao</string>
   <string name="tournamentIsStarting">Turnir počinje</string>
+  <string name="tournamentPairingsAreNowClosed">Turnirska uparivanja su završena.</string>
+  <string name="standByX">Uparivanje igrača - %s, pripremi se za igru!</string>
+  <string name="youArePlaying">Igraš!</string>
+  <string name="winRate">Postotak pobjeda</string>
+  <string name="berserkRate">Postotak berserka</string>
+  <string name="performance">Performans</string>
+  <string name="tournamentComplete">Turnir završen</string>
+  <string name="movesPlayed">Poteza igrano</string>
+  <string name="whiteWins">Pobjede bijelog</string>
+  <string name="blackWins">Pobjede crnog</string>
+  <string name="draws">Remi</string>
+  <string name="nextXTournament">Sljedeći %s turnir:</string>
+  <string name="viewMoreTournaments">Vidi više turnira</string>
   <string name="membersOnly">Samo članovi</string>
   <string name="boardEditor">Namjestite poziciju</string>
   <string name="startPosition">Početna pozicija</string>
