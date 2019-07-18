@@ -18,5 +18,5 @@ Ovo je tvoj profil: %1$s. Možeš ga mijenjati na %2$s.
 Uživaj, i neka tvoje figure uvijek pronađu put do protivničkog kralja!</string>
   <string name="common_orPaste">(Klikanje na link ne radi? Probaj ga zalijepiti u svoj preglednik!)</string>
   <string name="common_note">Ovo je servisni e-mail povezan s tvojim korištenjem stranice %s.</string>
-  <string name="common_contact">Da bi nas kontaktirao, upotrijebi %s.</string>
+  <string name="common_contact">Da bi nas kontaktirali, molimo da koristite %s.</string>
 </resources>
