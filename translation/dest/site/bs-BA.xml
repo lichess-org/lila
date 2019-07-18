@@ -582,9 +582,13 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="soundWhenTimeGetsCritical">Zvučno opozorenje pri kraju vremena</string>
   <string name="gameBehavior">Ponašanje igre</string>
   <string name="howDoYouMovePieces">Kako želiš pomicati figure?</string>
+  <string name="clickTwoSquares">Klikom na dva polja</string>
+  <string name="dragPiece">Povlačenjem figure</string>
+  <string name="bothClicksAndDrag">I klikom i povlačenjem</string>
   <string name="premovesPlayingDuringOpponentTurn">Predpotezi (igranje prilikom protivnikovog poteza)</string>
   <string name="takebacksWithOpponentApproval">Povrat poteza (uz odobrenje protivnika)</string>
   <string name="promoteToQueenAutomatically">Automatska zamjena za kraljicu</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Automatski proglasi remi po trostrukom ponavljanju pozicije</string>
   <string name="privacy">Privatnost</string>
   <string name="letOtherPlayersFollowYou">Dopustite da vas drugi igrači prate</string>
   <string name="letOtherPlayersChallengeYou">Dopustite da vas drugi igrači izazovu</string>
@@ -662,6 +666,8 @@ u %3$s</string>
   <string name="inCorrespondenceGames">U dopisnim partijama</string>
   <string name="ifRatingIsPlusMinusX">Ako je rejting ± %s</string>
   <string name="onlyFriends">Samo prijatelji</string>
+  <string name="displayBoardResizeHandle">Prikaži ručicu za promjenu veličine ploče</string>
+  <string name="onlyOnInitialPosition">Samo na početku partije</string>
   <string name="menu">Izbornik</string>
   <string name="castling">Rokada</string>
   <string name="whiteCastlingKingside">Bijeli O-O</string>
@@ -678,6 +684,10 @@ u %3$s</string>
   <string name="videoLibrary">Video biblioteka</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
+  <string name="about">Više o</string>
+  <string name="aboutX">Više o %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s je besplatni (%2$s) šah poslužitelj otvorenog koda i bez oglasa.</string>
+  <string name="really">više</string>
   <string name="contribute">Doprinesi</string>
   <string name="contact">Kontaktiraj</string>
   <string name="termsOfService">Uvjeti korištenja</string>
@@ -719,6 +729,11 @@ u %3$s</string>
   <string name="tournamentMayHaveBeenCanceled">Turnir je možda bio otkazan, ako su ga svi igrači napustili prije početka.</string>
   <string name="returnToTournamentsHomepage">Povratak na početnu stranicu turnira</string>
   <string name="weeklyPerfTypeRatingDistribution">Mjesečna %s rejting raspodjela</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">%1$s %2$s igrača ovog tjedna.</item>
+    <item quantity="few">%1$s %2$s igrača ovog tjedna.</item>
+    <item quantity="other">%1$s %2$s igrača ovog tjedna.</item>
+  </plurals>
   <string name="yourPerfTypeRatingIsRating">Vaš %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji ste nego %1$s od %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemate tačno uspostavljen %s rejting.</string>
@@ -778,6 +793,7 @@ u %3$s</string>
   <string name="xHostsY">%1$s održava %2$s</string>
   <string name="xJoinsY">%1$s se pridružuje %2$s</string>
   <string name="xLikesY">%1$s se sviđa %2$s</string>
+  <string name="xCreatesStudyY">%1$s kreira studiju %2$s</string>
   <string name="quickPairing">Brzo uparivanje</string>
   <string name="lobby">Lobi</string>
   <string name="anonymous">Anoniman igrač</string>
@@ -794,10 +810,15 @@ u %3$s</string>
   <string name="pieceSet">Set figura</string>
   <string name="embedInYourWebsite">Ugradi u svoju stranicu</string>
   <string name="usernameAlreadyUsed">Ovo korisničko ime je već u uporabi, molimo probaj s drugim.</string>
+  <string name="usernamePrefixInvalid">Korisničko ime mora započeti sa slovom.</string>
+  <string name="usernameSuffixInvalid">Korisničko ime mora završiti sa slovom ili brojem.</string>
+  <string name="usernameCharsInvalid">Korisničko ime može sadržavati samo slova, brojeve, podvlake i crtice.</string>
   <string name="usernameUnacceptable">Ovo korisničko ime nije prihvatljivo.</string>
   <string name="directlySupportLichess">Direktno podrži Lichess</string>
   <string name="playChessInStyle">Igraj šah u stilu</string>
   <string name="chessBasics">Šahovske osnove</string>
+  <string name="coaches">Treneri</string>
+  <string name="invalidPgn">Nevaljan PGN</string>
   <string name="evaluatingYourMove">Procjena tvog poteza ...</string>
   <string name="whiteWinsGame">Bijeli pobjeđuje</string>
   <string name="blackWinsGame">Crni pobjeđuje</string>
