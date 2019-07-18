@@ -4,16 +4,19 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.user.User
+
 final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
     onStart: String => Unit,
-    blocking: String => Fu[Set[String]],
+    blocking: User.ID => Fu[Set[User.ID]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
+    remoteSocketApi: lila.socket.RemoteSocket,
     system: ActorSystem
 ) {
 
@@ -68,6 +71,13 @@ final class Env(
   )
   system.lilaBus.subscribe(socketHandler, 'nbMembers, 'nbRounds)
 
+  private val remoteSocket = new LobbyRemoteSocket(
+    remoteSocketApi = remoteSocketApi,
+    socket = socket,
+    blocking = blocking,
+    bus = system.lilaBus
+  )
+
   private val abortListener = new AbortListener(seekApi, lobbyTrouper)
 
   system.lilaBus.subscribeFun('abortGame) {
@@ -87,6 +97,7 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     system = lila.common.PlayApp.system
   )
 }

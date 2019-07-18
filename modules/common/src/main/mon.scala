@@ -121,21 +121,18 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
-      def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
-      def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
+      val createdLikePoolFiveO = inc("lobby.hook.like_pool_5_0")
+      val acceptedLikePoolFiveO = inc("lobby.hook.like_pool_5_0_accepted")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
       val getSris = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
-      val mobile = rec("lobby.socket.mobile")
     }
     object pool {
       object wave {

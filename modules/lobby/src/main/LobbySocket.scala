@@ -37,15 +37,14 @@ private[lobby] final class LobbySocket(
       promise success Socket.Sris(members.keySet.map(Socket.Sri.apply)(scala.collection.breakOut))
       lila.mon.lobby.socket.idle(idleSris.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberSris.size)
-      lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
 
     case Cleanup =>
       idleSris retain members.contains
       hookSubscriberSris retain members.contains
 
-    case Join(sri, user, blocks, mobile, promise) =>
+    case Join(sri, user, blocks, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = LobbySocketMember(channel, user, blocks, sri, mobile)
+      val member = LobbySocketMember(channel, user, blocks, sri)
       addMember(sri, member)
       promise success Connected(enumerator, member)
 
@@ -67,7 +66,7 @@ private[lobby] final class LobbySocket(
         }
       }
       if (hook.likePoolFiveO) withMember(hook.sri) { member =>
-        lila.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
+        lila.mon.lobby.hook.createdLikePoolFiveO()
       }
 
     case AddSeek(_) => notifySeeks
@@ -89,23 +88,23 @@ private[lobby] final class LobbySocket(
 
     case JoinHook(sri, hook, game, creatorColor) =>
       withMember(hook.sri) { member =>
-        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        lila.mon.lobby.hook.join()
         notifyPlayerStart(game, creatorColor)(member)
       }
       withMember(sri) { member =>
-        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        lila.mon.lobby.hook.join()
         if (hook.likePoolFiveO)
-          lila.mon.lobby.hook.acceptedLikePoolFiveO(member.mobile)()
+          lila.mon.lobby.hook.acceptedLikePoolFiveO()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
     case JoinSeek(userId, seek, game, creatorColor) =>
       membersByUserId(seek.user.id) foreach { member =>
-        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        lila.mon.lobby.seek.join()
         notifyPlayerStart(game, creatorColor)(member)
       }
       membersByUserId(userId) foreach { member =>
-        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        lila.mon.lobby.seek.join()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 

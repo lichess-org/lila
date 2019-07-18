@@ -16,7 +16,7 @@ private[lobby] final class SocketHandler(
     lobby: LobbyTrouper,
     socket: LobbySocket,
     poolApi: PoolApi,
-    blocking: String => Fu[Set[String]]
+    blocking: User.ID => Fu[Set[User.ID]]
 ) extends Tellable.PartialReceive with Tellable.HashCode {
 
   private var pong = Socket.initialPong
@@ -34,11 +34,7 @@ private[lobby] final class SocketHandler(
   )
 
   private def HookPoolLimit[A: Zero](member: LobbySocketMember, cost: Int, msg: => String)(op: => A) =
-    HookPoolLimitPerMember(
-      k = member.sri.value,
-      cost = cost,
-      msg = s"$msg mobile=${member.mobile}"
-    )(op)
+    HookPoolLimitPerMember(k = member.sri.value, cost = cost, msg = msg)(op)
 
   private def controller(socket: LobbySocket, member: LobbySocketMember, isBot: Boolean): Handler.Controller = {
     case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
@@ -103,11 +99,10 @@ private[lobby] final class SocketHandler(
   def apply(
     sri: Socket.Sri,
     user: Option[User],
-    mobile: Boolean,
     apiVersion: ApiVersion
   ): Fu[JsSocketHandler] =
     (user ?? (u => blocking(u.id))) flatMap { blockedUserIds =>
-      socket.ask[Connected](Join(sri, user, blockedUserIds, mobile, _)) map {
+      socket.ask[Connected](Join(sri, user, blockedUserIds, _)) map {
         case Connected(enum, member) => Handler.iteratee(
           hub,
           controller(socket, member, user.exists(_.isBot)),

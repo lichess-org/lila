@@ -91,15 +91,14 @@ final class RemoteSocket(
 
   private val connOut = redisClient.connectPubSub()
 
-  def subscribe(channel: Channel)(handler: Handler): Unit = {
+  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Unit = {
     val conn = redisClient.connectPubSub()
     conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
       override def message(_channel: String, message: String): Unit = {
-        val parts = message.split(" ", 2)
-        val path = parts(0)
+        val raw = RawMsg(message)
         mon.redis.in.channel(channel)()
-        mon.redis.in.path(channel, path)()
-        In.read(path, ~parts.lift(1)) collect handler match {
+        mon.redis.in.path(channel, raw.path)()
+        reader(raw) collect handler match {
           case Some(_) => // processed
           case None => logger.warn(s"Unhandled $message")
         }
@@ -120,8 +119,17 @@ object RemoteSocket {
 
   object Protocol {
 
+    case class RawMsg(path: Path, args: Args)
+    def RawMsg(msg: String): RawMsg = {
+      val parts = msg.split(" ", 2)
+      RawMsg(parts(0), ~parts.lift(1))
+    }
+
     trait In
     object In {
+
+      type Reader = RawMsg => Option[In]
+
       import Socket.Sri
       case class ConnectUser(userId: String) extends In
       case class DisconnectUser(userId: String) extends In
@@ -136,21 +144,21 @@ object RemoteSocket {
       case class Friends(userId: String) extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, data: JsObject) extends In
 
-      def read(path: String, args: String): Option[In] = path match {
-        case "connect" => ConnectUser(args).some // deprecated
-        case "disconnect" => DisconnectUser(args).some // deprecated
-        case "connect/user" => ConnectUser(args).some
-        case "disconnect/user" => DisconnectUser(args).some
-        case "connect/sri" => args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
-        case "disconnect/sri" => args.split(' ') |> { s => DisconnectSri(Sri(s(0)), s lift 1).some }
+      val baseReader: Reader = raw => raw.path match {
+        case "connect" => ConnectUser(raw.args).some // deprecated
+        case "disconnect" => DisconnectUser(raw.args).some // deprecated
+        case "connect/user" => ConnectUser(raw.args).some
+        case "disconnect/user" => DisconnectUser(raw.args).some
+        case "connect/sri" => raw.args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
+        case "disconnect/sri" => raw.args.split(' ') |> { s => DisconnectSri(Sri(s(0)), s lift 1).some }
         case "disconnect/all" => DisconnectAll.some
-        case "watch" => Watch(args).some
-        case "unwatch" => Unwatch(args).some
-        case "notified" => Notified(args).some
-        case "connections" => parseIntOption(args) map Connections.apply
-        case "lag" => args.split(' ') |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
-        case "friends" => Friends(args).some
-        case "tell/sri" => args.split(" ", 3) match {
+        case "watch" => Watch(raw.args).some
+        case "unwatch" => Unwatch(raw.args).some
+        case "notified" => Notified(raw.args).some
+        case "connections" => parseIntOption(raw.args) map Connections.apply
+        case "lag" => raw.args.split(' ') |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
+        case "friends" => Friends(raw.args).some
+        case "tell/sri" => raw.args.split(" ", 3) match {
           case Array(sri, userOrAnon, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]
             typ <- obj str "t"
