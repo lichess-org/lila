@@ -543,7 +543,7 @@
   <string name="insult">Увреда</string>
   <string name="troll">Трол</string>
   <string name="other">Остало</string>
-  <string name="reportDescriptionHelp">Zalijepi link na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
+  <string name="reportDescriptionHelp">Залијепите везу до игре и објасните шта није у реду са понашањем корисника. Немојте само рећи \"варао\", али реците како сте дошли до тог закључка. Ваша пријава ће бити обрађена брже ако је напишете на енглеском језику.</string>
   <string name="error.provideOneCheatedGameLink">Навидете бар један линк партије против играча који вара.</string>
   <string name="by">од %s</string>
   <string name="thisTopicIsNowClosed">Ова тема је сада затворена</string>
