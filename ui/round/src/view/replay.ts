@@ -12,23 +12,25 @@ import { Step, MaybeVNodes } from '../interfaces';
 
 const scrollMax = 99999, moveTag = 'm2';
 
-const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
-  if (ctrl.data.steps.length < 7) return;
-  let st: number | undefined = undefined;
-  if (ctrl.ply < 3) st = 0;
-  else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
-  else {
-    const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
-    if (plyEl) st = window.lidraughts.isCol1() ?
-      plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
-      plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
-  }
-  if (typeof st == 'number') {
-    if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-    else if (window.lidraughts.isCol1()) movesEl.scrollLeft = st;
-    else movesEl.scrollTop = st;
-  }
-});
+const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
+  window.requestAnimationFrame(() => {
+    if (ctrl.data.steps.length < 7) return;
+    let st: number | undefined = undefined;
+    if (ctrl.ply < 3) st = 0;
+    else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
+    else {
+      const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
+      if (plyEl) st = window.lidraughts.isCol1() ?
+        plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
+        plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (typeof st == 'number') {
+      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+      else if (window.lidraughts.isCol1()) movesEl.scrollLeft = st;
+      else movesEl.scrollTop = st;
+    }
+  })
+);
 
 function renderMove(step: Step, curPly: number, orEmpty: boolean) {
   return step ? h(moveTag, {
@@ -196,7 +198,7 @@ export function render(ctrl: RoundController): VNode | undefined {
             }
           }
         });
-        ctrl.autoScroll = () => window.requestAnimationFrame(() => autoScroll(el, ctrl));
+        ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
       })
