@@ -57,6 +57,9 @@ object Environment
 
   val spinner: Frag = raw("""<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>""")
 
+  def maybeLobbyRemoteSocketDomain(implicit ctx: Context): Option[String] =
+    ctx.userId exists Env.lobby.socketRemoteUsersSetting.get().matches option remoteSocketDomain
+
   def usesServiceWorker(implicit ctx: Context): Boolean =
     ctx.userId exists Env.api.serviceWorkerSetting.get().matches
 }

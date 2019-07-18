@@ -86,6 +86,7 @@ module.exports = function(cfg, element) {
         }
       },
       options: {
+        remoteSocketDomain: cfg.remoteSocketDomain,
         name: 'lobby',
         onFirstConnect: onFirstConnect
       }

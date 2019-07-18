@@ -16,6 +16,7 @@ final class Env(
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
+    settingStore: lila.memo.SettingStore.Builder,
     remoteSocketApi: lila.socket.RemoteSocket,
     system: ActorSystem
 ) {
@@ -80,6 +81,14 @@ final class Env(
 
   private val abortListener = new AbortListener(seekApi, lobbyTrouper)
 
+  import lila.memo.SettingStore.Regex._
+  import lila.memo.SettingStore.Formable.regexFormable
+  val socketRemoteUsersSetting = settingStore[scala.util.matching.Regex](
+    "lobbySocketRemoteUsers",
+    default = "".r,
+    text = "Regex selecting user IDs using lobby remote socket".some
+  )
+
   system.lilaBus.subscribeFun('abortGame) {
     case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
   }
@@ -97,6 +106,7 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
+    settingStore = lila.memo.Env.current.settingStore,
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
     system = lila.common.PlayApp.system
   )
