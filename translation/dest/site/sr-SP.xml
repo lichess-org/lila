@@ -59,6 +59,7 @@
   <string name="promoteVariation">Промовишите варијацију</string>
   <string name="makeMainLine">Направи као главну линију</string>
   <string name="deleteFromHere">Избриши одавде</string>
+  <string name="forceVariation">Промакни варијацију</string>
   <string name="move">Потез</string>
   <string name="variantLoss">Губитак из варијанте</string>
   <string name="variantWin">Победа из варијанте</string>
@@ -376,6 +377,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Кликни на таблу и направи потез да би доказао да си човек.</string>
   <string name="captcha.fail">Решите CAPTCHA шаховски проблем.</string>
   <string name="notACheckmate">Није шахмат</string>
+  <string name="whiteCheckmatesInOneMove">Бели матирау једном потезу</string>
+  <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поновно повезивање</string>
   <string name="onlineFriends">Пријатељи на мрежи</string>
@@ -540,7 +543,7 @@
   <string name="insult">Увреда</string>
   <string name="troll">Трол</string>
   <string name="other">Остало</string>
-  <string name="reportDescriptionHelp">Налепи везу партије и објасни шта није у реду са понашањем овог коринсика</string>
+  <string name="reportDescriptionHelp">Zalijepi link na partiju/e u pitanju i objasni što nije u redu s ponašanjem korisnika. Nemoj samo reći \"varao je\", nego reci kako si došao/la do tog zaključka. Tvoja prijava bit će obrađena brže ako ju napišeš na engleskom jeziku.</string>
   <string name="error.provideOneCheatedGameLink">Навидете бар један линк партије против играча који вара.</string>
   <string name="by">од %s</string>
   <string name="thisTopicIsNowClosed">Ова тема је сада затворена</string>
@@ -663,6 +666,8 @@
   <string name="inCorrespondenceGames">У дописним играма</string>
   <string name="ifRatingIsPlusMinusX">Ако рејтинг ± %s</string>
   <string name="onlyFriends">Само пријатељи</string>
+  <string name="displayBoardResizeHandle">Покажите ручицуда бисте променили величину панела</string>
+  <string name="onlyOnInitialPosition">Само на почетку партије</string>
   <string name="menu">Опције</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели О-О</string>
