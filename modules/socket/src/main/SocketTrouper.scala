@@ -180,10 +180,6 @@ object SocketTrouper extends Socket {
   case class GetNbMembers(promise: Promise[Int])
 
   val resyncMessage = makeMessage("resync")
-
-  def resyncMsgWithDebug(debug: => String) =
-    if (Env.current.socketDebugSetting.get) makeMessageDebug("resync", debug)
-    else resyncMessage
 }
 
 // Not managed by a TrouperMap

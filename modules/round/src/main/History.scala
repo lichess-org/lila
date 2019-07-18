@@ -33,13 +33,6 @@ private final class History(
     versionHolder
   }
 
-  def versionDebugString: String = {
-    waitForLoadedEvents
-    Option(events.peekLast).fold("-:-") { l =>
-      s"${events.peekFirst}:${l.version}@${l.date - nowSeconds}s"
-    }
-  }
-
   def getEventsSince(v: SocketVersion, mon: Option[lila.mon.round.history.PlatformHistory]): EventResult = {
     val version = getVersion
     if (v > version) VersionTooHigh

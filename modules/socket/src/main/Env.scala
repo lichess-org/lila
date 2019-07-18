@@ -11,8 +11,7 @@ final class Env(
     system: ActorSystem,
     config: Config,
     lifecycle: play.api.inject.ApplicationLifecycle,
-    hub: lila.hub.Env,
-    settingStore: lila.memo.SettingStore.Builder
+    hub: lila.hub.Env
 ) {
 
   private val RedisUri = config getString "redis.uri"
@@ -34,12 +33,6 @@ final class Env(
   )
 
   system.scheduler.schedule(5 seconds, 1 seconds) { population ! PopulationTell }
-
-  val socketDebugSetting = settingStore[Boolean](
-    "socketDebug",
-    default = false,
-    text = "Send extra debugging to websockets.".some
-  )
 }
 
 object Env {
@@ -48,7 +41,6 @@ object Env {
     system = lila.common.PlayApp.system,
     config = lila.common.PlayApp loadConfig "socket",
     lifecycle = lila.common.PlayApp.lifecycle,
-    hub = lila.hub.Env.current,
-    settingStore = lila.memo.Env.current.settingStore
+    hub = lila.hub.Env.current
   )
 }
