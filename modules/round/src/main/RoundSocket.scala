@@ -285,11 +285,6 @@ private[round] final class RoundSocket(
     case many => makeMessage("b", many map (_ jsFor member)).some
   }
 
-  def batchMsgsDebug(member: Member, vevents: List[VersionedEvent], debug: => String) = {
-    if (Env.current.socketDebug()) makeMessageDebug("b", vevents map (_ jsFor member), debug).some
-    else batchMsgs(member, vevents)
-  }
-
   def notifyOwner[A: Writes](color: Color, t: String, data: A) =
     withOwnerOf(color) {
       _ push makeMessage(t, data)

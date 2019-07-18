@@ -29,11 +29,6 @@ object Socket extends Socket {
 }
 
 private[socket] trait Socket {
-  def makeMessageDebug[A](t: String, data: A, debug: String)(implicit writes: Writes[A]): JsObject =
-    JsObject(new Map.Map3("t", JsString(t), "d", writes.writes(data), "debug", JsString(debug)))
-
-  def makeMessageDebug[A](t: String, debug: String): JsObject =
-    JsObject(new Map.Map2("t", JsString(t), "debug", JsString(debug)))
 
   def makeMessage[A](t: String, data: A)(implicit writes: Writes[A]): JsObject =
     JsObject(new Map.Map2("t", JsString(t), "d", writes.writes(data)))

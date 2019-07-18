@@ -36,8 +36,7 @@ final class Env(
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors,
-    val socketDebug: () => Boolean
+    ratingFactors: () => lila.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -279,7 +278,6 @@ object Env {
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
-    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
-    socketDebug = lila.socket.Env.current.socketDebugSetting.get
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
   )
 }
