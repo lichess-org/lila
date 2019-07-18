@@ -12,6 +12,7 @@ final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
+    remoteSocketDomain: Context => Option[String],
     pools: List[lila.pool.PoolConfig]
 ) {
 
@@ -32,7 +33,7 @@ final class LobbyApi(
               "nowPlaying" -> JsArray(displayedPovs map nowPlaying),
               "nbNowPlaying" -> povs.size,
               "filter" -> filter.render
-            ) -> displayedPovs
+            ).add("remoteSocketDomain" -> remoteSocketDomain(ctx)) -> displayedPovs
           }
       }
 
@@ -55,5 +56,6 @@ final class LobbyApi(
     ).add("rating" -> pov.opponent.rating)
       .add("ai" -> pov.opponent.aiLevel),
     "isMyTurn" -> pov.isMyTurn
-  ).add("secondsLeft" -> pov.remainingSeconds)
+  )
+    .add("secondsLeft" -> pov.remainingSeconds)
 }
