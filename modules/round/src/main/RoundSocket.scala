@@ -192,9 +192,9 @@ private[round] final class RoundSocket(
       }
 
       val initialMsgs = events.fold(
-        SocketTrouper.resyncMsgWithDebug(s"join,$debugString,cv($version)").some
+        SocketTrouper.resyncMessage.some
       ) {
-          batchMsgsDebug(member, _, s"join,$debugString,cv($version)")
+          batchMsgs(member, _)
         } map { m => Enumerator(m: JsValue) }
 
       val fullEnumerator = lila.common.Iteratee.prependFu(
@@ -262,8 +262,6 @@ private[round] final class RoundSocket(
   }
 
   override protected def afterQuit(sri: Socket.Sri, member: Member) = notifyCrowd
-
-  def debugString = s"sid:$uniqueId,sv(${history.versionDebugString})"
 
   def notifyCrowd: Unit = if (isAlive) {
     if (!delayedCrowdNotification) {
