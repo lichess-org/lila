@@ -61,7 +61,7 @@ object Account extends LidraughtsController {
                 import lidraughts.pref.JsonView._
                 Env.user.jsonView(me) ++ Json.obj(
                   "prefs" -> prefs,
-                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                  "nowPlaying" -> JsArray(povs take 50 map Env.api.lobbyApi.nowPlaying),
                   "nbFollowing" -> nbFollowing,
                   "nbFollowers" -> nbFollowers,
                   "nbChallenges" -> nbChallenges
