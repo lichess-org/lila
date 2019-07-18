@@ -12,6 +12,7 @@ Ako pobjediš dvije partije za redom, započet ćeš niz od dvostrukih bodova, o
 Sljedeće partije će također vrijediti dvostruko bodova tako dugo dok ne doživiš poraz, tj. pobjeda će vrijediti 4 boda, remi: 2 boda, a poraz i dalje neće nositi nikakve bodove.
 
 Npr. dvije pobjede i jedan remi vrijedit će 6 bodova: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Arena Berserk</string>
   <string name="berserkAnswer">Kada igrač klikne gumb \"Berserk\" na početku partije, izgubit će polovinu vremena, ali pobjeda vrijedi jedan dodatan turnirski bod.
 
 Berserk u vremenskim kontrolama s dodatkom također uklanja vremenski dodatak. (1+2 je iznimka, ono daje 1+0)
