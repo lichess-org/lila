@@ -29,12 +29,15 @@ final class EmailAddressValidator(
    *                If they already have it assigned, returns false.
    * @return
    */
-  private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Boolean =
-    (lidraughts.user.UserRepo.idByEmail(email.normalize) awaitSeconds 2, forUser) match {
+  private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
+    lidraughts.user.UserRepo.idByEmail(email.normalize) map (_ -> forUser) map {
       case (None, _) => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _) => true
     }
+
+  private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
+    lidraughts.user.UserRepo.countRecentByPrevEmail(email.normalize).map(1<)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isAcceptable(EmailAddress(e))) Valid
@@ -42,8 +45,9 @@ final class EmailAddressValidator(
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    if (isTakenBySomeoneElse(EmailAddress(e), forUser))
-      Invalid(ValidationError("error.email_unique"))
+    val email = EmailAddress(e)
+    val (taken, reused) = (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)) awaitSeconds 2
+    if (taken || reused) Invalid(ValidationError("error.email_unique"))
     else Valid
   }
 
