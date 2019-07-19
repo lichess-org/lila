@@ -40,12 +40,14 @@ final class Env(
 
   // remote socket support
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
-    case RemoteSocketTellSriIn(sri, _, d) =>
+    case RemoteSocketTellSriIn(sri, _, msg) => msg obj "d" foreach { d =>
       socketHandler.evalGet(Sri(sri), d, res => system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut))
+    }
   }
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
-    case RemoteSocketTellSriIn(sri, Some(userId), d) =>
+    case RemoteSocketTellSriIn(sri, Some(userId), msg) => msg obj "d" foreach { d =>
       socketHandler.untrustedEvalPut(Sri(sri), userId, d)
+    }
   }
   // END remote socket support
 

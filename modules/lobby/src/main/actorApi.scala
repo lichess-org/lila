@@ -11,6 +11,7 @@ import lila.user.User
 private[lobby] sealed trait LobbySocketMember extends SocketMember {
   val user: Option[LobbyUser]
   val sri: Sri
+  def bot = user.exists(_.bot)
 }
 
 private[lobby] case class LobbyDirectSocketMember(
@@ -22,7 +23,7 @@ private[lobby] case class LobbyDirectSocketMember(
 }
 
 private[lobby] case class LobbyRemoteSocketMember(
-    bus: lila.common.Bus,
+    push: SocketMember.Push,
     user: Option[LobbyUser],
     sri: Sri
 ) extends LobbySocketMember with RemoteSocketMember {
@@ -38,9 +39,9 @@ private[lobby] object LobbySocketMember {
       sri = sri
     )
 
-  def apply(bus: lila.common.Bus, user: Option[User], blocking: Set[String], sri: Sri): LobbyRemoteSocketMember =
+  def apply(push: SocketMember.Push, user: Option[User], blocking: Set[String], sri: Sri): LobbyRemoteSocketMember =
     LobbyRemoteSocketMember(
-      bus = bus,
+      push = push,
       user = user map { LobbyUser.make(_, blocking) },
       sri = sri
     )
@@ -74,6 +75,7 @@ private[lobby] case class HookSub(member: LobbySocketMember, value: Boolean)
 private[lobby] case class AllHooksFor(member: LobbySocketMember, hooks: Vector[Hook])
 
 private[lobby] case class GetSrisP(promise: Promise[Sris])
+private[lobby] case class GetRemoteMember(sri: Sri, promise: Promise[Option[LobbyRemoteSocketMember]])
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)

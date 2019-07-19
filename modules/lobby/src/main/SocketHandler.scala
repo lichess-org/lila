@@ -36,8 +36,8 @@ private[lobby] final class SocketHandler(
   private def HookPoolLimit[A: Zero](member: LobbySocketMember, cost: Int, msg: => String)(op: => A) =
     HookPoolLimitPerMember(k = member.sri.value, cost = cost, msg = msg)(op)
 
-  private def controller(socket: LobbySocket, member: LobbySocketMember, isBot: Boolean): Handler.Controller = {
-    case ("join", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
+  private[lobby] def controller(socket: LobbySocket)(member: LobbySocketMember): Handler.Controller = {
+    case ("join", o) if !member.bot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.sri, member.user)
       }
@@ -45,7 +45,7 @@ private[lobby] final class SocketHandler(
     case ("cancel", _) => HookPoolLimit(member, cost = 1, msg = "cancel") {
       lobby ! CancelHook(member.sri)
     }
-    case ("joinSeek", o) if !isBot => HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
+    case ("joinSeek", o) if !member.bot => HookPoolLimit(member, cost = 5, msg = s"joinSeek $o") {
       for {
         id <- o str "d"
         user <- member.user
@@ -59,7 +59,7 @@ private[lobby] final class SocketHandler(
     }
     case ("idle", o) => socket ! SetIdle(member.sri, ~(o boolean "d"))
     // entering a pool
-    case ("poolIn", o) if !isBot => HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
+    case ("poolIn", o) if !member.bot => HookPoolLimit(member, cost = 1, msg = s"poolIn $o") {
       for {
         user <- member.user
         d <- o obj "d"
@@ -105,7 +105,7 @@ private[lobby] final class SocketHandler(
       socket.ask[Connected](Join(sri, user, blockedUserIds, _)) map {
         case Connected(enum, member) => Handler.iteratee(
           hub,
-          controller(socket, member, user.exists(_.isBot)),
+          controller(socket)(member),
           member,
           socket,
           sri,

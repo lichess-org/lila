@@ -76,6 +76,7 @@ final class Env(
     remoteSocketApi = remoteSocketApi,
     socket = socket,
     blocking = blocking,
+    controller = socketHandler.controller(socket) _,
     bus = system.lilaBus
   )
 

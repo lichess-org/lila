@@ -131,6 +131,10 @@ private[lobby] final class LobbySocket(
     case AllHooksFor(member, hooks) =>
       notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
       hookSubscriberSris += member.sri.value
+
+    case GetRemoteMember(sri, promise) => promise success {
+      members get sri.value collect { case m: LobbyRemoteSocketMember => m }
+    }
   }
 
   private def redirectPlayers(p: lila.pool.PoolApi.Pairing) = {

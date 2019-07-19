@@ -12,6 +12,7 @@ import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds, RemoteSocketTellSriIn, RemoteSocketTellSriOut }
 import lila.hub.actorApi.{ Deploy, Announce }
 import lila.socket.actorApi.SendToFlag
+import Socket.Sri
 
 final class RemoteSocket(
     redisClient: RedisClient,
@@ -35,8 +36,8 @@ final class RemoteSocket(
     case In.Connections(nb) => tick(nb)
     case In.Friends(userId) => bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     case In.Lag(userId, lag) => UserLagCache.put(userId, lag)
-    case In.TellSri(sri, userId, typ, dat) =>
-      bus.publish(RemoteSocketTellSriIn(sri.value, userId, dat), Symbol(s"remoteSocketIn:$typ"))
+    case In.TellSri(sri, userId, typ, msg) =>
+      bus.publish(RemoteSocketTellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
     case In.DisconnectAll =>
       logger.info("Remote socket disconnect all")
       connectedUserIds.clear
@@ -60,7 +61,7 @@ final class RemoteSocket(
     case SendToFlag(flag, payload) =>
       send(Out.tellFlag(flag, payload))
     case RemoteSocketTellSriOut(sri, payload) =>
-      send(Out.tellSri(sri, payload))
+      send(Out.tellSri(Sri(sri), payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
     case WithUserIds(f) =>
@@ -130,7 +131,6 @@ object RemoteSocket {
 
       type Reader = RawMsg => Option[In]
 
-      import Socket.Sri
       case class ConnectUser(userId: String) extends In
       case class DisconnectUser(userId: String) extends In
       case class ConnectSri(sri: Sri, userId: Option[String]) extends In
@@ -142,7 +142,7 @@ object RemoteSocket {
       case class Connections(nb: Int) extends In
       case class Lag(userId: String, lag: Centis) extends In
       case class Friends(userId: String) extends In
-      case class TellSri(sri: Sri, userId: Option[String], typ: String, data: JsObject) extends In
+      case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
 
       val baseReader: Reader = raw => raw.path match {
         case "connect" => ConnectUser(raw.args).some // deprecated
@@ -162,9 +162,8 @@ object RemoteSocket {
           case Array(sri, userOrAnon, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]
             typ <- obj str "t"
-            dat <- obj obj "d"
             userId = userOrAnon.some.filter("-" !=)
-          } yield TellSri(Sri(sri), userId, typ, dat)
+          } yield TellSri(Sri(sri), userId, typ, obj)
           case _ => none
         }
         case _ => none
@@ -182,7 +181,7 @@ object RemoteSocket {
         s"tell/all ${Json stringify payload}"
       def tellFlag(flag: String, payload: JsObject) =
         s"tell/flag $flag ${Json stringify payload}"
-      def tellSri(sri: String, payload: JsValue) =
+      def tellSri(sri: Sri, payload: JsValue) =
         s"tell/sri $sri ${Json stringify payload}"
       def mlat(lat: Int) =
         s"mlat $lat"
