@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
-  <string name="usingServerAnalysis">Analiza na serwerze</string>
+  <string name="usingServerAnalysis">Analiza zdalna</string>
   <string name="loadingEngine">Wczytywanie analizatora…</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
@@ -78,13 +78,13 @@
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s ruchu</item>
-    <item quantity="few">Mat w %s ruchach</item>
-    <item quantity="many">Mat w %s ruchach</item>
-    <item quantity="other">Mat w %s ruchach</item>
+    <item quantity="one">Mat w %s posunięciu</item>
+    <item quantity="few">Mat w %s posunięciach</item>
+    <item quantity="many">Mat w %s posunięciach</item>
+    <item quantity="other">Mat w %s posunięciach</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="one">Następne bicie lub ruch pionem w następnym posunięciu (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
@@ -348,7 +348,7 @@
   <string name="yourPerfRatingIsProvisional">Twój ranking (%s) ma charakter przejściowy</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
-  <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest zbyt niski</string>
+  <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest za niski</string>
   <string name="ratedMoreThanInPerf">Ranking ≥ %1$s (%2$s)</string>
   <string name="ratedLessThanInPerf">Ranking ≤ %1$s (%2$s)</string>
   <string name="mustBeInTeam">Musisz należeć do klubu %s</string>
@@ -365,7 +365,7 @@
   <string name="allTeams">Wszystkie kluby</string>
   <string name="newTeam">Załóż klub</string>
   <string name="myTeams">Moje kluby</string>
-  <string name="noTeamFound">Nie należysz do żadnego klubu</string>
+  <string name="noTeamFound">Nie znaleziono klubu</string>
   <string name="joinTeam">Dołącz do klubu</string>
   <string name="quitTeam">Opuść klub</string>
   <string name="anyoneCanJoin">Każdy może dołączyć</string>
@@ -429,7 +429,7 @@
   </plurals>
   <string name="more">Więcej</string>
   <string name="memberSince">Zarejestrowany od</string>
-  <string name="lastSeenActive">Ostatnie logowanie %s</string>
+  <string name="lastSeenActive">Widziano %s</string>
   <string name="challengeToPlay">Zaproś do gry</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
