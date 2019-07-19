@@ -49,7 +49,7 @@
   <string name="computerAnalysisAvailable">Dostępna analiza komputerowa</string>
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
-  <string name="usingServerAnalysis">Analiza na serwerze</string>
+  <string name="usingServerAnalysis">Analiza zdalna</string>
   <string name="loadingEngine">Wczytywanie analizatora…</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
