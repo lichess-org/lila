@@ -77,18 +77,18 @@ final class RemoteSocket(
 
   private val mon = lila.mon.socket.remote
 
-  def sendTo(channel: Channel)(path: Path, args: String*): Unit = {
+  def sendTo(channel: Channel)(msg: String): Unit = {
     val chrono = Chronometer.start
     Chronometer.syncMon(_.socket.remote.redis.publishTimeSync) {
-      connOut.async.publish(channel, s"$path ${args mkString " "}").thenRun {
+      connOut.async.publish(channel, msg).thenRun {
         new Runnable { def run = chrono.mon(_.socket.remote.redis.publishTime) }
       }
     }
     mon.redis.out.channel(channel)()
-    mon.redis.out.path(channel, path)()
+    mon.redis.out.path(channel, msg.takeWhile(' ' !=))()
   }
 
-  private val send: (Path, Args*) => Unit = sendTo("site-out") _
+  private val send: String => Unit = sendTo("site-out") _
 
   private val connOut = redisClient.connectPubSub()
 

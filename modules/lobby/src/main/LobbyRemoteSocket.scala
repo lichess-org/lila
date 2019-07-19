@@ -16,7 +16,7 @@ final class LobbyRemoteSocket(
 
   import LobbyRemoteSocket.Protocol._
 
-  private val send: (Path, Args*) => Unit = remoteSocketApi.sendTo("lobby-out") _
+  private val send: String => Unit = remoteSocketApi.sendTo("lobby-out") _
 
   private val handler: Handler = {
     case P.In.ConnectSri(sri, userOpt) =>
