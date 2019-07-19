@@ -138,6 +138,14 @@ private[lobby] final class LobbySocket(
     }
   }
 
+  // don't broom out remote socket members
+  // since we don't get their pings and don't set them alive
+  override protected def broom: Unit =
+    members.foreachValue {
+      case m @ LobbyDirectSocketMember(_, _, sri) if !aliveSris.get(sri.value) => eject(sri, m)
+      case _ =>
+    }
+
   private def redirectPlayers(p: lila.pool.PoolApi.Pairing) = {
     withMember(p.whiteSri)(notifyPlayerStart(p.game, chess.White))
     withMember(p.blackSri)(notifyPlayerStart(p.game, chess.Black))
