@@ -54,6 +54,12 @@ object UserRepo {
     query.copy(options = query.options.batchSize(batchSize)).cursor[Bdoc](readPreference)
   }
 
+  def countRecentByPrevEmail(
+    email: NormalizedEmailAddress,
+    since: DateTime = DateTime.now.minusWeeks(1)
+  ): Fu[Int] =
+    coll.countSel($doc(F.prevEmail -> email, F.createdAt $gt since))
+
   def pair(x: Option[ID], y: Option[ID]): Fu[(Option[User], Option[User])] =
     coll.byIds[User](List(x, y).flatten) map { users =>
       x.??(xx => users.find(_.id == xx)) ->
