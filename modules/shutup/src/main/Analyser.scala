@@ -4,10 +4,22 @@ import lila.common.constants.bannedYoutubeIds
 
 object Analyser {
 
-  def apply(text: String) = TextAnalysis(
-    text,
-    bigRegex.findAllMatchIn(text).map(_.toString).toList
-  )
+  def apply(raw: String) = {
+    val text = preprocess(raw)
+    TextAnalysis(
+      text,
+      bigRegex.findAllMatchIn(text).map(_.toString).toList
+    )
+  }
+
+  private def preprocess(text: String): String =
+    text.toLowerCase map {
+      case 'е' => 'e'
+      case 'а' => 'a'
+      case 'у' => 'y'
+      case 'х' => 'x'
+      case c => c
+    }
 
   private def wordsRegexes =
     Dictionary.en.map { word =>
