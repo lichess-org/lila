@@ -22,8 +22,8 @@
     <item quantity="other">%s участников</item>
   </plurals>
   <string name="inviteToTheStudy">Пригласить в студию</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Приглашайте только тех участников, которых вы знаете, и кто активно желает участвовать в это студии.</string>
-  <string name="searchByUsername">Поиск по имени участника</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Приглашайте только тех участников, которых вы знаете, и кто активно желает участвовать в этой студии.</string>
+  <string name="searchByUsername">Поиск по имени</string>
   <string name="spectator">Зритель</string>
   <string name="contributor">Редактор</string>
   <string name="kick">Выгнать</string>
@@ -38,7 +38,7 @@
   <string name="annotateWithGlyphs">Добавить символьную аннотацию</string>
   <string name="theChapterIsTooShortToBeAnalysed">Глава слишком короткая для анализа.</string>
   <string name="onlyContributorsCanRequestAnalysis">Только редакторы студии могут запросить компьютерный анализ.</string>
-  <string name="getAFullComputerAnalysis">Получить полный серверный компьютерный анализ главной линии.</string>
+  <string name="getAFullComputerAnalysis">Получить с сервера полный компьютерный анализ главной линии.</string>
   <string name="makeSureTheChapterIsComplete">Убедитесь, что глава завершена. Вы можете запросить анализ только один раз.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
@@ -57,7 +57,7 @@
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте эту ссылку в форум, чтобы встроить главу</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее а встраивании глав студии</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее о встраивании глав студии</string>
   <string name="fen">FEN</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>

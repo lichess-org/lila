@@ -6,5 +6,9 @@
   <string name="averageScoreAsWhiteX">הציון הממוצע כלבן: %s</string>
   <string name="averageScoreAsBlackX">הציון הממוצע כשחור: %s</string>
   <string name="knowingTheChessBoard">ידיעת הקואורדינטות (נקודות ציון) של לוח השחמט היא מיומנות שחמטאית חשובה מאוד:</string>
+  <string name="mostChessCourses">בימינו, שיטת הרישום האלגברית היא הנפוצה ביותר בכל תוכנות האומנה.</string>
+  <string name="talkToYourChessFriends">היא מקלה על התקשורת עם חבריך לשחמט, בשמשה כשפת תקשורת המובנת לכולכם.</string>
+  <string name="youCanAnalyseAGameMoreEffectively">האנליזה של משחקים היא יותר אפקטיבית כאשר איננו זקוקים לתת שמות למשבצות השונות.</string>
+  <string name="aSquareNameAppears">בהנתן קואורדינטות משבצת, יש להקיש על המשבצת הנכונה. בוא נראה כמה משבצות תצליח להקיש ב-30 שניות!</string>
   <string name="startTraining">התחל להתאמן</string>
 </resources>

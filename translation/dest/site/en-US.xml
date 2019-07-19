@@ -76,7 +76,7 @@
   <string name="averageRatingX">Average rating: %s</string>
   <string name="recentGames">Recent games</string>
   <string name="topGames">Top games</string>
-  <string name="masterDbExplanation">Two million OTB games, by 2200+ FIDE rated players, from 1952 to 2016</string>
+  <string name="masterDbExplanation">Two million OTB games of %1$s+ FIDE rated players from %2$s to %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mate in %s half-move</item>
     <item quantity="other">Mate in %s half-moves</item>
@@ -120,7 +120,7 @@
   <string name="offerDraw">Offer draw</string>
   <string name="draw">Draw</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s players</item>
+    <item quantity="one">%s player</item>
     <item quantity="other">%s players</item>
   </plurals>
   <string name="currentGames">Current games</string>
@@ -166,7 +166,7 @@
   <string name="usernameOrEmail">User name or email</string>
   <string name="changeUsername">Change username</string>
   <string name="changeUsernameNotSame">Only the case of the letters can change. For example \"johndoe\" to \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of your username.</string>
+  <string name="changeUsernameDescription">Change your username. This can only be done once and you are only allowed to change the case of the letters in your username.</string>
   <string name="password">Password</string>
   <string name="changePassword">Change password</string>
   <string name="changeEmail">Change email</string>
@@ -260,7 +260,7 @@
   <string name="exportGames">Export games</string>
   <string name="ratingRange">Rating range</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Give %s seconds</item>
+    <item quantity="one">Give %s second</item>
     <item quantity="other">Give %s seconds</item>
   </plurals>
   <string name="giveMoreTime">Give more time</string>
@@ -344,8 +344,8 @@
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
   <string name="importGame">Import game</string>
-  <string name="importGameExplanation">When pasting a game PGN you get a browsable replay,
-a computer analysis, a game chat and a shareable URL.</string>
+  <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
+computer analysis, game chat and shareable URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s imported game</item>
     <item quantity="other">%s imported games</item>
@@ -386,7 +386,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="list">List</string>
   <string name="graph">Graph</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Less than a minute</item>
+    <item quantity="one">Less than %s minute</item>
     <item quantity="other">Less than %s minutes</item>
   </plurals>
   <string name="required">Required.</string>
@@ -530,7 +530,7 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="materialDifference">Material difference</string>
   <string name="closeAccount">Close account</string>
   <string name="changedMindDoNotCloseAccount">I changed my mind, don\'t close my account</string>
-  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will no longer be able to login, and your profile page will no longer be accessible.</string>
+  <string name="closeAccountExplanation">Are you sure you want to close your account? Closing your account is a permanent decision. You will NEVER be able to log in EVER AGAIN.</string>
   <string name="thisAccountIsClosed">This account is closed.</string>
   <string name="invalidUsernameOrPassword">Invalid username or password</string>
   <string name="incorrectPassword">Incorrect password</string>
@@ -588,19 +588,18 @@ a computer analysis, a game chat and a shareable URL.</string>
   <string name="xCommentedY">%1$s commented %2$s</string>
   <string name="victory">Victory</string>
   <string name="defeat">Defeat</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
-  <string name="biographyDescription">Tell about you, what you like in chess, your favourite openings, games, players…</string>
+  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favorite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Maximum: %s characters.</item>
+    <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
   </plurals>
   <plurals name="blocks">
-    <item quantity="one">%s blocks</item>
+    <item quantity="one">%s block</item>
     <item quantity="other">%s blocks</item>
   </plurals>
   <string name="listBlockedPlayers">List players you have blocked</string>
@@ -699,7 +698,7 @@ in %3$s</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">One %2$s player this week.</item>
+    <item quantity="one">%1$s %2$s player this week.</item>
     <item quantity="other">%1$s %2$s players this week.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
