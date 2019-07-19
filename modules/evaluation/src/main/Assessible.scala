@@ -81,7 +81,6 @@ case class Assessible(analysed: Analysed, color: Color) {
     val flags = mkFlags
     val assessment = flags match {
       //               SF1 SF2 BLR1 BLR2 HCMT MCMT NFM Holds
-      case PlayerFlags(T, T, T, T, T, T, T, T) => Cheating // all T, obvious cheat
       case PlayerFlags(T, _, T, _, _, _, T, _) => Cheating // high accuracy, high blurs, no fast moves
       case PlayerFlags(T, _, _, T, _, _, _, _) => Cheating // high accuracy, moderate blurs
       case PlayerFlags(T, _, _, _, T, _, _, _) => Cheating // high accuracy, highly consistent move times
