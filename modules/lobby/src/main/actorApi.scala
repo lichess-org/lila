@@ -1,6 +1,7 @@
 package lila.lobby
 package actorApi
 
+import play.api.libs.json._
 import scala.concurrent.Promise
 
 import lila.game.Game
@@ -76,6 +77,8 @@ private[lobby] case class AllHooksFor(member: LobbySocketMember, hooks: Vector[H
 
 private[lobby] case class GetSrisP(promise: Promise[Sris])
 private[lobby] case class GetRemoteMember(sri: Sri, promise: Promise[Option[LobbyRemoteSocketMember]])
+
+private[lobby] case class LobbySocketTellAll(msg: JsObject)
 
 case class AddHook(hook: Hook)
 case class AddSeek(seek: Seek)

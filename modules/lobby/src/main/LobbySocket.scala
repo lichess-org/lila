@@ -132,6 +132,7 @@ private[lobby] final class LobbySocket(
       notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
       hookSubscriberSris += member.sri.value
 
+    // for LobbyRemoteSocket
     case GetRemoteMember(sri, promise) => promise success {
       members get sri.value collect { case m: LobbyRemoteSocketMember => m }
     }
@@ -148,15 +149,29 @@ private[lobby] final class LobbySocket(
       "url" -> playerUrl(game fullIdOf color)
     ).add("cookie" -> AnonCookie.json(game, color))) _
 
-  private def notifyAllActive(msg: JsObject) =
-    members.foreach {
-      case (sri, member) => if (!idleSris(sri)) member push msg
+  // group remote socket messages!
+  override protected def notifyAll(msg: JsObject): Unit = {
+    members.foreachValue {
+      case m: LobbyDirectSocketMember => m push msg
+      case _ =>
     }
+    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTellAll)
+  }
+
+  // TODO let lila-websocket know about active members
+  private def notifyAllActive(msg: JsObject) = {
+    members.foreach {
+      case (sri, m: LobbyDirectSocketMember) if !idleSris(sri) => m push msg
+    }
+    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTellAll)
+  }
 
   private def withActiveMemberBySriString(sri: String)(f: LobbySocketMember => Unit): Unit =
     if (!idleSris(sri)) members get sri foreach f
 
-  override protected def afterQuit(sri: Socket.Sri, member: LobbySocketMember) = {
+  override protected def afterQuit(sri: Socket.Sri, member: LobbySocketMember): Unit = afterQuit(sri)
+
+  private[lobby] def afterQuit(sri: Socket.Sri): Unit = {
     idleSris -= sri.value
     hookSubscriberSris -= sri.value
   }

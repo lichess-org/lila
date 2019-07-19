@@ -28,6 +28,7 @@ final class LobbyRemoteSocket(
         }
       }
     case P.In.DisconnectSri(sri, userOpt) =>
+      socket.afterQuit(sri)
       userOpt map P.In.DisconnectUser.apply foreach remoteSocketApi.baseHandler.lift
 
     case tell @ P.In.TellSri(sri, _, typ, msg) if messagesHandled(typ) =>
@@ -44,9 +45,10 @@ final class LobbyRemoteSocket(
 
   remoteSocketApi.subscribe("lobby-in", P.In.baseReader)(handler orElse remoteSocketApi.baseHandler)
 
-  bus.subscribeFun('nbMembers, 'nbRounds) {
+  bus.subscribeFun('nbMembers, 'nbRounds, 'lobbySocketTellAll) {
     case lila.socket.actorApi.NbMembers(nb) => send(Out.nbMembers(nb))
     case lila.hub.actorApi.round.NbRounds(nb) => send(Out.nbRounds(nb))
+    case LobbySocketTellAll(msg) => send(P.Out.tellAll(msg))
   }
 }
 
