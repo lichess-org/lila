@@ -78,13 +78,13 @@
   <string name="topGames">Najlepsze partie</string>
   <string name="masterDbExplanation">Dwa miliony partii graczy FIDE (%1$s+) rozegranych w latach %2$s–%3$s</string>
   <plurals name="mateInXHalfMoves">
-    <item quantity="one">Mat w %s ruchu</item>
-    <item quantity="few">Mat w %s ruchach</item>
-    <item quantity="many">Mat w %s ruchach</item>
-    <item quantity="other">Mat w %s ruchach</item>
+    <item quantity="one">Mat w %s posunięciu</item>
+    <item quantity="few">Mat w %s posunięciach</item>
+    <item quantity="many">Mat w %s posunięciach</item>
+    <item quantity="other">Mat w %s posunięciach</item>
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Następne bicie lub ruch pionem w ciągu %s posunięcia (zerowanie licznika posunięć reguły 50 ruchów)</item>
+    <item quantity="one">Następne bicie lub ruch pionem w następnym posunięciu (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="few">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="many">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
     <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
@@ -429,7 +429,7 @@
   </plurals>
   <string name="more">Więcej</string>
   <string name="memberSince">Zarejestrowany od</string>
-  <string name="lastSeenActive">Ostatnie logowanie %s</string>
+  <string name="lastSeenActive">Widziano %s</string>
   <string name="challengeToPlay">Zaproś do gry</string>
   <string name="player">Gracz</string>
   <string name="list">Lista</string>
