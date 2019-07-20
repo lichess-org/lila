@@ -176,6 +176,7 @@ object Schedule {
       case (Weekly, _, Rapid) => 60 * 4
       case (Weekly, _, Classical) => 60 * 5
 
+      case (Weekend, Crazyhouse, _) => 60 * 2
       case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
       case (Weekend, _, HippoBullet | SuperBlitz) => 60 * 2
       case (Weekend, _, Blitz) => 60 * 3
