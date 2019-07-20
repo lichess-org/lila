@@ -721,12 +721,12 @@
   <string name="keyShowOrHideComments">покажи/сакриј коментаре</string>
   <string name="keyEnterOrExitVariation">отвори/затвори варијанту</string>
   <string name="newTournament">Нови турнир</string>
-  <string name="tournamentHomeTitle">Šahovski turnir koji objedinjuje različita vremenska ograničenja i varijante</string>
-  <string name="tournamentHomeDescription">Igraj brzo-potezne šahovske turnire! Priključi se oficijalnom organizovanom turniru, ili kreiraj svoj. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, i druge opcije su dostupne za neograničenu šahovsku zabavu.</string>
+  <string name="tournamentHomeTitle">Шаховски турнир који комбинује различита временска ограничења и варијанте</string>
+  <string name="tournamentHomeDescription">Играјте брзи турнир у шаху! Придружите се званичном организованом турниру или направите свој. Буллет, Блитз, Цлассицал, Цхесс960, Кинг оф тхе Хилл, Тхреецхецк и друге опције су доступне за неограничену шаховску забаву.</string>
   <string name="tournamentNotFound">Турнир није пронађен</string>
   <string name="tournamentDoesNotExist">Овај турнир не постоји.</string>
-  <string name="tournamentMayHaveBeenCanceled">Možda je otkazan, jer su igrači napustili turnir pre njegovog početka</string>
-  <string name="returnToTournamentsHomepage">Vratite se na \"tournaments\" početnu stranu</string>
+  <string name="tournamentMayHaveBeenCanceled">Можда је отказан зато што су играчи напустили турнир пре његовог почетка</string>
+  <string name="returnToTournamentsHomepage">Вратите се на почетну страницу \"турнири\"</string>
   <string name="weeklyPerfTypeRatingDistribution">Месечна %s дитрибуција рејтинга</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s %2$s играч ове недеље.</item>
