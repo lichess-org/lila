@@ -135,7 +135,7 @@ object RemoteSocket {
       case class ConnectUser(userId: String) extends In
       case class DisconnectUser(userId: String) extends In
       case class ConnectSri(sri: Sri, userId: Option[String]) extends In
-      case class DisconnectSri(sri: Sri, userId: Option[String]) extends In
+      case class DisconnectSri(sri: Sri) extends In
       case object DisconnectAll extends In
       case class Watch(gameId: String) extends In
       case class Unwatch(gameId: String) extends In
@@ -152,7 +152,7 @@ object RemoteSocket {
         case "connect/user" => ConnectUser(raw.args).some
         case "disconnect/user" => DisconnectUser(raw.args).some
         case "connect/sri" => raw.args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
-        case "disconnect/sri" => raw.args.split(' ') |> { s => DisconnectSri(Sri(s(0)), s lift 1).some }
+        case "disconnect/sri" => DisconnectSri(Sri(raw.args)).some
         case "disconnect/all" => DisconnectAll.some
         case "watch" => Watch(raw.args).some
         case "unwatch" => Unwatch(raw.args).some

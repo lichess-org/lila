@@ -48,7 +48,11 @@ private[lobby] final class LobbySocket(
       addMember(sri, member)
       promise success Connected(enumerator, member)
 
-    case JoinRemote(member) => addMember(member.sri, member)
+    case JoinRemote(member) =>
+      members += (member.sri.value -> member)
+    case LeaveRemote(sri) =>
+      members -= sri.value
+      afterQuit(sri)
 
     case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
 
@@ -170,6 +174,7 @@ private[lobby] final class LobbySocket(
   private def notifyAllActive(msg: JsObject) = {
     members.foreach {
       case (sri, m: LobbyDirectSocketMember) if !idleSris(sri) => m push msg
+      case _ =>
     }
     system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTellAll)
   }
@@ -179,7 +184,7 @@ private[lobby] final class LobbySocket(
 
   override protected def afterQuit(sri: Socket.Sri, member: LobbySocketMember): Unit = afterQuit(sri)
 
-  private[lobby] def afterQuit(sri: Socket.Sri): Unit = {
+  private def afterQuit(sri: Socket.Sri): Unit = {
     idleSris -= sri.value
     hookSubscriberSris -= sri.value
   }

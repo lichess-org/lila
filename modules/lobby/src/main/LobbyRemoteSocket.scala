@@ -27,9 +27,7 @@ final class LobbyRemoteSocket(
           socket ! actorApi.JoinRemote(member)
         }
       }
-    case P.In.DisconnectSri(sri, userOpt) =>
-      socket.afterQuit(sri)
-      userOpt map P.In.DisconnectUser.apply foreach remoteSocketApi.baseHandler.lift
+    case P.In.DisconnectSri(sri) => socket ! actorApi.LeaveRemote(sri)
 
     case tell @ P.In.TellSri(sri, _, typ, msg) if messagesHandled(typ) =>
       socket.ask[Option[LobbyRemoteSocketMember]](GetRemoteMember(sri, _)) foreach {
