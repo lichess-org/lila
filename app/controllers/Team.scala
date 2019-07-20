@@ -98,7 +98,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value.pp ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
       }
     }
   }
