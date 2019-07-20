@@ -39,6 +39,7 @@ cancer
 cawk
 cheat(er|)
 chess(|-|_)bot(.?com)?
+chicken
 chink
 choad
 clit
