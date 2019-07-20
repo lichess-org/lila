@@ -36,6 +36,7 @@ final class RemoteSocket(
     case In.Connections(nb) => tick(nb)
     case In.Friends(userId) => bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     case In.Lag(userId, lag) => UserLagCache.put(userId, lag)
+    case In.Lags(lags) => lags foreach (UserLagCache.put _).tupled
     case In.TellSri(sri, userId, typ, msg) =>
       bus.publish(RemoteSocketTellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
     case In.DisconnectAll =>
@@ -141,6 +142,7 @@ object RemoteSocket {
       case class Notified(userId: String) extends In
       case class Connections(nb: Int) extends In
       case class Lag(userId: String, lag: Centis) extends In
+      case class Lags(lags: Map[String, Centis]) extends In
       case class Friends(userId: String) extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
 
@@ -157,6 +159,12 @@ object RemoteSocket {
         case "notified" => Notified(raw.args).some
         case "connections" => parseIntOption(raw.args) map Connections.apply
         case "lag" => raw.args.split(' ') |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
+        case "lags" => Lags(raw.args.split(',').flatMap {
+          _ split ':' match {
+            case Array(user, l) => parseIntOption(l) map { lag => user -> Centis(lag) }
+            case _ => None
+          }
+        }.toMap).some
         case "friends" => Friends(raw.args).some
         case "tell/sri" => raw.args.split(" ", 3) match {
           case Array(sri, userOrAnon, payload) => for {
@@ -174,7 +182,7 @@ object RemoteSocket {
       def move(gameId: String, move: String, fen: String) =
         s"move $gameId $move $fen"
       def tellUser(userId: String, payload: JsObject) =
-        s"tell/user $userId ${Json stringify payload}"
+        s"tell/users $userId ${Json stringify payload}"
       def tellUsers(userIds: Set[String], payload: JsObject) =
         s"tell/users ${userIds mkString ","} ${Json stringify payload}"
       def tellAll(payload: JsObject) =
