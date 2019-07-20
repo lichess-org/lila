@@ -616,21 +616,20 @@
   <string name="xCommentedY">%1$s је коментарисао/ла %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>
-  <string name="xVsYinZ">%1$s против %2$s
-у %3$s</string>
+  <string name="xVsYinZ">%1$s против %2$s у %3$s</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
   <string name="yourCityRegionOrDepartment">Ваш град, регион или провинција.</string>
   <string name="biographyDescription">Кажи нешто о себи, зашто волиш шах, која су ти омиљена отварања, партије, играчи…</string>
   <plurals name="maximumNbCharacters">
-    <item quantity="one">Највише: %s карактера</item>
+    <item quantity="one">Највише: %s карактер</item>
     <item quantity="few">Највише: %s карактера</item>
     <item quantity="other">Највише: %s карактера</item>
   </plurals>
   <plurals name="blocks">
     <item quantity="one">%s блокиран</item>
-    <item quantity="few">%s блокираних</item>
+    <item quantity="few">%s блокиранa</item>
     <item quantity="other">%s блокираних</item>
   </plurals>
   <string name="listBlockedPlayers">Списак играча које сте блокирали</string>
@@ -664,7 +663,7 @@
   <string name="zenMode">зен стање</string>
   <string name="moveConfirmation">Потврди потез</string>
   <string name="inCorrespondenceGames">У дописним играма</string>
-  <string name="ifRatingIsPlusMinusX">Ако рејтинг ± %s</string>
+  <string name="ifRatingIsPlusMinusX">Ако je рејтинг ± %s</string>
   <string name="onlyFriends">Само пријатељи</string>
   <string name="displayBoardResizeHandle">Покажите ручицуда бисте променили величину панела</string>
   <string name="onlyOnInitialPosition">Само на почетку партије</string>
@@ -690,7 +689,7 @@
   <string name="really">стварно</string>
   <string name="contribute">Допринос</string>
   <string name="contact">Уговор</string>
-  <string name="termsOfService">ТоS</string>
+  <string name="termsOfService">Услови коришћења услуге</string>
   <string name="sourceCode">Изворни код</string>
   <string name="simultaneousExhibitions">Симултанка</string>
   <string name="host">Домаћин</string>
@@ -700,10 +699,10 @@
   <string name="noSimulFound">Симултанка није пронађена</string>
   <string name="noSimulExplanation">Симултанка не постоји</string>
   <string name="returnToSimulHomepage">Врати се на почетну страну</string>
-  <string name="aboutSimul">Симултанка је егзибициона приредба једног играча против више противника истовремено</string>
+  <string name="aboutSimul">Cимултанке укључује једног играча који игра против више противника одједном.</string>
   <string name="aboutSimulImage">ОД 50 противника, Фишер је победио 47, ремизирао са 2, а изгубио од једног</string>
   <string name="aboutSimulRealLife">Идеја је преузета из стварног живота. У стварном животу, ово укључује домаћин симултанке који иде од табле до табле да би се одиграо појединачни потез.</string>
-  <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. симултанка завршава када су и све партије завршене.</string>
+  <string name="aboutSimulRules">Када симултанка започне, сваки играч започиње партију против домаћина, који добија беле фигуре. Cимултанка завршава када су и све партије завршене.</string>
   <string name="aboutSimulSettings">Симултанке су увек неформалне, враћање потеза и додавање времена је онемогућено.</string>
   <string name="create">Креирај</string>
   <string name="whenCreateSimul">Када креираш симултанку, играш против више играча истовремено.</string>
@@ -757,12 +756,12 @@
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Метода прављења рокаде</string>
   <string name="castleByMovingTwoSquares">Помери краља за два поља</string>
   <string name="castleByMovingOntoTheRook">Помери краља на топа</string>
-  <string name="shareYourInsightsData">Podelite uvid u Vaše podatke.</string>
+  <string name="shareYourInsightsData">Поделите своје личне податке</string>
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Već ste registrovali e-Mail %s</string>
-  <string name="kidMode">Mod garnitura</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Већ сте се регистровали са овом е-поштом: % с</string>
+  <string name="kidMode">Дечји начин</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
   <string name="enableKidMode">Омогућите Дечији режим рада</string>
@@ -771,8 +770,8 @@
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ово је листа уређаја који су евидентирани у ваш налог. Опозовите све сесије које не препознајете.</string>
   <string name="alternativelyYouCanX">Алтернативно, можете %s.</string>
   <string name="revokeAllSessions">опозвати све сесије</string>
-  <string name="playChessEverywhere">Igrajte šah bilo gde</string>
-  <string name="asFreeAsLichess">Besplatno kao Lichess</string>
+  <string name="playChessEverywhere">Играј шах свуда</string>
+  <string name="asFreeAsLichess">Бесплатно као лицхесс</string>
   <string name="builtForTheLoveOfChessNotMoney">Napravljen iz ljubavi prema šahu, a ne prema novcu</string>
   <string name="everybodyGetsAllFeaturesForFree">Svi dobijaju sve funkcije besplatno</string>
   <string name="zeroAdvertisement">Bez reklama</string>
