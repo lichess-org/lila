@@ -26,11 +26,13 @@ private[message] final class MessageSecurity(
 
   def muteThreadIfNecessary(thread: Thread, creator: User, invited: User): Fu[Thread] = {
     val fullText = s"${thread.name} ${~thread.firstPost.map(_.text)}"
-    if (spam.detect(fullText)) fuTrue
-    else if (creator.troll) !follows(invited.id, creator.id)
+    if (spam.detect(fullText)) {
+      logger.warn(s"PM spam from ${creator.username}: fullText")
+      fuTrue
+    } else if (creator.troll) !follows(invited.id, creator.id)
     else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(7))) {
       follows(invited.id, creator.id) map { f =>
-        if (!f) logger.info(s"Mute dirty thread ${creator.username} -> ${invited.username} ${fullText.take(140)}")
+        if (!f) logger.warn(s"Mute dirty thread ${creator.username} -> ${invited.username} ${fullText.take(140)}")
         !f
       }
     } else fuFalse

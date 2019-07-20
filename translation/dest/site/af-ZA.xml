@@ -48,8 +48,16 @@
   <string name="computerAnalysis">Rekenaar ontleding</string>
   <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
   <string name="analysis">Ontleding bord</string>
+  <string name="depthX">Diepte %s</string>
+  <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
   <string name="loadingEngine">Enjin is besig om the laai ...</string>
+  <string name="cloudAnalysis">Wolkanalise</string>
   <string name="goDeeper">Gaan dieper</string>
+  <string name="showThreat">Toon bedreiging</string>
+  <string name="inLocalBrowser">in plaaslike blaaier</string>
+  <string name="toggleLocalEvaluation">Verander plaaslike evaluering</string>
+  <string name="promoteVariation">Bevorder variasie</string>
+  <string name="makeMainLine">Maak hooflyn</string>
   <string name="insufficientMaterial">Onvoldoende materiaal</string>
   <string name="pawnMove">Pion skuif</string>
   <string name="close">Maak toe</string>

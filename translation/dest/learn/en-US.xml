@@ -12,15 +12,20 @@
   <string name="theRook">The rook</string>
   <string name="itMovesInStraightLines">It moves in straight lines</string>
   <string name="rookIntro">The rook is a powerful piece. Are you ready to command it?</string>
-  <string name="rookGoal">Click on the rook to bring it to the star!</string>
+  <string name="rookGoal">Click on the rook
+to bring it to the star!</string>
   <string name="grabAllTheStars">Grab all the stars!</string>
-  <string name="theFewerMoves">The fewer moves you make, the more points you win!</string>
-  <string name="useTwoRooks">Use two rooks to speed things up!</string>
+  <string name="theFewerMoves">The fewer moves you make,
+the more points you win!</string>
+  <string name="useTwoRooks">Use two rooks
+to speed things up!</string>
   <string name="rookComplete">Congratulations! You have successfully mastered the rook.</string>
   <string name="theBishop">The bishop</string>
   <string name="itMovesDiagonally">It moves diagonally</string>
   <string name="bishopIntro">Next we will learn how to maneuver a bishop!</string>
-  <string name="youNeedBothBishops">One light-squared bishop, one dark-squared bishop. You need both!</string>
+  <string name="youNeedBothBishops">One light-squared bishop,
+one dark-squared bishop.
+You need both!</string>
   <string name="bishopComplete">Congratulations! You can command a bishop.</string>
   <string name="theQueen">The queen</string>
   <string name="queenCombinesRookAndBishop">Queen = rook + bishop</string>
@@ -35,8 +40,10 @@
   <string name="theKnight">The knight</string>
   <string name="itMovesInAnLShape">It moves in an L shape</string>
   <string name="knightIntro">Here\'s a challenge for you. The knight is... a tricky piece.</string>
-  <string name="knightsHaveAFancyWay">Knights have a fancy way of jumping around!</string>
-  <string name="knightsCanJumpOverObstacles">Knights can jump over obstacles! Escape and vanquish the stars!</string>
+  <string name="knightsHaveAFancyWay">Knights have a fancy way
+of jumping around!</string>
+  <string name="knightsCanJumpOverObstacles">Knights can jump over obstacles!
+Escape and vanquish the stars!</string>
   <string name="knightComplete">Congratulations! You have mastered the knight.</string>
   <string name="thePawn">The pawn</string>
   <string name="itMovesForwardOnly">It moves forward only</string>
@@ -98,7 +105,7 @@ by taking the attacking piece.</string>
 through your defenses!</string>
   <string name="escapeOrBlock">Escape with the king
 or block the attack!</string>
-  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend a check!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
   <string name="mateInOne">Mate in one</string>
   <string name="defeatTheOpponentsKing">Defeat the opponent\'s king</string>
   <string name="mateInOneIntro">You win when your opponent cannot defend against a check.</string>
@@ -192,7 +199,7 @@ Knight = 3
 Pawn = 1</string>
   <string name="checkInTwo">Check in two</string>
   <string name="twoMovesToGiveCheck">Two moves to give a check</string>
-  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent king!</string>
+  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
   <string name="checkInTwoGoal">Threaten the opponent\'s king
 in two moves!</string>
   <string name="checkInTwoComplete">Congratulations! You checked your opponent, forcing them to defend their king!</string>

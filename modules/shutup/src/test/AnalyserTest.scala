@@ -53,6 +53,9 @@ class DetectTest extends Specification {
       find("foo chessbotcom bar") must_== List("chessbotcom")
       find("foo http://chess-bot.com bar") must_== List("chess-bot.com")
     }
+    "russian chars" in {
+      find("sеx") must_== List("sex")
+    }
     "russian" in {
       find("сука пизда") must_== List("сука", "пизда")
     }
