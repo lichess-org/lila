@@ -55,9 +55,9 @@ Accusing other players of using computer assistance or otherwise cheating is not
 
 """, /* ---------------------------------------------------------------*/ """
 
-Warning: chat spam is not permitted
+Warning: spam is not permitted
 
-You may post your link only once. Not once per tournament, per forum, or once per day: but just once. Repeated violation of chat policy will result in loss of chat privileges.
+You may post your link only once. Not once per tournament, per forum, per player, or per day: but just once. Repeated violation of this policy will result in loss of communication privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
