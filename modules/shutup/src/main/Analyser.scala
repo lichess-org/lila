@@ -5,32 +5,39 @@ import lila.common.constants.bannedYoutubeIds
 object Analyser {
 
   def apply(raw: String) = {
-    val text = preprocess(raw)
+    val lower = raw.toLowerCase
     TextAnalysis(
-      text,
-      bigRegex.findAllMatchIn(text).map(_.toString).toList
+      lower,
+      (
+        enBigRegex.findAllMatchIn(latinify(lower)).toList :::
+        ruBigRegex.findAllMatchIn(lower).toList
+      ).map(_.toString)
     )
   }
 
-  private def preprocess(text: String): String =
-    text.toLowerCase map {
-      case 'е' => 'e'
-      case 'а' => 'a'
-      case 'у' => 'y'
-      case 'х' => 'x'
-      case c => c
-    }
+  private def latinify(text: String): String = text map {
+    case 'е' => 'e'
+    case 'а' => 'a'
+    case 'у' => 'y'
+    case 'х' => 'x'
+    case c => c
+  }
 
-  private def wordsRegexes =
+  private def enWordsRegexes =
     Dictionary.en.map { word =>
       word + (if (word endsWith "e") "" else "e?+") + "[ds]?+"
     } ++
-      Dictionary.ru ++
       bannedYoutubeIds
 
-  private val bigRegex = {
+  private val enBigRegex = {
     """(?i)\b""" +
-      wordsRegexes.mkString("(", "|", ")") +
+      enWordsRegexes.mkString("(", "|", ")") +
+      """\b"""
+  }.r
+
+  private val ruBigRegex = {
+    """(?i)\b""" +
+      Dictionary.ru.mkString("(", "|", ")") +
       """\b"""
   }.r
 }
