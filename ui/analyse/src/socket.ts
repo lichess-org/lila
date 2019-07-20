@@ -1,4 +1,5 @@
 import { initial as initialBoardFen } from 'chessground/fen';
+import { ops as treeOps } from 'tree';
 import AnalyseCtrl from './ctrl';
 
 type DestCache = {
@@ -95,8 +96,11 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
       clearTimeout(anaDestsTimeout);
     },
     fen(e) {
-      if (ctrl.forecast && e.id === ctrl.data.game.id)
+      if (ctrl.forecast &&
+        e.id === ctrl.data.game.id &&
+        treeOps.last(ctrl.mainline)!.fen.indexOf(e.fen) !== 0) {
         ctrl.forecast.reloadToLastPly();
+      }
     },
     analysisProgress(data) {
       ctrl.mergeAnalysisData(data);
