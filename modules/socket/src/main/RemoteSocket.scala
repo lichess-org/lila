@@ -36,7 +36,6 @@ private final class RemoteSocket(
   }
   private object Out {
     val Move = "move"
-    val TellUser = "tell/user"
     val TellUsers = "tell/users"
     val TellAll = "tell/all"
     val TellFlag = "tell/flag"
@@ -54,7 +53,7 @@ private final class RemoteSocket(
       val connectedUsers = userIds intersect connectedUserIds
       if (connectedUsers.nonEmpty) send(Out.TellUsers, connectedUsers mkString ",", Json stringify payload)
     case SendTo(userId, payload) if connectedUserIds(userId) =>
-      send(Out.TellUser, userId, Json stringify payload)
+      send(Out.TellUsers, userId, Json stringify payload)
     case d: Deploy =>
       send(Out.TellAll, Json stringify Json.obj("t" -> d.key))
     case Announce(msg) =>
