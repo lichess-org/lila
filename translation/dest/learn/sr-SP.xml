@@ -45,8 +45,8 @@
   <string name="knightComplete">Честитамо! Савладали сте скакача.</string>
   <string name="thePawn">Пешак</string>
   <string name="itMovesForwardOnly">Креће се само напред</string>
-  <string name="pawnIntro">Pešaci su slabi, ali imaju mnogo potencijala.</string>
-  <string name="pawnsMoveOneSquareOnly">Pešaci se kreću samo ya jedno polje. Ali kada stignu na drugi kraj table, oni postaju jača figura!</string>
+  <string name="pawnIntro"> Пешаци су слаби, али имају много потенцијала.</string>
+  <string name="pawnsMoveOneSquareOnly">Пешаци прелазе само на једно поље. Али када стигну на други крај табле, постају јача фигура!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">U većini slučajeva promocija u Damu je najbolje. Ali po nekad skakač dobro dođe!</string>
   <string name="pawnsMoveForward">Pešaci se kreću napred, ali nose dijagonalno!</string>
   <string name="captureThenPromote">Носи, онда промовиши!</string>
