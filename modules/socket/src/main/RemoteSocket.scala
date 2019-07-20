@@ -30,6 +30,7 @@ private final class RemoteSocket(
     val Notified = "notified"
     val Connections = "connections"
     val Lag = "lag"
+    val Lags = "lags"
     val Friends = "friends"
     val TellSri = "tell/sri"
   }
@@ -101,6 +102,14 @@ private final class RemoteSocket(
         UserLagCache.put(user, Centis(lag))
       }
       case _ =>
+    }
+    case In.Lags => args split ',' foreach {
+      _ split ':' match {
+        case Array(user, l) => parseIntOption(l) foreach { lag =>
+          UserLagCache.put(user, Centis(lag).pp(user))
+        }
+        case _ =>
+      }
     }
     case In.TellSri => args.split(" ", 3) match {
       case Array(sri, userOrAnon, payload) => for {
