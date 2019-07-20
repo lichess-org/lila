@@ -20,6 +20,9 @@ object Analyser {
     case 'а' => 'a'
     case 'у' => 'y'
     case 'х' => 'x'
+    case 'к' => 'k'
+    case 'Н' => 'h'
+    case 'о' => 'o'
     case c => c
   }
 
