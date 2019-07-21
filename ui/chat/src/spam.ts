@@ -31,7 +31,10 @@ const spamRegex = new RegExp([
   '.ns02.us',
   '.myftp.info',
   '.flinkup.com',
-  '.serveusers.com'
+  '.serveusers.com',
+  'badoogirls.com',
+  'hide.su',
+  'wyon.de'
 ].map(url => {
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));
