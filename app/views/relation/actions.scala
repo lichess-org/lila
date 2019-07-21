@@ -20,19 +20,17 @@ object actions {
     div(cls := "relation-actions btn-rack")(
       ctx.userId map { myId =>
         (myId != userId) ?? frag(
-          !blocked option frag(
-            a(
-              ariaTitle(trans.challengeToPlay.txt()),
-              href := s"${routes.Lobby.home()}?user=$userId#friend",
-              cls := "btn-rack__btn",
-              dataIcon := "U"
-            ),
-            a(
-              ariaTitle(trans.composeMessage.txt()),
-              href := s"${routes.Message.form()}?user=$userId",
-              cls := "btn-rack__btn",
-              dataIcon := "c"
-            )
+          !blocked option a(
+            ariaTitle(trans.challengeToPlay.txt()),
+            href := s"${routes.Lobby.home()}?user=$userId#friend",
+            cls := "btn-rack__btn",
+            dataIcon := "U"
+          ),
+          (!blocked || isGranted(_.ModMessage)) option a(
+            ariaTitle(trans.composeMessage.txt()),
+            href := s"${routes.Message.form()}?user=$userId",
+            cls := "btn-rack__btn",
+            dataIcon := "c"
           ),
           relation match {
             case None => frag(
