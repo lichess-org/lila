@@ -47,7 +47,7 @@
   <string name="itMovesForwardOnly">Креће се само напред</string>
   <string name="pawnIntro"> Пешаци су слаби, али имају много потенцијала.</string>
   <string name="pawnsMoveOneSquareOnly">Пешаци прелазе само на једно поље. Али када стигну на други крај табле, постају јача фигура!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">U većini slučajeva promocija u Damu je najbolje. Ali po nekad skakač dobro dođe!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">У већини случајева, промоција за Даму је најбоља. Али понекад је скакач добар!</string>
   <string name="pawnsMoveForward">Pešaci se kreću napred, ali nose dijagonalno!</string>
   <string name="captureThenPromote">Носи, онда промовиши!</string>
   <string name="useAllThePawns">Upotrebi sve pešake! Nema potrebe za promocijom.</string>
