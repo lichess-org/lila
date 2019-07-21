@@ -235,6 +235,7 @@ final class JsonView(
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
         "coords" -> pref.coords,
+        "moveEvent" -> pref.moveEvent,
         "resizeHandle" -> pref.resizeHandle
       ).add("highlight" -> (pref.highlight || pref.isBlindfold))
         .add("destination" -> (pref.destination && !pref.isBlindfold))
