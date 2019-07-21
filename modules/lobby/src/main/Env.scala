@@ -74,6 +74,7 @@ final class Env(
 
   private val remoteSocket = new LobbyRemoteSocket(
     remoteSocketApi = remoteSocketApi,
+    lobby = lobbyTrouper,
     socket = socket,
     blocking = blocking,
     controller = socketHandler.controller(socket) _,

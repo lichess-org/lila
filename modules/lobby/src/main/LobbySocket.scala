@@ -12,6 +12,7 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.{ Socket, SocketTrouper, LoneSocket }
+import Socket.{ Sri, Sris }
 
 private[lobby] final class LobbySocket(
     system: ActorSystem,
@@ -34,7 +35,7 @@ private[lobby] final class LobbySocket(
   def receiveSpecific = {
 
     case GetSrisP(promise) =>
-      promise success Socket.Sris(members.keySet.map(Socket.Sri.apply)(scala.collection.breakOut))
+      promise success Sris(members.keySet.map(Sri.apply)(scala.collection.breakOut))
       lila.mon.lobby.socket.idle(idleSris.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberSris.size)
 
@@ -50,9 +51,9 @@ private[lobby] final class LobbySocket(
 
     case JoinRemote(member) =>
       members += (member.sri.value -> member)
-    case LeaveRemote(sri) =>
-      members -= sri.value
-      afterQuit(sri)
+    case LeaveRemote(sri) => quitRemote(sri)
+    case LeaveAllRemote =>
+      members.collect { case (_, m: LobbyRemoteSocketMember) => m.sri } foreach quitRemote
 
     case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
 
@@ -142,6 +143,11 @@ private[lobby] final class LobbySocket(
     }
   }
 
+  private def quitRemote(sri: Sri): Unit = {
+    members -= sri.value
+    afterQuit(sri)
+  }
+
   // don't broom out remote socket members
   // since we don't get their pings and don't set them alive
   override protected def broom: Unit =
@@ -182,9 +188,9 @@ private[lobby] final class LobbySocket(
   private def withActiveMemberBySriString(sri: String)(f: LobbySocketMember => Unit): Unit =
     if (!idleSris(sri)) members get sri foreach f
 
-  override protected def afterQuit(sri: Socket.Sri, member: LobbySocketMember): Unit = afterQuit(sri)
+  override protected def afterQuit(sri: Sri, member: LobbySocketMember): Unit = afterQuit(sri)
 
-  private def afterQuit(sri: Socket.Sri): Unit = {
+  private def afterQuit(sri: Sri): Unit = {
     idleSris -= sri.value
     hookSubscriberSris -= sri.value
   }

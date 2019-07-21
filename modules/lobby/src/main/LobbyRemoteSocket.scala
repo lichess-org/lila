@@ -8,6 +8,7 @@ import lila.user.{ User, UserRepo }
 
 final class LobbyRemoteSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
+    lobby: LobbyTrouper,
     socket: LobbySocket,
     blocking: User.ID => Fu[Set[User.ID]],
     controller: LobbySocketMember => lila.socket.Handler.Controller,
@@ -28,6 +29,10 @@ final class LobbyRemoteSocket(
         }
       }
     case P.In.DisconnectSri(sri) => socket ! actorApi.LeaveRemote(sri)
+
+    case P.In.DisconnectAll =>
+      lobby ! actorApi.LeaveAllRemote
+      socket ! actorApi.LeaveAllRemote
 
     case tell @ P.In.TellSri(sri, _, typ, msg) if messagesHandled(typ) =>
       socket.ask[Option[LobbyRemoteSocketMember]](GetRemoteMember(sri, _)) foreach {

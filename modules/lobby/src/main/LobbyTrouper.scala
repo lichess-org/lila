@@ -10,6 +10,7 @@ import lila.game.Game
 import lila.game.GameRepo
 import lila.hub.Trouper
 import lila.socket.Socket
+import Socket.{ Sri, Sris }
 import lila.user.User
 
 private[lobby] final class LobbyTrouper(
@@ -25,6 +26,8 @@ private[lobby] final class LobbyTrouper(
 ) extends Trouper {
 
   import LobbyTrouper._
+
+  private var remoteDisconnectAllAt = DateTime.now
 
   val process: Trouper.Receive = {
 
@@ -86,30 +89,26 @@ private[lobby] final class LobbyTrouper(
         socket ! RemoveSeek(seek.id)
       }
 
+    case LeaveAllRemote => remoteDisconnectAllAt = DateTime.now
+
     case Tick(promise) =>
       HookRepo.truncateIfNeeded
       implicit val timeout = makeTimeout seconds 5
-      socket.ask[Socket.Sris](GetSrisP).chronometer
+      socket.ask[Sris](GetSrisP).chronometer
         .logIfSlow(100, logger) { r => s"GetSris size=${r.sris.size}" }
         .mon(_.lobby.socket.getSris)
         .result
         .logFailure(logger, err => s"broom cannot get sris from socket: $err")
         .foreach { this ! WithPromise(_, promise) }
 
-    case WithPromise(Socket.Sris(sris), promise) =>
-      poolApi socketIds sris
-      val createdBefore = DateTime.now minusSeconds 5
-      val hooks = {
+    case WithPromise(Sris(sris), promise) =>
+      poolApi socketIds Sris(sris)
+      val fewSecondsAgo = DateTime.now minusSeconds 5
+      if (remoteDisconnectAllAt isBefore fewSecondsAgo) this ! RemoveHooks({
         (HookRepo notInSris sris).filter {
-          _.createdAt isBefore createdBefore
+          _.createdAt isBefore fewSecondsAgo
         } ++ HookRepo.cleanupOld
-      }.toSet
-      // logger.debug(
-      //   s"broom sris:${sris.size} before:${createdBefore} hooks:${hooks.map(_.id)}")
-      if (hooks.nonEmpty) {
-        // logger.debug(s"remove ${hooks.size} hooks")
-        this ! RemoveHooks(hooks)
-      }
+      }.toSet)
       lila.mon.lobby.socket.member(sris.size)
       lila.mon.lobby.hook.size(HookRepo.size)
       lila.mon.trouper.queueSize("lobby")(queueSize)
@@ -137,7 +136,7 @@ private[lobby] final class LobbyTrouper(
     }
   }
 
-  private def biteHook(hookId: String, sri: Socket.Sri, user: Option[LobbyUser]) =
+  private def biteHook(hookId: String, sri: Sri, user: Option[LobbyUser]) =
     HookRepo byId hookId foreach { hook =>
       remove(hook)
       HookRepo bySri sri foreach remove

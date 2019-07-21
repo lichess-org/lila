@@ -68,6 +68,7 @@ private[lobby] case class JoinSeek(userId: String, seek: Seek, game: Game, creat
 private[lobby] case class Join(sri: Sri, user: Option[User], blocking: Set[String], promise: Promise[Connected])
 private[lobby] case class JoinRemote(member: LobbyRemoteSocketMember)
 private[lobby] case class LeaveRemote(sri: Sri)
+private[lobby] case object LeaveAllRemote
 private[lobby] case object Resync
 private[lobby] case class HookIds(ids: Vector[String])
 
