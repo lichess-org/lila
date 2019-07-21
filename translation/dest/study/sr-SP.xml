@@ -58,4 +58,5 @@
   <string name="fen">FEN</string>
   <string name="open">Отвори</string>
   <string name="xBroughtToYouByY">%1$s vam je  donio  %2$s</string>
+  <string name="studyNotFound">Студија није пронађена</string>
 </resources>
