@@ -15,6 +15,7 @@ private object Dictionary {
 fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 abortion
 adol(f|ph)
+afraid
 anal(plug|sex|)
 anus
 arse(hole|wipe|)
@@ -88,6 +89,7 @@ kaffir
 kike
 kys
 labia
+lame
 lesbo
 masturbat(e|ion|ing)
 milf
@@ -127,6 +129,7 @@ rapist
 rect(al|um)
 retard
 rimjob
+scare
 schlong
 screw
 scrotum
@@ -136,6 +139,7 @@ sex
 shag
 shemale
 shit(z|e|y|ty|bag|)
+sissy
 sister
 slag
 slave
