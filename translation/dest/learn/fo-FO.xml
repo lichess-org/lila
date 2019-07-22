@@ -4,4 +4,9 @@
   <string name="learnChess">Lær talv</string>
   <string name="byPlaying">við at spæla!</string>
   <string name="menu">Valmynd</string>
+  <string name="progressX">Framgongd: %s</string>
+  <string name="resetMyProgress">Nullstilla mína framgongd</string>
+  <string name="youWillLoseAllYourProgress">Tú missur alla tína framgongd!</string>
+  <string name="play">spæl!</string>
+  <string name="chessPieces">Talv prikkar</string>
 </resources>
