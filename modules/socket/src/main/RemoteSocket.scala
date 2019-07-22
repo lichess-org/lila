@@ -105,7 +105,7 @@ private final class RemoteSocket(
     case In.Lags => args split ',' foreach {
       _ split ':' match {
         case Array(user, l) => parseIntOption(l) foreach { lag =>
-          UserLagCache.put(user, Centis(lag).pp(user))
+          UserLagCache.put(user, Centis(lag))
         }
         case _ =>
       }
