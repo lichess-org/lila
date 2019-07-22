@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
 import scala.collection.breakOut
 
-import lidraughts.common.IpAddress
+import lidraughts.common.{ IpAddress, EmailAddress }
 import lidraughts.db.dsl._
 import lidraughts.user.{ User, UserRepo }
 
@@ -30,9 +30,6 @@ case class UserSpy(
       OtherUser(_, false, true)
     }
   }
-
-  def withMeSorted(me: User): List[OtherUser] =
-    (OtherUser(me, true, true) :: otherUsers.toList).sortBy(-_.user.createdAt.getMillis)
 
   def otherUserIds = otherUsers.map(_.user.id)
 }
@@ -121,4 +118,18 @@ object UserSpy {
   type Value = String
 
   case class IPData(ip: Dated[IpAddress], blocked: Boolean, location: Location)
+
+  case class WithMeSortedWithEmails(others: List[OtherUser], emails: Map[User.ID, EmailAddress]) {
+    def emailValueOf(u: User) = emails.get(u.id).map(_.value)
+  }
+
+  def withMeSortedWithEmails(me: User, others: Set[OtherUser]): Fu[WithMeSortedWithEmails] = {
+    val othersList = others.toList
+    lidraughts.user.UserRepo.emailMap(me.id :: othersList.map(_.user.id)) map { emailMap =>
+      WithMeSortedWithEmails(
+        (OtherUser(me, true, true) :: othersList).sortBy(-_.user.createdAt.getMillis),
+        emailMap
+      )
+    }
+  }
 }

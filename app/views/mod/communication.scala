@@ -16,6 +16,7 @@ object communication {
     threads: List[lidraughts.message.Thread],
     publicLines: List[lidraughts.shutup.PublicLine],
     spy: lidraughts.security.UserSpy,
+    otherWithEmails: lidraughts.security.UserSpy.WithMeSortedWithEmails,
     notes: List[lidraughts.user.Note],
     history: List[lidraughts.mod.Modlog],
     priv: Boolean
@@ -131,6 +132,7 @@ object communication {
               thead(
                 tr(
                   th(spy.otherUsers.size, " similar user(s)"),
+                  th("Email"),
                   th("Same"),
                   th("Games"),
                   th("Marks"),
@@ -140,9 +142,10 @@ object communication {
                 )
               ),
               tbody(
-                spy.withMeSorted(u).map {
+                otherWithEmails.others.map {
                   case lidraughts.security.UserSpy.OtherUser(o, byIp, byFp) => tr(cls := (o == u).option("same"))(
                     td(userLink(o, withBestRating = true, params = "?mod")),
+                    td(otherWithEmails emailValueOf o),
                     td(
                       if (o == u) " - "
                       else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
