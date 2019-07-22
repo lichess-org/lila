@@ -32,7 +32,8 @@ object page {
     moreCss = frag(
       cssTag("user.show"),
       isGranted(_.UserSpy) option cssTag("mod.user")
-    )
+    ),
+    robots = u.count.game >= 10
   ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
@@ -57,7 +58,8 @@ object page {
       cssTag("user.show"),
       filters.current.name == "search" option cssTag("user.show.search"),
       isGranted(_.UserSpy) option cssTag("mod.user")
-    )
+    ),
+    robots = u.count.game >= 10
   ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
