@@ -1,7 +1,7 @@
 package controllers
 
 import ornicar.scalalib.Zero
-import play.api.data.FormError
+import play.api.data.{ Form, FormError }
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -174,7 +174,17 @@ object Auth extends LidraughtsController {
     }
   }
 
-  private def authLog(user: String, msg: String) = lidraughts.log("auth").info(s"$user $msg")
+  private def authLog(user: String, email: String, msg: String) =
+    lidraughts.log("auth").info(s"$user $email $msg")
+
+  private def signupErrLog(err: Form[_])(implicit ctx: Context) = for {
+    username <- err("username").value
+    email <- err("email").value
+  } {
+    authLog(username, email, s"Signup fail: ${Json stringify errorsAsJson(err)}")
+    if (err.errors.exists(_.messages.contains("error.email_acceptable")))
+      authLog(username, email, s"Signup with unacceptable email")
+  }
 
   def signupPost = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -183,19 +193,20 @@ object Auth extends LidraughtsController {
         forms.preloadEmailDns >> negotiate(
           html = forms.signup.website.bindFromRequest.fold(
             err => {
-              err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
+              println(err)
+              signupErrLog(err)
               BadRequest(html.auth.signup(err, env.recaptchaPublicConfig)).fuccess
             },
             data => env.recaptcha.verify(~data.recaptchaResponse, req).flatMap {
               case false =>
-                authLog(data.username, "Signup recaptcha fail")
+                authLog(data.username, data.email, "Signup recaptcha fail")
                 BadRequest(html.auth.signup(forms.signup.website fill data, env.recaptchaPublicConfig)).fuccess
               case true => HasherRateLimit(data.username, ctx.req) { _ =>
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
                   lidraughts.mon.user.register.website()
                   lidraughts.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  authLog(data.username, s"${email.acceptable.value} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
+                  authLog(data.username, data.email, s"${email.acceptable.value} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
@@ -219,15 +230,15 @@ object Auth extends LidraughtsController {
           ),
           api = apiVersion => forms.signup.mobile.bindFromRequest.fold(
             err => {
-              err("username").value foreach { authLog(_, s"Signup fail: ${err.errors mkString ", "}") }
+              signupErrLog(err)
               jsonFormError(err)
             },
             data => HasherRateLimit(data.username, ctx.req) { _ =>
+              val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
               lidraughts.mon.user.register.mobile()
               lidraughts.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
-              authLog(data.username, s"Signup mobile must confirm email: $mustConfirm")
-              val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+              authLog(data.username, data.email, s"Signup mobile must confirm email: $mustConfirm")
               val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
               UserRepo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
@@ -310,7 +321,7 @@ object Auth extends LidraughtsController {
         lidraughts.mon.user.register.confirmEmailResult(true)()
         UserRepo.email(user.id).flatMap {
           _.?? { email =>
-            authLog(user.username, s"Confirmed email ${email.value}")
+            authLog(user.username, email.value, s"Confirmed email ${email.value}")
             welcome(user, email)
           }
         } >> redirectNewUser(user)
@@ -384,7 +395,7 @@ object Auth extends LidraughtsController {
         notFound
       }
       case Some(user) => {
-        authLog(user.username, "Reset password")
+        authLog(user.username, "-", "Reset password")
         lidraughts.mon.user.auth.passwordResetConfirm("token_ok")()
         fuccess(html.auth.bits.passwordResetConfirm(user, token, forms.passwdReset, none))
       }
