@@ -87,6 +87,7 @@ kaffir
 kike
 kys
 labia
+lamer?
 lesbo
 masturbat(e|ion|ing)
 milf
@@ -103,6 +104,7 @@ nutsac?k
 pa?edo
 pa?edo(f|ph)ile
 paki
+pathetic
 pecker
 pederast
 pen(1|i)s
@@ -126,6 +128,8 @@ rapist
 rect(al|um)
 retard
 rimjob
+run
+scare
 schlong
 screw
 scrotum
@@ -155,6 +159,7 @@ tart
 terrorist
 tit(|t?ies|ty)(fuc?k)
 tosser
+trash
 turd
 twat
 vag
@@ -162,6 +167,7 @@ vagin(a|al|)
 vibrator
 vulva
 wanc?k(er|)
+weak
 wetback
 w?hore?
 wog
