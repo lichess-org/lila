@@ -318,12 +318,13 @@ object mod {
       )
     )
 
-  def otherUsers(u: User, spy: lila.security.UserSpy, notes: List[lila.user.Note], bans: Map[String, Int])(implicit ctx: Context): Frag =
+  def otherUsers(u: User, spy: lila.security.UserSpy, othersWithEmail: lila.security.UserSpy.WithMeSortedWithEmails, notes: List[lila.user.Note], bans: Map[String, Int])(implicit ctx: Context): Frag =
     div(id := "mz_others")(
       table(cls := "slist")(
         thead(
           tr(
             th(spy.otherUsers.size, " similar user(s)"),
+            th("Email"),
             th("Same"),
             th(attr("data-sort-method") := "number")("Games"),
             th("Status"),
@@ -332,10 +333,11 @@ object mod {
           )
         ),
         tbody(
-          spy.withMeSorted(u).map {
+          othersWithEmail.others.map {
             case lila.security.UserSpy.OtherUser(o, byIp, byFp) => {
               tr((o == u) option (cls := "same"))(
                 td(attr("data-sort") := o.id)(userLink(o, withBestRating = true, params = "?mod")),
+                td(othersWithEmail emailValueOf o),
                 td(
                   if (o == u) "-"
                   else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")

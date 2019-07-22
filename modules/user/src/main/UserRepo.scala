@@ -422,6 +422,14 @@ object UserRepo {
         }
       }
 
+  def emailMap(names: List[String]): Fu[Map[User.ID, EmailAddress]] =
+    coll.find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true))
+      .list[Bdoc](none, ReadPreference.secondaryPreferred).map { docs =>
+        docs.flatMap { doc =>
+          anyEmail(doc) map { ~doc.getAs[User.ID](F.id) -> _ }
+        }(collection.breakOut)
+      }
+
   def hasEmail(id: ID): Fu[Boolean] = email(id).map(_.isDefined)
 
   def setBot(user: User): Funit =

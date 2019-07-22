@@ -4,10 +4,10 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.chat.Chat
 import lila.common.{ IpAddress, EmailAddress, HTTPRequest }
+import lila.mod.UserSearch
 import lila.report.{ Suspect, Mod => AsMod, SuspectId }
 import lila.security.Permission
 import lila.user.{ UserRepo, User => UserModel, Title }
-import lila.mod.UserSearch
 import ornicar.scalalib.Zero
 import views._
 
@@ -181,15 +181,17 @@ object Mod extends LilaController {
           (Env.security userSpy user) zip
           Env.user.noteApi.forMod(user.id) zip
           Env.mod.logApi.userHistory(user.id) zip
-          Env.report.api.inquiries.ofModId(me.id) map {
+          Env.report.api.inquiries.ofModId(me.id) flatMap {
             case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
-              if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
-                Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
-              val povWithChats = (povs zip chats) collect {
-                case (p, Some(c)) if c.nonEmpty => p -> c
-              } take 15
-              val filteredNotes = notes.filter(_.from != "irwin")
-              html.mod.communication(user, povWithChats, threads, publicLines, spy, filteredNotes, history, priv)
+              lila.security.UserSpy.withMeSortedWithEmails(user, spy.otherUsers) map { othersWithEmail =>
+                if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
+                  Env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
+                val povWithChats = (povs zip chats) collect {
+                  case (p, Some(c)) if c.nonEmpty => p -> c
+                } take 15
+                val filteredNotes = notes.filter(_.from != "irwin")
+                html.mod.communication(user, povWithChats, threads, publicLines, spy, othersWithEmail, filteredNotes, history, priv)
+              }
           }
       }
     }
