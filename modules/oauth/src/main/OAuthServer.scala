@@ -11,6 +11,7 @@ import lidraughts.user.{ User, UserRepo }
 
 final class OAuthServer(
     tokenColl: Coll,
+    appApi: OAuthAppApi,
     asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
@@ -31,9 +32,11 @@ final class OAuthServer(
       case e: AuthError => Left(e)
     }
 
-  def fetchAppOwner(req: RequestHeader): Fu[Option[User.ID]] =
+  def fetchAppAuthor(req: RequestHeader): Fu[Option[User.ID]] =
     reqToTokenId(req) ?? { tokenId =>
-      tokenColl.primitiveOne[User.ID]($doc(F.id -> tokenId), F.clientId)
+      tokenColl.primitiveOne[OAuthApp.Id]($doc(F.id -> tokenId), F.clientId) flatMap {
+        _ ?? appApi.authorOf
+      }
     }
 
   private def reqToTokenId(req: RequestHeader): Option[AccessToken.Id] =

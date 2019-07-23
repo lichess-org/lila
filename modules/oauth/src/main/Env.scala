@@ -24,16 +24,17 @@ final class Env(
   private val tokenColl = db(CollectionAccessToken)
   private val appColl = db(CollectionApp)
 
+  lazy val appApi = new OAuthAppApi(appColl)
+
   lazy val server = new OAuthServer(
     tokenColl = tokenColl,
+    appApi = appApi,
     asyncCache = asyncCache
   )
 
   lazy val tokenApi = new PersonalTokenApi(
     tokenColl = tokenColl
   )
-
-  lazy val appApi = new OAuthAppApi(appColl)
 
   def forms = OAuthForm
 }
