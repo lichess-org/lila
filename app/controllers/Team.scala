@@ -164,7 +164,7 @@ object Team extends LilaController {
       case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
       case _ => notFound(ctx)
     },
-    scoped = req => me => Env.oAuth.server.fetchAppOwner(req) flatMap {
+    scoped = req => me => Env.oAuth.server.fetchAppAuthor(req) flatMap {
       _ ?? { api.joinApi(id, me, _) }
     } map {
       case Some(Joined(_)) => jsonOkResult
