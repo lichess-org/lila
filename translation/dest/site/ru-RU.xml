@@ -690,7 +690,7 @@
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
-  <string name="moveConfirmation">Подтверждать ход</string>
+  <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>
