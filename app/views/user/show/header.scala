@@ -70,22 +70,22 @@ object header {
       ),
       div(cls := "user-actions btn-rack")(
         (ctx is u) option frag(
-          a(cls := "btn-rack__btn", href := routes.Account.profile, ariaTitle(trans.editProfile.txt()), dataIcon := "%"),
-          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), ariaTitle(trans.listBlockedPlayers.txt()), dataIcon := "k")
+          a(cls := "btn-rack__btn", href := routes.Account.profile, titleOrText(trans.editProfile.txt()), dataIcon := "%"),
+          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), titleOrText(trans.listBlockedPlayers.txt()), dataIcon := "k")
         ),
         isGranted(_.UserSpy) option
-          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), ariaTitle("Mod zone"), dataIcon := ""),
-        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), ariaTitle(trans.watchGames.txt()), dataIcon := "1"),
+          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), titleOrText("Mod zone"), dataIcon := ""),
+        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), titleOrText(trans.watchGames.txt()), dataIcon := "1"),
         (ctx.isAuth && !ctx.is(u)) option
           views.html.relation.actions(u.id, relation = social.relation, followable = social.followable, blocked = social.blocked),
         if (ctx is u) a(
           cls := "btn-rack__btn",
           href := routes.Game.exportByUser(u.username),
-          ariaTitle(trans.exportGames.txt()),
+          titleOrText(trans.exportGames.txt()),
           dataIcon := "x"
         )
         else (ctx.isAuth && ctx.noKid) option a(
-          ariaTitle(trans.reportXToModerators.txt(u.username)),
+          titleOrText(trans.reportXToModerators.txt(u.username)),
           cls := "btn-rack__btn",
           href := s"${routes.Report.form}?username=${u.username}",
           dataIcon := "!"
