@@ -184,9 +184,5 @@ export function option(value: string, current: string | undefined, name: string)
 }
 
 export function scrollTo(el: HTMLElement | undefined, target: HTMLElement |  null) {
-  if (el && target) {
-    const rect = el.getBoundingClientRect(),
-    targetRect = target.getBoundingClientRect();
-    el.scrollTop = targetRect.top - rect.top - (rect.height / 2) + (targetRect.height / 2);
-  }
+  if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 }
