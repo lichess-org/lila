@@ -18,7 +18,7 @@ function render(ctrl: Controller): VNode {
         loss: s[1] < 0
       },
       attrs: { href: puzzleUrl(data.puzzle.variant.key) + s[0] }
-    }, s[1] > 0 ? '+' + s[1] : s[1]);
+    }, s[1] > 0 ? '+' + s[1] : '−' + (-s[1]));
   }));
 }
 
