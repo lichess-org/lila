@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Facer iste linea le principal</string>
   <string name="deleteFromHere">Deler ab iste puncto</string>
+  <string name="forceVariation">Fortiar variantes</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
   <string name="variantWin">Victoria per variante</string>
@@ -163,6 +164,9 @@
   <string name="ratingStats">Statisticas de classification</string>
   <string name="username">Nomine de usator</string>
   <string name="usernameOrEmail">Nomine de usator o adresse de e-posta</string>
+  <string name="changeUsername">Cambiar nomine de usator</string>
+  <string name="changeUsernameNotSame">Solmente le cassa del literas pote esser cambiate. Per exemplo \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Cambia tu nomine de usator. Isto pote esser facite solmente un vice e tu pote cambiar solmente le cassa del literes de tu nomine de usator.</string>
   <string name="password">Contrasigno</string>
   <string name="changePassword">Cambiar contrasigno</string>
   <string name="changeEmail">Cambiar adresse de e-posta</string>
