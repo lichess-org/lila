@@ -81,13 +81,14 @@ export function resultOf(tags: TagArray[], isWhite: boolean, draughtsResult: boo
 
 export function view(ctrl: StudyCtrl): VNode {
 
-  const configButton = ctrl.members.canContribute() ? h('act', { attrs: dataIcon('%') }) : null;
-  const current = ctrl.currentChapter();
+  const canContribute = ctrl.members.canContribute(),
+    configButton = canContribute ? h('act', { attrs: dataIcon('%') }) : null,
+    current = ctrl.currentChapter();
 
   function update(vnode: VNode) {
-    const newCount = ctrl.chapters.list().length;
-    const vData = vnode.data!.li!;
-    const el = vnode.elm as HTMLElement;
+    const newCount = ctrl.chapters.list().length,
+      vData = vnode.data!.li!,
+      el = vnode.elm as HTMLElement;
     if (vData.count !== newCount) {
       if (current.id !== ctrl.chapters.firstChapterId()) {
         scrollTo(el, el.querySelector('.active'));
@@ -97,11 +98,11 @@ export function view(ctrl: StudyCtrl): VNode {
       scrollTo(el, el.querySelector('.loading'));
     }
     vData.count = newCount;
-    if (!window.lidraughts.hasTouchEvents && ctrl.members.canContribute() && newCount > 1 && !vData.sortable) {
+    if (!window.lidraughts.hasTouchEvents && canContribute && newCount > 1 && !vData.sortable) {
       const makeSortable = function() {
         vData.sortable = window['Sortable'].create(el, {
           draggable: '.draggable',
-          onSort: function() {
+          onSort() {
             ctrl.chapters.sort(vData.sortable.toArray());
           }
         });
@@ -139,12 +140,11 @@ export function view(ctrl: StudyCtrl): VNode {
   }, ctrl.chapters.list().map((chapter, i) => {
     const editing = ctrl.chapters.editForm.isEditing(chapter.id),
       loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-      active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id,
-      draggable = ctrl.members.canContribute();
+      active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id;
     return h('div', {
       key: chapter.id,
       attrs: { 'data-id': chapter.id },
-      class: { active, editing, loading, draggable }
+      class: { active, editing, loading, draggable: canContribute }
     }, [
       h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
       h('h3', chapter.name),
