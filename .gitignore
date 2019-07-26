@@ -1,4 +1,6 @@
 .idea
+.metals
+.bloop
 .vs
 *.njsproj
 *.sln
