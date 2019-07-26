@@ -126,15 +126,15 @@ export function view(ctrl: StudyCtrl): VNode {
         if (sortable) sortable.destroy()
       }
     }
-  },
-  ctrl.chapters.list().map(function(chapter, i) {
+  }, ctrl.chapters.list().map((chapter, i) => {
     const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-    loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-    active = !ctrl.vm.loading && current && current.id === chapter.id;
-    return h('div.draggable', {
+      loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+      active = !ctrl.vm.loading && current && current.id === chapter.id,
+      draggable = ctrl.members.canContribute();
+    return h('div', {
       key: chapter.id,
       attrs: { 'data-id': chapter.id },
-      class: { active, editing, loading }
+      class: { active, editing, loading, draggable }
     }, [
       h('span', loading ? h('span.ddloader') : ['' + (i + 1)]),
       h('h3', chapter.name),
