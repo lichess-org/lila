@@ -110,6 +110,18 @@ export default class Protocol {
   }
 
   start(w: Work) {
+    if (!this.stopped) {
+      // TODO: Work is started by basically doing stop().then(() => start(w)).
+      // There is a race condition where multiple callers are waiting for
+      // completion of the same stop future, and so they will start work at
+      // the same time.
+      // This can lead to all kinds of issues, including deadlocks. Instead
+      // we ignore all but the first request. The engine will show as loading
+      // indefinitely. Until this is fixed, it is still better than a
+      // possible deadlock.
+      console.log('ceval: tried to start analysing before requesting stop');
+      return;
+    }
     this.work = w;
     this.curEval = null;
     this.stopped = null;
