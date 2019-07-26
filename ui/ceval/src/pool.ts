@@ -164,34 +164,31 @@ class PNaClWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{instance: any}>;
+  static global: Promise<{instance: any, protocol: any}>;
 
-  private instance: any;
-  private listener?: any;
+  private instance?: any;
 
   boot(): Promise<Protocol> {
     if (!ThreadedWasmWorker.global) ThreadedWasmWorker.global = window.lichess.loadScript(this.url, {sameDomain: true}).then(() => {
+      const instance = this.instance = window['Stockfish']();
+      const protocol = new Protocol(this.send.bind(this), this.workerOpts);
+      const listener = protocol.received.bind(protocol);
+      instance.addMessageListener(listener);
       return {
-        instance: window['Stockfish']() // wrap to work around https://github.com/emscripten-core/emscripten/issues/5820
+        instance, // always wrap, in promise context (https://github.com/emscripten-core/emscripten/issues/5820)
+        protocol
       };
     });
     return ThreadedWasmWorker.global.then(global => {
       this.instance = global.instance;
-      const protocol = new Protocol(this.send.bind(this), this.workerOpts);
-      this.listener = protocol.received.bind(protocol);
-      this.instance.addMessageListener(this.listener);
-      return protocol;
+      return global.protocol;
     });
   }
 
   destroy() {
-    if (!this.instance) return;
+    if (!ThreadedWasmWorker.global) return;
     console.log('stopping singleton wasmx worker (instead of destroying) ...');
-    this.stop().then(() => {
-      console.log('... successfully stopped');
-      this.instance.removeMessageListener(this.listener);
-      this.instance = undefined;
-    });
+    this.stop().then(() => console.log('... successfully stopped'));
   }
 
   send(cmd: string) {
