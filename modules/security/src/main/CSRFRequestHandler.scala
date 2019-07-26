@@ -4,7 +4,7 @@ import play.api.mvc.RequestHeader
 
 import lidraughts.common.HTTPRequest._
 
-final class CSRFRequestHandler(domain: String) {
+final class CSRFRequestHandler(domain: String, enabled: Boolean) {
 
   private def logger = lidraughts.log("csrf")
 
@@ -28,7 +28,7 @@ final class CSRFRequestHandler(domain: String) {
           lidraughts.mon.http.csrf.forbidden()
           logger.info(print(req))
         }
-        false
+        !enabled
     }
   }
 

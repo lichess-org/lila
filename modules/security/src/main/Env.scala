@@ -48,6 +48,7 @@ final class Env(
     val NetBaseUrl = config getString "net.base_url"
     val NetDomain = config getString "net.domain"
     val NetEmail = config getString "net.email"
+    val CsrfEnabled = config getBoolean "csrf.enabled"
   }
   import settings._
 
@@ -169,7 +170,7 @@ final class Env(
 
   lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)
 
-  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
+  lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain, CsrfEnabled)
 
   def cli = new Cli
 
