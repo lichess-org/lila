@@ -57,16 +57,8 @@ export abstract class AbstractWorker {
   }
 
   start(work: Work) {
-    // wait for boot
     this.protocol.promise.then(protocol => {
-      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
-      Promise.race([protocol.stop(), timeout]).catch(() => {
-        // reboot if not stopped after 1s
-        this.destroy();
-        this.protocol = sync(this.boot());
-      }).then(() => {
-        this.protocol.promise.then(protocol => protocol.start(work));
-      });
+      protocol.stop().then(() => protocol.start(work));
     });
   }
 
@@ -93,6 +85,20 @@ class WebWorker extends AbstractWorker {
       protocol.received(e.data);
     }, true);
     return Promise.resolve(protocol);
+  }
+
+  start(work: Work) {
+    // wait for boot
+    this.protocol.promise.then(protocol => {
+      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
+      Promise.race([protocol.stop(), timeout]).catch(() => {
+        // reboot if not stopped after 1s
+        this.destroy();
+        this.protocol = sync(this.boot());
+      }).then(() => {
+        this.protocol.promise.then(protocol => protocol.start(work));
+      });
+    });
   }
 
   destroy() {
