@@ -633,6 +633,7 @@ in %3$s</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="ifRatingIsPlusMinusX">Si le classification es ± %s</string>
   <string name="onlyFriends">Solmente amicos</string>
+  <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>
   <string name="whiteCastlingKingside">Blanco O-O</string>
@@ -755,6 +756,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s ha create %2$s</string>
   <string name="xJoinsY">%1$s ha unite se a %2$s</string>
   <string name="xLikesY">%1$s ama %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea un studio %2$s</string>
   <string name="quickPairing">Initio rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
