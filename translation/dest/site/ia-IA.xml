@@ -633,6 +633,7 @@ in %3$s</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="ifRatingIsPlusMinusX">Si le classification es ± %s</string>
   <string name="onlyFriends">Solmente amicos</string>
+  <string name="displayBoardResizeHandle">Mostrar le flechas pro redimensionar le tabula</string>
   <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>
