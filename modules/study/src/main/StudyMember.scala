@@ -4,11 +4,7 @@ import org.joda.time.DateTime
 
 import lidraughts.user.User
 
-case class StudyMember(
-    id: User.ID,
-    role: StudyMember.Role,
-    addedAt: DateTime
-) {
+case class StudyMember(id: User.ID, role: StudyMember.Role) {
 
   def canContribute = role.canWrite
 }
@@ -17,7 +13,7 @@ object StudyMember {
 
   type MemberMap = Map[User.ID, StudyMember]
 
-  def make(user: User) = StudyMember(id = user.id, role = Role.Read, addedAt = DateTime.now)
+  def make(user: User) = StudyMember(id = user.id, role = Role.Read)
 
   sealed abstract class Role(val id: String, val canWrite: Boolean)
   object Role {

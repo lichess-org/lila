@@ -249,15 +249,15 @@ object BSONHandlers {
     def read(b: BSONString) = StudyMember.Role.byId get b.value err s"Invalid role ${b.value}"
     def write(x: StudyMember.Role) = BSONString(x.id)
   }
-  private case class DbMember(role: StudyMember.Role, addedAt: DateTime)
+  private case class DbMember(role: StudyMember.Role) extends AnyVal
   private implicit val DbMemberBSONHandler = Macros.handler[DbMember]
   private[study] implicit val StudyMemberBSONWriter = new BSONWriter[StudyMember, Bdoc] {
-    def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role, x.addedAt)
+    def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role)
   }
   private[study] implicit val MembersBSONHandler = new BSONHandler[Bdoc, StudyMembers] {
     private val mapHandler = BSON.MapDocument.MapHandler[String, DbMember]
     def read(b: Bdoc) = StudyMembers(mapHandler read b map {
-      case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
+      case (id, dbMember) => id -> StudyMember(id, dbMember.role)
     })
     def write(x: StudyMembers) = BSONDocument(x.members.mapValues(StudyMemberBSONWriter.write))
   }
