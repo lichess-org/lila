@@ -44,6 +44,7 @@ export default class RoundController {
   clock?: ClockController;
   corresClock?: CorresClockController;
   trans: Trans;
+  noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
   moveOn: MoveOn;
 
@@ -111,6 +112,7 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'lidraughts.move_on');
 
     this.trans = li.trans(opts.i18n);
+    this.noarg = this.trans.noarg;
 
     if (this.data.simul && this.data.simul.timeOutUntil) {
       const curMillis = (new Date).getTime();

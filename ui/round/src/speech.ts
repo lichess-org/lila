@@ -22,7 +22,7 @@ export function status(ctrl: RoundController) {
   else {
     withSpeech(speech => speech.say(s, false));
     const w = ctrl.data.game.winner;
-    if (w) withSpeech(speech => speech.say(ctrl.trans.noarg(w + 'IsVictorious'), false));
+    if (w) withSpeech(speech => speech.say(ctrl.noarg(w + 'IsVictorious'), false));
   }
 }
 
