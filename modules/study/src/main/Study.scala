@@ -50,11 +50,7 @@ case class Study(
   def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
 
   def cloneFor(user: User): Study = {
-    val owner = StudyMember(
-      id = user.id,
-      role = StudyMember.Role.Write,
-      addedAt = DateTime.now
-    )
+    val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
       _id = Study.makeId,
       members = StudyMembers(Map(user.id -> owner)),
@@ -162,11 +158,7 @@ object Study {
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
   def make(user: User, from: From, id: Option[Study.Id] = None, name: Option[Name] = None, settings: Option[Settings] = None) = {
-    val owner = StudyMember(
-      id = user.id,
-      role = StudyMember.Role.Write,
-      addedAt = DateTime.now
-    )
+    val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,
       name = name | Name(s"${user.username}'s Study"),

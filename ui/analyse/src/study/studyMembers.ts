@@ -127,11 +127,10 @@ export function ctrl(opts: Opts) {
     },
     ordered() {
       const d = dict();
-      return Object.keys(d).map(id => d[id]).sort(function(a, b) {
-        if (a.role === 'r' && b.role === 'w') return 1;
-        if (a.role === 'w' && b.role === 'r') return -1;
-        return a.addedAt > b.addedAt ? 1 : -1;
-      });
+      return Object.keys(d).map(id => d[id]).sort((a, b) =>
+        a.role === 'r' && b.role === 'w' ? 1 : (
+          a.role === 'w' && b.role === 'r' ? -1 : 0
+        ));
     },
     size() {
       return Object.keys(dict()).length;
