@@ -2,7 +2,7 @@
 . bin/lilarc
 
 to=$1
-mode=${2-build} # build | css | js
+mode=${2-build} # build | css | js | upload
 
 if [ -z $to ]; then
   echo "Empty deploy target"
@@ -26,7 +26,9 @@ fi
 
 lilalog "Deploy prod $mode assets to $to server $REMOTE:$REMOTE_DIR"
 
-./ui/build prod $mode
+if [ "$mode" != "upload" ]; then
+  ./ui/build prod $mode
+fi
 
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $REMOTE:$REMOTE_DIR
