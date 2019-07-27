@@ -45,6 +45,7 @@ export default class RoundController {
   clock?: ClockController;
   corresClock?: CorresClockController;
   trans: Trans;
+  noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
   moveOn: MoveOn;
 
@@ -105,6 +106,7 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
 
     this.trans = li.trans(opts.i18n);
+    this.noarg = this.trans.noarg;
 
     setTimeout(this.delayedInit, 200);
 

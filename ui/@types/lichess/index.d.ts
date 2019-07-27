@@ -81,9 +81,11 @@ interface AssetUrlOpts {
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
+type TransNoArg = (key: string) => string;
+
 interface Trans {
   (key: string, ...args: Array<string | number>): string;
-  noarg(key: string): string;
+  noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): (string | T)[];
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
