@@ -53,18 +53,21 @@ function needsBoardHeightFix() {
 function localStorageInfo() {
   var intresting = [
     'client-eval-enabled',
-    'puzzle.client-eval-enabled',
     'analyse.ceval.watchdog3.pnacl',
     'analyse.ceval.max-depth',
+    'analyse.ceval.multipv',
+    'analyse.ceval.threads',
+    'analyse.ceval.hash-size',
+    'analyse.ceval.infinite',
+    'ceval.pool.start',
+    'ceval.fen',
     'just-notified',
     'push-subscribed',
-    'ceval.pool.start',
     'grid',
     'resize-nag',
     'speech.enabled',
-    'surl6',
-    'ceval.fen',
-    'sound-volume'
+    'sound-volume',
+    'surl6'
   ];
   var info = {};
   for (var i = 0; i < intresting.length; i++) {
@@ -87,12 +90,13 @@ function serviceWorkerInfo() {
 }
 
 var info = {
-  diagnosticsVersion: 1,
+  diagnosticsVersion: 2,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
     chrome: !!window.chrome,
-    is64Bit: is64Bit()
+    is64Bit: is64Bit(),
+    hardwareConcurrency: navigator.hardwareConcurrency
   },
   wasm: wasmInfo(),
   pnacl: pnaclInfo(),
