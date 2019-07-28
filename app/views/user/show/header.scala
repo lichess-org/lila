@@ -194,7 +194,7 @@ It's useful against spambots. These marks are not visible to the public."""
                 },
                 div(cls := "social_links col2")(
                   profile.actualLinks.map { link =>
-                    a(href := link.url, target := "_blank", rel := "no-follow")(link.site.name)
+                    a(href := link.url, target := "_blank", rel := "nofollow")(link.site.name)
                   }
                 ),
                 div(cls := "teams col2")(
