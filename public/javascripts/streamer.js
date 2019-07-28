@@ -8,9 +8,9 @@ $(function() {
     });
   });
   setTimeout(function() {
-    if (!lichess.needBlocker) return;
+    if (!lidraughts.needBlocker) return;
     var url = 'https://github.com/gorhill/uBlock#installation';
-    if (lichess.isChrome) url = 'https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm';
+    if (lidraughts.isChrome) url = 'https://chrome.google.com/webstore/detail/ublock-origin/cjpalhdlnbpafiamejdnhcphjbkeiagm';
     else if (navigator.userAgent.indexOf(' Firefox/') > -1) url = 'https://addons.mozilla.org/addon/ublock-origin/';
     else if (navigator.userAgent.indexOf(' Edge/') > -1) url = 'https://www.microsoft.com/store/p/app/9nblggh444l4';
     $('#site_header').append('<a class="blocker button" href="'+url+'">' +
