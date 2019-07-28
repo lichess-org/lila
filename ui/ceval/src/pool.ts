@@ -56,9 +56,9 @@ export abstract class AbstractWorker {
     return this.protocol.promise.then(protocol => protocol.stop());
   }
 
-  start(work: Work) {
-    this.protocol.promise.then(protocol => {
-      protocol.stop().then(() => protocol.start(work));
+  start(work: Work): Promise<void> {
+    return this.protocol.promise.then(protocol => {
+      return protocol.stop().then(() => protocol.start(work));
     });
   }
 
@@ -87,16 +87,16 @@ class WebWorker extends AbstractWorker {
     return Promise.resolve(protocol);
   }
 
-  start(work: Work) {
+  start(work: Work): Promise<void> {
     // wait for boot
-    this.protocol.promise.then(protocol => {
+    return this.protocol.promise.then(protocol => {
       const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
-      Promise.race([protocol.stop(), timeout]).catch(() => {
+      return Promise.race([protocol.stop(), timeout]).catch(() => {
         // reboot if not stopped after 1s
         this.destroy();
         this.protocol = sync(this.boot());
       }).then(() => {
-        this.protocol.promise.then(protocol => protocol.start(work));
+        return this.protocol.promise.then(protocol => protocol.start(work));
       });
     });
   }
