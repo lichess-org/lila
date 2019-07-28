@@ -3,7 +3,7 @@ package lidraughts.game
 import draughts.{ Color, Status, Mode }
 import org.joda.time.DateTime
 
-import lila.user.User
+import lidraughts.user.User
 
 case class LightGame(
     id: Game.ID,
