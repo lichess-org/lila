@@ -23,7 +23,7 @@ case class Game(
     status: Status,
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
-    clockHistory: Option[ClockHistory] = Some(ClockHistory()),
+    loadClockHistory: () => Option[ClockHistory] = () => Some(ClockHistory()),
     mode: Mode = Mode.default,
     next: Option[String] = None,
     bookmarks: Int = 0,
@@ -31,6 +31,8 @@ case class Game(
     movedAt: DateTime = DateTime.now,
     metadata: Metadata
 ) {
+
+  lazy val clockHistory = loadClockHistory()
 
   def situation = draughts.situation
   def board = draughts.situation.board
@@ -255,7 +257,7 @@ case class Game(
           } :+ Centis(nowCentis - movedAt.getCentis).nonNeg
         }
       },
-      clockHistory = for {
+      loadClockHistory = () => for {
         clk <- game.clock
         ch <- clockHistory
       } yield ch.record(turnColor, clk),
@@ -415,7 +417,7 @@ case class Game(
       val newClock = c goBerserk color
       Progress(this, copy(
         draughts = draughts.copy(clock = Some(newClock)),
-        clockHistory = clockHistory.map(history => {
+        loadClockHistory = () => loadClockHistory().map(history => {
           if (history(color).isEmpty) history
           else history.reset(color).record(color, newClock)
         })
@@ -439,7 +441,7 @@ case class Game(
         whitePlayer = whitePlayer.finish(winner contains White),
         blackPlayer = blackPlayer.finish(winner contains Black),
         draughts = draughts.copy(clock = newClock),
-        clockHistory = for {
+        loadClockHistory = () => for {
           clk <- clock
           history <- clockHistory
         } yield {

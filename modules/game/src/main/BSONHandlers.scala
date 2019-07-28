@@ -96,7 +96,7 @@ object BSONHandlers {
         status = light.status,
         daysPerTurn = r intO F.daysPerTurn,
         binaryMoveTimes = r bytesO F.moveTimes,
-        clockHistory = for {
+        loadClockHistory = () => for {
           clk <- draughtsGame.clock
           bw <- r bytesO F.whiteClockHistory
           bb <- r bytesO F.blackClockHistory
