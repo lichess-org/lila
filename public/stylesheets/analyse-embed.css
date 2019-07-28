@@ -39,9 +39,6 @@ div.game_control .jumps {
   margin: 16px 4px 0px 4px;
   height: 100px !important;
 }
-.gb_play .feedback.info {
-  font-size: 1.4em !important;
-}
 .gb_play .feedback.act {
   font-size: 1.5em !important;
 }
