@@ -135,7 +135,7 @@ final class PlaybanApi(
   def completionRate(userId: User.ID): Fu[Option[Double]] =
     coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
       outcomes.collect {
-        case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay => false
+        case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort => false
         case Outcome.Good => true
       } match {
         case c if c.size >= 5 => Some(c.count(identity).toDouble / c.size)
