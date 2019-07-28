@@ -61,4 +61,13 @@ Bạn đã nắm mọi bí mật của quân Tốt.</string>
   <string name="itNowPromotesToAStrongerPiece">Bây giờ nó cần phải phong cấp lên một con quân mạnh hơn.</string>
   <string name="selectThePieceYouWant">Hãy chọn con quân mà bạn muốn!</string>
   <string name="fundamentals">Nguyên tắc cơ bản</string>
+  <string name="capture">Ăn quân</string>
+  <string name="takeTheEnemyPieces">Loại quân của đối thủ</string>
+  <string name="captureIntro">Xác định quân không được phòng thủ của đối phương, và loại nó ra khỏi bàn cờ!</string>
+  <string name="takeTheBlackPieces">Hãy bắt lấy quân đen!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Bắt lấy quân đen!
+Nhưng đừng để mất quân của bạn.</string>
+  <string name="captureComplete">Xin chúc mừng! Bạn đã nắm được cách đánh với các quân cờ!</string>
+  <string name="protection">Phòng thủ</string>
+  <string name="keepYourPiecesSafe">Đề phòng an toàn cho quân của bạn</string>
 </resources>
