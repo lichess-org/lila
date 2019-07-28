@@ -27,7 +27,7 @@ export interface DragCurrent {
   /** can the new piece replace an existing one (editor) */
   force?: boolean;
   previouslySelected?: cg.Key;
-  originTarget: EventTarget;
+  originTarget: EventTarget | null;
 }
 
 export function start(s: State, e: cg.MouchEvent): void {
