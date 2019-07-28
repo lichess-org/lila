@@ -110,7 +110,7 @@ object String {
         lidraughts.log("templating").error(s"addLinks($text)", e)
         text
       case e: StackOverflowError =>
-        lila.log("templating").error(text take 10000, e)
+        lidraughts.log("templating").error(text take 10000, e)
         text
     }
 
