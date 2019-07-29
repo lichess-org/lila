@@ -20,6 +20,7 @@
   <string name="createAGame">Create a game</string>
   <string name="whiteIsVictorious">White is victorious</string>
   <string name="blackIsVictorious">Black is victorious</string>
+  <string name="promotion">Promotion</string>
   <string name="variantEnding">Variant ending</string>
   <string name="newOpponent">New opponent</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Your opponent wants to play a new game with you</string>

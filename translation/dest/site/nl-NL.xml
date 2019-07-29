@@ -20,6 +20,7 @@
   <string name="createAGame">Start een nieuwe partij</string>
   <string name="whiteIsVictorious">Wit heeft gewonnen</string>
   <string name="blackIsVictorious">Zwart heeft gewonnen</string>
+  <string name="promotion">Promotie</string>
   <string name="variantEnding">Einde van de variant</string>
   <string name="newOpponent">Nieuwe tegenstander</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Je tegenstander wil een nieuwe partij spelen</string>
