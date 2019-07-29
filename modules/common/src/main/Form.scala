@@ -5,7 +5,7 @@ import play.api.data.format.Formats._
 import play.api.data.format.Formatter
 import play.api.data.validation.Constraint
 import play.api.data.Forms._
-import play.api.data.{ Mapping, FormError, Field }
+import play.api.data.{ Mapping, FormError, Field, Form => PlayForm }
 import scala.util.Try
 
 object Form {
@@ -35,6 +35,9 @@ object Form {
 
   def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
+
+  def numberIn(choices: Seq[Int]) =
+    number.verifying(choices.contains _)
 
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(hasKey(choices, _))

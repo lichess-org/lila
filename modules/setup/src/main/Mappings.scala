@@ -7,7 +7,7 @@ import draughts.Mode
 import lidraughts.rating.RatingRange
 import lidraughts.lobby.Color
 
-object Mappings {
+private object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)
