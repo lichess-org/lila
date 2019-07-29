@@ -4,6 +4,10 @@
     margin-top: 30px;
     margin-bottom: 6px;
     border-bottom: $border;
+    color: $c-font;
+    &:hover {
+      color: $c-link;
+    }
   }
 }
 
