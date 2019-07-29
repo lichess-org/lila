@@ -33,7 +33,7 @@ object Game extends LidraughtsController {
   )
 
   private def handleExport(username: String, me: Option[lidraughts.user.User], req: RequestHeader, draughtsResult: Boolean, oauth: Boolean) =
-      lidraughts.user.UserRepo named username flatMap {
+    lidraughts.user.UserRepo named username flatMap {
       _ ?? { user =>
         RequireHttp11(req) {
           Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {

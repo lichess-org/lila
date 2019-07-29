@@ -1,5 +1,9 @@
 package lidraughts.chat
 
+import draughts.Color
+import reactivemongo.api.ReadPreference
+import scala.concurrent.duration._
+
 import lidraughts.db.dsl._
 import lidraughts.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lidraughts.user.{ User, UserRepo }

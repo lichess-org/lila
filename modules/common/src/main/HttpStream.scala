@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 import akka.actor._
 import play.api.libs.iteratee._
@@ -18,7 +18,7 @@ object HttpStream {
 
   def onComplete(stream: Option[ActorRef], system: ActorSystem) =
     stream foreach { actor =>
-      system.lilaBus.unsubscribe(actor)
+      system.lidraughtsBus.unsubscribe(actor)
       actor ! PoisonPill
     }
 

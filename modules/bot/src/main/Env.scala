@@ -1,12 +1,12 @@
-package lila.bot
+package lidraughts.bot
 
 import akka.actor._
 
 final class Env(
     system: ActorSystem,
-    hub: lila.hub.Env,
-    onlineUserIds: lila.memo.ExpireSetMemo,
-    lightUserApi: lila.user.LightUserApi
+    hub: lidraughts.hub.Env,
+    onlineUserIds: lidraughts.memo.ExpireSetMemo,
+    lightUserApi: lidraughts.user.LightUserApi
 ) {
 
   lazy val jsonView = new BotJsonView(lightUserApi)
@@ -29,9 +29,9 @@ final class Env(
 object Env {
 
   lazy val current: Env = "bot" boot new Env(
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
-    lightUserApi = lila.user.Env.current.lightUserApi
+    system = lidraughts.common.PlayApp.system,
+    hub = lidraughts.hub.Env.current,
+    onlineUserIds = lidraughts.user.Env.current.onlineUserIdMemo,
+    lightUserApi = lidraughts.user.Env.current.lightUserApi
   )
 }

@@ -141,7 +141,8 @@ object Setup extends LidraughtsController with TheftPrevention {
             ),
             config =>
               //if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
-              else (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
+              //else
+              (ctx.userId ?? Env.relation.api.fetchBlocking) flatMap {
                 blocking =>
                   env.processor.hook(config, uid, HTTPRequest sid req, blocking) map hookResponse
               }

@@ -1,7 +1,7 @@
 package lidraughts.mod
 
 import lidraughts.common.{ IpAddress, EmailAddress }
-import lidraughts.report.{ Mod, Suspect, Room }
+import lidraughts.report.{ Mod, ModId, Suspect, SuspectId, Room }
 import lidraughts.security.Permission
 import lidraughts.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lidraughts.user.{ User, UserRepo, LightUserApi }
@@ -33,8 +33,8 @@ final class ModApi(
     }
   }
 
-  def autoMark(username: String, modId: User.ID): Funit = for {
-    sus <- reportApi.getSuspect(username) flatten s"No such suspect $username"
+  def autoMark(suspectId: SuspectId, modId: ModId): Funit = for {
+    sus <- reportApi.getSuspect(suspectId.value) flatten s"No such suspect $suspectId"
     unengined <- logApi.wasUnengined(sus)
     _ <- (!sus.user.isBot && !unengined) ?? {
       reportApi.getMod(modId.value) flatMap {
@@ -140,7 +140,7 @@ final class ModApi(
   }
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
-    if (v) lidraughtsBus.publish(lidraughtsBus.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
+    if (v) lidraughtsBus.publish(lidraughts.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
     UserRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }
 

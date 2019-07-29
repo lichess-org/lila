@@ -6,14 +6,14 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 
-import lila.app._
+import lidraughts.app._
 
-object Bot extends LilaController {
+object Bot extends LidraughtsController {
 
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>
     WithMyBotGame(id, me) { pov =>
       RequireHttp11(req) {
-        lila.game.GameRepo.withInitialFen(pov.game) map { wf =>
+        lidraughts.game.GameRepo.withInitialFen(pov.game) map { wf =>
           Ok.chunked(Env.bot.gameStateStream(me, wf, pov.color))
         }
       }
@@ -31,7 +31,7 @@ object Bot extends LilaController {
   def command(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
-        lila.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
+        lidraughts.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
           case e: Exception => BadRequest(jsonError(e.getMessage))
         }
       case Array("game", id, "chat") => WithBot(me) {
@@ -45,14 +45,14 @@ object Bot extends LilaController {
       case Array("game", id, "abort") => WithBot(me) {
         WithMyBotGame(id, me) { pov =>
           Env.bot.player.abort(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
+            case e: lidraughts.base.LidraughtsException => BadRequest(e.getMessage)
           }
         }
       }
       case Array("game", id, "resign") => WithBot(me) {
         WithMyBotGame(id, me) { pov =>
           Env.bot.player.resign(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
+            case e: lidraughts.base.LidraughtsException => BadRequest(e.getMessage)
           }
         }
       }
@@ -60,18 +60,18 @@ object Bot extends LilaController {
     }
   }
 
-  private def WithMyBotGame(anyId: String, me: lila.user.User)(f: lila.game.Pov => Fu[Result]) =
+  private def WithMyBotGame(anyId: String, me: lidraughts.user.User)(f: lidraughts.game.Pov => Fu[Result]) =
     WithBot(me) {
-      Env.round.roundProxyGame(lila.game.Game takeGameId anyId) flatMap {
+      Env.round.roundProxyGame(lidraughts.game.Game takeGameId anyId) flatMap {
         case None => NotFound(jsonError("No such game")).fuccess
-        case Some(game) => lila.game.Pov(game, me) match {
+        case Some(game) => lidraughts.game.Pov(game, me) match {
           case None => NotFound(jsonError("Not your game")).fuccess
           case Some(pov) => f(pov)
         }
       }
     }
 
-  private def WithBot(me: lila.user.User)(f: => Fu[Result]) =
+  private def WithBot(me: lidraughts.user.User)(f: => Fu[Result]) =
     if (!me.isBot) BadRequest(jsonError("This endpoint only works for bot accounts.")).fuccess
     else f
 }

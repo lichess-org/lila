@@ -152,7 +152,7 @@ private[round] final class Player(
     // publish all moves
     bus.publish(moveEvent, 'moveEvent)
 
-    // for lila.bot.GameStateStream
+    // for lidraughts.bot.GameStateStream
     // is this too expensive? #TODO find a better way (like having a Game.metadata.hasBot flag)
     bus.publish(game, Symbol(s"moveGame:${game.id}"))
 

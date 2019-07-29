@@ -32,8 +32,8 @@ final class PdnDump(
   private def addEvals(p: Pdn, analysis: Analysis): Pdn = analysis.infos.foldLeft(p) {
     case (pdn, info) => pdn.updateTurn(info.turn, turn =>
       turn.update(info.color, move => {
-        val comment = info.cp.map(_.pawns.toString)
-          .orElse(info.mate.map(m => s"#${m.value}"))
+        val comment = info.cp.map(_.pieces.toString)
+          .orElse(info.win.map(m => s"#${m.value}"))
         move.copy(
           comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
         )
@@ -69,11 +69,11 @@ final class PdnDump(
       toPdn(config.flags)
   }
 
-  // def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
-  //   Enumerator.enumerate(ids grouped 50) &>
-  //     Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
-  //     Enumeratee.mapConcat(identity) &>
-  //     toPdn(WithFlags(draughtsResult = draughtsResult))
+  def exportGamesFromIds(ids: List[String], draughtsResult: Boolean): Enumerator[String] =
+    Enumerator.enumerate(ids grouped 50) &>
+      Enumeratee.mapM[List[String]].apply[List[Game]](GameRepo.gamesFromSecondary) &>
+      Enumeratee.mapConcat(identity) &>
+      toPdn(WithFlags(draughtsResult = draughtsResult))
 }
 
 object PdnDump {

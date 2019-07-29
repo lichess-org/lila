@@ -1,14 +1,14 @@
-package lila.bot
+package lidraughts.bot
 
 import play.api.libs.json._
 
-import chess.format.FEN
+import draughts.format.FEN
 
-import lila.game.JsonView._
-import lila.game.{ Game, Pov, GameRepo }
+import lidraughts.game.JsonView._
+import lidraughts.game.{ Game, Pov, GameRepo }
 
 final class BotJsonView(
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lidraughts.user.LightUserApi
 ) {
 
   def gameFull(game: Game): Fu[JsObject] = GameRepo.withInitialFen(game) flatMap gameFull
@@ -42,7 +42,7 @@ final class BotJsonView(
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] = {
     import wf._
-    chess.format.UciDump(game.pgnMoves, fen.map(_.value), game.variant).future map { uciMoves =>
+    draughts.format.UciDump(game.pdnMoves, fen.map(_.value), game.variant).future map { uciMoves =>
       Json.obj(
         "type" -> "gameState",
         "moves" -> uciMoves.mkString(" "),
@@ -76,7 +76,7 @@ final class BotJsonView(
   private def millisOf(pov: Pov): Int =
     pov.game.clock.fold(Int.MaxValue)(_.remainingTime(pov.color).millis.toInt)
 
-  private implicit val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+  private implicit val clockConfigWriter: OWrites[draughts.Clock.Config] = OWrites { c =>
     Json.obj(
       "initial" -> c.limit.millis,
       "increment" -> c.increment.millis

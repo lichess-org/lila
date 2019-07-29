@@ -1,8 +1,8 @@
-package lila.challenge
+package lidraughts.challenge
 
 import Challenge.TimeControl
-import lila.game.{ Game, Pov, PovRef, GameRepo }
-import lila.user.{ User, UserRepo }
+import lidraughts.game.{ Game, Pov, PovRef, GameRepo }
+import lidraughts.user.{ User, UserRepo }
 
 object ChallengeMaker {
 

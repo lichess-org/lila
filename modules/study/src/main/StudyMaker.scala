@@ -40,7 +40,7 @@ private final class StudyMaker(
   }
 
   private def createFromPov(data: StudyMaker.ImportGame, pov: Pov, initialFen: Option[FEN], user: User, draughtsResult: Boolean): Fu[Study.WithChapter] =
-    chapterMaker.game2root(pov.game, initialFen) map { root =>
+    chapterMaker.game2root(pov.game, initialFen, draughtsResult) map { root =>
       val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
       val chapter: Chapter = Chapter.make(
         studyId = study.id,

@@ -8,6 +8,7 @@ import lidraughts.evaluation.Statistics
 import lidraughts.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
 import lidraughts.game.{ Game, Player, GameRepo, Source, Pov }
 import lidraughts.user.{ User, UserRepo }
+import lidraughts.report.{ SuspectId, ModId }
 
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
@@ -114,7 +115,7 @@ final class AssessApi(
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
           UserRepo.getTitle(userId).flatMap {
-            case None => modApi.autoMark(userId, "lidraughts")
+            case None => modApi.autoMark(SuspectId(userId), ModId.Lidraughts)
             case Some(title) => fuccess {
               val reason = s"Would mark as engine, but has a $title title"
               reporter ! lidraughts.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))

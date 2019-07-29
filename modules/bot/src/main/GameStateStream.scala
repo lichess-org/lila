@@ -1,19 +1,19 @@
-package lila.bot
+package lidraughts.bot
 
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import chess.format.FEN
+import draughts.format.FEN
 
-import lila.chat.UserLine
-import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ Game, GameRepo }
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.MoveEvent
-import lila.socket.actorApi.BotConnected
-import lila.user.User
+import lidraughts.chat.UserLine
+import lidraughts.game.actorApi.{ FinishGame, AbortedBy }
+import lidraughts.game.{ Game, GameRepo }
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.round.MoveEvent
+import lidraughts.socket.actorApi.BotConnected
+import lidraughts.user.User
 
 final class GameStateStream(
     system: ActorSystem,
@@ -21,9 +21,9 @@ final class GameStateStream(
     roundSocketHub: ActorSelection
 ) {
 
-  import lila.common.HttpStream._
+  import lidraughts.common.HttpStream._
 
-  def apply(me: User, init: Game.WithInitialFen, as: chess.Color): Enumerator[String] = {
+  def apply(me: User, init: Game.WithInitialFen, as: draughts.Color): Enumerator[String] = {
 
     val id = init.game.id
 
@@ -37,7 +37,7 @@ final class GameStateStream(
 
           override def preStart(): Unit = {
             super.preStart()
-            system.lilaBus.subscribe(
+            system.lidraughtsBus.subscribe(
               self,
               Symbol(s"moveGame:$id"), 'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
             )
@@ -52,7 +52,7 @@ final class GameStateStream(
 
           override def postStop(): Unit = {
             super.postStop()
-            system.lilaBus.unsubscribe(self)
+            system.lidraughtsBus.unsubscribe(self)
             // hang around if game is over
             // so the opponent has a chance to rematch
             context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
@@ -62,7 +62,7 @@ final class GameStateStream(
 
           def receive = {
             case g: Game if g.id == id => pushState(g)
-            case lila.chat.actorApi.ChatLine(chatId, UserLine(username, text, false, false)) =>
+            case lidraughts.chat.actorApi.ChatLine(chatId, UserLine(username, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
