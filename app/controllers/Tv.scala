@@ -56,10 +56,14 @@ object Tv extends LidraughtsController {
           },
           api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
         )
-      case _ =>
-        Env.tv.tv.getChampions map { champions =>
-          Ok(html.tv.index(channel, champions, none, play.api.libs.json.Json.obj(), none, false, Nil))
-        }
+      case _ => negotiate(
+        html = Env.tv.tv.getChampions map { champions =>
+          NoIframe {
+            Ok(html.tv.index(channel, champions, none, play.api.libs.json.Json.obj(), none, false, Nil))
+          }
+        },
+        api = _ => notFoundJson("No game found")
+      )
     }
 
   def games = gamesChannel(lidraughts.tv.Tv.Channel.Best.key)
