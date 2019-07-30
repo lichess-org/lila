@@ -36,6 +36,7 @@
   <string name="makeSureTheChapterIsComplete">Assurez-vous que le chapitre est terminé. Vous ne pouvez demander l\'analyse qu\'une seule fois.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
+  <string name="playing">En cours</string>
   <string name="onlyOngoingGames">Seulement les parties en cours</string>
   <string name="first">Premier</string>
   <string name="previous">Précédent</string>
