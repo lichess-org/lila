@@ -103,6 +103,8 @@ object Seek {
   )
 
   import reactivemongo.bson._
+  import lidraughts.db.BSON.MapValue.MapHandler
+  import lidraughts.db.BSON.BSONJodaDateTimeHandler
   implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
     def read(b: BSONInteger) = LobbyPerf(b.value.abs, b.value < 0)
     def write(x: LobbyPerf) = BSONInteger(x.rating * x.provisional.fold(-1, 1))
