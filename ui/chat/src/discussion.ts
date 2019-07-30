@@ -116,7 +116,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
   const mouchEvents = ['touchstart', 'mousedown'];
 
   if (mouchListener) mouchEvents.forEach(event =>
-    document.body.removeEventListener(event, mouchListener)
+    document.body.removeEventListener(event, mouchListener, {capture: true})
   );
 
   mouchListener = (e: MouseEvent) => {
