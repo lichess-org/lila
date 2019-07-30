@@ -44,6 +44,10 @@
     }
     a {
       color: $c-font-page;
+      @include transition(color);
+      &:hover {
+        color: $c-link;
+      }
     }
   }
 }
