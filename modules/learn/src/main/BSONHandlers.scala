@@ -1,6 +1,6 @@
 package lidraughts.learn
 
-import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
+import reactivemongo.bson._
 
 import lidraughts.db.BSON
 import lidraughts.db.dsl._

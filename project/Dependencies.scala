@@ -42,7 +42,7 @@ object Dependencies {
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
 
   object reactivemongo {
-    val version = "0.12.3"
+    val version = "0.12.2"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")
