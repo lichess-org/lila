@@ -300,7 +300,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
     ]),
     gaugeOn ? cevalView.renderGauge(ctrl) : null,
     menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-    gamebookPlayView || h('div.analyse__tools', [
+    gamebookPlayView || h(addChapterId(study, 'div.analyse__tools'), [
       ...(menuIsOpen ? [actionMenu(ctrl)] : [
         cevalView.renderCeval(ctrl),
         showCevalPvs ? cevalView.renderPvs(ctrl) : null,
