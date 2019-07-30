@@ -4,6 +4,12 @@
     margin-top: 30px;
     margin-bottom: 6px;
     border-bottom: $border;
+    a {
+      color: $c-font;
+      &:hover {
+        color: $c-link;
+      }
+    }
   }
 }
 
