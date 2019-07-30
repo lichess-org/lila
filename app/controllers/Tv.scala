@@ -37,8 +37,8 @@ object Tv extends LidraughtsController {
   }
 
   private def lidraughtsTv(channel: lidraughts.tv.Tv.Channel)(implicit ctx: Context) =
-    OptionFuResult(Env.tv.tv getGameAndHistory channel) {
-      case (game, history) =>
+    Env.tv.tv getGameAndHistory channel flatMap {
+      case Some((game, history)) =>
         val flip = getBool("flip")
         val pov = flip.fold(Pov second game, Pov first game)
         val onTv = lidraughts.round.OnLidraughtsTv(channel.key, flip)
@@ -49,13 +49,17 @@ object Tv extends LidraughtsController {
               Env.tv.tv.getChampions map {
                 case ((data, cross), champions) => NoCache {
                   NoIframe { // can be heavy as TV reloads for each game
-                    Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
+                    Ok(html.tv.index(channel, champions, pov.some, data, cross, flip, history))
                   }
                 }
               }
           },
           api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
         )
+      case _ =>
+        Env.tv.tv.getChampions map { champions =>
+          Ok(html.tv.index(channel, champions, none, play.api.libs.json.Json.obj(), none, false, Nil))
+        }
     }
 
   def games = gamesChannel(lidraughts.tv.Tv.Channel.Best.key)

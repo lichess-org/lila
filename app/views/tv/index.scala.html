@@ -1,23 +1,25 @@
-@(channel: lidraughts.tv.Tv.Channel, champions: lidraughts.tv.Tv.Champions, pov: Pov, data: play.api.libs.json.JsObject, cross: Option[lidraughts.game.Crosstable.WithMatchup], flip: Boolean, history: List[Pov])(implicit ctx: Context)
+@(channel: lidraughts.tv.Tv.Channel, champions: lidraughts.tv.Tv.Champions, pov: Option[Pov], data: play.api.libs.json.JsObject, cross: Option[lidraughts.game.Crosstable.WithMatchup], flip: Boolean, history: List[Pov])(implicit ctx: Context)
 
-@title = @{ s"${channel.name} TV: ${playerText(pov.player)} vs ${playerText(pov.opponent)}" }
+@title = @{ s"${channel.name} TV: ${pov.fold(trans.noGameFound.txt())(p => s"${playerText(p.player)} vs ${playerText(p.opponent)}")}" }
 
 @moreJs = {
 @roundTag
 @embedJs {
 window.customWS = true;
 window.onload = function() {
+@pov.fold(Html("")){ p =>
 LidraughtsRound.boot({
 data: @safeJson(data),
-i18n: @round.jsI18n(pov.game)
+i18n: @round.jsI18n(p.game)
 }, document.getElementById('lidraughts'));
+}
 };
 }
 }
 
 @round.layout(
 title = title,
-side = side(channel, champions, "/tv", pov.some),
+side = side(channel, champions, "/tv", pov),
 underchat = game.watchers().some,
 moreJs = moreJs,
 moreCss = cssTag("tv.css"),
@@ -29,11 +31,11 @@ url = s"$netBaseUrl${routes.Tv.onChannel(channel.key)}"
 ).some,
 robots = true) {
 <div class="round cg-512">
-  @board.domPreload(pov.some)
+  @board.domPreload(pov)
   <div class="underboard"><div class="center">
       @cross.map { c =>
       <div class="crosstable">
-        @views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some)
+        @pov.map{p=>@views.html.game.crosstable(ctx.userId.fold(c)(c.fromPov), p.gameId.some)}
       </div>
       }
   </div></div>

@@ -15,7 +15,17 @@
     , @trans.rated()
     }
     }.getOrElse {
+    @if(baseUrl == "/tv") {
+    <h2 data-icon="1" class="text">Lidraughts TV</h2>
+    <br />
+    <div class="confrontation">
+      @trans.noGameFound()
+    </div>
+    <br />
+    @channel.name
+    } else {
     <h2 data-icon="1" class="text">Lidraughts games</h2>
+    }
     }
   </div>
   @povOption.map { pov =>
