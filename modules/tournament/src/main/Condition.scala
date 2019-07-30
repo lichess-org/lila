@@ -236,7 +236,7 @@ object Condition {
       "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
       "rating" -> optional(numberIn(maxRatings))
     )(RatingSetup.apply)(RatingSetup.unapply)
-    val minRatings = List(1500, 1600, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
+    val minRatings = List(1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
