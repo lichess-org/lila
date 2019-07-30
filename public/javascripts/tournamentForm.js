@@ -39,11 +39,13 @@ $(function() {
     $('.conditions .form').show();
   });
 
-  $(".flatpickr").flatpickr({
-    minDate: 'today',
-    maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
-    dateFormat: 'Z',
-    altInput: true,
-    altFormat: 'Y-m-d h:i K'
-  });
+  setTimeout(function () {
+    $(".flatpickr").flatpickr({
+      minDate: 'today',
+      maxDate: new Date(Date.now() + 1000 * 3600 * 24 * 31),
+      dateFormat: 'Z',
+      altInput: true,
+      altFormat: 'Y-m-d h:i K'
+    });
+   }, 100);
 });
