@@ -7,7 +7,7 @@ import views._
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.HTTPRequest
-import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
+import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
 import lila.user.{ UserRepo, User => UserModel }
 
 object Report extends LilaController {
@@ -123,6 +123,19 @@ object Report extends LilaController {
         else api.create(data candidate lila.report.Reporter(me)) map { report =>
           Redirect(routes.Report.thanks(data.user.username))
         }
+    )
+  }
+
+  def flag = AuthBody { implicit ctx => implicit me =>
+    implicit val req = ctx.body
+    env.forms.flag.bindFromRequest.fold(
+      err => BadRequest.fuccess,
+      data => UserRepo named data.username flatMap {
+        _ ?? { user =>
+          if (user == me) BadRequest.fuccess
+          else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+        }
+      }
     )
   }
 

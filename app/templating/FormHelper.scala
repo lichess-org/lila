@@ -164,6 +164,12 @@ trait FormHelper { self: I18nHelper =>
       tpe := "hidden"
     )
 
+    def hidden(name: String, value: String): Tag = st.input(
+      st.name := name,
+      st.value := value,
+      tpe := "hidden"
+    )
+
     def password(field: Field, content: Frag)(implicit ctx: Context): Frag =
       group(field, content)(input(_, typ = "password")(required))
 

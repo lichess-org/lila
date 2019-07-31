@@ -456,6 +456,7 @@ GET   /editor                          controllers.Editor.index
 # Report
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
+POST  /report/flag                     controllers.Report.flag
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 GET   /report/list/:room               controllers.Report.listWithFilter(room: String)

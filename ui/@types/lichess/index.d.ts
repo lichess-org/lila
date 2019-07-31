@@ -61,6 +61,7 @@ interface Lichess {
   mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
   pushSubscribe(ask: boolean): void;
+  formAjax(form: JQuery): any;
 }
 
 interface LichessSpeech {

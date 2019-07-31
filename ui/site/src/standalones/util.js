@@ -236,6 +236,11 @@ lichess.makeChat = function(data, callback) {
     (callback || $.noop)(LichessChat.default(document.querySelector('.mchat'), data));
   });
 };
+lichess.formAjax = $form => ({
+  url: $form.attr('action'),
+  method: $form.attr('method') || 'post',
+  data: $form.serialize()
+});
 
 lichess.numberFormat = (function() {
   var formatter = false;

@@ -44,4 +44,17 @@ object form {
             )
         )
       }
+
+  def flag(username: String, resource: String, text: String) =
+    st.form(action := routes.Report.flag, method := "post", cls := "comm-flag")(
+      form3.hidden("username", username),
+      form3.hidden("resource", resource),
+      form3.hidden("text", text take 140),
+      button(
+        tpe := "submit",
+        cls := "button button-empty button-red confirm",
+        dataIcon := "j",
+        title := "Report spam or offensive language"
+      )
+    )
 }
