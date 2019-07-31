@@ -14,7 +14,7 @@
   </plurals>
   <string name="signedUp">Lidraughts.org-т гарын үсэг зурлаа</string>
   <plurals name="joinedNbTeams">
-    <item quantity="one">Нэгдсэн багууд</item>
+    <item quantity="one">Нэгдсэн %s багууд</item>
     <item quantity="other">Нэгдсэн %s багууд</item>
   </plurals>
 </resources>

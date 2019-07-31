@@ -3,7 +3,7 @@
 <resources>
   <string name="activity">Активность</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Поддержал lidraughts.org как %2$s в течение %1$s месяца</item>
+    <item quantity="one">Стал покровителем (%2$s), поддержал lidraughts.org на %1$s месяц</item>
     <item quantity="few">Стал покровителем (%2$s), поддержал lidraughts.org на %1$s месяца</item>
     <item quantity="many">Стал покровителем (%2$s), поддержал lidraughts.org на %1$s месяцев</item>
     <item quantity="other">Стал покровителем (%2$s), поддержал lidraughts.org на %1$s месяцев</item>

@@ -89,7 +89,7 @@
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>
-  <string name="blunders">Грубые ошибки</string>
+  <string name="blunders">Зевки</string>
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
@@ -640,7 +640,7 @@
   <string name="error.email_unique">Этот адрес электронной почты уже занят</string>
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
-  <string name="moveConfirmation">Подтверждать ход</string>
+  <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>

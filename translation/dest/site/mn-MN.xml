@@ -666,6 +666,9 @@
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="usernameAlreadyUsed">Ийм нэртэй хэрэглэгч байна, өөр нэр ашиглана уу.</string>
+  <string name="usernamePrefixInvalid">Хэрэглэгчийн нэр нь үсэгнээс эхлэх ёстой.</string>
+  <string name="usernameSuffixInvalid">Хэрэглэгчийн нэр нь үсэг эсвэл тоогоор дуусах ёстой.</string>
+  <string name="usernameCharsInvalid">Хэрэглэгчийн нэр нь зөвхөн үсэг, тоо, доогуур зураас, болон зураас агуулсан байх ёстой.</string>
   <string name="usernameUnacceptable">Ийм нэртэй хэрэглэгч үүсгэж болохгүй.</string>
   <string name="draughtsBasics">Суурь мэдлэг</string>
   <string name="invalidPdn">Буруу PDN</string>
@@ -679,6 +682,10 @@
   <string name="notifications">Мэдэгдэлүүд</string>
   <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">%s эхний нүүдлийг тоглуулна</item>
+    <item quantity="other">%s эхний нүүдлийг тоглуулна</item>
+  </plurals>
   <string name="practiceWithComputer">Компьютертэй сургуулилах</string>
   <string name="anotherWasX">Өөр хувилбар %s</string>
   <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>
@@ -693,6 +700,7 @@
   <string name="whiteWinsGame">Цагаан хожсон</string>
   <string name="blackWinsGame">Хар хожсон</string>
   <string name="learnFromYourMistakes">Алдаанаасаа суралцах</string>
+  <string name="learnFromThisMistake">Энэ алдаанаас суралц</string>
   <string name="skipThisMove">Энэ нүүдлийг алгасах</string>
   <string name="next">Дараах</string>
   <string name="xWasPlayed">%s нүүдэл хийгдсэн</string>
