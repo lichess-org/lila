@@ -562,9 +562,9 @@
   <string name="biographyDescription">ספר/י על עצמך, מה את/ה אוהב/ת בשחמט, הפתיחה המועדפת עליך, משחקים, שחקנים…</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">מספר תווים מירבי: %s</item>
-    <item quantity="two">מספר תווים מירבי: %s</item>
-    <item quantity="many">מספר תווים מירבי: %s</item>
-    <item quantity="other">לכל היותר %s סימנים.</item>
+    <item quantity="two">מספר תווים מירבי: %s.</item>
+    <item quantity="many">מספר תווים מירבי: %s.</item>
+    <item quantity="other">מספר תווים מירבי: %s.</item>
   </plurals>
   <string name="listBlockedPlayers">רשימת שחקנים שחסמת</string>
   <string name="human">בן אנוש</string>
