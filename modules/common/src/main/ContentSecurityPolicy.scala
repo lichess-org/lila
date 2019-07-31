@@ -50,12 +50,15 @@ case class ContentSecurityPolicy(
 
   def withTwitter = copy(
     scriptSrc = "https://platform.twitter.com" :: "https://*.twimg.com" :: scriptSrc,
-    frameSrc = "https://platform.twitter.com" :: frameSrc,
+    frameSrc = "https://twitter.com" :: "https://platform.twitter.com" :: frameSrc,
     styleSrc = "https://platform.twitter.com" :: styleSrc
   )
 
-  def withGoogleForm = copy(
-    frameSrc = "https://docs.google.com" :: frameSrc
+  def withGoogleForm = copy(frameSrc = "https://docs.google.com" :: frameSrc)
+
+  def withRecaptcha = copy(
+    scriptSrc = "https://www.google.com" :: scriptSrc,
+    frameSrc = "https://www.google.com" :: frameSrc
   )
 
   override def toString: String =
