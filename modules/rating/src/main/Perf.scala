@@ -65,6 +65,7 @@ case class Perf(
   def isEmpty = nb == 0
   def nonEmpty = !isEmpty
 
+  def rankable = glicko.rankable
   def provisional = glicko.provisional
   def established = glicko.established
 }
