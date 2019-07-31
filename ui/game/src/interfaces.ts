@@ -6,6 +6,7 @@ export interface GameData {
   tournament?: Tournament;
   simul?: Simul;
   takebackable: boolean;
+  moretimeable: boolean;
   drawLimit?: number;
   clock?: Clock;
   correspondence?: CorrespondenceClock;

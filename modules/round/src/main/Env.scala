@@ -8,10 +8,10 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lidraughts.game.{ Game, GameRepo, Pov }
-import lidraughts.hub.actorApi.{ DeployPost, Announce }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ Abort, Resign, AnalysisComplete }
 import lidraughts.hub.actorApi.socket.HasUserId
+import lidraughts.hub.actorApi.{ DeployPost, Announce }
 
 final class Env(
     config: Config,
@@ -63,13 +63,13 @@ final class Env(
   private lazy val roundDependencies = Round.Dependencies(
     messenger = messenger,
     takebacker = takebacker,
+    moretimer = moretimer,
     finisher = finisher,
     rematcher = rematcher,
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketMap = socketMap,
-    moretimeDuration = MoretimeDuration
+    socketMap = socketMap
   )
   val roundMap = new lidraughts.hub.DuctMap[Round](
     mkDuct = id => {
@@ -220,7 +220,8 @@ final class Env(
     noteApi = noteApi,
     userJsonView = userJsonView,
     getSocketStatus = getSocketStatus,
-    canTakeback = takebacker.isAllowedByPrefs,
+    canTakeback = takebacker.isAllowedIn,
+    canMoretime = moretimer.isAllowedIn,
     divider = divider,
     evalCache = evalCache,
     baseAnimationDuration = AnimationDuration,
@@ -238,11 +239,16 @@ final class Env(
 
   private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap)
 
-  lazy val takebacker = new Takebacker(
+  private lazy val takebacker = new Takebacker(
     messenger = messenger,
     uciMemo = uciMemo,
     prefApi = prefApi,
     bus = bus
+  )
+  private lazy val moretimer = new Moretimer(
+    messenger = messenger,
+    prefApi = prefApi,
+    defaultDuration = MoretimeDuration
   )
 
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))

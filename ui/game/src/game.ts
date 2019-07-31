@@ -46,8 +46,6 @@ export function abortable(data: GameData): boolean {
 export function takebackable(data: GameData): boolean {
   return playable(data) &&
     data.takebackable &&
-    !data.tournament &&
-    !data.simul &&
     bothPlayersHavePlayed(data) &&
     !data.player.proposingTakeback &&
     !data.opponent.proposingTakeback;
@@ -76,7 +74,7 @@ export function berserkableBy(data: GameData): boolean {
 }
 
 export function moretimeable(data: GameData): boolean {
-  return isPlayerPlaying(data) && !mandatory(data) && (
+  return isPlayerPlaying(data) && data.moretimeable && (
     !!data.clock ||
     (!!data.correspondence &&
       data.correspondence[data.opponent.color] < (data.correspondence.increment - 3600)

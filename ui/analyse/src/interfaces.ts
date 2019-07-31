@@ -30,6 +30,7 @@ export interface AnalyseData {
   orientation: Color;
   spectator?: boolean; // for compat with GameData, for game functions
   takebackable: boolean;
+  moretimeable: boolean;
   analysis?: Analysis;
   userAnalysis: boolean;
   puzzleEditor: boolean;

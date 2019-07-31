@@ -191,15 +191,10 @@ private[round] final class Round(
     }
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      (pov.game moretimeable !pov.color) ?? {
-        val progress =
-          if (pov.game.hasClock) giveMoretime(pov.game, List(!pov.color), moretimeDuration)
-          else pov.game.correspondenceClock.fold(Progress(pov.game)) { clock =>
-            messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
-            val p = pov.game.correspondenceGiveTime
-            p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
-          }
-        proxy save progress inject progress.events
+      moretimer(pov) flatMap {
+        _ ?? { progress =>
+          proxy save progress inject progress.events
+        }
       }
     }
 
@@ -223,7 +218,7 @@ private[round] final class Round(
       game.playable ?? {
         val freeTime = 20.seconds
         messenger.system(game, (_.untranslated("Lidraughts has been updated! Sorry for the inconvenience.")))
-        val progress = giveMoretime(game, Color.all, freeTime)
+        val progress = moretimer.give(game, Color.all, freeTime)
         proxy save progress inject progress.events
       }
     }
@@ -241,20 +236,6 @@ private[round] final class Round(
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
   }
-
-  private[this] def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
-    game.clock.fold(Progress(game)) { clock =>
-      val centis = duration.toCentis
-      val newClock = colors.foldLeft(clock) {
-        case (c, color) => c.giveTime(color, centis)
-      }
-      colors.foreach { c =>
-        messenger.system(game, (_.untranslated(
-          "%s + %d seconds".format(c, duration.toSeconds)
-        )))
-      }
-      (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
-    }
 
   private[this] def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
@@ -326,13 +307,13 @@ object Round {
   private[round] case class Dependencies(
       messenger: Messenger,
       takebacker: Takebacker,
+      moretimer: Moretimer,
       finisher: Finisher,
       rematcher: Rematcher,
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketMap: SocketMap,
-      moretimeDuration: FiniteDuration
+      socketMap: SocketMap
   )
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {

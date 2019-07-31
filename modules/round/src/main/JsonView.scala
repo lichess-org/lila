@@ -22,6 +22,7 @@ final class JsonView(
     userJsonView: lidraughts.user.JsonView,
     getSocketStatus: Game.ID => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
+    canMoretime: Game => Fu[Boolean],
     divider: lidraughts.game.Divider,
     evalCache: lidraughts.evalCache.EvalCacheApi,
     baseAnimationDuration: Duration,
@@ -59,8 +60,9 @@ final class JsonView(
   ): Fu[JsObject] =
     getSocketStatus(pov.gameId) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
-      canTakeback(pov.game) map {
-        case ((socket, opponentUser), takebackable) =>
+      canTakeback(pov.game) zip
+      canMoretime(pov.game) map {
+        case socket ~ opponentUser ~ takebackable ~ moretimeable =>
           import pov._
           Json.obj(
             "game" -> gameJson(game, initialFen),
@@ -114,8 +116,8 @@ final class JsonView(
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
             .add("drawLimit" -> game.metadata.drawLimit)
+            .add("moretimeable" -> moretimeable)
             .add("possibleMoves" -> possibleMoves(pov, apiVersion))
-            .add("possibleDrops" -> possibleDrops(pov))
             .add("expiration" -> game.expirable.option {
               Json.obj(
                 "idleMillis" -> (nowMillis - game.movedAt.getMillis),

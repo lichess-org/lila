@@ -120,6 +120,10 @@ object pref {
             radios(form("behavior.takeback"), translatedTakebackChoices)
           ),
           setting(
+            trans.giveMoreTime(),
+            radios(form("behavior.moretime"), translatedMoretimeChoices)
+          ),
+          setting(
             trans.claimDrawOnThreefoldRepetitionAutomatically(),
             radios(form("behavior.autoThreefold"), translatedAutoThreefoldChoices)
           ),

@@ -219,6 +219,12 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Takeback.CASUAL, trans.inCasualGamesOnly.txt())
   )
 
+  def translatedMoretimeChoices(implicit ctx: Context) = List(
+    (Pref.Moretime.NEVER, trans.never.txt()),
+    (Pref.Moretime.ALWAYS, trans.always.txt()),
+    (Pref.Moretime.CASUAL, trans.inCasualGamesOnly.txt())
+  )
+
   def translatedAutoThreefoldChoices(implicit ctx: Context) = List(
     (Pref.AutoThreefold.NEVER, trans.never.txt()),
     (Pref.AutoThreefold.ALWAYS, trans.always.txt()),
