@@ -162,4 +162,11 @@ final class PrefApi(
   def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
+
+  def setBot(user: User): Funit =
+    setPref(user, (p: Pref) => p.copy(
+      takeback = Pref.Takeback.NEVER,
+      moretime = Pref.Moretime.NEVER,
+      insightShare = Pref.InsightShare.EVERYBODY
+    ))
 }
