@@ -1,16 +1,14 @@
 @(title: String)(body: Html)(implicit ctx: Context)
 
 @moreCss = {
-@cssAt("vendor/flatpickr/dist/flatpickr.min.css")
+@cssTag("flatpickr.css")
 @cssTag("material.form.css")
 @cssTag("simul.crud.css")
 }
 
 @moreJs = {
-@jsAt("vendor/flatpickr/dist/flatpickr.min.js")
-@embedJs {
-$(".flatpickr").flatpickr();
-}
+@flatpickrTag
+@delayFlatpickrStart
 }
 
 @mod.layout(

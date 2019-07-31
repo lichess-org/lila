@@ -84,6 +84,10 @@ trait AssetHelper { self: I18nHelper =>
     s"""<script async defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
+  def delayFlatpickrStart(implicit ctx: Context) = embedJs {
+    """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
+  }
+
   private def cdnOrLocal(cdn: String, test: String, local: String) = Html {
     if (isProd)
       s"""<script src="$cdn"></script><script>$test || document.write('<script src="$local">\\x3C/script>')</script>"""
@@ -118,4 +122,5 @@ trait AssetHelper { self: I18nHelper =>
   }
 
   def embedJs(js: Html)(implicit ctx: Context): Html = embedJsUnsafe(js.body)
+  def embedJs(js: String)(implicit ctx: Context): Html = embedJsUnsafe(js)
 }
