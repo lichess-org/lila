@@ -12,6 +12,7 @@
   <string name="leaveTheStudy">مغادرة الدراسة</string>
   <string name="youAreNowAContributor">انت الان اصبحت مساهم</string>
   <string name="youAreNowASpectator">انت الان اصبحت مشاهد</string>
+  <string name="pgnTags">وسم PNG</string>
   <string name="like">إعجاب</string>
   <string name="newTag">علامة جديدة</string>
   <string name="commentThisPosition">التعليق على هذا الوضع</string>
@@ -20,6 +21,7 @@
   <string name="onlyContributorsCanRequestAnalysis">فقط المساهمون في هذا الدراسة يمكنهم طلب تحليل الحاسوب</string>
   <string name="getAFullComputerAnalysis">احصل على تحليل حاسوب كامل للتفريع الرئيسي من قبل الخادم</string>
   <string name="makeSureTheChapterIsComplete">كن متأكداً ان الفصل مكتمل، يمكنك طلب تحليل الحاسوب مره واحده فحسب</string>
+  <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
   <string name="onlyOngoingGames">فقط الألعاب الجارية</string>
   <string name="first">الأولى</string>
   <string name="previous">السابق</string>

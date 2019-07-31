@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Facer iste linea le principal</string>
   <string name="deleteFromHere">Deler ab iste puncto</string>
+  <string name="forceVariation">Fortiar variantes</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
   <string name="variantWin">Victoria per variante</string>
@@ -163,6 +164,9 @@
   <string name="ratingStats">Statisticas de classification</string>
   <string name="username">Nomine de usator</string>
   <string name="usernameOrEmail">Nomine de usator o adresse de e-posta</string>
+  <string name="changeUsername">Cambiar nomine de usator</string>
+  <string name="changeUsernameNotSame">Solmente le cassa del literas pote esser cambiate. Per exemplo \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Cambia tu nomine de usator. Isto pote esser facite solmente un vice e tu pote cambiar solmente le cassa del literes de tu nomine de usator.</string>
   <string name="password">Contrasigno</string>
   <string name="changePassword">Cambiar contrasigno</string>
   <string name="changeEmail">Cambiar adresse de e-posta</string>
@@ -345,6 +349,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
   <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
   <string name="notACheckmate">Non es chaco mat</string>
+  <string name="whiteCheckmatesInOneMove">Le blanc pote matar in un movimento</string>
+  <string name="blackCheckmatesInOneMove">Le nigre pote matar in un movimento</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Reconnectente</string>
   <string name="onlineFriends">Amicos in linea</string>
@@ -627,6 +633,8 @@ in %3$s</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="ifRatingIsPlusMinusX">Si le classification es ± %s</string>
   <string name="onlyFriends">Solmente amicos</string>
+  <string name="displayBoardResizeHandle">Mostrar le flechas pro redimensionar le tabula</string>
+  <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>
   <string name="whiteCastlingKingside">Blanco O-O</string>
@@ -749,6 +757,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s ha create %2$s</string>
   <string name="xJoinsY">%1$s ha unite se a %2$s</string>
   <string name="xLikesY">%1$s ama %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea un studio %2$s</string>
   <string name="quickPairing">Initio rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>

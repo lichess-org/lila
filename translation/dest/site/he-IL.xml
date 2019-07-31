@@ -123,7 +123,19 @@
   <string name="claimADraw">דרוש תיקו</string>
   <string name="offerDraw">הצע תיקו</string>
   <string name="draw">תיקו</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s שחקנים מחוברים</item>
+    <item quantity="two">%s שחקנים</item>
+    <item quantity="many">%s שחקנים</item>
+    <item quantity="other">%s שחקנים</item>
+  </plurals>
   <string name="currentGames">המשחקים הנוכחיים</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s משחקים</item>
+    <item quantity="two">%s משחקים</item>
+    <item quantity="many">%s משחקים</item>
+    <item quantity="other">%s משחקים</item>
+  </plurals>
   <string name="viewInFullSize">צפה בגודל מלא</string>
   <string name="logOut">התנתק</string>
   <string name="signIn">התחבר</string>

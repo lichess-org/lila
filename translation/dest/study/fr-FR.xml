@@ -3,17 +3,17 @@
 <resources>
   <string name="addNewChapter">Ajouter un nouveau chapitre</string>
   <plurals name="nbChapters">
-    <item quantity="one">%s Chapitre</item>
-    <item quantity="other">%s Chapitres</item>
+    <item quantity="one">%s chapitre</item>
+    <item quantity="other">%s chapitres</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Partie</item>
-    <item quantity="other">%s Parties</item>
+    <item quantity="one">%s partie</item>
+    <item quantity="other">%s parties</item>
   </plurals>
   <string name="addMembers">Ajouter des membres</string>
   <plurals name="nbMembers">
-    <item quantity="one">%s Membre</item>
-    <item quantity="other">%s Membres</item>
+    <item quantity="one">%s membre</item>
+    <item quantity="other">%s membres</item>
   </plurals>
   <string name="inviteToTheStudy">Inviter à l\'étude</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Veuillez n\'inviter que des personnes que vous connaissez et qui souhaitent activement participer à cette étude.</string>
@@ -36,6 +36,7 @@
   <string name="makeSureTheChapterIsComplete">Assurez-vous que le chapitre est terminé. Vous ne pouvez demander l\'analyse qu\'une seule fois.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tous les membres SYNC demeurent sur la même position</string>
   <string name="shareChanges">Partager les changements avec les spectateurs et les enregistrer sur le serveur</string>
+  <string name="playing">En cours</string>
   <string name="onlyOngoingGames">Seulement les parties en cours</string>
   <string name="first">Premier</string>
   <string name="previous">Précédent</string>

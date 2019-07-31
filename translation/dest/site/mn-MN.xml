@@ -24,7 +24,7 @@
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
   <string name="threeChecks">Гурван шаг</string>
-  <string name="raceFinished">Уралдаан өндөрлөлөө</string>
+  <string name="raceFinished">Тэмцээн өндөрлөлөө</string>
   <string name="variantEnding">Хувилбарын төгсгөл</string>
   <string name="newOpponent">Шинэ өрсөлдөгч</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Таны өрсөлдөгч таньтай дахин тоглохыг хүсч байна</string>
@@ -738,7 +738,7 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
-  <string name="xCreatesStudyY">% 1 $ s % 2 $ s судалгааг үүсгэдэг</string>
+  <string name="xCreatesStudyY">Стүд нээх</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
@@ -755,6 +755,9 @@
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="usernameAlreadyUsed">Ийм нэртэй хэрэглэгч байна, өөр нэр ашиглана уу.</string>
+  <string name="usernamePrefixInvalid">Хэрэглэгчийн нэр нь үсэгнээс эхлэх ёстой.</string>
+  <string name="usernameSuffixInvalid">Хэрэглэгчийн нэр нь үсэг эсвэл тоогоор дуусах ёстой.</string>
+  <string name="usernameCharsInvalid">Хэрэглэгчийн нэр нь зөвхөн үсэг, тоо, доогуур зураас, болон зураас агуулсан байх ёстой.</string>
   <string name="usernameUnacceptable">Ийм нэртэй хэрэглэгч үүсгэж болохгүй.</string>
   <string name="directlySupportLichess">Личессд дэмжлэг үзүүлэх</string>
   <string name="playChessInStyle">Загварлаг тоглоцгооё</string>
@@ -771,6 +774,10 @@
   <string name="notifications">Мэдэгдэлүүд</string>
   <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">эхний нүүдлийг тоглуулна</item>
+    <item quantity="other">эхний нүүдлийг тоглуулна</item>
+  </plurals>
   <string name="practiceWithComputer">Компьютертэй сургуулилах</string>
   <string name="anotherWasX">Өөр хувилбар %s</string>
   <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>
@@ -785,6 +792,7 @@
   <string name="whiteWinsGame">Цагаан хожсон</string>
   <string name="blackWinsGame">Хар хожсон</string>
   <string name="learnFromYourMistakes">Алдаанаасаа суралцах</string>
+  <string name="learnFromThisMistake">Энэ алдаанаас суралц</string>
   <string name="skipThisMove">Энэ нүүдлийг алгасах</string>
   <string name="next">Дараах</string>
   <string name="xWasPlayed">%s нүүдэл хийгдсэн</string>
