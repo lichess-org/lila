@@ -10,9 +10,7 @@ $(function() {
     var $form = $(this);
     $form.find('input').change(function() {
       $.ajax({
-        url: $form.attr('action'),
-        method: $form.attr('method'),
-        data: $form.serialize(),
+        ...lidraughts.formAjax($form),
         success: function() {
           $form.find('.saved').fadeIn();
           lidraughts.storage.set('reload-round-tabs', Math.random());

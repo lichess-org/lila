@@ -47,13 +47,7 @@ $(function() {
           2: 'random',
           3: 'black'
         }[selected];
-        if (c !== colorPref) $.ajax({
-          url: $form.attr('action'),
-          method: 'post',
-          data: {
-            color: selected
-          }
-        });
+        if (c !== colorPref) $.ajax(window.lidraughts.formAjax($form));
         colorPref = c;
         showColor();
         return false;

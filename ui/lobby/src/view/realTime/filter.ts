@@ -9,9 +9,7 @@ function initialize(ctrl: LobbyController, el) {
   const save = window.lidraughts.debounce(function() {
     const $form = $div.find('form');
     $.ajax({
-      url: $form.attr('action'),
-      data: $form.serialize(),
-      type: 'POST',
+      ...window.lidraughts.formAjax($form),
       success: function(filter) {
         ctrl.setFilter(filter);
       }

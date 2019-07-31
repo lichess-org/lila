@@ -8,14 +8,8 @@ function load($f) {
   $f.submit(function() {
     $f.find('.submit').attr('disabled', true);
     $.ajax({
-      url: $f.attr('action'),
-      method: $f.attr('method'),
-      data: {
-        username: $f.find('#form3-username').val(),
-        password: $f.find('#form3-password').val(),
-        token: $f.find('#form3-token').val()
-      },
-      success: function(res) {
+      ...lidraughts.formAjax($f),
+      success(res) {
         if (res === 'MissingTotpToken' || res === 'InvalidTotpToken') {
           $f.find('.one-factor').hide();
           $f.find('.two-factor').show();
@@ -25,7 +19,7 @@ function load($f) {
         }
         else location.href = res.indexOf('ok:') === 0 ? res.substr(3) : '/';
       },
-      error: function(err) {
+      error(err) {
         try {
           $f.replaceWith($(err.responseText).find(selector));
           load($(selector));

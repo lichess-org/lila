@@ -34,10 +34,7 @@ window.onload = function() {
     });
     $(selector).find('form.xhr').submit(function(e) {
       e.preventDefault();
-      $.ajax({
-        url: $(this).attr('action'),
-        method: 'post'
-      });
+      $.ajax(lidraughts.formAjax($(this)));
       $(this).html('<span class="ddloader"></span>');
     });
     $(selector).find('input.friend-autocomplete').each(function() {
