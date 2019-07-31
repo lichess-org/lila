@@ -22,7 +22,7 @@
     @p.toList.sortBy(-_._2).zipWithIndex.map {
     case ((study, nb), i) => {
     @if(i == 1) {<div class="sub">}
-      @trans.activity.practicedNbPositions.plural(nb, nb, Html(""))<br />
+      @trans.activity.practicedNbPositions.plural(nb, nb, emptyHtml)<br />
       @* trans.activity.practicedNbPositions.plural(nb, nb, Html(s"""<a href="${routes.Practice.show("-", study.slug, study.id.value)}">${study.name}</a>"""))<br /> *@
       }
       }

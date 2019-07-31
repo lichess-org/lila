@@ -142,7 +142,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
 
   def gameEndStatus(game: Game)(implicit ctx: UserContext): Html = game.status match {
     case S.Aborted => I18nKeys.gameAborted()
-    case S.Mate => Html("")
+    case S.Mate => emptyHtml
     case S.Resign => game.loser match {
       case Some(p) if p.color.white => I18nKeys.whiteResigned()
       case _ => I18nKeys.blackResigned()
