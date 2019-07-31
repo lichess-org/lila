@@ -28,9 +28,11 @@ object Bot extends LidraughtsController {
   def command(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
-        lidraughts.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-          case e: lidraughts.base.LidraughtsException => BadRequest(jsonError(e.getMessage))
-        }
+        lidraughts.user.UserRepo.setBot(me) >>
+          Env.pref.api.setBot(me) >>-
+          Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
+            case e: lidraughts.base.LidraughtsException => BadRequest(jsonError(e.getMessage))
+          }
       case Array("game", id, "chat") => WithBot(me) {
         Env.bot.form.chat.bindFromRequest.fold(
           jsonFormErrorDefaultLang,
