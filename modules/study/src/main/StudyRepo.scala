@@ -188,7 +188,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       Match($id(studyId)),
       List(Project($doc(
         "_id" -> false,
-        F.likes -> $doc("$size" -> F.likers),
+        F.likes -> $doc("$size" -> s"$$${F.likers}"),
         F.createdAt -> true
       )))
     ).map { docOption =>
