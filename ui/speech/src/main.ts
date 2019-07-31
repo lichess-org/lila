@@ -26,7 +26,7 @@ function hackFix(msg: string): string {
     .replace(/^A /, "A, ") // "A takes" & "A 3" are mispronounced
     .replace(/(\d) E (\d)/, "$1,E $2"); // Strings such as 1E5 are treated as scientific notation
     .replace(/^C /, "c ") // "uppercase C is pronounced as "degrees celsius" when it comes after a number (e.g. R8c3)
-    .replace(/^F /, "f ") // "uppercase C is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
+    .replace(/^F /, "f ") // "uppercase F is pronounced as "degrees fahrenheit" when it comes after a number (e.g. R8f3)
 }
 
 export function say(text: string, cut: boolean) {
