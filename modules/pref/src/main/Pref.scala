@@ -15,6 +15,7 @@ case class Pref(
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
+    moretime: Int,
     clockTenths: Int,
     clockBar: Boolean,
     clockSound: Boolean,
@@ -236,6 +237,18 @@ object Pref {
     )
   }
 
+  object Moretime {
+    val NEVER = 1
+    val CASUAL = 2
+    val ALWAYS = 3
+
+    val choices = Seq(
+      NEVER -> "Never",
+      ALWAYS -> "Always",
+      CASUAL -> "In casual games only"
+    )
+  }
+
   object Animation {
     val NONE = 0
     val FAST = 1
@@ -364,6 +377,7 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
+    moretime = Moretime.ALWAYS,
     clockBar = true,
     clockSound = true,
     premove = true,

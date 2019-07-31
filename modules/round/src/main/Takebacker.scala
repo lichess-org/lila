@@ -3,7 +3,7 @@ package lila.round
 import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 
-private[round] final class Takebacker(
+private final class Takebacker(
     messenger: Messenger,
     uciMemo: UciMemo,
     prefApi: PrefApi,
@@ -45,10 +45,14 @@ private[round] final class Takebacker(
     case _ => fufail(ClientError("[takebacker] invalid no " + pov))
   }
 
-  def isAllowedByPrefs(game: Game): Fu[Boolean] =
+  def isAllowedIn(game: Game): Fu[Boolean] =
+    if (game.isMandatory) fuFalse
+    else isAllowedByPrefs(game)
+
+  private def isAllowedByPrefs(game: Game): Fu[Boolean] =
     if (game.hasAi) fuTrue
-    else game.userIds.map { userId =>
-      prefApi.getPref(userId, (p: Pref) => p.takeback)
+    else game.userIds.map {
+      prefApi.getPref(_, (p: Pref) => p.takeback)
     }.sequenceFu map {
       _.forall { p =>
         p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
@@ -65,6 +69,7 @@ private[round] final class Takebacker(
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
     if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
+    else if (game.isMandatory) fufail(ClientError("[takebacker] game disallows it " + game.id))
     else isAllowedByPrefs(game) flatMap {
       case true => f
       case _ => fufail(ClientError("[takebacker] disallowed by preferences " + game.id))

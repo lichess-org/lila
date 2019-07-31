@@ -21,6 +21,7 @@ final class JsonView(
     userJsonView: lila.user.JsonView,
     getSocketStatus: Game.ID => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
+    canMoretime: Game => Fu[Boolean],
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
     baseAnimationDuration: Duration,
@@ -58,8 +59,9 @@ final class JsonView(
   ): Fu[JsObject] =
     getSocketStatus(pov.gameId) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
-      canTakeback(pov.game) map {
-        case ((socket, opponentUser), takebackable) =>
+      canTakeback(pov.game) zip
+      canMoretime(pov.game) map {
+        case socket ~ opponentUser ~ takebackable ~ moretimeable =>
           import pov._
           Json.obj(
             "game" -> gameJson(game, initialFen),
@@ -112,6 +114,7 @@ final class JsonView(
           ).add("clock" -> game.clock.map(clockJson))
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
+            .add("moretimeable" -> moretimeable)
             .add("crazyhouse" -> pov.game.board.crazyData)
             .add("possibleMoves" -> possibleMoves(pov, apiVersion))
             .add("possibleDrops" -> possibleDrops(pov))

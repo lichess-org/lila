@@ -19,6 +19,7 @@ object JsonView {
       "autoQueen" -> p.autoQueen,
       "autoThreefold" -> p.autoThreefold,
       "takeback" -> p.takeback,
+      "moretime" -> p.moretime,
       "clockTenths" -> p.clockTenths,
       "clockBar" -> p.clockBar,
       "clockSound" -> p.clockSound,
