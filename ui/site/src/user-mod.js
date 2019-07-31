@@ -46,13 +46,12 @@ function userMod($zone) {
   $zone.find('form.xhr').submit(function() {
     $(this).find('input').attr('disabled', true);
     $.ajax({
-      url: $(this).attr('action'),
-      method: $(this).attr('method'),
+      ...lichess.formAjax($(this)),
       success: function(html) {
         $('#mz_actions').replaceWith(html);
         userMod($zone);
       }
-    })
+    });
     return false;
   });
 

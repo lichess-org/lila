@@ -121,8 +121,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       $.ajax({
-        method: 'post',
-        url: $(this).attr('action'),
+        ...li.formAjax($(this)),
         success: startAdvantageChart,
         error: li.reload
       });
