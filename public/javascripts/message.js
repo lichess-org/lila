@@ -53,4 +53,13 @@ $(function() {
     toggleSelect();
     toggle.on('change', toggleSelect);
   }
+
+  $('form.comm-flag').submit(function() {
+    $(this).find('button')
+      .attr('disabled', true)
+      .attr('data-icon', 'E')
+      .addClass('disabled');
+    $.ajax(lidraughts.formAjax($(this)));
+    return false;
+  });
 });

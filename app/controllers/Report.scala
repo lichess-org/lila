@@ -7,7 +7,7 @@ import views._
 import lidraughts.api.{ Context, BodyContext }
 import lidraughts.app._
 import lidraughts.common.HTTPRequest
-import lidraughts.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
+import lidraughts.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
 import lidraughts.user.{ UserRepo, User => UserModel }
 
 object Report extends LidraughtsController {
@@ -123,6 +123,19 @@ object Report extends LidraughtsController {
         else api.create(data candidate lidraughts.report.Reporter(me)) map { report =>
           Redirect(routes.Report.thanks(data.user.username))
         }
+    )
+  }
+
+  def flag = AuthBody { implicit ctx => implicit me =>
+    implicit val req = ctx.body
+    env.forms.flag.bindFromRequest.fold(
+      err => BadRequest.fuccess,
+      data => UserRepo named data.username flatMap {
+        _ ?? { user =>
+          if (user == me) BadRequest.fuccess
+          else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+        }
+      }
     )
   }
 

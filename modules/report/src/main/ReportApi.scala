@@ -43,6 +43,13 @@ final class ReportApi(
     }
   }
 
+  def commFlag(reporter: Reporter, suspect: Suspect, resource: String, text: String) = create(Report.Candidate(
+    reporter,
+    suspect,
+    Reason.CommFlag,
+    s"[FLAG] $resource ${text take 140}"
+  ))
+
   private def monitorOpen = {
     nbOpenCache.refresh
     nbOpen foreach { nb =>
@@ -53,7 +60,7 @@ final class ReportApi(
   private def isAlreadySlain(candidate: Report.Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
-      (candidate.isTrollOrInsult && candidate.suspect.user.troll)
+      (candidate.isAboutComm && candidate.suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply

@@ -27,14 +27,14 @@ case class Report(
   def suspect = SuspectId(user)
 
   def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
-    val newAtom = existing.copy(
-      at = atom.at,
-      score = atom.score,
-      text = s"${existing.text}\n\n${atom.text}"
-    )
-    copy(
+    if (existing.text contains atom.text) this
+    else copy(
       atoms = {
-        newAtom :: atoms.toList.filterNot(_.by == atom.by)
+        existing.copy(
+          at = atom.at,
+          score = atom.score,
+          text = s"${existing.text}\n\n${atom.text}"
+        ) :: atoms.toList.filterNot(_.by == atom.by)
       }.toNel | atoms
     )
   }.recomputeScore
@@ -57,7 +57,7 @@ case class Report(
   def unprocessedOther = open && isOther
   def unprocessedTroll = open && isTroll
   def unprocessedInsult = open && isInsult
-  def unprocessedTrollOrInsult = open && isTrollOrInsult
+  def unprocessedAboutComm = open && isAboutComm
 
   def process(by: User) = copy(
     open = false,
@@ -126,7 +126,7 @@ object Report {
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic = reporter.id == ReporterId.Lidraughts
-    def isAutoComm = isAutomatic && isTrollOrInsult
+    def isAutoComm = isAutomatic && isAboutComm
     def isCoachReview = isOther && text.contains("COACH REVIEW")
   }
 
@@ -144,18 +144,17 @@ object Report {
   private[report] val spontaneousText = "Spontaneous inquiry"
 
   def make(c: Candidate.Scored, existing: Option[Report]) = c match {
-    case c @ Candidate.Scored(candidate, score) =>
-      existing.map(_ add c.atom) | Report(
-        _id = Random nextString 8,
-        user = candidate.suspect.user.id,
-        reason = candidate.reason,
-        room = Room(candidate.reason),
-        atoms = NonEmptyList(c.atom),
-        score = score,
-        inquiry = none,
-        open = true,
-        processedBy = none
-      )
+    case c @ Candidate.Scored(candidate, score) => existing.fold(Report(
+      _id = Random nextString 8,
+      user = candidate.suspect.user.id,
+      reason = candidate.reason,
+      room = Room(candidate.reason),
+      atoms = NonEmptyList(c.atom),
+      score = score,
+      inquiry = none,
+      open = true,
+      processedBy = none
+    ))(_ add c.atom)
   }
 
   private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored

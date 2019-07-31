@@ -236,6 +236,11 @@ lidraughts.makeChat = function(data, callback) {
     (callback || $.noop)(LidraughtsChat.default(document.querySelector('.mchat'), data));
   });
 };
+lidraughts.formAjax = $form => ({
+  url: $form.attr('action'),
+  method: $form.attr('method') || 'post',
+  data: $form.serialize()
+});
 
 lidraughts.numberFormat = (function() {
   var formatter = false;

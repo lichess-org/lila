@@ -46,7 +46,12 @@ object thread {
                   iconTag("H")(cls := "to"),
                   userIdLink(thread.visibleReceiverOf(post), "inline".some)
                 ),
-                momentFromNow(post.createdAt)
+                momentFromNow(post.createdAt),
+                !thread.isWrittenBy(post, me) option views.html.report.form.flag(
+                  username = thread otherUserId me,
+                  resource = s"message/${thread.id}",
+                  text = post.text
+                )
               ),
               div(cls := "message-thread__message__body")(richText(post.text))
             )

@@ -33,8 +33,20 @@ private[report] final class DataForm(val captcher: akka.actor.ActorSelection, va
 
   def createWithCaptcha = withCaptcha(create)
 
+  val flag = Form(mapping(
+    "username" -> lidraughts.user.DataForm.historicalUsernameField,
+    "resource" -> nonEmptyText,
+    "text" -> text(minLength = 3, maxLength = 140)
+  )(ReportFlag.apply)(ReportFlag.unapply))
+
   private def fetchUser(username: String) = UserRepo named username awaitSeconds 2
 }
+
+private[report] case class ReportFlag(
+    username: String,
+    resource: String,
+    text: String
+)
 
 private[report] case class ReportSetup(
     user: User,

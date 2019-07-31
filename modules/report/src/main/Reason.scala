@@ -15,13 +15,14 @@ object Reason {
   }
   case object Insult extends Reason
   case object Troll extends Reason
+  case object CommFlag extends Reason
   case object Boost extends Reason
   case object Other extends Reason
   case object Playbans extends Reason
 
-  val communication: Set[Reason] = Set(Insult, Troll, Other)
+  val communication: Set[Reason] = Set(Insult, Troll, CommFlag, Other)
 
-  val all = List(Cheat, CheatPrint, Insult, Troll, Boost, Other)
+  val all = List(Cheat, CheatPrint, Insult, Troll, Boost, CommFlag, Other)
   val keys = all map (_.key)
   val byKey = all map { v => (v.key, v) } toMap
 
@@ -36,8 +37,9 @@ object Reason {
     def isOther = reason == Other
     def isTroll = reason == Troll
     def isInsult = reason == Insult
+    def isCommFlag = reason == CommFlag
     def isPrint = reason == CheatPrint
-    def isTrollOrInsult = reason == Troll || reason == Insult
+    def isAboutComm = isTroll || isInsult || isCommFlag
     def isPlaybans = reason == Playbans
   }
 }

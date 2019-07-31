@@ -15,9 +15,11 @@ private final class ReportScore(
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
         impl.autoScore(candidate)
-    } map impl.fixedAutoCommPrintScore(candidate) map { score =>
-      candidate scored Report.Score(score atLeast 5 atMost 100)
-    }
+    } map
+      impl.fixedAutoCommPrintScore(candidate) map
+      impl.commFlagScore(candidate) map { score =>
+        candidate scored Report.Score(score atLeast 5 atMost 100)
+      }
 
   private object impl {
 
@@ -32,10 +34,10 @@ private final class ReportScore(
       titleScore(r.user.title) + flagScore(r.user)
 
     def titleScore(title: Option[Title]) =
-      (title.isDefined) ?? 30d
+      title.isDefined ?? 30d
 
     def flagScore(user: User) =
-      (user.lameOrTroll) ?? -30d
+      user.lameOrTroll ?? -30d
 
     def autoScore(candidate: Report.Candidate) =
       candidate.isAutomatic ?? 20d
@@ -45,6 +47,10 @@ private final class ReportScore(
     def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
       if (c.isAutoComm) baseScore
       else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScoreAboveThreshold
+      else score
+
+    def commFlagScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isCommFlag) score / 2
       else score
   }
 
