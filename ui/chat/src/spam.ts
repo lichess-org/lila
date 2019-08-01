@@ -16,7 +16,6 @@ const spamRegex = new RegExp([
   '(^|[^i])chess-bot',
   'chess-cheat',
   'coolteenbitch',
-  'goo.gl/',
   'letcafa.webcam',
   'tinyurl.com/',
   'wooga.info/',
