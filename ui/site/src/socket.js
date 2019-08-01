@@ -18,7 +18,7 @@ lidraughts.StrongSocket = function(url, version, settings) {
   var tryOtherUrl = false;
   var autoReconnect = true;
   var nbConnects = 0;
-  var storage = lidraughts.storage.make('surl6');
+  var storage = lidraughts.storage.make('surl7');
 
   var connect = function() {
     destroy();
