@@ -69,7 +69,7 @@ final class Env(
 
   val cspEnabledSetting = settingStore[Boolean](
     "cspEnabled",
-    default = false,
+    default = true,
     text = "Enable CSP for everyone.".some
   )
 
