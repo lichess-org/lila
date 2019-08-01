@@ -54,7 +54,7 @@
     <div class="status">
       @gameEndStatus(game)
       @game.winner.map { winner =>
-      @if(!game.status.is(draughts.Status.Mate)){"• "}@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
+      @if(!game.status.is(draughts.Status.Mate)){• }@winner.color.fold(trans.whiteIsVictorious(), trans.blackIsVictorious())
       }
     </div>
     }
