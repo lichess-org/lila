@@ -356,6 +356,12 @@
   <string name="player">שחקן</string>
   <string name="list">רשימה</string>
   <string name="graph">גרף</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">פחות מ- %s דקות</item>
+    <item quantity="two">פחות מ- %s דקות</item>
+    <item quantity="many">פחות מ- %s דקות</item>
+    <item quantity="other">פחות מ- %s דקות</item>
+  </plurals>
   <string name="required">נדרש.</string>
   <string name="openTournaments">הטורנירים הפתוחים</string>
   <string name="duration">משך</string>
@@ -554,6 +560,12 @@
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>
   <string name="yourCityRegionOrDepartment">העיר, האזור,המדינה, או המחוז שלך</string>
   <string name="biographyDescription">ספר/י על עצמך, מה את/ה אוהב/ת בשחמט, הפתיחה המועדפת עליך, משחקים, שחקנים…</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">מספר תווים מירבי: %s</item>
+    <item quantity="two">מספר תווים מירבי: %s.</item>
+    <item quantity="many">מספר תווים מירבי: %s.</item>
+    <item quantity="other">מספר תווים מירבי: %s.</item>
+  </plurals>
   <string name="listBlockedPlayers">רשימת שחקנים שחסמת</string>
   <string name="human">בן אנוש</string>
   <string name="computer">מחשב</string>
