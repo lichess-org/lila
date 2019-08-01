@@ -24,6 +24,7 @@ ass?(hole|fag)
 aus?c?hwitz
 ball
 bastard?
+be[ea]+ch
 bewb
 bimbo
 bit?ch
