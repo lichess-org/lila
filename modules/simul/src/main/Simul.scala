@@ -127,7 +127,8 @@ case class Simul(
   def spotlightable =
     (hostRating >= 2400 || hostTitle.isDefined) &&
       isCreated &&
-      applicants.size < 80
+      applicants.size < 80 &&
+      !team.isDefined
 
   def wins = pairings.count(p => p.finished && p.wins.has(false))
   def draws = pairings.count(p => p.finished && p.wins.isEmpty)
