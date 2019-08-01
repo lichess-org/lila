@@ -59,6 +59,7 @@
   <string name="promoteVariation">Höj upp variation</string>
   <string name="makeMainLine">Gör till huvudvariation</string>
   <string name="deleteFromHere">Radera härifrån</string>
+  <string name="forceVariation">Tvinga fram variant</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -101,7 +102,7 @@
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
   <string name="evaluationGauge">Visa evaluering</string>
-  <string name="multipleLines">Multipla varianter</string>
+  <string name="multipleLines">Flera linjer</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
@@ -352,6 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
   <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
+  <string name="whiteCheckmatesInOneMove">Vit gör schackmatt i ett drag</string>
+  <string name="blackCheckmatesInOneMove">Svart gör schackmatt om ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
   <string name="onlineFriends">Vänner online</string>
@@ -631,6 +634,8 @@
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
   <string name="onlyFriends">Bara vänner</string>
+  <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
+  <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
   <string name="menu">Meny</string>
   <string name="castling">Rockad</string>
   <string name="whiteCastlingKingside">Vit O-O</string>
