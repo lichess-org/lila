@@ -81,6 +81,7 @@
 }
 #team .team-left {
   float: left;
+  padding-bottom: 8px;
   width: 280px;
   font-size: 1.2em;
   border-right: 1px solid #ccc;
@@ -112,8 +113,16 @@
 #team .actions {
   margin-left: 20px;
 }
+#team .actions-flex {
+  margin-left: 20px;
+  display: flex;
+}
+#team .actions .button {
+  margin-right: 8px;
+}
 #team .forum {
   margin-top: 30px;
+  padding-bottom: 12px;
   width: 100%;
 }
 #team .forum h2 {

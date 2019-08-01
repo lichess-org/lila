@@ -43,7 +43,7 @@
     @if(isGranted(_.ManageTeam)) {
     <form class="inline" method="post" action="@routes.Team.close(t.id)">
       <button data-icon="q" class="submit text button thin confirm" type="submit"
-        title="Deletes the team and its memberships. Cannot be reverted!">Delete</button>
+        title="Deletes the team and its memberships. Cannot be reverted!"> @trans.delete()</button>
     </form>
     }
   </div>
@@ -62,7 +62,7 @@
       }
     </ol>
     <a class="more" href="@teamForumUrl(t.id)">@t.name @trans.forum() »</a>
-    <div class="actions">
+    <div class="actions-flex">
       @if(info.mine && !info.createdByMe) {
       <form class="quit" method="post" action="@routes.Team.quit(t.id)">
         <input class="submit button small confirm" type="submit" value="@trans.quitTeam()" />
