@@ -59,7 +59,7 @@ $(function() {
       .attr('disabled', true)
       .attr('data-icon', 'E')
       .addClass('disabled');
-    $.ajax(lichess.formAjax($(this));
+    $.ajax(lichess.formAjax($(this)));
     return false;
   });
 });
