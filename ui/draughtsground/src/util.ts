@@ -2,10 +2,10 @@ import * as cg from './types';
 
 export const colors: cg.Color[] = ['white', 'black'];
 
-export const allKeys: cg.Key[] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50"];
+export const allKeys: cg.Key[] = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35', '36', '37', '38', '39', '40', '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'];
 
 export const pos2key = (pos: cg.Pos) => allKeys[pos[0] + 5 * pos[1] - 6];
-export const field2key = (n: number) => n < 10 ? ("0" + n.toString()) as cg.Key : n.toString() as cg.Key;
+export const field2key = (n: number) => n < 10 ? ('0' + n.toString()) as cg.Key : n.toString() as cg.Key;
 
 export const key2pos = (k: cg.Key) => key2posn(parseInt(k));
 const key2posn = (k: number) => [(k - 1) % 5 + 1, ((k - 1) + (5 - (k - 1) % 5)) / 5] as cg.Pos;
@@ -70,7 +70,7 @@ export const posToTranslateAbs = (bounds: ClientRect) => {
 };
 
 export const posToTranslateRel: (pos: cg.Pos, asWhite: boolean, shift: number) => cg.NumberPair =
-    (pos, asWhite, shift: number) => posToTranslateBase(pos, asWhite, 20.0, 10.0, shift);
+  (pos, asWhite, shift: number) => posToTranslateBase(pos, asWhite, 20.0, 10.0, shift);
 
 /**
  * Modifies dom element style with asolute value (translate attribute, amount of pixels)
@@ -105,6 +105,11 @@ export const createEl = (tagName: string, className?: string) => {
 }
 
 export const raf = (window.requestAnimationFrame || window.setTimeout).bind(window);
+
+export function isObjectEmpty(o: any): boolean {
+  for (let _ in o) return false;
+  return true;
+}
 
 export const movesDown: number[][] = [
   [-1, -1, -1],

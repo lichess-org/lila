@@ -131,14 +131,14 @@ export function baseMove(state: State, orig: cg.Key, dest: cg.Key): cg.Piece | b
       //Remove any remaing ghost pieces if capture sequence is done
       for (let i = 0; i < allKeys.length; i++) {
         const pc = state.pieces[allKeys[i]];
-        if (pc !== undefined && (pc.role == 'ghostking' || pc.role == 'ghostman'))
+        if (pc !== undefined && (pc.role === 'ghostking' || pc.role === 'ghostman'))
           delete state.pieces[allKeys[i]];
       }
     }
   }
 
   if (state.lastMove && state.lastMove.length > 0 && isCapture) {
-    if (state.lastMove[state.lastMove.length - 1] == orig)
+    if (state.lastMove[state.lastMove.length - 1] === orig)
       state.lastMove.push(dest);
     else
       state.lastMove = [orig, dest];

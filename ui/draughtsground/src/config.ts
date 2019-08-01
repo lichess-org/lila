@@ -131,7 +131,7 @@ export function configure(state: State, config: Config) {
 
 export function setKingMoves(state: State, kingMoves: cg.KingMoves) {
   for (let f = 1; f <= 50; f++) {
-    const key = (f < 10 ? "0" + f.toString() : f.toString()) as cg.Key,
+    const key = (f < 10 ? '0' + f.toString() : f.toString()) as cg.Key,
       piece = state.pieces[key];
     if (piece && piece.kingMoves)
       piece.kingMoves = undefined;

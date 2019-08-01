@@ -1,6 +1,6 @@
-import { State } from './state'
-import * as util from './util'
 import * as cg from './types'
+import * as util from './util'
+import { State } from './state'
 import { calcCaptKey } from './board'
 
 export type Mutation<A> = (state: State) => A;
@@ -18,17 +18,12 @@ export interface AnimCaptures {
   [key: string]: cg.Piece
 }
 
-export interface AnimFadings {
-  [key: string]: cg.Piece
-}
-
 export interface AnimRoles {
   [key: string]: cg.Role
 }
 
 export interface AnimPlan {
   anims: AnimVectors;
-  fadings: AnimFadings;
   captures: AnimCaptures;
   tempRole: AnimRoles;
   nextPlan?: AnimPlan;
@@ -41,16 +36,6 @@ export interface AnimCurrent {
   lastMove?: cg.Key[];
 }
 
-export function anim<A>(mutation: Mutation<A>, state: State, fadeOnly: boolean = false, noCaptSequences: boolean = false): A {
-  return state.animation.enabled ? animate(mutation, state, fadeOnly, noCaptSequences) : render(mutation, state);
-}
-
-export function render<A>(mutation: Mutation<A>, state: State): A {
-  const result = mutation(state);
-  state.dom.redraw();
-  return result;
-}
-
 interface AnimPiece {
   key: cg.Key;
   pos: cg.Pos;
@@ -61,6 +46,16 @@ interface AnimPieces {
 }
 
 interface SamePieces { [key: string]: boolean }
+
+export function anim<A>(mutation: Mutation<A>, state: State, fadeOnly: boolean = false, noCaptSequences: boolean = false): A {
+  return state.animation.enabled ? animate(mutation, state, fadeOnly, noCaptSequences) : render(mutation, state);
+}
+
+export function render<A>(mutation: Mutation<A>, state: State): A {
+  const result = mutation(state);
+  state.dom.redraw();
+  return result;
+}
 
 function makePiece(key: cg.Key, piece: cg.Piece): AnimPiece {
   return {
@@ -130,8 +125,8 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
     }
   }
 
-  const plan: AnimPlan = { anims: {}, fadings: {}, captures: {}, tempRole: {} };
-  let nextPlan: AnimPlan = { anims: {}, fadings: {}, captures: {}, tempRole: {} };
+  const plan: AnimPlan = { anims: {}, captures: {}, tempRole: {} };
+  let nextPlan: AnimPlan = { anims: {}, captures: {}, tempRole: {} };
 
   if (newsW.length > 1 && missingsW.length > 0) {
     newsW = newsW.sort((p1, p2) => {
@@ -201,7 +196,7 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
           }
         });
 
-        let newPlan: AnimPlan = { anims: {}, fadings: {}, captures: {}, tempRole: {} };
+        let newPlan: AnimPlan = { anims: {}, captures: {}, tempRole: {} };
         for (i = 2; i < current.lastMove.length; i++) {
 
           newPos = util.key2pos(current.lastMove[i]);
@@ -231,7 +226,7 @@ function computePlan(prevPieces: cg.Pieces, current: State, fadeOnly: boolean = 
           lastPos = newPos;
           nextPlan = newPlan;
 
-          newPlan = { anims: {}, fadings: {}, captures: {}, tempRole: {} };
+          newPlan = { anims: {}, captures: {}, tempRole: {} };
 
         }
 
@@ -267,7 +262,7 @@ function step(state: State, now: cg.Timestamp): void {
   }
   let rest = 1 - (now - cur.start) * cur.frequency;
   if (rest <= 0) {
-    if (cur.plan.nextPlan && (!isObjectEmpty(cur.plan.nextPlan.anims) || !isObjectEmpty(cur.plan.nextPlan.fadings))) {
+    if (cur.plan.nextPlan && !util.isObjectEmpty(cur.plan.nextPlan.anims)) {
       state.animation.current = {
         start: perf.now(),
         frequency: 2.2 / state.animation.duration,
@@ -300,11 +295,11 @@ function animate<A>(mutation: Mutation<A>, state: State, fadeOnly: boolean = fal
 
   const result = mutation(state);
   const plan = computePlan(prevPieces, state, fadeOnly, noCaptSequences);
-  if (!isObjectEmpty(plan.anims) || !isObjectEmpty(plan.fadings)) {
+  if (!util.isObjectEmpty(plan.anims)) {
     const alreadyRunning = state.animation.current && state.animation.current.start;
     state.animation.current = {
       start: perf.now(),
-      frequency: ((plan.nextPlan && (!isObjectEmpty(plan.nextPlan.anims) || !isObjectEmpty(plan.nextPlan.fadings))) ? 2.2 : 1) / state.animation.duration,
+      frequency: ((plan.nextPlan && !util.isObjectEmpty(plan.nextPlan.anims)) ? 2.2 : 1) / state.animation.duration,
       plan: plan,
       lastMove: state.lastMove
     };
@@ -329,10 +324,6 @@ function sameArray(ar1?: Array<any>, ar2?: Array<any>) {
   return true;
 }
 
-export function isObjectEmpty(o: any): boolean {
-  for (let _ in o) return false;
-  return true;
-}
 // https://gist.github.com/gre/1650294
 function easing(t: number): number {
   return t < 0.5 ? 4 * t * t * t : (t - 1) * (2 * t - 2) * (2 * t - 2) + 1;

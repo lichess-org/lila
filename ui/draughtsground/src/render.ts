@@ -1,7 +1,7 @@
 import { State } from './state'
 import { key2pos, createEl } from './util'
 import * as util from './util'
-import { AnimCurrent, AnimVectors, AnimVector, AnimFadings, AnimCaptures, AnimRoles, isObjectEmpty } from './anim'
+import { AnimCurrent, AnimVectors, AnimVector, AnimCaptures, AnimRoles } from './anim'
 import { DragCurrent } from './drag'
 import * as cg from './types'
 
@@ -24,7 +24,6 @@ export default function render(s: State): void {
     pieces: cg.Pieces = s.pieces,
     curAnim: AnimCurrent | undefined = s.animation.current,
     anims: AnimVectors = curAnim ? curAnim.plan.anims : {},
-    fadings: AnimFadings = curAnim ? curAnim.plan.fadings : {},
     temporaryPieces: AnimCaptures = curAnim ? curAnim.plan.captures : {},
     temporaryRoles: AnimRoles = curAnim ? curAnim.plan.tempRole : {},
     curDrag: DragCurrent | undefined = s.draggable.current,
@@ -41,7 +40,6 @@ export default function render(s: State): void {
     pieceAtKey: cg.Piece | undefined,
     elPieceName: PieceName,
     anim: AnimVector | undefined,
-    fading: cg.Piece | undefined,
     tempPiece: cg.Piece | undefined,
     tempRole: cg.Role | undefined,
     pMvdset: cg.PieceNode[],
@@ -56,7 +54,6 @@ export default function render(s: State): void {
     if (isPieceNode(el)) {
       pieceAtKey = pieces[k];
       anim = anims[k];
-      fading = fadings[k];
       tempPiece = temporaryPieces[k];
       tempRole = temporaryRoles[k];
       elPieceName = el.cgPiece;
@@ -66,30 +63,22 @@ export default function render(s: State): void {
         translate(el, posToTranslate(key2pos(k), asWhite, 0));
         el.cgDragging = false;
       }
-      // remove fading class if it still remains
-      if (!fading && el.cgFading) {
-        el.cgFading = false;
-        el.classList.remove('fading');
-      }
-
       if (el.classList.contains('temporary') && tempPiece) {
-        // Piece belongs here, check if it still has the right properties
+        // piece belongs here, check if it still has the right properties
         const fullPieceName = pieceNameOf(tempPiece) + " temporary";
         if (elPieceName !== fullPieceName)
           el.className = fullPieceName;
         samePieces[k] = true;
       } else if (pieceAtKey) {
-
         // there is now a piece at this dom key
-
         // continue animation if already animating and same piece
         // (otherwise it could animate a captured piece)
         if (anim && el.cgAnimating && elPieceName === pieceNameOf(pieceAtKey)) {
-          animDoubleKey = undefined; //Only needed to get the animation started
+          animDoubleKey = undefined; // only needed to get the animation started
           const pos = key2pos(k);
           pos[0] += anim[2];
           pos[1] += anim[3];
-          if (curAnim && curAnim.plan.nextPlan && curAnim.plan.nextPlan.anims[k] && (!isObjectEmpty(curAnim.plan.nextPlan.anims[k]) || !isObjectEmpty(curAnim.plan.nextPlan.fadings[k]))) {
+          if (curAnim && curAnim.plan.nextPlan && curAnim.plan.nextPlan.anims[k] && !util.isObjectEmpty(curAnim.plan.nextPlan.anims[k])) {
             pos[0] += curAnim.plan.nextPlan.anims[k][2];
             pos[1] += curAnim.plan.nextPlan.anims[k][3];
           }
@@ -120,18 +109,13 @@ export default function render(s: State): void {
         }
 
         // same piece: flag as same. Exception for capture ending on the start square, as no pieces are added or removed
-        if (elPieceName === pieceNameOf(pieceAtKey) && (!fading || !el.cgFading) && k !== animDoubleKey) {
+        if (elPieceName === pieceNameOf(pieceAtKey) && k !== animDoubleKey) {
           samePieces[k] = true;
         }
         // different piece: flag as moved unless it is a fading piece
         else {
-          if (fading && elPieceName === pieceNameOf(fading)) {
-            el.classList.add('fading');
-            el.cgFading = true;
-          } else {
-            if (movedPieces[elPieceName]) movedPieces[elPieceName].push(el);
-            else movedPieces[elPieceName] = [el];
-          }
+          if (movedPieces[elPieceName]) movedPieces[elPieceName].push(el);
+          else movedPieces[elPieceName] = [el];
         }
 
       } else {
@@ -183,10 +167,6 @@ export default function render(s: State): void {
       if (pMvd) {
         // apply dom changes
         pMvd.cgKey = k;
-        if (pMvd.cgFading) {
-          pMvd.classList.remove('fading');
-          pMvd.cgFading = false;
-        }
         const pos = key2pos(k);
         if (s.addPieceZIndex) pMvd.style.zIndex = posZIndex(pos, asWhite);
         let shift: number;
