@@ -303,7 +303,7 @@ lidraughts.topMenuIntent = function() {
       }
 
       if (!window.customWS) setTimeout(function() {
-        if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket", false);
+        if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket/v2", false);
       }, 300);
 
       lidraughts.challengeApp = (function() {
@@ -1171,7 +1171,7 @@ lidraughts.topMenuIntent = function() {
     var puzzle;
     cfg.element = document.querySelector('#puzzle');
     cfg.sideElement = document.querySelector('#site_header .puzzle_side');
-    lidraughts.socket = lidraughts.StrongSocket('/socket', false, {
+    lidraughts.socket = lidraughts.StrongSocket('/socket/v2', false, {
       options: {
         name: "puzzle"
       },

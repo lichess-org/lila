@@ -11,6 +11,7 @@ private[site] final class SocketHandler(
   def apply(
     uid: Socket.Uid,
     userId: Option[String],
+    apiVersion: Int,
     flag: Option[String]
   ): Fu[JsSocketHandler] = {
 

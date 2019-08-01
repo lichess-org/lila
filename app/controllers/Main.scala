@@ -36,9 +36,9 @@ object Main extends LidraughtsController {
     }
   }
 
-  def websocket = SocketOption { implicit ctx =>
+  def websocket(apiVersion: Int) = SocketOption { implicit ctx =>
     getSocketUid("sri") ?? { uid =>
-      Env.site.socketHandler(uid, ctx.userId, get("flag")) map some
+      Env.site.socketHandler(uid, ctx.userId, apiVersion, get("flag")) map some
     }
   }
 
