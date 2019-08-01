@@ -193,7 +193,6 @@ object Auth extends LilaController {
         forms.preloadEmailDns >> negotiate(
           html = forms.signup.website.bindFromRequest.fold(
             err => {
-              println(err)
               signupErrLog(err)
               BadRequest(html.auth.signup(err, env.recaptchaPublicConfig)).fuccess
             },
