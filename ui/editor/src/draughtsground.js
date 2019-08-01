@@ -154,8 +154,6 @@ function makeConfig(ctrl) {
     },
     draggable: {
       showGhost: true,
-      distance: 0,
-      autoDistance: false,
       deleteOnDropOff: true
     },
     selectable: {
