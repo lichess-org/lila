@@ -46,4 +46,9 @@
   <string name="viewTheComputerAnalysis">Kompyuter tahlilini ko\'rish</string>
   <string name="requestAComputerAnalysis">Kompyuter tahlili uchun so\'rov</string>
   <string name="computerAnalysis">Kompyuter tahlili</string>
+  <string name="computerAnalysisAvailable">Kompyuter tahlili mavjud</string>
+  <string name="analysis">Tahlil doskasi</string>
+  <string name="depthX">Fikrlash chuqurligi %s</string>
+  <string name="usingServerAnalysis">Server tahlili qo\'llanilayabdi</string>
+  <string name="loadingEngine">Mexanizmni yuklash ...</string>
 </resources>
