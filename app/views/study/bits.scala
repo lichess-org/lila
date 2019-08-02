@@ -11,13 +11,13 @@ import controllers.routes
 object bits {
 
   def newButton()(implicit ctx: Context) = ctx.isAuth option
-    form(cls := "new-study", action := routes.Study.create, method := "post")(
-      button(tpe := "submit", cls := "button")("New study")
+    postForm(cls := "new-study", action := routes.Study.create)(
+      submitButton(cls := "button")("New study")
     )
 
   def newForm()(implicit ctx: Context) =
-    form(cls := "new-study", action := routes.Study.create, method := "post")(
-      button(tpe := "submit", cls := "button button-green", dataIcon := "O", title := "New study")
+    postForm(cls := "new-study", action := routes.Study.create)(
+      submitButton(cls := "button button-green", dataIcon := "O", title := "New study")
     )
 
   def authLinks(me: User, active: String, order: lidraughts.study.Order)(implicit ctx: Context) = {

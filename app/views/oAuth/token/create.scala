@@ -17,7 +17,7 @@ object create {
     views.html.account.layout(title = title, active = "oauth.token")(
       div(cls := "account oauth box box-pad")(
         h1(title),
-        st.form(cls := "form3", action := routes.OAuthToken.create, method := "POST")(
+        postForm(cls := "form3", action := routes.OAuthToken.create)(
           div(cls := "form-group")(
             "Personal access tokens function like ordinary lidraughts OAuth access tokens. ",
             "They can be used to authenticate to the API over Basic Authentication."

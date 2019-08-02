@@ -67,7 +67,7 @@ object index {
                 tr(
                   th,
                   td(cls := "action")(
-                    button(tpe := "submit", cls := "button")(trans.search()),
+                    submitButton(cls := "button")(trans.search()),
                     div(cls := "wait")(
                       spinner,
                       "Searching in ", nbGames.localize, " games"

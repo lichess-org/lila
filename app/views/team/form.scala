@@ -20,7 +20,7 @@ object form {
           bits.menu("form".some),
           div(cls := "page-menu__content box box-pad")(
             h1(trans.newTeam()),
-            st.form(cls := "form3", action := routes.Team.create(), method := "POST")(
+            postForm(cls := "form3", action := routes.Team.create())(
               form3.globalError(form),
               form3.group(form("name"), trans.name())(form3.input(_)),
               form3.group(form("open"), trans.joiningPolicy()) { f =>
@@ -45,7 +45,7 @@ object form {
         bits.menu(none),
         div(cls := "page-menu__content box box-pad")(
           h1(title),
-          st.form(cls := "form3", action := routes.Team.update(t.id), method := "POST")(
+          postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.kick(t.id))("Kick someone out of the team"),
               a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))("Appoint another team owner")
@@ -62,8 +62,8 @@ object form {
           ),
           isGranted(_.ManageTeam) option frag(
             hr,
-            st.form(cls := "inline", method := "post", action := routes.Team.close(t.id))(
-              button(dataIcon := "q", cls := "text button button-empty button-red confirm", tpe := "submit",
+            postForm(cls := "inline", action := routes.Team.close(t.id))(
+              submitButton(dataIcon := "q", cls := "text button button-empty button-red confirm",
                 st.title := "Deletes the team and its memberships. Cannot be reverted!")(trans.delete())
             )
           )

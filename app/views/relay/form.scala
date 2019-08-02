@@ -35,7 +35,7 @@ object form {
       )
 
   private def inner(form: Form[_], url: play.api.mvc.Call)(implicit ctx: Context) =
-    st.form(cls := "form3", action := url, method := "POST")(
+    postForm(cls := "form3", action := url)(
       form3.group(form("name"), frag("Event name"))(form3.input(_)(autofocus)),
       form3.group(form("description"), raw("Short event description"))(form3.textarea(_)(rows := 2)),
       form3.group(form("markup"), raw("Full event description"), help = raw("""<a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown</a> is available""").some)(form3.textarea(_)(rows := 10)),

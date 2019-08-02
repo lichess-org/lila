@@ -18,19 +18,18 @@ object picture {
           div(cls := "picture_wrap")(bits.pic(s.streamer, s.user, 250)),
           div(cls := "forms")(
             error.map { badTag(_) },
-            st.form(
+            postForm(
               action := routes.Streamer.pictureApply,
-              method := "post",
               enctype := "multipart/form-data",
               cls := "upload"
             )(
                 p("Max size: ", lidraughts.db.Photographer.uploadMaxMb, "MB."),
                 form3.file.image("picture"),
-                button(tpe := "submit", cls := "button")("Upload profile picture")
+                submitButton(cls := "button")("Upload profile picture")
               ),
             s.streamer.hasPicture option
-              st.form(action := routes.Streamer.pictureDelete, method := "post", cls := "delete")(
-                button(tpe := "submit", cls := "button button-red")("Delete profile picture")
+              postForm(action := routes.Streamer.pictureDelete, cls := "delete")(
+                submitButton(cls := "button button-red")("Delete profile picture")
               ),
             div(cls := "cancel")(
               a(href := routes.Streamer.edit, cls := "text", dataIcon := "I")("Return to streamer page form")

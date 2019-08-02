@@ -15,7 +15,7 @@ object profile {
   ) {
     div(cls := "account box box-pad")(
       h1(trans.editProfile()),
-      st.form(cls := "form3", action := routes.Account.profileApply, method := "POST")(
+      postForm(cls := "form3", action := routes.Account.profileApply)(
         div(cls := "form-group")(trans.allInformationIsPublicAndOptional()),
         form3.split(
           form3.group(form("country"), trans.country(), half = true) { f =>

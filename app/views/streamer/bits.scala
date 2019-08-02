@@ -14,13 +14,13 @@ object bits {
     back = false,
     moreCss = cssTag("streamer.form").some
   )(
-      form(cls := "streamer-new", action := routes.Streamer.create, method := "POST")(
+      postForm(cls := "streamer-new", action := routes.Streamer.create)(
         h2("Do you have a Twitch or YouTube stream, ", me.username, "?"),
         br, br,
         bits.rules(),
         br, br,
         p(style := "text-align: center")(
-          button(tpe := "submit", cls := "button button-fat text", dataIcon := "")("Here we go!")
+          submitButton(cls := "button button-fat text", dataIcon := "")("Here we go!")
         )
       )
     )

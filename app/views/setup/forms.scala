@@ -121,17 +121,16 @@ object forms {
           a(href := routes.Lobby.home, cls := "button text", dataIcon := "L")(trans.cancel.txt())
         )
       }.getOrElse {
-        st.form(action := route, method := "post", novalidate,
+        postForm(action := route, novalidate,
           dataRandomColorVariants,
           dataType := typ,
           dataAnon := ctx.isAnon.option("1"))(
             fields,
-            if (ctx.blind) button(tpe := "submit")("Create the game")
+            if (ctx.blind) submitButton("Create the game")
             else div(cls := "color-submits")(
               translatedSideChoices.map {
-                case (key, name, _) => button(
+                case (key, name, _) => submitButton(
                   (typ == "hook") option disabled,
-                  tpe := "submit",
                   title := name,
                   cls := s"color-submits__button button button-metal $key",
                   st.name := "color",

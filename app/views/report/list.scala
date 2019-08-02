@@ -90,14 +90,14 @@ object list {
                     ),
                     td(
                       r.processedBy map { u =>
-                        st.form(action := routes.Report.inquiry(r.id), method := "post", cls := "reopen")(
-                          button(tpe := "submit", dataIcon := "G", cls := "text button button-metal")("Re-open")
+                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                          submitButton(dataIcon := "G", cls := "text button button-metal")("Re-open")
                         )
-                      } getOrElse st.form(action := routes.Report.inquiry(r.id), method := "post", cls := "inquiry")(
-                        button(tpe := "submit", dataIcon := "G", cls := "button button-metal")
+                      } getOrElse postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                        submitButton(dataIcon := "G", cls := "button button-metal")
                       ),
-                      st.form(action := routes.Report.process(r.id), method := "post", cls := "cancel")(
-                        button(tpe := "submit", cls := "button button-thin button-empty")("Dismiss")
+                      postForm(action := routes.Report.process(r.id), cls := "cancel")(
+                        submitButton(cls := "button button-thin button-empty")("Dismiss")
                       )
                     )
                   )

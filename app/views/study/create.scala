@@ -12,7 +12,7 @@ import controllers.routes
 object create {
 
   private def studyButton(s: Study.IdName) =
-    button(name := "as", value := s.id.value, `type` := "submit", cls := "submit button")(s.name.value)
+    submitButton(name := "as", value := s.id.value, cls := "submit button")(s.name.value)
 
   def apply(data: lidraughts.study.DataForm.importGame.Data, owner: List[Study.IdName], contrib: List[Study.IdName])(implicit ctx: Context) =
     views.html.site.message(
@@ -22,7 +22,7 @@ object create {
       moreCss = cssTag("study.create").some
     ) {
         div(cls := "study-create")(
-          form(action := routes.Study.create, method := "POST")(
+          postForm(action := routes.Study.create)(
             input(tpe := "hidden", name := "gameId", value := data.gameId),
             input(tpe := "hidden", name := "orientation", value := data.orientationStr),
             input(tpe := "hidden", name := "fen", value := data.fenStr),
@@ -30,8 +30,7 @@ object create {
             input(tpe := "hidden", name := "variant", value := data.variantStr),
             h2("So, where do you want to study that?"),
             p(
-              button(name := "as", value := "study",
-                tpe := "submit", cls := "submit button large new text", dataIcon := "4")("New study")
+              submitButton(name := "as", value := "study", cls := "submit button large new text", dataIcon := "4")("New study")
             ),
             div(cls := "studies")(
               div(

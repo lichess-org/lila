@@ -12,8 +12,8 @@ object mine {
   def apply(c: lidraughts.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit ctx: Context) = {
 
     val cancelForm =
-      form(method := "post", action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
-        button(tpe := "submit", cls := "button button-red text", dataIcon := "L")(trans.cancel())
+      postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
+        submitButton(cls := "button button-red text", dataIcon := "L")(trans.cancel())
       )
 
     views.html.base.layout(
@@ -52,7 +52,7 @@ object mine {
                 ),
                 ctx.isAuth option div(
                   h2(cls := "ninja-title", "Or invite a lidraughts user:"), br,
-                  form(cls := "user-invite", action := routes.Challenge.toFriend(c.id), method := "POST")(
+                  postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
                     input(name := "username", cls := "friend-autocomplete", placeholder := trans.search.txt()),
                     error.map { badTag(_) }
                   )

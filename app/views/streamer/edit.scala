@@ -63,7 +63,7 @@ object edit {
                         if (s.streamer.completeEnough) frag(
                           "When you are ready to be listed on ",
                           a(href := routes.Streamer.index())("lidraughts streamers list"), ", ",
-                          st.form(method := "post", action := routes.Streamer.approvalRequest)(
+                          postForm(action := routes.Streamer.approvalRequest)(
                             button(tpe := "submmit", cls := "button", (!ctx.is(s.user)) option disabled)(
                               "request a moderator review"
                             )
@@ -110,7 +110,7 @@ object edit {
                     )
                   )
                 },
-                st.form(cls := "form3", action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}", method := "POST")(
+                postForm(cls := "form3", action := s"${routes.Streamer.edit}${!ctx.is(s.user) ?? s"?u=${s.user.id}"}")(
                   isGranted(_.Streamers) option div(cls := "mod")(
                     form3.split(
                       form3.checkbox(form("approval.granted"), raw("Publish on the streamers list"), help = modsOnly, half = true),

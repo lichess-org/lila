@@ -37,10 +37,9 @@ object form {
               br, br, hr, br,
               p("Sorry, you cannot start conversations yet.")
             )
-            else st.form(
+            else postForm(
               cls := "form3",
-              action := s"${routes.Message.create()}${reqUser.??(u => "?username=" + u.username)}",
-              method := "post"
+              action := s"${routes.Message.create()}${reqUser.??(u => "?username=" + u.username)}"
             )(
                 form3.group(form("username"), trans.recipient()) { f =>
                   reqUser map { user =>
@@ -80,7 +79,7 @@ object form {
                 },
                 form3.actions(
                   a(cls := "cancel", href := routes.Message.inbox())(trans.cancel()),
-                  button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send())
+                  submitButton(cls := "button text", dataIcon := "E")(trans.send())
                 )
               )
           }

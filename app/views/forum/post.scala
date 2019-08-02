@@ -62,7 +62,7 @@ object post {
         else richText(post.text)
       ),
       ctx.userId.exists(post.shouldShowEditForm(_)) option
-        st.form(cls := "edit-post-form", method := "post", action := routes.ForumPost.edit(post.id))(
+        postForm(cls := "edit-post-form", action := routes.ForumPost.edit(post.id))(
           textarea(
             bits.dataTopic := topic.id,
             name := "changes",
@@ -74,7 +74,7 @@ object post {
             a(cls := "edit-post-cancel", href := routes.ForumPost.redirect(post.id), style := "margin-left:20px")(
               trans.cancel()
             ),
-            button(`type` := "submit", cls := "button")(trans.apply())
+            submitButton(cls := "button")(trans.apply())
           )
         )
     )

@@ -37,7 +37,7 @@ object crud {
   ) {
     div(cls := "crud page-menu__content box box-pad")(
       h1("New tournament"),
-      st.form(cls := "form3", action := routes.TournamentCrud.create, method := "POST")(inForm(form))
+      postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form))
     )
   }
 
@@ -51,7 +51,7 @@ object crud {
         " ",
         span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
       ),
-      st.form(cls := "form3", action := routes.TournamentCrud.update(tour.id), method := "POST")(inForm(form))
+      postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
     )
   }
 

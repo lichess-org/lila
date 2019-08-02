@@ -51,8 +51,8 @@ object filter {
         renderInput(form("ratingRange"))
       ),
       div(cls := "actions")(
-        button(tpe := "submit", cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),
-        button(tpe := "submit", cls := "button button-green text apply", dataIcon := "E")(trans.apply())
+        submitButton(cls := "button button-empty button-red text reset", dataIcon := "k")(trans.reset()),
+        submitButton(cls := "button button-green text apply", dataIcon := "E")(trans.apply())
       )
     )
   )

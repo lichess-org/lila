@@ -21,7 +21,7 @@ object twoFactor {
   ) {
       div(cls := "account twofactor box box-pad")(
         h1("Setup two-factor authentication"),
-        st.form(cls := "form3", action := routes.Account.setupTwoFactor, method := "POST")(
+        postForm(cls := "form3", action := routes.Account.setupTwoFactor)(
           div(cls := "form-group")("Two-factor authentication adds another layer of security to your account."),
           div(cls := "form-group")(
             raw("""Get an app for two-factor authentication, for example Google Authenticator for <a class="blue" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android</a> or <a class="blue" href="https://itunes.apple.com/app/google-authenticator/id388497605?mt=8">iOS.</a>""")
@@ -49,7 +49,7 @@ object twoFactor {
         " Two-factor authentication enabled"
       ),
       p("Your account is protected with two-factor authentication."),
-      st.form(cls := "form3", action := routes.Account.disableTwoFactor, method := "POST")(
+      postForm(cls := "form3", action := routes.Account.disableTwoFactor)(
         p(
           "You need your password and an authentication code from your authenticator app to disable two-factor authentication. ",
           "If you lost access to your authentication codes, you can also do a password reset via email."

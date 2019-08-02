@@ -25,7 +25,7 @@ object form {
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(trans.createANewTournament()),
-          st.form(cls := "form3", action := routes.Tournament.create, method := "POST")(
+          postForm(cls := "form3", action := routes.Tournament.create)(
             fields.name,
             form3.split(fields.rated, fields.variant),
             fields.startPosition,
@@ -67,7 +67,7 @@ object form {
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1("Edit ", tour.fullName),
-          st.form(cls := "form3", action := routes.Tournament.update(tour.id), method := "POST")(
+          postForm(cls := "form3", action := routes.Tournament.update(tour.id))(
             fields.name,
             !tour.isStarted option fields.startDate(false),
             form3.split(fields.rated, fields.variant),

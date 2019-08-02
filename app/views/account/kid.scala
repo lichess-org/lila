@@ -19,15 +19,11 @@ object kid {
       br,
       br,
       br,
-      st.form(action := s"${routes.Account.kidPost}?v=${!u.kid}", method := "POST")(
-        input(
-          tpe := "submit",
-          cls := List(
-            "button" -> true,
-            "button-red" -> u.kid
-          ),
-          value := (if (u.kid) { trans.disableKidMode.txt() } else { trans.enableKidMode.txt() })
-        )
+      postForm(action := s"${routes.Account.kidPost}?v=${!u.kid}")(
+        submitButton(cls := List(
+          "button" -> true,
+          "button-red" -> u.kid
+        ))(if (u.kid) trans.disableKidMode.txt() else trans.enableKidMode.txt())
       ),
       br,
       br,

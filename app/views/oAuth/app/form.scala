@@ -15,7 +15,7 @@ object form {
     views.html.account.layout(title = title, active = "oauth.app") {
       div(cls := "account oauth box box-pad")(
         h1(title),
-        st.form(cls := "form3", action := routes.OAuthApp.create, method := "POST")(
+        postForm(cls := "form3", action := routes.OAuthApp.create)(
           div(cls := "form-group")(
             "Want to build something that integrates with and extends Lidraughts? Register a new OAuth App to get started developing on the Lidraughts API."
           ),
@@ -37,7 +37,7 @@ object form {
           )
         ),
         br, br,
-        st.form(cls := "form3", action := routes.OAuthApp.update(app.clientId.value), method := "POST")(
+        postForm(cls := "form3", action := routes.OAuthApp.update(app.clientId.value))(
           div(cls := "form-group")( /* "Here's a ",
             a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
               "lidraughts OAuth app example"

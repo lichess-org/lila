@@ -44,16 +44,16 @@ object indexStripe {
                 td(cls := "change")(
                   a(dataForm := "switch")("Change the monthly amount (", info.subscription.plan.usd.toString, ")"),
                   " or ", a(dataForm := "cancel")("cancel your support"),
-                  form(cls := "switch", action := routes.Plan.switch, method := "POST")(
+                  postForm(cls := "switch", action := routes.Plan.switch)(
                     p("Decide what Lidraughts is worth to you:"),
                     "EUR $ ",
                     input(tpe := "number", min := 1, max := 100000, step := "0.01", name := "usd", value := info.subscription.plan.usd.toString),
-                    button(tpe := "submit", cls := "button")(trans.apply()),
+                    submitButton(cls := "button")(trans.apply()),
                     a(dataForm := "switch")("Nevermind")
                   ),
-                  form(cls := "cancel", action := routes.Plan.cancel, method := "POST")(
+                  postForm(cls := "cancel", action := routes.Plan.cancel)(
                     p("Withdraw your credit card and stop payments:"),
-                    button(tpe := "submit", cls := "button button-red")("No longer support Lidraughts"),
+                    submitButton(cls := "button button-red")("No longer support Lidraughts"),
                     a(dataForm := "cancel")("Nevermind :)")
                   )
                 )

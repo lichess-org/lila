@@ -38,15 +38,11 @@ object bits {
             },
             trans.passwordReset()
           ),
-          st.form(
-            cls := "form3",
-            action := routes.Auth.passwordResetApply,
-            method := "post"
-          )(
-              form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
-              views.html.base.captcha(form, captcha),
-              form3.action(form3.submit(trans.emailMeALink()))
-            )
+          postForm(cls := "form3", action := routes.Auth.passwordResetApply)(
+            form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
+            views.html.base.captcha(form, captcha),
+            form3.action(form3.submit(trans.emailMeALink()))
+          )
         )
       }
 
@@ -76,7 +72,7 @@ object bits {
             " - ",
             trans.changePassword()
           ),
-          st.form(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token), method := "POST")(
+          postForm(cls := "form3", action := routes.Auth.passwordResetConfirmApply(token))(
             form3.hidden(form("token")),
             form3.passwordModified(form("newPasswd1"), trans.newPassword())(autofocus),
             form3.password(form("newPasswd2"), trans.newPasswordAgain()),

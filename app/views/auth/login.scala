@@ -22,10 +22,9 @@ object login {
   ) {
       main(cls := "auth auth-login box box-pad")(
         h1(trans.signIn()),
-        st.form(
+        postForm(
           cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.?? { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}",
-          method := "post"
+          action := s"${routes.Auth.authenticate}${referrer.?? { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}"
         )(
             div(cls := "one-factor")(
               form3.globalError(form),

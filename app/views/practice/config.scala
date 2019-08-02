@@ -20,7 +20,7 @@ object config {
           div(cls := "practice_config page-menu__content box box-pad")(
             h1("Practice config"),
             div(cls := "both")(
-              /*st.form(action := routes.Practice.configSave, method := "POST")(
+              /*postForm(action := routes.Practice.configSave)(
                 textarea(cls := "practice_text", name := "text")(form("text").value),
                 errMsg(form("text")),
                 button(tpe := "submit", cls := "button button-fat text", dataIcon := "E")("Save")

@@ -19,7 +19,7 @@ object admin {
           h1(title),
           p("Who do you want to make owner of this team?"),
           br, br,
-          st.form(cls := "kick", action := routes.Team.changeOwner(t.id), method := "POST")(
+          postForm(cls := "kick", action := routes.Team.changeOwner(t.id))(
             userIds.toList.sorted.map { userId =>
               button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
                 usernameOrId(userId)
@@ -42,7 +42,7 @@ object admin {
           h1(title),
           p("Who do you want to kick out of the team?"),
           br, br,
-          st.form(cls := "kick", action := routes.Team.kick(t.id), method := "POST")(
+          postForm(cls := "kick", action := routes.Team.kick(t.id))(
             userIds.toList.sorted.map { userId =>
               button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
                 usernameOrId(userId)

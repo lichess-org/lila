@@ -18,7 +18,7 @@ object event {
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New event"),
-        st.form(cls := "content_box_content form3", action := routes.Event.create, method := "POST")(inForm(form))
+        postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
     }
 
@@ -29,7 +29,7 @@ object event {
           event.title,
           span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
         ),
-        st.form(cls := "content_box_content form3", action := routes.Event.update(event.id), method := "POST")(inForm(form))
+        postForm(cls := "content_box_content form3", action := routes.Event.update(event.id))(inForm(form))
       )
     }
 

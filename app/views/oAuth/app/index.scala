@@ -14,7 +14,7 @@ object index {
         div(cls := "box__top")(
           h1("OAuth Apps"),
           st.form(cls := "box__top__actions", action := routes.OAuthApp.create)(
-            button(tpe := "submit", cls := "button button-fat button-empty", title := "New app", dataIcon := "O")
+            submitButton(cls := "button button-fat button-empty", title := "New app", dataIcon := "O")
           )
         ),
         p(cls := "box__pad")(
@@ -37,8 +37,8 @@ object index {
               ),
               td(cls := "action")(
                 a(href := routes.OAuthApp.edit(t.clientId.value), cls := "button", title := "Edit this app", dataIcon := "m"),
-                st.form(action := routes.OAuthApp.delete(t.clientId.value), method := "POST")(
-                  button(tpe := "submit", cls := "button button-empty button-red confirm", title := "Delete this app", dataIcon := "q")
+                postForm(action := routes.OAuthApp.delete(t.clientId.value))(
+                  submitButton(cls := "button button-empty button-red confirm", title := "Delete this app", dataIcon := "q")
                 )
               )
             )

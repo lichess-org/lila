@@ -25,7 +25,7 @@ object importGame {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
-        st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(
+        postForm(cls := "form3 import", action := routes.Importer.sendGame())(
           form3.group(form("pdn"), trans.pasteThePdnStringHere())(form3.textarea(_)()),
           form("pdn").value.flatMap { pdn =>
             lidraughts.importer.ImportData(pdn, none).preprocess(none).fold(
