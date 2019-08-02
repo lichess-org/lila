@@ -67,8 +67,7 @@ function renameAs(ext) {
 }
 
 function createThemedBuilds(buildDir) {
-  const builds = fs.readdirSync(buildDir);
-  builds
+  fs.readdirSync(buildDir)
     .filter(fileName => fileName[0] === '_')
     .forEach(fileName => {
       themes.forEach(theme => {

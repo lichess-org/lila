@@ -483,9 +483,7 @@
         return false;
       });
 
-      $('a.delete, input.delete').click(function() {
-        return confirm('Delete?');
-      });
+      $('a.delete, input.delete').click(() => confirm('Delete?'));
       $('input.confirm, button.confirm').click(function() {
         return confirm($(this).attr('title') || 'Confirm this action?');
       });
