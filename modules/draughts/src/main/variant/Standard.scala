@@ -7,7 +7,7 @@ case object Standard extends Variant(
   key = "standard",
   name = "Standard",
   shortName = "Std",
-  title = "Standard rules of international draughts",
+  title = "Standard rules of international draughts (FMJD)",
   standardInitialPosition = true
 ) {
 

@@ -6,7 +6,7 @@ case object Breakthrough extends Variant(
   gameType = 96,
   key = "breakthrough",
   name = "Breakthrough",
-  shortName = "Breakthrough",
+  shortName = "BT",
   title = "The first player who makes a king wins.",
   standardInitialPosition = true
 ) {

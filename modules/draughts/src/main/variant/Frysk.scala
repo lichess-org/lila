@@ -6,7 +6,7 @@ case object Frysk extends Variant(
   gameType = 97,
   key = "frysk",
   name = "Frysk!",
-  shortName = "Frysk!",
+  shortName = "Frysk",
   title = "Frisian draughts starting with 5 pieces each.",
   standardInitialPosition = false
 ) {

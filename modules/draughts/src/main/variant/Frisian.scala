@@ -9,7 +9,7 @@ case object Frisian extends Variant(
   key = "frisian",
   name = "Frisian",
   shortName = "Frisian",
-  title = "Capturing is also allowed horizontally and vertically.",
+  title = "Pieces can also capture horizontally and vertically.",
   standardInitialPosition = true
 ) {
 
