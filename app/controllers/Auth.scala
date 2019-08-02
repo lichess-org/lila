@@ -182,7 +182,8 @@ object Auth extends LilaController {
     email <- err("email").value
   } {
     authLog(username, email, s"Signup fail: ${Json stringify errorsAsJson(err)}")
-    if (err.errors.exists(_.messages.contains("error.email_acceptable")))
+    if (err.errors.exists(_.messages.contains("error.email_acceptable")) &&
+      err("email").value.exists(EmailAddress.matches))
       authLog(username, email, s"Signup with unacceptable email")
   }
 
