@@ -37,4 +37,13 @@
   <string name="forceDraw">Durrang deb belgilash</string>
   <string name="talkInChat">Iltimos suhbatda xushmuomalali bo\'ling!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Kim birinchi ushbu URL ga kirsa o\'sha sizga o\'yinda sherik bo\'ladi.</string>
+  <string name="whiteResigned">Oqlar taslim bo\'ldi</string>
+  <string name="blackResigned">Qoralar taslim bo\'ldi</string>
+  <string name="whiteLeftTheGame">Oqlar o\'yinni tashlab ketdi</string>
+  <string name="blackLeftTheGame">Qoralar o\'yinni tashlab ketdi</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Kuzatubchilar o\'yinni ko\'rib borishi uchun ushbu URL ni ularga bering</string>
+  <string name="theComputerAnalysisHasFailed">Kompyuter tahlili oxiriga yetmadi</string>
+  <string name="viewTheComputerAnalysis">Kompyuter tahlilini ko\'rish</string>
+  <string name="requestAComputerAnalysis">Kompyuter tahlili uchun so\'rov</string>
+  <string name="computerAnalysis">Kompyuter tahlili</string>
 </resources>
