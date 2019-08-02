@@ -66,6 +66,7 @@ export interface Ctrl {
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
   plugin?: ChatPlugin
+  palantir: { instance?: Palantir }
   redraw: Redraw
   destroy(): void;
 }

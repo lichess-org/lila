@@ -54,7 +54,6 @@ interface Lidraughts {
     render(ctrl: any): any;
   }
   playMusic(): any;
-  LidraughtsSpeech?: LidraughtsSpeech;
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
@@ -67,6 +66,10 @@ interface Lidraughts {
 interface LidraughtsSpeech {
   say(t: string, cut: boolean): void;
   step(s: { san?: San, uci?: Uci }, cut: boolean, captureFrom?: Key): void;
+}
+
+interface Palantir {
+  button(): any;
 }
 
 interface Cookie {
@@ -133,6 +136,10 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
+  LidraughtsSpeech?: LidraughtsSpeech;
+  palantir?: {
+    palantir(): Palantir
+  };
 
   [key: string]: any; // TODO
 }

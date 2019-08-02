@@ -39,6 +39,7 @@
     "ui/game",
     "ui/nvui",
     "ui/speech",
+    "ui/palantir",
     "ui/lobby",
     "ui/notify",
     "ui/perfstat",

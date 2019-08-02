@@ -1,0 +1,31 @@
+{
+  "name": "palantir",
+  "version": "1.0.0",
+  "description": "lidraughts.org webrtc media calls",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roepstoep/lidraughts.git"
+  },
+  "keywords": [
+    "draughts",
+    "lidraughts",
+    "webrtc"
+  ],
+  "author": "Stefan Schermann (modified original by Thibault Duplessis)",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/roepstoep/lidraughts/issues"
+  },
+  "homepage": "https://lidraughts.org",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@types/lidraughts": "1.0.0",
+    "typescript": "^3"
+  },
+  "dependencies": {
+  }
+}
