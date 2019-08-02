@@ -33,4 +33,8 @@
   <string name="blackPlays">Qoralar yurishi</string>
   <string name="opponentLeftChoices">Sizni sherigingiz o\'yinni tashlab ketgan ko\'rinadi. Siz o\'yinni go\'libi sifatida yoki durrang natija bilan yo bo\'lmasam sherigingizni qaytishini kutib turishingiz mumkin.</string>
   <string name="makeYourOpponentResign">Sherikni mag\'lub deb belgilash</string>
+  <string name="forceResignation">G\'oliblikka harakat</string>
+  <string name="forceDraw">Durrang deb belgilash</string>
+  <string name="talkInChat">Iltimos suhbatda xushmuomalali bo\'ling!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Kim birinchi ushbu URL ga kirsa o\'sha sizga o\'yinda sherik bo\'ladi.</string>
 </resources>
