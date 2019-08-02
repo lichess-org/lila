@@ -54,6 +54,7 @@
   <string name="cloudAnalysis">\"Bulut\" tahlili</string>
   <string name="goDeeper">Yanada chuqurroq</string>
   <string name="showThreat">Tahdidni ko\'rsatish</string>
+  <string name="inLocalBrowser">lokal brouzerda</string>
   <string name="mistake">Xato</string>
   <string name="mistakes">Xatolar</string>
   <string name="inaccuracy">Noaniqlik</string>
