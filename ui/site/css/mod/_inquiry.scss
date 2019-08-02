@@ -212,10 +212,13 @@ body.no-inquiry {
     position: relative;
     height: 100%;
     > span,
-    > i {
+    > i,
+    .main {
       display: block;
       height: 100%;
-      padding: 0 10px;
+      &:not(form) {
+        padding: 0 10px;
+      }
     }
     > div {
       @extend %box-radius-bottom, %dropdown-shadow;
@@ -225,10 +228,12 @@ body.no-inquiry {
       right: 0;
       background: #555;
       overflow: hidden;
+      padding: .4em 0;
     }
     &:hover {
       > span,
-      > i {
+      > i,
+      .main {
         background: #555;
       }
       div {
@@ -242,12 +247,9 @@ body.no-inquiry {
     > i {
       line-height: 40px;
     }
-    &.warn,
-    &.more {
-      button {
-        padding: 6px 20px;
-        text-transform: initial;
-      }
+    &.buttons button {
+      padding: .5em 1.3em;
+      text-transform: initial;
     }
 
     &.counter > span {

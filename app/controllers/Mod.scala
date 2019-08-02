@@ -207,7 +207,10 @@ object Mod extends LilaController {
   }
 
   protected[controllers] def redirect(username: String, mod: Boolean = true) =
-    Redirect(routes.User.show(username).url + mod.??("?mod"))
+    Redirect(userUrl(username, mod))
+
+  protected[controllers] def userUrl(username: String, mod: Boolean = true) =
+    s"${routes.User.show(username).url}${mod ?? "?mod"}"
 
   def refreshUserAssess(username: String) = Secure(_.MarkEngine) { implicit ctx => me =>
     OptionFuResult(UserRepo named username) { user =>

@@ -56,9 +56,9 @@ object Report extends LilaController {
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
       case Some(suspect) => User.renderModZoneActions(suspect.user.username)
       case None =>
-        def autoNext = ctx.body.body match {
-          case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")
-          case _ => false
+        val dataOpt = ctx.body.body match {
+          case AnyContentAsFormUrlEncoded(data) => data.some
+          case _ => none
         }
         inquiry match {
           case None =>
@@ -66,17 +66,27 @@ object Report extends LilaController {
               User.modZoneOrRedirect(s.user.username, me)
             }
           case Some(prev) =>
-            def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-            if (autoNext) api.next(prev.room) flatMap {
-              _.fold(redirectToList.fuccess) { report =>
-                api.inquiries.toggle(AsMod(me), report.id) map {
+            def thenGoTo = dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
+              case "back" => HTTPRequest referer ctx.req
+              case "profile" => Mod.userUrl(prev.user, true).some
+              case url => url.some
+            }
+            thenGoTo match {
+              case Some(url) => api.inquiries.toggle(AsMod(me), prev.id) inject Redirect(url)
+              case _ =>
+                def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
+                if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
+                  api.next(prev.room) flatMap {
+                    _.fold(redirectToList.fuccess) { report =>
+                      api.inquiries.toggle(AsMod(me), report.id) map {
+                        _.fold(redirectToList)(onInquiryStart)
+                      }
+                    }
+                  }
+                else if (force) User.modZoneOrRedirect(prev.user, me)
+                else api.inquiries.toggle(AsMod(me), prev.id) map {
                   _.fold(redirectToList)(onInquiryStart)
                 }
-              }
-            }
-            else if (force) User.modZoneOrRedirect(prev.user, me)
-            else api.inquiries.toggle(AsMod(me), prev.id) map {
-              _.fold(redirectToList)(onInquiryStart)
             }
         }
     }

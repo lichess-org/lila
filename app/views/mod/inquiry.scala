@@ -32,8 +32,7 @@ object inquiry {
         p(richText(r.text))
       )
 
-    def autoNextInput =
-      input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
+    def autoNextInput = input(cls := "auto-next", tpe := "hidden", name := "next", value := "1")
 
     div(id := "inquiry")(
       i(title := "Costello the Inquiry Octopus", cls := "costello"),
@@ -95,54 +94,76 @@ object inquiry {
           a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
       ),
       div(cls := "actions")(
-        div(cls := "dropper warn")(
-          span(cls := "icon", dataIcon := "e"),
+        div(cls := "dropper warn buttons")(
+          iconTag("e"),
           div(
             lila.message.ModPreset.all.map { preset =>
-              form(method := "post", action := routes.Mod.warn(in.user.username, preset.subject))(
-                button(cls := "fbt", tpe := "submit")(preset.subject),
+              postForm(action := routes.Mod.warn(in.user.username, preset.subject))(
+                submitButton(cls := "fbt")(preset.subject),
                 autoNextInput
               )
             },
             form(method := "get", action := routes.Message.form)(
               input(tpe := "hidden", name := "mod", value := "1"),
               input(tpe := "hidden", name := "user", value := "@in.user.id"),
-              button(cls := "fbt", tpe := "submit")("Custom message")
+              submitButton(cls := "fbt")("Custom message")
             )
           )
         ),
-        isGranted(_.MarkEngine) option
-          form(method := "post", action := routes.Mod.engine(in.user.username, !in.user.engine), title := "Mark as cheat")(
-            button(dataIcon := "n", cls := List(
-              "fbt icon" -> true,
-              "active" -> in.user.engine
-            ), tpe := "submit"),
-            autoNextInput
-          ),
-        isGranted(_.MarkBooster) option
-          form(method := "post", action := routes.Mod.booster(in.user.username, !in.user.booster), title := "Mark as booster or sandbagger")(
-            button(dataIcon := "9", cls := List(
-              "fbt icon" -> true,
-              "active" -> in.user.booster
-            ), tpe := "submit"),
-            autoNextInput
-          ),
-        isGranted(_.Shadowban) option
-          form(method := "post", action := routes.Mod.troll(in.user.username, !in.user.booster),
-            title := (if (in.user.troll) "Un-shadowban" else "Shadowban"),
-            button(dataIcon := "c", cls := List(
-              "fbt icon" -> true,
-              "active" -> in.user.troll
-            ), tpe := "submit"),
-            autoNextInput),
-        div(cls := "dropper more")(
-          span(cls := "icon", dataIcon := "u"),
-          div(
-            form(method := "post", action := routes.Mod.notifySlack(in.user.id))(
-              button(cls := "fbt", tpe := "submit")("Notify Slack")
+        isGranted(_.MarkEngine) option {
+          val url = routes.Mod.engine(in.user.username, !in.user.engine).url
+          def button(active: Boolean) = submitButton(cls := List(
+            "fbt icon" -> true,
+            "active" -> active
+          ))
+          div(cls := "dropper engine buttons")(
+            postForm(action := url, title := "Mark as cheat")(
+              button(in.user.engine)(dataIcon := "n"),
+              autoNextInput
             ),
-            form(method := "post", action := routes.Report.xfiles(in.report.id))(
-              button(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")), tpe := "submit")("Move to X-Files"),
+            thenForms(in, url, button(false))
+          )
+        },
+        isGranted(_.MarkBooster) option {
+          val url = routes.Mod.booster(in.user.username, !in.user.booster).url
+          def button(active: Boolean) = submitButton(cls := List(
+            "fbt icon" -> true,
+            "active" -> active
+          ))
+          div(cls := "dropper booster buttons")(
+            postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
+              button(in.user.booster)(dataIcon := "9"),
+              autoNextInput
+            ),
+            thenForms(in, url, button(false))
+          )
+        },
+        isGranted(_.Shadowban) option {
+          val url = routes.Mod.troll(in.user.username, !in.user.troll).url
+          def button(active: Boolean) = submitButton(cls := List(
+            "fbt icon" -> true,
+            "active" -> active
+          ))
+          div(cls := "dropper shadowban buttons")(
+            postForm(
+              action := url,
+              title := (if (in.user.troll) "Un-shadowban" else "Shadowban"),
+              cls := "main"
+            )(
+                button(in.user.troll)(dataIcon := "c"),
+                autoNextInput
+              ),
+            thenForms(in, url, button(false))
+          )
+        },
+        div(cls := "dropper more buttons")(
+          iconTag("u"),
+          div(
+            postForm(action := routes.Mod.notifySlack(in.user.id))(
+              submitButton(cls := "fbt")("Notify Slack")
+            ),
+            postForm(action := routes.Report.xfiles(in.report.id))(
+              submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))("Move to X-Files"),
               autoNextInput
             )
           )
@@ -165,4 +186,18 @@ object inquiry {
       )
     )
   }
+
+  private def thenInput(what: String) = input(tpe := "hidden", name := "then", value := what)
+  private def thenForms(in: lila.mod.Inquiry, url: String, button: Tag) = div(
+    postForm(
+      action := url,
+      button("And stay on this report"),
+      thenInput("back")
+    ),
+    postForm(
+      action := url,
+      button("Then open profile"),
+      thenInput("profile")
+    )
+  )
 }
