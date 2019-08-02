@@ -73,8 +73,10 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]++@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  def matches(str: String): Boolean = regex find str
+
   def from(str: String): Option[EmailAddress] =
-    regex.find(str) option EmailAddress(str)
+    matches(str) option EmailAddress(str)
 
   private val hotmailRegex = """@(live|hotmail|outlook)\.""".r
 }
