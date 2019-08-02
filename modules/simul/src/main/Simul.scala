@@ -173,8 +173,7 @@ case class Simul(
   def spotlightable = featureUnique ||
     (isCreated && (
       (hostRating >= 2100 || hostTitle.isDefined) &&
-      applicants.size < 80 &&
-      !team.isDefined
+      applicants.size < 80
     ))
 
   private def featureUnique = spotlight match {
