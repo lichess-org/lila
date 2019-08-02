@@ -22,6 +22,15 @@
   <string name="createAGame">O\'yin yaratish</string>
   <string name="whiteIsVictorious">Oqlar yutdi</string>
   <string name="blackIsVictorious">Qoralar yutdi</string>
-  <string name="kingInTheCenter">Qirol markazda</string>
+  <string name="kingInTheCenter">Qirol markazga kelguncha</string>
   <string name="threeChecks">Uch marta shox berishgacha</string>
+  <string name="raceFinished">Musobaqa yakunlandi</string>
+  <string name="variantEnding">Variant tugayabdi</string>
+  <string name="newOpponent">Yangi sherik topish</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">Sizni sherigingiz siz bilan yana boshidan o\'ynamoqchi</string>
+  <string name="joinTheGame">O\'yinga rozi bo\'lish</string>
+  <string name="whitePlays">Oqllar yurishi</string>
+  <string name="blackPlays">Qoralar yurishi</string>
+  <string name="opponentLeftChoices">Sizni sherigingiz o\'yinni tashlab ketgan ko\'rinadi. Siz o\'yinni go\'libi sifatida yoki durrang natija bilan yo bo\'lmasam sherigingizni qaytishini kutib turishingiz mumkin.</string>
+  <string name="makeYourOpponentResign">Sherikni mag\'lub deb belgilash</string>
 </resources>
