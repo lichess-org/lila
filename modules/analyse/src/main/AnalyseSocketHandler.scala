@@ -14,7 +14,7 @@ private[analyse] final class AnalyseSocketHandler(
   private def controller(member: Member, user: Option[User]): Handler.Controller =
     evalCacheHandler(member, user)
 
-  def join(uid: Socket.Uid, user: Option[User]): Fu[JsSocketHandler] =
+  def join(uid: Socket.Uid, user: Option[User], apiVersion: Int): Fu[JsSocketHandler] =
     Handler(hub, socket, uid, Join(uid, user.map(_.id))) {
       case Connected(enum, member) => (controller(member, user), enum, member)
     }

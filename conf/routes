@@ -107,7 +107,8 @@ POST  /training/:variant/:id/vote      controllers.Puzzle.voteVariant(id: Int, v
 POST  /training/:variant/:id/round2    controllers.Puzzle.round2Variant(id: Int, variant: String)
 
 # User Analysis
-GET   /analysis/socket                 controllers.UserAnalysis.socket
+GET   /analysis/socket                 controllers.UserAnalysis.socket(apiVersion: Int = 2)
+GET   /analysis/socket/v:apiVersion    controllers.UserAnalysis.socket(apiVersion: Int)
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/puzzle                 controllers.UserAnalysis.puzzleEditor
 GET   /analysis/puzzle/*something      controllers.UserAnalysis.parsePuzzle(something: String)
