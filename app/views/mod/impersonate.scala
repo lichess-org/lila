@@ -15,8 +15,8 @@ object impersonate {
         userLink(user, withOnline = false)
       ),
       div(cls := "actions")(
-        form(method := "post", action := routes.Mod.impersonate("-"))(
-          input(cls := "button button-empty", tpe := "submit", value := "Quit")
+        postForm(action := routes.Mod.impersonate("-"))(
+          submitButton(cls := "button button-empty")("Quit")
         )
       )
     )

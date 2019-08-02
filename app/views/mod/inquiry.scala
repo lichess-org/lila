@@ -72,11 +72,11 @@ object inquiry {
             "Notes"
           ),
           div(
-            form(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note", method := "post")(
+            postForm(cls := "note", action := s"${routes.User.writeNote(in.user.username)}?note")(
               textarea(name := "text", placeholder := "Write a mod note"),
               input(tpe := "hidden", name := "mod", value := "true"),
               div(cls := "submission")(
-                button(tpe := "submit", cls := "button thin")("SEND")
+                submitButton(cls := "button thin")("SEND")
               )
             ),
             in.notes.map(renderNote)
@@ -155,12 +155,12 @@ object inquiry {
             label(`for` := "auto-next")
           )
         ),
-        form(action := routes.Report.process(in.report.id), method := "post", title := "Dismiss this report as processed.", cls := "process")(
-          button(tpe := "submit", dataIcon := "E", cls := "fbt"),
+        postForm(action := routes.Report.process(in.report.id), title := "Dismiss this report as processed.", cls := "process")(
+          submitButton(dataIcon := "E", cls := "fbt"),
           autoNextInput
         ),
-        form(action := routes.Report.inquiry(in.report.id), method := "post", title := "Cancel the inquiry, re-instore the report", cls := "cancel")(
-          button(tpe := "submit", dataIcon := "L", cls := "fbt")
+        postForm(action := routes.Report.inquiry(in.report.id), title := "Cancel the inquiry, re-instore the report", cls := "cancel")(
+          submitButton(dataIcon := "L", cls := "fbt")
         )
       )
     )

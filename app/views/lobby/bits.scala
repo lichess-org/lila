@@ -125,7 +125,7 @@ object bits {
     br, br,
     "or",
     br, br,
-    form(action := routes.Round.resign(current.pov.fullId), method := "post")(
+    postForm(action := routes.Round.resign(current.pov.fullId))(
       button(cls := "text button button-red", dataIcon := "L")(
         if (current.pov.game.abortable) "Abort" else "Resign", " the game"
       )

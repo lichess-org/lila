@@ -33,15 +33,15 @@ object chatPanic {
             ),
             div(cls := "forms")(
               if (state.isDefined) frag(
-                st.form(action := s"${routes.Mod.chatPanicPost}?v=0", method := "POST")(
-                  button(tpe := "submit", cls := "button button-fat button-red text", dataIcon := "L")("Disable")
+                postForm(action := s"${routes.Mod.chatPanicPost}?v=0")(
+                  submitButton(cls := "button button-fat button-red text", dataIcon := "L")("Disable")
                 ),
-                st.form(action := s"${routes.Mod.chatPanicPost}?v=1", method := "POST")(
-                  button(tpe := "submit", cls := "button button-fat button-green text", dataIcon := "E")("Renew for two hours")
+                postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
+                  submitButton(cls := "button button-fat button-green text", dataIcon := "E")("Renew for two hours")
                 )
-              )
-              else form(action := s"${routes.Mod.chatPanicPost}?v=1", method := "POST")(
-                button(tpe := "submit", cls := "button button-fat text", dataIcon := "E")("Enable")
+              ),
+              postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
+                submitButton(cls := "button button-fat text", dataIcon := "E")("Enable")
               )
             )
           )

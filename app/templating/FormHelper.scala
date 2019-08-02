@@ -24,6 +24,9 @@ trait FormHelper { self: I18nHelper =>
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
 
+  val postForm = form(method := "post")
+  val submitButton = button(tpe := "submit")
+
   object form3 {
 
     private val idPrefix = "form3"
@@ -143,8 +146,7 @@ trait FormHelper { self: I18nHelper =>
       nameValue: Option[(String, String)] = None,
       klass: String = "",
       confirm: Option[String] = None
-    ): Frag = button(
-      tpe := "submit",
+    ): Frag = submitButton(
       dataIcon := icon,
       name := nameValue.map(_._1),
       value := nameValue.map(_._2),

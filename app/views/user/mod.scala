@@ -29,94 +29,94 @@ object mod {
   def actions(u: User, emails: User.Emails, erased: User.Erased)(implicit ctx: Context): Frag =
     div(id := "mz_actions")(
       isGranted(_.UserEvaluate) option div(cls := "btn-rack")(
-        st.form(method := "POST", action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
-          button(cls := "btn-rack__btn inquiry", tpe := "submit")(i)
+        postForm(action := routes.Mod.spontaneousInquiry(u.username), title := "Start an inquiry")(
+          submitButton(cls := "btn-rack__btn inquiry")(i)
         ),
-        st.form(method := "POST", action := routes.Mod.refreshUserAssess(u.username), title := "Collect data and ask irwin", cls := "xhr")(
-          button(cls := "btn-rack__btn", tpe := "submit")("Evaluate")
+        postForm(action := routes.Mod.refreshUserAssess(u.username), title := "Collect data and ask irwin", cls := "xhr")(
+          submitButton(cls := "btn-rack__btn")("Evaluate")
         ),
         isGranted(_.Shadowban) option {
           a(cls := "btn-rack__btn", href := routes.Mod.communicationPublic(u.id), title := "View communications")("Comms")
         },
-        st.form(method := "POST", action := routes.Mod.notifySlack(u.id), title := "Notify slack #tavern", cls := "xhr")(
-          button(cls := "btn-rack__btn", tpe := "submit")("Slack")
+        postForm(action := routes.Mod.notifySlack(u.id), title := "Notify slack #tavern", cls := "xhr")(
+          submitButton(cls := "btn-rack__btn")("Slack")
         )
       ),
       div(cls := "btn-rack")(
         isGranted(_.MarkEngine) option {
-          st.form(method := "POST", action := routes.Mod.engine(u.username, !u.engine), title := "This user is clearly cheating.", cls := "xhr")(
-            button(cls := List("btn-rack__btn" -> true, "active" -> u.engine), tpe := "submit")("Engine")
+          postForm(action := routes.Mod.engine(u.username, !u.engine), title := "This user is clearly cheating.", cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.engine))("Engine")
           )
         },
         isGranted(_.MarkBooster) option {
-          st.form(method := "POST", action := routes.Mod.booster(u.username, !u.booster), title := "Marks the user as a booster or sandbagger.", cls := "xhr")(
-            button(cls := List("btn-rack__btn" -> true, "active" -> u.booster), tpe := "submit")("Booster")
+          postForm(action := routes.Mod.booster(u.username, !u.booster), title := "Marks the user as a booster or sandbagger.", cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.booster))("Booster")
           )
         },
         isGranted(_.Shadowban) option {
-          st.form(method := "POST", action := routes.Mod.troll(u.username, !u.troll), title := "Enable/disable communication features for this user.", cls := "xhr")(
-            button(cls := List("btn-rack__btn" -> true, "active" -> u.troll), tpe := "submit")("Shadowban")
+          postForm(action := routes.Mod.troll(u.username, !u.troll), title := "Enable/disable communication features for this user.", cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.troll))("Shadowban")
           )
         },
         u.troll option {
-          st.form(method := "POST", action := routes.Mod.deletePmsAndChats(u.username), title := "Delete all PMs and public chat messages", cls := "xhr")(
-            button(cls := "btn-rack__btn confirm", tpe := "submit")("Clear PMs & chats")
+          postForm(action := routes.Mod.deletePmsAndChats(u.username), title := "Delete all PMs and public chat messages", cls := "xhr")(
+            submitButton(cls := "btn-rack__btn confirm")("Clear PMs & chats")
           )
         },
         isGranted(_.RemoveRanking) option {
-          st.form(method := "POST", action := routes.Mod.rankban(u.username, !u.rankban), title := "Include/exclude this user from the rankings.", cls := "xhr")(
-            button(cls := List("btn-rack__btn" -> true, "active" -> u.rankban), tpe := "submit")("Rankban")
+          postForm(action := routes.Mod.rankban(u.username, !u.rankban), title := "Include/exclude this user from the rankings.", cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.rankban))("Rankban")
           )
         },
         isGranted(_.ReportBan) option {
-          st.form(method := "POST", action := routes.Mod.reportban(u.username, !u.reportban), title := "Enable/disable the report feature for this user.", cls := "xhr")(
-            button(cls := List("btn-rack__btn" -> true, "active" -> u.reportban), tpe := "submit")("Reportban")
+          postForm(action := routes.Mod.reportban(u.username, !u.reportban), title := "Enable/disable the report feature for this user.", cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.reportban))("Reportban")
           )
         }
       ),
       div(cls := "btn-rack")(
         isGranted(_.IpBan) option {
-          st.form(method := "POST", action := routes.Mod.ban(u.username, !u.ipBan), cls := "xhr")(
-            button(cls := List("btn-rack__btn" -> true, "active" -> u.ipBan), tpe := "submit")("IP ban")
+          postForm(action := routes.Mod.ban(u.username, !u.ipBan), cls := "xhr")(
+            submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.ipBan))("IP ban")
           )
         },
         if (u.enabled) {
           isGranted(_.CloseAccount) option {
-            st.form(method := "POST", action := routes.Mod.closeAccount(u.username), title := "Disables this account.", cls := "xhr")(
-              button(cls := "btn-rack__btn", tpe := "submit")("Close")
+            postForm(action := routes.Mod.closeAccount(u.username), title := "Disables this account.", cls := "xhr")(
+              submitButton(cls := "btn-rack__btn")("Close")
             )
           }
         } else if (erased.value) {
           "Erased"
         } else {
           isGranted(_.ReopenAccount) option {
-            st.form(method := "POST", action := routes.Mod.reopenAccount(u.username), title := "Re-activates this account.", cls := "xhr")(
-              button(tpe := "submit", cls := "btn-rack__btn active")("Closed")
+            postForm(action := routes.Mod.reopenAccount(u.username), title := "Re-activates this account.", cls := "xhr")(
+              submitButton(cls := "btn-rack__btn active")("Closed")
             )
           }
         }
       ),
       div(cls := "btn-rack")(
         (u.totpSecret.isDefined && isGranted(_.DisableTwoFactor)) option {
-          st.form(method := "POST", action := routes.Mod.disableTwoFactor(u.username), title := "Disables two-factor authentication for this account.", cls := "xhr")(
-            button(cls := "btn-rack__btn confirm", tpe := "submit")("Disable 2FA")
+          postForm(action := routes.Mod.disableTwoFactor(u.username), title := "Disables two-factor authentication for this account.", cls := "xhr")(
+            submitButton(cls := "btn-rack__btn confirm")("Disable 2FA")
           )
         },
         isGranted(_.Impersonate) option {
-          st.form(method := "post", action := routes.Mod.impersonate(u.username))(
-            button(cls := "btn-rack__btn", tpe := "submit")("Impersonate")
+          postForm(action := routes.Mod.impersonate(u.username))(
+            submitButton(cls := "btn-rack__btn")("Impersonate")
           )
         }
       ),
       isGranted(_.SetTitle) option {
-        st.form(cls := "fide_title", method := "POST", action := routes.Mod.setTitle(u.username))(
+        postForm(cls := "fide_title", action := routes.Mod.setTitle(u.username))(
           form3.select(lila.user.DataForm.title.fill(u.title.map(_.value))("title"), lila.user.Title.all, "No title".some)
         )
       },
       isGranted(_.SetEmail) ?? frag(
-        st.form(cls := "email", method := "POST", action := routes.Mod.setEmail(u.username))(
+        postForm(cls := "email", action := routes.Mod.setEmail(u.username))(
           st.input(tpe := "email", value := emails.current.??(_.value), name := "email", placeholder := "Email address"),
-          button(tpe := "submit", cls := "button", dataIcon := "E")
+          submitButton(cls := "button", dataIcon := "E")
         ),
         emails.previous.map { email =>
           s"Previously $email"
@@ -203,8 +203,8 @@ object mod {
       ),
       reports.by.map { r =>
         r.atomBy(lila.report.ReporterId(u.id)).map { atom =>
-          st.form(action := routes.Report.inquiry(r.id), method := "POST")(
-            button(tpe := "submit")(reportScore(r.score), " ", strong(r.reason.name)), " ",
+          postForm(action := routes.Report.inquiry(r.id))(
+            submitButton(reportScore(r.score), " ", strong(r.reason.name)), " ",
             userIdLink(r.user.some), " ", momentFromNowOnce(atom.at), ": ", shorten(atom.text, 200)
           )
         }
@@ -216,8 +216,8 @@ object mod {
         reports.about.isEmpty option ": nothing to show."
       ),
       reports.about.map { r =>
-        st.form(action := routes.Report.inquiry(r.id), method := "POST")(
-          button(tpe := "submit")(reportScore(r.score), " ", strong(r.reason.name)),
+        postForm(action := routes.Report.inquiry(r.id))(
+          submitButton(reportScore(r.score), " ", strong(r.reason.name)),
           div(cls := "atoms")(
             r.bestAtoms(3).map { atom =>
               div(cls := "atom")(

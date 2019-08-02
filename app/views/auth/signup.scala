@@ -26,26 +26,21 @@ object signup {
     ) {
         main(cls := "auth auth-signup box box-pad")(
           h1(trans.signUp()),
-          st.form(
-            id := "signup_form",
-            cls := "form3",
-            action := routes.Auth.signupPost,
-            method := "post"
-          )(
-              auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
-              input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
-              div(cls := "form-group text", dataIcon := "")(
-                trans.computersAreNotAllowedToPlay(), br,
-                small(trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())))
-              ),
-              if (recaptcha.enabled)
-                button(
-                cls := "g-recaptcha submit button text big",
-                attr("data-sitekey") := recaptcha.key,
-                attr("data-callback") := "signupSubmit"
-              )(trans.signUp())
-              else form3.submit(trans.signUp(), icon = none, klass = "big")
-            )
+          postForm(id := "signup_form", cls := "form3", action := routes.Auth.signupPost)(
+            auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
+            input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
+            div(cls := "form-group text", dataIcon := "")(
+              trans.computersAreNotAllowedToPlay(), br,
+              small(trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())))
+            ),
+            if (recaptcha.enabled)
+              button(
+              cls := "g-recaptcha submit button text big",
+              attr("data-sitekey") := recaptcha.key,
+              attr("data-callback") := "signupSubmit"
+            )(trans.signUp())
+            else form3.submit(trans.signUp(), icon = none, klass = "big")
+          )
         )
       }
 }

@@ -93,9 +93,9 @@ object header {
       )
     ),
     (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
-      form(action := s"${routes.User.writeNote(u.username)}?note", method := "post")(
+      postForm(action := s"${routes.User.writeNote(u.username)}?note")(
         textarea(name := "text", placeholder := "Write a note about this user only you and your friends can read"),
-        button(tpe := "submit", cls := "button")(trans.send()),
+        submitButton(cls := "button")(trans.send()),
         if (isGranted(_.ModNote)) label(style := "margin-left: 1em;")(
           input(tpe := "checkbox", name := "mod", checked, value := "true", style := "vertical-align: middle;"),
           "For moderators only"
@@ -112,8 +112,8 @@ object header {
             momentFromNow(note.date),
             (ctx.me.exists(note.isFrom) && !note.mod) option frag(
               br,
-              form(action := routes.User.deleteNote(note._id), method := "post")(
-                button(tpe := "submit", cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
+              postForm(action := routes.User.deleteNote(note._id))(
+                submitButton(cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
               )
             )
           )

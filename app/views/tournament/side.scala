@@ -38,8 +38,8 @@ object side {
           separator,
           systemName(tour.system).capitalize,
           isGranted(_.TerminateTournament) option
-            scalatags.Text.all.form(cls := "terminate", method := "post", action := routes.Tournament.terminate(tour.id))(
-              button(dataIcon := "j", cls := "fbt fbt-red confirm", `type` := "submit", title := "Terminates the tournament immediately")
+            postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
+              submitButton(dataIcon := "j", cls := "fbt fbt-red confirm", title := "Terminates the tournament immediately")
             )
         )
       ),

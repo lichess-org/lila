@@ -35,7 +35,7 @@ object form {
       )
 
   private def inner(form: Form[_], url: play.api.mvc.Call)(implicit ctx: Context) =
-    st.form(cls := "form3", action := url, method := "POST")(
+    postForm(cls := "form3", action := url)(
       form3.group(form("name"), frag("Event name"))(form3.input(_)(autofocus)),
       form3.group(form("description"), raw("Event description"))(form3.textarea(_)(rows := 6)),
       if (isGranted(_.Relay))

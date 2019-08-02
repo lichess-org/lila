@@ -25,7 +25,7 @@ object importGame {
       main(cls := "importer page-small box box-pad")(
         h1(trans.importGame()),
         p(cls := "explanation")(trans.importGameExplanation()),
-        st.form(cls := "form3 import", action := routes.Importer.sendGame(), method := "post")(
+        postForm(cls := "form3 import", action := routes.Importer.sendGame())(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
           form3.group(form("pgnFile"), raw("Or upload a PGN file"), klass = "upload") { f =>
             form3.file.pgn(f.name)

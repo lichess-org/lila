@@ -21,7 +21,7 @@ object form {
     ) {
         main(cls := "box box-pad page-small simul-form")(
           h1(trans.hostANewSimul()),
-          st.form(cls := "form3", action := routes.Simul.create(), method := "POST")(
+          postForm(cls := "form3", action := routes.Simul.create())(
             br, br,
             p(trans.whenCreateSimul()),
             br, br,

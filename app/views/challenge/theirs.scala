@@ -35,8 +35,8 @@ object theirs {
               if (!c.mode.rated || ctx.isAuth) frag(
                 (c.mode.rated && c.unlimited) option
                   badTag(trans.bewareTheGameIsRatedButHasNoClock()),
-                form(cls := "accept", action := routes.Challenge.accept(c.id), method := "post")(
-                  button(tpe := "submit", cls := "text button button-fat", dataIcon := "G")(trans.joinTheGame())
+                postForm(cls := "accept", action := routes.Challenge.accept(c.id))(
+                  submitButton(cls := "text button button-fat", dataIcon := "G")(trans.joinTheGame())
                 )
               )
               else frag(
