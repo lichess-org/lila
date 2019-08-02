@@ -8,6 +8,7 @@
   <string name="waitingForOpponent">Sherik tanlanishi kutilayabdi</string>
   <string name="waiting">Kutib turing</string>
   <string name="yourTurn">Sizni yurishingiz</string>
+  <string name="aiNameLevelAiLevel">%1$s daraja %2$s</string>
   <string name="level">Daraja</string>
   <string name="toggleTheChat">Suhbatni yopish/ochish</string>
   <string name="toggleSound">Ovozni yoqish/o\'chirish</string>
@@ -17,4 +18,10 @@
   <string name="stalemate">Pat, durrang</string>
   <string name="white">Oq</string>
   <string name="black">Qora</string>
+  <string name="randomColor">Tasodifiy tarafda</string>
+  <string name="createAGame">O\'yin yaratish</string>
+  <string name="whiteIsVictorious">Oqlar yutdi</string>
+  <string name="blackIsVictorious">Qoralar yutdi</string>
+  <string name="kingInTheCenter">Qirol markazda</string>
+  <string name="threeChecks">Uch marta shox berishgacha</string>
 </resources>
