@@ -192,7 +192,7 @@
   <string name="drawOfferCanceled">Proposition de partita nulle cancellate</string>
   <string name="whiteOffersDraw">Le blanco propone le partita nulle</string>
   <string name="blackOffersDraw">Le nigro propone le partita nulle</string>
-  <string name="whiteDeclinesDraw">Le blanc declina le partita nulle</string>
+  <string name="whiteDeclinesDraw">Le blanco declina le partita nulle</string>
   <string name="blackDeclinesDraw">Le nigro declina le partita nulle</string>
   <string name="yourOpponentOffersADraw">Tu adversario propone le partita nulle</string>
   <string name="accept">Acceptar</string>
@@ -213,7 +213,7 @@
   <string name="rematch">Vindicar</string>
   <string name="rematchOfferSent">Proposition de vindicantia inviate</string>
   <string name="rematchOfferSentWhite">Le blanco offere le vindicantia</string>
-  <string name="rematchOfferSentBlack">Le nigre offere le vindicantia</string>
+  <string name="rematchOfferSentBlack">Le nigro offere le vindicantia</string>
   <string name="rematchOfferAccepted">Proposition de vindicantia acceptate</string>
   <string name="rematchOfferCanceled">Proposition de vindicantia cancellate</string>
   <string name="rematchOfferDeclined">Proposition de vindicantia declinate</string>
@@ -349,8 +349,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
   <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
   <string name="notACheckmate">Non es chaco mat</string>
-  <string name="whiteCheckmatesInOneMove">Le blanc pote matar in un movimento</string>
-  <string name="blackCheckmatesInOneMove">Le nigre pote matar in un movimento</string>
+  <string name="whiteCheckmatesInOneMove">Le blanco pote matar in un movimento</string>
+  <string name="blackCheckmatesInOneMove">Le nigro pote matar in un movimento</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Reconnectente</string>
   <string name="onlineFriends">Amicos in linea</string>
@@ -451,10 +451,8 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
   <string name="training">Exercitio</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
-  <string name="findTheBestMoveForWhite">Trova le melior movimento 
-pro le blanco.</string>
-  <string name="findTheBestMoveForBlack">Trova le melior movimento 
-pro le nigro.</string>
+  <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
+  <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
   <string name="toTrackYourProgress">Pro traciar tu progresso:</string>
   <string name="trainingSignupExplanation">Lichess fornira enigmas que corresponde a tu habilitates, pro facer melior sessiones de exercitio.</string>
   <string name="puzzleId">Enigma %s</string>
@@ -669,7 +667,7 @@ in %3$s</string>
   <string name="aboutSimul">Exhibitiones simultanee implica un sol jocator confrontante diverse jocatores insimul.</string>
   <string name="aboutSimulImage">Ex 50 adversarios, Fischer habeva 47 victorias, 2 partitas nulle e 1 perdita.</string>
   <string name="aboutSimulRealLife">Le concepto es extrahite de eventos in mundo real, in le quales le hospite del exhibition simultanee se move de tabula a tabula pro jocar un sol movimento.</string>
-  <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote partitas es concludite.</string>
+  <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote le partitas es concludite.</string>
   <string name="aboutSimulSettings">Exhibitiones simultanee es sempre amical. Vindicantias, retornos del ultime movimento e \"plus tempore\" es disactivate.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Quando tu crea un exhibition simultanee, tu joca con diverse jocatores simul.</string>
