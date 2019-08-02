@@ -30,6 +30,7 @@ case class Pref(
     challenge: Int,
     message: Int,
     studyInvite: Int,
+    palantir: Int,
     coordColor: Int,
     submitMove: Int,
     confirmResign: Int,
@@ -345,6 +346,18 @@ object Pref {
     )
   }
 
+  object Palantir {
+    val NEVER = 1
+    val FRIEND = 2
+    val ALWAYS = 3
+
+    val choices = Seq(
+      NEVER -> "Never",
+      FRIEND -> "Only friends",
+      ALWAYS -> "Always"
+    )
+  }
+
   object ResizeHandle {
     val NEVER = 0
     val INITIAL = 1
@@ -392,6 +405,7 @@ object Pref {
     challenge = Challenge.ALWAYS,
     message = Message.ALWAYS,
     studyInvite = StudyInvite.ALWAYS,
+    palantir = Palantir.FRIEND,
     coordColor = Color.RANDOM,
     submitMove = SubmitMove.CORRESPONDENCE_ONLY,
     confirmResign = ConfirmResign.YES,

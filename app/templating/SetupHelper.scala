@@ -199,19 +199,17 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Challenge.ALWAYS, trans.always.txt())
   )
 
-  def translatedMessageChoices(implicit ctx: Context) = List(
-    (Pref.Message.NEVER, trans.never.txt()),
-    (Pref.Message.FRIEND, trans.onlyFriends.txt()),
-    (Pref.Message.ALWAYS, trans.always.txt())
-  )
+  def translatedMessageChoices(implicit ctx: Context) = privacyBaseChoices
+  def translatedStudyInviteChoices(implicit ctx: Context) = privacyBaseChoices
+  def translatedPalantirChoices(implicit ctx: Context) = privacyBaseChoices
 
-  def translatedStudyInviteChoices(implicit ctx: Context) = List(
+  def privacyBaseChoices(implicit ctx: Context) = List(
     (Pref.StudyInvite.NEVER, trans.never.txt()),
     (Pref.StudyInvite.FRIEND, trans.onlyFriends.txt()),
     (Pref.StudyInvite.ALWAYS, trans.always.txt())
   )
 
-  def translatedInsightSquareChoices(implicit ctx: Context) = List(
+  def translatedInsightShareChoices(implicit ctx: Context) = List(
     (Pref.InsightShare.NOBODY, trans.withNobody.txt()),
     (Pref.InsightShare.FRIENDS, trans.withFriends.txt()),
     (Pref.InsightShare.EVERYBODY, trans.withEverybody.txt())

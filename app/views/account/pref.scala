@@ -154,12 +154,16 @@ object pref {
             radios(form("message"), translatedMessageChoices)
           ),
           setting(
+            "Enable voice calls",
+            radios(form("palantir"), translatedPalantirChoices)
+          ),
+          setting(
             trans.letOtherPlayersInviteYouToStudy(),
             radios(form("studyInvite"), translatedStudyInviteChoices)
           ),
           setting(
             trans.shareYourInsightsData(),
-            radios(form("insightShare"), translatedInsightSquareChoices)
+            radios(form("insightShare"), translatedInsightShareChoices)
           )
         ),
         p(cls := "saved text none", dataIcon := "E")(trans.yourPreferencesHaveBeenSaved())
