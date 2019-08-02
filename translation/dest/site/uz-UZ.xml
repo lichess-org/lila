@@ -51,4 +51,34 @@
   <string name="depthX">Fikrlash chuqurligi %s</string>
   <string name="usingServerAnalysis">Server tahlili qo\'llanilayabdi</string>
   <string name="loadingEngine">Mexanizmni yuklash ...</string>
+  <string name="cloudAnalysis">\"Bulut\" tahlili</string>
+  <string name="goDeeper">Yanada chuqurroq</string>
+  <string name="mistake">Xato</string>
+  <string name="mistakes">Xatolar</string>
+  <string name="inaccuracy">Noaniqlik</string>
+  <string name="inaccuracies">Noaniqlik</string>
+  <string name="moveTimes">Yurishlar soni</string>
+  <string name="flipBoard">Taxtani o\'girmoq</string>
+  <string name="threefoldRepetition">Uch marta takrorlanish</string>
+  <string name="claimADraw">Durrang talab qilmoq</string>
+  <string name="offerDraw">Durrang taklif qilish</string>
+  <string name="draw">Durrang</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s o\'yinchi</item>
+    <item quantity="other">%s o\'yinchilar</item>
+  </plurals>
+  <string name="currentGames">Joriy vaqtdagi o\'yinlar</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s o\'yin</item>
+    <item quantity="other">%s o\'yinlar</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s xatcho\'p</item>
+    <item quantity="other">%s xatcho\'plar</item>
+  </plurals>
+  <string name="viewInFullSize">To\'liq o\'lchamda ko\'rish</string>
+  <string name="logOut">Chiqish</string>
+  <string name="signIn">Kirish</string>
+  <string name="signUp">Ro\'yhatdan o\'tish</string>
+  <string name="forum">Forum</string>
 </resources>
