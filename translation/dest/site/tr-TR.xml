@@ -404,7 +404,7 @@
   <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
   <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
   <string name="join">Katıl</string>
-  <string name="withdraw">Teslim ol</string>
+  <string name="withdraw">Çekil</string>
   <string name="points">Puanlar</string>
   <string name="wins">Galibiyetler</string>
   <string name="losses">Mağlubiyetler</string>
