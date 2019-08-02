@@ -54,7 +54,6 @@ interface Lichess {
     render(ctrl: any): any;
   }
   playMusic(): any;
-  LichessSpeech?: LichessSpeech;
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
@@ -67,6 +66,10 @@ interface Lichess {
 interface LichessSpeech {
   say(t: string, cut: boolean): void;
   step(s: { san?: San }, cut: boolean): void;
+}
+
+interface Palantir {
+  button(): any;
 }
 
 interface Cookie {
@@ -133,6 +136,10 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
+  LichessSpeech?: LichessSpeech;
+  palantir?: {
+    palantir(): Palantir
+  };
 
   [key: string]: any; // TODO
 }

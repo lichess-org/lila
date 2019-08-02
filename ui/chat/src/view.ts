@@ -22,8 +22,12 @@ export default function(ctrl: Ctrl): VNode {
 
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
+  const palantir = ctrl.palantir.instance;
   return [
-    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, ctrl.allTabs.map(t => renderTab(ctrl, t, active))),
+    h('div.mchat__tabs.nb_' + ctrl.allTabs.length, [
+      ...ctrl.allTabs.map(t => renderTab(ctrl, t, active)),
+      palantir ? palantir.button() : null
+    ]),
     h('div.mchat__content.' + active,
       (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : (
         ctrl.plugin && active === ctrl.plugin.tab.key ? [ctrl.plugin.view()] : discussionView(ctrl)

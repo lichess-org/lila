@@ -8,6 +8,9 @@ const li = window.lichess;
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
+  const palantir: { instance: Palantir | undefined } = {
+    instance: undefined
+  };
 
   const allTabs: Tab[] = ['discussion'];
   if (opts.noteId) allTabs.push('note');
@@ -118,6 +121,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   const emitEnabled = () => li.pubsub.emit('chat.enabled', vm.enabled);
   emitEnabled();
 
+  li.loadScript(li.compiledScript('palantir')).then(() => {
+    palantir.instance = window.Palantir!.palantir();
+    console.log(palantir.instance);
+    redraw();
+  });
+
   return {
     data,
     opts,
@@ -144,6 +153,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       redraw();
     },
     redraw,
+    palantir,
     destroy
   };
 };
