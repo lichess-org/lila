@@ -79,6 +79,16 @@
   <string name="viewInFullSize">To\'liq o\'lchamda ko\'rish</string>
   <string name="logOut">Chiqish</string>
   <string name="signIn">Kirish</string>
+  <string name="youNeedAnAccountToDoThat">Buning uchun sizga hisob qaydnomasi kerak</string>
   <string name="signUp">Ro\'yhatdan o\'tish</string>
+  <string name="computersAreNotAllowedToPlay">Kompyuter va kompyuter-yordamchi o\'yinchilar uchun o\'ynashga ruhsat etilmaydi. Iltimos, o\'ynash paytida shaxmat dvigatellari, ma\'lumotlar bazalari yoki boshqa o\'yinchilar yordamidan foydalanmang. Shuni ham yodda tutingki, bir nechta hisoblarni ochish qat\'iyan taqiqlanadi va bu hisoblarni olib tashlash ya\'ni taqiqlanishiga olib keladi.</string>
+  <string name="games">O\'yinlar</string>
   <string name="forum">Forum</string>
+  <string name="password">Parol</string>
+  <string name="changePassword">Parolni almashtirish</string>
+  <string name="changeEmail">Emailni almashtirish</string>
+  <string name="email">E-mail</string>
+  <string name="passwordReset">Parolni tiklash</string>
+  <string name="forgotPassword">Parolni unutdingizmi?</string>
+  <string name="rank">Rank</string>
 </resources>
