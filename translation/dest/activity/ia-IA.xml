@@ -39,7 +39,7 @@
     <item quantity="other">Ha participate in %s exhibitiones simultanee</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Ha create %s nove studio(s)</item>
+    <item quantity="one">Ha create %s nove studio</item>
     <item quantity="other">Ha create %s nove studios</item>
   </plurals>
   <plurals name="competedInNbTournaments">
