@@ -53,26 +53,28 @@
     &:hover {
       @extend %box-radius;
       padding-left: 3.2rem;
-      background: mix($c-brag, $c-bg-page, 20%);
+      background: mix($c-primary, $c-bg-page, 20%);
+      color: $c-font;
+      strong {
+      	color: $c-font;
+      }
       &::before {
         left: .5rem;
+        color: $c-font;
       }
     }
   }
   strong {
     color: $c-font-dim;
     display: block;
+    @include transition();
   }
   a::before {
-    @include transition();
     position: absolute;
     top: .3rem;
     left: 0;
     font-size: 2.2em;
-    opacity: 0.6;
-    color: $c-brag;
-  }
-  a:hover::before {
-    opacity: 1;
+    color: $c-font-dim;
+    @include transition();
   }
 }
