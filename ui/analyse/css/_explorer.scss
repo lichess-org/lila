@@ -32,7 +32,7 @@
     height: 100%;
   }
   tr {
-    @include transition(background-color);
+    @include transition();
     &:nth-child(even) {
       background: $c-bg-zebra;
     }
