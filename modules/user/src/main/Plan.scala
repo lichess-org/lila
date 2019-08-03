@@ -18,7 +18,6 @@ case class Plan(
 
   def enable = copy(
     active = true,
-    months = months max 1,
     since = since orElse DateTime.now.some
   )
 
@@ -32,7 +31,7 @@ case class Plan(
 object Plan {
 
   val empty = Plan(0, false, none)
-  def start = Plan(1, true, DateTime.now.some)
+  def start = empty.incMonths
 
   import lila.db.dsl._
   private[user] val planBSONHandler = reactivemongo.bson.Macros.handler[Plan]
