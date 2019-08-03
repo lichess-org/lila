@@ -8,7 +8,7 @@
   .subs .sub {
     @extend %nowrap-hidden;
     display: block;
-    padding: 0.5rem 1rem;
+    padding: .5rem 1rem;
   }
   .links a:hover,
   .links a:hover::before,
@@ -34,7 +34,7 @@
     &::before {
       float: right;
       font-size: 80%;
-      margin-top: 0.25rem;
+      margin-top: .25rem;
       color: $c-dasher;
     }
     &:hover::before {

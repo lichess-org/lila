@@ -26,10 +26,10 @@
   .public_chats,
   .notes,
   .history {
-    margin-top: 0.5em;
+    margin-top: .5em;
     max-height: 150px;
     overflow-y: auto;
-    padding-bottom: 0.5em;
+    padding-bottom: .5em;
     border-bottom: 1px solid $border;
   }
   .player_chats {

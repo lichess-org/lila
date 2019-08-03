@@ -17,7 +17,7 @@
   }
   rating {
     flex: 0 0 auto;
-    margin: 0 0.25em 0 0.3em;
+    margin: 0 .25em 0 .3em;
     color: $c-font-dim;
     letter-spacing: -0.5px;
   }
@@ -34,7 +34,7 @@
     animation: connecting 0.9s ease-in-out infinite;
   }
   .rp {
-    margin-right: 0.2em;
+    margin-right: .2em;
   }
 
   @include breakpoint($mq-col2) {
