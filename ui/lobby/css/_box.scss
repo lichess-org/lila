@@ -62,6 +62,10 @@
       text-align: right;
       padding-right: .7em;
     }
+
+    .lobby__box__top:first-child {
+      padding-left: .1em;
+    }
   }
   &__forum .lobby__box__top,
   &__blog .lobby__box__top {
