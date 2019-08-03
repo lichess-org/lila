@@ -44,7 +44,7 @@
       &.name a {
         font-weight: bold;
         color: $c-font-dim;
-        @include transition(color);
+        @include transition();
         &:hover {
           color: $c-link;
         }
