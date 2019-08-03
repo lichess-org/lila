@@ -5,6 +5,8 @@
     flex-wrap: nowrap;
     overflow: hidden;
     padding: .2em .5em;
+    background: $c-bg-box;
+    @include transition();
     &:hover {
       background: mix($c-link, $c-bg-box, 15%);
     }
