@@ -40,6 +40,9 @@
     }
   }
 }
-a.user-link:hover {
-  color: $c-link;
+a.user-link {
+  @include transition();
+  &:hover {
+    color: $c-link;
+  }
 }

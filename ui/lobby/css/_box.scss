@@ -28,7 +28,6 @@
     .user-link {
       font-weight: bold;
       color: $c-font-dim;
-      @include transition();
     }
     table {
       width: 100%;
