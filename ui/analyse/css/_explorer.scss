@@ -20,7 +20,7 @@
     display: block;
   }
   tbody {
-    @include transition(opacity);
+    @include transition();
   }
   &.loading tbody {
     opacity: 0.4;
