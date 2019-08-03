@@ -54,16 +54,16 @@
   }
   .rank {
     @extend %box-radius;
-    padding: 0.1em 0.5em;
+    padding: .1em .5em;
     background: $c-brag;
     color: #fff;
   }
   .b .title,
   .b .rank {
-    margin-right: 0.3em;
+    margin-right: .3em;
   }
   .a .title,
   .a .rank {
-    margin-left: 0.3em;
+    margin-left: .3em;
   }
 }

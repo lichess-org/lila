@@ -16,7 +16,7 @@
     padding: 0 2px;
   }
   &-inline move {
-    padding: 0.25em 0.17em;
+    padding: .25em .17em;
     white-space: nowrap;
     font-weight: bold;
   }
@@ -81,7 +81,7 @@
     padding-left: 0;
   }
   &-inline move index {
-    padding-right: 0.2em;
+    padding-right: .2em;
     line-height: 111.11%
   }
   line move {
@@ -101,19 +101,19 @@
     @extend %roboto;
     flex: 3 0 auto;
     text-align: right;
-    font-size: 0.8em;
+    font-size: .8em;
     color: $c-font-dim;
   }
   glyph {
     @extend %base-font;
-    margin-left: 0.08em;
+    margin-left: .08em;
     vertical-align: bottom;
   }
   &-column > move glyph {
     flex: 0 1 auto;
     text-align: center;
     overflow: hidden;
-    font-size: 0.82em;
+    font-size: .82em;
   }
   &-column > index {
     flex: 0 0 13%;
@@ -143,16 +143,16 @@
   &-inline comment {
     vertical-align: 45%;
     word-wrap: break-word;
-    margin: 0 0.2em 0 0.1em;
-    font-size: 0.9em;
+    margin: 0 .2em 0 .1em;
+    font-size: .9em;
   }
   comment .by {
     @extend %nowrap-ellipsis, %roboto;
     display: inline-block;
-    vertical-align: -0.3em;
-    font-size: 0.9em;
+    vertical-align: -.3em;
+    font-size: .9em;
     opacity: 0.8;
-    margin-right: 0.4em;
+    margin-right: .4em;
     max-width: 9em;
   }
   &-column comment.white {
@@ -192,7 +192,7 @@
     display: block;
     margin-top: 2px;
     margin-left: 6px;
-    margin-bottom: 0.8em;
+    margin-bottom: .8em;
     border-left: 2px solid $c-border;
   }
   > interrupt > lines {
@@ -226,7 +226,7 @@
     height: 6px;
   }
   lines line::before {
-    margin-top: 0.65em;
+    margin-top: .65em;
     margin-left: -8px;
     content: ' ';
     border-top: 2px solid $c-border;
@@ -240,14 +240,14 @@
   inline {
     display: inline;
     font-style: italic;
-    font-size: 0.9em;
+    font-size: .9em;
     opacity: 0.8;
   }
   inline::before,
   inline::after {
-    vertical-align: 0.4em;
+    vertical-align: .4em;
     opacity: 0.7;
-    font-size: 0.9em;
+    font-size: .9em;
   }
   inline::before {
     content: '(';
@@ -259,7 +259,7 @@
   }
   &-inline inline::before,
   &-inline inline::after {
-    vertical-align: 0.7em;
+    vertical-align: .7em;
   }
   .conceal {
     opacity: 0.4;

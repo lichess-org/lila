@@ -139,7 +139,7 @@
 }
 .mod-zone strong {
   display: block;
-  margin-top: 0.5em;
+  margin-top: .5em;
 }
 .mod-zone strong.inline {
   display: inline;
@@ -188,7 +188,7 @@
   text-transform: uppercase;
 }
 #mz_assessments .percentage {
-  font-size: 0.9em;
+  font-size: .9em;
 }
 #mz_assessments .legend {
   text-align: center;
@@ -278,7 +278,7 @@
   animation: brain-glow 1.5s ease-in-out infinite;
 }
 #mz_irwin header .infos {
-  font-size: 0.9em;
+  font-size: .9em;
 }
 #mz_irwin header strong {
   display: block;
@@ -294,9 +294,9 @@
   font-size: 1.6em;
 }
 #mz_irwin table em {
-  font-size: 0.8em;
+  font-size: .8em;
   line-height: 1em;
-  margin-top: -0.1em;
+  margin-top: -.1em;
   display: block;
 }
 #mz_irwin .moves {
@@ -344,9 +344,9 @@
   display: inline-block;
   white-space: nowrap;
   font-weight: bold;
-  font-size: 0.9em;
-  padding: 0.1em 0.5em;
-  border-radius: 0.3em;
+  font-size: .9em;
+  padding: .1em .5em;
+  border-radius: .3em;
 }
 .mz_reports .score.green {
   /* actually blue */

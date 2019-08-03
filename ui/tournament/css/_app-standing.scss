@@ -15,7 +15,7 @@
   }
   .user-link .rating {
     font-style: italic;
-    font-size: 0.8em;
+    font-size: .8em;
   }
   .user-link .progress {
     padding-left: 2px;
@@ -54,18 +54,18 @@
   }
   td.rank {
     @extend %roboto;
-    padding: 1em 0.5em 1em 10px;
+    padding: 1em .5em 1em 10px;
     width: 1px; /* helps keeping it as small as possible */
     i {
-      opacity: 0.4;
-      font-size: 0.8em;
+      opacity: .4;
+      font-size: .8em;
     }
   }
   .sheet {
     text-align: right;
     padding-right: 0;
     padding-left: 0;
-    letter-spacing: 0.1em;
+    letter-spacing: .1em;
     & > * {
       display: inline-block;
     }
@@ -75,11 +75,11 @@
   }
   tr.long .sheet {
     font-size: .9rem;
-    letter-spacing: 0.06em;
+    letter-spacing: .06em;
   }
   tr.xlong .sheet {
     font-size: .85rem;
-    letter-spacing: 0.04em;
+    letter-spacing: .04em;
   }
   double {
     color: $c-brag;

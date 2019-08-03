@@ -13,7 +13,7 @@
     }
   }
   .info {
-    font-size: 0.9em;
+    font-size: .9em;
     white-space: nowrap;
     display: none;
     @include breakpoint($mq-x-small) {
