@@ -276,6 +276,7 @@ function step(state: State, now: cg.Timestamp): void {
   }
 
   if (state.animation.current !== undefined) {
+    if (rest > 0.999) rest = 0.999;
     const ease = easing(rest);
     for (let i in cur.plan.anims) {
       const cfg = cur.plan.anims[i];
