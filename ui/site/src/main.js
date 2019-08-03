@@ -690,7 +690,7 @@
       if (data.users) {
         var tags = data.users.map($.userLink);
         if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push('Anonymous(' + data.anons + ')');
+        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
         this.list.html(tags.join(', '));
       } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
       this.element.removeClass('none');
