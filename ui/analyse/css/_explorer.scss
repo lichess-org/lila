@@ -228,7 +228,7 @@
         padding: 5px 0;
         text-align: center;
         cursor: pointer;
-        @include transition('background');
+        @include transition();
         border: $border;
         border-width: 1px 0 1px 1px;
         text-transform: capitalize;
