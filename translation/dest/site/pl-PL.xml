@@ -188,7 +188,7 @@
   <string name="passwordReset">Resetuj hasło</string>
   <string name="forgotPassword">Zapomniałeś hasła?</string>
   <string name="rank">Miejsce</string>
-  <string name="rankX">Ranking: %s</string>
+  <string name="rankX">Miejsce: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Ranking jest aktualizowany co minutę</item>
     <item quantity="few">Ranking jest aktualizowany co %s minuty</item>
