@@ -11,12 +11,8 @@ $c-support: $c-brag;
     &:hover {
       background: $c-support;
     }
-    &:hover,
-    &:hover * {
-      color: #fff;
-    }
+    &:hover .lobby__support__text,
     &:hover i::before {
-      opacity: 1;
       color: #fff;
     }
   }
@@ -27,14 +23,14 @@ $c-support: $c-brag;
       margin-right: .15em;
       color: $c-support;
       font-size: 2.6em;
-      opacity: 0.8;
+      @include transition();
     }
   }
   &__text {
     flex: 1 1 auto;
     color: $c-support;
+    @include transition();
     strong {
-      color: $c-support;
       font-weight: normal;
       display: block;
     }
