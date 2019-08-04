@@ -21,7 +21,7 @@ $c-report-high-over: white;
       @extend %roboto, %flex-column;
       color: $c-font-dim;
       text-transform: uppercase;
-      padding: 0.5rem 1.4rem;
+      padding: .5rem 1.4rem;
       align-items: center;
       justify-content: center;
       &.new {
@@ -35,7 +35,7 @@ $c-report-high-over: white;
         color: $c-report-high-over;
       }
       count {
-        font-size: 0.8em;
+        font-size: .8em;
         display: block;
         height: 1.2em;
       }
@@ -49,8 +49,8 @@ $c-report-high-over: white;
     white-space: nowrap;
     font-weight: bold;
     font-size: 1.2em;
-    padding: 0.3em 0.5em;
-    border-radius: 0.3em;
+    padding: .3em .5em;
+    border-radius: .3em;
   }
   .score.green {
     /* actually blue */
@@ -80,11 +80,11 @@ $c-report-high-over: white;
       font-size: 1.4em;
     }
     .button-thin {
-      font-size: 0.8em;
+      font-size: .8em;
     }
   }
   .atoms .atom {
-    font-size: 0.9em;
+    font-size: .9em;
     margin-bottom: 1em;
   }
   .atoms .atom:last-child {
@@ -94,29 +94,29 @@ $c-report-high-over: white;
     display: block;
   }
   .atoms .atom .score {
-    font-size: 0.9em;
-    padding: 0.1em 0.4em;
+    font-size: .9em;
+    padding: .1em .4em;
   }
   table.see .perfs {
-    font-size: 0.9em;
+    font-size: .9em;
     white-space: nowrap;
   }
   table.see .text {
     max-height: 100px;
     overflow: hidden;
-    font-size: 0.9em;
+    font-size: .9em;
   }
   table.see .text.large {
-    font-size: 0.8em;
+    font-size: .8em;
   }
   tr.new td:first-child {
     border-left: 4px solid $c-report-high;
   }
   .user_marks i {
-    font-size: 0.9em;
+    font-size: .9em;
     background: #dc322f70;
-    padding: 0.1em 0.4em;
-    border-radius: 0.3em;
-    margin: 0 0.2em;
+    padding: .1em .4em;
+    border-radius: .3em;
+    margin: 0 .2em;
   }
 }
