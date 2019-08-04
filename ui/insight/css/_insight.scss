@@ -331,7 +331,7 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 25%));
     a {
       @extend %box-radius;
-      @include transition(background);
+      @include transition();
       color: $c-font;
       padding: .4em;
       span {
