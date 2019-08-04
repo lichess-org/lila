@@ -60,7 +60,7 @@ function initialize(ctrl: LobbyController, el) {
   });
 }
 
-export function toggle(ctrl: LobbyController, nbFiltered: number) {
+export function toggle(ctrl: LobbyController) {
   return h('i.toggle.toggle-filter', {
     class: { active: ctrl.filterOpen },
     hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw),
@@ -68,7 +68,7 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
       'data-icon': ctrl.filterOpen ? 'L' : '%',
       title: ctrl.trans.noarg('filterGames')
     }
-  }, nbFiltered > 0 ? '' + nbFiltered : '');
+  });
 }
 
 export interface FilterNode extends HTMLElement {
