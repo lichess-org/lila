@@ -19,7 +19,7 @@
   <string name="white">Цагаан</string>
   <string name="black">Хар</string>
   <string name="randomColor">Дурын өнгө</string>
-  <string name="createAGame">Шинэ өрөг үүсгэх</string>
+  <string name="createAGame">Тэнэг өрөг үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
