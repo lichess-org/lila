@@ -36,7 +36,7 @@
       @extend %box-radius;
       color: $c-font;
       padding: .4em;
-      @include transition(background);
+      @include transition();
       background: fade-out($c-bg-box, 0.6);
       overflow: hidden;
       &:nth-child(even) {
