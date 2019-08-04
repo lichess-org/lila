@@ -44,7 +44,7 @@
     }
     a {
       color: $c-font-page;
-      @include transition(color);
+      @include transition();
       &:hover {
         color: $c-link;
       }
