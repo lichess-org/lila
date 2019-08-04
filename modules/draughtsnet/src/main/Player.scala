@@ -24,11 +24,11 @@ final class Player(
     case e: Exception => logger.info(e.getMessage)
   }
 
-  private val delayFactor = 0.008f
+  private val delayFactor = 0.005f
   private val defaultClock = Clock(300, 0)
 
   private def delayFor(g: Game): Option[FiniteDuration] =
-    if (!g.bothPlayersHaveMoved) 2.seconds.some
+    if (!g.bothPlayersHaveMoved) 1.seconds.some
     else for {
       pov <- g.aiPov
       clock = g.clock | defaultClock
@@ -36,10 +36,10 @@ final class Player(
       if totalTime > 30 * 100
       delay = (clock.remainingTime(pov.color).centis atMost totalTime) * delayFactor
       accel = 1 - ((g.turns - 20) atLeast 0 atMost 100) / 150f
-      sleep = (delay * accel) atMost 400
-      if sleep > 25
+      sleep = (delay * accel) atMost 300
+      if sleep > 20
       millis = sleep * 10
-      randomized = approximatly(0.5f)(millis)
+      randomized = approximatly(0.6f)(if (g.situation.validMoveCount == 1) 400f.atMost(millis / 2) else millis)
       divided = randomized / (if (g.turns > 9) 1 else 2)
     } yield divided.millis
 

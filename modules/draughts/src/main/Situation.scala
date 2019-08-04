@@ -50,6 +50,8 @@ case class Situation(board: Board, color: Color) {
 
   def destinationsFrom(pos: Pos): List[Pos] = movesFrom(pos) map (_.dest)
 
+  def validMoveCount = validMoves.foldLeft(0)((t, p) => t + p._2.length)
+
   def actorAt(pos: Pos): Option[Actor] = board.actorAt(pos)
 
   def drops: Option[List[Pos]] = None
