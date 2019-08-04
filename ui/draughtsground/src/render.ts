@@ -160,6 +160,7 @@ export default function render(s: State): void {
     p = pieces[k];
     anim = anims[k];
     tempPiece = temporaryPieces[k];
+    tempRole = temporaryRoles && temporaryRoles[k];
     if (!samePieces[k] && !tempPiece) {
       pMvdset = movedPieces[pieceNameOf(p)];
       pMvd = pMvdset && pMvdset.pop();
@@ -176,6 +177,10 @@ export default function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
           shift = anim[4];
+          if (curAnim && curAnim.plan.nextPlan && curAnim.plan.nextPlan.anims[k] && !util.isObjectEmpty(curAnim.plan.nextPlan.anims[k])) {
+            pos[0] += curAnim.plan.nextPlan.anims[k][2];
+            pos[1] += curAnim.plan.nextPlan.anims[k][3];
+          }
         } else shift = 0
         translate(pMvd, posToTranslate(pos, asWhite, shift));
       }
@@ -196,6 +201,10 @@ export default function render(s: State): void {
           pos[0] += anim[2];
           pos[1] += anim[3];
           shift = anim[4];
+          if (tempRole) {
+            pieceNode.className = pieceNode.className.replace(p.role, tempRole);
+            pieceNode.classList.add('temprole');
+          }
         } else shift = 0
         translate(pieceNode, posToTranslate(pos, asWhite, shift));
 
