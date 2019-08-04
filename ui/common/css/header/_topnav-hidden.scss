@@ -108,7 +108,7 @@
       text-decoration: none;
       padding: .7em 0;
       opacity: 0;
-      @include transition(opacity);
+      @include transition();
     }
 
     section {

@@ -9,7 +9,7 @@
     @extend %box-radius;
     color: $c-font;
     padding: .3em;
-    @include transition(background);
+    @include transition();
     background: fade-out($c-bg-box, 0.6);
     &:hover {
       background: fade-out($c-link, 0.6);

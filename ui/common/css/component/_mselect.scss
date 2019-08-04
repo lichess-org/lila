@@ -22,7 +22,7 @@ $c-mselect: $c-primary;
     }
   }
   &__toggle:checked ~ .mselect__label {
-    @include transition(opacity);
+    @include transition();
     opacity: 0;
   }
   &__list {
@@ -35,7 +35,7 @@ $c-mselect: $c-primary;
     background: $c-bg-popup;
     transform: scale(1, 0);
     transform-origin: top;
-    @include transition(transform);
+    @include transition();
     .current {
       background: $c-bg-zebra;
       @extend %flex-between-nowrap;

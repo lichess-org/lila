@@ -36,7 +36,7 @@
   background-color: $c-font-dimmer;
 }
 .cmn-toggle:hover + label::before {
-  @include transition(background);
+  @include transition();
 }
 .cmn-toggle + label::after {
   @extend %metal;
@@ -46,7 +46,7 @@
 }
 .cmn-toggle:hover + label::after {
   @extend %metal-hover;
-  @include transition(margin);
+  @include transition();
 }
 .cmn-toggle:checked + label::before {
   background-color: $c-good;
