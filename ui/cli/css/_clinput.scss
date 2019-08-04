@@ -9,7 +9,7 @@
     border: 0;
     width: 0;
     @include breakpoint($mq-x-large) {
-      @include transition(width);
+      @include transition();
     }
     body.clinput & {
       width: 20ch;
