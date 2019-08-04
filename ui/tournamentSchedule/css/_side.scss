@@ -42,7 +42,7 @@
 .tour__links {
   margin-top: 1em;
   a {
-	  color: $c-font;
+      color: $c-font;
       @include transition();
       &:hover {
         color: $c-link;
