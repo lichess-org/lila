@@ -38,9 +38,10 @@ object faq {
           p("You can find out more about ", a(href := routes.Plan.index())("being a patron"), " (including a ", a(href := routes.Main.costs())("breakdown of our costs"), "). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ".")
         ),        
         question(
-          "sites_inspired_by_Lichess",
-          "Are there open-source sites inspired by Lichess?",
-          p("Absolutely. Lichess has indeed inspired other sites that use Lichess's ", a(href := "https://lichess.org/api")("API"), " and/or ", a(href := "https://database.lichess.org/")("database"), ". These include ", a(href := "https://blitztactics.com/about")("Blitz Tactics"), " and ", a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html?p=P")("Blunder Bomb"), ". Please credit Lichess when you create derivative works.")
+          "sites_based_on_Lichess",
+          "Are there websites based on Lichess?",
+          p("Absolutely. Lichess has indeed inspired other open-source sites that use Lichess's code, ", a(href := "https://lichess.org/api")("API,"), " and/or ", a(href := "https://database.lichess.org/")("database"), ". These include ", a(href := "https://blitztactics.com/about")("Blitz Tactics"), " and ", a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html?p=P")("Blunder Bomb"), "."),
+          p("You can download, read, use and modify every bit of source code. Please credit Lichess when you create derivative works.")
         ),
         h2("Fair Play"),
         question(
