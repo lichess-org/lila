@@ -5,7 +5,7 @@
   padding: .5em 1em;
   border-bottom: $border;
   position: relative;
-  @include transition(background);
+  @include transition();
   &:nth-child(odd) {
     background: $c-bg-zebra;
   }
