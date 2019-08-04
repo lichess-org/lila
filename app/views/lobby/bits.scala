@@ -48,7 +48,7 @@ object bits {
           tournamentWinners take 10 map { w =>
             tr(
               td(userIdLink(w.userId.some)),
-              td(a(title := w.tourName, href := routes.Tournament.show(w.tourId))(scheduledTournamentNameShortHtml(w.tourName)))
+              td(cls := "name")(a(title := w.tourName, href := routes.Tournament.show(w.tourId))(scheduledTournamentNameShortHtml(w.tourName)))
             )
           }
         ))
