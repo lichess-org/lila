@@ -47,7 +47,7 @@
     width: 100%;
     tr {
       cursor: pointer;
-      @include transition(background-color);
+      @include transition();
       &:nth-child(odd) {
         background: $c-bg-zebra;
       }
