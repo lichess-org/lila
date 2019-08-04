@@ -84,6 +84,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val farFuture = today plusMonths 7
 
       val birthday = new DateTime(2018, 8, 13, 12, 0, 0)
+      val birthdayThisYear = birthday.withYear(today.getYear)
 
       // schedule daily and longer CET, others UTC
       val zoneCET = DateTimeZone.forID("Europe/Amsterdam")
@@ -92,39 +93,39 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
 
       val nextPlans: List[Schedule.Plan] = List(
 
-        /*List( // legendary tournaments!
-          at(birthday.withYear(today.getYear), 12) map orNextYear map { date =>
-            val yo = date.getYear - 2010
-            Schedule(Unique, Rapid, Standard, std, date) plan {
+        List( // legendary tournaments!
+          at(birthdayThisYear, 14 - offsetCET(birthdayThisYear)) map orNextYear map { date =>
+            val yo = date.getYear - 2018
+            Schedule(Unique, Blitz, Standard, std, date) plan {
               _.copy(
                 name = s"${date.getYear} Lidraughts Anniversary",
                 minutes = 12 * 60,
                 spotlight = Spotlight(
-                  headline = s"$yo years of free draughts!",
+                  headline = s"${if (yo == 1) "One year" else s"$yo years"} of free draughts!",
                   description = s"""
-We've had $yo great draughts years together!
+We've had ${if (yo == 1) "our first great draughts year" else "$yo great draughts years"} together!
 
 Thank you all, you rock!"""
                 ).some
               )
             }
           }
-        ).flatten,*/
+        ).flatten,
 
         List( // yearly tournaments!
-          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Classical -> Standard,
-          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard,
+          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Classical -> Standard,
+          secondWeekOf(FEBRUARY).withDayOfWeek(TUESDAY) -> HyperBullet -> Standard,
+          secondWeekOf(MARCH).withDayOfWeek(WEDNESDAY) -> Bullet -> Standard,
+          secondWeekOf(APRIL).withDayOfWeek(THURSDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(MAY).withDayOfWeek(FRIDAY) -> Blitz -> Standard,
+          secondWeekOf(JUNE).withDayOfWeek(SATURDAY) -> Rapid -> Standard,
 
-          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Bullet -> Standard,
-          secondWeekOf(AUGUST).withDayOfWeek(TUESDAY) -> SuperBlitz -> Standard,
-          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Blitz -> Standard,
-          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> Rapid -> Standard,
-          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Classical -> Standard,
-          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> HyperBullet -> Standard
+          secondWeekOf(JULY).withDayOfWeek(MONDAY) -> Classical -> Standard,
+          secondWeekOf(AUGUST).withDayOfWeek(THURSDAY) -> HyperBullet -> Standard,
+          secondWeekOf(SEPTEMBER).withDayOfWeek(WEDNESDAY) -> Bullet -> Standard,
+          secondWeekOf(OCTOBER).withDayOfWeek(THURSDAY) -> SuperBlitz -> Standard,
+          secondWeekOf(NOVEMBER).withDayOfWeek(FRIDAY) -> Blitz -> Standard,
+          secondWeekOf(DECEMBER).withDayOfWeek(SATURDAY) -> Rapid -> Standard
         ).flatMap {
             case ((day, speed), variant) =>
               at(day, 17 - offsetCET(day)) filter farFuture.isAfter map { date =>
@@ -163,11 +164,11 @@ Thank you all, you rock!"""
 
         List( // weekly standard tournaments!
           nextMonday -> UltraBullet,
-          nextTuesday -> Bullet,
-          nextWednesday -> SuperBlitz,
-          nextThursday -> Blitz,
-          nextFriday -> Rapid,
-          nextSaturday -> HyperBullet
+          nextTuesday -> HyperBullet,
+          nextWednesday -> Bullet,
+          nextThursday -> SuperBlitz,
+          nextFriday -> Blitz,
+          nextSaturday -> Rapid
         ).flatMap {
             case (day, speed) => at(day, 17 - offsetCET(day)) map { date =>
               Schedule(Weekly, speed, Standard, std, date |> orNextWeek).plan
