@@ -15,7 +15,7 @@
   }
 
   .notifications {
-    @include transition(opacity);
+    @include transition();
   }
   .notifications.scrolling {
     opacity: 0.5;
