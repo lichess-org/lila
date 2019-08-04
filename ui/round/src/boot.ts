@@ -30,7 +30,7 @@ export default function(opts: RoundOpts): void {
             o.player ? [
               o.player.title,
               o.player.name,
-              '(' + o.player.rating + ')'
+              o.player.rating
             ].filter(x => x).join('&nbsp') : 'Anonymous');
         },
         end() {
