@@ -11,7 +11,7 @@ object topnav {
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
 
-  def apply()(implicit ctx: Context) = st.nav(id := "topnav", role := "navigation", cls := "hover")(
+  def apply()(implicit ctx: Context) = st.nav(id := "topnav", cls := "hover")(
     st.section(
       linkTitle("/", frag(
         span(cls := "play")(trans.play()),
