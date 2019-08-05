@@ -66,9 +66,10 @@ export function toggle(ctrl: LobbyController, nbFiltered: number) {
     hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw),
     attrs: {
       'data-icon': ctrl.filterOpen ? 'L' : '%',
-      title: ctrl.trans.noarg('filterGames')
+      title: ctrl.trans.noarg('filterGames'),
+      'filtered': nbFiltered > 0 ? 'yes' : 'no'
     }
-  }, nbFiltered > 0 ? '' + nbFiltered : '');
+  });
 }
 
 export interface FilterNode extends HTMLElement {
