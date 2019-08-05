@@ -639,7 +639,7 @@
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
   <string name="whiteCastlingKingside">Roque curto das Brancas</string>
-  <string name="blackCastlingKingside">Roque curto das Pretas</string>
+  <string name="blackCastlingKingside">Pretas O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s artigo no fórum</item>
     <item quantity="other">%s artigos no fórum</item>
@@ -656,7 +656,7 @@
   <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor grátis de xadrez (%2$s), sem publicidade e open source.</string>
   <string name="really">a sério</string>
   <string name="contribute">Contribuir</string>
-  <string name="contact">Contato</string>
+  <string name="contact">Contacto</string>
   <string name="termsOfService">Condições de uso</string>
   <string name="sourceCode">Código-fonte</string>
   <string name="simultaneousExhibitions">Exibição simultânea</string>
@@ -703,15 +703,15 @@
   <string name="yourPerfTypeRatingIsRating">Seu rating em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem rating definido em %s.</string>
-  <string name="checkYourEmail">Verifique seu e-mail</string>
+  <string name="checkYourEmail">Verifique o seu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviamos um e-mail. Clique no link do e-mail para ativar sua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vir o e-mail, verifique outros locais onde possa estar, como lixeira, spam ou outras pastas.</string>
   <string name="weHaveSentYouAnEmailTo">Enviamos um e-mail para %s. Clique no link do e-mail para redefinir sua senha.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Ao registrar, você concorda em se comprometer com nossa %s.</string>
   <string name="networkLagBetweenYouAndLichess">Atraso na rede</string>
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
-  <string name="downloadAnnotated">Baixar anotação</string>
-  <string name="downloadRaw">Baixar texto</string>
+  <string name="downloadAnnotated">Download da anotação</string>
+  <string name="downloadRaw">Download do texto</string>
   <string name="downloadImported">Baixar partida importada</string>
   <string name="printFriendlyPDF">Versão para impressão (PDF)</string>
   <string name="crosstable">Tabela</string>
