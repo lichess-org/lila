@@ -548,7 +548,7 @@
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="never">Nunca</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo restante for menos de 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo restante for menos do que 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="gameBehavior">Funcionamento do jogo</string>
@@ -556,7 +556,7 @@
   <string name="clickTwoSquares">Clicar em duas casas</string>
   <string name="dragPiece">Arrastar a peça</string>
   <string name="bothClicksAndDrag">Ambos</string>
-  <string name="premovesPlayingDuringOpponentTurn">Pré-movimentos (jogadas durante o turno do oponente)</string>
+  <string name="premovesPlayingDuringOpponentTurn">Jogadas antecipadas (jogadas durante a vez do adversário)</string>
   <string name="takebacksWithOpponentApproval">Voltar jogada (com aprovação do oponente)</string>
   <string name="promoteToQueenAutomatically">Promover a Dama automaticamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar empate automaticamente à repetição de três movimentos</string>
@@ -565,7 +565,7 @@
   <string name="letOtherPlayersChallengeYou">Permitir que outros jogadores desafiem você</string>
   <string name="letOtherPlayersInviteYouToStudy">Permitir que outros jogadores te convidem para estudar</string>
   <string name="sound">Som</string>
-  <string name="yourPreferencesHaveBeenSaved">Suas preferências foram salvas.</string>
+  <string name="yourPreferencesHaveBeenSaved">As suas preferências foram guardadas.</string>
   <string name="none">Nenhum</string>
   <string name="fast">Rápido</string>
   <string name="normal">Normal</string>
@@ -575,8 +575,8 @@
   <string name="onSlowGames">Em jogos lentos</string>
   <string name="always">Sempre</string>
   <string name="inCasualGamesOnly">Somente em jogos casuais</string>
-  <string name="whenPremoving">Quando mover previamente</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for menor do que 30 segundos</string>
+  <string name="whenPremoving">Quando mover antecipadamente</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Quando o tempo restante for menos do que 30 segundos</string>
   <string name="difficultyEasy">Fácil</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difícil</string>
@@ -607,7 +607,7 @@
   <string name="side">Cor</string>
   <string name="clock">Relógio</string>
   <string name="unauthorizedError">Acesso negado</string>
-  <string name="noInternetConnection">Sem conectividade. Você ainda pode jogar offline a partir do menu.</string>
+  <string name="noInternetConnection">Sem conexão à internet. Você ainda pode jogar offline a partir do menu.</string>
   <string name="connectedToLichess">Você está conectado a lichess.org</string>
   <string name="signedOut">Você fez logoff</string>
   <string name="loginSuccessful">Login efetuado</string>
@@ -622,7 +622,7 @@
   <string name="playOnline">Jogar online</string>
   <string name="playOffline">Jogar offline</string>
   <string name="allowAnalytics">Permitir estatísticas anónimas</string>
-  <string name="shareGameURL">Compartilhar URL do Jogo</string>
+  <string name="shareGameURL">Compartilhar link do Jogo</string>
   <string name="error.required">Este campo deve ser preenchido</string>
   <string name="error.email">Este endereço de email é inválido</string>
   <string name="error.email_acceptable">Este endereço de email não é aceitável</string>
