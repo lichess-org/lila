@@ -12,7 +12,7 @@
   <string name="level">Nível</string>
   <string name="toggleTheChat">Ativar/Desativar o chat</string>
   <string name="toggleSound">Ativar/Desativar som</string>
-  <string name="chat">Conversação</string>
+  <string name="chat">Chat</string>
   <string name="resign">Desistir</string>
   <string name="checkmate">Xeque-mate</string>
   <string name="stalemate">Rei afogado</string>
@@ -120,7 +120,7 @@
   <string name="offerDraw">Propor empate</string>
   <string name="draw">Empate</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s jogadores ligados</item>
+    <item quantity="one">%s jogador conectado</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
   <string name="currentGames">Partidas atuais</string>
@@ -165,8 +165,8 @@
   <string name="username">Nome de utilizador</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
-  <string name="changeUsernameNotSame">Só lhe é permitido alterar a forma das letras. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Altere o seu nome de utilizador. Só o pode fazer uma vez e alterando unicamente a forma das letras.</string>
+  <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Altere seu nome de utilizador. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Senha</string>
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
@@ -538,8 +538,8 @@
   <string name="currentPassword">Senha atual</string>
   <string name="newPassword">Nova senha</string>
   <string name="newPasswordAgain">Nova senha (novamente)</string>
-  <string name="boardHighlights">Luzes do tabuleiro (último movimento e xeque)</string>
-  <string name="pieceDestinations">Destino das peças (movimentos válidos e pré-movimentos)</string>
+  <string name="boardHighlights">Destacar casas do tabuleiro (último movimento e xeque)</string>
+  <string name="pieceDestinations">Destino das peças (movimentos válidos e antecipados)</string>
   <string name="boardCoordinates">Coordenadas do tabuleiro</string>
   <string name="moveListWhilePlaying">Lista de movimentos</string>
   <string name="pgnPieceNotation">Anotação de movimentos</string>
