@@ -21,7 +21,7 @@
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
-  <string name="blackIsVictorious">Negras vencem</string>
+  <string name="blackIsVictorious">Pretas vencem</string>
   <string name="kingInTheCenter">Rei no centro</string>
   <string name="threeChecks">Três xeques</string>
   <string name="raceFinished">Corrida terminada</string>
@@ -30,7 +30,7 @@
   <string name="yourOpponentWantsToPlayANewGameWithYou">O seu oponente quer jogar uma nova partida contra você</string>
   <string name="joinTheGame">Entrar no jogo</string>
   <string name="whitePlays">Jogam as brancas</string>
-  <string name="blackPlays">Jogam as negras</string>
+  <string name="blackPlays">Jogam as pretas</string>
   <string name="opponentLeftChoices">O outro jogador pode ter deixado a partida. Você pode proclamar vitória, declarar empate ou aguardar.</string>
   <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
@@ -40,7 +40,7 @@
   <string name="whiteResigned">Brancas desistiram</string>
   <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
-  <string name="blackLeftTheGame">As negras abandonaram a partida</string>
+  <string name="blackLeftTheGame">As pretas abandonaram a partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilhe este link para convidar espectadores</string>
   <string name="theComputerAnalysisHasFailed">A análise do computador falhou</string>
   <string name="viewTheComputerAnalysis">Ver a análise do computador</string>
@@ -217,7 +217,7 @@
   <string name="rematch">Desforra</string>
   <string name="rematchOfferSent">Pedido de desforra enviado</string>
   <string name="rematchOfferSentWhite">Brancas querem desforra</string>
-  <string name="rematchOfferSentBlack">Negras querem desforra</string>
+  <string name="rematchOfferSentBlack">Pretas querem desforra</string>
   <string name="rematchOfferAccepted">Pedido de desforra aceite</string>
   <string name="rematchOfferCanceled">Pedido de desforra cancelado</string>
   <string name="rematchOfferDeclined">Pedido de desforra recusado</string>
@@ -420,7 +420,7 @@
   <string name="tournamentComplete">Torneio terminado</string>
   <string name="movesPlayed">Movimentos feitos</string>
   <string name="whiteWins">Vitórias com brancas</string>
-  <string name="blackWins">Vitórias com negras</string>
+  <string name="blackWins">Vitórias com pretas</string>
   <string name="draws">Empates</string>
   <string name="nextXTournament">Próximo torneio %s:</string>
   <string name="viewMoreTournaments">Ver mais torneios</string>
@@ -638,7 +638,7 @@
   <string name="onlyOnInitialPosition">Apenas na posição inicial</string>
   <string name="menu">Menu</string>
   <string name="castling">Roque</string>
-  <string name="whiteCastlingKingside">Roque curto das Brancas</string>
+  <string name="whiteCastlingKingside">Brancas O-O</string>
   <string name="blackCastlingKingside">Pretas O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s artigo no fórum</item>
@@ -809,19 +809,19 @@
   <string name="hideBestMove">Ocultar o melhor movimento</string>
   <string name="getAHint">Obter uma dica</string>
   <string name="evaluatingYourMove">A analisar o teu movimento ...</string>
-  <string name="whiteWinsGame">Brancas ganham</string>
-  <string name="blackWinsGame">Negras ganham</string>
+  <string name="whiteWinsGame">Brancas vencem</string>
+  <string name="blackWinsGame">Pretas ganham</string>
   <string name="learnFromYourMistakes">Aprende dos teus erros</string>
   <string name="learnFromThisMistake">Aprende deste erro</string>
   <string name="skipThisMove">Salta este movimento</string>
   <string name="next">Seguinte</string>
   <string name="xWasPlayed">%s foi jogado</string>
   <string name="findBetterMoveForWhite">Encontra um melhor movimento para as brancas</string>
-  <string name="findBetterMoveForBlack">Encontra um melhor movimento para as negras</string>
+  <string name="findBetterMoveForBlack">Encontra um melhor movimento para as pretas</string>
   <string name="resumeLearning">Continuar a aprendizagem</string>
   <string name="youCanDoBetter">Tu podes fazer melhor</string>
   <string name="tryAnotherMoveForWhite">Tenta outro movimento para as brancas</string>
-  <string name="tryAnotherMoveForBlack">Tenta outro movimento para as negras</string>
+  <string name="tryAnotherMoveForBlack">Tenta outro movimento para as pretas</string>
   <string name="solution">Solução</string>
   <string name="waitingForAnalysis">A aguardar análise</string>
   <string name="noMistakesFoundForWhite">Não foram encontrados erros para as brancas</string>
