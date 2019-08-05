@@ -455,10 +455,10 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Cuidado, o jogo vale pontos de rating, mas não há controle de tempo!</string>
   <string name="training">Treino</string>
   <string name="yourPuzzleRatingX">Sua classificação de quebra-cabeças: %s</string>
-  <string name="findTheBestMoveForWhite">Procure o melhor lance para as brancas.</string>
+  <string name="findTheBestMoveForWhite">Procure a melhor jogada para as brancas.</string>
   <string name="findTheBestMoveForBlack">Procure a melhor jogada para as pretas.</string>
   <string name="toTrackYourProgress">Para acompanhar seu progresso</string>
-  <string name="trainingSignupExplanation">O Lichess fornecerá quebra-cabeças que correspondem a sua habilidade, para fazer melhores sessões de treino.</string>
+  <string name="trainingSignupExplanation">O Lichess fornecerá quebra-cabeças que correspondem à sua habilidade, para fazer melhores sessões de treino.</string>
   <string name="puzzleId">Quebra-cabeça %s</string>
   <string name="puzzleOfTheDay">Quebra-cabeça do dia</string>
   <string name="clickToSolve">Clique para resolver</string>
@@ -486,7 +486,7 @@
     <item quantity="one">%s jogo a decorrer</item>
     <item quantity="other">%s jogos a decorrer</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após o lance</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Passar automaticamente ao jogo seguinte após a jogada</string>
   <string name="autoSwitch">Alternar automaticamente</string>
   <string name="puzzles">Quebra-cabeças</string>
   <string name="latestUpdates">Atualizações mais recentes</string>
@@ -510,7 +510,7 @@
   <string name="user">Usuário</string>
   <string name="reason">Motivo</string>
   <string name="whatIsIheMatter">Qual é o motivo?</string>
-  <string name="cheat">Trapaça</string>
+  <string name="cheat">Batota</string>
   <string name="insult">Insulto</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
@@ -518,7 +518,7 @@
   <string name="error.provideOneCheatedGameLink">Pf. de-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
-  <string name="theming">Personalizar</string>
+  <string name="theming">Personalização</string>
   <string name="donate">Doação</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Perguntas e Respostas</string>
@@ -544,11 +544,11 @@
   <string name="moveListWhilePlaying">Lista de movimentos</string>
   <string name="pgnPieceNotation">Anotação de movimentos</string>
   <string name="chessPieceSymbol">Usar símbolo das peças</string>
-  <string name="pgnLetter">Usar letras (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Usar letras (em inglês) (K, Q, R, B, N)</string>
   <string name="chessClock">Relógio de xadrez</string>
   <string name="tenthsOfSeconds">Décimos de segundo</string>
   <string name="never">Nunca</string>
-  <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo remanescente for menor do que 10 segundos</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">Quando o tempo restante for menos de 10 segundos</string>
   <string name="horizontalGreenProgressBars">Barras de progresso verdes horizontais</string>
   <string name="soundWhenTimeGetsCritical">Som ao atingir tempo crítico</string>
   <string name="gameBehavior">Funcionamento do jogo</string>
