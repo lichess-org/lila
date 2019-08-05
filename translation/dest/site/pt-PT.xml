@@ -712,7 +712,7 @@
   <string name="timeToProcessAMoveOnLichessServer">Tempo para processar um movimento no servidor do Lichess</string>
   <string name="downloadAnnotated">Download da anotação</string>
   <string name="downloadRaw">Download do texto</string>
-  <string name="downloadImported">Baixar partida importada</string>
+  <string name="downloadImported">Download da partida importada</string>
   <string name="printFriendlyPDF">Versão para impressão (PDF)</string>
   <string name="crosstable">Tabela</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Você também pode rolar sobre o tabuleiro para percorrer as jogadas.</string>
@@ -731,8 +731,8 @@
   <string name="kidMode">Modo infantil</string>
   <string name="kidModeExplanation">Sobre segurança. Em modo criança, todas as comunicações do site estão desactivadas. Activa esta opção para os teus filhos ou alunos, para protegê-los de outros usuários da internet.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">Em modo criança, o logotipo do lichess fica com um %s icon para que saibas que as tuas crianças estão seguras.</string>
-  <string name="enableKidMode">Activar modo Criança</string>
-  <string name="disableKidMode">Desactivar modo Criança</string>
+  <string name="enableKidMode">Ativar modo Criança</string>
+  <string name="disableKidMode">Desativar modo Criança</string>
   <string name="security">Segurança</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Esta é a lista de dispositivos que se conectaram à tua conta. Desactiva quaisquer sessões que não reconheças.</string>
   <string name="alternativelyYouCanX">Alternativamente tu podes %s.</string>
@@ -744,7 +744,7 @@
   <string name="zeroAdvertisement">Zero anúncios</string>
   <string name="fullFeatured">Cheio de recursos</string>
   <string name="phoneAndTablet">Telemóvel e tablet</string>
-  <string name="bulletBlitzClassical">Bala, relâmpago, clássico</string>
+  <string name="bulletBlitzClassical">Bullet, blitz, clássico</string>
   <string name="correspondenceChess">Xadrez por correspondência</string>
   <string name="onlineAndOfflinePlay">Jogue online e offline.</string>
   <string name="correspondenceAndUnlimited">Por correspondência e sem limites</string>
