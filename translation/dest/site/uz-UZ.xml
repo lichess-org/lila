@@ -59,6 +59,16 @@
   <string name="promoteVariation">O\'zgarishlarni qo\'llash</string>
   <string name="makeMainLine">Asosiy chiziqni yaratish</string>
   <string name="deleteFromHere">Bu yerdan o\'chirish</string>
+  <string name="forceVariation">Majburiy o\'zgartirish</string>
+  <string name="move">Yurish</string>
+  <string name="variantLoss">Yo\'qotish varianti</string>
+  <string name="variantWin">Yutuq varianti</string>
+  <string name="insufficientMaterial">Material yetarli emas</string>
+  <string name="pawnMove">Kafolatli yurish</string>
+  <string name="capture">Tasvir</string>
+  <string name="close">Yopish</string>
+  <string name="winning">Yutuq</string>
+  <string name="losing">Yo\'qotish</string>
   <string name="mistake">Xato</string>
   <string name="mistakes">Xatolar</string>
   <string name="inaccuracy">Noaniqlik</string>
