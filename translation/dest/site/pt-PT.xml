@@ -176,7 +176,7 @@
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">O ranking é atualizado a cada %s minutos</item>
+    <item quantity="one">O ranking é atualizado a cada minuto</item>
     <item quantity="other">O ranking é atualizado a cada %s minutos</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -192,7 +192,7 @@
   <string name="timeOut">Tempo esgotado</string>
   <string name="drawOfferSent">Proposta de empate enviada</string>
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
-  <string name="drawOfferAccepted">Proposta de empate aceita</string>
+  <string name="drawOfferAccepted">Proposta de empate aceite</string>
   <string name="drawOfferCanceled">Proposta de empate cancelada</string>
   <string name="whiteOffersDraw">Brancas oferecem empate</string>
   <string name="blackOffersDraw">Pretas oferecem empate</string>
@@ -214,15 +214,15 @@
   <string name="casualTournament">Amigável</string>
   <string name="ratedTournament">Por pontos</string>
   <string name="thisGameIsRated">Esta partida vale pontos</string>
-  <string name="rematch">Revanche</string>
-  <string name="rematchOfferSent">Oferta de revanche enviada</string>
+  <string name="rematch">Desforra</string>
+  <string name="rematchOfferSent">Pedido de desforra enviado</string>
   <string name="rematchOfferSentWhite">Brancas querem desforra</string>
   <string name="rematchOfferSentBlack">Negras querem desforra</string>
-  <string name="rematchOfferAccepted">Oferta de revanche aceita</string>
-  <string name="rematchOfferCanceled">Oferta de revanche cancelada</string>
-  <string name="rematchOfferDeclined">Oferta de revanche recusada</string>
-  <string name="cancelRematchOffer">Cancelar oferta de revanche</string>
-  <string name="viewRematch">Ver revanche</string>
+  <string name="rematchOfferAccepted">Pedido de desforra aceite</string>
+  <string name="rematchOfferCanceled">Pedido de desforra cancelado</string>
+  <string name="rematchOfferDeclined">Pedido de desforra recusado</string>
+  <string name="cancelRematchOffer">Cancelar pedido de desforra</string>
+  <string name="viewRematch">Ver desforra</string>
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
