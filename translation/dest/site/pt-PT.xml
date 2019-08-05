@@ -136,7 +136,7 @@
   <string name="logOut">Sair</string>
   <string name="signIn">Entrar</string>
   <string name="youNeedAnAccountToDoThat">Você precisa de uma conta para fazer isso</string>
-  <string name="signUp">Registrar</string>
+  <string name="signUp">Registar</string>
   <string name="computersAreNotAllowedToPlay">O uso de motores de cálculo não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou outros jogadores durante a partida. Além disso, a criação de contas múltiplas é fortemente desencorajada e sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
@@ -162,7 +162,7 @@
   <string name="time">Tempo</string>
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de classificação</string>
-  <string name="username">Nome de usuário</string>
+  <string name="username">Nome de utilizador</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido alterar a forma das letras. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
@@ -172,7 +172,7 @@
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinição de senha</string>
-  <string name="forgotPassword">Esqueceu sua senha?</string>
+  <string name="forgotPassword">Esqueceu a sua senha?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -388,7 +388,7 @@
     <item quantity="one">Menos de %s minuto</item>
     <item quantity="other">Menos de %s minutos</item>
   </plurals>
-  <string name="required">Requerido.</string>
+  <string name="required">Obrigatório.</string>
   <string name="openTournaments">Torneios abertos</string>
   <string name="duration">Duração</string>
   <string name="winner">Vencedor</string>
@@ -518,12 +518,12 @@
   <string name="error.provideOneCheatedGameLink">Pf. de-nos pelo menos um link para um jogo onde tenha havido batota.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">O tópico foi fechado.</string>
-  <string name="theming">Customização</string>
+  <string name="theming">Personalizar</string>
   <string name="donate">Doação</string>
   <string name="blog">Blog</string>
   <string name="questionsAndAnswers">Perguntas e Respostas</string>
   <string name="notes">Notas</string>
-  <string name="typePrivateNotesHere">Digite notas pessoais aqui</string>
+  <string name="typePrivateNotesHere">Escreva notas pessoais aqui</string>
   <string name="gameDisplay">Exibição do jogo</string>
   <string name="pieceAnimation">Animação das peças</string>
   <string name="materialDifference">Diferença material</string>
