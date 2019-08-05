@@ -837,7 +837,7 @@
     <item quantity="other">%s segundos</item>
   </plurals>
   <string name="opening">Abertura</string>
-  <string name="middlegame">Meio jogo</string>
+  <string name="middlegame">Meio-Jogo</string>
   <string name="endgame">Final de jogo</string>
   <string name="registerToSendChallenges">Por favor regista-te para enviar desafios.</string>
   <string name="youCannotChallengeX">Tu não podes desafiar %s.</string>
