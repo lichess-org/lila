@@ -16,9 +16,19 @@
     <item quantity="other">%s Membros</item>
   </plurals>
   <string name="inviteToTheStudy">Convidar para o estudo</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, convide apenas pessoas que você conhece e que querem participar ativamente neste estudo.</string>
   <string name="searchByUsername">Pesquisar por nome de utilizador</string>
   <string name="spectator">Espectador</string>
+  <string name="contributor">Colaborador</string>
+  <string name="kick">Expulsar</string>
+  <string name="leaveTheStudy">Abandonar o estudo</string>
+  <string name="youAreNowAContributor">Você agora é um colaborador</string>
+  <string name="youAreNowASpectator">Você agora é um espectador</string>
+  <string name="pgnTags">Tags PGN</string>
+  <string name="like">Gostar</string>
   <string name="newTag">Nova etiqueta</string>
+  <string name="commentThisPosition">Comentar esta posição</string>
+  <string name="commentThisMove">Comentar este movimento</string>
   <string name="open">Abrir</string>
   <string name="xBroughtToYouByY">%1$s trazido para si por %2$s</string>
   <string name="studyNotFound">Estudo não encontrado</string>
