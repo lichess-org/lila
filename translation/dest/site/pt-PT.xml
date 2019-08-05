@@ -36,7 +36,7 @@
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
   <string name="talkInChat">Por favor, seja simpático no chat!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este URL jogará contra você.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este link jogará contra você.</string>
   <string name="whiteResigned">Brancas desistiram</string>
   <string name="blackResigned">Negras desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
@@ -72,7 +72,7 @@
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecidos</string>
   <string name="database">Base de dados</string>
-  <string name="whiteDrawBlack">Brancas / Empate / Negras</string>
+  <string name="whiteDrawBlack">Brancas / Empate / Pretas</string>
   <string name="averageRatingX">Classificação média: %s</string>
   <string name="recentGames">Partidas recentes</string>
   <string name="topGames">Melhores partidas</string>
@@ -838,20 +838,20 @@
   </plurals>
   <string name="opening">Abertura</string>
   <string name="middlegame">Meio-Jogo</string>
-  <string name="endgame">Final de jogo</string>
+  <string name="endgame">Final</string>
   <string name="registerToSendChallenges">Por favor regista-te para enviar desafios.</string>
   <string name="youCannotChallengeX">Tu não podes desafiar %s.</string>
   <string name="xDoesNotAcceptChallenges">%s não aceita o desafio.</string>
   <string name="yourXRatingIsTooFarFromY">A tua pontuação em %1$s está muito longe de %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Tu não podes desafiar por causa do tua pontuação provisória %s.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s só aceita desafios de amigos.</string>
-  <string name="conditionalPremoves">Pre-movimentos condicionais</string>
+  <string name="conditionalPremoves">Movimentos antecipados condicionais</string>
   <string name="addCurrentVariation">Adicionar variante actual</string>
-  <string name="playVariationToCreateConditionalPremoves">Jogar uma variante para criar pre-movimentos condicionais</string>
-  <string name="noConditionalPremoves">Sem pre-movimentos condicionais</string>
+  <string name="playVariationToCreateConditionalPremoves">Jogar uma variante para criar movimentos antecipados condicionais</string>
+  <string name="noConditionalPremoves">Sem movimentos antecipados condicionais</string>
   <string name="playX">Jogar %s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">e guarda %s variante de pre-movimentos</item>
-    <item quantity="other">e guarda %s variantes de pre-movimentos</item>
+    <item quantity="one">e guarda %s variante de movimentos antecipados</item>
+    <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
   </plurals>
 </resources>
