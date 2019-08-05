@@ -15,6 +15,7 @@
     <item quantity="one">%s Membro</item>
     <item quantity="other">%s Membros</item>
   </plurals>
+  <string name="inviteToTheStudy">Convidar para o estudo</string>
   <string name="searchByUsername">Pesquisar por nome de utilizador</string>
   <string name="spectator">Espectador</string>
   <string name="newTag">Nova etiqueta</string>
