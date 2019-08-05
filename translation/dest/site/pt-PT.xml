@@ -228,7 +228,7 @@
   <string name="chatRoom">Sala de chat</string>
   <string name="loginToChat">Entre para conversar</string>
   <string name="youHaveBeenTimedOut">Tu foste desconectado.</string>
-  <string name="spectatorRoom">Sala do espetador</string>
+  <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
   <string name="subject">Assunto</string>
@@ -260,7 +260,7 @@
   <string name="exportGames">Exportar partidas</string>
   <string name="ratingRange">Rating entre</string>
   <plurals name="giveNbSeconds">
-    <item quantity="one">Dar %s segundos</item>
+    <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
   <string name="giveMoreTime">Dê mais tempo</string>
@@ -311,7 +311,7 @@
   <string name="ratedLessThanInPerf">Qualificação ≤ %1$s em %2$s</string>
   <string name="mustBeInTeam">Deves pertencer à equipa %s</string>
   <string name="youAreNotInTeam">Tu não estás na equipa %s</string>
-  <string name="backToGame">Retorne à partida</string>
+  <string name="backToGame">Voltar à partida</string>
   <string name="siteDescription">Xadrez online gratuito. Jogue xadrez agora numa interface simples. Sem registo, sem anúncios, sem plugins. Jogue xadrez contra computador, amigos ou adversários aleatórios.</string>
   <string name="teams">Equipas</string>
   <plurals name="nbMembers">
@@ -344,7 +344,7 @@
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
   <string name="importGame">Importar partida</string>
-  <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de conversação e link de partilha.</string>
+  <string name="importGameExplanation">Quando copias o PGN de um jogo, tens acesso a navegar pela repetição, análise de computador, sala de chat e link de partilha.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s de partidas importadas</item>
     <item quantity="other">%s partidas importadas</item>
@@ -427,7 +427,7 @@
   <string name="averageOpponent">Pontuação média oponentes</string>
   <string name="membersOnly">Somente para membros</string>
   <string name="boardEditor">Editor de tabuleiro</string>
-  <string name="setTheBoard">Partilha o tabuleiro</string>
+  <string name="setTheBoard">Definir tabuleiro</string>
   <string name="popularOpenings">Aberturas populares</string>
   <string name="startPosition">Posição inicial</string>
   <string name="clearBoard">Limpar tabuleiro</string>
