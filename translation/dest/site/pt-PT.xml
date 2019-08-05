@@ -17,7 +17,7 @@
   <string name="checkmate">Xeque-mate</string>
   <string name="stalemate">Rei afogado</string>
   <string name="white">Brancas</string>
-  <string name="black">Negras</string>
+  <string name="black">Pretas</string>
   <string name="randomColor">Cor aleatória</string>
   <string name="createAGame">Criar uma partida</string>
   <string name="whiteIsVictorious">Brancas vencem</string>
@@ -38,7 +38,7 @@
   <string name="talkInChat">Por favor, seja simpático no chat!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este link jogará contra você.</string>
   <string name="whiteResigned">Brancas desistiram</string>
-  <string name="blackResigned">Negras desistiram</string>
+  <string name="blackResigned">Pretas desistiram</string>
   <string name="whiteLeftTheGame">Brancas deixaram a partida</string>
   <string name="blackLeftTheGame">As negras abandonaram a partida</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Partilhe este link para convidar espectadores</string>
@@ -147,7 +147,7 @@
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
   <string name="timeControl">Controlo de Tempo</string>
-  <string name="realTime">Em directo</string>
+  <string name="realTime">Em tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por turno</string>
   <string name="oneDay">Um dia</string>
@@ -271,7 +271,7 @@
   <string name="proposeATakeback">Propor cancelar movimento</string>
   <string name="takebackPropositionSent">Proposta de cancelar movimento enviada</string>
   <string name="takebackPropositionDeclined">Proposta de cancelação recusada</string>
-  <string name="takebackPropositionAccepted">Proposta de cancelação aceite</string>
+  <string name="takebackPropositionAccepted">Proposta de cancelamento aceite</string>
   <string name="takebackPropositionCanceled">Proposta de voltar jogada cancelada</string>
   <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
