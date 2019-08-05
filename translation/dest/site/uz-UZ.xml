@@ -58,6 +58,7 @@
   <string name="toggleLocalEvaluation">Brouzer tahlilini yoqish</string>
   <string name="promoteVariation">O\'zgarishlarni qo\'llash</string>
   <string name="makeMainLine">Asosiy chiziqni yaratish</string>
+  <string name="deleteFromHere">Bu yerdan o\'chirish</string>
   <string name="mistake">Xato</string>
   <string name="mistakes">Xatolar</string>
   <string name="inaccuracy">Noaniqlik</string>
