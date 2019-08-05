@@ -8,5 +8,5 @@ case class Nonce(value: String) extends AnyVal with StringValue {
 
 object Nonce {
 
-  def random: Nonce = Nonce(Random.secureString(20))
+  def random: Nonce = Nonce(Random.secureString(24))
 }
