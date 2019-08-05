@@ -146,7 +146,7 @@
   <string name="minutesPerSide">Minutos por jogador</string>
   <string name="variant">Variante</string>
   <string name="variants">Variantes</string>
-  <string name="timeControl">Controlo de Tempo</string>
+  <string name="timeControl">Ritmo de Jogo</string>
   <string name="realTime">Em tempo real</string>
   <string name="correspondence">Correspondência</string>
   <string name="daysPerTurn">Dias por turno</string>
@@ -689,7 +689,7 @@
   <string name="keyShowOrHideComments">Mostrar/ocultar comentários</string>
   <string name="keyEnterOrExitVariation">Entrar/sair da variante</string>
   <string name="newTournament">Novo torneio</string>
-  <string name="tournamentHomeTitle">Torneio de xadrez apresentando diversos controles de tempo e variações</string>
+  <string name="tournamentHomeTitle">Torneio de xadrez apresentando diversos ritmos de jogo e variações</string>
   <string name="tournamentHomeDescription">Jogue xadrez em ritmo acelerado! Entre em um torneio oficial agendado ou crie seu próprio. Bala, Relâmpago, Clássico, Chess960, King of the Hill, Três Xeques e outras modalidades disponíveis para uma ilimitada diversão enxadrística.</string>
   <string name="tournamentNotFound">Torneio não encontrado</string>
   <string name="tournamentDoesNotExist">Este torneio não existe.</string>
