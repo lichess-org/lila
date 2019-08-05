@@ -55,6 +55,9 @@
   <string name="goDeeper">Yanada chuqurroq</string>
   <string name="showThreat">Tahdidni ko\'rsatish</string>
   <string name="inLocalBrowser">lokal brouzerda</string>
+  <string name="toggleLocalEvaluation">Brouzer tahlilini yoqish</string>
+  <string name="promoteVariation">O\'zgarishlarni qo\'llash</string>
+  <string name="makeMainLine">Asosiy chiziqni yaratish</string>
   <string name="mistake">Xato</string>
   <string name="mistakes">Xatolar</string>
   <string name="inaccuracy">Noaniqlik</string>
