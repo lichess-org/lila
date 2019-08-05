@@ -77,6 +77,10 @@
   <string name="recentGames">So\'nggi o\'yinlar</string>
   <string name="topGames">Eng yaxshi o\'yinlar</string>
   <string name="masterDbExplanation">%2$s yildan %3$s yilgacha bo\'lgan %1$s+ FIDEning reytingidagi p\'yinchilarning ikki milliondan ortiq o\'yinlari</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s yarim-yurishda Mot</item>
+    <item quantity="other">%s yarim-yurishlarda Mot</item>
+  </plurals>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
