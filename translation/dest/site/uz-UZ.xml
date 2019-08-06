@@ -97,8 +97,12 @@
   <string name="deleteThisImportedGame">Import qilingan o\'yinni o\'chirasizmi?</string>
   <string name="replayMode">Qayta o\'ynash rejimi</string>
   <string name="realtimeReplay">Real vaqtda</string>
+  <string name="byCPL">SantiPiyodaYo\'qotish bo\'yicha</string>
   <string name="openStudy">Ochiq ta\'lim</string>
   <string name="enable">Yoqish</string>
+  <string name="bestMoveArrow">Yaxshi yo\'l ko\'rsatmasi</string>
+  <string name="evaluationGauge">Baholash ko\'rsatkichi</string>
+  <string name="multipleLines">Bir nechta chiziqlar</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
@@ -136,6 +140,28 @@
   <string name="computersAreNotAllowedToPlay">Kompyuter va kompyuter-yordamchi o\'yinchilar uchun o\'ynashga ruhsat etilmaydi. Iltimos, o\'ynash paytida shaxmat dvigatellari, ma\'lumotlar bazalari yoki boshqa o\'yinchilar yordamidan foydalanmang. Shuni ham yodda tutingki, bir nechta hisoblarni ochish qat\'iyan taqiqlanadi va bu hisoblarni olib tashlash ya\'ni taqiqlanishiga olib keladi.</string>
   <string name="games">O\'yinlar</string>
   <string name="forum">Forum</string>
+  <string name="xPostedInForumY">%2$s mavzuda %1$s post qoldirdi</string>
+  <string name="latestForumPosts">Forum oxirgi postlari</string>
+  <string name="players">O\'yinchilar</string>
+  <string name="minutesPerSide">Har tarafda minutlar</string>
+  <string name="variant">Variant</string>
+  <string name="variants">Variantlar</string>
+  <string name="timeControl">Vaqt Nazorati</string>
+  <string name="realTime">Real vaqt</string>
+  <string name="correspondence">Yozishmalar</string>
+  <string name="daysPerTurn">Har yurishga kunlar</string>
+  <string name="oneDay">Bir kun</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s kun</item>
+    <item quantity="other">%s kunlar</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s soat</item>
+    <item quantity="other">%s soatlar</item>
+  </plurals>
+  <string name="time">Vaqt</string>
+  <string name="rating">Reyting</string>
+  <string name="ratingStats">Reyting statistikasi</string>
   <string name="password">Parol</string>
   <string name="changePassword">Parolni almashtirish</string>
   <string name="changeEmail">Emailni almashtirish</string>
