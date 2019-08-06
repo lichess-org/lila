@@ -206,6 +206,57 @@
   <string name="finished">Tugadi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
+  <string name="standard">Standart</string>
+  <string name="unlimited">Chegaralanmagan</string>
+  <string name="mode">Holat</string>
+  <string name="casual">Norasmiy</string>
+  <string name="rated">Rating uchun</string>
+  <string name="casualTournament">Norasmiy</string>
+  <string name="ratedTournament">Rating uchun</string>
+  <string name="thisGameIsRated">Ushbu o\'yin raytingli</string>
+  <string name="rematch">Qayta o\'ynash</string>
+  <string name="rematchOfferSent">Qayta o\'ynash taklifi yuborildi</string>
+  <string name="rematchOfferSentWhite">Oqlar qayta o\'ynashni taklif qilishdi</string>
+  <string name="rematchOfferSentBlack">Qoralar qayta o\'ynashni taklif qilishdi</string>
+  <string name="rematchOfferAccepted">Qayta o\'ynash taklifi qabul qilindi</string>
+  <string name="rematchOfferCanceled">Qayta o\'ynash taklifi bekor qilindi</string>
+  <string name="rematchOfferDeclined">Qayta o\'ynash taklifi inkor qilindi</string>
+  <string name="cancelRematchOffer">Qayta o\'ynash taklifi bekor qilindi</string>
+  <string name="viewRematch">Qayta o\'yinni ko\'rish</string>
+  <string name="play">O\'yin</string>
+  <string name="inbox">Kelgan Xatlar</string>
+  <string name="chatRoom">Chat xonalari</string>
+  <string name="loginToChat">Chatga kirish</string>
+  <string name="youHaveBeenTimedOut">Siz ma\'lum bir vaqtga qadar chegaralandingiz.</string>
+  <string name="spectatorRoom">Kuzatuvchi xonasi</string>
+  <string name="composeMessage">Xat yuborish</string>
+  <string name="noNewMessages">Yangi xabarlar yo‘q</string>
+  <string name="subject">Mavzu</string>
+  <string name="recipient">Oluvchi</string>
+  <string name="send">Jo\'natish</string>
+  <string name="incrementInSeconds">Sekundlarda oshirish</string>
+  <string name="freeOnlineChess">Bepul online shahmat</string>
+  <string name="spectators">Kuzatuvchilar:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s reytingda</item>
+    <item quantity="other">%s reytingda</item>
+  </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s yutuq</item>
+    <item quantity="other">%s yutuqlar</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s mag\'lubiyat</item>
+    <item quantity="other">%s mag\'lubiyatlar</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s durrang</item>
+    <item quantity="other">%s durranglar</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s o\'yinlar</item>
+    <item quantity="other">%s o\'yinlar</item>
+  </plurals>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
