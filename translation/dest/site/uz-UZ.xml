@@ -277,6 +277,53 @@
   <string name="continueFromHere">Shu joydan davom etish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s import qilingan o\'yin</item>
+    <item quantity="other">%s import qilingan o\'yinlar</item>
+  </plurals>
+  <string name="thisIsAChessCaptcha">Bu shahmat CAPTCHA si.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Doska ustida bosib yurishni amalga oshiring va o\'zingizni inson ekanligingizni tasdiqlang.</string>
+  <string name="captcha.fail">Iltimos shahmat captcha sini yeching.</string>
+  <string name="notACheckmate">Shoh mot bo\'lmadi</string>
+  <string name="whiteCheckmatesInOneMove">Oqlar bitta yurishda mot</string>
+  <string name="blackCheckmatesInOneMove">Qoralar bitta yurishda mot</string>
+  <string name="retry">Qayta urinish</string>
+  <string name="reconnecting">Qaytadan ulanmoqda</string>
+  <string name="onlineFriends">Online do\'stlar</string>
+  <string name="noFriendsOnline">Online do\'stlar yo\'q</string>
+  <string name="findFriends">Do\'stlarni topish</string>
+  <string name="favoriteOpponents">Favorit raqiblar</string>
+  <string name="follow">Kuzatmoq</string>
+  <string name="following">Kuzatmoqda</string>
+  <string name="unfollow">Kuzatishni To\'xtatish</string>
+  <string name="block">Bloklash</string>
+  <string name="blocked">Bloklangan</string>
+  <string name="unblock">Blokdan chiqarish</string>
+  <string name="followsYou">Sizni kuzatayabdi</string>
+  <string name="xStartedFollowingY">%1$s o\'yinchi %2$s ni kuzatishni boshladi</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s kuzatuvchi</item>
+    <item quantity="other">%s kuzatuvchilar</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s kuzatayabdi</item>
+    <item quantity="other">%s kuzatayabdi</item>
+  </plurals>
+  <string name="more">Ko\'proq</string>
+  <string name="memberSince">A\'zo bo\'lgan vaqti</string>
+  <string name="lastSeenActive">Faollar %s</string>
+  <string name="challengeToPlay">Shaxmat o\'ynashga taklif qilish</string>
+  <string name="player">O\'yinchi</string>
+  <string name="list">Ro‘yxat</string>
+  <string name="graph">Grafik</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s minutdan kam</item>
+    <item quantity="other">%s minutlardan kam</item>
+  </plurals>
+  <string name="required">Talab qilinadi.</string>
+  <string name="openTournaments">Ochiq turnir</string>
+  <string name="duration">Davomiyligi</string>
+  <string name="winner">G\'olib</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
