@@ -215,4 +215,11 @@
     <item quantity="other">%s sekundlar</item>
   </plurals>
   <string name="opening">Debyutlar</string>
+  <string name="middlegame">Mittelshpil</string>
+  <string name="endgame">O\'yin oxiri</string>
+  <string name="registerToSendChallenges">Iltimos o\'yinga chorlash uchun ro\'yhatdan o\'ting.</string>
+  <string name="youCannotChallengeX">Siz %s bilan bellasha olmaysiz.</string>
+  <string name="xDoesNotAcceptChallenges">%s bellashishni qabul qilmadi.</string>
+  <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s taxminiy belgilangan reyting bilan bellashib bo\'lmaydi.</string>
 </resources>
