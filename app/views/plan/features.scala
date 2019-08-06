@@ -34,7 +34,8 @@ object features {
               "Correspondence draughts with conditional premoves"
             ),
             tr(check)(
-              a(href := routes.Page.variantHome)("Draughts variants Frisian, Antidraughts, Breakthrough, Frysk!")
+              "Standard draughts and ",
+              a(href := routes.Page.variantHome)("the variants Frisian, Antidraughts, Breakthrough, Frysk!")
             ),
             tr(custom("30 per day"))(
               s"Deep $engineName server analysis"
