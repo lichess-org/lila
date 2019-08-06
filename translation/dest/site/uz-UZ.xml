@@ -162,6 +162,11 @@
   <string name="time">Vaqt</string>
   <string name="rating">Reyting</string>
   <string name="ratingStats">Reyting statistikasi</string>
+  <string name="username">Foydalanuvchi ismi</string>
+  <string name="usernameOrEmail">Foydalanuvchi nomi yoki emaili</string>
+  <string name="changeUsername">Foydalanuvchi nomini almashtirish</string>
+  <string name="changeUsernameNotSame">Faqat harflar registrlari o\'zgarishi mumkin. Masalan, \"lobarpardaboyeva\" dan \"LobarPardaboyeva\"ga.</string>
+  <string name="changeUsernameDescription">Foydalanuvchi nomini almashtiring. Bu faqat bir marta amalga oshirilishi mumkin va faqat harflar registrlarini almashtirishga imkon bor.</string>
   <string name="password">Parol</string>
   <string name="changePassword">Parolni almashtirish</string>
   <string name="changeEmail">Emailni almashtirish</string>
@@ -169,4 +174,25 @@
   <string name="passwordReset">Parolni tiklash</string>
   <string name="forgotPassword">Parolni unutdingizmi?</string>
   <string name="rank">Rank</string>
+  <string name="rankX">Rank: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Rank har bir daqiqada almashtirildi</item>
+    <item quantity="other">Rank har bir %s minutlarda almashtirildi</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s boshqotirma</item>
+    <item quantity="other">%s boshqotirmalar</item>
+  </plurals>
+  <string name="gamesPlayed">O\'ynalgan o\'yinlar</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">siz o\'ynagan o\'yinlar - %s</item>
+    <item quantity="other">siz o\'ynagan o\'yinlar - %s</item>
+  </plurals>
+  <string name="cancel">Bekor</string>
+  <string name="timeOut">Vaqt tugadi</string>
+  <string name="drawOfferSent">Durrang uchun taklif yuborildi</string>
+  <string name="drawOfferDeclined">Durrang taklifi inkor qilindi</string>
+  <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
+  <string name="drawOfferCanceled">Durrang taklifi bekor qilindi</string>
+  <string name="whiteOffersDraw">Oqlar durrang taklif qilishdi</string>
 </resources>
