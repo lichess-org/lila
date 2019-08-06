@@ -86,6 +86,10 @@
     <item quantity="other">%s yarim yurishda keyingi qo\'lga olish yoki piyoda yurishi (50 ta yurishni 0 gacha olib borishgacha bo\'lgan masofa)</item>
   </plurals>
   <string name="noGameFound">O\'yin topilmadi</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menusidan o\'yinlarni yuklash kerakdir?</string>
+  <string name="openingExplorer">Sharhlovchini ochish</string>
+  <string name="xOpeningExplorer">%s sharhlovchini ochish</string>
+  <string name="winPreventedBy50MoveRule">50 yurish qoidasiga asosan mag\'lublik oldi olindi</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
