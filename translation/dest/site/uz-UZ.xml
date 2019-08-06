@@ -89,7 +89,14 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Balkim sozlamalar menusidan o\'yinlarni yuklash kerakdir?</string>
   <string name="openingExplorer">Sharhlovchini ochish</string>
   <string name="xOpeningExplorer">%s sharhlovchini ochish</string>
-  <string name="winPreventedBy50MoveRule">50 yurish qoidasiga asosan mag\'lublik oldi olindi</string>
+  <string name="winPreventedBy50MoveRule">50 yurish qoidasiga asosan g\'alabaga to\'sqinlik qilindi</string>
+  <string name="lossSavedBy50MoveRule">Mag\'lubiyatdan 50 yurish qoidasaga asosan saqlanildi</string>
+  <string name="allSet">Xammasi yaxshi!</string>
+  <string name="importPgn">PGN ni import qilish</string>
+  <string name="delete">O\'chirish</string>
+  <string name="deleteThisImportedGame">Import qilingan o\'yinni o\'chirasizmi?</string>
+  <string name="replayMode">Qayta o\'ynash rejimi</string>
+  <string name="realtimeReplay">Real vaqtda</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
