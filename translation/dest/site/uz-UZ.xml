@@ -195,4 +195,24 @@
   <string name="drawOfferAccepted">Durrang taklifi qabul qilindi</string>
   <string name="drawOfferCanceled">Durrang taklifi bekor qilindi</string>
   <string name="whiteOffersDraw">Oqlar durrang taklif qilishdi</string>
+  <string name="blackOffersDraw">Qoralar durrang taklif qilishdi</string>
+  <string name="whiteDeclinesDraw">Oqlar durrang taklifini inkor qilishdi</string>
+  <string name="blackDeclinesDraw">Qoralar durrang taklifini inkor qilishdi</string>
+  <string name="yourOpponentOffersADraw">Sizni sherigingiz durrang taklif qilayabdi</string>
+  <string name="accept">Roziman</string>
+  <string name="decline">Inkor</string>
+  <string name="playingRightNow">Xozirni o\'zidayoq o\'ynash</string>
+  <string name="eventInProgress">Xozirni o\'zidayoq o\'ynash</string>
+  <string name="finished">Tugadi</string>
+  <string name="abortGame">O\'yinni bekor qilish</string>
+  <string name="gameAborted">O\'yin bekor qilindi</string>
+  <string name="doItAgain">Buni yana takrorlash</string>
+  <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
+  <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
+  <string name="advantage">Ustunliklar</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s sekund</item>
+    <item quantity="other">%s sekundlar</item>
+  </plurals>
+  <string name="opening">Debyutlar</string>
 </resources>
