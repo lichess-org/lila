@@ -83,7 +83,7 @@ function engineName(ctrl: CevalCtrl): VNode[] {
   ];
 }
 
-const serverNodes = 4e6;
+const serverNodes = 5e6;
 
 export function getBestEval(evs: NodeEvals): Eval | undefined {
   const serverEv = evs.server,

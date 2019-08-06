@@ -885,7 +885,13 @@ export default class AnalyseCtrl {
   }
 
   hasFullComputerAnalysis = (): boolean => {
-    return Object.keys(this.mainline[0].eval || {}).length > 0;
+    for (let i = 0; i < this.mainline.length - 2; i++) {
+      const skip = i > 0 && this.mainline[i].ply === this.mainline[i - 1].ply;
+      const e = this.mainline[i].eval;
+      if (!skip && (!e || !Object.keys(e).length))
+        return false;
+    }
+    return true;
   }
 
   private resetAutoShapes() {
