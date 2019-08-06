@@ -222,4 +222,14 @@
   <string name="xDoesNotAcceptChallenges">%s bellashishni qabul qilmadi.</string>
   <string name="yourXRatingIsTooFarFromY">Sizning %1$s reytingingiz %2$s dan ancha uzoq.</string>
   <string name="cannotChallengeDueToProvisionalXRating">%s taxminiy belgilangan reyting bilan bellashib bo\'lmaydi.</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s ta do\'stlardan qabul qilingan bellashuvlar.</string>
+  <string name="conditionalPremoves">Avvaldan shartli yurishlar</string>
+  <string name="addCurrentVariation">Joriy yurishlarni qo\'sh</string>
+  <string name="playVariationToCreateConditionalPremoves">Shartli avvaldan yurishlarni yaratish uchun variatsiyani o\'ynash</string>
+  <string name="noConditionalPremoves">Shartli avvaldan yurish emas</string>
+  <string name="playX">%s ni o\'ynang</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">va %s avvaldan yurishni saqlash</item>
+    <item quantity="other">va %s avvaldan yurishlarni saqlash</item>
+  </plurals>
 </resources>
