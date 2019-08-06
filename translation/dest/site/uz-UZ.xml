@@ -97,6 +97,8 @@
   <string name="deleteThisImportedGame">Import qilingan o\'yinni o\'chirasizmi?</string>
   <string name="replayMode">Qayta o\'ynash rejimi</string>
   <string name="realtimeReplay">Real vaqtda</string>
+  <string name="openStudy">Ochiq ta\'lim</string>
+  <string name="enable">Yoqish</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
