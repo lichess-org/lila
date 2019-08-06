@@ -81,6 +81,11 @@
     <item quantity="one">%s yarim yurishda Mot</item>
     <item quantity="other">%s yarim-yurishlarda Mot</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">%s yarim yurishlarda keyingi qo\'lga olish yoki piyoda yurishi (50 ta yurishni 0 gacha olib borishgacha bo\'lgan masofa)</item>
+    <item quantity="other">%s yarim yurishda keyingi qo\'lga olish yoki piyoda yurishi (50 ta yurishni 0 gacha olib borishgacha bo\'lgan masofa)</item>
+  </plurals>
+  <string name="noGameFound">O\'yin topilmadi</string>
   <string name="cpus">Markaziy protsessorlar soni</string>
   <string name="memory">Xotira</string>
   <string name="infiniteAnalysis">Cheksiz vaqtli tahlil</string>
