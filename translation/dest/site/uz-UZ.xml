@@ -257,6 +257,26 @@
     <item quantity="one">%s o\'yinlar</item>
     <item quantity="other">%s o\'yinlar</item>
   </plurals>
+  <string name="exportGames">O\'yinlarni eksport qilish</string>
+  <string name="ratingRange">Reyting oralig\'i</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s sekund berish</item>
+    <item quantity="other">%s sekundlar berish</item>
+  </plurals>
+  <string name="giveMoreTime">Takroran berish</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Ushbu o\'yinchi shahmat kompyuter yordamchisini ishlatayabdi</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ushbu o\'yinchi o\'zinining reytingini suniy holda oshirayabdi/kamaytirayabdi</string>
+  <string name="openingExplorerAndTablebase">Sharhni ochish</string>
+  <string name="takeback">Ortga yurish</string>
+  <string name="proposeATakeback">Ortga qaytishni taklif qilish</string>
+  <string name="takebackPropositionSent">Ortga qaytish jo\'natildi</string>
+  <string name="takebackPropositionDeclined">Ortga qaytish inkor qilindi</string>
+  <string name="takebackPropositionAccepted">Ortga qaytish qabul qilindi</string>
+  <string name="takebackPropositionCanceled">Ortga qaytish bekor qilindi</string>
+  <string name="yourOpponentProposesATakeback">Sizning sherigingiz ortga qaytishni taklif qilayabdi</string>
+  <string name="continueFromHere">Shu joydan davom etish</string>
+  <string name="importGame">O\'yinni import qilish</string>
+  <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
