@@ -422,6 +422,8 @@
   <string name="xVsYinZ">%1$s o\'yinchi bilan %2$s o\'yinchi %3$s da musobaqalashayabdi</string>
   <string name="timeline">Vaqt chizig\'i</string>
   <string name="starting">Boshlanadi:</string>
+  <string name="allInformationIsPublicAndOptional">Barcha xabarlar ochiq va ixtiyoriy.</string>
+  <string name="yourCityRegionOrDepartment">Sizning shaharingiz, viloyatingiz.</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
