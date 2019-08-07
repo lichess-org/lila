@@ -25,4 +25,9 @@
   <string name="theQueen">Farzin yoki Malika</string>
   <string name="queenCombinesRookAndBishop">Farzin = to\'ra + fil</string>
   <string name="queenIntro">Shahmat eng kuchli sipohiga kiradi! Qirolicha!</string>
+  <string name="queenComplete">Tabriklaymiz! Farzinning sirlari endi siz uchun ma\'lum.</string>
+  <string name="theKing">Shoh</string>
+  <string name="theMostImportantPiece">Eng asosiy sipoh</string>
+  <string name="kingIntro">Siz shohsiz. Agar siz o\'yin davomida yiqilsangiz, o\'yinda mag\'lub bo\'lgan bo\'lasiz.</string>
+  <string name="theKingIsSlow">Qirol bitta bitta yuradi.</string>
 </resources>
