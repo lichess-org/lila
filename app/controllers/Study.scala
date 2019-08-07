@@ -12,7 +12,7 @@ import lidraughts.common.paginator.{ Paginator, PaginatorJson }
 import lidraughts.study.JsonView.JsData
 import lidraughts.study.Study.WithChapter
 import lidraughts.study.{ Chapter, Order, Study => StudyModel }
-import lidraughts.tree.Node.partitionTreeJsonWriter
+import lidraughts.tree.Node.partitionTreeFullUciJsonWriter
 import views._
 
 object Study extends LidraughtsController {
@@ -183,7 +183,7 @@ object Study extends LidraughtsController {
   } yield WithChapter(study, chapter) -> JsData(
     study = studyJson,
     analysis = baseData.add(
-      "treeParts" -> partitionTreeJsonWriter.writes {
+      "treeParts" -> partitionTreeFullUciJsonWriter.writes {
         lidraughts.study.TreeBuilder(chapter.root, chapter.setup.variant)
       }.some
     ).add("analysis" -> analysis.map { lidraughts.study.ServerEval.toJson(chapter, _) })
@@ -294,7 +294,7 @@ object Study extends LidraughtsController {
               val pov = UserAnalysis.makePov(initialFen, setup.variant)
               val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
               val analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeJsonWriter.writes {
+                "treeParts" -> partitionTreeFullUciJsonWriter.writes {
                   lidraughts.study.TreeBuilder.makeRoot(chapter.root)
                 }
               )

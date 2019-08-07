@@ -236,15 +236,24 @@ object Node {
 
   @inline implicit def toPimpedJsObject(jo: JsObject) = new lidraughts.base.PimpedJsObject(jo)
 
-  def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
+  def makeNodeJsonWriter(alwaysChildren: Boolean, fullUci: Boolean = false): Writes[Node] = Writes { node =>
     import node._
     try {
+      def moveUci(m: Uci.WithSan) = {
+        val ghosts = Forsyth.countGhosts(fen)
+        val uciFull = m.uci.uci
+        println(s"Writing $fen ($ghosts ghosts) with fullUci = $fullUci: $uciFull")
+        if (fullUci && ghosts == uciFull.length / 2 - 1) uciFull
+        if (!fullUci && ghosts != 0) m.uci.shortUci
+        else uciFull
+      }
       val comments = node.comments.list.flatMap(_.removeMeta)
+      val writeChildren = if (fullUci) fullUciNodeJsonWriter else defaultNodeJsonWriter
       Json.obj(
         "ply" -> ply,
         "fen" -> fen
       ).add("id", idOption.map(_.toString))
-        .add("uci", moveOption.map(m => if (Forsyth.countGhosts(fen) != 0) m.uci.shortUci else m.uci.uci))
+        .add("uci", moveOption.map(moveUci))
         .add("san", moveOption.map(_.san))
         .add("eval", eval.filterNot(_.isEmpty))
         .add("comments", if (comments.nonEmpty) Some(comments) else None)
@@ -268,7 +277,7 @@ object Node {
         .add("alternatives", alternatives)
         .add("clock", clock)
         .add("comp", comp)
-        .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
+        .add("children", if (alwaysChildren || children.nonEmpty) Some(children.map(writeChildren.writes)) else None)
     } catch {
       case e: StackOverflowError =>
         e.printStackTrace
@@ -279,12 +288,24 @@ object Node {
   implicit val defaultNodeJsonWriter: Writes[Node] =
     makeNodeJsonWriter(alwaysChildren = true)
 
+  val fullUciNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = true, fullUci = true)
+
   val minimalNodeJsonWriter: Writes[Node] =
     makeNodeJsonWriter(alwaysChildren = false)
+
+  val minimalNodeFullUciJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = false, fullUci = true)
 
   val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
     JsArray {
       node.mainlineNodeList.map(minimalNodeJsonWriter.writes)
+    }
+  }
+
+  val partitionTreeFullUciJsonWriter: Writes[Node] = Writes { node =>
+    JsArray {
+      node.mainlineNodeList.map(minimalNodeFullUciJsonWriter.writes)
     }
   }
 
