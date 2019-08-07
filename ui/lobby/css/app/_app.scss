@@ -50,4 +50,12 @@
       color: $c-accent;
     }
   }
+
+  .gamesFiltered {
+    color: $c-accent;
+    @include transition();
+    &:hover {
+      color: $c-accent-dim;
+    }
+  }
 }

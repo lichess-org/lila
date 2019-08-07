@@ -42,6 +42,8 @@ $c-secondary-over: #fff; /* text over secondary background */
 
 /* Accent: orange */
 $c-accent: hsl(22, 100%, 42%);
+$c-accent-dim: c-dimmer($c-accent);
+$c-accent-clear: c-clearer($c-accent);
 $c-accent-over: #fff; /* text over accent background */
 
 /* Brag: gold */
