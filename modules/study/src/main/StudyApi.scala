@@ -22,6 +22,7 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
     tagsFixer: ChapterTagsFixer,
+    uciFixer: ChapterUciFixer,
     explorerGameHandler: ExplorerGame,
     lightUser: lidraughts.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
@@ -51,7 +52,7 @@ final class StudyApi(
 
   private def fetchAndFixChapter(id: Chapter.Id): Fu[Option[Chapter]] =
     chapterRepo.byId(id) flatMap {
-      _ ?? { c => tagsFixer(c, Pref.default.draughtsResult) map some }
+      _ ?? { c => tagsFixer(c, Pref.default.draughtsResult) flatMap { c2 => uciFixer(c2) map some } }
     }
 
   def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {

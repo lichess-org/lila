@@ -44,6 +44,11 @@ case class Node(
       copy(children = newChildren)
     }
 
+  def withChildrenAndFen(f: (Children, FEN) => Option[Children]) =
+    f(children, fen) map { newChildren =>
+      copy(children = newChildren)
+    }
+
   def withoutChildren = copy(children = Node.emptyChildren)
 
   def addChild(child: Node) = copy(children = children addNode child)
@@ -204,6 +209,12 @@ object Node {
     def updateAllWith(op: Node => Node): Children = Children {
       nodes.map { n =>
         op(n.copy(children = n.children.updateAllWith(op)))
+      }
+    }
+
+    def updateAllWithFen(op: (Node, FEN) => Node, fen: FEN): Children = Children {
+      nodes.map { n =>
+        op(n.copy(children = n.children.updateAllWithFen(op, n.fen)), fen)
       }
     }
 
