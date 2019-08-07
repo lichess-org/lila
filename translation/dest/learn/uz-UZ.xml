@@ -22,6 +22,6 @@
   <string name="bishopIntro">Keyin biz filni qanday harakatlar qila olishini o\'rganamiz!</string>
   <string name="youNeedBothBishops">Bitta yorqin katakdagi fil, bitta to\'q rangdagi fil. Sizga ikkalasi ham kerak!</string>
   <string name="bishopComplete">Tabriklaymiz! Siz filni boshqarishni o\'rganib oldingiz.</string>
-  <string name="theQueen">Farzin</string>
+  <string name="theQueen">Farzin yoki Malika</string>
   <string name="queenCombinesRookAndBishop">Farzin = to\'ra + fil</string>
 </resources>
