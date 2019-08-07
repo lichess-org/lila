@@ -10,4 +10,18 @@
   <string name="play">o\'yna!</string>
   <string name="chessPieces">Shahmat sipohlari</string>
   <string name="theRook">To\'ra</string>
+  <string name="itMovesInStraightLines">To\'g\'ri chiziq bo\'yicha harakat qiladi</string>
+  <string name="rookIntro">To\'ra kuchli sipoh. Siz unga komanda berishga tayyormisiz?</string>
+  <string name="rookGoal">To\'rani bosing va yulduzchaga olib boring!</string>
+  <string name="grabAllTheStars">Xamma yulduzchalarni terib chiqing!</string>
+  <string name="theFewerMoves">Qancha kam yurish qilsangiz shuncha ko\'p bal olasiz!</string>
+  <string name="useTwoRooks">Ishni tezlashtirish uchun ikkita to\'radan foydalaning!</string>
+  <string name="rookComplete">Tabriklar! Siz to\'rani muvaffaqiyatli o\'zlashtirdingiz.</string>
+  <string name="theBishop">Fil (Sham)</string>
+  <string name="itMovesDiagonally">U diagonal bo\'yicha yuradi</string>
+  <string name="bishopIntro">Keyin biz filni qanday harakatlar qila olishini o\'rganamiz!</string>
+  <string name="youNeedBothBishops">Bitta yorqin katakdagi fil, bitta to\'q rangdagi fil. Sizga ikkalasi ham kerak!</string>
+  <string name="bishopComplete">Tabriklaymiz! Siz filni boshqarishni o\'rganib oldingiz.</string>
+  <string name="theQueen">Farzin</string>
+  <string name="queenCombinesRookAndBishop">Farzin = to\'ra + fil</string>
 </resources>
