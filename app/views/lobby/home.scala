@@ -110,7 +110,7 @@ object home {
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               // userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              (userTimeline.size > 0) option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
             )
           } getOrElse div(cls := "about-side")(
             ctx.blind option h2("About"),
