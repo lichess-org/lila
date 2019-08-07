@@ -316,6 +316,9 @@
   <string name="reset">Qayta o\'qish</string>
   <string name="apply">Jo\'natish</string>
   <string name="leaderboard">Sardorlar ro\'yhati</string>
+  <string name="pasteTheFenStringHere">FEN matnini shu yerga qo\'ying</string>
+  <string name="pasteThePgnStringHere">PGN matnini shu yerga qo\'ying</string>
+  <string name="fromPosition">Ushbu joyidan</string>
   <string name="continueFromHere">Shu joydan davom etish</string>
   <string name="importGame">O\'yinni import qilish</string>
   <string name="importGameExplanation">PGN o\'yinni qo\'ying va qayta o\'ynashlar, kompyuter tahlili, o\'yin chati va ulashish linkiga ega bo\'ling.</string>
@@ -378,6 +381,8 @@
   <string name="fewerPlayers">Agar siz kirish shartlarini sozlagan bo\'lsangiz, sizni turniringiz kam kishidan iborat bo\'ladi.</string>
   <string name="showAdvancedSettings">Qo\'shimcha shartlarni namoyish qilish</string>
   <string name="join">Qo\'shilish</string>
+  <string name="editProfile">Profilni o\'zgartirish</string>
+  <string name="firstName">Berilgan nom</string>
   <string name="yourPuzzleRatingX">Sizning boshqotirmalardagi reytingingiz: %s</string>
   <string name="findTheBestMoveForWhite">Oqlar uchun eng yaxshi yo\'lni toping.</string>
   <string name="findTheBestMoveForBlack">Qoralar uchun eng yaxshi yo\'lni toping.</string>
