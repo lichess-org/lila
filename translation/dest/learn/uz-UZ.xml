@@ -24,4 +24,5 @@
   <string name="bishopComplete">Tabriklaymiz! Siz filni boshqarishni o\'rganib oldingiz.</string>
   <string name="theQueen">Farzin yoki Malika</string>
   <string name="queenCombinesRookAndBishop">Farzin = to\'ra + fil</string>
+  <string name="queenIntro">Shahmat eng kuchli sipohiga kiradi! Qirolicha!</string>
 </resources>
