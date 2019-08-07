@@ -424,6 +424,30 @@
   <string name="starting">Boshlanadi:</string>
   <string name="allInformationIsPublicAndOptional">Barcha xabarlar ochiq va ixtiyoriy.</string>
   <string name="yourCityRegionOrDepartment">Sizning shaharingiz, viloyatingiz.</string>
+  <string name="biographyDescription">Oz\'ingiz haqingizda gapirib bering, o\'zingizni qiziqishlaringiz, sizga shahmatda nima yoqadi, sizning yoqtirgan debyutlaringiz, siz yoqtirgan o\'yinchilar, ...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">Maksimum: %s belgi.</item>
+    <item quantity="other">Maksimum: %s belgilar.</item>
+  </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s blok</item>
+    <item quantity="other">%s bloklar</item>
+  </plurals>
+  <string name="listBlockedPlayers">Siz bloklagan o\'yinchilar ro\'yhati</string>
+  <string name="human">Odam</string>
+  <string name="computer">Kompyuter</string>
+  <string name="side">Tomon</string>
+  <string name="clock">Soat</string>
+  <string name="unauthorizedError">Ruhsat berilmagan huquq.</string>
+  <string name="noInternetConnection">Internet bog\'lanishi yo\'q. Siz bemalol menudan offline o\'ynashni tanlashingiz mumkin.</string>
+  <string name="connectedToLichess">Siz xozirda lichess.org ga bog\'langansiz</string>
+  <string name="signedOut">Siz tizimdan chiqdingiz</string>
+  <string name="loginSuccessful">Siz tizimga kirdingiz</string>
+  <string name="playOnTheBoardOffline">Doska ustida</string>
+  <string name="playOfflineComputer">Kompyuter</string>
+  <string name="opponent">Sherik</string>
+  <string name="learnMenu">O\'rganish</string>
+  <string name="community">Jamoa</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
