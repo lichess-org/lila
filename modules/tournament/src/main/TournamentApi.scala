@@ -5,7 +5,6 @@ import akka.pattern.{ ask, pipe }
 import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
 
 import actorApi._
 import lidraughts.common.Debouncer
@@ -72,7 +71,7 @@ final class TournamentApi(
       bus.publish(lidraughts.hub.actorApi.slack.Warning(msg), 'slack)
     }
     logger.info(s"Create $tour")
-    TournamentRepo.insert(tour) >> join(tour.id, me, tour.password, getUserTeamIds) inject tour
+    TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, getUserTeamIds) inject tour
   }
 
   private[tournament] def createFromPlan(plan: Schedule.Plan): Funit = {
@@ -200,27 +199,31 @@ final class TournamentApi(
     case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
 
-  private def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Funit =
-    SequencingWithFeedback(tourId)(TournamentRepo.enterableById) { tour =>
+  def join(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Unit = {
+    Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
       if (tour.password == p) {
         verdicts(tour, me.some, getUserTeamIds) flatMap {
           _.accepted ?? {
             pause.canJoin(me.id, tour) ?? {
-              withdrawOtherTournaments(tour.id, me.id) >>
-                PlayerRepo.join(tour.id, me, tour.perfLens) >>
-                updateNbPlayers(tour.id) >>- {
-                  socketReload(tour.id)
-                  publish()
-                }
+              PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+                withdrawOtherTournaments(tour.id, me.id)
+                socketReload(tour.id)
+                publish()
+              }
             }
           }
         }
       } else fuccess(socketReload(tour.id))
     }
+  }
 
-  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Fu[Boolean] =
-    join(tourId, me, p, getUserTeamIds) >>
-      PlayerRepo.find(tourId, me.id).map { _ exists (_.active) }
+  def joinWithResult(tourId: Tournament.ID, me: User, p: Option[String], getUserTeamIds: User => Fu[TeamIdList]): Fu[Boolean] = {
+    join(tourId, me, p, getUserTeamIds)
+    // atrocious hack, because joining is fire and forget
+    akka.pattern.after(500 millis, system.scheduler) {
+      PlayerRepo.find(tourId, me.id) map { _ ?? (_.active) }
+    }
+  }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =
     cached ranking tour map {
@@ -232,17 +235,20 @@ final class TournamentApi(
   private def updateNbPlayers(tourId: Tournament.ID) =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
-  private def withdrawOtherTournaments(tourId: Tournament.ID, userId: User.ID): Funit = for {
-    tourIds <- TournamentRepo tourIdsToWithdrawWhenEntering tourId
-    existing <- PlayerRepo.filterExists(tourIds, userId)
-    _ <- existing.map { withdraw(_, userId, isPause = false) }.sequenceFu
-  } yield ()
+  private def withdrawOtherTournaments(tourId: Tournament.ID, userId: User.ID): Unit =
+    TournamentRepo tourIdsToWithdrawWhenEntering tourId foreach {
+      PlayerRepo.filterExists(_, userId) foreach {
+        _ foreach {
+          withdraw(_, userId, isPause = false)
+        }
+      }
+    }
 
-  def selfPause(tourId: Tournament.ID, userId: User.ID): Funit =
+  def selfPause(tourId: Tournament.ID, userId: User.ID): Unit =
     withdraw(tourId, userId, isPause = true)
 
-  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean): Funit =
-    SequencingWithFeedback(tourId)(TournamentRepo.enterableById) {
+  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean): Unit = {
+    Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
         PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
       case tour if tour.isStarted => for {
@@ -255,6 +261,7 @@ final class TournamentApi(
       }
       case _ => funit
     }
+  }
 
   def withdrawAll(user: User): Unit =
     TournamentRepo.nonEmptyEnterableIds foreach {
@@ -443,20 +450,18 @@ final class TournamentApi(
       }
     }
 
+  private def sequence(tourId: Tournament.ID)(work: => Funit): Unit = {
+    sequencers ! Tell(tourId, Sequencer work work)
+  }
+
   private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit = {
-    sequencers ! Tell(tourId, Sequencer work doRun(tourId, fetch, run))
-  }
-
-  private def SequencingWithFeedback(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Funit = {
-    val promise = Promise[Unit]()
-    sequencers ! Tell(tourId, Sequencer work (doRun(tourId, fetch, run), promise.some))
-    promise.future
-  }
-
-  private def doRun(tourId: Tournament.ID, fetch: Tournament.ID => Fu[Option[Tournament]], run: Tournament => Funit) =
-    fetch(tourId) flatMap {
-      _.fold(fufail[Unit](s"Can't run sequenced operation on missing tournament $tourId"))(run)
+    sequence(tourId) {
+      fetch(tourId) flatMap {
+        case Some(t) => run(t)
+        case None => fufail(s"Can't run sequenced operation on missing tournament $tourId")
+      }
     }
+  }
 
   private def socketReload(tourId: Tournament.ID): Unit = sendTo(tourId, Reload)
 

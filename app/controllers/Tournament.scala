@@ -174,11 +174,10 @@ object Tournament extends LidraughtsController {
   }
 
   def pause(id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(repo byId id) { tour =>
-      env.api.selfPause(tour.id, me.id) inject {
-        if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
-        else Redirect(routes.Tournament.show(tour.id))
-      }
+    OptionResult(repo byId id) { tour =>
+      env.api.selfPause(tour.id, me.id)
+      if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
+      else Redirect(routes.Tournament.show(tour.id))
     }
   }
 
