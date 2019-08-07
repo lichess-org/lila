@@ -51,7 +51,7 @@
     }
   }
 
-  .toggle[filtered='yes'] {
+  .gamesFiltered {
     color: $c-accent;
     @include transition();
     &:hover {
