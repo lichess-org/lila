@@ -40,5 +40,26 @@
   }
   &__palantir {
     padding: 0 .6em;
+    background: $c-primary;
+    color: $c-primary-over;
+    animation: glowing 1.5s ease-in-out infinite;
+    &:hover {
+      background: $c-bad !important;
+      color: $c-bad-over !important;
+    }
+  }
+  .pal-off {
+    background: transparent;
+    color: $c-font;
+    animation: none;
+    &:hover {
+      background: $c-primary !important;
+      color: $c-primary-over !important;
+    }
+  }
+  .pal-on {
+    background: $c-good;
+    color: $c-good-over;
+    animation: none;
   }
 }

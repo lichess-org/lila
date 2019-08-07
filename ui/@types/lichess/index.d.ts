@@ -68,6 +68,10 @@ interface LichessSpeech {
   step(s: { san?: San }, cut: boolean): void;
 }
 
+interface PalantirOpts {
+  uid: string;
+  redraw(): void;
+}
 interface Palantir {
   button(): any;
 }
@@ -138,7 +142,7 @@ interface Window {
   hopscotch: any;
   LichessSpeech?: LichessSpeech;
   palantir?: {
-    palantir(): Palantir
+    palantir(opts: PalantirOpts): Palantir
   };
 
   [key: string]: any; // TODO
