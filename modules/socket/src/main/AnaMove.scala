@@ -32,7 +32,7 @@ case class AnaMove(
     oldGame(orig, dest, promotion, draughts.MoveMetrics(), captures.isDefined, captures) flatMap {
       case (game, move) => {
         game.pdnMoves.lastOption toValid "Moved but no last move!" map { san =>
-          val uci = Uci(move)
+          val uci = Uci(move, captures.isDefined)
           val movable = game.situation playable false
           val fen = draughts.format.Forsyth >> game
           val destinations = if (game.situation.ghosts > 0) Map(dest -> game.situation.destinationsFrom(dest)) else game.situation.allDestinations
