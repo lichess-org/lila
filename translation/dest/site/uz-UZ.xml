@@ -336,6 +336,7 @@
   <string name="fewerPlayers">Agar siz kirish shartlarini sozlagan bo\'lsangiz, sizni turniringiz kam kishidan iborat bo\'ladi.</string>
   <string name="showAdvancedSettings">Qo\'shimcha shartlarni namoyish qilish</string>
   <string name="join">Qo\'shilish</string>
+  <string name="yourPuzzleRatingX">Sizning boshqotirmalardagi reytingingiz: %s</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
