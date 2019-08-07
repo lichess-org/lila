@@ -62,12 +62,11 @@ function initialize(ctrl: LobbyController, el) {
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {
   return h('i.toggle.toggle-filter', {
-    class: { active: ctrl.filterOpen },
+    class: { gamesFiltered: nbFiltered > 0, active: ctrl.filterOpen },
     hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw),
     attrs: {
       'data-icon': ctrl.filterOpen ? 'L' : '%',
-      title: ctrl.trans.noarg('filterGames'),
-      'filtered': nbFiltered > 0 ? 'yes' : 'no'
+      title: ctrl.trans.noarg('filterGames')
     }
   });
 }
