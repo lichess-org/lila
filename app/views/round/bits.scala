@@ -34,7 +34,8 @@ object bits {
       playing = playing,
       robots = robots,
       deferJs = true,
-      zoomable = true
+      zoomable = true,
+      csp = defaultCsp.withPeer.some
     )(body)
 
   def crosstable(cross: Option[lidraughts.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =

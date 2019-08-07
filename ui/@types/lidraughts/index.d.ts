@@ -68,6 +68,10 @@ interface LidraughtsSpeech {
   step(s: { san?: San, uci?: Uci }, cut: boolean, captureFrom?: Key): void;
 }
 
+interface PalantirOpts {
+  uid: string;
+  redraw(): void;
+}
 interface Palantir {
   button(): any;
 }
@@ -138,7 +142,7 @@ interface Window {
   hopscotch: any;
   LidraughtsSpeech?: LidraughtsSpeech;
   palantir?: {
-    palantir(): Palantir
+    palantir(opts: PalantirOpts): Palantir
   };
 
   [key: string]: any; // TODO

@@ -13,7 +13,7 @@ mkdir -p public/compiled
 
 ts_apps1="common draughts"
 ts_apps2="ceval game chat draughtsground tree nvui"
-apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher speech"
+apps="site chat cli challenge notify learn insight editor puzzle round analyse lobby tournament tournamentSchedule tournamentCalendar simul perfStat dasher speech palantir"
 
 if [ $mode == "upgrade" ]; then
   yarn upgrade --non-interactive

@@ -27,5 +27,6 @@
     "typescript": "^3"
   },
   "dependencies": {
+    "@types/webrtc": "^0.0.25"
   }
 }

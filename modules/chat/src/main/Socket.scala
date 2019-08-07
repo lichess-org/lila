@@ -30,6 +30,12 @@ object Socket {
     } canTimeout.??(_(userId)) foreach { localTimeout =>
       chat ! actorApi.Timeout(chatId, modId, userId, reason, local = localTimeout)
     }
+
+    case ("palantir", o) => for {
+      data ← o obj "d"
+      on <- data boolean "on"
+      userId <- member.userId
+    } chat ! Palantir.Toggle(chatId, userId, member, on)
   }
 
   type Send = (String, JsValue, Boolean) => Unit
