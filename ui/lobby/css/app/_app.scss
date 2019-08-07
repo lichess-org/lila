@@ -44,9 +44,6 @@
     font-size: 1.3em;
     &.toggle-filter {
       right: 0;
-      &[filtered='Y'] {
-        color: $c-link;
-      }
     }
     @include transition();
     &:hover {
