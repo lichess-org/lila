@@ -46,7 +46,6 @@ object DataForm {
     "challenge" -> checkedNumber(Pref.Challenge.choices),
     "message" -> checkedNumber(Pref.Message.choices),
     "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
-    "palantir" -> optional(checkedNumber(Pref.Palantir.choices)),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -86,7 +85,6 @@ object DataForm {
       challenge: Int,
       message: Int,
       studyInvite: Option[Int],
-      palantir: Option[Int],
       insightShare: Int
   ) {
 
@@ -107,7 +105,6 @@ object DataForm {
       challenge = challenge,
       message = message,
       studyInvite = studyInvite | Pref.default.studyInvite,
-      palantir = palantir | Pref.default.palantir,
       premove = behavior.premove == 1,
       animation = display.animation,
       submitMove = behavior.submitMove,
@@ -156,7 +153,6 @@ object DataForm {
       challenge = pref.challenge,
       message = pref.message,
       studyInvite = pref.studyInvite.some,
-      palantir = pref.palantir.some,
       insightShare = pref.insightShare
     )
   }
