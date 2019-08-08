@@ -22,6 +22,7 @@
     white-space: nowrap;
     padding: .2em 0;
     line-height: 1.5;
+    @include transition();
     &:hover a {
       color: $c-link;
     }
@@ -40,6 +41,13 @@
 
 .tour__links {
   margin-top: 1em;
+  a {
+      color: $c-font;
+      @include transition();
+      &:hover {
+        color: $c-link;
+      }
+  }
 }
 
 .scheduled {

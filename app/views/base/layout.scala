@@ -62,7 +62,7 @@ object layout {
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
-    <span title="${trans.preferences().render}" data-icon="%"</span>
+    <span title="${trans.preferences().render}" data-icon="%"></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
