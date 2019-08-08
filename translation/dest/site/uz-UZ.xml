@@ -751,6 +751,14 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="correspondenceAndUnlimited">Yozishmali va vaqtda chegaralanmagan</string>
   <string name="viewTheSolution">Yechimni ko\'rish</string>
   <string name="followAndChallengeFriends">Do\'stlarni kuzating va ular bilan bellashing</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s tilda mavjud!</item>
+    <item quantity="other">%s tillarda mavjud!</item>
+  </plurals>
+  <string name="gameAnalysis">O\'yin tahlili</string>
+  <string name="xHostsY">%2$s da %1$s sessiyachilar</string>
+  <string name="xJoinsY">%2$s ga %1$s qo\'shilganlar</string>
+  <string name="xLikesY">%2$s ni %1$s yoqtirdi</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
