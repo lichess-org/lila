@@ -274,6 +274,7 @@
   <string name="takebackPropositionAccepted">Ortga qaytish qabul qilindi</string>
   <string name="takebackPropositionCanceled">Ortga qaytish bekor qilindi</string>
   <string name="yourOpponentProposesATakeback">Sizning sherigingiz ortga qaytishni taklif qilayabdi</string>
+  <string name="bookmarkThisGame">Ushbu o\'yinni xatcho\'pga qo\'shish</string>
   <string name="search">Qidirish</string>
   <string name="advancedSearch">Qo\'shimcha qidirish</string>
   <string name="tournament">Turnir</string>
