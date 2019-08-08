@@ -20,6 +20,7 @@ export function palantir(opts: PalantirOpts) {
         devices.getUserMedia({video: false, audio: true}).then((s: any) => {
           myStream = s;
           setState('ready');
+          li.sound.say("Voice chat is ready.", true, true);
           ping();
         }, function(err) {
           log(`Failed to get local stream: ${err}`);
@@ -55,6 +56,7 @@ export function palantir(opts: PalantirOpts) {
         log('call.stream');
         remoteStream = rs;
         setState('on');
+        li.sound.say("Connected", true, true);
       })
       .on('close', () => {
         log('call.close');
@@ -107,7 +109,10 @@ export function palantir(opts: PalantirOpts) {
       peer.destroy();
       peer = undefined;
     }
-    myStream = undefined;
+    if (myStream) {
+      myStream.getTracks().forEach(t => t.stop());
+      myStream = undefined;
+    }
     setState('off');
   }
 
