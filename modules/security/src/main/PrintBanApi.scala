@@ -1,32 +1,20 @@
-package lidraughts.security
+package lila.security
 
-import scala.concurrent.duration._
+import reactivemongo.bson._
 
-import org.joda.time.DateTime
-import play.api.mvc.{ RequestHeader, Cookies }
+import lila.db.dsl._
 
-import lidraughts.common.IpAddress
-import lidraughts.db.BSON.BSONJodaDateTimeHandler
-import lidraughts.db.dsl._
-
-final class Firewall(
-    ipColl: Coll,
-    fpColl: Coll,
-    cookieName: Option[String],
-    system: akka.actor.ActorSystem
-) {
+private final class PrintBanApi(coll: Coll) {
 
   private var current: Set[String] = Set.empty
 
-  system.scheduler.scheduleOnce(10 minutes)(loadFromDb)
-
-  def blocksIp(ip: IpAddress): Boolean = ipSet contains ip.value
+  def blocks(hash: FingerHash): Boolean = current contains hash.value
 
   def blocks(req: RequestHeader): Boolean = enabled && {
     val v = blocksIp {
-      lidraughts.common.HTTPRequest lastRemoteAddress req
+      lila.common.HTTPRequest lastRemoteAddress req
     } || cookieName.?? { blocksCookies(req.cookies, _) }
-    if (v) lidraughts.mon.security.firewall.block()
+    if (v) lila.mon.security.firewall.block()
     v
   }
 
@@ -47,8 +35,8 @@ final class Firewall(
 
   private def loadFromDb: Funit =
     coll.distinct[String, Set]("_id", none).map { ips =>
-      ipSet = ips
-      lidraughts.mon.security.firewall.ip(ips.size)
+      current = ips
+      lila.mon.security.firewall.ip(ips.size)
     }
 
   private def blocksCookies(cookies: Cookies, name: String) =
