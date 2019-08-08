@@ -11,33 +11,29 @@ private final class Palantir {
 
   import Palantir._
 
-  private val stones: Cache[Chat.Id, Stone] = Scaffeine()
+  private val channels: Cache[Chat.Id, Channel] = Scaffeine()
     .expireAfterWrite(1 minute)
-    .build[Chat.Id, Stone]
+    .build[Chat.Id, Channel]
 
-  def toggle(chatId: Chat.Id, userId: User.ID, member: SocketMember, on: Boolean): Unit = {
-    val stone = stones.getIfPresent(chatId).getOrElse(emptyStone) |> { stone =>
-      if (on) stone.add(userId, member)
-      else stone remove userId
-    }
-    stones.put(chatId, stone)
-    member.push(makeMessage("palantir", stone.userIds.filter(userId !=)))
+  def ping(chatId: Chat.Id, userId: User.ID, member: SocketMember): Unit = {
+    val channel = channels.get(chatId, _ => new Channel)
+    channel.add(userId, member)
+    member.push(makeMessage("palantir", channel.userIds.filter(userId !=)))
   }
 }
 
 private object Palantir {
 
-  case class Stone(members: Map[User.ID, SocketMember]) {
-    def add(uid: User.ID, member: SocketMember) = copy(
-      members = members + (uid -> member)
-    )
-    def remove(uid: User.ID) = copy(
-      members = members - uid
-    )
-    def userIds = members.keys.toList
+  class Channel {
+
+    private val members: Cache[User.ID, SocketMember] = Scaffeine()
+      .expireAfterWrite(10 seconds)
+      .build[User.ID, SocketMember]
+
+    def add(uid: User.ID, member: SocketMember) = members.put(uid, member)
+
+    def userIds = members.asMap.keys
   }
 
-  val emptyStone = Stone(Map.empty)
-
-  case class Toggle(chatId: Chat.Id, userId: User.ID, member: SocketMember, on: Boolean)
+  case class Ping(chatId: Chat.Id, userId: User.ID, member: SocketMember)
 }

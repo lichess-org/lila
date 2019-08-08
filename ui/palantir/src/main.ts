@@ -19,8 +19,8 @@ export function palantir(opts: PalantirOpts) {
         setState('getting-media');
         devices.getUserMedia({video: false, audio: true}).then((s: any) => {
           myStream = s;
-          setState('on');
           setState('ready');
+          ping();
         }, function(err) {
           log(`Failed to get local stream: ${err}`);
         }).catch(err => log(err));
@@ -65,10 +65,6 @@ export function palantir(opts: PalantirOpts) {
         stop();
       });
     closeOtherConnectionsTo(call.peer);
-  }
-
-  function notifyLichess() {
-    if (state != 'off') li.pubsub.emit('socket.send', 'palantir', { on: true });
   }
 
   function call(uid: string) {
@@ -138,11 +134,15 @@ export function palantir(opts: PalantirOpts) {
     }
   }
 
+  function ping() {
+    if (state != 'off') li.pubsub.emit('socket.send', 'palantirPing');
+  }
+
   li.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
 
   start();
   setInterval(closeDisconnectedCalls, 1400);
-  setInterval(notifyLichess, 4000);
+  setInterval(ping, 5000);
 
   return {
     render: h =>
