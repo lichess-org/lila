@@ -676,6 +676,14 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="create">Yaratish</string>
   <string name="whenCreateSimul">Siz Seans yaratganingizda bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkoniyatingiz bo\'ladi.</string>
   <string name="simulVariantsHint">Agar siz bir nechta variantlarni tanlasangiz, har bir o\'yinchi qaysi variantda o\'ynashni o\'zi tanlaydi.</string>
+  <string name="simulClockHint">Fisher soatini sozlash. Qancha ko\'p o\'yinchi olsangiz shunga mos vaqt olishingiz kerak bo\'ladi.</string>
+  <string name="simulAddExtraTime">Seansga ulgurishingiz uchun siz soatingizga qo\'shimcha vaqt qo\'shishingiz mumkin.</string>
+  <string name="simulHostExtraTime">Seanschi qo\'shimcha vaqti</string>
+  <string name="lichessTournaments">Lichess turnirlar</string>
+  <string name="tournamentFAQ">Turnir arenasidan Savollar Va Javoblar</string>
+  <string name="tournamentOfficial">Rasmiy</string>
+  <string name="timeBeforeTournamentStarts">Turnir boshlanishigacha vaqt</string>
+  <string name="averageCentipawnLoss">O\'rtacha santipiyodalarni yo\'qotish</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
