@@ -379,6 +379,9 @@
 .icon-arrow-frisian-target:before {
   content: "\e011";
 }
+.icon-phone:before {
+  content: "\e020";
+}
 .icon-share-alt:before {
   content: "\24";
 }

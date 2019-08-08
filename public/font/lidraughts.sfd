@@ -21,7 +21,7 @@ OS2Version: 3
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 0
 CreationTime: 1554434404
-ModificationTime: 1588868257
+ModificationTime: 1590172365
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -85,7 +85,7 @@ DisplaySize: -48
 AntiAlias: 1
 FitToEm: 0
 WinInfo: 0 38 14
-BeginChars: 65539 115
+BeginChars: 65539 116
 
 StartChar: .notdef
 Encoding: 0 -1 0
@@ -6819,7 +6819,7 @@ StartChar: arrow-frisian-target
 Encoding: 57361 57361 112
 Width: 512
 GlyphClass: 2
-Flags: WO
+Flags: W
 LayerCount: 2
 Fore
 SplineSet
@@ -7183,6 +7183,7 @@ SplineSet
  37 15 37 15 41 18 c 6,455,-1
  88 67 l 5,445,-1
 EndSplineSet
+Validated: 2597
 EndChar
 
 StartChar: questiondown
@@ -7230,6 +7231,33 @@ SplineSet
  431 296 431 296 431 246 c 132,-1,21
 EndSplineSet
 Validated: 1
+EndChar
+
+StartChar: uniE020
+Encoding: 57376 57376 115
+Width: 512
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+493 455 m 2,0,1
+ 512 451 512 451 512 432 c 0,2,3
+ 512 240 512 240 376 104 c 128,-1,4
+ 240 -32 240 -32 48 -32 c 0,5,6
+ 29 -32 29 -32 25 -13 c 2,7,-1
+ 1 91 l 2,8,9
+ -4 110 -4 110 15 118 c 2,10,-1
+ 127 166 l 2,11,12
+ 143 173 143 173 155 159 c 2,13,-1
+ 204 99 l 1,14,15
+ 265 127 265 127 309 172 c 0,16,17
+ 354 218 354 218 381 276 c 1,18,-1
+ 321 326 l 2,19,20
+ 307 337 307 337 314 354 c 2,21,-1
+ 362 466 l 2,22,23
+ 370 484 370 484 389 479 c 2,24,-1
+ 493 455 l 2,0,1
+EndSplineSet
 EndChar
 EndChars
 EndSplineFont

@@ -12,10 +12,15 @@ export function palantir(opts: PalantirOpts) {
     myStream: any | undefined,
     remoteStream: any | undefined;
 
+  function log(msg: string) {
+    console.log('[palantir]', msg);
+  }
+
   function setState(s: State) {
-    console.log(s);
+    log(`state: ${state} -> ${s}`);
     state = s;
     opts.redraw();
+    if (peer) console.log('connections', peer.connections);
   }
 
   function peerIdOf(uid: string) {
@@ -28,68 +33,93 @@ export function palantir(opts: PalantirOpts) {
     setState('on');
   }
 
-  function start() {
-    setState('opening');
-    peer = peer || new window['Peer'](peerIdOf(opts.uid));
-    window.peer = peer;
-    peer.on('open', () => {
-      setState('getting-media');
-      navigator.mediaDevices.getUserMedia({video: false, audio: true}).then((s: any) => {
-        myStream = s;
-        setState('on');
-        notifyLichess();
-        setInterval(notifyLichess, 10 * 1000);
-        setState('ready');
-        peer.on('call', (call: any) => {
-          if (!peer.connections[call.peer].find((c: any) => c.open)) {
-            setState('answering');
-            monitorCall(call);
-            call.answer(myStream);
+  function destroyPeer() {
+    if (peer) {
+      peer.destroy(); // 'off' means manual disconnect
+      peer = undefined; // 'off' means manual disconnect
+    }
+    myStream = undefined;
+    setState('off');
+  }
+
+  function connectionsTo(peerId) {
+    return (peer && peer.connections[peerId]) || [];
+  }
+  function findOpenConnectionTo(peerId) {
+    return connectionsTo(peerId).find(c => c.open);
+  }
+  function closeOtherConnectionsTo(peerId) {
+    const conns = connectionsTo(peerId);
+    for (let i = 0; i < conns.length - 1; i++) conns[i].close();
+  }
+  function closeDisconnectedCalls() {
+    if (peer) {
+      for (let otherPeer in peer.connections) {
+        peer.connections[otherPeer].forEach(c => {
+          if (c.peerConnection.connectionState == 'disconnected') {
+            log(`close disconnected call to ${c.peer}`);
+            c.close();
           }
         });
-      }, function(err) {
-        console.log('Failed to get local stream' ,err);
-      }).catch(err => {
-        console.log(err);
-      });
-    });
-    peer.on('stream', s => {
-      console.log('stream', s);
-    });
-    peer.on('connection', function (c) {
-      console.log("Connected to: " + c.peer);
-    });
-    peer.on('disconnected', function() {
-      if (state == 'stopping') {
-        peer.destroy(); // 'off' means manual disconnect
-        peer = undefined; // 'off' means manual disconnect
-        setState('off');
       }
-      else {
-        setState('opening');
-        peer.reconnect();
-      }
-    });
-    peer.on('close', function() {
-      console.log('Connection destroyed');
-    });
-    peer.on('error', function (err) {
-      console.log(err);
-    });
+    }
+  }
+
+  function start() {
+    setState('opening');
+    peer = new window['Peer'](peerIdOf(opts.uid));
+    window.peer = peer;
+    peer
+      .on('open', () => {
+        setState('getting-media');
+        navigator.mediaDevices.getUserMedia({video: false, audio: true}).then((s: any) => {
+          myStream = s;
+          setState('on');
+          notifyLichess();
+          setInterval(notifyLichess, 10 * 1000);
+          setState('ready');
+        }, function(err) {
+          log(`Failed to get local stream: ${err}`);
+        }).catch(err => log(err));
+      })
+      .on('call', (call: any) => {
+        if (!findOpenConnectionTo(call.peer)) {
+          setState('answering');
+          monitorCall(call);
+          call.answer(myStream);
+        }
+      })
+      .on('stream', s => {
+        console.log('stream', s);
+      })
+      .on('connection', c => {
+        log("Connected to: " + c.peer);
+      })
+      .on('disconnected', () => {
+        if (state == 'stopping') destroyPeer();
+        else {
+          setState('opening');
+          peer.reconnect();
+        }
+      })
+      .on('close', () => log('peer.close'))
+      .on('error', err => log(`peer.error: ${err}`));
   }
 
   function monitorCall(call: any) {
     console.log(call, 'monitor');
     call
       .on('stream', callStart)
-      .on('close', s => {
-        console.log('call close', s);
+      .on('close', () => {
+        log('call.close');
         stop();
       })
-      .on('error', s => {
-        console.log('call error', s);
+      .on('error', e => {
+        log(`call.error: ${e}`);
         stop();
       });
+    window.call = call;
+    closeOtherConnectionsTo(call.peer);
   }
 
   function notifyLichess() {
@@ -98,7 +128,11 @@ export function palantir(opts: PalantirOpts) {
 
   function call(uid: string) {
     const peerId = peerIdOf(uid);
-    if (peer && myStream && peer.id < peerId && !peer.connections[peerId]) {
+    if (peer &&
+      myStream &&
+      peer.id < peerId &&
+      !findOpenConnectionTo(peerId)
+    ) {
       setState('calling');
       monitorCall(peer.call(peerId, myStream));
     }
@@ -111,13 +145,14 @@ export function palantir(opts: PalantirOpts) {
     }
   }
 
-  let started = false;
+  let booted = false;
   function click() {
-    if (!started) {
-      start();
-      started = true;
-    } else if (state == 'off') start();
-    else stop();
+    if (!booted) {
+      booted = true;
+      setInterval(closeDisconnectedCalls, 1500);
+    }
+    if (peer) stop();
+    else start();
   }
 
   li.pubsub.on('socket.in.palantir', uids => {
@@ -126,10 +161,10 @@ export function palantir(opts: PalantirOpts) {
 
   return {
     button() {
-      return h('button.mchat__palantir.fbt.pal-' + state, {
+      return navigator.mediaDevices ? h('div.mchat__tab.palantir.palantir-' + state, {
         attrs: {
-          'data-icon': '',
-          title: state
+          'data-icon': '',
+          title: `Voice chat: ${state}`
         },
         hook: {
           insert(vnode) { (vnode.elm as HTMLElement).addEventListener('click', click) }
@@ -141,7 +176,7 @@ export function palantir(opts: PalantirOpts) {
             insert(vnode) { (vnode.elm as HTMLAudioElement).srcObject = remoteStream }
           }
         }) : null
-      ]);
+      ]) : null;
     }
   };
 }

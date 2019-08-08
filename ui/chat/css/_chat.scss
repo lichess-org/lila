@@ -3,6 +3,7 @@
 @import 'tab';
 @import 'members';
 @import 'discussion';
+@import 'palantir';
 
 .mchat {
   @extend %box-neat-force, %flex-column;
