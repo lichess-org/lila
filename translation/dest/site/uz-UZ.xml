@@ -684,6 +684,13 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="tournamentOfficial">Rasmiy</string>
   <string name="timeBeforeTournamentStarts">Turnir boshlanishigacha vaqt</string>
   <string name="averageCentipawnLoss">O\'rtacha santipiyodalarni yo\'qotish</string>
+  <string name="keyboardShortcuts">Klaviatura yorliqlari</string>
+  <string name="keyMoveBackwardOrForward">ortga/oldinga yurish</string>
+  <string name="keyGoToStartOrEnd">boshiga/oxiriga o\'tish</string>
+  <string name="keyShowOrHideComments">izohlarni ko\'rsatish/yashirish</string>
+  <string name="keyEnterOrExitVariation">kirish/chiqishni almashtirish</string>
+  <string name="newTournament">Yangi turnir</string>
+  <string name="tournamentHomeTitle">Turli xil vaqtlar va variantlar bilan yaratilgan shahmat turnirlari</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
