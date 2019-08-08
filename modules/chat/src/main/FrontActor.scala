@@ -24,6 +24,6 @@ private[chat] final class FrontActor(
 
     case RemoveAll(chatIds) => api removeAll chatIds
 
-    case Palantir.Toggle(chatId, userId, sri, on) => palantir.toggle(chatId, userId, sri, on)
+    case Palantir.Ping(chatId, userId, sri) => palantir.ping(chatId, userId, sri)
   }
 }

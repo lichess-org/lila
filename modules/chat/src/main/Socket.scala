@@ -3,9 +3,9 @@ package lidraughts.chat
 import akka.actor._
 import play.api.libs.json._
 
+import lidraughts.hub.actorApi.shutup.PublicSource
 import lidraughts.socket.{ Handler, SocketMember }
 import lidraughts.user.User
-import lidraughts.hub.actorApi.shutup.PublicSource
 
 object Socket {
 
@@ -31,11 +31,10 @@ object Socket {
       chat ! actorApi.Timeout(chatId, modId, userId, reason, local = localTimeout)
     }
 
-    case ("palantir", o) => for {
-      data ← o obj "d"
-      on <- data boolean "on"
-      userId <- member.userId
-    } chat ! Palantir.Toggle(chatId, userId, member, on)
+    case ("palantirPing", o) =>
+      member.userId foreach { userId =>
+        chat ! Palantir.Ping(chatId, userId, member)
+      }
   }
 
   type Send = (String, JsValue, Boolean) => Unit
