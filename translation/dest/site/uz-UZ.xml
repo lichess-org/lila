@@ -662,6 +662,13 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="sourceCode">Dastur kodi</string>
   <string name="simultaneousExhibitions">Sinxron ko\'rinishlar</string>
   <string name="host">Xost</string>
+  <string name="hostColorX">Xost rangi: %s</string>
+  <string name="createdSimuls">Yaqinda yaratilgan bir vaqtdagi seanslar</string>
+  <string name="hostANewSimul">Yangi bir vaqtli seans yaratish</string>
+  <string name="noSimulFound">Seans topilmadi</string>
+  <string name="noSimulExplanation">Usbu bir vaqtli seans topilmadi.</string>
+  <string name="returnToSimulHomepage">Seanslar bosh sahifasiga qaytish</string>
+  <string name="aboutSimul">Seanslar bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkonini yaratadi.</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
