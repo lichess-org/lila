@@ -204,7 +204,7 @@ abstract class Variant private[variant] (
   val moveDirsAll: Directions = moveDirsColor(White) ::: moveDirsColor(Black)
 
   override def toString = s"Variant($name)"
-  
+
   override def equals(that: Any): Boolean = this eq that.asInstanceOf[AnyRef]
 
   override def hashCode: Int = id

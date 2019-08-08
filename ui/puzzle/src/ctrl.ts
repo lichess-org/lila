@@ -53,6 +53,7 @@ export default function (opts, redraw: () => void): Controller {
           san: data.history.san,
           uci: data.history.uci,
           drops: undefined,
+          tbhit: undefined,
           children: []
         } as Tree.Node
       ]
