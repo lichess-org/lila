@@ -23,7 +23,7 @@ export function nextGlyphSymbol(color: Color, symbol: string, mainline: Tree.Nod
 
 export function evalSwings(mainline: Tree.Node[], nodeFilter: (node: Tree.Node) => boolean): Tree.Node[] {
   const found: Tree.Node[] = [];
-  const threshold = 0.075;
+  const threshold = 0.01;
   for (var i = 1; i < mainline.length; i++) {
     var node = mainline[i];
     var prev = mainline[i - 1];
