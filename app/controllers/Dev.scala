@@ -24,6 +24,7 @@ object Dev extends LidraughtsController {
     Env.lobby.whitelistIPSetting,
     Env.rating.ratingFactorsSetting,
     Env.socket.socketDebugSetting,
+    Env.api.palantirSetting,
     Env.plan.donationGoalSetting,
     Env.rating.deviationIncreaseOverTimeSetting
   )

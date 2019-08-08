@@ -104,7 +104,7 @@ object Api extends LidraughtsController {
         online = getBool("online", req),
         perSecond = MaxPerSecond(50)
       )
-      jsonStream(Env.api.userApi.exportTitled(config)).fuccess
+      jsonStream(userApi.exportTitled(config)).fuccess
     }
   }
 

@@ -124,9 +124,8 @@
     }
   });
 
-  lidraughts.readServerFen = function(t) {
-    return atob(t.split("").reverse().join(""));
-  };
+  lidraughts.reverse = s => s.split('').reverse().join('');
+  lidraughts.readServerFen = t => atob(reverse(t));
 
   lidraughts.userAutocomplete = function($input, opts) {
     opts = opts || {};

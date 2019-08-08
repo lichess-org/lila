@@ -34,6 +34,7 @@ export interface ChatData {
   userId?: string
   loginRequired: boolean
   restricted: boolean
+  palantir: boolean
 }
 
 export interface Line {
@@ -66,7 +67,7 @@ export interface Ctrl {
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
   plugin?: ChatPlugin
-  palantir: { instance?: Palantir }
+  palantir: { instance?: Palantir, loading: boolean }
   redraw: Redraw
   destroy(): void;
 }

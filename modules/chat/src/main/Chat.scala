@@ -1,7 +1,7 @@
 package lidraughts.chat
 
-import lidraughts.user.User
 import lidraughts.hub.actorApi.shutup.PublicSource
+import lidraughts.user.User
 
 sealed trait AnyChat {
   def id: Chat.Id
@@ -87,7 +87,11 @@ object Chat {
   def simulSetup(simulId: String) = Setup(Id(simulId), PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
-  case class Restricted(chat: MixedChat, restricted: Boolean)
+  case class Restricted(
+      chat: MixedChat,
+      restricted: Boolean,
+      palantir: Boolean
+  )
 
   // left: game chat
   // right: tournament/simul chat

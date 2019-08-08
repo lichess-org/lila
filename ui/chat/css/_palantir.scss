@@ -2,8 +2,13 @@
   flex: 0 1 auto;
   animation: glowing 1.5s ease-in-out infinite;
   border-radius: 0 3px 0 0;
-}
-.palantir {
+  &-slot {
+    animation: none;
+    opacity: .6;
+    &:hover {
+      opacity: 1;
+    }
+  }
   &-off {
     animation: none;
   }

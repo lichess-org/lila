@@ -20,13 +20,38 @@ export default function(ctrl: Ctrl): VNode {
   }, moderationView(mod) || normalView(ctrl))
 }
 
+function renderPalantir(ctrl: Ctrl) {
+  if (!ctrl.data.palantir) return;
+  const p = ctrl.palantir;
+  return p.instance ? p.instance.render(h) : h('div.mchat__tab.palantir.palantir-slot',{
+    attrs: {
+      'data-icon': '',
+      title: 'Voice chat'
+    },
+    hook: bind('click', () => {
+      if (!p.loading) {
+        p.loading = true;
+        const li = window.lichess;
+        li.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
+          li.loadScript(li.compiledScript('palantir')).then(() => {
+            p.instance = window.Palantir!.palantir({
+              uid: ctrl.data.userId,
+              redraw: ctrl.redraw
+            });
+            ctrl.redraw();
+          });
+        });
+      }
+    })
+  });
+}
+
 function normalView(ctrl: Ctrl) {
   const active = ctrl.vm.tab;
-  const palantir = ctrl.palantir.instance;
   return [
     h('div.mchat__tabs.nb_' + ctrl.allTabs.length, [
       ...ctrl.allTabs.map(t => renderTab(ctrl, t, active)),
-      palantir ? palantir.button() : null
+      renderPalantir(ctrl)
     ]),
     h('div.mchat__content.' + active,
       (active === 'note' && ctrl.note) ? [noteView(ctrl.note)] : (
