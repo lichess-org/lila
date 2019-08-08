@@ -303,7 +303,21 @@
     <item quantity="one">Sizdan %s dan yuqori reytingli o\'yinni o\'ynash talab etiladi</item>
     <item quantity="other">Sizdan %s dan yuqori reytingli o\'yinlarni o\'ynash talab etiladi</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">Sizning %s reytingingiz taxminiy hisoblanadi</string>
+  <string name="yourPerfRatingIsTooHigh">Sizning %1$s reytingingiz (%2$s dan) ancha yuqori</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizning hafatlik eng baland %1$s reytingingiz (%2$s dan) ancha yuqori</string>
+  <string name="yourPerfRatingIsTooLow">Sizning %1$s reytingingiz (%2$s dan) ancha past</string>
+  <string name="ratedMoreThanInPerf">Reytingingiz ≥ %1$s dan katta bo\'lishi kerak %2$s da</string>
+  <string name="ratedLessThanInPerf">Reytingingiz ≤ %1$s kichik bo\'lishi kerakn %2$s da</string>
+  <string name="mustBeInTeam">%s jamoada bo\'lishingiz kerak</string>
+  <string name="youAreNotInTeam">Siz %s jamoada emassiz</string>
+  <string name="backToGame">O\'yinga qaytish</string>
+  <string name="siteDescription">Bepul online Shahmat Server. Qulay interfeysda Shahmatni xoziroq o\'ynang. Ro\'yhatdan o\'tish shart emas, reklamalar yo\'q, hech qanday qo\'shimcha uskunalarni o\'rnatish shart emas.</string>
   <string name="teams">Jamoalar</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s a\'zo</item>
+    <item quantity="other">%s a\'zolar</item>
+  </plurals>
   <string name="allTeams">Barcha jamoalar</string>
   <string name="newTeam">Yangi jamoa</string>
   <string name="myTeams">Mening jamoam</string>
@@ -390,10 +404,17 @@
   <string name="fewerPlayers">Agar siz kirish shartlarini sozlagan bo\'lsangiz, sizni turniringiz kam kishidan iborat bo\'ladi.</string>
   <string name="showAdvancedSettings">Qo\'shimcha shartlarni namoyish qilish</string>
   <string name="join">Qo\'shilish</string>
+  <string name="withdraw">Chekinish</string>
   <string name="points">Ballar</string>
   <string name="wins">Yutuqlar</string>
   <string name="losses">Mag\'lubiyatlar</string>
   <string name="winStreak">Yutuq hislati</string>
+  <string name="createdBy">Yaratgan tomon</string>
+  <string name="tournamentIsStarting">Turnir boshlandi</string>
+  <string name="tournamentPairingsAreNowClosed">Turnirda sherikchilik yopilgan.</string>
+  <string name="standByX">%s kuting, sherik topilayabdi, tayyor turing!</string>
+  <string name="youArePlaying">Siz o\'yindasiz!</string>
+  <string name="winRate">G\'alaba uchun imkoniyat</string>
   <string name="editProfile">Profilni o\'zgartirish</string>
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
