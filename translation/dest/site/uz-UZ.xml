@@ -775,6 +775,14 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="boardSize">Doska o\'lchami</string>
   <string name="pieceSet">Sipohlarni sozlash</string>
   <string name="embedInYourWebsite">O\'z saytingizga joylashtirish</string>
+  <string name="usernameAlreadyUsed">Ushbu foydalanuvchi nomi ishlatilayabdi, boshqasini ko\'ring.</string>
+  <string name="usernamePrefixInvalid">Foydalanuvhci nomi harflardan boshlanishi kerak.</string>
+  <string name="usernameSuffixInvalid">Foydalanuvchi nomi harf yoki son bilan tugashi kerak.</string>
+  <string name="usernameCharsInvalid">Foydalanuvchi nomi faqat harflarni, raqamlarni, tag chiziqni va o\'rta chiziqni (defis) tashkil etishi mumkin.</string>
+  <string name="usernameUnacceptable">Foydalanuvchi nomi qabul qilinadigan emas.</string>
+  <string name="directlySupportLichess">Lichessni qo\'llab quvvatlayman</string>
+  <string name="playChessInStyle">Shahmatni stillarda o\'ynash</string>
+  <string name="chessBasics">Shahmat asoslari</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
@@ -787,12 +795,21 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="notifications">Xabarlar</string>
   <string name="challenges">O\'yin takliflari</string>
   <string name="perfRatingX">Reyting: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">Birinchi yurish uchun %s sekund</item>
+    <item quantity="other">Birinchi yurish uchun %s sekundlar</item>
+  </plurals>
+  <string name="practiceWithComputer">Kompyuter bilan mashq qiling</string>
   <string name="anotherWasX">Boshqacharog\'i %s</string>
   <string name="bestWasX">Undan yaxshisi %s</string>
+  <string name="youBrowsedAway">Siz ko\'rib chiqqansiz</string>
+  <string name="resumePractice">Amaliyotni qaytadan boshlash</string>
+  <string name="theGameIsADraw">O\'yin - durrang.</string>
   <string name="computerThinking">Kompyuter o\'ylayabdi...</string>
   <string name="seeBestMove">Yaxshi yo\'lni ko\'rish</string>
   <string name="hideBestMove">Yaxshi yo\'lni yashirish</string>
   <string name="getAHint">Yordam olish</string>
+  <string name="evaluatingYourMove">Sizning yurishingizni hisoblaganda ...</string>
   <string name="whiteWinsGame">Oqlar yutdi</string>
   <string name="blackWinsGame">Qoralar yutdi</string>
   <string name="learnFromYourMistakes">O\'zingizni xatolaringizdan o\'rganing</string>
