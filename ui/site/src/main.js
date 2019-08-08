@@ -627,8 +627,8 @@
         }
       }
     });
-    api.say = function(text, cut) {
-      if (!speechStorage.get()) return false;
+    api.say = function(text, cut, force) {
+      if (!speechStorage.get() && !force) return false;
       var msg = text.text ? text : new SpeechSynthesisUtterance(text);
       msg.volume = api.getVolume();
       msg.lang = 'en-US';
