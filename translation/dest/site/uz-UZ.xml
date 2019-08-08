@@ -730,6 +730,11 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="withEverybody">Hamma bilan</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Siz ushbu email bilan ro\'yhatdan o\'tgansiz: %s</string>
   <string name="kidMode">Bola rejimi</string>
+  <string name="kidModeExplanation">Bu ximoya uchun. Bola rejimida hamma saytlar bog\'liqligi o\'chiriladi. Buni o\'zingizni studentlaringiz va bolalaringiz uchun yoqib qo\'ying. Shunda Internetdagi boshqa foydalanuvchilardan ximoyalagan bo\'lasiz.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Bola rejimida lichess logosi %s belgini oladi, shundan siz bola rejimi ekanligini.</string>
+  <string name="enableKidMode">Bola rejimini yoqish</string>
+  <string name="disableKidMode">Bola rejimini o\'chirish</string>
+  <string name="security">Xavfsizlik</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
