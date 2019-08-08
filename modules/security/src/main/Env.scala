@@ -28,7 +28,7 @@ final class Env(
   private val MailgunSender = config getString "mailgun.sender"
   private val MailgunReplyTo = config getString "mailgun.reply_to"
   private val CollectionSecurity = config getString "collection.security"
-  private val FirewallEnabled = config getBoolean "firewall.enabled"
+  private val CollectionPrintBan = config getString "collection.print_ban"
   private val FirewallCookieName = config getString "firewall.cookie.name"
   private val FirewallCookieEnabled = config getBoolean "firewall.cookie.enabled"
   private val FirewallCollectionFirewall = config getString "firewall.collection.firewall"
@@ -60,7 +60,6 @@ final class Env(
   lazy val firewall = new Firewall(
     coll = firewallColl,
     cookieName = FirewallCookieName.some filter (_ => FirewallCookieEnabled),
-    enabled = FirewallEnabled,
     system = system
   )
 
@@ -181,6 +180,8 @@ final class Env(
 
   lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)(system)
 
+  lazy val printBanApi = new PrintBanApi(printBanColl)
+
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
   def cli = new Cli
@@ -191,6 +192,7 @@ final class Env(
   }
 
   private[security] lazy val storeColl = db(CollectionSecurity)
+  private[security] lazy val printBanColl = db(CollectionPrintBan)
   private[security] lazy val firewallColl = db(FirewallCollectionFirewall)
 }
 
