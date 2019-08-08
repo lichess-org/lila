@@ -8,8 +8,9 @@ const li = window.lichess;
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
-  const palantir: { instance: Palantir | undefined } = {
-    instance: undefined
+  const palantir = {
+    instance: undefined,
+    loading: false
   };
 
   const allTabs: Tab[] = ['discussion'];
@@ -120,16 +121,6 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const emitEnabled = () => li.pubsub.emit('chat.enabled', vm.enabled);
   emitEnabled();
-
-  data.userId && li.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
-    li.loadScript(li.compiledScript('palantir')).then(() => {
-      palantir.instance = window.Palantir!.palantir({
-        uid: data.userId,
-        redraw
-      });
-      redraw();
-    });
-  });
 
   return {
     data,

@@ -61,6 +61,7 @@ interface Lichess {
   isCol1(): boolean;
   pushSubscribe(ask: boolean): void;
   formAjax(form: JQuery): any;
+  reverse(s: string): string;
 }
 
 interface LichessSpeech {
@@ -73,7 +74,7 @@ interface PalantirOpts {
   redraw(): void;
 }
 interface Palantir {
-  button(): any;
+  render(h: any): any;
 }
 
 interface Cookie {
