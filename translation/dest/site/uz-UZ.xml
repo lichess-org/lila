@@ -735,6 +735,8 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="enableKidMode">Bola rejimini yoqish</string>
   <string name="disableKidMode">Bola rejimini o\'chirish</string>
   <string name="security">Xavfsizlik</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Sizning akkauntingiz bilan kirilgan qurilmalaringiz ro\'yhati. O\'zingizga tanimagan seanslarni bekor qilishingiz mumkin.</string>
+  <string name="alternativelyYouCanX">Yoki siz %s ni qilishingiz mumkin.</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
