@@ -74,7 +74,10 @@ object Auth extends LilaController {
 
   def login = Open { implicit ctx =>
     val referrer = get("referrer").filter(goodReferrer)
-    Ok(html.auth.login(api.loginForm, referrer)).fuccess
+    referrer.filterNot(_ contains "/login") ifTrue ctx.isAuth match {
+      case Some(url) => Redirect(url).fuccess // redirect immediately if already logged in
+      case None => Ok(html.auth.login(api.loginForm, referrer)).fuccess
+    }
   }
 
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")

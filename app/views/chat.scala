@@ -28,7 +28,15 @@ object chat {
     localMod: Boolean = false
   )(implicit ctx: Context) =
     json(
-      chat.chat, name = name, timeout = timeout, withNote = withNote, writeable = writeable, public = public, restricted = chat.restricted, localMod = localMod
+      chat.chat,
+      name = name,
+      timeout = timeout,
+      withNote = withNote,
+      writeable = writeable,
+      public = public,
+      restricted = chat.restricted,
+      palantir = chat.palantir,
+      localMod = localMod
     )
 
   def json(
@@ -39,16 +47,18 @@ object chat {
     withNote: Boolean = false,
     writeable: Boolean = true,
     restricted: Boolean = false,
+    palantir: Boolean = false,
     localMod: Boolean = false
   )(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,
       "name" -> name,
       "lines" -> lila.chat.JsonView(chat),
-      "userId" -> ctx.userId,
-      "loginRequired" -> chat.loginRequired,
-      "restricted" -> restricted
-    ),
+      "userId" -> ctx.userId
+    )
+      .add("loginRequired" -> chat.loginRequired)
+      .add("restricted" -> restricted)
+      .add("palantir" -> (palantir && ctx.isAuth)),
     "i18n" -> i18n(withNote = withNote),
     "writeable" -> writeable,
     "noteId" -> (withNote && ctx.noBlind).option(chat.id.value take 8),

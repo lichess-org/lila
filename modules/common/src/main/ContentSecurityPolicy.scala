@@ -55,6 +55,10 @@ case class ContentSecurityPolicy(
     frameSrc = "https://www.google.com" :: frameSrc
   )
 
+  def withPeer = copy(
+    connectSrc = "wss://0.peerjs.com" :: connectSrc
+  )
+
   private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(
     scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
     frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,

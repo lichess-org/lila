@@ -159,7 +159,7 @@ object pref {
           ),
           setting(
             trans.shareYourInsightsData(),
-            radios(form("insightShare"), translatedInsightSquareChoices)
+            radios(form("insightShare"), translatedInsightShareChoices)
           )
         ),
         p(cls := "saved text none", dataIcon := "E")(trans.yourPreferencesHaveBeenSaved())

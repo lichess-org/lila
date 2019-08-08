@@ -8,6 +8,10 @@ const li = window.lichess;
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
+  const palantir = {
+    instance: undefined,
+    loading: false
+  };
 
   const allTabs: Tab[] = ['discussion'];
   if (opts.noteId) allTabs.push('note');
@@ -144,6 +148,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       redraw();
     },
     redraw,
+    palantir,
     destroy
   };
 };
