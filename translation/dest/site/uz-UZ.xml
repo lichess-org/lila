@@ -702,6 +702,10 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
     <item quantity="other">Hafta mobaynida %2$s o\'yinida %1$s ta o\'yinchilar.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Sizning %1$s dagi reytingingiz %2$s.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Siz %2$s o\'yinchilardan %1$s tasiga qaraganda yaxshiroq o\'ynaysiz.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizda o\'rnatilgan %s reytingga ega emassiz.</string>
+  <string name="checkYourEmail">Elektron pochtangizni tekshiring</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Biz sizga emailingizga hat yubordik. Emailingizdagi linkni bosib akkountingizni faollashtiring.</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
