@@ -612,6 +612,11 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="tryAnotherMoveForWhite">Oqlar uchun boshqa yo\'lni toping</string>
   <string name="tryAnotherMoveForBlack">Qoralar uchun boshqa yo\'lni toping</string>
   <string name="solution">Yechim</string>
+  <string name="waitingForAnalysis">Tahlilni kutish</string>
+  <string name="noMistakesFoundForWhite">Oqlar uchun xatoliklar topilmadi</string>
+  <string name="noMistakesFoundForBlack">Qoralar uchun xatoliklar topilmadi</string>
+  <string name="doneReviewingWhiteMistakes">Oqlar xatoliklarini ko\'rib chiqish tugadi</string>
+  <string name="doneReviewingBlackMistakes">Qoralar xatoliklarini ko\'rib chiqish tugadi</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
   <string name="reviewBlackMistakes">Qoralare xatolarini ko\'rib chiqish</string>
