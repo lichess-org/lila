@@ -524,6 +524,12 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="blog">Блог</string>
   <string name="questionsAndAnswers">Savollar va javoblar</string>
   <string name="notes">Yozuvlar</string>
+  <string name="typePrivateNotesHere">Shaxsiy belgilashlaringizni bu yerga yozing</string>
+  <string name="gameDisplay">O\'yin oynasi</string>
+  <string name="pieceAnimation">Qism animatsiyalar</string>
+  <string name="materialDifference">Materiallar farqi</string>
+  <string name="closeAccount">Akkountni yopish</string>
+  <string name="changedMindDoNotCloseAccount">Men fikrimni o\'zgartirim, akkountni yopmang</string>
   <string name="privacy">Shaxsiylik</string>
   <string name="letOtherPlayersFollowYou">Boshqa o\'yinchilarga sizni kuzatishiga imkon bering</string>
   <string name="letOtherPlayersChallengeYou">Boshqa o\'yinchilarga siz bilan bellashuviga imkon bering</string>
@@ -580,6 +586,7 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="opponent">Sherik</string>
   <string name="learnMenu">O\'rganish</string>
   <string name="community">Jamoa</string>
+  <string name="blindfoldChess">Ko\'zlar berklitilgan shahmat (sipohlar ko\'rinmas holda)</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
