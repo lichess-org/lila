@@ -295,6 +295,10 @@
     <item quantity="one">≥ %1$s %2$s reytingli o\'yin</item>
     <item quantity="other">≥ %1$s %2$s reytingli o\'yinlar</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Siz %2$s reytingli o\'yindan %1$s dan ko\'p marta o\'ynashingiz kerak</item>
+    <item quantity="other">Siz %2$s reytingli o\'yinlardan %1$s dan ko\'p marta o\'ynashingiz kerak</item>
+  </plurals>
   <string name="teams">Jamoalar</string>
   <string name="allTeams">Barcha jamoalar</string>
   <string name="newTeam">Yangi jamoa</string>
