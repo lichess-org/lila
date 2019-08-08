@@ -694,6 +694,13 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="tournamentHomeDescription">Dinamik shahmat turnirlarini o\'ynang! Rasmiy rejalashtirilgan turnirlarda qatnashing yoki o\'zingiz shaxsiy turnir yarating. Tezkor, Blitz, Klassik, Shahmat960, Tepalik qiroli, Uchtashoh va boshqa opsiyalardan foydalangan holatda o\'zingizga qiziqarli shahmat musobaqalarini uyushtirishingiz mumkin.</string>
   <string name="tournamentNotFound">Turnir topilmadi</string>
   <string name="tournamentDoesNotExist">Bu turnir mavjud emas.</string>
+  <string name="tournamentMayHaveBeenCanceled">Ehtimol, u bekor qilingan, agar xamma ishtirokchilar turnir boshlanmasdan uni tark erishgan bo\'lsa.</string>
+  <string name="returnToTournamentsHomepage">Turnirlar bosh sahifasiga qaytish</string>
+  <string name="weeklyPerfTypeRatingDistribution">Haftalik reyting taqsimoti %s</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">Hafta mobaynida %2$s o\'yinida %1$s ta o\'yinchi.</item>
+    <item quantity="other">Hafta mobaynida %2$s o\'yinida %1$s ta o\'yinchilar.</item>
+  </plurals>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
