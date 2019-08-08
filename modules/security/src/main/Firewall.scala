@@ -18,7 +18,7 @@ final class Firewall(
 
   private var current: Set[String] = Set.empty
 
-  system.scheduler.scheduleOnce(10 seconds)(loadFromDb)
+  system.scheduler.scheduleOnce(10 minutes)(loadFromDb)
 
   def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
