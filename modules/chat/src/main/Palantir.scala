@@ -19,6 +19,7 @@ private final class Palantir {
     val channel = channels.get(chatId, _ => new Channel)
     channel.add(userId, member)
     member.push(makeMessage("palantir", channel.userIds.filter(userId !=)))
+    lila.mon.palantir.channels(channels.estimatedSize)
   }
 }
 
