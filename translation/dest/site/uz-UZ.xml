@@ -672,6 +672,10 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="aboutSimulImage">Fisher 50 ta raqibidan 47 tasini yutgan, 2 tasi bilan durrang o\'ynagan va bittasiga mag\'lub bo\'lgan.</string>
   <string name="aboutSimulRealLife">Tushuncha bo\'lgan voqeadan olingan. Seanslarni ko\'chishi haqiqiy hayotda stoldan stolga o\'tib yurib o\'ynashga o\'xshaydi.</string>
   <string name="aboutSimulRules">Seans boshlanganda har bir o\'yinchi seanschi bilan o\'ynashni boshlaydi, seanschi oqda o\'ynaydi. Seans xamma o\'yinlar tugaganda yakunlanadi.</string>
+  <string name="aboutSimulSettings">Seanslar doim norasmiy. Qayta o\'ynashlar, ortga qaytarishlar va \"ko\'pmarta\"liklar barchasi o\'chirilgan.</string>
+  <string name="create">Yaratish</string>
+  <string name="whenCreateSimul">Siz Seans yaratganingizda bir vaqtda bir nechta o\'yinchilar bilan o\'ynash imkoniyatingiz bo\'ladi.</string>
+  <string name="simulVariantsHint">Agar siz bir nechta variantlarni tanlasangiz, har bir o\'yinchi qaysi variantda o\'ynashni o\'zi tanlaydi.</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
