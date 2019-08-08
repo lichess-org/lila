@@ -714,6 +714,8 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="downloadAnnotated">Annotatsiya holatda yuklash</string>
   <string name="downloadRaw">Boricha yuklash</string>
   <string name="downloadImported">Import qilinganni yuklash</string>
+  <string name="printFriendlyPDF">Chop etishga qulay PDF</string>
+  <string name="crosstable">Doiraviy turnir</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
