@@ -701,6 +701,7 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
     <item quantity="one">Hafta mobaynida %2$s o\'yinida %1$s ta o\'yinchi.</item>
     <item quantity="other">Hafta mobaynida %2$s o\'yinida %1$s ta o\'yinchilar.</item>
   </plurals>
+  <string name="yourPerfTypeRatingIsRating">Sizning %1$s dagi reytingingiz %2$s.</string>
   <string name="coaches">Murabbiylar</string>
   <string name="invalidPgn">PGN da xatolik</string>
   <string name="invalidFen">FEN da xatolik</string>
