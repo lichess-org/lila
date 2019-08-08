@@ -154,10 +154,6 @@ object pref {
             radios(form("message"), translatedMessageChoices)
           ),
           setting(
-            "Enable voice calls",
-            radios(form("palantir"), translatedPalantirChoices)
-          ),
-          setting(
             trans.letOtherPlayersInviteYouToStudy(),
             radios(form("studyInvite"), translatedStudyInviteChoices)
           ),
