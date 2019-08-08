@@ -662,6 +662,9 @@ object mon {
     val socketGap = inc("jsmon.socket_gap")
     val unknown = inc("jsmon.unknown")
   }
+  object palantir {
+    val channels = rec("palantir.channels.nb")
+  }
   object bus {
     val classifiers = rec("bus.classifiers")
     val subscribers = rec("bus.subscribers")
