@@ -428,6 +428,18 @@
   <string name="membersOnly">Faqat a\'zolar</string>
   <string name="boardEditor">Doskani tahrilovchi</string>
   <string name="setTheBoard">Doskani sozlash</string>
+  <string name="popularOpenings">Mashhur shahmat yurishlari</string>
+  <string name="startPosition">Boshlang\'ich joylashuv</string>
+  <string name="clearBoard">Doskani tozalash</string>
+  <string name="savePosition">Shu holatni saqlash</string>
+  <string name="loadPosition">Shahmat ma\'lum bir holatini o\'qib olish</string>
+  <string name="isPrivate">Yashirin</string>
+  <string name="reportXToModerators">%s boshqaruvchilarga hisobot</string>
+  <string name="profileCompletion">Profilni to\'ldirish: %s</string>
+  <string name="xRating">Reyting %s</string>
+  <string name="ifNoneLeaveEmpty">Agar yo\'q bo\'lsa bo\'sh qoldiring</string>
+  <string name="gameCompletionRate">O\'yin tezligi: %s</string>
+  <string name="profile">Profil</string>
   <string name="editProfile">Profilni o\'zgartirish</string>
   <string name="firstName">Berilgan nom</string>
   <string name="lastName">Familiya</string>
@@ -502,6 +514,11 @@
   <string name="insult">Haqorat</string>
   <string name="troll">Yo\'q joydan janjal chiqarish</string>
   <string name="other">Boshqa</string>
+  <string name="reportDescriptionHelp">O\'yin(lar)ga murojaatni bering va ushbu o\'yinchini tutishini nimasi yaxshi emas izohlang. Faqatgina \"u aldayabdi\" deb qo\'ya qolmasdan, balkim nima uchun bunday xulosaga kelganingizni ingliz tilida 
+tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
+  <string name="error.provideOneCheatedGameLink">Iltimos kamida bitta o\'yinga murojatni keltiring.</string>
+  <string name="by">%s tomonidan</string>
+  <string name="thisTopicIsNowClosed">Ushbu mavzu xozir yopiq.</string>
   <string name="theming">Mavzulashtirish</string>
   <string name="donate">Hadya</string>
   <string name="blog">Блог</string>
@@ -590,6 +607,10 @@
   <string name="xWasPlayed">%s o\'ynaldi</string>
   <string name="findBetterMoveForWhite">Oqlar uchun eng yaxshi yo\'lni toping</string>
   <string name="findBetterMoveForBlack">Qoralar uchun eng yaxshi yo\'lni toping</string>
+  <string name="resumeLearning">O\'rganishni qaytadan boshlash</string>
+  <string name="youCanDoBetter">Siz yanada yaxshilashingiz mumkin</string>
+  <string name="tryAnotherMoveForWhite">Oqlar uchun boshqa yo\'lni toping</string>
+  <string name="tryAnotherMoveForBlack">Qoralar uchun boshqa yo\'lni toping</string>
   <string name="solution">Yechim</string>
   <string name="doItAgain">Buni yana takrorlash</string>
   <string name="reviewWhiteMistakes">Oqlar xatolarini ko\'rib chiqish</string>
