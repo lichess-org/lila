@@ -83,6 +83,7 @@ object Auth extends LilaController {
   private val is2fa = Set("MissingTotpToken", "InvalidTotpToken")
 
   def authenticate = OpenBody { implicit ctx =>
+    def redirectTo(url: String) = if (HTTPRequest isXhr ctx.req) Ok(s"ok:$url") else Redirect(url)
     Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
@@ -112,13 +113,13 @@ object Auth extends LilaController {
                   UserRepo.email(u.id) foreach {
                     _ foreach { garbageCollect(u, _) }
                   }
-                  authenticateUser(u, Some(redirectTo => Ok(s"ok:$redirectTo")))
+                  authenticateUser(u, Some(redirectTo))
               }
             )
           }
         }
       )
-    }, Ok(s"ok:/").fuccess)
+    }, redirectTo("/").fuccess)
   }
 
   def logout = Open { implicit ctx =>
