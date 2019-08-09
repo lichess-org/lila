@@ -3,11 +3,11 @@
 <resources>
   <string name="activity">Activitate</string>
   <plurals name="practicedNbPositions">
-    <item quantity="one">Ha practicate %1$s position(es) in %2$s</item>
+    <item quantity="one">Ha practicate %1$s position in %2$s</item>
     <item quantity="other">Ha practicate %1$s positiones in %2$s</item>
   </plurals>
   <plurals name="solvedNbPuzzles">
-    <item quantity="one">Ha resolvite %s enigma(s) tactic</item>
+    <item quantity="one">Ha resolvite %s enigma tactic</item>
     <item quantity="other">Ha resolvite %s enigmas tactic</item>
   </plurals>
   <plurals name="playedNbGames">
@@ -39,7 +39,7 @@
     <item quantity="other">Ha participate in %s exhibitiones simultanee</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Ha create %s nove studio(s)</item>
+    <item quantity="one">Ha create %s nove studio</item>
     <item quantity="other">Ha create %s nove studios</item>
   </plurals>
   <plurals name="competedInNbTournaments">

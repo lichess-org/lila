@@ -402,7 +402,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="inappropriateNameWarning">Qualsiasi cosa anche solo lievemente inappropriata potrebbe comportare l\'eliminazione del tuo account.</string>
   <string name="emptyTournamentName">Lascia vuoto il nome del torneo per chiamarlo come un Grande Maestro scelto casualmente.</string>
   <string name="recommendNotTouching">Si consiglia di non toccare queste impostazioni.</string>
-  <string name="fewerPlayers">Se imposti le condizioni di accesso, il torneo avrà un minor numero di giocatori.</string>
+  <string name="fewerPlayers">Se imponi condizioni d\'accesso il torneo avrà un minor numero di giocatori.</string>
   <string name="showAdvancedSettings">Mostra impostazioni avanzate</string>
   <string name="join">Unisciti</string>
   <string name="withdraw">Ritirati</string>

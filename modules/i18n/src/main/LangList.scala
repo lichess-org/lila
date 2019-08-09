@@ -97,7 +97,7 @@ object LangList {
     Lang("tr", "TR") -> "Türkçe",
     Lang("uk", "UA") -> "українська",
     Lang("ur", "IN") -> "اُردُو",
-    Lang("uz", "UZ") -> "ўзбекча",
+    Lang("uz", "UZ") -> "oʻzbekcha",
     Lang("vi", "VN") -> "Tiếng Việt",
     Lang("yo", "NG") -> "Yorùbá",
     Lang("zh", "CN") -> "中文",
