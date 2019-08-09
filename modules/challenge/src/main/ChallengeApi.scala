@@ -15,7 +15,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lidraughts.game.Cached,
     maxPlaying: Int,
-    socketHub: lidraughts.hub.ActorMapNew,
+    socketHub: ActorRef,
     userRegister: ActorSelection,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     lidraughtsBus: lidraughts.common.Bus
@@ -114,7 +114,7 @@ final class ChallengeApi(
   }
 
   private def socketReload(id: Challenge.ID): Unit =
-    socketHub.tell(id, Socket.Reload)
+    socketHub ! Tell(id, Socket.Reload)
 
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)
