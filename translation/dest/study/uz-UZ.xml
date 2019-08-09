@@ -32,5 +32,20 @@
   <string name="annotateWithGlyphs">Gliflar bilan izohlash</string>
   <string name="theChapterIsTooShortToBeAnalysed">Ushbu bo\'lim tahlil uchun juda ham qisqa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Faqat ta\'lim ishtirokchilari kompyuter tahlilini so\'rashi mumkin.</string>
+  <string name="previous">Oldingi</string>
+  <string name="next">Keyingi</string>
+  <string name="last">Oxirgi</string>
+  <string name="shareAndExport">Ulashish &amp; eksport</string>
+  <string name="cloneStudy">Klonlash</string>
+  <string name="studyPgn">PGN o\'rganish</string>
+  <string name="chapterPgn">PGN bo\'limi</string>
+  <string name="studyUrl">URL o\'rganish</string>
+  <string name="currentChapterUrl">Joriy bo\'lim URL i</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Siz buni bo\'limga bog\'lash uchun forumga joylang</string>
+  <string name="startAtX">%s da boshlash</string>
+  <string name="embedThisChapter">Ushbu bo\'limni o\'zingizni saytingizga yoki blogingizga joylash</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">O\'rganish bo\'limini bog\'lash bo\'yicha ko\'proq o\'qish</string>
+  <string name="fen">FEN</string>
+  <string name="open">Ochish</string>
   <string name="studyNotFound">Ta\'lim topilmadi</string>
 </resources>
