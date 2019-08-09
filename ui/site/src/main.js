@@ -125,7 +125,7 @@
   });
 
   lidraughts.reverse = s => s.split('').reverse().join('');
-  lidraughts.readServerFen = t => atob(reverse(t));
+  lidraughts.readServerFen = t => atob(lidraughts.reverse(t));
 
   lidraughts.userAutocomplete = function($input, opts) {
     opts = opts || {};
