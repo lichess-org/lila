@@ -334,7 +334,7 @@ object GameRepo {
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
     coll insert bson addFailureEffect {
-      case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision()
+      case wr: WriteResult if isDuplicateKey(wr) => lidraughts.mon.game.idCollision()
     } void
   } >>- {
     lidraughts.mon.game.create.variant(g.variant.key)()
