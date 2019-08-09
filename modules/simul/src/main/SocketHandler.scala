@@ -4,17 +4,17 @@ import akka.actor._
 import akka.pattern.ask
 
 import actorApi._
-import lidraughts.chat.Chat
 import lidraughts.hub.actorApi.map._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Handler
 import lidraughts.socket.Socket.{ Uid, SocketVersion }
 import lidraughts.user.User
+import lidraughts.chat.Chat
 import makeTimeout.short
 
 private[simul] final class SocketHandler(
     hub: lidraughts.hub.Env,
-    socketHub: lidraughts.hub.ActorMapNew,
+    socketHub: ActorRef,
     chat: ActorSelection,
     exists: Simul.ID => Fu[Boolean]
 ) {
@@ -27,12 +27,14 @@ private[simul] final class SocketHandler(
   ): Fu[Option[JsSocketHandler]] =
     exists(simId) flatMap {
       _ ?? {
-        val socket = socketHub getOrMake simId
-        val join = Join(uid = uid, user = user, version = version)
-        Handler(hub, socket, uid, join) {
-          case Connected(enum, member) =>
-            (controller(socket, simId, uid, member), enum, member)
-        } map some
+        for {
+          socket ← socketHub ? Get(simId) mapTo manifest[ActorRef]
+          join = Join(uid = uid, user = user, version = version)
+          handler ← Handler(hub, socket, uid, join) {
+            case Connected(enum, member) =>
+              (controller(socket, simId, uid, member), enum, member)
+          }
+        } yield handler.some
       }
     }
 

@@ -24,7 +24,7 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketHub: lidraughts.hub.ActorMapNew,
+    socketHub: ActorRef,
     roundMap: lidraughts.hub.DuctMap[_],
     site: ActorSelection,
     renderer: ActorSelection,
@@ -308,11 +308,13 @@ final class SimulApi(
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
 
-  private def sendTo(simulId: Simul.ID, msg: Any): Unit =
-    socketHub.tell(simulId, msg)
+  private def sendTo(simulId: Simul.ID, msg: Any): Unit = {
+    socketHub ! Tell(simulId, msg)
+  }
 
-  private def socketReload(simulId: Simul.ID): Unit =
+  private def socketReload(simulId: Simul.ID): Unit = {
     sendTo(simulId, actorApi.Reload)
+  }
 
   def processCommentary(simulId: Simul.ID, gameId: Game.ID, json: JsObject): Unit = {
     sendTo(simulId, actorApi.ReloadEval(gameId, json))
