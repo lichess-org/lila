@@ -421,6 +421,7 @@ object UserRepo {
           )
         }
       }
+  def withEmailsU(users: List[User]): Fu[List[User.WithEmails]] = withEmails(users.map(_.id))
 
   def emailMap(names: List[String]): Fu[Map[User.ID, EmailAddress]] =
     coll.find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true))

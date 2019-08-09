@@ -81,17 +81,13 @@ final class SecurityApi(
     Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
-  def restoreUser(req: RequestHeader): Fu[Option[FingerprintedUser]] =
+  def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =
     firewall.accepts(req) ?? {
-      reqSessionId(req).?? { sessionId =>
+      reqSessionId(req) ?? { sessionId =>
         Store userIdAndFingerprint sessionId flatMap {
           _ ?? { d =>
             if (d.isOld) Store.setDateToNow(sessionId)
-            UserRepo.byId(d.user) map {
-              _ map {
-                FingerprintedUser(_, d.fp.isDefined)
-              }
-            }
+            UserRepo byId d.user map { _ map { FingerPrintedUser(_, d.fp) } }
           }
         }
       }
@@ -169,6 +165,9 @@ final class SecurityApi(
         }
       }
     }
+
+  def printUas(fh: FingerHash): Fu[List[String]] =
+    coll.distinct[String, List]("ua", $doc("fp" -> fh.value).some)
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
     coll.distinct[User.ID, List](

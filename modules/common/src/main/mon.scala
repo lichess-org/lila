@@ -69,6 +69,10 @@ object mon {
       val forbidden = inc("http.csrf.forbidden")
       val websocket = inc("http.csrf.websocket")
     }
+    object fingerPrint {
+      val count = inc("http.finger_print.count")
+      val time = rec("http.finger_print.time")
+    }
   }
   object mobile {
     def version(v: String) = inc(s"mobile.version.$v")
@@ -405,6 +409,7 @@ object mon {
     object firewall {
       val block = inc("security.firewall.block")
       val ip = rec("security.firewall.ip")
+      val prints = rec("security.firewall.prints")
     }
     object proxy {
       object request {

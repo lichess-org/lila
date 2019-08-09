@@ -3,6 +3,7 @@ package views.html.user
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.security.FingerHash
 import lila.evaluation.Display
 import lila.user.User
 
@@ -76,7 +77,7 @@ object mod {
       ),
       div(cls := "btn-rack")(
         isGranted(_.IpBan) option {
-          postForm(action := routes.Mod.ban(u.username, !u.ipBan), cls := "xhr")(
+          postForm(action := routes.Mod.ipBan(u.username, !u.ipBan), cls := "xhr")(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.ipBan))("IP ban")
           )
         },
@@ -361,7 +362,7 @@ object mod {
       )
     )
 
-  def identification(u: User, spy: lila.security.UserSpy)(implicit ctx: Context): Frag =
+  def identification(u: User, spy: lila.security.UserSpy, printBlock: FingerHash => Boolean)(implicit ctx: Context): Frag =
     div(id := "mz_identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
@@ -397,7 +398,7 @@ object mod {
         ul(
           spy.prints.sorted.map { fp =>
             li(
-              a(href := s"${routes.Mod.search}?q=${java.net.URLEncoder.encode(fp.value.value, "US-ASCII")}")(
+              a(href := routes.Mod.print(fp.value.value), cls := printBlock(fp.value) option "blocked")(
                 fp.value.value, " ", momentFromNowOnce(fp.date)
               )
             )

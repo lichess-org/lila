@@ -363,7 +363,7 @@ GET   /auth/token/:token               controllers.Auth.loginWithToken(token: St
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
-POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
+POST  /mod/:username/ban/:v            controllers.Mod.ipBan(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
@@ -391,6 +391,8 @@ GET   /mod/public-chat                 controllers.Mod.publicChat
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
+GET   /mod/print/:fh                   controllers.Mod.print(fh: String)
+POST  /mod/print/:fh/ban/:v            controllers.Mod.printBan(fh: String, v: Boolean)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin

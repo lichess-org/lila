@@ -10,8 +10,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
 final class Firewall(
-    ipColl: Coll,
-    fpColl: Coll,
+    coll: Coll,
     cookieName: Option[String],
     system: akka.actor.ActorSystem
 ) {
@@ -20,9 +19,9 @@ final class Firewall(
 
   system.scheduler.scheduleOnce(10 minutes)(loadFromDb)
 
-  def blocksIp(ip: IpAddress): Boolean = ipSet contains ip.value
+  def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
-  def blocks(req: RequestHeader): Boolean = enabled && {
+  def blocks(req: RequestHeader): Boolean = {
     val v = blocksIp {
       lila.common.HTTPRequest lastRemoteAddress req
     } || cookieName.?? { blocksCookies(req.cookies, _) }
@@ -47,7 +46,7 @@ final class Firewall(
 
   private def loadFromDb: Funit =
     coll.distinct[String, Set]("_id", none).map { ips =>
-      ipSet = ips
+      current = ips
       lila.mon.security.firewall.ip(ips.size)
     }
 

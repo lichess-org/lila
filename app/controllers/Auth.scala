@@ -343,15 +343,13 @@ object Auth extends LilaController {
   def setFingerPrint(fp: String, ms: Int) = Auth { ctx => me =>
     api.setFingerPrint(ctx.req, FingerPrint(fp)) flatMap {
       _ ?? { hash =>
-        !me.lame ?? {
-          api.recentUserIdsByFingerHash(hash).map(_.filter(me.id!=)) flatMap {
-            case otherIds if otherIds.size >= 2 => UserRepo countEngines otherIds flatMap {
-              case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
-              case _ => funit
-            }
+        !me.lame ?? (for {
+          otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id!=))
+          autoReport <- (otherIds.size >= 2) ?? UserRepo.countEngines(otherIds).flatMap {
+            case nb if nb >= 2 && nb >= otherIds.size / 2 => Env.report.api.autoCheatPrintReport(me.id)
             case _ => funit
           }
-        }
+        } yield ())
       }
     } inject NoContent
   }

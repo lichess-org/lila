@@ -22,5 +22,7 @@ object FingerHash {
     case _: Exception => none
   }
 
+  val impersonate = FingerHash("imperson")
+
   implicit val fingerHashIso = Iso.string[FingerHash](FingerHash.apply, _.value)
 }

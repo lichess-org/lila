@@ -97,9 +97,12 @@ final class Env(
     text = "Enable the user garbage collector".some
   )
 
+  lazy val printBan = new PrintBan(printBanColl)
+
   lazy val garbageCollector = new GarbageCollector(
     userSpyApi,
     ipTrust,
+    printBan,
     slack,
     ugcArmedSetting.get,
     system
@@ -179,8 +182,6 @@ final class Env(
   lazy val ipTrust = new IpTrust(ipIntel, geoIP, tor, firewall)
 
   lazy val api = new SecurityApi(storeColl, firewall, geoIP, authenticator, emailAddressValidator, tryOAuthServer)(system)
-
-  lazy val printBanApi = new PrintBanApi(printBanColl)
 
   lazy val csrfRequestHandler = new CSRFRequestHandler(NetDomain)
 
