@@ -17,6 +17,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     settingStore: lila.memo.SettingStore.Builder,
     tryOAuthServer: OAuthServer.Try,
+    mongoCache: lila.memo.MongoCache.Builder,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
@@ -51,6 +52,8 @@ final class Env(
   private val IpIntelEmail = EmailAddress(config getString "ipintel.email")
   private val DnsApiUrl = config getString "dns_api.url"
   private val DnsApiTimeout = config duration "dns_api.timeout"
+  private val CheckMailUrl = config getString "check_mail_api.url"
+  private val CheckMailKey = config getString "check_mail_api.key"
 
   val recaptchaPublicConfig = RecaptchaPublicConfig(
     key = config getString "recaptcha.public_key",
@@ -147,17 +150,13 @@ final class Env(
 
   private lazy val dnsApi = new DnsApi(DnsApiUrl, DnsApiTimeout)(system)
 
-  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain, dnsApi)
+  private lazy val checkMail = new CheckMail(CheckMailUrl, CheckMailKey, mongoCache)(system)
 
-  lazy val emailBlacklistSetting = settingStore[Strings](
-    "emailBlacklist",
-    default = Strings(Nil),
-    text = "Blacklisted email domains separated by a comma".some
-  )
+  lazy val emailAddressValidator = new EmailAddressValidator(disposableEmailDomain, dnsApi, checkMail)
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
-    blacklistStr = emailBlacklistSetting.get,
+    checkMailBlocked = () => checkMail.allBlocked,
     bus = system.lilaBus
   )
 
@@ -215,6 +214,7 @@ object Env {
         lila.log("security").warn("oauth", e)
         none
     },
+    mongoCache = lila.memo.Env.current.mongoCache,
     system = system,
     scheduler = lila.common.PlayApp.scheduler,
     captcher = lila.hub.Env.current.captcher,

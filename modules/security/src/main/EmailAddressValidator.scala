@@ -11,7 +11,8 @@ import lila.user.User
  */
 final class EmailAddressValidator(
     disposable: DisposableEmailDomain,
-    dnsApi: DnsApi
+    dnsApi: DnsApi,
+    checkMail: CheckMail
 ) {
 
   private def isAcceptable(email: EmailAddress): Boolean =
@@ -66,7 +67,7 @@ final class EmailAddressValidator(
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else dnsApi.mx(domain).map { domains =>
         domains.nonEmpty && !domains.exists { disposable(_) }
-      }
+      } >>& checkMail(domain)
     }
     else fuccess(false)
 

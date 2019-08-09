@@ -427,15 +427,20 @@ object mon {
     }
     object dnsApi {
       object mx {
-        def time = rec("security.dnsApi.mx.time")
-        def count = inc("security.dnsApi.mx.count")
-        def error = inc("security.dnsApi.mx.error")
+        val time = rec("security.dnsApi.mx.time")
+        val count = inc("security.dnsApi.mx.count")
+        val error = inc("security.dnsApi.mx.error")
       }
       object a {
-        def time = rec("security.dnsApi.a.time")
-        def count = inc("security.dnsApi.a.count")
-        def error = inc("security.dnsApi.a.error")
+        val time = rec("security.dnsApi.a.time")
+        val count = inc("security.dnsApi.a.count")
+        val error = inc("security.dnsApi.a.error")
       }
+    }
+    object checkMailApi {
+      val count = inc("checkMail.fetch.count")
+      val block = inc("checkMail.fetch.block")
+      val error = inc("checkMail.fetch.error")
     }
   }
   object tv {

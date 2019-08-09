@@ -7,46 +7,34 @@ import lila.common.Domain
 
 final class DisposableEmailDomain(
     providerUrl: String,
-    blacklistStr: () => lila.common.Strings,
+    checkMailBlocked: () => Fu[List[String]],
     bus: lila.common.Bus
 ) {
 
-  private var regex = finalizeRegex(toRegexStr(DisposableEmailDomain.staticBlacklist.iterator))
-  private var failed = false
+  private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
 
-  private[security] def refresh: Unit = {
-    WS.url(providerUrl).get() map { res =>
-      val regexStr = toRegexStr(res.body.lines)
-      val nbDomains = regexStr.count('|' ==)
-      failed = nbDomains < 10000
-      lila.mon.email.disposableDomain(nbDomains)
-      regex = finalizeRegex(s"${toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)}|$regexStr")
-    } recover {
-      case _: java.net.ConnectException => // ignore network errors
-      case e: Exception => onError(e)
+  private var regex = finalizeRegex(staticRegex)
+
+  private[security] def refresh: Unit = for {
+    blacklist <- WS.url(providerUrl).get().map(_.body.lines) recover {
+      case e: Exception =>
+        logger.warn("DisposableEmailDomain.refresh", e)
+        Iterator.empty
     }
+    checked <- checkMailBlocked()
+  } {
+    val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.toIterator)}"
+    val nbDomains = regexStr.count('|' ==)
+    lila.mon.email.disposableDomain(nbDomains)
+    regex = finalizeRegex(s"$staticRegex|$regexStr")
   }
 
   private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
 
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
-  private def onError(e: Exception): Unit = {
-    logger.error("Can't update disposable emails", e)
-    if (!failed) {
-      failed = true
-      bus.publish(
-        lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nFrom $providerUrl"),
-        'slack
-      )
-    }
-  }
-
   def apply(domain: Domain): Boolean =
-    !DisposableEmailDomain.whitelisted(domain) && {
-      regex.find(domain.value) ||
-        finalizeRegex(toRegexStr(blacklistStr().value.iterator)).find(domain.value)
-    }
+    !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.value)
 
   def fromDomain(mixedCase: String): Boolean = apply(Domain(mixedCase.toLowerCase))
 }
