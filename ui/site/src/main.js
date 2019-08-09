@@ -125,7 +125,7 @@
   });
 
   lichess.reverse = s => s.split('').reverse().join('');
-  lichess.readServerFen = t => atob(reverse(t));
+  lichess.readServerFen = t => atob(lichess.reverse(t));
 
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
