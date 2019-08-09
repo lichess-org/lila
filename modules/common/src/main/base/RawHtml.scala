@@ -120,7 +120,10 @@ final object RawHtml {
             val isHttp = domainS - start == 7
             val url = (if (isHttp) "http://" else "https://") + allButScheme
             val text = if (isHttp) url else allButScheme
-            val imgHtml = (end >= sArr.length || sArr(end) != '"') ?? imgUrl(url)
+            val imgHtml = {
+              if (end < sArr.length && sArr(end) == '"') None
+              else imgUrl(url)
+            }
             sb.append(imgHtml.getOrElse(
               s"""<a rel="nofollow" href="$url" target="_blank">$text</a>"""
             ))
