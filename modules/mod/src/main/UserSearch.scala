@@ -31,18 +31,11 @@ final class UserSearch(
     case _ => // "exact"
       EmailAddress.from(query.q).map(searchEmail) orElse
         IpAddress.from(query.q).map(searchIp) getOrElse
-        (searchUsername(query.q) zip searchFingerHash(query.q) map Function.tupled(_ ++ _)) // list concatenation, in case a fingerhash is also someone's username
-  }) flatMap { users =>
-    UserRepo withEmails users.map(_.id)
-  }
+        searchUsername(query.q)
+  }) flatMap UserRepo.withEmailsU
 
   private def searchIp(ip: IpAddress) =
     securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.usersFromSecondary
-
-  private def searchFingerHash(fh: String): Fu[List[User]] =
-    (fh.size == 8) ?? {
-      securityApi recentUserIdsByFingerHash lidraughts.security.FingerHash(fh) map (_.reverse) flatMap UserRepo.usersFromSecondary
-    }
 
   private def searchUsername(username: String) = UserRepo named username map (_.toList)
 

@@ -13,7 +13,7 @@ import lidraughts.app._
 import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion, Nonce, Lang }
 import lidraughts.notify.Notification.Notifies
 import lidraughts.oauth.{ OAuthScope, OAuthServer }
-import lidraughts.security.{ Permission, Granter, FingerprintedUser }
+import lidraughts.security.{ Permission, Granter, FingerPrintedUser, FingerHash }
 import lidraughts.user.{ UserContext, User => UserModel }
 
 private[controllers] trait LidraughtsController
@@ -373,17 +373,17 @@ private[controllers] trait LidraughtsController
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
     case (d, impersonatedBy) =>
       val ctx = UserContext(req, d.map(_.user), impersonatedBy, lidraughts.i18n.I18nLangPicker(req, d.map(_.user)))
-      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
+      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap {
       case (d, impersonatedBy) =>
         val ctx = UserContext(req, d.map(_.user), impersonatedBy, lidraughts.i18n.I18nLangPicker(req, d.map(_.user)))
-        pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
+        pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] = {
+  private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce = isPage option Nonce.random
     ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
@@ -403,7 +403,7 @@ private[controllers] trait LidraughtsController
         case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)) =>
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
-            hasFingerprint = hasFingerprint,
+            hasFingerprint = hasFingerPrint,
             inquiry = inquiry,
             nonce = nonce)
       }
@@ -416,7 +416,7 @@ private[controllers] trait LidraughtsController
     }
 
   // user, impersonatedBy
-  type RestoredUser = (Option[FingerprintedUser], Option[UserModel])
+  type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
       _ ifTrue (HTTPRequest isSocket req) foreach { d =>
@@ -432,7 +432,7 @@ private[controllers] trait LidraughtsController
       case None => fuccess(None -> None)
       case Some(d) => lidraughts.mod.Impersonate.impersonating(d.user) map {
         _.fold[RestoredUser](d.some -> None) { impersonated =>
-          FingerprintedUser(impersonated, true).some -> d.user.some
+          FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
         }
       }
     }

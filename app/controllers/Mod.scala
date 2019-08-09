@@ -6,7 +6,7 @@ import lidraughts.chat.Chat
 import lidraughts.common.{ IpAddress, EmailAddress, HTTPRequest }
 import lidraughts.mod.UserSearch
 import lidraughts.report.{ Suspect, Mod => AsMod }
-import lidraughts.security.Permission
+import lidraughts.security.{ Permission, FingerHash }
 import lidraughts.user.{ UserRepo, User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._
@@ -77,7 +77,7 @@ object Mod extends LidraughtsController {
     case (inquiry, suspect) => Report.onInquiryClose(inquiry, me, suspect.some)(ctx)
   })
 
-  def ban(username: String, v: Boolean) = OAuthMod(_.IpBan) { _ => me =>
+  def ipBan(username: String, v: Boolean) = OAuthMod(_.IpBan) { _ => me =>
     withSuspect(username) { sus =>
       modApi.setBan(AsMod(me), sus, v) map some
     }
@@ -252,6 +252,21 @@ object Mod extends LidraughtsController {
   protected[controllers] def searchTerm(q: String)(implicit ctx: Context) = {
     val query = UserSearch exact q
     Env.mod.search(query) map { users => Ok(html.mod.search(UserSearch.form fill query, users)) }
+  }
+
+  def print(fh: String) = SecureBody(_.PrintBan) { implicit ctx => me =>
+    val hash = FingerHash(fh)
+    for {
+      uids <- Env.security.api recentUserIdsByFingerHash hash
+      users <- UserRepo usersFromSecondary uids.reverse
+      withEmails <- UserRepo withEmailsU users
+      uas <- Env.security.api.printUas(hash)
+    } yield Ok(html.mod.search.print(hash, withEmails, uas, Env.security.printBan blocks hash))
+  }
+
+  def printBan(fh: String, v: Boolean) = Secure(_.PrintBan) { _ => me =>
+    Env.security.printBan.toggle(FingerHash(fh), v) inject
+      Redirect(routes.Mod.print(fh))
   }
 
   def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>

@@ -4,6 +4,7 @@ import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
 import lidraughts.evaluation.Display
+import lidraughts.security.FingerHash
 import lidraughts.user.User
 
 import controllers.routes
@@ -76,7 +77,7 @@ object mod {
       ),
       div(cls := "btn-rack")(
         isGranted(_.IpBan) option {
-          postForm(action := routes.Mod.ban(u.username, !u.ipBan), title := "Bans all IPs under this account from logging into this site.", cls := "xhr")(
+          postForm(action := routes.Mod.ipBan(u.username, !u.ipBan), cls := "xhr")(
             submitButton(cls := List("btn-rack__btn" -> true, "active" -> u.ipBan))("IP ban")
           )
         },
@@ -325,7 +326,7 @@ object mod {
       )
     )
 
-  def identification(u: User, spy: lidraughts.security.UserSpy)(implicit ctx: Context): Frag =
+  def identification(u: User, spy: lidraughts.security.UserSpy, printBlock: FingerHash => Boolean)(implicit ctx: Context): Frag =
     div(id := "mz_identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
@@ -361,7 +362,7 @@ object mod {
         ul(
           spy.prints.sorted.map { fp =>
             li(
-              a(href := s"${routes.Mod.search}?q=${java.net.URLEncoder.encode(fp.value.value, "US-ASCII")}")(
+              a(href := routes.Mod.print(fp.value.value), cls := printBlock(fp.value) option "blocked")(
                 fp.value.value, " ", momentFromNowOnce(fp.date)
               )
             )

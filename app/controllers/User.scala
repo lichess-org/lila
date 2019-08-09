@@ -309,7 +309,7 @@ object User extends LidraughtsController {
             }
         }
         val identification = spyFu map { spy =>
-          html.user.mod.identification(user, spy).some
+          html.user.mod.identification(user, spy, Env.security.printBan.blocks).some
         }
         val irwin = Env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>

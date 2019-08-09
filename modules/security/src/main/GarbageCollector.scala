@@ -11,6 +11,7 @@ import lidraughts.user.{ User, UserRepo }
 final class GarbageCollector(
     userSpy: UserSpyApi,
     ipTrust: IpTrust,
+    printBan: PrintBan,
     slack: lidraughts.slack.SlackApi,
     isArmed: () => Boolean,
     system: akka.actor.ActorSystem
@@ -49,25 +50,25 @@ final class GarbageCollector(
   private def apply(data: ApplyData): Funit = data match {
     case ApplyData(user, ip, email, req) =>
       userSpy(user) flatMap { spy =>
-        val print = spy.prints.headOption
-        logger.debug(s"apply ${data.user.username} print=${print}")
+        val printOpt = spy.prints.headOption
+        logger.debug(s"apply ${data.user.username} print=${printOpt}")
         system.lidraughtsBus.publish(
-          lidraughts.security.Signup(user, email, req, print.map(_.value)),
+          lidraughts.security.Signup(user, email, req, printOpt.map(_.value)),
           'userSignup
         )
-        badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-          logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-          lidraughts.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
-            _ ?? {
-              val ipBan = spy.usersSharingIp.forall { u =>
-                isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
-              }
-              if (!done.get(user.id)) {
-                collect(user, email, others, ipBan)
-                done put user.id
+        printOpt.map(_.value) filter printBan.blocks match {
+          case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
+          case _ =>
+            badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+              logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
+              lidraughts.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
+                _ ?? collect(user, email,
+                  ipBan = spy.usersSharingIp.forall { u =>
+                    isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
+                  },
+                  msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}")
               }
             }
-          }
         }
       }
   }
@@ -82,11 +83,11 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTroll
 
-  private def collect(user: User, email: EmailAddress, others: List[User], ipBan: Boolean): Funit = {
+  private def collect(user: User, email: EmailAddress, ipBan: Boolean, msg: => String): Funit = !done.get(user.id) ?? {
+    done put user.id
     val armed = isArmed()
     val wait = (30 + scala.util.Random.nextInt(300)).seconds
-    val othersStr = others.map(o => "@" + o.username).mkString(", ")
-    val message = s"Will dispose of @${user.username} in $wait. Email: ${email.value}. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
+    val message = s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
     logger.info(message)
     slack.garbageCollector(message) >>- {
       if (armed) {

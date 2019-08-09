@@ -6,7 +6,9 @@ import play.api.mvc.RequestHeader
 import lidraughts.user.User
 import lidraughts.common.{ IpAddress, EmailAddress }
 
-case class FingerprintedUser(user: User, hasFingerprint: Boolean)
+case class FingerPrintedUser(user: User, fp: Option[FingerHash]) {
+  def hasFingerPrint = fp.isDefined
+}
 
 case class UserSession(
     _id: String,
