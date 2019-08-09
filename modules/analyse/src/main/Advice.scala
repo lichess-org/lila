@@ -54,18 +54,22 @@ private[analyse] case class CpAdvice(
 
 private[analyse] object CpAdvice {
 
-  private val cpJudgements = List(
-    300 -> Advice.Judgement.Blunder,
-    100 -> Advice.Judgement.Mistake,
-    50 -> Advice.Judgement.Inaccuracy
+  private def cpWinningChances(cp: Double): Double = 2 / (1 + Math.exp(-0.004 * cp)) - 1
+
+  private val winningChanceJudgements = List(
+    .3 -> Advice.Judgement.Blunder,
+    .2 -> Advice.Judgement.Mistake,
+    .1 -> Advice.Judgement.Inaccuracy
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
     cp ← prev.cp map (_.ceiled.centipawns)
     infoCp ← info.cp map (_.ceiled.centipawns)
-    delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
-    judgment ← cpJudgements find { case (d, n) => d <= delta } map (_._2)
-  } yield CpAdvice(judgment, info, prev)
+    prevWinningChances = cpWinningChances(cp)
+    currentWinningChances = cpWinningChances(infoCp)
+    delta = (currentWinningChances - prevWinningChances) |> { d => info.color.fold(-d, d) }
+    judgement ← winningChanceJudgements find { case (d, n) => d <= delta } map (_._2)
+  } yield CpAdvice(judgement, info, prev)
 }
 
 private[analyse] sealed abstract class MateSequence(val desc: String)
