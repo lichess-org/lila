@@ -20,6 +20,7 @@ var $toggle = $('.user-show .mod-zone-toggle');
 var $zone = $('.user-show .mod-zone');
 
 function loadZone() {
+  $('.user-show').css('overflow', 'visible'); // required for mz_menu to be displayed
   $zone.html(lichess.spinnerHtml).removeClass('none');
   streamLoad({
     node: $zone[0],
