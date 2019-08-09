@@ -64,7 +64,7 @@ private[round] final class Round(
               Uci(captures.last.key + captures.head.key) match {
                 case Some(nextUci) =>
                   val newTaken = takenSet - fullCapture.taken.get.last
-                  player.draughtsnet(game, Uci.Move(fullCapture.orig, captures.last), currentFen, self, context, (nextUci, newTaken.mkString).some)
+                  player.draughtsnet(game, Uci.Move(fullCapture.orig, captures.last), currentFen, this, (nextUci, newTaken.mkString).some)
                 case _ =>
                   fufail(DraughtsnetError(s"Received invalid move $uci"))
               }
@@ -72,7 +72,7 @@ private[round] final class Round(
               fufail(DraughtsnetError(s"Received invalid move $uci"))
           }
       } else
-        player.draughtsnet(game, uci, currentFen, this, context)
+        player.draughtsnet(game, uci, currentFen, this)
     } >>- lidraughts.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>

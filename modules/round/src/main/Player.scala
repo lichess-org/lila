@@ -8,11 +8,14 @@ import draughts.{ Centis, Color, Move, MoveMetrics, Status }
 
 import actorApi.round.{ DrawNo, ForecastPlay, HumanPlay, TakebackNo, TooManyPlies }
 import akka.actor._
+import lidraughts.common.Future
 import lidraughts.game.{ Game, Pov, Progress, UciMemo }
 import lidraughts.hub.Duct
 import lidraughts.hub.actorApi.round.{ BotPlay, DraughtsnetPlay }
+import ornicar.scalalib.Random.approximatly
 
 private[round] final class Player(
+    system: ActorSystem,
     draughtsnetPlayer: lidraughts.draughtsnet.Player,
     bus: lidraughts.common.Bus,
     finisher: Finisher,
@@ -86,7 +89,7 @@ private[round] final class Player(
     res >>- promiseOption.foreach(_.success(()))
   }
 
-  private[round] def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: Round, context: ActorContext, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: Round, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.draughts))
         applyUci(game, uci, blur = false, metrics = draughtsnetLag)
@@ -98,18 +101,15 @@ private[round] final class Player(
                 notifyMove(move, progress.game) >> {
                   if (progress.game.finished) moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ }
                   else fuccess(progress.events)
-                } >>-
-                nextMove.fold() { nextMove =>
-                  context.system.scheduler.scheduleOnce(game.clock.fold((300 + scala.util.Random.nextInt(200)).milliseconds) {
-                    clock =>
-                      val remaining = clock.remainingTime(game.player.color).centis
-                      if (remaining > 1500)
-                        (300 + scala.util.Random.nextInt(200)).milliseconds
-                      else if (remaining > 500)
-                        (200 + scala.util.Random.nextInt(100)).milliseconds
-                      else
-                        (100 + scala.util.Random.nextInt(50)).milliseconds
-                  }, round, DraughtsnetPlay(nextMove._1, nextMove._2, FEN(Forsyth >> progress.game.draughts)))
+                } >>- {
+                  nextMove match {
+                    case Some((uci, taken)) if !progress.game.finished =>
+                      akka.pattern.after(captureDelay(game), system.scheduler) {
+                        round ! DraughtsnetPlay(uci, taken, FEN(Forsyth >> progress.game.draughts))
+                        funit
+                      }
+                    case _ =>
+                  }
                 }
           }
       else requestDraughtsnet(game, round) >> fufail(DraughtsnetError(s"Invalid AI move current FEN $currentFen != ${FEN(Forsyth >> game.draughts)}"))
@@ -118,6 +118,14 @@ private[round] final class Player(
   private def requestDraughtsnet(game: Game, round: Round): Funit = game.playableByAi ?? {
     if (game.turns <= draughtsnetPlayer.maxPlies) draughtsnetPlayer(game)
     else fuccess(round ! actorApi.round.ResignAi)
+  }
+
+  private def toDelay(centis: Int) = approximatly(0.5f)(centis).milliseconds
+  private def captureDelay(game: Game) = game.clock.fold(toDelay(400)) { clock =>
+    val remaining = clock.remainingTime(game.player.color).centis
+    if (remaining > 1500) toDelay(400)
+    else if (remaining > 500) toDelay(200)
+    else toDelay(100)
   }
 
   private val draughtsnetLag = MoveMetrics(clientLag = Centis(5).some)

@@ -19,7 +19,7 @@ final class Env(
     db: lidraughts.db.Env,
     hub: lidraughts.hub.Env,
     draughtsnetCommentator: lidraughts.draughtsnet.Commentator,
-    roundMap: ActorRef,
+    roundMap: DuctMap[_],
     lightUser: lidraughts.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,

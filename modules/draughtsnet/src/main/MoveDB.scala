@@ -4,7 +4,8 @@ import akka.actor._
 import akka.pattern.ask
 import org.joda.time.DateTime
 
-import lidraughts.hub.{ actorApi => hubApi }
+import lidraughts.hub.actorApi.map.Tell
+import lidraughts.hub.actorApi.round.{ DraughtsnetPlay }
 import makeTimeout.short
 
 private final class MoveDB(
@@ -90,7 +91,7 @@ private final class MoveDB(
                 coll -= move.id
                 Monitor.move(move, client)
                 system.lidraughtsBus.publish(
-                  hubApi.map.Tell(move.game.id, hubApi.round.DraughtsnetPlay(uci, data.move.taken, move.currentFen)),
+                  Tell(move.game.id, DraughtsnetPlay(uci, data.move.taken, move.currentFen)),
                   'roundMapTell
                 )
               case _ =>

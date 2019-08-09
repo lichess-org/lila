@@ -25,7 +25,7 @@ final class SimulApi(
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
     socketHub: ActorRef,
-    roundMap: ActorRef,
+    roundMap: lidraughts.hub.DuctMap[_],
     site: ActorSelection,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -236,9 +236,9 @@ final class SimulApi(
           _.pairings.find(_.player.user == userId)
         } map { pairing =>
           result match {
-            case "draw" => roundMap ! Tell(pairing.gameId, ArbiterDraw)
-            case "hostwin" => roundMap ! Tell(pairing.gameId, ArbiterResign(!pairing.hostColor))
-            case "hostloss" => roundMap ! Tell(pairing.gameId, ArbiterResign(pairing.hostColor))
+            case "draw" => roundMap.tell(pairing.gameId, ArbiterDraw)
+            case "hostwin" => roundMap.tell(pairing.gameId, ArbiterResign(!pairing.hostColor))
+            case "hostloss" => roundMap.tell(pairing.gameId, ArbiterResign(pairing.hostColor))
           }
           funit
         }

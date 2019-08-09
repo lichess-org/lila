@@ -9,7 +9,7 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 
 import lidraughts.game.{ Game, GameRepo, Pov }
 import lidraughts.hub.actorApi.map.{ Ask, Tell }
-import lidraughts.hub.actorApi.round.{ Abort, Resign, DraghtsnetPlay }
+import lidraughts.hub.actorApi.round.{ Abort, Resign, DraughtsnetPlay }
 import lidraughts.hub.actorApi.{ HasUserId, DeployPost }
 
 final class Env(
@@ -177,6 +177,7 @@ final class Env(
   )
 
   private lazy val player: Player = new Player(
+    system = system,
     draughtsnetPlayer = draughtsnetPlayer,
     bus = bus,
     finisher = finisher,

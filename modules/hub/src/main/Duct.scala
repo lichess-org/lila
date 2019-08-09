@@ -1,11 +1,11 @@
-package lila.hub
+package lidraughts.hub
 
 import scala.collection.immutable.Queue
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 import scala.concurrent.stm._
 
-import lila.base.LilaException
+import lidraughts.base.LidraughtsException
 
 /*
  * Sequential like an actor, but for async functions,
@@ -46,11 +46,11 @@ object Duct {
   type ReceiveAsync = PartialFunction[Any, Fu[Any]]
 
   private val fallback = { msg: Any =>
-    lila.log("Duct").warn(s"unhandled msg: $msg")
+    lidraughts.log("Duct").warn(s"unhandled msg: $msg")
     funit
   }
 
-  case class Timeout(duration: FiniteDuration) extends lila.base.LilaException {
+  case class Timeout(duration: FiniteDuration) extends lidraughts.base.LidraughtsException {
     val message = s"FutureSequencer timed out after $duration"
   }
 
