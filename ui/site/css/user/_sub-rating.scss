@@ -44,6 +44,8 @@
     i {
       font-size: .75em;
       opacity: .2;
+      color: $c-font-dim;
+      @include transition();
     }
     &:hover i {
       color: $c-link;
