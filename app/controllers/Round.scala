@@ -237,7 +237,7 @@ object Round extends LilaController with TheftPrevention {
           Chat.GameOrEvent(Left(Chat.Restricted(
             chat,
             restricted = game.fromLobby && ctx.isAnon,
-            palantir = game.fromFriend && ctx.userId.exists(Env.api.palantirSetting.get().matches)
+            palantir = game.fromFriend && game.userIds.size == 2 && ctx.userId.exists(Env.api.palantirSetting.get().matches)
           ))).some
         }
       }
