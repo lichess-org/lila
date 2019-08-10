@@ -282,38 +282,37 @@ object Study extends LidraughtsController {
     }
   }
 
+  private def chaptersToIdNames(chapters: List[Chapter.Metadata]) =
+    chapters.map { ch =>
+      Chapter.IdName(ch.id, ch.name)
+    }
+
   def embed(id: String, chapterId: String) = Action.async { implicit req =>
     env.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) {
         case WithChapter(study, chapter) =>
-          val nextChapter = ~get("next", req)
-          val chaptersFuture =
-            if (nextChapter.toLowerCase() == "true" && chapter.gamebook.getOrElse(false))
-              Env.study.chapterRepo.orderedGamebookMetadataByStudy(id)
-            else fuccess(List(chapter.metadata))
-          chaptersFuture flatMap { chapters =>
-            env.jsonView(study.copy(
+          val gamebookChapters = ~chapter.gamebook && getBool("next", req)
+          for {
+            chapters <- if (gamebookChapters) env.chapterRepo.orderedGamebookMetadataByStudy(id) else fuccess(List(chapter.metadata))
+            chapterIdNames <- if (gamebookChapters) fuccess(chaptersToIdNames(chapters)) else env.chapterRepo.idNames(study.id)
+            studyJson <- env.jsonView(study.copy(
               members = lidraughts.study.StudyMembers(Map.empty) // don't need no members
-            ), chapters, chapter, none) flatMap { studyJson =>
-              val setup = chapter.setup
-              val initialFen = chapter.root.fen.some
-              val pov = UserAnalysis.makePov(initialFen, setup.variant)
-              val baseData = Env.round.jsonView.userAnalysisJson(pov, lidraughts.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
-              val analysis = baseData ++ Json.obj(
-                "treeParts" -> partitionTreeFullUciJsonWriter.writes {
-                  lidraughts.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-                }
-              )
-              val data = lidraughts.study.JsonView.JsData(
-                study = studyJson,
-                analysis = analysis
-              )
-              negotiate(
-                html = Ok(html.study.embed(study, chapter, data)).fuccess,
-                api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-              )
-            }
-          }
+            ), chapters, chapter, none)
+            setup = chapter.setup
+            initialFen = chapter.root.fen.some
+            pov = UserAnalysis.makePov(initialFen, setup.variant)
+            baseData = Env.round.jsonView.userAnalysisJson(pov, lidraughts.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
+            analysis = baseData ++ Json.obj(
+              "treeParts" -> partitionTreeFullUciJsonWriter.writes {
+                lidraughts.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+              }
+            )
+            data = lidraughts.study.JsonView.JsData(study = studyJson, analysis = analysis)
+            result <- negotiate(
+              html = Ok(html.study.embed(study, chapter, chapterIdNames, data)).fuccess,
+              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+            )
+          } yield result
       }
     } map NoCache
   }

@@ -145,16 +145,24 @@ final class ChapterRepo(coll: Coll) {
                 case Some(chapters) if chapters.size >= nbChaptersPerStudy => hash
                 case maybe =>
                   val chapters = ~maybe
-                  val newChapter = for {
-                    id <- doc.getAs[Chapter.Id]("_id")
-                    name <- doc.getAs[Chapter.Name]("name")
-                  } yield Chapter.IdName(id, name)
-                  val newChapters = newChapter.fold(chapters)(chapters :+ _)
-                  hash + (studyId -> newChapters)
+                  hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
               }
             }
         }
       }
+
+  def idNames(studyId: Study.Id): Fu[List[Chapter.IdName]] =
+    coll.find(
+      $doc("studyId" -> studyId),
+      $doc("_id" -> true, "name" -> true)
+    ).sort($sort asc "order")
+      .list[Bdoc](Study.maxChapters * 2, ReadPreference.secondaryPreferred)
+      .map { _ flatMap readIdName }
+
+  private def readIdName(doc: Bdoc) = for {
+    id <- doc.getAs[Chapter.Id]("_id")
+    name <- doc.getAs[Chapter.Name]("name")
+  } yield Chapter.IdName(id, name)
 
   def startServerEval(chapter: Chapter) =
     coll.updateField($id(chapter.id), "serverEval", Chapter.ServerEval(
