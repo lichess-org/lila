@@ -28,7 +28,7 @@ private object Palantir {
   class Channel {
 
     private val members: Cache[User.ID, SocketMember] = Scaffeine()
-      .expireAfterWrite(10 seconds)
+      .expireAfterWrite(7 seconds)
       .build[User.ID, SocketMember]
 
     def add(uid: User.ID, member: SocketMember) = members.put(uid, member)
