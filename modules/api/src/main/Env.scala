@@ -73,11 +73,6 @@ final class Env(
     default = "".r,
     text = "Regex selecting user IDs using service workers".some
   )
-  val palantirSetting = settingStore[scala.util.matching.Regex](
-    "palantirUsers",
-    default = "".r,
-    text = "Regex selecting user IDs using palantir".some
-  )
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"

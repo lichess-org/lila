@@ -20,7 +20,6 @@ object Dev extends LilaController {
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
     Env.api.serviceWorkerSetting,
-    Env.api.palantirSetting,
     Env.plan.donationGoalSetting,
     Env.rating.deviationIncreaseOverTimeSetting
   )
