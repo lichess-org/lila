@@ -56,7 +56,7 @@ object Condition {
 
     def name(lang: Lang) = perf match {
       case None => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb))
-      case Some(p) => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb, p.name))
+      case Some(p) => I18nKeys.moreThanNbPerfRatedGames.pluralTxtTo(lang, nb, List(nb, p.name))
     }
   }
 
