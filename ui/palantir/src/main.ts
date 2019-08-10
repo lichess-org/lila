@@ -9,8 +9,7 @@ export function palantir(opts: PalantirOpts) {
 
   let state: State = 'off',
     peer: any | undefined,
-    myStream: any | undefined,
-    remoteStream: any | undefined;
+    myStream: any | undefined;
 
   function start() {
     setState('opening');
@@ -28,7 +27,7 @@ export function palantir(opts: PalantirOpts) {
       })
       .on('call', (call: any) => {
         if (!findOpenConnectionTo(call.peer)) {
-          setState('answering');
+          setState('answering', call.peer);
           startCall(call);
           call.answer(myStream);
         }
@@ -42,7 +41,7 @@ export function palantir(opts: PalantirOpts) {
       .on('disconnected', () => {
         if (state == 'stopping') destroyPeer();
         else {
-          setState('opening');
+          setState('opening', 'reconnect');
           peer.reconnect();
         }
       })
@@ -52,10 +51,9 @@ export function palantir(opts: PalantirOpts) {
 
   function startCall(call: any) {
     call
-      .on('stream', rs => {
+      .on('stream', () => {
         log('call.stream');
-        remoteStream = rs;
-        setState('on');
+        setState('on', call.peer);
         li.sound.say("Connected", true, true);
       })
       .on('close', () => {
@@ -70,7 +68,7 @@ export function palantir(opts: PalantirOpts) {
   }
 
   function stopCall(_: any) {
-    if (!hasAnOpenConnection()) setState('ready');
+    if (!hasAnOpenConnection()) setState('ready', 'no call remaining');
   }
 
   function call(uid: string) {
@@ -80,7 +78,7 @@ export function palantir(opts: PalantirOpts) {
       peer.id < peerId && // yes that's how we decide who calls who
       !findOpenConnectionTo(peerId)
     ) {
-      setState('calling');
+      setState('calling', peerId);
       startCall(peer.call(peerId, myStream));
     }
   }
@@ -96,8 +94,8 @@ export function palantir(opts: PalantirOpts) {
     console.log('[palantir]', msg);
   }
 
-  function setState(s: State) {
-    log(`state: ${state} -> ${s}`);
+  function setState(s: State, msg: string = '') {
+    log(`state: ${state} -> ${s} ${msg}`);
     state = s;
     opts.redraw();
   }
@@ -137,13 +135,23 @@ export function palantir(opts: PalantirOpts) {
           if (c.peerConnection && c.peerConnection.connectionState == 'disconnected') {
             log(`close disconnected call to ${c.peer}`);
             c.close();
+            opts.redraw();
           }
         });
       }
     }
   }
+  function allOpenConnections() {
+    if (!peer) return [];
+    const conns: any[] = [];
+    for (let peerId in peer.connections) {
+      const c = findOpenConnectionTo(peerId);
+      if (c) conns.push(c);
+    }
+    return conns;
+  }
   function hasAnOpenConnection() {
-    return peer && !!Object.keys(peer.connections).find(peerId => !!connectionsTo(peerId).length);
+    return allOpenConnections().length > 0;
   }
 
   function ping() {
@@ -157,6 +165,12 @@ export function palantir(opts: PalantirOpts) {
   setInterval(closeDisconnectedCalls, 1400);
   setInterval(ping, 5000);
 
+  setInterval(function() {
+    peer && Object.keys(peer.connections).forEach(peerId => {
+      console.log(peerId, !!findOpenConnectionTo(peerId));
+    });
+  }, 3000);
+
   return {
     render: h =>
     devices ? h('div.mchat__tab.palantir.palantir-' + state, {
@@ -169,13 +183,13 @@ export function palantir(opts: PalantirOpts) {
           (vnode.elm as HTMLElement).addEventListener('click', () => peer ? stop() : start());
         }
       }
-    }, [
-      state == 'on' ? h('audio.palantir__audio', {
-        attrs: { autoplay: true },
-        hook: {
-          insert(vnode) { (vnode.elm as HTMLAudioElement).srcObject = remoteStream }
-        }
-      }) : null
-    ]) : null
+    }, state == 'on' ?
+      allOpenConnections().map(c =>
+        h('audio.palantir__audio.' + c.peer, {
+          attrs: { autoplay: true },
+          hook: { insert(vnode) { (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream } }
+        })
+      ) : []
+    ) : null
   }
 }
