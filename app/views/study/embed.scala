@@ -52,7 +52,7 @@ object embed {
                     (c.id == chapter.id) option selected
                   )(c.name.value)
                 }),
-                h1(s.name.value)
+                a(target := "_blank", href := url)(h1(s.name.value))
               ),
               a(target := "_blank", cls := "open", dataIcon := "=", href := url, title := trans.study.open.txt())
             )
