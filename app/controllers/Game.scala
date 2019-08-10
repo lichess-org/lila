@@ -70,13 +70,14 @@ object Game extends LidraughtsController {
                 user = user,
                 format = format,
                 vs = vs,
-                since = getLong("since", req) map { ts => new DateTime(ts) },
-                until = getLong("until", req) map { ts => new DateTime(ts) },
+                since = getLong("since", req) map { new DateTime(_) },
+                until = getLong("until", req) map { new DateTime(_) },
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
                 perfType = ~get("perfType", req) split "," flatMap { lidraughts.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap draughts.Color.apply,
                 analysed = getBoolOpt("analysed", req),
+                ongoing = getBool("ongoing", req),
                 flags = requestPdnFlags(req, draughtsResult, extended = false).copy(
                   literate = false
                 ),
