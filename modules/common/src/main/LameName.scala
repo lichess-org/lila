@@ -5,7 +5,7 @@ object LameName {
   def username(name: String) =
     anyName(name) || lameTitlePrefix.matcher(name).lookingAt
 
-  def anyName(name: String) = lameWords.find(name)
+  def anyName(name: String) = lameWords.find(name.replaceIf('_', ""))
 
   def anyNameButLidraughtsIsOk(name: String) = lameWords find {
     lidraughtsRegex.replaceAllIn(name, "")
@@ -71,7 +71,8 @@ object LameName {
       "wanker",
       "feces",
       "fart",
-      "cuck"
+      "cuck",
+      "butthole"
     ).map {
         _.map(subs).map(_ + "+").mkString
       }.mkString("|").r
