@@ -65,14 +65,6 @@ final class Env(
     text = "Enable CSP for everyone.".some
   )
 
-  import lidraughts.memo.SettingStore.Regex._
-  import lidraughts.memo.SettingStore.Formable.regexFormable
-  val palantirSetting = settingStore[scala.util.matching.Regex](
-    "palantirUsers",
-    default = "".r,
-    text = "Regex selecting user IDs using palantir".some
-  )
-
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
