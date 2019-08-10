@@ -585,6 +585,8 @@
   <string name="mobileApp">Εφαρμογή για Κινητά</string>
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
+  <string name="aboutX">Σχετικά με %s</string>
+  <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
