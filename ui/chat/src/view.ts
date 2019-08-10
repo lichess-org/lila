@@ -21,16 +21,16 @@ export default function(ctrl: Ctrl): VNode {
 }
 
 function renderPalantir(ctrl: Ctrl) {
-  if (!ctrl.data.palantir) return;
   const p = ctrl.palantir;
+  if (!p.enabled()) return;
   return p.instance ? p.instance.render(h) : h('div.mchat__tab.palantir.palantir-slot',{
     attrs: {
       'data-icon': '',
       title: 'Voice chat'
     },
     hook: bind('click', () => {
-      if (!p.loading) {
-        p.loading = true;
+      if (!p.loaded) {
+        p.loaded = true;
         const li = window.lichess;
         li.loadScript('javascripts/vendor/peerjs.min.js').then(() => {
           li.loadScript(li.compiledScript('palantir')).then(() => {

@@ -35,8 +35,8 @@ object chat {
       writeable = writeable,
       public = public,
       restricted = chat.restricted,
-      palantir = chat.palantir,
-      localMod = localMod
+      localMod = localMod,
+      palantir = chat.palantir
     )
 
   def json(
@@ -47,8 +47,8 @@ object chat {
     withNote: Boolean = false,
     writeable: Boolean = true,
     restricted: Boolean = false,
-    palantir: Boolean = false,
-    localMod: Boolean = false
+    localMod: Boolean = false,
+    palantir: Boolean = false
   )(implicit ctx: Context) = Json.obj(
     "data" -> Json.obj(
       "id" -> chat.id,

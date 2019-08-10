@@ -2,6 +2,7 @@ import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCt
 import { presetCtrl } from './preset'
 import { noteCtrl } from './note'
 import { moderationCtrl } from './moderation'
+import { prop } from 'common';
 
 const li = window.lichess;
 
@@ -10,7 +11,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   const data = opts.data;
   const palantir = {
     instance: undefined,
-    loading: false
+    loaded: false,
+    enabled: prop(!!data.palantir)
   };
 
   const allTabs: Tab[] = ['discussion'];
@@ -111,7 +113,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     ['socket.in.chat_timeout', onTimeout],
     ['socket.in.chat_reinstate', onReinstate],
     ['chat.writeable', onWriteable],
-    ['chat.permissions', onPermissions]
+    ['chat.permissions', onPermissions],
+    ['palantir.toggle', palantir.enabled]
   ];
   subs.forEach(([eventName, callback]) => li.pubsub.on(eventName, callback));
 

@@ -37,7 +37,8 @@ object show {
               timeout = c.timeout,
               writeable = ctx.userId.??(s.canChat),
               public = false,
-              localMod = ctx.userId.??(s.canContribute)
+              palantir = ctx.userId ?? s.canContribute,
+              localMod = ctx.userId ?? s.canContribute
             )
           },
           "explorer" -> Json.obj(
@@ -52,7 +53,7 @@ object show {
     robots = s.isPublic,
     chessground = false,
     zoomable = true,
-    csp = defaultCsp.withTwitch.some,
+    csp = defaultCsp.withTwitch.withPeer.some,
     openGraph = lila.app.ui.OpenGraph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",
