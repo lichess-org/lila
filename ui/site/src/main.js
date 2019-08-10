@@ -306,6 +306,8 @@ lidraughts.topMenuIntent = function() {
         if (lidraughts.socket === null) lidraughts.socket = lidraughts.StrongSocket("/socket/v2", false);
       }, 300);
 
+      var initiatingHtml = '<div class="initiating">' + lidraughts.spinnerHtml + '</div>';
+
       lidraughts.challengeApp = (function() {
         var instance, booted;
         var $toggle = $('#challenge_notifications_tag');
@@ -315,7 +317,7 @@ lidraughts.topMenuIntent = function() {
         var load = function(data) {
           if (booted) return;
           booted = true;
-          var $el = $('#challenge_app').html(lidraughts.initiatingHtml);
+          var $el = $('#challenge_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           lidraughts.loadCss('stylesheets/challengeApp.css');
           lidraughts.loadScript('compiled/lidraughts.challenge' + (isDev ? '' : '.min') + '.js').done(function() {
@@ -354,7 +356,7 @@ lidraughts.topMenuIntent = function() {
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
-          var $el = $('#notify_app').html(lidraughts.initiatingHtml);
+          var $el = $('#notify_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           lidraughts.loadCss('stylesheets/notifyApp.css');
           lidraughts.loadScript('compiled/lidraughts.notify' + (isDev ? '' : '.min') + '.js').done(function() {
@@ -454,7 +456,7 @@ lidraughts.topMenuIntent = function() {
         $('#top .dasher .toggle').one('mouseover click', function() {
           if (booted) return;
           booted = true;
-          var $el = $('#dasher_app').html(lidraughts.initiatingHtml);
+          var $el = $('#dasher_app').html(initiatingHtml);
           var isDev = $('body').data('dev');
           var isPlaying = $('body').hasClass('playing');
           lidraughts.loadCss('stylesheets/dasherApp.css');
