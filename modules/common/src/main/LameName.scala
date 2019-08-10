@@ -25,6 +25,7 @@ object LameName {
       'l' -> "I1",
       'o' -> "08",
       's' -> "5",
+      'u' -> "v",
       'z' -> "2"
     )
 
@@ -35,7 +36,7 @@ object LameName {
     List(
       "hitler",
       "fuck",
-      "fouck",
+      "fvck",
       "penis",
       "vagin",
       "anus",
