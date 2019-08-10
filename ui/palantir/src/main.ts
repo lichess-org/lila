@@ -60,13 +60,17 @@ export function palantir(opts: PalantirOpts) {
       })
       .on('close', () => {
         log('call.close');
-        stop();
+        stopCall(call);
       })
       .on('error', e => {
         log(`call.error: ${e}`);
-        stop();
+        stopCall(call);
       });
     closeOtherConnectionsTo(call.peer);
+  }
+
+  function stopCall(_: any) {
+    if (!hasAnOpenConnection()) setState('ready');
   }
 
   function call(uid: string) {
@@ -138,15 +142,16 @@ export function palantir(opts: PalantirOpts) {
       }
     }
   }
+  function hasAnOpenConnection() {
+    return peer && !!Object.keys(peer.connections).find(peerId => !!connectionsTo(peerId).length);
+  }
 
   function ping() {
     if (state != 'off') li.pubsub.emit('socket.send', 'palantirPing');
   }
 
   li.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
-  li.pubsub.on('palantir.toggle', v => {
-    if (!v) stop();
-  });
+  li.pubsub.on('palantir.toggle', v => { if (!v) stop() });
 
   start();
   setInterval(closeDisconnectedCalls, 1400);
