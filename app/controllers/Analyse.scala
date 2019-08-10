@@ -33,7 +33,7 @@ object Analyse extends LidraughtsController {
     else GameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) >> RedirectAtFen(pov, initialFen) {
         (env.analyser get pov.game) zip
-          Env.draughtsnet.api.prioritaryAnalysisInProgress(pov.gameId) zip
+          Env.draughtsnet.api.gameIdExists(pov.gameId) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
           Round.getWatcherChat(pov.game) zip
           Env.game.crosstableApi.withMatchup(pov.game) zip
