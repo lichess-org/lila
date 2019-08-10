@@ -1,13 +1,17 @@
 /** based on https://github.com/hustcc/timeago.js Copyright (c) 2016 hustcc License: MIT **/
 lidraughts.timeago = (function() {
 
-  // second, minute, hour, day, week, month, year(365 days)
-  var SEC_ARRAY = [60,
-                   60 * 60,
-                   60 * 60 * 24,
-                   60 * 60 * 24 * 7,
-                   60 * 60 * 2 * 365, // 24/12 = 2
-                   60 * 60 * 24 * 365];
+
+  // divisors for minutes, hours, days, weeks, months, years
+  const DIVS = [60,
+                60 * 60,
+                60 * 60 * 24,
+                60 * 60 * 24 * 7,
+                60 * 60 * 2 * 365, // 24/12 = 2
+                60 * 60 * 24 * 365];
+
+  const LIMITS = [...DIVS];
+  LIMITS[2] *= 2; // Show hours up to 2 days.q
 
   // format Date / string / timestamp to Date instance.
   function toDate(input) {
@@ -18,15 +22,17 @@ lidraughts.timeago = (function() {
 
   // format the diff second to *** time ago
   function formatDiff(diff) {
-    var i = 0, agoin = 0;
+    let agoin = 0;
     if (diff < 0) {
       agoin = 1;
       diff = -diff;
-    } 
-    var i = 0, total_sec = diff;
-    while (i < 6 && diff >= SEC_ARRAY[i]) i++;
-    if (i > 0) diff /= SEC_ARRAY[i - 1];
-    
+    }
+    var total_sec = diff;
+
+    let i = 0;
+    for (;i < 6 && diff >= LIMITS[i]; i++);
+    if (i > 0) diff /= DIVS[i-1];
+
     diff = Math.floor(diff);
     i *= 2;
 
@@ -47,34 +53,34 @@ lidraughts.timeago = (function() {
       }).format : function(d) { return d.toLocaleString(); })
   }
 
-   return {
-     render: function(nodes) {
-       var cl, abs, set, str, diff, now = Date.now();
-       nodes.forEach(function(node) {
-         cl = node.classList,
-         abs = cl.contains('abs'),
-         set = cl.contains('set');
-         node.date = node.date || toDate(node.getAttribute('datetime'));
-         if (!set) {
-           str = formatter()(node.date);
-           if (abs) node.textContent = str;
-           else node.setAttribute('title', str);
-           cl.add('set');
-           if (abs || cl.contains('once')) cl.remove('timeago');
-         }
-         if (!abs) {
-           diff = (now - node.date) / 1000;
-           node.textContent = formatDiff(diff);
-           if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
-         }
-       });
-     },
-     // relative
-     format: function(date) {
-       return formatDiff((Date.now() - toDate(date)) / 1000);
-     },
-     absolute: function(date) {
-       return formatter()(toDate(date));
-     }
-   };
+  return {
+    render: function(nodes) {
+      var cl, abs, set, str, diff, now = Date.now();
+      nodes.forEach(function(node) {
+        cl = node.classList,
+        abs = cl.contains('abs'),
+        set = cl.contains('set');
+        node.date = node.date || toDate(node.getAttribute('datetime'));
+        if (!set) {
+          str = formatter()(node.date);
+          if (abs) node.textContent = str;
+          else node.setAttribute('title', str);
+          cl.add('set');
+          if (abs || cl.contains('once')) cl.remove('timeago');
+        }
+        if (!abs) {
+          diff = (now - node.date) / 1000;
+          node.textContent = formatDiff(diff);
+          if (Math.abs(diff) > 9999) cl.remove('timeago'); // ~3h
+        }
+      });
+    },
+    // relative
+    format: function(date) {
+      return formatDiff((Date.now() - toDate(date)) / 1000);
+    },
+    absolute: function(date) {
+      return formatter()(toDate(date));
+    }
+  };
 })();
