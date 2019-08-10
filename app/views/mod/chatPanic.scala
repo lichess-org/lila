@@ -27,7 +27,7 @@ object chatPanic {
               state.map { s =>
                 frag(
                   goodTag(cls := "text", dataIcon := "E")(strong("ENABLED")),
-                  ". Expires in ", momentFromNow(s)
+                  ". Expires ", momentFromNow(s)
                 )
               } getOrElse badTag(cls := "text", dataIcon := "L")(strong("DISABLED"))
             ),
