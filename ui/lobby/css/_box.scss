@@ -4,7 +4,7 @@
     &__top {
       @extend %metal, %flex-between;
       flex: 0 0 auto;
-      padding: .3em .5em .3em .6em;
+      padding: .3em .5em;
       .more {
         color: $c-font-dim;
         @include transition();
@@ -26,6 +26,7 @@
       overflow-y: auto;
     }
     .user-link {
+      padding-left: -1em;
       font-weight: bold;
       color: $c-font-dim;
     }
