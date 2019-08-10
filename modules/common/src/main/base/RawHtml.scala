@@ -140,7 +140,7 @@ final object RawHtml {
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {
     var last = end - 1
     while ((sArr(last): @switch) match {
-      case '.' | ',' | '?' | '!' | ';' | '-' | '–' | '—' | '@' | '\'' | '(' => true
+      case '.' | ',' | '?' | '!' | ':' | ';' | '-' | '–' | '—' | '@' | '\'' | '(' => true
       case _ => false
     }) { last -= 1 }
 
@@ -154,7 +154,7 @@ final object RawHtml {
         }))
       var parenCnt = pCnter(start, -1)
       while ((sArr(last): @switch) match {
-        case '.' | ',' | '?' | '!' | ';' | '-' | '–' | '—' | '@' | '\'' => true
+        case '.' | ',' | '?' | '!' | ':' | ';' | '-' | '–' | '—' | '@' | '\'' => true
         case '(' => { parenCnt -= 1; true }
         case ')' => { parenCnt += 1; parenCnt <= 0 }
         case _ => false
@@ -163,12 +163,10 @@ final object RawHtml {
     last + 1
   }
 
-  private[this] val imgurRegex = """https?://imgur\.com/(\w+)""".r
-  private[this] val imgUrlPat = """\.(?:jpg|jpeg|png|gif)$""".r.pattern
+  private[this] val imgurRegex = """https?://(?:i\.)?imgur\.com/(\w+)(?:\.jpe?g|\.png|\.gif)?""".r
 
   private[this] def imgUrl(url: String): Option[String] = (url match {
     case imgurRegex(id) => Some(s"""https://i.imgur.com/$id.jpg""")
-    case _ if imgUrlPat.matcher(url).find => Some(url)
     case _ => None
   }) map { img => s"""<img class="embed" src="$img" alt="$url"/>""" }
 
