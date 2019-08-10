@@ -81,7 +81,7 @@ object Auth extends LidraughtsController {
       api.usernameForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
-          api = _ => jsonFormError(err)
+          api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
         ),
         username => HasherRateLimit(username, ctx.req) { chargeIpLimiter =>
           api.loadLoginForm(username) flatMap { loginForm =>
@@ -95,7 +95,7 @@ object Auth extends LidraughtsController {
                       case _ => Unauthorized(html.auth.login(err, referrer))
                     }
                   },
-                  api = _ => jsonFormError(err)
+                  api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
                 )
               },
               result => result.toOption match {
