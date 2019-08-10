@@ -144,6 +144,9 @@ export function palantir(opts: PalantirOpts) {
   }
 
   li.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
+  li.pubsub.on('palantir.toggle', v => {
+    if (!v) stop();
+  });
 
   start();
   setInterval(closeDisconnectedCalls, 1400);
