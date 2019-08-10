@@ -5,14 +5,14 @@ import draughts.format.{ Uci, FEN }
 import draughts.opening.{ FullOpening, FullOpeningDB }
 import draughts.variant.{ Variant, Standard }
 import draughts.{ KingMoves, Speed, PieceMap, MoveMetrics, DraughtsHistory, Board, Move, Pos, DraughtsGame, Clock, Status, Color, Mode, PositionHash, Centis, Situation }
-import org.joda.time.DateTime
-import org.joda.time.Seconds.secondsBetween
 import scala.annotation.tailrec
 
 import lidraughts.common.Sequence
 import lidraughts.db.ByteArray
 import lidraughts.rating.PerfType
 import lidraughts.user.User
+import org.joda.time.DateTime
+import org.joda.time.Seconds.secondsBetween
 
 case class Game(
     id: Game.ID,
@@ -620,6 +620,11 @@ case class Game(
   def showBookmarks = hasBookmarks ?? bookmarks.toString
 
   def userIds = playerMaps(_.userId)
+
+  def twoUserIds: Option[(User.ID, User.ID)] = for {
+    w <- whitePlayer.userId
+    b <- blackPlayer.userId
+  } yield w -> b
 
   def userRatings = playerMaps(_.rating)
 
