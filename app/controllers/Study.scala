@@ -283,28 +283,26 @@ object Study extends LilaController {
   def embed(id: String, chapterId: String) = Action.async { implicit req =>
     env.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) {
-        case WithChapter(study, chapter) =>
-          env.jsonView(study.copy(
+        case WithChapter(study, chapter) => for {
+          chapters <- env.chapterRepo.idNames(study.id)
+          studyJson <- env.jsonView(study.copy(
             members = lila.study.StudyMembers(Map.empty) // don't need no members
-          ), List(chapter.metadata), chapter, none) flatMap { studyJson =>
-            val setup = chapter.setup
-            val initialFen = chapter.root.fen.some
-            val pov = UserAnalysis.makePov(initialFen, setup.variant)
-            val baseData = Env.round.jsonView.userAnalysisJson(pov, lila.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
-            val analysis = baseData ++ Json.obj(
-              "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-              }
-            )
-            val data = lila.study.JsonView.JsData(
-              study = studyJson,
-              analysis = analysis
-            )
-            negotiate(
-              html = Ok(html.study.embed(study, chapter, data)).fuccess,
-              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-            )
-          }
+          ), List(chapter.metadata), chapter, none)
+          setup = chapter.setup
+          initialFen = chapter.root.fen.some
+          pov = UserAnalysis.makePov(initialFen, setup.variant)
+          baseData = Env.round.jsonView.userAnalysisJson(pov, lila.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
+          analysis = baseData ++ Json.obj(
+            "treeParts" -> partitionTreeJsonWriter.writes {
+              lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+            }
+          )
+          data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+          result <- negotiate(
+            html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
+            api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+          )
+        } yield result
       }
     } map NoCache
   }

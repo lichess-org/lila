@@ -16,7 +16,12 @@ object embed {
 
   import EmbedConfig.implicits._
 
-  def apply(s: lila.study.Study, chapter: lila.study.Chapter, data: lila.study.JsonView.JsData)(implicit config: EmbedConfig) = frag(
+  def apply(
+    s: lila.study.Study,
+    chapter: lila.study.Chapter,
+    chapters: List[lila.study.Chapter.IdName],
+    data: lila.study.JsonView.JsData
+  )(implicit config: EmbedConfig) = frag(
     layout.doctype,
     layout.htmlTag(config.lang)(
       head(
@@ -41,12 +46,15 @@ object embed {
             val url = routes.Study.chapter(s.id.value, chapter.id.value)
             frag(
               div(cls := "left")(
-                trans.study.xBroughtToYouByY(
-                  a(target := "_blank", href := url)(h1(s.name.value)),
-                  a(target := "_blank", href := netBaseUrl)(netDomain)
-                )
+                select(id := "chapter-selector")(chapters.map { c =>
+                  option(
+                    value := c.id.value,
+                    (c.id == chapter.id) option selected
+                  )(c.name.value)
+                }),
+                h1(s.name.value)
               ),
-              a(target := "_blank", cls := "open", href := url)(trans.study.open())
+              a(target := "_blank", cls := "open", dataIcon := "=", href := url, title := trans.study.open.txt())
             )
           },
           jQueryTag,
@@ -63,7 +71,10 @@ object embed {
               "i18n" -> views.html.board.userAnalysisI18n(),
               "userId" -> none[String]
             ))
-          })""", config.nonce)
+          });
+document.getElementById('chapter-selector').onchange = function() {
+  location='${routes.Study.embed(s.id.value, placeholder)}'.replace('$placeholder',this.value);
+};""", config.nonce)
         )
     )
   )
@@ -85,4 +96,6 @@ object embed {
       )
     )
   )
+
+  private val placeholder = "________"
 }
