@@ -2,7 +2,7 @@ package lidraughts.draughtsnet
 
 import org.joda.time.DateTime
 
-import draughts.format.FEN
+import draughts.format.{ FEN, Forsyth }
 
 import lidraughts.analyse.{ Analysis, AnalysisRepo }
 import lidraughts.game.{ Game, GameRepo, UciMemo }
@@ -70,7 +70,7 @@ final class Analyser(
                 moves = moves take maxPlies map (_.uci),
                 finalSquare = true
               ),
-              startPly = 0,
+              startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
               sender = sender
             )
             sequencer {

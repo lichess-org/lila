@@ -224,7 +224,7 @@ object Forsyth {
   }
 
   def getColor(rawSource: String): Option[Color] = read(rawSource) { fen =>
-    fen.split(':').lift(0) flatMap (_ lift 0) flatMap Color.apply
+    fen lift 0 flatMap Color.apply
   }
 
   def getPly(rawSource: String): Option[Int] = read(rawSource) { fen =>
