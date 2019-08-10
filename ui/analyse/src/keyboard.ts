@@ -101,7 +101,7 @@ export function bind(ctrl: AnalyseCtrl): void {
         });
       }));
     };
-    keyToMousedown('c', '.study__buttons .comments');
+    keyToMousedown('d', '.study__buttons .comments');
     keyToMousedown('g', '.study__buttons .glyphs');
   }
 }
