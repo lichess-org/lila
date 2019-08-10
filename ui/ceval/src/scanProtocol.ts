@@ -4,7 +4,7 @@ const EVAL_REGEX = new RegExp(''
   + /^info depth=(\d+) mean-depth=\S+ /.source
   + /score=(\S+) nodes=(\d+) /.source
   + /time=(\S+) (?:nps=\S+ )?/.source
-  + /pv=\"?(.+)\"?/.source);
+  + /pv=\"?([0-9\-xX\s]+)\"?/.source);
 
 function scanPieces(fen: string): string[] {
   const pieces: string[] = new Array<string>(50);
