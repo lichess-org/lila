@@ -233,12 +233,17 @@ object Round extends LilaController with TheftPrevention {
         }
       }
       case _ => game.hasChat ?? {
-        Env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated).map { chat =>
-          Chat.GameOrEvent(Left(Chat.Restricted(
-            chat,
-            restricted = game.fromLobby && ctx.isAnon,
-            palantir = game.fromFriend && game.userIds.size == 2
-          ))).some
+        Env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated).flatMap { chat =>
+          val palantirEnabled =
+            if (game.fromFriend && game.userIds.size == 2) fuTrue
+            else game.twoUserIds.?? { case (w, b) => Env.relation.api.fetchAreFriends(w, b) }
+          palantirEnabled map { palantir =>
+            Chat.GameOrEvent(Left(Chat.Restricted(
+              chat,
+              restricted = game.fromLobby && ctx.isAnon,
+              palantir = palantir
+            ))).some
+          }
         }
       }
     }

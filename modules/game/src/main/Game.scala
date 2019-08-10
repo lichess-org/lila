@@ -5,12 +5,12 @@ import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory }
-import org.joda.time.DateTime
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.rating.PerfType.Classical
 import lila.user.User
+import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,
@@ -518,6 +518,11 @@ case class Game(
   def showBookmarks = hasBookmarks ?? bookmarks.toString
 
   def userIds = playerMaps(_.userId)
+
+  def twoUserIds: Option[(User.ID, User.ID)] = for {
+    w <- whitePlayer.userId
+    b <- blackPlayer.userId
+  } yield w -> b
 
   def userRatings = playerMaps(_.rating)
 
