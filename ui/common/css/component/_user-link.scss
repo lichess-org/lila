@@ -35,9 +35,6 @@
   .title {
     color: $c-brag;
     font-weight: bold;
-    &[data-bot] {
-      color: $c-bot;
-    }
   }
 }
 a.user-link:hover {
