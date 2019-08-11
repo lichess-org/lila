@@ -4,4 +4,12 @@
   <string name="gameOver">Quj bertlham</string>
   <string name="waiting">loS</string>
   <string name="yourTurn">poHlIj</string>
+  <string name="level">mIw</string>
+  <string name="toggleTheChat">choH QumwI\'</string>
+  <string name="toggleSound">choH wab</string>
+  <string name="chat">QumwI\'</string>
+  <string name="resign">jegh</string>
+  <string name="checkmate">Doghjey</string>
+  <string name="white">chIS QujwI\'</string>
+  <string name="black">qIj QujwI\'</string>
 </resources>
