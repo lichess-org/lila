@@ -22,6 +22,7 @@
     input {
       cursor: pointer;
       display: none;
+      @extend %checkbox;
     }
     &-active input {
       display: block;
