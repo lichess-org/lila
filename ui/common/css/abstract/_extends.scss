@@ -90,7 +90,9 @@
   outline: none;
   color: $c-font;
 }
-
+%checkbox {
+  -webkit-appearance: none;
+}
 %nowrap-hidden {
   white-space: nowrap;
   overflow: hidden;
