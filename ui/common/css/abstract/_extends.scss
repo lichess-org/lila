@@ -92,6 +92,8 @@
 }
 %checkbox {
   -webkit-appearance: none;
+  background-color: $c-site-hue;
+  border: 1px solid $c-font-dim;
 }
 %nowrap-hidden {
   white-space: nowrap;
