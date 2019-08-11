@@ -80,6 +80,7 @@ object filter {
   ) = label(title := hint)(
     input(
       tpe := "checkbox",
+      cls := "regular-checkbox",
       name := s"${form(key).name}[$index]",
       st.value := value,
       checks.has(value) option checked
