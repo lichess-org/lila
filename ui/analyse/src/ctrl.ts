@@ -885,9 +885,13 @@ export default class AnalyseCtrl {
   }
 
   hasFullComputerAnalysis = (): boolean => {
-    for (let i = 0; i < this.mainline.length - 2; i++) {
-      const skip = i > 0 && this.mainline[i].ply === this.mainline[i - 1].ply;
-      const e = this.mainline[i].eval;
+    return this.isFullAnalysis(this.mainline);
+  }
+
+  private isFullAnalysis(nodes: Tree.Node[]) {
+    for (let i = 0; i < nodes.length - 2; i++) {
+      const skip = i > 0 && nodes[i].ply === nodes[i - 1].ply;
+      const e = nodes[i].eval;
       if (!skip && (!e || !Object.keys(e).length))
         return false;
     }
@@ -929,7 +933,7 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => n.children.length > 0 && !n.eval);
+    if (data.analysis) data.analysis.partial = !this.isFullAnalysis(treeOps.mainlineNodeList(data.tree));
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
