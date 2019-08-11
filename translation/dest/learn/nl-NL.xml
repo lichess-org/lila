@@ -33,7 +33,7 @@ Je hebt ze allebei nodig!</string>
   <string name="queenComplete">Gefeliciteerd! Koninginnen hebben geen geheimen meer voor jou.</string>
   <string name="theKing">De koning</string>
   <string name="theMostImportantPiece">Het belangrijkste stuk</string>
-  <string name="kingIntro">Jij bent de koning. Als je neervalt in het gevecht, is het spel verloren.</string>
+  <string name="kingIntro">Jij bent de koning. Als je gedood wordt in het gevecht, is het spel verloren.</string>
   <string name="theKingIsSlow">De koning is traag.</string>
   <string name="lastOne">De laatste!</string>
   <string name="kingComplete">Je kunt nu de aanvoerder aanvoeren!</string>
@@ -42,32 +42,32 @@ Je hebt ze allebei nodig!</string>
   <string name="knightIntro">Hier is een uitdaging voor jou. Het paard is... een lastig stuk.</string>
   <string name="knightsHaveAFancyWay">Paarden hebben een mooie manier
 om rond de springen!</string>
-  <string name="knightsCanJumpOverObstacles">Paarden kunnen over obstakels springen!
-Ontsnap en overwin de sterren!</string>
+  <string name="knightsCanJumpOverObstacles">Paarden kunnen over andere stukken springen!
+Ontsnap en doof de sterren!</string>
   <string name="knightComplete">Gefeliciteerd! Je hebt het paard onder de knie.</string>
   <string name="thePawn">De pion</string>
-  <string name="itMovesForwardOnly">Hij gaat alleen vooruit</string>
-  <string name="pawnIntro">Pionnen zijn zwak, maar ze hebben veel potentieel.</string>
-  <string name="pawnsMoveOneSquareOnly">Pionnen bewegen maar één vakje vooruit.
-Maar wanneer ze de andere kant van het bord bereiken, worden ze een sterker stuk!</string>
-  <string name="mostOfTheTimePromotingToAQueenIsBest">Meestal is promoveren naar een dame het beste.
-Maar soms kan ook een paard handig zijn!</string>
+  <string name="itMovesForwardOnly">Hij kan alleen vooruit bewegen</string>
+  <string name="pawnIntro">Pionnen zijn zwak, maar hebben veel potentieel.</string>
+  <string name="pawnsMoveOneSquareOnly">Pionnen verplaatsen slechts één vakje.
+Maar wanneer ze de andere kant van het bord bereiken, veranderen ze in een sterker stuk!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Meestal is promoveren naar een koningin het beste.
+Maar soms kan een paard handig zijn!</string>
   <string name="pawnsMoveForward">Pionnen bewegen voorwaarts,
 maar slaan schuin!</string>
-  <string name="captureThenPromote">Sla, promoveer dan!</string>
-  <string name="useAllThePawns">Gebruik al de pionnen!
+  <string name="captureThenPromote">Sla en promoveer meteen!</string>
+  <string name="useAllThePawns">Gebruik alle pionnen!
 Promoveren is niet nodig.</string>
   <string name="aPawnOnTheSecondRank">Een pion op de tweede rij kan 2 vakjes in een keer bewegen!</string>
-  <string name="grabAllTheStarsNoNeedToPromote">Grijp al de sterren!
+  <string name="grabAllTheStarsNoNeedToPromote">Grijp alle sterren!
 Promoveren is niet nodig.</string>
-  <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen voor jou.</string>
+  <string name="pawnComplete">Gefeliciteerd! Pionnen hebben geen geheimen meer voor jou.</string>
   <string name="pawnPromotion">Pionpromotie</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Je pion heeft het einde van het bord bereikt!</string>
-  <string name="itNowPromotesToAStrongerPiece">Nu promoveert het in een sterker stuk.</string>
-  <string name="selectThePieceYouWant">Selecteer het gewenste stuk!</string>
-  <string name="fundamentals">Basis</string>
+  <string name="itNowPromotesToAStrongerPiece">Nu promoveert het tot een sterker stuk.</string>
+  <string name="selectThePieceYouWant">Selecteer het stuk dat je wilt!</string>
+  <string name="fundamentals">Basisprincipes</string>
   <string name="capture">Slaan</string>
-  <string name="takeTheEnemyPieces">Sla de stukken van de tegenstander</string>
+  <string name="takeTheEnemyPieces">Sla de vijandige stukken</string>
   <string name="captureIntro">Identificeer de ongedekte stukken van de tegenstander en sla ze!</string>
   <string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
