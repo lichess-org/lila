@@ -92,13 +92,14 @@
 }
 %checkbox {
   -webkit-appearance: none;
-  background: $c-site-hue;
-  border: 1px solid $c-font-dim;
+  background: $c-bg-page;
+  border: 1px solid $c-bg-low;
   border-radius: 0.1em;
   display: inline-block;
   padding: 0.5em;
   &:checked {
     background: $c-primary;
+    border: 1px solid $c-primary;
   }
 }
 %nowrap-hidden {
