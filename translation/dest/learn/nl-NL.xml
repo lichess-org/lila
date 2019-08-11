@@ -4,8 +4,8 @@
   <string name="learnChess">Leer schaken</string>
   <string name="byPlaying">door te spelen!</string>
   <string name="menu">Menu</string>
-  <string name="progressX">Voortgang: %s</string>
-  <string name="resetMyProgress">Reset mijn voortgang</string>
+  <string name="progressX">Vooruitgang: %s</string>
+  <string name="resetMyProgress">Vooruitgang verwijderen</string>
   <string name="youWillLoseAllYourProgress">Je zult al je voortgang verliezen!</string>
   <string name="play">speel!</string>
   <string name="chessPieces">Schaakstukken</string>
