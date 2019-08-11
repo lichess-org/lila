@@ -87,11 +87,7 @@ object Chat {
   def simulSetup(simulId: String) = Setup(Id(simulId), PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
-  case class Restricted(
-      chat: MixedChat,
-      restricted: Boolean,
-      palantir: Boolean
-  )
+  case class Restricted(chat: MixedChat, restricted: Boolean)
 
   // left: game chat
   // right: tournament/simul chat

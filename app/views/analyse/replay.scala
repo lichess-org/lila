@@ -36,7 +36,14 @@ object replay {
     import pov._
 
     val chatJson = chatOption map { c =>
-      views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+      views.html.chat.json(
+        c.chat,
+        name = trans.spectatorRoom.txt(),
+        timeout = c.timeout,
+        withNote = ctx.isAuth,
+        public = true,
+        palantir = ctx.me.exists(_.canPalantir)
+      )
     }
     val pgnLinks = div(
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
