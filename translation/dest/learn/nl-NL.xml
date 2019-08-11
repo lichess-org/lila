@@ -157,22 +157,22 @@ naar de dameszijde te rokeren!</string>
 twee vakjes vooruit!
 Sla hem en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant werkt alleen
-meteen nadat de tegenstander
-de pion heeft gezet.</string>
+onmiddellijk nadat de tegenstander
+de pion heeft verplaatst.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant werkt alleen
-als uw pion op de vijfde rij staat.</string>
+wanneer jouw pion op de vijfde rij staat.</string>
   <string name="takeAllThePawnsEnPassant">Sla alle pionnen en passant!</string>
   <string name="enPassantComplete">Gefeliciteerd! U kunt nu en passant slaan.</string>
-  <string name="stalemate">Pat</string>
+  <string name="stalemate">Patstelling</string>
   <string name="theGameIsADraw">De partij eindigt in remise</string>
-  <string name="stalemateIntro">Als een speler niet schaak staat en geen legale zetten heeft, is het pat. De partij eindigt in remise: niemad wint en niemand verliest.</string>
-  <string name="stalemateGoal">Om zwart pat te zetten:
-- Zwart kan niet zetten
-- Zwart staat niet schaak.</string>
-  <string name="stalemateComplete">Gefeliciteerd! Je kunt beter pat staan dan mat!</string>
-  <string name="advanced">Geavanceerd</string>
-  <string name="pieceValue">Stukwaarde</string>
-  <string name="evaluatePieceStrength">Evalueer stukwaarde</string>
+  <string name="stalemateIntro">Als een speler niet schaak staat, maar ook geen enkele zet meer kan doen, is het pat. De partij eindigt in remise: niemand wint of verliest.</string>
+  <string name="stalemateGoal">Zet zwart pat door:
+- Zwart geen legale zetten meer te geven
+- Zwart niet schaak te zetten.</string>
+  <string name="stalemateComplete">Gefeliciteerd! Beter pat staan dan mat staan!</string>
+  <string name="advanced">Voor geavanceerden</string>
+  <string name="pieceValue">Waarde van stukken</string>
+  <string name="evaluatePieceStrength">Evalueer de kracht van stukken</string>
   <string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!
 Dame = 9
 Toren = 5
