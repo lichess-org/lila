@@ -136,7 +136,7 @@ export function threefoldClaimDraw(ctrl: RoundController) {
     h('p', {
       hook: onSuggestionHook
     }, ctrl.noarg('threefoldRepetition')),
-    h('button.fbt', {
+    h('button.button', {
       hook: util.bind('click', () => ctrl.socket.sendLoading('draw-claim'))
     }, ctrl.noarg('claimADraw'))
   ]) : null;
