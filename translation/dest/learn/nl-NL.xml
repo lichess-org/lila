@@ -174,51 +174,51 @@ wanneer jouw pion op de vijfde rij staat.</string>
   <string name="pieceValue">Waarde van stukken</string>
   <string name="evaluatePieceStrength">Evalueer de kracht van stukken</string>
   <string name="pieceValueIntro">Stukken die meer kunnen hebben een hogere waarde!
-Dame = 9
+Koningin = 9
 Toren = 5
 Loper = 3
 Paard = 3
 Pion = 1
-De koning is onbetaalbaar! Als je hem verliest, verlies je de partij.</string>
-  <string name="queenOverBishop">Sla het stuk met
-de hoogste waarde!
-Dame &gt; loper</string>
-  <string name="takeThePieceWithTheHighestValue">Sla het stuk met
-de hoogste waarde!</string>
-  <string name="pieceValueComplete">Gefeliciteerd! Je kent de waarde van materiaal! 
+De koning is onbetaalbaar! Verlies je hem, dan verlies je het spel.</string>
+  <string name="queenOverBishop">Sla het stuk
+met de hoogste waarde!
+Koningin &gt; Loper</string>
+  <string name="takeThePieceWithTheHighestValue">Sla het stuk
+met de hoogste waarde!</string>
+  <string name="pieceValueComplete">Gefeliciteerd! Je kent nu de waarde van materiaal! 
 Koningin = 9 
 Toren = 5 
 Loper = 3 
 Paard = 3 
 Pion = 1</string>
   <string name="checkInTwo">Schaak in twee zetten</string>
-  <string name="twoMovesToGiveCheck">Twee zetten om schaak te geven</string>
-  <string name="checkInTwoIntro">Vind de juiste twee zetten om de koning van de tegenstander schaak te zetten!</string>
-  <string name="checkInTwoGoal">Bedreig de koning van de tegenstander in 2 zetten!</string>
-  <string name="checkInTwoComplete">Gefeliciteerd! Je hebt je tegenstander schaak gezet, dus hem gedwongen zijn koning te verdedigen!</string>
-  <string name="whatNext">En nu?</string>
+  <string name="twoMovesToGiveCheck">Twee zetten om hem schaak te zetten</string>
+  <string name="checkInTwoIntro">Vind de juiste twee zetten om de vijandige koning schaak te zetten!</string>
+  <string name="checkInTwoGoal">Bedreig de vijandige koning in 2 zetten!</string>
+  <string name="checkInTwoComplete">Gefeliciteerd! Je hebt je tegenstander schaak gezet, hem dwingend zijn koning te verdedigen!</string>
+  <string name="whatNext">Wat nu?</string>
   <string name="youKnowHowToPlayChess">Je weet hoe je moet schaken, gefeliciteerd! Wil je een sterkere speler worden?</string>
   <string name="register">Registreren</string>
   <string name="getAFreeLichessAccount">Ontvang een gratis Lichess account</string>
   <string name="practice">Oefenen</string>
   <string name="learnCommonChessPositions">Leer veelvoorkomende schaakposities</string>
   <string name="puzzles">Puzzels</string>
-  <string name="exerciseYourTacticalSkills">Oefen je tactische vaardigheden</string>
+  <string name="exerciseYourTacticalSkills">Train je tactische vaardigheden</string>
   <string name="videos">Video\'s</string>
   <string name="watchInstructiveChessVideos">Bekijk leerzame schaakvideo\'s</string>
-  <string name="playPeople">Tegen mensen</string>
-  <string name="opponentsFromAroundTheWorld">Tegenstanders uit de hele wereld</string>
-  <string name="playMachine">Tegen computer</string>
+  <string name="playPeople">Speel tegen mensen</string>
+  <string name="opponentsFromAroundTheWorld">Tegenstanders van over de hele wereld</string>
+  <string name="playMachine">Speel tegen de computer</string>
   <string name="testYourSkillsWithTheComputer">Test je vaardigheden tegen de computer</string>
-  <string name="letsGo">Laten we starten!</string>
-  <string name="stageX">Stap %s</string>
+  <string name="letsGo">Hier gaan we!</string>
+  <string name="stageX">Niveau %s</string>
   <string name="awesome">Geweldig!</string>
   <string name="excellent">Uitstekend!</string>
   <string name="greatJob">Goed gedaan!</string>
   <string name="perfect">Perfect!</string>
   <string name="outstanding">Uitstekend!</string>
   <string name="wayToGo">Super, goed gedaan!</string>
-  <string name="yesYesYes">Ok, ok, ok!</string>
+  <string name="yesYesYes">Yes, yes, yes!</string>
   <string name="youreGoodAtThis">Je bent hier goed in!</string>
   <string name="nailedIt">Goed gedaan.</string>
   <string name="rightOn">Juist!</string>
