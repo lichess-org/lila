@@ -220,12 +220,12 @@ Pion = 1</string>
   <string name="wayToGo">Super, goed gedaan!</string>
   <string name="yesYesYes">Yes, yes, yes!</string>
   <string name="youreGoodAtThis">Je bent hier goed in!</string>
-  <string name="nailedIt">Goed gedaan.</string>
+  <string name="nailedIt">De spijker op de kop.</string>
   <string name="rightOn">Juist!</string>
-  <string name="stageXComplete">Stap %s voltooid</string>
+  <string name="stageXComplete">Niveau %s voltooid</string>
   <string name="yourScore">Jouw score</string>
   <string name="next">Volgende</string>
   <string name="backToMenu">Terug naar het menu</string>
   <string name="puzzleFailed">Puzzel mislukt!</string>
-  <string name="retry">Opnieuw proberen</string>
+  <string name="retry">Probeer opnieuw</string>
 </resources>
