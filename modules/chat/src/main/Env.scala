@@ -45,7 +45,7 @@ final class Env(
 
   val panic = new ChatPanic
 
-  private val palantir = new Palantir
+  private val palantir = new Palantir(system.lilaBus)
 
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
