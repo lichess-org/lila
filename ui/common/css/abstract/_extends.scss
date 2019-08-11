@@ -91,15 +91,15 @@
   color: $c-font;
 }
 %checkbox {
+  @extend %box-radius;
   -webkit-appearance: none;
   background: $c-bg-page;
   border: 1px solid $c-bg-low;
-  border-radius: 0.2em;
   display: inline-block;
-  padding: 0.5em;
+  padding: .5em;
   &:checked {
-    background: $c-primary;
-    border: 1px solid $c-primary-dim;
+    background: $c-secondary;
+    border-color: $c-secondary-dim;
   }
 }
 %nowrap-hidden {
