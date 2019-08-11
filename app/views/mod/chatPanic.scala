@@ -39,8 +39,8 @@ object chatPanic {
                 postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
                   submitButton(cls := "button button-fat button-green text", dataIcon := "E")("Renew for two hours")
                 )
-              ),
-              postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
+              )
+              else postForm(action := s"${routes.Mod.chatPanicPost}?v=1")(
                 submitButton(cls := "button button-fat text", dataIcon := "E")("Enable")
               )
             )
