@@ -99,7 +99,7 @@
   padding: 0.5em;
   &:checked {
     background: $c-primary;
-    border: 1px solid $c-primary;
+    border: 1px solid $c-primary-dim;
   }
 }
 %nowrap-hidden {
