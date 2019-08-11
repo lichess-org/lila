@@ -5,12 +5,13 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.richText
+import lila.team.Team
 
 import controllers.routes
 
 object show {
 
-  def apply(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context) =
+  def apply(t: Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui.OpenGraph(
@@ -67,10 +68,7 @@ object show {
               st.section(cls := "team-show__actions")(
                 (t.enabled && !info.mine) option frag(
                   if (info.requestedByMe) strong("Your join request is being reviewed by the team leader")
-                  else ctx.me.??(_.canTeam) option
-                    postForm(cls := "inline", action := routes.Team.join(t.id))(
-                      submitButton(cls := "button button-green")(trans.joinTeam.txt())
-                    )
+                  else ctx.me.??(_.canTeam) option joinButton(t)
                 ),
                 (info.mine && !info.createdByMe) option
                   postForm(cls := "quit", action := routes.Team.quit(t.id))(
@@ -103,4 +101,12 @@ object show {
           )
         )
       )
+
+  // handle special teams here
+  private def joinButton(t: Team)(implicit ctx: Context) = t.id match {
+    case "english-chess-players" => a(cls := "button button-green", href := "https://ecf.chessvariants.training/")(trans.joinTeam())
+    case _ => postForm(cls := "inline", action := routes.Team.join(t.id))(
+      submitButton(cls := "button button-green")(trans.joinTeam())
+    )
+  }
 }
