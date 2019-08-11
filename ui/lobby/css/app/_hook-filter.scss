@@ -22,6 +22,9 @@
       cursor: pointer;
     }
   }
+  .regular-checkbox {
+    @extend %checkbox;
+  }
   tr.variant td:last-child {
     display: flex;
     flex-flow: row wrap;
