@@ -122,40 +122,40 @@ Doe een willekeurige zet om door te gaan.</string>
 Zij staan in de hoeken.</string>
   <string name="thenPlaceTheKnights">Plaats dan de paarden! Zij staan naast de torens.</string>
   <string name="placeTheBishops">Plaats de lopers! Zij staan naast de paarden.</string>
-  <string name="placeTheQueen">Plaats de koningin! Ze gaat op haar eigen kleur.</string>
-  <string name="placeTheKing">Plaats de koning! Gelijk naast zijn koningin.</string>
-  <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak eender welke zet om voort te gaan.</string>
-  <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet opstellen.</string>
-  <string name="castling">Rokade</string>
+  <string name="placeTheQueen">Plaats de koningin! Zij staat op haar eigen kleur.</string>
+  <string name="placeTheKing">Plaats de koning! Aan de zijde van zijn koningin.</string>
+  <string name="pawnsFormTheFrontLine">Pionnen vormen de frontlinie. Maak een willekeurige welke zet om door te gaan.</string>
+  <string name="boardSetupComplete">Gefeliciteerd! Nu weet je hoe je het schaakbord moet klaarzetten.</string>
+  <string name="castling">Rokeren</string>
   <string name="theSpecialKingMove">De speciale koningszet</string>
-  <string name="castlingIntro">Breng je koning naar een veilige plaats, en zet je toren in voor een aanval!</string>
+  <string name="castlingIntro">Breng je koning naar een veilige plaats, en zet je toren in voor de aanval!</string>
   <string name="castleKingSide">Beweeg je koning twee vakjes
-om naar koningszijde te rokeren!</string>
+om aan de koningszijde te rokeren!</string>
   <string name="castleQueenSide">Beweeg je koning twee vakjes
-om naar de dameszijde te rokeren!</string>
+om aan de dameszijde te rokeren!</string>
   <string name="theKnightIsInTheWay">Het paard staat in de weg!
-Verplaats het, rokeer dan naar de koningszijde.</string>
+Verplaats het en rokeer dan naar de koningszijde.</string>
   <string name="castleKingSideMovePiecesFirst">Rokeer naar de koningszijde!
-Je moet eerst nog stukken wegplaatsen.</string>
+Je moet eerst nog stukken uit de weg zetten.</string>
   <string name="castleQueenSideMovePiecesFirst">Rokeer naar de dameszijde!
-Je moet eerst nog stukken wegplaatsen.</string>
+Je moet eerst nog stukken uit de weg zetten.</string>
   <string name="youCannotCastleIfMoved">Je kunt niet rokeren als
 de koning al heeft bewogen
 of de toren al heeft bewogen.</string>
   <string name="youCannotCastleIfAttacked">Je kunt niet rokeren als
 de koning onderweg wordt aangevallen.
-Zorg dat je niet schaak gezet kunt worden en rokeer dan!</string>
-  <string name="findAWayToCastleKingSide">Vind een weg om
+Blokkeer het stuk dat je schaak zou zetten en rokeer dan!</string>
+  <string name="findAWayToCastleKingSide">Vind een manier om
 naar de koningszijde te rokeren!</string>
-  <string name="findAWayToCastleQueenSide">Vind een weg om
+  <string name="findAWayToCastleQueenSide">Vind een manier om
 naar de dameszijde te rokeren!</string>
-  <string name="castlingComplete">Gefeliciteerd! Je moet bijna altijd rokeren in een spel.</string>
+  <string name="castlingComplete">Gefeliciteerd! Rokeren is bijna ieder spel een goed idee.</string>
   <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">De speciale pionzet</string>
-  <string name="enPassantIntro">Als de pion van de tegenstander twee velden tegelijk beweegt, kunt u het slaan alsof het maar één zet heeft bewogen.</string>
-  <string name="blackJustMovedThePawnByTwoSquares">Zwart heeft zojuist de pion
-met twee zetten bewogen!
-Sla het en passant.</string>
+  <string name="enPassantIntro">Als de vijandige pion twee vakjes tegelijk beweegt, kunt je hem slaan alsof hij maar één vakje heeft bewogen.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Zwart verplaatste zijn pion net
+twee vakjes vooruit!
+Sla hem en passant.</string>
   <string name="enPassantOnlyWorksImmediately">En passant werkt alleen
 meteen nadat de tegenstander
 de pion heeft gezet.</string>
