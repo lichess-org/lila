@@ -97,6 +97,10 @@
   border-radius: 0.1em;
   display: inline-block;
   padding: 0.5em;
+  &:checked:after {
+    content: '\2714';
+    color: $c-font;
+  }
 }
 %nowrap-hidden {
   white-space: nowrap;
