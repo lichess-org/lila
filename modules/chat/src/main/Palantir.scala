@@ -7,7 +7,7 @@ import lidraughts.socket.Socket.makeMessage
 import lidraughts.socket.SocketMember
 import lidraughts.user.User
 
-private final class Palantir {
+private final class Palantir(bus: lidraughts.common.Bus) {
 
   import Palantir._
 
@@ -21,6 +21,18 @@ private final class Palantir {
     member.push(makeMessage("palantir", channel.userIds.filter(userId !=)))
     lidraughts.mon.palantir.channels(channels.estimatedSize)
   }
+
+  private def hangUp(userId: User.ID) =
+    channels.asMap.foreach {
+      case (_, channel) => channel get userId foreach {
+        _ push makeMessage("palantirOff")
+      }
+    }
+
+  bus.subscribeFun('shadowban, 'accountClose) {
+    case lidraughts.hub.actorApi.mod.Shadowban(userId, true) => hangUp(userId)
+    case lidraughts.hub.actorApi.security.CloseAccount(userId) => hangUp(userId)
+  }
 }
 
 private object Palantir {
@@ -32,6 +44,8 @@ private object Palantir {
       .build[User.ID, SocketMember]
 
     def add(uid: User.ID, member: SocketMember) = members.put(uid, member)
+
+    def get(uid: User.ID) = members getIfPresent uid
 
     def userIds = members.asMap.keys
   }

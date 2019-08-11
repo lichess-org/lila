@@ -159,6 +159,7 @@ export function palantir(opts: PalantirOpts) {
   }
 
   li.pubsub.on('socket.in.palantir', uids => uids.forEach(call));
+  li.pubsub.on('socket.in.palantirOff', li.reload); // remote disconnection
   li.pubsub.on('palantir.toggle', v => { if (!v) stop() });
 
   start();
