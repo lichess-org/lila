@@ -12,4 +12,8 @@
   <string name="checkmate">Doghjey</string>
   <string name="white">chIS QujwI\'</string>
   <string name="black">qIj QujwI\'</string>
+  <string name="randomColor">Haw Dop</string>
+  <string name="createAGame">tagh Quj</string>
+  <string name="whiteIsVictorious">Zha riest\'n, teskas tal tai-kleon</string>
+  <string name="blackIsVictorious">Zha riest\'n, teskas tal tai-kleon</string>
 </resources>
