@@ -71,25 +71,25 @@ Promoveren is niet nodig.</string>
   <string name="captureIntro">Identificeer de ongedekte stukken van de tegenstander en sla ze!</string>
   <string name="takeTheBlackPieces">Sla de zwarte stukken!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Sla de zwarte stukken!
-En verlies uw eigen niet.</string>
-  <string name="captureComplete">Gefeliciteerd! U kunt nu vechten met schaakstukken!</string>
+En verlies je eigen stukken niet.</string>
+  <string name="captureComplete">Gefeliciteerd! Je weet nu hoe je moet vechten met schaakstukken!</string>
   <string name="protection">Dekken</string>
   <string name="keepYourPiecesSafe">Houd je stukken veilig</string>
-  <string name="protectionIntro">Stel vast welke stukken door je tegenstander worden aangevallen, en verdedig ze!</string>
-  <string name="protectionComplete">Van harte! Een stuk dat je niet verliest is een stuk dat je wint!</string>
+  <string name="protectionIntro">Kijk welke stukken door je tegenstander worden aangevallen, en verdedig ze!</string>
+  <string name="protectionComplete">Gefeliciteerd! Een stuk dat je niet verliest is een stuk dat je wint!</string>
   <string name="escape">Je wordt aangevallen!
-Ontsnap aan de dreiging!</string>
+Ontsnap aan de bedreiging!</string>
   <string name="noEscape">Er is geen ontsnapping mogelijk,
 maar je kunt verdedigen!</string>
   <string name="dontLetThemTakeAnyUndefendedPiece">Laat hen geen enkel
-onbeschermd stuk slaan!</string>
-  <string name="combat">Strijd</string>
-  <string name="captureAndDefendPieces">Verover en verdedig stukken</string>
-  <string name="combatIntro">Een goede strijder kan zowel aanvallen als verdedigen!</string>
+ongedekt stuk slaan!</string>
+  <string name="combat">De strijd</string>
+  <string name="captureAndDefendPieces">Sla en verdedig stukken</string>
+  <string name="combatIntro">Een goede krijger kan zowel aanvallen als verdedigen!</string>
   <string name="combatComplete">Gefeliciteerd! Nu weet je hoe je met de schaakstukken moet vechten!</string>
   <string name="checkInOne">Schaak in 1 zet</string>
-  <string name="attackTheOpponentsKing">Val de koning van de tegenstander aan</string>
-  <string name="checkInOneIntro">Om je tegenstanders schaak te zetten, moet je hun koning aanvallen. Zij moeten hem verdedigen!</string>
+  <string name="attackTheOpponentsKing">Val de vijandige koning aan</string>
+  <string name="checkInOneIntro">Om je tegenstander schaak te zetten, moet je hun koning aanvallen. Zij móéten hem verdedigen!</string>
   <string name="checkInOneGoal">Right op de koning van de tegenstander
 in één zet!</string>
   <string name="checkInOneComplete">Gefeliciteerd! Je hebt je tegenstander schaak gezet, dus hem gedwongen zijn koning te verdedigen!</string>
