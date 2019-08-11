@@ -329,7 +329,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
             (!ctrl.synthetic && playable(ctrl.data)) ? h('div.back-to-game',
               h('a.button.button-empty.text', {
                 attrs: {
-                  href: router.game(ctrl.data),
+                  href: router.game(ctrl.data, ctrl.data.player.color),
                   'data-icon': 'i'
                 }
               }, ctrl.trans.noarg('backToGame'))
