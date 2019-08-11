@@ -25,7 +25,8 @@ object chat {
     public: Boolean, // game players chat is not public
     withNote: Boolean = false,
     writeable: Boolean = true,
-    localMod: Boolean = false
+    localMod: Boolean = false,
+    palantir: Boolean = false
   )(implicit ctx: Context) =
     json(
       chat.chat,
@@ -36,7 +37,7 @@ object chat {
       public = public,
       restricted = chat.restricted,
       localMod = localMod,
-      palantir = chat.palantir
+      palantir = palantir
     )
 
   def json(

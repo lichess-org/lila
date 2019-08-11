@@ -26,7 +26,14 @@ object watcher {
   )(implicit ctx: Context) = {
 
     val chatJson = chatOption map { c =>
-      chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+      chat.json(
+        c.chat,
+        name = trans.spectatorRoom.txt(),
+        timeout = c.timeout,
+        withNote = ctx.isAuth,
+        public = true,
+        palantir = ctx.me.exists(_.canPalantir)
+      )
     }
 
     bits.layout(

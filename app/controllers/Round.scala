@@ -249,7 +249,8 @@ object Round extends LidraughtsController with TheftPrevention {
       game.finishedOrAborted || !ctx.userId.exists(game.userIds.contains)
     }
   } ?? {
-    Env.chat.api.userChat.findMineIf(Chat.Id(s"${game.id}/w"), ctx.me, !game.justCreated) flatMap { chat =>
+    val id = Chat.Id(s"${game.id}/w")
+    Env.chat.api.userChat.findMineIf(id, ctx.me, !game.justCreated) flatMap { chat =>
       Env.user.lightUserApi.preloadMany(chat.chat.userIds) inject chat.some
     }
   }
@@ -268,17 +269,11 @@ object Round extends LidraughtsController with TheftPrevention {
         }
       }
       case _ => game.hasChat ?? {
-        Env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated).flatMap { chat =>
-          val palantirEnabled =
-            if (game.fromFriend && game.userIds.size == 2) fuTrue
-            else game.twoUserIds.?? { case (w, b) => Env.relation.api.fetchAreFriends(w, b) }
-          palantirEnabled map { palantir =>
-            Chat.GameOrEvent(Left(Chat.Restricted(
-              chat,
-              restricted = game.fromLobby && ctx.isAnon,
-              palantir = palantir
-            ))).some
-          }
+        Env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated) map { chat =>
+          Chat.GameOrEvent(Left(Chat.Restricted(
+            chat,
+            restricted = game.fromLobby && ctx.isAnon
+          ))).some
         }
       }
     }

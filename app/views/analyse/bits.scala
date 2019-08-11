@@ -29,6 +29,7 @@ object bits {
       openGraph = openGraph,
       draughtsground = false,
       robots = false,
-      zoomable = true
+      zoomable = true,
+      csp = defaultCsp.withPeer.some
     )(body)
 }
