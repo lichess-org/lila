@@ -23,7 +23,7 @@ private final class CheckMail(
     else cache(domain) recover {
       case e: Exception =>
         lila.mon.security.checkMailApi.error()
-        logger.warn(s"CheckMail $domain", e)
+        logger.warn(s"CheckMail $domain ${e.getMessage}", e)
         true
     }
 
@@ -51,7 +51,7 @@ private final class CheckMail(
     WS.url(url)
       .withQueryString("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHeaders("x-rapidapi-key" -> key)
-      .get withTimeout 5.seconds map {
+      .get withTimeout 2.seconds map {
         case res if res.status == 200 =>
           val valid = ~(res.json \ "valid").asOpt[Boolean]
           val block = ~(res.json \ "block").asOpt[Boolean]
