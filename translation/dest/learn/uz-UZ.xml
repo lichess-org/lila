@@ -87,4 +87,19 @@ Yuring va yulduzlarni tering!</string>
   <string name="escapeOrBlock">Qirolni olib qoching yoki hujumni bloklang!</string>
   <string name="outOfCheckComplete">Tabriklaymiz! Sizni shohingiz birorta ham shoh olmadi, endi shoh olmaslikka ximoyalanganligingizga ishinch xosil qiling!</string>
   <string name="mateInOne">Bitta yurishda mot</string>
+  <string name="defeatTheOpponentsKing">Raqib qirolini mag\'lub qilish</string>
+  <string name="mateInOneIntro">Siz g\'olib hisoblanasiz qachonki raqibingiz shohini shohdan ximoya qila olmasa.</string>
+  <string name="attackYourOpponentsKing">Raqib qiroliga ximoya qila olmaydigan yo\'l bilan shoh ber!</string>
+  <string name="mateInOneComplete">Tabriklaymiz! Siz shunday qilib shahmatda g\'olib bo\'lasiz!</string>
+  <string name="intermediate">O\'rtacha</string>
+  <string name="boardSetup">Doska sozlashlari</string>
+  <string name="howTheGameStarts">O\'yin qanday boshlanadi</string>
+  <string name="boardSetupIntro">Jangga tayyor ikkita armiya bir-biriga qarab turadi.</string>
+  <string name="thisIsTheInitialPosition">Bu shahmatning boshlang\'ich holati! O\'yinni davom ettirish uchun ixtiyorioy yurishni qiling.</string>
+  <string name="firstPlaceTheRooks">Birinchi to\'rani qo\'ying! Ular burchakda turishadi.</string>
+  <string name="thenPlaceTheKnights">Keyin otlarni qo\'ying! Ular to\'ralardan keyin turadi.</string>
+  <string name="placeTheBishops">Fillarni qo\'ying! Ular otlardan keyin.</string>
+  <string name="placeTheQueen">Qirolicha - farzinni qo\'ying! U o\'zini rangida turadi.</string>
+  <string name="placeTheKing">Qirolni qo\'ying! U qirolichadan keyin turadi.</string>
+  <string name="pawnsFormTheFrontLine">Piyodalar front chizig\'ini tashkil qiladi. Ixtiyoriy yurishni qilib davom eting.</string>
 </resources>
