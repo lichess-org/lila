@@ -43,6 +43,14 @@ Yuring va yulduzlarni tering!</string>
   <string name="itMovesForwardOnly">Faqat oldinga yuradi</string>
   <string name="pawnIntro">Piyodalar kuchsiz, lekin ularda katta potensial mavjud.</string>
   <string name="pawnsMoveOneSquareOnly">Piyodalar faqat bitta katak yuradi. Ammo ular qarshi tarafdagi doskaning oxiriga yetsa ular kuchli bo\'lib qoladi!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Qirolichani imkonini yaxshilash uchun ko\'p vaqt ajratish yaxshi ish hisoblanadi!</string>
+  <string name="pawnsMoveForward">Piyodalar qiyshiq yurishi mumkin, faqat diagonal bo\'yicha raqib sipohini olishda yurishi mumkin!</string>
+  <string name="captureThenPromote">Urish, va yurish!</string>
+  <string name="useAllThePawns">Barcha piyodalarni ishlating! Yurish uchun hojat yo\'q.</string>
+  <string name="aPawnOnTheSecondRank">Ikkinchi qatordagi piyodalar bir yurganda ikkita katak yurishi mumkin!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Barcha yulduzlarni terib chiqing! Yurish shart emas.</string>
+  <string name="pawnComplete">Tabriklaymiz! Piyodalar endi siz uchun sirli emas.</string>
+  <string name="pawnPromotion">Piyodani yurish</string>
   <string name="outOfCheck">Shohdan qochish</string>
   <string name="mateInOne">Bitta yurishda mot</string>
 </resources>
