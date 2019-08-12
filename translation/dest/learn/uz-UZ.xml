@@ -75,6 +75,16 @@ Yuring va yulduzlarni tering!</string>
   <string name="checkInOne">Bir yurishda shoh</string>
   <string name="attackTheOpponentsKing">Raqib qiroliga hujum qiling</string>
   <string name="checkInOneIntro">Raqibingizga shoh berish uchun uning shohiga hujum qiling. Ular uni ximoya qilishi kerak!</string>
+  <string name="checkInOneGoal">Raqib qirolining xozirgi maqsadi bitta yurish!</string>
+  <string name="checkInOneComplete">Tabriklaymiz! Ularni o\'zlarini shohini ximoya qilishga majburlagan holda, siz raqibingizga shoh berdingiz!</string>
   <string name="outOfCheck">Shohdan qochish</string>
+  <string name="defendYourKing">Shohingizni ximoya qiling</string>
+  <string name="outOfCheckIntro">Siz shohdasiz! Siz hujumdan qochishingiz yoki uni bloklashingiz kerak.</string>
+  <string name="escapeWithTheKing">Qirolni olib qoching!</string>
+  <string name="theKingCannotEscapeButBlock">Qirol qocha olmaydi, ammo siz hujumni bloklashingiz mumkin!</string>
+  <string name="youCanGetOutOfCheckByTaking">Siz piyoda bilan yurib shoh berishingiz mumkin.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">Bu ot sizni ximoyangizdan o\'tib shoh berayabi!</string>
+  <string name="escapeOrBlock">Qirolni olib qoching yoki hujumni bloklang!</string>
+  <string name="outOfCheckComplete">Tabriklaymiz! Sizni shohingiz birorta ham shoh olmadi, endi shoh olmaslikka ximoyalanganligingizga ishinch xosil qiling!</string>
   <string name="mateInOne">Bitta yurishda mot</string>
 </resources>
