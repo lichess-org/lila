@@ -42,4 +42,20 @@
     <item quantity="one">%s yangi kuzatuvchini olish</item>
     <item quantity="other">%s yangi kuzatuvchilarni olish</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">%s bir vaqtdagi namoyish hostlandi</item>
+    <item quantity="other">%s bir vaqtdagi namoyishlar hostlandi</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">%s birvaqtdagi namoyishda ishtirok etildi</item>
+    <item quantity="other">%s birvaqtdagi namoyishlarda ishtirok etildi</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s ta yangi ta\'lim yaratildi</item>
+    <item quantity="other">%s ta yangi ta\'limlar yaratildi</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">%s turnirda ishtirok etilgan</item>
+    <item quantity="other">%s turnirlarda ishtirok etilgan</item>
+  </plurals>
 </resources>
