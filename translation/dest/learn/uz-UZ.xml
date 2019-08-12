@@ -122,4 +122,8 @@ Yuring va yulduzlarni tering!</string>
   <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikkita katakka yurdi! Uni yo\'lakda olish yo\'li bilan oling.</string>
   <string name="enPassantOnlyWorksImmediately">Yo\'lakda yurib olish raqib piyodani ikkita katakka yurishi zahoti ishlaydi, keyingi yurishlarda olish mumkin bo\'lamaydi.</string>
   <string name="enPassantOnlyWorksOnFifthRank">Yo\'lakda yurib olish faqat agar sizni piyodangiz beshinchi katakda turgan bo\'lsa ishlaydi.</string>
+  <string name="takeAllThePawnsEnPassant">Barcha piyodalarni yo\'lakda yurib olish bilan oling!</string>
+  <string name="enPassantComplete">Tabriklaymiz! Siz xozir yo\'lakda yurib olish usuli bilan olishni bildingiz.</string>
+  <string name="stalemate">Pat, durrang</string>
+  <string name="theGameIsADraw">O\'yin - durrang</string>
 </resources>
