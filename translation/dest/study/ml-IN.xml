@@ -42,5 +42,16 @@
   <string name="last">അവസാനത്തെ</string>
   <string name="shareAndExport">&amp;amp പങ്കുവെക്കുക; എക്സ്പോർട്ട്</string>
   <string name="cloneStudy">ക്ലോൺ</string>
+  <string name="studyPgn">PGN പഠിക്കുക</string>
+  <string name="chapterPgn">PGN പാഠം</string>
+  <string name="studyUrl">URL പഠിക്കുക</string>
+  <string name="currentChapterUrl">നിലവിലുള്ള പാഠത്തിന്റെ URL</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">നിങ്ങൾക്ക് പാഠം എംബെഡ് ചെയ്യുന്നതിന് ഇത് ഫോറത്തിൽ പേസ്റ്റ് ചെയ്യാവുന്നതാണ്</string>
+  <string name="startAtX">%s-ൽ തുടങ്ങുക</string>
+  <string name="embedThisChapter">ഈ പാഠം നിങ്ങളുടെ വെബ്സൈറ്റിലോ ബ്ലോഗിലോ എംബെഡ് ചെയ്യുക</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">ഒരു പാഠം എംബെഡ് ചെയ്യുന്ന വിധം മനസിലാക്കാൻ കൂടുതൽ വായിക്കുക</string>
+  <string name="fen">FEN</string>
   <string name="open">തുറക്കുക</string>
+  <string name="xBroughtToYouByY">%1$s നിങ്ങള്ക്ക് കൊണ്ടു വന്നത് %2$s</string>
+  <string name="studyNotFound">പാഠം കണ്ടെത്തിയില്ല</string>
 </resources>
