@@ -35,8 +35,14 @@
   <string name="theKnight">Ot</string>
   <string name="itMovesInAnLShape">U L shaklida harakat qiladi</string>
   <string name="knightIntro">Bu yerda sizni musobaqalaringiz. Ot - murakkab sipoh.</string>
+  <string name="knightsHaveAFancyWay">Otlarda o\'ziga xos ajoyib ustidan sakrab yurish imkoni bor!</string>
+  <string name="knightsCanJumpOverObstacles">Otlar to\'siqlardan sakrab o\'ta oladi!
+Yuring va yulduzlarni tering!</string>
+  <string name="knightComplete">Tabriklaymiz siz otni o\'rgandingiz.</string>
   <string name="thePawn">Piyoda</string>
   <string name="itMovesForwardOnly">Faqat oldinga yuradi</string>
   <string name="pawnIntro">Piyodalar kuchsiz, lekin ularda katta potensial mavjud.</string>
   <string name="pawnsMoveOneSquareOnly">Piyodalar faqat bitta katak yuradi. Ammo ular qarshi tarafdagi doskaning oxiriga yetsa ular kuchli bo\'lib qoladi!</string>
+  <string name="outOfCheck">Shohdan qochish</string>
+  <string name="mateInOne">Bitta yurishda mot</string>
 </resources>
