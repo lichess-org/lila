@@ -30,4 +30,13 @@
   <string name="theMostImportantPiece">Eng asosiy sipoh</string>
   <string name="kingIntro">Siz shohsiz. Agar siz o\'yin davomida yiqilsangiz, o\'yinda mag\'lub bo\'lgan bo\'lasiz.</string>
   <string name="theKingIsSlow">Qirol bitta bitta yuradi.</string>
+  <string name="lastOne">Oxirgi!</string>
+  <string name="kingComplete">Endi siz komandir ustidan komanda berishingiz mumkin!</string>
+  <string name="theKnight">Ot</string>
+  <string name="itMovesInAnLShape">U L shaklida harakat qiladi</string>
+  <string name="knightIntro">Bu yerda sizni musobaqalaringiz. Ot - murakkab sipoh.</string>
+  <string name="thePawn">Piyoda</string>
+  <string name="itMovesForwardOnly">Faqat oldinga yuradi</string>
+  <string name="pawnIntro">Piyodalar kuchsiz, lekin ularda katta potensial mavjud.</string>
+  <string name="pawnsMoveOneSquareOnly">Piyodalar faqat bitta katak yuradi. Ammo ular qarshi tarafdagi doskaning oxiriga yetsa ular kuchli bo\'lib qoladi!</string>
 </resources>
