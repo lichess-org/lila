@@ -102,4 +102,14 @@ Yuring va yulduzlarni tering!</string>
   <string name="placeTheQueen">Qirolicha - farzinni qo\'ying! U o\'zini rangida turadi.</string>
   <string name="placeTheKing">Qirolni qo\'ying! U qirolichadan keyin turadi.</string>
   <string name="pawnsFormTheFrontLine">Piyodalar front chizig\'ini tashkil qiladi. Ixtiyoriy yurishni qilib davom eting.</string>
+  <string name="boardSetupComplete">Tabriklaymiz! Siz doskani qanday sozlashni bilasiz.</string>
+  <string name="castling">Rokirovka</string>
+  <string name="theSpecialKingMove">Qirol maxsus yurishi</string>
+  <string name="castlingIntro">Qirolingizni xavfsiz joyga o\'tkazing va to\'rangizni hujumga shaylang!</string>
+  <string name="castleKingSide">Qirol tomondan rakorivkani amalga oshirish uchun qirolingizni ikki katakga yuring!</string>
+  <string name="castleQueenSide">Farzin tomondan rakorivkani amalga oshirish uchun qirolingizni ikki katakga yuring!</string>
+  <string name="theKnightIsInTheWay">Ot yo\'limizda! Uni yuring va qirol tomondan rokirovka qiling.</string>
+  <string name="castleKingSideMovePiecesFirst">Rakirovka qirol tomondan! Siz avval sipohlarni olishingiz kerak.</string>
+  <string name="castleQueenSideMovePiecesFirst">Farzin tomondan rakirovka! Siz avval sipohlarni olishingiz kerak.</string>
+  <string name="youCannotCastleIfMoved">Siz rakirovka qila olmaysiz agarda shohingiz yoki to\'rangiz bundan oldin yurish qilgan bo\'lsa.</string>
 </resources>
