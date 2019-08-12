@@ -112,4 +112,14 @@ Yuring va yulduzlarni tering!</string>
   <string name="castleKingSideMovePiecesFirst">Rakirovka qirol tomondan! Siz avval sipohlarni olishingiz kerak.</string>
   <string name="castleQueenSideMovePiecesFirst">Farzin tomondan rakirovka! Siz avval sipohlarni olishingiz kerak.</string>
   <string name="youCannotCastleIfMoved">Siz rakirovka qila olmaysiz agarda shohingiz yoki to\'rangiz bundan oldin yurish qilgan bo\'lsa.</string>
+  <string name="youCannotCastleIfAttacked">Siz rakirovka qila olmaysiz agarda ayni damda shohga hujum bo\'lib turgan bo\'lsa! Avval shohdan qutuling keyin rakirovka qiling!</string>
+  <string name="findAWayToCastleKingSide">Qirol tomondan rakirovka qilish yo\'lini toping!</string>
+  <string name="findAWayToCastleQueenSide">Farzin tomonidan rakirovka qilish uchun yo\'l toping!</string>
+  <string name="castlingComplete">Tabriklaymiz! Siz o\'yinda deyarli har doim rakirovka qilishingiz kerak.</string>
+  <string name="enPassant">Yo\'lakda olish</string>
+  <string name="theSpecialPawnMove">Piyoda maxsus yurishi</string>
+  <string name="enPassantIntro">Agar piyoda ikkita katakka yursa siz uni bitta katakka yurganday olishingiz mumkin.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Qoralar piyodani ikkita katakka yurdi! Uni yo\'lakda olish yo\'li bilan oling.</string>
+  <string name="enPassantOnlyWorksImmediately">Yo\'lakda yurib olish raqib piyodani ikkita katakka yurishi zahoti ishlaydi, keyingi yurishlarda olish mumkin bo\'lamaydi.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">Yo\'lakda yurib olish faqat agar sizni piyodangiz beshinchi katakda turgan bo\'lsa ishlaydi.</string>
 </resources>
