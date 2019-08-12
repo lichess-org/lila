@@ -6,4 +6,8 @@
   <string name="emailConfirm_ignore">Agar siz \"Lichess\" da ro\'yxatdan o\'tmagan bo\'lsangiz, ushbu xabarga beparvo bo\'lishingiz mumkin.</string>
   <string name="passwordReset_subject">%s lichess.org parolingizni qayta tiklang</string>
   <string name="passwordReset_intro">Biz sizni hisobingizni parolini tashlab yuborishga so\'rov oldik.</string>
+  <string name="passwordReset_clickOrIgnore">Agar siz ushbu so\'rovni yaratgan bo\'lsangiz, quyidagi linkni bosing. Agar siz bo\'lmasangiz, ushbu emailga parvo qilmasangiz bo\'ladi.</string>
+  <string name="emailChange_subject">%s, elektron manzilingizni tasdiqlang</string>
+  <string name="emailChange_intro">Siz emailingizni almashtirishni so\'radingiz.</string>
+  <string name="emailChange_click">Ushbu xatga huquqingiz borligini tasdiqlash uchun quyidagi linkni bosing:</string>
 </resources>
