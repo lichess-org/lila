@@ -126,4 +126,29 @@ Yuring va yulduzlarni tering!</string>
   <string name="enPassantComplete">Tabriklaymiz! Siz xozir yo\'lakda yurib olish usuli bilan olishni bildingiz.</string>
   <string name="stalemate">Pat, durrang</string>
   <string name="theGameIsADraw">O\'yin - durrang</string>
+  <string name="stalemateIntro">Qachonki shoh berilmagan bo\'lsa va o\'yinchining yurish yo\'llari qolmagan bo\'lsa o\'yin pat hisoblanadi. Durrang natija: g\'olib ham mag\'lub ham yo\'q.</string>
+  <string name="stalemateGoal">Qoralar uchun pat:
+- Qoralarda yurish uchun yo\'l yo\'q
+- Shoh ham olishmagan.</string>
+  <string name="stalemateComplete">Tabriklaymiz! Shoh mot bo\'lganidan ko\'ra pat bo\'lgani yaxshiroq!</string>
+  <string name="advanced">Qo\'shimcha</string>
+  <string name="pieceValue">Sipoh qiymati</string>
+  <string name="evaluatePieceStrength">Sipoh kuchini hisoblash</string>
+  <string name="pieceValueIntro">Bemalol yura oladigan sipohlar qiymatliroq hisoblanadi!
+Farzin = 9
+To\'ra = 5
+Fil = 3
+Ot = 3
+Piyoda = 1
+Qirol qiymati bebaho! Uni yo\'qotish o\'yinni yo\'qotish degani.</string>
+  <string name="queenOverBishop">Qiymati baland sipohlarni oling! Farzin &gt; Fil</string>
+  <string name="takeThePieceWithTheHighestValue">Qiymati baland sipohlarni oling!</string>
+  <string name="pieceValueComplete">Tabriklaymiz! Siz sipohlar qiymatlarini bilasiz!
+Farzin = 9
+To\'ra = 5
+Fil = 3
+Ot = 3
+Piyoda = 1</string>
+  <string name="checkInTwo">Ikkita yurishda shoh</string>
+  <string name="twoMovesToGiveCheck">Shoh berish uchun ikkita yurish</string>
 </resources>
