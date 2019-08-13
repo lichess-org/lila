@@ -38,6 +38,7 @@ $c-primary-over: #fff; /* text over primary background */
 /* Secondary: green */
 $c-secondary: hsl(88, 62%, 37%);
 $c-secondary-dim: c-dimmer($c-secondary);
+$c-secondary-dimmer: c-dimmer($c-secondary, 40%);
 $c-secondary-over: #fff; /* text over secondary background */
 
 /* Accent: orange */
