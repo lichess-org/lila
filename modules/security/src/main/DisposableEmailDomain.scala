@@ -33,15 +33,19 @@ final class DisposableEmailDomain(
 
   private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
 
-  def apply(domain: Domain): Boolean =
-    !DisposableEmailDomain.whitelisted(domain) && regex.find(domain.value)
+  def apply(domain: Domain): Boolean = {
+    val lower = domain.lower
+    !DisposableEmailDomain.whitelisted(lower) && regex.find(lower.value)
+  }
+
+  def isOk(domain: Domain) = !apply(domain)
 
   def fromDomain(mixedCase: String): Boolean = apply(Domain(mixedCase.toLowerCase))
 }
 
 private object DisposableEmailDomain {
 
-  def whitelisted(domain: Domain) = whitelist contains domain.value
+  def whitelisted(domain: Domain.Lower) = whitelist contains domain.value
 
   private val staticBlacklist = Set(
     "lichess.org", "gamil.com", "gmali.com"

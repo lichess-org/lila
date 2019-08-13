@@ -18,7 +18,7 @@ private final class CheckMail(
     mongoCache: lila.memo.MongoCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
-  def apply(domain: Domain): Fu[Boolean] =
+  def apply(domain: Domain.Lower): Fu[Boolean] =
     if (key.isEmpty) fuccess(true)
     else cache(domain).withTimeoutDefault(2.seconds, true) recover {
       case e: Exception =>
@@ -40,18 +40,18 @@ private final class CheckMail(
 
   private val prefix = "security:check_mail"
 
-  private val cache = mongoCache[Domain, Boolean](
+  private val cache = mongoCache[Domain.Lower, Boolean](
     prefix = prefix,
     f = fetch,
     timeToLive = 1000 days,
     keyToString = _.toString
   )
 
-  private def fetch(domain: Domain): Fu[Boolean] =
+  private def fetch(domain: Domain.Lower): Fu[Boolean] =
     WS.url(url)
       .withQueryString("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHeaders("x-rapidapi-key" -> key)
-      .get withTimeout 10.seconds map {
+      .get withTimeout 15.seconds map {
         case res if res.status == 200 =>
           val valid = ~(res.json \ "valid").asOpt[Boolean]
           val block = ~(res.json \ "block").asOpt[Boolean]

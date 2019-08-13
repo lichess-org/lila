@@ -16,9 +16,7 @@ final class EmailAddressValidator(
 ) {
 
   private def isAcceptable(email: EmailAddress): Boolean =
-    email.domain.filter(_.value contains '.').exists { domain =>
-      !disposable.fromDomain(domain.value)
-    }
+    email.domain exists disposable.isOk
 
   def validate(email: EmailAddress): Option[EmailAddressValidator.Acceptable] =
     isAcceptable(email) option EmailAddressValidator.Acceptable(email)
@@ -63,7 +61,7 @@ final class EmailAddressValidator(
 
   // only compute valid and non-whitelisted email domains
   private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] =
-    if (isAcceptable(e)) e.domain ?? { domain =>
+    if (isAcceptable(e)) e.domain.map(_.lower) ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else dnsApi.mx(domain).map { domains =>
         domains.nonEmpty && !domains.exists { disposable(_) }
