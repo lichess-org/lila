@@ -23,4 +23,9 @@ Berserk qo\'shimcha bali faqat 7 yurishdan keyingina beriladi.</string>
 
 Agar ikkita o\'yinchi bir hil natija qayd etsa turnir natijasi tay-brik (durrang) bo\'ladi.</string>
   <string name="howDoesPairingWork">Sherik topish qanday amalga oshiriladi?</string>
+  <string name="howDoesPairingWorkAnswer">Turnir boshida o\'yinchilar reytingiga mos ravishda sheriklashadi. 
+O\'yin tugagach turnir sahifasiga qayting: siz turnirda to\'plagan reytingingizga mos sherik bilan bellashasiz. Bu sizga minimum vaqt ichida sherik topib beradiyu, ammo siz turnirdagi hamma o\'yinchi bilan ham o\'ynay olmaysiz.
+
+Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</string>
+  <string name="howDoesItEnd">Bu qanday yakunlanadi?</string>
 </resources>
