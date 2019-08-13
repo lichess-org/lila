@@ -16,8 +16,5 @@ export function isEvalBetter(a: Tree.ClientEval, b?: Tree.ClientEval): boolean {
 // gotta do the click on the toggle to have it visually change.
 window.lichess.storage.make('ceval.pool.start').listen(() => {
   const toggle = document.getElementById('analyse-toggle-ceval');
-  if (toggle && (toggle as HTMLInputElement).checked) {
-    console.log('Another tab runs the engine, closing this one.');
-    toggle.click();
-  }
+  if (toggle && (toggle as HTMLInputElement).checked) toggle.click();
 });

@@ -77,9 +77,9 @@ const BISHOP_DELTAS = [9, -9, 7, -7];
 const QUEEN_DELTAS = ROOK_DELTAS.concat(BISHOP_DELTAS);
 
 function slidingMovesTo(s: Square, deltas: number[], board: Board): Square[] {
-  var result: Square[] = [];
+  let result: Square[] = [];
   deltas.forEach(function (delta) {
-    for (var square = s + delta;
+    for (let square = s + delta;
       square >= 0 && square < 64 && squareDist(square, square - delta) === 1;
       square += delta) {
       result.push(square);
@@ -93,7 +93,7 @@ function isCheck(variant: VariantKey, board: Board): boolean {
   if (variant === 'antichess' || variant == 'racingKings') return false;
 
   const turn = board.turn,
-  ksq = turn ? board.K : board.k;
+    ksq = turn ? board.K : board.k;
 
   if (typeof ksq !== 'number') return false;
 
@@ -102,19 +102,19 @@ function isCheck(variant: VariantKey, board: Board): boolean {
     typeof board.k !== 'undefined' &&
     typeof board.K !== 'undefined' &&
     squareDist(board.k, board.K) <= 1)
-  return false;
+    return false;
 
   const p = turn ? 'p' : 'P',
-  n = turn ? 'n' : 'N',
-  r = turn ? 'r' : 'R',
-  b = turn ? 'b' : 'B',
-  q = turn ? 'q' : 'Q';
+    n = turn ? 'n' : 'N',
+    r = turn ? 'r' : 'R',
+    b = turn ? 'b' : 'B',
+    q = turn ? 'q' : 'Q';
 
   return (
     pawnAttacksTo(turn, ksq).some(o => board.pieces[o] === p) ||
-      knightMovesTo(ksq).some(o => board.pieces[o] === n) ||
-        slidingMovesTo(ksq, ROOK_DELTAS, board).some(o => board.pieces[o] === r || board.pieces[o] === q) ||
-          slidingMovesTo(ksq, BISHOP_DELTAS, board).some(o => board.pieces[o] === b || board.pieces[o] === q));
+    knightMovesTo(ksq).some(o => board.pieces[o] === n) ||
+    slidingMovesTo(ksq, ROOK_DELTAS, board).some(o => board.pieces[o] === r || board.pieces[o] === q) ||
+    slidingMovesTo(ksq, BISHOP_DELTAS, board).some(o => board.pieces[o] === b || board.pieces[o] === q));
 }
 
 function makeMove(variant: VariantKey, board: Board, uci: string) {
@@ -127,11 +127,11 @@ function makeMove(variant: VariantKey, board: Board, uci: string) {
   }
 
   const move = decomposeUci(uci),
-  from = square(move[0]),
-  p = board.pieces[from];
+    from = square(move[0]),
+    p = board.pieces[from];
 
   let to = square(move[1]),
-  capture = board.pieces[to];
+    capture = board.pieces[to];
 
   if (p === 'p' || p === 'P') {
     if (uci[0] !== uci[2] && !capture) {
@@ -143,7 +143,7 @@ function makeMove(variant: VariantKey, board: Board, uci: string) {
 
   if (p === 'k' || p === 'K') {
     // castling
-    var frCastle = capture && isBlack(p) === isBlack(capture);
+    let frCastle = capture && isBlack(p) === isBlack(capture);
     if (frCastle || squareDist(from, to) > 1) {
       delete board.pieces[from];
       if (frCastle) delete board.pieces[to];
@@ -180,13 +180,13 @@ function makeMove(variant: VariantKey, board: Board, uci: string) {
 function san(board: Board, uci: string): string  {
   if (uci.includes('@')) return fixCrazySan(uci);
 
-  var move = decomposeUci(uci);
-  var from = square(move[0]);
-  var to = square(move[1]);
-  var p = board.pieces[from];
+  let move = decomposeUci(uci),
+    from = square(move[0]),
+    to = square(move[1]),
+    p = board.pieces[from];
   if (!p) return '--';
-  var d = board.pieces[to];
-  var pt = p.toLowerCase();
+  let d = board.pieces[to],
+    pt = p.toLowerCase();
 
   // pawn moves
   if (pt === 'p') {
@@ -203,10 +203,10 @@ function san(board: Board, uci: string): string  {
     else return 'O-O';
   }
 
-  var san = pt.toUpperCase();
+  let san = pt.toUpperCase();
 
   // disambiguate normal moves
-  var candidates: Square[] = [];
+  let candidates: Square[] = [];
   if (pt == 'k') candidates = kingMovesTo(to);
   else if (pt == 'n') candidates = knightMovesTo(to);
   else if (pt == 'r') candidates = slidingMovesTo(to, ROOK_DELTAS, board);
@@ -235,17 +235,17 @@ export default function(variant: VariantKey, fen: string, threat: boolean, moves
   const turn = board.turn;
 
   let first = true,
-  s: string,
-  line = moves.map(function(uci) {
-    s = '';
-    if (board.turn) s = board.fmvn + '. ';
-    else if (first) s = board.fmvn + '... ';
-    first = false;
-    s += san(board, uci);
-    makeMove(variant, board, uci);
-    if (isCheck(variant, board)) s += '+';
-    return s;
-  }).join(' ');
+    s: string,
+    line = moves.map(uci => {
+      s = '';
+      if (board.turn) s = board.fmvn + '. ';
+      else if (first) s = board.fmvn + '... ';
+      first = false;
+      s += san(board, uci);
+      makeMove(variant, board, uci);
+      if (isCheck(variant, board)) s += '+';
+      return s;
+    }).join(' ');
 
   if (mate) {
     let matePlies = mate * 2;

@@ -4,13 +4,11 @@ import { isFinished } from '../studyChapters';
 
 export default class RelayCtrl {
 
-  data: RelayData;
   log: LogEvent[] = [];
   cooldown: boolean = false;
   clockInterval?: number;
 
-  constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any, chapter: StudyChapter) {
-    this.data = d;
+  constructor(public data: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any, chapter: StudyChapter) {
     this.applyChapterRelay(chapter, chapter.relay);
   }
 

@@ -37,9 +37,7 @@ const li = window.lichess;
 
 export default class RoundController {
 
-  opts: RoundOpts;
   data: RoundData;
-  redraw: Redraw;
   socket: RoundSocket;
   chessground: CgApi;
   clock?: ClockController;
@@ -72,14 +70,11 @@ export default class RoundController {
 
   private music?: any;
 
-  constructor(opts: RoundOpts, redraw: Redraw) {
+  constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
 
     round.massage(opts.data);
 
     const d = this.data = opts.data;
-
-    this.opts = opts;
-    this.redraw = redraw;
 
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
