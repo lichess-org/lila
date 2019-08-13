@@ -641,6 +641,12 @@ object mon {
       val requestCount = inc("fishnet.analysis.request")
       val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
     }
+    object http {
+      def acquire(skill: String) = new {
+        def hit = inc(s"fishnet.http.acquire.$skill.hit")
+        def miss = inc(s"fishnet.http.acquire.$skill.miss")
+      }
+    }
   }
   object api {
     object userGames {
