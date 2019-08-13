@@ -3,15 +3,10 @@ import { PoolOpts, WorkerOpts, Work } from './types';
 import Protocol from './scanProtocol';
 
 export abstract class AbstractWorker {
-  protected url: string;
-  protected poolOpts: PoolOpts;
-  protected workerOpts: WorkerOpts;
+
   protected protocol: Sync<Protocol>;
 
-  constructor(url: string, poolOpts: PoolOpts, workerOpts: WorkerOpts) {
-    this.url = url;
-    this.poolOpts = poolOpts;
-    this.workerOpts = workerOpts;
+  constructor(protected url: string, protected poolOpts: PoolOpts, protected workerOpts: WorkerOpts) {
     this.protocol = sync(this.boot());
   }
 
@@ -33,13 +28,11 @@ export abstract class AbstractWorker {
     });
   }
 
-  isComputing(): boolean {
-    return !!this.protocol.sync && this.protocol.sync.isComputing();
-  }
+  isComputing: () => boolean = () =>
+    !!this.protocol.sync && this.protocol.sync.isComputing();
 
-  engineName(): string | undefined {
-    return this.protocol.sync && this.protocol.sync.engineName;
-  }
+  engineName: () => string | undefined = () =>
+    this.protocol.sync && this.protocol.sync.engineName;
 
   abstract boot(): Promise<Protocol>;
   abstract send(cmd: string): void;
@@ -76,8 +69,8 @@ class PNaClWorker extends AbstractWorker {
       try {
         // Use a listener div to ensure listeners are active before the
         // load event fires.
-        this.listener = document.createElement('div');
-        this.listener.addEventListener('load', () => {
+        const listener = this.listener = document.createElement('div');
+        listener.addEventListener('load', () => {
           resolve(new Protocol(this.send.bind(this), this.workerOpts));
         }, true);
         this.listener.addEventListener('error', e => {
@@ -91,14 +84,14 @@ class PNaClWorker extends AbstractWorker {
           const err = this.worker ? ((this.worker as any).lastError + " (exitStatus " + (this.worker as any).exitStatus + ")") : e;
           this.poolOpts.onCrash(err);
         }, true);
-        document.body.appendChild(this.listener);
+        document.body.appendChild(listener);
 
-        this.worker = document.createElement('object');
-        this.worker.width = '0';
-        this.worker.height = '0';
-        this.worker.data = this.url;
-        this.worker.type = 'application/x-pnacl';
-        this.listener.appendChild(this.worker);
+        const worker = this.worker = document.createElement('object');
+        worker.width = '0';
+        worker.height = '0';
+        worker.data = this.url;
+        worker.type = 'application/x-pnacl';
+        listener.appendChild(worker);
       } catch (err) {
         console.log('exception while booting pnacl', err);
         this.destroy();
@@ -123,19 +116,14 @@ class PNaClWorker extends AbstractWorker {
 export default class Pool {
   private workers: AbstractWorker[] = [];
   private token = 0;
-  private poolOpts: PoolOpts;
-  private protocolOpts: WorkerOpts;
 
-  constructor(poolOpts: PoolOpts, protocolOpts: WorkerOpts) {
-    this.poolOpts = poolOpts;
-    this.protocolOpts = protocolOpts;
-  }
+  constructor(private poolOpts: PoolOpts, private protocolOpts: WorkerOpts) { }
 
   getWorker(): Promise<AbstractWorker> {
     this.warmup();
 
     // briefly wait and give a chance to reuse the current worker
-    let worker = new Promise<AbstractWorker>((resolve, reject) => {
+    const worker = new Promise<AbstractWorker>((resolve, reject) => {
       const currentWorker = this.workers[this.token];
       currentWorker.stop().then(() => resolve(currentWorker));
       setTimeout(() => reject(), 300);
@@ -152,7 +140,7 @@ export default class Pool {
     });
   }
 
-  warmup() {
+  warmup = () => {
     if (this.workers.length) return;
 
     if (this.poolOpts.pnacl)
@@ -162,27 +150,23 @@ export default class Pool {
         this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
   }
 
-  stop() {
-    this.workers.forEach(w => w.stop());
-  }
+  stop = () => this.workers.forEach(w => w.stop());
 
-  destroy() {
+  destroy = () => {
     this.stop();
     this.workers.forEach(w => w.destroy());
-  }
+  };
 
   start(work: Work) {
     window.lidraughts.storage.set('ceval.pool.start', Date.now().toString());
     this.getWorker().then(function(worker) {
       worker.start(work);
     });
-  }
+  };
 
-  isComputing(): boolean {
-    return !!this.workers.length && this.workers[this.token].isComputing();
-  }
+  isComputing = () =>
+    !!this.workers.length && this.workers[this.token].isComputing();
 
-  engineName(): string | undefined {
-    return this.workers[this.token] && this.workers[this.token].engineName();
-  }
+  engineName: () => string | undefined = () =>
+    this.workers[this.token] && this.workers[this.token].engineName();
 }

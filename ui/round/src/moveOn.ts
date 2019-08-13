@@ -7,8 +7,7 @@ export default class MoveOn {
   value: boolean = window.lidraughts.storage.get(this.key) === '1' || window.lidraughts.storage.get(this.key) === '2';
   seq: boolean = window.lidraughts.storage.get(this.key) === '2';
 
-  constructor(private ctrl: RoundController, private key: string) {
-  }
+  constructor(private ctrl: RoundController, private key: string) { }
 
   store = () => window.lidraughts.storage.set(this.key, this.value ? (this.seq ? '2' : '1') : '0');
 

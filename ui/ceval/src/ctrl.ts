@@ -2,13 +2,18 @@ import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
 import { parseVariant } from './scanProtocol';
 
 import Pool from './pool';
-import { median } from './math';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
 import { povChances } from './winningChances';
 
 const li = window.lidraughts;
+
+function median(values: number[]): number {
+  values.sort((a, b) => a - b);
+  const half = Math.floor(values.length / 2);
+  return values.length % 2 ? values[half] : (values[half - 1] + values[half]) / 2.0;
+}
 
 export default function(opts: CevalOpts): CevalCtrl {
 
@@ -89,17 +94,14 @@ export default function(opts: CevalOpts): CevalCtrl {
     }
   });
 
-  const effectiveMaxDepth = function(): number {
-    return (isDeeper() || infinite()) ? 99 : (parseInt(maxDepth()) - (opts.variant.key === 'antidraughts' ? 10 : 0));
-  };
+  const effectiveMaxDepth = () => (isDeeper() || infinite()) ? 99 : (parseInt(maxDepth()) - (opts.variant.key === 'antidraughts' ? 10 : 0));
 
-  const sortPvsInPlace = function(pvs: Tree.PvData[], color: Color) {
+  const sortPvsInPlace = (pvs: Tree.PvData[], color: Color) =>
     pvs.sort(function(a, b) {
       return povChances(color, b) - povChances(color, a);
     });
-  };
 
-  const start = function(path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) {
+  const start = (path: Tree.Path, steps: Step[], threatMode: boolean, deeper: boolean) => {
 
     if (!enabled() || !opts.possible) return;
 
@@ -201,23 +203,15 @@ export default function(opts: CevalOpts): CevalCtrl {
       if (document.visibilityState !== 'hidden')
         enableStorage.set(enabled());
     },
-    curDepth(): number {
-      return curEval ? curEval.depth : 0;
-    },
+    curDepth: () => curEval ? curEval.depth : 0,
     effectiveMaxDepth,
     variant: opts.variant,
     isDeeper,
     goDeeper,
-    canGoDeeper() {
-      return !isDeeper() && !infinite() && !pool.isComputing();
-    },
-    isComputing() {
-      return !!started && pool.isComputing();
-    },
-    engineName() {
-      return pool.engineName();
-    },
-    destroy() { pool.destroy() },
+    canGoDeeper: () => !isDeeper() && !infinite() && !pool.isComputing(),
+    isComputing: () => !!started && pool.isComputing(),
+    engineName: pool.engineName,
+    destroy: pool.destroy,
     redraw: opts.redraw
   };
 };

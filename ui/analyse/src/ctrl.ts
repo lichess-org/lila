@@ -39,10 +39,8 @@ const li = window.lidraughts;
 
 export default class AnalyseCtrl {
 
-  opts: AnalyseOpts;
   data: AnalyseData;
   element: HTMLElement;
-  redraw: () => void;
 
   tree: TreeWrapper;
   socket: Socket;
@@ -104,13 +102,11 @@ export default class AnalyseCtrl {
   nvui?: NvuiPlugin;
   initDests: boolean; // set to true when dests have been loaded on init
 
-  constructor(opts: AnalyseOpts, redraw: Redraw) {
+  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
 
-    this.opts = opts;
     this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
-    this.redraw = redraw;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
     this.flipped = this.data.puzzleEditor;

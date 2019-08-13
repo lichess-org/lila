@@ -57,21 +57,17 @@ export function parseVariant(variant: string): string {
 }
 
 export default class Protocol {
-  private send: (cmd: string) => void;
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
   private stopped: DeferPromise.Deferred<void> | null;
-  private opts: WorkerOpts;
   private curHashSize: number;
   private frisianVariant: boolean;
   private uciCache: any;
 
   public engineName: string | undefined;
 
-  constructor(send: (cmd: string) => void, opts: WorkerOpts) {
-    this.send = send;
-    this.opts = opts;
+  constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
     this.uciCache = {};
 
     const scanVariant = parseVariant(opts.variant);
@@ -81,29 +77,29 @@ export default class Protocol {
     this.stopped.resolve();
 
     // get engine name/version
-    send('hub');
+    this.send('hub');
 
     // tt is initialized by a call to init, so should be initialized first (default to 64 mb)
     const newHashSize = this.opts.hashSize ? (this.opts.hashSize() as number) : 64;
-    send('set-param name=tt-size value=' + scanHash(newHashSize));
+    this.send('set-param name=tt-size value=' + scanHash(newHashSize));
     this.curHashSize = newHashSize;
 
-    send('set-param name=variant value=' + scanVariant);
+    this.send('set-param name=variant value=' + scanVariant);
 
     // bitbases are disabled by default, not supported for all variants
     switch (scanVariant) {
       case "normal":
       case "frisian":
       case "losing":
-        send('set-param name=bb-size value=3');
+        this.send('set-param name=bb-size value=3');
         break;
       case "bt":
-        send('set-param name=bb-size value=4');
+        this.send('set-param name=bb-size value=4');
         break;
     }
 
     // prepare for analysis
-    send('init');
+    this.send('init');
 
   }
 

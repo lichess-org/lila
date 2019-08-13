@@ -36,9 +36,7 @@ const li = window.lidraughts;
 
 export default class RoundController {
 
-  opts: RoundOpts;
   data: RoundData;
-  redraw: Redraw;
   socket: RoundSocket;
   draughtsground: DgApi;
   clock?: ClockController;
@@ -75,16 +73,13 @@ export default class RoundController {
 
   private music?: any;
 
-  constructor(opts: RoundOpts, redraw: Redraw) {
+  constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
 
     opts.data.steps = round.mergeSteps(opts.data.steps);
 
     round.massage(opts.data);
 
     const d = this.data = opts.data;
-
-    this.opts = opts;
-    this.redraw = redraw;
 
     this.ply = round.lastPly(d);
 

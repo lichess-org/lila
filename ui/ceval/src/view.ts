@@ -8,24 +8,16 @@ import { VNode } from 'snabbdom/vnode';
 import { scan2uci } from './main';
 
 let gaugeLast = 0;
-const gaugeTicks: VNode[] = [];
-for (let i = 1; i < 8; i++) gaugeTicks.push(h(i === 4 ? 'tick.zero' : 'tick', {
-  attrs: { style: `height: ${i * 12.5}%` }
-}));
-
-function range(len: number): number[] {
-  const r = [];
-  for (let i = 0; i < len; i++) r.push(i);
-  return r;
-}
+const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
+  h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } })
+);
 
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(), trans = ctrl.trans;
-  if (!evs.client) {
-    return [
-      evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : trans.noarg('loadingEngine'),
-    ];
-  }
+  if (!evs.client) return [
+    evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : trans.noarg('loadingEngine'),
+  ];
+
   const t: Array<VNode | string> = evs.client.cloud ? [
     trans('depthX', evs.client.depth || 0),
     h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')
@@ -87,7 +79,7 @@ const serverNodes = 5e6;
 
 export function getBestEval(evs: NodeEvals): Eval | undefined {
   const serverEv = evs.server,
-  localEv = evs.client;
+    localEv = evs.client;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
@@ -95,7 +87,7 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
   // Prefer localEv if it exeeds draughtsnet node limit or finds a better win.
   if (localEv.nodes > serverNodes ||
     (typeof localEv.win !== 'undefined' && (typeof serverEv.win === 'undefined' || Math.abs(localEv.win) < Math.abs(serverEv.win))))
-  return localEv;
+    return localEv;
 
   return serverEv;
 }
@@ -107,25 +99,25 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     ev = winningChances.povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
-  const height = 100 - (ev + 1) * 50;
   return h('div.eval-gauge', {
     class: {
       empty: ev === null,
       reverse: ctrl.getOrientation() === 'black'
     }
   }, [
-    h('div.black', { attrs: { style: `height: ${height}%` } })
-  ].concat(gaugeTicks));
+    h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }),
+    ...gaugeTicks
+  ]);
 }
 
 export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval(), trans = ctrl.trans;
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled(),
-  evs = ctrl.currentEvals(),
-  threatMode = ctrl.threatMode(),
-  threat = threatMode && ctrl.getNode().threat,
-  bestEv = threat || getBestEval(evs);
+    evs = ctrl.currentEvals(),
+    threatMode = ctrl.threatMode(),
+    threat = threatMode && ctrl.getNode().threat,
+    bestEv = threat || getBestEval(evs);
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -144,7 +136,6 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     if (threat) percent = Math.min(100, Math.round(100 * threat.depth / threat.maxDepth));
     else percent = 0;
   }
-  const mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
 
   const progressBar: VNode | null = enabled ? h('div.bar', h('span', {
     class: { threat: threatMode },
@@ -181,7 +172,7 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     ])
   ];
 
-  const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
+  const switchButton: VNode | null = ctrl.mandatoryCeval && ctrl.mandatoryCeval() ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
     h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
@@ -252,7 +243,7 @@ export function renderPvs(ctrl: ParentCtrl) {
       },
       postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance)
     }
-  }, range(multiPv).map(function(i) {
+  }, [...Array(multiPv).keys()].map(function(i) {
     if (!pvs[i]) return h('div.pv');
     const san = pv2san(node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].win);
     return h('div.pv', threat ? {} : {
