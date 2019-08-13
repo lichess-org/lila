@@ -522,6 +522,7 @@ case class Game(
   def twoUserIds: Option[(User.ID, User.ID)] = for {
     w <- whitePlayer.userId
     b <- blackPlayer.userId
+    if w != b
   } yield w -> b
 
   def userRatings = playerMaps(_.rating)
