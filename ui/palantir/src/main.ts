@@ -173,24 +173,27 @@ export function palantir(opts: PalantirOpts) {
   }, 3000);
 
   return {
-    render: h =>
-    devices ? h('div.mchat__tab.palantir.palantir-' + state, {
-      attrs: {
-        'data-icon': '',
-        title: `Voice chat: ${state}`
-      },
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).addEventListener('click', () => peer ? stop() : start());
+    render: h => {
+      const connections = allOpenConnections();
+      return devices ? h('div.mchat__tab.palantir.data-count.palantir-' + state, {
+        attrs: {
+          'data-icon': '',
+          title: `Voice chat: ${state}`,
+          'data-count': state == 'on' ? connections.length + 1 : 0
+        },
+        hook: {
+          insert(vnode) {
+            (vnode.elm as HTMLElement).addEventListener('click', () => peer ? stop() : start());
+          }
         }
-      }
-    }, state == 'on' ?
-      allOpenConnections().map(c =>
-        h('audio.palantir__audio.' + c.peer, {
-          attrs: { autoplay: true },
-          hook: { insert(vnode) { (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream } }
-        })
-      ) : []
-    ) : null
+      }, state == 'on' ?
+        connections.map(c =>
+          h('audio.palantir__audio.' + c.peer, {
+            attrs: { autoplay: true },
+            hook: { insert(vnode) { (vnode.elm as HTMLAudioElement).srcObject = c.remoteStream } }
+          })
+        ) : []
+      ) : null;
+    }
   }
 }
