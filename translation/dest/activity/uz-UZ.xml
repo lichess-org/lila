@@ -58,4 +58,13 @@
     <item quantity="one">%s turnirda ishtirok etilgan</item>
     <item quantity="other">%s turnirlarda ishtirok etilgan</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Reyting #%1$s (eng balandi %2$s%%) %4$s dan %3$s ta o\'yin</item>
+    <item quantity="other">Reyting #%1$s (eng balandi %2$s%%) %4$s dan %3$s ta o\'yinlar</item>
+  </plurals>
+  <string name="signedUp">Lichess.org dan chiqildi</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s jamoaga qo\'shildi</item>
+    <item quantity="other">%s jamoalarga qo\'shildi</item>
+  </plurals>
 </resources>
