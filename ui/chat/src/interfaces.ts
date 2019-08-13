@@ -36,6 +36,7 @@ export interface ChatData {
   loginRequired: boolean
   restricted: boolean
   palantir: boolean
+  domVersion: number
 }
 
 export interface Line {

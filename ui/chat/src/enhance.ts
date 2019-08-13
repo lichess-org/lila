@@ -1,8 +1,15 @@
-export default function(text: string, parseMoves: boolean): string {
+export function enhance(text: string, parseMoves: boolean): string {
   const escaped = window.lidraughts.escapeHtml(text);
   const linked = autoLink(escaped);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
+}
+
+const moreThanTextPattern = /[&<>"@]/;
+const possibleLinkPattern = /\.\w/;
+
+export function isMoreThanText(str: string) {
+  return moreThanTextPattern.test(str) || possibleLinkPattern.test(str);
 }
 
 const linkPattern = /\b(https?:\/\/|lidraughts\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
