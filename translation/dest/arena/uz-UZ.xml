@@ -7,4 +7,20 @@
   <string name="isNotRated">Bu turnir reytingga tasir *etmaydi* va sizni reytingingizga tasir *etmaydi*.</string>
   <string name="someRated">Ba\'zi turnirlar reytingli va sizni reytingingizga tasir etadi.</string>
   <string name="howAreScoresCalculated">Ballar qanday hisoblanadi?</string>
+  <string name="howAreScoresCalculatedAnswer">Yutuq 2 ball bersa durrang bir ball beradi. Mag\'lubiyat esa hech qanday qiymatga ega emas va bal bermaydi. Agar siz ikki marta ketma-ket yutsangiz olov tasviri tushirilgan belgini yonib turishi orqali habar beriliuvchi 2 lik ballar seriyasini olishni boshlagan bo\'lasiz. Ushbu ikkiliklar seriyasi toki siz mag\'lub bo\'lguningizcha davom etadi. Bu o\'z navbatida g\'alaba 4 ball, durrang 2 ball va mag\'lubiyat esa avvalgidek hech narsa bermasligini anglatadi. 
+
+Masalan, ikkita yutuq va bitta durrang 6 ball bergan bo\'lardi: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Berserk maydoni</string>
+  <string name="berserkAnswer">Qachon o\'yinchi Berserk tugmasini bossa o\'yin boshlanadi va u o\'zining yarim vaqtini yo\'qotadi, ammo yutuq yana bir qo\'shimcha turnir balini olib keladi. 
+
+Berserkka vaqtni oshirishni boshqaruvi orqali o\'tish ham oshirishni bekor qiladi. (1+2 hisoblanmaydi, 1+0 beradi) 
+
+Berserk boshlang\'ich vaqti 0 bo\'lgan o\'yinlar uchun yopiq (0+1, 0+2).
+
+Berserk qo\'shimcha bali faqat 7 yurishdan keyingina beriladi.</string>
+  <string name="howIsTheWinnerDecided">G\'olib qanday aniqlanadi?</string>
+  <string name="howIsTheWinnerDecidedAnswer">Turnirda belgilangan vaqt davomida eng ko\'p bal to\'plagan o\'yinchi(lar) g\'olib(lar) deb topiladi.
+
+Agar ikkita o\'yinchi bir hil natija qayd etsa turnir natijasi tay-brik (durrang) bo\'ladi.</string>
+  <string name="howDoesPairingWork">Sherik topish qanday amalga oshiriladi?</string>
 </resources>
