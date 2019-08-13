@@ -621,6 +621,12 @@ object mon {
       val requestCount = inc("draughtsnet.analysis.request")
       val evalCacheHits = rec("draughtsnet.analysis.eval_cache_hits")
     }
+    object http {
+      def acquire(skill: String) = new {
+        def hit = inc(s"draughtsnet.http.acquire.$skill.hit")
+        def miss = inc(s"draughtsnet.http.acquire.$skill.miss")
+      }
+    }
   }
   object api {
     object userGames {

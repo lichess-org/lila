@@ -17,7 +17,10 @@ object Draughtsnet extends LidraughtsController {
   private val logger = lidraughts.log("draughtsnet")
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req => client =>
-    api acquire client map Right.apply
+    api acquire client addEffect { jobOpt =>
+      val mon = lidraughts.mon.draughtsnet.http.acquire(client.skill.toString)
+      if (jobOpt.isDefined) mon.hit() else mon.miss()
+    } map Right.apply
   }
 
   def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data => client =>
