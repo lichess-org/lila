@@ -98,7 +98,7 @@
   display: inline-block;
   padding: .5em;
   &:checked {
-    background: $c-secondary;
+    background: $c-secondary-dimmer;
     border-color: $c-secondary-dim;
   }
 }
