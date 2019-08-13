@@ -18,14 +18,12 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields => F }
   import Game.{ BSONFields => GF }
 
-  def apply(game: Game): Fu[Option[Crosstable]] = game.userIds.distinct match {
-    case List(u1, u2) => apply(u1, u2)
-    case _ => fuccess(none)
+  def apply(game: Game): Fu[Option[Crosstable]] = game.twoUserIds ?? {
+    case (u1, u2) => apply(u1, u2)
   }
 
-  def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.userIds.distinct match {
-    case List(u1, u2) => withMatchup(u1, u2)
-    case _ => fuccess(none)
+  def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.twoUserIds ?? {
+    case (u1, u2) => withMatchup(u1, u2)
   }
 
   def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
