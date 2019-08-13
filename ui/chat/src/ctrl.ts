@@ -9,6 +9,10 @@ const li = window.lichess;
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
+  data.domVersion = 1; // increment to force redraw
+  const maxLines = 200;
+  const maxLinesDrop = 50; // how many lines to drop at once
+
   const palantir = {
     instance: undefined,
     loaded: false,
@@ -48,10 +52,11 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   };
 
   const onTimeout = function(username: string) {
-    data.lines.forEach(function(l) {
+    data.lines.forEach(l => {
       if (l.u === username) l.d = true;
     });
     if (username.toLowerCase() === data.userId) vm.timeout = true;
+    data.domVersion++;
     redraw();
   };
 
@@ -63,8 +68,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   };
 
   const onMessage = function(line: Line) {
-    if (data.lines.length > 64) data.lines.shift();
     data.lines.push(line);
+    const nb = data.lines.length;
+    if (nb > maxLines) {
+      data.lines.splice(0, nb - maxLines + maxLinesDrop);
+      data.domVersion++;
+    }
     redraw();
   };
 

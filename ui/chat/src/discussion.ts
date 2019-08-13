@@ -2,7 +2,7 @@ import { h, thunk } from 'snabbdom'
 import { VNode, VNodeData } from 'snabbdom/vnode'
 import { Ctrl, Line } from './interfaces'
 import * as spam from './spam'
-import enhance from './enhance';
+import * as enhance from './enhance';
 import { presetView } from './preset';
 import { lineAction } from './moderation';
 import { userLink } from './util';
@@ -23,7 +23,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
   },
   m = ctrl.moderation();
   const vnodes = [
-    h('ol.mchat__messages', {
+    h('ol.mchat__messages.chat-v-' + ctrl.data.domVersion, {
       attrs: {
         role: 'log',
         'aria-live': 'polite',
@@ -155,20 +155,23 @@ function selectLines(ctrl: Ctrl): Array<Line> {
 function updateText(parseMoves: boolean) {
   return (oldVnode: VNode, vnode: VNode) => {
     if ((vnode.data as VNodeData).lichessChat !== (oldVnode.data as VNodeData).lichessChat) {
-      (vnode.elm as HTMLElement).innerHTML = enhance((vnode.data as VNodeData).lichessChat, parseMoves);
+      (vnode.elm as HTMLElement).innerHTML = enhance.enhance((vnode.data as VNodeData).lichessChat, parseMoves);
     }
   };
 }
 
 function renderText(t: string, parseMoves: boolean) {
-  const hook = updateText(parseMoves);
-  return h('t', {
-    lichessChat: t,
-    hook: {
-      create: hook,
-      update: hook
-    }
-  });
+  if (enhance.isMoreThanText(t)) {
+    const hook = updateText(parseMoves);
+    return h('t', {
+      lichessChat: t,
+      hook: {
+        create: hook,
+        update: hook
+      }
+    });
+  }
+  return h('t', t);
 }
 
 function renderLine(ctrl: Ctrl, line: Line) {
