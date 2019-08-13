@@ -1,8 +1,14 @@
 @import '../../../common/css/component/glowing';
 
+@keyframes palantir-glowing {
+  40% { background: none; }
+  50% { background: mix($c-secondary, $c-bg-box, 30%); }
+  60% { background: mix($c-primary, $c-bg-box, 30%); }
+  70% { background: none; }
+}
 .palantir {
   flex: 0 1 auto;
-  animation: glowing 1.5s ease-in-out infinite;
+  animation: palantir-glowing 1.5s ease-in-out infinite;
   border-radius: 0 3px 0 0;
   &-slot {
     animation: none;
