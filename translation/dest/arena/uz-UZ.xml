@@ -5,4 +5,6 @@
   <string name="willBeNotified">Turnir boshlanganda siz habardaor bo\'lasiz shu tufayli siz qo\'rqmasdan yangi tahlamda boshqa o\'yinni bemalol o\'ynashingiz mumkin.</string>
   <string name="isRated">Bu turnir reytingli va sizni reytingingizga ta\'sir etadi.</string>
   <string name="isNotRated">Bu turnir reytingga tasir *etmaydi* va sizni reytingingizga tasir *etmaydi*.</string>
+  <string name="someRated">Ba\'zi turnirlar reytingli va sizni reytingingizga tasir etadi.</string>
+  <string name="howAreScoresCalculated">Ballar qanday hisoblanadi?</string>
 </resources>
