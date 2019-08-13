@@ -132,6 +132,7 @@ object faq {
           ol(
             li("have played at least 30 rated games in a given rating,"),
             li("have played a rated game within the last month for this rating,"),
+            li("have a rating deviation lower than 80,"),
             li("be in the top 10 in this rating.")
           ),
           p("The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.")
