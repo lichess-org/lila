@@ -3,6 +3,10 @@
   .subs {
     padding: 5px 0;
   }
+  .links a:before {
+    position: relative;
+    bottom: .1em;
+  }
   .links a,
   .links button,
   .subs .sub {
