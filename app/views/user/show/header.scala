@@ -25,10 +25,17 @@ object header {
     div(cls := "box__top user-show__header")(
       h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
         if (u.isPatron) frag(
-          a(href := routes.Plan.index)(patronIcon),
-          userSpan(u, withPowerTip = false, withOnline = false)
+          table(
+            td(a(href := routes.Plan.index)(patronIcon)),
+            td(u.username)
+          )
         )
-        else userSpan(u, withPowerTip = false)
+        else frag(
+          table(
+            td(i(cls := "line")),
+            td(u.username)
+          )
+        )
       ),
       div(cls := List(
         "trophies" -> true,
