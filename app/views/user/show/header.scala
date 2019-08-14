@@ -24,17 +24,9 @@ object header {
   )(implicit ctx: Context) = frag(
     div(cls := "box__top user-show__header")(
       h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
-        if (u.isPatron) frag(
-          table(
-            td(a(href := routes.Plan.index)(patronIcon)),
-            td(u.username)
-          )
-        )
-        else frag(
-          table(
-            td(i(cls := "line")),
-            td(u.username)
-          )
+        table(
+          td(if (u.isPatron) a(href := routes.Plan.index)(patronIcon) else i(cls := "line")),
+          td(u.username)
         )
       ),
       div(cls := List(
