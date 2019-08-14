@@ -11,7 +11,21 @@ object StreamerForm {
 
   import Streamer.{ Name, Headline, Description, Twitch, YouTube, Listed }
 
-  lazy val emptyUserForm = Form(mapping(
+  private val homepageMapping = mapping(
+    "enabled" -> boolean,
+    "minutesPerDay" -> number(min = 0, max = 60 * 24),
+    "minutesPerWeek" -> number(min = 0, max = 60 * 24 * 7)
+  )(StreamerHomepage.apply)(StreamerHomepage.unapply)
+
+  private val approvalMapping = mapping(
+    "granted" -> boolean,
+    "homepage" -> homepageMapping,
+    "requested" -> boolean,
+    "ignored" -> boolean,
+    "chat" -> boolean
+  )(ApprovalData.apply)(ApprovalData.unapply)
+
+  val emptyUserForm = Form(mapping(
     "name" -> nameField,
     "headline" -> optional(headlineField),
     "description" -> optional(descriptionField),
@@ -21,13 +35,7 @@ object StreamerForm {
     ).verifying("Invalid Twitch username", s => Streamer.Twitch.parseUserId(s).isDefined)),
     "youTube" -> optional(text.verifying("Invalid YouTube channel", s => Streamer.YouTube.parseChannelId(s).isDefined)),
     "listed" -> boolean,
-    "approval" -> optional(mapping(
-      "granted" -> boolean,
-      "featured" -> boolean,
-      "requested" -> boolean,
-      "ignored" -> boolean,
-      "chat" -> boolean
-    )(ApprovalData.apply)(ApprovalData.unapply))
+    "approval" -> optional(approvalMapping)
   )(UserData.apply)(UserData.unapply))
 
   def userForm(streamer: Streamer) = emptyUserForm fill UserData(
@@ -39,7 +47,7 @@ object StreamerForm {
     listed = streamer.listed.value,
     approval = ApprovalData(
       granted = streamer.approval.granted,
-      featured = streamer.approval.autoFeatured,
+      homepage = streamer.approval.homepage,
       requested = streamer.approval.requested,
       ignored = streamer.approval.ignored,
       chat = streamer.approval.chatEnabled
@@ -70,7 +78,7 @@ object StreamerForm {
         approval = approval match {
           case Some(m) if asMod => streamer.approval.copy(
             granted = m.granted,
-            autoFeatured = m.featured && m.granted,
+            homepage = m.homepage,
             requested = !m.granted && {
               if (streamer.approval.requested != m.requested) m.requested
               else streamer.approval.requested || m.requested
@@ -86,7 +94,7 @@ object StreamerForm {
 
   case class ApprovalData(
       granted: Boolean,
-      featured: Boolean,
+      homepage: StreamerHomepage,
       requested: Boolean,
       ignored: Boolean,
       chat: Boolean

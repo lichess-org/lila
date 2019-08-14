@@ -15,6 +15,7 @@ private object BsonHandlers {
   import Streamer.{ Twitch, YouTube, Approval }
   implicit val StreamerTwitchBSONHandler = Macros.handler[Twitch]
   implicit val StreamerYouTubeBSONHandler = Macros.handler[YouTube]
+  implicit val StreamerHomepageBSONHandler = Macros.handler[StreamerHomepage]
   implicit val StreamerApprovalBSONHandler = Macros.handler[Approval]
   implicit val StreamerBSONHandler = Macros.handler[Streamer]
 }

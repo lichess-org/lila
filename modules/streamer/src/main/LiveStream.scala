@@ -14,7 +14,7 @@ case class LiveStreams(streams: List[Stream]) {
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
   def autoFeatured = LiveStreams {
-    streams.filter(_.streamer.approval.autoFeatured)
+    streams.filter(_.streamer.approval.homepage.enabled)
   }
 
   def withTitles(lightUser: lila.user.LightUserApi) = LiveStreams.WithTitles(

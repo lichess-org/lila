@@ -123,6 +123,7 @@ object edit {
                       else
                         form3.checkbox(form("approval.ignored"), raw("Ignore further approval requests"), help = modsOnly, half = true)
                     ),
+                    granted option form3.split(),
                     form3.action(form3.submit(trans.apply()))
                   ),
                   form3.split(

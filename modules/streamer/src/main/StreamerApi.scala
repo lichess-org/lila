@@ -59,7 +59,7 @@ final class StreamerApi(
       listedIdsCache.refresh inject {
         val modChange = Streamer.ModChange(
           list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-          feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+          feature = prev.approval.homepage.enabled != streamer.approval.homepage.enabled option streamer.approval.homepage.enabled
         )
         import lila.notify.Notification.Notifies
         import lila.notify.{ Notification, NotifyApi }
