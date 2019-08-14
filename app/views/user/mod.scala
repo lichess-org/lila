@@ -236,25 +236,25 @@ object mod {
     div(id := "mz_assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with blurs is ", strong(blursYes),
+          "ACPL in games with blurs is ", strong(blursYes), " [", pag.pag.sfCiBlurs.map(_(0)), " , ", pag.pag.sfCiBlurs.map(_(1)), "]",
           pag.pag.sfAvgNoBlurs ?? { blursNo =>
-            frag(" against ", strong(blursNo), " in games without blurs.")
+            frag(" against ", strong(blursNo), " [", pag.pag.sfCiNoBlurs.map(_(0)), ", ", pag.pag.sfCiNoBlurs.map(_(1)), "] in games without blurs.")
           }
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with consistent move times is ", strong(lowVar),
+          "ACPL in games with consistent move times is ", strong(lowVar), " [", pag.pag.sfCiLowVar.map(_(0)), ", ", pag.pag.sfCiLowVar.map(upper => upper(1)), "]",
           pag.pag.sfAvgHighVar ?? { highVar =>
-            frag(" against ", strong(highVar), " in games with random move times.")
+            frag(" against ", strong(highVar), " [", pag.pag.sfCiHighVar.map(_(0)), ", ", pag.pag.sfCiHighVar.map(_(1)), "] in games with random move times.")
           }
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with bot signature ", strong(holdYes),
+          "ACPL in games with bot signature ", strong(holdYes), " [", pag.pag.sfCiHold.map(_(0)), ", ", pag.pag.sfCiHold.map(_(1)), "]",
           pag.pag.sfAvgNoHold.map { holdNo =>
-            frag(" against ", strong(holdNo), " in games without bot signature.")
+            frag(" against ", strong(holdNo), " [", pag.pag.sfCiNoHold.map(_(0)), ", ", pag.pag.sfCiNoHold.map(_(1)), "]  in games without bot signature.")
           }
         )
       },

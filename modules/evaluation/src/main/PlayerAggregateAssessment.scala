@@ -3,6 +3,7 @@ package lila.evaluation
 import chess.Color
 import lila.user.User
 import org.joda.time.DateTime
+import scala.math.sqrt
 
 case class PlayerAssessment(
     _id: String,
@@ -97,18 +98,37 @@ case class PlayerAggregateAssessment(
     val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
     if (playerAssessments.exists(predicate)) Some(avg) else none
   }
+  
+  def sfCiGiven(predicate: PlayerAssessment => Boolean): Option[Array[Int]] = {
+    val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg))
+    val n = playerAssessments.filter(predicate).length
+    // listDeviation uses stdDev, which does not use Bessel correction and happily returns
+    // a standard deviation of 0 if n = 1. This is not great for calculating a CI.
+    // Sample standard deviation should be undefined for n = 1, but our purpose it makes sense to simply assume a high value of 100
+    val width = if (n <= 1) 196 else listDeviation(playerAssessments.filter(predicate).map(_.sfAvg)) / sqrt(n) * 1.96
+    if (playerAssessments.exists(predicate)) Some(Array((avg - width).toInt, (avg + width).toInt)) else none
+  }
 
-  // Average SF Avg given blur rate
+  // Average SF Avg and CI given blur rate
   val sfAvgBlurs = sfAvgGiven(_.blurs > 70)
   val sfAvgNoBlurs = sfAvgGiven(_.blurs <= 70)
 
-  // Average SF Avg given move time coef of variance
+  val sfCiBlurs = sfCiGiven(_.blurs > 70)
+  val sfCiNoBlurs = sfCiGiven(_.blurs <= 70)
+
+  // Average SF Avg and CI given move time coef of variance
   val sfAvgLowVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
   val sfAvgHighVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
-  // Average SF Avg given bot
+  val sfCiLowVar = sfCiGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
+  val sfCiHighVar = sfCiGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
+
+  // Average SF Avg and CI given bot
   val sfAvgHold = sfAvgGiven(_.hold)
   val sfAvgNoHold = sfAvgGiven(!_.hold)
+
+  val sfCiHold = sfCiGiven(_.hold)
+  val sfCiNoHold = sfCiGiven(!_.hold)
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
 
