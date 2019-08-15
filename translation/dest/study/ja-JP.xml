@@ -33,6 +33,7 @@
   <string name="makeSureTheChapterIsComplete">章が完成したか確認してください。解析の要請は 1 回だけです。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>
   <string name="shareChanges">変更を観戦者と共有し、サーバに保存する</string>
+  <string name="playing">プレイ中</string>
   <string name="onlyOngoingGames">進行中のゲームのみ</string>
   <string name="first">最初</string>
   <string name="previous">前</string>
