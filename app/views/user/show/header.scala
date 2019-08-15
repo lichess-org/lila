@@ -26,6 +26,7 @@ object header {
       h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
         table(
           td(if (u.isPatron) a(href := routes.Plan.index)(patronIcon) else i(cls := "line")),
+          td(titleTag(u.title)),
           td(u.username)
         )
       ),
