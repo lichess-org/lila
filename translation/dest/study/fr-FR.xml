@@ -48,6 +48,7 @@
   <string name="studyUrl">URL de l\'étude</string>
   <string name="currentChapterUrl">URL du chapitre actuel</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Vous pouvez collez ce lien sur le forum afin d’insérer le chapitre</string>
+  <string name="startAtInitialPosition">Reprendre du début</string>
   <string name="startAtX">Débuter à %s</string>
   <string name="embedThisChapter">Insérer ce chapitre dans votre site web ou votre blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">En savoir plus sur l\'intégration d\'un chapitre d\'une étude</string>
