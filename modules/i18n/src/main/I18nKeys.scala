@@ -1026,7 +1026,6 @@ val `makeSureTheChapterIsComplete` = new Translated("makeSureTheChapterIsComplet
 val `allSyncMembersRemainOnTheSamePosition` = new Translated("allSyncMembersRemainOnTheSamePosition", Study)
 val `shareChanges` = new Translated("shareChanges", Study)
 val `playing` = new Translated("playing", Study)
-val `onlyOngoingGames` = new Translated("onlyOngoingGames", Study)
 val `first` = new Translated("first", Study)
 val `previous` = new Translated("previous", Study)
 val `next` = new Translated("next", Study)
