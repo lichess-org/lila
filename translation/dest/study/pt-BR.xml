@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Todos os membros do SYNC permanecem na mesma posição</string>
   <string name="shareChanges">Compartilhe as alterações com os espectadores e salve-as no servidor</string>
   <string name="playing">Jogando</string>
-  <string name="onlyOngoingGames">Apenas jogos em andamento</string>
   <string name="first">Primeiro</string>
   <string name="previous">Anterior</string>
   <string name="next">Próximo</string>
@@ -52,7 +51,6 @@
   <string name="startAtX">Começa em %s</string>
   <string name="embedThisChapter">Mostre este capítulo no seu site ou blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Leia mais sobre como mostrar um capítulo de estudo como mídia</string>
-  <string name="fen">FEN</string>
   <string name="open">Abertura</string>
   <string name="xBroughtToYouByY">%1$s adquirido para você por %2$s</string>
   <string name="studyNotFound">Estudo não encontrado</string>
