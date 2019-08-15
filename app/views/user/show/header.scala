@@ -27,17 +27,19 @@ object header {
         table(
           td(if (u.isPatron) a(href := routes.Plan.index)(patronIcon) else i(cls := "line")),
           td(titleTag(u.title)),
-          td(u.username)
+          td(u.username),
+          td(
+            div(cls := List(
+              "trophies" -> true,
+              "packed" -> (info.countTrophiesAndPerfCups > 7)
+            ))(
+              views.html.user.bits.perfTrophies(u, info.ranks),
+              otherTrophies(u, info),
+              u.plan.active option
+                a(href := routes.Plan.index, cls := "trophy award patron icon3d", ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}"))(patronIconChar)
+            )
+          )
         )
-      ),
-      div(cls := List(
-        "trophies" -> true,
-        "packed" -> (info.countTrophiesAndPerfCups > 7)
-      ))(
-        views.html.user.bits.perfTrophies(u, info.ranks),
-        otherTrophies(u, info),
-        u.plan.active option
-          a(href := routes.Plan.index, cls := "trophy award patron icon3d", ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}"))(patronIconChar)
       ),
       u.disabled option span(cls := "closed")("CLOSED")
     ),
