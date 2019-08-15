@@ -14,7 +14,6 @@
   <string name="like">Подобається</string>
   <string name="newTag">Нова позначка</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
-  <string name="fen">FEN</string>
   <string name="open">Відкрити</string>
   <string name="studyNotFound">Студію не знайдено</string>
 </resources>
