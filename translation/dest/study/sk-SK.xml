@@ -44,10 +44,10 @@
   <string name="shareChanges">Zdieľajte zmeny s divákmi a uložte ich na server</string>
   <string name="playing">Práve sa hrá</string>
   <string name="onlyOngoingGames">Iba rozohrané partie</string>
-  <string name="first">Prvý</string>
+  <string name="first">Prvá</string>
   <string name="previous">Späť</string>
   <string name="next">Ďalej</string>
-  <string name="last">Posledný</string>
+  <string name="last">Posledná</string>
   <string name="shareAndExport">Zdielať &amp; export</string>
   <string name="cloneStudy">Naklonovať</string>
   <string name="studyPgn">PGN štúdie</string>
