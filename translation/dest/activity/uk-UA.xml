@@ -8,5 +8,11 @@
     <item quantity="many">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
     <item quantity="other">Підтримує lichess.org протягом %1$s місяців як %2$s</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Практиковано позицію %1$s в %2$s</item>
+    <item quantity="few">Виконано %1$s вправи в %2$s</item>
+    <item quantity="many">Виконано %1$s вправ в %2$s</item>
+    <item quantity="other">Виконано %1$s вправ в %2$s</item>
+  </plurals>
   <string name="signedUp">Зареєструвався на lichess</string>
 </resources>
