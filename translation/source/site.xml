@@ -53,7 +53,7 @@
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
   <string name="promoteVariation">Promote variation</string>
-  <string name="makeMainLine">Make main line</string>
+  <string name="makeMainLine">Make mainline</string>
   <string name="deleteFromHere">Delete from here</string>
   <string name="move">Move</string>
   <string name="variantLoss">Variant loss</string>
