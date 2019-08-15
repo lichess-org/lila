@@ -33,7 +33,6 @@
   <string name="makeSureTheChapterIsComplete">โปรดแน่ใจว่าบทนั้นสมบูรณ์แล้ว คุณสามารถร้องขอการวิเคราะห์ได้ครั้งเดียวเท่านั้น</string>
   <string name="shareChanges">แชร์การเปลี่ยนแปลงกับผู้ชมและบันทึกลงบนเซิร์ฟเวอร์</string>
   <string name="playing">กำลังเล่น</string>
-  <string name="onlyOngoingGames">เกมที่ดำเนินอยู่เท่านั้น</string>
   <string name="first">แรก</string>
   <string name="previous">ก่อนหน้า</string>
   <string name="next">ถัดไป</string>
@@ -48,7 +47,6 @@
   <string name="startAtX">เริ่มที่ %s</string>
   <string name="embedThisChapter">ฝังบทนี้ในเว็บไซต์หรือบล็อกของคุณ</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">อ่านเพิ่มเติมเกี่ยวกับการฝังบทการศึกษา</string>
-  <string name="fen">FEN</string>
   <string name="open">เปิด</string>
   <string name="xBroughtToYouByY">%1$s นำมาสู่คุณโดย %2$s</string>
   <string name="studyNotFound">ไม่พบการศึกษา</string>
