@@ -686,7 +686,7 @@ One URL per line</string>
   <string name="youPlayTheWhitePieces">You play the white pieces</string>
   <string name="youPlayTheBlackPieces">You play the black pieces</string>
   <string name="itsYourTurn">It's your turn!</string>
-  <string name="unauthorizedError">Access is unauthorized.</string>
+  <string name="unauthorizedError">Access is unauthorised.</string>
   <string name="noInternetConnection">No internet connection. You can still play offline from the menu.</string>
   <string name="connectedToLidraughts">You are now connected to lidraughts.org</string>
   <string name="signedOut">You have been signed out</string>
