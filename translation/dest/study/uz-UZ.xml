@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Barcha SYNC a\'zolari o\'sha joyida saqlanib qoladi</string>
   <string name="shareChanges">O\'zgarishlarni serverda saqlab juzatuvchilar bilan baham ko\'ring</string>
   <string name="playing">O\'ynash</string>
-  <string name="onlyOngoingGames">Faqat o\'ynalayotgan o\'yinlar</string>
   <string name="first">Birinchi</string>
   <string name="previous">Oldingi</string>
   <string name="next">Keyingi</string>
@@ -52,7 +51,6 @@
   <string name="startAtX">%s da boshlash</string>
   <string name="embedThisChapter">Ushbu bo\'limni o\'zingizni saytingizga yoki blogingizga joylash</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">O\'rganish bo\'limini bog\'lash bo\'yicha ko\'proq o\'qish</string>
-  <string name="fen">FEN</string>
   <string name="open">Ochish</string>
   <string name="xBroughtToYouByY">%1$s sizga %2$s orqali keltirdi</string>
   <string name="studyNotFound">Ta\'lim topilmadi</string>
