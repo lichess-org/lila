@@ -606,7 +606,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
   <string name="clock">Clock</string>
-  <string name="unauthorizedError">Access is unauthorized.</string>
+  <string name="unauthorizedError">Access is unauthorised.</string>
   <string name="noInternetConnection">No internet connection. You can still play offline from the menu.</string>
   <string name="connectedToLichess">You are now connected to lichess.org</string>
   <string name="signedOut">You have been signed out</string>
