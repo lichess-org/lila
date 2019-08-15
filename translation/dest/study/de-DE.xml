@@ -25,12 +25,12 @@
   <string name="youAreNowAContributor">Du bist jetzt Mitwirkender</string>
   <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
-  <string name="like">Gefällt</string>
-  <string name="newTag">Neue Markierung</string>
+  <string name="like">Gefällt mir</string>
+  <string name="newTag">Neuer Tag</string>
   <string name="commentThisPosition">Kommentiere diese Stellung</string>
   <string name="commentThisMove">Kommentiere diesen Zug</string>
-  <string name="annotateWithGlyphs">Mit Glyphen kommentieren</string>
-  <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum analysieren.</string>
+  <string name="annotateWithGlyphs">Mit Symbolen kommentieren</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Das Kapitel ist zu kurz zum Analysieren.</string>
   <string name="onlyContributorsCanRequestAnalysis">Nur Mitwirkende an der Studie können eine Computeranalyse anfordern.</string>
   <string name="getAFullComputerAnalysis">Erhalte eine vollständige serverseitige Computeranalyse der Hauptvariante.</string>
   <string name="makeSureTheChapterIsComplete">Stelle sicher, dass das Kapitel vollständig ist. Die Analyse kann nur einmal angefordert werden.</string>
