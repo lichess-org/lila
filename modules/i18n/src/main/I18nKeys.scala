@@ -1041,7 +1041,6 @@ val `youCanPasteThisInTheForumToEmbedTheChapter` = new Translated("youCanPasteTh
 val `startAtX` = new Translated("startAtX", Study)
 val `embedThisChapter` = new Translated("embedThisChapter", Study)
 val `readMoreAboutEmbeddingAStudyChapter` = new Translated("readMoreAboutEmbeddingAStudyChapter", Study)
-val `fen` = new Translated("fen", Study)
 val `open` = new Translated("open", Study)
 val `xBroughtToYouByY` = new Translated("xBroughtToYouByY", Study)
 val `studyNotFound` = new Translated("studyNotFound", Study)

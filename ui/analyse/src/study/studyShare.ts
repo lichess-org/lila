@@ -113,7 +113,7 @@ export function view(ctrl): VNode {
         ] : [])
       ),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('fen')),
+        h('label.form-label', 'FEN'),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,
