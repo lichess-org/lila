@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
   <string name="playing">Laufende Partien</string>
-  <string name="onlyOngoingGames">Nur laufende Partien</string>
   <string name="first">Ganz nach vorn</string>
   <string name="previous">Zurück</string>
   <string name="next">Weiter</string>
@@ -49,10 +48,9 @@
   <string name="studyUrl">URL der Studie</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kannst dies im Forum einfügen um das Kapitel einzubetten</string>
-  <string name="startAtX">Beginne als %s</string>
-  <string name="embedThisChapter">Bette dieses Kapitel auf deiner Webseite oder Blog ein</string>
+  <string name="startAtX">Beginne mit %s</string>
+  <string name="embedThisChapter">Bette dieses Kapitel auf deiner Webseite oder deinem Blog ein</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Weitere Informationen über das Einbetten eines Studienkapitels</string>
-  <string name="fen">FEN</string>
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
