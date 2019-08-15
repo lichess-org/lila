@@ -46,7 +46,7 @@ const feedback = {
             withDots: true,
             showGlyphs: true,
             showEval: false
-          }, ctrl.current().fault.node)))),
+          }, ctrl.current().fault.node)!))),
           h('em', ctrl.trans.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])
@@ -102,7 +102,7 @@ const feedback = {
             h('em', ctrl.trans.vdom('bestWasX', h('strong', renderIndexAndMove({
               withDots: true,
               showEval: false
-            }, ctrl.current().solution.node))))
+            }, ctrl.current().solution.node)!)))
           ])
         ])
       ),

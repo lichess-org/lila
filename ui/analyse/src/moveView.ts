@@ -43,8 +43,7 @@ export function renderMove(ctx: Ctx, node: Tree.Node): VNode[] {
     ) : []);
 }
 
-export function renderIndexAndMove(ctx: Ctx, node): VNode[] {
-    return node.uci ?
-        [renderIndex((node.displayPly ? node.displayPly : node.ply), ctx.withDots)].concat(renderMove(ctx, node)) :
-        [h('span.init', 'Initial position')];
+export function renderIndexAndMove(ctx: Ctx, node): VNode[] | undefined {
+  if (!node.san) return; // initial position
+  return [renderIndex(node.displayPly ? node.displayPly : node.ply, ctx.withDots), ...renderMove(ctx, node)];
 }
