@@ -68,8 +68,8 @@ case object Glicko {
   // past this, it might not stabilize ever again
   val maxVolatility = 0.1d
 
-  // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
-  val ratingPeriodsPerDay = 0.21436d
+  // Chosen so a typical player's RD goes from minimum -> provisional in 365 days
+  val ratingPeriodsPerDay = 0.24210d
 
   val tau = 0.75d
   val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
