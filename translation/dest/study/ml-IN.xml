@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">എല്ലാ sync ചെയ്ത അംഗങ്ങളും ഒരേ പൊസിഷനിൽ സ്ഥിതി ചെയ്യുക</string>
   <string name="shareChanges">മാറ്റങ്ങൾ സെർവറിൽ സേവ് ചെയ്ത് അവ കാണികൾക്ക് പങ്കുവെക്കുക</string>
   <string name="playing">കളിച്ചുകൊണ്ടിരിക്കുന്നു</string>
-  <string name="onlyOngoingGames">തുടർന്നുകൊണ്ടിരിക്കുന്ന കളികൾ മാത്രം</string>
   <string name="first">ഒന്നാമത്</string>
   <string name="previous">മുൻപുള്ള</string>
   <string name="next">അടുത്തത്</string>
@@ -52,7 +51,6 @@
   <string name="startAtX">%s-ൽ തുടങ്ങുക</string>
   <string name="embedThisChapter">ഈ പാഠം നിങ്ങളുടെ വെബ്സൈറ്റിലോ ബ്ലോഗിലോ എംബെഡ് ചെയ്യുക</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">ഒരു പാഠം എംബെഡ് ചെയ്യുന്ന വിധം മനസിലാക്കാൻ കൂടുതൽ വായിക്കുക</string>
-  <string name="fen">FEN</string>
   <string name="open">തുറക്കുക</string>
   <string name="xBroughtToYouByY">%1$s നിങ്ങള്ക്ക് കൊണ്ടു വന്നത് %2$s</string>
   <string name="studyNotFound">പാഠം കണ്ടെത്തിയില്ല</string>
