@@ -73,7 +73,7 @@ object embed {
             ))
           });
 document.getElementById('chapter-selector').onchange = function() {
-  location='${routes.Study.embed(s.id.value, placeholder)}'.replace('$placeholder',this.value);
+  location.href = this.value + location.search;
 };""", config.nonce)
         )
     )
@@ -96,6 +96,4 @@ document.getElementById('chapter-selector').onchange = function() {
       )
     )
   )
-
-  private val placeholder = "________"
 }
