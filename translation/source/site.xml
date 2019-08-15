@@ -676,7 +676,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
   <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
-  <string name="simulAddExtraTime">You may add extra time to your clock to help cope with the simul.</string>
+  <string name="simulAddExtraTime">You may add extra time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra clock time</string>
   <string name="lichessTournaments">Lichess tournaments</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
