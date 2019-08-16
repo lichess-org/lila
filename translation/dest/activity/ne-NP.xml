@@ -63,4 +63,8 @@
     <item quantity="other">%4$s मा %3$s वटा खेलहरु खेली #%1$s औ स्थान (माथिल्लो %2$s%%)</item>
   </plurals>
   <string name="signedUp">lichess.org मा भर्ना हुनुभयो</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">%s वटा टोलीमा सम्मिलित हुनुभयो</item>
+    <item quantity="other">%s वटा टोलीहरुमा सम्मिलित हुनुभयो</item>
+  </plurals>
 </resources>
