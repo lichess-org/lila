@@ -30,7 +30,7 @@ lidraughts.loadInfiniteScroll = function(el) {
 
     var $moreButtonParent = $scroller.parent();
     // prevent adding buttons as child of elements where buttons are not allowed
-    if ($moreButtonParent.is('table, ul, ol, dl')) {
+    if ($moreButton.is('table, ul, ol, dl')) {
       $moreButtonParent = $moreButtonParent.parent();
     }
     $moreButtonParent.after($moreButton);
