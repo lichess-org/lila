@@ -14,5 +14,17 @@
     <item quantity="many">Виконано %1$s вправ в %2$s</item>
     <item quantity="other">Виконано %1$s вправ в %2$s</item>
   </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Вирішено %s тактичний пазл</item>
+    <item quantity="few">Вирішено %s тактичні пазли</item>
+    <item quantity="many">Вирішено %s тактичних пазлів</item>
+    <item quantity="other">Вирішені %s тактичних пазлів</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Зіграно %1$s гру в %2$s</item>
+    <item quantity="few">Зіграно %1$s гри в %2$s</item>
+    <item quantity="many">Зіграно %1$s ігор в %2$s</item>
+    <item quantity="other">Зіграно %1$s ігор в %2$s</item>
+  </plurals>
   <string name="signedUp">Зареєструвався на lichess</string>
 </resources>
