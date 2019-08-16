@@ -538,6 +538,7 @@ One URL per line</string>
   <string name="pleaseVotePuzzle">Help lidraughts improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">hidden</string>
   <plurals name="playedXTimes">
     <item quantity="one">Played %s time</item>
     <item quantity="other">Played %s times</item>

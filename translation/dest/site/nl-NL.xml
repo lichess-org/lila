@@ -527,6 +527,7 @@ Een URL per regel</string>
   <string name="wasThisPuzzleAnyGood">Was dit een goede puzzel?</string>
   <string name="pleaseVotePuzzle">Verbeter lidraughts door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
+  <string name="hidden">verborgen</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeeld</item>
     <item quantity="other">%s keer gespeeld</item>

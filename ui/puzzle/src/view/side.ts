@@ -28,7 +28,7 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
     h('a.title', {
       attrs: { href: puzzleUrl(data.puzzle.variant.key) + puzzle.id }
     }, ctrl.trans('puzzleId', puzzle.id)),
-    h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', '[hidden]') : h('strong', puzzle.rating))),
+    h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
     h('p', ctrl.trans.vdom('playedXTimes', h('strong', window.lidraughts.numberFormat(puzzle.attempts))))
   ])]);
 }

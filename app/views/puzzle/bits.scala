@@ -45,6 +45,7 @@ object bits {
     trans.thankYou,
     trans.puzzleId,
     trans.ratingX,
+    trans.hidden,
     trans.playedXTimes,
     trans.continueTraining,
     trans.retryThisPuzzle,
