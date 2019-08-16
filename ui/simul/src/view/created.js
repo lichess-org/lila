@@ -39,7 +39,7 @@ module.exports = function(ctrl) {
   var candidates = simul.candidates(ctrl).sort(byName);
   var accepted = simul.accepted(ctrl).sort(byName);
   var isHost = simul.createdByMe(ctrl) || simul.amArbiter(ctrl);
-  var isCandidate = (c) => candidates.find(p => p.player.id === c.id);
+  var isCandidate = function (c) { return candidates.find(function (p) { return p.player.id === c.id }) };
   var allowed = simul.allowed(ctrl).sort(function(a, b) {
     var ca = isCandidate(a), cb = isCandidate(b);
     if (ca && !cb)
@@ -52,7 +52,7 @@ module.exports = function(ctrl) {
       return 1;
     return 0;
   });
-  var acceptable = !ctrl.data.allowed ? candidates : allowed.filter(a => isCandidate(a));
+  var acceptable = !ctrl.data.allowed ? candidates : allowed.filter(function (a) { return isCandidate(a) });
   var mEditCandidates = !ctrl.data.unique ? null : m('tbody', { 'style': { 'visibility': ctrl.toggleCandidates ? 'visible' : 'collapse' } }, [
     m(ctrl.toggleCandidates ? 'tr.allowed' : 'tr', [
       m('td', { colspan: 2 }, [
@@ -166,7 +166,7 @@ module.exports = function(ctrl) {
         }, ctrl.trans('withdraw')) : m('a.button.top_right.text', {
             'data-icon': 'G',
             onclick: function() {
-              if (ctrl.data.allowed && !ctrl.data.allowed.find(u => u.id === ctrl.userId))
+              if (ctrl.data.allowed && !ctrl.data.allowed.find(function (u) { return u.id === ctrl.userId }))
                 alert(ctrl.trans('simulParticipationLimited', ctrl.data.allowed.length));
               else if (ctrl.data.variants.length === 1)
                 xhr.join(ctrl.data.variants[0].key)(ctrl);

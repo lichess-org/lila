@@ -11,7 +11,7 @@ module.exports = function(send, ctrl) {
     },
     ceval: function(data) {
       if (ctrl.evals && data && data.id) {
-        if (!ctrl.evals.find(e => e.id === data.id))
+        if (!ctrl.evals.find(function (e) { return e.id === data.id }))
           ctrl.evals.push(data);
         else ctrl.evals = ctrl.evals.map(function(e) {
           return e.id === data.id ? data : e;

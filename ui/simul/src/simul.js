@@ -34,7 +34,7 @@ module.exports = {
   },
   allowed: function(ctrl) {
     return !ctrl.data.allowed ? [] : ctrl.data.allowed.filter(function(a) {
-      return !ctrl.data.applicants.find(p => p.accepted && p.player.id === a.id);
+      return !ctrl.data.applicants.find(function (p) { return p.accepted && p.player.id === a.id });
     });
   },
   acceptedContainsMe: function(ctrl) {

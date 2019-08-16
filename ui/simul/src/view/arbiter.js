@@ -33,12 +33,12 @@ function evalDesc(eval) {
 }
 
 function oldEval(ctrl, pairing) {
-  return (ctrl.evals && ctrl.evals.length) ? ctrl.evals.find(e => e.id === pairing.game.id) : undefined;
+  return (ctrl.evals && ctrl.evals.length) ? ctrl.evals.find(function (e) { return e.id === pairing.game.id }) : undefined;
 }
 
 module.exports = function(ctrl) {
   var sortedPairings = (!ctrl.arbiterData || !ctrl.arbiterSort) ? ctrl.data.pairings : ctrl.data.pairings.slice().sort(function(a, b) {
-    var da = ctrl.arbiterData.find(d => d.id == a.player.id), db = ctrl.arbiterData.find(d => d.id == b.player.id);
+    var da = ctrl.arbiterData.find(function (d) { return d.id == a.player.id }), db = ctrl.arbiterData.find(function (d) { return d.id == b.player.id });
     if (!da) da = {};
     if (!db) db = {};
     if (ctrl.arbiterSort === 'eval') {
@@ -92,12 +92,12 @@ module.exports = function(ctrl) {
       m('tbody', sortedPairings.map(function(pairing) {
       var variant = util.playerVariant(ctrl, pairing.player),
         playing = pairing.game.status < status.ids.aborted,
-        data = ctrl.arbiterData.find(d => d.id == pairing.player.id),
+        data = ctrl.arbiterData.find(function (d) { return d.id == pairing.player.id }),
         assessment = data ? data.assessment : undefined,
         oldeval = oldEval(ctrl, pairing),
         eval = data ? data.ceval : undefined;
       if (eval) {
-        if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(e => e.id === pairing.game.id)) {
+        if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(function (e) { return e.id === pairing.game.id })) {
           ctrl.evals = ctrl.evals.map(function(e) {
             return e.id === pairing.game.id ? eval : e;
           });

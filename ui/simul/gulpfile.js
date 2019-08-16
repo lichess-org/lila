@@ -3,7 +3,7 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var watchify = require('watchify');
 var browserify = require('browserify');
-var uglify = require('gulp-uglify-es').default;
+var uglify = require('gulp-uglify');
 var streamify = require('gulp-streamify');
 
 var sources = ['./src/main.js'];

@@ -39,7 +39,7 @@ function povChances(color, ev) {
 
 module.exports = {
   renderGauge: function(pairing, evals) {
-    var eval = evals.find(e => e.id === pairing.game.id),
+    var eval = evals.find(function (e) { return e.id === pairing.game.id }),
       ev = povChances('white', eval);
     if (!eval && pairing.game.status === status.ids.mate && pairing.winnerColor)
       ev = pairing.winnerColor === 'white' ? 1 : -1;
