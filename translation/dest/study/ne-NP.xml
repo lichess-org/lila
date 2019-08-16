@@ -31,4 +31,11 @@
   <string name="playing">खेल सुचारु</string>
   <string name="first">प्रथम</string>
   <string name="previous">अघिल्लो</string>
+  <string name="next">पछिल्लो</string>
+  <string name="last">अन्तिम</string>
+  <string name="shareAndExport">सेयर</string>
+  <string name="cloneStudy">क्लोन गर्नुहोस्</string>
+  <string name="studyPgn">पाठको पिजिएन</string>
+  <string name="chapterPgn">अध्यायको पिजिएन</string>
+  <string name="studyUrl">पाठको युआरएल</string>
 </resources>
