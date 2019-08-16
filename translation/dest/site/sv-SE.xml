@@ -59,7 +59,7 @@
   <string name="promoteVariation">Höj upp variation</string>
   <string name="makeMainLine">Gör till huvudvariation</string>
   <string name="deleteFromHere">Radera härifrån</string>
-  <string name="forceVariation">Tvinga fram variant</string>
+  <string name="forceVariation">Visa som variant</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
