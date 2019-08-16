@@ -48,6 +48,7 @@
   <string name="studyUrl">URL പഠിക്കുക</string>
   <string name="currentChapterUrl">നിലവിലുള്ള പാഠത്തിന്റെ URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">നിങ്ങൾക്ക് പാഠം എംബെഡ് ചെയ്യുന്നതിന് ഇത് ഫോറത്തിൽ പേസ്റ്റ് ചെയ്യാവുന്നതാണ്</string>
+  <string name="startAtInitialPosition">ആദ്യ പൊസിഷനില്‍ തുടങ്ങുക</string>
   <string name="startAtX">%s-ൽ തുടങ്ങുക</string>
   <string name="embedThisChapter">ഈ പാഠം നിങ്ങളുടെ വെബ്സൈറ്റിലോ ബ്ലോഗിലോ എംബെഡ് ചെയ്യുക</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">ഒരു പാഠം എംബെഡ് ചെയ്യുന്ന വിധം മനസിലാക്കാൻ കൂടുതൽ വായിക്കുക</string>
