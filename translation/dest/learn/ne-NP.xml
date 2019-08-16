@@ -44,4 +44,19 @@
 सानदार तरिका छ!</string>
   <string name="knightsCanJumpOverObstacles">घोडा बाधा माथि पनि उफ्रिन सक्छ|
 सबै तारा लाई बिलिन गर्नुहोस्|</string>
+  <string name="knightComplete">बधाई छ, तपाइले घोडा चढ्न सिक्नु भयो!</string>
+  <string name="thePawn">प्युसा</string>
+  <string name="itMovesForwardOnly">यो अघाडी मात्र चल्छ|</string>
+  <string name="pawnIntro">प्युसा हरु कम्जोर हुन्छन्, तर तिनीहरु भित्र ठुलो क्षमता हुन्छ|</string>
+  <string name="pawnsMoveOneSquareOnly">प्युसा हरु एक कोठा अघि मात्र चल्छन्|
+तर बोर्ड को अर्को तर्फ पुग्दा, तिनीहरु बलियो गोटी बन्छन्|</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">प्राय: मन्त्री बनाउनु सर्वोत्तम हुन्छ|
+तर कहिले कही घोडा पनि उपुक्त हुन सक्छ|</string>
+  <string name="pawnsMoveForward">प्युसा हरु सिधा अघाडी चल्छन्,
+तर तेर्सो खान्छन्!</string>
+  <string name="captureThenPromote">खानुस्, र अर्को गोटीमा परिवर्तन हुनुस्</string>
+  <string name="useAllThePawns">सबै प्युसा प्रयोग गर्नुस्!
+बोर्डको अन्त सम्म पुग्न जरुरि छैन|</string>
+  <string name="aPawnOnTheSecondRank">दोश्रो रयांक मा रहेको प्युसा एकै पटक दुइ कोठा अघाडी बढ्न सक्छ|</string>
+  <string name="grabAllTheStarsNoNeedToPromote">सबै तारा कब्जा गर्नु होस् ! अन्तिम रयांक मा पुग्न जरुरि छैन|</string>
 </resources>
