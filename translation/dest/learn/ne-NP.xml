@@ -106,4 +106,15 @@
   <string name="stalemateGoal">कालो लाइ चालमाथ दिन:
 -कालोको कुनै गोटी कतै चल्न मिल्दैन
 -अहिले कुनै चेक लागेको छैन</string>
+  <string name="stalemateComplete">बधाई छ! माथ हुनुभन्दा चालमाथ हुनु राम्रो!</string>
+  <string name="advanced">उन्नत</string>
+  <string name="pieceValue">गोटीको मान</string>
+  <string name="evaluatePieceStrength">गोटीको शक्ति मापन गर्नुहोस्</string>
+  <string name="pieceValueIntro">बढी चल गोटीहरु को मान बढी हुन्छ!
+मन्त्री = ९
+हात्ती = ५
+उठ = ३
+घोडा = ३
+प्युसा = १
+राजा अमुल्य हुन्छ! राजा गुम्यो भने खेल नै गुम्छ|</string>
 </resources>
