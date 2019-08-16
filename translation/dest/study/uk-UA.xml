@@ -19,6 +19,9 @@
   <string name="next">Наступна</string>
   <string name="last">Остання</string>
   <string name="shareAndExport">Надсилання та експорт</string>
+  <string name="cloneStudy">Клонувати</string>
+  <string name="startAtInitialPosition">Старт з початкової позиції</string>
+  <string name="startAtX">Почати з %s</string>
   <string name="open">Відкрити</string>
   <string name="studyNotFound">Студію не знайдено</string>
 </resources>
