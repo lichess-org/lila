@@ -525,6 +525,7 @@
   <string name="pleaseVotePuzzle">Голосуйте стрелками «вверх» и «вниз», сделайте lichess лучше!</string>
   <string name="thankYou">Спасибо!</string>
   <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрыт</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решена %s раз</item>
     <item quantity="few">Решена %s раза</item>
