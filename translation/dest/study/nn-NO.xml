@@ -48,6 +48,7 @@
   <string name="studyUrl">Studie-URL</string>
   <string name="currentChapterUrl">Kapittel-URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kan lime inn dette i forumet for å bygge inn kapittelet</string>
+  <string name="startAtInitialPosition">Start ved innleiande stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedThisChapter">Bygg inn kapittelet i nettstaden eller bloggen din</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Les meir om å bygge inn eit studiekapittel</string>
