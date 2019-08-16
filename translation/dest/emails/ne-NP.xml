@@ -11,4 +11,11 @@
   <string name="emailChange_intro">तपाईले इमेल ठेगाना परिवर्तन गर्न अनुरोध गर्नुभएको छ।</string>
   <string name="emailChange_click">यो इमेलमा तपाईंको पहुँच छ भन्ने यकिन गर्न तलको लिंकमा क्लिक गर्नुहोस्:</string>
   <string name="welcome_subject">lichess.org मा तपाईलाई स्वागत् छ।</string>
+  <string name="welcome_text">तपाई https://lichess.org मा खाता दर्ता गर्न सफल हुनुभएको छ।
+
+तपाईंको प्रोफाइल पृष्ठ यहाँ छ: %1$s। यसलाई %2$s मा तपाईलाई अनुकुल पर्नेगरी परिवर्तन गर्न सक्नुहुनेछ।
+
+रमाइलो गर्नुहोस्। तपाईंको गोटीहरु विपक्षी राजा सम्म पुगुन्।</string>
+  <string name="common_orPaste">(क्लिक भएन? ब्राउजरमा पेष्ट गरेर हेर्नुहोस्!)</string>
+  <string name="common_note">यो तपाईंको %s को प्रयोग संग सम्बन्धित इमेल हो।</string>
 </resources>
