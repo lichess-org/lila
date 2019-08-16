@@ -91,6 +91,17 @@
   <string name="checkInOneIntro">आफ्नो प्रतिद्वन्दी लाइ चेक गर्न उनीहरुको राजा माथी  हमला गर्नुहोस्। उनीहरुलाई यसको बचाव गर्ने पर्ने हुन्छ!</string>
   <string name="checkInOneGoal">बिपक्षी राजा माथी
 एक चाल मा निशाना लगाउनुहोस्!</string>
+  <string name="checkInOneComplete">बधाई छ! तपाइले बिपक्षी राजालाई चेक दिएर प्रतिरोध गर्न बाध्य गर्नु भयो!</string>
+  <string name="outOfCheck">चेक बाट बाहिर</string>
+  <string name="defendYourKing">आफ्नो राजा को रक्षा गर्नुहोस्</string>
+  <string name="outOfCheckIntro">तपाइलाई चेक लागिरहेको छ! या त भाग्नु पर्छ, या त छेक्नु पर्छ|</string>
+  <string name="escapeWithTheKing">राजा भगाउनुहोस्!</string>
+  <string name="theKingCannotEscapeButBlock">राजा भाग्न सक्दैन,
+तर तपाई हमला लाई छेक्न सक्नुहुन्छ!</string>
+  <string name="youCanGetOutOfCheckByTaking">तपाइलाई आक्आरमण गरेको गोटी खाएर 
+तपाई चेक बाट बाहिर निस्पकन सक्नु हुन्छ|</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">घोडा ले तपाइलाई चेक दिईरहेको छ!</string>
+  <string name="escapeOrBlock">राजा भगाउनुहोस् अथवा छेक्नुहोस्!</string>
   <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
   <string name="castling">क्यस्लिंग</string>
   <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
