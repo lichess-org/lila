@@ -54,6 +54,7 @@
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Ak chcete kapitolu zobraziť vo fóre, vložte doň tento link</string>
+  <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="embedThisChapter">Zobrazte túto kapitolu na svojej stránke alebo blogu</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Prečítajte si viac o vkladaní a zobrazovaní kapitoly štúdie</string>
