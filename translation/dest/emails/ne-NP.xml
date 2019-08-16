@@ -8,4 +8,7 @@
   <string name="passwordReset_intro">हामीले तपाईंको खाताको पासवर्ड फेर्ने अनुरोध प्राप्त गरेका छौं।</string>
   <string name="passwordReset_clickOrIgnore">यदि तपाईले यो अनुरोध गर्नुभएको हो भने तलको लिंकमा क्लिक गर्नुहोस्। अन्यथा यो इमेललाइ बेवास्ता गर्नुहोस्।</string>
   <string name="emailChange_subject">%s, नयाँ इमेल सुनिश्चित गर्नुहोस्।</string>
+  <string name="emailChange_intro">तपाईले इमेल ठेगाना परिवर्तन गर्न अनुरोध गर्नुभएको छ।</string>
+  <string name="emailChange_click">यो इमेलमा तपाईंको पहुँच छ भन्ने यकिन गर्न तलको लिंकमा क्लिक गर्नुहोस्:</string>
+  <string name="welcome_subject">lichess.org मा तपाईलाई स्वागत् छ।</string>
 </resources>
