@@ -103,7 +103,7 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
                 spotlight = Spotlight(
                   headline = s"${if (yo == 1) "One year" else s"$yo years"} of free draughts!",
                   description = s"""
-We've had ${if (yo == 1) "our first great draughts year" else "$yo great draughts years"} together!
+We've had ${if (yo == 1) "our first great draughts year" else s"$yo great draughts years"} together!
 
 Thank you all, you rock!"""
                 ).some
