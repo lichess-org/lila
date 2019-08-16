@@ -102,6 +102,9 @@
 तपाई चेक बाट बाहिर निस्पकन सक्नु हुन्छ|</string>
   <string name="thisKnightIsCheckingThroughYourDefenses">घोडा ले तपाइलाई चेक दिईरहेको छ!</string>
   <string name="escapeOrBlock">राजा भगाउनुहोस् अथवा छेक्नुहोस्!</string>
+  <string name="outOfCheckComplete">बधाई छ! तपाइको राजा कहिले पनि खान सकिदैन, सुनिश्चित गर्नुस् कि तपाई कुनै पनि चेक बाट बचाउ गर्न सक्नुहुन्छ!</string>
+  <string name="mateInOne">एक चाल मा माथ</string>
+  <string name="defeatTheOpponentsKing">विपक्षी राजा लाइ पराजित गर्नुस्</string>
   <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
   <string name="castling">क्यस्लिंग</string>
   <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
