@@ -20,4 +20,28 @@
   <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरि
 गति बढाउनुहोस्!</string>
   <string name="rookComplete">बधाई छ! तपाइले हाती लाई चलाउन सिक्नु भयो|</string>
+  <string name="theBishop">उठ</string>
+  <string name="itMovesDiagonally">उठ तेर्सो चल्छ</string>
+  <string name="bishopIntro">अब हामि उठ चलाउन सिक्ने छौ!</string>
+  <string name="youNeedBothBishops">एउटा हलुका कोठामा चल्ने उठ,
+एउटा गाढा कोठामा चल्ने उठ|
+तपाइलाई दुवै चाहिन्छ!</string>
+  <string name="bishopComplete">बधाई छ! तपाइले उठ चलाउन सिक्नु भयो|</string>
+  <string name="theQueen">मन्त्री</string>
+  <string name="queenCombinesRookAndBishop">मन्त्री = हात्ती + उठ</string>
+  <string name="queenIntro">सबैभन्दा शक्तिशाली चेस गोटी, मन्त्री!</string>
+  <string name="queenComplete">बधाई छ! अब मन्त्रीको तपाई संग कुनै गोपनियता छैन|</string>
+  <string name="theKing">राजा</string>
+  <string name="theMostImportantPiece">सबैभन्दा महत्वपूर्ण गोटी</string>
+  <string name="kingIntro">तपाई राजा हुनुहुन्छ, यदि तपाई युद्धमा लड्नु भयो भने, खेलमा हार हुन्छ|</string>
+  <string name="theKingIsSlow">राजा सुस्त गतिको हुन्छ|</string>
+  <string name="lastOne">अन्तमा एउटा!</string>
+  <string name="kingComplete">अब तपाई कमाण्डरलाई कमाण्ड गर्न सक्नुहुन्छ|</string>
+  <string name="theKnight">घोडा</string>
+  <string name="itMovesInAnLShape">घोडा एल आकार मा चल्छ</string>
+  <string name="knightIntro">तपाइलाई एउटा चुनौती छ| घोडा एकदम... कपटी हुन्छ|</string>
+  <string name="knightsHaveAFancyWay">घोडाको यताउति उफ्रिने
+सानदार तरिका छ!</string>
+  <string name="knightsCanJumpOverObstacles">घोडा बाधा माथि पनि उफ्रिन सक्छ|
+सबै तारा लाई बिलिन गर्नुहोस्|</string>
 </resources>
