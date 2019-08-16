@@ -532,19 +532,11 @@ lidraughts.topMenuIntent = function() {
               }
             });
           }).find('div.pager').hide().end();
-
-          const $moreButton = $('<button class="button inf-more">More</button>').on('click', function() {
+          $scroller.parent().append($('<button class="button inf-more">More</button>').on('click', function() {
             $scroller.infinitescroll('retrieve');
-          });
-
-          var $moreButtonParent = $scroller.parent();
-          // prevent adding buttons as child of elements where buttons are note allowed
-          if ($moreButton.is('table, ul, ol, dl')) {
-            $moreButtonParent = $moreButtonParent.parent();
-          }
-          $moreButtonParent.after($moreButton);
+          }));
         });
-      };
+      }
       lidraughts.loadInfiniteScroll('.infinitescroll');
 
       $('#top').on('click', 'a.toggle', function() {
