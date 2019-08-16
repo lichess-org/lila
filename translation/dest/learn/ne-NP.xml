@@ -219,4 +219,15 @@
   <string name="greatJob">धेरै राम्रो काम!</string>
   <string name="perfect">केहि गल्ति छैन!</string>
   <string name="outstanding">शानदार!</string>
+  <string name="wayToGo">यसरि नै हो खेल्ने!</string>
+  <string name="yesYesYes">हो हो हो!</string>
+  <string name="youreGoodAtThis">तपाइ यसमा अत्ति नै राम्रो हुनुहुन्छ!</string>
+  <string name="nailedIt">किल्ला नै ठोक्दिनुभायो त!</string>
+  <string name="rightOn">सहि छ!</string>
+  <string name="stageXComplete">तह %s सक्कियो</string>
+  <string name="yourScore">तपाइको प्राप्तांक</string>
+  <string name="next">अर्को</string>
+  <string name="backToMenu">मेनु मा फिर्ता</string>
+  <string name="puzzleFailed">गलत जवाफ!</string>
+  <string name="retry">पुन: प्रयास गर्नुहोस्</string>
 </resources>
