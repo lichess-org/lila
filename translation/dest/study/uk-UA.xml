@@ -14,6 +14,7 @@
   <string name="like">Подобається</string>
   <string name="newTag">Нова позначка</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
+  <string name="shareChanges">Зберегти зміни на сервері та опублікувати для глядачів</string>
   <string name="first">Перша</string>
   <string name="previous">Попередня</string>
   <string name="next">Наступна</string>
