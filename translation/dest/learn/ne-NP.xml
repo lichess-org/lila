@@ -120,4 +120,23 @@
   <string name="queenOverBishop">सबै भन्दा बढी मान
 भएको गोटी खानुहोस्
 मन्त्री &gt; उठ</string>
+  <string name="takeThePieceWithTheHighestValue">सबै भन्दा बढी मान भएको गोटी खानुहोस्!</string>
+  <string name="pieceValueComplete">बधाई छ! तपाइलाई गोटीको मान थाह भयो!
+मन्त्री = ९
+हात्ती = ५
+उठ = ३
+घोडा = ३
+प्युसा = १</string>
+  <string name="checkInTwo">दुइ चालमा चेक दिनुहोस्</string>
+  <string name="twoMovesToGiveCheck">चेक दिन दुइ चाल छ</string>
+  <string name="checkInTwoIntro">दुइ चाल मा विपक्षी राजा लाई चेक दिने समिश्रण पत्ता लगाउनुहोस्!</string>
+  <string name="checkInTwoGoal">बिपक्षी राजा लाइ 
+दुइ चाल मा तर्साउनुहोस्!</string>
+  <string name="checkInTwoComplete">बधाई छ! तपाइले बिपक्षी राजालाई चेक दिएर प्रतिरोध गर्न बाध्य गर्नु भयो!</string>
+  <string name="whatNext">अब के?</string>
+  <string name="youKnowHowToPlayChess">तपाइलाई चेस कसरी खेल्ने थाह भयो, बधाई छ! के तपाई अझ राम्रो खेलाडी बन्न चाहनु हुन्छ?</string>
+  <string name="register">दर्ता गर्नुहोस्</string>
+  <string name="getAFreeLichessAccount">सित्तैमा लीचेस खाता पाउनुहोस्</string>
+  <string name="practice">अभ्यास</string>
+  <string name="learnCommonChessPositions">साधारण चेस पोजिशनहरु सिक्नुहोस् </string>
 </resources>
