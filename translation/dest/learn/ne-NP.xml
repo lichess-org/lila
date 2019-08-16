@@ -62,6 +62,19 @@
   <string name="pawnComplete">बधाई छ, प्युसको तपाई संग कुनै गोपनियता छैन|</string>
   <string name="pawnPromotion">प्युसा बढुवा</string>
   <string name="yourPawnReachedTheEndOfTheBoard">तपाइको प्युसा बोर्ड को अन्तमा पुगेको छ!</string>
+  <string name="itNowPromotesToAStrongerPiece">यो अब बलियो गोटीमा बढुवा हुन्छ|</string>
+  <string name="selectThePieceYouWant">तपाइलाई मन पर्ने गोटी छान्नुहोस्!</string>
+  <string name="fundamentals">आधारभुत</string>
+  <string name="capture">खानु</string>
+  <string name="takeTheEnemyPieces">विपक्षीको गोटी खानु</string>
+  <string name="captureIntro">विपक्षीको असुरक्षित गोटी चिन्नुहोस्!</string>
+  <string name="takeTheBlackPieces">कालो गोटीहरु खानुहोस्</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">कालो गोटीहरु खानुहोस्!
+तर आफ्नो गोटी नगुमाउनुहोस्|</string>
+  <string name="captureComplete">बधाई छ! तपाइलाई चेस को गोटी लिएर कसरी लड्ने भन्ने थाह भयो!</string>
+  <string name="protection">बचाव</string>
+  <string name="keepYourPiecesSafe">आफ्नो गोटी सुरक्षित राख्नुहोस्</string>
+  <string name="protectionIntro">विपक्षीले आक्रमण गरिरहेको आफ्नो गोटी पहिचान गर्नुहोस्, अनि बचाव गर्नुहोस्!</string>
   <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
   <string name="castling">क्यस्लिंग</string>
   <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
@@ -139,4 +152,9 @@
   <string name="getAFreeLichessAccount">सित्तैमा लीचेस खाता पाउनुहोस्</string>
   <string name="practice">अभ्यास</string>
   <string name="learnCommonChessPositions">साधारण चेस पोजिशनहरु सिक्नुहोस् </string>
+  <string name="puzzles">प्रशिक्षण </string>
+  <string name="exerciseYourTacticalSkills">तपाइको रणनीतिक दक्ष्यता जाच गर्नुहोस्</string>
+  <string name="videos">श्रव्यदृश्य</string>
+  <string name="watchInstructiveChessVideos">चेसको सैक्षिक श्रव्यदृश्य हेर्नुहोस्</string>
+  <string name="playPeople">व्यक्तिहरुसंग खेल्नुहोस्</string>
 </resources>
