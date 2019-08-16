@@ -82,4 +82,28 @@
   <string name="youCannotCastleIfAttacked">यदि राजाको बाटोमा आक्रमण भएको छ भने
 क्यस्लिंग गर्न मिल्दैन|
 पहिला चेक छेक्नुहोस, अनि क्यासल गर्नुहोस्!</string>
+  <string name="findAWayToCastleKingSide">राजातर्फी क्यासल गर्ने 
+तरिका पत्ता लागौनुहोस्!</string>
+  <string name="findAWayToCastleQueenSide">मन्त्रीतर्फी क्यासल गर्ने 
+तरिका पत्ता लागौनुहोस्!</string>
+  <string name="castlingComplete">बधाई छ, तपाइले खेलमा प्राय: सधै क्यासल गर्नु पर्ने हुन्छ|</string>
+  <string name="enPassant">अँ प्यासौं</string>
+  <string name="theSpecialPawnMove">प्युसको बिशेष चाल</string>
+  <string name="enPassantIntro">जब बिपक्षी प्युसा दुइ कोठा अघाडी बढ्छ, तब तपाइले त्यसलाई एक कोठा मात्र चलेको जसरि खान सक्नुहुन्छ|</string>
+  <string name="blackJustMovedThePawnByTwoSquares">कलोले भखर प्युसा दुइ कोठा
+अघाडी बढायो!
+त्यसलाई अँ प्यासों खाइदिनुस्</string>
+  <string name="enPassantOnlyWorksImmediately">अँ प्यासों बिपक्षी ले
+प्युसा चल्ने बित्त्तिकैको
+अर्को चालमा मात्र काम गर्छ</string>
+  <string name="enPassantOnlyWorksOnFifthRank">तपाइको प्युसो पाचौ रयांक मा छ भने
+मात्र अँ प्यासों काम गर्छ|</string>
+  <string name="takeAllThePawnsEnPassant">सबै प्युसलाई अँ प्यासों खानुहोस्!</string>
+  <string name="enPassantComplete">बधाई छ! तपाइ अब अँ प्यासों खान सक्ने हुनुभयो|</string>
+  <string name="stalemate">चालमाथ</string>
+  <string name="theGameIsADraw">खेल बराबर भयो</string>
+  <string name="stalemateIntro">यदी खेलाडी लाई चेक लागेको छैन र कुनै चाल पनि छैन भने चालमाथ हुन्छ| खेल बराबर हुन्छ, कसैले जित्दैन, कसैले हार्दैन|</string>
+  <string name="stalemateGoal">कालो लाइ चालमाथ दिन:
+-कालोको कुनै गोटी कतै चल्न मिल्दैन
+-अहिले कुनै चेक लागेको छैन</string>
 </resources>
