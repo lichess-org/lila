@@ -18,7 +18,7 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
     h('a.title', {
       attrs: { href: '/training/' + puzzle.id }
     }, ctrl.trans('puzzleId', puzzle.id)),
-    h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', '[hidden]') : h('strong', puzzle.rating))),
+    h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', ctrl.trans.noarg('hidden')) : h('strong', puzzle.rating))),
     h('p', ctrl.trans.vdom('playedXTimes', h('strong', window.lichess.numberFormat(puzzle.attempts))))
   ])]);
 }
