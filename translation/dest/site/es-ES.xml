@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Ayuda a lichess a mejorar. Vota usando las flechas arriba o abajo:</string>
   <string name="thankYou">¡Gracias!</string>
   <string name="ratingX">Puntuacion: %s</string>
+  <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jugado %s vez</item>
     <item quantity="other">Jugado %s veces</item>
