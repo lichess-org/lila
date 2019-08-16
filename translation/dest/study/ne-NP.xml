@@ -18,4 +18,11 @@
   <string name="youAreNowASpectator">तपाई अब दर्शक हुनुभयो</string>
   <string name="pgnTags">पिजिएन् ट्यागहरु</string>
   <string name="like">लाईक</string>
+  <string name="newTag">नयाँ ट्याग</string>
+  <string name="commentThisPosition">यो पोजिसनमा कमेन्ट गर्नुहोस्।</string>
+  <string name="commentThisMove">यो चालमा कमेन्ट गर्नुहोस्</string>
+  <string name="annotateWithGlyphs">गिल्फ द्वारा एनोटेट गर्नुहोस्</string>
+  <string name="theChapterIsTooShortToBeAnalysed">यो अध्याय विश्लेषण गर्न धेरै छोटो छ।</string>
+  <string name="onlyContributorsCanRequestAnalysis">पाठका योगदान कर्ताहरुले मात्र कम्प्युटर विश्लेषणको अनुरोध गर्न सक्नुहुनेछ।</string>
+  <string name="getAFullComputerAnalysis">मुख्य लाइनको सर्भर बाट पुर्ण कम्प्युटर विश्लेषण प्राप्त गर्नुहोस्।</string>
 </resources>
