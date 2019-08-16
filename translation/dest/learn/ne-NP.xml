@@ -75,6 +75,22 @@
   <string name="protection">बचाव</string>
   <string name="keepYourPiecesSafe">आफ्नो गोटी सुरक्षित राख्नुहोस्</string>
   <string name="protectionIntro">विपक्षीले आक्रमण गरिरहेको आफ्नो गोटी पहिचान गर्नुहोस्, अनि बचाव गर्नुहोस्!</string>
+  <string name="protectionComplete">बधाई छ! तपाइले नगुमाएको गोटी तपाइले जितेको गोटी हो!</string>
+  <string name="escape">तपाई माथि आक्रमण भैरहेको छ!
+खतरा बाट बच्नुहोस्!</string>
+  <string name="noEscape">भाग्ने ठाउ छैन,
+तर तपाइले बचाव गर्न सक्नुहुन्छ!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">उनीहरुलाई कुनै असुरक्षित गोटी 
+खान नदिनुहोस्!</string>
+  <string name="combat">युद्ध</string>
+  <string name="captureAndDefendPieces">कब्जा र गोटी  को रक्षा</string>
+  <string name="combatIntro">एउटा असल योद्धा हमला र बचाव गर्न जान्दछ!</string>
+  <string name="combatComplete">बधाई छ! तपाइलाई चेस को गोटी लिएर कसरी लड्ने भन्ने थाह भयो!</string>
+  <string name="checkInOne">एक चालमा चेक दिनुहोस्</string>
+  <string name="attackTheOpponentsKing">विपक्षी को राजा माथी हमला गर्नुहोस्</string>
+  <string name="checkInOneIntro">आफ्नो प्रतिद्वन्दी लाइ चेक गर्न उनीहरुको राजा माथी  हमला गर्नुहोस्। उनीहरुलाई यसको बचाव गर्ने पर्ने हुन्छ!</string>
+  <string name="checkInOneGoal">बिपक्षी राजा माथी
+एक चाल मा निशाना लगाउनुहोस्!</string>
   <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
   <string name="castling">क्यस्लिंग</string>
   <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
