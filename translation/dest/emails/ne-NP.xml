@@ -4,4 +4,8 @@
   <string name="emailConfirm_subject">lichess.org खाता सुनिश्चित गर्नुहोस्, %s</string>
   <string name="emailConfirm_click">तपाईंको लीचेस खाता सुचारु गर्न यो लिंकमा क्लिक गर्नुहोस्:</string>
   <string name="emailConfirm_ignore">यदि तपाईले लीचेसमा दर्ता गर्नुभएको छैन भने यो सन्देशलाई बेवास्ता गर्नुहोस्।</string>
+  <string name="passwordReset_subject">%s, तपाईंको lichess.org को पासवर्ड परिवर्तन गर्न लगाउनुहोस्।</string>
+  <string name="passwordReset_intro">हामीले तपाईंको खाताको पासवर्ड फेर्ने अनुरोध प्राप्त गरेका छौं।</string>
+  <string name="passwordReset_clickOrIgnore">यदि तपाईले यो अनुरोध गर्नुभएको हो भने तलको लिंकमा क्लिक गर्नुहोस्। अन्यथा यो इमेललाइ बेवास्ता गर्नुहोस्।</string>
+  <string name="emailChange_subject">%s, नयाँ इमेल सुनिश्चित गर्नुहोस्।</string>
 </resources>
