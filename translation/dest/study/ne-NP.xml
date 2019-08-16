@@ -8,4 +8,14 @@
   </plurals>
   <string name="addMembers">सदस्यहरु थप्नुहोस्</string>
   <string name="inviteToTheStudy">पाठनमा आमन्त्रण गर्नुहोस्।</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">कृपया तपाइले चिन्नुभएको र यो पाठमा सहभागी हुन इच्छुक व्यक्तिहरूलाई मात्र आमन्त्रण गर्नुहोस्।</string>
+  <string name="searchByUsername">युजर नेम अनुसार खोजी गर्नुहोस्।</string>
+  <string name="spectator">दर्शक</string>
+  <string name="contributor">योगदान कर्ता</string>
+  <string name="kick">बाहिर</string>
+  <string name="leaveTheStudy">पाठ छोड्नुहोस्।</string>
+  <string name="youAreNowAContributor">तपाई अब योगदान कर्ता हुनुभयो।</string>
+  <string name="youAreNowASpectator">तपाई अब दर्शक हुनुभयो</string>
+  <string name="pgnTags">पिजिएन् ट्यागहरु</string>
+  <string name="like">लाईक</string>
 </resources>
