@@ -48,6 +48,7 @@
   <string name="studyUrl">URL dello studio</string>
   <string name="currentChapterUrl">URL del capitolo corrente</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Puoi incollare questo nel forum per incorporare il capitolo</string>
+  <string name="startAtInitialPosition">Parti dalla posizione iniziale</string>
   <string name="startAtX">Inizia a: %s</string>
   <string name="embedThisChapter">Incorpora questo capitolo nel tuo sito web o blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Leggi di più su come incorporare un capitolo dello studio</string>
