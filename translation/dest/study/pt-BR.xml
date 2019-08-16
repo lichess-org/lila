@@ -29,7 +29,7 @@
   <string name="newTag">Novo marcador</string>
   <string name="commentThisPosition">Comente esta posição</string>
   <string name="commentThisMove">Comente este lance</string>
-  <string name="annotateWithGlyphs">Anote com glyphs</string>
+  <string name="annotateWithGlyphs">Anotar com símbolos</string>
   <string name="theChapterIsTooShortToBeAnalysed">O capítulo é muito curto para ser analisado.</string>
   <string name="onlyContributorsCanRequestAnalysis">Apenas os colaboradores de um estudo podem solicitar uma análise de computador.</string>
   <string name="getAFullComputerAnalysis">Obter uma análise completa dos movimentos pelo servidor.</string>
@@ -48,6 +48,7 @@
   <string name="studyUrl">URL de estudo</string>
   <string name="currentChapterUrl">URL atual do capítulo</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Você pode colar isso no fórum para mostrar o capítulo</string>
+  <string name="startAtInitialPosition">Reiniciar</string>
   <string name="startAtX">Começa em %s</string>
   <string name="embedThisChapter">Mostre este capítulo no seu site ou blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Leia mais sobre como mostrar um capítulo de estudo como mídia</string>
