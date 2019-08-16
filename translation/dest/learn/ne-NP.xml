@@ -59,4 +59,27 @@
 बोर्डको अन्त सम्म पुग्न जरुरि छैन|</string>
   <string name="aPawnOnTheSecondRank">दोश्रो रयांक मा रहेको प्युसा एकै पटक दुइ कोठा अघाडी बढ्न सक्छ|</string>
   <string name="grabAllTheStarsNoNeedToPromote">सबै तारा कब्जा गर्नु होस् ! अन्तिम रयांक मा पुग्न जरुरि छैन|</string>
+  <string name="pawnComplete">बधाई छ, प्युसको तपाई संग कुनै गोपनियता छैन|</string>
+  <string name="pawnPromotion">प्युसा बढुवा</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">तपाइको प्युसा बोर्ड को अन्तमा पुगेको छ!</string>
+  <string name="boardSetupComplete">बधाई छ! तपाइले चेस बोर्ड मिलाउन सिक्नु भयो|</string>
+  <string name="castling">क्यस्लिंग</string>
+  <string name="theSpecialKingMove">राजाको बिशेष चाल</string>
+  <string name="castlingIntro">तपाइको राजा लाई सुरक्षित बनाउनुहोस्, हात्ती लाई आक्रमणको लागि परिचालन गर्नुहोस्|</string>
+  <string name="castleKingSide">तपाइको राजा लाई दुइ कोठा सार्नुहोस्
+राजातार्फी क्यस्लिंग को लागि!</string>
+  <string name="castleQueenSide">तपाइको राजा लाई दुइ कोठा सार्नुहोस्
+मन्त्रीतर्फी क्यस्लिंग को लागि!</string>
+  <string name="theKnightIsInTheWay">बिचमा घोडा छ!
+त्यसलाई सार्नुहोस्, अनि राजातार्फी क्यस्लिंग गर्नुहोस्|</string>
+  <string name="castleKingSideMovePiecesFirst">राजा तर्फी क्यस्लिंग!
+पहिला गोटीहरु निकाल्नु पर्छ|</string>
+  <string name="castleQueenSideMovePiecesFirst">मन्त्रीतर्फी क्यस्लिंग!
+तपाइले पहिला गोटी निकाल्नुपर्छ|</string>
+  <string name="youCannotCastleIfMoved">यदि तपाइको राजा सरिसकेकोभए
+अथवा हात्ती सरिसकेको भए
+क्यस्लिंग गर्न पाइदैन|</string>
+  <string name="youCannotCastleIfAttacked">यदि राजाको बाटोमा आक्रमण भएको छ भने
+क्यस्लिंग गर्न मिल्दैन|
+पहिला चेक छेक्नुहोस, अनि क्यासल गर्नुहोस्!</string>
 </resources>
