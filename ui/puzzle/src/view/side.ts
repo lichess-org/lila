@@ -1,16 +1,7 @@
 import { h, thunk } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { dataIcon, innerHTML, puzzleUrl, onInsert } from '../util';
+import { dataIcon, puzzleUrl, onInsert } from '../util';
 import { Controller } from '../interfaces';
-
-// useful in translation arguments
-function strong(txt) {
-  return '<strong>' + txt + '</strong>';
-}
-
-function hidden() {
-  return '<span class="hidden">[hidden]</span>';
-}
 
 export function puzzleBox(ctrl: Controller) {
   var data = ctrl.getData();
@@ -37,12 +28,8 @@ function puzzleInfos(ctrl: Controller, puzzle): VNode {
     h('a.title', {
       attrs: { href: puzzleUrl(data.puzzle.variant.key) + puzzle.id }
     }, ctrl.trans('puzzleId', puzzle.id)),
-    h('p', {
-      hook: innerHTML(ctrl.trans('ratingX', ctrl.vm.mode === 'play' ? hidden() : strong(puzzle.rating)))
-    }),
-    h('p', {
-      hook: innerHTML(ctrl.trans('playedXTimes', strong(window.lidraughts.numberFormat(puzzle.attempts))))
-    })
+    h('p', ctrl.trans.vdom('ratingX', ctrl.vm.mode === 'play' ? h('span.hidden', '[hidden]') : h('strong', puzzle.rating))),
+    h('p', ctrl.trans.vdom('playedXTimes', h('strong', window.lidraughts.numberFormat(puzzle.attempts))))
   ])]);
 }
 
@@ -50,9 +37,9 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode | undefined {
   return !game.id ? undefined : h('div.infos', {
       attrs: dataIcon(game.perf.icon)
     }, [h('div', [
-      h('p', {
-        hook: innerHTML(ctrl.trans('fromGameLink', '<a href="/' + game.id + '/' + puzzle.color + '#' + puzzle.initialPly + '">#' + game.id + '</a>'))
-      }),
+      h('p', ctrl.trans.vdom('fromGameLink', h('a', {
+        attrs: { href: `/${game.id}/${puzzle.color}#${puzzle.initialPly}` }
+      }, '#' + game.id))),
       h('p', [
         game.clock, ' • ',
         game.perf.name, ' • ',
@@ -71,24 +58,14 @@ function gameInfos(ctrl: Controller, game, puzzle): VNode | undefined {
 export function userBox(ctrl: Controller) {
   const data = ctrl.getData();
   if (!data.user) return;
-  let ratingHtml = data.user.rating;
-  if (ctrl.vm.round) {
-    let diff = ctrl.vm.round.ratingDiff,
-      tag = 'bad';
-    if (diff) {
-      if (diff > 0) {
-        diff = '+' + diff;
-        tag = 'good';
-      }
-      else diff = '−' + (-diff);
-      ratingHtml += ` <${tag} class="rp">${diff}</${tag}>`;
-    }
-  }
+  const diff = ctrl.vm.round && ctrl.vm.round.ratingDiff;
   const hash = ctrl.recentHash();
   return h('div.puzzle__side__user', [
-    h('h2', {
-      hook: innerHTML(ctrl.trans('yourPuzzleRatingX', strong(ratingHtml)))
-    }),
+    h('h2', ctrl.trans.vdom('yourPuzzleRatingX', h('strong', [
+      data.user.rating,
+      ...(diff > 0 ? [' ', h('good.rp', '+' + diff)] : []),
+      ...(diff < 0 ? [' ', h('bad.rp', '−' + (-diff))] : [])
+    ]))),
     h('div', thunk('div.rating_chart.' + hash, ratingChart, [ctrl, hash]))
   ]);
 }
