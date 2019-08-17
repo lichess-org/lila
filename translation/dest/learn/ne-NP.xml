@@ -34,7 +34,7 @@
   <string name="theKing">राजा</string>
   <string name="theMostImportantPiece">सबैभन्दा महत्वपूर्ण गोटी</string>
   <string name="kingIntro">तपाई राजा हुनुहुन्छ, यदि तपाई युद्धमा लड्नु भयो भने, खेलमा हार हुन्छ|</string>
-  <string name="theKingIsSlow">राजा सुस्त गतिको हुन्छ|</string>
+  <string name="theKingIsSlow">राजा सुस्त गतिको हुन्छ।</string>
   <string name="lastOne">अन्तमा एउटा!</string>
   <string name="kingComplete">अब तपाई कमाण्डरलाई कमाण्ड गर्न सक्नुहुन्छ|</string>
   <string name="theKnight">घोडा</string>
