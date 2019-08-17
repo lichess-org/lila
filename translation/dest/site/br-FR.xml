@@ -153,4 +153,11 @@
   <string name="whiteWinsGame">Ar re wenn o deus trec\'het</string>
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
   <string name="next">War-raok</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s eilenn</item>
+    <item quantity="two">%s eilenn</item>
+    <item quantity="few">%s eilenn</item>
+    <item quantity="many">%s eilenn</item>
+    <item quantity="other">%s eilenn</item>
+  </plurals>
 </resources>
