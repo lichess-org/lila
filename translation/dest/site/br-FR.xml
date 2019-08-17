@@ -67,4 +67,35 @@
   <string name="subject">Danvez</string>
   <string name="recipient">Degemerer</string>
   <string name="send">Kas</string>
+  <string name="spectators">Arvesterien:</string>
+  <string name="search">Klask</string>
+  <string name="advancedSearch">Klask kempleshoc\'h</string>
+  <string name="tournament">Tournamant</string>
+  <string name="tournaments">Tournamantoù</string>
+  <string name="teams">Skipailhoù</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s ezel</item>
+    <item quantity="two">%s ezel</item>
+    <item quantity="few">%s ezel</item>
+    <item quantity="many">%s ezel</item>
+    <item quantity="other">%s ezel</item>
+  </plurals>
+  <string name="allTeams">Tout ar skipailhoù</string>
+  <string name="newTeam">Skipailh nevez</string>
+  <string name="myTeams">Ma skipailhoù</string>
+  <string name="noTeamFound">Skipailh ebet</string>
+  <string name="joinTeam">Kajañ ouzh ar skipailh</string>
+  <string name="quitTeam">Kuitaat ar skipailh</string>
+  <string name="settings">Arventennoù</string>
+  <string name="apply">Enrollañ</string>
+  <string name="retry">Klask en-dro</string>
+  <string name="reconnecting">Oc\'h adkennaskañ</string>
+  <string name="onlineFriends">Mignoned enlinenn</string>
+  <string name="noFriendsOnline">Mignon ebet enlinenn</string>
+  <string name="findFriends">Kavout mignoned</string>
+  <string name="follow">Heuliañ</string>
+  <string name="following">Oc\'h heuliañ</string>
+  <string name="createANewTournament">Kregiñ un tournamant</string>
+  <string name="advancedSettings">Arventennoù kempleshoc\'h</string>
+  <string name="join">Kejañ</string>
 </resources>
