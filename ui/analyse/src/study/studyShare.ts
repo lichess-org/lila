@@ -6,7 +6,10 @@ import { renderIndexAndMove } from '../moveView';
 import { StudyData, StudyChapterMeta } from './interfaces';
 
 function fromPly(ctrl): VNode {
-  var node = ctrl.currentNode();
+  const renderedMove = renderIndexAndMove({
+    withDots: true,
+    showEval: false
+  }, ctrl.currentNode());
   return h('div.ply-wrap', h('label.ply', [
     h('input', {
       attrs: { type: 'checkbox' },
@@ -14,10 +17,11 @@ function fromPly(ctrl): VNode {
         ctrl.withPly((e.target as HTMLInputElement).checked);
       }, ctrl.redraw)
     }),
-    ...ctrl.trans.vdom('startAtX', h('strong', renderIndexAndMove({
-      withDots: true,
-      showEval: false
-    }, node)))
+    ...(
+      renderedMove ?
+      ctrl.trans.vdom('startAtX', h('strong', renderedMove)) :
+      [ctrl.trans.noarg('startAtInitialPosition')]
+    )
   ]));
 }
 
@@ -113,7 +117,7 @@ export function view(ctrl): VNode {
         ] : [])
       ),
       h('div.form-group', [
-        h('label.form-label', ctrl.trans.noarg('fen')),
+        h('label.form-label', 'FEN'),
         h('input.form-control.autoselect', {
           attrs: {
             readonly: true,

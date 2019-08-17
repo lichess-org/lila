@@ -33,13 +33,6 @@ export function dataIcon(icon: string) {
   };
 }
 
-export function innerHTML(html: string): Hooks {
-  return {
-    insert: vnode => (vnode.elm as HTMLElement).innerHTML = html,
-    postpatch: (_, vnode) => (vnode.elm as HTMLElement).innerHTML = html
-  };
-}
-
 export function spinner() {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [

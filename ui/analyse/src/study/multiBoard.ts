@@ -79,9 +79,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
 }
 
 function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
-  return h('label.playing', {
-    attrs: { title: ctrl.trans.noarg('onlyOngoingGames') }
-  }, [
+  return h('label.playing', [
     h('input', {
       attrs: { type: 'checkbox' },
       hook: bind('change', e => {
