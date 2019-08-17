@@ -51,7 +51,7 @@ object LangList {
     Lang("hy", "AM") -> "Հայերեն",
     Lang("ia", "IA") -> "Interlingua",
     Lang("id", "ID") -> "Bahasa Indonesia",
-    Lang("io", "IO") -> "Ido",
+    Lang("io", "EN") -> "Ido",
     Lang("is", "IS") -> "Íslenska",
     Lang("it", "IT") -> "Italiano",
     Lang("ja", "JP") -> "日本語",
