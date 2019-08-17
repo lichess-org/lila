@@ -63,7 +63,7 @@ object JsDump {
     case literal: Simple => List(k -> JsString(literal.message))
     case literal: Escaped => List(k -> JsString(literal.message))
     case plurals: Plurals => plurals.messages.map {
-      case (quantity, msg) => k + quantitySuffix(quantity) -> JsString(msg)
+      case (quantity, msg) => s"$k${quantitySuffix(quantity)}" -> JsString(msg)
     }
   }
 

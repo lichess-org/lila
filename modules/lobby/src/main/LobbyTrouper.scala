@@ -200,7 +200,7 @@ private object LobbyTrouper {
         every = broomPeriod,
         atMost = 10 seconds,
         system = system,
-        logger = logger
+        logger = logger branch "trouper.broom"
       ) {
         trouper.ask[Unit](Tick)
       }
