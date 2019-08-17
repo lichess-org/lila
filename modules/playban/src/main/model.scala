@@ -109,9 +109,9 @@ object Outcome {
   case object RageQuit extends Outcome(3, "Quits without resigning")
   case object Sitting extends Outcome(4, "Lets time run out")
   case object SitMoving extends Outcome(5, "Waits then moves at last moment")
-  case object Sandbag extends Outcome(6, "Deliberately lost the game")
+  case object Opening extends Outcome(6, "Draws or loses in the opening")
 
-  val all = List(Good, Abort, NoPlay, RageQuit, Sitting, SitMoving, Sandbag)
+  val all = List(Good, Abort, NoPlay, RageQuit, Sitting, SitMoving, Opening)
 
   val byId = all map { v => (v.id, v) } toMap
 

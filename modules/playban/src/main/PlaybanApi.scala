@@ -96,6 +96,7 @@ final class PlaybanApi(
       if lastMovetime.toSeconds >= limit
     } yield save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor)) >>- feedback.sitting(Pov(game, flaggerColor))
 
+    // flagged in the first few moves of the game
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {
         sitting orElse
@@ -118,10 +119,11 @@ final class PlaybanApi(
       }
     }
 
+  // if game drawn or lost in the opening, reduce game completion rate
   private def goodOrSandbag(game: Game, color: Color, isSandbag: Boolean): Funit =
     game.player(color).userId ?? { userId =>
       if (isSandbag) feedback.sandbag(Pov(game, color))
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, 0)
+      save(if (isSandbag) Outcome.Opening else Outcome.Good, userId, 0)
     }
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
@@ -136,7 +138,7 @@ final class PlaybanApi(
   def completionRate(userId: User.ID): Fu[Option[Double]] =
     coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
       outcomes.collect {
-        case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort => false
+        case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort | Outcome.Opening => false
         case Outcome.Good => true
       } match {
         case c if c.size >= 5 => Some(c.count(identity).toDouble / c.size)
