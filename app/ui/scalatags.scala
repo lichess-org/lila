@@ -160,6 +160,4 @@ trait ScalatagsExtensions {
   }
 
   def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
-
-  // implicit val LilaModifierZero: Zero[Modifier] = Zero.instance(emptyModifier)
 }

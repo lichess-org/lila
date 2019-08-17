@@ -150,8 +150,8 @@ object User extends LilaController {
     val max = 50
     negotiate(
       html = notFoundJson(),
-      api = _ => env.cached.getTop50Online map { list =>
-        Ok(Json.toJson(list.take(getInt("nb", req).fold(10)(_ min max)).map(env.jsonView(_))))
+      api = _ => fuccess {
+        Ok(Json.toJson(env.cached.getTop50Online.take(getInt("nb", req).fold(10)(_ min max)).map(env.jsonView(_))))
       }
     )
   }
@@ -202,11 +202,10 @@ object User extends LilaController {
           nbAllTime ← env.cached topNbGame nb
           nbDay ← fuccess(Nil)
           tourneyWinners ← Env.tournament.winners.all.map(_.top)
-          online ← env.cached.getTop50Online
           _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
         } yield Ok(html.user.list(
           tourneyWinners = tourneyWinners,
-          online = online,
+          online = env.cached.getTop50Online,
           leaderboards = leaderboards,
           nbDay = nbDay,
           nbAllTime = nbAllTime

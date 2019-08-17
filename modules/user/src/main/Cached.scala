@@ -87,13 +87,14 @@ final class Cached(
     keyToString = _.toString
   )
 
-  private val top50Online = asyncCache.single[List[User]](
-    name = "user.top50online",
-    f = UserRepo.byIdsSortRatingNoBot(onlineUserIdMemo.keys, 50),
-    expireAfter = _.ExpireAfterWrite(10 seconds)
+  private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
+    every = 30 seconds,
+    atMost = 15 seconds,
+    f = () => UserRepo.byIdsSortRatingNoBot(onlineUserIdMemo.keys, 50),
+    default = Nil,
+    logger = logger branch "top50online"
   )
-
-  def getTop50Online = top50Online.get.nevermind
+  def getTop50Online = top50OnlineCache.get
 
   object ranking {
 

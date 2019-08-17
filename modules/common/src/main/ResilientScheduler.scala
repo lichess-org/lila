@@ -7,6 +7,7 @@ import akka.actor._
 object ResilientScheduler {
 
   private case object Tick
+  private case object Done
 
   def apply(
     every: FiniteDuration,
@@ -17,10 +18,7 @@ object ResilientScheduler {
 
     system.actorOf(Props(new Actor {
 
-      override def preStart: Unit = {
-        context setReceiveTimeout (atMost + 2.second)
-        scheduleNext
-      }
+      override def preStart: Unit = scheduleNext
 
       def scheduleNext = context.system.scheduler.scheduleOnce(every, self, Tick)
 
@@ -31,7 +29,13 @@ object ResilientScheduler {
           logger error msg
           throw new RuntimeException(msg)
 
-        case Tick => f >>- scheduleNext
+        case Tick =>
+          context setReceiveTimeout (atMost + 2.second)
+          f >>- { self ! Done }
+
+        case Done =>
+          if (every > atMost) context.setReceiveTimeout(Duration.Undefined)
+          scheduleNext
       }
     }))
 }
