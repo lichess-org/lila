@@ -5,16 +5,16 @@
   <string name="byPlaying">खेलेर!</string>
   <string name="menu">सुची</string>
   <string name="progressX">प्रगति %s</string>
-  <string name="resetMyProgress">मेरो प्रगति रिसेट गर</string>
+  <string name="resetMyProgress">फेरी शुरुबाट गरौ</string>
   <string name="youWillLoseAllYourProgress">तपाइको सबै प्रगति हराउने छ!</string>
   <string name="play">खेलौ</string>
-  <string name="chessPieces">चेस को गोटीहरु</string>
+  <string name="chessPieces">बुद्धिचाल को गोटीहरु</string>
   <string name="theRook">हात्ती</string>
-  <string name="itMovesInStraightLines">यो सिधा रेखा मा चल्छ|</string>
+  <string name="itMovesInStraightLines">यो सिधा रेखा मा चल्छ।</string>
   <string name="rookIntro">हात्ती एउटा शक्तिशाली गोटी हो| तपाई यसलाई कमाण्ड गर्न तयार हुनुहुन्छ?</string>
-  <string name="rookGoal">हात्तीमा थिच्नुहोस्
-यसलाई तारासम्म ल्याउनुहोस्</string>
-  <string name="grabAllTheStars">सबै तारा कब्जा गर्नुहोस्</string>
+  <string name="rookGoal">हात्तीमा थिच्नुहोस् अनि त्यसलाई 
+तारासम्म ल्याउनुहोस्!</string>
+  <string name="grabAllTheStars">सबै तारा कब्जा गर्नुहोस्!</string>
   <string name="theFewerMoves">तपाइले जति थोरै चाल प्रयोग गर्नुहुन्छ,
 त्यति धेरै अंक प्राप्त गर्नुहुन्छ!</string>
   <string name="useTwoRooks">दुइवटा हात्ती प्रयोग गरि
