@@ -499,6 +499,7 @@
   <string name="pleaseVotePuzzle">Palīdziet uzlabot Lichess, balsojot ar augšup vai lejup vērsto bultiņu:</string>
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
+  <string name="hidden">slēpts</string>
   <plurals name="playedXTimes">
     <item quantity="zero">Spēlēts %s reizes</item>
     <item quantity="one">Spēlēts %s reizi</item>
