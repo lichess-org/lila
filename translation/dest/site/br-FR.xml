@@ -61,4 +61,10 @@
   <string name="cancel">Nullañ</string>
   <string name="accept">Asantiñ</string>
   <string name="decline">Nac\'hañ</string>
+  <string name="play">C\'hoari</string>
+  <string name="inbox">Boest degemer</string>
+  <string name="noNewMessages">Kemennadennoù nevez ebet</string>
+  <string name="subject">Danvez</string>
+  <string name="recipient">Degemerer</string>
+  <string name="send">Kas</string>
 </resources>
