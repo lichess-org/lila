@@ -17,4 +17,48 @@
   <string name="close">Serriñ</string>
   <string name="winning">O c\'hounit</string>
   <string name="database">Stlennvon</string>
+  <string name="noGameFound">C\'hoariadenn ebet</string>
+  <string name="delete">Dilemel</string>
+  <string name="memory">Memor</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s c\'hoarier</item>
+    <item quantity="two">%s c\'hoarier</item>
+    <item quantity="few">%s c\'hoarier</item>
+    <item quantity="many">%s c\'hoarier</item>
+    <item quantity="other">%s c\'hoarier</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s c\'hoariadenn</item>
+    <item quantity="two">%s c\'hoariadenn</item>
+    <item quantity="few">%s c\'hoariadenn</item>
+    <item quantity="many">%s c\'hoariadenn</item>
+    <item quantity="other">%s c\'hoariadenn</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s sined</item>
+    <item quantity="two">%s sined</item>
+    <item quantity="few">%s sined</item>
+    <item quantity="many">%s sined</item>
+    <item quantity="other">%s sined</item>
+  </plurals>
+  <string name="games">C\'hoariadennoù</string>
+  <string name="forum">Forom</string>
+  <string name="players">C\'hoarierien</string>
+  <string name="oneDay">Un devezh</string>
+  <plurals name="nbHours">
+    <item quantity="one">%s eur</item>
+    <item quantity="two">%s eur</item>
+    <item quantity="few">%s eur</item>
+    <item quantity="many">%s eur</item>
+    <item quantity="other">%s eur</item>
+  </plurals>
+  <string name="password">Ger-tremen</string>
+  <string name="changePassword">Kemm ar ger-tremen</string>
+  <string name="changeEmail">Kemm ar postel</string>
+  <string name="email">Postel</string>
+  <string name="passwordReset">Adderaouekaat ar ger-tremen</string>
+  <string name="forgotPassword">Disoñjet hoc\'h eus ho ker-tremen?</string>
+  <string name="cancel">Nullañ</string>
+  <string name="accept">Asantiñ</string>
+  <string name="decline">Nac\'hañ</string>
 </resources>
