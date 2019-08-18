@@ -45,7 +45,7 @@
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">Studien PGN</string>
   <string name="chapterPgn">Kapitel PGN</string>
-  <string name="studyUrl">URL der Studie</string>
+  <string name="studyUrl">Studien URL</string>
   <string name="currentChapterUrl">URL des aktuellen Kapitels</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kannst dies im Forum einfügen um das Kapitel einzubetten</string>
   <string name="startAtInitialPosition">Beginne mit der Anfangsstellung</string>
