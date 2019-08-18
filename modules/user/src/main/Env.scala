@@ -44,7 +44,7 @@ final class Env(
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
 
-  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
+  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, lightUser)(system)
 
   def lightUser(id: User.ID): Fu[Option[lidraughts.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lidraughts.common.LightUser] = lightUserApi sync id

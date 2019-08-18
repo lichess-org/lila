@@ -6,6 +6,7 @@ import scala.concurrent.Promise
 import org.joda.time.DateTime
 
 import actorApi._
+import lidraughts.common.{ Every, AtMost }
 import lidraughts.game.Game
 import lidraughts.game.GameRepo
 import lidraughts.hub.Trouper
@@ -188,23 +189,18 @@ private object LobbyTrouper {
   private case class WithPromise[A](value: A, promise: Promise[Unit])
 
   def start(
-    system: akka.actor.ActorSystem,
     broomPeriod: FiniteDuration,
     resyncIdsPeriod: FiniteDuration
-  )(makeTrouper: () => LobbyTrouper) = {
+  )(makeTrouper: () => LobbyTrouper)(implicit system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
     system.lidraughtsBus.subscribe(trouper, 'lobbyTrouper)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
-    system.scheduler.scheduleOnce(7 seconds) {
-      lidraughts.common.ResilientScheduler(
-        every = broomPeriod,
-        atMost = 10 seconds,
-        system = system,
-        logger = logger branch "trouper.broom"
-      ) {
-        trouper.ask[Unit](Tick)
-      }
-    }
+    lidraughts.common.ResilientScheduler(
+      every = Every(broomPeriod),
+      atMost = AtMost(10 seconds),
+      logger = logger branch "trouper.broom",
+      initialDelay = 7 seconds
+    ) { trouper.ask[Unit](Tick) }
     trouper
   }
 }

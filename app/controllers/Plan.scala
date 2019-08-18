@@ -48,7 +48,7 @@ object Plan extends LidraughtsController {
 
   private def renderIndex(email: Option[EmailAddress], patron: Option[lidraughts.plan.Patron])(implicit ctx: Context): Fu[Result] = for {
     recentIds <- Env.plan.api.recentChargeUserIds
-    bestIds <- Env.plan.api.topPatronUserIds
+    bestIds = Env.plan.api.topPatronUserIds
     _ <- Env.user.lightUserApi preloadMany { recentIds ::: bestIds }
   } yield Ok(html.plan.index(
     stripePublicKey = Env.plan.stripePublicKey,

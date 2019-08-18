@@ -12,7 +12,7 @@ object side {
 
   def apply(
     u: User,
-    rankMap: Option[lidraughts.rating.UserRankMap],
+    rankMap: lidraughts.rating.UserRankMap,
     active: Option[lidraughts.rating.PerfType]
   )(implicit ctx: Context) = {
 
@@ -45,10 +45,8 @@ object side {
               else trans.nbGames(perf.nb, perf.nb.localize)
             )
           ),
-          rankMap.fold(rankUnavailable) { ranks =>
-            ranks.get(perfType.key) map { rank =>
-              span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(trans.rankX(rank.localize))
-            }
+          rankMap get perfType map { rank =>
+            span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(trans.rankX(rank.localize))
           }
         ),
         isGame option iconTag("G")
@@ -74,6 +72,4 @@ object side {
       )
     )
   }
-
-  private lazy val rankUnavailable: Frag = span(cls := "rank shy")("Rank unavailable, try again soon")
 }

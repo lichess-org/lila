@@ -38,7 +38,7 @@ data: ${safeJsonValue(data)}
     moreCss = cssTag("perf-stat")
   ) {
       main(cls := s"page-menu")(
-        st.aside(cls := "page-menu__menu")(show.side(u, rankMap.some, perfType.some)),
+        st.aside(cls := "page-menu__menu")(show.side(u, rankMap, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
           div(cls := "box__top")(
             h1(
@@ -51,7 +51,7 @@ data: ${safeJsonValue(data)}
                 dataIcon := perfType.iconChar,
                 href := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
               )("View the games"),
-              bits.perfTrophies(u, rankMap.filterKeys(perfType.key==).some)
+              bits.perfTrophies(u, rankMap.filterKeys(perfType==))
             )
           ),
           ratingChart.isDefined option div(cls := "rating-history")(spinner),

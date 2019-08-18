@@ -234,4 +234,6 @@ case object Perfs {
       antidraughts: List[User.LightPerf],
       breakthrough: List[User.LightPerf]
   )
+
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
 }

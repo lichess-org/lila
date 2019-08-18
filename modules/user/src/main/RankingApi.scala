@@ -8,13 +8,14 @@ import scala.concurrent.duration._
 
 import lidraughts.db.dsl._
 import lidraughts.rating.{ Glicko, Perf, PerfType }
+import lidraughts.memo.PeriodicRefreshCache
+import lidraughts.common.{ Every, AtMost }
 
 final class RankingApi(
     coll: Coll,
     mongoCache: lidraughts.memo.MongoCache.Builder,
-    asyncCache: lidraughts.memo.AsyncCache.Builder,
     lightUser: lidraughts.common.LightUser.Getter
-) {
+)(implicit system: akka.actor.ActorSystem) {
 
   import RankingApi._
   private implicit val rankingBSONHandler = Macros.handler[Ranking]
@@ -68,25 +69,51 @@ final class RankingApi(
         }
     }
 
+  def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] = for {
+    ultraBullet ← topPerf(PerfType.UltraBullet.id, nb)
+    bullet ← topPerf(PerfType.Bullet.id, nb)
+    blitz ← topPerf(PerfType.Blitz.id, nb)
+    rapid ← topPerf(PerfType.Rapid.id, nb)
+    classical ← topPerf(PerfType.Classical.id, nb)
+    frisian ← topPerf(PerfType.Frisian.id, nb)
+    frysk ← topPerf(PerfType.Frysk.id, nb)
+    antidraughts ← topPerf(PerfType.Antidraughts.id, nb)
+    breakthrough ← topPerf(PerfType.Breakthrough.id, nb)
+  } yield Perfs.Leaderboards(
+    ultraBullet = ultraBullet,
+    bullet = bullet,
+    blitz = blitz,
+    rapid = rapid,
+    classical = classical,
+    frisian = frisian,
+    frysk = frysk,
+    antidraughts = antidraughts,
+    breakthrough = breakthrough
+  )
+
   object weeklyStableRanking {
 
     private type Rank = Int
 
-    def of(userId: User.ID): Fu[Map[Perf.Key, Rank]] =
-      lidraughts.common.Future.traverseSequentially(PerfType.leaderboardable) { perf =>
-        cache.get(perf.id) map { _ get userId map (perf.key -> _) }
-      } map (_.flatten.toMap) nevermind
+    def of(userId: User.ID): Map[PerfType, Rank] =
+      cache.get flatMap {
+        case (pt, ranking) => ranking get userId map (pt -> _)
+      } toMap
 
-    private val cache = asyncCache.multi[Perf.ID, Map[User.ID, Rank]](
-      name = "rankingApi.weeklyStableRanking",
-      f = compute,
-      expireAfter = _.ExpireAfterWrite(15 minutes),
-      resultTimeout = 10 seconds
+    private val cache = new PeriodicRefreshCache[Map[PerfType, Map[User.ID, Rank]]](
+      every = Every(15 minutes),
+      atMost = AtMost(3 minutes),
+      f = () => lidraughts.common.Future.traverseSequentially(PerfType.leaderboardable) { pt =>
+        compute(pt) map (pt -> _)
+      }.map(_.toMap),
+      default = Map.empty,
+      logger = logger branch "weeklyStableRanking.cache",
+      initialDelay = 1 minute
     )
 
-    private def compute(perfId: Perf.ID): Fu[Map[User.ID, Rank]] =
+    private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] =
       coll.find(
-        $doc("perf" -> perfId, "stable" -> true),
+        $doc("perf" -> pt.id, "stable" -> true),
         $doc("_id" -> true)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
         .fold(1 -> Map.newBuilder[User.ID, Rank]) {

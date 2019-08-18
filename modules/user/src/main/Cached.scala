@@ -5,8 +5,9 @@ import scala.concurrent.duration._
 import org.joda.time.DateTime
 import reactivemongo.bson._
 
-import lidraughts.common.LightUser
+import lidraughts.common.{ LightUser, Every, AtMost }
 import lidraughts.db.dsl._
+import lidraughts.memo.PeriodicRefreshCache
 import lidraughts.rating.{ Perf, PerfType }
 import User.{ LightPerf, LightCount }
 
@@ -19,46 +20,23 @@ final class Cached(
     rankingApi: RankingApi
 )(implicit system: akka.actor.ActorSystem) {
 
-  private def oneWeekAgo = DateTime.now minusWeeks 1
-  private def oneMonthAgo = DateTime.now minusMonths 1
-
   private implicit val LightUserBSONHandler = Macros.handler[LightUser]
   private implicit val LightPerfBSONHandler = Macros.handler[LightPerf]
   private implicit val LightCountBSONHandler = Macros.handler[LightCount]
 
-  def leaderboards: Fu[Perfs.Leaderboards] = for {
-    ultraBullet ← top10Perf(PerfType.UltraBullet.id)
-    bullet ← top10Perf(PerfType.Bullet.id)
-    blitz ← top10Perf(PerfType.Blitz.id)
-    rapid ← top10Perf(PerfType.Rapid.id)
-    classical ← top10Perf(PerfType.Classical.id)
-    frisian ← top10Perf(PerfType.Frisian.id)
-    frysk ← top10Perf(PerfType.Frysk.id)
-    antidraughts ← top10Perf(PerfType.Antidraughts.id)
-    breakthrough ← top10Perf(PerfType.Breakthrough.id)
-  } yield Perfs.Leaderboards(
-    ultraBullet = ultraBullet,
-    bullet = bullet,
-    blitz = blitz,
-    rapid = rapid,
-    classical = classical,
-    frisian = frisian,
-    frysk = frysk,
-    antidraughts = antidraughts,
-    breakthrough = breakthrough
-  )
-
-  val top10Perf = mongoCache[Perf.ID, List[LightPerf]](
-    prefix = "user:top10:perf",
-    f = (perf: Perf.ID) => rankingApi.topPerf(perf, 10),
-    timeToLive = 10 seconds,
-    keyToString = _.toString
+  val top10 = new PeriodicRefreshCache[Perfs.Leaderboards](
+    Every(1 minute),
+    AtMost(1 minute),
+    f = () => rankingApi fetchLeaderboard 10,
+    default = Perfs.emptyLeaderboards,
+    logger = logger,
+    initialDelay = 30 seconds
   )
 
   val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
     prefix = "user:top200:perf",
     f = (perf: Perf.ID) => rankingApi.topPerf(perf, 200),
-    timeToLive = 10 minutes,
+    timeToLive = 16 minutes,
     keyToString = _.toString
   )
 
@@ -75,27 +53,21 @@ final class Cached(
   val topNbGame = mongoCache[Int, List[User.LightCount]](
     prefix = "user:top:nbGame",
     f = nb => UserRepo topNbGame nb map { _ map (_.lightCount) },
-    timeToLive = 34 minutes,
+    timeToLive = 74 minutes,
     keyToString = _.toString
   )
 
-  private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
-    every = 30 seconds,
-    atMost = 15 seconds,
+  private val top50OnlineCache = new lidraughts.memo.PeriodicRefreshCache[List[User]](
+    every = Every(30 minute),
+    atMost = AtMost(30 seconds),
     f = () => UserRepo.byIdsSortRatingNoBot(onlineUserIdMemo.keys, 50),
     default = Nil,
-    logger = logger branch "top50online"
+    logger = logger branch "top50online",
+    initialDelay = 15 seconds
   )
   def getTop50Online = top50OnlineCache.get
 
-  object ranking {
-
-    def getAll(userId: User.ID): Fu[Map[Perf.Key, Int]] =
-      rankingApi.weeklyStableRanking of userId
-
-    def getAllQuicklyMaybe(userId: User.ID): Fu[Option[Map[Perf.Key, Int]]] =
-      getAll(userId).map(some).withTimeoutDefault(1 second, none)
-  }
+  def rankingsOf(userId: User.ID): Map[PerfType, Int] = rankingApi.weeklyStableRanking of userId
 
   object ratingDistribution {
 

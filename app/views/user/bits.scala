@@ -36,25 +36,23 @@ object bits {
     s"""<signal title="$title" class="q$v">$bars</signal>"""
   }
 
-  def perfTrophies(u: User, rankMap: Option[lidraughts.rating.UserRankMap])(implicit ctx: Context) =
-    rankMap.ifFalse(u.lame).map { ranks =>
-      ranks.toList.sortBy(_._2).collect {
-        case (perf, rank) if rank == 1 =>
-          span(cls := "trophy perf top1", title := s"${~PerfType.name(perf)} Champion!")(
-            img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
-          )
-        case (perf, rank) if rank <= 10 =>
-          span(cls := "trophy perf top10", title := s"${~PerfType.name(perf)} Top 10!")(
-            img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
-          )
-        case (perf, rank) if rank <= 50 =>
-          span(cls := "trophy perf top50", title := s"${~PerfType.name(perf)} Top 50 player!")(
-            img(src := staticUrl("images/trophy/Fancy-Gold.png"))
-          )
-        case (perf, rank) if rank <= 100 =>
-          span(cls := "trophy perf", title := s"${~PerfType.name(perf)} Top 100 player!")(
-            img(src := staticUrl("images/trophy/Gold-Cup.png"))
-          )
-      }
+  def perfTrophies(u: User, rankMap: lidraughts.rating.UserRankMap)(implicit ctx: Context) = !u.lame ??
+    rankMap.toList.sortBy(_._2).collect {
+      case (perf, rank) if rank == 1 =>
+        span(cls := "trophy perf top1", title := s"${perf.name} Champion!")(
+          img(src := staticUrl("images/trophy/Big-Gold-Cup.png"))
+        )
+      case (perf, rank) if rank <= 10 =>
+        span(cls := "trophy perf top10", title := s"${perf.name} Top 10!")(
+          img(src := staticUrl("images/trophy/Big-Silver-Cup.png"))
+        )
+      case (perf, rank) if rank <= 50 =>
+        span(cls := "trophy perf top50", title := s"${perf.name} Top 50 player!")(
+          img(src := staticUrl("images/trophy/Fancy-Gold.png"))
+        )
+      case (perf, rank) if rank <= 100 =>
+        span(cls := "trophy perf", title := s"${perf.name} Top 100 player!")(
+          img(src := staticUrl("images/trophy/Gold-Cup.png"))
+        )
     }
 }

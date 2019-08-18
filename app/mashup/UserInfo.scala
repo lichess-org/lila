@@ -13,7 +13,7 @@ import lidraughts.user.{ User, Trophy, Trophies, TrophyApi }
 
 case class UserInfo(
     user: User,
-    ranks: Option[lidraughts.rating.UserRankMap],
+    ranks: lidraughts.rating.UserRankMap,
     hasSimul: Boolean,
     ratingChart: Option[String],
     nbs: UserInfo.NbGames,
@@ -36,7 +36,7 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
-  def countTrophiesAndPerfCups = trophies.size + ranks.??(_.count(_._2 <= 100))
+  def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 }
 
 object UserInfo {
@@ -109,7 +109,7 @@ object UserInfo {
     postApi: PostApi,
     studyRepo: lidraughts.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
-    getRanks: User.ID => Fu[Option[lidraughts.rating.UserRankMap]],
+    getRanks: User.ID => lidraughts.rating.UserRankMap,
     isHostingSimul: User.ID => Fu[Boolean],
     fetchIsStreamer: User => Fu[Boolean],
     fetchTeamIds: User.ID => Fu[List[String]],
@@ -117,8 +117,7 @@ object UserInfo {
     getPlayTime: User => Fu[Option[User.PlayTime]],
     completionRate: User.ID => Fu[Option[Double]]
   )(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
-    getRanks(user.id) zip
-      (ctx.noBlind ?? getRatingChart(user)) zip
+    (ctx.noBlind ?? getRatingChart(user)) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
@@ -137,11 +136,11 @@ object UserInfo {
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
-              ranks = ranks,
+              ranks = getRanks(user.id),
               nbs = nbs,
               hasSimul = hasSimul,
               ratingChart = ratingChart,

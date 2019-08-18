@@ -1,5 +1,7 @@
 package lidraughts.common
 
+import scala.concurrent.duration._
+
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def v1 = value == 1
   def v2 = value == 2
@@ -92,3 +94,6 @@ case class Domain(value: String) extends AnyVal with StringValue {
 }
 
 case class Strings(value: List[String]) extends AnyVal
+
+case class Every(value: FiniteDuration) extends AnyVal
+case class AtMost(value: FiniteDuration) extends AnyVal

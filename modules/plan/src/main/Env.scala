@@ -9,7 +9,7 @@ final class Env(
     db: lidraughts.db.Env,
     hub: lidraughts.hub.Env,
     notifyApi: lidraughts.notify.NotifyApi,
-    bus: lidraughts.common.Bus,
+    system: akka.actor.ActorSystem,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     lightUserApi: lidraughts.user.LightUserApi,
     settingStore: lidraughts.memo.SettingStore.Builder,
@@ -53,11 +53,10 @@ final class Env(
     chargeColl = chargeColl,
     notifier = notifier,
     lightUserApi = lightUserApi,
-    bus = bus,
     asyncCache = asyncCache,
     payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
     monthlyGoalApi = monthlyGoalApi
-  )
+  )(system)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
@@ -90,7 +89,7 @@ object Env {
     hub = lidraughts.hub.Env.current,
     notifyApi = lidraughts.notify.Env.current.api,
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
-    bus = lidraughts.common.PlayApp.system.lidraughtsBus,
+    system = lidraughts.common.PlayApp.system,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     settingStore = lidraughts.memo.Env.current.settingStore,
     scheduler = lidraughts.common.PlayApp.scheduler
