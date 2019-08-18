@@ -500,6 +500,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="pleaseVotePuzzle">Pomogni poboljšanju lichess-a glasanjem, koristeći strelicu gore ili dolje:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rejting: %s</string>
+  <string name="hidden">skriven</string>
   <plurals name="playedXTimes">
     <item quantity="one">Odigrano %s put</item>
     <item quantity="few">Odigrano %s puta</item>
