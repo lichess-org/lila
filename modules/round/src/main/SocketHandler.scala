@@ -24,7 +24,7 @@ import lidraughts.chat.Chat
 import makeTimeout.short
 
 private[round] final class SocketHandler(
-    roundMap: DuctMap[Round],
+    roundMap: DuctMap[RoundDuct],
     socketMap: SocketMap,
     hub: lidraughts.hub.Env,
     messenger: Messenger,

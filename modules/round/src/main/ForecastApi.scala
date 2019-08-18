@@ -13,7 +13,7 @@ import Forecast.Step
 import lidraughts.game.{ Pov, Game }
 import lidraughts.hub.DuctMap
 
-final class ForecastApi(coll: Coll, roundMap: DuctMap[Round]) {
+final class ForecastApi(coll: Coll, roundMap: DuctMap[RoundDuct]) {
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"

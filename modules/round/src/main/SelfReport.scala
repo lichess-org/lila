@@ -4,7 +4,7 @@ import lidraughts.common.IpAddress
 import lidraughts.user.{ User, UserRepo }
 import lidraughts.hub.DuctMap
 
-final class SelfReport(roundMap: DuctMap[Round]) {
+final class SelfReport(roundMap: DuctMap[RoundDuct]) {
 
   private val whitelist = Set("")
 

@@ -71,9 +71,9 @@ final class Env(
     forecastApi = forecastApi,
     socketMap = socketMap
   )
-  val roundMap = new lidraughts.hub.DuctMap[Round](
+  val roundMap = new lidraughts.hub.DuctMap[RoundDuct](
     mkDuct = id => {
-      val duct = new Round(
+      val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
       )

@@ -16,7 +16,7 @@ import lidraughts.round.actorApi.round.{ QuietFlag, Abandon }
  * and flagged games when no one is around
  */
 private[round] final class Titivate(
-    roundMap: DuctMap[Round],
+    roundMap: DuctMap[RoundDuct],
     bookmark: ActorSelection,
     chat: ActorSelection
 ) extends Actor {

@@ -17,7 +17,7 @@ import lidraughts.hub.Duct
 import lidraughts.socket.UserLagCache
 import makeTimeout.large
 
-private[round] final class Round(
+private[round] final class RoundDuct(
     dependencies: Round.Dependencies,
     gameId: Game.ID
 ) extends Duct {

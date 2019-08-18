@@ -27,7 +27,7 @@ private[round] final class Player(
   private case object Flagged extends MoveResult
   private case class MoveApplied(progress: Progress, move: Move) extends MoveResult
 
-  private[round] def human(play: HumanPlay, round: Round)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def human(play: HumanPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption, finalSquare) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -50,7 +50,7 @@ private[round] final class Player(
     }
   }
 
-  private[round] def bot(play: BotPlay, round: Round)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def bot(play: BotPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ BotPlay(playerId, uci, promiseOption) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -72,7 +72,7 @@ private[round] final class Player(
   }
 
   private def postHumanOrBotPlay(
-    round: Round,
+    round: RoundDuct,
     pov: Pov,
     progress: Progress,
     move: Move,
@@ -92,7 +92,7 @@ private[round] final class Player(
     res >>- promiseOption.foreach(_.success(()))
   }
 
-  private[round] def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: Round, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def draughtsnet(game: Game, uci: Uci, currentFen: FEN, round: RoundDuct, nextMove: Option[(Uci, String)] = None)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
       if (currentFen == FEN(Forsyth >> game.draughts))
         applyUci(game, uci, blur = false, metrics = draughtsnetLag)
@@ -118,7 +118,7 @@ private[round] final class Player(
       else requestDraughtsnet(game, round) >> fufail(DraughtsnetError(s"Invalid AI move current FEN $currentFen != ${FEN(Forsyth >> game.draughts)}"))
     } else fufail(DraughtsnetError("Not AI turn"))
 
-  private def requestDraughtsnet(game: Game, round: Round): Funit = game.playableByAi ?? {
+  private def requestDraughtsnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {
     if (game.turns <= draughtsnetPlayer.maxPlies) draughtsnetPlayer(game)
     else fuccess(round ! actorApi.round.ResignAi)
   }
