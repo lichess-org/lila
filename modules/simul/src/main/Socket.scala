@@ -6,7 +6,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.hub.TimeBomb
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.hub.Trouper
 import lila.socket.{ SocketTrouper, History, Historical }
