@@ -7,7 +7,7 @@ import lila.hub.DuctMap
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(
-    roundMap: DuctMap[Round],
+    roundMap: DuctMap[RoundDuct],
     slackApi: lila.slack.SlackApi
 ) {
 
