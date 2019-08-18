@@ -448,6 +448,7 @@
   <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
   <string name="thankYou">ありがとう！</string>
   <string name="ratingX">レーティング: %s</string>
+  <string name="hidden">非表示</string>
   <plurals name="playedXTimes">
     <item quantity="other">解答数のべ %s 回</item>
   </plurals>
