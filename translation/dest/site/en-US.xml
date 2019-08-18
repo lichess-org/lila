@@ -474,6 +474,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">hidden</string>
   <plurals name="playedXTimes">
     <item quantity="one">Played %s time</item>
     <item quantity="other">Played %s times</item>
