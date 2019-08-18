@@ -88,7 +88,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   });
 
   const effectiveMaxDepth = function(): number {
-    return (isDeeper() || infinite()) ? 99 : parseInt(maxDepth());
+    return (isDeeper() || infinite()) ? 99 : (parseInt(maxDepth()) - (opts.variant.key === 'antidraughts' ? 10 : 0));
   };
 
   const sortPvsInPlace = function(pvs: Tree.PvData[], color: Color) {

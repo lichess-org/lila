@@ -8,6 +8,7 @@ import AnalyseCtrl from '../ctrl';
 export interface RetroCtrl {
   isSolving(): boolean
   trans: Trans
+  variant: VariantKey
   [key: string]: any
 }
 
@@ -15,13 +16,15 @@ type Feedback = 'find' | 'eval' | 'win' | 'fail' | 'view';
 
 export function make(root: AnalyseCtrl): RetroCtrl {
 
-  //const game = root.data.game;
+  const game = root.data.game;
   const color = root.bottomColor();
   let candidateNodes: Tree.Node[] = [];
   const explorerCancelPlies: number[] = [];
   let solvedPlies: number[] = [];
   const current = prop<any>(null);
   const feedback = prop<Feedback>('find');
+  const maxDepth = game.variant.key === 'antidraughts' ? 10 : 18;
+  const minDepth = game.variant.key === 'antidraughts' ? 7 : 14;
 
   const contains = window.lidraughts.fp.contains;
   const redraw = root.redraw;
@@ -112,8 +115,8 @@ export function make(root: AnalyseCtrl): RetroCtrl {
 
   function isCevalReady(node: Tree.Node): boolean {
     return node.ceval ? (
-      node.ceval.depth >= 18 ||
-      (node.ceval.depth >= 14 && node.ceval.millis > 7000)
+      node.ceval.depth >= maxDepth ||
+      (node.ceval.depth >= minDepth && node.ceval.millis > 7000)
     ) : false;
   };
 
@@ -203,6 +206,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     close: root.toggleRetro,
     trans: root.trans,
     node: () => root.node,
+    variant: root.data.game.variant.key,
     redraw
   };
 };

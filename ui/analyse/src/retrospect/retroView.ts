@@ -25,10 +25,10 @@ function jumpToNext(ctrl: RetroCtrl) {
     ]);
 }
 
-const minDepth = 8;
-const maxDepth = 18;
-
-function renderEvalProgress(node: Tree.Node): VNode {
+function renderEvalProgress(ctrl: RetroCtrl): VNode {
+  const node = ctrl.node();
+  const minDepth = ctrl.variant === 'antidraughts' ? 3 : 8;
+  const maxDepth = ctrl.variant === 'antidraughts' ? 10 : 18;
   return h('div.progress', h('div', {
     attrs: {
       style: `width: ${node.ceval ? (100 * Math.max(0, node.ceval.depth - minDepth) / (maxDepth - minDepth)) + '%' : 0}`
@@ -115,7 +115,7 @@ const feedback = {
         h('div.player.center', [
           h('div.instruction', [
             h('strong', ctrl.trans.noarg('evaluatingYourMove')),
-            renderEvalProgress(ctrl.node())
+            renderEvalProgress(ctrl)
           ])
         ])
       )
