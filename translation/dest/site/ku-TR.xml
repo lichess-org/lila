@@ -17,6 +17,7 @@
   <string name="stalemate">Wekhevî</string>
   <string name="white">Spî</string>
   <string name="black">Reş</string>
+  <string name="randomColor">Aliyekî ket û ber</string>
   <string name="createAGame">Lîstikek çêke</string>
   <string name="whiteIsVictorious">Spî bi ser ket</string>
   <string name="blackIsVictorious">Reş bi ser ket</string>
