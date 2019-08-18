@@ -6,7 +6,6 @@ import play.api.libs.json._
 import scala.concurrent.duration.Duration
 import scala.concurrent.Promise
 
-import lidraughts.hub.TimeBomb
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.SocketTrouper
 import lidraughts.socket.Socket.{ Uid, GetVersion, SocketVersion }

@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi._
 import lidraughts.chat.Chat
-import lidraughts.hub.{ TimeBomb, Trouper }
+import lidraughts.hub.Trouper
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.{ SocketTrouper, History, Historical }
 
