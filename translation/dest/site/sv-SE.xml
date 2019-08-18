@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">dold</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelat %s gånger</item>
     <item quantity="other">Spelat %s gånger</item>
