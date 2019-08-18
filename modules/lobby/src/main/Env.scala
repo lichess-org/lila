@@ -42,7 +42,6 @@ final class Env(
   )
 
   private val lobbyTrouper = LobbyTrouper.start(
-    system,
     broomPeriod = BroomPeriod,
     resyncIdsPeriod = ResyncIdsPeriod
   ) { () =>
@@ -57,7 +56,7 @@ final class Env(
       poolApi = poolApi,
       onStart = onStart
     )
-  }
+  }(system)
 
   lazy val socketHandler = new SocketHandler(
     hub = hub,

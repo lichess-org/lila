@@ -196,40 +196,39 @@ object User extends LilaController {
 
   def list = Open { implicit ctx =>
     val nb = 10
-    env.cached.leaderboards flatMap { leaderboards =>
-      negotiate(
-        html = for {
-          nbAllTime ← env.cached topNbGame nb
-          nbDay ← fuccess(Nil)
-          tourneyWinners ← Env.tournament.winners.all.map(_.top)
-          _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
-        } yield Ok(html.user.list(
-          tourneyWinners = tourneyWinners,
-          online = env.cached.getTop50Online,
-          leaderboards = leaderboards,
-          nbDay = nbDay,
-          nbAllTime = nbAllTime
-        )),
-        api = _ => fuccess {
-          implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
-          Ok(Json.obj(
-            "bullet" -> leaderboards.bullet,
-            "blitz" -> leaderboards.blitz,
-            "rapid" -> leaderboards.rapid,
-            "classical" -> leaderboards.classical,
-            "ultraBullet" -> leaderboards.ultraBullet,
-            "crazyhouse" -> leaderboards.crazyhouse,
-            "chess960" -> leaderboards.chess960,
-            "kingOfTheHill" -> leaderboards.kingOfTheHill,
-            "threeCheck" -> leaderboards.threeCheck,
-            "antichess" -> leaderboards.antichess,
-            "atomic" -> leaderboards.atomic,
-            "horde" -> leaderboards.horde,
-            "racingKings" -> leaderboards.racingKings
-          ))
-        }
-      )
-    }
+    val leaderboards = env.cached.top10.get
+    negotiate(
+      html = for {
+        nbAllTime ← env.cached topNbGame nb
+        nbDay ← fuccess(Nil)
+        tourneyWinners ← Env.tournament.winners.all.map(_.top)
+        _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
+      } yield Ok(html.user.list(
+        tourneyWinners = tourneyWinners,
+        online = env.cached.getTop50Online,
+        leaderboards = leaderboards,
+        nbDay = nbDay,
+        nbAllTime = nbAllTime
+      )),
+      api = _ => fuccess {
+        implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
+        Ok(Json.obj(
+          "bullet" -> leaderboards.bullet,
+          "blitz" -> leaderboards.blitz,
+          "rapid" -> leaderboards.rapid,
+          "classical" -> leaderboards.classical,
+          "ultraBullet" -> leaderboards.ultraBullet,
+          "crazyhouse" -> leaderboards.crazyhouse,
+          "chess960" -> leaderboards.chess960,
+          "kingOfTheHill" -> leaderboards.kingOfTheHill,
+          "threeCheck" -> leaderboards.threeCheck,
+          "antichess" -> leaderboards.antichess,
+          "atomic" -> leaderboards.atomic,
+          "horde" -> leaderboards.horde,
+          "racingKings" -> leaderboards.racingKings
+        ))
+      }
+    )
   }
 
   def topNb(nb: Int, perfKey: String) = Open { implicit ctx =>
@@ -378,13 +377,13 @@ object User extends LilaController {
       else PerfType(perfKey).fold(notFound) { perfType =>
         for {
           perfStat <- Env.perfStat.get(u, perfType)
-          ranks <- Env.user.cached.ranking.getAll(u.id)
+          ranks = Env.user.cached rankingsOf u.id
           distribution <- u.perfs(perfType).established ?? {
             Env.user.cached.ratingDistribution(perfType) map some
           }
           ratingChart <- Env.history.ratingChartApi.apply(u)
           _ <- Env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
-          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType.key, distribution)
+          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType, distribution)
           response <- negotiate(
             html = Ok(html.user.perfStat(u, ranks, perfType, data, ratingChart)).fuccess,
             api = _ => getBool("graph").?? {

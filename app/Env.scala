@@ -46,7 +46,7 @@ final class Env(
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
-    getRanks = Env.user.cached.ranking.getAllQuicklyMaybe,
+    getRanks = Env.user.cached.rankingsOf,
     isHostingSimul = Env.simul.isHosting,
     fetchIsStreamer = Env.streamer.api.isStreamer,
     fetchTeamIds = Env.team.cached.teamIdsList,

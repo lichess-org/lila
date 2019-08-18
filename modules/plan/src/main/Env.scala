@@ -9,7 +9,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     notifyApi: lila.notify.NotifyApi,
-    bus: lila.common.Bus,
+    system: akka.actor.ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
     settingStore: lila.memo.SettingStore.Builder,
@@ -53,11 +53,10 @@ final class Env(
     chargeColl = chargeColl,
     notifier = notifier,
     lightUserApi = lightUserApi,
-    bus = bus,
     asyncCache = asyncCache,
     payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
     monthlyGoalApi = monthlyGoalApi
-  )
+  )(system)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
@@ -90,7 +89,7 @@ object Env {
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    bus = lila.common.PlayApp.system.lilaBus,
+    system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
     settingStore = lila.memo.Env.current.settingStore,
     scheduler = lila.common.PlayApp.scheduler

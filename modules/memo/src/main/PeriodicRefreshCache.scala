@@ -1,30 +1,26 @@
 package lila.memo
 
 import akka.actor.ActorSystem
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
+
+import lila.common.{ Every, AtMost }
 
 final class PeriodicRefreshCache[A](
-    every: FiniteDuration,
-    atMost: FiniteDuration,
+    every: Every,
+    atMost: AtMost,
     f: () => Fu[A],
     default: A,
-    logger: lila.log.Logger
+    logger: lila.log.Logger,
+    initialDelay: FiniteDuration = 1.second
 )(implicit system: ActorSystem) {
 
   def get: A = cache
 
   private var cache: A = default
 
-  system.scheduler.scheduleOnce(every) {
-    lila.common.ResilientScheduler(
-      every = every,
-      atMost = atMost,
-      system = system,
-      logger = logger
-    ) {
-      f() map { a =>
-        cache = a
-      }
+  lila.common.ResilientScheduler(every, atMost, logger, initialDelay) {
+    f() map { a =>
+      cache = a
     }
   }
 }
