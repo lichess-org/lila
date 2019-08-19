@@ -31,7 +31,6 @@ object DataForm {
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
       "premove" -> booleanNumber,
       "takeback" -> checkedNumber(Pref.Takeback.choices),
-      "moretime" -> checkedNumber(Pref.Moretime.choices),
       "autoQueen" -> checkedNumber(Pref.AutoQueen.choices),
       "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
       "submitMove" -> checkedNumber(Pref.SubmitMove.choices),
@@ -39,9 +38,12 @@ object DataForm {
       "keyboardMove" -> optional(booleanNumber),
       "rookCastle" -> optional(booleanNumber)
     )(BehaviorData.apply)(BehaviorData.unapply),
-    "clockTenths" -> checkedNumber(Pref.ClockTenths.choices),
-    "clockBar" -> booleanNumber,
-    "clockSound" -> booleanNumber,
+    "clock" -> mapping(
+      "tenths" -> checkedNumber(Pref.ClockTenths.choices),
+      "bar" -> booleanNumber,
+      "sound" -> booleanNumber,
+      "moretime" -> checkedNumber(Pref.Moretime.choices)
+    )(ClockData.apply)(ClockData.unapply),
     "follow" -> booleanNumber,
     "challenge" -> checkedNumber(Pref.Challenge.choices),
     "message" -> checkedNumber(Pref.Message.choices),
@@ -66,7 +68,6 @@ object DataForm {
       moveEvent: Option[Int],
       premove: Int,
       takeback: Int,
-      moretime: Int,
       autoQueen: Int,
       autoThreefold: Int,
       submitMove: Int,
@@ -75,12 +76,17 @@ object DataForm {
       rookCastle: Option[Int]
   )
 
+  case class ClockData(
+      tenths: Int,
+      bar: Int,
+      sound: Int,
+      moretime: Int
+  )
+
   case class PrefData(
       display: DisplayData,
       behavior: BehaviorData,
-      clockTenths: Int,
-      clockBar: Int,
-      clockSound: Int,
+      clock: ClockData,
       follow: Int,
       challenge: Int,
       message: Int,
@@ -92,10 +98,10 @@ object DataForm {
       autoQueen = behavior.autoQueen,
       autoThreefold = behavior.autoThreefold,
       takeback = behavior.takeback,
-      moretime = behavior.moretime,
-      clockTenths = clockTenths,
-      clockBar = clockBar == 1,
-      clockSound = clockSound == 1,
+      moretime = clock.moretime,
+      clockTenths = clock.tenths,
+      clockBar = clock.bar == 1,
+      clockSound = clock.sound == 1,
       follow = follow == 1,
       highlight = display.highlight == 1,
       destination = display.destination == 1,
@@ -138,7 +144,6 @@ object DataForm {
         moveEvent = pref.moveEvent.some,
         premove = if (pref.premove) 1 else 0,
         takeback = pref.takeback,
-        moretime = pref.moretime,
         autoQueen = pref.autoQueen,
         autoThreefold = pref.autoThreefold,
         submitMove = pref.submitMove,
@@ -146,9 +151,12 @@ object DataForm {
         keyboardMove = pref.keyboardMove.some,
         rookCastle = pref.rookCastle.some
       ),
-      clockTenths = pref.clockTenths,
-      clockBar = if (pref.clockBar) 1 else 0,
-      clockSound = if (pref.clockSound) 1 else 0,
+      clock = ClockData(
+        tenths = pref.clockTenths,
+        bar = if (pref.clockBar) 1 else 0,
+        sound = if (pref.clockSound) 1 else 0,
+        moretime = pref.moretime
+      ),
       follow = if (pref.follow) 1 else 0,
       challenge = pref.challenge,
       message = pref.message,

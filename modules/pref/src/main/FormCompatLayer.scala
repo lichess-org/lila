@@ -10,7 +10,12 @@ object FormCompatLayer {
 
   def apply(pref: Pref, req: Request[_]): FormData =
     reqToFormData(req) |>
-      addMissing("moretime", pref.moretime.toString) |>
+      addMissing("clock.moretime", pref.moretime.toString) |>
+      moveToAndRename("clock", List(
+        "clockTenths" -> "tenths",
+        "clockBar" -> "bar",
+        "clockSound" -> "sound"
+      )) |>
       moveTo("behavior", List(
         "moveEvent",
         "premove",
@@ -36,11 +41,14 @@ object FormCompatLayer {
   private def addMissing(path: String, default: String)(data: FormData): FormData =
     data.updated(path, data.getOrElse(path, List(default)))
 
-  private def moveTo(prefix: String, fields: List[String])(data: FormData): FormData =
+  private def moveTo(prefix: String, fields: List[String]) =
+    moveToAndRename(prefix, fields.map(f => (f, f))) _
+
+  private def moveToAndRename(prefix: String, fields: List[(String, String)])(data: FormData): FormData =
     fields.foldLeft(data) {
-      case (d, field) =>
-        val newField = s"$prefix.$field"
-        d + (newField -> ~d.get(newField).orElse(d.get(field)))
+      case (d, (orig, dest)) =>
+        val newField = s"$prefix.$dest"
+        d + (newField -> ~d.get(newField).orElse(d.get(orig)))
     }
 
   private def reqToFormData(req: Request[_]): FormData = {
