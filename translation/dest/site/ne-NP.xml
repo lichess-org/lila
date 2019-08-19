@@ -140,4 +140,10 @@
   <string name="latestForumPosts">पछिल्लो फोरम पोष्टहरु</string>
   <string name="players">खेलाडीहरू</string>
   <string name="minutesPerSide">एक पक्षको मिनट</string>
+  <string name="variant">परिमार्जन</string>
+  <string name="variants">परिमार्जनहरु</string>
+  <string name="timeControl">समय सिमा</string>
+  <string name="realTime">वास्तविक समय</string>
+  <string name="correspondence">पत्राचार</string>
+  <string name="daysPerTurn">दिन प्रति चाल</string>
 </resources>
