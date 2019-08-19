@@ -171,4 +171,8 @@
   <string name="forgotPassword">पासवर्ड बिर्सनुभयो?</string>
   <string name="rank">स्थान</string>
   <string name="rankX">स्थान: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">स्थान हरेक मिनट अध्यावधिक गरिन्छ।</item>
+    <item quantity="other">स्थान हरेक %s मिनेटमा अध्यावधिक गरिन्छ।</item>
+  </plurals>
 </resources>
