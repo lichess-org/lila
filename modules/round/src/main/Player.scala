@@ -33,8 +33,7 @@ private[round] final class Player(
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
-              val diff = p.trace.segmentSync("gameDiff", "mapping")(GameDiff(progress.origin, progress.game))
-              p.trace.segment("save", "db")(proxy.saveDiff(progress, diff)) >>
+              p.trace.segment("save", "db")(proxy.save(progress)) >>
                 postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
           } addFailureEffect { e =>
             promiseOption.foreach(_ failure e)

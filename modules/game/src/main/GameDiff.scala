@@ -21,14 +21,15 @@ object GameDiff {
 
   private val w = lila.db.BSON.writer
 
-  def apply(a: Game, b: Game): Diff = {
+  // all: ignore previous game, apply all sets and unsets
+  def apply(a: Game, b: Game, all: Boolean): Diff = {
 
     val setBuilder = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
     def d[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => B): Unit = {
       val vb = getter(b)
-      if (getter(a) != vb) {
+      if (all || getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else setBuilder += name -> toBson(vb)
       }
@@ -36,7 +37,7 @@ object GameDiff {
 
     def dOpt[A, B <: BSONValue](name: String, getter: Game => A, toBson: A => Option[B]): Unit = {
       val vb = getter(b)
-      if (getter(a) != vb) {
+      if (all || getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
         else toBson(vb) match {
           case None => unsetBuilder += (name -> bTrue)
