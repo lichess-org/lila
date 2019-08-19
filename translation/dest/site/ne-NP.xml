@@ -161,4 +161,13 @@
   <string name="username">प्रयाेगकर्ताकाे नाम</string>
   <string name="usernameOrEmail">प्रयोगकर्ताको नाम वा इमेल</string>
   <string name="changeUsername">प्रयोगकर्ताको नाम परिवर्तन गर्नुहोस्</string>
+  <string name="changeUsernameNotSame">अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ। जस्तै: \"johndoe\" बाट \"JohnDoe\"</string>
+  <string name="changeUsernameDescription">तपाइको \"प्रयोगकर्ताको नाम\" परिवर्तन गर्नुहोस्। यो एकपटक मात्र गर्न सक्नुहुनेछ र अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ।</string>
+  <string name="password">पासवर्ड</string>
+  <string name="changePassword">पासवर्ड बदल्नुहोस्</string>
+  <string name="changeEmail">इमेल बदल्नुहोस्</string>
+  <string name="email">इमेल</string>
+  <string name="passwordReset">पासवर्ड फेरि राख्नुहोस्</string>
+  <string name="forgotPassword">पासवर्ड बिर्सनुभयो?</string>
+  <string name="rank">स्थान</string>
 </resources>
