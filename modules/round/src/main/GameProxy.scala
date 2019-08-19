@@ -1,5 +1,8 @@
 package lila.round
 
+import akka.actor.{ Cancellable, Scheduler }
+import scala.concurrent.duration._
+
 import chess.Color
 import lila.game.{ Game, GameDiff, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
@@ -7,23 +10,19 @@ import ornicar.scalalib.Zero
 private final class GameProxy(
     id: Game.ID,
     alwaysPersist: () => Boolean,
-    persistIfSpeedIdHigherThan: () => Int
+    persistIfSpeedIdHigherThan: () => Int,
+    scheduler: Scheduler
 ) {
+
+  import GameProxy._
 
   def game: Fu[Option[Game]] = cache
 
   def save(progress: Progress): Funit = {
     set(progress.game)
-    diffType(progress) match {
-      case GameProxy.Skip =>
-        dirty = true
-        funit
-      case GameProxy.Update =>
-        GameRepo.update(progress, false)
-      case GameProxy.Save =>
-        dirty = false
-        GameRepo.update(progress, true)
-    }
+    dirtyProgress = dirtyProgress.fold(progress)(_ >> progress).some
+    if (shouldFlushProgress(progress)) flushProgress
+    else fuccess(scheduleFlushProgress)
   }
 
   // update both the cache and the DB
@@ -38,17 +37,10 @@ private final class GameProxy(
     cache = fuccess(game.some)
   }
 
-  def invalidate: Unit = {
+  private[round] def invalidate: Unit = {
+    scheduledFlush.cancel()
+    dirtyProgress = none
     cache = fetch
-  }
-
-  def onExpire: Funit = dirty.pp(s"expire $id") ?? {
-    game flatMap {
-      _ ?? { g =>
-        dirty = false
-        GameRepo.update(Progress(g), true)
-      }
-    }
   }
 
   // convenience helpers
@@ -65,12 +57,23 @@ private final class GameProxy(
 
   // internals
 
-  private var dirty = false
+  private var dirtyProgress: Option[Progress] = None
+  private var scheduledFlush: Cancellable = emptyCancellable
 
-  private def diffType(p: Progress) =
-    if (alwaysPersist() || p.game.isSimul || p.game.speed.id > persistIfSpeedIdHigherThan()) GameProxy.Update
-    else if (p.statusChanged) GameProxy.Save
-    else GameProxy.Skip
+  private def shouldFlushProgress(p: Progress) =
+    alwaysPersist() || p.game.isSimul || p.game.speed.id > persistIfSpeedIdHigherThan() || p.statusChanged
+
+  private def scheduleFlushProgress = {
+    scheduledFlush.cancel()
+    scheduledFlush = scheduler.scheduleOnce(scheduleDelay)(flushProgress)
+  }
+
+  private def flushProgress = {
+    scheduledFlush.cancel()
+    dirtyProgress ?? GameRepo.update addEffect { _ =>
+      dirtyProgress = none
+    }
+  }
 
   private[this] var cache: Fu[Option[Game]] = fetch
 
@@ -81,8 +84,10 @@ object GameProxy {
 
   type Save = Progress => Funit
 
-  sealed trait DiffType
-  case object Skip extends DiffType
-  case object Update extends DiffType
-  case object Save extends DiffType
+  private val scheduleDelay = 10.seconds
+
+  private val emptyCancellable = new Cancellable {
+    def cancel() = true
+    def isCancelled = true
+  }
 }

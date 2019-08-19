@@ -203,8 +203,6 @@ private[round] final class RoundDuct(
     }
   }
 
-  private[round] def onRemove = proxy.onExpire
-
   private[this] def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.

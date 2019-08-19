@@ -132,8 +132,8 @@ object GameRepo {
       s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
     )).void
 
-  def update(progress: Progress, all: Boolean): Funit =
-    saveDiff(progress.origin, GameDiff(progress.origin, progress.game, all))
+  def update(progress: Progress): Funit =
+    saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
 
   private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit = diff match {
     case (Nil, Nil) => funit
