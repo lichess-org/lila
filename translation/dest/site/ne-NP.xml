@@ -170,4 +170,5 @@
   <string name="passwordReset">पासवर्ड फेरि राख्नुहोस्</string>
   <string name="forgotPassword">पासवर्ड बिर्सनुभयो?</string>
   <string name="rank">स्थान</string>
+  <string name="rankX">स्थान: %s</string>
 </resources>
