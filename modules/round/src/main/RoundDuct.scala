@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import actorApi._, round._
 import draughts.{ Color, Pos }
 import draughts.format.Uci
-import lidraughts.game.{ Event, Game, Pov, Progress, Source }
+import lidraughts.game.{ Event, Game, Pov, Progress, Source, Player => GamePlayer }
 import lidraughts.hub.actorApi.DeployPost
 import lidraughts.hub.actorApi.map._
 import lidraughts.hub.actorApi.round.{ DraughtsnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign, AnalysisComplete }
@@ -87,7 +87,7 @@ private[round] final class RoundDuct(
 
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.goBerserk(color) ?? { progress =>
-        proxy.save(progress) >> proxy.invalidating(_ goBerserk pov) inject progress.events
+        proxy.save(progress) >> proxy.persist(_ goBerserk pov) inject progress.events
       }
     }
 
@@ -166,7 +166,11 @@ private[round] final class RoundDuct(
       !pov.player.hasHoldAlert ?? {
         lidraughts.log("cheat").info(s"hold alert $ip https://lidraughts.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
         lidraughts.mon.cheat.holdAlert()
-        proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
+        val alert = GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)
+        proxy.persistAndSet(
+          _.setHoldAlert(pov, alert),
+          _.setHoldAlert(pov.color, alert)
+        ) inject List.empty[Event]
       }
     }
 
@@ -234,6 +238,8 @@ private[round] final class RoundDuct(
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
   }
+
+  private[round] def onRemove = proxy.onExpire
 
   private[this] def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {

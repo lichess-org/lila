@@ -15,21 +15,41 @@ private final class GameProxy(
   def save(progress: Progress): Funit = {
     set(progress.game)
     diffType(progress) match {
-      case GameProxy.Skip => funit
-      case GameProxy.Update => GameRepo.update(progress, false)
-      case GameProxy.Save => GameRepo.update(progress, true)
+      case GameProxy.Skip =>
+        dirty = true
+        funit
+      case GameProxy.Update =>
+        GameRepo.update(progress, false)
+      case GameProxy.Save =>
+        dirty = false
+        GameRepo.update(progress, true)
     }
   }
 
-  def invalidating(f: GameRepo.type => Funit): Funit = f(GameRepo) >>- invalidate
+  // update both the cache and the DB
+  def persistAndSet(p: GameRepo.type => Funit, s: Game => Game): Funit =
+    game.map {
+      _ ?? { g => set(s(g)) }
+    } >> p(GameRepo)
 
-  def bypass(f: GameRepo.type => Funit): Funit = f(GameRepo)
+  def persist(f: GameRepo.type => Funit): Funit = f(GameRepo)
 
-  def set(game: Game): Unit =
+  private def set(game: Game): Unit = {
     cache = fuccess(game.some)
+  }
 
-  def invalidate: Unit =
+  def invalidate: Unit = {
     cache = fetch
+  }
+
+  def onExpire: Funit = dirty.pp(s"expire $id") ?? {
+    game flatMap {
+      _ ?? { g =>
+        dirty = false
+        GameRepo.update(Progress(g), true)
+      }
+    }
+  }
 
   // convenience helpers
 
@@ -44,6 +64,8 @@ private final class GameProxy(
   def withGame[A: Zero](f: Game => Fu[A]): Fu[A] = game.flatMap(_ ?? f)
 
   // internals
+
+  private var dirty = false
 
   private def diffType(p: Progress) =
     if (alwaysPersist() || p.game.isSimul || p.game.speed.id > persistIfSpeedIdHigherThan()) GameProxy.Update

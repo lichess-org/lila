@@ -89,7 +89,8 @@ final class Env(
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
-    accessTimeout = ActiveTtl
+    accessTimeout = ActiveTtl,
+    removalListener = Some(_.onRemove)
   )
 
   bus.subscribeFuns(
