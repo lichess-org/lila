@@ -146,4 +146,19 @@
   <string name="realTime">वास्तविक समय</string>
   <string name="correspondence">पत्राचार</string>
   <string name="daysPerTurn">दिन प्रति चाल</string>
+  <string name="oneDay">एक दिन</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s दिन</item>
+    <item quantity="other">%s दिन</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s घण्टा</item>
+    <item quantity="other">%s घण्टा</item>
+  </plurals>
+  <string name="time">समय</string>
+  <string name="rating">रेटिङ</string>
+  <string name="ratingStats">रेटिङ तथ्याङ्क</string>
+  <string name="username">प्रयाेगकर्ताकाे नाम</string>
+  <string name="usernameOrEmail">प्रयोगकर्ताको नाम वा इमेल</string>
+  <string name="changeUsername">प्रयोगकर्ताको नाम परिवर्तन गर्नुहोस्</string>
 </resources>
