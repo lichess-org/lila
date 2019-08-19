@@ -53,4 +53,8 @@
   <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
   <string name="goDeeper">गहिराइ बढाउनुहोस्</string>
   <string name="showThreat">खतरा देखाउनुहोस्</string>
+  <string name="inLocalBrowser">स्थानिय ब्राउजरमा</string>
+  <string name="toggleLocalEvaluation">स्थानिय मुल्यांकन टगल गर्नुहोस्</string>
+  <string name="promoteVariation">बढुवा गर्नुहोस्</string>
+  <string name="makeMainLine">मुख्य लाइन बनाउनुहोस्</string>
 </resources>
