@@ -88,4 +88,13 @@
   <string name="winPreventedBy50MoveRule">५० चालको नियमबाट जीत रोकियो</string>
   <string name="lossSavedBy50MoveRule">५० चालको नियमबाट हार बच्यो</string>
   <string name="allSet">तयारी पूरा!</string>
+  <string name="importPgn">PGN आयात</string>
+  <string name="delete">मेटाउनुहोस्</string>
+  <string name="deleteThisImportedGame">के यो आयातित खेल मेटाउन सकिन्छ?</string>
+  <string name="replayMode">दोहोर्याउने गति</string>
+  <string name="realtimeReplay">वास्तविक</string>
+  <string name="byCPL">CPL अनुसार</string>
+  <string name="openStudy">पाठ खोलौ</string>
+  <string name="enable">सक्षम पार्नुहोस्</string>
+  <string name="bestMoveArrow">उत्कृष्ट चालको तीर</string>
 </resources>
