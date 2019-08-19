@@ -130,11 +130,14 @@
   </plurals>
   <string name="viewInFullSize">पुर्ण आकार हेर्नुहोस्</string>
   <string name="logOut">साइन आउट गर्नुहोस्</string>
-  <string name="signIn">साईन इन गर्नुहोस</string>
+  <string name="signIn">साईन इन गर्नुहोस्</string>
   <string name="youNeedAnAccountToDoThat">त्यसको लागि तपाईलाई खाता आवश्यक पर्दछ</string>
   <string name="signUp">दर्ता गर्नुहोस्</string>
   <string name="computersAreNotAllowedToPlay">कम्प्युटर र कम्प्युटरको सहायता लिएका खेलाडीहरुलाई खेल्न निषेधित गरिएको छ। कृपया खेल्दा बुद्धिचाल इन्जिन, डाटाबेस, वा अरु खेलाडीको सहयोग नलिनुहोला। धेरै खाताहरु खोल्न पनि निरुत्साहित गरिन्छ र अत्ति नै धेरै खोलेको खण्डमा तपाईमाथि प्रतिबन्ध लाग्नेछ।</string>
   <string name="games">खेलहरु</string>
   <string name="forum">फोरम</string>
   <string name="xPostedInForumY">%1$s ले %2$s विषयमा पोष्ट गर्नुभयो</string>
+  <string name="latestForumPosts">पछिल्लो फोरम पोष्टहरु</string>
+  <string name="players">खेलाडीहरू</string>
+  <string name="minutesPerSide">एक पक्षको मिनट</string>
 </resources>
