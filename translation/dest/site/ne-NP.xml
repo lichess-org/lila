@@ -57,4 +57,7 @@
   <string name="toggleLocalEvaluation">स्थानिय मुल्यांकन टगल गर्नुहोस्</string>
   <string name="promoteVariation">बढुवा गर्नुहोस्</string>
   <string name="makeMainLine">मुख्य लाइन बनाउनुहोस्</string>
+  <string name="deleteFromHere">यहाँबाट मेट्नुहोस्</string>
+  <string name="forceVariation">हांगा बनाउनुहोस्</string>
+  <string name="move">चाल</string>
 </resources>
