@@ -4,18 +4,18 @@ import chess.Color
 import lila.game.{ Game, GameDiff, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
 
-private final class GameProxy(id: Game.ID) {
+private final class GameProxy(id: Game.ID, alwaysPersist: () => Boolean) {
 
   def game: Fu[Option[Game]] = cache
 
   def save(progress: Progress): Funit = {
     set(progress.game)
-    GameRepo save progress
+    shouldPersist(progress) ?? GameRepo.save(progress)
   }
 
   def saveDiff(progress: Progress, diff: GameDiff.Diff): Funit = {
     set(progress.game)
-    GameRepo.saveDiff(progress.origin, diff)
+    shouldPersist(progress) ?? GameRepo.saveDiff(progress.origin, diff)
   }
 
   def invalidating(f: GameRepo.type => Funit): Funit = f(GameRepo) >>- invalidate
@@ -41,6 +41,11 @@ private final class GameProxy(id: Game.ID) {
   def withGame[A: Zero](f: Game => Fu[A]): Fu[A] = game.flatMap(_ ?? f)
 
   // internals
+
+  private def shouldPersist(p: Progress) =
+    alwaysPersist() ||
+      // (!p.game.hasAi && p.game.speed > chess.Speed.UltraBullet) ||
+      p.statusChanged
 
   private[this] var cache: Fu[Option[Game]] = fetch
 

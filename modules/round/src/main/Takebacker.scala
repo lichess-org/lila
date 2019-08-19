@@ -2,6 +2,7 @@ package lila.round
 
 import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
+import RoundDuct.TakebackSituation
 
 private final class Takebacker(
     messenger: Messenger,
@@ -10,7 +11,7 @@ private final class Takebacker(
     bus: lila.common.Bus
 ) {
 
-  def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
+  def yes(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, _) if pov.opponent.isProposingTakeback => {
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
@@ -29,7 +30,7 @@ private final class Takebacker(
     }
   }
 
-  def no(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = pov match {
+  def no(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = pov match {
     case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
       messenger.system(game, _.takebackPropositionCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }
