@@ -91,15 +91,19 @@ object pref {
         categFieldset(PrefCateg.DraughtsClock, categ)(
           setting(
             trans.tenthsOfSeconds(),
-            radios(form("clockTenths"), translatedClockTenthsChoices)
+            radios(form("clock.tenths"), translatedClockTenthsChoices)
           ),
           setting(
             trans.horizontalGreenProgressBars(),
-            radios(form("clockBar"), booleanChoices)
+            radios(form("clock.bar"), booleanChoices)
           ),
           setting(
             trans.soundWhenTimeGetsCritical(),
-            radios(form("clockSound"), booleanChoices)
+            radios(form("clock.sound"), booleanChoices)
+          ),
+          setting(
+            trans.giveMoreTime(),
+            radios(form("clock.moretime"), translatedMoretimeChoices)
           )
         ),
         categFieldset(PrefCateg.GameBehavior, categ)(
@@ -118,10 +122,6 @@ object pref {
           setting(
             trans.takebacksWithOpponentApproval(),
             radios(form("behavior.takeback"), translatedTakebackChoices)
-          ),
-          setting(
-            trans.giveMoreTime(),
-            radios(form("behavior.moretime"), translatedMoretimeChoices)
           ),
           setting(
             trans.claimDrawOnThreefoldRepetitionAutomatically(),
