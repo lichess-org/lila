@@ -27,4 +27,9 @@
   <string name="variantEnding">प्रकारको अन्त्य।</string>
   <string name="newOpponent">नयाँ प्रतिद्वन्द्वी</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">तपाईंको प्रतिद्वन्द्वी तपाइसँग अर्को खेल खेल्न चहान्छन्।</string>
+  <string name="joinTheGame">खेलमा सहभागी हुनुहोस्।</string>
+  <string name="whitePlays">सेतोको चाल</string>
+  <string name="blackPlays">कालोको चाल</string>
+  <string name="opponentLeftChoices">अर्को खेलाडीले खेल छोडेको हुन सक्दछ। तपाई जीत दाबि गर्न, बराबरी घोषणा गर्न, वा प्रतिक्षा गर्न सक्नुहुनेछ।</string>
+  <string name="makeYourOpponentResign">तपाइको प्रतिद्वन्द्वीलाई खेल त्याग गर्न लगाउनुहोस्</string>
 </resources>
