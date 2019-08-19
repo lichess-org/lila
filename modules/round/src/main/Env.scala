@@ -85,12 +85,11 @@ final class Env(
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )(new GameProxy(id, deployPersistence.isEnabled, persistenceSpeedSetting.get))
+      )(new GameProxy(id, deployPersistence.isEnabled, persistenceSpeedSetting.get, system.scheduler))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
-    accessTimeout = ActiveTtl,
-    removalListener = Some(_.onRemove)
+    accessTimeout = ActiveTtl
   )
 
   bus.subscribeFuns(
