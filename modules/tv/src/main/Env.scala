@@ -46,7 +46,7 @@ object Env {
     db = lidraughts.db.Env.current,
     hub = lidraughts.hub.Env.current,
     lightUser = lidraughts.user.Env.current.lightUserSync,
-    roundProxyGame = lidraughts.round.Env.current.roundProxyGame _,
+    roundProxyGame = lidraughts.round.Env.current.proxy.game _,
     system = lidraughts.common.PlayApp.system,
     onSelect = lidraughts.round.Env.current.recentTvGames.put _
   )

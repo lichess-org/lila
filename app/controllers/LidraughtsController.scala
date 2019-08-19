@@ -244,7 +244,7 @@ private[controllers] trait LidraughtsController
     }
 
   protected def NoCurrentGame(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(mashup.Preload.currentGameMyTurn(Env.user.lightUserSync)) flatMap {
+    ctx.me.??(Env.current.preloader.currentGameMyTurn) flatMap {
       _.fold(a) { current =>
         negotiate(
           html = Lobby.renderHome(Results.Forbidden),

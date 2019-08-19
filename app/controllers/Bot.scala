@@ -61,7 +61,7 @@ object Bot extends LidraughtsController {
 
   private def WithMyBotGame(anyId: String, me: lidraughts.user.User)(f: lidraughts.game.Pov => Fu[Result]) =
     WithBot(me) {
-      Env.round.roundProxyGame(lidraughts.game.Game takeGameId anyId) flatMap {
+      Env.round.proxy.game(lidraughts.game.Game takeGameId anyId) flatMap {
         case None => NotFound(jsonError("No such game")).fuccess
         case Some(game) => lidraughts.game.Pov(game, me) match {
           case None => NotFound(jsonError("Not your game")).fuccess

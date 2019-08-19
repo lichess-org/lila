@@ -25,7 +25,7 @@ object Round extends LidraughtsController with TheftPrevention {
             val userTvGameId = ~get("gameId")
             lidraughts.round.actorApi.UserTv(
               userId,
-              (userTvGameId.isEmpty && pov.game.finishedOrAborted) ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
+              (userTvGameId.isEmpty && pov.game.finishedOrAborted) ?? GameRepo.lastPlayedPlayingId(userId).map(_.isDefined)
             )
           }
           env.socketHandler.watcher(
@@ -194,11 +194,11 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = draughts.Color(color) ?? { c =>
-    env.roundProxyGame(gameId) map2 { (g: GameModel) => g pov c }
+    env.proxy.game(gameId) map2 { (g: GameModel) => g pov c }
   }
   private def proxyPov(fullId: String): Fu[Option[Pov]] = {
     val ref = PlayerRef(fullId)
-    env.roundProxyGame(ref.gameId) map {
+    env.proxy.game(ref.gameId) map {
       _ flatMap { _ playerIdPov ref.playerId }
     }
   }

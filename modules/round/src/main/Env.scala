@@ -36,6 +36,7 @@ final class Env(
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     isBotSync: lidraughts.common.LightUser.IsBotSync,
     ratingFactors: () => lidraughts.rating.RatingFactors,
+    settingStore: lidraughts.memo.SettingStore.Builder,
     val socketDebug: () => Boolean
 ) {
 
@@ -60,6 +61,12 @@ final class Env(
   private val moveTimeChannel = new lidraughts.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
+  val persistenceSpeedSetting = settingStore[Int](
+    "persistenceSpeed",
+    default = -1,
+    text = "Force round persistence of games which speed is higher than".some
+  )
+
   private val deployPersistence = new DeployPersistence(system)
 
   private lazy val roundDependencies = RoundDuct.Dependencies(
@@ -71,15 +78,14 @@ final class Env(
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketMap = socketMap,
-    deployPersistence = deployPersistence
+    socketMap = socketMap
   )
   val roundMap = new lidraughts.hub.DuctMap[RoundDuct](
     mkDuct = id => {
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )(new GameProxy(id, deployPersistence.isEnabled))
+      )(new GameProxy(id, deployPersistence.isEnabled, persistenceSpeedSetting.get))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
@@ -110,10 +116,20 @@ final class Env(
     bus.publish(lidraughts.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
-  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
-    roundMap.getOrMake(gameId).getGame addEffect { g =>
-      if (!g.isDefined) roundMap kill gameId
-    }
+  object proxy {
+
+    def game(gameId: Game.ID): Fu[Option[Game]] =
+      roundMap.getOrMake(gameId).getGame addEffect { g =>
+        if (!g.isDefined) roundMap kill gameId
+      }
+
+    def pov(gameId: Game.ID, user: lidraughts.user.User): Fu[Option[Pov]] =
+      game(gameId) map { _ flatMap { Pov(_, user) } }
+
+    def updateIfPresent(game: Game): Fu[Game] =
+      if (game.finishedOrAborted) fuccess(game)
+      else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+  }
 
   def setAnalysedIfPresent(gameId: Game.ID) =
     roundMap.tellIfPresent(gameId, AnalysisComplete)
@@ -125,9 +141,8 @@ final class Env(
   }
 
   val socketMap = SocketMap.make(
-    makeHistory = History(db(CollectionHistory)) _,
+    makeHistory = History(db(CollectionHistory), deployPersistence.isEnabled _) _,
     socketTimeout = SocketTimeout,
-    deployPersistence = deployPersistence,
     dependencies = RoundSocket.Dependencies(
       system = system,
       lightUser = lightUser,
@@ -292,6 +307,7 @@ object Env {
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
     isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
     ratingFactors = lidraughts.rating.Env.current.ratingFactorsSetting.get,
+    settingStore = lidraughts.memo.Env.current.settingStore,
     socketDebug = lidraughts.socket.Env.current.socketDebugSetting.get
   )
 }
