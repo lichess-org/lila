@@ -10,12 +10,13 @@ object FormCompatLayer {
 
   def apply(pref: Pref, req: Request[_]): FormData =
     reqToFormData(req) |>
-      addMissing("clock.moretime", pref.moretime.toString) |>
       moveToAndRename("clock", List(
         "clockTenths" -> "tenths",
         "clockBar" -> "bar",
-        "clockSound" -> "sound"
+        "clockSound" -> "sound",
+        "moretime" -> "moretime"
       )) |>
+      addMissing("clock.moretime", pref.moretime.toString) |>
       moveTo("behavior", List(
         "moveEvent",
         "premove",
@@ -23,7 +24,6 @@ object FormCompatLayer {
         "autoThreefold",
         "submitMove",
         "confirmResign",
-        "moretime",
         "keyboardMove",
         "fullCapture"
       )) |>
