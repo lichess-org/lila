@@ -80,9 +80,7 @@ case object Glicko {
   )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    if (Env.current.deviationIncreaseOverTimeSetting.get)
-      system.previewDeviation(p.toRating, new DateTime, reverse)
-    else p.glicko.deviation
+    system.previewDeviation(p.toRating, new DateTime, reverse)
   } atLeast minDeviation atMost maxDeviation
 
   implicit val glickoBSONHandler = new BSON[Glicko] {

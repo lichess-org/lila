@@ -25,7 +25,6 @@ object Dev extends LidraughtsController {
     Env.rating.ratingFactorsSetting,
     Env.socket.socketDebugSetting,
     Env.plan.donationGoalSetting,
-    Env.rating.deviationIncreaseOverTimeSetting,
     Env.round.persistenceSpeedSetting
   )
 
