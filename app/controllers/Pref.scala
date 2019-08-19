@@ -34,7 +34,7 @@ object Pref extends LilaController {
     def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
-      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.body)).fold(
+      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
         err => BadRequest(err.toString).fuccess,
         onSuccess
       ),

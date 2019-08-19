@@ -8,17 +8,9 @@ object FormCompatLayer {
 
   private type FormData = Map[String, Seq[String]]
 
-  def apply(req: Request[_]): FormData =
-    moveTo("display", List(
-      "animation",
-      "captured",
-      "highlight",
-      "destination",
-      "coords",
-      "replay",
-      "pieceNotation",
-      "blindfold"
-    )) {
+  def apply(pref: Pref, req: Request[_]): FormData =
+    reqToFormData(req) |>
+      addMissing("moretime", pref.moretime.toString) |>
       moveTo("behavior", List(
         "moveEvent",
         "premove",
@@ -27,11 +19,22 @@ object FormCompatLayer {
         "autoThreefold",
         "submitMove",
         "confirmResign",
+        "moretime",
         "keyboardMove"
-      )) {
-        reqToFormData(req)
-      }
-    }
+      )) |>
+      moveTo("display", List(
+        "animation",
+        "captured",
+        "highlight",
+        "destination",
+        "coords",
+        "replay",
+        "pieceNotation",
+        "blindfold"
+      ))
+
+  private def addMissing(path: String, default: String)(data: FormData): FormData =
+    data.updated(path, data.getOrElse(path, List(default)))
 
   private def moveTo(prefix: String, fields: List[String])(data: FormData): FormData =
     fields.foldLeft(data) {
