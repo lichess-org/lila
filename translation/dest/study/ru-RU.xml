@@ -43,7 +43,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
-  <string name="onlyOngoingGames">Только активные партии</string>
   <string name="first">Первый</string>
   <string name="previous">Предыдущий</string>
   <string name="next">Следующий</string>
@@ -55,10 +54,10 @@
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте эту ссылку в форум, чтобы встроить главу</string>
+  <string name="startAtInitialPosition">Начать с начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее о встраивании глав студии</string>
-  <string name="fen">FEN</string>
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
   <string name="studyNotFound">Студия не найдена</string>

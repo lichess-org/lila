@@ -34,7 +34,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Semua anggota yang ter-sinkron tetap pada posisi yang sama</string>
   <string name="shareChanges">Bagikan perubahan dengan penonton dan simpan di server</string>
   <string name="playing">Memainkan</string>
-  <string name="onlyOngoingGames">Hanya permainan yang sedang berlangsung</string>
   <string name="first">Pertama</string>
   <string name="previous">Sebelumnya</string>
   <string name="next">Berikutnya</string>
@@ -46,10 +45,10 @@
   <string name="studyUrl">Belajar URL</string>
   <string name="currentChapterUrl">URL Bab saat ini</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Anda dapat menempel ini di forum untuk sematkan bab</string>
+  <string name="startAtInitialPosition">Mulai saat posisi awal</string>
   <string name="startAtX">Mulai dari %s</string>
   <string name="embedThisChapter">Sematkan bab ini di situs web atau blog Anda</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Baca lebih mengenai menyematkan bab pembelajaran</string>
-  <string name="fen">FEN</string>
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Pembelajaran tidak ditemukan</string>

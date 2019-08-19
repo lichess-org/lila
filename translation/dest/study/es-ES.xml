@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Todos los miembros de SYNC permanecen en la misma posición</string>
   <string name="shareChanges">Comparte cambios con los espectadores y guárdalos en el servidor</string>
   <string name="playing">Jugando</string>
-  <string name="onlyOngoingGames">Sólo partidas en curso</string>
   <string name="first">Primero</string>
   <string name="previous">Anterior</string>
   <string name="next">Siguiente</string>
@@ -49,10 +48,10 @@
   <string name="studyUrl">URL del estudio</string>
   <string name="currentChapterUrl">URL del capítulo actual</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Puedes pegar esto en el foro para incrustar el capítulo</string>
+  <string name="startAtInitialPosition">Comenzar desde la posición inicial</string>
   <string name="startAtX">Iniciar en %s</string>
   <string name="embedThisChapter">Inserta este capítulo en tu sitio web o blog</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Leer más sobre la incrustación de un capítulo de estudio</string>
-  <string name="fen">FEN</string>
   <string name="open">Abierto</string>
   <string name="xBroughtToYouByY">%1$sauspiciado por%2$s</string>
   <string name="studyNotFound">Estudio no encontrado</string>

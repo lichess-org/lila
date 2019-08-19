@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle SYNC-medlemene ser den same stillingen</string>
   <string name="shareChanges">Lagre endringar på serveren og del dei med tilskodarar</string>
   <string name="playing">Spelar no</string>
-  <string name="onlyOngoingGames">Berre pågåande parti</string>
   <string name="first">Første</string>
   <string name="previous">Føregåande</string>
   <string name="next">Neste</string>
@@ -49,10 +48,10 @@
   <string name="studyUrl">Studie-URL</string>
   <string name="currentChapterUrl">Kapittel-URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kan lime inn dette i forumet for å bygge inn kapittelet</string>
+  <string name="startAtInitialPosition">Start ved innleiande stilling</string>
   <string name="startAtX">Start ved %s</string>
   <string name="embedThisChapter">Bygg inn kapittelet i nettstaden eller bloggen din</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Les meir om å bygge inn eit studiekapittel</string>
-  <string name="fen">FEN</string>
   <string name="open">Opne</string>
   <string name="xBroughtToYouByY">%1$s presentert av %2$s</string>
   <string name="studyNotFound">Fann ikkje studien</string>

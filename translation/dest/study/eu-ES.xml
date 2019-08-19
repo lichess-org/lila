@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Kide sinkronizatu guztiak posizio berean jarraitzen dute</string>
   <string name="shareChanges">Aldaketak ikusleekin partekatu eta zerbitzarian gorde</string>
   <string name="playing">Jokatzen</string>
-  <string name="onlyOngoingGames">Martxan dauden partidak bakarrik</string>
   <string name="first">Lehenengoa</string>
   <string name="previous">Aurrekoa</string>
   <string name="next">Hurrengoa</string>
@@ -52,7 +51,6 @@
   <string name="startAtX">Hemen asi %s</string>
   <string name="embedThisChapter">Kapitulu hau zure webgunean edo blogean txertatu</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Azterlan baten kapitulu bat txertatzeari buruz gehiago irakurri</string>
-  <string name="fen">FEN</string>
   <string name="open">Ireki</string>
   <string name="xBroughtToYouByY">%1$s azterlana %2$s erabiltzaileak prestatu du</string>
   <string name="studyNotFound">Azterlana ez da aurkitu</string>

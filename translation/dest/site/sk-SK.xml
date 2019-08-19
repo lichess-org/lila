@@ -525,6 +525,7 @@
   <string name="pleaseVotePuzzle">Pomôžte zlepšiť lichess hlasovaním, kliknutím na šípku hore alebo dole:</string>
   <string name="thankYou">Ďakujeme!</string>
   <string name="ratingX">Hodnotenie: %s</string>
+  <string name="hidden">skryté</string>
   <plurals name="playedXTimes">
     <item quantity="one">Hrané %s-krát</item>
     <item quantity="few">Hrané %s-krát</item>

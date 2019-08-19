@@ -474,6 +474,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="pleaseVotePuzzle">Gjer lichess betre ved  å stemma, bruk piltastar opp eller ned.</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelt %s gong</item>
     <item quantity="other">Spelt %s gonger</item>

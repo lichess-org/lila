@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">dans le navigateur local</string>
   <string name="toggleLocalEvaluation">Activer/désactiver l\'évaluation locale</string>
   <string name="promoteVariation">Promouvoir la variante</string>
-  <string name="makeMainLine">En faire la variante principale</string>
+  <string name="makeMainLine">Promouvoir en variante principale</string>
   <string name="deleteFromHere">Supprimer à partir d\'ici</string>
   <string name="forceVariation">Forcer la variante</string>
   <string name="move">Coup</string>
@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Aidez Lichess à s\'améliorer en votant grâce aux flèches :</string>
   <string name="thankYou">Merci !</string>
   <string name="ratingX">Cote : %s</string>
+  <string name="hidden">masqué</string>
   <plurals name="playedXTimes">
     <item quantity="one">Joué %s fois</item>
     <item quantity="other">Joué %s fois</item>

@@ -33,7 +33,7 @@
   <string name="makeSureTheChapterIsComplete">章が完成したか確認してください。解析の要請は 1 回だけです。</string>
   <string name="allSyncMembersRemainOnTheSamePosition">同期したメンバーは同じ局面に留まります</string>
   <string name="shareChanges">変更を観戦者と共有し、サーバに保存する</string>
-  <string name="onlyOngoingGames">進行中のゲームのみ</string>
+  <string name="playing">プレイ中</string>
   <string name="first">最初</string>
   <string name="previous">前</string>
   <string name="next">次</string>
@@ -45,10 +45,10 @@
   <string name="studyUrl">研究の URL</string>
   <string name="currentChapterUrl">現在の章の URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">これをフォーラムにペーストすればこの章を埋め込めます</string>
+  <string name="startAtInitialPosition">開始局面から</string>
   <string name="startAtX">%s に開始</string>
   <string name="embedThisChapter">この章をウェブサイトやブログに埋め込む</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">研究の章の埋め込みについて詳しく見る</string>
-  <string name="fen">FEN</string>
   <string name="open">開く</string>
   <string name="xBroughtToYouByY">%1$s を %2$s がお届けします</string>
   <string name="studyNotFound">研究が見つかりません</string>

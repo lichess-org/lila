@@ -525,6 +525,7 @@
   <string name="pleaseVotePuzzle">Pomóż nam podnieść jakość zadań! Oceń zadanie, naciskając strzałkę w górę lub w dół:</string>
   <string name="thankYou">Podziękowania</string>
   <string name="ratingX">Ranking: %s</string>
+  <string name="hidden">ukryty</string>
   <plurals name="playedXTimes">
     <item quantity="one">Rozwiązywane %s raz</item>
     <item quantity="few">Rozwiązywane %s razy</item>

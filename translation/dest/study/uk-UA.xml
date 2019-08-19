@@ -14,7 +14,17 @@
   <string name="like">Подобається</string>
   <string name="newTag">Нова позначка</string>
   <string name="commentThisPosition">Коментувати цю позицію</string>
-  <string name="fen">FEN</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Усі синхронізовані учасники залишаються на тій же позиції</string>
+  <string name="shareChanges">Зберегти зміни на сервері та опублікувати для глядачів</string>
+  <string name="playing">Гра триває</string>
+  <string name="first">Перша</string>
+  <string name="previous">Попередня</string>
+  <string name="next">Наступна</string>
+  <string name="last">Остання</string>
+  <string name="shareAndExport">Надсилання та експорт</string>
+  <string name="cloneStudy">Клонувати</string>
+  <string name="startAtInitialPosition">Старт з початкової позиції</string>
+  <string name="startAtX">Почати з %s</string>
   <string name="open">Відкрити</string>
   <string name="studyNotFound">Студію не знайдено</string>
 </resources>

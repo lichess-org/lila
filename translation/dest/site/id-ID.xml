@@ -447,6 +447,7 @@
   <string name="pleaseVotePuzzle">Bantu lichess berkembang dengan vote, gunakan tanda panah ke atas atau bawah:</string>
   <string name="thankYou">Terima Kasih!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">tersembunyi</string>
   <plurals name="playedXTimes">
     <item quantity="other">Dimainkan %s kali</item>
   </plurals>

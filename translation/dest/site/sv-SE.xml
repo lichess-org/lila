@@ -59,7 +59,7 @@
   <string name="promoteVariation">Höj upp variation</string>
   <string name="makeMainLine">Gör till huvudvariation</string>
   <string name="deleteFromHere">Radera härifrån</string>
-  <string name="forceVariation">Tvinga fram variant</string>
+  <string name="forceVariation">Visa som variant</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">dold</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelat %s gånger</item>
     <item quantity="other">Spelat %s gånger</item>

@@ -78,7 +78,7 @@
   <string name="combatComplete">Вітаємо! Тепер ви знаєте, як боротися з шаховими фігурами!</string>
   <string name="checkInOne">Шах</string>
   <string name="attackTheOpponentsKing">Атака на короля</string>
-  <string name="checkInOneIntro">Щоб оголосити шах, нападайте на короля супротивника. Він має захищатися!</string>
+  <string name="checkInOneIntro">Щоб оголосити шах, атакуйте короля суперника. Він має захищатися!</string>
   <string name="checkInOneGoal">Нападіть на короля суперника
 за один хід!</string>
   <string name="checkInOneComplete">Вітаємо! Ви поставили шах своєму супернику, змусивши захищати свого короля!</string>

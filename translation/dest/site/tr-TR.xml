@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Okları kullanarak oylayın, lichess\'in gelişmesine yardımcı olun.</string>
   <string name="thankYou">Teşekkürler!</string>
   <string name="ratingX">Puan: %s</string>
+  <string name="hidden">gizli</string>
   <plurals name="playedXTimes">
     <item quantity="one">Bu bulmaca %s defa oynandı</item>
     <item quantity="other">Bu bulmaca %s defa oynandı</item>

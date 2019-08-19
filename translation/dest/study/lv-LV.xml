@@ -40,7 +40,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Visi SYNC dalībnieki paliek vienā pozīcijā</string>
   <string name="shareChanges">Koplietot izmaiņas ar skatītājiem un saglabāt tās serverī</string>
   <string name="playing">Notiek</string>
-  <string name="onlyOngoingGames">Tikai notiekošās spēles</string>
   <string name="first">Pirmais</string>
   <string name="previous">Iepriekšējais</string>
   <string name="next">Nākamais</string>
@@ -52,10 +51,10 @@
   <string name="studyUrl">Izpētes URL</string>
   <string name="currentChapterUrl">Pašreizējās nodaļas URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Šo varat ielīmēt forumā, lai iegultu nodaļu</string>
+  <string name="startAtInitialPosition">Sākt no sākotnējās pozīcijas</string>
   <string name="startAtX">Sākt ar %s</string>
   <string name="embedThisChapter">Iegult šo nodaļu savā mājaslapā vai blogā</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Uzzināt vairāk par izpētes nodaļas iegulšanu</string>
-  <string name="fen">FEN</string>
   <string name="open">Atvērt</string>
   <string name="xBroughtToYouByY">%2$s, kuru piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>
