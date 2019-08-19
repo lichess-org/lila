@@ -97,4 +97,5 @@
   <string name="openStudy">पाठ खोलौ</string>
   <string name="enable">सक्षम पार्नुहोस्</string>
   <string name="bestMoveArrow">उत्कृष्ट चालको तीर</string>
+  <string name="evaluationGauge">मुल्यांकन गेज</string>
 </resources>
