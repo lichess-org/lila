@@ -41,4 +41,13 @@
   <string name="whiteLeftTheGame">सेतोले खेल छोड्यो</string>
   <string name="blackLeftTheGame">कालोले खेल छोड्यो</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">दर्शकहरुलाई को यो खेल देखाउन यो युआरएल दिनुहोस्</string>
+  <string name="theComputerAnalysisHasFailed">कम्प्युटर विश्लेषण असफल भयो।</string>
+  <string name="viewTheComputerAnalysis">कम्प्युटर विश्लेषण हेर्नुहोस्</string>
+  <string name="requestAComputerAnalysis">कम्प्युटर विश्लेषण आग्रह गर्नुहोस्</string>
+  <string name="computerAnalysis">कम्प्युटर विश्लेषण</string>
+  <string name="computerAnalysisAvailable">कम्प्युटर विश्लेषण उपलब्ध छ</string>
+  <string name="analysis">विश्लेषण बोर्ड</string>
+  <string name="depthX">गहिराइ %s</string>
+  <string name="usingServerAnalysis">सर्भरको विश्लेषण प्रयोग गरिदैं छ</string>
+  <string name="loadingEngine">इन्जिन लोड हुदैछ ...</string>
 </resources>
