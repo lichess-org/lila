@@ -98,4 +98,15 @@
   <string name="enable">सक्षम पार्नुहोस्</string>
   <string name="bestMoveArrow">उत्कृष्ट चालको तीर</string>
   <string name="evaluationGauge">मुल्यांकन गेज</string>
+  <string name="multipleLines">थप लाइनहरु</string>
+  <string name="cpus">CPU संख्या</string>
+  <string name="memory">स्मृति</string>
+  <string name="infiniteAnalysis">अनन्त विश्लेषण</string>
+  <string name="removesTheDepthLimit">गहिराइको हद हटाएर कम्प्युटर तातो राख्छ</string>
+  <string name="blunder">ठुलो भुल</string>
+  <string name="blunders">ठुला भुलहरु</string>
+  <string name="mistake">सानो भुल</string>
+  <string name="mistakes">साना भुलहरु</string>
+  <string name="inaccuracy">धेरै सानो भुल</string>
+  <string name="inaccuracies">धेरै साना भुलहरु</string>
 </resources>
