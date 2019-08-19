@@ -18,7 +18,10 @@
   <string name="stalemate">चालमाथ</string>
   <string name="white">सेतो</string>
   <string name="black">कालो</string>
+  <string name="createAGame">खेल श्रीजना गर्नुहोस्।</string>
   <string name="whiteIsVictorious">सेतो विजयी भयो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
   <string name="kingInTheCenter">राजा बिचमा</string>
+  <string name="threeChecks">तिनवटा चेकहरु।</string>
+  <string name="raceFinished">दौड सकियो।</string>
 </resources>
