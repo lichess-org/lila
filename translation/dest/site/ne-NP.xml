@@ -109,4 +109,28 @@
   <string name="mistakes">साना भुलहरु</string>
   <string name="inaccuracy">धेरै सानो भुल</string>
   <string name="inaccuracies">धेरै साना भुलहरु</string>
+  <string name="moveTimes">हरेक चालको समय</string>
+  <string name="flipBoard">बोर्ड फर्काउनुहोस्</string>
+  <string name="threefoldRepetition">तेस्रो दोहोर्याई</string>
+  <string name="claimADraw">बराबरीको दावी गर्नुहोस्</string>
+  <string name="offerDraw">बराबरीको प्रस्ताव राख्नुहोस्</string>
+  <string name="draw">बराबरी</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s खेलाडी</item>
+    <item quantity="other">%s खेलाडीहरू</item>
+  </plurals>
+  <string name="currentGames">हालका खेलहरु</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s खेल</item>
+    <item quantity="other">%s खेलहरु</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s पुस्तकचिनो</item>
+    <item quantity="other">%s पुस्तकचिनाहरु</item>
+  </plurals>
+  <string name="viewInFullSize">पुर्ण आकार हेर्नुहोस्</string>
+  <string name="logOut">साइन आउट गर्नुहोस्</string>
+  <string name="signIn">साईन इन गर्नुहोस</string>
+  <string name="youNeedAnAccountToDoThat">त्यसको लागि तपाईलाई खाता आवश्यक पर्दछ</string>
+  <string name="signUp">दर्ता गर्नुहोस्</string>
 </resources>
