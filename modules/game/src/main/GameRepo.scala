@@ -22,6 +22,7 @@ object GameRepo {
 
   import BSONHandlers._
   import Game.{ ID, BSONFields => F }
+  import Player.holdAlertBSONHandler
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
@@ -218,16 +219,13 @@ object GameRepo {
   def incBookmarks(id: ID, value: Int) =
     coll.update($id(id), $inc(F.bookmarks -> value)).void
 
-  def setHoldAlert(pov: Pov, mean: Int, sd: Int, ply: Option[Int] = None) = {
-    import Player.holdAlertBSONHandler
-    coll.updateField(
-      $id(pov.gameId),
-      s"p${pov.color.fold(0, 1)}.${Player.BSONFields.holdAlert}",
-      Player.HoldAlert(ply = ply | pov.game.turns, mean = mean, sd = sd)
-    ).void
-  }
+  def setHoldAlert(pov: Pov, alert: Player.HoldAlert) = coll.updateField(
+    $id(pov.gameId),
+    s"p${pov.color.fold(0, 1)}.${Player.BSONFields.holdAlert}",
+    alert
+  ).void
 
-  def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
+  def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
 
   private val finishUnsets = $doc(
     F.positionHashes -> true,

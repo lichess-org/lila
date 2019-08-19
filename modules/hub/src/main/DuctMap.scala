@@ -2,13 +2,14 @@ package lila.hub
 
 import com.github.benmanes.caffeine.cache._
 
+import java.util.concurrent.TimeUnit
 import scala.collection.JavaConverters._
 import scala.concurrent.duration.FiniteDuration
-import java.util.concurrent.TimeUnit
 
 final class DuctMap[D <: Duct](
     mkDuct: String => D,
-    accessTimeout: FiniteDuration
+    accessTimeout: FiniteDuration,
+    removalListener: Option[D => Unit] = none
 ) {
 
   def getOrMake(id: String): D = ducts.get(id)
@@ -27,10 +28,21 @@ final class DuctMap[D <: Duct](
 
   def kill(id: String): Unit = ducts invalidate id
 
-  private[this] val ducts: LoadingCache[String, D] =
-    Caffeine.newBuilder()
-      .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
-      .build[String, D](new CacheLoader[String, D] {
-        def load(id: String): D = mkDuct(id)
-      })
+  private[this] val ducts: LoadingCache[String, D] = {
+    val loader = new CacheLoader[String, D] {
+      def load(id: String): D = mkDuct(id)
+    }
+    removalListener match {
+      case None => Caffeine.newBuilder()
+        .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
+        .build[String, D](loader)
+      case Some(removal) =>
+        Caffeine.newBuilder()
+          .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
+          .removalListener(new RemovalListener[String, D] {
+            def onRemoval(id: String, duct: D, cause: RemovalCause): Unit = removal(duct)
+          })
+          .build[String, D](loader)
+    }
+  }
 }
