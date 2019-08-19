@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="ratingX">നിലവാരം: %s</string>
+  <string name="hidden">മറച്ചത്</string>
   <plurals name="playedXTimes">
     <item quantity="one">കളിച്ചത്‌ %s തവണകൾ</item>
     <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
