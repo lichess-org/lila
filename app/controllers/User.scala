@@ -12,7 +12,7 @@ import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
 import lila.common.PimpedJson._
 import lila.common.{ IpAddress, HTTPRequest }
-import lila.game.{ GameRepo, Game => GameModel }
+import lila.game.{ Pov, GameRepo, Game => GameModel }
 import lila.rating.PerfType
 import lila.socket.UserLagCache
 import lila.user.{ User => UserModel, UserRepo }
@@ -26,7 +26,7 @@ object User extends LilaController {
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
-      (GameRepo lastPlayedPlaying user) orElse
+      currentlyPlaying(user) orElse
         (GameRepo lastPlayed user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             Round.watch(pov, userTv = user.some)
@@ -92,7 +92,7 @@ object User extends LilaController {
             )(ctx.body)
             _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
             _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
-            res <- if (HTTPRequest.isSynchronousHttp(ctx.req)) for {
+            res <- if (HTTPRequest isSynchronousHttp ctx.req) for {
               info ← Env.current.userInfo(u, nbs, ctx)
               _ <- Env.team.cached.nameCache preloadMany info.teamIds
               social ← Env.current.socialInfo(u, ctx)
@@ -129,7 +129,7 @@ object User extends LilaController {
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
         ping = env.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
         res <- negotiate(
-          html = !ctx.is(user) ?? GameRepo.lastPlayedPlaying(user) map { pov =>
+          html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
             Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
               .withHeaders(CACHE_CONTROL -> "max-age=5")
           },
@@ -161,6 +161,9 @@ object User extends LilaController {
       Env.history.ratingChartApi(u) map { Ok(_) as JSON }
     }
   }
+
+  private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
+    GameRepo.lastPlayedPlayingId(user.id).flatMap(_ ?? { Env.round.proxy.pov(_, user) })
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,

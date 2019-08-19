@@ -21,7 +21,8 @@ object Dev extends LilaController {
     Env.rating.ratingFactorsSetting,
     Env.api.serviceWorkerSetting,
     Env.plan.donationGoalSetting,
-    Env.rating.deviationIncreaseOverTimeSetting
+    Env.rating.deviationIncreaseOverTimeSetting,
+    Env.round.persistenceSpeedSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

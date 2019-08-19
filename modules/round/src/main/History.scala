@@ -122,11 +122,8 @@ private final class History(
     }
   }
 
-  def enablePersistence: Unit = {
-    if (!persistenceEnabled) {
-      persistenceEnabled = true
-      if (events != null) persist(events)
-    }
+  def persistNow(): Unit = {
+    if (events != null) persist(events)
   }
 }
 
@@ -142,10 +139,10 @@ private object History {
   private final val maxSize = 25
   private final val expireAfterSeconds = 20
 
-  def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
-    load = serverStarting ?? load(coll, gameId, withPersistence),
+  def apply(coll: Coll, deployPersistence: () => Boolean)(gameId: String): History = new History(
+    load = serverStarting ?? load(coll, gameId, deployPersistence()),
     persist = persist(coll, gameId) _,
-    withPersistence = withPersistence
+    deployPersistence = deployPersistence
   )
 
   private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)

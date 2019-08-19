@@ -36,7 +36,8 @@ final class Env(
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors
+    ratingFactors: () => lila.rating.RatingFactors,
+    settingStore: lila.memo.SettingStore.Builder
 ) {
 
   private val settings = new {
@@ -60,6 +61,12 @@ final class Env(
   private val moveTimeChannel = new lila.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
+  val persistenceSpeedSetting = settingStore[Int](
+    "persistenceSpeed",
+    default = -1,
+    text = "Force round persistence of games which speed is higher than".some
+  )
+
   private val deployPersistence = new DeployPersistence(system)
 
   private lazy val roundDependencies = RoundDuct.Dependencies(
@@ -71,15 +78,14 @@ final class Env(
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketMap = socketMap,
-    deployPersistence = deployPersistence
+    socketMap = socketMap
   )
   val roundMap = new lila.hub.DuctMap[RoundDuct](
     mkDuct = id => {
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )(new GameProxy(id, deployPersistence.isEnabled))
+      )(new GameProxy(id, deployPersistence.isEnabled, persistenceSpeedSetting.get))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
@@ -110,10 +116,20 @@ final class Env(
     bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
-  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
-    roundMap.getOrMake(gameId).getGame addEffect { g =>
-      if (!g.isDefined) roundMap kill gameId
-    }
+  object proxy {
+
+    def game(gameId: Game.ID): Fu[Option[Game]] =
+      roundMap.getOrMake(gameId).getGame addEffect { g =>
+        if (!g.isDefined) roundMap kill gameId
+      }
+
+    def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
+      game(gameId) map { _ flatMap { Pov(_, user) } }
+
+    def updateIfPresent(game: Game): Fu[Game] =
+      if (game.finishedOrAborted) fuccess(game)
+      else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+  }
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>
     system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
@@ -122,9 +138,8 @@ final class Env(
   }
 
   val socketMap = SocketMap.make(
-    makeHistory = History(db(CollectionHistory)) _,
+    makeHistory = History(db(CollectionHistory), deployPersistence.isEnabled _) _,
     socketTimeout = SocketTimeout,
-    deployPersistence = deployPersistence,
     dependencies = RoundSocket.Dependencies(
       system = system,
       lightUser = lightUser,
@@ -288,6 +303,7 @@ object Env {
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
-    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
+    settingStore = lila.memo.Env.current.settingStore
   )
 }

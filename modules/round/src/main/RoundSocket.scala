@@ -146,7 +146,7 @@ private[round] final class RoundSocket(
 
     case d: Deploy =>
       onDeploy(d)
-      history.enablePersistence
+      history.persistNow()
 
     case BotConnected(color, v) =>
       playerDo(color, _ setBotConnected v)

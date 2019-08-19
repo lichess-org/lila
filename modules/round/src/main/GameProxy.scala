@@ -4,7 +4,11 @@ import chess.Color
 import lila.game.{ Game, GameDiff, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
 
-private final class GameProxy(id: Game.ID, alwaysPersist: () => Boolean) {
+private final class GameProxy(
+    id: Game.ID,
+    alwaysPersist: () => Boolean,
+    persistIfSpeedIdHigherThan: () => Int
+) {
 
   def game: Fu[Option[Game]] = cache
 
@@ -44,8 +48,9 @@ private final class GameProxy(id: Game.ID, alwaysPersist: () => Boolean) {
 
   private def shouldPersist(p: Progress) =
     alwaysPersist() ||
-      // (!p.game.hasAi && p.game.speed > chess.Speed.UltraBullet) ||
-      p.statusChanged
+      p.game.isSimul ||
+      p.statusChanged ||
+      p.game.speed.id > persistIfSpeedIdHigherThan()
 
   private[this] var cache: Fu[Option[Game]] = fetch
 

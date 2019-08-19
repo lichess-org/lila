@@ -7,10 +7,10 @@ import lila.forum.MiniForumPost
 import lila.game.{ Game, Pov, GameRepo }
 import lila.playban.TempBan
 import lila.simul.Simul
+import lila.streamer.LiveStreams
 import lila.timeline.Entry
 import lila.tournament.{ Tournament, Winner }
 import lila.tv.Tv
-import lila.streamer.LiveStreams
 import lila.user.LightUserApi
 import lila.user.User
 import play.api.libs.json._
@@ -25,8 +25,11 @@ final class Preload(
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
-    lightUserApi: LightUserApi
+    lightUserApi: LightUserApi,
+    roundProxyPov: (Game.ID, User) => Fu[Option[Pov]]
 ) {
+
+  import Preload._
 
   private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int, List[Pov])
 
@@ -50,37 +53,42 @@ final class Preload(
       (ctx.userId ?? getPlayban) zip
       (ctx.blind ?? ctx.me ?? GameRepo.urgentGames) flatMap {
         case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
-          val currentGame = ctx.me ?? Preload.currentGameMyTurn(povs, lightUserApi.sync) _
-          lightUserApi.preloadMany {
-            tWinners.map(_.userId) :::
-              posts.flatMap(_.userId) :::
-              entries.flatMap(_.userIds).toList
-          } inject
-            (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), blindGames)
+          (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _) flatMap { currentGame =>
+            lightUserApi.preloadMany {
+              tWinners.map(_.userId) :::
+                posts.flatMap(_.userId) :::
+                entries.flatMap(_.userIds).toList
+            } inject
+              (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), blindGames)
+          }
       }
+
+  def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
+    GameRepo.playingRealtimeNoAi(user, 10).flatMap {
+      _.map { roundProxyPov(_, user) }.sequenceFu.map(_.flatten)
+    } flatMap {
+      currentGameMyTurn(_, lightUserApi.sync)(user)
+    }
+
+  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
+    ~povs.collectFirst {
+      case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
+        roundProxyPov(p1.gameId, user) map (_ | p1) map { pov =>
+          val opponent = lila.game.Namer.playerText(pov.opponent)(lightUser)
+          CurrentGame(
+            pov = pov,
+            opponent = opponent,
+            json = Json.obj(
+              "id" -> pov.gameId,
+              "color" -> pov.color.name,
+              "opponent" -> opponent
+            )
+          ).some
+        }
+    }
 }
 
 object Preload {
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
-
-  def currentGameMyTurn(lightUser: lila.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
-    GameRepo.playingRealtimeNoAi(user, 10) map {
-      currentGameMyTurn(_, lightUser)(user)
-    }
-
-  private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
-    povs.collectFirst {
-      case pov if pov.game.nonAi && pov.game.hasClock && pov.isMyTurn =>
-        val opponent = lila.game.Namer.playerText(pov.opponent)(lightUser)
-        CurrentGame(
-          pov = pov,
-          opponent = opponent,
-          json = Json.obj(
-            "id" -> pov.gameId,
-            "color" -> pov.color.name,
-            "opponent" -> opponent
-          )
-        )
-    }
 }

@@ -24,7 +24,7 @@ object Round extends LilaController with TheftPrevention {
           val userTv = get("userTv") map UserModel.normalize map { userId =>
             lila.round.actorApi.UserTv(
               userId,
-              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
+              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlayingId(userId).map(_.isDefined)
             )
           }
           env.socketHandler.watcher(
@@ -159,11 +159,11 @@ object Round extends LilaController with TheftPrevention {
   }
 
   private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? { c =>
-    env.roundProxyGame(gameId) map2 { (g: GameModel) => g pov c }
+    env.proxy.game(gameId) map2 { (g: GameModel) => g pov c }
   }
   private def proxyPov(fullId: String): Fu[Option[Pov]] = {
     val ref = PlayerRef(fullId)
-    env.roundProxyGame(ref.gameId) map {
+    env.proxy.game(ref.gameId) map {
       _ flatMap { _ playerIdPov ref.playerId }
     }
   }
