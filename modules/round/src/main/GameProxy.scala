@@ -14,12 +14,11 @@ private final class GameProxy(
 
   def save(progress: Progress): Funit = {
     set(progress.game)
-    shouldPersist(progress) ?? GameRepo.save(progress)
-  }
-
-  def saveDiff(progress: Progress, diff: GameDiff.Diff): Funit = {
-    set(progress.game)
-    shouldPersist(progress) ?? GameRepo.saveDiff(progress.origin, diff)
+    diffType(progress) match {
+      case GameProxy.Skip => funit
+      case GameProxy.Update => GameRepo.update(progress, false)
+      case GameProxy.Save => GameRepo.update(progress, true)
+    }
   }
 
   def invalidating(f: GameRepo.type => Funit): Funit = f(GameRepo) >>- invalidate
@@ -46,11 +45,10 @@ private final class GameProxy(
 
   // internals
 
-  private def shouldPersist(p: Progress) =
-    alwaysPersist() ||
-      p.game.isSimul ||
-      p.statusChanged ||
-      p.game.speed.id > persistIfSpeedIdHigherThan()
+  private def diffType(p: Progress) =
+    if (alwaysPersist() || p.game.isSimul || p.game.speed.id > persistIfSpeedIdHigherThan()) GameProxy.Update
+    else if (p.statusChanged) GameProxy.Save
+    else GameProxy.Skip
 
   private[this] var cache: Fu[Option[Game]] = fetch
 
@@ -60,4 +58,9 @@ private final class GameProxy(
 object GameProxy {
 
   type Save = Progress => Funit
+
+  sealed trait DiffType
+  case object Skip extends DiffType
+  case object Update extends DiffType
+  case object Save extends DiffType
 }
