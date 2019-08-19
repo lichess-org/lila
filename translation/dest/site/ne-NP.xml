@@ -61,6 +61,8 @@
   <string name="deleteFromHere">यहाँबाट मेट्नुहोस्</string>
   <string name="forceVariation">हांगा बनाउनुहोस्</string>
   <string name="move">चाल</string>
+  <string name="variantLoss">परिमार्जन मा हार्</string>
+  <string name="variantWin">परिमार्जन मा जीत</string>
   <string name="insufficientMaterial">अपर्याप्त सामग्री</string>
   <string name="pawnMove">प्युसाको चाल</string>
   <string name="capture">खाने चाल</string>
@@ -82,4 +84,8 @@
   <string name="noGameFound">कुनैपनि खेल भेट्टिएनन्</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">चयनको सुचिबाट अरु खेलहरु पनि छान्ने कि?</string>
   <string name="openingExplorer">प्रारम्भिक चाल अन्वेषक</string>
+  <string name="xOpeningExplorer">%s प्रारम्भिक चाल अन्वेषक</string>
+  <string name="winPreventedBy50MoveRule">५० चालको नियमबाट जीत रोकियो</string>
+  <string name="lossSavedBy50MoveRule">५० चालको नियमबाट हार बच्यो</string>
+  <string name="allSet">तयारी पूरा!</string>
 </resources>
