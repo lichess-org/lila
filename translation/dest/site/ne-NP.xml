@@ -175,4 +175,13 @@
     <item quantity="one">स्थान हरेक मिनट अध्यावधिक गरिन्छ।</item>
     <item quantity="other">स्थान हरेक %s मिनेटमा अध्यावधिक गरिन्छ।</item>
   </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s प्रशिक्षण</item>
+    <item quantity="other">%s प्रशिक्षण</item>
+  </plurals>
+  <string name="gamesPlayed">खेल संख्या</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">तपाई सँग खेलेको %s खेल</item>
+    <item quantity="other">तपाइसँग खेलिएका %s खेलहरु</item>
+  </plurals>
 </resources>
