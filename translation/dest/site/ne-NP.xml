@@ -18,6 +18,7 @@
   <string name="stalemate">चालमाथ</string>
   <string name="white">सेतो</string>
   <string name="black">कालो</string>
+  <string name="randomColor">गोलाप्रथाद्वारा पक्ष निर्धारण</string>
   <string name="createAGame">खेल श्रीजना गर्नुहोस्।</string>
   <string name="whiteIsVictorious">सेतो विजयी भयो</string>
   <string name="blackIsVictorious">कालो विजयी भयो</string>
@@ -74,4 +75,11 @@
   <string name="recentGames">पछिल्लो खेलहरु</string>
   <string name="topGames">शीर्ष खेलहरू</string>
   <string name="masterDbExplanation">%2$s देखि %3$s सम्म बोर्डमै खेलिएका %1$s+ फिडे रेटिङ भएका खेलाडीहरु बीचको बिस लाख खेलहरु</string>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">अर्को खाने वा प्युसा चाल्ने %s अर्धचालमा (५० चालको गिन्ती फेरि शुरु हुने दूरी)</item>
+    <item quantity="other">अर्को खाने वा प्युसा चाल्ने %s अर्धचालहरुमा (५० चालको गिन्ती फेरि शुरु हुने दूरी)</item>
+  </plurals>
+  <string name="noGameFound">कुनैपनि खेल भेट्टिएनन्</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">चयनको सुचिबाट अरु खेलहरु पनि छान्ने कि?</string>
+  <string name="openingExplorer">प्रारम्भिक चाल अन्वेषक</string>
 </resources>
