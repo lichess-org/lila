@@ -21,7 +21,6 @@ object Dev extends LilaController {
     Env.rating.ratingFactorsSetting,
     Env.api.serviceWorkerSetting,
     Env.plan.donationGoalSetting,
-    Env.rating.deviationIncreaseOverTimeSetting,
     Env.round.persistenceSpeedSetting
   )
 
