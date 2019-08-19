@@ -32,4 +32,13 @@
   <string name="blackPlays">कालोको चाल</string>
   <string name="opponentLeftChoices">अर्को खेलाडीले खेल छोडेको हुन सक्दछ। तपाई जीत दाबि गर्न, बराबरी घोषणा गर्न, वा प्रतिक्षा गर्न सक्नुहुनेछ।</string>
   <string name="makeYourOpponentResign">तपाइको प्रतिद्वन्द्वीलाई खेल त्याग गर्न लगाउनुहोस्</string>
+  <string name="forceResignation">जीत दाबि गर्नुहोस्</string>
+  <string name="forceDraw">बराबरी घोषणा गर्नुहोस्</string>
+  <string name="talkInChat">बार्तालाप मा भलाद्मी हुनुहोस्!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">यो युआरएल् मा आउने पहिलो व्यक्ति तपाइसँग खेल्नेछ।</string>
+  <string name="whiteResigned">सेतोले खेल त्याग गर्यो</string>
+  <string name="blackResigned">कालोले खेल त्याग गर्यो</string>
+  <string name="whiteLeftTheGame">सेतोले खेल छोड्यो</string>
+  <string name="blackLeftTheGame">कालोले खेल छोड्यो</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">दर्शकहरुलाई को यो खेल देखाउन यो युआरएल दिनुहोस्</string>
 </resources>
