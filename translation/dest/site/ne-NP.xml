@@ -50,4 +50,7 @@
   <string name="depthX">गहिराइ %s</string>
   <string name="usingServerAnalysis">सर्भरको विश्लेषण प्रयोग गरिदैं छ</string>
   <string name="loadingEngine">इन्जिन लोड हुदैछ ...</string>
+  <string name="cloudAnalysis">क्लाउड विश्लेषण</string>
+  <string name="goDeeper">गहिराइ बढाउनुहोस्</string>
+  <string name="showThreat">खतरा देखाउनुहोस्</string>
 </resources>
