@@ -34,7 +34,7 @@ object Pref extends LidraughtsController {
     def onSuccess(data: lidraughts.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
-      err => forms.pref.bindFromRequest(lidraughts.pref.FormCompatLayer(ctx.body)).fold(
+      err => forms.pref.bindFromRequest(lidraughts.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
         err => BadRequest(err.toString).fuccess,
         onSuccess
       ),
