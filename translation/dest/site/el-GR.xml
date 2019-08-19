@@ -465,6 +465,7 @@
   <string name="pleaseVotePuzzle">Βελτιώστε το lichess με την ψήφο σας, πατώντας το πάνω ή κάτω βελάκι:</string>
   <string name="thankYou">Ευχαριστούμε!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
+  <string name="hidden">κρυμμένο</string>
   <plurals name="playedXTimes">
     <item quantity="one">Παίχτηκε %s φορά</item>
     <item quantity="other">Παίχτηκε %s φορές</item>
@@ -627,6 +628,8 @@
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
+  <string name="displayBoardResizeHandle">Εμφάνιση χειρισμού για αλλαγή μεγέθους της σκακιέρας</string>
+  <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
   <string name="whiteCastlingKingside">Λευκά Ο-Ο</string>
