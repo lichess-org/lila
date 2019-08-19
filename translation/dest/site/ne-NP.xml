@@ -24,4 +24,7 @@
   <string name="kingInTheCenter">राजा बिचमा</string>
   <string name="threeChecks">तिनवटा चेकहरु।</string>
   <string name="raceFinished">दौड सकियो।</string>
+  <string name="variantEnding">प्रकारको अन्त्य।</string>
+  <string name="newOpponent">नयाँ प्रतिद्वन्द्वी</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">तपाईंको प्रतिद्वन्द्वी तपाइसँग अर्को खेल खेल्न चहान्छन्।</string>
 </resources>
