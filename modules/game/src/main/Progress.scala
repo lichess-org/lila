@@ -16,6 +16,8 @@ case class Progress(origin: Game, game: Game, events: List[Event] = Nil) {
   def ++(es: List[Event]) = copy(events = events ::: es)
 
   def withGame(g: Game) = copy(game = g)
+
+  def statusChanged = origin.status != game.status
 }
 
 object Progress {

@@ -10,27 +10,25 @@ private object SocketMap {
   def make(
     makeHistory: (String, Boolean) => History,
     dependencies: RoundSocket.Dependencies,
+    deployPersistence: DeployPersistence,
     socketTimeout: FiniteDuration
   ): SocketMap = {
 
-    var historyPersistenceEnabled = false
-
     import dependencies._
-    val bus = system.lidraughtsBus
 
     lazy val socketMap: SocketMap = lidraughts.socket.SocketMap[RoundSocket](
       system = system,
       mkTrouper = (id: Game.ID) => new RoundSocket(
         dependencies = dependencies,
         gameId = id,
-        history = makeHistory(id, historyPersistenceEnabled),
+        history = makeHistory(id, deployPersistence.isEnabled),
         keepMeAlive = () => socketMap touch id
       ),
       accessTimeout = socketTimeout,
       monitoringName = "round.socketMap",
       broomFrequency = 4001 millis
     )
-    bus.subscribeFuns(
+    system.lidraughtsBus.subscribeFuns(
       'startGame -> {
         case msg: lidraughts.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
       },

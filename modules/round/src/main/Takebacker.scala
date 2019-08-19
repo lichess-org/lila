@@ -3,6 +3,7 @@ package lidraughts.round
 import draughts.format.Forsyth
 import lidraughts.game.{ Event, Game, GameRepo, Pov, Progress, Rewind, UciMemo }
 import lidraughts.pref.{ Pref, PrefApi }
+import RoundDuct.TakebackSituation
 
 private final class Takebacker(
     messenger: Messenger,
@@ -11,7 +12,7 @@ private final class Takebacker(
     bus: lidraughts.common.Bus
 ) {
 
-  def yes(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = IfAllowed(pov.game) {
+  def yes(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
       case Pov(game, color) if pov.opponent.isProposingTakeback => {
         if (pov.opponent.proposeTakebackAt == game.turns) rewindUntilPly(game, game.displayTurns - (if (game.situation.ghosts == 0 || game.turnColor != color) 1 else 2), pov.opponent.color)
@@ -31,7 +32,7 @@ private final class Takebacker(
     }
   }
 
-  def no(situation: Round.TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, Round.TakebackSituation)] = pov match {
+  def no(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = pov match {
     case Pov(game, color) if pov.player.isProposingTakeback => proxy.save {
       messenger.system(game, _.takebackPropositionCanceled)
       Progress(game) map { g => g.updatePlayer(color, _.removeTakebackProposition) }

@@ -11,7 +11,7 @@ import lidraughts.game.{ Game, GameRepo, Pov }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ Abort, Resign, AnalysisComplete }
 import lidraughts.hub.actorApi.socket.HasUserId
-import lidraughts.hub.actorApi.{ DeployPost, Announce }
+import lidraughts.hub.actorApi.{ Announce, DeployPost }
 
 final class Env(
     config: Config,
@@ -60,7 +60,9 @@ final class Env(
   private val moveTimeChannel = new lidraughts.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
-  private lazy val roundDependencies = Round.Dependencies(
+  private val deployPersistence = new DeployPersistence(system)
+
+  private lazy val roundDependencies = RoundDuct.Dependencies(
     messenger = messenger,
     takebacker = takebacker,
     moretimer = moretimer,
@@ -69,14 +71,15 @@ final class Env(
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketMap = socketMap
+    socketMap = socketMap,
+    deployPersistence = deployPersistence
   )
   val roundMap = new lidraughts.hub.DuctMap[RoundDuct](
     mkDuct = id => {
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )
+      )(new GameProxy(id, deployPersistence.isEnabled))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
@@ -88,7 +91,7 @@ final class Env(
       case Tell(id, msg) => roundMap.tell(id, msg)
     },
     'deploy -> {
-      case DeployPost => roundMap.tellAll(DeployPost)
+      case DeployPost => roundMap tellAll DeployPost
     },
     'accountClose -> {
       case lidraughts.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
@@ -124,6 +127,7 @@ final class Env(
   val socketMap = SocketMap.make(
     makeHistory = History(db(CollectionHistory)) _,
     socketTimeout = SocketTimeout,
+    deployPersistence = deployPersistence,
     dependencies = RoundSocket.Dependencies(
       system = system,
       lightUser = lightUser,

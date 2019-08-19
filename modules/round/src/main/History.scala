@@ -19,7 +19,7 @@ import VersionedEvent.EpochSeconds
 private final class History(
     load: Fu[List[VersionedEvent]],
     persist: ArrayDeque[VersionedEvent] => Unit,
-    withPersistence: Boolean
+    deployPersistence: () => Boolean
 ) {
   import History.Types._
 
@@ -98,7 +98,7 @@ private final class History(
         veBuff += ve
         vnext.inc
     }
-    if (persistenceEnabled) persist(events)
+    if (deployPersistence()) persist(events)
     veBuff.result
   }
 
@@ -128,8 +128,6 @@ private final class History(
       versionHolder = Option(events.peekLast).fold(SocketVersion(0))(_.version)
     }
   }
-
-  private var persistenceEnabled = withPersistence
 
   def enablePersistence: Unit = {
     if (!persistenceEnabled) {

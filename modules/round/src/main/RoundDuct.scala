@@ -18,16 +18,14 @@ import lidraughts.socket.UserLagCache
 import makeTimeout.large
 
 private[round] final class RoundDuct(
-    dependencies: Round.Dependencies,
+    dependencies: RoundDuct.Dependencies,
     gameId: Game.ID
-) extends Duct {
+)(implicit proxy: GameProxy) extends Duct {
 
-  import Round._
+  import RoundDuct._
   import dependencies._
 
-  private[this] implicit val proxy = new GameProxy(gameId)
-
-  private[this] var takebackSituation: Option[Round.TakebackSituation] = None
+  private[this] var takebackSituation: Option[TakebackSituation] = None
 
   def getGame: Fu[Option[Game]] = proxy.game
 
@@ -302,7 +300,7 @@ private[round] final class RoundDuct(
   }
 }
 
-object Round {
+object RoundDuct {
 
   private[round] case class Dependencies(
       messenger: Messenger,
