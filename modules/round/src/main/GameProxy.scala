@@ -20,7 +20,7 @@ private final class GameProxy(
 
   def save(progress: Progress): Funit = {
     set(progress.game)
-    dirtyProgress = dirtyProgress.fold(progress)(_ >> progress).some
+    dirtyProgress = dirtyProgress.fold(progress.dropEvents)(_ withGame progress.game).some
     if (shouldFlushProgress(progress)) flushProgress
     else fuccess(scheduleFlushProgress)
   }

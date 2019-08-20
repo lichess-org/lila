@@ -153,8 +153,9 @@ case class Game(
     }
   }
 
+  // apply a move
   def update(
-    game: ChessGame,
+    game: ChessGame, // new chess position
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     moveMetrics: MoveMetrics = MoveMetrics()
