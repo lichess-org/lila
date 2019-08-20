@@ -68,19 +68,19 @@ object Tv {
       name = "Top Rated",
       icon = "C",
       secondsSinceLastMove = freshBlitz,
-      filters = Seq(rated(2000), standard, noBot)
+      filters = Seq(rated(2150), standard, noBot)
     )
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
       secondsSinceLastMove = 35,
-      filters = Seq(speed(S.Bullet), rated(1900), standard, noBot)
+      filters = Seq(speed(S.Bullet), rated(2000), standard, noBot)
     )
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
       secondsSinceLastMove = freshBlitz,
-      filters = Seq(speed(S.Blitz), rated(1900), standard, noBot)
+      filters = Seq(speed(S.Blitz), rated(2000), standard, noBot)
     )
     case object Rapid extends Channel(
       name = S.Rapid.name,
@@ -92,7 +92,7 @@ object Tv {
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
       secondsSinceLastMove = 60 * 8,
-      filters = Seq(speed(S.Classical), rated(1600), standard, noBot)
+      filters = Seq(speed(S.Classical), rated(1650), standard, noBot)
     )
     case object Chess960 extends Channel(
       name = V.Chess960.name,
