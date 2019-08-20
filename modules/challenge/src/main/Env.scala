@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lidraughts.game.Game
 import lidraughts.hub.TrouperMap
 import lidraughts.socket.Socket.{ SocketVersion, GetVersion }
 import lidraughts.user.User
@@ -11,7 +12,7 @@ import lidraughts.user.User
 final class Env(
     config: Config,
     system: ActorSystem,
-    onStart: String => Unit,
+    onStart: Game.ID => Unit,
     gameCache: lidraughts.game.Cached,
     lightUser: lidraughts.common.LightUser.GetterSync,
     isOnline: lidraughts.user.User.ID => Boolean,
@@ -90,7 +91,7 @@ object Env {
   lazy val current: Env = "challenge" boot new Env(
     config = lidraughts.common.PlayApp loadConfig "challenge",
     system = lidraughts.common.PlayApp.system,
-    onStart = lidraughts.game.Env.current.onStart,
+    onStart = lidraughts.round.Env.current.onStart,
     hub = lidraughts.hub.Env.current,
     gameCache = lidraughts.game.Env.current.cached,
     lightUser = lidraughts.user.Env.current.lightUserSync,

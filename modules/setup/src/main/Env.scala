@@ -45,7 +45,7 @@ object Env {
     config = lidraughts.common.PlayApp loadConfig "setup",
     db = lidraughts.db.Env.current,
     draughtsnetPlayer = lidraughts.draughtsnet.Env.current.player,
-    onStart = lidraughts.game.Env.current.onStart,
+    onStart = lidraughts.round.Env.current.onStart,
     prefApi = lidraughts.pref.Env.current.api,
     relationApi = lidraughts.relation.Env.current.api,
     gameCache = lidraughts.game.Env.current.cached,

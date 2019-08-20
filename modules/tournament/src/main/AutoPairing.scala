@@ -7,7 +7,7 @@ import lidraughts.user.User
 
 final class AutoPairing(
     duelStore: DuelStore,
-    onStart: String => Unit
+    onStart: Game.ID => Unit
 ) {
 
   def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User], ranking: Ranking): Fu[Game] = {

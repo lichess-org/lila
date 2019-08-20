@@ -6,8 +6,7 @@ import lidraughts.hub.FutureSequencer
 
 final class Env(
     system: akka.actor.ActorSystem,
-    playbanApi: lidraughts.playban.PlaybanApi,
-    onStart: String => Unit
+    playbanApi: lidraughts.playban.PlaybanApi
 ) {
 
   private lazy val hookThieve = new HookThieve(system.lidraughtsBus)
@@ -22,7 +21,7 @@ final class Env(
 
   private lazy val gameStarter = new GameStarter(
     bus = system.lidraughtsBus,
-    onStart = onStart,
+    onStart = gameId => system.lidraughtsBus.publish(gameId, 'gameStartId),
     sequencer = new FutureSequencer(
       system = system,
       executionTimeout = 5.seconds.some,
@@ -35,7 +34,6 @@ object Env {
 
   lazy val current: Env = "pool" boot new Env(
     system = lidraughts.common.PlayApp.system,
-    playbanApi = lidraughts.playban.Env.current.api,
-    onStart = lidraughts.game.Env.current.onStart
+    playbanApi = lidraughts.playban.Env.current.api
   )
 }

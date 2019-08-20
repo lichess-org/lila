@@ -174,7 +174,7 @@ object Env {
     draughtsnetCommentator = lidraughts.draughtsnet.Env.current.commentator,
     roundMap = lidraughts.round.Env.current.roundMap,
     lightUser = lidraughts.user.Env.current.lightUser,
-    onGameStart = lidraughts.game.Env.current.onStart,
+    onGameStart = lidraughts.round.Env.current.onStart,
     isOnline = lidraughts.user.Env.current.isOnline,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
     proxyGame = lidraughts.round.Env.current.proxy.game _

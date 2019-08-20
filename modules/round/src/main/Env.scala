@@ -28,7 +28,6 @@ final class Env(
     notifyApi: lidraughts.notify.NotifyApi,
     uciMemo: lidraughts.game.UciMemo,
     rematch960Cache: lidraughts.memo.ExpireSetMemo,
-    onStart: String => Unit,
     divider: lidraughts.game.Divider,
     prefApi: lidraughts.pref.PrefApi,
     historyApi: lidraughts.history.HistoryApi,
@@ -105,6 +104,9 @@ final class Env(
           roundMap.tell(pov.gameId, Resign(pov.playerId))
         }
       }
+    },
+    'gameStartId -> {
+      case gameId: String => onStart(gameId)
     }
   )
 
@@ -250,6 +252,15 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
+  def onStart(gameId: Game.ID): Unit = proxy game gameId foreach {
+    _ foreach { game =>
+      bus.publish(lidraughts.game.actorApi.StartGame(game), 'startGame)
+      game.userIds foreach { userId =>
+        bus.publish(lidraughts.game.actorApi.UserStartGame(userId, game), Symbol(s"userStartGame:$userId"))
+      }
+    }
+  }
+
   MoveMonitor.start(system, moveTimeChannel)
 
   system.actorOf(
@@ -300,7 +311,6 @@ object Env {
     notifyApi = lidraughts.notify.Env.current.api,
     uciMemo = lidraughts.game.Env.current.uciMemo,
     rematch960Cache = lidraughts.game.Env.current.cached.rematch960,
-    onStart = lidraughts.game.Env.current.onStart,
     divider = lidraughts.game.Env.current.divider,
     prefApi = lidraughts.pref.Env.current.api,
     historyApi = lidraughts.history.Env.current.api,

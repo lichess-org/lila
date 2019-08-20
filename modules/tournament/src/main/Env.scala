@@ -216,7 +216,7 @@ object Env {
     roundMap = lidraughts.round.Env.current.roundMap,
     lightUserApi = lidraughts.user.Env.current.lightUserApi,
     isOnline = lidraughts.user.Env.current.isOnline,
-    onStart = lidraughts.game.Env.current.onStart,
+    onStart = lidraughts.round.Env.current.onStart,
     historyApi = lidraughts.history.Env.current.api,
     trophyApi = lidraughts.user.Env.current.trophyApi,
     notifyApi = lidraughts.notify.Env.current.api,
