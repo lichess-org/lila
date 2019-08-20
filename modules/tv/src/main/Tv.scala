@@ -54,70 +54,88 @@ object Tv {
     }
   )
 
-  sealed abstract class Channel(val name: String, val icon: String, filters: Seq[Candidate => Boolean]) {
-    def filter(c: Candidate) = filters forall { _(c) }
+  sealed abstract class Channel(
+      val name: String,
+      val icon: String,
+      val secondsSinceLastMove: Int,
+      filters: Seq[Candidate => Boolean]
+  ) {
+    def isFresh(g: Game): Boolean = fresh(secondsSinceLastMove, g)
+    def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
     val key = toString.head.toLower + toString.drop(1)
   }
   object Channel {
     case object Best extends Channel(
       name = "Top Rated",
       icon = "C",
-      filters = Seq(rated, standard, freshBlitz, noBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(rated(2000), standard, noBot)
     )
     case object Bullet extends Channel(
       name = S.Bullet.name,
       icon = P.Bullet.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Bullet), fresh(40), noBot)
+      secondsSinceLastMove = 35,
+      filters = Seq(speed(S.Bullet), rated(1900), standard, noBot)
     )
     case object Blitz extends Channel(
       name = S.Blitz.name,
       icon = P.Blitz.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Blitz), freshBlitz, noBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(speed(S.Blitz), rated(1900), standard, noBot)
     )
     case object Rapid extends Channel(
       name = S.Rapid.name,
       icon = P.Rapid.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Rapid), fresh(60 * 5), noBot)
+      secondsSinceLastMove = 60 * 5,
+      filters = Seq(speed(S.Rapid), rated(1800), standard, noBot)
     )
     case object Classical extends Channel(
       name = S.Classical.name,
       icon = P.Classical.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.Classical), fresh(60 * 8), noBot)
+      secondsSinceLastMove = 60 * 8,
+      filters = Seq(speed(S.Classical), rated(1600), standard, noBot)
     )
     case object Frisian extends Channel(
       name = V.Frisian.name,
       icon = P.Frisian.iconChar.toString,
-      filters = Seq(variant(V.Frisian), freshBlitz, noBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(variant(V.Frisian), noBot)
     )
     case object Frysk extends Channel(
       name = V.Frysk.name,
       icon = P.Frysk.iconChar.toString,
-      filters = Seq(variant(V.Frysk), freshBlitz, noBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(variant(V.Frysk), noBot)
     )
     case object Antidraughts extends Channel(
       name = V.Antidraughts.name,
       icon = P.Antidraughts.iconChar.toString,
-      filters = Seq(variant(V.Antidraughts), freshBlitz, noBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(variant(V.Antidraughts), noBot)
     )
     case object Breakthrough extends Channel(
       name = V.Breakthrough.name,
       icon = P.Breakthrough.iconChar.toString,
-      filters = Seq(variant(V.Breakthrough), freshBlitz, noBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(variant(V.Breakthrough), noBot)
     )
     case object UltraBullet extends Channel(
       name = S.UltraBullet.name,
       icon = P.UltraBullet.iconChar.toString,
-      filters = Seq(rated, standard, speed(S.UltraBullet), fresh(20), noBot)
+      secondsSinceLastMove = 20,
+      filters = Seq(speed(S.UltraBullet), rated(1600), standard, noBot)
     )
     case object Bot extends Channel(
       name = "Bot",
       icon = "n",
-      filters = Seq(standard, freshBlitz, hasBot)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(standard, hasBot)
     )
     case object Computer extends Channel(
       name = "Computer",
       icon = "n",
-      filters = Seq(computerFromInitialPosition, freshBlitz)
+      secondsSinceLastMove = freshBlitz,
+      filters = Seq(computerFromInitialPosition)
     )
     val visible = List(
       Best,
@@ -130,17 +148,19 @@ object Tv {
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
-  private def rated = (c: Candidate) => c.game.rated
+  private def rated(min: Int) = (c: Candidate) => c.game.rated && hasMinRating(c.game, min)
   private def speed(speed: draughts.Speed) = (c: Candidate) => c.game.speed == speed
   private def variant(variant: draughts.variant.Variant) = (c: Candidate) => c.game.variant == variant
   private val standard = variant(V.Standard)
-  private def fresh(seconds: Int) = (c: Candidate) => {
-    c.game.isBeingPlayed && !c.game.olderThan(seconds)
-  } || {
-    c.game.finished && !c.game.olderThan(7)
-  } // rematch time
-  private val freshBlitz = fresh(60 * 2)
+  private val freshBlitz = 60 * 2
   private def computerFromInitialPosition(c: Candidate) = c.game.hasAi && !c.game.fromPosition
   private def hasBot(c: Candidate) = c.hasBot
   private def noBot(c: Candidate) = !c.hasBot
+
+  private def fresh(seconds: Int, game: Game): Boolean = {
+    game.isBeingPlayed && !game.olderThan(seconds)
+  } || {
+    game.finished && !game.olderThan(7)
+  } // rematch time
+  private def hasMinRating(g: Game, min: Int) = g.players.exists(_.rating.exists(_ >= min))
 }
