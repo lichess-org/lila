@@ -9,14 +9,17 @@ import lidraughts.evaluation.{ Display, PlayerAssessment }
 import lidraughts.game.{ Game, GameRepo, Rewind }
 import lidraughts.pref.Pref
 import lidraughts.user.User
-
 import Simul.ShowFmjdRating
 
-final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean) {
+final class JsonView(
+    getLightUser: LightUser.Getter,
+    isOnline: String => Boolean,
+    proxyGame: Game.ID => Fu[Option[Game]]
+) {
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
-    else GameRepo gamesFromPrimary simul.gameIds
+    else simul.gameIds.map(proxyGame).sequenceFu.map(_.flatten)
 
   private def fetchEvals(games: List[Game]) =
     games map { game =>

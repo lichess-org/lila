@@ -4,7 +4,8 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lidraughts.hub.{ Duct, DuctMap, TrouperMap }
+import lidraughts.game.Game
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.socket.History
 import lidraughts.socket.Socket.{ GetVersion, SocketVersion }
 
@@ -20,7 +21,8 @@ final class Env(
     lightUser: lidraughts.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
-    asyncCache: lidraughts.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val CollectionSimul = config getString "collection.simul"
@@ -52,7 +54,7 @@ final class Env(
 
   lazy val crudApi = new crud.CrudApi(repo)
 
-  lazy val jsonView = new JsonView(lightUser, isOnline)
+  lazy val jsonView = new JsonView(lightUser, isOnline, proxyGame)
 
   private val socketMap: SocketMap = lidraughts.socket.SocketMap[Socket](
     system = system,
@@ -174,6 +176,7 @@ object Env {
     lightUser = lidraughts.user.Env.current.lightUser,
     onGameStart = lidraughts.game.Env.current.onStart,
     isOnline = lidraughts.user.Env.current.isOnline,
-    asyncCache = lidraughts.memo.Env.current.asyncCache
+    asyncCache = lidraughts.memo.Env.current.asyncCache,
+    proxyGame = lidraughts.round.Env.current.proxy.game _
   )
 }

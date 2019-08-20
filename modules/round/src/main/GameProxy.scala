@@ -37,10 +37,10 @@ private final class GameProxy(
     cache = fuccess(game.some)
   }
 
-  private[round] def reloadFinishedGame: Unit = {
+  private[round] def setFinishedGame(game: Game): Unit = {
     scheduledFlush.cancel()
+    set(game)
     dirtyProgress = none
-    cache = fetch
   }
 
   // convenience helpers
@@ -84,7 +84,7 @@ object GameProxy {
 
   type Save = Progress => Funit
 
-  private val scheduleDelay = 10.seconds
+  private val scheduleDelay = 15.seconds
 
   private val emptyCancellable = new Cancellable {
     def cancel() = true

@@ -118,6 +118,7 @@ private[round] final class Finisher(
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
               GameRepo game g.id foreach { newGame =>
+                newGame foreach proxy.setFinishedGame
                 bus.publish(finish.copy(game = newGame | g), 'finishGame)
               }
               bus.publish(result, 'resultEvent)
@@ -125,7 +126,7 @@ private[round] final class Finisher(
             }
           }
         }
-  } >>- proxy.reloadFinishedGame
+  }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
