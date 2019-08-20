@@ -146,4 +146,42 @@
   <string name="realTime">वास्तविक समय</string>
   <string name="correspondence">पत्राचार</string>
   <string name="daysPerTurn">दिन प्रति चाल</string>
+  <string name="oneDay">एक दिन</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s दिन</item>
+    <item quantity="other">%s दिन</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s घण्टा</item>
+    <item quantity="other">%s घण्टा</item>
+  </plurals>
+  <string name="time">समय</string>
+  <string name="rating">रेटिङ</string>
+  <string name="ratingStats">रेटिङ तथ्याङ्क</string>
+  <string name="username">प्रयाेगकर्ताकाे नाम</string>
+  <string name="usernameOrEmail">प्रयोगकर्ताको नाम वा इमेल</string>
+  <string name="changeUsername">प्रयोगकर्ताको नाम परिवर्तन गर्नुहोस्</string>
+  <string name="changeUsernameNotSame">अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ। जस्तै: \"johndoe\" बाट \"JohnDoe\"</string>
+  <string name="changeUsernameDescription">तपाइको \"प्रयोगकर्ताको नाम\" परिवर्तन गर्नुहोस्। यो एकपटक मात्र गर्न सक्नुहुनेछ र अक्षरलाई सानो ठुलो मात्र पार्न सकिनेछ।</string>
+  <string name="password">पासवर्ड</string>
+  <string name="changePassword">पासवर्ड बदल्नुहोस्</string>
+  <string name="changeEmail">इमेल बदल्नुहोस्</string>
+  <string name="email">इमेल</string>
+  <string name="passwordReset">पासवर्ड फेरि राख्नुहोस्</string>
+  <string name="forgotPassword">पासवर्ड बिर्सनुभयो?</string>
+  <string name="rank">स्थान</string>
+  <string name="rankX">स्थान: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">स्थान हरेक मिनट अध्यावधिक गरिन्छ।</item>
+    <item quantity="other">स्थान हरेक %s मिनेटमा अध्यावधिक गरिन्छ।</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s प्रशिक्षण</item>
+    <item quantity="other">%s प्रशिक्षण</item>
+  </plurals>
+  <string name="gamesPlayed">खेल संख्या</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">तपाई सँग खेलेको %s खेल</item>
+    <item quantity="other">तपाइसँग खेलिएका %s खेलहरु</item>
+  </plurals>
 </resources>
