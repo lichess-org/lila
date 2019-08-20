@@ -125,7 +125,7 @@ private[round] final class Finisher(
             }
           }
         }
-  } >>- proxy.invalidate
+  } >>- proxy.reloadFinishedGame
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {
