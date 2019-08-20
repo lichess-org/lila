@@ -112,11 +112,6 @@ lazy val evaluation = module("evaluation", Seq(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-// lazy val simulation = module("simulation", Seq(
-//   common, hub, socket, game, tv, round, setup)).settings(
-//   libraryDependencies ++= provided(play.api, reactivemongo.driver)
-// )
-
 lazy val common = module("common", Seq()).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, kamon.core, scalatags) ++ Seq(scaffeine)
 )

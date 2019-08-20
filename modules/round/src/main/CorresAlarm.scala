@@ -8,14 +8,15 @@ import scala.concurrent.duration._
 
 import lila.common.Tellable
 import lila.db.dsl._
-import lila.game.{ GameRepo, Pov }
+import lila.game.{ Game, Pov }
 import lila.hub.actorApi.round.IsOnGame
 import makeTimeout.short
 
 private final class CorresAlarm(
     system: akka.actor.ActorSystem,
     coll: Coll,
-    socketMap: SocketMap
+    socketMap: SocketMap,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private case class Alarm(
@@ -37,7 +38,7 @@ private final class CorresAlarm(
 
   system.lilaBus.subscribeFun('moveEventCorres) {
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
-      GameRepo game move.gameId flatMap {
+      proxyGame(move.gameId) flatMap {
         _ ?? { game =>
           game.bothPlayersHaveMoved ?? {
             game.playableCorrespondenceClock ?? { clock =>
@@ -63,7 +64,7 @@ private final class CorresAlarm(
   )).cursor[Alarm](ReadPreference.secondaryPreferred)
     .enumerator(100, Cursor.ContOnError())
     .|>>>(Iteratee.foldM[Alarm, Int](0) {
-      case (count, alarm) => GameRepo.game(alarm._id).flatMap {
+      case (count, alarm) => proxyGame(alarm._id).flatMap {
         _ ?? { game =>
           val pov = Pov(game, game.turnColor)
           socketMap.ask[Boolean](pov.gameId)(IsOnGame(pov.color, _)) addEffect {

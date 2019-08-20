@@ -6,11 +6,14 @@ import lila.common.LightUser
 import lila.game.{ Game, GameRepo }
 import lila.user.User
 
-final class JsonView(getLightUser: LightUser.Getter) {
+final class JsonView(
+    getLightUser: LightUser.Getter,
+    proxyGame: Game.ID => Fu[Option[Game]]
+) {
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
-    else GameRepo gamesFromPrimary simul.gameIds
+    else simul.gameIds.map(proxyGame).sequenceFu.map(_.flatten)
 
   def apply(simul: Simul, team: Option[SimulTeam]): Fu[JsObject] = for {
     games <- fetchGames(simul)

@@ -280,7 +280,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def resign(fullId: String) = Open { implicit ctx =>
-    OptionFuRedirect(GameRepo pov fullId) { pov =>
+    OptionFuRedirect(proxyPov(fullId)) { pov =>
       if (isTheft(pov)) {
         controllerLogger.warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
         fuccess(routes.Lobby.home)

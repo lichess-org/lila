@@ -253,7 +253,7 @@ final class Env(
     name = "titivate"
   )
 
-  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap)
+  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap, proxy.game _)
 
   private lazy val takebacker = new Takebacker(
     messenger = messenger,

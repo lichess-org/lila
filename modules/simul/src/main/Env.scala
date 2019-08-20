@@ -4,7 +4,8 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.{ Duct, DuctMap, TrouperMap }
+import lila.game.Game
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
@@ -17,7 +18,8 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lila.memo.AsyncCache.Builder,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val CollectionSimul = config getString "collection.simul"
@@ -43,7 +45,7 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val jsonView = new JsonView(lightUser, proxyGame)
 
   private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
     system = system,
@@ -144,6 +146,7 @@ object Env {
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.game.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline,
-    asyncCache = lila.memo.Env.current.asyncCache
+    asyncCache = lila.memo.Env.current.asyncCache,
+    proxyGame = lila.round.Env.current.proxy.game _
   )
 }
