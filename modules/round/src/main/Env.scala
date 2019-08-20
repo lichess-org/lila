@@ -118,7 +118,7 @@ final class Env(
 
   object proxy {
 
-    def game(gameId: Game.ID): Fu[Option[Game]] =
+    def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ??
       roundMap.getOrMake(gameId).getGame addEffect { g =>
         if (!g.isDefined) roundMap kill gameId
       }

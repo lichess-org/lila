@@ -639,6 +639,9 @@ object Game {
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
+  val idRegex = """[\w-]{8}""".r
+  def validId(id: ID) = idRegex matches id
+
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
   private[game] val someEmptyClockHistory = Some(ClockHistory())
