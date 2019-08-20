@@ -109,7 +109,8 @@ final class Env(
     asyncCache = asyncCache,
     duelStore = duelStore,
     pause = pause,
-    lightUserApi = lightUserApi
+    lightUserApi = lightUserApi,
+    proxyGame = proxyGame
   )
 
   lazy val crudApi = new crud.CrudApi
