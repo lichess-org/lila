@@ -75,7 +75,7 @@ object help {
         div(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 400px;" frameborder="0""""
           frag(
-            h1("Embed a draughts analysis in your site"),
+            h1(id := "embed-study")("Embed a draughts analysis in your site"),
             raw(s"""<iframe src="/study/embed/xGDc4tlJ/AqJhrQbk?bg=auto&theme=auto" $args></iframe>"""),
             p("Create ", a(href := routes.Study.allDefault(1))("a study"), ", then click the share button to get the HTML code for the current chapter."),
             parameters,
