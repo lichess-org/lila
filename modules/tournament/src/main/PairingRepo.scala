@@ -64,11 +64,6 @@ object PairingRepo {
       _.flatMap(_.getAs[Game.ID]("_id"))
     }
 
-  def byTourUserNb(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[Option[Pairing]] =
-    (nb > 0) ?? coll.find(
-      selectTourUser(tourId, userId)
-    ).sort(chronoSort).skip(nb - 1).uno[Pairing]
-
   def removeByTour(tourId: Tournament.ID) = coll.remove(selectTour(tourId)).void
 
   def removeByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =

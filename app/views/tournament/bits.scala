@@ -9,19 +9,6 @@ import controllers.routes
 
 object bits {
 
-  def miniGame(pov: lidraughts.game.Pov)(implicit ctx: Context) = frag(
-    gameFen(pov),
-    div(cls := "vstext")(
-      playerUsername(pov.opponent, withRating = true, withTitle = true),
-      br,
-      span(cls := List(
-        "result" -> true,
-        "win" -> ~pov.win,
-        "loss" -> ~pov.loss
-      ))(gameEndStatus(pov.game))
-    )
-  )
-
   def notFound()(implicit ctx: Context) =
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
