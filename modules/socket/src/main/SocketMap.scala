@@ -23,7 +23,7 @@ object SocketMap {
     system.scheduler.schedule(30 seconds, 30 seconds) {
       trouperMap.monitor(monitoringName)
     }
-    system.scheduler.schedule(approximatly(0.1f)(12.seconds.toMillis).millis, broomFrequency) {
+    system.scheduler.schedule(approximatly(0.05f)(12.seconds.toMillis).millis, broomFrequency) {
       trouperMap tellAll actorApi.Broom
     }
     system.lidraughtsBus.subscribeFuns(
