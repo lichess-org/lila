@@ -166,7 +166,7 @@ object Setup extends LidraughtsController with TheftPrevention {
         NoPlaybanOrCurrent {
           for {
             config <- env.forms.hookConfig
-            game <- GameRepo.game(gameId)
+            game <- GameRepo game gameId
             blocking <- ctx.userId ?? Env.relation.api.fetchBlocking
             hookConfig = game.fold(config)(config.updateFrom)
             sameOpponents = game.??(_.userIds)

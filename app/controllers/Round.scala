@@ -146,7 +146,7 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   def next(gameId: String) = Auth { implicit ctx => me =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
+    OptionFuResult(env.proxy game gameId) { currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
