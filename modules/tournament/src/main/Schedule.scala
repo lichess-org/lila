@@ -96,7 +96,7 @@ object Schedule {
   }
 
   sealed abstract class Speed(val id: Int) {
-    def name = toString.toLowerCase
+    val name = lidraughts.common.String lcfirst toString
   }
   object Speed {
     case object UltraBullet extends Speed(5)
@@ -109,7 +109,7 @@ object Schedule {
     case object Classical extends Speed(60)
     val all: List[Speed] = List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(name: String) = all find (_.name == name)
+    def apply(name: String) = all.find(_.name == name) orElse all.find(_.name.toLowerCase == name.toLowerCase)
     def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b => true
