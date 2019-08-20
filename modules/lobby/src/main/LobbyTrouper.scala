@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import actorApi._
 import lidraughts.common.{ Every, AtMost }
 import lidraughts.game.Game
-import lidraughts.game.GameRepo
 import lidraughts.hub.Trouper
 import lidraughts.socket.Socket
 import lidraughts.user.User

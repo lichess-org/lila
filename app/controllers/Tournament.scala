@@ -8,7 +8,6 @@ import lidraughts.api.Context
 import lidraughts.app._
 import lidraughts.chat.Chat
 import lidraughts.common.HTTPRequest
-import lidraughts.game.{ Pov, GameRepo }
 import lidraughts.hub.lightTeam._
 import lidraughts.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lidraughts.user.{ User => UserModel }

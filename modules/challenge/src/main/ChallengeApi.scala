@@ -4,7 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lidraughts.game.{ Game, Pov, GameRepo }
+import lidraughts.game.{ Game, Pov }
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.socket.SendTo
 import lidraughts.user.{ User, UserRepo }

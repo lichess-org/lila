@@ -3,7 +3,7 @@ package lidraughts.round
 import draughts.Color
 import scala.concurrent.duration.FiniteDuration
 
-import lidraughts.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
+import lidraughts.game.{ Game, UciMemo, Pov, Rewind, Event, Progress }
 import lidraughts.pref.{ Pref, PrefApi }
 
 private final class Moretimer(
