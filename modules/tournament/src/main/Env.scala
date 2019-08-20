@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.hub.{ Duct, DuctMap, TrouperMap }
+import lila.game.Game
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
@@ -17,6 +18,7 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
+    proxyGame: Game.ID => Fu[Option[Game]],
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: DuctMap[_],
@@ -121,7 +123,7 @@ final class Env(
     flood = flood
   )
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, verify, duelStore, pause, startedSinceSeconds)
+  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, proxyGame, verify, duelStore, pause, startedSinceSeconds)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 
@@ -211,6 +213,7 @@ object Env {
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
+    proxyGame = lila.round.Env.current.proxy.game _,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
