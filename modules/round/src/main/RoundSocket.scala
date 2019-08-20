@@ -12,7 +12,7 @@ import actorApi._
 import lila.chat.Chat
 import lila.common.LightUser
 import lila.game.actorApi.{ StartGame, UserStartGame }
-import lila.game.{ Game, GameRepo, Event }
+import lila.game.{ Game, Event }
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
@@ -22,6 +22,7 @@ import lila.hub.Trouper
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket
+import lila.user.User
 import makeTimeout.short
 
 private[round] final class RoundSocket(
@@ -53,7 +54,7 @@ private[round] final class RoundSocket(
     // connected as a bot
     private var botConnected: Boolean = false
 
-    var userId = none[String]
+    var userId = none[User.ID]
 
     def ping: Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
@@ -66,7 +67,7 @@ private[round] final class RoundSocket(
     private def isBye = bye > 0
 
     private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
-      lilaBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
+      lilaBus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
     def isGone: Fu[Boolean] = {
@@ -84,7 +85,7 @@ private[round] final class RoundSocket(
   private val blackPlayer = new Player(Black)
 
   buscriptions.subAll
-  GameRepo game gameId map SetGame.apply foreach this.!
+  getGame(gameId) map SetGame.apply foreach this.!
 
   override def stop(): Unit = {
     buscriptions.unsubAll
@@ -111,7 +112,7 @@ private[round] final class RoundSocket(
       tournament
     }
 
-    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
+    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: User.ID) =>
       sub(Symbol(s"userStartGame:$userId"))
     }
 
@@ -338,7 +339,8 @@ object RoundSocket {
       lightUser: LightUser.Getter,
       sriTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration
+      ragequitTimeout: FiniteDuration,
+      getGame: Game.ID => Fu[Option[Game]]
   ) {
 
     def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =

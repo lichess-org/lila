@@ -145,7 +145,8 @@ final class Env(
       lightUser = lightUser,
       sriTtl = SocketSriTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
-      ragequitTimeout = PlayerRagequitTimeout
+      ragequitTimeout = PlayerRagequitTimeout,
+      getGame = proxy.game _
     )
   )
 
