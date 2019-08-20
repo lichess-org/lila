@@ -3,10 +3,13 @@ package lidraughts.push
 import akka.actor._
 import com.typesafe.config.Config
 
+import lidraughts.game.Game
+
 final class Env(
     config: Config,
     db: lidraughts.db.Env,
     getLightUser: lidraughts.common.LightUser.GetterSync,
+    gameProxy: Game.ID => Fu[Option[Game]],
     scheduler: lidraughts.common.Scheduler,
     system: ActorSystem
 ) {
@@ -44,6 +47,7 @@ final class Env(
     oneSignalPush,
     webPush,
     getLightUser,
+    gameProxy,
     bus = system.lidraughtsBus,
     scheduler = scheduler
   )
@@ -66,6 +70,7 @@ object Env {
     db = lidraughts.db.Env.current,
     system = lidraughts.common.PlayApp.system,
     getLightUser = lidraughts.user.Env.current.lightUserSync,
+    gameProxy = lidraughts.round.Env.current.proxy.game _,
     scheduler = lidraughts.common.PlayApp.scheduler,
     config = lidraughts.common.PlayApp loadConfig "push"
   )
