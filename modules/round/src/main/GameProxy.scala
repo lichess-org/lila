@@ -37,7 +37,7 @@ private final class GameProxy(
     cache = fuccess(game.some)
   }
 
-  private[round] def invalidate: Unit = {
+  private[round] def reloadFinishedGame: Unit = {
     scheduledFlush.cancel()
     dirtyProgress = none
     cache = fetch
