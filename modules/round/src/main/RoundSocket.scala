@@ -12,7 +12,7 @@ import actorApi._
 import lidraughts.chat.Chat
 import lidraughts.common.LightUser
 import lidraughts.game.actorApi.{ SimulNextGame, StartGame, UserStartGame }
-import lidraughts.game.{ Game, GameRepo, Event }
+import lidraughts.game.{ Game, Event }
 import lidraughts.hub.actorApi.Deploy
 import lidraughts.hub.actorApi.game.ChangeFeatured
 import lidraughts.hub.actorApi.round.{ IsOnGame, TourStanding, SimulStanding }
@@ -22,6 +22,7 @@ import lidraughts.hub.Trouper
 import lidraughts.socket._
 import lidraughts.socket.actorApi.{ Connected => _, _ }
 import lidraughts.socket.Socket
+import lidraughts.user.User
 import makeTimeout.short
 
 private[round] final class RoundSocket(
@@ -54,7 +55,7 @@ private[round] final class RoundSocket(
     // connected as a bot
     private var botConnected: Boolean = false
 
-    var userId = none[String]
+    var userId = none[User.ID]
 
     def ping: Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
@@ -67,7 +68,7 @@ private[round] final class RoundSocket(
     private def isBye = bye > 0
 
     private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
-      lidraughtsBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
+      lidraughtsBus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
     def isGone: Fu[Boolean] = {
@@ -85,7 +86,7 @@ private[round] final class RoundSocket(
   private val blackPlayer = new Player(Black)
 
   buscriptions.subAll
-  GameRepo game gameId map SetGame.apply foreach this.!
+  getGame(gameId) map SetGame.apply foreach this.!
 
   override def stop(): Unit = {
     buscriptions.unsubAll
@@ -113,7 +114,7 @@ private[round] final class RoundSocket(
       simul
     }
 
-    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
+    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: User.ID) =>
       sub(Symbol(s"userStartGame:$userId"))
       sub(Symbol(s"simulNextGame:$userId"))
     }
@@ -364,7 +365,8 @@ object RoundSocket {
       lightUser: LightUser.Getter,
       uidTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration
+      ragequitTimeout: FiniteDuration,
+      getGame: Game.ID => Fu[Option[Game]]
   ) {
 
     def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
