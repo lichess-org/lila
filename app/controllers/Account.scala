@@ -52,7 +52,7 @@ object Account extends LidraughtsController {
         relationEnv.api.countFollowers(me.id) zip
           relationEnv.api.countFollowing(me.id) zip
           Env.pref.api.getPref(me) zip
-          lidraughts.game.GameRepo.urgentGames(me) zip
+          Env.round.proxy.urgentGames(me) zip
           Env.challenge.api.countInFor.get(me.id) zip
           Env.playban.api.currentBan(me.id) map {
             case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
@@ -90,7 +90,7 @@ object Account extends LidraughtsController {
   }
 
   private def doNowPlaying(me: lidraughts.user.User, req: RequestHeader) =
-    lidraughts.game.GameRepo.urgentGames(me) map { povs =>
+    Env.round.proxy.urgentGames(me) map { povs =>
       val nb = (getInt("nb", req) | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
     }

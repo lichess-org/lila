@@ -22,7 +22,7 @@ object Auth extends LidraughtsController {
   private def forms = env.forms
 
   private def mobileUserOk(u: UserModel, sessionId: String): Fu[Result] =
-    lidraughts.game.GameRepo urgentGames u map { povs =>
+    Env.round.proxy urgentGames u map { povs =>
       Ok {
         Env.user.jsonView(u) ++ Json.obj(
           "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),

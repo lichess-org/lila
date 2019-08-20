@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lidraughts.common.paginator.{ Paginator, PaginatorJson }
 import lidraughts.common.{ MaxPerSecond, LightUser }
 import lidraughts.db.dsl._
-import lidraughts.game.GameRepo
+import lidraughts.game.Pov
 import lidraughts.user.{ UserRepo, User, Title }
 
 private[api] final class UserApi(
@@ -24,7 +24,8 @@ private[api] final class UserApi(
     isPlaying: User.ID => Boolean,
     isOnline: User.ID => Boolean,
     recentTitledUserIds: () => Iterable[User.ID],
-    makeUrl: String => String
+    makeUrl: String => String,
+    urgentGames: User => Fu[List[Pov]]
 )(implicit system: akka.actor.ActorSystem) {
 
   def pagerJson(pag: Paginator[User]): JsObject =
@@ -72,7 +73,7 @@ private[api] final class UserApi(
       )
     }
     else {
-      GameRepo mostUrgentGame u zip
+      urgentGames(u).map(_.headOption) zip
         (as.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
         relationApi.countFollowing(u.id) zip
         relationApi.countFollowers(u.id) zip

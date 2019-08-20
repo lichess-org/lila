@@ -12,6 +12,7 @@ import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.round.{ Abort, Resign, AnalysisComplete }
 import lidraughts.hub.actorApi.socket.HasUserId
 import lidraughts.hub.actorApi.{ Announce, DeployPost }
+import lidraughts.user.User
 
 final class Env(
     config: Config,
@@ -142,6 +143,22 @@ final class Env(
 
     def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
       roundMap.getIfPresent(gameId).??(_.getGame)
+
+    private def unsortedPovs(user: User) = GameRepo urgentPovsUnsorted user flatMap {
+      _.map { pov =>
+        gameIfPresent(pov.gameId) map { _.fold(pov)(pov.withGame) }
+      }.sequenceFu
+    }
+
+    def urgentGames(user: User): Fu[List[Pov]] = unsortedPovs(user) map { povs =>
+      try { povs sortWith Pov.priority }
+      catch { case e: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+    }
+
+    def urgentGamesSeq(user: User): Fu[List[Pov]] = unsortedPovs(user) map { povs =>
+      try { povs.sortBy(_.game.metadata.simulPairing.getOrElse(Int.MaxValue)) }
+      catch { case e: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+    }
   }
 
   def setAnalysedIfPresent(gameId: Game.ID) =

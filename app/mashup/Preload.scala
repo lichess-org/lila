@@ -27,7 +27,8 @@ final class Preload(
     lobbyApi: lidraughts.api.LobbyApi,
     getPlayban: String => Fu[Option[TempBan]],
     lightUserApi: LightUserApi,
-    roundProxyPov: (Game.ID, User) => Fu[Option[Pov]]
+    roundProxyPov: (Game.ID, User) => Fu[Option[Pov]],
+    urgentGames: User => Fu[List[Pov]]
 ) {
 
   import Preload._
@@ -56,7 +57,7 @@ final class Preload(
       (ctx.noBot ?? dailyPuzzle()) zip
       liveStreams().dmap(_.autoFeatured withTitles lightUserApi) zip
       (ctx.userId ?? getPlayban) zip
-      (ctx.blind ?? ctx.me ?? GameRepo.urgentGames) flatMap {
+      (ctx.blind ?? ctx.me ?? urgentGames) flatMap {
         case (data, povs) ~ posts ~ tours ~ events ~ relays ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
           (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _) flatMap { currentGame =>
             lightUserApi.preloadMany {

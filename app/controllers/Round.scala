@@ -105,7 +105,7 @@ object Round extends LidraughtsController with TheftPrevention {
   private def orInf(i: Option[Int]) = i getOrElse Int.MaxValue
 
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
-    GameRepo urgentGames user map {
+    Env.round.proxy urgentGames user map {
       _ filter { pov =>
         pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
@@ -113,7 +113,7 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   private def otherPovsSeq(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
-    GameRepo urgentGamesSeq user map {
+    Env.round.proxy urgentGamesSeq user map {
       _ filter { pov =>
         pov.game.id != game.id && pov.game.isSwitchable && pov.game.isSimul && game.isSimul && pov.game.metadata.simulId == game.metadata.simulId
       }

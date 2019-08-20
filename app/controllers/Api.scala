@@ -289,7 +289,7 @@ object Api extends LidraughtsController {
   }
 
   def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { req => me =>
-    lidraughts.game.GameRepo.urgentGames(me) flatMap { povs =>
+    Env.round.proxy.urgentGames(me) flatMap { povs =>
       Env.challenge.api.createdByDestId(me.id) map { challenges =>
         jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
       }
