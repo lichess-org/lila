@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ Game, GameRepo, Pov, PlayerRef }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.socket.HasUserId
@@ -128,6 +128,14 @@ final class Env(
     def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
       game(gameId) map { _ flatMap { Pov(_, user) } }
 
+    def pov(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+      game(gameId) map2 { (g: Game) => Pov(g, color) }
+
+    def pov(fullId: Game.ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
+
+    def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
+      game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
+
     def updateIfPresent(game: Game): Fu[Game] =
       if (game.finishedOrAborted) fuccess(game)
       else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
@@ -155,7 +163,7 @@ final class Env(
     )
   )
 
-  lazy val selfReport = new SelfReport(roundMap, slackApi)
+  lazy val selfReport = new SelfReport(roundMap, slackApi, proxy.pov)
 
   lazy val recentTvGames = new {
     val fast = new lila.memo.ExpireSetMemo(7 minutes)

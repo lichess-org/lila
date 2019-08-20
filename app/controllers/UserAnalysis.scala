@@ -120,7 +120,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     import lila.round.Forecast
-    OptionFuResult(GameRepo pov fullId) { pov =>
+    OptionFuResult(Env.round.proxy pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
       else ctx.body.body.validate[Forecast.Steps].fold(
         err => BadRequest(err.toString).fuccess,
@@ -137,20 +137,18 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     import lila.round.Forecast
-    OptionFuResult(GameRepo pov fullId) { pov =>
+    OptionFuResult(Env.round.proxy pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
-      else {
-        ctx.body.body.validate[Forecast.Steps].fold(
-          err => BadRequest(err.toString).fuccess,
-          forecasts => {
-            def wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-            Env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
-              Env.current.scheduler.after(wait.millis) {
-                Ok(Json.obj("reload" -> true))
-              }
-          }
-        )
-      }
+      else ctx.body.body.validate[Forecast.Steps].fold(
+        err => BadRequest(err.toString).fuccess,
+        forecasts => {
+          val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
+          Env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+            Env.current.scheduler.after(wait.millis) {
+              Ok(Json.obj("reload" -> true))
+            }
+        }
+      )
     }
   }
 

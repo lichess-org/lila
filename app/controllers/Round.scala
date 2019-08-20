@@ -43,7 +43,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    proxyPov(fullId) flatMap {
+    env.proxy.pov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else getSocketSri("sri") match {
@@ -94,7 +94,7 @@ object Round extends LilaController with TheftPrevention {
   ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(proxyPov(fullId)) { pov =>
+    OptionFuResult(env.proxy.pov(fullId)) { pov =>
       env.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
@@ -114,7 +114,7 @@ object Round extends LilaController with TheftPrevention {
     }
 
   def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(proxyPov(fullId)) { currentPov =>
+    OptionFuResult(env.proxy.pov(fullId)) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
         Ok(Json.obj("nope" -> true))
       }
@@ -158,14 +158,8 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? { c =>
-    env.proxy.game(gameId) map2 { (g: GameModel) => g pov c }
-  }
-  private def proxyPov(fullId: String): Fu[Option[Pov]] = {
-    val ref = PlayerRef(fullId)
-    env.proxy.game(ref.gameId) map {
-      _ flatMap { _ playerIdPov ref.playerId }
-    }
+  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? {
+    env.proxy.pov(gameId, _)
   }
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
@@ -241,7 +235,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+    OptionFuResult(proxyPov(gameId, color)) { pov =>
       (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
         (pov.game.simulId ?? Env.simul.repo.find) zip
         GameRepo.initialFen(pov.game) zip
@@ -280,7 +274,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def resign(fullId: String) = Open { implicit ctx =>
-    OptionFuRedirect(proxyPov(fullId)) { pov =>
+    OptionFuRedirect(env.proxy.pov(fullId)) { pov =>
       if (isTheft(pov)) {
         controllerLogger.warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
         fuccess(routes.Lobby.home)

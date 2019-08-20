@@ -27,7 +27,7 @@ object User extends LilaController {
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(UserRepo named username) { user =>
       currentlyPlaying(user) orElse
-        (GameRepo lastPlayed user) flatMap {
+        GameRepo.lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
             Round.watch(pov, userTv = user.some)
           }

@@ -281,21 +281,18 @@ final class TournamentApi(
     }
 
   def berserk(gameId: Game.ID, userId: User.ID): Unit =
-    GameRepo tournamentId gameId foreach {
-      _ foreach { tourId =>
-        Sequencing(tourId)(TournamentRepo.startedById) { tour =>
-          PairingRepo.findPlaying(tour.id, userId) flatMap {
-            case Some(pairing) if !pairing.berserkOf(userId) =>
-              (pairing povRef userId) ?? { povRef =>
-                proxyGame(povRef.gameId) flatMap {
-                  _.exists(_.berserkable) ?? {
-                    PairingRepo.setBerserk(pairing, userId) >>- {
-                      roundMap.tell(povRef.gameId, GoBerserk(povRef.color))
-                    }
-                  }
+    proxyGame(gameId) foreach {
+      _.filter(_.berserkable) foreach { game =>
+        game.tournamentId foreach { tourId =>
+          Sequencing(tourId)(TournamentRepo.startedById) { tour =>
+            PairingRepo.findPlaying(tour.id, userId) flatMap {
+              case Some(pairing) if !pairing.berserkOf(userId) =>
+                (pairing colorOf userId) ?? { color =>
+                  PairingRepo.setBerserk(pairing, userId) >>-
+                    roundMap.tell(gameId, GoBerserk(color))
                 }
-              }
-            case _ => funit
+              case _ => funit
+            }
           }
         }
       }
