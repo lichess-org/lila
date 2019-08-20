@@ -6,7 +6,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lidraughts.common.{ Lang, LightUser }
-import lidraughts.game.{ GameRepo, LightPov, Game }
+import lidraughts.game.{ LightPov, Game }
 import lidraughts.hub.lightTeam._
 import lidraughts.pref.Pref
 import lidraughts.quote.Quote.quoteWriter
@@ -20,6 +20,7 @@ final class JsonView(
     statsApi: TournamentStatsApi,
     shieldApi: TournamentShieldApi,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
+    proxyGame: Game.ID => Fu[Option[Game]],
     verify: Condition.Verify,
     duelStore: DuelStore,
     pause: Pause,
@@ -181,7 +182,7 @@ final class JsonView(
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =
     tour.featuredId.ifTrue(tour.isStarted) ?? PairingRepo.byId flatMap {
       _ ?? { pairing =>
-        GameRepo game pairing.gameId flatMap {
+        proxyGame(pairing.gameId) flatMap {
           _ ?? { game =>
             cached ranking tour flatMap { ranking =>
               PlayerRepo.pairByTourAndUserIds(tour.id, pairing.user1, pairing.user2) map { pairOption =>
