@@ -216,7 +216,7 @@ object Env {
     roundMap = lila.round.Env.current.roundMap,
     lightUserApi = lila.user.Env.current.lightUserApi,
     isOnline = lila.user.Env.current.isOnline,
-    onStart = lila.game.Env.current.onStart,
+    onStart = lila.round.Env.current.onStart,
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,

@@ -28,7 +28,6 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
-    onStart: String => Unit,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
@@ -105,6 +104,9 @@ final class Env(
           roundMap.tell(pov.gameId, Resign(pov.playerId))
         }
       }
+    },
+    'gameStartId -> {
+      case gameId: String => onStart(gameId)
     }
   )
 
@@ -246,6 +248,15 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
+  def onStart(gameId: Game.ID): Unit = proxy game gameId foreach {
+    _ foreach { game =>
+      bus.publish(lila.game.actorApi.StartGame(game), 'startGame)
+      game.userIds foreach { userId =>
+        bus.publish(lila.game.actorApi.UserStartGame(userId, game), Symbol(s"userStartGame:$userId"))
+      }
+    }
+  }
+
   MoveMonitor.start(system, moveTimeChannel)
 
   system.actorOf(
@@ -296,7 +307,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
-    onStart = lila.game.Env.current.onStart,
     divider = lila.game.Env.current.divider,
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,

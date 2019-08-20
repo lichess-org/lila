@@ -144,7 +144,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUser,
-    onGameStart = lila.game.Env.current.onStart,
+    onGameStart = lila.round.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
     proxyGame = lila.round.Env.current.proxy.game _
