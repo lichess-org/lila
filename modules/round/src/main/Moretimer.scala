@@ -3,7 +3,7 @@ package lila.round
 import chess.Color
 import scala.concurrent.duration.FiniteDuration
 
-import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
+import lila.game.{ Game, UciMemo, Pov, Rewind, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 
 private final class Moretimer(

@@ -10,7 +10,7 @@ import lila.chat.Chat
 import lila.chat.UserLine
 import lila.game.Event.ReloadOwner
 import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 import lila.round.actorApi.round.{ DrawNo, DrawYes }
