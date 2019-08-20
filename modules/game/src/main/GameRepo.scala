@@ -346,17 +346,6 @@ object GameRepo {
     initialFen(game) map { game -> _ }
   }.sequenceFu
 
-  def featuredCandidates: Fu[List[Game]] = coll.list[Game](
-    Query.playable ++ Query.clock(true) ++ $doc(
-      F.createdAt $gt (DateTime.now minusMinutes 4),
-      F.movedAt $gt (DateTime.now minusSeconds 40)
-    ) ++ $or(
-        s"${F.whitePlayer}.${Player.BSONFields.rating}" $gt 1200,
-        s"${F.blackPlayer}.${Player.BSONFields.rating}" $gt 1200
-      )
-  )
-  // def featuredCandidates: Fu[List[Game]] = coll.find($empty).skip(util.Random nextInt 10000).list[Game](50)
-
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 
   def nbPerDay(days: Int): Fu[List[Int]] =

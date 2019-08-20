@@ -131,6 +131,9 @@ final class Env(
     def updateIfPresent(game: Game): Fu[Game] =
       if (game.finishedOrAborted) fuccess(game)
       else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+
+    def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
+      roundMap.getIfPresent(gameId).??(_.getGame)
   }
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>

@@ -14,7 +14,7 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     lightUser: lila.common.LightUser.GetterSync,
-    roundProxyGame: Game.ID => Fu[Option[Game]],
+    proxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
     onSelect: Game => Unit
 ) {
@@ -29,10 +29,11 @@ final class Env(
     hub.renderer,
     selectChannel,
     lightUser,
-    onSelect
+    onSelect,
+    proxyGame
   )
 
-  lazy val tv = new Tv(tvTrouper, roundProxyGame)
+  lazy val tv = new Tv(tvTrouper, proxyGame)
 
   system.scheduler.schedule(10 seconds, FeaturedSelect) {
     tvTrouper ! TvTrouper.Select
@@ -46,7 +47,7 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUserSync,
-    roundProxyGame = lila.round.Env.current.proxy.game _,
+    proxyGame = lila.round.Env.current.proxy.gameIfPresent _,
     system = lila.common.PlayApp.system,
     onSelect = lila.round.Env.current.recentTvGames.put _
   )
