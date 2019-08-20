@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import chess.{ Color, White, Black }
+import chess.{ Color, White, Black, Speed }
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
@@ -35,6 +35,7 @@ private[round] final class RoundSocket(
 
   private var hasAi = false
   private var mightBeSimul = true // until proven false
+  private var gameSpeed: Option[Speed] = none
   private var chatIds = RoundSocket.ChatIds(
     priv = Chat.Id(gameId), // until replaced with tourney/simul chat
     pub = Chat.Id(s"$gameId/w")
@@ -69,7 +70,7 @@ private[round] final class RoundSocket(
     }
 
     def isGone: Fu[Boolean] = {
-      time < (nowMillis - (if (isBye) ragequitTimeout else disconnectTimeout).toMillis) &&
+      time < (nowMillis - (if (isBye) ragequitTimeout else gameDisconnectTimeout(gameSpeed)).toMillis) &&
         !botConnected
     } ?? !isHostingSimul
 
@@ -138,6 +139,7 @@ private[round] final class RoundSocket(
         tournamentId = tourId.some
         buscriptions.tournament
       }
+      gameSpeed = game.speed.some
 
     // from lilaBus 'startGame
     // sets definitive user ids
@@ -337,5 +339,13 @@ object RoundSocket {
       sriTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
       ragequitTimeout: FiniteDuration
-  )
+  ) {
+
+    def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
+      disconnectTimeout * speed.fold(1) {
+        case Speed.Classical => 3
+        case Speed.Rapid => 2
+        case _ => 1
+      }
+  }
 }
