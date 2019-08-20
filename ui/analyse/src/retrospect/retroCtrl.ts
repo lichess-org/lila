@@ -34,9 +34,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
 
   function findNextNode(): Tree.Node | undefined {
     const colorModulo = root.bottomIsWhite() ? 1 : 0;
-    candidateNodes = evalSwings(root.mainline, function(n) {
-      return n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply);
-    });
+    candidateNodes = evalSwings(root.mainline, n => n.ply % 2 === colorModulo && !explorerCancelPlies.includes(n.ply));
     return candidateNodes.find(n => !isPlySolved(n.ply));
   };
 
@@ -71,12 +69,10 @@ export function make(root: AnalyseCtrl): RetroCtrl {
       root.explorer.fetchMasterOpening(prev.node.fen).then((res: OpeningData) => {
         const cur = current();
         const ucis: Uci[] = [];
-        res!.moves.forEach(function (m) {
+        res!.moves.forEach(m => {
           if (m.white + m.draws + m.black > 1) ucis.push(m.uci);
         });
-        if (ucis.find(function (uci) {
-          return fault.node.uci === uci;
-        })) {
+        if (ucis.includes(fault.node.uci!)) {
           explorerCancelPlies.push(fault.node.ply);
           setTimeout(jumpToNext, 100);
         } else {
@@ -98,9 +94,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
       return;
     }
     if (isSolving() && cur.fault.node.ply === node.ply) {
-      if (cur.openingUcis.find(function (uci) {
-        return node.uci === uci;
-      })) onWin(); // found in opening explorer
+      if (cur.openingUcis.includes(node.uci)) onWin(); // found in opening explorer
       else if (node.comp) onWin(); // the computer solution line
       else if (node.eval) onFail(); // the move that was played in the game
       else {
@@ -204,6 +198,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
     },
     close: root.toggleRetro,
     trans: root.trans,
+    noarg: root.trans.noarg,
     node: () => root.node,
     variant: root.data.game.variant.key,
     redraw
