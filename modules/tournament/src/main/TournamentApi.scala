@@ -41,7 +41,8 @@ final class TournamentApi(
     duelStore: DuelStore,
     pause: Pause,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
-    lightUserApi: lidraughts.user.LightUserApi
+    lightUserApi: lidraughts.user.LightUserApi,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val bus = system.lidraughtsBus
@@ -321,8 +322,8 @@ final class TournamentApi(
           PairingRepo.findPlaying(tour.id, userId) flatMap {
             case Some(pairing) if !pairing.berserkOf(userId) =>
               (pairing povRef userId) ?? { povRef =>
-                GameRepo pov povRef flatMap {
-                  _.filter(_.game.berserkable) ?? { pov =>
+                proxyGame(povRef.gameId) flatMap {
+                  _.exists(_.berserkable) ?? {
                     PairingRepo.setBerserk(pairing, userId) >>- {
                       roundMap.tell(povRef.gameId, GoBerserk(povRef.color))
                     }
@@ -500,15 +501,11 @@ final class TournamentApi(
       }
   }
 
-  private def fetchGames(tour: Tournament, ids: Seq[Game.ID]): Fu[List[LightGame]] =
-    GameRepo.light gamesFromPrimary ids
-
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
-    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap { ids =>
-      fetchGames(tour, ids) map {
-        _.flatMap { LightPov.ofUserId(_, userId) }
+    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
+      GameRepo.light.gamesFromPrimary map {
+        _ flatMap { LightPov.ofUserId(_, userId) }
       }
-    }
 
   def byOwnerPager(owner: User, page: Int): Fu[Paginator[Tournament]] = Paginator(
     adapter = TournamentRepo.byOwnerAdapter(owner.id),
