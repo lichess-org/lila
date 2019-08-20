@@ -1,10 +1,11 @@
 package lidraughts.round
 
 import lidraughts.common.IpAddress
-import lidraughts.user.{ User, UserRepo }
+import lidraughts.game.Pov
 import lidraughts.hub.DuctMap
+import lidraughts.user.{ User, UserRepo }
 
-final class SelfReport(roundMap: DuctMap[RoundDuct]) {
+final class SelfReport(roundMap: DuctMap[RoundDuct], proxyPov: String => Fu[Option[Pov]]) {
 
   private val whitelist = Set("")
 
@@ -24,7 +25,7 @@ final class SelfReport(roundMap: DuctMap[RoundDuct]) {
         s"$ip https://lidraughts.org/$fullId ${user.fold("anon")(_.id)} $name"
       )
       if (fullId == "________") fuccess(doLog)
-      else lidraughts.game.GameRepo pov fullId map {
+      else proxyPov(fullId) map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {

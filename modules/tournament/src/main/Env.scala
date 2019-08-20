@@ -214,7 +214,7 @@ object Env {
     db = lidraughts.db.Env.current,
     mongoCache = lidraughts.memo.Env.current.mongoCache,
     asyncCache = lidraughts.memo.Env.current.asyncCache,
-    proxyGame = lila.round.Env.current.proxy.game _,
+    proxyGame = lidraughts.round.Env.current.proxy.game _,
     flood = lidraughts.security.Env.current.flood,
     hub = lidraughts.hub.Env.current,
     roundMap = lidraughts.round.Env.current.roundMap,

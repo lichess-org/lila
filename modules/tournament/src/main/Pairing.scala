@@ -1,7 +1,7 @@
 package lidraughts.tournament
 
 import draughts.Color
-import lidraughts.game.{ PovRef, IdGenerator, Game }
+import lidraughts.game.{ IdGenerator, Game }
 import lidraughts.user.User
 
 case class Pairing(
@@ -49,9 +49,6 @@ case class Pairing(
     if (userId == user1) berserk1
     else if (userId == user2) berserk2
     else false
-
-  def povRef(userId: User.ID): Option[PovRef] =
-    colorOf(userId) map { PovRef(gameId, _) }
 
   def similar(other: Pairing) = other.contains(user1, user2)
 }
