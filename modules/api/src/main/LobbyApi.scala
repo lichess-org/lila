@@ -2,7 +2,7 @@ package lila.api
 
 import play.api.libs.json.{ Json, JsObject, JsArray }
 
-import lila.game.{ GameRepo, Pov }
+import lila.game.Pov
 import lila.lobby.SeekApi
 import lila.pool.JsonView.poolConfigJsonWriter
 import lila.setup.FilterConfig
@@ -12,14 +12,15 @@ final class LobbyApi(
     getFilter: UserContext => Fu[FilterConfig],
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
-    pools: List[lila.pool.PoolConfig]
+    pools: List[lila.pool.PoolConfig],
+    urgentGames: lila.user.User => Fu[List[Pov]]
 ) {
 
   val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
-      (ctx.me ?? GameRepo.urgentGames) zip
+      (ctx.me ?? urgentGames) zip
       getFilter(ctx) flatMap {
         case seeks ~ povs ~ filter =>
           val displayedPovs = povs take 9

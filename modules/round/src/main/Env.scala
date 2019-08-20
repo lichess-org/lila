@@ -12,6 +12,7 @@ import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.socket.HasUserId
 import lila.hub.actorApi.{ Announce, DeployPost }
+import lila.user.User
 
 final class Env(
     config: Config,
@@ -142,6 +143,15 @@ final class Env(
 
     def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
       roundMap.getIfPresent(gameId).??(_.getGame)
+
+    def urgentGames(user: User): Fu[List[Pov]] = GameRepo urgentPovsUnsorted user flatMap {
+      _.map { pov =>
+        gameIfPresent(pov.gameId) map { _.fold(pov)(pov.withGame) }
+      }.sequenceFu map { povs =>
+        try { povs sortWith Pov.priority }
+        catch { case e: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+      }
+    }
   }
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>

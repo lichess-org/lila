@@ -152,19 +152,11 @@ object GameRepo {
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
     ))
 
-  def urgentGames(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map { games =>
-      val povs = games flatMap { Pov(_, user) }
-      try {
-        povs sortWith Pov.priority
-      } catch {
-        case e: IllegalArgumentException =>
-          povs sortBy (-_.game.movedAt.getSeconds)
-      }
+  // Use Env.round.proxy.urgentGames to get in-heap states!
+  def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map {
+      _ flatMap { Pov(_, user) }
     }
-
-  // gets most urgent game to play
-  def mostUrgentGame(user: User): Fu[Option[Pov]] = urgentGames(user) map (_.headOption)
 
   def playingRealtimeNoAi(user: User, nb: Int): Fu[List[Game.ID]] =
     coll.distinct[Game.ID, List](F.id, Some(Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true)))
