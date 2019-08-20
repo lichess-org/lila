@@ -94,7 +94,7 @@ case class Domain private (value: String) extends AnyVal with StringValue {
 
 object Domain {
   // https://stackoverflow.com/a/26987741/1744715
-  private val regex = """/^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$/""".r
+  private val regex = """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
   def isValid(str: String) = regex.matches(str)
   def from(str: String): Option[Domain] = isValid(str) option Domain(str)
 
