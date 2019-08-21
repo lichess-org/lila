@@ -395,6 +395,11 @@
   <string name="advancedSettings">उन्नत सेटिङहरू</string>
   <string name="safeTournamentName">प्रतियोगिताको लागि एउटा असाध्यै सभ्य नाम रोजौं।</string>
   <string name="inappropriateNameWarning">थोरै पनि अवैधानिक भएमा तपाइको खाता नै बन्द गर्न सकिनेछ।</string>
+  <string name="emptyTournamentName">खाली राखेमा कुनै ग्र्याण्डमास्टरको नाम आफै राखिनेछ।</string>
+  <string name="recommendNotTouching">यीनलाई नछुने सल्लाह दिईन्छ।</string>
+  <string name="fewerPlayers">यस्ता प्रावधानहरू राख्दा प्रतियोगितामा खेलाडीको संख्या कम हुन जान्छ।</string>
+  <string name="showAdvancedSettings">उन्नत सेटिङहरू देखाऔं</string>
+  <string name="join">भाग लिनुहोस्</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
   <string name="wins">जित</string>
@@ -445,6 +450,15 @@
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
   <string name="training">प्रशिक्षण</string>
+  <string name="yourPuzzleRatingX">तपाइको प्रशिक्षण रेटिङ: %s</string>
+  <string name="findTheBestMoveForWhite">सेतो को लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
+  <string name="findTheBestMoveForBlack">कालोको लागि सर्वोत्कृष्ट चाल पत्ता लगाऔं।</string>
+  <string name="toTrackYourProgress">तपाइको प्रगति ट्र्याक गर्न:</string>
+  <string name="trainingSignupExplanation">लीचेसले प्रशिक्षण सत्र सुमधुर बनाउन तपाइको स्तर सिंह मिल्ने पजल पस्किइनेछ।</string>
+  <string name="puzzleId">पजल %s</string>
+  <string name="puzzleOfTheDay">आजको पजल</string>
+  <string name="clickToSolve">हल गर्न क्लिक गर्नुहोस्</string>
+  <string name="goodMove">राम्रो चाल</string>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="insult">मानहानी</string>
