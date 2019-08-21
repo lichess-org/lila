@@ -45,11 +45,12 @@ private[tv] final class TvTrouper(
 
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
-    case lila.game.actorApi.StartGame(g) if g.hasClock =>
+    case lila.game.actorApi.StartGame(g) => if (g.hasClock) {
       val candidate = Tv.toCandidate(lightUser)(g)
       channelTroupers collect {
         case (chan, trouper) if chan filter candidate => trouper
       } foreach (_ addCandidate g)
+    }
 
     case s @ TvTrouper.Select => channelTroupers.foreach(_._2 ! s)
 
