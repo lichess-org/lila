@@ -477,6 +477,10 @@
   <string name="fromGameLink">खेल %s बाट</string>
   <string name="continueTraining">तालीम जारी राखौं</string>
   <string name="retryThisPuzzle">पुनः प्रयास गर्नुहोस्</string>
+  <plurals name="nbGamesInPlay">
+    <item quantity="one">%s खेल जारी</item>
+    <item quantity="other">%s खेलहरु जारी</item>
+  </plurals>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="insult">मानहानी</string>
