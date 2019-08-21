@@ -288,10 +288,10 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(GameRepo.pov(gameId, color))(html.game.bits.mini)
+    OptionOk(chess.Color(color).??(env.proxy.povIfPresent(gameId, _)) orElse GameRepo.pov(gameId, color))(html.game.bits.mini)
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
-    OptionOk(GameRepo pov fullId)(html.game.bits.mini)
+    OptionOk(env.proxy.povIfPresent(fullId) orElse GameRepo.pov(fullId))(html.game.bits.mini)
   }
 }

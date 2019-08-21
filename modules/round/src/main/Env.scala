@@ -144,6 +144,14 @@ final class Env(
     def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
       roundMap.getIfPresent(gameId).??(_.getGame)
 
+    def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+      gameIfPresent(gameId) map2 { (g: Game) => Pov(g, color) }
+
+    def povIfPresent(fullId: Game.ID): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
+
+    def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
+      gameIfPresent(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
+
     def urgentGames(user: User): Fu[List[Pov]] = GameRepo urgentPovsUnsorted user flatMap {
       _.map { pov =>
         gameIfPresent(pov.gameId) map { _.fold(pov)(pov.withGame) }
