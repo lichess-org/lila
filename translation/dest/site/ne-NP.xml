@@ -475,6 +475,8 @@
     <item quantity="other">%s पटक खेल्नुभयो</item>
   </plurals>
   <string name="fromGameLink">खेल %s बाट</string>
+  <string name="continueTraining">तालीम जारी राखौं</string>
+  <string name="retryThisPuzzle">पुनः प्रयास गर्नुहोस्</string>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="insult">मानहानी</string>
