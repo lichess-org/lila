@@ -225,4 +225,22 @@
   <string name="loginToChat">वार्तालाप गर्न साइन इन गर्नुहोस्</string>
   <string name="youHaveBeenTimedOut">तपाईलाई वार्तालाप गर्न निषेध गरिएको छ।</string>
   <string name="spectatorRoom">दर्शक कक्ष</string>
+  <string name="composeMessage">पत्र लेख्नुहोस्</string>
+  <string name="noNewMessages">कुनैं नयाँ संन्देशहरू छैनन्</string>
+  <string name="subject">विषय</string>
+  <string name="recipient">प्रापक</string>
+  <string name="send">पठाउनु</string>
+  <string name="incrementInSeconds">हरेक चालमा थप सेकेण्ड</string>
+  <string name="freeOnlineChess">निःशुल्क अनलाईन बुद्धिचाल</string>
+  <string name="spectators">दर्शकहरु:</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s रेटेड</item>
+    <item quantity="other">%s रेटेड</item>
+  </plurals>
+  <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
+  <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
+  <string name="joiningPolicy">सामेल हुने प्रणाली</string>
+  <string name="teamLeader">टोली नाइके</string>
+  <string name="teamBestPlayers">सर्वोत्कृष्ट खेलाडीहरु</string>
+  <string name="teamRecentMembers">पछिल्ला सदस्हयरु</string>
 </resources>
