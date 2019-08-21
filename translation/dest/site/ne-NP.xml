@@ -190,4 +190,8 @@
   <string name="drawOfferDeclined">बराबरीको प्रस्ताव अस्वीकृत भयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
   <string name="drawOfferCanceled">बराबरीको प्रस्ताव रद्द भयो</string>
+  <string name="whiteOffersDraw">सेतो ले बराबरीको प्रस्ताव गरेको छ</string>
+  <string name="blackOffersDraw">कालोले बराबरीको प्रस्ताव गरेको छ</string>
+  <string name="whiteDeclinesDraw">सेतोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
+  <string name="blackDeclinesDraw">कालोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
 </resources>
