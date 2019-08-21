@@ -194,4 +194,10 @@
   <string name="blackOffersDraw">कालोले बराबरीको प्रस्ताव गरेको छ</string>
   <string name="whiteDeclinesDraw">सेतोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
   <string name="blackDeclinesDraw">कालोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
+  <string name="yourOpponentOffersADraw">तपाइको प्रतिद्वन्दी बाट बराबरीको प्रस्ताव आएको छ</string>
+  <string name="accept">स्वीकार्नुहोस्</string>
+  <string name="decline">अस्वीकार गर्नुहोस्</string>
+  <string name="playingRightNow">खेल चालु छ</string>
+  <string name="eventInProgress">खेल चालु छ</string>
+  <string name="finished">समाप्त भयो</string>
 </resources>
