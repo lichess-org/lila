@@ -58,7 +58,7 @@ final class Cached(
   )
 
   private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
-    every = Every(30 minute),
+    every = Every(30 seconds),
     atMost = AtMost(30 seconds),
     f = () => UserRepo.byIdsSortRatingNoBot(onlineUserIdMemo.keys, 50),
     default = Nil,
