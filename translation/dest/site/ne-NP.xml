@@ -210,4 +210,19 @@
   <string name="casualTournament">अनौपचारिक</string>
   <string name="ratedTournament">रेटेड</string>
   <string name="thisGameIsRated">खेल रेटेड हुनेछ</string>
+  <string name="rematch">पुनः खेल्नुहोस्</string>
+  <string name="rematchOfferSent">पुनः खेल्ने प्रस्ताव गरिएको छ</string>
+  <string name="rematchOfferSentWhite">सेतो ले पुनः खेल्ने प्रस्ताव गरेको छ</string>
+  <string name="rematchOfferSentBlack">कालोले पुनः खेल्ने प्रस्ताव गरेको छ</string>
+  <string name="rematchOfferAccepted">पुनः खेल्ने प्रस्ताव स्वीकृत गरिएको छ</string>
+  <string name="rematchOfferCanceled">पुनः खेल्ने प्रस्ताव रद्द गरिएको छ</string>
+  <string name="rematchOfferDeclined">पुनः खेल्ने प्रस्ताव अस्वीकृत गरिएको छ</string>
+  <string name="cancelRematchOffer">पुनः खेल्ने प्रस्ताव रद्द गर्नुहोस्</string>
+  <string name="viewRematch">पुनः खेलिएको खेल हेर्नुहोस्</string>
+  <string name="play">खेलौ</string>
+  <string name="inbox">प्राप्त पत्र</string>
+  <string name="chatRoom">वार्तालाप कक्ष</string>
+  <string name="loginToChat">वार्तालाप गर्न साइन इन गर्नुहोस्</string>
+  <string name="youHaveBeenTimedOut">तपाईलाई वार्तालाप गर्न निषेध गरिएको छ।</string>
+  <string name="spectatorRoom">दर्शक कक्ष</string>
 </resources>
