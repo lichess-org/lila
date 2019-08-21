@@ -158,8 +158,11 @@ final class PlaybanApi(
       }(scala.collection.breakOut)
     }
 
+  def getSitAndDcCounterById(userId: User.ID): Fu[Int] =
+    coll.primitiveOne[Int]($doc("_id" -> userId, "c" $exists true), "c").map(~_)
+
   def getSitAndDcCounter(user: User): Fu[Int] =
-    coll.primitiveOne[Int]($doc("_id" -> user.id, "c" $exists true), "c").map(~_)
+    getSitAndDcCounterById(user.id)
 
   private def save(outcome: Outcome, userId: User.ID, sitAndDcCounterChange: Int): Funit = {
     lila.mon.playban.outcome(outcome.key)()

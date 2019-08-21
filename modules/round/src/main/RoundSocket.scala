@@ -62,10 +62,17 @@ private[round] final class RoundSocket(
         }
       }
 
-    // do NOT evaluate nbPlaybansForSomeUser when userId is none
+    private lazy val sitCounterForSomeUser: Fu[Int] =
+      userId ?? { u =>
+        dependencies.playbanApi.getSitAndDcCounterById(u)
+      }
+
+    // do NOT evaluate nbPlaybansForSomeUser or sitCounterForSomeUser when userId is none
     // doing so will set it to 0 while userId might just not be known yet
     def nbPlaybans: Fu[Int] =
       userId.isDefined ?? nbPlaybansForSomeUser
+    def sitCounter: Fu[Int] =
+      userId.isDefined ?? sitCounterForSomeUser
 
     def ping: Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
@@ -81,12 +88,17 @@ private[round] final class RoundSocket(
       lilaBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
-    def weigh(orig: Long, startAt: Int) =
-      nbPlaybans map { n =>
-        if (n < startAt) orig else orig * (1d - 0.75 * sqrt(log10(n + 1 - startAt)))
+    def weigh(orig: Long, startAtPlaybans: Int, startAtSit: Int) =
+      nbPlaybans zip sitCounter map {
+        case (np, sc) =>
+          if (np < startAtPlaybans || sc > startAtSit) {
+            orig
+          } else {
+            orig * ((1d - 0.8 * log10(np - sc)) atMost 0.02) // sc is negative for abusers
+          }
       }
-    def weightedRagequitTimeout = weigh(ragequitTimeout.toMillis, 4)
-    def weightedDisconnectTimeout = weigh(disconnectTimeout.toMillis, 4)
+    def weightedRagequitTimeout = weigh(ragequitTimeout.toMillis, 4, -4)
+    def weightedDisconnectTimeout = weigh(disconnectTimeout.toMillis, 4, -4)
 
     def isGone: Fu[Boolean] = {
       weightedRagequitTimeout zip weightedDisconnectTimeout map {
