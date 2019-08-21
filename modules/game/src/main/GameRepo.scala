@@ -172,7 +172,7 @@ object GameRepo {
       .map { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
-    coll.find(Query user user.id, $id(true))
+    coll.find(Query user user.id)
       .sort($sort desc F.createdAt)
       .list[Game](3).map {
         _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
