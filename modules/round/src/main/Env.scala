@@ -36,8 +36,7 @@ final class Env(
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors,
-    settingStore: lila.memo.SettingStore.Builder
+    ratingFactors: () => lila.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -61,12 +60,6 @@ final class Env(
   private val moveTimeChannel = new lila.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
-  val persistenceSpeedSetting = settingStore[Int](
-    "persistenceSpeed",
-    default = -1,
-    text = "Force round persistence of games which speed is higher than".some
-  )
-
   private val deployPersistence = new DeployPersistence(system)
 
   private lazy val roundDependencies = RoundDuct.Dependencies(
@@ -85,7 +78,7 @@ final class Env(
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )(new GameProxy(id, deployPersistence.isEnabled, persistenceSpeedSetting.get, system.scheduler))
+      )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
@@ -343,7 +336,6 @@ object Env {
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
-    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
-    settingStore = lila.memo.Env.current.settingStore
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
   )
 }
