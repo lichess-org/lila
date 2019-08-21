@@ -189,4 +189,5 @@
   <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
   <string name="drawOfferDeclined">बराबरीको प्रस्ताव अस्वीकृत भयो</string>
   <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
+  <string name="drawOfferCanceled">बराबरीको प्रस्ताव रद्द भयो</string>
 </resources>
