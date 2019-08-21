@@ -27,7 +27,7 @@ private final class CheckMail(
         true
     }
 
-  def allBlocked: Fu[List[String]] = cache.coll.distinct[String, List](
+  private[security] def fetchAllBlocked: Fu[List[String]] = cache.coll.distinct[String, List](
     "_id",
     $doc(
       "_id" $regex s"^$prefix:",

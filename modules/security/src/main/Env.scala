@@ -156,7 +156,7 @@ final class Env(
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
-    checkMailBlocked = () => checkMail.allBlocked,
+    checkMailBlocked = () => checkMail.fetchAllBlocked,
     bus = system.lilaBus
   )
 
