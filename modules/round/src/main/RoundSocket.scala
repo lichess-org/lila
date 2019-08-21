@@ -59,8 +59,8 @@ private[round] final class RoundSocket(
 
     private lazy val nbPlaybansForSomeUser: Fu[Int] =
       userId ?? { u =>
-        dependencies.playbanApi.bans(u) map { b =>
-          b.size
+        dependencies.playbanApi.bans(List(u)) map { b =>
+          b.get(u).getOrElse(0)
         }
       }
 
