@@ -27,6 +27,8 @@ case class Client(
   def offline = key == Client.offline.key
 
   def disabled = !enabled
+
+  override def toString = s"$key by $userId"
 }
 
 object Client {

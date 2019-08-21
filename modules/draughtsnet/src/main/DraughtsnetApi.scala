@@ -101,7 +101,7 @@ final class DraughtsnetApi(
           case complete: CompleteAnalysis => {
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
-              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
+              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis(client))
             } else analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
@@ -181,8 +181,8 @@ object DraughtsnetApi {
 
   import lidraughts.base.LidraughtsException
 
-  case object WeakAnalysis extends LidraughtsException {
-    val message = "Analysis nodes per move is too low"
+  case class WeakAnalysis(client: Client) extends LidraughtsException {
+    val message = s"$client: Analysis nodes per move is too low"
   }
 
   case object WorkNotFound extends LidraughtsException {
