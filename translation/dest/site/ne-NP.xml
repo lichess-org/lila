@@ -340,6 +340,11 @@
   <string name="fromPosition">पोजिसन बाट</string>
   <string name="continueFromHere">अगाडि खेलौ</string>
   <string name="importGame">खेल निर्यात गरौं</string>
+  <string name="importGameExplanation">PGN पेष्ट गरी चाल अन्वेषक, कम्प्युटर विश्लेषण, वार्तालाप कक्ष तथा शेयर गर्न मिल्ने URL प्राप्त गर्नुहोस्।</string>
+  <plurals name="nbImportedGames">
+    <item quantity="one">%s आयातित खेल</item>
+    <item quantity="other">%s आयातित खेलहरु</item>
+  </plurals>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
   <string name="wins">जित</string>
@@ -405,4 +410,5 @@
   <string name="notes">नोट</string>
   <string name="typePrivateNotesHere">नीजि नोट यहाँ लेखौं</string>
   <string name="gameDisplay">खेलको प्रदर्शन</string>
+  <string name="pieceAnimation">गोटीहरुको एनिमेशन</string>
 </resources>
