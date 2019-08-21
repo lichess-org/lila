@@ -96,7 +96,7 @@ private[round] final class RoundSocket(
           if (np < startAtPlaybans || sc > startAtSit) {
             orig
           } else {
-            orig * ((1d - 0.8 * log10(np - sc)) atMost 0.02) // sc is negative for abusers
+            orig * ((1d - 0.8 * sqrt(log10(np - sc))) atMost 0.02) // sc is negative for abusers
           }
       }
     def weightedRagequitTimeout = weigh(ragequitTimeout.toMillis, 4, -4)
