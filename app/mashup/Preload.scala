@@ -24,7 +24,7 @@ final class Preload(
     dailyPuzzle: lila.puzzle.Daily.Try,
     countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
-    getPlayban: String => Fu[Option[TempBan]],
+    getPlayban: User.ID => Fu[Option[TempBan]],
     lightUserApi: LightUserApi,
     roundProxyPov: (Game.ID, User) => Fu[Option[Pov]],
     urgentGames: User => Fu[List[Pov]]
