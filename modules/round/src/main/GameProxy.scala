@@ -82,8 +82,6 @@ private final class GameProxy(
 
 object GameProxy {
 
-  type Save = Progress => Funit
-
   private val scheduleDelay = 15.seconds
 
   private val emptyCancellable = new Cancellable {
