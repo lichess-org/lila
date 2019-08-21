@@ -72,6 +72,7 @@ object LangList {
     Lang("mn", "MN") -> "монгол",
     Lang("mr", "IN") -> "मराठी",
     Lang("nb", "NO") -> "Norsk bokmål",
+    Lang("ne", "NP") -> "नेपाली",
     Lang("nl", "NL") -> "Nederlands",
     Lang("nn", "NO") -> "Norsk nynorsk",
     Lang("pi", "IN") -> "पालि",

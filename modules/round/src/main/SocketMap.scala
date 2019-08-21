@@ -4,33 +4,31 @@ import scala.concurrent.duration._
 
 import lila.game.Game
 import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
+import lila.hub.actorApi.Deploy
 
 private object SocketMap {
 
   def make(
-    makeHistory: (String, Boolean) => History,
+    makeHistory: Game.ID => History,
     dependencies: RoundSocket.Dependencies,
     socketTimeout: FiniteDuration
   ): SocketMap = {
 
-    var historyPersistenceEnabled = false
-
     import dependencies._
-    val bus = system.lilaBus
 
     lazy val socketMap: SocketMap = lila.socket.SocketMap[RoundSocket](
       system = system,
       mkTrouper = (id: Game.ID) => new RoundSocket(
         dependencies = dependencies,
         gameId = id,
-        history = makeHistory(id, historyPersistenceEnabled),
+        history = makeHistory(id),
         keepMeAlive = () => socketMap touch id
       ),
       accessTimeout = socketTimeout,
       monitoringName = "round.socketMap",
       broomFrequency = 4001 millis
     )
-    bus.subscribeFuns(
+    system.lilaBus.subscribeFuns(
       'startGame -> {
         case msg: lila.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
       },
@@ -40,15 +38,7 @@ private object SocketMap {
         case Exists(id, promise) => promise success socketMap.exists(id)
       },
       'deploy -> {
-        case m: lila.hub.actorApi.Deploy =>
-          socketMap tellAll m
-          logger.warn("Enable history persistence")
-          historyPersistenceEnabled = true
-          // if the deploy didn't go through, cancel persistence
-          system.scheduler.scheduleOnce(10.minutes) {
-            logger.warn("Disabling round history persistence!")
-            historyPersistenceEnabled = false
-          }
+        case m: Deploy => socketMap tellAll m
       }
     )
     socketMap

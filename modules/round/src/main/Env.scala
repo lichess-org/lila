@@ -7,11 +7,12 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
-import lila.game.{ Game, GameRepo, Pov }
+import lila.game.{ Game, GameRepo, Pov, PlayerRef }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
 import lila.hub.actorApi.socket.HasUserId
-import lila.hub.actorApi.{ DeployPost, Announce }
+import lila.hub.actorApi.{ Announce, DeployPost }
+import lila.user.User
 
 final class Env(
     config: Config,
@@ -28,7 +29,6 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
     rematch960Cache: lila.memo.ExpireSetMemo,
-    onStart: String => Unit,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
@@ -61,7 +61,9 @@ final class Env(
   private val moveTimeChannel = new lila.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
-  private lazy val roundDependencies = Round.Dependencies(
+  private val deployPersistence = new DeployPersistence(system)
+
+  private lazy val roundDependencies = RoundDuct.Dependencies(
     messenger = messenger,
     takebacker = takebacker,
     moretimer = moretimer,
@@ -77,7 +79,7 @@ final class Env(
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )
+      )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
@@ -89,7 +91,7 @@ final class Env(
       case Tell(id, msg) => roundMap.tell(id, msg)
     },
     'deploy -> {
-      case DeployPost => roundMap.tellAll(DeployPost)
+      case DeployPost => roundMap tellAll DeployPost
     },
     'accountClose -> {
       case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
@@ -97,6 +99,9 @@ final class Env(
           roundMap.tell(pov.gameId, Resign(pov.playerId))
         }
       }
+    },
+    'gameStartId -> {
+      case gameId: String => onStart(gameId)
     }
   )
 
@@ -108,10 +113,48 @@ final class Env(
     bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
-  def roundProxyGame(gameId: Game.ID): Fu[Option[Game]] =
-    roundMap.getOrMake(gameId).getGame addEffect { g =>
-      if (!g.isDefined) roundMap kill gameId
+  object proxy {
+
+    def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ??
+      roundMap.getOrMake(gameId).getGame addEffect { g =>
+        if (!g.isDefined) roundMap kill gameId
+      }
+
+    def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
+      game(gameId) map { _ flatMap { Pov(_, user) } }
+
+    def pov(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+      game(gameId) map2 { (g: Game) => Pov(g, color) }
+
+    def pov(fullId: Game.ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
+
+    def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
+      game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
+
+    def updateIfPresent(game: Game): Fu[Game] =
+      if (game.finishedOrAborted) fuccess(game)
+      else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+
+    def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
+      roundMap.getIfPresent(gameId).??(_.getGame)
+
+    def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
+      gameIfPresent(gameId) map2 { (g: Game) => Pov(g, color) }
+
+    def povIfPresent(fullId: Game.ID): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
+
+    def povIfPresent(playerRef: PlayerRef): Fu[Option[Pov]] =
+      gameIfPresent(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
+
+    def urgentGames(user: User): Fu[List[Pov]] = GameRepo urgentPovsUnsorted user flatMap {
+      _.map { pov =>
+        gameIfPresent(pov.gameId) map { _.fold(pov)(pov.withGame) }
+      }.sequenceFu map { povs =>
+        try { povs sortWith Pov.priority }
+        catch { case e: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+      }
     }
+  }
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>
     system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
@@ -120,7 +163,7 @@ final class Env(
   }
 
   val socketMap = SocketMap.make(
-    makeHistory = History(db(CollectionHistory)) _,
+    makeHistory = History(db(CollectionHistory), deployPersistence.isEnabled _) _,
     socketTimeout = SocketTimeout,
     dependencies = RoundSocket.Dependencies(
       system = system,
@@ -128,11 +171,12 @@ final class Env(
       sriTtl = SocketSriTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout,
-      playbanApi = playbanApi
+      playbanApi = playbanApi,
+      getGame = proxy.game _
     )
   )
 
-  lazy val selfReport = new SelfReport(roundMap, slackApi)
+  lazy val selfReport = new SelfReport(roundMap, slackApi, proxy.pov)
 
   lazy val recentTvGames = new {
     val fast = new lila.memo.ExpireSetMemo(7 minutes)
@@ -228,6 +272,15 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
 
+  def onStart(gameId: Game.ID): Unit = proxy game gameId foreach {
+    _ foreach { game =>
+      bus.publish(lila.game.actorApi.StartGame(game), 'startGame)
+      game.userIds foreach { userId =>
+        bus.publish(lila.game.actorApi.UserStartGame(userId, game), Symbol(s"userStartGame:$userId"))
+      }
+    }
+  }
+
   MoveMonitor.start(system, moveTimeChannel)
 
   system.actorOf(
@@ -235,7 +288,7 @@ final class Env(
     name = "titivate"
   )
 
-  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap)
+  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap, proxy.game _)
 
   private lazy val takebacker = new Takebacker(
     messenger = messenger,
@@ -278,7 +331,6 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     uciMemo = lila.game.Env.current.uciMemo,
     rematch960Cache = lila.game.Env.current.cached.rematch960,
-    onStart = lila.game.Env.current.onStart,
     divider = lila.game.Env.current.divider,
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,

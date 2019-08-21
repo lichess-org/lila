@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Hjælp med at forbedre lichess ved at stemme med op- eller ned-pilen:</string>
   <string name="thankYou">Tak!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spillet %s gange</item>
     <item quantity="other">Spillet %s gange</item>

@@ -474,6 +474,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="pleaseVotePuzzle">Aiuta lichess a migliorare, utilizza la freccia su o giù per dare un giudizio:</string>
   <string name="thankYou">Grazie!</string>
   <string name="ratingX">Punteggio: %s</string>
+  <string name="hidden">nascosto</string>
   <plurals name="playedXTimes">
     <item quantity="one">Giocato %s volta</item>
     <item quantity="other">Giocato %s volte</item>

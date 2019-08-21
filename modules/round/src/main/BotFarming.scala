@@ -16,8 +16,8 @@ private final class BotFarming(
    * - rated
    * - recent game in same matchup has same first SAME_PLIES and same winner
    */
-  def apply(g: Game): Fu[Boolean] = g.userIds.distinct match {
-    case List(u1, u2) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
+  def apply(g: Game): Fu[Boolean] = g.twoUserIds match {
+    case Some((u1, u2)) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
       crosstableApi(u1, u2) flatMap {
         _ ?? { ct =>
           GameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {

@@ -59,6 +59,7 @@
   <string name="promoteVariation">ഈ വേരിയേഷൻ ഉപയോഗിക്കുക</string>
   <string name="makeMainLine">മെയിൻ ലൈൻ ആയി ഉപയോഗിക്കുക</string>
   <string name="deleteFromHere">ഇവിടംതൊട്ട് ഒഴിവാക്കുക</string>
+  <string name="forceVariation">വേരിയഷൻ ഫോർസ് ചെയ്യുക</string>
   <string name="move">നീക്കം</string>
   <string name="variantLoss">വേരിയന്റ് തോൽവി</string>
   <string name="variantWin">വേരിയന്റ് ജയം</string>
@@ -164,6 +165,8 @@
   <string name="username">യൂസര്‍ നെയിം</string>
   <string name="usernameOrEmail">യൂസര്‍ നെയിം അല്ലെങ്കില്‍ ഇമെയില്‍</string>
   <string name="changeUsername">യുസര്‍നെയിം മാറ്റുക</string>
+  <string name="changeUsernameNotSame">അക്ഷരങ്ങളുടെ കേസിനു മാത്രമേ മാറാൻ കഴിയുകയുള്ളൂ. ഉദാഹരണത്തിന് \"johndoe\" എന്നത് \"JohnDoe\" എന്നായി മാറും.</string>
+  <string name="changeUsernameDescription">നിങ്ങളുടെ യൂസർനെയിം മാറ്റുക. ഇത് ഒരിക്കൽ മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളു. അതിൽ തന്നെ യൂസർനെയിമിന്റെ അക്ഷരങ്ങളുടെ കേസ് മാത്രമേ മാറ്റാൻ സാധിക്കുകയുള്ളൂ.</string>
   <string name="password">പാസ്‌വേഡ്</string>
   <string name="changePassword">പാസ്‌വേഡ് മാറ്റുക</string>
   <string name="changeEmail">ഇമെയില്‍ മാറ്റുക</string>
@@ -470,6 +473,7 @@
   <string name="pleaseVotePuzzle">Lichess മികവുറ്റതാക്കാൻ അപ്പ് അല്ലെങ്കിൽ ഡൗൺ ആരോ ഉപയോഗിച്ച് വോട്ട് ചെയ്തു സഹായിക്കൂ:</string>
   <string name="thankYou">നന്ദി!</string>
   <string name="ratingX">നിലവാരം: %s</string>
+  <string name="hidden">മറച്ചത്</string>
   <plurals name="playedXTimes">
     <item quantity="one">കളിച്ചത്‌ %s തവണകൾ</item>
     <item quantity="other">കളിച്ചത്‌ %s തവണകൾ</item>
@@ -756,6 +760,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s %2$s host ചെയ്യുന്നു</string>
   <string name="xJoinsY">%1$s %2$s -ൽ ചേർന്നിരിക്കുന്നു</string>
   <string name="xLikesY">%1$s -ന് %2$s -നെ ഇഷ്ടമാണ്</string>
+  <string name="xCreatesStudyY">%1$s %2$s പാഠം നിർമിച്ചിരിക്കുന്നു</string>
   <string name="quickPairing">പെട്ടെന്ന് പെയറിങ് നടത്തുക</string>
   <string name="lobby">ലോബി</string>
   <string name="anonymous">അജ്ഞാത</string>

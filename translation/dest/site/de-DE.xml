@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
   <string name="ratingX">Schwierigkeitsgrad: %s</string>
+  <string name="hidden">ausgeblendet</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s mal gespielt</item>
     <item quantity="other">%s mal gespielt</item>

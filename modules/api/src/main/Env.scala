@@ -14,6 +14,7 @@ final class Env(
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
+    urgentGames: lila.user.User => Fu[List[lila.game.Pov]],
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
@@ -104,7 +105,8 @@ final class Env(
     isPlaying = isPlaying,
     isOnline = userEnv.onlineUserIdMemo.get,
     recentTitledUserIds = () => userEnv.recentTitledUserIdMemo.keys,
-    prefApi = prefApi
+    prefApi = prefApi,
+    urgentGames = urgentGames
   )(system)
 
   val gameApi = new GameApi(
@@ -139,7 +141,8 @@ final class Env(
     getFilter = setupEnv.filter,
     lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
-    pools = pools
+    pools = pools,
+    urgentGames = urgentGames
   )
 
   lazy val eventStream = new EventStream(system, challengeJsonView, userEnv.onlineUserIdMemo.put)
@@ -178,6 +181,7 @@ object Env {
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     forecastApi = lila.round.Env.current.forecastApi,
+    urgentGames = lila.round.Env.current.proxy.urgentGames,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
     getTourAndRanks = lila.tournament.Env.current.tourAndRanks,

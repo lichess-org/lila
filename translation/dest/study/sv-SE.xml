@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alla SYNC medlemmar förblir på samma position</string>
   <string name="shareChanges">Dela ändringar med åskådare och spara dem på servern</string>
   <string name="playing">Spelar</string>
-  <string name="onlyOngoingGames">Endast pågående spel</string>
   <string name="first">Första</string>
   <string name="previous">Föregående</string>
   <string name="next">Nästa</string>
@@ -49,10 +48,10 @@
   <string name="studyUrl">Studie-URL</string>
   <string name="currentChapterUrl">Aktuell kapitel URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Du kan klistra in detta i forumet för att bädda in kapitlet</string>
+  <string name="startAtInitialPosition">Start vid ursprunglig position</string>
   <string name="startAtX">Börja på %s</string>
   <string name="embedThisChapter">Bädda in kapitlet på din websida eller blogg</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Läs mer om att bädda in ett studiekapitel</string>
-  <string name="fen">FEN</string>
   <string name="open">Öppna</string>
   <string name="xBroughtToYouByY">%1$s gjord av %2$s</string>
   <string name="studyNotFound">Studien kan inte hittas</string>

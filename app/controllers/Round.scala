@@ -24,7 +24,7 @@ object Round extends LilaController with TheftPrevention {
           val userTv = get("userTv") map UserModel.normalize map { userId =>
             lila.round.actorApi.UserTv(
               userId,
-              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlaying(userId).map(_.isDefined)
+              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlayingId(userId).map(_.isDefined)
             )
           }
           env.socketHandler.watcher(
@@ -43,7 +43,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    proxyPov(fullId) flatMap {
+    env.proxy.pov(fullId) flatMap {
       case Some(pov) =>
         if (isTheft(pov)) fuccess(Left(theftResponse))
         else getSocketSri("sri") match {
@@ -94,14 +94,14 @@ object Round extends LilaController with TheftPrevention {
   ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(proxyPov(fullId)) { pov =>
+    OptionFuResult(env.proxy.pov(fullId)) { pov =>
       env.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
   }
 
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
-    GameRepo urgentGames user map {
+    Env.round.proxy urgentGames user map {
       _ filter { pov =>
         pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
@@ -114,7 +114,7 @@ object Round extends LilaController with TheftPrevention {
     }
 
   def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(proxyPov(fullId)) { currentPov =>
+    OptionFuResult(env.proxy.pov(fullId)) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
         Ok(Json.obj("nope" -> true))
       }
@@ -125,7 +125,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def next(gameId: String) = Auth { implicit ctx => me =>
-    OptionFuResult(GameRepo game gameId) { currentGame =>
+    OptionFuResult(env.proxy game gameId) { currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
@@ -158,14 +158,8 @@ object Round extends LilaController with TheftPrevention {
     }
   }
 
-  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? { c =>
-    env.roundProxyGame(gameId) map2 { (g: GameModel) => g pov c }
-  }
-  private def proxyPov(fullId: String): Fu[Option[Pov]] = {
-    val ref = PlayerRef(fullId)
-    env.roundProxyGame(ref.gameId) map {
-      _ flatMap { _ playerIdPov ref.playerId }
-    }
+  private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? {
+    env.proxy.pov(gameId, _)
   }
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
@@ -241,7 +235,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+    OptionFuResult(proxyPov(gameId, color)) { pov =>
       (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
         (pov.game.simulId ?? Env.simul.repo.find) zip
         GameRepo.initialFen(pov.game) zip
@@ -280,7 +274,7 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def resign(fullId: String) = Open { implicit ctx =>
-    OptionFuRedirect(GameRepo pov fullId) { pov =>
+    OptionFuRedirect(env.proxy.pov(fullId)) { pov =>
       if (isTheft(pov)) {
         controllerLogger.warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
         fuccess(routes.Lobby.home)
@@ -294,10 +288,10 @@ object Round extends LilaController with TheftPrevention {
   }
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(GameRepo.pov(gameId, color))(html.game.bits.mini)
+    OptionOk(chess.Color(color).??(env.proxy.povIfPresent(gameId, _)) orElse GameRepo.pov(gameId, color))(html.game.bits.mini)
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
-    OptionOk(GameRepo pov fullId)(html.game.bits.mini)
+    OptionOk(env.proxy.povIfPresent(fullId) orElse GameRepo.pov(fullId))(html.game.bits.mini)
   }
 }

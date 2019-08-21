@@ -1,9 +1,10 @@
 package lila.playban
 
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
-import chess.{ Status, Color }
 import chess.variant._
+import chess.{ Status, Color }
 import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.BSON._
 import lila.db.dsl._
@@ -124,12 +125,19 @@ final class PlaybanApi(
       save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, 0)
     }
 
-  def currentBan(userId: User.ID): Fu[Option[TempBan]] = coll.find(
-    $doc("_id" -> userId, "b.0" $exists true),
-    $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
-  ).uno[Bdoc].map {
-      _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
-    }
+  // memorize users without any ban to save DB reads
+  private val cleanUserIds = new lila.memo.ExpireSetMemo(30 minutes)
+
+  def currentBan(userId: User.ID): Fu[Option[TempBan]] = !cleanUserIds.get(userId) ?? {
+    coll.find(
+      $doc("_id" -> userId, "b.0" $exists true),
+      $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
+    ).uno[Bdoc].map {
+        _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
+      } addEffect { ban =>
+        if (ban.isEmpty) cleanUserIds put userId
+      }
+  }
 
   def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
@@ -144,13 +152,10 @@ final class PlaybanApi(
       }
     }
 
-  def bans(userId: User.ID): Fu[List[TempBan]] =
-    coll.primitiveOne[List[TempBan]]($doc("_id" -> userId, "b.0" $exists true), "b").map(~_)
-
   def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] = coll.find(
     $inIds(userIds),
     $doc("b" -> true)
-  ).cursor[Bdoc]().gather[List]().map {
+  ).list[Bdoc]().map {
       _.flatMap { obj =>
         obj.getAs[User.ID]("_id") flatMap { id =>
           obj.getAs[Barr]("b") map { id -> _.stream.size }
@@ -200,8 +205,7 @@ final class PlaybanApi(
               "$slice" -> -30
             )
           )
-      ).void
+      ).void >>- cleanUserIds.remove(record.userId)
     }
-
   }
 }

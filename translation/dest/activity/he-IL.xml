@@ -20,5 +20,17 @@
     <item quantity="many">שיחק %1$s משחקי %2$s</item>
     <item quantity="other">שיחק %1$s משחקי %2$s</item>
   </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">התחרה בטורניר אחד</item>
+    <item quantity="two">התחרה בשני טורנירים</item>
+    <item quantity="many">התחרה ב-%s טורנירים</item>
+    <item quantity="other">התחרה ב-%s טורנירים</item>
+  </plurals>
   <string name="signedUp">נרשם לlichess.org</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">הצטרף לקבוצה אחת</item>
+    <item quantity="two">הצטרף לשתי קבוצות</item>
+    <item quantity="many">הצטרף ל-%s קבוצות</item>
+    <item quantity="other">הצטרף ל-%s קבוצות</item>
+  </plurals>
 </resources>

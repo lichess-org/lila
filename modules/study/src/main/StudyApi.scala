@@ -20,7 +20,6 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
-    tagsFixer: ChapterTagsFixer,
     explorerGameHandler: ExplorerGame,
     lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
@@ -48,19 +47,14 @@ final class StudyApi(
 
   def isOwner(id: Study.Id, owner: User) = byIdAndOwner(id, owner).map(_.isDefined)
 
-  private def fetchAndFixChapter(id: Chapter.Id): Fu[Option[Chapter]] =
-    chapterRepo.byId(id) flatMap {
-      _ ?? { c => tagsFixer(c) map some }
-    }
-
   def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      fetchAndFixChapter(study.position.chapterId) flatMap {
-        case None => chapterRepo.firstByStudy(study.id) flatMap {
+      chapterRepo byId study.position.chapterId flatMap {
+        case None => chapterRepo firstByStudy study.id flatMap {
           case None => fuccess(none)
           case Some(chapter) =>
             val fixed = study withChapter chapter
-            studyRepo.updateSomeFields(fixed) inject
+            studyRepo updateSomeFields fixed inject
               Study.WithChapter(fixed, chapter).some
         }
         case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
@@ -70,7 +64,7 @@ final class StudyApi(
 
   def byIdWithChapter(id: Study.Id, chapterId: Chapter.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      fetchAndFixChapter(chapterId) map {
+      chapterRepo byId chapterId map {
         _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
       }
     }

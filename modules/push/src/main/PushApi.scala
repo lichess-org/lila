@@ -8,7 +8,7 @@ import scala.concurrent.Promise
 import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo, Pov, Namer }
+import lila.game.{ Game, Pov, Namer }
 import lila.user.User
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
@@ -18,6 +18,7 @@ private final class PushApi(
     oneSignalPush: OneSignalPush,
     webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
+    gameProxy: Game.ID => Fu[Option[Game]],
     bus: lila.common.Bus,
     scheduler: lila.common.Scheduler
 ) {
@@ -53,7 +54,7 @@ private final class PushApi(
     }.sequenceFu.void
 
   def move(move: MoveEvent): Funit = scheduler.after(2 seconds) {
-    GameRepo game move.gameId flatMap {
+    gameProxy(move.gameId) flatMap {
       _.filter(_.playable) ?? { game =>
         val pov = Pov(game, game.player.color)
         game.player.userId ?? { userId =>
@@ -76,7 +77,7 @@ private final class PushApi(
   }
 
   def takebackOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
-    GameRepo game gameId flatMap {
+    gameProxy(gameId) flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
           case p if p.isProposingTakeback => Pov(game, game opponent p)
@@ -100,7 +101,7 @@ private final class PushApi(
   }
 
   def drawOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
-    GameRepo game gameId flatMap {
+    gameProxy(gameId) flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
           case p if p.isOfferingDraw => Pov(game, game opponent p)

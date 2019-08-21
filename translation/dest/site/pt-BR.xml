@@ -474,6 +474,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="pleaseVotePuzzle">Ajude o Lichess a melhorar através do seu voto, usando a seta para cima ou para baixo:</string>
   <string name="thankYou">Obrigado!</string>
   <string name="ratingX">Classificação: %s</string>
+  <string name="hidden">oculto</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jogado %s vezes</item>
     <item quantity="other">Jogado %s vezes</item>

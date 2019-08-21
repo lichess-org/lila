@@ -9,10 +9,10 @@ function skipOrViewSolution(ctrl: RetroCtrl) {
   return h('div.choices', [
     h('a', {
       hook: bind('click', ctrl.viewSolution, ctrl.redraw)
-    }, ctrl.trans.noarg('viewTheSolution')),
+    }, ctrl.noarg('viewTheSolution')),
     h('a', {
       hook: bind('click', ctrl.skip)
-    }, ctrl.trans.noarg('skipThisMove'))
+    }, ctrl.noarg('skipThisMove'))
   ]);
 }
 
@@ -21,7 +21,7 @@ function jumpToNext(ctrl: RetroCtrl) {
     hook: bind('click', ctrl.jumpToNext)
   }, [
     h('i', { attrs: dataIcon('G') }),
-    ctrl.trans.noarg('next')
+    ctrl.noarg('next')
   ]);
 }
 
@@ -47,7 +47,7 @@ const feedback = {
             showGlyphs: true,
             showEval: false
           }, ctrl.current().fault.node)!))),
-          h('em', ctrl.trans.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
+          h('em', ctrl.noarg(ctrl.color === 'white' ? 'findBetterMoveForWhite' : 'findBetterMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])
       ])
@@ -59,11 +59,11 @@ const feedback = {
       h('div.player', [
         h('div.icon.off', '!'),
         h('div.instruction', [
-          h('strong', ctrl.trans.noarg('youBrowsedAway')),
+          h('strong', ctrl.noarg('youBrowsedAway')),
           h('div.choices.off', [
             h('a', {
               hook: bind('click', ctrl.jumpToNext)
-            }, ctrl.trans.noarg('resumeLearning'))
+            }, ctrl.noarg('resumeLearning'))
           ])
         ])
       ])
@@ -74,8 +74,8 @@ const feedback = {
       h('div.player', [
         h('div.icon', '✗'),
         h('div.instruction', [
-          h('strong', ctrl.trans.noarg('youCanDoBetter')),
-          h('em', ctrl.trans.noarg(ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack')),
+          h('strong', ctrl.noarg('youCanDoBetter')),
+          h('em', ctrl.noarg(ctrl.color === 'white' ? 'tryAnotherMoveForWhite' : 'tryAnotherMoveForBlack')),
           skipOrViewSolution(ctrl)
         ])
       ])
@@ -86,7 +86,7 @@ const feedback = {
       h('div.half.top',
         h('div.player', [
           h('div.icon', '✓'),
-          h('div.instruction', h('strong', ctrl.trans.noarg('goodMove')))
+          h('div.instruction', h('strong', ctrl.noarg('goodMove')))
         ])
       ),
       jumpToNext(ctrl)
@@ -98,7 +98,7 @@ const feedback = {
         h('div.player', [
           h('div.icon', '✓'),
           h('div.instruction', [
-            h('strong', ctrl.trans.noarg('solution')),
+            h('strong', ctrl.noarg('solution')),
             h('em', ctrl.trans.vdom('bestWasX', h('strong', renderIndexAndMove({
               withDots: true,
               showEval: false
@@ -114,7 +114,7 @@ const feedback = {
       h('div.half.top',
         h('div.player.center', [
           h('div.instruction', [
-            h('strong', ctrl.trans.noarg('evaluatingYourMove')),
+            h('strong', ctrl.noarg('evaluatingYourMove')),
             renderEvalProgress(ctrl.node())
           ])
         ])
@@ -126,7 +126,7 @@ const feedback = {
       h('div.half.top',
         h('div.player', [
           h('div.icon', spinner()),
-          h('div.instruction', ctrl.trans.noarg('waitingForAnalysis'))
+          h('div.instruction', ctrl.noarg('waitingForAnalysis'))
         ])
       )
     ];
@@ -136,15 +136,15 @@ const feedback = {
         h('div.no-square', h('piece.king.' + ctrl.color)),
         h('div.instruction', [
           h('em', nothing ?
-            ctrl.trans.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack') :
-            ctrl.trans.noarg(ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes')),
+            ctrl.noarg(ctrl.color === 'white' ? 'noMistakesFoundForWhite' : 'noMistakesFoundForBlack') :
+            ctrl.noarg(ctrl.color === 'white' ? 'doneReviewingWhiteMistakes' : 'doneReviewingBlackMistakes')),
           h('div.choices.end', [
             nothing ? null : h('a', {
               hook: bind('click', ctrl.reset)
-            }, ctrl.trans.noarg('doItAgain')),
+            }, ctrl.noarg('doItAgain')),
             h('a', {
               hook: bind('click', flip)
-            }, ctrl.trans.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'))
+            }, ctrl.noarg(ctrl.color === 'white' ? 'reviewBlackMistakes' : 'reviewWhiteMistakes'))
           ])
         ])
       ])
@@ -169,7 +169,7 @@ export default function(root: AnalyseCtrl): VNode | undefined {
     completion = ctrl.completion();
   return h('div.retro-box.training-box.sub-box', [
     h('div.title', [
-      h('span', ctrl.trans.noarg('learnFromYourMistakes')),
+      h('span', ctrl.noarg('learnFromYourMistakes')),
       h('span', Math.min(completion[0] + 1, completion[1]) + ' / ' + completion[1])
     ]),
     h('div.feedback.' + fb, renderFeedback(root, fb))

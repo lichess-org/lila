@@ -40,7 +40,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Сви синхронизовани чланови остају у истом положају</string>
   <string name="shareChanges">Делите измене са гледаоцима и чувајте их на серверу</string>
   <string name="playing">У току</string>
-  <string name="onlyOngoingGames">Cамо текуће партије</string>
   <string name="first">Први</string>
   <string name="previous">Претходно</string>
   <string name="next">Идући</string>
@@ -55,7 +54,6 @@
   <string name="startAtX">Започни на %с</string>
   <string name="embedThisChapter">Уградите ово поглавље у свој веб сајт или блог</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Прочитајте више о уградњи студијског поглавља</string>
-  <string name="fen">FEN</string>
   <string name="open">Отворите</string>
   <string name="xBroughtToYouByY">%2$s вам доноси %1$s</string>
   <string name="studyNotFound">Студија није пронађена</string>

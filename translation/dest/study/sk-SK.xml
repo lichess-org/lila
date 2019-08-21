@@ -43,11 +43,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Všetci zosynchronizovaní členovia uvidia rovnakú pozíciu</string>
   <string name="shareChanges">Zdieľajte zmeny s divákmi a uložte ich na server</string>
   <string name="playing">Práve sa hrá</string>
-  <string name="onlyOngoingGames">Iba rozohrané partie</string>
-  <string name="first">Prvý</string>
+  <string name="first">Prvá</string>
   <string name="previous">Späť</string>
   <string name="next">Ďalej</string>
-  <string name="last">Posledný</string>
+  <string name="last">Posledná</string>
   <string name="shareAndExport">Zdielať &amp; export</string>
   <string name="cloneStudy">Naklonovať</string>
   <string name="studyPgn">PGN štúdie</string>
@@ -55,10 +54,10 @@
   <string name="studyUrl">URL štúdie</string>
   <string name="currentChapterUrl">URL aktuálnej kapitoly</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Ak chcete kapitolu zobraziť vo fóre, vložte doň tento link</string>
+  <string name="startAtInitialPosition">Začať zo základného postavenia</string>
   <string name="startAtX">Začať na %s</string>
   <string name="embedThisChapter">Zobrazte túto kapitolu na svojej stránke alebo blogu</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Prečítajte si viac o vkladaní a zobrazovaní kapitoly štúdie</string>
-  <string name="fen">FEN</string>
   <string name="open">Otvoriť</string>
   <string name="xBroughtToYouByY">%1$s Vám priniesol %2$s</string>
   <string name="studyNotFound">Štúdia sa nenašla</string>

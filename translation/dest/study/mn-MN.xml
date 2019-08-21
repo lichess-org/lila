@@ -37,7 +37,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">СССК-ийн бүх гишүүд ижил байрлалд байна</string>
   <string name="shareChanges">Сонирхогчдын өөрчлөлтийг хуваалцаж, тэднийг сервер дээр хадгалах</string>
   <string name="playing">Тоглож байна</string>
-  <string name="onlyOngoingGames">Зөвхөн одоо байгаа өрөгнүүд</string>
   <string name="first">Нэгтэх</string>
   <string name="previous">Өмнөх</string>
   <string name="next">Дараах</string>
@@ -52,7 +51,6 @@
   <string name="startAtX">% S-с эхэл</string>
   <string name="embedThisChapter">Энэ бүлгийг өөрийн вэбсайт эсвэл блогдоо оруулна уу</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Судалгааны бүлгийг оруулах талаар дэлгэрэнгүйг уншина уу</string>
-  <string name="fen">FEN</string>
   <string name="open">Нээлттэй байна</string>
   <string name="xBroughtToYouByY">% 1 $ s % 2 $ s- с авчирсан</string>
   <string name="studyNotFound">Судалгаагүй байна</string>

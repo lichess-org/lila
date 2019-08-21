@@ -13,6 +13,8 @@ final class DuctMap[D <: Duct](
 
   def getOrMake(id: String): D = ducts.get(id)
 
+  def getIfPresent(id: String): Option[D] = Option(ducts getIfPresent id)
+
   def tell(id: String, msg: Any): Unit = getOrMake(id) ! msg
 
   def tellAll(msg: Any) = ducts.asMap().asScala.foreach(_._2 ! msg)

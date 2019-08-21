@@ -153,8 +153,9 @@ case class Game(
     }
   }
 
+  // apply a move
   def update(
-    game: ChessGame,
+    game: ChessGame, // new chess position
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     moveMetrics: MoveMetrics = MoveMetrics()
@@ -548,6 +549,9 @@ case class Game(
     chess = chess.copy(turns = 0, startedAtTurn = 0)
   )
 
+  def setHoldAlert(color: Color, ha: Player.HoldAlert) =
+    updatePlayer(color, p => p.copy(holdAlert = ha.some))
+
   lazy val opening: Option[FullOpening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
     else FullOpeningDB search pgnMoves
@@ -635,6 +639,9 @@ object Game {
 
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
+
+  val idRegex = """[\w-]{8}""".r
+  def validId(id: ID) = idRegex matches id
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
 

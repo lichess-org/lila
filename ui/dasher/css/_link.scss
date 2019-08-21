@@ -10,6 +10,11 @@
     display: block;
     padding: .5rem 1rem;
   }
+  .links a::before,
+  .links button::before {
+    position: relative;
+    bottom: .05em;
+  }
   .links a:hover,
   .links a:hover::before,
   .links button:hover,

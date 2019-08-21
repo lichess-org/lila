@@ -22,6 +22,14 @@
     <item quantity="one">Δημοσίευσε %1$s μήνυμα στο %2$s</item>
     <item quantity="other">Δημοσίευσε %1$s μηνύματα στο %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Έπαιξε %1$s κίνηση</item>
+    <item quantity="other">Έπαιξε %1$s κινήσεις</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">σε %1$s παρτίδα αλληλογραφίας</item>
+    <item quantity="other">σε %1$s παρτίδες αλληλογραφίας</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="one">Ολοκλήρωσε %s παρτίδα αλληλογραφίας</item>
     <item quantity="other">Ολοκλήρωσε %s παρτίδες αλληλογραφίας</item>

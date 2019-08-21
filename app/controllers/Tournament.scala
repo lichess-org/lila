@@ -8,7 +8,6 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Pov, GameRepo }
 import lila.hub.lightTeam._
 import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
@@ -126,27 +125,6 @@ object Tournament extends LilaController {
             Ok(data) as JSON
           }
         }
-      }
-    }
-  }
-
-  def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
-    withUserGameNb(id, user, nb) { pov =>
-      Ok(html.tournament.bits.miniGame(pov))
-    }
-  }
-
-  def userGameNbShow(id: String, user: String, nb: Int) = Open { implicit ctx =>
-    withUserGameNb(id, user, nb) { pov =>
-      Redirect(routes.Round.watcher(pov.gameId, pov.color.name))
-    }
-  }
-
-  private def withUserGameNb(id: String, user: String, nb: Int)(withPov: Pov => Result)(implicit ctx: Context): Fu[Result] = {
-    val userId = lila.user.User normalize user
-    OptionFuResult(PairingRepo.byTourUserNb(id, userId, nb)) { pairing =>
-      GameRepo game pairing.id map {
-        _.flatMap { Pov.ofUserId(_, userId) }.fold(Redirect(routes.Tournament show id))(withPov)
       }
     }
   }

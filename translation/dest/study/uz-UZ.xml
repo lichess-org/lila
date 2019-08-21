@@ -32,6 +32,12 @@
   <string name="annotateWithGlyphs">Gliflar bilan izohlash</string>
   <string name="theChapterIsTooShortToBeAnalysed">Ushbu bo\'lim tahlil uchun juda ham qisqa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Faqat ta\'lim ishtirokchilari kompyuter tahlilini so\'rashi mumkin.</string>
+  <string name="getAFullComputerAnalysis">Asosiy qatorni server tomonidagi tahlilini olish.</string>
+  <string name="makeSureTheChapterIsComplete">Bo\'lim tugaganiga ishonch xosil qiling. Siz bir marta so\'rov yuborishingiz mumkin.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Barcha SYNC a\'zolari o\'sha joyida saqlanib qoladi</string>
+  <string name="shareChanges">O\'zgarishlarni serverda saqlab juzatuvchilar bilan baham ko\'ring</string>
+  <string name="playing">O\'ynash</string>
+  <string name="first">Birinchi</string>
   <string name="previous">Oldingi</string>
   <string name="next">Keyingi</string>
   <string name="last">Oxirgi</string>
@@ -45,7 +51,6 @@
   <string name="startAtX">%s da boshlash</string>
   <string name="embedThisChapter">Ushbu bo\'limni o\'zingizni saytingizga yoki blogingizga joylash</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">O\'rganish bo\'limini bog\'lash bo\'yicha ko\'proq o\'qish</string>
-  <string name="fen">FEN</string>
   <string name="open">Ochish</string>
   <string name="xBroughtToYouByY">%1$s sizga %2$s orqali keltirdi</string>
   <string name="studyNotFound">Ta\'lim topilmadi</string>

@@ -168,6 +168,9 @@ export function build(root: Tree.Node): TreeWrapper {
         ops.removeChild(parent, node.id);
         parent.children.unshift(node);
         if (!toMainline) break;
+      } else if (node.forceVariation) {
+        node.forceVariation = false;
+        if (!toMainline) break;
       }
     }
   }

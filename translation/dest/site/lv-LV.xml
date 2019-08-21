@@ -172,7 +172,7 @@
   <string name="username">Lietotājvārds</string>
   <string name="usernameOrEmail">Lietotājvārds vai e-pasta adrese</string>
   <string name="changeUsername">Mainīt lietotājvārdu</string>
-  <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"johndoe\" var mainīt uz \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Drīkst mainīt tikai burtu lielumu. Piemēram \"jānisbērziņš\" var mainīt uz \"JānisBērziņš\".</string>
   <string name="changeUsernameDescription">Mainīt lietotājvārdu. To var izdarīt tikai vienreiz, un ir atļauts mainīt tikai burtu lielumu (lielie/mazie burti) lietotājvārdā.</string>
   <string name="password">Parole</string>
   <string name="changePassword">Mainīt paroli</string>
@@ -376,8 +376,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Noklikšķiniet uz laukuma, lai izdarītu gājienu un pierādītu, ka esat cilvēks.</string>
   <string name="captcha.fail">Lūdzu, atrisiniet šaha cilvēktestu.</string>
   <string name="notACheckmate">Nav šahs un mats</string>
-  <string name="whiteCheckmatesInOneMove">Baltie piesaka matu vienā gājienā</string>
-  <string name="blackCheckmatesInOneMove">Melnie piesaka matu vienā gājienā</string>
+  <string name="whiteCheckmatesInOneMove">Baltie pieteiks matu vienā gājienā</string>
+  <string name="blackCheckmatesInOneMove">Melnie pieteiks matu vienā gājienā</string>
   <string name="retry">Mēģināt vēlreiz</string>
   <string name="reconnecting">Atjauno savienojumu</string>
   <string name="onlineFriends">Draugi tiešsaistē</string>
@@ -499,6 +499,7 @@
   <string name="pleaseVotePuzzle">Palīdziet uzlabot Lichess, balsojot ar augšup vai lejup vērsto bultiņu:</string>
   <string name="thankYou">Paldies!</string>
   <string name="ratingX">Reitings: %s</string>
+  <string name="hidden">slēpts</string>
   <plurals name="playedXTimes">
     <item quantity="zero">Spēlēts %s reizes</item>
     <item quantity="one">Spēlēts %s reizi</item>
@@ -664,7 +665,7 @@
   <string name="inCorrespondenceGames">Korespondencšaha spēlēs</string>
   <string name="ifRatingIsPlusMinusX">Ja reitings ir ± %s</string>
   <string name="onlyFriends">Tikai draugi</string>
-  <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas turi</string>
+  <string name="displayBoardResizeHandle">Rādīt galdiņa izmēra maiņas rīku</string>
   <string name="onlyOnInitialPosition">Tikai sākotnējajā pozīcijā</string>
   <string name="menu">Izvēlne</string>
   <string name="castling">Rokāde</string>

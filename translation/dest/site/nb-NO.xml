@@ -312,7 +312,7 @@
   <string name="mustBeInTeam">Du må være med i team %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
+  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="teams">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
@@ -474,6 +474,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Forsøkt %s gang</item>
     <item quantity="other">Forsøkt %s ganger</item>

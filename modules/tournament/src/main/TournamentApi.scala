@@ -40,7 +40,8 @@ final class TournamentApi(
     duelStore: DuelStore,
     pause: Pause,
     asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val bus = system.lilaBus
@@ -280,21 +281,18 @@ final class TournamentApi(
     }
 
   def berserk(gameId: Game.ID, userId: User.ID): Unit =
-    GameRepo tournamentId gameId foreach {
-      _ foreach { tourId =>
-        Sequencing(tourId)(TournamentRepo.startedById) { tour =>
-          PairingRepo.findPlaying(tour.id, userId) flatMap {
-            case Some(pairing) if !pairing.berserkOf(userId) =>
-              (pairing povRef userId) ?? { povRef =>
-                GameRepo pov povRef flatMap {
-                  _.filter(_.game.berserkable) ?? { pov =>
-                    PairingRepo.setBerserk(pairing, userId) >>- {
-                      roundMap.tell(povRef.gameId, GoBerserk(povRef.color))
-                    }
-                  }
+    proxyGame(gameId) foreach {
+      _.filter(_.berserkable) foreach { game =>
+        game.tournamentId foreach { tourId =>
+          Sequencing(tourId)(TournamentRepo.startedById) { tour =>
+            PairingRepo.findPlaying(tour.id, userId) flatMap {
+              case Some(pairing) if !pairing.berserkOf(userId) =>
+                (pairing colorOf userId) ?? { color =>
+                  PairingRepo.setBerserk(pairing, userId) >>-
+                    roundMap.tell(gameId, GoBerserk(color))
                 }
-              }
-            case _ => funit
+              case _ => funit
+            }
           }
         }
       }
@@ -464,15 +462,11 @@ final class TournamentApi(
       }
   }
 
-  private def fetchGames(tour: Tournament, ids: Seq[Game.ID]): Fu[List[LightGame]] =
-    GameRepo.light gamesFromPrimary ids
-
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
-    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap { ids =>
-      fetchGames(tour, ids) map {
-        _.flatMap { LightPov.ofUserId(_, userId) }
+    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
+      GameRepo.light.gamesFromPrimary map {
+        _ flatMap { LightPov.ofUserId(_, userId) }
       }
-    }
 
   private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit =
     doSequence(tourId) {

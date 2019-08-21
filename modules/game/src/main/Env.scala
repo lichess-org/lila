@@ -75,18 +75,6 @@ final class Env(
     captcher -> actorApi.NewCaptcha
   }
 
-  def onStart(gameId: String) = GameRepo game gameId foreach {
-    _ foreach { game =>
-      system.lilaBus.publish(actorApi.StartGame(game), 'startGame)
-      game.userIds foreach { userId =>
-        system.lilaBus.publish(
-          actorApi.UserStartGame(userId, game),
-          Symbol(s"userStartGame:$userId")
-        )
-      }
-    }
-  }
-
   lazy val gamesByUsersStream = new GamesByUsersStream(system)
 
   lazy val bestOpponents = new BestOpponents

@@ -80,7 +80,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "lobby",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    onStart = lila.game.Env.current.onStart,
+    onStart = lila.round.Env.current.onStart,
     blocking = lila.relation.Env.current.api.fetchBlocking,
     playban = lila.playban.Env.current.api.currentBan _,
     gameCache = lila.game.Env.current.cached,

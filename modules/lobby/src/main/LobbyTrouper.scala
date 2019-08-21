@@ -8,7 +8,6 @@ import org.joda.time.DateTime
 import actorApi._
 import lila.common.{ Every, AtMost }
 import lila.game.Game
-import lila.game.GameRepo
 import lila.hub.Trouper
 import lila.socket.Socket
 import lila.user.User

@@ -32,7 +32,6 @@
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
   <string name="shareChanges">与旁观者共享更改并保存在云端</string>
   <string name="playing">正在下棋</string>
-  <string name="onlyOngoingGames">仅正在进行的棋局</string>
   <string name="shareAndExport">分享并导出</string>
   <string name="cloneStudy">复制棋局</string>
   <string name="studyPgn">研究PGN</string>
@@ -43,7 +42,6 @@
   <string name="startAtX">从%s开始</string>
   <string name="embedThisChapter">将本章嵌入到您的网站或博客中</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">阅读更多关于嵌入研究章节的信息</string>
-  <string name="fen">FEN</string>
   <string name="open">打开</string>
   <string name="xBroughtToYouByY">%1$s 由 %2$s 提供</string>
   <string name="studyNotFound">找不到研究</string>

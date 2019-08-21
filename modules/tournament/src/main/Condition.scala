@@ -211,7 +211,7 @@ object Condition {
       "nb" -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
-      def convert(tourPerf: PerfType) = NbRatedGame(
+      def convert(tourPerf: PerfType): Option[NbRatedGame] = nb > 0 option NbRatedGame(
         if (perf has perfAuto._1) tourPerf.some else PerfType(~perf),
         nb
       )
@@ -278,7 +278,7 @@ object Condition {
       }
 
       def convert(perf: PerfType, teams: Map[String, String]) = All(
-        nbRatedGame.map(_ convert perf),
+        nbRatedGame.flatMap(_ convert perf),
         maxRating.convert(perf)(MaxRating.apply),
         minRating.convert(perf)(MinRating.apply),
         ~titled option Titled,

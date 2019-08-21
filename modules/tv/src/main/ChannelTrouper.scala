@@ -4,13 +4,14 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import chess.Color
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
 import lila.hub.Trouper
 
 private[tv] final class ChannelTrouper(
     channel: Tv.Channel,
     lightUser: lila.common.LightUser.GetterSync,
-    onSelect: TvTrouper.Selected => Unit
+    onSelect: TvTrouper.Selected => Unit,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) extends Trouper {
 
   import ChannelTrouper._
@@ -24,6 +25,8 @@ private[tv] final class ChannelTrouper(
   // the list of candidates by descending rating order
   private var manyIds = List.empty[Game.ID]
 
+  private val candidateIds = new lila.memo.ExpireSetMemo(3 minutes)
+
   protected val process: Trouper.Receive = {
 
     case GetGameId(promise) => promise success oneId
@@ -36,33 +39,37 @@ private[tv] final class ChannelTrouper(
       onSelect(TvTrouper.Selected(channel, game))
       history = game.id :: history.take(2)
 
-    case Select(candidates) => if (candidates.nonEmpty) {
-      oneId ?? GameRepo.game map2 Tv.toCandidate(lightUser) foreach {
-        case Some(current) if channel filter current =>
-          wayBetter(current.game, candidates) orElse rematch(current.game) foreach elect
-        case Some(current) => rematch(current.game) orElse feature(candidates) foreach elect
-        case _ => feature(candidates) foreach elect
-      }
-      manyIds = candidates.sortBy { g =>
-        -(~g.averageUsersRating)
-      }.map(_.id)
-    }
+    case TvTrouper.Select =>
+      candidateIds.keys.map(proxyGame).sequenceFu
+        .map(_.collect {
+          case Some(g) if channel isFresh g => g
+        }(scala.collection.breakOut): List[Game])
+        .foreach { candidates =>
+          oneId ?? proxyGame foreach {
+            case Some(current) if channel isFresh current =>
+              fuccess(wayBetter(current, candidates)) orElse rematch(current) foreach elect
+            case Some(current) => rematch(current) orElse fuccess(bestOf(candidates)) foreach elect
+            case _ => elect(bestOf(candidates))
+          }
+          manyIds = candidates.sortBy { g =>
+            -(~g.averageUsersRating)
+          }.take(50).map(_.id)
+        }
   }
+
+  def addCandidate(game: Game): Unit = candidateIds put game.id
 
   private def elect(gameOption: Option[Game]): Unit = gameOption foreach { this ! SetGame(_) }
 
-  private def wayBetter(game: Game, candidates: List[Game]) = feature(candidates) map {
-    case Some(next) if isWayBetter(game, next) => next.some
-    case _ => none
-  }
+  private def wayBetter(game: Game, candidates: List[Game]) =
+    bestOf(candidates) filter { isWayBetter(game, _) }
 
-  private def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.15)
+  private def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.17)
 
-  private def rematch(game: Game) = game.next ?? GameRepo.game
+  private def rematch(game: Game): Fu[Option[Game]] = game.next ?? proxyGame
 
-  private def feature(candidates: List[Game]) = fuccess {
+  private def bestOf(candidates: List[Game]) =
     candidates sortBy { -score(_) } headOption
-  }
 
   private def score(game: Game): Int = math.round {
     (heuristics map {
@@ -97,8 +104,6 @@ object ChannelTrouper {
   case class GetGameId(promise: Promise[Option[Game.ID]])
   case class GetGameIds(max: Int, promise: Promise[List[Game.ID]])
   private case class SetGame(game: Game)
-
-  case class Select(candidates: List[Game])
 
   case class GetGameIdAndHistory(promise: Promise[GameIdAndHistory])
   case class GameIdAndHistory(gameId: Option[Game.ID], history: List[Game.ID])
