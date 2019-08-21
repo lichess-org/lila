@@ -339,6 +339,7 @@
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="fromPosition">पोजिसन बाट</string>
   <string name="continueFromHere">अगाडि खेलौ</string>
+  <string name="importGame">खेल निर्यात गरौं</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
   <string name="wins">जित</string>
