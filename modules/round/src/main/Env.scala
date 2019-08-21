@@ -36,6 +36,7 @@ final class Env(
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     isBotSync: lidraughts.common.LightUser.IsBotSync,
     ratingFactors: () => lidraughts.rating.RatingFactors,
+    playbanApi: lidraughts.playban.PlaybanApi,
     val socketDebug: () => Boolean
 ) {
 
@@ -180,6 +181,7 @@ final class Env(
       uidTtl = SocketUidTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout,
+      playbanApi = playbanApi,
       getGame = proxy.game _
     )
   )
@@ -347,6 +349,7 @@ object Env {
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
     isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
     ratingFactors = lidraughts.rating.Env.current.ratingFactorsSetting.get,
+    playbanApi = lidraughts.playban.Env.current.api,
     socketDebug = lidraughts.socket.Env.current.socketDebugSetting.get
   )
 }
