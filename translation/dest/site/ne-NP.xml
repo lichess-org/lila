@@ -262,6 +262,9 @@
   <string name="giveMoreTime">थप समय दिनु</string>
   <string name="thisPlayerUsesChessComputerAssistance">यो खेलाडी कम्प्युटरको सहायताले खेल्ने गर्दछ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">यो खेलाडी कृतिम रुपमा रेटिङ घटबढ गराउने गर्दछ</string>
+  <string name="openingExplorerAndTablebase">शुरुका चाल अन्वेषक &amp; टेबलबेस</string>
+  <string name="takeback">चाल फिर्ता</string>
+  <string name="proposeATakeback">चाल फिर्ता लिने प्रस्ताव गरौं</string>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
