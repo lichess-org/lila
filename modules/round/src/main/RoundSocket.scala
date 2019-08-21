@@ -7,6 +7,7 @@ import akka.pattern.{ ask, pipe }
 import chess.{ Color, White, Black }
 import play.api.libs.iteratee._
 import play.api.libs.json._
+import scala.math.{ log10, sqrt }
 
 import actorApi._
 import lila.chat.Chat
@@ -54,6 +55,18 @@ private[round] final class RoundSocket(
 
     var userId = none[String]
 
+    private lazy val nbPlaybansForSomeUser: Fu[Int] =
+      userId ?? { u =>
+        dependencies.playbanApi.bans(u) map { b =>
+          b.size
+        }
+      }
+
+    // do NOT evaluate nbPlaybansForSomeUser when userId is none
+    // doing so will set it to 0 while userId might just not be known yet
+    def nbPlaybans: Fu[Int] =
+      userId.isDefined ?? nbPlaybansForSomeUser
+
     def ping: Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
       if (bye > 0) bye = bye - 1
@@ -68,9 +81,19 @@ private[round] final class RoundSocket(
       lilaBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
+    def weigh(orig: Long, startAt: Int) =
+      nbPlaybans map { n =>
+        if (n < startAt) orig else orig * (1d - 0.75 * sqrt(log10(n + 1 - startAt)))
+      }
+    def weightedRagequitTimeout = weigh(ragequitTimeout.toMillis, 4)
+    def weightedDisconnectTimeout = weigh(disconnectTimeout.toMillis, 4)
+
     def isGone: Fu[Boolean] = {
-      time < (nowMillis - (if (isBye) ragequitTimeout else disconnectTimeout).toMillis) &&
-        !botConnected
+      weightedRagequitTimeout zip weightedDisconnectTimeout map {
+        case (rq, dc) =>
+          time < (nowMillis - (if (isBye) rq else dc)) &&
+            !botConnected
+      }
     } ?? !isHostingSimul
 
     def setBotConnected(v: Boolean) =
@@ -336,6 +359,7 @@ object RoundSocket {
       lightUser: LightUser.Getter,
       sriTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration
+      ragequitTimeout: FiniteDuration,
+      playbanApi: lila.playban.PlaybanApi
   )
 }
