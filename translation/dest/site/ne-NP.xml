@@ -352,4 +352,9 @@
   <string name="berserkRate">बजर्क दर</string>
   <string name="performance">पफमेन्स</string>
   <string name="tournamentComplete">प्रतियोगिता समाप्त</string>
+  <string name="movesPlayed">चाल संख्या</string>
+  <string name="whiteWins">सेतोको जित</string>
+  <string name="blackWins">कालोको जित</string>
+  <string name="draws">बराबरी</string>
+  <string name="nextXTournament">अर्को %s प्रतियोगिता:</string>
 </resources>
