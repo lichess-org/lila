@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lidraughts.db.dsl._
 import lidraughts.hub.actorApi.timeline.Atom
+import lidraughts.user.User
 
 final class EntryApi(
     coll: Coll,
@@ -18,13 +19,13 @@ final class EntryApi(
 
   private val projection = $doc("users" -> false)
 
-  def userEntries(userId: String): Fu[Vector[Entry]] =
+  def userEntries(userId: User.ID): Fu[Vector[Entry]] =
     userEntries(userId, userMax) flatMap broadcast.interleave
 
-  def moreUserEntries(userId: String, nb: Int): Fu[Vector[Entry]] =
+  def moreUserEntries(userId: User.ID, nb: Int): Fu[Vector[Entry]] =
     userEntries(userId, nb) flatMap broadcast.interleave
 
-  private def userEntries(userId: String, max: Int): Fu[Vector[Entry]] =
+  private def userEntries(userId: User.ID, max: Int): Fu[Vector[Entry]] =
     coll.find($doc(
       "users" -> userId,
       "date" $gt DateTime.now.minusWeeks(2)
@@ -41,7 +42,7 @@ final class EntryApi(
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[Vector](max)
 
-  def channelUserIdRecentExists(channel: String, userId: String): Fu[Boolean] =
+  def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
     coll.count($doc(
       "users" -> userId,
       "chan" -> channel,
@@ -50,6 +51,15 @@ final class EntryApi(
 
   def insert(e: Entry.ForUsers) =
     coll.insert(EntryBSONHandler.write(e.entry) ++ $doc("users" -> e.userIds)) void
+
+  // can't remove from capped collection,
+  // so we set a date in the past instead.
+  private[timeline] def removeRecentFollowsBy(userId: User.ID): Funit =
+    coll.update(
+      $doc("typ" -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
+      $set("date" -> DateTime.now().minusDays(365)),
+      multi = true
+    ).void
 
   // entries everyone can see
   // they have no db `users` field
