@@ -143,7 +143,7 @@ object Tournament {
     berserkable: Boolean,
     description: Option[String]
   ) = Tournament(
-    id = Random nextString 8,
+    id = makeId,
     name = name | {
       if (position.initial) GreatPlayer.randomName
       else position.shortName
@@ -169,7 +169,7 @@ object Tournament {
   )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
-    id = Random nextString 8,
+    id = makeId,
     name = sched.name,
     status = Status.Created,
     system = System.default,
@@ -185,4 +185,6 @@ object Tournament {
     schedule = Some(sched),
     startsAt = sched.at
   )
+
+  def makeId = Random nextString 8
 }
