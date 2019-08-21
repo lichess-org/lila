@@ -298,6 +298,15 @@
     <item quantity="one">अझै %s वटा रेटेड खेल खेल्नुपर्ने हुन्छ</item>
     <item quantity="other">अझै %s वटा रेटेड खेल खेल्नुपर्ने हुन्छ</item>
   </plurals>
+  <string name="yourPerfRatingIsProvisional">तपाइको %s रेटिङ अस्थायी छ</string>
+  <string name="yourPerfRatingIsTooHigh">तपाइको %1$s रेटिङ (%2$s) बढि भयो</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">तपाइको हप्ताको अधिकतम् %1$s रेटिङ (%2$s) बढि भयो</string>
+  <string name="yourPerfRatingIsTooLow">तपाइको %1$s रेटिङ (%2$s) कम भयो</string>
+  <string name="ratedMoreThanInPerf">%2$s मा रेटिङ ≥ %1$s</string>
+  <string name="ratedLessThanInPerf">%2$s मा रेटिङ ≤ %1$s</string>
+  <string name="mustBeInTeam">%s टोलीमा रहेको हुनुपर्छ</string>
+  <string name="youAreNotInTeam">तपाइ %s टोलीमा हुनुहुन्न</string>
+  <string name="backToGame">खेलमा फिर्ता</string>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
