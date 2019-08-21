@@ -36,7 +36,6 @@ final class Env(
     evalCacheHandler: lidraughts.evalCache.EvalCacheSocketHandler,
     isBotSync: lidraughts.common.LightUser.IsBotSync,
     ratingFactors: () => lidraughts.rating.RatingFactors,
-    settingStore: lidraughts.memo.SettingStore.Builder,
     val socketDebug: () => Boolean
 ) {
 
@@ -61,12 +60,6 @@ final class Env(
   private val moveTimeChannel = new lidraughts.socket.Channel(system)
   bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
-  val persistenceSpeedSetting = settingStore[Int](
-    "persistenceSpeed",
-    default = -1,
-    text = "Force round persistence of games which speed is higher than".some
-  )
-
   private val deployPersistence = new DeployPersistence(system)
 
   private lazy val roundDependencies = RoundDuct.Dependencies(
@@ -85,7 +78,7 @@ final class Env(
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id
-      )(new GameProxy(id, deployPersistence.isEnabled, persistenceSpeedSetting.get, system.scheduler))
+      )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
       duct.getGame foreach { _ foreach scheduleExpiration }
       duct
     },
@@ -354,7 +347,6 @@ object Env {
     evalCacheHandler = lidraughts.evalCache.Env.current.socketHandler,
     isBotSync = lidraughts.user.Env.current.lightUserApi.isBotSync,
     ratingFactors = lidraughts.rating.Env.current.ratingFactorsSetting.get,
-    settingStore = lidraughts.memo.Env.current.settingStore,
     socketDebug = lidraughts.socket.Env.current.socketDebugSetting.get
   )
 }

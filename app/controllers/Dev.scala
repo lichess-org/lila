@@ -24,8 +24,7 @@ object Dev extends LidraughtsController {
     Env.lobby.whitelistIPSetting,
     Env.rating.ratingFactorsSetting,
     Env.socket.socketDebugSetting,
-    Env.plan.donationGoalSetting,
-    Env.round.persistenceSpeedSetting
+    Env.plan.donationGoalSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

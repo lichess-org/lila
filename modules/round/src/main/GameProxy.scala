@@ -10,7 +10,6 @@ import ornicar.scalalib.Zero
 private final class GameProxy(
     id: Game.ID,
     alwaysPersist: () => Boolean,
-    persistIfSpeedIdHigherThan: () => Int,
     scheduler: Scheduler
 ) {
 
@@ -61,7 +60,9 @@ private final class GameProxy(
   private var scheduledFlush: Cancellable = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
-    alwaysPersist() || p.game.isSimul || p.game.speed.id > persistIfSpeedIdHigherThan() || p.statusChanged
+    alwaysPersist() || p.statusChanged || p.game.isSimul || (
+      p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
+    )
 
   private def scheduleFlushProgress = {
     scheduledFlush.cancel()
