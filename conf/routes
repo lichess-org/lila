@@ -239,6 +239,7 @@ GET   /tournament/shields/:categ              controllers.Tournament.categShield
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
+GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.clone(id: String)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form

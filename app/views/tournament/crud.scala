@@ -7,9 +7,9 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.tournament.{ DataForm, Tournament }
-import lila.tournament.crud.CrudForm
 import lila.rating.PerfType
+import lila.tournament.crud.CrudForm
+import lila.tournament.{ DataForm, Tournament }
 
 import controllers.routes
 
@@ -46,10 +46,15 @@ object crud {
     css = "mod.form"
   ) {
     div(cls := "crud edit page-menu__content box box-pad")(
-      h1(
-        a(href := routes.Tournament.show(tour.id))(tour.fullName),
-        " ",
-        span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+      div(cls := "box__top")(
+        h1(
+          a(href := routes.Tournament.show(tour.id))(tour.fullName),
+          " ",
+          span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+        ),
+        st.form(cls := "box__top__actions", action := routes.TournamentCrud.clone(tour.id), method := "get")(
+          form3.submit("Clone", "g".some, klass = "button-green")
+        )
       ),
       postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
     )

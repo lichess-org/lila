@@ -2,6 +2,7 @@ package lila.tournament
 package crud
 
 import BSONHandlers._
+import org.joda.time.DateTime
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
@@ -39,6 +40,11 @@ final class CrudApi {
     val tour = updateTour(empty, data).copy(createdBy = owner.id)
     TournamentRepo insert tour inject tour
   }
+
+  def clone(old: Tournament) = old.copy(
+    name = s"${old.name} (clone)",
+    startsAt = DateTime.now plusDays 7
+  )
 
   def paginator(page: Int) = Paginator[Tournament](adapter = new Adapter[Tournament](
     collection = TournamentRepo.coll,
