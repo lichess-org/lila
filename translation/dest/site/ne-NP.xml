@@ -345,6 +345,9 @@
     <item quantity="one">%s आयातित खेल</item>
     <item quantity="other">%s आयातित खेलहरु</item>
   </plurals>
+  <string name="thisIsAChessCaptcha">यो बुद्धिचाल क्याप्चा हो।</string>
+  <string name="clickOnTheBoardToMakeYourMove">बोर्डमा क्लिक गरेर आफ्नो चाल चलेर आफु मानव भएको प्रमाण दिनुहोस्।</string>
+  <string name="captcha.fail">बुद्धिचाल क्याप्चा हल गर्नुहोस्।</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
   <string name="wins">जित</string>
