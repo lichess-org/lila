@@ -19,7 +19,7 @@ private object MoveMonitor {
         case tick: TickMetricSnapshot => tick.metrics.collectFirst {
           case (entity, snapshot) if entity.category == "trace" => snapshot
         } flatMap (_ histogram "elapsed-time") foreach { h =>
-          if (!h.isEmpty) current = (h.sum / h.numberOfMeasurements / 1000000).toInt
+          if (!h.isEmpty) current = Math.round(h.sum / h.numberOfMeasurements / 1000000).toInt
         }
       }
     })))
