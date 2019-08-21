@@ -281,6 +281,7 @@
     <item quantity="other">%s प्रतियोगिताको अङ्कहरु</item>
   </plurals>
   <string name="viewTournament">प्रतियोगिता हेरौं</string>
+  <string name="backToTournament">प्रतियोगितामा फिर्ता जाऔं</string>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
