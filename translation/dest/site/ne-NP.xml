@@ -390,6 +390,11 @@
   <string name="winner">विजेता</string>
   <string name="standing">अग्रतालिक</string>
   <string name="createANewTournament">नयाँ प्रतियोगिता रचना गरौं</string>
+  <string name="tournamentCalendar">प्रतियोगिताको पात्रो</string>
+  <string name="conditionOfEntry">प्रवेश गर्ने शर्तहरु:</string>
+  <string name="advancedSettings">उन्नत सेटिङहरू</string>
+  <string name="safeTournamentName">प्रतियोगिताको लागि एउटा असाध्यै सभ्य नाम रोजौं।</string>
+  <string name="inappropriateNameWarning">थोरै पनि अवैधानिक भएमा तपाइको खाता नै बन्द गर्न सकिनेछ।</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
   <string name="wins">जित</string>
