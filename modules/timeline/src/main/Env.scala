@@ -48,6 +48,10 @@ final class Env(
       }
     }
 
+  system.lilaBus.subscribeFun('shadowban) {
+    case lila.hub.actorApi.mod.Shadowban(userId, true) => entryApi removeRecentFollowsBy userId
+  }
+
   private[timeline] lazy val entryColl = db(CollectionEntry)
   private[timeline] lazy val unsubColl = db(CollectionUnsub)
 }
