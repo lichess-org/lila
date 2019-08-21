@@ -384,4 +384,10 @@
   <string name="watchLichessTV">लीचेस टिभी हेरौं</string>
   <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
   <string name="onlinePlayers">अनलाइन खेलाडीहरु</string>
+  <string name="activeToday">आज कृयाशील</string>
+  <string name="activePlayers">कृयाशील खेलाडीहरु</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
+  <string name="training">प्रशिक्षण</string>
+  <string name="whatIsIheMatter">समस्या के हो?</string>
+  <string name="cheat">चोरी</string>
 </resources>
