@@ -103,19 +103,19 @@ object UserRepo {
       .sort($sort desc "perfs.standard.gl.r")
       .list[User](nb, ReadPreference.secondaryPreferred)
 
-  // expensive, send to secondary
-  def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
-    coll.find(
-      $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
-      $id(true)
-    )
-      .sort($sort desc "perfs.standard.gl.r")
-      .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
-        _.flatMap { _.getAs[User.ID]("_id") }
-      }
+  //   // expensive, send to secondary
+  //   def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
+  //     coll.find(
+  //       $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
+  //       $id(true)
+  //     )
+  //       .sort($sort desc "perfs.standard.gl.r")
+  //       .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
+  //         _.flatMap { _.getAs[User.ID]("_id") }
+  //       }
 
-  private[user] def allSortToints(nb: Int) =
-    coll.find($empty).sort($sort desc F.toints).list[User](nb)
+  // private[user] def allSortToints(nb: Int) =
+  //   coll.find($empty).sort($sort desc F.toints).list[User](nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -222,10 +222,7 @@ object UserRepo {
   def engineSelect(v: Boolean) = $doc(F.engine -> (if (v) $boolean(true) else $ne(true)))
   def trollSelect(v: Boolean) = $doc(F.troll -> (if (v) $boolean(true) else $ne(true)))
   def boosterSelect(v: Boolean) = $doc(F.booster -> (if (v) $boolean(true) else $ne(true)))
-  def stablePerfSelect(perf: String) = $doc(
-    s"perfs.$perf.nb" -> $gte(30),
-    s"perfs.$perf.gl.d" -> $lt(lidraughts.rating.Glicko.provisionalDeviation)
-  )
+  def stablePerfSelect(perf: String) = $doc(s"perfs.$perf.gl.d" -> $lt(lidraughts.rating.Glicko.provisionalDeviation))
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   val goodLadSelectBson = $doc(
     F.enabled -> true,
@@ -490,14 +487,14 @@ object UserRepo {
 
   def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
-  def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregateOne(
-      Match($inIds(ids)),
-      List(Group(BSONNull)(F.toints -> SumField(F.toints))),
-      ReadPreference.secondaryPreferred
-    ).map {
-        _ flatMap { _.getAs[Int](F.toints) }
-      }.map(~_)
+  // def idsSumToints(ids: Iterable[String]): Fu[Int] =
+  //   ids.nonEmpty ?? coll.aggregateOne(
+  //     Match($inIds(ids)),
+  //     List(Group(BSONNull)(F.toints -> SumField(F.toints))),
+  //     ReadPreference.secondaryPreferred
+  //   ).map {
+  //       _ flatMap { _.getAs[Int](F.toints) }
+  //     }.map(~_)
 
   def filterByEngine(userIds: Iterable[User.ID]): Fu[Set[User.ID]] =
     coll.distinctWithReadPreference[String, Set](
