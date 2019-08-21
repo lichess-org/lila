@@ -254,6 +254,14 @@
     <item quantity="other">%s सुचारु</item>
   </plurals>
   <string name="exportGames">खेलहरु निर्यात गर्नुहोस्</string>
+  <string name="ratingRange">रेटिङ को सिमा</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">%s सेकेण्ड दिनु</item>
+    <item quantity="other">%s सेकेण्ड दिनु</item>
+  </plurals>
+  <string name="giveMoreTime">थप समय दिनु</string>
+  <string name="thisPlayerUsesChessComputerAssistance">यो खेलाडी कम्प्युटरको सहायताले खेल्ने गर्दछ</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">यो खेलाडी कृतिम रुपमा रेटिङ घटबढ गराउने गर्दछ</string>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
