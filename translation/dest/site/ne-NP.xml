@@ -307,6 +307,18 @@
   <string name="mustBeInTeam">%s टोलीमा रहेको हुनुपर्छ</string>
   <string name="youAreNotInTeam">तपाइ %s टोलीमा हुनुहुन्न</string>
   <string name="backToGame">खेलमा फिर्ता</string>
+  <string name="siteDescription">निःशुल्क अनलाईन बुद्धिचाल सर्भर। अहिल्यै एउटा सफा इन्टरफेसमा बुद्धिचाल खेलौं: कुनै दर्ता नगरी, कुनै बिज्ञापन नहेरी, कुनै प्लगइन बिना। कम्प्युटर संग, मित्रहरुसँग वा संसारभरका अरु खेलाडीहरुसँग।</string>
+  <string name="teams">टोलीहरू</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s सदस्य</item>
+    <item quantity="other">%s सदस्यहरु</item>
+  </plurals>
+  <string name="allTeams">सबै टोलीहरु</string>
+  <string name="newTeam">नयाँ टोली</string>
+  <string name="myTeams">मेरा टोलीहरु</string>
+  <string name="noTeamFound">कुनैपनि टोली भेट्टिएनन्</string>
+  <string name="joinTeam">टोलीमा सम्मिलित होऔं</string>
+  <string name="quitTeam">टोली छोडौं</string>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
@@ -326,4 +338,18 @@
   <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
   <string name="fromPosition">पोजिसन बाट</string>
   <string name="continueFromHere">अगाडि खेलौ</string>
+  <string name="withdraw">फिर्ता</string>
+  <string name="points">अंक</string>
+  <string name="wins">जित</string>
+  <string name="losses">हार</string>
+  <string name="winStreak">जितको लहर</string>
+  <string name="createdBy">स्रष्टा</string>
+  <string name="tournamentIsStarting">प्रतियोगिता शुरु हुदैछ</string>
+  <string name="tournamentPairingsAreNowClosed">प्रतियोगितामा पेयरिङ बन्द भयो।</string>
+  <string name="standByX">ध्यान दिनुहोला %s, जोडा मिलाइदैंछ, तयार रहनुहोला!</string>
+  <string name="youArePlaying">तपाइ खेल्दै हुनुहुन्छ!</string>
+  <string name="winRate">जित दर</string>
+  <string name="berserkRate">बजर्क दर</string>
+  <string name="performance">पफमेन्स</string>
+  <string name="tournamentComplete">प्रतियोगिता समाप्त</string>
 </resources>
