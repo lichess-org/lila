@@ -372,4 +372,16 @@
   <string name="profileCompletion">प्रोफाइल समापन: %s</string>
   <string name="xRating">%s रेटिङ</string>
   <string name="ifNoneLeaveEmpty">नभएको खण्डमा खाली छोडौं</string>
+  <string name="gameCompletionRate">खेल समापन दर: %s</string>
+  <string name="profile">प्रोफाइल</string>
+  <string name="editProfile">प्रोफाइल सम्पादन गर्नुहोस्</string>
+  <string name="firstName">शुभनाम</string>
+  <string name="lastName">थर</string>
+  <string name="biography">जीवनी</string>
+  <string name="country">देश</string>
+  <string name="preferences">प्राथमिकता</string>
+  <string name="inlineNotation">पङ्तिमा नोटेशन</string>
+  <string name="watchLichessTV">लीचेस टिभी हेरौं</string>
+  <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
+  <string name="onlinePlayers">अनलाइन खेलाडीहरु</string>
 </resources>
