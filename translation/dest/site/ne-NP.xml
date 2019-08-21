@@ -357,4 +357,19 @@
   <string name="blackWins">कालोको जित</string>
   <string name="draws">बराबरी</string>
   <string name="nextXTournament">अर्को %s प्रतियोगिता:</string>
+  <string name="viewMoreTournaments">अरु प्रतियोगिता हेरौं</string>
+  <string name="averageOpponent">औसत प्रतिद्वन्दी</string>
+  <string name="membersOnly">सदस्यहरु मात्र</string>
+  <string name="boardEditor">बोर्ड सम्पादक</string>
+  <string name="setTheBoard">बोर्ड सेट गरौं</string>
+  <string name="popularOpenings">लोकप्रिय सुरुवाती चालहरु</string>
+  <string name="startPosition">शुरुवाती अवस्था</string>
+  <string name="clearBoard">बोर्ड खालि गरौं</string>
+  <string name="savePosition">पोजिसन सेभ गरौं</string>
+  <string name="loadPosition">पोजिसन लोड गरौं</string>
+  <string name="isPrivate">नीजि</string>
+  <string name="reportXToModerators">%s माथी उजुरी गरौं</string>
+  <string name="profileCompletion">प्रोफाइल समापन: %s</string>
+  <string name="xRating">%s रेटिङ</string>
+  <string name="ifNoneLeaveEmpty">नभएको खण्डमा खाली छोडौं</string>
 </resources>
