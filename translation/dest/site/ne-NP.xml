@@ -282,6 +282,7 @@
   </plurals>
   <string name="viewTournament">प्रतियोगिता हेरौं</string>
   <string name="backToTournament">प्रतियोगितामा फिर्ता जाऔं</string>
+  <string name="thematic">बिभिन्न शुरुवाती अवस्थाका</string>
   <plurals name="moreThanNbRatedGames">
     <item quantity="one">≥ %s रेटेड खेल</item>
     <item quantity="other">≥ %s रेटेड खेल</item>
@@ -390,4 +391,7 @@
   <string name="training">प्रशिक्षण</string>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
+  <string name="insult">मानहानी</string>
+  <string name="troll">ट्रोल</string>
+  <string name="other">अन्य</string>
 </resources>
