@@ -35,7 +35,7 @@ object Fishnet extends LilaController {
       case WorkNotFound => acquireNext
       case GameNotFound => acquireNext
       case NotAcquired => acquireNext
-      case WeakAnalysis => acquireNext
+      case WeakAnalysis(_) => acquireNext
       // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
       case e => fuccess(Left(InternalServerError(e.getMessage)))
     }, {
