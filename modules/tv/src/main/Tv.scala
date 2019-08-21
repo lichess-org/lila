@@ -3,7 +3,7 @@ package lila.tv
 import scala.concurrent.duration._
 
 import lila.common.LightUser
-import lila.game.{ Game, Pov }
+import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.Trouper
 
 final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
@@ -18,7 +18,9 @@ final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
     trouper.ask[GameIdAndHistory](TvTrouper.GetGameIdAndHistory(channel, _)) flatMap {
       case GameIdAndHistory(gameId, historyIds) => for {
         game <- gameId ?? roundProxyGame
-        games <- historyIds.map(roundProxyGame).sequenceFu.map(_.flatten)
+        games <- historyIds.map { id =>
+          roundProxyGame(id) orElse GameRepo.game(id)
+        }.sequenceFu.map(_.flatten)
         history = games map Pov.first
       } yield game map (_ -> history)
     }
