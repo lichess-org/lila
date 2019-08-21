@@ -365,6 +365,31 @@
   <string name="unblock">ब्लक नगरौं</string>
   <string name="followsYou">तपाइलाई फलो गर्दै</string>
   <string name="xStartedFollowingY">%1$s ले %2$s लाइ फलो गर्न शुरु गर्नुभएको छ</string>
+  <plurals name="nbFollowers">
+    <item quantity="one">%s फलोकर्ता</item>
+    <item quantity="other">%s फलोकर्ताहरु</item>
+  </plurals>
+  <plurals name="nbFollowing">
+    <item quantity="one">%s फलो गर्दै</item>
+    <item quantity="other">%s फलो गर्दै</item>
+  </plurals>
+  <string name="more">थप</string>
+  <string name="memberSince">सदस्यता मिति</string>
+  <string name="lastSeenActive">%s मा सकृय</string>
+  <string name="challengeToPlay">खेलको लागि चुनौति दिनुहोस्</string>
+  <string name="player">खेलाडी</string>
+  <string name="list">सुचि</string>
+  <string name="graph">रेखाचित्र</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">%s मिनेटभन्दा कम</item>
+    <item quantity="other">%s मिनेटभन्दा कम</item>
+  </plurals>
+  <string name="required">आवश्यक।</string>
+  <string name="openTournaments">खुल्ला प्रतियोगिताहरु</string>
+  <string name="duration">अवधि</string>
+  <string name="winner">विजेता</string>
+  <string name="standing">अग्रतालिक</string>
+  <string name="createANewTournament">नयाँ प्रतियोगिता रचना गरौं</string>
   <string name="withdraw">फिर्ता</string>
   <string name="points">अंक</string>
   <string name="wins">जित</string>
