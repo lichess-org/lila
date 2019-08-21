@@ -4,7 +4,7 @@ import reactivemongo.api._
 
 import lidraughts.common.paginator.Paginator
 import lidraughts.db.dsl._
-import lidraughts.db.paginator.{ Adapter }
+import lidraughts.db.paginator.{ Adapter, CachedAdapter }
 import lidraughts.user.{ User, UserRepo }
 
 final class StreamerPager(
@@ -31,7 +31,7 @@ final class StreamerPager(
       sort = $doc("liveAt" -> -1)
     ) mapFutureList withUsers
     Paginator(
-      adapter = adapter,
+      adapter = new CachedAdapter(adapter, nbResults = fuccess(6000)),
       currentPage = page,
       maxPerPage = maxPerPage
     )
