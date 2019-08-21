@@ -459,6 +459,22 @@
   <string name="puzzleOfTheDay">आजको पजल</string>
   <string name="clickToSolve">हल गर्न क्लिक गर्नुहोस्</string>
   <string name="goodMove">राम्रो चाल</string>
+  <string name="butYouCanDoBetter">योभन्दा राम्रो गर्न सकिन्छ।</string>
+  <string name="bestMove">सर्वोत्कृष्ट चाल</string>
+  <string name="keepGoing">जारी राख्नुहोस्…</string>
+  <string name="puzzleFailed">गलत जवाफ</string>
+  <string name="butYouCanKeepTrying">तर प्रयास गरिरहन सकिन्छ।</string>
+  <string name="success">सफलता</string>
+  <string name="wasThisPuzzleAnyGood">के यो राम्रो थियो?</string>
+  <string name="pleaseVotePuzzle">मतदान गरी लीचेसलाइ प्रगति गर्न सहयोग गरौं:</string>
+  <string name="thankYou">धन्यवाद!</string>
+  <string name="ratingX">रेटिङ: %s</string>
+  <string name="hidden">गुप्त</string>
+  <plurals name="playedXTimes">
+    <item quantity="one">%s पटक खेल्नुभयो</item>
+    <item quantity="other">%s पटक खेल्नुभयो</item>
+  </plurals>
+  <string name="fromGameLink">खेल %s बाट</string>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="insult">मानहानी</string>
