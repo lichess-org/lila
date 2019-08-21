@@ -31,27 +31,18 @@ object Step {
     JsString(uci.uci)
   }
 
-  implicit val stepJsonWriter: Writes[Step] = {
-    Writes { step =>
-      import step._
-      (
-        add("dests", dests.map {
-          _.map {
-            case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-          }.mkString(" ")
-        }) _ compose
-        add("captLen", captLen)
-      )(Json.obj(
-          "ply" -> ply,
-          "uci" -> move.map(_.shortUciString),
-          "san" -> move.map(_.san),
-          "fen" -> fen
-        ))
-    }
+  implicit val stepJsonWriter: Writes[Step] = Writes { step =>
+    import step._
+    Json.obj(
+      "ply" -> ply,
+      "uci" -> move.map(_.shortUciString),
+      "san" -> move.map(_.san),
+      "fen" -> fen
+    ).add("dests", dests.map {
+        _.map {
+          case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
+        }.mkString(" ")
+      })
+      .add("captLen", captLen)
   }
-  private def add[A](k: String, v: A, cond: Boolean)(o: JsObject)(implicit writes: Writes[A]): JsObject =
-    if (cond) o + (k -> writes.writes(v)) else o
-
-  private def add[A: Writes](k: String, v: Option[A]): JsObject => JsObject =
-    v.fold(identity[JsObject] _) { add(k, _, true) _ }
 }
