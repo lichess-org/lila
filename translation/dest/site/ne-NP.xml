@@ -204,4 +204,10 @@
   <string name="gameAborted">खेल रद्द गरियो</string>
   <string name="standard">सामान्य</string>
   <string name="unlimited">असीमित</string>
+  <string name="mode">मोड</string>
+  <string name="casual">अनौपचारिक</string>
+  <string name="rated">रेटेड</string>
+  <string name="casualTournament">अनौपचारिक</string>
+  <string name="ratedTournament">रेटेड</string>
+  <string name="thisGameIsRated">खेल रेटेड हुनेछ</string>
 </resources>
