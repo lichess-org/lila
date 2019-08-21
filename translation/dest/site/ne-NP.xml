@@ -184,4 +184,30 @@
     <item quantity="one">तपाई सँग खेलेको %s खेल</item>
     <item quantity="other">तपाइसँग खेलिएका %s खेलहरु</item>
   </plurals>
+  <string name="cancel">रद्द गर्नुहोस्</string>
+  <string name="timeOut">समय सकियो</string>
+  <string name="drawOfferSent">बराबरीको प्रस्ताव पठाइयो</string>
+  <string name="drawOfferDeclined">बराबरीको प्रस्ताव अस्वीकृत भयो</string>
+  <string name="drawOfferAccepted">बराबरीको प्रस्ताव स्वीकृत भयो</string>
+  <string name="drawOfferCanceled">बराबरीको प्रस्ताव रद्द भयो</string>
+  <string name="whiteOffersDraw">सेतो ले बराबरीको प्रस्ताव गरेको छ</string>
+  <string name="blackOffersDraw">कालोले बराबरीको प्रस्ताव गरेको छ</string>
+  <string name="whiteDeclinesDraw">सेतोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
+  <string name="blackDeclinesDraw">कालोले बराबरीको प्रस्ताव अस्वीकार गरेको छ</string>
+  <string name="yourOpponentOffersADraw">तपाइको प्रतिद्वन्दी बाट बराबरीको प्रस्ताव आएको छ</string>
+  <string name="accept">स्वीकार्नुहोस्</string>
+  <string name="decline">अस्वीकार गर्नुहोस्</string>
+  <string name="playingRightNow">खेल चालु छ</string>
+  <string name="eventInProgress">खेल चालु छ</string>
+  <string name="finished">समाप्त भयो</string>
+  <string name="abortGame">खेल रद्द गरौ</string>
+  <string name="gameAborted">खेल रद्द गरियो</string>
+  <string name="standard">सामान्य</string>
+  <string name="unlimited">असीमित</string>
+  <string name="mode">मोड</string>
+  <string name="casual">अनौपचारिक</string>
+  <string name="rated">रेटेड</string>
+  <string name="casualTournament">अनौपचारिक</string>
+  <string name="ratedTournament">रेटेड</string>
+  <string name="thisGameIsRated">खेल रेटेड हुनेछ</string>
 </resources>
