@@ -237,10 +237,40 @@
     <item quantity="one">%s रेटेड</item>
     <item quantity="other">%s रेटेड</item>
   </plurals>
+  <plurals name="nbWins">
+    <item quantity="one">%s जित</item>
+    <item quantity="other">%s जित</item>
+  </plurals>
+  <plurals name="nbLosses">
+    <item quantity="one">%s हार</item>
+    <item quantity="other">%s हार</item>
+  </plurals>
+  <plurals name="nbDraws">
+    <item quantity="one">%s बराबरी</item>
+    <item quantity="other">%s बराबरी</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">%s सुचारु</item>
+    <item quantity="other">%s सुचारु</item>
+  </plurals>
+  <string name="exportGames">खेलहरु निर्यात गर्नुहोस्</string>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
   <string name="teamLeader">टोली नाइके</string>
   <string name="teamBestPlayers">सर्वोत्कृष्ट खेलाडीहरु</string>
   <string name="teamRecentMembers">पछिल्ला सदस्हयरु</string>
+  <string name="xJoinedTeamY">%1$s %2$sटोलीमा सामेल हुनुभयो</string>
+  <string name="xCreatedTeamY">%1$s ले %2$s टोलीमा स्थापना गर्नुभयो</string>
+  <string name="averageElo">औसत रेटिङ</string>
+  <string name="location">ठेगाना</string>
+  <string name="settings">विकल्पहरु</string>
+  <string name="filterGames">खेलहरु छान्नुहोस्</string>
+  <string name="reset">पुनः</string>
+  <string name="apply">पेश</string>
+  <string name="leaderboard">सर्वोत्कृष्ट खेलाडीहरु</string>
+  <string name="pasteTheFenStringHere">FEN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
+  <string name="pasteThePgnStringHere">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं</string>
+  <string name="fromPosition">पोजिसन बाट</string>
+  <string name="continueFromHere">अगाडि खेलौ</string>
 </resources>
