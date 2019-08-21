@@ -282,6 +282,22 @@
   </plurals>
   <string name="viewTournament">प्रतियोगिता हेरौं</string>
   <string name="backToTournament">प्रतियोगितामा फिर्ता जाऔं</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">≥ %s रेटेड खेल</item>
+    <item quantity="other">≥ %s रेटेड खेल</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1$s %2$s रेटेड खेल</item>
+    <item quantity="other">≥ %1$s %2$s रेटेड खेल</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">अझै %1$s वटा %2$s रेटेड खेल खेल्नुपर्ने हुन्छ</item>
+    <item quantity="other">अझै %1$s वटा %2$s रेटेड खेल खेल्नुपर्ने हुन्छ</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">अझै %s वटा रेटेड खेल खेल्नुपर्ने हुन्छ</item>
+    <item quantity="other">अझै %s वटा रेटेड खेल खेल्नुपर्ने हुन्छ</item>
+  </plurals>
   <string name="anyoneCanJoin">सबैको लागि खुल्ला</string>
   <string name="aConfirmationIsRequiredToJoin">सामेल हुन प्रमाणिकरण गरिएको हुनु पर्नेछ</string>
   <string name="joiningPolicy">सामेल हुने प्रणाली</string>
