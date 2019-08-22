@@ -329,6 +329,8 @@
   <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋来证明你是人类。</string>
   <string name="captcha.fail">请解决国际象棋验证码。</string>
   <string name="notACheckmate">沒有将死</string>
+  <string name="whiteCheckmatesInOneMove">白方一步将死</string>
+  <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
   <string name="onlineFriends">在线好友</string>
@@ -444,6 +446,7 @@
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票来帮助Lichess提高训练题质量：</string>
   <string name="thankYou">谢谢！</string>
   <string name="ratingX">积分：%s</string>
+  <string name="hidden">隐藏</string>
   <plurals name="playedXTimes">
     <item quantity="other">已被尝试%s次</item>
   </plurals>
