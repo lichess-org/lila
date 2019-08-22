@@ -58,6 +58,7 @@ object userAnalysisI18n {
     trans.gameBehavior,
     trans.edit,
     trans.delete,
+    trans.spectators,
     // action menu
     trans.menu,
     trans.boardEditor,
