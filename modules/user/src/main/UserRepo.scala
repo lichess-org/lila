@@ -376,6 +376,9 @@ object UserRepo {
   private def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
 
+  private def anyEmailOrPrevious(doc: Bdoc): Option[EmailAddress] =
+    anyEmail(doc) orElse doc.getAs[EmailAddress](F.prevEmail)
+
   def email(id: ID): Fu[Option[EmailAddress]] = coll.find(
     $id(id),
     $doc(
@@ -424,10 +427,10 @@ object UserRepo {
   def withEmailsU(users: List[User]): Fu[List[User.WithEmails]] = withEmails(users.map(_.id))
 
   def emailMap(names: List[String]): Fu[Map[User.ID, EmailAddress]] =
-    coll.find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true))
+    coll.find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true))
       .list[Bdoc](none, ReadPreference.secondaryPreferred).map { docs =>
         docs.flatMap { doc =>
-          anyEmail(doc) map { ~doc.getAs[User.ID](F.id) -> _ }
+          anyEmailOrPrevious(doc) map { ~doc.getAs[User.ID](F.id) -> _ }
         }(collection.breakOut)
       }
 
