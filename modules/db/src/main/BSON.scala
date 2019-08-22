@@ -115,7 +115,7 @@ object BSON extends Handlers {
     }
   }
 
-  final class Reader(val doc: BSONDocument) {
+  final class Reader(val doc: Bdoc) {
 
     val map = {
       // mutable optimized implementation
