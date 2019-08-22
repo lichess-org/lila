@@ -447,6 +447,7 @@
   <string name="pleaseVotePuzzle">ช่วย lichess ปรับปรุงโดยใช้ปุ่มลูกศรขึ้นหรือลง เพื่อทำการโหวต:</string>
   <string name="thankYou">ขอบคุณ!</string>
   <string name="ratingX">ระดับคะแนน: %s</string>
+  <string name="hidden">ถูกซ่อน</string>
   <plurals name="playedXTimes">
     <item quantity="other">ถูกเล่น %s ครั้ง</item>
   </plurals>
