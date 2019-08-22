@@ -35,6 +35,8 @@ export default function(ctrl: TournamentController) {
         class: { 'tour__main-finished': ctrl.data.isFinished }
       }, handler.main(ctrl))
     ),
-    ctrl.opts.chat ? h('div.chat__members.none', h('span.list')) : null
+    ctrl.opts.chat ? h('div.chat__members.none', [
+      h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')
+    ]) : null
   ]);
 }
