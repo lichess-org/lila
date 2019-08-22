@@ -604,6 +604,7 @@
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
+  <string name="displayBoardResizeHandle">展示棋盘调整大小手柄</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
   <string name="whiteCastlingKingside">白方短易位</string>
