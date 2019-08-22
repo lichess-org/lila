@@ -350,6 +350,6 @@ export default function(ctrl: AnalyseCtrl): VNode {
     }),
     ctrl.embed ? null : h('div.chat__members.none', {
       hook: onInsert(el => $(el).watchers())
-    }, [h('span.list')])
+    }, [h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')])
   ]);
 }
