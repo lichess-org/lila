@@ -98,15 +98,21 @@ case class PlayerAggregateAssessment(
     val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
     if (playerAssessments.exists(predicate)) Some(avg) else none
   }
-  
-  def sfCiGiven(predicate: PlayerAssessment => Boolean): Option[Array[Int]] = {
-    val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg))
-    val n = playerAssessments.filter(predicate).length
-    // listDeviation uses stdDev, which does not use Bessel correction and happily returns
-    // a standard deviation of 0 if n = 1. This is not great for calculating a CI.
-    // Sample standard deviation should be undefined for n = 1, but our purpose it makes sense to simply assume a high value of 100
-    val width = if (n <= 1) 196 else listDeviation(playerAssessments.filter(predicate).map(_.sfAvg)) / sqrt(n) * 1.96
-    if (playerAssessments.exists(predicate)) Some(Array((avg - width).toInt, (avg + width).toInt)) else none
+
+  def sfCiGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int)] = {
+    val filteredAssessments = playerAssessments.filter(predicate)
+    if (filteredAssessments.isEmpty) {
+      none
+    } else {
+      val filteredSfAvg = filteredAssessments.map(_.sfAvg)
+      val n = filteredAssessments.length
+      val avg = listAverage(filteredSfAvg)
+      // listDeviation uses stdDev, which does not use Bessel correction and happily returns
+      // a standard deviation of 0 if n = 1. This is not great for calculating a CI.
+      // Sample standard deviation should be undefined for n = 1, but our purpose it makes sense to simply assume a high value of 100
+      val width = if (n == 1) 196 else listDeviation(filteredSfAvg) / sqrt(n) * 1.96
+      Some((avg - width).toInt -> (avg + width).toInt)
+    }
   }
 
   // Average SF Avg and CI given blur rate
