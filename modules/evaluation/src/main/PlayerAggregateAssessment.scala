@@ -53,8 +53,8 @@ case class PlayerAggregateAssessment(
 
     val bannable: Boolean = false
 
-    def sigDif(dif: Int)(a: Option[Int], b: Option[Int]): Option[Boolean] =
-      (a |@| b) apply { case (a, b) => b - a > dif }
+    def sigDif(dif: Int)(a: Option[(Int, Int, Int)], b: Option[(Int, Int, Int)]): Option[Boolean] =
+      (a |@| b) apply { case (a, b) => b._1 - a._1 > dif }
 
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),
@@ -94,24 +94,16 @@ case class PlayerAggregateAssessment(
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
   // Some statistics
-  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[Int] = {
-    val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
-    if (playerAssessments.exists(predicate)) Some(avg) else none
-  }
-
-  def sfCiGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int)] = {
+  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] = {
     val filteredAssessments = playerAssessments.filter(predicate)
-    if (filteredAssessments.isEmpty) {
-      none
-    } else {
+    val n = filteredAssessments.size
+    if (n < 2) none
+    else {
       val filteredSfAvg = filteredAssessments.map(_.sfAvg)
-      val n = filteredAssessments.length
       val avg = listAverage(filteredSfAvg)
-      // listDeviation uses stdDev, which does not use Bessel correction and happily returns
-      // a standard deviation of 0 if n = 1. This is not great for calculating a CI.
-      // Sample standard deviation should be undefined for n = 1, but our purpose it makes sense to simply assume a high value of 100
-      val width = if (n == 1) 196 else listDeviation(filteredSfAvg) / sqrt(n) * 1.96
-      Some((avg - width).toInt -> (avg + width).toInt)
+      // listDeviation does not apply Bessel's correction, so we do it here by using sqrt(n - 1) instead of sqrt(n)
+      val width = listDeviation(filteredSfAvg) / sqrt(n - 1) * 1.96
+      Some((avg.toInt, (avg - width).toInt, (avg + width).toInt))
     }
   }
 
@@ -119,22 +111,13 @@ case class PlayerAggregateAssessment(
   val sfAvgBlurs = sfAvgGiven(_.blurs > 70)
   val sfAvgNoBlurs = sfAvgGiven(_.blurs <= 70)
 
-  val sfCiBlurs = sfCiGiven(_.blurs > 70)
-  val sfCiNoBlurs = sfCiGiven(_.blurs <= 70)
-
   // Average SF Avg and CI given move time coef of variance
   val sfAvgLowVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
   val sfAvgHighVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
-  val sfCiLowVar = sfCiGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
-  val sfCiHighVar = sfCiGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
-
   // Average SF Avg and CI given bot
   val sfAvgHold = sfAvgGiven(_.hold)
   val sfAvgNoHold = sfAvgGiven(!_.hold)
-
-  val sfCiHold = sfCiGiven(_.hold)
-  val sfCiNoHold = sfCiGiven(!_.hold)
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
 
