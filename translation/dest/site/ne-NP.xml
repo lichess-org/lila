@@ -498,6 +498,9 @@
   <string name="reply">जवाफ</string>
   <string name="message">संदेश</string>
   <string name="createTheTopic">नया विषय शुरु गरौ</string>
+  <string name="reportAUser">शिकायत गरौ</string>
+  <string name="user">प्रयोगकर्ता</string>
+  <string name="reason">कारण</string>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="insult">मानहानी</string>
@@ -514,4 +517,7 @@
   <string name="typePrivateNotesHere">नीजि नोट यहाँ लेखौं</string>
   <string name="gameDisplay">खेलको प्रदर्शन</string>
   <string name="pieceAnimation">गोटीहरुको एनिमेशन</string>
+  <string name="materialDifference">गोटीहरुमा फरक</string>
+  <string name="closeAccount">खाता बन्द गरौँ</string>
+  <string name="changedMindDoNotCloseAccount">मैले विचार बदले, खाता बन्द नगरौं</string>
 </resources>
