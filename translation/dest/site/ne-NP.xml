@@ -481,6 +481,23 @@
     <item quantity="one">%s खेल जारी</item>
     <item quantity="other">%s खेलहरु जारी</item>
   </plurals>
+  <string name="puzzles">प्रशिक्षण</string>
+  <string name="tournamentWinners">प्रतियोगिताको बिजेताहरु</string>
+  <string name="name">नाम</string>
+  <string name="description">विवरण</string>
+  <string name="no">हुदैन</string>
+  <string name="yes">हुन्छ</string>
+  <string name="help">सहायता:</string>
+  <string name="createANewTopic">नया विषय शुरु गरौ</string>
+  <string name="topics">विषयहरु</string>
+  <string name="posts">पोष्टहरु</string>
+  <string name="lastPost">पछिल्लो पोष्ट</string>
+  <string name="views">हेरिएको</string>
+  <string name="replies">उत्तर दिइएको</string>
+  <string name="replyToThisTopic">यो बिषयमा जवाफ दिनुहोस्</string>
+  <string name="reply">जवाफ</string>
+  <string name="message">संदेश</string>
+  <string name="createTheTopic">नया विषय शुरु गरौ</string>
   <string name="whatIsIheMatter">समस्या के हो?</string>
   <string name="cheat">चोरी</string>
   <string name="insult">मानहानी</string>
