@@ -61,7 +61,9 @@ final class Env(
     api = Env.team.api,
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,
     getForumPosts = Env.forum.recent.team _,
-    asyncCache = Env.memo.asyncCache
+    asyncCache = Env.memo.asyncCache,
+    memberColl = Env.team.colls.member,
+    userColl = Env.user.userColl
   )
 
   private val tryDailyPuzzle: lidraughts.puzzle.Daily.Try = () =>
