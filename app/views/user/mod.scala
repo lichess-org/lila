@@ -236,25 +236,25 @@ object mod {
     div(id := "mz_assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with blurs is ", strong(blursYes), " [", pag.pag.sfCiBlurs.map(_._1), " , ", pag.pag.sfCiBlurs.map(_._2), "]",
+          "ACPL in games with blurs is ", strong(blursYes._1), " [", blursYes._2, " , ", blursYes._3, "]",
           pag.pag.sfAvgNoBlurs ?? { blursNo =>
-            frag(" against ", strong(blursNo), " [", pag.pag.sfCiNoBlurs.map(_._1), ", ", pag.pag.sfCiNoBlurs.map(_._2), "] in games without blurs.")
+            frag(" against ", strong(blursNo._1), " [", blursNo._2, ", ", blursNo._3, "] in games without blurs.")
           }
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with consistent move times is ", strong(lowVar), " [", pag.pag.sfCiLowVar.map(_._1), ", ", pag.pag.sfCiLowVar.map(_._2), "]",
+          "ACPL in games with consistent move times is ", strong(lowVar._1), " [", lowVar._2, ", ", lowVar._3, "]",
           pag.pag.sfAvgHighVar ?? { highVar =>
-            frag(" against ", strong(highVar), " [", pag.pag.sfCiHighVar.map(_._1), ", ", pag.pag.sfCiHighVar.map(_._2), "] in games with random move times.")
+            frag(" against ", strong(highVar._1), " [", highVar._2, ", ", highVar._3, "] in games with random move times.")
           }
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with bot signature ", strong(holdYes), " [", pag.pag.sfCiHold.map(_._1), ", ", pag.pag.sfCiHold.map(_._2), "]",
-          pag.pag.sfAvgNoHold.map { holdNo =>
-            frag(" against ", strong(holdNo), " [", pag.pag.sfCiNoHold.map(_._1), ", ", pag.pag.sfCiNoHold.map(_._2), "]  in games without bot signature.")
+          "ACPL in games with bot signature ", strong(holdYes._1), " [", holdYes._2, ", ", holdYes._3, "]",
+          pag.pag.sfAvgNoHold ?? { holdNo =>
+            frag(" against ", strong(holdNo._1), " [", holdNo._2, ", ", holdNo._3, "]  in games without bot signature.")
           }
         )
       },
