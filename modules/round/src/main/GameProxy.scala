@@ -83,7 +83,8 @@ private final class GameProxy(
 
 object GameProxy {
 
-  private val scheduleDelay = 15.seconds
+  // must be way under round.active.ttl = 40 seconds
+  private val scheduleDelay = 20.seconds
 
   private val emptyCancellable = new Cancellable {
     def cancel() = true
