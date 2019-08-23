@@ -236,25 +236,25 @@ object mod {
     div(id := "mz_assessments")(
       pag.pag.sfAvgBlurs.map { blursYes =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with blurs is ", strong(blursYes),
+          "ACPL in games with blurs is ", strong(blursYes._1), " [", blursYes._2, " , ", blursYes._3, "]",
           pag.pag.sfAvgNoBlurs ?? { blursNo =>
-            frag(" against ", strong(blursNo), " in games without blurs.")
+            frag(" against ", strong(blursNo._1), " [", blursNo._2, ", ", blursNo._3, "] in games without blurs.")
           }
         )
       },
       pag.pag.sfAvgLowVar.map { lowVar =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with consistent move times is ", strong(lowVar),
+          "ACPL in games with consistent move times is ", strong(lowVar._1), " [", lowVar._2, ", ", lowVar._3, "]",
           pag.pag.sfAvgHighVar ?? { highVar =>
-            frag(" against ", strong(highVar), " in games with random move times.")
+            frag(" against ", strong(highVar._1), " [", highVar._2, ", ", highVar._3, "] in games with random move times.")
           }
         )
       },
       pag.pag.sfAvgHold.map { holdYes =>
         p(cls := "text", dataIcon := "j")(
-          "ACPL in games with bot signature ", strong(holdYes),
-          pag.pag.sfAvgNoHold.map { holdNo =>
-            frag(" against ", strong(holdNo), " in games without bot signature.")
+          "ACPL in games with bot signature ", strong(holdYes._1), " [", holdYes._2, ", ", holdYes._3, "]",
+          pag.pag.sfAvgNoHold ?? { holdNo =>
+            frag(" against ", strong(holdNo._1), " [", holdNo._2, ", ", holdNo._3, "]  in games without bot signature.")
           }
         )
       },
