@@ -10,11 +10,6 @@ import controllers.routes
 
 object bits {
 
-  def newButton()(implicit ctx: Context) = ctx.isAuth option
-    postForm(cls := "new-study", action := routes.Study.create)(
-      submitButton(cls := "button")("New study")
-    )
-
   def newForm()(implicit ctx: Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
       submitButton(cls := "button button-green", dataIcon := "O", title := "New study")
