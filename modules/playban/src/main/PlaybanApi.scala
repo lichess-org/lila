@@ -17,7 +17,8 @@ final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
-    bus: lila.common.Bus
+    bus: lila.common.Bus,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -163,11 +164,13 @@ final class PlaybanApi(
       }(scala.collection.breakOut)
     }
 
-  def getSitAndDcCounterById(userId: User.ID): Fu[Int] =
-    coll.primitiveOne[Int]($doc("_id" -> userId, "c" $exists true), "c").map(~_)
+  private val sitAndDcCounterCache = asyncCache.multi[User.ID, Int](
+    name = "playban.sit_dc_counter",
+    f = userId => coll.primitiveOne[Int]($doc("_id" -> userId, "c" $exists true), "c").map(~_),
+    expireAfter = _.ExpireAfterWrite(30 minutes)
+  )
 
-  def getSitAndDcCounter(user: User): Fu[Int] =
-    getSitAndDcCounterById(user.id)
+  def sitAndDcCounter(userId: User.ID): Fu[Int] = sitAndDcCounterCache get userId
 
   private def save(outcome: Outcome, userId: User.ID, sitAndDcCounterChange: Int): Funit = {
     lila.mon.playban.outcome(outcome.key)()
@@ -187,6 +190,8 @@ final class PlaybanApi(
         case Some(record) => UserRepo.createdAtById(userId) flatMap {
           o => o map { d => legiferate(record, d) } getOrElse funit
         }
+      } addEffect { _ =>
+        sitAndDcCounterCache refresh userId
       }
 
   }.void logFailure lila.log("playban")

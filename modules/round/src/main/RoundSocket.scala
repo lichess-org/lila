@@ -7,7 +7,6 @@ import akka.pattern.{ ask, pipe }
 import chess.{ Color, White, Black, Speed }
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.math.{ log10, sqrt }
 
 import actorApi._
 import lila.chat.Chat
@@ -30,7 +29,8 @@ private[round] final class RoundSocket(
     dependencies: RoundSocket.Dependencies,
     gameId: Game.ID,
     history: History,
-    keepMeAlive: () => Unit
+    keepMeAlive: () => Unit,
+    getGoneWeights: Game => Fu[(Float, Float)]
 ) extends SocketTrouper[Member](dependencies.system, dependencies.sriTtl) {
 
   import dependencies._
@@ -56,25 +56,7 @@ private[round] final class RoundSocket(
     private var botConnected: Boolean = false
 
     var userId = none[User.ID]
-
-    private lazy val nbPlaybansForSomeUser: Fu[Int] =
-      userId ?? { u =>
-        dependencies.playbanApi.bans(List(u)) map { b =>
-          b.get(u).getOrElse(0)
-        }
-      }
-
-    private lazy val sitCounterForSomeUser: Fu[Int] =
-      userId ?? { u =>
-        dependencies.playbanApi.getSitAndDcCounterById(u)
-      }
-
-    // do NOT evaluate nbPlaybansForSomeUser or sitCounterForSomeUser when userId is none
-    // doing so will set it to 0 while userId might just not be known yet
-    def nbPlaybans: Fu[Int] =
-      userId.isDefined ?? nbPlaybansForSomeUser
-    def sitCounter: Fu[Int] =
-      userId.isDefined ?? sitCounterForSomeUser
+    var goneWeight = 1f
 
     def ping: Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
@@ -86,28 +68,15 @@ private[round] final class RoundSocket(
     }
     private def isBye = bye > 0
 
-    private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
       lilaBus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
-    def weigh(orig: Long, startAtPlaybans: Int, startAtSit: Int) =
-      nbPlaybans zip sitCounter map {
-        case (np, sc) =>
-          if (np < startAtPlaybans || sc > startAtSit) {
-            orig
-          } else {
-            orig * ((1d - 0.8 * sqrt(log10(np - sc))) atLeast 0.02) // sc is negative for abusers
-          }
-      }
-    def weightedRagequitTimeout = weigh(ragequitTimeout.toMillis, 4, -4)
-    def weightedDisconnectTimeout = weigh(gameDisconnectTimeout(gameSpeed).toMillis, 4, -4)
+    def weightedRagequitTimeout = ragequitTimeout.toMillis * goneWeight
+    def weightedDisconnectTimeout = gameDisconnectTimeout(gameSpeed).toMillis * goneWeight
 
     def isGone: Fu[Boolean] = {
-      weightedRagequitTimeout zip weightedDisconnectTimeout map {
-        case (rq, dc) =>
-          time < (nowMillis - (if (isBye) rq else dc)) &&
-            !botConnected
-      }
+      time < (nowMillis - (if (isBye) weightedRagequitTimeout else weightedDisconnectTimeout)) && !botConnected
     } ?? !isHostingSimul
 
     def setBotConnected(v: Boolean) =
@@ -176,6 +145,12 @@ private[round] final class RoundSocket(
         buscriptions.tournament
       }
       gameSpeed = game.speed.some
+      getGoneWeights(game) foreach {
+        case (w, b) => {
+          whitePlayer.goneWeight = w
+          blackPlayer.goneWeight = b
+        }
+      }
 
     // from lilaBus 'startGame
     // sets definitive user ids
@@ -375,7 +350,6 @@ object RoundSocket {
       sriTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
       ragequitTimeout: FiniteDuration,
-      playbanApi: lila.playban.PlaybanApi,
       getGame: Game.ID => Fu[Option[Game]]
   ) {
 

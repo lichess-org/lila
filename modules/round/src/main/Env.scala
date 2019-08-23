@@ -170,9 +170,9 @@ final class Env(
       sriTtl = SocketSriTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout,
-      playbanApi = playban,
       getGame = proxy.game _
-    )
+    ),
+    playban = playban
   )
 
   lazy val selfReport = new SelfReport(roundMap, slackApi, proxy.pov)
