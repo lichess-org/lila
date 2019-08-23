@@ -66,4 +66,14 @@
   <string name="deleteChapter">Dzēst nodaļu</string>
   <string name="deleteThisChapter">Vai dzēst šo nodaļu? Atpakaļceļa nav!</string>
   <string name="clearAllCommentsInThisChapter">Notīrīt visus komentārus un figūras šajā nodaļā?</string>
+  <string name="normalAnalysis">Parasta analīze</string>
+  <string name="hideNextMoves">Slēpt turpmākos gājienus</string>
+  <string name="interactiveLesson">Interaktīva nodarbība</string>
+  <string name="chapterX">%s. nodaļa</string>
+  <string name="startFromInitialPosition">Sākt no sākotnējās pozīcijas</string>
+  <string name="editor">Redaktors</string>
+  <string name="startFromCustomPosition">Sākt no pielāgotas pozīcijas</string>
+  <string name="loadAGameByUrl">Ielādēt spēli, norādot URL</string>
+  <string name="loadAPositionFromFen">Ielādēt pozīciju no FEN</string>
+  <string name="loadAGameFromPgn">Ielādēt spēli no PGN</string>
 </resources>
