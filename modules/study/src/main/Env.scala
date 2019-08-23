@@ -85,6 +85,7 @@ final class Env(
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
     pgnFetch = new PgnFetch,
+    pgnDump = gamePgnDump,
     lightUser = lightUserApi,
     chat = hub.chat,
     domain = NetDomain

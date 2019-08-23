@@ -3,6 +3,7 @@ package lila.evaluation
 import chess.Color
 import lila.user.User
 import org.joda.time.DateTime
+import scala.math.sqrt
 
 case class PlayerAssessment(
     _id: String,
@@ -52,8 +53,8 @@ case class PlayerAggregateAssessment(
 
     val bannable: Boolean = false
 
-    def sigDif(dif: Int)(a: Option[Int], b: Option[Int]): Option[Boolean] =
-      (a |@| b) apply { case (a, b) => b - a > dif }
+    def sigDif(dif: Int)(a: Option[(Int, Int, Int)], b: Option[(Int, Int, Int)]): Option[Boolean] =
+      (a |@| b) apply { case (a, b) => b._1 - a._1 > dif }
 
     val difs = List(
       (sfAvgBlurs, sfAvgNoBlurs),
@@ -93,20 +94,28 @@ case class PlayerAggregateAssessment(
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
   // Some statistics
-  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[Int] = {
-    val avg = listAverage(playerAssessments.filter(predicate).map(_.sfAvg)).toInt
-    if (playerAssessments.exists(predicate)) Some(avg) else none
+  def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] = {
+    val filteredAssessments = playerAssessments.filter(predicate)
+    val n = filteredAssessments.size
+    if (n < 2) none
+    else {
+      val filteredSfAvg = filteredAssessments.map(_.sfAvg)
+      val avg = listAverage(filteredSfAvg)
+      // listDeviation does not apply Bessel's correction, so we do it here by using sqrt(n - 1) instead of sqrt(n)
+      val width = listDeviation(filteredSfAvg) / sqrt(n - 1) * 1.96
+      Some((avg.toInt, (avg - width).toInt, (avg + width).toInt))
+    }
   }
 
-  // Average SF Avg given blur rate
+  // Average SF Avg and CI given blur rate
   val sfAvgBlurs = sfAvgGiven(_.blurs > 70)
   val sfAvgNoBlurs = sfAvgGiven(_.blurs <= 70)
 
-  // Average SF Avg given move time coef of variance
+  // Average SF Avg and CI given move time coef of variance
   val sfAvgLowVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
   val sfAvgHighVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
-  // Average SF Avg given bot
+  // Average SF Avg and CI given bot
   val sfAvgHold = sfAvgGiven(_.hold)
   val sfAvgNoHold = sfAvgGiven(!_.hold)
 

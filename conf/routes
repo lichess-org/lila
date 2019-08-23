@@ -480,7 +480,6 @@ GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: S
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)

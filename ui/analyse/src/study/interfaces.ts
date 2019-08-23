@@ -131,6 +131,14 @@ export interface StudyChapterMeta {
   name: string;
 }
 
+export interface StudyChapterConfig extends StudyChapterMeta {
+  orientation: Color;
+  description?: string;
+  practice: boolean;
+  gamebook: boolean;
+  conceal?: number;
+}
+
 export interface StudyChapter {
   id: string;
   name: string;

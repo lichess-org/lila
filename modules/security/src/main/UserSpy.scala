@@ -68,7 +68,7 @@ final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
     coll.find(
       $doc("user" -> userId),
       $doc(field -> true)
-    ).cursor[Bdoc]().gather[List]() map {
+    ).list[Bdoc]() map {
         _.flatMap(_.getAs[Value](field))(breakOut)
       }
 

@@ -739,8 +739,8 @@
   <string name="checkYourEmail">Проверите е-пошту.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо вам е-маил. Кликните на линк да бисте активирали вашу рачун.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
-  <string name="weHaveSentYouAnEmailTo">Послали смо вам е-поруку на% с. Кликните на линк да бисте поново покренули лозинку.</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">Регистрацијом се слажете са ограничењима за наш% с.</string>
+  <string name="weHaveSentYouAnEmailTo">Poslali smo Vam e-Mail na %s. Kliknite na link u njemu da biste restartovali Vašu lozinku.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
   <string name="downloadAnnotated">Преузимање белешки.</string>

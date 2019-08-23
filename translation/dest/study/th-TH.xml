@@ -44,6 +44,7 @@
   <string name="studyUrl">URL การศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">คุณสามารถวางสิ่งนี้ในห้องอภิปรายเพื่อฝังบท</string>
+  <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="startAtX">เริ่มที่ %s</string>
   <string name="embedThisChapter">ฝังบทนี้ในเว็บไซต์หรือบล็อกของคุณ</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">อ่านเพิ่มเติมเกี่ยวกับการฝังบทการศึกษา</string>

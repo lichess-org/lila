@@ -99,19 +99,19 @@ object UserRepo {
       .sort($sort desc "perfs.standard.gl.r")
       .list[User](nb, ReadPreference.secondaryPreferred)
 
-  // expensive, send to secondary
-  def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
-    coll.find(
-      $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
-      $id(true)
-    )
-      .sort($sort desc "perfs.standard.gl.r")
-      .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
-        _.flatMap { _.getAs[User.ID]("_id") }
-      }
+  //   // expensive, send to secondary
+  //   def ratedIdsByIdsSortRating(ids: Iterable[ID], nb: Int): Fu[List[User.ID]] =
+  //     coll.find(
+  //       $inIds(ids) ++ goodLadSelectBson ++ stablePerfSelect("standard"),
+  //       $id(true)
+  //     )
+  //       .sort($sort desc "perfs.standard.gl.r")
+  //       .list[Bdoc](nb, ReadPreference.secondaryPreferred).map {
+  //         _.flatMap { _.getAs[User.ID]("_id") }
+  //       }
 
-  private[user] def allSortToints(nb: Int) =
-    coll.find($empty).sort($sort desc F.toints).list[User](nb)
+  // private[user] def allSortToints(nb: Int) =
+  //   coll.find($empty).sort($sort desc F.toints).list[User](nb)
 
   def usernameById(id: ID) =
     coll.primitiveOne[User.ID]($id(id), F.username)
@@ -218,10 +218,7 @@ object UserRepo {
   def engineSelect(v: Boolean) = $doc(F.engine -> (if (v) $boolean(true) else $ne(true)))
   def trollSelect(v: Boolean) = $doc(F.troll -> (if (v) $boolean(true) else $ne(true)))
   def boosterSelect(v: Boolean) = $doc(F.booster -> (if (v) $boolean(true) else $ne(true)))
-  def stablePerfSelect(perf: String) = $doc(
-    s"perfs.$perf.nb" -> $gte(30),
-    s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation)
-  )
+  def stablePerfSelect(perf: String) = $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
   val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   val goodLadSelectBson = $doc(
     F.enabled -> true,
@@ -376,6 +373,9 @@ object UserRepo {
   private def anyEmail(doc: Bdoc): Option[EmailAddress] =
     doc.getAs[EmailAddress](F.verbatimEmail) orElse doc.getAs[EmailAddress](F.email)
 
+  private def anyEmailOrPrevious(doc: Bdoc): Option[EmailAddress] =
+    anyEmail(doc) orElse doc.getAs[EmailAddress](F.prevEmail)
+
   def email(id: ID): Fu[Option[EmailAddress]] = coll.find(
     $id(id),
     $doc(
@@ -424,10 +424,10 @@ object UserRepo {
   def withEmailsU(users: List[User]): Fu[List[User.WithEmails]] = withEmails(users.map(_.id))
 
   def emailMap(names: List[String]): Fu[Map[User.ID, EmailAddress]] =
-    coll.find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true))
+    coll.find($inIds(names map normalize), $doc(F.verbatimEmail -> true, F.email -> true, F.prevEmail -> true))
       .list[Bdoc](none, ReadPreference.secondaryPreferred).map { docs =>
         docs.flatMap { doc =>
-          anyEmail(doc) map { ~doc.getAs[User.ID](F.id) -> _ }
+          anyEmailOrPrevious(doc) map { ~doc.getAs[User.ID](F.id) -> _ }
         }(collection.breakOut)
       }
 
@@ -489,14 +489,14 @@ object UserRepo {
 
   def langOf(id: ID): Fu[Option[String]] = coll.primitiveOne[String]($id(id), "lang")
 
-  def idsSumToints(ids: Iterable[String]): Fu[Int] =
-    ids.nonEmpty ?? coll.aggregateOne(
-      Match($inIds(ids)),
-      List(Group(BSONNull)(F.toints -> SumField(F.toints))),
-      ReadPreference.secondaryPreferred
-    ).map {
-        _ flatMap { _.getAs[Int](F.toints) }
-      }.map(~_)
+  // def idsSumToints(ids: Iterable[String]): Fu[Int] =
+  //   ids.nonEmpty ?? coll.aggregateOne(
+  //     Match($inIds(ids)),
+  //     List(Group(BSONNull)(F.toints -> SumField(F.toints))),
+  //     ReadPreference.secondaryPreferred
+  //   ).map {
+  //       _ flatMap { _.getAs[Int](F.toints) }
+  //     }.map(~_)
 
   def filterByEnabledPatrons(userIds: List[User.ID]): Fu[Set[User.ID]] =
     coll.distinct[String, Set](F.id, Some($inIds(userIds) ++ enabledSelect ++ patronSelect))
