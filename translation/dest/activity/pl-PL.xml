@@ -76,8 +76,8 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Utworzenie nowego omówienia</item>
-    <item quantity="few">Utworzenie %s nowych omówień</item>
-    <item quantity="many">Utworzenie %s nowych omówień</item>
+    <item quantity="few">Utworzenie %s nowych analiz</item>
+    <item quantity="many">Utworzenie %s nowych analiz</item>
     <item quantity="other">Utworzenie %s nowych omówień</item>
   </plurals>
   <plurals name="competedInNbTournaments">
