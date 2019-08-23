@@ -1,7 +1,7 @@
 .study__server-eval {
   @extend %box-neat;
   background: $c-bg-box;
-  &.requested {
+  &.padded {
     padding: 4em;
   }
   &.ready {
