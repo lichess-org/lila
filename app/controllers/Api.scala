@@ -204,36 +204,6 @@ object Api extends LilaController {
     }
   }
 
-  def gamesVsTeam(teamId: String) = ApiRequest { req =>
-    Env.team.api team teamId flatMap {
-      case None => fuccess {
-        Custom { BadRequest(jsonError("No such team.")) }
-      }
-      case Some(team) if team.nbMembers > 200 => fuccess {
-        Custom { BadRequest(jsonError(s"The team has too many players. ${team.nbMembers} > 200")) }
-      }
-      case Some(team) =>
-        lila.team.MemberRepo.userIdsByTeam(team.id) flatMap { userIds =>
-          val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-          val nb = (getInt("nb", req) | 10) atLeast 1 atMost 100
-          val cost = page * nb * 5 + 10
-          UserGamesRateLimit(cost, req) {
-            lila.mon.api.userGames.cost(cost)
-            gameApi.byUsersVs(
-              userIds = userIds,
-              rated = getBoolOpt("rated", req),
-              playing = getBoolOpt("playing", req),
-              analysed = getBoolOpt("analysed", req),
-              withFlags = gameFlagsFromRequest(req),
-              since = DateTime.now minusYears 1,
-              nb = MaxPerPage(nb),
-              page = page
-            ) map some map toApiResult
-          }
-        }
-    }
-  }
-
   def currentTournaments = ApiRequest { implicit ctx =>
     Env.tournament.api.fetchVisibleTournaments flatMap
       Env.tournament.scheduleJsonView.apply map Data.apply
