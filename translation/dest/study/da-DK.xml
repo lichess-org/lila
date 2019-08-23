@@ -55,4 +55,16 @@
   <string name="open">Åbn</string>
   <string name="xBroughtToYouByY">%1$s bragt til dig af %2$s</string>
   <string name="studyNotFound">Studie ikke fundet</string>
+  <string name="editChapter">Rediger kapitel</string>
+  <string name="newChapter">Nyt kapitel</string>
+  <string name="orientation">Retning</string>
+  <string name="analysisMode">Analysetilstand</string>
+  <string name="pinnedChapterComment">Fastgjort kapitelkommentar</string>
+  <string name="saveChapter">Gem kapitel</string>
+  <string name="clearAnnotations">Ryd annoteringer</string>
+  <string name="deleteChapter">Slet kapitel</string>
+  <string name="deleteThisChapter">Slet dette kapitel? Du kan ikke fortryde!</string>
+  <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>
+  <string name="rightUnderTheBoard">Lige under brættet</string>
+  <string name="normalAnalysis">Normal analyse</string>
 </resources>
