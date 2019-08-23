@@ -43,11 +43,11 @@ private final class Streaming(
   self ! Tick
 
   def updateStreams: Funit = for {
-    streamers <- api.allListed.map {
-      _.filter { streamer =>
-        liveStreams.has(streamer) || isOnline(streamer.userId)
-      }
+    streamerIds <- api.allListedIds
+    activeIds = streamerIds.filter { id =>
+      liveStreams.has(id) || isOnline(id.value)
     }
+    streamers <- api byIds activeIds
     (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
     streams = LiveStreams {
       scala.util.Random.shuffle {

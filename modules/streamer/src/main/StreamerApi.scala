@@ -20,6 +20,7 @@ final class StreamerApi(
   def withColl[A](f: Coll => A): A = f(coll)
 
   def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id.value)
+  def byIds(ids: List[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
     UserRepo named username flatMap { _ ?? find }
@@ -41,8 +42,8 @@ final class StreamerApi(
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
     live.streams.map(withUser).sequenceFu.map(_.flatten)
 
-  def allListed: Fu[List[Streamer]] =
-    coll.find(selectListedApproved).list[Streamer]()
+  private[streamer] def allListedIds: Fu[List[Streamer.Id]] =
+    coll.distinctWithReadPreference[Streamer.Id, List]("_id", selectListedApproved.some, ReadPreference.secondaryPreferred)
 
   def setSeenAt(user: User): Funit =
     listedIdsCache.get flatMap { ids =>
