@@ -9,7 +9,10 @@ import lila.user.User
 
 case class LiveStreams(streams: List[Stream]) {
 
-  def has(streamer: Streamer) = streams.exists(_ is streamer)
+  private lazy val streamerIds: Set[Streamer.Id] = streams.map(_.streamer.id)(scala.collection.breakOut)
+
+  def has(id: Streamer.Id): Boolean = streamerIds(id)
+  def has(streamer: Streamer): Boolean = has(streamer.id)
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
