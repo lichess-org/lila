@@ -22,7 +22,7 @@ object bits {
       a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))(trans.study.studiesIContributeTo()),
       a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))(trans.study.myPublicStudies()),
       a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(trans.study.myPrivateStudies()),
-      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.favoriteStudies())
+      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
     )
   }
 
