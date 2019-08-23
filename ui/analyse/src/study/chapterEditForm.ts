@@ -11,14 +11,15 @@ interface StudyChapterEditFormCtrl {
   current: Prop<StudyChapterMeta | StudyChapterConfig | null>;
   open(data: StudyChapterMeta): void;
   toggle(data: StudyChapterMeta): void;
-  submit(data: StudyChapterConfig): void;
+  submit(data: any): void;
   delete(id: string): void;
   clearAnnotations(id: string): void;
   isEditing(id: string): boolean;
   redraw: Redraw;
+  trans: Trans;
 }
 
-export function ctrl(send: SocketSend, chapterConfig: (string) => JQueryPromise<StudyChapterConfig>, redraw: Redraw): StudyChapterEditFormCtrl {
+export function ctrl(send: SocketSend, chapterConfig: (string) => JQueryPromise<StudyChapterConfig>, trans: Trans, redraw: Redraw): StudyChapterEditFormCtrl {
 
   const current = prop<StudyChapterMeta | StudyChapterConfig | null>(null);
 
@@ -63,6 +64,7 @@ export function ctrl(send: SocketSend, chapterConfig: (string) => JQueryPromise<
       current(null);
     },
     isEditing,
+    trans,
     redraw
   }
 }
@@ -76,7 +78,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
       ctrl.redraw();
     },
     content: [
-      h('h2', 'Edit chapter'),
+      h('h2', ctrl.trans.noarg('editChapter')),
       h('form.form3', {
         hook: bindSubmit(e => {
           const o: any = {};
@@ -89,7 +91,7 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
         h('div.form-group', [
           h('label.form-label', {
             attrs: { for: 'chapter-name' }
-          }, 'Name'),
+          }, ctrl.trans.noarg('name')),
           h('input#chapter-name.form-control', {
             attrs: {
               minlength: 2,
@@ -104,21 +106,21 @@ export function view(ctrl: StudyChapterEditFormCtrl): VNode | undefined {
             })
           })
         ]),
-        ...(isLoaded(data) ? viewLoaded(data) : [spinner()])
+        ...(isLoaded(data) ? viewLoaded(ctrl, data) : [spinner()])
       ]),
       h('div.destructive', [
         h(emptyRedButton, {
           hook: bind('click', _ => {
-            if (confirm('Clear all comments and shapes in this chapter?'))
+            if (confirm(ctrl.trans.noarg('clearAllCommentsInThisChapter')))
               ctrl.clearAnnotations(data.id);
           })
-        }, 'Clear annotations'),
+        }, ctrl.trans.noarg('clearAnnotations')),
         h(emptyRedButton, {
           hook: bind('click', _ => {
-            if (confirm('Delete this chapter? There is no going back!'))
+            if (confirm(ctrl.trans.noarg('deleteThisChapter')))
               ctrl.delete(data.id);
           })
-        }, 'Delete chapter')
+        }, ctrl.trans.noarg('deleteChapter'))
       ])
     ]
   }) : undefined;
@@ -128,29 +130,36 @@ function isLoaded(data: StudyChapterMeta | StudyChapterConfig): data is StudyCha
   return !!data['orientation'];
 }
 
-function viewLoaded(data: StudyChapterConfig): VNode[] {
+function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): VNode[] {
   const mode = data.practice ? 'practice' : (defined(data.conceal) ? 'conceal' : (data.gamebook ? 'gamebook' : 'normal'));
   return [
     h('div.form-split', [
       h('div.form-group.form-half', [
         h('label.form-label', {
           attrs: { for: 'chapter-orientation' }
-        }, 'Orientation'),
-        h('select#chapter-orientation.form-control', ['White', 'Black'].map(function(color) {
-          const v = color.toLowerCase();
-          return option(v, data.orientation, color);
+        }, ctrl.trans.noarg('orientation')),
+        h('select#chapter-orientation.form-control', ['white', 'black'].map(function(color) {
+          return option(color, data.orientation, ctrl.trans.noarg(color));
         }))
       ]),
       h('div.form-group.form-half', [
         h('label.form-label', {
           attrs: { for: 'chapter-mode' }
-        }, 'Analysis mode'),
+        }, ctrl.trans.noarg('analysisMode')),
         h('select#chapter-mode.form-control', chapterForm.modeChoices.map(c => {
-          return option(c[0], mode, c[1]);
+          return option(c[0], mode, ctrl.trans.noarg(c[1]));
         }))
       ])
     ]),
-    chapterForm.descriptionGroup(data.description),
-    modal.button('Save chapter')
+    h('div.form-group', [
+      h('label.form-label', {
+        attrs: { for: 'chapter-description' }
+      }, ctrl.trans.noarg('pinnedChapterComment')),
+      h('select#chapter-description.form-control', [
+        ['', ctrl.trans.noarg('none')],
+        ['1', ctrl.trans.noarg('rightUnderTheBoard')]
+      ].map(v => option(v[0], data.description ? '1' : '', v[1])))
+    ]),
+    modal.button(ctrl.trans.noarg('saveChapter'))
   ];
 }
