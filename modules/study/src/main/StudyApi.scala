@@ -494,14 +494,12 @@ final class StudyApi(
       chapterRepo.countByStudyId(study.id) flatMap { count =>
         if (count >= Study.maxChapters) funit
         else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-          chapterMaker(study, data, order, byUserId) flatMap {
-            _ ?? { chapter =>
-              data.initial ?? {
-                chapterRepo.firstByStudy(study.id) flatMap {
-                  _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-                }
-              } >> doAddChapter(study, chapter, sticky, sri)
-            }
+          chapterMaker(study, data, order, byUserId) flatMap { chapter =>
+            data.initial ?? {
+              chapterRepo.firstByStudy(study.id) flatMap {
+                _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+              }
+            } >> doAddChapter(study, chapter, sticky, sri)
           }
         }
       }
@@ -604,10 +602,8 @@ final class StudyApi(
           chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
             if (chaps.size < 2) {
-              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId) flatMap {
-                _ ?? { c =>
-                  doAddChapter(study, c, sticky = true, sri) >> doSetChapter(study, c.id, sri)
-                }
+              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId) flatMap { c =>
+                doAddChapter(study, c, sticky = true, sri) >> doSetChapter(study, c.id, sri)
               }
             } // deleting the current chapter? Automatically move to another one
             else (study.position.chapterId == chapterId).?? {
