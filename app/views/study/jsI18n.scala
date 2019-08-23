@@ -16,7 +16,6 @@ object jsI18n {
     trans.white,
     trans.black,
     trans.variant,
-    trans.none,
     trans.clearBoard,
     trans.startPosition,
     trans.cancel,
