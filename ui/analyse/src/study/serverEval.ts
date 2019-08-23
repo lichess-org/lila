@@ -71,6 +71,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
 
   const analysis = ctrl.root.data.analysis;
 
+  if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
   return h('div.study__server-eval.ready.' + analysis.id, {
@@ -86,8 +87,12 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   }, [h('div.study__message', spinner())]);
 }
 
+function disabled(): VNode {
+  return h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');
+}
+
 function requested(): VNode {
-  return h('div.study__server-eval.requested', spinner());
+  return h('div.study__server-eval.requested.padded', spinner());
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
