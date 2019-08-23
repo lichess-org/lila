@@ -622,4 +622,5 @@
   <string name="lichessTournaments">लीचेस प्रतियोगिताहरु</string>
   <string name="tournamentFAQ">एरेना प्रतियोगिता को बारे बारम्बार सोधिने प्रश्नहरु</string>
   <string name="tournamentOfficial">आधिकारिक</string>
+  <string name="timeBeforeTournamentStarts">प्रतियोगिता शुरु हुन बाँकि समय</string>
 </resources>
