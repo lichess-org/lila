@@ -31,7 +31,7 @@ function studyButton(ctrl, fen) {
       disabled: !ctrl.positionLooksLegit(),
       class: ctrl.positionLooksLegit() ? '' : 'disabled'
     },
-    ctrl.trans('studyMenu'))
+    ctrl.trans.noarg('studyMenu'))
   ]);
 }
 
@@ -67,14 +67,14 @@ function controls(ctrl, fen) {
           ctrl.loadNewFen(e.target.value);
         }
       }, [
-        optgroup(ctrl.trans('setTheBoard'), [
+        optgroup(ctrl.trans.noarg('setTheBoard'), [
           currentPosition ? null : m('option', {
             value: fen,
             selected: true
-          }, '- ' + ctrl.trans('boardEditor') + ' -'),
+          }, '- ' + ctrl.trans.noarg('boardEditor') + ' -'),
           ctrl.extraPositions.map(position2option)
         ])/*,
-        optgroup(ctrl.trans('popularOpenings'),
+        optgroup(ctrl.trans.noarg('popularOpenings'),
           ctrl.data.positions.map(position2option)
         )*/
       ]) : null
@@ -87,11 +87,11 @@ function controls(ctrl, fen) {
           return m('option', {
             value: key[0],
             selected: ctrl.data.color() === key[0]
-          }, ctrl.trans(key));
+          }, ctrl.trans.noarg(key));
         }))
       ),
       ctrl.embed ? null : m('div.variant', [
-        m('strong', ctrl.trans('variant')),
+        m('strong', ctrl.trans.noarg('variant')),
         m('div', [
           m('select', {
             onchange: function(e) {
@@ -110,23 +110,23 @@ function controls(ctrl, fen) {
     ctrl.embed ? m('div.actions', [
       m('a.button.button-empty', {
         onclick: ctrl.startPosition
-      }, 'Initial position'),
+      }, ctrl.trans.noarg('startPosition')),
       m('a.button.button-empty', {
         onclick: ctrl.clearBoard
-      }, 'Empty board')
+      }, ctrl.trans.noarg('clearBoard'))
     ]) : [
       m('div.actions', [
         m('a.button.button-empty.text[data-icon=B]', {
           onclick: function() {
             ctrl.draughtsground.toggleOrientation();
           }
-        }, ctrl.trans('flipBoard')),
+        }, ctrl.trans.noarg('flipBoard')),
         looksLegit ? m('a.button.button-empty.text[data-icon="A"]', {
           href: editor.makeUrl('/analysis/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
           rel: 'nofollow'
-        }, ctrl.trans('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
+        }, ctrl.trans.noarg('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
-        }, ctrl.trans('analysis')),
+        }, ctrl.trans.noarg('analysis')),
         ctrl.data.puzzleEditor ? ((looksLegit && puzzleVariant) ? m('a.button.button-empty.text[data-icon="-"]', {
           href: editor.makeUrl('/analysis/puzzle/' + (ctrl.data.variant !== 'standard' ? ctrl.data.variant + '/' : ''), fen),
           rel: 'nofollow'
@@ -139,7 +139,7 @@ function controls(ctrl, fen) {
             if (ctrl.positionLooksLegit() && ctrl.data.variant === 'standard') $.modal($('.continue-with'));
           }
         },
-          m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
+          m('span.text[data-icon=U]', ctrl.trans.noarg('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
       m('div.continue-with.none', [

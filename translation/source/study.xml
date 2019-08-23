@@ -57,7 +57,6 @@
   <string name="studyNotFound">Study not found</string>
   <string name="editChapter">Edit chapter</string>
   <string name="newChapter">New chapter</string>
-  <string name="name">Name</string>
   <string name="orientation">Orientation</string>
   <string name="analysisMode">Analysis mode</string>
   <string name="pinnedChapterComment">Pinned chapter comment</string>
@@ -66,10 +65,7 @@
   <string name="deleteChapter">Delete chapter</string>
   <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
   <string name="clearAllCommentsInThisChapter">Clear all comments and shapes in this chapter?</string>
-  <string name="none">None</string>
   <string name="rightUnderTheBoard">Right under the board</string>
-  <string name="white">White</string>
-  <string name="black">Black</string>
   <string name="normalAnalysis">Normal analysis</string>
   <string name="hideNextMoves">Hide next moves</string>
   <string name="interactiveLesson">Interactive lesson</string>
@@ -87,7 +83,6 @@
     <item quantity="other">Paste your PDN text here, up to %s games, each separated by an empty line</item>
   </plurals>
   <string name="urlOfTheGame">URL of the game</string>
-  <string name="variant">Variant</string>
   <string name="loadAGameFromXOrY">Load a game from %1$s or %2$s</string>
   <string name="createChapter">Create chapter</string>
 </resources>

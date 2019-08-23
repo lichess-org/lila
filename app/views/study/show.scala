@@ -27,7 +27,7 @@ object show {
         safeJsonValue(Json.obj(
           "study" -> data.study,
           "data" -> data.analysis,
-          "i18n" -> (views.html.board.userAnalysisI18n(withAdvantageChart = true) ++ i18nFullDbJsObject(lidraughts.i18n.I18nDb.Study)),
+          "i18n" -> jsI18n(),
           "tagTypes" -> lidraughts.study.PdnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
