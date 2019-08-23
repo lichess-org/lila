@@ -8,6 +8,7 @@
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
   <string name="waiting">Li bendê ye</string>
   <string name="yourTurn">Dora te ye</string>
+  <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Ast</string>
   <string name="toggleTheChat">Axaftinê bigire</string>
   <string name="toggleSound">Dengê bigire</string>

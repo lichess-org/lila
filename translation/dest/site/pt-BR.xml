@@ -656,7 +656,7 @@ em %3$s</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">lichess.org é gratuito é realmente livre, sem anúncios, servidor de xadrez de código aberto.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito, livre, sem anúncios e de código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contato</string>

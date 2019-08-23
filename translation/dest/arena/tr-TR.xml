@@ -30,7 +30,7 @@ Daha fazla oyun oynayıp daha çok puan kazanmak için hızlıca oynayın ve lob
   <string name="howDoesItEndAnswer">Turnuvanın belirli bir süresi vardır. Bu süre bittiğinde sıralamalar kilitlenir ve kazanlar ilan edilir. Devam etmekte olan oyunların bitirilmesi gerekir ancak bu oyunlar turnuvaya dahil edilmez.</string>
   <string name="otherRules">Diğer önemli kurallar</string>
   <string name="otherRulesAnswer">Oyun başladıktan sonra ilk hamlenizi 20 saniye içinde yapmanız gerekiyor. Eğer bu süre içinde bir hamle yapmazsanız rakibiniz galip sayılır.
-Oyunun 10\'uncu hamlesine ulaşmadan berabere kalmak iki tarafa da puan kazandırmaz.</string>
+Oyunun onuncu hamlesine ulaşmadan berabere kalmak iki tarafa da puan kazandırmaz.</string>
   <string name="thisIsPrivate">Bu özel bir turnuvadır</string>
   <string name="shareUrl">Arkadaşlarını davet etmek için bu URL\'yi kullanabilirsin: %s</string>
 </resources>

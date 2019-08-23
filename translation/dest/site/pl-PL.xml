@@ -102,7 +102,7 @@
   <string name="replayMode">Tryb odtwarzania</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
-  <string name="openStudy">Stwórz omówienie</string>
+  <string name="openStudy">Stwórz analizę</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="evaluationGauge">Miernik oceny</string>
@@ -620,7 +620,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
-  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do omówień</string>
+  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do analizy</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -825,7 +825,7 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
-  <string name="xCreatesStudyY">%1$s utworzył omówienie %2$s</string>
+  <string name="xCreatesStudyY">%1$s utworzył analizę %2$s</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
