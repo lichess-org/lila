@@ -112,6 +112,8 @@ function userMod($zone) {
   }());
 
   $zone.find('#mz_others table').each(function() {
-    tablesort(this);
+    tablesort(this, {
+      descending: true
+    });
   });
 }
