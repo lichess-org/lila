@@ -55,4 +55,12 @@
   <string name="open">Ouvert</string>
   <string name="xBroughtToYouByY">%1$s vous est amené par %2$s</string>
   <string name="studyNotFound">Étude introuvable</string>
+  <string name="analysisMode">Mode analyse</string>
+  <string name="clearAnnotations">Effacer les annotations</string>
+  <string name="deleteChapter">Supprimer le chapitre</string>
+  <string name="deleteThisChapter">Supprimer ce chapitre ? Cette action est irréversible !</string>
+  <string name="rightUnderTheBoard">Juste sous l\'échiquier</string>
+  <string name="normalAnalysis">Analyse normale</string>
+  <string name="hideNextMoves">Cacher les coups suivants</string>
+  <string name="interactiveLesson">Leçon interactive</string>
 </resources>
