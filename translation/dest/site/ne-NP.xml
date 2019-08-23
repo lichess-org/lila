@@ -483,7 +483,10 @@
     <item quantity="one">%s खेल जारी</item>
     <item quantity="other">%s खेलहरु जारी</item>
   </plurals>
+  <string name="automaticallyProceedToNextGameAfterMoving">चाल चलेपछि स्वत: अर्को खेलमा जाऔ</string>
+  <string name="autoSwitch">आफै खेल बदल्ने</string>
   <string name="puzzles">प्रशिक्षण</string>
+  <string name="latestUpdates">पछिल्लो ब्लग पोष्टहरु</string>
   <string name="tournamentWinners">प्रतियोगिताको बिजेताहरु</string>
   <string name="name">नाम</string>
   <string name="description">विवरण</string>
@@ -512,6 +515,7 @@
   <string name="error.provideOneCheatedGameLink">कम्तीमा एउटा चोरी गरेको खेलको लिङ्क उपलब्ध गराउनुहोस्।</string>
   <string name="by">%s द्वारा</string>
   <string name="thisTopicIsNowClosed">यो विषय अहिले बन्द गरिएको छ।</string>
+  <string name="theming">देखावट</string>
   <string name="donate">दान दिनुहोस्</string>
   <string name="blog">ब्लग</string>
   <string name="questionsAndAnswers">प्रश्नोत्तर</string>
@@ -522,4 +526,16 @@
   <string name="materialDifference">गोटीहरुमा फरक</string>
   <string name="closeAccount">खाता बन्द गरौँ</string>
   <string name="changedMindDoNotCloseAccount">मैले विचार बदले, खाता बन्द नगरौं</string>
+  <string name="closeAccountExplanation">के तपाइ साच्चै आफ्नो खाता बन्द गर्न चाहनुहुन्छ? खाता बन्द गर्नु एउटा स्थायी निर्णय हो। तपाइले फेरी कहिल्यै पनि लग इन गर्न सक्नुहुने छैन।</string>
+  <string name="thisAccountIsClosed">यो खाता बन्द गरिएको छ।</string>
+  <string name="invalidUsernameOrPassword">गलत प्रयोगकर्ता वा पासवर्ड</string>
+  <string name="incorrectPassword">गलत पासवर्ड</string>
+  <string name="invalidAuthenticationCode">गलत प्रमाणीकरण कोड</string>
+  <string name="emailMeALink">मलाई लिंक इमेल गर्नुहोस्</string>
+  <string name="currentPassword">अहिलेको पासवर्ड</string>
+  <string name="newPassword">नायाँ पासवर्ड</string>
+  <string name="newPasswordAgain">नायाँ पासवर्ड (फेरी)</string>
+  <string name="boardHighlights">बोर्डमा हाइलाइट (अन्तिम चाल र चेक)</string>
+  <string name="pieceDestinations">गोटीको गन्तब्य (मान्य चाल र प्रिमुभ)</string>
+  <string name="boardCoordinates">बोर्ड समकक्षहरु (A-H, १-८)</string>
 </resources>
