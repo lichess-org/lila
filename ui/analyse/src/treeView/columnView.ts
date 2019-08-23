@@ -197,7 +197,7 @@ export default function (ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer(),
+    showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl)
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
