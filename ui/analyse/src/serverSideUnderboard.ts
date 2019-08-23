@@ -123,7 +123,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     setPanel(panel);
   });
   const stored = storage.get();
-  if (stored && $menu.children(`[data-panel="${stored}"]`).length) setPanel(stored);
+  if (stored && $menu.children(`[data-panel="${stored}"]:visible`).length) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
