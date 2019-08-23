@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 
@@ -79,7 +80,7 @@ export function titleNameToId(titleName: string): string {
   return (split.length === 1 ? split[0] : split[1]).toLowerCase();
 }
 
-export function spinner() {
+export function spinner(): VNode {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
       h('circle', {

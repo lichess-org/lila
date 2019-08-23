@@ -1,3 +1,5 @@
+import { StudyChapterConfig } from './interfaces';
+
 const headers = {
   'Accept': 'application/vnd.lidraughts.v2+json'
 };
@@ -27,7 +29,7 @@ export function glyphs() {
   });
 }
 
-export function chapterConfig(studyId: string, chapterId: string) {
+export function chapterConfig(studyId: string, chapterId: string): JQueryPromise<StudyChapterConfig> {
   return $.ajax({
     url: `/study/${studyId}/${chapterId}/meta`,
     headers
