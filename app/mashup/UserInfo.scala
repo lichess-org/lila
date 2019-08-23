@@ -87,7 +87,7 @@ object UserInfo {
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
     )(u: User, ctx: Context): Fu[NbGames] =
-      (ctx.me.filter(u!=) ?? { me => crosstableApi.withMatchup(me.id, u.id) }) zip
+      (ctx.me.filter(u!=) ?? { me => crosstableApi.withMatchup(me.id, u.id) map some }) zip
         gameCached.nbPlaying(u.id) zip
         gameCached.nbImportedBy(u.id) zip
         bookmarkApi.countByUser(u) map {

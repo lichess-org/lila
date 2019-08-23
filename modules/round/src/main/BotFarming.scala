@@ -18,13 +18,11 @@ private final class BotFarming(
    */
   def apply(g: Game): Fu[Boolean] = g.twoUserIds match {
     case Some((u1, u2)) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
-      crosstableApi(u1, u2) flatMap {
-        _ ?? { ct =>
-          GameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {
-            _ exists { prev =>
-              g.winnerUserId == prev.winnerUserId &&
-                g.pgnMoves.take(SAME_PLIES) == prev.pgnMoves.take(SAME_PLIES)
-            }
+      crosstableApi(u1, u2) flatMap { ct =>
+        GameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {
+          _ exists { prev =>
+            g.winnerUserId == prev.winnerUserId &&
+              g.pgnMoves.take(SAME_PLIES) == prev.pgnMoves.take(SAME_PLIES)
           }
         }
       }

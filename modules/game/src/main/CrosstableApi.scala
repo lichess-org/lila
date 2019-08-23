@@ -19,19 +19,21 @@ final class CrosstableApi(
   import Game.{ BSONFields => GF }
 
   def apply(game: Game): Fu[Option[Crosstable]] = game.twoUserIds ?? {
-    case (u1, u2) => apply(u1, u2)
+    case (u1, u2) => apply(u1, u2) map some
   }
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.twoUserIds ?? {
-    case (u1, u2) => withMatchup(u1, u2)
+    case (u1, u2) => withMatchup(u1, u2) map some
   }
 
-  def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
-    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout)
+  def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable] =
+    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) map {
+      _ | Crosstable.empty(u1, u2)
+    }
 
-  def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable.WithMatchup]] =
+  def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable.WithMatchup] =
     apply(u1, u2, timeout) zip getMatchup(u1, u2) map {
-      case crosstable ~ matchup => crosstable.map { Crosstable.WithMatchup(_, matchup) }
+      case crosstable ~ matchup => Crosstable.WithMatchup(crosstable, matchup)
     }
 
   def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =

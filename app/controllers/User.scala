@@ -124,7 +124,7 @@ object User extends LilaController {
     OptionFuResult(UserRepo named username) { user =>
       if (user.enabled || isGranted(_.UserSpy)) for {
         blocked <- ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }
-        crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) }
+        crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) map some }
         followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
         ping = env.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
