@@ -538,4 +538,24 @@
   <string name="boardHighlights">बोर्डमा हाइलाइट (अन्तिम चाल र चेक)</string>
   <string name="pieceDestinations">गोटीको गन्तब्य (मान्य चाल र प्रिमुभ)</string>
   <string name="boardCoordinates">बोर्ड समकक्षहरु (A-H, १-८)</string>
+  <string name="moveListWhilePlaying">खेल्ने क्रममा चालको सुची</string>
+  <string name="pgnPieceNotation">चाल नोटेशन</string>
+  <string name="chessPieceSymbol">गोटीको चिन्ह</string>
+  <string name="pgnLetter">अक्षर (K, Q, R, B, N)</string>
+  <string name="chessClock">बुद्धिचाल घडी</string>
+  <string name="tenthsOfSeconds">सेकेन्ड को दश भाग</string>
+  <string name="never">नाइँ</string>
+  <string name="whenTimeRemainingLessThanTenSeconds">जब १० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
+  <string name="horizontalGreenProgressBars">हरियो ठाडो प्रगति देखाउने रेखा</string>
+  <string name="soundWhenTimeGetsCritical">समय कम बाँकी रहदा ध्वनी</string>
+  <string name="gameBehavior">खेलको चालचलन</string>
+  <string name="howDoYouMovePieces">गोटी कसरि सार्ने?</string>
+  <string name="clickTwoSquares">दुइ कोठामा क्लिक गर्ने</string>
+  <string name="dragPiece">गोटी ड्र्याग गर्ने</string>
+  <string name="bothClicksAndDrag">दुवै</string>
+  <string name="premovesPlayingDuringOpponentTurn">प्रिमुभ (प्रतिद्वन्दी को पालो हुदा चाल्ने)</string>
+  <string name="takebacksWithOpponentApproval">चाल फिर्ता (प्रतिद्वन्दी को अनुमति लिएर)</string>
+  <string name="promoteToQueenAutomatically">आफै मन्त्री बनाउने</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">आफै तीनपटक को दोहोरी मा बराबरी दाबी गर्ने</string>
+  <string name="privacy">गोपनियता</string>
 </resources>
