@@ -118,7 +118,7 @@ private[api] final class GameApi(
       ),
       nbResults =
         if (~playing) gameCache.nbPlaying(users._1.id)
-        else crosstableApi(users._1.id, users._2.id, 5 seconds).map { _ ?? (_.nbGames) }
+        else crosstableApi(users._1.id, users._2.id, 5 seconds).map(_.nbGames)
     ),
     currentPage = page,
     maxPerPage = nb

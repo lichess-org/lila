@@ -199,7 +199,7 @@ object Api extends LidraughtsController {
     CrosstableRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
       Env.game.crosstableApi(u1, u2, timeout = 15.seconds) map { ct =>
         toApiResult {
-          ct map lidraughts.game.JsonView.crosstableWrites.writes
+          lidraughts.game.JsonView.crosstableWrites.writes(ct).some
         }
       }
     }

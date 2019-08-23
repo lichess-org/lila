@@ -25,6 +25,11 @@ object Crosstable {
 
   val maxGames = 20
 
+  def empty(u1: lidraughts.user.User.ID, u2: lidraughts.user.User.ID) = Crosstable(
+    Users(User(u1, 0), User(u2, 0)),
+    Nil
+  )
+
   case class User(id: String, score: Int) // score is x10
   case class Users(user1: User, user2: User) {
 
