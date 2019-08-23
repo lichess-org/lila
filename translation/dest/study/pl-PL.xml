@@ -70,6 +70,7 @@
   <string name="clearAnnotations">Usuń adnotacje</string>
   <string name="deleteChapter">Usuń rozdział</string>
   <string name="deleteThisChapter">Usunąć ten rozdział? Nie będzie można tego cofnąć!</string>
+  <string name="clearAllCommentsInThisChapter">Usunąć wszystkie komentarze i oznaczenia w tym rozdziale?</string>
   <string name="rightUnderTheBoard">Pod szachownicą, po prawej stronie</string>
   <string name="normalAnalysis">Normalna analiza</string>
   <string name="hideNextMoves">Ukryj następne posunięcia</string>
@@ -83,6 +84,12 @@
   <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
   <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
   <string name="automatic">Automatycznie</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Wklej tutaj swój PGN, max %s partię</item>
+    <item quantity="few">Wklej tutaj swój PGN, max %s partie</item>
+    <item quantity="many">Wklej tutaj swój PGN, max %s partii</item>
+    <item quantity="other">Wklej tutaj swój PGN, max %s partii</item>
+  </plurals>
   <string name="urlOfTheGame">Link do partii</string>
   <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s lub %2$s</string>
   <string name="createChapter">Stwórz rozdział</string>
