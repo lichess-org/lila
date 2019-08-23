@@ -8,14 +8,13 @@ import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
 import { Redraw } from '../interfaces';
-import { descTitle } from './description';
 import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [
-  ['normal', 'Normal analysis'],
-  ['practice', 'Practice with computer'],
-  ['conceal', 'Hide next moves'],
-  ['gamebook', 'Interactive lesson']
+  ['normal', 'normalAnalysis'],
+  ['practice', 'practiceWithComputer'],
+  ['conceal', 'hideNextMoves'],
+  ['gamebook', 'interactiveLesson']
 ];
 
 export function fieldValue(e: Event, id: string) {
@@ -258,22 +257,10 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
           h('label.form-label', {
             attrs: { 'for': 'chapter-mode' }
           }, 'Analysis mode'),
-          h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], mode, c[1])))
+          h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], mode, ctrl.root.trans.noarg(c[1]))))
         ]),
         modal.button('Create chapter')
       ])
     ]
   });
-}
-
-export function descriptionGroup(desc?: string) {
-  return h('div.form-group', [
-    h('label.form-label', {
-      attrs: { for: 'chapter-description' }
-    }, descTitle(true)),
-    h('select#chapter-description.form-control', [
-      ['', 'None'],
-      ['1', 'Right under the board']
-    ].map(v => option(v[0], desc ? '1' : '', v[1])))
-  ]);
 }
