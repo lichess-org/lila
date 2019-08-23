@@ -67,4 +67,22 @@
   <string name="clearAllCommentsInThisChapter">Ryd alle kommentarer og figurer i dette kapitel?</string>
   <string name="rightUnderTheBoard">Lige under brættet</string>
   <string name="normalAnalysis">Normal analyse</string>
+  <string name="hideNextMoves">Skjul næste træk</string>
+  <string name="interactiveLesson">Interaktiv lektion</string>
+  <string name="chapterX">Kapitel %s</string>
+  <string name="empty">Tom</string>
+  <string name="startFromInitialPosition">Start ved indledende position</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Start fra brugerdefinerede position</string>
+  <string name="loadAGameByUrl">Indlæs et parti fra URL</string>
+  <string name="loadAPositionFromFen">Indlæs en position fra FEN</string>
+  <string name="loadAGameFromPgn">Indlæs et parti fra PGN</string>
+  <string name="automatic">Automatisk</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Indsæt din PGN-tekst her, op til %s parti</item>
+    <item quantity="other">Indsæt din PGN-tekst her, op til %s partier</item>
+  </plurals>
+  <string name="urlOfTheGame">URL for partiet</string>
+  <string name="loadAGameFromXOrY">Indlæs et parti fra %1$s eller %2$s</string>
+  <string name="createChapter">Opret kapitel</string>
 </resources>
