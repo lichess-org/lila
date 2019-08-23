@@ -38,7 +38,7 @@ final class Env(
     paginator = paginator
   )
 
-  system.lidraughtsBus.subscribeFun('finishGame) {
+  system.lidraughtsBus.subscribeFun('finishGame, 'gameSearchInsert) {
     case FinishGame(game, _, _) if !game.aborted => api store game
     case InsertGame(game) => api store game
   }
