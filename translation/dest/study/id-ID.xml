@@ -64,4 +64,15 @@
   <string name="nobody">Tidak ada seorangpun</string>
   <string name="onlyMe">Hanya saya</string>
   <string name="contributors">Kontributor</string>
+  <string name="members">Anggota</string>
+  <string name="everyone">Semua orang</string>
+  <string name="enableSync">Aktifkan sinkronisasi</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ya: atur semua orang dalam posisi yang sama</string>
+  <string name="noLetPeopleBrowseFreely">Tidak: Bolehkan untuk menjelajah dengan bebas</string>
+  <string name="pinnedStudyComment">Sematkan komentar materi</string>
+  <string name="start">Mulai</string>
+  <string name="save">Simpan</string>
+  <string name="clearChat">Bersihkan obrolan</string>
+  <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan materi? Ini tidak akan dapat mengulangkan kembali!</string>
+  <string name="deleteStudy">Hapus materi</string>
 </resources>
