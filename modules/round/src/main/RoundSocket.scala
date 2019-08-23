@@ -72,11 +72,12 @@ private[round] final class RoundSocket(
       lilaBus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
-    def weightedRagequitTimeout = ragequitTimeout.toMillis * goneWeight
-    def weightedDisconnectTimeout = gameDisconnectTimeout(gameSpeed).toMillis * goneWeight
+    private def timeoutMillis = {
+      if (isBye) ragequitTimeout.toMillis else gameDisconnectTimeout(gameSpeed).toMillis
+    } * goneWeight atLeast 12000
 
     def isGone: Fu[Boolean] = {
-      time < (nowMillis - (if (isBye) weightedRagequitTimeout else weightedDisconnectTimeout)) && !botConnected
+      time < (nowMillis - timeoutMillis) && !botConnected
     } ?? !isHostingSimul
 
     def setBotConnected(v: Boolean) =
