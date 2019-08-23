@@ -71,4 +71,11 @@
   <string name="analysisMode">പരിശോധന മോഡ്</string>
   <string name="pinnedChapterComment">അധ്യായത്തിലെ കമന്റ് പിൻ ചെയ്യുക</string>
   <string name="saveChapter">അദ്ധ്യായം സംരക്ഷിക്കുക</string>
+  <string name="clearAnnotations">അനോടേഷൻ ഇല്ലാതാക്കുക</string>
+  <string name="deleteChapter">അധ്യായം നീക്കം ചെയ്യുക</string>
+  <string name="deleteThisChapter">ഈ അധ്യായം നീക്കം ചെയ്യണോ? പിന്നെ തിരിച്ചു പോകാൻ പറ്റില്ല ട്ടോ!</string>
+  <string name="clearAllCommentsInThisChapter">ഈ അധ്യായത്തിലെ എല്ലാ കമന്റുകളും രൂപങ്ങളും നീക്കം ചെയ്യണോ?</string>
+  <string name="rightUnderTheBoard">ബോർഡിന് നേരെ താഴെ</string>
+  <string name="noPinnedComment">ഒന്നുമില്ല</string>
+  <string name="normalAnalysis">സാധാരണ വിശകലനം</string>
 </resources>
