@@ -55,4 +55,9 @@
   <string name="open">खोल्नुहोस्</string>
   <string name="xBroughtToYouByY">%1$s लाई %2$s द्वारा तपाईसम्म ल्याइएको छ</string>
   <string name="studyNotFound">पाठ भेटिएन</string>
+  <string name="editChapter">अध्याय संशोधन</string>
+  <string name="newChapter">नयाँ अध्याय</string>
+  <string name="editor">सम्पादक</string>
+  <string name="automatic">स्वचालित</string>
+  <string name="createChapter">अध्याय श्रीजना</string>
 </resources>
