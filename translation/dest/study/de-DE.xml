@@ -55,4 +55,20 @@
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
+  <string name="noPinnedComment">Keine</string>
+  <string name="configureLiveBroadcast">Live-Broadcast konfigurieren</string>
+  <string name="createStudy">Studie erstellen</string>
+  <string name="editStudy">Studie bearbeiten</string>
+  <string name="visibility">Sichtbarkeit</string>
+  <string name="public">Öffentlich</string>
+  <string name="unlisted">Ungelistet</string>
+  <string name="inviteOnly">Nur auf Einladung</string>
+  <string name="allowCloning">Klonen erlaubt</string>
+  <string name="nobody">Niemand</string>
+  <string name="onlyMe">Nur ich</string>
+  <string name="contributors">Mitwirkende</string>
+  <string name="members">Mitglieder</string>
+  <string name="everyone">Alle</string>
+  <string name="enableSync">Sync aktivieren</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: Gleiche Stellung für alle</string>
 </resources>
