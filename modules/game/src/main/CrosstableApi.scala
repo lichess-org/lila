@@ -92,8 +92,8 @@ final class CrosstableApi(
   private val creationCache = asyncCache.multi[(User.ID, User.ID), Option[Crosstable]](
     name = "crosstable",
     f = (create _).tupled,
-    resultTimeout = 19.second,
-    expireAfter = _.ExpireAfterWrite(20 seconds)
+    resultTimeout = 29.second,
+    expireAfter = _.ExpireAfterWrite(30 seconds)
   )
 
   private val winnerProjection = $doc(GF.winnerId -> true)
