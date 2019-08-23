@@ -55,4 +55,13 @@
   <string name="noPinnedComment">Tidak ada</string>
   <string name="configureLiveBroadcast">Konfigurasi siaran langsung</string>
   <string name="createStudy">Buat materi</string>
+  <string name="editStudy">Ubah materi</string>
+  <string name="visibility">Visibilitas</string>
+  <string name="public">Publik</string>
+  <string name="unlisted">Tidak terdaftar</string>
+  <string name="inviteOnly">Hanya yang diundang</string>
+  <string name="allowCloning">Perbolehkan kloning</string>
+  <string name="nobody">Tidak ada seorangpun</string>
+  <string name="onlyMe">Hanya saya</string>
+  <string name="contributors">Kontributor</string>
 </resources>
