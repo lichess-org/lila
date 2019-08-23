@@ -39,7 +39,7 @@ object FormCompatLayer {
       ))
 
   private def addMissing(path: String, default: String)(data: FormData): FormData =
-    data.updated(path, data.getOrElse(path, List(default)))
+    data.updated(path, data.get(path).filter(_.nonEmpty) | List(default))
 
   private def moveTo(prefix: String, fields: List[String]) =
     moveToAndRename(prefix, fields.map(f => (f, f))) _
