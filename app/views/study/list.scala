@@ -16,74 +16,71 @@ import controllers.routes
 object list {
 
   def all(pag: Paginator[WithChaptersAndLiked], order: Order)(implicit ctx: Context) = layout(
-    title = s"All studies",
+    title = trans.study.allStudies.txt(),
     active = "all",
     order = order,
     pag = pag,
     searchFilter = "",
     url = o => routes.Study.all(o)
-  )("All studies")
+  )(trans.study.allStudies())
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) = layout(
-    title = s"Studies created by ${owner.titleUsername}",
+    title = trans.study.studiesCreatedByX.txt(owner.titleUsername),
     active = "owner",
     order = order,
     pag = pag,
     searchFilter = s"owner:${owner.username}",
     url = o => routes.Study.byOwner(owner.username, o)
-  )(frag(
-    userLink(owner),
-    "'s studies"
-  ))
+  )(trans.study.studiesCreatedByX(userLink(owner)))
 
   def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = s"My studies",
+    title = trans.study.myStudies.txt(),
     active = "mine",
     order = order,
     pag = pag,
     searchFilter = s"owner:${me.username}",
     url = o => routes.Study.mine(o)
-  )("My studies")
+  )(trans.study.myStudies())
 
   def mineLikes(
     pag: Paginator[WithChaptersAndLiked],
     order: Order,
     me: User
   )(implicit ctx: Context) = layout(
-    title = "My favourite studies",
+    title = trans.study.myFavoriteStudies.txt(),
     active = "mineLikes",
     order = order,
     pag = pag,
     searchFilter = "",
     url = o => routes.Study.mineLikes(o)
-  )("My favourite studies")
+  )(trans.study.myFavoriteStudies())
 
   def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = s"Studies I contribute to",
+    title = trans.study.studiesIContributeTo.txt(),
     active = "mineMember",
     order = order,
     pag = pag,
     searchFilter = s"member:${me.username}",
     url = o => routes.Study.mineMember(o)
-  )("Studies I contribute to")
+  )(trans.study.studiesIContributeTo())
 
   def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = "My public studies",
+    title = trans.study.myPublicStudies.txt(),
     active = "minePublic",
     order = order,
     pag = pag,
     searchFilter = s"owner:${me.username}",
     url = o => routes.Study.minePublic(o)
-  )("My public studies")
+  )(trans.study.myPublicStudies())
 
   def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = "My private studies",
+    title = trans.study.myPrivateStudies.txt(),
     active = "minePrivate",
     order = order,
     pag = pag,
     searchFilter = s"owner:${me.username}",
     url = o => routes.Study.minePrivate(o)
-  )("My private studies")
+  )(trans.study.myPrivateStudies())
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
     views.html.base.layout(
@@ -107,7 +104,7 @@ object list {
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
     if (pager.currentPageResults.isEmpty) div(cls := "nostudies")(
       iconTag("4"),
-      p("None yet.")
+      p(trans.study.noneYet())
     )
     else div(cls := "studies list infinitescroll")(
       pager.currentPageResults.map { s =>
@@ -118,9 +115,9 @@ object list {
 
   private[study] def menu(active: String, order: Order)(implicit ctx: Context) =
     st.aside(cls := "page-menu__menu subnav")(
-      a(cls := active.active("all"), href := routes.Study.all(order.key))("All studies"),
+      a(cls := active.active("all"), href := routes.Study.all(order.key))(trans.study.allStudies()),
       ctx.me.map { bits.authLinks(_, active, order) },
-      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("What are studies?")
+      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(trans.study.whatAreStudies())
     )
 
   private[study] def searchForm(placeholder: String, value: String) =
