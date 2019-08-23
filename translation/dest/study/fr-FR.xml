@@ -63,4 +63,14 @@
   <string name="normalAnalysis">Analyse normale</string>
   <string name="hideNextMoves">Cacher les coups suivants</string>
   <string name="interactiveLesson">Leçon interactive</string>
+  <string name="chapterX">Chapitre : %s</string>
+  <string name="empty">Vider</string>
+  <string name="editor">Editeur</string>
+  <string name="loadAGameByUrl">Charger une partie par URL</string>
+  <string name="loadAPositionFromFen">Charger une position par FEN</string>
+  <string name="loadAGameFromPgn">Charger une partie par PGN</string>
+  <string name="automatic">Automatique</string>
+  <string name="urlOfTheGame">URL de la partie</string>
+  <string name="loadAGameFromXOrY">Charger une partie de %1$s ou %2$s</string>
+  <string name="createChapter">Créer un chapitre</string>
 </resources>
