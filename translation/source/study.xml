@@ -84,4 +84,27 @@
   <string name="urlOfTheGame">URL of the game</string>
   <string name="loadAGameFromXOrY">Load a game from %1$s or %2$s</string>
   <string name="createChapter">Create chapter</string>
+  <string name="configureLiveBroadcast">Configure live broadcast</string>
+  <string name="createStudy">Create study</string>
+  <string name="editStudy">Edit study</string>
+  <string name="visibility">Visibility</string>
+  <string name="public">Public</string>
+  <string name="unlisted">Unlisted</string>
+  <string name="inviteOnly">Invite only</string>
+  <string name="allowCloning">Allow cloning</string>
+  <string name="nobody">Nobody</string>
+  <string name="onlyMe">Only me</string>
+  <string name="contributors">Contributors</string>
+  <string name="members">Members</string>
+  <string name="everyone">Everyone</string>
+  <string name="enableSync">Enable sync</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Yes: keep everyone on the same position</string>
+  <string name="noLetPeopleBrowseFreely">No: let people browse freely</string>
+  <string name="pinnedStudyComment">Pinned study comment</string>
+  <string name="start">Start</string>
+  <string name="save">Save</string>
+  <string name="clearChat">Clear chat</string>
+  <string name="deleteTheStudyChatHistory">Delete the study chat history? There is no going back!</string>
+  <string name="deleteStudy">Delete study</string>
+  <string name="deleteTheEntireStudy">Delete the entire study? There is no going back!</string>
 </resources>

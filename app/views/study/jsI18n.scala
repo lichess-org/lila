@@ -18,6 +18,8 @@ object jsI18n {
     trans.variant,
     trans.none,
     trans.clearBoard,
-    trans.startPosition
+    trans.startPosition,
+    trans.cancel,
+    trans.chat
   )
 }

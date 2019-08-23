@@ -4,7 +4,7 @@ import * as modal from '../modal';
 import { prop, Prop } from 'common';
 import { bind, bindSubmit, emptyRedButton } from '../util';
 import { StudyData } from './interfaces';
-import { MaybeVNodes } from '../interfaces';
+import { Redraw, MaybeVNodes } from '../interfaces';
 import RelayCtrl from './relay/relayCtrl';
 
 export interface StudyFormCtrl {
@@ -13,7 +13,8 @@ export interface StudyFormCtrl {
   save(data: FormData, isNew: boolean): void;
   getData(): StudyData;
   isNew(): boolean;
-  redraw(): void;
+  trans: Trans;
+  redraw: Redraw;
   relay?: RelayCtrl;
 }
 
@@ -28,19 +29,6 @@ interface Select {
   selected: string;
 }
 type Choice = [string, string];
-
-const visibilityChoices: Choice[] = [
-  ['public', 'Public'],
-  ['unlisted', 'Unlisted'],
-  ['private', 'Invite only']
-];
-const userSelectionChoices: Choice[] = [
-  ['nobody', 'Nobody'],
-  ['owner', 'Only me'],
-  ['contributor', 'Contributors'],
-  ['member', 'Members'],
-  ['everyone', 'Everyone']
-];
 
 function select(s: Select): MaybeVNodes {
   return [
@@ -58,7 +46,7 @@ function select(s: Select): MaybeVNodes {
   ];
 };
 
-export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, redraw: () => void, relay?: RelayCtrl): StudyFormCtrl {
+export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: () => StudyData, trans: Trans, redraw: Redraw, relay?: RelayCtrl): StudyFormCtrl {
 
   const initAt = Date.now();
 
@@ -80,6 +68,7 @@ export function ctrl(save: (data: FormData, isNew: boolean) => void, getData: ()
     },
     getData,
     isNew,
+    trans,
     redraw,
     relay
   };
@@ -96,6 +85,13 @@ export function view(ctrl: StudyFormCtrl): VNode {
       el.focus();
     }
   }
+  const userSelectionChoices: Choice[] = [
+    ['nobody', ctrl.trans.noarg('nobody')],
+    ['owner', ctrl.trans.noarg('onlyMe')],
+    ['contributor', ctrl.trans.noarg('contributors')],
+    ['member', ctrl.trans.noarg('members')],
+    ['everyone', ctrl.trans.noarg('everyone')]
+  ];
   return modal.modal({
     class: 'study-edit',
     onClose: function() {
@@ -103,7 +99,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
       ctrl.redraw();
     },
     content: [
-      h('h2', ctrl.relay ? 'Configure live broadcast' : (isNew ? 'Create' : 'Edit') + ' study'),
+      h('h2', ctrl.trans.noarg(ctrl.relay ? 'configureLiveBroadcast' : (isNew ? 'createStudy' : 'editStudy'))),
       h('form.form3', {
         hook: bindSubmit(e => {
           const obj: FormData = {};
@@ -115,7 +111,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
         }, ctrl.redraw)
       }, [
         h('div.form-group' + (ctrl.relay ? '.none' : ''), [
-          h('label.form-label', { attrs: { 'for': 'study-name' } }, 'Name'),
+          h('label.form-label', { attrs: { 'for': 'study-name' } }, ctrl.trans.noarg('name')),
           h('input#study-name.form-control', {
             attrs: {
               minlength: 3,
@@ -130,13 +126,17 @@ export function view(ctrl: StudyFormCtrl): VNode {
         h('div.form-split', [
           h('div.form-group.form-half', select({
             key: 'visibility',
-            name: 'Visibility',
-            choices: visibilityChoices,
+            name: ctrl.trans.noarg('visibility'),
+            choices: [
+              ['public', ctrl.trans.noarg('public')],
+              ['unlisted', ctrl.trans.noarg('unlisted')],
+              ['private', ctrl.trans.noarg('inviteOnly')]
+            ],
             selected: data.visibility
           })),
           h('div.form-group.form-half', select({
             key: 'cloneable',
-            name: 'Allow cloning',
+            name: ctrl.trans.noarg('allowCloning'),
             choices: userSelectionChoices,
             selected: data.settings.cloneable
           }))
@@ -144,13 +144,13 @@ export function view(ctrl: StudyFormCtrl): VNode {
         h('div.form-split', [
           h('div.form-group.form-half', select({
             key: 'computer',
-            name: 'Computer analysis',
-            choices: userSelectionChoices,
+            name: ctrl.trans.noarg('computerAnalysis'),
+            choices: userSelectionChoices.map(c => [c[0], ctrl.trans.noarg(c[1])]),
             selected: data.settings.computer
           })),
           h('div.form-group.form-half', select({
             key: 'explorer',
-            name: 'Opening explorer',
+            name: ctrl.trans.noarg('openingExplorer'),
             choices: userSelectionChoices,
             selected: data.settings.explorer
           }))
@@ -158,30 +158,30 @@ export function view(ctrl: StudyFormCtrl): VNode {
         h('div.form-split', [
           h('div.form-group.form-half', select({
             key: 'chat',
-            name: 'Chat',
+            name: ctrl.trans.noarg('chat'),
             choices: userSelectionChoices,
             selected: data.settings.chat
           })),
           h('div.form-group.form-half', select({
             key: 'sticky',
-            name: 'Enable sync',
+            name: ctrl.trans.noarg('enableSync'),
             choices: [
-              ['true', 'Yes: keep everyone on the same position'],
-              ['false', 'No: let people browse freely']
+              ['true', ctrl.trans.noarg('yesKeepEveryoneOnTheSamePosition')],
+              ['false', ctrl.trans.noarg('noLetPeopleBrowseFreely')]
             ],
             selected: '' + data.settings.sticky
           }))
         ]),
         h('div.form-group.form-half', select({
           key: 'description',
-          name: 'Study pinned comment',
+          name: ctrl.trans.noarg('pinnedStudyComment'),
           choices: [
-            ['false', 'None'],
-            ['true', 'Right under the board']
+            ['false', ctrl.trans.noarg('none')],
+            ['true', ctrl.trans.noarg('rightUnderTheBoard')]
           ],
           selected: '' + data.settings.description
         })),
-        modal.button(isNew ? 'Start' : 'Save')
+        modal.button(ctrl.trans.noarg(isNew ? 'start' : 'save'))
       ]),
       h('div.destructive', [
         isNew ? null : h('form', {
@@ -190,10 +190,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
             method: 'post'
           },
           hook: bind('submit', _ => {
-            return confirm('Delete the study chat history? There is no going back!');
+            return confirm(ctrl.trans.noarg('deleteTheStudyChatHistory'));
           })
         }, [
-          h(emptyRedButton, 'Clear chat')
+          h(emptyRedButton, ctrl.trans.noarg('clearChat'))
         ]),
         h('form', {
           attrs: {
@@ -201,10 +201,10 @@ export function view(ctrl: StudyFormCtrl): VNode {
             method: 'post'
           },
           hook: bind('submit', _ => {
-            return isNew || confirm('Delete the entire study? There is no going back!');
+            return isNew || confirm(ctrl.trans.noarg('deleteTheEntireStudy'));
           })
         }, [
-          h(emptyRedButton, isNew ? 'Cancel' : 'Delete study')
+          h(emptyRedButton, ctrl.trans.noarg(isNew ? 'cancel' : 'deleteStudy'))
         ])
       ])
     ]
