@@ -65,6 +65,7 @@
   <string name="deleteThisChapter">Delete this chapter? There is no going back!</string>
   <string name="clearAllCommentsInThisChapter">Clear all comments and shapes in this chapter?</string>
   <string name="rightUnderTheBoard">Right under the board</string>
+  <string name="noPinnedComment">None</string>
   <string name="normalAnalysis">Normal analysis</string>
   <string name="hideNextMoves">Hide next moves</string>
   <string name="interactiveLesson">Interactive lesson</string>

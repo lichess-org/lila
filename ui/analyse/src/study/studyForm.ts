@@ -176,7 +176,7 @@ export function view(ctrl: StudyFormCtrl): VNode {
           key: 'description',
           name: ctrl.trans.noarg('pinnedStudyComment'),
           choices: [
-            ['false', ctrl.trans.noarg('none')],
+            ['false', ctrl.trans.noarg('noPinnedComment')],
             ['true', ctrl.trans.noarg('rightUnderTheBoard')]
           ],
           selected: '' + data.settings.description

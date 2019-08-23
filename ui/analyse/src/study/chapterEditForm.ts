@@ -156,7 +156,7 @@ function viewLoaded(ctrl: StudyChapterEditFormCtrl, data: StudyChapterConfig): V
         attrs: { for: 'chapter-description' }
       }, ctrl.trans.noarg('pinnedChapterComment')),
       h('select#chapter-description.form-control', [
-        ['', ctrl.trans.noarg('none')],
+        ['', ctrl.trans.noarg('noPinnedComment')],
         ['1', ctrl.trans.noarg('rightUnderTheBoard')]
       ].map(v => option(v[0], data.description ? '1' : '', v[1])))
     ]),
