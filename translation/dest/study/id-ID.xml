@@ -52,4 +52,7 @@
   <string name="open">Buka</string>
   <string name="xBroughtToYouByY">%1$s dibawakan kepadamu dari %2$s</string>
   <string name="studyNotFound">Pembelajaran tidak ditemukan</string>
+  <string name="noPinnedComment">Tidak ada</string>
+  <string name="configureLiveBroadcast">Konfigurasi siaran langsung</string>
+  <string name="createStudy">Buat materi</string>
 </resources>
