@@ -23,7 +23,7 @@
     <item quantity="other">%s Anggota</item>
   </plurals>
   <string name="inviteToTheStudy">Ajak untuk belajar materi</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Harap hanya mengundang orang yang Anda kenal, dan yang secara aktif ingin bergabung dengan pembelajaran ini.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Harap hanya mengundang orang yang Anda kenal, dan yang secara aktif ingin bergabung dengan materi ini.</string>
   <string name="searchByUsername">Cari berdasarkan nama pengguna</string>
   <string name="spectator">Penonton</string>
   <string name="contributor">Kontributor</string>
