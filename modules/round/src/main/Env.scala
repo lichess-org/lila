@@ -36,8 +36,7 @@ final class Env(
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors,
-    playbanApi: lila.playban.PlaybanApi
+    ratingFactors: () => lila.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -171,7 +170,7 @@ final class Env(
       sriTtl = SocketSriTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout,
-      playbanApi = playbanApi,
+      playbanApi = playban,
       getGame = proxy.game _
     )
   )
@@ -338,7 +337,6 @@ object Env {
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
-    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
-    playbanApi = lila.playban.Env.current.api
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
   )
 }
