@@ -8,7 +8,8 @@ final class Env(
     chatApi: lidraughts.chat.ChatApi,
     lightUser: lidraughts.common.LightUser.Getter,
     bus: lidraughts.common.Bus,
-    db: lidraughts.db.Env
+    db: lidraughts.db.Env,
+    asyncCache: lidraughts.memo.AsyncCache.Builder
 ) {
 
   private val settings = new {
@@ -25,7 +26,8 @@ final class Env(
     coll = db(CollectionPlayban),
     sandbag = new SandbagWatch(messenger),
     feedback = feedback,
-    bus = bus
+    bus = bus,
+    asyncCache = asyncCache
   )
 }
 
@@ -37,6 +39,7 @@ object Env {
     chatApi = lidraughts.chat.Env.current.api,
     lightUser = lidraughts.user.Env.current.lightUserApi.async,
     bus = lidraughts.common.PlayApp.system.lidraughtsBus,
-    db = lidraughts.db.Env.current
+    db = lidraughts.db.Env.current,
+    asyncCache = lidraughts.memo.Env.current.asyncCache
   )
 }

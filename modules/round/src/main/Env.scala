@@ -180,9 +180,9 @@ final class Env(
       uidTtl = SocketUidTimeout,
       disconnectTimeout = PlayerDisconnectTimeout,
       ragequitTimeout = PlayerRagequitTimeout,
-      playbanApi = playban,
       getGame = proxy.game _
-    )
+    ),
+    playban = playban
   )
 
   lazy val selfReport = new SelfReport(roundMap, proxy.pov)
