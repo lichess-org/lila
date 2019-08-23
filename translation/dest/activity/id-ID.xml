@@ -39,7 +39,7 @@
     <item quantity="other">Berpartisipasi dalam %s pameran simultan</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="other">Membuat %s belajar baru</item>
+    <item quantity="other">Membuat %s materi baru</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="other">Sudah mengikuti %s turnamen</item>
