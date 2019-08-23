@@ -7,8 +7,8 @@
     <item quantity="other">%s Kapitel</item>
   </plurals>
   <plurals name="nbGames">
-    <item quantity="one">%s Spel</item>
-    <item quantity="other">%s Spel</item>
+    <item quantity="one">%s Parti</item>
+    <item quantity="other">%s Partier</item>
   </plurals>
   <string name="addMembers">Lägg till medlemmar</string>
   <plurals name="nbMembers">
