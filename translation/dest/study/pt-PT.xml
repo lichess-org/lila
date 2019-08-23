@@ -66,6 +66,7 @@
   <string name="deleteThisChapter">Eliminar este capítulo? Não há volta atrás!</string>
   <string name="clearAllCommentsInThisChapter">Limpar todos os comentários e formas neste capítulo?</string>
   <string name="rightUnderTheBoard">Mesmo por baixo do tabuleiro</string>
+  <string name="noPinnedComment">Nenhum</string>
   <string name="normalAnalysis">Análise normal</string>
   <string name="hideNextMoves">Ocultar próximos movimentos</string>
   <string name="interactiveLesson">Lição interativa</string>
@@ -85,4 +86,23 @@
   <string name="urlOfTheGame">URL do jogo</string>
   <string name="loadAGameFromXOrY">Carregar um jogo de %1$s ou %2$s</string>
   <string name="createChapter">Criar capítulo</string>
+  <string name="configureLiveBroadcast">Configurar transmissão ao vivo</string>
+  <string name="createStudy">Criar estudo</string>
+  <string name="editStudy">Editar estudo</string>
+  <string name="visibility">Visibilidade</string>
+  <string name="public">Público</string>
+  <string name="unlisted">Não listado</string>
+  <string name="inviteOnly">Apenas por convite</string>
+  <string name="allowCloning">Permitir clonagem</string>
+  <string name="nobody">Ninguém</string>
+  <string name="onlyMe">Apenas eu</string>
+  <string name="contributors">Contribuidores</string>
+  <string name="members">Membros</string>
+  <string name="everyone">Toda a gente</string>
+  <string name="enableSync">Ativar sincronização</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Sim: mantenha toda a gente na mesma posição</string>
+  <string name="save">Guardar</string>
+  <string name="clearChat">Limpar conversação</string>
+  <string name="deleteStudy">Eliminar estudo</string>
+  <string name="deleteTheEntireStudy">Eliminar todo o estudo? Não há volta atrás!</string>
 </resources>
