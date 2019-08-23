@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
+  <string name="private">Private</string>
+  <string name="myStudies">My studies</string>
+  <string name="studiesIContributeTo">Studies I contribute to</string>
+  <string name="myPublicStudies">My public studies</string>
+  <string name="myPrivateStudies">My private studies</string>
+  <string name="favoriteStudies">Favourite studies</string>
+
   <string name="addNewChapter">Add a new chapter</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Chapter</item>

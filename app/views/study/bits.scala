@@ -12,17 +12,17 @@ object bits {
 
   def newForm()(implicit ctx: Context) =
     postForm(cls := "new-study", action := routes.Study.create)(
-      submitButton(cls := "button button-green", dataIcon := "O", title := "New study")
+      submitButton(cls := "button button-green", dataIcon := "O", title := trans.study.createStudy.txt())
     )
 
   def authLinks(me: User, active: String, order: lila.study.Order)(implicit ctx: Context) = {
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
-      a(activeCls("mine"), href := routes.Study.mine(order.key))("My studies"),
-      a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))("Studies I contribute to"),
-      a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))("My public studies"),
-      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))("My private studies"),
-      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))("Favourite studies")
+      a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
+      a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))(trans.study.studiesIContributeTo()),
+      a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))(trans.study.myPublicStudies()),
+      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(trans.study.myPrivateStudies()),
+      a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.favoriteStudies())
     )
   }
 
@@ -33,7 +33,7 @@ object bits {
         tag(cls := "study-name")(s.study.name.value),
         span(
           !s.study.isPublic option frag(
-            iconTag("a")(cls := "private", ariaTitle("Private")),
+            iconTag("a")(cls := "private", ariaTitle(trans.study.`private`.txt())),
             " "
           ),
           iconTag(if (s.liked) "" else ""),

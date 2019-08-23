@@ -1003,6 +1003,12 @@ val `startTraining` = new Translated("startTraining", Coordinates)
 }
 
 object study {
+val `private` = new Translated("private", Study)
+val `myStudies` = new Translated("myStudies", Study)
+val `studiesIContributeTo` = new Translated("studiesIContributeTo", Study)
+val `myPublicStudies` = new Translated("myPublicStudies", Study)
+val `myPrivateStudies` = new Translated("myPrivateStudies", Study)
+val `favoriteStudies` = new Translated("favoriteStudies", Study)
 val `addNewChapter` = new Translated("addNewChapter", Study)
 val `addMembers` = new Translated("addMembers", Study)
 val `inviteToTheStudy` = new Translated("inviteToTheStudy", Study)
