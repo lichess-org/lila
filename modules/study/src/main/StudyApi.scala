@@ -502,19 +502,17 @@ final class StudyApi(
       chapterRepo.countByStudyId(study.id) flatMap { count =>
         if (count >= Study.maxChapters) funit
         else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-          chapterMaker(study, data, order, byUserId, Pref.default.draughtsResult) flatMap {
-            _ ?? { chapter =>
-              data.initial ?? {
-                chapterRepo.firstByStudy(study.id) flatMap {
-                  _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-                }
-              } >> doAddChapter(study, chapter, sticky, uid)
-            }
-          } addFailureEffect {
-            case ChapterMaker.ValidationException(error) =>
-              sendTo(study, StudySocket.ValidationError(uid, error))
-            case u => logger.error("chapterMaker", u)
+          chapterMaker(study, data, order, byUserId, Pref.default.draughtsResult) flatMap { chapter =>
+            data.initial ?? {
+              chapterRepo.firstByStudy(study.id) flatMap {
+                _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+              }
+            } >> doAddChapter(study, chapter, sticky, uid)
           }
+        } addFailureEffect {
+          case ChapterMaker.ValidationException(error) =>
+            sendTo(study, StudySocket.ValidationError(uid, error))
+          case u => logger.error("chapterMaker", u)
         }
       }
     }
@@ -616,10 +614,8 @@ final class StudyApi(
           chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
             if (chaps.size < 2) {
-              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId, Pref.default.draughtsResult) flatMap {
-                _ ?? { c =>
-                  doAddChapter(study, c, sticky = true, uid) >> doSetChapter(study, c.id, uid)
-                }
+              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId, Pref.default.draughtsResult) flatMap { c =>
+                doAddChapter(study, c, sticky = true, uid) >> doSetChapter(study, c.id, uid)
               }
             } // deleting the current chapter? Automatically move to another one
             else (study.position.chapterId == chapterId).?? {
