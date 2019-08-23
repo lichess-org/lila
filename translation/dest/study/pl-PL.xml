@@ -63,13 +63,27 @@
   <string name="studyNotFound">Nie znaleziono omówienia</string>
   <string name="editChapter">Edytuj rozdział</string>
   <string name="newChapter">Nowy rozdział</string>
+  <string name="orientation">Orientacja</string>
+  <string name="analysisMode">Typ analizy</string>
+  <string name="pinnedChapterComment">Przyczepiony komentarz rozdziału</string>
   <string name="saveChapter">Zapisz rozdział</string>
+  <string name="clearAnnotations">Usuń adnotacje</string>
   <string name="deleteChapter">Usuń rozdział</string>
   <string name="deleteThisChapter">Usunąć ten rozdział? Nie będzie można tego cofnąć!</string>
+  <string name="rightUnderTheBoard">Pod szachownicą, po prawej stronie</string>
+  <string name="normalAnalysis">Normalna analiza</string>
   <string name="hideNextMoves">Ukryj następne posunięcia</string>
+  <string name="interactiveLesson">Lekcja interaktywna</string>
   <string name="chapterX">Rozdział %s</string>
   <string name="empty">Pusty</string>
+  <string name="startFromInitialPosition">Rozpocznij z pozycji początkowej</string>
   <string name="editor">Edytor</string>
+  <string name="startFromCustomPosition">Rozpocznij z ustawionej pozycji</string>
+  <string name="loadAGameByUrl">Zaimportuj partię z linku</string>
+  <string name="loadAPositionFromFen">Zaimportuj partię z FEN</string>
+  <string name="loadAGameFromPgn">Zaimportuj partię z PGN</string>
+  <string name="automatic">Automatycznie</string>
   <string name="urlOfTheGame">Link do partii</string>
+  <string name="loadAGameFromXOrY">Zaimportuj partię z %1$s lub %2$s</string>
   <string name="createChapter">Stwórz rozdział</string>
 </resources>
