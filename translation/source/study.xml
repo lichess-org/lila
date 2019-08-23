@@ -55,6 +55,7 @@
   <string name="xBroughtToYouByY">%1$s brought to you by %2$s</string>
   <string name="studyNotFound">Study not found</string>
   <string name="editChapter">Edit chapter</string>
+  <string name="newChapter">New chapter</string>
   <string name="name">Name</string>
   <string name="orientation">Orientation</string>
   <string name="analysisMode">Analysis mode</string>
@@ -71,4 +72,21 @@
   <string name="normalAnalysis">Normal analysis</string>
   <string name="hideNextMoves">Hide next moves</string>
   <string name="interactiveLesson">Interactive lesson</string>
+  <string name="chapterX">Chapter %s</string>
+  <string name="empty">Empty</string>
+  <string name="startFromInitialPosition">Start from initial position</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Start from custom position</string>
+  <string name="loadAGameByUrl">Load a game by URL</string>
+  <string name="loadAPositionFromFen">Load a position from FEN</string>
+  <string name="loadAGameFromPgn">Load a game from PGN</string>
+  <string name="automatic">Automatic</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Paste your PGN text here, up to %s game</item>
+    <item quantity="other">Paste your PGN text here, up to %s games</item>
+  </plurals>
+  <string name="urlOfTheGame">URL of the game</string>
+  <string name="variant">Variant</string>
+  <string name="loadAGameFromXOrY">Load a game from %1$s or %2$s</string>
+  <string name="createChapter">Create chapter</string>
 </resources>
