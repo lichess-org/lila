@@ -5338,7 +5338,7 @@ syntax-error@^1.1.1:
   dependencies:
     acorn-node "^1.2.0"
 
-tablesort@^5.0.0:
+tablesort@^5.1:
   version "5.2.0"
   resolved "https://registry.yarnpkg.com/tablesort/-/tablesort-5.2.0.tgz#132643eaebf31b5e17d6e90222aa24ee11d9b4e6"
   integrity sha512-uiG1z/yvuZPod3uesK78bNMtLisnbQzNeD+CDQSZsrZTK2AzMjCmrTa1NUPBVLwD43VxJnIUYlrTM1jYl+HZFQ==

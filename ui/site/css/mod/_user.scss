@@ -152,8 +152,9 @@
   padding-left: 10px;
 }
 #mz_others .i {
+  padding: 0;
   i {
-    margin: 0 2px;
+    margin: 0;
     &::before {
       margin-right: 0;
     }
@@ -161,6 +162,9 @@
 }
 #mz_others thead th {
   cursor: pointer;
+  &:hover {
+    color: $c-link;
+  }
 }
 .mz_reports form {
   display: block;
@@ -364,9 +368,7 @@
 
 th[role=columnheader]:not(.no-sort) {
   cursor: pointer;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
+  user-select: none;
 }
 
 th[role=columnheader]:not(.no-sort):after {
@@ -375,12 +377,9 @@ th[role=columnheader]:not(.no-sort):after {
   margin-top: 7px;
   border-width: 0 4px 4px;
   border-style: solid;
-  border-color: #404040 transparent;
+  border-color: $c-accent transparent;
   visibility: hidden;
   opacity: 0;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
 }
 
@@ -391,10 +390,11 @@ th[aria-sort=ascending]:not(.no-sort):after {
 
 th[aria-sort]:not(.no-sort):after {
   visibility: visible;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 th[role=columnheader]:not(.no-sort):hover:after {
   visibility: visible;
   opacity: 1;
+  border-color: $c-link transparent;
 }

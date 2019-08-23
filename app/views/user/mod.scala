@@ -283,6 +283,20 @@ object mod {
       )
     )
 
+  private val sortNumberTh = th(attr("data-sort-method") := "number")
+  private val dataSort = attr("data-sort")
+  private val playban = iconTag("p")
+  private val shadowban = iconTag("c")
+  private val boosting = iconTag("9")
+  private val engine = iconTag("n")
+  private val ipban = iconTag("2")
+  private val closed = iconTag("k")
+  private val reportban = iconTag("!")
+  private val notesText = iconTag("m")
+  private def markTd(nb: Int, content: => Frag = emptyFrag) =
+    if (nb > 0) td(cls := "i", dataSort := nb)(content)
+    else td
+
   def otherUsers(u: User, spy: lidraughts.security.UserSpy, othersWithEmail: lidraughts.security.UserSpy.WithMeSortedWithEmails, notes: List[lidraughts.user.Note], bans: Map[String, Int])(implicit ctx: Context): Frag =
     div(id := "mz_others")(
       table(cls := "slist")(
@@ -290,37 +304,47 @@ object mod {
           tr(
             th(spy.otherUsers.size, " similar user(s)"),
             th("Email"),
-            th("Same"),
-            th(attr("data-sort-method") := "number")("Games"),
-            th("Status"),
-            th(attr("data-sort-method") := "number")("Created"),
-            th(attr("data-sort-method") := "number")("Active")
+            sortNumberTh("Same"),
+            th("Games"),
+            sortNumberTh(playban)(cls := "i", title := "Playban"),
+            sortNumberTh(shadowban)(cls := "i", title := "Shadowban"),
+            sortNumberTh(boosting)(cls := "i", title := "Boosting"),
+            sortNumberTh(engine)(cls := "i", title := "Engine"),
+            sortNumberTh(ipban)(cls := "i", title := "IP ban"),
+            sortNumberTh(closed)(cls := "i", title := "Closed"),
+            sortNumberTh(reportban)(cls := "i", title := "Reportban"),
+            sortNumberTh(notesText)(cls := "i", title := "Notes"),
+            sortNumberTh("Created"),
+            sortNumberTh("Active")
           )
         ),
         tbody(
           othersWithEmail.others.map {
-            case lidraughts.security.UserSpy.OtherUser(o, byIp, byFp) => {
-              tr((o == u) option (cls := "same"))(
-                td(attr("data-sort") := o.id)(userLink(o, withBestRating = true, params = "?mod")),
+            case lidraughts.security.UserSpy.OtherUser(o, byIp, byFp) =>
+              val myNotes = notes.filter(_.to == o.id)
+              tr(o == u option (cls := "same"))(
+                td(dataSort := o.id)(userLink(o, withBestRating = true, params = "?mod")),
                 td(othersWithEmail emailValueOf o),
-                td(
+                td(dataSort := (byIp ?? 3) + (byFp ?? 1))(
                   if (o == u) "-"
                   else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")
                 ),
-                td(attr("data-sort") := o.count.game)(o.count.game.localize),
-                td(cls := "i") {
-                  val ns = notes.filter(_.to == o.id)
-                  frag(
-                    ns.nonEmpty option {
-                      a(href := s"${routes.User.show(o.username)}?notes")(i(title := s"Notes from ${ns.map(_.from).map(usernameOrId).mkString(", ")}", dataIcon := "m", cls := "is-green"), ns.size)
-                    },
-                    userMarks(o, bans.get(o.id))
+                td(dataSort := o.count.game)(o.count.game.localize),
+                markTd(~bans.get(o.id), playban(cls := "text")(~bans.get(o.id))),
+                markTd(o.troll ?? 1, shadowban),
+                markTd(o.booster ?? 1, boosting),
+                markTd(o.engine ?? 1, engine),
+                markTd(o.ipBan ?? 1, ipban(cls := "is-red")),
+                markTd(o.disabled ?? 1, closed),
+                markTd(o.reportban ?? 1, reportban),
+                myNotes.nonEmpty option {
+                  td(dataSort := myNotes.size)(
+                    a(href := s"${routes.User.show(o.username)}?notes")(notesText(title := s"Notes from ${myNotes.map(_.from).map(usernameOrId).mkString(", ")}", cls := "is-green"), myNotes.size)
                   )
-                },
-                td(attr("data-sort") := o.createdAt.getMillis)(momentFromNowOnce(o.createdAt)),
-                td(attr("data-sort") := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowOnce))
+                } getOrElse td(dataSort := 0),
+                td(dataSort := o.createdAt.getMillis)(momentFromNowOnce(o.createdAt)),
+                td(dataSort := o.seenAt.map(_.getMillis.toString))(o.seenAt.map(momentFromNowOnce))
               )
-            }
           }
         )
       )
@@ -408,12 +432,12 @@ object mod {
   )
 
   def userMarks(o: User, playbans: Option[Int])(implicit ctx: Context) = div(cls := "user_marks")(
-    playbans.map { nb => iconTag("p", nb)(title := "Playban") },
-    o.troll option iconTag("c")(title := "Shadowban"),
-    o.booster option iconTag("9")(title := "Boosting"),
-    o.engine option iconTag("n")(title := "Engine"),
-    o.ipBan option iconTag("2")(title := "IP ban", cls := "is-red"),
-    o.disabled option iconTag("k")(title := "Closed"),
-    o.reportban option iconTag("!")(title := "Reportban")
+    playbans.map { nb => playban(nb) },
+    o.troll option shadowban,
+    o.booster option boosting,
+    o.engine option engine,
+    o.ipBan option ipban,
+    o.disabled option closed,
+    o.reportban option reportban
   )
 }

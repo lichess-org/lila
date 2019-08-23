@@ -23,6 +23,6 @@
     "gulp-download-stream": "^0.0"
   },
   "dependencies": {
-    "tablesort": "^5.0.0"
+    "tablesort": "^5.1"
  }
 }
