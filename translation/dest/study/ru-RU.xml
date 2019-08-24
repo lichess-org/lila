@@ -61,4 +61,22 @@
   <string name="open">Открыть</string>
   <string name="xBroughtToYouByY">%2$s предоставил вам студию %1$s</string>
   <string name="studyNotFound">Студия не найдена</string>
+  <string name="editChapter">Редактировать главу</string>
+  <string name="newChapter">Новая глава</string>
+  <string name="orientation">Ориентация</string>
+  <string name="analysisMode">Режим анализа</string>
+  <string name="pinnedChapterComment">Закреплённый комментарий главы</string>
+  <string name="saveChapter">Сохранить главу</string>
+  <string name="clearAnnotations">Очистить аннотацию</string>
+  <string name="deleteChapter">Удалить главу</string>
+  <string name="deleteThisChapter">Удалить эту главу? Её нельзя будет вернуть!</string>
+  <string name="clearAllCommentsInThisChapter">Очистить все комментарии и обозначения этой главы?</string>
+  <string name="rightUnderTheBoard">Прямо под доской</string>
+  <string name="normalAnalysis">Обычный анализ</string>
+  <string name="hideNextMoves">Скрыть последующие ходы</string>
+  <string name="interactiveLesson">Интерактивный урок</string>
+  <string name="chapterX">Глава %s</string>
+  <string name="empty">Пусто</string>
+  <string name="startFromInitialPosition">Начать с начальной позиции</string>
+  <string name="editor">Редактор</string>
 </resources>
