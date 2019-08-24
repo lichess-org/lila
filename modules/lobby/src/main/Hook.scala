@@ -92,7 +92,8 @@ case class Hook(
       ratingRange = realRatingRange,
       lame = user.??(_.lame),
       blocking = lidraughts.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
-      since = createdAt
+      since = createdAt,
+      ragesitCounter = 0
     )
   )
 
