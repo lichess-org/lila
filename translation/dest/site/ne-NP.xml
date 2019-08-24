@@ -364,7 +364,7 @@
   <string name="blocked">ब्लक गर्दै</string>
   <string name="unblock">ब्लक नगरौं</string>
   <string name="followsYou">तपाइलाई फलो गर्दै</string>
-  <string name="xStartedFollowingY">%1$s ले %2$s लाइ फलो गर्न शुरु गर्नुभएको छ</string>
+  <string name="xStartedFollowingY">%1$s ले %2$s लाइ फलो गर्नुभयो</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s फलोकर्ता</item>
     <item quantity="other">%s फलोकर्ताहरु</item>
