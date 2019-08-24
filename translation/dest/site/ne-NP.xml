@@ -570,6 +570,12 @@
   <string name="insideTheBoard">बोर्ड भित्रै</string>
   <string name="outsideTheBoard">बोर्ड बाहिर</string>
   <string name="onSlowGames">ढिलो खेलहरुमा</string>
+  <string name="always">सधैँ</string>
+  <string name="inCasualGamesOnly">अनौपचारिक खेलहरुमा मात्र</string>
+  <string name="whenPremoving">प्रिमुभ गर्दा</string>
+  <string name="difficultyEasy">सजिलो</string>
+  <string name="difficultyNormal">सामान्य</string>
+  <string name="difficultyHard">गाह्रो</string>
   <string name="zenMode">जेन मोड</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
