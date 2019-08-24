@@ -126,8 +126,6 @@ final class Env(
         reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
-      case lila.hub.actorApi.playban.SitcounterClose(userId) =>
-        api.closeAccount(User.lichessId, userId).void
     }
   }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban)
 }
