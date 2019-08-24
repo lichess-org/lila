@@ -1,7 +1,9 @@
 package lidraughts.game
 
 import akka.actor._
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -94,6 +96,13 @@ final class Env(
     }
   }
 
+  lazy val rematches: Cache[Game.ID, Game.ID] = Scaffeine()
+    .expireAfterWrite(3 hour)
+    .build[Game.ID, Game.ID]
+
+  lazy val jsonView = new JsonView(
+    rematchOf = rematches.getIfPresent
+  )
 }
 
 object Env {

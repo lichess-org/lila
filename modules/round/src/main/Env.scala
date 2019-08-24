@@ -4,6 +4,7 @@ import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import com.github.blemale.scaffeine.Cache
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
@@ -25,10 +26,11 @@ final class Env(
     playban: lidraughts.playban.PlaybanApi,
     lightUser: lidraughts.common.LightUser.Getter,
     userJsonView: lidraughts.user.JsonView,
+    gameJsonView: lidraughts.game.JsonView,
     rankingApi: lidraughts.user.RankingApi,
     notifyApi: lidraughts.notify.NotifyApi,
     uciMemo: lidraughts.game.UciMemo,
-    rematch960Cache: lidraughts.memo.ExpireSetMemo,
+    rematches: Cache[Game.ID, Game.ID],
     divider: lidraughts.game.Divider,
     prefApi: lidraughts.pref.PrefApi,
     historyApi: lidraughts.history.HistoryApi,
@@ -237,7 +239,7 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematch960Cache = rematch960Cache,
+    rematches = rematches,
     bus = bus
   )
 
@@ -271,6 +273,7 @@ final class Env(
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
     userJsonView = userJsonView,
+    gameJsonView = gameJsonView,
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedIn,
     canMoretime = moretimer.isAllowedIn,
@@ -337,10 +340,11 @@ object Env {
     playban = lidraughts.playban.Env.current.api,
     lightUser = lidraughts.user.Env.current.lightUser,
     userJsonView = lidraughts.user.Env.current.jsonView,
+    gameJsonView = lidraughts.game.Env.current.jsonView,
     rankingApi = lidraughts.user.Env.current.rankingApi,
     notifyApi = lidraughts.notify.Env.current.api,
     uciMemo = lidraughts.game.Env.current.uciMemo,
-    rematch960Cache = lidraughts.game.Env.current.cached.rematch960,
+    rematches = lidraughts.game.Env.current.rematches,
     divider = lidraughts.game.Env.current.divider,
     prefApi = lidraughts.pref.Env.current.api,
     historyApi = lidraughts.history.Env.current.api,

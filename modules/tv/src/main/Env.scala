@@ -16,7 +16,8 @@ final class Env(
     lightUser: lidraughts.common.LightUser.GetterSync,
     proxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
-    onSelect: Game => Unit
+    onSelect: Game => Unit,
+    rematchOf: Game.ID => Option[Game.ID]
 ) {
 
   private val FeaturedSelect = config duration "featured.select"
@@ -30,7 +31,8 @@ final class Env(
     selectChannel,
     lightUser,
     onSelect,
-    proxyGame
+    proxyGame,
+    rematchOf
   )
 
   lazy val tv = new Tv(tvTrouper, proxyGame)
@@ -49,6 +51,7 @@ object Env {
     lightUser = lidraughts.user.Env.current.lightUserSync,
     proxyGame = lidraughts.round.Env.current.proxy.gameIfPresent _,
     system = lidraughts.common.PlayApp.system,
-    onSelect = lidraughts.round.Env.current.recentTvGames.put _
+    onSelect = lidraughts.round.Env.current.recentTvGames.put _,
+    rematchOf = lidraughts.game.Env.current.rematches.getIfPresent
   )
 }
