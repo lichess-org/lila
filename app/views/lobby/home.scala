@@ -154,7 +154,7 @@ object home {
               span(trans.directlySupportLichess())
             )
           ),
-          a(href := routes.Page.swag)(
+          a(href := "https://shop.spreadshirt.com/lichess-org")(
             iconTag(""),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),

@@ -20,17 +20,6 @@ case class ContentSecurityPolicy(
     frameSrc = "https://*.stripe.com" :: frameSrc
   )
 
-  def withSpreadshirt = copy(
-    defaultSrc = Nil,
-    connectSrc = "https://shop.spreadshirt.com" :: "https://api.spreadshirt.com" :: connectSrc,
-    styleSrc = Nil,
-    fontSrc = Nil,
-    frameSrc = Nil,
-    workerSrc = Nil,
-    imgSrc = Nil,
-    scriptSrc = Nil
-  )
-
   def withTwitch = copy(
     defaultSrc = Nil,
     connectSrc = "https://www.twitch.tv" :: "https://www-cdn.jtvnw.net" :: connectSrc,
