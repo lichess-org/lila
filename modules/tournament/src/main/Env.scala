@@ -29,8 +29,7 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     notifyApi: lila.notify.NotifyApi,
     scheduler: lila.common.Scheduler,
-    startedSinceSeconds: Int => Boolean,
-    playbanApi: lila.playban.PlaybanApi
+    startedSinceSeconds: Int => Boolean
 ) {
 
   private val startsAtMillis = nowMillis
@@ -226,7 +225,6 @@ object Env {
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler,
-    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds,
-    playbanApi = lila.playban.Env.current.api
+    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
   )
 }
