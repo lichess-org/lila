@@ -29,7 +29,8 @@ final class Env(
     trophyApi: lila.user.TrophyApi,
     notifyApi: lila.notify.NotifyApi,
     scheduler: lila.common.Scheduler,
-    startedSinceSeconds: Int => Boolean
+    startedSinceSeconds: Int => Boolean,
+    playbanApi: lila.playban.PlaybanApi
 ) {
 
   private val startsAtMillis = nowMillis
@@ -110,7 +111,8 @@ final class Env(
     duelStore = duelStore,
     pause = pause,
     lightUserApi = lightUserApi,
-    proxyGame = proxyGame
+    proxyGame = proxyGame,
+    playbanApi = playbanApi
   )
 
   lazy val crudApi = new crud.CrudApi
@@ -225,6 +227,7 @@ object Env {
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,
     scheduler = lila.common.PlayApp.scheduler,
-    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
+    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds,
+    playbanApi = lila.playban.Env.current.api
   )
 }
