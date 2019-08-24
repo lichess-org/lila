@@ -48,7 +48,9 @@ object MatchMaking {
     }
 
     // score bonus based on how many waves the member missed
-    private def missBonus(p: PoolMember) = (p.misses * 15) atMost 400
+    // when the user's sit counter is lower than -3, the maximum bonus becomes lower
+    private def missBonus(p: PoolMember) =
+      (p.misses * 15) atMost ((460 + (p.ragesitCounter atMost -3) * 20) atLeast 0)
 
     // big malus if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =
