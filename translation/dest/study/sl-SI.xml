@@ -68,10 +68,14 @@
   <string name="chapterPgn">PGN poglavja</string>
   <string name="studyUrl">URL študije</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">To lahko prilepite na forum, da se prikaže, kot poglavje</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Da: vse obdrži v isti poziciji</string>
   <string name="noLetPeopleBrowseFreely">Ne: naj uporabniki prosto raziskujejo</string>
   <string name="pinnedStudyComment">Označen komentar študije</string>
   <string name="start">Začni</string>
   <string name="save">Shrani</string>
   <string name="clearChat">Počisti klepet</string>
+  <string name="deleteTheStudyChatHistory">Brisanje zgodovine klepeta? Poti nazaj več ni!</string>
+  <string name="deleteStudy">Izbriši študijo</string>
+  <string name="deleteTheEntireStudy">Izbriši celotno študijo? Poti nazaj več ni!</string>
 </resources>
