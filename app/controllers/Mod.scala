@@ -95,9 +95,10 @@ object Mod extends LidraughtsController {
   }
 
   def closeAccount(username: String) = OAuthMod(_.CloseAccount) { _ => me =>
-    modApi.closeAccount(me.id, username).flatMap {
-      _.?? { user =>
-        Env.current.closeAccount(user.id, self = false) map some
+    UserRepo named username flatMap {
+      _ ?? { user =>
+        modLogApi.closeAccount(me.id, user.id) >>
+          Env.current.closeAccount(user.id, self = false) map some
       }
     }
   }(actionResult(username))
