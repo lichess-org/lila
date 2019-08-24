@@ -87,7 +87,9 @@ final class PlaybanApi(
       seconds = nowSeconds - game.movedAt.getSeconds
       limit <- unreasonableTime
       if seconds >= limit
-    } yield save(Outcome.Sitting, userId, roughWinEstimate(game, flaggerColor)) >>- feedback.sitting(Pov(game, flaggerColor))
+    } yield save(Outcome.Sitting, userId, roughWinEstimate(game, flaggerColor)) >>-
+      feedback.sitting(Pov(game, flaggerColor)) >>-
+      propagateSitting(game, userId)
 
     // flagged after waiting a short time;
     // but the previous move used a long time.
@@ -98,7 +100,9 @@ final class PlaybanApi(
       lastMovetime <- movetimes.lastOption
       limit <- unreasonableTime
       if lastMovetime.toSeconds >= limit
-    } yield save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor)) >>- feedback.sitting(Pov(game, flaggerColor))
+    } yield save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor)) >>-
+      feedback.sitting(Pov(game, flaggerColor)) >>-
+      propagateSitting(game, userId)
 
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {
@@ -108,6 +112,13 @@ final class PlaybanApi(
       }
     }
   }
+
+  def propagateSitting(game: Game, userId: String) =
+    sitAndDcCounter(userId) map { counter =>
+      if (counter <= -5) {
+        bus.publish(SittingDetected(game, userId), 'playban)
+      }
+    }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
     winner.?? { w => sandbag(game, !w) } flatMap { isSandbag =>
