@@ -18,7 +18,6 @@ object FormCompatLayer {
       "coords",
       "replay",
       "gameResult",
-      "pieceNotation",
       "blindfold"
     )) {
       moveTo("behavior", List(
