@@ -11,6 +11,11 @@
   <string name="allStudies">എല്ലാ പഠനങ്ങളും</string>
   <string name="studiesCreatedByX">പഠനം നിർമിച്ചത് %s</string>
   <string name="noneYet">ഇതുവരെ ഒന്നുമില്ല.</string>
+  <string name="hot">ചൂടുള്ള</string>
+  <string name="dateAddedNewest">ചേർത്ത തീയതി (പുതിയത്)</string>
+  <string name="dateAddedOldest">ചേർത്ത തീയതി (പഴയത്)</string>
+  <string name="recentlyUpdated">സമീപകാലത്തു പുതുക്കിയത്</string>
+  <string name="mostPopular">ഏറ്റവും ജനകീയമായത്</string>
   <string name="addNewChapter">പുതിയ അധ്യായം തുടങ്ങുക</string>
   <plurals name="nbChapters">
     <item quantity="one">%s അധ്യായം</item>
