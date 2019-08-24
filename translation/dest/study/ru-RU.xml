@@ -79,4 +79,18 @@
   <string name="empty">Пусто</string>
   <string name="startFromInitialPosition">Начать с начальной позиции</string>
   <string name="editor">Редактор</string>
+  <string name="startFromCustomPosition">Начать со своей позиции</string>
+  <string name="loadAGameByUrl">Загрузить игру по URL</string>
+  <string name="loadAPositionFromFen">Загрузить позицию из FEN</string>
+  <string name="loadAGameFromPgn">Загрузить игру из PGN</string>
+  <string name="automatic">Автоматически</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Вставьте текст в формате PGN, не больше %s игры</item>
+    <item quantity="few">Вставьте текст в формате PGN, не больше %s игр</item>
+    <item quantity="many">Вставьте текст в формате PGN, не больше %s игр</item>
+    <item quantity="other">Вставьте текст в формате PGN, не больше %s игр</item>
+  </plurals>
+  <string name="urlOfTheGame">URL игры</string>
+  <string name="loadAGameFromXOrY">Загрузить игру из %1$s или %2$s</string>
+  <string name="createChapter">Создать главу</string>
 </resources>
