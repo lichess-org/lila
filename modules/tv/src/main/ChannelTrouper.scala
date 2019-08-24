@@ -11,7 +11,8 @@ private[tv] final class ChannelTrouper(
     channel: Tv.Channel,
     lightUser: lila.common.LightUser.GetterSync,
     onSelect: TvTrouper.Selected => Unit,
-    proxyGame: Game.ID => Fu[Option[Game]]
+    proxyGame: Game.ID => Fu[Option[Game]],
+    rematchOf: Game.ID => Option[Game.ID]
 ) extends Trouper {
 
   import ChannelTrouper._
@@ -66,7 +67,7 @@ private[tv] final class ChannelTrouper(
 
   private def isWayBetter(g1: Game, g2: Game) = score(g2.resetTurns) > (score(g1.resetTurns) * 1.17)
 
-  private def rematch(game: Game): Fu[Option[Game]] = game.next ?? proxyGame
+  private def rematch(game: Game): Fu[Option[Game]] = rematchOf(game.id) ?? proxyGame
 
   private def bestOf(candidates: List[Game]) =
     candidates sortBy { -score(_) } headOption

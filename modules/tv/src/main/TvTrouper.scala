@@ -16,7 +16,8 @@ private[tv] final class TvTrouper(
     selectChannel: lila.socket.Channel,
     lightUser: LightUser.GetterSync,
     onSelect: Game => Unit,
-    proxyGame: Game.ID => Fu[Option[Game]]
+    proxyGame: Game.ID => Fu[Option[Game]],
+    rematchOf: Game.ID => Option[Game.ID]
 ) extends Trouper {
 
   import TvTrouper._
@@ -24,7 +25,7 @@ private[tv] final class TvTrouper(
   system.lilaBus.subscribe(this, 'startGame)
 
   private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, lightUser, onSelect = this.!, proxyGame)
+    c -> new ChannelTrouper(c, lightUser, onSelect = this.!, proxyGame, rematchOf)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()

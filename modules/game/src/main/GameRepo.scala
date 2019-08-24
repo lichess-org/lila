@@ -303,13 +303,12 @@ object GameRepo {
   def setImportCreatedAt(g: Game) =
     coll.update($id(g.id), $set("pgni.ca" -> g.createdAt)).void
 
-  def saveNext(game: Game, nextId: ID): Funit = coll.update(
+  def unsetRematch(game: Game): Funit = coll.update(
     $id(game.id),
-    $set(F.next -> nextId) ++
-      $unset(
-        "p0." + Player.BSONFields.isOfferingRematch,
-        "p1." + Player.BSONFields.isOfferingRematch
-      )
+    $unset(
+      "p0." + Player.BSONFields.isOfferingRematch,
+      "p1." + Player.BSONFields.isOfferingRematch
+    )
   ).void
 
   def initialFen(gameId: ID): Fu[Option[FEN]] =
