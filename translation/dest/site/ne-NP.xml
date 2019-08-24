@@ -731,4 +731,6 @@
   <string name="error.minLength">न्यूनतम लम्बाई %s हो</string>
   <string name="error.maxLength">अधिकतम लम्बाई %s हो</string>
   <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
+  <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
+  <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
 </resources>
