@@ -107,6 +107,13 @@ final class Env(
       }
   }
 
+  system.lidraughtsBus.subscribeFun('playban) {
+    case lidraughts.hub.actorApi.playban.SitcounterClose(userId) =>
+      system.scheduler.scheduleOnce(1 second) {
+        closeAccount(userId, self = false)
+      }
+  }
+
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   lidraughts.common.Chronometer.syncEffect(List(

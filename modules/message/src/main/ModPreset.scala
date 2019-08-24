@@ -96,6 +96,12 @@ Losing rated games on purpose is called "sandbagging", and is not allowed on Lid
 Thank you for your understanding."""
   )
 
+  lazy val sittingAuto = ModPreset(
+    subject = "Warning: leaving games / stalling on time",
+    text = """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
+  )
+
   def maxFollow(username: String, max: Int) = ModPreset(
     subject = "Follow limit reached!",
     text = s"""Sorry, you can't follow more than $max players on Lidraughts.

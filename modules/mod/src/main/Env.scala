@@ -140,8 +140,10 @@ final class Env(
         reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
+      case lidraughts.hub.actorApi.playban.SitcounterClose(userId) =>
+        api.closeAccount(User.lidraughtsId, userId).void
     }
-  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect)
+  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban)
 }
 
 object Env {

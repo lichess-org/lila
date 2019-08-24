@@ -8,6 +8,7 @@ import lidraughts.common.PlayApp.{ startedSinceMinutes, isDev }
 import lidraughts.db.BSON._
 import lidraughts.db.dsl._
 import lidraughts.game.{ Pov, Game, Player, Source }
+import lidraughts.message.{ MessageApi, ModPreset }
 import lidraughts.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -17,7 +18,8 @@ final class PlaybanApi(
     sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
     bus: lidraughts.common.Bus,
-    asyncCache: lidraughts.memo.AsyncCache.Builder
+    asyncCache: lidraughts.memo.AsyncCache.Builder,
+    messenger: MessageApi
 ) {
 
   import lidraughts.db.BSON.BSONJodaDateTimeHandler
@@ -190,7 +192,23 @@ final class PlaybanApi(
           o => o map { d => legiferate(record, d) } getOrElse funit
         }
       } addEffect { _ =>
-        sitAndDcCounterCache refresh userId
+        if (sitAndDcCounterChange != 0) {
+          sitAndDcCounterCache refresh userId
+          sitAndDcCounter(userId) map { counter =>
+            if (counter == -10 && sitAndDcCounterChange < 0) {
+              for {
+                mod <- UserRepo.Lidraughts
+                user <- UserRepo byId userId
+              } yield (mod zip user).headOption.?? {
+                case (m, u) =>
+                  lidraughts.log("stall").info(s"https://lidraughts.org/@/${u.username}")
+                  messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+              }
+            } else if (counter <= -20) {
+              bus.publish(lidraughts.hub.actorApi.playban.SitcounterClose(userId), 'playban)
+            }
+          }
+        }
       }
 
   }.void logFailure lidraughts.log("playban")
