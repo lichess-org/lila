@@ -708,4 +708,16 @@
   <string name="yourScore">तपाइको प्राप्तांक: %s</string>
   <string name="language">भाषा</string>
   <string name="background">पृष्ठभूमि</string>
+  <string name="light">प्रकाश</string>
+  <string name="dark">गाढा</string>
+  <string name="transparent">पारदर्शि</string>
+  <string name="backgroundImageUrl">पृष्ठभूमि प्रतिमा URL:</string>
+  <string name="boardGeometry">बोर्ड ज्यामिति</string>
+  <string name="boardTheme">बोर्ड थिम</string>
+  <string name="boardSize">बोर्ड आकार</string>
+  <string name="pieceSet">गोटी सेट</string>
+  <string name="embedInYourWebsite">तपाइको वेबसाइटमा इम्बेड गर्नुहोस्</string>
+  <string name="usernameAlreadyUsed">यो प्रयोगकर्ताको नाम प्रयोगमा छ, कृपया पुनः प्रयास गर्नुहोस्।</string>
+  <string name="usernamePrefixInvalid">प्रयोगकर्ताको नाम अक्षरबाट शुरू हुनु पर्दछ।</string>
+  <string name="usernameSuffixInvalid">प्रयोगकर्ताको नाम अक्षर वा अंकमा अन्त्य हुनुपर्छ।</string>
 </resources>
