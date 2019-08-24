@@ -680,4 +680,16 @@
   <string name="timeBeforeTournamentStarts">प्रतियोगिता शुरु हुन बाँकि समय</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
   <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
+  <string name="playChessEverywhere">सबै ठाउँमा बुद्धिचाल खेलौं</string>
+  <string name="asFreeAsLichess">लीचेस जस्तै सित्तैमा</string>
+  <string name="builtForTheLoveOfChessNotMoney">पैसाको लागि होइन, बुद्धिचाल प्रतिको मायाको लागि बनाइएको</string>
+  <string name="everybodyGetsAllFeaturesForFree">सबैले सबै सुबिधा सित्तैमा पाउनेछन्</string>
+  <string name="zeroAdvertisement">शुन्य विज्ञापन</string>
+  <string name="phoneAndTablet">फोन र ट्याबलेट</string>
+  <string name="bulletBlitzClassical">बुलेट, ब्लिज, क्लासिकल</string>
+  <string name="correspondenceChess">पत्रचारिक खेलहरु</string>
+  <string name="onlineAndOfflinePlay">अनलाइन र अफलाइन खेल</string>
+  <string name="correspondenceAndUnlimited">पत्रचारिक तथा अनिश्चितकालीन</string>
+  <string name="viewTheSolution">समाधान हेरौं</string>
+  <string name="followAndChallengeFriends">मित्रहरुलाई पछ्याउँदै खेल्न आमन्त्रण गर्नुहोस्</string>
 </resources>
