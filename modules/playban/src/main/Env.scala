@@ -27,7 +27,8 @@ final class Env(
     sandbag = new SandbagWatch(messenger),
     feedback = feedback,
     bus = bus,
-    asyncCache = asyncCache
+    asyncCache = asyncCache,
+    messenger = messenger
   )
 }
 

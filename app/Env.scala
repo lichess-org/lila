@@ -4,6 +4,8 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.user.User
+
 final class Env(
     config: Config,
     val scheduler: lila.common.Scheduler,
@@ -101,12 +103,15 @@ final class Env(
     system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribeFun('garbageCollect) {
-    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
-      system.scheduler.scheduleOnce(1 second) {
-        closeAccount(userId, self = false)
-      }
+  system.lilaBus.subscribeFun('garbageCollect, 'playban) {
+    case lila.hub.actorApi.security.GarbageCollect(userId, _) => kill(userId)
+    case lila.hub.actorApi.playban.SitcounterClose(userId) => kill(userId)
   }
+
+  private def kill(userId: User.ID): Unit =
+    system.scheduler.scheduleOnce(1 second) {
+      closeAccount(userId, self = false)
+    }
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
