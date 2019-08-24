@@ -500,6 +500,7 @@
   <string name="pleaseVotePuzzle">Помози да се Личес побољша гласајући, користећи стрелицу нагоре или надоле:</string>
   <string name="thankYou">Хвала!</string>
   <string name="ratingX">Рејтинг: %s</string>
+  <string name="hidden">sakriven</string>
   <plurals name="playedXTimes">
     <item quantity="one">Играно %s пут</item>
     <item quantity="few">Играно %s пута</item>
