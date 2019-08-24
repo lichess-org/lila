@@ -11,6 +11,11 @@
   <string name="allStudies">Wszystkie analizy</string>
   <string name="studiesCreatedByX">Analiza opracowana przez %s</string>
   <string name="noneYet">Jeszcze brak.</string>
+  <string name="hot">Popularne</string>
+  <string name="dateAddedNewest">Data dodania (od najnowszych)</string>
+  <string name="dateAddedOldest">Data dodania (od najstarszych)</string>
+  <string name="recentlyUpdated">Ostatnio aktualizowane</string>
+  <string name="mostPopular">Najbardziej popularne</string>
   <string name="addNewChapter">Dodaj nowy rozdział</string>
   <plurals name="nbChapters">
     <item quantity="one">%s rozdział</item>
