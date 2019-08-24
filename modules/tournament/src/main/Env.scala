@@ -29,8 +29,7 @@ final class Env(
     trophyApi: lidraughts.user.TrophyApi,
     notifyApi: lidraughts.notify.NotifyApi,
     scheduler: lidraughts.common.Scheduler,
-    startedSinceSeconds: Int => Boolean,
-    playbanApi: lidraughts.playban.PlaybanApi
+    startedSinceSeconds: Int => Boolean
 ) {
 
   private val startsAtMillis = nowMillis
@@ -226,7 +225,6 @@ object Env {
     trophyApi = lidraughts.user.Env.current.trophyApi,
     notifyApi = lidraughts.notify.Env.current.api,
     scheduler = lidraughts.common.PlayApp.scheduler,
-    startedSinceSeconds = lidraughts.common.PlayApp.startedSinceSeconds,
-    playbanApi = lidraughts.playban.Env.current.api
+    startedSinceSeconds = lidraughts.common.PlayApp.startedSinceSeconds
   )
 }
