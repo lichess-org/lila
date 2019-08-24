@@ -58,8 +58,8 @@ private final class RemoteSocket(
       send(Out.TellAll, Json stringify Json.obj("t" -> d.key))
     case Announce(msg) =>
       send(Out.TellAll, Json stringify Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg)))
-    case Mlat(ms) =>
-      send(Out.Mlat, ms.toString)
+    case Mlat(micros) =>
+      send(Out.Mlat, ((micros / 100) / 10d).toString)
     case actorApi.SendToFlag(flag, payload) =>
       send(Out.TellFlag, flag, Json stringify payload)
     case RemoteSocketTellSriOut(sri, payload) =>
