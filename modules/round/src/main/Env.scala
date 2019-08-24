@@ -239,7 +239,8 @@ final class Env(
     bus = bus,
     finisher = finisher,
     scheduleExpiration = scheduleExpiration,
-    uciMemo = uciMemo
+    uciMemo = uciMemo,
+    isOfferingTakeback = isOfferingTakeback
   )
 
   private lazy val drawer = new Drawer(
@@ -270,6 +271,7 @@ final class Env(
     divider = divider,
     evalCache = evalCache,
     isOfferingRematch = rematcher.isOffering,
+    isOfferingTakeback = takebacker.isOffering,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = MoretimeDuration.toSeconds.toInt
   )
@@ -300,6 +302,8 @@ final class Env(
     prefApi = prefApi,
     bus = bus
   )
+  val isOfferingTakeback = takebacker.isOffering _
+
   private lazy val moretimer = new Moretimer(
     messenger = messenger,
     prefApi = prefApi,

@@ -26,6 +26,7 @@ final class JsonView(
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: Pov => Boolean,
+    isOfferingTakeback: Pov => Boolean,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int
 ) {
@@ -35,20 +36,22 @@ final class JsonView(
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
 
-  private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject =
+  private def commonPlayerJson(g: Game, p: GamePlayer, user: Option[User], withFlags: WithFlags): JsObject = {
+    val pov = Pov(g, p)
     Json.obj(
       "color" -> p.color.name
     ).add("user" -> user.map { userJsonView.minimal(_, g.perfType) })
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
+      .add("offeringRematch" -> isOfferingRematch(pov))
       .add("offeringDraw" -> p.isOfferingDraw)
-      .add("proposingTakeback" -> p.isProposingTakeback)
+      .add("proposingTakeback" -> isOfferingTakeback(pov))
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
       .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
+  }
 
   def playerJson(
     pov: Pov,

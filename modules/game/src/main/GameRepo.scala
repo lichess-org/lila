@@ -225,9 +225,7 @@ object GameRepo {
     ("p0." + Player.BSONFields.lastDrawOffer) -> true,
     ("p1." + Player.BSONFields.lastDrawOffer) -> true,
     ("p0." + Player.BSONFields.isOfferingDraw) -> true,
-    ("p1." + Player.BSONFields.isOfferingDraw) -> true,
-    ("p0." + Player.BSONFields.proposeTakebackAt) -> true,
-    ("p1." + Player.BSONFields.proposeTakebackAt) -> true
+    ("p1." + Player.BSONFields.isOfferingDraw) -> true
   )
 
   def finish(

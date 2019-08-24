@@ -13,7 +13,6 @@ case class Player(
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
     lastDrawOffer: Option[Int] = None,
-    proposeTakebackAt: Int = 0, // ply when takeback was proposed
     userId: Player.UserId = None,
     rating: Option[Int] = None,
     ratingDiff: Option[Int] = None,
@@ -55,12 +54,6 @@ case class Player(
   )
 
   def removeDrawOffer = copy(isOfferingDraw = false)
-
-  def proposeTakeback(ply: Int) = copy(proposeTakebackAt = ply)
-
-  def removeTakebackProposition = copy(proposeTakebackAt = 0)
-
-  def isProposingTakeback = proposeTakebackAt != 0
 
   def withName(name: String) = copy(name = name.some)
 
@@ -131,7 +124,6 @@ object Player {
     val aiLevel = "ai"
     val isOfferingDraw = "od"
     val lastDrawOffer = "ld"
-    val proposeTakebackAt = "ta"
     val rating = "e"
     val ratingDiff = "d"
     val provisional = "p"
@@ -172,7 +164,6 @@ object Player {
       isWinner = win,
       isOfferingDraw = r boolD isOfferingDraw,
       lastDrawOffer = r intO lastDrawOffer,
-      proposeTakebackAt = r intD proposeTakebackAt,
       userId = userId,
       rating = r intO rating flatMap ratingRange(userId),
       ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
@@ -189,7 +180,6 @@ object Player {
           aiLevel -> p.aiLevel,
           isOfferingDraw -> w.boolO(p.isOfferingDraw),
           lastDrawOffer -> p.lastDrawOffer,
-          proposeTakebackAt -> w.intO(p.proposeTakebackAt),
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
           provisional -> w.boolO(p.provisional),

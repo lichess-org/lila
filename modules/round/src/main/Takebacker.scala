@@ -1,5 +1,8 @@
 package lila.round
 
+import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import scala.concurrent.duration._
+
 import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 import RoundDuct.TakebackSituation
@@ -11,9 +14,18 @@ private final class Takebacker(
     bus: lila.common.Bus
 ) {
 
+  import Takebacker._
+
+  private val offers: Cache[Game.ID, Offers] = Scaffeine()
+    .expireAfterWrite(30 minutes)
+    .build[Game.ID, Offers]
+
+  def offeringPly(pov: Pov): Option[Ply] = offers.getIfPresent(pov.gameId).map(_(pov.color)).filter(0 <)
+  def isOffering(pov: Pov): Boolean = offeringPly(pov).isDefined
+
   def yes(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = IfAllowed(pov.game) {
     pov match {
-      case Pov(game, _) if pov.opponent.isProposingTakeback => {
+      case Pov(game, _) => offeringPly(!pov) => {
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
         else double(game)
       } map (_ -> situation.reset)
@@ -97,5 +109,14 @@ private final class Takebacker(
     val p2 = p1 + Event.Reload
     messenger.system(p2.game, _.takebackPropositionAccepted)
     proxy.save(p2) inject p2.events
+  }
+}
+
+private object Takebacker {
+
+  type Ply = Int
+
+  case class Offers(white: Ply, black: Ply) {
+    def apply(color: chess.Color) = color.fold(white, black)
   }
 }

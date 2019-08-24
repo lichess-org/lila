@@ -310,11 +310,11 @@ case class Game(
         hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
       }
 
-  def playerCanProposeTakeback(color: Color) =
-    started && playable && !isTournament && !isSimul &&
-      bothPlayersHaveMoved &&
-      !player(color).isProposingTakeback &&
-      !opponent(color).isProposingTakeback
+  // def playerCanProposeTakeback(color: Color) =
+  //   started && playable && !isTournament && !isSimul &&
+  //     bothPlayersHaveMoved &&
+  //     !player(color).isProposingTakeback &&
+  //     !opponent(color).isProposingTakeback
 
   def boosted = rated && finished && bothPlayersHaveMoved && playedTurns < 10
 

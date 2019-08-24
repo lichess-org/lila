@@ -16,7 +16,8 @@ private[round] final class Player(
     bus: lila.common.Bus,
     finisher: Finisher,
     scheduleExpiration: Game => Unit,
-    uciMemo: UciMemo
+    uciMemo: UciMemo,
+    isOfferingTakeback: Pov => Boolean
 ) {
 
   private sealed trait MoveResult
@@ -79,7 +80,7 @@ private[round] final class Player(
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-      if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+      if (isOfferingTakeback(pov)) round ! TakebackNo(pov.player.id)
       if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
         round ! ForecastPlay(move)
       }
