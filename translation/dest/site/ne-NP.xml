@@ -583,6 +583,16 @@
   <string name="xCommentedY">%1$s ने %2$s टिप्पणी गर्नुभयो</string>
   <string name="victory">विजय</string>
   <string name="defeat">हार</string>
+  <string name="xVsYinZ">%1$s बनाम %2$s: %3$s मा</string>
+  <string name="timeline">समयरेखा</string>
+  <string name="starting">शुरू हुंदैछ:</string>
+  <string name="allInformationIsPublicAndOptional">सबै जानकारी सार्वजनिक र वैकल्पिक छन्।</string>
+  <string name="yourCityRegionOrDepartment">तपाइको शहर, क्षेत्र, या प्रांत।</string>
+  <string name="biographyDescription">आफ्नो बारे मा बताउनुहोस्, तपाइलाई बुद्धिचाल मा के राम्रो लाग्छ, तपाइलाई मनपर्ने शुरुवाती चाल तथा खेलाडीहरु...</string>
+  <plurals name="maximumNbCharacters">
+    <item quantity="one">अधिकतम %s अक्षर|</item>
+    <item quantity="other">अधिकतम %s अक्षर|</item>
+  </plurals>
   <string name="zenMode">जेन मोड</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
