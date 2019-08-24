@@ -617,6 +617,14 @@
   <string name="sharePGN">PGN शेयर गर्नुहोस्</string>
   <string name="playOnline">अनलाइन खेल्नुहोस्</string>
   <string name="playOffline">अफलाइन खेल्नुहोस्</string>
+  <string name="allowAnalytics">बेनामी तथ्याङ्क लाइ अनुमति दियौ</string>
+  <string name="shareGameURL">खेलको URL शेयर गरौं</string>
+  <string name="error.required">याे आवश्यक छ</string>
+  <string name="error.email">यो ईमेल सही छैन</string>
+  <string name="error.email_acceptable">यो ईमेल स्वीकार गर्न सकिदैंन</string>
+  <string name="error.email_unique">ईमेल ठेगाना पहिलेनै प्रयोग गरिएको छ</string>
+  <string name="error.email_different">यो पहले देखि नै तपाइको ईमेल ठेगाना हो</string>
+  <string name="blindfoldChess">आँखा पट्टी बुद्धिचाल (गोटी देखिंदैन)</string>
   <string name="zenMode">जेन मोड</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
@@ -670,4 +678,6 @@
   <string name="tournamentFAQ">एरेना प्रतियोगिता को बारे बारम्बार सोधिने प्रश्नहरु</string>
   <string name="tournamentOfficial">आधिकारिक</string>
   <string name="timeBeforeTournamentStarts">प्रतियोगिता शुरु हुन बाँकि समय</string>
+  <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
+  <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
 </resources>
