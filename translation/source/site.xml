@@ -1011,4 +1011,6 @@ One URL per line</string>
   <string name="temporaryInconvenience">We apologize for the temporary inconvenience,</string>
   <string name="wishYouGreatGames">and wish you great games on lidraughts.org.</string>
   <string name="thankYouForReading">Thank you for reading!</string>
+  <string name="lifetimeScore">Lifetime score</string>
+  <string name="currentMatchScore">Current match score</string>
 </resources>
