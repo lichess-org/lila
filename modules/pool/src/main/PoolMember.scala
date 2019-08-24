@@ -13,6 +13,7 @@ case class PoolMember(
     lame: Boolean,
     blocking: PoolMember.BlockedUsers,
     since: DateTime,
+    ragesitCounter: Int,
     misses: Int = 0 // how many waves they missed
 ) {
 
@@ -33,7 +34,7 @@ object PoolMember {
 
   case class BlockedUsers(ids: Set[User.ID]) extends AnyVal
 
-  def apply(joiner: PoolApi.Joiner, config: PoolConfig): PoolMember =
+  def apply(joiner: PoolApi.Joiner, config: PoolConfig, ragesitCounter: Int): PoolMember =
     PoolMember(
       userId = joiner.userId,
       sri = joiner.sri,
@@ -41,6 +42,7 @@ object PoolMember {
       rating = joiner.ratingMap.getOrElse(config.perfType.key, 1500),
       ratingRange = joiner.ratingRange,
       blocking = BlockedUsers(joiner.blocking),
-      since = DateTime.now
+      since = DateTime.now,
+      ragesitCounter = ragesitCounter
     )
 }
