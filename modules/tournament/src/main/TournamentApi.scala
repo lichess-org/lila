@@ -42,8 +42,7 @@ final class TournamentApi(
     pause: Pause,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     lightUserApi: lidraughts.user.LightUserApi,
-    proxyGame: Game.ID => Fu[Option[Game]],
-    playbanApi: lidraughts.playban.PlaybanApi
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val bus = system.lidraughtsBus
@@ -352,11 +351,7 @@ final class TournamentApi(
 
   def sittingDetected(game: Game, player: User.ID): Unit =
     game.tournamentId foreach { tourId =>
-      playbanApi.sitAndDcCounter(player) map { counter =>
-        if (counter <= -5) {
-          stallPause(tourId, player)
-        }
-      }
+      stallPause(tourId, player)
     }
 
   private def updatePlayer(

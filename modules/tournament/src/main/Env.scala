@@ -111,8 +111,7 @@ final class Env(
     duelStore = duelStore,
     pause = pause,
     lightUserApi = lightUserApi,
-    proxyGame = proxyGame,
-    playbanApi = playbanApi
+    proxyGame = proxyGame
   )
 
   lazy val crudApi = new crud.CrudApi
