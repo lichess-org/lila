@@ -41,8 +41,7 @@ final class TournamentApi(
     pause: Pause,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
-    proxyGame: Game.ID => Fu[Option[Game]],
-    playbanApi: lila.playban.PlaybanApi
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val bus = system.lilaBus
@@ -317,11 +316,7 @@ final class TournamentApi(
 
   def sittingDetected(game: Game, player: User.ID): Unit =
     game.tournamentId foreach { tourId =>
-      playbanApi.sitAndDcCounter(player) map { counter =>
-        if (counter <= -5) {
-          stallPause(tourId, player)
-        }
-      }
+      stallPause(tourId, player)
     }
 
   private def updatePlayer(
