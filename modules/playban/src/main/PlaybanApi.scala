@@ -8,8 +8,8 @@ import chess.{ Status, Color }
 import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.BSON._
 import lila.db.dsl._
-import lila.message.{ MessageApi, ModPreset }
 import lila.game.{ Pov, Game, Player, Source }
+import lila.message.{ MessageApi, ModPreset }
 import lila.user.{ User, UserRepo }
 
 import org.joda.time.DateTime
@@ -195,18 +195,21 @@ final class PlaybanApi(
       } addEffect { _ =>
         if (sitAndDcCounterChange != 0) {
           sitAndDcCounterCache refresh userId
-          sitAndDcCounter(userId) map { counter =>
-            if (counter == -10 && sitAndDcCounterChange < 0) {
-              for {
-                mod <- UserRepo.lichess
-                user <- UserRepo byId userId
-              } yield (mod zip user).headOption.?? {
-                case (m, u) =>
-                  lila.log("stall").info(s"https://lichess.org/@/${u.username}")
-                  messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+          if (sitAndDcCounterChange < 0) {
+            sitAndDcCounter(userId) map { counter =>
+              if (counter == -10) {
+                for {
+                  mod <- UserRepo.lichess
+                  user <- UserRepo byId userId
+                } yield (mod zip user).headOption.?? {
+                  case (m, u) =>
+                    lila.log("stall").info(s"https://lichess.org/@/${u.username}")
+                    messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+                }
+              } else if (counter <= -20) {
+                lila.log("stall").warn(s"Close https://lichess.org/@/${userId} ragesit=$counter")
+                // bus.publish(lila.hub.actorApi.playban.SitcounterClose(userId), 'playban)
               }
-            } else if (counter <= -20) {
-              bus.publish(lila.hub.actorApi.playban.SitcounterClose(userId), 'playban)
             }
           }
         }
