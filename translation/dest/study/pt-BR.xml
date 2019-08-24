@@ -11,6 +11,11 @@
   <string name="allStudies">Todos os estudos</string>
   <string name="studiesCreatedByX">Estudos criados por %s</string>
   <string name="noneYet">Nenhum ainda.</string>
+  <string name="hot">Em alta</string>
+  <string name="dateAddedNewest">Data adicionada (mais recente)</string>
+  <string name="dateAddedOldest">Data adicionada (mais antiga)</string>
+  <string name="recentlyUpdated">Atualizado recentemente</string>
+  <string name="mostPopular">Mais populares</string>
   <string name="addNewChapter">Adicionar um novo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítulo</item>
