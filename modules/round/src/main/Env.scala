@@ -232,6 +232,7 @@ final class Env(
     rematches = rematches,
     bus = bus
   )
+  val isOfferingRematch = rematcher.isOffering _
 
   private lazy val player: Player = new Player(
     fishnetPlayer = fishnetPlayer,
@@ -268,6 +269,7 @@ final class Env(
     canMoretime = moretimer.isAllowedIn,
     divider = divider,
     evalCache = evalCache,
+    isOfferingRematch = rematcher.isOffering,
     baseAnimationDuration = AnimationDuration,
     moretimeSeconds = MoretimeDuration.toSeconds.toInt
   )

@@ -12,7 +12,6 @@ case class Player(
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
-    isOfferingRematch: Boolean = false,
     lastDrawOffer: Option[Int] = None,
     proposeTakebackAt: Int = 0, // ply when takeback was proposed
     userId: Player.UserId = None,
@@ -56,10 +55,6 @@ case class Player(
   )
 
   def removeDrawOffer = copy(isOfferingDraw = false)
-
-  def offerRematch = copy(isOfferingRematch = true)
-
-  def removeRematchOffer = copy(isOfferingRematch = false)
 
   def proposeTakeback(ply: Int) = copy(proposeTakebackAt = ply)
 
@@ -135,7 +130,6 @@ object Player {
 
     val aiLevel = "ai"
     val isOfferingDraw = "od"
-    val isOfferingRematch = "or"
     val lastDrawOffer = "ld"
     val proposeTakebackAt = "ta"
     val rating = "e"
@@ -177,7 +171,6 @@ object Player {
       aiLevel = r intO aiLevel,
       isWinner = win,
       isOfferingDraw = r boolD isOfferingDraw,
-      isOfferingRematch = r boolD isOfferingRematch,
       lastDrawOffer = r intO lastDrawOffer,
       proposeTakebackAt = r intD proposeTakebackAt,
       userId = userId,
@@ -195,7 +188,6 @@ object Player {
         BSONDocument(
           aiLevel -> p.aiLevel,
           isOfferingDraw -> w.boolO(p.isOfferingDraw),
-          isOfferingRematch -> w.boolO(p.isOfferingRematch),
           lastDrawOffer -> p.lastDrawOffer,
           proposeTakebackAt -> w.intO(p.proposeTakebackAt),
           rating -> p.rating,

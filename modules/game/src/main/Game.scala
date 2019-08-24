@@ -303,9 +303,8 @@ case class Game(
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
 
-  def playerCanRematch(color: Color) =
-    !player(color).isOfferingRematch &&
-      finishedOrAborted &&
+  def playerCouldRematch(color: Color) =
+    finishedOrAborted &&
       nonMandatory &&
       !boosted && !{
         hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)

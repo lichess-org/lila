@@ -25,6 +25,7 @@ final class JsonView(
     canMoretime: Game => Fu[Boolean],
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
+    isOfferingRematch: Pov => Boolean,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int
 ) {
@@ -41,7 +42,7 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("offeringRematch" -> p.isOfferingRematch)
+      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
