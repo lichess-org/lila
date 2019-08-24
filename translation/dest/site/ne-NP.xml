@@ -683,6 +683,11 @@
   <string name="tournamentFAQ">एरेना प्रतियोगिता को बारे बारम्बार सोधिने प्रश्नहरु</string>
   <string name="tournamentOfficial">आधिकारिक</string>
   <string name="timeBeforeTournamentStarts">प्रतियोगिता शुरु हुन बाँकि समय</string>
+  <string name="averageCentipawnLoss">औसत सेन्टिपन नोक्सानी</string>
+  <string name="keyboardShortcuts">किबोर्ड सर्टकटहरू</string>
+  <string name="keyMoveBackwardOrForward">अगाडि/पछाडि चालौं</string>
+  <string name="keyGoToStartOrEnd">शुरु/अन्त्य मा जाऔं</string>
+  <string name="keyShowOrHideComments">कमेन्टहरु देखायौं/लुकाऔं</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
   <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
   <string name="playChessEverywhere">सबै ठाउँमा बुद्धिचाल खेलौं</string>
