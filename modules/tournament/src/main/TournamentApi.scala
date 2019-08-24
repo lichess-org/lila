@@ -42,7 +42,8 @@ final class TournamentApi(
     pause: Pause,
     asyncCache: lidraughts.memo.AsyncCache.Builder,
     lightUserApi: lidraughts.user.LightUserApi,
-    proxyGame: Game.ID => Fu[Option[Game]]
+    proxyGame: Game.ID => Fu[Option[Game]],
+    playbanApi: lidraughts.playban.PlaybanApi
 ) {
 
   private val bus = system.lidraughtsBus
@@ -282,21 +283,24 @@ final class TournamentApi(
     TournamentRepo tourIdsToWithdrawWhenEntering tourId foreach {
       PlayerRepo.filterExists(_, userId) foreach {
         _ foreach {
-          withdraw(_, userId, isPause = false)
+          withdraw(_, userId, isPause = false, isStalling = false)
         }
       }
     }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Unit =
-    withdraw(tourId, userId, isPause = true)
+    withdraw(tourId, userId, isPause = true, isStalling = false)
 
-  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean): Unit = {
+  private def stallPause(tourId: Tournament.ID, userId: User.ID): Unit =
+    withdraw(tourId, userId, isPause = false, isStalling = true)
+
+  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean, isStalling: Boolean): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
         PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
       case tour if tour.isStarted => for {
         _ <- PlayerRepo.withdraw(tour.id, userId)
-        pausable <- isPause ?? cached.ranking(tour).map { _ get userId exists (7>) }
+        pausable <- if (isPause) cached.ranking(tour).map { _ get userId exists (7>) } else fuccess(isStalling)
       } yield {
         if (pausable) pause.add(userId, tour)
         socketReload(tour.id)
@@ -310,7 +314,7 @@ final class TournamentApi(
     TournamentRepo.nonEmptyEnterableIds foreach {
       PlayerRepo.filterExists(_, user.id) foreach {
         _ foreach {
-          withdraw(_, user.id, isPause = false)
+          withdraw(_, user.id, isPause = false, isStalling = false)
         }
       }
     }
@@ -343,6 +347,15 @@ final class TournamentApi(
             updateTournamentStanding(tour.id)
             withdrawNonMover(game)
           }
+      }
+    }
+
+  def sittingDetected(game: Game, player: User.ID): Unit =
+    game.tournamentId foreach { tourId =>
+      playbanApi.sitAndDcCounter(player) map { counter =>
+        if (counter <= -5) {
+          stallPause(tourId, player)
+        }
       }
     }
 
@@ -385,7 +398,7 @@ final class TournamentApi(
     if game.status == draughts.Status.NoStart
     player <- game.playerWhoDidNotMove
     userId <- player.userId
-  } withdraw(tourId, userId, isPause = false)
+  } withdraw(tourId, userId, isPause = false, isStalling = false)
 
   def pausePlaybanned(userId: User.ID) =
     TournamentRepo.startedIds flatMap {

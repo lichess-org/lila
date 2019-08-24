@@ -15,6 +15,8 @@ private[tournament] final class ApiActor(
 
     case FinishGame(game, _, _) => api finishGame game
 
+    case lidraughts.playban.SittingDetected(game, player) => api.sittingDetected(game, player)
+
     case lidraughts.hub.actorApi.mod.MarkCheater(userId, true) =>
       leaderboard.getAndDeleteRecent(userId, DateTime.now minusDays 3) foreach {
         api.ejectLame(userId, _)

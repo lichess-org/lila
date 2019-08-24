@@ -3,6 +3,8 @@ package lidraughts.playban
 import org.joda.time.DateTime
 import play.api.libs.json._
 
+import lidraughts.game.Game
+
 case class UserRecord(
     _id: String,
     o: Option[List[Outcome]],
@@ -117,3 +119,5 @@ object Outcome {
 
   def apply(id: Int): Option[Outcome] = byId get id
 }
+
+case class SittingDetected(game: Game, userId: String)
