@@ -770,10 +770,10 @@ een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <string name="withEverybody">Met iedereen</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Je hebt je al geregistreerd via deze email: %s</string>
   <string name="kidMode">Kindvriendelijke modus</string>
-  <string name="kidModeExplanation">Dit gaat over veiligheid. In Kindermodus, alle communicatiemogelijkheden op de website worden uitgeschakeld. Activeer dit voor kinderen en schoolstudenten, om hen te beschermen tegen andere internetgebruikers.</string>
-  <string name="inKidModeTheLidraughtsLogoGetsIconX">In Kindermodus, het draughts logo krijgt een %s-icoontje, zodat je weet dat je kinderen veilig zijn.</string>
+  <string name="kidModeExplanation">Dit gaat over veiligheid. In Kindermodus worden alle communicatiemogelijkheden op de website uitgeschakeld. Activeer dit voor kinderen om hen te beschermen tegen andere internetgebruikers.</string>
+  <string name="inKidModeTheLidraughtsLogoGetsIconX">In Kindermodus krijgt het lidraughts logo een %s icoontje, zodat je weet dat je kinderen veilig zijn.</string>
   <string name="enableKidMode">Activeer Kindermodus</string>
-  <string name="disableKidMode">Desactiveer Kindermodus</string>
+  <string name="disableKidMode">Deactiveer Kindermodus</string>
   <string name="security">Beveiliging</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Dit is een lijst van apparaten die zijn aangemeld op je account. Trek alle sessies in die je niet herkent.</string>
   <string name="alternativelyYouCanX">Als alternatief kan je %s.</string>
