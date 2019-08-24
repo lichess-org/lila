@@ -1,9 +1,12 @@
 package views.html
 package stat
 
+import play.api.libs.json.Json
+
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
 import lidraughts.app.ui.ScalatagsTemplate._
+import lidraughts.common.String.html.safeJsonValue
 import lidraughts.rating.PerfType
 
 import controllers.routes
@@ -16,10 +19,12 @@ object ratingDistribution {
     wrapClass = "full-screen-force",
     moreJs = frag(
       jsTag("chart/ratingDistribution.js"),
-      embedJsUnsafe(s"""lidraughts.ratingDistributionChart({
-  freq: ${data.mkString("[", ",", "]")},
-  myRating: ${ctx.me.fold("null")(_.perfs(perfType).intRating.toString)}
-});""")
+      embedJsUnsafe(s"""lidraughts.ratingDistributionChart(${
+        safeJsonValue(Json.obj(
+          "freq" -> data,
+          "myRating" -> ctx.me.map { me => me.perfs(perfType).intRating }
+        ))
+      })""")
     )
   ) {
       main(cls := "page-menu")(
