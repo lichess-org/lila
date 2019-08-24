@@ -146,9 +146,9 @@ object list {
             searchForm(title, s"$searchFilter${searchFilter.nonEmpty ?? " "}"),
             views.html.base.bits.mselect(
               "orders",
-              span(order.name),
+              span(order.name()),
               (if (active == "all") Order.allButOldest else Order.all) map { o =>
-                a(href := url(o.key), cls := (order == o).option("current"))(o.name)
+                a(href := url(o.key), cls := (order == o).option("current"))(o.name())
               }
             ),
             bits.newForm()

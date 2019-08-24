@@ -4,6 +4,7 @@ import lidraughts.common.paginator.Paginator
 import lidraughts.db.dsl._
 import lidraughts.db.paginator.{ Adapter, CachedAdapter }
 import lidraughts.user.User
+import lidraughts.i18n.{ Translated, I18nKeys => trans }
 
 final class StudyPager(
     studyRepo: StudyRepo,
@@ -98,14 +99,14 @@ final class StudyPager(
     withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 }
 
-sealed abstract class Order(val key: String, val name: String)
+sealed abstract class Order(val key: String, val name: Translated)
 
 object Order {
-  case object Popular extends Order("popular", "Most popular")
-  case object Hot extends Order("hot", "Hot")
-  case object Newest extends Order("newest", "Date added (newest)")
-  case object Oldest extends Order("oldest", "Date added (oldest)")
-  case object Updated extends Order("updated", "Recently updated")
+  case object Popular extends Order("popular", trans.study.mostPopular)
+  case object Hot extends Order("hot", trans.study.hot)
+  case object Newest extends Order("newest", trans.study.dateAddedNewest)
+  case object Oldest extends Order("oldest", trans.study.dateAddedOldest)
+  case object Updated extends Order("updated", trans.study.recentlyUpdated)
 
   val default = Popular
   val all = List(Popular, Hot, Newest, Oldest, Updated)
