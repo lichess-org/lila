@@ -194,18 +194,21 @@ final class PlaybanApi(
       } addEffect { _ =>
         if (sitAndDcCounterChange != 0) {
           sitAndDcCounterCache refresh userId
-          sitAndDcCounter(userId) map { counter =>
-            if (counter == -10 && sitAndDcCounterChange < 0) {
-              for {
-                mod <- UserRepo.Lidraughts
-                user <- UserRepo byId userId
-              } yield (mod zip user).headOption.?? {
-                case (m, u) =>
-                  lidraughts.log("stall").info(s"https://lidraughts.org/@/${u.username}")
-                  messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+          if (sitAndDcCounterChange < 0) {
+            sitAndDcCounter(userId) map { counter =>
+              if (counter == -10) {
+                for {
+                  mod <- UserRepo.Lidraughts
+                  user <- UserRepo byId userId
+                } yield (mod zip user).headOption.?? {
+                  case (m, u) =>
+                    lidraughts.log("stall").info(s"https://lidraughts.org/@/${u.username}")
+                    messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+                }
+              } else if (counter <= -20) {
+                lidraughts.log("stall").warn(s"Close https://lidraughts.org/@/${userId} ragesit=$counter")
+                // bus.publish(lidraughts.hub.actorApi.playban.SitcounterClose(userId), 'playban)
               }
-            } else if (counter <= -20) {
-              bus.publish(lidraughts.hub.actorApi.playban.SitcounterClose(userId), 'playban)
             }
           }
         }
