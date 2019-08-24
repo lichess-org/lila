@@ -4,6 +4,7 @@ import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.user.User
+import lila.i18n.{ Translated, I18nKeys => trans }
 
 final class StudyPager(
     studyRepo: StudyRepo,
@@ -98,14 +99,14 @@ final class StudyPager(
     withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 }
 
-sealed abstract class Order(val key: String, val name: String)
+sealed abstract class Order(val key: String, val name: Translated)
 
 object Order {
-  case object Hot extends Order("hot", "Hot")
-  case object Newest extends Order("newest", "Date added (newest)")
-  case object Oldest extends Order("oldest", "Date added (oldest)")
-  case object Updated extends Order("updated", "Recently updated")
-  case object Popular extends Order("popular", "Most popular")
+  case object Hot extends Order("hot", trans.study.hot)
+  case object Newest extends Order("newest", trans.study.dateAddedNewest)
+  case object Oldest extends Order("oldest", trans.study.dateAddedOldest)
+  case object Updated extends Order("updated", trans.study.recentlyUpdated)
+  case object Popular extends Order("popular", trans.study.mostPopular)
 
   val default = Hot
   val all = List(Hot, Newest, Oldest, Updated, Popular)
