@@ -11,6 +11,7 @@
   <string name="allStudies">Visas izpētes</string>
   <string name="studiesCreatedByX">Izpētes, ko izveidoja %s</string>
   <string name="noneYet">Vēl nav.</string>
+  <string name="hot">Karstās</string>
   <string name="dateAddedNewest">Pievienošanas datums (jaunākās)</string>
   <string name="dateAddedOldest">Pievienošanas datums (vecākās)</string>
   <string name="recentlyUpdated">Nesen atjaunotās</string>
