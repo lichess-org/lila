@@ -593,6 +593,15 @@
     <item quantity="one">अधिकतम %s अक्षर|</item>
     <item quantity="other">अधिकतम %s अक्षर|</item>
   </plurals>
+  <plurals name="blocks">
+    <item quantity="one">%s ब्लक गरिएको</item>
+    <item quantity="other">%s ब्लक गरिएका</item>
+  </plurals>
+  <string name="listBlockedPlayers">ब्लक गरिएका खेलाडीको सूची खोलौं</string>
+  <string name="human">मानव</string>
+  <string name="computer">कम्प्युटर</string>
+  <string name="side">पक्ष</string>
+  <string name="clock">घडी</string>
   <string name="zenMode">जेन मोड</string>
   <string name="moveConfirmation">चाल पुष्टिकरण</string>
   <string name="inCorrespondenceGames">पत्रचारिक खेलहरु</string>
