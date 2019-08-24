@@ -19,6 +19,7 @@ import actorApi.SocketStatus
 final class JsonView(
     noteApi: NoteApi,
     userJsonView: lila.user.JsonView,
+    gameJsonView: lila.game.JsonView,
     getSocketStatus: Game.ID => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
     canMoretime: Game => Fu[Boolean],
@@ -64,7 +65,7 @@ final class JsonView(
         case socket ~ opponentUser ~ takebackable ~ moretimeable =>
           import pov._
           Json.obj(
-            "game" -> gameJson(game, initialFen),
+            "game" -> gameJsonView(game, initialFen),
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id" -> playerId,
@@ -154,7 +155,7 @@ final class JsonView(
         case (socket, (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
-            "game" -> gameJson(game, initialFen)
+            "game" -> gameJsonView(game, initialFen)
               .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
               .add("division" -> withFlags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)

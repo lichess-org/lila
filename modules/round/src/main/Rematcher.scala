@@ -4,7 +4,7 @@ import chess.format.Forsyth
 import chess.variant._
 import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
 import ChessColor.{ White, Black }
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
@@ -13,19 +13,15 @@ import lila.user.{ User, UserRepo }
 
 private[round] final class Rematcher(
     messenger: Messenger,
-    onStart: String => Unit,
-    rematch960Cache: ExpireSetMemo,
+    onStart: Game.ID => Unit,
+    rematches: Cache[Game.ID, Game.ID],
     bus: lila.common.Bus
 ) {
-
-  private val rematchCreated: Cache[Game.ID, Game.ID] = Scaffeine()
-    .expireAfterWrite(1 minute)
-    .build[Game.ID, Game.ID]
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case Pov(game, color) if game playerCanRematch color =>
       if (game.opponent(color).isOfferingRematch || game.opponent(color).isAi)
-        game.next.fold(rematchJoin(pov))(rematchExists(pov))
+        rematches.getIfPresent(game.id).fold(rematchJoin(pov))(rematchExists(pov))
       else rematchCreate(pov)
     case _ => fuccess(List(Event.ReloadOwner))
   }
@@ -42,23 +38,20 @@ private[round] final class Rematcher(
     case _ => fuccess(List(Event.ReloadOwner))
   }
 
-  private def rematchExists(pov: Pov)(nextId: String): Fu[Events] =
+  private def rematchExists(pov: Pov)(nextId: Game.ID): Fu[Events] =
     GameRepo game nextId flatMap {
       _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
     }
 
   private def rematchJoin(pov: Pov): Fu[Events] =
-    rematchCreated.getIfPresent(pov.gameId) match {
+    rematches.getIfPresent(pov.gameId) match {
       case None => for {
         nextGame ← returnGame(pov) map (_.start)
-        _ = rematchCreated.put(pov.gameId, nextGame.id)
-        _ ← (GameRepo insertDenormalized nextGame) >>
-          GameRepo.saveNext(pov.game, nextGame.id) >>-
-          messenger.system(pov.game, _.rematchOfferAccepted) >>- {
-            if (pov.game.variant == Chess960 && !rematch960Cache.get(pov.gameId))
-              rematch960Cache.put(nextGame.id)
-          }
+        _ = rematches.put(pov.gameId, nextGame.id)
+        _ ← GameRepo insertDenormalized nextGame
+        _ <- GameRepo unsetRematch pov.game
       } yield {
+        messenger.system(pov.game, _.rematchOfferAccepted)
         onStart(nextGame.id)
         redirectEvents(nextGame)
       }
@@ -78,7 +71,7 @@ private[round] final class Rematcher(
     situation = initialFen flatMap { fen => Forsyth <<< fen.value }
     pieces = pov.game.variant match {
       case Chess960 =>
-        if (rematch960Cache get pov.gameId) Chess960.pieces
+        if (rematches getIfPresent pov.gameId isDefined) Chess960.pieces
         else situation.fold(Chess960.pieces)(_.situation.board.pieces)
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
       case variant => variant.pieces

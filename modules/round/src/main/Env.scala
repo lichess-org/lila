@@ -4,6 +4,7 @@ import akka.actor._
 import akka.pattern.ask
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import com.github.blemale.scaffeine.Cache
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
@@ -25,10 +26,11 @@ final class Env(
     playban: lila.playban.PlaybanApi,
     lightUser: lila.common.LightUser.Getter,
     userJsonView: lila.user.JsonView,
+    gameJsonView: lila.game.JsonView,
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
-    rematch960Cache: lila.memo.ExpireSetMemo,
+    rematches: Cache[Game.ID, Game.ID],
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
@@ -227,7 +229,7 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematch960Cache = rematch960Cache,
+    rematches = rematches,
     bus = bus
   )
 
@@ -260,6 +262,7 @@ final class Env(
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
     userJsonView = userJsonView,
+    gameJsonView = gameJsonView,
     getSocketStatus = getSocketStatus,
     canTakeback = takebacker.isAllowedIn,
     canMoretime = moretimer.isAllowedIn,
@@ -326,10 +329,11 @@ object Env {
     playban = lila.playban.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     userJsonView = lila.user.Env.current.jsonView,
+    gameJsonView = lila.game.Env.current.jsonView,
     rankingApi = lila.user.Env.current.rankingApi,
     notifyApi = lila.notify.Env.current.api,
     uciMemo = lila.game.Env.current.uciMemo,
-    rematch960Cache = lila.game.Env.current.cached.rematch960,
+    rematches = lila.game.Env.current.rematches,
     divider = lila.game.Env.current.divider,
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,
