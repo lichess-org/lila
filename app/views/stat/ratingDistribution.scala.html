@@ -25,7 +25,7 @@ moreJs = moreJs) {
     case (under, sum) => {
     @trans.nbPerfTypePlayersThisWeek(Html(s"""<strong>${sum.localize}</strong>"""), perfType.name)<br />
     @trans.yourPerfTypeRatingIsRating(perfType.name, Html(s"""<strong>$rating</strong>"""))<br />
-    @trans.youAreBetterThanPercentOfPerfTypePlayers(Html(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>"""), perfType.name)
+    @if(sum > 0){@trans.youAreBetterThanPercentOfPerfTypePlayers(Html(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>"""), perfType.name)}
     }
     }
     }.getOrElse {
