@@ -1,4 +1,5 @@
 lidraughts.ratingDistributionChart = function(data) {
+  const trans = lidraughts.trans(data.i18n);
   lidraughts.loadScript('javascripts/chart/common.js').done(function() {
     lidraughts.chartCommon('highchart').done(function() {
       var disabled = {
@@ -28,7 +29,7 @@ lidraughts.ratingDistributionChart = function(data) {
           credits: disabled,
           legend: disabled,
           series: [{
-            name: 'Frequency',
+            name: trans.noarg('players'),
             type: 'area',
             data: data.freq.map(function(nb, i) {
               return [ratingAt(i), nb];
@@ -49,12 +50,9 @@ lidraughts.ratingDistributionChart = function(data) {
             marker: {
               radius: 5
             },
-            lineWidth: 4,
-            tooltip: {
-              valueSuffix: ' players'
-            }
+            lineWidth: 4
           }, {
-            name: 'Cumulative',
+            name: trans.noarg('cumulative'),
             type: 'line',
             yAxis: 1,
             data: cumul.map(function(p, i) {
@@ -78,7 +76,7 @@ lidraughts.ratingDistributionChart = function(data) {
           xAxis: {
             type: 'category',
             title: {
-              text: 'Glicko2 Rating'
+              text: trans.noarg('glicko2Rating')
             },
             labels: {
               rotation: -45
@@ -89,7 +87,7 @@ lidraughts.ratingDistributionChart = function(data) {
               var right = v > 1800;
               return v ? [{
                 label: {
-                  text: 'Your rating',
+                  text: trans.noarg('yourRating'),
                   verticalAlign: 'top',
                   align: right ? 'right' : 'left',
                   y: 13,
@@ -108,14 +106,14 @@ lidraughts.ratingDistributionChart = function(data) {
           },
           yAxis: [{ // frequency
             title: {
-              text: 'Players'
+              text: trans.noarg('players')
             }
           }, { // cumulative
             min: 0,
             max: 100,
             gridLineWidth: 0,
             title: {
-              text: 'Cumulative'
+              text: trans.noarg('cumulative')
             },
             labels: {
               format: '{value}%'
