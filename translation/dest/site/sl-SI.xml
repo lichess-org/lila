@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promoviraj variacijo</string>
   <string name="makeMainLine">Nastavite kot glavno varianto</string>
   <string name="deleteFromHere">Izbriši od tukaj</string>
+  <string name="forceVariation">Vsili varianto</string>
   <string name="move">Poteza</string>
   <string name="variantLoss">Izgubljena varianta</string>
   <string name="variantWin">Dobljena varianta</string>
@@ -524,6 +525,7 @@
   <string name="pleaseVotePuzzle">Pomagajte izboljšati Lichess z glasovanjem, uporabite puščico navzgor/navzdol:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skrito</string>
   <plurals name="playedXTimes">
     <item quantity="one">Problem odigran %s krat</item>
     <item quantity="two">Problem odigran %s krat</item>
