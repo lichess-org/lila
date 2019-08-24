@@ -66,7 +66,7 @@
   <string name="embedThisChapter">Iegult šo nodaļu savā mājaslapā vai blogā</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Uzzināt vairāk par izpētes nodaļas iegulšanu</string>
   <string name="open">Atvērt</string>
-  <string name="xBroughtToYouByY">%2$s, kuru piedāvā \"%1$s\"</string>
+  <string name="xBroughtToYouByY">%2$s piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>
   <string name="editChapter">Rediģēt nodaļu</string>
   <string name="newChapter">Jauna nodaļa</string>
