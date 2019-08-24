@@ -158,7 +158,7 @@ object Puzzle extends LidraughtsController {
             } yield {
               lidraughts.mon.puzzle.round.user()
               Ok(Json.obj(
-                "user" -> lidraughts.puzzle.JsonView.infos(false, variant)(infos),
+                "user" -> lidraughts.puzzle.JsonView.infos(variant)(infos),
                 "round" -> lidraughts.puzzle.JsonView.round(round),
                 "voted" -> voted
               ))
@@ -241,31 +241,39 @@ object Puzzle extends LidraughtsController {
   }
 
   /* Mobile API: select a bunch of puzzles for offline use */
-  def batchSelect = Auth { implicit ctx => me =>
+  def batchSelect(key: String) = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => for {
-        puzzles <- env.batch.select(me, Standard, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
-        userInfo <- env.userInfos(me, Standard)
-        json <- env.jsonView.batch(puzzles, userInfo)
-      } yield Ok(json) as JSON
+      api = _ => Variant(key) match {
+        case Some(variant) if puzzleVariants.contains(variant) =>
+          for {
+            puzzles <- env.batch.select(me, variant, getInt("nb") getOrElse 50 atLeast 1 atMost 100)
+            userInfo <- env.userInfos(me, variant)
+            json <- env.jsonView.batch(puzzles, userInfo)
+          } yield Ok(json) as JSON
+        case _ => notFoundJson("Invalid variant")
+      }
     )
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
-  def batchSolve = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def batchSolve(key: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     import lidraughts.puzzle.PuzzleBatch._
     ctx.body.body.validate[SolveData].fold(
       err => BadRequest(err.toString).fuccess,
       data => negotiate(
         html = notFound,
-        api = _ => for {
-          _ <- env.batch.solve(me, Standard, data)
-          me2 <- UserRepo byId me.id map (_ | me)
-          infos <- env.userInfos(me2, Standard)
-        } yield Ok(Json.obj(
-          "user" -> lidraughts.puzzle.JsonView.infos(false, Standard)(infos)
-        ))
+        api = _ => Variant(key) match {
+          case Some(variant) if puzzleVariants.contains(variant) =>
+            for {
+              _ <- env.batch.solve(me, variant, data)
+              me2 <- UserRepo byId me.id map (_ | me)
+              infos <- env.userInfos(me2, variant)
+            } yield Ok(Json.obj(
+              "user" -> lidraughts.puzzle.JsonView.infos(variant)(infos)
+            ))
+          case _ => notFoundJson("Invalid variant")
+        }
       )
     )
   }

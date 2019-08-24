@@ -19,16 +19,15 @@ final class JsonView(
     result: Option[Result] = None,
     voted: Option[Boolean]
   ): Fu[JsObject] = {
-    val isOldMobile = mobileApi.exists(_.value < 3)
     val isMobile = mobileApi.isDefined
-    ((!isOldMobile && puzzle.gameId != "custom") ?? gameJson(
+    ((puzzle.gameId != "custom") ?? gameJson(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
       onlyLast = isMobile
     ) map some) map { gameJson =>
       Json.obj(
         "game" -> gameJson,
-        "puzzle" -> puzzleJson(puzzle, isOldMobile),
+        "puzzle" -> puzzleJson(puzzle),
         "history" -> tree.Branch(
           id = UciCharPair(puzzle.initialMove),
           ply = puzzle.initialPly,
@@ -36,23 +35,8 @@ final class JsonView(
           fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
         ),
         "mode" -> mode,
-        "attempt" -> round.ifTrue(isOldMobile).map { r =>
-          Json.obj(
-            "userRatingDiff" -> r.ratingDiff,
-            "win" -> r.result.win,
-            "seconds" -> "a few" // lol we don't have the value anymore
-          )
-        },
         "voted" -> voted,
-        "user" -> userInfos.map(JsonView.infos(isOldMobile, puzzle.variant)),
-        "difficulty" -> isOldMobile.option {
-          Json.obj(
-            "choices" -> Json.arr(
-              Json.arr(2, "Normal")
-            ),
-            "current" -> 2
-          )
-        }
+        "user" -> userInfos.map(JsonView.infos(puzzle.variant))
       ).noNull
     }
   }
@@ -71,20 +55,31 @@ final class JsonView(
   def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] = for {
     games <- GameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
     jsons <- (puzzles zip games).collect {
-      case (puzzle, Some(game)) =>
-        gameJson.noCache(game, puzzle.initialPly, true) map { gameJson =>
-          Json.obj(
-            "game" -> gameJson,
-            "puzzle" -> puzzleJson(puzzle, isOldMobile = false)
+      case (puzzle, maybeGame) => maybeGame match {
+        case Some(game) =>
+          gameJson.noCache(game, puzzle.initialPly, true) map { gameJson =>
+            Json.obj(
+              "game" -> gameJson,
+              "puzzle" -> puzzleJson(puzzle)
+            )
+          }
+        case _ => fuccess(Json.obj(
+          "puzzle" -> puzzleJson(puzzle),
+          "history" -> tree.Branch(
+            id = UciCharPair(puzzle.initialMove),
+            ply = puzzle.initialPly,
+            move = Uci.WithSan(puzzle.initialMove, puzzle.initialMove.toSan),
+            fen = puzzle.fenAfterInitialMove.getOrElse(puzzle.fen)
           )
-        }
+        ))
+      }
     }.sequenceFu
   } yield Json.obj(
-    "user" -> JsonView.infos(false, draughts.variant.Standard)(userInfos),
+    "user" -> JsonView.infos(draughts.variant.Standard)(userInfos),
     "puzzles" -> jsons
   )
 
-  private def puzzleJson(puzzle: Puzzle, isOldMobile: Boolean): JsObject = Json.obj(
+  private def puzzleJson(puzzle: Puzzle): JsObject = Json.obj(
     "id" -> puzzle.id,
     "variant" -> puzzle.variant,
     "rating" -> puzzle.perf.intRating,
@@ -95,8 +90,7 @@ final class JsonView(
     "gameId" -> puzzle.gameId,
     "lines" -> lidraughts.puzzle.Line.toJson(puzzle.lines),
     "vote" -> puzzle.vote.sum
-  ).add("initialMove" -> isOldMobile.option(puzzle.initialMove.uci))
-    .add("branch" -> (!isOldMobile).option(makeBranch(puzzle)))
+  ).add("branch" -> makeBranch(puzzle))
     .add("enabled" -> puzzle.enabled)
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {
@@ -140,9 +134,9 @@ final class JsonView(
 
 object JsonView {
 
-  def infos(isOldMobile: Boolean, variant: draughts.variant.Variant)(i: UserInfos): JsObject = Json.obj(
+  def infos(variant: draughts.variant.Variant)(i: UserInfos): JsObject = Json.obj(
     "rating" -> i.user.perfs.puzzle(variant).intRating,
-    "history" -> isOldMobile.option(i.history.map(_.rating)), // for mobile BC
+    "history" -> i.history.map(_.rating), // for mobile BC
     "recent" -> i.history.map { r =>
       Json.arr(r.puzzleId, r.ratingDiff, r.rating)
     }

@@ -45,9 +45,10 @@ private[puzzle] final class PuzzleBatch(
       val perf = user.perfs.puzzle(variant)
       val rating = perf.intRating min 2300 max 900
       val step = toleranceStepFor(rating, perf.nb)
+      val idStep = nb * (if (variant.frisian) 5 else 10)
       api.puzzle.cachedLastId(variant).get flatMap { maxId =>
         val lastId = headOption match {
-          case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => l
+          case Some(PuzzleHead(_, _, l)) if l < maxId - idStep => l
           case _ => puzzleIdMin
         }
         tryRange(
@@ -55,7 +56,7 @@ private[puzzle] final class PuzzleBatch(
           rating = rating,
           tolerance = step,
           step = step,
-          idRange = Range(lastId, lastId + nb * 50),
+          idRange = Range(lastId, lastId + idStep),
           nb = nb
         )
       }
@@ -79,7 +80,7 @@ private[puzzle] final class PuzzleBatch(
           rating = rating,
           tolerance = tolerance + step,
           step = step,
-          idRange = Range(idRange.min, idRange.max + 100),
+          idRange = Range(idRange.min, idRange.max + 20),
           nb = nb
         )
       case res => fuccess(res)
