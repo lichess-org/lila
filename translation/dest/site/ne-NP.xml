@@ -696,6 +696,15 @@
   <string name="tournamentMayHaveBeenCanceled">शुरु हुनु अघि सबै खेलाडी बाहिर गएकोले प्रतियोगिता रद्द भएको हुन सक्छ।</string>
   <string name="returnToTournamentsHomepage">प्रतियोगिताको गृहपृष्ठमा फर्कनुहोस्</string>
   <string name="weeklyPerfTypeRatingDistribution">साप्ताहिक %s रेटिङ बिभाजन</string>
+  <plurals name="nbPerfTypePlayersThisWeek">
+    <item quantity="one">यो साता %1$s %2$s खेलाडी।</item>
+    <item quantity="other">यो साता %1$s %2$s खेलाडीहरु।</item>
+  </plurals>
+  <string name="yourPerfTypeRatingIsRating">तपाइको %1$s रेटिंग %2$s छ।</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">तपाइ %2$s खेलाडीहरु मध्य %1$s भन्दा बढि राम्रो हुनुहुन्छ।</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">तपाइको स्थापित %s रेटिङ छैन।</string>
+  <string name="checkYourEmail">इमेल हेर्नुहोस्</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">हामीले तपाइलाई इमेल पठाएका छौं। इमेलमा रहेको लिंकमा क्लिक गरेर आफ्नो खाता सुचारु गर्नुहोस्।</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
   <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
   <string name="playChessEverywhere">सबै ठाउँमा बुद्धिचाल खेलौं</string>
