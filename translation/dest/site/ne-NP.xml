@@ -573,6 +573,7 @@
   <string name="always">सधैँ</string>
   <string name="inCasualGamesOnly">अनौपचारिक खेलहरुमा मात्र</string>
   <string name="whenPremoving">प्रिमुभ गर्दा</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">जब ३० सेकेण्ड भन्दा कम समय बाँकि हुन्छ</string>
   <string name="difficultyEasy">सजिलो</string>
   <string name="difficultyNormal">सामान्य</string>
   <string name="difficultyHard">गाह्रो</string>
@@ -692,4 +693,19 @@
   <string name="correspondenceAndUnlimited">पत्रचारिक तथा अनिश्चितकालीन</string>
   <string name="viewTheSolution">समाधान हेरौं</string>
   <string name="followAndChallengeFriends">मित्रहरुलाई पछ्याउँदै खेल्न आमन्त्रण गर्नुहोस्</string>
+  <plurals name="availableInNbLanguages">
+    <item quantity="one">%s भाषामा उपलब्ध!</item>
+    <item quantity="other">%s भाषाहरूमा उपलब्ध!</item>
+  </plurals>
+  <string name="gameAnalysis">खेलको विश्लेषण</string>
+  <string name="xHostsY">%1$s ले %2$s आयोजना गर्नुभयो</string>
+  <string name="xJoinsY">%1$s ले %2$s मा भाग लिनुभयो</string>
+  <string name="xLikesY">%1$s ले %2$s मन पराउनु भयो</string>
+  <string name="xCreatesStudyY">%1$s ले %2$s पाठ रचना गर्नुभयो</string>
+  <string name="quickPairing">तत्काल पेयरिङ</string>
+  <string name="lobby">प्रतिक्षालय</string>
+  <string name="anonymous">अज्ञात</string>
+  <string name="yourScore">तपाइको प्राप्तांक: %s</string>
+  <string name="language">भाषा</string>
+  <string name="background">पृष्ठभूमि</string>
 </resources>
