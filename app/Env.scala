@@ -108,6 +108,13 @@ final class Env(
       }
   }
 
+  system.lilaBus.subscribeFun('playban) {
+    case lila.hub.actorApi.playban.SitcounterClose(userId) =>
+      system.scheduler.scheduleOnce(1 second) {
+        closeAccount(userId, self = false)
+      }
+  }
+
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
   lila.common.Chronometer.syncEffect(List(
