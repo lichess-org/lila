@@ -26,6 +26,7 @@ final class JsonView(
     canMoretime: Game => Fu[Boolean],
     divider: lidraughts.game.Divider,
     evalCache: lidraughts.evalCache.EvalCacheApi,
+    isOfferingRematch: Pov => Boolean,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int
 ) {
@@ -42,7 +43,7 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("offeringRematch" -> p.isOfferingRematch)
+      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("kingMoves" -> kingMoves(g, p.color))

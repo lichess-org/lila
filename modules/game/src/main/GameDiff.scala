@@ -87,7 +87,6 @@ object GameDiff {
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, w.map[Option, Int, BSONInteger])
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)
-      dOpt(s"$name$isOfferingRematch", player(_).isOfferingRematch, w.boolO)
       dOpt(s"$name$proposeTakebackAt", player(_).proposeTakebackAt, w.intO)
       d(s"$name$blursBits", player(_).blurs, BlursBSONWriter.write)
     }

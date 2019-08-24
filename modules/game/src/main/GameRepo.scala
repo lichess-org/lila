@@ -346,14 +346,6 @@ object GameRepo {
   def setImportCreatedAt(g: Game) =
     coll.update($id(g.id), $set("pdni.ca" -> g.createdAt)).void
 
-  def unsetRematch(game: Game): Funit = coll.update(
-    $id(game.id),
-    $unset(
-      "p0." + Player.BSONFields.isOfferingRematch,
-      "p1." + Player.BSONFields.isOfferingRematch
-    )
-  ).void
-
   def initialFen(gameId: ID): Fu[Option[FEN]] =
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
 

@@ -13,7 +13,8 @@ import lidraughts.round.actorApi.round.{ DrawNo, DrawYes }
 import lidraughts.user.User
 
 final class BotPlayer(
-    chatActor: ActorSelection
+    chatActor: ActorSelection,
+    isOfferingRematch: Pov => Boolean
 )(implicit system: ActorSystem) {
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
@@ -51,7 +52,7 @@ final class BotPlayer(
 
   private def rematch(id: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
     GameRepo game id map {
-      _.flatMap(Pov(_, me)).filter(_.opponent.isOfferingRematch) ?? { pov =>
+      _.flatMap(Pov(_, me)).filter(isOfferingRematch) ?? { pov =>
         // delay so it feels more natural
         lidraughts.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
