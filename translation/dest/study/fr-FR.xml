@@ -9,6 +9,7 @@
   <string name="whatAreStudies">Que sont les études?</string>
   <string name="allStudies">Toutes les études</string>
   <string name="studiesCreatedByX">Études créées par %s</string>
+  <string name="recentlyUpdated">Récemment mis à jour</string>
   <string name="addNewChapter">Ajouter un nouveau chapitre</string>
   <plurals name="nbChapters">
     <item quantity="one">%s chapitre</item>
