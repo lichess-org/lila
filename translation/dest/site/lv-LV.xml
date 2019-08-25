@@ -737,6 +737,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Esat labāks par %1$s no %2$s spēlētājiem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jums vēl nav stabila %s reitinga.</string>
   <string name="yourRating">Jūsu reitings</string>
+  <string name="cumulative">Kumulatīvais</string>
   <string name="glicko2Rating">\"Glicko-2\" reitings</string>
   <string name="checkYourEmail">Pārbaudiet e-pastu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Esam jums aizsūtījuši e-pastu. Klikšķiniet uz saņemtās saites, lai aktivizētu savu kontu.</string>
@@ -907,4 +908,6 @@
   <string name="temporaryInconvenience">Mēs atvainojamies par īslaicīgajām neērtībām,</string>
   <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā lichess.org.</string>
   <string name="thankYouForReading">Paldies, ka izlasījāt!</string>
+  <string name="lifetimeScore">Visu laiku rezultāts</string>
+  <string name="currentMatchScore">Pašreizējais spēļu reitings</string>
 </resources>
