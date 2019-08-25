@@ -705,6 +705,8 @@ en %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
+  <string name="yourRating">Votre classement</string>
+  <string name="glicko2Rating">Classement Glicko-2</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
