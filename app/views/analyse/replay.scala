@@ -42,6 +42,7 @@ object replay {
         timeout = c.timeout,
         withNote = ctx.isAuth,
         public = true,
+        resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
       )
     }

@@ -40,6 +40,7 @@ object show {
             timeout = c.timeout,
             writeable = ctx.userId.??(s.canChat),
             public = false,
+            resourceId = lila.chat.Chat.ResourceId(s"relay/${c.chat.id}"),
             localMod = ctx.userId.??(s.canContribute)
           )),
           "explorer" -> Json.obj(
