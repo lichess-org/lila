@@ -31,8 +31,10 @@
   <string name="joinTheGame">Tevlî lîstikê bibe</string>
   <string name="whitePlays">Wê spî bilîze</string>
   <string name="blackPlays">Wê reş bilîze</string>
-  <string name="opponentLeftChoices">Dibe listikvanê din listîk bicih hiştibe. Tu dikarî serkeftinê bidest bixî, wekhev bikî, yan bisekinî.</string>
-  <string name="forceResignation">Serkeftinê bidest bixe</string>
+  <string name="opponentLeftChoices">Dibe listikvanê din listîk wisa hiştibe. Tu dikarî serkeftinê îdia bikî, qebûl bikî ku hûn wekhev mane, an li benda wî/ê bisekinî.</string>
+  <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
+  <string name="forceResignation">Serkeftinê daxwaz bike</string>
+  <string name="forceDraw">Vexwîne bo wekheviyê</string>
   <string name="talkInChat">Ji kerema xwe bi kibar bin di axaftinê de!</string>
   <string name="whiteResigned">Spî vekişiya</string>
   <string name="blackResigned">Reş vekişiya</string>
