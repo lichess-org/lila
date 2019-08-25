@@ -10,7 +10,7 @@ $mq-col2-uniboard-squeeze: $mq-not-small $mq-landscape;
 
 $col3-uniboard-side: minmax(230px, 20vw);
 $col3-uniboard-table: minmax(240px, 400px);
-$col3-uniboard-controls: 2.5rem;
+$col3-uniboard-controls: 3rem;
 
 $col3-uniboard-min-width: calc(70vmin * var(--board-scale));
 $col3-uniboard-max-width: calc(100vh * var(--board-scale) - #{$site-header-outer-height} - #{$col3-uniboard-controls});
