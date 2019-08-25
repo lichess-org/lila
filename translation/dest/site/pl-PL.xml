@@ -927,4 +927,9 @@
     <item quantity="many">i zapisz warianty warunkowe</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
+  <string name="sorry">Przepraszam :(</string>
+  <string name="why">Dlaczego?</string>
+  <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
+  <string name="playEveryGame">Rozegraj każdą partię którą rozpocząłeś.</string>
+  <string name="tryToWin">Próbuj wygrać (lub przynajmniej zremisować) każdą partię którą grasz.</string>
 </resources>
