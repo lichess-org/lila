@@ -16,6 +16,7 @@ object Dasher extends LilaController {
     I18nKeys.background,
     I18nKeys.light,
     I18nKeys.dark,
+    I18nKeys.automatic,
     I18nKeys.transparent,
     I18nKeys.backgroundImageUrl,
     I18nKeys.boardGeometry,
@@ -66,7 +67,7 @@ object Dasher extends LilaController {
               }
             ),
             "background" -> Json.obj(
-              "current" -> ctx.currentBg,
+              "current" -> { if (ctx.explicitBgPref) ctx.currentBg else "auto" },
               "image" -> ctx.pref.bgImgOrDefault
             ),
             "board" -> Json.obj(

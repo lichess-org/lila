@@ -62,6 +62,7 @@ case class Pref(
   def set(name: String, value: String): Option[Pref] = name match {
     case "bg" =>
       if (value == "transp") copy(dark = Some(true), transp = true).some
+      else if (value == "auto") copy(dark = None, transp = false).some
       else copy(dark = Some(value == "dark"), transp = false).some
     case "bgImg" => copy(bgImg = value.some).some
     case "theme" => Theme.allByName get value map { t => copy(theme = t.name) }

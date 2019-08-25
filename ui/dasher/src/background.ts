@@ -28,6 +28,7 @@ export function ctrl(data: BackgroundData, trans: Trans, redraw: Redraw, close: 
   const list: Background[] = [
     { key: 'light', name: trans.noarg('light') },
     { key: 'dark', name: trans.noarg('dark') },
+    { key: 'auto', name: trans.noarg('automatic') },
     { key: 'transp', name: trans.noarg('transparent') }
   ];
 
@@ -91,7 +92,11 @@ function imageInput(ctrl: BackgroundCtrl) {
 
 function applyBackground(data: BackgroundData, list: Background[]) {
 
-  const key = data.current;
+  var key = data.current;
+
+  if (key == 'auto') {
+    key = document.cookie.includes("prefers-dark=1") ? "dark" : "light";
+  }
 
   $('body')
     .removeClass(list.map(b => b.key).join(' '))

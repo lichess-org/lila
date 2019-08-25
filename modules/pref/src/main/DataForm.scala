@@ -188,7 +188,7 @@ object DataForm {
   ))
 
   val bg = Form(single(
-    "bg" -> text.verifying(List("light", "dark", "transp") contains _)
+    "bg" -> text.verifying(List("light", "dark", "auto", "transp") contains _)
   ))
 
   val bgImg = Form(single(
