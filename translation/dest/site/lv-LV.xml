@@ -891,13 +891,18 @@
     <item quantity="one">un saglabāt %s priekšgājienu variantu</item>
     <item quantity="other">un saglabāt %s priekšgājienu variantus</item>
   </plurals>
-  <string name="sorry">Piedodiet :(</string>
+  <string name="sorry">Lūdzu piedodiet :(</string>
   <string name="weHadToTimeYouOutForAWhile">Mums nācās jūs apturēt uz laiku.</string>
   <string name="timeoutExpires">Pārtraukums beigsies %s.</string>
   <string name="why">Kāpēc?</string>
   <string name="pleasantChessExperience">Mēs cenšamies visiem piedāvāt patīkamu šaha pieredzi.</string>
+  <string name="goodPractice">Līdz ar to, mums jānodrošina, lai visi spēlētāji pieturas pie labas prakses.</string>
   <string name="potentialProblem">Kad atklāta iespējama problēma, mēs rādām šo ziņojumu.</string>
   <string name="howToAvoidThis">Kā no šī izvairīties?</string>
   <string name="playEveryGame">Izspēlējiet katru spēli, ko iesākat.</string>
   <string name="tryToWin">Mēģiniet uzvarēt (vai vismaz panākt neizšķirtu) katrā spēlē, ko spēlējat.</string>
+  <string name="resignLostGames">Padodieties zaudētajās spēlēs (neļaujiet laikam beigties).</string>
+  <string name="temporaryInconvenience">Mēs atvainojamies par īslaicīgajām neērtībām,</string>
+  <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā lichess.org.</string>
+  <string name="thankYouForReading">Paldies, ka izlasījāt!</string>
 </resources>
