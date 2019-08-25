@@ -510,15 +510,19 @@ final class StudyApi(
                 }
               } >> doAddChapter(study, chapter, sticky, uid)
             }
+          } addFailureEffect {
+            case ChapterMaker.ValidationException(error) =>
+              sendTo(study, Socket.ValidationError(uid, error))
+            case u => logger.error("chapterMaker", u)
           }
         }
       }
     }
   }
 
-  def importPdns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean) =
+  def importPdns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean, uid: Uid) =
     lidraughts.common.Future.applySequentially(datas) { data =>
-      addChapter(byUser.id, studyId, data, sticky, uid = Uid(""))
+      addChapter(byUser.id, studyId, data, sticky, uid)
     }
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, uid: Uid) =

@@ -271,10 +271,12 @@ object Study extends LidraughtsController {
 
   def importPdn(id: String) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lidraughts.study.DataForm.importPdn.form.bindFromRequest.fold(
-      jsonFormError,
-      data => env.api.importPdns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
-    )
+    get("sri") ?? { uid =>
+      lidraughts.study.DataForm.importPdn.form.bindFromRequest.fold(
+        jsonFormError,
+        data => env.api.importPdns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky, lidraughts.socket.Socket.Uid(uid))
+      )
+    }
   }
 
   def embed(id: String, chapterId: String) = Open { implicit ctx =>

@@ -135,6 +135,10 @@ private final class Socket(
       "s" -> sticky
     ), noMessadata)
 
+    case ValidationError(uid, error) => notifyUid("validationError", Json.obj(
+      "error" -> error
+    ))(uid)
+
     case SetShapes(pos, shapes, uid) => notifyVersion("shapes", Json.obj(
       "p" -> pos,
       "s" -> shapes,
@@ -319,6 +323,7 @@ object Socket {
   case class DescChapter(uid: Uid, chapterId: Chapter.Id, desc: Option[String])
   case class DescStudy(uid: Uid, desc: Option[String])
   case class AddChapter(uid: Uid, position: Position.Ref, sticky: Boolean)
+  case class ValidationError(uid: Uid, error: String)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, uid: Uid)
   case class SetTags(chapterId: Chapter.Id, tags: draughts.format.pdn.Tags, uid: Uid)

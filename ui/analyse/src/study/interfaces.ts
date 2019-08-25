@@ -56,6 +56,7 @@ export interface StudyCtrl {
   onPremoveSet(): void;
   redraw: Redraw;
   trans: Trans;
+  sri: string;
 }
 
 export type Tab = 'intro' | 'members' | 'chapters';

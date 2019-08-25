@@ -64,10 +64,11 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       else open();
     },
     submit(d) {
+      const study = root.study!;
       d.initial = vm.initial();
-      d.sticky = root.study!.vm.mode.sticky;
+      d.sticky = study.vm.mode.sticky;
       if (!d.pdn) send("addChapter", d);
-      else importPdn(root.study!.data.id, d);
+      else importPdn(study.data.id, d, study.sri);
       close();
       setTab();
     },
