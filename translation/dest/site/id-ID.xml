@@ -828,4 +828,7 @@
   <string name="potentialProblem">Ketika potensi menimbulkan masalah terdeteksi, kami menampilkan pesan ini.</string>
   <string name="howToAvoidThis">Bagaimana cara untuk menghindari ini?</string>
   <string name="playEveryGame">Mainkan setiap permainan yang kamu mulai.</string>
+  <string name="tryToWin">Usahakan untuk menang (atau setidaknya remis) disetiap permainan yang kau mainkan.</string>
+  <string name="resignLostGames">Ajukan menyerah untuk permainan yang kalah (jangan sampai waktu habis).</string>
+  <string name="temporaryInconvenience">Kami mohon maaf atas ketidaknyamanan ini,</string>
 </resources>
