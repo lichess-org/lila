@@ -4,7 +4,7 @@
   <string name="activity">النشاط</string>
   <plurals name="practicedNbPositions">
     <item quantity="zero">تم التدريب %1$s موقف على %2$s</item>
-    <item quantity="one">تم التدريب %1$s موقف على %2$s</item>
+    <item quantity="one">تدرّب على %1$s موقف في %2$s</item>
     <item quantity="two">تم التدريب %1$s موقفان على %2$s</item>
     <item quantity="few">تم التدريب عدد %1$s مواقف على %2$s</item>
     <item quantity="many">تم التدريب عدد %1$s مواقف على %2$s</item>
@@ -13,7 +13,7 @@
   <plurals name="solvedNbPuzzles">
     <item quantity="zero">تم حل %s لغز تكتيكي</item>
     <item quantity="one">تم حل %s لغز تكتيكي</item>
-    <item quantity="two">تم حل %s لغزين تكتيكين</item>
+    <item quantity="two">تم حل %s من الالغاز التكتيكية</item>
     <item quantity="few">تم حل %s ألغاز تكتيكية</item>
     <item quantity="many">تم حل %s لغز تكتيكي</item>
     <item quantity="other">تم حل %s لغز تكتيكي</item>
