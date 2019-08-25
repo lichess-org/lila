@@ -674,6 +674,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
   <string name="yourRating">Rating Anda</string>
   <string name="cumulative">Kumulatif</string>
+  <string name="glicko2Rating">Rating Glicko-2</string>
   <string name="checkYourEmail">Cek email mu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami telah mengirim Anda sebuah email. Buka link di dalam email untuk mengaktivasi akun Anda.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
@@ -835,4 +836,6 @@
   <string name="temporaryInconvenience">Kami mohon maaf atas ketidaknyamanan ini,</string>
   <string name="wishYouGreatGames">dan doakan Anda untuk mendapatkan pengalaman bermain yang hebat di lichess.org.</string>
   <string name="thankYouForReading">Terima kasih sudah membacanya!</string>
+  <string name="lifetimeScore">Skor seumur hidup</string>
+  <string name="currentMatchScore">Skor pertandingan saat ini</string>
 </resources>
