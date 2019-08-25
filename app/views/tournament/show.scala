@@ -30,7 +30,13 @@ object show {
           "i18n" -> bits.jsI18n(),
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
-            chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+            chat.json(
+              c.chat,
+              name = trans.chatRoom.txt(),
+              timeout = c.timeout,
+              public = true,
+              resourceId = lidraughts.chat.Chat.ResourceId(s"tournament/${c.chat.id}")
+            )
           }
         ))
       }""")

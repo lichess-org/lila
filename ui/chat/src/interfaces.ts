@@ -33,6 +33,7 @@ export interface ChatData {
   name: string
   lines: Array<Line>
   userId?: string
+  resourceId: string
   loginRequired: boolean
   restricted: boolean
   palantir: boolean

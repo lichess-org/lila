@@ -1,7 +1,7 @@
 package views.html
 package round
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 
 import lidraughts.api.Context
 import lidraughts.app.templating.Environment._
@@ -16,7 +16,7 @@ object watcher {
 
   def apply(
     pov: Pov,
-    data: play.api.libs.json.JsObject,
+    data: JsObject,
     tour: Option[lidraughts.tournament.TourMiniView],
     simul: Option[lidraughts.simul.Simul],
     cross: Option[lidraughts.game.Crosstable.WithMatchup],
@@ -32,6 +32,7 @@ object watcher {
         timeout = c.timeout,
         withNote = ctx.isAuth,
         public = true,
+        resourceId = lidraughts.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
       )
     }

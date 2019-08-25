@@ -30,7 +30,13 @@ object show {
           "socketVersion" -> socketVersion.value,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
-            views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+            views.html.chat.json(
+              c.chat,
+              name = trans.chatRoom.txt(),
+              timeout = c.timeout,
+              public = true,
+              resourceId = lidraughts.chat.Chat.ResourceId(s"simul/${c.chat.id}")
+            )
           }
         ))
       }""")

@@ -23,6 +23,7 @@ object chat {
     name: String,
     timeout: Boolean,
     public: Boolean, // game players chat is not public
+    resourceId: lidraughts.chat.Chat.ResourceId,
     withNote: Boolean = false,
     writeable: Boolean = true,
     localMod: Boolean = false,
@@ -35,6 +36,7 @@ object chat {
       withNote = withNote,
       writeable = writeable,
       public = public,
+      resourceId = resourceId,
       restricted = chat.restricted,
       localMod = localMod,
       palantir = palantir
@@ -45,6 +47,7 @@ object chat {
     name: String,
     timeout: Boolean,
     public: Boolean, // game players chat is not public
+    resourceId: lidraughts.chat.Chat.ResourceId,
     withNote: Boolean = false,
     writeable: Boolean = true,
     restricted: Boolean = false,
@@ -55,7 +58,8 @@ object chat {
       "id" -> chat.id,
       "name" -> name,
       "lines" -> lidraughts.chat.JsonView(chat),
-      "userId" -> ctx.userId
+      "userId" -> ctx.userId,
+      "resourceId" -> resourceId.value
     )
       .add("loginRequired" -> chat.loginRequired)
       .add("restricted" -> restricted)

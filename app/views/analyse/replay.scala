@@ -40,6 +40,7 @@ object replay {
         timeout = c.timeout,
         withNote = ctx.isAuth,
         public = true,
+        resourceId = lidraughts.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
       )
     }

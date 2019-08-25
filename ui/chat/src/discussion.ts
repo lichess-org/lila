@@ -4,8 +4,9 @@ import { Ctrl, Line } from './interfaces'
 import * as spam from './spam'
 import * as enhance from './enhance';
 import { presetView } from './preset';
-import { lineAction } from './moderation';
+import { lineAction as modLineAction } from './moderation';
 import { userLink } from './util';
+import { flag } from './xhr'
 
 const whisperRegex = /^\/w(?:hisper)?\s/;
 
@@ -13,15 +14,15 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
   if (!ctrl.vm.enabled) return [];
   const scrollCb = (vnode: VNode) => {
     const el = vnode.elm as HTMLElement
-      if (ctrl.data.lines.length > 5) {
-        const autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
-        if (autoScroll) {
-          el.scrollTop = 999999;
-          setTimeout((_: any) => el.scrollTop = 999999, 300)
-        }
+    if (ctrl.data.lines.length > 5) {
+      const autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
+      if (autoScroll) {
+        el.scrollTop = 999999;
+        setTimeout((_: any) => el.scrollTop = 999999, 300)
       }
+    }
   },
-  m = ctrl.moderation();
+  mod = ctrl.moderation();
   const vnodes = [
     h('ol.mchat__messages.chat-v-' + ctrl.data.domVersion, {
       attrs: {
@@ -34,9 +35,12 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
           const $el = $(vnode.elm as HTMLElement).on('click', 'a.jump', (e: Event) => {
             window.lidraughts.pubsub.emit('jump', (e.target as HTMLElement).getAttribute('data-ply'));
           });
-          if (m) $el.on('click', '.mod', (e: Event) => {
-            m.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
+          if (mod) $el.on('click', '.mod', (e: Event) => {
+            mod.open(((e.target as HTMLElement).getAttribute('data-username') as string).split(' ')[0]);
           });
+          else $el.on('click', '.flag', (e: Event) =>
+            report(ctrl, (e.target as HTMLElement).parentNode as HTMLElement)
+          );
           scrollCb(vnode);
         },
         postpatch: (_, vnode) => scrollCb(vnode)
@@ -52,12 +56,12 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
 function renderInput(ctrl: Ctrl): VNode | undefined {
   if (!ctrl.vm.writeable) return;
   if ((ctrl.data.loginRequired && !ctrl.data.userId) || ctrl.data.restricted)
-  return h('input.mchat__say', {
-    attrs: {
-      placeholder: ctrl.trans('loginToChat'),
-      disabled: true
-    }
-  });
+    return h('input.mchat__say', {
+      attrs: {
+        placeholder: ctrl.trans('loginToChat'),
+        disabled: true
+      }
+    });
   let placeholder: string;
   if (ctrl.vm.timeout) placeholder = ctrl.trans('youHaveBeenTimedOut');
   else if (ctrl.opts.blind) placeholder = 'Chat';
@@ -83,8 +87,8 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
   chatEl.addEventListener('keypress',
     (e: KeyboardEvent) => setTimeout(() => {
       const el = e.target as HTMLInputElement,
-      txt = el.value,
-      pub = ctrl.opts.public;
+        txt = el.value,
+        pub = ctrl.opts.public;
       if (e.which == 10 || e.which == 13) {
         if (txt === '') $('.keyboard-move input').focus();
         else {
@@ -127,7 +131,7 @@ const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
     mouchEvents.forEach(event =>
       document.body.addEventListener(event, mouchListener,
         {passive: true, capture: true}
-    ));
+      ));
 
   chatEl.onblur = () =>
     mouchEvents.forEach(event =>
@@ -174,6 +178,16 @@ function renderText(t: string, parseMoves: boolean) {
   return h('t', t);
 }
 
+function report(ctrl: Ctrl, line: HTMLElement) {
+  const userA = line.querySelector('a.user-link') as HTMLLinkElement;
+  const text = (line.querySelector('t') as HTMLElement).innerText;
+  if (userA && confirm(`Report "${text}" to moderators?`)) flag(
+    ctrl.data.resourceId,
+    userA.href.split('/')[4],
+    text
+  );
+}
+
 function renderLine(ctrl: Ctrl, line: Line) {
 
   const textNode = renderText(line.t, ctrl.opts.parseMoves);
@@ -189,8 +203,17 @@ function renderLine(ctrl: Ctrl, line: Line) {
 
   return h('li', {
   }, ctrl.moderation() ? [
-    line.u ? lineAction(line.u) : null,
+    line.u ? modLineAction(line.u) : null,
     userNode,
     textNode
-  ] : [userNode, textNode]);
+  ] : [
+    ctrl.data.userId && line.u && ctrl.data.userId != line.u ? h('i.flag', {
+      attrs: {
+        'data-icon': '!',
+        title: 'Report'
+      }
+    }) : null,
+    userNode,
+    textNode
+  ]);
 }

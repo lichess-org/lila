@@ -81,6 +81,8 @@ object Chat {
 
   case class Id(value: String) extends AnyVal with StringValue
 
+  case class ResourceId(value: String) extends AnyVal with StringValue
+
   case class Setup(id: Id, publicSource: PublicSource)
 
   def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))

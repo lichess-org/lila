@@ -37,6 +37,7 @@ object show {
               timeout = c.timeout,
               writeable = ctx.userId.??(s.canChat),
               public = false,
+              resourceId = lidraughts.chat.Chat.ResourceId(s"study/${c.chat.id}"),
               palantir = ctx.userId ?? s.isMember,
               localMod = ctx.userId ?? s.canContribute
             )
