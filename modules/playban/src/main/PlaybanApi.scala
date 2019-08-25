@@ -215,6 +215,7 @@ final class PlaybanApi(
                 } yield (mod zip user).headOption.?? {
                   case (m, u) =>
                     lila.log("stall").info(s"https://lichess.org/@/${u.username}")
+                    bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
                     messenger.sendPreset(m, u, ModPreset.sittingAuto).void
                 }
               } else if (counter <= -20) {

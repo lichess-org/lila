@@ -8,7 +8,7 @@ import lila.game.Game
 import lila.message.{ MessageApi, ModPreset }
 import lila.user.{ User, UserRepo }
 
-private final class SandbagWatch(messenger: MessageApi) {
+private final class SandbagWatch(messenger: MessageApi, bus: lila.common.Bus) {
 
   import SandbagWatch._
 
@@ -28,6 +28,7 @@ private final class SandbagWatch(messenger: MessageApi) {
   } yield (mod zip user).headOption.?? {
     case (m, u) =>
       lila.log("sandbag").info(s"https://lichess.org/@/${u.username}")
+      bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sandbagAuto.subject), 'autoWarning)
       messenger.sendPreset(m, u, ModPreset.sandbagAuto).void
   }
 
