@@ -863,4 +863,9 @@
   <string name="timeoutExpires">Timeouten udløber %s.</string>
   <string name="why">Hvorfor?</string>
   <string name="pleasantChessExperience">Vi tilstræber at give alle en behagelig skakoplevelse.</string>
+  <string name="goodPractice">I den forbindelse må vi sikre, at alle spillere følger god praksis.</string>
+  <string name="potentialProblem">Når et potentielt problem opdages, viser vi denne besked.</string>
+  <string name="howToAvoidThis">Hvordan undgås dette?</string>
+  <string name="playEveryGame">Spil alle partier du starter.</string>
+  <string name="tryToWin">Forsøg at vinde (eller i det mindre opnå remis) alle partier du spiller.</string>
 </resources>
