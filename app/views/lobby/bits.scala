@@ -97,7 +97,7 @@ object bits {
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) = nopeInfo(
     h1(trans.sorry()),
     p(trans.weHadToTimeYouOutForAWhile()),
-    p(trans.timeoutExpires(), " ", strong(secondsFromNow(ban.remainingSeconds)), "."),
+    p(trans.timeoutExpires(strong(secondsFromNow(ban.remainingSeconds)))),
     h2(trans.why()),
     p(
       trans.pleasantChessExperience(), br,
