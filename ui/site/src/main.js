@@ -829,6 +829,21 @@
   });
 
   $(function() {
+    var prefersDarkCookieAlreadySet = document.cookie.includes("prefers-dark=");
+    var prefersColorSchemeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    if (prefersColorSchemeDark) {
+      document.cookie = "prefers-dark=1;path=/;max-age=1209600";
+      if (!prefersDarkCookieAlreadySet && !document.body.classList.contains("dark")) {
+        window.lichess.reload();
+        // Either the user did not set an explicit preference on Lichess, and the reload
+        // then switches the background from light to dark. Or the user did set the explicit
+        // preference for the light theme and then the reload won't change anything, but the
+        // client-side code doesn't know if the preference was explicitly set or not.
+      }
+    } else {
+      document.cookie = "prefers-dark=0;path=/;max-age=1209600";
+    }
+
     lichess.pubsub.on('content_loaded', lichess.parseFen);
 
     var socketOpened = false;

@@ -17,6 +17,7 @@ case class PageData(
     hasFingerprint: Boolean,
     inquiry: Option[lila.mod.Inquiry],
     nonce: Option[Nonce],
+    clientPrefersDarkTheme: Option[Boolean],
     error: Boolean = false
 )
 
@@ -31,7 +32,8 @@ object PageData {
     blindMode = blindMode,
     hasFingerprint = false,
     inquiry = none,
-    nonce = nonce
+    nonce = nonce,
+    clientPrefersDarkTheme = req.cookies.get("prefers-dark").map(_.value == "1")
   )
 
   def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
@@ -53,6 +55,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def blind = pageData.blindMode
   def noBlind = !blind
   def nonce = pageData.nonce
+  def clientPrefersDarkTheme = ~pageData.clientPrefersDarkTheme
 
   def currentTheme = lila.pref.Theme(pref.theme)
 
@@ -64,7 +67,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 
-  lazy val currentBg = if (pref.transp) "transp" else if (pref.dark) "dark" else "light"
+  lazy val currentBg = if (pref.transp) "transp" else if (pref.dark.getOrElse(clientPrefersDarkTheme)) "dark" else "light"
 
   def transpBgImg = currentBg == "transp" option pref.bgImgOrDefault
 

@@ -9,7 +9,7 @@ object RequestPref {
   def queryParamOverride(req: RequestHeader)(pref: Pref): Pref =
     queryParam(req, "bg").fold(pref) { bg =>
       pref.copy(
-        dark = bg != "light",
+        dark = Some(bg != "light"),
         transp = bg == "transp"
       )
     }
@@ -19,11 +19,11 @@ object RequestPref {
     def paramOrSession(name: String): Option[String] =
       queryParam(req, name) orElse req.session.get(name)
 
-    val bg = paramOrSession("bg") | "light"
+    val bg = paramOrSession("bg")
 
     default.copy(
-      dark = bg != "light",
-      transp = bg == "transp",
+      dark = bg.map(_ != "light"),
+      transp = bg == Some("transp"),
       theme = paramOrSession("theme") | default.theme,
       theme3d = req.session.data.getOrElse("theme3d", default.theme3d),
       pieceSet = req.session.data.getOrElse("pieceSet", default.pieceSet),

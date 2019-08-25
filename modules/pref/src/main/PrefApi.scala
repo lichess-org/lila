@@ -29,7 +29,7 @@ final class PrefApi(
 
     def reads(r: BSON.Reader): Pref = Pref(
       _id = r str "_id",
-      dark = r.getD("dark", Pref.default.dark),
+      dark = r.boolO("dark"),
       transp = r.getD("transp", Pref.default.transp),
       bgImg = r.strO("bgImg"),
       is3d = r.getD("is3d", Pref.default.is3d),

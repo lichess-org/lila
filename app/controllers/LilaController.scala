@@ -405,7 +405,8 @@ private[controllers] trait LilaController
             blindMode = blindMode(ctx),
             hasFingerprint = hasFingerPrint,
             inquiry = inquiry,
-            nonce = nonce)
+            nonce = nonce,
+            clientPrefersDarkTheme = ctx.req.cookies.get("prefers-dark").map(_.value == "1"))
       }
     }
   }
