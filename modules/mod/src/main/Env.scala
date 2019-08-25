@@ -140,8 +140,10 @@ final class Env(
         reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
+      case lidraughts.hub.actorApi.mod.AutoWarning(userId, subject) =>
+        logApi.modMessage(User.lichessId, userId, subject)
     }
-  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban)
+  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban, 'autoWarning)
 }
 
 object Env {

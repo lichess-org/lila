@@ -78,6 +78,7 @@ package mod {
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
   case class SetPermissions(userId: String, permissions: List[String])
+  case class AutoWarning(userId: String, subject: String)
 }
 
 package playban {

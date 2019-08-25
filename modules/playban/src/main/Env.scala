@@ -24,7 +24,7 @@ final class Env(
 
   lazy val api = new PlaybanApi(
     coll = db(CollectionPlayban),
-    sandbag = new SandbagWatch(messenger),
+    sandbag = new SandbagWatch(messenger, bus),
     feedback = feedback,
     bus = bus,
     asyncCache = asyncCache,

@@ -8,7 +8,7 @@ import lidraughts.game.Game
 import lidraughts.message.{ MessageApi, ModPreset }
 import lidraughts.user.{ User, UserRepo }
 
-private final class SandbagWatch(messenger: MessageApi) {
+private final class SandbagWatch(messenger: MessageApi, bus: lidraughts.common.Bus) {
 
   import SandbagWatch._
 
@@ -28,6 +28,7 @@ private final class SandbagWatch(messenger: MessageApi) {
   } yield (mod zip user).headOption.?? {
     case (m, u) =>
       lidraughts.log("sandbag").info(s"https://lidraughts.org/@/${u.username}")
+      bus.publish(lidraughts.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sandbagAuto.subject), 'autoWarning)
       messenger.sendPreset(m, u, ModPreset.sandbagAuto).void
   }
 
