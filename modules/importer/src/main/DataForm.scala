@@ -12,12 +12,11 @@ import lidraughts.game._
 private[importer] final class DataForm {
 
   lazy val importForm = Form(mapping(
-    "pdn" -> nonEmptyText.verifying("invalidPdn", checkPdn _),
+    "pdn" -> nonEmptyText.verifying("invalidPdn", p => checkPdn(p).isSuccess),
     "analyse" -> optional(nonEmptyText)
   )(ImportData.apply)(ImportData.unapply))
 
-  private def checkPdn(pdn: String): Boolean =
-    ImportData(pdn, none).preprocess(none).isSuccess
+  def checkPdn(pdn: String): Valid[Preprocessed] = ImportData(pdn, none).preprocess(none)
 }
 
 private[importer] case class TagResult(status: Status, winner: Option[Color])

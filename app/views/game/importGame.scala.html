@@ -30,6 +30,12 @@ description = "When pasting a game PDN, you get a browsable replay, a computer a
       <textarea name="@field.name" id="@field.id">@field.value</textarea>
       @errMsg(field)
       }
+      @form("pdn").value.map { pdn =>
+      @lidraughts.importer.ImportData(pdn, none).preprocess(none).fold(
+      err => Html(s"""<div class="error">${err.toList mkString "\n"}</div>""").some,
+      _ => none
+      )
+      }
     </label>
     <p class="analyse">
       <span>

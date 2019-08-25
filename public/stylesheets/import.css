@@ -44,3 +44,12 @@
 #import_game form .wait {
   display: none;
 }
+
+#import_game form div.error {
+  display: block;
+  font-family: monospace;
+  font-size: 0.8rem;
+  white-space: pre-wrap;
+  margin: 1em 0 1.5em 0;
+  color: #c33;
+}
