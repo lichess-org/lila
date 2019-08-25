@@ -855,4 +855,9 @@
     <item quantity="one">und speichere %s Variante im Voraus</item>
     <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
+  <string name="sorry">Entschuldigung :-(</string>
+  <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer zeitweiligen Spielsperre belegt.</string>
+  <string name="timeoutExpires">Die Sperre endet in %s.</string>
+  <string name="why">Warum?</string>
+  <string name="pleasantChessExperience">Wir möchten allen eine möglichst gute Schach-Erfahrung bieten.</string>
 </resources>
