@@ -672,6 +672,8 @@
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
+  <string name="yourRating">Rating Anda</string>
+  <string name="cumulative">Kumulatif</string>
   <string name="checkYourEmail">Cek email mu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami telah mengirim Anda sebuah email. Buka link di dalam email untuk mengaktivasi akun Anda.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
