@@ -865,5 +865,7 @@ em %3$s</string>
   <string name="goodPractice">Para isso, precisamos assegurar que nossos jogadores sigam boas práticas.</string>
   <string name="potentialProblem">Quando um problema em potencial é detectado, nós mostramos esta mensagem.</string>
   <string name="howToAvoidThis">Como evitar isso?</string>
+  <string name="playEveryGame">Jogue todos os jogos que inicia.</string>
+  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos os jogos que jogar.</string>
   <string name="currentMatchScore">Pontuação da partida atual</string>
 </resources>
