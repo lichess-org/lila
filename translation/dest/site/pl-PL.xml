@@ -768,6 +768,9 @@
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
+  <string name="yourRating">Twój ranking</string>
+  <string name="cumulative">Łącznie</string>
+  <string name="glicko2Rating">Glicko-2 ranking</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
@@ -941,4 +944,5 @@
   <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
   <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
   <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
+  <string name="currentMatchScore">Wynik meczu</string>
 </resources>
