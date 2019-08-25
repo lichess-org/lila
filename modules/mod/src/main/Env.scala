@@ -141,7 +141,7 @@ final class Env(
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
       case lidraughts.hub.actorApi.mod.AutoWarning(userId, subject) =>
-        logApi.modMessage(User.lichessId, userId, subject)
+        logApi.modMessage(User.lidraughtsId, userId, subject)
     }
   }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban, 'autoWarning)
 }
