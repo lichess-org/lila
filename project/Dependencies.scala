@@ -28,7 +28,7 @@ object Dependencies {
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
   val jodaTime = "joda-time" % "joda-time" % "2.10.2"
-  val chess = "org.lichess" %% "scalachess" % "8.6.22"
+  val chess = "org.lichess" %% "scalachess" % "8.6.23"
   val compression = "org.lichess" %% "compression" % "1.4"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
   val prismic = "io.prismic" %% "scala-kit" % "1.2.13-THIB211"
