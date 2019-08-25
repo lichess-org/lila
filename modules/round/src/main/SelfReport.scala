@@ -60,7 +60,7 @@ final class SelfReport(
               lila.round.actorApi.round.Cheat(pov.color)
             )
           }
-          else lila.game.GameRepo.setBorderAlert(pov)
+          else lila.game.GameRepo.setBorderAlert(pov).void
         }
       }
     }

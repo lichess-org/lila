@@ -548,9 +548,6 @@ case class Game(
     chess = chess.copy(turns = 0, startedAtTurn = 0)
   )
 
-  def setHoldAlert(color: Color, ha: Player.HoldAlert) =
-    updatePlayer(color, p => p.copy(holdAlert = ha.some))
-
   lazy val opening: Option[FullOpening.AtPly] =
     if (fromPosition || !Variant.openingSensibleVariants(variant)) none
     else FullOpeningDB search pgnMoves

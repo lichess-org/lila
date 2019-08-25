@@ -19,7 +19,6 @@ case class Player(
     ratingDiff: Option[Int] = None,
     provisional: Boolean = false,
     blurs: Blurs = Blurs.blursZero.zero,
-    holdAlert: Option[Player.HoldAlert] = None,
     berserk: Boolean = false,
     name: Option[String] = None
 ) {
@@ -41,9 +40,6 @@ case class Player(
   }
 
   def wins = isWinner getOrElse false
-
-  def hasHoldAlert = holdAlert.isDefined
-  def hasSuspiciousHoldAlert = holdAlert ?? (_.suspicious)
 
   def goBerserk = copy(berserk = true)
 
@@ -117,8 +113,13 @@ object Player {
   }
 
   case class HoldAlert(ply: Int, mean: Int, sd: Int) {
-
-    def suspicious = ply >= 16 && ply <= 40
+    def suspicious = HoldAlert.suspicious(ply)
+  }
+  object HoldAlert {
+    type Map = Color.Map[Option[HoldAlert]]
+    val emptyMap: Map = Color.Map(none, none)
+    def suspicious(ply: Int): Boolean = ply >= 16 && ply <= 40
+    def suspicious(m: Map): Boolean = m exists { _ exists (_.suspicious) }
   }
 
   case class UserInfo(id: String, rating: Int, provisional: Boolean)
@@ -178,7 +179,6 @@ object Player {
       ratingDiff = r intO ratingDiff flatMap ratingDiffRange(userId),
       provisional = r boolD provisional,
       blurs = r.getO[Blurs.Bits](blursBits) orElse r.getO[Blurs.Nb](blursNb) getOrElse blursZero.zero,
-      holdAlert = r.getO[HoldAlert](holdAlert),
       berserk = r boolD berserk,
       name = r strO name
     )
@@ -194,7 +194,6 @@ object Player {
           ratingDiff -> p.ratingDiff,
           provisional -> w.boolO(p.provisional),
           blursBits -> (!p.blurs.isEmpty).option(BlursBSONWriter write p.blurs),
-          holdAlert -> p.holdAlert,
           name -> p.name
         )
       }

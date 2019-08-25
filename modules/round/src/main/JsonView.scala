@@ -47,7 +47,6 @@ final class JsonView(
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
   def playerJson(
@@ -139,7 +138,6 @@ final class JsonView(
       .add("provisional" -> p.provisional)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
   def watcherJson(
@@ -252,14 +250,6 @@ final class JsonView(
       blursWriter.writes(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
-
-  private def hold(player: lila.game.Player) = player.holdAlert map { h =>
-    Json.obj(
-      "ply" -> h.ply,
-      "mean" -> h.mean,
-      "sd" -> h.sd
-    )
-  }
 
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))
