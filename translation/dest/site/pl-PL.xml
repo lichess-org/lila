@@ -927,9 +927,15 @@
     <item quantity="many">i zapisz warianty warunkowe</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
-  <string name="sorry">Przepraszam :(</string>
+  <string name="sorry">Przykro nam :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
+  <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
   <string name="why">Dlaczego?</string>
   <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
   <string name="playEveryGame">Rozegraj każdą partię którą rozpocząłeś.</string>
   <string name="tryToWin">Próbuj wygrać (lub przynajmniej zremisować) każdą partię którą grasz.</string>
+  <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj aż upłynie Twój czas).</string>
+  <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
+  <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
+  <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
 </resources>
