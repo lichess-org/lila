@@ -862,7 +862,7 @@
   <string name="timeoutExpires">Die Sperre endet in %s.</string>
   <string name="why">Warum?</string>
   <string name="pleasantChessExperience">Wir möchten allen eine möglichst gute Schach-Erfahrung bieten.</string>
-  <string name="goodPractice">Um dies zu erreichen, stellen wir sicher, dass alle Spieler*innen sich korrekt verhalten.</string>
+  <string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler*innen korrekt verhalten.</string>
   <string name="potentialProblem">Wenn ein potenzielles Problem erkannt wird, zeigen wir diese Nachricht an.</string>
   <string name="howToAvoidThis">Wie verhindere ich das?</string>
   <string name="playEveryGame">Spiele jedes Spiel, das du startest.</string>
