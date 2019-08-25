@@ -97,12 +97,12 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])(x(50|[1-4][0-9]|0?[1-9]))*[\?!□⨀]{0,2}""".r
 
     def strMove: Parser[StrMove] = as("move") {
-      ((number | commentary)*) ~> 
-        (moveRegex ~ nagGlyphs ~ rep(commentary) ~ nagGlyphs ~ rep(variation)) <~ 
+      ((number | commentary)*) ~>
+        (moveRegex ~ nagGlyphs ~ rep(commentary) ~ nagGlyphs ~ rep(variation)) <~
         (moveExtras*) ^^ {
-          case san ~ glyphs ~ comments ~ glyphs2 ~ variations => 
+          case san ~ glyphs ~ comments ~ glyphs2 ~ variations =>
             StrMove(collapsedSan(san.trim()), glyphs merge glyphs2, cleanComments(comments), variations)
-      }
+        }
     }
 
     def collapsedSan(san: String) = {
