@@ -60,6 +60,9 @@
   <string name="makeMainLine">Bike rêza esasî</string>
   <string name="deleteFromHere">Ji vir pê de jê bibe</string>
   <string name="forceVariation">Zorê bide bo vê varyasyonê</string>
+  <string name="move">Pêngav</string>
+  <string name="variantLoss">Windakirina varyantê</string>
+  <string name="variantWin">Rêya serkeftinê</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
   <string name="mistakes">Çewtî</string>
