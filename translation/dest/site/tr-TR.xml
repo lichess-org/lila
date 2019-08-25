@@ -856,6 +856,7 @@
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
   <string name="sorry">Üzgünüz :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Seni bir molaya almak zorunda kaldık.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, tüm oyuncuların iyi uygulamaları takip etmesini sağlamalıyız.</string>
