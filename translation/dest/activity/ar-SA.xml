@@ -5,7 +5,7 @@
   <plurals name="practicedNbPositions">
     <item quantity="zero">تم التدريب %1$s موقف على %2$s</item>
     <item quantity="one">تم التدريب %1$s موقف على %2$s</item>
-    <item quantity="two">تم التدريب %1$s موقفان على %2$s</item>
+    <item quantity="two">تم التدريب %1$s من المواقف على %2$s</item>
     <item quantity="few">تم التدريب عدد %1$s مواقف على %2$s</item>
     <item quantity="many">تم التدريب عدد %1$s مواقف على %2$s</item>
     <item quantity="other">تم التدريب عدد %1$s مواقف على %2$s</item>
