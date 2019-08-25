@@ -768,6 +768,9 @@
   <string name="yourPerfTypeRatingIsRating">Ваш рейтинг в %1$s — %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
+  <string name="yourRating">Ваш рейтинг</string>
+  <string name="cumulative">Суммарно</string>
+  <string name="glicko2Rating">Рейтинг Глико-2</string>
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
@@ -939,4 +942,8 @@
   <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою игру.</string>
   <string name="resignLostGames">Сдавайтесь в безнадёжной игре (а не ждите, когда упадёт ваш флажок).</string>
   <string name="temporaryInconvenience">Мы сожалеем о причинённых вам временных неудобствах,</string>
+  <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
+  <string name="thankYouForReading">Спасибо за внимание!</string>
+  <string name="lifetimeScore">Счёт за всё время</string>
+  <string name="currentMatchScore">Счёт в текущем матче</string>
 </resources>
