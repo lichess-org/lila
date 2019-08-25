@@ -931,6 +931,9 @@
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
   <string name="why">Dlaczego?</string>
+  <string name="pleasantChessExperience">Naszym celem jest zapewnienie wszystkim przyjemności z gry.</string>
+  <string name="goodPractice">W tym celu musimy zagwarantować, że wszyscy gracze przestrzegają dobrych praktyk.</string>
+  <string name="potentialProblem">Po wykryciu potencjalnego problemu wyświetlamy ten właśnie komunikat.</string>
   <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
   <string name="playEveryGame">Rozegraj każdą partię którą rozpocząłeś.</string>
   <string name="tryToWin">Próbuj wygrać (lub przynajmniej zremisować) każdą partię którą grasz.</string>
