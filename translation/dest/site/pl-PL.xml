@@ -944,5 +944,6 @@
   <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
   <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
   <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
-  <string name="currentMatchScore">Wynik meczu</string>
+  <string name="lifetimeScore">Wynik wszystkich partii</string>
+  <string name="currentMatchScore">Wynik bieżącego meczu</string>
 </resources>
