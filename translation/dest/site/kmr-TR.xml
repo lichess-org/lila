@@ -45,7 +45,8 @@
   <string name="theComputerAnalysisHasFailed">Analîza kombersê bi ser neket</string>
   <string name="viewTheComputerAnalysis">Analîzên kombersê bibîne</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
-  <string name="computerAnalysis">Analîza kompîtûr</string>
+  <string name="computerAnalysis">Analîzên kompîtûrê</string>
+  <string name="computerAnalysisAvailable">Analîzên kombersê hazir in</string>
   <string name="cloudAnalysis">Analîza onlîne</string>
   <string name="goDeeper">Kûrtir analîz bike</string>
   <string name="showThreat">Tehdîdan nîşan bide</string>
