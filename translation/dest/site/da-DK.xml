@@ -868,4 +868,8 @@
   <string name="howToAvoidThis">Hvordan undgås dette?</string>
   <string name="playEveryGame">Spil alle partier du starter.</string>
   <string name="tryToWin">Forsøg at vinde (eller i det mindre opnå remis) alle partier du spiller.</string>
+  <string name="resignLostGames">Kapituler ved tabende position (lad ikke tiden løbe ud).</string>
+  <string name="temporaryInconvenience">Vi undskylder for den midlertidige ulejlighed,</string>
+  <string name="wishYouGreatGames">og ønsker dig gode kampe på lichess.org.</string>
+  <string name="thankYouForReading">Tak for at læse!</string>
 </resources>
