@@ -35,10 +35,15 @@
   <string name="makeYourOpponentResign">Reqîbê xwe bide vekişîn</string>
   <string name="forceResignation">Serkeftinê daxwaz bike</string>
   <string name="forceDraw">Vexwîne bo wekheviyê</string>
-  <string name="talkInChat">Ji kerema xwe bi kibar bin di axaftinê de!</string>
+  <string name="talkInChat">Ji kerema xwe kibar bin di axaftinê de!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Kesê/a ewil yê ku xwe gihand vê URLyê wê bibe reqîbê/a te.</string>
   <string name="whiteResigned">Spî vekişiya</string>
   <string name="blackResigned">Reş vekişiya</string>
-  <string name="viewTheComputerAnalysis">Analîza kompîtûrê bibîne</string>
+  <string name="whiteLeftTheGame">Spî dev ji lîstikê berda</string>
+  <string name="blackLeftTheGame">Reş dev ji lîstikê berda</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">Vê URLyê parve bike da ku teşamervan karibin lîstikê temaşe bikin</string>
+  <string name="theComputerAnalysisHasFailed">Analîza kombersê bi ser neket</string>
+  <string name="viewTheComputerAnalysis">Analîzên kombersê bibîne</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
   <string name="computerAnalysis">Analîza kompîtûr</string>
   <string name="cloudAnalysis">Analîza onlîne</string>
