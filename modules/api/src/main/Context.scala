@@ -68,6 +68,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def currentSoundSet = lila.pref.SoundSet(pref.soundSet)
 
   lazy val currentBg = if (pref.transp) "transp" else if (pref.dark.getOrElse(clientPrefersDarkTheme)) "dark" else "light"
+  lazy val explicitBgPref = pref.transp || pref.dark.isDefined
 
   def transpBgImg = currentBg == "transp" option pref.bgImgOrDefault
 

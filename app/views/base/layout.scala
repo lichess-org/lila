@@ -149,7 +149,8 @@ object layout {
           "kid" -> ctx.kid,
           "mobile" -> ctx.isMobileBrowser,
           "playing fixed-scroll" -> playing,
-          "coords-out" -> (ctx.pref.coords == Pref.Coords.OUTSIDE)
+          "coords-out" -> (ctx.pref.coords == Pref.Coords.OUTSIDE),
+          "explicit-bg-pref" -> ctx.explicitBgPref
         ),
         dataDev := (!isProd).option("true"),
         dataVapid := usesServiceWorker option vapidPublicKey,

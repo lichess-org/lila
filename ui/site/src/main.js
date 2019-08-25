@@ -833,12 +833,20 @@
     var prefersColorSchemeDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     if (prefersColorSchemeDark) {
       document.cookie = "prefers-dark=1;path=/;max-age=1209600";
-      if (!prefersDarkCookieAlreadySet && !document.body.classList.contains("dark")) {
-        window.lichess.reload();
-        // Either the user did not set an explicit preference on Lichess, and the reload
-        // then switches the background from light to dark. Or the user did set the explicit
-        // preference for the light theme and then the reload won't change anything, but the
-        // client-side code doesn't know if the preference was explicitly set or not.
+      if (!prefersDarkCookieAlreadySet &&
+          !document.body.classList.contains("dark") &&
+          !document.body.classList.contains("explicit-bg-pref")) {
+        // light --> dark
+        $('body').removeClass('light').addClass('dark');
+        $('body').data('theme', 'dark');
+        $('link[href*=".light."]').each(function(this) {
+          var link = document.createElement('link');
+          link.type = 'text/css';
+          link.rel = 'stylesheet';
+          link.href = $(this).attr('href').replace('.light.', '.dark.');
+          document.head.appendChild(link);
+          this.remove();
+        });
       }
     } else {
       document.cookie = "prefers-dark=0;path=/;max-age=1209600";
