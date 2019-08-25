@@ -27,6 +27,15 @@ object importGame {
         p(cls := "explanation")(trans.importGameExplanation()),
         postForm(cls := "form3 import", action := routes.Importer.sendGame())(
           form3.group(form("pgn"), trans.pasteThePgnStringHere())(form3.textarea(_)()),
+          form("pgn").value flatMap { pgn =>
+            lila.importer.ImportData(pgn, none).preprocess(none).fold(
+              err => frag(
+                pre(cls := "error")(err.toList mkString "\n"),
+                br, br
+              ).some,
+              _ => none
+            )
+          },
           form3.group(form("pgnFile"), raw("Or upload a PGN file"), klass = "upload") { f =>
             form3.file.pgn(f.name)
           },
