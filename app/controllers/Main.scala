@@ -151,8 +151,8 @@ Disallow: /games/export
     Ok(html.site.faq()).fuccess
   }
 
-  def legacyQa = Open { implicit ctx =>
-    MovedPermanently(routes.Main.faq.url).fuccess
+  def movedPermanently(to: String) = Action {
+    MovedPermanently(to)
   }
 
   def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>

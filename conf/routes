@@ -585,7 +585,7 @@ GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
-GET   /qa                              controllers.Main.legacyQa
+GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
 GET   /how-to-cheat                    controllers.Page.howToCheat
 
@@ -600,6 +600,8 @@ GET   /help/master                     controllers.Page.master
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
+
+GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
 
 # Assets
 GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: String, file: String)
