@@ -819,4 +819,9 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">dan simpan %s baris pra-langkah</item>
   </plurals>
+  <string name="sorry">Maaf :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
+  <string name="timeoutExpires">Batas waktu berakhir %s lagi.</string>
+  <string name="why">Mengapa?</string>
+  <string name="pleasantChessExperience">Kami bertujuan dan menjaga untuk memberikan pengalaman catur yang menyenangkan bagi semua orang.</string>
 </resources>
