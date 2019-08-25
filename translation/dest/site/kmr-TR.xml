@@ -18,10 +18,10 @@
   <string name="stalemate">Wekhevî</string>
   <string name="white">Spî</string>
   <string name="black">Reş</string>
-  <string name="randomColor">Aliyekî ket û ber</string>
+  <string name="randomColor">Aliyeke ketober</string>
   <string name="createAGame">Lîstikek çêke</string>
-  <string name="whiteIsVictorious">Spî bi ser ket</string>
-  <string name="blackIsVictorious">Reş bi ser ket</string>
+  <string name="whiteIsVictorious">Ya spî bi ser ket</string>
+  <string name="blackIsVictorious">Ya reş bi ser ket</string>
   <string name="raceFinished">Pêşbazî qediya</string>
   <string name="newOpponent">Reqîbek nû</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Reqîbê/a te dixwaze dîsa bileyze</string>
