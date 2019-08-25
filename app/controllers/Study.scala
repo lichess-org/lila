@@ -274,10 +274,12 @@ object Study extends LilaController {
 
   def importPgn(id: String) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.study.DataForm.importPgn.form.bindFromRequest.fold(
-      jsonFormError,
-      data => env.api.importPgns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
-    )
+    get("sri") ?? { sri =>
+      lila.study.DataForm.importPgn.form.bindFromRequest.fold(
+        jsonFormError,
+        data => env.api.importPgns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky, lila.socket.Socket.Sri(sri))
+      )
+    }
   }
 
   def embed(id: String, chapterId: String) = Action.async { implicit req =>

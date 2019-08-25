@@ -44,10 +44,10 @@ export function practiceComplete(chapterId: string, nbMoves: number) {
   });
 }
 
-export function importPgn(studyId: string, data: any) {
+export function importPgn(studyId: string, data: any, sri: string) {
   return $.ajax({
     method: 'POST',
-    url: `/study/${studyId}/import-pgn`,
+    url: `/study/${studyId}/import-pgn?sri=${sri}`,
     data: data,
     headers
   });

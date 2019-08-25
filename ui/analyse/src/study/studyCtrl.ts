@@ -409,6 +409,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
     },
+    validationError(d) {
+      alert(d.error);
+    },
     setComment(d) {
       const position = d.p,
         who = d.w;
@@ -597,6 +600,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         return true;
       }
       return !!relay && relay.socketHandler(t, d);
-    }
+    },
+    sri
   };
 };

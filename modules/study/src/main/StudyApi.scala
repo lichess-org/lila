@@ -500,15 +500,19 @@ final class StudyApi(
                 _.filter(_.isEmptyInitial) ?? chapterRepo.delete
               }
             } >> doAddChapter(study, chapter, sticky, sri)
+          } addFailureEffect {
+            case ChapterMaker.ValidationException(error) =>
+              sendTo(study, StudySocket.ValidationError(sri, error))
+            case u => println(u)
           }
         }
       }
     }
   }
 
-  def importPgns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean) =
+  def importPgns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean, sri: Sri) =
     lila.common.Future.applySequentially(datas) { data =>
-      addChapter(byUser.id, studyId, data, sticky, sri = Sri(""))
+      addChapter(byUser.id, studyId, data, sticky, sri)
     }
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, sri: Sri) =

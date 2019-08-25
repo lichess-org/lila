@@ -22,7 +22,7 @@ private final class ChapterMaker(
   def apply(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.game.??(parseGame) flatMap {
       case None =>
-        data.game.??(pgnFetch.fromUrl) flatMap {
+        data.game ?? pgnFetch.fromUrl flatMap {
           case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
           case _ => fromFenOrPgnOrBlank(study, data, order, userId)
         }
@@ -37,31 +37,31 @@ private final class ChapterMaker(
       case None => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
-    lightUser.asyncMany(study.members.contributorIds.toList) map { contributors =>
-      PgnImport(pgn, contributors.flatten).toOption.fold(fromFenOrBlank(study, data, order, userId)) { res =>
-        Chapter.make(
-          studyId = study.id,
-          name = (for {
-            white <- res.tags(_.White)
-            black <- res.tags(_.Black)
-            if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
-          } yield Chapter.Name(s"$white - $black")) | data.name,
-          setup = Chapter.Setup(
-            none,
-            res.variant,
-            data.realOrientation
-          ),
-          root = res.root,
-          tags = res.tags,
-          order = order,
-          ownerId = userId,
-          practice = data.isPractice,
-          gamebook = data.isGamebook,
-          conceal = data.isConceal option Chapter.Ply(res.root.ply)
-        )
-      }
+  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] = for {
+    contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
+    parsed <- PgnImport(pgn, contributors.flatten).future recoverWith {
+      case e: Exception => fufail(ValidationException(e.getMessage))
     }
+  } yield Chapter.make(
+    studyId = study.id,
+    name = (for {
+      white <- parsed.tags(_.White)
+      black <- parsed.tags(_.Black)
+      if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+    } yield Chapter.Name(s"$white - $black")) | data.name,
+    setup = Chapter.Setup(
+      none,
+      parsed.variant,
+      data.realOrientation
+    ),
+    root = parsed.root,
+    tags = parsed.tags,
+    order = order,
+    ownerId = userId,
+    practice = data.isPractice,
+    gamebook = data.isGamebook,
+    conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
+  )
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
@@ -165,6 +165,8 @@ private final class ChapterMaker(
 }
 
 private[study] object ChapterMaker {
+
+  case class ValidationException(message: String) extends lila.base.LilaException
 
   sealed trait Mode {
     def key = toString.toLowerCase
