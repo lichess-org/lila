@@ -51,7 +51,7 @@
   <string name="depthX">Kûrahî %s</string>
   <string name="usingServerAnalysis">Bikaranîna analîza rajekarê</string>
   <string name="loadingEngine">Motor tê barkirin ...</string>
-  <string name="cloudAnalysis">Analîza onlîne</string>
+  <string name="cloudAnalysis">Analîza ewrê</string>
   <string name="goDeeper">Kûrtir analîz bike</string>
   <string name="showThreat">Tehdîdan nîşan bide</string>
   <string name="inLocalBrowser">li geroka xwecihî</string>
