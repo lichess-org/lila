@@ -58,10 +58,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Все синхронизированные участники остаются на той же позиции</string>
   <string name="shareChanges">Поделиться изменениями со зрителями и сохранить их на сервере</string>
   <string name="playing">Активные</string>
-  <string name="first">Первый</string>
-  <string name="previous">Предыдущий</string>
-  <string name="next">Следующий</string>
-  <string name="last">Последний</string>
+  <string name="first">Первая</string>
+  <string name="previous">Предыдущая</string>
+  <string name="next">Следующая</string>
+  <string name="last">Последняя</string>
   <string name="shareAndExport">Поделиться и экспортировать</string>
   <string name="cloneStudy">Клонировать</string>
   <string name="studyPgn">PGN студии</string>
@@ -69,7 +69,7 @@
   <string name="studyUrl">Ссылка на студию</string>
   <string name="currentChapterUrl">Ссылка на эту главу</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Скопируйте эту ссылку в форум, чтобы встроить главу</string>
-  <string name="startAtInitialPosition">Начать с начальной позиции</string>
+  <string name="startAtInitialPosition">Открыть в начальной позиции</string>
   <string name="startAtX">Начать с %s</string>
   <string name="embedThisChapter">Встроить эту главу на свой сайт или в блог</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Подробнее о встраивании глав студии</string>
@@ -114,4 +114,22 @@
   <string name="editStudy">Изменить студию</string>
   <string name="visibility">Видимость</string>
   <string name="public">Публичная</string>
+  <string name="unlisted">Непубличная</string>
+  <string name="inviteOnly">Только по приглашению</string>
+  <string name="allowCloning">Разрешить клонирование</string>
+  <string name="nobody">Никто</string>
+  <string name="onlyMe">Только я</string>
+  <string name="contributors">Соавторы</string>
+  <string name="members">Участники</string>
+  <string name="everyone">Все</string>
+  <string name="enableSync">Включить синхронизацию</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Да: устанавливать всем одинаковую позицию</string>
+  <string name="noLetPeopleBrowseFreely">Нет: позволить участникам свободно изучать все позиции</string>
+  <string name="pinnedStudyComment">Закреплённый комментарий студии</string>
+  <string name="start">Начать</string>
+  <string name="save">Сохранить</string>
+  <string name="clearChat">Очистить чат</string>
+  <string name="deleteTheStudyChatHistory">Удалить чат студии? Восстановить будет невозможно!</string>
+  <string name="deleteStudy">Удалить студию</string>
+  <string name="deleteTheEntireStudy">Удалить студию целиком? Восстановить будет невозможно!</string>
 </resources>
