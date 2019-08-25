@@ -824,4 +824,8 @@
   <string name="timeoutExpires">Batas waktu berakhir %s lagi.</string>
   <string name="why">Mengapa?</string>
   <string name="pleasantChessExperience">Kami bertujuan dan menjaga untuk memberikan pengalaman catur yang menyenangkan bagi semua orang.</string>
+  <string name="goodPractice">Untuk itu, kami harus memastikan bahwa semua pemain harus mengikuti perlakuan yang baik.</string>
+  <string name="potentialProblem">Ketika potensi menimbulkan masalah terdeteksi, kami menampilkan pesan ini.</string>
+  <string name="howToAvoidThis">Bagaimana cara untuk menghindari ini?</string>
+  <string name="playEveryGame">Mainkan setiap permainan yang kamu mulai.</string>
 </resources>
