@@ -50,7 +50,7 @@
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
-  <string name="loadingEngine">Wczytywanie analizatora…</string>
+  <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
