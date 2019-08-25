@@ -29,7 +29,10 @@ object importGame {
           form3.group(form("pdn"), trans.pasteThePdnStringHere())(form3.textarea(_)()),
           form("pdn").value.flatMap { pdn =>
             lidraughts.importer.ImportData(pdn, none).preprocess(none).fold(
-              err => div(cls := "error")(err.toList mkString "\n").some,
+              err => frag(
+                pre(cls := "error")(err.toList mkString "\n"),
+                br, br
+              ).some,
               _ => none
             )
           },
