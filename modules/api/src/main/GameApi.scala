@@ -220,13 +220,6 @@ private[api] final class GameApi(
         .add("provisional" -> p.provisional)
         .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
         .add("blurs" -> withFlags.blurs.option(p.blurs.nb))
-        .add("hold" -> p.holdAlert.ifTrue(withFlags.hold).map { h =>
-          Json.obj(
-            "ply" -> h.ply,
-            "mean" -> h.mean,
-            "sd" -> h.sd
-          )
-        })
         .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
     }),
     "analysis" -> analysisOption.ifTrue(withFlags.analysis).map(analysisJson.moves(_)),
@@ -255,13 +248,11 @@ object GameApi {
       opening: Boolean = false,
       moveTimes: Boolean = false,
       blurs: Boolean = false,
-      hold: Boolean = false,
       token: Option[String] = none
   ) {
 
     def applyToken(validToken: String) = copy(
-      blurs = token has validToken,
-      hold = token has validToken
+      blurs = token has validToken
     )
   }
 }

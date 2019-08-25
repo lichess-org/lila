@@ -232,12 +232,42 @@ object GameRepo {
     coll.update($id(id), $inc(F.bookmarks -> value)).void
 
   def setHoldAlert(pov: Pov, alert: Player.HoldAlert) = coll.updateField(
-    $id(pov.gameId),
-    s"p${pov.color.fold(0, 1)}.${Player.BSONFields.holdAlert}",
-    alert
-  ).void
+    $id(pov.gameId), holdAlertField(pov.color), alert
+  )
 
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
+
+  def holdAlerts(game: Game): Fu[Player.HoldAlert.Map] =
+    coll.uno[Bdoc](
+      $doc(
+        F.id -> game.id,
+        $or(
+          holdAlertField(draughts.White) $exists true,
+          holdAlertField(draughts.Black) $exists true
+        )
+      ),
+      $doc(
+        F.id -> false,
+        holdAlertField(draughts.White) -> true,
+        holdAlertField(draughts.Black) -> true
+      )
+    ) map {
+        _.fold(Player.HoldAlert.emptyMap) { doc =>
+          def holdAlertOf(playerField: String) =
+            doc.getAs[Bdoc](playerField).flatMap(_.getAs[Player.HoldAlert](Player.BSONFields.holdAlert))
+          Color.Map(
+            white = holdAlertOf("p0"),
+            black = holdAlertOf("p1")
+          )
+        }
+      }
+
+  def hasHoldAlert(pov: Pov): Fu[Boolean] = coll.exists($doc(
+    $id(pov.gameId),
+    holdAlertField(pov.color) $exists true
+  ))
+
+  private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${Player.BSONFields.holdAlert}"
 
   private val finishUnsets = $doc(
     F.playingUids -> true,

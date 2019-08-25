@@ -34,7 +34,7 @@ final class SelfReport(roundMap: DuctMap[RoundDuct], proxyPov: String => Fu[Opti
               lidraughts.round.actorApi.round.Cheat(pov.color)
             )
           }
-          else lidraughts.game.GameRepo.setBorderAlert(pov)
+          else lidraughts.game.GameRepo.setBorderAlert(pov).void
         }
       }
     }

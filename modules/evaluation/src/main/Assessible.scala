@@ -2,10 +2,10 @@ package lidraughts.evaluation
 
 import draughts.{ Color, Speed }
 import lidraughts.analyse.{ Accuracy, Analysis }
-import lidraughts.game.{ Game, Pov }
+import lidraughts.game.{ Game, Pov, Player }
 import org.joda.time.DateTime
 
-case class Analysed(game: Game, analysis: Analysis)
+case class Analysed(game: Game, analysis: Analysis, holdAlerts: Player.HoldAlert.Map)
 
 case class Assessible(analysed: Analysed, color: Color) {
   import Statistics._
@@ -32,7 +32,7 @@ case class Assessible(analysed: Analysed, color: Color) {
     game.playerBlurPercent(color) > 70
 
   lazy val suspiciousHoldAlert: Boolean =
-    game.player(color).hasSuspiciousHoldAlert
+    analysed.holdAlerts(color).exists(_.suspicious)
 
   lazy val highestChunkBlurs: Int =
     game.player(color).blurs match {
@@ -113,7 +113,6 @@ case class Assessible(analysed: Analysed, color: Color) {
   lazy val mtAvg: Int = listAverage(~game.moveTimes(color) map (_.roundTenths)).toInt
   lazy val mtSd: Int = listDeviation(~game.moveTimes(color) map (_.roundTenths)).toInt
   lazy val blurs: Int = game.playerBlurPercent(color)
-  lazy val hold: Boolean = game.player(color).hasSuspiciousHoldAlert
 
   def playerAssessment: PlayerAssessment =
     PlayerAssessment(
@@ -130,7 +129,7 @@ case class Assessible(analysed: Analysed, color: Color) {
       mtAvg = mtAvg,
       mtSd = mtSd,
       blurs = blurs,
-      hold = hold,
+      hold = suspiciousHoldAlert,
       blurStreak = highestChunkBlurs.some.filter(0 <),
       mtStreak = highlyConsistentMoveTimeStreaks.some.filter(identity)
     )

@@ -163,15 +163,13 @@ private[round] final class RoundDuct(
     }
 
     case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
-      !pov.player.hasHoldAlert ?? {
-        lidraughts.log("cheat").info(s"hold alert $ip https://lidraughts.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-        lidraughts.mon.cheat.holdAlert()
-        val alert = GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)
-        proxy.persistAndSet(
-          _.setHoldAlert(pov, alert),
-          _.setHoldAlert(pov.color, alert)
-        ) inject List.empty[Event]
-      }
+      lidraughts.game.GameRepo hasHoldAlert pov flatMap {
+        case true => funit
+        case false =>
+          lidraughts.log("cheat").info(s"hold alert $ip https://lidraughts.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+          lidraughts.mon.cheat.holdAlert()
+          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
+      } inject Nil
     }
 
     case RematchYes(playerRef) => handle(playerRef)(rematcher.yes)

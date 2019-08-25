@@ -9,7 +9,7 @@ import draughts.variant.Variant
 import lidraughts.analyse.Accuracy
 import lidraughts.common.Debouncer
 import lidraughts.evaluation.{ Analysed, Assessible, PlayerAssessments }
-import lidraughts.game.{ Game, GameRepo, PerfPicker }
+import lidraughts.game.{ Game, GameRepo, PerfPicker, Player }
 import lidraughts.game.actorApi.SimulNextGame
 import lidraughts.hub.actorApi.lobby.ReloadSimuls
 import lidraughts.hub.actorApi.map.Tell
@@ -54,7 +54,7 @@ final class SimulApi(
     GameRepo game gameId flatMap {
       case Some(game) =>
         lidraughts.draughtsnet.Env.current.analyser.fromCache(game, true) map { analysis =>
-          val analysed = Analysed(game, analysis)
+          val analysed = Analysed(game, analysis, Player.HoldAlert.emptyMap)
           val assessWhite = Assessible(analysed, draughts.Color.White).playerAssessment
           val assessBlack = Assessible(analysed, draughts.Color.Black).playerAssessment
           PlayerAssessments(assessWhite.some, assessBlack.some).some

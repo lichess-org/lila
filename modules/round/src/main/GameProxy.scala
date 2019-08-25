@@ -24,12 +24,6 @@ private final class GameProxy(
     else fuccess(scheduleFlushProgress)
   }
 
-  // update both the cache and the DB
-  def persistAndSet(p: GameRepo.type => Funit, s: Game => Game): Funit =
-    game.map {
-      _ ?? { g => set(s(g)) }
-    } >> p(GameRepo)
-
   def persist(f: GameRepo.type => Funit): Funit = f(GameRepo)
 
   def set(game: Game): Unit = {
