@@ -855,4 +855,6 @@
     <item quantity="one">ve %s önceki varyantları kaydedin</item>
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
+  <string name="sorry">Üzgünüz :(</string>
+  <string name="howToAvoidThis">Bunu nasıl engelleyebilirsin?</string>
 </resources>
