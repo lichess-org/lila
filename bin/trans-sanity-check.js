@@ -3,7 +3,7 @@ const parseString = require('xml2js').parseString;
 
 const baseDir = 'translation/source';
 const destDir = 'translation/dest';
-const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates'];
+const dbs = ['site', 'arena', 'emails', 'learn', 'activity', 'coordinates', 'study'];
 
 function printError(level, file, error) {
     console.log(`${level.toUpperCase()} ${file} ${error}`);
@@ -15,7 +15,7 @@ function printTransError(level, r, orig, tran, db, e, filename) {
 }
 
 function checkAgainstRegexes(orig, tran, db, e, filename) {
-  const warnings = [/lichess/i, /lichess\.org/i, /O-O/, /O-O-O/];
+  const warnings = [/lichess/i, /lichess\.org/i, /O-O/, /O-O-O/, /SAN/, /FEN/, /PGN/];
   const errors = [/%s/, /%\d\$s/];
   warnings.forEach(r => printTransError('warning', r, orig, tran, db, e, filename));
   errors.forEach(r => printTransError('error', r, orig, tran, db, e, filename));
