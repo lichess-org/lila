@@ -48,6 +48,9 @@
   <string name="computerAnalysis">Analîzên kompîtûrê</string>
   <string name="computerAnalysisAvailable">Analîzên kombersê hazir in</string>
   <string name="analysis">Texteya analîzan</string>
+  <string name="depthX">Kûrahî %s</string>
+  <string name="usingServerAnalysis">Bikaranîna analîza rajekarê</string>
+  <string name="loadingEngine">Motor tê barkirin ...</string>
   <string name="cloudAnalysis">Analîza onlîne</string>
   <string name="goDeeper">Kûrtir analîz bike</string>
   <string name="showThreat">Tehdîdan nîşan bide</string>
