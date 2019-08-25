@@ -11,7 +11,7 @@
   <string name="allStudies">Wszystkie opracowania</string>
   <string name="studiesCreatedByX">Opracowanie stworzone przez %s</string>
   <string name="noneYet">Jeszcze brak.</string>
-  <string name="hot">Popularne</string>
+  <string name="hot">Hity</string>
   <string name="dateAddedNewest">Data dodania (od najnowszych)</string>
   <string name="dateAddedOldest">Data dodania (od najstarszych)</string>
   <string name="recentlyUpdated">Ostatnio aktualizowane</string>
