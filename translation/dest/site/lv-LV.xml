@@ -736,6 +736,8 @@
   <string name="yourPerfTypeRatingIsRating">Jūsu %1$s reitings ir %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Esat labāks par %1$s no %2$s spēlētājiem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jums vēl nav stabila %s reitinga.</string>
+  <string name="yourRating">Jūsu reitings</string>
+  <string name="glicko2Rating">\"Glicko-2\" reitings</string>
   <string name="checkYourEmail">Pārbaudiet e-pastu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Esam jums aizsūtījuši e-pastu. Klikšķiniet uz saņemtās saites, lai aktivizētu savu kontu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevarat atrast e-pastu, pārbaudiet citas vietas, kur tas varētu būt, piemēram, mēstulēs, atkritnē, sociālo tīklu sadaļā vai citās mapēs.</string>
