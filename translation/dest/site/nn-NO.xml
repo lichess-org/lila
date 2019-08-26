@@ -866,4 +866,9 @@ i %3$s</string>
   <string name="why">Kvifor?</string>
   <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spelarar følgjer god praksis.</string>
+  <string name="potentialProblem">Når eit potensielt problem blir oppdaga syner vi denne meldinga.</string>
+  <string name="howToAvoidThis">Korleis unngå dette?</string>
+  <string name="playEveryGame">Spel alle parti du startar.</string>
+  <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle parti du spelar.</string>
+  <string name="resignLostGames">Resigner ved tapte stillingar (ikkje la tida renne ut).</string>
 </resources>
