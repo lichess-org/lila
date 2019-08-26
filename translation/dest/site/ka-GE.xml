@@ -75,10 +75,6 @@
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
   <string name="masterDbExplanation">ორი მილიონი პარტია ფიდე %1$s+ მოთამაშეებს შორის %2$s-დან %3$s-მდე</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="one">შამათი 1 სვლაში</item>
-    <item quantity="other">შამათი 2 სვლაში</item>
-  </plurals>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
   <string name="openingExplorer">დებიუტების გზამკვლევი</string>
   <string name="xOpeningExplorer">%sდებიუტების გზამკვლევი</string>
@@ -236,10 +232,6 @@
   <plurals name="nbDraws">
     <item quantity="one">%s ფრე</item>
     <item quantity="other">%s ფრე</item>
-  </plurals>
-  <plurals name="nbPlaying">
-    <item quantity="one">მიმდინარე</item>
-    <item quantity="other">მიმდინარე</item>
   </plurals>
   <string name="exportGames">თამაშის ექსპორტი</string>
   <string name="ratingRange">ელო რეიტინგი</string>
@@ -412,7 +404,6 @@
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
   <string name="profileCompletion">პროფილის შევსება: %s</string>
-  <string name="xRating">რეიტინგი</string>
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
