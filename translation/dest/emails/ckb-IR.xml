@@ -7,4 +7,5 @@
   <string name="passwordReset_subject">ووشەی نهێنی هەژماری lichess.org رێک بخەوە %s</string>
   <string name="passwordReset_intro">داواکارییەکمان پێگەیش بۆ ئەوەی ووشەی تێپەڕی هەژمارەکەت رێکبخەین.</string>
   <string name="passwordReset_clickOrIgnore">ئەگەر ئەم داواکارییەت کردووە ئەوا کلیک لەم لینکەی خوارەوە بکە, ئەگەر نا ئەم ئیمێلە پشتگوێ بخە.</string>
+  <string name="emailChange_subject">ئیمێلە نوێیەکەت بسەلمێنە %s</string>
 </resources>
