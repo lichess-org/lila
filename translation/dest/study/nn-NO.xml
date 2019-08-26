@@ -79,4 +79,11 @@
   <string name="clearAnnotations">Fjern notat</string>
   <string name="deleteChapter">Slett kapittel</string>
   <string name="deleteThisChapter">Slette dette kapittelet? Avgjerda er endeleg og kan ikkje angrast!</string>
+  <string name="clearAllCommentsInThisChapter">Fjern alle kommentarar og figurar i dette kapittelet?</string>
+  <string name="rightUnderTheBoard">Rett under brettet</string>
+  <string name="noPinnedComment">Ingen</string>
+  <string name="normalAnalysis">Normal analyse</string>
+  <string name="hideNextMoves">Skjul neste trekk</string>
+  <string name="interactiveLesson">Interaktiv leksjon</string>
+  <string name="chapterX">Kapittel %s</string>
 </resources>
