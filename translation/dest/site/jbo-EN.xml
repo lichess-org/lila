@@ -215,7 +215,6 @@
   <plurals name="moreThanNbRatedGames">
     <item quantity="other">su\'o %s nunjvi je ke nilcre cnegau</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">lo nilcre be do cu tolsatci</string>
   <string name="mustBeInTeam">.i sarcu fa lo nu cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="youAreNotInTeam">.i do na cmima la\'o zoi. %s .zoi noi bende</string>
   <string name="backToGame">xruti tu\'a lo nunjvi</string>
@@ -542,7 +541,7 @@
   <string name="quickPairing">selsutra jivna</string>
   <string name="lobby">lo depstu</string>
   <string name="anonymous">cmecau</string>
-  <string name="yourScore">veljvilai do fa li %S</string>
+  <string name="yourScore">veljvilai do fa li %s</string>
   <string name="language">lo bangu</string>
   <string name="background">lo vinti\'e</string>
   <string name="light">tolmanku</string>
