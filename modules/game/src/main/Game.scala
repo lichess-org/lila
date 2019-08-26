@@ -25,7 +25,6 @@ case class Game(
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
-    next: Option[Game.ID] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
@@ -788,7 +787,6 @@ object Game {
     val rated = "ra"
     val analysed = "an"
     val variant = "v"
-    val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
     val movedAt = "ua" // ua = updatedAt (bc)
