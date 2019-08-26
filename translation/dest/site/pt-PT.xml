@@ -859,6 +859,9 @@
   <string name="weHadToTimeYouOutForAWhile">Tivemos que o banir por um tempo.</string>
   <string name="timeoutExpires">O tempo expira %s.</string>
   <string name="why">Porquê?</string>
+  <string name="pleasantChessExperience">O nosso objectivo é proporcionar uma experiência agradável de xadrez a todos os jogadores.</string>
+  <string name="goodPractice">Para isso, temos de assegurar que todos os jogadores seguem boas práticas.</string>
+  <string name="potentialProblem">Quando um potencial problema é detectado exibimos esta mensagem.</string>
   <string name="howToAvoidThis">Como evitar isto?</string>
   <string name="playEveryGame">Jogue cada jogo que começar.</string>
   <string name="tryToWin">Tente ganhar (ou pelo menos empatar) cada partida que jogar.</string>
