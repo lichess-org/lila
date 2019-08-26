@@ -1,6 +1,7 @@
 import * as game from 'game';
 import throttle from 'common/throttle';
 import notify from 'common/notification';
+import { isPlayerTurn } from 'game';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
@@ -16,7 +17,7 @@ export interface RoundSocket extends Untyped {
   outoftime(): void;
   berserk(): void;
   sendLoading(typ: string, data?: any): void
-  receive(typ: string, data: any): boolean;
+    receive(typ: string, data: any): boolean;
 }
 
 interface Incoming {
@@ -84,8 +85,8 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     rematchOffer(by: Color) {
       d.player.offeringRematch = by === d.player.color;
-      const fromOp = d.opponent.offeringRematch = by === d.opponent.color;
-      if (fromOp) notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
+      if (d.opponent.offeringRematch = by === d.opponent.color)
+        notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
@@ -124,7 +125,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         incSimulToMove(ctrl.trans);
         if (gameId !== d.game.id &&
           ctrl.moveOn.get() &&
-          ctrl.draughtsground.state.turnColor !== ctrl.draughtsground.state.movable.color) {
+          !isPlayerTurn(ctrl.data)) {
             ctrl.setRedirecting();
             sound.move();
             li.hasToReload = true;
