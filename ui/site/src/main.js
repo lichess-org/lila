@@ -99,7 +99,7 @@
           '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
-          '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
+          '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
           '</div></div>'
         ).find('#announce .withdraw').click(function() {
           $.post($(this).attr("href"));
