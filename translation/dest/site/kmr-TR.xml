@@ -8,7 +8,7 @@
   <string name="waitingForOpponent">Li benda reqîbê ye</string>
   <string name="waiting">Li bendê ye</string>
   <string name="yourTurn">Dora te ye</string>
-  <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
+  <string name="aiNameLevelAiLevel">%1$s asta %2$s</string>
   <string name="level">Ast</string>
   <string name="toggleTheChat">Axaftinê bigire</string>
   <string name="toggleSound">Dengê bigire</string>
@@ -64,6 +64,17 @@
   <string name="variantLoss">Windakirina varyantê</string>
   <string name="variantWin">Rêya serkeftinê</string>
   <string name="insufficientMaterial">Kevirên kişikê têrî serketinê nake</string>
+  <string name="pawnMove">Livîna piyonê</string>
+  <string name="capture">Bixwe</string>
+  <string name="close">Bigire</string>
+  <string name="winning">Biserdikeve</string>
+  <string name="losing">Didore</string>
+  <string name="drawn">Wekhevî</string>
+  <string name="unknown">Nediyar</string>
+  <string name="database">Zaniyarîdank</string>
+  <string name="whiteDrawBlack">Spî / Wekhevî / Reş</string>
+  <string name="averageRatingX">Nirxandina navîn: %s</string>
+  <string name="recentGames">Yariyên vê dawiyê</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
   <string name="mistakes">Çewtî</string>
