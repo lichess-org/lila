@@ -706,6 +706,9 @@ in %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
+  <string name="yourRating">Il tuo punteggio</string>
+  <string name="cumulative">Cumulativo</string>
+  <string name="glicko2Rating">Glicko-2 punteggio</string>
   <string name="checkYourEmail">Controlla la tua e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
@@ -871,4 +874,6 @@ in %3$s</string>
   <string name="temporaryInconvenience">Ci scusiamo per il temporaneo inconveniente,</string>
   <string name="wishYouGreatGames">e ti auguriamo grandi partite su lichess.org.</string>
   <string name="thankYouForReading">Grazie per l\'attenzione!</string>
+  <string name="lifetimeScore">Punteggio storico</string>
+  <string name="currentMatchScore">Punteggio della partita attuale</string>
 </resources>
