@@ -7,9 +7,9 @@
   <string name="myPublicStudies">Javne studije</string>
   <string name="addNewChapter">Додајте ново поглавље</string>
   <plurals name="nbChapters">
-    <item quantity="one">%с Поглавље</item>
-    <item quantity="few">%с Поглављa</item>
-    <item quantity="other">%с Поглављa</item>
+    <item quantity="one">%s Поглавље</item>
+    <item quantity="few">%s Поглављa</item>
+    <item quantity="other">%s Поглављa</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">%s Партија</item>
