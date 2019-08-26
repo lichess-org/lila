@@ -13,7 +13,7 @@
   <string name="toggleTheChat">چەسپاندنی چاتەکە</string>
   <string name="toggleSound">چەسپاندنی دەنگەکە</string>
   <string name="chat">دەمەتەقێ</string>
-  <string name="resign">وازهێنان</string>
+  <string name="resign">خۆبەدەستەوەدان</string>
   <string name="checkmate">کش مات</string>
   <string name="stalemate">هەڵوێست</string>
   <string name="white">سپی</string>
@@ -31,9 +31,11 @@
   <string name="blackPlays">Wê reş bileyze</string>
   <string name="opponentLeftChoices">لایەنی بەرامبەر چووە دەرەوە لە یارییەکە. دەتوانی ببی بە براوە یان یەکسان بوون هەڵبژێری, یاخود چاوەڕێ بیت.</string>
   <string name="forceResignation">بردنەوە بە دەست بێنە</string>
-  <string name="talkInChat">Ji kerema xwe bi kibar bin di axaftinê de!</string>
-  <string name="whiteResigned">Spî vekişiya</string>
-  <string name="blackResigned">Reş vekişiya</string>
+  <string name="forceDraw">یەکسانبوون هەڵبژێرە</string>
+  <string name="talkInChat">تکایە بەرێزەوە دەمەتەقێ بکە!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">یەکەم کەس ئەم لینکە بەکاربهێنێت یاریت لەگەڵ دەکات.</string>
+  <string name="whiteResigned">سپی خۆی بەدەستەوەدا</string>
+  <string name="blackResigned">رەش خۆی بەدەستەوەدا</string>
   <string name="viewTheComputerAnalysis">Analîza kompîtûrê bibîne</string>
   <string name="requestAComputerAnalysis">Analîzeke kompîtûrê bixwaze</string>
   <string name="computerAnalysis">Analîza kompîtûr</string>
