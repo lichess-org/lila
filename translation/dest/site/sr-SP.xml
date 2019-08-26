@@ -761,7 +761,7 @@
   <string name="withNobody">Нисаким</string>
   <string name="withFriends">Са пријатељима</string>
   <string name="withEverybody">Са свима</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">Већ сте се регистровали са овом е-поштом: % с</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Већ сте се регистровали са овом е-поштом: %s</string>
   <string name="kidMode">Дечји начин</string>
   <string name="kidModeExplanation">Ово је око сигурности. У дечијем моду, све комуникације на сајту су искључене. Укључите ово за вашу децу и ђаке, да их заштитите од других корисника интернета.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">У дечијем моду, логотип личеса добија %s икону, да би знали да су ваша деца сигурна.</string>
