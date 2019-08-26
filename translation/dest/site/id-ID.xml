@@ -76,7 +76,7 @@
   <string name="averageRatingX">Rata-rata rating: %s</string>
   <string name="recentGames">Permainan baru-baru ini</string>
   <string name="topGames">Permaninan kelas atas</string>
-  <string name="masterDbExplanation">Permainan OTB dua juta 2200 + FIDE dinilai pemain dari tahun 1952 untuk 2016</string>
+  <string name="masterDbExplanation">Permainan OTB dua juta %1$s + FIDE dinilai pemain dari tahun %2$s untuk %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mati %s di pertengahan langkah</item>
   </plurals>
