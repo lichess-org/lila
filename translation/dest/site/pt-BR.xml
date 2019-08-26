@@ -706,6 +706,7 @@ em %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Sua classificação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem uma classificação definida em %s.</string>
+  <string name="yourRating">Sua avaliação</string>
   <string name="cumulative">Cumulativo</string>
   <string name="glicko2Rating">Classificação Glicko-2</string>
   <string name="checkYourEmail">Verifique seu e-mail</string>
@@ -873,5 +874,6 @@ em %3$s</string>
   <string name="temporaryInconvenience">Pedimos desculpa pelo incômodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
   <string name="thankYouForReading">Obrigado pela leitura!</string>
+  <string name="lifetimeScore">Pontuação de todo o período</string>
   <string name="currentMatchScore">Pontuação da partida atual</string>
 </resources>
