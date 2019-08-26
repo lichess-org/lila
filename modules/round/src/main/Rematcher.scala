@@ -27,7 +27,7 @@ private[round] final class Rematcher(
 
   def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
 
-  def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
+  def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if game playerCouldRematch color =>
       if (isOffering(!pov) || game.opponent(color).isAi)
         rematches.getIfPresent(game.id).fold(rematchJoin(pov))(rematchExists(pov))
@@ -35,7 +35,7 @@ private[round] final class Rematcher(
     case _ => fuccess(List(Event.ReloadOwner))
   }
 
-  def no(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = {
+  def no(pov: Pov): Fu[Events] = {
     if (isOffering(pov)) messenger.system(pov.game, _.rematchOfferCanceled)
     else if (isOffering(!pov)) messenger.system(pov.game, _.rematchOfferDeclined)
     offers invalidate pov.game.id
@@ -62,7 +62,7 @@ private[round] final class Rematcher(
       case Some(rematchId) => GameRepo game rematchId map { _ ?? redirectEvents }
     }
 
-  private def rematchCreate(pov: Pov)(implicit proxy: GameProxy): Events = {
+  private def rematchCreate(pov: Pov): Events = {
     messenger.system(pov.game, _.rematchOfferSent)
     pov.opponent.userId foreach { forId =>
       bus.publish(lidraughts.hub.actorApi.round.RematchOffer(pov.gameId), Symbol(s"rematchFor:$forId"))
