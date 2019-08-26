@@ -9,7 +9,7 @@
   <string name="myFavoriteStudies">എന്റെ പ്രിയപ്പെട്ട പഠനങ്ങൾ</string>
   <string name="whatAreStudies">എന്താണ് പഠനങ്ങൾ?</string>
   <string name="allStudies">എല്ലാ പഠനങ്ങളും</string>
-  <string name="studiesCreatedByX">പഠനം നിർമിച്ചത് %s</string>
+  <string name="studiesCreatedByX">%s നിർമിച്ച പഠനങ്ങൾ</string>
   <string name="noneYet">ഇതുവരെ ഒന്നുമില്ല.</string>
   <string name="hot">ചൂടുള്ള</string>
   <string name="dateAddedNewest">ചേർത്ത തീയതി (പുതിയത്)</string>
