@@ -76,7 +76,7 @@
   <string name="averageRatingX">Prosječni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
   <string name="topGames">Najjače partije</string>
-  <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (2200+ FIDE rejting) igranih od 1952. do 2016. godine</string>
+  <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (%1$s+ FIDE rejting) igranih od %2$s. do %3$s. godine</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat u %s međupotezu</item>
     <item quantity="few">Mat u %s međupoteza</item>
