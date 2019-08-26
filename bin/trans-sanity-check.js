@@ -21,12 +21,12 @@ function checkAgainstRegexes(orig, tran, db, e, filename) {
   errors.forEach(r => printTransError('error', r, orig, tran, db, e, filename));
 }
 
-function checkPlaceholders(str, db, e, filename) {
+function checkPlaceholders(str, db, e, filename, severity = 'error') {
   if (/%\d\$s/.test(str)) {
     placeholderNums = str.match(/%\d\$s/g).map(x => parseInt(x[1])).sort();
     for (i = 1; i <= placeholderNums.length; i++) {
       if (placeholderNums[i-1] !== i) {
-        printError('error', `${db}/${filename}`, `${e['$'].name} bad placeholder: ${str}`);
+        printError(severity, `${db}/${filename}`, `${e['$'].name} bad placeholder: ${str}`);
       }
     }
   }
@@ -39,17 +39,18 @@ function compareDestToSource(src, db) {
         return new Promise((resolve, reject) => parseString(txt, (_, xml) => {
           const strings = (xml.resources.string || []);
           strings.forEach(e => {
-            orig = src[e['$'].name];
-            tran = e['_'];
+            const orig = src[e['$'].name];
+            const tran = e['_'];
             checkAgainstRegexes(orig, tran, db, e, filename);
             checkPlaceholders(tran, db, e, filename);
           });
           const plurals = (xml.resources.plurals || []);
           plurals.forEach(e => {
-            orig = src[e['$'].name];
-            tran = e.item[0]['_'];
+            const orig = src[e['$'].name];
+            const quantity = e.item[0].$.quantity;
+            const tran = e.item[0]['_'];
             checkAgainstRegexes(orig, tran, db, e, filename);
-            checkPlaceholders(tran, db, e, filename);
+            checkPlaceholders(tran, db, e, filename, quantity == 'one' ? 'warning' : 'error');
           });
         }));
       });
@@ -69,8 +70,9 @@ function VerifyTranslations(db) {
       });
       const plurals = (xml.resources.plurals || []);
       plurals.forEach(e => {
+        const quantity = e.item[0].$.quantity;
         source_strings[e['$'].name] = e.item[0]['_'];
-        checkPlaceholders(e.item[0]['_'], db, e, 'src');
+        checkPlaceholders(e.item[0]['_'], db, e, 'src', quantity == 'one' ? 'warning' : 'error');
       });
       resolve(source_strings);
     })).then(src => {
