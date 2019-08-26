@@ -857,4 +857,18 @@ in %3$s</string>
     <item quantity="one">e salva %s linea pre-mossa</item>
     <item quantity="other">e salva %s linee pre-mossa</item>
   </plurals>
+  <string name="sorry">Spiacenti :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
+  <string name="timeoutExpires">Il blocco scade tra %s.</string>
+  <string name="why">Perchè?</string>
+  <string name="pleasantChessExperience">Vogliamo offrire a tutti una piacevole esperienza scacchistica.</string>
+  <string name="goodPractice">A tal fine, dobbiamo assicurarci che tutti i giocatori si comportino nel miglior modo.</string>
+  <string name="potentialProblem">Dunque, quando rileviamo un\'eccezione, appare questo messaggio.</string>
+  <string name="howToAvoidThis">Come evitare il blocco?</string>
+  <string name="playEveryGame">Gioca ogni partita dall\'inizio.</string>
+  <string name="tryToWin">Impegnati e prova a vincere (o almeno a pareggiare) in ogni partita che giochi.</string>
+  <string name="resignLostGames">Arrenditi quando la partita è persa (non lasciare che l\'orologio si esaurisca).</string>
+  <string name="temporaryInconvenience">Ci scusiamo per il temporaneo inconveniente,</string>
+  <string name="wishYouGreatGames">e ti auguriamo grandi partite su lichess.org.</string>
+  <string name="thankYouForReading">Grazie per l\'attenzione!</string>
 </resources>
