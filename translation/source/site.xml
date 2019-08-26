@@ -704,6 +704,9 @@ computer analysis, game chat and shareable URL.</string>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1$s of %2$s players.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">You do not have an established %s rating.</string>
+  <string name="yourRating">Your rating</string>
+  <string name="cumulative">Cumulative</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We've sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
@@ -869,4 +872,6 @@ computer analysis, game chat and shareable URL.</string>
   <string name="temporaryInconvenience">We apologize for the temporary inconvenience,</string>
   <string name="wishYouGreatGames">and wish you great games on lichess.org.</string>
   <string name="thankYouForReading">Thank you for reading!</string>
+  <string name="lifetimeScore">Lifetime score</string>
+  <string name="currentMatchScore">Current match score</string>
 </resources>
