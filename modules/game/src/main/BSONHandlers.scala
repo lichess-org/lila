@@ -121,7 +121,7 @@ object BSONHandlers {
       )
 
       Game(
-        id = r str F.id,
+        id = light.id,
         whitePlayer = light.whitePlayer,
         blackPlayer = light.blackPlayer,
         chess = chessGame,
@@ -210,8 +210,7 @@ object BSONHandlers {
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
       def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
-        val win = winC map (_ == color)
-        builder(color)(id)(uid)(win)
+        builder(color)(id)(uid)(winC map (_ == color))
       }
       LightGame(
         id = r str F.id,
