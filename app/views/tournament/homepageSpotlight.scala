@@ -34,7 +34,7 @@ object homepageSpotlight {
               span(cls := "more")(
                 trans.nbPlayers.plural(tour.nbPlayers, tour.nbPlayers.localize),
                 " • ",
-                if (tour.isStarted) frag("finishes ", momentFromNow(tour.finishesAt))
+                if (tour.isStarted) trans.finishesX(momentFromNow(tour.finishesAt))
                 else momentFromNow(tour.startsAt)
               )
             )
