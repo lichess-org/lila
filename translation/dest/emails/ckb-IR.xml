@@ -8,4 +8,7 @@
   <string name="passwordReset_intro">داواکارییەکمان پێگەیش بۆ ئەوەی ووشەی تێپەڕی هەژمارەکەت رێکبخەین.</string>
   <string name="passwordReset_clickOrIgnore">ئەگەر ئەم داواکارییەت کردووە ئەوا کلیک لەم لینکەی خوارەوە بکە, ئەگەر نا ئەم ئیمێلە پشتگوێ بخە.</string>
   <string name="emailChange_subject">ئیمێلە نوێیەکەت بسەلمێنە %s</string>
+  <string name="emailChange_intro">داواتکردووە ئیمێلەکەت بگۆڕی.</string>
+  <string name="emailChange_click">تکایا کلیک لەم لینکەی خوارەوە بکە بۆ دڵنیا بوون لەوەی کە ئەم ئیمیلە بەردەستتە:</string>
+  <string name="welcome_subject">بەخێربێی بۆ lichees.org %s</string>
 </resources>
