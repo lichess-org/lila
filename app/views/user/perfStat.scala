@@ -61,7 +61,7 @@ data: ${safeJsonValue(data)}
           div(cls := "box__pad perf-stat__content")(
             glicko(perfType, u.perfs(perfType), percentile),
             counter(stat.count),
-            highlow(),
+            highlow(stat),
             resultStreak(),
             result(),
             playStreakNb(),
@@ -178,7 +178,28 @@ data: ${safeJsonValue(data)}
     )
   )
 
-  private def highlow(): Frag = st.section(cls := "highlow split")()
+  private def highlow(stat: PerfStat)(implicit ctx: Context): Frag = st.section(cls := "highlow split")(
+    stat.highest match {
+      case Some(highest) => div(
+        h2("Highest rating: ", strong(tag("green")(highest.int))),
+        a(cls := "glpt", href := routes.Round.watcher(highest.gameId, "white"))(semanticDate(highest.at))
+      )
+      case None => div(
+        h2("Highest rating:"),
+        span("Not enough games played")
+      )
+    },
+    stat.lowest match {
+      case Some(lowest) => div(
+        h2("Lowest rating: ", strong(tag("red")(lowest.int))),
+        a(cls := "glpt", href := routes.Round.watcher(lowest.gameId, "white"))(semanticDate(lowest.at))
+      )
+      case None => div(
+        h2("Lowest rating:"),
+        span("Not enough games played")
+      )
+    }
+  )
 
   private def resultStreak(): Frag = st.section(cls := "resultStreak split")()
 
