@@ -100,7 +100,7 @@ data: ${safeJsonValue(data)}
       ),
       ". ",
       "Rating deviation: ",
-      strong(title := "Lower value menas the rating is more stable. Above 110, the rating is considered provisional.")(decimal(perf.glicko.deviation).toString),
+      strong(title := "Lower value means the rating is more stable. Above 110, the rating is considered provisional.")(decimal(perf.glicko.deviation).toString),
       "."
     )
   )
@@ -136,7 +136,11 @@ data: ${safeJsonValue(data)}
           ),
           count.seconds > 0 option tr(cls := "full")(
             th("Time spent playing"),
-            td(colspan := "2")(count.seconds, " seconds") // TODO: format duration
+            td(colspan := "2") {
+              val hours = count.seconds / (60 * 60)
+              val minutes = (count.seconds % (60 * 60)) / 60
+              s"${hours}h, ${minutes}m"
+            }
           )
         )
       )
@@ -151,8 +155,8 @@ data: ${safeJsonValue(data)}
           ),
           tr(cls := "full")(
             th("Victories"),
-            td(count.win),
-            td(pct(count.win, count.all))
+            td(tag("green")(count.win)),
+            td(tag("green")(pct(count.win, count.all)))
           ),
           tr(cls := "full")(
             th("Draws"),
@@ -161,14 +165,14 @@ data: ${safeJsonValue(data)}
           ),
           tr(cls := "full")(
             th("Defeats"),
-            td(count.loss),
-            td(pct(count.loss, count.all))
+            td(tag("red")(count.loss)),
+            td(tag("red")(pct(count.loss, count.all)))
           ),
           tr(cls := "full")(
             th("Disconnections"),
-            td(count.disconnects),
+            td(if (count.disconnects > count.all * 100 / 15) tag("red") else frag())(count.disconnects),
             td(pct(count.disconnects, count.all))
-          ) // TODO: red if more than 15%
+          )
         )
       )
     )
