@@ -871,4 +871,9 @@ i %3$s</string>
   <string name="playEveryGame">Spel alle parti du startar.</string>
   <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle parti du spelar.</string>
   <string name="resignLostGames">Resigner ved tapte stillingar (ikkje la tida renne ut).</string>
+  <string name="temporaryInconvenience">Vi seier oss leie for det kortvarige bryet,</string>
+  <string name="wishYouGreatGames">og vonar du får gode sjakkoppgjer på lichess.org.</string>
+  <string name="thankYouForReading">Takk for at du leste!</string>
+  <string name="lifetimeScore">Livstidsscore</string>
+  <string name="currentMatchScore">Gjeldande kampscore</string>
 </resources>
