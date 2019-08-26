@@ -698,7 +698,7 @@
   <string name="returnToTournamentsHomepage">Zurück zur Turnier-Homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Wöchentliche %s-Wertungsverteilung</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Ein %2$s Spieler diese Woche.</item>
+    <item quantity="one">%1$s %2$s Spieler diese Woche.</item>
     <item quantity="other">%1$s %2$s Spieler diese Woche.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Deine %1$s-Wertungszahl ist %2$s.</string>
@@ -754,7 +754,7 @@
   <string name="viewTheSolution">Lösung ansehen</string>
   <string name="followAndChallengeFriends">Folge deinen Freunden und fordere sie heraus</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Verfügbar in einer Sprache!</item>
+    <item quantity="one">Verfügbar in %s Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>
   </plurals>
   <string name="gameAnalysis">Spielanalyse</string>
