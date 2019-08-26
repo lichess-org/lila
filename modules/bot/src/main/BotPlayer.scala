@@ -52,7 +52,7 @@ final class BotPlayer(
 
   private def rematch(id: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
     GameRepo game id map {
-      _.flatMap(Pov(_, me)).filter(isOfferingRematch) ?? { pov =>
+      _.flatMap(Pov(_, me)).filter(p => isOfferingRematch(!p)) ?? { pov =>
         // delay so it feels more natural
         lidraughts.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
