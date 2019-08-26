@@ -178,27 +178,18 @@ data: ${safeJsonValue(data)}
     )
   )
 
-  private def highlow(stat: PerfStat)(implicit ctx: Context): Frag = st.section(cls := "highlow split")(
-    stat.highest match {
-      case Some(highest) => div(
-        h2("Highest rating: ", strong(tag("green")(highest.int))),
-        a(cls := "glpt", href := routes.Round.watcher(highest.gameId, "white"))(semanticDate(highest.at))
+  private def ratingAt(title: String, opt: Option[lila.perfStat.RatingAt], color: String)(implicit ctx: Context): Frag =
+    opt match {
+      case Some(r) => div(
+        h2(title, ": ", strong(tag(color)(r.int))),
+        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(semanticDate(r.at))
       )
-      case None => div(
-        h2("Highest rating:"),
-        span("Not enough games played")
-      )
-    },
-    stat.lowest match {
-      case Some(lowest) => div(
-        h2("Lowest rating: ", strong(tag("red")(lowest.int))),
-        a(cls := "glpt", href := routes.Round.watcher(lowest.gameId, "white"))(semanticDate(lowest.at))
-      )
-      case None => div(
-        h2("Lowest rating:"),
-        span("Not enough games played")
-      )
+      case None => div(h2(title, ":"), " ", span("Not enough games played"))
     }
+
+  private def highlow(stat: PerfStat)(implicit ctx: Context): Frag = st.section(cls := "highlow split")(
+    ratingAt("Highest rating", stat.highest, "green"),
+    ratingAt("Lowest rating", stat.lowest, "red")
   )
 
   private def resultStreak(): Frag = st.section(cls := "resultStreak split")()
