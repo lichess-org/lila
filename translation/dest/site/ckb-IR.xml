@@ -20,8 +20,8 @@
   <string name="black">رەش</string>
   <string name="randomColor">لایەکی هەرەمەکی</string>
   <string name="createAGame">دروستکردن و ڕێکخستنی یاریەک</string>
-  <string name="whiteIsVictorious">Spî bi ser ket</string>
-  <string name="blackIsVictorious">Reş bi ser ket</string>
+  <string name="whiteIsVictorious">سپی براوەیە</string>
+  <string name="blackIsVictorious">رەش براوەیە</string>
   <string name="raceFinished">Pêşbazî qediya</string>
   <string name="newOpponent">Reqîbek nû</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Reqîbê/a te dixwaze dîsa bileyze</string>
