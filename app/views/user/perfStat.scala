@@ -5,6 +5,7 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 import lila.rating.{ Perf, PerfType }
+import lila.perfStat.PerfStat
 import lila.user.User
 
 import controllers.routes
@@ -16,6 +17,7 @@ object perfStat {
     rankMap: lila.rating.UserRankMap,
     perfType: lila.rating.PerfType,
     percentile: Option[Double],
+    stat: PerfStat,
     data: play.api.libs.json.JsObject,
     ratingChart: Option[String]
   )(implicit ctx: Context) = views.html.base.layout(
@@ -58,7 +60,7 @@ data: ${safeJsonValue(data)}
           ratingChart.isDefined option div(cls := "rating-history")(spinner),
           div(cls := "box__pad perf-stat__content")(
             glicko(perfType, u.perfs(perfType), percentile),
-            counter(),
+            counter(stat.count),
             highlow(),
             resultStreak(),
             result(),
@@ -69,18 +71,20 @@ data: ${safeJsonValue(data)}
       )
     }
 
+  private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
+
   private def glicko(perfType: PerfType, perf: Perf, percentile: Option[Double]): Frag = st.section(cls := "glicko")(
     h2(
       "Rating: ",
-      strong(title := "Yes, ratings have decimal accuracy.")(perf.glicko.rating),
+      strong(title := "Yes, ratings have decimal accuracy.")(decimal(perf.glicko.rating).toString),
       ". ",
       span(cls := "details")(
         perf.glicko.provisional option span(title := "Not enough rated games have been played to establish a reliable rating.")("(provisional)"),
-        percentile.filter(_ != 0.0 && !perf.glicko.provisional) map { pct =>
+        percentile.map(decimal).filter(_ != 0.0 && !perf.glicko.provisional) map { percentile =>
           frag(
             "Better than ",
             a(href := routes.Stat.ratingDistribution(perfType.key))(
-              strong(pct, "%"), " of ", perfType.name, " players"
+              strong(percentile.toString, "%"), " of ", perfType.name, " players"
             ),
             "."
           )
@@ -96,12 +100,79 @@ data: ${safeJsonValue(data)}
       ),
       ". ",
       "Rating deviation: ",
-      strong(title := "Lower value menas the rating is more stable. Above 110, the rating is considered provisional.")(perf.glicko.deviation),
+      strong(title := "Lower value menas the rating is more stable. Above 110, the rating is considered provisional.")(decimal(perf.glicko.deviation).toString),
       "."
     )
   )
 
-  private def counter(): Frag = st.section(cls := "counter split")()
+  private def pct(num: Int, denom: Int): String = {
+    if (denom == 0) "0"
+    else s"${Math.round(num * 100 / denom)}%"
+  }
+
+  private def counter(count: lila.perfStat.Count): Frag = st.section(cls := "counter split")(
+    div(
+      table(
+        tbody(
+          tr(
+            th("Total games"),
+            td(count.all),
+            td
+          ),
+          tr(cls := "full")(
+            th("Rated games"),
+            td(count.rated),
+            td(pct(count.rated, count.all))
+          ),
+          tr(cls := "full")(
+            th("Tournament games"),
+            td(count.tour),
+            td(pct(count.tour, count.all))
+          ),
+          tr(cls := "full")(
+            th("Berserked games"),
+            td(count.berserk),
+            td(pct(count.berserk, count.tour))
+          ),
+          count.seconds > 0 option tr(cls := "full")(
+            th("Time spent playing"),
+            td(colspan := "2")(count.seconds, " seconds") // TODO: format duration
+          )
+        )
+      )
+    ),
+    div(
+      table(
+        tbody(
+          tr(
+            th("Average opponent"),
+            td(decimal(count.opAvg.avg).toString),
+            td
+          ),
+          tr(cls := "full")(
+            th("Victories"),
+            td(count.win),
+            td(pct(count.win, count.all))
+          ),
+          tr(cls := "full")(
+            th("Draws"),
+            td(count.draw),
+            td(pct(count.draw, count.all))
+          ),
+          tr(cls := "full")(
+            th("Defeats"),
+            td(count.loss),
+            td(pct(count.loss, count.all))
+          ),
+          tr(cls := "full")(
+            th("Disconnections"),
+            td(count.disconnects),
+            td(pct(count.disconnects, count.all))
+          ) // TODO: red if more than 15%
+        )
+      )
+    )
+  )
 
   private def highlow(): Frag = st.section(cls := "highlow split")()
 
