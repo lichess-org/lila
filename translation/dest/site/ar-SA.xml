@@ -564,6 +564,7 @@
   <string name="pleaseVotePuzzle">ساعد الموقع على تحسين الألغاز بتقييمها من خلال الأسهم لأعلى وأسفل:</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="ratingX">التقييم: %s</string>
+  <string name="hidden">مخفي</string>
   <plurals name="playedXTimes">
     <item quantity="zero">لُعِبَ %s مرة</item>
     <item quantity="one">لُعِبَ %s مرة</item>
@@ -994,4 +995,8 @@
   <string name="playEveryGame">العب كل دور تبدأه.</string>
   <string name="tryToWin">حاول فوز (او تعادل على الأقل) كل دور تلعبه.</string>
   <string name="resignLostGames">انسحب اذا كنت على وشك الهزيمة (لا تدع الوقت ينتهي).</string>
+  <string name="temporaryInconvenience">نعتذر عن الازعاج المؤقت</string>
+  <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lichess.org.</string>
+  <string name="thankYouForReading">نشكرك على القراءة!</string>
+  <string name="currentMatchScore">نتيجة المباراة الحالية</string>
 </resources>
