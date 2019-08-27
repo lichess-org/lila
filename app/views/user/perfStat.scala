@@ -99,8 +99,7 @@ object perfStat {
   )
 
   private def pct(num: Int, denom: Int): String = {
-    if (denom == 0) "0"
-    else s"${Math.round(num * 100 / denom)}%"
+    (denom != 0) ?? s"${Math.round(num * 100.0 / denom)}%"
   }
 
   private def counter(count: lila.perfStat.Count): Frag = st.section(cls := "counter split")(
@@ -268,11 +267,12 @@ object perfStat {
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: String)(implicit ctx: Context): Frag = div(
     div(cls := "streak")(
       h3(
-        title, ": ", {
-        val hours = s.v / (60 * 60)
-        val minutes = (s.v % (60 * 60)) / 60
-        s"${hours} hours, ${minutes} minutes"
-      }
+        title, ": ",
+        {
+          val hours = s.v / (60 * 60)
+          val minutes = (s.v % (60 * 60)) / 60
+          s"${hours} hours, ${minutes} minutes"
+        }
       ),
       fromTo(s)
     )
@@ -286,6 +286,5 @@ object perfStat {
   private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(implicit ctx: Context): Frag = st.section(cls := "playStreak")(
     h2(span(title := "Less than one hour between games")("Max time spent playing")),
     playStreakTimeStreaks(playStreak.time)
-
   )
 }
