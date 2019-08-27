@@ -309,8 +309,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
-  <string name="mustBeInTeam">Takımda olmalısın %s</string>
-  <string name="youAreNotInTeam">%s takımın üyesi değilsin.</string>
+  <string name="mustBeInTeam">%s adlı takımda olmalısınız.</string>
+  <string name="youAreNotInTeam">%s takımının üyesi değilsiniz.</string>
   <string name="backToGame">Oyuna dön</string>
   <string name="siteDescription">Bedava çevrimiçi satranç sitesi. Olması gerektiği gibi satranç oyna. Kayıt gerekmez, reklam içermez, herhangi bir eklentiye ihtiyacınız yok. Bilgisayarla, arkadaşlarınızla ya da rastgele bir oyuncuya karşı oyna.</string>
   <string name="teams">Takımlar</string>
@@ -859,7 +859,7 @@
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
   <string name="sorry">Üzgünüz :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Seni bir molaya almak zorunda kaldık.</string>
+  <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek durumunda kaldık.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
