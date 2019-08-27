@@ -80,11 +80,11 @@ data: ${safeJsonValue(data)}
       ". ",
       span(cls := "details")(
         perf.glicko.provisional option span(title := "Not enough rated games have been played to establish a reliable rating.")("(provisional)"),
-        percentile.map(decimal).filter(_ != 0.0 && !perf.glicko.provisional) map { percentile =>
+        percentile.filter(_ != 0.0 && !perf.glicko.provisional) map { percentile =>
           frag(
             "Better than ",
             a(href := routes.Stat.ratingDistribution(perfType.key))(
-              strong(percentile.toString, "%"), " of ", perfType.name, " players"
+              strong(percentile, "%"), " of ", perfType.name, " players"
             ),
             "."
           )
@@ -108,12 +108,6 @@ data: ${safeJsonValue(data)}
   private def pct(num: Int, denom: Int): String = {
     if (denom == 0) "0"
     else s"${Math.round(num * 100 / denom)}%"
-  }
-
-  private def formatSeconds(seconds: Int): String = {
-    val hours = seconds / (60 * 60)
-    val minutes = (seconds % (60 * 60)) / 60
-    s"${hours}h, ${minutes}m"
   }
 
   private def counter(count: lila.perfStat.Count): Frag = st.section(cls := "counter split")(
@@ -142,7 +136,11 @@ data: ${safeJsonValue(data)}
           ),
           count.seconds > 0 option tr(cls := "full")(
             th("Time spent playing"),
-            td(colspan := "2")(formatSeconds(count.seconds))
+            td(colspan := "2") {
+              val hours = count.seconds / (60 * 60)
+              val minutes = (count.seconds % (60 * 60)) / 60
+              s"${hours}h, ${minutes}m"
+            }
           )
         )
       )
@@ -184,7 +182,7 @@ data: ${safeJsonValue(data)}
     opt match {
       case Some(r) => div(
         h2(title, ": ", strong(tag(color)(r.int))),
-        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(semanticDate(r.at))
+        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
       )
       case None => div(h2(title), " ", span("Not enough games played"))
     }
@@ -194,23 +192,25 @@ data: ${safeJsonValue(data)}
     highlowSide("Lowest rating", stat.lowest, "red")
   )
 
-  private def fromTo(s: lila.perfStat.Streak)(implicit ctx: Context): Option[Frag] =
-    s.from map { from =>
-      frag(
+  private def fromTo(s: lila.perfStat.Streak)(implicit ctx: Context): Frag =
+    s.from match {
+      case Some(from) => frag(
         "from ",
-        a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(semanticDate(from.at)),
+        a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
         " to ",
         s.to match {
-          case Some(to) => a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(semanticDate(to.at))
+          case Some(to) => a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientDateTime(to.at))
           case None => frag("now")
         }
       )
+      case None => nbsp
     }
 
   private def resultStreakSideStreak(s: lila.perfStat.Streak, title: String, color: String)(implicit ctx: Context): Frag = div(cls := "streak")(
     h3(
       title, ": ",
-      if (s.v > 0) tag(color)(strong(s.v), " game(s)")
+      if (s.v == 1) tag(color)(frag(strong(s.v), " game"))
+      else if (s.v > 0) tag(color)(frag(strong(s.v), " games"))
       else frag("none")
     ),
     fromTo(s)
@@ -238,7 +238,7 @@ data: ${safeJsonValue(data)}
         results.results map { r =>
           tr(
             td(userIdLink(r.opId.value, none)),
-            td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(semanticDate(r.at)))
+            td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at)))
           )
         }
       )
@@ -254,7 +254,8 @@ data: ${safeJsonValue(data)}
     div(cls := "streak")(
       h3(
         title, ": ",
-        if (s.v > 0) frag(strong(s.v), " game(s)")
+        if (s.v == 1) frag(strong(s.v), " game")
+        else if (s.v > 0) frag(strong(s.v), " games")
         else frag("none")
       ),
       fromTo(s)
@@ -274,8 +275,11 @@ data: ${safeJsonValue(data)}
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: String)(implicit ctx: Context): Frag = div(
     div(cls := "streak")(
       h3(
-        title, ": ",
-        formatSeconds(s.v)
+        title, ": ", {
+        val hours = s.v / (60 * 60)
+        val minutes = (s.v % (60 * 60)) / 60
+        s"${hours} hours, ${minutes} minutes"
+      }
       ),
       fromTo(s)
     )
