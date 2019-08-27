@@ -384,9 +384,14 @@ object User extends LilaController {
           distribution <- u.perfs(perfType).established ?? {
             Env.user.cached.ratingDistribution(perfType) map some
           }
+          percentile = distribution.map { distrib =>
+            lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating) match {
+              case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
+            }
+          }
           ratingChart <- Env.history.ratingChartApi.apply(u)
           _ <- Env.user.lightUserApi preloadMany { u.id :: perfStat.userIds.map(_.value) }
-          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType, distribution)
+          data = Env.perfStat.jsonView(u, perfStat, ranks get perfType, percentile)
           response <- negotiate(
             html = Ok(html.user.perfStat(u, ranks, perfType, data, ratingChart)).fuccess,
             api = _ => getBool("graph").?? {

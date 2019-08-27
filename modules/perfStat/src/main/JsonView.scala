@@ -16,16 +16,12 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     user: User,
     stat: PerfStat,
     rank: Option[Int],
-    ratingDistribution: Option[List[Int]]
+    percentile: Option[Double]
   ) = Json.obj(
     "user" -> user,
     "perf" -> user.perfs(stat.perfType),
     "rank" -> rank,
-    "percentile" -> ratingDistribution.map { distrib =>
-      lila.user.Stat.percentile(distrib, user.perfs(stat.perfType).intRating) match {
-        case (under, sum) => Math.round(under * 1000.0 / sum) / 10.0
-      }
-    },
+    "percentile" -> percentile,
     "stat" -> stat.copy(playStreak = stat.playStreak.checkCurrent)
   )
 
