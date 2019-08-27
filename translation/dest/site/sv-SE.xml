@@ -862,4 +862,6 @@
   <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
   <string name="timeoutExpires">Avstängningen upphör om %s.</string>
   <string name="why">Varför?</string>
+  <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse.</string>
+  <string name="goodPractice">Därför måste vi försäkra att alla spelare följer god sed.</string>
 </resources>
