@@ -691,6 +691,7 @@
   <string name="keyEnterOrExitVariation">लाइनमा प्रवेश/निकास गरौं</string>
   <string name="newTournament">नयाँ प्रतियोगिता</string>
   <string name="tournamentHomeTitle">बिभिन्न समय सिमा र परिमार्जनका प्रतियोगिताहरु</string>
+  <string name="tournamentHomeDescription">तिब्र गतिका बुद्धिचाल प्रतियोगितामा भाग लिनुहोस्! औपचारिक तालिकाबद्ध प्रतियोगितामा भाग लिनुहोस् वा आफै श्रीजना गर्नुहोस्। बुद्धिचाल वा यसका परिमार्जन बिभिन्न समय सिमामा खेली असीमित आनन्द लिनुहोस्।</string>
   <string name="tournamentNotFound">प्रतियोगिता भेट्टिएन</string>
   <string name="tournamentDoesNotExist">यस्तो कुनै प्रतियोगिता छैन।</string>
   <string name="tournamentMayHaveBeenCanceled">शुरु हुनु अघि सबै खेलाडी बाहिर गएकोले प्रतियोगिता रद्द भएको हुन सक्छ।</string>
@@ -703,6 +704,7 @@
   <string name="yourPerfTypeRatingIsRating">तपाइको %1$s रेटिंग %2$s छ।</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तपाइ %2$s खेलाडीहरु मध्य %1$s भन्दा बढि राम्रो हुनुहुन्छ।</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">तपाइको स्थापित %s रेटिङ छैन।</string>
+  <string name="yourRating">तपाइको रेटिङ</string>
   <string name="checkYourEmail">इमेल हेर्नुहोस्</string>
   <string name="weHaveSentYouAnEmailClickTheLink">हामीले तपाइलाई इमेल पठाएका छौं। इमेलमा रहेको लिंकमा क्लिक गरेर आफ्नो खाता सुचारु गर्नुहोस्।</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
