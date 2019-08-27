@@ -866,7 +866,7 @@
   <string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler korrekt verhalten.</string>
   <string name="potentialProblem">Wir zeigen diese Nachricht an, wenn ein mögliches Problem erkannt wurde.</string>
   <string name="howToAvoidThis">Wie kann das verhindert werden?</string>
-  <string name="playEveryGame">Spiele jedes Spiel, das du startest.</string>
+  <string name="playEveryGame">Spiele jedes Spiel, das du beginnst.</string>
   <string name="tryToWin">Versuche, jedes Spiel zu gewinnen (oder zumindest ein Remis zu erreichen).</string>
   <string name="resignLostGames">Gib verlorene Spiele auf (lasse die Uhr nicht herunterlaufen).</string>
   <string name="temporaryInconvenience">Wir entschuldigen uns für die vorübergehenden Unannehmlichkeiten,</string>
