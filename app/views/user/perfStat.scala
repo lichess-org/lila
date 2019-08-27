@@ -110,6 +110,12 @@ data: ${safeJsonValue(data)}
     else s"${Math.round(num * 100 / denom)}%"
   }
 
+  private def formatSeconds(seconds: Int): String = {
+    val hours = seconds / (60 * 60)
+    val minutes = (seconds % (60 * 60)) / 60
+    s"${hours}h, ${minutes}m"
+  }
+
   private def counter(count: lila.perfStat.Count): Frag = st.section(cls := "counter split")(
     div(
       table(
@@ -136,11 +142,7 @@ data: ${safeJsonValue(data)}
           ),
           count.seconds > 0 option tr(cls := "full")(
             th("Time spent playing"),
-            td(colspan := "2") {
-              val hours = count.seconds / (60 * 60)
-              val minutes = (count.seconds % (60 * 60)) / 60
-              s"${hours}h, ${minutes}m"
-            }
+            td(colspan := "2")(formatSeconds(count.seconds))
           )
         )
       )
@@ -248,7 +250,7 @@ data: ${safeJsonValue(data)}
     resultTable(stat.worstLosses, "Worst rated defeats")
   )
 
-  private def playStreakStreaksStreak(s: lila.perfStat.Streak, title: String)(implicit ctx: Context): Frag = div(
+  private def playStreakNbStreak(s: lila.perfStat.Streak, title: String)(implicit ctx: Context): Frag = div(
     div(cls := "streak")(
       h3(
         title, ": ",
@@ -259,15 +261,34 @@ data: ${safeJsonValue(data)}
     )
   )
 
-  private def playStreakStreaks(streaks: lila.perfStat.Streaks)(implicit ctx: Context): Frag = div(cls := "split")(
-    playStreakStreaksStreak(streaks.max, "Longest streak"),
-    playStreakStreaksStreak(streaks.cur, "Current streak")
+  private def playStreakNbStreaks(streaks: lila.perfStat.Streaks)(implicit ctx: Context): Frag = div(cls := "split")(
+    playStreakNbStreak(streaks.max, "Longest streak"),
+    playStreakNbStreak(streaks.cur, "Current streak")
   )
 
-  private def playStreakNb(streak: lila.perfStat.PlayStreak)(implicit ctx: Context): Frag = st.section(cls := "playStreak")(
+  private def playStreakNb(playStreak: lila.perfStat.PlayStreak)(implicit ctx: Context): Frag = st.section(cls := "playStreak")(
     h2(span(title := "Less than one hour between games")("Games played in a row")),
-    playStreakStreaks(streak.nb)
+    playStreakNbStreaks(playStreak.nb)
   )
 
-  private def playStreakTime(streak: lila.perfStat.PlayStreak): Frag = st.section(cls := "playStreak")()
+  private def playStreakTimeStreak(s: lila.perfStat.Streak, title: String)(implicit ctx: Context): Frag = div(
+    div(cls := "streak")(
+      h3(
+        title, ": ",
+        formatSeconds(s.v)
+      ),
+      fromTo(s)
+    )
+  )
+
+  private def playStreakTimeStreaks(streaks: lila.perfStat.Streaks)(implicit ctx: Context): Frag = div(cls := "split")(
+    playStreakTimeStreak(streaks.max, "Longest streak"),
+    playStreakTimeStreak(streaks.cur, "Current streak")
+  )
+
+  private def playStreakTime(playStreak: lila.perfStat.PlayStreak)(implicit ctx: Context): Frag = st.section(cls := "playStreak")(
+    h2(span(title := "Less than one hour between games")("Max time spent playing")),
+    playStreakTimeStreaks(playStreak.time)
+
+  )
 }
