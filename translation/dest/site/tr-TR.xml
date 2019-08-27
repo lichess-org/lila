@@ -862,11 +862,11 @@
   <string name="weHadToTimeYouOutForAWhile">Seni bir molaya almak zorunda kaldık.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
-  <string name="goodPractice">Bu nedenle, tüm oyuncuların iyi uygulamaları takip etmesini sağlamalıyız.</string>
+  <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
   <string name="potentialProblem">Potansiyel bir sorun tespit edildiğinde bu mesajı görüntülüyoruz.</string>
-  <string name="howToAvoidThis">Bunu nasıl engelleyebilirsin?</string>
-  <string name="playEveryGame">Başladığın her oyunu sonuna kadar oyna.</string>
-  <string name="tryToWin">Oynadığın her oyunu kazanmaya (veya en azından berabere kalmaya) çalış.</string>
+  <string name="howToAvoidThis">Tekrar olmaması için ne yapmalıyım?</string>
+  <string name="playEveryGame">Başladığınız her oyunu sonuna kadar oynayın.</string>
+  <string name="tryToWin">Oynadığınız her oyunu kazanmaya çalışın (ya da en azından berabere kalmayı deneyin).</string>
   <string name="resignLostGames">Kaybettiğiniz oyunlardan çekilin (sürenin dolmasını beklemeyin).</string>
   <string name="temporaryInconvenience">Verdiğimiz geçici rahatsızlıktan dolayı özür dileriz,</string>
   <string name="wishYouGreatGames">ve lichess.org\'da harika oyunlar dileriz.</string>
