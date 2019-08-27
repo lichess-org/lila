@@ -816,6 +816,8 @@
   <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
+  <string name="yourRating">تقييمك</string>
+  <string name="glicko2Rating">نظام تقييم Glicko-2</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
@@ -983,4 +985,7 @@
     <item quantity="many">واحفظ عدد %s تفريع نقلة مسبقة</item>
     <item quantity="other">واحفظ عدد %s تفريع نقلة مسبقة</item>
   </plurals>
+  <string name="sorry">نأسف :(</string>
+  <string name="why">لماذا ؟</string>
+  <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
 </resources>
