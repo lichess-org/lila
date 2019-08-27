@@ -379,7 +379,8 @@ object User extends LilaController {
       if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
       else PerfType(perfKey).fold(notFound) { perfType =>
         for {
-          perfStat <- Env.perfStat.get(u, perfType)
+          oldPerfStat <- Env.perfStat.get(u, perfType)
+          perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
           ranks = Env.user.cached rankingsOf u.id
           distribution <- u.perfs(perfType).established ?? {
             Env.user.cached.ratingDistribution(perfType) map some

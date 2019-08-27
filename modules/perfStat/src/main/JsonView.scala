@@ -22,7 +22,7 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
     "perf" -> user.perfs(stat.perfType),
     "rank" -> rank,
     "percentile" -> percentile,
-    "stat" -> stat.copy(playStreak = stat.playStreak.checkCurrent)
+    "stat" -> stat
   )
 
   private implicit val userIdWriter: OWrites[UserId] = OWrites { u =>
