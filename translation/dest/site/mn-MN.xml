@@ -732,6 +732,7 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
+  <string name="xCreatesStudyY">Нээсэн study</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
