@@ -80,6 +80,19 @@
   <string name="rightUnderTheBoard">盤のすぐ下に</string>
   <string name="noPinnedComment">なし</string>
   <string name="normalAnalysis">通常解析</string>
+  <string name="hideNextMoves">次の手順をかくす</string>
+  <string name="interactiveLesson">対話形式のレッスン</string>
   <string name="chapterX">章 %s</string>
+  <string name="startFromInitialPosition">開始局面から</string>
+  <string name="startFromCustomPosition">指定した局面から</string>
+  <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
+  <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
+  <string name="loadAGameFromPgn">棋譜を PGN で読み込み</string>
+  <string name="automatic">自動</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="other">ここに PGN をペースト（%s 局まで）</item>
+  </plurals>
+  <string name="urlOfTheGame">棋譜の URL</string>
+  <string name="loadAGameFromXOrY">%1$s か %2$s から棋譜を読み込み</string>
   <string name="createChapter">章を作成</string>
 </resources>
