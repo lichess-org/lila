@@ -705,8 +705,11 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">तपाइ %2$s खेलाडीहरु मध्य %1$s भन्दा बढि राम्रो हुनुहुन्छ।</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">तपाइको स्थापित %s रेटिङ छैन।</string>
   <string name="yourRating">तपाइको रेटिङ</string>
+  <string name="cumulative">संचयी</string>
+  <string name="glicko2Rating">ग्लिको-२ रेटिङ</string>
   <string name="checkYourEmail">इमेल हेर्नुहोस्</string>
   <string name="weHaveSentYouAnEmailClickTheLink">हामीले तपाइलाई इमेल पठाएका छौं। इमेलमा रहेको लिंकमा क्लिक गरेर आफ्नो खाता सुचारु गर्नुहोस्।</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">यदि तपाइले इमेल देख्नु भएन भने जंक लगायत अन्य स्थानहरूमा खोज्नुहोस्।</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
   <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
   <string name="playChessEverywhere">सबै ठाउँमा बुद्धिचाल खेलौं</string>
