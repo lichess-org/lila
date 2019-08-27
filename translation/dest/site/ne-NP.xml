@@ -746,6 +746,7 @@
   <string name="builtForTheLoveOfChessNotMoney">पैसाको लागि होइन, बुद्धिचाल प्रतिको मायाको लागि बनाइएको</string>
   <string name="everybodyGetsAllFeaturesForFree">सबैले सबै सुबिधा सित्तैमा पाउनेछन्</string>
   <string name="zeroAdvertisement">शुन्य विज्ञापन</string>
+  <string name="fullFeatured">सम्पुर्ण विशेषता सहित</string>
   <string name="phoneAndTablet">फोन र ट्याबलेट</string>
   <string name="bulletBlitzClassical">बुलेट, ब्लिज, क्लासिकल</string>
   <string name="correspondenceChess">पत्रचारिक खेलहरु</string>
@@ -790,6 +791,18 @@
   <string name="invalidFen">अमान्य FEN</string>
   <string name="error.minLength">न्यूनतम लम्बाई %s हो</string>
   <string name="error.maxLength">अधिकतम लम्बाई %s हो</string>
+  <string name="error.min">%s वा सोभन्दा बढि हुनु पर्ने</string>
+  <string name="error.max">%s वा सोभन्दा घटि हुनु पर्ने</string>
+  <string name="error.unknown">त्रुटि</string>
+  <string name="custom">कष्टम</string>
+  <string name="notifications">सुचनाहरु</string>
+  <string name="challenges">चुनौतिहरु</string>
+  <string name="perfRatingX">रेटिङ: %s</string>
+  <plurals name="nbSecondsToPlayTheFirstMove">
+    <item quantity="one">पहिलो चाल चाल्न %s सेकेण्ड</item>
+    <item quantity="other">पहिलो चाल चाल्न %s सेकेण्ड</item>
+  </plurals>
+  <string name="practiceWithComputer">कम्प्युटर संग अभ्यास</string>
   <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
   <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
