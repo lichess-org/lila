@@ -872,4 +872,5 @@
   <string name="temporaryInconvenience">Wir entschuldigen uns für die vorübergehenden Unannehmlichkeiten,</string>
   <string name="wishYouGreatGames">und wünschen Dir tolle Spiele auf lichess.org.</string>
   <string name="thankYouForReading">Vielen Dank für’s Lesen!</string>
+  <string name="currentMatchScore">Aktueller Spielstand</string>
 </resources>
