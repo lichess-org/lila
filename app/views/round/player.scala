@@ -35,12 +35,12 @@ object player {
         resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
         palantir = ctx.me.exists(_.canPalantir)
       )
-      case Right(c) => chat.json(
+      case Right((c, res)) => chat.json(
         c.chat,
         name = trans.chatRoom.txt(),
         timeout = c.timeout,
         public = true,
-        resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}")
+        resourceId = res
       )
     }
 
