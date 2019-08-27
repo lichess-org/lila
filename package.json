@@ -43,7 +43,6 @@
     "ui/learn",
     "ui/lobby",
     "ui/notify",
-    "ui/perfStat",
     "ui/puzzle",
     "ui/round",
     "ui/simul",
