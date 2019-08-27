@@ -191,6 +191,7 @@
   <string name="ratingStats">احصائيات التقييم</string>
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
+  <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
