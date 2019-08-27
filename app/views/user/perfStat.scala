@@ -64,8 +64,8 @@ data: ${safeJsonValue(data)}
             highlow(stat),
             resultStreak(stat.resultStreak),
             result(stat),
-            playStreakNb(),
-            playStreakTime()
+            playStreakNb(stat.playStreak),
+            playStreakTime(stat.playStreak)
           )
         )
       )
@@ -192,12 +192,7 @@ data: ${safeJsonValue(data)}
     highlowSide("Lowest rating", stat.lowest, "red")
   )
 
-  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: String, color: String)(implicit ctx: Context): Frag = div(cls := "streak")(
-    h3(
-      title, ": ",
-      if (s.v > 0) tag(color)(strong(s.v), " game(s)")
-      else frag("none")
-    ),
+  private def fromTo(s: lila.perfStat.Streak)(implicit ctx: Context): Option[Frag] =
     s.from map { from =>
       frag(
         "from ",
@@ -209,6 +204,14 @@ data: ${safeJsonValue(data)}
         }
       )
     }
+
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: String, color: String)(implicit ctx: Context): Frag = div(cls := "streak")(
+    h3(
+      title, ": ",
+      if (s.v > 0) tag(color)(strong(s.v), " game(s)")
+      else frag("none")
+    ),
+    fromTo(s)
   )
 
   private def resultStreakSide(s: lila.perfStat.Streaks, title: String, color: String)(implicit ctx: Context): Frag = div(
@@ -245,7 +248,26 @@ data: ${safeJsonValue(data)}
     resultTable(stat.worstLosses, "Worst rated defeats")
   )
 
-  private def playStreakNb(): Frag = st.section(cls := "playStreak")()
+  private def playStreakStreaksStreak(s: lila.perfStat.Streak, title: String)(implicit ctx: Context): Frag = div(
+    div(cls := "streak")(
+      h3(
+        title, ": ",
+        if (s.v > 0) frag(strong(s.v), " game(s)")
+        else frag("none")
+      ),
+      fromTo(s)
+    )
+  )
 
-  private def playStreakTime(): Frag = st.section(cls := "playStreak")()
+  private def playStreakStreaks(streaks: lila.perfStat.Streaks)(implicit ctx: Context): Frag = div(cls := "split")(
+    playStreakStreaksStreak(streaks.max, "Longest streak"),
+    playStreakStreaksStreak(streaks.cur, "Current streak")
+  )
+
+  private def playStreakNb(streak: lila.perfStat.PlayStreak)(implicit ctx: Context): Frag = st.section(cls := "playStreak")(
+    h2(span(title := "Less than one hour between games")("Games played in a row")),
+    playStreakStreaks(streak.nb)
+  )
+
+  private def playStreakTime(streak: lila.perfStat.PlayStreak): Frag = st.section(cls := "playStreak")()
 }
