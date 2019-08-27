@@ -3,7 +3,8 @@
   "short_name": "lidraughts.org",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#fff",
+  "background_color": "#317EFB",
+  "theme_color": "#161512",
   "description": "The (really) free, no-ads, open source draughts server.",
   "icons": [{
     "src": "https://lidraughts.org/assets/favicon.32.png",
@@ -24,6 +25,10 @@
   }, {
     "src": "https://lidraughts.org/assets/favicon.256.png",
     "sizes": "256x256",
+    "type": "image/png"
+  }, {
+    "src": "https://lidraughts.org/assets/favicon.512.png",
+    "sizes": "512x512",
     "type": "image/png"
   }],
   "related_applications": [{
