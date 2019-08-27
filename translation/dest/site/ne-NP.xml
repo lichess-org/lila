@@ -710,6 +710,15 @@
   <string name="checkYourEmail">इमेल हेर्नुहोस्</string>
   <string name="weHaveSentYouAnEmailClickTheLink">हामीले तपाइलाई इमेल पठाएका छौं। इमेलमा रहेको लिंकमा क्लिक गरेर आफ्नो खाता सुचारु गर्नुहोस्।</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">यदि तपाइले इमेल देख्नु भएन भने जंक लगायत अन्य स्थानहरूमा खोज्नुहोस्।</string>
+  <string name="weHaveSentYouAnEmailTo">हामीले %s मा एउटा ईमेल पठाएका छौ। आफ्नो पासवर्ड रीसेट गर्नको लागि ईमेलमा भएको लिंकमा क्लिक गर्नुहोस्।</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">दर्ता गरेर तपाइ हाम्रो %s बाट बाधिनुहुनेछ।</string>
+  <string name="networkLagBetweenYouAndLichess">तपाइ र लीचेस बीचको नेटवर्क ढिलाई</string>
+  <string name="timeToProcessAMoveOnLichessServer">लीचेसको सर्भरमा कुनै चाल कार्यवाही गर्न लाग्ने समय</string>
+  <string name="downloadAnnotated">टिप्पणी सहित डाउनलाेड गर्नुहोस्</string>
+  <string name="downloadRaw">टिप्पणी बिना डाउनलोड गर्नुहोस्</string>
+  <string name="downloadImported">आयातित खेल डाउनलोड गर्नुहोस्</string>
+  <string name="printFriendlyPDF">प्रिंट-अनुकूल PDF</string>
+  <string name="crosstable">क्रसटेबल</string>
   <string name="alternativelyYouCanX">वैकल्पिक रूपमा तपाइ %s गर्न सक्नुहुनेछ।</string>
   <string name="revokeAllSessions">सबै सत्र रद्द गर्नुहोस्</string>
   <string name="playChessEverywhere">सबै ठाउँमा बुद्धिचाल खेलौं</string>
