@@ -9,8 +9,13 @@
   <string name="myFavoriteStudies">എന്റെ പ്രിയപ്പെട്ട പഠനങ്ങൾ</string>
   <string name="whatAreStudies">എന്താണ് പഠനങ്ങൾ?</string>
   <string name="allStudies">എല്ലാ പഠനങ്ങളും</string>
-  <string name="studiesCreatedByX">പഠനം നിർമിച്ചത് %s</string>
+  <string name="studiesCreatedByX">%s നിർമിച്ച പഠനങ്ങൾ</string>
   <string name="noneYet">ഇതുവരെ ഒന്നുമില്ല.</string>
+  <string name="hot">ചൂടുള്ള</string>
+  <string name="dateAddedNewest">ചേർത്ത തീയതി (പുതിയത്)</string>
+  <string name="dateAddedOldest">ചേർത്ത തീയതി (പഴയത്)</string>
+  <string name="recentlyUpdated">സമീപകാലത്തു പുതുക്കിയത്</string>
+  <string name="mostPopular">ഏറ്റവും ജനകീയമായത്</string>
   <string name="addNewChapter">പുതിയ അധ്യായം തുടങ്ങുക</string>
   <plurals name="nbChapters">
     <item quantity="one">%s അധ്യായം</item>
@@ -46,8 +51,8 @@
   <string name="makeSureTheChapterIsComplete">പാഠം മുഴുവനായെന്ന് ഉറപ്പു വരുത്തുക. നിങ്ങൾക്ക് ഒരിക്കൽ മാത്രമേ വിശകലനത്തിന് അപേക്ഷിക്കാൻ സാധിക്കുകയുള്ളൂ.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">എല്ലാ sync ചെയ്ത അംഗങ്ങളും ഒരേ പൊസിഷനിൽ സ്ഥിതി ചെയ്യുക</string>
   <string name="shareChanges">മാറ്റങ്ങൾ സെർവറിൽ സേവ് ചെയ്ത് അവ കാണികൾക്ക് പങ്കുവെക്കുക</string>
-  <string name="playing">കളിച്ചുകൊണ്ടിരിക്കുന്നു</string>
-  <string name="first">ഒന്നാമത്</string>
+  <string name="playing">കളിക്കുന്നു</string>
+  <string name="first">ഒന്നാമത്തെ</string>
   <string name="previous">മുൻപുള്ള</string>
   <string name="next">അടുത്തത്</string>
   <string name="last">അവസാനത്തെ</string>

@@ -855,4 +855,18 @@
     <item quantity="one">e guarda %s variante de movimentos antecipados</item>
     <item quantity="other">e guarda %s variantes de movimentos antecipados</item>
   </plurals>
+  <string name="sorry">Desculpe :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Tivemos que o banir por um tempo.</string>
+  <string name="timeoutExpires">O tempo expira %s.</string>
+  <string name="why">Porquê?</string>
+  <string name="pleasantChessExperience">O nosso objectivo é proporcionar uma experiência agradável de xadrez a todos os jogadores.</string>
+  <string name="goodPractice">Para isso, temos de assegurar que todos os jogadores seguem boas práticas.</string>
+  <string name="potentialProblem">Quando um potencial problema é detectado exibimos esta mensagem.</string>
+  <string name="howToAvoidThis">Como evitar isto?</string>
+  <string name="playEveryGame">Jogue cada jogo que começar.</string>
+  <string name="tryToWin">Tente ganhar (ou pelo menos empatar) cada partida que jogar.</string>
+  <string name="resignLostGames">Desista em partidas perdidas (não deixe o relógio ir até ao fim).</string>
+  <string name="temporaryInconvenience">Pedimos desculpa pelo incómodo temporário,</string>
+  <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
+  <string name="thankYouForReading">Obrigado pela leitura!</string>
 </resources>

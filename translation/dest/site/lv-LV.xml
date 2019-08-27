@@ -214,6 +214,7 @@
   <string name="playingRightNow">Šobrīd spēlē</string>
   <string name="eventInProgress">Šobrīd notiek</string>
   <string name="finished">Beidzies</string>
+  <string name="finishesX">beidzas %s</string>
   <string name="abortGame">Atcelt spēli</string>
   <string name="gameAborted">Spēle atcelta</string>
   <string name="standard">Standarta</string>
@@ -736,6 +737,9 @@
   <string name="yourPerfTypeRatingIsRating">Jūsu %1$s reitings ir %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Esat labāks par %1$s no %2$s spēlētājiem.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jums vēl nav stabila %s reitinga.</string>
+  <string name="yourRating">Jūsu reitings</string>
+  <string name="cumulative">Kumulatīvais</string>
+  <string name="glicko2Rating">\"Glicko-2\" reitings</string>
   <string name="checkYourEmail">Pārbaudiet e-pastu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Esam jums aizsūtījuši e-pastu. Klikšķiniet uz saņemtās saites, lai aktivizētu savu kontu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ja nevarat atrast e-pastu, pārbaudiet citas vietas, kur tas varētu būt, piemēram, mēstulēs, atkritnē, sociālo tīklu sadaļā vai citās mapēs.</string>
@@ -891,4 +895,20 @@
     <item quantity="one">un saglabāt %s priekšgājienu variantu</item>
     <item quantity="other">un saglabāt %s priekšgājienu variantus</item>
   </plurals>
+  <string name="sorry">Lūdzu piedodiet :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Mums nācās jūs apturēt uz laiku.</string>
+  <string name="timeoutExpires">Pārtraukums beigsies %s.</string>
+  <string name="why">Kāpēc?</string>
+  <string name="pleasantChessExperience">Mēs cenšamies visiem piedāvāt patīkamu šaha pieredzi.</string>
+  <string name="goodPractice">Līdz ar to, mums jānodrošina, lai visi spēlētāji pieturas pie labas prakses.</string>
+  <string name="potentialProblem">Kad atklāta iespējama problēma, mēs rādām šo ziņojumu.</string>
+  <string name="howToAvoidThis">Kā no šī izvairīties?</string>
+  <string name="playEveryGame">Izspēlējiet katru spēli, ko iesākat.</string>
+  <string name="tryToWin">Mēģiniet uzvarēt (vai vismaz panākt neizšķirtu) katrā spēlē, ko spēlējat.</string>
+  <string name="resignLostGames">Padodieties zaudētajās spēlēs (neļaujiet laikam beigties).</string>
+  <string name="temporaryInconvenience">Mēs atvainojamies par īslaicīgajām neērtībām,</string>
+  <string name="wishYouGreatGames">un novēlam jums lieliskas spēles mājaslapā lichess.org.</string>
+  <string name="thankYouForReading">Paldies, ka izlasījāt!</string>
+  <string name="lifetimeScore">Visu laiku rezultāts</string>
+  <string name="currentMatchScore">Pašreizējais spēļu reitings</string>
 </resources>

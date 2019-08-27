@@ -11,6 +11,11 @@
   <string name="allStudies">Visas izpētes</string>
   <string name="studiesCreatedByX">Izpētes, ko izveidoja %s</string>
   <string name="noneYet">Vēl nav.</string>
+  <string name="hot">Nesen populārās</string>
+  <string name="dateAddedNewest">Pievienošanas datums (jaunākās)</string>
+  <string name="dateAddedOldest">Pievienošanas datums (vecākās)</string>
+  <string name="recentlyUpdated">Nesen atjaunotās</string>
+  <string name="mostPopular">Populārākās</string>
   <string name="addNewChapter">Pievienot nodaļu</string>
   <plurals name="nbChapters">
     <item quantity="zero">%s Nodaļas</item>
@@ -66,7 +71,7 @@
   <string name="embedThisChapter">Iegult šo nodaļu savā mājaslapā vai blogā</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Uzzināt vairāk par izpētes nodaļas iegulšanu</string>
   <string name="open">Atvērt</string>
-  <string name="xBroughtToYouByY">%2$s, kuru piedāvā \"%1$s\"</string>
+  <string name="xBroughtToYouByY">%2$s piedāvā \"%1$s\"</string>
   <string name="studyNotFound">Izpēte nav atrasta</string>
   <string name="editChapter">Rediģēt nodaļu</string>
   <string name="newChapter">Jauna nodaļa</string>

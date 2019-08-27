@@ -76,7 +76,7 @@
   <string name="averageRatingX">Rata-rata rating: %s</string>
   <string name="recentGames">Permainan baru-baru ini</string>
   <string name="topGames">Permaninan kelas atas</string>
-  <string name="masterDbExplanation">Permainan OTB dua juta 2200 + FIDE dinilai pemain dari tahun 1952 untuk 2016</string>
+  <string name="masterDbExplanation">Permainan OTB dua juta %1$s + FIDE dinilai pemain dari tahun %2$s untuk %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">Mati %s di pertengahan langkah</item>
   </plurals>
@@ -672,6 +672,9 @@
   <string name="yourPerfTypeRatingIsRating">Rating %1$s anda adalah %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Anda lebih baik daripada %1$s pemain %2$s lainnya</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Anda tidak punya rating %s mapan</string>
+  <string name="yourRating">Rating Anda</string>
+  <string name="cumulative">Kumulatif</string>
+  <string name="glicko2Rating">Rating Glicko-2</string>
   <string name="checkYourEmail">Cek email mu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kami telah mengirim Anda sebuah email. Buka link di dalam email untuk mengaktivasi akun Anda.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jika anda tidak melihat surel, cek tempat-tempat lain; seperti junk, spam, sosial, atau berkas lainnya</string>
@@ -819,4 +822,20 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">dan simpan %s baris pra-langkah</item>
   </plurals>
+  <string name="sorry">Maaf :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Kami harus mengatur waktu Anda untuk sementara waktu.</string>
+  <string name="timeoutExpires">Batas waktu berakhir %s lagi.</string>
+  <string name="why">Mengapa?</string>
+  <string name="pleasantChessExperience">Kami bertujuan dan menjaga untuk memberikan pengalaman catur yang menyenangkan bagi semua orang.</string>
+  <string name="goodPractice">Untuk itu, kami harus memastikan bahwa semua pemain harus mengikuti perlakuan yang baik.</string>
+  <string name="potentialProblem">Ketika potensi menimbulkan masalah terdeteksi, kami menampilkan pesan ini.</string>
+  <string name="howToAvoidThis">Bagaimana cara untuk menghindari ini?</string>
+  <string name="playEveryGame">Mainkan setiap permainan yang kamu mulai.</string>
+  <string name="tryToWin">Usahakan untuk menang (atau setidaknya remis) disetiap permainan yang kau mainkan.</string>
+  <string name="resignLostGames">Ajukan menyerah untuk permainan yang kalah (jangan sampai waktu habis).</string>
+  <string name="temporaryInconvenience">Kami mohon maaf atas ketidaknyamanan ini,</string>
+  <string name="wishYouGreatGames">dan doakan Anda untuk mendapatkan pengalaman bermain yang hebat di lichess.org.</string>
+  <string name="thankYouForReading">Terima kasih sudah membacanya!</string>
+  <string name="lifetimeScore">Skor seumur hidup</string>
+  <string name="currentMatchScore">Skor pertandingan saat ini</string>
 </resources>

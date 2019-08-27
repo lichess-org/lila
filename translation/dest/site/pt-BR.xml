@@ -706,6 +706,9 @@ em %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Sua classificação em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem uma classificação definida em %s.</string>
+  <string name="yourRating">Sua avaliação</string>
+  <string name="cumulative">Cumulativo</string>
+  <string name="glicko2Rating">Classificação Glicko-2</string>
   <string name="checkYourEmail">Verifique seu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviamos um e-mail. Clique no link do e-mail para ativar sua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vir o e-mail, verifique outros locais onde possa estar, como lixeira, spam ou outras pastas.</string>
@@ -857,4 +860,20 @@ em %3$s</string>
     <item quantity="one">e salvar a linha de pré-lance de %s</item>
     <item quantity="other">e salvar as linhas de pré-lance de %s</item>
   </plurals>
+  <string name="sorry">Desculpa :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Tivemos de bloqueá-lo por um tempo.</string>
+  <string name="timeoutExpires">O tempo expirará %s.</string>
+  <string name="why">Por quê?</string>
+  <string name="pleasantChessExperience">Buscamos oferecer uma experiência agradável de xadrez para todos.</string>
+  <string name="goodPractice">Para isso, precisamos assegurar que nossos jogadores sigam boas práticas.</string>
+  <string name="potentialProblem">Quando um problema em potencial é detectado, nós mostramos esta mensagem.</string>
+  <string name="howToAvoidThis">Como evitar isso?</string>
+  <string name="playEveryGame">Jogue todos os jogos que inicia.</string>
+  <string name="tryToWin">Tente vencer (ou pelo menos empatar) todos os jogos que jogar.</string>
+  <string name="resignLostGames">Conceda partidas perdidas (não deixe o relógio ir até ao fim).</string>
+  <string name="temporaryInconvenience">Pedimos desculpa pelo incômodo temporário,</string>
+  <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
+  <string name="thankYouForReading">Obrigado pela leitura!</string>
+  <string name="lifetimeScore">Pontuação de todo o período</string>
+  <string name="currentMatchScore">Pontuação da partida atual</string>
 </resources>

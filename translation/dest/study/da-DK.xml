@@ -11,6 +11,11 @@
   <string name="allStudies">Alle studier</string>
   <string name="studiesCreatedByX">Studier oprettet af %s</string>
   <string name="noneYet">Ingen endnu.</string>
+  <string name="hot">Populært</string>
+  <string name="dateAddedNewest">Dato tilføjet (nyeste)</string>
+  <string name="dateAddedOldest">Dato tilføjet (ældste)</string>
+  <string name="recentlyUpdated">Nyligt opdateret</string>
+  <string name="mostPopular">Mest populære</string>
   <string name="addNewChapter">Tilføj et nyt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s kapitel</item>

@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spilles lige nu</string>
   <string name="eventInProgress">Spilles lige nu</string>
   <string name="finished">Afsluttet</string>
+  <string name="finishesX">færdiggører %s</string>
   <string name="abortGame">Afbryd parti</string>
   <string name="gameAborted">Partiet blev afbrudt</string>
   <string name="standard">Standard</string>
@@ -704,6 +705,9 @@
   <string name="yourPerfTypeRatingIsRating">Din %1$s rating er %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre end %1$s af %2$s spillere</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke en fastsat %s rating</string>
+  <string name="yourRating">Din rating</string>
+  <string name="cumulative">Akkumuleret</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Tjek din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt dig en email. Klik på linket i emailen for at aktivere din konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikke kan se emailen, bør du kontrollere andre steder den kan være endt, som i din junk, spam eller andre mapper.</string>
@@ -855,4 +859,20 @@
     <item quantity="one">og gem %s serie af forhåndstræk</item>
     <item quantity="other">og gem %s serier af forhåndstræk</item>
   </plurals>
+  <string name="sorry">Beklager :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi måtte give dig en timeout.</string>
+  <string name="timeoutExpires">Timeouten udløber %s.</string>
+  <string name="why">Hvorfor?</string>
+  <string name="pleasantChessExperience">Vi tilstræber at give alle en behagelig skakoplevelse.</string>
+  <string name="goodPractice">I den forbindelse må vi sikre, at alle spillere følger god praksis.</string>
+  <string name="potentialProblem">Når et potentielt problem opdages, viser vi denne besked.</string>
+  <string name="howToAvoidThis">Hvordan undgås dette?</string>
+  <string name="playEveryGame">Spil alle partier du starter.</string>
+  <string name="tryToWin">Forsøg at vinde (eller i det mindre opnå remis) alle partier du spiller.</string>
+  <string name="resignLostGames">Kapituler ved tabende position (lad ikke tiden løbe ud).</string>
+  <string name="temporaryInconvenience">Vi undskylder for den midlertidige ulejlighed,</string>
+  <string name="wishYouGreatGames">og ønsker dig gode kampe på lichess.org.</string>
+  <string name="thankYouForReading">Tak for at læse!</string>
+  <string name="lifetimeScore">Livstidsscore</string>
+  <string name="currentMatchScore">Nuværende kampscore</string>
 </resources>

@@ -204,6 +204,7 @@
   <string name="playingRightNow">Partita in corso</string>
   <string name="eventInProgress">In corso</string>
   <string name="finished">Terminati</string>
+  <string name="finishesX">termina %s</string>
   <string name="abortGame">Interrompi la partita</string>
   <string name="gameAborted">Partita interrotta</string>
   <string name="standard">Standard</string>
@@ -706,6 +707,9 @@ in %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Il tuo punteggio %1$s è %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Giochi meglio del %1$s di giocatori %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Non disponi di un punteggio %s consolidato.</string>
+  <string name="yourRating">Il tuo punteggio</string>
+  <string name="cumulative">Cumulativo</string>
+  <string name="glicko2Rating">Glicko-2 punteggio</string>
   <string name="checkYourEmail">Controlla la tua e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ti abbiamo inviato un\'email. Clicca sul link nella mail per attivare il tuo account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se non vedi l\'e-mail, controlla la cartella spam o altre cartelle.</string>
@@ -857,4 +861,20 @@ in %3$s</string>
     <item quantity="one">e salva %s linea pre-mossa</item>
     <item quantity="other">e salva %s linee pre-mossa</item>
   </plurals>
+  <string name="sorry">Spiacenti :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Abbiamo dovuto bloccarti per un po\' di tempo.</string>
+  <string name="timeoutExpires">Il blocco scade tra %s.</string>
+  <string name="why">Perchè?</string>
+  <string name="pleasantChessExperience">Vogliamo offrire a tutti una piacevole esperienza scacchistica.</string>
+  <string name="goodPractice">A tal fine, dobbiamo assicurarci che tutti i giocatori si comportino nel miglior modo.</string>
+  <string name="potentialProblem">Dunque, quando rileviamo un\'eccezione, appare questo messaggio.</string>
+  <string name="howToAvoidThis">Come evitare il blocco?</string>
+  <string name="playEveryGame">Gioca ogni partita dall\'inizio.</string>
+  <string name="tryToWin">Impegnati e prova a vincere (o almeno a pareggiare) in ogni partita che giochi.</string>
+  <string name="resignLostGames">Arrenditi quando la partita è persa (non lasciare che l\'orologio si esaurisca).</string>
+  <string name="temporaryInconvenience">Ci scusiamo per il temporaneo inconveniente,</string>
+  <string name="wishYouGreatGames">e ti auguriamo grandi partite su lichess.org.</string>
+  <string name="thankYouForReading">Grazie per l\'attenzione!</string>
+  <string name="lifetimeScore">Punteggio storico</string>
+  <string name="currentMatchScore">Punteggio della partita attuale</string>
 </resources>

@@ -76,7 +76,7 @@
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近のゲーム</string>
   <string name="topGames">トップのゲーム</string>
-  <string name="masterDbExplanation">1952 年から 2016 年まで、FIDEレーティング 2200 以上の 実戦 200 万局</string>
+  <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の 実戦 200 万局</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s プライでメイト</item>
   </plurals>

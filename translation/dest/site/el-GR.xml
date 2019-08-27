@@ -695,12 +695,14 @@
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία κατανομή βαθμολογίας %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Ένας %2$s παίκτης αυτή την εβδομάδα.</item>
-    <item quantity="other">%1$s %2$s παίκτες αυτή την εβδομάδα.</item>
+    <item quantity="one">%1$s παίκτης %2$s αυτήν την εβδομάδα.</item>
+    <item quantity="other">%2$s παίκτες %1$s αυτήν την εβδομάδα.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη βαθμολογία %s.</string>
+  <string name="yourRating">Η βαθμολογία σας</string>
+  <string name="glicko2Rating">Βαθμολογία Glicko-2</string>
   <string name="checkYourEmail">Ελέγξτε το ηλ. ταχυδρομείο σας</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Σας έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου. Κάντε κλικ τον σύνδεσμο στο ηλ.ταχυδρομείο για να ενεργοποιήσετε τον λογαριασμό σας.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>

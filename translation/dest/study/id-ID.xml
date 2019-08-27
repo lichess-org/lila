@@ -11,6 +11,11 @@
   <string name="allStudies">Semua materi</string>
   <string name="studiesCreatedByX">Materi dibuat oleh %s</string>
   <string name="noneYet">Tidak ada.</string>
+  <string name="hot">Terhangat</string>
+  <string name="dateAddedNewest">Tanggal ditambahkan (terbaru)</string>
+  <string name="dateAddedOldest">Tanggal ditambahkan (terlama)</string>
+  <string name="recentlyUpdated">Baru saja diperbarui</string>
+  <string name="mostPopular">Paling populer</string>
   <string name="addNewChapter">Tambahkan bab baru</string>
   <plurals name="nbChapters">
     <item quantity="other">%s Bab</item>

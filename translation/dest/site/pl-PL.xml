@@ -50,7 +50,7 @@
   <string name="analysis">Analiza partii</string>
   <string name="depthX">Głębokość %s</string>
   <string name="usingServerAnalysis">Analiza zdalna</string>
-  <string name="loadingEngine">Wczytywanie analizatora…</string>
+  <string name="loadingEngine">Wczytywanie silnika szachowego...</string>
   <string name="cloudAnalysis">Analiza w chmurze</string>
   <string name="goDeeper">Analizuj głębiej</string>
   <string name="showThreat">Pokaż zagrożenia</string>
@@ -102,7 +102,7 @@
   <string name="replayMode">Tryb odtwarzania</string>
   <string name="realtimeReplay">Jak w grze</string>
   <string name="byCPL">Wg analizy</string>
-  <string name="openStudy">Stwórz analizę</string>
+  <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
   <string name="evaluationGauge">Miernik oceny</string>
@@ -224,6 +224,7 @@
   <string name="playingRightNow">W toku</string>
   <string name="eventInProgress">W toku</string>
   <string name="finished">Zakończone</string>
+  <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
   <string name="gameAborted">Gra została przerwana</string>
   <string name="standard">Standard</string>
@@ -620,7 +621,7 @@
   <string name="privacy">Prywatność</string>
   <string name="letOtherPlayersFollowYou">Inni gracze mogą Cię obserwować</string>
   <string name="letOtherPlayersChallengeYou">Zezwól na zaproszenia od innych graczy</string>
-  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do analizy</string>
+  <string name="letOtherPlayersInviteYouToStudy">Inni gracze mogą zapraszać Cię do opracowania</string>
   <string name="sound">Dźwięk</string>
   <string name="yourPreferencesHaveBeenSaved">Twoje ustawienia zostały zapisane.</string>
   <string name="none">Brak</string>
@@ -768,6 +769,9 @@
   <string name="yourPerfTypeRatingIsRating">Twój ranking (%1$s) to %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jesteś lepszy niż %1$s graczy (%2$s).</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
+  <string name="yourRating">Twój ranking</string>
+  <string name="cumulative">Łącznie</string>
+  <string name="glicko2Rating">Glicko-2 ranking</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
@@ -825,7 +829,7 @@
   <string name="xHostsY">%1$s utworzył %2$s</string>
   <string name="xJoinsY">%1$s dołączył do %2$s</string>
   <string name="xLikesY">%1$s polubił %2$s</string>
-  <string name="xCreatesStudyY">%1$s utworzył analizę %2$s</string>
+  <string name="xCreatesStudyY">%1$s utworzył opracowanie %2$s</string>
   <string name="quickPairing">Szybkie parowanie</string>
   <string name="lobby">Poczekalnia</string>
   <string name="anonymous">Anonimowy</string>
@@ -927,4 +931,20 @@
     <item quantity="many">i zapisz warianty warunkowe</item>
     <item quantity="other">i zapisz %s wariantów warunkowych</item>
   </plurals>
+  <string name="sorry">Przykro nam :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
+  <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
+  <string name="why">Dlaczego?</string>
+  <string name="pleasantChessExperience">Naszym celem jest zapewnienie wszystkim przyjemności z gry.</string>
+  <string name="goodPractice">W tym celu musimy zagwarantować, że wszyscy gracze przestrzegają dobrych praktyk.</string>
+  <string name="potentialProblem">Po wykryciu potencjalnego problemu wyświetlamy ten właśnie komunikat.</string>
+  <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
+  <string name="playEveryGame">Rozegraj każdą partię którą rozpocząłeś.</string>
+  <string name="tryToWin">Próbuj wygrać (lub przynajmniej zremisować) każdą partię którą grasz.</string>
+  <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj aż upłynie Twój czas).</string>
+  <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
+  <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
+  <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
+  <string name="lifetimeScore">Wynik wszystkich partii</string>
+  <string name="currentMatchScore">Wynik bieżącego meczu</string>
 </resources>

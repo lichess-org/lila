@@ -3,7 +3,7 @@
 <resources>
   <string name="emailConfirm_subject">Apstipriniet savu lichess.org kontu, %s</string>
   <string name="emailConfirm_click">Noklikšķiniet uz saites lai aktivizētu savu Lichess kontu:</string>
-  <string name="emailConfirm_ignore">Ja tas nebijāt jūs, kas reģistrējās Lichess, tad varat droši neņemt vērā šo vēstuli.</string>
+  <string name="emailConfirm_ignore">Ja nereģistrējāties Lichess, varat droši neņemt šo vēstuli vērā.</string>
   <string name="passwordReset_subject">Atjaunojiet savu lichess.org paroli, %s</string>
   <string name="passwordReset_intro">Mēs saņēmām pieprasījumu atjaunot jūsu konta paroli.</string>
   <string name="passwordReset_clickOrIgnore">Ja veicāt šo pieprasījumu, noklikšķiniet uz zemāk esošās saites. Pretējā gadījumā jūs varat neņemt vērā šo e-pastu.</string>
