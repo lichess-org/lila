@@ -70,19 +70,19 @@ object perfStat {
     h2(
       "Rating: ",
       strong(title := "Yes, ratings have decimal accuracy.")(decimal(perf.glicko.rating).toString),
+      perf.glicko.provisional option frag(
+        " ", span(title := "Not enough rated games have been played to establish a reliable rating.", cls := "details")("(provisional)")
+      ),
       ". ",
-      span(cls := "details")(
-        perf.glicko.provisional option span(title := "Not enough rated games have been played to establish a reliable rating.")("(provisional)"),
-        percentile.filter(_ != 0.0 && !perf.glicko.provisional) map { percentile =>
-          frag(
-            "Better than ",
-            a(href := routes.Stat.ratingDistribution(perfType.key))(
-              strong(percentile, "%"), " of ", perfType.name, " players"
-            ),
-            "."
-          )
-        }
-      )
+      percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+        span(cls := "details")(
+          "Better than ",
+          a(href := routes.Stat.ratingDistribution(perfType.key))(
+            strong(percentile, "%"), " of ", perfType.name, " players"
+          ),
+          "."
+        )
+      }
     ),
     p(
       "Progression over the last twelve games: ",
