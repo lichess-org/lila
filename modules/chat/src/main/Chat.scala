@@ -93,7 +93,7 @@ object Chat {
 
   // left: game chat
   // right: tournament/simul chat
-  case class GameOrEvent(either: Either[Restricted, UserChat.Mine]) {
+  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, ResourceId)]) {
     def game = either.left.toOption
   }
 

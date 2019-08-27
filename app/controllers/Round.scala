@@ -250,13 +250,16 @@ object Round extends LidraughtsController with TheftPrevention {
   }
 
   private[controllers] def getPlayerChat(game: GameModel, tour: Option[Tour], simul: Option[lidraughts.simul.Simul])(implicit ctx: Context): Fu[Option[Chat.GameOrEvent]] = ctx.noKid ?? {
-    def toEventChat(c: lidraughts.chat.UserChat.Mine) = Chat.GameOrEvent(Right(c truncate 100)).some
+    def toEventChat(resource: String)(c: lidraughts.chat.UserChat.Mine) = Chat.GameOrEvent(Right((
+      c truncate 100,
+      lidraughts.chat.Chat.ResourceId(resource)
+    ))).some
     (game.tournamentId, game.simulId) match {
       case (Some(tid), _) => {
         ctx.isAuth && tour.fold(true)(Tournament.canHaveChat(_, none))
-      } ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map(toEventChat)
+      } ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map(toEventChat(s"tournament/$tid"))
       case (_, Some(sid)) if simul.fold(false)(_.canHaveChat(ctx.me)) => game.simulId.?? { sid =>
-        Env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map(toEventChat)
+        Env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map(toEventChat(s"simul/$sid"))
       }
       case _ => game.hasChat ?? {
         Env.chat.api.playerChat.findIf(Chat.Id(game.id), !game.justCreated) map { chat =>
