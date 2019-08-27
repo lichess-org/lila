@@ -63,7 +63,7 @@ data: ${safeJsonValue(data)}
             counter(stat.count),
             highlow(stat),
             resultStreak(stat.resultStreak),
-            result(),
+            result(stat),
             playStreakNb(),
             playStreakTime()
           )
@@ -222,7 +222,28 @@ data: ${safeJsonValue(data)}
     resultStreakSide(streak.loss, "Losing streak", "red")
   )
 
-  private def result(): Frag = st.section(cls := "result split")()
+  private def resultTable(results: lila.perfStat.Results, title: String)(implicit ctx: Context): Frag = div(
+    table(
+      thead(
+        tr(
+          th(colspan := 2)(h2(title))
+        )
+      ),
+      tbody(
+        results.results map { r =>
+          tr(
+            td(userIdLink(r.opId.value, none)),
+            td(a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(semanticDate(r.at)))
+          )
+        }
+      )
+    )
+  )
+
+  private def result(stat: PerfStat)(implicit ctx: Context): Frag = st.section(cls := "result split")(
+    resultTable(stat.bestWins, "Best rated victories"),
+    resultTable(stat.worstLosses, "Worst rated defeats")
+  )
 
   private def playStreakNb(): Frag = st.section(cls := "playStreak")()
 
