@@ -988,4 +988,10 @@
   <string name="sorry">نأسف :(</string>
   <string name="why">لماذا ؟</string>
   <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
+  <string name="goodPractice">لهذا الغرض، يجب علينا التأكد ان جميع اللاعبين يتبعون سلوك جيد.</string>
+  <string name="potentialProblem">عند اكتشاف مشكلة محتملة، نعرض هذه الرسالة.</string>
+  <string name="howToAvoidThis">كيفية تجنب حدوث هذا ؟</string>
+  <string name="playEveryGame">العب كل دور تبدأه.</string>
+  <string name="tryToWin">حاول فوز (او تعادل على الأقل) كل دور تلعبه.</string>
+  <string name="resignLostGames">انسحب اذا كنت على وشك الهزيمة (لا تدع الوقت ينتهي).</string>
 </resources>
