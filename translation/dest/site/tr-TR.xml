@@ -704,6 +704,9 @@
   <string name="yourPerfTypeRatingIsRating">Sizin %1$s modunda dereceniz: %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oyuncunun %1$s tanesinden daha iyisiniz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s dereceniz yok.</string>
+  <string name="yourRating">Sizin puanınız</string>
+  <string name="cumulative">Kümülatif</string>
+  <string name="glicko2Rating">Glicko-2 puanı</string>
   <string name="checkYourEmail">E-postanızı kontrol edin</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Size e-posta yolladık. Hesabınızı aktifleştirmek için e-postanızdaki linke tıklayın.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Eğer e-postayı görmüyorsanız, spam, sosyal veya diğer klasörlere göz atmayı deneyin.</string>
