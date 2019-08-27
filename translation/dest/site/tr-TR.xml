@@ -855,4 +855,17 @@
     <item quantity="one">ve %s önceki varyantları kaydedin</item>
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
+  <string name="sorry">Üzgünüz :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Seni bir molaya almak zorunda kaldık.</string>
+  <string name="why">Neden?</string>
+  <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
+  <string name="goodPractice">Bu nedenle, tüm oyuncuların iyi uygulamaları takip etmesini sağlamalıyız.</string>
+  <string name="potentialProblem">Potansiyel bir sorun tespit edildiğinde bu mesajı görüntülüyoruz.</string>
+  <string name="howToAvoidThis">Bunu nasıl engelleyebilirsin?</string>
+  <string name="playEveryGame">Başladığın her oyunu sonuna kadar oyna.</string>
+  <string name="tryToWin">Oynadığın her oyunu kazanmaya (veya en azından berabere kalmaya) çalış.</string>
+  <string name="resignLostGames">Kaybettiğin oyunlardan çekil (sürenin dolmasını bekleme).</string>
+  <string name="temporaryInconvenience">Verdiğimiz geçici rahatsızlıktan dolayı özür dileriz,</string>
+  <string name="wishYouGreatGames">ve lichess.org\'da harika oyunlar dileriz.</string>
+  <string name="thankYouForReading">Okuduğun için teşekkürler!</string>
 </resources>

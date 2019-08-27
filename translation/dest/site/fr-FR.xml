@@ -204,6 +204,7 @@
   <string name="playingRightNow">Parties en cours</string>
   <string name="eventInProgress">En cours</string>
   <string name="finished">Terminé</string>
+  <string name="finishesX">finit %s</string>
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
   <string name="standard">Standard</string>
@@ -705,6 +706,8 @@ en %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
+  <string name="yourRating">Votre classement</string>
+  <string name="glicko2Rating">Classement Glicko-2</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
@@ -856,4 +859,17 @@ en %3$s</string>
     <item quantity="one">et enregistrer %s variante de précoups</item>
     <item quantity="other">et enregistrer %s variantes de précoups</item>
   </plurals>
+  <string name="sorry">Désolé :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous faire sortir pendant quelque temps.</string>
+  <string name="why">Pourquoi ?</string>
+  <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
+  <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs suivent les bonnes pratiques.</string>
+  <string name="potentialProblem">Lorsqu\'un problème potentiel est détecté, nous affichons ce message.</string>
+  <string name="howToAvoidThis">Comment éviter cela?</string>
+  <string name="playEveryGame">Jouez chaque partie que vous commencez.</string>
+  <string name="tryToWin">Essayez de gagner (ou du moins d\'annuler) chaque partie que vous jouez.</string>
+  <string name="resignLostGames">Abandonnez les parties perdues (ne laissez pas le temps s\'écouler).</string>
+  <string name="temporaryInconvenience">Nous nous excusons pour les désagréments temporaires,</string>
+  <string name="wishYouGreatGames">et vous souhaitons d\'excellentes parties sur lichess.org.</string>
+  <string name="thankYouForReading">Merci d\'avoir pris le temps de lire !</string>
 </resources>

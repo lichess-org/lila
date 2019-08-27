@@ -48,7 +48,6 @@
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
   <string name="analysis">বিশ্লেষণ বোর্ড</string>
-  <string name="depthX">গভীরতার %</string>
   <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
   <string name="loadingEngine">ইঞ্জিন লোড করা হচ্ছে...</string>
   <string name="cloudAnalysis">মেঘবিশ্লেষণ</string>

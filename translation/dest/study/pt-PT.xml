@@ -11,6 +11,10 @@
   <string name="allStudies">Todos os estudos</string>
   <string name="studiesCreatedByX">Estudos criados por %s</string>
   <string name="noneYet">Nenhum ainda.</string>
+  <string name="dateAddedNewest">Data em que foi adicionado (mais recente)</string>
+  <string name="dateAddedOldest">Data em que foi adicionado (mais antigo)</string>
+  <string name="recentlyUpdated">Actualizado recentemente</string>
+  <string name="mostPopular">Mais popular</string>
   <string name="addNewChapter">Adicionar novo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítulo</item>
@@ -111,8 +115,11 @@
   <string name="everyone">Toda a gente</string>
   <string name="enableSync">Ativar sincronização</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Sim: mantenha toda a gente na mesma posição</string>
+  <string name="noLetPeopleBrowseFreely">Não: deixe as pessoas navegarem livremente</string>
+  <string name="pinnedStudyComment">Comentário de estudo fixo</string>
   <string name="save">Guardar</string>
   <string name="clearChat">Limpar conversação</string>
+  <string name="deleteTheStudyChatHistory">Excluir o histórico de conversação do estudo? Não há volta atrás!</string>
   <string name="deleteStudy">Eliminar estudo</string>
   <string name="deleteTheEntireStudy">Eliminar todo o estudo? Não há volta atrás!</string>
 </resources>

@@ -706,6 +706,9 @@ i %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Ratinga di i %1$s er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
+  <string name="yourRating">Ratinga di i er</string>
+  <string name="cumulative">Akkumulert</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt deg ein e-post. Trykk på lenka i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
@@ -857,4 +860,20 @@ i %3$s</string>
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>
   </plurals>
+  <string name="sorry">Beklagar :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
+  <string name="timeoutExpires">Timeouten tek slutt %s.</string>
+  <string name="why">Kvifor?</string>
+  <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
+  <string name="goodPractice">For å oppnå det må vi sikre at alle spelarar følgjer god praksis.</string>
+  <string name="potentialProblem">Når eit potensielt problem blir oppdaga syner vi denne meldinga.</string>
+  <string name="howToAvoidThis">Korleis unngå dette?</string>
+  <string name="playEveryGame">Spel alle parti du startar.</string>
+  <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle parti du spelar.</string>
+  <string name="resignLostGames">Resigner ved tapte stillingar (ikkje la tida renne ut).</string>
+  <string name="temporaryInconvenience">Vi seier oss leie for det kortvarige bryet,</string>
+  <string name="wishYouGreatGames">og vonar du får gode sjakkoppgjer på lichess.org.</string>
+  <string name="thankYouForReading">Takk for at du leste!</string>
+  <string name="lifetimeScore">Livstidsscore</string>
+  <string name="currentMatchScore">Gjeldande kampscore</string>
 </resources>

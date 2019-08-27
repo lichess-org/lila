@@ -705,6 +705,7 @@ in %3$s</string>
   <string name="yourPerfTypeRatingIsRating">നിങ്ങളുടെ %1$s റേറ്റിംഗ് %2$s ആണ്.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">നിങ്ങൾ %1$s -ൽ %2$s-വരേക്കാളും മികച്ചവരാണ്.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">നിങ്ങൾക്ക് സ്വന്തമായി രേഖപ്പെടുത്തപ്പെട്ട %s റേറ്റിംഗ് ഇല്ല.</string>
+  <string name="yourRating">നിങ്ങളുടെ റേറ്റിംഗ്</string>
   <string name="checkYourEmail">നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കൂ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ഞങ്ങൾ നിങ്ങൾക്കൊരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിലിലെ ലിങ്ക് ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ അക്കൗണ്ട് ആക്ടിവേറ്റ് ചെയ്യൂ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>

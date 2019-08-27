@@ -78,8 +78,8 @@
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Дараагийн барьцаа эсвэл падаа % s хагас шилжих хөдөлгөөнд шилжих (50 алхам тоолуурын Zeroing руу шилжих)</item>
-    <item quantity="other">Дараагийн удаа барьцаалах буюу зээлдүүлэгчид % s хагас хөдөлгөөнд шилжих (50 шилжих тоолуурын зайнаас шилжих)</item>
+    <item quantity="one">Дараагийн барьцаа эсвэл падаа %s хагас шилжих хөдөлгөөнд шилжих (50 алхам тоолуурын Zeroing руу шилжих)</item>
+    <item quantity="other">Дараагийн удаа барьцаалах буюу зээлдүүлэгчид %s хагас хөдөлгөөнд шилжих (50 шилжих тоолуурын зайнаас шилжих)</item>
   </plurals>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
@@ -268,10 +268,6 @@
   <string name="tournament">Тэмцээн</string>
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
-  <plurals name="nbTournamentPoints">
-    <item quantity="one">тэмцээний оноо</item>
-    <item quantity="other">тэмцээний оноонууд</item>
-  </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
@@ -293,7 +289,6 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
-  <string name="mustBeInTeam">Баг дотор байх ёстой</string>
   <string name="youAreNotInTeam">Та % s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
@@ -737,7 +732,6 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
-  <string name="xCreatesStudyY">Стүд нээх</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
@@ -773,10 +767,6 @@
   <string name="notifications">Мэдэгдэлүүд</string>
   <string name="challenges">Бодлогууд</string>
   <string name="perfRatingX">Чансаа:%s</string>
-  <plurals name="nbSecondsToPlayTheFirstMove">
-    <item quantity="one">эхний нүүдлийг тоглуулна</item>
-    <item quantity="other">эхний нүүдлийг тоглуулна</item>
-  </plurals>
   <string name="practiceWithComputer">Компьютертэй сургуулилах</string>
   <string name="anotherWasX">Өөр хувилбар %s</string>
   <string name="bestWasX">Хамгийн сайн нүүдэл нь %s байсан</string>

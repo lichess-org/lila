@@ -73,7 +73,6 @@
   <string name="unknown">Óþekktur</string>
   <string name="database">Gagnagrunnur</string>
   <string name="whiteDrawBlack">Hvitur / Jafntefli / Svartur</string>
-  <string name="averageRatingX">Meðalstig</string>
   <string name="recentGames">Síðustu skákir</string>
   <string name="topGames">Bestir leikir</string>
   <string name="masterDbExplanation">Tvær milljónir skáka með %1$s FIDE-stiga skákmönnum frá %2$s stigum til %3$s</string>

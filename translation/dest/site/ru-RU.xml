@@ -768,6 +768,9 @@
   <string name="yourPerfTypeRatingIsRating">Ваш рейтинг в %1$s — %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
+  <string name="yourRating">Ваш рейтинг</string>
+  <string name="cumulative">Суммарно</string>
+  <string name="glicko2Rating">Рейтинг Глико-2</string>
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
@@ -927,4 +930,20 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
+  <string name="sorry">Простите :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
+  <string name="timeoutExpires">Вы можете вернуться через %s.</string>
+  <string name="why">Почему?</string>
+  <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
+  <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
+  <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
+  <string name="howToAvoidThis">Как избежать этого?</string>
+  <string name="playEveryGame">Играйте все игры, которые вы начали.</string>
+  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою игру.</string>
+  <string name="resignLostGames">Сдавайтесь в безнадёжной игре (а не ждите, когда упадёт ваш флажок).</string>
+  <string name="temporaryInconvenience">Мы сожалеем о причинённых вам временных неудобствах,</string>
+  <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
+  <string name="thankYouForReading">Спасибо за внимание!</string>
+  <string name="lifetimeScore">Счёт за всё время</string>
+  <string name="currentMatchScore">Счёт в текущем матче</string>
 </resources>
