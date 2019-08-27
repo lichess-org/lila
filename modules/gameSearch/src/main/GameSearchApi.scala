@@ -52,7 +52,7 @@ final class GameSearchApi(
     Fields.uids -> game.userIds.toArray.some.filterNot(_.isEmpty),
     Fields.winner -> game.winner.flatMap(_.userId),
     Fields.loser -> game.loser.flatMap(_.userId),
-    Fields.winnerColor -> game.winner.fold(3)(_.color.fold(1, 2)),
+    Fields.winnerColor -> game.winnerColor.fold(3)(_.fold(1, 2)),
     Fields.averageRating -> game.averageUsersRating,
     Fields.ai -> game.aiLevel,
     Fields.date -> (lila.search.Date.formatter print game.movedAt),

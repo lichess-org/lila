@@ -48,7 +48,7 @@ private final class GameJson(
           Json.obj(
             "userId" -> p.userId,
             "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
-            "color" -> p.color.name
+            "color" -> game.colorOf(p).name
           )
         }),
         "treeParts" -> {

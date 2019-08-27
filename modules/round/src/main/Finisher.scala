@@ -36,7 +36,7 @@ private[round] final class Finisher(
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     } else {
-      val winner = Some(!game.player.color) filterNot { color =>
+      val winner = Some(!game.colorOf(p)) filterNot { color =>
         game.variant.insufficientWinningMaterial(game.board, color)
       }
       apply(game, _.Outoftime, winner) >>-

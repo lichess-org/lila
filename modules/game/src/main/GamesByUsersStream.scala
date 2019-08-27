@@ -59,7 +59,7 @@ private object GamesByUsersStream {
         "createdAt" -> g.createdAt,
         "status" -> g.status.id,
         "players" -> JsObject(g.players.zipWithIndex map {
-          case (p, i) => p.color.name -> Json.obj(
+          case (p, i) => g.colorOf(p).name -> Json.obj(
             "userId" -> p.userId,
             "rating" -> p.rating
           ).add("provisional" -> p.provisional)

@@ -57,7 +57,7 @@ final class PlaybanApi(
   } * (if (color == Color.White) 1 else -1)
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
-    pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
+    pov.player.userId.ifTrue(isOnGame(!pov.color)) ?? { userId =>
       save(Outcome.Abort, userId, 0) >>- feedback.abort(pov)
     }
   }

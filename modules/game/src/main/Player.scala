@@ -8,7 +8,6 @@ case class PlayerUser(id: String, rating: Int, ratingDiff: Option[Int])
 
 case class Player(
     id: Player.ID,
-    color: Color,
     aiLevel: Option[Int],
     isWinner: Option[Boolean] = None,
     isOfferingDraw: Boolean = false,
@@ -88,7 +87,6 @@ object Player {
     aiLevel: Option[Int] = None
   ): Player = Player(
     id = IdGenerator.player(color),
-    color = color,
     aiLevel = aiLevel
   )
 
@@ -97,7 +95,6 @@ object Player {
     userPerf: (User.ID, lila.rating.Perf)
   ): Player = Player(
     id = IdGenerator.player(color),
-    color = color,
     aiLevel = none,
     userId = userPerf._1.some,
     rating = userPerf._2.intRating.some,
@@ -149,7 +146,7 @@ object Player {
   type ID = String
   type UserId = Option[String]
   type Win = Option[Boolean]
-  type Builder = Color => ID => UserId => Win => Player
+  type Builder = ID => UserId => Win => Player
 
   private def safeRange(range: Range, name: String)(userId: Option[String])(v: Int): Option[Int] =
     if (range contains v) Some(v)
@@ -166,9 +163,8 @@ object Player {
     import BSONFields._
     import Blurs._
 
-    def reads(r: BSON.Reader) = color => id => userId => win => Player(
+    def reads(r: BSON.Reader) = id => userId => win => Player(
       id = id,
-      color = color,
       aiLevel = r intO aiLevel,
       isWinner = win,
       isOfferingDraw = r boolD isOfferingDraw,
@@ -184,7 +180,7 @@ object Player {
     )
 
     def writes(w: BSON.Writer, o: Builder) =
-      o(chess.White)("0000")(none)(none) |> { p =>
+      o("0000")(none)(none) |> { p =>
         BSONDocument(
           aiLevel -> p.aiLevel,
           isOfferingDraw -> w.boolO(p.isOfferingDraw),

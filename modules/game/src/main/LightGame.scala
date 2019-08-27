@@ -17,8 +17,9 @@ case class LightGame(
   def players = List(whitePlayer, blackPlayer)
   def playerByUserId(userId: User.ID): Option[Player] = players.find(_.userId contains userId)
   def winner = players find (_.wins)
-  def wonBy(c: Color): Option[Boolean] = winner.map(_.color == c)
+  def wonBy(c: Color): Option[Boolean] = winner map (w => colorOf(w) == c)
   def finished = status >= Status.Mate
+  def colorOf(p: Player) = Color(p == whitePlayer)
 }
 
 object LightGame {

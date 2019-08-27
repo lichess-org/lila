@@ -57,7 +57,7 @@ case class Game(
   def playerByUserId(userId: String): Option[Player] = players.find(_.userId contains userId)
   def opponentByUserId(userId: String): Option[Player] = playerByUserId(userId) map opponent
 
-  def opponent(p: Player): Player = opponent(p.color)
+  def opponent(p: Player): Player = opponent(colorOf(p))
 
   def opponent(c: Color): Player = player(!c)
 
@@ -160,10 +160,10 @@ case class Game(
     moveMetrics: MoveMetrics = MoveMetrics()
   ): Progress = {
 
-    def copyPlayer(player: Player) =
-      if (blur && moveOrDrop.fold(_.color, _.color) == player.color)
+    def copyPlayer(player: Player, color: Color) =
+      if (blur && moveOrDrop.fold(_.color, _.color) == color)
         player.copy(
-          blurs = player.blurs.add(playerMoves(player.color))
+          blurs = player.blurs.add(playerMoves(color))
         )
       else player
 
@@ -175,8 +175,8 @@ case class Game(
     } yield ch.record(turnColor, clk)
 
     val updated = copy(
-      whitePlayer = copyPlayer(whitePlayer),
-      blackPlayer = copyPlayer(blackPlayer),
+      whitePlayer = copyPlayer(whitePlayer, White),
+      blackPlayer = copyPlayer(blackPlayer, Black),
       chess = game,
       binaryMoveTimes = (!isPgnImport && !chess.clock.isDefined).option {
         BinaryFormat.moveTime.write {
@@ -285,7 +285,7 @@ case class Game(
   def hasAi: Boolean = players.exists(_.isAi)
   def nonAi = !hasAi
 
-  def aiPov: Option[Pov] = players.find(_.isAi).map(_.color) map pov
+  def aiPov: Option[Pov] = players.find(_.isAi) map povOf
 
   def mapPlayers(f: Player => Player) = copy(
     whitePlayer = f(whitePlayer),
@@ -398,19 +398,19 @@ case class Game(
   def fromLobby = source contains Source.Lobby
   def fromFriend = source contains Source.Friend
 
-  def winner = players find (_.wins)
+  def winner = players.find(_.wins)
 
   def loser = winner map opponent
 
-  def winnerColor: Option[Color] = winner map (_.color)
+  def winnerColor: Option[Color] = winner map colorOf
 
   def winnerUserId: Option[String] = winner flatMap (_.userId)
 
   def loserUserId: Option[String] = loser flatMap (_.userId)
 
-  def wonBy(c: Color): Option[Boolean] = winner map (_.color == c)
+  def wonBy(c: Color): Option[Boolean] = winnerColor map (_ == c)
 
-  def lostBy(c: Color): Option[Boolean] = winner map (_.color != c)
+  def lostBy(c: Color): Option[Boolean] = winnerColor map (_ != c)
 
   def drawn = finished && winner.isEmpty
 
@@ -555,12 +555,14 @@ case class Game(
 
   private def playerMaps[A](f: Player => Option[A]): List[A] = players flatMap { f(_) }
 
-  def pov(c: Color) = Pov(this, c)
+  def colorOf(p: Player) = Color(p == whitePlayer)
+
+  def pov(c: Color): Pov = Pov(this, c)
+  def povOf(p: Player): Pov = Pov(this, colorOf(p))
   def playerIdPov(playerId: Player.ID): Option[Pov] = player(playerId) map { Pov(this, _) }
   def whitePov = pov(White)
   def blackPov = pov(Black)
-  def playerPov(p: Player) = pov(p.color)
-  def loserPov = loser map playerPov
+  def loserPov = loser map povOf
 
   override def toString = s"""Game($id)"""
 }

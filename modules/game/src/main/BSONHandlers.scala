@@ -152,8 +152,8 @@ object BSONHandlers {
       F.id -> o.id,
       F.playerIds -> (o.whitePlayer.id + o.blackPlayer.id),
       F.playerUids -> w.strListO(List(~o.whitePlayer.userId, ~o.blackPlayer.userId)),
-      F.whitePlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
-      F.blackPlayer -> w.docO(playerBSONHandler write ((_: Color) => (_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
+      F.whitePlayer -> w.docO(playerBSONHandler write ((_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.whitePlayer)),
+      F.blackPlayer -> w.docO(playerBSONHandler write ((_: Player.ID) => (_: Player.UserId) => (_: Player.Win) => o.blackPlayer)),
       F.status -> o.status,
       F.turns -> o.chess.turns,
       F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
@@ -210,7 +210,7 @@ object BSONHandlers {
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
       def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
-        builder(color)(id)(uid)(winC map (_ == color))
+        builder(id)(uid)(winC map (_ == color))
       }
       LightGame(
         id = r str F.id,

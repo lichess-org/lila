@@ -16,7 +16,7 @@ case class Pov(game: Game, color: Color) {
 
   def opponent = game player !color
 
-  def isFirstPlayer = game.firstPlayer.color == color
+  def isFirstPlayer = game.firstColor == color
 
   def unary_! = Pov(game, !color)
 
@@ -55,7 +55,7 @@ object Pov {
   def black(game: Game) = apply(game, game.blackPlayer)
   def player(game: Game) = apply(game, game.player)
 
-  def apply(game: Game, player: Player) = new Pov(game, player.color)
+  def apply(game: Game, player: Player) = game povOf player
 
   def apply(game: Game, playerId: Player.ID): Option[Pov] =
     game player playerId map { apply(game, _) }
@@ -112,7 +112,7 @@ case class LightPov(game: LightGame, color: Color) {
 
 object LightPov {
 
-  def apply(game: LightGame, player: Player) = new LightPov(game, player.color)
+  def apply(game: LightGame, player: Player) = new LightPov(game, game colorOf player)
 
   def ofUserId(game: LightGame, userId: User.ID): Option[LightPov] =
     game playerByUserId userId map { apply(game, _) }
