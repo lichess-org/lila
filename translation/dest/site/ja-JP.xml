@@ -827,4 +827,17 @@
   <string name="sorry">残念です :(</string>
   <string name="weHadToTimeYouOutForAWhile">しばらくプレイを禁止します。</string>
   <string name="timeoutExpires">禁止は %s 後に解けます。</string>
+  <string name="why">どうして？</string>
+  <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
+  <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
+  <string name="potentialProblem">問題があった場合、このメッセージ画面が表示されます。</string>
+  <string name="howToAvoidThis">どうすればいいの？</string>
+  <string name="playEveryGame">始めたゲームを中断しない</string>
+  <string name="tryToWin">すべてのゲームで勝ち（またはドロー）を目指す</string>
+  <string name="resignLostGames">敗勢なら投了する（時間切れまで放置しない）</string>
+  <string name="temporaryInconvenience">しばらくご不便をおかけしますが</string>
+  <string name="wishYouGreatGames">今後も Lichess ですばらしいゲームを楽しまれるよう願っています。</string>
+  <string name="thankYouForReading">熟読ありがとう！</string>
+  <string name="lifetimeScore">通算成績</string>
+  <string name="currentMatchScore">現在のスコア</string>
 </resources>
