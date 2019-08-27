@@ -292,8 +292,8 @@
     <item quantity="other">≥ %s dereceli maçlar</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s dereceli maç</item>
-    <item quantity="other">≥ %1$s %2%s dereceli maçlar</item>
+    <item quantity="one">≥ %1$s puanlı %2$s maçı</item>
+    <item quantity="other">≥ %1$s puanlı %2$s maçı</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">%1$s tane daha puanlı %2$s oynamanız gerekiyor</item>
@@ -672,7 +672,7 @@
   <string name="aboutSimulImage">Fischer 50 rakibe karşı, 47 oyun kazandı, 2 beraberlik ve 1 yenilgi aldı.</string>
   <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlının ev sahibi, masadan masaya dolaşarak birer hamle yapar.</string>
   <string name="aboutSimulRules">Herhangi bir simültane gösteri başladığında, beyaz taşlarla oynayan her bir oyuncu ev sahibine karşı bir hamle yapar. Tüm oyunlar sona erdiği zaman, simültane gösteri de sona erer.</string>
-  <string name="aboutSimulSettings">Eş zamanlılar daima puansızdır. Yeniden oynama, hamleyi geri alma ve zaman ekleme devre dışıdır.</string>
+  <string name="aboutSimulSettings">Eş zamanlı oyunlar daima puansızdır. Hamleleri geri alma, yeniden maç teklifi göndermek ve ek süre talep etmek devre dışıdır.</string>
   <string name="create">Oluştur</string>
   <string name="whenCreateSimul">Eş zamanlı oluşturduğunuzda, birkaç oyuncuyla aynı anda oynarsınız.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
@@ -867,8 +867,8 @@
   <string name="howToAvoidThis">Bunu nasıl engelleyebilirsin?</string>
   <string name="playEveryGame">Başladığın her oyunu sonuna kadar oyna.</string>
   <string name="tryToWin">Oynadığın her oyunu kazanmaya (veya en azından berabere kalmaya) çalış.</string>
-  <string name="resignLostGames">Kaybettiğin oyunlardan çekil (sürenin dolmasını bekleme).</string>
+  <string name="resignLostGames">Kaybettiğiniz oyunlardan çekilin (sürenin dolmasını beklemeyin).</string>
   <string name="temporaryInconvenience">Verdiğimiz geçici rahatsızlıktan dolayı özür dileriz,</string>
   <string name="wishYouGreatGames">ve lichess.org\'da harika oyunlar dileriz.</string>
-  <string name="thankYouForReading">Okuduğun için teşekkürler!</string>
+  <string name="thankYouForReading">Okuduğunuz için teşekkür ederiz!</string>
 </resources>
