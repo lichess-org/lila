@@ -84,6 +84,7 @@
   <string name="interactiveLesson">対話形式のレッスン</string>
   <string name="chapterX">章 %s</string>
   <string name="startFromInitialPosition">開始局面から</string>
+  <string name="editor">編集者</string>
   <string name="startFromCustomPosition">指定した局面から</string>
   <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>
@@ -95,4 +96,27 @@
   <string name="urlOfTheGame">棋譜の URL</string>
   <string name="loadAGameFromXOrY">%1$s か %2$s から棋譜を読み込み</string>
   <string name="createChapter">章を作成</string>
+  <string name="configureLiveBroadcast">ライブ放送の設定</string>
+  <string name="createStudy">研究を作成</string>
+  <string name="editStudy">研究を編集</string>
+  <string name="visibility">公開範囲</string>
+  <string name="public">公開</string>
+  <string name="unlisted">非公開</string>
+  <string name="inviteOnly">招待のみ</string>
+  <string name="allowCloning">コピーの許可</string>
+  <string name="nobody">不許可</string>
+  <string name="onlyMe">自分のみ</string>
+  <string name="contributors">参加者のみ</string>
+  <string name="members">メンバー</string>
+  <string name="everyone">全員</string>
+  <string name="enableSync">同期</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">同期する＝全員が同じ局面を見る</string>
+  <string name="noLetPeopleBrowseFreely">同期しない＝各人が自由に閲覧</string>
+  <string name="pinnedStudyComment">優先表示コメント</string>
+  <string name="start">開始</string>
+  <string name="save">保存</string>
+  <string name="clearChat">チャットを消去</string>
+  <string name="deleteTheStudyChatHistory">ほんとうに削除しますか？　戻せませんよ！</string>
+  <string name="deleteStudy">研究を削除</string>
+  <string name="deleteTheEntireStudy">ほんとうに削除しますか？　戻せませんよ！</string>
 </resources>
