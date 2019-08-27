@@ -127,7 +127,7 @@ final class GameApiV2(
     analysisOption: Option[Analysis],
     withFlags: WithFlags
   ): Fu[JsObject] = gameLightUsers(g) map { lightUsers =>
-    val obj = Json.obj(
+    Json.obj(
       "id" -> g.id,
       "rated" -> g.rated,
       "variant" -> g.variant.key,
@@ -153,16 +153,14 @@ final class GameApiV2(
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
+      .add("tournament" -> g.tournamentId)
       .add("clock" -> g.clock.map { clock =>
         Json.obj(
           "initial" -> clock.limitSeconds,
           "increment" -> clock.incrementSeconds,
           "totalTime" -> clock.estimateTotalSeconds
         )
-      });
-
-    if (g.tournamentId.isDefined) obj.add("tournament" -> g.tournamentId)
-    else obj
+      })
   }
 
   private def gameLightUsers(game: Game): Fu[List[Option[LightUser]]] =
