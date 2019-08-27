@@ -18,7 +18,6 @@ object perfStat {
     perfType: lidraughts.rating.PerfType,
     percentile: Option[Double],
     stat: PerfStat,
-    data: play.api.libs.json.JsObject,
     ratingChart: Option[String]
   )(implicit ctx: Context) = views.html.base.layout(
     title = s"${u.username} ${perfType.name} stats",
@@ -30,13 +29,7 @@ object perfStat {
           jsTag("chart/ratingHistory.js"),
           embedJsUnsafe(s"lidraughts.ratingHistoryChart($rc,'${perfType.name}');")
         )
-      },
-      jsAt(s"compiled/lidraughts.perfStat${isProd ?? (".min")}.js"),
-      embedJsUnsafe(s"""$$(function() {
-if (false) LidraughtsPerfStat(document.querySelector('.perf-stat__content'), {
-data: ${safeJsonValue(data)}
-});
-});""")
+      }
     ),
     moreCss = cssTag("perf-stat")
   ) {

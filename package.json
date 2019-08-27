@@ -42,7 +42,6 @@
     "ui/palantir",
     "ui/lobby",
     "ui/notify",
-    "ui/perfstat",
     "ui/puzzle",
     "ui/round",
     "ui/simul",
