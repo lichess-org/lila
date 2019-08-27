@@ -62,7 +62,7 @@ data: ${safeJsonValue(data)}
             glicko(perfType, u.perfs(perfType), percentile),
             counter(stat.count),
             highlow(stat),
-            resultStreak(),
+            resultStreak(stat.resultStreak),
             result(),
             playStreakNb(),
             playStreakTime()
@@ -178,21 +178,49 @@ data: ${safeJsonValue(data)}
     )
   )
 
-  private def ratingAt(title: String, opt: Option[lila.perfStat.RatingAt], color: String)(implicit ctx: Context): Frag =
+  private def highlowSide(title: String, opt: Option[lila.perfStat.RatingAt], color: String)(implicit ctx: Context): Frag =
     opt match {
       case Some(r) => div(
         h2(title, ": ", strong(tag(color)(r.int))),
         a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(semanticDate(r.at))
       )
-      case None => div(h2(title, ":"), " ", span("Not enough games played"))
+      case None => div(h2(title), " ", span("Not enough games played"))
     }
 
   private def highlow(stat: PerfStat)(implicit ctx: Context): Frag = st.section(cls := "highlow split")(
-    ratingAt("Highest rating", stat.highest, "green"),
-    ratingAt("Lowest rating", stat.lowest, "red")
+    highlowSide("Highest rating", stat.highest, "green"),
+    highlowSide("Lowest rating", stat.lowest, "red")
   )
 
-  private def resultStreak(): Frag = st.section(cls := "resultStreak split")()
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: String, color: String)(implicit ctx: Context): Frag = div(cls := "streak")(
+    h3(
+      title, ": ",
+      if (s.v > 0) tag(color)(strong(s.v), " game(s)")
+      else frag("none")
+    ),
+    s.from map { from =>
+      frag(
+        "from ",
+        a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(semanticDate(from.at)),
+        " to ",
+        s.to match {
+          case Some(to) => a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(semanticDate(to.at))
+          case None => frag("now")
+        }
+      )
+    }
+  )
+
+  private def resultStreakSide(s: lila.perfStat.Streaks, title: String, color: String)(implicit ctx: Context): Frag = div(
+    h2(title),
+    resultStreakSideStreak(s.max, "Longest", color),
+    resultStreakSideStreak(s.cur, "Current", color)
+  )
+
+  private def resultStreak(streak: lila.perfStat.ResultStreak)(implicit ctx: Context): Frag = st.section(cls := "resultStreak split")(
+    resultStreakSide(streak.win, "Winning streak", "green"),
+    resultStreakSide(streak.loss, "Losing streak", "red")
+  )
 
   private def result(): Frag = st.section(cls := "result split")()
 
