@@ -43,7 +43,7 @@ object Dependencies {
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
   val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
-  val lettuce = "io.lettuce" % "lettuce-core" % "5.1.7.RELEASE"
+  val lettuce = "io.lettuce" % "lettuce-core" % "5.1.8.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.36.Final" classifier "linux-x86_64"
 
   object reactivemongo {
