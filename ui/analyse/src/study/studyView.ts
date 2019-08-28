@@ -142,7 +142,8 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 export function main(ctrl: StudyCtrl): VNode {
 
-  const activeTab = ctrl.vm.tab();
+  const activeTab = ctrl.vm.tab(),
+    intro = ctrl.relay && ctrl.relay.intro;
 
   const makeTab = function(key: Tab, name: string) {
     return h('a.' + key, {
@@ -151,7 +152,13 @@ export function main(ctrl: StudyCtrl): VNode {
     }, name);
   };
 
+  const introTab = intro && intro.exists ? h('span.intro', {
+    class: { active: intro.active },
+    hook: bind('mousedown', intro.toggle, ctrl.redraw)
+  }, [iconTag('')]) : null;
+
   const tabs = h('div.study_tabs', [
+    introTab,
     makeTab('members', plural('Member', ctrl.members.size())),
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
     ctrl.members.isOwner() ? h('a.more', {

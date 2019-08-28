@@ -1,4 +1,4 @@
-import { RelayData, LogEvent } from './interfaces';
+import { RelayData, LogEvent, RelayIntro } from './interfaces';
 import { StudyChapter, StudyChapterRelay } from '../interfaces';
 import { isFinished } from '../studyChapters';
 
@@ -8,10 +8,16 @@ export default class RelayCtrl {
   log: LogEvent[] = [];
   cooldown: boolean = false;
   clockInterval?: number;
+  intro: RelayIntro;
 
   constructor(d: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any, chapter: StudyChapter) {
     this.data = d;
     this.applyChapterRelay(chapter, chapter.relay);
+    this.intro = {
+      exists: !!this.data.description,
+      active: !!this.data.description,
+      toggle: () => { this.intro.active = !this.intro.active }
+    };
   }
 
   setSync = (v: Boolean) => {

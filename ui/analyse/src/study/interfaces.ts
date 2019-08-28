@@ -57,7 +57,7 @@ export interface StudyCtrl {
   trans: Trans;
 }
 
-export type Tab = 'members' | 'chapters';
+export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 
 export interface StudyVm {
