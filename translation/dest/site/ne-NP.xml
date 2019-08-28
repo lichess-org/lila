@@ -843,6 +843,10 @@
   </plurals>
   <string name="opening">शुरुका चालहरु</string>
   <string name="middlegame">बीचको खेल</string>
+  <string name="endgame">खेलको समाप्ति</string>
+  <string name="registerToSendChallenges">चुनौति पठाउन दर्ता गरौं।</string>
+  <string name="youCannotChallengeX">तपाइ %sलाइ चुनौति दिन सक्नुहुन्न।</string>
+  <string name="xDoesNotAcceptChallenges">%s चुनौति स्वीकार गर्नुहुन्न।</string>
   <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
   <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
@@ -855,4 +859,10 @@
     <item quantity="one">र %s प्रिमुभ लाइन सेभ गरौं</item>
     <item quantity="other">र %s प्रिमुभ लाइनहरु सेभ गरौं</item>
   </plurals>
+  <string name="sorry">माफ पाउँ :(</string>
+  <string name="weHadToTimeYouOutForAWhile">तपाइलाई केही समयको लागि रोक लगाउन पर्ने भयो।</string>
+  <string name="timeoutExpires">बाकि समय: %s।</string>
+  <string name="why">किन?</string>
+  <string name="pleasantChessExperience">हामी सम्पूर्ण खेलाडीहरुको लागि बुद्धिचालको सुमधुर अनुभव श्रीजना गर्न चाहान्छौं।</string>
+  <string name="goodPractice">त्यसको लागि सम्पूर्ण खेलाडीहरुको चालचलन राम्रो हुन जरुरी छ।</string>
 </resources>
