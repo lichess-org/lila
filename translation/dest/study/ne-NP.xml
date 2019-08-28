@@ -90,6 +90,9 @@
   <string name="startFromInitialPosition">प्रारम्भिक पोजिशनमा शुरु गर्नुहोस्</string>
   <string name="editor">सम्पादक</string>
   <string name="startFromCustomPosition">कष्टम पोजिशनमा शुरु गर्नुहोस्</string>
+  <string name="loadAGameByUrl">खेलको URL लोड गरौं</string>
+  <string name="loadAPositionFromFen">FEN बाट पोजिसन लोड गरौं</string>
+  <string name="loadAGameFromPgn">PGN बाट खेल लोड गरौं</string>
   <string name="automatic">स्वचालित</string>
   <string name="createChapter">अध्याय श्रीजना</string>
 </resources>
