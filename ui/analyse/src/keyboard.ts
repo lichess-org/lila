@@ -46,6 +46,10 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.treeView.toggle();
     ctrl.redraw();
   }));
+  kbd.bind('z', preventing(function() {
+    ctrl.toggleComputer();
+    ctrl.redraw();
+  }));
 
   if (ctrl.embed) return;
 
