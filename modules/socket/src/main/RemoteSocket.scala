@@ -156,9 +156,9 @@ private final class RemoteSocket(
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")
     Future {
-      connIn.close();
-      connOut.close();
-      redisClient.shutdown();
+      connIn.close()
+      connOut.close()
+      redisClient.shutdown()
     }
   }
 }
