@@ -204,6 +204,7 @@
   <string name="playingRightNow">खेल चालु छ</string>
   <string name="eventInProgress">खेल चालु छ</string>
   <string name="finished">समाप्त भयो</string>
+  <string name="finishesX">समापन हुदैं %s </string>
   <string name="abortGame">खेल रद्द गरौ</string>
   <string name="gameAborted">खेल रद्द गरियो</string>
   <string name="standard">सामान्य</string>
@@ -803,6 +804,14 @@
     <item quantity="other">पहिलो चाल चाल्न %s सेकेण्ड</item>
   </plurals>
   <string name="practiceWithComputer">कम्प्युटर संग अभ्यास</string>
+  <string name="anotherWasX">अर्को चाल %s थियो</string>
+  <string name="bestWasX">सर्वोत्कृष्ट चाल थियो %s</string>
+  <string name="youBrowsedAway">तपाइ हराउनुभयो त</string>
+  <string name="resumePractice">अभ्यास सुचारु गरौं</string>
+  <string name="theGameIsADraw">खेल बराबर भयो।</string>
+  <string name="computerThinking">कम्प्युटर सोच्दै ...</string>
+  <string name="seeBestMove">सर्वोत्कृष्ट चाल हेरौं</string>
+  <string name="hideBestMove">सर्वोत्कृष्ट चाल लुकाऔं</string>
   <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
   <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
