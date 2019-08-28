@@ -831,6 +831,18 @@
   <string name="waitingForAnalysis">विश्लेषण को प्रतिक्षा गर्दै</string>
   <string name="noMistakesFoundForWhite">सेतोको कुनै पनि गल्ती भेट्टिएनन्</string>
   <string name="noMistakesFoundForBlack">कालोको कुनै पनि गल्ती भेट्टिएनन्</string>
+  <string name="doneReviewingWhiteMistakes">सेतोको सबै गल्तिहरु समिक्षा गरियो</string>
+  <string name="doneReviewingBlackMistakes">कालोको सबै गल्तिहरु समिक्षा गरियो</string>
+  <string name="doItAgain">फेरि गरौं</string>
+  <string name="reviewWhiteMistakes">सेतोको गल्तिहरु समिक्षा गरौं</string>
+  <string name="reviewBlackMistakes">कालोको गल्तिहरु समिक्षा गरौं</string>
+  <string name="advantage">अग्रता</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s सेकेण्ड</item>
+    <item quantity="other">%s सेकेण्ड</item>
+  </plurals>
+  <string name="opening">शुरुका चालहरु</string>
+  <string name="middlegame">बीचको खेल</string>
   <string name="yourXRatingIsTooFarFromY">तपाइको %1$s रेटिङ %2$s भन्दा धेरै टाढा छ।</string>
   <string name="cannotChallengeDueToProvisionalXRating">अस्थायी %s रेटिङ को कारण खेलको लागि आमन्त्रण गर्न असम्भव छ।</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s ले मित्रहरुको आमन्त्रण मात्र स्वीकार गर्दछन्।</string>
