@@ -865,4 +865,14 @@
   <string name="why">किन?</string>
   <string name="pleasantChessExperience">हामी सम्पूर्ण खेलाडीहरुको लागि बुद्धिचालको सुमधुर अनुभव श्रीजना गर्न चाहान्छौं।</string>
   <string name="goodPractice">त्यसको लागि सम्पूर्ण खेलाडीहरुको चालचलन राम्रो हुन जरुरी छ।</string>
+  <string name="potentialProblem">कुनै खतरा देखिएको खण्डमा हामी यो सन्देश देखाउँछौं।</string>
+  <string name="howToAvoidThis">यसबाट टाढा रहने उपाय के होला?</string>
+  <string name="playEveryGame">शुरु गरेको सबै खेलहरु खेल्नुहोस्।</string>
+  <string name="tryToWin">खेलेको सबै खेल जित्ने वा बराबर गर्ने प्रयास गर्नुहोस्।</string>
+  <string name="resignLostGames">हारेको खेल परित्याग गर्नुहोस् ( घडी त्यसै चल्न नदिनुहोस्।)</string>
+  <string name="temporaryInconvenience">अस्थायी असुबिधाको लागि क्षमाप्रार्थी छौं,</string>
+  <string name="wishYouGreatGames">तपाइलाई lichess.org मा राम्रो खेल्न शुभकामना छ।</string>
+  <string name="thankYouForReading">पढ्नुभएको मा धन्यवाद</string>
+  <string name="lifetimeScore">आजिवन अंक</string>
+  <string name="currentMatchScore">हालका खेलहरुकोको अंक</string>
 </resources>
