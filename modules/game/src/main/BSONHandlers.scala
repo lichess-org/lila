@@ -120,14 +120,17 @@ object BSONHandlers {
         startedAtTurn = startedAtTurn
       )
 
+      val whiteClockHistory = r bytesO F.whiteClockHistory
+      val blackClockHistory = r bytesO F.blackClockHistory
+
       Game(
         id = light.id,
         whitePlayer = light.whitePlayer,
         blackPlayer = light.blackPlayer,
         chess = chessGame,
         loadClockHistory = clk => for {
-          bw <- r bytesO F.whiteClockHistory
-          bb <- r bytesO F.blackClockHistory
+          bw <- whiteClockHistory
+          bb <- blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
           _ = lila.mon.game.loadClockHistory()
         } yield history,
