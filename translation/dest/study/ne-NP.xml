@@ -13,6 +13,9 @@
   <string name="noneYet">कुनैपनि छैन</string>
   <string name="hot">तात्तो</string>
   <string name="dateAddedNewest">राखेको मीति (नयाँ बाट)</string>
+  <string name="dateAddedOldest">राखेको मीति (पुरानो बाट)</string>
+  <string name="recentlyUpdated">हालै अद्यावधिक गरिएका</string>
+  <string name="mostPopular">सर्वाधिक लोकप्रिय</string>
   <string name="addNewChapter">नया अध्याय शुरु गर्नुहोस्।</string>
   <plurals name="nbChapters">
     <item quantity="one">%s अध्याय</item>
@@ -69,7 +72,24 @@
   <string name="studyNotFound">पाठ भेटिएन</string>
   <string name="editChapter">अध्याय संशोधन</string>
   <string name="newChapter">नयाँ अध्याय</string>
+  <string name="orientation">अभिविन्यास</string>
+  <string name="analysisMode">विश्लेषण मोड</string>
+  <string name="pinnedChapterComment">अध्यायको प्रमुख टिप्पणी</string>
+  <string name="saveChapter">अध्याय सेभ गरौं</string>
+  <string name="clearAnnotations">एनोटेसन हटाऔ</string>
+  <string name="deleteChapter">अध्याय मेटौं</string>
+  <string name="deleteThisChapter">अध्याय मेट्ने पक्का हो? पछि कुनै उपाय हुनेछैन।</string>
+  <string name="clearAllCommentsInThisChapter">के यो अध्यायका सम्पुर्ण टिप्पणी तथा आकारहरु हटाउने हो?</string>
+  <string name="rightUnderTheBoard">बोर्डको ठीक मुनी</string>
+  <string name="noPinnedComment">नाई</string>
+  <string name="normalAnalysis">सामान्य विश्लेषण</string>
+  <string name="hideNextMoves">पछि आउने चाल लुकाऔं</string>
+  <string name="interactiveLesson">अन्तरक्रियात्मक शिक्षा</string>
+  <string name="chapterX">अध्याय: %s</string>
+  <string name="empty">खाली छ</string>
+  <string name="startFromInitialPosition">प्रारम्भिक पोजिशनमा शुरु गर्नुहोस्</string>
   <string name="editor">सम्पादक</string>
+  <string name="startFromCustomPosition">कष्टम पोजिशनमा शुरु गर्नुहोस्</string>
   <string name="automatic">स्वचालित</string>
   <string name="createChapter">अध्याय श्रीजना</string>
 </resources>
