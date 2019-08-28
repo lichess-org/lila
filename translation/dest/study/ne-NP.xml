@@ -3,6 +3,16 @@
 <resources>
   <string name="private">नीजि</string>
   <string name="myStudies">मेरा पाठहरु</string>
+  <string name="studiesIContributeTo">मैले योगदान दिएका पाठहरु</string>
+  <string name="myPublicStudies">मेरा सार्वजनिक पाठहरु</string>
+  <string name="myPrivateStudies">मेरा नीजि पाठहरु</string>
+  <string name="myFavoriteStudies">मेरा पृय पाठहरु</string>
+  <string name="whatAreStudies">पाठहरु के हुन्?</string>
+  <string name="allStudies">सबै पाठहरु</string>
+  <string name="studiesCreatedByX">%s द्वारा श्रिजित् पाठहरु</string>
+  <string name="noneYet">कुनैपनि छैन</string>
+  <string name="hot">तात्तो</string>
+  <string name="dateAddedNewest">राखेको मीति (नयाँ बाट)</string>
   <string name="addNewChapter">नया अध्याय शुरु गर्नुहोस्।</string>
   <plurals name="nbChapters">
     <item quantity="one">%s अध्याय</item>
