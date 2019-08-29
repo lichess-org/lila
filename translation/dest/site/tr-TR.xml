@@ -227,7 +227,7 @@
   <string name="inbox">Gelen kutusu</string>
   <string name="chatRoom">Sohbet odası</string>
   <string name="loginToChat">Sohbete katılmak için oturum aç</string>
-  <string name="youHaveBeenTimedOut">Sohbet bağlantısı kesildi.</string>
+  <string name="youHaveBeenTimedOut">Sohbetten men edildiniz.</string>
   <string name="spectatorRoom">Seyirci odası</string>
   <string name="composeMessage">Bir mesaj yaz</string>
   <string name="noNewMessages">Yeni mesajınız yok</string>
@@ -860,6 +860,7 @@
   </plurals>
   <string name="sorry">Üzgünüz :(</string>
   <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek durumunda kaldık.</string>
+  <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
   <string name="goodPractice">Bu nedenle, bütün oyuncuların doğru davranışlar sergilemesine özen gösteriyoruz.</string>
