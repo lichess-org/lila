@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import AnalyseCtrl from '../../ctrl';
-import { richHTML } from '../../util';
+import { innerHTML } from '../../util';
 import { view as multiBoardView } from '../multiBoard';
 import { view as keyboardView } from '../../keyboard';
 import * as studyView from '../studyView';
@@ -13,7 +13,7 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.content_box', [
       h('h1', study.data.name),
       h('div', {
-        hook: richHTML(relay.data.description || '')
+        hook: innerHTML(relay.data.markup, () => relay.data.markup!)
       })
     ]),
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,

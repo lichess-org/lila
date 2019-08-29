@@ -3,8 +3,11 @@
 @base.form.group(form("name"), Html("Event name")) { field =>
 @base.form.input(field, required = true)
 }
-@base.form.group(form("description"), Html("Event description")) { field =>
-<textarea class="description" name="@field.name" id="@field.id" style="height: 7em" required>@field.value</textarea>
+@base.form.group(form("description"), Html("Short event description")) { field =>
+<textarea class="description" name="@field.name" id="@field.id" style="height: 2em" required>@field.value</textarea>
+}
+@base.form.group(form("markup"), Html("Full event description"), help = Html("""<a href="https://guides.github.com/features/mastering-markdown/" target="_blank">Markdown</a> is available""").some) { field =>
+<textarea class="description" name="@field.name" id="@field.id" style="height: 10em" required>@field.value</textarea>
 }
 
 @if(isGranted(_.Relay)) {

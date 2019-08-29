@@ -140,6 +140,39 @@ div.intro .content_box h1 {
   display: block;
   margin-bottom: 0.5em;
 }
+div.intro .content_box h2, h3, h4 {
+  line-height: 2em;
+}
+div.intro .content_box p {
+  margin-bottom: 1em;
+}
+div.intro .content_box a {
+  color: #3893E8;
+}
+div.intro .content_box .slist {
+  margin-bottom: 1em
+}
+div.intro .content_box h2 { font-size: 1.5em; }
+div.intro .content_box h3 { font-size: 1.4em; }
+div.intro .content_box h4 { font-size: 1.2em; }
+div.intro .content_box em {
+  font-style: italic;
+}
+div.intro .content_box ul li {
+  list-style: disc outside;
+  margin: .5em 0 0 1.5em;
+}
+div.intro .content_box ol li {
+  list-style: decimal inside;
+  margin: .5em 0;
+}
+div.intro .content_box li {
+  margin-left: 2em;
+}
+div.intro .content_box li p {
+  display: inline;
+}
+
 div.intro .lidraughts_overboard {
   top: 10%;
   left: 50%;

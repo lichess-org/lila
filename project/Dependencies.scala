@@ -42,6 +42,7 @@ object Dependencies {
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
   val stm = "org.scala-stm" %% "scala-stm" % "0.8"
   val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
+  val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.30"
 
   object reactivemongo {
     val version = "0.12.2"
