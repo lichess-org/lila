@@ -873,6 +873,7 @@
   <string name="temporaryInconvenience">Pedimos desculpa pelo incómodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
   <string name="thankYouForReading">Obrigado pela leitura!</string>
+  <string name="lifetimeScore">Classificação desde o início</string>
   <string name="currentMatchScore">Pontuação atual</string>
   <string name="agreementAssistance">Concordo que em nenhum momento receberei assistência durante as minhas partidas (de um computador de xadrez, livro, banco de dados ou outra pessoa).</string>
   <string name="agreementNice">Concordo que serei sempre agradável para outros jogadores.</string>
