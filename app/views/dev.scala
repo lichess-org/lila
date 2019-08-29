@@ -66,9 +66,9 @@ puzzle disable [standard|frisian] 150
 team disable foobar
 team enable foobar
 draughtsnet client create {username} [analysis|move|commentary|all]
-patron lifetime {username}
-patron month {username}
-gdpr erase {username} forever""")
+gdpr erase {username} forever
+patron [month|lifetime] {username}
+eval-cache drop W:W31,32,33,34,50:B1,2,3,4,5,6,7,8,16,17,18,19,20""")
           )
         )
       }
