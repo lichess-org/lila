@@ -25,6 +25,7 @@ import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
+import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 
 const li = window.lidraughts;
@@ -268,7 +269,8 @@ export default function (ctrl: AnalyseCtrl): VNode {
     relayEdit = study && study.relay && relayManager(study.relay),
     playerBars = renderPlayerBars(ctrl),
     gaugeDisplayed = ctrl.showEvalGauge(),
-    needsInnerCoords = !!gaugeDisplayed || !!playerBars;
+    needsInnerCoords = !!gaugeDisplayed || !!playerBars,
+    intro = relayIntro(ctrl);
   return h('div.analyse.cg-512', [
     h('div.' + studyStateClass, {
       hook: {
@@ -292,16 +294,16 @@ export default function (ctrl: AnalyseCtrl): VNode {
         'relay_edit': !!relayEdit,
         'player_bars': !!playerBars,
       }
-    }, [
+    }, intro ? [intro] : [
         h('div.lidraughts_game', {
           hook: {
             insert: _ => li.pubsub.emit('content_loaded')()
           }
         }, [
             visualBoard(ctrl, playerBars),
-            h('div.lidraughts_ground', gamebookPlayView || [
+            intro ? null : h('div.lidraughts_ground', gamebookPlayView || [
               menuIsOpen || playerBars ? null : renderClocks(ctrl),
-              menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+              (menuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
               ...(menuIsOpen ? [actionMenu(ctrl)] : [
                 cevalView.renderCeval(ctrl),
                 showCevalPvs ? cevalView.renderPvs(ctrl) : null,
@@ -309,17 +311,17 @@ export default function (ctrl: AnalyseCtrl): VNode {
                 gamebookEditView ? null : forkView(ctrl, concealOf),
                 retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
               ]),
-              menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+              (menuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
               buttons(ctrl),
               gamebookEditView || relayEdit
             ])
           ])
       ]),
-    ctrl.embed ? null : h('div.underboard', {
+    (ctrl.embed || intro) ? null : h('div.underboard', {
       class: { no_computer: !ctrl.showComputer() }
     }, [
         h('div.center', ctrl.study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
-        h('div.right', [acplView(ctrl)])
+        h('div.right', [intro ? null : acplView(ctrl)])
       ]),
     ctrl.embed || synthetic(ctrl.data) ? null : h('div.analeft', [
       ctrl.forecast ? forecastView(ctrl, ctrl.forecast) : null,

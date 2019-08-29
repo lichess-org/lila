@@ -1,6 +1,7 @@
 div.lidraughts_overboard.keyboard_help {
   width: 90%;
   height: 90%;
+  max-height: 512px;
   display: flex;
   flex-flow: column nowrap;
   padding: 0;

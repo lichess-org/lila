@@ -147,20 +147,23 @@ export function main(ctrl: StudyCtrl): VNode {
 
   const makeTab = function(key: Tab, name: string) {
     return h('a.' + key, {
-      class: { active: activeTab === key },
-      hook: bind('mousedown', () => ctrl.vm.tab(key), ctrl.redraw)
+      class: { active: (!intro || !intro.active) && activeTab === key },
+      hook: bind('mousedown', () => {
+        if (intro) intro.disable();
+        ctrl.vm.tab(key);
+      }, ctrl.redraw)
     }, name);
   };
 
-  const introTab = intro && intro.exists ? h('span.intro', {
+  const introTab = intro && intro.exists ? h('a.intro', {
     class: { active: intro.active },
-    hook: bind('mousedown', intro.toggle, ctrl.redraw)
+    hook: bind('mousedown', () => { intro.active = true }, ctrl.redraw)
   }, [iconTag('')]) : null;
 
   const tabs = h('div.study_tabs', [
     introTab,
-    makeTab('members', plural('Member', ctrl.members.size())),
     makeTab('chapters', plural(ctrl.relay ? 'Game' : 'Chapter', ctrl.chapters.size())),
+    makeTab('members', plural('Member', ctrl.members.size())),
     ctrl.members.isOwner() ? h('a.more', {
       hook: bind('click', () => ctrl.form.open(!ctrl.form.open()), ctrl.redraw)
     }, [ iconTag('[') ]) : null

@@ -16,6 +16,9 @@
   font-family: 'Roboto';
   font-weight: 300;
 }
+.study_tabs a.intro {
+  width: 50%;
+}
 .study_tabs a.more {
   flex: 0 0 32px;
 }
@@ -122,6 +125,25 @@ div.underboard .notif.error {
 .study_comments .user_link,
 .study_comments .node {
   font-weight: bold;
+}
+
+div.intro {
+  position: relative;
+  width: 512px;
+  min-height: 512px;
+}
+div.intro .content_box {
+  max-height: 350px;
+  overflow-y: auto;
+}
+div.intro .content_box h1 {
+  display: block;
+  margin-bottom: 0.5em;
+}
+div.intro .lidraughts_overboard {
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .chapter_desc {

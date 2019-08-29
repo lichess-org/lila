@@ -112,6 +112,8 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
+  const introActive = ctrl.relay && ctrl.relay.intro.active;
+
   return h('div.list.chapters', {
     hook: {
       insert(vnode) {
@@ -137,8 +139,8 @@ export function view(ctrl: StudyCtrl): VNode {
   },
   ctrl.chapters.list().map(function(chapter, i) {
     const editing = ctrl.chapters.editForm.isEditing(chapter.id),
-    loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-    active = !ctrl.vm.loading && current && current.id === chapter.id;
+      loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
+      active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id;
     return h('div.elem.chapter.draggable', {
       key: chapter.id,
       attrs: { 'data-id': chapter.id },
