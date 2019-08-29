@@ -13,7 +13,7 @@
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="resign">استسلم</string>
   <string name="checkmate">كش مات</string>
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
