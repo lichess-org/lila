@@ -137,7 +137,7 @@
   <string name="signIn">Giriş</string>
   <string name="youNeedAnAccountToDoThat">Bunu yapmanız için bir hesaba ihtiyacınız var</string>
   <string name="signUp">Kayıt Ol</string>
-  <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncular oynayamazlar. Lütfen oynarken satranç motorlarından, veritabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmak caydırılmaktadır. Bol miktarda hesap açmak yasaklanmaya sebep olacaktır.</string>
+  <string name="computersAreNotAllowedToPlay">Bilgisayarlar ve bilgisayar destekli oyuncuların oynamasına izin yoktur. Lütfen maçlarda satranç motorlarından, veri tabanlarından ya da başka oyunculardan destek almayınız. Ayrıca, birden fazla hesap açmanız kesinlikle önerilmez. Çok fazla hesap açmak, hesapların kapatılmasına neden olacaktır.</string>
   <string name="games">Oyunlar</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s %2$s forumunda yayınladı</string>
@@ -682,7 +682,7 @@
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
-  <string name="tournamentOfficial">Resmi</string>
+  <string name="tournamentOfficial">Resmî</string>
   <string name="timeBeforeTournamentStarts">Turnuvaya başlama süresi</string>
   <string name="averageCentipawnLoss">Ortalama santipiyon kaybı</string>
   <string name="keyboardShortcuts">Klavye kısayolları</string>
