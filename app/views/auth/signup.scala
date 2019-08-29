@@ -33,6 +33,7 @@ object signup {
               trans.computersAreNotAllowedToPlay(), br,
               small(trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())))
             ),
+            agreement(form("agreement")),
             if (recaptcha.enabled)
               button(
               cls := "g-recaptcha submit button text big",
@@ -43,4 +44,17 @@ object signup {
           )
         )
       }
+
+  private def agreement(form: play.api.data.Field)(implicit ctx: Context) = div(cls := "agreement")(
+    agreements.map {
+      case (field, i18n) => form3.checkbox(form(field), i18n())
+    }
+  )
+
+  private val agreements = List(
+    "assistance" -> trans.agreementAssistance,
+    "nice" -> trans.agreementNice,
+    "account" -> trans.agreementAccount,
+    "policy" -> trans.agreementPolicy
+  )
 }
