@@ -875,4 +875,8 @@
   <string name="thankYouForReading">Tak for at læse!</string>
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Nuværende kampscore</string>
+  <string name="agreementAssistance">Jeg lover, at jeg på intet tidspunkt i løbet af mine partier vil modtage assistance (fra en skakcomputer, bog, database eller anden person).</string>
+  <string name="agreementNice">Jeg lover, at jeg altid vil være venlig mod andre spillere.</string>
+  <string name="agreementAccount">Jeg lover, at jeg ikke vil oprette flere konti.</string>
+  <string name="agreementPolicy">Jeg lover, at jeg vil overholde alle Lichess-politikker.</string>
 </resources>
