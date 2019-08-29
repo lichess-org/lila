@@ -4,7 +4,7 @@
   <string name="private">Gizli</string>
   <string name="myStudies">Benin çalışmalarım</string>
   <string name="studiesIContributeTo">Katkıda bulunduğum çalışmalar</string>
-  <string name="myPublicStudies">Paylaşılan çalışmalarım</string>
+  <string name="myPublicStudies">Paylaştığım çalışmalar</string>
   <string name="myPrivateStudies">Gizli çalışmalarım</string>
   <string name="myFavoriteStudies">En sevdiğim çalışmalar</string>
   <string name="whatAreStudies">Çalışmalar ne işe yarar?</string>
@@ -37,8 +37,8 @@
   <string name="contributor">Katılımcı</string>
   <string name="kick">Çıkar</string>
   <string name="leaveTheStudy">Çalışmadan ayrıl</string>
-  <string name="youAreNowAContributor">Şu anda bir katılımcısınız</string>
-  <string name="youAreNowASpectator">Şu anda bir izleyicisiniz</string>
+  <string name="youAreNowAContributor">Artık bir katılımcısınız</string>
+  <string name="youAreNowASpectator">Artık bir izleyicisiniz</string>
   <string name="pgnTags">PGN etiketleri</string>
   <string name="like">Beğen</string>
   <string name="newTag">Yeni etiket</string>
@@ -47,10 +47,10 @@
   <string name="annotateWithGlyphs">Glifler ile açıkla</string>
   <string name="theChapterIsTooShortToBeAnalysed">Bu bölüm analiz için çok kısa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Sadece katılımcılar bilgisayar analizi isteyebilir.</string>
-  <string name="getAFullComputerAnalysis">Bu varyant için tam bir bilgisayar analizi yapın.</string>
+  <string name="getAFullComputerAnalysis">Bu varyant için ayrıntılı bir sunucu analizi yapın.</string>
   <string name="makeSureTheChapterIsComplete">Bu bölümü tamamladığınızdan emin olun. Sadece bir kez bilgisayar analizi talep edebilirsiniz.</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">Sadece senkron edilmiş üyeler aynı pozisyonda kalabilir</string>
-  <string name="shareChanges">Değişiklikleri sunucuya kaydedin veya izleyiciler ile paylaşın</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Senkronize edilen bütün üyeler aynı pozisyonda kalır</string>
+  <string name="shareChanges">Değişiklikleri izleyiciler ile paylaşın ve sunucuya kaydedin</string>
   <string name="playing">Oynanıyor</string>
   <string name="first">İlk</string>
   <string name="previous">Önceki</string>
