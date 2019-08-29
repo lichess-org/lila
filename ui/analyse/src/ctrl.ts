@@ -816,6 +816,7 @@ export default class AnalyseCtrl {
   });
 
   toggleCeval = () => {
+    if (!this.showComputer()) return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -918,6 +919,7 @@ export default class AnalyseCtrl {
   }
 
   toggleComputer = () => {
+    if (this.ceval.enabled()) this.toggleCeval();
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
