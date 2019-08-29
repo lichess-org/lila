@@ -5,4 +5,10 @@
   <string name="myStudies">මගේ අධ්‍යයන</string>
   <string name="studiesIContributeTo">මම දායක වන අධ්‍යයන</string>
   <string name="myPublicStudies">මගේ පොදු අධ්‍යයන</string>
+  <string name="myPrivateStudies">මගේ පෞද්ගලික අධ්‍යයන</string>
+  <string name="myFavoriteStudies">මගේ ප්‍රියතම අධ්‍යයන</string>
+  <string name="whatAreStudies">අධ්‍යයන යනු කුමක්ද?</string>
+  <string name="allStudies">සියලුම අධ්‍යයන</string>
+  <string name="studiesCreatedByX">%S විසින් නිර්මාණය කරන ලද අධ්‍යයන</string>
+  <string name="noneYet">තවම කිසිවක් නැත.</string>
 </resources>
