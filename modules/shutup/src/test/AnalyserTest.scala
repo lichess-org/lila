@@ -2,9 +2,10 @@ package lidraughts.shutup
 
 import org.specs2.mutable._
 
-class DetectTest extends Specification {
+class AnalyserTest extends Specification {
 
   private def find(t: String) = Analyser(t).badWords
+  private def dirty(t: String) = Analyser(t).dirty
   private def ratio(t: String) = Analyser(t).ratio
 
   "detector" should {
@@ -58,6 +59,13 @@ class DetectTest extends Specification {
     }
     "russian" in {
       find("сука пизда") must_== List("сука", "пизда")
+    }
+  }
+  "dirty" should {
+    "prod msg" in {
+      dirty(
+        """Hello fucking arab. It's morning here I am getting ready to fuck your smelly mom and sister together today. Just wanna inform you ;)"""
+      ) must beTrue
     }
   }
 }

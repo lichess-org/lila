@@ -30,7 +30,7 @@ private[message] final class MessageSecurity(
       logger.warn(s"PM spam from ${creator.username}: fullText")
       fuTrue
     } else if (creator.troll) !follows(invited.id, creator.id)
-    else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(7))) {
+    else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(30))) {
       follows(invited.id, creator.id) map { f =>
         if (!f) logger.warn(s"Mute dirty thread ${creator.username} -> ${invited.username} ${fullText.take(140)}")
         !f
