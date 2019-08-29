@@ -60,7 +60,7 @@
   <string name="chapterPgn">Bölüm PGN\'si</string>
   <string name="studyUrl">Çalışma Adresi</string>
   <string name="currentChapterUrl">Mevcut Bölümün Adresi</string>
-  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Bölüme yerleştirmek için bunu foruma yapıştırabilirsiniz</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Bu bölümü forumda gömülü olarak paylaşmak için yukarıdaki bağlantıyı kullanabilirsiniz</string>
   <string name="embedThisChapter">Bu bölümü websitenize veya blogunuza yerleştirin</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Çalışma bölümünü yerleştirme hakkında daha fazla okuyun</string>
   <string name="open">Aç</string>
