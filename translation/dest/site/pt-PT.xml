@@ -869,4 +869,6 @@
   <string name="temporaryInconvenience">Pedimos desculpa pelo incómodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
   <string name="thankYouForReading">Obrigado pela leitura!</string>
+  <string name="agreementAccount">Concordo que não criarei várias contas.</string>
+  <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
 </resources>
