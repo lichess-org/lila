@@ -37,7 +37,10 @@ object form {
   private def inner(form: Form[_], url: play.api.mvc.Call)(implicit ctx: Context) =
     postForm(cls := "form3", action := url)(
       form3.group(form("name"), frag("Event name"))(form3.input(_)(autofocus)),
-      form3.group(form("description"), raw("Event description"))(form3.textarea(_)(rows := 6)),
+      form3.group(form("description"), raw("Short event description"))(form3.textarea(_)(rows := 2)),
+      form3.group(form("markup"), raw("Full event description"), help = frag(
+        a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank")("Markdown"), " is available"
+      ).some)(form3.textarea(_)(rows := 10)),
       if (isGranted(_.Relay))
         form3.checkbox(form("official"), raw("Official lichess broadcast"), help = raw("Feature on /broadcast - for admins only").some)
       else form3.hidden(form("official")),

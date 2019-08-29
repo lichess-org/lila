@@ -14,7 +14,8 @@ object RelayForm {
 
   val form = Form(mapping(
     "name" -> text(minLength = 3, maxLength = 80),
-    "description" -> text(minLength = 3, maxLength = 4000),
+    "description" -> text(minLength = 3, maxLength = 400),
+    "markup" -> optional(text(maxLength = 9000)),
     "official" -> optional(boolean),
     "syncUrl" -> nonEmptyText.verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
     "credit" -> optional(nonEmptyText),
@@ -32,6 +33,7 @@ object RelayForm {
   case class Data(
       name: String,
       description: String,
+      markup: Option[String],
       official: Option[Boolean],
       syncUrl: String,
       credit: Option[String],
@@ -48,6 +50,7 @@ object RelayForm {
     def update(relay: Relay, user: User) = relay.copy(
       name = name,
       description = description,
+      markup = markup,
       official = ~official && Granter(_.Relay)(user),
       sync = makeSync,
       credit = credit,
@@ -67,6 +70,7 @@ object RelayForm {
       _id = Relay.makeId,
       name = name,
       description = description,
+      markup = markup,
       ownerId = user.id,
       sync = makeSync,
       credit = credit,
@@ -84,6 +88,7 @@ object RelayForm {
     def make(relay: Relay) = Data(
       name = relay.name,
       description = relay.description,
+      markup = relay.markup,
       official = relay.official option true,
       syncUrl = relay.sync.upstream.url,
       credit = relay.credit,

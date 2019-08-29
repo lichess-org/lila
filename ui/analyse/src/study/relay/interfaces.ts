@@ -1,7 +1,8 @@
 export interface RelayData {
   id: string;
   slug: string;
-  description?: string;
+  description: string;
+  markup?: string;
   credit?: string;
   sync: RelaySync;
 }

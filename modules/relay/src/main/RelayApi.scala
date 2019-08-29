@@ -17,6 +17,7 @@ final class RelayApi(
     studyApi: StudyApi,
     socketMap: lila.study.SocketMap,
     withStudy: RelayWithStudy,
+    jsonView: JsonView,
     clearFormatCache: Url => Unit,
     system: ActorSystem
 ) {
@@ -126,7 +127,7 @@ final class RelayApi(
     repo.coll.remove($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
-    sendToContributors(relay.id, "relayData", JsonView.relayWrites writes relay)
+    sendToContributors(relay.id, "relayData", jsonView.relayWrites writes relay)
 
   private def sendToContributors(id: Relay.Id, t: String, msg: JsObject): Funit =
     studyApi members Study.Id(id.value) map {

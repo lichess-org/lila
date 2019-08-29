@@ -12,8 +12,8 @@ export default class RelayCtrl {
   constructor(public data: RelayData, readonly send: SocketSend, readonly redraw: () => void, readonly members: any, chapter: StudyChapter) {
     this.applyChapterRelay(chapter, chapter.relay);
     this.intro = {
-      exists: !!data.description,
-      active: !!data.description,
+      exists: !!data.markup,
+      active: !!data.markup,
       disable: () => { this.intro.active = false }
     };
   }

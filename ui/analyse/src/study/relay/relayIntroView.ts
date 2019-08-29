@@ -1,7 +1,7 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import AnalyseCtrl from '../../ctrl';
-import { richHTML } from '../../util';
+import { innerHTML } from '../../util';
 import { view as multiBoardView } from '../multiBoard';
 
 export default function(ctrl: AnalyseCtrl): VNode | undefined {
@@ -11,7 +11,7 @@ export default function(ctrl: AnalyseCtrl): VNode | undefined {
     h('div.intro__text', [
       h('h1', study.data.name),
       h('div', {
-        hook: richHTML(relay.data.description || '')
+        hook: innerHTML(relay.data.markup, () => relay.data.markup!)
       })
     ]),
     multiBoardView(study.multiBoard, study)

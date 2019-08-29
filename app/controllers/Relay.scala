@@ -86,7 +86,7 @@ object Relay extends LilaController {
 
   private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] = for {
     (sc, studyData) <- Study.getJsonData(oldSc)
-    data = lila.relay.JsonView.makeData(relay, studyData)
+    data = env.jsonView.makeData(relay, studyData)
     chat <- Study.chatOf(sc.study)
     sVersion <- Env.study.version(sc.study.id)
     streams <- Study.streamsOf(sc.study)
