@@ -9,6 +9,7 @@
   <string name="myFavoriteStudies">En sevdiğim çalışmalar</string>
   <string name="whatAreStudies">Çalışmalar ne işe yarar?</string>
   <string name="allStudies">Bütün çalışmalar</string>
+  <string name="studiesCreatedByX">Çalışmalar %s tarafından oluşturulmuştur</string>
   <string name="noneYet">Henüz yok.</string>
   <string name="hot">Revaçta</string>
   <string name="dateAddedNewest">Eklenme tarihi (yeniden eskiye)</string>
@@ -73,17 +74,21 @@
   <string name="newChapter">Yeni bölüm</string>
   <string name="orientation">Tahta yönü</string>
   <string name="analysisMode">Analiz modu</string>
+  <string name="pinnedChapterComment">Bölüm üzerine yorumlar</string>
   <string name="saveChapter">Bölümü kaydet</string>
   <string name="clearAnnotations">Açıklamaları sil</string>
   <string name="deleteChapter">Bölümü sil</string>
   <string name="deleteThisChapter">Bu bölüm silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="clearAllCommentsInThisChapter">Bu bölümdeki bütün yorumlar ve işaretler temizlensin mi?</string>
   <string name="rightUnderTheBoard">Tahtanın hemen altında görünsün</string>
+  <string name="noPinnedComment">Yok</string>
   <string name="normalAnalysis">Normal analiz</string>
   <string name="hideNextMoves">Sonraki hamleleri gizle</string>
   <string name="interactiveLesson">Etkileşimli ders</string>
   <string name="chapterX">Bölüm %s</string>
+  <string name="startFromInitialPosition">İlk pozisyondan başlasın</string>
   <string name="editor">Editör</string>
+  <string name="startFromCustomPosition">Özel bir pozisyondan başlasın</string>
   <string name="loadAGameByUrl">URL ile oyun yükle</string>
   <string name="loadAPositionFromFen">FEN kullanarak pozisyon yükle</string>
   <string name="loadAGameFromPgn">PGN ile oyun yükle</string>
@@ -99,6 +104,9 @@
   <string name="editStudy">Çalışmayı düzenle</string>
   <string name="visibility">Görünürlük</string>
   <string name="public">Herkese açık</string>
+  <string name="unlisted">Liste dışı</string>
+  <string name="inviteOnly">Sadece davet edilenler</string>
+  <string name="allowCloning">Klonlamaya izni olanlar</string>
   <string name="nobody">Hiç kimse</string>
   <string name="onlyMe">Sadece ben</string>
   <string name="contributors">Katkıda Bulunanlar</string>
@@ -107,6 +115,7 @@
   <string name="enableSync">Senkronizasyonu etkinleştir</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Evet: herkes aynı pozisyonda kalsın</string>
   <string name="noLetPeopleBrowseFreely">Hayır: herkes dilediğince gezinebilir</string>
+  <string name="pinnedStudyComment">Çalışma üzerine yorumlar</string>
   <string name="start">Başlat</string>
   <string name="save">Kaydet</string>
   <string name="clearChat">Sohbeti temizle</string>
