@@ -109,4 +109,19 @@
   <string name="unlisted">सुचिकृत नभएको</string>
   <string name="inviteOnly">निमन्त्रणा बाट मात्र</string>
   <string name="allowCloning">क्लोनिङ गर्न दिने</string>
+  <string name="nobody">कोही पनि छैन</string>
+  <string name="onlyMe">म मात्र</string>
+  <string name="contributors">योगदान कर्ता</string>
+  <string name="members">सदस्यहरु</string>
+  <string name="everyone">सबैजना</string>
+  <string name="enableSync">सिंक गर्न दिने</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">हो: सबैलाई एकै पोजिसनमा राख्ने</string>
+  <string name="noLetPeopleBrowseFreely">हैन: सबैलाई स्वेक्षाले ब्राउज गर्न दिने</string>
+  <string name="pinnedStudyComment">पिन गरिएको पाठको टिप्पणी</string>
+  <string name="start">सुरु</string>
+  <string name="save">सुरक्षित गर्नुहोस्</string>
+  <string name="clearChat">वार्तालाप खाली गरौं</string>
+  <string name="deleteTheStudyChatHistory">पाठको वार्तालाप इतिहास मेट्ने पक्का हो? पछि कुनै उपाय हुनेछैन!</string>
+  <string name="deleteStudy">पाठ मेटौं</string>
+  <string name="deleteTheEntireStudy">सम्पुर्ण पाठ मेट्ने पक्का हो? पछि कुनै उपाय हुनेछैन!</string>
 </resources>
