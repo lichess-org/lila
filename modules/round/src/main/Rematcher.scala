@@ -25,6 +25,8 @@ private[round] final class Rematcher(
     .expireAfterWrite(30 minutes)
     .build[Game.ID, Offers]
 
+  private val chess960 = new ExpireSetMemo(3 hours)
+
   def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
 
   def yes(pov: Pov): Fu[Events] = pov match {
@@ -53,6 +55,7 @@ private[round] final class Rematcher(
         nextGame ← returnGame(pov) map (_.start)
         _ = offers invalidate pov.game.id
         _ = rematches.put(pov.gameId, nextGame.id)
+        _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
         _ ← GameRepo insertDenormalized nextGame
       } yield {
         messenger.system(pov.game, _.rematchOfferAccepted)
@@ -76,7 +79,7 @@ private[round] final class Rematcher(
     situation = initialFen flatMap { fen => Forsyth <<< fen.value }
     pieces = pov.game.variant match {
       case Chess960 =>
-        if (rematches getIfPresent pov.gameId isDefined) Chess960.pieces
+        if (chess960 get pov.gameId) Chess960.pieces
         else situation.fold(Chess960.pieces)(_.situation.board.pieces)
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
       case variant => variant.pieces
