@@ -59,7 +59,7 @@
   <string name="promoteVariation">Bu varyanttan devam et</string>
   <string name="makeMainLine">Ana devam yolu yap</string>
   <string name="deleteFromHere">Bu hamleden sonrasını sil</string>
-  <string name="forceVariation">Bu varyasyona zorla</string>
+  <string name="forceVariation">Varyant olarak göster</string>
   <string name="move">Hamle</string>
   <string name="variantLoss">Kayıp devam yolu</string>
   <string name="variantWin">Kazanç devam yolu</string>
@@ -778,7 +778,7 @@
   <string name="boardTheme">Tahta teması</string>
   <string name="boardSize">Tahta boyutu</string>
   <string name="pieceSet">Taş seti</string>
-  <string name="embedInYourWebsite">Web sitende paylaş</string>
+  <string name="embedInYourWebsite">İnternet sitenizde gömülü olarak paylaşın</string>
   <string name="usernameAlreadyUsed">Bu kullanıcı adı zaten kullanılıyor, lütfen başka bir kullanıcı adı deneyin.</string>
   <string name="usernamePrefixInvalid">Kullanıcı adınız bir harfle başlamak zorundadır.</string>
   <string name="usernameSuffixInvalid">Kullanıcı adınız bir harf veya sayı ile bitmelidir.</string>
