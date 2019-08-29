@@ -89,7 +89,7 @@ object BSONHandlers {
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
     def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
-      case BSONString(lidraughts.user.User.lidraughtsId) => Comment.Author.Lidraughts
+      case BSONString(lidraughts.user.User.lidraughtsId | "l") => Comment.Author.Lidraughts
       case BSONString(name) => Comment.Author.External(name)
       case doc: Bdoc => {
         for {
