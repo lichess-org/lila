@@ -204,6 +204,7 @@
   <string name="playingRightNow">Şu an oynanıyor</string>
   <string name="eventInProgress">Şu anda oynanıyor</string>
   <string name="finished">Bitti</string>
+  <string name="finishesX">%s sona erecek</string>
   <string name="abortGame">Oyunu iptal et</string>
   <string name="gameAborted">Oyun iptal edildi</string>
   <string name="standard">Standart</string>
@@ -873,4 +874,5 @@
   <string name="wishYouGreatGames">ve lichess.org\'da harika oyunlar dileriz.</string>
   <string name="thankYouForReading">Okuduğunuz için teşekkür ederiz!</string>
   <string name="agreementAccount">Birden fazla hesap oluşturmayacağımı onaylıyorum.</string>
+  <string name="agreementPolicy">Lichess kurallarını takip edeceğimi onaylıyorum.</string>
 </resources>
