@@ -121,5 +121,5 @@
   <string name="clearChat">Sohbeti temizle</string>
   <string name="deleteTheStudyChatHistory">Çalışmanın sohbet geçmişi silinsin mi? Bunun geri dönüşü yok!</string>
   <string name="deleteStudy">Çalışmayı sil</string>
-  <string name="deleteTheEntireStudy">Tüm çalışmayı sil. Bu geri dönüşü olmayan bir işlem!</string>
+  <string name="deleteTheEntireStudy">Tüm çalışma silinsin mi? Bunun geri dönüşü yok!</string>
 </resources>
