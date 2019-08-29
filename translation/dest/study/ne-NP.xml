@@ -94,5 +94,19 @@
   <string name="loadAPositionFromFen">FEN बाट पोजिसन लोड गरौं</string>
   <string name="loadAGameFromPgn">PGN बाट खेल लोड गरौं</string>
   <string name="automatic">स्वचालित</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं, %s खेल सम्म</item>
+    <item quantity="other">PGN स्ट्रिङ्ग यहाँ पेष्ट गरौं, %s खेल सम्म</item>
+  </plurals>
+  <string name="urlOfTheGame">खेलको URL</string>
+  <string name="loadAGameFromXOrY">%1$s वा %2$s बाट खेल लोड गरौं</string>
   <string name="createChapter">अध्याय श्रीजना</string>
+  <string name="configureLiveBroadcast">प्रत्यक्ष प्रशारणको तयारी गरौँ</string>
+  <string name="createStudy">पाठ रचना गरौँ</string>
+  <string name="editStudy">पाठ संशोधन गरौँ</string>
+  <string name="visibility">पाठको दृश्यता</string>
+  <string name="public">सार्वजनिक</string>
+  <string name="unlisted">सुचिकृत नभएको</string>
+  <string name="inviteOnly">निमन्त्रणा बाट मात्र</string>
+  <string name="allowCloning">क्लोनिङ गर्न दिने</string>
 </resources>
