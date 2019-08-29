@@ -14,7 +14,7 @@ export default class RelayCtrl {
     this.intro = {
       exists: !!data.description,
       active: !!data.description,
-      toggle: () => { this.intro.active = !this.intro.active }
+      disable: () => { this.intro.active = false }
     };
   }
 

@@ -104,6 +104,8 @@ export function view(ctrl: StudyCtrl): VNode {
     }
   }
 
+  const introActive = ctrl.relay && ctrl.relay.intro.active;
+
   return h('div.study__chapters', {
     hook: {
       insert(vnode) {
@@ -130,7 +132,7 @@ export function view(ctrl: StudyCtrl): VNode {
   }, ctrl.chapters.list().map((chapter, i) => {
     const editing = ctrl.chapters.editForm.isEditing(chapter.id),
       loading = ctrl.vm.loading && chapter.id === ctrl.vm.nextChapterId,
-      active = !ctrl.vm.loading && current && current.id === chapter.id;
+      active = !ctrl.vm.loading && current && !introActive && current.id === chapter.id;
     return h('div', {
       key: chapter.id,
       attrs: { 'data-id': chapter.id },

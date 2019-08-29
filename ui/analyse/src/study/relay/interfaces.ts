@@ -15,7 +15,7 @@ export interface RelaySync {
 export interface RelayIntro {
   exists: boolean;
   active: boolean;
-  toggle(): void;
+  disable(): void;
 }
 
 export interface LogEvent {

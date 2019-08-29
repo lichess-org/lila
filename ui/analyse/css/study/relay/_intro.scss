@@ -1,0 +1,13 @@
+.intro {
+  &__text {
+    @extend %box-neat;
+    background: $c-bg-box;
+    padding: 3vmin;
+    h1 {
+      @include fluid-size('font-size', 15px, 27px);
+      margin-bottom: 3vh;
+    }
+  }
+  .study__name {
+  }
+}

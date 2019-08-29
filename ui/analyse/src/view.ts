@@ -29,6 +29,7 @@ import { render as acplView } from './acpl'
 import AnalyseCtrl from './ctrl';
 import { ConcealOf } from './interfaces';
 import relayManager from './study/relay/relayManagerView';
+import relayIntro from './study/relay/relayIntroView';
 import renderPlayerBars from './study/playerBars';
 import serverSideUnderboard from './serverSideUnderboard';
 import * as gridHacks from './gridHacks';
@@ -259,7 +260,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
     playerBars = renderPlayerBars(ctrl),
     clocks = !playerBars && renderClocks(ctrl),
     gaugeOn = ctrl.showEvalGauge(),
-    needsInnerCoords = !!gaugeOn || !!playerBars;
+    needsInnerCoords = !!gaugeOn || !!playerBars,
+    intro = relayIntro(ctrl);
   return h('main.analyse.variant-' + ctrl.data.game.variant.key, {
     hook: {
       insert: vn => {
@@ -289,7 +291,7 @@ export default function(ctrl: AnalyseCtrl): VNode {
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
     study ? studyView.overboard(study) : null,
-    h(addChapterId(study, 'div.analyse__board.main-board'), {
+    intro || h(addChapterId(study, 'div.analyse__board.main-board'), {
       hook: (window.lichess.hasTouchEvents || ctrl.gamebookPlay()) ? undefined : bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
     }, [
       ...(clocks || []),
@@ -298,9 +300,9 @@ export default function(ctrl: AnalyseCtrl): VNode {
       playerBars ? playerBars[ctrl.bottomIsWhite() ? 0 : 1] : null,
       renderPromotion(ctrl)
     ]),
-    gaugeOn ? cevalView.renderGauge(ctrl) : null,
-    menuIsOpen ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-    gamebookPlayView || h(addChapterId(study, 'div.analyse__tools'), [
+    (gaugeOn && !intro) ? cevalView.renderGauge(ctrl) : null,
+    (menuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+    gamebookPlayView || (intro ? null : h(addChapterId(study, 'div.analyse__tools'), [
       ...(menuIsOpen ? [actionMenu(ctrl)] : [
         cevalView.renderCeval(ctrl),
         showCevalPvs ? cevalView.renderPvs(ctrl) : null,
@@ -308,13 +310,13 @@ export default function(ctrl: AnalyseCtrl): VNode {
         gamebookEditView || forkView(ctrl, concealOf),
         retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
       ])
-    ]),
-    menuIsOpen ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
-    gamebookPlayView ? null : controls(ctrl),
-    ctrl.embed ? null : h('div.analyse__underboard', {
+    ])),
+    (menuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+    (gamebookPlayView || intro) ? null : controls(ctrl),
+    (ctrl.embed || intro) ? null : h('div.analyse__underboard', {
       hook: (ctrl.synthetic || playable(ctrl.data)) ? undefined : onInsert(elm => serverSideUnderboard(elm, ctrl))
     }, study ? studyView.underboard(ctrl) : [inputs(ctrl)]),
-    acplView(ctrl),
+    intro ? null : acplView(ctrl),
     ctrl.embed ? null : (
       ctrl.studyPractice ? studyPracticeView.side(study!) :
       h('aside.analyse__side', {

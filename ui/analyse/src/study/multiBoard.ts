@@ -126,7 +126,7 @@ function makePreview(study: StudyCtrl) {
     ];
     return h('a.' + preview.id, {
       attrs: { title: preview.name },
-      class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id },
+      class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id && (!study.relay || !study.relay.intro.active) },
       hook: bind('mousedown', _ => study.setChapter(preview.id))
     }, contents);
   };

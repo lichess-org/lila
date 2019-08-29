@@ -544,7 +544,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }));
     },
     setChapter(id, force) {
-      if (id === vm.chapterId && !force) return;
+      const alreadySet = id === vm.chapterId && !force;
+      if (relay && relay.intro.active) {
+        relay.intro.disable();
+        if (alreadySet) redraw();
+      }
+      if (alreadySet) return;
       if (!vm.mode.sticky || !makeChange("setChapter", id)) {
         vm.mode.sticky = false;
         if (!vm.behind) vm.behind = 1;
