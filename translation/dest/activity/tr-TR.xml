@@ -51,7 +51,7 @@
     <item quantity="other">%s eş zamanlı oyuna katıldı</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">%s yeni etüt oluşturdu</item>
+    <item quantity="one">%s yeni çalışma oluşturdu</item>
     <item quantity="other">%s yeni çalışma oluşturdu</item>
   </plurals>
   <plurals name="competedInNbTournaments">
