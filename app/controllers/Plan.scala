@@ -4,8 +4,8 @@ import play.api.mvc._
 
 import lidraughts.api.Context
 import lidraughts.app._
-import lidraughts.plan.{ StripeCustomer, MonthlyCustomerInfo, OneTimeCustomerInfo }
 import lidraughts.common.EmailAddress
+import lidraughts.plan.{ StripeCustomer, MonthlyCustomerInfo, OneTimeCustomerInfo }
 import lidraughts.user.{ User => UserModel, UserRepo }
 import views._
 
@@ -92,10 +92,8 @@ object Plan extends LidraughtsController {
     lidraughts.plan.Checkout.form.bindFromRequest.fold(
       err => BadRequest(html.plan.badCheckout(err.toString)).fuccess,
       data => Env.plan.api.checkout(ctx.me, data) inject Redirect {
-        if (ctx.isAuth) {
-          if (data.freq.renew) routes.Plan.index()
-          else routes.Plan.thanks()
-        } else routes.Plan.thanks()
+        if (ctx.isAuth && data.freq.renew) routes.Plan.index()
+        else routes.Plan.thanks()
       } recover {
         case e: StripeException =>
           logger.error("Plan.charge", e)
