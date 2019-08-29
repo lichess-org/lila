@@ -35,4 +35,27 @@
   <string name="searchByUsername">පරිශීලක නාමයෙන් සොයන්න</string>
   <string name="spectator">නරඹන්නා</string>
   <string name="contributor">දායකයා</string>
+  <string name="kick">පයින් ගසනවා</string>
+  <string name="leaveTheStudy">අධ්‍යයනයෙන් ඉවත් වන්න</string>
+  <string name="youAreNowAContributor">ඔබ දැන් දායකයෙක්</string>
+  <string name="youAreNowASpectator">ඔබ දැන් ප්‍රේක්ෂකයෙකි</string>
+  <string name="pgnTags">PGN ටැග්</string>
+  <string name="like">මනාප</string>
+  <string name="newTag">නව ටැගය</string>
+  <string name="commentThisPosition">මෙම ස්ථාවරය ගැන අදහස් දක්වන්න</string>
+  <string name="commentThisMove">මෙම පියවර ගැන අදහස් දක්වන්න</string>
+  <string name="annotateWithGlyphs">ග්ලයිෆස් සමඟ විවරණය කරන්න</string>
+  <string name="theChapterIsTooShortToBeAnalysed">පරිච්ඡේදය විශ්ලේෂණය කිරීමට නොහැකි තරම් කෙටි ය.</string>
+  <string name="onlyContributorsCanRequestAnalysis">පරිගණක විශ්ලේෂණයක් ඉල්ලා සිටිය හැක්කේ අධ්‍යයන දායකයින්ට පමණි.</string>
+  <string name="getAFullComputerAnalysis">මෙම ප්‍රධාන ගණයේ සම්පූර්ණ පරිගණක සර්වර්-ගැන විශ්ලේෂණය ලබා ගන්න.</string>
+  <string name="makeSureTheChapterIsComplete">පරිච්ඡේදය සම්පූර්ණ බවට වග බලා ගන්න. ඔබට විශ්ලේෂණය ඉල්ලා සිටිය හැක්කේ එක් වරක් පමණි.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">සියලුම SYNC සාමාජිකයින් එකම ස්ථානයක රැඳී සිටිති</string>
+  <string name="shareChanges">වෙනස්කම් ප්‍රේක්ෂකයන් සමඟ බෙදාගෙන ඒවා සේවාදායකයේ සුරකින්න</string>
+  <string name="playing">සෙල්ලම් කරමින්</string>
+  <string name="first">පළමුවන</string>
+  <string name="previous">කලින්</string>
+  <string name="next">ඊළඟ</string>
+  <string name="last">අවසන්</string>
+  <string name="shareAndExport">බෙදාගන්න &amp; අපනයනය</string>
+  <string name="cloneStudy">ක්ලෝනය</string>
 </resources>
