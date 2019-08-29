@@ -874,4 +874,8 @@
   <string name="thankYouForReading">Vielen Dank für’s Lesen!</string>
   <string name="lifetimeScore">Ewiger Spielstand</string>
   <string name="currentMatchScore">Aktueller Spielstand</string>
+  <string name="agreementAssistance">Ich stimme zu, dass ich zu keiner Zeit während meiner Partien Hilfe in Anspruch nehmen werde (durch einen Schachcomputer, Buch, Datenbank oder eine andere Person).</string>
+  <string name="agreementNice">Ich stimme zu, dass ich anderen Spielern gegenüber immer nett sein werde.</string>
+  <string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
+  <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
 </resources>
