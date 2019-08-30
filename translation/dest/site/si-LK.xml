@@ -31,4 +31,24 @@
   <string name="joinTheGame">ක්‍රීඩාවට සම්බන්ධ වන්න</string>
   <string name="whitePlays">සෙල්ලම් කිරීමට සුදු</string>
   <string name="blackPlays">සෙල්ලම් කිරීමට කළු</string>
+  <string name="opponentLeftChoices">අනෙක් ක්‍රීඩකයා ක්‍රීඩාවෙන් ඉවත් වන්නට ඇත. ඔබට ජයග්‍රහණයට හිමිකම් කීමට, ක්‍රීඩාව දිනුම් ඇදීමක් ලෙස හැඳින්විමට, නැතහොත් රැඳී සිටින්න.</string>
+  <string name="makeYourOpponentResign">ඔබේ විරුද්ධවාදියා ඉල්ලා අස්වීමට</string>
+  <string name="forceResignation">ජයග්‍රහණය ඉල්ලා සිටින්න</string>
+  <string name="forceDraw">ඇමතුම් දිනුම් ඇදීම</string>
+  <string name="talkInChat">කරුණාකර පිළිසඳරෙහි දී හොඳින් හැසිරෙන්න!</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">මෙම URL වෙත පැමිණි පළමු පුද්ගලයා ඔබ සමඟ සෙල්ලම් කරනු ඇත.</string>
+  <string name="whiteResigned">සුදු ඉල්ලා අස්</string>
+  <string name="blackResigned">කළු ඉල්ලා අස්විය</string>
+  <string name="whiteLeftTheGame">සුදු ක්‍රීඩාවෙන් ඉවත් විය</string>
+  <string name="blackLeftTheGame">කළු ක්‍රීඩාවෙන් ඉවත් විය</string>
+  <string name="shareThisUrlToLetSpectatorsSeeTheGame">ප්‍රේක්ෂකයින්ට ක්‍රීඩාව බැලීමට මෙම URL බෙදාගන්න</string>
+  <string name="theComputerAnalysisHasFailed">පරිගණක විශ්ලේෂණය අසමත් විය</string>
+  <string name="viewTheComputerAnalysis">පරිගණක විශ්ලේෂණය බලන්න</string>
+  <string name="requestAComputerAnalysis">පරිගණක විශ්ලේෂණයක් ඉල්ලන්න</string>
+  <string name="computerAnalysis">පරිගණක විශ්ලේෂණය</string>
+  <string name="computerAnalysisAvailable">පරිගණක විශ්ලේෂණය ලබා ගත හැකිය</string>
+  <string name="analysis">විශ්ලේෂණ මණ්ඩලය</string>
+  <string name="depthX">ගැඹුර %s</string>
+  <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
+  <string name="loadingEngine">එන්ජිම පූරණය වේ ...</string>
 </resources>
