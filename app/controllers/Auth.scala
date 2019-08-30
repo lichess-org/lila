@@ -209,11 +209,11 @@ object Auth extends LilaController {
                   lila.mon.user.register.website()
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
-                  authLog(data.username, data.email, s"${email.acceptable.value} fp: ${data.fingerPrint} mustConfirm: $mustConfirm req:${ctx.req}")
                   val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
                   UserRepo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
                     .flatten(s"No user could be created for ${data.username}")
+                    .addEffect { logSignup(_, email.acceptable, data.fingerPrint, mustConfirm) }
                     .map(_ -> email).flatMap {
                       case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
                         env.emailConfirm.send(user, email) >> {
@@ -241,11 +241,11 @@ object Auth extends LilaController {
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
-              authLog(data.username, data.email, s"Signup mobile must confirm email: $mustConfirm")
               val passwordHash = Env.user.authenticator passEnc ClearPassword(data.password)
               UserRepo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
                 .flatten(s"No user could be created for ${data.username}")
+                .addEffect { logSignup(_, email.acceptable, none, mustConfirm) }
                 .map(_ -> email).flatMap {
                   case (user, EmailAddressValidator.Acceptable(email)) if mustConfirm.value =>
                     env.emailConfirm.send(user, email) >> {
@@ -258,6 +258,19 @@ object Auth extends LilaController {
           )
         )
       }
+    }
+  }
+
+  private def logSignup(
+    user: UserModel,
+    email: EmailAddress,
+    fingerPrint: Option[lila.security.FingerPrint],
+    mustConfirm: MustConfirmEmail
+  )(implicit ctx: Context) = {
+    authLog(user.username, email.value, s"fp: ${fingerPrint} mustConfirm: $mustConfirm")
+    val ip = HTTPRequest lastRemoteAddress ctx.req
+    Env.security.ipTrust.isSuspicious(ip) foreach { susp =>
+      Env.slack.api.signup(user, email, ip, fingerPrint.flatMap(_.hash).map(_.value), susp)
     }
   }
 

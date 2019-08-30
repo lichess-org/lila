@@ -1,4 +1,4 @@
-ackage views.html
+package views.html
 
 import play.api.data.Form
 
