@@ -43,7 +43,7 @@
   <string name="like">Beğen</string>
   <string name="newTag">Yeni etiket</string>
   <string name="commentThisPosition">Bu pozisyon için yorum yap</string>
-  <string name="commentThisMove">Bu hamle için bir yorum yap</string>
+  <string name="commentThisMove">Bu hamle için yorum yap</string>
   <string name="annotateWithGlyphs">Glifler ile açıkla</string>
   <string name="theChapterIsTooShortToBeAnalysed">Bu bölüm analiz için çok kısa.</string>
   <string name="onlyContributorsCanRequestAnalysis">Sadece katılımcılar bilgisayar analizi isteyebilir.</string>
