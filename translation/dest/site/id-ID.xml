@@ -841,4 +841,6 @@
   <string name="currentMatchScore">Skor pertandingan saat ini</string>
   <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
   <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
+  <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
+  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
 </resources>
