@@ -86,6 +86,7 @@
   <string name="hideNextMoves">Sonraki hamleleri gizle</string>
   <string name="interactiveLesson">Etkileşimli ders</string>
   <string name="chapterX">Bölüm %s</string>
+  <string name="empty">Boş</string>
   <string name="startFromInitialPosition">İlk pozisyondan başlasın</string>
   <string name="editor">Editör</string>
   <string name="startFromCustomPosition">Özel bir pozisyondan başlasın</string>
@@ -100,6 +101,7 @@
   <string name="urlOfTheGame">Oyunun bağlantısı</string>
   <string name="loadAGameFromXOrY">%1$s veya %2$s kullanarak oyun yükle</string>
   <string name="createChapter">Bölüm oluştur</string>
+  <string name="configureLiveBroadcast">Canlı yayını yapılandır</string>
   <string name="createStudy">Çalışma oluştur</string>
   <string name="editStudy">Çalışmayı düzenle</string>
   <string name="visibility">Görünürlük</string>
