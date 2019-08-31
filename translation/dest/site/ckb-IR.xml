@@ -58,6 +58,13 @@
   <string name="toggleLocalEvaluation">Nirxandina xwecihî biguherîne</string>
   <string name="makeMainLine">کردن بە رستەی سەرەکی</string>
   <string name="deleteFromHere">سڕینەوە</string>
+  <string name="move">جوڵان</string>
+  <string name="variantLoss">دۆرانی ناچاری</string>
+  <string name="insufficientMaterial">یەکسانبوون بەهۆی نەمانی جوڵە بۆ کش</string>
+  <string name="close">داخستن</string>
+  <string name="winning">جوڵەی بردنەوە</string>
+  <string name="losing">جولەی دۆڕان</string>
+  <string name="drawn">جولەی یەکسانبوون</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
   <string name="mistakes">Çewtî</string>
