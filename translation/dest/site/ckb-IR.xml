@@ -22,6 +22,7 @@
   <string name="createAGame">دروستکردن و ڕێکخستنی یاریەک</string>
   <string name="whiteIsVictorious">سپی براوەیە</string>
   <string name="blackIsVictorious">رەش براوەیە</string>
+  <string name="kingInTheCenter">پاشا لە ناوەڕاست</string>
   <string name="raceFinished">کۆتایی هات</string>
   <string name="variantEnding">کۆتایی هات بە شێوازی variant</string>
   <string name="newOpponent">ڕکابەرێکی نوێ</string>
