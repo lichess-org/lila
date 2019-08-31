@@ -289,8 +289,8 @@
   <string name="backToTournament">Turnuvaya geri dön</string>
   <string name="thematic">Tematik</string>
   <plurals name="moreThanNbRatedGames">
-    <item quantity="one">≥ %s dereceli maç</item>
-    <item quantity="other">≥ %s dereceli maçlar</item>
+    <item quantity="one">≥ %s puanlı maç</item>
+    <item quantity="other">≥ %s puanlı maç</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
     <item quantity="one">≥ %1$s puanlı %2$s maçı</item>
@@ -304,9 +304,9 @@
     <item quantity="one">%s tane daha puanlı oyun oynamanız gerekiyor</item>
     <item quantity="other">%s tane daha puanlı oyun oynamanız gerekiyor</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">%s dereceniz geçicidir.</string>
-  <string name="yourPerfRatingIsTooHigh">%1$s dereceniz (%2$s) çok fazla</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s dereceniz (%2$s) gerekenden fazla</string>
+  <string name="yourPerfRatingIsProvisional">%s puanınız geçicidir</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s puanınız (%2$s) gerekenden fazla</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Haftalık %1$s puanınız (%2$s) gerekenden fazla</string>
   <string name="yourPerfRatingIsTooLow">%1$s puanınız (%2$s) gerekenden az</string>
   <string name="ratedMoreThanInPerf">%2$s puanı ≥ %1$s olmalı</string>
   <string name="ratedLessThanInPerf">%2$s puanı ≤ %1$s olmalı</string>
@@ -634,7 +634,7 @@
   <string name="zenMode">Zen modu (oyun esnasında süre, rakibin derecesi vs. gözükmez)</string>
   <string name="moveConfirmation">Hamleyi onayla</string>
   <string name="inCorrespondenceGames">Notasyonlu oyunlarda</string>
-  <string name="ifRatingIsPlusMinusX">Eğer dereceleri +- %s ise</string>
+  <string name="ifRatingIsPlusMinusX">Eğer puanları ± %s ise</string>
   <string name="onlyFriends">Sadece arkadaşlar</string>
   <string name="displayBoardResizeHandle">Tahta büyüklüğünü ayarlama kolunu göster</string>
   <string name="onlyOnInitialPosition">Sadece oyunun başında</string>
