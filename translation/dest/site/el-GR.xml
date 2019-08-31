@@ -697,7 +697,7 @@
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία κατανομή βαθμολογίας %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s παίκτης %2$s αυτήν την εβδομάδα.</item>
-    <item quantity="other">%2$s παίκτες %1$s αυτήν την εβδομάδα.</item>
+    <item quantity="other">%1$s παίκτες %2$s αυτήν την εβδομάδα.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
