@@ -217,8 +217,8 @@
   <string name="thisGameIsRated">Bu oyun puanlıdır</string>
   <string name="rematch">Yeniden oyna</string>
   <string name="rematchOfferSent">Yeniden oynama teklifi yollandı</string>
-  <string name="rematchOfferSentWhite">Beyazlar yeni bir oyun teklif ediyor</string>
-  <string name="rematchOfferSentBlack">Siyahlar yeni bir oyun teklif ediyor</string>
+  <string name="rematchOfferSentWhite">Beyaz yeni bir oyun teklif ediyor</string>
+  <string name="rematchOfferSentBlack">Siyah yeni bir oyun teklif ediyor</string>
   <string name="rematchOfferAccepted">Yeniden oynama teklifi kabul edildi</string>
   <string name="rematchOfferCanceled">Yeniden oynama teklifi reddedildi</string>
   <string name="rematchOfferDeclined">Yeniden oynama teklifi reddedildi</string>
@@ -233,9 +233,9 @@
   <string name="composeMessage">Bir mesaj yaz</string>
   <string name="noNewMessages">Yeni mesajınız yok</string>
   <string name="subject">Konu</string>
-  <string name="recipient">Alıcının kullanıcı adı</string>
+  <string name="recipient">Alıcı</string>
   <string name="send">Gönder</string>
-  <string name="incrementInSeconds">Taraflara hamle başına ek süre</string>
+  <string name="incrementInSeconds">Hamle başına eklenen saniye</string>
   <string name="freeOnlineChess">Ücretsiz Çevrimiçi Satranç</string>
   <string name="spectators">İzleyiciler:</string>
   <plurals name="nbRated">
@@ -702,9 +702,9 @@
     <item quantity="one">Bu hafta bir %2$s oyuncusu.</item>
     <item quantity="other">Bu hafta %1$s %2$s oyuncusu.</item>
   </plurals>
-  <string name="yourPerfTypeRatingIsRating">Sizin %1$s modunda dereceniz: %2$s</string>
+  <string name="yourPerfTypeRatingIsRating">%1$s puanınız %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%2$s oyuncunun %1$s tanesinden daha iyisiniz.</string>
-  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s dereceniz yok.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sabit bir %s puanınız yok.</string>
   <string name="yourRating">Sizin puanınız</string>
   <string name="cumulative">Kümülatif</string>
   <string name="glicko2Rating">Glicko-2 puanı</string>
@@ -847,8 +847,8 @@
   <string name="registerToSendChallenges">Oyun daveti göndermek için üye olun.</string>
   <string name="youCannotChallengeX">%s adlı oyuncuya oyun daveti gönderemezsiniz.</string>
   <string name="xDoesNotAcceptChallenges">%s oyun davetlerini kabul etmiyor.</string>
-  <string name="yourXRatingIsTooFarFromY">%1$s puanın %2$s den çok uzak.</string>
-  <string name="cannotChallengeDueToProvisionalXRating">Geçici %s derecesine sahipsiniz bu sebeple meydan okuyamazsınız.</string>
+  <string name="yourXRatingIsTooFarFromY">%1$s puanınız %2$s adlı oyuncudan çok uzak.</string>
+  <string name="cannotChallengeDueToProvisionalXRating">%s puanınız geçici olduğu için başka oyunculara meydan okuyamazsınız.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s sadece arkadaşlarından gelen meydan okumaları kabul ediyor.</string>
   <string name="conditionalPremoves">Şartlı ön hamle</string>
   <string name="addCurrentVariation">Mevcut varyantı ekle</string>
