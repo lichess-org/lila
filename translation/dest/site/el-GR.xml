@@ -224,7 +224,7 @@
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
   <string name="chatRoom">Ζωντανή συζήτηση</string>
-  <string name="loginToChat">Συνδεθείτε για να συνομιλήσετε</string>
+  <string name="loginToChat">Συνδεθείτε για να μιλήσετε</string>
   <string name="youHaveBeenTimedOut">Έχετε αποσυνδεθεί.</string>
   <string name="spectatorRoom">Συζήτηση θεατών</string>
   <string name="composeMessage">Σύνθεση μηνύματος</string>
