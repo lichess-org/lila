@@ -862,6 +862,7 @@ en %3$s</string>
   </plurals>
   <string name="sorry">Désolé :(</string>
   <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous faire sortir pendant quelque temps.</string>
+  <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
   <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs suivent les bonnes pratiques.</string>
@@ -878,5 +879,5 @@ en %3$s</string>
   <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (d\'un ordinateur d\'échecs, d\'un livre, d\'une base de données ou d\'une autre personne).</string>
   <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres joueurs.</string>
   <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
-  <string name="agreementPolicy">J\'accepte de suivre toutes les règles de Lichess.</string>
+  <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
 </resources>
