@@ -66,6 +66,14 @@
   <string name="losing">جولەی دۆڕان</string>
   <string name="drawn">جولەی یەکسانبوون</string>
   <string name="recentGames">دوایین یاریەکانت</string>
+  <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
+  <string name="allSet">ئامادەیە!</string>
+  <string name="importPgn">سکرین شوت PGN</string>
+  <string name="delete">سڕینەوە</string>
+  <string name="deleteThisImportedGame">دڵنیای کە دەتەوێت بیسڕیەوە?</string>
+  <string name="replayMode">سەیرکردنەوەی یاریەکە</string>
+  <string name="realtimeReplay">وەک خۆی</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
   <string name="mistakes">Çewtî</string>
