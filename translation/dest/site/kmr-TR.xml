@@ -109,6 +109,11 @@
   <string name="daysPerTurn">Rojên ji bo her dorekê</string>
   <string name="oneDay">Yek roj</string>
   <string name="time">Wext</string>
+  <string name="rating">Pile</string>
+  <string name="ratingStats">Statîstîkên pileyan</string>
+  <string name="username">Navê bikarhêner</string>
+  <string name="usernameOrEmail">Navê bikarhêner an epeyam</string>
+  <string name="changeUsername">Navê bikarhêneriyê biguherîne</string>
   <string name="forgotPassword">Te şîfre ji bîr kir?</string>
   <string name="rank">Ast</string>
   <string name="rankX">Ast: %s</string>
