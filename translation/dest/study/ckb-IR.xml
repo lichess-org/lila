@@ -13,4 +13,16 @@
   <string name="addNewChapter">بەشێکی نوێ زیاد بکە</string>
   <string name="addMembers">ئەندامەکان زیاد بکە</string>
   <string name="inviteToTheStudy">بانگێشتکردن بۆ لێکۆڵینەوەکه</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">تکایە تەنھا ئەو کەسانە بانگێشت بکە کە دەیانناسیت و دەیانەوێت بە شێوەیەکی چالاکانە بێنە پاڵ ئەو لێکۆڵینەوەیه.</string>
+  <string name="searchByUsername">لە ڕێگەی ناوی بەکارھێنەرەوە بگەڕێ</string>
+  <string name="spectator">بینەر</string>
+  <string name="contributor">بەشدار</string>
+  <string name="leaveTheStudy">لێکۆڵینەوەکە جێبهێڵە</string>
+  <string name="youAreNowAContributor">ئێستا تۆ بەشداری</string>
+  <string name="youAreNowASpectator">ئێستا تۆ بینەری</string>
+  <string name="like">بەدڵ بوون</string>
+  <string name="commentThisPosition">لێدوان لەسەر ئەو پێگەیە</string>
+  <string name="commentThisMove">لێدوان لەسەر ئەو جوڵانەوەیه</string>
+  <string name="theChapterIsTooShortToBeAnalysed">ئەو بەشە بەهۆی کورتییەوە ناتوانرێت شیکار بکرێت.</string>
+  <string name="onlyContributorsCanRequestAnalysis">تەنها بەشداربووانی لێکۆڵینەوەکە دەتوانن داوای شیکارکردنی کۆمپیوتەر بکەن.</string>
 </resources>
