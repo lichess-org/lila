@@ -98,6 +98,13 @@
   <string name="games">Lîstik</string>
   <string name="forum">Forum</string>
   <string name="xPostedInForumY">%1$s weşand li mijara %2$s</string>
+  <string name="latestForumPosts">Şandiyên forumê yên dawîn</string>
+  <string name="players">Lîzer</string>
+  <string name="minutesPerSide">Deqeyên ji bo her aliyekê</string>
+  <string name="variant">Varyant</string>
+  <string name="variants">Varyant</string>
+  <string name="timeControl">Kontrola demê</string>
+  <string name="realTime">Zemanê heqîqî</string>
   <string name="forgotPassword">Te şîfre ji bîr kir?</string>
   <string name="rank">Ast</string>
   <string name="rankX">Ast: %s</string>
