@@ -89,7 +89,7 @@
   <string name="openingExplorer">Opening explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
-  <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
+  <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -400,7 +400,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="advancedSettings">Advanced settings</string>
   <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
   <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
-  <string name="emptyTournamentName">Leave empty to name the tournament after a random Grandmaster.</string>
+  <string name="emptyTournamentName">Leave empty to name the tournament after a notable chess player.</string>
   <string name="recommendNotTouching">We recommend not touching these.</string>
   <string name="fewerPlayers">If you set conditions of entry, your tournament will have fewer players.</string>
   <string name="showAdvancedSettings">Show advanced settings</string>
@@ -636,7 +636,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
-  <string name="displayBoardResizeHandle">Display board resize handle</string>
+  <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
@@ -673,7 +673,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="aboutSimulImage">Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1.</string>
   <string name="aboutSimulRealLife">The concept is taken from real world events. In real life, this involves the simul host moving from table to table to play a single move.</string>
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host, who gets to play the white pieces. The simul ends when all games are complete.</string>
-  <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and "moretime" are disabled.</string>
+  <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
   <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
@@ -734,7 +734,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withEverybody">With everybody</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
-  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other Internet users.</string>
+  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
