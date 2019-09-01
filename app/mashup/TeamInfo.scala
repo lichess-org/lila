@@ -16,7 +16,6 @@ case class TeamInfo(
     createdByMe: Boolean,
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
-    bestUserIds: List[User.ID],
     toints: Int,
     forumNbPosts: Int,
     forumPosts: List[MiniForumPost]
@@ -24,7 +23,7 @@ case class TeamInfo(
 
   def hasRequests = requests.nonEmpty
 
-  def userIds = bestUserIds ::: forumPosts.flatMap(_.userId)
+  def userIds = forumPosts.flatMap(_.userId)
 }
 
 final class TeamInfoApi(
@@ -36,7 +35,7 @@ final class TeamInfoApi(
     userColl: Coll
 ) {
 
-  private case class Cachable(bestUserIds: List[User.ID], toints: Int)
+  private case class Cachable(toints: Int)
 
   private def fetchCachable(id: String): Fu[Cachable] =
     memberColl.aggregateOne(
@@ -54,36 +53,20 @@ final class TeamInfoApi(
           "user.engine" $ne true,
           "user.booster" $ne true
         )),
-        Facet($doc(
-          "toints" -> $arr(AF.Group(BSONNull)("toints" -> AF.SumField("user.toints")).makePipe),
-          "bestUids" -> $arr(
-            AF.Sort(AF.Descending("user.perfs.standard.gl.r")).makePipe,
-            AF.Limit(10).makePipe,
-            AF.Project($doc(
-              "_id" -> false,
-              "user._id" -> true
-            )).makePipe
-          )
-        ))
+        AF.Group(BSONNull)("toints" -> AF.SumField("user.toints"))
       ),
       ReadPreference.secondaryPreferred
-    ).map { docOpt =>
-        for {
-          doc <- docOpt
-          tointsDocs <- doc.getAs[List[Bdoc]]("toints")
-          tointsDoc <- tointsDocs.headOption
-          toints <- tointsDoc.getAs[Int]("toints")
-          bestUidsDocs <- doc.getAs[List[Bdoc]]("bestUids")
-          bestUids = bestUidsDocs.flatMap {
-            _.getAs[Bdoc]("user").flatMap(_.getAs[User.ID]("_id"))
-          }
-        } yield Cachable(bestUids, toints)
-      } map (_ | Cachable(Nil, 0))
+    ).map {
+        _ flatMap {
+          _.getAs[Int]("toints")
+        } map Cachable.apply
+      } map (_ | Cachable(0))
 
   private val cache = asyncCache.multi[String, Cachable](
     name = "teamInfo",
     f = fetchCachable,
-    expireAfter = _.ExpireAfterWrite(20 minutes)
+    expireAfter = _.ExpireAfterWrite(1 hour),
+    resultTimeout = 5 seconds
   )
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
@@ -98,7 +81,6 @@ final class TeamInfoApi(
     createdByMe = ~me.map(m => team.isCreator(m.id)),
     requestedByMe = requestedByMe,
     requests = requests,
-    bestUserIds = cachable.bestUserIds,
     toints = cachable.toints,
     forumNbPosts = forumNbPosts,
     forumPosts = forumPosts

@@ -37,14 +37,6 @@ object show {
               ),
 
               div(cls := "team-show__members")(
-                !info.bestUserIds.isEmpty option st.section(cls := "best-members")(
-                  h2(trans.teamBestPlayers()),
-                  ol(cls := "userlist best_players")(
-                    info.bestUserIds.map { userId =>
-                      li(userIdLink(userId.some))
-                    }
-                  )
-                ),
                 st.section(cls := "recent-members")(
                   h2(trans.teamRecentMembers()),
                   div(cls := "userlist infinitescroll")(
