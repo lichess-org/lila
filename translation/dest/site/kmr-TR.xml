@@ -92,6 +92,12 @@
   <string name="viewInFullSize">Di ekrana tam de bibîne</string>
   <string name="logOut">Derkeve</string>
   <string name="signIn">Têkeve</string>
+  <string name="youNeedAnAccountToDoThat">Pêdiviya te bi hesabekî heye ji bo kirina vê</string>
+  <string name="signUp">Qeyd bibe</string>
+  <string name="computersAreNotAllowedToPlay">Destûr nayê dayîn ji kompîtir û lîzerên kompîtir-piştgir ku bilîzin. Xêra xwe gava dilîzî, alîkariyê negire ji motorên kişikê, danegehan, an ji lîzerên din. Vê bi bîr bîne ku hebûna ji yekî zêdetir hesaban mirov bêzar dike û pirr-hesabçêkirin dibe sedem ku hûn werin astengkirin.</string>
+  <string name="games">Lîstik</string>
+  <string name="forum">Forum</string>
+  <string name="xPostedInForumY">%1$s weşand li mijara %2$s</string>
   <string name="forgotPassword">Te şîfre ji bîr kir?</string>
   <string name="rank">Ast</string>
   <string name="rankX">Ast: %s</string>
