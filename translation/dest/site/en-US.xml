@@ -90,7 +90,7 @@
   <string name="openingExplorer">Opening explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
-  <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
+  <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -401,7 +401,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="advancedSettings">Advanced settings</string>
   <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
   <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
-  <string name="emptyTournamentName">Leave empty to name the tournament after a random Grandmaster.</string>
+  <string name="emptyTournamentName">Leave empty to name the tournament after a notable chess player.</string>
   <string name="recommendNotTouching">We recommend not touching these.</string>
   <string name="fewerPlayers">If you set conditions of entry, your tournament will have fewer players.</string>
   <string name="showAdvancedSettings">Show advanced settings</string>
@@ -637,7 +637,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
-  <string name="displayBoardResizeHandle">Display board resize handle</string>
+  <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
