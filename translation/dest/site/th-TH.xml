@@ -198,7 +198,7 @@
   <string name="gameAborted">เกมถูกยกเลิก</string>
   <string name="standard">มาตรฐาน</string>
   <string name="unlimited">ไม่จำกัด</string>
-  <string name="mode">รูปแบบ</string>
+  <string name="mode">รูปแบบการเล่น</string>
   <string name="casual">เกมสบาย ๆ</string>
   <string name="rated">เกมคิดแต้ม</string>
   <string name="casualTournament">เกมสบาย ๆ</string>
