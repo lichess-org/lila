@@ -105,6 +105,10 @@
   <string name="variants">Varyant</string>
   <string name="timeControl">Kontrola demê</string>
   <string name="realTime">Zemanê heqîqî</string>
+  <string name="correspondence">Kişika bi riya maîlê</string>
+  <string name="daysPerTurn">Rojên ji bo her dorekê</string>
+  <string name="oneDay">Yek roj</string>
+  <string name="time">Wext</string>
   <string name="forgotPassword">Te şîfre ji bîr kir?</string>
   <string name="rank">Ast</string>
   <string name="rankX">Ast: %s</string>
