@@ -32,7 +32,7 @@
   <string name="whitePlays">ตาขาวเล่น</string>
   <string name="blackPlays">ตาดำเล่น</string>
   <string name="opponentLeftChoices">คู่แข่งอาจทิ้งเกมไปแล้ว คุณสามารถถือสิทธิ์ให้ตัวเองชนะ ถือสิทธิ์ให้เกมเสมอ หรือรอคู่แข่ง</string>
-  <string name="makeYourOpponentResign">บังคับให้คู่แข่งยอมแพ้</string>
+  <string name="makeYourOpponentResign">ทำให้คู่แข่งยอมแพ้</string>
   <string name="forceResignation">ถือสิทธิ์ชนะ</string>
   <string name="forceDraw">ถือสิทธิ์เสมอ</string>
   <string name="talkInChat">กรุณาสนทนาอย่างสุภาพ</string>
@@ -48,7 +48,7 @@
   <string name="computerAnalysis">การวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="computerAnalysisAvailable">สามารถวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="analysis">กระดานวิเคราะห์</string>
-  <string name="depthX">ความลึกระดับ %s</string>
+  <string name="depthX">ความลึก %s ตา</string>
   <string name="usingServerAnalysis">เซิร์ฟเวอร์กำลังวิเคราะห์</string>
   <string name="loadingEngine">กำลังโหลด...</string>
   <string name="cloudAnalysis">กำลังวิเคราะห์ด้วยระบบคลาวด์</string>
@@ -72,7 +72,7 @@
   <string name="drawn">การเสมอ</string>
   <string name="unknown">ไม่แน่ชัด</string>
   <string name="database">ฐานข้อมูล</string>
-  <string name="whiteDrawBlack">ขาวนำ / เสมอ / ดำนำ</string>
+  <string name="whiteDrawBlack">ขาวชนะ / เสมอ / ดำชนะ</string>
   <string name="averageRatingX">แต้มเฉลี่ยอยู่ที่ %s แต้ม</string>
   <string name="recentGames">เกมเมื่อเร็ว ๆ นี้</string>
   <string name="topGames">เกมเด่น</string>
