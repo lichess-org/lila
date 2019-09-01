@@ -42,8 +42,8 @@
   <string name="pgnTags">PGN tags</string>
   <string name="like">Like</string>
   <string name="newTag">New tag</string>
-  <string name="commentThisPosition">Comment this position</string>
-  <string name="commentThisMove">Comment this move</string>
+  <string name="commentThisPosition">Comment on this position</string>
+  <string name="commentThisMove">Comment on this move</string>
   <string name="annotateWithGlyphs">Annotate with glyphs</string>
   <string name="theChapterIsTooShortToBeAnalysed">The chapter is too short to be analyzed.</string>
   <string name="onlyContributorsCanRequestAnalysis">Only the study contributors can request a computer analysis.</string>
