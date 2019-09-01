@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spelast nett no</string>
   <string name="eventInProgress">Spelast nett no</string>
   <string name="finished">Slutt</string>
+  <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
