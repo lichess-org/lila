@@ -7,7 +7,7 @@
   <string name="knowingTheDraughtsBoard">Knowing the draughtsboard coordinates is a very important skill:</string>
   <string name="mostDraughtsCourses">Most draughts courses and exercises use the fieldnumber notation extensively.</string>
   <string name="talkToYourDraughtsFriends">It makes it easier to talk to your draughts friends, since you both understand the "language of the draughtsboard".</string>
-  <string name="youCanAnalyseAGameMoreEffectively">You can analyse a game more effectively if you don’t need to search for fieldnumbers.</string>
-  <string name="aSquareNameAppears">A fieldnumber appears on the board and you must click on the correct square. You have 30 seconds to recognize as many squares as possible!</string>
+  <string name="youCanAnalyseAGameMoreEffectively">You can analyse a game more effectively if you don’t need to search where the fieldnumbers are.</string>
+  <string name="aSquareNameAppears">A fieldnumber appears on the board and you must click on the corresponding square. You have 30 seconds to correctly map as many squares as possible!</string>
   <string name="startTraining">Start training</string>
 </resources>
