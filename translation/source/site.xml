@@ -516,7 +516,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="insult">Insult</string>
   <string name="troll">Troll</string>
   <string name="other">Other</string>
-  <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user behavior. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
+  <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
   <string name="by">by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -553,7 +553,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
-  <string name="gameBehavior">Game behavior</string>
+  <string name="gameBehavior">Game behaviour</string>
   <string name="howDoYouMovePieces">How do you move pieces?</string>
   <string name="clickTwoSquares">Click two squares</string>
   <string name="dragPiece">Drag a piece</string>
@@ -594,7 +594,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
-  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favorite openings, players, ...</string>
+  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favourite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
