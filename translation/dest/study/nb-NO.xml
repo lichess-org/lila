@@ -88,4 +88,14 @@
   <string name="chapterX">Kapittel %s</string>
   <string name="empty">Tom</string>
   <string name="startFromInitialPosition">Start ved innledende stilling</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Start fra innledende stilling</string>
+  <string name="loadAGameByUrl">Last inn et parti fra URL</string>
+  <string name="loadAPositionFromFen">Last inn en stilling fra FEN</string>
+  <string name="loadAGameFromPgn">Last inn et parti fra PGN</string>
+  <string name="automatic">Automatisk</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Sett inn PGN-teksten din her, maksimum %s parti</item>
+    <item quantity="other">Sett inn PGN-teksten din her, maksimum %s partier</item>
+  </plurals>
 </resources>
