@@ -380,7 +380,7 @@
   </plurals>
   <string name="more">थप</string>
   <string name="memberSince">सदस्यता मिति</string>
-  <string name="lastSeenActive">%s मा सकृय</string>
+  <string name="lastSeenActive">%s सकृय</string>
   <string name="challengeToPlay">खेलको लागि चुनौति दिनुहोस्</string>
   <string name="player">खेलाडी</string>
   <string name="list">सुचि</string>
@@ -451,7 +451,7 @@
   <string name="watchLichessTV">लीचेस टिभी हेरौं</string>
   <string name="previouslyOnLichessTV">लीचेस टिभीमा यसअघि</string>
   <string name="onlinePlayers">अनलाइन खेलाडीहरु</string>
-  <string name="activeToday">आज कृयाशील</string>
+  <string name="activeToday">आज सकृय</string>
   <string name="activePlayers">कृयाशील खेलाडीहरु</string>
   <string name="bewareTheGameIsRatedButHasNoClock">सावधान, खेल रेटिङवाला हो तर कुनै घडी छैन!</string>
   <string name="training">प्रशिक्षण</string>
