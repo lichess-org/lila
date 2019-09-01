@@ -801,4 +801,6 @@
   <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>
   <string name="noConditionalPremoves">ללא מהלכים מותנים מראש</string>
   <string name="playX">תשחק %s</string>
+  <string name="sorry">מצטערים :(</string>
+  <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
 </resources>
