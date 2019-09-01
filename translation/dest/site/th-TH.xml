@@ -84,7 +84,7 @@
     <item quantity="other">ใน %s ตาจะมีเบี้ยเดิน หรือการกินหมากเกิดขึ้น (เริ่มนับเสมอ 50 รอบใหม่อีกครั้ง)</item>
   </plurals>
   <string name="noGameFound">ไม่พบเกม</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ไม่เพิ่มเกมที่เมนูตั้งค่าหน่อยหรือ?</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">แนะนำให้ลองเพิ่มเกมที่เมนูตั้งค่า</string>
   <string name="openingExplorer">ชมการเปิดเกม</string>
   <string name="xOpeningExplorer">ชมการเปิดเกมแบบ %s</string>
   <string name="winPreventedBy50MoveRule">พลาดชัยชนะเนื่องจากกฎการเดิน 50 รอบ</string>
@@ -192,7 +192,7 @@
   <string name="accept">ยอมรับ</string>
   <string name="decline">ปฏิเสธ</string>
   <string name="playingRightNow">กำลังเล่น</string>
-  <string name="eventInProgress">กำลังเล่น</string>
+  <string name="eventInProgress">กำลังแข่ง</string>
   <string name="finished">จบแล้ว</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
