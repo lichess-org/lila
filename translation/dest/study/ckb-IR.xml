@@ -25,4 +25,6 @@
   <string name="commentThisMove">لێدوان لەسەر ئەو جوڵانەوەیه</string>
   <string name="theChapterIsTooShortToBeAnalysed">ئەو بەشە بەهۆی کورتییەوە ناتوانرێت شیکار بکرێت.</string>
   <string name="onlyContributorsCanRequestAnalysis">تەنها بەشداربووانی لێکۆڵینەوەکە دەتوانن داوای شیکارکردنی کۆمپیوتەر بکەن.</string>
+  <string name="makeSureTheChapterIsComplete">دڵنیا ببەوه لەوەی کە بەشەکە تەواو کراوە. تەنها بۆ یەکجار دەتوانیت ئەو شیکارکردنە بکەیت.</string>
+  <string name="shareChanges">گۆڕانکاریەکان لەگەڵ بینەرەکان بەشداری پێبکە و لەسەر سێرڤەرەکە دایانبکه</string>
 </resources>
