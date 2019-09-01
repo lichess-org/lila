@@ -16,7 +16,6 @@ case class TeamInfo(
     createdByMe: Boolean,
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
-    toints: Int,
     forumNbPosts: Int,
     forumPosts: List[MiniForumPost]
 ) {
@@ -35,45 +34,10 @@ final class TeamInfoApi(
     userColl: Coll
 ) {
 
-  private case class Cachable(toints: Int)
-
-  private def fetchCachable(id: String): Fu[Cachable] =
-    memberColl.aggregateOne(
-      AF.Match($doc("team" -> id)),
-      List(
-        AF.Lookup(
-          from = userColl.name,
-          localField = "user",
-          foreignField = "_id",
-          as = "user"
-        ),
-        AF.UnwindField("user"),
-        AF.Match($doc(
-          "user.enabled" -> true,
-          "user.engine" $ne true,
-          "user.booster" $ne true
-        )),
-        AF.Group(BSONNull)("toints" -> AF.SumField("user.toints"))
-      ),
-      ReadPreference.secondaryPreferred
-    ).map {
-        _ flatMap {
-          _.getAs[Int]("toints")
-        } map Cachable.apply
-      } map (_ | Cachable(0))
-
-  private val cache = asyncCache.multi[String, Cachable](
-    name = "teamInfo",
-    f = fetchCachable,
-    expireAfter = _.ExpireAfterWrite(1 hour),
-    resultTimeout = 5 seconds
-  )
-
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
     requests ← (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
     mine <- me.??(m => api.belongsTo(team.id, m.id))
     requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
-    cachable <- cache get team.id
     forumNbPosts ← getForumNbPosts(team.id)
     forumPosts ← getForumPosts(team.id)
   } yield TeamInfo(
@@ -81,7 +45,6 @@ final class TeamInfoApi(
     createdByMe = ~me.map(m => team.isCreator(m.id)),
     requestedByMe = requestedByMe,
     requests = requests,
-    toints = cachable.toints,
     forumNbPosts = forumNbPosts,
     forumPosts = forumPosts
   )

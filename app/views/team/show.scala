@@ -31,7 +31,6 @@ object show {
             ),
             (info.mine || t.enabled) option div(cls := "team-show__content")(
               st.section(cls := "team-show__meta")(
-                p(trans.tournamentPoints(), ": ", strong(info.toints.localize)),
                 p(trans.teamLeader(), ": ", userIdLink(t.createdBy.some))
               ),
 
