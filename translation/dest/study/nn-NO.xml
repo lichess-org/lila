@@ -86,4 +86,6 @@
   <string name="hideNextMoves">Skjul neste trekk</string>
   <string name="interactiveLesson">Interaktiv leksjon</string>
   <string name="chapterX">Kapittel %s</string>
+  <string name="empty">Tom</string>
+  <string name="startFromInitialPosition">Start ved innleiande stilling</string>
 </resources>
