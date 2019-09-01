@@ -98,4 +98,23 @@
     <item quantity="one">Sett inn PGN-teksten din her, maksimum %s parti</item>
     <item quantity="other">Sett inn PGN-teksten din her, maksimum %s partier</item>
   </plurals>
+  <string name="urlOfTheGame">URL for partiet</string>
+  <string name="loadAGameFromXOrY">Last opp et parti fra %1$s eller %2$s</string>
+  <string name="createChapter">Opprett kapittel</string>
+  <string name="configureLiveBroadcast">Konfigurer live-sending</string>
+  <string name="createStudy">Opprett en studie</string>
+  <string name="editStudy">Rediger studie</string>
+  <string name="visibility">Synlighet</string>
+  <string name="public">Offentlig</string>
+  <string name="unlisted">Ikke listet</string>
+  <string name="inviteOnly">Bare etter invitasjon</string>
+  <string name="allowCloning">Tillat kloning</string>
+  <string name="nobody">Ingen</string>
+  <string name="onlyMe">Bare meg</string>
+  <string name="contributors">Bidragsytere</string>
+  <string name="members">Medlemmer</string>
+  <string name="everyone">Alle</string>
+  <string name="enableSync">Aktiver synkronisering</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ja: behold alle i samme stilling</string>
+  <string name="noLetPeopleBrowseFreely">Nei: la folk se fritt gjennom</string>
 </resources>
