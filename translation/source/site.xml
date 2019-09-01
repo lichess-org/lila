@@ -851,7 +851,7 @@ One URL per line</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
   <string name="entirely">Entirely</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognise.</string>
   <string name="alternativelyYouCanX">Alternatively you can %s.</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="speedUpYourAnalysis">Speed up your analysis!</string>
@@ -1012,7 +1012,7 @@ One URL per line</string>
   <string name="playEveryGame">Play every game you start.</string>
   <string name="tryToWin">Try to win (or at least draw) every game you play.</string>
   <string name="resignLostGames">Resign lost games (don't let the clock run down).</string>
-  <string name="temporaryInconvenience">We apologize for the temporary inconvenience,</string>
+  <string name="temporaryInconvenience">We apologise for the temporary inconvenience,</string>
   <string name="wishYouGreatGames">and wish you great games on lidraughts.org.</string>
   <string name="thankYouForReading">Thank you for reading!</string>
   <string name="lifetimeScore">Lifetime score</string>
