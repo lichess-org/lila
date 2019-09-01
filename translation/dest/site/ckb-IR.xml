@@ -61,10 +61,13 @@
   <string name="move">جوڵان</string>
   <string name="variantLoss">دۆرانی ناچاری</string>
   <string name="insufficientMaterial">یەکسانبوون بەهۆی نەمانی جوڵە بۆ کش</string>
+  <string name="capture">گرتن</string>
   <string name="close">داخستن</string>
   <string name="winning">جوڵەی بردنەوە</string>
   <string name="losing">جولەی دۆڕان</string>
   <string name="drawn">جولەی یەکسانبوون</string>
+  <string name="unknown">نەزانراو</string>
+  <string name="averageRatingX">پۆلێنکردنی تێکرا: %</string>
   <string name="recentGames">دوایین یاریەکانت</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>
