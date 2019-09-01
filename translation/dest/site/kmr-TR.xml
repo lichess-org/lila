@@ -83,6 +83,15 @@
   <string name="inaccuracy">Hemleya nerast</string>
   <string name="inaccuracies">Hemleyên nerast</string>
   <string name="moveTimes">Demên hemleyan</string>
+  <string name="flipBoard">Texteyê biqulipîne</string>
+  <string name="threefoldRepetition">Tekrarkirina sêcarî</string>
+  <string name="claimADraw">Wekheviyê bixwaze</string>
+  <string name="offerDraw">Wekhevî pêşniyar bike</string>
+  <string name="draw">Wekhev</string>
+  <string name="currentGames">Lîstikên vê gavê</string>
+  <string name="viewInFullSize">Di ekrana tam de bibîne</string>
+  <string name="logOut">Derkeve</string>
+  <string name="signIn">Têkeve</string>
   <string name="forgotPassword">Te şîfre ji bîr kir?</string>
   <string name="rank">Ast</string>
   <string name="rankX">Ast: %s</string>
