@@ -88,4 +88,7 @@
   <string name="chapterX">Kapittel %s</string>
   <string name="empty">Tom</string>
   <string name="startFromInitialPosition">Start ved innleiande stilling</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Start frå innleiande stilling</string>
+  <string name="loadAGameByUrl">Last opp eit parti frå URL</string>
 </resources>
