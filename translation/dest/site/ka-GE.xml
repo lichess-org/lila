@@ -715,6 +715,7 @@
   <string name="anotherWasX">შეიძლებოდა %s</string>
   <string name="bestWasX">საუკეთესო იყო %s</string>
   <string name="resumePractice">ვარჯიშის გაგრძელება</string>
+  <string name="theGameIsADraw">თამაში ფრედ დასრულდა.</string>
   <string name="computerThinking">კომპიუტერი ფიქრობს ...</string>
   <string name="seeBestMove">ნახეთ საუკეთესო სვლა</string>
   <string name="hideBestMove">დამალეთ საუკეთესო სვლა</string>
