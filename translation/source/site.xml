@@ -809,7 +809,7 @@ One URL per line</string>
   <string name="tournamentHomeDescription">Play fast-paced draughts tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Frisian, Antidraughts, and more options available for endless draughts fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
-  <string name="tournamentMayHaveBeenCanceled">It may have been cancelled, if all players left it before the tournament starts.</string>
+  <string name="tournamentMayHaveBeenCanceled">The tournament may have been cancelled if all players left before it started.</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Monthly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
