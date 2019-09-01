@@ -117,4 +117,11 @@
   <string name="enableSync">Aktiver synk</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Ja: behald alle i den same stilllinga</string>
   <string name="noLetPeopleBrowseFreely">Nei: lat folk sjå fritt gjennom</string>
+  <string name="pinnedStudyComment">Fastspikra studiekommentar</string>
+  <string name="start">Start</string>
+  <string name="save">Lagre</string>
+  <string name="clearChat">Fjern teksten frå kommentarfeltet</string>
+  <string name="deleteTheStudyChatHistory">Slette studiens kommentar-historikk? Du kan ikkje angre!</string>
+  <string name="deleteStudy">Slett studie</string>
+  <string name="deleteTheEntireStudy">Slette heile studien? Avgjerda er endeleg og kan ikkje angrast!</string>
 </resources>
