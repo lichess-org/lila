@@ -16,7 +16,6 @@ object Dev extends LilaController {
     Env.irwin.irwinModeSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
-    Env.api.cspEnabledSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
     Env.plan.donationGoalSetting
