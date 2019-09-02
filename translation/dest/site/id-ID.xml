@@ -194,6 +194,7 @@
   <string name="playingRightNow">Bermain saat ini</string>
   <string name="eventInProgress">Mainkan sekarang</string>
   <string name="finished">Selesai</string>
+  <string name="finishesX">berakhir dalam %s</string>
   <string name="abortGame">Batalkan permainan</string>
   <string name="gameAborted">Permainan dibatalkan</string>
   <string name="standard">Standar</string>
@@ -838,4 +839,8 @@
   <string name="thankYouForReading">Terima kasih sudah membacanya!</string>
   <string name="lifetimeScore">Skor seumur hidup</string>
   <string name="currentMatchScore">Skor pertandingan saat ini</string>
+  <string name="agreementAssistance">Saya menyetujui bahwa saya tidak akan pernah menerima bantuan selama pertandingan (dari komputer catur, buku, database ataupun orang lain).</string>
+  <string name="agreementNice">Saya menyetujui bahwa saya akan selalu bersikap baik kepada pemain lain.</string>
+  <string name="agreementAccount">Saya menyetujui bahwa saya tidak akan pernah membuat banyak akun.</string>
+  <string name="agreementPolicy">Saya menyetujui bahwa saya akan mengikuti semua kebijakan yang ada di Lichess.</string>
 </resources>

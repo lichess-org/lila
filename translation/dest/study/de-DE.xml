@@ -3,7 +3,7 @@
 <resources>
   <string name="private">Privat</string>
   <string name="myStudies">Meine Studien</string>
-  <string name="studiesIContributeTo">Studien, an denen ich mitgewirkt habe</string>
+  <string name="studiesIContributeTo">Studien, an denen ich mitwirke</string>
   <string name="myPublicStudies">Meine öffentlichen Studien</string>
   <string name="myPrivateStudies">Meine privaten Studien</string>
   <string name="myFavoriteStudies">Meine Lieblingsstudien</string>
@@ -14,7 +14,7 @@
   <string name="hot">Beliebt</string>
   <string name="dateAddedNewest">Veröffentlichungsdatum (neueste)</string>
   <string name="dateAddedOldest">Veröffentlichungsdatum (älteste)</string>
-  <string name="recentlyUpdated">Kürzlich hochgeladen</string>
+  <string name="recentlyUpdated">Kürzlich aktualisiert</string>
   <string name="mostPopular">Beliebteste</string>
   <string name="addNewChapter">Neues Kapitel hinzufügen</string>
   <plurals name="nbChapters">
@@ -79,6 +79,7 @@
   <string name="clearAnnotations">Anmerkungen löschen</string>
   <string name="deleteChapter">Kapitel löschen</string>
   <string name="deleteThisChapter">Kapitel löschen? Dies kann nicht rückgängig gemacht werden!</string>
+  <string name="rightUnderTheBoard">Direkt unterhalb des Bretts</string>
   <string name="noPinnedComment">Keine</string>
   <string name="normalAnalysis">Normale Analyse</string>
   <string name="hideNextMoves">Nächsten Zug ausblenden</string>

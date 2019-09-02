@@ -858,18 +858,24 @@
     <item quantity="one">und speichere %s Variante im Voraus</item>
     <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
-  <string name="sorry">Entschuldigung :-(</string>
-  <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer zeitweiligen Spielsperre belegt.</string>
+  <string name="sorry">Entschuldigung :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
   <string name="timeoutExpires">Die Sperre endet in %s.</string>
   <string name="why">Warum?</string>
   <string name="pleasantChessExperience">Wir möchten allen eine möglichst gute Schach-Erfahrung bieten.</string>
-  <string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler*innen korrekt verhalten.</string>
-  <string name="potentialProblem">Wenn ein potenzielles Problem erkannt wird, zeigen wir diese Nachricht an.</string>
-  <string name="howToAvoidThis">Wie verhindere ich das?</string>
-  <string name="playEveryGame">Spiele jedes Spiel, das du startest.</string>
+  <string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler korrekt verhalten.</string>
+  <string name="potentialProblem">Wir zeigen diese Nachricht an, wenn ein mögliches Problem erkannt wurde.</string>
+  <string name="howToAvoidThis">Wie kann das verhindert werden?</string>
+  <string name="playEveryGame">Spiele jedes Spiel, das du beginnst.</string>
   <string name="tryToWin">Versuche, jedes Spiel zu gewinnen (oder zumindest ein Remis zu erreichen).</string>
   <string name="resignLostGames">Gib verlorene Spiele auf (lasse die Uhr nicht herunterlaufen).</string>
   <string name="temporaryInconvenience">Wir entschuldigen uns für die vorübergehenden Unannehmlichkeiten,</string>
   <string name="wishYouGreatGames">und wünschen Dir tolle Spiele auf lichess.org.</string>
   <string name="thankYouForReading">Vielen Dank für’s Lesen!</string>
+  <string name="lifetimeScore">Ewiger Spielstand</string>
+  <string name="currentMatchScore">Aktueller Spielstand</string>
+  <string name="agreementAssistance">Ich stimme zu, dass ich zu keiner Zeit während meiner Partien Hilfe in Anspruch nehmen werde (durch einen Schachcomputer, Buch, Datenbank oder eine andere Person).</string>
+  <string name="agreementNice">Ich stimme zu, dass ich anderen Spielern gegenüber immer nett sein werde.</string>
+  <string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
+  <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
 </resources>

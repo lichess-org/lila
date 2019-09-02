@@ -201,6 +201,7 @@
   <string name="playingRightNow">Παιχνίδια σε εξέλιξη τώρα</string>
   <string name="eventInProgress">Παιχνίδια σε εξέλιξη τώρα</string>
   <string name="finished">Ολοκληρωμένα</string>
+  <string name="finishesX">τελειώνει %s</string>
   <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
   <string name="standard">Κανονικό</string>
@@ -223,7 +224,7 @@
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
   <string name="chatRoom">Ζωντανή συζήτηση</string>
-  <string name="loginToChat">Συνδεθείτε για να συνομιλήσετε</string>
+  <string name="loginToChat">Συνδεθείτε για να μιλήσετε</string>
   <string name="youHaveBeenTimedOut">Έχετε αποσυνδεθεί.</string>
   <string name="spectatorRoom">Συζήτηση θεατών</string>
   <string name="composeMessage">Σύνθεση μηνύματος</string>
@@ -336,13 +337,13 @@
   <string name="reset">Επαναφορά</string>
   <string name="apply">Εφαρμογή</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
-  <string name="pasteTheFenStringHere">Επικολλήστε τον κωδικό FEN εδώ</string>
-  <string name="pasteThePgnStringHere">Επικολλήστε το PGN εδώ</string>
+  <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
+  <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
-  <string name="importGameExplanation">Κατά την επικόλληση παιχνιδιού PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
-ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL.</string>
+  <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
+ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -696,7 +697,7 @@
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία κατανομή βαθμολογίας %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
     <item quantity="one">%1$s παίκτης %2$s αυτήν την εβδομάδα.</item>
-    <item quantity="other">%2$s παίκτες %1$s αυτήν την εβδομάδα.</item>
+    <item quantity="other">%1$s παίκτες %2$s αυτήν την εβδομάδα.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>

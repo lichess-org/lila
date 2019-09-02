@@ -224,6 +224,7 @@
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершено</string>
+  <string name="finishesX">завершает %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
@@ -946,4 +947,8 @@
   <string name="thankYouForReading">Спасибо за внимание!</string>
   <string name="lifetimeScore">Счёт за всё время</string>
   <string name="currentMatchScore">Счёт в текущем матче</string>
+  <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (как то: шахматных программ, книг, баз данных и других игроков).</string>
+  <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
+  <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
+  <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
 </resources>

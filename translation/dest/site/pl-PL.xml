@@ -947,4 +947,8 @@
   <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
   <string name="lifetimeScore">Wynik wszystkich partii</string>
   <string name="currentMatchScore">Wynik bieżącego meczu</string>
+  <string name="agreementAssistance">Zgadzam się nie korzystać z pomocy podczas gry (programów komputerowych, książek, baz danych lub innych osób).</string>
+  <string name="agreementNice">Zgadzam się być zawsze miły dla innych graczy.</string>
+  <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
+  <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
 </resources>

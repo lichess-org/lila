@@ -320,7 +320,7 @@
     <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
+    <item quantity="one">Trebaš odigrati još %s partiju za bodove</item>
     <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
     <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
   </plurals>

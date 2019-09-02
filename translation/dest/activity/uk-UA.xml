@@ -26,5 +26,41 @@
     <item quantity="many">Зіграно %1$s ігор в %2$s</item>
     <item quantity="other">Зіграно %1$s ігор в %2$s</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Опубліковано %1$s повідомлення в %2$s</item>
+    <item quantity="few">Опубліковано %1$s повідомлення в %2$s</item>
+    <item quantity="many">Опубліковано %1$s повідомлень в %2$s</item>
+    <item quantity="other">Опубліковано %1$s повідомлень в %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Зіграно %1$s хід</item>
+    <item quantity="few">Зіграно %1$s ходи</item>
+    <item quantity="many">Зіграно %1$s ходів</item>
+    <item quantity="other">Зіграно %1$s ходів</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Зіграно %s гру за листуванням</item>
+    <item quantity="few">Зіграно %s гри за листуванням</item>
+    <item quantity="many">Зіграно %s ігор за листуванням</item>
+    <item quantity="other">Зіграно %s ігор за листуванням</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Підписався на %s гравця</item>
+    <item quantity="few">Підписався на %s гравців</item>
+    <item quantity="many">Підписався на %s гравців</item>
+    <item quantity="other">Підписався на %s гравців</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Додано %s нового підписника</item>
+    <item quantity="few">Отримано %s нових підписників</item>
+    <item quantity="many">Додано %s нових підписників</item>
+    <item quantity="other">Додано %s нових підписників</item>
+  </plurals>
   <string name="signedUp">Зареєструвався на lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Приєднався до %s команди</item>
+    <item quantity="few">Приєднався до %s команд</item>
+    <item quantity="many">Приєднався до %s команд</item>
+    <item quantity="other">Приєднався до %s команд</item>
+  </plurals>
 </resources>

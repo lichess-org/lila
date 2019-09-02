@@ -3,8 +3,18 @@
 <resources>
   <string name="private">Privat</string>
   <string name="myStudies">Mina studier</string>
+  <string name="studiesIContributeTo">Studium jag bidrar till</string>
   <string name="myPrivateStudies">Mina privata studier</string>
+  <string name="myFavoriteStudies">Mina favoritstudium</string>
+  <string name="whatAreStudies">Vad är studium?</string>
   <string name="allStudies">Alla studier</string>
+  <string name="studiesCreatedByX">Studium skapade av %s</string>
+  <string name="noneYet">Inga än.</string>
+  <string name="hot">Heta</string>
+  <string name="dateAddedNewest">Tilläggningsdatum (nyast)</string>
+  <string name="dateAddedOldest">Tilläggningsdatum (äldst)</string>
+  <string name="recentlyUpdated">Nyligen uppdaterade</string>
+  <string name="mostPopular">Populärast</string>
   <string name="addNewChapter">Lägg till ett nytt kapitel</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Kapitel</item>
@@ -59,7 +69,11 @@
   <string name="open">Öppna</string>
   <string name="xBroughtToYouByY">%1$s gjord av %2$s</string>
   <string name="studyNotFound">Studien kan inte hittas</string>
+  <string name="editChapter">Redigera kapitel</string>
   <string name="newChapter">Nytt kapitel</string>
+  <string name="orientation">Orientering</string>
+  <string name="analysisMode">Analysläge</string>
+  <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
   <string name="noPinnedComment">Inget</string>
   <string name="createStudy">Skapa en studie</string>

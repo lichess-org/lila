@@ -204,7 +204,7 @@
   <string name="playingRightNow">Parties en cours</string>
   <string name="eventInProgress">En cours</string>
   <string name="finished">Terminé</string>
-  <string name="finishesX">finit %s</string>
+  <string name="finishesX">se termine %s</string>
   <string name="abortGame">Annuler la partie</string>
   <string name="gameAborted">Partie annulée</string>
   <string name="standard">Standard</string>
@@ -706,8 +706,9 @@ en %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Votre cote en %1$s est de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Vous êtes meilleur que %1$s des joueurs de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Vous n\'avez pas de classement établi en %s.</string>
-  <string name="yourRating">Votre classement</string>
-  <string name="glicko2Rating">Classement Glicko-2</string>
+  <string name="yourRating">Votre cote</string>
+  <string name="cumulative">Cumulatif</string>
+  <string name="glicko2Rating">Cote Glicko-2</string>
   <string name="checkYourEmail">Vérifiez vos emails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nous vous avons envoyé un email. Visitez le lien qui s\'y trouve pour activer votre compte.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si vous ne trouvez pas l\'email dans votre boîte de réception, vérifiez dans vos emails indésirables ou autres dossiers.</string>
@@ -861,6 +862,7 @@ en %3$s</string>
   </plurals>
   <string name="sorry">Désolé :(</string>
   <string name="weHadToTimeYouOutForAWhile">Nous avons dû vous faire sortir pendant quelque temps.</string>
+  <string name="timeoutExpires">Le délai d\'attente expire dans %s.</string>
   <string name="why">Pourquoi ?</string>
   <string name="pleasantChessExperience">Nous souhaitons procurer à chacun une agréable expérience d\'échecs.</string>
   <string name="goodPractice">Dans ce but, nous devons veiller à ce que tous les joueurs suivent les bonnes pratiques.</string>
@@ -872,4 +874,10 @@ en %3$s</string>
   <string name="temporaryInconvenience">Nous nous excusons pour les désagréments temporaires,</string>
   <string name="wishYouGreatGames">et vous souhaitons d\'excellentes parties sur lichess.org.</string>
   <string name="thankYouForReading">Merci d\'avoir pris le temps de lire !</string>
+  <string name="lifetimeScore">Meilleur résultat à vie</string>
+  <string name="currentMatchScore">Résultat actuel (match)</string>
+  <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (d\'un ordinateur d\'échecs, d\'un livre, d\'une base de données ou d\'une autre personne).</string>
+  <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres joueurs.</string>
+  <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
+  <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
 </resources>

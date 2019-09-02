@@ -19,7 +19,7 @@
   <string name="white">Цагаан</string>
   <string name="black">Хар</string>
   <string name="randomColor">Дурын өнгө</string>
-  <string name="createAGame">Тэнэг өрөг үүсгэх</string>
+  <string name="createAGame">Эрдэнэбаяр үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
@@ -732,6 +732,7 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
+  <string name="xCreatesStudyY">Нээсэн study</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>

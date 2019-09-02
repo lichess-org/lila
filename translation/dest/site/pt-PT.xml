@@ -204,6 +204,7 @@
   <string name="playingRightNow">A jogar neste momento</string>
   <string name="eventInProgress">Jogando em direto</string>
   <string name="finished">Terminado</string>
+  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
@@ -704,6 +705,9 @@
   <string name="yourPerfTypeRatingIsRating">Seu rating em %1$s é %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Você é melhor que %1$s entre os jogadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Você não tem rating definido em %s.</string>
+  <string name="yourRating">A sua classificação</string>
+  <string name="cumulative">Cumulativo</string>
+  <string name="glicko2Rating">Classificação Glicko-2</string>
   <string name="checkYourEmail">Verifique o seu e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Enviamos um e-mail. Clique no link do e-mail para ativar sua conta.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Se você não vir o e-mail, verifique outros locais onde possa estar, como lixeira, spam ou outras pastas.</string>
@@ -869,4 +873,10 @@
   <string name="temporaryInconvenience">Pedimos desculpa pelo incómodo temporário,</string>
   <string name="wishYouGreatGames">e desejamos-lhe grandes jogos em lichess.org.</string>
   <string name="thankYouForReading">Obrigado pela leitura!</string>
+  <string name="lifetimeScore">Classificação desde o início</string>
+  <string name="currentMatchScore">Pontuação atual</string>
+  <string name="agreementAssistance">Concordo que em nenhum momento receberei assistência durante as minhas partidas (de um computador de xadrez, livro, banco de dados ou outra pessoa).</string>
+  <string name="agreementNice">Concordo que serei sempre agradável para outros jogadores.</string>
+  <string name="agreementAccount">Concordo que não criarei várias contas.</string>
+  <string name="agreementPolicy">Concordo que seguirei todas as políticas do Lichess.</string>
 </resources>

@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spiller nå</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Ferdig</string>
+  <string name="finishesX">avslutter %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
   <string name="standard">Standard</string>
@@ -876,4 +877,8 @@ i %3$s</string>
   <string name="thankYouForReading">Takk for at du leste!</string>
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Gjeldende kampscore</string>
+  <string name="agreementAssistance">Eg forsikrer at eg ikke på noe tidspunkt under mine partier vil motta assistanse, verken fra sjakkprogram, bøker, databaser eller andre personer.</string>
+  <string name="agreementNice">Eg lover å alltid oppføre meg høflig mot andre spillere.</string>
+  <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
+  <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
 </resources>

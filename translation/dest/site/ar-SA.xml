@@ -13,7 +13,7 @@
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلام</string>
+  <string name="resign">استسلم</string>
   <string name="checkmate">كش مات</string>
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
@@ -191,6 +191,7 @@
   <string name="ratingStats">احصائيات التقييم</string>
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
+  <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
@@ -563,6 +564,7 @@
   <string name="pleaseVotePuzzle">ساعد الموقع على تحسين الألغاز بتقييمها من خلال الأسهم لأعلى وأسفل:</string>
   <string name="thankYou">شكرًا لك!</string>
   <string name="ratingX">التقييم: %s</string>
+  <string name="hidden">مخفي</string>
   <plurals name="playedXTimes">
     <item quantity="zero">لُعِبَ %s مرة</item>
     <item quantity="one">لُعِبَ %s مرة</item>
@@ -815,6 +817,8 @@
   <string name="yourPerfTypeRatingIsRating">تقييمك في %1$s هو %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
+  <string name="yourRating">تقييمك</string>
+  <string name="glicko2Rating">نظام تقييم Glicko-2</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">إذا لم تجد الرسالة، فابحث عنها في المهملات أو في مجلد spam</string>
@@ -982,4 +986,17 @@
     <item quantity="many">واحفظ عدد %s تفريع نقلة مسبقة</item>
     <item quantity="other">واحفظ عدد %s تفريع نقلة مسبقة</item>
   </plurals>
+  <string name="sorry">نأسف :(</string>
+  <string name="why">لماذا ؟</string>
+  <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
+  <string name="goodPractice">لهذا الغرض، يجب علينا التأكد ان جميع اللاعبين يتبعون سلوك جيد.</string>
+  <string name="potentialProblem">عند اكتشاف مشكلة محتملة، نعرض هذه الرسالة.</string>
+  <string name="howToAvoidThis">كيفية تجنب حدوث هذا ؟</string>
+  <string name="playEveryGame">العب كل دور تبدأه.</string>
+  <string name="tryToWin">حاول فوز (او تعادل على الأقل) كل دور تلعبه.</string>
+  <string name="resignLostGames">انسحب اذا كنت على وشك الهزيمة (لا تدع الوقت ينتهي).</string>
+  <string name="temporaryInconvenience">نعتذر عن الازعاج المؤقت</string>
+  <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lichess.org.</string>
+  <string name="thankYouForReading">نشكرك على القراءة!</string>
+  <string name="currentMatchScore">نتيجة المباراة الحالية</string>
 </resources>

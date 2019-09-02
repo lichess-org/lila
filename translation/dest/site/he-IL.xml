@@ -194,6 +194,7 @@
   <string name="playingRightNow">משחקים עכשיו</string>
   <string name="eventInProgress">משחקים עכשיו</string>
   <string name="finished">נגמר</string>
+  <string name="finishesX">נגמר/ה %s</string>
   <string name="abortGame">בטל משחק</string>
   <string name="gameAborted">משחק בוטל</string>
   <string name="standard">רגיל</string>
@@ -447,6 +448,7 @@
   <string name="pleaseVotePuzzle">עזור לנו להשתפר ע\"י הצבעה. השתמש בחצים למעלה ולמטה.</string>
   <string name="thankYou">תודה רבה!</string>
   <string name="ratingX">דירוג: %s</string>
+  <string name="hidden">מוסתר</string>
   <string name="fromGameLink">מהמשחק %s</string>
   <string name="continueTraining">המשך להתאמן</string>
   <string name="retryThisPuzzle">נסה שוב את הפאזל.</string>
@@ -666,6 +668,9 @@
   <string name="yourPerfTypeRatingIsRating">דירוגך במשחקי %1$s הוא %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">דירוגך גבוה יותר מ-%1$s משחקני %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">טרם נקבע לך דירוג במשחקי %s.</string>
+  <string name="yourRating">הדירוג שלך</string>
+  <string name="cumulative">מצטבר</string>
+  <string name="glicko2Rating">דירוג Glicko-2</string>
   <string name="checkYourEmail">בדוק את האימייל שלך</string>
   <string name="weHaveSentYouAnEmailClickTheLink">שלחנו לך אימייל. לחץ על הלינק באימייל על מנת להפעיל את חשבונך.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">אם אתה לא מוצא את האימייל, חפש במקומות אחרים, כמו דואר זבל, ספם או תיקיות אחרות.</string>
@@ -801,4 +806,24 @@
   <string name="playVariationToCreateConditionalPremoves">צור מהלכים מותנים מראש מתוך וריאנט</string>
   <string name="noConditionalPremoves">ללא מהלכים מותנים מראש</string>
   <string name="playX">תשחק %s</string>
+  <string name="sorry">מצטערים :(</string>
+  <string name="weHadToTimeYouOutForAWhile">נאלצנו להשהות אותך.</string>
+  <string name="timeoutExpires">ההשהיה הסתיימה %s.</string>
+  <string name="why">למה?</string>
+  <string name="pleasantChessExperience">אנחנו מנסים לספק חווית שח נעימה לכולם.</string>
+  <string name="goodPractice">בעקבות זאת, אנחנו חייבים לוודא שכל השחקנים ינהגו בכבוד.</string>
+  <string name="potentialProblem">כאשר בעיה מסויימת מתגלה, אנו מציגים הודעה זו.</string>
+  <string name="howToAvoidThis">איך להימנע מכך?</string>
+  <string name="playEveryGame">סיים כל משחק שהתחלת.</string>
+  <string name="tryToWin">נסה/י לנצח (או לפחות לסיים בתיקו) כל משחק שהתחלת.</string>
+  <string name="resignLostGames">פרוש/י במצבים שאת/ה מפסיד/ה (אל תתן/י לשעון להיגמר).</string>
+  <string name="temporaryInconvenience">אנו מצטערים על אי הנעימות הזמנית,</string>
+  <string name="wishYouGreatGames">ומאחלים לך חוויה נעימה ב-lichess.org.</string>
+  <string name="thankYouForReading">תודה שקראת!</string>
+  <string name="lifetimeScore">תוצאה כוללת</string>
+  <string name="currentMatchScore">תוצאה במפגש הנוכחי</string>
+  <string name="agreementAssistance">אני מסכים שאף פעם לא אקבל עזרה תוך כדי משחק (ממנוע שח ממוחשב, ספר, מסד-נתונים, או אדם אחר).</string>
+  <string name="agreementNice">אני מסכים שתמיד אהיה אדיב כלפי השחקנים האחרים.</string>
+  <string name="agreementAccount">אני מסכים שלא אצור יותר מחשבון אחד.</string>
+  <string name="agreementPolicy">אני מסכים לעקוב אחרי כל תנאי השירות של Lichess.</string>
 </resources>

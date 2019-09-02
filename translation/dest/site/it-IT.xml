@@ -877,4 +877,8 @@ in %3$s</string>
   <string name="thankYouForReading">Grazie per l\'attenzione!</string>
   <string name="lifetimeScore">Punteggio storico</string>
   <string name="currentMatchScore">Punteggio della partita attuale</string>
+  <string name="agreementAssistance">Sono d\'accordo che non riceverò mai assistenza durante i miei giochi (da un computer di scacchi, libri, database o un\'altra persona).</string>
+  <string name="agreementNice">Sarò sempre gentile con gli altri giocatori.</string>
+  <string name="agreementAccount">Concordo sul fatto che non creerò più account.</string>
+  <string name="agreementPolicy">Seguirò tutte le politiche di Lichess.</string>
 </resources>

@@ -204,6 +204,7 @@
   <string name="playingRightNow">ഇപ്പോള്‍ കളിച്ചുക്കൊണ്ടിരിക്കുന്നു</string>
   <string name="eventInProgress">ഇപ്പോൾ കളിച്ചുകൊണ്ടിരിക്കുന്നു</string>
   <string name="finished">പൂര്‍ത്തിയായി</string>
+  <string name="finishesX">%s-ൽ തീരുന്നു</string>
   <string name="abortGame">മത്സരം ഉപേക്ഷിക്കുക</string>
   <string name="gameAborted">മത്സരം ഉപേക്ഷിച്ചു</string>
   <string name="standard">സ്റ്റാന്‍ഡേര്‍ഡ്</string>
@@ -706,6 +707,8 @@ in %3$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">നിങ്ങൾ %1$s -ൽ %2$s-വരേക്കാളും മികച്ചവരാണ്.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">നിങ്ങൾക്ക് സ്വന്തമായി രേഖപ്പെടുത്തപ്പെട്ട %s റേറ്റിംഗ് ഇല്ല.</string>
   <string name="yourRating">നിങ്ങളുടെ റേറ്റിംഗ്</string>
+  <string name="cumulative">ഒന്നിച്ചു ചേർത്ത</string>
+  <string name="glicko2Rating">ഗ്ലിക്കോ-2 റേറ്റിംഗ്</string>
   <string name="checkYourEmail">നിങ്ങളുടെ ഇമെയിൽ പരിശോധിക്കൂ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ഞങ്ങൾ നിങ്ങൾക്കൊരു ഇമെയിൽ അയച്ചിട്ടുണ്ട്. ഇമെയിലിലെ ലിങ്ക് ക്ലിക്ക് ചെയ്ത് നിങ്ങളുടെ അക്കൗണ്ട് ആക്ടിവേറ്റ് ചെയ്യൂ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">നിങ്ങൾക്ക്  ഇമെയിൽ കണ്ടെത്താനായില്ലെങ്കിൽ, junk, spam, social അല്ലെങ്കിൽ മറ്റുള്ള ഫോൾഡറുകളിൽ ഉണ്ടോയെന്ന് പരിശോധിക്കാവുന്നതാണ്.</string>
@@ -857,4 +860,18 @@ in %3$s</string>
     <item quantity="one">എന്നിട്ട് %s premove ലൈൻ സേവ് ചെയ്യൂ</item>
     <item quantity="other">എന്നിട്ട് %s premove ലൈനുകൾ സേവ് ചെയ്യൂ</item>
   </plurals>
+  <string name="sorry">ക്ഷമിക്കുക :(</string>
+  <string name="weHadToTimeYouOutForAWhile">ഞങ്ങൾക്ക് നിങ്ങളെ കുറച്ചു സമയം പുറത്തു നിർത്തേണ്ടി വന്നു.</string>
+  <string name="timeoutExpires">ടൈം ഔട്ട് %s ഉള്ളിൽ കഴിയും.</string>
+  <string name="why">എന്തുകൊണ്ട്?</string>
+  <string name="pleasantChessExperience">ഞങ്ങൾ എല്ലാവര്ക്കും സുഗമമായ ചെസ്സ് അനുഭവം നൽകാൻ ലക്ഷ്യമിടുന്നു.</string>
+  <string name="goodPractice">അതിനാൽ, എല്ലാ കളിക്കാരും നല്ല രീതിയിൽ പ്രവർത്തിക്കുന്നു എന്ന് ഞങ്ങൾക്ക് ഉറപ്പു വരുത്തണം.</string>
+  <string name="potentialProblem">പ്രബലമായ പ്രശ്നം ദൃശ്യമായാൽ, ഞങ്ങൾ ഈ സന്ദേശം പ്രദർശിപ്പിക്കുന്നു.</string>
+  <string name="howToAvoidThis">ഇത് എങ്ങനെ ഒഴിവാക്കാം?</string>
+  <string name="playEveryGame">നിങ്ങൾ തുടങ്ങിയ എല്ലാ കളികളും കളിക്കുക.</string>
+  <string name="tryToWin">നിങ്ങൾ കളിക്കുന്ന എല്ലാ കളികളും ജയിക്കാനോ (അല്ലെങ്കിൽ സമനിലയിലാക്കാനോ) ശ്രമിക്കുക.</string>
+  <string name="resignLostGames">തോറ്റു എന്ന് ബോധ്യമായാൽ റിസൈന്‍ ചെയ്യുക (ക്ലോക്ക് തീരുന്ന വരെ കളി അവശേഷിപ്പിക്കാതിരിക്കുക).</string>
+  <string name="temporaryInconvenience">താത്കാലികമായ ബുദ്ധിമുട്ടിനു ക്ഷമ ചോദിക്കുന്നു</string>
+  <string name="wishYouGreatGames">lichess.org-ൽ നല്ല കളികൾ ആശംസിക്കുന്നു.</string>
+  <string name="thankYouForReading">വായിച്ചതിനു നന്ദി!</string>
 </resources>

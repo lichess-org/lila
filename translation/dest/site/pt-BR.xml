@@ -204,6 +204,7 @@
   <string name="playingRightNow">Jogando agora</string>
   <string name="eventInProgress">Jogando agora</string>
   <string name="finished">Terminado</string>
+  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Padrão</string>
@@ -876,4 +877,8 @@ em %3$s</string>
   <string name="thankYouForReading">Obrigado pela leitura!</string>
   <string name="lifetimeScore">Pontuação de todo o período</string>
   <string name="currentMatchScore">Pontuação da partida atual</string>
+  <string name="agreementAssistance">Eu concordo que em momento algum receberei assistência durante os meus jogos (seja de um computador, livro, banco de dados ou outra pessoa).</string>
+  <string name="agreementNice">Eu concordo que serei sempre cortês com outros jogadores.</string>
+  <string name="agreementAccount">Eu concordo que não criarei várias contas.</string>
+  <string name="agreementPolicy">Eu concordo que seguirei todas as normas do Lichess.</string>
 </resources>
