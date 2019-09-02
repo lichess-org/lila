@@ -16,12 +16,10 @@ object layout {
     val topComment = raw("""<!-- Lidraughts is open source, a fork of Lichess! See https://github.com/roepstoep/lidraughts -->""")
     val charset = raw("""<meta charset="utf-8">""")
     val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
-    def metaCsp(csp: ContentSecurityPolicy): Option[Frag] =
-      cspEnabled() option raw(
-        s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
-      )
-    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
-      metaCsp(csp.getOrElse(defaultCsp))
+    def metaCsp(csp: ContentSecurityPolicy): Frag = raw {
+      s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+    }
+    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag = metaCsp(csp getOrElse defaultCsp)
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lidraughts.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")

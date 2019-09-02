@@ -18,7 +18,6 @@ object Dev extends LidraughtsController {
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.game.pdnEncodingSetting,
-    Env.api.cspEnabledSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.study.rateLimitDisabledSetting,
     Env.lobby.whitelistIPSetting,
