@@ -382,7 +382,7 @@
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Λιγότερο από ένα λεπτό</item>
+    <item quantity="one">Λιγότερο από %s λεπτό</item>
     <item quantity="other">Λιγότερο από %s λεπτά</item>
   </plurals>
   <string name="required">Απαιτείται.</string>
