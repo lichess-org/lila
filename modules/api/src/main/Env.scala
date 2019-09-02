@@ -67,14 +67,6 @@ final class Env(
     text = "Enable CSP for everyone.".some
   )
 
-  import lila.memo.SettingStore.Regex._
-  import lila.memo.SettingStore.Formable.regexFormable
-  val serviceWorkerSetting = settingStore[scala.util.matching.Regex](
-    "serviceWorkerUsers",
-    default = "".r,
-    text = "Regex selecting user IDs using service workers".some
-  )
-
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"

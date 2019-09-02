@@ -19,7 +19,6 @@ object Dev extends LilaController {
     Env.api.cspEnabledSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
-    Env.api.serviceWorkerSetting,
     Env.plan.donationGoalSetting
   )
 

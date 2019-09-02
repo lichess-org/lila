@@ -152,7 +152,7 @@ object layout {
           "coords-out" -> (ctx.pref.coords == Pref.Coords.OUTSIDE)
         ),
         dataDev := (!isProd).option("true"),
-        dataVapid := usesServiceWorker option vapidPublicKey,
+        dataVapid := vapidPublicKey,
         dataUser := ctx.userId,
         dataSoundSet := ctx.currentSoundSet.toString,
         dataSocketDomain := socketDomain,
