@@ -6,8 +6,8 @@ import scala.concurrent.Promise
 import org.joda.time.DateTime
 
 import actorApi._
+import lila.common.{ Every, AtMost }
 import lila.game.Game
-import lila.game.GameRepo
 import lila.hub.Trouper
 import lila.socket.Socket
 import Socket.{ Sri, Sris }
@@ -187,23 +187,18 @@ private object LobbyTrouper {
   private case class WithPromise[A](value: A, promise: Promise[Unit])
 
   def start(
-    system: akka.actor.ActorSystem,
     broomPeriod: FiniteDuration,
     resyncIdsPeriod: FiniteDuration
-  )(makeTrouper: () => LobbyTrouper) = {
+  )(makeTrouper: () => LobbyTrouper)(implicit system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
     system.lilaBus.subscribe(trouper, 'lobbyTrouper)
     system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
-    system.scheduler.scheduleOnce(7 seconds) {
-      lila.common.ResilientScheduler(
-        every = broomPeriod,
-        atMost = 10 seconds,
-        system = system,
-        logger = logger
-      ) {
-        trouper.ask[Unit](Tick)
-      }
-    }
+    lila.common.ResilientScheduler(
+      every = Every(broomPeriod),
+      atMost = AtMost(10 seconds),
+      logger = logger branch "trouper.broom",
+      initialDelay = 7 seconds
+    ) { trouper.ask[Unit](Tick) }
     trouper
   }
 }

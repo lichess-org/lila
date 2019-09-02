@@ -4,11 +4,13 @@ import scala.concurrent.duration._
 
 import lila.common.IpAddress
 import lila.hub.DuctMap
+import lila.game.Pov
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(
-    roundMap: DuctMap[Round],
-    slackApi: lila.slack.SlackApi
+    roundMap: DuctMap[RoundDuct],
+    slackApi: lila.slack.SlackApi,
+    proxyPov: String => Fu[Option[Pov]]
 ) {
 
   private val whitelist = Set("treehugger")
@@ -49,7 +51,7 @@ final class SelfReport(
         }
       }
       if (fullId == "________") fuccess(doLog)
-      else lila.game.GameRepo pov fullId map {
+      else proxyPov(fullId) map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
@@ -58,7 +60,7 @@ final class SelfReport(
               lila.round.actorApi.round.Cheat(pov.color)
             )
           }
-          else lila.game.GameRepo.setBorderAlert(pov)
+          else lila.game.GameRepo.setBorderAlert(pov).void
         }
       }
     }

@@ -6,8 +6,7 @@ export default class MoveOn {
 
   private storage = window.lichess.storage.makeBoolean(this.key);
 
-  constructor(private ctrl: RoundController, private key: string) {
-  }
+  constructor(private ctrl: RoundController, private key: string) { }
 
   toggle = () => {
     this.storage.toggle();

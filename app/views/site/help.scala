@@ -93,7 +93,7 @@ object help {
         div(cls := "box box-pad developers body") {
           val args = """style="width: 600px; height: 397px;" frameborder="0""""
           frag(
-            h1("Embed a chess analysis in your site"),
+            h1(id := "embed-study")("Embed a chess analysis in your site"),
             raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
             p("Create ", a(href := routes.Study.allDefault(1))("a study"), ", then click the share button to get the HTML code for the current chapter."),
             parameters,

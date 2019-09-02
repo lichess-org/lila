@@ -15,11 +15,11 @@ private final class DnsApi(
 )(implicit system: akka.actor.ActorSystem) {
 
   // only valid email domains that are not whitelisted should make it here
-  def mx(domain: Domain): Fu[List[Domain]] = failsafe(domain, List(domain)) {
+  def mx(domain: Domain.Lower): Fu[List[Domain]] = failsafe(domain, List(domain.domain)) {
     mxCache get domain
   }
 
-  private val mxCache: AsyncLoadingCache[Domain, List[Domain]] = Scaffeine()
+  private val mxCache: AsyncLoadingCache[Domain.Lower, List[Domain]] = Scaffeine()
     .expireAfterWrite(2 days)
     .buildAsyncFuture(domain => {
       lila.mon.security.dnsApi.mx.count()
@@ -37,7 +37,7 @@ private final class DnsApi(
       lila.mon.security.dnsApi.mx.error()
     })
 
-  private def fetch[A](domain: Domain, tpe: String)(f: List[JsObject] => A): Fu[A] =
+  private def fetch[A](domain: Domain.Lower, tpe: String)(f: List[JsObject] => A): Fu[A] =
     WS.url(resolverUrl)
       .withQueryString("name" -> domain.value, "type" -> tpe)
       .withHeaders("Accept" -> "application/dns-json")
@@ -47,7 +47,7 @@ private final class DnsApi(
       }
 
   // if the DNS service fails, assume the best
-  private def failsafe[A](domain: Domain, default: => A)(f: => Fu[A]): Fu[A] = f recover {
+  private def failsafe[A](domain: Domain.Lower, default: => A)(f: => Fu[A]): Fu[A] = f recover {
     case e: Exception =>
       logger.warn(s"DnsApi $domain", e)
       default

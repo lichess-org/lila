@@ -225,6 +225,8 @@ trait dsl extends LowPriorityDsl {
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
 
+  def Facet(doc: Bdoc) = reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.PipelineOperator($doc("$facet" -> doc))
+
   /**
    * Represents the initial state of the expression which has only the name of the field.
    * It does not know the value of the expression.

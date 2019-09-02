@@ -19,12 +19,12 @@
   <string name="white">Цагаан</string>
   <string name="black">Хар</string>
   <string name="randomColor">Дурын өнгө</string>
-  <string name="createAGame">Шинэ өрөг үүсгэх</string>
+  <string name="createAGame">Эрдэнэбаяр үүсгэх</string>
   <string name="whiteIsVictorious">Цагаан хожлоо</string>
   <string name="blackIsVictorious">Хар хожлоо</string>
   <string name="kingInTheCenter">Төв дөх ноён</string>
   <string name="threeChecks">Гурван шаг</string>
-  <string name="raceFinished">Уралдаан өндөрлөлөө</string>
+  <string name="raceFinished">Тэмцээн өндөрлөлөө</string>
   <string name="variantEnding">Хувилбарын төгсгөл</string>
   <string name="newOpponent">Шинэ өрсөлдөгч</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Таны өрсөлдөгч таньтай дахин тоглохыг хүсч байна</string>
@@ -78,8 +78,8 @@
   <string name="topGames">Өндөр үнэлгээтэй өргүүд</string>
   <string name="masterDbExplanation">%2$s-с %3$s оны хоорондох FIDE %1$s+ чансаа бүхий тоглочдын хоёр сая гаруй тэмцээний өргүүд</string>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
-    <item quantity="one">Дараагийн барьцаа эсвэл падаа % s хагас шилжих хөдөлгөөнд шилжих (50 алхам тоолуурын Zeroing руу шилжих)</item>
-    <item quantity="other">Дараагийн удаа барьцаалах буюу зээлдүүлэгчид % s хагас хөдөлгөөнд шилжих (50 шилжих тоолуурын зайнаас шилжих)</item>
+    <item quantity="one">Дараагийн барьцаа эсвэл падаа %s хагас шилжих хөдөлгөөнд шилжих (50 алхам тоолуурын Zeroing руу шилжих)</item>
+    <item quantity="other">Дараагийн удаа барьцаалах буюу зээлдүүлэгчид %s хагас хөдөлгөөнд шилжих (50 шилжих тоолуурын зайнаас шилжих)</item>
   </plurals>
   <string name="noGameFound">Өрөг олдсонгүй</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Магадгүй цэснээс өөр тоглолтууд оролцуулах уу?</string>
@@ -268,10 +268,6 @@
   <string name="tournament">Тэмцээн</string>
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
-  <plurals name="nbTournamentPoints">
-    <item quantity="one">тэмцээний оноо</item>
-    <item quantity="other">тэмцээний оноонууд</item>
-  </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
@@ -293,7 +289,6 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
-  <string name="mustBeInTeam">Баг дотор байх ёстой</string>
   <string name="youAreNotInTeam">Та % s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
@@ -637,7 +632,6 @@
   <string name="webmasters">Цахим хуудсыг хөгжүүлэгчид</string>
   <string name="about">Тухай</string>
   <string name="aboutX">Тухай %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">% 1 $ s үнэгүй ( % 2 $ s ), үнэгүй, зар сурталчилгаа, нээлттэй эх шатрын сервер.</string>
   <string name="really">бэлтгэнэ үү</string>
   <string name="contribute">Хувь нэмэрээ оруулах</string>
   <string name="contact">Холбоо тогтоох</string>
@@ -738,7 +732,7 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
-  <string name="xCreatesStudyY">% 1 $ s % 2 $ s судалгааг үүсгэдэг</string>
+  <string name="xCreatesStudyY">Нээсэн study</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>
@@ -755,6 +749,9 @@
   <string name="pieceSet">Дүрсний загвар</string>
   <string name="embedInYourWebsite">Вэб сайтадаа оруулах</string>
   <string name="usernameAlreadyUsed">Ийм нэртэй хэрэглэгч байна, өөр нэр ашиглана уу.</string>
+  <string name="usernamePrefixInvalid">Хэрэглэгчийн нэр нь үсэгнээс эхлэх ёстой.</string>
+  <string name="usernameSuffixInvalid">Хэрэглэгчийн нэр нь үсэг эсвэл тоогоор дуусах ёстой.</string>
+  <string name="usernameCharsInvalid">Хэрэглэгчийн нэр нь зөвхөн үсэг, тоо, доогуур зураас, болон зураас агуулсан байх ёстой.</string>
   <string name="usernameUnacceptable">Ийм нэртэй хэрэглэгч үүсгэж болохгүй.</string>
   <string name="directlySupportLichess">Личессд дэмжлэг үзүүлэх</string>
   <string name="playChessInStyle">Загварлаг тоглоцгооё</string>
@@ -785,6 +782,7 @@
   <string name="whiteWinsGame">Цагаан хожсон</string>
   <string name="blackWinsGame">Хар хожсон</string>
   <string name="learnFromYourMistakes">Алдаанаасаа суралцах</string>
+  <string name="learnFromThisMistake">Энэ алдаанаас суралц</string>
   <string name="skipThisMove">Энэ нүүдлийг алгасах</string>
   <string name="next">Дараах</string>
   <string name="xWasPlayed">%s нүүдэл хийгдсэн</string>

@@ -110,7 +110,7 @@ object home {
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               // userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
             )
           } getOrElse div(cls := "about-side")(
             ctx.blind option h2("About"),
@@ -154,7 +154,7 @@ object home {
               span(trans.directlySupportLichess())
             )
           ),
-          a(href := routes.Page.swag)(
+          a(href := "https://shop.spreadshirt.com/lichess-org")(
             iconTag(""),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),

@@ -102,6 +102,14 @@ object Team extends LilaController {
       }
     }
   }
+  def kickUser(teamId: String, userId: String) = Scoped(_.Team.Write) { req => me =>
+    api team teamId flatMap {
+      _ ?? { team =>
+        if (team isCreator me.id) api.kick(team, userId, me) inject jsonOkResult
+        else Forbidden(jsonError("Not your team")).fuccess
+      }
+    }
+  }
 
   def changeOwnerForm(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
@@ -164,7 +172,7 @@ object Team extends LilaController {
       case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
       case _ => notFound(ctx)
     },
-    scoped = req => me => Env.oAuth.server.fetchAppOwner(req) flatMap {
+    scoped = req => me => Env.oAuth.server.fetchAppAuthor(req) flatMap {
       _ ?? { api.joinApi(id, me, _) }
     } map {
       case Some(Joined(_)) => jsonOkResult

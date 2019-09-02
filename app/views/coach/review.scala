@@ -20,8 +20,8 @@ object review {
           ),
           div(cls := "content")(richText(r.text)),
           isGranted(_.DisapproveCoachReview) option
-            st.form(cls := "disapprove", method := "post", action := routes.Coach.modReview(r.id))(
-              button(cls := "button button-empty button-red button-thin confirm", tpe := "submit", title := "Instructs the coach to reject the review, or to ask the author to rephrase it.")("Disapprove")
+            postForm(cls := "disapprove", action := routes.Coach.modReview(r.id))(
+              submitButton(cls := "button button-empty button-red button-thin confirm", title := "Instructs the coach to reject the review, or to ask the author to rephrase it.")("Disapprove")
             )
         )
       }
@@ -36,7 +36,7 @@ object review {
       )
       else if (ctx.isAuth) a(cls := "button button-empty toggle")("Write a review")
       else a(href := s"${routes.Auth.login}?referrer=${ctx.req.path}", cls := "button")("Review this coach"),
-      st.form(action := routes.Coach.review(c.user.username), method := "POST")(
+      postForm(action := routes.Coach.review(c.user.username))(
         barRating(selected = mine.map(_.score), enabled = true),
         textarea(
           name := "text",
@@ -44,10 +44,8 @@ object review {
           minlength := 3,
           maxlength := 2000,
           placeholder := s"Describe your coaching experience with ${c.user.realNameOrUsername}"
-        )(
-            mine.map(_.text)
-          ),
-        button(tpe := "submit", cls := "button")(trans.apply())
+        )(mine.map(_.text)),
+        submitButton(cls := "button")(trans.apply())
       )
     )
 

@@ -3,10 +3,13 @@ package lila.push
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.game.Game
+
 final class Env(
     config: Config,
     db: lila.db.Env,
     getLightUser: lila.common.LightUser.GetterSync,
+    gameProxy: Game.ID => Fu[Option[Game]],
     scheduler: lila.common.Scheduler,
     system: ActorSystem
 ) {
@@ -44,6 +47,7 @@ final class Env(
     oneSignalPush,
     webPush,
     getLightUser,
+    gameProxy,
     bus = system.lilaBus,
     scheduler = scheduler
   )
@@ -66,6 +70,7 @@ object Env {
     db = lila.db.Env.current,
     system = lila.common.PlayApp.system,
     getLightUser = lila.user.Env.current.lightUserSync,
+    gameProxy = lila.round.Env.current.proxy.game _,
     scheduler = lila.common.PlayApp.scheduler,
     config = lila.common.PlayApp loadConfig "push"
   )

@@ -11,6 +11,7 @@
   <string name="kick">העף</string>
   <string name="youAreNowAContributor">כעת אתה תורם</string>
   <string name="youAreNowASpectator">כעת אתה צופה</string>
+  <string name="like">אהבתי</string>
   <string name="newTag">תג חדש</string>
   <string name="commentThisPosition">הערה לגבי המצב במשחק</string>
   <string name="commentThisMove">הערה לגבי המסע</string>
@@ -22,5 +23,13 @@
   <string name="allSyncMembersRemainOnTheSamePosition">כל חברי SYNC נשארים באותו מצב</string>
   <string name="shareChanges">שתף שינויים עם הצופים ושמור אותם על השרת</string>
   <string name="playing">משחק</string>
-  <string name="onlyOngoingGames">רק משחקים שטרם הושלמו</string>
+  <string name="first">ראשון</string>
+  <string name="previous">הקודם</string>
+  <string name="next">הבא</string>
+  <string name="last">אחרון</string>
+  <string name="shareAndExport">שתף &amp; ייצא</string>
+  <string name="cloneStudy">שכפול</string>
+  <string name="startAtInitialPosition">התחל/י במצב התחלתי</string>
+  <string name="open">פתח</string>
+  <string name="xBroughtToYouByY">%1$s מוגש על ידי %2$s</string>
 </resources>

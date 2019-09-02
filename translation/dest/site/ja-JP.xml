@@ -76,7 +76,7 @@
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近のゲーム</string>
   <string name="topGames">トップのゲーム</string>
-  <string name="masterDbExplanation">1952 年から 2016 年まで、FIDEレーティング 2200 以上の 実戦 200 万局</string>
+  <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の 実戦 200 万局</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s プライでメイト</item>
   </plurals>
@@ -194,6 +194,7 @@
   <string name="playingRightNow">対局中</string>
   <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
+  <string name="finishesX">終了まで %s</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
@@ -448,6 +449,7 @@
   <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
   <string name="thankYou">ありがとう！</string>
   <string name="ratingX">レーティング: %s</string>
+  <string name="hidden">非表示</string>
   <plurals name="playedXTimes">
     <item quantity="other">解答数のべ %s 回</item>
   </plurals>
@@ -673,6 +675,9 @@
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">まだ %s レーティングが確定していません。</string>
+  <string name="yourRating">あなたの位置</string>
+  <string name="cumulative">累積百分率</string>
+  <string name="glicko2Rating">グリコ-2 レーティング</string>
   <string name="checkYourEmail">メールを確認してください</string>
   <string name="weHaveSentYouAnEmailClickTheLink">メールを送信しました。リンクをクリックしてアカウントの作成を完了してください。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
@@ -820,4 +825,24 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 種のコンディショナルムーブを設定</item>
   </plurals>
+  <string name="sorry">残念です :(</string>
+  <string name="weHadToTimeYouOutForAWhile">しばらくプレイを禁止します。</string>
+  <string name="timeoutExpires">禁止は %s 後に解けます。</string>
+  <string name="why">どうして？</string>
+  <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
+  <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
+  <string name="potentialProblem">問題があった場合、このメッセージ画面が表示されます。</string>
+  <string name="howToAvoidThis">どうすればいいの？</string>
+  <string name="playEveryGame">始めたゲームを中断しない</string>
+  <string name="tryToWin">すべてのゲームで勝ち（またはドロー）を目指す</string>
+  <string name="resignLostGames">敗勢なら投了する（時間切れまで放置しない）</string>
+  <string name="temporaryInconvenience">しばらくご不便をおかけしますが</string>
+  <string name="wishYouGreatGames">今後も Lichess ですばらしいゲームを楽しまれるよう願っています。</string>
+  <string name="thankYouForReading">熟読ありがとう！</string>
+  <string name="lifetimeScore">通算成績</string>
+  <string name="currentMatchScore">現在のスコア</string>
+  <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
+  <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
+  <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
+  <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
 </resources>

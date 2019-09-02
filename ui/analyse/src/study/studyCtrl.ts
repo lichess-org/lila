@@ -97,7 +97,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     send("editStudy", d);
     if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen && !relay)
       chapters.newForm.openInitial();
-  }, () => data, redraw, relay);
+  }, () => data, ctrl.trans, redraw, relay);
 
   function isWriting(): boolean {
     return vm.mode.write && !isGamebookPlay();
@@ -145,6 +145,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     vm.mode.write = vm.mode.write && canContribute;
     li.pubsub.emit('chat.writeable', data.features.chat);
     li.pubsub.emit('chat.permissions', {local: canContribute});
+    li.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
@@ -408,6 +409,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
     },
+    validationError(d) {
+      alert(d.error);
+    },
     setComment(d) {
       const position = d.p,
         who = d.w;
@@ -540,7 +544,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }));
     },
     setChapter(id, force) {
-      if (id === vm.chapterId && !force) return;
+      const alreadySet = id === vm.chapterId && !force;
+      if (relay && relay.intro.active) {
+        relay.intro.disable();
+        if (alreadySet) redraw();
+      }
+      if (alreadySet) return;
       if (!vm.mode.sticky || !makeChange("setChapter", id)) {
         vm.mode.sticky = false;
         if (!vm.behind) vm.behind = 1;
@@ -596,6 +605,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         return true;
       }
       return !!relay && relay.socketHandler(t, d);
-    }
+    },
+    sri
   };
 };

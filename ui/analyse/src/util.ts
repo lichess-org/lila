@@ -1,4 +1,5 @@
 import { h } from 'snabbdom'
+import { VNode } from 'snabbdom/vnode';
 import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 import { fixCrazySan } from 'chess';
@@ -79,7 +80,7 @@ export function titleNameToId(titleName: string): string {
   return (split.length === 1 ? split[0] : split[1]).toLowerCase();
 }
 
-export function spinner() {
+export function spinner(): VNode {
   return h('div.spinner', [
     h('svg', { attrs: { viewBox: '0 0 40 40' } }, [
       h('circle', {
@@ -112,14 +113,14 @@ export function baseUrl() {
 
 export function toYouTubeEmbed(url: string): string | undefined {
   const embedUrl = toYouTubeEmbedUrl(url);
-  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
+  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
 }
 
 function toYouTubeEmbedUrl(url) {
   if (!url) return;
   var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
   if (!m) return;
-  var start = 1;
+  var start = 0;
   m[2].split('&').forEach(function(p) {
     var s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
@@ -130,7 +131,7 @@ function toYouTubeEmbedUrl(url) {
       }
     }
   });
-  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3' + (start ? '&start=' + start : '');
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 }
 
@@ -142,7 +143,7 @@ export function toTwitchEmbed(url: string): string | undefined {
 function toTwitchEmbedUrl(url) {
   if (!url) return;
   var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:twitch.tv)\/([^"&?/ ]+)/i);
-if (m) return 'https://player.twitch.tv/?channel=' + m[1];
+if (m) return 'https://player.twitch.tv/?channel=' + m[1] + '&autoplay=false';
 }
 
 const commentYoutubeRegex = /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:.*?(?:[?&]v=)|v\/)|youtu\.be\/)(?:[^"&?\/ ]{11})\b/i;
@@ -184,9 +185,5 @@ export function option(value: string, current: string | undefined, name: string)
 }
 
 export function scrollTo(el: HTMLElement | undefined, target: HTMLElement |  null) {
-  if (el && target) {
-    const rect = el.getBoundingClientRect(),
-      targetRect = target.getBoundingClientRect();
-    el.scrollTop = targetRect.top - rect.top - (rect.height / 2) + (targetRect.height / 2);
-  }
+  if (el && target) el.scrollTop = target.offsetTop - el.offsetHeight / 2 + target.offsetHeight / 2;
 }

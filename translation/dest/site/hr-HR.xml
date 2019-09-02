@@ -76,7 +76,7 @@
   <string name="averageRatingX">Prosječni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
   <string name="topGames">Najjače partije</string>
-  <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (2200+ FIDE rejting) igranih od 1952. do 2016. godine</string>
+  <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (%1$s+ FIDE rejting) igranih od %2$s. do %3$s. godine</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat u %s međupotezu</item>
     <item quantity="few">Mat u %s međupoteza</item>
@@ -320,7 +320,7 @@
     <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
+    <item quantity="one">Trebaš odigrati još %s partiju za bodove</item>
     <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
     <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
   </plurals>
@@ -500,6 +500,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="pleaseVotePuzzle">Pomogni poboljšanju lichess-a glasanjem, koristeći strelicu gore ili dolje:</string>
   <string name="thankYou">Hvala!</string>
   <string name="ratingX">Rejting: %s</string>
+  <string name="hidden">skriven</string>
   <plurals name="playedXTimes">
     <item quantity="one">Odigrano %s put</item>
     <item quantity="few">Odigrano %s puta</item>

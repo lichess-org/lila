@@ -19,10 +19,13 @@ import actorApi.SocketStatus
 final class JsonView(
     noteApi: NoteApi,
     userJsonView: lila.user.JsonView,
+    gameJsonView: lila.game.JsonView,
     getSocketStatus: Game.ID => Fu[SocketStatus],
     canTakeback: Game => Fu[Boolean],
+    canMoretime: Game => Fu[Boolean],
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
+    isOfferingRematch: Pov => Boolean,
     baseAnimationDuration: Duration,
     moretimeSeconds: Int
 ) {
@@ -39,12 +42,11 @@ final class JsonView(
       .add("rating" -> p.rating)
       .add("ratingDiff" -> p.ratingDiff)
       .add("provisional" -> p.provisional)
-      .add("offeringRematch" -> p.isOfferingRematch)
+      .add("offeringRematch" -> isOfferingRematch(Pov(g, p)))
       .add("offeringDraw" -> p.isOfferingDraw)
       .add("proposingTakeback" -> p.isProposingTakeback)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
   def playerJson(
@@ -58,11 +60,12 @@ final class JsonView(
   ): Fu[JsObject] =
     getSocketStatus(pov.gameId) zip
       (pov.opponent.userId ?? UserRepo.byId) zip
-      canTakeback(pov.game) map {
-        case ((socket, opponentUser), takebackable) =>
+      canTakeback(pov.game) zip
+      canMoretime(pov.game) map {
+        case socket ~ opponentUser ~ takebackable ~ moretimeable =>
           import pov._
           Json.obj(
-            "game" -> gameJson(game, initialFen),
+            "game" -> gameJsonView(game, initialFen),
             "player" -> {
               commonPlayerJson(game, player, playerUser, withFlags) ++ Json.obj(
                 "id" -> playerId,
@@ -112,6 +115,7 @@ final class JsonView(
           ).add("clock" -> game.clock.map(clockJson))
             .add("correspondence" -> game.correspondenceClock)
             .add("takebackable" -> takebackable)
+            .add("moretimeable" -> moretimeable)
             .add("crazyhouse" -> pov.game.board.crazyData)
             .add("possibleMoves" -> possibleMoves(pov, apiVersion))
             .add("possibleDrops" -> possibleDrops(pov))
@@ -134,7 +138,6 @@ final class JsonView(
       .add("provisional" -> p.provisional)
       .add("checks" -> checkCount(g, p.color))
       .add("berserk" -> p.berserk)
-      .add("hold" -> (withFlags.blurs option hold(p)))
       .add("blurs" -> (withFlags.blurs ?? blurs(g, p)))
 
   def watcherJson(
@@ -151,7 +154,7 @@ final class JsonView(
         case (socket, (playerUser, opponentUser)) =>
           import pov._
           Json.obj(
-            "game" -> gameJson(game, initialFen)
+            "game" -> gameJsonView(game, initialFen)
               .add("moveCentis" -> (withFlags.movetimes ?? game.moveTimes.map(_.map(_.centis))))
               .add("division" -> withFlags.division.option(divider(game, initialFen)))
               .add("opening" -> game.opening)
@@ -231,6 +234,7 @@ final class JsonView(
       "pref" -> Json.obj(
         "animationDuration" -> animationDuration(pov, pref),
         "coords" -> pref.coords,
+        "moveEvent" -> pref.moveEvent,
         "resizeHandle" -> pref.resizeHandle
       ).add("rookCastle" -> (pref.rookCastle == Pref.RookCastle.YES))
         .add("is3d" -> pref.is3d)
@@ -246,14 +250,6 @@ final class JsonView(
       blursWriter.writes(player.blurs) +
         ("percent" -> JsNumber(game.playerBlurPercent(player.color)))
     }
-
-  private def hold(player: lila.game.Player) = player.holdAlert map { h =>
-    Json.obj(
-      "ply" -> h.ply,
-      "mean" -> h.mean,
-      "sd" -> h.sd
-    )
-  }
 
   private def clockJson(clock: Clock): JsObject =
     clockWriter.writes(clock) + ("moretime" -> JsNumber(moretimeSeconds))

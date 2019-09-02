@@ -172,6 +172,10 @@
   <string name="forgotPassword">Ξεχάσατε τον κωδικό;</string>
   <string name="rank">Κατάταξη</string>
   <string name="rankX">Κατάταξη: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Η κατάταξη ενημερώνεται κάθε λεπτό</item>
+    <item quantity="other">Η κατάταξη ενημερώνεται κάθε %s λεπτά</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s γρίφος</item>
     <item quantity="other">%s γρίφοι</item>
@@ -197,6 +201,7 @@
   <string name="playingRightNow">Παιχνίδια σε εξέλιξη τώρα</string>
   <string name="eventInProgress">Παιχνίδια σε εξέλιξη τώρα</string>
   <string name="finished">Ολοκληρωμένα</string>
+  <string name="finishesX">τελειώνει %s</string>
   <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
   <string name="gameAborted">Παιχνίδι εγκατελήφθη</string>
   <string name="standard">Κανονικό</string>
@@ -219,7 +224,7 @@
   <string name="play">Παίξτε</string>
   <string name="inbox">Εισερχόμενα</string>
   <string name="chatRoom">Ζωντανή συζήτηση</string>
-  <string name="loginToChat">Συνδεθείτε για να συνομιλήσετε</string>
+  <string name="loginToChat">Συνδεθείτε για να μιλήσετε</string>
   <string name="youHaveBeenTimedOut">Έχετε αποσυνδεθεί.</string>
   <string name="spectatorRoom">Συζήτηση θεατών</string>
   <string name="composeMessage">Σύνθεση μηνύματος</string>
@@ -332,13 +337,13 @@
   <string name="reset">Επαναφορά</string>
   <string name="apply">Εφαρμογή</string>
   <string name="leaderboard">Πίνακας βαθμολογίας</string>
-  <string name="pasteTheFenStringHere">Επικολλήστε τον κωδικό FEN εδώ</string>
-  <string name="pasteThePgnStringHere">Επικολλήστε το PGN εδώ</string>
+  <string name="pasteTheFenStringHere">Επικολλήστε τον κώδικα FEN εδώ</string>
+  <string name="pasteThePgnStringHere">Επικολλήστε το κείμενο του PGN εδώ</string>
   <string name="fromPosition">Από συγκεκριμένη θέση</string>
   <string name="continueFromHere">Συνέχεια από εδώ</string>
   <string name="importGame">Εισαγωγή παιχνιδιού</string>
-  <string name="importGameExplanation">Κατά την επικόλληση παιχνιδιού PGN δημιουργείται μια περιηγήσιμη αναπαραγωγή, 
-ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και ένα κοινόχρηστο URL.</string>
+  <string name="importGameExplanation">Επικολλήστε PGN παιχνιδιού για να δημιουργήσετε περιηγήσιμη αναπαραγωγή, 
+ανάλυση από υπολογιστή, συνομιλία παιχνιδιού και κοινόχρηστο URL.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s Εισαγόμενο παιχνίδι</item>
     <item quantity="other">%s Εισαγόμενα παιχνίδια</item>
@@ -465,6 +470,7 @@
   <string name="pleaseVotePuzzle">Βελτιώστε το lichess με την ψήφο σας, πατώντας το πάνω ή κάτω βελάκι:</string>
   <string name="thankYou">Ευχαριστούμε!</string>
   <string name="ratingX">Βαθμολογία: %s</string>
+  <string name="hidden">κρυμμένο</string>
   <plurals name="playedXTimes">
     <item quantity="one">Παίχτηκε %s φορά</item>
     <item quantity="other">Παίχτηκε %s φορές</item>
@@ -627,6 +633,8 @@
   <string name="inCorrespondenceGames">Στις παρτίδες δι\' αλληλογραφίας</string>
   <string name="ifRatingIsPlusMinusX">Εάν η βαθμολογία είναι ± %s</string>
   <string name="onlyFriends">Μόνο φίλοι</string>
+  <string name="displayBoardResizeHandle">Εμφάνιση χειρισμού για αλλαγή μεγέθους της σκακιέρας</string>
+  <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
   <string name="whiteCastlingKingside">Λευκά Ο-Ο</string>
@@ -644,8 +652,8 @@
   <string name="webmasters">Διαχειριστές</string>
   <string name="about">Σχετικά με</string>
   <string name="aboutX">Σχετικά με %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s είναι δωρεάν (%2$s), ελεύθερο, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
-  <string name="really">αλήθεια</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">Ο %1$s είναι (%2$s) δωρεάν, ελεύθερος, χωρίς διαφημίσεις, ανοικτού κώδικα διακομιστής για σκάκι.</string>
+  <string name="really">πραγματικά</string>
   <string name="contribute">Συνεισφέρετε</string>
   <string name="contact">Επικοινωνία</string>
   <string name="termsOfService">Όροι χρήσης</string>
@@ -688,12 +696,14 @@
   <string name="returnToTournamentsHomepage">Επιστροφή στην αρχική σελίδα πρωταθλημάτων</string>
   <string name="weeklyPerfTypeRatingDistribution">Μηνιαία κατανομή βαθμολογίας %s</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Ένας %2$s παίκτης αυτή την εβδομάδα.</item>
-    <item quantity="other">%1$s %2$s παίκτες αυτή την εβδομάδα.</item>
+    <item quantity="one">%1$s παίκτης %2$s αυτήν την εβδομάδα.</item>
+    <item quantity="other">%1$s παίκτες %2$s αυτήν την εβδομάδα.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Η βαθμολογία σας στο %1$s είναι %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Είστε καλύτεροι από %1$s των παικτών %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Δεν έχετε μια καθιερωμένη βαθμολογία %s.</string>
+  <string name="yourRating">Η βαθμολογία σας</string>
+  <string name="glicko2Rating">Βαθμολογία Glicko-2</string>
   <string name="checkYourEmail">Ελέγξτε το ηλ. ταχυδρομείο σας</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Σας έχουμε στείλει ένα μήνυμα ηλ. ταχυδρομείου. Κάντε κλικ τον σύνδεσμο στο ηλ.ταχυδρομείο για να ενεργοποιήσετε τον λογαριασμό σας.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Εάν δεν μπορείτε να δείτε το μήνυμα ηλ. ταχυδρομείου, ελέγξτε άλλες θέσεις που θα μπορούσε να είναι, όπως στα διαγραμμένα, ανεπιθύμητη αλληλογραφία, κοινωνικά, ή σε άλλους φακέλους.</string>

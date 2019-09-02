@@ -8,7 +8,8 @@ import lila.game.JsonView._
 import lila.game.{ Game, Pov, GameRepo }
 
 final class BotJsonView(
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    rematchOf: Game.ID => Option[Game.ID]
 ) {
 
   def gameFull(game: Game): Fu[JsObject] = GameRepo.withInitialFen(game) flatMap gameFull
@@ -53,7 +54,7 @@ final class BotJsonView(
         "bdraw" -> game.blackPlayer.isOfferingDraw,
         "wdraw" -> game.whitePlayer.isOfferingDraw
       )
-        .add("rematch" -> game.next)
+        .add("rematch" -> rematchOf(game.id))
     }
   }
 

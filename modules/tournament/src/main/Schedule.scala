@@ -106,7 +106,7 @@ object Schedule {
   }
 
   sealed abstract class Speed(val id: Int) {
-    def name = toString.toLowerCase
+    val name = lila.common.String lcfirst toString
   }
   object Speed {
     case object UltraBullet extends Speed(5)
@@ -119,7 +119,7 @@ object Schedule {
     case object Classical extends Speed(60)
     val all: List[Speed] = List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(name: String) = all find (_.name == name)
+    def apply(name: String) = all.find(_.name == name) orElse all.find(_.name.toLowerCase == name.toLowerCase)
     def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b => true
@@ -260,22 +260,13 @@ object Schedule {
 
       val nbRatedGame = (s.freq, s.speed) match {
 
-        case (_, UltraBullet) => 0
+        case (Hourly | Daily | Eastern, HyperBullet | Bullet) => 20
+        case (Hourly | Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
+        case (Hourly | Daily | Eastern, Rapid) => 10
 
-        case (Hourly, UltraBullet | HyperBullet | Bullet) => 20
-        case (Hourly, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Hourly, Rapid) => 10
-
-        case (Daily | Eastern, UltraBullet | HyperBullet | Bullet) => 20
-        case (Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Daily | Eastern, Rapid) => 15
-
-        case (Weekly | Monthly | Shield, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekly | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
-        case (Weekly | Monthly | Shield, Rapid) => 15
-
-        case (Weekend, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekend, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet) => 30
+        case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Weekend | Monthly | Shield, Rapid) => 15
 
         case _ => 0
       }

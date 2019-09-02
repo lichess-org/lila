@@ -27,14 +27,14 @@ object Room {
   def apply(reason: Reason): Room = reason match {
     case Reason.Cheat => Cheat
     case Reason.CheatPrint => Print
-    case Reason.Troll | Reason.Insult => Coms
+    case Reason.Troll | Reason.Insult | Reason.CommFlag => Coms
     case Reason.Boost | Reason.Playbans | Reason.Other => Other
   }
 
   def toReasons(room: Room): Set[Reason] = room match {
     case Cheat => Set(Reason.Cheat)
     case Print => Set(Reason.CheatPrint)
-    case Coms => Set(Reason.Troll, Reason.Insult)
+    case Coms => Set(Reason.Troll, Reason.Insult, Reason.CommFlag)
     case Other => Set(Reason.Boost, Reason.Other)
     case Xfiles => Set.empty
   }

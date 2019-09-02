@@ -61,7 +61,7 @@ final class RelationApi(
   }
 
   def fetchAreFriends(u1: ID, u2: ID): Fu[Boolean] =
-    fetchFollows(u1, u2) flatMap { _ ?? fetchFollows(u2, u1) }
+    fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
   private val countFollowingCache = asyncCache.clearable[ID, Int](
     name = "relation.count.following",

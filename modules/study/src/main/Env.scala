@@ -85,6 +85,7 @@ final class Env(
   private lazy val chapterMaker = new ChapterMaker(
     importer = importer,
     pgnFetch = new PgnFetch,
+    pgnDump = gamePgnDump,
     lightUser = lightUserApi,
     chat = hub.chat,
     domain = NetDomain
@@ -137,7 +138,6 @@ final class Env(
     chapterMaker = chapterMaker,
     studyMaker = studyMaker,
     inviter = studyInvite,
-    tagsFixer = new ChapterTagsFixer(chapterRepo, gamePgnDump),
     explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,

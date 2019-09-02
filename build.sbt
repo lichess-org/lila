@@ -31,7 +31,7 @@ scriptClasspath := Seq("*")
 libraryDependencies ++= Seq(
   scalaz, chess, compression, scalalib, hasher, typesafeConfig, findbugs,
   reactivemongo.driver, reactivemongo.iteratees, akka.actor, akka.slf4j,
-  maxmind, prismic, netty, guava,
+  maxmind, prismic, netty, guava, markdown,
   kamon.core, kamon.influxdb, scalatags,
   java8compat, semver, scrimage, scalaConfigs, scaffeine, lettuce, epoll
 )
@@ -266,13 +266,13 @@ lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relat
 )
 
 lazy val study = module("study", Seq(
-  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer
+  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n
 )).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
 lazy val relay = module("relay", Seq(common, study)).settings(
-  libraryDependencies ++= Seq(scalaUri) ++ provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= Seq(scalaUri) ++ provided(play.api, reactivemongo.driver, markdown)
 )
 
 lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).settings(

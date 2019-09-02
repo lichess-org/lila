@@ -52,7 +52,7 @@ function variant2option(key, name, ctrl) {
       value: key,
       selected: key == ctrl.data.variant
     },
-    children: [ctrl.trans('variant') + ' | ' + name]
+    children: [ctrl.trans.noarg('variant') + ' | ' + name]
   };
 }
 
@@ -78,14 +78,14 @@ function controls(ctrl, fen) {
           ctrl.loadNewFen(e.target.value);
         }
       }, [
-        optgroup(ctrl.trans('setTheBoard'), [
+        optgroup(ctrl.trans.noarg('setTheBoard'), [
           currentPosition ? null : m('option', {
             value: fen,
             selected: true
-          }, '- ' + ctrl.trans('boardEditor') + ' -'),
+          }, '- ' + ctrl.trans.noarg('boardEditor') + ' -'),
           ctrl.extraPositions.map(position2option)
         ]),
-        optgroup(ctrl.trans('popularOpenings'),
+        optgroup(ctrl.trans.noarg('popularOpenings'),
           ctrl.data.positions.map(position2option)
         )
       ]) : null
@@ -102,13 +102,13 @@ function controls(ctrl, fen) {
         }))
       ),
       m('div.castling', [
-        m('strong', ctrl.trans('castling')),
+        m('strong', ctrl.trans.noarg('castling')),
         m('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans('whiteCastlingKingside'), ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'K', ctrl.trans.noarg('whiteCastlingKingside'), ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'Q', 'O-O-O', true)
         ]),
         m('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans('blackCastlingKingside'), ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', 'O-O-O', true)
         ])
       ])
@@ -116,10 +116,10 @@ function controls(ctrl, fen) {
     ctrl.embed ? m('div.actions', [
       m('a.button.button-empty', {
         onclick: ctrl.startPosition
-      }, 'Initial position'),
+      }, ctrl.trans.noarg('startPosition')),
       m('a.button.button-empty', {
         onclick: ctrl.clearBoard
-      }, 'Empty board')
+      }, ctrl.trans.noarg('clearBoard'))
     ]) : [
       m('div', [
         m('select#variants', {
@@ -143,20 +143,20 @@ function controls(ctrl, fen) {
           onclick: function() {
             ctrl.chessground.toggleOrientation();
           }
-        }, ctrl.trans('flipBoard')),
+        }, ctrl.trans.noarg('flipBoard')),
         looksLegit ? m('a.button.button-empty.text[data-icon="A"]', {
           href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
           rel: 'nofollow'
-        }, ctrl.trans('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
+        }, ctrl.trans.noarg('analysis')) : m('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
-        }, ctrl.trans('analysis')),
+        }, ctrl.trans.noarg('analysis')),
         m('a.button.button-empty', {
           class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
           onclick: function() {
             if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue-with'));
           }
         },
-          m('span.text[data-icon=U]', ctrl.trans('continueFromHere'))),
+          m('span.text[data-icon=U]', ctrl.trans.noarg('continueFromHere'))),
         studyButton(ctrl, fen)
       ]),
       m('div.continue-with.none', [

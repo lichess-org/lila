@@ -44,6 +44,8 @@
     i {
       font-size: .75em;
       opacity: .2;
+      color: $c-font-dim;
+      @include transition();
     }
     &:hover i {
       color: $c-link;
@@ -53,7 +55,7 @@
       display: none;
     }
     .shy {
-      font-size: 0.8em;
+      font-size: .8em;
       opacity: 0.6;
       line-height: 1em;
     }

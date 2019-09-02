@@ -34,7 +34,8 @@ object bits {
       playing = playing,
       robots = robots,
       deferJs = true,
-      zoomable = true
+      zoomable = true,
+      csp = defaultCsp.withPeer.some
     )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =
@@ -61,15 +62,15 @@ object bits {
           s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",
           strong(game.playerBlurPercent(p.color), "%")
         )
-      },
-      game.players flatMap { p => p.holdAlert.map(p ->) } map {
-        case (p, h) => div(
-          playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
-          "hold alert",
-          br,
-          s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
-        )
       }
+    // game.players flatMap { p => p.holdAlert.map(p ->) } map {
+    //   case (p, h) => div(
+    //     playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
+    //     "hold alert",
+    //     br,
+    //     s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
+    //   )
+    // }
     )
   )
 

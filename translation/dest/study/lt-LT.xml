@@ -31,6 +31,7 @@
   <string name="youAreNowAContributor">Dabar esate talkininkas</string>
   <string name="youAreNowASpectator">Dabar esate žiūrovas</string>
   <string name="pgnTags">PGN žymos</string>
+  <string name="like">Mėgti</string>
   <string name="newTag">Nauja žyma</string>
   <string name="commentThisPosition">Komentuoti šią poziciją</string>
   <string name="commentThisMove">Komentuoti šį ėjimą</string>
@@ -39,6 +40,7 @@
   <string name="getAFullComputerAnalysis">Gaukite pilną pagrindinės linijos kompiuterio analizę.</string>
   <string name="makeSureTheChapterIsComplete">Įsitikinkite, kad skyrius užbaigtas. Analizės galite prašyti tik kartą.</string>
   <string name="shareChanges">Dalinkitės pakeitimais su žiūrovais ir saugokite juos serveryje</string>
+  <string name="playing">Žaidžiama</string>
   <string name="first">Pirmas</string>
   <string name="previous">Ankstesnis</string>
   <string name="next">Kitas</string>

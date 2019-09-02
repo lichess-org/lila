@@ -42,6 +42,7 @@ final class PrefApi(
       autoQueen = r.getD("autoQueen", Pref.default.autoQueen),
       autoThreefold = r.getD("autoThreefold", Pref.default.autoThreefold),
       takeback = r.getD("takeback", Pref.default.takeback),
+      moretime = r.getD("moretime", Pref.default.moretime),
       clockTenths = r.getD("clockTenths", Pref.default.clockTenths),
       clockBar = r.getD("clockBar", Pref.default.clockBar),
       clockSound = r.getD("clockSound", Pref.default.clockSound),
@@ -84,6 +85,7 @@ final class PrefApi(
       "autoQueen" -> o.autoQueen,
       "autoThreefold" -> o.autoThreefold,
       "takeback" -> o.takeback,
+      "moretime" -> o.moretime,
       "clockTenths" -> o.clockTenths,
       "clockBar" -> o.clockBar,
       "clockSound" -> o.clockSound,
@@ -160,4 +162,11 @@ final class PrefApi(
   def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
+
+  def setBot(user: User): Funit =
+    setPref(user, (p: Pref) => p.copy(
+      takeback = Pref.Takeback.NEVER,
+      moretime = Pref.Moretime.NEVER,
+      insightShare = Pref.InsightShare.EVERYBODY
+    ))
 }

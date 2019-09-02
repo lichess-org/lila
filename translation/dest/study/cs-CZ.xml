@@ -6,4 +6,27 @@
   <string name="open">Otevřít</string>
   <string name="xBroughtToYouByY">%1$s vám přináší %2$s</string>
   <string name="studyNotFound">Studie nenalezena</string>
+  <string name="editChapter">Upravit kapitolu</string>
+  <string name="newChapter">Nová kapitola</string>
+  <string name="orientation">Orientace</string>
+  <string name="analysisMode">Režim rozboru</string>
+  <string name="pinnedChapterComment">Připnutý komentář u kapitoly</string>
+  <string name="saveChapter">Uložit kapitolu</string>
+  <string name="clearAnnotations">Vymazat anotace</string>
+  <string name="deleteChapter">Odstranit kapitolu</string>
+  <string name="deleteThisChapter">Opravdu chcete odstranit tuto kapitolu? Kapitola bude navždy ztracena!</string>
+  <string name="clearAllCommentsInThisChapter">Vymazat všechny komentáře a výtvory v této kapitole?</string>
+  <string name="rightUnderTheBoard">Přímo pod šachovnicí</string>
+  <string name="normalAnalysis">Normální rozbor</string>
+  <string name="hideNextMoves">Skrýt následující tahy</string>
+  <string name="interactiveLesson">Interaktivní lekce</string>
+  <string name="chapterX">Kapitola: %s</string>
+  <string name="empty">Prázdné</string>
+  <string name="startFromInitialPosition">Začít z původní pozice</string>
+  <string name="editor">Tvůrce</string>
+  <string name="startFromCustomPosition">Začít od vlastní pozice</string>
+  <string name="loadAGameByUrl">Načíst hru podle URL</string>
+  <string name="loadAPositionFromFen">Načíst polohu z FEN</string>
+  <string name="loadAGameFromPgn">Načíst hru z PGN</string>
+  <string name="automatic">Automatický</string>
 </resources>

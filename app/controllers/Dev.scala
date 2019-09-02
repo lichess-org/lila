@@ -12,18 +12,14 @@ object Dev extends LilaController {
 
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
     Env.security.ugcArmedSetting,
-    Env.security.emailBlacklistSetting,
     Env.security.spamKeywordsSetting,
     Env.irwin.irwinModeSetting,
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
-    Env.api.cspEnabledSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
-    Env.lobby.socketRemoteUsersSetting,
-    Env.api.serviceWorkerSetting,
     Env.plan.donationGoalSetting,
-    Env.rating.deviationIncreaseOverTimeSetting
+    Env.lobby.socketRemoteUsersSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

@@ -473,6 +473,7 @@
   <string name="pleaseVotePuzzle">Verbeter lichess door te stemmen met de pijl naar boven of beneden.</string>
   <string name="thankYou">Bedankt!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">verborgen</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s keer gespeeld</item>
     <item quantity="other">%s keer gespeeld</item>
@@ -682,7 +683,7 @@
   <string name="tournamentFAQ">Veelgestelde vragen over Arena toernooien</string>
   <string name="tournamentOfficial">Officieel</string>
   <string name="timeBeforeTournamentStarts">Tijd voordat het toernooi start</string>
-  <string name="averageCentipawnLoss">Gemiddelde centipion verlies</string>
+  <string name="averageCentipawnLoss">Gemiddeld centipionverlies</string>
   <string name="keyboardShortcuts">Toetsenbordsnelkoppelingen</string>
   <string name="keyMoveBackwardOrForward">zet achteruit/vooruit</string>
   <string name="keyGoToStartOrEnd">ga naar het begin/eind</string>

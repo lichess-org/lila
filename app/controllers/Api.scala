@@ -104,7 +104,7 @@ object Api extends LilaController {
         online = getBool("online", req),
         perSecond = MaxPerSecond(50)
       )
-      jsonStream(Env.api.userApi.exportTitled(config)).fuccess
+      jsonStream(userApi.exportTitled(config)).fuccess
     }
   }
 
@@ -198,39 +198,9 @@ object Api extends LilaController {
     CrosstableRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
       Env.game.crosstableApi(u1, u2, timeout = 15.seconds) map { ct =>
         toApiResult {
-          ct map lila.game.JsonView.crosstableWrites.writes
+          lila.game.JsonView.crosstableWrites.writes(ct).some
         }
       }
-    }
-  }
-
-  def gamesVsTeam(teamId: String) = ApiRequest { req =>
-    Env.team.api team teamId flatMap {
-      case None => fuccess {
-        Custom { BadRequest(jsonError("No such team.")) }
-      }
-      case Some(team) if team.nbMembers > 200 => fuccess {
-        Custom { BadRequest(jsonError(s"The team has too many players. ${team.nbMembers} > 200")) }
-      }
-      case Some(team) =>
-        lila.team.MemberRepo.userIdsByTeam(team.id) flatMap { userIds =>
-          val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-          val nb = (getInt("nb", req) | 10) atLeast 1 atMost 100
-          val cost = page * nb * 5 + 10
-          UserGamesRateLimit(cost, req) {
-            lila.mon.api.userGames.cost(cost)
-            gameApi.byUsersVs(
-              userIds = userIds,
-              rated = getBoolOpt("rated", req),
-              playing = getBoolOpt("playing", req),
-              analysed = getBoolOpt("analysed", req),
-              withFlags = gameFlagsFromRequest(req),
-              since = DateTime.now minusYears 1,
-              nb = MaxPerPage(nb),
-              page = page
-            ) map some map toApiResult
-          }
-        }
     }
   }
 
@@ -288,7 +258,7 @@ object Api extends LilaController {
   }
 
   def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { req => me =>
-    lila.game.GameRepo.urgentGames(me) flatMap { povs =>
+    Env.round.proxy.urgentGames(me) flatMap { povs =>
       Env.challenge.api.createdByDestId(me.id) map { challenges =>
         jsonOptionStream(Env.api.eventStream(me, povs.map(_.game), challenges))
       }

@@ -23,7 +23,7 @@ object form {
   )(main(cls := "page-small")(
       div(cls := "tour__form box box-pad")(
         h1(trans.createANewTournament()),
-        st.form(cls := "form3", action := routes.Tournament.create, method := "POST")(
+        postForm(cls := "form3", action := routes.Tournament.create)(
           DataForm.canPickName(me) ?? {
             form3.group(form("name"), trans.name()) { f =>
               div(

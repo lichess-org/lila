@@ -7,6 +7,8 @@ import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
 
+import lila.api.Context
+
 // collection of lila attrs
 trait ScalatagsAttrs {
   val minlength = attr("minlength") // missing from scalatags atm
@@ -142,7 +144,6 @@ trait ScalatagsExtensions {
     def applyTo(t: Builder) = {}
   }
 
-  /* both title and aria-label */
   def ariaTitle(v: String) = new Modifier {
     def applyTo(t: Builder) = {
       val value = Builder.GenericAttrValueSource(v)
@@ -151,5 +152,12 @@ trait ScalatagsExtensions {
     }
   }
 
-  // implicit val LilaModifierZero: Zero[Modifier] = Zero.instance(emptyModifier)
+  def titleOrText(blind: Boolean, v: String): Modifier = new Modifier {
+    def applyTo(t: Builder) = {
+      if (blind) t.addChild(v)
+      else t.setAttr("title", Builder.GenericAttrValueSource(v))
+    }
+  }
+
+  def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
 }

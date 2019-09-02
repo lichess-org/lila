@@ -16,7 +16,6 @@ const spamRegex = new RegExp([
   '(^|[^i])chess-bot',
   'chess-cheat',
   'coolteenbitch',
-  'goo.gl/',
   'letcafa.webcam',
   'tinyurl.com/',
   'wooga.info/',
@@ -34,7 +33,8 @@ const spamRegex = new RegExp([
   '.serveusers.com',
   'badoogirls.com',
   'hide.su',
-  'wyon.de'
+  'wyon.de',
+  'sexdatingcz.club'
 ].map(url => {
   return url.replace(/\./g, '\\.').replace(/\//g, '\\/');
 }).join('|'));

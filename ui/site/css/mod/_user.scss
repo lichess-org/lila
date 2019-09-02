@@ -29,7 +29,7 @@
   .inner {
     @extend %roboto;
     position: absolute;
-    right: -156px;
+    right: -150px;
     top: 0;
     margin-top: 20px;
     display: flex;
@@ -139,7 +139,7 @@
 }
 .mod-zone strong {
   display: block;
-  margin-top: 0.5em;
+  margin-top: .5em;
 }
 .mod-zone strong.inline {
   display: inline;
@@ -152,8 +152,9 @@
   padding-left: 10px;
 }
 #mz_others .i {
+  padding: 0;
   i {
-    margin: 0 2px;
+    margin: 0;
     &::before {
       margin-right: 0;
     }
@@ -161,6 +162,9 @@
 }
 #mz_others thead th {
   cursor: pointer;
+  &:hover {
+    color: $c-link;
+  }
 }
 .mz_reports form {
   display: block;
@@ -188,7 +192,7 @@
   text-transform: uppercase;
 }
 #mz_assessments .percentage {
-  font-size: 0.9em;
+  font-size: .9em;
 }
 #mz_assessments .legend {
   text-align: center;
@@ -278,7 +282,7 @@
   animation: brain-glow 1.5s ease-in-out infinite;
 }
 #mz_irwin header .infos {
-  font-size: 0.9em;
+  font-size: .9em;
 }
 #mz_irwin header strong {
   display: block;
@@ -294,9 +298,9 @@
   font-size: 1.6em;
 }
 #mz_irwin table em {
-  font-size: 0.8em;
+  font-size: .8em;
   line-height: 1em;
-  margin-top: -0.1em;
+  margin-top: -.1em;
   display: block;
 }
 #mz_irwin .moves {
@@ -344,9 +348,9 @@
   display: inline-block;
   white-space: nowrap;
   font-weight: bold;
-  font-size: 0.9em;
-  padding: 0.1em 0.5em;
-  border-radius: 0.3em;
+  font-size: .9em;
+  padding: .1em .5em;
+  border-radius: .3em;
 }
 .mz_reports .score.green {
   /* actually blue */
@@ -364,9 +368,7 @@
 
 th[role=columnheader]:not(.no-sort) {
   cursor: pointer;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
+  user-select: none;
 }
 
 th[role=columnheader]:not(.no-sort):after {
@@ -375,12 +377,9 @@ th[role=columnheader]:not(.no-sort):after {
   margin-top: 7px;
   border-width: 0 4px 4px;
   border-style: solid;
-  border-color: #404040 transparent;
+  border-color: $c-accent transparent;
   visibility: hidden;
   opacity: 0;
-  -ms-user-select: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
   user-select: none;
 }
 
@@ -391,10 +390,11 @@ th[aria-sort=ascending]:not(.no-sort):after {
 
 th[aria-sort]:not(.no-sort):after {
   visibility: visible;
-  opacity: 0.4;
+  opacity: 0.7;
 }
 
 th[role=columnheader]:not(.no-sort):hover:after {
   visibility: visible;
   opacity: 1;
+  border-color: $c-link transparent;
 }

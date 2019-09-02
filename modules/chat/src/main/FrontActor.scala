@@ -5,7 +5,10 @@ import chess.Color
 
 import actorApi._
 
-private[chat] final class FrontActor(api: ChatApi) extends Actor {
+private[chat] final class FrontActor(
+    api: ChatApi,
+    palantir: Palantir
+) extends Actor {
 
   def receive = {
 
@@ -20,5 +23,7 @@ private[chat] final class FrontActor(api: ChatApi) extends Actor {
     case Remove(chatId) => api remove chatId
 
     case RemoveAll(chatIds) => api removeAll chatIds
+
+    case Palantir.Ping(chatId, userId, sri) => palantir.ping(chatId, userId, sri)
   }
 }

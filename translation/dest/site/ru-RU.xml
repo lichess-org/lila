@@ -112,7 +112,7 @@
   <string name="infiniteAnalysis">Бесконечный анализ</string>
   <string name="removesTheDepthLimit">Снимает ограничение на глубину анализа, но заставляет поработать ваш компьютер</string>
   <string name="blunder">Зевок</string>
-  <string name="blunders">Грубые ошибки</string>
+  <string name="blunders">Зевки</string>
   <string name="mistake">Ошибка</string>
   <string name="mistakes">Ошибки</string>
   <string name="inaccuracy">Неточность</string>
@@ -224,6 +224,7 @@
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершено</string>
+  <string name="finishesX">завершает %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
@@ -525,6 +526,7 @@
   <string name="pleaseVotePuzzle">Голосуйте стрелками «вверх» и «вниз», сделайте lichess лучше!</string>
   <string name="thankYou">Спасибо!</string>
   <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрыт</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решена %s раз</item>
     <item quantity="few">Решена %s раза</item>
@@ -690,7 +692,7 @@
   <string name="error.email_different">Это уже и так ваш адрес электронной почты</string>
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
-  <string name="moveConfirmation">Подтверждать ход</string>
+  <string name="moveConfirmation">Подтвердить ход</string>
   <string name="inCorrespondenceGames">В дневной игре</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>
@@ -767,6 +769,9 @@
   <string name="yourPerfTypeRatingIsRating">Ваш рейтинг в %1$s — %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вы сильнее %1$s игроков в %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинг в %s ещё не определён.</string>
+  <string name="yourRating">Ваш рейтинг</string>
+  <string name="cumulative">Суммарно</string>
+  <string name="glicko2Rating">Рейтинг Глико-2</string>
   <string name="checkYourEmail">Проверьте свой почтовый ящик</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Мы отправили вам письмо. Для активации учётной записи нажмите на ссылку в письме.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Если письма нет, проверьте папку для спама и другие места, куда оно могло попасть.</string>
@@ -926,4 +931,24 @@
     <item quantity="many">и сохранить %s последовательностей</item>
     <item quantity="other">и сохранить %s последовательностей</item>
   </plurals>
+  <string name="sorry">Простите :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Мы вынуждены прервать вас на время.</string>
+  <string name="timeoutExpires">Вы можете вернуться через %s.</string>
+  <string name="why">Почему?</string>
+  <string name="pleasantChessExperience">Наша цель — сделать шахматы интересными для всех.</string>
+  <string name="goodPractice">Чтобы этого добиться, мы должны сделать так, чтобы все игроки следовали правилам хорошего тона.</string>
+  <string name="potentialProblem">Когда мы обнаруживаем потенциальную проблему, мы показываем это сообщение.</string>
+  <string name="howToAvoidThis">Как избежать этого?</string>
+  <string name="playEveryGame">Играйте все игры, которые вы начали.</string>
+  <string name="tryToWin">Попытайтесь выиграть (или хотя бы свести на ничью) каждую свою игру.</string>
+  <string name="resignLostGames">Сдавайтесь в безнадёжной игре (а не ждите, когда упадёт ваш флажок).</string>
+  <string name="temporaryInconvenience">Мы сожалеем о причинённых вам временных неудобствах,</string>
+  <string name="wishYouGreatGames">и желаем вам отличной игры на lichess.org.</string>
+  <string name="thankYouForReading">Спасибо за внимание!</string>
+  <string name="lifetimeScore">Счёт за всё время</string>
+  <string name="currentMatchScore">Счёт в текущем матче</string>
+  <string name="agreementAssistance">Подтверждаю, что я никогда не воспользуюсь посторонней помощью в своих играх (как то: шахматных программ, книг, баз данных и других игроков).</string>
+  <string name="agreementNice">Подтверждаю, что я буду с уважением относиться к другим игрокам.</string>
+  <string name="agreementAccount">Подтверждаю, что я не буду создавать дополнительные аккаунты.</string>
+  <string name="agreementPolicy">Подтверждаю, что я буду следовать всем правилам Lichess.</string>
 </resources>

@@ -20,6 +20,7 @@ var $toggle = $('.user-show .mod-zone-toggle');
 var $zone = $('.user-show .mod-zone');
 
 function loadZone() {
+  $('.user-show').css('overflow', 'visible'); // required for mz_menu to be displayed
   $zone.html(lichess.spinnerHtml).removeClass('none');
   streamLoad({
     node: $zone[0],
@@ -46,13 +47,12 @@ function userMod($zone) {
   $zone.find('form.xhr').submit(function() {
     $(this).find('input').attr('disabled', true);
     $.ajax({
-      url: $(this).attr('action'),
-      method: $(this).attr('method'),
+      ...lichess.formAjax($(this)),
       success: function(html) {
         $('#mz_actions').replaceWith(html);
         userMod($zone);
       }
-    })
+    });
     return false;
   });
 
@@ -112,6 +112,8 @@ function userMod($zone) {
   }());
 
   $zone.find('#mz_others table').each(function() {
-    tablesort(this);
+    tablesort(this, {
+      descending: true
+    });
   });
 }

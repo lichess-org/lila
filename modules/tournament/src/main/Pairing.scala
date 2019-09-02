@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.Color
-import lila.game.{ PovRef, IdGenerator, Game }
+import lila.game.{ IdGenerator, Game }
 import lila.user.User
 
 case class Pairing(
@@ -49,9 +49,6 @@ case class Pairing(
     if (userId == user1) berserk1
     else if (userId == user2) berserk2
     else false
-
-  def povRef(userId: User.ID): Option[PovRef] =
-    colorOf(userId) map { PovRef(gameId, _) }
 
   def similar(other: Pairing) = other.contains(user1, user2)
 }

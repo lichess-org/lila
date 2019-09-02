@@ -17,8 +17,8 @@ object security {
           p(trans.thisIsAListOfDevicesThatHaveLoggedIntoYourAccount()),
           sessions.length > 1 option div(
             trans.alternativelyYouCanX {
-              form(cls := "revoke-all", action := routes.Account.signout("all"), method := "POST")(
-                button(tpe := "submit", cls := "button button-empty button-red confirm")(
+              postForm(cls := "revoke-all", action := routes.Account.signout("all"))(
+                submitButton(cls := "button button-empty button-red confirm")(
                   trans.revokeAllSessions()
                 )
               )
@@ -48,8 +48,8 @@ object security {
               ),
               td(
                 s.session.id != curSessionId option
-                  form(action := routes.Account.signout(s.session.id), method := "POST")(
-                    button(tpe := "submit", cls := "button button-red", title := trans.logOut.txt(), dataIcon := "L")
+                  postForm(action := routes.Account.signout(s.session.id))(
+                    submitButton(cls := "button button-red", title := trans.logOut.txt(), dataIcon := "L")
                   )
               )
             )

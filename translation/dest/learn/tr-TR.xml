@@ -88,7 +88,7 @@ Terfiye gerek yok.</string>
   <string name="outOfCheckComplete">Harika! Şahın emin ellerde, şahını rakibin saldırılarına karşı korumayı unutma!</string>
   <string name="mateInOne">Bir hamlede mat</string>
   <string name="defeatTheOpponentsKing">Rakibi tek hamlede mat et</string>
-  <string name="mateInOneIntro">Rakibin çektiğin şahı engelleyemediği zaman oyunu kazanırsın.</string>
+  <string name="mateInOneIntro">Rakibin, çektiğin şahı engelleyemediği zaman oyunu kazanırsın.</string>
   <string name="attackYourOpponentsKing">Rakibe öyle bir saldır ki şahını kaçacak yeri kalmasın!</string>
   <string name="mateInOneComplete">Tebrikler! İşte satranç böyle kazanılır!</string>
   <string name="intermediate">Orta düzey</string>
@@ -176,7 +176,7 @@ Piyon = 1</string>
   <string name="perfect">Mükemmel!</string>
   <string name="outstanding">Müthiş!</string>
   <string name="wayToGo">Aynen böyle devam et!</string>
-  <string name="yesYesYes">Carlsen görse seninle gurur duyardı!</string>
+  <string name="yesYesYes">Kasparov bunu beğendi.</string>
   <string name="youreGoodAtThis">Sen bu işte iyisin!</string>
   <string name="nailedIt">Başardın!</string>
   <string name="rightOn">İşte böyle!</string>

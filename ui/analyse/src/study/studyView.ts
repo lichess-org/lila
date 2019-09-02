@@ -48,12 +48,13 @@ function toolButton(opts: ToolButtonOpts): VNode {
 function buttons(root: AnalyseCtrl): VNode {
   const ctrl: StudyCtrl = root.study!,
     canContribute = ctrl.members.canContribute(),
-    showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently()));
+    showSticky = ctrl.data.features.sticky && (canContribute || (ctrl.vm.behind && ctrl.isUpdatedRecently())),
+    noarg = root.trans.noarg;
   return h('div.study__buttons', [
     h('div.left-buttons.tabs-horiz', [
       // distinct classes (sync, write) allow snabbdom to differentiate buttons
       showSticky ? h('a.mode.sync', {
-        attrs: { title: root.trans.noarg('allSyncMembersRemainOnTheSamePosition') },
+        attrs: { title: noarg('allSyncMembersRemainOnTheSamePosition') },
         class: { on: ctrl.vm.mode.sticky },
         hook: bind('click', ctrl.toggleSticky)
       }, [
@@ -61,20 +62,20 @@ function buttons(root: AnalyseCtrl): VNode {
         'SYNC'
       ]) : null,
       ctrl.members.canContribute() ? h('a.mode.write', {
-        attrs: { title: ctrl.trans.noarg('shareChanges') },
+        attrs: { title: noarg('shareChanges') },
         class: { on: ctrl.vm.mode.write },
         hook: bind('click', ctrl.toggleWrite)
       }, [ h('i.is'), 'REC' ]) : null,
       toolButton({
         ctrl,
         tab: 'tags',
-        hint: ctrl.trans.noarg('pgnTags'),
+        hint: noarg('pgnTags'),
         icon: iconTag('o'),
       }),
       toolButton({
         ctrl,
         tab: 'comments',
-        hint: ctrl.trans.noarg('commentThisPosition'),
+        hint: noarg('commentThisPosition'),
         icon: iconTag('c'),
         onClick() {
           ctrl.commentForm.start(ctrl.vm.chapterId, root.path, root.node);
@@ -84,14 +85,14 @@ function buttons(root: AnalyseCtrl): VNode {
       canContribute ?  toolButton({
         ctrl,
         tab: 'glyphs',
-        hint: ctrl.trans.noarg('annotateWithGlyphs'),
+        hint: noarg('annotateWithGlyphs'),
         icon: h('i.glyph-icon'),
         count: (root.node.glyphs || []).length
       }) : null,
       toolButton({
         ctrl,
         tab: 'serverEval',
-        hint: root.trans.noarg('computerAnalysis'),
+        hint: noarg('computerAnalysis'),
         icon: iconTag(''),
         count: root.data.analysis && '✓'
       }),
@@ -104,7 +105,7 @@ function buttons(root: AnalyseCtrl): VNode {
       toolButton({
         ctrl,
         tab: 'share',
-        hint: ctrl.trans.noarg('shareAndExport'),
+        hint: noarg('shareAndExport'),
         icon: iconTag('$')
       }),
       h('span.help', {
@@ -143,16 +144,26 @@ function metadata(ctrl: StudyCtrl): VNode {
 
 export function side(ctrl: StudyCtrl): VNode {
 
-  const activeTab = ctrl.vm.tab();
+  const activeTab = ctrl.vm.tab(),
+    intro = ctrl.relay && ctrl.relay.intro;
 
   const makeTab = function(key: Tab, name: string) {
     return h('span.' + key, {
-      class: { active: activeTab === key },
-      hook: bind('mousedown', () => ctrl.vm.tab(key), ctrl.redraw)
+      class: { active: (!intro || !intro.active) && activeTab === key },
+      hook: bind('mousedown', () => {
+        if (intro) intro.disable();
+        ctrl.vm.tab(key);
+      }, ctrl.redraw)
     }, name);
   };
 
+  const introTab = intro && intro.exists ? h('span.intro', {
+    class: { active: intro.active },
+    hook: bind('mousedown', () => { intro.active = true }, ctrl.redraw)
+  }, [iconTag('')]) : null;
+
   const tabs = h('div.tabs-horiz', [
+    introTab,
     makeTab('chapters', ctrl.trans.plural(ctrl.relay ? 'nbGames' : 'nbChapters', ctrl.chapters.size())),
     makeTab('members', ctrl.trans.plural('nbMembers', ctrl.members.size())),
     ctrl.members.isOwner() ? h('span.more', {

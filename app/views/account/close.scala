@@ -15,7 +15,7 @@ object close {
   ) {
     div(cls := "account box box-pad")(
       h1(dataIcon := "j", cls := "text")(trans.closeAccount()),
-      st.form(cls := "form3", action := routes.Account.closeConfirm, method := "POST")(
+      postForm(cls := "form3", action := routes.Account.closeConfirm)(
         div(cls := "form-group")(trans.closeAccountExplanation()),
         div(cls := "form-group")("You will not be allowed to open a new account with the same name, even if the case if different."),
         form3.passwordModified(form("passwd"), trans.password())(autocomplete := "off"),

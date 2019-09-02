@@ -23,7 +23,7 @@ import lila.user.User
 import makeTimeout.short
 
 private[round] final class SocketHandler(
-    roundMap: DuctMap[Round],
+    roundMap: DuctMap[RoundDuct],
     socketMap: SocketMap,
     hub: lila.hub.Env,
     messenger: Messenger,

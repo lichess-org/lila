@@ -12,17 +12,16 @@ import lila.db.dsl._
 final class Firewall(
     coll: Coll,
     cookieName: Option[String],
-    enabled: Boolean,
     system: akka.actor.ActorSystem
 ) {
 
   private var current: Set[String] = Set.empty
 
-  system.scheduler.scheduleOnce(10 seconds)(loadFromDb)
+  system.scheduler.scheduleOnce(10 minutes)(loadFromDb)
 
   def blocksIp(ip: IpAddress): Boolean = current contains ip.value
 
-  def blocks(req: RequestHeader): Boolean = enabled && {
+  def blocks(req: RequestHeader): Boolean = {
     val v = blocksIp {
       lila.common.HTTPRequest lastRemoteAddress req
     } || cookieName.?? { blocksCookies(req.cookies, _) }

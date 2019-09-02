@@ -20,9 +20,9 @@ case class Glicko(
   def intervalMax = (rating + deviation * 2).toInt
   def interval = intervalMin -> intervalMax
 
+  def rankable = deviation <= Glicko.rankableDeviation
   def provisional = deviation >= Glicko.provisionalDeviation
   def established = !provisional
-
   def establishedIntRating = established option intRating
 
   def refund(points: Int) = copy(rating = rating + points)
@@ -60,7 +60,8 @@ case object Glicko {
 
   val defaultIntRating = default.rating.toInt
 
-  val minDeviation = 60
+  val minDeviation = 50
+  val rankableDeviation = 80
   val provisionalDeviation = 110
   val maxDeviation = 350
 
@@ -79,9 +80,7 @@ case object Glicko {
   )
 
   def liveDeviation(p: Perf, reverse: Boolean): Double = {
-    if (Env.current.deviationIncreaseOverTimeSetting.get)
-      system.previewDeviation(p.toRating, new DateTime, reverse)
-    else p.glicko.deviation
+    system.previewDeviation(p.toRating, new DateTime, reverse)
   } atLeast minDeviation atMost maxDeviation
 
   implicit val glickoBSONHandler = new BSON[Glicko] {

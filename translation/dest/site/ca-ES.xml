@@ -8,7 +8,7 @@
   <string name="waitingForOpponent">Esperant a l\'oponent</string>
   <string name="waiting">Esperant</string>
   <string name="yourTurn">El teu torn</string>
-  <string name="aiNameLevelAiLevel">Com es diu el nivell</string>
+  <string name="aiNameLevelAiLevel">%1$s nivell %2$s</string>
   <string name="level">Nivell</string>
   <string name="toggleTheChat">Activa/Desactiva el xat</string>
   <string name="toggleSound">Activa/Desactiva el so</string>

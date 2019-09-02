@@ -19,7 +19,7 @@ import VersionedEvent.EpochSeconds
 private final class History(
     load: Fu[List[VersionedEvent]],
     persist: ArrayDeque[VersionedEvent] => Unit,
-    withPersistence: Boolean
+    deployPersistence: () => Boolean
 ) {
   import History.Types._
 
@@ -91,7 +91,7 @@ private final class History(
         veBuff += ve
         vnext.inc
     }
-    if (persistenceEnabled) persist(events)
+    if (deployPersistence()) persist(events)
     veBuff.result
   }
 
@@ -122,13 +122,8 @@ private final class History(
     }
   }
 
-  private var persistenceEnabled = withPersistence
-
-  def enablePersistence: Unit = {
-    if (!persistenceEnabled) {
-      persistenceEnabled = true
-      if (events != null) persist(events)
-    }
+  def persistNow(): Unit = {
+    if (events != null) persist(events)
   }
 }
 
@@ -144,10 +139,10 @@ private object History {
   private final val maxSize = 25
   private final val expireAfterSeconds = 20
 
-  def apply(coll: Coll)(gameId: String, withPersistence: Boolean): History = new History(
-    load = serverStarting ?? load(coll, gameId, withPersistence),
+  def apply(coll: Coll, deployPersistence: () => Boolean)(gameId: String): History = new History(
+    load = serverStarting ?? load(coll, gameId, deployPersistence()),
     persist = persist(coll, gameId) _,
-    withPersistence = withPersistence
+    deployPersistence = deployPersistence
   )
 
   private def serverStarting = !lila.common.PlayApp.startedSinceMinutes(5)

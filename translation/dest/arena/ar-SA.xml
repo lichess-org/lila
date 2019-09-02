@@ -4,8 +4,8 @@
   <string name="isItRated">هل هي مقيمة؟</string>
   <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
-  <string name="isNotRated">هذه البطولة *ليست* مقيمة *ولن* تؤثر على تقييمك.</string>
-  <string name="someRated">بعض البطولات تكون مقيمة وسوف تؤثر على تقييمك.</string>
+  <string name="isNotRated">هذه البطولة *ليست* مقيمة وسوف *لا* تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مقيمة وستؤثر على تقييمك.</string>
   <string name="howAreScoresCalculated">كيف يتم احتساب النقاط؟</string>
   <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
 إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.

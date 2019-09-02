@@ -229,8 +229,6 @@ GET   /tournament/$id<\w{8}>/page-of/:userId  controllers.Tournament.pageOf(id: 
 GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id: String)
-GET   /tournament/$id<\w{8}>/mini/:user/:nb   controllers.Tournament.userGameNbMini(id: String, user: String, nb: Int)
-GET   /tournament/$id<\w{8}>/show/:user/:nb   controllers.Tournament.userGameNbShow(id: String, user: String, nb: Int)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
@@ -241,6 +239,7 @@ GET   /tournament/shields/:categ              controllers.Tournament.categShield
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
+GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.clone(id: String)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
@@ -279,6 +278,7 @@ GET   /team/:id/edit                          controllers.Team.edit(id: String)
 POST  /team/:id/edit                          controllers.Team.update(id: String)
 GET   /team/:id/kick                          controllers.Team.kickForm(id: String)
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
+POST  /team/:id/kick/:user                    controllers.Team.kickUser(id: String, user: String)
 GET   /team/:id/changeOwner                   controllers.Team.changeOwnerForm(id: String)
 POST  /team/:id/changeOwner                   controllers.Team.changeOwner(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
@@ -362,7 +362,7 @@ GET   /auth/token/:token               controllers.Auth.loginWithToken(token: St
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
-POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
+POST  /mod/:username/ban/:v            controllers.Mod.ipBan(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
@@ -390,6 +390,8 @@ GET   /mod/public-chat                 controllers.Mod.publicChat
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
+GET   /mod/print/:fh                   controllers.Mod.print(fh: String)
+POST  /mod/print/:fh/ban/:v            controllers.Mod.printBan(fh: String, v: Boolean)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin
@@ -455,6 +457,7 @@ GET   /editor                          controllers.Editor.index
 # Report
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
+POST  /report/flag                     controllers.Report.flag
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 GET   /report/list/:room               controllers.Report.listWithFilter(room: String)
@@ -477,7 +480,6 @@ GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: S
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
@@ -583,9 +585,8 @@ GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
-GET   /qa                              controllers.Main.legacyQa
+GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /swag                            controllers.Page.swag
 GET   /how-to-cheat                    controllers.Page.howToCheat
 
 # Variants
@@ -599,6 +600,8 @@ GET   /help/master                     controllers.Page.master
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
+
+GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
 
 # Assets
 GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: String, file: String)

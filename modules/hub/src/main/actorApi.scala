@@ -78,10 +78,12 @@ package mod {
   case class Shadowban(user: String, value: Boolean)
   case class KickFromRankings(userId: String)
   case class SetPermissions(userId: String, permissions: List[String])
+  case class AutoWarning(userId: String, subject: String)
 }
 
 package playban {
   case class Playban(userId: String, mins: Int)
+  case class SitcounterClose(userId: String)
 }
 
 package captcha {
@@ -247,7 +249,7 @@ package round {
   case class RematchNo(playerId: String)
   case class Abort(playerId: String)
   case class Resign(playerId: String)
-  case class Mlat(ms: Int)
+  case class Mlat(micros: Int)
 }
 
 package evaluation {

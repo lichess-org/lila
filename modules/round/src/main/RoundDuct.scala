@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 
 import actorApi._, round._
 import chess.Color
-import lila.game.{ Game, Progress, Pov, Event, Source }
+import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
@@ -16,17 +16,15 @@ import lila.hub.Duct
 import lila.socket.UserLagCache
 import makeTimeout.large
 
-private[round] final class Round(
-    dependencies: Round.Dependencies,
+private[round] final class RoundDuct(
+    dependencies: RoundDuct.Dependencies,
     gameId: Game.ID
-) extends Duct {
+)(implicit proxy: GameProxy) extends Duct {
 
-  import Round._
+  import RoundDuct._
   import dependencies._
 
-  private[this] implicit val proxy = new GameProxy(gameId)
-
-  private[this] var takebackSituation: Option[Round.TakebackSituation] = None
+  private[this] var takebackSituation: Option[TakebackSituation] = None
 
   def getGame: Fu[Option[Game]] = proxy.game
 
@@ -68,18 +66,16 @@ private[round] final class Round(
 
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.goBerserk(color) ?? { progress =>
-        proxy.save(progress) >> proxy.invalidating(_ goBerserk pov) inject progress.events
+        proxy.save(progress) >> proxy.persist(_ goBerserk pov) inject progress.events
       }
     }
 
     case ResignForce(playerId) => handle(playerId) { pov =>
-      (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn) ?? {
-        pov.forceResignable ?? {
-          socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
-            case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
-            case true => finisher.rageQuit(pov.game, None)
-            case _ => fuccess(List(Event.Reload))
-          }
+      (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
+        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
+          case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
+          case true => finisher.rageQuit(pov.game, None)
+          case _ => fuccess(List(Event.Reload))
         }
       }
     }
@@ -136,11 +132,13 @@ private[round] final class Round(
     }
 
     case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
-      !pov.player.hasHoldAlert ?? {
-        lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-        lila.mon.cheat.holdAlert()
-        proxy.bypass(_.setHoldAlert(pov, mean, sd)) inject List.empty[Event]
-      }
+      lila.game.GameRepo hasHoldAlert pov flatMap {
+        case true => funit
+        case false =>
+          lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+          lila.mon.cheat.holdAlert()
+          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
+      } inject Nil
     }
 
     case RematchYes(playerRef) => handle(playerRef)(rematcher.yes)
@@ -162,15 +160,10 @@ private[round] final class Round(
     }
 
     case Moretime(playerRef) => handle(playerRef) { pov =>
-      (pov.game moretimeable !pov.color) ?? {
-        val progress =
-          if (pov.game.hasClock) giveMoretime(pov.game, List(!pov.color), moretimeDuration)
-          else pov.game.correspondenceClock.fold(Progress(pov.game)) { clock =>
-            messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
-            val p = pov.game.correspondenceGiveTime
-            p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
-          }
-        proxy save progress inject progress.events
+      moretimer(pov) flatMap {
+        _ ?? { progress =>
+          proxy save progress inject progress.events
+        }
       }
     }
 
@@ -187,7 +180,7 @@ private[round] final class Round(
       game.playable ?? {
         val freeTime = 20.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
-        val progress = giveMoretime(game, Color.all, freeTime)
+        val progress = moretimer.give(game, Color.all, freeTime)
         proxy save progress inject progress.events
       }
     }
@@ -205,20 +198,6 @@ private[round] final class Round(
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
     }
   }
-
-  private[this] def giveMoretime(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
-    game.clock.fold(Progress(game)) { clock =>
-      val centis = duration.toCentis
-      val newClock = colors.foldLeft(clock) {
-        case (c, color) => c.giveTime(color, centis)
-      }
-      colors.foreach { c =>
-        messenger.system(game, (_.untranslated(
-          "%s + %d seconds".format(c, duration.toSeconds)
-        )))
-      }
-      (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
-    }
 
   private[this] def recordLag(pov: Pov) =
     if ((pov.game.playedTurns & 30) == 10) {
@@ -285,18 +264,18 @@ private[round] final class Round(
   }
 }
 
-object Round {
+object RoundDuct {
 
   private[round] case class Dependencies(
       messenger: Messenger,
       takebacker: Takebacker,
+      moretimer: Moretimer,
       finisher: Finisher,
       rematcher: Rematcher,
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketMap: SocketMap,
-      moretimeDuration: FiniteDuration
+      socketMap: SocketMap
   )
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {

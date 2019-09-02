@@ -48,7 +48,6 @@
   <string name="computerAnalysis">კომპიუტერული ანალიზი</string>
   <string name="computerAnalysisAvailable">შესაძლებელია კომპიუტერული ანალიზი</string>
   <string name="analysis">ანალიზის დაფა</string>
-  <string name="depthX">სიღრმ</string>
   <string name="usingServerAnalysis">მიმდინარეობს სერვერის ანალიზი</string>
   <string name="loadingEngine">იტვირთება საჭადრაკო ძრავა ...</string>
   <string name="cloudAnalysis">ქლაუდის ანალიზი</string>
@@ -75,11 +74,7 @@
   <string name="averageRatingX">საშუალო რეიტინგი: %s</string>
   <string name="recentGames">ახლანდელი თამაშები</string>
   <string name="topGames">ტოპ თამაშები</string>
-  <string name="masterDbExplanation">ორი მილიონი პარტია ფიდე 2200+ მოთამაშეებს შორის 1952-დან 2017-მდე</string>
-  <plurals name="mateInXHalfMoves">
-    <item quantity="one">შამათი 1 სვლაში</item>
-    <item quantity="other">შამათი 2 სვლაში</item>
-  </plurals>
+  <string name="masterDbExplanation">ორი მილიონი პარტია ფიდე %1$s+ მოთამაშეებს შორის %2$s-დან %3$s-მდე</string>
   <string name="noGameFound">თამაში ვერ მოიძებნა</string>
   <string name="openingExplorer">დებიუტების გზამკვლევი</string>
   <string name="xOpeningExplorer">%sდებიუტების გზამკვლევი</string>
@@ -237,10 +232,6 @@
   <plurals name="nbDraws">
     <item quantity="one">%s ფრე</item>
     <item quantity="other">%s ფრე</item>
-  </plurals>
-  <plurals name="nbPlaying">
-    <item quantity="one">მიმდინარე</item>
-    <item quantity="other">მიმდინარე</item>
   </plurals>
   <string name="exportGames">თამაშის ექსპორტი</string>
   <string name="ratingRange">ელო რეიტინგი</string>
@@ -400,7 +391,6 @@
   <string name="whiteWins">თეთრებმა მოიგეს</string>
   <string name="blackWins">შავებმა მოიგეს</string>
   <string name="draws">ფრე</string>
-  <string name="nextXTournament">ახალი ტურნირი:</string>
   <string name="viewMoreTournaments">ნახეთ ტურნირი</string>
   <string name="averageOpponent">საშ. ოპონენტი</string>
   <string name="membersOnly">მხოლოდ წევრები</string>
@@ -414,7 +404,6 @@
   <string name="isPrivate">პირადი</string>
   <string name="reportXToModerators">შეტყობინება %s მოდერატორს</string>
   <string name="profileCompletion">პროფილის შევსება: %s</string>
-  <string name="xRating">რეიტინგი</string>
   <string name="ifNoneLeaveEmpty">არარსებობის შემთხვევაში დატოვე ცარიელი</string>
   <string name="gameCompletionRate">ამთავრებს პარტიების %s პროცენტს</string>
   <string name="profile">პროფილი</string>
@@ -726,6 +715,7 @@
   <string name="anotherWasX">შეიძლებოდა %s</string>
   <string name="bestWasX">საუკეთესო იყო %s</string>
   <string name="resumePractice">ვარჯიშის გაგრძელება</string>
+  <string name="theGameIsADraw">თამაში ფრედ დასრულდა.</string>
   <string name="computerThinking">კომპიუტერი ფიქრობს ...</string>
   <string name="seeBestMove">ნახეთ საუკეთესო სვლა</string>
   <string name="hideBestMove">დამალეთ საუკეთესო სვლა</string>

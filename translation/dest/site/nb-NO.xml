@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spiller nå</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Ferdig</string>
+  <string name="finishesX">avslutter %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
   <string name="standard">Standard</string>
@@ -312,7 +313,7 @@
   <string name="mustBeInTeam">Du må være med i team %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
+  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="teams">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
@@ -474,6 +475,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Forsøkt %s gang</item>
     <item quantity="other">Forsøkt %s ganger</item>
@@ -705,6 +707,9 @@ i %3$s</string>
   <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke etablert en %s-rating.</string>
+  <string name="yourRating">Din rating</string>
+  <string name="cumulative">Akkumulert</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sent deg en e-post. Klikk på linken i e-posten for å aktivere din konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
@@ -856,4 +861,24 @@ i %3$s</string>
     <item quantity="one">og lagre %s linje med forhåndstrekk</item>
     <item quantity="other">og lagre %s linjer med forhåndstrekk</item>
   </plurals>
+  <string name="sorry">Beklager :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
+  <string name="timeoutExpires">Timeouten utløper %s.</string>
+  <string name="why">Hvorfor?</string>
+  <string name="pleasantChessExperience">Vi forsøker å gi alle ein god sjakkopplevelse.</string>
+  <string name="goodPractice">For å oppnå det må vi sikre at alle spillere følger god praksis.</string>
+  <string name="potentialProblem">Når et potensielt problem oppdages, viser vi denne meldingen.</string>
+  <string name="howToAvoidThis">Hvordan unngås dette?</string>
+  <string name="playEveryGame">Spill alle partier du starter.</string>
+  <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle partier du spiller.</string>
+  <string name="resignLostGames">Resigner ved tapte stillinger (ikke la tida løpe ut).</string>
+  <string name="temporaryInconvenience">Vi beklager det midlertidige bryet,</string>
+  <string name="wishYouGreatGames">og håper du får gode partier på lichess.org.</string>
+  <string name="thankYouForReading">Takk for at du leste!</string>
+  <string name="lifetimeScore">Livstidsscore</string>
+  <string name="currentMatchScore">Gjeldende kampscore</string>
+  <string name="agreementAssistance">Eg forsikrer at eg ikke på noe tidspunkt under mine partier vil motta assistanse, verken fra sjakkprogram, bøker, databaser eller andre personer.</string>
+  <string name="agreementNice">Eg lover å alltid oppføre meg høflig mot andre spillere.</string>
+  <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
+  <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
 </resources>

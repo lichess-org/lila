@@ -36,7 +36,15 @@ object replay {
     import pov._
 
     val chatJson = chatOption map { c =>
-      views.html.chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+      views.html.chat.json(
+        c.chat,
+        name = trans.spectatorRoom.txt(),
+        timeout = c.timeout,
+        withNote = ctx.isAuth,
+        public = true,
+        resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+        palantir = ctx.me.exists(_.canPalantir)
+      )
     }
     val pgnLinks = div(
       a(dataIcon := "x", cls := "text", href := s"${routes.Game.exportOne(game.id)}?literate=1")(trans.downloadAnnotated()),
@@ -84,12 +92,11 @@ object replay {
                 div(cls := "active"),
                 game.analysable option div(cls := "computer-analysis")(
                   if (analysis.isDefined || analysisStarted) div(id := "acpl-chart")
-                  else form(
+                  else postForm(
                     cls := s"future-game-analysis${ctx.isAnon ?? " must-login"}",
-                    action := routes.Analyse.requestAnalysis(gameId),
-                    method := "post"
+                    action := routes.Analyse.requestAnalysis(gameId)
                   )(
-                      button(`type` := "submit", cls := "button text")(
+                      submitButton(cls := "button text")(
                         span(cls := "is3 text", dataIcon := "")(trans.requestAComputerAnalysis())
                       )
                     )

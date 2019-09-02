@@ -21,12 +21,13 @@ final class ModStream(system: ActorSystem) {
     Concurrent.unicast[JsValue](
       onStart = channel => {
         subscriber = system.lilaBus.subscribeFun(classifier) {
-          case lila.security.Signup(user, email, req, fp) =>
+          case lila.security.Signup(user, email, req, fp, suspIp) =>
             channel push Json.obj(
               "t" -> "signup",
               "username" -> user.username,
               "email" -> email.value,
               "ip" -> HTTPRequest.lastRemoteAddress(req).value,
+              "suspIp" -> suspIp,
               "userAgent" -> HTTPRequest.userAgent(req),
               "fingerPrint" -> fp.map(_.value)
             )

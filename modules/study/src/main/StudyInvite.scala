@@ -2,6 +2,7 @@ package lila.study
 
 import akka.actor._
 import akka.pattern.ask
+import scala.concurrent.duration._
 
 import lila.hub.actorApi.socket.HasUserId
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
@@ -16,6 +17,13 @@ private final class StudyInvite(
     getPref: User => Fu[Pref],
     getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]]
 ) {
+
+  private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
+    credits = 500,
+    duration = 1 day,
+    name = "Study invites per user",
+    key = "study.invite.user"
+  )
 
   private val maxMembers = 30
 
@@ -37,7 +45,13 @@ private final class StudyInvite(
     }
     _ <- studyRepo.addMember(study, StudyMember make invited)
     shouldNotify = !isPresent && (!inviter.troll || relation.has(Follow))
-    _ <- shouldNotify ?? {
+    rateLimitCost = if (relation has Follow) 10
+    else if (inviter.roles has "ROLE_COACH") 20
+    else if (inviter.hasTitle) 20
+    else if (inviter.perfs.bestRating >= 2000) 50
+    else if (invited.hasTitle) 200
+    else 100
+    _ <- shouldNotify ?? notifyRateLimit(inviter.id, rateLimitCost) {
       val notificationContent = InvitedToStudy(
         InvitedToStudy.InvitedBy(inviter.id),
         InvitedToStudy.StudyName(study.name.value),

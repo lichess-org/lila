@@ -75,10 +75,10 @@
     <item quantity="other">Udział w %s symultanach</item>
   </plurals>
   <plurals name="createdNbStudies">
-    <item quantity="one">Utworzenie nowego omówienia</item>
-    <item quantity="few">Utworzenie %s nowych omówień</item>
-    <item quantity="many">Utworzenie %s nowych omówień</item>
-    <item quantity="other">Utworzenie %s nowych omówień</item>
+    <item quantity="one">Utworzenie nowego opracowania</item>
+    <item quantity="few">Utworzenie %s nowych opracowań</item>
+    <item quantity="many">Utworzenie %s nowych opracowań</item>
+    <item quantity="other">Utworzenie %s nowych opracowań</item>
   </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">Uczestnictwo w turnieju</item>

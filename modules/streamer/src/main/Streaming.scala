@@ -43,11 +43,11 @@ private final class Streaming(
   self ! Tick
 
   def updateStreams: Funit = for {
-    streamers <- api.allListed.map {
-      _.filter { streamer =>
-        liveStreams.has(streamer) || isOnline(streamer.userId)
-      }
+    streamerIds <- api.allListedIds
+    activeIds = streamerIds.filter { id =>
+      liveStreams.has(id) || isOnline(id.value)
     }
+    streamers <- api byIds activeIds
     (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
     streams = LiveStreams {
       scala.util.Random.shuffle {
@@ -95,13 +95,11 @@ private final class Streaming(
 
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
     val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
-    userIds.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
+    userIds.nonEmpty ?? WS.url("https://api.twitch.tv/helix/streams")
       .withQueryString(
-        "channel" -> userIds.mkString(","),
-        "stream_type" -> "live"
+        (("first" -> "100") :: userIds.map("user_login" -> _)): _*
       )
       .withHeaders(
-        "Accept" -> "application/vnd.twitchtv.v3+json",
         "Client-ID" -> twitchClientId
       )
       .get().map { res =>

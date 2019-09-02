@@ -119,11 +119,8 @@ object Handler {
       }
     }
     case ("anaDests", o) => AnaRateLimit(sri, member) {
-      member push {
-        AnaDests parse o match {
-          case Some(res) => makeMessage("dests", res.json)
-          case None => makeMessage("destsFailure", "Bad dests request")
-        }
+      AnaDests parse o foreach { res =>
+        member push makeMessage("dests", res.json)
       }
     }
     case ("opening", o) => AnaRateLimit(sri, member) {

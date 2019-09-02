@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
   <string name="playWithAFriend">Play with a friend</string>
-  <string name="playWithTheMachine">Play with the machine</string>
+  <string name="playWithTheMachine">Play with the computer</string>
   <string name="toInviteSomeoneToPlayGiveThisUrl">To invite someone to play, give this URL</string>
   <string name="gameOver">Game Over</string>
   <string name="waitingForOpponent">Waiting for opponent</string>
@@ -56,7 +56,7 @@
   <string name="inLocalBrowser">in local browser</string>
   <string name="toggleLocalEvaluation">Toggle local evaluation</string>
   <string name="promoteVariation">Promote variation</string>
-  <string name="makeMainLine">Make main line</string>
+  <string name="makeMainLine">Make mainline</string>
   <string name="deleteFromHere">Delete from here</string>
   <string name="forceVariation">Force variation</string>
   <string name="move">Move</string>
@@ -89,7 +89,7 @@
   <string name="openingExplorer">Opening explorer</string>
   <string name="xOpeningExplorer">%s opening explorer</string>
   <string name="winPreventedBy50MoveRule">Win prevented by 50-move rule</string>
-  <string name="lossSavedBy50MoveRule">Loss saved by 50-move rule</string>
+  <string name="lossSavedBy50MoveRule">Loss prevented by 50-move rule</string>
   <string name="allSet">All set!</string>
   <string name="importPgn">Import PGN</string>
   <string name="delete">Delete</string>
@@ -203,6 +203,7 @@
   <string name="playingRightNow">Playing right now</string>
   <string name="eventInProgress">Playing right now</string>
   <string name="finished">Finished</string>
+  <string name="finishesX">finishes %s</string>
   <string name="abortGame">Abort game</string>
   <string name="gameAborted">Game aborted</string>
   <string name="standard">Standard</string>
@@ -311,7 +312,7 @@
   <string name="mustBeInTeam">Must be in team %s</string>
   <string name="youAreNotInTeam">You are not in the team %s</string>
   <string name="backToGame">Back to game</string>
-  <string name="siteDescription">Free online Chess server. Play Chess now in a clean interface. No registration, no ads, no plugin required. Play Chess with the computer, friends or random opponents.</string>
+  <string name="siteDescription">Free online chess server. Play chess in a clean interface. No registration, no ads, no plugin required. Play chess with the computer, friends or random opponents.</string>
   <string name="teams">Teams</string>
   <plurals name="nbMembers">
     <item quantity="one">%s member</item>
@@ -399,7 +400,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="advancedSettings">Advanced settings</string>
   <string name="safeTournamentName">Pick a very safe name for the tournament.</string>
   <string name="inappropriateNameWarning">Anything even slightly inappropriate could get your account closed.</string>
-  <string name="emptyTournamentName">Leave empty to name the tournament after a random Grandmaster.</string>
+  <string name="emptyTournamentName">Leave empty to name the tournament after a notable chess player.</string>
   <string name="recommendNotTouching">We recommend not touching these.</string>
   <string name="fewerPlayers">If you set conditions of entry, your tournament will have fewer players.</string>
   <string name="showAdvancedSettings">Show advanced settings</string>
@@ -473,6 +474,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="pleaseVotePuzzle">Help lichess improve by voting, using the up or down arrow:</string>
   <string name="thankYou">Thank you!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">hidden</string>
   <plurals name="playedXTimes">
     <item quantity="one">Played %s time</item>
     <item quantity="other">Played %s times</item>
@@ -514,7 +516,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="insult">Insult</string>
   <string name="troll">Troll</string>
   <string name="other">Other</string>
-  <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user behavior. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
+  <string name="reportDescriptionHelp">Paste the link to the game(s) and explain what is wrong about this user's behaviour. Don't just say "they cheat", but tell us how you came to this conclusion. Your report will be processed faster if written in English.</string>
   <string name="error.provideOneCheatedGameLink">Please provide at least one link to a cheated game.</string>
   <string name="by">by %s</string>
   <string name="thisTopicIsNowClosed">This topic is now closed.</string>
@@ -551,7 +553,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="whenTimeRemainingLessThanTenSeconds">When time remaining &lt; 10 seconds</string>
   <string name="horizontalGreenProgressBars">Horizontal green progress bars</string>
   <string name="soundWhenTimeGetsCritical">Sound when time gets critical</string>
-  <string name="gameBehavior">Game behavior</string>
+  <string name="gameBehavior">Game behaviour</string>
   <string name="howDoYouMovePieces">How do you move pieces?</string>
   <string name="clickTwoSquares">Click two squares</string>
   <string name="dragPiece">Drag a piece</string>
@@ -592,7 +594,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="starting">Starting:</string>
   <string name="allInformationIsPublicAndOptional">All information is public and optional.</string>
   <string name="yourCityRegionOrDepartment">Your city, region, or province.</string>
-  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favorite openings, players, ...</string>
+  <string name="biographyDescription">Talk about yourself, your interests, what you like in chess, your favourite openings, players, ...</string>
   <plurals name="maximumNbCharacters">
     <item quantity="one">Maximum: %s character.</item>
     <item quantity="other">Maximum: %s characters.</item>
@@ -606,7 +608,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="computer">Computer</string>
   <string name="side">Side</string>
   <string name="clock">Clock</string>
-  <string name="unauthorizedError">Access is unauthorized.</string>
+  <string name="unauthorizedError">Access is unauthorised.</string>
   <string name="noInternetConnection">No internet connection. You can still play offline from the menu.</string>
   <string name="connectedToLichess">You are now connected to lichess.org</string>
   <string name="signedOut">You have been signed out</string>
@@ -634,7 +636,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="inCorrespondenceGames">Correspondence games</string>
   <string name="ifRatingIsPlusMinusX">If rating is ± %s</string>
   <string name="onlyFriends">Only friends</string>
-  <string name="displayBoardResizeHandle">Display board resize handle</string>
+  <string name="displayBoardResizeHandle">Show board resize handle</string>
   <string name="onlyOnInitialPosition">Only on initial position</string>
   <string name="menu">Menu</string>
   <string name="castling">Castling</string>
@@ -671,12 +673,12 @@ computer analysis, game chat and shareable URL.</string>
   <string name="aboutSimulImage">Out of 50 opponents, Fischer won 47 games, drew 2 and lost 1.</string>
   <string name="aboutSimulRealLife">The concept is taken from real world events. In real life, this involves the simul host moving from table to table to play a single move.</string>
   <string name="aboutSimulRules">When the simul starts, every player starts a game with the host, who gets to play the white pieces. The simul ends when all games are complete.</string>
-  <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and "moretime" are disabled.</string>
+  <string name="aboutSimulSettings">Simuls are always casual. Rematches, takebacks and adding time are disabled.</string>
   <string name="create">Create</string>
   <string name="whenCreateSimul">When you create a Simul, you get to play several players at once.</string>
   <string name="simulVariantsHint">If you select several variants, each player gets to choose which one to play.</string>
   <string name="simulClockHint">Fischer Clock setup. The more players you take on, the more time you may need.</string>
-  <string name="simulAddExtraTime">You may add extra time to your clock to help cope with the simul.</string>
+  <string name="simulAddExtraTime">You may add extra time to your clock to help you cope with the simul.</string>
   <string name="simulHostExtraTime">Host extra clock time</string>
   <string name="lichessTournaments">Lichess tournaments</string>
   <string name="tournamentFAQ">Arena tournament FAQ</string>
@@ -693,7 +695,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tournamentHomeDescription">Play fast-paced chess tournaments! Join an official scheduled tournament, or create your own. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, and more options available for endless chess fun.</string>
   <string name="tournamentNotFound">Tournament not found</string>
   <string name="tournamentDoesNotExist">This tournament does not exist.</string>
-  <string name="tournamentMayHaveBeenCanceled">It may have been cancelled, if all players left it before the tournament starts.</string>
+  <string name="tournamentMayHaveBeenCanceled">The tournament may have been cancelled if all players left before it started.</string>
   <string name="returnToTournamentsHomepage">Return to tournaments homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Weekly %s rating distribution</string>
   <plurals name="nbPerfTypePlayersThisWeek">
@@ -703,6 +705,9 @@ computer analysis, game chat and shareable URL.</string>
   <string name="yourPerfTypeRatingIsRating">Your %1$s rating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">You are better than %1$s of %2$s players.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">You do not have an established %s rating.</string>
+  <string name="yourRating">Your rating</string>
+  <string name="cumulative">Cumulative</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Check your Email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We've sent you an email. Click the link in the email to activate your account.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">If you don't see the email, check other places it might be, like your junk, spam, social, or other folders.</string>
@@ -729,12 +734,12 @@ computer analysis, game chat and shareable URL.</string>
   <string name="withEverybody">With everybody</string>
   <string name="youHaveAlreadyRegisteredTheEmail">You have already registered the email: %s</string>
   <string name="kidMode">Kid mode</string>
-  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other Internet users.</string>
+  <string name="kidModeExplanation">This is about safety. In kid mode, all site communications are disabled. Enable this for your children and school students, to protect them from other internet users.</string>
   <string name="inKidModeTheLichessLogoGetsIconX">In kid mode, the lichess logo gets a %s icon, so you know your kids are safe.</string>
   <string name="enableKidMode">Enable Kid mode</string>
   <string name="disableKidMode">Disable Kid mode</string>
   <string name="security">Security</string>
-  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognise.</string>
   <string name="alternativelyYouCanX">Alternatively you can %s.</string>
   <string name="revokeAllSessions">revoke all sessions</string>
   <string name="playChessEverywhere">Play chess everywhere</string>
@@ -854,4 +859,24 @@ computer analysis, game chat and shareable URL.</string>
     <item quantity="one">and save %s premove line</item>
     <item quantity="other">and save %s premove lines</item>
   </plurals>
+  <string name="sorry">Sorry :(</string>
+  <string name="weHadToTimeYouOutForAWhile">We had to time you out for a while.</string>
+  <string name="timeoutExpires">The timeout expires %s.</string>
+  <string name="why">Why?</string>
+  <string name="pleasantChessExperience">We aim to provide a pleasant chess experience for everyone.</string>
+  <string name="goodPractice">To that effect, we must ensure that all players follow good practice.</string>
+  <string name="potentialProblem">When a potential problem is detected, we display this message.</string>
+  <string name="howToAvoidThis">How to avoid this?</string>
+  <string name="playEveryGame">Play every game you start.</string>
+  <string name="tryToWin">Try to win (or at least draw) every game you play.</string>
+  <string name="resignLostGames">Resign lost games (don't let the clock run down).</string>
+  <string name="temporaryInconvenience">We apologise for the temporary inconvenience,</string>
+  <string name="wishYouGreatGames">and wish you great games on lichess.org.</string>
+  <string name="thankYouForReading">Thank you for reading!</string>
+  <string name="lifetimeScore">Lifetime score</string>
+  <string name="currentMatchScore">Current match score</string>
+  <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
+  <string name="agreementNice">I agree that I will always be nice to other players.</string>
+  <string name="agreementAccount">I agree that I will not create multiple accounts.</string>
+  <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
 </resources>

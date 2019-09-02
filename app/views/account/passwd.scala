@@ -19,7 +19,7 @@ object passwd {
           ctx.req.queryString.contains("ok") option
             frag(" ", i(cls := "is-green", dataIcon := "E"))
         ),
-        st.form(cls := "form3", action := routes.Account.passwdApply, method := "POST")(
+        postForm(cls := "form3", action := routes.Account.passwdApply)(
           form3.password(form("oldPasswd"), trans.currentPassword()),
           form3.password(form("newPasswd1"), trans.newPassword()),
           form3.password(form("newPasswd2"), trans.newPasswordAgain()),

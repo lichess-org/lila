@@ -35,7 +35,6 @@ final class RemoteSocket(
     case In.Notified(userId) => notificationActor ! lila.hub.actorApi.notify.Notified(userId)
     case In.Connections(nb) => tick(nb)
     case In.Friends(userId) => bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
-    case In.Lag(userId, lag) => UserLagCache.put(userId, lag)
     case In.Lags(lags) => lags foreach (UserLagCache.put _).tupled
     case In.TellSri(sri, userId, typ, msg) =>
       bus.publish(RemoteSocketTellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
@@ -57,9 +56,9 @@ final class RemoteSocket(
       send(Out.tellAll(Json.obj("t" -> d.key)))
     case Announce(msg) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg))))
-    case Mlat(ms) =>
-      send(Out.mlat(ms))
-    case SendToFlag(flag, payload) =>
+    case Mlat(micros) =>
+      send(Out.mlat(micros))
+    case actorApi.SendToFlag(flag, payload) =>
       send(Out.tellFlag(flag, payload))
     case RemoteSocketTellSriOut(sri, payload) =>
       send(Out.tellSri(Sri(sri), payload))
@@ -112,7 +111,7 @@ final class RemoteSocket(
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")
     Future {
-      redisClient.shutdown();
+      redisClient.shutdown()
     }
   }
 }
@@ -191,8 +190,8 @@ object RemoteSocket {
         s"tell/flag $flag ${Json stringify payload}"
       def tellSri(sri: Sri, payload: JsValue) =
         s"tell/sri $sri ${Json stringify payload}"
-      def mlat(lat: Int) =
-        s"mlat $lat"
+      def mlat(micros: Int) =
+        s"mlat ${((micros / 100) / 10d)}"
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
     }

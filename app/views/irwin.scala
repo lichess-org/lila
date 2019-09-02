@@ -113,10 +113,10 @@ object irwin {
                 td {
                   val blurs = pov.game.playerBlurPercent(pov.color)
                   frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
-                },
-                td(
-                  pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
-                )
+                }
+              // td(
+              //   pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
+              // )
               )
           }
         )

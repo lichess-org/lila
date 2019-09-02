@@ -37,6 +37,21 @@ object faq {
           p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
           p("You can find out more about ", a(href := routes.Plan.index())("being a patron"), " (including a ", a(href := routes.Main.costs())("breakdown of our costs"), "). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ".")
         ),
+        question(
+          "sites_based_on_Lichess",
+          "Are there websites based on Lichess?",
+          p(
+            "Yes. Lichess has indeed inspired other open-source sites that use our ",
+            a(href := "/source")("source code"), ", ",
+            a(href := "/api")("API"), ", or ",
+            a(href := "https://database.lichess.org")("database"), "."
+          ),
+          ul(
+            li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
+            li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
+            li(a(href := "https://lidraughts.org")("lidraughts.org"))
+          )
+        ),
         h2("Fair Play"),
         question(
           "marks",
@@ -161,6 +176,7 @@ object faq {
           ol(
             li("have played at least 30 rated games in a given rating,"),
             li("have played a rated game within the last week for this rating,"),
+            li("have a rating deviation lower than 80,"),
             li("be in the top 10 in this rating.")
           ),
           p("The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.")

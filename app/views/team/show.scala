@@ -5,12 +5,13 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
 import lila.common.String.html.richText
+import lila.team.Team
 
 import controllers.routes
 
 object show {
 
-  def apply(t: lila.team.Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context) =
+  def apply(t: Team, members: Paginator[lila.team.MemberWithUser], info: lila.app.mashup.TeamInfo)(implicit ctx: Context) =
     bits.layout(
       title = t.name,
       openGraph = lila.app.ui.OpenGraph(
@@ -31,19 +32,10 @@ object show {
             ),
             (info.mine || t.enabled) option div(cls := "team-show__content")(
               st.section(cls := "team-show__meta")(
-                p(trans.tournamentPoints(), ": ", strong(info.toints.localize)),
                 p(trans.teamLeader(), ": ", userIdLink(t.createdBy.some))
               ),
 
               div(cls := "team-show__members")(
-                !info.bestUserIds.isEmpty option st.section(cls := "best-members")(
-                  h2(trans.teamBestPlayers()),
-                  ol(cls := "userlist best_players")(
-                    info.bestUserIds.map { userId =>
-                      li(userIdLink(userId.some))
-                    }
-                  )
-                ),
                 st.section(cls := "recent-members")(
                   h2(trans.teamRecentMembers()),
                   div(cls := "userlist infinitescroll")(
@@ -67,14 +59,11 @@ object show {
               st.section(cls := "team-show__actions")(
                 (t.enabled && !info.mine) option frag(
                   if (info.requestedByMe) strong("Your join request is being reviewed by the team leader")
-                  else ctx.me.??(_.canTeam) option
-                    st.form(cls := "inline", method := "post", action := routes.Team.join(t.id))(
-                      input(cls := "button button-green", tpe := "submit", value := trans.joinTeam.txt())
-                    )
+                  else ctx.me.??(_.canTeam) option joinButton(t)
                 ),
                 (info.mine && !info.createdByMe) option
-                  st.form(cls := "quit", method := "post", action := routes.Team.quit(t.id))(
-                    input(cls := "button button-empty button-red confirm", tpe := "submit", value := trans.quitTeam.txt())
+                  postForm(cls := "quit", action := routes.Team.quit(t.id))(
+                    submitButton(cls := "button button-empty button-red confirm")(trans.quitTeam.txt())
                   ),
                 (info.createdByMe || isGranted(_.Admin)) option
                   a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(trans.settings())
@@ -103,4 +92,16 @@ object show {
           )
         )
       )
+
+  // handle special teams here
+  private def joinButton(t: Team)(implicit ctx: Context) = t.id match {
+    case "english-chess-players" => joinAt("https://ecf.chessvariants.training/")
+    case "ecf" => joinAt(routes.Team.show("english-chess-players").url)
+    case _ => postForm(cls := "inline", action := routes.Team.join(t.id))(
+      submitButton(cls := "button button-green")(trans.joinTeam())
+    )
+  }
+
+  private def joinAt(url: String)(implicit ctx: Context) =
+    a(cls := "button button-green", href := url)(trans.joinTeam())
 }

@@ -37,6 +37,7 @@ $c-primary-clear: c-clearer($c-primary);
 /* Secondary: green */
 $c-secondary: hsl(88, 62%, 37%);
 $c-secondary-dim: c-dimmer($c-secondary);
+$c-secondary-dimmer: c-dimmer($c-secondary, 40%);
 
 /* Brag: gold */
 $c-brag: hsl(37, 74%, 43%);

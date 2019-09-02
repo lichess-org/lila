@@ -161,7 +161,9 @@ export function view(ctrl: AnalyseCtrl): VNode {
   ] as MaybeVNodes).concat([
     ctrlBoolSetting({
       name: 'enable',
-      title: mandatoryCeval ? "Required by practice mode" : window.lichess.engineName,
+      title: (
+        mandatoryCeval ? "Required by practice mode" : window.lichess.engineName
+      ) + ' (Hotkey: z)',
       id: 'all',
       checked: ctrl.showComputer(),
       disabled: mandatoryCeval,
@@ -171,7 +173,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
     ctrl.showComputer() ? [
       ctrlBoolSetting({
         name: 'bestMoveArrow',
-        title: 'a',
+        title: 'Hotkey: a',
         id: 'shapes',
         checked: ctrl.showAutoShapes(),
         change: ctrl.toggleAutoShapes

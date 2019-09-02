@@ -79,11 +79,7 @@ final class JsonView(
     JsString(r.id)
   }
   private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
-    Json.obj(
-      "user" -> lightUser(m.id),
-      "role" -> m.role,
-      "addedAt" -> m.addedAt
-    )
+    Json.obj("user" -> lightUser(m.id), "role" -> m.role)
   }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>

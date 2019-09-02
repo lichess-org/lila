@@ -56,6 +56,8 @@ case class User(
 
   def disabled = !enabled
 
+  def canPalantir = !kid && !troll
+
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
   def titleUsername = title.fold(username)(t => s"$t $username")

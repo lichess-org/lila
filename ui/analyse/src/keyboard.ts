@@ -46,6 +46,10 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.treeView.toggle();
     ctrl.redraw();
   }));
+  kbd.bind('z', preventing(function() {
+    ctrl.toggleComputer();
+    ctrl.redraw();
+  }));
 
   if (ctrl.embed) return;
 
@@ -82,7 +86,7 @@ export function bind(ctrl: AnalyseCtrl): void {
         });
       }));
     };
-    keyToMousedown('c', '.study__buttons .comments');
+    keyToMousedown('d', '.study__buttons .comments');
     keyToMousedown('g', '.study__buttons .glyphs');
   }
 }

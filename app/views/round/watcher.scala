@@ -1,7 +1,7 @@
 package views.html
 package round
 
-import play.api.libs.json.Json
+import play.api.libs.json.{ Json, JsObject }
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -16,7 +16,7 @@ object watcher {
 
   def apply(
     pov: Pov,
-    data: play.api.libs.json.JsObject,
+    data: JsObject,
     tour: Option[lila.tournament.TourMiniView],
     simul: Option[lila.simul.Simul],
     cross: Option[lila.game.Crosstable.WithMatchup],
@@ -26,7 +26,15 @@ object watcher {
   )(implicit ctx: Context) = {
 
     val chatJson = chatOption map { c =>
-      chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+      chat.json(
+        c.chat,
+        name = trans.spectatorRoom.txt(),
+        timeout = c.timeout,
+        withNote = ctx.isAuth,
+        public = true,
+        resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+        palantir = ctx.me.exists(_.canPalantir)
+      )
     }
 
     bits.layout(

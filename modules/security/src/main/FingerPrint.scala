@@ -2,7 +2,9 @@ package lila.security
 
 import lila.common.Iso
 
-case class FingerPrint(value: String) extends AnyVal
+case class FingerPrint(value: String) extends AnyVal {
+  def hash: Option[FingerHash] = FingerHash(this)
+}
 
 case class FingerHash(value: String) extends AnyVal
 
@@ -21,6 +23,8 @@ object FingerHash {
   } catch {
     case _: Exception => none
   }
+
+  val impersonate = FingerHash("imperson")
 
   implicit val fingerHashIso = Iso.string[FingerHash](FingerHash.apply, _.value)
 }

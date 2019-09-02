@@ -40,7 +40,8 @@ final class TournamentApi(
     duelStore: DuelStore,
     pause: Pause,
     asyncCache: lila.memo.AsyncCache.Builder,
-    lightUserApi: lila.user.LightUserApi
+    lightUserApi: lila.user.LightUserApi,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val bus = system.lilaBus
@@ -246,21 +247,24 @@ final class TournamentApi(
     TournamentRepo tourIdsToWithdrawWhenEntering tourId foreach {
       PlayerRepo.filterExists(_, userId) foreach {
         _ foreach {
-          withdraw(_, userId, isPause = false)
+          withdraw(_, userId, isPause = false, isStalling = false)
         }
       }
     }
 
   def selfPause(tourId: Tournament.ID, userId: User.ID): Unit =
-    withdraw(tourId, userId, isPause = true)
+    withdraw(tourId, userId, isPause = true, isStalling = false)
 
-  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean): Unit = {
+  private def stallPause(tourId: Tournament.ID, userId: User.ID): Unit =
+    withdraw(tourId, userId, isPause = false, isStalling = true)
+
+  private def withdraw(tourId: Tournament.ID, userId: User.ID, isPause: Boolean, isStalling: Boolean): Unit = {
     Sequencing(tourId)(TournamentRepo.enterableById) {
       case tour if tour.isCreated =>
         PlayerRepo.remove(tour.id, userId) >> updateNbPlayers(tour.id) >>- socketReload(tour.id) >>- publish()
       case tour if tour.isStarted => for {
         _ <- PlayerRepo.withdraw(tour.id, userId)
-        pausable <- isPause ?? cached.ranking(tour).map { _ get userId exists (7>) }
+        pausable <- if (isPause) cached.ranking(tour).map { _ get userId exists (7>) } else fuccess(isStalling)
       } yield {
         if (pausable) pause.add(userId, tour)
         socketReload(tour.id)
@@ -274,27 +278,24 @@ final class TournamentApi(
     TournamentRepo.nonEmptyEnterableIds foreach {
       PlayerRepo.filterExists(_, user.id) foreach {
         _ foreach {
-          withdraw(_, user.id, isPause = false)
+          withdraw(_, user.id, isPause = false, isStalling = false)
         }
       }
     }
 
   def berserk(gameId: Game.ID, userId: User.ID): Unit =
-    GameRepo tournamentId gameId foreach {
-      _ foreach { tourId =>
-        Sequencing(tourId)(TournamentRepo.startedById) { tour =>
-          PairingRepo.findPlaying(tour.id, userId) flatMap {
-            case Some(pairing) if !pairing.berserkOf(userId) =>
-              (pairing povRef userId) ?? { povRef =>
-                GameRepo pov povRef flatMap {
-                  _.filter(_.game.berserkable) ?? { pov =>
-                    PairingRepo.setBerserk(pairing, userId) >>- {
-                      roundMap.tell(povRef.gameId, GoBerserk(povRef.color))
-                    }
-                  }
+    proxyGame(gameId) foreach {
+      _.filter(_.berserkable) foreach { game =>
+        game.tournamentId foreach { tourId =>
+          Sequencing(tourId)(TournamentRepo.startedById) { tour =>
+            PairingRepo.findPlaying(tour.id, userId) flatMap {
+              case Some(pairing) if !pairing.berserkOf(userId) =>
+                (pairing colorOf userId) ?? { color =>
+                  PairingRepo.setBerserk(pairing, userId) >>-
+                    roundMap.tell(gameId, GoBerserk(color))
                 }
-              }
-            case _ => funit
+              case _ => funit
+            }
           }
         }
       }
@@ -311,6 +312,11 @@ final class TournamentApi(
             withdrawNonMover(game)
           }
       }
+    }
+
+  def sittingDetected(game: Game, player: User.ID): Unit =
+    game.tournamentId foreach { tourId =>
+      stallPause(tourId, player)
     }
 
   private def updatePlayer(
@@ -351,7 +357,7 @@ final class TournamentApi(
     if game.status == chess.Status.NoStart
     player <- game.playerWhoDidNotMove
     userId <- player.userId
-  } withdraw(tourId, userId, isPause = false)
+  } withdraw(tourId, userId, isPause = false, isStalling = false)
 
   def pausePlaybanned(userId: User.ID) =
     TournamentRepo.startedIds flatMap {
@@ -464,15 +470,11 @@ final class TournamentApi(
       }
   }
 
-  private def fetchGames(tour: Tournament, ids: Seq[Game.ID]): Fu[List[LightGame]] =
-    GameRepo.light gamesFromPrimary ids
-
   private def playerPovs(tour: Tournament, userId: User.ID, nb: Int): Fu[List[LightPov]] =
-    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap { ids =>
-      fetchGames(tour, ids) map {
-        _.flatMap { LightPov.ofUserId(_, userId) }
+    PairingRepo.recentIdsByTourAndUserId(tour.id, userId, nb) flatMap
+      GameRepo.light.gamesFromPrimary map {
+        _ flatMap { LightPov.ofUserId(_, userId) }
       }
-    }
 
   private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Unit =
     doSequence(tourId) {

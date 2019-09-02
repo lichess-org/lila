@@ -20,7 +20,6 @@ final class StudyApi(
     studyMaker: StudyMaker,
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
-    tagsFixer: ChapterTagsFixer,
     explorerGameHandler: ExplorerGame,
     lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
@@ -48,19 +47,14 @@ final class StudyApi(
 
   def isOwner(id: Study.Id, owner: User) = byIdAndOwner(id, owner).map(_.isDefined)
 
-  private def fetchAndFixChapter(id: Chapter.Id): Fu[Option[Chapter]] =
-    chapterRepo.byId(id) flatMap {
-      _ ?? { c => tagsFixer(c) map some }
-    }
-
   def byIdWithChapter(id: Study.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      fetchAndFixChapter(study.position.chapterId) flatMap {
-        case None => chapterRepo.firstByStudy(study.id) flatMap {
+      chapterRepo byId study.position.chapterId flatMap {
+        case None => chapterRepo firstByStudy study.id flatMap {
           case None => fuccess(none)
           case Some(chapter) =>
             val fixed = study withChapter chapter
-            studyRepo.updateSomeFields(fixed) inject
+            studyRepo updateSomeFields fixed inject
               Study.WithChapter(fixed, chapter).some
         }
         case Some(chapter) => fuccess(Study.WithChapter(study, chapter).some)
@@ -70,7 +64,7 @@ final class StudyApi(
 
   def byIdWithChapter(id: Study.Id, chapterId: Chapter.Id): Fu[Option[Study.WithChapter]] = byId(id) flatMap {
     _ ?? { study =>
-      fetchAndFixChapter(chapterId) map {
+      chapterRepo byId chapterId map {
         _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
       }
     }
@@ -500,23 +494,25 @@ final class StudyApi(
       chapterRepo.countByStudyId(study.id) flatMap { count =>
         if (count >= Study.maxChapters) funit
         else chapterRepo.nextOrderByStudy(study.id) flatMap { order =>
-          chapterMaker(study, data, order, byUserId) flatMap {
-            _ ?? { chapter =>
-              data.initial ?? {
-                chapterRepo.firstByStudy(study.id) flatMap {
-                  _.filter(_.isEmptyInitial) ?? chapterRepo.delete
-                }
-              } >> doAddChapter(study, chapter, sticky, sri)
-            }
+          chapterMaker(study, data, order, byUserId) flatMap { chapter =>
+            data.initial ?? {
+              chapterRepo.firstByStudy(study.id) flatMap {
+                _.filter(_.isEmptyInitial) ?? chapterRepo.delete
+              }
+            } >> doAddChapter(study, chapter, sticky, sri)
+          } addFailureEffect {
+            case ChapterMaker.ValidationException(error) =>
+              sendTo(study, StudySocket.ValidationError(sri, error))
+            case u => println(u)
           }
         }
       }
     }
   }
 
-  def importPgns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean) =
+  def importPgns(byUser: User, studyId: Study.Id, datas: List[ChapterMaker.Data], sticky: Boolean, sri: Sri) =
     lila.common.Future.applySequentially(datas) { data =>
-      addChapter(byUser.id, studyId, data, sticky, sri = Sri(""))
+      addChapter(byUser.id, studyId, data, sticky, sri)
     }
 
   def doAddChapter(study: Study, chapter: Chapter, sticky: Boolean, sri: Sri) =
@@ -610,10 +606,8 @@ final class StudyApi(
           chapterRepo.orderedMetadataByStudy(studyId).flatMap { chaps =>
             // deleting the only chapter? Automatically create an empty one
             if (chaps.size < 2) {
-              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId) flatMap {
-                _ ?? { c =>
-                  doAddChapter(study, c, sticky = true, sri) >> doSetChapter(study, c.id, sri)
-                }
+              chapterMaker(study, ChapterMaker.Data(Chapter.Name("Chapter 1")), 1, byUserId) flatMap { c =>
+                doAddChapter(study, c, sticky = true, sri) >> doSetChapter(study, c.id, sri)
               }
             } // deleting the current chapter? Automatically move to another one
             else (study.position.chapterId == chapterId).?? {

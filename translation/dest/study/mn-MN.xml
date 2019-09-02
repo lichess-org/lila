@@ -3,18 +3,14 @@
 <resources>
   <string name="addNewChapter">Шинэ бүлэг нэмнэ үү</string>
   <plurals name="nbChapters">
-    <item quantity="one">% s Бүлэг</item>
-    <item quantity="other">% s бүлэг</item>
+    <item quantity="one">%s Бүлэг</item>
+    <item quantity="other">%s бүлэг</item>
   </plurals>
   <plurals name="nbGames">
     <item quantity="one">Бүх %s өргүүд</item>
     <item quantity="other">Тоглоомууд</item>
   </plurals>
   <string name="addMembers">Гишүүд нэмэх</string>
-  <plurals name="nbMembers">
-    <item quantity="one"> гишүүн</item>
-    <item quantity="other">гишүүд</item>
-  </plurals>
   <string name="inviteToTheStudy">Судалгаанд оролцохыг урих</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Зөвхөн таньдаг хүмүүсээ урьж, энэ судалгаанд нэгдэхийг хүсч буй хүмүүсийг урьж болно.</string>
   <string name="searchByUsername">Хэрэглэгчийн нэрээр хайх</string>
@@ -37,7 +33,6 @@
   <string name="allSyncMembersRemainOnTheSamePosition">СССК-ийн бүх гишүүд ижил байрлалд байна</string>
   <string name="shareChanges">Сонирхогчдын өөрчлөлтийг хуваалцаж, тэднийг сервер дээр хадгалах</string>
   <string name="playing">Тоглож байна</string>
-  <string name="onlyOngoingGames">Зөвхөн одоо байгаа өрөгнүүд</string>
   <string name="first">Нэгтэх</string>
   <string name="previous">Өмнөх</string>
   <string name="next">Дараах</string>
@@ -49,11 +44,8 @@
   <string name="studyUrl">Судалгааны URL</string>
   <string name="currentChapterUrl">Одоогийн бүлгийн URL</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Чуулган дээр энэ бүлгийг оруулах боломжтой</string>
-  <string name="startAtX">% S-с эхэл</string>
   <string name="embedThisChapter">Энэ бүлгийг өөрийн вэбсайт эсвэл блогдоо оруулна уу</string>
   <string name="readMoreAboutEmbeddingAStudyChapter">Судалгааны бүлгийг оруулах талаар дэлгэрэнгүйг уншина уу</string>
-  <string name="fen">FEN</string>
   <string name="open">Нээлттэй байна</string>
-  <string name="xBroughtToYouByY">% 1 $ s % 2 $ s- с авчирсан</string>
   <string name="studyNotFound">Судалгаагүй байна</string>
 </resources>

@@ -24,6 +24,9 @@
       font-size: .9em;
     }
   }
+  li {
+    list-style: inside disc;
+  }
 }
 .mod-confirm form input {
   width: 100%;

@@ -53,7 +53,7 @@ object coordinate {
                       input(
                         tpe := "radio",
                         st.id := s"coord_color_$id",
-                        name := "coord_color",
+                        name := "color",
                         value := id,
                         (id == ctx.pref.coordColor) option checked
                       ),

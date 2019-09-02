@@ -69,6 +69,10 @@ object mon {
       val forbidden = inc("http.csrf.forbidden")
       val websocket = inc("http.csrf.websocket")
     }
+    object fingerPrint {
+      val count = inc("http.finger_print.count")
+      val time = rec("http.finger_print.time")
+    }
   }
   object mobile {
     def version(v: String) = inc(s"mobile.version.$v")
@@ -408,6 +412,7 @@ object mon {
     object firewall {
       val block = inc("security.firewall.block")
       val ip = rec("security.firewall.ip")
+      val prints = rec("security.firewall.prints")
     }
     object proxy {
       object request {
@@ -425,15 +430,20 @@ object mon {
     }
     object dnsApi {
       object mx {
-        def time = rec("security.dnsApi.mx.time")
-        def count = inc("security.dnsApi.mx.count")
-        def error = inc("security.dnsApi.mx.error")
+        val time = rec("security.dnsApi.mx.time")
+        val count = inc("security.dnsApi.mx.count")
+        val error = inc("security.dnsApi.mx.error")
       }
       object a {
-        def time = rec("security.dnsApi.a.time")
-        def count = inc("security.dnsApi.a.count")
-        def error = inc("security.dnsApi.a.error")
+        val time = rec("security.dnsApi.a.time")
+        val count = inc("security.dnsApi.a.count")
+        val error = inc("security.dnsApi.a.error")
       }
+    }
+    object checkMailApi {
+      val count = inc("checkMail.fetch.count")
+      val block = inc("checkMail.fetch.block")
+      val error = inc("checkMail.fetch.error")
     }
   }
   object tv {
@@ -634,6 +644,12 @@ object mon {
       val requestCount = inc("fishnet.analysis.request")
       val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
     }
+    object http {
+      def acquire(skill: String) = new {
+        def hit = inc(s"fishnet.http.acquire.$skill.hit")
+        def miss = inc(s"fishnet.http.acquire.$skill.miss")
+      }
+    }
   }
   object api {
     object userGames {
@@ -664,6 +680,9 @@ object mon {
   object jsmon {
     val socketGap = inc("jsmon.socket_gap")
     val unknown = inc("jsmon.unknown")
+  }
+  object palantir {
+    val channels = rec("palantir.channels.nb")
   }
   object bus {
     val classifiers = rec("bus.classifiers")

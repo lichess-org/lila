@@ -26,26 +26,35 @@ object signup {
     ) {
         main(cls := "auth auth-signup box box-pad")(
           h1(trans.signUp()),
-          st.form(
-            id := "signup_form",
-            cls := "form3",
-            action := routes.Auth.signupPost,
-            method := "post"
-          )(
-              auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
-              input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
-              div(cls := "form-group text", dataIcon := "")(
-                trans.computersAreNotAllowedToPlay(), br,
-                small(trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())))
-              ),
-              if (recaptcha.enabled)
-                button(
-                cls := "g-recaptcha submit button text big",
-                attr("data-sitekey") := recaptcha.key,
-                attr("data-callback") := "signupSubmit"
-              )(trans.signUp())
-              else form3.submit(trans.signUp(), icon = none, klass = "big")
-            )
+          postForm(id := "signup_form", cls := "form3", action := routes.Auth.signupPost)(
+            auth.bits.formFields(form("username"), form("password"), form("email").some, register = true),
+            input(id := "signup-fp-input", name := "fp", tpe := "hidden"),
+            div(cls := "form-group text", dataIcon := "")(
+              trans.computersAreNotAllowedToPlay(), br,
+              small(trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService())))
+            ),
+            agreement(form("agreement")),
+            if (recaptcha.enabled)
+              button(
+              cls := "g-recaptcha submit button text big",
+              attr("data-sitekey") := recaptcha.key,
+              attr("data-callback") := "signupSubmit"
+            )(trans.signUp())
+            else form3.submit(trans.signUp(), icon = none, klass = "big")
+          )
         )
       }
+
+  private def agreement(form: play.api.data.Field)(implicit ctx: Context) = div(cls := "agreement")(
+    agreements.map {
+      case (field, i18n) => form3.checkbox(form(field), i18n())
+    }
+  )
+
+  private val agreements = List(
+    "assistance" -> trans.agreementAssistance,
+    "nice" -> trans.agreementNice,
+    "account" -> trans.agreementAccount,
+    "policy" -> trans.agreementPolicy
+  )
 }

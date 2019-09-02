@@ -1,9 +1,12 @@
 package views.html
 package stat
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.common.String.html.safeJsonValue
 import lila.rating.PerfType
 
 import controllers.routes
@@ -16,10 +19,18 @@ object ratingDistribution {
     wrapClass = "full-screen-force",
     moreJs = frag(
       jsTag("chart/ratingDistribution.js"),
-      embedJsUnsafe(s"""lichess.ratingDistributionChart({
-  freq: ${data.mkString("[", ",", "]")},
-  myRating: ${ctx.me.fold("null")(_.perfs(perfType).intRating.toString)}
-});""")
+      embedJsUnsafe(s"""lichess.ratingDistributionChart(${
+        safeJsonValue(Json.obj(
+          "freq" -> data,
+          "myRating" -> ctx.me.map { me => me.perfs(perfType).intRating },
+          "i18n" -> i18nJsObject(List(
+            trans.players,
+            trans.yourRating,
+            trans.cumulative,
+            trans.glicko2Rating
+          ))
+        ))
+      })""")
     )
   ) {
       main(cls := "page-menu")(

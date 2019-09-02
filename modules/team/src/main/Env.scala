@@ -26,7 +26,7 @@ final class Env(
   }
   import settings._
 
-  private[team] lazy val colls = new Colls(
+  lazy val colls = new Colls(
     team = db(CollectionTeam),
     request = db(CollectionRequest),
     member = db(CollectionMember)

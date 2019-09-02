@@ -5,12 +5,12 @@ import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
 import chess.{ Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory }
-import org.joda.time.DateTime
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
 import lila.rating.PerfType.Classical
 import lila.user.User
+import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,
@@ -22,7 +22,6 @@ case class Game(
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
-    next: Option[Game.ID] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
@@ -153,8 +152,9 @@ case class Game(
     }
   }
 
+  // apply a move
   def update(
-    game: ChessGame,
+    game: ChessGame, // new chess position
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     moveMetrics: MoveMetrics = MoveMetrics()
@@ -302,9 +302,8 @@ case class Game(
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
 
-  def playerCanRematch(color: Color) =
-    !player(color).isOfferingRematch &&
-      finishedOrAborted &&
+  def playerCouldRematch(color: Color) =
+    finishedOrAborted &&
       nonMandatory &&
       !boosted && !{
         hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
@@ -519,6 +518,12 @@ case class Game(
 
   def userIds = playerMaps(_.userId)
 
+  def twoUserIds: Option[(User.ID, User.ID)] = for {
+    w <- whitePlayer.userId
+    b <- blackPlayer.userId
+    if w != b
+  } yield w -> b
+
   def userRatings = playerMaps(_.rating)
 
   def averageUsersRating = userRatings match {
@@ -630,6 +635,9 @@ object Game {
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
+  val idRegex = """[\w-]{8}""".r
+  def validId(id: ID) = idRegex matches id
+
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
   private[game] val someEmptyClockHistory = Some(ClockHistory())
@@ -691,7 +699,6 @@ object Game {
     val analysed = "an"
     val variant = "v"
     val crazyData = "chd"
-    val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
     val movedAt = "ua" // ua = updatedAt (bc)

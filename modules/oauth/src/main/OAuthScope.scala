@@ -29,7 +29,7 @@ object OAuthScope {
   }
 
   object Team {
-    case object Write extends OAuthScope("team:write", "Join and leave teams")
+    case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
   }
 
   object Bot {

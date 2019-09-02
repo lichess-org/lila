@@ -90,7 +90,18 @@
   outline: none;
   color: $c-font;
 }
-
+%checkbox {
+  @extend %box-radius;
+  -webkit-appearance: none;
+  background: $c-bg-page;
+  border: 1px solid $c-bg-low;
+  display: inline-block;
+  padding: .5em;
+  &:checked {
+    background: $c-secondary-dimmer;
+    border-color: $c-secondary-dim;
+  }
+}
 %nowrap-hidden {
   white-space: nowrap;
   overflow: hidden;

@@ -24,7 +24,7 @@ object claimTitle {
       p(
         "If you need help or have any question, feel free to contact us by email at ", contactEmailLink, "."
       ),
-      form(action := routes.Pref.verifyTitle, method := "post")(
+      postForm(action := routes.Pref.verifyTitle)(
         button(cls := "button text", dataIcon := "E", name := "v", value := true)("Got it, thanks!"),
         button(cls := "button", name := "v", value := false)("I don't have an official title")
       )

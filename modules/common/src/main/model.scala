@@ -1,5 +1,7 @@
 package lila.common
 
+import scala.concurrent.duration._
+
 case class ApiVersion(value: Int) extends AnyVal with IntValue with Ordered[ApiVersion] {
   def v1 = value == 1
   def v2 = value == 2
@@ -60,7 +62,7 @@ case class EmailAddress(value: String) extends AnyVal with StringValue {
     }
   }
   def domain: Option[Domain] = value split '@' match {
-    case Array(_, domain) => Domain(domain.toLowerCase).some
+    case Array(_, domain) => Domain from domain.toLowerCase
     case _ => none
   }
 
@@ -73,18 +75,35 @@ object EmailAddress {
   private val regex =
     """^[a-zA-Z0-9\.!#$%&'*+/=?^_`{|}~-]++@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$""".r
 
+  def matches(str: String): Boolean = regex find str
+
   def from(str: String): Option[EmailAddress] =
-    regex.find(str) option EmailAddress(str)
+    matches(str) option EmailAddress(str)
 }
 
-case class Domain(value: String) extends AnyVal with StringValue {
+case class Domain private (value: String) extends AnyVal with StringValue {
   // heuristic to remove user controlled subdomain tails:
   // tail.domain.com, tail.domain.co.uk, tail.domain.edu.au, etc.
   def withoutSubdomain: Option[Domain] = value.split('.').toList.reverse match {
-    case tld :: sld :: tail :: _ if sld.length <= 3 => Domain(s"$tail.$sld.$tld").some
-    case tld :: sld :: _ => Domain(s"$sld.$tld").some
+    case tld :: sld :: tail :: _ if sld.length <= 3 => Domain from s"$tail.$sld.$tld"
+    case tld :: sld :: _ => Domain from s"$sld.$tld"
     case _ => none
+  }
+  def lower = Domain.Lower(value.toLowerCase)
+}
+
+object Domain {
+  // https://stackoverflow.com/a/26987741/1744715
+  private val regex = """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
+  def isValid(str: String) = regex.matches(str)
+  def from(str: String): Option[Domain] = isValid(str) option Domain(str)
+
+  case class Lower(value: String) extends AnyVal with StringValue {
+    def domain = Domain(value)
   }
 }
 
 case class Strings(value: List[String]) extends AnyVal
+
+case class Every(value: FiniteDuration) extends AnyVal
+case class AtMost(value: FiniteDuration) extends AnyVal

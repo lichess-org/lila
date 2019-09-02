@@ -16,12 +16,10 @@ object layout {
     val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
     val charset = raw("""<meta charset="utf-8">""")
     val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
-    def metaCsp(csp: ContentSecurityPolicy): Option[Frag] =
-      cspEnabled() option raw(
-        s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
-      )
-    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Option[Frag] =
-      metaCsp(csp.getOrElse(defaultCsp))
+    def metaCsp(csp: ContentSecurityPolicy): Frag = raw {
+      s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
+    }
+    def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag = metaCsp(csp getOrElse defaultCsp)
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
@@ -62,7 +60,7 @@ object layout {
 
   private def anonDasher(playing: Boolean)(implicit ctx: Context) = spaceless(s"""<div class="dasher">
   <a class="toggle link anon">
-    <span title="${trans.preferences().render}" data-icon="%"</span>
+    <span title="${trans.preferences().render}" data-icon="%"></span>
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
@@ -152,7 +150,7 @@ object layout {
           "coords-out" -> (ctx.pref.coords == Pref.Coords.OUTSIDE)
         ),
         dataDev := (!isProd).option("true"),
-        dataVapid := usesServiceWorker option vapidPublicKey,
+        dataVapid := vapidPublicKey,
         dataUser := ctx.userId,
         dataSoundSet := ctx.currentSoundSet.toString,
         dataSocketDomain := socketDomain,

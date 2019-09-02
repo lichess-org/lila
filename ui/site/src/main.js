@@ -99,7 +99,7 @@
           '<a data-icon="g" class="text" href="' + url + '">' + data.name + '</a>' +
           '<div class="actions">' +
           '<a class="withdraw text" href="' + url + '/withdraw" data-icon="Z">Pause</a>' +
-          '<a class="text" href="' + url + '" data-icon="G">Join</a>' +
+          '<a class="text" href="' + url + '" data-icon="G">Resume</a>' +
           '</div></div>'
         ).find('#announce .withdraw').click(function() {
           $.post($(this).attr("href"));
@@ -124,9 +124,8 @@
     }
   });
 
-  lichess.readServerFen = function(t) {
-    return atob(t.split("").reverse().join(""));
-  };
+  lichess.reverse = s => s.split('').reverse().join('');
+  lichess.readServerFen = t => atob(lichess.reverse(t));
 
   lichess.userAutocomplete = function($input, opts) {
     opts = opts || {};
@@ -465,7 +464,7 @@
               }
             });
           }).find('div.pager').hide().end();
-          $scroller.parent().append($('<button class="inf-more button button-empty">More</button>').on('click', function() {
+          $scroller.parent().append($('<button class="inf-more button button-empty">&hellip;</button>').on('click', function() {
             $scroller.infinitescroll('retrieve');
           }));
         });
@@ -488,9 +487,7 @@
         return false;
       });
 
-      $('a.delete, input.delete').click(function() {
-        return confirm('Delete?');
-      });
+      $('a.delete, input.delete').click(() => confirm('Delete?'));
       $('input.confirm, button.confirm').click(function() {
         return confirm($(this).attr('title') || 'Confirm this action?');
       });
@@ -630,8 +627,8 @@
         }
       }
     });
-    api.say = function(text, cut) {
-      if (!speechStorage.get()) return false;
+    api.say = function(text, cut, force) {
+      if (!speechStorage.get() && !force) return false;
       var msg = text.text ? text : new SpeechSynthesisUtterance(text);
       msg.volume = api.getVolume();
       msg.lang = 'en-US';
@@ -692,7 +689,7 @@
       if (data.users) {
         var tags = data.users.map($.userLink);
         if (data.anons === 1) tags.push('Anonymous');
-        else if (data.anons) tags.push('Anonymous(' + data.anons + ')');
+        else if (data.anons) tags.push('Anonymous (' + data.anons + ')');
         this.list.html(tags.join(', '));
       } else if (!this.number.length) this.list.html(data.nb + ' players in the chat');
       this.element.removeClass('none');

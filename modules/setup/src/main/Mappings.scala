@@ -7,7 +7,7 @@ import chess.Mode
 import lila.rating.RatingRange
 import lila.lobby.Color
 
-object Mappings {
+private object Mappings {
 
   val variant = number.verifying(Config.variants contains _)
   val variantWithFen = number.verifying(Config.variantsWithFen contains _)

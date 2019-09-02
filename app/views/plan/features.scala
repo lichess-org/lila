@@ -34,7 +34,8 @@ object features {
               "Correspondence chess with conditional premoves"
             ),
             tr(check)(
-              a(href := routes.Page.variantHome)("9 Chess variants (Crazyhouse, Chess960, Horde, ...)")
+              "Standard chess and ",
+              a(href := routes.Page.variantHome)("8 chess variants (Crazyhouse, Chess960, Horde, ...)")
             ),
             tr(custom("30 per day"))(
               s"Deep $engineName server analysis"

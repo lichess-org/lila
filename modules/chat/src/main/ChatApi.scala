@@ -41,7 +41,7 @@ final class ChatApi(
         case None => cache.get(chatId) dmap { UserChat.Mine(_, false) }
       }
 
-      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] = cache.get(chatId) flatMap { chat =>
+      private def findMine(chatId: Chat.Id, me: User): Fu[UserChat.Mine] = cache get chatId flatMap { chat =>
         (!chat.isEmpty ?? chatTimeout.isActive(chatId, me.id)) dmap {
           UserChat.Mine(chat forUser me.some, _)
         }

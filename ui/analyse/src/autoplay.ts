@@ -6,13 +6,10 @@ export type AutoplayDelay = number | 'realtime' | 'cpl';
 
 export class Autoplay {
 
-  private ctrl: AnalyseCtrl;
   private timeout: number | undefined;
   private delay: AutoplayDelay | undefined;
 
-  constructor(ctrl: AnalyseCtrl) {
-    this.ctrl = ctrl;
-  }
+  constructor(private ctrl: AnalyseCtrl) { }
 
   private move(): boolean {
     if (control.canGoForward(this.ctrl)) {

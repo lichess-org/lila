@@ -124,7 +124,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      Glicko.system.updateRatings(results, lila.rating.Env.current.deviationIncreaseOverTimeSetting.get)
+      Glicko.system.updateRatings(results, true)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }

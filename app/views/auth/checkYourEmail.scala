@@ -28,7 +28,7 @@ object checkYourEmail {
               li(
                 h3("Make sure your email address is correct:"),
                 br, br,
-                st.form(action := routes.Auth.fixEmail, method := "POST")(
+                postForm(action := routes.Auth.fixEmail)(
                   input(
                     id := "new-email",
                     tpe := "email",
@@ -44,7 +44,7 @@ email.setCustomValidity(currentError);
 email.addEventListener("input", function() {
 email.setCustomValidity(email.validity.patternMismatch ? currentError : "");
       });"""),
-                  button(tpe := "submit", cls := "button")("Change it"),
+                  submitButton(cls := "button")("Change it"),
                   form.map { f =>
                     errMsg(f("email"))
                   }

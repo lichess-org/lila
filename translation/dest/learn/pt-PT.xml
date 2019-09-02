@@ -10,7 +10,7 @@
   <string name="play">jogar!</string>
   <string name="chessPieces">Peças do xadrez</string>
   <string name="theRook">A torre</string>
-  <string name="itMovesInStraightLines">Move-se em linhas rectas</string>
+  <string name="itMovesInStraightLines">Move-se em linhas retas</string>
   <string name="rookIntro">A torre é uma peça poderosa. Estás preparada para comandá-la?</string>
   <string name="rookGoal">Clica na torre
 para levá-la até à estrela!</string>

@@ -17,7 +17,7 @@ object index {
         div(cls := "box__top")(
           h1(title),
           st.form(cls := "box-top__actions", action := routes.OAuthToken.create)(
-            button(tpe := "submit", cls := "button frameless", st.title := "New access token", dataIcon := "O")
+            submitButton(cls := "button frameless", st.title := "New access token", dataIcon := "O")
           )
         ),
         p(cls := "box__pad")(
@@ -58,8 +58,8 @@ object index {
                 }
               ),
               td(cls := "action")(
-                form(action := routes.OAuthToken.delete(t.id.value), method := "POST")(
-                  button(tpe := "submit", cls := "button button-red button-empty confirm", st.title := "Delete this access token")("Delete")
+                postForm(action := routes.OAuthToken.delete(t.id.value))(
+                  submitButton(cls := "button button-red button-empty confirm", st.title := "Delete this access token")("Delete")
                 )
               )
             )

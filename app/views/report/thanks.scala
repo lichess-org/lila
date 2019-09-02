@@ -36,10 +36,9 @@ $button.find('span').text('Blocked!');
         br, br,
         !blocked option p(
           "In the meantime, you can block this user: ",
-          button(
+          submitButton(
             attr("data-action") := routes.Relation.block(userId),
             cls := "report-block button",
-            tpe := "submit",
             st.title := trans.block.txt()
           )(
               span(cls := "text", dataIcon := "k")("Block ", usernameOrId(userId))

@@ -8,13 +8,13 @@ import scala.concurrent.Promise
 
 import chess.Centis
 import chess.format.pgn.Glyphs
+import lila.chat.Chat
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Sri, GetVersion, SocketVersion }
 import lila.socket.{ SocketTrouper, History, Historical, AnaDests, DirectSocketMember }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
-import lila.chat.Chat
 
 final class StudySocket(
     system: ActorSystem,
@@ -133,6 +133,10 @@ final class StudySocket(
       "w" -> who(sri),
       "s" -> sticky
     ), noMessadata)
+
+    case ValidationError(sri, error) => notifySri("validationError", Json.obj(
+      "error" -> error
+    ))(sri)
 
     case SetShapes(pos, shapes, sri) => notifyVersion("shapes", Json.obj(
       "p" -> pos,
@@ -315,6 +319,7 @@ object StudySocket {
   case class DescChapter(sri: Sri, chapterId: Chapter.Id, desc: Option[String])
   case class DescStudy(sri: Sri, desc: Option[String])
   case class AddChapter(sri: Sri, position: Position.Ref, sticky: Boolean)
+  case class ValidationError(sri: Sri, error: String)
   case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply])
   case class SetLiking(liking: Study.Liking, sri: Sri)
   case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, sri: Sri)

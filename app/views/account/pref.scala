@@ -41,7 +41,7 @@ object pref {
     val booleanChoices = Seq(0 -> trans.no.txt(), 1 -> trans.yes.txt())
     div(cls := "account box box-pad")(
       h1(bits.categName(categ)),
-      st.form(cls := "autosubmit", action := routes.Pref.formApply, method := "POST")(
+      postForm(cls := "autosubmit", action := routes.Pref.formApply)(
         categFieldset(PrefCateg.GameDisplay, categ)(
           setting(
             trans.pieceAnimation(),
@@ -87,15 +87,19 @@ object pref {
         categFieldset(PrefCateg.ChessClock, categ)(
           setting(
             trans.tenthsOfSeconds(),
-            radios(form("clockTenths"), translatedClockTenthsChoices)
+            radios(form("clock.tenths"), translatedClockTenthsChoices)
           ),
           setting(
             trans.horizontalGreenProgressBars(),
-            radios(form("clockBar"), booleanChoices)
+            radios(form("clock.bar"), booleanChoices)
           ),
           setting(
             trans.soundWhenTimeGetsCritical(),
-            radios(form("clockSound"), booleanChoices)
+            radios(form("clock.sound"), booleanChoices)
+          ),
+          setting(
+            trans.giveMoreTime(),
+            radios(form("clock.moretime"), translatedMoretimeChoices)
           )
         ),
         categFieldset(PrefCateg.GameBehavior, categ)(
@@ -155,7 +159,7 @@ object pref {
           ),
           setting(
             trans.shareYourInsightsData(),
-            radios(form("insightShare"), translatedInsightSquareChoices)
+            radios(form("insightShare"), translatedInsightShareChoices)
           )
         ),
         p(cls := "saved text none", dataIcon := "E")(trans.yourPreferencesHaveBeenSaved())

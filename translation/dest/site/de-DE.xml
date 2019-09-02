@@ -204,6 +204,7 @@
   <string name="playingRightNow">Partie läuft</string>
   <string name="eventInProgress">Laufende Partien</string>
   <string name="finished">Beendet</string>
+  <string name="finishesX">beendet %s</string>
   <string name="abortGame">Partie abbrechen</string>
   <string name="gameAborted">Partie abgebrochen</string>
   <string name="standard">Standard</string>
@@ -473,6 +474,7 @@
   <string name="pleaseVotePuzzle">Verbessere Lichess, indem du mit den Pfeilen abstimmst:</string>
   <string name="thankYou">Vielen Dank!</string>
   <string name="ratingX">Schwierigkeitsgrad: %s</string>
+  <string name="hidden">ausgeblendet</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s mal gespielt</item>
     <item quantity="other">%s mal gespielt</item>
@@ -697,12 +699,14 @@
   <string name="returnToTournamentsHomepage">Zurück zur Turnier-Homepage</string>
   <string name="weeklyPerfTypeRatingDistribution">Wöchentliche %s-Wertungsverteilung</string>
   <plurals name="nbPerfTypePlayersThisWeek">
-    <item quantity="one">Ein %2$s Spieler diese Woche.</item>
+    <item quantity="one">%1$s %2$s Spieler diese Woche.</item>
     <item quantity="other">%1$s %2$s Spieler diese Woche.</item>
   </plurals>
   <string name="yourPerfTypeRatingIsRating">Deine %1$s-Wertungszahl ist %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du bist besser als %1$s aller %2$s-Spieler.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du hast keine feststehende %s-Wertung.</string>
+  <string name="yourRating">Deine Wertungszahl</string>
+  <string name="glicko2Rating">Glicko-2 Wertung</string>
   <string name="checkYourEmail">Prüfe deine E-Mails</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wir haben dir eine E-Mail gesendet. Klicke den Link in der Email, um deinen Account zu aktivieren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Wenn du die E-Mail nicht findest, prüfe in deinem E-Mail-Konto, ob sie in einem anderen Ordner wie z.B. dem Spamordner oder dem Papierkorb ist.</string>
@@ -751,7 +755,7 @@
   <string name="viewTheSolution">Lösung ansehen</string>
   <string name="followAndChallengeFriends">Folge deinen Freunden und fordere sie heraus</string>
   <plurals name="availableInNbLanguages">
-    <item quantity="one">Verfügbar in einer Sprache!</item>
+    <item quantity="one">Verfügbar in %s Sprache!</item>
     <item quantity="other">Verfügbar in %s Sprachen!</item>
   </plurals>
   <string name="gameAnalysis">Spielanalyse</string>
@@ -854,4 +858,24 @@
     <item quantity="one">und speichere %s Variante im Voraus</item>
     <item quantity="other">und speichere %s Varianten im Voraus</item>
   </plurals>
+  <string name="sorry">Entschuldigung :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Wir haben dich mit einer vorübergehenden Spielsperre belegt.</string>
+  <string name="timeoutExpires">Die Sperre endet in %s.</string>
+  <string name="why">Warum?</string>
+  <string name="pleasantChessExperience">Wir möchten allen eine möglichst gute Schach-Erfahrung bieten.</string>
+  <string name="goodPractice">Um dies zu erreichen, müssen wir sicherstellen, dass sich alle Spieler korrekt verhalten.</string>
+  <string name="potentialProblem">Wir zeigen diese Nachricht an, wenn ein mögliches Problem erkannt wurde.</string>
+  <string name="howToAvoidThis">Wie kann das verhindert werden?</string>
+  <string name="playEveryGame">Spiele jedes Spiel, das du beginnst.</string>
+  <string name="tryToWin">Versuche, jedes Spiel zu gewinnen (oder zumindest ein Remis zu erreichen).</string>
+  <string name="resignLostGames">Gib verlorene Spiele auf (lasse die Uhr nicht herunterlaufen).</string>
+  <string name="temporaryInconvenience">Wir entschuldigen uns für die vorübergehenden Unannehmlichkeiten,</string>
+  <string name="wishYouGreatGames">und wünschen Dir tolle Spiele auf lichess.org.</string>
+  <string name="thankYouForReading">Vielen Dank für’s Lesen!</string>
+  <string name="lifetimeScore">Ewiger Spielstand</string>
+  <string name="currentMatchScore">Aktueller Spielstand</string>
+  <string name="agreementAssistance">Ich stimme zu, dass ich zu keiner Zeit während meiner Partien Hilfe in Anspruch nehmen werde (durch einen Schachcomputer, Buch, Datenbank oder eine andere Person).</string>
+  <string name="agreementNice">Ich stimme zu, dass ich anderen Spielern gegenüber immer nett sein werde.</string>
+  <string name="agreementAccount">Ich stimme zu, dass ich nicht mehrere Konten erstellen werde.</string>
+  <string name="agreementPolicy">Ich stimme zu, dass ich allen Lichess-Richtlinien folgen werde.</string>
 </resources>

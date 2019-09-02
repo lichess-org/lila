@@ -25,7 +25,7 @@ object header {
     div(cls := "box__top user-show__header")(
       h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
         if (u.isPatron) frag(
-          a(cls := routes.Plan.index)(patronIcon),
+          a(href := routes.Plan.index)(patronIcon),
           userSpan(u, withPowerTip = false, withOnline = false)
         )
         else userSpan(u, withPowerTip = false)
@@ -70,22 +70,22 @@ object header {
       ),
       div(cls := "user-actions btn-rack")(
         (ctx is u) option frag(
-          a(cls := "btn-rack__btn", href := routes.Account.profile, ariaTitle(trans.editProfile.txt()), dataIcon := "%"),
-          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), ariaTitle(trans.listBlockedPlayers.txt()), dataIcon := "k")
+          a(cls := "btn-rack__btn", href := routes.Account.profile, titleOrText(trans.editProfile.txt()), dataIcon := "%"),
+          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), titleOrText(trans.listBlockedPlayers.txt()), dataIcon := "k")
         ),
         isGranted(_.UserSpy) option
-          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), ariaTitle("Mod zone"), dataIcon := ""),
-        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), ariaTitle(trans.watchGames.txt()), dataIcon := "1"),
+          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), titleOrText("Mod zone"), dataIcon := ""),
+        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), titleOrText(trans.watchGames.txt()), dataIcon := "1"),
         (ctx.isAuth && !ctx.is(u)) option
           views.html.relation.actions(u.id, relation = social.relation, followable = social.followable, blocked = social.blocked),
         if (ctx is u) a(
           cls := "btn-rack__btn",
           href := routes.Game.exportByUser(u.username),
-          ariaTitle(trans.exportGames.txt()),
+          titleOrText(trans.exportGames.txt()),
           dataIcon := "x"
         )
         else (ctx.isAuth && ctx.noKid) option a(
-          ariaTitle(trans.reportXToModerators.txt(u.username)),
+          titleOrText(trans.reportXToModerators.txt(u.username)),
           cls := "btn-rack__btn",
           href := s"${routes.Report.form}?username=${u.username}",
           dataIcon := "!"
@@ -93,9 +93,9 @@ object header {
       )
     ),
     (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
-      form(action := s"${routes.User.writeNote(u.username)}?note", method := "post")(
+      postForm(action := s"${routes.User.writeNote(u.username)}?note")(
         textarea(name := "text", placeholder := "Write a note about this user only you and your friends can read"),
-        button(tpe := "submit", cls := "button")(trans.send()),
+        submitButton(cls := "button")(trans.send()),
         if (isGranted(_.ModNote)) label(style := "margin-left: 1em;")(
           input(tpe := "checkbox", name := "mod", checked, value := "true", style := "vertical-align: middle;"),
           "For moderators only"
@@ -112,8 +112,8 @@ object header {
             momentFromNow(note.date),
             (ctx.me.exists(note.isFrom) && !note.mod) option frag(
               br,
-              form(action := routes.User.deleteNote(note._id), method := "post")(
-                button(tpe := "submit", cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
+              postForm(action := routes.User.deleteNote(note._id))(
+                submitButton(cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
               )
             )
           )
@@ -194,7 +194,7 @@ It's useful against spambots. These marks are not visible to the public."""
                 },
                 div(cls := "social_links col2")(
                   profile.actualLinks.map { link =>
-                    a(href := link.url, target := "_blank", rel := "no-follow")(link.site.name)
+                    a(href := link.url, target := "_blank", rel := "nofollow")(link.site.name)
                   }
                 ),
                 div(cls := "teams col2")(

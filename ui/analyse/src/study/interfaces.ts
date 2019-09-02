@@ -58,9 +58,10 @@ export interface StudyCtrl {
   onPremoveSet(): void;
   redraw: Redraw;
   trans: Trans;
+  sri: string;
 }
 
-export type Tab = 'members' | 'chapters';
+export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 
 export interface StudyVm {
@@ -129,6 +130,14 @@ export interface StudyFeatures {
 export interface StudyChapterMeta {
   id: string;
   name: string;
+}
+
+export interface StudyChapterConfig extends StudyChapterMeta {
+  orientation: Color;
+  description?: string;
+  practice: boolean;
+  gamebook: boolean;
+  conceal?: number;
 }
 
 export interface StudyChapter {

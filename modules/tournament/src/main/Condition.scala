@@ -211,50 +211,38 @@ object Condition {
       "nb" -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
-      def isDefined = nb > 0
-      def convert(tourPerf: PerfType) = isDefined option NbRatedGame(
+      def convert(tourPerf: PerfType): Option[NbRatedGame] = nb > 0 option NbRatedGame(
         if (perf has perfAuto._1) tourPerf.some else PerfType(~perf),
         nb
       )
     }
     object NbRatedGameSetup {
-      val default = NbRatedGameSetup(perfAuto._1.some, 0)
       def apply(x: NbRatedGame): NbRatedGameSetup = NbRatedGameSetup(x.perf.map(_.key), x.nb)
     }
-    val maxRatings = List(9999, 2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1000)
-    val maxRatingChoices = options(maxRatings, "Max rating of %d") map {
-      case (9999, name) => (9999, "No restriction")
-      case x => x
+    case class RatingSetup(perf: Option[String], rating: Option[Int]) {
+      def actualRating = rating.filter(r => r > 600 && r < 3000)
+      def convert[A](tourPerf: PerfType)(f: (PerfType, Int) => A): Option[A] =
+        actualRating map { r =>
+          f(perf.flatMap(PerfType.apply) | tourPerf, r)
+        }
     }
+    object RatingSetup {
+      def apply(v: (Option[PerfType], Option[Int])): RatingSetup = RatingSetup(v._1.map(_.key), v._2)
+    }
+    val maxRatings = List(2200, 2100, 2000, 1900, 1800, 1700, 1600, 1500, 1400, 1300, 1200, 1000)
+    val maxRatingChoices = ("", "No restriction") ::
+      options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
-      "perf" -> text.verifying(perfChoices.toMap.contains _),
-      "rating" -> numberIn(maxRatingChoices)
-    )(MaxRatingSetup.apply)(MaxRatingSetup.unapply)
-    case class MaxRatingSetup(perf: String, rating: Int) {
-      def isDefined = rating < 9000
-      def convert(tourPerf: PerfType) = isDefined option MaxRating(PerfType(perf) | tourPerf, rating)
-    }
-    object MaxRatingSetup {
-      val default = MaxRatingSetup(perfAuto._1, 9999)
-      def apply(x: MaxRating): MaxRatingSetup = MaxRatingSetup(x.perf.key, x.rating)
-    }
-    val minRatings = List(0, 1500, 1600, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
-    val minRatingChoices = options(minRatings, "Min rating of %d") map {
-      case (0, name) => (0, "No restriction")
-      case x => x
-    }
+      "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "rating" -> optional(numberIn(maxRatings))
+    )(RatingSetup.apply)(RatingSetup.unapply)
+    val minRatings = List(1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
+    val minRatingChoices = ("", "No restriction") ::
+      options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
-      "perf" -> text.verifying(perfChoices.toMap.contains _),
-      "rating" -> numberIn(minRatingChoices)
-    )(MinRatingSetup.apply)(MinRatingSetup.unapply)
-    case class MinRatingSetup(perf: String, rating: Int) {
-      def isDefined = rating > 0
-      def convert(tourPerf: PerfType) = isDefined option MinRating(PerfType(perf) | tourPerf, rating)
-    }
-    object MinRatingSetup {
-      val default = MinRatingSetup(perfAuto._1, 0)
-      def apply(x: MinRating): MinRatingSetup = MinRatingSetup(x.perf.key, x.rating)
-    }
+      "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "rating" -> optional(numberIn(minRatings))
+    )(RatingSetup.apply)(RatingSetup.unapply)
     val teamMember = mapping(
       "teamId" -> optional(text)
     )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
@@ -265,52 +253,52 @@ object Condition {
         }
     }
     object TeamMemberSetup {
-      val default = TeamMemberSetup(None)
       def apply(x: TeamMember): TeamMemberSetup = TeamMemberSetup(x.teamId.some)
     }
     val all = mapping(
-      "nbRatedGame" -> nbRatedGame,
+      "nbRatedGame" -> optional(nbRatedGame),
       "maxRating" -> maxRating,
       "minRating" -> minRating,
-      "titled" -> boolean,
-      "teamMember" -> teamMember
+      "titled" -> optional(boolean),
+      "teamMember" -> optional(teamMember)
     )(AllSetup.apply)(AllSetup.unapply)
       .verifying("Invalid ratings", _.validRatings)
 
     case class AllSetup(
-        nbRatedGame: NbRatedGameSetup,
-        maxRating: MaxRatingSetup,
-        minRating: MinRatingSetup,
-        titled: Boolean,
-        teamMember: TeamMemberSetup
+        nbRatedGame: Option[NbRatedGameSetup],
+        maxRating: RatingSetup,
+        minRating: RatingSetup,
+        titled: Option[Boolean],
+        teamMember: Option[TeamMemberSetup]
     ) {
 
-      def validRatings = !maxRating.isDefined || !minRating.isDefined || {
-        maxRating.rating > minRating.rating
+      def validRatings = (minRating.actualRating, maxRating.actualRating) match {
+        case (Some(min), Some(max)) => min < max
+        case _ => true
       }
 
       def convert(perf: PerfType, teams: Map[String, String]) = All(
-        nbRatedGame convert perf,
-        maxRating convert perf,
-        minRating convert perf,
-        titled option Titled,
-        teamMember convert teams
+        nbRatedGame.flatMap(_ convert perf),
+        maxRating.convert(perf)(MaxRating.apply),
+        minRating.convert(perf)(MinRating.apply),
+        ~titled option Titled,
+        teamMember.flatMap(_ convert teams)
       )
     }
     object AllSetup {
       val default = AllSetup(
-        nbRatedGame = NbRatedGameSetup.default,
-        maxRating = MaxRatingSetup.default,
-        minRating = MinRatingSetup.default,
-        titled = false,
-        teamMember = TeamMemberSetup.default
+        nbRatedGame = none,
+        maxRating = RatingSetup(none, none),
+        minRating = RatingSetup(none, none),
+        titled = none,
+        teamMember = none
       )
       def apply(all: All): AllSetup = AllSetup(
-        nbRatedGame = all.nbRatedGame.fold(NbRatedGameSetup.default)(NbRatedGameSetup.apply),
-        maxRating = all.maxRating.fold(MaxRatingSetup.default)(MaxRatingSetup.apply),
-        minRating = all.minRating.fold(MinRatingSetup.default)(MinRatingSetup.apply),
-        titled = all.titled.isDefined,
-        teamMember = all.teamMember.fold(TeamMemberSetup.default)(TeamMemberSetup.apply)
+        nbRatedGame = all.nbRatedGame.map(NbRatedGameSetup.apply),
+        maxRating = RatingSetup(all.maxRating.map(_.perf.key), all.maxRating.map(_.rating)),
+        minRating = RatingSetup(all.minRating.map(_.perf.key), all.minRating.map(_.rating)),
+        titled = all.titled has Titled option true,
+        teamMember = all.teamMember.map(TeamMemberSetup.apply)
       )
     }
   }

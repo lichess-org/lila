@@ -204,6 +204,7 @@
   <string name="playingRightNow">Spelast nett no</string>
   <string name="eventInProgress">Spelast nett no</string>
   <string name="finished">Slutt</string>
+  <string name="finishesX">endar %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet blei avbrote</string>
   <string name="standard">Standard</string>
@@ -474,6 +475,7 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="pleaseVotePuzzle">Gjer lichess betre ved  å stemma, bruk piltastar opp eller ned.</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelt %s gong</item>
     <item quantity="other">Spelt %s gonger</item>
@@ -705,6 +707,9 @@ i %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Ratinga di i %1$s er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er betre enn %1$s av %2$s-spelarane.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikkje etablert ein %s rating.</string>
+  <string name="yourRating">Ratinga di i er</string>
+  <string name="cumulative">Akkumulert</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sendt deg ein e-post. Trykk på lenka i e-posten for å aktivere kontoen din.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Hvis du ikkje ser e-posten, sjekk om den ligg i mappene spam, søppel, sosialt eller liknande.</string>
@@ -856,4 +861,24 @@ i %3$s</string>
     <item quantity="one">og lagra %s line med førehandstrekk</item>
     <item quantity="other">og lagra %s liner med førehandstrekk</item>
   </plurals>
+  <string name="sorry">Beklagar :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi måtte gje deg ein timeout.</string>
+  <string name="timeoutExpires">Timeouten tek slutt %s.</string>
+  <string name="why">Kvifor?</string>
+  <string name="pleasantChessExperience">Vi freistar å gje alle ei god sjakk-oppleving.</string>
+  <string name="goodPractice">For å oppnå det må vi sikre at alle spelarar følgjer god praksis.</string>
+  <string name="potentialProblem">Når eit potensielt problem blir oppdaga syner vi denne meldinga.</string>
+  <string name="howToAvoidThis">Korleis unngå dette?</string>
+  <string name="playEveryGame">Spel alle parti du startar.</string>
+  <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle parti du spelar.</string>
+  <string name="resignLostGames">Resigner ved tapte stillingar (ikkje la tida renne ut).</string>
+  <string name="temporaryInconvenience">Vi seier oss leie for det kortvarige bryet,</string>
+  <string name="wishYouGreatGames">og vonar du får gode sjakkoppgjer på lichess.org.</string>
+  <string name="thankYouForReading">Takk for at du leste!</string>
+  <string name="lifetimeScore">Livstidsscore</string>
+  <string name="currentMatchScore">Gjeldande kampscore</string>
+  <string name="agreementAssistance">Eg forsikrar at eg ikkje på noko tidspunkt under mine parti vil motta assistanse, korkje frå sjakkprogram, bøker, databasar eller andre personar.</string>
+  <string name="agreementNice">Eg lovar å alltid oppføre meg skikkeleg mot andre spelarar.</string>
+  <string name="agreementAccount">Eg lovar å ikkje opprette fleire brukarkonti.</string>
+  <string name="agreementPolicy">Eg lovar at eg vil følge alle reglane til Lichess.</string>
 </resources>

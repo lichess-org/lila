@@ -34,8 +34,8 @@ object thread {
               a(href := routes.Message.inbox(1), dataIcon := "I", cls := "text"),
               thread.nonEmptyName
             ),
-            st.form(action := routes.Message.delete(thread.id), method := "post")(
-              button(tpe := "submit", cls := "button button-empty button-red confirm")("Delete")
+            postForm(action := routes.Message.delete(thread.id))(
+              submitButton(cls := "button button-empty button-red confirm")("Delete")
             )
           ),
           thread.posts.map { post =>
@@ -46,7 +46,12 @@ object thread {
                   iconTag("H")(cls := "to"),
                   userIdLink(thread.visibleReceiverOf(post), "inline".some)
                 ),
-                momentFromNow(post.createdAt)
+                momentFromNow(post.createdAt),
+                !thread.isWrittenBy(post, me) option views.html.report.form.flag(
+                  username = thread otherUserId me,
+                  resource = s"message/${thread.id}",
+                  text = post.text
+                )
               ),
               div(cls := "message-thread__message__body")(richText(post.text))
             )
@@ -67,14 +72,14 @@ object thread {
                   )("Create a new one")
               )
               else replyForm.map { form =>
-                st.form(action := routes.Message.answer(thread.id), method := "post")(
+                postForm(action := routes.Message.answer(thread.id))(
                   div(cls := "field_body")(
                     form3.textarea(form("text"))(required),
                     errMsg(form("text"))
                   ),
                   div(cls := "actions")(
                     a(cls := "cancel", href := routes.Message.inbox(1))(trans.cancel()),
-                    button(cls := "button text", dataIcon := "E", tpe := "submit")(trans.send())
+                    submitButton(cls := "button text", dataIcon := "E")(trans.send())
                   )
                 )
               }
