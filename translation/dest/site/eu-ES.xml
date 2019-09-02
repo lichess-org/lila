@@ -474,6 +474,7 @@
   <string name="pleaseVotePuzzle">Eman botoa Lichessi laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
+  <string name="hidden">ezkutuan</string>
   <plurals name="playedXTimes">
     <item quantity="one">Behin jokatu da</item>
     <item quantity="other">%s aldiz jokatu da</item>
@@ -704,6 +705,9 @@
   <string name="yourPerfTypeRatingIsRating">Zure %1$s balorazioa %2$s da.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s baino hobea zara, %2$s jokalaritik.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ez duzu zehaztutako %s baloraziorik.</string>
+  <string name="yourRating">Zure puntuazioa</string>
+  <string name="cumulative">Metaketa</string>
+  <string name="glicko2Rating">Glicko-2 puntuazioa</string>
   <string name="checkYourEmail">Zure emailean begiratu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Email mezua  bidali dizugu. Zure kontua aktibatzeko, egizu klik mezuan.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
@@ -855,4 +859,17 @@
     <item quantity="one">eta aurrejokaldi linea %s gorde</item>
     <item quantity="other">eta %s aurrejokaldi linea gorde</item>
   </plurals>
+  <string name="sorry">Barkatu :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
+  <string name="timeoutExpires">Kanporaketaren amaiera: %s.</string>
+  <string name="why">Zergatik?</string>
+  <string name="howToAvoidThis">Nola ekidin hau?</string>
+  <string name="playEveryGame">Hasitako partida guztiak jokatu.</string>
+  <string name="tryToWin">Jokatutako partida guztiak irabazten saiatu (edo gutxienez berdindu).</string>
+  <string name="resignLostGames">Galdutako partidetan amore eman (ez utzi denbora agortzen).</string>
+  <string name="temporaryInconvenience">Barkatu eragozpenak,</string>
+  <string name="wishYouGreatGames">segi lichess.org-en jokatzen.</string>
+  <string name="thankYouForReading">Eskerrik asko irakurtzeagatik!</string>
+  <string name="lifetimeScore">Jokalari honekin duzun emaitza</string>
+  <string name="currentMatchScore">Uneko partidetako emaitza</string>
 </resources>
