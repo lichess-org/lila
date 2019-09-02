@@ -863,6 +863,9 @@
   <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
   <string name="timeoutExpires">Kanporaketaren amaiera: %s.</string>
   <string name="why">Zergatik?</string>
+  <string name="pleasantChessExperience">Guztioi xakean jokatzeko aukera atsegina eskaintzea da gure helburua.</string>
+  <string name="goodPractice">Horretarako, jokalari guztiek praktika onak jarraitzen dituztela ziur izan behar dugu.</string>
+  <string name="potentialProblem">Arazo bat aurkitzen dugunean, mezu hau erakusten dugu.</string>
   <string name="howToAvoidThis">Nola ekidin hau?</string>
   <string name="playEveryGame">Hasitako partida guztiak jokatu.</string>
   <string name="tryToWin">Jokatutako partida guztiak irabazten saiatu (edo gutxienez berdindu).</string>
@@ -872,4 +875,8 @@
   <string name="thankYouForReading">Eskerrik asko irakurtzeagatik!</string>
   <string name="lifetimeScore">Jokalari honekin duzun emaitza</string>
   <string name="currentMatchScore">Uneko partidetako emaitza</string>
+  <string name="agreementAssistance">Nire partidetan ez dut inoiz laguntzarik jasoko (ordenagailuak, liburua, datu-base bat edo beste pertsona bat).</string>
+  <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
+  <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
+  <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
 </resources>
