@@ -204,7 +204,7 @@ final class SlackApi(
 
   def signup(user: User, email: EmailAddress, ip: IpAddress, fp: Option[String], susp: Boolean) = client(SlackMessage(
     username = "lichess",
-    icon = if (susp) "interrobang" else "heavy-check-mark",
+    icon = "musical_note",
     text = {
       val emailLink = lichessLink(s"/mod/search?q=${email.value}", email.value)
       val ipLink = lichessLink(s"/mod/search?q=$ip", ip.value)
