@@ -69,6 +69,15 @@
   <string name="studyUrl">URL študije</string>
   <string name="currentChapterUrl">URL trenutnega poglavja</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">To lahko prilepite na forum, da se prikaže, kot poglavje</string>
+  <string name="startAtInitialPosition">Začni v začetni poziciji</string>
+  <string name="startAtX">Začni z %s</string>
+  <string name="embedThisChapter">Vpnite to poglavje v vaši internetni strani ali na vašem blogu</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Preberite si več o vgraditvi poglavja študije</string>
+  <string name="open">Odpri</string>
+  <string name="xBroughtToYouByY">%1$s vam ponuja %2$s</string>
+  <string name="studyNotFound">Študije nismo našli</string>
+  <string name="editChapter">Uredi poglavje</string>
+  <string name="newChapter">Novo poglavje</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Da: vse obdrži v isti poziciji</string>
   <string name="noLetPeopleBrowseFreely">Ne: naj uporabniki prosto raziskujejo</string>
   <string name="pinnedStudyComment">Označen komentar študije</string>
