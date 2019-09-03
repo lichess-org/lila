@@ -476,8 +476,8 @@
   <string name="ratingX">रेटिङ: %s</string>
   <string name="hidden">गुप्त</string>
   <plurals name="playedXTimes">
-    <item quantity="one">%s पटक खेल्नुभयो</item>
-    <item quantity="other">%s पटक खेल्नुभयो</item>
+    <item quantity="one">%s पटक खेलियो</item>
+    <item quantity="other">%s पटक खेलियो</item>
   </plurals>
   <string name="fromGameLink">खेल %s बाट</string>
   <string name="continueTraining">तालीम जारी राखौं</string>
