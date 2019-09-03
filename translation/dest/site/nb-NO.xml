@@ -871,7 +871,7 @@ i %3$s</string>
   <string name="howToAvoidThis">Hvordan unngå dette?</string>
   <string name="playEveryGame">Spill alle partier du starter.</string>
   <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle partier du spiller.</string>
-  <string name="resignLostGames">Resigner ved tapte stillinger (ikke la tida løpe ut).</string>
+  <string name="resignLostGames">Gi opp tapte stillinger (ikke la tiden løpe ut).</string>
   <string name="temporaryInconvenience">Vi beklager det midlertidige bryet,</string>
   <string name="wishYouGreatGames">og håper du får gode partier på lichess.org.</string>
   <string name="thankYouForReading">Takk for at du leste!</string>
