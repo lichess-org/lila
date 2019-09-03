@@ -224,6 +224,7 @@
   <string name="playingRightNow">Trenutno se igra</string>
   <string name="eventInProgress">Pravkar poteka</string>
   <string name="finished">Končano</string>
+  <string name="finishesX">končal %s</string>
   <string name="abortGame">Opusti igro</string>
   <string name="gameAborted">Igra je opuščena</string>
   <string name="standard">Običajno</string>
@@ -769,6 +770,7 @@ v %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rating je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Boljši si od %1$s %2$s igralcev.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tvoj %s rating še ni uveljavljen.</string>
+  <string name="yourRating">Vaš rating</string>
   <string name="checkYourEmail">Preveri svoj poštni nabiralnik</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti elektronsko sporočilo. Klikni na povezavo v sporočilu za aktiviranje računa.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Če ne vidite elektronskega sporočila, preverite druga mesta, kjer bi lahko bilo, npr. v smetnjaku ali v drugih mapah.</string>
@@ -928,4 +930,8 @@ v %3$s</string>
     <item quantity="few">in shranite %s predpotezne variante</item>
     <item quantity="other">in shranite %s predpoteznih variant</item>
   </plurals>
+  <string name="agreementAssistance">Strinjam se, da ne bom nikoli uporabljal pomoči med partijo (od računalnika, knjige, podatkovne baze ali od druge osebe).</string>
+  <string name="agreementNice">Strinjam se, da bom do drugih vedno prijazen.</string>
+  <string name="agreementAccount">Strinjam se, da ne bom ustvaril več uporabniških računov.</string>
+  <string name="agreementPolicy">Strinjam se, da bom spoštoval vsa pravila Lichess strani.</string>
 </resources>
