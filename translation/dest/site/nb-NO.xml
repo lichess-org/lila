@@ -865,10 +865,10 @@ i %3$s</string>
   <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
   <string name="timeoutExpires">Timeouten utløper %s.</string>
   <string name="why">Hvorfor?</string>
-  <string name="pleasantChessExperience">Vi forsøker å gi alle ein god sjakkopplevelse.</string>
+  <string name="pleasantChessExperience">Vi forsøker å gi alle en god sjakkopplevelse.</string>
   <string name="goodPractice">For å oppnå det må vi sikre at alle spillere følger god praksis.</string>
   <string name="potentialProblem">Når et potensielt problem oppdages, viser vi denne meldingen.</string>
-  <string name="howToAvoidThis">Hvordan unngås dette?</string>
+  <string name="howToAvoidThis">Hvordan unngå dette?</string>
   <string name="playEveryGame">Spill alle partier du starter.</string>
   <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle partier du spiller.</string>
   <string name="resignLostGames">Resigner ved tapte stillinger (ikke la tida løpe ut).</string>
@@ -877,7 +877,7 @@ i %3$s</string>
   <string name="thankYouForReading">Takk for at du leste!</string>
   <string name="lifetimeScore">Livstidsscore</string>
   <string name="currentMatchScore">Gjeldende kampscore</string>
-  <string name="agreementAssistance">Eg forsikrer at eg ikke på noe tidspunkt under mine partier vil motta assistanse, verken fra sjakkprogram, bøker, databaser eller andre personer.</string>
+  <string name="agreementAssistance">Jeg lover at jeg ikke på noe tidspunkt vil motta assistanse under partiene mine, hverken fra maskiner, bøker, databaser eller andre personer.</string>
   <string name="agreementNice">Jeg lover å alltid oppføre meg høflig mot andre spillere.</string>
   <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
   <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
