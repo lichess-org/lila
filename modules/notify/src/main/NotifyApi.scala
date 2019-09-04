@@ -55,7 +55,7 @@ final class NotifyApi(
     }
 
   def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
-    repo.insert(notification) >>- unreadCountCache.invalidate(notification.notifies)
+    repo.insert(notification) >>- unreadCountCache.update(notification.notifies, _ + 1)
 
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
