@@ -644,7 +644,6 @@
   <string name="xCommentedY">%1$s komentárov %2$s</string>
   <string name="victory">Výhra</string>
   <string name="defeat">Porážka</string>
-  <string name="xVsYinZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Rozvrh</string>
   <string name="starting">Štart:</string>
   <string name="allInformationIsPublicAndOptional">Všetky informácie sú verejné a voliteľné.</string>
