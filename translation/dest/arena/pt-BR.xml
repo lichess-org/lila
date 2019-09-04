@@ -7,8 +7,8 @@
   <string name="isNotRated">Este torneio *não* está valendo pontos e *não* afetará seu rating.</string>
   <string name="someRated">Alguns torneios valem pontos e afetarão seu rating.</string>
   <string name="howAreScoresCalculated">Como os pontos são calculados?</string>
-  <string name="howAreScoresCalculatedAnswer">Uma vitória vale 2 pontos, um empate, 1 ponto e uma derrota não valerá ponto algum.
-Se você conseguir ganhar 2 jogos em seguida, iniciará uma sequência de 2 pontos, representada por um ícone de chama na sua pontuação.
+  <string name="howAreScoresCalculatedAnswer">Uma vitória vale 2 pontos, um empate, 1 ponto, e uma derrota não valerá ponto algum.
+Se você conseguir ganhar 2 jogos em seguida, iniciará uma sequência de pontos em dobro, representada por um ícone de chamas na sua pontuação.
 Os jogos seguintes valerão o dobro de pontos até que você perca uma partida.
 Ou seja, uma vitoriá valerá 4 pontos, um empate 2 e uma derrota continuará valendo nenhum ponto.
 
