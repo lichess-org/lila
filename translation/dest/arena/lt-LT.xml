@@ -30,8 +30,6 @@ Kai tik baigiate partiją, grįžkite į turnyro laukiamąjį: tuomet būsite su
   <string name="howDoesItEnd">Kaip jis baigiasi?</string>
   <string name="howDoesItEndAnswer">Turnyras turi atgalinio skaičiavimo laikmatį. Jam pasiekus nulį, turnyro statistika užšaldoma bei paskelbiamas laimėtojas. Dar vykstančios partijos privalo būti užbaigtos, tačiau jos nebesiskaičiuoja turnyrui.</string>
   <string name="otherRules">Kitos svarbios taisyklės</string>
-  <string name="otherRulesAnswer">Jūs privalote atlikti savo pirmąjį ėjimą per 20 sekundžių jam prasidėjus. Neatlikę ėjimo per šį laiką suteiksite pergalę jūsų varžovui.
-Lygiosios per pirmuosius 10 partijos ėjimų nepelnys taškų nė vienam žaidėjui.</string>
   <string name="thisIsPrivate">Tai yra privatus turnyras</string>
   <string name="shareUrl">Pasidalinkite šiuo adresu su žaidėjais: %s</string>
 </resources>
