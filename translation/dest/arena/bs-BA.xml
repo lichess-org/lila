@@ -31,8 +31,6 @@ Igraj brzo i vrati se u lobi da igraš više partija i osvojiš više bodova.</s
   <string name="howDoesItEnd">Kako turnir završava?</string>
   <string name="howDoesItEndAnswer">Turnir ima odbrojavanje vremena. Kada brojač dođe do nule, turnirska ljestvica se zamrzava i proglašava se pobjednik. Partije u tijeku se trebaju završiti, međutim one se ne računaju za turnir.</string>
   <string name="otherRules">Ostala važna pravila</string>
-  <string name="otherRulesAnswer">Moraš napraviti svoj prvi potez tijekom prvih 20 sekundi kada si na potezu. Ako to ne napraviš, partija će se voditi kao pobjeda u korist tvog protivnika.
-Remiziranje tijekom prvih 10 poteza igre neće nijednom igraču dati nijedan bod.</string>
   <string name="thisIsPrivate">Ovo je privatan turnir</string>
   <string name="shareUrl">Podijeli ovaj URL da se ljudi pridruže: %s</string>
 </resources>
