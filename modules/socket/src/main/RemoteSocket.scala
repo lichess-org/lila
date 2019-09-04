@@ -2,6 +2,7 @@ package lila.socket
 
 import chess.Centis
 import io.lettuce.core._
+import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import play.api.libs.json._
 import scala.concurrent.Future
 
@@ -26,6 +27,8 @@ final class RemoteSocket(
 
   private val connectedUserIds = collection.mutable.Set.empty[String]
   private val watchedGameIds = collection.mutable.Set.empty[String]
+
+  def connectToPubSub = redisClient.connectPubSub()
 
   val baseHandler: Handler = {
     case In.ConnectUser(userId) => connectedUserIds += userId
@@ -78,9 +81,10 @@ final class RemoteSocket(
   private val mon = lila.mon.socket.remote
 
   def sendTo(channel: Channel)(msg: String): Unit = {
+    val conn = connectToPubSub
     val chrono = Chronometer.start
     Chronometer.syncMon(_.socket.remote.redis.publishTimeSync) {
-      connOut.async.publish(channel, msg).thenRun {
+      conn.async.publish(channel, msg).thenRun {
         new Runnable { def run = chrono.mon(_.socket.remote.redis.publishTime) }
       }
     }
@@ -90,10 +94,8 @@ final class RemoteSocket(
 
   private val send: String => Unit = sendTo("site-out") _
 
-  private val connOut = redisClient.connectPubSub()
-
   def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Unit = {
-    val conn = redisClient.connectPubSub()
+    val conn = connectToPubSub
     conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
       override def message(_channel: String, message: String): Unit = {
         val raw = RawMsg(message)
@@ -146,8 +148,6 @@ object RemoteSocket {
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
 
       val baseReader: Reader = raw => raw.path match {
-        case "connect" => ConnectUser(raw.args).some // deprecated
-        case "disconnect" => DisconnectUser(raw.args).some // deprecated
         case "connect/user" => ConnectUser(raw.args).some
         case "disconnect/user" => DisconnectUser(raw.args).some
         case "connect/sri" => raw.args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }

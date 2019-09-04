@@ -81,10 +81,7 @@ private[lobby] final class LobbySocket(
 
     case SendHookRemovals =>
       if (removedHookIds.nonEmpty) {
-        val msg = makeMessage("hrm", removedHookIds)
-        hookSubscriberSris.foreach { sri =>
-          withActiveMemberBySriString(sri)(_ push msg)
-        }
+        sendToActiveHookSubscribers(makeMessage("hrm", removedHookIds))
         removedHookIds = ""
       }
       system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
@@ -120,10 +117,7 @@ private[lobby] final class LobbySocket(
       system.scheduler.scheduleOnce(3 second)(goPlayTheGame) // Darn it
 
     case HookIds(ids) =>
-      val msg = makeMessage("hli", ids mkString "")
-      hookSubscriberSris.foreach { sri =>
-        withActiveMemberBySriString(sri)(_ push msg)
-      }
+      sendToActiveHookSubscribers(makeMessage("hli", ids mkString ""))
 
     case lila.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
@@ -141,6 +135,17 @@ private[lobby] final class LobbySocket(
     case GetRemoteMember(sri, promise) => promise success {
       members get sri.value collect { case m: LobbyRemoteSocketMember => m }
     }
+  }
+
+  private def sendToActiveHookSubscribers(msg: JsObject): Unit = {
+    var remoteSris = List.empty[Sri]
+    hookSubscriberSris diff idleSris foreach { sri =>
+      members get sri foreach {
+        case m: LobbyDirectSocketMember => m push msg
+        case m => remoteSris = m.sri :: remoteSris
+      }
+    }
+    system.lilaBus.publish(LobbySocketTellSris(remoteSris, msg), 'lobbySocketTell)
   }
 
   private def quitRemote(sri: Sri): Unit = {
@@ -173,7 +178,7 @@ private[lobby] final class LobbySocket(
       case m: LobbyDirectSocketMember => m push msg
       case _ =>
     }
-    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTellAll)
+    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTell)
   }
 
   // TODO let lila-websocket know about active members
@@ -182,7 +187,7 @@ private[lobby] final class LobbySocket(
       case (sri, m: LobbyDirectSocketMember) if !idleSris(sri) => m push msg
       case _ =>
     }
-    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTellAll)
+    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTell)
   }
 
   private def withActiveMemberBySriString(sri: String)(f: LobbySocketMember => Unit): Unit =
