@@ -54,6 +54,7 @@ object faq {
     p(trans.arena.howDoesItEndAnswer()),
 
     h2(trans.arena.otherRules()),
-    p(trans.arena.otherRulesAnswer())
+    p(trans.arena.thereIsACountdown()),
+    p(trans.arena.drawingWithinNbMoves.pluralSame(10))
   )
 }
