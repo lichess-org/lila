@@ -798,9 +798,10 @@ val `howDoesPairingWorkAnswer` = new Translated("howDoesPairingWorkAnswer", Aren
 val `howDoesItEnd` = new Translated("howDoesItEnd", Arena)
 val `howDoesItEndAnswer` = new Translated("howDoesItEndAnswer", Arena)
 val `otherRules` = new Translated("otherRules", Arena)
-val `otherRulesAnswer` = new Translated("otherRulesAnswer", Arena)
+val `thereIsACountdown` = new Translated("thereIsACountdown", Arena)
 val `thisIsPrivate` = new Translated("thisIsPrivate", Arena)
 val `shareUrl` = new Translated("shareUrl", Arena)
+val `drawingWithinNbMoves` = new Translated("drawingWithinNbMoves", Arena)
 }
 
 object emails {
