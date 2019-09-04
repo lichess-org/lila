@@ -30,8 +30,6 @@ Mängige kiiresti ning naaske ooteruumi, et mängida rohkem mänge ja võita roh
   <string name="howDoesItEnd">Kuidas see lõpeb?</string>
   <string name="howDoesItEndAnswer">Turniiril on allaloenduskell. Kui kell jõuab nulli, peatatakse turniiriasetused ning kuulutatakse välja võitja. Pooleliolevad mängud tuleb lõpuni mängida, kuid nende tulemusi ei võeta turniiril enam arvesse.</string>
   <string name="otherRules">Teised tähtsad reeglid</string>
-  <string name="otherRulesAnswer">Peate oma esimese käigu tegema 20 sekundi jooksul, kui on Teie kord. Selle aja jooksul käigu tegemata jätmise korral saab vastane loobumisvõidu.
-Mängu leppimine viiki esimese 10 käigu jooksul ei too kummalegi mängijale ühtegi punkti.</string>
   <string name="thisIsPrivate">See on privaatne turniir</string>
   <string name="shareUrl">Jagage seda URL\'i, et inimesed liituda saaks: %s</string>
 </resources>
