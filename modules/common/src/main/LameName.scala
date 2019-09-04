@@ -64,6 +64,7 @@ object LameName {
       "buttsex",
       "retard",
       "rapist",
+      "resign",
       "pedo",
       "lidraughts",
       "moderator",
