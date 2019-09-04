@@ -125,8 +125,6 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      val createdLikePoolFiveO = inc("lobby.hook.like_pool_5_0")
-      val acceptedLikePoolFiveO = inc("lobby.hook.like_pool_5_0_accepted")
     }
     object seek {
       val create = inc("lobby.seek.create")

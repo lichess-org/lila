@@ -95,8 +95,6 @@ private[lobby] final class LobbySocket(
       }
       withMember(sri) { member =>
         lila.mon.lobby.hook.join()
-        if (hook.likePoolFiveO)
-          lila.mon.lobby.hook.acceptedLikePoolFiveO()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
@@ -189,9 +187,6 @@ private[lobby] final class LobbySocket(
     }
     system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTell)
   }
-
-  private def withActiveMemberBySriString(sri: String)(f: LobbySocketMember => Unit): Unit =
-    if (!idleSris(sri)) members get sri foreach f
 
   override protected def afterQuit(sri: Sri, member: LobbySocketMember): Unit = afterQuit(sri)
 

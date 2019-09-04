@@ -81,8 +81,6 @@ case class Hook(
   def compatibleWithPool(poolClock: chess.Clock.Config) =
     compatibleWithPools && clock == poolClock
 
-  def likePoolFiveO = compatibleWithPools && clock.show == "5+0"
-
   def toPool = lila.pool.HookThieve.PoolHook(
     hookId = id,
     member = lila.pool.PoolMember(
