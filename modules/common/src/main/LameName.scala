@@ -61,6 +61,7 @@ object LameName {
       "nazi",
       "buttsex",
       "retard",
+      "resign",
       "pedo",
       "lichess",
       "moderator",
