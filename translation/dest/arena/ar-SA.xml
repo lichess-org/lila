@@ -4,8 +4,8 @@
   <string name="isItRated">هل هي مقيمة؟</string>
   <string name="willBeNotified">سيتم إعلامك عند بدء البطولة، لذا فإنه من الآمن اللعب في علامة تبويب أخرى أثناء الانتظار.</string>
   <string name="isRated">هذه البطولة مقيمة وسوف تؤثر على تقييمك.</string>
-  <string name="isNotRated">هذه البطولة *ليست* مقيمة وسوف *لا* تؤثر على تقييمك.</string>
-  <string name="someRated">بعض البطولات تكون مقيمة وستؤثر على تقييمك.</string>
+  <string name="isNotRated">هذه البطولة *ليست* مقيمة *ولن* تؤثر على تقييمك.</string>
+  <string name="someRated">بعض البطولات تكون مقيمة وسوف تؤثر على تقييمك.</string>
   <string name="howAreScoresCalculated">كيف يتم احتساب النقاط؟</string>
   <string name="howAreScoresCalculatedAnswer">الفوز نتيجته الأساسية  2 نقطة، التعادل: 1 نقطة، والخسارة 0 نقطة.
 إذا ربحت مباراتين على التوالي سوف تبدأ مرحلة مضاعفة النقاط، ويمثلها رمز الشعلة.
@@ -24,7 +24,6 @@
   <string name="howDoesItEnd">كيف تنتهي البطولة؟</string>
   <string name="howDoesItEndAnswer">للبطولة ساعة عد تنازلي. عندما تصل إلى الصفر، يتم تجميد ترتيب مراكز البطولة، ويتم الإعلان عن الفائز. يجب أن يتم الانتهاء من المباريات قيد اللعب، ومع ذلك فإنها لا تحتسب نتائجها في البطولة.</string>
   <string name="otherRules">قواعد أخرى هامة</string>
-  <string name="otherRulesAnswer">عليك القيام بنقلتك الأولى خلال 20 ثانية في دورك. عدم قيامك بالنقلة في هذا الوقت يؤدي لفوز رسيلك. التعادل خلال ال10 نقلات الأولى يحرم اللاعبين من نقطة التعادل.</string>
   <string name="thisIsPrivate">هذه بطولة خاصة</string>
   <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
 </resources>
