@@ -874,4 +874,6 @@
   <string name="temporaryInconvenience">താത്കാലികമായ ബുദ്ധിമുട്ടിനു ക്ഷമ ചോദിക്കുന്നു</string>
   <string name="wishYouGreatGames">lichess.org-ൽ നല്ല കളികൾ ആശംസിക്കുന്നു.</string>
   <string name="thankYouForReading">വായിച്ചതിനു നന്ദി!</string>
+  <string name="lifetimeScore">ജീവിതകാല സ്കോർ</string>
+  <string name="currentMatchScore">നിലവിലെ മത്സര സ്കോർ</string>
 </resources>
