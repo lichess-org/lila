@@ -8,9 +8,11 @@ import lidraughts.hub.actorApi.{ DeployPre, DeployPost }
 
 private final class InfluxEvent(endpoint: String, env: String) extends Actor {
 
+  private val seed = scalalib.util.Random.nextString(6)
+
   override def preStart(): Unit = {
     context.system.lidraughtsBus.subscribe(self, 'deploy)
-    event("lidraughts_start", "Lidraughts starts")
+    event("lidraughts_start", s"Lidraughts starts: $seed".pp)
   }
 
   def receive = {
