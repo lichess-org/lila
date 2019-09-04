@@ -28,8 +28,6 @@ Hrajte rýchlo a vráťte sa vždy čo najrýchlejšie do turnajovej miestnosti 
   <string name="howDoesItEnd">Ako turnaj končí?</string>
   <string name="howDoesItEndAnswer">Dĺžku turnaja merajú hodiny s časovým odpočítavaním. Keď dosiahnu nulu, turnajový rebríček sa zmrazí a vyhlási sa víťaz. Rozohrané partie sa musia dohrať, avšak neovplyvnia už výsledok turnaja.</string>
   <string name="otherRules">Ďalšie dôležité pravidlá</string>
-  <string name="otherRulesAnswer">Svoj prvý ťah musíte zahrať do 20 sekúnd od začiatku partie. Ak tak neurobíte, partia bude kontumovaná v prospech Vášho súpera.
-Pokiaľ partia skončí v prvých 10 ťahoch remízou, obaja hráči získajú 0 bodov.</string>
   <string name="thisIsPrivate">Toto je uzavretý turnaj</string>
   <string name="shareUrl">Zdieľaním tejto adresy umožníte ľuďom účasť v turnaji: %s</string>
 </resources>
