@@ -32,6 +32,11 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="howDoesItEndAnswer">Turnīram ir laika atpakaļskaitīšanas pulkstenis. Kad tas sasniedz nulli, turnīra tabula tiek iesaldēta un tiek paziņots uzvarētājs. Iesāktās spēles tiek pabeigtas, taču tās vairs netiek ieskaitītas turnīra rezultātā.</string>
   <string name="otherRules">Citi svarīgi noteikumi</string>
   <string name="thereIsACountdown">Jūsu pirmajam gājienam ir laika limits. Ja neizdosies šajā laikā iziet gājienu, spēli būsiet zaudējis.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="zero">Panākot neizšķirtu pirmajos %s gājienos, neviens spēlētājs negūs punktus.</item>
+    <item quantity="one">Panākot neizšķirtu pirmajā gājienā, neviens spēlētājs negūs punktus.</item>
+    <item quantity="other">Panākot neizšķirtu pirmajos %s gājienos, neviens spēlētājs negūs punktus.</item>
+  </plurals>
   <string name="thisIsPrivate">Šis ir privātais turnīrs</string>
   <string name="shareUrl">Dalies ar šo saiti lai citi pievienotos: %s</string>
 </resources>
