@@ -125,21 +125,18 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
-      def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
-      def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
+      val createdLikePoolFiveO = inc("lobby.hook.like_pool_5_0")
+      val acceptedLikePoolFiveO = inc("lobby.hook.like_pool_5_0_accepted")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
       val getSris = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
-      val mobile = rec("lobby.socket.mobile")
     }
     object pool {
       object wave {
@@ -336,8 +333,18 @@ object mon {
       object redis {
         val publishTime = rec("socket.remote.redis.publish_time")
         val publishTimeSync = rec("socket.remote.redis.publish_time.sync")
-        def in(path: String) = inc(s"socket.remote.redis.in.$path")
-        def out(path: String) = inc(s"socket.remote.redis.out.$path")
+        object in {
+          def channel(channel: String) = inc(s"socket.remote.redis.in.channel.$channel")
+          def path(channel: String, path: String) = inc(s"socket.remote.redis.in.path.$channel:$path")
+        }
+        object out {
+          def channel(channel: String) = inc(s"socket.remote.redis.out.channel.$channel")
+          def path(channel: String, path: String) = inc(s"socket.remote.redis.out.path.$channel:$path")
+        }
+      }
+      object lobby {
+        def tellSri(tpe: String) = inc(s"socket.remote.lobby.tell_sri.$tpe")
+        val missingSri = inc("socket.remote.lobby.missing_sri")
       }
     }
   }

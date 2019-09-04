@@ -3,14 +3,14 @@ package actorApi
 
 import scala.concurrent.Promise
 
-import lila.socket.SocketMember
+import lila.socket.DirectSocketMember
 import lila.socket.Socket.Sri
 
 case class Member(
     channel: JsChannel,
     userId: Option[String],
     flag: Option[String]
-) extends SocketMember {
+) extends DirectSocketMember {
 
   def isApi = flag has "api"
 }

@@ -103,7 +103,8 @@ abstract class SocketTrouper[M <: SocketMember](
   // actively boot a member, if it exists
   // this function is called when a member joins,
   // to prevent duplicate sri
-  private final def eject(sri: Socket.Sri): Unit = withMember(sri) { member =>
+  protected final def eject(sri: Socket.Sri): Unit = withMember(sri) { eject(sri, _) }
+  protected final def eject(sri: Socket.Sri, member: M): Unit = {
     member.end
     quit(sri, member)
   }

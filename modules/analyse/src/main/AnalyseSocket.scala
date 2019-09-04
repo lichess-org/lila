@@ -5,7 +5,6 @@ import play.api.libs.json.JsValue
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.hub.Trouper
 import lila.socket._
 
 private final class AnalyseSocket(
@@ -33,7 +32,7 @@ private object AnalyseSocket {
   case class Member(
       channel: JsChannel,
       userId: Option[lila.user.User.ID]
-  ) extends SocketMember
+  ) extends DirectSocketMember
 
   private[analyse] case class Join(sri: Socket.Sri, userId: Option[String], promise: Promise[Connected])
   private[analyse] case class Connected(enumerator: JsEnumerator, member: Member)

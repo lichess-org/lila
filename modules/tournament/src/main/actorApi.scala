@@ -5,14 +5,14 @@ import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.socket.Socket.{ Sri, SocketVersion }
-import lila.socket.SocketMember
+import lila.socket.DirectSocketMember
 import lila.user.User
 
 private[tournament] case class Member(
     channel: JsChannel,
     userId: Option[String],
     troll: Boolean
-) extends SocketMember
+) extends DirectSocketMember
 
 private[tournament] object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(

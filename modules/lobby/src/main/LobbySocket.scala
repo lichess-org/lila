@@ -12,11 +12,12 @@ import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.lobby._
 import lila.hub.actorApi.timeline._
 import lila.socket.{ Socket, SocketTrouper, LoneSocket }
+import Socket.{ Sri, Sris }
 
 private[lobby] final class LobbySocket(
     system: ActorSystem,
     sriTtl: FiniteDuration
-) extends SocketTrouper[Member](system, sriTtl) with LoneSocket {
+) extends SocketTrouper[LobbySocketMember](system, sriTtl) with LoneSocket {
 
   def monitoringName = "lobby"
   def broomFrequency = 4073 millis
@@ -34,20 +35,25 @@ private[lobby] final class LobbySocket(
   def receiveSpecific = {
 
     case GetSrisP(promise) =>
-      promise success Socket.Sris(members.keySet.map(Socket.Sri.apply)(scala.collection.breakOut))
+      promise success Sris(members.keySet.map(Sri.apply)(scala.collection.breakOut))
       lila.mon.lobby.socket.idle(idleSris.size)
       lila.mon.lobby.socket.hookSubscribers(hookSubscriberSris.size)
-      lila.mon.lobby.socket.mobile(members.count(_._2.mobile))
 
     case Cleanup =>
       idleSris retain members.contains
       hookSubscriberSris retain members.contains
 
-    case Join(sri, user, blocks, mobile, promise) =>
+    case Join(sri, user, blocks, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, blocks, sri, mobile)
+      val member = LobbySocketMember(channel, user, blocks, sri)
       addMember(sri, member)
       promise success Connected(enumerator, member)
+
+    case JoinRemote(member) =>
+      members += (member.sri.value -> member)
+    case LeaveRemote(sri) => quitRemote(sri)
+    case LeaveAllRemote =>
+      members.collect { case (_, m: LobbyRemoteSocketMember) => m.sri } foreach quitRemote
 
     case ReloadTournaments(html) => notifyAllActive(makeMessage("tournaments", html))
 
@@ -65,7 +71,7 @@ private[lobby] final class LobbySocket(
         }
       }
       if (hook.likePoolFiveO) withMember(hook.sri) { member =>
-        lila.mon.lobby.hook.createdLikePoolFiveO(member.mobile)()
+        lila.mon.lobby.hook.createdLikePoolFiveO()
       }
 
     case AddSeek(_) => notifySeeks
@@ -75,10 +81,7 @@ private[lobby] final class LobbySocket(
 
     case SendHookRemovals =>
       if (removedHookIds.nonEmpty) {
-        val msg = makeMessage("hrm", removedHookIds)
-        hookSubscriberSris.foreach { sri =>
-          withActiveMemberBySriString(sri)(_ push msg)
-        }
+        sendToActiveHookSubscribers(makeMessage("hrm", removedHookIds))
         removedHookIds = ""
       }
       system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
@@ -87,23 +90,23 @@ private[lobby] final class LobbySocket(
 
     case JoinHook(sri, hook, game, creatorColor) =>
       withMember(hook.sri) { member =>
-        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        lila.mon.lobby.hook.join()
         notifyPlayerStart(game, creatorColor)(member)
       }
       withMember(sri) { member =>
-        lila.mon.lobby.hook.joinMobile(member.mobile)()
+        lila.mon.lobby.hook.join()
         if (hook.likePoolFiveO)
-          lila.mon.lobby.hook.acceptedLikePoolFiveO(member.mobile)()
+          lila.mon.lobby.hook.acceptedLikePoolFiveO()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
     case JoinSeek(userId, seek, game, creatorColor) =>
       membersByUserId(seek.user.id) foreach { member =>
-        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        lila.mon.lobby.seek.join()
         notifyPlayerStart(game, creatorColor)(member)
       }
       membersByUserId(userId) foreach { member =>
-        lila.mon.lobby.seek.joinMobile(member.mobile)()
+        lila.mon.lobby.seek.join()
         notifyPlayerStart(game, !creatorColor)(member)
       }
 
@@ -114,10 +117,7 @@ private[lobby] final class LobbySocket(
       system.scheduler.scheduleOnce(3 second)(goPlayTheGame) // Darn it
 
     case HookIds(ids) =>
-      val msg = makeMessage("hli", ids mkString "")
-      hookSubscriberSris.foreach { sri =>
-        withActiveMemberBySriString(sri)(_ push msg)
-      }
+      sendToActiveHookSubscribers(makeMessage("hli", ids mkString ""))
 
     case lila.hub.actorApi.streamer.StreamsOnAir(html) => notifyAll(makeMessage("streams", html))
 
@@ -130,7 +130,36 @@ private[lobby] final class LobbySocket(
     case AllHooksFor(member, hooks) =>
       notifyMember("hooks", JsArray(hooks.map(_.render)))(member)
       hookSubscriberSris += member.sri.value
+
+    // for LobbyRemoteSocket
+    case GetRemoteMember(sri, promise) => promise success {
+      members get sri.value collect { case m: LobbyRemoteSocketMember => m }
+    }
   }
+
+  private def sendToActiveHookSubscribers(msg: JsObject): Unit = {
+    var remoteSris = List.empty[Sri]
+    hookSubscriberSris diff idleSris foreach { sri =>
+      members get sri foreach {
+        case m: LobbyDirectSocketMember => m push msg
+        case m => remoteSris = m.sri :: remoteSris
+      }
+    }
+    system.lilaBus.publish(LobbySocketTellSris(remoteSris, msg), 'lobbySocketTell)
+  }
+
+  private def quitRemote(sri: Sri): Unit = {
+    members -= sri.value
+    afterQuit(sri)
+  }
+
+  // don't broom out remote socket members
+  // since we don't get their pings and don't set them alive
+  override protected def broom: Unit =
+    members.foreachValue {
+      case m @ LobbyDirectSocketMember(_, _, sri) if !aliveSris.get(sri.value) => eject(sri, m)
+      case _ =>
+    }
 
   private def redirectPlayers(p: lila.pool.PoolApi.Pairing) = {
     withMember(p.whiteSri)(notifyPlayerStart(p.game, chess.White))
@@ -143,15 +172,30 @@ private[lobby] final class LobbySocket(
       "url" -> playerUrl(game fullIdOf color)
     ).add("cookie" -> AnonCookie.json(game, color))) _
 
-  private def notifyAllActive(msg: JsObject) =
-    members.foreach {
-      case (sri, member) => if (!idleSris(sri)) member push msg
+  // group remote socket messages!
+  override protected def notifyAll(msg: JsObject): Unit = {
+    members.foreachValue {
+      case m: LobbyDirectSocketMember => m push msg
+      case _ =>
     }
+    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTell)
+  }
 
-  private def withActiveMemberBySriString(sri: String)(f: Member => Unit): Unit =
+  // TODO let lila-websocket know about active members
+  private def notifyAllActive(msg: JsObject) = {
+    members.foreach {
+      case (sri, m: LobbyDirectSocketMember) if !idleSris(sri) => m push msg
+      case _ =>
+    }
+    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTell)
+  }
+
+  private def withActiveMemberBySriString(sri: String)(f: LobbySocketMember => Unit): Unit =
     if (!idleSris(sri)) members get sri foreach f
 
-  override protected def afterQuit(sri: Socket.Sri, member: Member) = {
+  override protected def afterQuit(sri: Sri, member: LobbySocketMember): Unit = afterQuit(sri)
+
+  private def afterQuit(sri: Sri): Unit = {
     idleSris -= sri.value
     hookSubscriberSris -= sri.value
   }

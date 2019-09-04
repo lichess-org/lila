@@ -15,6 +15,7 @@ private object Dictionary {
 fck(er|r|u|k|ed|d|t|ing?|ign|tard?|face|off?|)
 abortion
 adol(f|ph)
+afraid
 anal(plug|sex|)
 anus
 arse(hole|wipe|)
@@ -40,6 +41,7 @@ cancer
 cawk
 cheat(er|)
 chess(|-|_)bot(.?com)?
+chicken
 chink
 choad
 clit
@@ -140,6 +142,7 @@ sex
 shag
 shemale
 shit(z|e|y|ty|bag|)
+sissy
 sister
 slag
 slave

@@ -20,7 +20,7 @@ private[simul] final class Socket(
     lightUser: lila.common.LightUser.Getter,
     sriTtl: Duration,
     keepMeAlive: () => Unit
-) extends SocketTrouper[Member](system, sriTtl) with Historical[Member, Messadata] {
+) extends SocketTrouper[SimulSocketMember](system, sriTtl) with Historical[SimulSocketMember, Messadata] {
 
   lilaBus.subscribe(this, chatClassifier)
 
@@ -69,7 +69,7 @@ private[simul] final class Socket(
 
     case Join(sri, user, version, promise) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user)
+      val member = SimulSocketMember(channel, user)
       addMember(sri, member)
       notifyCrowd
       promise success Connected(
@@ -90,7 +90,7 @@ private[simul] final class Socket(
     if (members.nonEmpty) keepMeAlive()
   }
 
-  override protected def afterQuit(sri: lila.socket.Socket.Sri, member: Member) = notifyCrowd
+  override protected def afterQuit(sri: lila.socket.Socket.Sri, member: SimulSocketMember) = notifyCrowd
 
   def notifyCrowd: Unit =
     if (!delayedCrowdNotification) {
@@ -98,6 +98,6 @@ private[simul] final class Socket(
       system.scheduler.scheduleOnce(500 millis)(this ! NotifyCrowd)
     }
 
-  protected def shouldSkipMessageFor(message: Message, member: Member) =
+  protected def shouldSkipMessageFor(message: Message, member: SimulSocketMember) =
     message.metadata.trollish && !member.troll
 }

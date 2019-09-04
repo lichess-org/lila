@@ -34,6 +34,8 @@ final class Env(
     isPlaying: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     challengeJsonView: lila.challenge.JsonView,
+    remoteSocketApi: lila.socket.RemoteSocket,
+    siteRemoteSocket: lila.site.SiteRemoteSocket,
     val isProd: Boolean
 ) {
 
@@ -127,6 +129,7 @@ final class Env(
     getFilter = setupEnv.filter,
     lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
+    remoteSocketDomain = ctx => ctx.userId exists lobbyEnv.socketRemoteUsersSetting.get().matches option Net.RemoteSocketDomain,
     pools = pools,
     urgentGames = urgentGames
   )
@@ -182,6 +185,8 @@ object Env {
     isPlaying = lila.relation.Env.current.online.isPlaying,
     pools = lila.pool.Env.current.api.configs,
     challengeJsonView = lila.challenge.Env.current.jsonView,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
+    siteRemoteSocket = lila.site.Env.current.remoteSocket,
     isProd = lila.common.PlayApp.isProd
   )
 }

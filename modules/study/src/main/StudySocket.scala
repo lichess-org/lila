@@ -12,7 +12,7 @@ import lila.chat.Chat
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket.{ Sri, GetVersion, SocketVersion }
-import lila.socket.{ SocketTrouper, History, Historical, AnaDests }
+import lila.socket.{ SocketTrouper, History, Historical, AnaDests, DirectSocketMember }
 import lila.tree.Node.{ Shapes, Comment }
 import lila.user.User
 
@@ -282,7 +282,7 @@ object StudySocket {
       channel: JsChannel,
       userId: Option[String],
       troll: Boolean
-  ) extends lila.socket.SocketMember
+  ) extends DirectSocketMember
 
   case class Who(u: String, s: Sri)
   import JsonView.sriWriter

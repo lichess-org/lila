@@ -8,12 +8,12 @@ import chess.{ MoveMetrics, Color }
 
 import lila.common.{ IpAddress, IsMobile }
 import lila.socket.Socket.{ SocketVersion, Sri }
-import lila.socket.SocketMember
+import lila.socket.DirectSocketMember
 import lila.user.User
 
 case class EventList(events: List[lila.game.Event])
 
-sealed trait Member extends SocketMember {
+sealed trait Member extends DirectSocketMember {
 
   val color: Color
   val playerIdOption: Option[String]

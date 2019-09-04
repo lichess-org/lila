@@ -36,10 +36,7 @@ final class PoolApi(
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
 
-  def socketIds(ids: Set[Sri]) = {
-    val msg = Sris(ids)
-    actors.values.foreach(_ ! msg)
-  }
+  def socketIds(ids: Sris) = actors.values.foreach(_ ! ids)
 
   private def sendTo(poolId: PoolConfig.Id, msg: Any) =
     actors get poolId foreach { _ ! msg }

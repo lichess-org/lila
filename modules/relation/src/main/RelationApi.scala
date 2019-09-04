@@ -87,18 +87,24 @@ final class RelationApi(
   def countBlockers(userId: ID) =
     coll.count($doc("u2" -> userId, "r" -> Block).some)
 
-  def followingPaginatorAdapter(userId: ID) = new Adapter[Followed](
-    collection = coll,
-    selector = $doc("u1" -> userId, "r" -> Follow),
-    projection = $doc("u2" -> true, "_id" -> false),
-    sort = $empty
+  def followingPaginatorAdapter(userId: ID) = new CachedAdapter[Followed](
+    adapter = new Adapter[Followed](
+      collection = coll,
+      selector = $doc("u1" -> userId, "r" -> Follow),
+      projection = $doc("u2" -> true, "_id" -> false),
+      sort = $empty
+    ),
+    nbResults = countFollowing(userId)
   ).map(_.userId)
 
-  def followersPaginatorAdapter(userId: ID) = new Adapter[Follower](
-    collection = coll,
-    selector = $doc("u2" -> userId, "r" -> Follow),
-    projection = $doc("u1" -> true, "_id" -> false),
-    sort = $empty
+  def followersPaginatorAdapter(userId: ID) = new CachedAdapter[Follower](
+    adapter = new Adapter[Follower](
+      collection = coll,
+      selector = $doc("u2" -> userId, "r" -> Follow),
+      projection = $doc("u1" -> true, "_id" -> false),
+      sort = $empty
+    ),
+    nbResults = countFollowers(userId)
   ).map(_.userId)
 
   def blockingPaginatorAdapter(userId: ID) = new Adapter[Blocked](

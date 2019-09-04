@@ -3,7 +3,7 @@ package lila.socket
 import lila.hub.Trouper
 import actorApi.{ SocketEnter, SocketLeave, PopulationTell, NbMembers, RemoteNbMembers }
 
-private[socket] final class Population(system: akka.actor.ActorSystem) extends Trouper {
+final class SocketPopulation(system: akka.actor.ActorSystem) extends Trouper {
 
   private var nb = 0
   private var remoteNb = 0
