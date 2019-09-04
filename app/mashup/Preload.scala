@@ -59,8 +59,24 @@ final class Preload(
               tWinners.map(_.userId) :::
                 posts.flatMap(_.userId) :::
                 entries.flatMap(_.userIds).toList
-            } inject
-              (data, entries, posts, tours, events, simuls, feat, lead, tWinners, puzzle, streams, Env.blog.lastPostCache.apply, playban, currentGame, countRounds(), blindGames)
+            } inject ((
+              data,
+              entries,
+              posts,
+              tours,
+              events,
+              simuls,
+              feat,
+              lead,
+              tWinners,
+              puzzle,
+              streams.excludeUsers(events.flatMap(_.hostedBy)),
+              Env.blog.lastPostCache.apply,
+              playban,
+              currentGame,
+              countRounds(),
+              blindGames
+            ))
           }
       }
 

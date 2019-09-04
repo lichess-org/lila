@@ -6,6 +6,7 @@ import play.api.data.Forms._
 import play.api.data.validation.Constraints._
 
 import lila.i18n.LangList
+import lila.user.User
 import lila.common.Lang
 
 object EventForm {
@@ -21,7 +22,8 @@ object EventForm {
     "lang" -> text.verifying(l => LangList.choices.exists(_._1 == l)),
     "enabled" -> boolean,
     "startsAt" -> utcDate,
-    "finishesAt" -> utcDate
+    "finishesAt" -> utcDate,
+    "hostedBy" -> optional(lila.user.DataForm.historicalUsernameField)
   )(Data.apply)(Data.unapply)) fill Data(
     title = "",
     headline = "",
@@ -43,7 +45,8 @@ object EventForm {
       lang: String,
       enabled: Boolean,
       startsAt: DateTime,
-      finishesAt: DateTime
+      finishesAt: DateTime,
+      hostedBy: Option[User.ID] = None
   ) {
 
     def update(event: Event) = event.copy(
@@ -55,7 +58,8 @@ object EventForm {
       lang = Lang(lang),
       enabled = enabled,
       startsAt = startsAt,
-      finishesAt = finishesAt
+      finishesAt = finishesAt,
+      hostedBy = hostedBy
     )
 
     def make(userId: String) = Event(
@@ -70,7 +74,8 @@ object EventForm {
       startsAt = startsAt,
       finishesAt = finishesAt,
       createdBy = Event.UserId(userId),
-      createdAt = DateTime.now
+      createdAt = DateTime.now,
+      hostedBy = hostedBy
     )
   }
 
@@ -85,7 +90,8 @@ object EventForm {
       lang = event.lang.language,
       enabled = event.enabled,
       startsAt = event.startsAt,
-      finishesAt = event.finishesAt
+      finishesAt = event.finishesAt,
+      hostedBy = event.hostedBy
     )
   }
 }

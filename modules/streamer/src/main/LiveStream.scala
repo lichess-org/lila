@@ -26,11 +26,18 @@ case class LiveStreams(streams: List[Stream]) {
       lightUser.sync(userId).flatMap(_.title) map (userId ->)
     }.toMap
   )
+
+  def excludeUsers(userIds: List[User.ID]) = copy(
+    streams = streams.filterNot(s => userIds contains s.streamer.userId)
+  )
 }
 
 object LiveStreams {
   case class WithTitles(live: LiveStreams, titles: Map[User.ID, String]) {
     def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_ + " ")}${s.streamer.name}"
+    def excludeUsers(userIds: List[User.ID]) = copy(
+      live = live excludeUsers userIds
+    )
   }
 }
 
