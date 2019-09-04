@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Jogar com um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este endereço</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este link</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="waiting">Em espera</string>
@@ -589,7 +589,6 @@
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitória</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s em %3$s</string>
   <string name="timeline">Linha do tempo</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>
