@@ -29,7 +29,6 @@ Hrajte rychle a vraťte se vždy co nejdříve do turnajové místnosti - stihne
   <string name="howDoesItEnd">Jak turnaj končí?</string>
   <string name="howDoesItEndAnswer">Turnaj má hodiny s časovým odpočtem. Jakmile dosáhnou nuly, je žebříček turnaje zmrazen a je vyhlášen vítěz. Nedokončené hry se musí dohrát, ale nezapočítávají se již do turnajových výsledků.</string>
   <string name="otherRules">Další důležitá pravidla</string>
-  <string name="otherRulesAnswer">Musíte udělat první tah do 20 sekund. Pokud to neuděláte, prohrajete partii. Pokud remizujete v prvních 10 tazích, nezíská ani jeden z hráčů žádný bod.</string>
   <string name="thisIsPrivate">Toto je soukromý turnaj</string>
   <string name="shareUrl">Sdílejte tuto adresu URL, aby se mohli lidé připojit: %s</string>
 </resources>
