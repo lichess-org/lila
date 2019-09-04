@@ -617,7 +617,6 @@
   <string name="xCommentedY">%1$s је коментарисао/ла %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>
-  <string name="xVsYinZ">%1$s против %2$s у %3$s</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
