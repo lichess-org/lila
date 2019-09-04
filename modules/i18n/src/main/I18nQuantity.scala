@@ -46,13 +46,7 @@ private object I18nQuantity {
       val rem10 = c % 10
       if (rem10 == 1 && rem100 != 11) One
       else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) Few
-      /* android-i18n plural rules disagree with crowdin (and a native russian speaker)
-       * https://github.com/populov/android-i18n-plurals/blob/master/library/src/main/java/com/seppius/i18n/plurals/PluralRules_Balkan.java
-       * crowdin only has One, Few, Other
-       * We're going to stick with crowdin (and the native russian speaker) here
-       * Conversation: https://lichess.org/forum/lichess-feedback/help-translate-lichess#6
-       */
-      // else if (rem10 == 0 || (rem10 >= 5 && rem10 <= 9) || (rem100 >= 11 && rem100 <= 14)) Many
+      else if (rem10 == 0 || (rem10 >= 5 && rem10 <= 9) || (rem100 >= 11 && rem100 <= 14)) Many
       else Other
     }
 
