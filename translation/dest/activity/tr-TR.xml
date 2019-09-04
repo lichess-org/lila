@@ -43,12 +43,12 @@
     <item quantity="other">%s yeni takipçi kazandı</item>
   </plurals>
   <plurals name="hostedNbSimuls">
-    <item quantity="one">%s eş zamanlı oyuna ev sahipliği yaptı</item>
-    <item quantity="other">%s eş zamanlı oyuna ev sahipliği yaptı</item>
+    <item quantity="one">%s eş zamanlı gösteriye ev sahipliği yaptı</item>
+    <item quantity="other">%s eş zamanlı gösteriye ev sahipliği yaptı</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">%s eş zamanlı oyuna katıldı</item>
-    <item quantity="other">%s eş zamanlı oyuna katıldı</item>
+    <item quantity="one">%s eş zamanlı gösteriye katıldı</item>
+    <item quantity="other">%s eş zamanlı gösteriye katıldı</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">%s yeni çalışma oluşturdu</item>
