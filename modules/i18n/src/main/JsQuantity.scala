@@ -19,6 +19,7 @@ var rem100 = c % 100;
 var rem10 = c % 10;
 if (rem10 == 1 && rem100 != 11) return 'one';
 else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) return 'few';
+else if (rem10 == 0 || (rem10 >= 5 && rem10 <= 9) || (rem100 >= 11 && rem100 <= 14)) return 'many';
 else return 'other';
       """
     case "lv" => // latvian
