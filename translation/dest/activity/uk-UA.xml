@@ -62,6 +62,18 @@
     <item quantity="many">Додано %s нових підписників</item>
     <item quantity="other">Додано %s нових підписників</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Провів %s сеанс одночасної гри</item>
+    <item quantity="few">Провів %s сеанси одночасної гри</item>
+    <item quantity="many">Провів %s сеансів одночасної гри</item>
+    <item quantity="other">Провів %s сеансів одночасної гри</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Брав участь в %s сеансі одночасної гри</item>
+    <item quantity="few">Брав участь в %s сеансах одночасної гри</item>
+    <item quantity="many">Брав участь в %s сеансах одночасної гри</item>
+    <item quantity="other">Брав участь в %s сеансів одночасної гри</item>
+  </plurals>
   <string name="signedUp">Зареєструвався на lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Приєднався до %s команди</item>
