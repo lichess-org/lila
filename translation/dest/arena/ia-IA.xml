@@ -30,8 +30,6 @@ Joca rapidemente e retorna al salon pro jocar plus partitas e ganiar plus puncto
   <string name="howDoesItEnd">Como fini le torneo?</string>
   <string name="howDoesItEndAnswer">Le torneo ha un computo a retro. Quando illo attinge zero, le classificationes del torneo es gelate, e le vincitor es annunciate. Partitas in progresso debe continuar usque su fin, nonobstante illos non conta plus pro le torneo.</string>
   <string name="otherRules">Altere regulas importante</string>
-  <string name="otherRulesAnswer">Tu debe facer tu prime movimento intra 20 secundas de tu torno. Si tu non face isto, tu perdera automaticamente le partita per forfeit.
-Declarar le partita nulle intra le prime 10 movimentos non concedera punctos a ulle jocator.</string>
   <string name="thisIsPrivate">Iste es un torneo private</string>
   <string name="shareUrl">Publica iste adresse URL pro invitar personas a unir se: %s</string>
 </resources>
