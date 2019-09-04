@@ -878,7 +878,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="lifetimeScore">Lifetime score</string>
   <string name="currentMatchScore">Current match score</string>
   <string name="agreementAssistance">I agree that I will at no time receive assistance during my games (from a chess computer, book, database or another person).</string>
-  <string name="agreementNice">I agree that I will always be nice to other players.</string>
+  <string name="agreementNice">I agree that I will always be respectful to other players.</string>
   <string name="agreementAccount">I agree that I will not create multiple accounts.</string>
   <string name="agreementPolicy">I agree that I will follow all Lichess policies.</string>
 </resources>
