@@ -13,7 +13,7 @@
   <string name="toggleTheChat">تعطيل/تشغيل الدردشة</string>
   <string name="toggleSound">تعطيل/تشغيل الصوت</string>
   <string name="chat">دردشة</string>
-  <string name="resign">استسلم</string>
+  <string name="resign">استسلام</string>
   <string name="checkmate">كش مات</string>
   <string name="stalemate">مات مخنوق</string>
   <string name="white">أبيض</string>
@@ -687,7 +687,6 @@
   <string name="xCommentedY">%1$s علّق %2$s</string>
   <string name="victory">أحسنت!</string>
   <string name="defeat">هزيمة</string>
-  <string name="xVsYinZ">%1$s ضد %2$s في %3$s</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
