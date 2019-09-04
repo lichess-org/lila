@@ -31,8 +31,6 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="howDoesItEnd">¿Cómo termina?</string>
   <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo, y se proclama el ganador. Las partidas que estén en juego deben terminarse, aunque no cuentan para el resultado del torneo.</string>
   <string name="otherRules">Otras reglas importantes</string>
-  <string name="otherRulesAnswer">Debes hacer tu primer movimiento en 20 segundos. Si no lo haces, se concederá la victoria a tu oponente.
-Declarar tablas en los primeros 10 movimientos no concederá puntos a ninguno de los jugadores.</string>
   <string name="thisIsPrivate">Este es un torneo privado</string>
   <string name="shareUrl">Comparte este enlace para que otras personas se unan: %s</string>
 </resources>
