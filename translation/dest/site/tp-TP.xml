@@ -53,8 +53,11 @@
   <string name="close">o pini</string>
   <string name="unknown">sona ala</string>
   <string name="openingExplorer">ilo open</string>
+  <string name="blunder">pakala suli</string>
   <string name="blunders">pakala</string>
+  <string name="mistake">pakala</string>
   <string name="mistakes">pakala</string>
+  <string name="inaccuracy">pakala lili</string>
   <string name="inaccuracies">pali pi ken ike</string>
   <string name="moveTimes">tenpo tawa</string>
   <string name="flipBoard">kule ante</string>
