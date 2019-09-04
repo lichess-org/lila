@@ -35,7 +35,7 @@ final class NotifyApi(
     getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
-    repo.markAllRead(userId) >>- unreadCountCache.invalidate(userId)
+    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
 
   private val unreadCountCache = asyncCache.clearable(
     name = "notify.unreadCountCache",

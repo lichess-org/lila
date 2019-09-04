@@ -26,21 +26,24 @@ final class Env(
   )
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.notify.Notified(userId) =>
-        api markAllRead Notification.Notifies(userId)
-      case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
-        api addNotification Notification.make(
-          Notification.Notifies(userId),
-          CorresAlarm(
-            gameId = pov.gameId,
-            opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
+  system.lilaBus.subscribe(
+    system.actorOf(Props(new Actor {
+      def receive = {
+        case lila.hub.actorApi.notify.Notified(userId) =>
+          api markAllRead Notification.Notifies(userId)
+        case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
+          api addNotification Notification.make(
+            Notification.Notifies(userId),
+            CorresAlarm(
+              gameId = pov.gameId,
+              opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
+            )
           )
-        )
+        }
       }
-    }
-  }), name = ActorName), 'corresAlarm)
+    }), name = ActorName),
+    'corresAlarm
+  )
 }
 
 object Env {
