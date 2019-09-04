@@ -25,9 +25,14 @@ object event {
   def edit(event: lila.event.Event, form: Form[_])(implicit ctx: Context) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
-        h1(
-          event.title,
-          span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
+        div(cls := "box__top")(
+          h1(
+            event.title,
+            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
+          ),
+          st.form(cls := "box__top__actions", action := routes.Event.clone(event.id), method := "get")(
+            form3.submit("Clone", "".some, klass = "button-green")
+          )
         ),
         postForm(cls := "content_box_content form3", action := routes.Event.update(event.id))(inForm(form))
       )

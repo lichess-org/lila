@@ -554,6 +554,7 @@ GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
 POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
+GET   /event/manager/clone/$id<\w{8}>  controllers.Event.clone(id: String)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
