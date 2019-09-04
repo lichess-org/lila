@@ -6,10 +6,10 @@
   <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
   <string name="someRated">Some tournaments are rated and will affect your rating.</string>
   <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw: 1 point, and a loss is worth no points.
+  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
 If you win two games consecutively you will start a double point streak, represented by a flame icon.
 The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw: 2 points, and a loss will remain worth no points.
+That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
 
 For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
 <string name="berserk">Arena Berserk</string>
