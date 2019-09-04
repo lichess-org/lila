@@ -32,7 +32,7 @@ final class RemoteSocket(
 
   val baseHandler: Handler = {
     case In.ConnectUser(userId) => connectedUserIds += userId
-    case In.DisconnectUser(userId) => connectedUserIds -= userId
+    case In.DisconnectUsers(userIds) => connectedUserIds --= userIds
     case In.Watch(gameId) => watchedGameIds += gameId
     case In.Unwatch(gameId) => watchedGameIds -= gameId
     case In.Notified(userId) => notificationActor ! lila.hub.actorApi.notify.Notified(userId)
@@ -134,7 +134,7 @@ object RemoteSocket {
       type Reader = RawMsg => Option[In]
 
       case class ConnectUser(userId: String) extends In
-      case class DisconnectUser(userId: String) extends In
+      case class DisconnectUsers(userId: Iterable[String]) extends In
       case class ConnectSri(sri: Sri, userId: Option[String]) extends In
       case class DisconnectSri(sri: Sri) extends In
       case object DisconnectAll extends In
@@ -149,7 +149,7 @@ object RemoteSocket {
 
       val baseReader: Reader = raw => raw.path match {
         case "connect/user" => ConnectUser(raw.args).some
-        case "disconnect/user" => DisconnectUser(raw.args).some
+        case "disconnect/users" => DisconnectUsers(raw.args split ',').some
         case "connect/sri" => raw.args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
         case "disconnect/sri" => DisconnectSri(Sri(raw.args)).some
         case "disconnect/all" => DisconnectAll.some
