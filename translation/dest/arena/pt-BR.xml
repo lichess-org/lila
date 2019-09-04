@@ -29,6 +29,7 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="howDoesItEnd">Como termina?</string>
   <string name="howDoesItEndAnswer">O torneio tem um relógio de contagem regressiva. Quando ele chega a zero, as classificações do torneio são congeladas, e o vencedor é anunciado. Jogos em andamento devem ser finalizados, no entanto, eles não contam para o torneio.</string>
   <string name="otherRules">Outras regras importantes</string>
+  <string name="thereIsACountdown">Existe um tempo limite para a sua primeira jogada. Não realizá-la no período determinado significará uma vitória para o seu oponente.</string>
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>
 </resources>
