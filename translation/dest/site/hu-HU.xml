@@ -577,7 +577,6 @@
   <string name="xCommentedY">%1$s hozzászólt a %2$s című témához</string>
   <string name="victory">Helyes megoldás</string>
   <string name="defeat">Vereség</string>
-  <string name="xVsYinZ">%1$s %2$s ellen %3$s-ban</string>
   <string name="timeline">Idővonal</string>
   <string name="starting">Kezdés:</string>
   <string name="allInformationIsPublicAndOptional">Minden adat nyilvános, megadása nem kötelező.</string>
