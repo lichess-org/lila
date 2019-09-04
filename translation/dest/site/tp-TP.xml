@@ -364,8 +364,12 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="returnToTournamentsHomepage">o tawa lon lipu monsi pi musi ale</string>
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
+  <string name="withNobody">tawa jan ala</string>
+  <string name="withFriends">tawa jan pona</string>
+  <string name="withEverybody">tawa jan ale</string>
   <string name="gameAnalysis">sona musi</string>
   <string name="language">toki</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
+  <string name="playX">o pali e %s</string>
 </resources>
