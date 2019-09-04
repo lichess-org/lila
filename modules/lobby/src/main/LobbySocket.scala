@@ -64,15 +64,7 @@ private[lobby] final class LobbySocket(
     }
 
     case AddHook(hook) =>
-      val msg = makeMessage("had", hook.render)
-      hookSubscriberSris.foreach { sri =>
-        withActiveMemberBySriString(sri) { member =>
-          if (Biter.showHookTo(hook, member)) member push msg
-        }
-      }
-      if (hook.likePoolFiveO) withMember(hook.sri) { member =>
-        lila.mon.lobby.hook.createdLikePoolFiveO()
-      }
+      sendToActiveHookSubscribers(makeMessage("had", hook.render), member => Biter.showHookTo(hook, member))
 
     case AddSeek(_) => notifySeeks
 
@@ -135,10 +127,10 @@ private[lobby] final class LobbySocket(
     }
   }
 
-  private def sendToActiveHookSubscribers(msg: JsObject): Unit = {
+  private def sendToActiveHookSubscribers(msg: JsObject, condition: LobbySocketMember => Boolean = _ => true): Unit = {
     var remoteSris = List.empty[Sri]
     hookSubscriberSris diff idleSris foreach { sri =>
-      members get sri foreach {
+      members get sri filter condition foreach {
         case m: LobbyDirectSocketMember => m push msg
         case m => remoteSris = m.sri :: remoteSris
       }
