@@ -24,7 +24,6 @@ Berserk ger en extrapoäng endast om du spelar minst 7 drag i partiet.</string>
   <string name="howDoesItEnd">Hur slutar turneringen?</string>
   <string name="howDoesItEndAnswer">Turneringen har en tidsnedräkning. När den nått noll, fryses turneringsplaceringarna och vinnaren annonseras. Turneringspartier som då pågår spelas klart men poängen räknas inte in i turneringsresultatet.</string>
   <string name="otherRules">Andra viktiga regler.</string>
-  <string name="otherRulesAnswer">Du måste göra ditt första drag inom 20 sekunder efter att partiet startat för att undvika förlust. Remi inom de 10 första dragen ger ingen av spelarna några poäng.</string>
   <string name="thisIsPrivate">Detta är en privat turnering</string>
   <string name="shareUrl">Dela denna länk för att låta spelare delta: %s</string>
 </resources>
