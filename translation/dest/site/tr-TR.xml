@@ -488,7 +488,7 @@
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Hamle yaptıktan sonra otomatik olarak diğer oyuna geçeceksiniz.</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Hamle yaptıktan sonra otomatik olarak diğer oyuna geç</string>
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
   <string name="latestUpdates">Son gelişmeler</string>
@@ -674,7 +674,7 @@
   <string name="aboutSimul">Simültaneler, bir oyuncunun eş zamanlı olarak birçok oyuncuyla kıyasıya mücadele ettiği gösterilerdir.</string>
   <string name="aboutSimulImage">Fischer 50 rakibe karşı, 47 oyun kazandı, 2 beraberlik ve 1 yenilgi aldı.</string>
   <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlının ev sahibi, masadan masaya dolaşarak birer hamle yapar.</string>
-  <string name="aboutSimulRules">Herhangi bir simültane gösteri başladığında, beyaz taşlarla oynayan her bir oyuncu ev sahibine karşı bir hamle yapar. Tüm oyunlar sona erdiği zaman, simültane gösteri de sona erer.</string>
+  <string name="aboutSimulRules">Beyaz taşlarla oynayan ev sahibi ilk hamleyi yaptıktan sonra simültane gösteriye karılan oyuncular maça başlar. Bütün oyunlar bittiğinde simültane gösteri sona erer.</string>
   <string name="aboutSimulSettings">Eş zamanlı oyunlar daima puansızdır. Hamleleri geri alma, yeniden maç teklifi göndermek ve ek süre talep etmek devre dışıdır.</string>
   <string name="create">Oluştur</string>
   <string name="whenCreateSimul">Eş zamanlı oluşturduğunuzda, birkaç oyuncuyla aynı anda oynarsınız.</string>
@@ -762,7 +762,7 @@
     <item quantity="other">Artık %s dillerinde kullanabilirsiniz.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
-  <string name="xHostsY">%1$s , %2$s \'e ev sahipliği yaptı</string>
+  <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="xCreatesStudyY">%1$s bir çalışma oluşturdu: %2$s</string>
