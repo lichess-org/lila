@@ -26,21 +26,24 @@ final class Env(
   )
 
   // api actor
-  system.lidraughtsBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lidraughts.hub.actorApi.notify.Notified(userId) =>
-        api markAllRead Notification.Notifies(userId)
-      case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
-        api addNotification Notification.make(
-          Notification.Notifies(userId),
-          CorresAlarm(
-            gameId = pov.gameId,
-            opponent = lidraughts.game.Namer.playerText(pov.opponent)(getLightUser)
+  system.lidraughtsBus.subscribe(
+    system.actorOf(Props(new Actor {
+      def receive = {
+        case lidraughts.hub.actorApi.notify.Notified(userId) =>
+          api markAllRead Notification.Notifies(userId)
+        case lidraughts.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
+          api addNotification Notification.make(
+            Notification.Notifies(userId),
+            CorresAlarm(
+              gameId = pov.gameId,
+              opponent = lidraughts.game.Namer.playerText(pov.opponent)(getLightUser)
+            )
           )
-        )
+        }
       }
-    }
-  }), name = ActorName), 'corresAlarm)
+    }), name = ActorName),
+    'corresAlarm
+  )
 }
 
 object Env {

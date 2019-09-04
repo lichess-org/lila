@@ -33,6 +33,8 @@ final class AsyncCacheClearable[K, V](
       cache.put(k, fu map f)
     }
 
+  def put(k: K, v: Fu[V]): Unit = cache.put(k, v)
+
   def invalidate(k: K): Unit = cache invalidate k
 
   def invalidateAll: Unit = cache.invalidateAll
