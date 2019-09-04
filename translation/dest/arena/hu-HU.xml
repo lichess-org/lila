@@ -30,8 +30,6 @@ Játssz gyorsan, térj vissza a lobbiba további játszmákért, hogy több pont
   <string name="howDoesItEnd">Mikor ér véget?</string>
   <string name="howDoesItEndAnswer">A versenynek van egy visszaszámláló órája. Amikor eléri a nullát a rangsorolás megáll, és kihírdetődik a győztes. A folyamatban levő játszmákat be kell fejezni, de azok már nem számítanak bele a versenybe.</string>
   <string name="otherRules">Egyéb fontos szabályok</string>
-  <string name="otherRulesAnswer">Az első lépést kötelező 20 másodpercen belül megtenni. Aki ez alatt az idő alatt nem lép az veszít, és az ellenfele győz.
-Az első 10 lépésen belüli döntetlenért egyik játékos sem kap pontot.</string>
   <string name="thisIsPrivate">Ez egy privát verseny</string>
   <string name="shareUrl">Ezt az URL-t oszd meg azokkal, akiket meg akarsz hívni: %s</string>
 </resources>
