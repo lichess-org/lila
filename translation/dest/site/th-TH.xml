@@ -560,8 +560,6 @@
   <string name="xCommentedY">%1$s ได้แสดงความคิดเห็น %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
-  <string name="xVsYinZ">%1$s ต่อ %2$s
-ใน %3$s</string>
   <string name="timeline">ไทม์ไลน์</string>
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
