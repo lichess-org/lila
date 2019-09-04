@@ -51,4 +51,7 @@
   <string name="depthX">ගැඹුර %s</string>
   <string name="usingServerAnalysis">සර්වර් විශ්ලේෂණය භාවිතා කිරීම</string>
   <string name="loadingEngine">එන්ජිම පූරණය වේ ...</string>
+  <string name="victoryVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
+  <string name="defeatVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
+  <string name="drawVsYInZ">%3$s හි %1$s එදිරිව %2$s</string>
 </resources>
