@@ -589,6 +589,9 @@
   <string name="xCommentedY">%1$s ने %2$s टिप्पणी गर्नुभयो</string>
   <string name="victory">विजय</string>
   <string name="defeat">हार</string>
+  <string name="victoryVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
+  <string name="defeatVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
+  <string name="drawVsYInZ">%1$s बनाम %2$s: %3$s मा</string>
   <string name="timeline">समयरेखा</string>
   <string name="starting">शुरू हुंदैछ:</string>
   <string name="allInformationIsPublicAndOptional">सबै जानकारी सार्वजनिक र वैकल्पिक छन्।</string>
