@@ -589,6 +589,9 @@
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
   <string name="victory">Zafer</string>
   <string name="defeat">Yenilgi</string>
+  <string name="victoryVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
+  <string name="defeatVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
+  <string name="drawVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
   <string name="timeline">Zaman tüneli</string>
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
