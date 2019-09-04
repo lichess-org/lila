@@ -551,8 +551,6 @@
   <string name="xCommentedY">%1$s가 댓글을 남겼습니다: %2$s</string>
   <string name="victory">승리!</string>
   <string name="defeat">패배</string>
-  <string name="xVsYinZ">%3$s에서
-%1$s 대 %2$s</string>
   <string name="timeline">타임라인</string>
   <string name="starting">시작합니다:</string>
   <string name="allInformationIsPublicAndOptional">모든 정보는 공개되며 선택 사항입니다.</string>
