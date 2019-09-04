@@ -588,7 +588,6 @@
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
   <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
-  <string name="xVsYinZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
