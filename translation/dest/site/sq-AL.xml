@@ -574,8 +574,6 @@
   <string name="xCommentedY">s%1$s komentoi %2$s</string>
   <string name="victory">Fitore</string>
   <string name="defeat">Humbje</string>
-  <string name="xVsYinZ">%1$s kunder %2$s
-ne %3$s</string>
   <string name="timeline">Vija kohore</string>
   <string name="starting">Fillon:</string>
   <string name="allInformationIsPublicAndOptional">Të gjitha informacionet janë publike dhe jo të detyrueshme</string>
