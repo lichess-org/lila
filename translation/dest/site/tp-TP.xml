@@ -48,6 +48,7 @@
   <string name="computerAnalysis">ilo sona li lukin e musi</string>
   <string name="computerAnalysisAvailable">ilo sona li ken pana e sona musi</string>
   <string name="analysis">sona musi</string>
+  <string name="goDeeper">tawa anpa</string>
   <string name="deleteFromHere">o weka tan ni</string>
   <string name="close">o pini</string>
   <string name="unknown">sona ala</string>
@@ -316,6 +317,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="whenTimeRemainingLessThanTenSeconds">tenpo lili awen li luka luka anu mute lili la</string>
   <string name="horizontalGreenProgressBars">laso jelo</string>
   <string name="soundWhenTimeGetsCritical">tenpo li lili la o kalama</string>
+  <string name="bothClicksAndDrag">ale</string>
   <string name="sound">kalama</string>
   <string name="none">tawa ala</string>
   <string name="fast">tawa lon tenpo lili</string>
