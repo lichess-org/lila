@@ -550,8 +550,6 @@
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
   <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-trong %3$s</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="starting">Bắt dầu đấu:</string>
   <string name="allInformationIsPublicAndOptional">Tất cả thông tin thì công khai và không bắt buộc.</string>
