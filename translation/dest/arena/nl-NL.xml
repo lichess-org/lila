@@ -31,8 +31,6 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="howDoesItEndAnswer">Het toernooi heeft een klok die aftelt. Wanneer die klok de nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangekondigd.
 Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
   <string name="otherRules">Andere belangrijke regels</string>
-  <string name="otherRulesAnswer">Je bent verplicht om je eerste zet te doen binnen 20 seconden van jouw eerste beurt. Als je geen zet doet binnen deze tijd, wint je tegenstander de partij.
-Een remise binnen de eerste 10 zetten van de partij zal geen van beide spelers punten opleveren.</string>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
 </resources>
