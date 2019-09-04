@@ -29,7 +29,6 @@ Assim que terminar a sua partida, você voltará a aguardar o emparceiramento co
   <string name="howDoesItEnd">Como termina?</string>
   <string name="howDoesItEndAnswer">O torneio tem um relógio de contagem regressiva. Quando ele chega a zero, as classificações do torneio são congeladas, e o vencedor é anunciado. Jogos em andamento devem ser finalizados, no entanto, eles não contam para o torneio.</string>
   <string name="otherRules">Outras regras importantes</string>
-  <string name="otherRulesAnswer">Você é obrigado a fazer seu primeiro movimento nos 20 segundos iniciais de sua vez. Se você falhar em fazer um movimento nesse momento, perderá a partida automaticamente. Empatar o jogo dentre os primeiros 10 movimentos resultará em nenhum ponto para ambos os jogadores.</string>
   <string name="thisIsPrivate">Este é um torneio privado</string>
   <string name="shareUrl">Compartilhe este endereço para permitir que outras pessoas entrem: %s</string>
 </resources>
