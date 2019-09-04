@@ -193,6 +193,7 @@ package tv {
 
 package notify {
   case class Notified(userId: String)
+  case class NotifiedBatch(userIds: Iterable[String])
 }
 
 package team {

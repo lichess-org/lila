@@ -31,6 +31,8 @@ final class Env(
       def receive = {
         case lila.hub.actorApi.notify.Notified(userId) =>
           api markAllRead Notification.Notifies(userId)
+        case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
+          api markAllRead userIds.map(Notification.Notifies.apply)
         case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
           api addNotification Notification.make(
             Notification.Notifies(userId),

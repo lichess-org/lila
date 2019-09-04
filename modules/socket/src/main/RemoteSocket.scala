@@ -35,9 +35,11 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) => connectedUserIds --= userIds
     case In.Watch(gameId) => watchedGameIds += gameId
     case In.Unwatch(gameId) => watchedGameIds -= gameId
-    case In.Notified(userId) => notificationActor ! lila.hub.actorApi.notify.Notified(userId)
+    case In.NotifiedBatch(userIds) => notificationActor ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
     case In.Connections(nb) => tick(nb)
-    case In.Friends(userId) => bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
+    case In.FriendsBatch(userIds) => userIds foreach { userId =>
+      bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
+    }
     case In.Lags(lags) => lags foreach (UserLagCache.put _).tupled
     case In.TellSri(sri, userId, typ, msg) =>
       bus.publish(RemoteSocketTellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
@@ -140,11 +142,11 @@ object RemoteSocket {
       case object DisconnectAll extends In
       case class Watch(gameId: String) extends In
       case class Unwatch(gameId: String) extends In
-      case class Notified(userId: String) extends In
+      case class NotifiedBatch(userIds: Iterable[String]) extends In
       case class Connections(nb: Int) extends In
       case class Lag(userId: String, lag: Centis) extends In
       case class Lags(lags: Map[String, Centis]) extends In
-      case class Friends(userId: String) extends In
+      case class FriendsBatch(userIds: Iterable[String]) extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
 
       val baseReader: Reader = raw => raw.path match {
@@ -155,7 +157,7 @@ object RemoteSocket {
         case "disconnect/all" => DisconnectAll.some
         case "watch" => Watch(raw.args).some
         case "unwatch" => Unwatch(raw.args).some
-        case "notified" => Notified(raw.args).some
+        case "notified/batch" => NotifiedBatch(raw.args split ' ').some
         case "connections" => parseIntOption(raw.args) map Connections.apply
         case "lag" => raw.args.split(' ') |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
         case "lags" => Lags(raw.args.split(',').flatMap {
@@ -164,7 +166,7 @@ object RemoteSocket {
             case _ => None
           }
         }.toMap).some
-        case "friends" => Friends(raw.args).some
+        case "friends/batch" => FriendsBatch(raw.args split ',').some
         case "tell/sri" => raw.args.split(" ", 3) match {
           case Array(sri, userOrAnon, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]

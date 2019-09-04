@@ -16,6 +16,9 @@ private final class NotificationRepo(val coll: Coll) {
   def markAllRead(notifies: Notification.Notifies): Funit =
     coll.update(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
 
+  def markAllRead(notifies: Iterable[Notification.Notifies]): Funit =
+    coll.update(unreadOnlyQuery(notifies), $set("read" -> true), multi = true).void
+
   def unreadNotificationsCount(userId: Notification.Notifies): Fu[Int] =
     coll.count(unreadOnlyQuery(userId).some)
 
@@ -58,5 +61,6 @@ private final class NotificationRepo(val coll: Coll) {
   def userNotificationsQuery(userId: Notification.Notifies) = $doc("notifies" -> userId)
 
   private def unreadOnlyQuery(userId: Notification.Notifies) = $doc("notifies" -> userId, "read" -> false)
+  private def unreadOnlyQuery(userIds: Iterable[Notification.Notifies]) = $doc("notifies" $in userIds, "read" -> false)
 
 }

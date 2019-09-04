@@ -37,6 +37,11 @@ final class NotifyApi(
   def markAllRead(userId: Notification.Notifies) =
     repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
 
+  def markAllRead(userIds: Iterable[Notification.Notifies]) =
+    repo.markAllRead(userIds) >>- userIds.foreach {
+      unreadCountCache.put(_, fuccess(0))
+    }
+
   private val unreadCountCache = asyncCache.clearable(
     name = "notify.unreadCountCache",
     f = repo.unreadNotificationsCount,
