@@ -213,6 +213,7 @@
   <string name="playingRightNow">În desfășurare...</string>
   <string name="eventInProgress">În desfășurare</string>
   <string name="finished">Terminat</string>
+  <string name="finishesX">se termină %s</string>
   <string name="abortGame">Abandonați partida</string>
   <string name="gameAborted">Partidă abandonată</string>
   <string name="standard">Standard</string>
@@ -496,6 +497,7 @@
   <string name="pleaseVotePuzzle">Ajutați la îmbunătățirea lichess votând cu ajutorul săgeților:</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">ascuns</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jucat %s dată</item>
     <item quantity="few">Jucat de %s ori</item>
@@ -612,6 +614,9 @@
   <string name="xCommentedY">%1$s a comentat %2$s</string>
   <string name="victory">Victorie</string>
   <string name="defeat">Înfrângere</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s în %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s în %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s în %3$s</string>
   <string name="timeline">Activitate recentă</string>
   <string name="starting">Începe în:</string>
   <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și facultative</string>
@@ -731,6 +736,8 @@
   <string name="yourPerfTypeRatingIsRating">Palmaresul dumneavoastră %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sunteți mai bun decât %1$s din %2$s jucători.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un palmares %s definit.</string>
+  <string name="yourRating">Scorul tău</string>
+  <string name="cumulative">Cumulativ</string>
   <string name="checkYourEmail">Verificați-vă adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Fă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, junk, mesaje sociale sau alte foldere.</string>
