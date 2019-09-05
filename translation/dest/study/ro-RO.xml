@@ -38,6 +38,7 @@
   <string name="searchByUsername">Caută după numele de utilizator</string>
   <string name="spectator">Spectator</string>
   <string name="contributor">Contribuitor</string>
+  <string name="kick">Înlătură</string>
   <string name="leaveTheStudy">Părăsește studiul</string>
   <string name="youAreNowAContributor">Acum ești un contribuitor</string>
   <string name="youAreNowASpectator">Acum ești un spectator</string>
@@ -51,4 +52,28 @@
   <string name="onlyContributorsCanRequestAnalysis">Numai contribuitorii studiului pot solicita o analiză a computerului.</string>
   <string name="getAFullComputerAnalysis">Obțineți o întreagă analiză server-side a computerului a variației principale.</string>
   <string name="makeSureTheChapterIsComplete">Asigurați-vă că acest capitol este complet. Puteți solicita o analiză doar o singură dată.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Toți membri sincronizați rămân la aceeași poziție</string>
+  <string name="shareChanges">Împărtășește modificările cu spectatorii și salvează-le pe server</string>
+  <string name="playing">În desfășurare</string>
+  <string name="first">Prima</string>
+  <string name="previous">Precedentă</string>
+  <string name="next">Următoarea</string>
+  <string name="last">Ultima</string>
+  <string name="shareAndExport">Împărtășește &amp; exportă</string>
+  <string name="cloneStudy">Clonează</string>
+  <string name="studyPgn">PGN-ul studiului</string>
+  <string name="chapterPgn">PGN-ul capitolului</string>
+  <string name="studyUrl">URL-ul studiului</string>
+  <string name="members">Membri</string>
+  <string name="everyone">Toată lumea</string>
+  <string name="enableSync">Activați sincronizarea</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Da: menține-i pe toți la aceeași poziție</string>
+  <string name="noLetPeopleBrowseFreely">Nu: permite navigarea liberă</string>
+  <string name="pinnedStudyComment">Comentariu fixat</string>
+  <string name="start">Începe</string>
+  <string name="save">Salvează</string>
+  <string name="clearChat">Golește chatul</string>
+  <string name="deleteTheStudyChatHistory">Ștergeți istoricul chatului? Nu există cale de întoarcere!</string>
+  <string name="deleteStudy">Ștergeți studiul</string>
+  <string name="deleteTheEntireStudy">Ștergeți întregul studiu? Nu există cale de întoarcere!</string>
 </resources>
