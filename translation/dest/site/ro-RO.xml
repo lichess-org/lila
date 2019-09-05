@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promovează variația</string>
   <string name="makeMainLine">Fă-o variația principală</string>
   <string name="deleteFromHere">Șterge de aici</string>
+  <string name="forceVariation">Forțează variația</string>
   <string name="move">Mutare</string>
   <string name="variantLoss">Variantă pierdere</string>
   <string name="variantWin">Variantă câștig</string>
@@ -738,6 +739,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un palmares %s definit.</string>
   <string name="yourRating">Scorul tău</string>
   <string name="cumulative">Cumulativ</string>
+  <string name="glicko2Rating">Evaluare Glicko-2</string>
   <string name="checkYourEmail">Verificați-vă adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Fă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, junk, mesaje sociale sau alte foldere.</string>
@@ -893,4 +895,5 @@
     <item quantity="few">și salvează %s variațiile cu mutare anticipată</item>
     <item quantity="other">și salvează %s variațiile cu mutare anticipată</item>
   </plurals>
+  <string name="sorry">Scuze :(</string>
 </resources>
