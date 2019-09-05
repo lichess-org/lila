@@ -72,7 +72,7 @@ final class MessageApi(
           sendUnlessBlocked(thread, fromMod) flatMap {
             _ ?? {
               val text = s"${data.subject} ${data.text}"
-              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
+              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text, thread.looksMuted)
               notify(thread)
             }
           } inject thread
@@ -99,7 +99,7 @@ final class MessageApi(
         val newThread = thread + post
         coll.update($id(newThread.id), newThread) >> {
           val toUserId = newThread otherUserId me
-          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text, muted = false)
           notify(thread, post)
         } inject newThread
     }

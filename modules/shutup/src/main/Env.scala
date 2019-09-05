@@ -30,8 +30,8 @@ final class Env(
         api.publicForumMessage(userId, text)
       case RecordTeamForumMessage(userId, text) =>
         api.teamForumMessage(userId, text)
-      case RecordPrivateMessage(userId, toUserId, text) =>
-        api.privateMessage(userId, toUserId, text)
+      case RecordPrivateMessage(userId, toUserId, text, major) =>
+        api.privateMessage(userId, toUserId, text, major)
       case RecordPrivateChat(chatId, userId, text) =>
         api.privateChat(chatId, userId, text)
       case RecordPublicChat(userId, text, source) =>

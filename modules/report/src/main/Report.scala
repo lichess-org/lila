@@ -132,6 +132,7 @@ object Report {
 
   object Candidate {
     case class Scored(candidate: Candidate, score: Score) {
+      def withScore(f: Score => Score) = copy(score = f(score))
       def atom = Atom(
         by = candidate.reporter.id,
         text = candidate.text,

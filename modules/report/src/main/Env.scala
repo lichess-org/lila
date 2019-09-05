@@ -55,8 +55,8 @@ final class Env(
     def receive = {
       case lila.hub.actorApi.report.Cheater(userId, text) =>
         api.autoCheatReport(userId, text)
-      case lila.hub.actorApi.report.Shutup(userId, text) =>
-        api.autoInsultReport(userId, text)
+      case lila.hub.actorApi.report.Shutup(userId, text, major) =>
+        api.autoInsultReport(userId, text, major)
       case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
         api.autoBoostReport(winnerId, loserId)
     }

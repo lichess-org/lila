@@ -39,13 +39,16 @@ package socket {
     def apply[A: Writes](userIds: Set[String], typ: String, data: A): SendTos =
       SendTos(userIds, Json.obj("t" -> typ, "d" -> data))
   }
-  case class RemoteSocketTellSriIn(sri: String, user: Option[String], msg: JsObject)
-  case class RemoteSocketTellSriOut(sri: String, payload: JsValue)
+  object remote {
+    case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
+    case class TellSriOut(sri: String, payload: JsValue)
+    case class ConnectUser(userId: String)
+  }
 }
 
 package report {
   case class Cheater(userId: String, text: String)
-  case class Shutup(userId: String, text: String)
+  case class Shutup(userId: String, text: String, major: Boolean)
   case class Booster(winnerId: String, loserId: String)
 }
 
@@ -58,7 +61,7 @@ package security {
 package shutup {
   case class RecordPublicForumMessage(userId: String, text: String)
   case class RecordTeamForumMessage(userId: String, text: String)
-  case class RecordPrivateMessage(userId: String, toUserId: String, text: String)
+  case class RecordPrivateMessage(userId: String, toUserId: String, text: String, muted: Boolean)
   case class RecordPrivateChat(chatId: String, userId: String, text: String)
   case class RecordPublicChat(userId: String, text: String, source: PublicSource)
 

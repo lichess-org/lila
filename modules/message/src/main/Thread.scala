@@ -87,12 +87,14 @@ case class Thread(
 
   def deleteFor(user: User) = copy(
     visibleByUserIds = visibleByUserIds filter (user.id !=),
-    deletedByUserIds = Some(deletedByUserIds.getOrElse(List()) ::: List(user.id))
+    deletedByUserIds = Some(user.id :: ~deletedByUserIds)
   )
 
   def isVisibleBy(userId: User.ID) = visibleByUserIds contains userId
 
   def isVisibleByOther(user: User) = isVisibleBy(otherUserId(user))
+
+  def looksMuted = posts.length == 1 && (~deletedByUserIds).has(invitedId)
 
   def hasPostsWrittenBy(userId: User.ID) = posts exists (_.isByCreator == (creatorId == userId))
 
