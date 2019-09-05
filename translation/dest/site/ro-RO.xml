@@ -377,6 +377,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
   <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
   <string name="notACheckmate">Nu este mat</string>
+  <string name="whiteCheckmatesInOneMove">Albele să dea șah mat într-o mutare</string>
+  <string name="blackCheckmatesInOneMove">Negrele să dea șah mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
   <string name="reconnecting">Se reconectează</string>
   <string name="onlineFriends">Prieteni online</string>
@@ -910,4 +912,9 @@
   <string name="wishYouGreatGames">și vă dorim meciuri deosebite pe lichess.org.</string>
   <string name="thankYouForReading">Vă mulțumim pentru atenție!</string>
   <string name="lifetimeScore">Scorul total</string>
+  <string name="currentMatchScore">Scorul curent</string>
+  <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul meciurilor mele (de la un computer, o carte, o bază de date sau de la o altă persoană).</string>
+  <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
+  <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
+  <string name="agreementPolicy">Sunt de acord cu respectatul tuturor politicilor Lichess.</string>
 </resources>
