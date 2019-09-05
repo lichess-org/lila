@@ -97,6 +97,25 @@
   <string name="loadAPositionFromFen">Încărcați o poziție din FEN</string>
   <string name="loadAGameFromPgn">Încărcați un joc din PGN</string>
   <string name="automatic">Automată</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Lipiți textul PGN aici, până la %s meci</item>
+    <item quantity="few">Lipiți textul PGN aici, până la %s meciuri</item>
+    <item quantity="other">Lipiți textul PGN aici, până la %s meciuri</item>
+  </plurals>
+  <string name="urlOfTheGame">URL-ul jocului</string>
+  <string name="loadAGameFromXOrY">Încărcați un joc de pe %1$s sau %2$s</string>
+  <string name="createChapter">Creați capitolul</string>
+  <string name="configureLiveBroadcast">Configurați o transmisiune live</string>
+  <string name="createStudy">Creați studiul</string>
+  <string name="editStudy">Editați studiul</string>
+  <string name="visibility">Vizibilitate</string>
+  <string name="public">Public</string>
+  <string name="unlisted">Nelistat</string>
+  <string name="inviteOnly">Doar invitați</string>
+  <string name="allowCloning">Permiteți clonarea</string>
+  <string name="nobody">Nimeni</string>
+  <string name="onlyMe">Doar eu</string>
+  <string name="contributors">Contribuitori</string>
   <string name="members">Membri</string>
   <string name="everyone">Toată lumea</string>
   <string name="enableSync">Activați sincronizarea</string>
