@@ -35,8 +35,11 @@ Gioca in fretta e ritorna nella lobby per avere la possibilità di giocare più 
   <string name="howDoesItEnd">Come finisce il torneo?</string>
   <string name="howDoesItEndAnswer">Il torneo ha un limite di tempo. Quando il tempo scade, le classifiche del torneo vengono bloccate e viene proclamato il vincitore. Le partite ancora in corso continueranno, ma non varranno ai fini del torneo.</string>
   <string name="otherRules">Altre regole importanti</string>
-  <string name="otherRulesAnswer">Sei obbligato ad effettuare la prima mossa entro 20 secondi dall\'inzio del tuo turno. In caso contrario, perderai automaticamente la partita per abbandono.
-Pattare entro le prime 10 mosse non farà percepire nessun punto di torneo a nessuno dei due giocatori.</string>
+  <string name="thereIsACountdown">C\'è un conto alla rovescia per la tua prima mossa. Se non si compirà una mossa entro questo tempo, il tuo avversario vincerà la partita per forfait.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Pattare la partita entro le prime %s mosse non assegnerà punti né a te né al tuo avversario.</item>
+    <item quantity="other">Pattare la partita entro le prime %s mosse non assegnerà punti né a te né al tuo avversario.</item>
+  </plurals>
   <string name="thisIsPrivate">Questo torneo è privato</string>
   <string name="shareUrl">Condividi questo URL per permettere alle persone di unirsi: %s</string>
 </resources>

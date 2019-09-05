@@ -7,10 +7,10 @@
   <string name="isNotRated">This tournament is *not* rated and will *not* affect your rating.</string>
   <string name="someRated">Some tournaments are rated and will affect your rating.</string>
   <string name="howAreScoresCalculated">How are scores calculated?</string>
-  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw: 1 point, and a loss is worth no points.
+  <string name="howAreScoresCalculatedAnswer">A win has a base score of 2 points, a draw 1 point, and a loss is worth no points.
 If you win two games consecutively you will start a double point streak, represented by a flame icon.
 The following games will continue to be worth double points until you fail to win a game.
-That is, a win will be worth 4 points, a draw: 2 points, and a loss will remain worth no points.
+That is, a win will be worth 4 points, a draw 2 points, and a loss will still not award any points.
 
 For example, two wins followed by a draw will be worth 6 points: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arena Berserk</string>
@@ -32,8 +32,11 @@ Play fast and return to the lobby to play more games and win more points.</strin
   <string name="howDoesItEnd">How does it end?</string>
   <string name="howDoesItEndAnswer">The tournament has a countdown clock. When it reaches zero, the tournament rankings are frozen, and the winner is announced. Games in progress must be finished, however they don\'t count for the tournament.</string>
   <string name="otherRules">Other important rules.</string>
-  <string name="otherRulesAnswer">You are required to make your first move within 20 seconds of your turn. Failing to make a move in this time will forfeit the game to your opponent.
-Drawing the game within the first 10 moves of play will earn neither player any points.</string>
+  <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
+    <item quantity="other">Drawing the game within the first %s move will earn neither player any points.</item>
+  </plurals>
   <string name="thisIsPrivate">This is a private tournament</string>
   <string name="shareUrl">Share this URL to let people join: %s</string>
 </resources>

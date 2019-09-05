@@ -617,7 +617,9 @@
   <string name="xCommentedY">%1$s sniedza komentāru %2$s</string>
   <string name="victory">Uzvara</string>
   <string name="defeat">Zaudējums</string>
-  <string name="xVsYinZ">%1$s pret %2$s %3$s spēlē</string>
+  <string name="victoryVsYInZ">%1$s pret %2$s %3$s spēlē</string>
+  <string name="defeatVsYInZ">%1$s pret %2$s %3$s spēlē</string>
+  <string name="drawVsYInZ">%1$s pret %2$s %3$s spēlē</string>
   <string name="timeline">Laika grafiks</string>
   <string name="starting">Sāksies:</string>
   <string name="allInformationIsPublicAndOptional">Visa informācija ir publiska un nav obligāta.</string>

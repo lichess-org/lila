@@ -96,7 +96,7 @@
   <string name="delete">Sil</string>
   <string name="deleteThisImportedGame">Yüklediğiniz oyunu silmek istiyor musunuz?</string>
   <string name="replayMode">Tekrar modu</string>
-  <string name="realtimeReplay">Eş zamanlı</string>
+  <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">SPK ile</string>
   <string name="openStudy">İlgili çalışmayı göster</string>
   <string name="enable">Etkinleştir</string>
@@ -488,7 +488,7 @@
     <item quantity="one">Şu anda %s oyun oynanıyor</item>
     <item quantity="other">Şu anda %s oyun oynanıyor</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Hamle yaptıktan sonra otomatik olarak diğer oyuna geçeceksiniz.</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Hamle yaptıktan sonra otomatik olarak diğer oyuna geç</string>
   <string name="autoSwitch">Otomatik Seç</string>
   <string name="puzzles">Bulmacalar</string>
   <string name="latestUpdates">Son gelişmeler</string>
@@ -589,7 +589,9 @@
   <string name="xCommentedY">%1$s yorumladı %2$s</string>
   <string name="victory">Zafer</string>
   <string name="defeat">Yenilgi</string>
-  <string name="xVsYinZ">%2$s \'a karşı %3$s varyantında %1$s</string>
+  <string name="victoryVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
+  <string name="defeatVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
+  <string name="drawVsYInZ">%2$s adlı oyuncuya karşı %3$s maçında %1$s</string>
   <string name="timeline">Zaman tüneli</string>
   <string name="starting">Başlangıç:</string>
   <string name="allInformationIsPublicAndOptional">Tüm bilgiler herkese açık ve seçime bağlıdır.</string>
@@ -661,24 +663,24 @@
   <string name="contact">İletişim</string>
   <string name="termsOfService">Hizmet koşulları</string>
   <string name="sourceCode">Kaynak Kodu</string>
-  <string name="simultaneousExhibitions">Simültane gösteriler</string>
+  <string name="simultaneousExhibitions">Eş zamanlı gösteriler</string>
   <string name="host">Ev Sahibi</string>
   <string name="hostColorX">Ev sahibi rengi: %s</string>
-  <string name="createdSimuls">Yeni oluşturulan simültane gösteriler</string>
-  <string name="hostANewSimul">Simültane gösteri düzenle</string>
-  <string name="noSimulFound">Simültane gösteri bulunamadı</string>
-  <string name="noSimulExplanation">Simültane gösteri yok.</string>
-  <string name="returnToSimulHomepage">Simültane gösteri sayfasına geri dön</string>
-  <string name="aboutSimul">Simültaneler, bir oyuncunun eş zamanlı olarak birçok oyuncuyla kıyasıya mücadele ettiği gösterilerdir.</string>
+  <string name="createdSimuls">Yeni oluşturulan eş zamanlı gösteriler</string>
+  <string name="hostANewSimul">Eş zamanlı gösteri düzenle</string>
+  <string name="noSimulFound">Eş zamanlı gösteri bulunamadı</string>
+  <string name="noSimulExplanation">Eş zamanlı gösteri yok.</string>
+  <string name="returnToSimulHomepage">Eş zamanlı gösteri sayfasına geri dön</string>
+  <string name="aboutSimul">Eş zamanlı gösterilerde, bir oyuncu aynı anda birçok oyuncuya karşı mücadele verir.</string>
   <string name="aboutSimulImage">Fischer 50 rakibe karşı, 47 oyun kazandı, 2 beraberlik ve 1 yenilgi aldı.</string>
-  <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlının ev sahibi, masadan masaya dolaşarak birer hamle yapar.</string>
-  <string name="aboutSimulRules">Herhangi bir simültane gösteri başladığında, beyaz taşlarla oynayan her bir oyuncu ev sahibine karşı bir hamle yapar. Tüm oyunlar sona erdiği zaman, simültane gösteri de sona erer.</string>
-  <string name="aboutSimulSettings">Eş zamanlı oyunlar daima puansızdır. Hamleleri geri alma, yeniden maç teklifi göndermek ve ek süre talep etmek devre dışıdır.</string>
+  <string name="aboutSimulRealLife">Bu kavram gerçek etkinliklerden alınmıştır. Gerçek hayatta, eş zamanlı gösterinin ev sahibi masadan masaya dolaşarak birer hamle yapar.</string>
+  <string name="aboutSimulRules">Eş zamanlı gösteriye katılan her oyuncu, beyaz taşlarla oynayan ev sahibi ilk hamleyi yaptıktan sonra maça başlar. Bütün oyunlar bittiğinde eş zamanlı gösteri sona erer.</string>
+  <string name="aboutSimulSettings">Eş zamanlı gösteriler daima puansızdır. Yeniden maç teklifi göndermek, hamleyi geri almak ve ek süre talep etmek devre dışıdır.</string>
   <string name="create">Oluştur</string>
-  <string name="whenCreateSimul">Eş zamanlı oluşturduğunuzda, birkaç oyuncuyla aynı anda oynarsınız.</string>
+  <string name="whenCreateSimul">Eş zamanlı gösterilerde, birkaç oyuncuyla aynı anda oynarsınız.</string>
   <string name="simulVariantsHint">Eğer birkaç varyant seçerseniz, her oyuncu istediği varyantı seçip oynar.</string>
   <string name="simulClockHint">Fischer Saati formatı. Ne kadar fazla oyuncu ile yüzleşirseniz, o kadar fazla zamana ihtiyaç duyabilirsiniz.</string>
-  <string name="simulAddExtraTime">Eş zamanlıyla başa çıkabilmek için kendi saatinize ek zaman ekleyebilirsiniz.</string>
+  <string name="simulAddExtraTime">Eş zamanlı gösteride süreyi idare edebilmek için kendi saatinize fazladan zaman ekleyebilirsiniz.</string>
   <string name="simulHostExtraTime">Ev sahibinin fazladan süresi</string>
   <string name="lichessTournaments">Lichess turnuvaları</string>
   <string name="tournamentFAQ">Arena turnuvaları SSS</string>
@@ -760,7 +762,7 @@
     <item quantity="other">Artık %s dillerinde kullanabilirsiniz.</item>
   </plurals>
   <string name="gameAnalysis">Oyun analizi</string>
-  <string name="xHostsY">%1$s , %2$s \'e ev sahipliği yaptı</string>
+  <string name="xHostsY">%1$s ev sahipliği yaptı: %2$s</string>
   <string name="xJoinsY">%1$s katıldı: %2$s</string>
   <string name="xLikesY">%1$s beğendi: %2$s</string>
   <string name="xCreatesStudyY">%1$s bir çalışma oluşturdu: %2$s</string>

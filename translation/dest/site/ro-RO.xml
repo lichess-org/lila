@@ -612,8 +612,6 @@
   <string name="xCommentedY">%1$s a comentat %2$s</string>
   <string name="victory">Victorie</string>
   <string name="defeat">Înfrângere</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-în %3$s</string>
   <string name="timeline">Activitate recentă</string>
   <string name="starting">Începe în:</string>
   <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și facultative</string>

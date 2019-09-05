@@ -589,8 +589,8 @@
   <string name="xCommentedY">%1$s അഭിപ്രായപ്പെട്ടിരിക്കുന്നത് %2$s</string>
   <string name="victory">വിജയം!</string>
   <string name="defeat">തോൽവി</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
   <string name="timeline">ജീവിതകാലം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>
@@ -874,4 +874,6 @@ in %3$s</string>
   <string name="temporaryInconvenience">താത്കാലികമായ ബുദ്ധിമുട്ടിനു ക്ഷമ ചോദിക്കുന്നു</string>
   <string name="wishYouGreatGames">lichess.org-ൽ നല്ല കളികൾ ആശംസിക്കുന്നു.</string>
   <string name="thankYouForReading">വായിച്ചതിനു നന്ദി!</string>
+  <string name="lifetimeScore">ജീവിതകാല സ്കോർ</string>
+  <string name="currentMatchScore">നിലവിലെ മത്സര സ്കോർ</string>
 </resources>

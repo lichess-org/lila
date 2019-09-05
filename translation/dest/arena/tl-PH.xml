@@ -26,8 +26,6 @@ Maglaro ng mabilis at bumalik sa lobby para makapaglaro ng maraming mga laro at 
   <string name="howDoesItEnd">Paano ito matatapos?</string>
   <string name="howDoesItEndAnswer">Ang paligsahan ay may countdown na orasan. Kapag nakaabot ito ng zero, ang rankings ng paligsahan ay magyeyelo, at ang panalo ay inihahayag. Ang mga laro na may progreso ay dapat na matapos, gayunpaman ito ay hindi mabilang sa paligsahan.</string>
   <string name="otherRules">Ilang importanteng mga panuntunan</string>
-  <string name="otherRulesAnswer">Ikaw ay kailangang gumawa ng unang hakbang sa loob ng 20 na segundo sa iyong turn. Paagkabigo na makagawa ng hakbang sa oras ay maaring mawalan ng bisa ang laro sa iyong kalaban. 
-Pag draw ng laro sa loob ng 10 na hakbang sa laro ay maaring kumita sinuma\'y hindi sa manlalaro sa lahat ng puntos.</string>
   <string name="thisIsPrivate">Ito ay isang pribadong paligsahan</string>
   <string name="shareUrl">Ibahagi ang URL para makasali ang mga tao:%s</string>
 </resources>

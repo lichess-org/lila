@@ -30,8 +30,6 @@ Joacă rapid și întoarce-te la lobby pentru a juca mai multe meciuri și pentr
   <string name="howDoesItEnd">Cum se termină?</string>
   <string name="howDoesItEndAnswer">Competiția are un o limită de timp. Când ajunge la zero, scorurile din competiție sunt înghețate și câștigătorul este anunțat. Meciurile în desfășurare trebuie terminate, deși nu sunt luate în considerare pentru competiție.</string>
   <string name="otherRules">Alte reguli importante</string>
-  <string name="otherRulesAnswer">Ești obligat să faci prima mutare în maxim 20 de secunde. Dacă nu faci prima mutare în timp, vei pierde meciul.
-Dacă meciul va fi remiză în primele 10 mutări, niciunul nu va primi vreun punct.</string>
   <string name="thisIsPrivate">Acesta este o competiție privată</string>
   <string name="shareUrl">Pentru a distribui, folosiți acest URL: %s</string>
 </resources>

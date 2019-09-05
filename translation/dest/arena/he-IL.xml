@@ -27,8 +27,6 @@
   <string name="howDoesItEnd">איך מסתיימת התחרות?</string>
   <string name="howDoesItEndAnswer">לכל תחרות יש ספירת זמן יורדת. בהתאפס הזמן, שינויי הדרוג נעצרים ומוכרז המנצח. אחרי מועד זה, יש להשלים את המשחקים שלא הסתיימו, אך אלה לא ייחשבו במסגרת התחרות.</string>
   <string name="otherRules">חוקים חשובים נוספים</string>
-  <string name="otherRulesAnswer">אתה נדרש לבצע את המהלך הראשון בתוך 20 שניות בתורך. כישלון בביצוע המהלך בזמן זה יגרור הפסד טכני של המשחק ליריבך.
-אף שחקן לא ירוויח נקודות אם ישנו תיקו במהלך 10 המהלכים הראשונים.</string>
   <string name="thisIsPrivate">זהו טורניר פרטי</string>
   <string name="shareUrl">פרסם אתר זה למציאת חברים נוספים: %s</string>
 </resources>

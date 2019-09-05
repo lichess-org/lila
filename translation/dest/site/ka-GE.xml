@@ -551,7 +551,6 @@
   <string name="xCommentedY">%1$s-მ(ა) კომენტარი გაუკეთა %2$s-ს</string>
   <string name="victory">გამარჯვება!</string>
   <string name="defeat">მარცხი</string>
-  <string name="xVsYinZ">%1$s %2$s-(ი)ს წინააღმდეგ %3$s-ში</string>
   <string name="timeline">ისტორია</string>
   <string name="starting">დასაწყისი:</string>
   <string name="allInformationIsPublicAndOptional">ინფორმაცია საჯარო და ნებაყოფლობითია.</string>

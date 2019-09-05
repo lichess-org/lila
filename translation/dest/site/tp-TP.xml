@@ -48,12 +48,16 @@
   <string name="computerAnalysis">ilo sona li lukin e musi</string>
   <string name="computerAnalysisAvailable">ilo sona li ken pana e sona musi</string>
   <string name="analysis">sona musi</string>
+  <string name="goDeeper">tawa anpa</string>
   <string name="deleteFromHere">o weka tan ni</string>
   <string name="close">o pini</string>
   <string name="unknown">sona ala</string>
   <string name="openingExplorer">ilo open</string>
+  <string name="blunder">pakala suli</string>
   <string name="blunders">pakala</string>
+  <string name="mistake">pakala</string>
   <string name="mistakes">pakala</string>
+  <string name="inaccuracy">pakala lili</string>
   <string name="inaccuracies">pali pi ken ike</string>
   <string name="moveTimes">tenpo tawa</string>
   <string name="flipBoard">kule ante</string>
@@ -316,6 +320,7 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="whenTimeRemainingLessThanTenSeconds">tenpo lili awen li luka luka anu mute lili la</string>
   <string name="horizontalGreenProgressBars">laso jelo</string>
   <string name="soundWhenTimeGetsCritical">tenpo li lili la o kalama</string>
+  <string name="bothClicksAndDrag">ale</string>
   <string name="sound">kalama</string>
   <string name="none">tawa ala</string>
   <string name="fast">tawa lon tenpo lili</string>
@@ -362,8 +367,12 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="returnToTournamentsHomepage">o tawa lon lipu monsi pi musi ale</string>
   <string name="yourPerfTypeRatingIsRating">nanpa %1$s sina li nanpa %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">sina jo ala e nanpa %s</string>
+  <string name="withNobody">tawa jan ala</string>
+  <string name="withFriends">tawa jan pona</string>
+  <string name="withEverybody">tawa jan ale</string>
   <string name="gameAnalysis">sona musi</string>
   <string name="language">toki</string>
   <string name="light">walo</string>
   <string name="dark">pimeja</string>
+  <string name="playX">o pali e %s</string>
 </resources>

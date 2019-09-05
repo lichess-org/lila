@@ -589,7 +589,9 @@
   <string name="xCommentedY">%1$s kommentierte %2$s</string>
   <string name="victory">Sieg</string>
   <string name="defeat">Niederlage</string>
-  <string name="xVsYinZ">%1$s gegen %2$s in %3$s</string>
+  <string name="victoryVsYInZ">%1$s gegen %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s gegen %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s gegen %2$s in %3$s</string>
   <string name="timeline">Verlauf</string>
   <string name="starting">Beginnt:</string>
   <string name="allInformationIsPublicAndOptional">Alle Informationen sind öffentlich und freiwillig.</string>

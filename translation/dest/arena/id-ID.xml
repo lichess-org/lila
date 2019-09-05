@@ -17,7 +17,7 @@
   <string name="howDoesItEnd">Bagaimana cara berakhirnya?</string>
   <string name="howDoesItEndAnswer">Turnamen memiliki jam hitung mundur. Ketika mencapai nol, peringkat turnamen dibekukan dan pemenang diumumkan. Permainan berlangsung harus selesai, namun mereka tidak masuk hitungan untuk turnamen.</string>
   <string name="otherRules">Aturan penting lainnya</string>
-  <string name="otherRulesAnswer">Anda diminta untuk membuat langkah pertama Anda dalam 20 detik giliran Anda. Gagal untuk bergerak dalam kurun waktu tersebut akan lawan membuat lawan memenangkan permainan. Permainan berakhir remis dalam 10 langkah pertama membuat kedua pemain tidak mendapatkan angka.</string>
+  <string name="thereIsACountdown">Ada hitungan mundur untuk langkah pertama Anda. Gagal melakukan gerakan dalam waktu ini akan kehilangan permainan untuk lawan Anda.</string>
   <string name="thisIsPrivate">Ini adalah sebuah turnamen privat</string>
   <string name="shareUrl">Berbagi URL ini agar orang lain bisa bergabung: %s</string>
 </resources>

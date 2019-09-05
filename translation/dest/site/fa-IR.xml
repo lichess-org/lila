@@ -573,7 +573,6 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
-  <string name="xVsYinZ">%1$s %3$s در مقابل %2$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>

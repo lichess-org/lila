@@ -204,6 +204,7 @@
   <string name="playingRightNow">Oraintxe jokatzen</string>
   <string name="eventInProgress">Oraintxe jokatzen</string>
   <string name="finished">Amaituta</string>
+  <string name="finishesX">bukaera: %s</string>
   <string name="abortGame">Partida geldiarazi</string>
   <string name="gameAborted">Geldiarazitako partida</string>
   <string name="standard">Ohikoa</string>
@@ -473,6 +474,7 @@
   <string name="pleaseVotePuzzle">Eman botoa Lichessi laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
+  <string name="hidden">ezkutuan</string>
   <plurals name="playedXTimes">
     <item quantity="one">Behin jokatu da</item>
     <item quantity="other">%s aldiz jokatu da</item>
@@ -587,7 +589,9 @@
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
   <string name="victory">Garaipena</string>
   <string name="defeat">Porrota</string>
-  <string name="xVsYinZ">%1$s %2$s-ren aurka %3$s-n</string>
+  <string name="victoryVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="defeatVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="drawVsYInZ">%1$s - %2$s, %3$s</string>
   <string name="timeline">Denbora-lerroa</string>
   <string name="starting">Hasten da:</string>
   <string name="allInformationIsPublicAndOptional">Informazio guztia publiko eta aukerakoa da</string>
@@ -703,6 +707,9 @@
   <string name="yourPerfTypeRatingIsRating">Zure %1$s balorazioa %2$s da.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s baino hobea zara, %2$s jokalaritik.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ez duzu zehaztutako %s baloraziorik.</string>
+  <string name="yourRating">Zure puntuazioa</string>
+  <string name="cumulative">Metaketa</string>
+  <string name="glicko2Rating">Glicko-2 puntuazioa</string>
   <string name="checkYourEmail">Zure emailean begiratu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Email mezua  bidali dizugu. Zure kontua aktibatzeko, egizu klik mezuan.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
@@ -854,4 +861,24 @@
     <item quantity="one">eta aurrejokaldi linea %s gorde</item>
     <item quantity="other">eta %s aurrejokaldi linea gorde</item>
   </plurals>
+  <string name="sorry">Barkatu :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
+  <string name="timeoutExpires">Kanporaketaren amaiera: %s.</string>
+  <string name="why">Zergatik?</string>
+  <string name="pleasantChessExperience">Guztioi xakean jokatzeko aukera atsegina eskaintzea da gure helburua.</string>
+  <string name="goodPractice">Horretarako, jokalari guztiek praktika onak jarraitzen dituztela ziur izan behar dugu.</string>
+  <string name="potentialProblem">Arazo bat aurkitzen dugunean, mezu hau erakusten dugu.</string>
+  <string name="howToAvoidThis">Nola ekidin hau?</string>
+  <string name="playEveryGame">Hasitako partida guztiak jokatu.</string>
+  <string name="tryToWin">Jokatutako partida guztiak irabazten saiatu (edo gutxienez berdindu).</string>
+  <string name="resignLostGames">Galdutako partidetan amore eman (ez utzi denbora agortzen).</string>
+  <string name="temporaryInconvenience">Barkatu eragozpenak,</string>
+  <string name="wishYouGreatGames">segi lichess.org-en jokatzen.</string>
+  <string name="thankYouForReading">Eskerrik asko irakurtzeagatik!</string>
+  <string name="lifetimeScore">Jokalari honekin duzun emaitza</string>
+  <string name="currentMatchScore">Uneko partidetako emaitza</string>
+  <string name="agreementAssistance">Nire partidetan ez dut inoiz laguntzarik jasoko (ordenagailuak, liburua, datu-base bat edo beste pertsona bat).</string>
+  <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
+  <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
+  <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
 </resources>

@@ -38,11 +38,17 @@
     <item quantity="many">Зіграно %1$s ходів</item>
     <item quantity="other">Зіграно %1$s ходів</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">у %1$s заочній грі</item>
+    <item quantity="few">у %1$s заочних іграх</item>
+    <item quantity="many">у %1$s заочних іграх</item>
+    <item quantity="other">у %1$s заочних ігор</item>
+  </plurals>
   <plurals name="completedNbGames">
-    <item quantity="one">Зіграно %s гру за листуванням</item>
-    <item quantity="few">Зіграно %s гри за листуванням</item>
-    <item quantity="many">Зіграно %s ігор за листуванням</item>
-    <item quantity="other">Зіграно %s ігор за листуванням</item>
+    <item quantity="one">Зіграно %s заочну гру</item>
+    <item quantity="few">Зіграно %s заочні гри</item>
+    <item quantity="many">Зіграно %s заочних ігор</item>
+    <item quantity="other">Зіграно %s заочних ігор</item>
   </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">Підписався на %s гравця</item>
@@ -55,6 +61,18 @@
     <item quantity="few">Отримано %s нових підписників</item>
     <item quantity="many">Додано %s нових підписників</item>
     <item quantity="other">Додано %s нових підписників</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Провів %s сеанс одночасної гри</item>
+    <item quantity="few">Провів %s сеанси одночасної гри</item>
+    <item quantity="many">Провів %s сеансів одночасної гри</item>
+    <item quantity="other">Провів %s сеансів одночасної гри</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Брав участь в %s сеансі одночасної гри</item>
+    <item quantity="few">Брав участь в %s сеансах одночасної гри</item>
+    <item quantity="many">Брав участь в %s сеансах одночасної гри</item>
+    <item quantity="other">Брав участь в %s сеансів одночасної гри</item>
   </plurals>
   <string name="signedUp">Зареєструвався на lichess</string>
   <plurals name="joinedNbTeams">

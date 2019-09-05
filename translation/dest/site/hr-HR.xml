@@ -214,6 +214,7 @@
   <string name="playingRightNow">Upravo igraju</string>
   <string name="eventInProgress">Upravo igraju</string>
   <string name="finished">Završeno</string>
+  <string name="finishesX">završava %s</string>
   <string name="abortGame">Prekini igru</string>
   <string name="gameAborted">Igra prekinuta</string>
   <string name="standard">Standardno</string>
@@ -617,8 +618,6 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="victory">Pobjeda</string>
   <string name="defeat">Poraz</string>
-  <string name="xVsYinZ">%1$s protiv %2$s
-u %3$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
@@ -738,6 +737,9 @@ u %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
+  <string name="yourRating">Tvoj rejting</string>
+  <string name="cumulative">Kumulativno</string>
+  <string name="glicko2Rating">Glicko-2 rejting</string>
   <string name="checkYourEmail">Provjeri svoj email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti email. Klikni na link u emailu da aktiviraš svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
@@ -893,4 +895,9 @@ u %3$s</string>
     <item quantity="few">i uštedi %s predpoteza</item>
     <item quantity="other">i uštedi %s predpoteza</item>
   </plurals>
+  <string name="sorry">Oprosti :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
+  <string name="timeoutExpires">Vrijeme izbačaja ističe za %s.</string>
+  <string name="why">Zašto?</string>
+  <string name="pleasantChessExperience">Nama je u cilju da pruužimo ugodno šahovsko iskustvo.</string>
 </resources>

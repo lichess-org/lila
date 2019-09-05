@@ -644,8 +644,6 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xCommentedY">%1$s pakomentavo apie „%2$s“</string>
   <string name="victory">Pergalė</string>
   <string name="defeat">Pralaimėjimas</string>
-  <string name="xVsYinZ">%1$s prieš %2$s
-(%3$s)</string>
   <string name="timeline">Veikla</string>
   <string name="starting">Prasideda:</string>
   <string name="allInformationIsPublicAndOptional">Visa informacija yra vieša ir neprivaloma.</string>

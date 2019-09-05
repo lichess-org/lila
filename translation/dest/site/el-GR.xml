@@ -382,7 +382,7 @@
   <string name="list">Κατάλογος</string>
   <string name="graph">Διάγραμμα</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">Λιγότερο από ένα λεπτό</item>
+    <item quantity="one">Λιγότερο από %s λεπτό</item>
     <item quantity="other">Λιγότερο από %s λεπτά</item>
   </plurals>
   <string name="required">Απαιτείται.</string>
@@ -585,8 +585,6 @@
   <string name="xCommentedY">Ο χρήστης %1$s σχολίασε την ερώτηση %2$s</string>
   <string name="victory">Επιτυχία</string>
   <string name="defeat">Ήττα</string>
-  <string name="xVsYinZ">%1$s εναντίον %2$s
-στο %3$s</string>
   <string name="timeline">Χρονολόγιο</string>
   <string name="starting">Αρχίζει:</string>
   <string name="allInformationIsPublicAndOptional">Όλες οι πληροφορίες είναι δημόσιες και προαιρετικές.</string>
@@ -759,6 +757,7 @@
   <string name="xHostsY">%1$s φιλοξενεί τη %2$s</string>
   <string name="xJoinsY">%1$s συμμετέχει στη %2$s</string>
   <string name="xLikesY">Η %1$s αρέσει στον %2$s</string>
+  <string name="xCreatesStudyY">Ο %1$s δημιουργεί τη μελέτη %2$s</string>
   <string name="quickPairing">Γρήγορη αντιστοίχιση</string>
   <string name="lobby">Χώρος αναμονής</string>
   <string name="anonymous">Ανώνυμος</string>

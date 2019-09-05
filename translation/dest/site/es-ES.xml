@@ -588,7 +588,6 @@
   <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Cronología</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>

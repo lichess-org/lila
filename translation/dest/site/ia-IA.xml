@@ -583,8 +583,6 @@
   <string name="xCommentedY">%1$s ha commentate %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Defaite</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-in %3$s</string>
   <string name="timeline">Chronologia</string>
   <string name="starting">Initio:</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>

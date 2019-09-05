@@ -562,8 +562,9 @@
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
   <string name="victory">勝利！</string>
   <string name="defeat">失敗</string>
-  <string name="xVsYinZ">%1$s 対 %2$s
-（%3$s）</string>
+  <string name="victoryVsYInZ">勝ち 対 %2$s、%3$s</string>
+  <string name="defeatVsYInZ">負け 対 %2$s、%3$s</string>
+  <string name="drawVsYInZ">ドロー 対 %2$s、%3$s</string>
   <string name="timeline">タイムライン</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>

@@ -645,7 +645,9 @@
   <string name="xCommentedY">%1$s skomentował %2$s</string>
   <string name="victory">Wygrana</string>
   <string name="defeat">Przegrana</string>
-  <string name="xVsYinZ">%1$s — %2$s w %3$s</string>
+  <string name="victoryVsYInZ">%1$s - %2$s w %3$s</string>
+  <string name="defeatVsYInZ">%1$s - %2$s w %3$s</string>
+  <string name="drawVsYInZ">%1$s - %2$s w %3$s</string>
   <string name="timeline">Historia</string>
   <string name="starting">Rozpoczęcie:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>

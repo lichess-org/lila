@@ -577,8 +577,6 @@
   <string name="xCommentedY">%1$s মন্তব্য করা হয়েছে %2$s</string>
   <string name="victory">বিজয়</string>
   <string name="defeat">হার</string>
-  <string name="xVsYinZ">%1$s বানাম %2$s
-এর %3$s</string>
   <string name="timeline">সময়রেখা</string>
   <string name="starting">শুরু হইতেছে:</string>
   <string name="allInformationIsPublicAndOptional">সব তথ্য হয় সরকারী এবং ঐচ্ছিক.</string>

@@ -555,8 +555,6 @@
   <string name="xCommentedY">%1$s כתב %2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
-  <string name="xVsYinZ">%1$s נגד %2$s
-ב%3$s</string>
   <string name="timeline">ציר הזמן</string>
   <string name="starting">מתחיל:</string>
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>

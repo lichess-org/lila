@@ -13,7 +13,7 @@ Nākamās spēles turpmāk būs divkāršu punktu vērtas, līdzkamēr tiks pied
 Tas ir, par uzvaru tiek piešķirti 4 punkti, neizšķirtu 2 punkti un par zaudējumu tāpat kā iepriekš - nevienu.
 
 Piemēram, trim uzvarām sekojošs neizšķirts būs 10 punktu vērts: 2 + 2 + (2 x 2) + (2 x 1)</string>
-  <string name="berserk">Arēnā ierodas Kurbads</string>
+  <string name="berserk">Kurbada Arēna</string>
   <string name="berserkAnswer">Kad spēlētājs, spēlei sākoties, nospiež uz Kurbada pogas, viņš zaudē pusi no sava pulksteņa laika, taču par uzvaru tiek piešķirts viens papildus punkts.
 
 Spēlējot Kurbadu, laika kontrolēm ar inkrementu tiek noņemts inkrements. (1+2 ir izņēmums, tas pārvēršas par 1+0)
@@ -31,8 +31,12 @@ Spēlē ātri un atgriezies vestibilā lai spēlētu vairāk spēļu un iegūtu 
   <string name="howDoesItEnd">Kā tas viss beidzas?</string>
   <string name="howDoesItEndAnswer">Turnīram ir laika atpakaļskaitīšanas pulkstenis. Kad tas sasniedz nulli, turnīra tabula tiek iesaldēta un tiek paziņots uzvarētājs. Iesāktās spēles tiek pabeigtas, taču tās vairs netiek ieskaitītas turnīra rezultātā.</string>
   <string name="otherRules">Citi svarīgi noteikumi</string>
-  <string name="otherRulesAnswer">Tev ir pienākums izdarīt pirmo gājienu 20 sekunžu laikā. Neizdarot gājienu atvēlētajā laikā, uzvara tiek piešķirta pretiniekam.
-Ja neizšķirts tiek panākts spēles pirmajos 10 gājienos, tad punktus neiegūst neviens no spēlētājiem.</string>
+  <string name="thereIsACountdown">Jūsu pirmajam gājienam ir laika limits. Ja neizdosies šajā laikā iziet gājienu, spēli būsiet zaudējis.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="zero">Panākot neizšķirtu pirmajos %s gājienos, neviens spēlētājs negūs punktus.</item>
+    <item quantity="one">Panākot neizšķirtu pirmajā gājienā, neviens spēlētājs negūs punktus.</item>
+    <item quantity="other">Panākot neizšķirtu pirmajos %s gājienos, neviens spēlētājs negūs punktus.</item>
+  </plurals>
   <string name="thisIsPrivate">Šis ir privātais turnīrs</string>
   <string name="shareUrl">Dalies ar šo saiti lai citi pievienotos: %s</string>
 </resources>

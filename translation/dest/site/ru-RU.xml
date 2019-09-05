@@ -645,7 +645,9 @@
   <string name="xCommentedY">%1$s прокомментировал вопрос %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Поражение</string>
-  <string name="xVsYinZ">%1$s в %3$s с %2$s</string>
+  <string name="victoryVsYInZ">%1$s против %2$s в %3$s</string>
+  <string name="defeatVsYInZ">%1$s против %2$s в %3$s</string>
+  <string name="drawVsYInZ">%1$s против %2$s в %3$s</string>
   <string name="timeline">Хронология</string>
   <string name="starting">Начинается:</string>
   <string name="allInformationIsPublicAndOptional">Вся указываемая здесь информация будет доступна публично, добавляйте её по своему желанию.</string>

@@ -30,9 +30,6 @@ Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</stri
   <string name="howDoesItEnd">Bu qanday yakunlanadi?</string>
   <string name="howDoesItEndAnswer">Turnirda orqaga yuruvchi soat bilan boshlanadi. U qachon 0 ga borsa turnir vaqti tugagan hisoblanadi va g\'olib aniqlanadi. Vaqt tugaganda boshlangan o\'yinlar tugashi kutiladi va bu vaqt davomida g\'oliblar aniqlanmay turadi.</string>
   <string name="otherRules">Boshqa muhim qoidalar</string>
-  <string name="otherRulesAnswer">Siz birinchi yurishni 20 sekund ichida amalga oshirishni talab qildingiz. Bu vaqt ichida sherigingiz yurmasa mag\'lub hisoblanadi. 
-
-Birinchi 10 yurishda durranglikni talab qilish keyingi o\'yinchiga bal olib keladi.</string>
   <string name="thisIsPrivate">Bu yopiq turnir</string>
   <string name="shareUrl">Odamlarga qo\'shilishi uchun URL ni ulashing: %s</string>
 </resources>

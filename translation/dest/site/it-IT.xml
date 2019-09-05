@@ -590,8 +590,9 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="xCommentedY">%1$s ha commentato %2$s</string>
   <string name="victory">Vittoria</string>
   <string name="defeat">Sconfitta</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-in %3$s</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Resoconto attività</string>
   <string name="starting">Inizio:</string>
   <string name="allInformationIsPublicAndOptional">Tutte le informazioni sono pubbliche e facoltative.</string>

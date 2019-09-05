@@ -83,8 +83,9 @@
   <string name="hideNextMoves">次の手順をかくす</string>
   <string name="interactiveLesson">対話形式のレッスン</string>
   <string name="chapterX">章 %s</string>
+  <string name="empty">空白</string>
   <string name="startFromInitialPosition">開始局面から</string>
-  <string name="editor">編集者</string>
+  <string name="editor">エディタ</string>
   <string name="startFromCustomPosition">指定した局面から</string>
   <string name="loadAGameByUrl">棋譜を URL で読み込み</string>
   <string name="loadAPositionFromFen">局面を FEN で読み込み</string>

@@ -561,8 +561,6 @@
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
   <string name="victory">Перемога</string>
   <string name="defeat">Поразка</string>
-  <string name="xVsYinZ">%1$s проти %2$s
-в %3$s</string>
   <string name="timeline">Смуга подій</string>
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
