@@ -70,7 +70,7 @@ object LobbyRemoteSocket {
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
       def disconnectSri(sri: Sri) = s"disconnect/sri $sri"
       def tellSris(sris: Iterable[Sri], payload: JsValue) =
-        s"tell/sris ${sris mkString ","} ${Json stringify payload}"
+        s"tell/sris ${P.Out.commaList(sris)} ${Json stringify payload}"
     }
   }
 }

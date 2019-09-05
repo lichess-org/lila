@@ -475,7 +475,7 @@ object UserRepo {
     }
 
   def setSeenAt(id: ID): Unit =
-    coll.updateFieldUnchecked($id(id), "seenAt", DateTime.now)
+    coll.updateFieldUnchecked($id(id), F.seenAt, DateTime.now)
 
   def recentlySeenNotKidIdsCursor(since: DateTime)(implicit cp: CursorProducer[Bdoc]) =
     coll.find($doc(

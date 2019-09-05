@@ -4,7 +4,7 @@ import com.typesafe.config.Config
 import play.api.libs.json.JsValue
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.socket.{ RemoteSocketTellSriIn, RemoteSocketTellSriOut }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.socket.Socket.Sri
 
 final class Env(
@@ -40,12 +40,12 @@ final class Env(
 
   // remote socket support
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
-    case RemoteSocketTellSriIn(sri, _, msg) => msg obj "d" foreach { d =>
-      socketHandler.evalGet(Sri(sri), d, res => system.lilaBus.publish(RemoteSocketTellSriOut(sri, res), 'remoteSocketOut))
+    case TellSriIn(sri, _, msg) => msg obj "d" foreach { d =>
+      socketHandler.evalGet(Sri(sri), d, res => system.lilaBus.publish(TellSriOut(sri, res), 'remoteSocketOut))
     }
   }
   system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
-    case RemoteSocketTellSriIn(sri, Some(userId), msg) => msg obj "d" foreach { d =>
+    case TellSriIn(sri, Some(userId), msg) => msg obj "d" foreach { d =>
       socketHandler.untrustedEvalPut(Sri(sri), userId, d)
     }
   }

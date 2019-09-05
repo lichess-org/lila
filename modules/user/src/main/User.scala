@@ -72,7 +72,7 @@ case class User(
 
   def hasTitle = title.isDefined
 
-  lazy val seenRecently: Boolean = timeNoSee < 2.minutes
+  lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
@@ -155,6 +155,8 @@ object User {
   val lichessId = "lichess"
   val broadcasterId = "broadcaster"
   def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
+
+  val seenRecently = 2.minutes
 
   case class GDPRErase(user: User) extends AnyVal
   case class Erased(value: Boolean) extends AnyVal

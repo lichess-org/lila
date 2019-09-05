@@ -69,6 +69,9 @@ final class Env(
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
         if (user.hasTitle) recentTitledUserIdMemo put user.id
+      case lila.hub.actorApi.socket.remote.ConnectUser(userId) =>
+        // lila-ws sets user.seenAt itself
+        onlineUserIdMemo put userId
     },
     'kickFromRankings -> {
       case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId

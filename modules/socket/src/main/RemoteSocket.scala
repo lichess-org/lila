@@ -10,7 +10,8 @@ import lila.common.Chronometer
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.{ MoveEvent, Mlat }
 import lila.hub.actorApi.security.CloseAccount
-import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds, RemoteSocketTellSriIn, RemoteSocketTellSriOut }
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
+import lila.hub.actorApi.socket.{ SendTo, SendTos, WithUserIds }
 import lila.hub.actorApi.{ Deploy, Announce }
 import lila.socket.actorApi.SendToFlag
 import Socket.Sri
@@ -31,7 +32,9 @@ final class RemoteSocket(
   def connectToPubSub = redisClient.connectPubSub()
 
   val baseHandler: Handler = {
-    case In.ConnectUser(userId) => connectedUserIds += userId
+    case In.ConnectUser(userId) =>
+      bus.publish(lila.hub.actorApi.socket.remote.ConnectUser(userId), 'userActive)
+      connectedUserIds += userId
     case In.DisconnectUsers(userIds) => connectedUserIds --= userIds
     case In.Watch(gameId) => watchedGameIds += gameId
     case In.Unwatch(gameId) => watchedGameIds -= gameId
@@ -42,7 +45,7 @@ final class RemoteSocket(
     }
     case In.Lags(lags) => lags foreach (UserLagCache.put _).tupled
     case In.TellSri(sri, userId, typ, msg) =>
-      bus.publish(RemoteSocketTellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
+      bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
     case In.DisconnectAll =>
       logger.info("Remote socket disconnect all")
       connectedUserIds.clear
@@ -65,7 +68,7 @@ final class RemoteSocket(
       send(Out.mlat(micros))
     case actorApi.SendToFlag(flag, payload) =>
       send(Out.tellFlag(flag, payload))
-    case RemoteSocketTellSriOut(sri, payload) =>
+    case TellSriOut(sri, payload) =>
       send(Out.tellSri(Sri(sri), payload))
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
@@ -185,7 +188,7 @@ object RemoteSocket {
       def tellUser(userId: String, payload: JsObject) =
         s"tell/users $userId ${Json stringify payload}"
       def tellUsers(userIds: Set[String], payload: JsObject) =
-        s"tell/users ${userIds mkString ","} ${Json stringify payload}"
+        s"tell/users ${commaList(userIds)} ${Json stringify payload}"
       def tellAll(payload: JsObject) =
         s"tell/all ${Json stringify payload}"
       def tellFlag(flag: String, payload: JsObject) =
@@ -196,6 +199,10 @@ object RemoteSocket {
         s"mlat ${((micros / 100) / 10d)}"
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
+
+      def commaList(strs: Iterable[Any]) =
+        if (strs.isEmpty) "-"
+        else strs mkString ","
     }
   }
 
