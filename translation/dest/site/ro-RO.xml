@@ -902,4 +902,12 @@
   <string name="pleasantChessExperience">Dorim să oferim o experiență plăcută tuturor jucătorilor de șah.</string>
   <string name="goodPractice">Ca acest lucru să se întâmple, trebuie să ne asigurăm că toți jucătorii respectă bunele practici.</string>
   <string name="potentialProblem">Când o potențială problemă este detectată, afișăm acest mesaj.</string>
+  <string name="howToAvoidThis">Cum puteți preveni suspendarea?</string>
+  <string name="playEveryGame">Jucați fiecare meci pe care-l începeți.</string>
+  <string name="tryToWin">Încercați să câștigați (sau măcar să faceți remiză) fiecare meci pe care-l jucați.</string>
+  <string name="resignLostGames">Abandonați meciurile pierdute (nu lăsați timpul să expire).</string>
+  <string name="temporaryInconvenience">Ne pare rău pentru neplăcerile temporare</string>
+  <string name="wishYouGreatGames">și vă dorim meciuri deosebite pe lichess.org.</string>
+  <string name="thankYouForReading">Vă mulțumim pentru atenție!</string>
+  <string name="lifetimeScore">Scorul total</string>
 </resources>
