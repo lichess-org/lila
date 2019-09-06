@@ -115,6 +115,7 @@
   <string name="members">Članovi</string>
   <string name="everyone">Svi</string>
   <string name="enableSync">Aktiviraj sinkronizaciju</string>
+  <string name="start">Start</string>
   <string name="save">Spremi</string>
   <string name="clearChat">Očistite razgovor</string>
   <string name="deleteTheStudyChatHistory">Dali želite obrisati povijest razgovora? Nakon ovoga nema povratka!</string>
