@@ -175,6 +175,10 @@
   <string name="forgotPassword">Io ha oblidate mi contrasigno.</string>
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Classification actualisate cata % minuta</item>
+    <item quantity="other">Classification actualisate cata %s minutas</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s enigmas</item>
     <item quantity="other">%s enigmas</item>
@@ -849,4 +853,5 @@
     <item quantity="one">e salveguarda %s linea de preselection</item>
     <item quantity="other">e salveguarda %s lineas de preselection</item>
   </plurals>
+  <string name="howToAvoidThis">Como evitar isto?</string>
 </resources>
