@@ -801,5 +801,6 @@
   <string name="playVariationToCreateConditionalPremoves">Виконайте ходи на шахівниці, аби встановити умовні предходи</string>
   <string name="noConditionalPremoves">Безумовні передходи</string>
   <string name="playX">Зіграти %s</string>
+  <string name="why">Чому?</string>
   <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
 </resources>

@@ -175,6 +175,10 @@
   <string name="forgotPassword">Io ha oblidate mi contrasigno.</string>
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Classification actualisate cata % minuta</item>
+    <item quantity="other">Classification actualisate cata %s minutas</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s enigmas</item>
     <item quantity="other">%s enigmas</item>
@@ -469,6 +473,7 @@
   <string name="pleaseVotePuzzle">Adjuta Lichess a meliorar per tu voto, usante le sagitta a alto o a basso:</string>
   <string name="thankYou">Gratias!</string>
   <string name="ratingX">Classification: %s</string>
+  <string name="hidden">celate</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jocate %s vices</item>
     <item quantity="other">Jocate %s vices</item>
@@ -698,6 +703,9 @@
   <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu es melior que %1$s intra %2$s jocatores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu non ha establite un classification de %s.</string>
+  <string name="yourRating">Tu classification</string>
+  <string name="cumulative">Cumulative</string>
+  <string name="glicko2Rating">Classification Glicko-2</string>
   <string name="checkYourEmail">Verifica tu e-posta</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nos te ha inviate un message per e-posta. Clicca sur le ligamine in le message pro activar tu conto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si tu non trova le message in tu e-posta, verifica in altere locos ubi illo pote esser, como tu cassa de posta indesirate, spam, corbe a papiro, o altere dossiers.</string>
@@ -849,4 +857,7 @@
     <item quantity="one">e salveguarda %s linea de preselection</item>
     <item quantity="other">e salveguarda %s lineas de preselection</item>
   </plurals>
+  <string name="sorry">Pardono! :(</string>
+  <string name="why">Proque?</string>
+  <string name="howToAvoidThis">Como evitar isto?</string>
 </resources>
