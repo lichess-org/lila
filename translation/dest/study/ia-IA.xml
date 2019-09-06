@@ -5,11 +5,13 @@
   <string name="myStudies">Mi studios</string>
   <string name="myPublicStudies">Mi studios public</string>
   <string name="myPrivateStudies">Mi studios private</string>
+  <string name="myFavoriteStudies">Mi studios favorite</string>
   <string name="whatAreStudies">Que es studios?</string>
   <string name="allStudies">Tote studios</string>
   <string name="studiesCreatedByX">Studios create per %s</string>
   <string name="dateAddedNewest">Data addite (plus nove)</string>
   <string name="dateAddedOldest">Data addite (plus antique)</string>
+  <string name="recentlyUpdated">Actualisationes recente</string>
   <string name="mostPopular">Plus popular</string>
   <string name="addNewChapter">Adder un nove capitulo</string>
   <string name="addMembers">Adder membros</string>
