@@ -10,11 +10,11 @@
   <string name="whatAreStudies">Cosa sono gli \"studi\"?</string>
   <string name="allStudies">Tutti gli studi</string>
   <string name="studiesCreatedByX">Studi creati da %s</string>
-  <string name="noneYet">Ancora nessuno.</string>
-  <string name="hot">In ascesa</string>
-  <string name="dateAddedNewest">Data pubblicazione (più recente)</string>
-  <string name="dateAddedOldest">Data pubblicazione (più vecchio)</string>
-  <string name="recentlyUpdated">Aggiornato di recente</string>
+  <string name="noneYet">Vuoto.</string>
+  <string name="hot">Hot</string>
+  <string name="dateAddedNewest">Data di pubblicazione (dalla più recente)</string>
+  <string name="dateAddedOldest">Data di pubblicazione (dalla meno recente)</string>
+  <string name="recentlyUpdated">Data di aggiornamento (dalla più recente)</string>
   <string name="mostPopular">Più popolari</string>
   <string name="addNewChapter">Aggiungi un nuovo capitolo</string>
   <plurals name="nbChapters">
