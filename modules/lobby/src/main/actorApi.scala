@@ -81,6 +81,7 @@ private[lobby] case class GetSrisP(promise: Promise[Sris])
 private[lobby] case class GetRemoteMember(sri: Sri, promise: Promise[Option[LobbyRemoteSocketMember]])
 
 private[lobby] case class LobbySocketTellAll(msg: JsObject)
+private[lobby] case class LobbySocketTellActive(msg: JsObject)
 private[lobby] case class LobbySocketTellSris(sris: Iterable[Sri], msg: JsObject)
 
 case class AddHook(hook: Hook)

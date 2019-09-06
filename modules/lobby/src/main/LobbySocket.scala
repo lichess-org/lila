@@ -177,7 +177,7 @@ private[lobby] final class LobbySocket(
       case (sri, m: LobbyDirectSocketMember) if !idleSris(sri) => m push msg
       case _ =>
     }
-    system.lilaBus.publish(LobbySocketTellAll(msg), 'lobbySocketTell)
+    system.lilaBus.publish(LobbySocketTellActive(msg), 'lobbySocketTell)
   }
 
   override protected def afterQuit(sri: Sri, member: LobbySocketMember): Unit = afterQuit(sri)
@@ -192,8 +192,8 @@ private[lobby] final class LobbySocket(
   private def notifySeeks = notifyAllActive(messages.reloadSeeks)
 
   private object messages {
-    lazy val reloadSeeks = makeMessage("reload_seeks")
-    lazy val reloadTimeline = makeMessage("reload_timeline")
+    val reloadSeeks = makeMessage("reload_seeks")
+    val reloadTimeline = makeMessage("reload_timeline")
   }
 
   private case object Cleanup

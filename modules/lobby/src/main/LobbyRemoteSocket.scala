@@ -57,6 +57,7 @@ final class LobbyRemoteSocket(
     case lila.socket.actorApi.NbMembers(nb) => send(Out.nbMembers(nb))
     case lila.hub.actorApi.round.NbRounds(nb) => send(Out.nbRounds(nb))
     case LobbySocketTellAll(msg) => send(Out.tellLobby(msg))
+    case LobbySocketTellActive(msg) => send(Out.tellLobbyActive(msg))
     case LobbySocketTellSris(sris, msg) => send(Out.tellSris(sris, msg))
   }
 }
@@ -68,6 +69,7 @@ object LobbyRemoteSocket {
       def nbMembers(nb: Int) = s"member/nb $nb"
       def nbRounds(nb: Int) = s"round/nb $nb"
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
+      def tellLobbyActive(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
       def disconnectSri(sri: Sri) = s"disconnect/sri $sri"
       def tellSris(sris: Iterable[Sri], payload: JsValue) =
         s"tell/sris ${P.Out.commaList(sris)} ${Json stringify payload}"
