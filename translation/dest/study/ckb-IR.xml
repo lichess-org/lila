@@ -34,4 +34,26 @@
   <string name="previous">پێشوو</string>
   <string name="next">دواتر</string>
   <string name="last">دواترین</string>
+  <string name="startAtInitialPosition">له شوێنێکی سەرەتایی دەستپێبکە</string>
+  <string name="open">کردنەوە</string>
+  <string name="studyNotFound">لێکۆڵینەوەکە نەدۆزرایەوە</string>
+  <string name="editChapter">چاککردنی بەش</string>
+  <string name="newChapter">بەشێکی نوێ</string>
+  <string name="orientation">ڕێکخستن</string>
+  <string name="analysisMode">شێوازی شیکردنەوە</string>
+  <string name="saveChapter">داکردنی بەش</string>
+  <string name="deleteChapter">سڕینەوەی بەش</string>
+  <string name="deleteThisChapter">سڕینەوەی ئەم بەشە؟ گەڕانەوەی بۆ نییه!</string>
+  <string name="noPinnedComment">هیچ کامێکیان</string>
+  <string name="normalAnalysis">شیکردنەوەی ئاسایی</string>
+  <string name="hideNextMoves">شاردنەوەی جوولەکانی دواتر</string>
+  <string name="nobody">هیچ کەس</string>
+  <string name="onlyMe">تەنها من</string>
+  <string name="contributors">بەشداربووان</string>
+  <string name="members">ئەندامان</string>
+  <string name="everyone">هەموو کەس</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">هێشتنەوەی هەموو کەس له هەمان شوێندا</string>
+  <string name="noLetPeopleBrowseFreely">نەخێر: ڕێگەدان بەوەی هەمووان بە ئازادی بگەڕێن</string>
+  <string name="start">دەستپێکردن</string>
+  <string name="save">داکردن</string>
 </resources>
