@@ -98,7 +98,7 @@
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">SPK ile</string>
-  <string name="openStudy">İlgili çalışmayı göster</string>
+  <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamleyi tahta üzerinde göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
@@ -400,7 +400,7 @@
   <string name="advancedSettings">Gelişmiş ayarlar</string>
   <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
   <string name="inappropriateNameWarning">Herhangi bir uygunsuz isim, hesabınızın yasaklanmasına yol açabilir.</string>
-  <string name="emptyTournamentName">Turnuvaya isim vermek istemiyorsanız, boş bırakarak rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
+  <string name="emptyTournamentName">Kutuyu boş bırakarak turnuvaya rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
   <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
   <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
   <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
@@ -565,7 +565,7 @@
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
-  <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular seni çalışmalarına dahil etsin mi?</string>
+  <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular sizi bir çalışmaya davet edebilsin</string>
   <string name="sound">Ses</string>
   <string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
   <string name="none">Hiçbiri</string>
