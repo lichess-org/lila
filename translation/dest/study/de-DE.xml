@@ -11,7 +11,7 @@
   <string name="allStudies">Alle Studien</string>
   <string name="studiesCreatedByX">Von %s erstellte Studien</string>
   <string name="noneYet">Bisher keine.</string>
-  <string name="hot">Beliebt</string>
+  <string name="hot">Angesagt</string>
   <string name="dateAddedNewest">Veröffentlichungsdatum (neueste)</string>
   <string name="dateAddedOldest">Veröffentlichungsdatum (älteste)</string>
   <string name="recentlyUpdated">Kürzlich aktualisiert</string>
@@ -87,9 +87,9 @@
   <string name="interactiveLesson">Interaktive Übung</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Leer</string>
-  <string name="startFromInitialPosition">Von Ausgangsstellung starten</string>
+  <string name="startFromInitialPosition">Beginne mit der Ausgangsstellung</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Von benutzerdefinierter Stellung starten</string>
+  <string name="startFromCustomPosition">Beginne mit einer benutzerdefinierten Stellung</string>
   <string name="loadAGameByUrl">Lade eine Partie mittels URL</string>
   <string name="loadAPositionFromFen">Lade eine Partie mittels FEN</string>
   <string name="loadAGameFromPgn">Lade eine Partie mittels PGN</string>
