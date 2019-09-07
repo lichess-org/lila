@@ -371,7 +371,7 @@
 računalnu analizu, chat partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
-    <item quantity="few">%s uvezenih partija</item>
+    <item quantity="few">%s uvezene partije</item>
     <item quantity="other">%s uvezenih partija</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ovo je šahovska CAPTCHA.</string>
