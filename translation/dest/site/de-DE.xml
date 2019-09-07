@@ -204,7 +204,7 @@
   <string name="playingRightNow">Partie läuft</string>
   <string name="eventInProgress">Laufende Partien</string>
   <string name="finished">Beendet</string>
-  <string name="finishesX">beendet %s</string>
+  <string name="finishesX">endet %s</string>
   <string name="abortGame">Partie abbrechen</string>
   <string name="gameAborted">Partie abgebrochen</string>
   <string name="standard">Standard</string>
