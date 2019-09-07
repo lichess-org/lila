@@ -161,7 +161,7 @@
   </plurals>
   <string name="time">Zaman</string>
   <string name="rating">Puan</string>
-  <string name="ratingStats">Derece istatistikleri</string>
+  <string name="ratingStats">Puan istatistikleri</string>
   <string name="username">Kullanıcı adı</string>
   <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
   <string name="changeUsername">Kullanıcı adını değiştir</string>
@@ -548,7 +548,7 @@
   <string name="chessPieceSymbol">Satranç taş sembolleri</string>
   <string name="pgnLetter">Harf (Ş, V, K, A, F)</string>
   <string name="chessClock">Satranç saati</string>
-  <string name="tenthsOfSeconds">Saniyenin 1/10\'i</string>
+  <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="never">Asla</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kalan zaman 10 saniyeden az ise</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
@@ -862,7 +862,7 @@
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
   <string name="sorry">Üzgünüz :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek durumunda kaldık.</string>
+  <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
   <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
@@ -877,8 +877,8 @@
   <string name="thankYouForReading">Okuduğunuz için teşekkür ederiz!</string>
   <string name="lifetimeScore">Toplam skor</string>
   <string name="currentMatchScore">Mevcut maç skoru</string>
-  <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağımı onaylıyorum (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
-  <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağımı onaylıyorum.</string>
-  <string name="agreementAccount">Birden fazla hesap açmayacağımı onaylıyorum.</string>
-  <string name="agreementPolicy">Lichess kurallarını takip edeceğimi onaylıyorum.</string>
+  <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağım (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
+  <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
+  <string name="agreementAccount">Birden fazla hesap açmayacağım.</string>
+  <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
 </resources>
