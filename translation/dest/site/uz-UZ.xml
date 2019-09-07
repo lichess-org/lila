@@ -709,6 +709,8 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Siz %2$s o\'yinchilardan %1$s tasiga qaraganda yaxshiroq o\'ynaysiz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizda o\'rnatilgan %s reytingga ega emassiz.</string>
   <string name="yourRating">Sizning reytingingiz</string>
+  <string name="cumulative">To\'plangani</string>
+  <string name="glicko2Rating">Glicko-2 reytingi</string>
   <string name="checkYourEmail">Elektron pochtangizni tekshiring</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sizga emailingizga hat yubordik. Emailingizdagi linkni bosib akkountingizni faollashtiring.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar siz emailni ko\'rmasangiz, boshqa kataloglaringizni qarab ko\'ring, masalan, spam, ijtimoiy va boshqa shularga o\'xshashlarni.</string>
@@ -860,4 +862,5 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
     <item quantity="one">va %s avvaldan yurishni saqlash</item>
     <item quantity="other">va %s avvaldan yurishlarni saqlash</item>
   </plurals>
+  <string name="sorry">Kechirasiz :(</string>
 </resources>
