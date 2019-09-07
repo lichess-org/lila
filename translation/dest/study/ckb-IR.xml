@@ -9,6 +9,8 @@
   <string name="myFavoriteStudies">لێکۆڵینەوە دڵخوازەکانم</string>
   <string name="whatAreStudies">لێکۆڵینەوەکان چین؟</string>
   <string name="allStudies">هەموو لێکۆڵینەوەکان</string>
+  <string name="dateAddedNewest">(نوێترین) داتای زیادکراو</string>
+  <string name="dateAddedOldest">(کۆنترین) داتای زیادکراو</string>
   <string name="mostPopular">دیارترین</string>
   <string name="addNewChapter">بەشێکی نوێ زیاد بکە</string>
   <string name="addMembers">ئەندامەکان زیاد بکە</string>
@@ -27,4 +29,9 @@
   <string name="onlyContributorsCanRequestAnalysis">تەنها بەشداربووانی لێکۆڵینەوەکە دەتوانن داوای شیکارکردنی کۆمپیوتەر بکەن.</string>
   <string name="makeSureTheChapterIsComplete">دڵنیا ببەوه لەوەی کە بەشەکە تەواو کراوە. تەنها بۆ یەکجار دەتوانیت ئەو شیکارکردنە بکەیت.</string>
   <string name="shareChanges">گۆڕانکاریەکان لەگەڵ بینەرەکان بەشداری پێبکە و لەسەر سێرڤەرەکە دایانبکه</string>
+  <string name="playing">یاریکردن</string>
+  <string name="first">یەکەم</string>
+  <string name="previous">پێشوو</string>
+  <string name="next">دواتر</string>
+  <string name="last">دواترین</string>
 </resources>
