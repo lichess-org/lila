@@ -74,7 +74,11 @@
   <string name="newChapter">Nieuw hoofdstuk</string>
   <string name="orientation">Oriëntatie</string>
   <string name="analysisMode">Analysemodus</string>
+  <string name="pinnedChapterComment">Vastgezet commentaar van het hoofdstuk</string>
   <string name="saveChapter">Hoofdstuk opslaan</string>
+  <string name="clearAnnotations">Wis aantekeningen</string>
+  <string name="deleteChapter">Verwijder hoofdstuk</string>
+  <string name="deleteThisChapter">Wil je dit hoofdstuk verwijderen? Je kan dit niet ongedaan maken!</string>
   <string name="noPinnedComment">Geen</string>
   <string name="configureLiveBroadcast">Configureer live uitzending</string>
   <string name="createStudy">Maak studie</string>
