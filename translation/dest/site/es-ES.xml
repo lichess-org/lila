@@ -86,8 +86,8 @@
     <item quantity="other">Siguiente captura o movimiento de peón en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
-  <string name="openingExplorer">Explorador de aperturas y base de datos de finales</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">¿Tal vez incluir más juegos desde el menú de preferencias?</string>
+  <string name="openingExplorer">Explorador de aperturas y base de datos</string>
   <string name="xOpeningExplorer">Explorador de la apertura %s</string>
   <string name="winPreventedBy50MoveRule">La regla de los 50 movimientos impide la victoria</string>
   <string name="lossSavedBy50MoveRule">La regla de los 50 movimientos evita la derrota</string>
@@ -106,9 +106,9 @@
   <string name="cpus">Procesadores</string>
   <string name="memory">Memoria</string>
   <string name="infiniteAnalysis">Análisis infinito</string>
-  <string name="removesTheDepthLimit">Elimina el límite de profundidad del análisis y hace trabajar a tu ordenador</string>
+  <string name="removesTheDepthLimit">Eliminar el límite de profundidad del análisis, menor procesamiento de la información</string>
   <string name="blunder">Error grave</string>
-  <string name="blunders">Errores graves</string>
+  <string name="blunders">Equivocaciones garrafales</string>
   <string name="mistake">Error</string>
   <string name="mistakes">Errores</string>
   <string name="inaccuracy">Imprecisión</string>
