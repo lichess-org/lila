@@ -109,12 +109,15 @@
   <string name="editStudy">Uredi studiju</string>
   <string name="visibility">Vidljivost</string>
   <string name="public">Javno</string>
+  <string name="allowCloning">Dopusti kloniranje</string>
   <string name="nobody">Nitko</string>
   <string name="onlyMe">Samo ja</string>
   <string name="contributors">Suradnici</string>
   <string name="members">Članovi</string>
   <string name="everyone">Svi</string>
   <string name="enableSync">Aktiviraj sinkronizaciju</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Da: drži sve u istoj poziciji</string>
+  <string name="noLetPeopleBrowseFreely">Ne: neka ljudi slobodno pregledavaju</string>
   <string name="start">Start</string>
   <string name="save">Spremi</string>
   <string name="clearChat">Očistite razgovor</string>
