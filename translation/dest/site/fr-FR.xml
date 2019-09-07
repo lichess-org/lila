@@ -596,6 +596,10 @@
 %3$s est une catégorie Bullet, Blitz, Classique, Correspondence, Atomique ...
 
 Un résumé de tes résultats apparait sur ton profile, pour les joueurs contre qui tu as joué</string>
+  <string name="defeatVsYInZ">%1$s contre %2$s
+> %3$s</string>
+  <string name="drawVsYInZ">%1$s contre %2$s
+> %3$s</string>
   <string name="timeline">Activité</string>
   <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
