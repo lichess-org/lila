@@ -441,7 +441,7 @@
   <string name="gameCompletionRate">Porcentaje de partidas terminadas: %s</string>
   <string name="profile">Perfil</string>
   <string name="editProfile">Editar perfil</string>
-  <string name="firstName">Asignar nombre</string>
+  <string name="firstName">Nombre de pila</string>
   <string name="lastName">Apellido</string>
   <string name="biography">Biografía</string>
   <string name="country">País</string>
@@ -545,7 +545,7 @@
   <string name="moveListWhilePlaying">Lista de movimientos durante la partida</string>
   <string name="pgnPieceNotation">Anotación de los movimientos</string>
   <string name="chessPieceSymbol">Símbolo de la pieza</string>
-  <string name="pgnLetter">Letra (R, D, A, C, T, p)</string>
+  <string name="pgnLetter">Letra en inglés (K, Q, R, B, N)</string>
   <string name="chessClock">Reloj de ajedrez</string>
   <string name="tenthsOfSeconds">Décimas de segundo</string>
   <string name="never">Nunca</string>
