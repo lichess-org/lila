@@ -556,15 +556,15 @@
   <string name="howDoYouMovePieces">¿Cómo mueves las piezas?</string>
   <string name="clickTwoSquares">Clic en dos escaques</string>
   <string name="dragPiece">Arrastrando la pieza</string>
-  <string name="bothClicksAndDrag">De cualquiera de las dos maneras</string>
-  <string name="premovesPlayingDuringOpponentTurn">Premovimiento (jugar durante el turno del oponente)</string>
+  <string name="bothClicksAndDrag">O cualquiera</string>
+  <string name="premovesPlayingDuringOpponentTurn">Anticipados (jugando en el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
-  <string name="promoteToQueenAutomatically">Promover a dama automáticamente</string>
-  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas por triple repetición</string>
+  <string name="promoteToQueenAutomatically">Promocionar a dama automáticamente</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas automáticamente por triple repetición</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
   <string name="letOtherPlayersChallengeYou">Permitir que otros jugadores te desafíen</string>
-  <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores te inviten a estudios</string>
+  <string name="letOtherPlayersInviteYouToStudy">Permitir que otros jugadores te inviten al análisis</string>
   <string name="sound">Sonido</string>
   <string name="yourPreferencesHaveBeenSaved">Tus preferencias se han guardado.</string>
   <string name="none">Ninguna</string>
@@ -573,11 +573,11 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro del tablero</string>
   <string name="outsideTheBoard">Fuera del tablero</string>
-  <string name="onSlowGames">En partidas lentas</string>
+  <string name="onSlowGames">En partidas largas</string>
   <string name="always">Siempre</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
-  <string name="whenPremoving">Con premovimiento</string>
-  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando queden menos de 30 segundos</string>
+  <string name="whenPremoving">Con anticipadas</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Cuando el tiempo restante sea de &lt; 30 segundos</string>
   <string name="difficultyEasy">Fácil</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Difícil</string>
@@ -603,7 +603,7 @@
   </plurals>
   <string name="listBlockedPlayers">Lista de jugadores que has bloqueado</string>
   <string name="human">Humano</string>
-  <string name="computer">Ordenador</string>
+  <string name="computer">Computadora</string>
   <string name="side">Color</string>
   <string name="clock">Reloj</string>
   <string name="unauthorizedError">Acceso no autorizado.</string>
