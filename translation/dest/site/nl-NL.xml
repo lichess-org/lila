@@ -204,6 +204,7 @@
   <string name="playingRightNow">Nu aan het spelen</string>
   <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
+  <string name="finishesX">klaar in %s</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
   <string name="standard">Standaard</string>
@@ -588,6 +589,9 @@
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
   <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
@@ -703,6 +707,9 @@
   <string name="yourPerfTypeRatingIsRating">Je %1$srating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Je bent beter dan %1$s van de %2$sspelers.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Je hebt geen vastgestelde %srating.</string>
+  <string name="yourRating">Jouw rating</string>
+  <string name="cumulative">Cumulatief</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Controleer je email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
@@ -854,4 +861,8 @@
     <item quantity="one">en bewaar %s premove-variant</item>
     <item quantity="other">en bewaar %s premove-varianten</item>
   </plurals>
+  <string name="sorry">Sorry :(</string>
+  <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
+  <string name="timeoutExpires">The time-out verloopt %s.</string>
+  <string name="why">Waarom?</string>
 </resources>
