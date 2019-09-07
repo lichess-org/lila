@@ -86,7 +86,7 @@
     <item quantity="other">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
   </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belki de tercihler menüsünden daha fazla oyun aktarabilirsiniz.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
@@ -446,7 +446,7 @@
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
   <string name="country">Ülke</string>
-  <string name="preferences">Tercihler</string>
+  <string name="preferences">Seçenekler</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="watchLichessTV">Lichess TV\'ye göz at</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
