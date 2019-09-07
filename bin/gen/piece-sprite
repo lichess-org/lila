@@ -26,7 +26,8 @@ themes = [
   ['kosal', 'svg'],
   ['pixel', 'svg'],
   ['california', 'svg'],
-  ['maestro', 'svg']
+  ['maestro', 'svg'],
+  ['fresca', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
