@@ -83,7 +83,7 @@
   </plurals>
   <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
     <item quantity="one">Siguiente captura o movimiento de peón en medio movimiento (distancia a cero del contador de 50 movimientos)</item>
-    <item quantity="other">Siguiente captura o movimiento de péon en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
+    <item quantity="other">Siguiente captura o movimiento de peón en %s medios movimientos (distancia a cero del contador de 50 movimientos)</item>
   </plurals>
   <string name="noGameFound">No se ha encontrado ninguna partida</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Prueba incluyendo más partidas desde el menú de preferencias</string>
