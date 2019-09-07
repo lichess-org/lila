@@ -77,6 +77,7 @@
   <string name="newChapter">Novo poglavlje</string>
   <string name="orientation">Orijentacija</string>
   <string name="analysisMode">Tip analize</string>
+  <string name="pinnedChapterComment">Stalni komentar na poglavlje</string>
   <string name="saveChapter">Spremi poglavlje</string>
   <string name="clearAnnotations">Očisti pribilješke</string>
   <string name="deleteChapter">Obriši poglavlje</string>
@@ -109,6 +110,8 @@
   <string name="editStudy">Uredi studiju</string>
   <string name="visibility">Vidljivost</string>
   <string name="public">Javno</string>
+  <string name="unlisted">Neizlistane</string>
+  <string name="inviteOnly">Samo na poziv</string>
   <string name="allowCloning">Dopusti kloniranje</string>
   <string name="nobody">Nitko</string>
   <string name="onlyMe">Samo ja</string>
@@ -118,6 +121,7 @@
   <string name="enableSync">Aktiviraj sinkronizaciju</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Da: drži sve u istoj poziciji</string>
   <string name="noLetPeopleBrowseFreely">Ne: neka ljudi slobodno pregledavaju</string>
+  <string name="pinnedStudyComment">Stalni komentar na studije</string>
   <string name="start">Start</string>
   <string name="save">Spremi</string>
   <string name="clearChat">Očistite razgovor</string>
