@@ -2,13 +2,13 @@ self.addEventListener('push', event => {
   const data = event.data.json();
   event.waitUntil(self.registration.getNotifications().then(notifications => {
     notifications.forEach(notification => {
-      if (notification.tag === data.stack) notification.close();
+      if (notification.tag === data.tag) notification.close();
     });
     return self.registration.showNotification(data.title, {
       badge: 'https://lichess1.org/assets/images/logo.256.png',
       icon: 'https://lichess1.org/assets/images/logo.256.png',
       body: data.body,
-      tag: data.stack,
+      tag: data.tag,
       data: data.payload,
       requireInteraction: true
     });
