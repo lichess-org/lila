@@ -342,7 +342,7 @@
   <string name="leaderboard">Lider Tablosu</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
-  <string name="fromPosition">Bu pozisyondan devam et</string>
+  <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman, göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL sahibi olursunuz.</string>
@@ -657,7 +657,7 @@
   <string name="webmasters">Site Yöneticileri</string>
   <string name="about">Hakkında</string>
   <string name="aboutX">%s hakkında</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s açık kaynak kodlu, reklam içermeyen özgür bir platformdur. (%2$s)</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="contact">İletişim</string>
@@ -774,7 +774,7 @@
   <string name="background">Arkaplan</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
-  <string name="transparent">Saydam</string>
+  <string name="transparent">Şeffaf</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
   <string name="boardGeometry">Tahta geometrisi</string>
   <string name="boardTheme">Tahta teması</string>
