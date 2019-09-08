@@ -30,6 +30,10 @@ Spil hurtigt og vend tilbage til lobbyen for at spille flere partier og vinde fl
   <string name="howDoesItEndAnswer">Turneringen har et nedtællingsur. Når det rammer nul fastfryses turneringsplaceringer, og en vinder kåres. Igangværende partier skal spilles færdig, men de tæller ikke med i turneringen.</string>
   <string name="otherRules">Andre vigtige regler</string>
   <string name="thereIsACountdown">Der er en nedtælling på dit første træk. Laver du ikke et træk i tide, er partiet tabt til din modstander.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Ved remis indenfor det første %s træk vil ingen af spillerne få nogen point.</item>
+    <item quantity="other">Ved remis indenfor de første %s træk vil ingen af spillerne få nogen point.</item>
+  </plurals>
   <string name="thisIsPrivate">Dette er en privat turnering</string>
   <string name="shareUrl">Del denne URL for at lade folk deltage: %s</string>
 </resources>
