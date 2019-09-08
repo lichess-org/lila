@@ -34,7 +34,7 @@ Play fast and return to the lobby to play more games and win more points.</strin
 <string name="thereIsACountdown">There is a countdown for your first move. Failing to make a move within this time will forfeit the game to your opponent.</string>
 <plurals name="drawingWithinNbMoves">
   <item quantity="one">Drawing the game within the first %s move will earn neither player any points.</item>
-  <item quantity="other">Drawing the game within the first %s move will earn neither player any points.</item>
+  <item quantity="other">Drawing the game within the first %s moves will earn neither player any points.</item>
 </plurals>
 <string name="thisIsPrivate">This is a private tournament</string>
 <string name="shareUrl">Share this URL to let people join: %s</string>
