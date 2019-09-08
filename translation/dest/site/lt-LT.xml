@@ -773,6 +773,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jūs esate geresni už %1$s iš %2$s žaidėjų.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jūs neturite nusistovėjusio „%s“ reitingo.</string>
   <string name="yourRating">Jūsų reitingas</string>
+  <string name="cumulative">Iš viso</string>
   <string name="glicko2Rating">Glicko-2 reitingas</string>
   <string name="checkYourEmail">Pasitikrinkite el. paštą</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Išsiuntėme jums laišką. Spustelėję jame esančią nuorodą aktyvuosite savo paskyrą.</string>
