@@ -35,7 +35,7 @@ private final class WebPush(
         "payload" -> Json.obj(
           "title" -> data.title,
           "body" -> data.body,
-          "stacking" -> data.stacking.key,
+          "tag" -> data.stacking.key,
           "payload" -> data.payload
         ).toString,
         "ttl" -> 43200
