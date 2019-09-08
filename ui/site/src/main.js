@@ -726,26 +726,22 @@
         var el = self.element;
 
         var hideStorage = lichess.storage.makeBoolean('friends-hide');
-        var $friendBoxTitle = el.find('.friend_box_title').click(function() {
+        self.$friendBoxTitle = el.find('.friend_box_title').click(function() {
           el.find('.content_wrap').toggleNone(hideStorage.get());
           hideStorage.toggle();
         });
         if (hideStorage.get() == 1) el.find('.content_wrap').addClass('none');
 
-        self.$nbOnline = $friendBoxTitle.find('.online');
         self.$nobody = el.find(".nobody");
 
-        function dataList(name) { return el.data(name) ? el.data(name).split(',') : []; }
-        self.set(
-          dataList('preload'),
-          dataList('playing'),
-          dataList('studying'),
-          dataList('patrons'));
+        const data = el.data('preload');
+        self.trans = lichess.trans(data.i18n);
+        self.set(data.preload, data.playing, data.studying, data.patrons);
       },
       repaint: function() {
         lichess.raf(function() {
           var users = this.users, ids = Object.keys(users).sort();
-          this.$nbOnline.text(ids.length);
+          this.$friendBoxTitle.html(this.trans.vdomPlural('nbFriendsOnline', ids.length, $('<strong>').text(ids.length)));
           this.$nobody.toggleNone(!ids.length);
           this.element.find('.list').html(
             ids.map(function(id) { return renderUser(users[id]); }).join('')
