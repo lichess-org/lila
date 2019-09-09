@@ -867,4 +867,15 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
   <string name="why">Nima uchun?</string>
   <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
+  <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>
+  <string name="potentialProblem">Qachon qandaydir jiddiy muammo aniqlansa biz bu habarni chiqaramiz.</string>
+  <string name="howToAvoidThis">Qanday qilib bundan qochish mumkin?</string>
+  <string name="playEveryGame">Har bir boshlagan o\'yiningizni oxirigacha o\'ynang.</string>
+  <string name="tryToWin">Har bior o\'yinda yutish uchun harakat qiling (kamida durrang uchun kurashing).</string>
+  <string name="resignLostGames">Boy berilgan o\'yinda taslim bo\'ling (vaqt ketishiga yo\'l qo\'ymang).</string>
+  <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
+  <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
+  <string name="thankYouForReading">O\'qiganingiz uchun rahmat!</string>
+  <string name="lifetimeScore">Hisoblar solishtirilganda</string>
+  <string name="currentMatchScore">Joriy o\'yin holati</string>
 </resources>
