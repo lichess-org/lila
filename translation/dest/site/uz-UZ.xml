@@ -863,4 +863,8 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
     <item quantity="other">va %s avvaldan yurishlarni saqlash</item>
   </plurals>
   <string name="sorry">Kechirasiz :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Biz sizga bir muncha vaqtga taym aut berishimiz kerak edi.</string>
+  <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
+  <string name="why">Nima uchun?</string>
+  <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
 </resources>
