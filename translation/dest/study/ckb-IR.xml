@@ -49,6 +49,14 @@
   <string name="noPinnedComment">هیچ کامێکیان</string>
   <string name="normalAnalysis">شیکردنەوەی ئاسایی</string>
   <string name="hideNextMoves">شاردنەوەی جوولەکانی دواتر</string>
+  <string name="empty">بەتاڵ</string>
+  <string name="startFromInitialPosition">دەستپێکردن لە پێگەی سەرەتاوە</string>
+  <string name="automatic">خوودکاری</string>
+  <string name="createChapter">دروستکردنی بەش</string>
+  <string name="createStudy">دروستکردنی لێکۆڵینەوە</string>
+  <string name="editStudy">چاککردنی لێکۆڵینەوە</string>
+  <string name="visibility">دەرکەوتن</string>
+  <string name="unlisted">ڕێکنەخراو</string>
   <string name="nobody">هیچ کەس</string>
   <string name="onlyMe">تەنها من</string>
   <string name="contributors">بەشداربووان</string>
@@ -58,4 +66,5 @@
   <string name="noLetPeopleBrowseFreely">نەخێر: ڕێگەدان بەوەی هەمووان بە ئازادی بگەڕێن</string>
   <string name="start">دەستپێکردن</string>
   <string name="save">داکردن</string>
+  <string name="deleteTheEntireStudy">سڕینەوەی سەرتاپای لێکۆڵینەوەکە؟ گەڕانەوەی بۆ نییه!</string>
 </resources>
