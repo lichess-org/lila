@@ -54,4 +54,8 @@
   <string name="open">Ochish</string>
   <string name="xBroughtToYouByY">%1$s sizga %2$s orqali keltirdi</string>
   <string name="studyNotFound">Ta\'lim topilmadi</string>
+  <string name="inviteOnly">Faqat taklif</string>
+  <string name="allowCloning">Klonlash uchun ruhsat</string>
+  <string name="nobody">Hech kim</string>
+  <string name="onlyMe">Faqat menga</string>
 </resources>
