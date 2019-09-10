@@ -141,6 +141,12 @@
   <string name="playingRightNow">Vê gavê tê lîstin</string>
   <string name="eventInProgress">Vê gavê tê lîstin</string>
   <string name="finished">Xilas</string>
+  <string name="finishesX">xelas dibe nav %s de</string>
+  <string name="abortGame">Lîstikê betal bike</string>
+  <string name="gameAborted">Lîstik hate betalkirin</string>
+  <string name="standard">Standard</string>
+  <string name="unlimited">Bêsînor</string>
+  <string name="mode">Mod</string>
   <string name="subject">Mijar</string>
   <string name="recipient">Stîner</string>
   <string name="send">Bişeyne</string>
