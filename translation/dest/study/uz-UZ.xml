@@ -80,6 +80,17 @@
   <string name="deleteChapter">Bo\'limni o\'chirish</string>
   <string name="deleteThisChapter">Ushbu bo\'lim o\'chirilsinmi? Amalni ortga qaytarib bo\'lmaydi!</string>
   <string name="clearAllCommentsInThisChapter">Ushbu bo\'limdagi barcha kommentlar, rasmlar, sipohlar, shakllar tozalansinmi?</string>
+  <string name="rightUnderTheBoard">Shunday doskani tagida</string>
+  <string name="noPinnedComment">Hech qayerda</string>
+  <string name="normalAnalysis">Normal tahlil</string>
+  <string name="hideNextMoves">Navbatdagi yurishni yashirish</string>
+  <string name="interactiveLesson">Faol dars</string>
+  <string name="chapterX">%s bo\'limi</string>
+  <string name="empty">Bo‘sh</string>
+  <string name="startFromInitialPosition">Boshlang\'ich holatdan boshlash</string>
+  <string name="editor">Tahrirlovchi</string>
+  <string name="startFromCustomPosition">Ko\'rsatilgan holatdan boshlash</string>
+  <string name="loadAGameByUrl">O\'yinni URL dan o\'qib olish</string>
   <string name="inviteOnly">Faqat taklif</string>
   <string name="allowCloning">Klonlash uchun ruhsat</string>
   <string name="nobody">Hech kim</string>
