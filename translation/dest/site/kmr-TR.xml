@@ -163,6 +163,8 @@
   <string name="viewRematch">Lîstika nû bibîne</string>
   <string name="play">Bilîze</string>
   <string name="inbox">Hatdank</string>
+  <string name="chatRoom">Dîwana sohbetê</string>
+  <string name="loginToChat">Têkeve ji bo sohbetê</string>
   <string name="subject">Mijar</string>
   <string name="recipient">Stîner</string>
   <string name="send">Bişeyne</string>
