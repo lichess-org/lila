@@ -58,4 +58,16 @@
   <string name="allowCloning">Klonlash uchun ruhsat</string>
   <string name="nobody">Hech kim</string>
   <string name="onlyMe">Faqat menga</string>
+  <string name="contributors">Yordamchilar</string>
+  <string name="members">A\'zolar</string>
+  <string name="everyone">Har kim</string>
+  <string name="enableSync">Sinxronizatsiya yoqilgan</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Ha: hamma o\'z o\'rnida saqlansin</string>
+  <string name="noLetPeopleBrowseFreely">Yo\'q: odamlarga bemalol sharhlashga imkon berilsin</string>
+  <string name="start">Boshlash</string>
+  <string name="save">Saqlash</string>
+  <string name="clearChat">Suhbatni tozalash</string>
+  <string name="deleteTheStudyChatHistory">Ta\'lim suhbatini o\'chirilsinmi? Bundan keyin uni ortga qaytarib bo\'lmaydi!</string>
+  <string name="deleteStudy">Ta\'limni o\'chirish</string>
+  <string name="deleteTheEntireStudy">Ta\'lim butunlay o\'chirilsinmi? Amalni ortga qaytarib bo\'lmaydi!</string>
 </resources>
