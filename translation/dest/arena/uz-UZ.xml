@@ -30,6 +30,11 @@ Tez o\'ynang va turnir zaliga qayting, ko\'p yutib ko\'proq bal to\'plang.</stri
   <string name="howDoesItEnd">Bu qanday yakunlanadi?</string>
   <string name="howDoesItEndAnswer">Turnirda orqaga yuruvchi soat bilan boshlanadi. U qachon 0 ga borsa turnir vaqti tugagan hisoblanadi va g\'olib aniqlanadi. Vaqt tugaganda boshlangan o\'yinlar tugashi kutiladi va bu vaqt davomida g\'oliblar aniqlanmay turadi.</string>
   <string name="otherRules">Boshqa muhim qoidalar</string>
+  <string name="thereIsACountdown">Ortga sanaladigan vaqt bor. Bu vaqt ichida birinchi yurishni qilmasangiz siz o\'yinni boy bergan bo\'lasiz.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">%s yurishgacha durrangga kelishilgan o\'yin hech bir ishtirokchiga hisob bermaydi.</item>
+    <item quantity="other">%s yurishgacha durrangga kelishilgan o\'yinlar hech bir ishtirokchiga hisob bermaydi.</item>
+  </plurals>
   <string name="thisIsPrivate">Bu yopiq turnir</string>
   <string name="shareUrl">Odamlarga qo\'shilishi uchun URL ni ulashing: %s</string>
 </resources>
