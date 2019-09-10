@@ -91,6 +91,13 @@
   <string name="editor">Tahrirlovchi</string>
   <string name="startFromCustomPosition">Ko\'rsatilgan holatdan boshlash</string>
   <string name="loadAGameByUrl">O\'yinni URL dan o\'qib olish</string>
+  <string name="loadAPositionFromFen">Boshlang\'ich hiolatni FEN dan yuklab olish</string>
+  <string name="loadAGameFromPgn">PGN dan o\'yinni o\'qib olish</string>
+  <string name="automatic">Avtomatik</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">%s o\'yinni yuklash uchun PGN matnni shu yerga qo\'ying</item>
+    <item quantity="other">%s o\'yinlarni yuklash uchun PGN matnni shu yerga qo\'ying</item>
+  </plurals>
   <string name="inviteOnly">Faqat taklif</string>
   <string name="allowCloning">Klonlash uchun ruhsat</string>
   <string name="nobody">Hech kim</string>
