@@ -160,6 +160,9 @@
   <string name="rematchOfferCanceled">Teklîfa cardinlîstinê hate betalkirin</string>
   <string name="rematchOfferDeclined">Teklîfa cardinlîstinê hate redkirin</string>
   <string name="cancelRematchOffer">Teklîfa cardinlîstinê betal bike</string>
+  <string name="viewRematch">Lîstika nû bibîne</string>
+  <string name="play">Bilîze</string>
+  <string name="inbox">Hatdank</string>
   <string name="subject">Mijar</string>
   <string name="recipient">Stîner</string>
   <string name="send">Bişeyne</string>
