@@ -184,6 +184,10 @@
   <string name="takeback">Vegerîne</string>
   <string name="proposeATakeback">Vegerandinê teklîf bike</string>
   <string name="takebackPropositionSent">Vegerandin hate şandin</string>
+  <string name="takebackPropositionDeclined">Vegerandina hemleyê hate redkirin</string>
+  <string name="takebackPropositionAccepted">Vegerandina hemleyê hate qebûlkirin</string>
+  <string name="takebackPropositionCanceled">Vegerandina hemleyê hate betalkirin</string>
+  <string name="yourOpponentProposesATakeback">Reqîbê te vegerandina hemleyê teklîf kir</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
