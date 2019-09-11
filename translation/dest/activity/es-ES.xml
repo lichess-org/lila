@@ -23,8 +23,8 @@
     <item quantity="other">Ha publicado %1$s mensajes en %2$s</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">%1$s jugada</item>
-    <item quantity="other">%1$s jugadas</item>
+    <item quantity="one">Ha hecho %1$s movimiento</item>
+    <item quantity="other">Ha hecho %1$s movimientos</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">
     <item quantity="one">en %1$s partida por correspondencia</item>
