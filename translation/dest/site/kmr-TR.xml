@@ -194,6 +194,8 @@
   <string name="tournament">Turnuwa</string>
   <string name="tournaments">Turnuwa</string>
   <string name="tournamentPoints">Puanên turnuwayê</string>
+  <string name="viewTournament">Turnuwayê bibîne</string>
+  <string name="backToTournament">Vegere turnuwayê</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
