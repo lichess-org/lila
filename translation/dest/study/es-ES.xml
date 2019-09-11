@@ -16,10 +16,10 @@
     <item quantity="other">%s Miembros</item>
   </plurals>
   <string name="inviteToTheStudy">Invitar al estudio</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, sólo invita a las personas que conozcas y que desean unirse activamente a este estudio.</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Por favor, invita sólo a personas que conozcas y que deseen unirse a este estudio.</string>
   <string name="searchByUsername">Buscar por nombre de usuario</string>
   <string name="spectator">Espectador</string>
-  <string name="contributor">Contribuyente</string>
+  <string name="contributor">Colaborador</string>
   <string name="kick">Expulsar</string>
   <string name="leaveTheStudy">Dejar el estudio</string>
   <string name="youAreNowAContributor">Ahora eres un colaborador</string>
@@ -29,9 +29,9 @@
   <string name="newTag">Nueva etiqueta</string>
   <string name="commentThisPosition">Comentar esta posición</string>
   <string name="commentThisMove">Comentar este movimiento</string>
-  <string name="annotateWithGlyphs">Anotar con glifos</string>
-  <string name="theChapterIsTooShortToBeAnalysed">El capítulo es demasiado corto para ser analizado.</string>
-  <string name="onlyContributorsCanRequestAnalysis">Sólo los colaboradores del estudio pueden solicitar un análisis informático.</string>
+  <string name="annotateWithGlyphs">Anotar con iconos</string>
+  <string name="theChapterIsTooShortToBeAnalysed">El capítulo es demasiado corto para analizarlo.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Sólo los colaboradores del estudio pueden solicitar un análisis por ordenador.</string>
   <string name="getAFullComputerAnalysis">Obtenga un análisis completo por computadora del lado del servidor de la línea principal.</string>
   <string name="makeSureTheChapterIsComplete">Asegúrese de que el capítulo está completo. Solo puede solicitar análisis una vez.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Todos los miembros de SYNC permanecen en la misma posición</string>
