@@ -401,9 +401,9 @@
   <string name="safeTournamentName">Escolha um nome adequado para o torneio.</string>
   <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar a fechar a sua conta.</string>
   <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
-  <string name="recommendNotTouching">Nós recomendamos que não toque nestas opções.</string>
+  <string name="recommendNotTouching">Recomendamos não mecher nestas.</string>
   <string name="fewerPlayers">Se definires condições de participação, o teu torneio terá menos participantes.</string>
-  <string name="showAdvancedSettings">Mostrar configurações avançadas</string>
+  <string name="showAdvancedSettings">Mostrar Definições avançadas</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>
@@ -415,7 +415,7 @@
   <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="standByX">Aguarda %s, emparelhando jogadores, prepara-te!</string>
   <string name="youArePlaying">Estás a jogar!</string>
-  <string name="winRate">Percentagem vitórias</string>
+  <string name="winRate">Percentagem de vitórias</string>
   <string name="berserkRate">Percentagem frenético</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
