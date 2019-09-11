@@ -113,8 +113,8 @@
   <string name="mistakes">Erros</string>
   <string name="inaccuracy">Imprecisão</string>
   <string name="inaccuracies">Imprecisões</string>
-  <string name="moveTimes">Tempo por movimento</string>
-  <string name="flipBoard">Girar o tabuleiro</string>
+  <string name="moveTimes">Tempo por jogada</string>
+  <string name="flipBoard">Inverter Tabuleiro</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
   <string name="offerDraw">Propor empate</string>
