@@ -34,5 +34,5 @@ Joga rápido e volta ao vestíbulo para jogar mais jogos e ganhar mais pontos.</
     <item quantity="other">Ao empatar o jogo nas primeiras %s jogadas, nenhum dos jogadores irá ganhar pontos.</item>
   </plurals>
   <string name="thisIsPrivate">Este é um torneio privado</string>
-  <string name="shareUrl">Partilha este URL para que as pessoas entrem: %s</string>
+  <string name="shareUrl">Partilha este URL para que as pessoas possam entrar: %s</string>
 </resources>
