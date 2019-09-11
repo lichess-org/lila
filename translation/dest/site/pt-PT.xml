@@ -166,13 +166,13 @@
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Altere seu nome de utilizador. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
+  <string name="changeUsernameDescription">Altere o seu nome de utilizador. Isso só pode ser feito uma vez e poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Senha</string>
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinição de senha</string>
-  <string name="forgotPassword">Esqueceu a sua senha?</string>
+  <string name="forgotPassword">Esqueceu-se da sua palavra-passe?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -185,7 +185,7 @@
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s jogo contra ti</item>
+    <item quantity="one">%s jogo contigo</item>
     <item quantity="other">%s jogos contra ti</item>
   </plurals>
   <string name="cancel">Cancelar</string>
@@ -194,15 +194,15 @@
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
   <string name="drawOfferCanceled">Proposta de empate cancelada</string>
-  <string name="whiteOffersDraw">Brancas oferecem empate</string>
+  <string name="whiteOffersDraw">Brancas propõem empate</string>
   <string name="blackOffersDraw">Pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
-  <string name="yourOpponentOffersADraw">Seu adversário propõe empate</string>
+  <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">A jogar neste momento</string>
-  <string name="eventInProgress">Jogando em direto</string>
+  <string name="eventInProgress">A jogar agora</string>
   <string name="finished">Terminado</string>
   <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
@@ -227,7 +227,7 @@
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
-  <string name="loginToChat">Entre para conversar</string>
+  <string name="loginToChat">Inicie sessão para poder conversar</string>
   <string name="youHaveBeenTimedOut">Tu foste desconectado.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escrever mensagem</string>
