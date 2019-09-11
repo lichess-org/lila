@@ -396,11 +396,11 @@
   <string name="standing">Aguardando</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário de torneios</string>
-  <string name="conditionOfEntry">Condições de participação:</string>
-  <string name="advancedSettings">Configurações avançadas</string>
-  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
-  <string name="inappropriateNameWarning">Qualquer linguagem ligeiramente inadequada poderia banir a sua conta.</string>
-  <string name="emptyTournamentName">Deixe em branco e o torneiro terá o nome aleatório de um Grande Mestre.</string>
+  <string name="conditionOfEntry">Condições para participar:</string>
+  <string name="advancedSettings">Definições avançadas</string>
+  <string name="safeTournamentName">Escolha um nome adequado para o torneio.</string>
+  <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar a fechar a sua conta.</string>
+  <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
   <string name="recommendNotTouching">Nós recomendamos que não toque nestas opções.</string>
   <string name="fewerPlayers">Se definires condições de participação, o teu torneio terá menos participantes.</string>
   <string name="showAdvancedSettings">Mostrar configurações avançadas</string>
