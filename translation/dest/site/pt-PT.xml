@@ -259,12 +259,12 @@
     <item quantity="other">%s jogando</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Rating entre</string>
+  <string name="ratingRange">Classificação entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="giveMoreTime">Dê mais tempo</string>
+  <string name="giveMoreTime">Dar mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o a sua pontuação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabela</string>
