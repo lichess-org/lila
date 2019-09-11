@@ -30,5 +30,5 @@ Joga rápido e volta ao vestíbulo para jogar mais jogos e ganhar mais pontos.</
   <string name="howDoesItEndAnswer">O torneio tem um relógio de contagem. Quando chega a zero, as pontuações de torneio são congeladas, e o vencedor é anunciado. Os jogos a decorrer devem ser terminados, contudo, estes não contam para o torneio.</string>
   <string name="otherRules">Outras regras importantes</string>
   <string name="thisIsPrivate">Este é um torneio privado</string>
-  <string name="shareUrl">Comparte este URL para que as pessoas entrem: %s</string>
+  <string name="shareUrl">Partilha este URL para que as pessoas entrem: %s</string>
 </resources>
