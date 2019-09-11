@@ -123,7 +123,7 @@
     <item quantity="one">%s jogador conectado</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
-  <string name="currentGames">Partidas atuais</string>
+  <string name="currentGames">Partidas a decorrer</string>
   <plurals name="nbGames">
     <item quantity="one">%s jogo</item>
     <item quantity="other">%s jogos</item>
@@ -140,7 +140,7 @@
   <string name="computersAreNotAllowedToPlay">O uso de motores de cálculo não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou outros jogadores durante a partida. Além disso, a criação de contas múltiplas é fortemente desencorajada e sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s publicou em %2$s</string>
+  <string name="xPostedInForumY">%1$s publicou no tópico %2$s</string>
   <string name="latestForumPosts">Últimas entradas do fórum</string>
   <string name="players">Jogadores</string>
   <string name="minutesPerSide">Minutos por jogador</string>
@@ -162,7 +162,7 @@
   <string name="time">Tempo</string>
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de classificação</string>
-  <string name="username">Nome de utilizador</string>
+  <string name="username">Nome do utilizador</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
