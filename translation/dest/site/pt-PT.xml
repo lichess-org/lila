@@ -233,9 +233,9 @@
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
   <string name="subject">Assunto</string>
-  <string name="recipient">Destinatário</string>
+  <string name="recipient">Para</string>
   <string name="send">Enviar</string>
-  <string name="incrementInSeconds">Acréscimo em segundos</string>
+  <string name="incrementInSeconds">Incremento em segundos</string>
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
   <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
