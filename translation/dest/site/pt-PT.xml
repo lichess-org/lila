@@ -67,7 +67,7 @@
   <string name="pawnMove">Movimento de peão</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
-  <string name="winning">Vitoriosos</string>
+  <string name="winning">Jogada vantajosa</string>
   <string name="losing">Perdedores</string>
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecidos</string>
