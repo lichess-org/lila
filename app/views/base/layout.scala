@@ -38,8 +38,8 @@ object layout {
 
   private val favicons = raw {
     List(256, 128, 64) map { px =>
-      s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}"/>"""
-    } mkString
+      s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}">"""
+    } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("images/favicon-32-white.png")}" sizes="32x32">""")
   }
   private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
@@ -124,7 +124,6 @@ object layout {
         moreCss,
         pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
-        link(id := "favicon", rel := "shortcut icon", href := staticUrl("images/favicon-32-white.png"), `type` := "image/x-icon"),
         link(rel := "mask-icon", href := staticUrl("favicon.svg"), color := "black"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
