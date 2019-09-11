@@ -182,6 +182,8 @@
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <string name="openingExplorerAndTablebase">Kaşifê destpêkirinê &amp; danegeha dawiyê</string>
   <string name="takeback">Vegerîne</string>
+  <string name="proposeATakeback">Vegerandinê teklîf bike</string>
+  <string name="takebackPropositionSent">Vegerandin hate şandin</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
