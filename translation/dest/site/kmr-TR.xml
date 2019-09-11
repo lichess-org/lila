@@ -175,6 +175,7 @@
   <string name="incrementInSeconds">Tê zêdekirin di çend saniyeyan de</string>
   <string name="freeOnlineChess">Kişika Belaş ya Serhêl</string>
   <string name="spectators">Temaşevan:</string>
+  <string name="exportGames">Lîstikan derxîne</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
