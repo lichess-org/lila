@@ -24,8 +24,8 @@ object layout {
 
   private val favicons = raw {
     List(256, 128, 64) map { px =>
-      s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}"/>"""
-    } mkString
+      s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}">"""
+    } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("images/favicon-32-white.png")}" sizes="32x32">""")
   }
   private def titleTag(content: String) = scalatags.Text.tags2.title(content)
   private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind_mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blindMode) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blindMode) "Disable" else "Enable"} blind mode</button></form>""")
@@ -132,7 +132,6 @@ object layout {
         moreCss,
         link(id := "piece-sprite", href := assetUrl(s"stylesheets/piece/${ctx.currentPieceSet}.css"), `type` := "text/css", rel := "stylesheet"),
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
-        link(id := "favicon", rel := "shortcut icon", href := staticUrl("images/favicon-32-white.png"), `type` := "image/x-icon"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
         noTranslate,
