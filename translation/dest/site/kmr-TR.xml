@@ -176,6 +176,10 @@
   <string name="freeOnlineChess">Kişika Belaş ya Serhêl</string>
   <string name="spectators">Temaşevan:</string>
   <string name="exportGames">Lîstikan derxîne</string>
+  <string name="ratingRange">Navbera reytîngê</string>
+  <string name="giveMoreTime">Zêdetir wext bide</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Ev lîzer bernameyeke alîkar yê kişikê bi kar tîne</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Ev lîzer reytînga xwe bi awayeke çêkirî bilind dike / kêm dike</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
