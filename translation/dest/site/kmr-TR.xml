@@ -196,6 +196,10 @@
   <string name="tournamentPoints">Puanên turnuwayê</string>
   <string name="viewTournament">Turnuwayê bibîne</string>
   <string name="backToTournament">Vegere turnuwayê</string>
+  <string name="thematic">Pêngavên destpêkê ên cuda</string>
+  <string name="yourPerfRatingIsProvisional">Puana te ya %s demkî ye</string>
+  <string name="yourPerfRatingIsTooHigh">Puana te ya %1$s (%2$s) zêde bilind e</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Puana te ya heftane a %1$s (%2$s) pir bilind e</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
