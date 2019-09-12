@@ -872,4 +872,8 @@
   <string name="playEveryGame">Juega todas las partidas que empieces.</string>
   <string name="tryToWin">Intenta ganar (o, al menos, empatar) cada partida que juegues.</string>
   <string name="resignLostGames">Abandona en posiciones perdidas (no dejes que el tiempo se agote sin más).</string>
+  <string name="temporaryInconvenience">Te pedimos disculpas por las molestias</string>
+  <string name="wishYouGreatGames">y esperamos que disfrutes de lichess.org.</string>
+  <string name="thankYouForReading">¡Gracias por tomarte el tiempo para leer esto!</string>
+  <string name="lifetimeScore">Puntuación histórica</string>
 </resources>
