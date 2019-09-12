@@ -13,6 +13,9 @@
   <string name="noneYet">Ninguno por ahora.</string>
   <string name="hot">Populares</string>
   <string name="dateAddedNewest">Fecha (más recientes)</string>
+  <string name="dateAddedOldest">Fecha (más antiguos)</string>
+  <string name="recentlyUpdated">Actualizados recientemente</string>
+  <string name="mostPopular">Más populares</string>
   <string name="addNewChapter">Añadir nuevo capítulo</string>
   <plurals name="nbChapters">
     <item quantity="one">%s Capítulo</item>
@@ -67,4 +70,25 @@
   <string name="open">Abierto</string>
   <string name="xBroughtToYouByY">%1$sauspiciado por%2$s</string>
   <string name="studyNotFound">Estudio no encontrado</string>
+  <string name="editChapter">Editar capítulo</string>
+  <string name="newChapter">Capítulo nuevo</string>
+  <string name="orientation">Orientación</string>
+  <string name="analysisMode">Modo de análisis</string>
+  <string name="pinnedChapterComment">Comentario fijo para el capítulo</string>
+  <string name="saveChapter">Guardar capítulo</string>
+  <string name="clearAnnotations">Eliminar anotaciones</string>
+  <string name="deleteChapter">Borrar capítulo</string>
+  <string name="deleteThisChapter">¿Realmente quieres borrar el capítulo? ¡Esta acción no se puede deshacer!</string>
+  <string name="clearAllCommentsInThisChapter">¿Borrar todos los comentarios, iconos y marcas de este capítulo?</string>
+  <string name="rightUnderTheBoard">Justo debajo del tablero</string>
+  <string name="noPinnedComment">Ninguno</string>
+  <string name="normalAnalysis">Análisis normal</string>
+  <string name="hideNextMoves">Ocultar los siguientes movimientos</string>
+  <string name="interactiveLesson">Lección interactiva</string>
+  <string name="chapterX">Capítulo %s</string>
+  <string name="empty">Vacío</string>
+  <string name="startFromInitialPosition">Comenzar desde la posición inicial</string>
+  <string name="editor">Editor</string>
+  <string name="startFromCustomPosition">Comenzar desde una posición personalizada</string>
+  <string name="loadAGameByUrl">Cargar una partida desde una URL</string>
 </resources>
