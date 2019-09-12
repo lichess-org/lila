@@ -204,6 +204,7 @@
   <string name="playingRightNow">Jugando ahora</string>
   <string name="eventInProgress">Se está jugando ahora</string>
   <string name="finished">Terminado</string>
+  <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
   <string name="gameAborted">Partida cancelada</string>
   <string name="standard">Estándar</string>
@@ -588,6 +589,9 @@
   <string name="xCommentedY">%1$s comentó %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Derrota</string>
+  <string name="victoryVsYInZ">%1$s contra %2$s en %3$s</string>
+  <string name="defeatVsYInZ">%1$s contra %2$s en %3$s</string>
+  <string name="drawVsYInZ">%1$s contra %2$s en %3$s</string>
   <string name="timeline">Cronología</string>
   <string name="starting">Comienzo:</string>
   <string name="allInformationIsPublicAndOptional">Toda la información es pública y opcional.</string>
@@ -703,6 +707,9 @@
   <string name="yourPerfTypeRatingIsRating">Tu puntuación en %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Eres mejor que el %1$s de los jugadores de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tienes una puntuación de %s  establecida.</string>
+  <string name="yourRating">Tu puntuación</string>
+  <string name="cumulative">Acumulado</string>
+  <string name="glicko2Rating">Puntuación Glicko-2</string>
   <string name="checkYourEmail">Revisa tu correo</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Te hemos enviado un correo. Activa tu cuenta en el enlace proporcionado.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no encuentras el correo, mira a ver si está en otras carpetas (spam, social, ...).</string>
@@ -854,4 +861,15 @@
     <item quantity="one">y ahorra %s línea de premovimiento</item>
     <item quantity="other">y ahorra %s líneas de premovimiento</item>
   </plurals>
+  <string name="sorry">Lo sentimos :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Hemos tenido que suspenderte temporalmente.</string>
+  <string name="timeoutExpires">La suspensión expira en %s.</string>
+  <string name="why">¿Por qué?</string>
+  <string name="pleasantChessExperience">Nuestro objetivo es proporcionar una experiencia agradable a todo el mundo.</string>
+  <string name="goodPractice">Para ello, debemos asegurarnos de que todos los jugadores se comportan como es debido.</string>
+  <string name="potentialProblem">Cuando detectamos un posible problema, mostramos este mensaje.</string>
+  <string name="howToAvoidThis">¿Cómo evitar esto?</string>
+  <string name="playEveryGame">Juega todas las partidas que empieces.</string>
+  <string name="tryToWin">Intenta ganar (o, al menos, empatar) cada partida que juegues.</string>
+  <string name="resignLostGames">Abandona en posiciones perdidas (no dejes que el tiempo se agote sin más).</string>
 </resources>
