@@ -95,14 +95,16 @@ private final class Streaming(
 
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
     val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
-    userIds.nonEmpty ?? WS.url("https://api.twitch.tv/helix/streams")
-      .withQueryString(
-        (("first" -> "100") :: userIds.map("user_login" -> _)): _*
-      )
-      .withHeaders(
-        "Client-ID" -> twitchClientId
-      )
-      .get().map { res =>
+    userIds.nonEmpty ?? {
+      val url = WS.url("https://api.twitch.tv/helix/streams")
+        .withQueryString(
+          (("first" -> "100") :: userIds.map("user_login" -> _)): _*
+        )
+        .withHeaders(
+          "Client-ID" -> twitchClientId
+        )
+      logger.info(url.uri.toString)
+      url.get().map { res =>
         res.json.validate[Twitch.Result](twitchResultReads) match {
           case JsSuccess(data, _) => data.streams(
             keyword,
@@ -114,6 +116,7 @@ private final class Streaming(
             Nil
         }
       }
+    }
   }
 
   def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {
