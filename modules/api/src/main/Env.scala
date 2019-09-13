@@ -50,7 +50,6 @@ final class Env(
     val Port = config getInt "http.port"
     val AssetDomain = config getString "net.asset.domain"
     val SocketDomain = config getString "net.socket.domain"
-    val RemoteSocketDomain = config getString "net.socket.remote.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
     val RateLimit = config getBoolean "net.ratelimit"
@@ -129,7 +128,6 @@ final class Env(
     getFilter = setupEnv.filter,
     lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
-    remoteSocketDomain = ctx => ctx.userId exists lobbyEnv.socketRemoteUsersSetting.get().matches option Net.RemoteSocketDomain,
     pools = pools,
     urgentGames = urgentGames
   )
