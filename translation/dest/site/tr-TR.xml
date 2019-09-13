@@ -86,7 +86,7 @@
     <item quantity="other">%s yarım hamle sonra yapılacak taş yeme veya piyon hamlesi (50 hamle kuralının sıfırlanmasına kalan uzaklık)</item>
   </plurals>
   <string name="noGameFound">Oyun bulunamadı</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belki de tercihler menüsünden daha fazla oyun aktarabilirsiniz.</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Seçenekler menüsünden daha fazla oyun eklemeyi deneyebilirsiniz.</string>
   <string name="openingExplorer">Açılış kâşifi</string>
   <string name="xOpeningExplorer">%s açılış kâşifi</string>
   <string name="winPreventedBy50MoveRule">Galibiyet 50 hamle kuralı yüzünden engellendi</string>
@@ -98,7 +98,7 @@
   <string name="replayMode">Tekrar modu</string>
   <string name="realtimeReplay">Gerçek Zamanlı</string>
   <string name="byCPL">SPK ile</string>
-  <string name="openStudy">İlgili çalışmayı göster</string>
+  <string name="openStudy">Çalışma oluştur</string>
   <string name="enable">Etkinleştir</string>
   <string name="bestMoveArrow">En iyi hamleyi tahta üzerinde göster</string>
   <string name="evaluationGauge">Değerlendirme çubuğu</string>
@@ -161,7 +161,7 @@
   </plurals>
   <string name="time">Zaman</string>
   <string name="rating">Puan</string>
-  <string name="ratingStats">Derece istatistikleri</string>
+  <string name="ratingStats">Puan istatistikleri</string>
   <string name="username">Kullanıcı adı</string>
   <string name="usernameOrEmail">Kullanıcı adı veya e-posta</string>
   <string name="changeUsername">Kullanıcı adını değiştir</string>
@@ -342,7 +342,7 @@
   <string name="leaderboard">Lider Tablosu</string>
   <string name="pasteTheFenStringHere">FEN kodunu buraya yapıştırın</string>
   <string name="pasteThePgnStringHere">PGN\'yi buraya yapıştırın</string>
-  <string name="fromPosition">Bu pozisyondan devam et</string>
+  <string name="fromPosition">Özel pozisyondan</string>
   <string name="continueFromHere">Bu pozisyondan devam et</string>
   <string name="importGame">Oyun yükle</string>
   <string name="importGameExplanation">Bir oyun PGN\'si yapıştırdığınız zaman, göz atılabilir bir tekrar, bilgisayar analizi, oyun sohbeti ve paylaşılabilir bir URL sahibi olursunuz.</string>
@@ -400,7 +400,7 @@
   <string name="advancedSettings">Gelişmiş ayarlar</string>
   <string name="safeTournamentName">Turnuva için oldukça güvenli bir isim seçin.</string>
   <string name="inappropriateNameWarning">Herhangi bir uygunsuz isim, hesabınızın yasaklanmasına yol açabilir.</string>
-  <string name="emptyTournamentName">Turnuvaya isim vermek istemiyorsanız, boş bırakarak rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
+  <string name="emptyTournamentName">Kutuyu boş bırakarak turnuvaya rastgele bir Büyükusta\'nın ismini verebilirsiniz.</string>
   <string name="recommendNotTouching">Bu ayarlara dokunmamanızı öneririz.</string>
   <string name="fewerPlayers">Turnuvaya katılım şartı koyarsanız, daha az oyuncu katılacaktır.</string>
   <string name="showAdvancedSettings">Gelişmiş ayarları göster</string>
@@ -446,7 +446,7 @@
   <string name="lastName">Soyad</string>
   <string name="biography">Biyografi</string>
   <string name="country">Ülke</string>
-  <string name="preferences">Tercihler</string>
+  <string name="preferences">Seçenekler</string>
   <string name="inlineNotation">Notasyonu aynı satırda göster</string>
   <string name="watchLichessTV">Lichess TV\'ye göz at</string>
   <string name="previouslyOnLichessTV">Lichess TV\'de bunlar da vardı;</string>
@@ -548,7 +548,7 @@
   <string name="chessPieceSymbol">Satranç taş sembolleri</string>
   <string name="pgnLetter">Harf (Ş, V, K, A, F)</string>
   <string name="chessClock">Satranç saati</string>
-  <string name="tenthsOfSeconds">Saniyenin 1/10\'i</string>
+  <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="never">Asla</string>
   <string name="whenTimeRemainingLessThanTenSeconds">Kalan zaman 10 saniyeden az ise</string>
   <string name="horizontalGreenProgressBars">Yeşil yatay ilerleme çubuğu</string>
@@ -565,7 +565,7 @@
   <string name="privacy">Gizlilik</string>
   <string name="letOtherPlayersFollowYou">Diğer oyuncular seni takip etsin mi?</string>
   <string name="letOtherPlayersChallengeYou">Diğer oyuncular sana oyun teklifinde bulunsun mu?</string>
-  <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular seni çalışmalarına dahil etsin mi?</string>
+  <string name="letOtherPlayersInviteYouToStudy">Diğer oyuncular sizi bir çalışmaya davet edebilsin</string>
   <string name="sound">Ses</string>
   <string name="yourPreferencesHaveBeenSaved">Tercihleriniz kaydedildi.</string>
   <string name="none">Hiçbiri</string>
@@ -657,7 +657,7 @@
   <string name="webmasters">Site Yöneticileri</string>
   <string name="about">Hakkında</string>
   <string name="aboutX">%s hakkında</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s açık kaynak kodlu, reklam içermeyen özgür bir platformdur. (%2$s)</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s; tamamen ücretsiz (%2$s), özgür, reklamsız, açık kaynak kodlu bir satranç sitesidir.</string>
   <string name="really">ciddiyiz</string>
   <string name="contribute">Katkıda bulun</string>
   <string name="contact">İletişim</string>
@@ -774,7 +774,7 @@
   <string name="background">Arkaplan</string>
   <string name="light">Açık</string>
   <string name="dark">Koyu</string>
-  <string name="transparent">Saydam</string>
+  <string name="transparent">Şeffaf</string>
   <string name="backgroundImageUrl">Arka plan resim linki:</string>
   <string name="boardGeometry">Tahta geometrisi</string>
   <string name="boardTheme">Tahta teması</string>
@@ -862,7 +862,7 @@
     <item quantity="other">ve %s önceki varyantları kaydedin</item>
   </plurals>
   <string name="sorry">Üzgünüz :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek durumunda kaldık.</string>
+  <string name="weHadToTimeYouOutForAWhile">Sizi bir süreliğine oyunlardan men etmek zorunda kaldık.</string>
   <string name="timeoutExpires">Men süresi %s dolacak.</string>
   <string name="why">Neden?</string>
   <string name="pleasantChessExperience">Herkese keyifli bir satranç deneyimi sunmayı amaçlıyoruz.</string>
@@ -877,8 +877,8 @@
   <string name="thankYouForReading">Okuduğunuz için teşekkür ederiz!</string>
   <string name="lifetimeScore">Toplam skor</string>
   <string name="currentMatchScore">Mevcut maç skoru</string>
-  <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağımı onaylıyorum (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
-  <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağımı onaylıyorum.</string>
-  <string name="agreementAccount">Birden fazla hesap açmayacağımı onaylıyorum.</string>
-  <string name="agreementPolicy">Lichess kurallarını takip edeceğimi onaylıyorum.</string>
+  <string name="agreementAssistance">Maçlar esnasında hiçbir zaman dışarıdan yardım almayacağım (bilgisayardan, kitaptan, veri tabanından veya başka bir insandan).</string>
+  <string name="agreementNice">Diğer oyunculara karşı her zaman iyi bir tutum içinde olacağım.</string>
+  <string name="agreementAccount">Birden fazla hesap açmayacağım.</string>
+  <string name="agreementPolicy">Lichess kurallarını takip edeceğim.</string>
 </resources>

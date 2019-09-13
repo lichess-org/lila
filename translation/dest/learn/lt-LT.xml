@@ -201,6 +201,7 @@ dviem ėjimais!</string>
   <string name="playMachine">Žaisti su kompiuteriu</string>
   <string name="testYourSkillsWithTheComputer">Išbandyk savo įgūdžius prieš kompiuterį</string>
   <string name="letsGo">Pirmyn!</string>
+  <string name="stageX">%s lygis</string>
   <string name="awesome">Nuostabu!</string>
   <string name="excellent">Puiku!</string>
   <string name="greatJob">Puikiai atlikta!</string>
@@ -211,6 +212,7 @@ dviem ėjimais!</string>
   <string name="youreGoodAtThis">Jūs įgudęs!</string>
   <string name="nailedIt">Tiesiai į dešimtuką.</string>
   <string name="rightOn">Tiksliai!</string>
+  <string name="stageXComplete">%s lygis baigtas</string>
   <string name="yourScore">Jūsų rezultatas</string>
   <string name="next">Sekantis</string>
   <string name="backToMenu">Grįžti į meniu</string>

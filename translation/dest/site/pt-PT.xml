@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">Jogar com um amigo</string>
   <string name="playWithTheMachine">Jogar contra o computador</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este link</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">Para convidar alguém para jogar, envie este URL</string>
   <string name="gameOver">Fim da partida</string>
   <string name="waitingForOpponent">Aguardando oponente</string>
   <string name="waiting">Em espera</string>
@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Obrigar o oponente a desistir</string>
   <string name="forceResignation">Reivindicar vitória</string>
   <string name="forceDraw">Reivindicar empate</string>
-  <string name="talkInChat">Por favor, seja simpático no chat!</string>
+  <string name="talkInChat">Por favor, seja gentil na conversação!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">A primeira pessoa que aceder a este link jogará contra você.</string>
   <string name="whiteResigned">Brancas desistiram</string>
   <string name="blackResigned">Pretas desistiram</string>
@@ -67,8 +67,8 @@
   <string name="pawnMove">Movimento de peão</string>
   <string name="capture">Captura</string>
   <string name="close">Fechar</string>
-  <string name="winning">Vitoriosos</string>
-  <string name="losing">Perdedores</string>
+  <string name="winning">Jogada vantajosa</string>
+  <string name="losing">Jogada desvantajosa</string>
   <string name="drawn">Empates</string>
   <string name="unknown">Desconhecidos</string>
   <string name="database">Base de dados</string>
@@ -113,8 +113,8 @@
   <string name="mistakes">Erros</string>
   <string name="inaccuracy">Imprecisão</string>
   <string name="inaccuracies">Imprecisões</string>
-  <string name="moveTimes">Tempo por movimento</string>
-  <string name="flipBoard">Girar o tabuleiro</string>
+  <string name="moveTimes">Tempo por jogada</string>
+  <string name="flipBoard">Inverter Tabuleiro</string>
   <string name="threefoldRepetition">Tripla repetição</string>
   <string name="claimADraw">Reivindicar empate</string>
   <string name="offerDraw">Propor empate</string>
@@ -123,7 +123,7 @@
     <item quantity="one">%s jogador conectado</item>
     <item quantity="other">%s jogadores conectados</item>
   </plurals>
-  <string name="currentGames">Partidas atuais</string>
+  <string name="currentGames">Partidas a decorrer</string>
   <plurals name="nbGames">
     <item quantity="one">%s jogo</item>
     <item quantity="other">%s jogos</item>
@@ -140,7 +140,7 @@
   <string name="computersAreNotAllowedToPlay">O uso de motores de cálculo não é permitido. Por favor, não utilize programas de xadrez, bancos de dados ou outros jogadores durante a partida. Além disso, a criação de contas múltiplas é fortemente desencorajada e sua prática excessiva acarretará banimento.</string>
   <string name="games">Partidas</string>
   <string name="forum">Forum</string>
-  <string name="xPostedInForumY">%1$s publicou em %2$s</string>
+  <string name="xPostedInForumY">%1$s publicou no tópico %2$s</string>
   <string name="latestForumPosts">Últimas entradas do fórum</string>
   <string name="players">Jogadores</string>
   <string name="minutesPerSide">Minutos por jogador</string>
@@ -162,17 +162,17 @@
   <string name="time">Tempo</string>
   <string name="rating">Pontuação</string>
   <string name="ratingStats">Estatísticas de classificação</string>
-  <string name="username">Nome de utilizador</string>
+  <string name="username">Nome do utilizador</string>
   <string name="usernameOrEmail">Nome ou email do usuário</string>
   <string name="changeUsername">Alterar o nome de utilizador</string>
   <string name="changeUsernameNotSame">Só lhe é permitido trocar as letras de minúscula para maiúscula e vice-versa. Por exemplo, \"johndoe\" para \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Altere seu nome de utilizador. Isso só pode ser feito uma vez e você poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
+  <string name="changeUsernameDescription">Altere o seu nome de utilizador. Isso só pode ser feito uma vez e poderá apenas trocar as letras de minúscula para maiúscula e vice-versa.</string>
   <string name="password">Senha</string>
   <string name="changePassword">Alterar senha</string>
   <string name="changeEmail">Alterar email</string>
   <string name="email">E-mail</string>
   <string name="passwordReset">Redefinição de senha</string>
-  <string name="forgotPassword">Esqueceu a sua senha?</string>
+  <string name="forgotPassword">Esqueceu-se da sua palavra-passe?</string>
   <string name="rank">Classificação</string>
   <string name="rankX">Classificação: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
@@ -185,7 +185,7 @@
   </plurals>
   <string name="gamesPlayed">Partidas realizadas</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="one">%s jogo contra ti</item>
+    <item quantity="one">%s jogo contigo</item>
     <item quantity="other">%s jogos contra ti</item>
   </plurals>
   <string name="cancel">Cancelar</string>
@@ -194,15 +194,15 @@
   <string name="drawOfferDeclined">Proposta de empate recusada</string>
   <string name="drawOfferAccepted">Proposta de empate aceite</string>
   <string name="drawOfferCanceled">Proposta de empate cancelada</string>
-  <string name="whiteOffersDraw">Brancas oferecem empate</string>
+  <string name="whiteOffersDraw">Brancas propõem empate</string>
   <string name="blackOffersDraw">Pretas oferecem empate</string>
   <string name="whiteDeclinesDraw">Brancas recusam empate</string>
   <string name="blackDeclinesDraw">Pretas recusam empate</string>
-  <string name="yourOpponentOffersADraw">Seu adversário propõe empate</string>
+  <string name="yourOpponentOffersADraw">O teu adversário propõe empate</string>
   <string name="accept">Aceitar</string>
   <string name="decline">Recusar</string>
   <string name="playingRightNow">A jogar neste momento</string>
-  <string name="eventInProgress">Jogando em direto</string>
+  <string name="eventInProgress">A jogar agora</string>
   <string name="finished">Terminado</string>
   <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
@@ -227,15 +227,15 @@
   <string name="play">Jogar</string>
   <string name="inbox">Caixa de entrada</string>
   <string name="chatRoom">Sala de chat</string>
-  <string name="loginToChat">Entre para conversar</string>
+  <string name="loginToChat">Inicie sessão para poder conversar</string>
   <string name="youHaveBeenTimedOut">Tu foste desconectado.</string>
   <string name="spectatorRoom">Sala do espectador</string>
   <string name="composeMessage">Escrever mensagem</string>
   <string name="noNewMessages">Nenhuma mensagem nova</string>
   <string name="subject">Assunto</string>
-  <string name="recipient">Destinatário</string>
+  <string name="recipient">Para</string>
   <string name="send">Enviar</string>
-  <string name="incrementInSeconds">Acréscimo em segundos</string>
+  <string name="incrementInSeconds">Incremento em segundos</string>
   <string name="freeOnlineChess">Xadrez Online Gratuito</string>
   <string name="spectators">Espectadores:</string>
   <plurals name="nbRated">
@@ -259,25 +259,25 @@
     <item quantity="other">%s jogando</item>
   </plurals>
   <string name="exportGames">Exportar partidas</string>
-  <string name="ratingRange">Rating entre</string>
+  <string name="ratingRange">Classificação entre</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dar %s segundo</item>
     <item quantity="other">Dar %s segundos</item>
   </plurals>
-  <string name="giveMoreTime">Dê mais tempo</string>
+  <string name="giveMoreTime">Dar mais tempo</string>
   <string name="thisPlayerUsesChessComputerAssistance">Este jogador usa a ajuda de computador</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Este jogador aumentou o a sua pontuação de maneira artificial</string>
   <string name="openingExplorerAndTablebase">Explorador de aberturas &amp; tabela</string>
   <string name="takeback">Voltar jogada</string>
   <string name="proposeATakeback">Propor cancelar movimento</string>
   <string name="takebackPropositionSent">Proposta de cancelar movimento enviada</string>
-  <string name="takebackPropositionDeclined">Proposta de cancelação recusada</string>
+  <string name="takebackPropositionDeclined">Proposta de voltar jogada recusada</string>
   <string name="takebackPropositionAccepted">Proposta de cancelamento aceite</string>
   <string name="takebackPropositionCanceled">Proposta de voltar jogada cancelada</string>
-  <string name="yourOpponentProposesATakeback">Seu oponente propõe voltar jogada</string>
+  <string name="yourOpponentProposesATakeback">Seu oponente propõe uma voltar jogada atrás</string>
   <string name="bookmarkThisGame">Adicionar esta partida às favoritas</string>
-  <string name="search">Buscar</string>
-  <string name="advancedSearch">Busca avançada</string>
+  <string name="search">Procurar</string>
+  <string name="advancedSearch">Pesquisa avançada</string>
   <string name="tournament">Torneio</string>
   <string name="tournaments">Torneios</string>
   <string name="tournamentPoints">Pontos de torneios</string>
@@ -321,7 +321,7 @@
   </plurals>
   <string name="allTeams">Todas as equipas</string>
   <string name="newTeam">Nova equipa</string>
-  <string name="myTeams">Minhas equipas</string>
+  <string name="myTeams">As minhas equipas</string>
   <string name="noTeamFound">Nenhuma equipa encontrada</string>
   <string name="joinTeam">Juntar-se à equipa</string>
   <string name="quitTeam">Abandonar equipa</string>
@@ -330,10 +330,10 @@
   <string name="joiningPolicy">Política de entrada</string>
   <string name="teamLeader">Líder da equipa</string>
   <string name="teamBestPlayers">Melhores jogadores</string>
-  <string name="teamRecentMembers">Últimos membros</string>
+  <string name="teamRecentMembers">Novos membros</string>
   <string name="xJoinedTeamY">%1$s juntou-se à equipa %2$s</string>
   <string name="xCreatedTeamY">%1$s criou a equipa %2$s</string>
-  <string name="averageElo">Média de rating</string>
+  <string name="averageElo">Média da classificação</string>
   <string name="location">Localização</string>
   <string name="settings">Configurações</string>
   <string name="filterGames">Filtrar partidas</string>
@@ -396,14 +396,14 @@
   <string name="standing">Aguardando</string>
   <string name="createANewTournament">Criar novo torneio</string>
   <string name="tournamentCalendar">Calendário de torneios</string>
-  <string name="conditionOfEntry">Condições de participação:</string>
-  <string name="advancedSettings">Configurações avançadas</string>
-  <string name="safeTournamentName">Escolha um nome seguro para o torneio.</string>
-  <string name="inappropriateNameWarning">Qualquer linguagem ligeiramente inadequada poderia banir a sua conta.</string>
-  <string name="emptyTournamentName">Deixe em branco e o torneiro terá o nome aleatório de um Grande Mestre.</string>
-  <string name="recommendNotTouching">Nós recomendamos que não toque nestas opções.</string>
+  <string name="conditionOfEntry">Condições para participar:</string>
+  <string name="advancedSettings">Definições avançadas</string>
+  <string name="safeTournamentName">Escolha um nome adequado para o torneio.</string>
+  <string name="inappropriateNameWarning">Até uma linguagem ligeiramente inadequada pode levar a fechar a sua conta.</string>
+  <string name="emptyTournamentName">Deixe em branco e será atribuído um nome aleatório de um jogador notável ao torneio.</string>
+  <string name="recommendNotTouching">Recomendamos não mecher nestas.</string>
   <string name="fewerPlayers">Se definires condições de participação, o teu torneio terá menos participantes.</string>
-  <string name="showAdvancedSettings">Mostrar configurações avançadas</string>
+  <string name="showAdvancedSettings">Mostrar Definições avançadas</string>
   <string name="join">Entrar</string>
   <string name="withdraw">Sair</string>
   <string name="points">Pontos</string>
@@ -415,7 +415,7 @@
   <string name="tournamentPairingsAreNowClosed">Os emparelhamentos no torneio já estão fechados.</string>
   <string name="standByX">Aguarda %s, emparelhando jogadores, prepara-te!</string>
   <string name="youArePlaying">Estás a jogar!</string>
-  <string name="winRate">Percentagem vitórias</string>
+  <string name="winRate">Percentagem de vitórias</string>
   <string name="berserkRate">Percentagem frenético</string>
   <string name="performance">Desempenho</string>
   <string name="tournamentComplete">Torneio terminado</string>
@@ -589,6 +589,9 @@
   <string name="xCommentedY">%1$s comentou %2$s</string>
   <string name="victory">Vitória</string>
   <string name="defeat">Derrota</string>
+  <string name="victoryVsYInZ">%1$s contra %2$s em %3$s</string>
+  <string name="defeatVsYInZ">%1$s contra %2$s em %3$s</string>
+  <string name="drawVsYInZ">%1$s com %2$s em %3$s</string>
   <string name="timeline">Linha do tempo</string>
   <string name="starting">Iniciando:</string>
   <string name="allInformationIsPublicAndOptional">Todas as informações são públicas e opcionais.</string>

@@ -204,6 +204,7 @@
   <string name="playingRightNow">Xozirni o\'zidayoq o\'ynash</string>
   <string name="eventInProgress">Xozirni o\'zidayoq o\'ynash</string>
   <string name="finished">Tugadi</string>
+  <string name="finishesX">%s tugaydi</string>
   <string name="abortGame">O\'yinni bekor qilish</string>
   <string name="gameAborted">O\'yin bekor qilindi</string>
   <string name="standard">Standart</string>
@@ -473,6 +474,7 @@
   <string name="pleaseVotePuzzle">Yuqoriga pastga o\'qlar yordamida baholab Lichess rivoji uchun hissa qo\'shing:</string>
   <string name="thankYou">Rahmat!</string>
   <string name="ratingX">Reyting: %s</string>
+  <string name="hidden">berkitilgan</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s vaqt o\'ynaldi</item>
     <item quantity="other">%s marta o\'ynaldi</item>
@@ -588,6 +590,9 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="xCommentedY">%1$s o\'yinchi %2$s ni izohladi</string>
   <string name="victory">G\'alaba</string>
   <string name="defeat">Mag\'lubiyat</string>
+  <string name="victoryVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda G\'alaba</string>
+  <string name="defeatVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda Mag\'lubiyat</string>
+  <string name="drawVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda Durrang</string>
   <string name="timeline">Vaqt chizig\'i</string>
   <string name="starting">Boshlanadi:</string>
   <string name="allInformationIsPublicAndOptional">Barcha xabarlar ochiq va ixtiyoriy.</string>
@@ -703,6 +708,9 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="yourPerfTypeRatingIsRating">Sizning %1$s dagi reytingingiz %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Siz %2$s o\'yinchilardan %1$s tasiga qaraganda yaxshiroq o\'ynaysiz.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Sizda o\'rnatilgan %s reytingga ega emassiz.</string>
+  <string name="yourRating">Sizning reytingingiz</string>
+  <string name="cumulative">To\'plangani</string>
+  <string name="glicko2Rating">Glicko-2 reytingi</string>
   <string name="checkYourEmail">Elektron pochtangizni tekshiring</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Biz sizga emailingizga hat yubordik. Emailingizdagi linkni bosib akkountingizni faollashtiring.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Agar siz emailni ko\'rmasangiz, boshqa kataloglaringizni qarab ko\'ring, masalan, spam, ijtimoiy va boshqa shularga o\'xshashlarni.</string>
@@ -854,4 +862,24 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
     <item quantity="one">va %s avvaldan yurishni saqlash</item>
     <item quantity="other">va %s avvaldan yurishlarni saqlash</item>
   </plurals>
+  <string name="sorry">Kechirasiz :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Biz sizga bir muncha vaqtga taym aut berishimiz kerak edi.</string>
+  <string name="timeoutExpires">Taym aut %s dan keyin tugaydi.</string>
+  <string name="why">Nima uchun?</string>
+  <string name="pleasantChessExperience">Biz har bir kishiga shahmat malakasini oshirishni maqsad qilganmiz.</string>
+  <string name="goodPractice">Buning uchun biz barcha o\'yinchilar yaxshi amaliyot ortidan ketishi uchun imkoniyat yaratishimiz kerak.</string>
+  <string name="potentialProblem">Qachon qandaydir jiddiy muammo aniqlansa biz bu habarni chiqaramiz.</string>
+  <string name="howToAvoidThis">Qanday qilib bundan qochish mumkin?</string>
+  <string name="playEveryGame">Har bir boshlagan o\'yiningizni oxirigacha o\'ynang.</string>
+  <string name="tryToWin">Har bior o\'yinda yutish uchun harakat qiling (kamida durrang uchun kurashing).</string>
+  <string name="resignLostGames">Boy berilgan o\'yinda taslim bo\'ling (vaqt ketishiga yo\'l qo\'ymang).</string>
+  <string name="temporaryInconvenience">Vaqtinchalik noqulaylik uchun uzr so\'raymiz</string>
+  <string name="wishYouGreatGames">va lichess.org dagi o\'yinlarda muvaffaqiyat tilaymiz.</string>
+  <string name="thankYouForReading">O\'qiganingiz uchun rahmat!</string>
+  <string name="lifetimeScore">Hisoblar solishtirilganda</string>
+  <string name="currentMatchScore">Joriy o\'yin holati</string>
+  <string name="agreementAssistance">Men o\'yin davomida hech qanday (kompyuter shahmatidan, kitobdan, qandaydir ma\'lumotlar omboridan va boshqa odamlardan) yordam olmaslikka roziman.</string>
+  <string name="agreementNice">Boshqa o\'yinchilarga hurmat bilan munosabatda bo\'lishga roziman.</string>
+  <string name="agreementAccount">Men bir nechta hisob ochmaslikka roziman.</string>
+  <string name="agreementPolicy">Men Lichess tartib qoidalariga amal qilishga roziman.</string>
 </resources>

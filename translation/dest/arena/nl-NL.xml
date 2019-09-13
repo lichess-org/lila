@@ -31,6 +31,7 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
   <string name="howDoesItEndAnswer">Het toernooi heeft een klok die aftelt. Wanneer die klok de nul bereikt, wordt het klassement van het toernooi bevroren en wordt de winnaar aangekondigd.
 Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
   <string name="otherRules">Andere belangrijke regels</string>
+  <string name="thereIsACountdown">Er wordt afgeteld tot je je eerste zet maakt. Als je binnen deze tijd geen zet maakt verlies je het spel.</string>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
 </resources>

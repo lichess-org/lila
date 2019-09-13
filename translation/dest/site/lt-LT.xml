@@ -224,6 +224,7 @@
   <string name="playingRightNow">Vyksta šiuo metu</string>
   <string name="eventInProgress">Vyksta šiuo metu</string>
   <string name="finished">Baigėsi</string>
+  <string name="finishesX">baigiasi %s</string>
   <string name="abortGame">Nutraukti žaidimą</string>
   <string name="gameAborted">Žaidimas nutrauktas</string>
   <string name="standard">Standartinis</string>
@@ -526,6 +527,7 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="pleaseVotePuzzle">Padėkite „lichess“ tobulėti įvertindami užduotį (spustelėkite rodyklę į viršų ar apačią):</string>
   <string name="thankYou">Ačiū!</string>
   <string name="ratingX">Reitingas: %s</string>
+  <string name="hidden">paslėptas</string>
   <plurals name="playedXTimes">
     <item quantity="one">Žaista %s kartą</item>
     <item quantity="few">Žaista %s kartus</item>
@@ -644,6 +646,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="xCommentedY">%1$s pakomentavo apie „%2$s“</string>
   <string name="victory">Pergalė</string>
   <string name="defeat">Pralaimėjimas</string>
+  <string name="victoryVsYInZ">%1$s prieš %2$s žaidžiant %3$s</string>
+  <string name="defeatVsYInZ">%1$s prieš %2$s žaidžiant %3$s</string>
+  <string name="drawVsYInZ">%1$s su %2$s žaidžiant %3$s</string>
   <string name="timeline">Veikla</string>
   <string name="starting">Prasideda:</string>
   <string name="allInformationIsPublicAndOptional">Visa informacija yra vieša ir neprivaloma.</string>
@@ -767,6 +772,9 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="yourPerfTypeRatingIsRating">Jūsų „%1$s“ reitingas yra %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jūs esate geresni už %1$s iš %2$s žaidėjų.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Jūs neturite nusistovėjusio „%s“ reitingo.</string>
+  <string name="yourRating">Jūsų reitingas</string>
+  <string name="cumulative">Iš viso</string>
+  <string name="glicko2Rating">Glicko-2 reitingas</string>
   <string name="checkYourEmail">Pasitikrinkite el. paštą</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Išsiuntėme jums laišką. Spustelėję jame esančią nuorodą aktyvuosite savo paskyrą.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jei nematote laiško, patikrinkite kitas galimas vietas: šlamšto, šiukšlių, socialinius ar kitus aplankus.</string>
@@ -926,4 +934,24 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
     <item quantity="many">ir sutaupykite %s išankstinio ėjimo linijų</item>
     <item quantity="other">ir sutaupykite %s išankstinio ėjimo linijų</item>
   </plurals>
+  <string name="sorry">Atsiprašome :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Turėjome jus laikinai apriboti.</string>
+  <string name="timeoutExpires">Apribojimas baigiasi %s.</string>
+  <string name="why">Kodėl?</string>
+  <string name="pleasantChessExperience">Mes stengiamės suteikti galimybę visiems patirti šachmatų malonumą.</string>
+  <string name="goodPractice">Dėl to turime užtikrinti, kad visi žaidėjai laikytųsi gerųjų praktikų.</string>
+  <string name="potentialProblem">Kai aptinkama galima problema, mes parodome šį pranešimą.</string>
+  <string name="howToAvoidThis">Kaip to išvengti?</string>
+  <string name="playEveryGame">Sužaiskite kiekvieną pradėtą partiją.</string>
+  <string name="tryToWin">Stenkitės laimėti (ar bent sužaisti lygiosiomis) kiekvieną kartą.</string>
+  <string name="resignLostGames">Pasiduokite pralaimėtose partijose (nelaukite kol pasibaigs laikas).</string>
+  <string name="temporaryInconvenience">Atsiprašome dėl laikinų nepatogumų,</string>
+  <string name="wishYouGreatGames">ir linkime jums puikių partijų per lichess.org.</string>
+  <string name="thankYouForReading">Ačiū, kad perskaitėte!</string>
+  <string name="lifetimeScore">Visų laikų rezultatas</string>
+  <string name="currentMatchScore">Dabartinės partijos rezultatas</string>
+  <string name="agreementAssistance">Pasižadu niekada savo partijų metu nesinaudoti pagalba (ar tai būtų kompiuteris, knyga, duomenų bazė, ar kitas žmogus).</string>
+  <string name="agreementNice">Pasižadu visada būti pagarbus kitiems žaidėjams.</string>
+  <string name="agreementAccount">Pasižadu nesikurti keleto paskyrų.</string>
+  <string name="agreementPolicy">Pasižadu laikytis visų „Lichess“ nuostatų.</string>
 </resources>

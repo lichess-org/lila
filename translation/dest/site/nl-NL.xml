@@ -204,6 +204,7 @@
   <string name="playingRightNow">Nu aan het spelen</string>
   <string name="eventInProgress">Nu aan het spelen</string>
   <string name="finished">Afgelopen</string>
+  <string name="finishesX">klaar in %s</string>
   <string name="abortGame">Partij afbreken</string>
   <string name="gameAborted">Partij afgebroken</string>
   <string name="standard">Standaard</string>
@@ -588,6 +589,9 @@
   <string name="xCommentedY">%1$s gaf commentaar op %2$s</string>
   <string name="victory">Overwinning</string>
   <string name="defeat">Nederlaag</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">Tijdslijn</string>
   <string name="starting">Startend:</string>
   <string name="allInformationIsPublicAndOptional">Alle informatie is publiek toegankelijk en optioneel.</string>
@@ -703,6 +707,9 @@
   <string name="yourPerfTypeRatingIsRating">Je %1$srating is %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Je bent beter dan %1$s van de %2$sspelers.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Je hebt geen vastgestelde %srating.</string>
+  <string name="yourRating">Jouw rating</string>
+  <string name="cumulative">Cumulatief</string>
+  <string name="glicko2Rating">Glicko-2 rating</string>
   <string name="checkYourEmail">Controleer je email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">We hebben je een email gestuurd. Klik op de link in de email om je account te activeren.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Als je de email niet ziet, kijk dan op andere plaatsen, zoals je spam of andere mappen.</string>
@@ -854,4 +861,24 @@
     <item quantity="one">en bewaar %s premove-variant</item>
     <item quantity="other">en bewaar %s premove-varianten</item>
   </plurals>
+  <string name="sorry">Sorry :(</string>
+  <string name="weHadToTimeYouOutForAWhile">We moesten je voor een korte tijd een time-out geven.</string>
+  <string name="timeoutExpires">The time-out verloopt %s.</string>
+  <string name="why">Waarom?</string>
+  <string name="pleasantChessExperience">Wij streven ernaar om iedereen van een prettige schaakervaring te voorzien.</string>
+  <string name="goodPractice">Daarom moeten we ervoor zorgen dat alle spelers goede praktijken volgen.</string>
+  <string name="potentialProblem">Wanneer een potentieel probleem is gedetecteerd, tonen we dit bericht.</string>
+  <string name="howToAvoidThis">Hoe kunnen we dit voorkomen?</string>
+  <string name="playEveryGame">Speel elk spel dat je start.</string>
+  <string name="tryToWin">Probeer elk spel dat je speelt te winnen, of tenminste gelijk te spelen.</string>
+  <string name="resignLostGames">Geef verloren spellen op (laat de klok niet tot 0 lopen).</string>
+  <string name="temporaryInconvenience">Onze excuses voor het tijdelijke ongemak,</string>
+  <string name="wishYouGreatGames">en wij wensen u veel goede spellen op lichess.org.</string>
+  <string name="thankYouForReading">Bedankt voor het lezen!</string>
+  <string name="lifetimeScore">Levenslange score</string>
+  <string name="currentMatchScore">Huidige wedstrijd score</string>
+  <string name="agreementAssistance">Ik ga ermee akkoord dat ik tijdens mijn spellen geen hulp krijg (van een schaak computer, boek, database of ander persoon).</string>
+  <string name="agreementNice">Ik ga ermee akkoord dat ik altijd respectvol tegenover andere spelers zal zijn.</string>
+  <string name="agreementAccount">Ik ga ermee akkoord dat ik niet meerdere accounts zal aanmaken.</string>
+  <string name="agreementPolicy">Ik ga ermee akkoord dat ik de Lichess voorwaarden zal volgen.</string>
 </resources>

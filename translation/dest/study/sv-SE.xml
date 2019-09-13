@@ -4,6 +4,7 @@
   <string name="private">Privat</string>
   <string name="myStudies">Mina studier</string>
   <string name="studiesIContributeTo">Studium jag bidrar till</string>
+  <string name="myPublicStudies">Mina offentliga studier</string>
   <string name="myPrivateStudies">Mina privata studier</string>
   <string name="myFavoriteStudies">Mina favoritstudium</string>
   <string name="whatAreStudies">Vad är studium?</string>
@@ -75,8 +76,14 @@
   <string name="analysisMode">Analysläge</string>
   <string name="pinnedChapterComment">Fastnålad kommentar till kapitlet</string>
   <string name="saveChapter">Spara kapitlet</string>
+  <string name="deleteChapter">Radera kapitel</string>
   <string name="noPinnedComment">Inget</string>
+  <string name="empty">Tom</string>
+  <string name="automatic">Automatisk</string>
   <string name="createStudy">Skapa en studie</string>
+  <string name="editStudy">Redigera studie</string>
   <string name="nobody">Ingen</string>
   <string name="members">Medlemmar</string>
+  <string name="start">Starta</string>
+  <string name="save">Spara</string>
 </resources>

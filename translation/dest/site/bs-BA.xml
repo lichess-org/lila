@@ -315,12 +315,12 @@
     <item quantity="other">≥ %1$s %2$s partija</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Trebaš igrati još jednu %2$s partiju za bodove</item>
-    <item quantity="few">Trebaš igrati još %1$s %2$s partije za bodove</item>
-    <item quantity="other">Trebaš igrati još %1$s %2$s partija za bodove</item>
+    <item quantity="one">Trebaš igrati još %1$s više %2$s partiju za bodove</item>
+    <item quantity="few">Trebaš igrati još %1$s više %2$s partija za bodove</item>
+    <item quantity="other">Trebaš igrati još %1$s više %2$s partija za bodove</item>
   </plurals>
   <plurals name="needNbMoreGames">
-    <item quantity="one">Trebaš odigrati još jednu partiju za bodove</item>
+    <item quantity="one">Trebaš odigrati još %s partiju za bodove</item>
     <item quantity="few">Trebaš odigrati još %s partije za bodove</item>
     <item quantity="other">Trebaš odigrati još %s partija za bodove</item>
   </plurals>

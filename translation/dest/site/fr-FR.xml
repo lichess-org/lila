@@ -589,6 +589,17 @@
   <string name="xCommentedY">%1$s a commenté %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Défaite</string>
+  <string name="victoryVsYInZ">victoryVsYlnZ
+
+%1$s est la victoire, une chaîne séparée où vous pouvez traduire
+%2$s est le joueur contre qui tu as joué
+%3$s est une catégorie Bullet, Blitz, Classique, Correspondence, Atomique ...
+
+Un résumé de tes résultats apparait sur ton profile, pour les joueurs contre qui tu as joué</string>
+  <string name="defeatVsYInZ">%1$s contre %2$s
+> %3$s</string>
+  <string name="drawVsYInZ">%1$s contre %2$s
+> %3$s</string>
   <string name="timeline">Activité</string>
   <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>

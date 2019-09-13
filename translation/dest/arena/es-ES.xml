@@ -28,9 +28,14 @@ El modo berserk sólo proporciona un punto adicional por cada victoria si juegas
   <string name="howDoesPairingWork">¿Cómo se realizan los emparejamientos?</string>
   <string name="howDoesPairingWorkAnswer">Al principio del torneo, los jugadores se emparejan en base a su puntuación. En cuanto terminas una partida, vuelves al recibidor del torneo, y se te emparejará con un jugador con una puntuación similar a la tuya. Esto minimiza el tiempo de espera, si bien es posible que no juegues contra todos los demás jugadores del torneo.
 Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos.</string>
-  <string name="howDoesItEnd">¿Cómo termina?</string>
-  <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo, y se proclama el ganador. Las partidas que estén en juego deben terminarse, aunque no cuentan para el resultado del torneo.</string>
+  <string name="howDoesItEnd">¿Cuándo termina?</string>
+  <string name="howDoesItEndAnswer">El torneo tiene un reloj de cuenta regresiva. Cuando llegue a cero, se congelan las clasificaciones del torneo y se proclama el ganador. Las partidas que estén en juego deben terminarse, aunque no cuentan para el resultado del torneo.</string>
   <string name="otherRules">Otras reglas importantes</string>
+  <string name="thereIsACountdown">Hay una cuenta regresiva para el primer movimiento. Si no haces el primer movimiento dentro del tiempo, pierdes la partida.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Si la partida acaba en tablas durante el primer movimiento, no se concederán puntos a ninguno de los jugadores.</item>
+    <item quantity="other">Si la partida acaba en tablas durante los primeros %s movimientos, no se concederán puntos a ninguno de los jugadores.</item>
+  </plurals>
   <string name="thisIsPrivate">Este es un torneo privado</string>
   <string name="shareUrl">Comparte este enlace para que otras personas se unan: %s</string>
 </resources>

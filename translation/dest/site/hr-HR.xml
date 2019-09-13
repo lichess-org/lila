@@ -35,7 +35,7 @@
   <string name="makeYourOpponentResign">Forsiraj pobjedu</string>
   <string name="forceResignation">Proglasi pobjedu</string>
   <string name="forceDraw">Forsiranje remija</string>
-  <string name="talkInChat">Ponašaj se pristojno na chatu</string>
+  <string name="talkInChat">Pristojno se ponašaj u chatu!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Prva osoba koja dođe na ovaj URL će igrati s tobom</string>
   <string name="whiteResigned">Bijeli predaje</string>
   <string name="blackResigned">Crni predaje</string>
@@ -111,9 +111,9 @@
   <string name="removesTheDepthLimit">Uklanja granicu do koje računalo može analizirati, i održava tvoje računalo toplim</string>
   <string name="blunder">Gruba greška</string>
   <string name="blunders">Grube greške</string>
-  <string name="mistake">Pogreška</string>
+  <string name="mistake">Greška</string>
   <string name="mistakes">Pogreške</string>
-  <string name="inaccuracy">Netočnost</string>
+  <string name="inaccuracy">Nepreciznost</string>
   <string name="inaccuracies">Nepreciznosti</string>
   <string name="moveTimes">Vrijeme za potez</string>
   <string name="flipBoard">Okreni ploču</string>
@@ -129,13 +129,13 @@
   <string name="currentGames">Partije u tijeku</string>
   <plurals name="nbGames">
     <item quantity="one">%s partija</item>
-    <item quantity="few">%s partija</item>
+    <item quantity="few">%s partije</item>
     <item quantity="other">%s partija</item>
   </plurals>
   <plurals name="nbBookmarks">
-    <item quantity="one">%s partija u favoritima</item>
-    <item quantity="few">%s partija u favoritima</item>
-    <item quantity="other">%s partija u favoritima</item>
+    <item quantity="one">%s spremljena partija</item>
+    <item quantity="few">%s spremljene partije</item>
+    <item quantity="other">%s spremljenih partija</item>
   </plurals>
   <string name="viewInFullSize">Pogledaj u punoj veličini</string>
   <string name="logOut">Odjavi se</string>
@@ -163,7 +163,7 @@
   </plurals>
   <plurals name="nbHours">
     <item quantity="one">%s sat</item>
-    <item quantity="few">%s sati</item>
+    <item quantity="few">%s sata</item>
     <item quantity="other">%s sati</item>
   </plurals>
   <string name="time">Vrijeme</string>
@@ -195,7 +195,7 @@
   <string name="gamesPlayed">Broj odigranih partija</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s odigrana partija s tobom</item>
-    <item quantity="few">%s odigranih partija s tobom</item>
+    <item quantity="few">%s odigrane partije s tobom</item>
     <item quantity="other">%s odigranih partija s tobom</item>
   </plurals>
   <string name="cancel">Odustani</string>
@@ -277,7 +277,7 @@
   <string name="ratingRange">Raspon rejtinga</string>
   <plurals name="giveNbSeconds">
     <item quantity="one">Dodaj protivniku %s sekundu</item>
-    <item quantity="few">Dodaj protivniku %s sekundi</item>
+    <item quantity="few">Dodaj protivniku %s sekunde</item>
     <item quantity="other">Dodaj protivniku %s sekundi</item>
   </plurals>
   <string name="giveMoreTime">Daj više vremena</string>
@@ -286,12 +286,12 @@
   <string name="openingExplorerAndTablebase">Pretraživač otvaranja &amp; baza pozicija u završnici</string>
   <string name="takeback">Vrati potez</string>
   <string name="proposeATakeback">Predloži vraćanje poteza</string>
-  <string name="takebackPropositionSent">Ponuda o vraćanju poteza poslana</string>
-  <string name="takebackPropositionDeclined">Ponuda o vraćanju poteza odbijena</string>
-  <string name="takebackPropositionAccepted">Ponuda o vraćanju poteza prihvaćena</string>
-  <string name="takebackPropositionCanceled">Ponuda o vraćanju poteza prekinuta</string>
+  <string name="takebackPropositionSent">Ponuda vraćanja poteza poslana</string>
+  <string name="takebackPropositionDeclined">Ponuda vraćanja poteza odbijena</string>
+  <string name="takebackPropositionAccepted">Ponuda vraćanja poteza prihvaćena</string>
+  <string name="takebackPropositionCanceled">Ponuda vraćanja poteza otkazana</string>
   <string name="yourOpponentProposesATakeback">Tvoj protivnik predlaže vraćanje poteza</string>
-  <string name="bookmarkThisGame">Spremi ovu partiju u favorite</string>
+  <string name="bookmarkThisGame">Spremi ovu partiju</string>
   <string name="search">Traži</string>
   <string name="advancedSearch">Napredno pretraživanje</string>
   <string name="tournament">Turnir</string>
@@ -299,7 +299,7 @@
   <string name="tournamentPoints">Turnirski bodovi</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s turnirski bod</item>
-    <item quantity="few">%s turnirskih bodova</item>
+    <item quantity="few">%s turnirska boda</item>
     <item quantity="other">%s turnirskih bodova</item>
   </plurals>
   <string name="viewTournament">Pogledaj turnir</string>
@@ -371,7 +371,7 @@
 računalnu analizu, chat partije i URL za dijeljenje.</string>
   <plurals name="nbImportedGames">
     <item quantity="one">%s uvezena partija</item>
-    <item quantity="few">%s uvezenih partija</item>
+    <item quantity="few">%s uvezene partije</item>
     <item quantity="other">%s uvezenih partija</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ovo je šahovska CAPTCHA.</string>
@@ -618,6 +618,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="xCommentedY">%1$s je komentirao %2$s</string>
   <string name="victory">Pobjeda</string>
   <string name="defeat">Poraz</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s u %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s u %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s u %3$s</string>
   <string name="timeline">Vremenska crta</string>
   <string name="starting">Počinje:</string>
   <string name="allInformationIsPublicAndOptional">Sve informacije su javne i neobavezne.</string>
@@ -899,5 +902,19 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="weHadToTimeYouOutForAWhile">Trebali smo te na neko vrijeme izbaciti.</string>
   <string name="timeoutExpires">Vrijeme izbačaja ističe za %s.</string>
   <string name="why">Zašto?</string>
-  <string name="pleasantChessExperience">Nama je u cilju da pruužimo ugodno šahovsko iskustvo.</string>
+  <string name="pleasantChessExperience">Nama je u cilju da pružimo ugodno šahovsko iskustvo.</string>
+  <string name="goodPractice">Stoga moramo osigurati da svi igrači dobro postupaju.</string>
+  <string name="potentialProblem">Kada se otkrije potencijalni problem, prikazujemo ovu poruku.</string>
+  <string name="howToAvoidThis">Kako to izbjeći?</string>
+  <string name="playEveryGame">Igrajte svaku igru ​​koju započnete.</string>
+  <string name="tryToWin">Pokušajte pobijediti (ili barem igrati neriješeno) svaku igru ​​koju igrate.</string>
+  <string name="resignLostGames">Predajte izgubljene igre (ne dopustite da vam vrijeme istekne).</string>
+  <string name="temporaryInconvenience">Ispričavamo se zbog privremene neugodnosti,</string>
+  <string name="wishYouGreatGames">i želimo vam sjajne igre na lichess.org.</string>
+  <string name="thankYouForReading">Hvala na čitanju!</string>
+  <string name="currentMatchScore">Trenutni rezultat partije</string>
+  <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računala, knjige, baze podataka ili neke druge osobe).</string>
+  <string name="agreementNice">Slažem se da ću uvijek biti uljudan prema drugim igračima.</string>
+  <string name="agreementAccount">Slažem se da neću stvoriti više računa.</string>
+  <string name="agreementPolicy">Slažem se da ću slijediti sve politike Lichessa.</string>
 </resources>

@@ -32,8 +32,8 @@ Laufende Spiele müssen beendet werden, zählen aber nicht mehr für das Turnier
   <string name="otherRules">Andere wichtige Regeln</string>
   <string name="thereIsACountdown">Es gibt einen Countdown für deinen ersten Zug. Ziehst du nicht innerhalb dieser Zeit, wird der Sieg deinem Gegner zugesprochen.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Remis innerhalb des ersten %s Zugs wird keinem Spieler Punkte einbringen.</item>
-    <item quantity="other">Remis innerhalb der ersten %s Züge wird keinem Spieler Punkte einbringen.</item>
+    <item quantity="one">Bei Remis innerhalb des ersten %s Zugs werden keinem Spieler Punkte gut geschrieben.</item>
+    <item quantity="other">Bei Remis innerhalb der ersten %s Züge werden keinem Spieler Punkte gut geschrieben.</item>
   </plurals>
   <string name="thisIsPrivate">Dies ist ein privates Turnier</string>
   <string name="shareUrl">Teile diese URL, um andere einzuladen: %s</string>
