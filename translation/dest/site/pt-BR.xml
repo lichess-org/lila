@@ -359,7 +359,6 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
-  <string name="onlineFriends">Amigos online</string>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
