@@ -336,7 +336,6 @@
   <string name="blackCheckmatesInOneMove">Нэг хөдөлгөөнөөр шалгахын тулд хар</string>
   <string name="retry">Дахин оролдох</string>
   <string name="reconnecting">Эргэн холбогдох оролдлого хийж байна</string>
-  <string name="onlineFriends">найз сүлжээнд байна</string>
   <string name="noFriendsOnline">Ямар ч найз сүлжээнд алга</string>
   <string name="findFriends">Найзаа эрэх</string>
   <string name="favoriteOpponents">Таарах дуртай тоглогчид</string>
