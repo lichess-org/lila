@@ -436,7 +436,6 @@
   <string name="notACheckmate">ليست كش مات</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
-  <string name="onlineFriends">الأصدقاء المتصلون</string>
   <string name="noFriendsOnline">لايوجد أصدقاء متصلين</string>
   <string name="findFriends">ابحث عن أصدقاء</string>
   <string name="favoriteOpponents">خصوم مفضلين</string>
