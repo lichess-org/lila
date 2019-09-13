@@ -358,7 +358,6 @@
   <string name="blackCheckmatesInOneMove">Beltzek xake-mate jokaldi bakarrean</string>
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
-  <string name="onlineFriends">Konektatutako lagunak</string>
   <string name="noFriendsOnline">Ez dago lagunik konektatuta</string>
   <string name="findFriends">Lagunak bilatu</string>
   <string name="favoriteOpponents">Gogoko aurkariak</string>
