@@ -354,7 +354,6 @@
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="reconnecting">Yhdistetään uudelleen</string>
-  <string name="onlineFriends">Kaverit</string>
   <string name="noFriendsOnline">Ei kavereita paikalla</string>
   <string name="findFriends">Etsi kavereita</string>
   <string name="favoriteOpponents">Suosikkivastustajat</string>
