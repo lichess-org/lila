@@ -51,7 +51,7 @@ final class LobbyRemoteSocket(
 
   remoteSocketApi.subscribe("lobby-in", P.In.baseReader)(handler orElse remoteSocketApi.baseHandler)
 
-  private val send: String => Unit = remoteSocketApi.sendTo("lobby-out") _
+  private val send: String => Unit = remoteSocketApi.makeSender("lobby-out").apply _
 
   bus.subscribeFun('nbMembers, 'nbRounds, 'lobbySocketTell) {
     case lila.socket.actorApi.NbMembers(nb) => send(Out.nbMembers(nb))
