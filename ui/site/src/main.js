@@ -42,14 +42,16 @@
   };
 
   lichess.socket = null;
-  var $friendsBox = $('#friend_box');
+  const $friendsBox = $('#friend_box');
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
-      following_onlines: function(d, all) {
-        $friendsBox.friends("set", all.d, all.playing, all.studying, all.patrons);
+      following_onlines: function(_, d) {
+        d.users = d.d;
+        $friendsBox.friends("set", d);
       },
-      following_enters: function(d, all) {
-        $friendsBox.friends('enters', all.d, all.playing, all.studying, all.patron);
+      following_enters: function(_, d) {
+        d.users = d.d;
+        $friendsBox.friends('enters', d);
       },
       following_leaves: function(name) {
         $friendsBox.friends('leaves', name);
@@ -737,7 +739,7 @@
 
         const data = el.data('preload');
         self.trans = lichess.trans(data.i18n);
-        self.set(data.users, data.playing, data.studying, data.patrons);
+        self.set(data);
       },
       repaint: function() {
         lichess.raf(function() {
@@ -750,17 +752,17 @@
         }.bind(this));
       },
       insert: function(titleName) {
-        var id = getId(titleName);
+        const id = getId(titleName);
         if (!this.users[id]) this.users[id] = makeUser(titleName);
         return this.users[id];
       },
-      set: function(online, playing, studying, patrons) {
+      set: function(d) {
         this.users = {};
-        var i;
-        for (i in online) this.insert(online[i]);
-        for (i in playing) this.insert(playing[i]).playing = true;
-        for (i in studying) this.insert(studying[i]).studying = true;
-        for (i in patrons) this.insert(patrons[i]).patron = true;
+        let i;
+        for (i in d.users) this.insert(d.users[i]);
+        for (i in d.playing) this.insert(d.playing[i]).playing = true;
+        for (i in d.studying) this.insert(d.studying[i]).studying = true;
+        for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
         this.repaint();
       },
       enters: function(titleName, playing, studying, patron) {
