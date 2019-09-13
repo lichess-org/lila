@@ -731,7 +731,7 @@
 
         const data = el.data('preload');
         self.trans = lidraughts.trans(data.i18n);
-        self.set(data.preload, data.playing, data.studying, data.patrons);
+        self.set(data.users, data.playing, data.studying, data.patrons);
       },
       repaint: function() {
         lidraughts.raf(function() {
