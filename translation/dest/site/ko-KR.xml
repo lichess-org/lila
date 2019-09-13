@@ -326,7 +326,6 @@
   <string name="notACheckmate">체크메이트가 아닙니다.</string>
   <string name="retry">재시도</string>
   <string name="reconnecting">연결 재시도 중</string>
-  <string name="onlineFriends">접속 중인 친구</string>
   <string name="noFriendsOnline">접속 중인 친구가 없습니다</string>
   <string name="findFriends">친구 찾기</string>
   <string name="favoriteOpponents">관심있는 상대</string>
