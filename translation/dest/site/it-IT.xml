@@ -359,7 +359,6 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
   <string name="retry">Riprova</string>
   <string name="reconnecting">Riconnessione</string>
-  <string name="onlineFriends">Amici online</string>
   <string name="noFriendsOnline">Nessun amico online</string>
   <string name="findFriends">Trova amici</string>
   <string name="favoriteOpponents">Avversari preferiti</string>
@@ -881,5 +880,5 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="agreementAssistance">Dichiaro di non farmi mai aiutare durante le mie partite (da computer, libri, database o altre persone).</string>
   <string name="agreementNice">Dichiaro di essere sempre rispettoso nei confronti degli altri giocatori.</string>
   <string name="agreementAccount">Dichiaro di non creare più di un account.</string>
-  <string name="agreementPolicy">Seguirò tutte le politiche di Lichess.</string>
+  <string name="agreementPolicy">Dichiaro di acconsentire a tutte le politiche di Lichess.</string>
 </resources>

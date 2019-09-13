@@ -336,7 +336,6 @@
   <string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
   <string name="retry">もう一度</string>
   <string name="reconnecting">再接続</string>
-  <string name="onlineFriends">接続中の友達</string>
   <string name="noFriendsOnline">接続中の友達はいません</string>
   <string name="findFriends">友達を探す</string>
   <string name="favoriteOpponents">お気に入りの対戦相手</string>

@@ -334,7 +334,6 @@
   <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
-  <string name="onlineFriends">在线好友</string>
   <string name="noFriendsOnline">没有好友在线</string>
   <string name="findFriends">好友建议</string>
   <string name="favoriteOpponents">最常对局的对手</string>

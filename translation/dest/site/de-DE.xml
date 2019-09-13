@@ -358,7 +358,6 @@
   <string name="blackCheckmatesInOneMove">Schwarz setzt in einem Zug Matt</string>
   <string name="retry">Erneut versuchen</string>
   <string name="reconnecting">Wiederverbinden</string>
-  <string name="onlineFriends">Freunde online</string>
   <string name="noFriendsOnline">Keine Freunde online</string>
   <string name="findFriends">Freunde finden</string>
   <string name="favoriteOpponents">Häufigste Gegner</string>

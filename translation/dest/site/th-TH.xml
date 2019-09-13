@@ -334,7 +334,6 @@
   <string name="blackCheckmatesInOneMove">ดำต้องรุกจนโดยเดินครั้งเดียว</string>
   <string name="retry">ลองอีกครั้ง</string>
   <string name="reconnecting">กำลังเชื่อมต่อใหม่</string>
-  <string name="onlineFriends">เพื่อนออนไลน์</string>
   <string name="noFriendsOnline">ไม่มีเพื่อนออนไลน์</string>
   <string name="findFriends">ค้นหาเพื่อน</string>
   <string name="favoriteOpponents">คู่แข่งที่ชอบ</string>

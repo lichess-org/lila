@@ -404,7 +404,6 @@
   <string name="blackCheckmatesInOneMove">Чёрные ставят мат в один ход</string>
   <string name="retry">Повторить</string>
   <string name="reconnecting">Переподключение</string>
-  <string name="onlineFriends">Друзья онлайн</string>
   <string name="noFriendsOnline">Нет друзей онлайн</string>
   <string name="findFriends">Найти друзей</string>
   <string name="favoriteOpponents">Предпочитаемые соперники</string>

@@ -358,7 +358,10 @@
   <string name="blackCheckmatesInOneMove">കറുപ്പിന് ഒരു നീക്കത്തില്‍ ജയിക്കാം</string>
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
-  <string name="onlineFriends">ഓണ്‍ലൈന്‍ സുഹൃത്തുക്കള്‍</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s സുഹൃത്ത് ഓൺലൈനായി</item>
+    <item quantity="other">%s സുഹൃത്തുക്കൾ ഓൺലൈനായി</item>
+  </plurals>
   <string name="noFriendsOnline">സുഹൃത്തുക്കളാരും ഓണ്‍ലൈന്‍ ഇല്ല</string>
   <string name="findFriends">സുഹൃത്തുക്കളെ കണ്ടെത്തുക</string>
   <string name="favoriteOpponents">ഇഷ്ടപ്പെട്ട എതിരാളികള്‍</string>
@@ -591,6 +594,7 @@
   <string name="defeat">തോൽവി</string>
   <string name="victoryVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
   <string name="defeatVsYInZ">%1$s vs %2$s %3$s-ൽ</string>
+  <string name="drawVsYInZ">%1$s vs %2$s in %3$s</string>
   <string name="timeline">ജീവിതകാലം</string>
   <string name="starting">തുടങ്ങിയത്:</string>
   <string name="allInformationIsPublicAndOptional">എല്ലാ വിവരങ്ങളും പൊതുവായതും ഐച്ഛികവുമാണ്.</string>
@@ -876,4 +880,6 @@
   <string name="thankYouForReading">വായിച്ചതിനു നന്ദി!</string>
   <string name="lifetimeScore">ജീവിതകാല സ്കോർ</string>
   <string name="currentMatchScore">നിലവിലെ മത്സര സ്കോർ</string>
+  <string name="agreementAccount">ഞാൻ ഒന്നിലധികം അക്കൗണ്ടുകൾ നിർമിക്കില്ലെന്ന് സമ്മതിക്കുന്നു.</string>
+  <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
 </resources>

@@ -356,7 +356,6 @@
   <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en un moviment</string>
   <string name="retry">Intenta-ho de nou</string>
   <string name="reconnecting">S\'està reconnectant</string>
-  <string name="onlineFriends">Amics connectats</string>
   <string name="noFriendsOnline">No hi ha amics connectats</string>
   <string name="findFriends">Cerca amics</string>
   <string name="favoriteOpponents">Adversaris favorits</string>
