@@ -1,9 +1,12 @@
 package views.html.base
 
+import play.api.libs.json.Json
+
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.{ Lang, ContentSecurityPolicy }
+import lila.common.String.html.safeJsonValue
 import lila.pref.Pref
 
 import controllers.routes
@@ -86,9 +89,6 @@ object layout {
   private val dataSocketDomain = attr("data-socket-domain")
   private val dataZoom = attr("data-zoom")
   private val dataPreload = attr("data-preload")
-  private val dataPlaying = attr("data-playing")
-  private val dataPatrons = attr("data-patrons")
-  private val dataStudying = attr("data-studying")
   private val dataNonce = attr("data-nonce")
 
   def apply(
@@ -174,16 +174,20 @@ object layout {
           ctx.me.map { me =>
             div(
               id := "friend_box",
-              dataPreload := ctx.onlineFriends.users.map(_.titleName).mkString(","),
-              dataPlaying := ctx.onlineFriends.playing.mkString(","),
-              dataPatrons := ctx.onlineFriends.patrons.mkString(","),
-              dataStudying := ctx.onlineFriends.studying.mkString(",")
+              dataPreload := safeJsonValue(Json.obj(
+                "users" -> ctx.onlineFriends.users.map(_.titleName),
+                "playing" -> ctx.onlineFriends.playing,
+                "patrons" -> ctx.onlineFriends.patrons,
+                "studying" -> ctx.onlineFriends.studying,
+                "i18n" -> i18nJsObject(List(
+                  trans.nbFriendsOnline
+                ))
+              ))
             )(
-                div(cls := "friend_box_title")(
-                  strong(cls := "online")("?"),
-                  " ",
-                  trans.onlineFriends()
-                ),
+                div(cls := "friend_box_title") {
+                  val count = ctx.onlineFriends.users.size
+                  trans.nbFriendsOnline.plural(count, strong(count))
+                },
                 div(cls := "content_wrap")(
                   div(cls := "content list"),
                   div(cls := List(
