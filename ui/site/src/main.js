@@ -42,28 +42,29 @@
   };
 
   lichess.socket = null;
+  var $friendsBox = $('#friend_box');
   $.extend(true, lichess.StrongSocket.defaults, {
     events: {
       following_onlines: function(d, all) {
-        $('#friend_box').friends("set", all.d, all.playing, all.studying, all.patrons);
+        $friendsBox.friends("set", all.d, all.playing, all.studying, all.patrons);
       },
       following_enters: function(d, all) {
-        $('#friend_box').friends('enters', all.d, all.playing, all.studying, all.patron);
+        $friendsBox.friends('enters', all.d, all.playing, all.studying, all.patron);
       },
       following_leaves: function(name) {
-        $('#friend_box').friends('leaves', name);
+        $friendsBox.friends('leaves', name);
       },
       following_playing: function(name) {
-        $('#friend_box').friends('playing', name);
+        $friendsBox.friends('playing', name);
       },
       following_stopped_playing: function(name) {
-        $('#friend_box').friends('stopped_playing', name);
+        $friendsBox.friends('stopped_playing', name);
       },
       following_joined_study: function(name) {
-        $('#friend_box').friends('study_join', name);
+        $friendsBox.friends('study_join', name);
       },
       following_left_study: function(name) {
-        $('#friend_box').friends('study_leave', name);
+        $friendsBox.friends('study_leave', name);
       },
       new_notification: function(e) {
         $('#notify-toggle').attr('data-count', e.unread || 0);
