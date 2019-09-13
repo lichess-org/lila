@@ -358,7 +358,6 @@
   <string name="blackCheckmatesInOneMove">Siyah bir hamlede mat eder</string>
   <string name="retry">Tekrar dene</string>
   <string name="reconnecting">Yeniden bağlanılıyor</string>
-  <string name="onlineFriends">Çevrimiçi arkadaşlar</string>
   <string name="noFriendsOnline">Çevrimiçi arkadaşın yok</string>
   <string name="findFriends">Arkadaşlarını bul</string>
   <string name="favoriteOpponents">Favori rakipler</string>
