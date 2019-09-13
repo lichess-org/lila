@@ -42,28 +42,31 @@
   };
 
   lidraughts.socket = null;
+  const $friendsBox = $('#friend_box');
   $.extend(true, lidraughts.StrongSocket.defaults, {
     events: {
-      following_onlines: function(d, all) {
-        $('#friend_box').friends("set", all.d, all.playing, all.studying, all.patrons);
+      following_onlines: function(_, d) {
+        d.users = d.d;
+        $friendsBox.friends("set", d);
       },
-      following_enters: function(d, all) {
-        $('#friend_box').friends('enters', all.d, all.playing, all.studying, all.patron);
+      following_enters: function(_, d) {
+        d.users = d.d;
+        $friendsBox.friends('enters', d);
       },
       following_leaves: function(name) {
-        $('#friend_box').friends('leaves', name);
+        $friendsBox.friends('leaves', name);
       },
       following_playing: function(name) {
-        $('#friend_box').friends('playing', name);
+        $friendsBox.friends('playing', name);
       },
       following_stopped_playing: function(name) {
-        $('#friend_box').friends('stopped_playing', name);
+        $friendsBox.friends('stopped_playing', name);
       },
       following_joined_study: function(name) {
-        $('#friend_box').friends('study_join', name);
+        $friendsBox.friends('study_join', name);
       },
       following_left_study: function(name) {
-        $('#friend_box').friends('study_leave', name);
+        $friendsBox.friends('study_leave', name);
       },
       new_notification: function(e) {
         $('#notify-toggle').attr('data-count', e.unread || 0);
@@ -731,7 +734,7 @@
 
         const data = el.data('preload');
         self.trans = lidraughts.trans(data.i18n);
-        self.set(data.users, data.playing, data.studying, data.patrons);
+        self.set(data);
       },
       repaint: function() {
         lidraughts.raf(function() {
@@ -744,17 +747,17 @@
         }.bind(this));
       },
       insert: function(titleName) {
-        var id = getId(titleName);
+        const id = getId(titleName);
         if (!this.users[id]) this.users[id] = makeUser(titleName);
         return this.users[id];
       },
-      set: function(online, playing, studying, patrons) {
+      set: function(d) {
         this.users = {};
-        var i;
-        for (i in online) this.insert(online[i]);
-        for (i in playing) this.insert(playing[i]).playing = true;
-        for (i in studying) this.insert(studying[i]).studying = true;
-        for (i in patrons) this.insert(patrons[i]).patron = true;
+        let i;
+        for (i in d.users) this.insert(d.users[i]);
+        for (i in d.playing) this.insert(d.playing[i]).playing = true;
+        for (i in d.studying) this.insert(d.studying[i]).studying = true;
+        for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
         this.repaint();
       },
       enters: function(titleName, playing, studying, patron) {
