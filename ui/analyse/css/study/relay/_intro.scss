@@ -6,6 +6,10 @@
   max-height: 50vh;
   overflow-y: auto;
 
+  .slist {
+    margin-bottom: 1em;
+  }
+
   h1 {
     @include fluid-size('font-size', 15px, 27px);
     margin-bottom: 3vh;
