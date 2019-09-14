@@ -28,6 +28,7 @@ final class LobbyRemoteSocket(
         }
       }
     case P.In.DisconnectSri(sri) => socket ! actorApi.LeaveRemote(sri)
+    case P.In.DisconnectSris(sris) => socket ! actorApi.LeaveRemotes(sris)
 
     case P.In.DisconnectAll =>
       lobby ! actorApi.LeaveAllRemote

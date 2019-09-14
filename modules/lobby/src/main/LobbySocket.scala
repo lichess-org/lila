@@ -52,6 +52,7 @@ private[lobby] final class LobbySocket(
     case JoinRemote(member) =>
       members += (member.sri.value -> member)
     case LeaveRemote(sri) => quitRemote(sri)
+    case LeaveRemotes(sris) => sris foreach quitRemote
     case LeaveAllRemote =>
       members.collect { case (_, m: LobbyRemoteSocketMember) => m.sri } foreach quitRemote
 
