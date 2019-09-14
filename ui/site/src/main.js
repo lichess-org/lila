@@ -50,7 +50,6 @@
         $friendsBox.friends("set", d);
       },
       following_enters: function(_, d) {
-        d.users = d.d;
         $friendsBox.friends('enters', d);
       },
       following_leaves: function(name) {
@@ -765,11 +764,11 @@
         for (i in d.patrons) this.insert(d.patrons[i]).patron = true;
         this.repaint();
       },
-      enters: function(titleName, playing, studying, patron) {
-        var user = this.insert(titleName);
-        user.playing = playing;
-        user.studying = studying;
-        user.patron = patron;
+      enters: function(d) {
+        const user = this.insert(d.d);
+        user.playing = d.playing;
+        user.studying = d.studying;
+        user.patron = d.patron;
         this.repaint();
       },
       leaves: function(titleName) {
