@@ -17,6 +17,7 @@ $board-files: (
 'leather': 'leather-1024.jpg',
 'metal': 'metal-1024.jpg',
 'maple': 'maple.jpg',
+'newspaper': 'newspaper.png',
 );
 
 @each $color, $file in $board-files {
