@@ -6,6 +6,8 @@
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    id="svg19"
    viewBox="0 0 50 50"
    version="1.1"
@@ -15,7 +17,29 @@
    fill-rule="evenodd"
    clip-rule="evenodd"
    height="50mm"
-   width="50mm">
+   width="50mm"
+   sodipodi:docname="bR.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="0.47474725"
+     inkscape:cx="861.66394"
+     inkscape:cy="42.634107"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg19" />
   <metadata
      id="metadata23">
     <rdf:RDF>
@@ -24,79 +48,93 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/" />
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:prohibits
+           rdf:resource="http://creativecommons.org/ns#CommercialUse" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <defs
      id="defs7">
     <linearGradient
+       id="B-2"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(.7588 0 0 -.7519 203.29 163.85)"
-       y2="-156.13"
-       y1="-156.13"
-       x2="2904.7"
-       x1="2811.6"
-       id="linearGradient3606-9">
+       x1="-158.56081"
+       y1="1043.2401"
+       x2="-126.5353"
+       y2="1043.2401"
+       gradientTransform="matrix(2.9386,0,0,-2.8481,3133.4426,2816.9734)">
       <stop
-         id="stop2"
          offset="0"
-         style="stop-color:#303030" />
+         style="stop-color:#464646;stop-opacity:1"
+         id="stop321-6" />
       <stop
-         id="stop4"
          offset="1"
-         style="stop-color:#1E1E1E" />
+         style="stop-color:#000000;stop-opacity:1"
+         id="stop323-4" />
     </linearGradient>
     <linearGradient
-       gradientUnits="userSpaceOnUse"
-       y2="-506.05292"
-       x2="4547.9951"
-       y1="-638.76691"
-       x1="4547.9951"
+       inkscape:collect="always"
+       xlink:href="#B"
        id="linearGradient1256"
-       xlink:href="#B" />
-    <linearGradient
-       gradientTransform="matrix(2.9386,0,0,-2.8481,3133.4426,2816.9734)"
-       y2="1043.2401"
-       x2="-126.5353"
-       y1="1043.2401"
-       x1="-158.56081"
+       x1="4547.9951"
+       y1="-638.76691"
+       x2="4547.9951"
+       y2="-506.05292"
        gradientUnits="userSpaceOnUse"
-       id="B">
+       gradientTransform="matrix(0.32496876,0,0,0.28633041,-1452.9564,188.89836)" />
+    <linearGradient
+       id="B"
+       gradientUnits="userSpaceOnUse"
+       x1="-158.56081"
+       y1="1043.2401"
+       x2="-126.5353"
+       y2="1043.2401"
+       gradientTransform="matrix(2.9386,0,0,-2.8481,3133.4426,2816.9734)">
       <stop
-         id="stop321"
+         offset="0"
          style="stop-color:#3c3c3c;stop-opacity:1"
-         offset="0" />
+         id="stop321" />
       <stop
-         id="stop323"
+         offset="1"
          style="stop-color:#000000;stop-opacity:1"
-         offset="1" />
+         id="stop323" />
     </linearGradient>
   </defs>
-  <g
-     style="stroke-width:0.99354619"
-     transform="matrix(0.32496876,0,0,0.28633041,-1452.9564,188.89836)"
-     id="g1162">
-    <path
-       id="path1711-86-4-9"
-       class="st14"
-       d="m 4539.0258,-637.45559 v 8.51861 h -11.9592 v -7.30167 h -16.9421 v 28.11142 l 14.949,11.0742 v 44.29678 l -12.9558,8.762 v 18.37586 h -8.9694 v 18.25417 h 44.8469 44.8469 v -18.25417 h -8.9694 v -18.37586 l -12.9558,-8.762 v -44.17509 l 14.949,-11.31758 v -27.98973 h -16.9421 v 7.30167 h -12.9558 v -8.51861 h -8.4711 z"
-       style="fill:url(#linearGradient1256);fill-opacity:1;stroke:#ffffff;stroke-width:2.62262058;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
-    <rect
-       id="rect1745-1-7-36-2"
-       x="4530.0562"
-       y="-599.73035"
-       class="st15"
-       width="34.880917"
-       height="4.8677783"
-       style="fill:#fafafa;stroke-width:1.0941664" />
-    <rect
-       id="rect1745-1-7-3-5-8"
-       x="4530.0562"
-       y="-555.92029"
-       class="st15"
-       width="34.880917"
-       height="4.8677783"
-       style="fill:#fafafa;stroke-width:1.0941664" />
-  </g>
+  <path
+     id="path1711-86-4-9"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccccccccccccccccccccccccc"
+     class="st14"
+     d="M 22.085186,6.3754396 V 8.8145767 H 18.198819 V 6.7238865 h -5.505653 v 8.0491545 l 4.857958,3.17088 v 12.683515 l -4.21023,2.508827 v 5.261568 h -2.914775 v 5.226724 h 14.573842 14.573841 v -5.226724 h -2.914775 v -5.261568 l -4.21023,-2.508827 V 17.978765 l 4.857958,-3.240568 V 6.7238865 h -5.505653 v 2.0906902 h -4.21023 V 6.3754396 h -2.752843 z"
+     style="fill:url(#linearGradient1256);fill-opacity:1;stroke:#ffffff;stroke-width:0.80000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+  <rect
+     id="rect1745-1-7-36-2"
+     x="19.17033"
+     y="17.177324"
+     class="st15"
+     width="11.335208"
+     height="1.393793"
+     style="fill:#fafafa;stroke-width:0.33376279" />
+  <rect
+     id="rect1745-1-7-3-5-8"
+     x="19.17033"
+     y="29.721476"
+     class="st15"
+     width="11.335208"
+     height="1.393793"
+     style="fill:#fafafa;stroke-width:0.33376279" />
 </svg>
