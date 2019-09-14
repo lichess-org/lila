@@ -381,6 +381,11 @@
   <string name="blackCheckmatesInOneMove">Melnie pieteiks matu vienā gājienā</string>
   <string name="retry">Mēģināt vēlreiz</string>
   <string name="reconnecting">Atjauno savienojumu</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="zero">%s draugu tiešsaistē</item>
+    <item quantity="one">%s draugs tiešsaistē</item>
+    <item quantity="other">%s draugi tiešsaistē</item>
+  </plurals>
   <string name="noFriendsOnline">Nav draugu tiešsaistē</string>
   <string name="findFriends">Meklēt draugus</string>
   <string name="favoriteOpponents">Biežākie pretinieki</string>
