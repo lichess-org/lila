@@ -304,7 +304,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w,
         sticky = d.s;
       setMemberActive(who);
-      if (vm.toolTab() == 'multiBoard') multiBoard.addNode(d.p, d.n);
+      if (vm.toolTab() == 'multiBoard' || relay && relay.intro.active) multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
