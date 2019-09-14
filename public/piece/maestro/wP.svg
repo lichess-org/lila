@@ -1,13 +1,9 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
-  <linearGradient id="linearGradient3586" x1="-296.78" x2="-277.22" y1="-718.35" y2="-718.35" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#fff" offset="0"/>
-   <stop stop-color="#b4b4b4" offset="1"/>
-  </linearGradient>
- </defs>
- <g transform="matrix(1.4315 0 0 1.343 435.83 993.26)" fill="#141414" stroke="#050505" stroke-width=".25443">
-  <g fill="#141414" stroke="#050505" stroke-width=".25443">
-   <path class="st19" d="m-287-731.2c-1.8 0-3.6 1.1-4.2 2.9-0.5 1.4-0.1 3 1 4 0.3 0.4 0.8 0.6 1.2 0.9-3.1 1-4.3 2-4.3 2l1.1 2.5s2.2-0.8 2.4-0.1c2 4.7-6.5 7.7-6.8 13.5h19.2c-0.3-5.9-8.7-8.8-6.8-13.5 0.3-0.7 2.4 0.1 2.4 0.1l1.1-2.5s-1.2-0.9-4.3-2c0.4-0.3 0.9-0.5 1.2-0.9 1.1-1 1.5-2.6 1-4-0.6-1.8-2.4-2.9-4.2-2.9z" fill="url(#linearGradient3586)" stroke="#010101" stroke-linecap="round" stroke-linejoin="round" stroke-width=".36061"/>
-  </g>
- </g>
+<svg fill-rule="evenodd" clip-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" viewBox="0 0 50 50">
+  <defs>
+    <linearGradient id="a" x1="-296.78" x2="-277.22" y1="-718.35" y2="-718.35" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#b4b4b4"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#a)" stroke="#010101" stroke-linecap="round" stroke-linejoin="round" stroke-width=".36061" d="M-287-731.2c-1.8 0-3.6 1.1-4.2 2.9-.5 1.4-.1 3 1 4 .3.4.8.6 1.2.9-3.1 1-4.3 2-4.3 2l1.1 2.5s2.2-.8 2.4-.1c2 4.7-6.5 7.7-6.8 13.5h19.2c-.3-5.9-8.7-8.8-6.8-13.5.3-.7 2.4.1 2.4.1l1.1-2.5s-1.2-.9-4.3-2c.4-.3.9-.5 1.2-.9 1.1-1 1.5-2.6 1-4-.6-1.8-2.4-2.9-4.2-2.9z" class="st19" transform="matrix(1.4315 0 0 1.343 435.83 993.26)"/>
 </svg>
