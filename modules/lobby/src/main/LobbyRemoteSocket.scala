@@ -18,15 +18,22 @@ final class LobbyRemoteSocket(
 
   import LobbyRemoteSocket.Protocol._
 
-  private val handler: Handler = {
-    case P.In.ConnectSri(sri, userOpt) =>
-      userOpt map P.In.ConnectUser.apply foreach remoteSocketApi.baseHandler.lift
-      userOpt ?? UserRepo.enabledById foreach { user =>
-        (user ?? (u => blocking(u.id))) foreach { blocks =>
-          val member = actorApi.LobbySocketMember(js => send(P.Out.tellSri(sri, js)), user, blocks, sri)
-          socket ! actorApi.JoinRemote(member)
-        }
+  private def onConnect(sri: Sri, userOpt: Option[User.ID]): Unit =
+    userOpt ?? UserRepo.enabledById foreach { user =>
+      (user ?? { u =>
+        remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
+        blocking(u.id)
+      }) foreach { blocks =>
+        val member = actorApi.LobbySocketMember(js => send(P.Out.tellSri(sri, js)), user, blocks, sri)
+        socket ! actorApi.JoinRemote(member)
       }
+    }
+
+  private val handler: Handler = {
+    case P.In.ConnectSri(sri, userOpt) => onConnect(sri, userOpt)
+    case P.In.ConnectSris(cons) => cons foreach {
+      case (sri, userId) => onConnect(sri, userId)
+    }
     case P.In.DisconnectSri(sri) => socket ! actorApi.LeaveRemote(sri)
     case P.In.DisconnectSris(sris) => socket ! actorApi.LeaveRemotes(sris)
 
