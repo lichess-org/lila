@@ -47,7 +47,7 @@ object search {
           div(cls := "mod-search page-menu__content box")(
             div(cls := "box__top")(
               h1("Fingerprint: ", fh.value),
-              postForm(cls := "box__top__actions", action := routes.Mod.printBan(fh.value, !blocked))(
+              postForm(cls := "box__top__actions", action := routes.Mod.printBan(!blocked, fh.value))(
                 submitButton(cls := List(
                   "button text" -> true,
                   "active" -> blocked
