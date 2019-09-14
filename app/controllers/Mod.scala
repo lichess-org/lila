@@ -265,7 +265,7 @@ object Mod extends LilaController {
     } yield Ok(html.mod.search.print(hash, withEmails, uas, Env.security.printBan blocks hash))
   }
 
-  def printBan(fh: String, v: Boolean) = Secure(_.PrintBan) { _ => me =>
+  def printBan(v: Boolean, fh: String) = Secure(_.PrintBan) { _ => me =>
     Env.security.printBan.toggle(FingerHash(fh), v) inject
       Redirect(routes.Mod.print(fh))
   }
