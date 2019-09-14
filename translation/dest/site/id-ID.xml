@@ -335,6 +335,9 @@
   <string name="blackCheckmatesInOneMove">Hitam skakmat dalam satu langkah</string>
   <string name="retry">Mengulang</string>
   <string name="reconnecting">Menyambung ulang</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s teman online</item>
+  </plurals>
   <string name="noFriendsOnline">Tdak ada teman yang online</string>
   <string name="findFriends">Cari teman</string>
   <string name="favoriteOpponents">Lawan Favorit</string>
@@ -560,6 +563,9 @@
   <string name="xCommentedY">%1$s berkomentar %2$s</string>
   <string name="victory">Berhasil</string>
   <string name="defeat">Kalah</string>
+  <string name="victoryVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
+  <string name="defeatVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
+  <string name="drawVsYInZ">%1$s melawan %2$s dalam permainan %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Mulai:</string>
   <string name="allInformationIsPublicAndOptional">Semua informasi bersifat publik jika dikehendaki.</string>
