@@ -24,6 +24,7 @@ private[controllers] trait LilaController
   with LilaSocket {
 
   protected val controllerLogger = lila.log("controller")
+  protected val authLogger = lila.log("auth")
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
@@ -204,7 +205,11 @@ private[controllers] trait LilaController
     a: => Fu[A],
     or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
   )(implicit ctx: Context): Fu[Result] =
-    if (Env.security.firewall accepts ctx.req) a else or
+    if (Env.security.firewall accepts ctx.req) a
+    else {
+      authLogger.info(s"Firewall blocked ${ctx.req}")
+      or
+    }
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
@@ -396,7 +401,8 @@ private[controllers] trait LilaController
             Env.challenge.api.countInFor.get(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             Env.mod.inquiryApi.forMod(me)
-        } else fuccess {
+        }
+        else fuccess {
           ((((OnlineFriends.empty, 0), 0), 0), none)
         }
       } map {
