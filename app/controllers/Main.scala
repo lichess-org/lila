@@ -36,16 +36,6 @@ object Main extends LilaController {
     }
   }
 
-  def websocket(apiVersion: Int) = SocketOption { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      Env.site.socketHandler.human(sri, ctx.userId, apiVersion, get("flag")) map some
-    }
-  }
-
-  def apiWebsocket = WebSocket.tryAccept { req =>
-    Env.site.socketHandler.api(lila.api.Mobile.Api.currentVersion) map Right.apply
-  }
-
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(if (valid) 1 else 0)

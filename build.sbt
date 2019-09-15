@@ -47,7 +47,7 @@ lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
   message, notifyModule, i18n, game, bookmark, search,
   gameSearch, timeline, forum, forumSearch, team, teamSearch,
-  analyse, mod, site, round, pool, lobby, setup,
+  analyse, mod, round, pool, lobby, setup,
   importer, tournament, simul, relation, report, pref,
   evaluation, chat, puzzle, tv, coordinate, blog,
   history, video, shutup, push,
@@ -375,10 +375,6 @@ lazy val explorer = module("explorer", Seq(common, db, game, importer)).settings
 
 lazy val notifyModule = module("notify", Seq(common, db, game, user, hub, relation)).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
-)
-
-lazy val site = module("site", Seq(common, socket)).settings(
-  libraryDependencies ++= provided(play.api, lettuce)
 )
 
 lazy val tree = module("tree", Seq(common)).settings(

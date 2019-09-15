@@ -34,8 +34,7 @@ final class Env(
     isPlaying: lila.user.User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     challengeJsonView: lila.challenge.JsonView,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    siteRemoteSocket: lila.site.SiteRemoteSocket,
+    remoteSocketApi: lila.socket.RemoteSocket
     val isProd: Boolean
 ) {
 
@@ -184,7 +183,6 @@ object Env {
     pools = lila.pool.Env.current.api.configs,
     challengeJsonView = lila.challenge.Env.current.jsonView,
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
-    siteRemoteSocket = lila.site.Env.current.remoteSocket,
     isProd = lila.common.PlayApp.isProd
   )
 }
