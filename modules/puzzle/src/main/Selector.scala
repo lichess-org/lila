@@ -21,7 +21,7 @@ private[puzzle] final class Selector(
       case None => anonPuzzle(variant) flatMap {
         case p @ Some(_) => fuccess(p)
         case _ =>
-          logger.warn(s"Retry ${variant.key} puzzle for anonymous")
+          logger.warn(s"Retry ${variant.key} puzzle for Anon")
           anonPuzzle(variant)
       }
       case Some(user) => api.head.find(user, variant) flatMap {
@@ -29,18 +29,14 @@ private[puzzle] final class Selector(
           api.puzzle.find(c, variant) flatMap {
             case p @ Some(_) => fuccess(p)
             case _ =>
-              logger.warn(s"Retry ${variant.key} puzzle $c for ${user.username}")
-              newPuzzleForUser(user, variant, head) flatMap { next =>
-                next.?? { p => api.head.addNew(user, p.id, variant) } inject next
-              }
+              logger.warn(s"${variant.key} puzzle $c not found for ${user.username}")
+              retryNewPuzzleForUser(user, variant, head)
           }
         case headOption =>
-          newPuzzleForUser(user, variant, headOption) flatMap { next =>
-            next.?? { p => api.head.addNew(user, p.id, variant) } inject next
-          }
+          retryNewPuzzleForUser(user, variant, headOption)
       }
     }
-  }.mon(_.puzzle.selector.time) flatten "No puzzles available" addEffect { puzzle =>
+  }.mon(_.puzzle.selector.time) flatten s"No ${variant.key} puzzle available" addEffect { puzzle =>
     if (puzzle.vote.sum < -1000)
       logger.warn(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle(variant).intRating.toString)})")
     else
@@ -54,11 +50,21 @@ private[puzzle] final class Selector(
       .skip(Random nextInt anonSkipMax(variant))
       .uno[Puzzle]
 
+  private def retryNewPuzzleForUser(user: User, variant: Variant, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] =
+    newPuzzleForUser(user, variant, headOption) flatMap {
+      case Some(p) => api.head.addNew(user, p.id, variant) inject p.some
+      case _ =>
+        logger.warn(s"Retry ${variant.key} puzzle for ${user.username} @ $headOption")
+        newPuzzleForUser(user, variant, none) flatMap { next =>
+          next.?? { p => api.head.addNew(user, p.id, variant) } inject next
+        }
+    }
+
   private def newPuzzleForUser(user: User, variant: Variant, headOption: Option[PuzzleHead]): Fu[Option[Puzzle]] = {
     val perf = user.perfs.puzzle(variant)
     val rating = perf.intRating min 2300 max 900
     val step = toleranceStepFor(rating, perf.nb)
-    val skipMax = if (variant.frisian) 40 else 80
+    val skipMax = if (variant.frisian) 50 else 100
     val idStep = if (variant.frisian) 20 else 40
     api.puzzle.cachedLastId(variant).get flatMap { maxId =>
       val lastId = headOption match {
