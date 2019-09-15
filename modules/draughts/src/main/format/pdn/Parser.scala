@@ -9,7 +9,7 @@ import scalaz.Validation.{ success => succezz }
 
 import scala.collection.breakOut
 
-// http://www.saremba.de/chessgml/standards/pdn/pgn-complete.htm
+// http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm
 // https://pdn.fmjd.org/index.html
 object Parser extends scalaz.syntax.ToTraverseOps {
 
@@ -97,8 +97,8 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     val moveRegex = """(50|[1-4][0-9]|0?[1-9])[\-x](50|[1-4][0-9]|0?[1-9])(x(50|[1-4][0-9]|0?[1-9]))*[\?!□⨀]{0,2}""".r
 
     def strMove: Parser[StrMove] = as("move") {
-      ((number | commentary)*) ~> (moveRegex ~ nagGlyphs ~ rep(commentary) ~ rep(variation)) <~ (moveExtras*) ^^ {
-        case san ~ glyphs ~ comments ~ variations => StrMove(collapsedSan(san.trim()), glyphs, cleanComments(comments), variations)
+      ((number | commentary)*) ~> (moveRegex ~ nagGlyphs ~ rep(commentary) ~ nagGlyphs ~ rep(variation)) <~ (moveExtras*) ^^ {
+        case san ~ glyphs1 ~ comments ~ glyphs2 ~ variations => StrMove(collapsedSan(san.trim()), glyphs2.merge(glyphs1), cleanComments(comments), variations)
       }
     }
 
@@ -229,9 +229,9 @@ object Parser extends scalaz.syntax.ToTraverseOps {
     }
   }
 
-  // there must be a newline between the tags and the first move
+  // there must be a newline between the tags and the first move/comment
   private def ensureTagsNewline(pdn: String): String =
-    """"\]\s*(\d+\.)""".r.replaceAllIn(pdn, m => "\"]\n" + m.group(1))
+    """"\]\s*(\{|\d+\.)""".r.replaceAllIn(pdn, m => "\"]\n" + m.group(1))
 
   //To accomodate some common PDN source that always adds a [FILENAME ""] tag on the bottom of every file
   private def ensureTagsNewlineReverse(pdn: String): String =
