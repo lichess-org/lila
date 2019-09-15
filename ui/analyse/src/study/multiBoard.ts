@@ -162,7 +162,7 @@ function uciToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeCg(preview: ChapterPreview): VNode {
-  return h('div.mini-board.cg-wrap', {
+  return h('div.mini-board.cg-wrap.is2d', {
     hook: {
       insert(vnode) {
         const cg = Draughtsground(vnode.elm as HTMLElement, {
