@@ -110,9 +110,6 @@ final class LobbySocket(
         hookSubscriberSris += member.sri.value
     }
 
-    // solve circular reference
-    lobby ! LobbyTrouper.SetSocket(trouper)
-
     system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolGame, 'lobbySocket)
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
     system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
@@ -134,6 +131,9 @@ final class LobbySocket(
       hookSubscriberSris -= sri.value
     }
   }
+
+  // solve circular reference
+  lobby ! LobbyTrouper.SetSocket(trouper)
 
   private val poolLimitPerSri = new lila.memo.RateLimit[SriStr](
     credits = 25,
