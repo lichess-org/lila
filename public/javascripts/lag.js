@@ -215,7 +215,7 @@ $(function() {
     $('.lag .answer span').hide().parent().find('.' + c).show();
   };
 
-  lichess.socket = new lichess.StrongSocket('/socket', false, {
+  lichess.socket = new lichess.StrongSocket('/socket/v4', false, {
     options: {
       name: "analyse",
       onFirstConnect: function() {
