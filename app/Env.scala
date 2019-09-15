@@ -117,7 +117,6 @@ final class Env(
 
   lila.common.Chronometer.syncEffect(List(
     Env.socket,
-    Env.site,
     Env.tournament,
     Env.lobby,
     Env.game,
@@ -194,7 +193,6 @@ object Env {
   def analyse = lila.analyse.Env.current
   def mod = lila.mod.Env.current
   def notifyModule = lila.notify.Env.current
-  def site = lila.site.Env.current
   def round = lila.round.Env.current
   def lobby = lila.lobby.Env.current
   def setup = lila.setup.Env.current
