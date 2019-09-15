@@ -29,6 +29,7 @@ final class Env(
     bus = system.lilaBus,
     lifecycle = lifecycle
   )
+  remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
   system.scheduler.schedule(5 seconds, 1 seconds) { population ! PopulationTell }
 }

@@ -318,7 +318,6 @@ object mon {
     val ejectAll = inc(s"socket.eject.all")
     object count {
       val all = rec("socket.count")
-      val site = rec("socket.count.site")
     }
     val deadMsg = inc("socket.dead.msg")
     def queueSize(name: String) = rec(s"socket.queue_size.$name")

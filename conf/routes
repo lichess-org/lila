@@ -68,10 +68,6 @@ GET   /player/autocomplete             controllers.User.autocomplete
 
 GET   /dasher                          controllers.Dasher.get
 
-# mobile app sends no site socket version: default to v3
-GET   /socket                          controllers.Main.websocket(apiVersion: Int = 3)
-GET   /socket/v:apiVersion             controllers.Main.websocket(apiVersion: Int)
-
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
@@ -486,7 +482,6 @@ GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: Strin
 GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
-GET   /api/socket                      controllers.Main.apiWebsocket
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/users/titled                controllers.Api.titledUsers
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
