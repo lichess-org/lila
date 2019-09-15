@@ -145,7 +145,7 @@ final class LobbySocket(
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op)
 
-  def controller(member: Member): PartialFunction[(String, JsObject), Unit] = {
+  def controller(member: Member): lila.socket.Handler.Controller = {
     case ("join", o) if !member.bot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.sri, member.user)
@@ -205,22 +205,24 @@ final class LobbySocket(
     case ("hookOut", _) => trouper ! HookSub(member, false)
   }
 
-  private def connect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
-    userOpt ?? UserRepo.enabledById flatMap { user =>
-      (user ?? { u =>
-        remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
-        blocking(u.id)
-      }) map { blocks =>
-        val member = Member(sri, user map { LobbyUser.make(_, blocks) })
-        trouper ! Join(member)
-        member
+  private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
+    trouper.ask[Option[Member]](GetMember(sri, _)) getOrElse {
+      userOpt ?? UserRepo.enabledById flatMap { user =>
+        (user ?? { u =>
+          remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
+          blocking(u.id)
+        }) map { blocks =>
+          val member = Member(sri, user map { LobbyUser.make(_, blocks) })
+          trouper ! Join(member)
+          member
+        }
       }
     }
 
   private val handler: Handler = {
-    case P.In.ConnectSri(sri, userOpt) => connect(sri, userOpt)
+    case P.In.ConnectSri(sri, userOpt) => getOrConnect(sri, userOpt)
     case P.In.ConnectSris(cons) => cons foreach {
-      case (sri, userId) => connect(sri, userId)
+      case (sri, userId) => getOrConnect(sri, userId)
     }
     case P.In.DisconnectSri(sri) => trouper ! Leave(sri)
     case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
@@ -231,7 +233,7 @@ final class LobbySocket(
 
     case tell @ P.In.TellSri(sri, user, typ, msg) if messagesHandled(typ) =>
       lila.mon.socket.remote.lobby.tellSri(typ)
-      trouper.ask[Option[Member]](GetMember(sri, _)) getOrElse connect(sri, user) foreach { member =>
+      getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(typ -> msg, {
           case _ => logger.warn(s"Can't handle $typ")
         }: lila.socket.Handler.Controller)
