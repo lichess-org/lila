@@ -120,8 +120,8 @@ private[round] final class Rematcher(
     val whiteId = game fullIdOf White
     val blackId = game fullIdOf Black
     List(
-      Event.RedirectOwner(White, blackId, AnonCookie.json(game, Black)),
-      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game, White)),
+      Event.RedirectOwner(White, blackId, AnonCookie.json(game pov Black)),
+      Event.RedirectOwner(Black, whiteId, AnonCookie.json(game pov White)),
       // tell spectators about the rematch
       Event.RematchTaken(game.id)
     )

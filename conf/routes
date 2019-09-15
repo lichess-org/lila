@@ -3,7 +3,6 @@ POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 
 # Lobby
 GET   /                                controllers.Lobby.home
-GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
 GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # Timeline

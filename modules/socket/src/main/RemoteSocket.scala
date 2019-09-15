@@ -211,6 +211,8 @@ object RemoteSocket {
         s"tell/flag $flag ${Json stringify payload}"
       def tellSri(sri: Sri, payload: JsValue) =
         s"tell/sri $sri ${Json stringify payload}"
+      def tellSris(sris: Iterable[Sri], payload: JsValue) =
+        s"tell/sris ${commaList(sris)} ${Json stringify payload}"
       def mlat(micros: Int) =
         s"mlat ${((micros / 100) / 10d)}"
       def disconnectUser(userId: String) =
