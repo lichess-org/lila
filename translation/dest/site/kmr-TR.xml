@@ -76,6 +76,7 @@
   <string name="averageRatingX">Nirxandina navîn: %s</string>
   <string name="recentGames">Yariyên vê dawiyê</string>
   <string name="topGames">Lîstikên trend</string>
+  <string name="masterDbExplanation">Du milyon lîstikên ku li ser texteyê ji aliyê lîzerên %1$s+ FIDE ve hatine lîstin, ji %2$s heya %3$s</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>

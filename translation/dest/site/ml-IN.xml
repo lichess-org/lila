@@ -880,6 +880,8 @@
   <string name="thankYouForReading">വായിച്ചതിനു നന്ദി!</string>
   <string name="lifetimeScore">ജീവിതകാല സ്കോർ</string>
   <string name="currentMatchScore">നിലവിലെ മത്സര സ്കോർ</string>
+  <string name="agreementAssistance">എന്റെ കളികളിൽ ഞാൻ ഒരിക്കൽ പോലും മറ്റൊരാളുടെ സഹായം ഉപയോഗിക്കില്ലെന്ന് സമ്മതിക്കുന്നു (ഒരു ചെസ്സ് കംപ്യൂട്ടറിന്റെയോ പുസ്തകത്തിന്റെയോ ഡാറ്റാബേസിന്റെയോ മറ്റൊരാളുടെയോ അടുക്കൽ നിന്ന്).</string>
+  <string name="agreementNice">ഞാൻ എല്ലായ്പ്പോഴും മറ്റു കളിക്കാരോട് മാന്യമായി പെരുമാറുമെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementAccount">ഞാൻ ഒന്നിലധികം അക്കൗണ്ടുകൾ നിർമിക്കില്ലെന്ന് സമ്മതിക്കുന്നു.</string>
   <string name="agreementPolicy">ഞാൻ Lichess പോളിസികൾ അനുകൂലിക്കുന്നതായി സമ്മതിക്കുന്നു.</string>
 </resources>

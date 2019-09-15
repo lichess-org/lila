@@ -404,6 +404,12 @@
   <string name="blackCheckmatesInOneMove">Czarne dają mata w jednym ruchu</string>
   <string name="retry">Spróbuj jeszcze raz</string>
   <string name="reconnecting">Ponowne łączenie</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s znajomy online</item>
+    <item quantity="few">%s znajomych online</item>
+    <item quantity="many">%s znajomych online</item>
+    <item quantity="other">%s znajomych online</item>
+  </plurals>
   <string name="noFriendsOnline">Brak znajomych online</string>
   <string name="findFriends">Znajdź znajomych</string>
   <string name="favoriteOpponents">Ulubieni przeciwnicy</string>
