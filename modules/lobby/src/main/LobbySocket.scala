@@ -205,20 +205,22 @@ final class LobbySocket(
     case ("hookOut", _) => trouper ! HookSub(member, false)
   }
 
-  private def onConnect(sri: Sri, userOpt: Option[User.ID]): Unit =
-    userOpt ?? UserRepo.enabledById foreach { user =>
+  private def connect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
+    userOpt ?? UserRepo.enabledById flatMap { user =>
       (user ?? { u =>
         remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
         blocking(u.id)
-      }) foreach { blocks =>
-        trouper ! Join(Member(sri, user map { LobbyUser.make(_, blocks) }))
+      }) map { blocks =>
+        val member = Member(sri, user map { LobbyUser.make(_, blocks) })
+        trouper ! Join(member)
+        member
       }
     }
 
   private val handler: Handler = {
-    case P.In.ConnectSri(sri, userOpt) => onConnect(sri, userOpt)
+    case P.In.ConnectSri(sri, userOpt) => connect(sri, userOpt)
     case P.In.ConnectSris(cons) => cons foreach {
-      case (sri, userId) => onConnect(sri, userId)
+      case (sri, userId) => connect(sri, userId)
     }
     case P.In.DisconnectSri(sri) => trouper ! Leave(sri)
     case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
@@ -229,12 +231,8 @@ final class LobbySocket(
 
     case tell @ P.In.TellSri(sri, user, typ, msg) if messagesHandled(typ) =>
       lila.mon.socket.remote.lobby.tellSri(typ)
-      trouper.ask[Option[Member]](GetMember(sri, _)) foreach {
-        case None =>
-          logger.info(s"tell/sri missing member $sri $user $msg")
-          lila.mon.socket.remote.lobby.missingSri()
-          send(Out.disconnectSri(sri))
-        case Some(member) => controller(member).applyOrElse(typ -> msg, {
+      trouper.ask[Option[Member]](GetMember(sri, _)) getOrElse connect(sri, user) foreach { member =>
+        controller(member).applyOrElse(typ -> msg, {
           case _ => logger.warn(s"Can't handle $typ")
         }: lila.socket.Handler.Controller)
       }
@@ -269,7 +267,6 @@ private object LobbySocket {
       def nbRounds(nb: Int) = s"round/nb $nb"
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"
-      def disconnectSri(sri: Sri) = s"disconnect/sri $sri"
     }
   }
 
