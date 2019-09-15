@@ -52,20 +52,6 @@ object Lobby extends LilaController {
     )
   }
 
-  private val MessageLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 40,
-    duration = 10 seconds,
-    name = "lobby socket message per IP",
-    key = "lobby_socket.message.ip",
-    enforce = Env.api.Net.RateLimit
-  )
-
-  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      Env.lobby.socketHandler(sri, user = ctx.me, apiVersion) map some
-    }
-  }
-
   def timeline = Auth { implicit ctx => me =>
     Env.timeline.entryApi.userEntries(me.id) map { html.timeline.entries(_) }
   }

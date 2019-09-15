@@ -2,34 +2,36 @@ package lila.lobby
 
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-
 import org.joda.time.DateTime
 
 import actorApi._
 import lila.common.{ Every, AtMost }
 import lila.game.Game
 import lila.hub.Trouper
-import lila.socket.Socket
-import Socket.{ Sri, Sris }
+import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
 private[lobby] final class LobbyTrouper(
     system: akka.actor.ActorSystem,
-    socket: LobbySocket,
     seekApi: SeekApi,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
     blocking: String => Fu[Set[String]],
     playban: String => Fu[Option[lila.playban.TempBan]],
     poolApi: lila.pool.PoolApi,
-    onStart: lila.game.Game.ID => Unit
+    onStart: Game.ID => Unit
 ) extends Trouper {
 
   import LobbyTrouper._
 
   private var remoteDisconnectAllAt = DateTime.now
 
+  private var socket: Trouper = Trouper.stub
+
   val process: Trouper.Receive = {
+
+    // solve circular reference
+    case SetSocket(trouper) => socket = trouper
 
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create()
@@ -89,7 +91,7 @@ private[lobby] final class LobbyTrouper(
         socket ! RemoveSeek(seek.id)
       }
 
-    case LeaveAllRemote => remoteDisconnectAllAt = DateTime.now
+    case LeaveAll => remoteDisconnectAllAt = DateTime.now
 
     case Tick(promise) =>
       HookRepo.truncateIfNeeded
@@ -116,10 +118,9 @@ private[lobby] final class LobbyTrouper(
 
     case RemoveHooks(hooks) => hooks foreach remove
 
-    case Resync =>
-      socket ! HookIds(HookRepo.vector.map(_.id))
+    case Resync => socket ! HookIds(HookRepo.vector.map(_.id))
 
-    case msg @ HookSub(member, true) =>
+    case HookSub(member, true) =>
       socket ! AllHooksFor(member, HookRepo.vector.filter { Biter.showHookTo(_, member) })
 
     case lila.pool.HookThieve.GetCandidates(clock, promise) =>
@@ -181,6 +182,8 @@ private[lobby] final class LobbyTrouper(
 }
 
 private object LobbyTrouper {
+
+  case class SetSocket(trouper: Trouper)
 
   private case class Tick(promise: Promise[Unit])
 

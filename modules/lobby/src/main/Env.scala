@@ -16,15 +16,12 @@ final class Env(
     gameCache: lila.game.Cached,
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    settingStore: lila.memo.SettingStore.Builder,
     remoteSocketApi: lila.socket.RemoteSocket,
     system: ActorSystem
 ) {
 
   private val settings = new {
     val NetDomain = config getString "net.domain"
-    val SocketSriTtl = config duration "socket.sri.ttl"
-    val BroomPeriod = config duration "broom_period"
     val ResyncIdsPeriod = config duration "resync_ids_period"
     val CollectionSeek = config getString "collection.seek"
     val CollectionSeekArchive = config getString "collection.seek_archive"
@@ -33,8 +30,6 @@ final class Env(
     val MaxPlaying = config getInt "max_playing"
   }
   import settings._
-
-  private val socket = new LobbySocket(system, SocketSriTtl)
 
   lazy val seekApi = new SeekApi(
     coll = db(CollectionSeek),
@@ -46,12 +41,11 @@ final class Env(
   )
 
   private val lobbyTrouper = LobbyTrouper.start(
-    broomPeriod = BroomPeriod,
+    broomPeriod = 2.seconds,
     resyncIdsPeriod = ResyncIdsPeriod
   ) { () =>
     new LobbyTrouper(
       system = system,
-      socket = socket,
       seekApi = seekApi,
       gameCache = gameCache,
       maxPlaying = MaxPlaying,
@@ -62,33 +56,15 @@ final class Env(
     )
   }(system)
 
-  lazy val socketHandler = new SocketHandler(
-    hub = hub,
-    lobby = lobbyTrouper,
-    socket = socket,
-    poolApi = poolApi,
-    blocking = blocking
-  )
-  system.lilaBus.subscribe(socketHandler, 'nbMembers, 'nbRounds)
-
-  private val remoteSocket = new LobbyRemoteSocket(
+  private val remoteSocket: LobbySocket = new LobbySocket(
     remoteSocketApi = remoteSocketApi,
     lobby = lobbyTrouper,
-    socket = socket,
     blocking = blocking,
-    controller = socketHandler.controller(socket) _,
-    bus = system.lilaBus
+    poolApi = poolApi,
+    system = system
   )
 
   private val abortListener = new AbortListener(seekApi, lobbyTrouper)
-
-  import lila.memo.SettingStore.Regex._
-  import lila.memo.SettingStore.Formable.regexFormable
-  val socketRemoteUsersSetting = settingStore[scala.util.matching.Regex](
-    "lobbySocketRemoteUsers",
-    default = "".r,
-    text = "Regex selecting user IDs using lobby remote socket".some
-  )
 
   system.lilaBus.subscribeFun('abortGame) {
     case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)
@@ -107,7 +83,6 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     poolApi = lila.pool.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    settingStore = lila.memo.Env.current.settingStore,
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
     system = lila.common.PlayApp.system
   )

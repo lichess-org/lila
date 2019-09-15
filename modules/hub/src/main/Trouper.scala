@@ -77,4 +77,10 @@ object Trouper {
         if (q.isEmpty) None else Some(q.tail)
       }
   }
+
+  def stub = new Trouper {
+    val process: Receive = {
+      case msg => lila.log("trouper").warn(s"stub trouper received: $msg")
+    }
+  }
 }

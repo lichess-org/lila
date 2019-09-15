@@ -401,8 +401,7 @@ private[controllers] trait LilaController
             Env.challenge.api.countInFor.get(me.id) zip
             Env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             Env.mod.inquiryApi.forMod(me)
-        }
-        else fuccess {
+        } else fuccess {
           ((((OnlineFriends.empty, 0), 0), 0), none)
         }
       } map {
