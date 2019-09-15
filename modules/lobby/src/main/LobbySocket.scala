@@ -61,6 +61,7 @@ final class LobbySocket(
 
       case ReloadSimuls(html) => tellActive(makeMessage("simuls", html))
 
+      // TODO send only to lobby users
       case ReloadTimelines(users) => send(P.Out.tellUsers(users.toSet, makeMessage("reload_timeline")))
 
       case AddHook(hook) => send(P.Out.tellSris(
@@ -86,8 +87,8 @@ final class LobbySocket(
 
       case JoinSeek(userId, seek, game, creatorColor) =>
         lila.mon.lobby.seek.join()
-        send(P.Out.tellUser(seek.user.id, gameStartRedirect(game pov creatorColor)))
-        send(P.Out.tellUser(userId, gameStartRedirect(game pov !creatorColor)))
+        send(Out.tellLobbyUser(seek.user.id, gameStartRedirect(game pov creatorColor)))
+        send(Out.tellLobbyUser(userId, gameStartRedirect(game pov !creatorColor)))
 
       case p: PoolApi.Pairing =>
         send(P.Out.tellSri(p.whiteSri, gameStartRedirect(p.game pov chess.White)))
@@ -269,6 +270,7 @@ private object LobbySocket {
       def nbRounds(nb: Int) = s"round/nb $nb"
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"
+      def tellLobbyUser(userId: String, payload: JsObject) = s"tell/lobby/user $userId ${Json stringify payload}"
     }
   }
 
