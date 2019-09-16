@@ -73,4 +73,20 @@
   <string name="deleteChapter">删除章节</string>
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>
+  <string name="chapterX">章节 %s</string>
+  <string name="inviteOnly">仅邀请</string>
+  <string name="allowCloning">允许复制</string>
+  <string name="nobody">没人</string>
+  <string name="onlyMe">仅自己</string>
+  <string name="contributors">贡献者</string>
+  <string name="members">成员</string>
+  <string name="everyone">所有人</string>
+  <string name="enableSync">允许同步</string>
+  <string name="pinnedStudyComment">置顶评论</string>
+  <string name="start">开始</string>
+  <string name="save">保存</string>
+  <string name="clearChat">清空对话</string>
+  <string name="deleteTheStudyChatHistory">删除课程聊天记录？本操作无法撤销！</string>
+  <string name="deleteStudy">删除课程</string>
+  <string name="deleteTheEntireStudy">确认删除课程？本操作无法撤销！</string>
 </resources>
