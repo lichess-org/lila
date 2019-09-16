@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">Vyhrál bílý</string>
   <string name="blackIsVictorious">Vyhrál černý</string>
   <string name="kingInTheCenter">Král uprostřed (King of the hill)</string>
-  <string name="threeChecks">Třikratný šach</string>
+  <string name="threeChecks">Třikrát šach</string>
   <string name="raceFinished">Závod skončil</string>
   <string name="variantEnding">Jiné ukončení</string>
   <string name="newOpponent">Nový protihráč</string>
@@ -50,7 +50,7 @@
   <string name="analysis">Analýza</string>
   <string name="depthX">Hloubka %s</string>
   <string name="usingServerAnalysis">Používání analýzy serveru</string>
-  <string name="loadingEngine">Načítání motoru ...</string>
+  <string name="loadingEngine">Načítání AI engine...</string>
   <string name="cloudAnalysis">Cloudová analýza</string>
   <string name="goDeeper">Hlouběji</string>
   <string name="showThreat">Zobrazit hrozbu</string>
