@@ -1,21 +1,19 @@
 self.addEventListener('push', event => {
   const data = event.data.json();
-  event.waitUntil(self.registration.getNotifications().then(notifications => {
-    return self.registration.showNotification(data.title, {
-      badge: 'https://lichess1.org/assets/images/logo.256.png',
-      icon: 'https://lichess1.org/assets/images/logo.256.png',
-      body: data.body,
-      tag: data.tag,
-      data: data.payload,
-      requireInteraction: true
-    });
-  }));
+  return self.registration.showNotification(data.title, {
+    badge: 'https://lichess1.org/assets/images/logo.256.png',
+    icon: 'https://lichess1.org/assets/images/logo.256.png',
+    body: data.body,
+    tag: data.tag,
+    data: data.payload,
+    requireInteraction: true
+  });
 });
 
 self.addEventListener('notificationclick', event => {
   event.waitUntil(self.registration.getNotifications().then(notifications => {
     notifications.forEach(notification => notification.close());
-    return clients.matchAll({
+    return self.clients.matchAll({
       type: 'window',
       includeUncontrolled: true
     });
@@ -28,18 +26,18 @@ self.addEventListener('notificationclick', event => {
     else if (data.challengeId) url = '/' + data.challengeId;
 
     // focus open window with same url
-    for (let client of windowClients) {
-      var clientUrl = new URL(client.url, self.location.href);
+    for (const client of windowClients) {
+      const clientUrl = new URL(client.url, self.location.href);
       if (clientUrl.pathname === url && 'focus' in client) return client.focus();
     }
 
     // navigate from open homepage to url
-    for (let client of windowClients) {
-      var clientUrl = new URL(client.url, self.location.href);
+    for (const client of windowClients) {
+      const clientUrl = new URL(client.url, self.location.href);
       if (clientUrl.pathname === '/') return client.navigate(url);
     }
 
     // open new window
-    return clients.openWindow(url);
+    return self.clients.openWindow(url);
   }));
 });
