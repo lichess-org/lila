@@ -218,6 +218,7 @@
   <string name="playingRightNow">Právě se hraje</string>
   <string name="eventInProgress">Právě se hraje</string>
   <string name="finished">Dokončeno</string>
+  <string name="finishesX">končí za %s</string>
   <string name="abortGame">Zrušit hru</string>
   <string name="gameAborted">Hra byla zrušena</string>
   <string name="standard">Standard</string>
@@ -397,6 +398,12 @@
   <string name="blackCheckmatesInOneMove">Černý dá prvním tahem mat</string>
   <string name="retry">Zkusit znovu</string>
   <string name="reconnecting">Připojování</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s kamarád online</item>
+    <item quantity="few">%s kamarádů online</item>
+    <item quantity="many">%s kamarádů online</item>
+    <item quantity="other">%s kamarádů online</item>
+  </plurals>
   <string name="noFriendsOnline">Žádní přátelé nejsou online</string>
   <string name="findFriends">Najít přátele</string>
   <string name="favoriteOpponents">Oblíbení soupeři</string>
@@ -518,6 +525,7 @@
   <string name="pleaseVotePuzzle">Pomozte zlepšit Lichess díky hlasování, pomocí šipek nahoru a dolů:</string>
   <string name="thankYou">Děkujeme!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skryté</string>
   <plurals name="playedXTimes">
     <item quantity="one">Hráno %skrát</item>
     <item quantity="few">Hráno %skrát</item>
@@ -636,6 +644,9 @@
   <string name="xCommentedY">%1$s okomentoval %2$s</string>
   <string name="victory">Vítězství</string>
   <string name="defeat">Porážka</string>
+  <string name="victoryVsYInZ">%1$s proti %2$s v %3$s</string>
+  <string name="defeatVsYInZ">%1$s proti %2$s v %3$s</string>
+  <string name="drawVsYInZ">%1$s proti %2$s v %3$s</string>
   <string name="timeline">Timeline</string>
   <string name="starting">Začíná:</string>
   <string name="allInformationIsPublicAndOptional">Všechny informace jsou veřejné a nepovinné.</string>
@@ -759,6 +770,9 @@
   <string name="yourPerfTypeRatingIsRating">Vaše %1$s hodnocení je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Jste lepší než %1$s z %2$s hráčů.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemáte stanovené %s hodnocení.</string>
+  <string name="yourRating">Tvoje hodnocení</string>
+  <string name="cumulative">Kumulativně</string>
+  <string name="glicko2Rating">Glicko-2 hodnocení</string>
   <string name="checkYourEmail">Zkontrolujte svoji emailovou složku</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Zaslali jsme vám email. Klikněte na odkaz v emailu pro aktivaci vašeho účtu.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Pokud email nenaleznete v doručené poště, zkontrolujte další místa, kde by mohl být, jako spam, zprávy ze sociálních sítí, koš nebo jiné složky.</string>
@@ -918,4 +932,9 @@
     <item quantity="many">a uložit %s předtažených variant</item>
     <item quantity="other">a uložit %s předtažených variant</item>
   </plurals>
+  <string name="sorry">Omlouváme se :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Museli jsme tě odpojit na chvíli.</string>
+  <string name="timeoutExpires">Odpojení skončí za %s.</string>
+  <string name="why">Proč?</string>
+  <string name="pleasantChessExperience">Snažíme se všem poskytnout příjemnou hru.</string>
 </resources>
