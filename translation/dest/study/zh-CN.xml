@@ -67,4 +67,10 @@
   <string name="studyNotFound">找不到研究</string>
   <string name="editChapter">编辑章节</string>
   <string name="newChapter">新章节</string>
+  <string name="pinnedChapterComment">置顶评论</string>
+  <string name="saveChapter">保存章节</string>
+  <string name="clearAnnotations">清除注释</string>
+  <string name="deleteChapter">删除章节</string>
+  <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
+  <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>
 </resources>
