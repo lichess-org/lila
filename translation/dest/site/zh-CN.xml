@@ -824,5 +824,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">并保存%s条预先走棋线</item>
   </plurals>
-  <string name="weHadToTimeYouOutForAWhile">您必须等待一段时间。</string>
+  <string name="weHadToTimeYouOutForAWhile">请稍候再试！</string>
+  <string name="why">原因</string>
+  <string name="pleasantChessExperience">我们致力于为所有人提供一个愉悦的下棋体验。</string>
+  <string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
 </resources>
