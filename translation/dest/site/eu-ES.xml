@@ -358,6 +358,10 @@
   <string name="blackCheckmatesInOneMove">Beltzek xake-mate jokaldi bakarrean</string>
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">Lagun %s konektatuta</item>
+    <item quantity="other">%s lagun konektatuta</item>
+  </plurals>
   <string name="noFriendsOnline">Ez dago lagunik konektatuta</string>
   <string name="findFriends">Lagunak bilatu</string>
   <string name="favoriteOpponents">Gogoko aurkariak</string>
