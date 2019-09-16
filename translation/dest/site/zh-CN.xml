@@ -334,6 +334,9 @@
   <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">在线好友：%s</item>
+  </plurals>
   <string name="noFriendsOnline">没有好友在线</string>
   <string name="findFriends">好友建议</string>
   <string name="favoriteOpponents">最常对局的对手</string>
@@ -559,6 +562,9 @@
   <string name="xCommentedY">%1$s 评论%2$s</string>
   <string name="victory">胜</string>
   <string name="defeat">负</string>
+  <string name="victoryVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="defeatVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="drawVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有资料是公开的。同时它们是选填的。</string>
@@ -670,6 +676,7 @@
   <string name="yourPerfTypeRatingIsRating">您的%1$s积分是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您比%1$s的%2$s棋手更强。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的%s积分。</string>
+  <string name="cumulative">累计</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
@@ -817,4 +824,5 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">并保存%s条预先走棋线</item>
   </plurals>
+  <string name="weHadToTimeYouOutForAWhile">您必须等待一段时间。</string>
 </resources>
