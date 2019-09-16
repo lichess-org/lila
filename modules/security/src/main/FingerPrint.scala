@@ -19,7 +19,7 @@ object FingerHash {
       } take length
     } some
   } catch {
-    case _: Exception => none
+    case e: Exception => println(e); none
   }
 
   val impersonate = FingerHash("imperson")
