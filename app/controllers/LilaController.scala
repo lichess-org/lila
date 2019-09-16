@@ -445,10 +445,11 @@ private[controllers] trait LilaController
   protected val csrfCheck = Env.security.csrfRequestHandler.check _
   protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
   private val httpDomain = Env.api.Net.Domain
+  private val httpDomainWithDot = s"$httpDomain."
   private val socketDomain = Env.api.Net.SocketDomain
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-    if (req.host == socketDomain && HTTPRequest.isRedirectable(req))
+    if ((req.host == socketDomain || req.host == httpDomainWithDot) && HTTPRequest.isRedirectable(req))
       MovedPermanently(s"http${if (req.secure) "s" else ""}://$httpDomain${req.uri}").fuccess
     else if (csrfCheck(req)) f
     else csrfForbiddenResult
