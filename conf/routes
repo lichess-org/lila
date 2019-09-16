@@ -98,8 +98,6 @@ POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
 # mobile app sends no site socket version: default to v3
-GET   /analysis/socket                 controllers.UserAnalysis.socket(apiVersion: Int = 3)
-GET   /analysis/socket/v:apiVersion    controllers.UserAnalysis.socket(apiVersion: Int)
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index

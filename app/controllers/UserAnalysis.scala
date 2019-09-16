@@ -95,12 +95,6 @@ object UserAnalysis extends LilaController with TheftPrevention {
         }
     }
 
-  def socket(apiVersion: Int) = SocketOption { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      Env.analyse.socketHandler.join(sri, ctx.me, apiVersion) map some
-    }
-  }
-
   // XHR only
   def pgn = OpenBody { implicit ctx =>
     implicit val req = ctx.body
