@@ -77,6 +77,10 @@
   <string name="recentGames">Yariyên vê dawiyê</string>
   <string name="topGames">Lîstikên trend</string>
   <string name="masterDbExplanation">Du milyon lîstikên ku li ser texteyê ji aliyê lîzerên %1$s+ FIDE ve hatine lîstin, ji %2$s heya %3$s</string>
+  <plurals name="mateInXHalfMoves">
+    <item quantity="one">%s mat dibe di nîv-hemleyê de</item>
+    <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
+  </plurals>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>

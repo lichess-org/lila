@@ -359,6 +359,10 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="blackCheckmatesInOneMove">Il Nero dà matto in una mossa</string>
   <string name="retry">Riprova</string>
   <string name="reconnecting">Riconnessione</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amico online</item>
+    <item quantity="other">%s amici online</item>
+  </plurals>
   <string name="noFriendsOnline">Nessun amico online</string>
   <string name="findFriends">Trova amici</string>
   <string name="favoriteOpponents">Avversari preferiti</string>

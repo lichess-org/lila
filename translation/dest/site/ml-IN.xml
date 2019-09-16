@@ -359,8 +359,8 @@
   <string name="retry">വീണ്ടും ശ്രമിക്കുക</string>
   <string name="reconnecting">വീണ്ടും ബന്ധപ്പെടുന്നു</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s സുഹൃത്ത് ഓൺലൈനായി</item>
-    <item quantity="other">%s സുഹൃത്തുക്കൾ ഓൺലൈനായി</item>
+    <item quantity="one">%s സുഹൃത്ത് ഓണ്‍ലൈനാണ്</item>
+    <item quantity="other">%s സുഹൃത്തുക്കൾ ഓണ്‍ലൈനാണ്</item>
   </plurals>
   <string name="noFriendsOnline">സുഹൃത്തുക്കളാരും ഓണ്‍ലൈന്‍ ഇല്ല</string>
   <string name="findFriends">സുഹൃത്തുക്കളെ കണ്ടെത്തുക</string>
