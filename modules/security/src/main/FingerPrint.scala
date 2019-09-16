@@ -17,11 +17,16 @@ object FingerHash {
     import org.apache.commons.codec.binary.Hex
     FingerHash {
       Base64.getEncoder encodeToString {
-        Hex decodeHex print.value.replace("-", "").toArray
+        Hex decodeHex normalize(print).toArray
       } take length
     } some
   } catch {
     case _: Exception => none
+  }
+
+  private def normalize(fp: FingerPrint): String = {
+    val str = fp.value.replace("-", "")
+    if (str.size % 2 == 1) s"${str}0" else str
   }
 
   val impersonate = FingerHash("imperson")
