@@ -52,9 +52,9 @@ module.exports = function(cfg, element) {
         },
         reload_timeline: function() {
           $.ajax({
-            url: $("#timeline").data('href'),
+            url: '/timeline',
             success: function(html) {
-              $('#timeline').html(html);
+              $('.timeline').html(html);
               lichess.pubsub.emit('content_loaded');
             }
           });

@@ -106,7 +106,7 @@ object home {
             )
           ),
           ctx.me map { u =>
-            div(cls := "timeline", dataHref := routes.Timeline.home)(
+            div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               // userTimeline.size >= 8 option
