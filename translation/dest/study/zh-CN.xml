@@ -74,6 +74,7 @@
   <string name="deleteThisChapter">删除本章节？本操作无法撤销！</string>
   <string name="clearAllCommentsInThisChapter">清除章节中所有信息？</string>
   <string name="chapterX">章节 %s</string>
+  <string name="unlisted">未列出</string>
   <string name="inviteOnly">仅邀请</string>
   <string name="allowCloning">允许复制</string>
   <string name="nobody">没人</string>
