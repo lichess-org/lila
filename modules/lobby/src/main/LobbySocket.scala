@@ -107,7 +107,7 @@ final class LobbySocket(
 
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
-        send(P.Out.tellSri(member.sri, JsArray(hooks.map(_.render))))
+        send(P.Out.tellSri(member.sri, makeMessage("hooks", JsArray(hooks.map(_.render)))))
         hookSubscriberSris += member.sri.value
     }
 
