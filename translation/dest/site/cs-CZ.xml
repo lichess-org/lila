@@ -948,4 +948,7 @@
   <string name="thankYouForReading">Díky za přečtení!</string>
   <string name="lifetimeScore">Celoživotní skóre</string>
   <string name="currentMatchScore">Současné výsledky zápasů</string>
+  <string name="agreementAssistance">Přísahám, že nikdy nevyužiji jiné pomoci při mých hrách (počítače, knihy, databáze nebo jiné osoby).</string>
+  <string name="agreementNice">Přísahám, že budu vždy respektovat ostatní hráče.</string>
+  <string name="agreementAccount">Přísahám, že nikdy nebudu vytvářet více účtů.</string>
 </resources>
