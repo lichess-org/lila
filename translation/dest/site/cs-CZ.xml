@@ -937,4 +937,15 @@
   <string name="timeoutExpires">Odpojení skončí za %s.</string>
   <string name="why">Proč?</string>
   <string name="pleasantChessExperience">Snažíme se všem poskytnout příjemnou hru.</string>
+  <string name="goodPractice">Proto se musíme ujistit, že se všichni chovají správně.</string>
+  <string name="potentialProblem">Tato zpráva se ukáže když zjistíme problém.</string>
+  <string name="howToAvoidThis">Jak se tomuto vyhnout?</string>
+  <string name="playEveryGame">Dohraj každou hru kterou začneš.</string>
+  <string name="tryToWin">Zkus vyhrát (nebo alespoň remizovat) každou hru.</string>
+  <string name="resignLostGames">Odstup od prohraných her (nenechávej dojít hodiny).</string>
+  <string name="temporaryInconvenience">Omlouváme se za dočasnou nedostupnost,</string>
+  <string name="wishYouGreatGames">a přejeme ti mnoho dobrých partií na lichess.org.</string>
+  <string name="thankYouForReading">Díky za přečtení!</string>
+  <string name="lifetimeScore">Celoživotní skóre</string>
+  <string name="currentMatchScore">Současné výsledky zápasů</string>
 </resources>
