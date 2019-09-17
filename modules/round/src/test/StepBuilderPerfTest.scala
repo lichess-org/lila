@@ -6,6 +6,7 @@ import chess._
 
 class StepBuilderPerfTest extends Specification {
 
+  /* TODO: Disabled because of https://github.com/ornicar/lila/issues/5522
   sequential
 
   val nb = 200
@@ -44,4 +45,5 @@ class StepBuilderPerfTest extends Specification {
       runTests()
     }
   }
+  */
 }
