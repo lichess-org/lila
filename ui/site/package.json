@@ -9,6 +9,7 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@build/cssProject": "^2",
     "browserify": "^16",
     "gulp": "^4",
     "gulp-terser": "^1",

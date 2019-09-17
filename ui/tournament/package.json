@@ -20,6 +20,7 @@
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "@build/tsProject": "^2",
+    "@build/cssProject": "^2",
     "@types/jquery": "^2.0",
     "@types/lichess": "1.0.0"
   },
