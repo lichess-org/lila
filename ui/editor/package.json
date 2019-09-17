@@ -1,12 +1,9 @@
 {
   "name": "editor",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org board editor",
   "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess.org",
@@ -15,17 +12,13 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "@build/jsProject": "^2",
-    "@build/cssProject": "^2"
+    "@build/jsProject": "2.0.0",
+    "@build/cssProject": "2.0.0"
   },
   "dependencies": {
     "chessground": "^7.6",
     "mithril": "github:ornicar/mithril.js#lila-1",
-    "common": "1.0.0"
+    "common": "2.0.0"
   }
 }

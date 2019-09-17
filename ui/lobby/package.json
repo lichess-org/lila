@@ -1,12 +1,9 @@
 {
   "name": "lobby",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org lobby",
   "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess",
@@ -15,18 +12,14 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "@build/tsProject": "^2",
+    "@build/tsProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0"
+    "@types/lichess": "2.0.0"
   },
   "dependencies": {
     "chessground": "^7.6",
-    "common": "1.0.0",
+    "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }

@@ -1,16 +1,17 @@
 {
   "name": "notify",
   "version": "2.0.0",
-  "description": "lichess.org notifications UI",
+  "private": true,
+  "description": "lichess.org notifications ui",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "dependencies": {
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   },
   "devDependencies": {
-    "@build/tsProject": "^2",
-    "@build/cssProject": "^2",
+    "@build/tsProject": "2.0.0",
+    "@build/cssProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0"
+    "@types/lichess": "2.0.0"
   }
 }

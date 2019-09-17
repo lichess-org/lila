@@ -1,7 +1,8 @@
 {
   "name": "chat",
   "version": "2.0.0",
-  "description": "lichess.org chat UI",
+  "private": true,
+  "description": "lichess.org chat ui",
   "main": "dist/main.js",
   "types": "dist/main",
   "author": "Thibault Duplessis",
@@ -13,8 +14,8 @@
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   },
   "devDependencies": {
-    "@build/tsProject": "^2",
+    "@build/tsProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0"
+    "@types/lichess": "2.0.0"
   }
 }

@@ -1,12 +1,9 @@
 {
   "name": "insight",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org chess insights",
   "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess",
@@ -15,15 +12,11 @@
   ],
   "author": "ornicar",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "@build/jsProject": "^2"
+    "@build/jsProject": "2.0.0"
   },
   "dependencies": {
-    "common": "1.0.0",
+    "common": "2.0.0",
     "mithril": "github:ornicar/mithril.js#lila-1",
     "numeral": "^1.5"
   }

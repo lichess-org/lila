@@ -1,29 +1,21 @@
 {
   "name": "chess",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org chess utils",
   "main": "dist/main.js",
   "typings": "dist/main",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess"
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc"
   },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "@types/lichess": "1.0.0",
+    "@types/lichess": "2.0.0",
     "typescript": "^3"
-  },
-  "dependencies": {}
+  }
 }

@@ -1,6 +1,7 @@
 {
   "name": "lila",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org: the forever free, adless and open source chess server",
   "repository": {
     "type": "git",
@@ -23,7 +24,6 @@
     "fs-extra": "^4.0.2",
     "xml2js": "^0.4.19"
   },
-  "private": true,
   "workspaces": [
     "ui",
     "ui/analyse",
