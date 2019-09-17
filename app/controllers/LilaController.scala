@@ -449,10 +449,7 @@ private[controllers] trait LilaController
   private val socketDomain = Env.api.Net.SocketDomain
 
   private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-    if ((req.host == socketDomain || req.host == httpDomainWithDot) && HTTPRequest.isRedirectable(req))
-      MovedPermanently(s"http${if (req.secure) "s" else ""}://$httpDomain${req.uri}").fuccess
-    else if (csrfCheck(req)) f
-    else csrfForbiddenResult
+    if (csrfCheck(req)) f else csrfForbiddenResult
 
   protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res else notFound
