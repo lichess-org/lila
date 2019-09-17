@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
+    "@build/jsProject": "^2",
     "breakpoint-sass": "^2.7.1",
     "browser-sync": "^2.26.3",
     "browserify": "^16",

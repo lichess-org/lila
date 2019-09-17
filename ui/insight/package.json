@@ -20,14 +20,7 @@
   },
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
-    "browserify": "^16",
-    "gulp": "^4",
-    "gulp-terser": "^1",
-    "gulp-size": "^3",
-    "fancy-log": "^1",
-    "vinyl-source-stream": "^2",
-    "vinyl-buffer": "^1",
-    "watchify": "^3"
+    "@build/jsProject": "^2"
   },
   "dependencies": {
     "common": "1.0.0",
