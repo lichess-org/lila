@@ -1,4 +1,4 @@
-self.addEventListener('push', event => {
+self.addEventListener('push', (event: any) => {
   const data = event.data.json();
   return self.registration.showNotification(data.title, {
     badge: 'https://lichess1.org/assets/images/logo.256.png',
@@ -10,7 +10,7 @@ self.addEventListener('push', event => {
   });
 });
 
-self.addEventListener('notificationclick', event => {
+self.addEventListener('notificationclick', (event: any) => {
   event.waitUntil(self.registration.getNotifications().then(notifications => {
     notifications.forEach(notification => notification.close());
     return self.clients.matchAll({

@@ -45,6 +45,7 @@
     "ui/notify",
     "ui/puzzle",
     "ui/round",
+    "ui/serviceWorker",
     "ui/simul",
     "ui/site",
     "ui/tournament",
