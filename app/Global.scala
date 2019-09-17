@@ -38,8 +38,10 @@ object Global extends GlobalSettings {
     else if (HTTPRequest isFishnet req) lila.mon.http.request.fishnet()
     else if (HTTPRequest isBot req) lila.mon.http.request.bot()
     else lila.mon.http.request.page()
-    lila.i18n.Env.current.subdomainKiller(req) orElse
-      super.onRouteRequest(req)
+
+    if (req.host != Env.api.Net.Domain && HTTPRequest.isRedirectable(req) && !HTTPRequest.isProgrammatic(req))
+      Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
+    else super.onRouteRequest(req)
   }
 
   private def niceError(req: RequestHeader): Boolean =
