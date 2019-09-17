@@ -1,3 +1,2 @@
 require('@build/tsProject')('LichessDasher', 'lichess.dasher', __dirname);
-
-require('../gulp/cssProject.js')(__dirname);
+require('@build/cssProject')(__dirname);
