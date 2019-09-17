@@ -21,6 +21,7 @@
   "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
     "@build/tsProject": "^2",
+    "@build/tsPlugins": "^2",
     "@types/lichess": "1.0.0"
   },
   "dependencies": {
