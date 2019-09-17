@@ -9,5 +9,7 @@ jobs:
     - uses: actions/checkout@v1
       with:
         fetch-depth: 1
-    - name: Run a one-line script
+    - name: Install xmllint
+      run: apt-get install libxml2-utils
+    - name: Validate translation files
       run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
