@@ -25,8 +25,8 @@
     "compile": "../../node_modules/typescript/bin/tsc"
   },
   "devDependencies": {
-    "@types/lichess": "1.0.0",
-    "typescript": "^3"
+    "@build/tsProject": "^2",
+    "@types/lichess": "1.0.0"
   },
   "dependencies": {
   }

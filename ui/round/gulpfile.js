@@ -1,5 +1,5 @@
-const lilaGulp = require('../gulp/tsProject.js');
-const lilaGulpPlugins = require('../gulp/tsPlugins.js');
+const lilaGulp = require('@build/tsProject');
+const lilaGulpPlugins = require('@build/tsPlugins');
 
 lilaGulp('LichessRound', 'lichess.round', __dirname);
 

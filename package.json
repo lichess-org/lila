@@ -52,6 +52,10 @@
     "ui/tournamentSchedule",
     "ui/tournamentCalendar",
     "ui/tree",
+    "ui/@build/cssProject",
+    "ui/@build/jsProject",
+    "ui/@build/tsProject",
+    "ui/@build/tsPlugins",
     "ui/@types/lichess"
   ]
 }
