@@ -6,17 +6,8 @@
   "license": "AGPL-3.0",
   "dependencies": {},
   "devDependencies": {
+    "@build/tsProject": "^2",
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0",
-    "browserify": "^16",
-    "fancy-log": "^1",
-    "gulp": "^4",
-    "gulp-size": "^3",
-    "gulp-terser": "^1",
-    "tsify": "^4",
-    "typescript": "^3",
-    "vinyl-source-stream": "^2",
-    "vinyl-buffer": "^1",
-    "watchify": "^3"
+    "@types/lichess": "1.0.0"
   }
 }

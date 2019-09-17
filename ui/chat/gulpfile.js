@@ -1,3 +1,3 @@
-const lilaGulp = require('../gulp/tsProject.js');
+const lilaGulp = require('@build/tsProject');
 
 lilaGulp('LichessChat', 'lichess.chat', __dirname);
