@@ -3,5 +3,4 @@ files:
     translation: /translation/dest/%file_name%/%locale%.%file_extension%
     translate_attributes: '0'
     update_option: update_without_changes
-commit_message: "New translations: %file_name%/%locale%.%file_extension% (%language%) [skip ci]"
-append_commit_message: false
+commit_message: "[skip ci]"
