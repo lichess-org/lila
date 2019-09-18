@@ -25,7 +25,6 @@
     <item quantity="one">%s Parti</item>
     <item quantity="other">%s parti</item>
   </plurals>
-  <string name="addMembers">%s medlemar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Medlem</item>
     <item quantity="other">%s Medlemar</item>
