@@ -589,9 +589,9 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="xCommentedY">%1$s o\'yinchi %2$s ni izohladi</string>
   <string name="victory">G\'alaba</string>
   <string name="defeat">Mag\'lubiyat</string>
-  <string name="victoryVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda G\'alaba</string>
-  <string name="defeatVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda Mag\'lubiyat</string>
-  <string name="drawVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda Durrang</string>
+  <string name="victoryVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda %1$s</string>
+  <string name="defeatVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda %1$s</string>
+  <string name="drawVsYInZ">%3$s da %2$s bilan bo\'lgan o\'yinda %1$s</string>
   <string name="timeline">Vaqt chizig\'i</string>
   <string name="starting">Boshlanadi:</string>
   <string name="allInformationIsPublicAndOptional">Barcha xabarlar ochiq va ixtiyoriy.</string>
