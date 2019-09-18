@@ -684,7 +684,6 @@
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
   <string name="tournamentOfficial">Oficial</string>
-  <string name="timeBeforeTournamentStarts">El torneo comenzará en %s</string>
   <string name="averageCentipawnLoss">Pérdida promedio en centipeones</string>
   <string name="keyboardShortcuts">Atajos del teclado</string>
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
