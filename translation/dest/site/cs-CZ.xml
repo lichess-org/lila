@@ -329,10 +329,10 @@
     <item quantity="other">≥ %s hodnocených her</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s hodnocená hra</item>
-    <item quantity="few">≥ %1$s %2%s hodnocené hry</item>
-    <item quantity="many">≥ %1$s %2%s hodnocených her</item>
-    <item quantity="other">≥ %1$s %2%s hodnocených her</item>
+    <item quantity="one">≥ %1$s %2$s hodnocená hra</item>
+    <item quantity="few">≥ %1$s %2$s hodnocené hry</item>
+    <item quantity="many">≥ %1$s %2$s hodnocených her</item>
+    <item quantity="other">≥ %1$s %2$s hodnocených her</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Potřebujete odehrát ještě %1$s %2$s hodnocenou partii</item>
