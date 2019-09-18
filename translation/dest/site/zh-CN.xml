@@ -194,6 +194,7 @@
   <string name="playingRightNow">正在对局</string>
   <string name="eventInProgress">正在进行</string>
   <string name="finished">已结束</string>
+  <string name="finishesX">结束：%s</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">标准国际象棋</string>
@@ -334,6 +335,9 @@
   <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">在线好友：%s</item>
+  </plurals>
   <string name="noFriendsOnline">没有好友在线</string>
   <string name="findFriends">好友建议</string>
   <string name="favoriteOpponents">最常对局的对手</string>
@@ -516,7 +520,7 @@
   <string name="moveListWhilePlaying">对局进行时显示可走着</string>
   <string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
   <string name="chessPieceSymbol">国际象棋件符号</string>
-  <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
+  <string name="pgnLetter">字母 （K, Q, R, B, N）</string>
   <string name="chessClock">棋钟</string>
   <string name="tenthsOfSeconds">显示十分之一秒</string>
   <string name="never">从不</string>
@@ -559,6 +563,9 @@
   <string name="xCommentedY">%1$s 评论%2$s</string>
   <string name="victory">胜</string>
   <string name="defeat">负</string>
+  <string name="victoryVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="defeatVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="drawVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
   <string name="timeline">时间线</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有资料是公开的。同时它们是选填的。</string>
@@ -670,6 +677,9 @@
   <string name="yourPerfTypeRatingIsRating">您的%1$s积分是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您比%1$s的%2$s棋手更强。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的%s积分。</string>
+  <string name="yourRating">你的排名</string>
+  <string name="cumulative">累计</string>
+  <string name="glicko2Rating">Glicko-2 排名</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
@@ -817,4 +827,24 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">并保存%s条预先走棋线</item>
   </plurals>
+  <string name="sorry">抱歉 :(</string>
+  <string name="weHadToTimeYouOutForAWhile">请稍候再试！</string>
+  <string name="timeoutExpires">剩余时间：%s</string>
+  <string name="why">原因</string>
+  <string name="pleasantChessExperience">我们致力于为所有人提供一个愉悦的下棋体验。</string>
+  <string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
+  <string name="potentialProblem">我们将会在检测到潜在问题时显示本信息。</string>
+  <string name="howToAvoidThis">如何避免这种情况？</string>
+  <string name="playEveryGame">认真下完每一盘棋。</string>
+  <string name="tryToWin">竭尽全力去赢每一场对弈。</string>
+  <string name="resignLostGames">重连掉线的游戏（不要浪费他人时间 ）。</string>
+  <string name="temporaryInconvenience">对此我们深表歉意，</string>
+  <string name="wishYouGreatGames">并期待你在 lichess.org 上展露风采。</string>
+  <string name="thankYouForReading">感谢你的阅读！</string>
+  <string name="lifetimeScore">最终分数</string>
+  <string name="currentMatchScore">当前比赛分数</string>
+  <string name="agreementAssistance">本人在游戏进行中不会接受任何帮助（包括来自电脑程序、书籍、残局库或其他人）。</string>
+  <string name="agreementNice">本人将尊重所有棋手。</string>
+  <string name="agreementAccount">本人不会创建多个账户。</string>
+  <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
 </resources>

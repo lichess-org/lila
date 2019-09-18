@@ -292,8 +292,8 @@
     <item quantity="other">≥ partidas puntuadas %s</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s partida puntuada %2%s</item>
-    <item quantity="other">≥ %1$s partidas puntuadas %2%s</item>
+    <item quantity="one">≥ %1$s partida puntuada %2$s</item>
+    <item quantity="other">≥ %1$s partidas puntuadas %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Necesitas xogar %1$s partida %2$s puntuada máis</item>

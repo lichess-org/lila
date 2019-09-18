@@ -67,7 +67,7 @@
   <string name="losing">جولەی دۆڕان</string>
   <string name="drawn">جولەی یەکسانبوون</string>
   <string name="unknown">نەزانراو</string>
-  <string name="averageRatingX">پۆلێنکردنی تێکرا: %</string>
+  <string name="averageRatingX">پۆلێنکردنی تێکرا: %s</string>
   <string name="recentGames">دوایین یاریەکانت</string>
   <string name="noGameFound">هیچ یارییەک نەدۆزرایەوە</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">ئایا دەتەویت جۆری تر دیاری بکەیت?</string>

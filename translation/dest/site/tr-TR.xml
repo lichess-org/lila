@@ -549,7 +549,7 @@
   <string name="moveListWhilePlaying">Oyun sırasında notasyonu göster</string>
   <string name="pgnPieceNotation">Notasyon tut</string>
   <string name="chessPieceSymbol">Satranç taş sembolleri</string>
-  <string name="pgnLetter">Harf (Ş, V, K, A, F)</string>
+  <string name="pgnLetter">Harf (K, Q, R, B, N)</string>
   <string name="chessClock">Satranç saati</string>
   <string name="tenthsOfSeconds">Saniyenin Onda Biri</string>
   <string name="never">Asla</string>

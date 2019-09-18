@@ -533,7 +533,7 @@
   <string name="moveListWhilePlaying">খেলার সময় তালিকা সরান</string>
   <string name="pgnPieceNotation">প্রতীক চিহ্ন সরান</string>
   <string name="chessPieceSymbol">দাবার টুকরোর ধরন</string>
-  <string name="pgnLetter">বর্ণ (কে, কিউ, আর, বি, এন)</string>
+  <string name="pgnLetter">বর্ণ (K, Q, R, B, N)</string>
   <string name="chessClock">দাবার ঘড়ি</string>
   <string name="tenthsOfSeconds">সেকেন্ডের কাটা</string>
   <string name="never">কখনই না</string>

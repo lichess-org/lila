@@ -243,7 +243,7 @@
   </plurals>
   <plurals name="nbPlaying">
     <item quantity="one">%s өрөг тоглож байна</item>
-    <item quantity="other">% s тоглуулж байна</item>
+    <item quantity="other">%s тоглуулж байна</item>
   </plurals>
   <string name="exportGames">Тоглолтыг гадагш нүүлгэх</string>
   <string name="ratingRange">Чансааны хязгаарлалт</string>
@@ -289,7 +289,7 @@
   <string name="yourPerfRatingIsTooLow">Таны %1$s чансаа (%2$s) хэт бага байна</string>
   <string name="ratedMoreThanInPerf">%2$s чансаа ≥ %1$s</string>
   <string name="ratedLessThanInPerf">%2$s чансаа ≤ %1$s</string>
-  <string name="youAreNotInTeam">Та % s багийн гишүүд биш байна</string>
+  <string name="youAreNotInTeam">Та %s багийн гишүүд биш байна</string>
   <string name="backToGame">Тоглолт руу буцах</string>
   <string name="siteDescription">Үнэ төлбөргүй шатар тоглох цахим хуудас. Цэвэрхэн интерфэйстэй, элдэв зар сурталчилгаагүй, бүртгэл шаардлагагүй. Та найзууд, дурын хүн, хиймэл оюун ухаантай шатар тоглож болно.</string>
   <string name="teams">Баг</string>
@@ -730,7 +730,6 @@
   <string name="xHostsY">%2$s-с %1$s үзүүлж байгаа</string>
   <string name="xJoinsY">%2$s-с %1$s нэгдсэн</string>
   <string name="xLikesY">%2$s-с %1$s-д таалагдсан</string>
-  <string name="xCreatesStudyY">Нээсэн study</string>
   <string name="quickPairing">Учирааг хурдасгах</string>
   <string name="lobby">Лобби</string>
   <string name="anonymous">Нэргүй</string>

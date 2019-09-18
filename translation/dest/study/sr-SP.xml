@@ -18,9 +18,9 @@
   </plurals>
   <string name="addMembers">Додај чланове</string>
   <plurals name="nbMembers">
-    <item quantity="one">%с Члан</item>
-    <item quantity="few">%с Чланa</item>
-    <item quantity="other">%с Чланова</item>
+    <item quantity="one">%s Члан</item>
+    <item quantity="few">%s Чланa</item>
+    <item quantity="other">%s Чланова</item>
   </plurals>
   <string name="inviteToTheStudy">Позови у студију</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Молимо вас да позовете људе које познајете и који су вољни да учествују у овој студији.</string>
