@@ -293,8 +293,8 @@
     <item quantity="other">≥ %s partijen met rating</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s partij met rating</item>
-    <item quantity="other">≥ %1$s %2%s partijen met rating</item>
+    <item quantity="one">≥ %1$s %2$s partij met rating</item>
+    <item quantity="other">≥ %1$s %2$s partijen met rating</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Je moet %1$s meer %2$s partij met rating spelen</item>
