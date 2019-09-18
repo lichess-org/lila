@@ -1,6 +1,14 @@
 name: Lint Translations
 
-on: [push, pull_request]
+on:
+  push:
+    paths:
+    - 'translation/'
+    - 'bin/trans-lint.py'
+  pull_request:
+    paths:
+    - 'translation/'
+    - 'bin/trans-lint.py'
 
 jobs:
   translations:
@@ -13,3 +21,5 @@ jobs:
       run: sudo apt-get install -y libxml2-utils
     - name: Validate translation files
       run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
+    - name: Lint translation files
+      run: ./bin/trans-lint.py translation/dest/*/*.xml
