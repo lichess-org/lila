@@ -6,10 +6,6 @@
     <item quantity="one">%s Бүлэг</item>
     <item quantity="other">%s бүлэг</item>
   </plurals>
-  <plurals name="nbGames">
-    <item quantity="one">Бүх %s өргүүд</item>
-    <item quantity="other">Тоглоомууд</item>
-  </plurals>
   <string name="addMembers">Гишүүд нэмэх</string>
   <string name="inviteToTheStudy">Судалгаанд оролцохыг урих</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">Зөвхөн таньдаг хүмүүсээ урьж, энэ судалгаанд нэгдэхийг хүсч буй хүмүүсийг урьж болно.</string>
