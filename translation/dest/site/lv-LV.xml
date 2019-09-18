@@ -578,7 +578,7 @@
   <string name="moveListWhilePlaying">Gājienu saraksts spēles laikā</string>
   <string name="pgnPieceNotation">Gājienu notācija</string>
   <string name="chessPieceSymbol">Šaha figūras simbols</string>
-  <string name="pgnLetter">Burts (K, D, T, L, Z)</string>
+  <string name="pgnLetter">Burts (K, Q, R, B, N)</string>
   <string name="chessClock">Šaha pulkstenis</string>
   <string name="tenthsOfSeconds">Sekunžu desmitdaļas</string>
   <string name="never">Nekad</string>
