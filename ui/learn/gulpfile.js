@@ -1,3 +1,3 @@
-const lilaGulp = require('../gulp/jsProject.js');
+const lilaGulp = require('@build/jsProject');
 
 lilaGulp('LichessLearn', 'lichess.learn', __dirname);

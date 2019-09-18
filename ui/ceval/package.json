@@ -1,13 +1,10 @@
 {
   "name": "ceval",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org local computer analysis",
   "main": "dist/src/main.js",
   "types": "dist/src/main",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess",
@@ -16,22 +13,18 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "scripts": {
     "compile": "../../node_modules/typescript/bin/tsc"
   },
   "devDependencies": {
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0",
+    "@types/lichess": "2.0.0",
     "@types/defer-promise": "1.0.0",
     "typescript": "^3"
   },
   "dependencies": {
-    "chess": "1.0.0",
-    "common": "1.0.0",
+    "chess": "2.0.0",
+    "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   }
 }

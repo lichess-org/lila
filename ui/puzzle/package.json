@@ -1,12 +1,9 @@
 {
   "name": "puzzle",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org puzzle solver",
   "main": "src/main.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ornicar/lila"
-  },
   "keywords": [
     "chess",
     "lichess",
@@ -15,30 +12,17 @@
   ],
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
-  "bugs": {
-    "url": "https://github.com/ornicar/lila/issues"
-  },
-  "homepage": "https://github.com/ornicar/lila",
   "devDependencies": {
+    "@build/tsProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0",
-    "browserify": "^16",
-    "fancy-log": "^1",
-    "gulp": "^4",
-    "gulp-size": "^3",
-    "gulp-terser": "^1",
-    "tsify": "^4",
-    "typescript": "^3",
-    "vinyl-source-stream": "^2",
-    "vinyl-buffer": "^1",
-    "watchify": "^3"
+    "@types/lichess": "2.0.0"
   },
   "dependencies": {
-    "ceval": "1.0.0",
-    "chess": "1.0.0",
+    "ceval": "2.0.0",
+    "chess": "2.0.0",
     "chessground": "^7.6",
-    "common": "1.0.0",
+    "common": "2.0.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
-    "tree": "1.0.0"
+    "tree": "2.0.0"
   }
 }

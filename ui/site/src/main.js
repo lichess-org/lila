@@ -978,7 +978,7 @@
   ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = lichess.assetUrl('javascripts/service-worker.js', {noVersion: true, sameDomain: true});
+    const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {noVersion: true, sameDomain: true});
     navigator.serviceWorker.register(workerUrl, {scope: '/'});
   }
 
