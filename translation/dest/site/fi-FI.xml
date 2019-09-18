@@ -291,8 +291,8 @@
     <item quantity="other">≥ %s pisteytettyä peliä</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s pisteytetty %2%s-peli</item>
-    <item quantity="other">≥ %1$s pisteytettyä %2%s-peliä</item>
+    <item quantity="one">≥ %1$s pisteytetty %2$s-peli</item>
+    <item quantity="other">≥ %1$s pisteytettyä %2$s-peliä</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Sinun pitää pelata vielä %1$s pisteytetty %2$s-peli</item>
@@ -540,7 +540,7 @@
   <string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
   <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
   <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
-  <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
+  <string name="pgnLetter">Kirjaimet (K, Q, R, B, N)</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
   <string name="never">Ei koskaan</string>
