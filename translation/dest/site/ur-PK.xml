@@ -242,7 +242,6 @@
   <string name="blocked">ممنوعہ</string>
   <string name="unblock">ممانعت ختم کریں</string>
   <string name="followsYou">آپ کا پیروکار ہے</string>
-  <string name="xStartedFollowingY">%1$s اب آپکا پیروکار ہے</string>
   <plurals name="nbFollowers">
     <item quantity="one">%s پیروکار</item>
     <item quantity="other">%s پیروکار</item>
