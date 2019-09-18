@@ -25,6 +25,10 @@
   <string name="howDoesItEnd">锦标赛如何结束？</string>
   <string name="howDoesItEndAnswer">锦标赛有倒计时。当它到零的时候锦标赛名次不再变动，赢家就确定了。此时未下完的棋局必须下完但这些棋局不计入锦标赛分数。</string>
   <string name="otherRules">其他重要的规则</string>
+  <string name="thereIsACountdown">第一次移动有时间限制。规定时间内未能采取行动将会转由对手操作。</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="other">前 %s 次移动玩家并不会获得任何积分。</item>
+  </plurals>
   <string name="thisIsPrivate">这是一个私人锦标赛</string>
   <string name="shareUrl">分享本链接让其他人加入本锦标赛：%s</string>
 </resources>
