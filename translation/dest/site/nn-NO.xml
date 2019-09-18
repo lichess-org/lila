@@ -293,8 +293,8 @@
     <item quantity="other">≥ %s rata parti</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s rata parti</item>
-    <item quantity="other">≥ %1$s %2%s rata parti</item>
+    <item quantity="one">≥ %1$s %2$s rata parti</item>
+    <item quantity="other">≥ %1$s %2$s rata parti</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Du må spela %1$s fleire %2$s rata parti</item>
@@ -359,6 +359,10 @@ få en computeranalyse, chatte eller dele ein URL.</string>
   <string name="blackCheckmatesInOneMove">Svart set matt i eitt trekk</string>
   <string name="retry">Prøv om att</string>
   <string name="reconnecting">Koplar til på ny</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ven er innlogga</item>
+    <item quantity="other">%s vener er innlogga</item>
+  </plurals>
   <string name="noFriendsOnline">Ingen vener er logga på</string>
   <string name="findFriends">Finn vener</string>
   <string name="favoriteOpponents">Favorittmotstandarar</string>
