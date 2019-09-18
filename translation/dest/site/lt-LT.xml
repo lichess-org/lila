@@ -76,7 +76,7 @@
   <string name="averageRatingX">Vidutinis reitingas: %s</string>
   <string name="recentGames">Paskiausios partijos</string>
   <string name="topGames">Geriausios partijos</string>
-  <string name="masterDbExplanation">Du milijonai OTB (prie lentos) partijų, sužaistų %1$s+ FIDE vertinamų žaidėjų, nuo 1952 iki 2017 m.</string>
+  <string name="masterDbExplanation">Du milijonai OTB (prie lentos) partijų, sužaistų %1$s+ FIDE vertinamų žaidėjų, nuo %2$s iki %3$s m.</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Matas už %s pus-ėjimo</item>
     <item quantity="few">Matas už %s pus-ėjimų</item>
