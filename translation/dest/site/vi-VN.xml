@@ -336,7 +336,6 @@
   <string name="blocked">Đã chặn</string>
   <string name="unblock">Bỏ chặn</string>
   <string name="followsYou">Theo dõi bạn</string>
-  <string name="xStartedFollowingY">%1$s bắt đầu theo dõi</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s người theo dõi</item>
   </plurals>
