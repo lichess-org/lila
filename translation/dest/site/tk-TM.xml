@@ -537,7 +537,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="moveListWhilePlaying">Oýun dowamynda göçüm sanawy</string>
   <string name="pgnPieceNotation">Göçüm notasiýasy</string>
   <string name="chessPieceSymbol">Küşt çöpi nyşany</string>
-  <string name="pgnLetter">Harp (Ş, W, R, P, A)</string>
+  <string name="pgnLetter">Harp (K, Q, R, B, N)</string>
   <string name="chessClock">Küşt sagady</string>
   <string name="tenthsOfSeconds">Sekundyň 10-da 1-i</string>
   <string name="never">Hiç wagt</string>
