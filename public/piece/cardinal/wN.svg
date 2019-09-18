@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <metadata>
   <rdf:RDF>
    <cc:Work rdf:about="">
@@ -10,19 +10,17 @@
   </rdf:RDF>
  </metadata>
  <defs>
-  <linearGradient id="linearGradient1884" x1="4997.9" x2="4997.9" y1="-2707.6" y2="-2850.6" gradientTransform="matrix(.26458 0 0 .26588 -1297.4 763.91)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient1884" x1="4998.1" x2="4998.1" y1="-2850.6" y2="-2707.6" gradientTransform="matrix(.26458 0 0 .26588 -1297.4 763.91)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#fff" offset="0"/>
    <stop stop-color="#e6e6e6" offset="1"/>
   </linearGradient>
  </defs>
  <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
   <path class="st14" d="m19.377 10.174c-0.39373 0.64114-6.1922-0.73975-5.7986-0.16275 0.13129 0.22445 0.5188 2.5331 2.8154 3.1743 0.18407 0.4981-2.8795 4.4598-2.8795 4.4598-0.75456 1.2822-0.15118 1.1675-1.0368 2.4177-3.0512 4.3599-6.1254 7.0375-6.4207 10.948-0.13126 1.7953 1.4763 2.3723 3.6745 3.3982 3.7729 3.1095 6.4316-2.5242 8.5642-3.9667 1.9357-1.1862 6.7517-3.0465 7.9328-4.5211-0.36986 8.2563-9.0046 9.9097-10.526 17.529h28.248v-1.7632c-0.065643-7.213-0.62341-14.715-3.937-21.03-3.0184-5.4818-9.6785-9.9379-16.371-10.899-0.78737-0.32052-0.59055-1.6028-1.9357-2.212-1.7388-0.89757-2.3952-1.0908-2.9366-0.96261s0.80383 2.7249 0.60698 3.5905z" fill="url(#linearGradient1884)" image-rendering="optimizeQuality" stroke="#0a0a0a" stroke-width="1.1"/>
-  <g>
-   <path class="st15" d="m12.097 31.636c0.41021-0.18598 0.52525-0.08028 0.93536 0.34875-0.56496-0.01138-2.7662 2.5824-3.0232 2.4169-1.1463-0.73832-1.4042 0.96406 2.0879-2.7656z" image-rendering="optimizeQuality" stroke-width=".31277"/>
-   <path class="st15" d="m8.7243 28.195c0.40767-0.29305 0.58603 0.26646 0.40767 0.8259-0.20381 0.31972-0.9172 0.79931-1.3758 0.95911-0.58595 0.21318-0.76428-0.05323 0.96811-1.785z" image-rendering="optimizeQuality" stroke-width=".31277"/>
-   <path class="st15" d="m16.245 21.444c0.03617-0.22167 0.73996-2.2466 1.0396-1.1364 0.02381 0.14084-0.25882-0.13174-0.32491 0.13031 1.5602 0.70966 2.5152-0.83635 1.7835-1.8835 0.51321-0.49371 1.511-0.49117 1.8969-0.78211 0.16841-0.74583-1.2242-0.47022-1.6264-0.44746-3.4155 0.75152-3.5433 4.9896-2.7687 4.1191z" image-rendering="optimizeQuality" stroke-width=".3479"/>
-   <path class="st32" d="m24.183 25.488c1.04-0.99346 2.3918-2.4241 1.1701-3.6446-0.38095-0.32716-1.6503-1.9696-2.0501-1.2457 1.6242 1.8899 1.3386 2.4069 0.43251 5.192" image-rendering="optimizeQuality" stroke-width="1.2"/>
-  </g>
+  <path class="st15" d="m12.097 31.636c0.41021-0.18598 0.52525-0.08028 0.93536 0.34875-0.56496-0.01138-2.7662 2.5824-3.0232 2.4169-1.1463-0.73832-1.4042 0.96406 2.0879-2.7656z" image-rendering="optimizeQuality" stroke-width=".31277"/>
+  <path class="st15" d="m8.7243 28.195c0.40767-0.29305 0.58603 0.26646 0.40767 0.8259-0.20381 0.31972-0.9172 0.79931-1.3758 0.95911-0.58595 0.21318-0.76428-0.05323 0.96811-1.785z" image-rendering="optimizeQuality" stroke-width=".31277"/>
+  <path class="st15" d="m16.245 21.444c0.03617-0.22167 0.73996-2.2466 1.0396-1.1364 0.02381 0.14084-0.25882-0.13174-0.32491 0.13031 1.5602 0.70966 2.5152-0.83635 1.7835-1.8835 0.51321-0.49371 1.511-0.49117 1.8969-0.78211 0.16841-0.74583-1.2242-0.47022-1.6264-0.44746-3.4155 0.75152-3.5433 4.9896-2.7687 4.1191z" image-rendering="optimizeQuality" stroke-width=".3479"/>
+  <path class="st32" d="m24.183 25.488c1.04-0.99346 2.3918-2.4241 1.1701-3.6446-0.38095-0.32716-1.6503-1.9696-2.0501-1.2457 1.6242 1.8899 1.3386 2.4069 0.43251 5.192" image-rendering="optimizeQuality" stroke-width="1.2"/>
  </g>
  <path class="st15" d="m39.433 39.727s0-0.38536 0.01905-1.1913c0.0953-12.754-1.4185-16.851-9.8729-21.503 8.0573 7.3948 7.7185 11.482 7.9473 22.694z" stroke-width=".31277"/>
 </svg>
