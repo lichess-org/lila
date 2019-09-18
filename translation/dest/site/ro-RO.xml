@@ -578,7 +578,7 @@
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
   <string name="pgnPieceNotation">Notația PGN a pieselor</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
-  <string name="pgnLetter">Literă (R, D, T, N, C)</string>
+  <string name="pgnLetter">Literă (K, Q, R, B, N)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
   <string name="never">Niciodată</string>
@@ -615,7 +615,6 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Dificil</string>
   <string name="xLeftANoteOnY">%1$s a lăsat un mesaj pentru %2$s</string>
-  <string name="xCompetesInY">%1$s joacă în °s</string>
   <string name="xAskedY">%1$s a întrebat %2$s</string>
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>
