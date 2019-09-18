@@ -7,7 +7,7 @@
   <string name="passwordReset_subject">Զրոյացրեք lichess.org-ի Ձեր գաղտնաբառը, %s</string>
   <string name="passwordReset_intro">Մենք ստացել ենք Ձեր հաշվի գաղտնաբառը վերականգնելու հարցում:</string>
   <string name="passwordReset_clickOrIgnore">Եթե հարցում կատարել եք, սեղմեք ստորև բերված հղման վրա: Եթե ոչ՝ ուղղակի անտեսեք այն:</string>
-  <string name="emailChange_subject">Հաստատեք Ձեր նոր էլեկտրոնային հասցեն:</string>
+  <string name="emailChange_subject">Հաստատեք Ձեր նոր էլեկտրոնային հասցեն, %s</string>
   <string name="emailChange_intro">Դուք ցանկացել եք փոխել Ձեր էլեկտրոնային հասցեն:</string>
   <string name="emailChange_click">Որպեսզի հաստատեք այս էլ. փոստը, անցեք ստորև բերված հղումով:</string>
   <string name="welcome_subject">Բարի գալուստ lichess.org, %s</string>
