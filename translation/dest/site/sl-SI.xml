@@ -404,6 +404,12 @@
   <string name="blackCheckmatesInOneMove">Črni matira v eni potezi</string>
   <string name="retry">Poskusi ponovno</string>
   <string name="reconnecting">Ponovno vzpostavljanje povezave</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s prijatelj je prijavljen</item>
+    <item quantity="two">%s prijatelja sta prijavljena</item>
+    <item quantity="few">%s prijatelji so prijaveljeni</item>
+    <item quantity="other">%s prijateljev je prijavljenih</item>
+  </plurals>
   <string name="noFriendsOnline">Ni prijavljenih prijateljev</string>
   <string name="findFriends">Poišči prijatelje</string>
   <string name="favoriteOpponents">Priljubljeni nasprotniki</string>

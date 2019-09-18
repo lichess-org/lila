@@ -293,8 +293,8 @@
     <item quantity="other">≥ %s jogos valendo pontos</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s partida %2%s valendo pontos</item>
-    <item quantity="other">≥ %1$s %2%s partidas valendo pontos</item>
+    <item quantity="one">≥ %1$s partida %2$s valendo pontos</item>
+    <item quantity="other">≥ %1$s %2$s partidas valendo pontos</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Você precisa jogar %1$s mais %2$s partidas valendo pontos</item>
@@ -359,6 +359,10 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="blackCheckmatesInOneMove">Xeque-mate em um lance para as pretas</string>
   <string name="retry">Tentar novamente</string>
   <string name="reconnecting">Reconectando</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amigo disponível</item>
+    <item quantity="other">%s amigos disponíveis</item>
+  </plurals>
   <string name="noFriendsOnline">Não há amigos online</string>
   <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
@@ -656,8 +660,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
-  <string name="aboutX">Sobre</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito, livre, sem anúncios e de código aberto.</string>
+  <string name="aboutX">Sobre %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor grátis de xadrez (%2$s), sem publicidade e open source.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contato</string>

@@ -81,6 +81,13 @@
     <item quantity="one">%s mat dibe di nîv-hemleyê de</item>
     <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
   </plurals>
+  <string name="noGameFound">Ti lîstik nehat dîtin</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkî bixwazî ji menuya tercîhan zêdetir lîstikan bînî?</string>
+  <string name="openingExplorer">Kaşifê destpêkê</string>
+  <string name="xOpeningExplorer">%s kaşifê destpêkê</string>
+  <string name="winPreventedBy50MoveRule">Ji ber qaîdeya 50 hemleyê rê li ber serkeftinê hate girtin</string>
+  <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
+  <string name="allSet">Temam e!</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>

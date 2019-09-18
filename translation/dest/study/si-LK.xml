@@ -9,7 +9,7 @@
   <string name="myFavoriteStudies">මගේ ප්‍රියතම අධ්‍යයන</string>
   <string name="whatAreStudies">අධ්‍යයන යනු කුමක්ද?</string>
   <string name="allStudies">සියලුම අධ්‍යයන</string>
-  <string name="studiesCreatedByX">%S විසින් නිර්මාණය කරන ලද අධ්‍යයන</string>
+  <string name="studiesCreatedByX">%s විසින් නිර්මාණය කරන ලද අධ්‍යයන</string>
   <string name="noneYet">තවම කිසිවක් නැත.</string>
   <string name="hot">උණුසුම්</string>
   <string name="dateAddedNewest">එකතු කළ දිනය (නවතම)</string>

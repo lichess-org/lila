@@ -3,5 +3,4 @@
 <resources>
   <string name="emailConfirm_subject">doi la\'o cmene. %s .cmene ko tolna\'e tu\'a lo jaspu be do</string>
   <string name="emailChange_subject">doi la\'o cmene. %s .cmene ko tolna\'e tu\'a lo cnino ke samymri judri</string>
-  <string name="welcome_subject">do zanvi\'e fi la\'o zoi. lichess.org .zoi</string>
 </resources>

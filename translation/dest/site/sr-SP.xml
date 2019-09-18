@@ -310,9 +310,9 @@
     <item quantity="other">≥ %s рангираних игара</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s рангирана игра</item>
-    <item quantity="few">≥ %1$s %2%s рангиране игре</item>
-    <item quantity="other">≥ %1$s %2%s рангираних игара</item>
+    <item quantity="one">≥ %1$s %2$s рангирана игра</item>
+    <item quantity="few">≥ %1$s %2$s рангиране игре</item>
+    <item quantity="other">≥ %1$s %2$s рангираних игара</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Морате одиграти још %1$s %2$s рангирану игру</item>
@@ -573,7 +573,7 @@
   <string name="moveListWhilePlaying">Листа потеза током партије</string>
   <string name="pgnPieceNotation">Нотација</string>
   <string name="chessPieceSymbol">симболи фигура</string>
-  <string name="pgnLetter">Cлова (К, Q, R, B, N)</string>
+  <string name="pgnLetter">Cлова (K, Q, R, B, N)</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
   <string name="never">Никада</string>

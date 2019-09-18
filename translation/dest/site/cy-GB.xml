@@ -429,7 +429,7 @@
   <string name="moveListWhilePlaying">Rhestr symudiadau wrth chwarae</string>
   <string name="pgnPieceNotation">Math o gofnod</string>
   <string name="chessPieceSymbol">Nodiad symbolau</string>
-  <string name="pgnLetter">Llythyrau (T, B, C, E, M)</string>
+  <string name="pgnLetter">Llythyrau (K, Q, R, B, N)</string>
   <string name="chessClock">Cloc gwyddbwyll</string>
   <string name="tenthsOfSeconds">Degfedau eiliad</string>
   <string name="never">Byth</string>
@@ -469,7 +469,6 @@
   <string name="xCompetesInY">Mae %1$s yn cystadlu yn %2$s</string>
   <string name="xAskedY">Gofynnodd %1$s am %2$s</string>
   <string name="xAnsweredY">Atebodd %1$s i %2$s</string>
-  <string name="xCommentedY">Gadawodd %1$s sylw ar gyfer</string>
   <string name="victory">Buddugoliaeth</string>
   <string name="defeat">Colled</string>
   <string name="timeline">Llinell amser</string>

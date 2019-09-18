@@ -29,7 +29,14 @@ Ob koncu partije se sestavi pare iz prostih igralcev. Prosti igralci dobijo tist
 Igrajte hitro in se vrnite v čakalno vrsto v igralni dvorani, ter si tako zagotovite več iger in več točk.</string>
   <string name="howDoesItEnd">Kako se zaključi?</string>
   <string name="howDoesItEndAnswer">Turnir ima omejen čas. Ko se izteče se trenutna razvrstitev zamrzne in se razglasi zmagovalca. Partije ki potekajo se morajo zaključiti, vendar ne vplivajo na končno razvrstitev.</string>
-  <string name="otherRules">Droga pomembna pravila</string>
+  <string name="otherRules">Druga pomembna pravila</string>
+  <string name="thereIsACountdown">S prvo poteo začne odštevanje. Če poteze ne potegnete znotraj tega časa, bo partija predna v korist naspotnika.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Remi v %s potezi ne bo nobenemu igralcu prineslo nobene točke.</item>
+    <item quantity="two">Remi v prvih %s potezah ne bo nobenemu igralcu prineslo nobene točke.</item>
+    <item quantity="few">Remi v prvih %s potezah ne bo nobenemu igralcu prineslo nobene točke.</item>
+    <item quantity="other">Remi v prvih %s potezah ne bo nobenemu igralcu prineslo nobene točke.</item>
+  </plurals>
   <string name="thisIsPrivate">Ta turnir je zaseben</string>
   <string name="shareUrl">Delite ta URL, da se igralci lahko pridružijo: %s</string>
 </resources>

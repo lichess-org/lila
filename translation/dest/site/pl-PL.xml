@@ -932,12 +932,6 @@
   <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by utworzyć ruchy warunkowe</string>
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
-  <plurals name="andSaveNbPremoveLines">
-    <item quantity="one">i zapisz wariant warunkowy</item>
-    <item quantity="few">i zapisz warianty warunkowe</item>
-    <item quantity="many">i zapisz warianty warunkowe</item>
-    <item quantity="other">i zapisz %s wariantów warunkowych</item>
-  </plurals>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
