@@ -3,11 +3,15 @@ name: Lint Translations
 on:
   push:
     paths:
-    - 'translation/'
+    - 'translation/*'
+    - 'translation/*/*'
+    - 'translation/*/*/*'
     - 'bin/trans-lint.py'
   pull_request:
     paths:
-    - 'translation/'
+    - 'translation/*'
+    - 'translation/*/*'
+    - 'translation/*/*/*'
     - 'bin/trans-lint.py'
 
 jobs:
