@@ -358,6 +358,10 @@
   <string name="blackCheckmatesInOneMove">Les Noirs font mat en un coup</string>
   <string name="retry">Réessayer</string>
   <string name="reconnecting">Reconnexion en cours</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ami en ligne</item>
+    <item quantity="other">%s amis en ligne</item>
+  </plurals>
   <string name="noFriendsOnline">Aucun ami en ligne</string>
   <string name="findFriends">Trouver des amis</string>
   <string name="favoriteOpponents">Adversaires préférés</string>
