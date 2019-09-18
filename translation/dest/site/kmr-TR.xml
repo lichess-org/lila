@@ -88,6 +88,7 @@
   <string name="winPreventedBy50MoveRule">Ji ber qaîdeya 50 hemleyê rê li ber serkeftinê hate girtin</string>
   <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
   <string name="allSet">Temam e!</string>
+  <string name="importPgn">PGNyê bîne navê</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
