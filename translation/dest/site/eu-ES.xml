@@ -293,8 +293,8 @@
     <item quantity="other">Sailkapenerako %s partida baino gehiago</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">%2%s partida %1$s baino gehiago</item>
-    <item quantity="other">%1$s %2%s partida baino gehiago</item>
+    <item quantity="one">%2$s partida %1$s baino gehiago</item>
+    <item quantity="other">%1$s %2$s partida baino gehiago</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Sailkapenerako balio duen beste %2$s partida %1$s jokatu behar duzu</item>
@@ -549,7 +549,7 @@
   <string name="moveListWhilePlaying">Jokaldi-zerrenda partidan zehar</string>
   <string name="pgnPieceNotation">Jokaldien idazketa</string>
   <string name="chessPieceSymbol">Xake piezen ikurra</string>
-  <string name="pgnLetter">Hizkiak (E, D, G, A, Z)</string>
+  <string name="pgnLetter">Hizkiak (K, Q, R, B, N)</string>
   <string name="chessClock">Xake-erlojua</string>
   <string name="tenthsOfSeconds">Segundo-hamarrenak erakutsi</string>
   <string name="never">Inoiz ere ez</string>
@@ -588,7 +588,6 @@
   <string name="xLeftANoteOnY">%1$s(e)k ohar bat utzi dio %2$s(r)i</string>
   <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
-  <string name="xAnsweredY">%1$s(e)k erantzun zuen</string>
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
   <string name="victory">Garaipena</string>
   <string name="defeat">Porrota</string>
