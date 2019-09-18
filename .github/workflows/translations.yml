@@ -1,4 +1,4 @@
-name: CI
+name: Lint Translations
 
 on: [push, pull_request]
 
@@ -10,6 +10,6 @@ jobs:
       with:
         fetch-depth: 1
     - name: Install xmllint
-      run: apt-get install libxml2-utils
+      run: sudo apt-get install -y libxml2-utils
     - name: Validate translation files
       run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
