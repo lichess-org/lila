@@ -1,14 +1,35 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
- <g transform="matrix(.26143 0 0 .26162 -439.2 179.43)" stroke-width="1.0117">
-  <g fill="#4d463f" stroke="#392d2d">
-   <path class="st29" d="m1708.9-538.45h133.58c1.7273 0 3.0227 1.152 3.0227 2.6879v12.543c0 1.5359-1.2954 2.6879-3.0227 2.6879h-133.58c-1.7272 0-3.0227-1.152-3.0227-2.6879v-12.543c0-1.5359 1.2955-2.6879 3.0227-2.6879z" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.7357"/>
-   <g stroke-width="5.7357">
-    <path class="st28" d="m1798-622.92h-44.622c-0.2879 36.478-11.803 66.557-11.803 66.557l68.084-0.128s-11.371-30.079-11.659-66.429"/>
-    <path class="st29" d="m1731.8-660.04v46.238h89.243v-46.238h-14.394v20.479h-17.273v-20.479h-25.909v20.479h-18.712v-20.479z" stroke-linecap="round" stroke-linejoin="round"/>
-    <path class="st29" d="m1733.8-556.37h82.478c5.0379 0 9.2121 3.7118 9.2121 8.1916v1.6639c0 4.4798-4.1742 8.1916-9.2121 8.1916h-82.478c-5.0379 0-9.2122-3.7118-9.2122-8.1916v-1.6639c0-4.4798 4.1743-8.1916 9.2122-8.1916z" stroke-linecap="round" stroke-linejoin="round"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
+   </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:requires rdf:resource="http://creativecommons.org/ns#Notice"/>
+    <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution"/>
+    <cc:prohibits rdf:resource="http://creativecommons.org/ns#CommercialUse"/>
+   </cc:License>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-3378.3 432.51)">
+  <g>
+   <g transform="matrix(1 0 0 .96581 3.0149 40.728)" stroke-width="1.0175">
+    <path transform="scale(.26458)" d="m12804-1827.3v38.041c1.874 11.652 11.944 8.875 21.12 8.875-1.5 38.751-10.549 60.799-10.549 60.799l73.527-0.1543s-8.909-22.037-10.394-60.644c8.732 0.067 22.384 1.9513 22.673-8.875v-38.041h-15.544s1.946 8.844-1.995 12.809c-4.396 4.4228-10.269 4.4228-14.666 0-3.94-3.9646-1.992-12.809-1.992-12.809h-27.982s1.948 8.844-1.992 12.809c-4.764 4.7917-11.46 4.7917-16.223 0-3.941-3.9646-1.992-12.809-1.992-12.809z" fill="#5a544e" stroke="#1e1e1e" stroke-linejoin="round" stroke-width="5.7688"/>
+    <path transform="scale(.26458)" d="m12892-1827.3-0.604 41.376-86.468 0.8797s7.708 6.3444 19.815 4.6608l37.383 4.9066 17.593 55.736h8.002s-8.909-22.035-10.394-60.643c4.474 0.034 10.232 0.5344 14.83-0.4317h0.08l-0.01-0.014c4.343-0.9285 7.637-3.1776 7.777-8.4297v-38.041z" fill="#161009" opacity=".4"/>
+   </g>
+   <g transform="translate(95.046 56.285)">
+    <g transform="matrix(1.0577 0 0 1.2258 -221.92 74.627)" fill="#5a544e" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round">
+     <path class="st29" d="m3320.2-427.41h34.92c0.4515 0 0.7902 0.29875 0.7902 0.69705v3.2528c0 0.39831-0.3387 0.69705-0.7902 0.69705h-34.92c-0.4515 0-0.7902-0.29874-0.7902-0.69705v-3.2528c0-0.3983 0.3387-0.69705 0.7902-0.69705z" stroke-width="1.3173"/>
+     <path class="st29" d="m3326.7-432.05h21.562c1.317 0 2.4082 0.96258 2.4082 2.1243v0.43148c0 1.1617-1.0912 2.1243-2.4082 2.1243h-21.562c-1.3171 0-2.4084-0.96255-2.4084-2.1243v-0.43148c0-1.1617 1.0913-2.1243 2.4084-2.1243z" stroke-width="1.3173"/>
+    </g>
+    <path d="m3316.2-454.95s2.5472 1.1799 2.5472 2.604v0.52867c0 1.2739-0.9242 2.3498-2.1162 2.5632h6.8125c0.4776 0 0.8361 0.36647 0.8361 0.85471v3.9874c0 0.39698-0.2389 0.70959-0.5845 0.81389h3.1028c0.4776 0 0.8355-0.36648 0.8355-0.85471v-3.9874c0-0.48826-0.3579-0.85424-0.8355-0.85424h-6.8162c1.1935-0.21198 2.1193-1.2886 2.1193-2.5636v-0.52866c0-1.4241-1.1541-2.604-2.5471-2.604-3.3539 0.0408-3.3539 0.0408-3.3539 0.0408z" fill="#090704" opacity=".4"/>
    </g>
   </g>
-  <path d="m1819.8-659.84v46.036h-21.217c-4.3522 1.935 8.1604 57.972 10.88 57.488h8.1604c4.8962 0 9.2484 3.8701 9.2484 8.2239v1.4513c0 4.3538-4.3522 8.2239-9.2484 8.2239h-17.409c4.8963 0 9.2485-3.8701 9.2485-8.2239v-1.4513c0-4.3538-4.3522-8.2239-9.2485-8.2239h-7.0723l-11.969-57.488 7.6164-26.686h17.409v-19.35z" opacity=".3" stroke-width="3.8238"/>
-  <path d="m1845.3-535.51v12.578c0 1.4513-1.6321 2.9026-3.2641 2.9026h-17.409c1.6321 0 3.2642-1.4513 3.2642-2.9026v-12.578c0-1.4513-1.6321-2.9026-3.2642-2.9026h17.409c2.1761 0 3.2641 0.96752 3.2641 2.9026z" opacity=".3" stroke-width="3.8238"/>
  </g>
 </svg>
