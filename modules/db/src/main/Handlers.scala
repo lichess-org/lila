@@ -10,7 +10,7 @@ import lila.common.{ Iso, IpAddress, EmailAddress, NormalizedEmailAddress }
 
 trait Handlers {
 
-  implicit object BSONJodaDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
+  implicit val BSONJodaDateTimeHandler = new BSONHandler[BSONDateTime, DateTime] {
     def read(x: BSONDateTime) = new DateTime(x.value)
     def write(x: DateTime) = BSONDateTime(x.getMillis)
   }

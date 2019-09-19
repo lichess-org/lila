@@ -20,7 +20,7 @@
     display: block;
   }
   tbody {
-    @include transition(opacity);
+    @include transition();
   }
   &.loading tbody {
     opacity: 0.4;
@@ -32,7 +32,7 @@
     height: 100%;
   }
   tr {
-    @include transition(background-color);
+    @include transition();
     &:nth-child(even) {
       background: $c-bg-zebra;
     }
@@ -151,7 +151,7 @@
       padding: 3px 5px;
       margin-left: 5px;
       border-radius: 3px;
-      font-size: 0.9em;
+      font-size: .9em;
     }
   }
   .toconf {
@@ -228,7 +228,7 @@
         padding: 5px 0;
         text-align: center;
         cursor: pointer;
-        @include transition('background');
+        @include transition();
         border: $border;
         border-width: 1px 0 1px 1px;
         text-transform: capitalize;

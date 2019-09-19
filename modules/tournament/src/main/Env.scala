@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.hub.{ Duct, DuctMap, TrouperMap }
+import lila.game.Game
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
@@ -17,6 +18,7 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
+    proxyGame: Game.ID => Fu[Option[Game]],
     flood: lila.security.Flood,
     hub: lila.hub.Env,
     roundMap: DuctMap[_],
@@ -41,7 +43,7 @@ final class Env(
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
     val RankingCacheTtl = config duration "ranking.cache.ttl"
-    val UidTimeout = config duration "uid.timeout"
+    val SriTimeout = config duration "sri.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val SocketName = config getString "socket.name"
     val ApiActorName = config getString "api_actor.name"
@@ -107,7 +109,8 @@ final class Env(
     asyncCache = asyncCache,
     duelStore = duelStore,
     pause = pause,
-    lightUserApi = lightUserApi
+    lightUserApi = lightUserApi,
+    proxyGame = proxyGame
   )
 
   lazy val crudApi = new crud.CrudApi
@@ -121,7 +124,7 @@ final class Env(
     flood = flood
   )
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, verify, duelStore, pause, startedSinceSeconds)
+  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, proxyGame, verify, duelStore, pause, startedSinceSeconds)
 
   lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
 
@@ -145,7 +148,7 @@ final class Env(
       history = new History(ttl = HistoryMessageTtl),
       jsonView = jsonView,
       lightUser = lightUserApi.async,
-      uidTtl = UidTimeout,
+      sriTtl = SriTimeout,
       keepMeAlive = () => socketMap touch tournamentId
     ),
     accessTimeout = SocketTimeout,
@@ -211,12 +214,13 @@ object Env {
     db = lila.db.Env.current,
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
+    proxyGame = lila.round.Env.current.proxy.game _,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
     roundMap = lila.round.Env.current.roundMap,
     lightUserApi = lila.user.Env.current.lightUserApi,
     isOnline = lila.user.Env.current.isOnline,
-    onStart = lila.game.Env.current.onStart,
+    onStart = lila.round.Env.current.onStart,
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,

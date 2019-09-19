@@ -12,8 +12,6 @@ final class Env(
 
   lazy val jsDump = new JsDump(path = appPath + "/" + WebPathRelative)
 
-  lazy val subdomainKiller = new SubdomainKiller(NetDomain)
-
   def cli = new lila.common.Cli {
     def process = {
       case "i18n" :: "js" :: "dump" :: Nil =>

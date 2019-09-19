@@ -16,7 +16,7 @@ final class DataForm(authenticator: Authenticator) {
   case class NoteData(text: String, mod: Boolean)
 
   def username(user: User): Form[String] = Form(single(
-    "userName" -> text.verifying("changeUsernameNotSame", name =>
+    "username" -> text.verifying("changeUsernameNotSame", name =>
       name.toLowerCase == user.username.toLowerCase && name != user.username)
   )).fill(user.username)
 

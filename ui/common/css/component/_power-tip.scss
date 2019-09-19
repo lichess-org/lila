@@ -48,9 +48,16 @@
       margin-top: 3px;
       > span {
         flex: 0 0 25%;
+        max-width: 25%;
         padding: 2px 3px;
         text-align: left;
       }
+    }
+    &__warning {
+      @extend %flex-center;
+      text-align: center;
+      color: $c-bad;
+      flex: 1 1 auto;
     }
   }
   &__score {
@@ -95,7 +102,7 @@
   .spinner {
     margin: 82px auto 0 auto;
   }
-  .cg-board {
+  cg-board {
     border-radius: 0;
   }
 }

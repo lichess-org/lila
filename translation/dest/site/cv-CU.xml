@@ -80,7 +80,6 @@
   <string name="viewInFullSize">Тулли калӑпӑшла пӑх</string>
   <string name="logOut">Тух</string>
   <string name="signIn">Кӗр</string>
-  <string name="newToLichess">Lichess пӗрремӗш хут?</string>
   <string name="youNeedAnAccountToDoThat">Куна унӑ тумашкӑн аккаунт кирлӗ</string>
   <string name="signUp">Регистратсилес</string>
   <string name="games">Вӑйӑсем</string>
@@ -108,7 +107,6 @@
   <string name="username">Усӑҫ йачӗ</string>
   <string name="usernameOrEmail">Усӑҫ йачӗ йе ел. пушти</string>
   <string name="password">Кӗме сӑмах</string>
-  <string name="haveAnAccount">Аккаунт пур-и?</string>
   <string name="changePassword">Кӗме сӑмах улӑштарни</string>
   <string name="changeEmail">Ел. пуштӑ улӑштарни</string>
   <string name="email">Ел. пуштӑ</string>
@@ -236,10 +234,8 @@
   <string name="thisIsAChessCaptcha">Ку вӑл CAPTCHA шахматла.</string>
   <string name="clickOnTheBoardToMakeYourMove">Етем пулнине ҫирӗплетес тесе, тата куҫас тесе хӑма ҫине пус.</string>
   <string name="notACheckmate">Мат туни мар</string>
-  <string name="colorPlaysCheckmateInOne">%s ҫӳреҫҫӗ; пӗрре ҫӳресе мат ту</string>
   <string name="retry">Тепӗр хут</string>
   <string name="reconnecting">Ҫӗнӗрен ҫыхӑнасси</string>
-  <string name="onlineFriends">Тетелти тус</string>
   <string name="noFriendsOnline">Тетелти тус ҫук</string>
   <string name="findFriends">Тус тупар</string>
   <string name="follow">Ҫырӑн</string>

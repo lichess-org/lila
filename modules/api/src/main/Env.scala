@@ -14,6 +14,7 @@ final class Env(
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
+    urgentGames: lila.user.User => Fu[List[lila.game.Pov]],
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
@@ -59,12 +60,6 @@ final class Env(
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
 
-  val cspEnabledSetting = settingStore[Boolean](
-    "cspEnabled",
-    default = true,
-    text = "Enable CSP for everyone.".some
-  )
-
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
     val blindCookieMaxAge = config getInt "accessibility.blind.cookie.max_age"
@@ -95,7 +90,8 @@ final class Env(
     isPlaying = isPlaying,
     isOnline = userEnv.onlineUserIdMemo.get,
     recentTitledUserIds = () => userEnv.recentTitledUserIdMemo.keys,
-    prefApi = prefApi
+    prefApi = prefApi,
+    urgentGames = urgentGames
   )(system)
 
   val gameApi = new GameApi(
@@ -113,7 +109,8 @@ final class Env(
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
-    lightUser = userEnv.lightUserSync
+    lightUser = userEnv.lightUserSync,
+    getTournamentName = getTournamentName
   )
 
   val roundApi = new RoundApi(
@@ -129,7 +126,8 @@ final class Env(
     getFilter = setupEnv.filter,
     lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
-    pools = pools
+    pools = pools,
+    urgentGames = urgentGames
   )
 
   lazy val eventStream = new EventStream(system, challengeJsonView, userEnv.onlineUserIdMemo.put)
@@ -168,6 +166,7 @@ object Env {
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     forecastApi = lila.round.Env.current.forecastApi,
+    urgentGames = lila.round.Env.current.proxy.urgentGames,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
     getTourAndRanks = lila.tournament.Env.current.tourAndRanks,

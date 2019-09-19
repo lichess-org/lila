@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Facer iste linea le principal</string>
   <string name="deleteFromHere">Deler ab iste puncto</string>
+  <string name="forceVariation">Fortiar variantes</string>
   <string name="move">Movimento</string>
   <string name="variantLoss">Perdita per variante</string>
   <string name="variantWin">Victoria per variante</string>
@@ -134,7 +135,6 @@
   <string name="viewInFullSize">Vider in plen dimension</string>
   <string name="logOut">Clauder session</string>
   <string name="signIn">Aperir session</string>
-  <string name="newToLichess">Es tu nove in Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Tu necessita un conto pro facer isto</string>
   <string name="signUp">Crear conto</string>
   <string name="computersAreNotAllowedToPlay">Le uso de computatores e programmas non es permittite. Per favor, non prende assistentia de motores de chacos, bases de datos o de altere jocatores durante que joca. De plus, nota que crear multiple contos es fortemente discoragiate e iste practica excessive conduce a interdiction de uso.</string>
@@ -164,8 +164,10 @@
   <string name="ratingStats">Statisticas de classification</string>
   <string name="username">Nomine de usator</string>
   <string name="usernameOrEmail">Nomine de usator o adresse de e-posta</string>
+  <string name="changeUsername">Cambiar nomine de usator</string>
+  <string name="changeUsernameNotSame">Solmente le cassa del literas pote esser cambiate. Per exemplo \"johndoe\" a \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Cambia tu nomine de usator. Isto pote esser facite solmente un vice e tu pote cambiar solmente le cassa del literes de tu nomine de usator.</string>
   <string name="password">Contrasigno</string>
-  <string name="haveAnAccount">Tu ha un conto?</string>
   <string name="changePassword">Cambiar contrasigno</string>
   <string name="changeEmail">Cambiar adresse de e-posta</string>
   <string name="email">E-posta</string>
@@ -173,6 +175,10 @@
   <string name="forgotPassword">Io ha oblidate mi contrasigno.</string>
   <string name="rank">Classification</string>
   <string name="rankX">Classification: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Classification actualisate cata % minuta</item>
+    <item quantity="other">Classification actualisate cata %s minutas</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s enigmas</item>
     <item quantity="other">%s enigmas</item>
@@ -190,7 +196,7 @@
   <string name="drawOfferCanceled">Proposition de partita nulle cancellate</string>
   <string name="whiteOffersDraw">Le blanco propone le partita nulle</string>
   <string name="blackOffersDraw">Le nigro propone le partita nulle</string>
-  <string name="whiteDeclinesDraw">Le blanc declina le partita nulle</string>
+  <string name="whiteDeclinesDraw">Le blanco declina le partita nulle</string>
   <string name="blackDeclinesDraw">Le nigro declina le partita nulle</string>
   <string name="yourOpponentOffersADraw">Tu adversario propone le partita nulle</string>
   <string name="accept">Acceptar</string>
@@ -211,7 +217,7 @@
   <string name="rematch">Vindicar</string>
   <string name="rematchOfferSent">Proposition de vindicantia inviate</string>
   <string name="rematchOfferSentWhite">Le blanco offere le vindicantia</string>
-  <string name="rematchOfferSentBlack">Le nigre offere le vindicantia</string>
+  <string name="rematchOfferSentBlack">Le nigro offere le vindicantia</string>
   <string name="rematchOfferAccepted">Proposition de vindicantia acceptate</string>
   <string name="rematchOfferCanceled">Proposition de vindicantia cancellate</string>
   <string name="rematchOfferDeclined">Proposition de vindicantia declinate</string>
@@ -347,10 +353,10 @@
   <string name="clickOnTheBoardToMakeYourMove">Clicca sur le tabuliero pro facer tu movimento e probar que tu es human.</string>
   <string name="captcha.fail">Per favor, resolve le enigma de chacos pro continuar.</string>
   <string name="notACheckmate">Non es chaco mat</string>
-  <string name="colorPlaysCheckmateInOne">Le %s debe jocar; chaco mat in un movimento</string>
+  <string name="whiteCheckmatesInOneMove">Le blanco pote matar in un movimento</string>
+  <string name="blackCheckmatesInOneMove">Le nigro pote matar in un movimento</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Reconnectente</string>
-  <string name="onlineFriends">Amicos in linea</string>
   <string name="noFriendsOnline">Nulle amicos in linea</string>
   <string name="findFriends">Cercar amicos</string>
   <string name="favoriteOpponents">Adversarios favorite</string>
@@ -448,10 +454,8 @@
   <string name="bewareTheGameIsRatedButHasNoClock">Attention, le partita es classificatori ma illo non ha controlo de tempore!</string>
   <string name="training">Exercitio</string>
   <string name="yourPuzzleRatingX">Tu classification de enigmas: %s</string>
-  <string name="findTheBestMoveForWhite">Trova le melior movimento 
-pro le blanco.</string>
-  <string name="findTheBestMoveForBlack">Trova le melior movimento 
-pro le nigro.</string>
+  <string name="findTheBestMoveForWhite">Trova le melior movimento pro le blanco.</string>
+  <string name="findTheBestMoveForBlack">Trova le melior movimento pro le nigro.</string>
   <string name="toTrackYourProgress">Pro traciar tu progresso:</string>
   <string name="trainingSignupExplanation">Lichess fornira enigmas que corresponde a tu habilitates, pro facer melior sessiones de exercitio.</string>
   <string name="puzzleId">Enigma %s</string>
@@ -468,6 +472,7 @@ pro le nigro.</string>
   <string name="pleaseVotePuzzle">Adjuta Lichess a meliorar per tu voto, usante le sagitta a alto o a basso:</string>
   <string name="thankYou">Gratias!</string>
   <string name="ratingX">Classification: %s</string>
+  <string name="hidden">celate</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jocate %s vices</item>
     <item quantity="other">Jocate %s vices</item>
@@ -582,8 +587,6 @@ pro le nigro.</string>
   <string name="xCommentedY">%1$s ha commentate %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Defaite</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-in %3$s</string>
   <string name="timeline">Chronologia</string>
   <string name="starting">Initio:</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>
@@ -630,6 +633,8 @@ in %3$s</string>
   <string name="inCorrespondenceGames">Jocos per correspondentia</string>
   <string name="ifRatingIsPlusMinusX">Si le classification es ± %s</string>
   <string name="onlyFriends">Solmente amicos</string>
+  <string name="displayBoardResizeHandle">Mostrar le flechas pro redimensionar le tabula</string>
+  <string name="onlyOnInitialPosition">Solmente in position initial</string>
   <string name="menu">Menu</string>
   <string name="castling">Roc</string>
   <string name="whiteCastlingKingside">Blanco O-O</string>
@@ -664,7 +669,7 @@ in %3$s</string>
   <string name="aboutSimul">Exhibitiones simultanee implica un sol jocator confrontante diverse jocatores insimul.</string>
   <string name="aboutSimulImage">Ex 50 adversarios, Fischer habeva 47 victorias, 2 partitas nulle e 1 perdita.</string>
   <string name="aboutSimulRealLife">Le concepto es extrahite de eventos in mundo real, in le quales le hospite del exhibition simultanee se move de tabula a tabula pro jocar un sol movimento.</string>
-  <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote partitas es concludite.</string>
+  <string name="aboutSimulRules">Quando le exhibition simultanee initia, cata jocator initia un partita con le hospite, qui joca per le pecias blanc. Le exhibition simultanee fini quando tote le partitas es concludite.</string>
   <string name="aboutSimulSettings">Exhibitiones simultanee es sempre amical. Vindicantias, retornos del ultime movimento e \"plus tempore\" es disactivate.</string>
   <string name="create">Crear</string>
   <string name="whenCreateSimul">Quando tu crea un exhibition simultanee, tu joca con diverse jocatores simul.</string>
@@ -697,6 +702,9 @@ in %3$s</string>
   <string name="yourPerfTypeRatingIsRating">Tu classification de %1$s es %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu es melior que %1$s intra %2$s jocatores.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu non ha establite un classification de %s.</string>
+  <string name="yourRating">Tu classification</string>
+  <string name="cumulative">Cumulative</string>
+  <string name="glicko2Rating">Classification Glicko-2</string>
   <string name="checkYourEmail">Verifica tu e-posta</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Nos te ha inviate un message per e-posta. Clicca sur le ligamine in le message pro activar tu conto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si tu non trova le message in tu e-posta, verifica in altere locos ubi illo pote esser, como tu cassa de posta indesirate, spam, corbe a papiro, o altere dossiers.</string>
@@ -752,6 +760,7 @@ in %3$s</string>
   <string name="xHostsY">%1$s ha create %2$s</string>
   <string name="xJoinsY">%1$s ha unite se a %2$s</string>
   <string name="xLikesY">%1$s ama %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea un studio %2$s</string>
   <string name="quickPairing">Initio rapide</string>
   <string name="lobby">Salon</string>
   <string name="anonymous">Anonyme</string>
@@ -847,4 +856,7 @@ in %3$s</string>
     <item quantity="one">e salveguarda %s linea de preselection</item>
     <item quantity="other">e salveguarda %s lineas de preselection</item>
   </plurals>
+  <string name="sorry">Pardono! :(</string>
+  <string name="why">Proque?</string>
+  <string name="howToAvoidThis">Como evitar isto?</string>
 </resources>

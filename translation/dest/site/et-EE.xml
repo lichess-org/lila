@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Vaata täisekraanil</string>
   <string name="logOut">Logi välja</string>
   <string name="signIn">Logi sisse</string>
-  <string name="newToLichess">Uus Lichessis?</string>
   <string name="youNeedAnAccountToDoThat">Sa vajad kasutajat, et seda teha</string>
   <string name="signUp">Registreeri</string>
   <string name="computersAreNotAllowedToPlay">Arvutid ja arvutiabi kasutavad mängijad on keelatud mängimast. Palun ära kasuta mängides maleprogrammide, andmebaaside ja teiste mängijate abi. Mitme kasutaja tegemine on ebasoositud ja räige mitme kasutaja kasutamine võib lõppeda kasutaja kinnipanemisega.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Muuta saab ainult tähe rõhku. Näiteks \"karlsuur\" \"KarlSuur\"\'ks.</string>
   <string name="changeUsernameDescription">Muuda oma kasutajanime, seda saad teha ainult 1 korra ning muuta on võimalik ainult kasutajanime tõstutundlikkust.</string>
   <string name="password">Salasõna</string>
-  <string name="haveAnAccount">Kas sul on kasutaja?</string>
   <string name="changePassword">Muuda salasõna</string>
   <string name="changeEmail">Muuda email</string>
   <string name="email">Email</string>
@@ -293,8 +291,8 @@
     <item quantity="other">≥ %s reitinguga mängu</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2%s reitinguga mäng</item>
-    <item quantity="other">≥ %1$s %2%s reitinguga mängu</item>
+    <item quantity="one">≥ %1$s %2$s reitinguga mäng</item>
+    <item quantity="other">≥ %1$s %2$s reitinguga mängu</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Peate mängima veel %1$s %2$s reitinguga mängu</item>
@@ -355,10 +353,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="clickOnTheBoardToMakeYourMove">Tee käik ja tõesta, et oled inimene.</string>
   <string name="captcha.fail">Palun lahendage male robotilõks.</string>
   <string name="notACheckmate">Pole matt</string>
-  <string name="colorPlaysCheckmateInOne">%s mängib; matt ühe käiguga</string>
   <string name="retry">Uuesti</string>
   <string name="reconnecting">Taasühendumine</string>
-  <string name="onlineFriends">Seesolevad sõbrad</string>
   <string name="noFriendsOnline">Pole sõpru sees</string>
   <string name="findFriends">Leia sõpru</string>
   <string name="favoriteOpponents">Lemmikvastased</string>
@@ -545,7 +541,7 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="moveListWhilePlaying">käikude loend mängides</string>
   <string name="pgnPieceNotation">Käikude notatsioon</string>
   <string name="chessPieceSymbol">Malendi sümbol</string>
-  <string name="pgnLetter">Täht (K, L, V, O, R)</string>
+  <string name="pgnLetter">Täht (K, Q, R, B, N)</string>
   <string name="chessClock">Malekell</string>
   <string name="tenthsOfSeconds">Kümnendikku sekundit</string>
   <string name="never">Mitte kunagi</string>
@@ -586,9 +582,8 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="xAskedY">%1$s küsis %2$s</string>
   <string name="xAnsweredY">%1$s vastas %2$s</string>
   <string name="xCommentedY">%1$s kommenteeris %2$s</string>
-  <string name="victory">Võit!</string>
+  <string name="victory">Võit</string>
   <string name="defeat">Kaotus</string>
-  <string name="xVsYinZ">%1$s : %2$s - %3$s</string>
   <string name="timeline">Ajatelg</string>
   <string name="starting">Algab:</string>
   <string name="allInformationIsPublicAndOptional">Kõik andmed on avalikud ja vabatahtlikud.</string>
@@ -652,7 +647,6 @@ arvutianalüüsi, mängu jututoa ning jagatava URL-i.</string>
   <string name="webmasters">Administraator</string>
   <string name="about">Rakenduse info</string>
   <string name="aboutX">Info %s kohta</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s on tasuta, reklaamivaba, avatud koodiga male server.</string>
   <string name="really">päriselt</string>
   <string name="contribute">Panustada</string>
   <string name="contact">Kontakt</string>

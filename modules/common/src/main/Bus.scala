@@ -77,7 +77,6 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
     def publish(event: Event, subscriber: Tellable) =
       subscriber ! event.payload
 
-    import scala.concurrent.duration._
     system.scheduler.schedule(1 minute, 1 minute) {
       lila.mon.bus.classifiers(subscribers.keys.size)
       lila.mon.bus.subscribers(subscribers.values.size)

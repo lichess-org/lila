@@ -10,13 +10,13 @@ private final class MoveBroadcast(system: akka.actor.ActorSystem) extends Troupe
 
   system.lilaBus.subscribe(this, 'moveEvent, 'socketLeave, 'socketMoveBroadcast)
 
-  private type UidString = String
+  private type SriString = String
   private type GameId = String
 
   private case class WatchingMember(member: SocketMember, gameIds: Set[GameId])
 
-  private val members = AnyRefMap.empty[UidString, WatchingMember]
-  private val games = AnyRefMap.empty[GameId, Set[UidString]]
+  private val members = AnyRefMap.empty[SriString, WatchingMember]
+  private val games = AnyRefMap.empty[GameId, Set[SriString]]
 
   val process: Trouper.Receive = {
 
@@ -32,19 +32,19 @@ private final class MoveBroadcast(system: akka.actor.ActorSystem) extends Troupe
         }
       }
 
-    case StartWatching(uid, member, gameIds) =>
-      members += (uid.value -> WatchingMember(member, gameIds ++ members.get(uid.value).??(_.gameIds)))
+    case StartWatching(sri, member, gameIds) =>
+      members += (sri.value -> WatchingMember(member, gameIds ++ members.get(sri.value).??(_.gameIds)))
       gameIds foreach { id =>
-        games += (id -> (~games.get(id) + uid.value))
+        games += (id -> (~games.get(id) + sri.value))
       }
 
-    case SocketLeave(uid, _) => members get uid.value foreach { m =>
-      members -= uid.value
+    case SocketLeave(sri, _) => members get sri.value foreach { m =>
+      members -= sri.value
       m.gameIds foreach { id =>
-        games get id foreach { uids =>
-          val newUids = uids - uid.value
-          if (newUids.isEmpty) games -= id
-          else games += (id -> newUids)
+        games get id foreach { sris =>
+          val newSris = sris - sri.value
+          if (newSris.isEmpty) games -= id
+          else games += (id -> newSris)
         }
       }
     }

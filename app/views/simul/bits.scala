@@ -46,8 +46,7 @@ object bits {
           td(cls := "name")(a(href := routes.Simul.show(simul.id))(simul.fullName)),
           td(userIdLink(simul.hostId.some)),
           td(cls := "text", dataIcon := "p")(simul.clock.config.show),
-          td(cls := "text", dataIcon := "r")(simul.applicants.size),
-          td(a(href := routes.Simul.show(simul.id), cls := "button", dataIcon := "G"))
+          td(cls := "text", dataIcon := "r")(simul.applicants.size)
         )
       }
     )
@@ -70,6 +69,7 @@ object bits {
     trans.nbDraws,
     trans.nbLosses,
     trans.by,
-    trans.signIn
+    trans.signIn,
+    trans.mustBeInTeam
   )
 }

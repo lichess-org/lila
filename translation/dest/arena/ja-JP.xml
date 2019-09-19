@@ -24,8 +24,10 @@
   <string name="howDoesItEnd">終了のしかたは？</string>
   <string name="howDoesItEndAnswer">トーナメントには時間制限があります。残り時間がゼロになるとその時点で順位が確定し、優勝者が発表されます。この時に進行中のゲームは完了する必要がありますが、トーナメントの結果には算入しません。</string>
   <string name="otherRules">その他のルール</string>
-  <string name="otherRulesAnswer">最初の手は 25 秒以内（チェス960 では 50 秒以内）に指す必要があります。この時間内に指さないと相手の不戦勝になります。
-また 10 手以内のドローでは両者ともポイントが与えられません。</string>
+  <string name="thereIsACountdown">初手にはカウントダウン・タイマーがあります。制限時間内に初手を指さないと不戦敗になります。</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="other">%s 手以内のドローでは双方ともポイントが得られません。</item>
+  </plurals>
   <string name="thisIsPrivate">これはプライベートのトーナメントです</string>
   <string name="shareUrl">誰もが参加できるようにシェアして: %s</string>
 </resources>

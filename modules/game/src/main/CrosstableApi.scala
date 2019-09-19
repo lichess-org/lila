@@ -18,22 +18,22 @@ final class CrosstableApi(
   import Crosstable.{ BSONFields => F }
   import Game.{ BSONFields => GF }
 
-  def apply(game: Game): Fu[Option[Crosstable]] = game.userIds.distinct match {
-    case List(u1, u2) => apply(u1, u2)
-    case _ => fuccess(none)
+  def apply(game: Game): Fu[Option[Crosstable]] = game.twoUserIds ?? {
+    case (u1, u2) => apply(u1, u2) map some
   }
 
-  def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.userIds.distinct match {
-    case List(u1, u2) => withMatchup(u1, u2)
-    case _ => fuccess(none)
+  def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.twoUserIds ?? {
+    case (u1, u2) => withMatchup(u1, u2) map some
   }
 
-  def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable]] =
-    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout)
+  def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable] =
+    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) map {
+      _ | Crosstable.empty(u1, u2)
+    }
 
-  def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Option[Crosstable.WithMatchup]] =
+  def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable.WithMatchup] =
     apply(u1, u2, timeout) zip getMatchup(u1, u2) map {
-      case crosstable ~ matchup => crosstable.map { Crosstable.WithMatchup(_, matchup) }
+      case crosstable ~ matchup => Crosstable.WithMatchup(crosstable, matchup)
     }
 
   def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
@@ -92,8 +92,8 @@ final class CrosstableApi(
   private val creationCache = asyncCache.multi[(User.ID, User.ID), Option[Crosstable]](
     name = "crosstable",
     f = (create _).tupled,
-    resultTimeout = 19.second,
-    expireAfter = _.ExpireAfterWrite(20 seconds)
+    resultTimeout = 29.second,
+    expireAfter = _.ExpireAfterWrite(30 seconds)
   )
 
   private val winnerProjection = $doc(GF.winnerId -> true)

@@ -4,72 +4,57 @@ lichess.engineName = 'Stockfish 10+';
 
 lichess.raf = window.requestAnimationFrame.bind(window);
 lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).bind(window);
-lichess.dispatchEvent = function(el, eventName) {
-  el.dispatchEvent(new Event(eventName));
-};
+lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));
 
 lichess.hasTouchEvents = 'ontouchstart' in window;
 lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
-lichess.isCol1 = (function() {
-
-  var isCol1Cache = 'init'; // 'init' | 'rec' | boolean
-
-  return function() {
-    var ctk = 'isCol1' + Math.random();
+lichess.isCol1 = (() => {
+  let isCol1Cache = 'init'; // 'init' | 'rec' | boolean
+  return () => {
     if (typeof isCol1Cache == 'string') {
-      if (isCol1Cache == 'init')
-        window.addEventListener('resize', function() { isCol1Cache = 'rec' });
+      if (isCol1Cache == 'init') { // only once
+        window.addEventListener('resize', () => { isCol1Cache = 'rec' }); // recompute on resize
+        if (navigator.userAgent.indexOf('Edge/') > -1) // edge gets false positive on page load, fix later
+          window.lichess.raf(() => { isCol1Cache = 'rec' });
+      }
       isCol1Cache = !!getComputedStyle(document.body).getPropertyValue('--col1');
     }
     return isCol1Cache;
   };
 })();
 
-lichess.storage = (function() {
-  var storage = window.localStorage;
-  var api = {
-    get: function(k) { return storage.getItem(k) },
-    set: function(k, v) { storage.setItem(k, v) },
-    remove: function(k) { storage.removeItem(k) },
-    make: function(k) {
-      return {
-        get: function() {
-          return api.get(k);
-        },
-        set: function(v) {
-          api.set(k, v);
-        },
-        remove: function() {
-          api.remove(k);
-        },
-        listen: function(f) {
-          window.addEventListener('storage', function(e) {
-            if (e.key === k &&
-              e.storageArea === storage &&
-              e.newValue !== null) f(e);
-          });
-        }
-      };
-    },
-    makeBoolean: function(k) {
-      return {
-        get: function() {
-          return api.get(k) == 1;
-        },
-        set: function(v) {
-          api.set(k, v ? 1 : 0);
-        },
-        toggle: function(v) {
-          api.set(k, api.get(k) == 1 ? 0 : 1);
-        }
-      };
-    }
+{
+  const buildStorage = (storage) => {
+    const api = {
+      get: k => storage.getItem(k),
+      set: (k, v) => storage.setItem(k, v),
+      remove: k => storage.removeItem(k),
+      make: k => ({
+        get: () => api.get(k),
+        set: v => api.set(k, v),
+        remove: () => api.remove(k),
+        listen: f => window.addEventListener('storage', e => {
+          if (e.key === k &&
+            e.storageArea === storage &&
+            e.newValue !== null) f(e);
+        })
+      }),
+      makeBoolean: k => ({
+        get: () => api.get(k) == 1,
+        set: v => api.set(k, v ? 1 : 0),
+        toggle: () => api.set(k, api.get(k) == 1 ? 0 : 1)
+      })
+    };
+    return api;
   };
-  return api;
-})();
 
-lichess.once = function(key, mod) {
+
+  lichess.storage = buildStorage(window.localStorage);
+  lichess.tempStorage = buildStorage(window.sessionStorage);
+}
+
+lichess.once = (key, mod) => {
   if (mod === 'always') return true;
   if (!lichess.storage.get(key)) {
     lichess.storage.set(key, 1);
@@ -77,15 +62,14 @@ lichess.once = function(key, mod) {
   }
   return false;
 };
-lichess.debounce = function(func, wait, immediate) {
-  var timeout;
-  var lastBounce = 0;
+lichess.debounce = (func, wait, immediate) => {
+  let timeout, lastBounce = 0;
   return function() {
-    var context = this,
+    let context = this,
       args = arguments,
-      elapsed = Date.now() - lastBounce;
-    lastBounce = Date.now();
-    var later = function() {
+      elapsed = performance.now() - lastBounce;
+    lastBounce = performance.now();
+    let later = () => {
       timeout = null;
       func.apply(context, args);
     };
@@ -94,7 +78,7 @@ lichess.debounce = function(func, wait, immediate) {
     else timeout = setTimeout(later, wait);
   };
 };
-lichess.powertip = (function() {
+lichess.powertip = (() => {
 
   function containedIn(el, container) {
     return container && container.contains(el);
@@ -103,24 +87,23 @@ lichess.powertip = (function() {
     return containedIn(el, document.querySelector('.crosstable'));
   }
 
-  var onPowertipPreRender = function(id, preload) {
+  function onPowertipPreRender(id, preload) {
     return function() {
-      var url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
+      let url = ($(this).data('href') || $(this).attr('href')).replace(/\?.+$/, '');
       if (preload) preload(url);
       $.ajax({
         url: url + '/mini',
         success: function(html) {
           $('#' + id).html(html);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         }
       });
     };
   };
 
-  var uptA = function(url, icon) {
-    return '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
-  }
-  var userPowertip = function(el, pos) {
+  let uptA = (url, icon) => '<a class="btn-rack__btn" href="' + url + '" data-icon="' + icon + '"></a>';
+
+  let userPowertip = (el, pos) => {
     pos = pos || el.getAttribute('data-pt-pos') || (
       inCrosstable(el) ? 'n' : 's'
     );
@@ -131,8 +114,8 @@ lichess.powertip = (function() {
       mouseOnToPopup: true,
       closeDelay: 200
     }).data('powertip', ' ').on({
-      powerTipRender: onPowertipPreRender('powerTip', function(url) {
-        var u = url.substr(3);
+      powerTipRender: onPowertipPreRender('powerTip', (url) => {
+        const u = url.substr(3);
         $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + $(el).html() + '</span></div></div><div class="upt__actions btn-rack">' +
           uptA('/@/' + u + '/tv', '1') +
           uptA('/inbox/new?user=' + u, 'c') +
@@ -142,7 +125,7 @@ lichess.powertip = (function() {
     });
   };
 
-  var gamePowertip = function(el) {
+  function gamePowertip(el) {
     $(el).removeClass('glpt').powerTip({
       intentPollInterval: 200,
       placement: inCrosstable(el) ? 'n' : 'w',
@@ -155,7 +138,7 @@ lichess.powertip = (function() {
     }).data('powertip', lichess.spinnerHtml);
   };
 
-  var powerTipWith = function(el, ev, f) {
+  function powerTipWith(el, ev, f) {
     if (lichess.isHoverable()) {
       f(el);
       $.powerTip.show(el, ev);
@@ -169,27 +152,26 @@ lichess.powertip = (function() {
   }
 
   return {
-    mouseover: function(e) {
+    mouseover(e) {
       var t = e.target,
         cl = t.classList;
       if (cl.contains('ulpt')) powerTipWith(t, e, userPowertip);
       else if (cl.contains('glpt')) powerTipWith(t, e, gamePowertip);
     },
-    manualGameIn: function(parent) {
+    manualGameIn(parent) {
       onIdleForAll(parent, '.glpt', gamePowertip);
     },
-    manualUserIn: function(parent) {
-      onIdleForAll(parent, '.ulpt', function(el) { userPowertip(el) });
+    manualUserIn(parent) {
+      onIdleForAll(parent, '.ulpt', (el) => userPowertip(el));
     }
   };
 })();
-lichess.widget = function(name, prototype) {
+lichess.widget = (name, prototype) => {
   var constructor = $[name] = function(options, element) {
-    var self = this;
-    self.element = $(element);
-    $.data(element, name, self);
-    self.options = options;
-    self._create();
+    this.element = $(element);
+    $.data(element, name, this);
+    this.options = options;
+    this._create();
   };
   constructor.prototype = prototype;
   $.fn[name] = function(method) {
@@ -208,16 +190,16 @@ lichess.widget = function(name, prototype) {
     return returnValue;
   };
 };
-lichess.isHoverable = function () {
+lichess.isHoverable = () => {
   if (typeof lichess.hoverable === 'undefined')
-    lichess.hoverable = !!getComputedStyle(document.body).getPropertyValue('--hoverable');
+    lichess.hoverable = !lichess.hasTouchEvents || !!getComputedStyle(document.body).getPropertyValue('--hoverable');
   return lichess.hoverable;
 };
 lichess.spinnerHtml = '<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>';
-lichess.assetUrl = function(path, opts) {
+lichess.assetUrl = (path, opts) => {
   opts = opts || {};
-  var baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url');
-  var version = document.body.getAttribute('data-asset-version');
+  const baseUrl = opts.sameDomain ? '' : document.body.getAttribute('data-asset-url'),
+    version = document.body.getAttribute('data-asset-version');
   return baseUrl + '/assets' + (opts.noVersion ? '' : '/_' + version) + '/' + path;
 };
 lichess.loadedCss = {};
@@ -254,6 +236,11 @@ lichess.makeChat = function(data, callback) {
     (callback || $.noop)(LichessChat.default(document.querySelector('.mchat'), data));
   });
 };
+lichess.formAjax = $form => ({
+  url: $form.attr('action'),
+  method: $form.attr('method') || 'post',
+  data: $form.serialize()
+});
 
 lichess.numberFormat = (function() {
   var formatter = false;
@@ -267,14 +254,14 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
   var events = ['mousemove', 'touchstart'];
   var listening = false;
   var active = true;
-  var lastSeenActive = Date.now();
+  var lastSeenActive = performance.now();
   var onActivity = function() {
     if (!active) {
       // console.log('Wake up');
       onWakeUp();
     }
     active = true;
-    lastSeenActive = Date.now();
+    lastSeenActive = performance.now();
     stopListening();
   };
   var startListening = function() {
@@ -294,7 +281,7 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
     }
   };
   setInterval(function() {
-    if (active && Date.now() - lastSeenActive > delay) {
+    if (active && performance.now() - lastSeenActive > delay) {
       // console.log('Idle mode');
       onIdle();
       active = false;
@@ -305,11 +292,11 @@ lichess.idleTimer = function(delay, onIdle, onWakeUp) {
 lichess.pubsub = (function() {
   var subs = [];
   return {
-    on: function(name, cb) {
+    on(name, cb) {
       subs[name] = subs[name] || [];
       subs[name].push(cb);
     },
-    off: function(name, cb) {
+    off(name, cb) {
       if (!subs[name]) return;
       for (var i in subs[name]) {
         if (subs[name][i] === cb) {
@@ -318,12 +305,10 @@ lichess.pubsub = (function() {
         }
       }
     },
-    emit: function(name) {
-      return function() {
-        if (!subs[name]) return;
-        var args = Array.prototype.slice.call(arguments, 0);
-        for (var i in subs[name]) subs[name][i].apply(null, args);
-      }
+    emit(name /*, args... */) {
+      if (!subs[name]) return;
+      const args = Array.prototype.slice.call(arguments, 1);
+      for (let i in subs[name]) subs[name][i].apply(null, args);
     }
   };
 })();
@@ -335,7 +320,7 @@ lichess.redirect = function(obj) {
   else {
     url = obj.url;
     if (obj.cookie) {
-      var domain = document.domain.replace(/^.+(\.[^\.]+\.[^\.]+)$/, '$1');
+      var domain = document.domain.replace(/^.+(\.[^.]+\.[^.]+)$/, '$1');
       var cookie = [
         encodeURIComponent(obj.cookie.name) + '=' + obj.cookie.value,
         '; max-age=' + obj.cookie.maxAge,
@@ -356,7 +341,7 @@ lichess.reload = function() {
   else location.href = location.href;
 };
 lichess.escapeHtml = function(str) {
-  return /[&<>\"\']/.test(str) ?
+  return /[&<>"']/.test(str) ?
     str
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -364,16 +349,6 @@ lichess.escapeHtml = function(str) {
     .replace(/'/g, '&#39;')
     .replace(/"/g, '&quot;') :
     str;
-};
-$.fn.scrollTo = function(target, offsetTop) {
-  return this.each(function() {
-    if (typeof target === "number") this.scrollTop  = target;
-    else {
-      var $t = $(target);
-      if (!$t.length) return;
-      this.scrollTop = $t.offset().top + this.scrollTop - (offsetTop || 0);
-    }
-  });
 };
 $.modal = function(html, cls, onClose) {
   $.modal.close();
@@ -386,7 +361,7 @@ $.modal = function(html, cls, onClose) {
     .data('onClose', onClose)
     .html($wrap);
   $wrap.find('.close').on('click', $.modal.close);
-  $overlay.on('click', function(e) {
+  $overlay.on('click', function() {
     // disgusting hack
     // dragging slider out of a modal closes the modal
     if (!$('.ui-slider-handle.ui-state-focus').length) $.modal.close();

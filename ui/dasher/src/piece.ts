@@ -20,7 +20,7 @@ export interface PieceCtrl {
   data: () => PieceDimData
   trans: Trans
   set(t: Piece): void
-  open: Open
+    open: Open
 }
 
 export function ctrl(data: PieceData, trans: Trans, dimension: () => keyof PieceData, redraw: Redraw, open: Open): PieceCtrl {
@@ -68,6 +68,7 @@ function pieceImage(t: Piece, is3d: boolean) {
 
 function pieceView(current: Piece, set: (t: Piece) => void, is3d: boolean) {
   return (t: Piece) => h('a.no-square', {
+    attrs: { title: t },
     hook: bind('click', () => set(t)),
     class: { active: current === t }
   }, [

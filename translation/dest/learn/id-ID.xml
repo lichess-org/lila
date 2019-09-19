@@ -155,7 +155,7 @@ Menteri = 3
 Kuda = 3
 Pion = 1
 Raja tak ternilai harganya! Kehilangan raja berarti kekalahan.</string>
-  <string name="queenOverBishop">Ambil bidak dengan nilai tertinggi! Ratu > Menteri</string>
+  <string name="queenOverBishop">Ambil bidak dengan nilai tertinggi! Ratu &gt; Menteri</string>
   <string name="takeThePieceWithTheHighestValue">Ambil bagian
 dengan nilai tertinggi!</string>
   <string name="pieceValueComplete">Selamat! Anda tahu nilai bidak!

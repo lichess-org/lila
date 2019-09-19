@@ -308,10 +308,8 @@
   <string name="thisIsAChessCaptcha">Bu, şahmaq KAPÇA-sıdır</string>
   <string name="clickOnTheBoardToMakeYourMove">Taxtada gediş edin və robot olmadığınızı təsdiq edin</string>
   <string name="notACheckmate">Mat deyil</string>
-  <string name="colorPlaysCheckmateInOne">%s başlayır və bir gedişə mat edir</string>
   <string name="retry">Yenidən cəhd edin</string>
   <string name="reconnecting">Yenidən birləşməyə cəhd edilir</string>
-  <string name="onlineFriends">Onlayn dostlar</string>
   <string name="noFriendsOnline">Onlaynda dost yoxdur</string>
   <string name="findFriends">Dostlarınızı tapın</string>
   <string name="follow">İzlə</string>
@@ -501,7 +499,7 @@
   <string name="xAskedY">%1$s soruşdu %2$s</string>
   <string name="xAnsweredY">%1$s cavablandırdı %2$s</string>
   <string name="xCommentedY">%1$s şərh %2$s</string>
-  <string name="victory">Qələbə!</string>
+  <string name="victory">Qələbə</string>
   <string name="timeline">Zaman cədvəli</string>
   <string name="starting">Başlanğıc</string>
   <string name="allInformationIsPublicAndOptional">Bütün məlumatlar hər kəsə açıq və seçkiyə bağlıdır.</string>

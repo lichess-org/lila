@@ -15,7 +15,7 @@ function parseFen($elem) {
     if (color) config.orientation = color;
     if (ground) ground.set(config);
     else {
-      this.innerHTML = '<div class="cg-board-wrap"></div>';
+      this.innerHTML = '<div class="cg-wrap"></div>';
       $this.data('chessground', Chessground(this.firstChild, config));
     }
   });

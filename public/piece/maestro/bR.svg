@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <linearGradient id="linearGradient3606" x1="2811.6" x2="2904.7" y1="-156.13" y2="-156.13" gradientTransform="matrix(.3975 0 0 .37132 -1111.1 82.778)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#303030" offset="0"/>
+   <stop stop-color="#1E1E1E" offset="1"/>
+  </linearGradient>
+ </defs>
+ <path class="st41" d="m28.865 4.4373h-7.3236s0.13563 1.9583-0.54247 2.4806c-1.085 0.78334-2.9837 0.78334-4.0687 0-0.6781-0.52223-0.54247-2.4806-0.54247-2.4806h-5.8318v7.4417c0.54247 0.78334 1.2206 1.175 1.8987 1.5667 0.27126 0.26112 0.13563 0.65278 0.13563 0.9139v2.0889c0.81373 0 5.018 0.52222 5.018 0.52222l-2.1699 18.931s-4.7468 0.26111-6.3743 1.6972c-0.13559 0.65278 0 3.9167 0 4.5695h-2.3056v3.3945h36.482v-3.3945c-0.40688-0.13055-1.8987 0-2.3056 0v-4.5695c-1.7631-1.4361-5.9674-1.6972-5.9674-1.6972l-2.17-19.061s4.2043-0.52223 5.018-0.52223c0.13563-0.65278 0-1.4361 0-2.0889 0-0.26111-0.13563-0.65278 0.13563-0.91389 0.6781-0.39167 1.4918-0.78334 1.8987-1.5667v-7.3112h-5.8318s0.05656 1.7492-0.54251 2.2195c-1.0668 0.83743-3.0019 0.83743-4.0687 0-0.59908-0.47027-0.54251-2.2195-0.54251-2.2195z" fill="url(#linearGradient3606)" stroke="#010101" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+ <g fill="#d2d2d2">
+  <path class="st1" d="m25.22 12.91h-4.9752v1.1404l0.75383 1.4255h8.5934l0.75383-1.4255v-1.1404z" stroke-width="1.0096"/>
+  <rect class="st1" x="19.341" y="20.75" width="11.91" height="2.5658" stroke-width="1.0096"/>
+  <rect class="st1" x="14.954" y="39.326" width="20.719" height="2.5581" stroke-width=".99876"/>
+ </g>
+</svg>

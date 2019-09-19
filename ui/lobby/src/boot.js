@@ -52,10 +52,10 @@ module.exports = function(cfg, element) {
         },
         reload_timeline: function() {
           $.ajax({
-            url: $("#timeline").data('href'),
+            url: '/timeline',
             success: function(html) {
-              $('#timeline').html(html);
-              lichess.pubsub.emit('content_loaded')();
+              $('.timeline').html(html);
+              lichess.pubsub.emit('content_loaded');
             }
           });
         },
@@ -65,7 +65,7 @@ module.exports = function(cfg, element) {
         },
         featured: function(o) {
           $('.lobby__tv').html(o.html);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         redirect: function(e) {
           lobby.leavePool();
@@ -74,11 +74,11 @@ module.exports = function(cfg, element) {
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);
@@ -86,6 +86,7 @@ module.exports = function(cfg, element) {
         }
       },
       options: {
+        remoteSocketDomain: cfg.data.remoteSocketDomain,
         name: 'lobby',
         onFirstConnect: onFirstConnect
       }
@@ -163,7 +164,7 @@ module.exports = function(cfg, element) {
     }
   }
 
-  function hookToPoolMember(color, data, $ratings) {
+  function hookToPoolMember(color, data) {
     var hash = {};
     for (var i in data) hash[data[i].name] = data[i].value;
     var valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1;
@@ -263,10 +264,10 @@ module.exports = function(cfg, element) {
           .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
-        var poolMember = hookToPoolMember(color, $form.serializeArray(), $ratings);
+        var poolMember = hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
         var call = {
-          url: $form.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
+          url: $form.attr('action').replace(/sri-placeholder/, lichess.StrongSocket.sri),
           data: $form.serialize() + "&color=" + color,
           type: 'post'
         };
@@ -376,7 +377,7 @@ module.exports = function(cfg, element) {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
             $submits.removeClass('nope');
-            lichess.pubsub.emit('content_loaded')();
+            lichess.pubsub.emit('content_loaded');
           },
           error: function() {
             $fenInput.addClass("failure");
@@ -426,7 +427,7 @@ module.exports = function(cfg, element) {
         prepareForm($.modal(html, 'game-setup', () => {
           $startButtons.find('.active').removeClass('active');
         }));
-        lichess.pubsub.emit('content_loaded')();
+        lichess.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);

@@ -3,7 +3,7 @@ var Chessground = require('chessground').Chessground;
 var util = require('chessground/util');
 
 module.exports = function(ctrl) {
-  return m('div.cg-board-wrap', {
+  return m('div.cg-wrap', {
     config: function(el, isUpdate) {
       if (isUpdate) return;
       ctrl.chessground = Chessground(el, makeConfig(ctrl));
@@ -39,6 +39,10 @@ function onMouseEvent(ctrl) {
   return function(e) {
     var sel = ctrl.selected();
 
+    // do not generate corresponding mouse event
+    // (https://developer.mozilla.org/en-US/docs/Web/API/Touch_events/Supporting_both_TouchEvent_and_MouseEvent)
+    if (sel !== 'pointer' && e.cancelable !== false && (e.type === 'touchstart' || e.type === 'touchmove')) e.preventDefault();
+
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
       if (
         sel === 'pointer' ||
@@ -57,9 +61,10 @@ function onMouseEvent(ctrl) {
         deleteOrHidePiece(ctrl, key, e);
       } else {
         var existingPiece = ctrl.chessground.state.pieces[key];
-        var piece = {};
-        piece.color = sel[0];
-        piece.role = sel[1];
+        var piece = {
+          color: sel[0],
+          role: sel[1]
+        };
 
         if (
           (e.type === 'mousedown' || e.type === 'touchstart') &&
@@ -80,9 +85,9 @@ function onMouseEvent(ctrl) {
           !placeDelete &&
             (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)
         ) {
-          var pieces = {};
-          pieces[key] = piece;
-          ctrl.chessground.setPieces(pieces);
+          ctrl.chessground.setPieces({
+            [key]: piece
+          });
           ctrl.onChange();
           ctrl.chessground.cancelMove();
         }
@@ -122,9 +127,9 @@ function deleteOrHidePiece(ctrl, key, e) {
 }
 
 function deletePiece(ctrl, key) {
-  var pieces = {};
-  pieces[key] = false;
-  ctrl.chessground.setPieces(pieces);
+  ctrl.chessground.setPieces({
+    [key]: false
+  });
   ctrl.onChange();
 }
 
@@ -151,8 +156,6 @@ function makeConfig(ctrl) {
     },
     draggable: {
       showGhost: true,
-      distance: 0,
-      autoDistance: false,
       deleteOnDropOff: true
     },
     selectable: {

@@ -153,6 +153,7 @@ final class GameApiV2(
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
+      .add("tournament" -> g.tournamentId)
       .add("clock" -> g.clock.map { clock =>
         Json.obj(
           "initial" -> clock.limitSeconds,

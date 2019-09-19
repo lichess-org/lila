@@ -39,7 +39,7 @@ object topic {
             )
           ),
 
-          st.form(cls := "form3", action := routes.ForumTopic.create(categ.slug), method := "POST")(
+          postForm(cls := "form3", action := routes.ForumTopic.create(categ.slug))(
             form3.group(form("name"), trans.subject())(form3.input(_)(autofocus)),
             form3.group(form("post")("text"), trans.message())(form3.textarea(_, klass = "post-text-area")(rows := 10)),
             views.html.base.captcha(form("post"), captcha),
@@ -74,7 +74,7 @@ object topic {
       description = shorten(posts.currentPageResults.headOption.??(_.text), 152)
     ).some
   ) {
-      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = false)
+      val pager = bits.pagination(routes.ForumTopic.show(categ.slug, topic.slug, 1), posts, showPost = true)
 
       main(cls := "forum forum-topic page-small box box-pad")(
         h1(
@@ -99,7 +99,7 @@ object topic {
         ),
 
         div(cls := "forum-topic__actions")(
-          if (posts.hasNextPage) pager
+          if (posts.hasNextPage) emptyFrag
           else if (topic.isOld)
             p("This topic has been archived and can no longer be replied to.")
           else if (formWithCaptcha.isDefined)
@@ -107,39 +107,38 @@ object topic {
           else if (topic.closed) p(trans.thisTopicIsNowClosed())
           else categ.team.filterNot(myTeam).map { teamId =>
             p(
-              a(href := routes.Team.show(teamId)),
-              s"Join the ${teamIdToName(teamId)} team",
+              "Join the ",
+              a(href := routes.Team.show(teamId))(teamIdToName(teamId), " team"),
               " to post in this forum"
             )
           } getOrElse p("You can't post in the forums yet. Play some games!"),
           div(
             unsub.map { uns =>
-              st.form(cls := s"unsub ${if (uns) "on" else "off"}", method := "post", action := routes.Timeline.unsub(s"forum:${topic.id}"))(
+              postForm(cls := s"unsub ${if (uns) "on" else "off"}", action := routes.Timeline.unsub(s"forum:${topic.id}"))(
                 button(cls := "button button-empty text on", dataIcon := "v", bits.dataUnsub := "off")("Subscribe"),
                 button(cls := "button button-empty text off", dataIcon := "v", bits.dataUnsub := "on")("Unsubscribe")
               )
             },
 
             isGranted(_.ModerateForum) option
-              st.form(method := "post", action := routes.ForumTopic.hide(categ.slug, topic.slug))(
+              postForm(action := routes.ForumTopic.hide(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-green")(if (topic.hidden) "Feature" else "Un-feature")
               ),
             canModCateg option
-              st.form(method := "post", action := routes.ForumTopic.close(categ.slug, topic.slug))(
+              postForm(action := routes.ForumTopic.close(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-red")(if (topic.closed) "Reopen" else "Close")
               ),
             canModCateg option
-              st.form(method := "post", action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
+              postForm(action := routes.ForumTopic.sticky(categ.slug, topic.slug))(
                 button(cls := "button button-empty button-brag")(if (topic.isSticky) "Un-sticky" else "Sticky")
               )
           )
         ),
 
         formWithCaptcha.map {
-          case (form, captcha) => st.form(
+          case (form, captcha) => postForm(
             cls := "form3 reply",
             action := s"${routes.ForumPost.create(categ.slug, topic.slug, posts.currentPage)}#reply",
-            method := "POST",
             novalidate
           )(
               form3.group(form("text"), trans.message()) { f =>
@@ -153,7 +152,9 @@ object topic {
                 form3.submit(trans.reply())
               )
             )
-        }
+        },
+
+        pager
       )
     }
 }

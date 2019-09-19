@@ -64,11 +64,6 @@ object PairingRepo {
       _.flatMap(_.getAs[Game.ID]("_id"))
     }
 
-  def byTourUserNb(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[Option[Pairing]] =
-    (nb > 0) ?? coll.find(
-      selectTourUser(tourId, userId)
-    ).sort(chronoSort).skip(nb - 1).uno[Pairing]
-
   def removeByTour(tourId: Tournament.ID) = coll.remove(selectTour(tourId)).void
 
   def removeByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =
@@ -90,7 +85,7 @@ object PairingRepo {
       maxDocs = 10000
     ).map {
         _.flatMap { doc =>
-          doc.getAs[Game.ID]("_id") flatMap { uid =>
+          doc.getAs[User.ID]("_id") flatMap { uid =>
             doc.getAs[Int]("nb") map { uid -> _ }
           }
         }(breakOut)
@@ -128,11 +123,11 @@ object PairingRepo {
       )
     ).void
 
-  def setBerserk(pairing: Pairing, userId: User.ID) = (userId match {
-    case uid if pairing.user1 == uid => "b1".some
-    case uid if pairing.user2 == uid => "b2".some
-    case _ => none
-  }) ?? { field =>
+  def setBerserk(pairing: Pairing, userId: User.ID) = {
+    if (pairing.user1 == userId) "b1".some
+    else if (pairing.user2 == userId) "b2".some
+    else none
+  } ?? { field =>
     coll.update(
       $id(pairing.id),
       $set(field -> true)

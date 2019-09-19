@@ -59,6 +59,7 @@
   <string name="promoteVariation">Höj upp variation</string>
   <string name="makeMainLine">Gör till huvudvariation</string>
   <string name="deleteFromHere">Radera härifrån</string>
+  <string name="forceVariation">Visa som variant</string>
   <string name="move">Drag</string>
   <string name="variantLoss">Variantförlust</string>
   <string name="variantWin">Variantvinst</string>
@@ -101,7 +102,7 @@
   <string name="enable">Aktivera</string>
   <string name="bestMoveArrow">Pil som anger bästa drag</string>
   <string name="evaluationGauge">Visa evaluering</string>
-  <string name="multipleLines">Multipla varianter</string>
+  <string name="multipleLines">Flera linjer</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Minne</string>
   <string name="infiniteAnalysis">Oändlig analys</string>
@@ -134,7 +135,6 @@
   <string name="viewInFullSize">Visa i full storlek</string>
   <string name="logOut">Logga ut</string>
   <string name="signIn">Logga in</string>
-  <string name="newToLichess">Ny användare?</string>
   <string name="youNeedAnAccountToDoThat">Du behöver ett konto för att göra detta</string>
   <string name="signUp">Registrera dig</string>
   <string name="computersAreNotAllowedToPlay">Datorer och datorhjälp är inte tillåtet att spela med. Vänligen, ta inte hjälp ifrån schackmotorer, databaser eller från andra spelare när du spelar. Notera även att skapande av flera konton avrådes och överdrivet skapande leder till avstängning.</string>
@@ -168,7 +168,6 @@
   <string name="changeUsernameNotSame">Bara storleken på bokstäver kan ändras. Till exempel \"anderssvensson\" till \"AndersSvenson\".</string>
   <string name="changeUsernameDescription">Ändra ditt användarnamn. Detta kan bara göras en gång och det är endast tillåtet att ändra skiftläget för bokstäverna i ditt användarnamn.</string>
   <string name="password">Lösenord</string>
-  <string name="haveAnAccount">Har du ett konto?</string>
   <string name="changePassword">Ändra lösenord</string>
   <string name="changeEmail">Ändra E-post</string>
   <string name="email">E-post</string>
@@ -354,10 +353,10 @@
   <string name="clickOnTheBoardToMakeYourMove">Bevisa att du är en människa genom att klicka på brädet och göra ditt drag.</string>
   <string name="captcha.fail">Vänligen lös schack-captchan.</string>
   <string name="notACheckmate">Inte schackmatt</string>
-  <string name="colorPlaysCheckmateInOne">%s tur; Schackmatt i ett drag</string>
+  <string name="whiteCheckmatesInOneMove">Vit gör schackmatt i ett drag</string>
+  <string name="blackCheckmatesInOneMove">Svart gör schackmatt om ett drag</string>
   <string name="retry">Försök igen</string>
   <string name="reconnecting">Återansluter</string>
-  <string name="onlineFriends">Vänner online</string>
   <string name="noFriendsOnline">Inga vänner online</string>
   <string name="findFriends">Hitta vänner</string>
   <string name="favoriteOpponents">Favoritmotståndare</string>
@@ -473,6 +472,7 @@
   <string name="pleaseVotePuzzle">Hjälp lichess att bli bättre genom att rösta (använd pil upp eller pil ner):</string>
   <string name="thankYou">Tack!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">dold</string>
   <plurals name="playedXTimes">
     <item quantity="one">Spelat %s gånger</item>
     <item quantity="other">Spelat %s gånger</item>
@@ -587,7 +587,6 @@
   <string name="xCommentedY">%1$s kommenterade %2$s</string>
   <string name="victory">Vinst</string>
   <string name="defeat">Förlust</string>
-  <string name="xVsYinZ">%1$s mot %2$s i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Startar:</string>
   <string name="allInformationIsPublicAndOptional">All information är allmän och frivillig.</string>
@@ -634,6 +633,8 @@
   <string name="inCorrespondenceGames">I korrespondenspartier</string>
   <string name="ifRatingIsPlusMinusX">Om rating är ± %s</string>
   <string name="onlyFriends">Bara vänner</string>
+  <string name="displayBoardResizeHandle">Visa handtag för att ändra brädets storlek</string>
+  <string name="onlyOnInitialPosition">Endast vid ursprunglig position</string>
   <string name="menu">Meny</string>
   <string name="castling">Rockad</string>
   <string name="whiteCastlingKingside">Vit O-O</string>
@@ -701,6 +702,9 @@
   <string name="yourPerfTypeRatingIsRating">Din %1$srating är %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du är bättre än %1$s av alla som spelar %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har inte en etablerad %srating.</string>
+  <string name="yourRating">Din rating</string>
+  <string name="cumulative">Kumulativ</string>
+  <string name="glicko2Rating">Glicko-2-rating</string>
   <string name="checkYourEmail">Kolla din email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har skickat ett e-postmeddelande. Klicka på länken i meddelandet för att aktivera ditt konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du inte ser e-postmeddelandet, kontrollera andra ställen där det kan vara, som din skräppost, spam, sociala eller andra mappar.</string>
@@ -852,4 +856,15 @@
     <item quantity="one">och spara %s linje av förhandsdrag</item>
     <item quantity="other">och spara %s linje av förhandsdrag</item>
   </plurals>
+  <string name="sorry">Beklagar :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi är tvugna att stänga av dig en stund.</string>
+  <string name="timeoutExpires">Avstängningen upphör om %s.</string>
+  <string name="why">Varför?</string>
+  <string name="pleasantChessExperience">Vårt mål är att tillhandahålla alla en behaglig schackupplevelse.</string>
+  <string name="goodPractice">Därför måste vi försäkra att alla spelare följer god sed.</string>
+  <string name="potentialProblem">När ett möjligt problem upptäcks visar vi detta meddelande.</string>
+  <string name="howToAvoidThis">Hur undviker jag det här?</string>
+  <string name="playEveryGame">Spela varje parti som du påbörjar.</string>
+  <string name="tryToWin">Försök vinna (eller åtminstone nå remi i) varje parti som du spelar.</string>
+  <string name="resignLostGames">Ge upp förlorade partier (i stället för att låta tiden rinna ut).</string>
 </resources>

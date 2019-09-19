@@ -154,7 +154,7 @@ object Challenge extends LilaController {
     Setup.PostRateLimit(HTTPRequest lastRemoteAddress req) {
       Env.setup.forms.api.bindFromRequest.fold(
         jsonFormErrorDefaultLang,
-        config => UserRepo enabledById userId flatMap { destUser =>
+        config => UserRepo enabledById userId.toLowerCase flatMap { destUser =>
           destUser ?? { Env.challenge.granter(me.some, _, config.perfType) } flatMap {
             case Some(denied) =>
               BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
@@ -207,8 +207,8 @@ object Challenge extends LilaController {
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     env.api byId id flatMap {
       _ ?? { c =>
-        getSocketUid("sri") ?? { uid =>
-          env.socketHandler.join(id, uid, ctx.userId, isMine(c), getSocketVersion, apiVersion) map some
+        getSocketSri("sri") ?? { sri =>
+          env.socketHandler.join(id, sri, ctx.userId, isMine(c), getSocketVersion, apiVersion) map some
         }
       }
     }

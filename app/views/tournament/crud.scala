@@ -7,9 +7,9 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.tournament.{ DataForm, Tournament }
-import lila.tournament.crud.CrudForm
 import lila.rating.PerfType
+import lila.tournament.crud.CrudForm
+import lila.tournament.{ DataForm, Tournament }
 
 import controllers.routes
 
@@ -37,7 +37,7 @@ object crud {
   ) {
     div(cls := "crud page-menu__content box box-pad")(
       h1("New tournament"),
-      st.form(cls := "form3", action := routes.TournamentCrud.create, method := "POST")(inForm(form))
+      postForm(cls := "form3", action := routes.TournamentCrud.create)(inForm(form))
     )
   }
 
@@ -46,18 +46,23 @@ object crud {
     css = "mod.form"
   ) {
     div(cls := "crud edit page-menu__content box box-pad")(
-      h1(
-        a(href := routes.Tournament.show(tour.id))(tour.fullName),
-        " ",
-        span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+      div(cls := "box__top")(
+        h1(
+          a(href := routes.Tournament.show(tour.id))(tour.fullName),
+          " ",
+          span("Created by ", usernameOrId(tour.createdBy), " on ", showDate(tour.createdAt))
+        ),
+        st.form(cls := "box__top__actions", action := routes.TournamentCrud.clone(tour.id), method := "get")(
+          form3.submit("Clone", "g".some, klass = "button-green")
+        )
       ),
-      st.form(cls := "form3", action := routes.TournamentCrud.update(tour.id), method := "POST")(inForm(form))
+      postForm(cls := "form3", action := routes.TournamentCrud.update(tour.id))(inForm(form))
     )
   }
 
   private def inForm(form: Form[_])(implicit ctx: Context) = frag(
     form3.split(
-      form3.group(form("date"), raw("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_)),
+      form3.group(form("date"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
       form3.group(form("name"), raw("Name"), help = raw("Keep it VERY short, so it fits on homepage").some, half = true)(form3.input(_))
     ),
     form3.split(
@@ -103,7 +108,7 @@ object crud {
             th("Variant"),
             th("Clock"),
             th("Duration"),
-            th("UTC Date"),
+            th(utcLink, " Date"),
             th()
           )
         ),

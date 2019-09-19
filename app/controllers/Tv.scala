@@ -4,7 +4,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.game.{ GameRepo, Pov }
+import lila.game.Pov
 import views._
 
 object Tv extends LilaController {
@@ -16,7 +16,7 @@ object Tv extends LilaController {
   }
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo.pov(gameId, color)) { pov =>
+    OptionFuResult(chess.Color(color) ?? { Env.round.proxy.pov(gameId, _) }) { pov =>
       Env.game.crosstableApi.withMatchup(pov.game) map { ct =>
         Ok(html.tv.side.sides(pov, ct))
       }
@@ -42,10 +42,8 @@ object Tv extends LilaController {
             Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
               Env.game.crosstableApi.withMatchup(game) zip
               Env.tv.tv.getChampions map {
-                case ((data, cross), champions) => NoCache {
-                  NoIframe { // can be heavy as TV reloads for each game
-                    Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
-                  }
+                case data ~ cross ~ champions => NoCache {
+                  Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
                 }
               }
           },
@@ -57,7 +55,7 @@ object Tv extends LilaController {
 
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
     (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
-      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 12) map {
+      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 15) map {
         case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
         }

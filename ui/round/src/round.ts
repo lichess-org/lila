@@ -5,7 +5,11 @@ export function firstPly(d: RoundData): number {
 }
 
 export function lastPly(d: RoundData): number {
-  return d.steps[d.steps.length - 1].ply;
+  return lastStep(d).ply;
+}
+
+export function lastStep(d: RoundData): Step {
+  return d.steps[d.steps.length - 1];
 }
 
 export function plyStep(d: RoundData, ply: number): Step {

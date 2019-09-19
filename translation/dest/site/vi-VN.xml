@@ -129,7 +129,6 @@
   <string name="viewInFullSize">Xem ở kích thước đầy đủ</string>
   <string name="logOut">Đăng xuất</string>
   <string name="signIn">Đăng nhập</string>
-  <string name="newToLichess">Mới tham gia Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Bạn cần một tài khoản để làm điều đó</string>
   <string name="signUp">Đăng kí</string>
   <string name="computersAreNotAllowedToPlay">Máy tính và chơi với sự trợ giúp của máy tính không được chấp nhận. Đừng nhờ sự trợ giúp của máy chơi cờ, các dữ liệu, hoặc từ những người chơi khác khi chơi.</string>
@@ -157,8 +156,8 @@
   <string name="ratingStats">Thống kê elo</string>
   <string name="username">Tên truy cập</string>
   <string name="usernameOrEmail">Tên đăng nhập hoặc email</string>
+  <string name="changeUsername">Thay đổi tên đăng nhập</string>
   <string name="password">Mật khẩu</string>
-  <string name="haveAnAccount">Bạn có tài khoản chưa?</string>
   <string name="changePassword">Thay đổi mật khẩu</string>
   <string name="changeEmail">Đổi thư điện tử</string>
   <string name="email">Thư điện tử</string>
@@ -325,10 +324,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Bấm vào bàn cờ để di chuyển, chứng minh bạn là con người</string>
   <string name="captcha.fail">Hãy giải đố captcha.</string>
   <string name="notACheckmate">Không phải là một nước chiếu hết</string>
-  <string name="colorPlaysCheckmateInOne">%s chơi; chiếu vua trong một nước đi</string>
   <string name="retry">Thử lại</string>
   <string name="reconnecting">Kết nối lại</string>
-  <string name="onlineFriends">Bạn bè đang online</string>
   <string name="noFriendsOnline">Không có bạn bè đang online</string>
   <string name="findFriends">Tìm bạn</string>
   <string name="favoriteOpponents">Đối thủ yêu thích</string>
@@ -339,7 +336,6 @@
   <string name="blocked">Đã chặn</string>
   <string name="unblock">Bỏ chặn</string>
   <string name="followsYou">Theo dõi bạn</string>
-  <string name="xStartedFollowingY">%1$s bắt đầu theo dõi</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s người theo dõi</item>
   </plurals>
@@ -550,10 +546,8 @@
   <string name="xAskedY">%1$s đã yêu cầu %2$s</string>
   <string name="xAnsweredY">%1$s đã trả lời %2$s</string>
   <string name="xCommentedY">%1$s đã bình luận %2$s</string>
-  <string name="victory">Chiến thắng!</string>
+  <string name="victory">Chiến thắng</string>
   <string name="defeat">Thua</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-trong %3$s</string>
   <string name="timeline">Dòng thời gian</string>
   <string name="starting">Bắt dầu đấu:</string>
   <string name="allInformationIsPublicAndOptional">Tất cả thông tin thì công khai và không bắt buộc.</string>

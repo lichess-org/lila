@@ -12,7 +12,7 @@
   .status {
     display: block;
     position: relative;
-    padding: 0.8rem;
+    padding: .8rem;
     border-top: $border;
     signal {
       position: absolute;
@@ -71,10 +71,10 @@
   }
   .selector {
     flex: 1 1 100%;
-    margin: 0.5rem 0;
+    margin: .5rem 0;
     a {
       display: block;
-      padding: 0.7rem 1rem;
+      padding: .7rem 1rem;
       @include transition(background);
       &:hover {
         background: $c-dasher-light;
@@ -131,7 +131,7 @@
 
   .background {
     .image p {
-      font-size: 0.9em;
+      font-size: .9em;
       padding: 5px;
     }
     input {

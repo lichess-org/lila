@@ -55,4 +55,9 @@ final class EventApi(
     val event = data make userId
     coll.insert(event) >>- promotable.refresh inject event
   }
+
+  def clone(old: Event) = old.copy(
+    title = s"${old.title} (clone)",
+    startsAt = DateTime.now plusDays 7
+  )
 }

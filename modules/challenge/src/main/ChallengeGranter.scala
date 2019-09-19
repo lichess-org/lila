@@ -21,7 +21,7 @@ object ChallengeDenied {
     case object FriendsOnly extends Reason
   }
 
-  def translated(d: ChallengeDenied)(implicit lang: lila.common.Lang) = d.reason match {
+  def translated(d: ChallengeDenied)(implicit lang: lila.common.Lang): String = d.reason match {
     case Reason.YouAreAnon => I18nKeys.registerToSendChallenges.txt()
     case Reason.YouAreBlocked => I18nKeys.youCannotChallengeX.txt(d.dest.titleUsername)
     case Reason.TheyDontAcceptChallenges => I18nKeys.xDoesNotAcceptChallenges.txt(d.dest.titleUsername)

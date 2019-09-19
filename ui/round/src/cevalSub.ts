@@ -1,4 +1,4 @@
-import { plyStep } from './round';
+import { lastStep } from './round';
 import RoundController from './ctrl';
 import { ApiMove, RoundData } from './interfaces';
 
@@ -20,9 +20,9 @@ export function subscribe(ctrl: RoundController): void {
     const v = ev.newValue;
     if (!v) return;
     else if (v.startsWith('start:')) return li.storage.set('round.ongoing', v);
-    const d = ctrl.data;
-    if (!found && ctrl.ply > 14 && ctrl.isPlaying() &&
-      truncateFen(plyStep(d, ctrl.ply).fen) === truncateFen(v)) {
+    const d = ctrl.data, step = lastStep(ctrl.data);
+    if (!found && step.ply > 14 && ctrl.isPlaying() &&
+      truncateFen(step.fen) === truncateFen(v)) {
       $.post('/jslog/' + d.game.id + d.player.id + '?n=ceval');
       found = true;
     }

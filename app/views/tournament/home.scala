@@ -73,9 +73,9 @@ var d=lichess.StrongSocket.defaults;d.params.flag="tournament";d.events.reload=a
               h1(trans.tournaments()),
               ctx.isAuth option div(cls := "box__top__actions")(a(
                 href := routes.Tournament.form(),
-                cls := "button button-green",
-                title := trans.createANewTournament.txt()
-              )("+"))
+                cls := "button button-green text",
+                dataIcon := "O"
+              )(trans.createANewTournament()))
             ),
             div(cls := "tour-chart")
           ),

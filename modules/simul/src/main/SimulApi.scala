@@ -37,7 +37,7 @@ final class SimulApi(
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  def create(setup: SimulSetup, me: User): Fu[Simul] = {
+  def create(setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       clock = SimulClock(
         config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
@@ -46,7 +46,8 @@ final class SimulApi(
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
       color = setup.color,
-      text = setup.text
+      text = setup.text,
+      team = setup.team
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(_.isNotBrandNew).map(_.id).foreach(abort)

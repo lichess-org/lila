@@ -1,8 +1,13 @@
+$chat-height: calc(90vh - 300px);
+
 .simul__side {
   @extend %flex-column;
   .mchat {
-    flex: 1 0 400px;
     margin-top: $block-gap;
+    &__messages {
+      height: $chat-height;
+      max-height: $chat-height;
+    }
   }
 }
 .simul__meta {

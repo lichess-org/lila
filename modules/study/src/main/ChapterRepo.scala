@@ -130,25 +130,36 @@ final class ChapterRepo(coll: Coll) {
         }
     }
 
-  private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
+  private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id], nbChaptersPerStudy: Int): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     coll.find(
       $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "_id" -> true, "name" -> true)
     ).sort($sort asc "order").list[Bdoc]().map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
-          case (hash, doc) => {
-            for {
-              studyId <- doc.getAs[Study.Id]("studyId")
-              id <- doc.getAs[Chapter.Id]("_id")
-              name <- doc.getAs[Chapter.Name]("name")
-              idName = Chapter.IdName(id, name)
-            } yield hash + (studyId -> (hash.get(studyId) match {
-              case None => Vector(idName)
-              case Some(names) => names :+ idName
-            }))
-          } | hash
+          case (hash, doc) =>
+            doc.getAs[Study.Id]("studyId").fold(hash) { studyId =>
+              hash get studyId match {
+                case Some(chapters) if chapters.size >= nbChaptersPerStudy => hash
+                case maybe =>
+                  val chapters = ~maybe
+                  hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
+              }
+            }
         }
       }
+
+  def idNames(studyId: Study.Id): Fu[List[Chapter.IdName]] =
+    coll.find(
+      $doc("studyId" -> studyId),
+      $doc("_id" -> true, "name" -> true)
+    ).sort($sort asc "order")
+      .list[Bdoc](Study.maxChapters * 2, ReadPreference.secondaryPreferred)
+      .map { _ flatMap readIdName }
+
+  private def readIdName(doc: Bdoc) = for {
+    id <- doc.getAs[Chapter.Id]("_id")
+    name <- doc.getAs[Chapter.Name]("name")
+  } yield Chapter.IdName(id, name)
 
   def startServerEval(chapter: Chapter) =
     coll.updateField($id(chapter.id), "serverEval", Chapter.ServerEval(

@@ -34,7 +34,8 @@ object bits {
       playing = playing,
       robots = robots,
       deferJs = true,
-      zoomable = true
+      zoomable = true,
+      csp = defaultCsp.withPeer.some
     )(body)
 
   def crosstable(cross: Option[lila.game.Crosstable.WithMatchup], game: Game)(implicit ctx: Context) =
@@ -61,15 +62,15 @@ object bits {
           s" ${p.blurs.nb}/${game.playerMoves(p.color)} blurs ",
           strong(game.playerBlurPercent(p.color), "%")
         )
-      },
-      game.players flatMap { p => p.holdAlert.map(p ->) } map {
-        case (p, h) => div(
-          playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
-          "hold alert",
-          br,
-          s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
-        )
       }
+    // game.players flatMap { p => p.holdAlert.map(p ->) } map {
+    //   case (p, h) => div(
+    //     playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
+    //     "hold alert",
+    //     br,
+    //     s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
+    //   )
+    // }
     )
   )
 
@@ -131,7 +132,7 @@ object bits {
 
   def roundAppPreload(pov: Pov, controls: Boolean)(implicit ctx: Context) =
     div(cls := "round__app")(
-      div(cls := "round__app__board main-board")(board.bits.domPreload(pov.some)),
+      div(cls := "round__app__board main-board")(chessground(pov)),
       div(cls := "round__app__table"),
       div(cls := "ruser ruser-top user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.opponent))),
       div(cls := "ruser ruser-bottom user-link")(i(cls := "line"), a(cls := "text")(playerText(pov.player))),

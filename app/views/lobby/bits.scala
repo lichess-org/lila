@@ -95,25 +95,25 @@ object bits {
     )
 
   def playbanInfo(ban: lila.playban.TempBan)(implicit ctx: Context) = nopeInfo(
-    h1("Sorry :("),
-    p("We had to time you out for a ", (ban.remainingSeconds < 3600) ?? "little ", "while."),
-    p("The timeout expires ", strong(secondsFromNow(ban.remainingSeconds)), "."),
-    h2("Why?"),
+    h1(trans.sorry()),
+    p(trans.weHadToTimeYouOutForAWhile()),
+    p(trans.timeoutExpires(strong(secondsFromNow(ban.remainingSeconds)))),
+    h2(trans.why()),
     p(
-      "We aim to provide a pleasant chess experience for everyone.", br,
-      "To that effect, we must ensure that all players follow good practice.", br,
-      "When a potential problem is detected, we display this message."
+      trans.pleasantChessExperience(), br,
+      trans.goodPractice(), br,
+      trans.potentialProblem()
     ),
-    h2("How to avoid this?"),
+    h2(trans.howToAvoidThis()),
     ul(
-      li("Play every game you start"),
-      li("Try to win (or at least draw) every game you play"),
-      li("Resign lost games (don't let the clock run down)")
+      li(trans.playEveryGame()),
+      li(trans.tryToWin()),
+      li(trans.resignLostGames())
     ),
     p(
-      "We apologize for the temporary inconvenience,", br,
-      "and wish you great games on lichess.org.", br,
-      "Thank you for reading!"
+      trans.temporaryInconvenience(), br,
+      trans.wishYouGreatGames(), br,
+      trans.thankYouForReading()
     )
   )
 
@@ -125,7 +125,7 @@ object bits {
     br, br,
     "or",
     br, br,
-    form(action := routes.Round.resign(current.pov.fullId), method := "post")(
+    postForm(action := routes.Round.resign(current.pov.fullId))(
       button(cls := "text button button-red", dataIcon := "L")(
         if (current.pov.game.abortable) "Abort" else "Resign", " the game"
       )

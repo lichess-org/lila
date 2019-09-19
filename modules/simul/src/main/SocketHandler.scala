@@ -10,7 +10,7 @@ import lila.hub.actorApi.map._
 import lila.hub.Trouper
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Handler
-import lila.socket.Socket.{ Uid, SocketVersion }
+import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.user.User
 
 private[simul] final class SocketHandler(
@@ -22,7 +22,7 @@ private[simul] final class SocketHandler(
 
   def join(
     simulId: String,
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     version: Option[SocketVersion],
     apiVersion: ApiVersion
@@ -30,7 +30,7 @@ private[simul] final class SocketHandler(
     exists(simulId) flatMap {
       _ ?? {
         val socket = socketMap getOrMake simulId
-        socket.ask[Connected](Join(uid, user, version, _)) map {
+        socket.ask[Connected](Join(sri, user, version, _)) map {
           case Connected(enum, member) => Handler.iteratee(
             hub,
             lila.chat.Socket.in(
@@ -41,7 +41,7 @@ private[simul] final class SocketHandler(
             ),
             member,
             socket,
-            uid,
+            sri,
             apiVersion
           ) -> enum
         } map some

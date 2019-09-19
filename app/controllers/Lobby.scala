@@ -28,11 +28,11 @@ object Lobby extends LilaController {
     )
   }
 
-  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] = {
+  def handleStatus(req: RequestHeader, status: Results.Status): Fu[Result] =
     reqToCtx(req) flatMap { ctx => renderHome(status)(ctx) }
-  }
 
   def renderHome(status: Results.Status)(implicit ctx: Context): Fu[Result] = {
+    pageHit
     Env.current.preloader(
       posts = Env.forum.recent(ctx.me, Env.team.cached.teamIdsList).nevermind,
       tours = Env.tournament.cached.promotable.get.nevermind,
@@ -50,20 +50,6 @@ object Lobby extends LilaController {
         Ok(JsArray(seeks.map(_.render)))
       }
     )
-  }
-
-  private val MessageLimitPerIP = new lila.memo.RateLimit[IpAddress](
-    credits = 40,
-    duration = 10 seconds,
-    name = "lobby socket message per IP",
-    key = "lobby_socket.message.ip",
-    enforce = Env.api.Net.RateLimit
-  )
-
-  def socket(apiVersion: Int) = SocketOptionLimited[JsValue](MessageLimitPerIP, "lobby") { implicit ctx =>
-    getSocketUid("sri") ?? { uid =>
-      Env.lobby.socketHandler(uid, user = ctx.me, mobile = getBool("mobile"), apiVersion) map some
-    }
   }
 
   def timeline = Auth { implicit ctx => me =>

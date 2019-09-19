@@ -99,9 +99,10 @@ object irwin {
                   a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
                     playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false),
                     br,
-                    pov.game.isTournament ?? frag(iconTag("g")),
+                    pov.game.isTournament ?? frag(iconTag("g"), " "),
                     pov.game.perfType.map { pt => iconTag(pt.iconChar) },
                     shortClockName(pov.game.clock.map(_.config)),
+                    " ",
                     momentFromNowOnce(pov.game.createdAt)
                   )
                 ),
@@ -112,10 +113,10 @@ object irwin {
                 td {
                   val blurs = pov.game.playerBlurPercent(pov.color)
                   frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
-                },
-                td(
-                  pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
-                )
+                }
+              // td(
+              //   pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
+              // )
               )
           }
         )

@@ -18,7 +18,7 @@ import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
 import xhr = require('./xhr');
-import { valid as crazyValid } from './crazy/crazyCtrl';
+import { valid as crazyValid, init as crazyInit } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
@@ -37,14 +37,13 @@ const li = window.lichess;
 
 export default class RoundController {
 
-  opts: RoundOpts;
   data: RoundData;
-  redraw: Redraw;
   socket: RoundSocket;
   chessground: CgApi;
   clock?: ClockController;
   corresClock?: CorresClockController;
   trans: Trans;
+  noarg: TransNoArg;
   keyboardMove?: KeyboardMove;
   moveOn: MoveOn;
 
@@ -71,14 +70,11 @@ export default class RoundController {
 
   private music?: any;
 
-  constructor(opts: RoundOpts, redraw: Redraw) {
+  constructor(readonly opts: RoundOpts, readonly redraw: Redraw) {
 
     round.massage(opts.data);
 
     const d = this.data = opts.data;
-
-    this.opts = opts;
-    this.redraw = redraw;
 
     this.ply = round.lastPly(d);
     this.goneBerserk[d.player.color] = d.player.berserk;
@@ -105,12 +101,14 @@ export default class RoundController {
     this.moveOn = new MoveOn(this, 'move-on');
 
     this.trans = li.trans(opts.i18n);
+    this.noarg = this.trans.noarg;
 
     setTimeout(this.delayedInit, 200);
 
     setTimeout(this.showExpiration, 350);
 
-    setTimeout(this.showYourMoveNotification, 500);
+    if (!document.referrer || document.referrer.indexOf('/service-worker.js') === -1)
+      setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
     li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
@@ -225,6 +223,7 @@ export default class RoundController {
     }
     this.autoScroll();
     if (this.keyboardMove) this.keyboardMove.update(s);
+    li.pubsub.emit('ply', ply);
     return true;
   };
 
@@ -391,6 +390,7 @@ export default class RoundController {
       });
       if (o.check) sound.check();
       blur.onMove();
+      li.pubsub.emit('ply', this.ply);
     }
     d.game.threefold = !!o.threefold;
     const step = {
@@ -558,20 +558,20 @@ export default class RoundController {
   };
 
   resign = (v: boolean): void => {
-    if (this.resignConfirm) {
-      if (v) this.socket.sendLoading('resign');
-      else {
+    if (v) {
+      if (this.resignConfirm || !this.data.pref.confirmResign) {
+        this.socket.sendLoading('resign');
         clearTimeout(this.resignConfirm);
-        this.resignConfirm = undefined;
+      } else {
+        this.resignConfirm = setTimeout(() => this.resign(false), 3000);
       }
-    } else if (v) {
-      if (this.data.pref.confirmResign) this.resignConfirm = setTimeout(() => {
-        this.resign(false);
-      }, 3000);
-      else this.socket.sendLoading('resign');
+      this.redraw();
+    } else if (this.resignConfirm) {
+      clearTimeout(this.resignConfirm);
+      this.resignConfirm = undefined;
+      this.redraw();
     }
-    this.redraw();
-  };
+  }
 
   goBerserk = () => {
     this.socket.berserk();
@@ -665,7 +665,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove) {
+    if (this.data.pref.keyboardMove && !window.lichess.hasTouchEvents) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
       li.raf(this.redraw);
     }
@@ -685,6 +685,8 @@ export default class RoundController {
         title.init();
         this.setTitle();
 
+        crazyInit(this);
+
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||
             this.nvui ||
@@ -698,14 +700,14 @@ export default class RoundController {
           return msg;
         });
 
-        if (!this.nvui) {
+        if (!this.nvui && d.pref.submitMove) {
           window.Mousetrap.bind('esc', () => {
             this.submitMove(false);
             this.chessground.cancelMove();
           });
           window.Mousetrap.bind('return', () => this.submitMove(true));
-          cevalSub.subscribe(this);
         }
+        cevalSub.subscribe(this);
       }
 
       if (!this.nvui) keyboard.init(this);

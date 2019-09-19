@@ -139,7 +139,7 @@ export function build(root: Tree.Node): TreeWrapper {
     existing = nodeAtPathOrNull(newPath);
     if (existing) {
       (['dests', 'drops', 'clock'] as Array<keyof Tree.Node>).forEach(key => {
-        if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key];
+        if (defined(node[key]) && !defined(existing[key])) existing[key] = node[key] as never;
       });
       return newPath;
     }
@@ -167,6 +167,9 @@ export function build(root: Tree.Node): TreeWrapper {
       if (parent.children[0].id !== node.id) {
         ops.removeChild(parent, node.id);
         parent.children.unshift(node);
+        if (!toMainline) break;
+      } else if (node.forceVariation) {
+        node.forceVariation = false;
         if (!toMainline) break;
       }
     }

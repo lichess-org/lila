@@ -8,8 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Pov, GameRepo }
-import lila.hub.tournamentTeam._
+import lila.hub.lightTeam._
 import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
@@ -126,27 +125,6 @@ object Tournament extends LilaController {
             Ok(data) as JSON
           }
         }
-      }
-    }
-  }
-
-  def userGameNbMini(id: String, user: String, nb: Int) = Open { implicit ctx =>
-    withUserGameNb(id, user, nb) { pov =>
-      Ok(html.tournament.bits.miniGame(pov))
-    }
-  }
-
-  def userGameNbShow(id: String, user: String, nb: Int) = Open { implicit ctx =>
-    withUserGameNb(id, user, nb) { pov =>
-      Redirect(routes.Round.watcher(pov.gameId, pov.color.name))
-    }
-  }
-
-  private def withUserGameNb(id: String, user: String, nb: Int)(withPov: Pov => Result)(implicit ctx: Context): Fu[Result] = {
-    val userId = lila.user.User normalize user
-    OptionFuResult(PairingRepo.byTourUserNb(id, userId, nb)) { pairing =>
-      GameRepo game pairing.id map {
-        _.flatMap { Pov.ofUserId(_, userId) }.fold(Redirect(routes.Tournament show id))(withPov)
       }
     }
   }
@@ -270,8 +248,8 @@ object Tournament extends LilaController {
   }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    getSocketUid("sri") ?? { uid =>
-      env.socketHandler.join(id, uid, ctx.me, getSocketVersion, apiVersion)
+    getSocketSri("sri") ?? { sri =>
+      env.socketHandler.join(id, sri, ctx.me, getSocketVersion, apiVersion)
     }
   }
 
@@ -316,12 +294,8 @@ object Tournament extends LilaController {
     expireAfter = _.ExpireAfterWrite(15.seconds)
   )
 
-  private val teamApi = Env.team.api
-  private val teamCached = Env.team.cached
   private def getUserTeamIds(user: lila.user.User): Fu[TeamIdList] =
-    teamCached.teamIdsList(user.id)
+    Env.team.cached.teamIdsList(user.id)
   private def teamsIBelongTo(me: lila.user.User): Fu[TeamIdsWithNames] =
-    teamApi.mine(me) map { teams =>
-      teams.map(t => t._id -> t.name)
-    }
+    Env.team.api.mine(me) map { _.map(t => t._id -> t.name) }
 }

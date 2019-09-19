@@ -1,6 +1,7 @@
 .search {
 
   &__results {
+    @extend %break-word;
     margin-top: 1em;
     .post {
       display: block;

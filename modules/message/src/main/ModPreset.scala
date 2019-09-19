@@ -55,9 +55,9 @@ Accusing other players of using computer assistance or otherwise cheating is not
 
 """, /* ---------------------------------------------------------------*/ """
 
-Warning: chat spam is not permitted
+Warning: spam is not permitted
 
-You may post your link only once. Not once per tournament, per forum, or once per day: but just once. Repeated violation of chat policy will result in loss of chat privileges.
+You may post your link only once. Not once per tournament, per forum, per player, or per day: but just once. Repeated violation of this policy will result in loss of communication privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -94,6 +94,12 @@ Our cheating detection algorithms have marked your account for using computer as
 Losing rated games on purpose is called "sandbagging", and is not allowed on Lichess.
 
 Thank you for your understanding."""
+  )
+
+  lazy val sittingAuto = ModPreset(
+    subject = "Warning: leaving games / stalling on time",
+    text = """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
   )
 
   def maxFollow(username: String, max: Int) = ModPreset(

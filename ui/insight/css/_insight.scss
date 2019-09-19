@@ -248,7 +248,7 @@
     font-size: .9em;
     ul {
       padding: 0;
-      overflow: hidden;
+      overflow: auto;
     }
     ul > li label:not(.optgroup) {
       padding: 4px 8px;
@@ -262,7 +262,7 @@
     ul > li label.optgroup {
       border-top: $border;
       margin-top: 5px;
-      text-indent: 0em;
+      text-indent: 0;
       text-transform: uppercase;
       font-weight: normal;
       opacity: 0.6;

@@ -86,7 +86,7 @@ object home {
             ctx.blind option h2("Counters"),
             a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers(nbPlayersPlaceholder)),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-              trans.nbGamesInPlay.plural(nbRounds, strong(nbRounds))
+              trans.nbGamesInPlay.plural(nbRounds, strong(nbRounds.localize))
             )
           )
         ),
@@ -102,15 +102,15 @@ object home {
             events.map(bits.spotlight),
             !ctx.isBot option frag(
               lila.tournament.Spotlight.select(tours, ctx.me, 3 - events.size) map { views.html.tournament.homepageSpotlight(_) },
-              simuls.find(_.spotlightable).headOption map views.html.simul.bits.homepageSpotlight
+              simuls.find(_.spotlightable).filter(lila.simul.Env.current.featurable).headOption map views.html.simul.bits.homepageSpotlight
             )
           ),
           ctx.me map { u =>
-            div(cls := "timeline", dataHref := routes.Timeline.home)(
+            div(cls := "timeline")(
               ctx.blind option h2("Timeline"),
               views.html.timeline entries userTimeline,
               // userTimeline.size >= 8 option
-              a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
             )
           } getOrElse div(cls := "about-side")(
             ctx.blind option h2("About"),
@@ -154,7 +154,7 @@ object home {
               span(trans.directlySupportLichess())
             )
           ),
-          a(href := routes.Page.swag)(
+          a(href := "https://shop.spreadshirt.com/lichess-org")(
             iconTag(""),
             span(cls := "lobby__support__text")(
               strong("Swag Store"),

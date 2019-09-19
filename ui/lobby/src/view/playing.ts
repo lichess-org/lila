@@ -20,7 +20,7 @@ export default function(ctrl: LobbyController) {
         key: pov.gameId,
         attrs: { href: '/' + pov.fullId }
       }, [
-        h('div.mini-board.cg-board-wrap.is2d', {
+        h('div.mini-board.cg-wrap.is2d', {
           hook: {
             insert(vnode) {
               const lm = pov.lastMove;
@@ -35,19 +35,13 @@ export default function(ctrl: LobbyController) {
               });
             }
           }
-        }, [h('div.cg-board')]),
+        }),
         h('span.meta', [
           pov.opponent.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', pov.opponent.ai) : pov.opponent.username,
           h('span.indicator',
             pov.isMyTurn ?
             (pov.secondsLeft ? timer(pov) : [ctrl.trans.noarg('yourTurn')]) :
-            h('span', {
-              hook: {
-                insert(vnode) {
-                  (vnode.elm as HTMLElement).innerHTML = '&nbsp;';
-                }
-              }
-            }))
+            h('span', '\xa0')) // &nbsp;
         ])
       ]);
     }));

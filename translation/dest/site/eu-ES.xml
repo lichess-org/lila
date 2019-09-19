@@ -56,9 +56,10 @@
   <string name="showThreat">Mehatxua erakutsi</string>
   <string name="inLocalBrowser">nabigatzailean</string>
   <string name="toggleLocalEvaluation">Analisia erakutsi</string>
-  <string name="promoteVariation">Bariantea nagusi egin</string>
+  <string name="promoteVariation">Aldaera nagusi bihurtu</string>
   <string name="makeMainLine">Linea nagusi bihurtu</string>
   <string name="deleteFromHere">Ezabatu hemendik aurrera</string>
+  <string name="forceVariation">Aldaera derrigortu</string>
   <string name="move">Jokaldia</string>
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
@@ -203,6 +204,7 @@
   <string name="playingRightNow">Oraintxe jokatzen</string>
   <string name="eventInProgress">Oraintxe jokatzen</string>
   <string name="finished">Amaituta</string>
+  <string name="finishesX">bukaera: %s</string>
   <string name="abortGame">Partida geldiarazi</string>
   <string name="gameAborted">Geldiarazitako partida</string>
   <string name="standard">Ohikoa</string>
@@ -291,8 +293,8 @@
     <item quantity="other">Sailkapenerako %s partida baino gehiago</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">%2%s partida %1$s baino gehiago</item>
-    <item quantity="other">%1$s %2%s partida baino gehiago</item>
+    <item quantity="one">%2$s partida %1$s baino gehiago</item>
+    <item quantity="other">%1$s %2$s partida baino gehiago</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Sailkapenerako balio duen beste %2$s partida %1$s jokatu behar duzu</item>
@@ -352,10 +354,14 @@
   <string name="clickOnTheBoardToMakeYourMove">Egizu jokaldia taulan, gizakia zarela frogatzeko.</string>
   <string name="captcha.fail">Ebatzi xake captcha mesedez.</string>
   <string name="notACheckmate">Hori ez da xake-matea!</string>
-  <string name="colorPlaysCheckmateInOne">%sren txanda da; xake-mate jokaldi baten</string>
+  <string name="whiteCheckmatesInOneMove">Zuriek xake-mate jokaldi bakarrean</string>
+  <string name="blackCheckmatesInOneMove">Beltzek xake-mate jokaldi bakarrean</string>
   <string name="retry">Berriro saiatu</string>
   <string name="reconnecting">Konektatuz</string>
-  <string name="onlineFriends">Konektatutako lagunak</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">Lagun %s konektatuta</item>
+    <item quantity="other">%s lagun konektatuta</item>
+  </plurals>
   <string name="noFriendsOnline">Ez dago lagunik konektatuta</string>
   <string name="findFriends">Lagunak bilatu</string>
   <string name="favoriteOpponents">Gogoko aurkariak</string>
@@ -471,6 +477,7 @@
   <string name="pleaseVotePuzzle">Eman botoa Lichessi laguntzeko, goranzko zein beheranzko gezia hautatuz:</string>
   <string name="thankYou">Eskerrik asko!</string>
   <string name="ratingX">Sailkapena: %s</string>
+  <string name="hidden">ezkutuan</string>
   <plurals name="playedXTimes">
     <item quantity="one">Behin jokatu da</item>
     <item quantity="other">%s aldiz jokatu da</item>
@@ -542,7 +549,7 @@
   <string name="moveListWhilePlaying">Jokaldi-zerrenda partidan zehar</string>
   <string name="pgnPieceNotation">Jokaldien idazketa</string>
   <string name="chessPieceSymbol">Xake piezen ikurra</string>
-  <string name="pgnLetter">Hizkiak (E, D, G, A, Z)</string>
+  <string name="pgnLetter">Hizkiak (K, Q, R, B, N)</string>
   <string name="chessClock">Xake-erlojua</string>
   <string name="tenthsOfSeconds">Segundo-hamarrenak erakutsi</string>
   <string name="never">Inoiz ere ez</string>
@@ -581,11 +588,12 @@
   <string name="xLeftANoteOnY">%1$s(e)k ohar bat utzi dio %2$s(r)i</string>
   <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
-  <string name="xAnsweredY">%1$s(e)k erantzun zuen</string>
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
   <string name="victory">Garaipena</string>
   <string name="defeat">Porrota</string>
-  <string name="xVsYinZ">%1$s %2$s-ren aurka %3$s-n</string>
+  <string name="victoryVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="defeatVsYInZ">%1$s - %2$s, %3$s</string>
+  <string name="drawVsYInZ">%1$s - %2$s, %3$s</string>
   <string name="timeline">Denbora-lerroa</string>
   <string name="starting">Hasten da:</string>
   <string name="allInformationIsPublicAndOptional">Informazio guztia publiko eta aukerakoa da</string>
@@ -632,6 +640,8 @@
   <string name="inCorrespondenceGames">Posta bidezko partidak</string>
   <string name="ifRatingIsPlusMinusX">Puntuazioa  ± %s tartean badago</string>
   <string name="onlyFriends">Lagunak soilik</string>
+  <string name="displayBoardResizeHandle">Taularen tamaina aldatzeko aukera erakutsi</string>
+  <string name="onlyOnInitialPosition">Hasierako posizioan bakarrik</string>
   <string name="menu">Menua</string>
   <string name="castling">Endrokea</string>
   <string name="whiteCastlingKingside">Zuriak O-O</string>
@@ -660,7 +670,7 @@
   <string name="hostColorX">Emango duenaren kolorea: %s</string>
   <string name="createdSimuls">Aldibereko partida sortuberriak</string>
   <string name="hostANewSimul">Aldibereko partida sortu</string>
-  <string name="noSimulFound">Aldibereko partida ezin aurkitu</string>
+  <string name="noSimulFound">Aldibereko partida ez da aurkitu</string>
   <string name="noSimulExplanation">Aldibereko partida ez da existitzen</string>
   <string name="returnToSimulHomepage">Aldibereko partiden orrialdera itzuli</string>
   <string name="aboutSimul">Aldibereko partidetan jokalari batek beste batzuei egiten die aurre aldi berean.</string>
@@ -699,6 +709,9 @@
   <string name="yourPerfTypeRatingIsRating">Zure %1$s balorazioa %2$s da.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">%1$s baino hobea zara, %2$s jokalaritik.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ez duzu zehaztutako %s baloraziorik.</string>
+  <string name="yourRating">Zure puntuazioa</string>
+  <string name="cumulative">Metaketa</string>
+  <string name="glicko2Rating">Glicko-2 puntuazioa</string>
   <string name="checkYourEmail">Zure emailean begiratu</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Email mezua  bidali dizugu. Zure kontua aktibatzeko, egizu klik mezuan.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ez baduzu mezua aurkitzen, begiratu beste tokietan: zaborrontzian, spam karpetan, ...</string>
@@ -842,12 +855,32 @@
   <string name="cannotChallengeDueToProvisionalXRating">Ezin duzu erronkarik egin behin-behineko %s puntuazioa duzulako.</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s erabiltzaileak bere lagunen erronkak onartzen ditu bakarrik.</string>
   <string name="conditionalPremoves">Baldintzadun aurrejokaldiak</string>
-  <string name="addCurrentVariation">Uneko bariantea gehitu</string>
-  <string name="playVariationToCreateConditionalPremoves">Bariante bat jokatu baldintzadun aurrejokaldiak sortzeko</string>
+  <string name="addCurrentVariation">Uneko aldaera gehitu</string>
+  <string name="playVariationToCreateConditionalPremoves">Aldaera bat jokatu baldintzadun aurre-jokaldiak sortzeko</string>
   <string name="noConditionalPremoves">Ez dago baldintzadun aurrejokaldirik</string>
   <string name="playX">%s jokatu</string>
   <plurals name="andSaveNbPremoveLines">
     <item quantity="one">eta aurrejokaldi linea %s gorde</item>
     <item quantity="other">eta %s aurrejokaldi linea gorde</item>
   </plurals>
+  <string name="sorry">Barkatu :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Denbora tarte baterako bota egin behar izan zaitugu.</string>
+  <string name="timeoutExpires">Kanporaketaren amaiera: %s.</string>
+  <string name="why">Zergatik?</string>
+  <string name="pleasantChessExperience">Guztioi xakean jokatzeko aukera atsegina eskaintzea da gure helburua.</string>
+  <string name="goodPractice">Horretarako, jokalari guztiek praktika onak jarraitzen dituztela ziur izan behar dugu.</string>
+  <string name="potentialProblem">Arazo bat aurkitzen dugunean, mezu hau erakusten dugu.</string>
+  <string name="howToAvoidThis">Nola ekidin hau?</string>
+  <string name="playEveryGame">Hasitako partida guztiak jokatu.</string>
+  <string name="tryToWin">Jokatutako partida guztiak irabazten saiatu (edo gutxienez berdindu).</string>
+  <string name="resignLostGames">Galdutako partidetan amore eman (ez utzi denbora agortzen).</string>
+  <string name="temporaryInconvenience">Barkatu eragozpenak,</string>
+  <string name="wishYouGreatGames">segi lichess.org-en jokatzen.</string>
+  <string name="thankYouForReading">Eskerrik asko irakurtzeagatik!</string>
+  <string name="lifetimeScore">Jokalari honekin duzun emaitza</string>
+  <string name="currentMatchScore">Uneko partidetako emaitza</string>
+  <string name="agreementAssistance">Nire partidetan ez dut inoiz laguntzarik jasoko (ordenagailuak, liburua, datu-base bat edo beste pertsona bat).</string>
+  <string name="agreementNice">Atsegina izango naiz beste jokalariekin.</string>
+  <string name="agreementAccount">Ez dut erabiltzaile bat baino gehiago sortuko.</string>
+  <string name="agreementPolicy">Lichessek ezarritako politikak beteko ditut.</string>
 </resources>

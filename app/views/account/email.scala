@@ -19,7 +19,7 @@ object email {
           ctx.req.queryString.contains("ok") option
             frag(" ", i(cls := "is-green", dataIcon := "E"))
         ),
-        st.form(cls := "form3", action := routes.Account.emailApply, method := "POST")(
+        postForm(cls := "form3", action := routes.Account.emailApply)(
           form3.password(form("passwd"), trans.password()),
           form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(required)),
           form3.action(form3.submit(trans.apply()))

@@ -7,6 +7,10 @@
       padding: .3em .5em;
       .more {
         color: $c-font-dim;
+        @include transition();
+        &:hover {
+          color: $c-link;
+        }
       }
       .title {
         @extend %base-font;
@@ -22,6 +26,7 @@
       overflow-y: auto;
     }
     .user-link {
+      padding-left: -1em;
       font-weight: bold;
       color: $c-font-dim;
     }
@@ -36,6 +41,14 @@
       max-width: 21ch; /* prevent leaderboard overflow due to long usernames */
       &:first-child {
         padding-left: .7em;
+      }
+      &.name a {
+        font-weight: bold;
+        color: $c-font-dim;
+        @include transition();
+        &:hover {
+          color: $c-link;
+        }
       }
     }
     tr:nth-child(even) {

@@ -17,7 +17,7 @@ import * as xhr from './studyXhr';
 import { path as treePath } from 'tree';
 import { StudyCtrl, StudyVm, Tab, ToolTab, TagTypes, StudyData, StudyChapterMeta, ReloadData } from './interfaces';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
-import { ChapterDescriptionCtrl } from './chapterDescription';
+import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
 import { MultiBoardCtrl } from './multiBoard';
@@ -71,7 +71,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     onBecomingContributor() {
       vm.mode.write = true;
     },
-    redraw
+    redraw,
+    trans: ctrl.trans
   });
 
   const chapters = chapterCtrl(
@@ -88,7 +89,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.opts.userId === data.chapter.ownerId;
   };
 
-  const multiBoard = new MultiBoardCtrl(data.id, redraw);
+  const multiBoard = new MultiBoardCtrl(data.id, redraw, ctrl.trans);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
 
@@ -96,7 +97,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     send("editStudy", d);
     if (isNew && data.chapter.setup.variant.key === 'standard' && ctrl.mainline.length === 1 && !data.chapter.setup.fromFen && !relay)
       chapters.newForm.openInitial();
-  }, () => data, redraw, relay);
+  }, () => data, ctrl.trans, redraw, relay);
 
   function isWriting(): boolean {
     return vm.mode.write && !isGamebookPlay();
@@ -113,12 +114,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   const commentForm: CommentForm = commentFormCtrl(ctrl);
   const glyphForm: GlyphCtrl = glyphFormCtrl(ctrl);
   const tags = tagsCtrl(ctrl, () => data.chapter, tagTypes);
-  const desc = new ChapterDescriptionCtrl(data.chapter.description, t => {
+  const studyDesc = new DescriptionCtrl(data.description, t => {
+    data.description = t;
+    send("descStudy", t);
+  }, redraw);
+  const chapterDesc = new DescriptionCtrl(data.chapter.description, t => {
     data.chapter.description = t;
-    send("descChapter", {
-      id: vm.chapterId,
-      description: t
-    });
+    send("descChapter", { id: vm.chapterId, desc: t });
   }, redraw);
 
   const serverEval = serverEvalCtrl(ctrl, () => vm.chapterId);
@@ -130,7 +132,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   function isGamebookPlay() {
     return data.chapter.gamebook && vm.gamebookOverride !== 'analyse' &&
-    (vm.gamebookOverride === 'play' || !members.canContribute());
+      (vm.gamebookOverride === 'play' || !members.canContribute());
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
@@ -141,8 +143,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const canContribute = members.canContribute();
     // unwrite if member lost privileges
     vm.mode.write = vm.mode.write && canContribute;
-    li.pubsub.emit('chat.writeable')(data.features.chat);
-    li.pubsub.emit('chat.permissions')({local: canContribute});
+    li.pubsub.emit('chat.writeable', data.features.chat);
+    li.pubsub.emit('chat.permissions', {local: canContribute});
+    li.pubsub.emit('palantir.toggle', data.features.chat && !!members.myMember());
     const computer: boolean = !isGamebookPlay() && !!(data.chapter.features.computer || data.chapter.practice);
     if (!computer) ctrl.getCeval().enabled(false);
     ctrl.getCeval().allowed(computer);
@@ -163,10 +166,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     const sameChapter = data.chapter.id === s.chapter.id;
     vm.mode.sticky = (vm.mode.sticky && s.features.sticky) || (!data.features.sticky && s.features.sticky);
     if (vm.mode.sticky) vm.behind = 0;
-    'position name visibility features settings chapter likes liked'.split(' ').forEach(key => {
+    'position name visibility features settings chapter likes liked description'.split(' ').forEach(key => {
       data[key] = s[key];
     });
-    desc.set(data.chapter.description);
+    chapterDesc.set(data.chapter.description);
+    studyDesc.set(data.description);
     document.title = data.name;
     members.dict(s.members);
     chapters.list(s.chapters);
@@ -228,7 +232,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     return ctrl.node;
   };
 
-  const share = shareCtrl(data, currentChapter, currentNode, redraw);
+  const share = shareCtrl(data, currentChapter, currentNode, redraw, ctrl.trans);
 
   const practice: StudyPracticeCtrl | undefined = practiceData && practiceCtrl(ctrl, data, practiceData);
 
@@ -279,7 +283,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   const socketHandlers = {
     path(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (!vm.mode.sticky) {
         vm.behind++;
@@ -296,11 +300,11 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     addNode(d) {
       const position = d.p,
-      node = d.n,
-      who = d.w,
-      sticky = d.s;
+        node = d.n,
+        who = d.w,
+        sticky = d.s;
       setMemberActive(who);
-      if (vm.toolTab() == 'multiBoard') multiBoard.addNode(d.p, d.n);
+      if (vm.toolTab() == 'multiBoard' || relay && relay.intro.active) multiBoard.addNode(d.p, d.n);
       if (sticky && !vm.mode.sticky) vm.behind++;
       if (wrongChapter(d)) {
         if (sticky && !vm.mode.sticky) redraw();
@@ -317,13 +321,13 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (sticky) data.position.path = newPath;
       if ((sticky && vm.mode.sticky) || (
         position.path === ctrl.path &&
-          position.path === treePath.fromNodeList(ctrl.mainline)
+        position.path === treePath.fromNodeList(ctrl.mainline)
       )) ctrl.jump(newPath);
       redraw();
     },
     deleteNode(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       // deleter already has it done
@@ -335,7 +339,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     promote(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       if (who && who.s === sri) return;
@@ -360,9 +364,16 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       setMemberActive(d.w);
       if (d.w && d.w.s === sri) return;
       if (data.chapter.id === d.chapterId) {
-        data.chapter.description = d.description;
-        desc.set(d.description);
+        data.chapter.description = d.desc;
+        chapterDesc.set(d.desc);
       }
+      redraw();
+    },
+    descStudy(d) {
+      setMemberActive(d.w);
+      if (d.w && d.w.s === sri) return;
+      data.description = d.desc;
+      studyDesc.set(d.desc);
       redraw();
     },
     addChapter(d) {
@@ -390,7 +401,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     shapes(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       if (who && who.s === sri) return;
@@ -398,9 +409,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
     },
+    validationError(d) {
+      alert(d.error);
+    },
     setComment(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setCommentAt(d.c, position.path);
@@ -414,7 +428,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     deleteComment(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.deleteCommentAt(d.id, position.path);
@@ -422,7 +436,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     glyphs(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setGlyphsAt(d.g, position.path);
@@ -430,7 +444,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     clock(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setClockAt(d.c, position.path);
@@ -438,7 +452,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     forceVariation(d) {
       const position = d.p,
-      who = d.w;
+        who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.forceVariationAt(position.path, d.force);
@@ -476,7 +490,8 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     serverEval,
     share,
     tags,
-    desc,
+    studyDesc,
+    chapterDesc,
     vm,
     relay,
     multiBoard,
@@ -529,7 +544,12 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }));
     },
     setChapter(id, force) {
-      if (id === vm.chapterId && !force) return;
+      const alreadySet = id === vm.chapterId && !force;
+      if (relay && relay.intro.active) {
+        relay.intro.disable();
+        if (alreadySet) redraw();
+      }
+      if (alreadySet) return;
       if (!vm.mode.sticky || !makeChange("setChapter", id)) {
         vm.mode.sticky = false;
         if (!vm.behind) vm.behind = 1;
@@ -558,9 +578,9 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     gamebookPlay: () => gamebookPlay,
     nextChapter(): StudyChapterMeta | undefined {
       const chapters = data.chapters,
-      currentId = currentChapter().id;
+        currentId = currentChapter().id;
       for (let i in chapters)
-      if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
+        if (chapters[i].id === currentId) return chapters[parseInt(i) + 1];
     },
     setGamebookOverride(o) {
       vm.gamebookOverride = o;
@@ -585,6 +605,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         return true;
       }
       return !!relay && relay.socketHandler(t, d);
-    }
+    },
+    sri
   };
 };

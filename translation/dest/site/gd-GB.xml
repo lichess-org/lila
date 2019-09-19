@@ -65,7 +65,6 @@
   <string name="viewInFullSize">Seall sa mheud iomlan</string>
   <string name="logOut">Log a-mach</string>
   <string name="signIn">Log a-steach</string>
-  <string name="newToLichess">Ùr air Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Tha feum agad air cunntas gus sin a dhèanamh</string>
   <string name="signUp">Clàraich</string>
   <string name="games">Geamannan</string>
@@ -87,7 +86,6 @@
   <string name="username">Ainm-cleachdaidh</string>
   <string name="usernameOrEmail">Far-ainm</string>
   <string name="password">Facal-faire</string>
-  <string name="haveAnAccount">A bheil cunntas agad?</string>
   <string name="changePassword">Atharraich am facal-faire</string>
   <string name="changeEmail">Atharraich am post-d</string>
   <string name="email">Post-d</string>
@@ -188,10 +186,8 @@
   <string name="thisIsAChessCaptcha">Seo CAPTCHA tàileisg.</string>
   <string name="clickOnTheBoardToMakeYourMove">Briog air a’ bhòrd airson gluasad ’s dearbhaich gur e duine a th’ annad.</string>
   <string name="notACheckmate">Chan e tul-chasg a th’ ann</string>
-  <string name="colorPlaysCheckmateInOne">Tha %s a’ cluich; tul-chasg an ceann gluasaid</string>
   <string name="retry">Feuch ris a-rithist</string>
   <string name="reconnecting">Ag ath-cheangal</string>
-  <string name="onlineFriends">Caraidean air loidhne</string>
   <string name="noFriendsOnline">Chan eil caraid air loidhne</string>
   <string name="findFriends">Lorg caraidean</string>
   <string name="follow">Lean</string>

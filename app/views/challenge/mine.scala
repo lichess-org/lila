@@ -12,8 +12,8 @@ object mine {
   def apply(c: lila.challenge.Challenge, json: play.api.libs.json.JsObject, error: Option[String])(implicit ctx: Context) = {
 
     val cancelForm =
-      form(method := "post", action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
-        button(tpe := "submit", cls := "button button-red text", dataIcon := "L")(trans.cancel())
+      postForm(action := routes.Challenge.cancel(c.id), cls := "cancel xhr")(
+        submitButton(cls := "button button-red text", dataIcon := "L")(trans.cancel())
       )
 
     views.html.base.layout(
@@ -22,6 +22,7 @@ object mine {
       moreJs = bits.js(c, json, true),
       moreCss = cssTag("challenge.page")
     ) {
+        val challengeLink = s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
         main(cls := "page-small challenge-page box box-pad")(
           c.status match {
             case Status.Created | Status.Offline => div(id := "ping-challenge")(
@@ -42,7 +43,8 @@ object mine {
                       cls := "copyable autoselect",
                       spellcheck := "false",
                       readonly,
-                      value := s"$netBaseUrl${routes.Round.watcher(c.id, "white")}"
+                      value := challengeLink,
+                      size := challengeLink.size
                     ),
                     button(title := "Copy URL", cls := "copy button", dataRel := "challenge-id", dataIcon := "\"")
                   ),
@@ -50,7 +52,7 @@ object mine {
                 ),
                 ctx.isAuth option div(
                   h2(cls := "ninja-title", "Or invite a lichess user:"), br,
-                  form(cls := "user-invite", action := routes.Challenge.toFriend(c.id), method := "POST")(
+                  postForm(cls := "user-invite", action := routes.Challenge.toFriend(c.id))(
                     input(name := "username", cls := "friend-autocomplete", placeholder := trans.search.txt()),
                     error.map { badTag(_) }
                   )

@@ -25,7 +25,6 @@ Pan fydd dau chwaraewr ar yr un sgor, bydd perfformiad gradd y chwaraewyr dros y
   <string name="howDoesItEnd">Sut y daw i ben?</string>
   <string name="howDoesItEndAnswer">Mae cloc yn cyfri lawr at ddiwedd pob talwrn. Pan fydd yr amser ar ben, mae\'r safleoedd yn cael eu penderfynnu. Mae\'n rhaid gorffen gemau sydd ar ganol eu chwarae, ond ni fyddant yn cyfri at safleuoedd y talwrn.</string>
   <string name="otherRules">Rheolau pwysig eraill</string>
-  <string name="otherRulesAnswer">Mae\'n rhaid i chi neud eich symudiad cyntaf o fewn ugain eiliad i ddechrau eich tro. Bydd methu a gwneud hynnu yn arwain at golli\'r gem. Ni fydd chwaraewr yn derbyn pwynt am gemau cyfartal sy\'n para llai na 10 symudiad.</string>
   <string name="thisIsPrivate">Mae hwn yn dalwrn preifat</string>
   <string name="shareUrl">Rhannu URL hwn i wahodd pobl: %s</string>
 </resources>

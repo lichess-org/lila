@@ -74,7 +74,7 @@ function view(opts: Opts, coords: Coords): VNode {
     ctrl.study ? studyView.contextMenu(ctrl.study, opts.path, node) : []
   ).concat([
     onMainline ?
-    action('F', 'Force variation', () => ctrl.forceVariation(opts.path, true)) :
+    action('F', trans('forceVariation'), () => ctrl.forceVariation(opts.path, true)) :
     null
   ]));
 }

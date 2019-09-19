@@ -6,8 +6,7 @@ import lila.hub.FutureSequencer
 
 final class Env(
     system: akka.actor.ActorSystem,
-    playbanApi: lila.playban.PlaybanApi,
-    onStart: String => Unit
+    playbanApi: lila.playban.PlaybanApi
 ) {
 
   private lazy val hookThieve = new HookThieve(system.lilaBus)
@@ -22,7 +21,7 @@ final class Env(
 
   private lazy val gameStarter = new GameStarter(
     bus = system.lilaBus,
-    onStart = onStart,
+    onStart = gameId => system.lilaBus.publish(gameId, 'gameStartId),
     sequencer = new FutureSequencer(
       system = system,
       executionTimeout = 5.seconds.some,
@@ -35,7 +34,6 @@ object Env {
 
   lazy val current: Env = "pool" boot new Env(
     system = lila.common.PlayApp.system,
-    playbanApi = lila.playban.Env.current.api,
-    onStart = lila.game.Env.current.onStart
+    playbanApi = lila.playban.Env.current.api
   )
 }

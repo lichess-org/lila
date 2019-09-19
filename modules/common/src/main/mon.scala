@@ -69,6 +69,10 @@ object mon {
       val forbidden = inc("http.csrf.forbidden")
       val websocket = inc("http.csrf.websocket")
     }
+    object fingerPrint {
+      val count = inc("http.finger_print.count")
+      val time = rec("http.finger_print.time")
+    }
   }
   object mobile {
     def version(v: String) = inc(s"mobile.version.$v")
@@ -113,6 +117,7 @@ object mon {
       val hit = incX("eval_Cache.upgrade.hit")
       val members = rec("eval_Cache.upgrade.members")
       val evals = rec("eval_Cache.upgrade.evals")
+      val expirable = rec("eval_Cache.upgrade.expirable")
     }
   }
   object lobby {
@@ -120,21 +125,16 @@ object mon {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
-      def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
-      def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
-      val getUids = rec("lobby.socket.get_uids")
+      val getSris = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
-      val mobile = rec("lobby.socket.mobile")
     }
     object pool {
       object wave {
@@ -228,12 +228,8 @@ object mon {
     object history {
       sealed abstract class PlatformHistory(platform: String) {
         val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
+        val getEventsCount = inc(s"round.history.$platform.getEventsCount")
         val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
-        object versionCheck {
-          val getEventsDelta = rec(s"round.history.versionCheck.$platform.getEventsDelta")
-          val getEventsTooFar = inc(s"round.history.$platform.versionCheck.getEventsTooFar")
-          val lateClient = inc(s"round.history.$platform.versionCheck.lateClient")
-        }
       }
       object mobile extends PlatformHistory("mobile")
       object site extends PlatformHistory("site")
@@ -322,9 +318,32 @@ object mon {
     val ejectAll = inc(s"socket.eject.all")
     object count {
       val all = rec("socket.count")
-      val site = rec("socket.count.site")
     }
+    val deadMsg = inc("socket.dead.msg")
     def queueSize(name: String) = rec(s"socket.queue_size.$name")
+    object remote {
+      object sets {
+        val users = rec("socket.remote.sets.users")
+        val games = rec("socket.remote.sets.games")
+      }
+      val connections = rec("socket.remote.connections")
+      object redis {
+        val publishTime = rec("socket.remote.redis.publish_time")
+        val publishTimeSync = rec("socket.remote.redis.publish_time.sync")
+        object in {
+          def channel(channel: String) = inc(s"socket.remote.redis.in.channel.$channel")
+          def path(channel: String, path: String) = inc(s"socket.remote.redis.in.path.$channel:$path")
+        }
+        object out {
+          def channel(channel: String) = inc(s"socket.remote.redis.out.channel.$channel")
+          def path(channel: String, path: String) = inc(s"socket.remote.redis.out.path.$channel:$path")
+        }
+      }
+      object lobby {
+        def tellSri(tpe: String) = inc(s"socket.remote.lobby.tell_sri.$tpe")
+        val missingSri = inc("socket.remote.lobby.missing_sri")
+      }
+    }
   }
   object trouper {
     def queueSize(name: String) = rec(s"trouper.queue_size.$name")
@@ -394,6 +413,7 @@ object mon {
     object firewall {
       val block = inc("security.firewall.block")
       val ip = rec("security.firewall.ip")
+      val prints = rec("security.firewall.prints")
     }
     object proxy {
       object request {
@@ -411,15 +431,20 @@ object mon {
     }
     object dnsApi {
       object mx {
-        def time = rec("security.dnsApi.mx.time")
-        def count = inc("security.dnsApi.mx.count")
-        def error = inc("security.dnsApi.mx.error")
+        val time = rec("security.dnsApi.mx.time")
+        val count = inc("security.dnsApi.mx.count")
+        val error = inc("security.dnsApi.mx.error")
       }
       object a {
-        def time = rec("security.dnsApi.a.time")
-        def count = inc("security.dnsApi.a.count")
-        def error = inc("security.dnsApi.a.error")
+        val time = rec("security.dnsApi.a.time")
+        val count = inc("security.dnsApi.a.count")
+        val error = inc("security.dnsApi.a.error")
       }
+    }
+    object checkMailApi {
+      val count = inc("checkMail.fetch.count")
+      val block = inc("checkMail.fetch.block")
+      val error = inc("checkMail.fetch.error")
     }
   }
   object tv {
@@ -620,6 +645,12 @@ object mon {
       val requestCount = inc("fishnet.analysis.request")
       val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
     }
+    object http {
+      def acquire(skill: String) = new {
+        def hit = inc(s"fishnet.http.acquire.$skill.hit")
+        def miss = inc(s"fishnet.http.acquire.$skill.miss")
+      }
+    }
   }
   object api {
     object userGames {
@@ -650,6 +681,9 @@ object mon {
   object jsmon {
     val socketGap = inc("jsmon.socket_gap")
     val unknown = inc("jsmon.unknown")
+  }
+  object palantir {
+    val channels = rec("palantir.channels.nb")
   }
   object bus {
     val classifiers = rec("bus.classifiers")

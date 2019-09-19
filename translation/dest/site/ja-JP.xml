@@ -59,6 +59,7 @@
   <string name="promoteVariation">変化を主手順にする</string>
   <string name="makeMainLine">主手順にする</string>
   <string name="deleteFromHere">ここから削除</string>
+  <string name="forceVariation">変化として表示</string>
   <string name="move">手</string>
   <string name="variantLoss">バリアント負け</string>
   <string name="variantWin">バリアント勝ち</string>
@@ -75,7 +76,7 @@
   <string name="averageRatingX">平均レーティング: %s</string>
   <string name="recentGames">最近のゲーム</string>
   <string name="topGames">トップのゲーム</string>
-  <string name="masterDbExplanation">1952 年から 2016 年まで、FIDEレーティング 2200 以上の 実戦 200 万局</string>
+  <string name="masterDbExplanation">%2$s 年から %3$s 年まで、FIDEレーティング %1$s 以上の 実戦 200 万局</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="other">%s プライでメイト</item>
   </plurals>
@@ -129,7 +130,6 @@
   <string name="viewInFullSize">フルサイズで見る</string>
   <string name="logOut">ログアウト</string>
   <string name="signIn">ログイン</string>
-  <string name="newToLichess">lichessは初めてですか？</string>
   <string name="youNeedAnAccountToDoThat">アカウントが必要です</string>
   <string name="signUp">登録</string>
   <string name="computersAreNotAllowedToPlay">コンピューターの力を借りてのプレイは禁止されています。プレイ中にチェスエンジン、データベース、他のプレイヤーの助言を利用しないでください。また複数アカウントの使用もしないでください。ひどい場合は追放されます。</string>
@@ -161,7 +161,6 @@
   <string name="changeUsernameNotSame">大文字・小文字の変更だけができます（johndoe を JohnDoeに、など）</string>
   <string name="changeUsernameDescription">ユーザー名を変更します。これは一回限りで、行なえるのは大文字・小文字の変更だけです。</string>
   <string name="password">パスワード</string>
-  <string name="haveAnAccount">アカウントをお持ちですか？</string>
   <string name="changePassword">パスワードの変更</string>
   <string name="changeEmail">メールアドレスの変更</string>
   <string name="email">メールアドレス</string>
@@ -195,6 +194,7 @@
   <string name="playingRightNow">対局中</string>
   <string name="eventInProgress">対局中</string>
   <string name="finished">終了したトーナメント</string>
+  <string name="finishesX">終了まで %s</string>
   <string name="abortGame">対局を中止する</string>
   <string name="gameAborted">対局を中止しました</string>
   <string name="standard">スタンダード</string>
@@ -332,10 +332,13 @@
   <string name="clickOnTheBoardToMakeYourMove">駒を動かしてあなたが人間である事を証明して下さい。</string>
   <string name="captcha.fail">問題を解いて人間だと証明してください。</string>
   <string name="notACheckmate">チェックメイトではありません</string>
-  <string name="colorPlaysCheckmateInOne">%s 番; １手でチェックメイト</string>
+  <string name="whiteCheckmatesInOneMove">白 1 手でチェックメイト</string>
+  <string name="blackCheckmatesInOneMove">黒 1 手でチェックメイト</string>
   <string name="retry">もう一度</string>
   <string name="reconnecting">再接続</string>
-  <string name="onlineFriends">接続中の友達</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s 人の友達が接続中</item>
+  </plurals>
   <string name="noFriendsOnline">接続中の友達はいません</string>
   <string name="findFriends">友達を探す</string>
   <string name="favoriteOpponents">お気に入りの対戦相手</string>
@@ -448,6 +451,7 @@
   <string name="pleaseVotePuzzle">今後の改善のため、上下の矢印で投票をお願いします:</string>
   <string name="thankYou">ありがとう！</string>
   <string name="ratingX">レーティング: %s</string>
+  <string name="hidden">非表示</string>
   <plurals name="playedXTimes">
     <item quantity="other">解答数のべ %s 回</item>
   </plurals>
@@ -560,8 +564,7 @@
   <string name="xCommentedY">%1$s が %2$s とコメントしました。</string>
   <string name="victory">勝利！</string>
   <string name="defeat">失敗</string>
-  <string name="xVsYinZ">%1$s 対 %2$s
-（%3$s）</string>
+  <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
   <string name="timeline">タイムライン</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>
@@ -606,6 +609,8 @@
   <string name="inCorrespondenceGames">通信チェスのみ</string>
   <string name="ifRatingIsPlusMinusX">レーティング差が±%s以内のとき</string>
   <string name="onlyFriends">友達のみ</string>
+  <string name="displayBoardResizeHandle">盤サイズ変更マークを表示</string>
+  <string name="onlyOnInitialPosition">ゲーム開始時のみ</string>
   <string name="menu">メニュー</string>
   <string name="castling">キャスリング</string>
   <string name="whiteCastlingKingside">白　o-o</string>
@@ -671,6 +676,9 @@
   <string name="yourPerfTypeRatingIsRating">あなたの %1$s レーティングは %2$s です。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">あなたは全体の %1$s の%2$s参加者より上です。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">まだ %s レーティングが確定していません。</string>
+  <string name="yourRating">あなたの位置</string>
+  <string name="cumulative">累積百分率</string>
+  <string name="glicko2Rating">グリコ-2 レーティング</string>
   <string name="checkYourEmail">メールを確認してください</string>
   <string name="weHaveSentYouAnEmailClickTheLink">メールを送信しました。リンクをクリックしてアカウントの作成を完了してください。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">メールが見つからない場合は、他の場所（スパムフォルダなど）を確認してください。</string>
@@ -818,4 +826,24 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 種のコンディショナルムーブを設定</item>
   </plurals>
+  <string name="sorry">残念です :(</string>
+  <string name="weHadToTimeYouOutForAWhile">しばらくプレイを禁止します。</string>
+  <string name="timeoutExpires">禁止は %s 後に解けます。</string>
+  <string name="why">どうして？</string>
+  <string name="pleasantChessExperience">Lichess ではすべての人に楽しいチェス体験を提供しています。</string>
+  <string name="goodPractice">そのためには、すべての人にマナーを守っていただく必要があります。</string>
+  <string name="potentialProblem">問題があった場合、このメッセージ画面が表示されます。</string>
+  <string name="howToAvoidThis">どうすればいいの？</string>
+  <string name="playEveryGame">始めたゲームを中断しない</string>
+  <string name="tryToWin">すべてのゲームで勝ち（またはドロー）を目指す</string>
+  <string name="resignLostGames">敗勢なら投了する（時間切れまで放置しない）</string>
+  <string name="temporaryInconvenience">しばらくご不便をおかけしますが</string>
+  <string name="wishYouGreatGames">今後も Lichess ですばらしいゲームを楽しまれるよう願っています。</string>
+  <string name="thankYouForReading">熟読ありがとう！</string>
+  <string name="lifetimeScore">通算成績</string>
+  <string name="currentMatchScore">現在のスコア</string>
+  <string name="agreementAssistance">私はいかなる場合も対局中に外部の力を借りないことに同意します（コンピュータ、書籍、データベース、別の人物）。</string>
+  <string name="agreementNice">私は常に他のプレイヤーへの礼儀を守ることに同意します。</string>
+  <string name="agreementAccount">私は複数のアカウントを持たないことに同意します。</string>
+  <string name="agreementPolicy">私は Lichess のすべてのポリシーに従うことに同意します。</string>
 </resources>

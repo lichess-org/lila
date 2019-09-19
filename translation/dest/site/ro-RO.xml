@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promovează variația</string>
   <string name="makeMainLine">Fă-o variația principală</string>
   <string name="deleteFromHere">Șterge de aici</string>
+  <string name="forceVariation">Forțează variația</string>
   <string name="move">Mutare</string>
   <string name="variantLoss">Variantă pierdere</string>
   <string name="variantWin">Variantă câștig</string>
@@ -100,7 +101,7 @@
   <string name="realtimeReplay">În timp real</string>
   <string name="byCPL">După CPL</string>
   <string name="openStudy">Studiu deschis</string>
-  <string name="enable">Activeaza</string>
+  <string name="enable">Activează</string>
   <string name="bestMoveArrow">Săgeată pentru cea mai bună mutare</string>
   <string name="evaluationGauge">Indicator de evaluare</string>
   <string name="multipleLines">Mutări multiple</string>
@@ -139,7 +140,6 @@
   <string name="viewInFullSize">Vezi la dimensiune completă</string>
   <string name="logOut">Deconectare</string>
   <string name="signIn">Autentificare</string>
-  <string name="newToLichess">Nou pe Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Aveți nevoie de cont pentru această acțiune</string>
   <string name="signUp">Înregistrare</string>
   <string name="computersAreNotAllowedToPlay">Computerele și jucătorii asistați de computer nu au voie să joace. Vă rugăm ca în timpul partidei să nu primiți asistență de la motoare de șah, baze de date, sau de la alți jucători. Rețineți totodată că acțiunea de creare a mai multor conturi este descurajată și că un număr mare de conturi vor conduce la blocarea accesului pe site (ban).</string>
@@ -171,8 +171,10 @@
   <string name="ratingStats">Statistică pentru clasament</string>
   <string name="username">Nume utilizator</string>
   <string name="usernameOrEmail">Utilizator/Email</string>
+  <string name="changeUsername">Schimbă numele de utilizator</string>
+  <string name="changeUsernameNotSame">Se poate interschimba din minuscule în majuscule. De exemplu: „johndoe” în „JohnDoe”.</string>
+  <string name="changeUsernameDescription">Schimbă-ți numele de utilizator. Această operație poate fi efectuată o singură dată și presupune doar schimbarea literelor din minuscule în majuscule și invers.</string>
   <string name="password">Parolă</string>
-  <string name="haveAnAccount">Aveți un cont?</string>
   <string name="changePassword">Schimbați parola</string>
   <string name="changeEmail">Schimbă e-mailul</string>
   <string name="email">E-mail</string>
@@ -180,6 +182,11 @@
   <string name="forgotPassword">Ți-ai pierdut parola?</string>
   <string name="rank">Clasificare</string>
   <string name="rankX">Loc în clasament: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Locul în clasament este actualizat în fiecare minut</item>
+    <item quantity="few">Locul în clasament este actualizat în fiecare %s minute</item>
+    <item quantity="other">Locul în clasament este actualizat în fiecare %s minute</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">O poziție</item>
     <item quantity="few">%s poziții</item>
@@ -207,6 +214,7 @@
   <string name="playingRightNow">În desfășurare...</string>
   <string name="eventInProgress">În desfășurare</string>
   <string name="finished">Terminat</string>
+  <string name="finishesX">se termină %s</string>
   <string name="abortGame">Abandonați partida</string>
   <string name="gameAborted">Partidă abandonată</string>
   <string name="standard">Standard</string>
@@ -369,10 +377,15 @@
   <string name="clickOnTheBoardToMakeYourMove">Apăsați pe tablă pentru a muta, dovedind că sunteți om.</string>
   <string name="captcha.fail">Vă rugăm să completați acest puzzle.</string>
   <string name="notACheckmate">Nu este mat</string>
-  <string name="colorPlaysCheckmateInOne">%s joacă; mat într-o mutare</string>
+  <string name="whiteCheckmatesInOneMove">Albele să dea șah mat într-o mutare</string>
+  <string name="blackCheckmatesInOneMove">Negrele să dea șah mat într-o mutare</string>
   <string name="retry">Mai încercați</string>
   <string name="reconnecting">Se reconectează</string>
-  <string name="onlineFriends">Prieteni online</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s prieten online</item>
+    <item quantity="few">%s prieteni online</item>
+    <item quantity="other">%s prieteni online</item>
+  </plurals>
   <string name="noFriendsOnline">Niciun prieten online</string>
   <string name="findFriends">Găsiți prieteni</string>
   <string name="favoriteOpponents">Oponenți favoriți</string>
@@ -491,6 +504,7 @@
   <string name="pleaseVotePuzzle">Ajutați la îmbunătățirea lichess votând cu ajutorul săgeților:</string>
   <string name="thankYou">Mulţumesc!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">ascuns</string>
   <plurals name="playedXTimes">
     <item quantity="one">Jucat %s dată</item>
     <item quantity="few">Jucat de %s ori</item>
@@ -564,7 +578,7 @@
   <string name="moveListWhilePlaying">Lista de mutări în timpul jocului</string>
   <string name="pgnPieceNotation">Notația PGN a pieselor</string>
   <string name="chessPieceSymbol">Simbolul piesei de șah</string>
-  <string name="pgnLetter">Literă (R, D, T, N, C)</string>
+  <string name="pgnLetter">Literă (K, Q, R, B, N)</string>
   <string name="chessClock">Ceasul de șah</string>
   <string name="tenthsOfSeconds">Zecimi de secundă</string>
   <string name="never">Niciodată</string>
@@ -601,14 +615,14 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Dificil</string>
   <string name="xLeftANoteOnY">%1$s a lăsat un mesaj pentru %2$s</string>
-  <string name="xCompetesInY">%1$s joacă în °s</string>
   <string name="xAskedY">%1$s a întrebat %2$s</string>
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>
-  <string name="victory">Victorie!</string>
+  <string name="victory">Victorie</string>
   <string name="defeat">Înfrângere</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-în %3$s</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s în %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s în %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s în %3$s</string>
   <string name="timeline">Activitate recentă</string>
   <string name="starting">Începe în:</string>
   <string name="allInformationIsPublicAndOptional">Aceste date sunt publice și facultative</string>
@@ -657,6 +671,8 @@
   <string name="inCorrespondenceGames">În jocuri prin corespondență</string>
   <string name="ifRatingIsPlusMinusX">Dacă rating-ul este ± %s</string>
   <string name="onlyFriends">Doar prieteni</string>
+  <string name="displayBoardResizeHandle">Posibilitatea de redimensionare a tablei de joc</string>
+  <string name="onlyOnInitialPosition">Doar inainte de prima mutare</string>
   <string name="menu">Meniu</string>
   <string name="castling">Rocada</string>
   <string name="whiteCastlingKingside">Alb O-O</string>
@@ -726,6 +742,9 @@
   <string name="yourPerfTypeRatingIsRating">Palmaresul dumneavoastră %1$s este %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Sunteți mai bun decât %1$s din %2$s jucători.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nu aveți un palmares %s definit.</string>
+  <string name="yourRating">Scorul tău</string>
+  <string name="cumulative">Cumulativ</string>
+  <string name="glicko2Rating">Evaluare Glicko-2</string>
   <string name="checkYourEmail">Verificați-vă adresa de email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">V-am trimis un email. Fă click pe link-ul din email pentru a-ți activa contul.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Dacă nu vezi email-ul trimis, verifică și în alte locuri, cum ar fi folderul de spam, junk, mesaje sociale sau alte foldere.</string>
@@ -881,4 +900,24 @@
     <item quantity="few">și salvează %s variațiile cu mutare anticipată</item>
     <item quantity="other">și salvează %s variațiile cu mutare anticipată</item>
   </plurals>
+  <string name="sorry">Scuze :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Am fost nevoiți să suspendăm activitatea pentru puțin timp.</string>
+  <string name="timeoutExpires">Suspendarea se termină %s.</string>
+  <string name="why">De ce?</string>
+  <string name="pleasantChessExperience">Dorim să oferim o experiență plăcută tuturor jucătorilor de șah.</string>
+  <string name="goodPractice">Ca acest lucru să se întâmple, trebuie să ne asigurăm că toți jucătorii respectă bunele practici.</string>
+  <string name="potentialProblem">Când o potențială problemă este detectată, afișăm acest mesaj.</string>
+  <string name="howToAvoidThis">Cum puteți preveni suspendarea?</string>
+  <string name="playEveryGame">Jucați fiecare meci pe care-l începeți.</string>
+  <string name="tryToWin">Încercați să câștigați (sau măcar să faceți remiză) fiecare meci pe care-l jucați.</string>
+  <string name="resignLostGames">Abandonați meciurile pierdute (nu lăsați timpul să expire).</string>
+  <string name="temporaryInconvenience">Ne pare rău pentru neplăcerile temporare</string>
+  <string name="wishYouGreatGames">și vă dorim meciuri deosebite pe lichess.org.</string>
+  <string name="thankYouForReading">Vă mulțumim pentru atenție!</string>
+  <string name="lifetimeScore">Scorul total</string>
+  <string name="currentMatchScore">Scorul curent</string>
+  <string name="agreementAssistance">Sunt de acord să nu primesc niciodată asistență în timpul meciurilor mele (de la un computer, o carte, o bază de date sau de la o altă persoană).</string>
+  <string name="agreementNice">Sunt de acord să fiu mereu respectuos cu alți jucători.</string>
+  <string name="agreementAccount">Sunt de acord că nu voi crea conturi multiple.</string>
+  <string name="agreementPolicy">Sunt de acord cu respectatul tuturor politicilor Lichess.</string>
 </resources>

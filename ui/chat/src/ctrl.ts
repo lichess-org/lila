@@ -2,12 +2,22 @@ import { Ctrl, ChatOpts, Line, Tab, ViewModel, Redraw, Permissions, ModerationCt
 import { presetCtrl } from './preset'
 import { noteCtrl } from './note'
 import { moderationCtrl } from './moderation'
+import { prop } from 'common';
 
 const li = window.lichess;
 
 export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const data = opts.data;
+  data.domVersion = 1; // increment to force redraw
+  const maxLines = 200;
+  const maxLinesDrop = 50; // how many lines to drop at once
+
+  const palantir = {
+    instance: undefined,
+    loaded: false,
+    enabled: prop(!!data.palantir)
+  };
 
   const allTabs: Tab[] = ['discussion'];
   if (opts.noteId) allTabs.push('note');
@@ -38,14 +48,15 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       alert('Max length: 140 chars. ' + text.length + ' chars used.');
       return;
     }
-    li.pubsub.emit('socket.send')('talk', text);
+    li.pubsub.emit('socket.send', 'talk', text);
   };
 
   const onTimeout = function(username: string) {
-    data.lines.forEach(function(l) {
+    data.lines.forEach(l => {
       if (l.u === username) l.d = true;
     });
     if (username.toLowerCase() === data.userId) vm.timeout = true;
+    data.domVersion++;
     redraw();
   };
 
@@ -57,8 +68,12 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
   };
 
   const onMessage = function(line: Line) {
-    if (data.lines.length > 64) data.lines.shift();
     data.lines.push(line);
+    const nb = data.lines.length;
+    if (nb > maxLines) {
+      data.lines.splice(0, nb - maxLines + maxLinesDrop);
+      data.domVersion++;
+    }
     redraw();
   };
 
@@ -84,7 +99,6 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     moderation = canMod() ? moderationCtrl({
       reasons: opts.timeoutReasons || ([{key: 'other', name: 'Inappropriate behavior'}]),
       permissions: opts.permissions,
-      send: li.pubsub.emit('socket.send'),
       redraw
     }) : undefined;
     if (canMod()) opts.loadCss('chat.mod');
@@ -108,7 +122,8 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     ['socket.in.chat_timeout', onTimeout],
     ['socket.in.chat_reinstate', onReinstate],
     ['chat.writeable', onWriteable],
-    ['chat.permissions', onPermissions]
+    ['chat.permissions', onPermissions],
+    ['palantir.toggle', palantir.enabled]
   ];
   subs.forEach(([eventName, callback]) => li.pubsub.on(eventName, callback));
 
@@ -116,7 +131,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     subs.forEach(([eventName, callback]) => li.pubsub.off(eventName, callback));
   };
 
-  const emitEnabled = () => li.pubsub.emit('chat.enabled')(vm.enabled);
+  const emitEnabled = () => li.pubsub.emit('chat.enabled', vm.enabled);
   emitEnabled();
 
   return {
@@ -145,6 +160,7 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
       redraw();
     },
     redraw,
+    palantir,
     destroy
   };
 };

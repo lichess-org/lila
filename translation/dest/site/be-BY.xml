@@ -392,10 +392,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Зрабіце ход, каб даказаць, што вы – чалавек.</string>
   <string name="captcha.fail">Калі ласка, вырашыце шахматную CAPTCHA.</string>
   <string name="notACheckmate">Гэта не мат</string>
-  <string name="colorPlaysCheckmateInOne">%s пачынаюць; мат у адзін ход</string>
   <string name="retry">Яшчэ раз</string>
   <string name="reconnecting">Перападлучэнне</string>
-  <string name="onlineFriends">Сябры на сайце</string>
   <string name="noFriendsOnline">Няма сяброў анлайн</string>
   <string name="findFriends">Знайсці сяброў</string>
   <string name="favoriteOpponents">Пераважныя супернікі</string>
@@ -635,8 +633,6 @@
   <string name="xCommentedY">%1$s пракаментаваў %2$s</string>
   <string name="victory">Перамога!</string>
   <string name="defeat">Параза</string>
-  <string name="xVsYinZ">%1$s у гульні з %2$s
-рэжым: %3$s</string>
   <string name="timeline">Храналогія</string>
   <string name="starting">Пачатак:</string>
   <string name="allInformationIsPublicAndOptional">Уся гэтая інфармацыя будзе даступна публічна. Вы можаце не пазначаць тут нічога.</string>

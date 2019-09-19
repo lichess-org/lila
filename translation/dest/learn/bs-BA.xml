@@ -15,8 +15,8 @@
   <string name="rookGoal">Klikni na topa
 da ga dovedeš do zvjezdice!</string>
   <string name="grabAllTheStars">Pokupi sve zvjezdice!</string>
-  <string name="theFewerMoves">Čim manje poteza napraviš,
-tim više poteza osvajaš!</string>
+  <string name="theFewerMoves">Što manje poteza napraviš,
+to više poteza osvajaš!</string>
   <string name="useTwoRooks">Koristi dva topa
 da ubrzaš stvari!</string>
   <string name="rookComplete">Čestitke! Uspješno si ovladao/la topom.</string>
@@ -25,8 +25,8 @@ da ubrzaš stvari!</string>
   <string name="bishopIntro">Sada ćemo naučiti kako manevrirati lovcem!</string>
   <string name="youNeedBothBishops">Jedan svijetlopoljni lovac,
 jedan tamnopoljni lovac.
-Trebaš oboje!</string>
-  <string name="bishopComplete">Čestitke! Možeš vladati lovcem.</string>
+Trebaš oba!</string>
+  <string name="bishopComplete">Čestitke! Znaš vladati lovcem.</string>
   <string name="theQueen">Dama</string>
   <string name="queenCombinesRookAndBishop">Dama = top + lovac</string>
   <string name="queenIntro">Ulazi najjača šahovska figura. Njezino visočanstvo dama!</string>
@@ -41,7 +41,7 @@ Trebaš oboje!</string>
   <string name="itMovesInAnLShape">Kreće se u obliku slova L</string>
   <string name="knightIntro">Evo izazova za tebe. Skakač je... škakljiva figura.</string>
   <string name="knightsHaveAFancyWay">Skakači imaju elegantan način
-skakanja okolo!</string>
+skakanja uokolo!</string>
   <string name="knightsCanJumpOverObstacles">Skakači mogu preskakati zapreke!
 Pobjegni i savladaj zvijezde!</string>
   <string name="knightComplete">Čestitke! Uspješno si ovladao/la skakačem.</string>
@@ -63,7 +63,7 @@ Nema potrebe za promoviranjem.</string>
   <string name="pawnComplete">Čestitke! Pješaci ti nisu nepoznanica.</string>
   <string name="pawnPromotion">Promocija pješaka</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Tvoj pješak je došao do kraja ploče!</string>
-  <string name="itNowPromotesToAStrongerPiece">Sada se on promovira u jaču figuru.</string>
+  <string name="itNowPromotesToAStrongerPiece">Sada se promovira u jaču figuru.</string>
   <string name="selectThePieceYouWant">Odaberi figuru koju želiš!</string>
   <string name="fundamentals">Osnove</string>
   <string name="capture">Uzimanje</string>
@@ -76,7 +76,7 @@ I nemoj izgubiti svoje.</string>
   <string name="protection">Zaštita</string>
   <string name="keepYourPiecesSafe">Čuvaj svoje figure</string>
   <string name="protectionIntro">Identificiraj figure koje tvoj protivnik napada, i obrani ih!</string>
-  <string name="protectionComplete">Čestitke! Figura koju ne izgubiš je figura koju dobiš!</string>
+  <string name="protectionComplete">Čestitke! Figura koju ne izgubiš je figura koju dobiješ!</string>
   <string name="escape">Pod napadom si!
 Pobjegni prijetnji!</string>
   <string name="noEscape">Nema bijega, 
@@ -104,10 +104,10 @@ uzimanjem protivničke figure.</string>
 kroz tvoju obranu!</string>
   <string name="escapeOrBlock">Pobjegni kraljem
 ili blokiraj napad!</string>
-  <string name="outOfCheckComplete">Čestitke! Tvoj kralj ne može nikad biti uzet, pobrini se da se možeš obraniti od šaha!</string>
+  <string name="outOfCheckComplete">Čestitke! Tvoj kralj ne može nikada biti uzet, pobrini se da se možeš obraniti od šaha!</string>
   <string name="mateInOne">Mat u jednom</string>
   <string name="defeatTheOpponentsKing">Porazi protivnikovog kralja</string>
-  <string name="mateInOneIntro">Pobjeda je tvoja onda kada tvoj protivnik ne može obraniti šah.</string>
+  <string name="mateInOneIntro">Pobjeda je tvoja kada tvoj protivnik ne može obraniti šah.</string>
   <string name="attackYourOpponentsKing">Napadni protivnikovog kralja
 na način na koji ga neće moći obraniti!</string>
   <string name="mateInOneComplete">Čestitke! Tako se pobjeđuju šahovske partije!</string>
@@ -133,7 +133,7 @@ Napravi bilo koji potez za nastavak.</string>
   <string name="boardSetupComplete">Čestitke! Znaš postaviti šahovsku ploču.</string>
   <string name="castling">Rokada</string>
   <string name="theSpecialKingMove">Poseban potez kralja</string>
-  <string name="castlingIntro">Dovedi svog kralja na sigurno, i razvi svog topa za napad!</string>
+  <string name="castlingIntro">Dovedi svog kralja na sigurno, i razvij svog topa za napad!</string>
   <string name="castleKingSide">Pomakni svog kralja za dva polja
 da napraviš malu rokadu!</string>
   <string name="castleQueenSide">Pomakni svog kralja za dva polja
@@ -154,7 +154,8 @@ Blokiraj šah i tek onda rokiraj!</string>
 za malu rokadu!</string>
   <string name="findAWayToCastleQueenSide">Pronađi način 
 za veliku rokadu!</string>
-  <string name="castlingComplete">Čestitke! Skoro uvijek bi trebao rokirati u partiji.</string>
+  <string name="castlingComplete">Čestitke! Gotovo uvijek bi trebao rokirati u partiji.</string>
+  <string name="enPassant">En passant</string>
   <string name="theSpecialPawnMove">Poseban potez pješaka</string>
   <string name="enPassantIntro">Kada se protivnički pješak pomakne za dva polja, možeš ga uzeti kao da se pomaknuo za jedno polje.</string>
   <string name="blackJustMovedThePawnByTwoSquares">Crni se upravo pomaknuo pješakom
@@ -196,15 +197,15 @@ Lovac = 3
 Skakač = 3
 Pješak = 1</string>
   <string name="checkInTwo">Šah u dva poteza</string>
-  <string name="twoMovesToGiveCheck">Dva poteza da se da šah</string>
+  <string name="twoMovesToGiveCheck">Dva poteza za davanje šaha</string>
   <string name="checkInTwoIntro">Pronađi najbolju kombinaciju dvaju poteza koji šahiraju protivnikovog kralja!</string>
-  <string name="checkInTwoGoal">Zaprijeti protivničkom kraju 
+  <string name="checkInTwoGoal">Zaprijeti protivničkom kralju 
 u dva poteza!</string>
   <string name="checkInTwoComplete">Čestitke! Šahirao si protivnika, prisiljavajući ga da obrani svoga protivnika!</string>
   <string name="whatNext">Što dalje?</string>
   <string name="youKnowHowToPlayChess">Sada znaš igrati šah, čestitke! Želiš li postati jači igrač?</string>
   <string name="register">Registriraj se</string>
-  <string name="getAFreeLichessAccount">Dobij besplatni Lichess račun</string>
+  <string name="getAFreeLichessAccount">Napravi besplatni Lichess račun</string>
   <string name="practice">Vježbaj</string>
   <string name="learnCommonChessPositions">Nauči uobičajene šahovske pozicije</string>
   <string name="puzzles">Problemi</string>

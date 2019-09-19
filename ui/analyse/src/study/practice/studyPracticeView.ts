@@ -1,11 +1,11 @@
 import { h, thunk } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { plural, bind, spinner, innerHTML, enrichText, option } from '../../util';
+import { plural, bind, spinner, richHTML, option } from '../../util';
 import { StudyCtrl } from '../interfaces';
 import { MaybeVNodes } from '../../interfaces';
 import { StudyPracticeData, StudyPracticeCtrl } from './interfaces';
 import { boolSetting } from '../../boolSetting';
-import { view as descView } from '../chapterDescription';
+import { view as descView } from '../description';
 
 function selector(data: StudyPracticeData) {
   return h('select.selector', {
@@ -55,11 +55,9 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
     gb = ctrl.gamebookPlay(),
     pinned = ctrl.data.chapter.description;
   if (gb) return pinned ? [h('div.feedback.ongoing', [
-    h('div.comment', {
-      hook: innerHTML(pinned, text => enrichText(text!, true))
-    })
+    h('div.comment', { hook: richHTML(pinned) })
   ])] : [];
-  else if (!ctrl.data.chapter.practice) return [descView(ctrl)];
+  else if (!ctrl.data.chapter.practice) return [descView(ctrl, true)];
   switch (p.success()) {
     case true:
       const next = ctrl.nextChapter();
@@ -86,9 +84,7 @@ export function underboard(ctrl: StudyCtrl): MaybeVNodes {
       return [
         h('div.feedback.ongoing', [
           h('div.goal', [renderGoal(p, p.goal().moves! - p.nbMoves())]),
-          pinned ? h('div.comment', {
-            hook: innerHTML(pinned, text => enrichText(text!, true))
-          }) : null
+          pinned ? h('div.comment', { hook: richHTML(pinned) }) : null
         ]),
         boolSetting({
           name: 'Load next exercise immediately',

@@ -3,7 +3,7 @@
 <resources>
   <string name="activity">Verlauf</string>
   <plurals name="supportedNbMonths">
-    <item quantity="one">Unterstützt lichess.org seit %1$s Monaten als %2$s</item>
+    <item quantity="one">Unterstützt lichess.org seit %1$s Monat als %2$s</item>
     <item quantity="other">Unterstützt lichess.org seit %1$s Monaten als %2$s</item>
   </plurals>
   <plurals name="practicedNbPositions">
@@ -23,7 +23,7 @@
     <item quantity="other">Hat %1$s Nachrichten in %2$s geschrieben</item>
   </plurals>
   <plurals name="playedNbMoves">
-    <item quantity="one">Machte %1$s Zug</item>
+    <item quantity="one">Spielte %1$s Zug</item>
     <item quantity="other">Spielte %1$s Züge</item>
   </plurals>
   <plurals name="inNbCorrespondenceGames">

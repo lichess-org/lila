@@ -26,14 +26,16 @@ object JsonHandlers {
     .add("cp", pv.score.cp)
     .add("mate", pv.score.mate)
 
-  def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] = for {
-    d <- o obj "d"
-    variant = chess.variant.Variant orDefault ~d.str("variant")
+  private[evalCache] def readPut(trustedUser: TrustedUser, o: JsObject): Option[Input.Candidate] =
+    o obj "d" flatMap { readPutData(trustedUser, _) }
+
+  private[evalCache] def readPutData(trustedUser: TrustedUser, d: JsObject): Option[Input.Candidate] = for {
     fen <- d str "fen"
     knodes <- d int "knodes"
     depth <- d int "depth"
     pvObjs <- d objs "pvs"
     pvs <- pvObjs.map(parsePv).sequence.flatMap(_.toNel)
+    variant = chess.variant.Variant orDefault ~d.str("variant")
   } yield Input.Candidate(variant, fen, Eval(
     pvs = pvs,
     knodes = Knodes(knodes),

@@ -12,7 +12,7 @@ $theme-dark: true;
 }
 
 $c-bg-page: hsl($c-site-hue, 10%, 8%);
-$c-bg-high: hsl($c-site-hue, 5%, 14%);
+$c-bg-high: hsl($c-site-hue, 7%, 14%);
 $c-bg-low: hsl($c-site-hue, 7%, 22%);
 
 /* even rows in list or tables, subtle shade of $c-bg-high */
@@ -37,6 +37,7 @@ $c-primary-clear: c-clearer($c-primary);
 /* Secondary: green */
 $c-secondary: hsl(88, 62%, 37%);
 $c-secondary-dim: c-dimmer($c-secondary);
+$c-secondary-dimmer: c-dimmer($c-secondary, 40%);
 
 /* Brag: gold */
 $c-brag: hsl(37, 74%, 43%);
@@ -82,8 +83,11 @@ $border: $border-width $border-style $c-border;
 $c-font-shadow: black;
 $text-shadow: none;
 
-@mixin metal {
+@mixin metal-bg {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 22), hsl($c-site-hue, 5%, 19) 100%);
+}
+@mixin metal {
+  @include metal-bg;
 }
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsl($c-site-hue, 7%, 25), hsl($c-site-hue, 5%, 22) 100%);

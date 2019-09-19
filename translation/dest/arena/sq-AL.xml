@@ -32,8 +32,6 @@ Luaj shpejt dhe të ktheheni në holl për të luajtur më shumë lojëra dhe t�
   <string name="howDoesItEnd">Si përfundon tournament?</string>
   <string name="howDoesItEndAnswer">Turneu ka një orë të numërimit. Kur arrin zero, renditja e turneut ngrihet dhe fituesi shpallet. Lojrat në vazhdim duhet të përfundojnë, por nuk llogariten për turneun.</string>
   <string name="otherRules">Rregullat e tjera të meranti</string>
-  <string name="otherRulesAnswer">Ju kërkohet të bëni lëvizjen tuaj të parë brenda 20 sekondave nga ana juaj. Dështimi për të bërë një lëvizje në këtë kohë do të humbasë ndeshjen ndaj kundërshtarit tuaj.
-Vizatimi i lojës brenda 10 lëvizjeve të para të lojës nuk do të fitojë asnjë lojtar asnjë pikë.</string>
   <string name="thisIsPrivate">Ky është një turne privat</string>
   <string name="shareUrl">Përdor këtë URL për t\'i lejuar të tjerët: %s</string>
 </resources>

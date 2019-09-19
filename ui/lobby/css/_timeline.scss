@@ -25,5 +25,9 @@
     margin: .5em;
     display: block;
     text-align: right;
+    color: $c-font-dim;
+    &:hover {
+      color: $c-link;
+    }
   }
 }

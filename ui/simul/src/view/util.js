@@ -23,8 +23,5 @@ module.exports = {
     return ctrl.data.variants.find(function(v) {
       return v.key === p.variant;
     });
-  },
-  simulText: function(data) {
-    return data.text ? m('div.simul-text', enrichText(data.text)) : null;
   }
 };

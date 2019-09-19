@@ -100,12 +100,6 @@ final class ModApi(
     (UserRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
   }
 
-  def closeAccount(mod: String, username: String): Fu[Option[User]] = withUser(username) { user =>
-    user.enabled ?? {
-      logApi.closeAccount(mod, user.id) inject user.some
-    }
-  }
-
   def reopenAccount(mod: String, username: String): Funit = withUser(username) { user =>
     !user.enabled ?? {
       (UserRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)

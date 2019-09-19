@@ -33,6 +33,13 @@
   justify-content: space-between;
   align-items: stretch;
 }
+%flex-around {
+  /* extends %flex-center */
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: space-around;
+}
 %flex-column {
   display: flex;
   flex-flow: column;

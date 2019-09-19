@@ -20,8 +20,8 @@
   <string name="black">Dubh</string>
   <string name="randomColor">Taobh randamach</string>
   <string name="createAGame">Cruthaigh cluiche</string>
-  <string name="whiteIsVictorious">Tá an bua ag Bán</string>
-  <string name="blackIsVictorious">Tá an bua ag Dubh</string>
+  <string name="whiteIsVictorious">Bhuaigh Bán</string>
+  <string name="blackIsVictorious">Bhuaigh Dubh</string>
   <string name="kingInTheCenter">Rí sa lár</string>
   <string name="threeChecks">Trí sháinn</string>
   <string name="raceFinished">Tá an rás thart</string>
@@ -136,7 +136,6 @@
   <string name="newTeam">Foireann nua</string>
   <string name="myTeams">M\'fhoirne</string>
   <string name="teamLeader">Ceannaire na foirne</string>
-  <string name="onlineFriends">Cairde ar líne</string>
   <string name="more">Níos mó</string>
   <string name="player">Imreoir</string>
   <string name="list">Liosta</string>

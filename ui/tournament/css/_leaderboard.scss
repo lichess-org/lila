@@ -9,12 +9,13 @@ $user-list-width: 35ch;
 
   &__item {
     background: $c-bg-box;
+    border-right: $border;
   }
   h2 {
     @extend %metal, %box-shadow;
     font-size: 1.45em;
     line-height: 2.5em;
-    padding-left: 0.8rem;
+    padding-left: .8rem;
     text-transform: uppercase;
     margin: 0;
     white-space: nowrap;

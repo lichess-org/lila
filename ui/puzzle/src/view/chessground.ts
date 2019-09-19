@@ -1,9 +1,10 @@
 import { h } from 'snabbdom'
 import { Chessground } from 'chessground';
 import { Config as CgConfig } from 'chessground/config';
+import resizeHandle from 'common/resize';
 
 export default function(ctrl) {
-  return h('div.cg-board-wrap', {
+  return h('div.cg-wrap', {
     hook: {
       insert: vnode => ctrl.ground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl))),
       destroy: _ => ctrl.ground().destroy()
@@ -36,7 +37,15 @@ function makeConfig(ctrl): CgConfig {
       enabled: ctrl.pref.moveEvent !== 1
     },
     events: {
-      move: ctrl.userMove
+      move: ctrl.userMove,
+      insert(elements) {
+        resizeHandle(
+          elements,
+          ctrl.pref.resizeHandle,
+          ctrl.vm.node.ply,
+          (_) => true
+        )
+      }
     },
     premovable: {
       enabled: opts.premovable.enabled

@@ -13,7 +13,7 @@ import lila.app._
 import lila.common.{ LilaCookie, HTTPRequest, ApiVersion, Nonce, Lang }
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
-import lila.security.{ Permission, Granter, FingerprintedUser }
+import lila.security.{ Permission, Granter, FingerPrintedUser, FingerHash }
 import lila.user.{ UserContext, User => UserModel }
 
 private[controllers] trait LilaController
@@ -24,6 +24,7 @@ private[controllers] trait LilaController
   with LilaSocket {
 
   protected val controllerLogger = lila.log("controller")
+  protected val authLogger = lila.log("auth")
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
@@ -50,9 +51,6 @@ private[controllers] trait LilaController
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate", EXPIRES -> "0"
-  )
-  protected def NoIframe(res: Result): Result = res.withHeaders(
-    "X-Frame-Options" -> "SAMEORIGIN"
   )
 
   protected def Open(f: Context => Fu[Result]): Action[Unit] =
@@ -90,6 +88,14 @@ private[controllers] trait LilaController
   ): Action[Unit] = Action.async(parse.empty) { req =>
     if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
     else anon(req)
+  }
+
+  protected def AuthOrScoped(selectors: OAuthScope.Selector*)(
+    auth: Context => UserModel => Fu[Result],
+    scoped: RequestHeader => UserModel => Fu[Result]
+  ): Action[Unit] = Action.async(parse.empty) { req =>
+    if (HTTPRequest isOAuth req) handleScoped(selectors)(scoped)(req)
+    else handleAuth(auth, req)
   }
 
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
@@ -199,7 +205,11 @@ private[controllers] trait LilaController
     a: => Fu[A],
     or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
   )(implicit ctx: Context): Fu[Result] =
-    if (Env.security.firewall accepts ctx.req) a else or
+    if (Env.security.firewall accepts ctx.req) a
+    else {
+      authLogger.info(s"Firewall blocked ${ctx.req}")
+      or
+    }
 
   protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
     if (Env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
@@ -239,7 +249,7 @@ private[controllers] trait LilaController
     }
 
   protected def NoCurrentGame(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    ctx.me.??(mashup.Preload.currentGameMyTurn(Env.user.lightUserSync)) flatMap {
+    ctx.me.??(Env.current.preloader.currentGameMyTurn) flatMap {
       _.fold(a) { current =>
         negotiate(
           html = Lobby.renderHome(Results.Forbidden),
@@ -368,17 +378,17 @@ private[controllers] trait LilaController
   protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
     case (d, impersonatedBy) =>
       val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
-      pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
+      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
   }
 
   protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
     restoreUser(req) flatMap {
       case (d, impersonatedBy) =>
         val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
-        pageDataBuilder(ctx, d.exists(_.hasFingerprint)) dmap { Context(ctx, _) }
+        pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
     }
 
-  private def pageDataBuilder(ctx: UserContext, hasFingerprint: Boolean): Fu[PageData] = {
+  private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {
     val isPage = HTTPRequest isSynchronousHttp ctx.req
     val nonce = isPage option Nonce.random
     ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
@@ -398,7 +408,7 @@ private[controllers] trait LilaController
         case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)) =>
           PageData(onlineFriends, teamNbRequests, nbChallenges, nbNotifications, pref,
             blindMode = blindMode(ctx),
-            hasFingerprint = hasFingerprint,
+            hasFingerprint = hasFingerPrint,
             inquiry = inquiry,
             nonce = nonce)
       }
@@ -411,7 +421,7 @@ private[controllers] trait LilaController
     }
 
   // user, impersonatedBy
-  type RestoredUser = (Option[FingerprintedUser], Option[UserModel])
+  type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
     Env.security.api restoreUser req addEffect {
       _ ifTrue (HTTPRequest isSocket req) foreach { d =>
@@ -427,7 +437,7 @@ private[controllers] trait LilaController
       case None => fuccess(None -> None)
       case Some(d) => lila.mod.Impersonate.impersonating(d.user) map {
         _.fold[RestoredUser](d.some -> None) { impersonated =>
-          FingerprintedUser(impersonated, true).some -> d.user.some
+          FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
         }
       }
     }

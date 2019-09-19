@@ -5,7 +5,7 @@ import play.api.data.format.Formats._
 import play.api.data.format.Formatter
 import play.api.data.validation.Constraint
 import play.api.data.Forms._
-import play.api.data.{ Mapping, FormError, Field }
+import play.api.data.{ Mapping, FormError, Field, Form => PlayForm }
 import scala.util.Try
 
 object Form {
@@ -35,6 +35,9 @@ object Form {
 
   def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
+
+  def numberIn(choices: Seq[Int]) =
+    number.verifying(choices.contains _)
 
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(hasKey(choices, _))
@@ -123,5 +126,13 @@ object Form {
       def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
     }
     val isoDateOrTimestamp = of[org.joda.time.DateTime](formatter)
+  }
+  object ISODateTimeOrTimestamp {
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        ISODateTime.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
+      def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
+    }
+    val isoDateTimeOrTimestamp = of[org.joda.time.DateTime](formatter)
   }
 }

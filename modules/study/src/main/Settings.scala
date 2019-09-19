@@ -7,7 +7,8 @@ case class Settings(
     explorer: Settings.UserSelection,
     cloneable: Settings.UserSelection,
     chat: Settings.UserSelection,
-    sticky: Boolean
+    sticky: Boolean,
+    description: Boolean
 )
 
 object Settings {
@@ -17,7 +18,8 @@ object Settings {
     explorer = UserSelection.Everyone,
     cloneable = UserSelection.Everyone,
     chat = UserSelection.Member,
-    sticky = true
+    sticky = true,
+    description = false
   )
 
   sealed trait UserSelection {

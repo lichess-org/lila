@@ -5,9 +5,9 @@ import { renderTable } from './table';
 import * as promotion from '../promotion';
 import { render as renderGround } from '../ground';
 import { read as fenRead } from 'chessground/fen';
-import resizeHandle from 'common/resize';
 import * as util from '../util';
 import * as keyboard from '../keyboard';
+import * as gridHacks from './gridHacks';
 import crazyView from '../crazy/crazyView';
 import { render as keyboardMove } from '../keyboardMove';
 import RoundController from '../ctrl';
@@ -37,13 +37,6 @@ function wheel(ctrl: RoundController, e: WheelEvent): boolean {
   return false;
 }
 
-function resizeHandleFor(ctrl: RoundController) {
-  const pref = ctrl.data.pref.resizeHandle;
-  return (pref == 2 || pref == 1 && ctrl.ply < 2) ? h('div.board-resize', {
-    hook: util.onInsert(resizeHandle)
-  }) : undefined;
-}
-
 const emptyMaterialDiff: MaterialDiff = {
   white: {},
   black: {}
@@ -66,14 +59,15 @@ export function main(ctrl: RoundController): VNode {
     util.noChecks;
 
   return ctrl.nvui ? ctrl.nvui.render(ctrl) : h('div.round__app.variant-' + d.game.variant.key, {
-    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) }
+    class: { 'move-confirm': !!(ctrl.moveToSubmit || ctrl.dropToSubmit) },
+    hook: util.onInsert(gridHacks.start)
   }, [
     h('div.round__app__board.main-board' + (ctrl.data.pref.blindfold ? '.blindfold' : ''), {
-      hook: window.lichess.hasTouchEvents ? undefined : util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e))
+      hook: window.lichess.hasTouchEvents ? undefined :
+        util.bind('wheel', (e: WheelEvent) => wheel(ctrl, e), undefined, false)
     }, [
       renderGround(ctrl),
-      promotion.view(ctrl),
-      resizeHandleFor(ctrl)
+      promotion.view(ctrl)
     ]),
     crazyView(ctrl, topColor, 'top') || renderMaterial(material[topColor], -score, 'top', checks[topColor]),
     ...renderTable(ctrl),

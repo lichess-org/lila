@@ -74,7 +74,7 @@ body.no-inquiry {
     flex: 4 1 auto;
   }
   .counter {
-    margin-left: 0.3em;
+    margin-left: .3em;
     flex: 0 0 auto;
   }
   .docs .expendable {
@@ -108,9 +108,9 @@ body.no-inquiry {
     margin: 0;
   }
   .report .atom {
-    margin-bottom: 0.8em;
+    margin-bottom: .8em;
     border-bottom: 1px solid #777;
-    padding-bottom: 0.8em;
+    padding-bottom: .8em;
   }
   .report .atom:last-child {
     margin-bottom: 0;
@@ -120,9 +120,9 @@ body.no-inquiry {
     display: inline-block;
     white-space: nowrap;
     font-weight: bold;
-    font-size: 0.9em;
-    padding: 0.1em 0.5em;
-    border-radius: 0.3em;
+    font-size: .9em;
+    padding: .1em .5em;
+    border-radius: .3em;
   }
   .score.green {
     /* actually blue */
@@ -175,7 +175,7 @@ body.no-inquiry {
     background: rgba(56,147,232,0.8);
   }
   .fbt.icon::before,
-  .warn span::before {
+  .warn i::before {
     font-size: 1.7em;
   }
   .fbt.active {
@@ -202,7 +202,7 @@ body.no-inquiry {
   }
   .cancel button {
     margin-left: 5px;
-    font-size: 0.8em;
+    font-size: .8em;
     padding: 0 8px;
   }
   .accuracy {
@@ -211,67 +211,73 @@ body.no-inquiry {
   .dropper {
     position: relative;
     height: 100%;
-  }
-  .dropper > span {
-    display: block;
-    height: 100%;
-    padding: 0 10px;
-  }
-  .dropper > div {
-    @extend %box-radius-bottom, %dropdown-shadow;
-    display: none;
-    position: absolute;
-    top: 100%;
-    right: 0;
-    background: #555;
-    overflow: hidden;
-  }
-  .dropper:hover > span {
-    background: #555;
-  }
-  .dropper:hover div {
-    display: block;
-  }
-  .dropper button {
-    width: 100%;
-    text-align: left;
-  }
-  .dropper > span.icon {
-    line-height: 40px;
-  }
-  .dropper.warn,
-  .dropper.more {
+    > span,
+    > i,
+    .main {
+      display: block;
+      height: 100%;
+      &:not(form) {
+        padding: 0 10px;
+      }
+    }
+    > div {
+      @extend %box-radius-bottom, %dropdown-shadow;
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #555;
+      overflow: hidden;
+      padding: .4em 0;
+    }
+    &:hover {
+      > span,
+      > i,
+      .main {
+        background: #555;
+      }
+      div {
+        display: block;
+      }
+    }
     button {
-      padding: 6px 20px;
+      width: 100%;
+      text-align: left;
+    }
+    > i {
+      line-height: 40px;
+    }
+    &.buttons button {
+      padding: .5em 1.3em;
       text-transform: initial;
     }
-  }
 
-  .dropper.counter > span {
-    @extend %roboto, %flex-column;
-    justify-content: center;
-    text-align: center;
-  }
-  .dropper.counter.empty > span {
-    opacity: 0.5;
-  }
-  .dropper.counter:not(.empty) > span {
-    background: #555;
-  }
-  .dropper.counter > span count {
-    font-size: 1.2em;
-    display: block;
-    height: 1.1em;
-  }
-  .dropper.counter > div {
-    padding: 4px 20px 20px 20px;
-  }
-  .dropper.counter > div,
-  .dropper.warn > div {
-    width: 360px;
-    right: -155px;
-    max-height: 500px;
-    overflow-y: auto;
+    &.counter > span {
+      @extend %roboto, %flex-column;
+      justify-content: center;
+      text-align: center;
+    }
+    &.counter.empty > span {
+      opacity: 0.5;
+    }
+    &.counter:not(.empty) > span {
+      background: #555;
+    }
+    &.counter > span count {
+      font-size: 1.2em;
+      display: block;
+      height: 1.1em;
+    }
+    &.counter > div {
+      padding: 4px 20px 20px 20px;
+    }
+    &.counter > div,
+    &.warn > div {
+      width: 360px;
+      right: -155px;
+      max-height: 500px;
+      overflow-y: auto;
+    }
   }
   .history li {
     @extend %nowrap-ellipsis;

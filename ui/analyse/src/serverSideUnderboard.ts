@@ -1,12 +1,15 @@
 import AnalyseCtrl from './ctrl';
 import { defined } from 'common';
 import { baseUrl } from './util';
+import { AnalyseData } from './interfaces';
 
 export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   const li = window.lichess;
 
   $(element).replaceWith(ctrl.opts.$underboard!);
+
+  $('#adv-chart').attr('id', 'acpl-chart');
 
   const data = ctrl.data,
     $panels = $('.analyse__underboard__panels > div'),
@@ -27,7 +30,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       }, 50);
     });
     li.pubsub.on('analysis.change', (fen: Fen, _, mainlinePly: Ply | false) => {
-      let chart, point, $chart = $("#adv-chart");
+      let chart, point, $chart = $("#acpl-chart");
       if (fen && fen !== lastFen) {
         inputFen.value = fen;
         lastFen = fen;
@@ -64,19 +67,15 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         }
       }
     });
-    li.pubsub.on('socket.in.analysisProgress', d => {
-      const partial = !d.tree.eval;
+    li.pubsub.on('analysis.server.progress', (d: AnalyseData) => {
       if (!li.advantageChart) startAdvantageChart();
-      else if (li.advantageChart.update) li.advantageChart.update(data, partial);
-      if (!partial) {
-        li.pubsub.emit('analysis.server.complete')();
-        $("#adv-chart-loader").remove();
-      }
+      else if (li.advantageChart.update) li.advantageChart.update(d);
+      if (d.analysis && !d.analysis.partial) $("#acpl-chart-loader").remove();
     });
   }
 
   function chartLoader() {
-    return '<div id="adv-chart-loader">' +
+    return '<div id="acpl-chart-loader">' +
       '<span>' + li.engineName + '<br>server analysis</span>' +
       li.spinnerHtml +
       '</div>'
@@ -85,10 +84,10 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     if (li.advantageChart || li.AnalyseNVUI) return;
     const loading = !data.treeParts[0].eval || !Object.keys(data.treeParts[0].eval).length;
     const $panel = $panels.filter('.computer-analysis');
-    if (!$("#adv-chart").length) $panel.html('<div id="adv-chart"></div>' + (loading ? chartLoader() : ''));
-    else if (loading && !$("#adv-chart-loader").length) $panel.append(chartLoader());
+    if (!$("#acpl-chart").length) $panel.html('<div id="acpl-chart"></div>' + (loading ? chartLoader() : ''));
+    else if (loading && !$("#acpl-chart-loader").length) $panel.append(chartLoader());
     li.loadScript('javascripts/chart/acpl.js').then(function() {
-      li.advantageChart(data, ctrl.trans, $("#adv-chart")[0] as HTMLElement);
+      li.advantageChart(data, ctrl.trans, $("#acpl-chart")[0] as HTMLElement);
     });
   };
 
@@ -101,7 +100,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         li.movetimeChart(data, ctrl.trans);
       });
     } catch (e) {}
-    if (panel == 'computer-analysis' && $("#adv-chart").length)
+    if (panel == 'computer-analysis' && $("#acpl-chart").length)
       setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function(this: HTMLElement) {
@@ -110,7 +109,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
     setPanel(panel);
   });
   const stored = storage.get();
-  if (stored && $menu.children(`[data-panel="${stored}"]`).length) setPanel(stored);
+  if (stored && $menu.children(`[data-panel="${stored}"]:visible`).length) setPanel(stored);
   else {
     const $menuCt = $menu.children('[data-panel="ctable"]');
     ($menuCt.length ? $menuCt : $menu.children(':first-child')).trigger('mousedown');
@@ -122,8 +121,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
         return false;
       }
       $.ajax({
-        method: 'post',
-        url: $(this).attr('action'),
+        ...li.formAjax($(this)),
         success: startAdvantageChart,
         error: li.reload
       });

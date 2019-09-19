@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Doly ölçegde aç</string>
   <string name="logOut">Çykyş</string>
   <string name="signIn">Içeri gir</string>
-  <string name="newToLichess">Liçese täze geldiňizmi?</string>
   <string name="youNeedAnAccountToDoThat">Beýtmek üçin hasap gerekli</string>
   <string name="signUp">Registrasiýa</string>
   <string name="computersAreNotAllowedToPlay">Küşt Kompýuterleri we kompýuter kömekli oýunçylar oýuna kabul edilenok. Oýun dowamynda Küşt komplaryndan, databazalaryndan ýa-da beýleki oýunçylardan ýardam almaň. Birden köp hasap açmak hem güýçli derejede ýazgarylýandyr we has köp hasap eýesi bolmak banlanmagyňyza eltip biler.</string>
@@ -168,7 +167,6 @@
   <string name="changeUsernameNotSame">Harplaryň diňe ululygy-kiçiligi özgerdilip biliner. Mysal üçin \"johndoe - JohnDoe.\"</string>
   <string name="changeUsernameDescription">Ulanyjy adyňyzy üýtgediň. Bu diňe bir gezek amala aşyrlyp biliner we siz diňe ulanyjy adyňyzdaky harplaryň baş harp - kiçi harp hökmünde üýtgedip bilersiňiz.</string>
   <string name="password">Açarsöz</string>
-  <string name="haveAnAccount">Hasabyňyz barmy?</string>
   <string name="changePassword">Açarsözi üýtget</string>
   <string name="changeEmail">Email üýtget</string>
   <string name="email">Email</string>
@@ -351,10 +349,8 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="clickOnTheBoardToMakeYourMove">Göçmek we ynsandygyňyzy subut etmek üçin tagta tyklaň.</string>
   <string name="captcha.fail">Küşt captcha-syny çözüň.</string>
   <string name="notACheckmate">Mat däl</string>
-  <string name="colorPlaysCheckmateInOne">%s göçýär; 1 göçümde mat</string>
   <string name="retry">Gaýta</string>
   <string name="reconnecting">Gaýtadan baglanylýar</string>
-  <string name="onlineFriends">Onlaýn dostlar</string>
   <string name="noFriendsOnline">Onlaýn dostuňyz ýok</string>
   <string name="findFriends">Dost gözle</string>
   <string name="favoriteOpponents">Iň ýygy garşydaşlar</string>
@@ -541,7 +537,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="moveListWhilePlaying">Oýun dowamynda göçüm sanawy</string>
   <string name="pgnPieceNotation">Göçüm notasiýasy</string>
   <string name="chessPieceSymbol">Küşt çöpi nyşany</string>
-  <string name="pgnLetter">Harp (Ş, W, R, P, A)</string>
+  <string name="pgnLetter">Harp (K, Q, R, B, N)</string>
   <string name="chessClock">Küşt sagady</string>
   <string name="tenthsOfSeconds">Sekundyň 10-da 1-i</string>
   <string name="never">Hiç wagt</string>
@@ -584,7 +580,6 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="xCommentedY">%1$s teswirledi: %2$s</string>
   <string name="victory">Ýeňiş</string>
   <string name="defeat">Utulyş</string>
-  <string name="xVsYinZ">%2$s garşy %3$s görnüşinde %1$s</string>
   <string name="timeline">Wagt akymy</string>
   <string name="starting">Başlaýar:</string>
   <string name="allInformationIsPublicAndOptional">Ähli maglumatlar kommunaldyr we islege görädir.</string>

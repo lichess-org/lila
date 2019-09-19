@@ -19,7 +19,7 @@ private[relation] final class RelationActor(
   private var previousOnlineIds = Set.empty[ID]
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study)
+    context.system.lilaBus.subscribe(self, 'startGame, 'finishGame, 'study, 'reloadOnlineFriends)
   }
 
   override def postStop(): Unit = {
@@ -44,7 +44,9 @@ private[relation] final class RelationActor(
 
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
-      bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'socketUsers)
+      // the mobile app requests this on every WS connection
+      // we can skip it if empty
+      if (!res.isEmpty) bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'socketUsers)
     }
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>

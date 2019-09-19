@@ -7,6 +7,7 @@ private[relation] case class AllOnlineFriends(onlines: Map[ID, LightUser])
 private[relation] case object ComputeMovement
 
 case class OnlineFriends(users: List[LightUser], playing: Set[String], studying: Set[String]) {
+  def isEmpty = users.isEmpty
   def patrons: List[String] = users collect {
     case u if u.isPatron => u.id
   }

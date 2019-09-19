@@ -1,7 +1,7 @@
 $player-height: 1.6rem;
 
 .analyse.has-players {
-  .cg-board {
+  cg-board {
     border-radius: 0;
   }
   @include breakpoint($mq-col2) {
@@ -60,7 +60,7 @@ $player-height: 1.6rem;
     margin-left: 10px;
   }
   .elo {
-    margin-left: 0.5em;
+    margin-left: .5em;
     font-weight: normal;
   }
 }

@@ -81,7 +81,6 @@
   <string name="viewInFullSize">Ssemɣweṛ</string>
   <string name="logOut">Asenser</string>
   <string name="signIn">Tuqqna</string>
-  <string name="newToLichess">D amaynut ɣef Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Ḥwajeḍ amidan n umseqdac</string>
   <string name="signUp">Tiggezt</string>
   <string name="games">Temliliyin</string>
@@ -107,7 +106,6 @@
   <string name="username">Isem n useqdac</string>
   <string name="usernameOrEmail">Isem useqdac</string>
   <string name="password">Awal ukeččum</string>
-  <string name="haveAnAccount">Ssaggzed iman ikk?</string>
   <string name="changePassword">Ḥwaǧeḍ kan isem n useqdac d awal ukeččum</string>
   <string name="changeEmail">Beddel amayel</string>
   <string name="email">Amayel</string>
@@ -228,10 +226,8 @@
   <string name="thisIsAChessCaptcha">Ayagi d CAPTCHA n caq</string>
   <string name="clickOnTheBoardToMakeYourMove">Senned g talwaḥt akken a t-urared tiyita, d a t-sekneḍ imanik d amedan</string>
   <string name="notACheckmate">Macci d caqmat</string>
-  <string name="colorPlaysCheckmateInOne">%s yurar, mat d iwet tiyita</string>
   <string name="retry">Ɛawed tikkelt niḍen</string>
   <string name="reconnecting">Alstuqqna anazzal</string>
-  <string name="onlineFriends">Imdukal askar uqqin</string>
   <string name="noFriendsOnline">Ulac Imdukal askar uqqin</string>
   <string name="findFriends">Af imeddukal</string>
   <string name="follow">Dfer</string>

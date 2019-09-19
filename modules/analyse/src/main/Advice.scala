@@ -54,29 +54,33 @@ private[analyse] case class CpAdvice(
 
 private[analyse] object CpAdvice {
 
-  private val cpJudgements = List(
-    300 -> Advice.Judgement.Blunder,
-    100 -> Advice.Judgement.Mistake,
-    50 -> Advice.Judgement.Inaccuracy
+  private def cpWinningChances(cp: Double): Double = 2 / (1 + Math.exp(-0.004 * cp)) - 1
+
+  private val winningChanceJudgements = List(
+    .3 -> Advice.Judgement.Blunder,
+    .2 -> Advice.Judgement.Mistake,
+    .1 -> Advice.Judgement.Inaccuracy
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
     cp ← prev.cp map (_.ceiled.centipawns)
     infoCp ← info.cp map (_.ceiled.centipawns)
-    delta = (infoCp - cp) |> { d => info.color.fold(-d, d) }
-    judgment ← cpJudgements find { case (d, n) => d <= delta } map (_._2)
-  } yield CpAdvice(judgment, info, prev)
+    prevWinningChances = cpWinningChances(cp)
+    currentWinningChances = cpWinningChances(infoCp)
+    delta = (currentWinningChances - prevWinningChances) |> { d => info.color.fold(-d, d) }
+    judgement ← winningChanceJudgements find { case (d, n) => d <= delta } map (_._2)
+  } yield CpAdvice(judgement, info, prev)
 }
 
 private[analyse] sealed abstract class MateSequence(val desc: String)
+private[analyse] case object MateCreated extends MateSequence(
+  desc = "Checkmate is now unavoidable"
+)
 private[analyse] case object MateDelayed extends MateSequence(
   desc = "Not the best checkmate sequence"
 )
 private[analyse] case object MateLost extends MateSequence(
   desc = "Lost forced checkmate sequence"
-)
-private[analyse] case object MateCreated extends MateSequence(
-  desc = "Checkmate is now unavoidable"
 )
 
 private[analyse] object MateSequence {
@@ -85,7 +89,6 @@ private[analyse] object MateSequence {
       case (None, Some(n)) if n.negative => MateCreated
       case (Some(p), None) if p.positive => MateLost
       case (Some(p), Some(n)) if p.positive && n.negative => MateLost
-      case (Some(p), Some(n)) if p.positive && n >= p && p <= Mate(5) => MateDelayed
     }
 }
 private[analyse] case class MateAdvice(
@@ -101,18 +104,18 @@ private[analyse] object MateAdvice {
     def invertMate(mate: Mate) = mate invertIf info.color.black
     def prevCp = prev.cp.map(invertCp).??(_.centipawns)
     def nextCp = info.cp.map(invertCp).??(_.centipawns)
-    MateSequence(prev.mate map invertMate, info.mate map invertMate) map { sequence =>
+    MateSequence(prev.mate map invertMate, info.mate map invertMate) flatMap { sequence =>
       import Advice.Judgement._
-      val judgment = sequence match {
-        case MateCreated if prevCp < -999 => Inaccuracy
-        case MateCreated if prevCp < -700 => Mistake
-        case MateCreated => Blunder
-        case MateLost if nextCp > 999 => Inaccuracy
-        case MateLost if nextCp > 700 => Mistake
-        case MateLost => Blunder
-        case MateDelayed => Inaccuracy
+      val judgment: Option[Advice.Judgement] = sequence match {
+        case MateCreated if prevCp < -999 => Option(Inaccuracy)
+        case MateCreated if prevCp < -700 => Option(Mistake)
+        case MateCreated => Option(Blunder)
+        case MateLost if nextCp > 999 => Option(Inaccuracy)
+        case MateLost if nextCp > 700 => Option(Mistake)
+        case MateLost => Option(Blunder)
+        case MateDelayed => None
       }
-      MateAdvice(sequence, judgment, info, prev)
+      judgment map { MateAdvice(sequence, _, info, prev) }
     }
   }
 }

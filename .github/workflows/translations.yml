@@ -1,0 +1,29 @@
+name: Lint Translations
+
+on:
+  push:
+    paths:
+    - 'translation/*'
+    - 'translation/*/*'
+    - 'translation/*/*/*'
+    - 'bin/trans-lint.py'
+  pull_request:
+    paths:
+    - 'translation/*'
+    - 'translation/*/*'
+    - 'translation/*/*/*'
+    - 'bin/trans-lint.py'
+
+jobs:
+  translations:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - name: Install xmllint
+      run: sudo apt-get install -y libxml2-utils
+    - name: Validate translation files
+      run: xmllint --noout --dtdvalid translation/resources.dtd translation/**/*.xml
+    - name: Lint translation files
+      run: ./bin/trans-lint.py translation/dest/*/*.xml

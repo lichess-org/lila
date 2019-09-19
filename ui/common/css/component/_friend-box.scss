@@ -27,6 +27,9 @@
     }
   }
   .content {
+    max-height: 80vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     div {
       display: flex;
       &:hover {

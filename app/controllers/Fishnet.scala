@@ -17,7 +17,10 @@ object Fishnet extends LilaController {
   private val logger = lila.log("fishnet")
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req => client =>
-    api acquire client map Right.apply
+    api acquire client addEffect { jobOpt =>
+      val mon = lila.mon.fishnet.http.acquire(client.skill.toString)
+      if (jobOpt.isDefined) mon.hit() else mon.miss()
+    } map Right.apply
   }
 
   def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data => client =>
@@ -32,7 +35,7 @@ object Fishnet extends LilaController {
       case WorkNotFound => acquireNext
       case GameNotFound => acquireNext
       case NotAcquired => acquireNext
-      case WeakAnalysis => acquireNext
+      case WeakAnalysis(_) => acquireNext
       // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
       case e => fuccess(Left(InternalServerError(e.getMessage)))
     }, {

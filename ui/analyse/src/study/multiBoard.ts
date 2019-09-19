@@ -14,7 +14,7 @@ export class MultiBoardCtrl {
   pager?: Paginator<ChapterPreview>;
   playing: boolean = false;
 
-  constructor(readonly studyId: string, readonly redraw: () => void) {}
+  constructor(readonly studyId: string, readonly redraw: () => void, readonly trans: Trans) {}
 
   addNode(pos, node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
@@ -79,16 +79,14 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
 }
 
 function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
-  return h('label.playing', {
-    attrs: { title: 'Only ongoing games' }
-  }, [
+  return h('label.playing', [
     h('input', {
       attrs: { type: 'checkbox' },
       hook: bind('change', e => {
         ctrl.setPlaying((e.target as HTMLInputElement).checked);
       })
     }),
-    'Playing'
+    ctrl.trans.noarg('playing')
   ]);
 }
 
@@ -97,11 +95,11 @@ function renderPagerNav(pager: Paginator<ChapterPreview>, ctrl: MultiBoardCtrl):
   from = Math.min(pager.nbResults, (page - 1) * pager.maxPerPage + 1),
   to = Math.min(pager.nbResults, page * pager.maxPerPage);
   return h('div.pager', [
-    pagerButton('First', 'W', () => ctrl.setPage(1), page > 1, ctrl),
-    pagerButton('Prev', 'Y', ctrl.prevPage, page > 1, ctrl),
+    pagerButton(ctrl.trans.noarg('first'), 'W', () => ctrl.setPage(1), page > 1, ctrl),
+    pagerButton(ctrl.trans.noarg('previous'), 'Y', ctrl.prevPage, page > 1, ctrl),
     h('span.page', `${from}-${to} / ${pager.nbResults}`),
-    pagerButton('Next', 'X', ctrl.nextPage, page < pager.nbPages, ctrl),
-    pagerButton('Last', 'V', ctrl.lastPage, page < pager.nbPages, ctrl)
+    pagerButton(ctrl.trans.noarg('next'), 'X', ctrl.nextPage, page < pager.nbPages, ctrl),
+    pagerButton(ctrl.trans.noarg('last'), 'V', ctrl.lastPage, page < pager.nbPages, ctrl)
   ]);
 }
 
@@ -128,7 +126,7 @@ function makePreview(study: StudyCtrl) {
     ];
     return h('a.' + preview.id, {
       attrs: { title: preview.name },
-      class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id },
+      class: { active: !study.multiBoard.loading && study.vm.chapterId == preview.id && (!study.relay || !study.relay.intro.active) },
       hook: bind('mousedown', _ => study.setChapter(preview.id))
     }, contents);
   };
@@ -146,7 +144,7 @@ function uciToLastMove(lm?: string): Key[] | undefined {
 }
 
 function makeCg(preview: ChapterPreview): VNode {
-  return h('div.mini-board.cg-board-wrap', {
+  return h('div.mini-board.cg-wrap.is2d', {
     hook: {
       insert(vnode) {
         const cg = Chessground(vnode.elm as HTMLElement, {
@@ -171,5 +169,5 @@ function makeCg(preview: ChapterPreview): VNode {
         vnode.data!.cp = old.data!.cp;
       }
     }
-  }, [h('div.cg-board')])
+  })
 }

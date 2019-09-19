@@ -98,7 +98,15 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value.pp ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
+      }
+    }
+  }
+  def kickUser(teamId: String, userId: String) = Scoped(_.Team.Write) { req => me =>
+    api team teamId flatMap {
+      _ ?? { team =>
+        if (team isCreator me.id) api.kick(team, userId, me) inject jsonOkResult
+        else Forbidden(jsonError("Not your team")).fuccess
       }
     }
   }
@@ -158,13 +166,20 @@ object Team extends LilaController {
     api mine me map { html.team.list.mine(_) }
   }
 
-  def join(id: String) = Auth { implicit ctx => implicit me =>
-    api join id flatMap {
+  def join(id: String) = AuthOrScoped(_.Team.Write)(
+    auth = ctx => me => api.join(id, me) flatMap {
       case Some(Joined(team)) => Redirect(routes.Team.show(team.id)).fuccess
       case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
-      case _ => notFound
+      case _ => notFound(ctx)
+    },
+    scoped = req => me => Env.oAuth.server.fetchAppAuthor(req) flatMap {
+      _ ?? { api.joinApi(id, me, _) }
+    } map {
+      case Some(Joined(_)) => jsonOkResult
+      case Some(Motivate(_)) => Forbidden(jsonError("This team requires confirmation, and is not owned by the oAuth app owner."))
+      case _ => NotFound(jsonError("Team not found"))
     }
-  }
+  )
 
   def requests = Auth { implicit ctx => me =>
     Env.team.cached.nbRequests invalidate me.id
@@ -206,11 +221,14 @@ object Team extends LilaController {
     }
   }
 
-  def quit(id: String) = Auth { implicit ctx => implicit me =>
-    OptionResult(api quit id) { team =>
+  def quit(id: String) = AuthOrScoped(_.Team.Write)(
+    auth = ctx => me => OptionResult(api.quit(id, me)) { team =>
       Redirect(routes.Team.show(team.id))
+    }(ctx),
+    scoped = req => me => api.quit(id, me) flatMap {
+      _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
     }
-  }
+  )
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>

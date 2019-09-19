@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import akka.actor._
 import akka.pattern.{ ask, pipe }
-import chess.{ Color, White, Black }
+import chess.{ Color, White, Black, Speed }
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
@@ -12,7 +12,7 @@ import actorApi._
 import lila.chat.Chat
 import lila.common.LightUser
 import lila.game.actorApi.{ StartGame, UserStartGame }
-import lila.game.{ Game, GameRepo, Event }
+import lila.game.{ Game, Event }
 import lila.hub.actorApi.Deploy
 import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
@@ -22,19 +22,22 @@ import lila.hub.Trouper
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
 import lila.socket.Socket
+import lila.user.User
 import makeTimeout.short
 
 private[round] final class RoundSocket(
     dependencies: RoundSocket.Dependencies,
     gameId: Game.ID,
     history: History,
-    keepMeAlive: () => Unit
-) extends SocketTrouper[Member](dependencies.system, dependencies.uidTtl) {
+    keepMeAlive: () => Unit,
+    getGoneWeights: Game => Fu[(Float, Float)]
+) extends SocketTrouper[Member](dependencies.system, dependencies.sriTtl) {
 
   import dependencies._
 
   private var hasAi = false
   private var mightBeSimul = true // until proven false
+  private var gameSpeed: Option[Speed] = none
   private var chatIds = RoundSocket.ChatIds(
     priv = Chat.Id(gameId), // until replaced with tourney/simul chat
     pub = Chat.Id(s"$gameId/w")
@@ -52,7 +55,8 @@ private[round] final class RoundSocket(
     // connected as a bot
     private var botConnected: Boolean = false
 
-    var userId = none[String]
+    var userId = none[User.ID]
+    var goneWeight = 1f
 
     def ping: Unit = {
       isGone foreach { _ ?? notifyGone(color, false) }
@@ -64,13 +68,16 @@ private[round] final class RoundSocket(
     }
     private def isBye = bye > 0
 
-    private def isHostingSimul: Fu[Boolean] = userId.ifTrue(mightBeSimul) ?? { u =>
-      lilaBus.ask[Set[String]]('simulGetHosts)(GetHostIds).map(_ contains u)
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
+      lilaBus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
     }
 
+    private def timeoutMillis = {
+      if (isBye) ragequitTimeout.toMillis else gameDisconnectTimeout(gameSpeed).toMillis
+    } * goneWeight atLeast 12000
+
     def isGone: Fu[Boolean] = {
-      time < (nowMillis - (if (isBye) ragequitTimeout else disconnectTimeout).toMillis) &&
-        !botConnected
+      time < (nowMillis - timeoutMillis) && !botConnected
     } ?? !isHostingSimul
 
     def setBotConnected(v: Boolean) =
@@ -83,7 +90,7 @@ private[round] final class RoundSocket(
   private val blackPlayer = new Player(Black)
 
   buscriptions.subAll
-  GameRepo game gameId map SetGame.apply foreach this.!
+  getGame(gameId) map SetGame.apply foreach this.!
 
   override def stop(): Unit = {
     buscriptions.unsubAll
@@ -110,7 +117,7 @@ private[round] final class RoundSocket(
       tournament
     }
 
-    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
+    def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: User.ID) =>
       sub(Symbol(s"userStartGame:$userId"))
     }
 
@@ -138,6 +145,13 @@ private[round] final class RoundSocket(
         tournamentId = tourId.some
         buscriptions.tournament
       }
+      gameSpeed = game.speed.some
+      getGoneWeights(game) foreach {
+        case (w, b) => {
+          whitePlayer.goneWeight = w
+          blackPlayer.goneWeight = b
+        }
+      }
 
     // from lilaBus 'startGame
     // sets definitive user ids
@@ -146,7 +160,7 @@ private[round] final class RoundSocket(
 
     case d: Deploy =>
       onDeploy(d)
-      history.enablePersistence
+      history.persistNow()
 
     case BotConnected(color, v) =>
       playerDo(color, _ setBotConnected v)
@@ -169,27 +183,33 @@ private[round] final class RoundSocket(
         )
       }
 
-    case Join(uid, user, color, playerId, onTv, version, mobile, promise) => {
+    case Join(sri, user, color, playerId, onTv, version, mobile, promise) => {
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
       val member = Member(channel, user, color, playerId, onTv.map(_.userId))
-      addMember(uid, member)
+      addMember(sri, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
       val reloadTvEvent = onTv ?? {
         case UserTv(_, reload) => reload map {
-          case true => resyncMessage.some
+          case true => SocketTrouper.resyncMessage.some
           case false =>
             buscriptions.tv // reload buscriptions
             none
         }
       }
       val events = version.fold(history.getRecentEvents(5).some) { v =>
-        history.getEventsSince(v, lila.mon.round.history(mobile).some)
+        history.getEventsSince(v, lila.mon.round.history(mobile).some) match {
+          case History.Types.UpToDate => Nil.some
+          case History.Types.Events(e) => e.some
+          case _ => None
+        }
       }
 
-      val initialMsgs = events.fold(resyncMessage.some) {
-        batchMsgs(member, _)
-      } map { m => Enumerator(m: JsValue) }
+      val initialMsgs = events.fold(
+        SocketTrouper.resyncMessage.some
+      ) {
+          batchMsgs(member, _)
+        } map { m => Enumerator(m: JsValue) }
 
       val fullEnumerator = lila.common.Iteratee.prependFu(
         reloadTvEvent.map(_.toList),
@@ -198,22 +218,6 @@ private[round] final class RoundSocket(
 
       promise success Connected(fullEnumerator, member)
     }
-
-    // see History.versionCheck
-    case VersionCheck(version, member, mobile) =>
-      // logger.info(s"Check mobile:$mobile $version / ${history.getVersion} $gameId $member")
-      history versionCheck version match {
-        case None =>
-          lila.mon.round.history(mobile).versionCheck.getEventsTooFar()
-          logger.info(s"Lost mobile:$mobile $version < ${history.getVersion} $gameId $member")
-          member push resyncMessage
-        case Some(Nil) => // all good, nothing to do
-        case Some(evs) =>
-          lila.mon.round.history(mobile).getEventsDelta(evs.size)
-          lila.mon.round.history(mobile).versionCheck.lateClient()
-          logger.info(s"Late mobile:$mobile $version < ${evs.lastOption.??(_.version)} $gameId $member")
-          batchMsgs(member, evs) foreach member.push
-      }
 
     case eventList: EventList => notify(eventList.events)
 
@@ -271,7 +275,7 @@ private[round] final class RoundSocket(
     }
   }
 
-  override protected def afterQuit(uid: Socket.Uid, member: Member) = notifyCrowd
+  override protected def afterQuit(sri: Socket.Sri, member: Member) = notifyCrowd
 
   def notifyCrowd: Unit = if (isAlive) {
     if (!delayedCrowdNotification) {
@@ -317,8 +321,8 @@ private[round] final class RoundSocket(
       m.owner && m.color == color
     }
 
-  def ownerOf(uid: Socket.Uid): Option[Member] =
-    members get uid.value filter (_.owner)
+  def ownerOf(sri: Socket.Sri): Option[Member] =
+    members get sri.value filter (_.owner)
 
   def foreachWatcher(f: Member => Unit): Unit = members.foreachValue { m =>
     if (m.watcher) f(m)
@@ -344,8 +348,17 @@ object RoundSocket {
   private[round] case class Dependencies(
       system: ActorSystem,
       lightUser: LightUser.Getter,
-      uidTtl: FiniteDuration,
+      sriTtl: FiniteDuration,
       disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration
-  )
+      ragequitTimeout: FiniteDuration,
+      getGame: Game.ID => Fu[Option[Game]]
+  ) {
+
+    def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
+      disconnectTimeout * speed.fold(1) {
+        case Speed.Classical => 3
+        case Speed.Rapid => 2
+        case _ => 1
+      }
+  }
 }

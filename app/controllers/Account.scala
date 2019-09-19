@@ -51,7 +51,7 @@ object Account extends LilaController {
         relationEnv.api.countFollowers(me.id) zip
           relationEnv.api.countFollowing(me.id) zip
           Env.pref.api.getPref(me) zip
-          lila.game.GameRepo.urgentGames(me) zip
+          Env.round.proxy.urgentGames(me) zip
           Env.challenge.api.countInFor.get(me.id) zip
           Env.playban.api.currentBan(me.id) map {
             case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
@@ -60,7 +60,7 @@ object Account extends LilaController {
                 import lila.pref.JsonView._
                 Env.user.jsonView(me) ++ Json.obj(
                   "prefs" -> prefs,
-                  "nowPlaying" -> JsArray(povs take 20 map Env.api.lobbyApi.nowPlaying),
+                  "nowPlaying" -> JsArray(povs take 50 map Env.api.lobbyApi.nowPlaying),
                   "nbFollowing" -> nbFollowing,
                   "nbFollowers" -> nbFollowers,
                   "nbChallenges" -> nbChallenges
@@ -89,7 +89,7 @@ object Account extends LilaController {
   }
 
   private def doNowPlaying(me: lila.user.User, req: RequestHeader) =
-    lila.game.GameRepo.urgentGames(me) map { povs =>
+    Env.round.proxy.urgentGames(me) map { povs =>
       val nb = (getInt("nb", req) | 9) atMost 50
       Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
     }
@@ -218,7 +218,8 @@ object Account extends LilaController {
           fuccess(html.account.twoFactor.setup(me, err))
         } { data =>
           UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) >>
+            Env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
             Redirect(routes.Account.twoFactor)
         }
       }
@@ -288,9 +289,11 @@ object Account extends LilaController {
 
   def signout(sessionId: String) = Auth { implicit ctx => me =>
     if (sessionId == "all")
-      lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) inject
+      lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) >>
+        Env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
         Redirect(routes.Account.security)
     else
-      lila.security.Store.closeUserAndSessionId(me.id, sessionId)
+      lila.security.Store.closeUserAndSessionId(me.id, sessionId) >>
+        Env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
   }
 }

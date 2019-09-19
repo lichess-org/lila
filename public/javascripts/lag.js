@@ -215,7 +215,7 @@ $(function() {
     $('.lag .answer span').hide().parent().find('.' + c).show();
   };
 
-  lichess.socket = new lichess.StrongSocket('/socket', false, {
+  lichess.socket = new lichess.StrongSocket('/socket/v4', false, {
     options: {
       name: "analyse",
       onFirstConnect: function() {
@@ -228,12 +228,14 @@ $(function() {
         charts.server.series[0].points[0].update(v);
         values.server = v;
         updateAnswer();
-      } else if (t === 'n') setTimeout(function() {
-        var v = Math.round(lichess.socket.averageLag());
-        charts.network.series[0].points[0].update(v);
-        values.network = v;
-        updateAnswer();
-      }, 100);
+      }
     }
   });
+
+  setInterval(function() {
+    var v = Math.round(lichess.socket.averageLag());
+    charts.network.series[0].points[0].update(v);
+    values.network = v;
+    updateAnswer();
+  }, 1000);
 });

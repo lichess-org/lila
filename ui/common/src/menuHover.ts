@@ -63,17 +63,16 @@ export const menuHover = () => window.lichess.raf(function() {
       if (state.timeoutId) { state.timeoutId = clearTimeout(state.timeoutId); }
 
       // namespaced event used to register and unregister mousemove tracking
-      var mousemove = state.event = 'mousemove.hoverIntent';
+      var mousemove = state.event = 'mousemove';
 
       // handle the event, based on its type
       if (ev.type == 'mouseenter') {
         // do nothing if already active or a button is pressed (dragging a piece)
-        // if (state.isActive || ev.which) return;
-        if (state.isActive) return; // fixme firefox has which = 1
+        if (state.isActive || (ev.originalEvent as MouseEvent).buttons) return;
         // set "previous" X and Y position based on initial entry point
         state.pX = ev.pageX; state.pY = ev.pageY;
         // update "current" X and Y position based on mousemove
-        $el.off(mousemove,track).on(mousemove,track);
+        $el.off(mousemove, track).on(mousemove, track);
         // start polling interval (self-calling timeout) to compare mouse coordinates over time
         state.timeoutId = setTimeout(compare, interval );
       } else { // "mouseleave"
@@ -87,8 +86,6 @@ export const menuHover = () => window.lichess.raf(function() {
       }
     };
 
-    // listen for mouseenter and mouseleave
-    // $el.on({'mouseenter.hoverIntent':handleHover,'mouseleave.hoverIntent':handleHover});
-    $el.on('mouseenter.hoverIntent', handleHover).on('mouseleave.hoverIntent', handleHover);
+    $el.on('mouseenter', handleHover).on('mouseleave', handleHover);
   });
 });

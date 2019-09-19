@@ -13,7 +13,7 @@ final class MongoCache[K, V: MongoCache.Handler] private (
     prefix: String,
     cache: Cache[K, Fu[V]],
     mongoExpiresAt: () => DateTime,
-    coll: Coll,
+    val coll: Coll,
     f: K => Fu[V],
     keyToString: K => String
 ) {

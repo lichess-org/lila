@@ -1,20 +1,20 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { prop, Prop } from 'common';
-import { storedProp } from 'common/storage';
+import { defined, prop, Prop } from 'common';
+import { storedProp, StoredProp } from 'common/storage';
 import { bind, bindSubmit, spinner, option, onInsert } from '../util';
 import { variants as xhrVariants, importPgn } from './studyXhr';
 import * as modal from '../modal';
 import { chapter as chapterTour } from './studyTour';
 import { StudyChapterMeta } from './interfaces';
-import { title as descTitle } from './chapterDescription';
+import { Redraw } from '../interfaces';
 import AnalyseCtrl from '../ctrl';
 
 export const modeChoices = [
-  ['normal', 'Normal analysis'],
-  ['practice', 'Practice with computer'],
-  ['conceal', 'Hide next moves'],
-  ['gamebook', 'Interactive lesson']
+  ['normal', 'normalAnalysis'],
+  ['practice', 'practiceWithComputer'],
+  ['conceal', 'hideNextMoves'],
+  ['gamebook', 'interactiveLesson']
 ];
 
 export function fieldValue(e: Event, id: string) {
@@ -22,7 +22,28 @@ export function fieldValue(e: Event, id: string) {
   return el ? (el as HTMLInputElement).value : null;
 };
 
-export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseCtrl) {
+export interface StudyChapterNewFormCtrl {
+  root: AnalyseCtrl;
+  vm: {
+    variants: Variant[];
+    open: boolean;
+    initial: Prop<boolean>;
+    tab: StoredProp<string>;
+    editor: any;
+    editorFen: Prop<Fen | null>;
+  };
+  open(): void;
+  openInitial(): void;
+  close(): void;
+  toggle(): void;
+  submit(d: any): void;
+  chapters: Prop<StudyChapterMeta[]>;
+  startTour(): void;
+  multiPgnMax: number;
+  redraw: Redraw;
+}
+
+export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTab: () => void, root: AnalyseCtrl): StudyChapterNewFormCtrl {
 
   const multiPgnMax = 20;
 
@@ -65,10 +86,11 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
       else open();
     },
     submit(d) {
+      const study = root.study!;
       d.initial = vm.initial();
-      d.sticky = root.study!.vm.mode.sticky;
+      d.sticky = study.vm.mode.sticky;
       if (!d.pgn) send("addChapter", d);
-      else importPgn(root.study!.data.id, d);
+      else importPgn(study.data.id, d, study.sri);
       close();
       setTab();
     },
@@ -82,8 +104,9 @@ export function ctrl(send: SocketSend, chapters: Prop<StudyChapterMeta[]>, setTa
   }
 }
 
-export function view(ctrl): VNode {
+export function view(ctrl: StudyChapterNewFormCtrl): VNode {
 
+  const trans = ctrl.root.trans;
   const activeTab = ctrl.vm.tab();
   const makeTab = function(key: string, name: string, title: string) {
     return h('span.' + key, {
@@ -93,7 +116,8 @@ export function view(ctrl): VNode {
     }, name);
   };
   const gameOrPgn = activeTab === 'game' || activeTab === 'pgn';
-  const currentChapterSetup = ctrl.root.study.data.chapter.setup;
+  const currentChapter = ctrl.root.study!.data.chapter;
+  const mode = currentChapter.practice ? 'practice' : (defined(currentChapter.conceal) ? 'conceal' : (currentChapter.gamebook ? 'gamebook' : 'normal'));
 
   return modal.modal({
     class: 'chapter-new',
@@ -103,7 +127,7 @@ export function view(ctrl): VNode {
     },
     content: [
       activeTab === 'edit' ? null : h('h2', [
-        'New chapter',
+        trans.noarg('newChapter'),
         h('i.help', {
           attrs: { 'data-icon': '' },
           hook: bind('click', ctrl.startTour)
@@ -123,27 +147,27 @@ export function view(ctrl): VNode {
         h('div.form-group', [
           h('label.form-label', {
             attrs: {for: 'chapter-name' }
-          }, 'Name'),
+          }, trans.noarg('name')),
           h('input#chapter-name.form-control', {
             attrs: {
               minlength: 2,
               maxlength: 80
             },
             hook: onInsert<HTMLInputElement>(el => {
-                if (!el.value) {
-                  el.value = 'Chapter ' + (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1));
-                  el.select();
-                  el.focus();
-                }
+              if (!el.value) {
+                el.value = trans('chapterX', (ctrl.vm.initial() ? 1 : (ctrl.chapters().length + 1)));
+                el.select();
+                el.focus();
+              }
             })
           })
         ]),
         h('div.tabs-horiz', [
-          makeTab('init', 'Empty', 'Start from initial position'),
-          makeTab('edit', 'Editor', 'Start from custom position'),
-          makeTab('game', 'URL', 'Load a game URL'),
-          makeTab('fen', 'FEN', 'Load a FEN position'),
-          makeTab('pgn', 'PGN', 'Load a PGN game')
+          makeTab('init', trans.noarg('empty'), trans.noarg('startFromInitialPosition')),
+          makeTab('edit', trans.noarg('editor'), trans.noarg('startFromCustomPosition')),
+          makeTab('game', 'URL', trans.noarg('loadAGameByUrl')),
+          makeTab('fen', 'FEN', trans.noarg('loadAPositionFromFen')),
+          makeTab('pgn', 'PGN', trans.noarg('loadAGameFromPgn'))
         ]),
         activeTab === 'edit' ? h('div.board-editor-wrap', {
           hook: {
@@ -172,22 +196,22 @@ export function view(ctrl): VNode {
         activeTab === 'game' ? h('div.form-group', [
           h('label.form-label', {
             attrs: { 'for': 'chapter-game' }
-          }, 'Load a game from lichess.org or chessgames.com'),
+          }, trans('loadAGameFromXOrY', 'lichess.org', 'chessgames.com')),
           h('input#chapter-game.form-control', {
-            attrs: { placeholder: 'URL of the game' }
+            attrs: { placeholder: trans.noarg('urlOfTheGame') }
           })
         ]) : null,
         activeTab === 'fen' ? h('div.form-group', [
           h('input#chapter-fen.form-control', {
             attrs: {
               value: ctrl.root.node.fen,
-              placeholder: 'Initial FEN position'
+              placeholder: trans.noarg('loadAPositionFromFen')
             }
           })
         ]) : null,
         activeTab === 'pgn' ? h('div.form-groupabel', [
           h('textarea#chapter-pgn.form-control', {
-            attrs: { placeholder: 'Paste your PGN text here, up to ' + ctrl.multiPgnMax + ' games' }
+            attrs: { placeholder: trans.plural('pasteYourPgnTextHereUpToNbGames', ctrl.multiPgnMax) }
           }),
           window.FileReader ? h('input#chapter-pgn-file.form-control', {
             attrs: {
@@ -209,48 +233,35 @@ export function view(ctrl): VNode {
           h('div.form-group.form-half', [
             h('label.form-label', {
               attrs: { 'for': 'chapter-variant' }
-            }, 'Variant'),
+            }, trans.noarg('Variant')),
             h('select#chapter-variant.form-control', {
               attrs: { disabled: gameOrPgn }
             }, gameOrPgn ? [
-              h('option', 'Automatic')
+              h('option', trans.noarg('automatic'))
             ] :
-            ctrl.vm.variants.map(v => option(v.key, currentChapterSetup.variant.key, v.name)))
+            ctrl.vm.variants.map(v => option(v.key, currentChapter.setup.variant.key, v.name)))
           ]),
           h('div.form-group.form-half', [
             h('label.form-label', {
               attrs: { 'for': 'chapter-orientation' }
-            }, 'Orientation'),
+            }, trans.noarg('orientation')),
             h('select#chapter-orientation.form-control', {
               hook: bind('change', e => {
                 ctrl.vm.editor && ctrl.vm.editor.setOrientation((e.target as HTMLInputElement).value);
               })
-            }, ['White', 'Black'].map(function(color) {
-              const c = color.toLowerCase();
-              return option(c, currentChapterSetup.orientation, color);
+            }, ['white', 'black'].map(function(color) {
+              return option(color, currentChapter.setup.orientation, trans.noarg(color));
             }))
           ])
         ]),
         h('div.form-group', [
           h('label.form-label', {
             attrs: { 'for': 'chapter-mode' }
-          }, 'Analysis mode'),
-          h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], '', c[1])))
+          }, trans.noarg('analysisMode')),
+          h('select#chapter-mode.form-control', modeChoices.map(c => option(c[0], mode, trans.noarg(c[1]))))
         ]),
-        modal.button('Create chapter')
+        modal.button(trans.noarg('createChapter'))
       ])
     ]
   });
-}
-
-export function descriptionGroup(desc?: string) {
-  return h('div.form-group', [
-    h('label.form-label', {
-      attrs: { for: 'chapter-description' }
-    }, descTitle),
-    h('select#chapter-description.form-control', [
-      ['', 'None'],
-      ['1', 'Right under the board']
-    ].map(v => option(v[0], desc ? '1' : '', v[1])))
-  ]);
 }

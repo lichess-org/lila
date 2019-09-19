@@ -23,6 +23,7 @@ final class Env(
     val CollectionUser = config getString "collection.user"
     val CollectionNote = config getString "collection.note"
     val CollectionTrophy = config getString "collection.trophy"
+    val CollectionTrophyKind = config getString "collection.trophyKind"
     val CollectionRanking = config getString "collection.ranking"
     val PasswordBPassSecret = config getString "password.bpass.secret"
   }
@@ -41,9 +42,9 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
 
-  lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
+  lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
 
-  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
+  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, lightUser)(system)
 
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
@@ -68,6 +69,9 @@ final class Env(
         if (!user.seenRecently) UserRepo setSeenAt user.id
         onlineUserIdMemo put user.id
         if (user.hasTitle) recentTitledUserIdMemo put user.id
+      case lila.hub.actorApi.socket.remote.ConnectUser(userId) =>
+        // lila-ws sets user.seenAt itself
+        onlineUserIdMemo put userId
     },
     'kickFromRankings -> {
       case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId

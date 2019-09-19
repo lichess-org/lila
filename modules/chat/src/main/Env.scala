@@ -45,11 +45,13 @@ final class Env(
 
   val panic = new ChatPanic
 
+  private val palantir = new Palantir(system.lilaBus)
+
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
   }
 
-  system.actorOf(Props(new FrontActor(api)), name = ActorName)
+  system.actorOf(Props(new FrontActor(api, palantir)), name = ActorName)
 
   private[chat] lazy val chatColl = db(CollectionChat)
   private[chat] lazy val timeoutColl = db(CollectionTimeout)

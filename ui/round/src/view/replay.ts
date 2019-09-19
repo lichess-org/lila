@@ -10,38 +10,32 @@ import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-function emptyMove() {
-  return h('move.empty', '...');
-}
-function nullMove() {
-  return h('move.empty', '');
-}
+const scrollMax = 99999, moveTag = 'm2';
 
-const scrollMax = 99999;
+const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
+  window.requestAnimationFrame(() => {
+    if (ctrl.data.steps.length < 7) return;
+    let st: number | undefined = undefined;
+    if (ctrl.ply < 3) st = 0;
+    else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
+    else {
+      const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
+      if (plyEl) st = window.lichess.isCol1() ?
+        plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
+        plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (typeof st == 'number') {
+      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+      else if (window.lichess.isCol1()) movesEl.scrollLeft = st;
+      else movesEl.scrollTop = st;
+    }
+  })
+);
 
-const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) => {
-  if (ctrl.data.steps.length < 7) return;
-  let st: number | undefined = undefined;
-  if (ctrl.ply < 3) st = 0;
-  else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
-  else {
-    const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
-    if (plyEl) st = window.lichess.isCol1() ?
-      plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
-      plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
-  }
-  if (typeof st == 'number') {
-    if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
-    else if (window.lichess.isCol1()) movesEl.scrollLeft = st;
-    else movesEl.scrollTop = st;
-  }
-});
-
-function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
-  if (!step) return orEmpty ? emptyMove() : nullMove();
-  return h('move', {
+function renderMove(step: Step, curPly: number, orEmpty: boolean) {
+  return step ? h(moveTag, {
     class: { active: step.ply === curPly }
-  }, step.san[0] === 'P' ? step.san.slice(1) : step.san);
+  }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 
 export function renderResult(ctrl: RoundController): VNode | undefined {
@@ -99,20 +93,19 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   return els;
 }
 
-function analyseButton(ctrl: RoundController) {
+export function analysisButton(ctrl: RoundController): VNode | undefined {
   const forecastCount = ctrl.data.forecastCount;
-  return [
-    h('a.fbt.analysis', {
-      class: {
-        'text': !!forecastCount
-      },
-      attrs: {
-        title: ctrl.trans.noarg('analysis'),
-        href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
-        'data-icon': 'A'
-      }
-    }, forecastCount ? ['' + forecastCount] : [])
-  ];
+  return game.userAnalysable(ctrl.data) ? h('a.fbt.analysis', {
+    class: {
+      'text': !!forecastCount
+    },
+    attrs: {
+      title: ctrl.trans.noarg('analysis'),
+      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+      'data-icon': 'A'
+    }
+  }, forecastCount ? ['' + forecastCount] : []
+  ) : undefined
 }
 
 function renderButtons(ctrl: RoundController) {
@@ -158,7 +151,7 @@ function renderButtons(ctrl: RoundController) {
         }
       });
     })),
-    ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
+    analysisButton(ctrl) || h('div.noop')
   ]);
 }
 
@@ -172,14 +165,29 @@ function initMessage(d: RoundData) {
     ]) : null;
 }
 
-export default function(ctrl: RoundController): VNode | undefined {
-  return ctrl.nvui ? undefined : h('div.rmoves', [
-    renderButtons(ctrl),
-    initMessage(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
+function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
+  return disabled ? null : h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir
+    },
+    hook: util.bind('mousedown', e => {
+      e.preventDefault();
+      ctrl.userJump(ctrl.ply + dir);
+      ctrl.redraw();
+    })
+  });
+}
+
+export function render(ctrl: RoundController): VNode | undefined {
+  const d = ctrl.data,
+    col1 = window.lichess.isCol1(),
+    moves = ctrl.replayEnabledByPref() && h('div.moves', {
       hook: util.onInsert(el => {
         el.addEventListener('mousedown', e => {
           let node = e.target as HTMLElement, offset = -2;
-          if (node.tagName !== 'MOVE') return;
+          if (node.tagName !== moveTag.toUpperCase()) return;
           while(node = node.previousSibling as HTMLElement) {
             offset++;
             if (node.tagName === 'INDEX') {
@@ -189,10 +197,19 @@ export default function(ctrl: RoundController): VNode | undefined {
             }
           }
         });
-        ctrl.autoScroll = () => window.requestAnimationFrame(() => autoScroll(el, ctrl));
+        ctrl.autoScroll = () => autoScroll(el, ctrl);
         ctrl.autoScroll();
         window.addEventListener('load', ctrl.autoScroll);
       })
-    }, renderMoves(ctrl)) : renderResult(ctrl))
+    }, renderMoves(ctrl));
+  return ctrl.nvui ? undefined : h('div.rmoves', [
+    renderButtons(ctrl),
+    initMessage(d) || (moves ? (
+      col1 ? h('div.col1-moves', [
+        col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
+        moves,
+        col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d))
+      ]) : moves
+    ) : renderResult(ctrl))
   ]);
 }

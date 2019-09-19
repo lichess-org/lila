@@ -32,8 +32,6 @@ Has köp oýun oýnamak we has köp utuk gazanmak üçin çalt oýnaň we eýwan
   <string name="howDoesItEnd">Nähili tamamlanýar?</string>
   <string name="howDoesItEndAnswer">Bäsleşikde yza-ýörümli sagat bilen işleýär. Sagat nola gelende bäsleşik tablisasy doňdurylýar we ýeňiji yglan edilýär. Dowam edýän oýunlar tamamlanmalydyr emma olar utuk gazandyrmaýar.</string>
   <string name="otherRules">Beýleki möhüm düzgünler</string>
-  <string name="otherRulesAnswer">Ilkinji göçümiňizi 20 sekuntda göçmelisiňiz. Şu wagt içinde göçmezlik garşydaşyňyza tehniki ýeňiş berer.
-Ilkinji 10 göçüm içinde deňlikde tamamlamak 2 oýunça-da utuk gazandyrmaz.</string>
   <string name="thisIsPrivate">Bu şahsy bäsleşik</string>
   <string name="shareUrl">Adamlar gatnaşmagy üçin bu URL-i paýlaşyň: %s</string>
 </resources>

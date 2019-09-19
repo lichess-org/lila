@@ -5,16 +5,9 @@ import { modal } from './modal';
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
-function preventing(f: () => void): (e: MouseEvent) => void {
-  return function(e) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    } else {
-      // internet explorer
-      e.returnValue = false;
-    }
-    f();
-  };
+const preventing = (f: () => void) => (e: MouseEvent) => {
+  e.preventDefault();
+  f();
 }
 
 export function bind(ctrl: AnalyseCtrl): void {
@@ -29,7 +22,7 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind(['right', 'j'], preventing(function() {
-    control.next(ctrl);
+    if (!ctrl.fork.proceed()) control.next(ctrl);
     ctrl.redraw();
   }));
   kbd.bind(['shift+right', 'shift+j'], preventing(function() {
@@ -37,11 +30,11 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.redraw();
   }));
   kbd.bind(['up', '0'], preventing(function() {
-    control.first(ctrl);
+    if (!ctrl.fork.prev()) control.first(ctrl);
     ctrl.redraw();
   }));
   kbd.bind(['down', '$'], preventing(function() {
-    control.last(ctrl);
+    if (!ctrl.fork.next()) control.last(ctrl);
     ctrl.redraw();
   }));
   kbd.bind('shift+c', preventing(function() {
@@ -53,6 +46,12 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.treeView.toggle();
     ctrl.redraw();
   }));
+  kbd.bind('z', preventing(function() {
+    ctrl.toggleComputer();
+    ctrl.redraw();
+  }));
+
+  if (ctrl.embed) return;
 
   kbd.bind('space', preventing(function() {
     const gb = ctrl.gamebookPlay();
@@ -79,12 +78,6 @@ export function bind(ctrl: AnalyseCtrl): void {
     ctrl.toggleExplorer();
     ctrl.redraw();
   }));
-  kbd.bind('space', preventing(function() {
-    const gb = ctrl.gamebookPlay();
-    if (gb) gb.onSpace();
-    else if (ctrl.ceval.enabled()) ctrl.playBestMove();
-    else ctrl.toggleCeval();
-  }));
   if (ctrl.study) {
     const keyToMousedown = (key: string, selector: string) => {
       kbd.bind(key, preventing(function() {
@@ -93,8 +86,8 @@ export function bind(ctrl: AnalyseCtrl): void {
         });
       }));
     };
-    keyToMousedown('c', '.study__buttons a.comments');
-    keyToMousedown('g', '.study__buttons a.glyphs');
+    keyToMousedown('d', '.study__buttons .comments');
+    keyToMousedown('g', '.study__buttons .glyphs');
   }
 }
 

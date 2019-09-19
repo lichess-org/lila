@@ -12,19 +12,22 @@ final class ReportApi(
     autoAnalysis: AutoAnalysis,
     noteApi: NoteApi,
     securityApi: lila.security.SecurityApi,
+    userSpyApi: lila.security.UserSpyApi,
+    playbanApi: lila.playban.PlaybanApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
     scoreThreshold: () => Int
 ) {
 
   import BSONHandlers._
+  import Report.Candidate
 
   private lazy val scorer = new ReportScore(getAccuracy = accuracy.of)
 
-  def create(c: Report.Candidate): Funit = !c.reporter.user.reportban ?? {
-    !isAlreadySlain(c) ?? {
-      scorer(c) flatMap {
-        case scored @ Report.Candidate.Scored(candidate, _) =>
+  def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
+    (!c.reporter.user.reportban && !isAlreadySlain(c)) ?? {
+      scorer(c) map (_ withScore score) flatMap {
+        case scored @ Candidate.Scored(candidate, _) =>
           coll.find($doc(
             "user" -> candidate.suspect.user.id,
             "reason" -> candidate.reason,
@@ -37,7 +40,13 @@ final class ReportApi(
           } >>- monitorOpen
       }
     }
-  }
+
+  def commFlag(reporter: Reporter, suspect: Suspect, resource: String, text: String) = create(Candidate(
+    reporter,
+    suspect,
+    Reason.CommFlag,
+    s"[FLAG] $resource ${text take 140}"
+  ))
 
   private def monitorOpen = {
     nbOpenCache.refresh
@@ -46,10 +55,10 @@ final class ReportApi(
     }
   }
 
-  private def isAlreadySlain(candidate: Report.Candidate) =
+  private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
-      (candidate.isTrollOrInsult && candidate.suspect.user.troll)
+      (candidate.isAboutComm && candidate.suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
@@ -67,7 +76,7 @@ final class ReportApi(
     )) flatMap {
       case true => funit // only report once
       case _ => getSuspect(userId) zip getLichessReporter flatMap {
-        case (Some(suspect), reporter) => create(Report.Candidate(
+        case (Some(suspect), reporter) => create(Candidate(
           reporter = reporter,
           suspect = suspect,
           reason = Reason.CheatPrint,
@@ -83,7 +92,7 @@ final class ReportApi(
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
         case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
           lila.mon.cheat.autoReport.count()
-          create(Report.Candidate(
+          create(Candidate(
             reporter = reporter,
             suspect = suspect,
             reason = Reason.Cheat,
@@ -94,13 +103,32 @@ final class ReportApi(
 
   def autoBotReport(userId: String, referer: Option[String], name: String): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
-      case (Some(suspect), reporter) => create(Report.Candidate(
+      case (Some(suspect), reporter) => create(Candidate(
         reporter = reporter,
         suspect = suspect,
         reason = Reason.Cheat,
         text = s"""$name bot detected on ${referer | "?"}"""
       ))
       case _ => funit
+    }
+
+  def maybeAutoPlaybanReport(userId: String): Funit =
+    userSpyApi.getUserIdsWithSameIpAndPrint(userId) map { ids =>
+      playbanApi.bans(ids.toList ::: List(userId)) map { bans =>
+        (bans.values.sum >= 80) ?? {
+          UserRepo.byId(userId) zip
+            getLichessReporter zip
+            findRecent(1, selectRecent(SuspectId(userId), Reason.Playbans)) flatMap {
+              case Some(abuser) ~ reporter ~ past if past.size < 1 => create(Candidate(
+                reporter = reporter,
+                suspect = Suspect(abuser),
+                reason = Reason.Playbans,
+                text = s"${bans.values.sum} playbans over ${bans.keys.size} accounts with IP+Print match."
+              ))
+              case _ => funit
+            }
+        }
+      }
     }
 
   def processAndGetBySuspect(suspect: Suspect): Fu[List[Report]] = for {
@@ -112,7 +140,7 @@ final class ReportApi(
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       UserRepo.byId(winnerId) zip UserRepo.byId(loserId) zip getLichessReporter flatMap {
-        case isSame ~ Some(winner) ~ Some(loser) ~ reporter => create(Report.Candidate(
+        case isSame ~ Some(winner) ~ Some(loser) ~ reporter => create(Candidate(
           reporter = reporter,
           suspect = Suspect(if (isSame) winner else loser),
           reason = Reason.Boost,
@@ -156,14 +184,17 @@ final class ReportApi(
     multi = true
   )
 
-  def autoInsultReport(userId: String, text: String): Funit = {
+  def autoInsultReport(userId: String, text: String, major: Boolean): Funit = {
     getSuspect(userId) zip getLichessReporter flatMap {
-      case (Some(suspect), reporter) => create(Report.Candidate(
-        reporter = reporter,
-        suspect = suspect,
-        reason = Reason.Insult,
-        text = text
-      ))
+      case (Some(suspect), reporter) => create(
+        Candidate(
+          reporter = reporter,
+          suspect = suspect,
+          reason = Reason.Insult,
+          text = text
+        ),
+        score => if (major) Report.Score(score.value atLeast scoreThreshold()) else score
+      )
       case _ => funit
     }
   } >>- monitorOpen
@@ -275,7 +306,7 @@ final class ReportApi(
     def of(reporter: ReporterId): Fu[Option[Accuracy]] =
       cache get reporter.value map2 Accuracy.apply
 
-    def apply(candidate: Report.Candidate): Fu[Option[Accuracy]] =
+    def apply(candidate: Candidate): Fu[Option[Accuracy]] =
       (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)
 
     def invalidate(selector: Bdoc): Funit =
@@ -349,7 +380,7 @@ final class ReportApi(
     def spontaneous(mod: Mod, sus: Suspect): Fu[Report] = ofModId(mod.user.id) flatMap { current =>
       current.??(cancel(mod)) >> {
         val report = Report.make(
-          Report.Candidate(
+          Candidate(
             Reporter(mod.user),
             sus,
             Reason.Other,

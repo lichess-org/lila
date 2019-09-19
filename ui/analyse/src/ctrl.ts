@@ -24,6 +24,7 @@ import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
 import { StudyPracticeCtrl } from './study/practice/interfaces';
+import { make as makeFork, ForkCtrl } from './fork';
 import { make as makeRetro, RetroCtrl } from './retrospect/retroCtrl';
 import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
@@ -38,10 +39,8 @@ const li = window.lichess;
 
 export default class AnalyseCtrl {
 
-  opts: AnalyseOpts;
   data: AnalyseData;
   element: HTMLElement;
-  redraw: () => void;
 
   tree: TreeWrapper;
   socket: Socket;
@@ -62,6 +61,7 @@ export default class AnalyseCtrl {
   explorer: ExplorerCtrl;
   forecast?: ForecastCtrl;
   retro?: RetroCtrl;
+  fork: ForkCtrl;
   practice?: PracticeCtrl;
   study?: StudyCtrl;
   studyPractice?: StudyPracticeCtrl;
@@ -101,13 +101,11 @@ export default class AnalyseCtrl {
   music?: any;
   nvui?: NvuiPlugin;
 
-  constructor(opts: AnalyseOpts, redraw: Redraw) {
+  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
 
-    this.opts = opts;
     this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
-    this.redraw = redraw;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
 
@@ -189,6 +187,7 @@ export default class AnalyseCtrl {
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
     treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+    this.fork = makeFork(this);
   }
 
   private setPath = (path: Tree.Path): void => {
@@ -309,7 +308,7 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
   private updateHref: () => void = li.debounce(() => {
@@ -355,6 +354,7 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
+    li.pubsub.emit('ply', this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
@@ -626,6 +626,7 @@ export default class AnalyseCtrl {
   });
 
   toggleCeval = () => {
+    if (!this.showComputer()) return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -718,11 +719,12 @@ export default class AnalyseCtrl {
   }
 
   toggleComputer = () => {
+    if (this.ceval.enabled()) this.toggleCeval();
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
     this.onToggleComputer();
-    li.pubsub.emit('analysis.comp.toggle')(value);
+    li.pubsub.emit('analysis.comp.toggle', value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
@@ -734,6 +736,7 @@ export default class AnalyseCtrl {
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
+    li.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 

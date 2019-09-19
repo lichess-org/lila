@@ -67,7 +67,6 @@
   <string name="viewInFullSize">Alehibiazo</string>
   <string name="logOut">Mivoaha</string>
   <string name="signIn">Midira</string>
-  <string name="newToLichess">Vaovao ho anao Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Mila kaonty ianao mba hanaovana an\'izay</string>
   <string name="signUp">Mamorona kaonty</string>
   <string name="games">Lalao</string>
@@ -89,7 +88,6 @@
   <string name="time">Fotoana</string>
   <string name="usernameOrEmail">Solon\'anarana</string>
   <string name="password">Teny miafina</string>
-  <string name="haveAnAccount">Efa manana kaonty?</string>
   <string name="changePassword">Ovay ny teny miafina</string>
   <string name="rank">Laharana</string>
   <string name="gamesPlayed">Lalao nolalaovina</string>
@@ -212,10 +210,8 @@
   <string name="thisIsAChessCaptcha">CAPTCHAn\'ny échec ito.</string>
   <string name="clickOnTheBoardToMakeYourMove">Cliquer-o eo amin\'ny faritry ny lalao hanaovanao ny hetsikao voalohany, ary porofoy fa olombelona ianao.</string>
   <string name="notACheckmate">Tsy échec et mat</string>
-  <string name="colorPlaysCheckmateInOne">milalao %s; échec et mat afaka fihetsehina iray</string>
   <string name="retry">Avereno andramana</string>
   <string name="reconnecting">Reconnecting</string>
-  <string name="onlineFriends">Namana connectés</string>
   <string name="noFriendsOnline">Tsy misy namana connectés</string>
   <string name="findFriends">Mitadiava namana</string>
   <string name="follow">Araho</string>

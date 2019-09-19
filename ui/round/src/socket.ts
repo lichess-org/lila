@@ -1,6 +1,7 @@
 import * as game from 'game';
 import throttle from 'common/throttle';
 import notify from 'common/notification';
+import { isPlayerTurn } from 'game';
 import * as xhr from './xhr';
 import * as sound from './sound';
 import RoundController from './ctrl';
@@ -15,7 +16,7 @@ export interface RoundSocket extends Untyped {
   outoftime(): void;
   berserk(): void;
   sendLoading(typ: string, data?: any): void
-  receive(typ: string, data: any): boolean;
+    receive(typ: string, data: any): boolean;
 }
 
 interface Incoming {
@@ -45,12 +46,14 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     });
   };
 
+  const d = ctrl.data;
+
   const handlers: Handlers = {
     takebackOffers(o) {
       ctrl.setLoading(false);
-      ctrl.data.player.proposingTakeback = o[ctrl.data.player.color];
-      const fromOp = ctrl.data.opponent.proposingTakeback = o[ctrl.data.opponent.color];
-      if (fromOp) notify(ctrl.trans('yourOpponentProposesATakeback'));
+      d.player.proposingTakeback = o[d.player.color];
+      const fromOp = d.opponent.proposingTakeback = o[d.opponent.color];
+      if (fromOp) notify(ctrl.noarg('yourOpponentProposesATakeback'));
       ctrl.redraw();
     },
     move: ctrl.apiMove,
@@ -65,60 +68,59 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     },
     cclock(o) {
       if (ctrl.corresClock) {
-        ctrl.data.correspondence.white = o.white;
-        ctrl.data.correspondence.black = o.black;
+        d.correspondence.white = o.white;
+        d.correspondence.black = o.black;
         ctrl.corresClock.update(o.white, o.black);
         ctrl.redraw();
       }
     },
     crowd(o) {
-      game.setOnGame(ctrl.data, 'white', o['white']);
-      game.setOnGame(ctrl.data, 'black', o['black']);
+      game.setOnGame(d, 'white', o['white']);
+      game.setOnGame(d, 'black', o['black']);
       ctrl.redraw();
     },
-    // end: function(winner) { } // use endData instead
     endData(o: ApiEnd) {
       ctrl.endWithData(o);
     },
     rematchOffer(by: Color) {
-      ctrl.data.player.offeringRematch = by === ctrl.data.player.color;
-      const fromOp = ctrl.data.opponent.offeringRematch = by === ctrl.data.opponent.color;
-      if (fromOp) notify(ctrl.trans('yourOpponentWantsToPlayANewGameWithYou'));
+      d.player.offeringRematch = by === d.player.color;
+      if (d.opponent.offeringRematch = by === d.opponent.color)
+        notify(ctrl.noarg('yourOpponentWantsToPlayANewGameWithYou'));
       ctrl.redraw();
     },
     rematchTaken(nextId: string) {
-      ctrl.data.game.rematch = nextId;
-      if (!ctrl.data.player.spectator) ctrl.setLoading(true);
+      d.game.rematch = nextId;
+      if (!d.player.spectator) ctrl.setLoading(true);
       else ctrl.redraw();
     },
     drawOffer(by) {
-      ctrl.data.player.offeringDraw = by === ctrl.data.player.color;
-      const fromOp = ctrl.data.opponent.offeringDraw = by === ctrl.data.opponent.color;
-      if (fromOp) notify(ctrl.trans('yourOpponentOffersADraw'));
+      d.player.offeringDraw = by === d.player.color;
+      const fromOp = d.opponent.offeringDraw = by === d.opponent.color;
+      if (fromOp) notify(ctrl.noarg('yourOpponentOffersADraw'));
       ctrl.redraw();
     },
     berserk(color: Color) {
       ctrl.setBerserk(color);
     },
     gone(isGone) {
-      if (!ctrl.data.opponent.ai) {
-        game.setIsGone(ctrl.data, ctrl.data.opponent.color, isGone);
+      if (!d.opponent.ai) {
+        game.setIsGone(d, d.opponent.color, isGone);
         ctrl.redraw();
       }
     },
     checkCount(e) {
-      ctrl.data.player.checks = ctrl.data.player.color == 'white' ? e.white : e.black;
-      ctrl.data.opponent.checks = ctrl.data.opponent.color == 'white' ? e.white : e.black;
+      d.player.checks = d.player.color == 'white' ? e.white : e.black;
+      d.opponent.checks = d.opponent.color == 'white' ? e.white : e.black;
       ctrl.redraw();
     },
     simulPlayerMove(gameId: string) {
       if (
         ctrl.opts.userId &&
-        ctrl.data.simul &&
-        ctrl.opts.userId == ctrl.data.simul.hostId &&
-        gameId !== ctrl.data.game.id &&
+        d.simul &&
+        ctrl.opts.userId == d.simul.hostId &&
+        gameId !== d.game.id &&
         ctrl.moveOn.get() &&
-        ctrl.chessground.state.turnColor !== ctrl.chessground.state.movable.color) {
+        !isPlayerTurn(ctrl.data)) {
         ctrl.setRedirecting();
         sound.move();
         li.hasToReload = true;
@@ -140,7 +142,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
     send,
     handlers,
     moreTime: throttle(300, () => send('moretime')),
-    outoftime: throttle(500, () => send('flag', ctrl.data.game.player)),
+    outoftime: throttle(500, () => send('flag', d.game.player)),
     berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);

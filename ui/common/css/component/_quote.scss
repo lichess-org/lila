@@ -30,7 +30,7 @@
     line-height: 20px;
     text-align: right;
     &:before {
-      content: '\2014';
+      content: '\2014\2009';
     }
   }
 }

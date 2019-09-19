@@ -4,7 +4,7 @@ import reactivemongo.api._
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter }
+import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
@@ -31,7 +31,7 @@ final class StreamerPager(
       sort = $doc("liveAt" -> -1)
     ) mapFutureList withUsers
     Paginator(
-      adapter = adapter,
+      adapter = new CachedAdapter(adapter, nbResults = fuccess(6000)),
       currentPage = page,
       maxPerPage = maxPerPage
     )

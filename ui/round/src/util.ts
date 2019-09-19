@@ -34,13 +34,13 @@ export function onInsert(f: (el: HTMLElement) => void): Hooks {
   };
 }
 
-export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw): Hooks {
+export function bind(eventName: string, f: (e: Event) => void, redraw?: Redraw, passive: boolean = true): Hooks {
   return onInsert(el => {
-    el.addEventListener(eventName, e => {
+    el.addEventListener(eventName, !redraw ? f : e => {
       const res = f(e);
-      if (redraw) redraw();
+      redraw();
       return res;
-    });
+    }, { passive });
   });
 }
 

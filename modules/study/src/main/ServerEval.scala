@@ -7,7 +7,7 @@ import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 import lila.tree._
 import lila.tree.Node.Comment
 import lila.user.User

@@ -60,7 +60,7 @@ object userAnalysis {
             }
           )
         ),
-        div(cls := "analyse__board main-board")(chessgroundSvg),
+        div(cls := "analyse__board main-board")(chessgroundBoard),
         div(cls := "analyse__tools"),
         div(cls := "analyse__controls")
       )

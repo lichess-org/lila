@@ -105,12 +105,10 @@
   <string name="viewInFullSize">अधिकतम आकारात पाहा</string>
   <string name="logOut">बाहेर पडा</string>
   <string name="signIn">प्रवेश करा</string>
-  <string name="newToLichess">लिचेस वर नवीन आहात ?</string>
   <string name="youNeedAnAccountToDoThat">त्यासाठी तुम्हाला खातं लागेल</string>
   <string name="signUp">सदस्य खाते तयार करा</string>
   <string name="games">खेळ</string>
   <string name="forum">चर्चामंडळ</string>
-  <string name="xPostedInForumY">%1$s forum madhe lihile</string>
   <string name="latestForumPosts">ताज्या  प्रतिक्रिया</string>
   <string name="players">बुद्धिबळ खेळाडू</string>
   <string name="minutesPerSide">दर बाजूचे मिनिट</string>
@@ -133,7 +131,6 @@
   <string name="username">वापरकर्त्याचे नाव</string>
   <string name="usernameOrEmail">वापरकर्त्याचे नाव किंवा पत्ता</string>
   <string name="password">परवलीचा शब्द</string>
-  <string name="haveAnAccount">खाते आहे का?</string>
   <string name="changePassword">परवलीचा शब्द बदला</string>
   <string name="changeEmail">ई-मेल बदला</string>
   <string name="email">ई-मेल</string>
@@ -260,7 +257,6 @@
   <string name="notACheckmate">ही शहमात नाही</string>
   <string name="retry">परत प्रयत्न करा</string>
   <string name="reconnecting">पुन्हा जोडणी करत आहोत</string>
-  <string name="onlineFriends">उपस्थित असलेले मित्र</string>
   <string name="noFriendsOnline">कुठलेच मित्र उपस्थित नाही</string>
   <string name="findFriends">मित्र शोधा</string>
   <string name="favoriteOpponents">आवडणारे प्रतिस्पर्धी</string>

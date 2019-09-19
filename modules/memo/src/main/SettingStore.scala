@@ -1,5 +1,8 @@
 package lila.memo
 
+import scala.util.matching.Regex
+import scala.util.Try
+
 import lila.db.dsl._
 import play.api.data._, Forms._
 
@@ -57,9 +60,11 @@ object SettingStore {
 
   object StringReader {
     implicit val booleanReader = new StringReader[Boolean](v =>
-      if (Set("on", "yes", "true", "1")(v)) true.some
-      else if (Set("off", "no", "false", "0")(v)) false.some
-      else none)
+      v match {
+        case "on" | "yes" | "true" | "1" => true.some
+        case "off" | "no" | "false" | "0" => false.some
+        case _ => none
+      })
     implicit val intReader = new StringReader[Int](parseIntOption)
     implicit val stringReader = new StringReader[String](some)
     def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
@@ -70,9 +75,17 @@ object SettingStore {
     implicit val stringsBsonHandler = lila.db.dsl.isoHandler(stringsIso)
     implicit val stringsReader = StringReader.fromIso(stringsIso)
   }
+  object Regex {
+    val regexIso = lila.common.Iso.string[Regex](_.r, _.toString)
+    implicit val regexBsonHandler = lila.db.dsl.isoHandler(regexIso)
+    implicit val regexReader = StringReader.fromIso(regexIso)
+  }
 
   final class Formable[A](val form: A => Form[_])
   object Formable {
+    implicit val regexFormable = new Formable[Regex](v => Form(single(
+      "v" -> text.verifying(t => Try(t.r).isSuccess)
+    )) fill v.toString)
     implicit val booleanFormable = new Formable[Boolean](v => Form(single("v" -> boolean)) fill v)
     implicit val intFormable = new Formable[Int](v => Form(single("v" -> number)) fill v)
     implicit val stringFormable = new Formable[String](v => Form(single("v" -> text)) fill v)

@@ -106,8 +106,19 @@
     form .fbt {
       width: 100%;
     }
+    .spinner {
+      width: 40px;
+      height: 40px;
+    }
     @include breakpoint($mq-col1) {
       margin-top: $block-gap;
+    }
+  }
+  .analysis {
+    display: none;
+    @include breakpoint($mq-col1) {
+      display: block;
+      margin-left: 2em;
     }
   }
   .rematch {

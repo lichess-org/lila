@@ -3,7 +3,6 @@ POST  /toggle-blind-mode               controllers.Main.toggleBlindMode
 
 # Lobby
 GET   /                                controllers.Lobby.home
-GET   /lobby/socket/v:apiVersion       controllers.Lobby.socket(apiVersion: Int)
 GET   /lobby/seeks                     controllers.Lobby.seeks
 
 # Timeline
@@ -68,10 +67,6 @@ GET   /player/autocomplete             controllers.User.autocomplete
 
 GET   /dasher                          controllers.Dasher.get
 
-# mobile app sends no site socket version: default to v3
-GET   /socket                          controllers.Main.websocket(apiVersion: Int = 3)
-GET   /socket/v:apiVersion             controllers.Main.websocket(apiVersion: Int)
-
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
@@ -102,9 +97,6 @@ POST  /training/:id/round2             controllers.Puzzle.round2(id: Int)
 POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
-# mobile app sends no site socket version: default to v3
-GET   /analysis/socket                 controllers.UserAnalysis.socket(apiVersion: Int = 3)
-GET   /analysis/socket/v:apiVersion    controllers.UserAnalysis.socket(apiVersion: Int)
 GET   /analysis/help                   controllers.UserAnalysis.help
 GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
@@ -229,8 +221,6 @@ GET   /tournament/$id<\w{8}>/page-of/:userId  controllers.Tournament.pageOf(id: 
 GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id: String)
-GET   /tournament/$id<\w{8}>/mini/:user/:nb   controllers.Tournament.userGameNbMini(id: String, user: String, nb: Int)
-GET   /tournament/$id<\w{8}>/show/:user/:nb   controllers.Tournament.userGameNbShow(id: String, user: String, nb: Int)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
@@ -241,6 +231,7 @@ GET   /tournament/shields/:categ              controllers.Tournament.categShield
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
+GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.clone(id: String)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
@@ -279,6 +270,7 @@ GET   /team/:id/edit                          controllers.Team.edit(id: String)
 POST  /team/:id/edit                          controllers.Team.update(id: String)
 GET   /team/:id/kick                          controllers.Team.kickForm(id: String)
 POST  /team/:id/kick                          controllers.Team.kick(id: String)
+POST  /team/:id/kick/:user                    controllers.Team.kickUser(id: String, user: String)
 GET   /team/:id/changeOwner                   controllers.Team.changeOwnerForm(id: String)
 POST  /team/:id/changeOwner                   controllers.Team.changeOwner(id: String)
 POST  /team/:id/close                         controllers.Team.close(id: String)
@@ -300,10 +292,10 @@ GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key:
 GET   /fishnet/status                         controllers.Fishnet.status
 
 # Pref
-POST  /pref/:name                      controllers.Pref.set(name: String)
-GET   /account/preferences/:categ      controllers.Pref.form(categ: String)
-POST  /account/preferences             controllers.Pref.formApply
-POST  /account/preferences/tag/:name/:value controllers.Pref.saveTag(name: String, value: String)
+POST  /pref/:name                             controllers.Pref.set(name: String)
+GET   /account/preferences/:categ             controllers.Pref.form(categ: String)
+POST  /account/preferences                    controllers.Pref.formApply
+POST  /account/preferences/verify-title       controllers.Pref.verifyTitle
 
 # Setup
 GET   /setup/ai                        controllers.Setup.aiForm
@@ -311,8 +303,8 @@ POST  /setup/ai                        controllers.Setup.ai
 GET   /setup/friend                    controllers.Setup.friendForm(user: Option[String] ?= None)
 POST  /setup/friend                    controllers.Setup.friend(user: Option[String] ?= None)
 GET   /setup/hook                      controllers.Setup.hookForm
-POST  /setup/hook/:uid/like/:gameId    controllers.Setup.like(uid: String, gameId: String)
-POST  /setup/hook/:uid                 controllers.Setup.hook(uid: String)
+POST  /setup/hook/:sri/like/:gameId    controllers.Setup.like(sri: String, gameId: String)
+POST  /setup/hook/:sri                 controllers.Setup.hook(sri: String)
 GET   /setup/filter                    controllers.Setup.filterForm
 POST  /setup/filter                    controllers.Setup.filter
 GET   /setup/validate-fen              controllers.Setup.validateFen
@@ -362,7 +354,7 @@ GET   /auth/token/:token               controllers.Auth.loginWithToken(token: St
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
 POST  /mod/:username/booster/:v        controllers.Mod.booster(username: String, v: Boolean)
 POST  /mod/:username/troll/:v          controllers.Mod.troll(username: String, v: Boolean)
-POST  /mod/:username/ban/:v            controllers.Mod.ban(username: String, v: Boolean)
+POST  /mod/:username/ban/:v            controllers.Mod.ipBan(username: String, v: Boolean)
 POST  /mod/:username/delete-pms-and-chats controllers.Mod.deletePmsAndChats(username: String)
 POST  /mod/:username/warn              controllers.Mod.warn(username: String, subject: String)
 POST  /mod/:username/disable-2fa       controllers.Mod.disableTwoFactor(username: String)
@@ -390,6 +382,8 @@ GET   /mod/public-chat                 controllers.Mod.publicChat
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
+GET   /mod/print/*fh                   controllers.Mod.print(fh: String)
+POST  /mod/print/ban/:v/*fh            controllers.Mod.printBan(v: Boolean, fh: String)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin
@@ -455,6 +449,7 @@ GET   /editor                          controllers.Editor.index
 # Report
 GET   /report                          controllers.Report.form
 POST  /report                          controllers.Report.create
+POST  /report/flag                     controllers.Report.flag
 GET   /report/thanks                   controllers.Report.thanks(reported: String)
 GET   /report/list                     controllers.Report.list
 GET   /report/list/:room               controllers.Report.listWithFilter(room: String)
@@ -477,14 +472,12 @@ GET   /api/user/:name/followers        controllers.Relation.apiFollowers(name: S
 POST  /api/user/:name/note             controllers.User.apiWriteNote(name: String)
 GET   /api/user/:name/rating-history   controllers.User.ratingHistory(name: String)
 GET   /api/game/:id                    controllers.Api.game(id: String)
-GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: String)
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
 GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
-GET   /api/socket                      controllers.Main.apiWebsocket
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/users/titled                controllers.Api.titledUsers
 GET   /api/crosstable/:u1/:u2          controllers.Api.crosstable(u1: String, u2: String)
@@ -552,6 +545,7 @@ GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
 POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
+GET   /event/manager/clone/$id<\w{8}>  controllers.Event.clone(id: String)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
@@ -570,9 +564,10 @@ POST  /cli                             controllers.Dev.command
 GET   /dev/settings                    controllers.Dev.settings
 POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)
 
-# Mobile Push
-POST  /mobile/register/:platform/:deviceId controllers.Main.mobileRegister(platform: String, deviceId: String)
-POST  /mobile/unregister               controllers.Main.mobileUnregister
+# Push
+POST  /mobile/register/:platform/:deviceId controllers.Push.mobileRegister(platform: String, deviceId: String)
+POST  /mobile/unregister               controllers.Push.mobileUnregister
+POST  /push/subscribe                  controllers.Push.webSubscribe
 
 # Pages
 GET   /thanks                          controllers.Page.thanks
@@ -582,9 +577,9 @@ GET   /contact                         controllers.Main.contact
 GET   /about                           controllers.Page.about
 GET   /faq                             controllers.Main.faq
 GET   /source                          controllers.Page.source
-GET   /qa                              controllers.Main.legacyQa
+GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
+GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
-GET   /swag                            controllers.Page.swag
 GET   /how-to-cheat                    controllers.Page.howToCheat
 
 # Variants
@@ -598,6 +593,8 @@ GET   /help/master                     controllers.Page.master
 GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
+
+GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
 
 # Assets
 GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: String, file: String)

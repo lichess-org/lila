@@ -48,7 +48,7 @@ object edit {
               )
             )
           ),
-          st.form(cls := "box__pad form3 async", action := routes.Coach.edit, method := "POST")(
+          postForm(cls := "box__pad form3 async", action := routes.Coach.edit)(
             div(cls := "tabs")(
               div(dataTab := "basics", cls := "active")("Basics"),
               div(dataTab := "texts")("Texts"),

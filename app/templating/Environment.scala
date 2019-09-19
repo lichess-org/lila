@@ -3,6 +3,7 @@ package templating
 
 import scala.concurrent.duration._
 
+import lila.api.Context
 import lila.api.Env.{ current => apiEnv }
 import lila.app.ui.ScalatagsTemplate._
 
@@ -44,15 +45,13 @@ object Environment
 
   def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)
 
-  def cspEnabled = apiEnv.cspEnabledSetting.get _
-
   def isChatPanicEnabled =
     lila.chat.Env.current.panic.enabled
 
   def reportNbOpen: Int =
     lila.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
 
-  def NotForKids(f: => Frag)(implicit ctx: lila.api.Context) = if (ctx.kid) emptyFrag else f
+  def NotForKids(f: => Frag)(implicit ctx: Context) = if (ctx.kid) emptyFrag else f
 
   val spinner: Frag = raw("""<div class="spinner"><svg viewBox="0 0 40 40"><circle cx=20 cy=20 r=18 fill="none"></circle></svg></div>""")
 }

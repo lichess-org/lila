@@ -14,6 +14,7 @@ case class Thread(
     creatorId: User.ID,
     invitedId: User.ID,
     visibleByUserIds: List[User.ID],
+    deletedByUserIds: Option[List[User.ID]],
     mod: Option[Boolean]
 ) {
 
@@ -85,12 +86,15 @@ case class Thread(
   def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
 
   def deleteFor(user: User) = copy(
-    visibleByUserIds = visibleByUserIds filter (user.id !=)
+    visibleByUserIds = visibleByUserIds filter (user.id !=),
+    deletedByUserIds = Some(user.id :: ~deletedByUserIds)
   )
 
   def isVisibleBy(userId: User.ID) = visibleByUserIds contains userId
 
   def isVisibleByOther(user: User) = isVisibleBy(otherUserId(user))
+
+  def looksMuted = posts.length == 1 && (~deletedByUserIds).has(invitedId)
 
   def hasPostsWrittenBy(userId: User.ID) = posts exists (_.isByCreator == (creatorId == userId))
 
@@ -127,6 +131,7 @@ object Thread {
     creatorId = creatorId,
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId),
+    deletedByUserIds = None,
     mod = asMod option true
   )
 

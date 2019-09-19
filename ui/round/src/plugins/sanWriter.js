@@ -1,9 +1,10 @@
 function fixCrazySan(san) {
   return san[0] === 'P' ? san.slice(1) : san;
-};
+}
+
 function decomposeUci(uci) {
   return [uci.slice(0, 2), uci.slice(2, 4), uci.slice(4, 5)];
-};
+}
 
 function square(name) {
   return name.charCodeAt(0) - 97 + (name.charCodeAt(1) - 49) * 8;
@@ -55,14 +56,6 @@ function kingMovesTo(s) {
 function knightMovesTo(s) {
   return [s + 17, s + 15, s + 10, s + 6, s - 6, s - 10, s - 15, s - 17].filter(function(o) {
     return o >= 0 && o < 64 && squareDist(s, o) <= 2;
-  });
-}
-
-function pawnAttacksTo(turn, s) {
-  var left = turn ? 7 : -7;
-  var right = turn ? 9 : -9;
-  return [s + left, s + right].filter(function(o) {
-    return o >= 0 && o < 64 && squareDist(s, o) === 1;
   });
 }
 

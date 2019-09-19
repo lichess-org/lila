@@ -1,20 +1,22 @@
 #!/bin/sh -e
 . bin/lilarc
 
-mode=$1
-if [ -z $mode ]; then
+to=$1
+mode=${2-build} # build | css | js | upload
+
+if [ -z $to ]; then
   echo "Empty deploy target"
   exit 1
-elif [ $mode = "main" ]; then
-  REMOTE="keres"
+elif [ $to = "main" ]; then
+  REMOTE="leess"
   REMOTE_DIR="/home/lichess-deploy"
-elif [ $mode = "stage" ]; then
+elif [ $to = "stage" ]; then
   REMOTE="khiaw"
   REMOTE_DIR="/home/lichess-stage"
-elif [ $mode = "greco" ]; then
+elif [ $to = "greco" ]; then
   REMOTE="greco"
   REMOTE_DIR="/home/lichess-deploy"
-elif [ $mode = "leess" ]; then
+elif [ $to = "leess" ]; then
   REMOTE="leess"
   REMOTE_DIR="/home/lichess-deploy"
 else
@@ -22,22 +24,24 @@ else
   exit 1
 fi
 
-lilalog "Deploy assets to $mode server $REMOTE:$REMOTE_DIR"
+lilalog "Deploy prod $mode assets to $to server $REMOTE:$REMOTE_DIR"
 
-./ui/build prod
+if [ "$mode" != "upload" ]; then
+  ./ui/build prod $mode
+fi
 
 lilalog "Rsync scripts"
 rsync --archive --no-o --no-g --progress --exclude '*.dev.css' public $REMOTE:$REMOTE_DIR
 
-SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR"
-echo $SSH_COMMAND
-ssh $REMOTE $SSH_COMMAND
+# SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR"
+# echo $SSH_COMMAND
+# ssh $REMOTE $SSH_COMMAND
 
 lilalog "Deploy complete"
 
-if [ $mode = "main" ]; then
+if [ $to = "main" ]; then
   xdg-open https://lichess.org/dev/cli
 fi
-if [ $mode = "stage" ]; then
+if [ $to = "stage" ]; then
   xdg-open https://lichess.dev/dev/cli
 fi

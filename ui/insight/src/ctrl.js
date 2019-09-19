@@ -68,7 +68,7 @@ module.exports = function(env, domElement) {
       }).then(function(answer) {
         this.vm.answer = answer;
         this.vm.loading = false;
-      }.bind(this)).catch(function(e) {
+      }.bind(this)).catch(function() {
         this.vm.loading = false;
         this.vm.broken = true;
         m.redraw();

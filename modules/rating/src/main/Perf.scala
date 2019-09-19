@@ -58,12 +58,14 @@ case class Perf(
     math.max(Glicko.minRating, glicko.rating),
     glicko.deviation,
     glicko.volatility,
-    nb
+    nb,
+    latest.orNull
   )
 
   def isEmpty = nb == 0
   def nonEmpty = !isEmpty
 
+  def rankable = glicko.rankable
   def provisional = glicko.provisional
   def established = glicko.established
 }
@@ -83,15 +85,18 @@ case object Perf {
 
     import Glicko.glickoBSONHandler
 
-    def reads(r: BSON.Reader): Perf = Perf(
-      glicko = r.getO[Glicko]("gl") | Glicko.default,
-      nb = r intD "nb",
-      latest = r dateO "la",
-      recent = r intsD "re"
-    )
+    def reads(r: BSON.Reader): Perf = {
+      val p = Perf(
+        glicko = r.getO[Glicko]("gl") | Glicko.default,
+        nb = r intD "nb",
+        latest = r dateO "la",
+        recent = r intsD "re"
+      )
+      p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, false)))
+    }
 
     def writes(w: BSON.Writer, o: Perf) = BSONDocument(
-      "gl" -> o.glicko,
+      "gl" -> o.glicko.copy(deviation = Glicko.liveDeviation(o, true)),
       "nb" -> w.int(o.nb),
       "re" -> w.listO(o.recent),
       "la" -> o.latest.map(w.date)

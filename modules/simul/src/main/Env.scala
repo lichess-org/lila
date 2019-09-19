@@ -4,7 +4,8 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.{ Duct, DuctMap, TrouperMap }
+import lila.game.Game
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
@@ -17,18 +18,17 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
-    asyncCache: lila.memo.AsyncCache.Builder
+    asyncCache: lila.memo.AsyncCache.Builder,
+    proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
-  private val settings = new {
-    val CollectionSimul = config getString "collection.simul"
-    val SequencerTimeout = config duration "sequencer.timeout"
-    val CreatedCacheTtl = config duration "created.cache.ttl"
-    val HistoryMessageTtl = config duration "history.message.ttl"
-    val UidTimeout = config duration "uid.timeout"
-    val SocketTimeout = config duration "socket.timeout"
-  }
-  import settings._
+  private val CollectionSimul = config getString "collection.simul"
+  private val SequencerTimeout = config duration "sequencer.timeout"
+  private val CreatedCacheTtl = config duration "created.cache.ttl"
+  private val HistoryMessageTtl = config duration "history.message.ttl"
+  private val SriTimeout = config duration "sri.timeout"
+  private val SocketTimeout = config duration "socket.timeout"
+  private val FeatureViews = config getInt "feature.views"
 
   lazy val repo = new SimulRepo(
     simulColl = simulColl
@@ -45,9 +45,7 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  lazy val forms = new DataForm
-
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val jsonView = new JsonView(lightUser, proxyGame)
 
   private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
     system = system,
@@ -57,7 +55,7 @@ final class Env(
       history = new History(ttl = HistoryMessageTtl),
       getSimul = repo.find,
       jsonView = jsonView,
-      uidTtl = UidTimeout,
+      sriTtl = SriTimeout,
       lightUser = lightUser,
       keepMeAlive = () => socketMap touch simulId
     ),
@@ -112,6 +110,16 @@ final class Env(
     expireAfter = _.ExpireAfterWrite(CreatedCacheTtl)
   )
 
+  def featurable(simul: Simul): Boolean = featureLimiter(simul.hostId)(true)
+
+  private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
+    credits = FeatureViews,
+    duration = 24 hours,
+    name = "simul homepage views",
+    key = "simul.feature",
+    log = false
+  )
+
   def version(simulId: String): Fu[SocketVersion] =
     socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersion)
 
@@ -136,8 +144,9 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUser,
-    onGameStart = lila.game.Env.current.onStart,
+    onGameStart = lila.round.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline,
-    asyncCache = lila.memo.Env.current.asyncCache
+    asyncCache = lila.memo.Env.current.asyncCache,
+    proxyGame = lila.round.Env.current.proxy.game _
   )
 }

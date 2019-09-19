@@ -22,10 +22,10 @@ object bits {
     )
 
   def miniBoard(fen: chess.format.FEN, color: chess.Color = chess.White): Frag = div(
-    cls := "mini-board parse-fen cg-board-wrap is2d",
+    cls := "mini-board parse-fen cg-wrap is2d",
     dataColor := color.name,
     dataFen := fen.value
-  )(div(cls := "cg-board"))
+  )(cgWrapContent)
 
   def gameIcon(game: Game): Char = game.perfType match {
     case _ if game.fromPosition => '*'
@@ -44,7 +44,7 @@ object bits {
     simul: Option[lila.simul.Simul],
     userTv: Option[lila.user.User] = None,
     bookmarked: Boolean
-  )(implicit ctx: Context) = frag(
+  )(implicit ctx: Context) = div(
     side.meta(pov, initialFen, tour, simul, userTv, bookmarked = bookmarked),
     cross.map { c =>
       div(cls := "crosstable")(crosstable(ctx.userId.fold(c)(c.fromPov), pov.gameId.some))

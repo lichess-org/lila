@@ -3,7 +3,7 @@ import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
 import { StudyChaptersCtrl } from './studyChapters';
-import { ChapterDescriptionCtrl } from './chapterDescription';
+import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
@@ -28,7 +28,8 @@ export interface StudyCtrl {
   serverEval: ServerEvalCtrl;
   share: any;
   tags: any;
-  desc: ChapterDescriptionCtrl;
+  studyDesc: DescriptionCtrl;
+  chapterDesc: DescriptionCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
@@ -57,9 +58,10 @@ export interface StudyCtrl {
   onPremoveSet(): void;
   redraw: Redraw;
   trans: Trans;
+  sri: string;
 }
 
-export type Tab = 'members' | 'chapters';
+export type Tab = 'intro' | 'members' | 'chapters';
 export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 
 export interface StudyVm {
@@ -95,6 +97,7 @@ export interface StudyData {
   chapters: StudyChapterMeta[]
   chapter: StudyChapter;
   secondsSinceUpdate: number;
+  description?: string;
 }
 
 type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
@@ -105,6 +108,7 @@ export interface StudySettings {
   cloneable: UserSelection;
   chat: UserSelection;
   sticky: Boolean;
+  description: Boolean;
 }
 
 export interface ReloadData {
@@ -126,6 +130,14 @@ export interface StudyFeatures {
 export interface StudyChapterMeta {
   id: string;
   name: string;
+}
+
+export interface StudyChapterConfig extends StudyChapterMeta {
+  orientation: Color;
+  description?: string;
+  practice: boolean;
+  gamebook: boolean;
+  conceal?: number;
 }
 
 export interface StudyChapter {

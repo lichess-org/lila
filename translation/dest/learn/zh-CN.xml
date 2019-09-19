@@ -139,7 +139,7 @@
 兵=1
 王是无价的。如果您的王被将死了您就输了这盘棋。</string>
   <string name="queenOverBishop">请吃掉价值大的棋子！
-后>象</string>
+后&gt;象</string>
   <string name="takeThePieceWithTheHighestValue">请吃掉价值大的棋子！</string>
   <string name="pieceValueComplete">恭喜！您已经懂得子力价值！
 后=9

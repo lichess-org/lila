@@ -1,4 +1,4 @@
-var studyId = '0Obg93mv';
+// var studyId = '0Obg93mv';
 
 function dig(chapId, node, path) {
   for (var i in node.n) {
@@ -16,7 +16,8 @@ function dig(chapId, node, path) {
   }
 }
 
-db.study_chapter.find({studyId: studyId}).forEach(chap => {
-  print(`${studyId}/${chap._id}`);
+// db.study_chapter.find({studyId: studyId}).forEach(chap => {
+db.study_chapter.find({}).forEach(chap => {
+  print(`${chap.studyId}/${chap._id}`);
   dig(chap._id, chap.root, 'root');
 });

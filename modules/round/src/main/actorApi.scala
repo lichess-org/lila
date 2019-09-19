@@ -7,13 +7,13 @@ import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
 import lila.common.{ IpAddress, IsMobile }
-import lila.socket.Socket.{ SocketVersion, Uid }
-import lila.socket.SocketMember
+import lila.socket.Socket.{ SocketVersion, Sri }
+import lila.socket.DirectSocketMember
 import lila.user.User
 
 case class EventList(events: List[lila.game.Event])
 
-sealed trait Member extends SocketMember {
+sealed trait Member extends DirectSocketMember {
 
   val color: Color
   val playerIdOption: Option[String]
@@ -70,7 +70,7 @@ case class Watcher(
 }
 
 case class Join(
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     color: Color,
     playerId: Option[String],
@@ -79,7 +79,6 @@ case class Join(
     mobile: IsMobile,
     promise: Promise[Connected]
 )
-case class VersionCheck(version: SocketVersion, member: Member, mobile: IsMobile)
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)

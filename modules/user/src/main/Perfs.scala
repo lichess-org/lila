@@ -261,4 +261,6 @@ case object Perfs {
       horde: List[User.LightPerf],
       racingKings: List[User.LightPerf]
   )
+
+  val emptyLeaderboards = Leaderboards(Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil, Nil)
 }

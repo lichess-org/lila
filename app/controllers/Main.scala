@@ -36,16 +36,6 @@ object Main extends LilaController {
     }
   }
 
-  def websocket(apiVersion: Int) = SocketOption { implicit ctx =>
-    getSocketUid("sri") ?? { uid =>
-      Env.site.socketHandler.human(uid, ctx.userId, apiVersion, get("flag")) map some
-    }
-  }
-
-  def apiWebsocket = WebSocket.tryAccept { req =>
-    Env.site.socketHandler.api(lila.api.Mobile.Api.currentVersion) map Right.apply
-  }
-
   def captchaCheck(id: String) = Open { implicit ctx =>
     Env.hub.captcher ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(if (valid) 1 else 0)
@@ -71,14 +61,6 @@ object Main extends LilaController {
     OptionOk(Prismic getBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile(doc, resolver)
     }
-  }
-
-  def mobileRegister(platform: String, deviceId: String) = Auth { implicit ctx => me =>
-    Env.push.registerDevice(me, platform, deviceId)
-  }
-
-  def mobileUnregister = Auth { implicit ctx => me =>
-    Env.push.unregisterDevices(me)
   }
 
   def jslog(id: String) = Open { ctx =>
@@ -159,8 +141,8 @@ Disallow: /games/export
     Ok(html.site.faq()).fuccess
   }
 
-  def legacyQa = Open { implicit ctx =>
-    MovedPermanently(routes.Main.faq.url).fuccess
+  def movedPermanently(to: String) = Action {
+    MovedPermanently(to)
   }
 
   def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>

@@ -15,4 +15,6 @@ package object simul extends PackageObject with WithSocket {
   }
 
   private[simul] def logger = lila.log("simul")
+
+  case class SimulTeam(id: String, name: String, isIn: Boolean)
 }

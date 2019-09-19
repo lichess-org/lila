@@ -2,7 +2,7 @@ $(function() {
 
   $('.forum').on('click', 'a.delete', function() {
     $.post($(this).attr("href"));
-    $(this).closest(".post").hide();
+    $(this).closest(".forum-post").hide();
     return false;
   }).on('click', 'form.unsub button', function() {
     var $form = $(this).parent().toggleClass('on off');

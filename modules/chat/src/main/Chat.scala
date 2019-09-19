@@ -1,7 +1,7 @@
 package lila.chat
 
-import lila.user.User
 import lila.hub.actorApi.shutup.PublicSource
+import lila.user.User
 
 sealed trait AnyChat {
   def id: Chat.Id
@@ -81,6 +81,8 @@ object Chat {
 
   case class Id(value: String) extends AnyVal with StringValue
 
+  case class ResourceId(value: String) extends AnyVal with StringValue
+
   case class Setup(id: Id, publicSource: PublicSource)
 
   def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
@@ -91,7 +93,7 @@ object Chat {
 
   // left: game chat
   // right: tournament/simul chat
-  case class GameOrEvent(either: Either[Restricted, UserChat.Mine]) {
+  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, ResourceId)]) {
     def game = either.left.toOption
   }
 

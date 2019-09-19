@@ -21,6 +21,9 @@ object HTTPRequest {
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
+  def isProgrammatic(req: RequestHeader) =
+    !isSynchronousHttp(req) || isFishnet(req) || req.path.startsWith("/api/") || req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
+
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
   val isAndroid = UaMatcher("""(?i)android.+mobile""")

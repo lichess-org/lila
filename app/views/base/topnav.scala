@@ -11,7 +11,7 @@ object topnav {
   private def linkTitle(url: String, name: Frag)(implicit ctx: Context) =
     if (ctx.blind) h3(name) else a(href := url)(name)
 
-  def apply()(implicit ctx: Context) = st.nav(id := "topnav", role := "navigation", cls := "hover")(
+  def apply()(implicit ctx: Context) = st.nav(id := "topnav", cls := "hover")(
     st.section(
       linkTitle("/", frag(
         span(cls := "play")(trans.play()),
@@ -21,7 +21,7 @@ object topnav {
         if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
         else a(href := "/?any#friend")(trans.playWithAFriend()),
         ctx.noBot option frag(
-          a(href := routes.Tournament.home())(trans.tournament()),
+          a(href := routes.Tournament.home())(trans.tournaments()),
           a(href := routes.Simul.home)(trans.simultaneousExhibitions())
         )
       )

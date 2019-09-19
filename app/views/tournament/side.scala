@@ -30,7 +30,7 @@ object side {
                 if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initial) ?? s"• ${trans.thematic.txt()}",
+            (!tour.position.initial) ?? s"$separator ${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
@@ -38,8 +38,8 @@ object side {
           separator,
           systemName(tour.system).capitalize,
           isGranted(_.TerminateTournament) option
-            scalatags.Text.all.form(cls := "terminate", method := "post", action := routes.Tournament.terminate(tour.id))(
-              button(dataIcon := "j", cls := "fbt fbt-red confirm", `type` := "submit", title := "Terminates the tournament immediately")
+            postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
+              submitButton(dataIcon := "j", cls := "fbt fbt-red confirm", title := "Terminates the tournament immediately")
             )
         )
       ),
@@ -74,7 +74,9 @@ object side {
       !tour.position.initial option p(
         a(target := "_blank", href := tour.position.url)(
           strong(tour.position.eco), " ", tour.position.name
-        )
+        ),
+        separator,
+        a(href := routes.UserAnalysis.parse(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
     streamers.toList map views.html.streamer.bits.contextual,

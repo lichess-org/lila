@@ -34,7 +34,7 @@ LichessEditor(document.getElementById('board-editor'), data);""")
   )(main(id := "board-editor")(
       div(cls := "board-editor")(
         div(cls := "spare"),
-        div(cls := "main-board")(chessgroundSvg),
+        div(cls := "main-board")(chessgroundBoard),
         div(cls := "spare")
       )
     ))

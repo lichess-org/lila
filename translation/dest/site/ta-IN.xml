@@ -104,7 +104,6 @@
   <string name="viewInFullSize">முழு அளவில் காண்க</string>
   <string name="logOut">வெளியேறு</string>
   <string name="signIn">உள்நுழை</string>
-  <string name="newToLichess">நீர் இலைச்செசுக்குப் (Lichess) புதியவரா?</string>
   <string name="youNeedAnAccountToDoThat">அதைச் செய்யக் கணக்கொன்று தேவை</string>
   <string name="signUp">பதிக</string>
   <string name="computersAreNotAllowedToPlay">கணினிகள் மற்றும் கணினி உதவியுடன் விளையாட அனுமதி இல்லை. விளையாடும் போது சதுரங்க மென்பொருட்கள், தரவுத்தளங்கள், அல்லது மற்றவர்களிடம் இருந்து உதவி பெற வேண்டாம்.</string>
@@ -135,7 +134,6 @@
   <string name="username">பயனாளர் பெயர்</string>
   <string name="usernameOrEmail">பயனர்பெயர்</string>
   <string name="password">கடவுச்சொல்</string>
-  <string name="haveAnAccount">கணக்கு உண்டா?</string>
   <string name="changePassword">இரகசிய இலக்கத்தை மாற்று</string>
   <string name="changeEmail">மின்னஞ்சலை மாற்று</string>
   <string name="email">மின்னஞ்சல்</string>
@@ -272,10 +270,8 @@
   <string name="clickOnTheBoardToMakeYourMove">பலகையிலே சொடுக்கி நகர்த்துங்கள், நீங்கள் மாந்தரென்று நிறுவுங்கள்</string>
   <string name="captcha.fail">சதுரங்க புதிரை தீர்க்கவும்.</string>
   <string name="notACheckmate">முழுத்தடையன்று</string>
-  <string name="colorPlaysCheckmateInOne">%s ஆடுகின்றது; ஒரே நகர்வில் முழுத்தடை</string>
   <string name="retry">மீள்முயற்சி</string>
   <string name="reconnecting">மீண்டும் இணைகிறது</string>
-  <string name="onlineFriends">இணையத் தோழர்கள்</string>
   <string name="noFriendsOnline">இணையத் தோழர் யாருமிலர்</string>
   <string name="findFriends">தோழர்களைத் தேடு</string>
   <string name="favoriteOpponents">பிடித்தமான எதிராளிகள்</string>

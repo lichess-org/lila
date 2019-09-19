@@ -91,7 +91,7 @@ final class FishnetApi(
           case complete: CompleteAnalysis => {
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
-              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
+              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis(client))
             } else analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
@@ -171,8 +171,8 @@ object FishnetApi {
 
   import lila.base.LilaException
 
-  case object WeakAnalysis extends LilaException {
-    val message = "Analysis nodes per move is too low"
+  case class WeakAnalysis(client: Client) extends LilaException {
+    val message = s"$client: Analysis nodes per move is too low"
   }
 
   case object WorkNotFound extends LilaException {

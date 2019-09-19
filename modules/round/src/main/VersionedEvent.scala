@@ -30,8 +30,6 @@ private case class VersionedEvent(
     )
   } else Json.obj("v" -> version)
 
-  def hasSeconds(seconds: Int) = nowSeconds - date >= seconds
-
   private def decodedFor(m: Member) =
     if (moveBy.exists(by => m.color == by || m.watcher)) decoded.as[JsObject] - "dests"
     else decoded

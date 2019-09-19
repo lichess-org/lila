@@ -16,9 +16,6 @@ trait AdapterLike[A] {
    */
   def slice(offset: Int, length: Int): Fu[Seq[A]]
 
-  /**
-   * FUNCTOR INTERFACE
-   */
   def map[B](f: A => B): AdapterLike[B] = new AdapterLike[B] {
 
     def nbResults = AdapterLike.this.nbResults

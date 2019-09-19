@@ -25,7 +25,7 @@ object request {
           div(cls := "page-menu__content box box-pad")(
             h1(title),
             p(style := "margin:2em 0")(richText(t.description)),
-            st.form(cls := "form3", action := routes.Team.requestCreate(t.id), method := "POST")(
+            postForm(cls := "form3", action := routes.Team.requestCreate(t.id))(
               form3.group(form("message"), raw("Message"))(form3.textarea(_)()),
               p("Your join request will be reviewed by the team leader."),
               views.html.base.captcha(form, captcha),
@@ -62,7 +62,7 @@ object request {
             td(richText(request.message)),
             td(momentFromNow(request.date)),
             td(cls := "process")(
-              st.form(cls := "process-request", action := routes.Team.requestProcess(request.id), method := "post")(
+              postForm(cls := "process-request", action := routes.Team.requestProcess(request.id))(
                 input(tpe := "hidden", name := "url", value := t.fold(routes.Team.requests())(te => routes.Team.show(te.id))),
                 button(name := "process", cls := "button button-empty button-red", value := "decline")(trans.decline()),
                 button(name := "process", cls := "button button-green", value := "accept")(trans.accept())

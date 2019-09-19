@@ -55,7 +55,7 @@ export function ctrl(root: AnalyseCtrl, chapterId: () => string): ServerEvalCtrl
     },
     chapterId,
     onMergeAnalysisData() {
-      if (li.advantageChart) li.advantageChart.update(root.data, false);
+      if (li.advantageChart) li.advantageChart.update(root.data);
     },
     request() {
       root.socket.send('requestAnalysis', chapterId());
@@ -71,6 +71,7 @@ export function view(ctrl: ServerEvalCtrl): VNode {
 
   const analysis = ctrl.root.data.analysis;
 
+  if (!ctrl.root.showComputer()) return disabled();
   if (!analysis) return ctrl.requested() ? requested() : requestButton(ctrl);
 
   return h('div.study__server-eval.ready.' + analysis.id, {
@@ -86,27 +87,31 @@ export function view(ctrl: ServerEvalCtrl): VNode {
   }, [h('div.study__message', spinner())]);
 }
 
+function disabled(): VNode {
+  return h('div.study__server-eval.disabled.padded', 'You disabled computer analysis.');
+}
+
 function requested(): VNode {
-  return h('div.study__server-eval.requested', spinner());
+  return h('div.study__server-eval.requested.padded', spinner());
 }
 
 function requestButton(ctrl: ServerEvalCtrl) {
-
+  const root = ctrl.root;
   return h('div.study__message',
-    ctrl.root.mainline.length < 5 ? h('p', 'The study is too short to be analysed.') : (
-      !ctrl.root.study!.members.canContribute() ? ['Only the study contributors can request a computer analysis'] : [
+    root.mainline.length < 5 ? h('p', root.trans.noarg('theChapterIsTooShortToBeAnalysed')) : (
+      !root.study!.members.canContribute() ? [root.trans.noarg('onlyContributorsCanRequestAnalysis')] : [
         h('p', [
-          'Get a full server-side computer analysis of the main line.',
+          root.trans.noarg('getAFullComputerAnalysis'),
           h('br'),
-          'Make sure the chapter is complete, for you can only request analysis once.'
+          root.trans.noarg('makeSureTheChapterIsComplete')
         ]),
         h('a.button.text', {
           attrs: {
             'data-icon': '',
-            disabled: ctrl.root.mainline.length < 5
+            disabled: root.mainline.length < 5
           },
-          hook: bind('click', ctrl.request, ctrl.root.redraw)
-        }, ctrl.root.trans.noarg('requestAComputerAnalysis'))
+          hook: bind('click', ctrl.request, root.redraw)
+        }, root.trans.noarg('requestAComputerAnalysis'))
       ])
   );
 }

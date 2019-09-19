@@ -19,10 +19,9 @@ object form {
     ) {
         main(cls := "page-small box box-pad report")(
           h1(trans.reportAUser()),
-          st.form(
+          postForm(
             cls := "form3",
-            action := s"${routes.Report.create()}${reqUser.??(u => "?username=" + u.username)}",
-            method := "post"
+            action := s"${routes.Report.create()}${reqUser.??(u => "?username=" + u.username)}"
           )(
               form3.globalError(form),
               form3.group(form("username"), trans.user(), klass = "field_to") { f =>
@@ -44,4 +43,16 @@ object form {
             )
         )
       }
+
+  def flag(username: String, resource: String, text: String) =
+    postForm(action := routes.Report.flag, cls := "comm-flag")(
+      form3.hidden("username", username),
+      form3.hidden("resource", resource),
+      form3.hidden("text", text take 140),
+      submitButton(
+        cls := "button button-empty button-red confirm",
+        dataIcon := "j",
+        title := "Report spam or offensive language"
+      )
+    )
 }

@@ -3,9 +3,16 @@ $td-outer-height-percent: $td-outer-height-ratio * 100%;
 $td-inner-height-ratio: 464.5 / 512;
 $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 100%;
 
+@include breakpoint($mq-col1-uniboard) {
+  .is3d {
+    /* horiz scroll caused by 3d pieces overflowing the board */
+    overflow: hidden;
+  }
+}
+
 .main-board {
   padding-bottom: $td-outer-height-percent;
-  .cg-board-wrap {
+  .cg-wrap {
     height: $td-inner-relative-percent;
     coords.files {
       bottom: calc(-12px - 3%);
@@ -14,6 +21,17 @@ $td-inner-relative-percent: $td-inner-height-ratio / $td-outer-height-ratio * 10
       height: 100%;
     }
   }
+}
+
+cg-helper {
+  // Default (from 2D boards) would be 12.5% of width.
+  padding-bottom: $td-inner-height-ratio * 12.5%;
+  // The "display: table" hack is not useful here, because the board is not
+  // square. So heights corresponding to rounded widths are not always
+  // integers, much less have the desired effect.
+  // Additionally behavior with non-integer heights varies across Chrome
+  // versions.
+  display: block;
 }
 
 piece {
@@ -25,10 +43,6 @@ piece {
   top: -9.1%;
 }
 
-piece.dragging, #promotion-choice {
-  z-index: z('cg__piece.dragging.3d') !important;
-}
-
 .is2d piece {
   /* copy of board.css to override miniboards */
   left: 0;
@@ -37,7 +51,7 @@ piece.dragging, #promotion-choice {
   height: 12.5%;
 }
 
-.cg-board::before {
+cg-board::before {
   position: absolute;
   top: -0.730688%;
   left: 0;
@@ -46,12 +60,18 @@ piece.dragging, #promotion-choice {
   content: '';
   background-size: cover;
 }
-.is2d .cg-board {
+.is2d {
   /* override miniboards */
-  top: 0;
-  height: 100%;
-  &::before {
-    content: none;
+  cg-helper {
+    padding-bottom: 12.5%;
+    display: table;
+  }
+  cg-board {
+    top: 0;
+    height: 100%;
+    &::before {
+      content: none;
+    }
   }
 }
 
@@ -78,7 +98,7 @@ $board-files: (
 'Woodi',
 );
 @each $name in $board-files {
-  .#{$name} .cg-board::before {
+  .#{$name} cg-board::before {
     background-image: img-url('staunton/board/#{$name}.png');
   }
 }

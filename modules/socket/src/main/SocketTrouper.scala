@@ -15,15 +15,22 @@ import lila.memo.ExpireSetMemo
 
 abstract class SocketTrouper[M <: SocketMember](
     protected val system: akka.actor.ActorSystem,
-    protected val uidTtl: Duration
+    protected val sriTtl: Duration
 ) extends Socket with Trouper {
 
   import SocketTrouper._
 
-  override def stop() = {
-    super.stop()
-    members foreachKey ejectUidString
-  }
+  /* Do not eject members on stop!
+   * It does not always instruct the client to disconnect (!)
+   * But it does prevent from sending it more messages.
+   * If the client isn't disconnected, we can't tell it to resync
+   * when we receive more messages from it!
+   * In theory a socket should only stop when all clients are gone anyway.
+   */
+  // override def stop() = {
+  //   super.stop()
+  //   members foreachKey ejectSriString
+  // }
 
   protected val receiveTrouper: PartialFunction[Any, Unit] = {
 
@@ -35,10 +42,10 @@ abstract class SocketTrouper[M <: SocketMember](
   val process = receiveSpecific orElse receiveTrouper orElse receiveGeneric
 
   // expose so the handler can call without going through process, during ping
-  def setAlive(uid: Socket.Uid): Unit = aliveUids put uid.value
+  def setAlive(sri: Socket.Sri): Unit = aliveSris put sri.value
 
   protected val members = scala.collection.mutable.AnyRefMap.empty[String, M]
-  protected val aliveUids = new ExpireSetMemo(uidTtl)
+  protected val aliveSris = new ExpireSetMemo(sriTtl)
 
   protected def lilaBus = system.lilaBus
 
@@ -51,13 +58,15 @@ abstract class SocketTrouper[M <: SocketMember](
     case Broom => broom
 
     // when a member quits
-    case Quit(uid) => withMember(uid) { quit(uid, _) }
+    case Quit(sri, member) => withMember(sri) { m =>
+      if (m eq member) quit(sri, m)
+    }
 
-    case Resync(uid) => resync(uid)
+    case Resync(sri) => resync(sri)
 
     case d: Deploy => onDeploy(d)
 
-    case Announce(msg) => notifyAll(makeMessage("announce", Json.obj("msg" -> msg)).pp)
+    case Announce(msg) => notifyAll(makeMessage("announce", Json.obj("msg" -> msg)))
   }
 
   protected def hasUserId(userId: String) = members.values.exists(_.userId contains userId)
@@ -80,39 +89,38 @@ abstract class SocketTrouper[M <: SocketMember](
     member push makeMessage(t, data)
   }
 
-  protected def notifyUid[A: Writes](t: String, data: A)(uid: Socket.Uid): Unit = {
-    withMember(uid)(_ push makeMessage(t, data))
+  protected def notifySri[A: Writes](t: String, data: A)(sri: Socket.Sri): Unit = {
+    withMember(sri)(_ push makeMessage(t, data))
   }
 
   protected def broom: Unit =
-    members.keys foreach { uid =>
-      if (!aliveUids.get(uid)) ejectUidString(uid)
+    members foreachKey { sri =>
+      if (!aliveSris.get(sri)) ejectSriString(sri)
     }
 
-  protected def ejectUidString(uid: String): Unit = eject(Socket.Uid(uid))
+  protected def ejectSriString(sri: String): Unit = eject(Socket.Sri(sri))
 
   // actively boot a member, if it exists
   // this function is called when a member joins,
-  // to prevent duplicate UID
-  private final def eject(uid: Socket.Uid): Unit = withMember(uid) { member =>
+  // to prevent duplicate sri
+  protected final def eject(sri: Socket.Sri): Unit = withMember(sri) { eject(sri, _) }
+  protected final def eject(sri: Socket.Sri, member: M): Unit = {
     member.end
-    quit(uid, member)
+    quit(sri, member)
   }
 
   // when a member quits, voluntarily or not
   // at this point we know the member exists
-  private final def quit(uid: Socket.Uid, member: M): Unit = {
-    members -= uid.value
-    lilaBus.publish(SocketLeave(uid, member), 'socketLeave)
-    afterQuit(uid, member)
+  private final def quit(sri: Socket.Sri, member: M): Unit = {
+    members -= sri.value
+    lilaBus.publish(SocketLeave(sri, member), 'socketLeave)
+    afterQuit(sri, member)
   }
 
-  protected def afterQuit(uid: Socket.Uid, member: M): Unit = {}
+  protected def afterQuit(sri: Socket.Sri, member: M): Unit = {}
 
   protected def onDeploy(d: Deploy): Unit =
     notifyAll(makeMessage(d.key))
-
-  protected val resyncMessage = makeMessage("resync")
 
   protected def resync(member: M): Unit = {
     import scala.concurrent.duration._
@@ -121,17 +129,17 @@ abstract class SocketTrouper[M <: SocketMember](
     }
   }
 
-  protected def resync(uid: Socket.Uid): Unit =
-    withMember(uid)(resync)
+  protected def resync(sri: Socket.Sri): Unit =
+    withMember(sri)(resync)
 
-  protected def resyncNow(member: M): Unit =
+  def resyncNow(member: M): Unit =
     member push resyncMessage
 
-  protected def addMember(uid: Socket.Uid, member: M): Unit = {
-    eject(uid)
-    members += (uid.value -> member)
-    setAlive(uid)
-    lilaBus.publish(SocketEnter(uid, member), 'socketEnter)
+  protected def addMember(sri: Socket.Sri, member: M): Unit = {
+    eject(sri)
+    members += (sri.value -> member)
+    setAlive(sri)
+    lilaBus.publish(SocketEnter(sri, member), 'socketEnter)
   }
 
   protected def membersByUserId(userId: String): Iterable[M] = members collect {
@@ -142,7 +150,7 @@ abstract class SocketTrouper[M <: SocketMember](
     case (_, member) if member.userId.contains(userId) => member
   }
 
-  protected def uidToUserId(uid: Socket.Uid): Option[String] = members get uid.value flatMap (_.userId)
+  protected def sriToUserId(sri: Socket.Sri): Option[String] = members get sri.value flatMap (_.userId)
 
   protected val maxSpectatorUsers = 15
 
@@ -166,11 +174,13 @@ abstract class SocketTrouper[M <: SocketMember](
     }
   }
 
-  protected def withMember(uid: Socket.Uid)(f: M => Unit): Unit = members get uid.value foreach f
+  protected def withMember(sri: Socket.Sri)(f: M => Unit): Unit = members get sri.value foreach f
 }
 
-object SocketTrouper {
+object SocketTrouper extends Socket {
   case class GetNbMembers(promise: Promise[Int])
+
+  val resyncMessage = makeMessage("resync")
 }
 
 // Not managed by a TrouperMap
@@ -183,5 +193,5 @@ trait LoneSocket { self: SocketTrouper[_] =>
     this ! lila.socket.actorApi.Broom
     lila.mon.socket.queueSize(monitoringName)(queueSize)
   }
-  system.lilaBus.subscribe(this, 'deploy, 'shutdown, 'announce)
+  system.lilaBus.subscribe(this, 'deploy, 'announce)
 }

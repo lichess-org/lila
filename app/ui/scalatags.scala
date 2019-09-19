@@ -3,13 +3,19 @@ package ui
 
 import ornicar.scalalib.Zero
 
+import scalatags.Text.all._
 import scalatags.text.Builder
 import scalatags.Text.{ Aggregate, Cap }
-import scalatags.Text.all._
+
+import lila.api.Context
 
 // collection of lila attrs
 trait ScalatagsAttrs {
   val minlength = attr("minlength") // missing from scalatags atm
+  val dataAssetUrl = attr("data-asset-url")
+  val dataAssetVersion = attr("data-asset-version")
+  val dataDev = attr("data-dev")
+  val dataTheme = attr("data-theme")
   val dataTag = attr("data-tag")
   val dataIcon = attr("data-icon")
   val dataHref = attr("data-href")
@@ -60,6 +66,8 @@ trait ScalatagsSnippets extends Cap {
     pager.nextPage.map { np =>
       tr(th(cls := "pager none")(a(rel := "next", href := url(np))("Next")))
     }
+
+  val utcLink = a(href := "https://time.is/UTC", target := "_blank", title := "Coordinated Universal Time")("UTC")
 }
 
 // basic imports from scalatags
@@ -129,11 +137,27 @@ trait ScalatagsExtensions {
     }
   }
 
-  val emptyFrag: Frag = new StringFrag("")
+  val emptyFrag: Frag = new RawFrag("")
   implicit val LilaFragZero: Zero[Frag] = Zero.instance(emptyFrag)
 
   val emptyModifier: Modifier = new Modifier {
     def applyTo(t: Builder) = {}
   }
-  // implicit val LilaModifierZero: Zero[Modifier] = Zero.instance(emptyModifier)
+
+  def ariaTitle(v: String) = new Modifier {
+    def applyTo(t: Builder) = {
+      val value = Builder.GenericAttrValueSource(v)
+      t.setAttr("title", value)
+      t.setAttr("aria-label", value)
+    }
+  }
+
+  def titleOrText(blind: Boolean, v: String): Modifier = new Modifier {
+    def applyTo(t: Builder) = {
+      if (blind) t.addChild(v)
+      else t.setAttr("title", Builder.GenericAttrValueSource(v))
+    }
+  }
+
+  def titleOrText(v: String)(implicit ctx: Context): Modifier = titleOrText(ctx.blind, v)
 }

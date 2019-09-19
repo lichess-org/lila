@@ -22,6 +22,8 @@ trait Trouper extends lila.common.Tellable {
 
   protected var isAlive = true
 
+  def getIsAlive = isAlive
+
   def stop(): Unit = {
     isAlive = false
   }
@@ -74,5 +76,11 @@ object Trouper {
       state flatMap { q =>
         if (q.isEmpty) None else Some(q.tail)
       }
+  }
+
+  def stub = new Trouper {
+    val process: Receive = {
+      case msg => lila.log("trouper").warn(s"stub trouper received: $msg")
+    }
   }
 }

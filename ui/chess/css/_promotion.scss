@@ -1,6 +1,5 @@
 #promotion-choice {
   @extend %abs-100;
-  position: absolute;
   background: fade-out($c-bg-page, .3);
   z-index: z('cg__promotion');
   square {
@@ -12,6 +11,7 @@
   }
   piece {
     pointer-events: auto;
+    opacity: 1; /* cancels blindfold */
   }
   .is2d & piece {
     width: 100%;

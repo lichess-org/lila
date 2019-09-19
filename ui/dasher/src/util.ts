@@ -10,7 +10,7 @@ export interface Prop<T> {
   (v: T): T
 }
 
-export function defined(v: any): boolean {
+export function defined<A>(v: A | undefined): v is A {
   return typeof v !== 'undefined';
 }
 

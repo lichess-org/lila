@@ -26,8 +26,22 @@ object player {
   )(implicit ctx: Context) = {
 
     val chatJson = chatOption.map(_.either).map {
-      case Left(c) => chat.restrictedJson(c, name = trans.chatRoom.txt(), timeout = false, withNote = ctx.isAuth, public = false)
-      case Right(c) => chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+      case Left(c) => chat.restrictedJson(
+        c,
+        name = trans.chatRoom.txt(),
+        timeout = false,
+        withNote = ctx.isAuth,
+        public = false,
+        resourceId = lila.chat.Chat.ResourceId(s"game/${c.chat.id}"),
+        palantir = ctx.me.exists(_.canPalantir)
+      )
+      case Right((c, res)) => chat.json(
+        c.chat,
+        name = trans.chatRoom.txt(),
+        timeout = c.timeout,
+        public = true,
+        resourceId = res
+      )
     }
 
     bits.layout(

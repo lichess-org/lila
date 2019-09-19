@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
+  <string name="forceVariation">Forzar variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -163,6 +164,9 @@
   <string name="ratingStats">Estatísticas de puntuación</string>
   <string name="username">Nome de usuario</string>
   <string name="usernameOrEmail">Nome de usuario ou correo</string>
+  <string name="changeUsername">Cambiar nome de usuario</string>
+  <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
+  <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
   <string name="password">Contrasinal</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
@@ -171,6 +175,10 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">A clasificación actualízase cada minuto</item>
+    <item quantity="other">A clasificación actualízase cada %s minutos</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
@@ -284,8 +292,8 @@
     <item quantity="other">≥ partidas puntuadas %s</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s partida puntuada %2%s</item>
-    <item quantity="other">≥ %1$s partidas puntuadas %2%s</item>
+    <item quantity="one">≥ %1$s partida puntuada %2$s</item>
+    <item quantity="other">≥ %1$s partidas puntuadas %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Necesitas xogar %1$s partida %2$s puntuada máis</item>
@@ -346,10 +354,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
   <string name="captcha.fail">Por favor resolve o captcha de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
-  <string name="colorPlaysCheckmateInOne">%s xogan; xaque mate nunha xogada</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
-  <string name="onlineFriends">Amigos conectados</string>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Atopar amigos</string>
   <string name="favoriteOpponents">Rivais preferidos</string>
@@ -577,10 +583,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="xAskedY">%1$s preguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
-  <string name="victory">Vitoria!</string>
+  <string name="victory">Vitoria</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-en %3$s</string>
   <string name="timeline">Historial</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
@@ -627,6 +631,8 @@ en %3$s</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
   <string name="onlyFriends">Só amigos</string>
+  <string name="displayBoardResizeHandle">Amosar o control de redimensionamento do taboleiro</string>
+  <string name="onlyOnInitialPosition">Só na posición inicial</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
   <string name="whiteCastlingKingside">Brancas O-O</string>
@@ -749,6 +755,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
   <string name="xLikesY">a %1$s gústalle %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea o estudo %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>

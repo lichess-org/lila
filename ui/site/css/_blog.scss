@@ -67,7 +67,7 @@
     .block-img + p > em:first-child {
       margin-top: -20px;
       display: block;
-      font-size: 0.8em;
+      font-size: .8em;
       text-align: center;
     }
     ol,  ul {
@@ -92,9 +92,9 @@
       padding: 5px;
       border: 1px solid $c-border;
     }
-    .study {
-      border: none;
-      margin: 1em 0;
+    .embed {
+      @extend %video;
+      margin: $block-gap auto;
     }
   }
 
@@ -120,10 +120,9 @@
     font-size: 1.3em;
     margin-bottom: 40px;
     .button {
-      @extend %ellipsis;
-      margin: auto;
+      margin: 0 var(--box-padding);
       text-transform: none;
-      max-width: 90vw;
+      white-space: normal;
       display: block;
       &::before {
         vertical-align: bottom;

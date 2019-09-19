@@ -27,7 +27,7 @@ object show {
         safeJsonValue(Json.obj(
           "study" -> data.study,
           "data" -> data.analysis,
-          "i18n" -> views.html.board.userAnalysisI18n(),
+          "i18n" -> jsI18n(),
           "tagTypes" -> lila.study.PgnTags.typesToString,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
@@ -37,7 +37,9 @@ object show {
               timeout = c.timeout,
               writeable = ctx.userId.??(s.canChat),
               public = false,
-              localMod = ctx.userId.??(s.canContribute)
+              resourceId = lila.chat.Chat.ResourceId(s"study/${c.chat.id}"),
+              palantir = ctx.userId ?? s.isMember,
+              localMod = ctx.userId ?? s.canContribute
             )
           },
           "explorer" -> Json.obj(
@@ -52,6 +54,7 @@ object show {
     robots = s.isPublic,
     chessground = false,
     zoomable = true,
+    csp = defaultCsp.withTwitch.withPeer.some,
     openGraph = lila.app.ui.OpenGraph(
       title = s.name.value,
       url = s"$netBaseUrl${routes.Study.show(s.id.value).url}",

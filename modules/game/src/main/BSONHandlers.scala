@@ -120,14 +120,17 @@ object BSONHandlers {
         startedAtTurn = startedAtTurn
       )
 
+      val whiteClockHistory = r bytesO F.whiteClockHistory
+      val blackClockHistory = r bytesO F.blackClockHistory
+
       Game(
-        id = r str F.id,
+        id = light.id,
         whitePlayer = light.whitePlayer,
         blackPlayer = light.blackPlayer,
         chess = chessGame,
         loadClockHistory = clk => for {
-          bw <- r bytesO F.whiteClockHistory
-          bb <- r bytesO F.blackClockHistory
+          bw <- whiteClockHistory
+          bb <- blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
           _ = lila.mon.game.loadClockHistory()
         } yield history,
@@ -135,7 +138,6 @@ object BSONHandlers {
         daysPerTurn = r intO F.daysPerTurn,
         binaryMoveTimes = r bytesO F.moveTimes,
         mode = Mode(r boolD F.rated),
-        next = r strO F.next,
         bookmarks = r intD F.bookmarks,
         createdAt = createdAt,
         movedAt = r.dateD(F.movedAt, createdAt),
@@ -165,7 +167,6 @@ object BSONHandlers {
       F.blackClockHistory -> clockHistory(Black, o.clockHistory, o.chess.clock, o.flagged),
       F.rated -> w.boolO(o.mode.rated),
       F.variant -> o.board.variant.exotic.option(w int o.board.variant.id),
-      F.next -> o.next,
       F.bookmarks -> w.intO(o.bookmarks),
       F.createdAt -> w.date(o.createdAt),
       F.movedAt -> w.date(o.movedAt),
@@ -212,8 +213,7 @@ object BSONHandlers {
       val (whiteUid, blackUid) = (uids.headOption.filter(_.nonEmpty), uids.lift(1).filter(_.nonEmpty))
       def makePlayer(field: String, color: Color, id: Player.ID, uid: Player.UserId): Player = {
         val builder = r.getO[Player.Builder](field)(playerBSONHandler) | emptyPlayerBuilder
-        val win = winC map (_ == color)
-        builder(color)(id)(uid)(win)
+        builder(color)(id)(uid)(winC map (_ == color))
       }
       LightGame(
         id = r str F.id,

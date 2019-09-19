@@ -31,8 +31,11 @@ $text-shadow: .5px 1px 1px #000;
   color: $c-font-clearer;
 }
 
-@mixin metal {
+@mixin metal-bg {
   background: linear-gradient(to bottom, hsla(0, 0, 0, .4), hsla(0, 0, 0, .5) 100%);
+}
+@mixin metal {
+  @include metal-bg;
 }
 @mixin metal-hover {
   background: linear-gradient(to bottom, hsla(0, 0, 0, .45), hsla(0, 0, 0, .55) 100%);

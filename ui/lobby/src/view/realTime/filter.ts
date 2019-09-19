@@ -9,9 +9,7 @@ function initialize(ctrl: LobbyController, el) {
   const save = window.lichess.debounce(function() {
     const $form = $div.find('form');
     $.ajax({
-      url: $form.attr('action'),
-      data: $form.serialize(),
-      type: 'POST',
+      ...window.lichess.formAjax($form),
       success: function(filter) {
         ctrl.setFilter(filter);
       }
@@ -64,13 +62,13 @@ function initialize(ctrl: LobbyController, el) {
 
 export function toggle(ctrl: LobbyController, nbFiltered: number) {
   return h('i.toggle.toggle-filter', {
-    class: { active: ctrl.filterOpen },
+    class: { gamesFiltered: nbFiltered > 0, active: ctrl.filterOpen },
     hook: bind('mousedown', ctrl.toggleFilter, ctrl.redraw),
     attrs: {
       'data-icon': ctrl.filterOpen ? 'L' : '%',
       title: ctrl.trans.noarg('filterGames')
     }
-  }, nbFiltered > 0 ? '' + nbFiltered : '');
+  });
 }
 
 export interface FilterNode extends HTMLElement {

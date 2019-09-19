@@ -6,7 +6,7 @@ import play.api.libs.json._
 
 import lila.common.LightUser
 import lila.common.PimpedJson._
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
 import lila.user.User
 
@@ -33,24 +33,23 @@ final class JsonView(
         "features" -> Json.obj(
           "cloneable" -> allowed(study.settings.cloneable),
           "chat" -> allowed(study.settings.chat),
-          "sticky" -> study.settings.sticky
+          "sticky" -> study.settings.sticky,
+          "description" -> study.settings.description
         ),
         "chapters" -> chapters.map(chapterMetadataWrites.writes),
-        "chapter" -> {
-          Json.obj(
-            "id" -> currentChapter.id,
-            "ownerId" -> currentChapter.ownerId,
-            "setup" -> currentChapter.setup,
-            "tags" -> currentChapter.tags,
-            "features" -> Json.obj(
-              "computer" -> allowed(study.settings.computer),
-              "explorer" -> allowed(study.settings.explorer)
-            )
-          ).add("description", currentChapter.description)
-            .add("serverEval", currentChapter.serverEval)
-            .add("relay", currentChapter.relay)(relayWrites) |> addChapterMode(currentChapter)
-        }
-      )
+        "chapter" -> Json.obj(
+          "id" -> currentChapter.id,
+          "ownerId" -> currentChapter.ownerId,
+          "setup" -> currentChapter.setup,
+          "tags" -> currentChapter.tags,
+          "features" -> Json.obj(
+            "computer" -> allowed(study.settings.computer),
+            "explorer" -> allowed(study.settings.explorer)
+          )
+        ).add("description", currentChapter.description)
+          .add("serverEval", currentChapter.serverEval)
+          .add("relay", currentChapter.relay)(relayWrites).|>(addChapterMode(currentChapter))
+      ).add("description", study.description)
     }
   }
 
@@ -80,11 +79,7 @@ final class JsonView(
     JsString(r.id)
   }
   private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
-    Json.obj(
-      "user" -> lightUser(m.id),
-      "role" -> m.role,
-      "addedAt" -> m.addedAt
-    )
+    Json.obj("user" -> lightUser(m.id), "role" -> m.role)
   }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
@@ -138,8 +133,8 @@ object JsonView {
   private[study] implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)
   }
-  private[study] implicit val uidWriter: Writes[Uid] = Writes[Uid] { uid =>
-    JsString(uid.value)
+  private[study] implicit val sriWriter: Writes[Sri] = Writes[Sri] { sri =>
+    JsString(sri.value)
   }
   private[study] implicit val visibilityWriter: Writes[Study.Visibility] = Writes[Study.Visibility] { v =>
     JsString(v.key)

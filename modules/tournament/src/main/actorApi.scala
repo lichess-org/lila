@@ -4,15 +4,15 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.Socket.{ Uid, SocketVersion }
-import lila.socket.SocketMember
+import lila.socket.Socket.{ Sri, SocketVersion }
+import lila.socket.DirectSocketMember
 import lila.user.User
 
 private[tournament] case class Member(
     channel: JsChannel,
     userId: Option[String],
     troll: Boolean
-) extends SocketMember
+) extends DirectSocketMember
 
 private[tournament] object Member {
   def apply(channel: JsChannel, user: Option[User]): Member = Member(
@@ -25,7 +25,7 @@ private[tournament] object Member {
 private[tournament] case class Messadata(trollish: Boolean = false)
 
 private[tournament] case class Join(
-    uid: Uid,
+    sri: Sri,
     user: Option[User],
     version: Option[SocketVersion],
     promise: Promise[Connected]

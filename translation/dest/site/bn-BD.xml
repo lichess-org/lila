@@ -48,7 +48,6 @@
   <string name="computerAnalysis">কম্পিউটারের বিশ্লেষণ</string>
   <string name="computerAnalysisAvailable">কম্পিউটার বিশ্লেষণ পাওয়া যায়</string>
   <string name="analysis">বিশ্লেষণ বোর্ড</string>
-  <string name="depthX">গভীরতার %</string>
   <string name="usingServerAnalysis">সার্ভারের বিশ্লেষণ ব্যবহার করা হচ্ছে</string>
   <string name="loadingEngine">ইঞ্জিন লোড করা হচ্ছে...</string>
   <string name="cloudAnalysis">মেঘবিশ্লেষণ</string>
@@ -346,10 +345,8 @@
   <string name="clickOnTheBoardToMakeYourMove">বোর্ডে ক্লিক করে চাল দিয়ে প্রমাণ করুন যে আপনি সত্যিই মানুষ, রোবট নন।</string>
   <string name="captcha.fail">দয়া করে দাবার ক্যাপচা সমাধান করুন.</string>
   <string name="notACheckmate">এটি কিস্তিমাত নয়</string>
-  <string name="colorPlaysCheckmateInOne">%s চাল; এক চালে কিস্তিমাত</string>
   <string name="retry">আবার চেষ্টা করুন</string>
   <string name="reconnecting">পুনঃসংযোগের চেষ্টা চলছে</string>
-  <string name="onlineFriends">অনলাইন বন্ধুরা</string>
   <string name="noFriendsOnline">অনলাইনে কোন বন্ধুই নেই</string>
   <string name="findFriends">বন্ধু অনুসন্ধান</string>
   <string name="favoriteOpponents">প্রিয় প্রতিদ্বন্দ্বী</string>
@@ -536,7 +533,7 @@
   <string name="moveListWhilePlaying">খেলার সময় তালিকা সরান</string>
   <string name="pgnPieceNotation">প্রতীক চিহ্ন সরান</string>
   <string name="chessPieceSymbol">দাবার টুকরোর ধরন</string>
-  <string name="pgnLetter">বর্ণ (কে, কিউ, আর, বি, এন)</string>
+  <string name="pgnLetter">বর্ণ (K, Q, R, B, N)</string>
   <string name="chessClock">দাবার ঘড়ি</string>
   <string name="tenthsOfSeconds">সেকেন্ডের কাটা</string>
   <string name="never">কখনই না</string>
@@ -579,8 +576,6 @@
   <string name="xCommentedY">%1$s মন্তব্য করা হয়েছে %2$s</string>
   <string name="victory">বিজয়</string>
   <string name="defeat">হার</string>
-  <string name="xVsYinZ">%1$s বানাম %2$s
-এর %3$s</string>
   <string name="timeline">সময়রেখা</string>
   <string name="starting">শুরু হইতেছে:</string>
   <string name="allInformationIsPublicAndOptional">সব তথ্য হয় সরকারী এবং ঐচ্ছিক.</string>

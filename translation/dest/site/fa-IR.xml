@@ -130,7 +130,6 @@
   <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
-  <string name="newToLichess">آیا در لیچس حساب کاربری ندارید؟</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند،مجاز به بازی نیستند.لطفا از انجین شطرنج يا دیتابیس شطرنج و يا بازيكنان ديگر كمک نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب منجر به مسدود شدن حساب شما خواهد شد.</string>
@@ -161,7 +160,6 @@
   <string name="username">نام کاربری</string>
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
   <string name="password">رمز عبور</string>
-  <string name="haveAnAccount">آیا حساب کاربری دارید؟</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
   <string name="email">ایمیل</string>
@@ -343,10 +341,8 @@
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">عدم کیش و مات</string>
-  <string name="colorPlaysCheckmateInOne">نوبت%s ؛ در یک حرکت کیش و مات کنید</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
-  <string name="onlineFriends">دوستان آنلاین</string>
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
@@ -576,7 +572,6 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
-  <string name="xVsYinZ">%1$s %3$s در مقابل %2$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
@@ -640,7 +635,6 @@
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s یک سایت شطرنج (کاملا) رایگان، بدون تبلیغات و منبع باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
@@ -717,7 +711,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک 😊 اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>

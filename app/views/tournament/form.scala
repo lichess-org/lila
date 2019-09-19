@@ -13,7 +13,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[_], config: DataForm, me: User, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context) = views.html.base.layout(
+  def apply(form: Form[_], config: DataForm, me: User, teams: lila.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = views.html.base.layout(
     title = trans.newTournament.txt(),
     moreCss = cssTag("tournament.form"),
     moreJs = frag(
@@ -23,7 +23,7 @@ object form {
   )(main(cls := "page-small")(
       div(cls := "tour__form box box-pad")(
         h1(trans.createANewTournament()),
-        st.form(cls := "form3", action := routes.Tournament.create, method := "POST")(
+        postForm(cls := "form3", action := routes.Tournament.create)(
           DataForm.canPickName(me) ?? {
             form3.group(form("name"), trans.name()) { f =>
               div(
@@ -81,7 +81,7 @@ object form {
     if (auto) form3.hidden(field) else visible(field)
   )
 
-  def condition(form: Form[_], auto: Boolean, teams: lila.hub.tournamentTeam.TeamIdsWithNames)(implicit ctx: Context) = frag(
+  def condition(form: Form[_], auto: Boolean, teams: lila.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = frag(
     form3.split(
       form3.group(form("conditions.nbRatedGame.nb"), raw("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices)),
       autoField(auto, form("conditions.nbRatedGame.perf")) { field =>

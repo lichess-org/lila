@@ -8,37 +8,37 @@ const EVAL_REGEX = new RegExp(''
   + /pv (.+)/.source);
 
 export default class Protocol {
-  private send: (cmd: string) => void;
   private work: Work | null = null;
   private curEval: Tree.ClientEval | null = null;
   private expectedPvs = 1;
   private stopped: DeferPromise.Deferred<void> | null;
-  private opts: WorkerOpts;
 
   public engineName: string | undefined;
 
-  constructor(send: (cmd: string) => void, opts: WorkerOpts) {
-    this.send = send;
-    this.opts = opts;
+  constructor(private send: (cmd: string) => void, private opts: WorkerOpts) {
 
     this.stopped = defer<void>();
     this.stopped.resolve();
 
     // get engine name/version
-    send('uci');
+    this.send('uci');
 
     // analyse without contempt
-    send('setoption name UCI_AnalyseMode value true');
-    send('setoption name Analysis Contempt value Off');
+    this.setOption('UCI_AnalyseMode', 'true');
+    this.setOption('Analysis Contempt', 'Off');
 
     if (opts.variant === 'fromPosition' || opts.variant === 'chess960')
-      send('setoption name UCI_Chess960 value true');
+      this.setOption('UCI_Chess960', 'true');
     else if (opts.variant === 'antichess')
-      send('setoption name UCI_Variant value giveaway');
+      this.setOption('UCI_Variant', 'giveaway');
     else if (opts.variant === 'threeCheck')
-      send('setoption name UCI_Variant value 3check');
+      this.setOption('UCI_Variant', '3check');
     else if (opts.variant !== 'standard')
-      send('setoption name UCI_Variant value ' + opts.variant.toLowerCase());
+      this.setOption('UCI_Variant', opts.variant.toLowerCase());
+  }
+
+  private setOption(name: string, value: string | number) {
+    this.send(`setoption name ${name} value ${value}`);
   }
 
   received(text: string) {
@@ -110,13 +110,25 @@ export default class Protocol {
   }
 
   start(w: Work) {
+    if (!this.stopped) {
+      // TODO: Work is started by basically doing stop().then(() => start(w)).
+      // There is a race condition where multiple callers are waiting for
+      // completion of the same stop future, and so they will start work at
+      // the same time.
+      // This can lead to all kinds of issues, including deadlocks. Instead
+      // we ignore all but the first request. The engine will show as loading
+      // indefinitely. Until this is fixed, it is still better than a
+      // possible deadlock.
+      console.log('ceval: tried to start analysing before requesting stop');
+      return;
+    }
     this.work = w;
     this.curEval = null;
     this.stopped = null;
     this.expectedPvs = 1;
-    if (this.opts.threads) this.send('setoption name Threads value ' + this.opts.threads());
-    if (this.opts.hashSize) this.send('setoption name Hash value ' + this.opts.hashSize());
-    this.send('setoption name MultiPV value ' + this.work.multiPv);
+    if (this.opts.threads) this.setOption('Threads', this.opts.threads());
+    if (this.opts.hashSize) this.setOption('Hash', this.opts.hashSize());
+    this.setOption('MultiPV', this.work.multiPv);
     this.send(['position', 'fen', this.work.initialFen, 'moves'].concat(this.work.moves).join(' '));
     if (this.work.maxDepth >= 99) this.send('go depth 99');
     else this.send('go movetime 90000 depth ' + this.work.maxDepth);

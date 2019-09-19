@@ -47,8 +47,8 @@
     <item quantity="other">Ha ospitato %s esibizioni simultanee</item>
   </plurals>
   <plurals name="joinedNbSimuls">
-    <item quantity="one">Ha partecipato ad %s esibizione simultanea</item>
-    <item quantity="other">Ha partecipato a %s esibizioni simultanee</item>
+    <item quantity="one">Ha partecipato a %s simultanea</item>
+    <item quantity="other">Ha partecipato a %s simultanee</item>
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Ha creato %s studio</item>

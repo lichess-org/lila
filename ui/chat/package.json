@@ -1,30 +1,21 @@
 {
   "name": "chat",
   "version": "2.0.0",
-  "description": "lichess.org chat UI",
+  "private": true,
+  "description": "lichess.org chat ui",
   "main": "dist/main.js",
   "types": "dist/main",
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "scripts": {
-    "compile": "tsc"
+    "compile": "../../node_modules/typescript/bin/tsc"
   },
   "dependencies": {
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess"
   },
   "devDependencies": {
+    "@build/tsProject": "2.0.0",
     "@types/jquery": "^2.0",
-    "@types/lichess": "1.0.0",
-    "browserify": "^16",
-    "fancy-log": "^1",
-    "gulp": "^4",
-    "gulp-size": "^3",
-    "gulp-uglify": "^3",
-    "tsify": "^4",
-    "typescript": "^3",
-    "uglify-js": "^3",
-    "vinyl-source-stream": "^2",
-    "vinyl-buffer": "^1",
-    "watchify": "^3"
+    "@types/lichess": "2.0.0"
   }
 }

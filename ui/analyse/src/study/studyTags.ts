@@ -31,7 +31,7 @@ let selectedType: string;
 
 type TagRow = (string | VNode)[];
 
-function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
+function renderPgnTags(chapter: StudyChapter, submit, types: string[], trans: Trans): VNode {
   let rows: TagRow[] = [];
   if (chapter.setup.variant.key !== 'standard')
     rows.push(['Variant', fixed(chapter.setup.variant.name)]);
@@ -57,7 +57,7 @@ function renderPgnTags(chapter: StudyChapter, submit, types: string[]): VNode {
           }
         }
       }, [
-        h('option', 'New tag'),
+        h('option', trans.noarg('newTag')),
         ...types.map(t => {
           if (!existingTypes.includes(t)) return option(t, '', t);
         })
@@ -103,7 +103,8 @@ function doRender(root: StudyCtrl): VNode {
   return h('div', renderPgnTags(
     root.tags.getChapter(),
     root.vm.mode.write && root.tags.submit,
-    root.tags.types))
+    root.tags.types,
+    root.trans))
 }
 
 export function view(root: StudyCtrl): VNode {

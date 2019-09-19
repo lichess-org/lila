@@ -59,6 +59,7 @@
   <string name="promoteVariation">Forfrem variant</string>
   <string name="makeMainLine">Gjør til hovedvariant</string>
   <string name="deleteFromHere">Slett herfra</string>
+  <string name="forceVariation">Vis som variant</string>
   <string name="move">Trekk</string>
   <string name="variantLoss">Variant tap</string>
   <string name="variantWin">Variant seier</string>
@@ -134,7 +135,6 @@
   <string name="viewInFullSize">Se i full størrelse</string>
   <string name="logOut">Logg ut</string>
   <string name="signIn">Logg inn</string>
-  <string name="newToLichess">Ny hos Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Du trenger en konto for å gjøre det</string>
   <string name="signUp">Registrer brukerkonto</string>
   <string name="computersAreNotAllowedToPlay">Datamaskiner og spillere som får hjelp av datamaskiner har ikke lov til å spille. Vennligst ikke ta imot hjelp fra sjakkmaskiner, databaser eller andre spillere under partiene. Merk også at det er sterkt frarådet å opprette flere brukerkontoer, og kan lede til at du blir utstengt.</string>
@@ -168,7 +168,6 @@
   <string name="changeUsernameNotSame">Du kan bare endre små bokstaver til store eller store til små. For eksempel \"olanormann\" til \"OlaNormann\".</string>
   <string name="changeUsernameDescription">Endre brukernavnet ditt. Dette kan bare gjøres én gang, og du bare kan endre små bokstaver til store eller store til små.</string>
   <string name="password">Passord</string>
-  <string name="haveAnAccount">Har du en konto?</string>
   <string name="changePassword">Bytt passord</string>
   <string name="changeEmail">Endre e-postadresse</string>
   <string name="email">E-post</string>
@@ -205,6 +204,7 @@
   <string name="playingRightNow">Spiller nå</string>
   <string name="eventInProgress">Pågår</string>
   <string name="finished">Ferdig</string>
+  <string name="finishesX">avsluttes %s</string>
   <string name="abortGame">Avbryt partiet</string>
   <string name="gameAborted">Partiet er avbrutt</string>
   <string name="standard">Standard</string>
@@ -313,7 +313,7 @@
   <string name="mustBeInTeam">Du må være med i team %s</string>
   <string name="youAreNotInTeam">Du er ikke med i teamet %s</string>
   <string name="backToGame">Tilbake til partiet</string>
-  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
+  <string name="siteDescription">Gratis nettsjakk. Spill sjakk nå, i et enkelt og rent format. Ingen registrering, ingen reklame, ingen programtillegg er nødvendig. Spill sjakk mot datamaskinen, venner, eller tilfeldige motstandere.</string>
   <string name="teams">Lag</string>
   <plurals name="nbMembers">
     <item quantity="one">%s medlem</item>
@@ -355,10 +355,14 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="clickOnTheBoardToMakeYourMove">Klikk på brettet for å gjøre et trekk og bevise at du er et menneske.</string>
   <string name="captcha.fail">Vennligst løs sjakk-captchaen.</string>
   <string name="notACheckmate">Ikke sjakk matt</string>
-  <string name="colorPlaysCheckmateInOne">%s setter sjakk matt i ett trekk</string>
+  <string name="whiteCheckmatesInOneMove">Hvit setter matt i ett trekk</string>
+  <string name="blackCheckmatesInOneMove">Svart setter matt i ett trekk</string>
   <string name="retry">Prøv igjen</string>
   <string name="reconnecting">Gjenoppretter forbindelsen</string>
-  <string name="onlineFriends">Påloggede venner</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s venn er logget inn</item>
+    <item quantity="other">%s venner er logget inn</item>
+  </plurals>
   <string name="noFriendsOnline">Ingen venner pålogget</string>
   <string name="findFriends">Finn venner</string>
   <string name="favoriteOpponents">Favorittmotstandere</string>
@@ -474,6 +478,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="pleaseVotePuzzle">Forbedre lichess ved å stemme, med opp- eller ned-pilen:</string>
   <string name="thankYou">Takk!</string>
   <string name="ratingX">Rating: %s</string>
+  <string name="hidden">skjult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Forsøkt %s gang</item>
     <item quantity="other">Forsøkt %s ganger</item>
@@ -588,7 +593,11 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="xCommentedY">%1$s kommenterte %2$s</string>
   <string name="victory">Seier</string>
   <string name="defeat">Tap</string>
-  <string name="xVsYinZ">%1$s mot %2$s 
+  <string name="victoryVsYInZ">%1$s mot %2$s 
+i %3$s</string>
+  <string name="defeatVsYInZ">%1$s mot %2$s 
+i %3$s</string>
+  <string name="drawVsYInZ">%1$s mot %2$s 
 i %3$s</string>
   <string name="timeline">Tidslinje</string>
   <string name="starting">Starter:</string>
@@ -636,6 +645,8 @@ i %3$s</string>
   <string name="inCorrespondenceGames">I fjernsjakk</string>
   <string name="ifRatingIsPlusMinusX">Hvis rating er ± %s</string>
   <string name="onlyFriends">Bare venner</string>
+  <string name="displayBoardResizeHandle">Vis håndtak for brettstørrelse</string>
+  <string name="onlyOnInitialPosition">Kun for utgangsstillingen</string>
   <string name="menu">Meny</string>
   <string name="castling">Rokade</string>
   <string name="whiteCastlingKingside">Hvit 0-0</string>
@@ -703,6 +714,9 @@ i %3$s</string>
   <string name="yourPerfTypeRatingIsRating">%1$s-ratingen din er %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Du er bedre enn %1$s av %2$s-spillerne.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Du har ikke etablert en %s-rating.</string>
+  <string name="yourRating">Din rating</string>
+  <string name="cumulative">Kumulativ</string>
+  <string name="glicko2Rating">Glicko-2-rating</string>
   <string name="checkYourEmail">Sjekk e-posten din</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Vi har sent deg en e-post. Klikk på linken i e-posten for å aktivere din konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Om du ikke ser e-posten, sjekk andre steder den kan være, som søppel, spam, sosial, eller andre mapper.</string>
@@ -854,4 +868,24 @@ i %3$s</string>
     <item quantity="one">og lagre %s linje med forhåndstrekk</item>
     <item quantity="other">og lagre %s linjer med forhåndstrekk</item>
   </plurals>
+  <string name="sorry">Beklager :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Vi måtte gi deg en timeout.</string>
+  <string name="timeoutExpires">Timeouten utløper %s.</string>
+  <string name="why">Hvorfor?</string>
+  <string name="pleasantChessExperience">Vi forsøker å gi alle en god sjakkopplevelse.</string>
+  <string name="goodPractice">For å oppnå det må vi sikre at alle spillere følger god praksis.</string>
+  <string name="potentialProblem">Når et potensielt problem oppdages, viser vi denne meldingen.</string>
+  <string name="howToAvoidThis">Hvordan unngå dette?</string>
+  <string name="playEveryGame">Spill alle partier du starter.</string>
+  <string name="tryToWin">Forsøk å vinne (eller i det minste oppnå remis) i alle partier du spiller.</string>
+  <string name="resignLostGames">Gi opp tapte stillinger (ikke la tiden løpe ut).</string>
+  <string name="temporaryInconvenience">Vi beklager det midlertidige bryet,</string>
+  <string name="wishYouGreatGames">og håper du får gode partier på lichess.org.</string>
+  <string name="thankYouForReading">Takk for at du leste!</string>
+  <string name="lifetimeScore">Livstidsscore</string>
+  <string name="currentMatchScore">Gjeldende kampscore</string>
+  <string name="agreementAssistance">Jeg lover at jeg ikke på noe tidspunkt vil motta assistanse under partiene mine, hverken fra maskiner, bøker, databaser eller andre personer.</string>
+  <string name="agreementNice">Jeg lover å alltid oppføre meg høflig mot andre spillere.</string>
+  <string name="agreementAccount">Jeg lover å ikke opprette flere brukerkonti.</string>
+  <string name="agreementPolicy">Jeg lover å respektere alle Lichess\' retningslinjer.</string>
 </resources>

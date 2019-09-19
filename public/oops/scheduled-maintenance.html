@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>lichess - maintenance in progress</title>
     <style type="text/css">
       body {
@@ -14,6 +15,7 @@
         margin: 0;
         padding: 0;
         height: 100%;
+        width: 100%;
       }
       h1 { font-size: 3em; margin: 0.8em 0 0 0; font-weight: normal }
       h2 { font-size: 1.2em; font-style: italic; font-weight: normal; margin: 0; }
@@ -37,6 +39,37 @@
         text-align: left;
       }
       .game { margin: 1em 0; }
+
+      @media (max-width: 767px) {
+
+        .explain {
+          padding: 1.5em 10px;
+          box-sizing: border-box;
+        }
+
+        .more {
+          text-align: center;
+          margin: 0;
+        }
+
+        .panels {
+          flex-direction: column-reverse;
+        }
+
+        .twitter {
+          margin-top: 20px;
+        }
+
+        .game {
+          display: none;
+        }
+
+        .hide-for-mobile {
+          display: none;
+        }
+      }
+
+
     </style>
     <meta content="noindex, nofollow" name="robots">
     <link href="https://fonts.googleapis.com/css?family=Noto+Sans:400,700|Roboto:300" rel="stylesheet">
@@ -55,7 +88,7 @@
         To get updates on the maintenance,<br />
         join <a href="https://twitter.com/lichess">@lichess on twitter</a> or
         <a href="https://discord.gg/hy5jqSs">the lichess discord</a>.<br />
-        To pass the time, try out this minigame:
+        <div class="hide-for-mobile">To pass the time, try out this minigame:</div>
         <div class="game">
           <iframe
             src="//lichess1.org/assets/vendor/ChessPursuit/bin-release/index.html"

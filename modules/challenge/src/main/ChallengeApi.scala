@@ -4,7 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.socket.SendTo
 import lila.user.{ User, UserRepo }

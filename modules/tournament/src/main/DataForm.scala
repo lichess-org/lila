@@ -14,6 +14,7 @@ import lila.user.User
 final class DataForm {
 
   import DataForm._
+  import UTCDate._
 
   def apply(user: User) = create fill TournamentSetup(
     name = canPickName(user) option user.titleUsername,
@@ -27,7 +28,7 @@ final class DataForm {
     password = None,
     mode = none,
     rated = true.some,
-    conditionsOption = Condition.DataForm.AllSetup.default.some,
+    conditions = Condition.DataForm.AllSetup.default,
     berserkable = true.some
   )
 
@@ -46,13 +47,13 @@ final class DataForm {
     "clockIncrement" -> numberIn(clockIncrementChoices),
     "minutes" -> numberIn(minuteChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
-    "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
+    "startDate" -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
     "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
     "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
-    "conditions" -> optional(Condition.DataForm.all),
+    "conditions" -> Condition.DataForm.all,
     "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -117,11 +118,9 @@ private[tournament] case class TournamentSetup(
     mode: Option[Int], // deprecated, use rated
     rated: Option[Boolean],
     password: Option[String],
-    conditionsOption: Option[Condition.DataForm.AllSetup],
+    conditions: Condition.DataForm.AllSetup,
     berserkable: Option[Boolean]
 ) {
-
-  def conditions = conditionsOption | Condition.DataForm.AllSetup.default
 
   def validClock = (clockTime + clockIncrement) > 0
 

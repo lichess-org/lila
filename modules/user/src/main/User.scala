@@ -37,6 +37,8 @@ case class User(
     case _ => false
   }
 
+  override def hashCode: Int = id.hashCode
+
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
@@ -46,13 +48,15 @@ case class User(
 
   def langs = ("en" :: lang.toList).distinct.sorted
 
-  def compare(other: User) = id compare other.id
+  def compare(other: User) = id compareTo other.id
 
   def noTroll = !troll
 
   def canTeam = true
 
   def disabled = !enabled
+
+  def canPalantir = !kid && !troll
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
@@ -68,7 +72,7 @@ case class User(
 
   def hasTitle = title.isDefined
 
-  lazy val seenRecently: Boolean = timeNoSee < 2.minutes
+  lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
@@ -151,6 +155,8 @@ object User {
   val lichessId = "lichess"
   val broadcasterId = "broadcaster"
   def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
+
+  val seenRecently = 2.minutes
 
   case class GDPRErase(user: User) extends AnyVal
   case class Erased(value: Boolean) extends AnyVal

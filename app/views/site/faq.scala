@@ -37,6 +37,21 @@ object faq {
           p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
           p("You can find out more about ", a(href := routes.Plan.index())("being a patron"), " (including a ", a(href := routes.Main.costs())("breakdown of our costs"), "). If you want to help Lichess by volunteering your time and skills, there are many ", a(href := routes.Page.help())("other ways to help"), ".")
         ),
+        question(
+          "sites_based_on_Lichess",
+          "Are there websites based on Lichess?",
+          p(
+            "Yes. Lichess has indeed inspired other open-source sites that use our ",
+            a(href := "/source")("source code"), ", ",
+            a(href := "/api")("API"), ", or ",
+            a(href := "https://database.lichess.org")("database"), "."
+          ),
+          ul(
+            li(a(href := "https://blitztactics.com/about")("Blitz Tactics")),
+            li(a(href := "https://tailuge.github.io/chess-o-tron/html/blunder-bomb.html")("Blunder Bomb")),
+            li(a(href := "https://lidraughts.org")("lidraughts.org"))
+          )
+        ),
         h2("Fair Play"),
         question(
           "marks",
@@ -65,6 +80,11 @@ object faq {
         ),
         h2("Gameplay"),
         question(
+          "variants",
+          "What variants can I play on Lichess?",
+          p("Lichess supports standard chess and ", a(href := routes.Page.variantHome())("8 chess variants"), ".")
+        ),
+        question(
           "acpl",
           """What is "average centipawn loss"?""",
           p("The centipawn is the unit of measure used in chess as representation of the advantage. A centipawn is equal to 1/100th of a pawn. Therefore 100 centipawns = 1 pawn. These values play no formal role in the game but are useful to players, and essential in computer chess, for evaluating positions."),
@@ -92,7 +112,7 @@ object faq {
           "What titles are there on Lichess?",
           p(
             "Lichess recognises all FIDE titles gained from OTB (over the board) play, as well as ",
-            a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("many national master titles"), ".",
+            a(href := "https://github.com/ornicar/lila/wiki/Handling-title-verification-requests")("many national master titles"), ". ",
             "Here is a list of FIDE titles:"
           ),
           ul(
@@ -137,7 +157,7 @@ object faq {
           p("Ratings are calculated using the Glicko-2 rating method developed by Mark Glickman. This is a very popular rating method, and is used by a significant number of chess organisations (FIDE being a notable counter-example, as they still use the dated Elo rating system)."),
           p("""Fundamentally, Glicko ratings use "confidence intervals" when calculating and representing your rating. When you first start using the site, your rating starts at 1500 ± 700. The 1500 represents your rating, and the 700 represents the confidence interval."""),
           p("Basically, the system is 90% sure that your rating is somewhere between 800 and 2200. It is incredibly uncertain. Because of this, when a player is just starting out, their rating will change very dramatically, potentially several hundred points at a time. But after some games against established players the confidence interval will narrow, and the amount of points gained/lost after each game will decrease."),
-          p("""Another point to note is that the confidence interval changes over time. If you win or lose many games (or rather "points") in a row, the confidence interval will increase allowing you to gain/lose points points more rapidly. This is because a winning/losing streak means that you are incorrectly rated/seeded and the rating system should compensate for that.""")
+          p("Another point to note is that, as time passes, the confidence interval will increase. This allows you to gain/lose points points more rapidly to match any changes in your skill level over that time.")
         ),
         question(
           "provisional",
@@ -145,7 +165,7 @@ object faq {
           p("The question mark means the rating is provisional. Reasons include:"),
           ul(
             li("The player has not yet finished enough rated games against ", em("opponents of similar strength"), " in the rating category."),
-            li("The player's strength has recently improved or dropped significantly.")
+            li("The player hasn't played enough recent games. Depending on the number of games you've played, it might take around a year of inactivity for your rating to become provisional again.")
           ),
           p("Concretely, it means that the Glicko-2 deviation is greater than 110. The deviation is the level of confidence the system has in the rating. The lower the deviation, the more stable is a rating.")
         ),
@@ -156,6 +176,7 @@ object faq {
           ol(
             li("have played at least 30 rated games in a given rating,"),
             li("have played a rated game within the last week for this rating,"),
+            li("have a rating deviation lower than 80,"),
             li("be in the top 10 in this rating.")
           ),
           p("The 2nd requirement is so that players who no longer use their accounts stop populating leaderboards.")

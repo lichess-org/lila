@@ -32,10 +32,10 @@ private final class RatingRefund(
       logger.info(s"Refunding ${sus.user.username} victims")
 
       def lastGames = GameRepo.coll.find(
-        Query.win(sus.user.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3)
+        Query.user(sus.user.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3) ++ Query.finished
       ).sort(Query.sortCreated)
         .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
-        .list(30)
+        .list(40)
 
       def makeRefunds(games: List[Game]) = games.foldLeft(Refunds(List.empty)) {
         case (refs, g) => (for {

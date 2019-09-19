@@ -26,37 +26,41 @@ object embed {
         layout.pieceSprite(lila.pref.PieceSet.default),
         cssTagWithTheme("analyse.embed", config.bg)
       ),
-      body(cls := List(
-        s"highlight ${config.bg} ${config.board}" -> true
-      ))(
-        div(cls := "is2d")(
-          main(cls := "analyse")
-        ),
-        footer {
-          val url = routes.Round.watcher(pov.gameId, pov.color.name)
-          frag(
-            div(cls := "left")(
-              a(target := "_blank", href := url)(h1(titleGame(pov.game))),
-              " ",
-              em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
-            ),
-            a(target := "_blank", cls := "open", href := url)("Open")
-          )
-        },
-        jQueryTag,
-        jsTag("vendor/mousetrap.js"),
-        jsAt("compiled/util.js"),
-        jsAt("compiled/trans.js"),
-        jsAt("compiled/embed-analyse.js"),
-        analyseTag,
-        embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
-          safeJsonValue(Json.obj(
-            "data" -> data,
-            "embed" -> true,
-            "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
-          ))
-        })""", config.nonce)
-      )
+      body(
+        cls := s"highlight ${config.bg} ${config.board}",
+        dataDev := (!isProd).option("true"),
+        dataAssetUrl := assetBaseUrl,
+        dataAssetVersion := assetVersion.value,
+        dataTheme := config.bg
+      )(
+          div(cls := "is2d")(
+            main(cls := "analyse")
+          ),
+          footer {
+            val url = routes.Round.watcher(pov.gameId, pov.color.name)
+            frag(
+              div(cls := "left")(
+                a(target := "_blank", href := url)(h1(titleGame(pov.game))),
+                " ",
+                em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+              ),
+              a(target := "_blank", cls := "open", href := url)("Open")
+            )
+          },
+          jQueryTag,
+          jsTag("vendor/mousetrap.js"),
+          jsAt("compiled/util.js"),
+          jsAt("compiled/trans.js"),
+          jsAt("compiled/embed-analyse.js"),
+          analyseTag,
+          embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
+            safeJsonValue(Json.obj(
+              "data" -> data,
+              "embed" -> true,
+              "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+            ))
+          })""", config.nonce)
+        )
     )
   )
 

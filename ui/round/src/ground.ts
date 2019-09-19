@@ -3,6 +3,7 @@ import { Chessground } from 'chessground';
 import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import { Config } from 'chessground/config'
+import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
@@ -27,7 +28,10 @@ export function makeConfig(ctrl: RoundController): Config {
     },
     events: {
       move: hooks.onMove,
-      dropNewPiece: hooks.onNewPiece
+      dropNewPiece: hooks.onNewPiece,
+      insert(elements) {
+        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
+      }
     },
     movable: {
       free: false,
@@ -97,9 +101,7 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
 }
 
 export function render(ctrl: RoundController) {
-  return h('div.cg-board-wrap', {
+  return h('div.cg-wrap', {
     hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl))))
-  }, [
-    h('div.cg-board')
-  ]);
+  });
 };

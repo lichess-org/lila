@@ -1,6 +1,7 @@
 {
   "name": "lila",
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "private": true,
   "description": "lichess.org: the forever free, adless and open source chess server",
   "repository": {
     "type": "git",
@@ -23,7 +24,6 @@
     "fs-extra": "^4.0.2",
     "xml2js": "^0.4.19"
   },
-  "private": true,
   "workspaces": [
     "ui",
     "ui/analyse",
@@ -38,19 +38,24 @@
     "ui/game",
     "ui/nvui",
     "ui/speech",
+    "ui/palantir",
     "ui/insight",
     "ui/learn",
     "ui/lobby",
     "ui/notify",
-    "ui/perfStat",
     "ui/puzzle",
     "ui/round",
+    "ui/serviceWorker",
     "ui/simul",
     "ui/site",
     "ui/tournament",
     "ui/tournamentSchedule",
     "ui/tournamentCalendar",
     "ui/tree",
+    "ui/@build/cssProject",
+    "ui/@build/jsProject",
+    "ui/@build/tsProject",
+    "ui/@build/tsPlugins",
     "ui/@types/lichess"
   ]
 }

@@ -16,6 +16,7 @@ object communication {
     threads: List[lila.message.Thread],
     publicLines: List[lila.shutup.PublicLine],
     spy: lila.security.UserSpy,
+    otherWithEmails: lila.security.UserSpy.WithMeSortedWithEmails,
     notes: List[lila.user.Note],
     history: List[lila.mod.Modlog],
     priv: Boolean
@@ -96,6 +97,7 @@ object communication {
                         "author" -> (line.author.toLowerCase == u.id)
                       ))(
                         userIdLink(line.author.toLowerCase.some, withOnline = false, withTitle = false),
+                        nbsp,
                         richText(line.text)
                       )
                     }
@@ -116,6 +118,7 @@ object communication {
                   thread.posts.map { post =>
                     div(cls := List("post" -> true, "author" -> thread.isWrittenBy(post, u)))(
                       userIdLink(thread.senderOf(post).some),
+                      nbsp,
                       richText(post.text)
                     )
                   }
@@ -129,6 +132,7 @@ object communication {
               thead(
                 tr(
                   th(spy.otherUsers.size, " similar user(s)"),
+                  th("Email"),
                   th("Same"),
                   th("Games"),
                   th("Marks"),
@@ -138,9 +142,10 @@ object communication {
                 )
               ),
               tbody(
-                spy.withMeSorted(u).map {
+                otherWithEmails.others.map {
                   case lila.security.UserSpy.OtherUser(o, byIp, byFp) => tr(cls := (o == u).option("same"))(
                     td(userLink(o, withBestRating = true, params = "?mod")),
+                    td(otherWithEmails emailValueOf o),
                     td(
                       if (o == u) " - "
                       else List(byIp option "IP", byFp option "Print").flatten.mkString(", ")

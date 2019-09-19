@@ -27,8 +27,8 @@ object Usd {
   def apply(value: Int): Usd = Usd(BigDecimal(value))
 }
 case class Cents(value: Int) extends AnyVal with Ordered[Cents] {
-  def compare(other: Cents) = value compare other.value
-  def usd = Usd(value / 100d)
+  def compare(other: Cents) = Integer.compare(value, other.value)
+  def usd = Usd(BigDecimal(value, 2))
   override def toString = usd.toString
 }
 

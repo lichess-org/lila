@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.game.Game
 import lila.hub.TrouperMap
 import lila.socket.Socket.{ SocketVersion, GetVersion }
 import lila.user.User
@@ -11,7 +12,7 @@ import lila.user.User
 final class Env(
     config: Config,
     system: ActorSystem,
-    onStart: String => Unit,
+    onStart: Game.ID => Unit,
     gameCache: lila.game.Cached,
     lightUser: lila.common.LightUser.GetterSync,
     isOnline: lila.user.User.ID => Boolean,
@@ -27,7 +28,7 @@ final class Env(
     val CollectionChallenge = config getString "collection.challenge"
     val MaxPerUser = config getInt "max_per_user"
     val HistoryMessageTtl = config duration "history.message.ttl"
-    val UidTimeout = config duration "uid.timeout"
+    val SriTimeout = config duration "sri.timeout"
     val SocketTimeout = config duration "socket.timeout"
     val MaxPlaying = config getInt "max_playing"
   }
@@ -40,7 +41,7 @@ final class Env(
       challengeId = challengeId,
       history = new lila.socket.History(ttl = HistoryMessageTtl),
       getChallenge = repo.byId,
-      uidTtl = UidTimeout,
+      sriTtl = SriTimeout,
       keepMeAlive = () => socketMap touch challengeId
     ),
     accessTimeout = SocketTimeout,
@@ -90,7 +91,7 @@ object Env {
   lazy val current: Env = "challenge" boot new Env(
     config = lila.common.PlayApp loadConfig "challenge",
     system = lila.common.PlayApp.system,
-    onStart = lila.game.Env.current.onStart,
+    onStart = lila.round.Env.current.onStart,
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,
     lightUser = lila.user.Env.current.lightUserSync,

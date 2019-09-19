@@ -8,7 +8,8 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
     bus: lila.common.Bus,
-    db: lila.db.Env
+    db: lila.db.Env,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   private val settings = new {
@@ -23,9 +24,11 @@ final class Env(
 
   lazy val api = new PlaybanApi(
     coll = db(CollectionPlayban),
-    sandbag = new SandbagWatch(messenger),
+    sandbag = new SandbagWatch(messenger, bus),
     feedback = feedback,
-    bus = bus
+    bus = bus,
+    asyncCache = asyncCache,
+    messenger = messenger
   )
 }
 
@@ -37,6 +40,7 @@ object Env {
     chatApi = lila.chat.Env.current.api,
     lightUser = lila.user.Env.current.lightUserApi.async,
     bus = lila.common.PlayApp.system.lilaBus,
-    db = lila.db.Env.current
+    db = lila.db.Env.current,
+    asyncCache = lila.memo.Env.current.asyncCache
   )
 }

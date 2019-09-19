@@ -26,7 +26,7 @@ object Coach extends LilaController {
       WithVisibleCoach(c) {
         Env.study.api.publicByIds {
           c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
-        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
+        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me, 4) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
             ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
               lila.mon.coach.pageView.profile(c.coach.id.value)()

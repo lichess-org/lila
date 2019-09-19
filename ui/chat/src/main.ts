@@ -16,8 +16,6 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
 } {
   const patch = init([klass, attributes]);
 
-  const container = element.parentNode as HTMLElement;
-
   let vnode: VNode, ctrl: Ctrl
 
   function redraw() {
@@ -29,11 +27,6 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
   const blueprint = view(ctrl);
   element.innerHTML = '';
   vnode = patch(element, blueprint);
-
-  window.Mousetrap.bind('c', () => {
-    (container.querySelector('.mchat__say') as HTMLElement).focus();
-    return false;
-  });
 
   return ctrl;
 };

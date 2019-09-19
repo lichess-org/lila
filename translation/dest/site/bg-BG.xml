@@ -59,6 +59,7 @@
   <string name="promoteVariation">Промотиране на вариация</string>
   <string name="makeMainLine">Направи основна линия</string>
   <string name="deleteFromHere">Изтриване от тук</string>
+  <string name="forceVariation">Ходът е вариант</string>
   <string name="move">Ход</string>
   <string name="variantLoss">Вариант на загуба</string>
   <string name="variantWin">Вариант на победа</string>
@@ -163,6 +164,9 @@
   <string name="ratingStats">Рейтинг статистика</string>
   <string name="username">Потребителско име</string>
   <string name="usernameOrEmail">Потребител или имейл</string>
+  <string name="changeUsername">Промяна на потребителско име</string>
+  <string name="changeUsernameNotSame">Единствено могат да се заменят малки с главни букви. Например, \"johndoe\" с \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Промяна на потребителско име. Може да се извърши само веднъж и можете да сменяте единствено малки и главни букви.</string>
   <string name="password">Парола</string>
   <string name="changePassword">Промени парола</string>
   <string name="changeEmail">Промени имейл</string>
@@ -171,6 +175,10 @@
   <string name="forgotPassword">Забравена парола?</string>
   <string name="rank">Звание</string>
   <string name="rankX">Класация: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Класирането се обновява всяка минута</item>
+    <item quantity="other">Класирането се обновява на всеки %s минути</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s пъзел</item>
     <item quantity="other">%s пъзели</item>
@@ -346,10 +354,10 @@
   <string name="clickOnTheBoardToMakeYourMove">Играйте хода си на дъската и докажете че сте човек</string>
   <string name="captcha.fail">Моля решете шахматната captcha</string>
   <string name="notACheckmate">Не е шах-и-мат</string>
-  <string name="colorPlaysCheckmateInOne">%s играят; мат в един ход</string>
+  <string name="whiteCheckmatesInOneMove">Белите на ход, мат в един ход</string>
+  <string name="blackCheckmatesInOneMove">Черните на ход, мат в един ход</string>
   <string name="retry">Опитай отново</string>
   <string name="reconnecting">Свързване</string>
-  <string name="onlineFriends">Приятели</string>
   <string name="noFriendsOnline">Няма свързани приятели</string>
   <string name="findFriends">Намери приятели</string>
   <string name="favoriteOpponents">Предпочитани съперници</string>
@@ -579,8 +587,6 @@
   <string name="xCommentedY">%1$s говори %2$s</string>
   <string name="victory">Успех!</string>
   <string name="defeat">Загуба</string>
-  <string name="xVsYinZ">%1$s срещу %2$s
-на %3$s</string>
   <string name="timeline">Уведомления</string>
   <string name="starting">Начало:</string>
   <string name="allInformationIsPublicAndOptional">Всички данни са публични и са по избор.</string>
@@ -627,6 +633,8 @@
   <string name="inCorrespondenceGames">Кореспондентски игри</string>
   <string name="ifRatingIsPlusMinusX">Ако рейтингът е ± %s</string>
   <string name="onlyFriends">Само приятели</string>
+  <string name="displayBoardResizeHandle">Възможност за промяна на размера на дъската</string>
+  <string name="onlyOnInitialPosition">Само в началната позиция</string>
   <string name="menu">Меню</string>
   <string name="castling">Рокада</string>
   <string name="whiteCastlingKingside">Бели O-O</string>
@@ -749,6 +757,7 @@
   <string name="xHostsY">%1$s води %2$s</string>
   <string name="xJoinsY">%1$s се присъедини към %2$s</string>
   <string name="xLikesY">%1$s хареса %2$s</string>
+  <string name="xCreatesStudyY">%1$s създаде проучване %2$s</string>
   <string name="quickPairing">Бързо свързване</string>
   <string name="lobby">Лоби</string>
   <string name="anonymous">Анонимен</string>

@@ -1,3 +1,5 @@
+import { StudyChapterConfig } from './interfaces';
+
 const headers = {
   'Accept': 'application/vnd.lichess.v3+json'
 };
@@ -27,7 +29,7 @@ export function glyphs() {
   });
 }
 
-export function chapterConfig(studyId: string, chapterId: string) {
+export function chapterConfig(studyId: string, chapterId: string): JQueryPromise<StudyChapterConfig> {
   return $.ajax({
     url: `/study/${studyId}/${chapterId}/meta`,
     headers
@@ -42,10 +44,10 @@ export function practiceComplete(chapterId: string, nbMoves: number) {
   });
 }
 
-export function importPgn(studyId: string, data: any) {
+export function importPgn(studyId: string, data: any, sri: string) {
   return $.ajax({
     method: 'POST',
-    url: `/study/${studyId}/import-pgn`,
+    url: `/study/${studyId}/import-pgn?sri=${sri}`,
     data: data,
     headers
   });

@@ -1,8 +1,20 @@
 /* context: .rmoves */
 @include breakpoint($mq-col1) {
   overflow: hidden;
-  .moves {
+  .col1-moves {
     flex: 0 0 $col1-moves-height;
+    display: flex;
+    .fbt {
+      flex: 0 0 auto;
+      padding: 0 1.3em;
+      opacity: .7;
+    }
+    body.playing.zen & {
+      display: none;
+    }
+  }
+  .moves {
+    flex: 1 1 100%;
     display: flex;
     align-items: stretch;
     white-space: nowrap;
@@ -22,7 +34,7 @@
     }
   }
   index,
-  move,
+  #{$move-tag},
   .result-wrap {
     display: flex;
     align-items: center;
@@ -32,7 +44,7 @@
   index {
     padding-right: .15em;
   }
-  move {
+  #{$move-tag} {
     font-size: 1.1em;
     cursor: pointer;
     &.active,
@@ -45,9 +57,6 @@
     }
     &.active {
       color: $c-font-clearer;
-    }
-    &.empty {
-      display: none;
     }
   }
   .buttons {
@@ -68,6 +77,9 @@
     strong { margin-left: .5em; }
     &::before {
       margin-right: .3em;
+    }
+    body.playing.zen & {
+      display: none;
     }
   }
   .status {

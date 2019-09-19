@@ -18,18 +18,23 @@ object event {
     layout(title = "New event", css = "mod.form") {
       div(cls := "crud page-menu__content box box-pad")(
         h1("New event"),
-        st.form(cls := "content_box_content form3", action := routes.Event.create, method := "POST")(inForm(form))
+        postForm(cls := "content_box_content form3", action := routes.Event.create)(inForm(form))
       )
     }
 
   def edit(event: lila.event.Event, form: Form[_])(implicit ctx: Context) =
     layout(title = event.title, css = "mod.form") {
       div(cls := "crud edit page-menu__content box box-pad")(
-        h1(
-          event.title,
-          span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
+        div(cls := "box__top")(
+          h1(
+            event.title,
+            span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
+          ),
+          st.form(cls := "box__top__actions", action := routes.Event.clone(event.id), method := "get")(
+            form3.submit("Clone", "".some, klass = "button-green")
+          )
         ),
-        st.form(cls := "content_box_content form3", action := routes.Event.update(event.id), method := "POST")(inForm(form))
+        postForm(cls := "content_box_content form3", action := routes.Event.update(event.id))(inForm(form))
       )
     }
 
@@ -70,8 +75,8 @@ object event {
           thead(
             tr(
               th,
-              th("UTC start"),
-              th("UTC end"),
+              th(utcLink, " start"),
+              th(utcLink, " end"),
               th
             )
           ),
@@ -101,14 +106,30 @@ object event {
 
   private def inForm(form: Form[_])(implicit ctx: Context) = frag(
     form3.split(
-      form3.group(form("startsAt"), raw("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_)),
-      form3.group(form("finishesAt"), raw("End date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+      form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
+      form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
     ),
     form3.group(form("title"), raw("Short title"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_)),
     form3.group(form("headline"), raw("Short headline"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_)),
     form3.group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(form3.textarea(_)()),
     form3.group(form("url"), raw("External URL"), help = raw("What to redirect to when the event starts").some)(form3.input(_)),
-    form3.group(form("lang"), raw("Language"))(form3.select(_, lila.i18n.LangList.choices)),
+    form3.split(
+      form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
+      form3.group(
+        form("hostedBy"),
+        raw("Hosted by lichess user"),
+        help = raw("Username that must not be featured while the event is ongoing").some,
+        half = true
+      ) { f =>
+          input(
+            cls := "form-control user-autocomplete",
+            name := f.name,
+            id := form3.id(f),
+            value := f.value,
+            dataTag := "span"
+          )
+        }
+    ),
     form3.split(
       form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
       form3.group(form("homepageHours"), raw("Hours on homepage (0 to 24)"), half = true, help = raw("Ask on slack first!").some)(form3.input(_, typ = "number"))

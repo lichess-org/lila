@@ -17,12 +17,15 @@ trait FormHelper { self: I18nHelper =>
     p(cls := "error")(transKey(error.message, I18nDb.Site, error.args))
 
   def errMsg(errors: Seq[FormError])(implicit ctx: Context): Frag =
-    errors map errMsg mkString
+    errors map errMsg
 
   def globalError(form: Form[_])(implicit ctx: Context): Option[Frag] =
     form.globalError map errMsg
 
   val booleanChoices = Seq("true" -> "✓ Yes", "false" -> "✗ No")
+
+  val postForm = form(method := "post")
+  val submitButton = button(tpe := "submit")
 
   object form3 {
 
@@ -143,8 +146,7 @@ trait FormHelper { self: I18nHelper =>
       nameValue: Option[(String, String)] = None,
       klass: String = "",
       confirm: Option[String] = None
-    ): Frag = button(
-      tpe := "submit",
+    ): Frag = submitButton(
       dataIcon := icon,
       name := nameValue.map(_._1),
       value := nameValue.map(_._2),
@@ -161,6 +163,12 @@ trait FormHelper { self: I18nHelper =>
       st.id := id(field),
       name := field.name,
       st.value := value.orElse(field.value),
+      tpe := "hidden"
+    )
+
+    def hidden(name: String, value: String): Tag = st.input(
+      st.name := name,
+      st.value := value,
       tpe := "hidden"
     )
 

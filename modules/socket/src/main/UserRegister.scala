@@ -15,9 +15,9 @@ private final class UserRegister(system: akka.actor.ActorSystem) extends Trouper
 
   val process: Trouper.Receive = {
 
-    case SocketEnter(uid, member) => users.add(uid, member)
+    case SocketEnter(sri, member) => users.add(sri, member)
 
-    case SocketLeave(uid, member) => users.remove(uid, member)
+    case SocketLeave(sri, member) => users.remove(sri, member)
 
     case SendTo(userId, msg) => sendTo(userId, msg)
 

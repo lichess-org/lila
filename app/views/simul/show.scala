@@ -16,7 +16,8 @@ object show {
     socketVersion: lila.socket.Socket.SocketVersion,
     data: play.api.libs.json.JsObject,
     chatOption: Option[lila.chat.UserChat.Mine],
-    stream: Option[lila.streamer.Stream]
+    stream: Option[lila.streamer.Stream],
+    team: Option[lila.team.Team]
   )(implicit ctx: Context) = views.html.base.layout(
     moreCss = cssTag("simul.show"),
     title = sim.fullName,
@@ -29,7 +30,13 @@ object show {
           "socketVersion" -> socketVersion.value,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
-            views.html.chat.json(c.chat, name = trans.chatRoom.txt(), timeout = c.timeout, public = true)
+            views.html.chat.json(
+              c.chat,
+              name = trans.chatRoom.txt(),
+              timeout = c.timeout,
+              public = true,
+              resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}")
+            )
           }
         ))
       }""")
@@ -62,7 +69,13 @@ object show {
             ),
             trans.by(usernameOrId(sim.hostId)),
             " ",
-            momentFromNow(sim.createdAt)
+            momentFromNow(sim.createdAt),
+            team map { t =>
+              frag(
+                br,
+                trans.mustBeInTeam(a(href := routes.Team.show(t.id))(t.name))
+              )
+            }
           ),
           stream.map { s =>
             views.html.streamer.bits.contextual(s.streamer.userId)

@@ -36,7 +36,7 @@ export function ctrl(raw: string[], trans: Trans, redraw: Redraw, close: Close):
     api,
     set(k: Key) {
       api.speech(k == 'speech');
-      window.lichess.pubsub.emit('speech.enabled')(api.speech());
+      window.lichess.pubsub.emit('speech.enabled', api.speech());
       if (api.speech()) api.say('Speech synthesis ready');
       else {
         api.changeSet(k);
@@ -86,7 +86,7 @@ function makeSlider(ctrl: SoundCtrl, vnode: VNode) {
       max: 1,
       range: 'min',
       step: 0.01,
-      value: ctrl.api.volumeStorage.get() || ctrl.api.defaultVolume,
+      value: ctrl.api.getVolume(),
       slide: (_: any, ui: any) => setVolume(ui.value)
     });
   });

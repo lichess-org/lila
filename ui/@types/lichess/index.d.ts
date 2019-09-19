@@ -43,7 +43,7 @@ interface Lichess {
     absolute(date: number | Date): string;
   }
   advantageChart: {
-    update(data: any, partial: boolean): void;
+    update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   }
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;
@@ -54,17 +54,27 @@ interface Lichess {
     render(ctrl: any): any;
   }
   playMusic(): any;
-  LichessSpeech?: LichessSpeech;
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
   mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
+  pushSubscribe(ask: boolean): void;
+  formAjax(form: JQuery): any;
+  reverse(s: string): string;
 }
 
 interface LichessSpeech {
   say(t: string, cut: boolean): void;
   step(s: { san?: San }, cut: boolean): void;
+}
+
+interface PalantirOpts {
+  uid: string;
+  redraw(): void;
+}
+interface Palantir {
+  render(h: any): any;
 }
 
 interface Cookie {
@@ -80,9 +90,11 @@ interface AssetUrlOpts {
 
 declare type SocketSend = (type: string, data?: any, opts?: any, noRetry?: boolean) => void;
 
+type TransNoArg = (key: string) => string;
+
 interface Trans {
   (key: string, ...args: Array<string | number>): string;
-  noarg(key: string): string;
+  noarg: TransNoArg;
   plural(key: string, count: number, ...args: Array<string | number>): string;
   vdom<T>(key: string, ...args: T[]): (string | T)[];
   vdomPlural<T>(key: string, count: number, countArg: T, ...args: T[]): (string | T)[];
@@ -93,7 +105,7 @@ type PubsubCallback = (...data: any[]) => void;
 interface Pubsub {
   on(msg: string, f: PubsubCallback): void;
   off(msg: string, f: PubsubCallback): void;
-  emit(msg: string): (...args: any[]) => void;
+  emit(msg: string, ...args: any[]): void;
 }
 
 interface LichessStorageHelper {
@@ -129,6 +141,10 @@ interface Window {
     jump(node: Tree.Node): void
   }
   hopscotch: any;
+  LichessSpeech?: LichessSpeech;
+  palantir?: {
+    palantir(opts: PalantirOpts): Palantir
+  };
 
   [key: string]: any; // TODO
 }
@@ -140,13 +156,6 @@ interface LightUser {
   patron?: boolean
 }
 
-interface WebAssemblyStatic {
-  validate(bufferSource: ArrayBuffer | Uint8Array): boolean
-  Memory: any
-  Module: any
-}
-
-declare var WebAssembly: WebAssemblyStatic | undefined;
 declare var SharedArrayBuffer: any | undefined;
 declare var Atomics: any | undefined;
 
@@ -299,7 +308,6 @@ interface LichessModal {
 interface JQuery {
   powerTip(options?: PowerTip.Options | 'show' | 'hide'): JQuery;
   typeahead: any;
-  scrollTo(el: JQuery | HTMLElement, delay: number): JQuery;
   sparkline: any;
   clock: any;
   watchers(): JQuery;

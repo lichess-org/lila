@@ -53,7 +53,7 @@ object coordinate {
                       input(
                         tpe := "radio",
                         st.id := s"coord_color_$id",
-                        name := "coord_color",
+                        name := "color",
                         value := id,
                         (id == ctx.pref.coordColor) option checked
                       ),
@@ -67,7 +67,7 @@ object coordinate {
               div(cls := "next_coord", id := "next_coord0"),
               div(cls := "next_coord", id := "next_coord1"),
               div(cls := "next_coord", id := "next_coord2"),
-              chessgroundSvg
+              chessgroundBoard
             ),
             div(cls := "coord-trainer__table")(
               div(cls := "explanation")(

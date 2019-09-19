@@ -52,14 +52,13 @@ object side {
                 else frag(
                   widgets showClock game,
                   separator,
-                  if (game.rated) trans.rated.txt() else trans.casual.txt(),
+                  (if (game.rated) trans.rated else trans.casual).txt(),
                   separator,
                   if (game.variant.exotic)
                     bits.variantLink(game.variant, (if (game.variant == chess.variant.KingOfTheHill) game.variant.shortName else game.variant.name).toUpperCase, initialFen = initialFen)
-                  else
-                    game.perfType.map { pt =>
-                      span(title := pt.title)(pt.shortName)
-                    }
+                  else game.perfType.map { pt =>
+                    span(title := pt.title)(pt.shortName)
+                  }
                 )
               ),
               game.pgnImport.flatMap(_.date).map(frag(_)) getOrElse {

@@ -79,14 +79,14 @@
     top: 37.5%;
   }
   #promotion-choice .explanation {
+    @extend %popup-shadow;
+    background: $c-bg-popup;
     position: absolute;
     top: 25%;
     left: 25%;
     width: 50%;
     height: 50%;
-    background: #fff;
     padding: 20px;
-    box-shadow: 0 3px 25px rgba(0,0,0,0.5);
     h2 {
       font-size: 2em;
     }

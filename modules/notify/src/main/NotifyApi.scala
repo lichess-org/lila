@@ -35,7 +35,12 @@ final class NotifyApi(
     getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
-    repo.markAllRead(userId) >>- unreadCountCache.invalidate(userId)
+    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
+
+  def markAllRead(userIds: Iterable[Notification.Notifies]) =
+    repo.markAllRead(userIds) >>- userIds.foreach {
+      unreadCountCache.put(_, fuccess(0))
+    }
 
   private val unreadCountCache = asyncCache.clearable(
     name = "notify.unreadCountCache",
@@ -55,7 +60,7 @@ final class NotifyApi(
     }
 
   def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
-    repo.insert(notification) >>- unreadCountCache.invalidate(notification.notifies)
+    repo.insert(notification) >>- unreadCountCache.update(notification.notifies, _ + 1)
 
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void

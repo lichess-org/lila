@@ -7,7 +7,7 @@ import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo }
+import lila.game.Game
 import lila.hub.Trouper
 
 private[tv] final class TvTrouper(
@@ -15,13 +15,17 @@ private[tv] final class TvTrouper(
     rendererActor: ActorSelection,
     selectChannel: lila.socket.Channel,
     lightUser: LightUser.GetterSync,
-    onSelect: Game => Unit
+    onSelect: Game => Unit,
+    proxyGame: Game.ID => Fu[Option[Game]],
+    rematchOf: Game.ID => Option[Game.ID]
 ) extends Trouper {
 
   import TvTrouper._
 
-  private val channelTroupers: Map[Tv.Channel, Trouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, lightUser, onSelect = this.!)
+  system.lilaBus.subscribe(this, 'startGame)
+
+  private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
+    c -> new ChannelTrouper(c, lightUser, onSelect = this.!, proxyGame, rematchOf)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()
@@ -42,14 +46,14 @@ private[tv] final class TvTrouper(
 
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
-    case Select =>
-      GameRepo.featuredCandidates map (_ map Tv.toCandidate(lightUser)) foreach { candidates =>
-        channelTroupers foreach {
-          case (channel, trouper) => trouper ! ChannelTrouper.Select {
-            candidates filter channel.filter map (_.game)
-          }
-        }
-      }
+    case lila.game.actorApi.StartGame(g) => if (g.hasClock) {
+      val candidate = Tv.toCandidate(lightUser)(g)
+      channelTroupers collect {
+        case (chan, trouper) if chan filter candidate => trouper
+      } foreach (_ addCandidate g)
+    }
+
+    case s @ TvTrouper.Select => channelTroupers.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage

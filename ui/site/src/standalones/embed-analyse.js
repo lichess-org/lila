@@ -1,6 +1,6 @@
 function toYouTubeEmbedUrl(url) {
   if (!url) return;
-  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
+  var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?/ ]{11})(?:\?|&|)(\S*)/i);
   if (!m) return;
   var start = 1;
   m[2].split('&').forEach(function(p) {
@@ -57,7 +57,7 @@ $(function() {
   var expandYoutubes = function(as, wait) {
     var a = as.shift(),
       wait = Math.min(1500, wait || 100);
-    if (a) expandYoutube(a).on('load', function() {
+    if (a) expandYoutube(a).find('iframe').on('load', function() {
       setTimeout(function() {
         expandYoutubes(as, wait + 200);
       }, wait);
@@ -101,7 +101,7 @@ $(function() {
       }
     });
     return groups;
-  };
+  }
 
   var expandGames = function(as) {
     groupByParent(as).forEach(function(group) {
@@ -120,10 +120,15 @@ $(function() {
     });
   };
 
+  var themes = ['blue', 'blue2', 'blue3', 'canvas', 'wood', 'wood2', 'wood3', 'maple', 'green', 'marble', 'brown', 'leather', 'grey', 'metal', 'olive', 'purple'];
+
   var configureSrc = function(url) {
     if (url.includes('://')) return url; // youtube, img, etc
     var parsed = new URL(url, window.location.href);
-    parsed.searchParams.append('bg', $('body').data('theme'));
+    parsed.searchParams.append('theme', themes.find(function (theme) {
+      return document.body.classList.contains(theme);
+    }));
+    parsed.searchParams.append('bg', document.body.getAttribute('data-theme'));
     return parsed.href;
   }
 
@@ -158,6 +163,7 @@ $(function() {
 });
 
 lichess.startEmbeddedAnalyse = function(opts) {
+  document.body.classList.toggle('supports-max-content', !!window.chrome);
   opts.socketSend = $.noop
   opts.initialPly = 'url';
   opts.trans = lichess.trans(opts.i18n);

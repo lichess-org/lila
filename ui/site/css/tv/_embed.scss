@@ -3,10 +3,10 @@ body {
   overflow: hidden;
 }
 .embedded {
-  .vstext, .cg-board {
+  .vstext, cg-board {
     box-shadow: none;
   }
-  .cg-board {
+  cg-board {
     border-radius: 3px 3px 0 0;
   }
   .vstext {

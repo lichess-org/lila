@@ -14,13 +14,13 @@ object bits {
     back = false,
     moreCss = cssTag("streamer.form").some
   )(
-      form(cls := "streamer-new", action := routes.Streamer.create, method := "POST")(
+      postForm(cls := "streamer-new", action := routes.Streamer.create)(
         h2("Do you have a Twitch or YouTube stream, ", me.username, "?"),
         br, br,
         bits.rules(),
         br, br,
         p(style := "text-align: center")(
-          button(tpe := "submit", cls := "button button-fat text", dataIcon := "")("Here we go!")
+          submitButton(cls := "button button-fat text", dataIcon := "")("Here we go!")
         )
       )
     )
@@ -52,6 +52,7 @@ object bits {
             a(cls := active.active("edit"), href := s"${routes.Streamer.edit}?u=${st.streamer.id.value}")("Edit streamer page")
         )
       } getOrElse a(href := routes.Streamer.edit)("Your streamer page"),
+      isGranted(_.Streamers) option a(cls := active.active("requests"), href := s"${routes.Streamer.index()}?requests=1")("Approval requests"),
       a(dataIcon := "", cls := "text", href := "/blog/Wk5z0R8AACMf6ZwN/join-the-lichess-streamer-community")("Streamer community"),
       a(href := "/about")("Download streamer kit")
     )

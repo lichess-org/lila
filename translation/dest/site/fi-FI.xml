@@ -291,8 +291,8 @@
     <item quantity="other">≥ %s pisteytettyä peliä</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s pisteytetty %2%s-peli</item>
-    <item quantity="other">≥ %1$s pisteytettyä %2%s-peliä</item>
+    <item quantity="one">≥ %1$s pisteytetty %2$s-peli</item>
+    <item quantity="other">≥ %1$s pisteytettyä %2$s-peliä</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Sinun pitää pelata vielä %1$s pisteytetty %2$s-peli</item>
@@ -352,10 +352,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
   <string name="captcha.fail">Ratkaise shakki-captcha.</string>
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
-  <string name="colorPlaysCheckmateInOne">%s pelaa; shakkimatti yhdellä siirrolla</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="reconnecting">Yhdistetään uudelleen</string>
-  <string name="onlineFriends">Kaverit</string>
   <string name="noFriendsOnline">Ei kavereita paikalla</string>
   <string name="findFriends">Etsi kavereita</string>
   <string name="favoriteOpponents">Suosikkivastustajat</string>
@@ -542,7 +540,7 @@
   <string name="moveListWhilePlaying">Siirtolista pelin aikana</string>
   <string name="pgnPieceNotation">Siirtojen merkintätapa</string>
   <string name="chessPieceSymbol">Shakkinappulasymbolit</string>
-  <string name="pgnLetter">Kirjaimet (K, D, T, L, R)</string>
+  <string name="pgnLetter">Kirjaimet (K, Q, R, B, N)</string>
   <string name="chessClock">Shakkikello</string>
   <string name="tenthsOfSeconds">Sekunnin kymmenesosat</string>
   <string name="never">Ei koskaan</string>
@@ -583,10 +581,8 @@
   <string name="xAskedY">%1$s kysyi %2$s</string>
   <string name="xAnsweredY">%1$s vastasi %2$s</string>
   <string name="xCommentedY">%1$s kommentoi %2$s</string>
-  <string name="victory">Voitit!</string>
+  <string name="victory">Voitit</string>
   <string name="defeat">Tappio</string>
-  <string name="xVsYinZ">%1$s vs %2$s
-%3$s-pelimuodossa</string>
   <string name="timeline">Tapahtunutta aikajärjestyksessä</string>
   <string name="starting">Alkamassa:</string>
   <string name="allInformationIsPublicAndOptional">Kaikki informaatio on julkista ja vapaaehtoista.</string>

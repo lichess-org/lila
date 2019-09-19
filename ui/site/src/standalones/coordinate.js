@@ -1,7 +1,7 @@
 $(function() {
   $('#trainer').each(function() {
     var $trainer = $(this);
-    var $board = $('.coord-trainer__board .cg-board-wrap');
+    var $board = $('.coord-trainer__board .cg-wrap');
     var ground;
     var $side = $('.coord-trainer__side');
     var $right = $('.coord-trainer__table');
@@ -31,7 +31,7 @@ $(function() {
           color: null
         },
         orientation: color,
-        addPieceZIndex: $('#top').hasClass('is3d')
+        addPieceZIndex: $('#main-wrap').hasClass('is3d')
       });
       else if (color !== ground.state.orientation) ground.toggleOrientation();
       $trainer.removeClass('white black').addClass(color);
@@ -47,13 +47,7 @@ $(function() {
           2: 'random',
           3: 'black'
         }[selected];
-        if (c !== colorPref) $.ajax({
-          url: $form.attr('action'),
-          method: 'post',
-          data: {
-            color: selected
-          }
-        });
+        if (c !== colorPref) $.ajax(window.lichess.formAjax($form));
         colorPref = c;
         showColor();
         return false;
@@ -172,6 +166,7 @@ $(function() {
           }
         });
         $coords[0].text(newCoord('a1'));
+        var i;
         for (i = 1; i < $coords.length; i++)
           $coords[i].text(newCoord($coords[i - 1].text()));
         tick();

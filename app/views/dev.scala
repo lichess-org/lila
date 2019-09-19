@@ -22,14 +22,14 @@ object dev {
             h1(title),
             p("Tread lightly."),
             settings.map { s =>
-              form(action := routes.Dev.settingsPost(s.id), method := "POST")(
+              postForm(action := routes.Dev.settingsPost(s.id))(
                 p(s.text | s.id),
                 input(name := "v", value := (s.form.value match {
                   case None => ""
                   case Some(x) => x.toString
                   case x => x.toString
                 })),
-                button(tpe := "submit", cls := "button", dataIcon := "E")
+                submitButton(cls := "button", dataIcon := "E")
               )
             }
           )
@@ -55,7 +55,7 @@ object dev {
               h2("Result:")
               pre(r)
             },
-            st.form(action := routes.Dev.cliPost, method := "POST")(
+            postForm(action := routes.Dev.cliPost)(
               form3.input(form("command"))(autofocus)
             ),
             h2("Command examples:"),
@@ -68,7 +68,8 @@ team enable foobar
 fishnet client create {username} analysis
 gdpr erase {username} forever
 patron lifetime {username}
-patron month {username}""")
+patron month {username}
+eval-cache drop 8/8/1k6/8/2K5/1P6/8/8 w - - 0 1""")
           )
         )
       }

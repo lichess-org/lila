@@ -1,0 +1,25 @@
+{
+  "name": "palantir",
+  "version": "2.0.0",
+  "private": true,
+  "description": "lichess.org webrtc media calls",
+  "main": "dist/main.js",
+  "types": "dist/main",
+  "keywords": [
+    "chess",
+    "lichess",
+    "webrtc"
+  ],
+  "author": "Thibault Duplessis",
+  "license": "AGPL-3.0",
+  "scripts": {
+    "compile": "../../node_modules/typescript/bin/tsc"
+  },
+  "devDependencies": {
+    "@build/tsProject": "2.0.0",
+    "@types/lichess": "2.0.0"
+  },
+  "dependencies": {
+    "@types/webrtc": "^0.0.25"
+  }
+}

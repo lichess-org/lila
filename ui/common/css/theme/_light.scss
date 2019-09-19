@@ -4,8 +4,12 @@ $theme: 'light';
 $theme-light: true;
 $theme-dark: false;
 
-@mixin metal {
+@mixin metal-bg {
   background: linear-gradient(to bottom, hsl(0, 0, 96) 0%, hsl(0, 0, 93) 100%);
+}
+
+@mixin metal {
+  @include metal-bg;
   text-shadow: $text-shadow;
 }
 @mixin metal-hover {
