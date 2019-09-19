@@ -88,6 +88,14 @@
   <string name="winPreventedBy50MoveRule">Ji ber qaîdeya 50 hemleyê rê li ber serkeftinê hate girtin</string>
   <string name="lossSavedBy50MoveRule">Rê li ber mexlubiyetê hate girtin ji ber qaîdeya 50 hemleyê</string>
   <string name="allSet">Temam e!</string>
+  <string name="importPgn">PGNyê bîne navê</string>
+  <string name="delete">Jê bibe</string>
+  <string name="deleteThisImportedGame">Bila ev wêneya têxistî jê were birin?</string>
+  <string name="replayMode">Moda tekrarkirinê</string>
+  <string name="realtimeReplay">Wextê heqîqî</string>
+  <string name="byCPL">Bi CPL</string>
+  <string name="openStudy">Dersê veke</string>
+  <string name="enable">Biçalakîne</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>

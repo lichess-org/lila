@@ -290,8 +290,8 @@
     <item quantity="other">≥ %s βαθμολογημένα παιχνίδια</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s %2$s βαθμολογημένο παιχνίδι</item>
-    <item quantity="other">≥ %1$s %2$s βαθμολογημένα παιχνίδια</item>
+    <item quantity="one">≥ %1$s βαθμολογημένο παιχνίδι %2$s</item>
+    <item quantity="other">≥ %1$s βαθμολογημένα παιχνίδια %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Πρέπει να παίξετε %1$s επιπλέον %2$s βαθμολογημένο παιχνίδι</item>
