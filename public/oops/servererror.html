@@ -21,6 +21,9 @@
         margin: 0;
         padding: 0;
       }
+      a, a:visited {
+        color: #ebd488;
+      }
       h1 {
         font-size: 30px;
         opacity: 0.5;
@@ -31,12 +34,17 @@
         opacity: 0.6;
         margin: 0 0 20px 0;
       }
+      credit {
+        display: block;
+        font-size: .9em;
+        opacity: 0.6;
+        margin: 0 0 20px 0;
+      }
       #robot {
-        opacity: 0;
         width: 1000px;
         height: 958px;
       }
-      
+
       @media (max-width: 1024px) {
         img#robot {
           margin: 0 auto;
@@ -61,21 +69,9 @@
     <img id="robot"
       src="//lichess1.org/assets/images/maintenance.jpg"
       alt="Lichess maintenance" />
+      <credit>Drawing by <a href="https://www.pixiv.net/member.php?id=34624">Gia</a></credit>
     <script>
       setTimeout(function() { location.reload(); }, 20000);
-
-      var el = document.getElementById("div1");
-
-      function fadeIn(el) {
-        el.style.opacity = 0;
-        var tick = function() {
-          el.style.opacity = +el.style.opacity + 0.001;
-          if (+el.style.opacity < 1) requestAnimationFrame(tick);
-        };
-        tick();
-      }
-
-      if (location.host == 'lichess.org') fadeIn(document.getElementById('robot'));
     </script>
   </body>
 </html>
