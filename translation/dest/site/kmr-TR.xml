@@ -99,6 +99,9 @@
   <string name="bestMoveArrow">Nîşandana hemleya çêtirîn</string>
   <string name="evaluationGauge">Nîşandera nirxandinê</string>
   <string name="multipleLines">Varyantên pirhejmar</string>
+  <string name="cpus">CPU</string>
+  <string name="memory">Bîrkan</string>
+  <string name="infiniteAnalysis">Analîza bêsînor</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
