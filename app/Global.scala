@@ -39,7 +39,11 @@ object Global extends GlobalSettings {
     else if (HTTPRequest isBot req) lila.mon.http.request.bot()
     else lila.mon.http.request.page()
 
-    if (req.host != Env.api.Net.Domain && HTTPRequest.isRedirectable(req) && !HTTPRequest.isProgrammatic(req))
+    if (req.host != Env.api.Net.Domain &&
+      HTTPRequest.isRedirectable(req) &&
+      !HTTPRequest.isProgrammatic(req) &&
+      // asset request going through the CDN, don't redirect
+      !(req.host == Env.api.Net.AssetDomain && HTTPRequest.hasFileExtension(req)))
       Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
     else super.onRouteRequest(req) map {
       case action: EssentialAction if HTTPRequest.isApiOrLocalhost8080(req) => EssentialAction { r =>
