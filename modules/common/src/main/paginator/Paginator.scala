@@ -64,7 +64,7 @@ object Paginator {
 
   def apply[A](
     adapter: AdapterLike[A],
-    currentPage: Int = 1,
+    currentPage: Int,
     maxPerPage: MaxPerPage = MaxPerPage(10)
   ): Fu[Paginator[A]] =
     validate(adapter, currentPage, maxPerPage) | apply(adapter, 1, maxPerPage)
