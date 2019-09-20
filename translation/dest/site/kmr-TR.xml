@@ -102,6 +102,7 @@
   <string name="cpus">CPU</string>
   <string name="memory">Bîrkan</string>
   <string name="infiniteAnalysis">Analîza bêsînor</string>
+  <string name="removesTheDepthLimit">Sînora kûrahiyê radike, û kombersa te germ digire</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
   <string name="mistake">Çewtî</string>
