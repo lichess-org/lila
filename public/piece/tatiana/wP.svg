@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-3103.6 2186.9)">
+  <g transform="matrix(.93923 0 0 .94262 2867.6 -1473.9)" stroke-width="1.0628">
+   <path transform="matrix(.27298 0 0 .2732 -3226 -120.79)" d="m12835-2284c-14.327 0-25.491 9.9415-25.49 23.092 0 6.7631 3.026 13.231 8.35 17.916-16.466 6.7166-15.4 9.2153-13.676 25.715h15.959c-7.016 32.655-40.413 25.156-39.742 61.406h109.2c0.67-36.25-32.726-28.751-39.742-61.406h15.959c3.58-17.414 1.003-17.95-13.678-25.715 5.325-4.6852 8.34-11.153 8.351-17.916 0-13.152-11.169-23.093-25.496-23.092z" fill="#ebebeb" stroke="#282828" stroke-width="7.7834" style="paint-order:normal"/>
+   <path transform="matrix(.27298 0 0 .2732 -3226 -120.79)" d="m12835-2282.9c-2.511 3e-4 -4.919 0.3244-7.192 0.8985 10.699 2.7028 18.304 11.353 18.303 22.199 0 6.7631-3.027 13.229-8.352 17.914 14.268 4.6088 17.218 7.6529 18.951 17.523l-53.058 2.0082 0.539 5.1172 35.243 3.6781c7.23 32.14 36.454 22.716 35.786 58.794h14.383c0.668-36.079-32.401-30.332-39.631-62.473h15.858c1.304-19.769 4.303-14.307-13.686-24.648 5.325-4.6851 8.338-11.151 8.35-17.914 0-13.153-11.167-23.1-25.494-23.098z" opacity=".35"/>
+  </g>
+  <path d="m3127.6-2174.8c-3.2393 0.7747-4.567 2.5248-4.5687 5.2328 0 1.6996 1.5589 3.2088 1.5491 3.2112h1.0589s-1.5497-1.4678-1.5497-3.2112c0-3.2259 0.6254-4.9805 4.0419-5.2126-0.1751-0.012-0.3521-0.02-0.5315-0.02zm-1.8988 16.673c-2.1316 8.2422-9.3323 6.35-10.134 14.198v-0.016c2.5384-6.1547 8.8971-5.049 10.522-13.91z" fill="#fff" style="paint-order:normal"/>
+  <path d="m3126-2165c-1.4971 0.736-4.5084 1.5614-4.5176 2.942l2.1242-0.4977c-0.2982 0 0.6943-1.4365 2.3933-2.4443z" fill="#fff"/>
+ </g>
+</svg>
