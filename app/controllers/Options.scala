@@ -14,20 +14,19 @@ object Options extends LilaController {
   def all(url: String) = Action { req =>
     if (isLocalhost(req) || isApi(req)) {
       val methods = getMethods(req)
-      if (methods.nonEmpty)
+      if (methods.nonEmpty) {
+        val allow = ("OPTIONS" :: methods).mkString(", ")
         NoContent.withHeaders(
           List(
-            "Vary" -> "Origin",
-            "Allow" -> ("OPTIONS" :: methods).mkString(", "),
-            "Access-Control-Allow-Origin" -> {
-              if (isLocalhost(req)) localhost
-              else "*"
-            },
+            "Allow" -> allow,
+            "Access-Control-Allow-Methods" -> allow,
+            "Access-Control-Allow-Origin" -> { if (isLocalhost(req)) localhost else "*" },
             "Access-Control-Allow-Headers" -> "Origin,Authorization",
-            "Access-Control-Max-Age" -> "1728000"
+            "Access-Control-Max-Age" -> "1728000",
+            "Vary" -> "Origin"
           ): _*
         )
-      else
+      } else
         NotFound
     } else
       NotFound
