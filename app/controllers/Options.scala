@@ -24,7 +24,7 @@ object Options extends LilaController {
             "Access-Control-Allow-Headers" -> {
               List(
                 "Origin", "Authorization", "If-Modified-Since", "Cache-Control"
-              ) ::: isLocalApp(req).??(List("X-Requested-With", "sessionId"))
+              ) ::: isLocalApp(req).??(List("X-Requested-With", "sessionId", "Content-Type"))
             }.mkString(", "),
             "Access-Control-Max-Age" -> "1728000",
             "Access-Control-Allow-Credentials" -> "true"
