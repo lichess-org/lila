@@ -18,6 +18,8 @@ final class CSRFRequestHandler(domain: String) {
         true
       case Some("file://") =>
         true
+      case Some(o) if o == localhost8080 =>
+        true
       case Some(o) if isSubdomain(o) =>
         true
       case Some(_) =>
