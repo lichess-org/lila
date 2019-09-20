@@ -14,12 +14,13 @@ object Options extends LilaController {
   def all(url: String) = Action { req =>
     if (isLocalApp(req) || isApi(req).pp) {
       NoContent.withHeaders({
-        headersFor(req) ::: List(
+        List(
           "Allow" -> allowMethods,
           "Access-Control-Max-Age" -> "1728000"
         )
       }: _*)
-    } else
+    }
+    else
       NotFound
   }
 }
