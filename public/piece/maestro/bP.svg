@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <metadata>
   <rdf:RDF>
    <cc:Work rdf:about="">
@@ -9,11 +9,9 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <defs>
-  <linearGradient id="linearGradient3604-7" x1="-296.78" x2="-277.22" y1="-718.35" y2="-718.35" gradientTransform="matrix(1.4315 0 0 1.343 435.83 993.25)" gradientUnits="userSpaceOnUse">
-   <stop stop-color="#303030" offset="0"/>
-   <stop stop-color="#1E1E1E" offset="1"/>
-  </linearGradient>
- </defs>
- <path class="st19" d="m25 11.234c-2.5766 0-5.1533 1.4773-6.0121 3.8948-0.71573 1.8802-0.14315 4.0291 1.4315 5.3721 0.42944 0.53721 1.1452 0.80581 1.7178 1.2087-4.4375 1.343-6.1553 2.686-6.1553 2.686l1.5746 3.3575s3.1492-1.0744 3.4355-0.1343c2.8629 6.3122-9.3045 10.341-9.7339 18.131h27.484c-0.42944-7.9238-12.454-11.819-9.7339-18.131 0.42944-0.94011 3.4355 0.1343 3.4355 0.1343l1.5746-3.3575s-1.7178-1.2087-6.1553-2.686c0.57258-0.4029 1.2883-0.67151 1.7178-1.2087 1.5746-1.343 2.1472-3.4918 1.4315-5.3721-0.85888-2.4174-3.4355-3.8948-6.0121-3.8948z" fill="url(#linearGradient3604-7)" stroke="#010101" stroke-linecap="round" stroke-linejoin="round" stroke-width=".5"/>
+ <g transform="matrix(1.4047 0 0 1.3241 428.15 978.66)" fill="#dedede" stroke="#050505" stroke-width=".25867">
+  <g fill="#dedede" stroke="#050505" stroke-width=".25867">
+   <path class="st19" d="m-287-731.2c-1.8 0-3.6 1.1-4.2 2.9-0.5 1.4-0.1 3 1 4 0.3 0.4 0.8 0.6 1.2 0.9-3.1 1-6.518 2.788-6.518 2.788l1.1 2.106s4.418-0.39473 4.618 0.30527c2 4.7-6.5 6.9007-6.8 12.701h19.2c-0.3-5.9-8.7-8.0007-6.8-12.701 0.3-0.7 4.618-0.30527 4.618-0.30527l1.1-2.106s-3.418-1.688-6.518-2.788c0.4-0.3 0.9-0.5 1.2-0.9 1.1-1 1.5-2.6 1-4-0.6-1.8-2.4-2.9-4.2-2.9z" fill="#191919" stroke="#191919" stroke-linecap="round" stroke-linejoin="round" stroke-width=".73325"/>
+  </g>
+ </g>
 </svg>
