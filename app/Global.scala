@@ -47,7 +47,7 @@ object Global extends GlobalSettings {
       Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
     else super.onRouteRequest(req) map {
       case action: EssentialAction if HTTPRequest.isApiOrLocalApp(req) => EssentialAction { r =>
-        action(r) map { _.withHeaders(ResponseHeaders.headersFor(r): _*) }
+        action(r) map { _.withHeaders(ResponseHeaders.headersForApiOrLocalApp(r): _*) }
       }
       case other => other
     }

@@ -7,7 +7,7 @@ import lila.common.HTTPRequest.{ isLocalApp, localAppOrigin }
 
 object ResponseHeaders {
 
-  def headersFor(req: RequestHeader) = {
+  def headersForApiOrLocalApp(req: RequestHeader) = {
     val isApp = isLocalApp(req)
     List(
       "Access-Control-Allow-Origin" -> { if (isApp) localAppOrigin else "*" },

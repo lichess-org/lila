@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import lila.app._
 import lila.common.HTTPRequest.{ isApi, isLocalApp }
-import lila.common.ResponseHeaders.{ allowMethods, headersFor }
+import lila.common.ResponseHeaders.allowMethods
 
 object Options extends LilaController {
 
@@ -19,8 +19,7 @@ object Options extends LilaController {
           "Access-Control-Max-Age" -> "1728000"
         )
       }: _*)
-    }
-    else
+    } else
       NotFound
   }
 }
