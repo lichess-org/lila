@@ -90,8 +90,6 @@ object HTTPRequest {
 
   def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
 
-  def isHttp10(req: RequestHeader) = req.version == "HTTP/1.0"
-
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/json"
 }
