@@ -35,7 +35,9 @@ final class RemoteSocket(
     case In.ConnectUser(userId) =>
       bus.publish(lila.hub.actorApi.socket.remote.ConnectUser(userId), 'userActive)
       connectedUserIds += userId
-    case In.DisconnectUsers(userIds) => connectedUserIds --= userIds
+    case In.DisconnectUsers(userIds) => userIds foreach { userId =>
+      connectedUserIds -= userId
+    }
     case In.Watch(gameId) => watchedGameIds += gameId
     case In.Unwatch(gameId) => watchedGameIds -= gameId
     case In.NotifiedBatch(userIds) => notificationActor ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
