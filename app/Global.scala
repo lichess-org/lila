@@ -41,7 +41,12 @@ object Global extends GlobalSettings {
 
     if (req.host != Env.api.Net.Domain && HTTPRequest.isRedirectable(req) && !HTTPRequest.isProgrammatic(req))
       Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
-    else super.onRouteRequest(req)
+    else super.onRouteRequest(req) map {
+      case action: EssentialAction if HTTPRequest.isApiOrLocalhost8080(req) => EssentialAction { r =>
+        action(r) map { _.withHeaders(HTTPRequest.apiHeaders(r): _*) }
+      }
+      case other => other
+    }
   }
 
   private def niceError(req: RequestHeader): Boolean =

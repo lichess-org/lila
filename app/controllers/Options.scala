@@ -5,23 +5,28 @@ import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.app._
-import lila.common.HTTPRequest
+import lila.common.HTTPRequest.{ isApi, isLocalhost8080, localhost8080 }
 
 object Options extends LilaController {
 
   val root = all("")
 
   def all(url: String) = Action { req =>
-    if (isLocalhost(req) || isApi(req)) {
+    val isLocalhost = isLocalhost8080(req)
+    if (isLocalhost || isApi(req)) {
       val methods = getMethods(req)
       if (methods.nonEmpty) {
-        val allow = ("OPTIONS" :: methods).mkString(", ")
+        val allow = ("OPTIONS" :: methods) mkString ", "
         NoContent.withHeaders(
           List(
             "Allow" -> allow,
             "Access-Control-Allow-Methods" -> allow,
-            "Access-Control-Allow-Origin" -> { if (isLocalhost(req)) localhost else "*" },
-            "Access-Control-Allow-Headers" -> "Origin,Authorization",
+            "Access-Control-Allow-Origin" -> { if (isLocalhost) localhost8080 else "*" },
+            "Access-Control-Allow-Headers" -> {
+              List(
+                "Origin", "Authorization", "If-Modified-Since", "Cache-Control"
+              ) ::: isLocalhost.??(List("X-Requested-With", "sessionId"))
+            }.mkString(", "),
             "Access-Control-Max-Age" -> "1728000",
             "Vary" -> "Origin"
           ): _*
@@ -31,11 +36,6 @@ object Options extends LilaController {
     } else
       NotFound
   }
-
-  private val localhost = "http://localhost:8080"
-
-  private def isLocalhost(req: RequestHeader) = HTTPRequest.origin(req) has localhost
-  private def isApi(req: RequestHeader) = req.uri startsWith "/api/"
 
   private val cache: Cache[String, List[String]] = Scaffeine()
     .maximumSize(8192)
