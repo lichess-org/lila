@@ -1,6 +1,6 @@
 package lila.app
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, ResponseHeaders }
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings }
@@ -47,7 +47,7 @@ object Global extends GlobalSettings {
       Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
     else super.onRouteRequest(req) map {
       case action: EssentialAction if HTTPRequest.isApiOrLocalApp(req) => EssentialAction { r =>
-        action(r) map { _.withHeaders(HTTPRequest.apiHeaders(r): _*) }
+        action(r) map { _.withHeaders(ResponseHeaders.headersFor(r): _*) }
       }
       case other => other
     }

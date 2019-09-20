@@ -40,8 +40,6 @@ object PlayApp {
 
   def lifecycle = withApp(_.injector.instanceOf[play.api.inject.ApplicationLifecycle])
 
-  def router: Router = withApp(_.injector.instanceOf[play.api.routing.Router])
-
   lazy val isDev = isMode(_.Dev)
   lazy val isTest = isMode(_.Test)
   lazy val isProd = isMode(_.Prod) && !loadConfig.getBoolean("app.forcedev")

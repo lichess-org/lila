@@ -34,11 +34,6 @@ object HTTPRequest {
 
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
-  def apiHeaders(req: RequestHeader) = List(
-    "Access-Control-Allow-Origin" -> { if (isLocalApp(req)) localAppOrigin else "*" },
-    "Vary" -> "Origin"
-  )
-
   val isAndroid = UaMatcher("""(?i)android.+mobile""")
   val isIOS = UaMatcher("""(?i)iphone|ipad|ipod""")
   val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
