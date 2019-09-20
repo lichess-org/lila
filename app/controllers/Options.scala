@@ -25,7 +25,7 @@ object Options extends LilaController {
       NotFound
   }
 
-  private def isLocalhost(req: RequestHeader) = HTTPRequest.origin(req) == "http://localhost:8080"
+  private def isLocalhost(req: RequestHeader) = HTTPRequest.origin(req) has "http://localhost:8080"
   private def isApi(req: RequestHeader) = req.uri startsWith "/api/"
 
   private val cache: Cache[String, List[String]] = Scaffeine()
