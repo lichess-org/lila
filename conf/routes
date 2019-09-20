@@ -601,3 +601,6 @@ GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: 
 GET   /assets/*file                    controllers.Assets.at(path = "/public", file: String)
 
 GET   /robots.txt                      controllers.Main.robots
+
+OPTIONS /                              controllers.Options.root
+OPTIONS /*url                          controllers.Options.all(url: String)

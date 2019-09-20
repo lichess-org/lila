@@ -3,6 +3,7 @@ package lila.common
 import com.typesafe.config.Config
 import org.joda.time.{ DateTime, Period }
 import play.api.{ Play, Application, Mode }
+import play.api.routing.Router
 import scala.collection.JavaConversions._
 
 object PlayApp {
@@ -38,6 +39,8 @@ object PlayApp {
   )
 
   def lifecycle = withApp(_.injector.instanceOf[play.api.inject.ApplicationLifecycle])
+
+  def router: Router = withApp(_.injector.instanceOf[play.api.routing.Router])
 
   lazy val isDev = isMode(_.Dev)
   lazy val isTest = isMode(_.Test)

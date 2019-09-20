@@ -1,7 +1,6 @@
 package lila.memo
 
 import akka.actor.ActorSystem
-import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Cache, Scaffeine }
 import scala.concurrent.duration._
