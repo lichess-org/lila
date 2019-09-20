@@ -57,7 +57,8 @@ $(function() {
     $editor.find('div.status').removeClass('saved');
   });
   var submit = lichess.debounce(function() {
-    $editor.find('form.async').ajaxSubmit({
+    const $asyncForm = $editor.find('form.async');
+    if ($asyncForm.length) $asyncForm.ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');
         todo();
