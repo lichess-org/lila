@@ -1,6 +1,5 @@
 package controllers
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import play.api.mvc._
 import scala.concurrent.duration._
 
@@ -13,8 +12,10 @@ object Options extends LilaController {
 
   def all(url: String) = Action { req =>
     val isLocalhost = isLocalhost8080(req)
-    if (isLocalhost || isApi(req)) {
-      val methods = getMethods(req)
+    if (isLocalhost || isApi(req).pp) {
+      val methods = List("GET", "POST").filter { m =>
+        router.handlerFor(req.copy(method = m)).isDefined
+      }
       if (methods.nonEmpty) {
         val allow = ("OPTIONS" :: methods) mkString ", "
         NoContent.withHeaders(
@@ -37,17 +38,5 @@ object Options extends LilaController {
       NotFound
   }
 
-  private val cache: Cache[String, List[String]] = Scaffeine()
-    .maximumSize(8192)
-    .build[String, List[String]]
-
-  private val methodList = List("GET", "POST")
-
   private lazy val router = lila.common.PlayApp.router
-
-  private def getMethods(req: RequestHeader): List[String] =
-    cache.get(req.uri, uri =>
-      methodList.filter { m =>
-        router.handlerFor(req.copy(method = m)).isDefined
-      })
 }
