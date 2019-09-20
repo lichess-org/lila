@@ -15,17 +15,27 @@ object Options extends LilaController {
     if (isLocalhost(req) || isApi(req)) {
       val methods = getMethods(req)
       if (methods.nonEmpty)
-        NoContent.withHeaders((
-          List("Allow" -> ("OPTIONS" :: methods).mkString(", ")) :::
-          isLocalhost(req).??(List("Vary" -> "Origin"))
-        ): _*)
+        NoContent.withHeaders(
+          List(
+            "Vary" -> "Origin",
+            "Allow" -> ("OPTIONS" :: methods).mkString(", "),
+            "Access-Control-Allow-Origin" -> {
+              if (isLocalhost(req)) localhost
+              else "*"
+            },
+            "Access-Control-Allow-Headers" -> "Origin,Authorization",
+            "Access-Control-Max-Age" -> "1728000"
+          ): _*
+        )
       else
         NotFound
     } else
       NotFound
   }
 
-  private def isLocalhost(req: RequestHeader) = HTTPRequest.origin(req) has "http://localhost:8080"
+  private val localhost = "http://localhost:8080"
+
+  private def isLocalhost(req: RequestHeader) = HTTPRequest.origin(req) has localhost
   private def isApi(req: RequestHeader) = req.uri startsWith "/api/"
 
   private val cache: Cache[String, List[String]] = Scaffeine()
