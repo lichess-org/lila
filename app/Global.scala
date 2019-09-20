@@ -46,7 +46,7 @@ object Global extends GlobalSettings {
       !(req.host == Env.api.Net.AssetDomain && HTTPRequest.hasFileExtension(req)))
       Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
     else super.onRouteRequest(req) map {
-      case action: EssentialAction if HTTPRequest.isApiOrLocalhost8080(req) => EssentialAction { r =>
+      case action: EssentialAction if HTTPRequest.isApiOrLocalApp(req) => EssentialAction { r =>
         action(r) map { _.withHeaders(HTTPRequest.apiHeaders(r): _*) }
       }
       case other => other

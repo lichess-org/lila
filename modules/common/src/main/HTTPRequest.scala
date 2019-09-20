@@ -24,18 +24,18 @@ object HTTPRequest {
   def isProgrammatic(req: RequestHeader) =
     !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
 
-  val localhost8080 = "http://localhost:8080"
+  val localAppOrigin = "http://localhost:8080"
 
-  def isLocalhost8080(req: RequestHeader) = origin(req) has localhost8080
+  def isLocalApp(req: RequestHeader) = origin(req) has localAppOrigin
 
   def isApi(req: RequestHeader) = req.path startsWith "/api/"
 
-  def isApiOrLocalhost8080(req: RequestHeader) = isApi(req) || isLocalhost8080(req)
+  def isApiOrLocalApp(req: RequestHeader) = isApi(req) || isLocalApp(req)
 
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
   def apiHeaders(req: RequestHeader) = List(
-    "Access-Control-Allow-Origin" -> { if (isLocalhost8080(req)) localhost8080 else "*" },
+    "Access-Control-Allow-Origin" -> { if (isLocalApp(req)) localAppOrigin else "*" },
     "Vary" -> "Origin"
   )
 
