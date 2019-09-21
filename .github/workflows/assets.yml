@@ -15,7 +15,7 @@ on: [push, pull_request]
 #    - 'yarn.lock'
 
 jobs:
-  translations:
+  assets:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -24,7 +24,8 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: '10.x'
-    - run: yarn --version && yarn global add gulp-cli
+    - run: sudo apt-get install -y parallel
+    - run: yarn global add gulp-cli
     - run: ./ui/build prod
     - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
     - uses: actions/upload-artifact@v1
