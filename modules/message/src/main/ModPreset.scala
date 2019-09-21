@@ -80,6 +80,13 @@ Our cheating detection algorithms have marked your account for using computer as
 
 """, /* ---------------------------------------------------------------*/ """
 
+Warning: leaving games / stalling on time
+
+In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
+
+""", /* ---------------------------------------------------------------*/ """
+
 Streamer approval request
 
 Thank you for creating a streamer profile! However your channel is empty, and we cannot list you as a streamer until we know what kind of content you create. Please send in another request when you have been streaming for a while and we can see what your streams are about.
