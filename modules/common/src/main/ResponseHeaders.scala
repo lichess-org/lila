@@ -8,7 +8,7 @@ import lila.common.HTTPRequest.{ isLocalApp, isIonicApp, localAppOrigin, ionicAp
 object ResponseHeaders {
 
   def headersForApiOrApp(req: RequestHeader) = {
-    val isApp = isLocalApp(req)
+    val isApp = isLocalApp(req) || isIonicApp(req)
     List(
       "Access-Control-Allow-Origin" -> {
         if (isLocalApp(req)) localAppOrigin
@@ -19,9 +19,7 @@ object ResponseHeaders {
       "Access-Control-Allow-Headers" -> {
         List(
           "Origin", "Authorization", "If-Modified-Since", "Cache-Control"
-        ) ::: {
-            isLocalApp(req) || isIonicApp(req)
-          }.??(List("X-Requested-With", "sessionId", "Content-Type"))
+        ) ::: isApp.??(List("X-Requested-With", "sessionId", "Content-Type"))
       }.mkString(", "),
       "Vary" -> "Origin"
     ) ::: isApp.??(List(
