@@ -478,8 +478,8 @@
   <string name="onlyFriends">Միայն ընկերները</string>
   <string name="menu">Մենյու</string>
   <string name="castling">Փոխատեղում</string>
-  <string name="whiteCastlingKingside">Սպիտակները О-О</string>
-  <string name="blackCastlingKingside">Սեւերը О-О</string>
+  <string name="whiteCastlingKingside">Սպիտակները O-O</string>
+  <string name="blackCastlingKingside">Սեւերը O-O</string>
   <string name="watchGames">Դիտել խաղեր</string>
   <string name="watch">Դիտել</string>
   <string name="videoLibrary">Տեսագրադարան</string>
