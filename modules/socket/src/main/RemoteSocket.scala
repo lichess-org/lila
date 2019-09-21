@@ -81,8 +81,10 @@ final class RemoteSocket(
   private def tick(nbConn: Int): Unit = {
     setNb(nbConn)
     mon.connections(nbConn)
-    mon.sets.users(connectedUserIds.size)
     mon.sets.games(watchedGameIds.size)
+    val nbUsers = connectedUserIds.size
+    if (nbUsers > 0) mon.sets.users(nbUsers)
+    else if (nbUsers % 10 == 0) logger.warn(s"$nbUsers connectedUsers, first = ${connectedUserIds.take(5)}")
   }
 
   private val mon = lila.mon.socket.remote
