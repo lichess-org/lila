@@ -1,0 +1,37 @@
+name: Build server
+
+on: [push, pull_request]
+#  push:
+#    paths:
+#    - 'app/**'
+#    - 'conf/**'
+#    - 'modules/**'
+#    - 'project/**'
+#    - 'build.sbt'
+#    branches-ignore:
+#    - 'l10n_master'
+#  pull_request:
+#    paths:
+#    - 'app/**'
+#    - 'conf/**'
+#    - 'modules/**'
+#    - 'project/**'
+#    - 'build.sbt'
+#    branches-ignore:
+#    - 'l10n_master'
+
+jobs:
+  server:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - run: echo "autoformat=false" > $HOME/.scalariform.conf
+    - uses: agemooij/github-actions-sbt@4c79f7f932a9901cf2475bddfe05d60cda7642a2
+      args: test:compile test stage
+    - run: cp LICENSE COPYING.md README.md target/universal/stage/ && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
+    - uses: actions/upload-artifact@v1
+      with:
+        name: lila-server
+        path: target/universal/stage
