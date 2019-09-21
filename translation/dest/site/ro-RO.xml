@@ -94,7 +94,7 @@
   <string name="winPreventedBy50MoveRule">Victoria a fost împiedicată de regula celor 50 de mutări</string>
   <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="allSet">Gata!</string>
-  <string name="importPgn">Importare PNG</string>
+  <string name="importPgn">Importare PGN</string>
   <string name="delete">Șterge</string>
   <string name="deleteThisImportedGame">Şterge acest joc importat?</string>
   <string name="replayMode">Rejoacă joc</string>
