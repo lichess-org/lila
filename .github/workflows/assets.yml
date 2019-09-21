@@ -1,0 +1,34 @@
+name: Build assets
+
+on:
+  push:
+    paths:
+    - 'public/**'
+    - 'ui/**'
+    - 'package.json'
+    - 'yarn.lock'
+  pull_request:
+    paths:
+    - 'public/**'
+    - 'ui/**'
+    - 'package.json'
+    - 'yarn.lock'
+
+jobs:
+  translations:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - run: yarn --version && yarn global add gulp-cli
+    - run: ./ui/build prod
+    - run: git log -n 1 --pretty=oneline > commit.txt
+    - run: tar -zcf lila-assets.tar.gz public LICENSE COPYING.md README.md commit.txt
+    - uses: actions/upload-artifact@v1
+      with:
+        name: lila-assets
+        path: lila-assets.tar.gz
