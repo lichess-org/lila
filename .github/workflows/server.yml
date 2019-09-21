@@ -1,24 +1,24 @@
 name: Build server
 
-on: [push, pull_request]
-#  push:
-#    paths:
-#    - 'app/**'
-#    - 'conf/**'
-#    - 'modules/**'
-#    - 'project/**'
-#    - 'build.sbt'
-#    branches-ignore:
-#    - 'l10n_master'
-#  pull_request:
-#    paths:
-#    - 'app/**'
-#    - 'conf/**'
-#    - 'modules/**'
-#    - 'project/**'
-#    - 'build.sbt'
-#    branches-ignore:
-#    - 'l10n_master'
+on:
+  push:
+    paths:
+    - 'app/**'
+    - 'conf/**'
+    - 'modules/**'
+    - 'project/**'
+    - 'build.sbt'
+    branches-ignore:
+    - 'l10n_master'
+  pull_request:
+    paths:
+    - 'app/**'
+    - 'conf/**'
+    - 'modules/**'
+    - 'project/**'
+    - 'build.sbt'
+    branches-ignore:
+    - 'l10n_master'
 
 jobs:
   server:
