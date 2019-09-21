@@ -1,4 +1,4 @@
-name: Lint Translations
+name: Lint translations
 
 on:
   push:

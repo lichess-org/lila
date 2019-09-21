@@ -1,18 +1,18 @@
 name: Build assets
 
-on:
-  push:
-    paths:
-    - 'public/**'
-    - 'ui/**'
-    - 'package.json'
-    - 'yarn.lock'
-  pull_request:
-    paths:
-    - 'public/**'
-    - 'ui/**'
-    - 'package.json'
-    - 'yarn.lock'
+on: [push, pull_request]
+#  push:
+#    paths:
+#    - 'public/**'
+#    - 'ui/**'
+#    - 'package.json'
+#    - 'yarn.lock'
+#  pull_request:
+#    paths:
+#    - 'public/**'
+#    - 'ui/**'
+#    - 'package.json'
+#    - 'yarn.lock'
 
 jobs:
   translations:
