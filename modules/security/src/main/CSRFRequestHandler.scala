@@ -18,7 +18,7 @@ final class CSRFRequestHandler(domain: String) {
         true
       case Some("file://") =>
         true
-      case Some(o) if o == localAppOrigin =>
+      case Some(o) if o == localAppOrigin || o == ionicAppOrigin =>
         true
       case Some(o) if isSubdomain(o) =>
         true
