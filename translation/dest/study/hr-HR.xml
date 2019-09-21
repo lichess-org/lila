@@ -95,7 +95,7 @@
   <string name="startFromCustomPosition">Kreni s prilagođene pozicije</string>
   <string name="loadAGameByUrl">Učitaj igru prema URL</string>
   <string name="loadAPositionFromFen">Učitaj poziciju od FENa</string>
-  <string name="loadAGameFromPgn">Učitaj igru od PNGa</string>
+  <string name="loadAGameFromPgn">Učitaj igru od PGNa</string>
   <string name="automatic">Automatski</string>
   <plurals name="pasteYourPgnTextHereUpToNbGames">
     <item quantity="one">Ovdje zalijepite svoj PGN tekst, do %s igre</item>
