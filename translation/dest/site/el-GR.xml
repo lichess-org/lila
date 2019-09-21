@@ -634,8 +634,8 @@
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
-  <string name="whiteCastlingKingside">Λευκά Ο-Ο</string>
-  <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
+  <string name="whiteCastlingKingside">Λευκά O-O</string>
+  <string name="blackCastlingKingside">Μαύρα O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s δημοσίευση φόρουμ</item>
     <item quantity="other">%s δημοσιεύσεις φόρουμ</item>
