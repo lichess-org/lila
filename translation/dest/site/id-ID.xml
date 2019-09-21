@@ -53,7 +53,7 @@
   <string name="loadingEngine">Memuat...</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
-  <string name="showThreat">Menunjukkan ancaman</string>
+  <string name="showThreat">Tunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
   <string name="toggleLocalEvaluation">Ganti evaluasi lokal</string>
   <string name="promoteVariation">Variasi promosi</string>
@@ -74,7 +74,7 @@
   <string name="database">Basis Data</string>
   <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
   <string name="averageRatingX">Rata-rata rating: %s</string>
-  <string name="recentGames">Permainan baru-baru ini</string>
+  <string name="recentGames">Permainan terkini</string>
   <string name="topGames">Permaninan kelas atas</string>
   <string name="masterDbExplanation">Permainan OTB dua juta %1$s + FIDE dinilai pemain dari tahun %2$s untuk %3$s</string>
   <plurals name="mateInXHalfMoves">
