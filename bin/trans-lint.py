@@ -93,7 +93,7 @@ if __name__ == "__main__":
             errs, warns = lint(arg)
             errors += errs
             warnings += warns
-        print("{} error(s), {} warning(s)".format(errors, warnings), file=sys.stderr)
+        print("{} error(s), {} warning(s)".format(errors, warnings))
         if errors:
             sys.exit(1)
     else:
