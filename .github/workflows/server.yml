@@ -31,6 +31,7 @@ jobs:
     - uses: agemooij/github-actions-sbt@4c79f7f932a9901cf2475bddfe05d60cda7642a2
       env:
         sbt_version: 0.13.18
+        JAVA_OPTS: -Xms2048M -Xmx2560M
       with:
         args: test:compile test stage
     - run: cp LICENSE COPYING.md README.md target/universal/stage/ && git log -n 1 --pretty=oneline > target/universal/stage/commit.txt
