@@ -2,6 +2,7 @@ package lila.streamer
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.common.Strings
 
@@ -68,6 +69,10 @@ final class Env(
   system.lilaBus.subscribeFun('userActive, 'adjustCheater) {
     case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
+  }
+
+  system.scheduler.schedule(1 hour, 1 day) {
+    api.autoDemoteFakes
   }
 }
 
