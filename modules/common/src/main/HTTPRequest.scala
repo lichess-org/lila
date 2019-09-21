@@ -71,7 +71,7 @@ object HTTPRequest {
     ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
   }
 
-  private[this] val fileExtensionRegex = """\.(?<!^\.)[a-z0-9]{2,4}$""".r
+  private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
