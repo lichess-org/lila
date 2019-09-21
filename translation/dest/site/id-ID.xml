@@ -10,7 +10,7 @@
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
-  <string name="toggleTheChat">Ganti tampilan chat</string>
+  <string name="toggleTheChat">Ganti tampilan obrolan</string>
   <string name="toggleSound">Aktifkan/nonaktifkan suara</string>
   <string name="chat">Obrolan</string>
   <string name="resign">Menyerah</string>
@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Orang pertama yang datang ke URL ini akan bermain dengan Anda</string>
   <string name="whiteResigned">Putih menyerah</string>
   <string name="blackResigned">Hitam menyerah</string>
-  <string name="whiteLeftTheGame">Putih telah meninggalkan permainan</string>
-  <string name="blackLeftTheGame">Hitam telah meninggalkan permainan</string>
+  <string name="whiteLeftTheGame">Putih meninggalkan permainan</string>
+  <string name="blackLeftTheGame">Hitam meninggalkan permainan</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Berbagi URL ini untuk mengundang orang menonton permainan</string>
   <string name="theComputerAnalysisHasFailed">Analisa komputer gagal dilakukan</string>
   <string name="viewTheComputerAnalysis">Lihat analisa komputer</string>
