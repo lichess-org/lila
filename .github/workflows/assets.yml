@@ -26,9 +26,8 @@ jobs:
         node-version: '10.x'
     - run: yarn --version && yarn global add gulp-cli
     - run: ./ui/build prod
-    - run: git log -n 1 --pretty=oneline > commit.txt
-    - run: tar -zcf lila-assets.tar.gz public LICENSE COPYING.md README.md commit.txt
+    - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
     - uses: actions/upload-artifact@v1
       with:
         name: lila-assets
-        path: lila-assets.tar.gz
+        path: assets
