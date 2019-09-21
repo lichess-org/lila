@@ -614,8 +614,8 @@
   <string name="onlyOnInitialPosition">Hanya di posisi awal</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
-  <string name="whiteCastlingKingside">Putih 0-0</string>
-  <string name="blackCastlingKingside">Hitam 0-0</string>
+  <string name="whiteCastlingKingside">Putih O-O</string>
+  <string name="blackCastlingKingside">Hitam O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Postingan Forum</item>
   </plurals>
