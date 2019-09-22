@@ -83,7 +83,7 @@ final class RemoteSocket(
     mon.connections(nbConn)
     mon.sets.games(watchedGameIds.size)
     val nbUsers = connectedUserIds.size
-    if (nbUsers > 0) mon.sets.users(nbUsers)
+    if (nbUsers >= 0) mon.sets.users(nbUsers)
     else if (nbUsers % 10 == 0) logger.warn(s"$nbUsers connectedUsers, first = ${connectedUserIds.take(5)}")
   }
 
