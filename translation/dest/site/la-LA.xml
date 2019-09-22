@@ -541,6 +541,7 @@
   <string name="xCommentedY">%1$s %2$s annotavit</string>
   <string name="victory">Victoria!</string>
   <string name="defeat">Et cladem</string>
+  <string name="victoryVsYInZ">%1$s adversus %2$s apud %3$s</string>
   <string name="timeline">Linea temporis</string>
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
@@ -731,6 +732,12 @@
   <string name="blackWinsGame">Niger vincit</string>
   <string name="next">Posterus</string>
   <string name="youCanDoBetter">Melius agere potes</string>
+  <string name="doItAgain">Iterum</string>
+  <string name="reviewWhiteMistakes">Retractari errores album</string>
+  <string name="reviewBlackMistakes">Retractari errores occaecat</string>
   <string name="opening">Principium</string>
+  <string name="endgame">Finem ludum</string>
+  <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
+  <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
 </resources>
