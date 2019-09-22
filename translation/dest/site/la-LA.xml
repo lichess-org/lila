@@ -508,6 +508,8 @@
   <string name="soundWhenTimeGetsCritical">Sonus cum tempore maximi momenti</string>
   <string name="gameBehavior">Optiones ludi</string>
   <string name="clickTwoSquares">Clige duorum quadratorum</string>
+  <string name="dragPiece">Fragmen congrega</string>
+  <string name="bothClicksAndDrag">Tum</string>
   <string name="premovesPlayingDuringOpponentTurn">Praemotus (cum adversarius ludit)</string>
   <string name="takebacksWithOpponentApproval">Receptus (si adversarius probeat)</string>
   <string name="promoteToQueenAutomatically">Ad reginam sponte promovere</string>
@@ -515,6 +517,7 @@
   <string name="privacy">Privatus</string>
   <string name="letOtherPlayersFollowYou">Alii lusores te sequantur</string>
   <string name="letOtherPlayersChallengeYou">Alii lusores te imponant</string>
+  <string name="letOtherPlayersInviteYouToStudy">Ne aliorum ludentium ad invitare te ad studere</string>
   <string name="sound">Sonus</string>
   <string name="yourPreferencesHaveBeenSaved">Praeposititiones tuae conservatae sunt.</string>
   <string name="none">Nullus</string>
@@ -537,6 +540,7 @@
   <string name="xAnsweredY">%1$s %2$s responsavit</string>
   <string name="xCommentedY">%1$s %2$s annotavit</string>
   <string name="victory">Victoria!</string>
+  <string name="defeat">Et cladem</string>
   <string name="timeline">Linea temporis</string>
   <string name="starting">Initium:</string>
   <string name="allInformationIsPublicAndOptional">Omnes informationes publicae voluntariaeque sunt.</string>
