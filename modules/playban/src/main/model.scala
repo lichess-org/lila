@@ -15,7 +15,7 @@ case class UserRecord(
   def userId = _id
   def outcomes: List[Outcome] = ~o
   def bans: List[TempBan] = ~b
-  def sitAndDcCounter: Int = ~c
+  def rageSit: Int = ~c
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
 

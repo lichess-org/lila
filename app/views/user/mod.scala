@@ -125,11 +125,11 @@ object mod {
       )
     )
 
-  def parts(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, sitAndDcCounter: Int)(implicit ctx: Context) = frag(
+  def parts(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, rageSit: Int)(implicit ctx: Context) = frag(
     roles(u),
     prefs(u, pref),
     plan(u, charges),
-    sitDcCounter(sitAndDcCounter),
+    showRageSit(rageSit),
     modLog(u, history),
     reportLog(u, reports)
   )
@@ -153,9 +153,9 @@ object mod {
     )
   )
 
-  def sitDcCounter(sitAndDcCounter: Int)(implicit ctx: Context) = div(id := "mz_sitdccounter")(
+  def showRageSit(rageSit: Int)(implicit ctx: Context) = div(id := "mz_sitdccounter")(
     strong(cls := "text inline")("Sit/disconnect counter: "),
-    span(cls := "text inline")(sitAndDcCounter.toString),
+    span(cls := "text inline")(rageSit),
     br,
     span(cls := "text inline")("+1 for every sit/disconnect in 'winning' position, -1 for 'losing' position")
   )

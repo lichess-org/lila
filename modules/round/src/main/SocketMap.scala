@@ -21,7 +21,7 @@ private object SocketMap {
 
     val defaultGoneWeight = fuccess(1f)
     def goneWeight(userId: User.ID): Fu[Float] =
-      playban.sitAndDcCounter(userId) map { sc =>
+      playban.rageSit(userId) map { sc =>
         if (sc > -5) 1f
         else (1 - 0.7 * sqrt(log10(-sc - 3))).toFloat atLeast 0.1f
       }
