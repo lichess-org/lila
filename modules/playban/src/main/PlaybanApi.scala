@@ -54,7 +54,7 @@ final class PlaybanApi(
       case (a, _) if a <= -5 => -1
       case _ => 0
     }
-  } * (if (color == Color.White) 1 else -1)
+  } * (if (color.white) 1 else -1)
 
   def abort(pov: Pov, isOnGame: Set[Color]): Funit = IfBlameable(pov.game) {
     pov.player.userId.ifTrue(isOnGame(pov.opponent.color)) ?? { userId =>
@@ -189,12 +189,10 @@ final class PlaybanApi(
     lila.mon.playban.outcome(outcome.key)()
     coll.findAndUpdate(
       selector = $id(userId),
-      update = $doc("$push" -> $doc(
-        "o" -> $doc(
-          "$each" -> List(outcome),
-          "$slice" -> -30
-        )
-      ), "$inc" -> $doc("c" -> sitAndDcCounterChange)),
+      update = $doc(
+        $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)),
+        $inc("c" -> sitAndDcCounterChange)
+      ),
       fetchNewObject = true,
       upsert = true
     ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
