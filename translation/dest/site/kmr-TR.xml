@@ -230,6 +230,7 @@
   <string name="yourPerfRatingIsTooLow">Reyting te ya %2$s pir kêm e ji bo %1$s</string>
   <string name="ratedMoreThanInPerf">Divê puana te ≥ %1$s bibe li %2$s</string>
   <string name="ratedLessThanInPerf">Divê puana te ≤ %1$s bibe li %2$s</string>
+  <string name="mustBeInTeam">Divê di nav koma %s de bibî</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
