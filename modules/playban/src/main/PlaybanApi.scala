@@ -195,36 +195,32 @@ final class PlaybanApi(
       ),
       fetchNewObject = true,
       upsert = true
-    ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
-        case None => fufail(s"can't find record for user $userId")
-        case _ if outcome == Outcome.Good => funit
-        case Some(record) => UserRepo.createdAtById(userId) flatMap {
-          _ ?? { legiferate(record, _) }
-        }
-      } addEffect { _ =>
-        if (sitAndDcCounterChange != 0) {
-          sitAndDcCounterCache refresh userId
-          if (sitAndDcCounterChange < 0) {
-            sitAndDcCounter(userId) map { counter =>
-              if (counter == -10) {
-                for {
-                  mod <- UserRepo.lichess
-                  user <- UserRepo byId userId
-                } yield (mod zip user).headOption.?? {
-                  case (m, u) =>
-                    lila.log("stall").info(s"https://lichess.org/@/${u.username}")
-                    bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
-                    messenger.sendPreset(m, u, ModPreset.sittingAuto).void
-                }
-              } else if (counter <= -20) {
-                lila.log("stall").warn(s"Close https://lichess.org/@/${userId} ragesit=$counter")
+    ).map(_.value) map2 UserRecordBSONHandler.read flatten
+      s"can't find newly created record for user $userId" flatMap { record =>
+        (outcome != Outcome.Good) ?? {
+          UserRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _) } }
+        } >> {
+          (sitAndDcCounterChange != 0) ?? {
+            sitAndDcCounterCache.put(userId, record.sitAndDcCounter)
+            (sitAndDcCounterChange < 0) ?? {
+              if (record.sitAndDcCounter == -10) for {
+                mod <- UserRepo.lichess
+                user <- UserRepo byId userId
+              } yield (mod zip user).headOption foreach {
+                case (m, u) =>
+                  lila.log("stall").info(s"https://lichess.org/@/${u.username}")
+                  bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
+                  messenger.sendPreset(m, u, ModPreset.sittingAuto).void
+              }
+              else (record.sitAndDcCounter <= -20) ?? {
+                lila.log("stall").warn(s"Close https://lichess.org/@/${userId} ragesit=${record.sitAndDcCounter}")
                 // bus.publish(lila.hub.actorApi.playban.SitcounterClose(userId), 'playban)
+                funit
               }
             }
           }
         }
       }
-
   }.void logFailure lila.log("playban")
 
   private def legiferate(record: UserRecord, accCreatedAt: DateTime): Funit = record.bannable(accCreatedAt) ?? { ban =>
