@@ -199,7 +199,7 @@ final class PlaybanApi(
         case None => fufail(s"can't find record for user $userId")
         case _ if outcome == Outcome.Good => funit
         case Some(record) => UserRepo.createdAtById(userId) flatMap {
-          o => o map { d => legiferate(record, d) } getOrElse funit
+          _ ?? { legiferate(record, _) }
         }
       } addEffect { _ =>
         if (sitAndDcCounterChange != 0) {
