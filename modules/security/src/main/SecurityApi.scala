@@ -121,7 +121,7 @@ final class SecurityApi(
   def reqSessionId(req: RequestHeader): Option[String] =
     req.session.get(sessionIdKey) orElse
       req.headers.get(sessionIdKey) orElse {
-        req.queryString.get(sessionIdKey).flatMap(_.headOption)
+        HTTPRequest.isSocket(req) ?? req.queryString.get(sessionIdKey).flatMap(_.headOption)
       }
 
   def userIdsSharingIp = userIdsSharingField("ip") _
