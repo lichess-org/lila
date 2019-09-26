@@ -209,7 +209,7 @@
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
-  <string name="timeOut">Przekroczenie limitu czasu</string>
+  <string name="timeOut">Czas upłynął</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferDeclined">Odrzucono propozycję remisu</string>
   <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
@@ -943,8 +943,8 @@
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
   <string name="why">Dlaczego?</string>
   <string name="pleasantChessExperience">Naszym celem jest zapewnienie wszystkim przyjemności z gry.</string>
-  <string name="goodPractice">W tym celu musimy zagwarantować, że wszyscy gracze przestrzegają dobrych praktyk.</string>
-  <string name="potentialProblem">Po wykryciu potencjalnego problemu wyświetlamy ten właśnie komunikat.</string>
+  <string name="goodPractice">W tym celu musimy zapewnić przestrzeganie dobrych praktyk przez wszystkich graczy.</string>
+  <string name="potentialProblem">Ten komunikat jest wyświetlany po wykryciu potencjalnego problemu.</string>
   <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
   <string name="playEveryGame">Podejmuj grę w każdej rozpoczętej partii.</string>
   <string name="tryToWin">Staraj się wygrywać (lub przynajmniej remisować) każdą rozgrywaną partię.</string>
