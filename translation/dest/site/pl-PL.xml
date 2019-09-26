@@ -946,9 +946,9 @@
   <string name="goodPractice">W tym celu musimy zagwarantować, że wszyscy gracze przestrzegają dobrych praktyk.</string>
   <string name="potentialProblem">Po wykryciu potencjalnego problemu wyświetlamy ten właśnie komunikat.</string>
   <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
-  <string name="playEveryGame">Rozegraj każdą partię którą rozpocząłeś.</string>
-  <string name="tryToWin">Próbuj wygrać (lub przynajmniej zremisować) każdą partię którą grasz.</string>
-  <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj aż upłynie Twój czas).</string>
+  <string name="playEveryGame">Podejmuj grę w każdej rozpoczętej partii.</string>
+  <string name="tryToWin">Staraj się wygrywać (lub przynajmniej remisować) każdą rozgrywaną partię.</string>
+  <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj na upłynięcie czasu gry).</string>
   <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
   <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
   <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
