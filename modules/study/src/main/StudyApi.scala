@@ -194,7 +194,7 @@ final class StudyApi(
       case Some(chapter) =>
         chapter.root.nodeAt(position.path) ?? { parent =>
           val newPosition = position.ref + node
-          chapterRepo.setChildren(chapter, position.path, parent.children) >>
+          chapterRepo.setChildren(parent.children)(chapter, position.path) >>
             (relay ?? { chapterRepo.setRelay(chapter.id, _) }) >>
             (opts.sticky ?? studyRepo.setPosition(study.id, newPosition)) >>
             updateConceal(study, chapter, newPosition) >>- {
@@ -283,7 +283,7 @@ final class StudyApi(
   private def doForceVariation(sc: Study.WithChapter, path: Path, force: Boolean, sri: Sri): Funit =
     sc.chapter.forceVariation(force, path) match {
       case Some(newChapter) =>
-        chapterRepo.forceVariation(newChapter, path, force) >>-
+        chapterRepo.forceVariation(force)(newChapter, path) >>-
           sendTo(sc.study, StudySocket.ForceVariation(Position(newChapter, path).ref, force, sri))
       case None =>
         fufail(s"Invalid forceVariation ${Position(sc.chapter, path)} $force") >>-
@@ -339,7 +339,7 @@ final class StudyApi(
           chapter.setShapes(shapes, position.path) match {
             case Some(newChapter) =>
               studyRepo.updateNow(study)
-              chapterRepo.setShapes(newChapter, position.path, shapes) >>-
+              chapterRepo.setShapes(shapes)(newChapter, position.path) >>-
                 sendTo(study, StudySocket.SetShapes(position, shapes, sri))
             case None =>
               fufail(s"Invalid setShapes $position $shapes") >>-
@@ -355,7 +355,7 @@ final class StudyApi(
       sc.chapter.setClock(clock, position.path) match {
         case Some(newChapter) =>
           studyRepo.updateNow(sc.study)
-          chapterRepo.setClock(newChapter, position.path, clock) >>-
+          chapterRepo.setClock(clock)(newChapter, position.path) >>-
             sendTo(sc.study, StudySocket.SetClock(position, clock, sri))
         case None =>
           fufail(s"Invalid setClock $position $clock") >>-
@@ -406,7 +406,7 @@ final class StudyApi(
         studyRepo.updateNow(study)
         newChapter.root.nodeAt(position.path) ?? { node =>
           node.comments.findBy(comment.by) ?? { c =>
-            chapterRepo.setComments(newChapter, position.path, node.comments.filterEmpty) >>- {
+            chapterRepo.setComments(node.comments.filterEmpty)(newChapter, position.path) >>- {
               sendTo(study, StudySocket.SetComment(position.ref, c, sri))
               indexStudy(study)
               sendStudyEnters(study, userId)
@@ -438,7 +438,7 @@ final class StudyApi(
         case Some(newChapter) =>
           studyRepo.updateNow(study)
           newChapter.root.nodeAt(position.path) ?? { node =>
-            chapterRepo.setGlyphs(newChapter, position.path, node.glyphs) >>-
+            chapterRepo.setGlyphs(node.glyphs)(newChapter, position.path) >>-
               newChapter.root.nodeAt(position.path).foreach { node =>
                 sendTo(study, StudySocket.SetGlyphs(position, node.glyphs, sri))
               }
@@ -455,7 +455,7 @@ final class StudyApi(
       chapter.setGamebook(gamebook, position.path) match {
         case Some(newChapter) =>
           studyRepo.updateNow(study)
-          chapterRepo.setGamebook(newChapter, position.path, gamebook) >>- {
+          chapterRepo.setGamebook(gamebook)(newChapter, position.path) >>- {
             indexStudy(study)
             sendStudyEnters(study, userId)
           }
@@ -475,7 +475,7 @@ final class StudyApi(
         case Some((chapter, path)) =>
           studyRepo.updateNow(study)
           chapter.root.nodeAt(path) ?? { parent =>
-            chapterRepo.setChildren(chapter, path, parent.children) >>- {
+            chapterRepo.setChildren(parent.children)(chapter, path) >>- {
               sendStudyEnters(study, userId)
               sendTo(study, StudySocket.ReloadAll)
             }

@@ -78,31 +78,23 @@ final class ChapterRepo(coll: Coll) {
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
-  def setShapes(chapter: Chapter, path: Path, shapes: lila.tree.Node.Shapes): Funit =
-    setNodeValue(chapter, path, "h", shapes.value.nonEmpty option shapes)
+  def setShapes(shapes: lila.tree.Node.Shapes) = setNodeValue("h", shapes.value.nonEmpty option shapes) _
 
-  def setComments(chapter: Chapter, path: Path, comments: lila.tree.Node.Comments): Funit =
-    setNodeValue(chapter, path, "co", comments.value.nonEmpty option comments)
+  def setComments(comments: lila.tree.Node.Comments) = setNodeValue("co", comments.value.nonEmpty option comments) _
 
-  def setGamebook(chapter: Chapter, path: Path, gamebook: lila.tree.Node.Gamebook): Funit =
-    setNodeValue(chapter, path, "ga", gamebook.nonEmpty option gamebook)
+  def setGamebook(gamebook: lila.tree.Node.Gamebook) = setNodeValue("ga", gamebook.nonEmpty option gamebook) _
 
-  def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
-    setNodeValue(chapter, path, "g", glyphs.nonEmpty)
+  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue("g", glyphs.nonEmpty) _
 
-  def setClock(chapter: Chapter, path: Path, clock: Option[chess.Centis]): Funit =
-    setNodeValue(chapter, path, "l", clock)
+  def setClock(clock: Option[chess.Centis]) = setNodeValue("l", clock) _
 
-  def forceVariation(chapter: Chapter, path: Path, force: Boolean): Funit =
-    setNodeValue(chapter, path, "fv", force option true)
+  def forceVariation(force: Boolean) = setNodeValue("fv", force option true) _
 
-  def setScore(chapter: Chapter, path: Path, score: Option[lila.tree.Eval.Score]): Funit =
-    setNodeValue(chapter, path, "e", score)
+  def setScore(score: Option[lila.tree.Eval.Score]) = setNodeValue("e", score) _
 
-  def setChildren(chapter: Chapter, path: Path, children: Node.Children): Funit =
-    setNodeValue(chapter, path, "n", children.some)
+  def setChildren(children: Node.Children) = setNodeValue("n", children.some) _
 
-  private def setNodeValue[A: BSONValueWriter](chapter: Chapter, path: Path, field: String, value: Option[A]): Funit =
+  private def setNodeValue[A: BSONValueWriter](field: String, value: Option[A])(chapter: Chapter, path: Path): Funit =
     pathToField(chapter, path, field) match {
       case None =>
         logger.warn(s"Can't setNodeValue ${chapter.id} $path $field")
