@@ -1,7 +1,6 @@
 package lila.round
 
 import scala.concurrent.duration._
-import scala.math.{ log10, sqrt }
 
 import lila.game.Game
 import lila.hub.actorApi.Deploy
@@ -20,11 +19,7 @@ private object SocketMap {
     import dependencies._
 
     val defaultGoneWeight = fuccess(1f)
-    def goneWeight(userId: User.ID): Fu[Float] =
-      playban.rageSit(userId) map { sc =>
-        if (sc > -5) 1f
-        else (1 - 0.7 * sqrt(log10(-sc - 3))).toFloat atLeast 0.1f
-      }
+    def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
     def goneWeights(game: Game): Fu[(Float, Float)] =
       game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
         game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)

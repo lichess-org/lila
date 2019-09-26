@@ -91,7 +91,7 @@ case class Hook(
       lame = user.??(_.lame),
       blocking = lila.pool.PoolMember.BlockedUsers(user.??(_.blocking)),
       since = createdAt,
-      ragesitCounter = 0
+      rageSitCounter = 0
     )
   )
 

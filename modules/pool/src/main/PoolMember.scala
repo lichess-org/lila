@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import lila.rating.RatingRange
 import lila.user.User
+import lila.playban.RageSit
 
 case class PoolMember(
     userId: User.ID,
@@ -13,7 +14,7 @@ case class PoolMember(
     lame: Boolean,
     blocking: PoolMember.BlockedUsers,
     since: DateTime,
-    ragesitCounter: Int,
+    rageSitCounter: Int,
     misses: Int = 0 // how many waves they missed
 ) {
 
@@ -34,7 +35,7 @@ object PoolMember {
 
   case class BlockedUsers(ids: Set[User.ID]) extends AnyVal
 
-  def apply(joiner: PoolApi.Joiner, config: PoolConfig, ragesitCounter: Int): PoolMember =
+  def apply(joiner: PoolApi.Joiner, config: PoolConfig, rageSit: RageSit): PoolMember =
     PoolMember(
       userId = joiner.userId,
       sri = joiner.sri,
@@ -43,6 +44,6 @@ object PoolMember {
       ratingRange = joiner.ratingRange,
       blocking = BlockedUsers(joiner.blocking),
       since = DateTime.now,
-      ragesitCounter = ragesitCounter
+      rageSitCounter = rageSit.counter / 10
     )
 }

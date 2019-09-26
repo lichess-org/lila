@@ -31,10 +31,10 @@ private final class PoolActor(
 
   def receive = {
 
-    case Join(joiner, ragesitCounter) =>
+    case Join(joiner, rageSit) =>
       members.find(joiner.is) match {
         case None =>
-          members = members :+ PoolMember(joiner, config, ragesitCounter)
+          members = members :+ PoolMember(joiner, config, rageSit)
           if (members.size >= config.wave.players.value) self ! FullWave
           monitor.join.count(monId)()
         case Some(member) if member.ratingRange != joiner.ratingRange =>
@@ -109,7 +109,7 @@ private final class PoolActor(
 
 private object PoolActor {
 
-  case class Join(joiner: PoolApi.Joiner, ragesitCounter: Int)
+  case class Join(joiner: PoolApi.Joiner, rageSit: lila.playban.RageSit)
   case class Leave(userId: User.ID) extends AnyVal
 
   case object ScheduledWave
