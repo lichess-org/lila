@@ -650,9 +650,9 @@
   <string name="xCommentedY">%1$s skomentował %2$s</string>
   <string name="victory">Wygrana</string>
   <string name="defeat">Przegrana</string>
-  <string name="victoryVsYInZ">%1$s - %2$s w %3$s</string>
-  <string name="defeatVsYInZ">%1$s - %2$s w %3$s</string>
-  <string name="drawVsYInZ">%1$s - %2$s w %3$s</string>
+  <string name="victoryVsYInZ">%1$s przeciwko %2$s (%3$s)</string>
+  <string name="defeatVsYInZ">%1$s przeciwko %2$s (%3$s)</string>
+  <string name="drawVsYInZ">%1$s przeciwko %2$s (%3$s)</string>
   <string name="timeline">Historia</string>
   <string name="starting">Rozpoczęcie:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>
@@ -924,7 +924,7 @@
   <string name="registerToSendChallenges">Zarejestruj się aby móc wysyłać wyzwania.</string>
   <string name="youCannotChallengeX">Nie możesz wyzwać %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nie przyjmuje wyzwań.</string>
-  <string name="yourXRatingIsTooFarFromY">Twój ranking (%1$s) jest zbyt odległy od %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">Zbyt duża różnica rankingów (%1$s) między tobą a %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nie można rzucić wyzwania ze względu na tymczasowy ranking (%s).</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
@@ -955,7 +955,7 @@
   <string name="lifetimeScore">Wynik wszystkich partii</string>
   <string name="currentMatchScore">Wynik bieżącego meczu</string>
   <string name="agreementAssistance">Zgadzam się nie korzystać z pomocy podczas gry (programów komputerowych, książek, baz danych lub innych osób).</string>
-  <string name="agreementNice">Zgadzam się być zawsze miły dla innych graczy.</string>
+  <string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
   <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
 </resources>
