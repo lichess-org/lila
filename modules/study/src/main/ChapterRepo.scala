@@ -134,7 +134,7 @@ final class ChapterRepo(coll: Coll) {
     coll.find(
       $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "_id" -> true, "name" -> true)
-    ).sort($sort asc "order").list[Bdoc]().map { docs =>
+    ).sort($sort asc "order").list[Bdoc](nbChaptersPerStudy * studyIds.size).map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
           case (hash, doc) =>
             doc.getAs[Study.Id]("studyId").fold(hash) { studyId =>
