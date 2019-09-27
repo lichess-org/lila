@@ -1,1 +1,19 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.5 11.63V6M20 8h5" stroke-linejoin="miter"/><path d="M22.5 25s4.5-7.5 3-10.5c0 0-1-2.5-3-2.5s-3 2.5-3 2.5c-1.5 3 3 10.5 3 10.5" fill="#fff" stroke-linecap="butt" stroke-linejoin="miter"/><path d="M11.5 37c5.5 3.5 15.5 3.5 21 0v-7s9-4.5 6-10.5c-4-6.5-13.5-3.5-16 4V27v-3.5c-3.5-7.5-13-10.5-16-4-3 6 5 10 5 10V37z" fill="#fff"/><path d="M11.5 30c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0m-21 3.5c5.5-3 15.5-3 21 0"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="matrix(.9892 0 0 .98996 -3202.7 1907.3)" stroke="#000" stroke-width="1.4147">
+  <path d="m3262.9-1914.1v-6.7563m-2.926 2.4001h5.852" fill="none" stroke-linecap="round"/>
+  <path d="m3262.9-1898.5s5.2668-9.0004 3.5113-12.6c0 0-1.1705-3.0001-3.5113-3.0001s-3.5111 3.0001-3.5111 3.0001c-1.7557 3.6001 3.5111 12.6 3.5111 12.6" fill="#fff" fill-rule="evenodd"/>
+  <path d="m3250-1885v-9.0003s-9.3632-4.8001-5.8521-12c3.5112-7.8004 14.63-4.2002 18.727 4.8001 4.0965-9.0002 15.215-12.6 18.726-4.8001 3.5112 7.2001-5.8521 12-5.8521 12v9.0003c-3.3571 2.1905-8.1465 3.2386-12.874 3.1443-4.728 0.094-9.5174-0.9539-12.874-3.1443z" fill="#fff" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m3250-1894c6.4372-3.6001 19.312-3.6001 25.749 0m-25.749 4.8002c6.4372-3.6001 19.312-3.6002 25.75-1e-4m-25.75 4.2002c6.4372-3.6 19.312-3.6 25.749 0" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="m3262.9-1901.2v4.8001" fill="none"/>
+ </g>
+</svg>

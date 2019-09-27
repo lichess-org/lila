@@ -1,1 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"><g fill="none" fill-rule="evenodd" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10c10.5 1 16.5 8 16 29H15c0-9 10-6.5 8-21" fill="#000"/><path d="M24 18c.38 2.91-5.55 7.37-8 9-3 2-2.82 4.34-5 4-1.042-.94 1.41-3.04 0-3-1 0 .19 1.23-1 2-1 0-4.003 1-4-4 0-2 6-12 6-12s1.89-1.9 2-3.5c-.73-.994-.5-2-.5-3 1-1 3 2.5 3 2.5h2s.78-1.992 2.5-3c1 0 1 3 1 3" fill="#000"/><path d="M9.5 25.5a.5.5 0 1 1-1 0 .5.5 0 1 1 1 0zm5.433-9.75a.5 1.5 30 1 1-.866-.5.5 1.5 30 1 1 .866.5z" fill="#ececec" stroke="#ececec"/><path d="M24.55 10.4l-.45 1.45.5.15c3.15 1 5.65 2.49 7.9 6.75S35.75 29.06 35.25 39l-.05.5h2.25l.05-.5c.5-10.06-.88-16.85-3.25-21.34-2.37-4.49-5.79-6.64-9.19-7.16l-.51-.1z" fill="#ececec" stroke="none"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="matrix(.98974 0 0 .98975 -3205 1805.1)" stroke-width="1.4145">
+  <g>
+   <g fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.4145">
+    <path d="m3263.4-1814.3c12.785 1.2187 20.091 9.7499 19.482 35.343h-28.006c0-10.969 12.176-7.9217 9.7412-25.593" stroke="#000"/>
+    <path d="m3265.9-1804.6c0.4627 3.5465-6.758 8.9821-9.7412 10.969-3.653 2.4375-3.4338 5.2893-6.0883 4.8749-1.2687-1.1456 1.0634-3.6399 1.0634-3.6399l-2.281 2.4212c-1.2177 0-4.8743 1.2187-4.8706-4.8749 0-2.4375 7.3059-14.625 7.3059-14.625l2.4353-4.2656s-0.6088-2.4374-0.6088-3.6562c1.2176-1.2187 3.6529 3.0469 3.6529 3.0469h2.4353s0.9498-2.4278 3.0441-3.6562c1.2177 0 1.2177 3.6562 1.2177 3.6562" stroke="#000"/>
+    <path d="m3254.8-1807.3a0.60896 1.8277 29.972 1 1-1.0545-0.6094 0.60896 1.8277 29.972 1 1 1.0545 0.6094z" fill="#fff" stroke="#fff"/>
+   </g>
+   <ellipse transform="matrix(.60293 -.79779 .88497 .46564 0 0)" cx="3143.1" cy="1527.6" rx="1.5399" ry=".63181" fill="#fff" style="paint-order:markers fill stroke"/>
+  </g>
+  <path d="m3265.4-1812.4c1.6437 0.371 16.232-0.1281 14.794 31.832" fill="none" stroke="#fff" stroke-linecap="round" stroke-width="1.4145"/>
+ </g>
+</svg>
