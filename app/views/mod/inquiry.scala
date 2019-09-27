@@ -9,6 +9,20 @@ import controllers.routes
 
 object inquiry {
 
+  // simul game study relay tournament
+  private val commFlagRegex = """^\[FLAG\] (\w+)/(\w{8}) (.+)$""".r
+
+  def renderAtomText(atom: lila.report.Report.Atom) = richText(atom.simplifiedText match {
+    case commFlagRegex(resType, resId, text) =>
+      val path = resType match {
+        case "game" => routes.Round.watcher(resId, "white")
+        case "relay" => routes.Relay.show("-", resId)
+        case "simul" | "study" | "tournament" => s"$resType/$resId"
+      }
+      s"$netBaseUrl/$path $text"
+    case other => other
+  })
+
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
 
     def renderReport(r: lila.report.Report) =
@@ -21,7 +35,7 @@ object inquiry {
               " for ", strong(r.reason.name),
               " ", momentFromNow(atom.at)
             ),
-            p(richText(atom.simplifiedText))
+            p(renderAtomText(atom))
           )
         }
       )
