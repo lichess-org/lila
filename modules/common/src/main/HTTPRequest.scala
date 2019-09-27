@@ -24,15 +24,17 @@ object HTTPRequest {
   def isProgrammatic(req: RequestHeader) =
     !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
 
-  val localAppOrigin = "http://localhost:8080"
-  val ionicAppOrigin = "ionic://localhost"
+  private val appOrigins = Set(
+    "ionic://localhost", // ios
+    "http://localhost", // android
+    "http://localhost:8080",
+    "file://"
+  )
 
-  def isLocalApp(req: RequestHeader) = origin(req) has localAppOrigin
-  def isIonicApp(req: RequestHeader) = origin(req) has ionicAppOrigin
+  def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
 
   def isApi(req: RequestHeader) = req.path startsWith "/api/"
-
-  def isApiOrApp(req: RequestHeader) = isApi(req) || isLocalApp(req) || isIonicApp(req)
+  def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
