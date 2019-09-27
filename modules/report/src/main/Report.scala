@@ -55,9 +55,7 @@ case class Report(
 
   def unprocessedCheat = open && isCheat
   def unprocessedOther = open && isOther
-  def unprocessedTroll = open && isTroll
-  def unprocessedInsult = open && isInsult
-  def unprocessedAboutComm = open && isAboutComm
+  def unprocessedComm = open && isComm
 
   def process(by: User) = copy(
     open = false,
@@ -66,7 +64,7 @@ case class Report(
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
-  def isRecentComm = room == Room.Coms && open
+  def isRecentComm = room == Room.Comm && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
   def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
@@ -126,8 +124,9 @@ object Report {
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
     def isAutomatic = reporter.id == ReporterId.lichess
-    def isAutoComm = isAutomatic && isAboutComm
+    def isAutoComm = isAutomatic && isComm
     def isCoachReview = isOther && text.contains("COACH REVIEW")
+    def isCommFlag = text contains Reason.Comm.flagText
   }
 
   object Candidate {

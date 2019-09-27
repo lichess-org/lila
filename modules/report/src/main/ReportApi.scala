@@ -47,8 +47,8 @@ final class ReportApi(
   def commFlag(reporter: Reporter, suspect: Suspect, resource: String, text: String) = create(Candidate(
     reporter,
     suspect,
-    Reason.CommFlag,
-    s"[FLAG] $resource ${text take 140}"
+    Reason.Comm,
+    s"${Reason.Comm.flagText} $resource ${text take 140}"
   ))
 
   private def monitorOpen = {
@@ -61,7 +61,7 @@ final class ReportApi(
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
-      (candidate.isAboutComm && candidate.suspect.user.troll)
+      (candidate.isComm && candidate.suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
@@ -193,7 +193,7 @@ final class ReportApi(
         Candidate(
           reporter = reporter,
           suspect = suspect,
-          reason = Reason.Insult,
+          reason = Reason.Comm,
           text = text
         ),
         score => if (major) Report.Score(score.value atLeast scoreThreshold()) else score

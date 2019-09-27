@@ -76,7 +76,7 @@ final class ModApi(
         lilaBus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), 'shadowban)
       }
     } >>
-      reportApi.process(mod, sus, Set(Room.Coms)) >>- {
+      reportApi.process(mod, sus, Set(Room.Comm)) >>- {
         if (value) notifier.reporters(mod, sus)
       } inject sus
   }

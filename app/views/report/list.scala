@@ -61,7 +61,7 @@ object list {
             ),
             tbody(
               reports.map {
-                case WithSuspect(r, sus, _) if !r.isAboutComm || isGranted(_.Shadowban) =>
+                case WithSuspect(r, sus, _) if !r.isComm || isGranted(_.Shadowban) =>
                   tr(cls := List("new" -> r.open))(
                     td(
                       reportScore(r.score),
