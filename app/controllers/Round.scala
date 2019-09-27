@@ -165,6 +165,8 @@ object Round extends LilaController with TheftPrevention {
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
     playablePovForReq(pov.game) match {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
+      case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
+        Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
       case _ => Game.preloadUsers(pov.game) >> negotiate(
         html = {
           if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
