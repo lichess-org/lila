@@ -14,6 +14,7 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
+    slackApi: lila.slack.SlackApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
     scoreThreshold: () => Int
@@ -28,13 +29,15 @@ final class ReportApi(
     (!c.reporter.user.reportban && !isAlreadySlain(c)) ?? {
       scorer(c) map (_ withScore score) flatMap {
         case scored @ Candidate.Scored(candidate, _) =>
-          coll.find($doc(
+          coll.uno[Report]($doc(
             "user" -> candidate.suspect.user.id,
             "reason" -> candidate.reason,
             "open" -> true
-          )).one[Report].flatMap { existing =>
-            val report = Report.make(scored, existing)
+          )).flatMap { prev =>
+            val report = Report.make(scored, prev)
             lila.mon.mod.report.create(report.reason.key)()
+            if (report.isRecentComm && report.score.value >= 80 && prev.exists(_.score.value < 80))
+              slackApi.commReportBurst(c.suspect.user)
             coll.update($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate)
           } >>- monitorOpen

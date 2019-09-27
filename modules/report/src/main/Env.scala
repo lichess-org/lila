@@ -12,6 +12,7 @@ final class Env(
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
+    slackApi: lila.slack.SlackApi,
     system: ActorSystem,
     hub: lila.hub.Env,
     settingStore: lila.memo.SettingStore.Builder,
@@ -43,6 +44,7 @@ final class Env(
     securityApi,
     userSpyApi,
     playbanApi,
+    slackApi,
     isOnline,
     asyncCache,
     scoreThreshold = scoreThresholdSetting.get
@@ -81,6 +83,7 @@ object Env {
     securityApi = lila.security.Env.current.api,
     userSpyApi = lila.security.Env.current.userSpyApi,
     playbanApi = lila.playban.Env.current.api,
+    slackApi = lila.slack.Env.current.api,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     settingStore = lila.memo.Env.current.settingStore,
