@@ -5,12 +5,12 @@ import scala.concurrent.duration._
 
 import chess.variant._
 import chess.{ Status, Color }
+import lila.common.Iso
 import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.message.{ MessageApi, ModPreset }
 import lila.user.{ User, UserRepo }
-import lila.common.Iso
 
 import org.joda.time.DateTime
 
@@ -133,10 +133,11 @@ final class PlaybanApi(
       }
     }
 
-  private def goodOrSandbag(game: Game, color: Color, isSandbag: Boolean): Funit =
-    game.player(color).userId ?? { userId =>
-      if (isSandbag) feedback.sandbag(Pov(game, color))
-      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, 0)
+  private def goodOrSandbag(game: Game, loserColor: Color, isSandbag: Boolean): Funit =
+    game.player(loserColor).userId ?? { userId =>
+      if (isSandbag) feedback.sandbag(Pov(game, loserColor))
+      val rageSitDelta = if (isSandbag) 0 else 2 // proper defeat decays ragesit
+      save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, rageSitDelta)
     }
 
   // memorize users without any ban to save DB reads
