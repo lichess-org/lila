@@ -231,6 +231,8 @@
   <string name="ratedMoreThanInPerf">Divê puana te ≥ %1$s bibe li %2$s</string>
   <string name="ratedLessThanInPerf">Divê puana te ≤ %1$s bibe li %2$s</string>
   <string name="mustBeInTeam">Divê di nav koma %s de bibî</string>
+  <string name="youAreNotInTeam">Tu ne di koma %s de yî</string>
+  <string name="backToGame">Vegere lîstikê</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
