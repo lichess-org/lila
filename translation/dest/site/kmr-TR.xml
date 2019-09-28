@@ -233,6 +233,8 @@
   <string name="mustBeInTeam">Divê di nav koma %s de bibî</string>
   <string name="youAreNotInTeam">Tu ne di koma %s de yî</string>
   <string name="backToGame">Vegere lîstikê</string>
+  <string name="siteDescription">Malpera kişikê yê serhêl û belaş. Kişikê li ser navrûyeke zelal bilîze. Qeydbûn ne hewce ye, reklam tine, pêvekek lazim tine. Kişikê bi kombersê, bi hevaleke xwe re an bi dijbereke ketober bilîze.</string>
+  <string name="teams">Kom</string>
   <plurals name="nbMembers">
     <item quantity="one">endam%s</item>
     <item quantity="other">endam %s</item>
