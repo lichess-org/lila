@@ -615,6 +615,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Dificil</string>
   <string name="xLeftANoteOnY">%1$s a lăsat un mesaj pentru %2$s</string>
+  <string name="xCompetesInY">%1$s concurează în %2$s</string>
   <string name="xAskedY">%1$s a întrebat %2$s</string>
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>
