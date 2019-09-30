@@ -251,6 +251,8 @@
   <string name="teamLeader">Serokê komê</string>
   <string name="teamBestPlayers">Lîzerên çêtirîn</string>
   <string name="teamRecentMembers">Endamên dawîn</string>
+  <string name="xJoinedTeamY">%1$s tevlî koma %2$s bû</string>
+  <string name="xCreatedTeamY">%1$s koma %2$s çêkir</string>
   <plurals name="nbFollowing">
     <item quantity="one">dişopîne %s</item>
     <item quantity="other">dişopîne %s</item>
