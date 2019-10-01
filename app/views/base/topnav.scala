@@ -53,10 +53,8 @@ object topnav {
       linkTitle(routes.User.list.toString, trans.community()),
       div(role := "group")(
         a(href := routes.User.list)(trans.players()),
-        NotForKids(frag(
-          a(href := routes.Team.home())(trans.teams()),
-          a(href := routes.ForumCateg.index)(trans.forum())
-        ))
+        a(href := routes.Team.home())(trans.teams()),
+        NotForKids(a(href := routes.ForumCateg.index)(trans.forum()))
       )
     ),
     st.section(

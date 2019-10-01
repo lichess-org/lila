@@ -18,31 +18,23 @@ object Team extends LilaController {
   private lazy val teamInfo = Env.current.teamInfo
 
   def all(page: Int) = Open { implicit ctx =>
-    NotForKids {
-      paginator popularTeams page map { html.team.list.all(_) }
-    }
+    paginator popularTeams page map { html.team.list.all(_) }
   }
 
   def home(page: Int) = Open { implicit ctx =>
-    NotForKids {
-      ctx.me.??(api.hasTeams) map {
-        case true => Redirect(routes.Team.mine)
-        case false => Redirect(routes.Team.all(page))
-      }
+    ctx.me.??(api.hasTeams) map {
+      case true => Redirect(routes.Team.mine)
+      case false => Redirect(routes.Team.all(page))
     }
   }
 
   def show(id: String, page: Int) = Open { implicit ctx =>
-    NotForKids {
-      OptionFuOk(api team id) { renderTeam(_, page) }
-    }
+    OptionFuOk(api team id) { renderTeam(_, page) }
   }
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    NotForKids {
-      if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
-      else Env.teamSearch(text, page) map { html.team.list.search(text, _) }
-    }
+    if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
+    else Env.teamSearch(text, page) map { html.team.list.search(text, _) }
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
@@ -139,11 +131,9 @@ object Team extends LilaController {
   }
 
   def form = Auth { implicit ctx => me =>
-    NotForKids {
-      OnePerWeek(me) {
-        forms.anyCaptcha map { captcha =>
-          Ok(html.team.form.create(forms.create, captcha))
-        }
+    OnePerWeek(me) {
+      forms.anyCaptcha map { captcha =>
+        Ok(html.team.form.create(forms.create, captcha))
       }
     }
   }
