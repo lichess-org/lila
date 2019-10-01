@@ -30,6 +30,12 @@ final class Env(
     text = "Report score threshold. Reports with lower scores are concealed to moderators".some
   )
 
+  val slackScoreThresholdSetting = settingStore[Int](
+    "slackScoreThreshold",
+    default = 80,
+    text = "Slack score threshold. Comm reports with higher scores are notified in slack".some
+  )
+
   lazy val forms = new DataForm(hub.captcher, NetDomain)
 
   private lazy val autoAnalysis = new AutoAnalysis(
@@ -47,7 +53,8 @@ final class Env(
     slackApi,
     isOnline,
     asyncCache,
-    scoreThreshold = scoreThresholdSetting.get
+    scoreThreshold = scoreThresholdSetting.get,
+    slackScoreThreshold = slackScoreThresholdSetting.get
   )
 
   lazy val modFilters = new ModReportFilter

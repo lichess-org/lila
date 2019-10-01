@@ -17,7 +17,8 @@ final class ReportApi(
     slackApi: lila.slack.SlackApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scoreThreshold: () => Int
+    scoreThreshold: () => Int,
+    slackScoreThreshold: () => Int
 ) {
 
   import BSONHandlers._
@@ -36,8 +37,9 @@ final class ReportApi(
           )).flatMap { prev =>
             val report = Report.make(scored, prev)
             lila.mon.mod.report.create(report.reason.key)()
-            if (report.isRecentComm && report.score.value >= 80 && prev.exists(_.score.value < 80))
-              slackApi.commReportBurst(c.suspect.user)
+            if (report.isRecentComm &&
+              report.score.value >= slackScoreThreshold() &&
+              prev.exists(_.score.value < slackScoreThreshold())) slackApi.commReportBurst(c.suspect.user)
             coll.update($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate)
           } >>- monitorOpen
