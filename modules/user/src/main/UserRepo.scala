@@ -299,31 +299,26 @@ object UserRepo {
         }
     }
 
-  private def setWatchList(id: ID): Funit =
-    coll.fetchUpdate[User]($id(id)) { u =>
-      $setBoolOrUnset(F.watchList, u.watchList)
-    }
-
   def toggleEngine(id: ID): Funit =
     coll.fetchUpdate[User]($id(id)) { u =>
       $set(F.engine -> !u.engine)
-    } >> setWatchList(id)
+    }
 
-  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v) >> setWatchList(id)
+  def setEngine(id: ID, v: Boolean): Funit = coll.updateField($id(id), "engine", v).void
 
-  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v) >> setWatchList(id)
+  def setBooster(id: ID, v: Boolean): Funit = coll.updateField($id(id), "booster", v).void
 
-  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v) >> setWatchList(id)
+  def setReportban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "reportban", v).void
 
-  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v) >> setWatchList(id)
+  def setRankban(id: ID, v: Boolean): Funit = coll.updateField($id(id), "rankban", v).void
 
-  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v) >> setWatchList(id)
+  def setIpBan(id: ID, v: Boolean) = coll.updateField($id(id), "ipBan", v).void
 
-  def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), "kid", v)
+  def setKid(user: User, v: Boolean) = coll.updateField($id(user.id), "kid", v).void
 
   def isKid(id: ID) = coll.exists($id(id) ++ $doc("kid" -> true))
 
-  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll) >> setWatchList(user.id)
+  def updateTroll(user: User) = coll.updateField($id(user.id), "troll", user.troll).void
 
   def isEngine(id: ID): Fu[Boolean] = coll.exists($id(id) ++ engineSelect(true))
 
