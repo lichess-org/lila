@@ -257,6 +257,9 @@
   <string name="location">Cih</string>
   <string name="settings">Sazkarî</string>
   <string name="filterGames">Lîstikan biparzîne</string>
+  <string name="reset">Nûsaz bike</string>
+  <string name="apply">Bisepîne</string>
+  <string name="leaderboard">Texteya skoran</string>
   <plurals name="nbFollowing">
     <item quantity="one">dişopîne %s</item>
     <item quantity="other">dişopîne %s</item>
