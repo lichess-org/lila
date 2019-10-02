@@ -10,9 +10,11 @@
   <string name="whatAreStudies">ما هي الدراسات؟</string>
   <string name="allStudies">كل الدراسات</string>
   <string name="studiesCreatedByX">الدراسات التي أنشئها٪ s</string>
+  <string name="noneYet">لا يوجد.</string>
   <string name="dateAddedNewest">تاريخ الإضافة (الأحدث)</string>
   <string name="dateAddedOldest">تاريخ الإضافة (الأقدم)</string>
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
+  <string name="mostPopular">الاكثر شعبية</string>
   <string name="addNewChapter">أضف فصلاً جديدا</string>
   <string name="addMembers">إضافة أعضاء</string>
   <string name="inviteToTheStudy">دعوة الى دراسة</string>
@@ -36,6 +38,7 @@
   <string name="makeSureTheChapterIsComplete">كن متأكداً ان الفصل مكتمل، يمكنك طلب تحليل الحاسوب مره واحده فحسب</string>
   <string name="allSyncMembersRemainOnTheSamePosition">يظل جميع ألاعضاء الذين تمت مزامنة معلوماتهم في نفس الترتيب</string>
   <string name="shareChanges">شارك التغيبرات مع المشاهدين وإحفظهن الى الخادم</string>
+  <string name="playing">يلعب الان</string>
   <string name="first">الأولى</string>
   <string name="previous">السابق</string>
   <string name="next">التالي</string>
