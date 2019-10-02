@@ -183,7 +183,7 @@ object User extends LilaController {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGames.cost(page)
       for {
-        pag <- GameFilterMenu.paginatorOf(
+        pagFromDb <- GameFilterMenu.paginatorOf(
           userGameSearch = userGameSearch,
           user = u,
           nbs = none,
@@ -191,6 +191,7 @@ object User extends LilaController {
           me = ctx.me,
           page = page
         )(ctx.body)
+        pag <- pagFromDb.mapFutureResults(Env.round.proxy.updateIfPresent)
         _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
         _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       } yield pag
