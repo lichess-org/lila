@@ -265,6 +265,7 @@
   <string name="fromPosition">Ji pozisyonekê</string>
   <string name="continueFromHere">Ji vir bidomîne</string>
   <string name="importGame">Lîstikê têxe</string>
+  <string name="importGameExplanation">PGNeke lîstikê pê ve bizeliqîne da ku tekrareke gerbar, analîza kombersê, gotûbêja lîstikê û URLyeke parvekirinbar werbigirî.</string>
   <plurals name="nbFollowing">
     <item quantity="one">dişopîne %s</item>
     <item quantity="other">dişopîne %s</item>
