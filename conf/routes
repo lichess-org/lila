@@ -213,6 +213,7 @@ GET   /whats-next/$fullId<\w{12}>                controllers.Round.whatsNext(ful
 GET   /tournament                             controllers.Tournament.home(page: Int ?= 1)
 GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
+GET   /tournament/new-team-battle             controllers.Tournament.formTeamBattle(teamId: String)
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/calendar                    controllers.Tournament.calendar
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)

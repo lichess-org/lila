@@ -6,14 +6,14 @@ import play.api.data.{ Field, Form }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.User
 import lila.tournament.{ Condition, DataForm }
+import lila.user.User
 
 import controllers.routes
 
 object form {
 
-  def apply(form: Form[_], config: DataForm, me: User, teams: lila.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = views.html.base.layout(
+  def apply(form: Form[_], config: DataForm, me: User, teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = views.html.base.layout(
     title = trans.newTournament.txt(),
     moreCss = cssTag("tournament.form"),
     moreJs = frag(
@@ -62,12 +62,14 @@ object form {
               a(cls := "show")(trans.showAdvancedSettings())
             ),
             div(cls := "form")(
-              form3.group(form("password"), trans.password(), help = raw("Make the tournament private, and restrict access with a password").some)(form3.input(_)),
+              form("teamBattle")("teams").value.isEmpty option
+                form3.group(form("password"), trans.password(), help = raw("Make the tournament private, and restrict access with a password").some)(form3.input(_)),
               condition(form, auto = true, teams = teams),
               input(tpe := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
               form3.group(form("startDate"), raw("Custom start date"), help = raw("""This overrides the "Time before tournament starts" setting""").some)(form3.flatpickr(_))
             )
           ),
+          form3.hidden(form("teamBattle")("teams")),
           form3.actions(
             a(href := routes.Tournament.home())(trans.cancel()),
             form3.submit(trans.createANewTournament(), icon = "g".some)
@@ -81,7 +83,7 @@ object form {
     if (auto) form3.hidden(field) else visible(field)
   )
 
-  def condition(form: Form[_], auto: Boolean, teams: lila.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = frag(
+  def condition(form: Form[_], auto: Boolean, teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = frag(
     form3.split(
       form3.group(form("conditions.nbRatedGame.nb"), raw("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices)),
       autoField(auto, form("conditions.nbRatedGame.perf")) { field =>
@@ -107,7 +109,9 @@ object form {
       form3.checkbox(form("berserkable"), raw("Allow Berserk"), help = raw("Let players halve their clock time to gain an extra point").some, half = true)
     ),
     (auto && teams.size > 0) ?? {
-      form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
+      form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(
+        form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
+      )
     }
   )
 

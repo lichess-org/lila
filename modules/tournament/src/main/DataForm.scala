@@ -8,7 +8,7 @@ import play.api.data.validation.Constraints
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
-import lila.common.Form.ISODateTime._
+import lila.hub.lightTeam._
 import lila.user.User
 
 final class DataForm {
@@ -16,7 +16,7 @@ final class DataForm {
   import DataForm._
   import UTCDate._
 
-  def apply(user: User) = create fill TournamentSetup(
+  def apply(user: User, teamBattleId: Option[TeamId] = None) = create fill TournamentSetup(
     name = canPickName(user) option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
@@ -29,6 +29,7 @@ final class DataForm {
     mode = none,
     rated = true.some,
     conditions = Condition.DataForm.AllSetup.default,
+    teamBattle = teamBattleId map TeamBattle.DataForm.Setup.apply,
     berserkable = true.some
   )
 
@@ -54,6 +55,7 @@ final class DataForm {
     "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
     "conditions" -> Condition.DataForm.all,
+    "teamBattle" -> optional(TeamBattle.DataForm.form),
     "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -119,6 +121,7 @@ private[tournament] case class TournamentSetup(
     rated: Option[Boolean],
     password: Option[String],
     conditions: Condition.DataForm.AllSetup,
+    teamBattle: Option[TeamBattle.DataForm.Setup],
     berserkable: Option[Boolean]
 ) {
 

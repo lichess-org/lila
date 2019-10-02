@@ -24,6 +24,8 @@ case class Team(
   def disabled = !enabled
 
   def isCreator(user: String) = user == createdBy
+
+  def light = lila.hub.lightTeam.LightTeam(_id, name)
 }
 
 object Team {

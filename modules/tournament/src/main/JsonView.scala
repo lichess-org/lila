@@ -38,7 +38,7 @@ final class JsonView(
     tour: Tournament,
     page: Option[Int],
     me: Option[User],
-    getUserTeamIds: User => Fu[TeamIdList],
+    getUserTeamIds: User => Fu[List[TeamId]],
     playerInfoExt: Option[PlayerInfoExt],
     socketVersion: Option[SocketVersion],
     partial: Boolean,

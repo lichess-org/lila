@@ -98,7 +98,7 @@ object Condition {
 
   case class TeamMember(teamId: TeamId, teamName: TeamName) extends Condition {
     def name(lang: Lang) = I18nKeys.mustBeInTeam.literalTxtTo(lang, List(teamName))
-    def apply(user: User, getUserTeamIds: User => Fu[TeamIdList]) =
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamId]]) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
         else Refused { lang => I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName)) }
@@ -119,7 +119,7 @@ object Condition {
 
     def ifNonEmpty = list.nonEmpty option this
 
-    def withVerdicts(getMaxRating: GetMaxRating)(user: User, getUserTeamIds: User => Fu[TeamIdList]): Fu[All.WithVerdicts] =
+    def withVerdicts(getMaxRating: GetMaxRating)(user: User, getUserTeamIds: User => Fu[List[TeamId]]): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond => fuccess(c withVerdict c(user))
@@ -153,11 +153,11 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User, getUserTeamIds: User => Fu[TeamIdList]): Fu[All.WithVerdicts] = {
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamId]]): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
-    def canEnter(user: User, getUserTeamIds: User => Fu[TeamIdList])(tour: Tournament): Fu[Boolean] =
+    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamId]])(tour: Tournament): Fu[Boolean] =
       apply(tour.conditions, user, getUserTeamIds).map(_.accepted)
   }
 

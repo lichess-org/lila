@@ -21,6 +21,7 @@ case class Tournament(
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
+    teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,

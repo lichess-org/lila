@@ -3,6 +3,7 @@ package controllers
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, MaxPerSecond }
+import lila.hub.lightTeam._
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lila.user.{ User => UserModel }
@@ -229,4 +230,7 @@ object Team extends LilaController {
   private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (ctx.me.??(me => team.isCreator(me.id) || isGranted(_.ManageTeam))) a
     else renderTeam(team) map { Forbidden(_) }
+
+  private[controllers] def teamsIBelongTo(me: lila.user.User): Fu[List[LightTeam]] =
+    api mine me map { _.map(_.light) }
 }

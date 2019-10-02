@@ -197,9 +197,12 @@ final class TeamApi(
     cached.teamIds(userId) map (_ contains teamId)
 
   def owns(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    TeamRepo ownerOf teamId map (Some(userId) ==)
+    TeamRepo ownerOf teamId map (_ has userId)
 
   def teamName(teamId: Team.ID): Option[String] = cached.name(teamId)
+
+  def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
+    coll.team.distinct[Team.ID, Set]("_id", Some("_id" $in ids))
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 

@@ -18,6 +18,8 @@ object Tournament extends LilaController {
   private def env = Env.tournament
   private def repo = TournamentRepo
 
+  import Team.teamsIBelongTo
+
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = Env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
@@ -172,8 +174,18 @@ object Tournament extends LilaController {
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
-      teamsIBelongTo(me) flatMap { teams =>
-        Ok(html.tournament.form(env.forms(me), env.forms, me, teams)).fuccess
+      teamsIBelongTo(me) map { teams =>
+        Ok(html.tournament.form(env.forms(me), env.forms, me, teams))
+      }
+    }
+  }
+
+  def formTeamBattle(teamId: String) = Auth { implicit ctx => me =>
+    NoLameOrBot {
+      Env.team.api.owns(teamId, me.id) map {
+        _ ?? {
+          Ok(html.tournament.form(env.forms(me, teamId.some), env.forms, me, Nil))
+        }
       }
     }
   }
@@ -210,9 +222,15 @@ object Tournament extends LilaController {
                 setup.password.isDefined) 1 else 4
               CreateLimitPerUser(me.id, cost = cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
-                  env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-                    fuccess(Redirect(routes.Tournament.show(tour.id)))
-                  }
+                  env.api.createTournament(
+                    setup,
+                    me,
+                    teams,
+                    getUserTeamIds,
+                    Env.team.api.filterExistingIds
+                  ) flatMap { tour =>
+                      fuccess(Redirect(routes.Tournament.show(tour.id)))
+                    }
                 }(rateLimited)
               }(rateLimited)
             }
@@ -232,7 +250,7 @@ object Tournament extends LilaController {
     env.forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
-        env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
+        env.api.createTournament(setup, me, teams, getUserTeamIds, Env.team.api.filterExistingIds) flatMap { tour =>
           Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lila.i18n.defaultLang)
         }
       } map { Ok(_) }
@@ -294,8 +312,6 @@ object Tournament extends LilaController {
     expireAfter = _.ExpireAfterWrite(15.seconds)
   )
 
-  private def getUserTeamIds(user: lila.user.User): Fu[TeamIdList] =
+  private def getUserTeamIds(user: lila.user.User): Fu[List[TeamId]] =
     Env.team.cached.teamIdsList(user.id)
-  private def teamsIBelongTo(me: lila.user.User): Fu[TeamIdsWithNames] =
-    Env.team.api.mine(me) map { _.map(t => t._id -> t.name) }
 }

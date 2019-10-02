@@ -16,6 +16,8 @@ object Simul extends LilaController {
   private def env = Env.simul
   private def forms = lila.simul.SimulForm
 
+  import Team.teamsIBelongTo
+
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
   val home = Open { implicit ctx =>
@@ -154,7 +156,4 @@ object Simul extends LilaController {
       case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
-
-  private def teamsIBelongTo(me: lila.user.User): Fu[TeamIdsWithNames] =
-    Env.team.api.mine(me) map { _.map(t => t._id -> t.name) }
 }

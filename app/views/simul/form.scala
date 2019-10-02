@@ -11,7 +11,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[lila.simul.SimulForm.Setup], teams: lila.hub.lightTeam.TeamIdsWithNames)(implicit ctx: Context) = {
+  def apply(form: Form[lila.simul.SimulForm.Setup], teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = {
 
     import lila.simul.SimulForm._
 
@@ -42,7 +42,9 @@ object form {
               form3.group(form("color"), raw("Host color for each game"), half = true)(form3.select(_, colorChoices))
             ),
             (teams.size > 0) ?? {
-              form3.group(form("team"), raw("Only members of team"), half = false)(form3.select(_, List(("", "No Restriction")) ::: teams))
+              form3.group(form("team"), raw("Only members of team"), half = false)(
+                form3.select(_, List(("", "No Restriction")) ::: teams.map(_.pair))
+              )
             },
             form3.group(form("text"), raw("Simul description"), help = frag("Anything you want to tell the participants?").some)(form3.textarea(_)(rows := 10)),
             form3.actions(

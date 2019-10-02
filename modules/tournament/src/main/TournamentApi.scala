@@ -46,8 +46,14 @@ final class TournamentApi(
 
   private val bus = system.lilaBus
 
-  def createTournament(setup: TournamentSetup, me: User, myTeams: List[(String, String)], getUserTeamIds: User => Fu[TeamIdList]): Fu[Tournament] = {
-    val tour = Tournament.make(
+  def createTournament(
+    setup: TournamentSetup,
+    me: User,
+    myTeams: List[LightTeam],
+    getUserTeamIds: User => Fu[List[TeamId]],
+    filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
+  ): Fu[Tournament] = {
+    Tournament.make(
       by = Right(me),
       name = DataForm.canPickName(me) ?? setup.name,
       clock = setup.clockConfig,
@@ -62,9 +68,16 @@ final class TournamentApi(
       berserkable = setup.berserkable | true
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
-          tour.copy(conditions = setup.conditions.convert(perfType, myTeams toMap))
+          tour.copy(conditions = setup.conditions.convert(perfType, myTeams.map(_.pair)(collection.breakOut)))
+        }
+      } |> { tour =>
+        setup.teamBattle.fold(fuccess(tour)) { battle =>
+          filterExistingTeamIds(battle.potentialTeamIds) map { teamIds =>
+            tour.copy(teamBattle = teamIds.nonEmpty option TeamBattle(teamIds))
+          }
         }
       }
+  } flatMap { tour =>
     if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
       bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), 'slack)
     logger.info(s"Create $tour")
@@ -191,7 +204,7 @@ final class TournamentApi(
     }
   }
 
-  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[TeamIdList]): Fu[Condition.All.WithVerdicts] = me match {
+  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[List[TeamId]]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
     case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
@@ -200,7 +213,7 @@ final class TournamentApi(
     tourId: Tournament.ID,
     me: User,
     p: Option[String],
-    getUserTeamIds: User => Fu[TeamIdList],
+    getUserTeamIds: User => Fu[List[TeamId]],
     promise: Option[Promise[Boolean]]
   ): Unit = Sequencing(tourId)(TournamentRepo.enterableById) { tour =>
     if (tour.password == p) {
@@ -226,7 +239,7 @@ final class TournamentApi(
   def joinWithResult(
     tourId: Tournament.ID,
     me: User, p: Option[String],
-    getUserTeamIds: User => Fu[TeamIdList]
+    getUserTeamIds: User => Fu[List[TeamId]]
   ): Fu[Boolean] = {
     val promise = Promise[Boolean]
     join(tourId, me, p, getUserTeamIds, promise.some)
