@@ -39,6 +39,8 @@ object BSONHandlers {
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
+  implicit val battleBSONHandler = Macros.handler[TeamBattle]
+
   private implicit val leaderboardRatio = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
     def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)
     def write(x: LeaderboardApi.Ratio) = BSONInteger((x.value * 100000).toInt)
@@ -66,6 +68,7 @@ object BSONHandlers {
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
         password = r.strO("password"),
         conditions = conditions,
+        teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         schedule = for {
           doc <- r.getO[Bdoc]("schedule")
@@ -93,6 +96,7 @@ object BSONHandlers {
       "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
       "password" -> o.password,
       "conditions" -> o.conditions.ifNonEmpty,
+      "teamBattle" -> o.teamBattle,
       "noBerserk" -> w.boolO(o.noBerserk),
       "schedule" -> o.schedule.map { s =>
         $doc(

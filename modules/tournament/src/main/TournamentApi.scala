@@ -50,10 +50,9 @@ final class TournamentApi(
     setup: TournamentSetup,
     me: User,
     myTeams: List[LightTeam],
-    getUserTeamIds: User => Fu[List[TeamId]],
-    filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
+    getUserTeamIds: User => Fu[List[TeamId]]
   ): Fu[Tournament] = {
-    Tournament.make(
+    val tour = Tournament.make(
       by = Right(me),
       name = DataForm.canPickName(me) ?? setup.name,
       clock = setup.clockConfig,
@@ -65,19 +64,15 @@ final class TournamentApi(
       system = System.Arena,
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
-      berserkable = setup.berserkable | true
+      berserkable = setup.berserkable | true,
+      teamBattle = setup.teamBattle.map { tb =>
+        TeamBattle(tb.potentialTeamIds)
+      }
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams.map(_.pair)(collection.breakOut)))
         }
-      } |> { tour =>
-        setup.teamBattle.fold(fuccess(tour)) { battle =>
-          filterExistingTeamIds(battle.potentialTeamIds) map { teamIds =>
-            tour.copy(teamBattle = teamIds.nonEmpty option TeamBattle(teamIds))
-          }
-        }
       }
-  } flatMap { tour =>
     if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
       bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), 'slack)
     logger.info(s"Create $tour")
@@ -88,6 +83,15 @@ final class TournamentApi(
     logger.info(s"Create $tournament")
     TournamentRepo.insert(tournament).void
   }
+
+  def teamBattleUpdate(
+    tour: Tournament,
+    data: TeamBattle.DataForm.Setup,
+    filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
+  ): Funit =
+    filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
+      TournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds))
+    }
 
   private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long): Unit = {
     Sequencing(oldTour.id)(TournamentRepo.startedById) { tour =>

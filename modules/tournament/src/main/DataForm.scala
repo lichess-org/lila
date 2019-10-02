@@ -55,7 +55,7 @@ final class DataForm {
     "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
     "conditions" -> Condition.DataForm.all,
-    "teamBattle" -> optional(TeamBattle.DataForm.form),
+    "teamBattle" -> optional(TeamBattle.DataForm.fields),
     "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)

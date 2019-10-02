@@ -30,7 +30,7 @@ object side {
                 if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initial) ?? s"$separator ${trans.thematic.txt()}",
+            (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
@@ -40,7 +40,9 @@ object side {
           isGranted(_.TerminateTournament) option
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
               submitButton(dataIcon := "j", cls := "fbt fbt-red confirm", title := "Terminates the tournament immediately")
-            )
+            ),
+          ctx.userId.has(tour.createdBy) && tour.teamBattle.isDefined option
+            a(href := routes.Tournament.teamBattleEdit(tour.id))("Update team list")
         )
       ),
       tour.spotlight map { s =>

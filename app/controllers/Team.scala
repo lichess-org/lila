@@ -1,5 +1,8 @@
 package controllers
 
+import play.api.libs.json._
+import play.api.mvc._
+
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, MaxPerSecond }
@@ -8,8 +11,6 @@ import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lila.user.{ User => UserModel }
 import views._
-
-import play.api.mvc._
 
 object Team extends LilaController {
 
@@ -220,6 +221,25 @@ object Team extends LilaController {
       _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
     }
   )
+
+  def autocomplete = Action.async { req =>
+    get("term", req).filter(_.nonEmpty) match {
+      case None => BadRequest("No search term provided").fuccess
+      case Some(term) => for {
+        teams <- api.autocomplete(term, 10)
+        _ <- Env.user.lightUserApi preloadMany teams.map(_.createdBy)
+      } yield Ok {
+        JsArray(teams map { team =>
+          Json.obj(
+            "id" -> team.id,
+            "name" -> team.name,
+            "owner" -> Env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
+            "members" -> team.nbMembers
+          )
+        })
+      } as JSON
+    }
+  }
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>

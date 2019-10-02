@@ -9,6 +9,8 @@ import lila.common.paginator.Paginator
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.game.Game
+import lila.user.User
 
 object TournamentRepo {
 
@@ -112,27 +114,22 @@ object TournamentRepo {
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  def setStatus(tourId: String, status: Status) = coll.update(
-    $id(tourId),
-    $set("status" -> status.id)
-  ).void
+  def setStatus(tourId: Tournament.ID, status: Status) =
+    coll.update($id(tourId), $set("status" -> status.id)).void
 
-  def setNbPlayers(tourId: String, nb: Int) = coll.update(
-    $id(tourId),
-    $set("nbPlayers" -> nb)
-  ).void
+  def setNbPlayers(tourId: Tournament.ID, nb: Int) =
+    coll.update($id(tourId), $set("nbPlayers" -> nb)).void
 
-  def setWinnerId(tourId: String, userId: String) = coll.update(
-    $id(tourId),
-    $set("winner" -> userId)
-  ).void
+  def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
+    coll.update($id(tourId), $set("winner" -> userId)).void
 
-  def setFeaturedGameId(tourId: String, gameId: String) = coll.update(
-    $id(tourId),
-    $set("featured" -> gameId)
-  ).void
+  def setFeaturedGameId(tourId: Tournament.ID, gameId: Game.ID) =
+    coll.update($id(tourId), $set("featured" -> gameId)).void
 
-  def featuredGameId(tourId: String) = coll.primitiveOne[String]($id(tourId), "featured")
+  def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
+    coll.update($id(tourId), $set("teamBattle" -> battle)).void
+
+  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
 
   private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++
     $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))

@@ -30,7 +30,7 @@ object bits {
           td(cls := "name")(
             a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(tour.name)
           ),
-          tour.schedule.fold(td()) { s => td(momentFromNow(s.at)) },
+          tour.schedule.fold(td) { s => td(momentFromNow(s.at)) },
           td(tour.durationString),
           td(dataIcon := "r", cls := "text")(tour.nbPlayers)
         )

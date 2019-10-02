@@ -180,7 +180,7 @@ object Tournament extends LilaController {
     }
   }
 
-  def formTeamBattle(teamId: String) = Auth { implicit ctx => me =>
+  def teamBattleForm(teamId: String) = Auth { implicit ctx => me =>
     NoLameOrBot {
       Env.team.api.owns(teamId, me.id) map {
         _ ?? {
@@ -222,15 +222,10 @@ object Tournament extends LilaController {
                 setup.password.isDefined) 1 else 4
               CreateLimitPerUser(me.id, cost = cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
-                  env.api.createTournament(
-                    setup,
-                    me,
-                    teams,
-                    getUserTeamIds,
-                    Env.team.api.filterExistingIds
-                  ) flatMap { tour =>
-                      fuccess(Redirect(routes.Tournament.show(tour.id)))
-                    }
+                  env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
+                    if (tour.teamBattle.isDefined) Redirect(routes.Tournament.teamBattleEdit(tour.id))
+                    else Redirect(routes.Tournament.show(tour.id))
+                  }
                 }(rateLimited)
               }(rateLimited)
             }
@@ -250,11 +245,45 @@ object Tournament extends LilaController {
     env.forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
-        env.api.createTournament(setup, me, teams, getUserTeamIds, Env.team.api.filterExistingIds) flatMap { tour =>
+        env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
           Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lila.i18n.defaultLang)
         }
       } map { Ok(_) }
     )
+
+  def teamBattleEdit(id: String) = Auth { implicit ctx => me =>
+    repo byId id flatMap {
+      _ ?? {
+        case tour if tour.createdBy == me.id =>
+          tour.teamBattle ?? { battle =>
+            lila.team.TeamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
+              Env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
+                val form = lila.tournament.TeamBattle.DataForm.edit(teams.map { t =>
+                  s"""${t.id} "${t.name}" by ${Env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
+                })
+                Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
+              }
+            }
+          }
+        case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
+      }
+    }
+  }
+
+  def teamBattleUpdate(id: String) = AuthBody { implicit ctx => me =>
+    repo byId id flatMap {
+      _ ?? {
+        case tour if tour.createdBy == me.id && !tour.isFinished =>
+          implicit val req = ctx.body
+          lila.tournament.TeamBattle.DataForm.edit(Nil).bindFromRequest.fold(
+            err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
+            res => env.api.teamBattleUpdate(tour, res, Env.team.api.filterExistingIds) inject
+              Redirect(routes.Tournament.show(tour.id))
+          )
+        case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
+      }
+    }
+  }
 
   def limitedInvitation = Auth { implicit ctx => me =>
     for {

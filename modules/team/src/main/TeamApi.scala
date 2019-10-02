@@ -204,6 +204,12 @@ final class TeamApi(
   def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
     coll.team.distinct[Team.ID, Set]("_id", Some("_id" $in ids))
 
+  def autocomplete(term: String, max: Int): Fu[List[Team]] =
+    coll.team.find($doc(
+      "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
+      "enabled" -> true
+    )).sort($sort desc "nbMembers").list[Team](max, ReadPreference.secondaryPreferred)
+
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 
   def recomputeNbMembers =

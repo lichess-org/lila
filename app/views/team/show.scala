@@ -67,7 +67,7 @@ object show {
                   ),
                 (info.createdByMe || isGranted(_.Admin)) option frag(
                   a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(trans.settings()),
-                  a(href := routes.Tournament.formTeamBattle(t.id), cls := "button button-empty text", dataIcon := "g")("Team Battle")
+                  a(href := routes.Tournament.teamBattleForm(t.id), cls := "button button-empty text", dataIcon := "g")("Team Battle")
                 )
               ),
               NotForKids {
