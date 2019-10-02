@@ -58,6 +58,9 @@ final class Paginator[A] private[paginator] (
 
   def mapResults[B](f: A => B): Paginator[B] =
     withCurrentPageResults(currentPageResults map f)
+
+  def mapFutureResults[B](f: A => Fu[B]): Fu[Paginator[B]] =
+    currentPageResults.map(f).sequenceFu map withCurrentPageResults
 }
 
 object Paginator {
