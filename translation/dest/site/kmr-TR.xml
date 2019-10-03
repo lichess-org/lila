@@ -310,8 +310,10 @@
   <string name="winner">Yê biserketî</string>
   <string name="standing">Rêz</string>
   <string name="createANewTournament">Pêşbirkeke nû çêbike</string>
-  <string name="tournamentCalendar">Salnameya Pêşbirkan</string>
+  <string name="tournamentCalendar">Teqwîma pêşbirkan</string>
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
+  <string name="advancedSettings">Sazkariyên pêşketî</string>
+  <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
