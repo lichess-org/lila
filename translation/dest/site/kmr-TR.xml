@@ -272,6 +272,10 @@
   </plurals>
   <string name="thisIsAChessCaptcha">Ev CAPTCHAyeke kişikê ye.</string>
   <string name="clickOnTheBoardToMakeYourMove">Bitikîne ser textê ji bo kirina hemleyê, û birastîne ku tu însan î.</string>
+  <string name="captcha.fail">Ji kerema xwe pêşî captcha-yê çareser bike.</string>
+  <string name="notACheckmate">Ne şahmatek e</string>
+  <string name="whiteCheckmatesInOneMove">Ya spî bi hemleyekê şahmat dike</string>
+  <string name="blackCheckmatesInOneMove">Ya reş bi hemleyekê şahmat dike</string>
   <plurals name="nbFollowing">
     <item quantity="one">dişopîne %s</item>
     <item quantity="other">dişopîne %s</item>
