@@ -17,7 +17,8 @@
 .tour__standing team {
   @extend %box-radius;
   @include metal;
-  padding: 2px 5px;
+  padding: 1px 5px;
   font-size: .8em;
   border: 1px solid $c-brag;
+  color: c-clearer($c-brag);
 }

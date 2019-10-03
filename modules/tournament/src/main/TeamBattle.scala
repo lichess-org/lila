@@ -13,6 +13,10 @@ case class TeamBattle(
 
 object TeamBattle {
 
+  case class RankedTeamId(rank: Int, teamId: TeamId, magicScore: Int) {
+    def score: Int = magicScore / 10000
+  }
+
   object DataForm {
     import play.api.data.Forms._
     import lila.common.Form._

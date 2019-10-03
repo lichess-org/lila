@@ -236,7 +236,12 @@ final class TournamentApi(
                 case None if tour.isTeamBattle => fuccess(false)
                 case None => proceedWithTeam(none)
                 case Some(team) => tour.teamBattle match {
-                  case Some(battle) if battle.teams contains team => proceedWithTeam(team.some)
+                  case Some(battle) if battle.teams contains team =>
+                    getUserTeamIds(me) flatMap { myTeams =>
+                      if (myTeams has team) proceedWithTeam(team.some)
+                      else proceedWithTeam(team.some) // listress
+                      // else fuccess(false)
+                    }
                   case _ => fuccess(false)
                 }
               }

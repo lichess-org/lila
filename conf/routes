@@ -215,8 +215,8 @@ GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
 GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId: String)
-GET   /tournament/team-battle/edit            controllers.Tournament.teamBattleEdit(id: String)
-POST  /tournament/team-battle/edit            controllers.Tournament.teamBattleUpdate(id: String)
+GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id: String)
+POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id: String)
 GET   /tournament/calendar                    controllers.Tournament.calendar
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
 GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
