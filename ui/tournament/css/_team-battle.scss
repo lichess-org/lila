@@ -13,3 +13,11 @@
     margin-top: 1rem;
   }
 }
+
+.tour__standing team {
+  @extend %box-radius;
+  @include metal;
+  padding: 2px 5px;
+  font-size: .8em;
+  border: 1px solid $c-brag;
+}

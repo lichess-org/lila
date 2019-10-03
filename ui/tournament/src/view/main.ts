@@ -47,6 +47,7 @@ function joinWithTeamSelector(ctrl: TournamentController) {
     ctrl.joinWithTeamSelector = false;
     ctrl.redraw();
   };
+  const tb = ctrl.data.teamBattle!;
   return h('div#modal-overlay', {
     hook: bind('click', onClose)
   }, [
@@ -62,9 +63,9 @@ function joinWithTeamSelector(ctrl: TournamentController) {
       h('div', [
         h('h2', "Pick your team"),
         h('p', "Which team will you represent in this battle?"),
-        ...ctrl.data.teamBattle!.joinWithTeams.map(t => h('a.button', {
-          hook: bind('click', () => ctrl.join(undefined, t.id), ctrl.redraw)
-        }, t.name))
+        ...tb.joinWith.map(id => h('a.button', {
+          hook: bind('click', () => ctrl.join(undefined, id), ctrl.redraw)
+        }, tb.teams[id]))
       ])
     ])
   ]);

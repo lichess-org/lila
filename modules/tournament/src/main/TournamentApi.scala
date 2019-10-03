@@ -227,7 +227,7 @@ final class TournamentApi(
           _.accepted ?? {
             pause.canJoin(me.id, tour) ?? {
               def proceedWithTeam(team: Option[String]) =
-                PlayerRepo.join(tour.id, me, tour.perfLens) >> updateNbPlayers(tour.id) >>- {
+                PlayerRepo.join(tour.id, me, tour.perfLens, team) >> updateNbPlayers(tour.id) >>- {
                   withdrawOtherTournaments(tour.id, me.id)
                   socketReload(tour.id)
                   publish()

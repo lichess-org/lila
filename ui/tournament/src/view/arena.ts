@@ -15,6 +15,7 @@ function scoreTag(s) {
 function playerTr(ctrl: TournamentController, player) {
   const userId = player.name.toLowerCase(),
     nbScores = player.sheet.scores.length;
+  const tb = ctrl.data.teamBattle;
   return h('tr', {
     key: userId,
     class: {
@@ -31,7 +32,10 @@ function playerTr(ctrl: TournamentController, player) {
         'title': ctrl.trans.noarg('pause')
       }
     }) : player.rank),
-    h('td.player', renderPlayer(player, false, true, userId === ctrl.data.defender)),
+    h('td.player', [
+      renderPlayer(player, false, true, userId === ctrl.data.defender),
+      ...(tb && player.team ? [h('br'), h('team', tb.teams[player.team])] : [])
+    ]),
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
       h('strong',
