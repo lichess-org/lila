@@ -27,7 +27,7 @@ object show {
       embedJsUnsafe(s"""lichess=lichess||{};lichess.tournament=${
         safeJsonValue(Json.obj(
           "data" -> data,
-          "i18n" -> bits.jsI18n(),
+          "i18n" -> bits.jsI18n,
           "userId" -> ctx.userId,
           "chat" -> chatOption.map { c =>
             chat.json(
@@ -41,7 +41,10 @@ object show {
         ))
       }""")
     ),
-    moreCss = cssTag("tournament.show"),
+    moreCss = cssTag {
+      if (tour.isTeamBattle) "tournament.show.team-battle"
+      else "tournament.show"
+    },
     chessground = false,
     openGraph = lila.app.ui.OpenGraph(
       title = s"${tour.fullName}: ${tour.variant.name} ${tour.clock.show} ${tour.mode.name} #${tour.id}",
@@ -52,17 +55,15 @@ object show {
           s"${usernameOrId(winnerId)} takes the prize home!"
         }
     ).some
-  )(frag(
-      main(cls := s"tour${
-        tour.schedule.?? { sched =>
-          s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
-        }
-      }")(
-        st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)),
-        div(cls := "tour__main")(div(cls := "box")),
-        tour.isCreated option div(cls := "tour__faq")(
-          faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
-        )
+  )(main(cls := s"tour${
+      tour.schedule.?? { sched =>
+        s" tour-sched tour-sched-${sched.freq.name} tour-speed-${sched.speed.name} tour-variant-${sched.variant.key} tour-id-${tour.id}"
+      }
+    }")(
+      st.aside(cls := "tour__side")(tournament.side(tour, verdicts, streamers, shieldOwner, chatOption.isDefined)),
+      div(cls := "tour__main")(div(cls := "box")),
+      tour.isCreated option div(cls := "tour__faq")(
+        faq(tour.mode.rated.some, tour.system.some, tour.isPrivate.option(tour.id))
       )
     ))
 }

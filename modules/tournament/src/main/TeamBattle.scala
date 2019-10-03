@@ -8,7 +8,7 @@ import lila.hub.lightTeam._
 case class TeamBattle(
     teams: Set[TeamId]
 ) {
-  def sortedTeamIds = teams.toList.sorted
+  lazy val sortedTeamIds = teams.toList.sorted
 }
 
 object TeamBattle {

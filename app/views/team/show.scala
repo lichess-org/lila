@@ -70,6 +70,14 @@ object show {
                   a(href := routes.Tournament.teamBattleForm(t.id), cls := "button button-empty text", dataIcon := "g")("Team Battle")
                 )
               ),
+              info.teamBattles.nonEmpty option frag(
+                st.section(cls := "team-show__tour")(
+                  h2(dataIcon := "g", cls := "text")(
+                    trans.tournaments()
+                  ),
+                  views.html.tournament.teamBattle.list(info.teamBattles)
+                )
+              ),
               NotForKids {
                 st.section(cls := "team-show__forum")(
                   h2(dataIcon := "d", cls := "text")(

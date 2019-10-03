@@ -37,7 +37,7 @@ object bits {
       }
     )
 
-  def jsI18n()(implicit ctx: Context) = i18nJsObject(translations)
+  def jsI18n(implicit ctx: Context) = i18nJsObject(translations)
 
   private val translations = List(
     trans.standing,

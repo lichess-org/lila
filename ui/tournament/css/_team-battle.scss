@@ -1,0 +1,8 @@
+.team-battle {
+  &__title {}
+  &__list {
+    & a {
+      display: block;
+    }
+  }
+}

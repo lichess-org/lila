@@ -31,4 +31,32 @@ object teamBattle {
         )
       )
     ))
+
+  def list(tours: List[Tournament])(implicit ctx: Context) =
+    tbody(cls := "team-battles")(
+      tours.map { t =>
+        tr(
+          td(cls := "icon")(iconTag(tournamentIconChar(t))),
+          td(cls := "header")(
+            a(href := routes.Tournament.show(t.id))(
+              span(cls := "name")(t.fullName),
+              span(cls := "setup")(
+                t.clock.show,
+                " • ",
+                if (t.variant.exotic) t.variant.name else t.perfType.map(_.name),
+                !t.position.initial option frag(" • ", trans.thematic()),
+                " • ",
+                t.mode.fold(trans.casualTournament, trans.ratedTournament)()
+              )
+            )
+          ),
+          td(cls := "duration")(t.durationString),
+          td(cls := "winner")(
+            userIdLink(t.winnerId, withOnline = false),
+            br
+          ),
+          td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+        )
+      }
+    )
 }

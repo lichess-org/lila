@@ -4,6 +4,7 @@ package html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.tournament.{ Tournament, TournamentShield, TeamBattle }
 
 import controllers.routes
 
@@ -12,10 +13,10 @@ object side {
   private val separator = " • "
 
   def apply(
-    tour: lila.tournament.Tournament,
+    tour: Tournament,
     verdicts: lila.tournament.Condition.All.WithVerdicts,
     streamers: Set[lila.user.User.ID],
-    shieldOwner: Option[lila.tournament.TournamentShield.OwnerId],
+    shieldOwner: Option[TournamentShield.OwnerId],
     chat: Boolean
   )(implicit ctx: Context) = frag(
     div(cls := "tour__meta")(
@@ -40,11 +41,10 @@ object side {
           isGranted(_.TerminateTournament) option
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
               submitButton(dataIcon := "j", cls := "fbt fbt-red confirm", title := "Terminates the tournament immediately")
-            ),
-          ctx.userId.has(tour.createdBy) && tour.teamBattle.isDefined option
-            a(href := routes.Tournament.teamBattleEdit(tour.id))("Update team list")
+            )
         )
       ),
+      tour.teamBattle map teamBattle(tour),
       tour.spotlight map { s =>
         st.section(
           lila.common.String.html.markdownLinks(s.description),
@@ -71,7 +71,7 @@ object side {
         }
       )),
       tour.noBerserk option div(cls := "text", dataIcon := "`")("No Berserk allowed"),
-      !tour.isScheduled option frag(trans.by(usernameOrId(tour.createdBy)), br),
+      !tour.isScheduled && !tour.isTeamBattle option frag(trans.by(usernameOrId(tour.createdBy)), br),
       (!tour.isStarted || (tour.isScheduled && !tour.position.initial)) option absClientDateTime(tour.startsAt),
       !tour.position.initial option p(
         a(target := "_blank", href := tour.position.url)(
@@ -84,4 +84,21 @@ object side {
     streamers.toList map views.html.streamer.bits.contextual,
     chat option views.html.chat.frag
   )
+
+  private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: Context) =
+    st.section(cls := "team-battle")(
+      p(cls := "team-battle__title text", dataIcon := "f")(
+        s"Battle of ${battle.teams.size} teams",
+        ctx.userId.has(tour.createdBy) option
+          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag("%"))
+      ),
+      div(cls := "team-battle__list")(
+        battle.sortedTeamIds.take(if (battle.teams.size <= 6) 6 else 4).map {
+          teamLink(_, withIcon = false)
+        }
+      ),
+      battle.teams.size > 6 option frag(
+        "and ", battle.teams.size - 4, " more"
+      )
+    )
 }

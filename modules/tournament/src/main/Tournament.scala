@@ -39,8 +39,10 @@ case class Tournament(
 
   def isPrivate = password.isDefined
 
+  def isTeamBattle = teamBattle.isDefined
+
   def fullName =
-    if (teamBattle.isDefined) s"$name Team Battle"
+    if (isTeamBattle) s"$name Team Battle"
     else schedule.map(_.freq).fold(s"$name $system") {
       case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
       case Schedule.Freq.Shield => s"$name $system"

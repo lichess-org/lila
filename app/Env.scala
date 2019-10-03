@@ -63,10 +63,7 @@ final class Env(
   lazy val teamInfo = new mashup.TeamInfoApi(
     api = Env.team.api,
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,
-    getForumPosts = Env.forum.recent.team _,
-    asyncCache = Env.memo.asyncCache,
-    memberColl = Env.team.colls.member,
-    userColl = Env.user.userColl
+    getForumPosts = Env.forum.recent.team _
   )
 
   private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>

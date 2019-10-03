@@ -17,7 +17,6 @@ object Team extends LilaController {
   private def forms = Env.team.forms
   private def api = Env.team.api
   private def paginator = Env.team.paginator
-  private lazy val teamInfo = Env.current.teamInfo
 
   def all(page: Int) = Open { implicit ctx =>
     paginator popularTeams page map { html.team.list.all(_) }
@@ -40,7 +39,7 @@ object Team extends LilaController {
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
-    info <- teamInfo(team, ctx.me)
+    info <- Env.current.teamInfo(team, ctx.me)
     members <- paginator.teamMembers(team, page)
     _ <- Env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)

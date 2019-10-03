@@ -1,15 +1,10 @@
 package lila.app
 package mashup
 
-import reactivemongo.api.collections.bson.BSONBatchCommands.{ AggregationFramework => AF }
-import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
-import scala.concurrent.duration._
-
-import lila.db.dsl._
 import lila.forum.MiniForumPost
 import lila.team.{ Team, RequestRepo, MemberRepo, RequestWithUser, TeamApi }
 import lila.user.{ User, UserRepo }
+import lila.tournament.{ Tournament, TournamentRepo }
 
 case class TeamInfo(
     mine: Boolean,
@@ -17,7 +12,8 @@ case class TeamInfo(
     requestedByMe: Boolean,
     requests: List[RequestWithUser],
     forumNbPosts: Int,
-    forumPosts: List[MiniForumPost]
+    forumPosts: List[MiniForumPost],
+    teamBattles: List[Tournament]
 ) {
 
   def hasRequests = requests.nonEmpty
@@ -28,10 +24,7 @@ case class TeamInfo(
 final class TeamInfoApi(
     api: TeamApi,
     getForumNbPosts: String => Fu[Int],
-    getForumPosts: String => Fu[List[MiniForumPost]],
-    asyncCache: lila.memo.AsyncCache.Builder,
-    memberColl: Coll,
-    userColl: Coll
+    getForumPosts: String => Fu[List[MiniForumPost]]
 ) {
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
@@ -40,12 +33,14 @@ final class TeamInfoApi(
     requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
     forumNbPosts ← getForumNbPosts(team.id)
     forumPosts ← getForumPosts(team.id)
+    tours <- lila.tournament.TournamentRepo.teamBattlesByTeam(team.id, 10)
   } yield TeamInfo(
     mine = mine,
     createdByMe = ~me.map(m => team.isCreator(m.id)),
     requestedByMe = requestedByMe,
     requests = requests,
     forumNbPosts = forumNbPosts,
-    forumPosts = forumPosts
+    forumPosts = forumPosts,
+    teamBattles = tours
   )
 }
