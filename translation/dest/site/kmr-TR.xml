@@ -315,6 +315,8 @@
   <string name="advancedSettings">Sazkariyên pêşketî</string>
   <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
   <string name="inappropriateNameWarning">Navekê piçekî nelirê dibe ku bibe sedem ji girtina hesabê te re.</string>
+  <string name="emptyTournamentName">Cihê navê vala bihêlî wê bi ketoberî naveke hosteyeke kişikê yê hêja lê were danîn.</string>
+  <string name="recommendNotTouching">Em pêşniyar dikin ku destê xwe nedî van.</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
