@@ -71,4 +71,7 @@ body {
     font-weight: bold;
     margin-left: 2rem;
   }
+  @include breakpoint($mq-not-col3) {
+    font-size: 1.1em;
+  }
 }
