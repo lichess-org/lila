@@ -271,6 +271,7 @@
     <item quantity="other">%s lîstikên têxistî</item>
   </plurals>
   <string name="thisIsAChessCaptcha">Ev CAPTCHAyeke kişikê ye.</string>
+  <string name="clickOnTheBoardToMakeYourMove">Bitikîne ser textê ji bo kirina hemleyê, û birastîne ku tu însan î.</string>
   <plurals name="nbFollowing">
     <item quantity="one">dişopîne %s</item>
     <item quantity="other">dişopîne %s</item>
