@@ -67,10 +67,9 @@ final class JsonView(
     stats <- statsApi(tour)
     shieldOwner <- full.?? { shieldApi currentOwner tour }
     teamsToJoinWith <- ~(for {
-      u <- me
-      battle <- tour.teamBattle
-      if full
+      u <- me; battle <- tour.teamBattle; if full
     } yield getUserTeamIds(u) map { teams => battle.teams intersect teams.toSet })
+    teamStanding <- 
   } yield Json.obj(
     "nbPlayers" -> tour.nbPlayers,
     "duels" -> data.duels,
@@ -114,7 +113,8 @@ final class JsonView(
           Json.obj(
             "teams" -> JsObject(battle.sortedTeamIds.map { id =>
               id -> JsString(getTeamName(id).getOrElse(id))
-            })
+            }),
+          "standing" ->
           ).add("joinWith" -> me.isDefined.option(teamsToJoinWith.toList.sorted))
         })
     }
