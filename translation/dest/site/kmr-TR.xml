@@ -314,6 +314,7 @@
   <string name="conditionOfEntry">Şertên tevlîbûnê:</string>
   <string name="advancedSettings">Sazkariyên pêşketî</string>
   <string name="safeTournamentName">Ji bo pêşbirkê navekê pir ewle bibijêre.</string>
+  <string name="inappropriateNameWarning">Navekê piçekî nelirê dibe ku bibe sedem ji girtina hesabê te re.</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
