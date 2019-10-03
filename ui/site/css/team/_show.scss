@@ -1,3 +1,5 @@
+@import 'tour';
+
 .team-show {
   @extend %break-word;
   overflow: hidden;
@@ -17,6 +19,7 @@
     'desc'
     'meta'
     'actions'
+    'tour'
     'forum'
     'members';
     @include breakpoint($mq-small) {
@@ -26,7 +29,8 @@
       grid-template-areas:
       'meta    desc'
       'actions desc'
-      'members    forum';
+      'members tour'
+      'members forum';
     }
   }
   &__meta {
@@ -47,6 +51,9 @@
   }
   &__forum {
     grid-area: forum;
+  }
+  &__tour {
+    grid-area: tour;
   }
   .best-members {
     margin-bottom: 1.5rem;

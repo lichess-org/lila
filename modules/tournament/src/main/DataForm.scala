@@ -29,7 +29,7 @@ final class DataForm {
     mode = none,
     rated = true.some,
     conditions = Condition.DataForm.AllSetup.default,
-    teamBattle = teamBattleId map TeamBattle.DataForm.Setup.apply,
+    teamBattleByTeam = teamBattleId,
     berserkable = true.some
   )
 
@@ -55,7 +55,7 @@ final class DataForm {
     "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
     "conditions" -> Condition.DataForm.all,
-    "teamBattle" -> optional(TeamBattle.DataForm.fields),
+    "teamBattleByTeam" -> optional(nonEmptyText),
     "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -121,7 +121,7 @@ private[tournament] case class TournamentSetup(
     rated: Option[Boolean],
     password: Option[String],
     conditions: Condition.DataForm.AllSetup,
-    teamBattle: Option[TeamBattle.DataForm.Setup],
+    teamBattleByTeam: Option[String],
     berserkable: Option[Boolean]
 ) {
 

@@ -114,8 +114,20 @@ object TournamentRepo {
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  def teamBattlesByTeam(teamId: String, nb: Int): Fu[List[Tournament]] =
-    coll.find($doc("teamBattle.teams" -> teamId)).sort($sort desc "startsAt").list[Tournament](nb)
+  // all team-only tournament
+  // and team battles
+  // this query is carefully crafted so that it hits both indexes
+  def byTeam(teamId: String, nb: Int): Fu[List[Tournament]] =
+    coll.find($or(
+      $doc(
+        "teamBattle.teams" -> teamId,
+        "teamBattle" $exists true
+      ),
+      $doc(
+        "conditions.teamMember.teamId" -> teamId,
+        "conditions.teamMember" $exists true
+      )
+    )).sort($sort desc "startsAt").list[Tournament](nb)
 
   def setStatus(tourId: Tournament.ID, status: Status) =
     coll.update($id(tourId), $set("status" -> status.id)).void

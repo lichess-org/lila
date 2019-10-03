@@ -1,8 +1,15 @@
 .team-battle {
   &__title {}
   &__list {
-    & a {
+    a {
       display: block;
     }
+  }
+}
+.team-battle__choice {
+
+  a {
+    display: block;
+    margin-top: 1rem;
   }
 }

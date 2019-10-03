@@ -74,13 +74,13 @@
     }
     &.yearly,
     &.weekend {
-      background-color: #d59120;
+      background-color: $c-brag;
     }
     &.marathon {
       background-color: #66558C;
     }
     &.unique {
-      background-color: #d59120;
+      background-color: $c-brag;
     }
     &.max-rating {
       background-color: #8572ff;

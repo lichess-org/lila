@@ -11,11 +11,14 @@ function onFail(_1, _2, errorMessage) {
   else window.lichess.reload();
 }
 
-function join(ctrl: TournamentController, password?: string) {
+function join(ctrl: TournamentController, password?: string, team?: string) {
   return $.ajax({
     method: 'POST',
     url: '/tournament/' + ctrl.data.id + '/join',
-    data: JSON.stringify({ p: password || null }),
+    data: JSON.stringify({
+      p: password || null,
+      team: team || null
+    }),
     contentType: 'application/json; charset=utf-8',
     headers
   }).fail(onFail);

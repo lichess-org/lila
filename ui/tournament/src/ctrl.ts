@@ -20,6 +20,7 @@ export default class TournamentController {
   playerInfo: PlayerInfo = {};
   disableClicks: boolean = true;
   searching: boolean = false;
+  joinWithTeamSelector: boolean = false;
   redraw: () => void;
 
   private watchingGameId: string;
@@ -48,7 +49,7 @@ export default class TournamentController {
   };
 
   reload = (data: TournamentData): void => {
-      // we joined a private tournament! Reload the page to load the chat
+    // we joined a private tournament! Reload the page to load the chat
     if (!this.data.me && data.me && this.data['private']) window.lichess.reload();
     this.data = {...this.data, ...data};
     this.data.me = data.me; // to account for removal on withdraw
@@ -114,15 +115,19 @@ export default class TournamentController {
     this.focusOnMe = false;
   };
 
-  join = (password?: string) => {
-    if (!this.data.verdicts.accepted)
-    return this.data.verdicts.list.forEach(function(v) {
+  join = (password?: string, team?: string) => {
+    this.joinWithTeamSelector = false;
+    if (!this.data.verdicts.accepted) return this.data.verdicts.list.forEach(v => {
       if (v.verdict !== 'ok') alert(v.verdict);
     });
-    xhr.join(this, password);
-    this.joinSpinner = true;
-    this.focusOnMe = true;
-  };
+    if (this.data.teamBattle && !team) {
+      this.joinWithTeamSelector = true;
+    } else {
+      xhr.join(this, password, team);
+      this.joinSpinner = true;
+      this.focusOnMe = true;
+    }
+  }
 
   private startWatching(id: string) {
     if (id !== this.watchingGameId) {

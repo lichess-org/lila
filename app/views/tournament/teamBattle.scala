@@ -34,30 +34,38 @@ object teamBattle {
     ))
 
   def list(tours: List[Tournament])(implicit ctx: Context) =
-    tbody(cls := "team-battles")(
-      tours.map { t =>
-        tr(
-          td(cls := "icon")(iconTag(tournamentIconChar(t))),
-          td(cls := "header")(
-            a(href := routes.Tournament.show(t.id))(
-              span(cls := "name")(t.fullName),
-              span(cls := "setup")(
-                t.clock.show,
-                " • ",
-                if (t.variant.exotic) t.variant.name else t.perfType.map(_.name),
-                !t.position.initial option frag(" • ", trans.thematic()),
-                " • ",
-                t.mode.fold(trans.casualTournament, trans.ratedTournament)()
+    table(cls := "slist")(
+      tbody(
+        tours map { t =>
+          tr(
+            td(cls := "icon")(iconTag(tournamentIconChar(t))),
+            td(cls := "header")(
+              a(href := routes.Tournament.show(t.id))(
+                span(cls := "name")(t.fullName),
+                span(cls := "setup")(
+                  t.clock.show,
+                  " • ",
+                  if (t.variant.exotic) t.variant.name else t.perfType.map(_.name),
+                  !t.position.initial option frag(" • ", trans.thematic()),
+                  " • ",
+                  t.mode.fold(trans.casualTournament, trans.ratedTournament)(),
+                  " • ",
+                  t.durationString
+                )
               )
-            )
-          ),
-          td(cls := "duration")(t.durationString),
-          td(cls := "winner")(
-            userIdLink(t.winnerId, withOnline = false),
-            br
-          ),
-          td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
-        )
-      }
+            ),
+            td(cls := "infos")(
+              t.teamBattle map { battle =>
+                frag(battle.teams.size, " teams battle")
+              } getOrElse {
+                "Inner team"
+              },
+              br,
+              momentFromNowOnce(t.startsAt)
+            ),
+            td(cls := "text", dataIcon := "r")(t.nbPlayers.localize)
+          )
+        }
+      )
     )
 }

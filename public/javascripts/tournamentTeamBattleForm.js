@@ -5,7 +5,7 @@ $(function() {
     const textarea = this;
 
     function currentTeamIds() {
-      return textarea.value.split('\n').map(t => t.split(' ')[0]);
+      return textarea.value.split('\n').map(t => t.split(' ')[0]).slice(0, -1);
     }
 
     lichess.loadScript('vendor/textcomplete.js').then(function() {

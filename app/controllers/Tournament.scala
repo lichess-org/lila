@@ -92,9 +92,20 @@ object Tournament extends LilaController {
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
-            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
+            json <- env.jsonView(
+              tour = tour,
+              page = page,
+              me = ctx.me,
+              getUserTeamIds = getUserTeamIds,
+              getTeamName = Env.team.cached.name,
+              playerInfoExt = none,
+              socketVersion = version.some,
+              partial = false,
+              lang = ctx.lang
+            )
             chat <- canHaveChat(tour, json.some) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
+            _ <- tour.teamBattle ?? { b => Env.team.cached.preloadSet(b.teams) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
@@ -104,7 +115,17 @@ object Tournament extends LilaController {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
                 lila.mon.tournament.apiShowPartial(partial)()
-                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang)
+                env.jsonView(
+                  tour = tour,
+                  page = page,
+                  me = ctx.me,
+                  getUserTeamIds = getUserTeamIds,
+                  getTeamName = Env.team.cached.name,
+                  playerInfoExt = playerInfoExt,
+                  socketVersion = socketVersion,
+                  partial = partial,
+                  lang = ctx.lang
+                )
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
       ) map NoCache
@@ -143,7 +164,8 @@ object Tournament extends LilaController {
     NoLameOrBot {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
-        env.api.joinWithResult(id, me, password, getUserTeamIds) flatMap { result =>
+        val teamId = ctx.body.body.\("team").asOpt[String]
+        env.api.joinWithResult(id, me, password, teamId, getUserTeamIds) flatMap { result =>
           negotiate(
             html = Redirect(routes.Tournament.show(id)).fuccess,
             api = _ => fuccess {
@@ -246,7 +268,7 @@ object Tournament extends LilaController {
       jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
         env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-          Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lila.i18n.defaultLang)
+          Env.tournament.jsonView(tour, none, none, getUserTeamIds, Env.team.cached.name, none, none, partial = false, lila.i18n.defaultLang)
         }
       } map { Ok(_) }
     )

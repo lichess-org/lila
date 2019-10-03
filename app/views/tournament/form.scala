@@ -21,7 +21,7 @@ object form {
       jsTag("tournamentForm.js")
     )
   ) {
-      val isTeamBattle = form("teamBattle")("teams").value.nonEmpty
+      val isTeamBattle = form("teamBattleByTeam").value.nonEmpty
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
           h1(
@@ -74,7 +74,7 @@ object form {
                 form3.group(form("startDate"), raw("Custom start date"), help = raw("""This overrides the "Time before tournament starts" setting""").some)(form3.flatpickr(_))
               )
             ),
-            isTeamBattle option form3.hidden(form("teamBattle")("teams")),
+            isTeamBattle option form3.hidden(form("teamBattleByTeam")),
             form3.actions(
               a(href := routes.Tournament.home())(trans.cancel()),
               form3.submit(trans.createANewTournament(), icon = "g".some)
