@@ -4,6 +4,10 @@ $(function() {
 
     const textarea = this;
 
+    function currentTeamIds() {
+      return textarea.value.split('\n').map(t => t.split(' ')[0]);
+    }
+
     lichess.loadScript('vendor/textcomplete.js').then(function() {
 
       const textcomplete = new Textcomplete(new Textcomplete.editors.Textarea(textarea), {
@@ -24,7 +28,8 @@ $(function() {
               term: term
             },
             success: function(teams) {
-              callback(teams);
+              const current = currentTeamIds();
+              callback(teams.filter(t => !current.includes(t.id)));
             },
             error: function() {
               callback([]);

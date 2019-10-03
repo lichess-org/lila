@@ -23,10 +23,11 @@ object teamBattle {
         if (tour.isFinished) p("This tournament is over, and the teams can no longer be updated.")
         else p("List the teams that will compete in this battle."),
         postForm(cls := "form3", action := routes.Tournament.teamBattleUpdate(tour.id))(
-          form3.group(form("teams"), raw("Team IDs or names, one per line. Use the auto-completion."),
+          form3.group(form("teams"), raw("One team per line. Use the auto-completion."),
             help = frag("You can copy-paste this list from a tournament to another!").some)(
             form3.textarea(_)(rows := 25, tour.isFinished.option(disabled))
           ),
+          form3.globalError(form),
           form3.submit("Update teams")(tour.isFinished.option(disabled))
         )
       )

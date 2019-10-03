@@ -22,6 +22,7 @@ object TeamBattle {
     val fields = mapping(
       "teams" -> nonEmptyText
     )(Setup.apply)(Setup.unapply)
+      .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
 
     case class Setup(
         teams: String
