@@ -276,6 +276,8 @@
   <string name="notACheckmate">Ne şahmatek e</string>
   <string name="whiteCheckmatesInOneMove">Ya spî bi hemleyekê şahmat dike</string>
   <string name="blackCheckmatesInOneMove">Ya reş bi hemleyekê şahmat dike</string>
+  <string name="retry">Cardin biceribîne</string>
+  <string name="reconnecting">Cardin tê girêdan</string>
   <plurals name="nbFollowing">
     <item quantity="one">dişopîne %s</item>
     <item quantity="other">dişopîne %s</item>
