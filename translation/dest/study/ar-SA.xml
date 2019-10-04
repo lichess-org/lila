@@ -9,7 +9,7 @@
   <string name="myFavoriteStudies">دراساتي المفضلة</string>
   <string name="whatAreStudies">ما هي الدراسات؟</string>
   <string name="allStudies">كل الدراسات</string>
-  <string name="studiesCreatedByX">الدراسات التي أنشئها٪ s</string>
+  <string name="studiesCreatedByX">الدراسات التي أنشئها %s</string>
   <string name="noneYet">لا يوجد.</string>
   <string name="dateAddedNewest">تاريخ الإضافة (الأحدث)</string>
   <string name="dateAddedOldest">تاريخ الإضافة (الأقدم)</string>
@@ -57,4 +57,13 @@
   <string name="chapterX">الفصل %s</string>
   <string name="automatic">تلقائي</string>
   <string name="urlOfTheGame">رابط اللعبة</string>
+  <string name="createChapter">أنشئ الفصل</string>
+  <string name="createStudy">أنشى الدراسة</string>
+  <string name="editStudy">حرر الدراسة</string>
+  <string name="public">عامة</string>
+  <string name="unlisted">غير مدرجة</string>
+  <string name="inviteOnly">دعوة فقط</string>
+  <string name="onlyMe">أنا فقط</string>
+  <string name="contributors">المساهمون</string>
+  <string name="members">اعضاء</string>
 </resources>
