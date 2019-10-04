@@ -48,11 +48,15 @@ object PlayerRepo {
       Match(selectTour(tourId)),
       List(
         Sort(Descending("m")),
-        GroupField("t")("m" -> Push($doc(
-          "u" -> "$uid",
-          "m" -> "$m"
-        ))),
+        GroupField("t")(
+          "nb" -> SumValue(1),
+          "m" -> Push($doc(
+            "u" -> "$uid",
+            "m" -> "$m"
+          ))
+        ),
         Project($doc(
+          "nb" -> true,
           "p" -> $doc(
             "$slice" -> $arr("$m", battle.nbTopPlayers)
           )
@@ -61,16 +65,17 @@ object PlayerRepo {
       maxDocs = 10
     ).map {
         _.flatMap { doc =>
-          doc.getAs[TeamId]("_id") flatMap { teamId =>
-            doc.getAs[List[Bdoc]]("p") map {
-              _.flatMap {
-                case p: Bdoc => for {
-                  id <- p.getAs[User.ID]("u")
-                  magic <- p.getAs[Int]("m")
-                } yield TopPlayer(id, magic)
-              }
-            } map { RankedTeam(0, teamId, _) }
-          }
+          for {
+            teamId <- doc.getAs[TeamId]("_id")
+            nbPlayers <- doc.getAs[Int]("nb")
+            topPlayersBson <- doc.getAs[List[Bdoc]]("p")
+            topPlayers = topPlayersBson.flatMap {
+              case p: Bdoc => for {
+                id <- p.getAs[User.ID]("u")
+                magic <- p.getAs[Int]("m")
+              } yield TopPlayer(id, magic)
+            }
+          } yield RankedTeam(0, teamId, nbPlayers, topPlayers)
         }.sortBy(-_.magicScore).zipWithIndex map {
           case (rt, pos) => rt.copy(rank = pos + 1)
         }
@@ -78,7 +83,7 @@ object PlayerRepo {
         if (ranked.size == battle.teams.size) ranked
         else ranked ::: battle.teams.foldLeft(List.empty[RankedTeam]) {
           case (missing, team) if !ranked.exists(_.teamId == team) =>
-            RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil) :: missing
+            RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, 0, Nil) :: missing
           case (acc, _) => acc
         }.reverse
       }

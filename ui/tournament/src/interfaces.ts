@@ -28,6 +28,7 @@ export interface RankedTeam {
   id: string;
   rank: number;
   score: number;
+  nb: number;
   players: TeamPlayer[];
 }
 

@@ -49,7 +49,10 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     players.push(h('score.ulpt.user-link', {
       key: p.user.name,
       class: { top: i === 0 },
-      attrs: { 'data-href': '/@/' + p.user.name },
+      attrs: {
+        'data-href': '/@/' + p.user.name,
+        'data-name': p.user.name
+      },
       hook: {
         destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
         ...bind('click', _ => ctrl.jumpToPageOf(p.user.name), ctrl.redraw)
@@ -67,7 +70,10 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
     hook: bind('click', _ => {}, ctrl.redraw)
   }, [
     h('td.rank', '' + team.rank),
-    h('td.team', battle.teams[team.id]),
+    h('td.team', [
+      battle.teams[team.id],
+      ' (' + team.nb + ')'
+    ]),
     h('td.players', players),
     h('td.total', [
       h('strong', '' + team.score)

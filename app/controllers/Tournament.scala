@@ -110,7 +110,7 @@ object Tournament extends LilaController {
             shieldOwner <- env.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
         }, api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
-          get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
+          get("playerInfo").?? { env.api.playerInfo(tour, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
@@ -152,10 +152,30 @@ object Tournament extends LilaController {
     }
   }
 
-  def player(id: String, userId: String) = Open { implicit ctx =>
-    JsonOk {
-      env.api.playerInfo(id, userId) flatMap {
-        _ ?? env.jsonView.playerInfoExtended
+  def player(tourId: String, userId: String) = Open { implicit ctx =>
+    TournamentRepo byId tourId flatMap {
+      _ ?? { tour =>
+        JsonOk {
+          env.api.playerInfo(tour, userId) flatMap {
+            _ ?? { env.jsonView.playerInfoExtended(tour, _) }
+          }
+        }
+      }
+    }
+  }
+
+  def team(tourId: String, teamId: String) = Open { implicit ctx =>
+    TournamentRepo byId tourId flatMap {
+      _ ?? { tour =>
+        Env.team.api light teamId flatMap {
+          _ ?? { team =>
+            JsonOk {
+              env.api.teamInfo(tour, team) flatMap {
+                _ ?? { env.jsonView.teamInfo(tour, _) }
+              }
+            }
+          }
+        }
       }
     }
   }

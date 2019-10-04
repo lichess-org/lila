@@ -18,6 +18,7 @@ export default class TournamentController {
   focusOnMe: boolean;
   joinSpinner: boolean = false;
   playerInfo: PlayerInfo = {};
+  teamInfo: TeamInfo = {};
   disableClicks: boolean = true;
   searching: boolean = false;
   joinWithTeamSelector: boolean = false;

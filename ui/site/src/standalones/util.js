@@ -116,7 +116,8 @@ lichess.powertip = (() => {
     }).data('powertip', ' ').on({
       powerTipRender: onPowertipPreRender('powerTip', (url) => {
         const u = url.substr(3);
-        $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + $(el).html() + '</span></div></div><div class="upt__actions btn-rack">' +
+        const name = $(el).data('name') || $(el).html();
+        $('#powerTip').html('<div class="upt__info"><div class="upt__info__top"><span class="user-link offline">' + name + '</span></div></div><div class="upt__actions btn-rack">' +
           uptA('/@/' + u + '/tv', '1') +
           uptA('/inbox/new?user=' + u, 'c') +
           uptA('/?user=' + u + '#friend', 'U') +

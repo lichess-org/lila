@@ -20,6 +20,7 @@ object TeamBattle {
   case class RankedTeam(
       rank: Int,
       teamId: TeamId,
+      nbPlayers: Int,
       topPlayers: List[TopPlayer]
   ) {
     def magicScore = topPlayers.foldLeft(0)(_ + _.magicScore)
