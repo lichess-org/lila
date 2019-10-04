@@ -69,7 +69,7 @@ final class JsonView(
     teamsToJoinWith <- ~(for {
       u <- me; battle <- tour.teamBattle; if full
     } yield getUserTeamIds(u) map { teams => battle.teams intersect teams.toSet })
-    teamStanding <- 
+    teamStanding <- tour.isTeamBattle ?? PlayerRepo.bestTeamIdsByTour(tour.id, 5)
   } yield Json.obj(
     "nbPlayers" -> tour.nbPlayers,
     "duels" -> data.duels,
@@ -114,7 +114,13 @@ final class JsonView(
             "teams" -> JsObject(battle.sortedTeamIds.map { id =>
               id -> JsString(getTeamName(id).getOrElse(id))
             }),
-          "standing" ->
+            "standing" -> teamStanding.map { ranked =>
+              Json.obj(
+                "rank" -> ranked.rank,
+                "id" -> ranked.teamId,
+                "score" -> ranked.score
+              )
+            }
           ).add("joinWith" -> me.isDefined.option(teamsToJoinWith.toList.sorted))
         })
     }
