@@ -41,7 +41,7 @@ object PlayerRepo {
     bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   // very expensive
-  private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, battle: TeamBattle, topPlayers: Int): Fu[List[TeamBattle.RankedTeam]] = {
+  private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, battle: TeamBattle): Fu[List[TeamBattle.RankedTeam]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     import TeamBattle.{ RankedTeam, TopPlayer }
     coll.aggregateList(
@@ -53,7 +53,7 @@ object PlayerRepo {
         ))),
         Project($doc(
           "p" -> $doc(
-            "$slice" -> $arr("$m", topPlayers)
+            "$slice" -> $arr("$m", battle.nbTopPlayers)
           )
         ))
       ),

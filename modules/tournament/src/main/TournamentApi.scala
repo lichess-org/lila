@@ -65,9 +65,7 @@ final class TournamentApi(
       variant = setup.realVariant,
       position = DataForm.startingPosition(setup.position | chess.StartingPosition.initial.fen, setup.realVariant),
       berserkable = setup.berserkable | true,
-      teamBattle = setup.teamBattleByTeam.map { tb =>
-        TeamBattle(Set(tb))
-      }
+      teamBattle = setup.teamBattleByTeam map TeamBattle.init
     ) |> { tour =>
         tour.perfType.fold(tour) { perfType =>
           tour.copy(conditions = setup.conditions.convert(perfType, myTeams.map(_.pair)(collection.breakOut)))
@@ -90,7 +88,7 @@ final class TournamentApi(
     filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
   ): Funit =
     filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
-      TournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds))
+      TournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbTopPlayers))
     }
 
   private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long): Unit = {

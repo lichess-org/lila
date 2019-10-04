@@ -24,8 +24,13 @@ object teamBattle {
         else p("List the teams that will compete in this battle."),
         postForm(cls := "form3", action := routes.Tournament.teamBattleUpdate(tour.id))(
           form3.group(form("teams"), raw("One team per line. Use the auto-completion."),
-            help = frag("You can copy-paste this list from a tournament to another!").some)(
-            form3.textarea(_)(rows := 25, tour.isFinished.option(disabled))
+            help = frag("You can copy-paste this list from a tournament to another!", br,
+              "You can't remove a team if a player has already joined the tournament with it").some)(
+              form3.textarea(_)(rows := 10, tour.isFinished.option(disabled))
+            ),
+          form3.group(form("nbTopPlayers"), raw("Number of leaders per team. The sum of their score is the score of the team."),
+            help = frag("You really shouldn't change this value after the tournament has started!").some)(
+            form3.input(_)(tpe := "number")
           ),
           form3.globalError(form),
           form3.submit("Update teams")(tour.isFinished.option(disabled))

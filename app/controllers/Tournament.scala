@@ -282,7 +282,7 @@ object Tournament extends LilaController {
               Env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
                 val form = lila.tournament.TeamBattle.DataForm.edit(teams.map { t =>
                   s"""${t.id} "${t.name}" by ${Env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
-                })
+                }, battle.nbTopPlayers)
                 Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
               }
             }
@@ -297,7 +297,7 @@ object Tournament extends LilaController {
       _ ?? {
         case tour if tour.createdBy == me.id && !tour.isFinished =>
           implicit val req = ctx.body
-          lila.tournament.TeamBattle.DataForm.edit(Nil).bindFromRequest.fold(
+          lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
             err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
             res => env.api.teamBattleUpdate(tour, res, Env.team.api.filterExistingIds) inject
               Redirect(routes.Tournament.show(tour.id))

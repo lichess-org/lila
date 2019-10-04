@@ -7,12 +7,15 @@ import lila.hub.lightTeam._
 import lila.user.User
 
 case class TeamBattle(
-    teams: Set[TeamId]
+    teams: Set[TeamId],
+    nbTopPlayers: Int
 ) {
   lazy val sortedTeamIds = teams.toList.sorted
 }
 
 object TeamBattle {
+
+  def init(teamId: TeamId) = TeamBattle(Set(teamId), 5)
 
   case class RankedTeam(
       rank: Int,
@@ -31,16 +34,21 @@ object TeamBattle {
     import play.api.data.Forms._
     import lila.common.Form._
 
-    def edit(teams: List[String]) = Form(fields) fill Setup(s"${teams mkString "\n"}\n")
-
     val fields = mapping(
-      "teams" -> nonEmptyText
+      "teams" -> nonEmptyText,
+      "nbTopPlayers" -> number(min = 1, max = 10)
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
       .verifying("In this version of team battles, no more than 10 teams can be allowed.", s => s.potentialTeamIds.size <= 10)
 
+    def edit(teams: List[String], nbTopPlayers: Int) = Form(fields) fill
+      Setup(s"${teams mkString "\n"}\n", nbTopPlayers)
+
+    def empty = Form(fields)
+
     case class Setup(
-        teams: String
+        teams: String,
+        nbTopPlayers: Int
     ) {
       def potentialTeamIds: Set[String] =
         teams.lines.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet
