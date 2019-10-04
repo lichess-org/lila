@@ -74,7 +74,7 @@
   <string name="whiteDrawBlack">أبيض / تعادل / أسود</string>
   <string name="averageRatingX">معدل التقييم: %s</string>
   <string name="recentGames">أحدث المباريات</string>
-  <string name="topGames">مباريات القمة</string>
+  <string name="topGames">أفضل الالعاب</string>
   <string name="masterDbExplanation">اثنان مليون مباراة من قاعدة بيانات الاساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="zero">مات في %s نصف-نقلة</item>
@@ -106,7 +106,7 @@
   <string name="realtimeReplay">ذات الوقت</string>
   <string name="byCPL">بالاثارة</string>
   <string name="openStudy">فتح دراسة</string>
-  <string name="enable">تمكين</string>
+  <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="evaluationGauge">مقياس التقييم</string>
   <string name="multipleLines">عدد الخطوط</string>
@@ -114,7 +114,7 @@
   <string name="memory">الذاكرة</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
-  <string name="blunder">خطأ غير مقصود</string>
+  <string name="blunder">خطأ فادح</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistake">خطأ</string>
   <string name="mistakes">أخطاء</string>
