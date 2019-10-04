@@ -5,6 +5,7 @@ import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 import reactivemongo.bson._
 
 import BSONHandlers._
+import lila.common.MaxPerSecond
 import lila.db.dsl._
 import lila.hub.lightTeam.TeamId
 import lila.rating.Perf

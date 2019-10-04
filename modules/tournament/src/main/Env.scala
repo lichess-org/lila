@@ -89,7 +89,7 @@ final class Env(
 
   lazy val api = new TournamentApi(
     cached = cached,
-    scheduleJsonView = scheduleJsonView,
+    apiJsonView = apiJsonView,
     system = system,
     sequencers = sequencerMap,
     autoPairing = autoPairing,
@@ -126,7 +126,7 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, proxyGame, verify, duelStore, pause, startedSinceSeconds)
 
-  lazy val scheduleJsonView = new ScheduleJsonView(lightUserApi.async)
+  lazy val apiJsonView = new ApiJsonView(lightUserApi.async)
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,
