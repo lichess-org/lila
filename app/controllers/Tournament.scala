@@ -46,14 +46,14 @@ object Tournament extends LilaController {
             finished.currentPageResults.flatMap(_.winnerId).toList :::
               scheduled.flatMap(_.winnerId) ::: winners.userIds
           }
-          scheduleJson <- env scheduleJsonView visible
+          scheduleJson <- env apiJsonView visible
         } yield NoCache {
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
         }
       },
       api = _ => for {
         (visible, _) <- upcomingCache.get
-        scheduleJson <- env scheduleJsonView visible
+        scheduleJson <- env apiJsonView visible
       } yield Ok(scheduleJson)
     )
   }
@@ -259,7 +259,7 @@ object Tournament extends LilaController {
       api = _ =>
         Env.tournament.cached.promotable.get.nevermind map {
           lila.tournament.Spotlight.select(_, ctx.me, 4)
-        } flatMap env.scheduleJsonView.featured map { Ok(_) }
+        } flatMap env.apiJsonView.featured map { Ok(_) }
     )
   }
 
@@ -280,7 +280,7 @@ object Tournament extends LilaController {
 
   def calendar = Open { implicit ctx =>
     env.api.calendar map { tours =>
-      Ok(html.tournament.calendar(env.scheduleJsonView calendar tours))
+      Ok(html.tournament.calendar(env.apiJsonView calendar tours))
     }
   }
 
