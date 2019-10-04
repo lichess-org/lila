@@ -21,14 +21,33 @@
 }
 
 .tour__team-standing {
+  tbody tr:nth-child(odd) {
+    background: $c-bg-zebra;
+  }
+  tbody tr:nth-child(even) {
+    background: $c-bg-box;
+  }
+  .players {
+    color: $c-font-dim;
+  }
   score {
     font-weight: bold;
-    color: $c-font-dim;
     padding: 0 2px;
     cursor: pointer;
     &:hover {
       color: $c-brag;
     }
+    &.top {
+      color: $c-brag;
+      username {
+        font-weight: normal;
+      }
+    }
+  }
+  .total {
+    text-align: right;
+    font-weight: bold;
+    padding-right: $block-gap;
   }
 }
 

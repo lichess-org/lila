@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
-import { bind, onInsert } from './util';
+import { bind, onInsert, playerName } from './util';
 import { TeamBattle, RankedTeam } from '../interfaces';
 import TournamentController from '../ctrl';
 
@@ -37,14 +37,28 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
   const battle = ctrl.data.teamBattle;
   const standing = ctrl.data.teamStanding;
-  return battle && standing ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), {
-    class: {},
-  }, [
+  return battle && standing ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
     h('tbody', standing.map(rt => teamTr(ctrl, battle, rt)))
   ]) : null;
 }
 
 function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam) {
+  const players = [] as (string | VNode)[];
+  team.players.forEach((p, i) => {
+    if (i > 0) players.push('+');
+    players.push(h('score.ulpt.user-link', {
+      key: p.user.name,
+      class: { top: i === 0 },
+      attrs: { 'data-href': '/@/' + p.user.name },
+      hook: {
+        destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
+        ...bind('click', _ => ctrl.jumpToPageOf(p.user.name), ctrl.redraw)
+      }
+    }, [
+      ...(i === 0 ? [h('username', playerName(p.user)), ' '] : []),
+      '' + p.score
+    ]));
+  });
   return h('tr', {
     key: team.id,
     class: {
@@ -54,18 +68,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
   }, [
     h('td.rank', '' + team.rank),
     h('td.team', battle.teams[team.id]),
-    h('td.players', team.players.reduce((acc, p) =>
-      acc.concat([
-        '+',
-        h('score.ulpt.user-link', {
-          attrs: { 'data-href': '/@/' + p.user.name },
-          hook: {
-            destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement),
-            ...bind('click', _ => ctrl.jumpToPageOf(p.user.name), ctrl.redraw)
-          }
-        }, '' + p.score)
-      ]), [] as (string | VNode)[]
-    ).slice(1)),
+    h('td.players', players),
     h('td.total', [
       h('strong', '' + team.score)
     ])
