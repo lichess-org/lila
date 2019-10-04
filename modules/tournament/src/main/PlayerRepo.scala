@@ -47,6 +47,7 @@ object PlayerRepo {
     coll.aggregateList(
       Match(selectTour(tourId)),
       List(
+        Sort(Descending("m")),
         GroupField("t")("m" -> Push($doc(
           "u" -> "$uid",
           "m" -> "$m"

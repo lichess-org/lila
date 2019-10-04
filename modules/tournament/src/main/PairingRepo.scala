@@ -1,8 +1,8 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.api.{ CursorProducer, ReadPreference }
 import reactivemongo.bson._
+import reactivemongo.api.{ CursorProducer, ReadPreference }
 import scala.collection.breakOut
 
 import BSONHandlers._
@@ -77,7 +77,6 @@ object PairingRepo {
     coll.aggregateList(
       Match(selectTour(tourId)),
       List(
-        Sort(Descending("m")),
         Project($doc("u" -> true, "_id" -> false)),
         UnwindField("u"),
         GroupField("u")("nb" -> SumValue(1)),
