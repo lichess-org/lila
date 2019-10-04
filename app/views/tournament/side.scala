@@ -92,13 +92,11 @@ object side {
         ctx.userId.has(tour.createdBy) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag("%"))
       ),
-      div(cls := "team-battle__list")(
-        battle.sortedTeamIds.take(if (battle.teams.size <= 6) 6 else 4).map {
-          teamLink(_, withIcon = false)
-        }
-      ),
-      battle.teams.size > 6 option frag(
-        "and ", battle.teams.size - 4, " more"
+      tour.isCreated option div(cls := "team-battle__list")(
+        battle.sortedTeamIds.map { teamLink(_, withIcon = false) }
       )
+    // battle.teams.size > 6 option frag(
+    //   "and ", battle.teams.size - 4, " more"
+    // )
     )
 }

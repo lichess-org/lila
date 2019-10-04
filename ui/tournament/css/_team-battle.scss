@@ -1,3 +1,37 @@
+.tour-team-battle {
+  team {
+    @extend %box-radius;
+    @include metal;
+    padding: 1px 5px;
+    font-size: .8em;
+    border: 1px solid $c-brag;
+    color: c-clearer($c-brag);
+    white-space: nowrap;
+  }
+  .tour__player team {
+    margin: 1rem auto 0 auto;
+    padding: .15rem .8rem;
+    font-size: 1em;
+  }
+  .tour__standing {
+    .rating {
+      padding-right: 5px;
+    }
+  }
+}
+
+.tour__team-standing {
+  score {
+    font-weight: bold;
+    color: $c-font-dim;
+    padding: 0 2px;
+    cursor: pointer;
+    &:hover {
+      color: $c-brag;
+    }
+  }
+}
+
 .team-battle {
   &__title {}
   &__list {
@@ -7,18 +41,8 @@
   }
 }
 .team-battle__choice {
-
   a {
     display: block;
     margin-top: 1rem;
   }
-}
-
-.tour__standing team {
-  @extend %box-radius;
-  @include metal;
-  padding: 1px 5px;
-  font-size: .8em;
-  border: 1px solid $c-brag;
-  color: c-clearer($c-brag);
 }

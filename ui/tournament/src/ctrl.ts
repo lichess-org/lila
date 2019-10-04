@@ -90,7 +90,8 @@ export default class TournamentController {
     xhr.loadPage(this, page);
   };
 
-  jumpToPageOf = (userId: string) => {
+  jumpToPageOf = (name: string) => {
+    const userId = name.toLowerCase();
     xhr.loadPageOf(this, userId).then(data => {
       this.loadPage(data);
       this.page = data.page;

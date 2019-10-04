@@ -13,6 +13,29 @@ export interface TournamentOpts extends Untyped {
 }
 
 export interface TournamentData extends Untyped {
+  teamBattle?: TeamBattle;
+  teamStanding?: RankedTeam[];
+}
+
+export interface TeamBattle {
+  teams: {
+    [id: string]: string
+  };
+  joinWith: string[];
+}
+
+export interface RankedTeam {
+  id: string;
+  rank: number;
+  score: number;
+  players: TeamPlayer[];
+}
+
+export interface TeamPlayer {
+  user: {
+    name: string
+  };
+  score: number
 }
 
 export interface Page extends Untyped {

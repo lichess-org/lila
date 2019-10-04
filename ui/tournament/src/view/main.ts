@@ -3,7 +3,8 @@ import { VNode } from 'snabbdom/vnode';
 import * as created from './created';
 import * as started from './started';
 import * as finished from './finished';
-import { onInsert, bind } from './util';
+import { onInsert } from './util';
+import { joinWithTeamSelector } from './battle';
 import TournamentController from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
@@ -18,7 +19,7 @@ export default function(ctrl: TournamentController) {
   else handler = created;
 
   return h('main.' + ctrl.opts.classes, [
-    h('aside.analyse__side', {
+    h('aside.tour__side', {
       hook: onInsert(el => {
         $(el).replaceWith(ctrl.opts.$side);
         ctrl.opts.chat && window.lichess.makeChat(ctrl.opts.chat);
@@ -39,34 +40,5 @@ export default function(ctrl: TournamentController) {
       h('span.number', '\xa0'), ' ', ctrl.trans.noarg('spectators'), ' ', h('span.list')
     ]) : null,
     ctrl.joinWithTeamSelector ? joinWithTeamSelector(ctrl) : null
-  ]);
-}
-
-function joinWithTeamSelector(ctrl: TournamentController) {
-  const onClose = () => {
-    ctrl.joinWithTeamSelector = false;
-    ctrl.redraw();
-  };
-  const tb = ctrl.data.teamBattle!;
-  return h('div#modal-overlay', {
-    hook: bind('click', onClose)
-  }, [
-    h('div#modal-wrap.team-battle__choice', {
-      hook: onInsert(el => {
-        el.addEventListener('click', e => e.stopPropagation());
-      })
-    }, [
-      h('span.close', {
-        attrs: { 'data-icon': 'L' },
-        hook: bind('click', onClose)
-      }),
-      h('div', [
-        h('h2', "Pick your team"),
-        h('p', "Which team will you represent in this battle?"),
-        ...tb.joinWith.map(id => h('a.button', {
-          hook: bind('click', () => ctrl.join(undefined, id), ctrl.redraw)
-        }, tb.teams[id]))
-      ])
-    ])
   ]);
 }

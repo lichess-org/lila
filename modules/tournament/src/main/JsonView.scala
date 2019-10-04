@@ -69,7 +69,7 @@ final class JsonView(
     teamsToJoinWith <- ~(for {
       u <- me; battle <- tour.teamBattle; if full
     } yield getUserTeamIds(u) map { teams => battle.teams intersect teams.toSet })
-    teamStanding <- tour.isTeamBattle ?? PlayerRepo.bestTeamIdsByTour(tour.id, 5)
+    teamStanding <- getTeamStanding(tour)
   } yield Json.obj(
     "nbPlayers" -> tour.nbPlayers,
     "duels" -> data.duels,
@@ -86,7 +86,8 @@ final class JsonView(
     .add("playerInfo" -> playerInfoJson)
     .add("pairingsClosed" -> tour.pairingsClosed)
     .add("stats" -> stats)
-    .add("socketVersion" -> socketVersion.map(_.value)) ++
+    .add("socketVersion" -> socketVersion.map(_.value))
+    .add("teamStanding" -> teamStanding) ++
     full.?? {
       Json.obj(
         "id" -> tour.id,
@@ -113,14 +114,7 @@ final class JsonView(
           Json.obj(
             "teams" -> JsObject(battle.sortedTeamIds.map { id =>
               id -> JsString(getTeamName(id).getOrElse(id))
-            }),
-            "standing" -> teamStanding.map { ranked =>
-              Json.obj(
-                "rank" -> ranked.rank,
-                "id" -> ranked.teamId,
-                "score" -> ranked.score
-              )
-            }
+            })
           ).add("joinWith" -> me.isDefined.option(teamsToJoinWith.toList.sorted))
         })
     }
@@ -176,7 +170,8 @@ final class JsonView(
           .add("performance" -> player.performanceOption)
           .add("rank" -> ranking.get(user.id).map(1+))
           .add("provisional" -> player.provisional)
-          .add("withdraw" -> player.withdraw),
+          .add("withdraw" -> player.withdraw)
+          .add("team" -> player.team),
         "pairings" -> povScores.map {
           case (pov, score) => Json.obj(
             "id" -> pov.gameId,
@@ -364,6 +359,37 @@ final class JsonView(
     "id" -> d.gameId,
     "p" -> Json.arr(u1, u2)
   )
+
+  private val teamStandingCache = asyncCache.clearable[Tournament.ID, JsArray](
+    name = "tournament.teamStanding",
+    id => TournamentRepo.teamBattleOf(id) flatMap {
+      _.fold(fuccess(JsArray())) { battle =>
+        PlayerRepo.bestTeamIdsByTour(id, battle, 5) map { ranked =>
+          JsArray(ranked map teamBattleRankedWrites.writes)
+        }
+      }
+    },
+    expireAfter = _.ExpireAfterWrite(1 second)
+  )
+
+  private def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
+    tour.isTeamBattle ?? {
+      teamStandingCache get tour.id dmap some
+    }
+
+  private implicit val teamBattleRankedWrites: Writes[TeamBattle.RankedTeam] = OWrites { rt =>
+    Json.obj(
+      "rank" -> rt.rank,
+      "id" -> rt.teamId,
+      "score" -> rt.score,
+      "players" -> rt.topPlayers.map { p =>
+        Json.obj(
+          "user" -> lightUserApi.sync(p.userId),
+          "score" -> p.score
+        )
+      }
+    )
+  }
 }
 
 object JsonView {

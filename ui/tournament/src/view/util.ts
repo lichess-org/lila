@@ -4,20 +4,18 @@ import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
-  return {
-    insert(vnode) {
-      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        const res = f(e);
-        if (redraw) redraw();
-        return res;
-      });
-    }
-  };
+  return onInsert(el =>
+    el.addEventListener(eventName, e => {
+      const res = f(e);
+      if (redraw) redraw();
+      return res;
+    })
+  );
 }
 
 export function onInsert(f: (element: HTMLElement) => void): Hooks {
   return {
-    insert: vnode => {
+    insert(vnode) {
       f(vnode.elm as HTMLElement)
     }
   };

@@ -41,30 +41,45 @@ object PlayerRepo {
     bestByTourWithRank(tourId, nb, (page - 1) * nb)
 
   // very expensive
-  private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, topPlayers: Int): Fu[List[TeamBattle.RankedTeamId]] = {
+  private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, battle: TeamBattle, topPlayers: Int): Fu[List[TeamBattle.RankedTeam]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    import TeamBattle.{ RankedTeam, TopPlayer }
     coll.aggregateList(
       Match(selectTour(tourId)),
       List(
-        GroupField("t")("m" -> PushField("m")),
+        GroupField("t")("m" -> Push($doc(
+          "u" -> "$uid",
+          "m" -> "$m"
+        ))),
         Project($doc(
-          "m" -> $doc(
-            "$sum" -> $doc(
-              "$slice" -> $arr("m", topPlayers)
-            )
+          "p" -> $doc(
+            "$slice" -> $arr("$m", topPlayers)
           )
-        )),
-        Sort(Descending("m"))
+        ))
       ),
       maxDocs = 10
     ).map {
         _.flatMap { doc =>
           doc.getAs[TeamId]("_id") flatMap { teamId =>
-            doc.getAs[Int]("m") map { teamId -> _ }
+            doc.getAs[List[Bdoc]]("p") map {
+              _.flatMap {
+                case p: Bdoc => for {
+                  id <- p.getAs[User.ID]("u")
+                  magic <- p.getAs[Int]("m")
+                } yield TopPlayer(id, magic)
+              }
+            } map { RankedTeam(0, teamId, _) }
           }
-        }.zipWithIndex map {
-          case ((teamId, magic), rank) => TeamBattle.RankedTeamId(rank, teamId, magic)
+        }.sortBy(-_.magicScore).zipWithIndex map {
+          case (rt, pos) => rt.copy(rank = pos + 1)
         }
+      } map { ranked =>
+        if (ranked.size == battle.teams.size) ranked
+        else ranked ::: battle.teams.foldLeft(List.empty[RankedTeam]) {
+          case (missing, team) if !ranked.exists(_.teamId == team) =>
+            RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil) :: missing
+          case (acc, _) => acc
+        }.reverse
       }
   }
 

@@ -145,6 +145,9 @@ object TournamentRepo {
   def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
     coll.update($id(tourId), $set("teamBattle" -> battle)).void
 
+  def teamBattleOf(tourId: Tournament.ID): Fu[Option[TeamBattle]] =
+    coll.primitiveOne[TeamBattle]($id(tourId), "teamBattle")
+
   def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
 
   private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++

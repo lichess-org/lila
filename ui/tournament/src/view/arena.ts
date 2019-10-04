@@ -34,14 +34,13 @@ function playerTr(ctrl: TournamentController, player) {
     }) : player.rank),
     h('td.player', [
       renderPlayer(player, false, true, userId === ctrl.data.defender),
-      ...(tb && player.team ? [h('br'), h('team', tb.teams[player.team])] : [])
+      ...(tb && player.team ? [' ', h('team', tb.teams[player.team])] : [])
     ]),
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
-      h('strong',
-        player.sheet.fire && !ctrl.data.isFinished ?
-        h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
-        h('strong', player.sheet.total))
+      player.sheet.fire && !ctrl.data.isFinished ?
+      h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
+      h('strong', player.sheet.total)
     ])
   ]);
 }
