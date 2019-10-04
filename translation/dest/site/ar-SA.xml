@@ -36,7 +36,7 @@
   <string name="forceResignation">إعلن فوزك</string>
   <string name="forceDraw">إعلن التعادل</string>
   <string name="talkInChat">كن حسن الخلق في الدردشة!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط. سيلعب معك.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط سيلعب معك.</string>
   <string name="whiteResigned">الأبيض استسلم</string>
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">في متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
   <string name="promoteVariation">تغيير النوع</string>
-  <string name="makeMainLine">اجعله التسلسل الرئيسي</string>
+  <string name="makeMainLine">اجعله التفريع الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="move">نقلة</string>
   <string name="variantLoss">تفريع خاسر</string>
@@ -66,8 +66,8 @@
   <string name="pawnMove">نقلة بيدق</string>
   <string name="capture">أسر</string>
   <string name="close">إغلاق</string>
-  <string name="winning">فائزًا</string>
-  <string name="losing">خاسرًا</string>
+  <string name="winning">فوز</string>
+  <string name="losing">خسارة</string>
   <string name="drawn">تعادل</string>
   <string name="unknown">مجهول</string>
   <string name="database">قاعدة بيانات</string>
