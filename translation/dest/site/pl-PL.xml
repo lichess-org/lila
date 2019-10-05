@@ -753,7 +753,7 @@
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="tournamentOfficial">Oficjalny</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
-  <string name="averageCentipawnLoss">Średnia strata w setnych częściach piona</string>
+  <string name="averageCentipawnLoss">Średnia strata w centypionach</string>
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
