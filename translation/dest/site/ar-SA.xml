@@ -156,7 +156,7 @@
   <string name="signIn">دخول</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
-  <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب مما قد يؤدي إلى الحظر من الموقع</string>
+  <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب لأن ذلك قد يؤدي إلى الحظر من الموقع.</string>
   <string name="games">المباريات</string>
   <string name="forum">منتدى</string>
   <string name="xPostedInForumY">%1$s منشور في الموضوع %2$s</string>
