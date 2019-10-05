@@ -341,6 +341,10 @@
   <string name="nextXTournament">Pêşbirka li dû %s:</string>
   <string name="viewMoreTournaments">Zêdetir pêşbirkan bibîne</string>
   <string name="averageOpponent">Dijbera averaj</string>
+  <string name="membersOnly">Tenê endam</string>
+  <string name="boardEditor">Edîtorê texteyê</string>
+  <string name="setTheBoard">Texteyê bisazîne</string>
+  <string name="popularOpenings">Destpêkên binavûdeng</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
