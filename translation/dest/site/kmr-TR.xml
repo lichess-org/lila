@@ -338,6 +338,9 @@
   <string name="whiteWins">Serkeftinên spî</string>
   <string name="blackWins">Serkeftinên reş</string>
   <string name="draws">Wekhevî</string>
+  <string name="nextXTournament">Pêşbirka li dû %s:</string>
+  <string name="viewMoreTournaments">Zêdetir pêşbirkan bibîne</string>
+  <string name="averageOpponent">Dijbera averaj</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
