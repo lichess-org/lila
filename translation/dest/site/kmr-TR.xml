@@ -327,6 +327,7 @@
   <string name="winStreak">Zincîreya serkeftinan</string>
   <string name="createdBy">Hate çêkirin ji aliyê</string>
   <string name="tournamentIsStarting">Pêşbirk dest pê dike</string>
+  <string name="tournamentPairingsAreNowClosed">Lihevanînên pêşbirkê vê gavê girtî ye.</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
