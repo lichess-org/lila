@@ -331,6 +331,13 @@
   <string name="standByX">Amade be %s, lîzer têne lihevanîn!</string>
   <string name="youArePlaying">Tu vê gavê dilîzî!</string>
   <string name="winRate">Rêjeya serkeftinê</string>
+  <string name="berserkRate">Rêjeya Berserk-ê</string>
+  <string name="performance">Performans</string>
+  <string name="tournamentComplete">Pêşbirk temam bû</string>
+  <string name="movesPlayed">Hemleyên lîstî</string>
+  <string name="whiteWins">Serkeftinên spî</string>
+  <string name="blackWins">Serkeftinên reş</string>
+  <string name="draws">Wekhevî</string>
   <string name="startPosition">Pozîsyona destpêkê</string>
   <string name="savePosition">Pozîsyonê qeyd bike</string>
   <string name="loadPosition">Pozîsyonê bar bike</string>
