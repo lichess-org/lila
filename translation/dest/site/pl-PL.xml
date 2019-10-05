@@ -222,7 +222,7 @@
   <string name="accept">Przyjmij</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
-  <string name="eventInProgress">W toku</string>
+  <string name="eventInProgress">Właśnie trwa</string>
   <string name="finished">Zakończone</string>
   <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
@@ -496,7 +496,7 @@
   <string name="profileCompletion">Kompletność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
-  <string name="gameCompletionRate">Ukończonych gier: %s</string>
+  <string name="gameCompletionRate">Ukończonych partii: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
