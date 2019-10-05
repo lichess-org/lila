@@ -28,7 +28,6 @@ export interface RankedTeam {
   id: string;
   rank: number;
   score: number;
-  nb: number;
   players: TeamPlayer[];
 }
 
@@ -50,6 +49,22 @@ export interface PlayerInfo {
   id?: string;
   player?: any;
   data?: any;
+}
+export interface TeamInfo {
+  id: string;
+  nbPlayers: number;
+  rating: number;
+  perf: number;
+  score: number;
+  topPlayers: TeamPlayer[];
+}
+
+export interface TeamPlayer {
+  name: string;
+  rating: number;
+  score: number;
+  fire: boolean;
+  title?: string;
 }
 
 export interface Duel {

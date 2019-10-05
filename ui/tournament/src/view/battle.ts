@@ -35,8 +35,8 @@ export function joinWithTeamSelector(ctrl: TournamentController) {
 }
 
 export function teamStanding(ctrl: TournamentController, klass?: string): VNode | null {
-  const battle = ctrl.data.teamBattle;
-  const standing = ctrl.data.teamStanding;
+  const battle = ctrl.data.teamBattle,
+    standing = ctrl.data.teamStanding;
   return battle && standing ? h('table.slist.tour__team-standing' + (klass ? '.' + klass : ''), [
     h('tbody', standing.map(rt => teamTr(ctrl, battle, rt)))
   ]) : null;
@@ -65,14 +65,13 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
   return h('tr', {
     key: team.id,
     class: {
-      active: false
+      active: ctrl.teamInfo.requested == team.id
     },
-    hook: bind('click', _ => {}, ctrl.redraw)
+    hook: bind('click', _ => ctrl.showTeamInfo(team.id), ctrl.redraw)
   }, [
     h('td.rank', '' + team.rank),
     h('td.team', [
-      battle.teams[team.id],
-      ' (' + team.nb + ')'
+      h('team', battle.teams[team.id])
     ]),
     h('td.players', players),
     h('td.total', [

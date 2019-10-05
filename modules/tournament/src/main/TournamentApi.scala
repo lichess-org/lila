@@ -88,7 +88,7 @@ final class TournamentApi(
     filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
   ): Funit =
     filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
-      TournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbTopPlayers))
+      TournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
 
   private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long): Unit = {
@@ -231,8 +231,12 @@ final class TournamentApi(
                   publish()
                 } inject true
               withTeamId match {
-                case None if tour.isTeamBattle => fuccess(false)
-                case None => proceedWithTeam(none)
+                case None if !tour.isTeamBattle => proceedWithTeam(none)
+                case None if tour.isTeamBattle =>
+                  PlayerRepo.exists(tour.id, me.id) flatMap {
+                    case true => proceedWithTeam(none)
+                    case false => fuccess(false)
+                  }
                 case Some(team) => tour.teamBattle match {
                   case Some(battle) if battle.teams contains team =>
                     getUserTeamIds(me) flatMap { myTeams =>
@@ -466,15 +470,6 @@ final class TournamentApi(
               PlayerInfoExt(user, player, povs).some
             }
           }
-        }
-      }
-    }
-
-  def teamInfo(tour: Tournament, team: LightTeam): Fu[Option[PlayerInfoExt]] =
-    PlayerRepo.find(tour.id, user.id) flatMap {
-      _ ?? { player =>
-        playerPovs(tour, user.id, 50) map { povs =>
-          PlayerInfoExt(user, player, povs).some
         }
       }
     }

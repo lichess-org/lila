@@ -43,22 +43,20 @@ object PlayerRepo {
   // very expensive
   private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, battle: TeamBattle): Fu[List[TeamBattle.RankedTeam]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    import TeamBattle.{ RankedTeam, TopPlayer }
+    import TeamBattle.{ RankedTeam, TeamLeader }
     coll.aggregateList(
       Match(selectTour(tourId)),
       List(
         Sort(Descending("m")),
         GroupField("t")(
-          "nb" -> SumValue(1),
           "m" -> Push($doc(
             "u" -> "$uid",
             "m" -> "$m"
           ))
         ),
         Project($doc(
-          "nb" -> true,
           "p" -> $doc(
-            "$slice" -> $arr("$m", battle.nbTopPlayers)
+            "$slice" -> $arr("$m", battle.nbLeaders)
           )
         ))
       ),
@@ -67,15 +65,14 @@ object PlayerRepo {
         _.flatMap { doc =>
           for {
             teamId <- doc.getAs[TeamId]("_id")
-            nbPlayers <- doc.getAs[Int]("nb")
-            topPlayersBson <- doc.getAs[List[Bdoc]]("p")
-            topPlayers = topPlayersBson.flatMap {
+            leadersBson <- doc.getAs[List[Bdoc]]("p")
+            leaders = leadersBson.flatMap {
               case p: Bdoc => for {
                 id <- p.getAs[User.ID]("u")
                 magic <- p.getAs[Int]("m")
-              } yield TopPlayer(id, magic)
+              } yield TeamLeader(id, magic)
             }
-          } yield RankedTeam(0, teamId, nbPlayers, topPlayers)
+          } yield RankedTeam(0, teamId, leaders)
         }.sortBy(-_.magicScore).zipWithIndex map {
           case (rt, pos) => rt.copy(rank = pos + 1)
         }
@@ -83,11 +80,51 @@ object PlayerRepo {
         if (ranked.size == battle.teams.size) ranked
         else ranked ::: battle.teams.foldLeft(List.empty[RankedTeam]) {
           case (missing, team) if !ranked.exists(_.teamId == team) =>
-            RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, 0, Nil) :: missing
+            RankedTeam(missing.headOption.fold(ranked.size)(_.rank) + 1, team, Nil) :: missing
           case (acc, _) => acc
         }.reverse
       }
   }
+  // very expensive
+  private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamId, battle: TeamBattle): Fu[Option[TeamBattle.TeamInfo]] = {
+    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    coll.aggregateOne(
+      Match(selectTour(tourId) ++ $doc("t" -> teamId)),
+      List(
+        Sort(Descending("m")),
+        Facet($doc(
+          "agg" -> $arr($doc(
+            "$group" -> $doc(
+              "_id" -> BSONNull,
+              "nb" -> $doc("$sum" -> 1),
+              "rating" -> $doc("$avg" -> "$r"),
+              "perf" -> $doc("$avg" -> "$e"),
+              "score" -> $doc("$avg" -> "$s")
+            )
+          )),
+          "topPlayers" -> $arr($doc("$limit" -> 50))
+        ))
+      )
+    ).map {
+        _.flatMap { doc =>
+          for {
+            aggs <- doc.getAs[List[Bdoc]]("agg")
+            agg <- aggs.headOption
+            nbPlayers <- agg.getAs[Int]("nb")
+            rating <- agg.getAs[Double]("rating") map math.round
+            perf <- agg.getAs[Double]("perf") map math.round
+            score <- agg.getAs[Double]("score") map math.round
+            topPlayers <- doc.getAs[List[Player]]("topPlayers")
+          } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
+        }
+      }
+  }
+
+  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamId, nb: Int): Fu[List[Player]] =
+    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").list[Player](nb)
+
+  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamId): Fu[Int] =
+    coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
   def countActive(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)
@@ -107,6 +144,9 @@ object PlayerRepo {
 
   def existsActive(tourId: Tournament.ID, userId: User.ID) =
     coll.exists(selectTourUser(tourId, userId) ++ selectActive)
+
+  def exists(tourId: Tournament.ID, userId: User.ID) =
+    coll.exists(selectTourUser(tourId, userId))
 
   def unWithdraw(tourId: Tournament.ID) = coll.update(
     selectTour(tourId) ++ selectWithdraw,

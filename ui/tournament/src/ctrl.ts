@@ -3,8 +3,13 @@ import xhr from './xhr';
 import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo } from './interfaces';
+import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo } from './interfaces';
 import { TournamentSocket } from './socket';
+
+interface CtrlTeamInfo {
+  requested?: string;
+  loaded?: TeamInfo;
+}
 
 export default class TournamentController {
 
@@ -18,7 +23,7 @@ export default class TournamentController {
   focusOnMe: boolean;
   joinSpinner: boolean = false;
   playerInfo: PlayerInfo = {};
-  teamInfo: TeamInfo = {};
+  teamInfo: CtrlTeamInfo = {};
   disableClicks: boolean = true;
   searching: boolean = false;
   joinWithTeamSelector: boolean = false;
@@ -122,7 +127,7 @@ export default class TournamentController {
     if (!this.data.verdicts.accepted) return this.data.verdicts.list.forEach(v => {
       if (v.verdict !== 'ok') alert(v.verdict);
     });
-    if (this.data.teamBattle && !team) {
+    if (this.data.teamBattle && !team && !this.data.me) {
       this.joinWithTeamSelector = true;
     } else {
       xhr.join(this, password, team);
@@ -151,6 +156,7 @@ export default class TournamentController {
 
   showPlayerInfo = (player) => {
     const userId = player.name.toLowerCase();
+    this.teamInfo.requested = undefined;
     this.playerInfo = {
       id: this.playerInfo.id === userId ? null : userId,
       player: player,
@@ -160,8 +166,22 @@ export default class TournamentController {
   };
 
   setPlayerInfoData = (data) => {
-    if (data.player.id !== this.playerInfo.id) return;
-    this.playerInfo.data = data;
+    if (data.player.id === this.playerInfo.id)
+      this.playerInfo.data = data;
+  };
+
+  showTeamInfo = (teamId: string) => {
+    this.playerInfo.id = undefined;
+    this.teamInfo = {
+      requested: this.teamInfo.requested === teamId ? undefined : teamId,
+      loaded: undefined
+    };
+    if (this.teamInfo.requested) xhr.teamInfo(this, this.teamInfo.requested);
+  };
+
+  setTeamInfo = (teamInfo: TeamInfo) => {
+    if (teamInfo.id === this.teamInfo.requested)
+      this.teamInfo.loaded = teamInfo;
   };
 
   toggleSearch = () => this.searching = !this.searching;

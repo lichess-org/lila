@@ -7,6 +7,7 @@ import { controls, standing, podium } from './arena';
 import { teamStanding } from './battle';
 import header from './header';
 import playerInfo from './playerInfo';
+import teamInfo from './teamInfo';
 import { numberRow } from './util';
 
 function confetti(data: TournamentData): VNode | undefined {
@@ -50,6 +51,8 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 
 export function table(ctrl: TournamentController): VNode {
   return ctrl.playerInfo.id ? playerInfo(ctrl) : (
-    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : h('div')
+    ctrl.teamInfo.requested ? teamInfo(ctrl) : (
+      stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : h('div')
+    )
   );
 }

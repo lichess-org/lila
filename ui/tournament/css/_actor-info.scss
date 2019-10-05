@@ -1,4 +1,4 @@
-.tour__player {
+.tour__actor-info {
   @extend %box-neat-force;
   background: $c-bg-box;
   position: relative;
@@ -43,7 +43,7 @@
     }
   }
 
-  .pairings {
+  .sublist {
     width: 100%;
     tr {
       cursor: pointer;
@@ -61,40 +61,10 @@
     th {
       @extend %roboto;
       padding-left: 7px;
-      border-left: 3px solid $c-shade;
-      @include transition();
     }
     .title {
       color: $c-brag;
       font-weight: bold;
     }
-    tr:hover th {
-      border-color: $c-font;
-    }
-    tr.win:hover th {
-      border-color: $c-good;
-    }
-    tr.loss:hover th {
-      border-color: $c-bad;
-    }
-    td:nth-child(2) {
-      @extend %nowrap-ellipsis;
-      max-width: 200px;
-    }
-    td:last-child {
-      font-weight: bold;
-      opacity: .8;
-    }
-    tr.win td:last-child {
-      color: $c-good;
-      opacity: 1;
-    }
-    tr.loss td:last-child {
-      color: $c-bad;
-      opacity: 1;
-    }
-  }
-  .color-icon {
-    opacity: .6;
   }
 }

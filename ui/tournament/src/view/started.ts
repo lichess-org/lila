@@ -5,6 +5,7 @@ import { teamStanding } from './battle';
 import header from './header';
 import tourTable from './table';
 import playerInfo from './playerInfo';
+import teamInfo from './teamInfo';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import TournamentController from '../ctrl';
@@ -40,5 +41,6 @@ export function main(ctrl: TournamentController): MaybeVNodes {
 }
 
 export function table(ctrl: TournamentController): VNode {
-  return ctrl.playerInfo.id ? playerInfo(ctrl) : tourTable(ctrl);
+  return ctrl.playerInfo.id ? playerInfo(ctrl) :
+    ctrl.teamInfo.requested ? teamInfo(ctrl) : tourTable(ctrl);
 }

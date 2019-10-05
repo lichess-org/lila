@@ -39,7 +39,7 @@ object BSONHandlers {
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
-  implicit val battleBSONHandler = Macros.handler[TeamBattle]
+  implicit val battleBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[TeamBattle])
 
   private implicit val leaderboardRatio = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
     def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)

@@ -74,6 +74,16 @@ function playerInfo(ctrl: TournamentController, userId: string) {
   }, onFail);
 }
 
+function teamInfo(ctrl: TournamentController, teamId: string) {
+  return $.ajax({
+    url: ['/tournament', ctrl.data.id, 'team', teamId].join('/'),
+    headers
+  }).then(data => {
+    ctrl.setTeamInfo(data);
+    ctrl.redraw();
+  }, onFail);
+}
+
 export default {
   join: throttle(1000, join),
   withdraw: throttle(1000, withdraw),
@@ -81,5 +91,6 @@ export default {
   loadPageOf,
   reloadSoon: throttle(4000, reload),
   reloadNow: reload,
-  playerInfo
+  playerInfo,
+  teamInfo
 };

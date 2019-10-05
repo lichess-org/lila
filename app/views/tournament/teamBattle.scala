@@ -28,7 +28,7 @@ object teamBattle {
               "You can't remove a team if a player has already joined the tournament with it").some)(
               form3.textarea(_)(rows := 10, tour.isFinished.option(disabled))
             ),
-          form3.group(form("nbTopPlayers"), raw("Number of leaders per team. The sum of their score is the score of the team."),
+          form3.group(form("nbLeaders"), raw("Number of leaders per team. The sum of their score is the score of the team."),
             help = frag("You really shouldn't change this value after the tournament has started!").some)(
             form3.input(_)(tpe := "number")
           ),

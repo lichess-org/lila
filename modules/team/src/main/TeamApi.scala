@@ -3,6 +3,7 @@ package lila.team
 import actorApi._
 import akka.actor.ActorSelection
 import lila.db.dsl._
+import lila.hub.lightTeam.LightTeam
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.mod.ModlogApi

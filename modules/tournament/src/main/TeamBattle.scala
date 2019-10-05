@@ -8,7 +8,7 @@ import lila.user.User
 
 case class TeamBattle(
     teams: Set[TeamId],
-    nbTopPlayers: Int
+    nbLeaders: Int
 ) {
   lazy val sortedTeamIds = teams.toList.sorted
 }
@@ -20,16 +20,24 @@ object TeamBattle {
   case class RankedTeam(
       rank: Int,
       teamId: TeamId,
-      nbPlayers: Int,
-      topPlayers: List[TopPlayer]
+      leaders: List[TeamLeader]
   ) {
-    def magicScore = topPlayers.foldLeft(0)(_ + _.magicScore)
-    def score = topPlayers.foldLeft(0)(_ + _.score)
+    def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
+    def score = leaders.foldLeft(0)(_ + _.score)
   }
 
-  case class TopPlayer(userId: User.ID, magicScore: Int) {
+  case class TeamLeader(userId: User.ID, magicScore: Int) {
     def score: Int = magicScore / 10000
   }
+
+  case class TeamInfo(
+      teamId: TeamId,
+      nbPlayers: Int,
+      avgRating: Int,
+      avgPerf: Int,
+      avgScore: Int,
+      topPlayers: List[Player]
+  )
 
   object DataForm {
     import play.api.data.Forms._
@@ -37,19 +45,19 @@ object TeamBattle {
 
     val fields = mapping(
       "teams" -> nonEmptyText,
-      "nbTopPlayers" -> number(min = 1, max = 10)
+      "nbLeaders" -> number(min = 1, max = 10)
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
       .verifying("In this version of team battles, no more than 10 teams can be allowed.", s => s.potentialTeamIds.size <= 10)
 
-    def edit(teams: List[String], nbTopPlayers: Int) = Form(fields) fill
-      Setup(s"${teams mkString "\n"}\n", nbTopPlayers)
+    def edit(teams: List[String], nbLeaders: Int) = Form(fields) fill
+      Setup(s"${teams mkString "\n"}\n", nbLeaders)
 
     def empty = Form(fields)
 
     case class Setup(
         teams: String,
-        nbTopPlayers: Int
+        nbLeaders: Int
     ) {
       def potentialTeamIds: Set[String] =
         teams.lines.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet

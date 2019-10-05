@@ -65,10 +65,10 @@ object show {
                   postForm(cls := "quit", action := routes.Team.quit(t.id))(
                     submitButton(cls := "button button-empty button-red confirm")(trans.quitTeam.txt())
                   ),
-                (info.createdByMe || isGranted(_.Admin)) option frag(
+                (info.createdByMe || isGranted(_.Admin)) option
                   a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(trans.settings()),
+                info.createdByMe option
                   a(href := routes.Tournament.teamBattleForm(t.id), cls := "button button-empty text", dataIcon := "g")("Team Battle")
-                )
               ),
               info.teamBattles.nonEmpty option frag(
                 st.section(cls := "team-show__tour")(

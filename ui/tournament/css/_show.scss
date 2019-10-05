@@ -12,7 +12,9 @@ $mq-col3: $mq-col3-uniboard;
 @import 'podium';
 @import 'stats';
 @import 'duel';
-@import 'player';
+@import 'actor-info';
+@import 'player-info';
+@import 'team-info';
 
 .tour {
   .pull-quote {

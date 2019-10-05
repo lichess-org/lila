@@ -164,16 +164,12 @@ object Tournament extends LilaController {
     }
   }
 
-  def team(tourId: String, teamId: String) = Open { implicit ctx =>
+  def teamInfo(tourId: String, teamId: String) = Open { implicit ctx =>
     TournamentRepo byId tourId flatMap {
       _ ?? { tour =>
-        Env.team.api light teamId flatMap {
-          _ ?? { team =>
-            JsonOk {
-              env.api.teamInfo(tour, team) flatMap {
-                _ ?? { env.jsonView.teamInfo(tour, _) }
-              }
-            }
+        env.jsonView.teamInfo(tour, teamId) map {
+          _ ?? { json =>
+            Ok(json) as JSON
           }
         }
       }
@@ -302,7 +298,7 @@ object Tournament extends LilaController {
               Env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
                 val form = lila.tournament.TeamBattle.DataForm.edit(teams.map { t =>
                   s"""${t.id} "${t.name}" by ${Env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
-                }, battle.nbTopPlayers)
+                }, battle.nbLeaders)
                 Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
               }
             }
