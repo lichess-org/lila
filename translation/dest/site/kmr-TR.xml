@@ -373,6 +373,7 @@
   <string name="yourPuzzleRatingX">Reytînga te ya pazilê: %s</string>
   <string name="findTheBestMoveForWhite">Hemleya çêtirîn bibîne ji bo spî.</string>
   <string name="findTheBestMoveForBlack">Hemleya çêtirîn bibîne ji bo reş.</string>
+  <string name="toTrackYourProgress">Ji bo şopandina pêşveçûna xwe:</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tên lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
