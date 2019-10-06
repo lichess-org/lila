@@ -352,6 +352,7 @@
   <string name="isPrivate">Taybet</string>
   <string name="reportXToModerators">%s-ê ragihîne moderatoran</string>
   <string name="profileCompletion">Temambûna profîlê: %s</string>
+  <string name="xRating">Reytînga %s</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tên lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
