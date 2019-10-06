@@ -563,7 +563,7 @@
   <string name="bothClicksAndDrag">O cualquiera</string>
   <string name="premovesPlayingDuringOpponentTurn">Anticipados (jugando en el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
-  <string name="promoteToQueenAutomatically">Promocionar a dama automáticamente</string>
+  <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas automáticamente por triple repetición</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
