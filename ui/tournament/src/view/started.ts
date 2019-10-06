@@ -40,7 +40,7 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   ];
 }
 
-export function table(ctrl: TournamentController): VNode {
+export function table(ctrl: TournamentController): VNode | undefined {
   return ctrl.playerInfo.id ? playerInfo(ctrl) :
     ctrl.teamInfo.requested ? teamInfo(ctrl) : tourTable(ctrl);
 }

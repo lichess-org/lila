@@ -2,7 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { opposite } from 'chessground/util';
 import { player as renderPlayer, miniBoard, bind } from './util';
-import { Duel, DuelPlayer } from '../interfaces';
+import { Duel, DuelPlayer, DuelTeams, TeamBattle } from '../interfaces';
 import TournamentController from '../ctrl';
 
 function featuredPlayer(player) {
@@ -34,11 +34,14 @@ function duelPlayerMeta(p: DuelPlayer) {
   ];
 }
 
-function renderDuel(d: Duel): VNode {
-  return h('a.glpt', {
+function renderDuel(battle?: TeamBattle, duelTeams?: DuelTeams) {
+  return (d: Duel) => h('a.glpt', {
     key: d.id,
     attrs: { href: '/' + d.id }
   }, [
+    battle && duelTeams ? h('line.t', [0, 1].map(i =>
+      h('team', battle.teams[duelTeams[d.p[i].n.toLowerCase()]])
+    )) : undefined,
     h('line.a', [
       h('strong', d.p[0].n),
       h('span', duelPlayerMeta(d.p[1]).reverse())
@@ -57,6 +60,6 @@ export default function(ctrl: TournamentController): VNode {
       hook: bind('click', _ => !ctrl.disableClicks)
     }, [
       h('h2', 'Top games')
-    ].concat(ctrl.data.duels.map(renderDuel))) : null
+    ].concat(ctrl.data.duels.map(renderDuel(ctrl.data.teamBattle, ctrl.data.duelTeams)))) : null
   ]);
 };

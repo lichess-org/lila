@@ -30,6 +30,7 @@ final class JsonView(
 
   private case class CachableData(
       duels: JsArray,
+      duelTeams: Option[JsObject],
       featured: Option[JsObject],
       podium: Option[JsArray]
   )
@@ -87,7 +88,8 @@ final class JsonView(
     .add("pairingsClosed" -> tour.pairingsClosed)
     .add("stats" -> stats)
     .add("socketVersion" -> socketVersion.map(_.value))
-    .add("teamStanding" -> teamStanding) ++
+    .add("teamStanding" -> teamStanding)
+    .add("duelTeams" -> data.duelTeams) ++
     full.?? {
       Json.obj(
         "id" -> tour.id,
@@ -241,10 +243,18 @@ final class JsonView(
       tour <- TournamentRepo byId id
       duels = duelStore.bestRated(id, 6)
       jsonDuels <- duels.map(duelJson).sequenceFu
+      duelTeams <- tour.flatMap(_.teamBattle).?? { battle =>
+        PlayerRepo.teamsOfPlayers(id, duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds)) map { teams =>
+          JsObject(teams map {
+            case (userId, teamId) => (userId, JsString(teamId))
+          }).some
+        }
+      }
       featured <- tour ?? fetchFeaturedGame
       podium <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
     } yield CachableData(
       duels = JsArray(jsonDuels),
+      duelTeams = duelTeams,
       featured = featured map featuredJson,
       podium = podium
     ),
@@ -396,26 +406,24 @@ final class JsonView(
     f = {
       case (tourId, teamId) => TournamentRepo.teamBattleOf(tourId) flatMap {
         _ ?? { battle =>
-          PlayerRepo.teamInfo(tourId, teamId, battle) flatMap {
-            _ ?? { info =>
-              lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json.obj(
-                "id" -> teamId,
-                "nbPlayers" -> info.nbPlayers,
-                "rating" -> info.avgRating,
-                "perf" -> info.avgPerf,
-                "score" -> info.avgScore,
-                "topPlayers" -> info.topPlayers.flatMap { p =>
-                  lightUserApi.sync(p.userId) map { user =>
-                    Json.obj(
-                      "name" -> user.name,
-                      "rating" -> p.rating,
-                      "score" -> p.score
-                    ).add("fire" -> p.fire)
-                      .add("title" -> user.title)
-                  }
+          PlayerRepo.teamInfo(tourId, teamId, battle) flatMap { info =>
+            lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json.obj(
+              "id" -> teamId,
+              "nbPlayers" -> info.nbPlayers,
+              "rating" -> info.avgRating,
+              "perf" -> info.avgPerf,
+              "score" -> info.avgScore,
+              "topPlayers" -> info.topPlayers.flatMap { p =>
+                lightUserApi.sync(p.userId) map { user =>
+                  Json.obj(
+                    "name" -> user.name,
+                    "rating" -> p.rating,
+                    "score" -> p.score
+                  ).add("fire" -> p.fire)
+                    .add("title" -> user.title)
                 }
-              ).some
-            }
+              }
+            ).some
           }
         }
       }

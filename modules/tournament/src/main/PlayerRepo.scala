@@ -86,7 +86,7 @@ object PlayerRepo {
       }
   }
   // very expensive
-  private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamId, battle: TeamBattle): Fu[Option[TeamBattle.TeamInfo]] = {
+  private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamId, battle: TeamBattle): Fu[TeamBattle.TeamInfo] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateOne(
       Match(selectTour(tourId) ++ $doc("t" -> teamId)),
@@ -111,12 +111,12 @@ object PlayerRepo {
             aggs <- doc.getAs[List[Bdoc]]("agg")
             agg <- aggs.headOption
             nbPlayers <- agg.getAs[Int]("nb")
-            rating <- agg.getAs[Double]("rating") map math.round
-            perf <- agg.getAs[Double]("perf") map math.round
-            score <- agg.getAs[Double]("score") map math.round
+            rating = agg.getAs[Double]("rating").??(math.round)
+            perf = agg.getAs[Double]("perf").??(math.round)
+            score = agg.getAs[Double]("score").??(math.round)
             topPlayers <- doc.getAs[List[Player]]("topPlayers")
           } yield TeamBattle.TeamInfo(teamId, nbPlayers, rating.toInt, perf.toInt, score.toInt, topPlayers)
-        }
+        } | TeamBattle.TeamInfo(teamId, 0, 0, 0, 0, Nil)
       }
   }
 
@@ -125,6 +125,17 @@ object PlayerRepo {
 
   def countTeamPlayers(tourId: Tournament.ID, teamId: TeamId): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
+
+  def teamsOfPlayers(tourId: Tournament.ID, userIds: List[User.ID]): Fu[List[(User.ID, TeamId)]] =
+    coll.find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true))
+      .list[Bdoc]()
+      .map {
+        _.flatMap { doc =>
+          doc.getAs[User.ID]("uid") flatMap { userId =>
+            doc.getAs[TeamId]("t") map { (userId, _) }
+          }
+        }
+      }
 
   def countActive(tourId: Tournament.ID): Fu[Int] =
     coll.countSel(selectTour(tourId) ++ selectActive)

@@ -78,3 +78,7 @@ export interface DuelPlayer {
   k: number // rank
   t?: string // title
 }
+
+export interface DuelTeams {
+  [userId: string]: string
+}

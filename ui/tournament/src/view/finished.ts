@@ -49,10 +49,10 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   ];
 }
 
-export function table(ctrl: TournamentController): VNode {
+export function table(ctrl: TournamentController): VNode | undefined {
   return ctrl.playerInfo.id ? playerInfo(ctrl) : (
     ctrl.teamInfo.requested ? teamInfo(ctrl) : (
-      stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : h('div')
+      stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : undefined
     )
   );
 }

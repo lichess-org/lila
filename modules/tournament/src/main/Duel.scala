@@ -13,6 +13,8 @@ case class Duel(
 ) {
 
   def has(u: User) = p1.name.id == u.id || p2.name.id == u.id
+
+  def userIds = List(p1.name.id, p2.name.id)
 }
 
 object Duel {

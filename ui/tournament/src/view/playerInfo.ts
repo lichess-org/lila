@@ -55,7 +55,9 @@ export default function(ctrl: TournamentController): VNode {
     }),
     h('div.stats', [
       playerTitle(data.player),
-      data.player.team ? h('team', ctrl.data.teamBattle!.teams[data.player.team]) : null,
+      data.player.team ? h('team', {
+        hook: bind('click', () => ctrl.showTeamInfo(data.player.team), ctrl.redraw)
+      }, ctrl.data.teamBattle!.teams[data.player.team]) : null,
       h('table', [
         data.player.performance ? numberRow(
           noarg('performance'),
