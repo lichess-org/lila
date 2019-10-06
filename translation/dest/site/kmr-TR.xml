@@ -438,6 +438,10 @@
   <string name="notes">Notên te</string>
   <string name="typePrivateNotesHere">Notên xwe yên taybet li vir binivîsîne</string>
   <string name="gameDisplay">Xuyanga lîstikê</string>
+  <string name="pieceAnimation">Anîmasyona kabikan</string>
+  <string name="materialDifference">Cudahiya kabikan</string>
+  <string name="closeAccount">Hesabê bigire</string>
+  <string name="changedMindDoNotCloseAccount">Fikrê min guherî, hesabê min negire</string>
   <string name="currentPassword">Şîfreya nûjen</string>
   <string name="newPassword">Şîfreya nû</string>
   <string name="newPasswordAgain">(Şîfreya nû (dîsa</string>
