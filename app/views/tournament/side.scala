@@ -88,7 +88,7 @@ object side {
   private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: Context) =
     st.section(cls := "team-battle")(
       p(cls := "team-battle__title text", dataIcon := "f")(
-        s"Battle of ${battle.teams.size} teams",
+        s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
         ctx.userId.has(tour.createdBy) option
           a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag("%"))
       )

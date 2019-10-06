@@ -38,11 +38,14 @@ export const name = 'finished';
 
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
+  const teamS = teamStanding(ctrl, 'finished');
   return [
-    teamStanding(ctrl, 'finished') || h('div.big_top', [
-      confetti(ctrl.data),
-      header(ctrl),
-      podium(ctrl)
+    ...(teamS ? [header(ctrl), teamS] : [
+      h('div.big_top', [
+        confetti(ctrl.data),
+        header(ctrl),
+        podium(ctrl)
+      ])
     ]),
     controls(ctrl, pag),
     standing(ctrl, pag)

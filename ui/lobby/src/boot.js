@@ -455,19 +455,6 @@ module.exports = function(cfg, element) {
 
     history.replaceState(null, null, '/');
   }
-
-  if (new Date().getDay() === 5 && !lichess.storage.get('fff1')) setTimeout(() => {
-    $('body').append(
-      '<div id="announce" class="fff">' +
-      '<a class="link" href="https://fridaysforfuture.org">' +
-      '<img src="//lichess1.org/assets/images/fff.png" /> ' +
-      'Fridays For Future - The World Needs You</a>' +
-      '<a class="close" title="Close">X</a>'
-    ).find('#announce a').click(function() {
-      lichess.storage.set('fff1', 1);
-      $('#announce').remove();
-    });
-  }, 1000);
 };
 
 function spreadNumber(el, nbSteps, getDuration) {

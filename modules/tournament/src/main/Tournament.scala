@@ -42,7 +42,7 @@ case class Tournament(
   def isTeamBattle = teamBattle.isDefined
 
   def fullName =
-    if (isTeamBattle) s"$name Team Battle"
+    if (isTeamBattle) s"$name Team Battle (BETA)"
     else schedule.map(_.freq).fold(s"$name $system") {
       case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
       case Schedule.Freq.Shield => s"$name $system"
