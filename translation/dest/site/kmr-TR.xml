@@ -364,6 +364,15 @@
   <string name="preferences">Tercîh</string>
   <string name="inlineNotation">Notasyona navrêzî</string>
   <string name="watchLichessTV">Li Lichess TVyê temaşe bike</string>
+  <string name="previouslyOnLichessTV">Berê ser Lichess TVyê</string>
+  <string name="onlinePlayers">Lîzerên serhêl</string>
+  <string name="activeToday">Yên îro çalak bûn</string>
+  <string name="activePlayers">Lîzerên aktîv</string>
+  <string name="bewareTheGameIsRatedButHasNoClock">Baldar be, lîstik bi reytîng e lê sînorek wextê tine!</string>
+  <string name="training">Pazil</string>
+  <string name="yourPuzzleRatingX">Reytînga te ya pazilê: %s</string>
+  <string name="findTheBestMoveForWhite">Hemleya çêtirîn bibîne ji bo spî.</string>
+  <string name="findTheBestMoveForBlack">Hemleya çêtirîn bibîne ji bo reş.</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tên lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
