@@ -577,7 +577,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro del tablero</string>
   <string name="outsideTheBoard">Fuera del tablero</string>
-  <string name="onSlowGames">En partidas largas</string>
+  <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="whenPremoving">Con anticipadas</string>
@@ -753,7 +753,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a las opciones gratuitamente</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
-  <string name="phoneAndTablet">Teléfono y tableta</string>
+  <string name="phoneAndTablet">Teléfono y tablet</string>
   <string name="bulletBlitzClassical">Bala, relámpago, clásico</string>
   <string name="correspondenceChess">Ajedrez por correspondencia</string>
   <string name="onlineAndOfflinePlay">Jugar en línea o sin conexión</string>
