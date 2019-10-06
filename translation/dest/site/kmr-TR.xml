@@ -353,6 +353,17 @@
   <string name="reportXToModerators">%s-ê ragihîne moderatoran</string>
   <string name="profileCompletion">Temambûna profîlê: %s</string>
   <string name="xRating">Reytînga %s</string>
+  <string name="ifNoneLeaveEmpty">Ger nîn be, vala bihêle</string>
+  <string name="gameCompletionRate">Rêjeya temambûna lîstikê: %s</string>
+  <string name="profile">Profîl</string>
+  <string name="editProfile">Profîlê sererast bike</string>
+  <string name="firstName">Nav</string>
+  <string name="lastName">Paşnav</string>
+  <string name="biography">Biyografî</string>
+  <string name="country">Welat</string>
+  <string name="preferences">Tercîh</string>
+  <string name="inlineNotation">Notasyona navrêzî</string>
+  <string name="watchLichessTV">Li Lichess TVyê temaşe bike</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tên lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
