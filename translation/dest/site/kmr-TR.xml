@@ -386,6 +386,15 @@
   <string name="butYouCanKeepTrying">Lê tu dikarî dewam bikî ceribandinên xwe.</string>
   <string name="success">Çêbû</string>
   <string name="wasThisPuzzleAnyGood">Ev pazil çawa bû?</string>
+  <string name="pleaseVotePuzzle">Bi dengdanê alî Lichessê bike da ku bi pêş bikeve, bo dengdanê tîrên jêrî û jorî bi kar bîne:</string>
+  <string name="thankYou">Spas!</string>
+  <string name="ratingX">Reytîng: %s</string>
+  <string name="hidden">veşartî</string>
+  <string name="fromGameLink">Ji lîstika %s</string>
+  <string name="continueTraining">Dewam bike perwerdeyê</string>
+  <string name="retryThisPuzzle">Vê pazilê nû bike</string>
+  <string name="thisPuzzleIsCorrect">Ev pazil rast û balkêş e</string>
+  <string name="thisPuzzleIsWrong">Ev pazil xelet û acizker e</string>
   <plurals name="nbGamesInPlay">
     <item quantity="one">%s lîstik tên lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
