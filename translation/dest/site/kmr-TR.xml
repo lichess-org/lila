@@ -399,17 +399,23 @@
     <item quantity="one">%s lîstik tên lîstin</item>
     <item quantity="other">%s lîstik tên lîstin</item>
   </plurals>
-  <string name="automaticallyProceedToNextGameAfterMoving">Piştî ajotinê jixweber derbasî lîstika din bibe</string>
-  <string name="latestUpdates">Rojaneyên herî dawî</string>
+  <string name="automaticallyProceedToNextGameAfterMoving">Piştî hemleyê jixweber derbasî lîstika din bibe</string>
+  <string name="autoSwitch">Otomatîk biguherîne</string>
+  <string name="puzzles">Pazil</string>
+  <string name="latestUpdates">Hildemandinên dawîn</string>
   <string name="tournamentWinners">Serkeftiyên Pêşbirkê</string>
   <string name="name">Nav</string>
+  <string name="description">Danasîn</string>
   <string name="no">Na</string>
   <string name="yes">Erê</string>
   <string name="help">Alîkarî:</string>
   <string name="createANewTopic">Mijareke nû çêke</string>
   <string name="topics">Mijar</string>
+  <string name="posts">Şandî</string>
+  <string name="lastPost">Şandiya dawîn</string>
   <string name="views">Dîtin</string>
   <string name="replies">Bersiv</string>
+  <string name="replyToThisTopic">Vê mijarê bibersivîne</string>
   <string name="reply">Bibersivîne</string>
   <string name="message">Peyam</string>
   <string name="createTheTopic">Mijarê çêke</string>
