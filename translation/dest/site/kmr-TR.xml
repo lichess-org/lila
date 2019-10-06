@@ -431,6 +431,10 @@
   <string name="error.provideOneCheatedGameLink">Ji kerema xwe bi kêmanî lînkek pêşkêş bike ji bo lîstika hîlekirî.</string>
   <string name="by">ji alî %s ve</string>
   <string name="thisTopicIsNowClosed">Ev mijar vêga girtî ye.</string>
+  <string name="theming">Dîzayn</string>
+  <string name="donate">Bexş bike</string>
+  <string name="blog">Blog</string>
+  <string name="questionsAndAnswers">Pirs &amp; Bersiv</string>
   <string name="currentPassword">Şîfreya nûjen</string>
   <string name="newPassword">Şîfreya nû</string>
   <string name="newPasswordAgain">(Şîfreya nû (dîsa</string>
