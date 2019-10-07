@@ -452,6 +452,8 @@
   <string name="newPassword">Pêborîna nû</string>
   <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
   <string name="boardHighlights">Nîşankirinên texteyê (hemleya dawîn û kişkirin)</string>
+  <string name="pieceDestinations">Hedefên kabikan (hemleyên derbasdar û pêşhereket)</string>
+  <string name="boardCoordinates">Koordînatên texteyê (A-H, 1-8)</string>
   <string name="sound">Deng</string>
   <string name="victory">Serkeftin</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
