@@ -442,6 +442,10 @@
   <string name="materialDifference">Cudahiya kabikan</string>
   <string name="closeAccount">Hesabê bigire</string>
   <string name="changedMindDoNotCloseAccount">Fikrê min guherî, hesabê min negire</string>
+  <string name="closeAccountExplanation">Tu bawer î ku tu dixwazî hesabê xwe bigirî? Girtina hesabê qerareke daîmî ye. Tu yê cardin QET nikaribî têkevî hesabê xwe.</string>
+  <string name="thisAccountIsClosed">Ev hesab girtî ye.</string>
+  <string name="invalidUsernameOrPassword">Navê bikarhêneriyê an pêborîn nederbasdar e</string>
+  <string name="incorrectPassword">Pêborîna nerast</string>
   <string name="currentPassword">Şîfreya nûjen</string>
   <string name="newPassword">Şîfreya nû</string>
   <string name="newPasswordAgain">(Şîfreya nû (dîsa</string>
