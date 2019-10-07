@@ -405,6 +405,12 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="blackCheckmatesInOneMove">Juodųjų šachas ir matas vienu ėjimu</string>
   <string name="retry">Kartoti</string>
   <string name="reconnecting">Jungiamasi</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s prisijungęs draugas</item>
+    <item quantity="few">%s prisijungę draugai</item>
+    <item quantity="many">%s prisijungusių draugų</item>
+    <item quantity="other">%s prisijungusių draugų</item>
+  </plurals>
   <string name="noFriendsOnline">Prisijungusių draugų nėra</string>
   <string name="findFriends">Rasti draugų</string>
   <string name="favoriteOpponents">Dažniausi varžovai</string>
