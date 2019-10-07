@@ -19,8 +19,7 @@
     'desc'
     'meta'
     'actions'
-    'tour'
-    'forum'
+    'tour-forum'
     'members';
     @include breakpoint($mq-small) {
       grid-column-gap: var(--box-padding);
@@ -29,8 +28,7 @@
       grid-template-areas:
       'meta    desc'
       'actions desc'
-      'members tour'
-      'members forum';
+      'members tour-forum';
     }
   }
   &__meta {
@@ -49,11 +47,8 @@
     display: flex;
     align-items: flex-start;
   }
-  &__forum {
-    grid-area: forum;
-  }
-  &__tour {
-    grid-area: tour;
+  &__tour-forum {
+    grid-area: tour-forum;
   }
   .best-members {
     margin-bottom: 1.5rem;
