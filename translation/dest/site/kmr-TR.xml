@@ -455,6 +455,10 @@
   <string name="pieceDestinations">Hedefên kabikan (hemleyên derbasdar û pêşhereket)</string>
   <string name="boardCoordinates">Koordînatên texteyê (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Lîsteyê hereketên gava lîstinê</string>
+  <string name="pgnPieceNotation">Notasyona hereketê</string>
+  <string name="chessPieceSymbol">Sembola kabikên kişikê</string>
+  <string name="pgnLetter">Herf (K, Q, R, B, N)</string>
+  <string name="chessClock">Demjimêra kişikê</string>
   <string name="sound">Deng</string>
   <string name="victory">Serkeftin</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
