@@ -18,4 +18,17 @@
   <string name="mostPopular">Οι πιο δημοφιλείς</string>
   <string name="addNewChapter">Προσθήκη νέου κεφαλαίου</string>
   <string name="addMembers">Προσθήκη μελών</string>
+  <string name="inviteToTheStudy">Προσκάλεσε στην σπουδή</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Παρακαλώ, προσκαλέστε μόνο άτομα που γνωρίζετε και που θέλουν να συμμετέχουν ενεργά σε αυτήν την σπουδή.</string>
+  <string name="searchByUsername">Αναζήτηση με όνομα χρήστη</string>
+  <string name="spectator">Θεατής</string>
+  <string name="contributor">Συνεισφέρων</string>
+  <string name="kick">Διώξε</string>
+  <string name="leaveTheStudy">Αποχώρησε απο αυτήν την σπουδή</string>
+  <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
+  <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
+  <string name="cloneStudy">Κλωνοποίησε</string>
+  <string name="studyPgn">PGN της σπουδής</string>
+  <string name="chapterPgn">PGN του κεφαλαίου</string>
+  <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
 </resources>
