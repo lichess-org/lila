@@ -446,9 +446,11 @@
   <string name="thisAccountIsClosed">Ev hesab girtî ye.</string>
   <string name="invalidUsernameOrPassword">Navê bikarhêneriyê an pêborîn nederbasdar e</string>
   <string name="incorrectPassword">Pêborîna nerast</string>
-  <string name="currentPassword">Şîfreya nûjen</string>
-  <string name="newPassword">Şîfreya nû</string>
-  <string name="newPasswordAgain">(Şîfreya nû (dîsa</string>
+  <string name="invalidAuthenticationCode">Koda rastandinê ya nederbasdar</string>
+  <string name="emailMeALink">Lînkê wek epeyam bişîne min</string>
+  <string name="currentPassword">Pêborîna vêga</string>
+  <string name="newPassword">Pêborîna nû</string>
+  <string name="newPasswordAgain">Pêborîna nû (cardin)</string>
   <string name="sound">Deng</string>
   <string name="victory">Serkeftin</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
