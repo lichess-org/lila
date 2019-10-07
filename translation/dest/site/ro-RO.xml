@@ -94,7 +94,7 @@
   <string name="winPreventedBy50MoveRule">Victoria a fost împiedicată de regula celor 50 de mutări</string>
   <string name="lossSavedBy50MoveRule">Pierderea partidei a fost împiedicată de regula celor 50 de mutări</string>
   <string name="allSet">Gata!</string>
-  <string name="importPgn">Importare PNG</string>
+  <string name="importPgn">Importare PGN</string>
   <string name="delete">Șterge</string>
   <string name="deleteThisImportedGame">Şterge acest joc importat?</string>
   <string name="replayMode">Rejoacă joc</string>
@@ -615,6 +615,7 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Dificil</string>
   <string name="xLeftANoteOnY">%1$s a lăsat un mesaj pentru %2$s</string>
+  <string name="xCompetesInY">%1$s concurează în %2$s</string>
   <string name="xAskedY">%1$s a întrebat %2$s</string>
   <string name="xAnsweredY">%1$s a răspuns %2$s</string>
   <string name="xCommentedY">%1$s a comentat %2$s</string>

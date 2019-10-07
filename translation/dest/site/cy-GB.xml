@@ -513,8 +513,8 @@
   <string name="onlyOnInitialPosition">Dim ond yn y safle cychwynol</string>
   <string name="menu">Dewislen</string>
   <string name="castling">Castellu</string>
-  <string name="whiteCastlingKingside">0-0 gwyn</string>
-  <string name="blackCastlingKingside">0-0 du</string>
+  <string name="whiteCastlingKingside">O-O gwyn</string>
+  <string name="blackCastlingKingside">O-O du</string>
   <string name="tpTimeSpentPlaying">Chwaraeodd am: %s</string>
   <string name="watchGames">Gwylio gêmau</string>
   <string name="tpTimeSpentOnTV">Edrychodd ar TV: %s</string>

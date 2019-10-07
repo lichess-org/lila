@@ -28,14 +28,14 @@ Berserk daje dodatkowy punkt wyłącznie, gdy wykonasz co najmniej 7 posunięć 
 Po zakończeniu każdej partii i powrocie do poczekalni dobierany jest gracz o zbliżonym rankingu. Choć dzięki temu czas oczekiwania jest minimalny, to możesz nie mieć jednak okazji rozegrać partii ze wszystkimi uczestnikami turnieju.
 Graj szybko i wracaj do poczekalni, by rozegrać więcej partii i zdobyć więcej punktów.</string>
   <string name="howDoesItEnd">Kiedy kończy się turniej?</string>
-  <string name="howDoesItEndAnswer">Turniej ma zegar który odlicza czas wstecz. Gdy osiągnie zero, punkty zdobyte w turnieju są zamrażane i ogłasza się zwycięzcę. Gry w toku muszą zostać zakończone, jednak nie są już wliczane do turnieju.</string>
+  <string name="howDoesItEndAnswer">Zegar turniejowy ogranicza czas trwania turnieju. Gdy cofając się osiągnie zero, ranking turniejowy ulega zamrożeniu i na jego podstawie ogłasza się zwycięzcę. Partie w toku muszą zostać zakończone, choć ich wynik nie będzie mieć wpływu na wynik turnieju.</string>
   <string name="otherRules">Inne ważne zasady</string>
-  <string name="thereIsACountdown">Na wykonanie swojego pierwszego posunięcia masz określony czas. Nie wykonanie ruchu w tym czasie spowoduje wygraną przeciwnika.</string>
+  <string name="thereIsACountdown">Masz ograniczony czas na wykonanie pierwszego posunięcia. Brak ruchu w tym czasie skutkuje oddaniem partii przeciwnikowi.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Remis w partii po pierwszym posunięciu nie przyniesie żadnemu z graczy punktów.</item>
-    <item quantity="few">Remis w partii po pierwszych %s posunięciach nie przyniesie żadnemu z graczy punktów.</item>
-    <item quantity="many">Remis w partii po pierwszych %s posunięciach nie przyniesie żadnemu z graczy punktów.</item>
-    <item quantity="other">Remis w partii po pierwszych %s posunięciach nie przyniesie żadnemu z graczy punktów.</item>
+    <item quantity="one">Remis w pierwszym posunięciu partii nie da punktów żadnemu z graczy.</item>
+    <item quantity="few">Remis w pierwszych %s posunięciach partii nie da punktów żadnemu z graczy.</item>
+    <item quantity="many">Remis w pierwszych %s posunięciach partii nie da punktów żadnemu z graczy.</item>
+    <item quantity="other">Remis w pierwszych %s posunięciach partii nie da punktów żadnemu z graczy.</item>
   </plurals>
   <string name="thisIsPrivate">Ten turniej jest prywatny</string>
   <string name="shareUrl">Udostępnij ten URL innym aby dołączyli do: %s</string>

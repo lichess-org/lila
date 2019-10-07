@@ -10,7 +10,7 @@
   <string name="yourTurn">Giliran Anda</string>
   <string name="aiNameLevelAiLevel">%1$s level %2$s</string>
   <string name="level">Level</string>
-  <string name="toggleTheChat">Ganti tampilan chat</string>
+  <string name="toggleTheChat">Ganti tampilan obrolan</string>
   <string name="toggleSound">Aktifkan/nonaktifkan suara</string>
   <string name="chat">Obrolan</string>
   <string name="resign">Menyerah</string>
@@ -39,8 +39,8 @@
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Orang pertama yang datang ke URL ini akan bermain dengan Anda</string>
   <string name="whiteResigned">Putih menyerah</string>
   <string name="blackResigned">Hitam menyerah</string>
-  <string name="whiteLeftTheGame">Putih telah meninggalkan permainan</string>
-  <string name="blackLeftTheGame">Hitam telah meninggalkan permainan</string>
+  <string name="whiteLeftTheGame">Putih meninggalkan permainan</string>
+  <string name="blackLeftTheGame">Hitam meninggalkan permainan</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Berbagi URL ini untuk mengundang orang menonton permainan</string>
   <string name="theComputerAnalysisHasFailed">Analisa komputer gagal dilakukan</string>
   <string name="viewTheComputerAnalysis">Lihat analisa komputer</string>
@@ -53,7 +53,7 @@
   <string name="loadingEngine">Memuat...</string>
   <string name="cloudAnalysis">Analisis Cloud</string>
   <string name="goDeeper">Lihat lebih detail</string>
-  <string name="showThreat">Menunjukkan ancaman</string>
+  <string name="showThreat">Tunjukkan ancaman</string>
   <string name="inLocalBrowser">di browser lokal</string>
   <string name="toggleLocalEvaluation">Ganti evaluasi lokal</string>
   <string name="promoteVariation">Variasi promosi</string>
@@ -74,7 +74,7 @@
   <string name="database">Basis Data</string>
   <string name="whiteDrawBlack">Putih / Remis / Hitam</string>
   <string name="averageRatingX">Rata-rata rating: %s</string>
-  <string name="recentGames">Permainan baru-baru ini</string>
+  <string name="recentGames">Permainan terkini</string>
   <string name="topGames">Permaninan kelas atas</string>
   <string name="masterDbExplanation">Permainan OTB dua juta %1$s + FIDE dinilai pemain dari tahun %2$s untuk %3$s</string>
   <plurals name="mateInXHalfMoves">
@@ -85,7 +85,7 @@
   </plurals>
   <string name="noGameFound">Permainan tidak ditemukan</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Apakah ingin memasukan Permainan lainnya dari menu preferensi?</string>
-  <string name="openingExplorer">Perambah pembukaan</string>
+  <string name="openingExplorer">Penjelajah pembukaan</string>
   <string name="xOpeningExplorer">Menjelajahi pembukaan %s</string>
   <string name="winPreventedBy50MoveRule">Tidak bisa menang karena peraturan 50 langkah</string>
   <string name="lossSavedBy50MoveRule">Kekalahan terhindari karena peraturan 50 langkah</string>
@@ -614,8 +614,8 @@
   <string name="onlyOnInitialPosition">Hanya di posisi awal</string>
   <string name="menu">Menu</string>
   <string name="castling">Rokade</string>
-  <string name="whiteCastlingKingside">Putih 0-0</string>
-  <string name="blackCastlingKingside">Hitam 0-0</string>
+  <string name="whiteCastlingKingside">Putih O-O</string>
+  <string name="blackCastlingKingside">Hitam O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="other">%s Postingan Forum</item>
   </plurals>

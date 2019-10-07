@@ -36,7 +36,7 @@
   <string name="forceResignation">إعلن فوزك</string>
   <string name="forceDraw">إعلن التعادل</string>
   <string name="talkInChat">كن حسن الخلق في الدردشة!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط. سيلعب معك.</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">أول من يأتي لهذا الرابط سيلعب معك.</string>
   <string name="whiteResigned">الأبيض استسلم</string>
   <string name="blackResigned">الأسود استسلم</string>
   <string name="whiteLeftTheGame">الأبيض ترك المباراة</string>
@@ -57,7 +57,7 @@
   <string name="inLocalBrowser">في متصفحك</string>
   <string name="toggleLocalEvaluation">التبديل للتحليل بالمتصفح</string>
   <string name="promoteVariation">تغيير النوع</string>
-  <string name="makeMainLine">اجعله التسلسل الرئيسي</string>
+  <string name="makeMainLine">اجعله التفريع الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
   <string name="move">نقلة</string>
   <string name="variantLoss">تفريع خاسر</string>
@@ -66,15 +66,15 @@
   <string name="pawnMove">نقلة بيدق</string>
   <string name="capture">أسر</string>
   <string name="close">إغلاق</string>
-  <string name="winning">فائزًا</string>
-  <string name="losing">خاسرًا</string>
+  <string name="winning">فوز</string>
+  <string name="losing">خسارة</string>
   <string name="drawn">تعادل</string>
   <string name="unknown">مجهول</string>
   <string name="database">قاعدة بيانات</string>
   <string name="whiteDrawBlack">أبيض / تعادل / أسود</string>
   <string name="averageRatingX">معدل التقييم: %s</string>
   <string name="recentGames">أحدث المباريات</string>
-  <string name="topGames">مباريات القمة</string>
+  <string name="topGames">أفضل الالعاب</string>
   <string name="masterDbExplanation">اثنان مليون مباراة من قاعدة بيانات الاساتذة تقييم %1$s+ للاعبين من %2$s إلى %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="zero">مات في %s نصف-نقلة</item>
@@ -106,7 +106,7 @@
   <string name="realtimeReplay">ذات الوقت</string>
   <string name="byCPL">بالاثارة</string>
   <string name="openStudy">فتح دراسة</string>
-  <string name="enable">تمكين</string>
+  <string name="enable">تفعيل</string>
   <string name="bestMoveArrow">سهم أفضل نقلة</string>
   <string name="evaluationGauge">مقياس التقييم</string>
   <string name="multipleLines">عدد الخطوط</string>
@@ -114,7 +114,7 @@
   <string name="memory">الذاكرة</string>
   <string name="infiniteAnalysis">تحليل لانهائي</string>
   <string name="removesTheDepthLimit">التحليل لأبعد عمق، وابقاء حاسوبك نشطًا</string>
-  <string name="blunder">خطأ غير مقصود</string>
+  <string name="blunder">خطأ فادح</string>
   <string name="blunders">أخطاء فادحة</string>
   <string name="mistake">خطأ</string>
   <string name="mistakes">أخطاء</string>
@@ -156,7 +156,7 @@
   <string name="signIn">دخول</string>
   <string name="youNeedAnAccountToDoThat">تحتاج حسابا لهذا</string>
   <string name="signUp">تسجيل</string>
-  <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب مما قد يؤدي إلى الحظر من الموقع</string>
+  <string name="computersAreNotAllowedToPlay">برامج الشطرنج واللاعبين الذين يستعينون بالبرامج ممنوعين من اللعب. فضلا لا تستخدم برامج الشطرنج، قواعد البيانات، أو مساعدة لاعبين آخرين أثناء اللعب. بالإضافة إلى ذلك يرجى عدم تسجيل أكثر من حساب لأن ذلك قد يؤدي إلى الحظر من الموقع.</string>
   <string name="games">المباريات</string>
   <string name="forum">منتدى</string>
   <string name="xPostedInForumY">%1$s منشور في الموضوع %2$s</string>

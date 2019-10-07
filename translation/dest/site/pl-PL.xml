@@ -101,7 +101,7 @@
   <string name="deleteThisImportedGame">Czy usunąć tę partię?</string>
   <string name="replayMode">Tryb odtwarzania</string>
   <string name="realtimeReplay">Jak w grze</string>
-  <string name="byCPL">Wg analizy</string>
+  <string name="byCPL">Wg SCP</string>
   <string name="openStudy">Otwórz opracowanie</string>
   <string name="enable">Włącz</string>
   <string name="bestMoveArrow">Strzałka najlepszego ruchu</string>
@@ -209,7 +209,7 @@
     <item quantity="other">%s partii z Tobą</item>
   </plurals>
   <string name="cancel">Anuluj</string>
-  <string name="timeOut">Przekroczenie limitu czasu</string>
+  <string name="timeOut">Czas upłynął</string>
   <string name="drawOfferSent">Wysłano propozycję remisu</string>
   <string name="drawOfferDeclined">Odrzucono propozycję remisu</string>
   <string name="drawOfferAccepted">Przyjęto propozycję remisu</string>
@@ -222,7 +222,7 @@
   <string name="accept">Przyjmij</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
-  <string name="eventInProgress">W toku</string>
+  <string name="eventInProgress">Właśnie trwa</string>
   <string name="finished">Zakończone</string>
   <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
@@ -496,7 +496,7 @@
   <string name="profileCompletion">Kompletność profilu: %s</string>
   <string name="xRating">ranking %s</string>
   <string name="ifNoneLeaveEmpty">Jeśli nie masz, zostaw puste</string>
-  <string name="gameCompletionRate">Ukończonych gier: %s</string>
+  <string name="gameCompletionRate">Ukończonych partii: %s</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Edycja profilu</string>
   <string name="firstName">Imię</string>
@@ -650,9 +650,9 @@
   <string name="xCommentedY">%1$s skomentował %2$s</string>
   <string name="victory">Wygrana</string>
   <string name="defeat">Przegrana</string>
-  <string name="victoryVsYInZ">%1$s - %2$s w %3$s</string>
-  <string name="defeatVsYInZ">%1$s - %2$s w %3$s</string>
-  <string name="drawVsYInZ">%1$s - %2$s w %3$s</string>
+  <string name="victoryVsYInZ">%1$s przeciwko %2$s (%3$s)</string>
+  <string name="defeatVsYInZ">%1$s przeciwko %2$s (%3$s)</string>
+  <string name="drawVsYInZ">%1$s przeciwko %2$s (%3$s)</string>
   <string name="timeline">Historia</string>
   <string name="starting">Rozpoczęcie:</string>
   <string name="allInformationIsPublicAndOptional">Wszystkie informacje są publiczne i opcjonalne</string>
@@ -753,7 +753,7 @@
   <string name="tournamentFAQ">Turnieje typu Arena FAQ</string>
   <string name="tournamentOfficial">Oficjalny</string>
   <string name="timeBeforeTournamentStarts">Czas do rozpoczęcia turnieju</string>
-  <string name="averageCentipawnLoss">Wartość średnia straconych centypionów</string>
+  <string name="averageCentipawnLoss">Średnia strata w centypionach</string>
   <string name="keyboardShortcuts">Skróty klawiaturowe</string>
   <string name="keyMoveBackwardOrForward">idź wstecz/do przodu</string>
   <string name="keyGoToStartOrEnd">idź na początek/koniec</string>
@@ -778,7 +778,7 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nie masz jeszcze ustalonego rankingu (%s).</string>
   <string name="yourRating">Twój ranking</string>
   <string name="cumulative">Łącznie</string>
-  <string name="glicko2Rating">Glicko-2 ranking</string>
+  <string name="glicko2Rating">Ranking Glicko-2</string>
   <string name="checkYourEmail">Sprawdź swoją skrzynkę e-mail</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Wysłaliśmy do Ciebie wiadomość e-mail. Kliknij w link znajdujący się w e-mailu aby aktywować swoje konto.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Jeśli nie widzisz wiadomości e-mail, sprawdź inne możliwe miejsca, takie jak kosz, spam lub inne foldery.</string>
@@ -924,7 +924,7 @@
   <string name="registerToSendChallenges">Zarejestruj się aby móc wysyłać wyzwania.</string>
   <string name="youCannotChallengeX">Nie możesz wyzwać %s.</string>
   <string name="xDoesNotAcceptChallenges">%s nie przyjmuje wyzwań.</string>
-  <string name="yourXRatingIsTooFarFromY">Twój ranking (%1$s) jest zbyt odległy od %2$s.</string>
+  <string name="yourXRatingIsTooFarFromY">Zbyt duża różnica rankingów (%1$s) między tobą a %2$s.</string>
   <string name="cannotChallengeDueToProvisionalXRating">Nie można rzucić wyzwania ze względu na tymczasowy ranking (%s).</string>
   <string name="xOnlyAcceptsChallengesFromFriends">%s akceptuje tylko wyzwania od znajomych.</string>
   <string name="conditionalPremoves">Ruchy warunkowe</string>
@@ -932,24 +932,30 @@
   <string name="playVariationToCreateConditionalPremoves">Zagraj wariant, by utworzyć ruchy warunkowe</string>
   <string name="noConditionalPremoves">Brak ruchów warunkowych</string>
   <string name="playX">Zagraj %s</string>
+  <plurals name="andSaveNbPremoveLines">
+    <item quantity="one">i zapisz wariant warunkowy</item>
+    <item quantity="few">i zapisz %s warianty warunkowe</item>
+    <item quantity="many">i zapisz %s wariantów warunkowych</item>
+    <item quantity="other">i zapisz %s wariantów warunkowych</item>
+  </plurals>
   <string name="sorry">Przykro nam :(</string>
   <string name="weHadToTimeYouOutForAWhile">Na pewien czas musieliśmy wykluczyć Cię z gry.</string>
   <string name="timeoutExpires">Wykluczenie skończy się %s.</string>
   <string name="why">Dlaczego?</string>
   <string name="pleasantChessExperience">Naszym celem jest zapewnienie wszystkim przyjemności z gry.</string>
-  <string name="goodPractice">W tym celu musimy zagwarantować, że wszyscy gracze przestrzegają dobrych praktyk.</string>
-  <string name="potentialProblem">Po wykryciu potencjalnego problemu wyświetlamy ten właśnie komunikat.</string>
+  <string name="goodPractice">W tym celu musimy zapewnić przestrzeganie dobrych praktyk przez wszystkich graczy.</string>
+  <string name="potentialProblem">Ten komunikat jest wyświetlany po wykryciu potencjalnego problemu.</string>
   <string name="howToAvoidThis">Jak uniknąć takiej sytuacji?</string>
-  <string name="playEveryGame">Rozegraj każdą partię którą rozpocząłeś.</string>
-  <string name="tryToWin">Próbuj wygrać (lub przynajmniej zremisować) każdą partię którą grasz.</string>
-  <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj aż upłynie Twój czas).</string>
+  <string name="playEveryGame">Podejmuj grę w każdej rozpoczętej partii.</string>
+  <string name="tryToWin">Staraj się wygrywać (lub przynajmniej remisować) każdą rozgrywaną partię.</string>
+  <string name="resignLostGames">Poddawaj przegrane partie (nie czekaj na upłynięcie czasu gry).</string>
   <string name="temporaryInconvenience">Przepraszamy za chwilowe niedogodności,</string>
   <string name="wishYouGreatGames">i życzymy Ci samych udanych partii na lichess.org.</string>
   <string name="thankYouForReading">Dziękujemy za przeczytanie!</string>
   <string name="lifetimeScore">Wynik wszystkich partii</string>
   <string name="currentMatchScore">Wynik bieżącego meczu</string>
-  <string name="agreementAssistance">Zgadzam się nie korzystać z pomocy podczas gry (programów komputerowych, książek, baz danych lub innych osób).</string>
-  <string name="agreementNice">Zgadzam się być zawsze miły dla innych graczy.</string>
+  <string name="agreementAssistance">Zgadzam się nie korzystać z pomocy podczas gry (programów szachowych, książek, baz danych, czy innych osób).</string>
+  <string name="agreementNice">Zgadzam się odnosić zawsze z szacunkiem do innych graczy.</string>
   <string name="agreementAccount">Zgadzam się nie tworzyć wielu kont.</string>
   <string name="agreementPolicy">Zgadzam się przestrzegać wszystkich zasad Lichess.</string>
 </resources>

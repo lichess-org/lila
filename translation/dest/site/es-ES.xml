@@ -358,6 +358,10 @@
   <string name="blackCheckmatesInOneMove">Juegan negras y dan mate en una</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amigo en línea</item>
+    <item quantity="other">%s amigos en línea</item>
+  </plurals>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Encontrar amigos</string>
   <string name="favoriteOpponents">Oponentes favoritos</string>
@@ -559,7 +563,7 @@
   <string name="bothClicksAndDrag">O cualquiera</string>
   <string name="premovesPlayingDuringOpponentTurn">Anticipados (jugando en el turno del oponente)</string>
   <string name="takebacksWithOpponentApproval">Deshacer jugada (con consentimiento del oponente)</string>
-  <string name="promoteToQueenAutomatically">Promocionar a dama automáticamente</string>
+  <string name="promoteToQueenAutomatically">Promover a la Reina automáticamente</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Reclamar tablas automáticamente por triple repetición</string>
   <string name="privacy">Privacidad</string>
   <string name="letOtherPlayersFollowYou">Permitir que otros jugadores te sigan</string>
@@ -573,7 +577,7 @@
   <string name="slow">Lento</string>
   <string name="insideTheBoard">Dentro del tablero</string>
   <string name="outsideTheBoard">Fuera del tablero</string>
-  <string name="onSlowGames">En partidas largas</string>
+  <string name="onSlowGames">En partidas lentas</string>
   <string name="always">Siempre</string>
   <string name="inCasualGamesOnly">Sólo en partidas amistosas</string>
   <string name="whenPremoving">Con anticipadas</string>
@@ -684,6 +688,7 @@
   <string name="lichessTournaments">Torneos de Lichess</string>
   <string name="tournamentFAQ">Preguntas frecuentes de los torneos</string>
   <string name="tournamentOfficial">Oficial</string>
+  <string name="timeBeforeTournamentStarts">Tiempo antes de que comience el torneo</string>
   <string name="averageCentipawnLoss">Pérdida promedio en centipeones</string>
   <string name="keyboardShortcuts">Atajos del teclado</string>
   <string name="keyMoveBackwardOrForward">movimiento hacia atrás y hacia adelante</string>
@@ -748,7 +753,7 @@
   <string name="everybodyGetsAllFeaturesForFree">Todos tienen acceso a las opciones gratuitamente</string>
   <string name="zeroAdvertisement">Sin anuncios</string>
   <string name="fullFeatured">Todas las funciones</string>
-  <string name="phoneAndTablet">Teléfono y tableta</string>
+  <string name="phoneAndTablet">Teléfono y tablet</string>
   <string name="bulletBlitzClassical">Bala, relámpago, clásico</string>
   <string name="correspondenceChess">Ajedrez por correspondencia</string>
   <string name="onlineAndOfflinePlay">Jugar en línea o sin conexión</string>
@@ -874,6 +879,7 @@
   <string name="wishYouGreatGames">y esperamos que disfrutes de lichess.org.</string>
   <string name="thankYouForReading">¡Gracias por tomarte el tiempo para leer esto!</string>
   <string name="lifetimeScore">Puntuación histórica</string>
+  <string name="currentMatchScore">Puntuación actual</string>
   <string name="agreementAssistance">Me comprometo a no recibir ayuda externa durante mis partidas (de un ordenador, un libro, una base de datos u otra persona).</string>
   <string name="agreementNice">Me comprometo a respetar siempre a otros jugadores.</string>
   <string name="agreementAccount">Me comprometo a no crear múltiples cuentas.</string>

@@ -24,6 +24,7 @@
   <string name="howDoesItEnd">كيف تنتهي البطولة؟</string>
   <string name="howDoesItEndAnswer">للبطولة ساعة عد تنازلي. عندما تصل إلى الصفر، يتم تجميد ترتيب مراكز البطولة، ويتم الإعلان عن الفائز. يجب أن يتم الانتهاء من المباريات قيد اللعب، ومع ذلك فإنها لا تحتسب نتائجها في البطولة.</string>
   <string name="otherRules">قواعد أخرى هامة</string>
+  <string name="thereIsACountdown">هناك عد تنازلي لخطوتك الأولى. الفشل في اتخاذ خطوة خلال هذا الوقت ستخسر اللعبة لصالح خصمك.</string>
   <string name="thisIsPrivate">هذه بطولة خاصة</string>
   <string name="shareUrl">شارك الرابط لتسمح للناس بالإنضمام: %s</string>
 </resources>

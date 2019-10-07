@@ -358,6 +358,10 @@
   <string name="blackCheckmatesInOneMove">Qoralar bitta yurishda mot</string>
   <string name="retry">Qayta urinish</string>
   <string name="reconnecting">Qaytadan ulanmoqda</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s ta o\'rtoq onlayn</item>
+    <item quantity="other">%s ta o\'rtoqlar onlayn</item>
+  </plurals>
   <string name="noFriendsOnline">Online do\'stlar yo\'q</string>
   <string name="findFriends">Do\'stlarni topish</string>
   <string name="favoriteOpponents">Favorit raqiblar</string>
