@@ -3,7 +3,7 @@ package lila.tournament
 import lila.game.Game
 import lila.user.User
 
-import scala.collection.mutable.AnyRefMap
+import java.util.concurrent.ConcurrentHashMap
 
 case class Duel(
     gameId: Game.ID,
@@ -37,13 +37,15 @@ private final class DuelStore {
 
   import Duel._
 
-  private val byTourId = AnyRefMap.empty[Tournament.ID, Vector[Duel]]
+  private val byTourId = new ConcurrentHashMap[Tournament.ID, Vector[Duel]]
+
+  def get(tourId: Tournament.ID): Option[Vector[Duel]] = Option(byTourId get tourId)
 
   def bestRated(tourId: Tournament.ID, nb: Int): Vector[Duel] =
-    ~(byTourId get tourId) sortBy (-_.averageRating.value) take nb
+    ~get(tourId) sortBy (-_.averageRating.value) take nb
 
   def find(tour: Tournament, user: User): Option[Game.ID] =
-    byTourId get tour.id flatMap { _.find(_ has user).map(_.gameId) }
+    get(tour.id) flatMap { _.find(_ has user).map(_.gameId) }
 
   def add(tour: Tournament, game: Game, p1: UsernameRating, p2: UsernameRating, ranking: Ranking): Unit = for {
     p1 <- tbUser(p1, ranking)
@@ -54,13 +56,13 @@ private final class DuelStore {
       p2 = p2,
       averageRating = Rating((p1.rating.value + p2.rating.value) / 2)
     )
-  } byTourId += (tour.id -> byTourId.get(tour.id).fold(Vector(tb)) { _ :+ tb })
+  } byTourId.put(tour.id, get(tour.id).fold(Vector(tb)) { _ :+ tb })
 
   def remove(game: Game): Unit = for {
     tourId <- game.tournamentId
-    tb <- byTourId get tourId
+    tb <- get(tourId)
   } {
-    if (tb.size <= 1) byTourId -= tourId
-    else byTourId += (tourId, tb.filter(_.gameId != game.id))
+    if (tb.size <= 1) byTourId.remove(tourId)
+    else byTourId.put(tourId, tb.filter(_.gameId != game.id))
   }
 }
