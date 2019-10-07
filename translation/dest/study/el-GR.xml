@@ -30,9 +30,18 @@
   <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
   <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
   <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στην σπουδή μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
+  <string name="makeSureTheChapterIsComplete">Σιγουρευτείτε ότι το κεφάλαιο είναι ολοκληρωμένο. Μπορείτε να ζητήσετε ανάλυση μόνο μια φορά.</string>
+  <string name="first">Πρώτη</string>
+  <string name="previous">Προηγούμενη</string>
+  <string name="next">Επόμενη</string>
+  <string name="last">Τελευταία</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
   <string name="studyPgn">PGN της σπουδής</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
+  <string name="open">Άνοιξε</string>
+  <string name="studyNotFound">Η σπουδή δεν βρέθηκε</string>
+  <string name="editChapter">Επεξεργάσου το κεφάλαιο</string>
+  <string name="newChapter">Νέο κεφάλαιο</string>
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
   <string name="automatic">Αυτόματο</string>
 </resources>
