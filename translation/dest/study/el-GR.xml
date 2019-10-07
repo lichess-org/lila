@@ -25,10 +25,14 @@
   <string name="contributor">Συνεισφέρων</string>
   <string name="kick">Διώξε</string>
   <string name="leaveTheStudy">Αποχώρησε απο αυτήν την σπουδή</string>
+  <string name="like">Μου αρέσει</string>
   <string name="commentThisPosition">Σχολίασε την υπάρχουσα θέση</string>
   <string name="commentThisMove">Σχολίασε αυτήν την κίνηση</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Το κεφάλαιο είναι πολύ μικρό για να αναλυθεί.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Μόνο αυτοί που συνεισφέρουν στην σπουδή μπορούν να ζητήσουν ανάλυση από υπολογιστή.</string>
   <string name="cloneStudy">Κλωνοποίησε</string>
   <string name="studyPgn">PGN της σπουδής</string>
   <string name="chapterPgn">PGN του κεφαλαίου</string>
   <string name="loadAGameFromPgn">Φόρτωσε μια παρτίδα από PGN</string>
+  <string name="automatic">Αυτόματο</string>
 </resources>
