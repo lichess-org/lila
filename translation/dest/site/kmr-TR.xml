@@ -507,6 +507,16 @@
   <string name="starting">Destpêk:</string>
   <string name="allInformationIsPublicAndOptional">Hemû agahî giştî ne û bi daxwazê ne.</string>
   <string name="yourCityRegionOrDepartment">Bajar, herêm, an eyaleta tê.</string>
+  <string name="biographyDescription">Behsa xwe bike, meraqên te, ji çi hez dikî di kişikê de, hoste, destpêkên te yên bijare...</string>
+  <plurals name="blocks">
+    <item quantity="one">%s lîzer hatiye astengkirin</item>
+    <item quantity="other">%s lîzer hatine astengkirin</item>
+  </plurals>
+  <string name="listBlockedPlayers">Lîsteya lîzerên ku te blog kiriye</string>
+  <string name="human">Însan</string>
+  <string name="computer">Kombers</string>
+  <string name="side">Alî</string>
+  <string name="clock">Saet</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
