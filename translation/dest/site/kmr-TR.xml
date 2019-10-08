@@ -471,7 +471,14 @@
   <string name="bothClicksAndDrag">Her du jî</string>
   <string name="premovesPlayingDuringOpponentTurn">Pêşhemle (lîstina gava dora dijberê)</string>
   <string name="takebacksWithOpponentApproval">Paşve kişandin (bi destûra dijberê)</string>
+  <string name="promoteToQueenAutomatically">Bi otomatîkî bike Wezîr</string>
+  <string name="claimDrawOnThreefoldRepetitionAutomatically">Di tekrara sêgavî debi otomatîkî wekheviyê teklîf bike</string>
+  <string name="privacy">Nihênî</string>
+  <string name="letOtherPlayersFollowYou">Bihêle ku lîzerên din te taqîb bikin</string>
+  <string name="letOtherPlayersChallengeYou">Bihêle ku lîzerên din te vexwînin lîstikan</string>
+  <string name="letOtherPlayersInviteYouToStudy">Bihêle ku lîzerên din te vexwînin xebatan</string>
   <string name="sound">Deng</string>
+  <string name="yourPreferencesHaveBeenSaved">Tercîhên te hate qeydkirin.</string>
   <string name="none">Tine</string>
   <string name="fast">Zû</string>
   <string name="normal">Normal</string>
