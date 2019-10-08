@@ -503,6 +503,8 @@
   <string name="victoryVsYInZ">%1$s dijî %2$s li %3$s</string>
   <string name="defeatVsYInZ">%1$s dijî %2$s li %3$s</string>
   <string name="drawVsYInZ">%1$s dijî %2$s li %3$s</string>
+  <string name="timeline">Demname</string>
+  <string name="starting">Destpêk:</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
