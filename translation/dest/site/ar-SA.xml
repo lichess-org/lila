@@ -201,6 +201,14 @@
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="zero">يتم تحديث الرتبة كل %s دقيقة</item>
+    <item quantity="one">يتم تحديث الترتيب كل دقيقة</item>
+    <item quantity="two">يتم تحديث الترتيب كل دقيقتين</item>
+    <item quantity="few">يتم تحديث الترتيب كل %s دقائق</item>
+    <item quantity="many">يتم تحديث الترتيب كل %s دقيقة</item>
+    <item quantity="other">يتم تحديث الترتيب كل %s دقائق</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s لغز</item>
     <item quantity="one">%s لغز</item>
@@ -1018,4 +1026,7 @@
   <string name="lifetimeScore">النتيجة النهائية</string>
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
   <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
+  <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
+  <string name="agreementAccount">أوافق على أني لن أنشئ حسابات متعددة.</string>
+  <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
 </resources>
