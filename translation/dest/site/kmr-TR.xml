@@ -483,6 +483,9 @@
   <string name="fast">Zû</string>
   <string name="normal">Normal</string>
   <string name="slow">Hêdî</string>
+  <string name="insideTheBoard">Li nav texteyê</string>
+  <string name="outsideTheBoard">Li derveyî texteyê</string>
+  <string name="onSlowGames">Di lîstikên hêdî de</string>
   <string name="always">Hertim</string>
   <string name="inCasualGamesOnly">Tenê li lîstikên bêpoînt</string>
   <string name="whenPremoving">Gava pêş-hemleyê</string>
