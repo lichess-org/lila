@@ -542,6 +542,12 @@
   <string name="blindfoldChess">Kişika çavmiçkirî (kabikên nexuyabar)</string>
   <string name="zenMode">Moda Zenê (tenê texte û saet tê xuyan)</string>
   <string name="moveConfirmation">Tesdîqkirina hemleyê</string>
+  <string name="inCorrespondenceGames">Lîstikên bi muxabere</string>
+  <string name="ifRatingIsPlusMinusX">Ger reytîng ± %s be</string>
+  <string name="onlyFriends">Tenê hevalan</string>
+  <string name="displayBoardResizeHandle">Destika mîhenkirina mezinahiya texteyê nîşan bide</string>
+  <string name="onlyOnInitialPosition">Tenê ser pozîyona pêşî</string>
+  <string name="menu">Menu</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
