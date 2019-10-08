@@ -59,6 +59,7 @@
   <string name="promoteVariation">تغيير النوع</string>
   <string name="makeMainLine">اجعله التفريع الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
+  <string name="forceVariation">فرض التسلسل</string>
   <string name="move">نقلة</string>
   <string name="variantLoss">تفريع خاسر</string>
   <string name="variantWin">تفريع رابح</string>
@@ -192,6 +193,7 @@
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="changeUsername">تغيير اسم المستخدم</string>
+  <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
   <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسمك مرة واحدة فقط, ولا يسمح بتغيير شئ غير حساسية الأحرف.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
@@ -207,7 +209,7 @@
     <item quantity="two">يتم تحديث الترتيب كل دقيقتين</item>
     <item quantity="few">يتم تحديث الترتيب كل %s دقائق</item>
     <item quantity="many">يتم تحديث الترتيب كل %s دقيقة</item>
-    <item quantity="other">يتم تحديث الترتيب كل %s دقائق</item>
+    <item quantity="other">يتم تحديث الترتيب كل %s دقيقة</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s لغز</item>
@@ -841,6 +843,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
   <string name="yourRating">تقييمك</string>
+  <string name="cumulative">جمعا</string>
   <string name="glicko2Rating">نظام تقييم Glicko-2</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
