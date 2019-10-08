@@ -437,8 +437,17 @@
   <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
   <string name="notACheckmate">ليست كش مات</string>
   <string name="whiteCheckmatesInOneMove">كش مات للأبيض في نقلة واحدة</string>
+  <string name="blackCheckmatesInOneMove">كش مات للأسود في نقلة واحدة</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="zero">لا يوجد أصدقاء متصلون</item>
+    <item quantity="one">%s صديق متصل</item>
+    <item quantity="two">%s أصدقاء متصلون</item>
+    <item quantity="few">%s أصدقاء متصلون</item>
+    <item quantity="many">%s أصدقاء متصلون</item>
+    <item quantity="other">%s أصدقاء متصلون</item>
+  </plurals>
   <string name="noFriendsOnline">لايوجد أصدقاء متصلين</string>
   <string name="findFriends">ابحث عن أصدقاء</string>
   <string name="favoriteOpponents">خصوم مفضلين</string>
@@ -689,6 +698,8 @@
   <string name="xCommentedY">%1$s علّق %2$s</string>
   <string name="victory">أحسنت!</string>
   <string name="defeat">هزيمة</string>
+  <string name="victoryVsYInZ">%1$s ضد %2$s في %3$s</string>
+  <string name="defeatVsYInZ">%1$s ضد %2$s في %3$s</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
