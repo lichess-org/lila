@@ -494,7 +494,12 @@
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Zehmet</string>
   <string name="xLeftANoteOnY">%1$s notek berda ser %2$s</string>
+  <string name="xCompetesInY">%1$s tevlî %2$s bûye</string>
+  <string name="xAskedY">%1$s %2$s pirsî</string>
+  <string name="xAnsweredY">%1$s cewab da %2$s</string>
+  <string name="xCommentedY">%1$s şîrove kir %2$s</string>
   <string name="victory">Serkeftin</string>
+  <string name="defeat">Mexlûbiyet</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
