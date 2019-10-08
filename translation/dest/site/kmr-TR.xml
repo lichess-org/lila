@@ -519,6 +519,8 @@
   <string name="clock">Saet</string>
   <string name="unauthorizedError">Gihaştin bêdestûr e.</string>
   <string name="noInternetConnection">Girêdana înternetê tine. Tu hê jî dikarî derhêl bilîzî ji menuyê.</string>
+  <string name="connectedToLichess">Te vêga hatî girêdan li Lichess.org-ê</string>
+  <string name="signedOut">Te jê derketiye</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
