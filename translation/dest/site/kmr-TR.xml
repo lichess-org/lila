@@ -489,9 +489,11 @@
   <string name="always">Hertim</string>
   <string name="inCasualGamesOnly">Tenê li lîstikên bêpoînt</string>
   <string name="whenPremoving">Gava pêş-hemleyê</string>
+  <string name="whenTimeRemainingLessThanThirtySeconds">Gava wext &lt; 30 saniye mabe</string>
   <string name="difficultyEasy">Hêsan</string>
   <string name="difficultyNormal">Normal</string>
   <string name="difficultyHard">Zehmet</string>
+  <string name="xLeftANoteOnY">%1$s notek berda ser %2$s</string>
   <string name="victory">Serkeftin</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
