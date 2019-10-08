@@ -466,6 +466,11 @@
   <string name="soundWhenTimeGetsCritical">Hişyariya dengî gava ku dem kêm bû</string>
   <string name="gameBehavior">Rewşa lîstikê</string>
   <string name="howDoYouMovePieces">Kabikan dixwazî çawa bidî hereketkirin?</string>
+  <string name="clickTwoSquares">Bi tikandina du çarçikan</string>
+  <string name="dragPiece">Bi kaşkirina kabikekê</string>
+  <string name="bothClicksAndDrag">Her du jî</string>
+  <string name="premovesPlayingDuringOpponentTurn">Pêşhemle (lîstina gava dora dijberê)</string>
+  <string name="takebacksWithOpponentApproval">Paşve kişandin (bi destûra dijberê)</string>
   <string name="sound">Deng</string>
   <string name="none">Tine</string>
   <string name="fast">Zû</string>
