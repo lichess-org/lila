@@ -538,6 +538,7 @@
   <string name="error.email">Ev navnîşana epeyamê nederbasdar e</string>
   <string name="error.email_acceptable">Ev navnîşana epeyamê ne meqbûl e</string>
   <string name="error.email_unique">Ew adresa e-peyamê jixwe hatiye standin</string>
+  <string name="error.email_different">Ev epeyam jixwe ya te ye</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
