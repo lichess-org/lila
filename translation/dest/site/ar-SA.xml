@@ -700,6 +700,7 @@
   <string name="defeat">هزيمة</string>
   <string name="victoryVsYInZ">%1$s ضد %2$s في %3$s</string>
   <string name="defeatVsYInZ">%1$s ضد %2$s في %3$s</string>
+  <string name="drawVsYInZ">%1$s ضد %2$s في %3$s</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
@@ -754,6 +755,8 @@
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
+  <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
+  <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
   <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
@@ -999,6 +1002,8 @@
     <item quantity="other">واحفظ عدد %s تفريع نقلة مسبقة</item>
   </plurals>
   <string name="sorry">نأسف :(</string>
+  <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
+  <string name="timeoutExpires">ينتهي الحظر خلال %s.</string>
   <string name="why">لماذا ؟</string>
   <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
   <string name="goodPractice">لهذا الغرض، يجب علينا التأكد ان جميع اللاعبين يتبعون سلوك جيد.</string>
@@ -1010,5 +1015,7 @@
   <string name="temporaryInconvenience">نعتذر عن الازعاج المؤقت</string>
   <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lichess.org.</string>
   <string name="thankYouForReading">نشكرك على القراءة!</string>
+  <string name="lifetimeScore">النتيجة النهائية</string>
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
+  <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
 </resources>
