@@ -192,6 +192,7 @@
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="changeUsername">تغيير اسم المستخدم</string>
+  <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسمك مرة واحدة فقط, ولا يسمح بتغيير شئ غير حساسية الأحرف.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
@@ -233,6 +234,7 @@
   <string name="playingRightNow">يلعب الآن</string>
   <string name="eventInProgress">يلعب الآن</string>
   <string name="finished">انتهت</string>
+  <string name="finishesX">تنتهي %s</string>
   <string name="abortGame">إلغاء اللعبة</string>
   <string name="gameAborted">اللعبة ألغيت</string>
   <string name="standard">عادي</string>
@@ -434,6 +436,7 @@
   <string name="clickOnTheBoardToMakeYourMove">اضغط على الرقعة لاختيارالنقلة وتأكيد إنسانيتك</string>
   <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
   <string name="notACheckmate">ليست كش مات</string>
+  <string name="whiteCheckmatesInOneMove">كش مات للأبيض في نقلة واحدة</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
   <string name="noFriendsOnline">لايوجد أصدقاء متصلين</string>
