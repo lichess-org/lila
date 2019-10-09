@@ -36,7 +36,7 @@ final class RemoteSocket(
       bus.publish(lila.hub.actorApi.socket.remote.ConnectUser(userId), 'userActive)
       connectedUserIds += userId
     case In.DisconnectUsers(userIds) => userIds foreach { userId =>
-      connectedUserIds -= userId
+      if (connectedUserIds(userId)) connectedUserIds -= userId
     }
     case In.Watch(gameId) => watchedGameIds += gameId
     case In.Unwatch(gameId) => watchedGameIds -= gameId
