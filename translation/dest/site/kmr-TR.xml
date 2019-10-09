@@ -556,6 +556,10 @@
   <string name="tpTimeSpentOnTV">Wextê li ser TVyê: %s</string>
   <string name="watch">Temaşe bike</string>
   <string name="videoLibrary">Kitêbxaneya vîdeoyan</string>
+  <string name="mobileApp">Sepana mobîl</string>
+  <string name="webmasters">Webmaster</string>
+  <string name="about">Derbar</string>
+  <string name="aboutX">Derbarê %s de</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
