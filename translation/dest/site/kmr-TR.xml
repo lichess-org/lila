@@ -553,6 +553,9 @@
   <string name="blackCastlingKingside">Reş O-O</string>
   <string name="tpTimeSpentPlaying">Wextê ji bo lîstinê xercbûyî: %s</string>
   <string name="watchGames">Lîstikan temaşe bike</string>
+  <string name="tpTimeSpentOnTV">Wextê li ser TVyê: %s</string>
+  <string name="watch">Temaşe bike</string>
+  <string name="videoLibrary">Kitêbxaneya vîdeoyan</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
