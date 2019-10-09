@@ -16,6 +16,8 @@ trait StringHelper { self: NumberHelper =>
 
   def showNumber(n: Int): String = if (n > 0) s"+$n" else n.toString
 
+  def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
+
   implicit def lilaRichString(str: String) = new {
     def active(other: String, one: String = "active") = if (str == other) one else ""
     def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None
