@@ -84,7 +84,7 @@ final class RemoteSocket(
     mon.sets.games(watchedGameIds.size)
     val nbUsers = connectedUserIds.size
     if (nbUsers >= 0) mon.sets.users(nbUsers)
-    else if (nbUsers % 10 == 0) logger.warn(s"$nbUsers connectedUsers, first = ${connectedUserIds.take(5)}")
+    else if (nbUsers % 10 == 0) logger.warn(s"$nbUsers connectedUsers")
   }
 
   private val mon = lila.mon.socket.remote
