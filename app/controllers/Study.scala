@@ -401,7 +401,7 @@ object Study extends LilaController {
     }
   }
 
-  private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
+  private[controllers] def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
     else negotiate(
       html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),

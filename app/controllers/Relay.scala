@@ -84,13 +84,16 @@ object Relay extends LilaController {
       else f(relay)
     }
 
-  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] = for {
-    (sc, studyData) <- Study.getJsonData(oldSc)
-    data = env.jsonView.makeData(relay, studyData)
-    chat <- Study.chatOf(sc.study)
-    sVersion <- Env.study.version(sc.study.id)
-    streams <- Study.streamsOf(sc.study)
-  } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
+  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] =
+    Study.CanViewResult(oldSc.study) {
+      for {
+        (sc, studyData) <- Study.getJsonData(oldSc)
+        data = env.jsonView.makeData(relay, studyData)
+        chat <- Study.chatOf(sc.study)
+        sVersion <- Env.study.version(sc.study.id)
+        streams <- Study.streamsOf(sc.study)
+      } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
+    }
 
   def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
     get("sri") ?? { sri =>
