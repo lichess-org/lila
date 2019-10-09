@@ -51,7 +51,7 @@
   <string name="studyUrl">رابط الدراسة</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">يمكنك لصق هذا في المنتدى لتضمين الفصل</string>
-  <string name="startAtInitialPosition">البداية من الموقع الأصلي</string>
+  <string name="startAtInitialPosition">البدء من وضع البداية</string>
   <string name="startAtX">البدء من %s</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
