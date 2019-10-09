@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
 import { bind, numberRow, spinner, dataIcon, player as renderPlayer } from './util';
+import { teamName } from './battle';
 import TournamentController from '../ctrl';
 
 export default function(ctrl: TournamentController): VNode | undefined {
@@ -9,11 +10,11 @@ export default function(ctrl: TournamentController): VNode | undefined {
     data = ctrl.teamInfo.loaded,
     noarg = ctrl.trans.noarg;
   if (!battle) return undefined;
-  const teamName = ctrl.teamInfo.requested ? h('team', battle.teams[ctrl.teamInfo.requested]) : null;
+  const teamTag = ctrl.teamInfo.requested ? teamName(battle, ctrl.teamInfo.requested) : null;
   const tag = 'div.tour__team-info.tour__actor-info';
   if (!data || data.id !== ctrl.teamInfo.requested) return h(tag, [
     h('div.stats', [
-      h('h2', [ teamName ]),
+      h('h2', [ teamTag ]),
       spinner()
     ])
   ]);
@@ -32,7 +33,7 @@ export default function(ctrl: TournamentController): VNode | undefined {
       hook: bind('click', () => ctrl.showTeamInfo(data.id), ctrl.redraw)
     }),
     h('div.stats', [
-      h('h2', [ teamName ]),
+      h('h2', [ teamTag ]),
       h('table', [
         numberRow("Players", data.nbPlayers),
         ...(data.rating ? [

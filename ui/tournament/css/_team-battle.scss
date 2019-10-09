@@ -1,11 +1,27 @@
+$team-colors: (
+0: hsl(274, 100%, 59%),
+1: hsl(240, 100%, 67%),
+2: #008000,
+3: #b22222,
+4: hsl(16, 80%, 62%),
+5: #9acd32,
+6: #ff4500,
+7: #2e8b57,
+8: #daa520,
+9: hsl(32, 75%, 47%),
+);
+
+@each $index, $color in $team-colors {
+  team.ttc-#{$index} {
+    color: #{$color};
+  }
+}
+
 .tour-team-battle {
   team {
-    @extend %box-radius;
-    @include metal;
     padding: 1px 5px;
     font-size: .8em;
-    border: 1px solid $c-brag;
-    color: c-clearer($c-brag);
+    font-weight: bold;
     white-space: nowrap;
   }
   .tour__player-info team {

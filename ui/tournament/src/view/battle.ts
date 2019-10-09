@@ -42,6 +42,10 @@ export function teamStanding(ctrl: TournamentController, klass?: string): VNode 
   ]) : null;
 }
 
+export function teamName(battle: TeamBattle, teamId: string): VNode {
+  return h('team.ttc-' + Object.keys(battle.teams).indexOf(teamId), battle.teams[teamId]);
+}
+
 function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam) {
   const players = [] as (string | VNode)[];
   team.players.forEach((p, i) => {
@@ -71,7 +75,7 @@ function teamTr(ctrl: TournamentController, battle: TeamBattle, team: RankedTeam
   }, [
     h('td.rank', '' + team.rank),
     h('td.team', [
-      h('team', battle.teams[team.id])
+      teamName(battle, team.id)
     ]),
     h('td.players', players),
     h('td.total', [
