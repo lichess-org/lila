@@ -64,12 +64,14 @@ object communication {
             publicLines.reverse.map { line =>
               li(
                 line.date.map(momentFromNowOnce(_)).getOrElse("[OLD]"),
+                " ",
                 line.from.map {
                   case PublicSource.Tournament(id) => tournamentLink(id)
                   case PublicSource.Simul(id) => views.html.simul.bits.link(id)
                   case PublicSource.Watcher(id) => a(href := routes.Round.watcher(id, "white"))("Game #", id)
                   case PublicSource.Study(id) => a(href := routes.Study.show(id))("Study #", id)
                 },
+                " ",
                 line.text
               )
             }
