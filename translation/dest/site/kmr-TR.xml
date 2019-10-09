@@ -570,6 +570,10 @@
   <string name="host">Hewanger</string>
   <string name="hostColorX">Rengê hewangerê: %s</string>
   <string name="createdSimuls">Pêşangehên nûçêkirî</string>
+  <string name="hostANewSimul">Pêşangeheke nû bihewîne</string>
+  <string name="noSimulFound">Pêşangeha hevdemî nehate peydakirin</string>
+  <string name="noSimulExplanation">Pêşangeha hevdemî ne mewcûd e.</string>
+  <string name="returnToSimulHomepage">Vegere serrûpela pêşangehên hevdemî</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
