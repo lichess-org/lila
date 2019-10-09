@@ -406,7 +406,7 @@ object Study extends LidraughtsController {
     }
   }
 
-  private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lidraughts.api.Context) =
+  private[controllers] def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lidraughts.api.Context) =
     if (canView(study)) f
     else negotiate(
       html = fuccess(Unauthorized(html.study.restricted(study))),
