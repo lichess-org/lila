@@ -201,7 +201,7 @@ export default function(ctrl) {
     .forEach(t => {
       if (isSystemTournament(t)) systemTours.push(t);
       else if (t.major) majorTours.push(t);
-      else if (t.teamBattle) teamBattles.push(t);
+      else if (t.battle) teamBattles.push(t);
       else userTours.push(t);
     });
 
