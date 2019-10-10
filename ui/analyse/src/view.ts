@@ -286,7 +286,8 @@ export default function(ctrl: AnalyseCtrl): VNode {
       'comp-off': !ctrl.showComputer(),
       'gauge-on': gaugeOn,
       'has-players': !!playerBars,
-      'has-clocks': !!clocks
+      'has-clocks': !!clocks,
+      'has-intro': !!intro
     }
   }, [
     ctrl.keyboardHelp ? keyboardView(ctrl) : null,
