@@ -586,6 +586,9 @@
   <string name="simulAddExtraTime">Belkî bixwazî zêdetir wext tevlî demjimêra xwe bikî, qene ku karibî pêşangeha hevdemî temam bikî.</string>
   <string name="simulHostExtraTime">Wextê ekstra yê ji bo mêvandarê</string>
   <string name="lichessTournaments">Pêşbirkên lichess-ê</string>
+  <string name="tournamentFAQ">PPPya pêşbirka Arenayê</string>
+  <string name="tournamentOfficial">Fermî</string>
+  <string name="timeBeforeTournamentStarts">Wextê berî destpêkirina pêşbirkê</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
