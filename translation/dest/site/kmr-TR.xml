@@ -578,6 +578,8 @@
   <string name="aboutSimulImage">Fischer ji nav 50 dijberan, 47 lîstikan qezenc kir, 2 wekhevî û 1 mexlûbiyet girt.</string>
   <string name="aboutSimulRealLife">Konsept ji bûyerên dinyaya heqîqî hatiye wergirtin. Di heyata rastîn de, hewangerê/a pêşangeha hevdemî, ji mase bi mase digere ji bo kirina hemleyekê.</string>
   <string name="aboutSimulRules">Gava pêşangeha hevdemî dest pê kir, her lîzer dest bi lîstikekê dike tevî hewangerê. Hewanger bi kabikên spî ye û ew dest pê dike. Wextê ku hemû lîstik temam bûn, pêşangeha hevdemî jî xelas dibe.</string>
+  <string name="aboutSimulSettings">Pêşangehên hevdemî hertim bêpoînt in. Cardinlîstin, hemlevegerandin û demên ekstra neçalak e.</string>
+  <string name="create">Çêke</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
