@@ -11,6 +11,7 @@
   <string name="allStudies">كل الدراسات</string>
   <string name="studiesCreatedByX">الدراسات التي أنشئها %s</string>
   <string name="noneYet">لا يوجد.</string>
+  <string name="hot">ذات شعبية</string>
   <string name="dateAddedNewest">تاريخ الإضافة (الأحدث)</string>
   <string name="dateAddedOldest">تاريخ الإضافة (الأقدم)</string>
   <string name="recentlyUpdated">تم تحديثه مؤخرا</string>
@@ -45,9 +46,13 @@
   <string name="last">الأخير</string>
   <string name="shareAndExport">مشاركة و تصدير</string>
   <string name="cloneStudy">استنساخ</string>
+  <string name="studyPgn">PGN الدراسة</string>
+  <string name="chapterPgn">PGN الفصل</string>
   <string name="studyUrl">رابط الدراسة</string>
   <string name="currentChapterUrl">رابط الفصل الحالي</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">يمكنك لصق هذا في المنتدى لتضمين الفصل</string>
+  <string name="startAtInitialPosition">البدء من وضع البداية</string>
+  <string name="startAtX">البدء من %s</string>
   <string name="open">فتح</string>
   <string name="xBroughtToYouByY">%1$s مقدمة من %2$s</string>
   <string name="studyNotFound">لم يتم العثور على الدراسة</string>

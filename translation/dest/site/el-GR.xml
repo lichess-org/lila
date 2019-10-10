@@ -352,6 +352,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Κάνετε κλικ στη σκακιέρα για να κινήσετε τα πιόνια και να αποδείξετε πως είστε άνθρωπος.</string>
   <string name="captcha.fail">Παρακαλούμε λύστε το σκακιστικό captcha.</string>
   <string name="notACheckmate">Δεν είναι ματ</string>
+  <string name="whiteCheckmatesInOneMove">Παίζουν τα λευκά, κάντε ματ με μια κίνηση</string>
+  <string name="blackCheckmatesInOneMove">Παίζουν τα μαύρα, κάντε ματ με μια κίνηση</string>
   <string name="retry">Επανάληψη</string>
   <string name="reconnecting">Επανασύνδεση</string>
   <string name="noFriendsOnline">Δεν υπάρχουν συνδεδεμένοι φίλοι</string>
@@ -852,4 +854,13 @@
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
   </plurals>
+  <string name="pleasantChessExperience">Ο σκοπός μας είναι να προσφέρουμε μια ευχάριστη σκακιστική ατμόσφαιρα για όλους.</string>
+  <string name="goodPractice">Για να πραγματοποιηθεί αυτό, πρέπει να βεβαιωθούμε ότι όλοι οι παίκτες ακολουθούν τους κανόνες.</string>
+  <string name="howToAvoidThis">Πώς να το αποφύγετε αυτό;</string>
+  <string name="playEveryGame">Τελειώστε κάθε παρτίδα που ξεκινάτε.</string>
+  <string name="tryToWin">Προσπαθήστε να νικήσετε (ή να φέρετε ισοπαλία) σε κάθε παιχνίδι που παίζετε.</string>
+  <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
+  <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
+  <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
+  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
 </resources>

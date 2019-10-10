@@ -59,6 +59,7 @@
   <string name="promoteVariation">تغيير النوع</string>
   <string name="makeMainLine">اجعله التفريع الرئيسي</string>
   <string name="deleteFromHere">احذف من هنا</string>
+  <string name="forceVariation">فرض التسلسل</string>
   <string name="move">نقلة</string>
   <string name="variantLoss">تفريع خاسر</string>
   <string name="variantWin">تفريع رابح</string>
@@ -192,6 +193,8 @@
   <string name="username">اسم المستخدم</string>
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="changeUsername">تغيير اسم المستخدم</string>
+  <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
+  <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسمك مرة واحدة فقط, ولا يسمح بتغيير شئ غير حساسية الأحرف.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
@@ -200,6 +203,14 @@
   <string name="forgotPassword">هل نسيت كلمة المرور؟</string>
   <string name="rank">المرتبة</string>
   <string name="rankX">الترتيب: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="zero">يتم تحديث الرتبة كل %s دقيقة</item>
+    <item quantity="one">يتم تحديث الترتيب كل دقيقة</item>
+    <item quantity="two">يتم تحديث الترتيب كل دقيقتين</item>
+    <item quantity="few">يتم تحديث الترتيب كل %s دقائق</item>
+    <item quantity="many">يتم تحديث الترتيب كل %s دقيقة</item>
+    <item quantity="other">يتم تحديث الترتيب كل %s دقيقة</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="zero">%s لغز</item>
     <item quantity="one">%s لغز</item>
@@ -233,6 +244,7 @@
   <string name="playingRightNow">يلعب الآن</string>
   <string name="eventInProgress">يلعب الآن</string>
   <string name="finished">انتهت</string>
+  <string name="finishesX">تنتهي %s</string>
   <string name="abortGame">إلغاء اللعبة</string>
   <string name="gameAborted">اللعبة ألغيت</string>
   <string name="standard">عادي</string>
@@ -434,8 +446,18 @@
   <string name="clickOnTheBoardToMakeYourMove">اضغط على الرقعة لاختيارالنقلة وتأكيد إنسانيتك</string>
   <string name="captcha.fail">الرجاء حل مسألة الشطرنج مات بنقلة واحدة.</string>
   <string name="notACheckmate">ليست كش مات</string>
+  <string name="whiteCheckmatesInOneMove">كش مات للأبيض في نقلة واحدة</string>
+  <string name="blackCheckmatesInOneMove">كش مات للأسود في نقلة واحدة</string>
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="zero">لا يوجد أصدقاء متصلون</item>
+    <item quantity="one">%s صديق متصل</item>
+    <item quantity="two">%s أصدقاء متصلون</item>
+    <item quantity="few">%s أصدقاء متصلون</item>
+    <item quantity="many">%s أصدقاء متصلون</item>
+    <item quantity="other">%s أصدقاء متصلون</item>
+  </plurals>
   <string name="noFriendsOnline">لايوجد أصدقاء متصلين</string>
   <string name="findFriends">ابحث عن أصدقاء</string>
   <string name="favoriteOpponents">خصوم مفضلين</string>
@@ -686,6 +708,9 @@
   <string name="xCommentedY">%1$s علّق %2$s</string>
   <string name="victory">أحسنت!</string>
   <string name="defeat">هزيمة</string>
+  <string name="victoryVsYInZ">%1$s ضد %2$s في %3$s</string>
+  <string name="defeatVsYInZ">%1$s ضد %2$s في %3$s</string>
+  <string name="drawVsYInZ">%1$s ضد %2$s في %3$s</string>
   <string name="timeline">الجدول الزمني</string>
   <string name="starting">تبدأ في:</string>
   <string name="allInformationIsPublicAndOptional">كل المعلومات متاحة للجميع وهي اختيارية.</string>
@@ -740,6 +765,8 @@
   <string name="inCorrespondenceGames">فى العاب المراسلة</string>
   <string name="ifRatingIsPlusMinusX">± %s اذا التقييم</string>
   <string name="onlyFriends">الأصدقاء فقط</string>
+  <string name="displayBoardResizeHandle">أظهر زر تعديل حجم الرقعة</string>
+  <string name="onlyOnInitialPosition">خلال الوضع المبدئي فقط</string>
   <string name="menu">القائمة</string>
   <string name="castling">تبييت</string>
   <string name="whiteCastlingKingside">تبييت قصير للأبيض</string>
@@ -816,6 +843,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">أنت أفضل من %1$s من %2$s لاعب.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">ليس لديك تقييم ثابت في %s.</string>
   <string name="yourRating">تقييمك</string>
+  <string name="cumulative">جمعا</string>
   <string name="glicko2Rating">نظام تقييم Glicko-2</string>
   <string name="checkYourEmail">تحقق من بريدك الإلكتروني</string>
   <string name="weHaveSentYouAnEmailClickTheLink">أرسلنا رسالة لبريدك الإلكتروني. فضلا اضغط الرابط فيها لتفعيل حسابك</string>
@@ -985,6 +1013,8 @@
     <item quantity="other">واحفظ عدد %s تفريع نقلة مسبقة</item>
   </plurals>
   <string name="sorry">نأسف :(</string>
+  <string name="weHadToTimeYouOutForAWhile">اضطررنا إلى حظرك لفترة قصيرة.</string>
+  <string name="timeoutExpires">ينتهي الحظر خلال %s.</string>
   <string name="why">لماذا ؟</string>
   <string name="pleasantChessExperience">نحن نهدف الى توفير تجربة شطرنج ممتعة للجميع.</string>
   <string name="goodPractice">لهذا الغرض، يجب علينا التأكد ان جميع اللاعبين يتبعون سلوك جيد.</string>
@@ -996,5 +1026,10 @@
   <string name="temporaryInconvenience">نعتذر عن الازعاج المؤقت</string>
   <string name="wishYouGreatGames">ونتمنى لك ادوار جيدة على Lichess.org.</string>
   <string name="thankYouForReading">نشكرك على القراءة!</string>
+  <string name="lifetimeScore">النتيجة النهائية</string>
   <string name="currentMatchScore">نتيجة المباراة الحالية</string>
+  <string name="agreementAssistance">أوافق على أني لن أتلقى أي مساعدة خلال مبارياتي أبدا (من محرك شطرنج أو كتاب أو قاعدة بيانات أو شخص اخر).</string>
+  <string name="agreementNice">أوافق على أني سأكون محترم تجاه اللاعبين الأخرين.</string>
+  <string name="agreementAccount">أوافق على أني لن أنشئ حسابات متعددة.</string>
+  <string name="agreementPolicy">أوافق على أني سأتبع سياسات الموقع.</string>
 </resources>
