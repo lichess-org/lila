@@ -47,4 +47,7 @@
 }
 <h2>Conditions of entry</h2>
 @tournament.conditionForm(form, auto = false, Nil)
+@base.form.group(form("password"), Html("Password (optional)")) { field =>
+@base.form.input(field)
+}
 @base.form.submit()

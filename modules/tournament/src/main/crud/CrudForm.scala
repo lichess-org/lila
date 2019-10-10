@@ -30,6 +30,7 @@ object CrudForm {
     "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
     "description" -> nonEmptyText(minLength = 10, maxLength = 400),
     "conditions" -> Condition.DataForm.all,
+    "password" -> optional(nonEmptyText),
     "berserkable" -> boolean
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -46,6 +47,7 @@ object CrudForm {
     headline = "",
     description = "",
     conditions = Condition.DataForm.AllSetup.default,
+    password = None,
     berserkable = true
   )
 
@@ -62,6 +64,7 @@ object CrudForm {
       headline: String,
       description: String,
       conditions: Condition.DataForm.AllSetup,
+      password: Option[String],
       berserkable: Boolean
   ) {
 
@@ -69,7 +72,7 @@ object CrudForm {
 
     def validClock = (clockTime + clockIncrement) > 0
 
-    def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
+    def validTiming = password.isDefined || (minutes * 60) >= (3 * estimatedGameDuration)
 
     private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
   }
