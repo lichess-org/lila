@@ -27,8 +27,8 @@ object CrudForm {
     "position" -> nonEmptyText.verifying(DataForm.positions contains _),
     "date" -> utcDate,
     "image" -> stringIn(imageChoices),
-    "headline" -> nonEmptyText(minLength = 5, maxLength = 30),
-    "description" -> nonEmptyText(minLength = 10, maxLength = 400),
+    "headline" -> nonEmptyText(minLength = 5, maxLength = 35),
+    "description" -> nonEmptyText(minLength = 10, maxLength = 800),
     "conditions" -> Condition.DataForm.all,
     "password" -> optional(nonEmptyText),
     "berserkable" -> boolean
