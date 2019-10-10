@@ -18,7 +18,7 @@ import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
 import xhr = require('./xhr');
-import { valid as crazyValid, init as crazyInit } from './crazy/crazyCtrl';
+import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
@@ -487,6 +487,7 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.turns > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+    if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -685,7 +686,7 @@ export default class RoundController {
         title.init();
         this.setTitle();
 
-        crazyInit(this);
+        if (d.crazyhouse) crazyInit(this);
 
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||
