@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient2999" x1="4548" x2="4548" y1="-638.77" y2="-506.05" gradientTransform="matrix(.34447 0 0 .28367 -1541.7 187.37)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient2999-1" x1="4548" x2="4548" y1="-638.77" y2="-506.05" gradientTransform="matrix(.34208 0 0 .2837 -1530.8 187.39)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#3c3c3c" offset="0"/>
    <stop offset="1"/>
   </linearGradient>
@@ -23,9 +23,13 @@
    </cc:License>
   </rdf:RDF>
  </metadata>
- <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
-  <path class="st14" d="m21.91 6.5485v2.9333h-4.1195v-2.588h-5.8359v7.9745l4.5642 3.1415v12.566l-3.8777 2.4855v5.2128h-3.0896v5.1783h30.896v-5.1783h-3.0896v-5.2128l-3.8777-2.4855v-12.532l4.5642-3.2105v-7.94h-5.8359v2.588h-4.4628v-2.9333h-2.918z" fill="url(#linearGradient2999)" image-rendering="optimizeQuality" stroke="#010101" stroke-width="1.1"/>
-  <rect class="st15" x="18.82" y="17.25" width="12.015" height="1.3809" fill="#e6e6e6" image-rendering="optimizeQuality" stroke-width=".33376"/>
-  <rect class="st15" x="18.82" y="29.678" width="12.015" height="1.3809" fill="#e6e6e6" image-rendering="optimizeQuality" stroke-width=".33376"/>
+ <g transform="translate(-3007.9 2136.6)">
+  <g transform="matrix(1.0055 0 0 .9198 3007.7 -2133.1)" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke-width="1.0398">
+   <g stroke-width="1.0398">
+    <path class="st14" d="m21.932 6.5464v2.9336h-4.091v-2.5883h-5.7955v7.9753l4.5326 3.1418v12.567l-3.8508 2.4858v5.2133h-3.0682v5.1788h30.682v-5.1788h-3.0682v-5.2133l-3.8508-2.4858v-12.533l4.5326-3.2108v-7.9408h-5.7955v2.5883h-4.4319v-2.9336h-2.8978z" fill="url(#linearGradient2999-1)" stroke="#010101" stroke-width="1.1438"/>
+   </g>
+  </g>
+  <path d="m3026.7-2105.2h11.998" fill="none" stroke="#e6e6e6" stroke-width="1.4"/>
+  <path d="m3026.7-2116.6h11.998" fill="none" stroke="#e6e6e6" stroke-width="1.4"/>
  </g>
 </svg>

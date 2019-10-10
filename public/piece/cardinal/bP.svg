@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient3001" x1="4181.6" x2="4181.6" y1="-2618.6" y2="-2496.2" gradientTransform="matrix(.27708 0 0 .27639 -1133.6 734.1)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient3001-0" x1="4181.6" x2="4181.6" y1="-2618.6" y2="-2496.2" gradientTransform="matrix(.26749 0 0 .26799 -1093.5 713.11)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#3c3c3c" offset="0"/>
    <stop offset="1"/>
   </linearGradient>
@@ -15,5 +15,5 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <path class="st31" d="m25.021 43.45h-13.92c-2.5542-5.9032 4.2181-11.375 8.9782-13.234-5.689-3.1702-2.605-11.253 2.2713-11.909-1.1611-0.76522-1.7415-2.4002-1.7415-3.712 0-1.0932 0.46443-2.0771 1.2771-2.8423 0.81275-0.76522 1.8576-1.2024 3.1348-1.2024 1.161 0 2.2059 0.43726 3.1348 1.2024 0.81272 0.76522 1.2771 1.7491 1.2771 2.8423 0 1.3118-0.58053 2.9468-1.7416 3.712 5.3407 2.077 7.2638 9.7226 2.2714 11.909 6.5017 2.2957 11.068 8.0961 8.9782 13.234z" clip-rule="evenodd" fill="url(#linearGradient3001)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#010101" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.1"/>
+ <path class="st31" d="m25.019 43.45h-13.439c-2.4659-5.7238 4.0721-11.03 8.6676-12.832-5.4922-3.0738-2.5148-10.911 2.1927-11.547-1.1209-0.74196-1.6813-2.3272-1.6813-3.5992 0-1.06 0.44836-2.014 1.2329-2.7559 0.78463-0.74196 1.7934-1.1659 3.0263-1.1659 1.1208 0 2.1296 0.42396 3.0263 1.1659 0.7846 0.74196 1.2329 1.6959 1.2329 2.7559 0 1.2719-0.56045 2.8573-1.6814 3.5992 5.1559 2.0139 7.0125 9.427 2.1928 11.547 6.2767 2.2259 10.685 7.8501 8.6676 12.832z" clip-rule="evenodd" fill="url(#linearGradient3001-0)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#010101" stroke-linecap="square" stroke-linejoin="round" stroke-width="1.1"/>
 </svg>

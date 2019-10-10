@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
  <defs>
-  <linearGradient id="linearGradient3007" x1="4548" x2="4548" y1="-638.77" y2="-506.05" gradientTransform="matrix(.34446 0 0 .28368 -1541.6 187.38)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient2999-0" x1="4548" x2="4548" y1="-638.77" y2="-506.05" gradientTransform="matrix(.34208 0 0 .2837 -1530.8 187.39)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#fff" offset="0"/>
-   <stop stop-color="#d2d2d2" offset="1"/>
+   <stop stop-color="#e6e6e6" offset="1"/>
   </linearGradient>
  </defs>
  <metadata>
@@ -15,9 +15,11 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
-  <path class="st14" d="m21.91 6.548v2.9333h-4.1195v-2.5881h-5.8359v7.9746l4.5642 3.1415v12.566l-3.8776 2.4856v5.2128h-3.0896v5.1783h30.896v-5.1783h-3.0896v-5.2128l-3.8776-2.4856v-12.531l4.5642-3.2105v-7.94h-5.8359v2.5881h-4.4628v-2.9333h-2.918z" fill="url(#linearGradient3007)" image-rendering="optimizeQuality" stroke="#000" stroke-width="1.1"/>
-  <rect class="st15" x="18.821" y="17.25" width="12.015" height="1.3809" image-rendering="optimizeQuality" stroke-width=".33376"/>
-  <rect class="st15" x="18.821" y="29.678" width="12.015" height="1.3809" image-rendering="optimizeQuality" stroke-width=".33376"/>
+ <g transform="matrix(1.0055 0 0 .9198 -.13694 3.5051)" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke-width="1.0398">
+  <g stroke-width="1.0398">
+   <path class="st14" d="m21.932 6.5464v2.9336h-4.091v-2.5883h-5.7955v7.9753l4.5326 3.1418v12.567l-3.8508 2.4858v5.2133h-3.0682v5.1788h30.682v-5.1788h-3.0682v-5.2133l-3.8508-2.4858v-12.533l4.5326-3.2108v-7.9408h-5.7955v2.5883h-4.4319v-2.9336h-2.8978z" fill="url(#linearGradient2999-0)" stroke="#010101" stroke-width="1.1438"/>
+  </g>
  </g>
+ <path d="m18.829 31.438h11.998" fill="none" stroke="#000" stroke-width="1.4"/>
+ <path d="m18.829 20.006h11.998" fill="none" stroke="#000" stroke-width="1.4"/>
 </svg>
