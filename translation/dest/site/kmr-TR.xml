@@ -600,7 +600,8 @@
   <string name="tournamentHomeDescription">Turnuwayên kişikê yê zû-gavî bilîze! Tevlî pêşbirkeke pêşplankirî ya fermî bibe, an jî tu yek çêke. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, û zêtir vebijêrk berdest in ji bo şahiya kişikê ya bêdawî.</string>
   <string name="tournamentNotFound">Turnuwa peyda nebû</string>
   <string name="tournamentDoesNotExist">Ev turnuwa nemewcûd e.</string>
-  <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
+  <string name="tournamentMayHaveBeenCanceled">Dibe ku turnuwa hatibe betalkirin, ger hemû lîzer dev jê berda bin berî destpêkirina wê.</string>
+  <string name="returnToTournamentsHomepage">Vegere serrûpela turnuwayan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
