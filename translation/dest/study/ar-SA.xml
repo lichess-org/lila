@@ -62,7 +62,9 @@
   <string name="analysisMode">وضع التحليل</string>
   <string name="deleteChapter">حذف الفصل</string>
   <string name="deleteThisChapter">هل تريد حذف الفصل ؟ لايمكنك التراجع عن ذلك لاحقاً!</string>
+  <string name="rightUnderTheBoard">تحت الرقعة مباشرة</string>
   <string name="chapterX">الفصل %s</string>
+  <string name="startFromCustomPosition">البدء من وضع مخصص</string>
   <string name="automatic">تلقائي</string>
   <string name="urlOfTheGame">رابط اللعبة</string>
   <string name="createChapter">أنشئ الفصل</string>
@@ -74,4 +76,6 @@
   <string name="onlyMe">أنا فقط</string>
   <string name="contributors">المساهمون</string>
   <string name="members">اعضاء</string>
+  <string name="save">حفظ</string>
+  <string name="clearChat">مسح المحادثة</string>
 </resources>
