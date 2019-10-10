@@ -602,6 +602,9 @@
   <string name="tournamentDoesNotExist">Ev turnuwa nemewcûd e.</string>
   <string name="tournamentMayHaveBeenCanceled">Dibe ku turnuwa hatibe betalkirin, ger hemû lîzer dev jê berda bin berî destpêkirina wê.</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela turnuwayan</string>
+  <string name="weeklyPerfTypeRatingDistribution">Belavbûna reytînga hefteyî %s</string>
+  <string name="yourPerfTypeRatingIsRating">Reytînga te ya %1$s %2$s ye.</string>
+  <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu çêtir î ji %1$s kesên ji %2$s kesan.</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
