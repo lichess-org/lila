@@ -118,7 +118,7 @@ interface LichessStorageHelper {
 
 interface LichessStorage {
   get(): string | null;
-  set(v: string): void;
+  set(v: any): void;
   remove(): void;
   listen(f: (e: StorageEvent) => void): void;
 }
