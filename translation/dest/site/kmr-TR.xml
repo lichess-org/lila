@@ -589,6 +589,17 @@
   <string name="tournamentFAQ">PPPya pêşbirka Arenayê</string>
   <string name="tournamentOfficial">Fermî</string>
   <string name="timeBeforeTournamentStarts">Wextê berî destpêkirina pêşbirkê</string>
+  <string name="averageCentipawnLoss">Windabûna sentîpeyayê (centipawn loss) ya averaj</string>
+  <string name="keyboardShortcuts">Kurterêyên textekilîlê</string>
+  <string name="keyMoveBackwardOrForward">hemleya berî / piştî</string>
+  <string name="keyGoToStartOrEnd">biçe serî/dawiyê</string>
+  <string name="keyShowOrHideComments">şîroveyan nîşan bide/biveşêre</string>
+  <string name="keyEnterOrExitVariation">têkeve varyasyonê / jê derkeve</string>
+  <string name="newTournament">Turnuwaya nû</string>
+  <string name="tournamentHomeTitle">Turnuwayê kişikê yê ku çendîn kontrolên demê û varyantan dihewîne</string>
+  <string name="tournamentHomeDescription">Turnuwayên kişikê yê zû-gavî bilîze! Tevlî pêşbirkeke pêşplankirî ya fermî bibe, an jî tu yek çêke. Bullet, Blitz, Classical, Chess960, King of the Hill, Threecheck, û zêtir vebijêrk berdest in ji bo şahiya kişikê ya bêdawî.</string>
+  <string name="tournamentNotFound">Turnuwa peyda nebû</string>
+  <string name="tournamentDoesNotExist">Ev turnuwa nemewcûd e.</string>
   <string name="returnToTournamentsHomepage">Vegere serrûpela pêşbirkan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
