@@ -611,6 +611,8 @@
   <string name="glicko2Rating">Reytînga Glicko-2</string>
   <string name="checkYourEmail">Epeyama xwe kontrol bike</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Em epeyamekê şandin te. Ji bo çalakkirina hesabê xwe bitikîne lînka di epeyamê de.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ger te epeyamê nedîtibe, cihên din ên ku dibe ku lê be kontrol bike, wek negirîng, spam, civakî, an pekdankên din.</string>
+  <string name="weHaveSentYouAnEmailTo">Em epeyamekê şandin %s. Bitikîne lînka di epeyamê de ji bo nûkirina pêborîna xwe.</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
