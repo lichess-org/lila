@@ -155,10 +155,8 @@ object mod {
   )
 
   def showRageSit(rageSit: RageSit)(implicit ctx: Context) = div(id := "mz_sitdccounter")(
-    strong(cls := "text inline")("Sit/disconnect counter: "),
-    span(cls := "text inline")(rageSit.counter / 10),
-    br,
-    span(cls := "text inline")("+1 for every sit/disconnect in 'winning' position, -1 for 'losing' position")
+    strong(cls := "text inline")("Ragesit counter: "),
+    span(cls := "text inline")(rageSit.counter / 10)
   )
 
   def plan(u: User, charges: List[lila.plan.Charge])(implicit ctx: Context) = charges.headOption.map { firstCharge =>
