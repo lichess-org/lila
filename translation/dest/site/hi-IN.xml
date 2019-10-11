@@ -654,7 +654,9 @@
   <string name="videoLibrary">वीडियो लाइब्रेरी</string>
   <string name="mobileApp">मोबाइल ऐप्प</string>
   <string name="webmasters">वेबमास्टर्स</string>
+  <string name="about">के बारे में</string>
   <string name="aboutX">%s के बारे में</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s एक मुफ्त (%2$s), स्वतंत्र, विज्ञापनों से मुक्त, खुला स्रोत, शतरंज सर्वर है।</string>
   <string name="really">सचमुच</string>
   <string name="contribute">सहयोग करें</string>
   <string name="contact">संपर्क करें</string>
@@ -704,6 +706,7 @@
   <string name="yourPerfTypeRatingIsRating">आपकी %1$s रेटिंग %2$s है</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपके पास स्थापित %s रेटिंग नहीं है</string>
+  <string name="yourRating">आपकी रेटिंग</string>
   <string name="checkYourEmail">अपना ई-मेल  देखें</string>
   <string name="weHaveSentYouAnEmailClickTheLink">हम आपको एक ईमेल भेज दिया है। अपने खाते को सक्रिय करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">आप ईमेल नहीं देखते हैं, तो अन्य स्थानों पर यह हो सकता है, आपकी कबाड़, स्पैम, सामाजिक, या अन्य फ़ोल्डर की तरह की जाँच करें।</string>
