@@ -351,6 +351,10 @@
   <string name="notACheckmate">शह और मात नहीं</string>
   <string name="retry">फिर से कोशिश करें</string>
   <string name="reconnecting">फिर से जुड़ने की कोशिश (रीकनेक्ट)</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s मित्र ऑनलाइन</item>
+    <item quantity="other">%s दोस्त ऑनलाइन</item>
+  </plurals>
   <string name="noFriendsOnline">कोई मित्र ऑनलाइन नहीं</string>
   <string name="findFriends">मित्र ढूंढे</string>
   <string name="favoriteOpponents">पसंदीदा विरोधि</string>
@@ -466,6 +470,7 @@
   <string name="pleaseVotePuzzle">वोट करके लीचेस की सहायता करियें, ऊपर या नीचे वाले तीर का इस्तेमाल करें</string>
   <string name="thankYou">धन्यवाद!</string>
   <string name="ratingX">रेटिंग: %s</string>
+  <string name="hidden">छिपा हुआ</string>
   <plurals name="playedXTimes">
     <item quantity="one">%s बार खेला गया</item>
     <item quantity="other">%s बार खेला गया</item>
@@ -508,6 +513,7 @@
   <string name="troll">ट्रोल</string>
   <string name="other">दूसरा</string>
   <string name="reportDescriptionHelp">खेल/खेलों के लिंक को लगाएं (paste) और बताएँ की यूज़र के व्यवहार में क्या खराबी है|</string>
+  <string name="error.provideOneCheatedGameLink">कृपया ठगे गए खेल के लिए कम से कम एक लिंक प्रदान करें।</string>
   <string name="by">%s द्वारा</string>
   <string name="thisTopicIsNowClosed">यह विषय अब बंद हो चुका है|</string>
   <string name="theming">दिखावट</string>
@@ -579,6 +585,10 @@
   <string name="xCommentedY">%1$s ने %2$s पर टिप्पणी की</string>
   <string name="victory">जीत!</string>
   <string name="defeat">हार</string>
+  <string name="victoryVsYInZ">%1$s बनाम %2$s
+%3$s में</string>
+  <string name="defeatVsYInZ">%1$s बनाम %2$s
+%3$s में</string>
   <string name="timeline">समयरेखा</string>
   <string name="starting">शुरू हो रहा है:</string>
   <string name="allInformationIsPublicAndOptional">सभी जानकारी सार्वजनिक और वैकल्पिक है।</string>
