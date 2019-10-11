@@ -868,4 +868,7 @@
   <string name="goodPractice">इसलिए, हमें यह सुनिश्चित करना होगा कि सभी खिलाड़ी अच्छे अभ्यास का पालन करें।</string>
   <string name="potentialProblem">जब एक संभावित समस्या का पता चलता है, हम इस संदेश को प्रदर्शित करते हैं।</string>
   <string name="howToAvoidThis">इससे कैसे बचा जाए?</string>
+  <string name="playEveryGame">आप शुरू करे हुए हर खेल को खेलें।</string>
+  <string name="tryToWin">आपके द्वारा खेले जाने वाले हर खेल को जीतने की कोशिश करें। (या कम से कम खेल ड्रा करें)।</string>
+  <string name="resignLostGames">हारे हुए खेलों को त्याग दें (घड़ी को अंत तक न चलने दें)।</string>
 </resources>
