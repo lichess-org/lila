@@ -589,6 +589,8 @@
 %3$s में</string>
   <string name="defeatVsYInZ">%1$s बनाम %2$s
 %3$s में</string>
+  <string name="drawVsYInZ">%1$s बनाम %2$s
+%3$s में</string>
   <string name="timeline">समयरेखा</string>
   <string name="starting">शुरू हो रहा है:</string>
   <string name="allInformationIsPublicAndOptional">सभी जानकारी सार्वजनिक और वैकल्पिक है।</string>
@@ -635,6 +637,8 @@
   <string name="inCorrespondenceGames">लम्बे खेलों में</string>
   <string name="ifRatingIsPlusMinusX">अगर स्तर %s ऊपर निचे हो तब</string>
   <string name="onlyFriends">केवल दोस्त</string>
+  <string name="displayBoardResizeHandle">बोर्ड आकार परिवर्तन करने वाली मूठ दिखाएं</string>
+  <string name="onlyOnInitialPosition">केवल प्रारंभिक स्थिति पर</string>
   <string name="menu">मेनू</string>
   <string name="castling">केस्लिंग</string>
   <string name="whiteCastlingKingside">सफ़ेद O-O</string>
