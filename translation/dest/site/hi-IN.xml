@@ -295,6 +295,10 @@
     <item quantity="one">≥ %1$s %2$s रेटेड खेल</item>
     <item quantity="other">≥ %1$s %2$s रेटेड खेल</item>
   </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">आपको %1$s और %2$s रेटेड खेल खेलने की आवश्यकता है।</item>
+    <item quantity="other">आपको %1$s और %2$s रेटेड खेल खेलने की आवश्यकता है।</item>
+  </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">आपको %s और खेल में भाग लेने की आवश्यकता है</item>
     <item quantity="other">आपको %s और खेल में भाग लेने की आवश्यकता है</item>
@@ -873,4 +877,8 @@
   <string name="resignLostGames">हारे हुए खेलों को त्याग दें (घड़ी को अंत तक न चलने दें)।</string>
   <string name="temporaryInconvenience">हमें अल्पकालिक असुविधा के लिए खेद है</string>
   <string name="thankYouForReading">पढ़ने के लिए धन्यवाद!</string>
+  <string name="agreementAssistance">मैं मानता हूं कि मुझे अपने खेल के दौरान (शतरंज के कंप्यूटर, पुस्तक, डेटाबेस या किसी अन्य व्यक्ति से) सहायता प्राप्त नहीं होगी।</string>
+  <string name="agreementNice">मैं इस बात से सहमत हूं कि मैं हमेशा अन्य खिलाड़ियों के प्रति सम्मानजनक रहूंगा।</string>
+  <string name="agreementAccount">मैं सहमत हूं कि मैं अनेक अकाउंट नहीं बनाऊंगा।</string>
+  <string name="agreementPolicy">मैं इस बात से सहमत हूं कि मैं सभी Lichess नीतियों का पालन करूंगा।</string>
 </resources>
