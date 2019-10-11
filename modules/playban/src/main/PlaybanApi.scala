@@ -136,7 +136,7 @@ final class PlaybanApi(
   private def goodOrSandbag(game: Game, loserColor: Color, isSandbag: Boolean): Funit =
     game.player(loserColor).userId ?? { userId =>
       if (isSandbag) feedback.sandbag(Pov(game, loserColor))
-      val rageSitDelta = if (isSandbag) 0 else 2 // proper defeat decays ragesit
+      val rageSitDelta = if (isSandbag) 0 else 1 // proper defeat decays ragesit
       save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, rageSitDelta)
     }
 
