@@ -764,6 +764,7 @@
   <string name="xHostsY">%1$s मेजबान %2$s</string>
   <string name="xJoinsY">%1$s मेजबान %2$s</string>
   <string name="xLikesY">%1$s ने %2$s पसंद किया:</string>
+  <string name="xCreatesStudyY">%1$s ने %2$s अध्ययन बनाया</string>
   <string name="quickPairing">त्वरित युग्मन</string>
   <string name="lobby">लॉबी</string>
   <string name="anonymous">अज्ञात</string>
@@ -860,4 +861,5 @@
     <item quantity="other">बाद में %s सक्रिय कदम को बचाओ</item>
   </plurals>
   <string name="sorry">खेद :(</string>
+  <string name="weHadToTimeYouOutForAWhile">हमें आपको कुछ समय के लिए प्रतिबंधित करना पड़ा।</string>
 </resources>
