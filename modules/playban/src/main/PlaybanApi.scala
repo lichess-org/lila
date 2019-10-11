@@ -192,7 +192,8 @@ final class PlaybanApi(
       selector = $id(userId),
       update = $doc(
         $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)),
-        $inc("c" -> rageSitDelta)
+        if (rageSitDelta == 0) $min("c" -> 0)
+        else $inc("c" -> rageSitDelta)
       ),
       fetchNewObject = true,
       upsert = true
