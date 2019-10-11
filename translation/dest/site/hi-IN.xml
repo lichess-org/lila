@@ -163,6 +163,8 @@
   <string name="ratingStats">रेटिंग सांख्यिकी</string>
   <string name="username">आपका यूज़र नेम</string>
   <string name="usernameOrEmail">उपयोगकर्ता का नाम</string>
+  <string name="changeUsername">खाता नाम बदलें</string>
+  <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
