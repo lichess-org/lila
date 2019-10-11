@@ -707,6 +707,8 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">आप %1$s खेलने वालो से बेहतर हो, %2$s मे</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">आपके पास स्थापित %s रेटिंग नहीं है</string>
   <string name="yourRating">आपकी रेटिंग</string>
+  <string name="cumulative">संचयी</string>
+  <string name="glicko2Rating">Glicko-2 रेटिंग</string>
   <string name="checkYourEmail">अपना ई-मेल  देखें</string>
   <string name="weHaveSentYouAnEmailClickTheLink">हम आपको एक ईमेल भेज दिया है। अपने खाते को सक्रिय करने के लिए ईमेल में लिंक पर क्लिक करें।</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">आप ईमेल नहीं देखते हैं, तो अन्य स्थानों पर यह हो सकता है, आपकी कबाड़, स्पैम, सामाजिक, या अन्य फ़ोल्डर की तरह की जाँच करें।</string>
@@ -857,4 +859,5 @@
     <item quantity="one">बाद में %s सक्रिय कदम को बचाओ</item>
     <item quantity="other">बाद में %s सक्रिय कदम को बचाओ</item>
   </plurals>
+  <string name="sorry">खेद :(</string>
 </resources>
