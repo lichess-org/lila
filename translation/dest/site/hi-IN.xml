@@ -175,7 +175,7 @@
   <string name="rank">श्रेणी (रैंक)</string>
   <string name="rankX">रैंक: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
-    <item quantity="one">पद को हर मिनट अपडेट किया जाता है</item>
+    <item quantity="one">पद को हर मिनटों में अपडेट किया जाता है</item>
     <item quantity="other">पद को हर %s मिनटों में अपडेट किया जाता है</item>
   </plurals>
   <plurals name="nbPuzzles">
@@ -203,6 +203,7 @@
   <string name="playingRightNow">अभी खेला जा रहा</string>
   <string name="eventInProgress">अभी खेला जा रहा</string>
   <string name="finished">समाप्त</string>
+  <string name="finishesX">%s में खत्म</string>
   <string name="abortGame">खेल रद्द करें</string>
   <string name="gameAborted">खेल रद्द किया गया</string>
   <string name="standard">साधारण</string>
