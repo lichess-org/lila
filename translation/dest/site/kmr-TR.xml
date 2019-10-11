@@ -607,6 +607,10 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu çêtir î ji %1$s kesên ji %2$s kesan.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu ne xwediyê reytîngeke diyarkirî ya %s yî.</string>
   <string name="yourRating">Reytînga te</string>
+  <string name="cumulative">Kumulatîv</string>
+  <string name="glicko2Rating">Reytînga Glicko-2</string>
+  <string name="checkYourEmail">Epeyama xwe kontrol bike</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Em epeyamekê şandin te. Ji bo çalakkirina hesabê xwe bitikîne lînka di epeyamê de.</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
