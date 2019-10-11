@@ -605,6 +605,7 @@
   <string name="weeklyPerfTypeRatingDistribution">Belavbûna reytînga hefteyî %s</string>
   <string name="yourPerfTypeRatingIsRating">Reytînga te ya %1$s %2$s ye.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Tu çêtir î ji %1$s kesên ji %2$s kesan.</string>
+  <string name="youDoNotHaveAnEstablishedPerfTypeRating">Tu ne xwediyê reytîngeke diyarkirî ya %s yî.</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
