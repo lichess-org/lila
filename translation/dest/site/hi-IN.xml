@@ -871,4 +871,6 @@
   <string name="playEveryGame">आप शुरू करे हुए हर खेल को खेलें।</string>
   <string name="tryToWin">आपके द्वारा खेले जाने वाले हर खेल को जीतने की कोशिश करें। (या कम से कम खेल ड्रा करें)।</string>
   <string name="resignLostGames">हारे हुए खेलों को त्याग दें (घड़ी को अंत तक न चलने दें)।</string>
+  <string name="temporaryInconvenience">हमें अल्पकालिक असुविधा के लिए खेद है</string>
+  <string name="thankYouForReading">पढ़ने के लिए धन्यवाद!</string>
 </resources>
