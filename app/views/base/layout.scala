@@ -74,7 +74,12 @@ object layout {
   private def clinput(implicit ctx: Context) =
     div(id := "clinput")(
       clinputLink,
-      input(spellcheck := "false", placeholder := trans.search.txt())
+      input(
+        spellcheck := "false",
+        autocomplete := "false",
+        aria.label := trans.search.txt(),
+        placeholder := trans.search.txt()
+      )
     )
 
   private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style :=
