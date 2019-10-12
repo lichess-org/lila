@@ -46,4 +46,25 @@
     <item quantity="one">Has ofert %s exhibició simultània</item>
     <item quantity="other">Has ofert %s exhibicions simultànies</item>
   </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Has participat en %s exhibició simultània</item>
+    <item quantity="other">Has participat en %s exhibicions simultànies</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">Has creat %s estudi</item>
+    <item quantity="other">Has creat %s estudis</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Has competit en %s torneig</item>
+    <item quantity="other">Has competit en %s tornejos</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%1$sº en la classificació (dins del %2$s%% millor) amb %3$s partida en %4$s</item>
+    <item quantity="other">%1$sº en la classificació (dins dels %2$s%% millors) amb %3$s partides en %4$s</item>
+  </plurals>
+  <string name="signedUp">Registrat a Lichess</string>
+  <plurals name="joinedNbTeams">
+    <item quantity="one">Membre de %s equip</item>
+    <item quantity="other">Membre de %s equips</item>
+  </plurals>
 </resources>
