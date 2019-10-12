@@ -592,6 +592,7 @@
   <string name="xCommentedY">%1$s a commenté %2$s</string>
   <string name="victory">Victoire</string>
   <string name="defeat">Défaite</string>
+  <string name="victoryVsYInZ">%1$s contre %2$s en %3$s</string>
   <string name="defeatVsYInZ">%1$s contre %2$s
 > %3$s</string>
   <string name="drawVsYInZ">%1$s contre %2$s
