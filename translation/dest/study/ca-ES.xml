@@ -118,4 +118,11 @@ Segura’t que el capítol és complert. Només pots requerir l’anàlisi una s
   <string name="enableSync">Habilita la sincronització</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Sí: tothom veu la mateixa posició</string>
   <string name="noLetPeopleBrowseFreely">No: permetre que la gent navegui lliurement</string>
+  <string name="pinnedStudyComment">Comentar estudi fixat</string>
+  <string name="start">Inici</string>
+  <string name="save">Desa</string>
+  <string name="clearChat">Neteja el Chat</string>
+  <string name="deleteTheStudyChatHistory">Eliminar el xat de l’estudi? No hi ha volta enrera!</string>
+  <string name="deleteStudy">Eliminar estudi</string>
+  <string name="deleteTheEntireStudy">Eliminar l’estudi complert? No hi ha volta enrera!</string>
 </resources>
