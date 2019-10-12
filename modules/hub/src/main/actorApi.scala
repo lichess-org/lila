@@ -13,7 +13,7 @@ case object DeployPost extends Deploy("deployPost")
 case object Shutdown // on actor system termination
 
 // announce something to all clients
-case class Announce(msg: String)
+case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer {
   case class StreamsOnAir(html: String)

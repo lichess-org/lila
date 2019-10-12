@@ -30,10 +30,17 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
           bus.publish(lila.user.User.GDPRErase(user), 'gdprErase)
           s"Erasing all data about ${user.username} now"
       }
-    case "announce" :: msgWords =>
-      val msg = msgWords mkString " "
-      bus.publish(lila.hub.actorApi.Announce(msg), 'announce)
-      fuccess(s"Announcing: $msg")
+    case "announce" :: "cancel" :: Nil =>
+      AnnounceStore set none
+      bus.publish(AnnounceStore.cancel, 'announce)
+      fuccess("Removed announce")
+    case "announce" :: msgWords => AnnounceStore.set(msgWords mkString " ") match {
+      case Some(announce) =>
+        bus.publish(announce, 'announce)
+        fuccess(announce.json.toString)
+      case None =>
+        fuccess("Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it")
+    }
   }
 
   private def remindDeploy(event: Deploy): Fu[String] = {

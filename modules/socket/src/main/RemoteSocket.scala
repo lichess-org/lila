@@ -64,8 +64,8 @@ final class RemoteSocket(
       send(Out.tellUser(userId, payload))
     case d: Deploy =>
       send(Out.tellAll(Json.obj("t" -> d.key)))
-    case Announce(msg) =>
-      send(Out.tellAll(Json.obj("t" -> "announce", "d" -> Json.obj("msg" -> msg))))
+    case Announce(_, _, json) =>
+      send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(micros) =>
       send(Out.mlat(micros))
     case actorApi.SendToFlag(flag, payload) =>

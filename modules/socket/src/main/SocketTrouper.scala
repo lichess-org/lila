@@ -66,7 +66,7 @@ abstract class SocketTrouper[M <: SocketMember](
 
     case d: Deploy => onDeploy(d)
 
-    case Announce(msg) => notifyAll(makeMessage("announce", Json.obj("msg" -> msg)))
+    case Announce(_, _, json) => notifyAll(makeMessage("announce", json))
   }
 
   protected def hasUserId(userId: String) = members.values.exists(_.userId contains userId)
