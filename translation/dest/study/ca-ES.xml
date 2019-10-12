@@ -4,4 +4,12 @@
   <string name="private">Privat</string>
   <string name="myStudies">Els meus estudis</string>
   <string name="studiesIContributeTo">Estudis on jo hi contribueixo</string>
+  <string name="myPublicStudies">Els meus estudis públics</string>
+  <string name="myPrivateStudies">Els meus estudis privats</string>
+  <string name="myFavoriteStudies">Els meus estudis favorits</string>
+  <string name="whatAreStudies">Què són els estudis?</string>
+  <string name="allStudies">Tots els estudis</string>
+  <string name="studiesCreatedByX">Estudis creats per %s</string>
+  <string name="noneYet">Res encara.</string>
+  <string name="hot">Candent</string>
 </resources>
