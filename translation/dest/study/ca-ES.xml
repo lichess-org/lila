@@ -40,4 +40,27 @@
   <string name="youAreNowAContributor">Ara ets un contribuïdor</string>
   <string name="youAreNowASpectator">Actualment ets un espectador</string>
   <string name="pgnTags">Etiquetes PGN</string>
+  <string name="like">M’agrada</string>
+  <string name="newTag">Nova etiqueta</string>
+  <string name="commentThisPosition">Comentar en aquesta posició</string>
+  <string name="commentThisMove">Comentar en aquest moviment</string>
+  <string name="annotateWithGlyphs">Anotar amb signes</string>
+  <string name="theChapterIsTooShortToBeAnalysed">El capítol és massa curt per ser analitzat.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Només els contribuïdors de l’estudi poden demanar un anàlisis computeritzat.</string>
+  <string name="getAFullComputerAnalysis">Obté un anàlisi complert desde el servidor de la línia principal.</string>
+  <string name="makeSureTheChapterIsComplete">Ase
+Segura’t que el capítol és complert. Només pots requerir l’anàlisi una sola vegada.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
+  <string name="shareChanges">Comparteix els canvis amb els espectadors i guarda’ls al servidor</string>
+  <string name="playing">Jugant</string>
+  <string name="first">Primer</string>
+  <string name="previous">Anterior</string>
+  <string name="next">Següent</string>
+  <string name="last">Últim</string>
+  <string name="shareAndExport">Comparteix i exporta</string>
+  <string name="cloneStudy">Clona</string>
+  <string name="studyPgn">PGN de l’estudi</string>
+  <string name="chapterPgn">PGN del capítol</string>
+  <string name="studyUrl">URL de l’estudi</string>
+  <string name="currentChapterUrl">URL del capítol actual</string>
 </resources>
