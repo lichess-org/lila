@@ -95,4 +95,27 @@ Segura’t que el capítol és complert. Només pots requerir l’anàlisi una s
   <string name="loadAPositionFromFen">Carregar una posició via codi FEN</string>
   <string name="loadAGameFromPgn">Carregar una partida desde PGN</string>
   <string name="automatic">Automàtic</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Enganxa el teu PGN aquí, fins a %s partida</item>
+    <item quantity="other">Enganxa el teu PGN aquí, fins a %s partides</item>
+  </plurals>
+  <string name="urlOfTheGame">URL del joc</string>
+  <string name="loadAGameFromXOrY">Carregar una partida desde %1$s o %2$s</string>
+  <string name="createChapter">Crear capítol</string>
+  <string name="configureLiveBroadcast">Configurar l’emisió en directe</string>
+  <string name="createStudy">Crear estudi</string>
+  <string name="editStudy">Editar estudi</string>
+  <string name="visibility">Visibilitat</string>
+  <string name="public">Públic</string>
+  <string name="unlisted">No llistats</string>
+  <string name="inviteOnly">Només per invitació</string>
+  <string name="allowCloning">Permitir clonat</string>
+  <string name="nobody">Ningú</string>
+  <string name="onlyMe">Només jo</string>
+  <string name="contributors">Col·laboradors</string>
+  <string name="members">Membres</string>
+  <string name="everyone">Tothom</string>
+  <string name="enableSync">Habilita la sincronització</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Sí: tothom veu la mateixa posició</string>
+  <string name="noLetPeopleBrowseFreely">No: permetre que la gent navegui lliurement</string>
 </resources>
