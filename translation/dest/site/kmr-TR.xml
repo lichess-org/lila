@@ -613,6 +613,8 @@
   <string name="weHaveSentYouAnEmailClickTheLink">Em epeyamekê şandin te. Ji bo çalakkirina hesabê xwe bitikîne lînka di epeyamê de.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ger te epeyamê nedîtibe, cihên din ên ku dibe ku lê be kontrol bike, wek negirîng, spam, civakî, an pekdankên din.</string>
   <string name="weHaveSentYouAnEmailTo">Em epeyamekê şandin %s. Bitikîne lînka di epeyamê de ji bo nûkirina pêborîna xwe.</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">Bi qeydbûnê, tu qebûl dikî ku girêdayî %s ya me bibî.</string>
+  <string name="networkLagBetweenYouAndLichess">Derengmayîna torê yê di navbera te û lichessê de</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
