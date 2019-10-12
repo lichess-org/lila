@@ -878,4 +878,13 @@ en %3$s</string>
   <string name="playEveryGame">Juga cada joc que comencis.</string>
   <string name="tryToWin">Prova de guanyar (o al menys fer taules) cada partida.</string>
   <string name="resignLostGames">Resigna els jocs perduts (no deixis córrer el temps).</string>
+  <string name="temporaryInconvenience">Disculpes per aquest inconvenient temporal</string>
+  <string name="wishYouGreatGames">i et desitgem unes grans partides a lichess.org.</string>
+  <string name="thankYouForReading">Gràcies per la teva lectura!</string>
+  <string name="lifetimeScore">Valoració total de sempre</string>
+  <string name="currentMatchScore">Valoració actual de partides</string>
+  <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
+  <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
+  <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
+  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
 </resources>
