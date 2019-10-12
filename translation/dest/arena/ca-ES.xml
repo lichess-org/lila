@@ -5,6 +5,13 @@
   <string name="willBeNotified">Seràs notificat quan comenci el torneig, per tant és segur jugar en una altra pestanya mentre esperes.</string>
   <string name="isRated">Aquest és un torneig valorat i per tant afectarà a la teva puntuació.</string>
   <string name="isNotRated">Aquest *no* és un torneig valorat i per tant *no* afectarà a la teva puntuació.</string>
+  <string name="someRated">Alguns tornejos són valorats i afectaran a la teva puntuació.</string>
+  <string name="howAreScoresCalculated">Com són calculats els punts?</string>
+  <string name="howAreScoresCalculatedAnswer">Una victòria té una base de 2 punts, un empat d’ 1 punt, i una pèrdua de cap.
+Si guanyes dos jocs consecutius començaràs una série de doble puntuació, representada per una flama.
+Els següents jocs tindran doble puntuació fins que no guanyis un joc.
+Així doncs una victòria valdrà 4 punts, un empat 2 punts, i res una derrota.
+Per exemple, dos victòries seguides d’un empat valdrà 6 punts: 2 + 2 + (2 x 1)</string>
   <string name="howDoesPairingWork">Com va l\'emparellament?</string>
   <string name="howDoesItEnd">Com acaba?</string>
   <string name="thisIsPrivate">Aquest és un torneig privat</string>
