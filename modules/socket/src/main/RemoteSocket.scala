@@ -3,6 +3,7 @@ package lila.socket
 import chess.Centis
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
+import java.util.concurrent.atomic.AtomicReference
 import play.api.libs.json._
 import scala.concurrent.Future
 
@@ -26,7 +27,10 @@ final class RemoteSocket(
 
   import RemoteSocket._, Protocol._
 
-  private val connectedUserIds = collection.mutable.Set.empty[String]
+  type UserIds = Set[String]
+
+  private val connectedUserIds = new AtomicReference(Set.empty[String])
+
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
   private def connectToPubSub = redisClient.connectPubSub()
@@ -34,10 +38,9 @@ final class RemoteSocket(
   val baseHandler: Handler = {
     case In.ConnectUser(userId) =>
       bus.publish(lila.hub.actorApi.socket.remote.ConnectUser(userId), 'userActive)
-      connectedUserIds += userId
-    case In.DisconnectUsers(userIds) => userIds foreach { userId =>
-      if (connectedUserIds(userId)) connectedUserIds -= userId
-    }
+      connectedUserIds.getAndUpdate((x: UserIds) => x + userId)
+    case In.DisconnectUsers(userIds) =>
+      connectedUserIds.getAndUpdate((x: UserIds) => x -- userIds)
     case In.Watch(gameId) => watchedGameIds += gameId
     case In.Unwatch(gameId) => watchedGameIds -= gameId
     case In.NotifiedBatch(userIds) => notificationActor ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
@@ -50,7 +53,7 @@ final class RemoteSocket(
       bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
     case In.DisconnectAll =>
       logger.info("Remote socket disconnect all")
-      connectedUserIds.clear
+      connectedUserIds set Set.empty
       watchedGameIds.clear
   }
 
@@ -58,9 +61,9 @@ final class RemoteSocket(
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.move(gameId, move, fen))
     case SendTos(userIds, payload) =>
-      val connectedUsers = userIds intersect connectedUserIds
+      val connectedUsers = userIds intersect connectedUserIds.get
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
-    case SendTo(userId, payload) if connectedUserIds(userId) =>
+    case SendTo(userId, payload) if connectedUserIds.get.contains(userId) =>
       send(Out.tellUser(userId, payload))
     case d: Deploy =>
       send(Out.tellAll(Json.obj("t" -> d.key)))
@@ -75,16 +78,14 @@ final class RemoteSocket(
     case CloseAccount(userId) =>
       send(Out.disconnectUser(userId))
     case WithUserIds(f) =>
-      f(connectedUserIds)
+      f(connectedUserIds.get)
   }
 
   private def tick(nbConn: Int): Unit = {
     setNb(nbConn)
     mon.connections(nbConn)
     mon.sets.games(watchedGameIds.size)
-    val nbUsers = connectedUserIds.size
-    if (nbUsers >= 0) mon.sets.users(nbUsers)
-    else if (nbUsers % 10 == 0) logger.warn(s"$nbUsers connectedUsers")
+    mon.sets.users(connectedUserIds.get.size)
   }
 
   private val mon = lila.mon.socket.remote
