@@ -16,4 +16,7 @@
 Aquí teniu la pàgina del perfil: %1$s. Podeu personalitzar-la a %2$s.
 
 Divertiu-vos, i porteu les peces sempre a trobar el seu camí cap al rei del teu oponent!</string>
+  <string name="common_orPaste">(No funciona clicar? Prova enganxant-ho en el navegador!)</string>
+  <string name="common_note">Aquest és un correu de servei relatiu al teu ús de %s.</string>
+  <string name="common_contact">Per contactar amb nosaltres, si us plau usa %s.</string>
 </resources>
