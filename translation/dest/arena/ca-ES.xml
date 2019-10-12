@@ -12,6 +12,7 @@ Si guanyes dos jocs consecutius començaràs una série de doble puntuació, rep
 Els següents jocs tindran doble puntuació fins que no guanyis un joc.
 Així doncs una victòria valdrà 4 punts, un empat 2 punts, i res una derrota.
 Per exemple, dos victòries seguides d’un empat valdrà 6 punts: 2 + 2 + (2 x 1)</string>
+  <string name="berserk">Mode berserk</string>
   <string name="howDoesPairingWork">Com va l\'emparellament?</string>
   <string name="howDoesItEnd">Com acaba?</string>
   <string name="thisIsPrivate">Aquest és un torneig privat</string>
