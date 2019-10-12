@@ -715,6 +715,7 @@ en %3$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
   <string name="yourRating">La vostra valoració</string>
   <string name="cumulative">Acumulat</string>
+  <string name="glicko2Rating">Valoració Glicko-2</string>
   <string name="checkYourEmail">Comprova el teu email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">T\'hem enviat un email. Clica l\'enllaç de l\'email per a activar el teu compte</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
@@ -866,4 +867,15 @@ en %3$s</string>
     <item quantity="one">i guardar %s línia anticipada</item>
     <item quantity="other">i guardar %s línies anticipades</item>
   </plurals>
+  <string name="sorry">Ho sentim :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
+  <string name="timeoutExpires">La penalització acaba en %s.</string>
+  <string name="why">Perquè?</string>
+  <string name="pleasantChessExperience">Intentem donar una bona experiència d’escacs a tothom.</string>
+  <string name="goodPractice">Per això, hem de garantir que tots els jugadors segueixin bones pràctiques.</string>
+  <string name="potentialProblem">Quan un problema potancial es detecta, mostrem aquest missatge.</string>
+  <string name="howToAvoidThis">Com evitar-ho?</string>
+  <string name="playEveryGame">Juga cada joc que comencis.</string>
+  <string name="tryToWin">Prova de guanyar (o al menys fer taules) cada partida.</string>
+  <string name="resignLostGames">Resigna els jocs perduts (no deixis córrer el temps).</string>
 </resources>
