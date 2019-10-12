@@ -6,4 +6,44 @@
     <item quantity="one">Ha col.laborat amb lichess.org durant %1$s mes com %2$s</item>
     <item quantity="other">Ha col.laborat amb lichess.org durant %1$s mesos com %2$s</item>
   </plurals>
+  <plurals name="practicedNbPositions">
+    <item quantity="one">Ha practicat %1$s posició en %2$s</item>
+    <item quantity="other">Ha practicat %1$s posicions en %2$s</item>
+  </plurals>
+  <plurals name="solvedNbPuzzles">
+    <item quantity="one">Ha resolt %s ejercici de tàctica</item>
+    <item quantity="other">Ha resolt %s ejercicis de tàctica</item>
+  </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">Has jugat %1$s partida %2$s</item>
+    <item quantity="other">Has jugat %1$s partides %2$s</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">Has publicat %1$s missatge a %2$s</item>
+    <item quantity="other">Has publicat %1$s missatges a %2$s</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">Has fet %1$s moviment</item>
+    <item quantity="other">Has fet %1$s moviments</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">en %1$s partida per correspondència</item>
+    <item quantity="other">en %1$s partides per correspondència</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">Has jugat %s partida per correspondència</item>
+    <item quantity="other">Has jugat %s partides per correspondència</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Segueixes a %s jugador</item>
+    <item quantity="other">Segueixes a %s jugadors</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">Tens %s seguidor nou</item>
+    <item quantity="other">Tens %s seguidors nous</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Has ofert %s exhibició simultània</item>
+    <item quantity="other">Has ofert %s exhibicions simultànies</item>
+  </plurals>
 </resources>
