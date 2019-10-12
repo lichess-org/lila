@@ -166,6 +166,7 @@
   <string name="usernameOrEmail">उपयोगकर्ता का नाम</string>
   <string name="changeUsername">खाता नाम बदलें</string>
   <string name="changeUsernameNotSame">केवल अक्षरों का मामला बदल सकता है। उदाहरण के लिए \"johndoe\" से \"JohnDoe\"।</string>
+  <string name="changeUsernameDescription">अपना उपयोगकर्ता नाम बदलें। यह केवल एक बार किया जा सकता है और आपको केवल अपने उपयोगकर्ता नाम के केस को बदलने की अनुमति है।</string>
   <string name="password">पासवर्ड</string>
   <string name="changePassword">पासवर्ड बदलें</string>
   <string name="changeEmail">अपना इ-मेल बदलो</string>
