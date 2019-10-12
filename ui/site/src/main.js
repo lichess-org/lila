@@ -119,18 +119,28 @@
     }
   });
 
-  lichess.announce = (d) => {
-    $('#announce').remove();
-    if (d.msg) $('body').append(
-      '<div id="announce" class="announce">' +
-      d.msg +
-      '<time class="timeago" datetime="' + d.date + '"></time>' +
-      '<div class="actions"><a class="close">X</a></div>' +
-      '</div>'
-    ).find('#announce .close').click(function() { $('#announce').remove(); });
-  };
-  const announce = $('body').data('announce');
-  if (announce) lichess.announce(announce);
+  lichess.announce = (() => {
+    let timeout;
+    const kill = () => $('#announce').remove();
+    const set = (d) => {
+      if (!d) return;
+      kill();
+      if (timeout) clearTimeout(timeout);
+      if (d.msg) {
+        $('body').append(
+          '<div id="announce" class="announce">' +
+          d.msg +
+          '<time class="timeago" datetime="' + d.date + '"></time>' +
+          '<div class="actions"><a class="close">X</a></div>' +
+          '</div>'
+        ).find('#announce .close').click(kill);
+        timeout = setTimeout(kill, new Date(d.date) - Date.now());
+        lichess.pubsub.emit('content_loaded');
+      }
+    };
+    set($('body').data('announce'));
+    return set;
+  })();
 
   lichess.reverse = s => s.split('').reverse().join('');
   lichess.readServerFen = t => atob(lichess.reverse(t));
@@ -271,13 +281,13 @@
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function renderTimeago() {
-        lichess.raf(function() {
-          lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99));
-        });
+        lichess.raf(() =>
+          lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
+        );
       }
       function setTimeago(interval) {
         renderTimeago();
-        setTimeout(function() { setTimeago(interval * 1.1); }, interval);
+        setTimeout(() => setTimeago(interval * 1.1), interval);
       }
       setTimeago(1200);
       lichess.pubsub.on('content_loaded', renderTimeago);
@@ -292,7 +302,7 @@
         }
       }, 300);
 
-      var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
+      const initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
 
       lichess.challengeApp = (function() {
         var instance, booted;

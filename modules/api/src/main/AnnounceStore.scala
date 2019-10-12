@@ -2,8 +2,8 @@ package lila.api
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
-import scala.concurrent.duration._
 import play.api.libs.json.Json
+import scala.concurrent.duration._
 import scala.util.Try
 
 import lila.hub.actorApi.Announce
@@ -12,7 +12,12 @@ object AnnounceStore {
 
   private var current = none[Announce]
 
-  def get: Option[Announce] = current
+  def get: Option[Announce] = {
+    current foreach { c =>
+      if (c.date isBefore DateTime.now) current = none
+    }
+    current
+  }
 
   def set(announce: Option[Announce]) = {
     current = announce
