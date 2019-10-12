@@ -353,6 +353,8 @@
   <string name="clickOnTheBoardToMakeYourMove">अपनी चाल चलने के लिए बोर्ड पर क्लिक करें और साबित करे की आप इंसान हैं।</string>
   <string name="captcha.fail">कृपया शतरंज कैप्चा हल करें।</string>
   <string name="notACheckmate">शह और मात नहीं</string>
+  <string name="whiteCheckmatesInOneMove">सफेद १ चाल में शहमात देगा</string>
+  <string name="blackCheckmatesInOneMove">काला १ चाल में शहमात देगा</string>
   <string name="retry">फिर से कोशिश करें</string>
   <string name="reconnecting">फिर से जुड़ने की कोशिश (रीकनेक्ट)</string>
   <plurals name="nbFriendsOnline">
