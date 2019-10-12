@@ -12,4 +12,32 @@
   <string name="studiesCreatedByX">Estudis creats per %s</string>
   <string name="noneYet">Res encara.</string>
   <string name="hot">Candent</string>
+  <string name="dateAddedNewest">Data d’inclusió (més nous)</string>
+  <string name="dateAddedOldest">Data d’inclusió (més antics)</string>
+  <string name="recentlyUpdated">Actualitzat darrerament</string>
+  <string name="mostPopular">Més popular</string>
+  <string name="addNewChapter">Afegir un nou capítol</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Capítol</item>
+    <item quantity="other">%s Capítols</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Joc</item>
+    <item quantity="other">%s Jocs</item>
+  </plurals>
+  <string name="addMembers">Afegeix membres</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Membre</item>
+    <item quantity="other">%s Membres</item>
+  </plurals>
+  <string name="inviteToTheStudy">Convida a l’estudi</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Si us plau, convida gent que coneixes, i que vólen unir-se activament a l’estudi.</string>
+  <string name="searchByUsername">Cerca per nom d\'usuari</string>
+  <string name="spectator">Espectador</string>
+  <string name="contributor">Contribuïdor</string>
+  <string name="kick">Expulsa</string>
+  <string name="leaveTheStudy">Deixar l’estudi</string>
+  <string name="youAreNowAContributor">Ara ets un contribuïdor</string>
+  <string name="youAreNowASpectator">Actualment ets un espectador</string>
+  <string name="pgnTags">Etiquetes PGN</string>
 </resources>
