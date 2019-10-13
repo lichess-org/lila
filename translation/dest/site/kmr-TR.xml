@@ -667,6 +667,14 @@
   <string name="yourScore">Skora te: %s</string>
   <string name="language">Ziman</string>
   <string name="background">Piştzemîn</string>
+  <string name="light">Ronak</string>
+  <string name="dark">Tarî</string>
+  <string name="transparent">Şefaf</string>
+  <string name="backgroundImageUrl">URLya wêneya piştzemînê:</string>
+  <string name="boardGeometry">Geometriya texteyê</string>
+  <string name="boardTheme">Rûkara texteyê</string>
+  <string name="boardSize">Mezinahiya texteyê</string>
+  <string name="pieceSet">Seta kabikan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
