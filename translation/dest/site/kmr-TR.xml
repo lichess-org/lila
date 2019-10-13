@@ -657,6 +657,16 @@
   <string name="viewTheSolution">Çareseriyê bibîne</string>
   <string name="followAndChallengeFriends">Hevalan bişopîne û vexwîne lîstikan</string>
   <string name="gameAnalysis">Analîza lîstikê</string>
+  <string name="xHostsY">%1$s mêvandariya %2$s kir</string>
+  <string name="xJoinsY">%1$s tevlî %2$s bû</string>
+  <string name="xLikesY">%1$s %2$s eciband</string>
+  <string name="xCreatesStudyY">%1$s xebata %2$s çêkir</string>
+  <string name="quickPairing">Lihevanîna bilez</string>
+  <string name="lobby">Lobî</string>
+  <string name="anonymous">Anonîm</string>
+  <string name="yourScore">Skora te: %s</string>
+  <string name="language">Ziman</string>
+  <string name="background">Piştzemîn</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
