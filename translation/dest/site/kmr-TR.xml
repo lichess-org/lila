@@ -635,6 +635,12 @@
   <string name="withEverybody">Bi herkesî re</string>
   <string name="youHaveAlreadyRegisteredTheEmail">Te jixwe xwe bi vê epeyamê qeyd kiriye: %s</string>
   <string name="kidMode">Moda zarokan</string>
+  <string name="kidModeExplanation">Ev derbarê ewlehiyê de ye. Di moda zarokan de, hemû komunîkasyonên malperê neçalak in. Ji bo ku zarokên xwe û xwendekarên dibistanan ji bikarhênerên din ên înternetê biparêzî, vê çalak bike.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">Di moda zarokan de, logoya lichessê îkona %s digire, bi vî awayî haya te jê çêdibe ku zarok ewle ne.</string>
+  <string name="enableKidMode">Moda zarokan aktîv bike</string>
+  <string name="disableKidMode">Moda zarokan neçalak bike</string>
+  <string name="security">Ewlehî</string>
+  <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ev lîsteyeke amûrên ku têketine hesaba te ne. Danişînên ku tu nas nakî betal bike.</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
