@@ -623,6 +623,11 @@
   <string name="crosstable">Tabloya çeperast</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">Herwiha tu dikarî ji bo hemlekirinê çerxa mişkê kaş bikî.</string>
   <string name="analysisShapesHowTo">Pêlî shift+click an right-click bike ji bo xêzkirina xelekan û tîrikan li ser texteyê.</string>
+  <string name="confirmResignationAndDrawOffers">Vekişînê û teklîfa wekheviyê qebûl bike</string>
+  <string name="inputMovesWithTheKeyboard">Hemlekirina bi textenivîsê aktîv bike</string>
+  <string name="letOtherPlayersMessageYou">Destûr bide ku lîzerên din peyam bişînin te</string>
+  <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Mêtoda rokkirinê</string>
+  <string name="castleByMovingTwoSquares">Şahê du çarçik bide hereketkirin</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
