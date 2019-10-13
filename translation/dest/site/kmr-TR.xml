@@ -679,6 +679,8 @@
   <string name="usernameAlreadyUsed">Ev navê bikarhêneriyê jixwe li kar e, xêra xwe yeke din biceribîne.</string>
   <string name="usernamePrefixInvalid">Divê navê bikarhêneriyê bi tîpekê dest pê bike.</string>
   <string name="usernameSuffixInvalid">Divê navê bikarhêneriyê bi tîpekê an bi hejmarekê xelas bibe.</string>
+  <string name="usernameCharsInvalid">Divê navê bikarhêneriyê tenê tîpan, hejmaran, jêrexêzan, û bendikan bihewîne.</string>
+  <string name="usernameUnacceptable">Navê bikarhêneriyê neqebûlbar e.</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
