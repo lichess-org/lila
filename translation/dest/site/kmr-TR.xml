@@ -701,6 +701,10 @@
   <string name="bestWasX">Ya çêtirîn %s e</string>
   <string name="youBrowsedAway">Tu bi dûr ketî</string>
   <string name="resumePractice">Dewam bike praktîkê</string>
+  <string name="theGameIsADraw">Lîstik bi wekhevî xelas bû.</string>
+  <string name="computerThinking">Kombers difikire...</string>
+  <string name="seeBestMove">Hemleya çêtirîn bibîne</string>
+  <string name="hideBestMove">Hemleya çêtirîn biveşêre</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
