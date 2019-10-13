@@ -651,6 +651,10 @@
   <string name="fullFeatured">Li gel temamiya taybetiyan</string>
   <string name="phoneAndTablet">Telefon û tablet</string>
   <string name="bulletBlitzClassical">Şerê guleyî, birûskî, an klasîkî</string>
+  <string name="correspondenceChess">Kişika bi pêwendî</string>
+  <string name="onlineAndOfflinePlay">Serhêl û derhêl bilîze</string>
+  <string name="correspondenceAndUnlimited">Bipêwendî û bêsînor</string>
+  <string name="viewTheSolution">Çareseriyê bibîne</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
