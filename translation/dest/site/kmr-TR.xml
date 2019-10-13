@@ -706,6 +706,16 @@
   <string name="seeBestMove">Hemleya çêtirîn bibîne</string>
   <string name="hideBestMove">Hemleya çêtirîn biveşêre</string>
   <string name="getAHint">Serbendekê werbigire</string>
+  <string name="evaluatingYourMove">Hemleya te tê nirxandin ...</string>
+  <string name="whiteWinsGame">Spî bi ser ket</string>
+  <string name="blackWinsGame">Reş bi ser ket</string>
+  <string name="learnFromYourMistakes">Ders bigire ji çewtiyên xwe</string>
+  <string name="learnFromThisMistake">Ders bigire ji vê çewtiyê</string>
+  <string name="skipThisMove">Vê hemleyê derbas bike</string>
+  <string name="next">Pêşve</string>
+  <string name="xWasPlayed">%s hate lîstin</string>
+  <string name="findBetterMoveForWhite">Hemleyeke çêtir bibîne ji bo spî</string>
+  <string name="findBetterMoveForBlack">Hemleyeke çêtir bibîne ji bo reş</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
