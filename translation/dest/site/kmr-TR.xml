@@ -717,6 +717,13 @@
   <string name="findBetterMoveForWhite">Hemleyeke çêtir bibîne ji bo spî</string>
   <string name="findBetterMoveForBlack">Hemleyeke çêtir bibîne ji bo reş</string>
   <string name="resumeLearning">Dewam bike hînbûnê</string>
+  <string name="youCanDoBetter">Tu dikarî yê çêtir bikî</string>
+  <string name="tryAnotherMoveForWhite">Hemleyeke din biceribîne ji bo spî</string>
+  <string name="tryAnotherMoveForBlack">Hemleyeke din biceribîne ji bo reş</string>
+  <string name="solution">Çareserî</string>
+  <string name="waitingForAnalysis">Li benda analîzê ye</string>
+  <string name="noMistakesFoundForWhite">Ti çewtî nehate dîtin ji bo spî</string>
+  <string name="noMistakesFoundForBlack">Ti çewtî nehate dîtin ji bo reş</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
