@@ -628,6 +628,13 @@
   <string name="letOtherPlayersMessageYou">Destûr bide ku lîzerên din peyam bişînin te</string>
   <string name="castleByMovingTheKingTwoSquaresOrOntoTheRook">Mêtoda rokkirinê</string>
   <string name="castleByMovingTwoSquares">Şahê du çarçik bide hereketkirin</string>
+  <string name="castleByMovingOntoTheRook">Şahê bi ser kelehê de kaş bike</string>
+  <string name="shareYourInsightsData">Daneyên xwe yên kişikê parve bike bi</string>
+  <string name="withNobody">Bi tikesî re</string>
+  <string name="withFriends">Bi hevalan re</string>
+  <string name="withEverybody">Bi herkesî re</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Te jixwe xwe bi vê epeyamê qeyd kiriye: %s</string>
+  <string name="kidMode">Moda zarokan</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
