@@ -696,6 +696,11 @@
   <string name="notifications">Danezan</string>
   <string name="challenges">Teklîfên lîstinê</string>
   <string name="perfRatingX">Reytîng: %s</string>
+  <string name="practiceWithComputer">Digel kombersê praktîk bike</string>
+  <string name="anotherWasX">Ya din jî %s e</string>
+  <string name="bestWasX">Ya çêtirîn %s e</string>
+  <string name="youBrowsedAway">Tu bi dûr ketî</string>
+  <string name="resumePractice">Dewam bike praktîkê</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
