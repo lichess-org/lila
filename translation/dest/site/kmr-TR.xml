@@ -641,6 +641,16 @@
   <string name="disableKidMode">Moda zarokan neçalak bike</string>
   <string name="security">Ewlehî</string>
   <string name="thisIsAListOfDevicesThatHaveLoggedIntoYourAccount">Ev lîsteyeke amûrên ku têketine hesaba te ne. Danişînên ku tu nas nakî betal bike.</string>
+  <string name="alternativelyYouCanX">Alternatîven tu dikarî %s.</string>
+  <string name="revokeAllSessions">hemû danişînan betal bikî</string>
+  <string name="playChessEverywhere">Kişikê bilîze li her derî</string>
+  <string name="asFreeAsLichess">Bi qasî lichessê azad</string>
+  <string name="builtForTheLoveOfChessNotMoney">Bi evîna kişikê hatiye avakirin, ne bi pereyê</string>
+  <string name="everybodyGetsAllFeaturesForFree">Herkes dikare temamiya taybetmendiyan bi belaşî bi dest bixe</string>
+  <string name="zeroAdvertisement">Sifir reklam</string>
+  <string name="fullFeatured">Li gel temamiya taybetiyan</string>
+  <string name="phoneAndTablet">Telefon û tablet</string>
+  <string name="bulletBlitzClassical">Şerê guleyî, birûskî, an klasîkî</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
