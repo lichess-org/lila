@@ -617,6 +617,9 @@
   <string name="networkLagBetweenYouAndLichess">Derengmayîna torê yê di navbera te û lichessê de</string>
   <string name="timeToProcessAMoveOnLichessServer">Dema te ya bicihanîna hemleyekê, li ser rajekarê lichessê</string>
   <string name="downloadAnnotated">Awayê notgirtî daxîne</string>
+  <string name="downloadRaw">Awayê sade daxîne</string>
+  <string name="downloadImported">Yê têxistî daxîne</string>
+  <string name="printFriendlyPDF">PDFa bo çapkirinê</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
