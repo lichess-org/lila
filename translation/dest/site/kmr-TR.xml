@@ -724,13 +724,15 @@
   <string name="waitingForAnalysis">Li benda analîzê ye</string>
   <string name="noMistakesFoundForWhite">Ti çewtî nehate dîtin ji bo spî</string>
   <string name="noMistakesFoundForBlack">Ti çewtî nehate dîtin ji bo reş</string>
-  <string name="doItAgain">Ji nû da bike</string>
-  <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
-  <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
+  <string name="doneReviewingWhiteMistakes">Kontrolkirina çewtiyên spî temam bû</string>
+  <string name="doneReviewingBlackMistakes">Kontrolkirina çewtiyên reş temam bû</string>
+  <string name="doItAgain">Cardin bike</string>
+  <string name="reviewWhiteMistakes">Şaşiyên spî binirxîne</string>
+  <string name="reviewBlackMistakes">Şaşiyên reş binirxîne</string>
   <string name="advantage">Pêşwendî</string>
   <plurals name="nbSeconds">
     <item quantity="one">çirke %s</item>
-    <item quantity="other">çirke %s</item>
+    <item quantity="other">%s çirke</item>
   </plurals>
   <string name="opening">Destpêk</string>
   <string name="middlegame">Nîvlîstik</string>
