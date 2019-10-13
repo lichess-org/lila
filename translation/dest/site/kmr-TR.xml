@@ -705,6 +705,7 @@
   <string name="computerThinking">Kombers difikire...</string>
   <string name="seeBestMove">Hemleya çêtirîn bibîne</string>
   <string name="hideBestMove">Hemleya çêtirîn biveşêre</string>
+  <string name="getAHint">Serbendekê werbigire</string>
   <string name="doItAgain">Ji nû da bike</string>
   <string name="reviewWhiteMistakes">Şaşiyên Spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşîyên Reş binirxîne</string>
