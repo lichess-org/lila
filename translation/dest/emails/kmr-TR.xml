@@ -7,4 +7,6 @@
   <string name="passwordReset_subject">Pêborîna xwe ya lichess.org-ê nû bike, %s</string>
   <string name="passwordReset_intro">Em daxwazekê wergirtin ji bo nûkirina pêborîna hesaba te.</string>
   <string name="passwordReset_clickOrIgnore">Ger vê daxwazê te kiribe, bitikîne ser lînka li jêr. Ger newisa be, vê epeyamê piştguh bike.</string>
+  <string name="emailChange_subject">Navnîşana epeyama xwe ya nû tesdîq bike, %s</string>
+  <string name="emailChange_intro">Te guherandina epeyama xwe daxwaz kiriye ki me.</string>
 </resources>
