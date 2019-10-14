@@ -39,4 +39,5 @@
   <string name="annotateWithGlyphs">Bi glîfan îzah bike</string>
   <string name="theChapterIsTooShortToBeAnalysed">Ev beş pir kurt e bo analîzkirinê.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tenê beşdarên xebatê dikarin analîza kombersê daxwaz bikin.</string>
+  <string name="getAFullComputerAnalysis">Ji bo vê xeta sereke analîzeke kombersê ya bi hûrgilî werbigire.</string>
 </resources>
