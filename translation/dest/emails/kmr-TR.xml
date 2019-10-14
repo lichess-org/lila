@@ -9,4 +9,6 @@
   <string name="passwordReset_clickOrIgnore">Ger vê daxwazê te kiribe, bitikîne ser lînka li jêr. Ger newisa be, vê epeyamê piştguh bike.</string>
   <string name="emailChange_subject">Navnîşana epeyama xwe ya nû tesdîq bike, %s</string>
   <string name="emailChange_intro">Te guherandina epeyama xwe daxwaz kiriye ki me.</string>
+  <string name="emailChange_click">Ji bo tesdîqkirina gihîna xwe ya li vê epeyamê, ji kerema xwe bitikîne lînka li jêr:</string>
+  <string name="welcome_subject">Tı bi xêr hatî lichess.org-ê, %s</string>
 </resources>
