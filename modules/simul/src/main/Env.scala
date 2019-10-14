@@ -19,6 +19,7 @@ final class Env(
     onGameStart: String => Unit,
     isOnline: String => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
+    remoteSocketApi: lila.socket.RemoteSocket,
     proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
@@ -62,6 +63,12 @@ final class Env(
     accessTimeout = SocketTimeout,
     monitoringName = "simul.socketMap",
     broomFrequency = 3691 millis
+  )
+
+  private val simulSocket = new SimulSocket(
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    system = system
   )
 
   lazy val socketHandler = new SocketHandler(
@@ -147,6 +154,7 @@ object Env {
     onGameStart = lila.round.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     proxyGame = lila.round.Env.current.proxy.game _
   )
 }
