@@ -17,4 +17,20 @@
   <string name="recentlyUpdated">Yên vê dawiyê nûkirî</string>
   <string name="mostPopular">Yên popûlertirîn</string>
   <string name="addNewChapter">Beşeke nû tevlî bike</string>
+  <string name="addMembers">Endaman tevlî bike</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s Endam</item>
+    <item quantity="other">%s Endam</item>
+  </plurals>
+  <string name="inviteToTheStudy">Vexwîne xebatê</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Ji kerema xwe tenê nasên xwe, û kesên ku dixwazî bi aktîvî tevlî vê xebatê bibin vexwîne.</string>
+  <string name="searchByUsername">Bi navê bikarhêneriyê lê bigere</string>
+  <string name="spectator">Temaşevan</string>
+  <string name="contributor">Beşdar</string>
+  <string name="kick">Derîne</string>
+  <string name="leaveTheStudy">Xebatê biterikîne</string>
+  <string name="youAreNowAContributor">Tu vê gavê beşdarek î</string>
+  <string name="youAreNowASpectator">Tu vêga temaşevanek î</string>
+  <string name="pgnTags">Nîşanên PGN</string>
+  <string name="like">Biecibîne</string>
 </resources>
