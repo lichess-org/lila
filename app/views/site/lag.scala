@@ -46,7 +46,7 @@ object lag {
             div(cls := "meter"),
             p(
               "The time it takes to send a move from your computer to Lichess server, ",
-              "and get the response back.",
+              "and get the response back. ",
               "It's specific to your ", strong("distance to Lichess (France)"), ", and ",
               "to the ", strong("quality of your Internet connection"), ". ",
               "Lichess developers can not fix your wifi or make light go faster."
