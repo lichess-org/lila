@@ -5,4 +5,6 @@
   <string name="emailConfirm_click">Ji bo aktîvkirina hesaba xwe ya Lichessê bitikîne vir:</string>
   <string name="emailConfirm_ignore">Ger te xwe qeydê Lichessê nekiribe tu dikarî guh nedî vê peyama me.</string>
   <string name="passwordReset_subject">Pêborîna xwe ya lichess.org-ê nû bike, %s</string>
+  <string name="passwordReset_intro">Em daxwazekê wergirtin ji bo nûkirina pêborîna hesaba te.</string>
+  <string name="passwordReset_clickOrIgnore">Ger vê daxwazê te kiribe, bitikîne ser lînka li jêr. Ger newisa be, vê epeyamê piştguh bike.</string>
 </resources>
