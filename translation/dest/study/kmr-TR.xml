@@ -9,4 +9,12 @@
   <string name="myFavoriteStudies">Xebatên min ên bijare</string>
   <string name="whatAreStudies">Xebat çi ne?</string>
   <string name="allStudies">Temamiya xebatan</string>
+  <string name="studiesCreatedByX">Xebatên ku ji aliyê %s ve hatine çêkirin</string>
+  <string name="noneYet">Hê tine.</string>
+  <string name="hot">Trend</string>
+  <string name="dateAddedNewest">Wextê tevlîkirinê (nûtirîn)</string>
+  <string name="dateAddedOldest">Wextê tevlîkirinê (kevintirîn)</string>
+  <string name="recentlyUpdated">Yên vê dawiyê nûkirî</string>
+  <string name="mostPopular">Yên popûlertirîn</string>
+  <string name="addNewChapter">Beşeke nû tevlî bike</string>
 </resources>
