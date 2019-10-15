@@ -5,7 +5,6 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.game.Game
-import lila.hub.TrouperMap
 import lila.socket.Socket.{ SocketVersion, GetVersion }
 import lila.user.User
 

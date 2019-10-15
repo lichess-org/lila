@@ -167,7 +167,7 @@ abstract class SocketTrouper[M <: SocketMember](
       userIds.map(lightUser).sequenceFu.map { users =>
         Json.obj(
           "nb" -> total,
-          "users" -> users.flatten.map(_.titleName),
+          "users" -> users.flatMap(_.map(_.titleName)),
           "anons" -> anons
         ).some
       }

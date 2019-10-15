@@ -36,6 +36,6 @@ trait Historical[M <: SocketMember, Metadata] { self: SocketTrouper[M] =>
 
   protected def getEventsSince(since: Option[Socket.SocketVersion], member: M): List[JsValue] =
     since
-      .fold(history.getRecent(5).some)(history.since)
+      .fold(history.getRecent.some)(history.since)
       .fold(List(SocketTrouper.resyncMessage))(_ map filteredMessage(member))
 }

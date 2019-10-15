@@ -29,7 +29,7 @@ final class History[Metadata](ttl: FiniteDuration) {
       (msgs.size == version.value - v.value) option msgs
     }
 
-  def getRecent(maxEvents: Int): List[Message] = {
+  def getRecent: List[Message] = {
     val v = version.value
     (v - 5 to v).flatMap(message)(scala.collection.breakOut)
   }
