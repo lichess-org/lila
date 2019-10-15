@@ -71,8 +71,9 @@ export interface CevalCtrl {
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;
   stop(): void;
-  threads: StoredProp<number>;
-  hashSize: StoredProp<number>;
+  threads: StoredProp<number> | undefined;
+  hashSize: StoredProp<number> | undefined;
+  maxThreads: number;
   infinite: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
   toggle(): void;

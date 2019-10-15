@@ -77,7 +77,6 @@ export default function(opts: CevalOpts): CevalCtrl {
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
   const multiPv = storedProp(storageKey('ceval.multipv'), opts.multiPvDefault || 1);
-  const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 2), 8));
   const hashSize = storedProp(storageKey('ceval.hash-size'), 128);
   const infinite = storedProp('ceval.infinite', false);
   let curEval: Tree.ClientEval | null = null;
@@ -88,6 +87,11 @@ export default function(opts: CevalOpts): CevalCtrl {
   let lastStarted: Started | false = false; // last started object (for going deeper even if stopped)
   const hovering = prop<Hovering | null>(null);
   const isDeeper = prop(false);
+
+  const maxThreads = Math.min(
+    Math.max((navigator.hardwareConcurrency || 1) - 1, 1),
+    technology == 'wasmx' ? 4 : 512); // wasm limitations: https://github.com/niklasf/stockfish.wasm/issues/4
+  const threads = storedProp(storageKey('ceval.threads'), Math.min(Math.ceil((navigator.hardwareConcurrency || 1) / 2), maxThreads));
 
   const pool = new Pool({
     technology,
@@ -234,8 +238,9 @@ export default function(opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     multiPv,
-    threads,
-    hashSize,
+    threads: (technology == 'pnacl' || technology == 'wasmx') ? threads : undefined,
+    hashSize: technology == 'pnacl' ? hashSize : undefined,
+    maxThreads,
     infinite,
     hovering,
     setHovering(fen: Fen, uci?: Uci) {

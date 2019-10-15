@@ -670,11 +670,13 @@ export default class AnalyseCtrl {
   }
 
   cevalSetThreads = (v: number): void => {
+    if (!this.ceval.threads) return;
     this.ceval.threads(v);
     this.cevalReset();
   }
 
   cevalSetHashSize = (v: number): void => {
+    if (!this.ceval.hashSize) return;
     this.ceval.hashSize(v);
     this.cevalReset();
   }
