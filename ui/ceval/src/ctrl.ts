@@ -1,4 +1,4 @@
-import { CevalCtrl, CevalOpts, Work, Step, Hovering, Started } from './types';
+import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
 import { Pool, makeWatchdog } from './pool';
 import { prop } from 'common';
@@ -62,14 +62,17 @@ function median(values: number[]): number {
 }
 
 export default function(opts: CevalOpts): CevalCtrl {
-
-  const storageKey = function(k: string): string {
-    return opts.storageKeyPrefix ? opts.storageKeyPrefix + '.' + k : k;
+  const storageKey = (k: string) => {
+    return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
 
-  const pnaclSupported = makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes;
-  const wasmSupported = typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00));
-  const wasmxSupported = wasmSupported && officialStockfish(opts.variant.key) && wasmThreadsSupported();
+  // select pnacl > wasmx > wasm > asmjs
+  let technology: CevalTechnology = 'asmjs';
+  if (makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes) technology = 'pnacl';
+  else if (typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00))) {
+    technology = 'wasm';
+    if (officialStockfish(opts.variant.key) && wasmThreadsSupported()) technology = 'wasmx';
+  }
 
   const minDepth = 6;
   const maxDepth = storedProp<number>(storageKey('ceval.max-depth'), 18);
@@ -87,15 +90,16 @@ export default function(opts: CevalOpts): CevalCtrl {
   const isDeeper = prop(false);
 
   const pool = new Pool({
+    technology,
     asmjs: 'vendor/stockfish.js/stockfish.js',
-    pnacl: pnaclSupported && 'vendor/stockfish.pexe/stockfish.nmf',
-    wasm: wasmSupported && 'vendor/stockfish.js/stockfish.wasm.js',
-    wasmx: wasmxSupported && (officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js'),
+    pnacl: 'vendor/stockfish.pexe/stockfish.nmf',
+    wasm: 'vendor/stockfish.js/stockfish.wasm.js',
+    wasmx: officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js',
   }, {
     minDepth,
     variant: opts.variant.key,
-    threads: (pnaclSupported || wasmxSupported) && threads,
-    hashSize: pnaclSupported && hashSize
+    threads: (technology == 'pnacl' || technology == 'wasmx') && threads,
+    hashSize: technology == 'pnacl' && hashSize
   });
 
   // adjusts maxDepth based on nodes per second
@@ -223,9 +227,7 @@ export default function(opts: CevalOpts): CevalCtrl {
   }
 
   return {
-    pnaclSupported,
-    wasmSupported,
-    wasmxSupported,
+    technology,
     start,
     stop,
     allowed,
