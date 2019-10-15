@@ -42,4 +42,11 @@
   <string name="getAFullComputerAnalysis">Ji bo vê xeta sereke analîzeke kombersê ya bi hûrgilî werbigire.</string>
   <string name="makeSureTheChapterIsComplete">Pê bawer be ku beş temam bûye. Tu dikarî tenê carekê analîzê bixwazî.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Hemû endamên senkronîze li eynî pozîsyonê dimînin</string>
+  <string name="shareChanges">Guhertinan bi temaşevanan re parve bike û wan qeydê ser rajekerê bike</string>
+  <string name="playing">Dilîzî</string>
+  <string name="first">Yekem</string>
+  <string name="previous">Yê berî</string>
+  <string name="next">Yê piştre</string>
+  <string name="last">Ya dawî</string>
+  <string name="shareAndExport">Parve bike û derxîne</string>
 </resources>
