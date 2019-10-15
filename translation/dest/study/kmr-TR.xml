@@ -40,4 +40,6 @@
   <string name="theChapterIsTooShortToBeAnalysed">Ev beş pir kurt e bo analîzkirinê.</string>
   <string name="onlyContributorsCanRequestAnalysis">Tenê beşdarên xebatê dikarin analîza kombersê daxwaz bikin.</string>
   <string name="getAFullComputerAnalysis">Ji bo vê xeta sereke analîzeke kombersê ya bi hûrgilî werbigire.</string>
+  <string name="makeSureTheChapterIsComplete">Pê bawer be ku beş temam bûye. Tu dikarî tenê carekê analîzê bixwazî.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Hemû endamên senkronîze li eynî pozîsyonê dimînin</string>
 </resources>
