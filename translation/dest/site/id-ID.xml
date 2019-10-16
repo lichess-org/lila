@@ -590,7 +590,7 @@
   <string name="playOnTheBoardOffline">Di atas papan</string>
   <string name="playOfflineComputer">Komputer</string>
   <string name="opponent">Lawan</string>
-  <string name="learnMenu">Belajar</string>
+  <string name="learnMenu">Materi</string>
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
@@ -757,8 +757,8 @@
   <string name="usernameUnacceptable">Nama pengguna ini tidak dapat diterima.</string>
   <string name="directlySupportLichess">Mendukung Lichess secara langsung</string>
   <string name="playChessInStyle">Bermain catur dengan gaya</string>
-  <string name="chessBasics">Dasar-dasar catur</string>
-  <string name="coaches">Pembina</string>
+  <string name="chessBasics">Dasar permainan catur</string>
+  <string name="coaches">Pelatih</string>
   <string name="invalidPgn">PGN tidak valid</string>
   <string name="invalidFen">FEN tidak valid</string>
   <string name="error.minLength">Panjang minimum adalah %s</string>
@@ -783,12 +783,12 @@
   <string name="seeBestMove">Lihat langkah terbaik</string>
   <string name="hideBestMove">Sembunyikan langkah terbaik</string>
   <string name="getAHint">Dapatkan petunjuk</string>
-  <string name="evaluatingYourMove">Mengevaluasi kepindahan Anda ...</string>
+  <string name="evaluatingYourMove">Mengevaluasi langkah anda ...</string>
   <string name="whiteWinsGame">Putih menang</string>
   <string name="blackWinsGame">Hitam menang</string>
-  <string name="learnFromYourMistakes">Belajar dari kesalahanmu</string>
-  <string name="learnFromThisMistake">Belajar dari kesalahan ini</string>
-  <string name="skipThisMove">Lewatkan kepindahan ini</string>
+  <string name="learnFromYourMistakes">Pelajaran dari kesalahanmu</string>
+  <string name="learnFromThisMistake">Pelajari dari kesalahan ini</string>
+  <string name="skipThisMove">Lewatkan langkah ini</string>
   <string name="next">Lanjutkan</string>
   <string name="xWasPlayed">%s sedang diamainkan</string>
   <string name="findBetterMoveForWhite">Temukan langkah yang lebih baik untuk warna putih</string>
