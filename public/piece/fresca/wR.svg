@@ -9,11 +9,11 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g transform="translate(-3831.7 2133.9)">
-  <g transform="matrix(1.001 0 0 1.0535 4253.9 -2769.9)" stroke-width=".97377">
+ <g transform="matrix(.96439 0 0 .87263 -3694.3 1866.8)" stroke-width="1.0901">
+  <g transform="matrix(1.001 0 0 1.0535 4253.9 -2769.9)" stroke-width="1.0615">
    <g transform="matrix(1.0411 0 0 .99998 -12.238 157.56)">
-    <path transform="scale(.26458)" d="m-1443.7 1706.5v31.795l18.174 16.518v41.953l-24.774 28.637v20.277h108.09v-20.277l-24.772-28.637v-41.953l18.174-16.518v-31.795h-19.927v8.3985h-15.012v-8.3985h-25.02v8.3985h-15.012v-8.3985z" fill="#fafafa" stroke="#3a3a3a" stroke-width="4.3285"/>
-    <g transform="translate(39.997 -18.339)" fill="#3a3a3a" stroke-width=".9584">
+    <path transform="scale(.26458)" d="m-1443.7 1706.5v31.795l18.174 16.518v41.953l-24.774 28.637v20.277h108.09v-20.277l-24.772-28.637v-41.953l18.174-16.518v-31.795h-19.927v8.3985h-15.012v-8.3985h-25.02v8.3985h-15.012v-8.3985z" fill="#fafafa" stroke="#3a3a3a" stroke-width="4.7184"/>
+    <g transform="translate(39.997 -18.339)" fill="#3a3a3a" stroke-width="1.0447">
      <path class="st32" d="m-409.42 478.15h-9.2318l2.7633 2.1748h13.054l2.6461-2.1748z"/>
      <path class="st32" d="m-409.42 481.88h-5.6936l1.6847 2.1748h8.0178l1.6847-2.1748z"/>
      <path class="st32" d="m-409.42 501.02h-9.7192l2.2133-2.1748h15.129l2.096 2.1748z"/>
