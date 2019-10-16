@@ -38,6 +38,7 @@ final class Env(
     repo = repo,
     system = system,
     socketMap = socketMap,
+    socket = simulSocket,
     renderer = hub.renderer,
     timeline = hub.timeline,
     onGameStart = onGameStart,
@@ -65,6 +66,8 @@ final class Env(
   )
 
   private val simulSocket = new SimulSocket(
+    getSimul = repo.find,
+    jsonView = jsonView,
     remoteSocketApi = remoteSocketApi,
     chat = hub.chat,
     system = system,
