@@ -6,4 +6,5 @@
   <string name="menu">Menu</string>
   <string name="progressX">Pêvajo: %s</string>
   <string name="resetMyProgress">Pêşveçûna min bike sifir</string>
+  <string name="youWillLoseAllYourProgress">Tu yê hemû peşveçûna xwe winda bikî!</string>
 </resources>
