@@ -46,8 +46,8 @@ object Socket {
       case _ =>
     }
 
-    case actorApi.OnTimeout(username) => send("chat_timeout", JsString(username), false)
+    case actorApi.OnTimeout(_, username) => send("chat_timeout", JsString(username), false)
 
-    case actorApi.OnReinstate(userId) => send("chat_reinstate", JsString(userId), false)
+    case actorApi.OnReinstate(_, userId) => send("chat_reinstate", JsString(userId), false)
   }
 }

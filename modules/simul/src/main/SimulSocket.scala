@@ -5,7 +5,8 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
-import lila.chat.{ Chat, UserLine }
+import lila.chat.ChatTimeout.Reason
+import lila.chat.{ Chat, UserLine, actorApi => chatApi }
 import lila.game.{ Game, Pov }
 import lila.hub.{ TrouperMap, Trouper }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -34,6 +35,7 @@ private final class SimulSocket(
       super.stop()
       send(Protocol.Out.stop(simulId))
     }
+    send(Protocol.Out.start(simulId))
   }
 
   private val sockets = new TrouperMap(
@@ -42,7 +44,7 @@ private final class SimulSocket(
   )
 
   def versionOf(simulId: Simul.ID): Fu[SocketVersion] =
-    sockets.askIfPresentOrZero[SocketVersion](simulId)(GetVersion)
+    sockets.ask[SocketVersion](simulId)(GetVersion)
 
   def hostIsOn(simulId: Simul.ID, gameId: Game.ID): Unit =
     sockets.tell(simulId, NotifyVersion("hostGame", gameId))
@@ -78,6 +80,8 @@ private final class SimulSocket(
     case Protocol.In.ChatSay(simulId, userId, msg) =>
       val publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simulId).some
       chat ! lila.chat.actorApi.UserTalk(Chat.Id(simulId), userId, msg, publicSource)
+    case Protocol.In.ChatTimeout(simulId, modId, suspect, reason) =>
+      chat ! lila.chat.actorApi.Timeout(Chat.Id(simulId), modId, suspect, reason, local = false)
     case P.In.DisconnectAll =>
       sockets.killAll
   }
@@ -89,8 +93,12 @@ private final class SimulSocket(
   private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply _
 
   system.lilaBus.subscribeFun('remoteSocketChat) {
-    case lila.chat.actorApi.ChatLine(chatId, line: UserLine) =>
+    case chatApi.ChatLine(chatId, line: UserLine) =>
       sockets.tell(chatId.value, NotifyVersion("message", lila.chat.JsonView(line), line.troll))
+    case chatApi.OnTimeout(chatId, username) =>
+      sockets.tell(chatId.value, NotifyVersion("chat_timeout", username, false))
+    case chatApi.OnReinstate(chatId, userId) =>
+      sockets.tell(chatId.value, NotifyVersion("chat_reinstate", userId, false))
     case a => println(s"remote socket chat unhandled $a")
   }
 }
@@ -107,15 +115,24 @@ private object SimulSocket {
         s"tell/version $simulId $version $isTroll ${Json stringify payload}"
       def tellRoomUser(roomId: String, userId: User.ID, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
+      def start(simulId: Simul.ID) =
+        s"room/start $simulId"
       def stop(simulId: Simul.ID) =
         s"room/stop $simulId"
     }
     object In {
       case class ChatSay(simulId: Simul.ID, userId: User.ID, msg: String) extends P.In
+      case class ChatTimeout(simulId: Simul.ID, userId: User.ID, suspect: String, reason: Reason) extends P.In
 
       val reader: P.In.Reader = raw => raw.path match {
         case "chat/say" => raw.args.split(" ", 3) match {
           case Array(simulId, userId, msg) => ChatSay(simulId, userId, msg).some
+          case _ => none
+        }
+        case "chat/timeout" => raw.args.split(" ", 4) match {
+          case Array(simulId, userId, suspect, reason) => Reason(reason) map {
+            ChatTimeout(simulId, userId, suspect, _)
+          }
           case _ => none
         }
         case _ => none
