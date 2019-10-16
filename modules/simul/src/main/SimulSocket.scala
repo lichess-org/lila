@@ -8,7 +8,6 @@ import actorApi._
 import lila.chat.{ Chat, UserLine }
 import lila.game.{ Game, Pov }
 import lila.hub.{ TrouperMap, Trouper }
-import lila.socket.History
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
 import lila.user.User
@@ -18,9 +17,7 @@ private final class SimulSocket(
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: ActorSelection,
-    system: ActorSystem,
-    historyMessageTtl: FiniteDuration,
-    trouperTtl: FiniteDuration
+    system: ActorSystem
 ) {
 
   import SimulSocket._
@@ -41,7 +38,7 @@ private final class SimulSocket(
 
   private val sockets = new TrouperMap(
     mkTrouper = simulId => new SimulState(simulId),
-    accessTimeout = trouperTtl
+    accessTimeout = 5 minutes
   )
 
   def versionOf(simulId: Simul.ID): Fu[SocketVersion] =
@@ -79,15 +76,11 @@ private final class SimulSocket(
 
   private val handler: Handler = {
     case Protocol.In.ChatSay(simulId, userId, msg) =>
-      val chatId = Chat.Id(simulId)
       val publicSource = lila.hub.actorApi.shutup.PublicSource.Simul(simulId).some
-      chat ! lila.chat.actorApi.UserTalk(chatId, userId, msg, publicSource)
+      chat ! lila.chat.actorApi.UserTalk(Chat.Id(simulId), userId, msg, publicSource)
     case P.In.DisconnectAll =>
       sockets.killAll
   }
-
-  private val messagesHandled: Set[String] =
-    Set()
 
   private val inReader: P.In.Reader = raw => Protocol.In.reader(raw) orElse P.In.baseReader(raw)
 

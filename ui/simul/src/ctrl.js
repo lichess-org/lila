@@ -1,6 +1,7 @@
 var socket = require('./socket');
 var simul = require('./simul');
 var text = require('./text');
+var xhr = require('./xhr');
 
 module.exports = function(env) {
 
@@ -41,4 +42,12 @@ module.exports = function(env) {
   this.trans = lichess.trans(env.i18n);
 
   this.teamBlock = this.data.team && !this.data.team.isIn;
+
+  this.hostPing = () => {
+    if (simul.createdByMe(this) && this.data.isCreated) {
+      xhr.ping(this);
+      setTimeout(this.hostPing, 20000);
+    }
+  };
+  this.hostPing();
 };

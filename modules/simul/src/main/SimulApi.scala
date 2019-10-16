@@ -20,7 +20,6 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketMap: SocketMap,
     socket: SimulSocket,
     renderer: ActorSelection,
     timeline: ActorSelection,
@@ -127,7 +126,7 @@ final class SimulApi(
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          (repo remove simul) >>- socketMap.tell(simul.id, actorApi.Aborted) >>- publish()
+          (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
         }
       }
     }

@@ -6,19 +6,16 @@ import lila.user.User
 
 private[simul] final class SimulCleaner(
     repo: SimulRepo,
-    api: SimulApi,
-    socketMap: SocketMap
+    api: SimulApi
 ) {
 
-  def apply: Unit = repo.allCreated foreach { simuls =>
-    simuls.map { simul =>
-      socketMap.askIfPresent[Iterable[User.ID]](simul.id)(actorApi.GetUserIdsP) map { users =>
-        users.??(_.toList contains simul.hostId) match {
-          case true => repo setHostSeenNow simul
-          case false if simul.hostSeenAt.??(_ isBefore DateTime.now.minusMinutes(3)) => api abort simul.id
-          case false =>
-        }
-      }
+  def cleanUp: Funit = repo.allCreated.map {
+    _ foreach { simul =>
+      val minutesAgo = DateTime.now.minusMinutes(2)
+      if (simul.createdAt.isBefore(minutesAgo) &&
+        !simul.hostSeenAt.exists(_ isAfter minutesAgo)) api.abort(simul.id)
     }
   }
+
+  def hostPing(simul: Simul) = repo setHostSeenNow simul
 }

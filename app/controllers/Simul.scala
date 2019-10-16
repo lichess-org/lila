@@ -63,6 +63,13 @@ object Simul extends LilaController {
         Env.chat.panic.allowed
       }
 
+  def hostPing(simulId: String) = Open { implicit ctx =>
+    AsHost(simulId) { simul =>
+      Env.simul.cleaner hostPing simul
+      jsonOkResult
+    }
+  }
+
   def start(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
       env.api start simul.id
