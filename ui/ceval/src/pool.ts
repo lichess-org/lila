@@ -221,13 +221,13 @@ export class Pool {
   warmup = () => {
     if (this.workers.length) return;
 
-    if (this.poolOpts.pnacl)
+    if (this.poolOpts.technology == 'pnacl')
       this.workers.push(new PNaClWorker(this.poolOpts.pnacl, this.poolOpts, this.protocolOpts));
-    else if (this.poolOpts.wasmx)
+    else if (this.poolOpts.technology == 'wasmx')
       this.workers.push(new ThreadedWasmWorker(this.poolOpts.wasmx, this.poolOpts, this.protocolOpts));
     else {
       for (let i = 1; i <= 2; i++)
-        this.workers.push(new WebWorker(this.poolOpts.wasm || this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
+        this.workers.push(new WebWorker(this.poolOpts.technology == 'wasm' ? this.poolOpts.wasm : this.poolOpts.asmjs, this.poolOpts, this.protocolOpts));
     }
   }
 

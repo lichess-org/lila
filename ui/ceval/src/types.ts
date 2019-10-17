@@ -1,6 +1,8 @@
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
+export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx' | 'pnacl';
+
 export interface Eval {
   cp?: number;
   mate?: number;
@@ -26,9 +28,10 @@ export interface Work {
 }
 
 export interface PoolOpts {
-  pnacl: string | false;
-  wasm: string | false;
-  wasmx: string | false;
+  technology: CevalTechnology;
+  pnacl: string;
+  wasm: string;
+  wasmx: string;
   asmjs: string;
 }
 
@@ -57,9 +60,7 @@ export interface CevalCtrl {
   goDeeper(): void;
   canGoDeeper(): boolean;
   effectiveMaxDepth(): number;
-  pnaclSupported: boolean;
-  wasmSupported: boolean;
-  wasmxSupported: boolean;
+  technology: CevalTechnology;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;
@@ -70,8 +71,9 @@ export interface CevalCtrl {
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;
   stop(): void;
-  threads: StoredProp<number>;
-  hashSize: StoredProp<number>;
+  threads: StoredProp<number> | undefined;
+  hashSize: StoredProp<number> | undefined;
+  maxThreads: number;
   infinite: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
   toggle(): void;

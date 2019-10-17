@@ -8,6 +8,8 @@ import lila.app.ui.ScalatagsTemplate._
 
 object faq {
 
+  private val fideHandbook = "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf"
+
   private def question(id: String, title: String, answer: Frag*) = div(
     st.id := id,
     cls := "question"
@@ -95,14 +97,15 @@ object faq {
         question(
           "timeout",
           "Losing on time, drawing and insufficient material",
-          p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player’s king by any possible series of legal moves (", a(href := "https://www.fide.com/fide/handbook.html?id=208&view=article")("FIDE handbook §6.9"), ")."),
+          p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player's king by any possible series of legal moves (", a(href := fideHandbook)("FIDE handbook §6.9, pdf"), ")."),
+          p("In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time."),
           p("Note that it can be possible to mate with a single knight or bishop if the opponent has pieces that could block the king.")
         ),
         question(
           "en-passant",
           "Why can a pawn capture another pawn when it is already passed? (en passant)",
           p("""This is a legal move known as "en passant". The Wikipedia article gives a """, a(href := "https://en.wikipedia.org/wiki/En_passant")("good introduction.")),
-          p("It is described in section 3.7 (d) of the ", a(href := "https://www.fide.com/fide/handbook.html?id=171&view=article")("official rules"), ":"),
+          p("It is described in section 3.7 (d) of the ", a(href := fideHandbook)("official rules (pdf)"), ":"),
           p(""""A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.""""),
           p("See the ", a(href := s"${routes.Learn.index()}#/15")("Lichess training"), " on this move for some practice with it.")
         ),

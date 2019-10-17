@@ -209,28 +209,24 @@ export function view(ctrl: AnalyseCtrl): VNode {
           h('div.range_value', ceval.multiPv() + ' / ' + max)
         ]);
       })('analyse-multipv'),
-      (ceval.pnaclSupported || ceval.wasmxSupported) ? (id => {
-        let max = navigator.hardwareConcurrency;
-        if (!max) return;
-        if (max > 2) max--; // don't overload your computer, you dummy
-        if (max > 4 && ceval.wasmxSupported) max = 4; // hard limit for now
+      ceval.threads ? (id => {
         return h('div.setting', [
           h('label', { attrs: { 'for': id } }, noarg('cpus')),
           h('input#' + id, {
             attrs: {
               type: 'range',
               min: 1,
-              max,
+              max: ceval.maxThreads,
               step: 1
             },
             hook: rangeConfig(
-              () => parseInt(ceval!.threads()),
+              () => parseInt(ceval.threads!()),
               ctrl.cevalSetThreads)
           }),
-          h('div.range_value', ceval.threads() + ' / ' + max)
+          h('div.range_value', `${ceval.threads()} / ${ceval.maxThreads}`)
         ]);
       })('analyse-threads') : null,
-      (ceval.pnaclSupported && !ceval.wasmxSupported) ? (id => h('div.setting', [
+      ceval.hashSize ? (id => h('div.setting', [
         h('label', { attrs: { 'for': id } }, noarg('memory')),
         h('input#' + id, {
           attrs: {
@@ -240,7 +236,7 @@ export function view(ctrl: AnalyseCtrl): VNode {
             step: 1
           },
           hook: rangeConfig(
-            () => Math.floor(Math.log2!(parseInt(ceval!.hashSize()))),
+            () => Math.floor(Math.log2(parseInt(ceval.hashSize!()))),
             v => ctrl.cevalSetHashSize(Math.pow(2, v)))
         }),
         h('div.range_value', formatHashSize(parseInt(ceval.hashSize())))

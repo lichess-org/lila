@@ -12,7 +12,7 @@ object LilaCookie {
 
   val sessionId = "sid"
 
-  def makeSessionId(implicit req: RequestHeader) = session(sessionId, Random secureString 10)
+  def makeSessionId(implicit req: RequestHeader) = session(sessionId, Random secureString 22)
 
   def session(name: String, value: String)(implicit req: RequestHeader): Cookie = withSession { s =>
     s + (name -> value)
