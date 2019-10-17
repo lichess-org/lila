@@ -32,7 +32,7 @@ function miniPairing(ctrl) {
           result
         ]),
         m('div.vstext__op', [
-          player.username,
+          player.name,
           m('br'),
           player.title ? player.title + ' ' : '',
           player.officialRating ? ('FMJD ' + player.officialRating) : player.rating

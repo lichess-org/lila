@@ -8,9 +8,9 @@ function playerHtml(p, rating, provisional, fmjd, href) {
   if (href)
     html += '" href="' + href + '" target="_blank">';
   else
-    html += '" href="/@/' + p.username + '">';
+    html += '" href="/@/' + p.name + '">';
   html += p.patron ? '<i class="line patron"></i>' : '<i class="line"></i>';
-  html += (p.title ? ('<span class="title">' + p.title + '</span>') + ' ' : '') + p.username;
+  html += (p.title ? ('<span class="title">' + p.title + '</span>') + ' ' : '') + p.name;
   if (fmjd) {
     html += '<em>' + fmjd + '</em> FMJD';
   } else {

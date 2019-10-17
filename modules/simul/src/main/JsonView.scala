@@ -48,12 +48,44 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       .sequenceFu
     pairings = pairingOptions.flatten
     allowed <- (~simul.allowed).map(allowedJson).sequenceFu
+  } yield baseSimul(simul, lightHost, lightArbiter) ++ Json.obj(
+    "applicants" -> applicants,
+    "pairings" -> pairings
+  ).add("team", team)
+    .add("quote" -> simul.isCreated.option(lidraughts.quote.Quote.one(simul.id)))
+    .add("allowed" -> allowed.nonEmpty ?? allowed.some)
+    .add("evals" -> ceval ?? evals.flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }).some)
+    .add("pref" -> pref.map { p =>
+      Json.obj("draughtsResult" -> p.draughtsResult)
+    })
+
+  def api(simul: Simul): Fu[JsObject] = for {
+    lightHost <- getLightUser(simul.hostId)
+    lightArbiter <- simul.arbiterId ?? getLightUser
+  } yield baseSimul(simul, lightHost, lightArbiter) ++ Json.obj(
+    "nbApplicants" -> simul.applicants.size,
+    "nbPairings" -> simul.pairings.size
+  )
+
+  def api(simuls: List[Simul]): Fu[JsArray] =
+    simuls.map(api).sequenceFu map JsArray.apply
+
+  def apiAll(created: List[Simul], started: List[Simul], finished: List[Simul]): Fu[JsObject] = for {
+    createdJson <- api(created)
+    startedJson <- api(started)
+    finishedJson <- api(finished)
   } yield Json.obj(
+    "created" -> createdJson,
+    "started" -> startedJson,
+    "finished" -> finishedJson
+  )
+
+  private def baseSimul(simul: Simul, lightHost: Option[LightUser], lightArbiter: Option[LightUser]) = Json.obj(
     "id" -> simul.id,
     "host" -> lightHost.map { host =>
       Json.obj(
         "id" -> host.id,
-        "username" -> host.name,
+        "name" -> host.name,
         "online" -> isOnline(host.id),
         "patron" -> host.isPatron,
         "rating" -> simul.hostRating
@@ -64,18 +96,14 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "name" -> simul.name,
     "fullName" -> simul.fullName,
     "variants" -> simul.variants.map(variantJson(draughts.Speed(simul.clock.config.some))),
-    "applicants" -> applicants,
-    "pairings" -> pairings,
     "isCreated" -> simul.isCreated,
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
     "text" -> ~simul.text
-  ).add("team", team)
-    .add("quote" -> simul.isCreated.option(lidraughts.quote.Quote.one(simul.id)))
-    .add("arbiter" -> lightArbiter.map { arbiter =>
+  ).add("arbiter" -> lightArbiter.map { arbiter =>
       Json.obj(
         "id" -> arbiter.id,
-        "username" -> arbiter.name,
+        "name" -> arbiter.name,
         "online" -> isOnline(arbiter.id),
         "patron" -> arbiter.isPatron,
         "title" -> arbiter.title,
@@ -84,11 +112,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     })
     .add("unique" -> simul.spotlight.map { s => true })
     .add("description" -> simul.spotlight.map(s => lidraughts.base.RawHtml.markdownLinks(s.description)))
-    .add("allowed" -> allowed.nonEmpty ?? allowed.some)
     .add("targetPct" -> simul.targetPct)
-    .add("evals" -> ceval ?? evals.flatMap(eval => eval._2 ?? { ev => gameEvalJson(eval._1, ev).some }).some)
-    .add("pref" -> pref.map(p =>
-      Json.obj("draughtsResult" -> p.draughtsResult)))
 
   def arbiterJson(simul: Simul): Fu[JsArray] = for {
     games <- fetchGames(simul)
@@ -166,7 +190,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "id" -> player.user,
         "online" -> isOnline(player.user),
         "variant" -> player.variant.key
-      ).add("username" -> light.map(_.name))
+      ).add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("provisional" -> player.provisional.filter(identity))
         .add("patron" -> light.??(_.isPatron))
@@ -180,7 +204,7 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       Json.obj(
         "id" -> userId,
         "online" -> isOnline(userId)
-      ).add("username" -> light.map(_.name))
+      ).add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("patron" -> light.??(_.isPatron))
     }

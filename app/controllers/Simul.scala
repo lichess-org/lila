@@ -27,9 +27,19 @@ object Simul extends LidraughtsController {
   private val settleResultOptions = Set("hostwin", "hostloss", "draw")
 
   val home = Open { implicit ctx =>
-    fetchSimuls map {
-      case ((created, started), finished) =>
-        Ok(html.simul.home(created, started, finished))
+    pageHit
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        Ok(html.simul.home(created, started, finished)).fuccess
+    }
+  }
+
+  val apiList = Action.async {
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        env.jsonView.apiAll(created, started, finished) map { json =>
+          Ok(json) as JSON
+        }
     }
   }
 

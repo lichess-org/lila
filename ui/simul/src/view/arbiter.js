@@ -11,9 +11,9 @@ function pad2(num) {
 
 function gameDesc(pairing, host) {
   if (pairing.hostColor === 'white')
-    return host + ' vs. ' + pairing.player.username;
+    return host + ' vs. ' + pairing.player.name;
   else
-    return pairing.player.username + ' vs. ' + host;
+    return pairing.player.name + ' vs. ' + host;
 }
 
 function formatClockTime(seconds) {
@@ -186,16 +186,16 @@ module.exports = function(ctrl) {
         result !== '*' ? m('td', m('span', drawReason ? { title: drawText } : undefined, result)) :
         m('td.action', !playing ? '-' : m('a.button', {
           'data-icon': '2',
-          title: 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',
+          title: 'Settle ' + gameDesc(pairing, ctrl.data.host.name) + ' as a win/draw/loss',
           onclick: function(e) {
-            $('.simul #settle-info').text('Choose one of the options below to settle the game ' + gameDesc(pairing, ctrl.data.host.username) + '. Only continue when you are very sure, because this cannot be undone!');
-            $('.simul #settle-hostloss').text('Simul participant ' + pairing.player.username + ' wins')
+            $('.simul #settle-info').text('Choose one of the options below to settle the game ' + gameDesc(pairing, ctrl.data.host.name) + '. Only continue when you are very sure, because this cannot be undone!');
+            $('.simul #settle-hostloss').text('Simul participant ' + pairing.player.name + ' wins')
             $.modal($('.arbiter-settle'));
             $('#modal-wrap .arbiter-settle a').click(function() {
               var result = $(this).data('settle'),
-                confirmation = 'Please confirm that you want to settle the game ' + gameDesc(pairing, ctrl.data.host.username);
-              if (result === 'hostwin') confirmation += ' as a win for simul host ' + ctrl.data.host.username;
-              else if (result === 'hostloss') confirmation += ' as a win for simul participant ' + pairing.player.username;
+                confirmation = 'Please confirm that you want to settle the game ' + gameDesc(pairing, ctrl.data.host.name);
+              if (result === 'hostwin') confirmation += ' as a win for simul host ' + ctrl.data.host.name;
+              else if (result === 'hostloss') confirmation += ' as a win for simul participant ' + pairing.player.name;
               else confirmation += ' as a draw';
               if (confirm(confirmation + '. This action is irreversible!')) {
                 $.modal.close();
@@ -210,7 +210,7 @@ module.exports = function(ctrl) {
   m('div.arbiter-settle', [
     m('span', { id: 'settle-info' } ),
     m('div.settle-options', [
-      m('a.button', { 'data-settle': 'hostwin' }, 'Simul host ' + ctrl.data.host.username + ' wins'),
+      m('a.button', { 'data-settle': 'hostwin' }, 'Simul host ' + ctrl.data.host.name + ' wins'),
       m('a.button', { 'data-settle': 'draw' }, 'Settle as a draw'),
       m('a.button', { 'data-settle': 'hostloss', id: 'settle-hostloss' })
     ])
