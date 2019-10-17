@@ -22,9 +22,18 @@ object Simul extends LilaController {
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls map {
-      case ((created, started), finished) =>
-        Ok(html.simul.home(created, started, finished))
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        Ok(html.simul.home(created, started, finished)).fuccess
+    }
+  }
+
+  val apiList = Action.async {
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        env.jsonView.apiAll(created, started, finished) map { json =>
+          Ok(json) as JSON
+        }
     }
   }
 

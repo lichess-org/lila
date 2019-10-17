@@ -5,7 +5,7 @@ var text = require('../text');
 var xhr = require('../xhr');
 
 function byName(a, b) {
-  return a.player.username > b.player.username
+  return a.player.name > b.player.name
 }
 
 function randomButton(ctrl, candidates) {

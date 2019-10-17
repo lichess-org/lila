@@ -24,29 +24,52 @@ final class JsonView(
       .map(pairingJson(games, simul.hostId))
       .sequenceFu
     pairings = pairingOptions.flatten
+  } yield baseSimul(simul, lightHost) ++ Json.obj(
+    "applicants" -> applicants,
+    "pairings" -> pairings,
+    "quote" -> lila.quote.Quote.one(simul.id)
+  ).add("team", team)
+
+  def api(simul: Simul): Fu[JsObject] =
+    getLightUser(simul.hostId) map { lightHost =>
+      baseSimul(simul, lightHost) ++ Json.obj(
+        "nbApplicants" -> simul.applicants.size,
+        "nbPairings" -> simul.pairings.size
+      )
+    }
+
+  def api(simuls: List[Simul]): Fu[JsArray] =
+    simuls.map(api).sequenceFu map JsArray.apply
+
+  def apiAll(created: List[Simul], started: List[Simul], finished: List[Simul]): Fu[JsObject] = for {
+    createdJson <- api(created)
+    startedJson <- api(started)
+    finishedJson <- api(finished)
   } yield Json.obj(
+    "created" -> createdJson,
+    "started" -> startedJson,
+    "finished" -> finishedJson
+  )
+
+  private def baseSimul(simul: Simul, lightHost: Option[LightUser]) = Json.obj(
     "id" -> simul.id,
     "host" -> lightHost.map { host =>
       Json.obj(
         "id" -> host.id,
-        "username" -> host.name,
+        "name" -> host.name,
         "patron" -> host.isPatron,
         "title" -> host.title,
-        "rating" -> simul.hostRating,
-        "gameId" -> simul.hostGameId
-      )
+        "rating" -> simul.hostRating
+      ).add("gameId" -> simul.hostGameId)
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
     "variants" -> simul.variants.map(variantJson(chess.Speed(simul.clock.config.some))),
-    "applicants" -> applicants,
-    "pairings" -> pairings,
     "isCreated" -> simul.isCreated,
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
-    "quote" -> lila.quote.Quote.one(simul.id),
     "text" -> simul.text
-  ).add("team", team)
+  )
 
   private def variantJson(speed: chess.Speed)(v: chess.variant.Variant) = Json.obj(
     "key" -> v.key,
@@ -60,7 +83,7 @@ final class JsonView(
         "id" -> player.user,
         "variant" -> player.variant.key,
         "rating" -> player.rating
-      ).add("username" -> light.map(_.name))
+      ).add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
         .add("provisional" -> player.provisional.filter(identity))
         .add("patron" -> light.??(_.isPatron))

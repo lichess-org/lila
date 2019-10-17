@@ -483,6 +483,7 @@ GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
 GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
+GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/users/titled                controllers.Api.titledUsers
