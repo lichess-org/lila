@@ -9,19 +9,18 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g transform="matrix(1.0164 0 0 1.0164 123.73 -295.51)" stroke-width=".98386">
-  <path d="m-110.16 325.84c2.6137 2.2231 3.4646-0.98271 4.3889-3.1546 0.67895-1.1649 1.6526-1.8712 2.9644-2.4039 1.7415-0.7878 3.7393-1.4582 4.8687-3.149 0.55949-0.6947 0.84016-1.6092 1.5146-2.2009 2.4358 9.7214-7.4358 7.7521-7.9083 18.714h25.221c1.7318-20.414-4.5288-34.562-23.501-32.592-1.8863-2.0099-4.5199-3.2863-4.5199-3.2863-1.0225 1.9255-0.91653 4.3563 0.60373 5.2848-1.6082 1.6607-4.052 3.1913-3.6095 7.4787 0 0-3.488 5.8345-5.1742 9.062-0.25319 1.8541-0.21226 4.426 1.1538 5.6016 0.3729 0.31788 2.7582 1.9853 3.3495 1.2052" clip-rule="evenodd" fill="#fbf5bf" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-dashoffset="1.852" stroke-linecap="round" stroke-linejoin="round" stroke-width=".78708"/>
-  <path d="m-106.92 309.83s0.59028-2.7221 3.352-3.1001" fill="none" stroke="#040404" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1806"/>
+ <g transform="matrix(.98911 0 0 .98907 121.08 -286.4)" stroke-width="1.011">
+  <path d="m-110.12 325.86c2.6137 2.2231 3.4646-0.98271 4.3889-3.1546 0.67895-1.1649 1.6089-1.893 2.9207-2.4258 1.7415-0.7878 3.7393-1.4582 4.8687-3.149 0.55949-0.6947 0.84016-1.6092 1.5146-2.2009 2.4358 9.7214-7.4358 7.7521-7.9083 18.714h25.221c1.7318-20.414-4.5288-34.562-23.501-32.592-1.8863-2.0099-4.5199-3.2863-4.5199-3.2863-1.0225 1.9255-0.91653 4.3563 0.60373 5.2848-0.21853 1.7121-4.0349 3.0918-3.5459 7.6984 0 0-3.5516 5.6148-5.2378 8.8423-0.25319 1.8541-0.21226 4.426 1.1538 5.6016 0.3729 0.31788 2.7582 1.9853 3.3495 1.2052" clip-rule="evenodd" fill="#fbf5d1" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-dashoffset="1.852" stroke-linecap="round" stroke-linejoin="round" stroke-width=".80883"/>
+  <path d="m-106.92 309.83s0.59028-2.7221 3.352-3.1001" fill="none" stroke="#040404" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2132"/>
   <ellipse transform="matrix(.96911 -.24664 .18623 .98251 0 0)" cx="-160.94" cy="273.97" rx="1.2035" ry="1.2227" style="paint-order:markers fill stroke"/>
   <g stroke="#000" stroke-linecap="round">
    <g stroke-linejoin="round">
-    <path d="m-112.75 321.22s-0.21386-0.84919 0.73006-1.6144" fill="#fff" stroke-width="1.3774"/>
-    <path d="m-97.034 315.67s0.674-1.2562 0.92769-2.4965c0.25369-1.2403 0.16105-2.4729 0.16105-2.4729" fill="none" stroke-width=".78708"/>
-    <path d="m-102.63 302.32s0.20939-3.9208 2.5148-5.2742c-4.7e-4 1.1e-4 2.5889 2.3604 1.8794 5.3941" fill="#fbf5bf" stroke-width=".78708" style="paint-order:markers fill stroke"/>
+    <path d="m-112.75 321.22s-0.21386-0.84919 0.73006-1.6144" fill="#fff" stroke-width="1.4154"/>
+    <path d="m-97.034 315.67s0.674-1.2562 0.92769-2.4965c0.25369-1.2403 0.16105-2.4729 0.16105-2.4729" fill="none" stroke-width=".80883"/>
+    <path d="m-102.63 302.32s0.20939-3.9208 2.5148-5.2742c-4.7e-4 1.1e-4 2.9076 2.3182 2.0437 6.3096" fill="#fbf5d1" stroke-width=".80883" style="paint-order:markers fill stroke"/>
    </g>
-   <path d="m-108.17 323.51c-0.24784 0.50067-1.4206 2.1097-2.646 2.8881" fill="none" stroke-width=".98386"/>
+   <path d="m-108.17 323.51c-0.24784 0.50067-1.4206 2.1097-2.646 2.8881" fill="none" stroke-width=".80883"/>
   </g>
-  <path d="m-98.235 302.44c15.48 0.59309 17.534 12.49 15.946 31.203h3.175c1.5875-18.713-3.5432-32.158-19.023-32.751l-0.09834 1.5482z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".35" shape-rendering="geometricPrecision"/>
-  <path d="m-95.945 310.7c0.30439 0.21739 0.33329 3.208-1.3028 6.3628-0.09771-0.41277-7.5571 5.3006-7.6311 5.0169 8.6998-7.4263 6.7171-8.4729 8.9339-11.38z" opacity=".35" stroke="#000" stroke-width=".26031px"/>
+  <path d="m-98.235 301.93c15.48 0.59309 21.678 20.847 11.132 31.713h7.9899c1.5875-18.713-3.5432-32.158-19.023-32.751z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".2" shape-rendering="geometricPrecision"/>
  </g>
 </svg>
