@@ -26,9 +26,9 @@ final class JsonView(
     pairings = pairingOptions.flatten
   } yield baseSimul(simul, lightHost) ++ Json.obj(
     "applicants" -> applicants,
-    "pairings" -> pairings,
-    "quote" -> lila.quote.Quote.one(simul.id)
+    "pairings" -> pairings
   ).add("team", team)
+    .add("quote" -> simul.isCreated.option(lila.quote.Quote.one(simul.id)))
 
   def api(simul: Simul): Fu[JsObject] =
     getLightUser(simul.hostId) map { lightHost =>
@@ -57,10 +57,10 @@ final class JsonView(
       Json.obj(
         "id" -> host.id,
         "name" -> host.name,
-        "patron" -> host.isPatron,
-        "title" -> host.title,
         "rating" -> simul.hostRating
       ).add("gameId" -> simul.hostGameId)
+        .add("title" -> host.title)
+        .add("patron" -> host.isPatron)
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
