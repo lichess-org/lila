@@ -12,4 +12,7 @@
   <string name="theRook">Keleh</string>
   <string name="itMovesInStraightLines">Ew di xetên rast de dimeşe</string>
   <string name="rookIntro">Keleh kabikeke xurt e. Tu hazir î ku tu ferman bidiyê?</string>
+  <string name="rookGoal">Ji bo ku kelehê bînî 
+cihê stêrkkirî bitikîne serê!</string>
+  <string name="grabAllTheStars">Hemû stêrkan bicivîne!</string>
 </resources>
