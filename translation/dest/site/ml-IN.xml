@@ -416,6 +416,7 @@
   <string name="createdBy">നിർമ്മാണം</string>
   <string name="tournamentIsStarting">പരമ്പര തുടങ്ങുന്നു</string>
   <string name="tournamentPairingsAreNowClosed">ടൂർണമെന്റ് പെയറിങ് കഴിഞ്ഞിരിക്കുന്നു.</string>
+  <string name="standByX">ദയവായി കാത്തിരിക്കൂ %s, കളിക്കാരെ പെയർ ചെയ്യുന്നു, തയ്യാറാവൂ!</string>
   <string name="youArePlaying">നിങ്ങൾ കളിച്ചുകൊണ്ടിരിക്കുന്നു!</string>
   <string name="winRate">വിജയനിരക്ക്</string>
   <string name="berserkRate">ജടാപാടാലിറ്റി റേറ്റ്</string>

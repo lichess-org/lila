@@ -67,6 +67,7 @@
   <string name="studyNotFound">找不到研究</string>
   <string name="editChapter">编辑章节</string>
   <string name="newChapter">新章节</string>
+  <string name="analysisMode">分析模式</string>
   <string name="pinnedChapterComment">置顶评论</string>
   <string name="saveChapter">保存章节</string>
   <string name="clearAnnotations">清除注释</string>

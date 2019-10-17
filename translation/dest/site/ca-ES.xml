@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promoure variant</string>
   <string name="makeMainLine">Convertir en línia principal</string>
   <string name="deleteFromHere">Esborrar des d\'aquí</string>
+  <string name="forceVariation">Forçar variant</string>
   <string name="move">Moviment</string>
   <string name="variantLoss">Variant perdedora</string>
   <string name="variantWin">Variant guanyadora</string>
@@ -203,6 +204,7 @@
   <string name="playingRightNow">Jugant-se ara</string>
   <string name="eventInProgress">Jugant-se ara</string>
   <string name="finished">Acabat</string>
+  <string name="finishesX">finalitza %s</string>
   <string name="abortGame">Avorta la partida</string>
   <string name="gameAborted">Partida avortada</string>
   <string name="standard">Estàndard</string>
@@ -356,6 +358,10 @@
   <string name="blackCheckmatesInOneMove">Les negres fan escac i mat en un moviment</string>
   <string name="retry">Intenta-ho de nou</string>
   <string name="reconnecting">S\'està reconnectant</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amic connectat</item>
+    <item quantity="other">%s amic(s) connectat(s)</item>
+  </plurals>
   <string name="noFriendsOnline">No hi ha amics connectats</string>
   <string name="findFriends">Cerca amics</string>
   <string name="favoriteOpponents">Adversaris favorits</string>
@@ -471,6 +477,7 @@
   <string name="pleaseVotePuzzle">Ajudeu lichess a millorar mitjançant el vostre vot amb les fletxes amunt o avall:</string>
   <string name="thankYou">Gràcies!</string>
   <string name="ratingX">Puntuació: %s</string>
+  <string name="hidden">ocult</string>
   <plurals name="playedXTimes">
     <item quantity="one">Intentat %s vegades</item>
     <item quantity="other">Intentat %s vegades</item>
@@ -585,6 +592,12 @@
   <string name="xCommentedY">%1$s ha comentat %2$s</string>
   <string name="victory">Victòria</string>
   <string name="defeat">Derrota</string>
+  <string name="victoryVsYInZ">%1$s contra %2$s
+en %3$s</string>
+  <string name="defeatVsYInZ">%1$s contra %2$s
+en %3$s</string>
+  <string name="drawVsYInZ">%1$s contra %2$s
+en %3$s</string>
   <string name="timeline">Cronologia</string>
   <string name="starting">Començant:</string>
   <string name="allInformationIsPublicAndOptional">Tota la informació és pública i opcional.</string>
@@ -631,6 +644,8 @@
   <string name="inCorrespondenceGames">Només en partides per correspondència</string>
   <string name="ifRatingIsPlusMinusX">Si el ràting és ± %s</string>
   <string name="onlyFriends">Només amics</string>
+  <string name="displayBoardResizeHandle">Mostrar canvi de tamany</string>
+  <string name="onlyOnInitialPosition">Només en posició inicial</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroc</string>
   <string name="whiteCastlingKingside">Blanques O-O</string>
@@ -698,6 +713,9 @@
   <string name="yourPerfTypeRatingIsRating">La teva puntuació en %1$s és de %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ets millor que un %1$s dels jugadors de %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">No tens establerta una puntuació de %s.</string>
+  <string name="yourRating">La vostra valoració</string>
+  <string name="cumulative">Acumulat</string>
+  <string name="glicko2Rating">Valoració Glicko-2</string>
   <string name="checkYourEmail">Comprova el teu email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">T\'hem enviat un email. Clica l\'enllaç de l\'email per a activar el teu compte</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si no veus l\'email, comprova altres llocs on pugui ser, com el correu brossa, spam, o altres carpetes</string>
@@ -849,4 +867,24 @@
     <item quantity="one">i guardar %s línia anticipada</item>
     <item quantity="other">i guardar %s línies anticipades</item>
   </plurals>
+  <string name="sorry">Ho sentim :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Hem hagut de penalitzar-te una estona.</string>
+  <string name="timeoutExpires">La penalització acaba en %s.</string>
+  <string name="why">Perquè?</string>
+  <string name="pleasantChessExperience">Intentem donar una bona experiència d’escacs a tothom.</string>
+  <string name="goodPractice">Per això, hem de garantir que tots els jugadors segueixin bones pràctiques.</string>
+  <string name="potentialProblem">Quan un problema potancial es detecta, mostrem aquest missatge.</string>
+  <string name="howToAvoidThis">Com evitar-ho?</string>
+  <string name="playEveryGame">Juga cada joc que comencis.</string>
+  <string name="tryToWin">Prova de guanyar (o al menys fer taules) cada partida.</string>
+  <string name="resignLostGames">Resigna els jocs perduts (no deixis córrer el temps).</string>
+  <string name="temporaryInconvenience">Disculpes per aquest inconvenient temporal</string>
+  <string name="wishYouGreatGames">i et desitgem unes grans partides a lichess.org.</string>
+  <string name="thankYouForReading">Gràcies per la teva lectura!</string>
+  <string name="lifetimeScore">Valoració total de sempre</string>
+  <string name="currentMatchScore">Valoració actual de partides</string>
+  <string name="agreementAssistance">Estic d’acord que mai rebré assistència durant les meves partides (ni d’ordinadors, llibres, base de dades o d’una altra persona).</string>
+  <string name="agreementNice">Estic d’acord que sempre seré respectuós amb els altres jugadors.</string>
+  <string name="agreementAccount">Estic d’acord que no crearé múltiples comptes.</string>
+  <string name="agreementPolicy">Estic d’acord que seguiré totes les polítiques de Lichess.</string>
 </resources>

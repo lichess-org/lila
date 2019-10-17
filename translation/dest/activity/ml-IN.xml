@@ -26,6 +26,14 @@
     <item quantity="one">%1$s നീക്കം കളിച്ചു</item>
     <item quantity="other">%1$s നീക്കങ്ങള്‍ കളിച്ചു</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s കറസ്പോണ്ടൻസ് കളിയിൽ</item>
+    <item quantity="other">%1$s കറസ്പോണ്ടൻസ് കളികളിൽ</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s കറസ്പോണ്ടൻസ് ഗെയിം പൂർത്തിയാക്കി</item>
+    <item quantity="other">%s കറസ്പോണ്ടൻസ് ഗെയിമുകൾ പൂർത്തിയാക്കി</item>
+  </plurals>
   <plurals name="followedNbPlayers">
     <item quantity="one">%s കളിക്കാരനെ പിന്തുടരാൻ തുടങ്ങി</item>
     <item quantity="other">%s കളിക്കാരെ പിന്തുടരാൻ തുടങ്ങി</item>
