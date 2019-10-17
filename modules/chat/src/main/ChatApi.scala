@@ -102,7 +102,7 @@ final class ChatApi(
       publish(chatId, actorApi.ChatLine(chatId, line))
     }
 
-    def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
+    def timeout(chatId: Chat.Id, modId: User.ID, userId: User.ID, reason: ChatTimeout.Reason, local: Boolean): Funit =
       coll.byId[UserChat](chatId.value) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason)
         case _ => fuccess(none)
@@ -126,7 +126,7 @@ final class ChatApi(
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
-          publish(chat.id, actorApi.OnTimeout(user.username))
+          publish(chat.id, actorApi.OnTimeout(chat.id, user.username))
           publish(chat.id, actorApi.ChatLine(chat.id, line))
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
@@ -139,14 +139,15 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(user.username))
+        publish(chat.id, actorApi.OnTimeout(chat.id, user.username))
       }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      publish(Chat.Id(r.chat), actorApi.OnReinstate(r.user))
+      val chatId = Chat.Id(r.chat)
+      publish(chatId, actorApi.OnReinstate(chatId, r.user))
     }
 
     private def publish(chatId: Chat.Id, msg: Any): Unit = {

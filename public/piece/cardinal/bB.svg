@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient3065-9" x1="3850.4" x2="3850.4" y1="-424.81" y2="-307.17" gradientTransform="matrix(.33757 0 0 .32227 -1274.8 143.07)" gradientUnits="userSpaceOnUse">
+  <linearGradient id="linearGradient2720-5" x1="13269" x2="13269" y1="-9662.7" y2="-9519" gradientTransform="matrix(.26458 0 0 .26458 -3485.7 2562.6)" gradientUnits="userSpaceOnUse">
    <stop stop-color="#3c3c3c" offset="0"/>
    <stop offset="1"/>
   </linearGradient>
-  <filter id="filter2809-5-4-0-0" color-interpolation-filters="sRGB">
+  <filter id="filter2809-5-8-5-1-4-7-5" color-interpolation-filters="sRGB">
    <feGaussianBlur result="blur" stdDeviation="0.01 0.01"/>
   </filter>
  </defs>
@@ -18,10 +18,12 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
-  <path class="st14" d="m24.999 39.486c-0.20249 0.87016-0.50626 1.4502-0.81014 1.7725-3.8821 4.5441-9.2677 0.19341-14.162 1.5792-0.50636 0.12891-0.91144 0.35452-1.1814 0.61234l-2.2955-3.5772c6.1438-5.382 12.171 0.41893 15.209-2.9327-0.84394-0.09701-1.6879-0.22562-2.5655-0.45113-0.77645-0.19341-2.2954-0.67684-2.2954-0.67684l1.1139-5.8331s-1.7587-1.9425-2.3967-3.0616c-0.35578-0.62394-0.67515-1.3535-0.77645-1.998-0.10129-0.58014-0.16879-1.1603-0.16879-1.7403 0-0.90236 0.23628-1.9013 0.67515-2.9971 1.1815-2.3847 3.4433-3.6093 5.3673-5.1562 1.0127-0.83786 1.958-1.7402 2.8019-2.6748-1.1478-0.58014-1.7554-1.4825-1.7554-2.7393 0-0.83796 0.30378-1.5791 0.94514-2.1592 0.60766-0.61224 1.384-0.90236 2.2954-0.90236 0.87774 0 1.6541 0.29012 2.2618 0.90236 0.64136 0.61234 0.94514 1.3214 0.94514 2.1592 0 1.2247-0.57386 2.1269-1.7554 2.7393 0.84394 0.96676 1.7891 1.8691 2.7681 2.6748 1.9242 1.6113 4.4559 2.9327 5.3673 5.1562 0.43887 1.0958 0.67515 2.0948 0.67515 2.9971 0 0.51563-0.034 1.0957-0.16879 1.7403-0.10129 0.64454-0.42287 1.373-0.77645 1.998-0.63086 1.1155-2.3629 3.0616-2.3629 3.0616l1.1139 5.8331s-1.4853 0.48343-2.3292 0.67684c-0.87774 0.22552-1.6879 0.38673-2.498 0.45113 3.8821 4.5762 10.787-1.7402 15.209 2.9327l-2.3292 3.5772c-5.57-3.0294-9.8072 3.0293-15.378-2.256-0.27008-0.29002-0.54016-0.87016-0.74275-1.708z" fill="url(#linearGradient3065-9)" image-rendering="optimizeQuality" stroke="#010101" stroke-linejoin="round" stroke-width="1.1"/>
-  <ellipse class="st15" transform="matrix(.33757 0 0 .32227 -893.33 122.14)" cx="2720.3" cy="-271.4" rx="16.3" ry="2.5" fill="#e6e6e6" filter="url(#filter2809-5-4-0-0)" image-rendering="optimizeQuality" stroke-width=".80217"/>
-  <ellipse class="st15" cx="24.999" cy="9.6116" rx="1.1401" ry="1.1474" fill="#fff" image-rendering="optimizeQuality" stroke-width=".26458"/>
+ <g clip-rule="evenodd" shape-rendering="geometricPrecision">
+  <g fill-rule="evenodd">
+   <path d="m25 6.55c-0.8776 0-1.6536 0.2905-2.2614 0.9028-0.641 0.6123-0.9456 1.3212-0.9456 2.159 0 1.2248 0.5739 2.127 1.7555 2.7394-2.9691 3.2861-8.7077 5.8222-8.8109 10.828 0.01 2.6744 1.4661 4.7641 3.3084 6.7996l-1.1142 5.8332c1.6971 0.5416 3.0898 0.9417 4.8276 1.1281-3.8819 4.5762-10.787-1.7402-15.209 2.9326l2.3302 3.5771c5.5928-3.962 13.374 3.6729 16.12-3.9621 2.7459 7.6351 10.527 0 16.12 3.9621l2.3297-3.5771c-4.422-4.6728-11.327 1.6436-15.209-2.9326 1.7377-0.1864 3.1302-0.5865 4.8273-1.1281l-1.1142-5.8332c1.8423-2.0355 3.3012-4.1252 3.3084-6.7996-0.1032-5.0062-5.8418-7.5422-8.8109-10.828 1.1816-0.6124 1.7555-1.5146 1.7555-2.7394 0-0.8378-0.304-1.5467-0.9454-2.159-0.6077-0.6123-1.3837-0.9028-2.2614-0.9028z" fill="url(#linearGradient2720-5)" image-rendering="optimizeQuality" stroke="#000" stroke-linejoin="round" stroke-width="1.1"/>
+   <ellipse class="st15" transform="matrix(.33757 0 0 .32227 -893.33 122.14)" cx="2720.3" cy="-271.4" rx="16.3" ry="2.5" fill="#e6e6e6" filter="url(#filter2809-5-8-5-1-4-7-5)" image-rendering="optimizeQuality" stroke-width=".80217"/>
+   <ellipse class="st15" cx="25" cy="9.6117" rx="1.1401" ry="1.1474" fill="#e6e6e6" image-rendering="optimizeQuality" stroke-width=".26458"/>
+  </g>
+  <path d="m21.333 23.266h7.333m-3.6663-3.3339v6.7524" fill="none" image-rendering="optimizeQuality" stroke="#e6e6e6" stroke-width="1.4"/>
  </g>
- <path d="m21.332 23.266h7.333m-3.6663-3.3339v6.7524" fill="none" stroke="#e6e6e6" stroke-width="1.4"/>
 </svg>

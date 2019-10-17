@@ -20,7 +20,7 @@ final class SimulApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketMap: SocketMap,
+    socket: SimulSocket,
     renderer: ActorSelection,
     timeline: ActorSelection,
     repo: SimulRepo,
@@ -99,7 +99,7 @@ final class SimulApi(
             UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
                 games.headOption foreach {
-                  case (game, _) => socketMap.tell(simul.id, actorApi.StartSimul(game, simul.hostId))
+                  case (game, _) => socket.startSimul(simul, game)
                 }
                 games.foldLeft(started) {
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
@@ -118,7 +118,7 @@ final class SimulApi(
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
     user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
-      socketMap.tell(simul.id, actorApi.HostIsOn(game.id))
+      socket.hostIsOn(simul.id, game.id)
     }
   }
 
@@ -126,7 +126,7 @@ final class SimulApi(
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          (repo remove simul) >>- socketMap.tell(simul.id, actorApi.Aborted) >>- publish()
+          (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
         }
       }
     }
@@ -136,7 +136,7 @@ final class SimulApi(
     Sequence(simulId) {
       repo.find(simulId) flatMap {
         _ ?? { simul =>
-          repo.setText(simul, text) >>- socketReload(simulId)
+          repo.setText(simul, text) >>- socket.reload(simulId)
         }
       }
     }
@@ -215,11 +215,11 @@ final class SimulApi(
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
-      socketMap.tell(simul.id, actorApi.StartGame(game2, simul.hostId))
+      socket.startGame(simul, game2)
   } yield game2 -> hostColor
 
   private def update(simul: Simul) =
-    repo.update(simul) >>- socketReload(simul.id) >>- publish()
+    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
 
   private def WithSimul(
     finding: Simul.ID => Fu[Option[Simul]],
@@ -248,7 +248,4 @@ final class SimulApi(
     })))
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
   }
-
-  private def socketReload(simulId: Simul.ID): Unit =
-    socketMap.tell(simulId, actorApi.Reload)
 }

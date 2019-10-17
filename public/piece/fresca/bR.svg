@@ -6,14 +6,22 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title/>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
    </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:requires rdf:resource="http://creativecommons.org/ns#Notice"/>
+    <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution"/>
+    <cc:prohibits rdf:resource="http://creativecommons.org/ns#CommercialUse"/>
+   </cc:License>
   </rdf:RDF>
  </metadata>
- <g transform="translate(-3832.2 2074.2)">
-  <g transform="matrix(1.001 0 0 1.0535 4254.4 -2710.2)" stroke-width=".97377">
+ <g transform="matrix(.9644 0 0 .87262 -3694.8 1814.7)" stroke-width="1.0901">
+  <g transform="matrix(1.001 0 0 1.0535 4254.4 -2710.2)" stroke-width="1.0615">
    <g transform="matrix(1.0411 0 0 .99998 -12.238 157.56)">
-    <path transform="scale(.26458)" d="m-1443.7 1706.5v31.795l18.174 16.518v41.953l-24.774 28.637v20.277h108.09v-20.277l-24.772-28.637v-41.953l18.174-16.518v-31.795h-19.927v8.3985h-15.012v-8.3985h-25.02v8.3985h-15.012v-8.3985z" fill="#3c3c3c" stroke="#141414" stroke-width="4.3285"/>
-    <g transform="translate(39.997 -18.339)" fill="#e6e6e6" stroke-width=".9584">
+    <path transform="scale(.26458)" d="m-1443.7 1706.5v31.795l18.174 16.518v41.953l-24.774 28.637v20.277h108.09v-20.277l-24.772-28.637v-41.953l18.174-16.518v-31.795h-19.927v8.3985h-15.012v-8.3985h-25.02v8.3985h-15.012v-8.3985z" fill="#3c3c3c" stroke="#141414" stroke-width="4.7184"/>
+    <g transform="translate(39.997 -18.339)" fill="#e6e6e6" stroke-width="1.0447">
      <path class="st32" d="m-409.42 478.15h-9.2318l2.7633 2.1748h13.054l2.6461-2.1748z"/>
      <path class="st32" d="m-409.42 481.88h-5.6936l1.6847 2.1748h8.0178l1.6847-2.1748z"/>
      <path class="st32" d="m-409.42 501.02h-9.7192l2.2133-2.1748h15.129l2.096 2.1748z"/>
