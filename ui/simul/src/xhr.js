@@ -24,9 +24,11 @@ module.exports = {
   ping: partial(simulAction, 'host-ping'),
   start: partial(simulAction, 'start'),
   abort: partial(simulAction, 'abort'),
-  join: function(variantKey) {
-    return partial(simulAction, 'join/' + variantKey);
-  },
+  join: lichess.debounce(
+    (ctrl, variantKey) => simulAction('join/' + variantKey, ctrl),
+    4000,
+    true
+  ),
   withdraw: partial(simulAction, 'withdraw'),
   accept: function(user) {
     return partial(simulAction, 'accept/' + user)

@@ -85,7 +85,7 @@ final class JsonView(
         "rating" -> player.rating
       ).add("name" -> light.map(_.name))
         .add("title" -> light.map(_.title))
-        .add("provisional" -> player.provisional.filter(identity))
+        .add("provisional" -> ~player.provisional)
         .add("patron" -> light.??(_.isPatron))
     }
 
