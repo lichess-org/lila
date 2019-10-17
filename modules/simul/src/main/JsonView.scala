@@ -56,10 +56,10 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
         "username" -> host.name,
         "online" -> isOnline(host.id),
         "patron" -> host.isPatron,
-        "title" -> host.title,
-        "rating" -> simul.hostRating,
-        "gameId" -> simul.hostGameId
-      ).add("officialRating" -> (simul.hasFmjd option simul.spotlight.flatMap(_.hostFmjdRating)))
+        "rating" -> simul.hostRating
+      ).add("gameId" -> simul.hostGameId)
+        .add("title" -> host.title)
+        .add("officialRating" -> simul.hasFmjd.option(simul.spotlight.flatMap(_.hostFmjdRating)))
     },
     "name" -> simul.name,
     "fullName" -> simul.fullName,
@@ -69,9 +69,9 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
     "isCreated" -> simul.isCreated,
     "isRunning" -> simul.isRunning,
     "isFinished" -> simul.isFinished,
-    "quote" -> lidraughts.quote.Quote.one(simul.id),
     "text" -> ~simul.text
   ).add("team", team)
+    .add("quote" -> simul.isCreated.option(lidraughts.quote.Quote.one(simul.id)))
     .add("arbiter" -> lightArbiter.map { arbiter =>
       Json.obj(
         "id" -> arbiter.id,

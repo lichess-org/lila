@@ -4,7 +4,7 @@
     align-items: stretch;
   }
   .half {
-    flex: 0 0 50%;
+    flex: 1 0 50%;
     margin-bottom: 20px;
     &:first-child {
       border-right: $border;
