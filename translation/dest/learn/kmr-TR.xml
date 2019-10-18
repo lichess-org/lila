@@ -30,4 +30,11 @@ Her du jî lazim in!</string>
   <string name="theQueen">Wezîr</string>
   <string name="queenCombinesRookAndBishop">Wezîr = keleh + fîl</string>
   <string name="queenIntro">Kabikê kişikê yê xurttirîn têdikeve. Rê bidin wezîrê!</string>
+  <string name="queenComplete">Serkeftin! Ti sirreke wezîrê nema bo te.</string>
+  <string name="theKing">Şah</string>
+  <string name="theMostImportantPiece">Kabikê girîngtirîn</string>
+  <string name="kingIntro">Tu şah î. Ger şah bikeve, lîstikê winda dikî.</string>
+  <string name="theKingIsSlow">Şah hêdî ye.</string>
+  <string name="lastOne">Ya dawiyê!</string>
+  <string name="kingComplete">Tu vêga dikarî fermanê bidî fermandarê!</string>
 </resources>
