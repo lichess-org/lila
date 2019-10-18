@@ -44,6 +44,8 @@ final class TrouperMap[T <: Trouper](
 
   def touch(id: String): Unit = troupers getIfPresent id
 
+  def touchOrMake(id: String): Unit = troupers get id
+
   private[this] val troupers: LoadingCache[String, T] =
     Caffeine.newBuilder()
       .recordStats

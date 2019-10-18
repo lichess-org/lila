@@ -58,7 +58,9 @@ object RoomSocket {
     case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) => lila.chat.ChatTimeout.Reason(reason) foreach { r =>
       chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = false)
     }
-    case Protocol.In.KeepAlive(roomId) => rooms touch roomId.value
+    case Protocol.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
+      rooms touchOrMake roomId.value
+    }
     case P.In.DisconnectAll => rooms.killAll
   }
 
@@ -69,10 +71,12 @@ object RoomSocket {
       // room
       case class ChatSay(roomId: RoomId, userId: String, msg: String) extends P.In
       case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String) extends P.In
-      case class KeepAlive(roomId: RoomId) extends P.In
+      case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
 
-      val reader: P.In.Reader = raw => raw.path match {
-        case "room/alive" => KeepAlive(RoomId(raw.args)).some
+      val reader: P.In.Reader = raw => roomReader(raw) orElse P.In.baseReader(raw)
+
+      val roomReader: P.In.Reader = raw => raw.path match {
+        case "room/alives" => KeepAlives(raw.args split "," map RoomId.apply).some
         case "chat/say" => raw.args.split(" ", 3) match {
           case Array(roomId, userId, msg) => ChatSay(RoomId(roomId), userId, msg).some
           case _ => none
