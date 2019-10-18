@@ -50,4 +50,9 @@
   <string name="last">Ya dawî</string>
   <string name="shareAndExport">Parve bike û derxîne</string>
   <string name="cloneStudy">Klon bike</string>
+  <string name="studyPgn">PGNa xebatê</string>
+  <string name="chapterPgn">PGNa beşê</string>
+  <string name="studyUrl">URLya xebatê</string>
+  <string name="currentChapterUrl">URLya beşa niha</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Tu dikarî vê Urlyê pê ve bikî ji bo ku beşê di forumê de wek bicihkirî parve bikî</string>
 </resources>

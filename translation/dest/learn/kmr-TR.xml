@@ -37,4 +37,19 @@ Her du jî lazim in!</string>
   <string name="theKingIsSlow">Şah hêdî ye.</string>
   <string name="lastOne">Ya dawiyê!</string>
   <string name="kingComplete">Tu vêga dikarî fermanê bidî fermandarê!</string>
+  <string name="theKnight">Siwar</string>
+  <string name="itMovesInAnLShape">Ew di şiklê Lyê de hereket dike</string>
+  <string name="knightIntro">Vayê zehmetiyekê ji bo te. Siwar, kabikeke fêlbaz e.</string>
+  <string name="knightsHaveAFancyWay">Siwar wasiteyeke fantastîk e
+ji bo ku xwe car bi wir de û car bi vir de bavêjî!</string>
+  <string name="knightsCanJumpOverObstacles">Siwar dikarin ji ser astengiyan biçin!
+Xwe jê veşêre û stêrkan têk bibe!</string>
+  <string name="knightComplete">Serkeftin! Tu bûyî hoste, di mesela siwaran de.</string>
+  <string name="thePawn">Peya</string>
+  <string name="itMovesForwardOnly">Ew tenê pêşve diçe</string>
+  <string name="pawnIntro">Peya zeîf in, lê xwediyê potansiyeleke xurt in.</string>
+  <string name="pawnsMoveOneSquareOnly">Peya tenê çarçikek diçin.
+Lê gava ew digihin aliyê din ê texteyê, ew dibin kabikeke xurt!</string>
+  <string name="mostOfTheTimePromotingToAQueenIsBest">Zahfê caran peyayê bilindkirina li wezîrê ya çêtirîn e.
+Lê carina siwar jî karin bi kêrî mirov bên!</string>
 </resources>
