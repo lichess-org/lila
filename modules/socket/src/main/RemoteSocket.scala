@@ -140,6 +140,12 @@ object RemoteSocket {
 
   object Protocol {
 
+    case class RoomId(value: String) extends AnyVal with StringValue
+
+    case class NotifyVersion[A: Writes](tpe: String, data: A, troll: Boolean = false) {
+      def msg = Socket.makeMessage(tpe, data)
+    }
+
     case class RawMsg(path: Path, args: Args)
     def RawMsg(msg: String): RawMsg = {
       val parts = msg.split(" ", 2)
@@ -166,6 +172,10 @@ object RemoteSocket {
       case class Lags(lags: Map[String, Centis]) extends In
       case class FriendsBatch(userIds: Iterable[String]) extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
+
+      // room
+      case class ChatSay(roomId: RoomId, userId: String, msg: String) extends In
+      case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String) extends In
 
       val baseReader: Reader = raw => raw.path match {
         case "connect/user" => ConnectUser(raw.args).some
@@ -199,6 +209,14 @@ object RemoteSocket {
           } yield TellSri(Sri(sri), userId, typ, obj)
           case _ => none
         }
+        case "chat/say" => raw.args.split(" ", 3) match {
+          case Array(roomId, userId, msg) => ChatSay(RoomId(roomId), userId, msg).some
+          case _ => none
+        }
+        case "chat/timeout" => raw.args.split(" ", 4) match {
+          case Array(roomId, userId, suspect, reason) => ChatTimeout(RoomId(roomId), userId, suspect, reason).some
+          case _ => none
+        }
         case _ => none
       }
     }
@@ -223,9 +241,17 @@ object RemoteSocket {
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
 
-      def commaList(strs: Iterable[Any]) =
-        if (strs.isEmpty) "-"
-        else strs mkString ","
+      // room
+      def tellVersion(roomId: RoomId, payload: JsObject, version: Socket.SocketVersion, isTroll: Boolean) =
+        s"tell/version $roomId $version $isTroll ${Json stringify payload}"
+      def tellRoomUser(roomId: RoomId, userId: String, payload: JsObject) =
+        s"tell/room/user $roomId $userId ${Json stringify payload}"
+      def start(roomId: RoomId) =
+        s"room/start $roomId"
+      def stop(roomId: RoomId) =
+        s"room/stop $roomId"
+
+      def commaList(strs: Iterable[Any]) = if (strs.isEmpty) "-" else strs mkString ","
     }
   }
 
