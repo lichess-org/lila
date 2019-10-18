@@ -22,4 +22,11 @@ da ku zûtir bikî!</string>
   <string name="rookComplete">Mizgîn li te be! Te bi serkeftî hîn bû kelehê.</string>
   <string name="theBishop">Fîl</string>
   <string name="itMovesDiagonally">Ew çeperastkî hereket dike</string>
+  <string name="bishopIntro">Piştre em ê hîn bibin ku fîl çawa manewra dike!</string>
+  <string name="youNeedBothBishops">Fîleke ronî-çarçikî,
+fîlekê tarî-çarçikî.
+Her du jî lazim in!</string>
+  <string name="bishopComplete">Mizgîn li te be! Te bi serkeftî hîn bû fîlê.</string>
+  <string name="theQueen">Wezîr</string>
+  <string name="queenCombinesRookAndBishop">Wezîr = keleh + fîl</string>
 </resources>
