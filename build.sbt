@@ -232,10 +232,10 @@ lazy val insight = module(
   )
 
 lazy val tournament = module("tournament", Seq(
-  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room
+  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
 )).settings(
   libraryDependencies ++= provided(
-    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees, lettuce
+    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees
   )
 )
 
