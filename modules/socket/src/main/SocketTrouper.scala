@@ -182,16 +182,3 @@ object SocketTrouper extends Socket {
 
   val resyncMessage = makeMessage("resync")
 }
-
-// Not managed by a TrouperMap
-trait LoneSocket { self: SocketTrouper[_] =>
-
-  def monitoringName: String
-  def broomFrequency: FiniteDuration
-
-  system.scheduler.schedule(approximatly(0.1f)(12.seconds.toMillis).millis, broomFrequency) {
-    this ! lila.socket.actorApi.Broom
-    lila.mon.socket.queueSize(monitoringName)(queueSize)
-  }
-  system.lilaBus.subscribe(this, 'deploy, 'announce)
-}
