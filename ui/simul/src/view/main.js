@@ -20,6 +20,10 @@ module.exports = function(ctrl) {
       }
     }),
     m('div.simul__main.box', handler(ctrl)),
-    m('div.chat__members.none', m('span.list'))
+    m('div.chat__members.none', {
+      config(el, done) {
+        if (!done) $(el).watchers();
+      }
+    }, m('span.list'))
   ];
 };
