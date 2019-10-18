@@ -126,7 +126,7 @@ final class ChatApi(
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
-          publish(chat.id, actorApi.OnTimeout(chat.id, user.username))
+          publish(chat.id, actorApi.OnTimeout(user.username))
           publish(chat.id, actorApi.ChatLine(chat.id, line))
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
@@ -139,20 +139,14 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(chat.id, user.username))
+        publish(chat.id, actorApi.OnTimeout(user.username))
       }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      val chatId = Chat.Id(r.chat)
-      publish(chatId, actorApi.OnReinstate(chatId, r.user))
-    }
-
-    private def publish(chatId: Chat.Id, msg: Any): Unit = {
-      lilaBus.publish(msg, classify(chatId))
-      lilaBus.publish(msg, 'remoteSocketChat)
+      publish(Chat.Id(r.chat), actorApi.OnReinstate(r.user))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
@@ -186,7 +180,7 @@ final class ChatApi(
     def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>-
-          lilaBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
+          publish(chatId, actorApi.ChatLine(chatId, line))
       }
 
     private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
@@ -195,6 +189,9 @@ final class ChatApi(
           PlayerLine(color, Writer preprocessUserInput t2)
       }
   }
+
+  private def publish(chatId: Chat.Id, msg: Any): Unit =
+    lilaBus.publish(msg, classify(chatId))
 
   private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
 

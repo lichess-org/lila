@@ -144,6 +144,10 @@ lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).se
   libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
+lazy val room = module("room", Seq(common, socket, chat)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
+)
+
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
@@ -228,15 +232,15 @@ lazy val insight = module(
   )
 
 lazy val tournament = module("tournament", Seq(
-  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
+  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room
 )).settings(
   libraryDependencies ++= provided(
-    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees
+    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees, lettuce
   )
 )
 
 lazy val simul = module("simul", Seq(
-  common, hub, socket, game, round, chat, memo, quote
+  common, hub, socket, game, round, chat, memo, quote, room
 )).settings(
   libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
 )

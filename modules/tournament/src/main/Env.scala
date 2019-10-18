@@ -5,8 +5,8 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.game.Game
+import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
@@ -28,6 +28,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     notifyApi: lila.notify.NotifyApi,
+    remoteSocketApi: lila.socket.RemoteSocket,
     scheduler: lila.common.Scheduler,
     startedSinceSeconds: Int => Boolean
 ) {
@@ -156,6 +157,12 @@ final class Env(
     broomFrequency = 3701 millis
   )
 
+  private val tournamentSocket = new RemoteTournamentSocket(
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    system = system
+  )
+
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
     accessTimeout = SequencerTimeout
@@ -224,6 +231,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     scheduler = lila.common.PlayApp.scheduler,
     startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
   )

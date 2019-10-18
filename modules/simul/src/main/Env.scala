@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.game.Game
 import lila.hub.{ Duct, DuctMap }
 import lila.socket.History
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 final class Env(
     config: Config,
@@ -98,7 +99,8 @@ final class Env(
     log = false
   )
 
-  def version(simulId: String) = simulSocket versionOf simulId
+  def version(simulId: Simul.ID) =
+    simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
   private[simul] val simulColl = db(CollectionSimul)
 
