@@ -7,4 +7,34 @@
   <string name="progressX">Pêvajo: %s</string>
   <string name="resetMyProgress">Pêşveçûna min bike sifir</string>
   <string name="youWillLoseAllYourProgress">Tu yê hemû peşveçûna xwe winda bikî!</string>
+  <string name="play">bilîze!</string>
+  <string name="chessPieces">Kabikên kişikê</string>
+  <string name="theRook">Keleh</string>
+  <string name="itMovesInStraightLines">Ew di xetên rast de dimeşe</string>
+  <string name="rookIntro">Keleh kabikeke xurt e. Tu hazir î ku tu ferman bidiyê?</string>
+  <string name="rookGoal">Ji bo ku kelehê bînî 
+cihê stêrkkirî bitikîne serê!</string>
+  <string name="grabAllTheStars">Hemû stêrkan bicivîne!</string>
+  <string name="theFewerMoves">Çiqasî bi hemleyên kêmtir bikî,
+tu yê ewqas zêtir poîntan bi dest bixî!</string>
+  <string name="useTwoRooks">Her du kelehan bi kar bîne
+da ku zûtir bikî!</string>
+  <string name="rookComplete">Mizgîn li te be! Te bi serkeftî hîn bû kelehê.</string>
+  <string name="theBishop">Fîl</string>
+  <string name="itMovesDiagonally">Ew çeperastkî hereket dike</string>
+  <string name="bishopIntro">Piştre em ê hîn bibin ku fîl çawa manewra dike!</string>
+  <string name="youNeedBothBishops">Fîleke ronî-çarçikî,
+fîlekê tarî-çarçikî.
+Her du jî lazim in!</string>
+  <string name="bishopComplete">Mizgîn li te be! Te bi serkeftî hîn bû fîlê.</string>
+  <string name="theQueen">Wezîr</string>
+  <string name="queenCombinesRookAndBishop">Wezîr = keleh + fîl</string>
+  <string name="queenIntro">Kabikê kişikê yê xurttirîn têdikeve. Rê bidin wezîrê!</string>
+  <string name="queenComplete">Serkeftin! Ti sirreke wezîrê nema bo te.</string>
+  <string name="theKing">Şah</string>
+  <string name="theMostImportantPiece">Kabikê girîngtirîn</string>
+  <string name="kingIntro">Tu şah î. Ger şah bikeve, lîstikê winda dikî.</string>
+  <string name="theKingIsSlow">Şah hêdî ye.</string>
+  <string name="lastOne">Ya dawiyê!</string>
+  <string name="kingComplete">Tu vêga dikarî fermanê bidî fermandarê!</string>
 </resources>
