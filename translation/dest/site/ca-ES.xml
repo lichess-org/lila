@@ -87,7 +87,7 @@
   </plurals>
   <string name="noGameFound">No s\'ha trobat cap joc</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Potser incloure més jocs desde el menú de preferències?</string>
-  <string name="openingExplorer">Explorador d\'obertures i tablebases</string>
+  <string name="openingExplorer">Explorador d\'obertures</string>
   <string name="xOpeningExplorer">Explorador d\'obertures %s</string>
   <string name="winPreventedBy50MoveRule">Victòria no permesa a causa de la regla dels 50 moviments</string>
   <string name="lossSavedBy50MoveRule">Pèrdua no permesa per la regla dels 50 moviments</string>
