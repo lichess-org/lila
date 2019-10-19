@@ -15,7 +15,7 @@ object RelayForm {
   val form = Form(mapping(
     "name" -> text(minLength = 3, maxLength = 80),
     "description" -> text(minLength = 3, maxLength = 400),
-    "markup" -> optional(text(maxLength = 9000)),
+    "markup" -> optional(text(maxLength = 20000)),
     "official" -> optional(boolean),
     "syncUrl" -> nonEmptyText.verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
     "credit" -> optional(nonEmptyText),
