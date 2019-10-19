@@ -72,4 +72,22 @@ Ne hewce ye ku bilind bikî.</string>
   <string name="takeTheBlackPieces">Kabikên reş zeft bike!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">Kabikên reş zeft bike!
 Û yên xwe winda neke.</string>
+  <string name="captureComplete">Serkeftin! Tu êdî dizanî ku kabikên kişikê çawan şer dikin!</string>
+  <string name="protection">Xweparastin</string>
+  <string name="keepYourPiecesSafe">Kabikên xwe ewle bigire</string>
+  <string name="protectionIntro">Kabikên ku dijbera te êrîşî wan dike teşhîs bike, û wan muhafeze bike!</string>
+  <string name="protectionComplete">Serkeftin! Peyayekê ku te winda nekir, peyayê ku tu qezenc kiriye ye!</string>
+  <string name="escape">Tu di bin êrîşê de yî!
+Bifilite ji tehdîdan!</string>
+  <string name="noEscape">Rev tine ye,
+lê dikarî xwe biparêzî!</string>
+  <string name="dontLetThemTakeAnyUndefendedPiece">Nehêle ku ew
+ti kabikek te yê bêmuhafeze bigirin!</string>
+  <string name="combat">Şerkirin</string>
+  <string name="captureAndDefendPieces">Zeft bike û kabikên xwe biparêze</string>
+  <string name="combatIntro">Şervanek baş him êrîşkirin him jî bergirîkirinê dizane!</string>
+  <string name="combatComplete">Serkeftin! Tu êdî dizanî ku kabikên kişikê çawan şer dikin!</string>
+  <string name="checkInOne">Kişkirina bi yekcarî</string>
+  <string name="attackTheOpponentsKing">Êrîşî şahê dijberê bike</string>
+  <string name="checkInOneIntro">Ji bo kişkirina dijberê, êrîşî şahê wan bike. Divê ew wî biparêzin!</string>
 </resources>
