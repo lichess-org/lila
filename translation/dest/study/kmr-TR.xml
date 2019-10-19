@@ -66,4 +66,6 @@
   <string name="newChapter">Beşa nû</string>
   <string name="orientation">Aheng</string>
   <string name="analysisMode">Moda analîzê</string>
+  <string name="pinnedChapterComment">Şiroveya beşê ya zeliqandî</string>
+  <string name="saveChapter">Beşê qeyd bike</string>
 </resources>
