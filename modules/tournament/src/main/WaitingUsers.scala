@@ -67,4 +67,6 @@ private[tournament] case class WaitingUsers(
 private[tournament] object WaitingUsers {
 
   val empty = WaitingUsers(Map.empty, none, DateTime.now)
+
+  case class WithRemoteUsers(waiting: WaitingUsers, next: scala.concurrent.Promise[WaitingUsers])
 }

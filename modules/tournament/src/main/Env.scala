@@ -5,8 +5,8 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.game.Game
+import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
@@ -28,6 +28,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     notifyApi: lila.notify.NotifyApi,
+    remoteSocketApi: lila.socket.RemoteSocket,
     scheduler: lila.common.Scheduler,
     startedSinceSeconds: Int => Boolean
 ) {
@@ -87,6 +88,12 @@ final class Env(
 
   private val pause = new Pause
 
+  private val tournamentSocket = new TournamentRemoteSocket(
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    system = system
+  )
+
   lazy val api = new TournamentApi(
     cached = cached,
     apiJsonView = apiJsonView,
@@ -102,6 +109,7 @@ final class Env(
     renderer = hub.renderer,
     timeline = hub.timeline,
     socketMap = socketMap,
+    socket = tournamentSocket,
     trophyApi = trophyApi,
     verify = verify,
     indexLeaderboard = leaderboardIndexer.indexOne _,
@@ -175,7 +183,7 @@ final class Env(
     api = api,
     reminder = new TournamentReminder(system.lilaBus),
     isOnline = isOnline,
-    socketMap = socketMap
+    socket = tournamentSocket
   )))
 
   TournamentScheduler.start(system, api)
@@ -183,7 +191,7 @@ final class Env(
   TournamentInviter.start(system.lilaBus, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](tourId)(GetVersion)
+    tournamentSocket.rooms.ask[SocketVersion](tourId)(GetVersion)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
@@ -224,6 +232,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,
     notifyApi = lila.notify.Env.current.api,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     scheduler = lila.common.PlayApp.scheduler,
     startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
   )

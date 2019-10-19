@@ -1,6 +1,6 @@
 package lila.simul
 
-import akka.actor._
+import akka.actor.ActorSelection
 import play.api.libs.json._
 import scala.concurrent.duration._
 

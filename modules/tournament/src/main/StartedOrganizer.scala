@@ -11,7 +11,7 @@ private final class StartedOrganizer(
     api: TournamentApi,
     reminder: TournamentReminder,
     isOnline: String => Boolean,
-    socketMap: SocketMap
+    socket: TournamentRemoteSocket
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -56,12 +56,9 @@ private final class StartedOrganizer(
   }
 
   private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =
-    getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) map {
+    socket.getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) map {
       case (waitingUsers, playingUserIds) =>
         val users = waitingUsers intersect activeUserIds.toSet diff playingUserIds
         api.makePairings(tour, users, startAt)
     }
-
-  private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    socketMap.askIfPresent[WaitingUsers](tour.id)(GetWaitingUsersP) map (_ | WaitingUsers.empty)
 }

@@ -28,7 +28,7 @@ object RoomSocket {
       case GetVersion(promise) => promise success version
       case nv: NotifyVersion[_] =>
         version = version.inc
-        send(Protocol.Out.tellVersion(roomId, nv.msg, version, nv.troll))
+        send(Protocol.Out.tellRoomVersion(roomId, nv.msg, version, nv.troll))
       case lila.chat.actorApi.ChatLine(_, line) => line match {
         case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
         case _ =>
@@ -72,7 +72,6 @@ object RoomSocket {
 
     object In {
 
-      // room
       case class ChatSay(roomId: RoomId, userId: String, msg: String) extends P.In
       case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String) extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
@@ -95,8 +94,10 @@ object RoomSocket {
 
     object Out {
 
-      def tellVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
-        s"tell/version $roomId $version $isTroll ${Json stringify payload}"
+      def tellRoom(roomId: RoomId, payload: JsObject) =
+        s"tell/room $roomId ${Json stringify payload}"
+      def tellRoomVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
+        s"tell/room/version $roomId $version $isTroll ${Json stringify payload}"
       def tellRoomUser(roomId: RoomId, userId: String, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
       def start(roomId: RoomId) =
