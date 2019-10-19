@@ -90,4 +90,11 @@ ti kabikek te yê bêmuhafeze bigirin!</string>
   <string name="checkInOne">Kişkirina bi yekcarî</string>
   <string name="attackTheOpponentsKing">Êrîşî şahê dijberê bike</string>
   <string name="checkInOneIntro">Ji bo kişkirina dijberê, êrîşî şahê wan bike. Divê ew wî biparêzin!</string>
+  <string name="checkInOneGoal">Hedef bigire şahê dijberê
+bi yek hemleyekê!</string>
+  <string name="checkInOneComplete">Serkeftin! Te dijberê kiş kir, û zorê da ku şahê xwe biparêzin!</string>
+  <string name="outOfCheck">Revîna ji kişkirinê</string>
+  <string name="defendYourKing">Şahê xwe biparêze</string>
+  <string name="outOfCheckIntro">Tu bin tehdîda kişkirinê yî! Divê jê birevî an rê li ber êrîşê bigirî.</string>
+  <string name="escapeWithTheKing">Bi şahê bireve!</string>
 </resources>
