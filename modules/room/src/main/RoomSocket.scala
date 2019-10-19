@@ -19,16 +19,20 @@ object RoomSocket {
   }
 
   final class RoomState(roomId: RoomId, send: Send, bus: Bus) extends Trouper {
+
     private val chatId = Chat.Id(roomId.value)
     private def chatClassifier = Chat classify chatId
     private var version = SocketVersion(0)
+
     val process: Trouper.Receive = {
       case GetVersion(promise) => promise success version
       case nv: NotifyVersion[_] =>
         version = version.inc
         send(Protocol.Out.tellVersion(roomId, nv.msg, version, nv.troll))
-      case chatApi.ChatLine(_, line: UserLine) =>
-        this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
+      case lila.chat.actorApi.ChatLine(_, line) => line match {
+        case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
+        case _ =>
+      }
       case chatApi.OnTimeout(username) =>
         this ! NotifyVersion("chat_timeout", username, false)
       case chatApi.OnReinstate(userId) =>
@@ -51,10 +55,10 @@ object RoomSocket {
   def roomHandler(
     rooms: TrouperMap[RoomState],
     chat: akka.actor.ActorSelection,
-    publicSource: RoomId => Option[PublicSource]
+    publicSource: RoomId => PublicSource.type => Option[PublicSource]
   ): Handler = {
     case Protocol.In.ChatSay(roomId, userId, msg) =>
-      chat ! lila.chat.actorApi.UserTalk(Chat.Id(roomId.value), userId, msg, publicSource(roomId))
+      chat ! lila.chat.actorApi.UserTalk(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
     case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) => lila.chat.ChatTimeout.Reason(reason) foreach { r =>
       chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = false)
     }

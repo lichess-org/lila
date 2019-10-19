@@ -50,7 +50,7 @@ final class Env(
     jsonView = jsonView,
     remoteSocketApi = remoteSocketApi,
     chat = hub.chat,
-    system = system
+    bus = system.lilaBus
   )
 
   system.lilaBus.subscribeFuns(

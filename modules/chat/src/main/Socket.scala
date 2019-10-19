@@ -41,7 +41,10 @@ object Socket {
 
   def out(send: Send): Actor.Receive = {
 
-    case line: UserLine => send("message", JsonView(line), line.troll)
+    case actorApi.ChatLine(_, line) => line match {
+      case line: UserLine => send("message", JsonView(line), line.troll)
+      case _ =>
+    }
 
     case actorApi.OnTimeout(username) => send("chat_timeout", JsString(username), false)
 
