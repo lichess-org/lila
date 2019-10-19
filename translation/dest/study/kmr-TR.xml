@@ -58,4 +58,10 @@
   <string name="startAtInitialPosition">Ji pozîsyona pêşîn bide destpêkirin</string>
   <string name="startAtX">Ji %s dest pê bike</string>
   <string name="embedThisChapter">Vê beşê li ser malper an bloga xwe wek bicihkirî parve bike</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">Zêdetir bixwîne derbarê wek bicihkirî parvekirina beşa xebatê</string>
+  <string name="open">Veke</string>
+  <string name="xBroughtToYouByY">%1$s, ji alî %2$s ve bo te hatiye anîn</string>
+  <string name="studyNotFound">Xebat nehate dîtin</string>
+  <string name="editChapter">Beşê sererast bike</string>
+  <string name="newChapter">Beşa nû</string>
 </resources>
