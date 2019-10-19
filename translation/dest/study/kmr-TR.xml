@@ -64,4 +64,6 @@
   <string name="studyNotFound">Xebat nehate dîtin</string>
   <string name="editChapter">Beşê sererast bike</string>
   <string name="newChapter">Beşa nû</string>
+  <string name="orientation">Aheng</string>
+  <string name="analysisMode">Moda analîzê</string>
 </resources>
