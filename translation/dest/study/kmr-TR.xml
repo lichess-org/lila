@@ -55,4 +55,7 @@
   <string name="studyUrl">URLya xebatê</string>
   <string name="currentChapterUrl">URLya beşa niha</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">Tu dikarî vê Urlyê pê ve bikî ji bo ku beşê di forumê de wek bicihkirî parve bikî</string>
+  <string name="startAtInitialPosition">Ji pozîsyona pêşîn bide destpêkirin</string>
+  <string name="startAtX">Ji %s dest pê bike</string>
+  <string name="embedThisChapter">Vê beşê li ser malper an bloga xwe wek bicihkirî parve bike</string>
 </resources>
