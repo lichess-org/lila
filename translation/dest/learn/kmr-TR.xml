@@ -99,4 +99,6 @@ bi yek hemleyekê!</string>
   <string name="escapeWithTheKing">Bi şahê bireve!</string>
   <string name="theKingCannotEscapeButBlock">Şahê te nikare bireve,
 lê tu dikarî rê li ber êrîşê bigirî!</string>
+  <string name="youCanGetOutOfCheckByTaking">Tu dikarî ji kişkirinê bifilitî
+bi xwarina kabikê ku êrîşî te dike.</string>
 </resources>
