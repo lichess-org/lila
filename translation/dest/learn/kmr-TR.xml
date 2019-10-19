@@ -54,4 +54,22 @@ Lê gava ew digihin aliyê din ê texteyê, ew dibin kabikeke xurt!</string>
 Lê carina siwar jî karin bi kêrî mirov bên!</string>
   <string name="pawnsMoveForward">Peya pêşve diçin,
 lê çeperastkî nikarin bixwin!</string>
+  <string name="captureThenPromote">Zeft bike, piştre bilind bike!</string>
+  <string name="useAllThePawns">Hemû peyayan bi kar bîne!
+Ne hewce ye ku bilind bikî.</string>
+  <string name="aPawnOnTheSecondRank">Peyayên li ser rêza duyemîn dikare bi yekcarî 2 çarçikan bimeşîne!</string>
+  <string name="grabAllTheStarsNoNeedToPromote">Hemû stêrkan bicivîne!
+Ne hewce ye ku bilind bikî.</string>
+  <string name="pawnComplete">Serkeftin! Ti tişteke veşartî yê peyayan nema bo te.</string>
+  <string name="pawnPromotion">Blindkirina peyayê</string>
+  <string name="yourPawnReachedTheEndOfTheBoard">Peyaya te gihîşt dawiya texteyê!</string>
+  <string name="itNowPromotesToAStrongerPiece">Wê ew vêga bibe kabikeke xurttir.</string>
+  <string name="selectThePieceYouWant">Kabikê ku dixwazî bibijêre!</string>
+  <string name="fundamentals">Esasên kişikê</string>
+  <string name="capture">Xwarin</string>
+  <string name="takeTheEnemyPieces">Kabikên dijberê bigire</string>
+  <string name="captureIntro">Kabikên dijmina xwe yên bêmuhafeze teşhîs bike, û wan bixwe!</string>
+  <string name="takeTheBlackPieces">Kabikên reş zeft bike!</string>
+  <string name="takeTheBlackPiecesAndDontLoseYours">Kabikên reş zeft bike!
+Û yên xwe winda neke.</string>
 </resources>
