@@ -105,4 +105,8 @@ bi xwarina kabikê ku êrîşî te dike.</string>
 ji ser bergiriya te!</string>
   <string name="escapeOrBlock">Şahê birevîne
 an êrîşê blok bike!</string>
+  <string name="outOfCheckComplete">Serkeftin! Şahê te bi ti awayî nikare were zeftkirin, jê bawer be ku tu karibî li hemberî kişkirinê bergirî bikî!</string>
+  <string name="mateInOne">Matkirina bi carekê</string>
+  <string name="defeatTheOpponentsKing">Şahê dijberê mexlûb bike</string>
+  <string name="mateInOneIntro">Tu yê qezenc bikî gava ku dijbera te li dijî kişkirina te nikaribe bergirî bike.</string>
 </resources>
