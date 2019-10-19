@@ -97,4 +97,6 @@ bi yek hemleyekê!</string>
   <string name="defendYourKing">Şahê xwe biparêze</string>
   <string name="outOfCheckIntro">Tu bin tehdîda kişkirinê yî! Divê jê birevî an rê li ber êrîşê bigirî.</string>
   <string name="escapeWithTheKing">Bi şahê bireve!</string>
+  <string name="theKingCannotEscapeButBlock">Şahê te nikare bireve,
+lê tu dikarî rê li ber êrîşê bigirî!</string>
 </resources>
