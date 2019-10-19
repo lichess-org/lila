@@ -89,4 +89,24 @@
   <string name="urlOfTheGame">URLya lîstikê</string>
   <string name="loadAGameFromXOrY">Lîstikekê bar bike ji %1$s an %2$s</string>
   <string name="createChapter">Beşê çêbike</string>
+  <string name="configureLiveBroadcast">Weşana zindî mîheng bike</string>
+  <string name="createStudy">Xebatê çêbike</string>
+  <string name="editStudy">Xebatê sererast bike</string>
+  <string name="visibility">Xuyabarî</string>
+  <string name="public">Gişti</string>
+  <string name="unlisted">Xisûsî</string>
+  <string name="inviteOnly">Tenê yên vexwendî</string>
+  <string name="allowCloning">Destûr bide klonkirinê</string>
+  <string name="nobody">Tikes</string>
+  <string name="onlyMe">Tenê ez</string>
+  <string name="contributors">Beşdar</string>
+  <string name="members">Endam</string>
+  <string name="everyone">Herkes</string>
+  <string name="enableSync">Senkronîzasyonê çalak bike</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Belê: her kesî di eynî pozîsyonê de bihêle</string>
+  <string name="noLetPeopleBrowseFreely">Na: bihêle ku herkes bi serbestî bigere</string>
+  <string name="pinnedStudyComment">Şîroveya xebatê ya zeliqandî</string>
+  <string name="start">Dest pê bike</string>
+  <string name="save">Qeyd bike</string>
+  <string name="clearChat">Gotûbêjê paqij bike</string>
 </resources>
