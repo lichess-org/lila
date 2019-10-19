@@ -87,7 +87,7 @@
   </plurals>
   <string name="noGameFound">Aucune partie trouvée</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Peut-être inclure plus de parties depuis le menu préférences ?</string>
-  <string name="openingExplorer">Explorateur d\'ouvertures &amp; tables de finales</string>
+  <string name="openingExplorer">Explorateur d\'ouvertures</string>
   <string name="xOpeningExplorer">%s explorateur d\'ouvertures</string>
   <string name="winPreventedBy50MoveRule">Gain empêché par la règle des 50 coups</string>
   <string name="lossSavedBy50MoveRule">Défaite évitée par la règle des 50 coups</string>
