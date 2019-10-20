@@ -20,7 +20,7 @@ object search {
         videos.currentPageResults.size < 4 option div(cls := s"not_much nb_${videos.nbResults}")(
           if (videos.currentPageResults.isEmpty) "No videos for this search:"
           else "That's all we got for this search:",
-          s""""${control.query}"""",
+          s""""${~control.query}"""",
           br, br,
           a(href := routes.Video.index, cls := "button")("Clear search")
         ),
