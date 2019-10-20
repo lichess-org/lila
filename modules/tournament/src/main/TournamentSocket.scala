@@ -21,7 +21,7 @@ private final class TournamentRemoteSocket(
     system: ActorSystem
 ) {
 
-  private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithRemoteUsers]
+  private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext]
 
   private val reloadThrottler = system.actorOf(Props(new LateMultiThrottler(
     executionTimeout = 1.seconds.some,
@@ -47,13 +47,13 @@ private final class TournamentRemoteSocket(
   }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
-    val promise = Promise[WaitingUsers]
-    allWaitingUsers.compute(tour.id, (_: Tournament.ID, cur: WaitingUsers.WithRemoteUsers) => {
-      Option(cur).fold(WaitingUsers.WithRemoteUsers(WaitingUsers.empty, promise)) { w =>
-        w.copy(next = promise)
-      }
-    })
     send(Protocol.Out.getRoomUsers(RoomId(tour.id)))
+    val promise = Promise[WaitingUsers]
+    allWaitingUsers.compute(
+      tour.id,
+      (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
+        Option(cur).getOrElse(WaitingUsers.emptyWithNext).copy(next = promise.some)
+    )
     promise.future
   }
   // waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
@@ -71,16 +71,21 @@ private final class TournamentRemoteSocket(
 
   private lazy val tourHandler: Handler = {
     case Protocol.In.RoomUsers(roomId, users) =>
-      allWaitingUsers.computeIfPresent(roomId.value, (_: Tournament.ID, cur: WaitingUsers.WithRemoteUsers) => {
-        val newWaiting = cur.waiting.update(users, none)
-        cur.next.success(newWaiting) // TODO tourney clock
-        newWaiting
-      })
+      allWaitingUsers.computeIfPresent(
+        roomId.value,
+        (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
+          val newWaiting = cur.waiting.update(users, none)
+          cur.next.foreach(_ success newWaiting) // TODO tourney clock
+          WaitingUsers.WithNext(newWaiting, none)
+        }
+      )
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("tour-out").apply _
 
-  remoteSocketApi.subscribe("tour-in", Protocol.In.reader)(tourHandler orElse handler orElse remoteSocketApi.baseHandler)
+  remoteSocketApi.subscribe("tour-in", Protocol.In.reader)(
+    tourHandler orElse handler orElse remoteSocketApi.baseHandler
+  )
 
   object Protocol {
 
@@ -91,9 +96,8 @@ private final class TournamentRemoteSocket(
       val reader: P.In.Reader = raw => tourReader(raw) orElse RP.In.reader(raw)
 
       val tourReader: P.In.Reader = raw => raw.path match {
-        case "room/users" => raw.args split " " match {
-          case Array(roomId, users) => RoomUsers(users split "," toSet).some
-          case _ => none
+        case "room/users" => raw.get(2) {
+          case Array(roomId, users) => RoomUsers(RoomId(roomId), P.In.commas(users).toSet).some
         }
         case _ => none
       }

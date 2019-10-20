@@ -4,6 +4,7 @@ import chess.Centis
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
+import ornicar.scalalib.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Future
@@ -144,7 +145,11 @@ object RemoteSocket {
 
   object Protocol {
 
-    case class RawMsg(path: Path, args: Args)
+    case class RawMsg(path: Path, args: Args) {
+      def get[A](nb: Int)(f: PartialFunction[Array[String], A])(implicit default: Zero[A]): A =
+        f.lift(args.split(" ", nb)) getOrElse default.zero
+      def all = args split ' '
+    }
     def RawMsg(msg: String): RawMsg = {
       val parts = msg.split(" ", 2)
       RawMsg(parts(0), ~parts.lift(1))
@@ -173,38 +178,40 @@ object RemoteSocket {
 
       val baseReader: Reader = raw => raw.path match {
         case "connect/user" => ConnectUser(raw.args).some
-        case "disconnect/users" => DisconnectUsers(raw.args split ',').some
-        case "connect/sri" => raw.args.split(' ') |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
+        case "disconnect/users" => DisconnectUsers(commas(raw.args)).some
+        case "connect/sri" => raw.all |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
         case "connect/sris" => ConnectSris {
-          raw.args.split(',') map (_ split ' ') map { s =>
+          commas(raw.args) map (_ split ' ') map { s =>
             (Sri(s(0)), s lift 1)
           }
         }.some
         case "disconnect/sri" => DisconnectSri(Sri(raw.args)).some
-        case "disconnect/sris" => DisconnectSris(raw.args split ',' map Sri.apply).some
+        case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
         case "disconnect/all" => DisconnectAll.some
         case "watch" => Watch(raw.args).some
         case "unwatch" => Unwatch(raw.args).some
-        case "notified/batch" => NotifiedBatch(raw.args split ' ').some
+        case "notified/batch" => NotifiedBatch(commas(raw.args)).some
         case "connections" => parseIntOption(raw.args) map Connections.apply
-        case "lag" => raw.args.split(' ') |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
-        case "lags" => Lags(raw.args.split(',').flatMap {
+        case "lag" => raw.all |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
+        case "lags" => Lags(commas(raw.args).flatMap {
           _ split ':' match {
             case Array(user, l) => parseIntOption(l) map { lag => user -> Centis(lag) }
             case _ => None
           }
         }.toMap).some
-        case "friends/batch" => FriendsBatch(raw.args split ',').some
-        case "tell/sri" => raw.args.split(" ", 3) match {
+        case "friends/batch" => FriendsBatch(commas(raw.args)).some
+        case "tell/sri" => raw.get(3) {
           case Array(sri, userOrAnon, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]
             typ <- obj str "t"
             userId = userOrAnon.some.filter("-" !=)
           } yield TellSri(Sri(sri), userId, typ, obj)
-          case _ => none
         }
         case _ => none
       }
+
+      def commas(str: String): Array[String] =
+        if (str == "-") Array.empty else str split ','
     }
 
     object Out {
@@ -213,7 +220,7 @@ object RemoteSocket {
       def tellUser(userId: String, payload: JsObject) =
         s"tell/users $userId ${Json stringify payload}"
       def tellUsers(userIds: Set[String], payload: JsObject) =
-        s"tell/users ${commaList(userIds)} ${Json stringify payload}"
+        s"tell/users ${commas(userIds)} ${Json stringify payload}"
       def tellAll(payload: JsObject) =
         s"tell/all ${Json stringify payload}"
       def tellFlag(flag: String, payload: JsObject) =
@@ -221,13 +228,13 @@ object RemoteSocket {
       def tellSri(sri: Sri, payload: JsValue) =
         s"tell/sri $sri ${Json stringify payload}"
       def tellSris(sris: Iterable[Sri], payload: JsValue) =
-        s"tell/sris ${commaList(sris)} ${Json stringify payload}"
+        s"tell/sris ${commas(sris)} ${Json stringify payload}"
       def mlat(micros: Int) =
         s"mlat ${((micros / 100) / 10d)}"
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
 
-      def commaList(strs: Iterable[Any]) = if (strs.isEmpty) "-" else strs mkString ","
+      def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
     }
   }
 

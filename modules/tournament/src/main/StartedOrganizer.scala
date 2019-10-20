@@ -58,7 +58,8 @@ private final class StartedOrganizer(
   private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =
     socket.getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) map {
       case (waitingUsers, playingUserIds) =>
+        println(waitingUsers)
         val users = waitingUsers intersect activeUserIds.toSet diff playingUserIds
-        api.makePairings(tour, users, startAt)
+      // api.makePairings(tour, users, startAt)
     }
 }

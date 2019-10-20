@@ -1,6 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
+import scala.concurrent.Promise
 
 import chess.Clock.{ Config => TournamentClock }
 import lila.user.User
@@ -60,13 +61,13 @@ private[tournament] case class WaitingUsers(
   def intersect(us: Set[User.ID]) = copy(hash = hash filterKeys us.contains)
 
   def diff(us: Set[User.ID]) = copy(hash = hash filterKeys { k => !us.contains(k) })
-
-  override def toString = all.toString
 }
 
 private[tournament] object WaitingUsers {
 
   val empty = WaitingUsers(Map.empty, none, DateTime.now)
 
-  case class WithRemoteUsers(waiting: WaitingUsers, next: scala.concurrent.Promise[WaitingUsers])
+  case class WithNext(waiting: WaitingUsers, next: Option[Promise[WaitingUsers]])
+
+  def emptyWithNext = WithNext(empty, none)
 }

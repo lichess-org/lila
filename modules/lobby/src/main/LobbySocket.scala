@@ -271,7 +271,7 @@ private object LobbySocket {
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"
       def tellLobbyUsers(userIds: Iterable[User.ID], payload: JsObject) =
-        s"tell/lobby/users ${P.Out.commaList(userIds)} ${Json stringify payload}"
+        s"tell/lobby/users ${P.Out.commas(userIds)} ${Json stringify payload}"
     }
   }
 
