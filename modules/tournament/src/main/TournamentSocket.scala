@@ -1,9 +1,7 @@
 package lila.tournament
 
 import akka.actor._
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import java.util.concurrent.ConcurrentHashMap
-import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -14,7 +12,7 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage
 import lila.user.User
 
-private final class TournamentRemoteSocket(
+private final class TournamentSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: ActorSelection,
     system: ActorSystem

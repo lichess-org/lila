@@ -477,6 +477,7 @@ object mon {
     val player = rec("tournament.player")
     object startedOrganizer {
       val tickTime = rec("tournament.started_organizer.tick_time")
+      val waitingUsersTime = rec("tournament.started_organizer.waiting_users_time")
     }
     object createdOrganizer {
       val tickTime = rec("tournament.created_organizer.tick_time")

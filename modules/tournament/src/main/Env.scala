@@ -40,16 +40,11 @@ final class Env(
     val CollectionPlayer = config getString "collection.player"
     val CollectionPairing = config getString "collection.pairing"
     val CollectionLeaderboard = config getString "collection.leaderboard"
-    val HistoryMessageTtl = config duration "history.message.ttl"
     val CreatedCacheTtl = config duration "created.cache.ttl"
     val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
     val RankingCacheTtl = config duration "ranking.cache.ttl"
-    val SriTimeout = config duration "sri.timeout"
-    val SocketTimeout = config duration "socket.timeout"
-    val SocketName = config getString "socket.name"
     val ApiActorName = config getString "api_actor.name"
     val SequencerTimeout = config duration "sequencer.timeout"
-    val NetDomain = config getString "net.domain"
   }
   import settings._
 
@@ -88,7 +83,7 @@ final class Env(
 
   private val pause = new Pause
 
-  private val socket = new TournamentRemoteSocket(
+  private val socket = new TournamentSocket(
     remoteSocketApi = remoteSocketApi,
     chat = hub.chat,
     system = system

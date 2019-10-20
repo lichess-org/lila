@@ -10,7 +10,7 @@ private final class StartedOrganizer(
     api: TournamentApi,
     reminder: TournamentReminder,
     isOnline: String => Boolean,
-    socket: TournamentRemoteSocket
+    socket: TournamentSocket
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -40,7 +40,7 @@ private final class StartedOrganizer(
             val result: Funit =
               if (tour.secondsToFinish <= 0) fuccess(api finish tour)
               else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
-              else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
+              else if (!tour.pairingsClosed && tour.nbPlayers > 1) startPairing(tour, activeUserIds, startAt)
               else funit
             result >>- reminder(tour, activeUserIds) inject nb
           }
@@ -55,10 +55,9 @@ private final class StartedOrganizer(
   }
 
   private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =
-    socket.getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) map {
+    socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) zip PairingRepo.playingUserIds(tour) map {
       case (waitingUsers, playingUserIds) =>
-        println(waitingUsers)
         val users = waitingUsers intersect activeUserIds.toSet diff playingUserIds
-      // api.makePairings(tour, users, startAt)
+        api.makePairings(tour, users, startAt)
     }
 }

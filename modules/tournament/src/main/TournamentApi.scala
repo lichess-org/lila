@@ -31,7 +31,7 @@ final class TournamentApi(
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    socket: TournamentRemoteSocket,
+    socket: TournamentSocket,
     roundMap: lila.hub.DuctMap[_],
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
