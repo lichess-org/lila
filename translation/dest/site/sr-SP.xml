@@ -898,6 +898,7 @@
     <item quantity="other">и сачувај %s пре-потезних линија</item>
   </plurals>
   <string name="sorry">Извините :(</string>
+  <string name="timeoutExpires">Тајм-аут истиче %s.</string>
   <string name="why">Зашто?</string>
   <string name="pleasantChessExperience">Наш циљ је да свима обезбедимо пријатно шаховско искуство.</string>
   <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
@@ -905,6 +906,7 @@
   <string name="howToAvoidThis">Како ово избећи?</string>
   <string name="playEveryGame">Играј сваку игру коју започнеш.</string>
   <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваки меч који играш.</string>
+  <string name="resignLostGames">Предај изгубљене игре (уместо пуштања времена да истекне).</string>
   <string name="temporaryInconvenience">Извињавамо се на тренутној нелагодности,</string>
   <string name="wishYouGreatGames">и желимо вам одличне игре на lichess.org.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
