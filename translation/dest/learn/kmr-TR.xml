@@ -112,4 +112,22 @@ an êrîşê blok bike!</string>
   <string name="attackYourOpponentsKing">Êrîşî şahê dijbera xwe bike
 bi awayekî ku nikaribe muhafezeya wê bike!</string>
   <string name="mateInOneComplete">Serkeftin! Vayê kişik bi vî awayî tê qezenckirin!</string>
+  <string name="intermediate">Asta navincî</string>
+  <string name="boardSetup">Tertîba texteyê</string>
+  <string name="howTheGameStarts">Lîstik çawa dest pê dikin</string>
+  <string name="boardSetupIntro">Du artêş rûbirûyî hev, amade ne bo şerê.</string>
+  <string name="thisIsTheInitialPosition">Ev pozîsyona pêşîn
+a temamiya lîstikên kişikê ye!
+Hemleyek bike ji bo dewamkirinê.</string>
+  <string name="firstPlaceTheRooks">Pêşî keleh tên!
+Ew li kinaran in.</string>
+  <string name="thenPlaceTheKnights">Paşê siwaran bi cîh bike!
+Ew diçin ba kelehan.</string>
+  <string name="placeTheBishops">Fîlan bi cih bike!
+Ew li kêleka siwaran in.</string>
+  <string name="placeTheQueen">Wezîrê bi cih bike!
+Ew tê li ser rengê xwe.</string>
+  <string name="placeTheKing">Şahê bi cih bike! Li kêleka wezîrê xwe.</string>
+  <string name="pawnsFormTheFrontLine">Peya xeta pêşîn ava dikin.
+Ji bo dewamkirinê hemleyekê bike.</string>
 </resources>
