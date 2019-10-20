@@ -144,4 +144,12 @@ Wê bide hereketkirin, dû re li aliyê şahê rok bike.</string>
 Divê tu pêşî kabikan ji berê derînî.</string>
   <string name="castleQueenSideMovePiecesFirst">Wezîr-alîkî rok bike!
 Divê tu pêşî kabikan ji berê derînî.</string>
+  <string name="youCannotCastleIfMoved">Tu nikarî rok bikî
+ger jixwe şahê ji cihê xwe dabî hereketkirin
+an jî ger keleh jixwe hereketkirî be.</string>
+  <string name="youCannotCastleIfAttacked">Tu nikarî rok bikî ger
+şah ser rêya çûne were tehdîdkirin.
+Rê li ber tehdîdê bigire, paşê rok bike!</string>
+  <string name="findAWayToCastleKingSide">Rêyeke bibîne ku
+şah-alîkî rok bikî!</string>
 </resources>
