@@ -910,6 +910,8 @@
   <string name="temporaryInconvenience">Извињавамо се на тренутној нелагодности,</string>
   <string name="wishYouGreatGames">и желимо вам одличне игре на lichess.org.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
+  <string name="lifetimeScore">Животни резултат</string>
+  <string name="currentMatchScore">Резултат тренутног меча</string>
   <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити учтив према другим играчима.</string>
   <string name="agreementAccount">Слажем се да нећу правити више налога.</string>
