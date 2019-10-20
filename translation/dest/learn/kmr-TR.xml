@@ -130,4 +130,18 @@ Ew tê li ser rengê xwe.</string>
   <string name="placeTheKing">Şahê bi cih bike! Li kêleka wezîrê xwe.</string>
   <string name="pawnsFormTheFrontLine">Peya xeta pêşîn ava dikin.
 Ji bo dewamkirinê hemleyekê bike.</string>
+  <string name="boardSetupComplete">Serkeftin! Tu êdî dizanî ku texteyê kişikê çawa tê tertîbkirin.</string>
+  <string name="castling">Rokkirin</string>
+  <string name="theSpecialKingMove">Hemleya şahê yê taybet</string>
+  <string name="castlingIntro">Şahê xwe bîne ewlehiyê, û keleha xwe ji bo êrîşê amade bike!</string>
+  <string name="castleKingSide">Şahê xwe du çarçik bide hereketkirin
+ji bo ku li aliyê şahê rok bikî!</string>
+  <string name="castleQueenSide">Şahê xwe du çarçik bide hereketkirin
+ji bo ku li aliyê wezîrê rok bikî!</string>
+  <string name="theKnightIsInTheWay">Siwar di rê de ye!
+Wê bide hereketkirin, dû re li aliyê şahê rok bike.</string>
+  <string name="castleKingSideMovePiecesFirst">Şah-alikî rok bike!
+Divê tu pêşî kabikan ji berê derînî.</string>
+  <string name="castleQueenSideMovePiecesFirst">Wezîr-alîkî rok bike!
+Divê tu pêşî kabikan ji berê derînî.</string>
 </resources>
