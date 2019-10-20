@@ -88,7 +88,7 @@ final class Env(
 
   private val pause = new Pause
 
-  private val tournamentSocket = new TournamentRemoteSocket(
+  private val socket = new TournamentRemoteSocket(
     remoteSocketApi = remoteSocketApi,
     chat = hub.chat,
     system = system
@@ -108,8 +108,7 @@ final class Env(
     },
     renderer = hub.renderer,
     timeline = hub.timeline,
-    socketMap = socketMap,
-    socket = tournamentSocket,
+    socket = socket,
     trophyApi = trophyApi,
     verify = verify,
     indexLeaderboard = leaderboardIndexer.indexOne _,
@@ -124,13 +123,6 @@ final class Env(
   lazy val crudApi = new crud.CrudApi
 
   val tourAndRanks = api tourAndRanks _
-
-  lazy val socketHandler = new SocketHandler(
-    hub = hub,
-    socketMap = socketMap,
-    chat = hub.chat,
-    flood = flood
-  )
 
   lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, proxyGame, verify, duelStore, pause, startedSinceSeconds)
 
@@ -148,30 +140,14 @@ final class Env(
     leaderboardColl = leaderboardColl
   )
 
-  private val socketMap: SocketMap = lila.socket.SocketMap[TournamentSocket](
-    system = system,
-    mkTrouper = (tournamentId: String) => new TournamentSocket(
-      system = system,
-      tournamentId = tournamentId,
-      history = new History(ttl = HistoryMessageTtl),
-      jsonView = jsonView,
-      lightUser = lightUserApi.async,
-      sriTtl = SriTimeout,
-      keepMeAlive = () => socketMap touch tournamentId
-    ),
-    accessTimeout = SocketTimeout,
-    monitoringName = "tournament.socketMap",
-    broomFrequency = 3701 millis
-  )
-
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
     accessTimeout = SequencerTimeout
   )
 
   system.lilaBus.subscribe(
-    system.actorOf(Props(new ApiActor(api, leaderboardApi, socketMap)), name = ApiActorName),
-    'finishGame, 'adjustCheater, 'adjustBooster, 'playban, 'deploy
+    system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),
+    'finishGame, 'adjustCheater, 'adjustBooster, 'playban
   )
 
   system.actorOf(Props(new CreatedOrganizer(
@@ -183,7 +159,7 @@ final class Env(
     api = api,
     reminder = new TournamentReminder(system.lilaBus),
     isOnline = isOnline,
-    socket = tournamentSocket
+    socket = socket
   )))
 
   TournamentScheduler.start(system, api)
@@ -191,13 +167,12 @@ final class Env(
   TournamentInviter.start(system.lilaBus, api, notifyApi)
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
-    tournamentSocket.rooms.ask[SocketVersion](tourId)(GetVersion)
+    socket.rooms.ask[SocketVersion](tourId)(GetVersion)
 
   // is that user playing a game of this tournament
   // or hanging out in the tournament lobby (joined or not)
   def hasUser(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
-    socketMap.askIfPresentOrZero[Boolean](tourId)(lila.hub.actorApi.socket.HasUserId(userId, _)) >>|
-      PairingRepo.isPlaying(tourId, userId)
+    fuccess(socket.hasUser(tourId, userId)) >>| PairingRepo.isPlaying(tourId, userId)
 
   def cli = new lila.common.Cli {
     def process = {

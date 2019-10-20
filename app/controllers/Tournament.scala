@@ -332,12 +332,6 @@ object Tournament extends LilaController {
     }
   }
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      env.socketHandler.join(id, sri, ctx.me, getSocketVersion, apiVersion)
-    }
-  }
-
   def featured = Open { implicit ctx =>
     negotiate(
       html = notFound,

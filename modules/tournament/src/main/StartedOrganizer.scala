@@ -4,7 +4,6 @@ import akka.actor._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import actorApi._
 import makeTimeout.short
 
 private final class StartedOrganizer(

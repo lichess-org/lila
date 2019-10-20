@@ -7,7 +7,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import actorApi._
 import lila.game.{ Game, Pov }
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol => RP, _ }
@@ -52,12 +51,13 @@ private final class TournamentRemoteSocket(
     allWaitingUsers.compute(
       tour.id,
       (_: Tournament.ID, cur: WaitingUsers.WithNext) =>
-        Option(cur).getOrElse(WaitingUsers.emptyWithNext).copy(next = promise.some)
+        Option(cur).getOrElse(WaitingUsers emptyWithNext tour.clock).copy(next = promise.some)
     )
-    promise.future
+    promise.future.withTimeout(2.seconds, lila.base.LilaException("getWaitingUsers timeout"))(system)
   }
-  // waitingUsers = waitingUsers.update(members.values.flatMap(_.userId)(breakOut), clock)
-  // promise success waitingUsers
+
+  def hasUser(tourId: Tournament.ID, userId: User.ID): Boolean =
+    Option(allWaitingUsers.get(tourId)).exists(_.waiting hasUser userId)
 
   def finish(tourId: Tournament.ID): Unit = {
     allWaitingUsers remove tourId
@@ -74,8 +74,8 @@ private final class TournamentRemoteSocket(
       allWaitingUsers.computeIfPresent(
         roomId.value,
         (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
-          val newWaiting = cur.waiting.update(users, none)
-          cur.next.foreach(_ success newWaiting) // TODO tourney clock
+          val newWaiting = cur.waiting.update(users)
+          cur.next.foreach(_ success newWaiting)
           WaitingUsers.WithNext(newWaiting, none)
         }
       )

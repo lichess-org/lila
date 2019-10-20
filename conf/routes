@@ -221,7 +221,6 @@ GET   /tournament/calendar                    controllers.Tournament.calendar
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
 GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
 GET   /tournament/$id<\w{8}>/page-of/:userId  controllers.Tournament.pageOf(id: String, userId: String)
-GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id: String)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)

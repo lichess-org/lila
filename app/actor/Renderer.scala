@@ -13,7 +13,7 @@ private[app] final class Renderer extends Actor {
     case lila.tv.actorApi.RenderFeaturedJs(game) =>
       sender ! V.game.bits.featuredJs(Pov first game).render
 
-    case lila.tournament.actorApi.TournamentTable(tours) =>
+    case lila.tournament.Tournament.TournamentTable(tours) =>
       sender ! V.tournament.bits.enterable(tours).render
 
     case lila.simul.actorApi.SimulTable(simuls) =>

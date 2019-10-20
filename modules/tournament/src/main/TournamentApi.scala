@@ -8,7 +8,6 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import actorApi._
 import lila.common.{ Debouncer, LightUser, MaxPerSecond }
 import lila.game.{ Game, LightGame, GameRepo, Pov, LightPov }
 import lila.hub.actorApi.lobby.ReloadTournaments
@@ -32,7 +31,6 @@ final class TournamentApi(
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    socketMap: SocketMap,
     socket: TournamentRemoteSocket,
     roundMap: lila.hub.DuctMap[_],
     trophyApi: lila.user.TrophyApi,
@@ -540,7 +538,7 @@ final class TournamentApi(
           )
         }
         TournamentRepo.promotable foreach { tours =>
-          renderer ? TournamentTable(tours) map {
+          renderer ? Tournament.TournamentTable(tours) map {
             case view: String => bus.publish(ReloadTournaments(view), 'lobbySocket)
           }
         }
