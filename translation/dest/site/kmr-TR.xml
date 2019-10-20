@@ -81,6 +81,10 @@
     <item quantity="one">%s mat dibe di nîv-hemleyê de</item>
     <item quantity="other">%s mat dibe di nîv-hemleyan de</item>
   </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Gava piştre yê xwarin an piyonê di %s nîv-hemleyî de (Navbera bo sifirkirina qaîdeya 50 hemleyê)</item>
+    <item quantity="other">Gava piştre yê xwarin an piyonê di %s nîv-hemleyan de (Navbera bo sifirkirina qaîdeya 50 hemleyê)</item>
+  </plurals>
   <string name="noGameFound">Ti lîstik nehat dîtin</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkî bixwazî ji menuya tercîhan zêdetir lîstikan bînî?</string>
   <string name="openingExplorer">Kaşifê destpêkê</string>
@@ -115,7 +119,19 @@
   <string name="claimADraw">Wekheviyê bixwaze</string>
   <string name="offerDraw">Wekhevî pêşniyar bike</string>
   <string name="draw">Wekhev</string>
+  <plurals name="nbPlayers">
+    <item quantity="one">%s lîzer</item>
+    <item quantity="other">%s lîzer</item>
+  </plurals>
   <string name="currentGames">Lîstikên vê gavê</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s lîstik</item>
+    <item quantity="other">%s lîstik</item>
+  </plurals>
+  <plurals name="nbBookmarks">
+    <item quantity="one">%s cihnîşan</item>
+    <item quantity="other">%s cihnîşan</item>
+  </plurals>
   <string name="viewInFullSize">Di ekrana tam de bibîne</string>
   <string name="logOut">Derkeve</string>
   <string name="signIn">Têkeve</string>
@@ -135,6 +151,14 @@
   <string name="correspondence">Kişika bi riya maîlê</string>
   <string name="daysPerTurn">Rojên ji bo her dorekê</string>
   <string name="oneDay">Yek roj</string>
+  <plurals name="nbDays">
+    <item quantity="one">%s roj</item>
+    <item quantity="other">%s roj</item>
+  </plurals>
+  <plurals name="nbHours">
+    <item quantity="one">%s demjimêr</item>
+    <item quantity="other">%s demjimêr</item>
+  </plurals>
   <string name="time">Wext</string>
   <string name="rating">Pile</string>
   <string name="ratingStats">Statîstîkên pileyan</string>
@@ -151,6 +175,10 @@
   <string name="forgotPassword">Te pêborînê ji bîr kir?</string>
   <string name="rank">Pile</string>
   <string name="rankX">Pile: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Pile her deqe tê hildemandin</item>
+    <item quantity="other">Pile her deqe tê hildemandin</item>
+  </plurals>
   <string name="gamesPlayed">Lîstikên listî</string>
   <string name="cancel">Betal bike</string>
   <string name="timeOut">Dem bihurî</string>
@@ -235,10 +263,6 @@
   <string name="backToGame">Vegere lîstikê</string>
   <string name="siteDescription">Malpera kişikê yê serhêl û belaş. Kişikê li ser navrûyeke zelal bilîze. Qeydbûn ne hewce ye, reklam tine, pêvekek lazim tine. Kişikê bi kombersê, bi hevaleke xwe re an bi dijbereke ketober bilîze.</string>
   <string name="teams">Kom</string>
-  <plurals name="nbMembers">
-    <item quantity="one">endam%s</item>
-    <item quantity="other">%s endam</item>
-  </plurals>
   <string name="allTeams">Temamê koman</string>
   <string name="newTeam">Koma nû</string>
   <string name="myTeams">Komên min</string>
@@ -289,10 +313,6 @@
   <string name="unblock">Astengiyê rake</string>
   <string name="followsYou">Te dişopîne</string>
   <string name="xStartedFollowingY">%1$s dest bi şopandina %2$s kir</string>
-  <plurals name="nbFollowing">
-    <item quantity="one">dişopîne %s</item>
-    <item quantity="other">%s dişopînî</item>
-  </plurals>
   <string name="more">Zêdetir</string>
   <string name="memberSince">Ji vê demê ve endam e</string>
   <string name="lastSeenActive">Çalakiya dawîn %s</string>
@@ -300,10 +320,6 @@
   <string name="player">Lîzer</string>
   <string name="list">Lîste</string>
   <string name="graph">Grafîk</string>
-  <plurals name="lessThanNbMinutes">
-    <item quantity="one">Ji %s deqeyê kêmtir</item>
-    <item quantity="other">Ji %s deqeyê kêmtir</item>
-  </plurals>
   <string name="required">Pêwîst e.</string>
   <string name="openTournaments">Pêşbirkên vekirî</string>
   <string name="duration">Mawe</string>
@@ -395,10 +411,6 @@
   <string name="retryThisPuzzle">Vê pazilê nû bike</string>
   <string name="thisPuzzleIsCorrect">Ev pazil rast û balkêş e</string>
   <string name="thisPuzzleIsWrong">Ev pazil xelet û acizker e</string>
-  <plurals name="nbGamesInPlay">
-    <item quantity="one">%s lîstik tên lîstin</item>
-    <item quantity="other">%s lîstik tên lîstin</item>
-  </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">Piştî hemleyê jixweber derbasî lîstika din bibe</string>
   <string name="autoSwitch">Otomatîk biguherîne</string>
   <string name="puzzles">Pazil</string>
@@ -730,10 +742,6 @@
   <string name="reviewWhiteMistakes">Şaşiyên spî binirxîne</string>
   <string name="reviewBlackMistakes">Şaşiyên reş binirxîne</string>
   <string name="advantage">Pêşwendî</string>
-  <plurals name="nbSeconds">
-    <item quantity="one">çirke %s</item>
-    <item quantity="other">%s çirke</item>
-  </plurals>
   <string name="opening">Destpêk</string>
   <string name="middlegame">Nîvlîstik</string>
   <string name="endgame">Dawiya lîstikê</string>
