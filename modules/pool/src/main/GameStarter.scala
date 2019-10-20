@@ -14,16 +14,20 @@ private final class GameStarter(
     sequencer: FutureSequencer
 ) {
 
+  import PoolApi._
+
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
     sequencer {
       val userIds = couples.flatMap(_.userIds)
       UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
-        couples.map(one(pool, perfs)).sequenceFu.void
+        couples.map(one(pool, perfs)).sequenceFu.map { pairings =>
+          bus.publish(Pairings(pairings.flatten.toList), 'poolPairings)
+        }
       }
     }
   }
 
-  private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Funit = {
+  private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Fu[Option[Pairing]] = {
     import couple._
     (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
       case (perf1, perf2) => for {
@@ -37,14 +41,12 @@ private final class GameStarter(
         ).start.withUniqueId
         _ <- GameRepo insertDenormalized game
       } yield {
-
-        bus.publish(PoolApi.Pairing(
+        onStart(game.id)
+        Pairing(
           game,
           whiteSri = whiteMember.sri,
           blackSri = blackMember.sri
-        ), 'poolGame)
-
-        onStart(game.id)
+        ).some
       }
     }
   }
