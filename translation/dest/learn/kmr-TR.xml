@@ -153,4 +153,7 @@ Rê li ber tehdîdê bigire, paşê rok bike!</string>
   <string name="findAWayToCastleKingSide">Rêyeke bibîne ku
 şah-alîkî rok bikî!</string>
   <string name="castlingComplete">Serkeftin! Divê tu hema bêje di her lîstekekê de rok bikî.</string>
+  <string name="enPassant">(En passant) xwarina gava derbasbûnê</string>
+  <string name="theSpecialPawnMove">Hemleya peyayê ya taybet</string>
+  <string name="enPassantIntro">Gava ku peyayê dijbera te bi yekcarî du çarçikan pêşve çû, tu dikarî wê peyayê bixwî, wekî ku ew peya tenê çarçikek çûbe.</string>
 </resources>
