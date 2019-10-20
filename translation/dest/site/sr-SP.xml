@@ -890,4 +890,6 @@
     <item quantity="few">и сачувај %s пре-потезне линије</item>
     <item quantity="other">и сачувај %s пре-потезних линија</item>
   </plurals>
+  <string name="playEveryGame">Играј сваку игру коју започнеш.</string>
+  <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваки меч који играш.</string>
 </resources>
