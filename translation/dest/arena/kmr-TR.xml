@@ -12,6 +12,8 @@ Ger tu du lîstikan li pey hev qezenc bikî tu yê dest bi zincîreke poîntên 
 Lîstikên pey re wê bi double poîntan dewam bikin heta ku te bi ser neket ku lîstikekê qezenc bikî.
 Wekî nimûne, qîmeta du serkeftin û li peyî jî wekheviyek wê bibe 6 poînt: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arenaya Haran</string>
+  <string name="otherRules">Qaîdeyên din ên girîng</string>
+  <string name="thereIsACountdown">Paşjimêrek heye ki bo hemleya te ya pêşîn. Ger tu di vê demê de hemleyekê nekî wekî ceza wê dijbera te xalib were qebûlkirin.</string>
   <plurals name="drawingWithinNbMoves">
     <item quantity="one">Ger di %s hemleyê pêşîn de hûn wekhev bimînin wê ti lîzerek nikaribe pûan bi dest bixe.</item>
     <item quantity="other">Ger di %s hemleyên pêşîn de hûn wekhev bimînin wê ti lîzerek nikaribe pûan bi dest bixe.</item>
