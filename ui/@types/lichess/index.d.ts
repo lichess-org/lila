@@ -59,7 +59,6 @@ interface Lichess {
   hasTouchEvents: boolean;
   mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
-  pushSubscribe(ask: boolean): void;
   formAjax(form: JQuery): any;
   reverse(s: string): string;
 }

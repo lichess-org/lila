@@ -30,12 +30,5 @@ export default function(msg: string | (() => string)) {
   if (Notification.permission === 'granted') {
     // increase chances that the first tab can put a local storage lock
     setTimeout(notify, 10 + Math.random() * 500, msg);
-  } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission(function(p) {
-      if (p === 'granted') {
-        notify(msg);
-        window.lichess.pushSubscribe(false);
-      }
-    });
-  };
+  }
 }

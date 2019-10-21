@@ -348,6 +348,15 @@
           return $('#notify-app').is(':visible');
         };
 
+        function permissionChanged() {
+          $toggle.find('span').attr('data-icon', Notification.permission == 'granted' ? '\ue00f' : '\xbf');
+        }
+
+        if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
+          perm.onchange = permissionChanged;
+        });
+        permissionChanged();
+
         var load = function(data, incoming) {
           if (booted) return;
           booted = true;
@@ -374,11 +383,9 @@
           });
         };
 
-        $toggle.one('mouseover click', function() {
-          load();
-        }).click(function() {
-          setTimeout(function() {
-            lichess.pushSubscribe(true);
+        $toggle.one('mouseover click', () => load()).click(() => {
+          Notification.requestPermission(p => permissionChanged());
+          setTimeout(() => {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
@@ -995,38 +1002,29 @@
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
     const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {noVersion: true, sameDomain: true});
-    navigator.serviceWorker.register(workerUrl, {scope: '/'});
-  }
-
-  lichess.pushSubscribe = function(ask) {
-    if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-      navigator.serviceWorker.ready.then(reg => {
-        const storage = lichess.storage.make('push-subscribed');
-        const vapid = document.body.getAttribute('data-vapid');
-        const allowed = (ask || Notification.permission === 'granted') && Notification.permission !== 'denied';
-        if (vapid && allowed) return reg.pushManager.getSubscription().then(sub => {
-          const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
-          const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
-          if (!sub || resub) {
-            return reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: applicationServerKey
-            }).then(sub => fetch('/push/subscribe', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(sub)
-            })).then(res => {
-              if (res.ok) storage.set('' + Date.now());
-              else throw Error(response.statusText);
-            }).catch(err => console.log('push subscribe failed', err.message));
-          }
-        });
-        else storage.remove();
+    navigator.serviceWorker.register(workerUrl, {scope: '/'}).then(reg => {
+      const storage = lichess.storage.make('push-subscribed');
+      const vapid = document.body.getAttribute('data-vapid');
+      if (vapid && Notification.permission == 'granted') return reg.pushManager.getSubscription().then(sub => {
+        const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+        const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+        if (!sub || resub) {
+          return reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: applicationServerKey
+          }).then(sub => fetch('/push/subscribe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sub)
+          })).then(res => {
+            if (res.ok) storage.set('' + Date.now());
+            else throw Error(response.statusText);
+          }).catch(err => console.log('push subscribe failed', err.message));
+        }
       });
-    }
-  };
-
-  lichess.pushSubscribe(false); // opportunistic push subscription
+      else storage.remove();
+    });
+  }
 })();
