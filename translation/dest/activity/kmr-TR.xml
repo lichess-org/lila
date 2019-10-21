@@ -26,6 +26,22 @@
     <item quantity="one">%1$s hemleyî kir</item>
     <item quantity="other">%1$s hemleyan kir</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">di %1$s lîstika hevnivîsî de</item>
+    <item quantity="other">di %1$s lîstikên hevnivîsî de</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s lîstika hevnivîsî temam kir</item>
+    <item quantity="other">%s lîstikên hevnivîsî temam kir</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Dest bi şopandina %s lîzerê kir</item>
+    <item quantity="other">Dest bi şopandina %s lîzeran kir</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s şopînerê nû bi dest xist</item>
+    <item quantity="other">%s şopînerên nû bi dest xist</item>
+  </plurals>
   <string name="signedUp">Xwe qeydê lichess.orgê kir</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Beşdarî %s tîmekê bû</item>
