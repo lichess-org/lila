@@ -11,14 +11,14 @@ import lila.game.{ Game, GameRepo, UciMemo }
 import ornicar.scalalib.Random.approximatly
 
 final class Player(
-    moveDb: MoveDB,
+    redis: FishnetRedis,
     uciMemo: UciMemo,
     val maxPlies: Int
 )(implicit system: akka.actor.ActorSystem) {
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     Future.delay(delayFor(game) | 0.millis) {
-      makeWork(game, level) addEffect moveDb.add void
+      makeWork(game, level) addEffect redis.request void
     }
   } recover {
     case e: Exception => logger.info(e.getMessage)

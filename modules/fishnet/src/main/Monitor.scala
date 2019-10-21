@@ -3,7 +3,6 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 private final class Monitor(
-    moveDb: MoveDB,
     repo: FishnetRepo,
     sequencer: lila.hub.FutureSequencer,
     scheduler: lila.common.Scheduler
@@ -82,8 +81,6 @@ private final class Monitor(
 
     import lila.mon.fishnet.work._
     import Client.Skill._
-
-    moveDb.monitor
 
     lila.mon.fishnet.queue.sequencer(Analysis.key)(sequencer.queueSize)
 

@@ -11,7 +11,6 @@ import lila.hub.FutureSequencer
 
 final class FishnetApi(
     repo: FishnetRepo,
-    moveDb: MoveDB,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
     sequencer: FutureSequencer,
@@ -41,9 +40,8 @@ final class FishnetApi(
   }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
-    case Skill.Move => acquireMove(client)
-    case Skill.Analysis => acquireAnalysis(client)
-    case Skill.All => acquireMove(client) orElse acquireAnalysis(client)
+    case Skill.Move => fufail("Can't acquire a move directly on lichess!")
+    case Skill.Analysis | Skill.All => acquireAnalysis(client)
   }).chronometer
     .mon(_.fishnet.acquire time client.skill.key)
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
@@ -57,9 +55,6 @@ final class FishnetApi(
         logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
     }
-
-  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
-    moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(
@@ -75,11 +70,6 @@ final class FishnetApi(
         }
       }
   }.map { _ map JsonApi.analysisFromWork(analysisNodes) }
-
-  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
-    val measurement = lila.mon.startMeasurement(_.fishnet.move.post)
-    moveDb.postResult(workId, client, data, measurement)
-  }
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] =
     repo.getAnalysis(workId).flatMap {

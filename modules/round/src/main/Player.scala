@@ -89,21 +89,19 @@ private[round] final class Player(
     res >>- promiseOption.foreach(_.success(()))
   }
 
-  private[round] def fishnet(game: Game, uci: Uci, currentFen: FEN, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def fishnet(game: Game, uci: Uci, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi) {
-      if (currentFen == FEN(Forsyth >> game.chess))
-        applyUci(game, uci, blur = false, metrics = fishnetLag)
-          .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
-            case Flagged => finisher.outOfTime(game)
-            case MoveApplied(progress, moveOrDrop) =>
-              proxy.save(progress) >>-
-                uciMemo.add(progress.game, moveOrDrop) >>-
-                notifyMove(moveOrDrop, progress.game) >> {
-                  if (progress.game.finished) moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ }
-                  else fuccess(progress.events)
-                }
-          }
-      else requestFishnet(game, round) >> fufail(FishnetError("Invalid AI move current FEN"))
+      applyUci(game, uci, blur = false, metrics = fishnetLag)
+        .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
+          case Flagged => finisher.outOfTime(game)
+          case MoveApplied(progress, moveOrDrop) =>
+            proxy.save(progress) >>-
+              uciMemo.add(progress.game, moveOrDrop) >>-
+              notifyMove(moveOrDrop, progress.game) >> {
+                if (progress.game.finished) moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ }
+                else fuccess(progress.events)
+              }
+        }
     } else fufail(FishnetError("Not AI turn"))
 
   private def requestFishnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {

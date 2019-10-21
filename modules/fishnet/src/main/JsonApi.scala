@@ -62,16 +62,6 @@ object JsonApi {
         stockfish: BaseEngine
     ) extends Request
 
-    case class PostMove(
-        fishnet: Fishnet,
-        stockfish: BaseEngine,
-        move: MoveResult
-    ) extends Request with Result
-
-    case class MoveResult(bestmove: String) {
-      def uci: Option[Uci] = Uci(bestmove)
-    }
-
     case class PostAnalysis(
         fishnet: Fishnet,
         stockfish: FullEngine,
@@ -161,12 +151,6 @@ object JsonApi {
     val id: String
     val game: Game
   }
-  case class Move(
-      id: String,
-      level: Int,
-      game: Game,
-      clock: Option[Work.Clock]
-  ) extends Work
 
   case class Analysis(
       id: String,
@@ -174,8 +158,6 @@ object JsonApi {
       nodes: Int,
       skipPositions: List[Int]
   ) extends Work
-
-  def moveFromWork(m: Work.Move) = Move(m.id.value, m.level, fromGame(m.game), m.clock)
 
   def analysisFromWork(nodes: Int)(m: Work.Analysis) = Analysis(
     id = m.id.value,
@@ -194,8 +176,6 @@ object JsonApi {
     implicit val FullEngineReads = Json.reads[Request.FullEngine]
     implicit val FishnetReads = Json.reads[Request.Fishnet]
     implicit val AcquireReads = Json.reads[Request.Acquire]
-    implicit val MoveResultReads = Json.reads[Request.MoveResult]
-    implicit val PostMoveReads = Json.reads[Request.PostMove]
     implicit val ScoreReads = Json.reads[Request.Evaluation.Score]
     implicit val uciListReads = Reads.of[String] map { str =>
       ~Uci.readList(str)
@@ -233,14 +213,6 @@ object JsonApi {
           ),
           "nodes" -> a.nodes,
           "skipPositions" -> a.skipPositions
-        )
-        case m: Move => Json.obj(
-          "work" -> Json.obj(
-            "type" -> "move",
-            "id" -> m.id,
-            "level" -> m.level,
-            "clock" -> m.clock
-          )
         )
       }) ++ Json.toJson(work.game).as[JsObject]
     }

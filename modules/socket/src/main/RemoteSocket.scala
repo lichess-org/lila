@@ -36,8 +36,6 @@ final class RemoteSocket(
 
   private val watchedGameIds = collection.mutable.Set.empty[String]
 
-  private def connectToPubSub = redisClient.connectPubSub()
-
   val baseHandler: Handler = {
     case In.ConnectUser(userId) =>
       bus.publish(lila.hub.actorApi.socket.remote.ConnectUser(userId), 'userActive)
@@ -93,12 +91,12 @@ final class RemoteSocket(
 
   private val mon = lila.mon.socket.remote
 
-  def makeSender(channel: Channel): Sender = new Sender(connectToPubSub, channel)
+  def makeSender(channel: Channel): Sender = new Sender(redisClient.connectPubSub(), channel)
 
   private val send: Send = makeSender("site-out").apply _
 
   def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Unit = {
-    val conn = connectToPubSub
+    val conn = redisClient.connectPubSub()
     conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
       override def message(_channel: String, message: String): Unit = {
         val raw = RawMsg(message)

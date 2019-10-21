@@ -246,7 +246,7 @@ package round {
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
   sealed trait SocketEvent
   case class TourStanding(json: JsArray)
-  case class FishnetPlay(uci: Uci, currentFen: chess.format.FEN)
+  case class FishnetPlay(uci: Uci)
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
   case class RematchYes(playerId: String)

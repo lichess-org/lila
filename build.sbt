@@ -246,7 +246,7 @@ lazy val simul = module("simul", Seq(
 )
 
 lazy val fishnet = module("fishnet", Seq(common, game, analyse, db, evalCache)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, semver, lettuce)
 )
 
 lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).settings(

@@ -2,6 +2,7 @@ package lila.fishnet
 
 import akka.actor._
 import com.typesafe.config.Config
+import io.lettuce.core._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -24,9 +25,17 @@ final class Env(
   private val AnalysisNodes = config getInt "analysis.nodes"
   private val MovePlies = config getInt "move.plies"
   private val ClientMinVersion = config getString "client_min_version"
+  private val RedisUri = config getString "redis.uri"
 
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
+
+  private val redis = new FishnetRedis(
+    RedisClient create RedisURI.create(RedisUri),
+    "fishnet-in",
+    "fishnet-out",
+    system
+  )
 
   private val clientVersion = new ClientVersion(ClientMinVersion)
 
@@ -36,15 +45,13 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  private val moveDb = new MoveDB(system = system)
-
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,
     executionTimeout = Some(1 second),
     logger = logger
   )
 
-  private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
+  private val monitor = new Monitor(repo, sequencer, scheduler)
 
   private val evalCache = new FishnetEvalCache(evalCacheApi)
 
@@ -52,7 +59,6 @@ final class Env(
 
   val api = new FishnetApi(
     repo = repo,
-    moveDb = moveDb,
     analysisBuilder = analysisBuilder,
     analysisColl = analysisColl,
     sequencer = sequencer,
@@ -65,7 +71,7 @@ final class Env(
   )(system)
 
   val player = new Player(
-    moveDb = moveDb,
+    redis = redis,
     uciMemo = uciMemo,
     maxPlies = MovePlies
   )(system)
@@ -87,7 +93,6 @@ final class Env(
 
   new Cleaner(
     repo = repo,
-    moveDb = moveDb,
     analysisColl = analysisColl,
     monitor = monitor,
     scheduler = scheduler
