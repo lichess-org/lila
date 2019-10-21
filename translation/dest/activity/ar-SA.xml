@@ -42,6 +42,22 @@
     <item quantity="many">تم ارسال %1$s رسالة في %2$s</item>
     <item quantity="other">تم ارسال %1$s رسالة في %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="zero">لعب %1$s نقلة</item>
+    <item quantity="one">لعب %1$s نقلة</item>
+    <item quantity="two">لعب %1$s نقلتين</item>
+    <item quantity="few">لعب %1$s من النقلات</item>
+    <item quantity="many">لعب %1$s من النقلات</item>
+    <item quantity="other">لعب %1$s من النقلات</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="zero">في %1$s مباريات مراسلة</item>
+    <item quantity="one">في %1$s مباريات مراسلة</item>
+    <item quantity="two">في %1$s مباريات مراسلة</item>
+    <item quantity="few">في %1$s مباريات مراسلة</item>
+    <item quantity="many">في %1$s من مباريات المراسلة</item>
+    <item quantity="other">في %1$s من مباريات المراسلة</item>
+  </plurals>
   <plurals name="completedNbGames">
     <item quantity="zero">تم اكمال %s مباراة بالمراسلة</item>
     <item quantity="one">تم اكمال %s مباراة بالمراسلة</item>

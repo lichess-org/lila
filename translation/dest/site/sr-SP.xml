@@ -214,6 +214,7 @@
   <string name="playingRightNow">Управо игра</string>
   <string name="eventInProgress">Управо игра</string>
   <string name="finished">Завршен</string>
+  <string name="finishesX">завршава се %s</string>
   <string name="abortGame">Прекините партију</string>
   <string name="gameAborted">Партија прекинута</string>
   <string name="standard">Стандардно</string>
@@ -616,6 +617,9 @@
   <string name="xCommentedY">%1$s је коментарисао/ла %2$s</string>
   <string name="victory">Победа</string>
   <string name="defeat">Пораз</string>
+  <string name="victoryVsYInZ">%1$s против %2$s у %3$s</string>
+  <string name="defeatVsYInZ">%1$s против %2$s у %3$s</string>
+  <string name="drawVsYInZ">%1$s против %2$s у %3$s</string>
   <string name="timeline">Временска линија</string>
   <string name="starting">Почиње:</string>
   <string name="allInformationIsPublicAndOptional">Све информације су јавне и по избору</string>
@@ -735,6 +739,9 @@
   <string name="yourPerfTypeRatingIsRating">твоје %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">ви сте бољи од %1$s од %2$s играча.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немате утврђен %s рејтинг.</string>
+  <string name="yourRating">Твоја оцена</string>
+  <string name="cumulative">Kumulativno</string>
+  <string name="glicko2Rating">Glicko-2 оцена</string>
   <string name="checkYourEmail">Проверите е-пошту.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо вам е-маил. Кликните на линк да бисте активирали вашу рачун.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
@@ -890,4 +897,23 @@
     <item quantity="few">и сачувај %s пре-потезне линије</item>
     <item quantity="other">и сачувај %s пре-потезних линија</item>
   </plurals>
+  <string name="sorry">Извините :(</string>
+  <string name="timeoutExpires">Тајм-аут истиче %s.</string>
+  <string name="why">Зашто?</string>
+  <string name="pleasantChessExperience">Наш циљ је да свима обезбедимо пријатно шаховско искуство.</string>
+  <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
+  <string name="potentialProblem">Када је потенцијални проблем детектован, ми прикажемо ову поруку.</string>
+  <string name="howToAvoidThis">Како ово избећи?</string>
+  <string name="playEveryGame">Играј сваку игру коју започнеш.</string>
+  <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваки меч који играш.</string>
+  <string name="resignLostGames">Предај изгубљене игре (уместо пуштања времена да истекне).</string>
+  <string name="temporaryInconvenience">Извињавамо се на тренутној нелагодности,</string>
+  <string name="wishYouGreatGames">и желимо вам одличне игре на lichess.org.</string>
+  <string name="thankYouForReading">Хвала на читању!</string>
+  <string name="lifetimeScore">Животни резултат</string>
+  <string name="currentMatchScore">Резултат тренутног меча</string>
+  <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
+  <string name="agreementNice">Слажем се да ћу увек бити учтив према другим играчима.</string>
+  <string name="agreementAccount">Слажем се да нећу правити више налога.</string>
+  <string name="agreementPolicy">Слажем се да ћу поштовати све Lichess полисе.</string>
 </resources>
