@@ -176,4 +176,11 @@ ger peyayê te li rêza 5em be dikarî bikî.</string>
   <string name="advanced">Pêşketî</string>
   <string name="pieceValue">Qîmeta kabikan</string>
   <string name="evaluatePieceStrength">Qeweta kabikan bipîve</string>
+  <string name="pieceValueIntro">Kabikên xwedî livînbariyeke bilind biqîmettir in.
+Wezîr = 9
+Keleh = 5
+Fîl = 3
+Siwar = 3
+Peya = 1
+Bihayê şahê bêhed e, ji ber ku windakirina wî tê maneya windakirina lîstikê.</string>
 </resources>
