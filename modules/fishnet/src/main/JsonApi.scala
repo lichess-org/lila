@@ -227,7 +227,10 @@ object JsonApi {
     implicit val WorkWrites = OWrites[Work] { work =>
       (work match {
         case a: Analysis => Json.obj(
-          "work" -> Json.obj("type" -> "analysis", "id" -> a.id),
+          "work" -> Json.obj(
+            "type" -> "analysis",
+            "id" -> a.id
+          ),
           "nodes" -> a.nodes,
           "skipPositions" -> a.skipPositions
         )
