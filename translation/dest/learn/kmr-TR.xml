@@ -164,4 +164,6 @@ Wê bixwe gava derbasbûnê.</string>
   <string name="enPassantOnlyWorksImmediately">Xwarina gava derbasbûnê (en passant) tenê hema piştî ku dijbera te peyayê xwe du gavî pêşve bir dibe.</string>
   <string name="enPassantOnlyWorksOnFifthRank">En passant (xwarina gava derbasbûnê) tenê
 ger peyayê te li rêza 5em be dikarî bikî.</string>
+  <string name="takeAllThePawnsEnPassant">Hemû peyayan gava derbas dibî bixwe!</string>
+  <string name="enPassantComplete">Serkeftin! Tu êdî qaîdeya \"xwarina gava derbasbûnê\" hîn bûyî.</string>
 </resources>
