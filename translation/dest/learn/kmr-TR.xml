@@ -193,4 +193,21 @@ Fîl = 3
 Siwar = 3
 Peya = 1</string>
   <string name="checkInTwo">Kişkirina 2yem</string>
+  <string name="twoMovesToGiveCheck">Du gavên ji bo kişkirinê</string>
+  <string name="checkInTwoIntro">Kombînasyona rast yê ku şahê dijbera te di du hemleyan de kiş dike peyda bike!</string>
+  <string name="checkInTwoGoal">Şahê dijbera xwe tehdîd bike,
+bi du gavan!</string>
+  <string name="checkInTwoComplete">Serkeftin! Te şahê dijbera xwe kiş kir, û te kir ku şahê xwe muhafeze bike!</string>
+  <string name="whatNext">Dû re çi heye?</string>
+  <string name="youKnowHowToPlayChess">Tu êdî dizanî ku kişik çawan tê lîstin, serkeftin! Tu dixwazî ku bibî lîzerek xurt?</string>
+  <string name="register">Qeyd bibe</string>
+  <string name="getAFreeLichessAccount">Hesabek Lichessê yê belaş çêke</string>
+  <string name="practice">Praktîk bike</string>
+  <string name="learnCommonChessPositions">Pozîsyonên kişikê yên berbelav hîn bibe</string>
+  <string name="puzzles">Pazil</string>
+  <string name="exerciseYourTacticalSkills">Qabiliyeta xwe ya taktîkî biceribîne</string>
+  <string name="videos">Vîdeo</string>
+  <string name="watchInstructiveChessVideos">Vîdeoyên kişikê yên hînker seyr bike</string>
+  <string name="playPeople">Bi kesên din re bilîze</string>
+  <string name="opponentsFromAroundTheWorld">Dijberên ji seranserê dinyayê</string>
 </resources>
