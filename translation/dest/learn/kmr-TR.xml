@@ -215,4 +215,19 @@ bi du gavan!</string>
   <string name="letsGo">De dest pê bike!</string>
   <string name="stageX">Asta %s</string>
   <string name="awesome">Pir baş e!</string>
+  <string name="excellent">Bêkêmasî!</string>
+  <string name="greatJob">Karek baş!</string>
+  <string name="perfect">Mikemmel!</string>
+  <string name="outstanding">Hêja!</string>
+  <string name="wayToGo">Super, wisa dewam bike!</string>
+  <string name="yesYesYes">Belê super î!</string>
+  <string name="youreGoodAtThis">Gelek baş î di vî warî de!</string>
+  <string name="nailedIt">Tu têgihîştî.</string>
+  <string name="rightOn">Eynen wisa!</string>
+  <string name="stageXComplete">Asta %sem temam bû</string>
+  <string name="yourScore">Skora te</string>
+  <string name="next">Yê piştre</string>
+  <string name="backToMenu">Vegere menuyê</string>
+  <string name="puzzleFailed">Pazil hel nebû!</string>
+  <string name="retry">Cardin bike</string>
 </resources>
