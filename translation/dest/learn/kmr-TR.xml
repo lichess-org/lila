@@ -183,4 +183,7 @@ Fîl = 3
 Siwar = 3
 Peya = 1
 Bihayê şahê bêhed e, ji ber ku windakirina wî tê maneya windakirina lîstikê.</string>
+  <string name="queenOverBishop">Kabikê qîmettirîn bixwe!
+Wezîr &gt; Fîl</string>
+  <string name="takeThePieceWithTheHighestValue">Kabikê qîmettirîn bixwe!</string>
 </resources>
