@@ -210,4 +210,9 @@ bi du gavan!</string>
   <string name="watchInstructiveChessVideos">Vîdeoyên kişikê yên hînker seyr bike</string>
   <string name="playPeople">Bi kesên din re bilîze</string>
   <string name="opponentsFromAroundTheWorld">Dijberên ji seranserê dinyayê</string>
+  <string name="playMachine">Bi makîneyê re bilîze</string>
+  <string name="testYourSkillsWithTheComputer">Qabiliyetên xwe biceribîne li gel kombersê</string>
+  <string name="letsGo">De dest pê bike!</string>
+  <string name="stageX">Asta %s</string>
+  <string name="awesome">Pir baş e!</string>
 </resources>
