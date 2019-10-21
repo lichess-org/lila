@@ -22,6 +22,10 @@
     <item quantity="one">%1$s peyamî weşand li %2$s</item>
     <item quantity="other">%1$s peyaman weşand li %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s hemleyî kir</item>
+    <item quantity="other">%1$s hemleyan kir</item>
+  </plurals>
   <string name="signedUp">Xwe qeydê lichess.orgê kir</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Beşdarî %s tîmekê bû</item>
