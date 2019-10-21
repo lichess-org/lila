@@ -42,6 +42,18 @@
     <item quantity="one">%s şopînerê nû bi dest xist</item>
     <item quantity="other">%s şopînerên nû bi dest xist</item>
   </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Mêvandariya %s pêşangeha hevdemî kir</item>
+    <item quantity="other">Mêvandariya %s pêşangehên hevdemî kir</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Beşdariya %s pêşangeha hevdemî kir</item>
+    <item quantity="other">Beşdariya %s pêşangehên hevdemî kir</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s xebata nû çêkir</item>
+    <item quantity="other">%s xebatên nû çêkir</item>
+  </plurals>
   <string name="signedUp">Xwe qeydê lichess.orgê kir</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Beşdarî %s tîmekê bû</item>
