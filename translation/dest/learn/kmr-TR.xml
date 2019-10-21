@@ -186,4 +186,11 @@ Bihayê şahê bêhed e, ji ber ku windakirina wî tê maneya windakirina lîsti
   <string name="queenOverBishop">Kabikê qîmettirîn bixwe!
 Wezîr &gt; Fîl</string>
   <string name="takeThePieceWithTheHighestValue">Kabikê qîmettirîn bixwe!</string>
+  <string name="pieceValueComplete">Serkeftin! Te qîmetên kabikan hîn bû!
+Wezîr = 9
+Keleh = 5
+Fîl = 3
+Siwar = 3
+Peya = 1</string>
+  <string name="checkInTwo">Kişkirina 2yem</string>
 </resources>
