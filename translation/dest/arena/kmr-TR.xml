@@ -14,6 +14,9 @@ Wekî nimûne, qîmeta du serkeftin û li peyî jî wekheviyek wê bibe 6 poînt
   <string name="berserk">Arenaya Haran</string>
   <string name="howIsTheWinnerDecided">Yê xalib çawa tê diyarkirin?</string>
   <string name="howDoesPairingWork">Lihevanîn çawa tê kirin?</string>
+  <string name="howDoesPairingWorkAnswer">Di destpêka pêşbirkê de, lîzer girêdayî reytîngên xwe têne lihevanîn.
+Hema ku tu tê lîstikekê xelas kir, vegere lobiya pêşbirkê, û dû re tu yê werî lihevanîn bi lîzerek nêzî dereceya te. Ev yek dema li hêviyê sekinînê dike mînîmum, lê dibe ku tu bi hemû lîzerên di pêşbirkê re rû bi rû nebî.
+Zû bilîze û vegere lobiyê, qene ku tu zêdetir lîstikan bilîzî û zêdetir pûanan qezenc bikî.</string>
   <string name="howDoesItEnd">Ew çawan xelas dibe?</string>
   <string name="howDoesItEndAnswer">Di pêşbirkê de saeteke paşjimêr heye. Gava ew bigihe sifirê, dereceyên pêşbirkê têne rawestandin, û yê serkeftî tê ragihandin. Lîstikên ku didomin divê bêne xelaskirin, lê ew nayên hesabkirin ji bo pêşbirkê.</string>
   <string name="otherRules">Qaîdeyên din ên girîng</string>
