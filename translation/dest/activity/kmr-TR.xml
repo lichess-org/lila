@@ -54,6 +54,14 @@
     <item quantity="one">%s xebata nû çêkir</item>
     <item quantity="other">%s xebatên nû çêkir</item>
   </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Tevlî %s pêşbaziyê bû</item>
+    <item quantity="other">Tevlî %s pêşbaziyan bû</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Bû %1$sem (di nava %2$s%% de) bi %3$s lîstika di %4$s de</item>
+    <item quantity="other">Bû %1$sem (di nava %2$s%% de) bi %3$s lîstikên di %4$s de</item>
+  </plurals>
   <string name="signedUp">Xwe qeydê lichess.orgê kir</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Beşdarî %s tîmekê bû</item>
