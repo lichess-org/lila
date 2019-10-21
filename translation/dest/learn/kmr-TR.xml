@@ -166,4 +166,14 @@ Wê bixwe gava derbasbûnê.</string>
 ger peyayê te li rêza 5em be dikarî bikî.</string>
   <string name="takeAllThePawnsEnPassant">Hemû peyayan gava derbas dibî bixwe!</string>
   <string name="enPassantComplete">Serkeftin! Tu êdî qaîdeya \"xwarina gava derbasbûnê\" hîn bûyî.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Ev lîstik wekhev xelas bû</string>
+  <string name="stalemateIntro">Gava lîzerek nehatibe kişkirin û nikaribe bi cihekî ve biçe, wê gavê dibe wekhevî. Lîstik wekhev xelas dibe: ango ne serkeftinek ne jî mexlûbiyetek.</string>
+  <string name="stalemateGoal">Bo patkirina reşê:
+- Divê reş nikaribe bi cihekî ve biçe
+- Divê kişkirî nîn be.</string>
+  <string name="stalemateComplete">Serkeftin! Wek pat man çêtir e ji şahmatbûnê!</string>
+  <string name="advanced">Pêşketî</string>
+  <string name="pieceValue">Qîmeta kabikan</string>
+  <string name="evaluatePieceStrength">Qeweta kabikan bipîve</string>
 </resources>
