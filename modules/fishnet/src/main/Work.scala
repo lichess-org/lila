@@ -71,36 +71,9 @@ object Work {
   case class Move(
       _id: Work.Id, // random
       game: Game,
-      currentFen: FEN,
       level: Int,
-      clock: Option[Work.Clock],
-      tries: Int,
-      lastTryByKey: Option[Client.Key],
-      acquired: Option[Acquired],
-      createdAt: DateTime
-  ) extends Work {
-
-    def skill = Client.Skill.Move
-
-    def assignTo(client: Client) = copy(
-      acquired = Acquired(
-        clientKey = client.key,
-        userId = client.userId,
-        date = DateTime.now
-      ).some,
-      lastTryByKey = client.key.some,
-      tries = tries + 1
-    )
-
-    def timeout = copy(acquired = none)
-    def invalid = copy(acquired = none)
-
-    def isOutOfTries = tries >= 3
-
-    def similar(to: Move) = game.id == to.game.id && currentFen == to.currentFen
-
-    override def toString = s"id:$id game:${game.id} variant:${game.variant.key} level:$level tries:$tries created:$createdAt acquired:$acquired"
-  }
+      clock: Option[Work.Clock]
+  )
 
   case class Analysis(
       _id: Work.Id, // random

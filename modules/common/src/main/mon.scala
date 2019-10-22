@@ -618,13 +618,6 @@ object mon {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
       def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
-      val moveDbSize = rec("fishnet.work.move.db_size")
-    }
-    object move {
-      def time(client: String) = rec(s"fishnet.move.time.$client")
-      def fullTimeLvl1(client: String) = rec(s"fishnet.move.full_time_lvl_1.$client")
-      val post = rec("fishnet.move.post")
-      val dbDrop = inc("fishnet.move.db_drop")
     }
     object analysis {
       def by(client: String) = new {

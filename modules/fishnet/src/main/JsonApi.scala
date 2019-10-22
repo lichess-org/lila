@@ -202,7 +202,6 @@ object JsonApi {
     implicit val VariantWrites = Writes[Variant] { v => JsString(v.key) }
     implicit val FENWrites = Writes[FEN] { fen => JsString(fen.value) }
     implicit val GameWrites: Writes[Game] = Json.writes[Game]
-    implicit val ClockWrites: Writes[Work.Clock] = Json.writes[Work.Clock]
     implicit val WorkIdWrites = Writes[Work.Id] { id => JsString(id.value) }
     implicit val WorkWrites = OWrites[Work] { work =>
       (work match {

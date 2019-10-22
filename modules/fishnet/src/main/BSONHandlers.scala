@@ -42,8 +42,6 @@ private object BSONHandlers {
   implicit val ClockHandler = Macros.handler[Clock]
   import Work.Game
   implicit val GameHandler = Macros.handler[Game]
-  import Work.Move
-  implicit val MoveHandler = Macros.handler[Move]
   import Work.Sender
   implicit val SenderHandler = Macros.handler[Sender]
   import Work.Analysis

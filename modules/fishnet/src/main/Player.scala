@@ -55,7 +55,6 @@ final class Player(
             variant = game.variant,
             moves = moves mkString " "
           ),
-          currentFen = FEN(Forsyth >> game.chess),
           level =
             if (level < 3 && game.clock.exists(_.config.limit.toSeconds < 60)) 3
             else level,
@@ -65,11 +64,7 @@ final class Player(
               btime = clk.remainingTime(Black).centis,
               inc = clk.incrementSeconds
             )
-          },
-          tries = 0,
-          lastTryByKey = none,
-          acquired = none,
-          createdAt = DateTime.now
+          }
         )
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")
