@@ -329,7 +329,6 @@ object mon {
       val connections = rec("socket.remote.connections")
       object redis {
         val publishTime = rec("socket.remote.redis.publish_time")
-        val publishTimeSync = rec("socket.remote.redis.publish_time.sync")
         object in {
           def channel(channel: String) = inc(s"socket.remote.redis.in.channel.$channel")
           def path(channel: String, path: String) = inc(s"socket.remote.redis.in.path.$channel:$path")
@@ -338,10 +337,6 @@ object mon {
           def channel(channel: String) = inc(s"socket.remote.redis.out.channel.$channel")
           def path(channel: String, path: String) = inc(s"socket.remote.redis.out.path.$channel:$path")
         }
-      }
-      object lobby {
-        def tellSri(tpe: String) = inc(s"socket.remote.lobby.tell_sri.$tpe")
-        val missingSri = inc("socket.remote.lobby.missing_sri")
       }
     }
   }

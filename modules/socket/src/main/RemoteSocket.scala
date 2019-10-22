@@ -130,11 +130,8 @@ object RemoteSocket {
 
     def apply(msg: String): Unit = {
       val chrono = Chronometer.start
-      Chronometer.syncMon(_.socket.remote.redis.publishTimeSync) {
-        // println(msg, s"out:$channel")
-        conn.async.publish(channel, msg).thenRun {
-          new Runnable { def run = chrono.mon(_.socket.remote.redis.publishTime) }
-        }
+      conn.async.publish(channel, msg).thenRun {
+        new Runnable { def run = chrono.mon(_.socket.remote.redis.publishTime) }
       }
       mon.redis.out.channel(channel)()
       mon.redis.out.path(channel, msg.takeWhile(' ' !=))()
