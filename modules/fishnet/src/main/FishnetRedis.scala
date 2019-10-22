@@ -4,6 +4,9 @@ import chess.format.Uci
 import io.lettuce.core._
 import io.lettuce.core.pubsub._
 
+import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
+
 final class FishnetRedis(
     client: RedisClient,
     chanIn: String,
@@ -20,13 +23,13 @@ final class FishnetRedis(
 
   connIn.addListener(new RedisPubSubAdapter[String, String] {
     override def message(chan: String, msg: String): Unit = msg split ' ' match {
+
+      case Array("start") => system.lilaBus.publish(FishnetStart, 'roundMapTellAll)
+
       case Array(gameId, plyS, uci) => for {
         move <- Uci(uci)
         ply <- parseIntOption(plyS)
-      } system.lilaBus.publish(
-        lila.hub.actorApi.map.Tell(gameId, lila.hub.actorApi.round.FishnetPlay(move, ply)),
-        'roundMapTell
-      )
+      } system.lilaBus.publish(Tell(gameId, FishnetPlay(move, ply)), 'roundMapTell)
       case _ =>
     }
   })

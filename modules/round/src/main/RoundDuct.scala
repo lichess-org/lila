@@ -11,7 +11,7 @@ import chess.Color
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.{ FishnetPlay, BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.Duct
 import lila.socket.UserLagCache
 import makeTimeout.large
@@ -196,6 +196,12 @@ private[round] final class RoundDuct(
 
     case NoStart => handle { game =>
       game.timeBeforeExpiration.exists(_.centis == 0) ?? finisher.noStart(game)
+    }
+
+    case FishnetStart => proxy.game map {
+      _.filter(_.playableByAi) foreach {
+        player.requestFishnet(_, this)
+      }
     }
   }
 

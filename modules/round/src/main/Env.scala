@@ -91,6 +91,9 @@ final class Env(
     'roundMapTell -> {
       case Tell(id, msg) => roundMap.tell(id, msg)
     },
+    'roundMapTellAll -> {
+      case msg => roundMap.tellAll(msg)
+    },
     'deploy -> {
       case DeployPost => roundMap tellAll DeployPost
     },

@@ -104,7 +104,7 @@ private[round] final class Player(
         }
     } else fufail(FishnetError(s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"))
 
-  private def requestFishnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {
+  private[round] def requestFishnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {
     if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
     else fuccess(round ! actorApi.round.ResignAi)
   }

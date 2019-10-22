@@ -230,7 +230,6 @@ final class LobbySocket(
       trouper ! LeaveAll
 
     case tell @ P.In.TellSri(sri, user, typ, msg) if messagesHandled(typ) =>
-      lila.mon.socket.remote.lobby.tellSri(typ)
       getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(typ -> msg, {
           case _ => logger.warn(s"Can't handle $typ")
