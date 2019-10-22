@@ -152,8 +152,82 @@ an jî ger keleh jixwe hereketkirî be.</string>
 Rê li ber tehdîdê bigire, paşê rok bike!</string>
   <string name="findAWayToCastleKingSide">Rêyeke bibîne ku
 şah-alîkî rok bikî!</string>
+  <string name="findAWayToCastleQueenSide">Rêyeke bibîne ku
+wezîr-alîkî rok bikî!</string>
   <string name="castlingComplete">Serkeftin! Divê tu hema bêje di her lîstekekê de rok bikî.</string>
   <string name="enPassant">(En passant) xwarina gava derbasbûnê</string>
   <string name="theSpecialPawnMove">Hemleya peyayê ya taybet</string>
   <string name="enPassantIntro">Gava ku peyayê dijbera te bi yekcarî du çarçikan pêşve çû, tu dikarî wê peyayê bixwî, wekî ku ew peya tenê çarçikek çûbe.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Reş vê gavê peyayê
+du gavî pêşve bir!
+Wê bixwe gava derbasbûnê.</string>
+  <string name="enPassantOnlyWorksImmediately">Xwarina gava derbasbûnê (en passant) tenê hema piştî ku dijbera te peyayê xwe du gavî pêşve bir dibe.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant (xwarina gava derbasbûnê) tenê
+ger peyayê te li rêza 5em be dikarî bikî.</string>
+  <string name="takeAllThePawnsEnPassant">Hemû peyayan gava derbas dibî bixwe!</string>
+  <string name="enPassantComplete">Serkeftin! Tu êdî qaîdeya \"xwarina gava derbasbûnê\" hîn bûyî.</string>
+  <string name="stalemate">Pat</string>
+  <string name="theGameIsADraw">Ev lîstik wekhev xelas bû</string>
+  <string name="stalemateIntro">Gava lîzerek nehatibe kişkirin û nikaribe bi cihekî ve biçe, wê gavê dibe wekhevî. Lîstik wekhev xelas dibe: ango ne serkeftinek ne jî mexlûbiyetek.</string>
+  <string name="stalemateGoal">Bo patkirina reşê:
+- Divê reş nikaribe bi cihekî ve biçe
+- Divê kişkirî nîn be.</string>
+  <string name="stalemateComplete">Serkeftin! Wek pat man çêtir e ji şahmatbûnê!</string>
+  <string name="advanced">Pêşketî</string>
+  <string name="pieceValue">Qîmeta kabikan</string>
+  <string name="evaluatePieceStrength">Qeweta kabikan bipîve</string>
+  <string name="pieceValueIntro">Kabikên xwedî livînbariyeke bilind biqîmettir in.
+Wezîr = 9
+Keleh = 5
+Fîl = 3
+Siwar = 3
+Peya = 1
+Bihayê şahê bêhed e, ji ber ku windakirina wî tê maneya windakirina lîstikê.</string>
+  <string name="queenOverBishop">Kabikê qîmettirîn bixwe!
+Wezîr &gt; Fîl</string>
+  <string name="takeThePieceWithTheHighestValue">Kabikê qîmettirîn bixwe!</string>
+  <string name="pieceValueComplete">Serkeftin! Te qîmetên kabikan hîn bû!
+Wezîr = 9
+Keleh = 5
+Fîl = 3
+Siwar = 3
+Peya = 1</string>
+  <string name="checkInTwo">Kişkirina 2yem</string>
+  <string name="twoMovesToGiveCheck">Du gavên ji bo kişkirinê</string>
+  <string name="checkInTwoIntro">Kombînasyona rast yê ku şahê dijbera te di du hemleyan de kiş dike peyda bike!</string>
+  <string name="checkInTwoGoal">Şahê dijbera xwe tehdîd bike,
+bi du gavan!</string>
+  <string name="checkInTwoComplete">Serkeftin! Te şahê dijbera xwe kiş kir, û te kir ku şahê xwe muhafeze bike!</string>
+  <string name="whatNext">Dû re çi heye?</string>
+  <string name="youKnowHowToPlayChess">Tu êdî dizanî ku kişik çawan tê lîstin, serkeftin! Tu dixwazî ku bibî lîzerek xurt?</string>
+  <string name="register">Qeyd bibe</string>
+  <string name="getAFreeLichessAccount">Hesabek Lichessê yê belaş çêke</string>
+  <string name="practice">Praktîk bike</string>
+  <string name="learnCommonChessPositions">Pozîsyonên kişikê yên berbelav hîn bibe</string>
+  <string name="puzzles">Pazil</string>
+  <string name="exerciseYourTacticalSkills">Qabiliyeta xwe ya taktîkî biceribîne</string>
+  <string name="videos">Vîdeo</string>
+  <string name="watchInstructiveChessVideos">Vîdeoyên kişikê yên hînker seyr bike</string>
+  <string name="playPeople">Bi kesên din re bilîze</string>
+  <string name="opponentsFromAroundTheWorld">Dijberên ji seranserê dinyayê</string>
+  <string name="playMachine">Bi makîneyê re bilîze</string>
+  <string name="testYourSkillsWithTheComputer">Qabiliyetên xwe biceribîne li gel kombersê</string>
+  <string name="letsGo">De dest pê bike!</string>
+  <string name="stageX">Asta %s</string>
+  <string name="awesome">Pir baş e!</string>
+  <string name="excellent">Bêkêmasî!</string>
+  <string name="greatJob">Karek baş!</string>
+  <string name="perfect">Mikemmel!</string>
+  <string name="outstanding">Hêja!</string>
+  <string name="wayToGo">Super, wisa dewam bike!</string>
+  <string name="yesYesYes">Belê super î!</string>
+  <string name="youreGoodAtThis">Gelek baş î di vî warî de!</string>
+  <string name="nailedIt">Tu têgihîştî.</string>
+  <string name="rightOn">Eynen wisa!</string>
+  <string name="stageXComplete">Asta %sem temam bû</string>
+  <string name="yourScore">Skora te</string>
+  <string name="next">Yê piştre</string>
+  <string name="backToMenu">Vegere menuyê</string>
+  <string name="puzzleFailed">Pazil hel nebû!</string>
+  <string name="retry">Cardin bike</string>
 </resources>

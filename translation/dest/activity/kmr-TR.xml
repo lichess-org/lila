@@ -22,6 +22,46 @@
     <item quantity="one">%1$s peyamî weşand li %2$s</item>
     <item quantity="other">%1$s peyaman weşand li %2$s</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s hemleyî kir</item>
+    <item quantity="other">%1$s hemleyan kir</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">di %1$s lîstika hevnivîsî de</item>
+    <item quantity="other">di %1$s lîstikên hevnivîsî de</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s lîstika hevnivîsî temam kir</item>
+    <item quantity="other">%s lîstikên hevnivîsî temam kir</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">Dest bi şopandina %s lîzerê kir</item>
+    <item quantity="other">Dest bi şopandina %s lîzeran kir</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s şopînerê nû bi dest xist</item>
+    <item quantity="other">%s şopînerên nû bi dest xist</item>
+  </plurals>
+  <plurals name="hostedNbSimuls">
+    <item quantity="one">Mêvandariya %s pêşangeha hevdemî kir</item>
+    <item quantity="other">Mêvandariya %s pêşangehên hevdemî kir</item>
+  </plurals>
+  <plurals name="joinedNbSimuls">
+    <item quantity="one">Beşdariya %s pêşangeha hevdemî kir</item>
+    <item quantity="other">Beşdariya %s pêşangehên hevdemî kir</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s xebata nû çêkir</item>
+    <item quantity="other">%s xebatên nû çêkir</item>
+  </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Tevlî %s pêşbaziyê bû</item>
+    <item quantity="other">Tevlî %s pêşbaziyan bû</item>
+  </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">Bû %1$sem (di nava %2$s%% de) bi %3$s lîstika di %4$s de</item>
+    <item quantity="other">Bû %1$sem (di nava %2$s%% de) bi %3$s lîstikên di %4$s de</item>
+  </plurals>
   <string name="signedUp">Xwe qeydê lichess.orgê kir</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Beşdarî %s tîmekê bû</item>

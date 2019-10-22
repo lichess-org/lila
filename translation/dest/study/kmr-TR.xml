@@ -17,6 +17,14 @@
   <string name="recentlyUpdated">Yên vê dawiyê nûkirî</string>
   <string name="mostPopular">Yên popûlertirîn</string>
   <string name="addNewChapter">Beşeke nû tevlî bike</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s Beş</item>
+    <item quantity="other">%s Beş</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s Lîstik</item>
+    <item quantity="other">%s Lîstik</item>
+  </plurals>
   <string name="addMembers">Endaman tevlî bike</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Endam</item>
@@ -86,6 +94,10 @@
   <string name="loadAPositionFromFen">Pozisyonek bar bike ji FENê</string>
   <string name="loadAGameFromPgn">Lîstikek bar bike ji PGN</string>
   <string name="automatic">Otomatîk</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
+    <item quantity="other">Nivîsa xwe ya PGNê bi vir ve bize, herî zêde %s lîstik</item>
+  </plurals>
   <string name="urlOfTheGame">URLya lîstikê</string>
   <string name="loadAGameFromXOrY">Lîstikekê bar bike ji %1$s an %2$s</string>
   <string name="createChapter">Beşê çêbike</string>
