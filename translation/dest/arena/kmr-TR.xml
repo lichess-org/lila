@@ -12,6 +12,13 @@ Ger tu du lîstikan li pey hev qezenc bikî tu yê dest bi zincîreke poîntên 
 Lîstikên pey re wê bi double poîntan dewam bikin heta ku te bi ser neket ku lîstikekê qezenc bikî.
 Wekî nimûne, qîmeta du serkeftin û li peyî jî wekheviyek wê bibe 6 poînt: 2 + 2 + (2 x 1)</string>
   <string name="berserk">Arenaya Haran</string>
+  <string name="berserkAnswer">Gava ku lîzerek di destpêka lîstikê de pêl bişkoka Berserkê bike, wê nîvê wextê xwe winda bike, lê ger bi ser bikeve wê poînta pêşbirkê zêdetir werbigire.
+
+Di lîstikên ku wextzêdekirin serbest e de, zêdekirina demê betal dibe (1+2 istisna ye, ew dibe 1+0). 
+
+Moda Haran ne berdest e di lîstikên ku dema destpêkê sifir e (0+1, 0+2).
+
+Berserk tenê poîntekê zêdetir dicivîne, ger te di lîstikê de bi kêmanî 7 hemleyan kiribe.</string>
   <string name="howIsTheWinnerDecided">Yê xalib çawa tê diyarkirin?</string>
   <string name="howIsTheWinnerDecidedAnswer">Lîzera (ên) ku xwediyê zêdetirîn poînta ne, di pêşbirkê de wê wek xalib were/werin ragihandin. 
 
