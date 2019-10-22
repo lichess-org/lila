@@ -45,7 +45,8 @@ object Streamer {
       granted = false,
       ignored = false,
       autoFeatured = false,
-      chatEnabled = true
+      chatEnabled = true,
+      lastGrantedAt = none
     ),
     picturePath = none,
     name = Name(s"${user.title.??(_ + " ")}${user.realNameOrUsername}"),
@@ -66,7 +67,8 @@ object Streamer {
       granted: Boolean, // a mod approved
       ignored: Boolean, // further requests are ignored
       autoFeatured: Boolean, // on homepage when status contains "lichess.org"
-      chatEnabled: Boolean // embed chat inside lichess
+      chatEnabled: Boolean, // embed chat inside lichess
+      lastGrantedAt: Option[DateTime]
   )
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue

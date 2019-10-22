@@ -108,7 +108,8 @@ final class StreamerApi(
     coll.update(
       $doc(
         "liveAt" $exists false,
-        "createdAt" $lt DateTime.now.minusWeeks(1)
+        "approval.granted" -> true,
+        "approval.lastGrantedAt" $lt DateTime.now.minusWeeks(1)
       ),
       $set(
         "approval.granted" -> false,

@@ -76,7 +76,8 @@ object StreamerForm {
               else streamer.approval.requested || m.requested
             },
             ignored = m.ignored && !m.granted,
-            chatEnabled = m.chat
+            chatEnabled = m.chat,
+            lastGrantedAt = m.granted.option(DateTime.now) orElse streamer.approval.lastGrantedAt
           )
           case None => streamer.approval
         }
