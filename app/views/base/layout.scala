@@ -23,6 +23,9 @@ object layout {
       s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
     }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag = metaCsp(csp getOrElse defaultCsp)
+    def metaThemeColor(implicit ctx: Context): Frag = raw {
+      s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    }
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
@@ -118,6 +121,7 @@ object layout {
         charset,
         viewport,
         metaCsp(csp),
+        metaThemeColor,
         if (isProd && !isStage) frag(
           st.headTitle(fullTitle | s"$title • lichess.org")
         )
