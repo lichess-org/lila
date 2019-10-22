@@ -48,8 +48,8 @@ private[round] final class RoundDuct(
         else player.bot(p, this)(pov)
       }
 
-    case FishnetPlay(uci) => handle { game =>
-      player.fishnet(game, uci, this)
+    case FishnetPlay(uci, ply) => handle { game =>
+      player.fishnet(game, ply, uci, this)
     } >>- lila.mon.round.move.full.count()
 
     case Abort(playerId) => handle(playerId) { pov =>

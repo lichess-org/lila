@@ -89,8 +89,8 @@ private[round] final class Player(
     res >>- promiseOption.foreach(_.success(()))
   }
 
-  private[round] def fishnet(game: Game, uci: Uci, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =
-    if (game.playable && game.player.isAi) {
+  private[round] def fishnet(game: Game, ply: Int, uci: Uci, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =
+    if (game.playable && game.player.isAi && game.playedTurns == ply) {
       applyUci(game, uci, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
           case Flagged => finisher.outOfTime(game)
@@ -102,7 +102,7 @@ private[round] final class Player(
                 else fuccess(progress.events)
               }
         }
-    } else fufail(FishnetError("Not AI turn"))
+    } else fufail(FishnetError(s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"))
 
   private def requestFishnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {
     if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)

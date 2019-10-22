@@ -20,12 +20,13 @@ final class FishnetRedis(
 
   connIn.addListener(new RedisPubSubAdapter[String, String] {
     override def message(chan: String, msg: String): Unit = msg split ' ' match {
-      case Array(gameId, uci) => Uci(uci) foreach { move =>
-        system.lilaBus.publish(
-          lila.hub.actorApi.map.Tell(gameId, lila.hub.actorApi.round.FishnetPlay(move)),
-          'roundMapTell
-        )
-      }
+      case Array(gameId, plyS, uci) => for {
+        move <- Uci(uci)
+        ply <- parseIntOption(plyS)
+      } system.lilaBus.publish(
+        lila.hub.actorApi.map.Tell(gameId, lila.hub.actorApi.round.FishnetPlay(move, ply)),
+        'roundMapTell
+      )
       case _ =>
     }
   })
