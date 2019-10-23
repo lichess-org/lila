@@ -14,6 +14,12 @@
     margin: 50px auto;
   }
 
+  .denied {
+    padding: .6rem 1rem;
+    background: $c-warn;
+    color: $c-warn-over;
+  }
+
   .notifications {
     @include transition(opacity);
   }

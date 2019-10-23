@@ -7,8 +7,10 @@ export default function(ctrl: Ctrl): VNode {
 
   const d = ctrl.data();
 
-  return h('div#notify-app.links.dropdown',
-    d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())]);
+  return h('div#notify-app.links.dropdown', [
+    Notification.permission == 'denied' ? h('div.denied', 'Notifications disabled in your browser settings.') : undefined,
+    ...(d && !ctrl.initiating() ? renderContent(ctrl, d) : [h('div.initiating', spinner())])
+  ]);
 }
 
 function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {

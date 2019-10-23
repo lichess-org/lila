@@ -350,6 +350,7 @@
 
         function permissionChanged() {
           $toggle.find('span').attr('data-icon', Notification.permission == 'granted' ? '\ue00f' : '\xbf');
+          if (instance) instance.redraw();
         }
 
         if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
