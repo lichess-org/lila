@@ -354,6 +354,7 @@
 
         if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
           perm.onchange = permissionChanged;
+          if (instance) instance.redraw();
         });
         permissionChanged();
 
@@ -367,16 +368,16 @@
               data: data,
               incoming: incoming,
               isVisible: isVisible,
-              setCount: function(nb) {
+              setCount(nb) {
                 $toggle.find('span').attr('data-count', nb);
               },
-              show: function() {
+              show() {
                 if (!isVisible()) $toggle.click();
               },
-              setNotified: function() {
+              setNotified() {
                 lichess.socket.send('notified');
               },
-              pulse: function() {
+              pulse() {
                 $toggle.addClass('pulse');
               }
             });

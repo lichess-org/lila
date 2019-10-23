@@ -198,6 +198,14 @@ object faq {
             a(href := routes.Pref.form("game-display"))("display preferences"),
             " or by pressing ", em("z"), " during a game."
           )
+        ),
+        h2("How to..."),
+        question(
+          "browser-notifications",
+          "Enable or disable browser notifications?",
+          p(img(src := "https://i.imgur.com/TnrIXIs.png", alt := "View site informations popup")),
+          p("Click the lock icon next to the lichess.org address in the URL bar of your browser."),
+          p("Then select whether to allow or block notifications from lichess.")
         )
       )
     }

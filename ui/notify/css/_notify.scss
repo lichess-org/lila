@@ -72,6 +72,13 @@
       border-bottom: $border;
     }
   }
+
+  .browser-notification {
+    display: block;
+    padding: .5em 1em;
+    background: $c-brag;
+    color: $c-brag-over;
+  }
 }
 .site_notification .content {
   @extend %nowrap-hidden;
