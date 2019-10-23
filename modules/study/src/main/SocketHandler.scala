@@ -19,6 +19,7 @@ import lila.socket.{ Handler, AnaMove, AnaDrop, AnaAny }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
 import makeTimeout.short
+import actorApi.Who
 
 final class SocketHandler(
     hub: lila.hub.Env,
@@ -78,19 +79,12 @@ final class SocketHandler(
     case ("anaDrop", o) => AnaDrop parse o foreach {
       moveOrDrop(studyId, _, MoveOpts parse o, sri, member)
     }
-    case ("setPath", o) => AnaRateLimit(sri, member) {
-      reading[AtPosition](o) { position =>
-        member.userId foreach { userId =>
-          api.setPath(userId, studyId, position.ref, sri)
-        }
-      }
-    }
     case ("deleteNode", o) => AnaRateLimit(sri, member) {
       reading[AtPosition](o) { position =>
         for {
           jumpTo <- (o \ "d" \ "jumpTo").asOpt[String] map Path.apply
           userId <- member.userId
-        } api.setPath(userId, studyId, position.ref.withPath(jumpTo), sri) >>
+        } api.setPath(Who(userId, sri), studyId, position.ref.withPath(jumpTo)) >>
           api.deleteNodeAt(userId, studyId, position.ref, sri)
       }
     }
@@ -239,11 +233,6 @@ final class SocketHandler(
           api.explorerGame(byUserId, studyId, data, sri)
         }
       }
-
-    case ("like", o) => for {
-      byUserId <- member.userId
-      v <- (o \ "d" \ "liked").asOpt[Boolean]
-    } api.like(studyId, byUserId, v, sri)
 
     case ("requestAnalysis", o) => for {
       byUserId <- member.userId

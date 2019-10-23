@@ -20,6 +20,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     getPref: User => Fu[lila.pref.Pref],
     getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]],
+    remoteSocketApi: lila.socket.RemoteSocket,
     system: ActorSystem,
     hub: lila.hub.Env,
     db: lila.db.Env,
@@ -70,6 +71,14 @@ final class Env(
     chat = hub.chat,
     api = api,
     evalCacheHandler = evalCacheHandler
+  )
+
+  private val socket = new StudyRemoteSocket(
+    api = api,
+    jsonView = jsonView,
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    system = system
   )
 
   private lazy val chapterColl = db(CollectionChapter)
@@ -202,6 +211,7 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     getPref = lila.pref.Env.current.api.getPref,
     getRelation = lila.relation.Env.current.api.fetchRelation,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
     db = lila.db.Env.current,

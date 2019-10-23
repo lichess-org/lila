@@ -229,10 +229,10 @@ final class LobbySocket(
       lobby ! LeaveAll
       trouper ! LeaveAll
 
-    case tell @ P.In.TellSri(sri, user, typ, msg) if messagesHandled(typ) =>
+    case tell @ P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
-        controller(member).applyOrElse(typ -> msg, {
-          case _ => logger.warn(s"Can't handle $typ")
+        controller(member).applyOrElse(tpe -> msg, {
+          case _ => logger.warn(s"Can't handle $tpe")
         }: lila.socket.Handler.Controller)
       }
   }

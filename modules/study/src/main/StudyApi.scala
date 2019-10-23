@@ -12,6 +12,7 @@ import lila.socket.Socket.Sri
 import lila.tree.Eval
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.User
+import actorApi.Who
 
 final class StudyApi(
     studyRepo: StudyRepo,
@@ -157,18 +158,18 @@ final class StudyApi(
     }
   }
 
-  def setPath(userId: User.ID, studyId: Study.Id, position: Position.Ref, sri: Sri) = sequenceStudy(studyId) { study =>
-    Contribute(userId, study) {
+  def setPath(who: Who, studyId: Study.Id, position: Position.Ref) = sequenceStudy(studyId) { study =>
+    Contribute(who.u, study) {
       chapterRepo.byId(position.chapterId).map {
         _ filter { c =>
           c.root.pathExists(position.path) && study.position.chapterId == c.id
         }
       } flatMap {
-        case None => funit >>- reloadSri(study, sri)
+        case None => funit >>- reloadSri(study, who.sri)
         case Some(chapter) if study.position.path != position.path =>
           studyRepo.setPosition(study.id, position) >>
             updateConceal(study, chapter, position) >>-
-            sendTo(study, StudySocket.SetPath(position, sri))
+            sendToNew(study.id, _.SetPath(position, who))
         case _ => funit
       }
     }
@@ -669,14 +670,14 @@ final class StudyApi(
       lightStudyCache.put(study.id, none)
   }
 
-  def like(studyId: Study.Id, userId: User.ID, v: Boolean, sri: Sri): Funit =
-    studyRepo.like(studyId, userId, v) map { likes =>
-      sendTo(studyId, StudySocket.SetLiking(Study.Liking(likes, v), sri))
+  def like(who: Who, studyId: Study.Id, v: Boolean): Funit =
+    studyRepo.like(studyId, who.u, v) map { likes =>
+      sendToNew(studyId, _.SetLiking(Study.Liking(likes, v), who))
       bus.publish(actorApi.StudyLikes(studyId, likes), 'studyLikes)
       if (v) studyRepo byId studyId foreach {
         _ foreach { study =>
-          if (userId != study.ownerId && study.isPublic)
-            timeline ! (Propagate(StudyLike(userId, study.id.value, study.name.value)) toFollowersOf userId)
+          if (who.u != study.ownerId && study.isPublic)
+            timeline ! (Propagate(StudyLike(who.u, study.id.value, study.name.value)) toFollowersOf who.u)
         }
       }
     }
@@ -741,4 +742,7 @@ final class StudyApi(
 
   private def sendTo(studyId: Study.Id, msg: Any): Unit =
     socketMap.tell(studyId.value, msg)
+
+  private def sendToNew(studyId: Study.Id, msg: StudyRemoteSocket.Out.type => StudyRemoteSocket.Out): Unit =
+    bus.publish(StudyRemoteSocket.Send(studyId, msg(StudyRemoteSocket.Out)), 'studySocket)
 }
