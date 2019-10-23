@@ -15,7 +15,7 @@ export default class RelayCtrl {
     this.applyChapterRelay(chapter, chapter.relay);
     this.intro = {
       exists: !!this.data.description,
-      active: !!this.data.description,
+      active: !!this.data.description && (location.pathname.match(/\//g)||[]).length < 4,
       disable: () => { this.intro.active = false }
     };
   }
