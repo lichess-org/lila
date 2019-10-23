@@ -129,6 +129,8 @@ case class RageSit(counter: Int) extends AnyVal {
   def goneWeight: Float =
     if (!isBad) 1f
     else (1 - 0.7 * sqrt(log10(-(counter / 10) - 3))).toFloat atLeast 0.1f
+
+  def counterView = counter / 10
 }
 
 object RageSit {

@@ -156,7 +156,7 @@ object mod {
 
   def showRageSit(rageSit: RageSit)(implicit ctx: Context) = div(id := "mz_sitdccounter")(
     strong(cls := "text inline")("Ragesit counter: "),
-    span(cls := "text inline")(rageSit.counter / 10)
+    span(cls := "text inline")(rageSit.counterView)
   )
 
   def plan(u: User, charges: List[lila.plan.Charge])(implicit ctx: Context) = charges.headOption.map { firstCharge =>
