@@ -271,7 +271,7 @@ final class StudySocket(
   protected def shouldSkipMessageFor(message: Message, member: Member) =
     (message.metadata.trollish && !member.troll)
 
-  private def who(sri: Sri) = sriToUserId(sri) map { Who(_, sri) }
+  private def who(sri: Sri) = sriToUserId(sri) map { actorApi.Who(_, sri) }
 
   private val noMessadata = Messadata()
 }
@@ -283,10 +283,6 @@ object StudySocket {
       userId: Option[String],
       troll: Boolean
   ) extends DirectSocketMember
-
-  case class Who(u: String, s: Sri)
-  import JsonView.sriWriter
-  implicit private val whoWriter = Json.writes[Who]
 
   case class Join(sri: Sri, userId: Option[User.ID], troll: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
   case class Connected(enumerator: JsEnumerator, member: Member)

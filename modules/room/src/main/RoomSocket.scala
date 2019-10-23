@@ -5,7 +5,7 @@ import lila.common.Bus
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
+import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion, Sri }
 
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -75,6 +75,7 @@ object RoomSocket {
       case class ChatSay(roomId: RoomId, userId: String, msg: String) extends P.In
       case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String) extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
+      case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri) extends P.In
 
       val reader: P.In.Reader = raw => roomReader(raw) orElse P.In.baseReader(raw)
 
@@ -87,6 +88,11 @@ object RoomSocket {
         case "chat/timeout" => raw.args.split(" ", 4) match {
           case Array(roomId, userId, suspect, reason) => ChatTimeout(RoomId(roomId), userId, suspect, reason).some
           case _ => none
+        }
+        case "tell/room/sri" => raw.get(4) {
+          case arr @ Array(roomId, _, _, _) => P.In.tellSriMapper.lift(arr drop 1).flatten map {
+            TellRoomSri(RoomId(roomId), _)
+          }
         }
         case _ => none
       }

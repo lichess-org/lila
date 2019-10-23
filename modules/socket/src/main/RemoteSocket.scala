@@ -195,14 +195,16 @@ object RemoteSocket {
           }
         }.toMap).some
         case "friends/batch" => FriendsBatch(commas(raw.args)).some
-        case "tell/sri" => raw.get(3) {
-          case Array(sri, userOrAnon, payload) => for {
-            obj <- Json.parse(payload).asOpt[JsObject]
-            typ <- obj str "t"
-            userId = userOrAnon.some.filter("-" !=)
-          } yield TellSri(Sri(sri), userId, typ, obj)
-        }
+        case "tell/sri" => raw.get(3)(tellSriMapper)
         case _ => none
+      }
+
+      def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = {
+        case Array(sri, userOrAnon, payload) => for {
+          obj <- Json.parse(payload).asOpt[JsObject]
+          typ <- obj str "t"
+          userId = userOrAnon.some.filter("-" !=)
+        } yield TellSri(Sri(sri), userId, typ, obj)
       }
 
       def commas(str: String): Array[String] =
