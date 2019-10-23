@@ -50,7 +50,7 @@ object thread {
                 !thread.isWrittenBy(post, me) option views.html.report.form.flag(
                   username = thread otherUserId me,
                   resource = s"message/${thread.id}",
-                  text = post.text
+                  text = if (thread isFirstPost post) s"${thread.name} / ${post.text}" else post.text
                 )
               ),
               div(cls := "message-thread__message__body")(richText(post.text))
