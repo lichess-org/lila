@@ -451,7 +451,7 @@
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="zero">لا يوجد أصدقاء متصلون</item>
+    <item quantity="zero">%s أصدقاء متصلون</item>
     <item quantity="one">%s صديق متصل</item>
     <item quantity="two">%s أصدقاء متصلون</item>
     <item quantity="few">%s أصدقاء متصلون</item>
