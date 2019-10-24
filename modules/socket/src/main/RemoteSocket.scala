@@ -4,6 +4,7 @@ import chess.Centis
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.ConcurrentHashMap
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -111,6 +112,13 @@ final class RemoteSocket(
     })
     conn.async.subscribe(channel)
   }
+
+  //   final class Ask[R] {
+
+  //     def apply[R, A](find: R => A): Future[A] = {
+  //       promise = Promise[R]
+  //     }
+  //     val handler: Protocol.In => Option[R]
 
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")
