@@ -145,7 +145,7 @@
   lichess.reverse = s => s.split('').reverse().join('');
   lichess.readServerFen = t => atob(lichess.reverse(t));
 
-  lichess.userAutocomplete = function($input, opts) {
+  lichess.userAutocomplete = ($input, opts) => {
     opts = opts || {};
     lichess.loadCssPath('autocomplete');
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
@@ -164,7 +164,7 @@
               tour: opts.tour,
               object: 1
             },
-            success: function(res) {
+            success(res) {
               res = res.result;
               // hack to fix typeahead limit bug
               if (res.length === 10) res.push(null);
@@ -184,15 +184,13 @@
               '</' + tag + '>';
           }
         }
-      }).on('typeahead:render', function() {
-        lichess.pubsub.emit('content_loaded');
-      });
+      }).on('typeahead:render', () => lichess.pubsub.emit('content_loaded'));
       if (opts.focus) $input.focus();
-      if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
-        opts.onSelect(sel);
-      }).on('keypress', function(e) {
-        if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
-      });
+      if (opts.onSelect) $input
+        .on('typeahead:select', (_, sel) => opts.onSelect(sel))
+        .on('keypress', function(e) {
+          if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
+        });
     });
   };
 
@@ -341,16 +339,12 @@
         };
       })();
 
-      lichess.notifyApp = (function() {
-        var instance, booted;
-        var $toggle = $('#notify-toggle');
-        var isVisible = function() {
-          return $('#notify-app').is(':visible');
-        };
-
-        function permissionChanged() {
+      lichess.notifyApp = (() => {
+        let instance, booted;
+        const $toggle = $('#notify-toggle'),
+          isVisible = () => $('#notify-app').is(':visible'),
+          permissionChanged = () =>
           $toggle.find('span').attr('data-icon', Notification.permission == 'granted' ? '\ue00f' : '\xbf');
-        }
 
         if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
           perm.onchange = permissionChanged;
@@ -358,7 +352,7 @@
         });
         permissionChanged();
 
-        var load = function(data, incoming) {
+        const load = function(data, incoming) {
           if (booted) return;
           booted = true;
           var $el = $('#notify-app').html(initiatingHtml);
@@ -402,55 +396,49 @@
       window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
 
       // dasher
-      (function() {
-        var booted;
+      {
+        let booted;
         $('#top .dasher .toggle').one('mouseover click', function() {
           if (booted) return;
           booted = true;
-          var $el = $('#dasher_app').html(initiatingHtml);
-          var isPlaying = $('body').hasClass('playing');
+          const $el = $('#dasher_app').html(initiatingHtml),
+            playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
-          lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
-            LichessDasher.default($el.empty()[0], {
-              playing: isPlaying
-            });
-          });
+          lichess.loadScript(lichess.compiledScript('dasher')).done(() =>
+            LichessDasher.default($el.empty()[0], { playing })
+          );
         });
-      })();
+      }
 
       // cli
-      (function() {
-        var $wrap = $('#clinput');
+      {
+        const $wrap = $('#clinput');
         if (!$wrap.length) return;
-        var booted;
-        var boot = function() {
+        let booted;
+        const $input = $wrap.find('input');
+        const boot = () => {
           if (booted) return $.Deferred().resolve();
           booted = true;
-          return lichess.loadScript(lichess.compiledScript('cli')).done(function() {
-            LichessCli.app($wrap, toggle);
-          });
-        }
-        var toggle = function(txt) {
-          boot().done(function() {
-            $wrap.find('input').val(txt || '');
-          });
-          $('body').toggleClass('clinput');
-          if ($('body').hasClass('clinput')) $wrap.find('input').focus();
+          return lichess.loadScript(lichess.compiledScript('cli')).done(() =>
+            LichessCli.app($wrap, toggle)
+          );
         };
-        $wrap.find('a').on('mouseover click', function(e) {
-          (e.type === 'mouseover' ? boot : toggle)();
-        });
-        Mousetrap.bind('/', function() {
-          lichess.raf(function() { toggle('/') });
+        const toggle = txt => {
+          boot().done(() => $input.val(txt || ''));
+          $('body').toggleClass('clinput');
+          if ($('body').hasClass('clinput')) $input.focus();
+        };
+        $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
+        Mousetrap.bind('/', () => {
+          lichess.raf(() => toggle('/'));
           return false;
         });
-        Mousetrap.bind('s', function() {
-          lichess.raf(function() { toggle() });
-        });
-      })();
+        Mousetrap.bind('s', () => lichess.raf(() => toggle()));
+        if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
+      }
 
-      $('.user-autocomplete').each(function() {
-        var opts = {
+      $('.user-autocomplete').each(() => {
+        const opts = {
           focus: 1,
           friend: $(this).data('friend'),
           tag: $(this).data('tag')
