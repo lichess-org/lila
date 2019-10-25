@@ -343,12 +343,13 @@
         let instance, booted;
         const $toggle = $('#notify-toggle'),
           isVisible = () => $('#notify-app').is(':visible'),
-          permissionChanged = () =>
-          $toggle.find('span').attr('data-icon', 'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf');
+          permissionChanged = () => {
+            $toggle.find('span').attr('data-icon', 'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf');
+            if (instance) instance.redraw();
+          };
 
         if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
           perm.onchange = permissionChanged;
-          if (instance) instance.redraw();
         });
         permissionChanged();
 
