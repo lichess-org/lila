@@ -429,7 +429,7 @@ object Auth extends LilaController {
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
-              UserRepo.setEmailConfirmed(user.id) >>
+              UserRepo.setEmailConfirmed(user.id).flatMap { _ ?? { e => welcome(user, e) } } >>
               UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
               Env.push.webSubscriptionApi.unsubscribeByUser(user) >>
