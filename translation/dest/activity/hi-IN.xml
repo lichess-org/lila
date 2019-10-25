@@ -22,6 +22,10 @@
     <item quantity="one">%2$s में %1$s संदेश भेजा</item>
     <item quantity="other">%2$s में %1$s संदेश भेजे</item>
   </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s चाल चली</item>
+    <item quantity="other">%1$s चालें चली</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s टूर्नामेंट में भाग लिया</item>
     <item quantity="other">%s टूर्नामेंट में भाग लिया</item>
