@@ -360,7 +360,7 @@ object StudySocket {
             case Array(u, s, "+") => u -> Right(Study.Id(s))
             case Array(u, s, "-") => u -> Left(Study.Id(s))
           }(scala.collection.breakOut)
-        }).pp
+        })
         case _ => none
       }
 
