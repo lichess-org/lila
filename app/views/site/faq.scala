@@ -202,10 +202,11 @@ object faq {
         h2("How to..."),
         question(
           "browser-notifications",
-          "Enable or disable browser notifications?",
-          p(img(src := "https://i.imgur.com/TnrIXIs.png", alt := "View site informations popup")),
+          "Enable or disable notification popups?",
+          p(img(src := assetUrl("images/connection-info.png"), alt := "View site information popup")),
+          p("Lichess can optionally send popup notifications, for example when it is your turn or you received a private message."),
           p("Click the lock icon next to the lichess.org address in the URL bar of your browser."),
-          p("Then select whether to allow or block notifications from lichess.")
+          p("Then select whether to allow or block notifications from Lichess.")
         )
       )
     }

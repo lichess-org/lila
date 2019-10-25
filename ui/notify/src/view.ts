@@ -33,7 +33,7 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
     hook: clickHook(ctrl.nextPage)
   }));
 
-  if (!('Notification' in window)) nodes.push(h('div.browser-notification', 'Browser does not support notifications'));
+  if (!('Notification' in window)) nodes.push(h('div.browser-notification', 'Browser does not support notification popups'));
   else if (Notification.permission == 'denied') nodes.push(notificationDenied());
 
   return nodes;
@@ -44,12 +44,12 @@ export function asText(n: Notification): string | undefined {
 }
 
 function notificationDenied(): VNode {
-  return h('a.browser-notification.denied', {
+  return h('div.browser-notification.denied', {
     attrs: {
-      //href: '/faq#browser-notifications',
+      //href: '/faq#browser-notifications', // TODO: change div to a once faq is deployed
       target: '_blank'
     }
-  }, 'Notifications disabled by browser setting');
+  }, 'Notification popups disabled by browser setting');
 }
 
 function asHtml(n: Notification): VNode | undefined {
