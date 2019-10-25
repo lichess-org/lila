@@ -508,8 +508,10 @@ object UserRepo {
   def mustConfirmEmail(id: User.ID): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
-  def setEmailConfirmed(id: User.ID): Funit =
-    coll.update($id(id) ++ $doc(F.mustConfirmEmail $exists true), $unset(F.mustConfirmEmail)).void
+  def setEmailConfirmed(id: User.ID): Fu[Option[EmailAddress]] =
+    coll.update($id(id) ++ $doc(F.mustConfirmEmail $exists true), $unset(F.mustConfirmEmail)) flatMap { res =>
+      (res.nModified == 1) ?? email(id)
+    }
 
   def speaker(id: User.ID): Fu[Option[User.Speaker]] = {
     import User.speakerHandler
