@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.Future
+import scala.concurrent.{ Promise, Future }
 
 import lila.common.{ Bus, Chronometer }
 import lila.hub.actorApi.relation.ReloadOnlineFriends
@@ -32,6 +32,16 @@ final class RemoteSocket(
   import RemoteSocket._, Protocol._
 
   type UserIds = Set[String]
+
+  private val requests = new ConcurrentHashMap[Int, Promise[String]]
+
+  def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] = {
+    val id = Math.abs(scala.util.Random.nextInt)
+    sendReq(id)
+    val promise = Promise[String]
+    requests.put(id, promise)
+    promise.future map readRes
+  }
 
   private val connectedUserIds = new AtomicReference(Set.empty[String])
 
@@ -57,6 +67,11 @@ final class RemoteSocket(
       logger.info("Remote socket disconnect all")
       connectedUserIds set Set.empty
       watchedGameIds.clear
+    case In.ReqResponse(reqId, response) =>
+      requests.computeIfPresent(reqId, (_: Int, promise: Promise[String]) => {
+        promise success response
+        null // remove from promises
+      })
   }
 
   bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose) {
@@ -112,13 +127,6 @@ final class RemoteSocket(
     })
     conn.async.subscribe(channel)
   }
-
-  //   final class Ask[R] {
-
-  //     def apply[R, A](find: R => A): Future[A] = {
-  //       promise = Promise[R]
-  //     }
-  //     val handler: Protocol.In => Option[R]
 
   lifecycle.addStopHook { () =>
     logger.info("Stopping the Redis pool...")
@@ -178,6 +186,7 @@ object RemoteSocket {
       case class Lags(lags: Map[String, Centis]) extends In
       case class FriendsBatch(userIds: Iterable[String]) extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
+      case class ReqResponse(reqId: Int, response: String) extends In
 
       val baseReader: Reader = raw => raw.path match {
         case "connect/user" => ConnectUser(raw.args).some
@@ -204,6 +213,9 @@ object RemoteSocket {
         }.toMap).some
         case "friends/batch" => FriendsBatch(commas(raw.args)).some
         case "tell/sri" => raw.get(3)(tellSriMapper)
+        case "req/response" => raw.get(2) {
+          case Array(reqId, response) => parseIntOption(reqId) map { ReqResponse(_, response) }
+        }
         case _ => none
       }
 

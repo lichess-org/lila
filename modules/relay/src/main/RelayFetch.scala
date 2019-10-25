@@ -76,17 +76,17 @@ private final class RelayFetch(
           logger.info(s"Sync error $relay ${e.getMessage take 80}")
           SyncResult.Error(e.getMessage)
       }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
-    } flatMap {
+    } map {
       case (result, newRelay) => afterSync(result, newRelay)
     }
 
-  def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
+  def afterSync(result: SyncResult, relay: Relay): Relay = {
     lila.mon.relay.sync.result(result.reportKey)()
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) {
           logger.info(s"Finish because all games are over $relay")
-          fuccess(relay.finish)
+          relay.finish
         } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
         lila.mon.relay.moves(nbMoves)
@@ -95,19 +95,14 @@ private final class RelayFetch(
     }
   }
 
-  def continueRelay(r: Relay): Fu[Relay] = {
-    if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
-      r.sync.log.events.lastOption.flatMap(_.error).ifTrue(r.official && r.hasStarted) foreach { error =>
-        slackApi.broadcastError(r.id.value, r.name, error)
-      }
-      fuccess(60)
-    } else r.sync.delay match {
-      case Some(delay) => fuccess(delay)
-      case None => api getNbViewers r map { nb =>
-        (18 - nb) atLeast 7
-      }
-    }
-  } map { seconds =>
+  def continueRelay(r: Relay): Relay = {
+    val seconds =
+      if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
+        r.sync.log.events.lastOption.flatMap(_.error).ifTrue(r.official && r.hasStarted) foreach { error =>
+          slackApi.broadcastError(r.id.value, r.name, error)
+        }
+        60
+      } else r.sync.delay getOrElse 7
     r.withSync {
       _.copy(
         nextAt = DateTime.now plusSeconds {

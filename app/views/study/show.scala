@@ -46,7 +46,7 @@ object show {
             "endpoint" -> explorerEndpoint,
             "tablebaseEndpoint" -> tablebaseEndpoint
           ),
-          "socketUrl" -> routes.Study.websocket(s.id.value, apiVersion.value).url,
+          "socketUrl" -> socketUrl(s.id.value),
           "socketVersion" -> socketVersion.value
         ))
       }""")
@@ -64,4 +64,6 @@ object show {
       main(cls := "analyse"),
       bits.streamers(streams)
     ))
+
+  def socketUrl(id: String) = s"/study/$id/socket/v${apiVersion}"
 }

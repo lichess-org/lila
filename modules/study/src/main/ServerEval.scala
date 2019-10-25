@@ -39,14 +39,14 @@ object ServerEval {
 
   final class Merger(
       sequencer: StudySequencer,
-      socketMap: SocketMap,
+      socket: StudySocket,
       api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
   ) {
 
-    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId ?? { studyId =>
-      sequencer.sequenceStudyWithChapter(Study.Id(studyId), Chapter.Id(analysis.id)) {
+    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? { studyId =>
+      sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
         case Study.WithChapter(study, chapter) =>
           (complete ?? chapterRepo.completeServerEval(chapter)) >> {
             lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
@@ -73,7 +73,7 @@ object ServerEval {
           } >>- {
             chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
               _ ?? { chapter =>
-                socketMap.tell(studyId, ServerEval.Progress(
+                socket.onServerEval(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
                   tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
                   analysis = toJson(chapter, analysis),

@@ -9,6 +9,7 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.common.{ IpAddress, HTTPRequest }
+import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
@@ -216,22 +217,6 @@ object Study extends LilaController {
       }
   } ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { sri =>
-      env.api byId id flatMap {
-        _.filter(canView) ?? { study =>
-          env.socketHandler.join(
-            studyId = id,
-            sri = lila.socket.Socket.Sri(sri),
-            user = ctx.me,
-            getSocketVersion,
-            apiVersion
-          ) map some
-        }
-      }
-    }
-  }
-
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lila.study.DataForm.importGame.form.bindFromRequest.fold(
@@ -277,7 +262,9 @@ object Study extends LilaController {
     get("sri") ?? { sri =>
       lila.study.DataForm.importPgn.form.bindFromRequest.fold(
         jsonFormError,
-        data => env.api.importPgns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky, lila.socket.Socket.Sri(sri))
+        data => env.api.importPgns(
+          StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky
+        )(Who(me.id, lila.socket.Socket.Sri(sri)))
       )
     }
   }
