@@ -54,6 +54,10 @@
     <item quantity="one">%s टूर्नामेंट में भाग लिया</item>
     <item quantity="other">%s टूर्नामेंट में भाग लिया</item>
   </plurals>
+  <plurals name="rankedInTournament">
+    <item quantity="one">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
+    <item quantity="other">%4$s में %3$s खेल के साथ %1$s (टॉप %2$s%%) रैंक किया गया</item>
+  </plurals>
   <string name="signedUp">lichess.org पर साइन किया गया</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">%s टीम में शामिल हुए</item>
