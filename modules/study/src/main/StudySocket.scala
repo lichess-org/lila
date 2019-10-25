@@ -19,9 +19,10 @@ import lila.user.User
 private final class StudySocket(
     api: StudyApi,
     jsonView: JsonView,
+    lightStudyCache: LightStudyCache,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: ActorSelection,
-    system: ActorSystem
+    bus: lila.common.Bus
 ) {
 
   import StudySocket._
@@ -29,7 +30,7 @@ private final class StudySocket(
   implicit def roomIdToStudyId(roomId: RoomId) = Study.Id(roomId.value)
   implicit def studyIdToRoomId(studyId: Study.Id) = RoomId(studyId.value)
 
-  lazy val rooms = makeRoomMap(send, system.lilaBus)
+  lazy val rooms = makeRoomMap(send, bus)
 
   def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
@@ -172,10 +173,25 @@ private final class StudySocket(
             onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err))))
         }
         case "relaySync" => who foreach { w =>
-          system.lilaBus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), 'relayToggle)
+          bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), 'relayToggle)
         }
         case t => logger.warn(s"Unhandled study socket message: $t")
       }
+    case Protocol.In.StudyDoor(moves) => moves foreach {
+      case (userId, through) =>
+        val studyId = through.fold(identity, identity)
+        lightStudyCache get studyId foreach {
+          _ foreach { study =>
+            bus.publish(lila.hub.actorApi.study.StudyDoor(
+              userId = userId,
+              studyId = studyId.value,
+              contributor = study contributors userId,
+              public = study.isPublic,
+              enters = through.isRight
+            ), 'study)
+          }
+        }
+    }
   }
 
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) = m.branch match {
@@ -197,7 +213,7 @@ private final class StudySocket(
     studyHandler orElse handler orElse remoteSocketApi.baseHandler
   )
 
-  system.lilaBus.subscribeFun('studySocket) {
+  bus.subscribeFun('studySocket) {
     case Send(studyId, msg) =>
       import Out._
       import JsonView._
@@ -329,6 +345,7 @@ object StudySocket {
     object In {
 
       case class TellStudySri(studyId: Study.Id, tellSri: P.In.TellSri) extends P.In
+      case class StudyDoor(through: Map[User.ID, Either[Study.Id, Study.Id]]) extends P.In
 
       val reader: P.In.Reader = raw => studyReader(raw) orElse RP.In.reader(raw)
 
@@ -338,6 +355,12 @@ object StudySocket {
             TellStudySri(Study.Id(studyId), _)
           }
         }
+        case "study/door" => Some(StudyDoor {
+          P.In.commas(raw.args).map(_ split ":").collect {
+            case Array(u, s, "+") => u -> Right(Study.Id(s))
+            case Array(u, s, "-") => u -> Left(Study.Id(s))
+          }(scala.collection.breakOut)
+        }).pp
         case _ => none
       }
 
