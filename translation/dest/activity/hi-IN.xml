@@ -14,6 +14,14 @@
     <item quantity="one">%s सामरिक पहेली को हल किया</item>
     <item quantity="other">%s सामरिक पहेलियाँ को हल किया</item>
   </plurals>
+  <plurals name="playedNbGames">
+    <item quantity="one">%1$s %2$s का खेल खेला</item>
+    <item quantity="other">%1$s %2$s के खेल खेले</item>
+  </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%2$s में %1$s संदेश भेजा</item>
+    <item quantity="other">%2$s में %1$s संदेश भेजे</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s टूर्नामेंट में भाग लिया</item>
     <item quantity="other">%s टूर्नामेंट में भाग लिया</item>
