@@ -344,7 +344,7 @@
         const $toggle = $('#notify-toggle'),
           isVisible = () => $('#notify-app').is(':visible'),
           permissionChanged = () =>
-          $toggle.find('span').attr('data-icon', Notification.permission == 'granted' ? '\ue00f' : '\xbf');
+          $toggle.find('span').attr('data-icon', 'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf');
 
         if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
           perm.onchange = permissionChanged;
@@ -379,7 +379,7 @@
         };
 
         $toggle.one('mouseover click', () => load()).click(() => {
-          Notification.requestPermission(p => permissionChanged());
+          if ('Notification' in window) Notification.requestPermission(p => permissionChanged());
           setTimeout(() => {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
