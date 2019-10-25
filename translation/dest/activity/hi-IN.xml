@@ -26,6 +26,18 @@
     <item quantity="one">%1$s चाल चली</item>
     <item quantity="other">%1$s चालें चली</item>
   </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">%1$s पत्राचार खेल में</item>
+    <item quantity="other">%1$s पत्राचार खेलों में</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s पत्राचार खेल पूर्ण किया</item>
+    <item quantity="other">%s पत्राचार खेल पूर्ण किए</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s खिलाड़ी का अनुसरण करना शुरू किया</item>
+    <item quantity="other">%s खिलाड़ियों का अनुसरण करना शुरू किया</item>
+  </plurals>
   <plurals name="competedInNbTournaments">
     <item quantity="one">%s टूर्नामेंट में भाग लिया</item>
     <item quantity="other">%s टूर्नामेंट में भाग लिया</item>
