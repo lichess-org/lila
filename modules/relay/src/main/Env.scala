@@ -28,7 +28,6 @@ final class Env(
   val api = new RelayApi(
     repo = repo,
     studyApi = studyEnv.api,
-    socketMap = studyEnv.socketMap,
     withStudy = withStudy,
     jsonView = jsonView,
     clearFormatCache = formatApi.refresh,
@@ -46,11 +45,6 @@ final class Env(
     chapterRepo = studyEnv.chapterRepo
   )
 
-  lazy val socketHandler = new SocketHandler(
-    studyHandler = studyEnv.socketHandler,
-    api = api
-  )
-
   private lazy val formatApi = new RelayFormatApi(asyncCache)
 
   system.actorOf(Props(new RelayFetch(
@@ -65,9 +59,15 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
   }
 
-  system.lilaBus.subscribeFun('studyLikes, 'study) {
+  system.lilaBus.subscribeFun('studyLikes, 'study, 'relayToggle) {
     case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
     case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
+    case lila.study.actorApi.RelayToggle(id, v, who) =>
+      studyEnv.api.isContributor(id, who.u) flatMap {
+        _ ?? {
+          api.requestPlay(Relay.Id(id.value), v)
+        }
+      }
   }
 }
 

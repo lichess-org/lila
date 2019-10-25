@@ -4,6 +4,7 @@ import lila.chat.{ Chat, UserLine, actorApi => chatApi }
 import lila.common.Bus
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
+import lila.user.User
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion, Sri }
 
@@ -26,9 +27,9 @@ object RoomSocket {
 
     val process: Trouper.Receive = {
       case GetVersion(promise) => promise success version
-      case nv: NotifyVersion[_] =>
+      case n: NotifyVersion[_] =>
         version = version.inc
-        send(Protocol.Out.tellRoomVersion(roomId, nv.msg, version, nv.troll))
+        send(Protocol.Out.tellRoomVersion(roomId, n.msg, version, n.troll))
       case lila.chat.actorApi.ChatLine(_, line) => line match {
         case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
         case _ =>
@@ -55,12 +56,15 @@ object RoomSocket {
   def roomHandler(
     rooms: TrouperMap[RoomState],
     chat: akka.actor.ActorSelection,
-    publicSource: RoomId => PublicSource.type => Option[PublicSource]
+    publicSource: RoomId => PublicSource.type => Option[PublicSource],
+    canTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
   ): Handler = {
     case Protocol.In.ChatSay(roomId, userId, msg) =>
       chat ! lila.chat.actorApi.UserTalk(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
     case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) => lila.chat.ChatTimeout.Reason(reason) foreach { r =>
-      chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = false)
+      canTimeout.fold(fuccess(true)) { _(roomId, modId, suspect) } foreach { allowed =>
+        if (allowed) chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = false)
+      }
     }
     case Protocol.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
       rooms touchOrMake roomId.value
@@ -104,8 +108,10 @@ object RoomSocket {
         s"tell/room $roomId ${Json stringify payload}"
       def tellRoomVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
         s"tell/room/version $roomId $version $isTroll ${Json stringify payload}"
-      def tellRoomUser(roomId: RoomId, userId: String, payload: JsObject) =
+      def tellRoomUser(roomId: RoomId, userId: User.ID, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
+      def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =
+        s"tell/room/users $roomId ${P.Out.commas(userIds)} ${Json stringify payload}"
       def start(roomId: RoomId) =
         s"room/start $roomId"
       def stop(roomId: RoomId) =

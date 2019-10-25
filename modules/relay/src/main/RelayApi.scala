@@ -15,7 +15,6 @@ import lila.user.User
 final class RelayApi(
     repo: RelayRepo,
     studyApi: StudyApi,
-    socketMap: lila.study.SocketMap,
     withStudy: RelayWithStudy,
     jsonView: JsonView,
     clearFormatCache: Url => Unit,
@@ -139,7 +138,4 @@ final class RelayApi(
         system.lilaBus.publish(SendTos(userIds, payload), 'socketUsers)
       }
     }
-
-  private[relay] def getNbViewers(relay: Relay): Fu[Int] =
-    socketMap.askIfPresentOrZero[Int](relay.id.value)(lila.socket.SocketTrouper.GetNbMembers)
 }
