@@ -46,9 +46,10 @@ final class Env(
   private val socket = new StudySocket(
     api = api,
     jsonView = jsonView,
+    lightStudyCache = lightStudyCache,
     remoteSocketApi = remoteSocketApi,
     chat = hub.chat,
-    system = system
+    bus = system.lilaBus
   )
 
   private lazy val chapterColl = db(CollectionChapter)
