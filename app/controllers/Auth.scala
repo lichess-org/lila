@@ -117,7 +117,7 @@ object Auth extends LidraughtsController {
     implicit val req = ctx.req
     req.session get "sessionId" foreach lidraughts.security.Store.delete
     negotiate(
-      html = Redirect(routes.Lobby.home).fuccess,
+      html = Redirect(routes.Main.mobile).fuccess,
       api = _ => Ok(Json.obj("ok" -> true)).fuccess
     ) map (_ withCookies LidraughtsCookie.newSession)
   }

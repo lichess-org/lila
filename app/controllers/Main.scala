@@ -71,8 +71,8 @@ object Main extends LidraughtsController {
   }
 
   def mobile = Open { implicit ctx =>
-    OptionOk(Prismic getBookmark "mobile-apk") {
-      case (doc, resolver) => html.mobile.home(doc, resolver)
+    fuccess {
+      html.mobile.home()
     }
   }
 
