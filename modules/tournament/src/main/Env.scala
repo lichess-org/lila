@@ -23,7 +23,7 @@ final class Env(
     hub: lila.hub.Env,
     roundMap: DuctMap[_],
     lightUserApi: lila.user.LightUserApi,
-    isOnline: String => Boolean,
+    isOnline: User.ID => Boolean,
     onStart: String => Unit,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
@@ -153,7 +153,6 @@ final class Env(
   system.actorOf(Props(new StartedOrganizer(
     api = api,
     reminder = new TournamentReminder(system.lilaBus),
-    isOnline = isOnline,
     socket = socket
   )))
 
