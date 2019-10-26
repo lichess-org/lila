@@ -190,6 +190,7 @@
   <string name="playingRightNow">Nunc ludendus</string>
   <string name="eventInProgress">Nunc ludendus</string>
   <string name="finished">Perfectus</string>
+  <string name="finishesX">%s ceteri</string>
   <string name="abortGame">Lusionem tollere</string>
   <string name="gameAborted">Sublata lusio</string>
   <string name="standard">Communis</string>
@@ -730,6 +731,7 @@
   <string name="perfRatingX">Ordo: %s</string>
   <string name="whiteWinsGame">Albus vincit</string>
   <string name="blackWinsGame">Niger vincit</string>
+  <string name="learnFromYourMistakes">Disce ex errata tua</string>
   <string name="next">Posterus</string>
   <string name="youCanDoBetter">Melius agere potes</string>
   <string name="solution">Resolutio</string>
