@@ -79,18 +79,19 @@ function localStorageInfo() {
 function serviceWorkerInfo() {
   var info = {
     'navigator': 'serviceWorker' in navigator,
+    'permissions': 'permissions' in navigator,
     'Notification': 'Notification' in window,
     'PushManager': 'PushManager' in window,
     'fetch': typeof fetch
   };
 
-  if (info.Notification) info.permission = Notification.permission;
+  if (info.Notification) info['Notification.permission'] = Notification.permission;
 
   return info;
 }
 
 var info = {
-  diagnosticsVersion: 2,
+  diagnosticsVersion: 3,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
