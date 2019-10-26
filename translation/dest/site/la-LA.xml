@@ -213,6 +213,7 @@
   <string name="play">Ludere</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Sermo</string>
+  <string name="youHaveBeenTimedOut">Nunc existi.</string>
   <string name="spectatorRoom">Fenestra spectatorium</string>
   <string name="composeMessage">Epistulam scribere</string>
   <string name="noNewMessages">Non novae epistulae sunt</string>
@@ -291,6 +292,8 @@
   <string name="yourPerfRatingIsProvisional">Gradus %s tuus incertus est</string>
   <string name="yourPerfRatingIsTooHigh">Tuus %1$s indictio (%2$s) altissimus est</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tuus maximus %1$s indictio hebdomade (%2$s) altissimus est</string>
+  <string name="mustBeInTeam">In %s quadrigis est</string>
+  <string name="youAreNotInTeam">Non in quadrigis %s</string>
   <string name="backToGame">Referre ad ludo</string>
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="teams">Legiones</string>
@@ -334,6 +337,10 @@
   <string name="notACheckmate">Non est mattus</string>
   <string name="retry">Adparare iterum</string>
   <string name="reconnecting">Reconectens</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amicus praesens</item>
+    <item quantity="other">%s amici praesens</item>
+  </plurals>
   <string name="noFriendsOnline">Nullus amicorum conexus</string>
   <string name="findFriends">Reperire amici</string>
   <string name="favoriteOpponents">Adversarii secundi</string>
@@ -384,6 +391,7 @@
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>
   <string name="performance">Gressus</string>
+  <string name="movesPlayed">Motus lusiones</string>
   <string name="whiteWins">Est victor Albus</string>
   <string name="blackWins">Est victor Niger</string>
   <string name="draws">Indutiae</string>
