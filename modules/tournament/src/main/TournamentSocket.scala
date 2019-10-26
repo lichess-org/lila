@@ -44,7 +44,7 @@ private final class TournamentSocket(
   }
 
   def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] = {
-    send(Protocol.Out.getRoomUsers(RoomId(tour.id)))
+    send(Protocol.Out.getWaitingUsers(RoomId(tour.id), tour.fullName))
     val promise = Promise[WaitingUsers]
     allWaitingUsers.compute(
       tour.id,
@@ -68,7 +68,7 @@ private final class TournamentSocket(
     roomId => _.Tournament(roomId.value).some)
 
   private lazy val tourHandler: Handler = {
-    case Protocol.In.RoomUsers(roomId, users) =>
+    case Protocol.In.WaitingUsers(roomId, users) =>
       allWaitingUsers.computeIfPresent(
         roomId.value,
         (_: Tournament.ID, cur: WaitingUsers.WithNext) => {
@@ -89,20 +89,20 @@ private final class TournamentSocket(
 
     object In {
 
-      case class RoomUsers(roomId: RoomId, userIds: Set[User.ID]) extends P.In
+      case class WaitingUsers(roomId: RoomId, userIds: Set[User.ID]) extends P.In
 
       val reader: P.In.Reader = raw => tourReader(raw) orElse RP.In.reader(raw)
 
       val tourReader: P.In.Reader = raw => raw.path match {
-        case "room/users" => raw.get(2) {
-          case Array(roomId, users) => RoomUsers(RoomId(roomId), P.In.commas(users).toSet).some
+        case "tour/waiting" => raw.get(2) {
+          case Array(roomId, users) => WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
         }
         case _ => none
       }
     }
 
     object Out {
-      def getRoomUsers(roomId: RoomId) = s"room/get/users $roomId"
+      def getWaitingUsers(roomId: RoomId, name: String) = s"tour/get/waiting $roomId $name"
     }
   }
 }

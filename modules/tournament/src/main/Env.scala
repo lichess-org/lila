@@ -152,7 +152,6 @@ final class Env(
 
   system.actorOf(Props(new StartedOrganizer(
     api = api,
-    reminder = new TournamentReminder(system.lilaBus),
     socket = socket
   )))
 
