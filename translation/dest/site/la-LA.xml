@@ -732,6 +732,7 @@
   <string name="blackWinsGame">Niger vincit</string>
   <string name="next">Posterus</string>
   <string name="youCanDoBetter">Melius agere potes</string>
+  <string name="solution">Resolutio</string>
   <string name="doItAgain">Iterum</string>
   <string name="reviewWhiteMistakes">Retractari errores album</string>
   <string name="reviewBlackMistakes">Retractari errores occaecat</string>
@@ -740,4 +741,5 @@
   <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
+  <string name="why">Cur?</string>
 </resources>
