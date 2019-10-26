@@ -4,6 +4,7 @@ import akka.actor._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
+import lila.user.User
 import makeTimeout.short
 
 private final class StartedOrganizer(
@@ -53,7 +54,7 @@ private final class StartedOrganizer(
         .result addEffectAnyway scheduleNext
   }
 
-  private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =
+  private def startPairing(tour: Tournament, activeUserIds: List[User.ID], startAt: Long): Funit =
     socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) zip PairingRepo.playingUserIds(tour) map {
       case (waitingUsers, playingUserIds) =>
         val users = waitingUsers intersect activeUserIds.toSet diff playingUserIds
