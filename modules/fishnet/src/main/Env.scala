@@ -37,7 +37,7 @@ final class Env(
     system
   )
 
-  private val clientVersion = new ClientVersion(ClientMinVersion)
+  private val clientVersion = new Client.ClientVersion(ClientMinVersion)
 
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,

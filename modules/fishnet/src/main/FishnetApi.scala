@@ -17,7 +17,7 @@ final class FishnetApi(
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
-    clientVersion: ClientVersion,
+    clientVersion: Client.ClientVersion,
     offlineMode: Boolean,
     analysisNodes: Int
 )(implicit system: akka.actor.ActorSystem) {
