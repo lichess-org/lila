@@ -34,16 +34,18 @@ private final class StartedOrganizer(
       val startAt = nowMillis
       TournamentRepo.startedTours.flatMap { started =>
         lila.common.Future.traverseSequentially(started) { tour =>
-          PlayerRepo nbActiveUserIds tour.id flatMap { nb =>
-            val result: Funit =
-              if (tour.secondsToFinish <= 0) fuccess(api finish tour)
-              else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
-              else if (!tour.pairingsClosed && tour.nbPlayers > 1) startPairing(tour, startAt)
-              else funit
-            result inject nb
+          if (tour.secondsToFinish <= 0) fuccess(api finish tour)
+          else {
+            def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour, startAt)
+            if (!tour.isScheduled && tour.nbPlayers < 40)
+              PlayerRepo nbActiveUserIds tour.id flatMap { nb =>
+                if (nb < 2) fuccess(api finish tour)
+                else pairIfStillTime
+              }
+            else pairIfStillTime
           }
-        }.addEffect { playerCounts =>
-          lila.mon.tournament.player(playerCounts.sum)
+        }.addEffect { _ =>
+          // lila.mon.tournament.player(playerCounts.sum)
           lila.mon.tournament.started(started.size)
         }
       }.chronometer
