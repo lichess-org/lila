@@ -752,6 +752,10 @@
   <string name="doItAgain">Iterum</string>
   <string name="reviewWhiteMistakes">Retractari errores album</string>
   <string name="reviewBlackMistakes">Retractari errores occaecat</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s secunda</item>
+    <item quantity="other">%s secundae</item>
+  </plurals>
   <string name="opening">Principium</string>
   <string name="endgame">Finem ludum</string>
   <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
