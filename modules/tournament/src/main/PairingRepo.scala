@@ -145,9 +145,6 @@ object PairingRepo {
     query.copy(options = query.options.batchSize(batchSize)).cursor[Bdoc](readPreference)
   }
 
-  private[tournament] def playingUserIds(tour: Tournament): Fu[Set[User.ID]] =
-    coll.distinct[User.ID, Set]("u", Some(selectTour(tour.id) ++ selectPlaying))
-
   private[tournament] def rawStats(tourId: Tournament.ID): Fu[List[Bdoc]] = {
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(

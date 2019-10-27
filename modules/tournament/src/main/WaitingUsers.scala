@@ -36,10 +36,6 @@ private[tournament] case class WaitingUsers(
     else all
   }
 
-  def waitSecondsOf(userId: User.ID) = hash get userId map { d =>
-    nowSeconds - d.getSeconds
-  }
-
   def waiting: List[User.ID] = {
     val since = date minusSeconds waitSeconds
     hash.collect {
@@ -55,10 +51,6 @@ private[tournament] case class WaitingUsers(
         us.filterNot(hash.contains).map { _ -> newDate }
     )
   }
-
-  def intersect(us: Set[User.ID]) = copy(hash = hash filterKeys us.contains)
-
-  def diff(us: Set[User.ID]) = copy(hash = hash filterKeys { k => !us.contains(k) })
 
   def hasUser(userId: User.ID) = hash contains userId
 }

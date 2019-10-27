@@ -53,9 +53,7 @@ private final class StartedOrganizer(
   }
 
   private def startPairing(tour: Tournament, startAt: Long): Funit =
-    socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) zip
-      PairingRepo.playingUserIds(tour) map {
-        case (waitingUsers, playingUserIds) =>
-          api.makePairings(tour, waitingUsers diff playingUserIds, startAt)
-      }
+    socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) map {
+      api.makePairings(tour, _, startAt)
+    }
 }
