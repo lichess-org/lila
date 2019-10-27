@@ -392,6 +392,7 @@
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>
   <string name="performance">Gressus</string>
+  <string name="tournamentComplete">Certamen completum est</string>
   <string name="movesPlayed">Motus lusiones</string>
   <string name="whiteWins">Est victor Albus</string>
   <string name="blackWins">Est victor Niger</string>
@@ -440,6 +441,7 @@
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="ratingX">Ordo: %s</string>
+  <string name="hidden">occultus</string>
   <plurals name="playedXTimes">
     <item quantity="one">Ludatum totiens %s</item>
     <item quantity="other">Ludatum totiens %s</item>
@@ -662,6 +664,7 @@
   <string name="yourPerfTypeRatingIsRating">Ordo tuus ludi %1$s est %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Melior es quam %1$s lusores %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ordo ratus ludi %s non habes.</string>
+  <string name="yourRating">Ordo tuus ludi</string>
   <string name="checkYourEmail">Specta tuas e-litteras</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tibi electronicam inscriptionem misimus. Sequere ligamen in illa inscriptione ut tuam rationem aperias.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
@@ -742,6 +745,8 @@
   <string name="blackWinsGame">Niger vincit</string>
   <string name="learnFromYourMistakes">Disce ex errata tua</string>
   <string name="next">Posterus</string>
+  <string name="findBetterMoveForWhite">Inveni motus melius albo</string>
+  <string name="findBetterMoveForBlack">Inveni motus melius nigro</string>
   <string name="youCanDoBetter">Melius agere potes</string>
   <string name="solution">Resolutio</string>
   <string name="doItAgain">Iterum</string>
