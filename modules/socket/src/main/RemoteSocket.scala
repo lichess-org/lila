@@ -252,6 +252,7 @@ object RemoteSocket {
         s"disconnect/user $userId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
+      def bool(v: Boolean): String = if (v) "true" else "-"
     }
   }
 
