@@ -65,12 +65,6 @@ export function view(ctrl): VNode {
     content: [
       h('h2', ctrl.trans.noarg('inviteToTheStudy')),
       h('p.info', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')),
-      candidates.length ? h('div.users', candidates.map(function(username) {
-        return h('span.button.button-metal', {
-          key: username,
-          hook: bind('click', _ => ctrl.invite(username))
-        }, username);
-      })) : undefined,
       h('div.input-wrapper', [ // because typeahead messes up with snabbdom
         h('input', {
           attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
@@ -86,7 +80,13 @@ export function view(ctrl): VNode {
             });
           })
         })
-      ])
+      ]),
+      candidates.length ? h('div.users', candidates.map(function(username) {
+        return h('span.button.button-metal', {
+          key: username,
+          hook: bind('click', _ => ctrl.invite(username))
+        }, username);
+      })) : undefined
     ]
   });
 }
