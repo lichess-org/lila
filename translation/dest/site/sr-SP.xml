@@ -382,6 +382,11 @@
   <string name="blackCheckmatesInOneMove">Црни матирау једном потезу</string>
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поновно повезивање</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s пријатељ онлајн</item>
+    <item quantity="few">%s пријатеља онлајн</item>
+    <item quantity="other">%s пријатеља онлајн</item>
+  </plurals>
   <string name="noFriendsOnline">Нема пријатеља на мрежи</string>
   <string name="findFriends">Нађи пријатеље</string>
   <string name="favoriteOpponents">Омиљени противници</string>
@@ -500,7 +505,7 @@
   <string name="pleaseVotePuzzle">Помози да се Личес побољша гласајући, користећи стрелицу нагоре или надоле:</string>
   <string name="thankYou">Хвала!</string>
   <string name="ratingX">Рејтинг: %s</string>
-  <string name="hidden">sakriven</string>
+  <string name="hidden">сакривен</string>
   <plurals name="playedXTimes">
     <item quantity="one">Играно %s пут</item>
     <item quantity="few">Играно %s пута</item>
@@ -745,7 +750,7 @@
   <string name="checkYourEmail">Проверите е-пошту.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо вам е-маил. Кликните на линк да бисте активирали вашу рачун.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
-  <string name="weHaveSentYouAnEmailTo">Poslali smo Vam e-Mail na %s. Kliknite na link u njemu da biste restartovali Vašu lozinku.</string>
+  <string name="weHaveSentYouAnEmailTo">Послали смо вам е-маил на %s. Молимо вас клините линк у мејлу да ресетујете своју шифру.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
@@ -898,6 +903,7 @@
     <item quantity="other">и сачувај %s пре-потезних линија</item>
   </plurals>
   <string name="sorry">Извините :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Морали смо те привремено избацити.</string>
   <string name="timeoutExpires">Тајм-аут истиче %s.</string>
   <string name="why">Зашто?</string>
   <string name="pleasantChessExperience">Наш циљ је да свима обезбедимо пријатно шаховско искуство.</string>
