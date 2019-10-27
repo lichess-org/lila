@@ -50,12 +50,6 @@ private final class StudySocket(
       ))))
   }
 
-  private lazy val handler: Handler = roomHandler(rooms, chat,
-    roomId => _ => none, // the "talk" event is handled by the study API
-    canTimeout = Some { (roomId, modId, suspectId) =>
-      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
-    })
-
   private lazy val studyHandler: Handler = {
     case Protocol.In.TellStudySri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.Data._
@@ -194,6 +188,12 @@ private final class StudySocket(
     }
   }
 
+  private lazy val rHandler: Handler = roomHandler(rooms, chat,
+    roomId => _ => none, // the "talk" event is handled by the study API
+    canTimeout = Some { (roomId, modId, suspectId) =>
+      api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
+    })
+
   private def moveOrDrop(studyId: Study.Id, m: AnaAny, opts: MoveOpts)(who: Who) = m.branch match {
     case scalaz.Success(branch) if branch.ply < Node.MAX_PLIES =>
       m.chapterId.ifTrue(opts.write) foreach { chapterId =>
@@ -210,7 +210,7 @@ private final class StudySocket(
   private lazy val send: String => Unit = remoteSocketApi.makeSender("study-out").apply _
 
   remoteSocketApi.subscribe("study-in", Protocol.In.reader)(
-    studyHandler orElse handler orElse remoteSocketApi.baseHandler
+    studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
   )
 
   bus.subscribeFun('studySocket) {
@@ -228,12 +228,7 @@ private final class StudySocket(
         case SetLiking(liking, who) => notify("liking", Json.obj("l" -> liking, "w" -> who))
 
         case AddNode(pos, node, variant, sticky, relay, who) =>
-          val dests = AnaDests(
-            variant,
-            node.fen,
-            pos.path.toString,
-            pos.chapterId.value.some
-          )
+          val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
           version("addNode", Json.obj(
             "n" -> TreeBuilder.toBranch(node, variant),
             "p" -> pos,
