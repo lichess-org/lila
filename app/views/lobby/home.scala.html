@@ -54,11 +54,11 @@
 @if(ctx.isMobileBrowser) {
 @if(lidraughts.common.HTTPRequest.isAndroid(ctx.req)) {
 @mobile.googlePlayButton()
-} @*else {
+} else {
 @if(lidraughts.common.HTTPRequest.isIOS(ctx.req)) {
 @mobile.appleStoreButton()
 }
-}*@
+}
 }
 }
 
