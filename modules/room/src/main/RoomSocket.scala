@@ -57,13 +57,13 @@ object RoomSocket {
     rooms: TrouperMap[RoomState],
     chat: akka.actor.ActorSelection,
     publicSource: RoomId => PublicSource.type => Option[PublicSource],
-    canTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
+    localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
   ): Handler = {
     case Protocol.In.ChatSay(roomId, userId, msg) =>
       chat ! lila.chat.actorApi.UserTalk(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
     case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) => lila.chat.ChatTimeout.Reason(reason) foreach { r =>
-      canTimeout.fold(fuccess(true)) { _(roomId, modId, suspect) } foreach { allowed =>
-        if (allowed) chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = false)
+      localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
+        chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = local)
       }
     }
     case Protocol.In.KeepAlives(roomIds) => roomIds foreach { roomId =>

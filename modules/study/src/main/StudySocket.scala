@@ -51,14 +51,12 @@ private final class StudySocket(
   }
 
   private lazy val studyHandler: Handler = {
+    case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
     case Protocol.In.TellStudySri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.Data._
       import JsonView.shapeReader
       def who = user map { Who(_, sri) }
       tpe match {
-        case "talk" => o str "d" foreach { text =>
-          user foreach { api.talk(_, studyId, text) }
-        }
         case "setPath" => reading[AtPosition](o) { position =>
           who foreach api.setPath(studyId, position.ref)
         }
@@ -190,7 +188,7 @@ private final class StudySocket(
 
   private lazy val rHandler: Handler = roomHandler(rooms, chat,
     roomId => _ => none, // the "talk" event is handled by the study API
-    canTimeout = Some { (roomId, modId, suspectId) =>
+    localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
     })
 
