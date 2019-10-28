@@ -99,7 +99,7 @@ case class Game(
     case seconds => seconds.toInt.some
   }
 
-  def everyOther[A](l: List[A]): List[A] = l match {
+  private def everyOther[A](l: List[A]): List[A] = l match {
     case a :: b :: tail => a :: everyOther(tail)
     case _ => l
   }
