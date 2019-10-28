@@ -3,12 +3,13 @@ package lila.round
 import akka.actor.ActorSelection
 
 import actorApi._
-import lila.chat.Chat
 import lila.chat.actorApi._
+import lila.chat.Chat
 import lila.game.Game
+import lila.user.User
+import lila.hub.actorApi.shutup.PublicSource
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.{ I18nKeys, enLang }
-import lila.hub.actorApi.shutup.PublicSource
 
 final class Messenger(val chat: ActorSelection) {
 
@@ -23,11 +24,8 @@ final class Messenger(val chat: ActorSelection) {
     chat ! SystemTalk(Chat.Id(gameId), translated)
   }
 
-  def watcher(gameId: Game.ID, member: Member, text: String) =
-    member.userId foreach { userId =>
-      val source = PublicSource.Watcher(gameId)
-      chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text, source.some)
-    }
+  def watcher(gameId: Game.ID, userId: User.ID, text: String) =
+    chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text, PublicSource.Watcher(gameId).some)
 
   private val whisperCommands = List("/whisper ", "/w ")
 

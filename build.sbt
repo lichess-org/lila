@@ -191,10 +191,10 @@ lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, 
 
 lazy val round = module("round", Seq(
   common, db, memo, hub, socket, game, user,
-  i18n, fishnet, pref, chat, history, playban
+  i18n, fishnet, pref, chat, history, playban, room
 )).settings(
   libraryDependencies ++= provided(play.api, scalatags, hasher, kamon.core,
-    reactivemongo.driver, reactivemongo.iteratees)
+    reactivemongo.driver, reactivemongo.iteratees, lettuce)
 )
 
 lazy val pool = module("pool", Seq(common, game, user, playban)).settings(

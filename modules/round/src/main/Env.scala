@@ -2,9 +2,9 @@ package lila.round
 
 import akka.actor._
 import akka.pattern.ask
+import com.github.blemale.scaffeine.Cache
 import com.typesafe.config.Config
 import scala.concurrent.duration._
-import com.github.blemale.scaffeine.Cache
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
@@ -36,6 +36,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
     evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
+    remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
     ratingFactors: () => lila.rating.RatingFactors
@@ -85,6 +86,12 @@ final class Env(
       duct
     },
     accessTimeout = ActiveTtl
+  )
+
+  val roundSocket = new RoundRemoteSocket(
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    bus = bus
   )
 
   bus.subscribeFuns(
@@ -344,6 +351,7 @@ object Env {
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
     evalCacheHandler = lila.evalCache.Env.current.socketHandler,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
     ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get

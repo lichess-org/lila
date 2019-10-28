@@ -167,10 +167,9 @@ object Round extends LilaController with TheftPrevention {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
         Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
-      case _ => Game.preloadUsers(pov.game) >> negotiate(
+      case _ => negotiate(
         html = {
-          if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
+          if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip

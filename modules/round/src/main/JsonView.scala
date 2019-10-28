@@ -170,7 +170,7 @@ final class JsonView(
             "opponent" -> commonWatcherJson(game, opponent, opponentUser, withFlags).add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
             "orientation" -> pov.color.name,
             "url" -> Json.obj(
-              "socket" -> s"/$gameId/${color.name}/socket/v$apiVersion",
+              "socket" -> s"/ws/watch/$gameId/${color.name}/v$apiVersion",
               "round" -> s"/$gameId/${color.name}"
             ),
             "pref" -> Json.obj(

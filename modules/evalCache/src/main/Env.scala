@@ -11,7 +11,7 @@ final class Env(
     config: Config,
     settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Env,
-    system: akka.actor.ActorSystem,
+    bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -34,17 +34,17 @@ final class Env(
     upgrade = upgrade
   )
 
-  system.lilaBus.subscribeFun('socketLeave) {
+  bus.subscribeFun('socketLeave) {
     case lila.socket.actorApi.SocketLeave(sri, _) => upgrade unregister sri
   }
 
   // remote socket support
-  system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
+  bus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
     case TellSriIn(sri, _, msg) => msg obj "d" foreach { d =>
-      socketHandler.evalGet(Sri(sri), d, res => system.lilaBus.publish(TellSriOut(sri, res), 'remoteSocketOut))
+      socketHandler.evalGet(Sri(sri), d, res => bus.publish(TellSriOut(sri, res), 'remoteSocketOut))
     }
   }
-  system.lilaBus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
+  bus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
     case TellSriIn(sri, Some(userId), msg) => msg obj "d" foreach { d =>
       socketHandler.untrustedEvalPut(Sri(sri), userId, d)
     }
@@ -65,7 +65,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "evalCache",
     settingStore = lila.memo.Env.current.settingStore,
     db = lila.db.Env.current,
-    system = lila.common.PlayApp.system,
+    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache
   )
 }
