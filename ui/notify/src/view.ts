@@ -44,9 +44,9 @@ export function asText(n: Notification): string | undefined {
 }
 
 function notificationDenied(): VNode {
-  return h('div.browser-notification.denied', {
+  return h('a.browser-notification.denied', {
     attrs: {
-      //href: '/faq#browser-notifications', // TODO: change div to a once faq is deployed
+      href: '/faq#browser-notifications',
       target: '_blank'
     }
   }, 'Notification popups disabled by browser setting');
