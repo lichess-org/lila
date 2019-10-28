@@ -17,6 +17,7 @@ private final class Takebacker(
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
         else double(game)
       } map (_ -> situation.reset)
+      case Pov(game, _) if pov.game.playableByAi => single(game) map (_ -> situation)
       case Pov(game, _) if pov.opponent.isAi => double(game) map (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
