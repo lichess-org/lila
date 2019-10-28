@@ -95,6 +95,7 @@
   <string name="multipleLines">Plures lineae</string>
   <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
+  <string name="infiniteAnalysis">Analysis infinitum</string>
   <string name="blunder">Peccatus</string>
   <string name="blunders">Gravia errata</string>
   <string name="mistake">Erratum</string>
@@ -190,6 +191,7 @@
   <string name="playingRightNow">Nunc ludendus</string>
   <string name="eventInProgress">Nunc ludendus</string>
   <string name="finished">Perfectus</string>
+  <string name="finishesX">%s ceteri</string>
   <string name="abortGame">Lusionem tollere</string>
   <string name="gameAborted">Sublata lusio</string>
   <string name="standard">Communis</string>
@@ -212,6 +214,7 @@
   <string name="play">Ludere</string>
   <string name="inbox">Inbox</string>
   <string name="chatRoom">Sermo</string>
+  <string name="youHaveBeenTimedOut">Nunc existi.</string>
   <string name="spectatorRoom">Fenestra spectatorium</string>
   <string name="composeMessage">Epistulam scribere</string>
   <string name="noNewMessages">Non novae epistulae sunt</string>
@@ -290,6 +293,8 @@
   <string name="yourPerfRatingIsProvisional">Gradus %s tuus incertus est</string>
   <string name="yourPerfRatingIsTooHigh">Tuus %1$s indictio (%2$s) altissimus est</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Tuus maximus %1$s indictio hebdomade (%2$s) altissimus est</string>
+  <string name="mustBeInTeam">In %s quadrigis est</string>
+  <string name="youAreNotInTeam">Non in quadrigis %s</string>
   <string name="backToGame">Referre ad ludo</string>
   <string name="siteDescription">Liberi scacci in rete. Lude jam scaccos super clarissimas pagines. Nec conventum, nec praeconia mercatoria, nec plugin necesse sunt. Lude scaccos sive cum computatro, sive cum amicis, sive cum aleatoriis adversariis.</string>
   <string name="teams">Legiones</string>
@@ -333,6 +338,10 @@
   <string name="notACheckmate">Non est mattus</string>
   <string name="retry">Adparare iterum</string>
   <string name="reconnecting">Reconectens</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amicus praesens</item>
+    <item quantity="other">%s amici praesens</item>
+  </plurals>
   <string name="noFriendsOnline">Nullus amicorum conexus</string>
   <string name="findFriends">Reperire amici</string>
   <string name="favoriteOpponents">Adversarii secundi</string>
@@ -383,6 +392,8 @@
   <string name="youArePlaying">Ludis!</string>
   <string name="winRate">Victoriarum proportio</string>
   <string name="performance">Gressus</string>
+  <string name="tournamentComplete">Certamen completum est</string>
+  <string name="movesPlayed">Motus lusiones</string>
   <string name="whiteWins">Est victor Albus</string>
   <string name="blackWins">Est victor Niger</string>
   <string name="draws">Indutiae</string>
@@ -430,6 +441,7 @@
   <string name="pleaseVotePuzzle">Meliora lichessem eligendo sorsum vel deorsum:</string>
   <string name="thankYou">Gratias tibi!</string>
   <string name="ratingX">Ordo: %s</string>
+  <string name="hidden">occultus</string>
   <plurals name="playedXTimes">
     <item quantity="one">Ludatum totiens %s</item>
     <item quantity="other">Ludatum totiens %s</item>
@@ -652,6 +664,7 @@
   <string name="yourPerfTypeRatingIsRating">Ordo tuus ludi %1$s est %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Melior es quam %1$s lusores %2$s.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ordo ratus ludi %s non habes.</string>
+  <string name="yourRating">Ordo tuus ludi</string>
   <string name="checkYourEmail">Specta tuas e-litteras</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Tibi electronicam inscriptionem misimus. Sequere ligamen in illa inscriptione ut tuam rationem aperias.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Si inscriptionem electronicam non invenias, inspecta alios locos, tales tuas quisquilias, saginationem, sociales, vel alteros indices.</string>
@@ -730,14 +743,23 @@
   <string name="perfRatingX">Ordo: %s</string>
   <string name="whiteWinsGame">Albus vincit</string>
   <string name="blackWinsGame">Niger vincit</string>
+  <string name="learnFromYourMistakes">Disce ex errata tua</string>
   <string name="next">Posterus</string>
+  <string name="findBetterMoveForWhite">Inveni motus melius albo</string>
+  <string name="findBetterMoveForBlack">Inveni motus melius nigro</string>
   <string name="youCanDoBetter">Melius agere potes</string>
+  <string name="solution">Resolutio</string>
   <string name="doItAgain">Iterum</string>
   <string name="reviewWhiteMistakes">Retractari errores album</string>
   <string name="reviewBlackMistakes">Retractari errores occaecat</string>
+  <plurals name="nbSeconds">
+    <item quantity="one">%s secunda</item>
+    <item quantity="other">%s secundae</item>
+  </plurals>
   <string name="opening">Principium</string>
   <string name="endgame">Finem ludum</string>
   <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
+  <string name="why">Cur?</string>
 </resources>

@@ -31,6 +31,11 @@
   <string name="howDoesItEndAnswer">Турнир има сат који одбројава. Када сат стигне до нуле, сва места су замрзнута и победник је проглашен. Партије које још трају се морају завршити, али се не рачунају у турниру.</string>
   <string name="otherRules">Остала важна правила</string>
   <string name="thereIsACountdown">Постоји одбројавање за твој први потез. Не прављење потеза у овом периоду ће предати игру твом противнику.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Изједначење игре у првом %s потезу неће донети поене ни једном играчу.</item>
+    <item quantity="few">Изједначење у првих %s потеза неће донети поене ниједном играчу.</item>
+    <item quantity="other">Изједначење у првих %s потеза неће донети поене ниједном играчу.</item>
+  </plurals>
   <string name="thisIsPrivate">Ово је приватан турнир</string>
   <string name="shareUrl">Делите линк да се играчи прикључе: %s</string>
 </resources>

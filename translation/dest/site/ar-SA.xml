@@ -194,7 +194,7 @@
   <string name="usernameOrEmail">اسم المستخدم أو البريد الإلكتروني</string>
   <string name="changeUsername">تغيير اسم المستخدم</string>
   <string name="changeUsernameNotSame">يمكن تغيير حساسية الأحرف فقط.</string>
-  <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسمك مرة واحدة فقط, ولا يسمح بتغيير شئ غير حساسية الأحرف.</string>
+  <string name="changeUsernameDescription">غير إسم المستخدم. يمكنك تغيير إسم المستخدم الخاص بك مرة واحدة فقط, ويمكنك فقط تغيير حساسية الاحرف.</string>
   <string name="password">كلمة السر</string>
   <string name="changePassword">تغيير كلمة السر</string>
   <string name="changeEmail">غير البريد الإلكتروني</string>
@@ -451,7 +451,7 @@
   <string name="retry">أعد المحاولة</string>
   <string name="reconnecting">إعادة الإتصال</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="zero">لا يوجد أصدقاء متصلون</item>
+    <item quantity="zero">%s أصدقاء متصلون</item>
     <item quantity="one">%s صديق متصل</item>
     <item quantity="two">%s أصدقاء متصلون</item>
     <item quantity="few">%s أصدقاء متصلون</item>
