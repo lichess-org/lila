@@ -213,117 +213,105 @@ private final class StudySocket(
     studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
   )
 
-  bus.subscribeFun('studySocket) {
-    case Send(studyId, msg) =>
-      import Out._
-      import JsonView._
-      import jsonView.membersWrites
-      import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
-      def version[A: Writes](tpe: String, data: A) = rooms.tell(studyId.value, NotifyVersion(tpe, data))
-      def notify[A: Writes](tpe: String, data: A) = send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
-      def notifySri[A: Writes](sri: Sri, tpe: String, data: A) = send(P.Out.tellSri(sri, makeMessage(tpe, data)))
-      msg match {
-        case SetPath(pos, who) => version("path", Json.obj("p" -> pos, "w" -> who))
+  // send API
 
-        case SetLiking(liking, who) => notify("liking", Json.obj("l" -> liking, "w" -> who))
+  import JsonView._
+  import jsonView.membersWrites
+  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
+  private type SendToStudy = Study.Id => Unit
+  private def version[A: Writes](tpe: String, data: A): SendToStudy = studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
+  private def notify[A: Writes](tpe: String, data: A): SendToStudy = studyId => send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
+  private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy = studyId => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
-        case AddNode(pos, node, variant, sticky, relay, who) =>
-          val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
-          version("addNode", Json.obj(
-            "n" -> TreeBuilder.toBranch(node, variant),
-            "p" -> pos,
-            "w" -> who,
-            "d" -> dests.dests,
-            "o" -> dests.opening,
-            "s" -> sticky
-          ).add("relay", relay))
-
-        case DeleteNode(pos, who) => version("deleteNode", Json.obj("p" -> pos, "w" -> who))
-
-        case Promote(pos, toMainline, who) => version("promote", Json.obj(
-          "p" -> pos,
-          "toMainline" -> toMainline,
-          "w" -> who
-        ))
-        case ReloadMembers(studyMembers) =>
-          version("members", studyMembers)
-          send(RP.Out.tellRoomUsers(studyId, studyMembers.ids, makeMessage("reload")))
-
-        case ReloadChapters(chapters) => version("chapters", chapters)
-
-        case ReloadAll => version("reload", JsNull)
-
-        case ChangeChapter(pos, who) => version("changeChapter", Json.obj("p" -> pos, "w" -> who))
-
-        case UpdateChapter(chapterId, who) => version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
-
-        case DescChapter(chapterId, description, who) => version("descChapter", Json.obj(
-          "chapterId" -> chapterId,
-          "desc" -> description,
-          "w" -> who
-        ))
-
-        case DescStudy(description, who) => version("descStudy", Json.obj("desc" -> description, "w" -> who))
-
-        case AddChapter(pos, sticky, who) => version("addChapter", Json.obj(
-          "p" -> pos,
-          "w" -> who,
-          "s" -> sticky
-        ))
-
-        case ValidationError(error, sri) => notifySri(sri, "validationError", Json.obj("error" -> error))
-
-        case SetShapes(pos, shapes, who) => version("shapes", Json.obj(
-          "p" -> pos,
-          "s" -> shapes,
-          "w" -> who
-        ))
-        case SetComment(pos, comment, who) => version("setComment", Json.obj(
-          "p" -> pos,
-          "c" -> comment,
-          "w" -> who
-        ))
-
-        case SetTags(chapterId, tags, who) => version("setTags", Json.obj(
-          "chapterId" -> chapterId,
-          "tags" -> tags,
-          "w" -> who
-        ))
-
-        case DeleteComment(pos, commentId, who) => version("deleteComment", Json.obj(
-          "p" -> pos,
-          "id" -> commentId,
-          "w" -> who
-        ))
-
-        case SetGlyphs(pos, glyphs, who) => version("glyphs", Json.obj(
-          "p" -> pos,
-          "g" -> glyphs,
-          "w" -> who
-        ))
-
-        case SetClock(pos, clock, who) => version("clock", Json.obj(
-          "p" -> pos,
-          "c" -> clock,
-          "w" -> who
-        ))
-
-        case ForceVariation(pos, force, who) => version("forceVariation", Json.obj(
-          "p" -> pos,
-          "force" -> force,
-          "w" -> who
-        ))
-
-        case SetConceal(pos, ply) => version("conceal", Json.obj(
-          "p" -> pos,
-          "ply" -> ply.map(_.value)
-        ))
-
-        case ReloadSri(sri) => notifySri(sri, "reload", JsNull)
-
-        case ReloadSriBecauseOf(sri, chapterId) => notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
-      }
+  def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
+  def addNode(
+    pos: Position.Ref,
+    node: Node,
+    variant: chess.variant.Variant,
+    sticky: Boolean,
+    relay: Option[Chapter.Relay],
+    who: Who
+  ) = {
+    val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
+    version("addNode", Json.obj(
+      "n" -> TreeBuilder.toBranch(node, variant),
+      "p" -> pos,
+      "w" -> who,
+      "d" -> dests.dests,
+      "o" -> dests.opening,
+      "s" -> sticky
+    ).add("relay", relay))
   }
+  def deleteNode(pos: Position.Ref, who: Who) = version("deleteNode", Json.obj("p" -> pos, "w" -> who))
+  def promote(pos: Position.Ref, toMainline: Boolean, who: Who) = version("promote", Json.obj(
+    "p" -> pos,
+    "toMainline" -> toMainline,
+    "w" -> who
+  ))
+  def setLiking(liking: Study.Liking, who: Who) = notify("liking", Json.obj("l" -> liking, "w" -> who))
+  def setShapes(pos: Position.Ref, shapes: Shapes, who: Who) = version("shapes", Json.obj(
+    "p" -> pos,
+    "s" -> shapes,
+    "w" -> who
+  ))
+  def reloadMembers(members: StudyMembers)(studyId: Study.Id) = {
+    version("members", members)
+    send(RP.Out.tellRoomUsers(studyId, members.ids, makeMessage("reload")))
+  }
+  def setComment(pos: Position.Ref, comment: Comment, who: Who) = version("setComment", Json.obj(
+    "p" -> pos,
+    "c" -> comment,
+    "w" -> who
+  ))
+  def deleteComment(pos: Position.Ref, commentId: Comment.Id, who: Who) = version("deleteComment", Json.obj(
+    "p" -> pos,
+    "id" -> commentId,
+    "w" -> who
+  ))
+  def setGlyphs(pos: Position.Ref, glyphs: Glyphs, who: Who) = version("glyphs", Json.obj(
+    "p" -> pos,
+    "g" -> glyphs,
+    "w" -> who
+  ))
+  def setClock(pos: Position.Ref, clock: Option[Centis], who: Who) = version("clock", Json.obj(
+    "p" -> pos,
+    "c" -> clock,
+    "w" -> who
+  ))
+  def forceVariation(pos: Position.Ref, force: Boolean, who: Who) = version("forceVariation", Json.obj(
+    "p" -> pos,
+    "force" -> force,
+    "w" -> who
+  ))
+  def reloadChapters(chapters: List[Chapter.Metadata]) = version("chapters", chapters)
+  def reloadAll = version("reload", JsNull)
+  def changeChapter(pos: Position.Ref, who: Who) = version("changeChapter", Json.obj("p" -> pos, "w" -> who))
+  def updateChapter(chapterId: Chapter.Id, who: Who) = version("updateChapter", Json.obj("chapterId" -> chapterId, "w" -> who))
+  def descChapter(chapterId: Chapter.Id, desc: Option[String], who: Who) = version("descChapter", Json.obj(
+    "chapterId" -> chapterId,
+    "desc" -> desc,
+    "w" -> who
+  ))
+  def descStudy(desc: Option[String], who: Who) = version("descStudy", Json.obj("desc" -> desc, "w" -> who))
+  def addChapter(pos: Position.Ref, sticky: Boolean, who: Who) = version("addChapter", Json.obj(
+    "p" -> pos,
+    "w" -> who,
+    "s" -> sticky
+  ))
+  def setConceal(pos: Position.Ref, ply: Option[Chapter.Ply]) = version("conceal", Json.obj(
+    "p" -> pos,
+    "ply" -> ply.map(_.value)
+  ))
+  def setTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, who: Who) = version("setTags", Json.obj(
+    "chapterId" -> chapterId,
+    "tags" -> tags,
+    "w" -> who
+  ))
+  def reloadSri(sri: Sri) = notifySri(sri, "reload", JsNull)
+  def reloadSriBecauseOf(sri: Sri, chapterId: Chapter.Id) = notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
+  def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
+
+  api registerSocket this
 
   private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
@@ -392,42 +380,4 @@ object StudySocket {
         s"room/present $reqId $studyId $userId"
     }
   }
-
-  sealed trait Out
-
-  object Out {
-    case class AddNode(
-        position: Position.Ref,
-        node: Node,
-        variant: chess.variant.Variant,
-        sticky: Boolean,
-        relay: Option[Chapter.Relay],
-        who: Who
-    ) extends Out
-    case class ReloadSri(sri: Sri) extends Out
-    case class ReloadSriBecauseOf(sri: Sri, chapterId: Chapter.Id) extends Out
-    case class DeleteNode(position: Position.Ref, who: Who) extends Out
-    case class Promote(position: Position.Ref, toMainline: Boolean, who: Who) extends Out
-    case class SetPath(position: Position.Ref, who: Who) extends Out
-    case class SetLiking(liking: Study.Liking, who: Who) extends Out
-    case class SetShapes(position: Position.Ref, shapes: Shapes, who: Who) extends Out
-    case class ReloadMembers(members: StudyMembers) extends Out
-    case class SetComment(position: Position.Ref, comment: Comment, who: Who) extends Out
-    case class DeleteComment(position: Position.Ref, commentId: Comment.Id, who: Who) extends Out
-    case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, who: Who) extends Out
-    case class SetClock(position: Position.Ref, clock: Option[Centis], who: Who) extends Out
-    case class ForceVariation(position: Position.Ref, force: Boolean, who: Who) extends Out
-    case class ReloadChapters(chapters: List[Chapter.Metadata]) extends Out
-    case object ReloadAll extends Out
-    case class ChangeChapter(position: Position.Ref, who: Who) extends Out
-    case class UpdateChapter(chapterId: Chapter.Id, who: Who) extends Out
-    case class DescChapter(chapterId: Chapter.Id, desc: Option[String], who: Who) extends Out
-    case class DescStudy(desc: Option[String], who: Who) extends Out
-    case class AddChapter(position: Position.Ref, sticky: Boolean, who: Who) extends Out
-    case class SetConceal(position: Position.Ref, ply: Option[Chapter.Ply]) extends Out
-    case class SetTags(chapterId: Chapter.Id, tags: chess.format.pgn.Tags, who: Who) extends Out
-    case class ValidationError(error: String, sri: Sri) extends Out
-  }
-
-  case class Send(studyId: Study.Id, msg: Out)
 }
