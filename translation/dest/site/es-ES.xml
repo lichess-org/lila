@@ -202,7 +202,7 @@
   <string name="accept">Aceptar</string>
   <string name="decline">Rechazar</string>
   <string name="playingRightNow">Jugando ahora</string>
-  <string name="eventInProgress">Se está jugando ahora</string>
+  <string name="eventInProgress">Jugando ahora</string>
   <string name="finished">Terminado</string>
   <string name="finishesX">termina %s</string>
   <string name="abortGame">Cancelar partida</string>
