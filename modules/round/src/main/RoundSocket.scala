@@ -219,7 +219,7 @@ private[round] final class RoundSocket(
       promise success Connected(fullEnumerator, member)
     }
 
-    case eventList: EventList => notify(eventList.events)
+    case EventList(events) => notify(events)
 
     case lila.chat.actorApi.ChatLine(chatId, line) => notify(List(line match {
       case l: lila.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)

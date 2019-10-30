@@ -15,12 +15,12 @@ private[round] final class Finisher(
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
     bus: lila.common.Bus,
-    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus],
+    getSocketStatus: Game => Fu[actorApi.SocketStatus],
     isRecentTv: Game.ID => Boolean
 ) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
-    getSocketStatus(pov.gameId) foreach { ss =>
+    getSocketStatus(pov.game) foreach { ss =>
       playban.abort(pov, ss.colorsOnGame)
     }
     bus.publish(AbortedBy(pov), 'abortGame)

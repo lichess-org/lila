@@ -121,7 +121,7 @@ final class RemoteSocket(
         // println(message, s"in:$channel")
         reader(raw) collect handler match {
           case Some(_) => // processed
-          case None => logger.warn(s"Unhandled $message")
+          case None => logger.warn(s"Unhandled $channel $message")
         }
       }
     })

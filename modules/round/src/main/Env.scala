@@ -65,6 +65,13 @@ final class Env(
 
   private val deployPersistence = new DeployPersistence(system)
 
+  val roundSocket = new RoundRemoteSocket(
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    messenger = messenger,
+    bus = bus
+  )
+
   private lazy val roundDependencies = RoundDuct.Dependencies(
     messenger = messenger,
     takebacker = takebacker,
@@ -74,7 +81,8 @@ final class Env(
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketMap = socketMap
+    socketMap = socketMap,
+    remoteSocket = roundSocket
   )
   val roundMap = new lila.hub.DuctMap[RoundDuct](
     mkDuct = id => {
@@ -86,12 +94,6 @@ final class Env(
       duct
     },
     accessTimeout = ActiveTtl
-  )
-
-  val roundSocket = new RoundRemoteSocket(
-    remoteSocketApi = remoteSocketApi,
-    chat = hub.chat,
-    bus = bus
   )
 
   bus.subscribeFuns(
@@ -264,8 +266,8 @@ final class Env(
     chat = hub.chat
   )
 
-  def getSocketStatus(gameId: Game.ID): Fu[SocketStatus] =
-    socketMap.ask[SocketStatus](gameId)(GetSocketStatus)
+  def getSocketStatus(game: Game): Fu[SocketStatus] =
+    socketMap.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
     socketMap.ask[Boolean](game.id)(HasUserId(userId, _))

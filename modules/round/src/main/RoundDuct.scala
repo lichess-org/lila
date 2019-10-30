@@ -235,29 +235,32 @@ private[round] final class RoundDuct(
   private[this] def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)
 
-  private[this] def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit = publish {
+  private[this] def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
     pov flatten "pov not found" flatMap { p =>
-      if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)
-    }
-  } recover errorHandler("handlePov")
+      (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map {
+        publish(p.game, _)
+      }
+    } recover errorHandler("handlePov")
 
-  private[this] def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit = publish {
-    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op
-  } recover errorHandler("handleAi")
+  private[this] def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
+    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap { pov =>
+      op(pov) map { publish(pov.game, _) }
+    } recover errorHandler("handleAi")
 
-  private[this] def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit = publish {
-    game flatten "game not found" flatMap op
-  } recover errorHandler("handleGame")
+  private[this] def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
+    game flatten "game not found" flatMap { g =>
+      op(g) map { publish(g, _) }
+    } recover errorHandler("handleGame")
 
-  private[this] def publish[A](op: Fu[Events]): Funit = op.map { events =>
+  private[this] def publish[A](game: Game, events: Events): Unit =
     if (events.nonEmpty) {
-      socketMap.tell(gameId, EventList(events))
+      if (RoundRemoteSocket appliesTo game) remoteSocket.publish(game, events)
+      else socketMap.tell(gameId, EventList(events))
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
       }) this ! Threefold
     }
-  }
 
   private[this] def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
@@ -281,7 +284,8 @@ object RoundDuct {
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketMap: SocketMap
+      socketMap: SocketMap,
+      remoteSocket: RoundRemoteSocket
   )
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {

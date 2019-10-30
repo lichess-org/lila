@@ -4,9 +4,9 @@ import lila.chat.{ Chat, UserLine, actorApi => chatApi }
 import lila.common.Bus
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
-import lila.user.User
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion, Sri }
+import lila.user.User
 
 import play.api.libs.json._
 import scala.concurrent.duration._
@@ -27,9 +27,9 @@ object RoomSocket {
 
     val process: Trouper.Receive = {
       case GetVersion(promise) => promise success version
-      case n: NotifyVersion[_] =>
+      case nv: NotifyVersion[_] =>
         version = version.inc
-        send(Protocol.Out.tellRoomVersion(roomId, n.msg, version, n.troll))
+        send(Protocol.Out.tellRoomVersion(roomId, nv.msg, version, nv.troll))
       case lila.chat.actorApi.ChatLine(_, line) => line match {
         case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
         case _ =>
