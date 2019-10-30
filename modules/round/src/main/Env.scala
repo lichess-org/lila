@@ -43,8 +43,6 @@ final class Env(
 ) {
 
   private val settings = new {
-    val PlayerDisconnectTimeout = config duration "player.disconnect.timeout"
-    val PlayerRagequitTimeout = config duration "player.ragequit.timeout"
     val AnimationDuration = config duration "animation.duration"
     val MoretimeDuration = config duration "moretime"
     val SocketTimeout = config duration "socket.timeout"
@@ -182,8 +180,6 @@ final class Env(
       system = system,
       lightUser = lightUser,
       sriTtl = SocketSriTimeout,
-      disconnectTimeout = PlayerDisconnectTimeout,
-      ragequitTimeout = PlayerRagequitTimeout,
       getGame = proxy.game _
     ),
     playban = playban

@@ -33,6 +33,7 @@ private[round] final class RoundSocket(
     getGoneWeights: Game => Fu[(Float, Float)]
 ) extends SocketTrouper[Member](dependencies.system, dependencies.sriTtl) {
 
+  import RoundSocket._
   import dependencies._
 
   private var hasAi = false
@@ -337,6 +338,16 @@ private[round] final class RoundSocket(
 
 object RoundSocket {
 
+  val ragequitTimeout = 10.seconds
+  val disconnectTimeout = 120.seconds
+
+  def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
+    disconnectTimeout * speed.fold(1) {
+      case Speed.Classical => 3
+      case Speed.Rapid => 2
+      case _ => 1
+    }
+
   case class ChatIds(priv: Chat.Id, pub: Chat.Id) {
     def all = Seq(priv, pub)
     def update(g: Game) =
@@ -349,16 +360,6 @@ object RoundSocket {
       system: ActorSystem,
       lightUser: LightUser.Getter,
       sriTtl: FiniteDuration,
-      disconnectTimeout: FiniteDuration,
-      ragequitTimeout: FiniteDuration,
       getGame: Game.ID => Fu[Option[Game]]
-  ) {
-
-    def gameDisconnectTimeout(speed: Option[Speed]): FiniteDuration =
-      disconnectTimeout * speed.fold(1) {
-        case Speed.Classical => 3
-        case Speed.Rapid => 2
-        case _ => 1
-      }
-  }
+  )
 }
