@@ -161,7 +161,7 @@ private final class StudySocket(
           username <- o str "d"
         } InviteLimitPerUser(w.u, cost = 1) {
           api.invite(w.u, studyId, username,
-            isPresent = userId => isPresent(studyId, userId).thenPp(s"isPresent response $studyId, $username"),
+            isPresent = userId => isPresent(studyId, userId),
             onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err))))
         }
         case "relaySync" => who foreach { w =>
