@@ -254,7 +254,7 @@ private[round] final class RoundDuct(
 
   private[this] def publish[A](game: Game, events: Events): Unit =
     if (events.nonEmpty) {
-      if (RoundRemoteSocket appliesTo game) remoteSocket.publish(game, events)
+      if (RoundRemoteSocket appliesTo game) remoteSocket.tellRoom(game, events)
       else socketMap.tell(gameId, EventList(events))
       if (events exists {
         case e: Event.Move => e.threefold

@@ -79,7 +79,10 @@ final class JsonView(
           }.add("isGone" -> (!opponent.isAi && socket.isGone(opponent.color)))
             .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
           "url" -> Json.obj(
-            "socket" -> s"/$fullId/socket/v$apiVersion",
+            "socket" -> {
+              if (RoundRemoteSocket appliesTo game) s"/ws/play/$fullId/v$apiVersion"
+              else s"/$fullId/socket/v$apiVersion"
+            },
             "round" -> s"/$fullId"
           ),
           "pref" -> Json.obj(

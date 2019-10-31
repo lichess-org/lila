@@ -50,7 +50,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.size == Game.fullIdSize) && player.id == (fullId drop 8)
+    (fullId.size == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -620,7 +620,7 @@ object Game {
 
   val gameIdSize = 8
   val playerIdSize = 4
-  val fullIdSize = 12
+  val fullIdSize = gameIdSize + playerIdSize
   val tokenSize = 4
 
   val unplayedHours = 24
@@ -635,7 +635,7 @@ object Game {
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
-  val idRegex = """[\w-]{8}""".r
+  val idRegex = s"""[\w-]{$gameIdSize}""".r
   def validId(id: ID) = idRegex matches id
 
   private[game] val emptyCheckCount = CheckCount(0, 0)

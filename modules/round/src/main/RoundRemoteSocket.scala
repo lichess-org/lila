@@ -1,13 +1,15 @@
 package lila.round
 
+import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._
+import actorApi.round._
 import chess.{ Color, White, Black, Speed }
 import lila.chat.Chat
 import lila.common.Bus
 import lila.game.{ Game, Event }
-import lila.hub.{ Trouper, TrouperMap }
+import lila.hub.{ Trouper, TrouperMap, DuctMap }
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
@@ -27,16 +29,24 @@ final class RoundRemoteSocket(
     accessTimeout = 5 minutes
   )
 
-  def publish(game: Game, events: List[Event]): Unit =
-    rooms.tell(game.id, EventList(events))
+  def tellRoom(game: Game, msg: Any): Unit = tellRoom(GameId(game.id), msg)
+  def tellRoom(gameId: GameId, msg: Any): Unit = rooms.tell(gameId.value, msg)
+
+  def tellRound(gameId: GameId, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
     case RP.In.ChatSay(roomId, userId, msg) => messenger.watcher(roomId.value, userId, msg)
-    case Protocol.In.TellRoundSri(gameId, P.In.TellSri(sri, user, tpe, o)) => tpe match {
+    case RP.In.TellRoomSri(gameId, P.In.TellSri(sri, user, tpe, o)) => tpe match {
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
-    case Protocol.In.RoundPlayerPing(gameId, color) =>
-      rooms.tell(gameId, Protocol.PlayerPing(color))
+    case Protocol.In.PlayerDo(fullId, tpe, o) => tpe match {
+      case "moretime" => tellRound(fullId.gameId, Moretime(fullId.playerId.value))
+      case t => logger.warn(s"Unhandled round socket message: $t")
+    }
+    case ping: Protocol.In.PlayerPing => tellRoom(ping.gameId, ping)
+    case RP.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
+      rooms touchOrMake roomId.value
+    }
   }
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("round-out").apply _
@@ -44,9 +54,23 @@ final class RoundRemoteSocket(
   remoteSocketApi.subscribe("round-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   )
+
+  private var rounds: DuctMap[RoundDuct] = null
+  private[round] def setRoundMap(r: DuctMap[RoundDuct]): Unit = {
+    rounds = r
+  }
 }
 
 object RoundRemoteSocket {
+
+  case class GameId(value: String) extends AnyVal with StringValue {
+    def full(playerId: PlayerId) = FullId(s"$value{$playerId.value}")
+  }
+  case class FullId(value: String) extends AnyVal with StringValue {
+    def gameId = GameId(value take Game.gameIdSize)
+    def playerId = PlayerId(value drop Game.gameIdSize)
+  }
+  case class PlayerId(value: String) extends AnyVal with StringValue
 
   def appliesTo(game: Game) = game.casual
 
@@ -111,7 +135,7 @@ object RoundRemoteSocket {
     }
 
     val process: Trouper.Receive = {
-      case Protocol.PlayerPing(color) => playerDo(color, _.ping)
+      case Protocol.In.PlayerPing(_, color) => playerDo(color, _.ping)
       case GetVersion(promise) => promise success version
       case nv: NotifyVersion[_] =>
         version = version.inc
@@ -159,24 +183,21 @@ object RoundRemoteSocket {
 
   object Protocol {
 
-    case class PlayerPing(color: Color)
-
     object In {
 
-      case class TellRoundSri(gameId: Game.ID, tellSri: P.In.TellSri) extends P.In
-      case class RoundPlayerPing(gameId: Game.ID, color: Color) extends P.In
+      case class PlayerPing(gameId: GameId, color: Color) extends P.In
+      case class PlayerDo(fullId: FullId, tpe: String, msg: JsObject) extends P.In
 
-      val reader: P.In.Reader = raw => roundReader(raw) orElse RP.In.reader(raw)
-
-      val roundReader: P.In.Reader = raw => raw.path match {
-        case "tell/round/sri" => raw.get(4) {
-          case arr @ Array(gameId, _, _, _) => P.In.tellSriMapper.lift(arr drop 1).flatten map {
-            TellRoundSri(gameId, _)
-          }
+      val reader: P.In.Reader = raw => raw.path match {
+        case "round/w" => PlayerPing(GameId(raw.args), chess.White).some
+        case "round/b" => PlayerPing(GameId(raw.args), chess.Black).some
+        case "round/do" => raw.get(2) {
+          case Array(fullId, payload) => for {
+            obj <- Json.parse(payload).asOpt[JsObject]
+            tpe <- obj str "t"
+          } yield PlayerDo(FullId(fullId), tpe, obj)
         }
-        case "round/w" => RoundPlayerPing(raw.args, chess.White).some
-        case "round/b" => RoundPlayerPing(raw.args, chess.Black).some
-        case _ => none
+        case _ => RP.In.reader(raw)
       }
     }
   }

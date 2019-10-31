@@ -52,7 +52,7 @@ private final class StudySocket(
 
   private lazy val studyHandler: Handler = {
     case RP.In.ChatSay(roomId, userId, msg) => api.talk(userId, roomId, msg)
-    case Protocol.In.TellStudySri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
+    case RP.In.TellRoomSri(studyId, P.In.TellSri(sri, user, tpe, o)) =>
       import Protocol.In.Data._
       import JsonView.shapeReader
       def who = user map { Who(_, sri) }
@@ -325,24 +325,16 @@ object StudySocket {
 
     object In {
 
-      case class TellStudySri(studyId: Study.Id, tellSri: P.In.TellSri) extends P.In
       case class StudyDoor(through: Map[User.ID, Either[Study.Id, Study.Id]]) extends P.In
 
-      val reader: P.In.Reader = raw => studyReader(raw) orElse RP.In.reader(raw)
-
-      val studyReader: P.In.Reader = raw => raw.path match {
-        case "tell/study/sri" => raw.get(4) {
-          case arr @ Array(studyId, _, _, _) => P.In.tellSriMapper.lift(arr drop 1).flatten map {
-            TellStudySri(Study.Id(studyId), _)
-          }
-        }
+      val reader: P.In.Reader = raw => raw.path match {
         case "study/door" => Some(StudyDoor {
           P.In.commas(raw.args).map(_ split ":").collect {
             case Array(u, s, "+") => u -> Right(Study.Id(s))
             case Array(u, s, "-") => u -> Left(Study.Id(s))
           }(scala.collection.breakOut)
         })
-        case _ => none
+        case _ => RP.In.reader(raw)
       }
 
       object Data {

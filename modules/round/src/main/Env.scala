@@ -63,13 +63,6 @@ final class Env(
 
   private val deployPersistence = new DeployPersistence(system)
 
-  val roundSocket = new RoundRemoteSocket(
-    remoteSocketApi = remoteSocketApi,
-    chat = hub.chat,
-    messenger = messenger,
-    bus = bus
-  )
-
   private lazy val roundDependencies = RoundDuct.Dependencies(
     messenger = messenger,
     takebacker = takebacker,
@@ -93,6 +86,14 @@ final class Env(
     },
     accessTimeout = ActiveTtl
   )
+
+  val roundSocket = new RoundRemoteSocket(
+    remoteSocketApi = remoteSocketApi,
+    chat = hub.chat,
+    messenger = messenger,
+    bus = bus
+  )
+  roundSocket.setRoundMap(roundMap) // workaround circular dependency
 
   bus.subscribeFuns(
     'roundMapTell -> {

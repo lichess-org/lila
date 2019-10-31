@@ -81,9 +81,7 @@ object RoomSocket {
       case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri) extends P.In
 
-      val reader: P.In.Reader = raw => roomReader(raw) orElse P.In.baseReader(raw)
-
-      val roomReader: P.In.Reader = raw => raw.path match {
+      val reader: P.In.Reader = raw => raw.path match {
         case "room/alives" => KeepAlives(raw.args split "," map RoomId.apply).some
         case "chat/say" => raw.args.split(" ", 3) match {
           case Array(roomId, userId, msg) => ChatSay(RoomId(roomId), userId, msg).some
@@ -98,7 +96,7 @@ object RoomSocket {
             TellRoomSri(RoomId(roomId), _)
           }
         }
-        case _ => none
+        case other => P.In.baseReader(raw)
       }
     }
 
