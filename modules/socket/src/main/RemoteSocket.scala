@@ -227,8 +227,8 @@ object RemoteSocket {
         } yield TellSri(Sri(sri), userId, typ, obj)
       }
 
-      def commas(str: String): Array[String] =
-        if (str == "-") Array.empty else str split ','
+      def commas(str: String): Array[String] = if (str == "-") Array.empty else str split ','
+      def boolean(str: String): Boolean = str == "+"
     }
 
     object Out {
@@ -252,7 +252,7 @@ object RemoteSocket {
         s"disconnect/user $userId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
-      def bool(v: Boolean): String = if (v) "true" else "-"
+      def boolean(v: Boolean): String = if (v) "+" else "-"
     }
   }
 

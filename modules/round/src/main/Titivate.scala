@@ -16,7 +16,7 @@ import lila.round.actorApi.round.{ QuietFlag, Abandon }
  * and flagged games when no one is around
  */
 private[round] final class Titivate(
-    roundMap: DuctMap[RoundDuct],
+    tellRound: TellRound,
     bookmark: ActorSelection,
     chat: ActorSelection
 ) extends Actor {
@@ -50,11 +50,11 @@ private[round] final class Titivate(
               GameRepo unsetCheckAt game
 
             else if (game.outoftime(withGrace = true)) fuccess {
-              roundMap.tell(game.id, QuietFlag)
+              tellRound(game.id, QuietFlag)
             }
 
             else if (game.abandoned) fuccess {
-              roundMap.tell(game.id, Abandon)
+              tellRound(game.id, Abandon)
             }
 
             else if (game.unplayed) {

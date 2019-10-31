@@ -32,7 +32,7 @@ final class TournamentApi(
     renderer: ActorSelection,
     timeline: ActorSelection,
     socket: TournamentSocket,
-    roundMap: lila.hub.DuctMap[_],
+    tellRound: lila.round.TellRound,
     trophyApi: lila.user.TrophyApi,
     verify: Condition.Verify,
     indexLeaderboard: Tournament => Funit,
@@ -329,7 +329,7 @@ final class TournamentApi(
               case Some(pairing) if !pairing.berserkOf(userId) =>
                 (pairing colorOf userId) ?? { color =>
                   PairingRepo.setBerserk(pairing, userId) >>-
-                    roundMap.tell(gameId, GoBerserk(color))
+                    tellRound(gameId, GoBerserk(color))
                 }
               case _ => funit
             }
@@ -418,7 +418,7 @@ final class TournamentApi(
         if (tour.isStarted)
           PairingRepo.findPlaying(tour.id, userId).map {
             _ foreach { currentPairing =>
-              roundMap.tell(currentPairing.gameId, AbortForce)
+              tellRound(currentPairing.gameId, AbortForce)
             }
           } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
             PairingRepo.removeByTourAndUserId(tour.id, userId) >>

@@ -135,25 +135,30 @@ private[round] final class RoundRemoteDuct(
       blackPlayer.goneWeight = blackGoneWeight
     }
 
+    case lila.chat.actorApi.ChatLine(chatId, line) => fuccess {
+      publish(List(line match {
+        case l: lila.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)
+        case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+      }))
+    }
+
     // round stuff
 
-    case p: HumanPlay =>
-      handleHumanPlay(p) { pov =>
-        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else {
-          recordLag(pov)
-          player.human(p, this)(pov)
-        }
-      } >>- {
-        p.trace.finish()
-        lila.mon.round.move.full.count()
+    case p: HumanPlay => handleHumanPlay(p) { pov =>
+      if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+      else {
+        recordLag(pov)
+        player.human(p, this)(pov)
       }
+    } >>- {
+      p.trace.finish()
+      lila.mon.round.move.full.count()
+    }
 
-    case p: BotPlay =>
-      handleBotPlay(p) { pov =>
-        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else player.bot(p, this)(pov)
-      }
+    case p: BotPlay => handleBotPlay(p) { pov =>
+      if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+      else player.bot(p, this)(pov)
+    }
 
     case FishnetPlay(uci, ply) => handle { game =>
       player.fishnet(game, ply, uci, this)

@@ -105,7 +105,7 @@ object RoomSocket {
       def tellRoom(roomId: RoomId, payload: JsObject) =
         s"tell/room $roomId ${Json stringify payload}"
       def tellRoomVersion(roomId: RoomId, payload: JsObject, version: SocketVersion, isTroll: Boolean) =
-        s"tell/room/version $roomId $version ${P.Out.bool(isTroll)} ${Json stringify payload}"
+        s"tell/room/version $roomId $version ${P.Out.boolean(isTroll)} ${Json stringify payload}"
       def tellRoomUser(roomId: RoomId, userId: User.ID, payload: JsObject) =
         s"tell/room/user $roomId $userId ${Json stringify payload}"
       def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =

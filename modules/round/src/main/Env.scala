@@ -75,7 +75,7 @@ final class Env(
     forecastApi = forecastApi,
     socketMap = socketMap
   )
-  val roundMap = new lila.hub.DuctMap[RoundDuct](
+  private val roundMap = new lila.hub.DuctMap[RoundDuct](
     mkDuct = id => {
       val duct = new RoundDuct(
         dependencies = roundDependencies,
@@ -93,7 +93,7 @@ final class Env(
     game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
       game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
-  val roundSocket = new RoundRemoteSocket(
+  lazy val roundSocket = new RoundRemoteSocket(
     remoteSocketApi = remoteSocketApi,
     roundDependencies = RoundRemoteDuct.Dependencies(
       messenger = messenger,
@@ -116,7 +116,7 @@ final class Env(
 
   bus.subscribeFuns(
     'roundMapTell -> {
-      case Tell(id, msg) => selectRoundMap(id).tell(id, msg)
+      case Tell(id, msg) => tellRound(id, msg)
     },
     'roundMapTellAll -> {
       case msg =>
@@ -129,7 +129,7 @@ final class Env(
     'accountClose -> {
       case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
         _ foreach { pov =>
-          selectRoundMap(pov.gameId).tell(pov.gameId, Resign(pov.playerId))
+          tellRound(pov.gameId, Resign(pov.playerId))
         }
       }
     },
@@ -153,8 +153,8 @@ final class Env(
     text = "Remote socket game ID regex".some
   )
   def useRemoteSocket(gameId: Game.ID) = remoteSocketSetting.get().matches(gameId)
-  def selectRoundMap(gameId: Game.ID) =
-    if (useRemoteSocket(gameId)) roundSocket.rounds else roundMap
+  def selectRoundMap(gameId: Game.ID) = if (useRemoteSocket(gameId)) roundSocket.rounds else roundMap
+  def tellRound(gameId: Game.ID, msg: Any): Unit = selectRoundMap(gameId).tell(gameId, msg)
 
   object proxy {
 
@@ -205,7 +205,7 @@ final class Env(
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>
     system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
-      selectRoundMap(game.id).tell(game.id, actorApi.round.NoStart)
+      tellRound(game.id, actorApi.round.NoStart)
     }
   }
 
@@ -221,7 +221,7 @@ final class Env(
     playban = playban
   )
 
-  lazy val selfReport = new SelfReport(roundMap, slackApi, proxy.pov)
+  lazy val selfReport = new SelfReport(tellRound, slackApi, proxy.pov)
 
   lazy val recentTvGames = new {
     val fast = new lila.memo.ExpireSetMemo(7 minutes)
@@ -250,7 +250,7 @@ final class Env(
 
   lazy val forecastApi: ForecastApi = new ForecastApi(
     coll = db(CollectionForecast),
-    roundMap = roundMap
+    tellRound = tellRound
   )
 
   private lazy val notifier = new RoundNotifier(
@@ -333,7 +333,7 @@ final class Env(
   MoveMonitor.start(system, moveTimeChannel)
 
   system.actorOf(
-    Props(new Titivate(roundMap, hub.bookmark, hub.chat)),
+    Props(new Titivate(tellRound, hub.bookmark, hub.chat)),
     name = "titivate"
   )
 
@@ -355,12 +355,12 @@ final class Env(
 
   def checkOutoftime(game: Game): Unit = {
     if (game.playable && game.started && !game.isUnlimited)
-      roundMap.tell(game.id, actorApi.round.QuietFlag)
+      tellRound(game.id, actorApi.round.QuietFlag)
   }
 
   def resign(pov: Pov): Unit =
-    if (pov.game.abortable) roundMap.tell(pov.gameId, Abort(pov.playerId))
-    else if (pov.game.resignable) roundMap.tell(pov.gameId, Resign(pov.playerId))
+    if (pov.game.abortable) tellRound(pov.gameId, Abort(pov.playerId))
+    else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))
 }
 
 object Env {

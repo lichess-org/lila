@@ -3,12 +3,12 @@ package lila.round
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
+import lila.game.{ Game, Pov }
 import lila.hub.DuctMap
-import lila.game.Pov
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(
-    roundMap: DuctMap[RoundDuct],
+    tellRound: TellRound,
     slackApi: lila.slack.SlackApi,
     proxyPov: String => Fu[Option[Pov]]
 ) {
@@ -55,7 +55,7 @@ final class SelfReport(
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
-            roundMap.tell(
+            tellRound(
               pov.gameId,
               lila.round.actorApi.round.Cheat(pov.color)
             )

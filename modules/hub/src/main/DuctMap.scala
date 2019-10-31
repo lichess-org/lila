@@ -6,7 +6,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.duration.FiniteDuration
 import java.util.concurrent.TimeUnit
 
-final class DuctMap[D <: Duct](
+final class DuctMap[+D <: Duct](
     mkDuct: String => D,
     accessTimeout: FiniteDuration
 ) {

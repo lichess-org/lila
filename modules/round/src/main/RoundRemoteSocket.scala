@@ -2,10 +2,12 @@ package lila.round
 
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import actorApi._
 import actorApi.round._
-import chess.{ Color, White, Black, Speed }
+import chess.format.Uci
+import chess.{ Color, White, Black, Speed, Centis, MoveMetrics }
 import lila.chat.Chat
 import lila.common.Bus
 import lila.game.{ Game, Event }
@@ -64,6 +66,11 @@ final class RoundRemoteSocket(
       case "moretime" => tellRound(fullId.gameId, Moretime(fullId.playerId.value))
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
+    case Protocol.In.PlayerMove(fullId, uci, blur, lag) =>
+      // TODO remove promise, resync from remote round duct
+      val promise = Promise[Unit]
+      promise.future onFailure { case _: Exception => send(Protocol.Out.resyncPlayer(fullId)) }
+      tellRound(fullId.gameId, HumanPlay(fullId.playerId.value, uci, blur, lag, promise.some))
     case ping: Protocol.In.PlayerPing => tellRound(ping.gameId, ping)
     case RP.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
       rounds touchOrMake roomId.value
@@ -94,6 +101,7 @@ object RoundRemoteSocket {
 
       case class PlayerPing(gameId: GameId, color: Color) extends P.In
       case class PlayerDo(fullId: FullId, tpe: String, msg: JsObject) extends P.In
+      case class PlayerMove(fullId: FullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
 
       val reader: P.In.Reader = raw => raw.path match {
         case "round/w" => PlayerPing(GameId(raw.args), chess.White).some
@@ -104,8 +112,22 @@ object RoundRemoteSocket {
             tpe <- obj str "t"
           } yield PlayerDo(FullId(fullId), tpe, obj)
         }
+        case "round/move" => raw.get(5) {
+          case Array(fullId, uciS, blurS, lagS, mtS) => Uci(uciS) map { uci =>
+            PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
+          }
+        }
         case _ => RP.In.reader(raw)
       }
+
+      private def centis(s: String): Option[Centis] =
+        if (s == "-") none
+        else parseIntOption(s) map Centis.apply
+    }
+
+    object Out {
+
+      def resyncPlayer(fullId: FullId) = s"round/resync/player $fullId"
     }
   }
 }

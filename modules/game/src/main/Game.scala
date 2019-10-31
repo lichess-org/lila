@@ -620,7 +620,7 @@ object Game {
 
   val gameIdSize = 8
   val playerIdSize = 4
-  val fullIdSize = gameIdSize + playerIdSize
+  val fullIdSize = 12
   val tokenSize = 4
 
   val unplayedHours = 24
@@ -635,7 +635,7 @@ object Game {
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
-  val idRegex = s"""[\w-]{$gameIdSize}""".r
+  val idRegex = """[\w-]{8}""".r
   def validId(id: ID) = idRegex matches id
 
   private[game] val emptyCheckCount = CheckCount(0, 0)
