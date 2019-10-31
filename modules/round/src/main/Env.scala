@@ -39,7 +39,8 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors
+    ratingFactors: () => lila.rating.RatingFactors,
+    settingStore: lila.memo.SettingStore.Builder
 ) {
 
   private val settings = new {
@@ -72,8 +73,7 @@ final class Env(
     player = player,
     drawer = drawer,
     forecastApi = forecastApi,
-    socketMap = socketMap,
-    remoteSocket = roundSocket
+    socketMap = socketMap
   )
   val roundMap = new lila.hub.DuctMap[RoundDuct](
     mkDuct = id => {
@@ -87,20 +87,41 @@ final class Env(
     accessTimeout = ActiveTtl
   )
 
+  private val defaultGoneWeight = fuccess(1f)
+  private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
+  private def goneWeightsFor(game: Game): Fu[(Float, Float)] =
+    game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
+      game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
+
   val roundSocket = new RoundRemoteSocket(
     remoteSocketApi = remoteSocketApi,
+    roundDependencies = RoundRemoteDuct.Dependencies(
+      messenger = messenger,
+      takebacker = takebacker,
+      moretimer = moretimer,
+      finisher = finisher,
+      rematcher = rematcher,
+      player = player,
+      drawer = drawer,
+      forecastApi = forecastApi,
+      bus = bus
+    ),
+    deployPersistence = deployPersistence,
+    scheduleExpiration = scheduleExpiration,
     chat = hub.chat,
     messenger = messenger,
-    bus = bus
+    goneWeightsFor = goneWeightsFor,
+    system = system
   )
-  roundSocket.setRoundMap(roundMap) // workaround circular dependency
 
   bus.subscribeFuns(
     'roundMapTell -> {
-      case Tell(id, msg) => roundMap.tell(id, msg)
+      case Tell(id, msg) => selectRoundMap(id).tell(id, msg)
     },
     'roundMapTellAll -> {
-      case msg => roundMap.tellAll(msg)
+      case msg =>
+        roundMap.tellAll(msg)
+        roundSocket.rounds.tellAll(msg)
     },
     'deploy -> {
       case DeployPost => roundMap tellAll DeployPost
@@ -108,7 +129,7 @@ final class Env(
     'accountClose -> {
       case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
         _ foreach { pov =>
-          roundMap.tell(pov.gameId, Resign(pov.playerId))
+          selectRoundMap(pov.gameId).tell(pov.gameId, Resign(pov.playerId))
         }
       }
     },
@@ -121,16 +142,28 @@ final class Env(
   def count = nbRounds
 
   system.scheduler.schedule(5 seconds, 2 seconds) {
-    nbRounds = roundMap.size
+    nbRounds = roundMap.size + roundSocket.rounds.size
     bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
+  import lila.memo.SettingStore.Regex._
+  lazy val remoteSocketSetting = settingStore[scala.util.matching.Regex](
+    "roundRemoteSocket",
+    default = "".r,
+    text = "Remote socket game ID regex".some
+  )
+  def useRemoteSocket(gameId: Game.ID) = remoteSocketSetting.get().matches(gameId)
+  def selectRoundMap(gameId: Game.ID) =
+    if (useRemoteSocket(gameId)) roundSocket.rounds else roundMap
+
   object proxy {
 
-    def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ??
-      roundMap.getOrMake(gameId).getGame addEffect { g =>
+    def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? {
+      if (useRemoteSocket(gameId)) roundSocket getGame gameId
+      else roundMap.getOrMake(gameId).getGame addEffect { g =>
         if (!g.isDefined) roundMap kill gameId
       }
+    }
 
     def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
       game(gameId) map { _ flatMap { Pov(_, user) } }
@@ -143,12 +176,14 @@ final class Env(
     def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
       game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
 
+    def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
+      if (useRemoteSocket(gameId)) roundSocket gameIfPresent gameId
+      else roundMap.getIfPresent(gameId).??(_.getGame)
+
     def updateIfPresent(game: Game): Fu[Game] =
       if (game.finishedOrAborted) fuccess(game)
+      else if (useRemoteSocket(game.id)) roundSocket updateIfPresent game
       else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
-
-    def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
-      roundMap.getIfPresent(gameId).??(_.getGame)
 
     def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
       gameIfPresent(gameId) map2 { (g: Game) => Pov(g, color) }
@@ -170,7 +205,7 @@ final class Env(
 
   private def scheduleExpiration(game: Game): Unit = game.timeBeforeExpiration foreach { centis =>
     system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
-      roundMap.tell(game.id, actorApi.round.NoStart)
+      selectRoundMap(game.id).tell(game.id, actorApi.round.NoStart)
     }
   }
 
@@ -280,7 +315,8 @@ final class Env(
     evalCache = evalCache,
     isOfferingRematch = rematcher.isOffering,
     baseAnimationDuration = AnimationDuration,
-    moretimeSeconds = MoretimeDuration.toSeconds.toInt
+    moretimeSeconds = MoretimeDuration.toSeconds.toInt,
+    useRemoteSocket = useRemoteSocket _
   )
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
@@ -353,6 +389,7 @@ object Env {
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
-    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
+    settingStore = lila.memo.Env.current.settingStore
   )
 }

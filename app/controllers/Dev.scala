@@ -19,7 +19,8 @@ object Dev extends LilaController {
     Env.report.slackScoreThresholdSetting,
     Env.streamer.alwaysFeaturedSetting,
     Env.rating.ratingFactorsSetting,
-    Env.plan.donationGoalSetting
+    Env.plan.donationGoalSetting,
+    Env.round.remoteSocketSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>

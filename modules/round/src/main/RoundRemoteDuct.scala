@@ -7,30 +7,135 @@ import ornicar.scalalib.Zero
 import scala.concurrent.duration._
 
 import actorApi._, round._
-import chess.Color
+import chess.{ Color, White, Black, Speed }
+import lila.chat.Chat
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.Duct
+import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
 import lila.socket.UserLagCache
+import lila.user.User
 import makeTimeout.large
 
-trait AnyRoundDuct extends Duct
-
-private[round] final class RoundDuct(
-    dependencies: RoundDuct.Dependencies,
-    gameId: Game.ID
+private[round] final class RoundRemoteDuct(
+    dependencies: RoundRemoteDuct.Dependencies,
+    gameId: Game.ID,
+    isGone: Color => Fu[Boolean],
+    socketSend: String => Unit
 )(implicit proxy: GameProxy) extends AnyRoundDuct {
 
+  import RoundRemoteSocket.Protocol
+  import RoundRemoteDuct._
   import RoundDuct._
   import dependencies._
 
-  private[this] var takebackSituation: Option[TakebackSituation] = None
+  private var takebackSituation: Option[TakebackSituation] = None
+
+  private var version = SocketVersion(0)
+
+  private var hasAi = false
+  private var mightBeSimul = true // until proven false
+  private var gameSpeed: Option[Speed] = none
+  private var chatIds = RoundSocket.ChatIds(
+    priv = Chat.Id(gameId), // until replaced with tourney/simul chat
+    pub = Chat.Id(s"$gameId/w")
+  )
+  private var tournamentId = none[String] // until set, to listen to standings
+
+  private final class Player(color: Color) {
+
+    // when the player has been seen online for the last time
+    private var time: Long = nowMillis
+    // wether the player closed the window intentionally
+    private var bye: Int = 0
+    // connected as a bot
+    private var botConnected: Boolean = false
+
+    var userId = none[User.ID]
+    var goneWeight = 1f
+
+    def ping: Unit = {
+      // TODO isGone foreach { _ ?? notifyGone(color, false) }
+      if (bye > 0) bye = bye - 1
+      time = nowMillis
+    }
+    def setBye: Unit = {
+      bye = 3
+    }
+    private def isBye = bye > 0
+
+    // TODO private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
+    //   bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
+    // }
+
+    private def timeoutMillis = {
+      if (isBye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
+    } * goneWeight atLeast 12000
+
+    def isConnected: Boolean =
+      time >= (nowMillis - timeoutMillis) || botConnected
+
+    def isGone: Fu[Boolean] = fuccess {
+      !isConnected
+    } // TODO ?? !isHostingSimul
+
+    def setBotConnected(v: Boolean) =
+      botConnected = v
+
+    def isBotConnected = botConnected
+  }
+
+  private val whitePlayer = new Player(White)
+  private val blackPlayer = new Player(Black)
 
   def getGame: Fu[Option[Game]] = proxy.game
 
   val process: Duct.ReceiveAsync = {
+
+    // socket stuff
+
+    case Protocol.In.PlayerPing(_, color) => fuccess {
+      playerDo(color, _.ping)
+    }
+
+    case GetVersion(promise) => fuccess {
+      promise success version
+    }
+
+    case GetSocketStatus(promise) =>
+      playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {
+        case (whiteIsGone, blackIsGone) => promise success SocketStatus(
+          version = version,
+          whiteOnGame = ownerIsHere(White),
+          whiteIsGone = whiteIsGone,
+          blackOnGame = ownerIsHere(Black),
+          blackIsGone = blackIsGone
+        )
+      }
+
+    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) => fuccess {
+      hasAi = game.hasAi
+      whitePlayer.userId = game.player(White).userId
+      blackPlayer.userId = game.player(Black).userId
+      mightBeSimul = game.isSimul
+      game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
+        chatIds = chatIds.copy(priv = chatId)
+        buscriptions.chat
+      }
+      game.tournamentId foreach { tourId =>
+        tournamentId = tourId.some
+        buscriptions.tournament
+      }
+      gameSpeed = game.speed.some
+      whitePlayer.goneWeight = whiteGoneWeight
+      blackPlayer.goneWeight = blackGoneWeight
+    }
+
+    // round stuff
 
     case p: HumanPlay =>
       handleHumanPlay(p) { pov =>
@@ -74,7 +179,7 @@ private[round] final class RoundDuct(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
-        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
+        isGone(!pov.color) flatMap {
           case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
@@ -84,7 +189,7 @@ private[round] final class RoundDuct(
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
+        isGone(!pov.color) flatMap {
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
         }
@@ -115,8 +220,8 @@ private[round] final class RoundDuct(
       }
     }
 
-    case DrawYes(playerRef) => handle(playerRef)(drawer.yes)
-    case DrawNo(playerRef) => handle(playerRef)(drawer.no)
+    case DrawYes(playerId) => handle(playerId)(drawer.yes)
+    case DrawNo(playerId) => handle(playerId)(drawer.no)
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
     case Cheat(color) => handle { game =>
       (game.playable && !game.imported) ?? {
@@ -143,17 +248,17 @@ private[round] final class RoundDuct(
       } inject Nil
     }
 
-    case RematchYes(playerRef) => handle(playerRef)(rematcher.yes)
-    case RematchNo(playerRef) => handle(playerRef)(rematcher.no)
+    case RematchYes(playerId) => handle(playerId)(rematcher.yes)
+    case RematchNo(playerId) => handle(playerId)(rematcher.no)
 
-    case TakebackYes(playerRef) => handle(playerRef) { pov =>
+    case TakebackYes(playerId) => handle(playerId) { pov =>
       takebacker.yes(~takebackSituation)(pov) map {
         case (events, situation) =>
           takebackSituation = situation.some
           events
       }
     }
-    case TakebackNo(playerRef) => handle(playerRef) { pov =>
+    case TakebackNo(playerId) => handle(playerId) { pov =>
       takebacker.no(~takebackSituation)(pov) map {
         case (events, situation) =>
           takebackSituation = situation.some
@@ -161,7 +266,7 @@ private[round] final class RoundDuct(
       }
     }
 
-    case Moretime(playerRef) => handle(playerRef) { pov =>
+    case Moretime(playerId) => handle(playerId) { pov =>
       moretimer(pov) flatMap {
         _ ?? { progress =>
           proxy save progress inject progress.events
@@ -207,7 +312,49 @@ private[round] final class RoundDuct(
     }
   }
 
-  private[this] def recordLag(pov: Pov): Unit =
+  private object buscriptions {
+
+    private var classifiers = collection.mutable.Set.empty[Symbol]
+
+    private def sub(classifier: Symbol) = {
+      bus.subscribe(RoundRemoteDuct.this, classifier)
+      classifiers += classifier
+    }
+
+    def unsubAll = {
+      bus.unsubscribe(RoundRemoteDuct.this, classifiers.toSeq)
+      classifiers.clear
+    }
+
+    def subAll = {
+      // TODO tv
+      chat
+      tournament
+    }
+
+    // TODO
+    // def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: User.ID) =>
+    //   sub(Symbol(s"userStartGame:$userId"))
+    // }
+
+    def chat = chatIds.all foreach { chatId =>
+      sub(lila.chat.Chat classify chatId)
+    }
+
+    def tournament = tournamentId foreach { id =>
+      sub(Symbol(s"tour-standing-$id"))
+    }
+  }
+
+  private def ownerIsHere(color: Color) = playerGet(color, _.isConnected)
+
+  private def playerGet[A](color: Color, getter: Player => A): A =
+    getter(color.fold(whitePlayer, blackPlayer))
+
+  private def playerDo(color: Color, effect: Player => Unit): Unit =
+    effect(color.fold(whitePlayer, blackPlayer))
+
+  private def recordLag(pov: Pov): Unit =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
@@ -218,52 +365,49 @@ private[round] final class RoundDuct(
       } UserLagCache.put(user, lag)
     }
 
-  private[this] def handle[A](op: Game => Fu[Events]): Funit =
+  private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  private[this] def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
+  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov playerId)(op)
 
-  private[this] def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
         proxy playerPov p.playerId
       }
     }(op)
 
-  private[this] def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
+  private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov p.playerId)(op)
 
-  private[this] def handle(color: Color)(op: Pov => Fu[Events]): Funit =
+  private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)
 
-  private[this] def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
+  private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
     pov flatten "pov not found" flatMap { p =>
-      (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map {
-        publish(p.game, _)
-      }
+      (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map publish
     } recover errorHandler("handlePov")
 
-  private[this] def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
-    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap { pov =>
-      op(pov) map { publish(pov.game, _) }
-    } recover errorHandler("handleAi")
+  private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
+    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op map publish recover errorHandler("handleAi")
 
-  private[this] def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
-    game flatten "game not found" flatMap { g =>
-      op(g) map { publish(g, _) }
-    } recover errorHandler("handleGame")
+  private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
+    game flatten "game not found" flatMap op map publish recover errorHandler("handleGame")
 
-  private[this] def publish[A](game: Game, events: Events): Unit =
+  private def publish[A](events: Events): Unit =
     if (events.nonEmpty) {
-      socketMap.tell(gameId, EventList(events))
+      events map { e =>
+        version = version.inc
+        socketSend(RP.Out.tellRoomVersion(roomId, makeMessage(e.typ, e.data), version, e.troll))
+      }
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
       }) this ! Threefold
     }
 
-  private[this] def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
+  private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client()
@@ -272,9 +416,22 @@ private[round] final class RoundDuct(
       lila.mon.round.error.fishnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
+
+  def roomId = RoomId(gameId)
+
+  buscriptions.subAll
+  socketSend(RP.Out.start(roomId))
+
+  override def stop() {
+    super.stop()
+    buscriptions.unsubAll
+    socketSend(RP.Out.stop(roomId))
+  }
 }
 
-object RoundDuct {
+object RoundRemoteDuct {
+
+  case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
 
   private[round] case class Dependencies(
       messenger: Messenger,
@@ -285,20 +442,6 @@ object RoundDuct {
       player: Player,
       drawer: Drawer,
       forecastApi: ForecastApi,
-      socketMap: SocketMap
+      bus: lila.common.Bus
   )
-
-  private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {
-
-    def decline = TakebackSituation(nbDeclined + 1, DateTime.now.some)
-
-    def delaySeconds = (math.pow(nbDeclined min 10, 2) * 10).toInt
-
-    def offerable = lastDeclined.fold(true) { _ isBefore DateTime.now.minusSeconds(delaySeconds) }
-
-    def reset = takebackSituationZero.zero
-  }
-
-  private[round] implicit val takebackSituationZero: Zero[TakebackSituation] =
-    Zero.instance(TakebackSituation(0, none))
 }

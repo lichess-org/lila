@@ -11,7 +11,7 @@ final class DuctMap[D <: Duct](
     accessTimeout: FiniteDuration
 ) {
 
-  def getOrMake(id: String): D = ducts.get(id)
+  def getOrMake(id: String): D = ducts get id
 
   def getIfPresent(id: String): Option[D] = Option(ducts getIfPresent id)
 
@@ -26,6 +26,8 @@ final class DuctMap[D <: Duct](
   def size: Int = ducts.estimatedSize().toInt
 
   def kill(id: String): Unit = ducts invalidate id
+
+  def touchOrMake(id: String): Unit = ducts get id
 
   private[this] val ducts: LoadingCache[String, D] =
     Caffeine.newBuilder()

@@ -27,7 +27,8 @@ final class JsonView(
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: Pov => Boolean,
     baseAnimationDuration: Duration,
-    moretimeSeconds: Int
+    moretimeSeconds: Int,
+    useRemoteSocket: Game.ID => Boolean
 ) {
 
   import JsonView._
@@ -80,7 +81,7 @@ final class JsonView(
             .add("onGame" -> (opponent.isAi || socket.onGame(opponent.color))),
           "url" -> Json.obj(
             "socket" -> {
-              if (RoundRemoteSocket appliesTo game) s"/ws/play/$fullId/v$apiVersion"
+              if (useRemoteSocket(game.id)) s"/ws/play/$fullId/v$apiVersion"
               else s"/$fullId/socket/v$apiVersion"
             },
             "round" -> s"/$fullId"
@@ -172,7 +173,7 @@ final class JsonView(
           "orientation" -> pov.color.name,
           "url" -> Json.obj(
             "socket" -> {
-              if (RoundRemoteSocket appliesTo game) s"/ws/watch/$gameId/${color.name}/v$apiVersion"
+              if (useRemoteSocket(game.id)) s"/ws/watch/$gameId/${color.name}/v$apiVersion"
               else s"/$gameId/${color.name}/socket/v$apiVersion"
             },
             "round" -> s"/$gameId/${color.name}"

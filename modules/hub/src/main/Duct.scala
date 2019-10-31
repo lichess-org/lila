@@ -12,7 +12,7 @@ import lila.base.LilaException
  * Sequential like an actor, but for async functions,
  * and using an STM backend instead of akka actor.
  */
-trait Duct {
+trait Duct extends lila.common.Tellable {
 
   import Duct._
 
@@ -28,6 +28,8 @@ trait Duct {
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
 
+  def stop(): Unit = {}
+
   /*
    * Idle: None
    * Busy: Some(Queue.empty)
@@ -40,6 +42,8 @@ trait Duct {
 
   private[this] val postRun = (_: Any) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
+
+  lazy val uniqueId = Integer.toHexString(hashCode)
 }
 
 object Duct {
