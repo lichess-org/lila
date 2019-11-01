@@ -100,7 +100,7 @@ class RawHtmlTest extends Specification {
       addLinks("lidraughts.org/()") must_== """<a href="/()">lidraughts.org/()</a>"""
 
       addLinks("lidraughts.org/())") must_== """<a href="/()">lidraughts.org/()</a>)"""
-      addLinks("lidraughts.org/(2)-)?") must_== """<a href="/(2)">lidraughts.org/(2)</a>-)?"""
+      addLinks("lidraughts.org/(2)-)?") must_== """<a href="/(2)-">lidraughts.org/(2)-</a>)?"""
 
       addLinks("lidraughts.org.-") must_== """<a href="/">lidraughts.org</a>.-"""
     }

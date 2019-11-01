@@ -26,6 +26,14 @@ class StringTest extends Specification {
     "escape chars" in {
       String.html.richText(s"&") must_== raw("&amp;")
     }
+
+    "keep trailing dash on url" in {
+      // We use trailing dashes (-) in our own URL slugs. Always consider them
+      // to be part of the URL.
+      String.html.richText("a https://example.com/foo--. b") must_== raw {
+        """a <a rel="nofollow" href="https://example.com/foo--" target="_blank">example.com/foo--</a>. b"""
+      }
+    }
   }
 
 }
