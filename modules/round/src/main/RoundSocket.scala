@@ -228,9 +228,8 @@ private[round] final class RoundSocket(
     }))
 
     case a: lila.analyse.actorApi.AnalysisProgress =>
-      import lila.analyse.{ JsonView => analysisJson }
       notifyAll("analysisProgress", Json.obj(
-        "analysis" -> analysisJson.bothPlayers(a.game, a.analysis),
+        "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
         "tree" -> TreeBuilder(
           id = a.analysis.id,
           pgnMoves = a.game.pgnMoves,

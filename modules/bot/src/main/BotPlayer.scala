@@ -8,6 +8,7 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
+import lila.game.Game.{ PlayerId, FullId }
 import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
 import lila.round.actorApi.round.{ DrawNo, DrawYes }
 import lila.user.User
@@ -88,14 +89,14 @@ final class BotPlayer(
   def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)
       system.lilaBus.publish(
-        Tell(pov.gameId, DrawNo(pov.playerId)),
+        Tell(pov.gameId, DrawNo(PlayerId(pov.playerId))),
         'roundMapTell
       )
 
   def offerDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn)
       system.lilaBus.publish(
-        Tell(pov.gameId, DrawYes(pov.playerId)),
+        Tell(pov.gameId, DrawYes(PlayerId(pov.playerId))),
         'roundMapTell
       )
 }

@@ -67,7 +67,7 @@ object Main extends LilaController {
     Env.round.selfReport(
       userId = ctx.userId,
       ip = HTTPRequest lastRemoteAddress ctx.req,
-      fullId = id,
+      fullId = lila.game.Game.FullId(id),
       name = get("n", ctx.req) | "?"
     )
     NoContent.fuccess

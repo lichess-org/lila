@@ -6,10 +6,10 @@ import actorApi._
 import lila.chat.actorApi._
 import lila.chat.Chat
 import lila.game.Game
-import lila.user.User
 import lila.hub.actorApi.shutup.PublicSource
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.{ I18nKeys, enLang }
+import lila.user.User
 
 final class Messenger(val chat: ActorSelection) {
 
@@ -29,19 +29,18 @@ final class Messenger(val chat: ActorSelection) {
 
   private val whisperCommands = List("/whisper ", "/w ")
 
-  def owner(gameId: Game.ID, member: Member, text: String) = (member.userId match {
-    case Some(userId) =>
-      whisperCommands.collectFirst {
-        case command if text startsWith command =>
-          val source = PublicSource.Watcher(gameId)
-          UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size, source.some)
-      } orElse {
-        if (text startsWith "/") none // mistyped command?
-        else UserTalk(Chat.Id(gameId), userId, text, publicSource = none).some
-      }
-    case None =>
-      PlayerTalk(Chat.Id(gameId), member.color.white, text).some
-  }) foreach chat.!
+  def owner(gameId: Game.ID, userId: User.ID, text: String): Unit =
+    whisperCommands.collectFirst {
+      case command if text startsWith command =>
+        val source = PublicSource.Watcher(gameId)
+        UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size, source.some)
+    }.orElse {
+      if (text startsWith "/") none // mistyped command?
+      else UserTalk(Chat.Id(gameId), userId, text, publicSource = none).some
+    } foreach chat.!
+
+  def owner(gameId: Game.ID, anonColor: chess.Color, text: String): Unit =
+    chat ! PlayerTalk(Chat.Id(gameId), anonColor.white, text)
 
   private def watcherId(gameId: Game.ID) = s"$gameId/w"
 }

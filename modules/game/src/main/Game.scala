@@ -569,6 +569,15 @@ object Game {
 
   type ID = String
 
+  case class Id(value: String) extends AnyVal with StringValue {
+    def full(playerId: PlayerId) = FullId(s"$value{$playerId.value}")
+  }
+  case class FullId(value: String) extends AnyVal with StringValue {
+    def gameId = Id(value take gameIdSize)
+    def playerId = PlayerId(value drop gameIdSize)
+  }
+  case class PlayerId(value: String) extends AnyVal with StringValue
+
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
   val syntheticId = "synthetic"

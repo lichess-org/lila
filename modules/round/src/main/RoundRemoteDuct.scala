@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import actorApi._, round._
 import chess.{ Color, White, Black, Speed }
 import lila.chat.Chat
+import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
@@ -142,6 +143,23 @@ private[round] final class RoundRemoteDuct(
       }))
     }
 
+    case Protocol.In.PlayerChatSay(_, Right(color), msg) => fuccess {
+      messenger.owner(gameId, color, msg)
+    }
+    case Protocol.In.PlayerChatSay(_, Left(userId), msg) if chatIds.priv == Chat.Id(gameId) => fuccess {
+      messenger.owner(gameId, userId, msg)
+    }
+
+    case Protocol.In.HoldAlert(fullId, ip, mean, sd) => handle(fullId.playerId) { pov =>
+      lila.game.GameRepo hasHoldAlert pov flatMap {
+        case true => funit
+        case false =>
+          lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+          lila.mon.cheat.holdAlert()
+          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
+      } inject Nil
+    }
+
     // round stuff
 
     case p: HumanPlay => handleHumanPlay(p) { pov =>
@@ -164,11 +182,11 @@ private[round] final class RoundRemoteDuct(
       player.fishnet(game, ply, uci, this)
     } >>- lila.mon.round.move.full.count()
 
-    case Abort(playerId) => handle(playerId) { pov =>
+    case Abort(playerId) => handle(PlayerId(playerId)) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
     }
 
-    case Resign(playerId) => handle(playerId) { pov =>
+    case Resign(playerId) => handle(PlayerId(playerId)) { pov =>
       pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
     }
 
@@ -209,7 +227,7 @@ private[round] final class RoundRemoteDuct(
     // flags a specific player, possibly without grace if self
     case ClientFlag(color, from) => handle { game =>
       (game.turnColor == color) ?? {
-        val toSelf = from has game.player(color).id
+        val toSelf = from has PlayerId(game.player(color).id)
         game.outoftime(withGrace = !toSelf) ?? finisher.outOfTime(game)
       }
     }
@@ -238,23 +256,13 @@ private[round] final class RoundRemoteDuct(
     case Threefold => proxy withGame { game =>
       drawer autoThreefold game map {
         _ foreach { pov =>
-          this ! DrawClaim(pov.player.id)
+          this ! DrawClaim(PlayerId(pov.player.id))
         }
       }
     }
 
-    case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
-      lila.game.GameRepo hasHoldAlert pov flatMap {
-        case true => funit
-        case false =>
-          lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-          lila.mon.cheat.holdAlert()
-          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
-      } inject Nil
-    }
-
-    case RematchYes(playerId) => handle(playerId)(rematcher.yes)
-    case RematchNo(playerId) => handle(playerId)(rematcher.no)
+    case RematchYes(playerId) => handle(PlayerId(playerId))(rematcher.yes)
+    case RematchNo(playerId) => handle(PlayerId(playerId))(rematcher.no)
 
     case TakebackYes(playerId) => handle(playerId) { pov =>
       takebacker.yes(~takebackSituation)(pov) map {
@@ -282,7 +290,7 @@ private[round] final class RoundRemoteDuct(
     case ForecastPlay(lastMove) => handle { game =>
       forecastApi.nextMove(game, lastMove) map { mOpt =>
         mOpt foreach { move =>
-          this ! HumanPlay(game.player.id, move, false)
+          this ! HumanPlay(PlayerId(game.player.id), move, false)
         }
         Nil
       }
@@ -373,13 +381,13 @@ private[round] final class RoundRemoteDuct(
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  private def handle(playerId: String)(op: Pov => Fu[Events]): Funit =
-    handlePov(proxy playerPov playerId)(op)
+  private def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
+    handlePov(proxy playerPov playerId.value)(op)
 
   private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
-        proxy playerPov p.playerId
+        proxy playerPov p.playerId.value
       }
     }(op)
 

@@ -17,7 +17,7 @@ final class SelfReport(
 
   private object recent {
     private val cache = new lila.memo.ExpireSetMemo(10 minutes)
-    def isNew(user: User, fullId: String): Boolean = {
+    def isNew(user: User, fullId: Game.FullId): Boolean = {
       val key = s"${user.id}:${fullId}"
       val res = !cache.get(key)
       cache.put(key)
@@ -28,7 +28,7 @@ final class SelfReport(
   def apply(
     userId: Option[User.ID],
     ip: IpAddress,
-    fullId: String,
+    fullId: Game.FullId,
     name: String
   ): Funit = !userId.exists(whitelist.contains) ?? {
     userId.??(UserRepo.named) flatMap { user =>
@@ -44,14 +44,14 @@ final class SelfReport(
         user.filter(recent.isNew(_, fullId)) ?? { u =>
           slackApi.selfReport(
             typ = name,
-            path = fullId,
+            path = fullId.value,
             user = u,
             ip = ip
           )
         }
       }
       if (fullId == "________") fuccess(doLog)
-      else proxyPov(fullId) map {
+      else proxyPov(fullId.value) map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {

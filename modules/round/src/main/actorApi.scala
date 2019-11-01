@@ -10,6 +10,7 @@ import lila.common.{ IpAddress, IsMobile }
 import lila.socket.Socket.{ SocketVersion, Sri }
 import lila.socket.DirectSocketMember
 import lila.user.User
+import lila.game.Game.{ FullId, PlayerId }
 
 case class EventList(events: List[lila.game.Event])
 
@@ -82,6 +83,7 @@ case class Join(
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class Connected(enumerator: JsEnumerator, member: Member)
 case class Bye(color: Color)
+case class ByePlayer(playerId: PlayerId)
 case class IsGone(color: Color, promise: Promise[Boolean])
 case class GetSocketStatus(promise: Promise[SocketStatus])
 case class SocketStatus(
@@ -101,7 +103,7 @@ case object GetGame
 package round {
 
   case class HumanPlay(
-      playerId: String,
+      playerId: PlayerId,
       uci: Uci,
       blur: Boolean,
       moveMetrics: MoveMetrics = MoveMetrics(),
@@ -117,20 +119,20 @@ package round {
   case object AbortForce
   case object Threefold
   case object ResignAi
-  case class ResignForce(playerId: String)
-  case class DrawForce(playerId: String)
-  case class DrawClaim(playerId: String)
-  case class DrawYes(playerId: String)
-  case class DrawNo(playerId: String)
-  case class TakebackYes(playerId: String)
-  case class TakebackNo(playerId: String)
-  case class Moretime(playerId: String)
+  case class ResignForce(playerId: PlayerId)
+  case class DrawForce(playerId: PlayerId)
+  case class DrawClaim(playerId: PlayerId)
+  case class DrawYes(playerId: PlayerId)
+  case class DrawNo(playerId: PlayerId)
+  case class TakebackYes(playerId: PlayerId)
+  case class TakebackNo(playerId: PlayerId)
+  case class Moretime(playerId: PlayerId)
   case object QuietFlag
-  case class ClientFlag(color: Color, fromPlayerId: Option[String])
+  case class ClientFlag(color: Color, fromPlayerId: Option[PlayerId])
   case object Abandon
   case class ForecastPlay(lastMove: chess.Move)
   case class Cheat(color: Color)
-  case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: IpAddress)
+  case class HoldAlert(playerId: PlayerId, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)
   case object NoStart
   case object TooManyPlies

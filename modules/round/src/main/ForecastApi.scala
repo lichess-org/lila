@@ -10,6 +10,7 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import chess.Pos
 import Forecast.Step
+import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Pov, Game }
 import lila.hub.DuctMap
 
@@ -51,7 +52,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
     else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
       tellRound(pov.gameId, actorApi.round.HumanPlay(
-        playerId = pov.playerId,
+        playerId = PlayerId(pov.playerId),
         uci = uci,
         blur = true,
         promise = promise.some

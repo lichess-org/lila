@@ -83,13 +83,11 @@ object RoomSocket {
 
       val reader: P.In.Reader = raw => raw.path match {
         case "room/alives" => KeepAlives(raw.args split "," map RoomId.apply).some
-        case "chat/say" => raw.args.split(" ", 3) match {
+        case "chat/say" => raw.get(3) {
           case Array(roomId, userId, msg) => ChatSay(RoomId(roomId), userId, msg).some
-          case _ => none
         }
-        case "chat/timeout" => raw.args.split(" ", 4) match {
+        case "chat/timeout" => raw.get(4) {
           case Array(roomId, userId, suspect, reason) => ChatTimeout(RoomId(roomId), userId, suspect, reason).some
-          case _ => none
         }
         case "tell/room/sri" => raw.get(4) {
           case arr @ Array(roomId, _, _, _) => P.In.tellSriMapper.lift(arr drop 1).flatten map {

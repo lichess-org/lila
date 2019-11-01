@@ -9,6 +9,7 @@ import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPla
 import akka.actor.ActorRef
 import lila.game.actorApi.MoveGameEvent
 import lila.game.{ Game, GameDiff, Progress, Pov, UciMemo }
+import lila.game.Game.{ PlayerId, FullId }
 import lila.hub.actorApi.round.BotPlay
 
 private[round] final class Player(
@@ -78,8 +79,8 @@ private[round] final class Player(
     val res = if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
-      if (pov.opponent.isOfferingDraw) round ! DrawNo(pov.player.id)
-      if (pov.player.isProposingTakeback) round ! TakebackNo(pov.player.id)
+      if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
+      if (pov.player.isProposingTakeback) round ! TakebackNo(PlayerId(pov.player.id))
       if (progress.game.forecastable) moveOrDrop.left.toOption.foreach { move =>
         round ! ForecastPlay(move)
       }

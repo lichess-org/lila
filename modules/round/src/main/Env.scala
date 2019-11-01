@@ -108,7 +108,9 @@ final class Env(
     ),
     deployPersistence = deployPersistence,
     scheduleExpiration = scheduleExpiration,
-    chat = hub.chat,
+    chatActor = hub.chat,
+    tournamentActor = hub.tournamentApi,
+    selfReport = selfReport,
     messenger = messenger,
     goneWeightsFor = goneWeightsFor,
     system = system

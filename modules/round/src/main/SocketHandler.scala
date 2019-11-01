@@ -11,6 +11,7 @@ import play.api.libs.json.{ JsObject, JsNumber, Json, Reads }
 import actorApi._, round._
 import lila.chat.Chat
 import lila.common.{ IpAddress, ApiVersion, IsMobile }
+import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Pov, PovRef, Game }
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
@@ -55,7 +56,7 @@ private[round] final class SocketHandler(
       Handler.recordUserLagFromPing(member, o)
     }
 
-    member.playerIdOption.fold[Handler.Controller](({
+    member.playerIdOption.map(PlayerId.apply).fold[Handler.Controller](({
       case ("p", o) => handlePing(o)
       case ("talk", o) => for {
         line <- o str "d"
@@ -89,22 +90,27 @@ private[round] final class SocketHandler(
             send(HumanPlay(playerId, drop, blur, lag, promise.some))
             member.push(ackMessage(ackId))
         }
-        case ("rematch-yes", _) => send(RematchYes(playerId))
-        case ("rematch-no", _) => send(RematchNo(playerId))
+        case ("rematch-yes", _) => send(RematchYes(playerId.value))
+        case ("rematch-no", _) => send(RematchNo(playerId.value))
         case ("takeback-yes", _) => send(TakebackYes(playerId))
         case ("takeback-no", _) => send(TakebackNo(playerId))
         case ("draw-yes", _) => send(DrawYes(playerId))
         case ("draw-no", _) => send(DrawNo(playerId))
         case ("draw-claim", _) => send(DrawClaim(playerId))
-        case ("resign", _) => send(Resign(playerId))
+        case ("resign", _) => send(Resign(playerId.value))
         case ("resign-force", _) => send(ResignForce(playerId))
         case ("draw-force", _) => send(DrawForce(playerId))
-        case ("abort", _) => send(Abort(playerId))
+        case ("abort", _) => send(Abort(playerId.value))
         case ("moretime", _) => send(Moretime(playerId))
         case ("outoftime", _) => send(QuietFlag) // mobile app BC
         case ("flag", o) => clientFlag(o, playerId.some) foreach send
         case ("bye2", _) => socket ! Bye(ref.color)
-        case ("talk", o) if chat.isEmpty => o str "d" foreach { messenger.owner(gameId, member, _) }
+        case ("talk", o) if chat.isEmpty => o str "d" foreach { msg =>
+          member.userId match {
+            case Some(u) => messenger.owner(gameId, u, msg)
+            case None => messenger.owner(gameId, member.color, msg)
+          }
+        }
         case ("hold", o) => for {
           d ← o obj "d"
           mean ← d int "mean"
@@ -117,7 +123,7 @@ private[round] final class SocketHandler(
         case ("rep", o) => for {
           d ← o obj "d"
           name ← d str "n"
-        } selfReport(member.userId, ip, s"$gameId$playerId", name)
+        } selfReport(member.userId, ip, FullId(s"$gameId$playerId"), name)
       }: Handler.Controller) orElse lila.chat.Socket.in(
         chatId = chat.fold(Chat.Id(gameId))(_.id),
         publicSource = chat.map(_.publicSource),
@@ -229,7 +235,7 @@ private[round] final class SocketHandler(
     d.str("s") flatMap { v => Try(Centis(Integer.parseInt(v, 36))).toOption }
   )
 
-  private def clientFlag(o: JsObject, playerId: Option[String]) =
+  private def clientFlag(o: JsObject, playerId: Option[PlayerId]) =
     o str "d" flatMap Color.apply map { ClientFlag(_, playerId) }
 
   private val ackEmpty = Json.obj("t" -> "ack")

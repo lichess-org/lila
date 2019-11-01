@@ -220,15 +220,15 @@ object RemoteSocket {
       }
 
       def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = {
-        case Array(sri, userOrAnon, payload) => for {
+        case Array(sri, user, payload) => for {
           obj <- Json.parse(payload).asOpt[JsObject]
           typ <- obj str "t"
-          userId = userOrAnon.some.filter("-" !=)
-        } yield TellSri(Sri(sri), userId, typ, obj)
+        } yield TellSri(Sri(sri), optional(user), typ, obj)
       }
 
       def commas(str: String): Array[String] = if (str == "-") Array.empty else str split ','
       def boolean(str: String): Boolean = str == "+"
+      def optional(str: String): Option[String] = if (str == "-") None else Some(str)
     }
 
     object Out {
