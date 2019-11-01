@@ -68,14 +68,14 @@
   <string name="capture">Bixwe</string>
   <string name="close">Bigire</string>
   <string name="winning">Biserdikeve</string>
-  <string name="losing">Didore</string>
+  <string name="losing">Têk diçe</string>
   <string name="drawn">Wekhevî</string>
-  <string name="unknown">Nediyar</string>
+  <string name="unknown">Nedîyar</string>
   <string name="database">Zaniyarîdank</string>
   <string name="whiteDrawBlack">Spî / Wekhevî / Reş</string>
   <string name="averageRatingX">Nirxandina navîn: %s</string>
-  <string name="recentGames">Yariyên vê dawiyê</string>
-  <string name="topGames">Lîstikên trend</string>
+  <string name="recentGames">Lîstikên herî dawî</string>
+  <string name="topGames">Lîstikên sereke</string>
   <string name="masterDbExplanation">Du milyon lîstikên ku li ser texteyê ji aliyê lîzerên %1$s+ FIDE ve hatine lîstin, ji %2$s heya %3$s</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">%s mat dibe di nîv-hemleyê de</item>
@@ -105,7 +105,7 @@
   <string name="multipleLines">Varyantên pirhejmar</string>
   <string name="cpus">CPU</string>
   <string name="memory">Bîrkan</string>
-  <string name="infiniteAnalysis">Analîza bêsînor</string>
+  <string name="infiniteAnalysis">Analîza bêdawî</string>
   <string name="removesTheDepthLimit">Sînora kûrahiyê radike, û kombersa te germ digire</string>
   <string name="blunder">Şelipan</string>
   <string name="blunders">Şelipan</string>
@@ -123,7 +123,7 @@
     <item quantity="one">%s lîzer</item>
     <item quantity="other">%s lîzer</item>
   </plurals>
-  <string name="currentGames">Lîstikên vê gavê</string>
+  <string name="currentGames">Lîstikên niha</string>
   <plurals name="nbGames">
     <item quantity="one">%s lîstik</item>
     <item quantity="other">%s lîstik</item>
@@ -132,7 +132,7 @@
     <item quantity="one">%s cihnîşan</item>
     <item quantity="other">%s cihnîşan</item>
   </plurals>
-  <string name="viewInFullSize">Di ekrana tam de bibîne</string>
+  <string name="viewInFullSize">Dîmentijî bibîne</string>
   <string name="logOut">Derkeve</string>
   <string name="signIn">Têkeve</string>
   <string name="youNeedAnAccountToDoThat">Pêdiviya te bi hesabekî heye ji bo kirina vê</string>
@@ -148,7 +148,7 @@
   <string name="variants">Varyant</string>
   <string name="timeControl">Kontrola demê</string>
   <string name="realTime">Zemanê heqîqî</string>
-  <string name="correspondence">Kişika bi riya maîlê</string>
+  <string name="correspondence">Lîstika bi nivîs</string>
   <string name="daysPerTurn">Rojên ji bo her dorekê</string>
   <string name="oneDay">Yek roj</string>
   <plurals name="nbDays">
@@ -159,7 +159,7 @@
     <item quantity="one">%s demjimêr</item>
     <item quantity="other">%s demjimêr</item>
   </plurals>
-  <string name="time">Wext</string>
+  <string name="time">Dem</string>
   <string name="rating">Pile</string>
   <string name="ratingStats">Statîstîkên pileyan</string>
   <string name="username">Navê bikarhêner</string>
@@ -199,11 +199,11 @@
   <string name="whiteDeclinesDraw">Ya spî wekheviyê red dike</string>
   <string name="blackDeclinesDraw">Ya reş wekheviyê red dike</string>
   <string name="yourOpponentOffersADraw">Reqîbê te wekheviyê teklîf dike</string>
-  <string name="accept">Qebûl bike</string>
+  <string name="accept">Bipejirînw</string>
   <string name="decline">Red bike</string>
   <string name="playingRightNow">Vê gavê tê lîstin</string>
   <string name="eventInProgress">Vê gavê tê lîstin</string>
-  <string name="finished">Xilas</string>
+  <string name="finished">Qedîya</string>
   <string name="finishesX">xelas dibe nav %s de</string>
   <string name="abortGame">Lîstikê betal bike</string>
   <string name="gameAborted">Lîstik hate betalkirin</string>
@@ -235,7 +235,7 @@
   <string name="subject">Mijar</string>
   <string name="recipient">Wergir</string>
   <string name="send">Bişîne</string>
-  <string name="incrementInSeconds">Tê zêdekirin di çend saniyeyan de</string>
+  <string name="incrementInSeconds">Li ser hemleyekê çend sanîye tê zêdekirin</string>
   <string name="freeOnlineChess">Kişika Belaş ya Serhêl</string>
   <string name="spectators">Temaşevan:</string>
   <plurals name="nbRated">
