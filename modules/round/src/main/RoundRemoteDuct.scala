@@ -12,6 +12,7 @@ import lila.chat.Chat
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
+import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.Duct
@@ -25,7 +26,6 @@ import makeTimeout.large
 private[round] final class RoundRemoteDuct(
     dependencies: RoundRemoteDuct.Dependencies,
     gameId: Game.ID,
-    isGone: Color => Fu[Boolean],
     socketSend: String => Unit
 )(implicit proxy: GameProxy) extends AnyRoundDuct {
 
@@ -49,40 +49,38 @@ private[round] final class RoundRemoteDuct(
 
   private final class Player(color: Color) {
 
-    // when the player has been seen online for the last time
-    private var time: Long = nowMillis
+    private var offlineSince: Option[Long] = nowMillis.some
     // wether the player closed the window intentionally
-    private var bye: Int = 0
+    private var bye: Boolean = false
     // connected as a bot
     private var botConnected: Boolean = false
 
     var userId = none[User.ID]
     var goneWeight = 1f
 
-    def ping: Unit = {
-      // TODO isGone foreach { _ ?? notifyGone(color, false) }
-      if (bye > 0) bye = bye - 1
-      time = nowMillis
+    def isOnline = botConnected || offlineSince.isEmpty
+
+    def setOnline(on: Boolean): Unit = {
+      isLongGone foreach { _ ?? notifyGone(color, false) }
+      offlineSince = if (on) None else offlineSince orElse nowMillis.some
+      bye = bye && !on
     }
     def setBye: Unit = {
-      bye = 3
+      setOnline(false)
+      bye = true
     }
-    private def isBye = bye > 0
 
-    // TODO private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
-    //   bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
-    // }
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
+      bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
+    }
 
     private def timeoutMillis = {
-      if (isBye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
+      if (bye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
     } * goneWeight atLeast 12000
 
-    def isConnected: Boolean =
-      time >= (nowMillis - timeoutMillis) || botConnected
-
-    def isGone: Fu[Boolean] = fuccess {
-      !isConnected
-    } // TODO ?? !isHostingSimul
+    def isLongGone: Fu[Boolean] = fuccess {
+      !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
+    } ?? !isHostingSimul
 
     def setBotConnected(v: Boolean) =
       botConnected = v
@@ -99,21 +97,28 @@ private[round] final class RoundRemoteDuct(
 
     // socket stuff
 
-    case Protocol.In.PlayerPing(_, color) => fuccess {
-      playerDo(color, _.ping)
+    case ByePlayer(playerId) => proxy playerPov playerId.value map {
+      _ foreach { pov =>
+        playerDo(pov.color, _.setBye)
+      }
     }
 
     case GetVersion(promise) => fuccess {
       promise success version
     }
 
+    case PlayersOnline(white, black) => fuccess {
+      whitePlayer setOnline white
+      whitePlayer setOnline black
+    }
+
     case GetSocketStatus(promise) =>
-      playerGet(White, _.isGone) zip playerGet(Black, _.isGone) map {
+      whitePlayer.isLongGone zip blackPlayer.isLongGone map {
         case (whiteIsGone, blackIsGone) => promise success SocketStatus(
           version = version,
-          whiteOnGame = ownerIsHere(White),
+          whiteOnGame = whitePlayer.isOnline,
           whiteIsGone = whiteIsGone,
-          blackOnGame = ownerIsHere(Black),
+          blackOnGame = blackPlayer.isOnline,
           blackIsGone = blackIsGone
         )
       }
@@ -202,7 +207,7 @@ private[round] final class RoundRemoteDuct(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
-        isGone(!pov.color) flatMap {
+        playerGet(!pov.color, _.isLongGone) flatMap {
           case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
@@ -212,7 +217,7 @@ private[round] final class RoundRemoteDuct(
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        isGone(!pov.color) flatMap {
+        playerGet(!pov.color, _.isLongGone) flatMap {
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
         }
@@ -359,8 +364,6 @@ private[round] final class RoundRemoteDuct(
     }
   }
 
-  private def ownerIsHere(color: Color) = playerGet(color, _.isConnected)
-
   private def playerGet[A](color: Color, getter: Player => A): A =
     getter(color.fold(whitePlayer, blackPlayer))
 
@@ -377,6 +380,12 @@ private[round] final class RoundRemoteDuct(
         lag <- clock.lag(pov.color).lagMean
       } UserLagCache.put(user, lag)
     }
+
+  private def notifyGone(color: Color, gone: Boolean): Unit = proxy pov color foreach {
+    _ foreach { pov =>
+      socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+    }
+  }
 
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)

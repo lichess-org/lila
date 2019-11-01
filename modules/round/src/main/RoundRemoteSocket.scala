@@ -45,7 +45,6 @@ final class RoundRemoteSocket(
       val duct = new RoundRemoteDuct(
         dependencies = roundDependencies,
         gameId = id,
-        isGone = id => ???,
         socketSend = send
       )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
       duct.getGame foreach {
@@ -62,7 +61,6 @@ final class RoundRemoteSocket(
   def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
-    case ping: Protocol.In.PlayerPing => tellRound(ping.gameId, ping)
     case Protocol.In.PlayerDo(id, tpe, o) => tpe match {
       case "moretime" => tellRound(id.gameId, Moretime(id.playerId))
       case "rematch-yes" => tellRound(id.gameId, RematchYes(id.playerId.value))
@@ -93,6 +91,9 @@ final class RoundRemoteSocket(
       promise.future onFailure { case _: Exception => send(Protocol.Out.resyncPlayer(fullId)) }
       tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, promise.some))
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
+    case Protocol.In.PlayerOnlines(onlines) => onlines foreach {
+      case (gameId, ons) => tellRound(gameId, ons)
+    }
     case RP.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
       rounds touchOrMake roomId.value
     }
@@ -116,7 +117,7 @@ object RoundRemoteSocket {
 
     object In {
 
-      case class PlayerPing(gameId: Game.Id, color: Color) extends P.In
+      case class PlayerOnlines(onlines: Iterable[(Game.Id, PlayersOnline)]) extends P.In
       case class PlayerDo(fullId: FullId, tpe: String, msg: JsObject) extends P.In
       case class PlayerMove(fullId: FullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String) extends P.In
@@ -127,8 +128,13 @@ object RoundRemoteSocket {
       case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String) extends P.In
 
       val reader: P.In.Reader = raw => raw.path match {
-        case "round/w" => PlayerPing(Game.Id(raw.args), chess.White).some
-        case "round/b" => PlayerPing(Game.Id(raw.args), chess.Black).some
+        case "round/ons" => PlayerOnlines {
+          P.In.commas(raw.args) map {
+            _ splitAt Game.gameIdSize match {
+              case (gameId, cs) => (Game.Id(gameId), PlayersOnline(cs(0) == "+", cs(1) == "+"))
+            }
+          }
+        }.some
         case "round/do" => raw.get(2) {
           case Array(fullId, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]
@@ -181,6 +187,7 @@ object RoundRemoteSocket {
     object Out {
 
       def resyncPlayer(fullId: FullId) = s"round/resync/player $fullId"
+      def gone(fullId: FullId, gone: Boolean) = s"round/gone $fullId ${P.Out.boolean(gone)}"
     }
   }
 }
