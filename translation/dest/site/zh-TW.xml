@@ -48,6 +48,7 @@
   <string name="computerAnalysis">電腦分析</string>
   <string name="analysis">分析</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="delete">刪除</string>
   <string name="blunders">嚴重錯誤</string>
   <string name="mistakes">錯誤</string>
   <string name="inaccuracies">輕微失誤</string>
