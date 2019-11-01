@@ -7,4 +7,6 @@
   <string name="theKing">國王</string>
   <string name="theKnight">馬</string>
   <string name="thePawn">兵</string>
+  <string name="practice">練習</string>
+  <string name="retry">重試</string>
 </resources>
