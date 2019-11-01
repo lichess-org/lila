@@ -1,10 +1,12 @@
 package lila.hub
 
 import com.github.benmanes.caffeine.cache._
+import ornicar.scalalib.Zero
 
+import java.util.concurrent.TimeUnit
 import scala.collection.JavaConverters._
 import scala.concurrent.duration.FiniteDuration
-import java.util.concurrent.TimeUnit
+import scala.concurrent.Promise
 
 final class DuctMap[+D <: Duct](
     mkDuct: String => D,
@@ -20,6 +22,15 @@ final class DuctMap[+D <: Duct](
   def tellAll(msg: Any) = ducts.asMap().asScala.foreach(_._2 ! msg)
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
+
+  def ask[A](id: String)(makeMsg: Promise[A] => Any): Fu[A] = getOrMake(id).ask(makeMsg)
+
+  def askIfPresent[A](id: String)(makeMsg: Promise[A] => Any): Fu[Option[A]] = getIfPresent(id) ?? {
+    _ ask makeMsg map some
+  }
+
+  def askIfPresentOrZero[A: Zero](id: String)(makeMsg: Promise[A] => Any): Fu[A] =
+    askIfPresent(id)(makeMsg) map (~_)
 
   def exists(id: String): Boolean = ducts.getIfPresent(id) != null
 

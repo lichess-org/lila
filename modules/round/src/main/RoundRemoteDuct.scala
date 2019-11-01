@@ -12,9 +12,10 @@ import lila.chat.Chat
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
-import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.simul.GetHostIds
+import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Duct
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -122,6 +123,13 @@ private[round] final class RoundRemoteDuct(
           blackIsGone = blackIsGone
         )
       }
+
+    case HasUserId(userId, promise) => fuccess {
+      promise success {
+        (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
+          (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
+      }
+    }
 
     case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) => fuccess {
       hasAi = game.hasAi

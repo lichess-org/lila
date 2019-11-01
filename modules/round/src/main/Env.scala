@@ -301,10 +301,16 @@ final class Env(
   )
 
   def getSocketStatus(game: Game): Fu[SocketStatus] =
-    socketMap.ask[SocketStatus](game.id)(GetSocketStatus)
+    if (useRemoteSocket(game.id))
+      roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
+    else
+      socketMap.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
-    socketMap.ask[Boolean](game.id)(HasUserId(userId, _))
+    if (useRemoteSocket(game.id))
+      roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(HasUserId(userId, _))
+    else
+      socketMap.ask[Boolean](game.id)(HasUserId(userId, _))
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
