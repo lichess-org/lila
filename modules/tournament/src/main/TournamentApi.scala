@@ -3,18 +3,19 @@ package lidraughts.tournament
 import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
 import akka.pattern.{ ask, pipe }
 import org.joda.time.DateTime
+import play.api.libs.iteratee.Enumerator
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import actorApi._
-import lidraughts.common.Debouncer
+import lidraughts.common.{ Debouncer, LightUser }
 import lidraughts.game.{ Game, LightGame, GameRepo, Pov, LightPov }
 import lidraughts.hub.actorApi.lobby.ReloadTournaments
 import lidraughts.hub.actorApi.map.Tell
 import lidraughts.hub.actorApi.timeline.{ Propagate, TourJoin }
-import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.hub.tournamentTeam._
+import lidraughts.hub.{ Duct, DuctMap }
 import lidraughts.round.actorApi.round.{ GoBerserk, AbortForce }
 import lidraughts.socket.actorApi.SendToFlag
 import lidraughts.user.{ User, UserRepo }
@@ -450,6 +451,24 @@ final class TournamentApi(
   def calendar: Fu[List[Tournament]] = {
     val from = DateTime.now.minusDays(1)
     TournamentRepo.calendar(from = from, to = from plusYears 1)
+  }
+
+  def resultStream(tour: Tournament, perSecond: Int, nb: Int): Enumerator[Player.Result] = {
+    import reactivemongo.play.iteratees.cursorProducer
+    import play.api.libs.iteratee._
+    var rank = 0
+    PlayerRepo.cursor(
+      tournamentId = tour.id,
+      batchSize = perSecond
+    ).bulkEnumerator(nb) &>
+      lidraughts.common.Iteratee.delay(1 second)(system) &>
+      Enumeratee.mapConcat(_.toSeq) &>
+      Enumeratee.mapM { player =>
+        lightUserApi.async(player.userId) map { lu =>
+          rank = rank + 1
+          Player.Result(player, lu | LightUser.fallback(player.userId), rank)
+        }
+      }
   }
 
   private def fetchGames(tour: Tournament, ids: Seq[Game.ID]): Fu[List[LightGame]] =

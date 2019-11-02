@@ -130,7 +130,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
   }
 
   if (vm.mode.sticky && !isGamebookPlay()) ctrl.userJump(data.position.path);
-  else if (data.chapter.relay) ctrl.userJump(data.chapter.relay.path);
+  else if (data.chapter.relay && !ctrl.initialPath) ctrl.userJump(data.chapter.relay.path);
 
   function configureAnalysis() {
     if (ctrl.embed) return;

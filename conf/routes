@@ -48,7 +48,7 @@ GET   /rel/blocks                      controllers.Relation.blocks(page: Int ?= 
 GET   /@/:username/tournaments/:path   controllers.UserTournament.path(username: String, path: String, page: Int ?= 1)
 
 # User
-GET   /@/:username/mod                 controllers.User.mod(username: String)
+GET   /api/stream/:username/mod        controllers.User.mod(username: String)
 POST  /@/:username/note                controllers.User.writeNote(username: String)
 POST  /note/delete/:id                 controllers.User.deleteNote(id: String)
 GET   /@/:username/mini                controllers.User.showMini(username: String)
@@ -537,6 +537,7 @@ GET   /api/games/team/:teamId          controllers.Api.gamesVsTeam(teamId: Strin
 GET   /api/tournament                  controllers.Api.currentTournaments
 GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
+GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
 GET   /api/status                      controllers.Api.status
 GET   /api/socket                      controllers.Main.apiWebsocket
@@ -643,6 +644,7 @@ GET   /variant/:key                    controllers.Page.variant(key)
 GET   /help/contribute                 controllers.Page.bookmark(name = "help")
 GET   /help/master                     controllers.Page.bookmark(name = "master")
 
+GET   /prismic-preview                 controllers.Blog.preview(token: String)
 POST  /jslog/$id<\w{12}>               controllers.Main.jslog(id: String)
 POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 

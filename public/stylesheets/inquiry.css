@@ -1,5 +1,5 @@
-body {
-  margin-top: 45px;
+body, #mz_menu .inner {
+  margin-top: 45px!important;
 }
 
 #inquiry {

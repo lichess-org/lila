@@ -106,7 +106,11 @@ final class RelayApi(
     repo.coll.find($doc(
       "sync.until" $exists false,
       "finished" -> false,
-      "startedAt" $lt DateTime.now.minusHours(3)
+      "startedAt" $lt DateTime.now.minusHours(3),
+      $or(
+        "startsAt" $exists false,
+        "startsAt" $lt DateTime.now
+      )
     )).list[Relay]() flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")

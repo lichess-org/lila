@@ -101,11 +101,11 @@
 @if((ctx is u) && u.perfs.bestStandardRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle ) {
 @claimTitle(u)
 }
-<div class="mod_zone"></div>
+@if(isGranted(_.UserSpy)) { <div class="mod_zone none"></div> }
 @angle match {
 case Angle.Games(Some(searchForm)) => { @search.user(u, searchForm) }
 case _ => {
-<div class="meat@if(info.insightVisible){ with_insights}">
+<div id="us_profile" class="@if(info.insightVisible){ with_insights}">
   @info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
   <div class="rating_history">
     @base.spinner()

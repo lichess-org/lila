@@ -1,8 +1,10 @@
 package controllers
 
 import play.api.data.Form
+import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
+import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lidraughts.api.{ Context, BodyContext }
@@ -251,30 +253,63 @@ object User extends LidraughtsController {
   }
 
   protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isSynchronousHttp ctx.req) fuccess(Mod.redirect(username))
-    else if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Ok("Disabled while streaming"))
-    else renderModZone(username, me).logTime(s"$username renderModZone")
+    if (HTTPRequest isEventSource ctx.req) renderModZone(username, me)
+    else fuccess(Mod.redirect(username))
 
-  protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
-    OptionFuOk(UserRepo named username) { user =>
-      UserRepo.emails(user.id).logTimeIfGt(s"$username UserRepo.emails", 100 millis) zip
-        UserRepo.isErased(user).logTimeIfGt(s"$username UserRepo.isErased", 100 millis) zip
-        (Env.security userSpy user).logTimeIfGt(s"$username security.userSpy", 100 millis) zip
-        Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id).logTimeIfGt(s"$username getPlayerAggregateAssessmentWithGames", 100 millis) zip
-        Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 100 millis) zip
-        Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 100 millis) zip
-        Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 100 millis) zip
-        Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 100 millis) flatMap {
-          case emails ~ erased ~ spy ~ assess ~ history ~ charges ~ reports ~ pref =>
-            val familyUserIds = user.id :: spy.otherUserIds.toList
-            Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 100 millis) zip
-              Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 100 millis) zip
-              Env.user.lightUserApi.preloadMany {
-                reports.userIds ::: assess.??(_.games).flatMap(_.userIds)
-              }.logTimeIfGt(s"$username lightUserApi.preloadMany", 100 millis) map {
-                case bans ~ notes ~ _ =>
-                  html.user.mod(user, emails, spy, assess, bans, history, charges, reports, pref, notes, erased)
-              }
+  private def futureToEnumerator[A](fu: Fu[Option[A]]): Enumerator[A] = Enumerator flatten fu.map {
+    _.fold(Enumerator.empty[A]) { Enumerator(_) }
+  }
+
+  protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] = {
+    UserRepo withEmails username flatten s"No such user $username" map {
+      case UserModel.WithEmails(user, emails) =>
+        val parts =
+          Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 100 millis) zip
+            Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 100 millis) zip
+            Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 100 millis) zip
+            Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 100 millis) flatMap {
+              case history ~ charges ~ reports ~ pref =>
+                Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 100 millis) inject
+                  html.user.mod.parts(user, history, charges, reports, pref).some
+            }
+        val actions = UserRepo.isErased(user) map { erased =>
+          html.user.mod.actions(user, emails, erased).some
+        }
+        val spyFu = Env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 100 millis)
+        val others = spyFu flatMap { spy =>
+          val familyUserIds = user.id :: spy.otherUserIds.toList
+          Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 100 millis) zip
+            Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 100 millis) map {
+              case notes ~ bans => html.user.mod.otherUsers(user, spy, notes, bans).some
+            }
+        }
+        val identification = spyFu map { spy =>
+          html.user.mod.identification(user, spy).some
+        }
+        val assess = Env.mod.assessApi.getPlayerAggregateAssessmentWithGames(user.id) flatMap {
+          _ ?? { as =>
+            Env.user.lightUserApi.preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
+          }
+        }
+        import play.api.libs.EventSource
+        implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
+        Ok.chunked {
+          (Enumerator(html.user.mod.menu(user)) interleave
+            futureToEnumerator(parts.logTimeIfGt(s"$username parts", 100 millis)) interleave
+            futureToEnumerator(actions.logTimeIfGt(s"$username actions", 100 millis)) interleave
+            futureToEnumerator(others.logTimeIfGt(s"$username others", 100 millis)) interleave
+            futureToEnumerator(identification.logTimeIfGt(s"$username identification", 100 millis)) interleave
+            futureToEnumerator(assess.logTimeIfGt(s"$username assess", 100 millis))) &>
+            EventSource()
+        }.as("text/event-stream")
+    }
+  }
+
+  protected[controllers] def renderModZoneActions(username: String)(implicit ctx: Context) =
+    UserRepo withEmails username flatten s"No such user $username" flatMap {
+      case UserModel.WithEmails(user, emails) =>
+        UserRepo.isErased(user) map { erased =>
+          Ok(html.user.mod.actions(user, emails, erased))
         }
     }
 

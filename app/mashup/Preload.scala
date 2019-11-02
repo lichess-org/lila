@@ -51,7 +51,7 @@ final class Preload(
       liveStreams().dmap(_.autoFeatured.withTitles(lightUserApi)) zip
       (ctx.userId ?? getPlayban) flatMap {
         case (data, povs) ~ posts ~ tours ~ events ~ simulsUnique ~ simulsCreated ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban =>
-          val currentGame = ctx.me ?? Preload.currentGame(povs, lightUserApi.sync) _
+          val currentGame = ctx.me ?? Preload.currentGameMyTurn(povs, lightUserApi.sync) _
           lightUserApi.preloadMany {
             tWinners.map(_.userId) :::
               posts.flatMap(_.userId) :::
@@ -65,12 +65,12 @@ object Preload {
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
 
-  def currentGame(lightUser: lidraughts.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
+  def currentGameMyTurn(lightUser: lidraughts.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
     GameRepo.playingRealtimeNoAi(user, 10) map {
-      currentGame(_, lightUser)(user)
+      currentGameMyTurn(_, lightUser)(user)
     }
 
-  def currentGame(povs: List[Pov], lightUser: lidraughts.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
+  private def currentGameMyTurn(povs: List[Pov], lightUser: lidraughts.common.LightUser.GetterSync)(user: User): Option[CurrentGame] =
     povs.collectFirst {
       case pov if pov.game.nonAi && pov.game.hasClock && pov.isMyTurn =>
         val opponent = lidraughts.game.Namer.playerText(pov.opponent)(lightUser)

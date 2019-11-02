@@ -84,7 +84,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function tbhitToEval(hit: Tree.TablebaseHit | undefined | null) {
     return hit && (
       hit.winner ? {
-        mate: hit.winner === 'white' ? 10 : -10
+        win: hit.winner === 'white' ? 10 : -10
       } : { cp: 0 }
     );
   }

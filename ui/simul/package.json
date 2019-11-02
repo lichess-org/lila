@@ -11,13 +11,14 @@
   "author": "Stefan Schermann (modified original by Thibault Duplessis)",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "browserify": "^14",
-    "gulp": "^3",
-    "gulp-streamify": "^1",
+    "browserify": "^16",
+    "gulp": "^4",
     "gulp-uglify": "^3",
-    "gulp-util": "^3",
+    "gulp-size": "^3",
+    "fancy-log": "^1",
     "uglify-js": "^3",
-    "vinyl-source-stream": "^1",
+    "vinyl-source-stream": "^2",
+    "vinyl-buffer": "^1",
     "watchify": "^3"
   },
   "dependencies": {

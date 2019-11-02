@@ -50,3 +50,18 @@ h1.lidraughts_title time {
 #event .desc a {
   color: #3660dc;
 }
+#event .countdown {
+  text-align: center;
+}
+#event .countdown li {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1.5em;
+  text-transform: uppercase;
+}
+
+#event .countdown li span {
+  display: block;
+  font-size: 4.5rem;
+}

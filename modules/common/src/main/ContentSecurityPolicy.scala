@@ -61,6 +61,15 @@ case class ContentSecurityPolicy(
     frameSrc = "https://www.google.com" :: frameSrc
   )
 
+  def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(
+    scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
+    frameSrc = "https://lidraughts.prismic.io" :: frameSrc,
+    connectSrc = "https://lidraughts.prismic.io" :: connectSrc
+  )
+  else this
+
+  def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
+
   override def toString: String =
     List(
       "default-src " -> defaultSrc,

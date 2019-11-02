@@ -2,8 +2,8 @@ package lidraughts.study
 
 import play.api.libs.json._
 
-import draughts.format.{ Forsyth, FEN, Uci, UciCharPair }
 import draughts.format.pdn.Glyphs
+import draughts.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lidraughts.analyse.{ Analysis, Info }
 import lidraughts.hub.actorApi.draughtsnet.StudyChapterRequest
 import lidraughts.hub.actorApi.map.Tell
@@ -19,7 +19,7 @@ object ServerEval {
       chapterRepo: ChapterRepo
   ) {
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
+    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
       chapterRepo.startServerEval(chapter) >>- {
         val mainline = chapter.root.mainline
         draughtsnetActor ! StudyChapterRequest(
@@ -36,6 +36,7 @@ object ServerEval {
           userId = userId.some
         )
       }
+    }
   }
 
   final class Merger(

@@ -26,7 +26,7 @@ object Report extends LidraughtsController {
   }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(20, Room(room)) zip
+    api.openAndRecentWithFilter(12, Room(room)) zip
       api.countOpenByRooms zip
       Env.streamer.api.approval.countRequests flatMap {
         case reports ~ counts ~ streamers =>
@@ -54,7 +54,7 @@ object Report extends LidraughtsController {
     force: Boolean = false
   )(implicit ctx: BodyContext[_]) = {
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
-      case Some(suspect) => User.renderModZone(suspect.user.username, me)
+      case Some(suspect) => User.renderModZoneActions(suspect.user.username)
       case None =>
         def autoNext = ctx.body.body match {
           case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")

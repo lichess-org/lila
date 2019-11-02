@@ -2,9 +2,11 @@ package lidraughts.security
 
 import org.specs2.mutable.Specification
 
+import lidraughts.common.Strings
+
 class SpamTest extends Specification {
 
-  val spam = new Spam(() => Nil)
+  val spam = new Spam(() => Strings(Nil))
   val foobar = """foo bar"""
   val _c2 = """https://chess24.com?ref=masterpart"""
 

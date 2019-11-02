@@ -1,11 +1,12 @@
 @(u: User, rankMap: lidraughts.rating.UserRankMap, perfType: lidraughts.rating.PerfType, data: play.api.libs.json.JsObject, ratingChart: Option[String])(implicit ctx: Context)
 
 @moreJs = {
-@jsAt(s"compiled/lidraughts.perfStat${isProd??(".min")}.js")
 @ratingChart.map { rc =>
-@jsTag("chart/ratingHistory.js")
-@embedJsUnsafe(s"lidraughts.ratingHistoryChart($rc,'${perfType.name}');")
+  @jsTag("chart/ratingHistory.js")
+  @embedJsUnsafe(s"lidraughts.ratingHistoryChart($rc,'${perfType.name}');")
 }
+
+@jsAt(s"compiled/lidraughts.perfStat${isProd??(".min")}.js")
 @embedJs {
 $(function() {
 LidraughtsPerfStat(document.getElementById('perfStatContent'), {
@@ -21,7 +22,7 @@ data: @toJson(data)
 
 @user.layout(
 title = s"${u.username} ${perfType.name} stats",
-side = show.side(u, rankMap, perfType.some).some,
+side = show.side(u, rankMap.some, perfType.some).some,
 robots = false,
 evenMoreJs = moreJs,
 evenMoreCss = moreCss) {
@@ -32,7 +33,7 @@ evenMoreCss = moreCss) {
       View the games
     </a>
     }
-    @show.perfTrophies(u, rankMap.filterKeys(perfType.key==))
+    @show.perfTrophies(u, rankMap.filterKeys(perfType.key==).some)
     <h1 class="lidraughts_title">
       <a href="@routes.User.show(u.username)" data-icon="I" class="text">
         @u.username <span>@perfType.name stats</span>

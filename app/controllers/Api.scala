@@ -256,6 +256,20 @@ object Api extends LidraughtsController {
     }
   }
 
+  def tournamentResults(id: String) = Action.async { req =>
+    lidraughts.tournament.TournamentRepo byId id flatMap {
+      _ ?? { tour =>
+        GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          import lidraughts.tournament.JsonView.playerResultWrites
+          val nb = getInt("nb", req) | Int.MaxValue
+          val enumerator = Env.tournament.api.resultStream(tour, 50, nb) &>
+            Enumeratee.map(playerResultWrites.writes)
+          jsonStream(enumerator).fuccess
+        }
+      }
+    }
+  }
+
   def gamesByUsersStream = Action.async(parse.tolerantText) { req =>
     val userIds = req.body.split(',').take(300).toSet map lidraughts.user.User.normalize
     jsonStream(Env.game.gamesByUsersStream(userIds)).fuccess

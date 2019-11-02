@@ -30,7 +30,7 @@ private[api] final class Cli(bus: lidraughts.common.Bus) extends lidraughts.comm
           case Some(email) if email.value.toLowerCase == s"${user.id}@erase.forever" =>
             bus.publish(lidraughts.user.User.GDPRErase(user), 'gdprErase)
             s"Erasing all data about ${user.username} now"
-          case None => s"The user email must be set to <username>@erase.forever for erasing to start."
+          case _ => s"The user email must be set to <username>@erase.forever for erasing to start."
         }
       }
   }

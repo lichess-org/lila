@@ -1,11 +1,55 @@
 .mod_zone {
+  display: flex;
+  flex-flow: column;
   margin: 1em 20px;
 }
-.mod_zone .actions {
-  width: 100%;
-  text-align: center;
+.mod_zone.none {
+  display: none;
 }
-.mod_zone .actions .inquiry {
+.mod_zone .spinner {
+  margin: 100px auto;
+}
+#mz_actions { order: 1; }
+#mz_roles { order: 2; }
+#mz_preferences { order: 3; }
+#mz_irwin { order: 4; }
+#mz_assessments { order: 5; }
+#mz_plan { order: 6; }
+#mz_mod_log { order: 7; }
+#mz_reports_out { order: 8; }
+#mz_reports_in { order: 9; }
+#mz_others { order: 10; }
+#mz_identification { order: 11; }
+
+#mz_menu {
+  position: sticky;
+  top: 0;
+  left: 0;
+  padding: 0;
+}
+#mz_menu .inner {
+  position: absolute;
+  right: -137px;
+  top: 0;
+  margin-top: 20px;
+  display: flex;
+  flex-flow: column;
+}
+#mz_menu a {
+  padding: 7px 10px;
+}
+#mz_menu a.disabled {
+  opacity: 0.6;
+}
+#mz_menu a:not(.disabled):hover {
+  color: #3893E8;
+}
+
+#mz_actions {
+  text-align: center;
+  padding: 10px 0;
+}
+#mz_actions .inquiry {
   border-radius: 3px;
   height: 32px;
   width: 32px;
@@ -14,7 +58,7 @@
   vertical-align: top;
   background: #484541;
 }
-.mod_zone .actions .inquiry i {
+#mz_actions .inquiry i {
   display: block;
   height: 30px;
   width: 30px;
@@ -23,11 +67,10 @@
   background-position: 50% 50%;
 }
 .mod_zone .second_mod_button_row {
-  margin-top: 5px;
+  margin: 5px 0 10px 0;
 }
-.mod_zone .neural,
-.mod_zone .mod_roles {
-  padding: 10px 0;
+.mod_zone > * {
+  padding: 20px 0 0 0;
 }
 .mod_zone .neural strong {
   display: inline;
@@ -53,39 +96,37 @@ body.dark .mod_zone .slist {
 .mod_zone form {
   display: inline;
 }
-.mod_zone .listings {
-  border: 1px solid #ccc;
-}
-.mod_zone .listings > div {
+#mz_identification > div {
   max-height: 20em;
   overflow: auto;
 }
-.mod_zone .spy_ips {
+#mz_identification .spy_ips {
   float: left;
   margin-left: 1%;
   width: 31%;
 }
-.mod_zone .spy_ips > ul > li {
+#mz_identification .spy_ips > ul > li {
   list-style: inside disc;
 }
-.mod_zone .spy_ips ul p {
+#mz_identification .spy_ips ul p {
   font-weight: bold;
   display: inline;
 }
-.mod_zone .spy_ips li li {
+#mz_identification .spy_ips li li {
   margin-left: 1em;
   font-family: monospace;
 }
-.mod_zone .spy_uas {
+#mz_identification .spy_uas {
   margin-left: 34%;
 }
-.mod_zone .spy_fps {
+#mz_identification .spy_fps {
   margin-left: 34%;
+  max-height: 8em;
 }
-.mod_zone .spy_fps li {
+#mz_identification .spy_fps li {
   font-family: monospace;
 }
-.mod_zone .listings .blocked {
+#mz_identification .blocked {
   color: red;
   font-weight: bold;
 }
@@ -99,125 +140,105 @@ body.dark .mod_zone .slist {
 .mod_zone strong.inline {
   display: inline;
 }
-.mod_zone .plan_charges ul {
+#mz_plan ul {
   max-height: 100px;
   overflow: auto;
 }
-.mod_zone table.others.slist td:first-child {
+#mz_others .slist td:first-child {
   padding-left: 10px;
 }
-.mod_zone .others .i {
+#mz_others  .i {
   padding: 0 2px;
 }
-.mod_zone .others .i i {
+#mz_others  .i i {
   font-size: 1.5em;
 }
-.mod_zone .others thead th {
+#mz_others  thead th {
   cursor: pointer;
 }
-.mod_zone .reports {
-  display: flex;
-}
-.mod_zone .reports .half {
-  flex: 1 1 50%;
-  overflow: hidden;
-  white-space: nowrap;
-  transition: 0.5s;
-  transition-delay: 0.3s;
-}
-.mod_zone .reports .half:first-child {
-  margin-right: 20px;
-  border-right: 1px solid #ccc;
-}
-body.dark .mod_zone .reports .half:first-child {
-  border-color: #3d3d3d;
-}
-.mod_zone .reports .half:hover {
-  flex: 0 0 90%;
-}
-.mod_zone .reports form {
+.mz_reports form {
   display: block;
   padding: 0 10px;
 }
-.mod_zone .reports button {
+.mz_reports button {
   padding: 0;
   margin-left: -2px;
 }
-.mod_zone .reports button:not(:hover) {
+.mz_reports button:not(:hover) {
   border-color: transparent;
   background: transparent;
 }
-.mod_zone .reports button strong {
+.mz_reports button strong {
   display: inline;
 }
-.mod_zone .evaluation table {
+#mz_assessments table {
   margin-top: 10px;
 }
-.mod_zone .evaluation time {
+#mz_assessments time {
   display: inline;
 }
-.mod_zone .evaluation strong {
+#mz_assessments strong {
   display: inline;
   text-transform: uppercase;
 }
-.mod_zone .evaluation .percentage {
+#mz_assessments .percentage {
   font-size: 0.9em;
 }
-.mod_zone .evaluation .legend {
+#mz_assessments .legend {
   text-align: center;
   font-weight: bold;
   margin-bottom: 10px;
 }
-.mod_zone .evaluation .legend span {
+#mz_assessments .legend span {
   padding: 10px;
 }
-.mod_zone .evaluation .sig_1 {
+#mz_assessments .sig_1 {
   color: #2077C0;
   /* dark blue */
 }
-.mod_zone .evaluation .sig_2 {
+#mz_assessments .sig_2 {
   color: #23A1AB;
   /* light blue */
 }
-.mod_zone .evaluation .sig_3 {
+#mz_assessments .sig_3 {
   color: #DDCF3F;
   /* yellow */
 }
-.mod_zone .evaluation .sig_4 {
+#mz_assessments .sig_4 {
   color: #E79B64;
   /* orange */
 }
-.mod_zone .evaluation .sig_5 {
+#mz_assessments .sig_5 {
   color: #E73B38;
   /* red */
 }
-.mod_zone .evaluation .result_4 {
+#mz_assessments .result_4 {
   color: #E73B38;
   /* red */
 }
-.mod_zone .evaluation .result_3 {
+#mz_assessments .result_3 {
   color: #E73B38;
   /* red */
 }
-.mod_zone .evaluation .result_2 {
+#mz_assessments .result_2 {
   color: #E79B64;
   /* orange */
 }
-.mod_zone .evaluation .result_1 {
+#mz_assessments .result_1 {
   color: #2077C0;
   /* dark blue */
 }
-.mod_zone .evaluation .match {
+#mz_assessments .match {
   font-weight: bold;
   color: #759900;
 }
 
-.mod_zone .irwin header {
+#mz_irwin header {
   margin-top: 10px;
   display: flex;
   border: 1px solid #ccc;
 }
-.mod_zone .irwin header > * {
+#mz_irwin header > * {
   flex: 1 1 100%;
   display: flex;
   flex-flow: column;
@@ -227,21 +248,21 @@ body.dark .mod_zone .reports .half:first-child {
   border-left: 1px solid #ccc;
   padding: 5px 10px;
 }
-.mod_zone .irwin header > *:first-child {
+#mz_irwin header > *:first-child {
   border-left: none;
 }
-body.dark .irwin header,
-body.dark .irwin header > * {
+body.dark #mz_irwin header,
+body.dark #mz_irwin header > * {
   border-color: #3d3d3d;
 }
-.mod_zone .irwin header .title {
+#mz_irwin header .title {
   flex-flow: row;
   color: #3893E8;
   font-size: 1.4em;
   text-transform: uppercase;
   letter-spacing: 3px;
 }
-.mod_zone .irwin header .title img {
+#mz_irwin header .title img {
   height: 50px;
   width: 50px;
   opacity: 0.9;
@@ -251,73 +272,73 @@ body.dark .irwin header > * {
   20% { transform: scale(0.95); }
   45% { transform: scale(1); }
 }
-.mod_zone .irwin header .title img {
+#mz_irwin header .title img {
   animation: brain-glow 1.5s ease-in-out infinite;
 }
-.mod_zone .irwin header .infos {
+#mz_irwin header .infos {
   font-size: 0.9em;
 }
-.mod_zone .irwin header strong {
+#mz_irwin header strong {
   display: block;
   font-size: 1.1em;
   margin-top: 0;
 }
-.mod_zone .irwin header .assess strong {
+#mz_irwin header .assess strong {
   font-size: 2em;
 }
 
-.mod_zone .irwin table strong {
+#mz_irwin table strong {
   margin-top: 0;
   font-size: 1.6em;
 }
-.mod_zone .irwin table em {
+#mz_irwin table em {
   font-size: 0.8em;
   line-height: 1em;
   margin-top: -0.1em;
   display: block;
 }
-.mod_zone .irwin .moves {
+#mz_irwin .moves {
   padding: 0;
 }
-.mod_zone .irwin .moves a {
+#mz_irwin .moves a {
   display: block;
   width: 400px;
   height: 48px;
   display: flex;
   align-items: flex-end;
 }
-.mod_zone .irwin .moves span {
+#mz_irwin .moves span {
   flex: 0 1 10px;
   margin-left: 3px;
 }
-.mod_zone .irwin .text .green {
+#mz_irwin .text .green {
   /* actually blue */
   color: #2077C0;
 }
-.mod_zone .irwin .text .yellow {
+#mz_irwin .text .yellow {
   color: #DDCF3F;
 }
-.mod_zone .irwin .text .orange {
+#mz_irwin .text .orange {
   color: #E79B64;
 }
-.mod_zone .irwin .text .red {
+#mz_irwin .text .red {
   color: #E73B38;
 }
-.mod_zone .irwin .moves .green {
+#mz_irwin .moves .green {
   /* actually blue */
   background-color: #2077C0;
 }
-.mod_zone .irwin .moves .yellow {
+#mz_irwin .moves .yellow {
   background-color: #DDCF3F;
 }
-.mod_zone .irwin .moves .orange {
+#mz_irwin .moves .orange {
   background-color: #E79B64;
 }
-.mod_zone .irwin .moves .red {
+#mz_irwin .moves .red {
   background-color: #E73B38;
 }
 
-.mod_zone .reports .score {
+.mz_reports .score {
   display: inline-block;
   white-space: nowrap;
   font-weight: bold;
@@ -325,17 +346,17 @@ body.dark .irwin header > * {
   padding: 0.1em 0.5em;
   border-radius: 0.3em;
 }
-.mod_zone .reports .score.green {
+.mz_reports .score.green {
   /* actually blue */
   background-color: rgba(32, 119, 192, 0.4);
 }
-.mod_zone .reports .score.yellow {
+.mz_reports .score.yellow {
   background-color: rgba(221, 207, 63, 0.4);
 }
-.mod_zone .reports .score.orange {
+.mz_reports .score.orange {
   background-color: rgba(231, 155, 100, 0.4);
 }
-.mod_zone .reports .score.red {
+.mz_reports .score.red {
   background-color: rgba(231, 59, 56, 0.4);
 }
 

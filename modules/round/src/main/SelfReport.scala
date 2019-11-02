@@ -21,7 +21,8 @@ final class SelfReport(roundMap: DuctMap[Round]) {
       def doLog = lidraughts.log("cheat").branch("jslog").info(
         s"$ip https://lidraughts.org/$fullId ${user.fold("anon")(_.id)} $name"
       )
-      lidraughts.game.GameRepo pov fullId map {
+      if (fullId == "________") fuccess(doLog)
+      else lidraughts.game.GameRepo pov fullId map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {

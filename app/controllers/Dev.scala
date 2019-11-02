@@ -17,7 +17,8 @@ object Dev extends LidraughtsController {
     Env.explorer.indexFlowSetting,
     Env.report.scoreThresholdSetting,
     Env.game.pdnEncodingSetting,
-    Env.api.cspEnabledSetting
+    Env.api.cspEnabledSetting,
+    Env.streamer.alwaysFeaturedSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
@@ -25,16 +26,13 @@ object Dev extends LidraughtsController {
   }
 
   def settingsPost(id: String) = SecureBody(_.Settings) { implicit ctx => me =>
-    ~(for {
-      setting <- settingsList.find(_.id == id)
-      form <- setting.form
-    } yield {
+    settingsList.find(_.id == id) ?? { setting =>
       implicit val req = ctx.body
-      form.bindFromRequest.fold(
+      setting.form.bindFromRequest.fold(
         err => BadRequest(html.dev.settings(settingsList)).fuccess,
         v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
       )
-    })
+    }
   }
 
   private val commandForm = Form(single(

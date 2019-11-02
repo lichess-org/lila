@@ -72,7 +72,7 @@ object Paginator {
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
 
   def fromResults[A](
-    currentPageResults: List[A],
+    currentPageResults: Seq[A],
     nbResults: Int,
     currentPage: Int,
     maxPerPage: MaxPerPage

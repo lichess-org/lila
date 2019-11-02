@@ -52,7 +52,12 @@ underchat = views.html.game.watchers().some,
 moreCss = moreCss,
 moreJs = moreJs,
 draughtsground = false,
-zoomable = true) {
+zoomable = true,
+openGraph = lidraughts.app.ui.OpenGraph(
+title = r.name,
+url = s"$netBaseUrl${routes.Relay.show(r.slug, r.id.value).url}",
+description = shorten(r.description, 152)).some
+) {
 <div class="analyse cg-512">
   @board.domPreload(none)
 </div>

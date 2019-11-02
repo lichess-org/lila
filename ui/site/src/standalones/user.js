@@ -1,20 +1,5 @@
 $(function() {
 
-  $('div.user_show .mod_zone_toggle').each(function() {
-
-    $(this).click(function() {
-      var $zone = $('div.user_show .mod_zone');
-      if ($zone.is(':visible')) $zone.hide();
-      else {
-        $zone.html(lidraughts.spinnerHtml).show();
-        lidraughts.loadCss('stylesheets/user-mod.css');
-        $zone.load($(this).attr('href'));
-      }
-      return false;
-    });
-    if (location.search.indexOf('mod') === 1) $(this).click();
-  });
-
   $("div.user_show .note_zone_toggle").each(function() {
     $(this).click(function() {
       $("div.user_show .note_zone").toggle();

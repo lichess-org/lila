@@ -20,6 +20,9 @@ trait SecurityHelper {
   def isGranted(permission: Permission, user: User): Boolean =
     Granter(permission)(user)
 
+  def canViewRoles(user: User)(implicit ctx: UserContext): Boolean =
+    isGranted(_.ChangePermission) || (isGranted(_.Admin) && user.roles.nonEmpty)
+
   def reportScore(score: lidraughts.report.Report.Score) = Html {
     s"""<div class="score ${score.color}" title="Report score">${score.value.toInt}</div>"""
   }

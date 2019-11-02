@@ -122,8 +122,8 @@ object Monitor {
     }
   }
 
-  private[draughtsnet] def failure(work: Work, client: Client) = {
-    logger.warn(s"Received invalid ${work.skill} ${work.id} for ${work.game.id} by ${client.fullId}")
+  private[draughtsnet] def failure(work: Work, client: Client, e: Exception) = {
+    logger.warn(s"Received invalid ${work.skill} ${work.id} for ${work.game.id} by ${client.fullId}", e)
     lidraughts.mon.draughtsnet.client.result(client.userId.value, work.skill.key).failure()
   }
 

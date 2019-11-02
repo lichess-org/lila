@@ -27,6 +27,13 @@ object LightUser {
       .add("patron" -> u.isPatron)
   }
 
+  def fallback(userId: String) = LightUser(
+    id = userId,
+    name = userId,
+    title = None,
+    isPatron = false
+  )
+
   type Getter = String => Fu[Option[LightUser]]
   type GetterSync = String => Option[LightUser]
   type IsBotSync = String => Boolean

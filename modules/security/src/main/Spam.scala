@@ -1,9 +1,9 @@
 package lidraughts.security
 
-final class Spam(spamKeywords: () => List[String]) {
+final class Spam(spamKeywords: () => lidraughts.common.Strings) {
 
   def detect(text: String) = staticBlacklist.exists(text.contains) ||
-    spamKeywords().exists(text.contains)
+    spamKeywords().value.exists(text.contains)
 
   private def referBlacklist = List(
     /* While links to other draughts websites are welcome,

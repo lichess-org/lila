@@ -7,7 +7,7 @@ import draughts.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
 import lidraughts.db.BSON.BSONJodaDateTimeHandler
@@ -126,7 +126,7 @@ object GameRepo {
     sort: Bdoc,
     batchSize: Int = 0,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]) = {
+  )(implicit cp: CursorProducer[Game]): cp.ProducedCursor = {
     val query = coll.find(selector).sort(sort)
     query.copy(options = query.options.batchSize(batchSize)).cursor[Game](readPreference)
   }
@@ -187,11 +187,13 @@ object GameRepo {
 
   // gets last recently played move game in progress
   def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
-    coll.find(Query recentlyPlaying user.id)
+    lastPlayedPlaying(user.id).map { _ flatMap { Pov(_, user) } }
+
+  def lastPlayedPlaying(userId: User.ID): Fu[Option[Game]] =
+    coll.find(Query recentlyPlaying userId)
       .sort(Query.sortMovedAtNoIndex)
       .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
       .uno
-      .map { _ flatMap { Pov(_, user) } }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
     coll.find(Query nowPlaying userId).list[Game]()

@@ -195,11 +195,18 @@ private[round] final class Socket(
 
     case Join(uid, user, color, playerId, ip, userTv, version) =>
       val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = Member(channel, user, color, playerId, ip, userTv = userTv)
+      val member = Member(channel, user, color, playerId, ip, userTv.map(_.userId))
       addMember(uid, member)
       notifyCrowd
       if (playerId.isDefined) playerDo(color, _.ping)
-      if (member.userTv.isDefined) buscriptions.tv
+      val reloadTvEvent = userTv ?? {
+        case UserTv(_, reload) => reload map {
+          case true => makeMessage("resync").some
+          case false =>
+            buscriptions.tv // reload buscriptions
+            none
+        }
+      }
       val events = version.fold(history.getRecentEvents(5).some) {
         history.getEventsSince
       }
@@ -208,10 +215,12 @@ private[round] final class Socket(
         batchMsgs(member, _)
       } map { m => Enumerator(m: JsValue) }
 
-      sender ! Connected(
-        initialMsgs.fold(enumerator) { _ >>> enumerator },
-        member
+      val fullEnumerator = lidraughts.common.Iteratee.prependFu(
+        reloadTvEvent.map(_.toList),
+        initialMsgs.fold(enumerator) { _ >>> enumerator }
       )
+
+      sender ! Connected(fullEnumerator, member)
 
     case Nil =>
     case eventList: EventList => notify(eventList.events)

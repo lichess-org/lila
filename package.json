@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "lidraughts.org: the forever free, adless and open source draughts server",
   "devDependencies": {
-    "gulp": "^3.9.1",
+    "gulp": "^4",
     "svgo": "^0.7"
   },
   "repository": {

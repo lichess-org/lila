@@ -1,6 +1,7 @@
 package lidraughts.tournament
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort, AvgField }
+import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 import reactivemongo.bson._
 
 import BSONHandlers._
@@ -83,7 +84,7 @@ object PlayerRepo {
   private[tournament] def withPoints(tourId: String): Fu[List[Player]] =
     coll.find(
       selectTour(tourId) ++ $doc("m" $gt 0)
-    ).cursor[Player]().gather[List]()
+    ).list[Player]()
 
   private[tournament] def userIds(tourId: String): Fu[List[String]] =
     coll.distinct[String, List]("uid", selectTour(tourId).some)
@@ -170,4 +171,15 @@ object PlayerRepo {
         field = "uid"
       )
     }
+
+  private[tournament] def cursor(
+    tournamentId: Tournament.ID,
+    batchSize: Int,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(implicit cp: CursorProducer[Player]): cp.ProducedCursor = {
+    val query = coll
+      .find(selectTour(tournamentId))
+      .sort($sort desc "m")
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Player](readPreference)
+  }
 }

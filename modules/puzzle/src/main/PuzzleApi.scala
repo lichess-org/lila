@@ -46,6 +46,7 @@ private[puzzle] final class PuzzleApi(
         val fenStart = p.fen.split(':').take(3).mkString(":")
         puzzleColl(variant).exists($doc(
           F.id -> $gte(puzzleIdMin),
+          F.voteDown -> $lt(AggregateVote.disable.down),
           F.fen.$regex(fenStart.replace("/", "\\/"), ""),
           F.history.$regex(p.history.head, "")
         )) flatMap {
