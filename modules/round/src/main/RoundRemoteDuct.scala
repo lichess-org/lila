@@ -62,9 +62,11 @@ private[round] final class RoundRemoteDuct(
     def isOnline = botConnected || offlineSince.isEmpty
 
     def setOnline(on: Boolean): Unit = {
+      println(s"setOnline $color on=$on offlineSince=$offlineSince isLongGone=$isLongGone")
       isLongGone foreach { _ ?? notifyGone(color, false) }
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
+      println(s"setOnline $color on=$on offlineSince=$offlineSince isLongGone=$isLongGone")
     }
     def setBye: Unit = {
       setOnline(false)
@@ -110,7 +112,7 @@ private[round] final class RoundRemoteDuct(
 
     case PlayersOnline(white, black) => fuccess {
       whitePlayer setOnline white
-      whitePlayer setOnline black
+      blackPlayer setOnline black
     }
 
     case GetSocketStatus(promise) =>

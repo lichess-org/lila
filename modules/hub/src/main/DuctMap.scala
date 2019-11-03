@@ -43,6 +43,10 @@ final class DuctMap[+D <: Duct](
   private[this] val ducts: LoadingCache[String, D] =
     Caffeine.newBuilder()
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
+      .removalListener(new RemovalListener[String, D] {
+        def onRemoval(id: String, duct: D, cause: RemovalCause): Unit =
+          duct.stop()
+      })
       .build[String, D](new CacheLoader[String, D] {
         def load(id: String): D = mkDuct(id)
       })

@@ -78,11 +78,7 @@ final class RoundRemoteSocket(
       case "bye2" => tellRound(id.gameId, ByePlayer(id.playerId))
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
-    case Protocol.In.AnyDo(gameId, playerId, tpe, o) => tpe match {
-      case "flag" => o str "d" flatMap Color.apply map { c =>
-        tellRound(gameId, ClientFlag(c, playerId))
-      }
-    }
+    case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case c: Protocol.In.PlayerChatSay => tellRound(c.gameId, c)
     case Protocol.In.WatcherChatSay(gameId, userId, msg) => messenger.watcher(gameId.value, userId, msg)
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) =>
@@ -104,9 +100,9 @@ final class RoundRemoteSocket(
     case Protocol.In.SelfReport(fullId, ip, userId, name) => selfReport(userId, ip, fullId, name)
   }
 
-  private lazy val send: String => Unit = remoteSocketApi.makeSender("round-out").apply _
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
 
-  remoteSocketApi.subscribe("round-in", Protocol.In.reader)(
+  remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   )
 }
@@ -122,59 +118,60 @@ object RoundRemoteSocket {
       case class PlayerMove(fullId: FullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String) extends P.In
       case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String) extends P.In
-      case class AnyDo(gameId: Game.Id, playerId: Option[PlayerId], tpe: String, msg: JsObject) extends P.In
+      // case class AnyDo(gameId: Game.Id, playerId: Option[PlayerId], tpe: String, msg: JsObject) extends P.In
       case class HoldAlert(fullId: FullId, ip: IpAddress, mean: Int, sd: Int) extends P.In
+      case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId]) extends P.In
       case class Berserk(gameId: Game.Id, userId: User.ID) extends P.In
       case class SelfReport(fullId: FullId, ip: IpAddress, userId: Option[User.ID], name: String) extends P.In
 
       val reader: P.In.Reader = raw => raw.path match {
-        case "round/ons" => PlayerOnlines {
+        case "r/ons" => PlayerOnlines {
           P.In.commas(raw.args) map {
             _ splitAt Game.gameIdSize match {
-              case (gameId, cs) => (Game.Id(gameId), PlayersOnline(cs(0) == "+", cs(1) == "+"))
+              case (gameId, cs) => Game.Id(gameId) -> PlayersOnline(cs(0) == '+', cs(1) == '+')
             }
           }
         }.some
-        case "round/do" => raw.get(2) {
+        case "r/do" => raw.get(2) {
           case Array(fullId, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]
             tpe <- obj str "t"
           } yield PlayerDo(FullId(fullId), tpe, obj)
         }
-        case "round/do/any" => raw.get(3) {
-          case Array(gameId, playerId, payload) => for {
-            obj <- Json.parse(payload).asOpt[JsObject]
-            tpe <- obj str "t"
-          } yield AnyDo(Game.Id(gameId), P.In.optional(playerId) map PlayerId.apply, tpe, obj)
-        }
-        case "round/move" => raw.get(5) {
+        // case "r/do/any" => raw.get(3) {
+        //   case Array(gameId, playerId, payload) => for {
+        //     obj <- Json.parse(payload).asOpt[JsObject]
+        //     tpe <- obj str "t"
+        //   } yield AnyDo(Game.Id(gameId), P.In.optional(playerId) map PlayerId.apply, tpe, obj)
+        // }
+        case "r/move" => raw.get(5) {
           case Array(fullId, uciS, blurS, lagS, mtS) => Uci(uciS) map { uci =>
             PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
           }
         }
         case "chat/say" => raw.get(3) {
           case Array(roomId, author, msg) =>
-            val a = author match {
-              case "w" => Right(White)
-              case "b" => Right(Black)
-              case u => Left(u)
-            }
-            PlayerChatSay(Game.Id(roomId), a, msg).some
+            PlayerChatSay(Game.Id(roomId), readColor(author).toRight(author), msg).some
         }
         case "chat/say/w" => raw.get(3) {
           case Array(roomId, userId, msg) => WatcherChatSay(Game.Id(roomId), userId, msg).some
         }
-        case "round/berserk" => raw.get(2) {
+        case "r/berserk" => raw.get(2) {
           case Array(gameId, userId) => Berserk(Game.Id(gameId), userId).some
         }
-        case "round/hold" => raw.get(4) {
+        case "r/hold" => raw.get(4) {
           case Array(fullId, ip, meanS, sdS) => for {
             mean <- parseIntOption(meanS)
             sd <- parseIntOption(sdS)
           } yield HoldAlert(FullId(fullId), IpAddress(ip), mean, sd)
         }
-        case "round/report" => raw.get(4) {
+        case "r/report" => raw.get(4) {
           case Array(fullId, ip, user, name) => SelfReport(FullId(fullId), IpAddress(ip), P.In.optional(user), name).some
+        }
+        case "r/flag" => raw.get(3) {
+          case Array(gameId, color, playerId) => readColor(color) map {
+            Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
+          }
         }
         case _ => RP.In.reader(raw)
       }
@@ -182,12 +179,17 @@ object RoundRemoteSocket {
       private def centis(s: String): Option[Centis] =
         if (s == "-") none
         else parseIntOption(s) map Centis.apply
+
+      private def readColor(s: String) =
+        if (s == "w") Some(White)
+        else if (s == "b") Some(Black)
+        else None
     }
 
     object Out {
 
-      def resyncPlayer(fullId: FullId) = s"round/resync/player $fullId"
-      def gone(fullId: FullId, gone: Boolean) = s"round/gone $fullId ${P.Out.boolean(gone)}"
+      def resyncPlayer(fullId: FullId) = s"r/resync/player $fullId"
+      def gone(fullId: FullId, gone: Boolean) = s"r/gone $fullId ${P.Out.boolean(gone)}"
     }
   }
 }
