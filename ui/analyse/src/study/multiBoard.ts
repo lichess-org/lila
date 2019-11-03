@@ -156,6 +156,7 @@ function makeCg(preview: ChapterPreview): VNode {
           resizable: false,
           viewOnly: true,
           orientation: preview.orientation,
+		  fen: preview.fen,
           lastMove: uciToLastMove(preview.lastMove)
         });
         vnode.data!.cp = { cg, fen: preview.fen };
