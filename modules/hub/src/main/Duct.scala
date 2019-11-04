@@ -34,8 +34,6 @@ trait Duct extends lila.common.Tellable {
 
   def queueSize = stateRef.get().fold(0)(_.size + 1)
 
-  def stop(): Unit = {}
-
   /*
    * Idle: None
    * Busy: Some(Queue.empty)

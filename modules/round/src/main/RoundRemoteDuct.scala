@@ -9,6 +9,7 @@ import scala.concurrent.duration._
 import actorApi._, round._
 import chess.{ Color, White, Black, Speed }
 import lila.chat.Chat
+import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
@@ -62,11 +63,9 @@ private[round] final class RoundRemoteDuct(
     def isOnline = botConnected || offlineSince.isEmpty
 
     def setOnline(on: Boolean): Unit = {
-      println(s"setOnline $color on=$on offlineSince=$offlineSince isLongGone=$isLongGone")
       isLongGone foreach { _ ?? notifyGone(color, false) }
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
-      println(s"setOnline $color on=$on offlineSince=$offlineSince isLongGone=$isLongGone")
     }
     def setBye: Unit = {
       setOnline(false)
@@ -110,7 +109,7 @@ private[round] final class RoundRemoteDuct(
       promise success version
     }
 
-    case PlayersOnline(white, black) => fuccess {
+    case RoomCrowd(white, black) => fuccess {
       whitePlayer setOnline white
       blackPlayer setOnline black
     }
@@ -173,6 +172,14 @@ private[round] final class RoundRemoteDuct(
           lila.mon.cheat.holdAlert()
           proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
       } inject Nil
+    }
+
+    case Protocol.In.UserTv(_, userId) => fuccess {
+      buscriptions tv userId
+    }
+
+    case UserStartGame(userId, _) => fuccess {
+      socketSend(Protocol.Out.userTvNewGame(Game.Id(gameId), userId))
     }
 
     // round stuff
@@ -338,32 +345,34 @@ private[round] final class RoundRemoteDuct(
         player.requestFishnet(_, this)
       }
     }
+
+    case Stop => fuccess {
+      buscriptions.unsubAll
+      socketSend(RP.Out.stop(roomId))
+    }
   }
 
   private object buscriptions {
 
     private var classifiers = collection.mutable.Set.empty[Symbol]
 
-    private def sub(classifier: Symbol) = {
-      bus.subscribe(RoundRemoteDuct.this, classifier)
-      classifiers += classifier
-    }
+    private def sub(classifier: Symbol) =
+      if (!classifiers(classifier)) {
+        bus.subscribe(RoundRemoteDuct.this, classifier)
+        classifiers += classifier
+      }
 
     def unsubAll = {
       bus.unsubscribe(RoundRemoteDuct.this, classifiers.toSeq)
       classifiers.clear
     }
 
-    def subAll = {
-      // TODO tv
+    def init = {
       chat
       tournament
     }
 
-    // TODO
-    // def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: User.ID) =>
-    //   sub(Symbol(s"userStartGame:$userId"))
-    // }
+    def tv(userId: User.ID): Unit = sub(Symbol(s"userStartGame:$userId"))
 
     def chat = chatIds.all foreach { chatId =>
       sub(lila.chat.Chat classify chatId)
@@ -431,7 +440,9 @@ private[round] final class RoundRemoteDuct(
     if (events.nonEmpty) {
       events map { e =>
         version = version.inc
-        socketSend(RP.Out.tellRoomVersion(roomId, makeMessage(e.typ, e.data), version, e.troll))
+        socketSend {
+          Protocol.Out.tellVersion(roomId, version, e)
+        }
       }
       if (events exists {
         case e: Event.Move => e.threefold
@@ -451,19 +462,14 @@ private[round] final class RoundRemoteDuct(
 
   def roomId = RoomId(gameId)
 
-  buscriptions.subAll
+  buscriptions.init
   socketSend(RP.Out.start(roomId))
-
-  override def stop() {
-    super.stop()
-    buscriptions.unsubAll
-    socketSend(RP.Out.stop(roomId))
-  }
 }
 
 object RoundRemoteDuct {
 
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
+  case object Stop
 
   private[round] case class Dependencies(
       messenger: Messenger,

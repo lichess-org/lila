@@ -11,7 +11,7 @@ import scala.concurrent.Promise
 final class DuctMap[+D <: Duct](
     mkDuct: String => D,
     accessTimeout: FiniteDuration
-) {
+) extends TellMap {
 
   def getOrMake(id: String): D = ducts get id
 
@@ -43,10 +43,6 @@ final class DuctMap[+D <: Duct](
   private[this] val ducts: LoadingCache[String, D] =
     Caffeine.newBuilder()
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
-      .removalListener(new RemovalListener[String, D] {
-        def onRemoval(id: String, duct: D, cause: RemovalCause): Unit =
-          duct.stop()
-      })
       .build[String, D](new CacheLoader[String, D] {
         def load(id: String): D = mkDuct(id)
       })

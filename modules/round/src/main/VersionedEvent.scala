@@ -38,7 +38,7 @@ private case class VersionedEvent(
     !(watcher && m.owner) &&
       !(owner && m.watcher) &&
       !(troll && !m.troll) &&
-      only.fold(true)(_ == m.color)
+      only.fold(true)(c => m.owner && c == m.color)
 
   override def toString = s"Event $version $typ"
 }

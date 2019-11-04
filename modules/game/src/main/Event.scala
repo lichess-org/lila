@@ -204,7 +204,6 @@ object Event {
       "url" -> s"/$id"
     ).add("cookie" -> cookie)
     override def only = Some(color)
-    override def owner = true
   }
 
   case class Promotion(role: PromotableRole, pos: Pos) extends Event {
@@ -281,12 +280,6 @@ object Event {
   case class DrawOffer(by: Option[Color]) extends Event {
     def typ = "reload"
     def data = reloadOr("drawOffer", by)
-    override def owner = true
-  }
-
-  case class Premove(color: Color) extends Empty {
-    def typ = "premove"
-    override def only = Some(color)
     override def owner = true
   }
 

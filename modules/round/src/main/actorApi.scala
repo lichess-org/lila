@@ -97,7 +97,8 @@ case class SocketStatus(
   def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
-case class PlayersOnline(white: Boolean, black: Boolean)
+case class RoomCrowd(white: Boolean, black: Boolean)
+object RoomIsEmpty
 case class SetGame(game: Option[lila.game.Game])
 case object GetGame
 
