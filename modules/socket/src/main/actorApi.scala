@@ -4,7 +4,6 @@ package actorApi
 import play.api.libs.json.JsObject
 
 case class Connected(enumerator: JsEnumerator, member: SocketMember)
-case class BotConnected(color: chess.Color, v: Boolean)
 
 private[socket] case object Broom
 private[socket] case class Quit(sri: Socket.Sri, member: SocketMember)

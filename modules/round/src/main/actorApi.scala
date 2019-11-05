@@ -101,6 +101,7 @@ case class RoomCrowd(white: Boolean, black: Boolean)
 object RoomIsEmpty
 case class SetGame(game: Option[lila.game.Game])
 case object GetGame
+case class BotConnected(color: Color, v: Boolean)
 
 package round {
 

@@ -14,7 +14,7 @@ import lila.game.Game
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 import lila.round.actorApi.round.{ DrawNo, DrawYes }
-import lila.socket.actorApi.BotConnected
+import lila.round.actorApi.BotConnected
 import lila.user.User
 
 final class GameStateStream(
@@ -72,6 +72,7 @@ final class GameStateStream(
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
             case SetOnline =>
+              // TODO superfluous since lila-ws?
               setConnected(true)
               context.system.scheduler.scheduleOnce(6 second) {
                 // gotta send a message to check if the client has disconnected

@@ -14,6 +14,7 @@ import lila.common.IpAddress
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
@@ -76,7 +77,7 @@ final class RoundRemoteSocket(
       case "draw-force" => tellRound(id.gameId, DrawForce(id.playerId))
       case "abort" => tellRound(id.gameId, Abort(id.playerId.value))
       case "outoftime" => tellRound(id.gameId, QuietFlag) // mobile app BC
-      case "bye2" => tellRound(id.gameId, ByePlayer(id.playerId))
+      case "bye" => tellRound(id.gameId, ByePlayer(id.playerId))
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
@@ -114,8 +115,10 @@ final class RoundRemoteSocket(
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   )
-  system.lilaBus.subscribeFun('tvSelect) {
+  system.lilaBus.subscribeFun('tvSelect, 'roundSocket) {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
+    case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
+    case Tell(gameId, msg) => tellRound(Game.Id(gameId), msg)
   }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minutes, finishRound)
@@ -228,6 +231,9 @@ object RoundRemoteSocket {
 
       def tvSelect(gameId: Game.ID, speed: chess.Speed, data: JsObject) =
         s"tv/select $gameId ${speed.id} ${Json stringify data}"
+
+      def botConnected(gameId: Game.ID, color: Color, v: Boolean) =
+        s"r/bot/online $gameId ${P.Out.color(color)} ${P.Out.boolean(v)}"
     }
   }
 
