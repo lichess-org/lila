@@ -10,10 +10,11 @@ import actorApi.round._
 import chess.format.Uci
 import chess.{ Color, White, Black, Speed, Centis, MoveMetrics }
 import lila.chat.Chat
-import lila.common.{ Bus, IpAddress }
+import lila.common.IpAddress
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -113,6 +114,9 @@ final class RoundRemoteSocket(
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   )
+  system.lilaBus.subscribeFun('tvSelect) {
+    case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
+  }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minutes, finishRound)
 }
@@ -186,7 +190,7 @@ object RoundRemoteSocket {
             Flag(Game.Id(gameId), _, P.In.optional(playerId) map PlayerId.apply)
           }
         }
-        case "r/tv" => raw.get(2) {
+        case "r/tv/user" => raw.get(2) {
           case Array(gameId, userId) => UserTv(Game.Id(gameId), userId).some
         }
         case _ => RP.In.reader(raw)
@@ -220,7 +224,10 @@ object RoundRemoteSocket {
       }
 
       def userTvNewGame(gameId: Game.Id, userId: User.ID) =
-        s"r/tv $gameId $userId"
+        s"r/tv/user $gameId $userId"
+
+      def tvSelect(gameId: Game.ID, speed: chess.Speed, data: JsObject) =
+        s"tv/select $gameId ${speed.id} ${Json stringify data}"
     }
   }
 

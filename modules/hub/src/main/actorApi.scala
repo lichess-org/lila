@@ -191,7 +191,7 @@ package game {
 }
 
 package tv {
-  case class Select(msg: JsObject)
+  case class TvSelect(gameId: String, speed: chess.Speed, data: JsObject)
 }
 
 package notify {

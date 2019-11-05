@@ -63,7 +63,7 @@ private[tv] final class TvTrouper(
         case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
       onSelect(game)
-      selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", Json.obj(
+      val data = Json.obj(
         "channel" -> channel.key,
         "id" -> game.id,
         "color" -> game.firstColor.name,
@@ -74,7 +74,9 @@ private[tv] final class TvTrouper(
             "rating" -> player.rating
           )
         }
-      )))
+      )
+      selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", data)) // TODO remove: old rounds
+      system.lilaBus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), 'tvSelect) // new rounds
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
         actorAsk(rendererActor, actorApi.RenderFeaturedJs(game)) onSuccess {

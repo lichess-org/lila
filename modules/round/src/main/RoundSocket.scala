@@ -14,10 +14,8 @@ import lila.common.LightUser
 import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.Deploy
-import lila.hub.actorApi.game.ChangeFeatured
 import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
 import lila.hub.actorApi.simul.GetHostIds
-import lila.hub.actorApi.tv.{ Select => TvSelect }
 import lila.hub.Trouper
 import lila.socket._
 import lila.socket.actorApi.{ Connected => _, _ }
@@ -240,10 +238,6 @@ private[round] final class RoundSocket(
           clocks = none
         )
       ))
-
-    case ChangeFeatured(_, msg) => foreachWatcher(_ push msg)
-
-    case TvSelect(msg) => foreachWatcher(_ push msg)
 
     case UserStartGame(userId, game) => foreachWatcher { m =>
       if (m.onUserTv(userId) && !m.userId.exists(game.userIds.contains))
