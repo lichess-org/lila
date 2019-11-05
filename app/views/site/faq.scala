@@ -99,7 +99,7 @@ object faq {
           "Losing on time, drawing and insufficient material",
           p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player's king by any possible series of legal moves (", a(href := fideHandbook)("FIDE handbook §6.9, pdf"), ")."),
           p("In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time."),
-          p("Note that it can be possible to mate with a single knight or bishop if the opponent has pieces that could block the king.")
+          p("Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.")
         ),
         question(
           "en-passant",
