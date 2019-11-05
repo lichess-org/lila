@@ -25,7 +25,7 @@
     "stockfish-mv.wasm": "^0.2.0",
     "stockfish.js": "^10.0.2",
     "stockfish.pexe": "^10.1.0",
-    "stockfish.wasm": "^0.5.11",
+    "stockfish.wasm": "^0.5.12",
     "tablesort": "^5.1"
   }
 }
