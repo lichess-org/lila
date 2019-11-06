@@ -558,11 +558,17 @@ final class TournamentApi(
 
     private def publishNow(tourId: Tournament.ID) = tournamentTop(tourId) map { top =>
       val lastHash: Int = ~lastPublished.getIfPresent(tourId)
-      if (lastHash != top.hashCode) bus.publish(
-        lila.hub.actorApi.round.TourStanding(JsonView.top(top, lightUserApi.sync)),
-        Symbol(s"tour-standing-$tourId")
-      )
-      lastPublished.put(tourId, top.hashCode)
+      if (lastHash != top.hashCode) {
+        bus.publish(
+          lila.hub.actorApi.round.TourStandingOld(JsonView.top(top, lightUserApi.sync)),
+          Symbol(s"tour-standing-$tourId")
+        ) // old TODO remove
+        bus.publish(
+          lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
+          'tourStanding
+        )
+        lastPublished.put(tourId, top.hashCode)
+      }
     }
 
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))

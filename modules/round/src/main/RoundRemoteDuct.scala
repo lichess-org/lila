@@ -15,6 +15,7 @@ import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.round.TourStanding
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Duct
@@ -47,7 +48,6 @@ private[round] final class RoundRemoteDuct(
     priv = Chat.Id(gameId), // until replaced with tourney/simul chat
     pub = Chat.Id(s"$gameId/w")
   )
-  private var tournamentId = none[String] // until set, to listen to standings
 
   private final class Player(color: Color) {
 
@@ -140,10 +140,6 @@ private[round] final class RoundRemoteDuct(
       game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
         chatIds = chatIds.copy(priv = chatId)
         buscriptions.chat
-      }
-      game.tournamentId foreach { tourId =>
-        tournamentId = tourId.some
-        buscriptions.tournament
       }
       gameSpeed = game.speed.some
       whitePlayer.goneWeight = whiteGoneWeight
@@ -367,19 +363,10 @@ private[round] final class RoundRemoteDuct(
       classifiers.clear
     }
 
-    def init = {
-      chat
-      tournament
-    }
-
     def tv(userId: User.ID): Unit = sub(Symbol(s"userStartGame:$userId"))
 
     def chat = chatIds.all foreach { chatId =>
       sub(lila.chat.Chat classify chatId)
-    }
-
-    def tournament = tournamentId foreach { id =>
-      sub(Symbol(s"tour-standing-$id"))
     }
   }
 
@@ -462,7 +449,7 @@ private[round] final class RoundRemoteDuct(
 
   def roomId = RoomId(gameId)
 
-  buscriptions.init
+  buscriptions.chat
   socketSend(RP.Out.start(roomId))
 }
 

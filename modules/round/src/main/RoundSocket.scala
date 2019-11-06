@@ -14,7 +14,7 @@ import lila.common.LightUser
 import lila.game.actorApi.{ StartGame, UserStartGame }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.Deploy
-import lila.hub.actorApi.round.{ IsOnGame, TourStanding }
+import lila.hub.actorApi.round.{ IsOnGame, TourStandingOld }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.Trouper
 import lila.socket._
@@ -255,7 +255,7 @@ private[round] final class RoundSocket(
         notifyAll(event.typ, event.data)
       }
 
-    case TourStanding(json) => notifyOwners("tourStanding", json)
+    case TourStandingOld(json) => notifyOwners("tourStanding", json)
 
   }: Trouper.Receive) orElse lila.chat.Socket.out(
     send = (t, d, _) => notifyAll(t, d)

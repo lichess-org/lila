@@ -14,7 +14,7 @@ import lila.common.IpAddress
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign, TourStanding }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
@@ -96,9 +96,6 @@ final class RoundRemoteSocket(
         terminationDelay schedule gameId
     }
     case Protocol.In.Bye(fullId) => tellRound(fullId.gameId, ByePlayer(fullId.playerId))
-    case RP.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
-      rounds touchOrMake roomId.value
-    }
     case RP.In.TellRoomSri(gameId, P.In.TellSri(sri, user, tpe, o)) => tpe match {
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
@@ -115,13 +112,14 @@ final class RoundRemoteSocket(
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   )
-  system.lilaBus.subscribeFun('tvSelect, 'roundSocket) {
+  system.lilaBus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg) => tellRound(Game.Id(gameId), msg)
+    case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
   }
 
-  private val terminationDelay = new TerminationDelay(system.scheduler, 1 minutes, finishRound)
+  private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
 }
 
 object RoundRemoteSocket {
@@ -236,6 +234,9 @@ object RoundRemoteSocket {
 
       def botConnected(gameId: Game.ID, color: Color, v: Boolean) =
         s"r/bot/online $gameId ${P.Out.color(color)} ${P.Out.boolean(v)}"
+
+      def tourStanding(tourId: String, data: JsValue) =
+        s"r/tour/standing $tourId ${Json stringify data}"
     }
   }
 

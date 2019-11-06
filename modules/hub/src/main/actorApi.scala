@@ -244,8 +244,8 @@ package round {
   case class NbRounds(nb: Int)
   case class Berserk(gameId: String, userId: String)
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
-  sealed trait SocketEvent
-  case class TourStanding(json: JsArray)
+  case class TourStandingOld(data: JsArray)
+  case class TourStanding(tourId: String, data: JsArray)
   case class FishnetPlay(uci: Uci, ply: Int)
   case object FishnetStart
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
