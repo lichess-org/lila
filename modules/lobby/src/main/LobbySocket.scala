@@ -50,7 +50,6 @@ final class LobbySocket(
 
       case Join(member) => members += (member.sri.value -> member)
 
-      case Leave(sri) => quit(sri)
       case LeaveBatch(sris) => sris foreach quit
       case LeaveAll =>
         members.clear()
@@ -218,11 +217,9 @@ final class LobbySocket(
     }
 
   private val handler: Handler = {
-    case P.In.ConnectSri(sri, userOpt) => getOrConnect(sri, userOpt)
     case P.In.ConnectSris(cons) => cons foreach {
       case (sri, userId) => getOrConnect(sri, userId)
     }
-    case P.In.DisconnectSri(sri) => trouper ! Leave(sri)
     case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
 
     case P.In.DisconnectAll =>

@@ -173,9 +173,7 @@ object RemoteSocket {
 
       case class ConnectUser(userId: String) extends In
       case class DisconnectUsers(userId: Iterable[String]) extends In
-      case class ConnectSri(sri: Sri, userId: Option[String]) extends In // deprecated #TODO remove me
       case class ConnectSris(cons: Iterable[(Sri, Option[String])]) extends In
-      case class DisconnectSri(sri: Sri) extends In // deprecated #TODO remove me
       case class DisconnectSris(sris: Iterable[Sri]) extends In
       case object DisconnectAll extends In
       case class Watch(gameId: String) extends In
@@ -191,13 +189,11 @@ object RemoteSocket {
       val baseReader: Reader = raw => raw.path match {
         case "connect/user" => ConnectUser(raw.args).some
         case "disconnect/users" => DisconnectUsers(commas(raw.args)).some
-        case "connect/sri" => raw.all |> { s => ConnectSri(Sri(s(0)), s lift 1).some }
         case "connect/sris" => ConnectSris {
           commas(raw.args) map (_ split ' ') map { s =>
             (Sri(s(0)), s lift 1)
           }
         }.some
-        case "disconnect/sri" => DisconnectSri(Sri(raw.args)).some
         case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
         case "disconnect/all" => DisconnectAll.some
         case "watch" => Watch(raw.args).some

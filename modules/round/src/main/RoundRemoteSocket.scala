@@ -13,8 +13,8 @@ import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
-import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
@@ -77,7 +77,6 @@ final class RoundRemoteSocket(
       case "draw-force" => tellRound(id.gameId, DrawForce(id.playerId))
       case "abort" => tellRound(id.gameId, Abort(id.playerId.value))
       case "outoftime" => tellRound(id.gameId, QuietFlag) // mobile app BC
-      case "bye" => tellRound(id.gameId, ByePlayer(id.playerId))
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
@@ -96,6 +95,7 @@ final class RoundRemoteSocket(
       case (gameId, _) =>
         terminationDelay schedule gameId
     }
+    case Protocol.In.Bye(fullId) => tellRound(fullId.gameId, ByePlayer(fullId.playerId))
     case RP.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
       rounds touchOrMake roomId.value
     }
@@ -135,6 +135,7 @@ object RoundRemoteSocket {
       case class PlayerMove(fullId: FullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String) extends P.In
       case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String) extends P.In
+      case class Bye(fullId: FullId) extends P.In
       case class HoldAlert(fullId: FullId, ip: IpAddress, mean: Int, sd: Int) extends P.In
       case class Flag(gameId: Game.Id, color: Color, fromPlayerId: Option[PlayerId]) extends P.In
       case class Berserk(gameId: Game.Id, userId: User.ID) extends P.In
@@ -179,6 +180,7 @@ object RoundRemoteSocket {
         case "r/berserk" => raw.get(2) {
           case Array(gameId, userId) => Berserk(Game.Id(gameId), userId).some
         }
+        case "r/bye" => Bye(Game.FullId(raw.args)).some
         case "r/hold" => raw.get(4) {
           case Array(fullId, ip, meanS, sdS) => for {
             mean <- parseIntOption(meanS)
