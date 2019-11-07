@@ -34,4 +34,5 @@
   <string name="computerAnalysis">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ</string>
   <string name="computerAnalysisAvailable">ਕੰਪਿਟਰ ਵਿਸ਼ਲੇਸ਼ਣ ਉਪਲਬਧ ਹੈ</string>
   <string name="analysis">ਵਿਸ਼ਲੇਸ਼ਣ ਬੋਰਡ</string>
+  <string name="loadingEngine">ਇੰਜਣ ਲੋਡ ਹੋ ਰਿਹਾ ਹੈ ...</string>
 </resources>
