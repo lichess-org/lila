@@ -15,7 +15,7 @@ import makeTimeout.short
 private final class CorresAlarm(
     system: akka.actor.ActorSystem,
     coll: Coll,
-    socketMap: SocketMap,
+    hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
     proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
@@ -67,7 +67,7 @@ private final class CorresAlarm(
       case (count, alarm) => proxyGame(alarm._id).flatMap {
         _ ?? { game =>
           val pov = Pov(game, game.turnColor)
-          socketMap.ask[Boolean](pov.gameId)(IsOnGame(pov.color, _)) addEffect {
+          pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)) addEffect {
             case true => // already looking at the game
             case false => system.lilaBus.publish(
               lila.game.actorApi.CorresAlarmEvent(pov),

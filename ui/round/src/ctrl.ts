@@ -407,9 +407,9 @@ export default class RoundController {
     game.setOnGame(d, playedColor, true);
     this.data.forecastCount = undefined;
     if (o.clock) {
-      const oc = o.clock;
       this.shouldSendMoveTime = true;
-      const delay = (playing && activeColor) ? 0 : (oc.lag || 1);
+      const oc = o.clock,
+        delay = (playing && activeColor) ? 0 : (oc.lag || 1);
       if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
       else if (this.corresClock) this.corresClock.update(
         oc.white,

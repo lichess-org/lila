@@ -33,7 +33,7 @@ final class Env(
 
   lazy val indexFlowSetting = settingStore[Boolean](
     "explorerIndexFlow",
-    default = true,
+    default = false,
     text = "Explorer: index new games as soon as they complete".some
   )
 

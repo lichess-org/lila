@@ -12,7 +12,7 @@ import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.TourStanding
-import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Duct
@@ -96,7 +96,7 @@ private[round] final class RoundRemoteDuct(
 
     case ByePlayer(playerId) => proxy playerPov playerId.value map {
       _ foreach { pov =>
-        playerDo(pov.color, _.setBye)
+        getPlayer(pov.color).setBye
       }
     }
 
@@ -107,6 +107,10 @@ private[round] final class RoundRemoteDuct(
     case RoomCrowd(white, black) => fuccess {
       whitePlayer setOnline white
       blackPlayer setOnline black
+    }
+
+    case IsOnGame(color, promise) => fuccess {
+      promise success getPlayer(color).isOnline
     }
 
     case GetSocketStatus(promise) =>
@@ -229,7 +233,7 @@ private[round] final class RoundRemoteDuct(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
-        playerGet(!pov.color, _.isLongGone) flatMap {
+        getPlayer(!pov.color).isLongGone flatMap {
           case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
@@ -239,7 +243,7 @@ private[round] final class RoundRemoteDuct(
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        playerGet(!pov.color, _.isLongGone) flatMap {
+        getPlayer(!pov.color).isLongGone flatMap {
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
         }
@@ -379,11 +383,7 @@ private[round] final class RoundRemoteDuct(
     }
   }
 
-  private def playerGet[A](color: Color, getter: Player => A): A =
-    getter(color.fold(whitePlayer, blackPlayer))
-
-  private def playerDo(color: Color, effect: Player => Unit): Unit =
-    effect(color.fold(whitePlayer, blackPlayer))
+  private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
 
   private def recordLag(pov: Pov): Unit =
     if ((pov.game.playedTurns & 30) == 10) {

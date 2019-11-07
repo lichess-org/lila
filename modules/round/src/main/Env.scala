@@ -137,7 +137,7 @@ final class Env(
       }
     },
     'gameStartId -> {
-      case gameId: String => onStart(gameId)
+      case Game.Id(gameId) => onStart(gameId)
     }
   )
 
@@ -347,7 +347,7 @@ final class Env(
     name = "titivate"
   )
 
-  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), socketMap, proxy.game _)
+  private val corresAlarm = new CorresAlarm(system, db(CollectionAlarm), isUserPresent, proxy.game _)
 
   private lazy val takebacker = new Takebacker(
     messenger = messenger,

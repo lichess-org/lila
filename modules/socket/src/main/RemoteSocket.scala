@@ -157,8 +157,8 @@ object RemoteSocket {
   object Protocol {
 
     case class RawMsg(path: Path, args: Args) {
-      def get[A](nb: Int)(f: PartialFunction[Array[String], A])(implicit default: Zero[A]): A =
-        f.lift(args.split(" ", nb)) getOrElse default.zero
+      def get(nb: Int)(f: PartialFunction[Array[String], Option[In]]): Option[In] =
+        f.applyOrElse(args.split(" ", nb), (_: Array[String]) => None)
       def all = args split ' '
     }
     def RawMsg(msg: String): RawMsg = {
