@@ -206,9 +206,7 @@ private[round] final class RoundSocket(
 
       val initialMsgs = events.fold(
         SocketTrouper.resyncMessage.some
-      ) {
-          batchMsgs(member, _)
-        } map { m => Enumerator(m: JsValue) }
+      ) { batchMsgs(member, _) } map { m => Enumerator(m: JsValue) }
 
       val fullEnumerator = lila.common.Iteratee.prependFu(
         reloadTvEvent.map(_.toList),

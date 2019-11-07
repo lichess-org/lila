@@ -1,9 +1,6 @@
 package lila.round
 
-import akka.actor._
-import akka.pattern.ask
-import org.joda.time.DateTime
-import ornicar.scalalib.Zero
+import play.api.libs.json._
 import scala.concurrent.duration._
 
 import actorApi._, round._
@@ -14,8 +11,8 @@ import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.round.TourStanding
+import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Duct
@@ -24,7 +21,6 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
 import lila.socket.UserLagCache
 import lila.user.User
-import makeTimeout.large
 
 private[round] final class RoundRemoteDuct(
     dependencies: RoundRemoteDuct.Dependencies,
@@ -41,7 +37,6 @@ private[round] final class RoundRemoteDuct(
 
   private var version = SocketVersion(0)
 
-  private var hasAi = false
   private var mightBeSimul = true // until proven false
   private var gameSpeed: Option[Speed] = none
   private var chatIds = RoundSocket.ChatIds(
@@ -133,7 +128,6 @@ private[round] final class RoundRemoteDuct(
     }
 
     case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) => fuccess {
-      hasAi = game.hasAi
       whitePlayer.userId = game.player(White).userId
       blackPlayer.userId = game.player(Black).userId
       mightBeSimul = game.isSimul
@@ -176,6 +170,21 @@ private[round] final class RoundRemoteDuct(
 
     case UserStartGame(userId, _) => fuccess {
       socketSend(Protocol.Out.userTvNewGame(Game.Id(gameId), userId))
+    }
+
+    case a: lila.analyse.actorApi.AnalysisProgress => fuccess {
+      socketSend(RP.Out.tellRoom(roomId, makeMessage("analysisProgress", Json.obj(
+        "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
+        "tree" -> TreeBuilder(
+          id = a.analysis.id,
+          pgnMoves = a.game.pgnMoves,
+          variant = a.variant,
+          analysis = a.analysis.some,
+          initialFen = a.initialFen,
+          withFlags = JsonView.WithFlags(),
+          clocks = none
+        )
+      ))))
     }
 
     // round stuff

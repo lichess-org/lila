@@ -113,6 +113,7 @@ final class Env(
     selfReport = selfReport,
     messenger = messenger,
     goneWeightsFor = goneWeightsFor,
+    useRemoteSocket = useRemoteSocket _,
     system = system
   )
 
@@ -220,7 +221,8 @@ final class Env(
       sriTtl = SocketSriTimeout,
       getGame = proxy.game _
     ),
-    playban = playban
+    playban = playban,
+    useRemoteSocket = useRemoteSocket _
   )
 
   lazy val selfReport = new SelfReport(tellRound, slackApi, proxy.pov)

@@ -13,7 +13,8 @@ private object SocketMap {
     makeHistory: Game.ID => History,
     dependencies: RoundSocket.Dependencies,
     socketTimeout: FiniteDuration,
-    playban: lila.playban.PlaybanApi
+    playban: lila.playban.PlaybanApi,
+    useRemoteSocket: Game.ID => Boolean
   ): SocketMap = {
 
     import dependencies._
@@ -42,9 +43,9 @@ private object SocketMap {
         case msg: lila.game.actorApi.StartGame => socketMap.tellIfPresent(msg.game.id, msg)
       },
       'roundSocket -> {
-        case TellIfExists(id, msg) => socketMap.tellIfPresent(id, msg)
-        case Tell(id, msg) => socketMap.tell(id, msg)
-        case Exists(id, promise) => promise success socketMap.exists(id)
+        case TellIfExists(id, msg) if !useRemoteSocket(id) => socketMap.tellIfPresent(id, msg)
+        case Tell(id, msg) if !useRemoteSocket(id) => socketMap.tell(id, msg)
+        case Exists(id, promise) if !useRemoteSocket(id) => promise success socketMap.exists(id)
       },
       'deploy -> {
         case m: Deploy => socketMap tellAll m

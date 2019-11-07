@@ -13,7 +13,7 @@ import lila.chat.Chat
 import lila.common.IpAddress
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
-import lila.hub.actorApi.map.Tell
+import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign, TourStanding }
 import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
@@ -32,6 +32,7 @@ final class RoundRemoteSocket(
     selfReport: SelfReport,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)],
+    useRemoteSocket: Game.ID => Boolean,
     system: ActorSystem
 ) {
 
@@ -114,8 +115,10 @@ final class RoundRemoteSocket(
   )
   system.lilaBus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
-    case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
-    case Tell(gameId, msg) => tellRound(Game.Id(gameId), msg)
+    case Tell(gameId, BotConnected(color, v)) if useRemoteSocket(gameId) => send(Protocol.Out.botConnected(gameId, color, v))
+    case Tell(gameId, msg) if useRemoteSocket(gameId) => rounds.tell(gameId, msg)
+    case TellIfExists(gameId, msg) if useRemoteSocket(gameId) => rounds.tellIfPresent(gameId, msg)
+    case Exists(gameId, promise) if useRemoteSocket(gameId) => promise success rounds.exists(gameId)
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
   }
 
