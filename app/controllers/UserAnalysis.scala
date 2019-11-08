@@ -63,17 +63,19 @@ object UserAnalysis extends LilaController with TheftPrevention {
   )
 
   def game(id: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game id) { game =>
-      val pov = Pov(game, chess.Color(color == "white"))
-      negotiate(
-        html =
-          if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
-          else for {
-            initialFen <- GameRepo initialFen game.id
-            data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
-          } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
-        api = apiVersion => mobileAnalysis(pov, apiVersion)
-      )
+    OptionFuResult(GameRepo game id) { g =>
+      Env.round.proxy updateIfPresent g flatMap { game =>
+        val pov = Pov(game, chess.Color(color == "white"))
+        negotiate(
+          html =
+            if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
+            else for {
+              initialFen <- GameRepo initialFen game.id
+              data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
+            } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
+          api = apiVersion => mobileAnalysis(pov, apiVersion)
+        )
+      }
     }
   }
 
