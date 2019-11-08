@@ -194,5 +194,7 @@ object JsonView {
 
   private[study] implicit val serverEvalWrites: Writes[Chapter.ServerEval] = Json.writes[Chapter.ServerEval]
 
-  private[study] implicit val whoWriter = Json.writes[actorApi.Who]
+  private[study] implicit val whoWriter: Writes[actorApi.Who] = Writes[actorApi.Who] { w =>
+    Json.obj("u" -> w.u, "s" -> w.sri)
+  }
 }
