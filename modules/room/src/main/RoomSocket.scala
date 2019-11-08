@@ -34,8 +34,8 @@ object RoomSocket {
         case line: UserLine => this ! NotifyVersion("message", lila.chat.JsonView(line), line.troll)
         case _ =>
       }
-      case chatApi.OnTimeout(username) =>
-        this ! NotifyVersion("chat_timeout", username, false)
+      case chatApi.OnTimeout(userId) =>
+        this ! NotifyVersion("chat_timeout", userId, false)
       case chatApi.OnReinstate(userId) =>
         this ! NotifyVersion("chat_reinstate", userId, false)
     }

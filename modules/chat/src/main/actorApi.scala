@@ -9,7 +9,7 @@ case class SystemTalk(chatId: Chat.Id, text: String)
 case class ChatLine(chatId: Chat.Id, line: Line)
 case class Timeout(chatId: Chat.Id, mod: String, userId: String, reason: ChatTimeout.Reason, local: Boolean)
 
-case class OnTimeout(username: String)
+case class OnTimeout(userId: String)
 case class OnReinstate(userId: String)
 case class Remove(chatId: Chat.Id)
 case class RemoveAll(chatIds: List[Chat.Id])

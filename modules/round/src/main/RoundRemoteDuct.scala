@@ -150,8 +150,11 @@ private[round] final class RoundRemoteDuct(
         case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
       }))
     }
-    case lila.chat.actorApi.OnTimeout(username) => fuccess {
-      socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_timeout", username)))
+    case lila.chat.actorApi.OnTimeout(userId) => fuccess {
+      socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_timeout", userId)))
+    }
+    case lila.chat.actorApi.OnReinstate(userId) => fuccess {
+      socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_reinstate", userId)))
     }
 
     case Protocol.In.PlayerChatSay(_, Right(color), msg) => fuccess {

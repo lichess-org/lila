@@ -127,7 +127,7 @@ final class ChatApi(
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
-          publish(chat.id, actorApi.OnTimeout(user.username))
+          publish(chat.id, actorApi.OnTimeout(user.id))
           line foreach { l => publish(chat.id, actorApi.ChatLine(chat.id, l)) }
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
@@ -140,7 +140,7 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        publish(chat.id, actorApi.OnTimeout(user.username))
+        publish(chat.id, actorApi.OnTimeout(user.id))
       }
     }
 
