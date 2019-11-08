@@ -27,7 +27,6 @@ final class RoundRemoteSocket(
     roundDependencies: RoundRemoteDuct.Dependencies,
     deployPersistence: DeployPersistence,
     scheduleExpiration: Game => Unit,
-    chatActor: ActorSelection,
     tournamentActor: ActorSelection,
     selfReport: SelfReport,
     messenger: Messenger,
@@ -82,7 +81,7 @@ final class RoundRemoteSocket(
     }
     case Protocol.In.Flag(gameId, color, fromPlayerId) => tellRound(gameId, ClientFlag(color, fromPlayerId))
     case c: Protocol.In.PlayerChatSay => tellRound(c.gameId, c)
-    case Protocol.In.WatcherChatSay(gameId, userId, msg) => messenger.watcher(gameId.value, userId, msg)
+    case Protocol.In.WatcherChatSay(gameId, userId, msg) => messenger.watcher(Chat.Id(gameId.value), userId, msg)
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) =>
       // TODO remove promise, resync from remote round duct
       val promise = Promise[Unit]

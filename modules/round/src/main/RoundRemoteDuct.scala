@@ -39,8 +39,8 @@ private[round] final class RoundRemoteDuct(
 
   private var mightBeSimul = true // until proven false
   private var gameSpeed: Option[Speed] = none
-  private var chatIds = RoundSocket.ChatIds(
-    priv = Chat.Id(gameId), // until replaced with tourney/simul chat
+  private var chatIds = ChatIds(
+    priv = Left(Chat.Id(gameId)), // until replaced with tourney/simul chat
     pub = Chat.Id(s"$gameId/w")
   )
 
@@ -135,9 +135,7 @@ private[round] final class RoundRemoteDuct(
       whitePlayer.userId = game.player(White).userId
       blackPlayer.userId = game.player(Black).userId
       mightBeSimul = game.isSimul
-      game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
-        chatIds = chatIds.copy(priv = chatId)
-      }
+      chatIds = chatIds update game
       gameSpeed = game.speed.some
       whitePlayer.goneWeight = whiteGoneWeight
       blackPlayer.goneWeight = blackGoneWeight
@@ -154,11 +152,12 @@ private[round] final class RoundRemoteDuct(
     }
 
     case Protocol.In.PlayerChatSay(_, Right(color), msg) => fuccess {
-      messenger.owner(gameId, color, msg)
+      chatIds.priv.left.toOption foreach { messenger.owner(_, color, msg) }
     }
-    case Protocol.In.PlayerChatSay(_, Left(userId), msg) if chatIds.priv == Chat.Id(gameId) => fuccess {
-      messenger.owner(gameId, userId, msg)
-    }
+    case Protocol.In.PlayerChatSay(_, Left(userId), msg) => fuccess(chatIds.priv match {
+      case Left(chatId) => messenger.owner(chatId, userId, msg)
+      case Right(setup) => messenger.external(setup, userId, msg)
+    })
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) => handle(fullId.playerId) { pov =>
       lila.game.GameRepo hasHoldAlert pov flatMap {
@@ -390,7 +389,7 @@ private[round] final class RoundRemoteDuct(
 
     def tv(userId: User.ID): Unit = sub(Symbol(s"userStartGame:$userId"))
 
-    def chat = chatIds.all foreach { chatId =>
+    def chat = chatIds.allIds foreach { chatId =>
       sub(lila.chat.Chat classify chatId)
     }
   }
@@ -476,6 +475,14 @@ object RoundRemoteDuct {
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop
+
+  case class ChatIds(priv: Either[Chat.Id, Chat.Setup], pub: Chat.Id) {
+    def allIds = Seq(priv.fold(identity, _.id), pub)
+    def update(g: Game) = {
+      g.tournamentId.map(Chat.tournamentSetup) orElse
+        g.simulId.map(Chat.simulSetup)
+    }.fold(this)(setup => copy(priv = Right(setup)))
+  }
 
   private[round] case class Dependencies(
       messenger: Messenger,

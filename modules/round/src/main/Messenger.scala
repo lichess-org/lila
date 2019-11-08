@@ -15,32 +15,36 @@ final class Messenger(val chat: ActorSelection) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    chat ! SystemTalk(Chat.Id(watcherId(game.id)), translated)
+    chat ! SystemTalk(watcherId(Chat.Id(game.id)), translated)
     if (game.nonAi) chat ! SystemTalk(Chat.Id(game.id), translated)
   }
 
-  def systemForOwners(gameId: Game.ID, message: SelectI18nKey, args: Any*): Unit = {
+  def systemForOwners(chatId: Chat.Id, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    chat ! SystemTalk(Chat.Id(gameId), translated)
+    chat ! SystemTalk(chatId, translated)
   }
 
-  def watcher(gameId: Game.ID, userId: User.ID, text: String) =
-    chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text, PublicSource.Watcher(gameId).some)
+  def watcher(chatId: Chat.Id, userId: User.ID, text: String) =
+    chat ! UserTalk(watcherId(chatId), userId, text, PublicSource.Watcher(chatId.value).some)
 
   private val whisperCommands = List("/whisper ", "/w ")
 
-  def owner(gameId: Game.ID, userId: User.ID, text: String): Unit =
+  def owner(chatId: Chat.Id, userId: User.ID, text: String): Unit =
     whisperCommands.collectFirst {
       case command if text startsWith command =>
-        val source = PublicSource.Watcher(gameId)
-        UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size, source.some)
+        val source = PublicSource.Watcher(chatId.value)
+        UserTalk(watcherId(chatId), userId, text drop command.size, source.some)
     }.orElse {
       if (text startsWith "/") none // mistyped command?
-      else UserTalk(Chat.Id(gameId), userId, text, publicSource = none).some
+      else UserTalk(chatId, userId, text, publicSource = none).some
     } foreach chat.!
 
-  def owner(gameId: Game.ID, anonColor: chess.Color, text: String): Unit =
-    chat ! PlayerTalk(Chat.Id(gameId), anonColor.white, text)
+  def owner(chatId: Chat.Id, anonColor: chess.Color, text: String): Unit =
+    chat ! PlayerTalk(chatId, anonColor.white, text)
 
-  private def watcherId(gameId: Game.ID) = s"$gameId/w"
+  // simul or tour chat from a game
+  def external(setup: Chat.Setup, userId: User.ID, text: String): Unit =
+    chat ! UserTalk(setup.id, userId, text, setup.publicSource.some)
+
+  private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
 }

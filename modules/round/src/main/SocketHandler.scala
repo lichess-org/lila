@@ -61,7 +61,7 @@ private[round] final class SocketHandler(
       case ("talk", o) => for {
         line <- o str "d"
         u <- member.userId
-      } messenger.watcher(gameId, u, line)
+      } messenger.watcher(Chat.Id(gameId), u, line)
       case ("outoftime", _) => send(QuietFlag) // mobile app BC
       case ("flag", o) => clientFlag(o, none) foreach send
     }: Handler.Controller) orElse evalCacheHandler(sri, member, me) orElse lila.chat.Socket.in(
@@ -107,8 +107,8 @@ private[round] final class SocketHandler(
         case ("bye2", _) => socket ! Bye(ref.color)
         case ("talk", o) if chat.isEmpty => o str "d" foreach { msg =>
           member.userId match {
-            case Some(u) => messenger.owner(gameId, u, msg)
-            case None => messenger.owner(gameId, member.color, msg)
+            case Some(u) => messenger.owner(Chat.Id(gameId), u, msg)
+            case None => messenger.owner(Chat.Id(gameId), member.color, msg)
           }
         }
         case ("hold", o) => for {
