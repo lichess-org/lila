@@ -108,14 +108,14 @@ export function isCorrespondence(data: GameData): boolean {
 }
 
 export function setOnGame(data: GameData, color: Color, onGame: boolean): void {
-  var player = getPlayer(data, color);
+  const player = getPlayer(data, color);
   onGame = onGame || !!player.ai;
   player.onGame = onGame;
   if (onGame) setIsGone(data, color, false);
 }
 
 export function setIsGone(data: GameData, color: Color, isGone: boolean): void {
-  var player = getPlayer(data, color);
+  const player = getPlayer(data, color);
   isGone = isGone && !player.ai;
   player.isGone = isGone;
   if (!isGone && player.user) player.user.online = true;
