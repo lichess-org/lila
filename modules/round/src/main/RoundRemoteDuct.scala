@@ -137,11 +137,13 @@ private[round] final class RoundRemoteDuct(
       mightBeSimul = game.isSimul
       game.tournamentId orElse game.simulId map Chat.Id.apply foreach { chatId =>
         chatIds = chatIds.copy(priv = chatId)
-        buscriptions.chat
       }
       gameSpeed = game.speed.some
       whitePlayer.goneWeight = whiteGoneWeight
       blackPlayer.goneWeight = blackGoneWeight
+      // only run the following if the game actually exists, and not on duct start
+      buscriptions.chat
+      socketSend(RP.Out.start(roomId))
     }
 
     case lila.chat.actorApi.ChatLine(chatId, line) => fuccess {
@@ -356,8 +358,10 @@ private[round] final class RoundRemoteDuct(
     }
 
     case Stop => fuccess {
-      buscriptions.unsubAll
-      socketSend(RP.Out.stop(roomId))
+      if (buscriptions.started) {
+        buscriptions.unsubAll
+        socketSend(RP.Out.stop(roomId))
+      }
     }
   }
 
@@ -370,6 +374,8 @@ private[round] final class RoundRemoteDuct(
         bus.subscribe(RoundRemoteDuct.this, classifier)
         classifiers += classifier
       }
+
+    def started = classifiers.nonEmpty
 
     def unsubAll = {
       bus.unsubscribe(RoundRemoteDuct.this, classifiers.toSeq)
@@ -457,9 +463,6 @@ private[round] final class RoundRemoteDuct(
   }
 
   def roomId = RoomId(gameId)
-
-  buscriptions.chat
-  socketSend(RP.Out.start(roomId))
 }
 
 object RoundRemoteDuct {
