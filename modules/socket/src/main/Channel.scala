@@ -6,6 +6,7 @@ import play.api.libs.json.JsValue
 
 import lila.hub.Trouper
 
+// TODO remove after lila-ws
 final class Channel(system: ActorSystem) extends Trouper {
 
   system.lilaBus.subscribe(this, 'socketLeave)

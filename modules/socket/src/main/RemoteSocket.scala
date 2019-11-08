@@ -60,7 +60,10 @@ final class RemoteSocket(
     case In.FriendsBatch(userIds) => userIds foreach { userId =>
       bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     }
-    case In.Lags(lags) => lags foreach (UserLagCache.put _).tupled
+    case In.Lags(lags) =>
+      lags foreach (UserLagCache.put _).tupled
+      // this shouldn't be necessary... ensure that users are known to be online
+      connectedUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
       bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
     case In.DisconnectAll =>
