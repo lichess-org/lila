@@ -125,6 +125,6 @@ final class ChallengeApi(
   )
 
   // work around circular dependency
-  private var socket: Option[ChallengeSocket] = null
+  private var socket: Option[ChallengeSocket] = None
   private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
 }

@@ -733,7 +733,7 @@ final class StudyApi(
     if (study canContribute userId) f else default.zero
 
   // work around circular dependency
-  private var socket: Option[StudySocket] = null
+  private var socket: Option[StudySocket] = None
   private[study] def registerSocket(s: StudySocket) = { socket = s.some }
   private def sendTo(studyId: Study.Id)(f: StudySocket => Study.Id => Unit): Unit =
     socket foreach { s => f(s)(studyId) }
