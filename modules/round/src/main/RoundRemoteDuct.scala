@@ -55,7 +55,7 @@ private[round] final class RoundRemoteDuct(
     var userId = none[User.ID]
     var goneWeight = 1f
 
-    def isOnline = botConnected || offlineSince.isEmpty
+    def isOnline = offlineSince.isEmpty || botConnected
 
     def setOnline(on: Boolean): Unit = {
       isLongGone foreach { _ ?? notifyGone(color, false) }
@@ -75,7 +75,7 @@ private[round] final class RoundRemoteDuct(
       if (bye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
     } * goneWeight atLeast 12000
 
-    def isLongGone: Fu[Boolean] = fuccess {
+    def isLongGone: Fu[Boolean] = {
       !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
     } ?? !isHostingSimul
 
@@ -357,6 +357,12 @@ private[round] final class RoundRemoteDuct(
       }
     }
 
+    case Tick => getGame map { g =>
+      if (g.exists(_.forceResignable)) Color.all.foreach { c =>
+        if (!getPlayer(c).isOnline) getPlayer(c).isLongGone foreach { _ ?? notifyGone(c, true) }
+      }
+    }
+
     case Stop => fuccess {
       if (buscriptions.started) {
         buscriptions.unsubAll
@@ -403,10 +409,10 @@ private[round] final class RoundRemoteDuct(
     }
 
   private def notifyGone(color: Color, gone: Boolean): Unit = proxy pov color foreach {
-    _ foreach { pov =>
-      socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
-    }
+    _ foreach { notifyGone(_, gone) }
   }
+  private def notifyGone(pov: Pov, gone: Boolean): Unit =
+    socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
 
   private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
@@ -468,6 +474,7 @@ private[round] final class RoundRemoteDuct(
 object RoundRemoteDuct {
 
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
+  case object Tick
   case object Stop
 
   private[round] case class Dependencies(

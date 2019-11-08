@@ -122,6 +122,10 @@ final class RoundRemoteSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
   }
 
+  system.scheduler.schedule(30 seconds, 5 seconds) {
+    rounds.tellAll(RoundRemoteDuct.Tick)
+  }
+
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
 }
 
