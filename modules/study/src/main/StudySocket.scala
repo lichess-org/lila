@@ -309,14 +309,14 @@ private final class StudySocket(
   def reloadSriBecauseOf(sri: Sri, chapterId: Chapter.Id) = notifySri(sri, "reload", Json.obj("chapterId" -> chapterId))
   def validationError(error: String, sri: Sri) = notifySri(sri, "validationError", Json.obj("error" -> error))
 
-  api registerSocket this
-
   private val InviteLimitPerUser = new lila.memo.RateLimit[User.ID](
     credits = 50,
     duration = 24 hour,
     name = "study invites per user",
     key = "study_invite.user"
   )
+
+  api registerSocket this
 }
 
 object StudySocket {

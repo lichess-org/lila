@@ -17,7 +17,7 @@ object bits {
       jsTag("challenge.js", defer = true),
       embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = ${
         safeJsonValue(Json.obj(
-          "socketUrl" -> routes.Challenge.websocket(c.id, apiVersion.value).url,
+          "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
           "xhrUrl" -> routes.Challenge.show(c.id).url,
           "owner" -> owner,
           "data" -> json

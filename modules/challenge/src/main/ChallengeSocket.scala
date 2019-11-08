@@ -1,66 +1,51 @@
 package lila.challenge
 
-import akka.actor._
-import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.concurrent.duration.Duration
-import scala.concurrent.Promise
+import scala.concurrent.duration._
 
-import lila.socket.actorApi.{ Connected => _, _ }
-import lila.socket.SocketTrouper
-import lila.socket.Socket.{ Sri, GetVersion, SocketVersion }
-import lila.socket.{ History, Historical, DirectSocketMember }
+import lila.game.Pov
+import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.socket.Socket.makeMessage
 
 private final class ChallengeSocket(
-    system: ActorSystem,
-    challengeId: String,
-    protected val history: History[Unit],
-    getChallenge: Challenge.ID => Fu[Option[Challenge]],
-    sriTtl: Duration,
-    keepMeAlive: () => Unit
-) extends SocketTrouper[ChallengeSocket.Member](system, sriTtl) with Historical[ChallengeSocket.Member, Unit] {
+    api: ChallengeApi,
+    remoteSocketApi: lila.socket.RemoteSocket,
+    bus: lila.common.Bus
+) {
 
-  def receiveSpecific = {
+  import ChallengeSocket._
 
-    case ChallengeSocket.Reload =>
-      getChallenge(challengeId) foreach {
-        _ foreach { challenge =>
-          notifyVersion("reload", JsNull, ())
-        }
-      }
+  def reload(challengeId: Challenge.ID): Unit =
+    rooms.tell(challengeId, NotifyVersion("reload", JsNull))
 
-    case GetVersion(promise) => promise success history.version
+  lazy val rooms = makeRoomMap(send, bus)
 
-    case ChallengeSocket.Join(sri, userId, owner, version, promise) =>
-      val (enumerator, channel) = Concurrent.broadcast[JsValue]
-      val member = ChallengeSocket.Member(channel, userId, owner)
-      addMember(sri, member)
-      promise success ChallengeSocket.Connected(
-        prependEventsSince(version, enumerator, member),
-        member
-      )
+  private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply _
+
+  private lazy val challengeHandler: Handler = {
+    case Protocol.In.OwnerPing(roomId) => api ping roomId.value
   }
 
-  override protected def broom: Unit = {
-    super.broom
-    if (members.nonEmpty) keepMeAlive()
-  }
+  remoteSocketApi.subscribe("chal-in", Protocol.In.reader)(
+    challengeHandler orElse minRoomHandler(rooms) orElse remoteSocketApi.baseHandler
+  )
 
-  protected def shouldSkipMessageFor(message: Message, member: ChallengeSocket.Member) = false
+  api registerSocket this
 }
 
-private object ChallengeSocket {
+object ChallengeSocket {
 
-  case class Member(
-      channel: JsChannel,
-      userId: Option[String],
-      owner: Boolean
-  ) extends DirectSocketMember {
-    val troll = false
+  object Protocol {
+
+    object In {
+
+      case class OwnerPing(roomId: RoomId) extends P.In
+
+      val reader: P.In.Reader = raw => raw.path match {
+        case "challenge/ping" => OwnerPing(RoomId(raw.args)).some
+        case _ => RP.In.reader(raw)
+      }
+    }
   }
-
-  case class Join(sri: Sri, userId: Option[String], owner: Boolean, version: Option[SocketVersion], promise: Promise[Connected])
-  case class Connected(enumerator: JsEnumerator, member: Member)
-
-  case object Reload
 }

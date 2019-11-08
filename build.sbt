@@ -265,8 +265,8 @@ lazy val shutup = module("shutup", Seq(common, db, hub, game, relation)).setting
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relation, pref)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
+lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relation, pref, socket, room)).settings(
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, lettuce)
 )
 
 lazy val study = module("study", Seq(

@@ -58,7 +58,7 @@ object RoomSocket {
     chat: akka.actor.ActorSelection,
     publicSource: RoomId => PublicSource.type => Option[PublicSource],
     localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
-  ): Handler = {
+  ): Handler = ({
     case Protocol.In.ChatSay(roomId, userId, msg) =>
       chat ! lila.chat.actorApi.UserTalk(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
     case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) => lila.chat.ChatTimeout.Reason(reason) foreach { r =>
@@ -66,6 +66,9 @@ object RoomSocket {
         chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = local)
       }
     }
+  }: Handler) orElse minRoomHandler(rooms)
+
+  def minRoomHandler(rooms: TrouperMap[RoomState]): Handler = {
     case Protocol.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
       rooms touchOrMake roomId.value
     }

@@ -15,7 +15,6 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
-    socketMap: SocketMap,
     asyncCache: lila.memo.AsyncCache.Builder,
     lilaBus: lila.common.Bus
 ) {
@@ -113,7 +112,7 @@ final class ChallengeApi(
   }
 
   private def socketReload(id: Challenge.ID): Unit =
-    socketMap.tell(id, ChallengeSocket.Reload)
+    socket foreach (_ reload id)
 
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)
@@ -124,4 +123,8 @@ final class ChallengeApi(
     SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
     'socketUsers
   )
+
+  // work around circular dependency
+  private var socket: Option[ChallengeSocket] = null
+  private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
 }
