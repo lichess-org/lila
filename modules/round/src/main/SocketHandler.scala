@@ -62,7 +62,7 @@ private[round] final class SocketHandler(
         line <- o str "d"
         u <- member.userId
       } messenger.watcher(Chat.Id(gameId), u, line)
-      case ("outoftime", _) => send(QuietFlag) // mobile app BC
+      case ("outoftime", _) => send(QuietFlag) // mobile app BC (dropped in lila-ws)
       case ("flag", o) => clientFlag(o, none) foreach send
     }: Handler.Controller) orElse evalCacheHandler(sri, member, me) orElse lila.chat.Socket.in(
       chatId = Chat.Id(s"$gameId/w"),
