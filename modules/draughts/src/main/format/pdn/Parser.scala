@@ -131,7 +131,7 @@ object Parser extends scalaz.syntax.ToTraverseOps {
       "(" ~> strMoves <~ ")" ^^ { case (_, sms, _) => sms }
     }
 
-    def commentary: Parser[String] = blockCommentary | inlineCommentary
+    def commentary: Parser[String] = blockCommentary | inlineCommentary | fenCommentary
 
     def blockCommentary: Parser[String] = as("block comment") {
       "{" ~> """[^\}]*""".r <~ "}"
@@ -139,6 +139,10 @@ object Parser extends scalaz.syntax.ToTraverseOps {
 
     def inlineCommentary: Parser[String] = as("inline comment") {
       ";" ~> """.+""".r
+    }
+
+    def fenCommentary: Parser[String] = as("fen comment") {
+      "/FEN \"" ~> """[\w:,]*""".r <~ "\"/"
     }
 
     val result: Parser[String] = "*" | "1/2-1/2" | "½-½" | "1-1" | "0-1" | "0-2" | "1-0" | "2-0"
