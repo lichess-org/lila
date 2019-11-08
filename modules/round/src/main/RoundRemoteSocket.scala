@@ -16,6 +16,7 @@ import lila.game.{ Game, Event }
 import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign, TourStanding }
 import lila.hub.actorApi.tv.TvSelect
+import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -104,6 +105,8 @@ final class RoundRemoteSocket(
     case hold: Protocol.In.HoldAlert => tellRound(hold.fullId.gameId, hold)
     case Protocol.In.SelfReport(fullId, ip, userId, name) => selfReport(userId, ip, fullId, name)
     case userTv: Protocol.In.UserTv => tellRound(userTv.gameId, userTv)
+    case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
+      bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$tpe"))
   }
 
   private def finishRound(gameId: Game.Id): Unit =
@@ -111,10 +114,12 @@ final class RoundRemoteSocket(
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
 
+  private val bus = system.lilaBus
+
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   )
-  system.lilaBus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
+  bus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, BotConnected(color, v)) if useRemoteSocket(gameId) => send(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg) if useRemoteSocket(gameId) => rounds.tell(gameId, msg)
