@@ -4,7 +4,7 @@ import akka.actor.ActorSelection
 
 import actorApi._
 import lila.chat.actorApi._
-import lila.chat.Chat
+import lila.chat.{ Chat, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
@@ -45,6 +45,11 @@ final class Messenger(val chat: ActorSelection) {
   // simul or tour chat from a game
   def external(setup: Chat.Setup, userId: User.ID, text: String): Unit =
     chat ! UserTalk(setup.id, userId, text, setup.publicSource.some)
+
+  def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String): Unit =
+    ChatTimeout.Reason(reason) foreach { r =>
+      chat ! Timeout(chatId, modId, suspect, r, local = false)
+    }
 
   private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
 }

@@ -74,7 +74,7 @@ final class RemoteSocket(
       })
   }
 
-  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose) {
+  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.move(gameId, move, fen))
     case SendTos(userIds, payload) =>
@@ -96,6 +96,8 @@ final class RemoteSocket(
       send(Out.disconnectUser(userId))
     case WithUserIds(f) =>
       f(connectedUserIds.get)
+    case lila.hub.actorApi.mod.Shadowban(userId, v) =>
+      send(Out.setTroll(userId, v))
   }
 
   private def tick(nbConn: Int): Unit = {
@@ -246,6 +248,8 @@ object RemoteSocket {
         s"mlat ${((micros / 100) / 10d)}"
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
+      def setTroll(userId: String, v: Boolean) =
+        s"troll/set $userId ${boolean(v)}"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String = if (v) "+" else "-"
