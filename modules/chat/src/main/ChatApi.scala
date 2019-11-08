@@ -116,18 +116,19 @@ final class ChatApi(
       }
 
     private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {
-      val line = UserLine(
+      val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
         text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
         troll = false, deleted = false
       )
-      val chat = c.markDeleted(user) add line
+      val c2 = c.markDeleted(user)
+      val chat = line.fold(c2)(c2.add)
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
           publish(chat.id, actorApi.OnTimeout(user.username))
-          publish(chat.id, actorApi.ChatLine(chat.id, line))
+          line foreach { l => publish(chat.id, actorApi.ChatLine(chat.id, l)) }
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
