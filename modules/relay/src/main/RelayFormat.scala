@@ -21,29 +21,16 @@ private final class RelayFormatApi(
 
   private def guessFormat(url: Url): Fu[RelayFormat] = {
 
-    def guessSingleFile: Fu[Option[RelayFormat]] =
-      lidraughts.common.Future.find(List(
-        url.some,
-        !url.path.parts.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
-      ).flatten.distinct)(looksLikePdn) map2 { (u: Url) =>
+    def guessSingleJson: Fu[Option[RelayFormat]] =
+      lidraughts.common.Future.find(List(url))(looksLikeJson) map2 { (u: Url) =>
+        SingleFile(jsonDoc(u))
+      }
+    def guessSinglePdn: Fu[Option[RelayFormat]] =
+      lidraughts.common.Future.find(List(url))(looksLikePdn) map2 { (u: Url) =>
         SingleFile(pdnDoc(u))
       }
 
-    def guessManyFiles: Fu[Option[RelayFormat]] =
-      lidraughts.common.Future.find(
-        List(url) ::: mostCommonIndexNames.filterNot(url.path.parts.contains).map(addPart(url, _))
-      )(looksLikeJson) flatMap {
-          _ ?? { index =>
-            val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
-            val pdnUrl = (n: Int) => pdnDoc(replaceLastPart(index, s"game-$n.pdn"))
-            looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-              looksLikePdn(pdnUrl(1).url).map(_ option pdnUrl) map2 { (gameUrl: GameNumberToDoc) =>
-                ManyFiles(index, gameUrl)
-              }
-          }
-        }
-
-    guessSingleFile orElse guessManyFiles flatten "Cannot find any DGT compatible files"
+    guessSinglePdn orElse guessSingleJson flatten "Cannot find any DGT compatible files"
   } addEffect { format =>
     logger.info(s"guessed format of $url: $format")
   } addFailureEffect { err =>
@@ -86,7 +73,7 @@ private object RelayFormat {
       case _ => none
     }
 
-  def looksLikePdn(body: String): Boolean = MultiPdn.split(body, 1).value.headOption ?? { pdn =>
+  def looksLikePdn(body: String): Boolean = MultiPdn.split(body.replace("<br>", "\n\n"), 1).value.headOption ?? { pdn =>
     lidraughts.study.PdnImport(pdn, Nil, lidraughts.pref.Pref.default.draughtsResult).isSuccess
   }
   def looksLikePdn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePdn }

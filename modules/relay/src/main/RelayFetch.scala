@@ -133,11 +133,9 @@ private final class RelayFetch(
     import RelayFetch.DgtJson._
     formatApi.get(upstream.url) flatMap {
       case RelayFormat.SingleFile(doc) => doc.format match {
-        // all games in a single PDN file
-        case RelayFormat.DocFormat.Pdn => httpGet(doc.url) map { MultiPdn.split(_, max) }
-        // maybe a single JSON game? Why not
-        case RelayFormat.DocFormat.Json => httpGetJson[GameJson](doc.url)(gameReads) map { game =>
-          MultiPdn(List(game.toPdn()))
+        case RelayFormat.DocFormat.Pdn => httpGet(doc.url) map { pdns => MultiPdn.split(pdns.replace("<br>", "\n\n"), max) }
+        case RelayFormat.DocFormat.Json => httpGetJson[GamesJson](doc.url)(gamesReads) map { games =>
+          MultiPdn(games.toPdns)
         }
       }
       case RelayFormat.ManyFiles(indexUrl, makeGameDoc) => httpGetJson[RoundJson](indexUrl) flatMap { round =>
@@ -147,7 +145,7 @@ private final class RelayFetch(
             val gameDoc = makeGameDoc(number)
             (gameDoc.format match {
               case RelayFormat.DocFormat.Pdn => httpGet(gameDoc.url)
-              case RelayFormat.DocFormat.Json => httpGetJson[GameJson](gameDoc.url) map { _.toPdn(pairing.tags) }
+              case RelayFormat.DocFormat.Json => httpGetJson[GameJson](gameDoc.url) map { _.pdn.getOrElse("") }
             }) map (number -> _)
         }.sequenceFu.map { results =>
           MultiPdn(results.sortBy(_._1).map(_._2).toList)
@@ -200,19 +198,17 @@ private object RelayFetch {
     implicit val roundPairingReads = Json.reads[RoundJsonPairing]
     implicit val roundReads = Json.reads[RoundJson]
 
-    case class GameJson(moves: List[String], result: Option[String]) {
-      def toPdn(extraTags: Tags = Tags.empty) = {
-        val strMoves = moves.map(_ split ' ') map { move =>
-          draughts.format.pdn.Move(
-            san = ~move.headOption,
-            turn = draughts.White,
-            secondsLeft = (move.lift(0).map(_.takeWhile(_.isDigit)) flatMap parseIntOption, move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption)
-          )
-        } mkString " "
-        s"${extraTags}\n\n$strMoves"
+    case class GameJson(pdn: Option[String], result: Option[String])
+    case class GamesJson(games: List[GameJson]) {
+      def toPdns = games.flatMap {
+        _.pdn.map(p => {
+          def nonemptyPdn = if (p == "[Empty]") "" else p
+          nonemptyPdn.replace("\\n", "\n").replace("\\\"", "\"")
+        })
       }
     }
     implicit val gameReads = Json.reads[GameJson]
+    implicit val gamesReads = Json.reads[GamesJson]
   }
   import DgtJson._
 
