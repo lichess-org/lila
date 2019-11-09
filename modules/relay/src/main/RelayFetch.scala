@@ -20,7 +20,8 @@ private final class RelayFetch(
     api: RelayApi,
     slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
-    chapterRepo: lila.study.ChapterRepo
+    chapterRepo: lila.study.ChapterRepo,
+    userAgent: String
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -157,10 +158,12 @@ private final class RelayFetch(
   }
 
   private def httpGet(url: Url): Fu[String] =
-    WS.url(url.toString).withRequestTimeout(4.seconds.toMillis).get().flatMap {
-      case res if res.status == 200 => fuccess(res.body)
-      case res => fufail(s"[${res.status}] $url")
-    }
+    WS.url(url.toString)
+      .withHeaders("User-Agent" -> userAgent)
+      .withRequestTimeout(4.seconds.toMillis).get().flatMap {
+        case res if res.status == 200 => fuccess(res.body)
+        case res => fufail(s"[${res.status}] $url")
+      }
 
   private def httpGetJson[A: Reads](url: Url): Fu[A] = for {
     str <- httpGet(url)

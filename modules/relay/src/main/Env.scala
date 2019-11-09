@@ -14,6 +14,7 @@ final class Env(
 ) {
 
   private val MaxPerPage = config getInt "paginator.max_per_page"
+  private val UserAgent = config getString "useragent"
 
   private val coll = db(config getString "collection.relay")
 
@@ -45,14 +46,15 @@ final class Env(
     chapterRepo = studyEnv.chapterRepo
   )
 
-  private lazy val formatApi = new RelayFormatApi(asyncCache)
+  private lazy val formatApi = new RelayFormatApi(asyncCache, UserAgent)
 
   system.actorOf(Props(new RelayFetch(
     sync = sync,
     api = api,
     slackApi = slackApi,
     formatApi = formatApi,
-    chapterRepo = studyEnv.chapterRepo
+    chapterRepo = studyEnv.chapterRepo,
+    userAgent = UserAgent
   )))
 
   system.scheduler.schedule(1 minute, 1 minute) {

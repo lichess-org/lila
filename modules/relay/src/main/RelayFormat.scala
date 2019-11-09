@@ -10,7 +10,8 @@ import lila.memo.AsyncCache
 import lila.study.MultiPgn
 
 private final class RelayFormatApi(
-    asyncCache: AsyncCache.Builder
+    asyncCache: AsyncCache.Builder,
+    userAgent: String
 ) {
 
   import RelayFormat._
@@ -50,6 +51,26 @@ private final class RelayFormatApi(
     logger.info(s"can't guess format of $url: $err")
   }
 
+  private def httpGet(url: Url): Fu[Option[String]] =
+    WS.url(url.toString)
+      .withHeaders("User-Agent" -> userAgent)
+      .withRequestTimeout(4.seconds.toMillis).get().map {
+        case res if res.status == 200 => res.body.some
+        case _ => none
+      }
+
+  private def looksLikePgn(body: String): Boolean = MultiPgn.split(body, 1).value.headOption ?? { pgn =>
+    lila.study.PgnImport(pgn, Nil).isSuccess
+  }
+  private def looksLikePgn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
+
+  private def looksLikeJson(body: String): Boolean = try {
+    Json.parse(body) != JsNull
+  } catch {
+    case _: Exception => false
+  }
+  private def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
+
   private val cache = asyncCache.multi[Url, RelayFormat](
     name = "relayFormat",
     f = guessFormat,
@@ -79,24 +100,6 @@ private object RelayFormat {
   case class ManyFiles(jsonIndex: Url, game: GameNumberToDoc) extends RelayFormat {
     override def toString = s"Manyfiles($jsonIndex, ${game(0)})"
   }
-
-  def httpGet(url: Url): Fu[Option[String]] =
-    WS.url(url.toString).withRequestTimeout(4.seconds.toMillis).get().map {
-      case res if res.status == 200 => res.body.some
-      case _ => none
-    }
-
-  def looksLikePgn(body: String): Boolean = MultiPgn.split(body, 1).value.headOption ?? { pgn =>
-    lila.study.PgnImport(pgn, Nil).isSuccess
-  }
-  def looksLikePgn(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikePgn }
-
-  def looksLikeJson(body: String): Boolean = try {
-    Json.parse(body) != JsNull
-  } catch {
-    case _: Exception => false
-  }
-  def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
 
   def addPart(url: Url, part: String) = url.withPath(url.path addPart part)
   def replaceLastPart(url: Url, withPart: String) =
