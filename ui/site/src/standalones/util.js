@@ -423,7 +423,7 @@ lidraughts.toYouTubeEmbedUrl = function(url) {
   if (!url) return;
   var m = url.match(/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch)?(?:\?v=)?([^"&?\/ ]{11})(?:\?|&|)(\S*)/i);
   if (!m) return;
-  var start = 1;
+  var start = 0;
   m[2].split('&').forEach(function(p) {
     var s = p.split('=');
     if (s[0] === 't' || s[0] === 'start') {
@@ -434,7 +434,7 @@ lidraughts.toYouTubeEmbedUrl = function(url) {
       }
     }
   });
-  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3&start=' + start;
+  var params = 'modestbranding=1&rel=0&controls=2&iv_load_policy=3' + (start ? '&start=' + start : '');
   return 'https://www.youtube.com/embed/' + m[1] + '?' + params;
 };
 $.fn.scrollTo = function(target, offsetTop) {

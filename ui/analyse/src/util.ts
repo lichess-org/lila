@@ -97,14 +97,14 @@ export function baseUrl() {
   return `${window.location.protocol}//${window.location.host}`;
 }
 
-export function toYouTubeEmbed(url: string, height: number = 300): string | undefined {
+export function toYouTubeEmbed(url: string): string | undefined {
   const embedUrl = window.lidraughts.toYouTubeEmbedUrl(url);
-  if (embedUrl) return `<iframe width="100%" height="${height}" src="${embedUrl}" frameborder=0 allowfullscreen></iframe>`;
+  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`;
 }
 
 export function toTwitchEmbed(url: string): string | undefined {
   const embedUrl = toTwitchEmbedUrl(url);
-  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder=0 allowfullscreen></iframe></div>`;
+  if (embedUrl) return `<div class="embed"><iframe width="100%" src="${embedUrl}" frameborder="0" allowfullscreen></iframe></div>`;
 }
 
 function toTwitchEmbedUrl(url) {
