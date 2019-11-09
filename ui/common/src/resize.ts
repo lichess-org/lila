@@ -75,10 +75,12 @@ function addNag(el: HTMLElement) {
   window.lichess.loadCssPath('nag-circle');
   el.title = 'Drag to resize';
   el.innerHTML = '<div class="nag-circle"></div>';
-  el.addEventListener(window.lichess.mousedownEvent, () => {
-    storage.set(true);
-    el.innerHTML = '';
-  }, { once: true });
+  for (const mousedownEvent of ['touchstart', 'mousedown']) {
+    el.addEventListener(mousedownEvent, () => {
+      storage.set(true);
+      el.innerHTML = '';
+    }, { once: true });
+  }
 
   setTimeout(() => storage.set(true), 15000);
 }
