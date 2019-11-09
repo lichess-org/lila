@@ -20,9 +20,17 @@ private final class RelayFormatApi(
 
   def refresh(url: Url): Unit = cache refresh url
 
-  private def guessFormat(url: Url): Fu[RelayFormat] = {
+  private def guessFormat(originalUrl: Url): Fu[RelayFormat] = {
 
-    def guessSingleFile: Fu[Option[RelayFormat]] =
+    // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
+    def guessLcc(url: Url): Fu[Option[RelayFormat]] = url.toString match {
+      case LccRegex(id) => guessManyFiles(Url.parse(
+        s"http://1.pool.livechesscloud.com/get/$id/round-1/index.json"
+      ))
+      case _ => fuccess(none)
+    }
+
+    def guessSingleFile(url: Url): Fu[Option[RelayFormat]] =
       lila.common.Future.find(List(
         url.some,
         !url.path.parts.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
@@ -30,7 +38,7 @@ private final class RelayFormatApi(
         SingleFile(pgnDoc(u))
       }
 
-    def guessManyFiles: Fu[Option[RelayFormat]] =
+    def guessManyFiles(url: Url): Fu[Option[RelayFormat]] =
       lila.common.Future.find(
         List(url) ::: mostCommonIndexNames.filterNot(url.path.parts.contains).map(addPart(url, _))
       )(looksLikeJson) flatMap {
@@ -44,11 +52,13 @@ private final class RelayFormatApi(
           }
         }
 
-    guessSingleFile orElse guessManyFiles flatten "Cannot find any DGT compatible files"
+    guessLcc(originalUrl) orElse
+      guessSingleFile(originalUrl) orElse
+      guessManyFiles(originalUrl) flatten "Cannot find any DGT compatible files"
   } addEffect { format =>
-    logger.info(s"guessed format of $url: $format")
+    logger.info(s"guessed format of $originalUrl: $format")
   } addFailureEffect { err =>
-    logger.info(s"can't guess format of $url: $err")
+    logger.info(s"can't guess format of $originalUrl: $err")
   }
 
   private def httpGet(url: Url): Fu[Option[String]] =
@@ -112,4 +122,6 @@ private object RelayFormat {
 
   val mostCommonSingleFileName = "games.pgn"
   val mostCommonIndexNames = List("round.json", "index.json")
+
+  val LccRegex = """.*view\.livechesscloud\.com/([0-9a-f\-]+)""".r
 }
