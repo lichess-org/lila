@@ -73,7 +73,7 @@ function renderPager(pager: Paginator<ChapterPreview>, study: StudyCtrl): MaybeV
   return [
     h('div.top', [
       renderPagerNav(pager, ctrl),
-      renderPlayingToggle(ctrl)
+      study.relay ? renderPlayingToggle(ctrl) : null
     ]),
     h('div#now_playing', pager.currentPageResults.map(makePreview(study)))
   ];
