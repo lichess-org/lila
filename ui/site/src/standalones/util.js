@@ -7,7 +7,6 @@ lichess.requestIdleCallback = (window.requestIdleCallback || window.setTimeout).
 lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName));
 
 lichess.hasTouchEvents = 'ontouchstart' in window;
-lichess.mousedownEvent = lichess.hasTouchEvents ? 'touchstart' : 'mousedown';
 
 lichess.isCol1 = (() => {
   let isCol1Cache = 'init'; // 'init' | 'rec' | boolean
