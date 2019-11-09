@@ -8,7 +8,7 @@ import feedbackView from './feedback';
 import historyView from './history';
 import * as side from './side';
 import * as gridHacks from './gridHacks';
-import { onInsert, bind, bindMobileMousedown, hasTouchEvents } from '../util';
+import { onInsert, bind, bindMobileMousedown } from '../util';
 import { Controller } from '../interfaces';
 
 function renderOpeningBox(ctrl: Controller) {
@@ -100,7 +100,7 @@ export default function(ctrl: Controller): VNode {
       side.userBox(ctrl)
     ]),
     h('div.puzzle__board.main-board' + (ctrl.pref.blindfold ? '.blindfold' : ''), {
-      hook: hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
+      hook: window.lichess.hasTouchEvents ? undefined : bind('wheel', e => wheel(ctrl, e as WheelEvent))
     }, [
       chessground(ctrl),
       ctrl.promotion.view()
