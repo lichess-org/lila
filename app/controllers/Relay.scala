@@ -21,13 +21,13 @@ object Relay extends LidraughtsController {
     }
   }
 
-  def form = Auth { implicit ctx => me =>
+  def form = Secure(_.Relay) { implicit ctx => me =>
     NoLame {
       Ok(html.relay.create(env.forms.create)).fuccess
     }
   }
 
-  def create = AuthBody { implicit ctx => me =>
+  def create = SecureBody(_.Relay) { implicit ctx => me =>
     implicit val req = ctx.body
     env.forms.create.bindFromRequest.fold(
       err => BadRequest(html.relay.create(err)).fuccess,
