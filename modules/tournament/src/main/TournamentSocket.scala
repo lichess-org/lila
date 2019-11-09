@@ -18,7 +18,7 @@ private final class TournamentSocket(
     system: ActorSystem
 ) {
 
-  private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext]
+  private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
   private val reloadThrottler = system.actorOf(Props(new LateMultiThrottler(
     executionTimeout = 1.seconds.some,

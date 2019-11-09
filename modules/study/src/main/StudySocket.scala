@@ -1,7 +1,6 @@
 package lila.study
 
 import akka.actor._
-import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise

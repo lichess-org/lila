@@ -33,7 +33,7 @@ final class RemoteSocket(
 
   type UserIds = Set[String]
 
-  private val requests = new ConcurrentHashMap[Int, Promise[String]]
+  private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
   def request[R](sendReq: Int => Unit, readRes: String => R): Fu[R] = {
     val id = Math.abs(scala.util.Random.nextInt)

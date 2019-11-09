@@ -24,7 +24,7 @@ final class Syncache[K, V](
   import Syncache._
 
   // ongoing async computations
-  private val chm = new ConcurrentHashMap[K, Fu[V]]
+  private val chm = new ConcurrentHashMap[K, Fu[V]](64)
 
   // sync cached values
   private val cache: Cache[K, V] = {

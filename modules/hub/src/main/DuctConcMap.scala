@@ -5,7 +5,10 @@ import java.util.function.{ Function, BiFunction, Consumer }
 import ornicar.scalalib.Zero
 import scala.concurrent.Promise
 
-final class DuctConcMap[D <: Duct](mkDuct: String => D) extends TellMap {
+final class DuctConcMap[D <: Duct](
+    mkDuct: String => D,
+    initialCapacity: Int
+) extends TellMap {
 
   def getOrMake(id: String): D = ducts.computeIfAbsent(id, loadFunction)
 
@@ -44,7 +47,7 @@ final class DuctConcMap[D <: Duct](mkDuct: String => D) extends TellMap {
 
   def touchOrMake(id: String): Unit = ducts get id
 
-  private[this] val ducts = new ConcurrentHashMap[String, D]
+  private[this] val ducts = new ConcurrentHashMap[String, D](initialCapacity)
 
   private val loadFunction = new Function[String, D] {
     def apply(k: String) = mkDuct(k)

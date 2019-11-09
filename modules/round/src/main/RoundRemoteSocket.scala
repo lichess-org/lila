@@ -58,7 +58,8 @@ final class RoundRemoteSocket(
         }
       }
       duct
-    }
+    },
+    initialCapacity = 32768
   )
 
   def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
@@ -261,7 +262,7 @@ object RoundRemoteSocket {
     import java.util.concurrent.ConcurrentHashMap
     import java.util.function.BiFunction
 
-    private[this] val terminations = new ConcurrentHashMap[String, Cancellable]
+    private[this] val terminations = new ConcurrentHashMap[String, Cancellable](32768)
 
     def schedule(gameId: Game.Id): Unit = terminations.compute(
       gameId.value,
