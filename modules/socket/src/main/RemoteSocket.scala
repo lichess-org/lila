@@ -77,7 +77,7 @@ final class RemoteSocket(
       })
   }
 
-  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban) {
+  bus.subscribeFun('moveEvent, 'socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban, 'impersonate) {
     case MoveEvent(gameId, fen, move) =>
       if (watchedGameIds(gameId)) send(Out.move(gameId, move, fen))
     case SendTos(userIds, payload) =>
@@ -101,6 +101,8 @@ final class RemoteSocket(
       f(connectedUserIds.get)
     case lila.hub.actorApi.mod.Shadowban(userId, v) =>
       send(Out.setTroll(userId, v))
+    case lila.hub.actorApi.mod.Impersonate(userId, modId) =>
+      send(Out.impersonate(userId, modId))
   }
 
   private def tick(nbConn: Int): Unit = {
@@ -252,11 +254,14 @@ object RemoteSocket {
       def disconnectUser(userId: String) =
         s"disconnect/user $userId"
       def setTroll(userId: String, v: Boolean) =
-        s"troll/set $userId ${boolean(v)}"
+        s"mod/troll/set $userId ${boolean(v)}"
+      def impersonate(userId: String, by: Option[String]) =
+        s"mod/impersonate $userId ${optional(by)}"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String = if (v) "+" else "-"
       def color(c: chess.Color): String = c.fold("w", "b")
+      def optional(str: Option[String]) = str getOrElse "-"
     }
   }
 

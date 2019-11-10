@@ -44,6 +44,8 @@ final class Env(
 
   lazy val logApi = new ModlogApi(logColl)
 
+  lazy val impersonate = new ImpersonateApi(system.lilaBus)
+
   private lazy val notifier = new ModNotifier(notifyApi, reportApi)
 
   private lazy val ratingRefund = new RatingRefund(

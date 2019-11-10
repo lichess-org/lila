@@ -435,7 +435,7 @@ private[controllers] trait LilaController
       case d => d
     } flatMap {
       case None => fuccess(None -> None)
-      case Some(d) => lila.mod.Impersonate.impersonating(d.user) map {
+      case Some(d) => Env.mod.impersonate.impersonating(d.user) map {
         _.fold[RestoredUser](d.some -> None) { impersonated =>
           FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
         }
