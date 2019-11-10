@@ -27,7 +27,7 @@ object Dependencies {
   val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
-  val jodaTime = "joda-time" % "joda-time" % "2.10.4"
+  val jodaTime = "joda-time" % "joda-time" % "2.10.5"
   val chess = "org.lichess" %% "scalachess" % "8.6.26"
   val compression = "org.lichess" %% "compression" % "1.4"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
@@ -45,7 +45,7 @@ object Dependencies {
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
   val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.39.Final" classifier "linux-x86_64"
-  val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.30"
+  val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.42"
 
   object reactivemongo {
     val version = "0.12.4"
