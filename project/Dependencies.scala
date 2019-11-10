@@ -44,7 +44,7 @@ object Dependencies {
   val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
   val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
-  val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.39.Final" classifier "linux-x86_64"
+  val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"
   val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.42"
 
   object reactivemongo {

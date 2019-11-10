@@ -113,6 +113,15 @@ final class DataForm(
       _.samePasswords
     ))
 
+  val magicLink = Form(mapping(
+    "email" -> anyEmail, // allow unacceptable emails for BC
+    "gameId" -> text,
+    "move" -> text
+  )(MagicLink.apply)(_ => None)
+    .verifying(captchaFailMessage, validateCaptcha _))
+
+  def magicLinkWithCaptcha = withCaptcha(magicLink)
+
   def changeEmail(u: User, old: Option[EmailAddress]) = authenticator loginCandidate u map { candidate =>
     Form(mapping(
       "passwd" -> passwordMapping(candidate),
@@ -198,6 +207,14 @@ object DataForm {
   }
 
   case class PasswordReset(
+      email: String,
+      gameId: String,
+      move: String
+  ) {
+    def realEmail = EmailAddress(email)
+  }
+
+  case class MagicLink(
       email: String,
       gameId: String,
       move: String

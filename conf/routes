@@ -348,6 +348,10 @@ POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmAppl
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp: String, ms: Int)
 POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
+GET   /auth/magic-link                 controllers.Auth.magicLink
+POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
+GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email: String)
+GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token: String)
 
 # Mod
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)

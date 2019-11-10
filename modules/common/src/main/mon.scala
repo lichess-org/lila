@@ -303,6 +303,9 @@ object mon {
 
       def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
       def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
+
+      def magicLinkRequest(s: String) = inc(s"user.auth.magic_link_request.$s")
+      def magicLinkConfirm(s: String) = inc(s"user.auth.magic_link_confirm.$s")
     }
     object oauth {
       object usage {
@@ -390,6 +393,7 @@ object mon {
   object email {
     object types {
       val resetPassword = inc("email.reset_password")
+      val magicLink = inc("email.magic_link")
       val fix = inc("email.fix")
       val change = inc("email.change")
       val confirmation = inc("email.confirmation")
@@ -562,6 +566,8 @@ object mon {
   }
   object chat {
     val message = inc("chat.message")
+    val trollFalse = inc("chat.message.troll.true")
+    val trollTrue = inc("chat.message.troll.false")
   }
   object push {
     object register {
