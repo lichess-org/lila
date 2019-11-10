@@ -57,7 +57,6 @@ interface Lichess {
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
-  mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
   formAjax(form: JQuery): any;
   reverse(s: string): string;

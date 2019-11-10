@@ -77,7 +77,6 @@ public/piece/leipzig | Armando Hernandez Marroquin | ["freeware"](http://www.enp
 public/piece/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
 public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
-public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 * The other sounds in public/sound.
@@ -101,4 +100,5 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * Fallback to [Google Fonts](https://fonts.google.com/)
 * [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
 * [reCAPTCHA](https://www.google.com/recaptcha/)
+* [PeerJS](https://peerjs.com/) for voice chat
 * [crowdin](https://crowdin.com/project/lichess) for localization

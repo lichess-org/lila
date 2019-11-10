@@ -109,7 +109,7 @@ object PovToEntry {
           role = role,
           eval = prevInfo.flatMap(_.cp).map(_.ceiled.centipawns),
           mate = prevInfo.flatMap(_.mate).map(_.moves),
-          cpl = cpDiffs lift i map (_ min 1000),
+          cpl = cpDiffs lift i,
           material = board.materialImbalance * from.pov.color.fold(1, -1),
           opportunism = opportunism,
           luck = luck

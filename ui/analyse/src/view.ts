@@ -146,7 +146,7 @@ function dataAct(e: Event): string | null {
 }
 
 
-function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
+function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
   const repeat = function() {
     control[action](ctrl);
     ctrl.redraw();
@@ -156,7 +156,7 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
   let delay = 350;
   let timeout = setTimeout(repeat, 500);
   control[action](ctrl);
-  const eventName = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
+  const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});
 }
 
@@ -169,7 +169,7 @@ function controls(ctrl: AnalyseCtrl) {
     hook: onInsert(el => {
       bindMobileMousedown(el, e => {
         const action = dataAct(e);
-        if (action === 'prev' || action === 'next') repeater(ctrl, action);
+        if (action === 'prev' || action === 'next') repeater(ctrl, action, e);
         else if (action === 'first') control.first(ctrl);
         else if (action === 'last') control.last(ctrl);
         else if (action === 'explorer') ctrl.toggleExplorer();
