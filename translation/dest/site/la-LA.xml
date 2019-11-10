@@ -744,6 +744,8 @@
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
+  <string name="seeBestMove">Maxime motum videre</string>
+  <string name="hideBestMove">Maxime motum celare</string>
   <string name="whiteWinsGame">Albus vincit</string>
   <string name="blackWinsGame">Niger vincit</string>
   <string name="learnFromYourMistakes">Disce ex errata tua</string>
@@ -755,6 +757,7 @@
   <string name="doItAgain">Iterum</string>
   <string name="reviewWhiteMistakes">Retractari errores album</string>
   <string name="reviewBlackMistakes">Retractari errores occaecat</string>
+  <string name="advantage">Commodum</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
     <item quantity="other">%s secundae</item>
@@ -764,5 +767,6 @@
   <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
+  <string name="sorry">Paenitet :(</string>
   <string name="why">Cur?</string>
 </resources>
