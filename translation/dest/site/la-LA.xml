@@ -87,11 +87,13 @@
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
   <string name="deleteThisImportedGame">Huncne ludum inlatum vis delere?</string>
+  <string name="replayMode">Modus remonstrabilem</string>
   <string name="realtimeReplay">Praesens tempus</string>
   <string name="byCPL">Ab DCP</string>
   <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
   <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
+  <string name="evaluationGauge">Metior iudicium</string>
   <string name="multipleLines">Plures lineae</string>
   <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
@@ -623,6 +625,7 @@
   <string name="sourceCode">Fons notae</string>
   <string name="simultaneousExhibitions">Exhibitiones simultaneae</string>
   <string name="host">Hospes</string>
+  <string name="hostColorX">Color hospes: %s</string>
   <string name="createdSimuls">Simultaneae nuper factae</string>
   <string name="hostANewSimul">Habe simultaneam novam</string>
   <string name="noSimulFound">Simultanea non inventa</string>
