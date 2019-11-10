@@ -121,14 +121,14 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Commands'),
         h('p', [
           'Type these commands in the move input.', h('br'),
-          '/c: Read clocks.', h('br'),
-          '/l: Read last move.', h('br'),
+          'c: Read clocks.', h('br'),
+          'l: Read last move.', h('br'),
           commands.piece.help, h('br'),
           commands.scan.help, h('br'),
-          '/abort: Abort game.', h('br'),
-          '/resign: Resign game.', h('br'),
-          '/draw: Offer or accept draw.', h('br'),
-          '/takeback: Offer or accept take back.', h('br')
+          'abort: Abort game.', h('br'),
+          'resign: Resign game.', h('br'),
+          'draw: Offer or accept draw.', h('br'),
+          'takeback: Offer or accept take back.', h('br')
         ]),
         h('h2', 'Promotion'),
         h('p', [
@@ -145,7 +145,8 @@ const promotionRegex = /^([a-h]x?)?[a-h](1|8)=\w$/;
 
 function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
-    const input = castlingFlavours($input.val());
+    let input = castlingFlavours($input.val().trim());
+    if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else {
       const d = ctrl.data,
@@ -167,6 +168,12 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
     $input.val('');
     return false;
   };
+}
+
+const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan'];
+
+function isShortCommand(input: string): boolean {
+  return shortCommands.includes(input.split(' ')[0]);
 }
 
 function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: string, style: Style) {
