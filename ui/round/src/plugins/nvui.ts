@@ -50,7 +50,7 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         h('h2', 'Game info'),
         ...(['white', 'black'].map((color: Color) => h('p', [
           color + ' player: ',
-          renderPlayer(ctrl, ctrl.playerByColor(color))
+          playerHtml(ctrl, ctrl.playerByColor(color))
         ]))),
         h('p', `${d.game.rated ? 'Rated' : 'Casual'} ${d.game.perf}`),
         d.clock ? h('p', `Clock: ${d.clock.initial / 60} + ${d.clock.increment}`) : null,
@@ -170,7 +170,7 @@ function onSubmit(ctrl: RoundController, notify: (txt: string) => void, style: (
   };
 }
 
-const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan'];
+const shortCommands = ['c', 'clock', 'l', 'last', 'abort', 'resign', 'draw', 'takeback', 'p', 'scan', 'o', 'opponent'];
 
 function isShortCommand(input: string): boolean {
   return shortCommands.includes(input.split(' ')[0]);
@@ -183,6 +183,7 @@ function onCommand(ctrl: RoundController, notify: (txt: string) => void, c: stri
   else if (c == 'resign') $('.nvui button.resign-confirm').click();
   else if (c == 'draw') $('.nvui button.draw-yes').click();
   else if (c == 'takeback') $('.nvui button.takeback-yes').click();
+  else if (c == 'o' || c == 'opponent') notify(playerText(ctrl, ctrl.data.opponent));
   else {
     const pieces = ctrl.chessground.state.pieces;
     notify(
@@ -228,11 +229,12 @@ function renderMoves(steps: Step[], style: Style) {
   return res;
 }
 
-function renderPlayer(ctrl: RoundController, player: game.Player) {
-  return player.ai ? ctrl.trans('aiNameLevelAiLevel', 'Stockfish', player.ai) : userHtml(ctrl, player);
+function renderAi(ctrl: RoundController, level: number): string {
+  return ctrl.trans('aiNameLevelAiLevel', 'Stockfish', level);
 }
 
-function userHtml(ctrl: RoundController, player: game.Player) {
+function playerHtml(ctrl: RoundController, player: game.Player) {
+  if (player.ai) return renderAi(ctrl, player.ai);
   const d = ctrl.data,
     user = player.user,
     perf = user ? user.perfs[d.game.perf] : null,
@@ -246,4 +248,14 @@ function userHtml(ctrl: RoundController, player: game.Player) {
     rating ? ` ${rating}` : ``,
     ' ' + ratingDiff,
   ]) : 'Anonymous';
+}
+
+function playerText(ctrl: RoundController, player: game.Player) {
+  if (player.ai) return renderAi(ctrl, player.ai);
+  const d = ctrl.data,
+    user = player.user,
+    perf = user ? user.perfs[d.game.perf] : null,
+    rating = player.rating ? player.rating : (perf && perf.rating);
+  if (!user) return 'Anonymous';
+  return `${user.title || ''} ${user.username} rating = ${rating || 'none'}`;
 }
