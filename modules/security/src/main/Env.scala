@@ -133,6 +133,12 @@ final class Env(
     tokenerSecret = PasswordResetSecret
   )
 
+  lazy val magicLink = new MagicLink(
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl,
+    tokenerSecret = PasswordResetSecret
+  )
+
   lazy val emailChange = new EmailChange(
     mailgun = mailgun,
     baseUrl = NetBaseUrl,
