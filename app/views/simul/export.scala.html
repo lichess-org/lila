@@ -1,11 +1,12 @@
 @(form: Form[_], captcha: lidraughts.common.Captcha, simulId: String)(implicit ctx: Context)
 
 @auth.layout(
-title = trans.exportSimulGames.txt()) {
+title = trans.exportSimulGames.txt(),
+formCss = true) {
 <div class="content_box small_box signup">
   <div class="signup_box">
     <h1 class="lidraughts_title">@trans.exportSimulGames()</h1>
-    <form action="@routes.Simul.exportConfirm(simulId)" method="POST">
+    <form class="form3" action="@routes.Simul.exportConfirm(simulId)" method="POST">
       <ul>
         <li>
           @base.captcha(form, captcha)
