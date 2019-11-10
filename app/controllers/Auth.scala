@@ -452,11 +452,13 @@ object Auth extends LilaController {
       err => forms.anyCaptcha map { captcha =>
         BadRequest(html.auth.bits.magicLink(err, captcha, false.some))
       },
-      data => {
+      data =>
         UserRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
           case Some((user, storedEmail)) => {
-            lila.mon.user.auth.magicLinkRequest("success")()
-            Env.security.magicLink.send(user, storedEmail) inject Redirect(routes.Auth.magicLinkSent(storedEmail.conceal))
+            MagicLinkRateLimit(user, storedEmail, ctx.req) {
+              lila.mon.user.auth.magicLinkRequest("success")()
+              Env.security.magicLink.send(user, storedEmail) inject Redirect(routes.Auth.magicLinkSent(storedEmail.conceal))
+            }
           }
           case _ => {
             lila.mon.user.auth.magicLinkRequest("no_email")()
@@ -465,7 +467,6 @@ object Auth extends LilaController {
             }
           }
         }
-      }
     )
   }
 
@@ -514,4 +515,6 @@ object Auth extends LilaController {
     PasswordHasher.rateLimit[Result](enforce = Env.api.Net.RateLimit) _
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result] _
+
+  private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result] _
 }
