@@ -8,7 +8,7 @@ title = trans.exportSimulGames.txt()) {
     <form action="@routes.Simul.exportConfirm(simulId)" method="POST">
       <ul>
         <li>
-          @base.captcha(form("move"), form("gameId"), captcha)
+          @base.captcha(form, captcha)
         </li>
         @errMsg(form)
         <li>
