@@ -351,8 +351,14 @@
   <string name="clickOnTheBoardToMakeYourMove">Alklaku la ŝaktabulon por fari movon kaj pruvi, ke vi estas homa.</string>
   <string name="captcha.fail">Bonvolu solvi la ŝakan captcha-on.</string>
   <string name="notACheckmate">Ne ŝakmato</string>
+  <string name="whiteCheckmatesInOneMove">La blanka ludanto devas matigi per unu movo</string>
+  <string name="blackCheckmatesInOneMove">La nigra ludanto devas matigi per unu movo</string>
   <string name="retry">Reprovi</string>
   <string name="reconnecting">Rekonektante</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amiko konektita</item>
+    <item quantity="other">%s amikoj konektitaj</item>
+  </plurals>
   <string name="noFriendsOnline">Neniuj amikoj konektitaj</string>
   <string name="findFriends">Trovi amikojn</string>
   <string name="favoriteOpponents">Plej ŝatataj kontraŭuloj</string>
@@ -842,4 +848,5 @@
     <item quantity="one">kaj savi %s antaŭmovan vicon</item>
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
   </plurals>
+  <string name="why">Kial?</string>
 </resources>
