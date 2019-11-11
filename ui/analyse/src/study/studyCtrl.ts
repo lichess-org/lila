@@ -601,7 +601,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     socketHandler: (t: string, d: any) => {
       const handler = socketHandlers[t];
       if (handler) {
-        if (d.w && d.w.sri) d.w.s = d.w.sri;
         handler(d);
         return true;
       }
