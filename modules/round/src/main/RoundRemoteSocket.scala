@@ -111,6 +111,8 @@ final class RoundRemoteSocket(
     case RP.In.SetVersions(versions) => versions foreach {
       case (roomId, version) => rounds.tell(roomId, SetVersion(version))
     }
+    case P.In.WsBoot =>
+      logger.warn("Remote socket boot")
   }
 
   private def finishRound(gameId: Game.Id): Unit =

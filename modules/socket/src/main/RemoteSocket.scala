@@ -66,8 +66,8 @@ final class RemoteSocket(
       connectedUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
       bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
-    case In.DisconnectAll =>
-      logger.info("Remote socket disconnect all")
+    case In.WsBoot =>
+      logger.warn("Remote socket boot")
       connectedUserIds set Set.empty
       watchedGameIds.clear
     case In.ReqResponse(reqId, response) =>
@@ -182,11 +182,11 @@ object RemoteSocket {
 
       type Reader = RawMsg => Option[In]
 
+      case object WsBoot extends In
       case class ConnectUser(userId: String) extends In
       case class DisconnectUsers(userId: Iterable[String]) extends In
       case class ConnectSris(cons: Iterable[(Sri, Option[String])]) extends In
       case class DisconnectSris(sris: Iterable[Sri]) extends In
-      case object DisconnectAll extends In
       case class Watch(gameId: String) extends In
       case class Unwatch(gameId: String) extends In
       case class NotifiedBatch(userIds: Iterable[String]) extends In
@@ -206,7 +206,6 @@ object RemoteSocket {
           }
         }.some
         case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
-        case "disconnect/all" => DisconnectAll.some
         case "watch" => Watch(raw.args).some
         case "unwatch" => Unwatch(raw.args).some
         case "notified/batch" => NotifiedBatch(commas(raw.args)).some
@@ -223,6 +222,7 @@ object RemoteSocket {
         case "req/response" => raw.get(2) {
           case Array(reqId, response) => parseIntOption(reqId) map { ReqResponse(_, response) }
         }
+        case "boot" => WsBoot.some
         case _ => none
       }
 

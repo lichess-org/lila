@@ -64,7 +64,7 @@ private final class TournamentSocket(
 
   lazy val rooms = makeRoomMap(send, system.lilaBus)
 
-  private lazy val handler: Handler = roomHandler(rooms, chat,
+  private lazy val handler: Handler = roomHandler(rooms, chat, logger,
     roomId => _.Tournament(roomId.value).some)
 
   private lazy val tourHandler: Handler = {

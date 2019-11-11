@@ -28,7 +28,7 @@ private final class ChallengeSocket(
   }
 
   remoteSocketApi.subscribe("chal-in", Protocol.In.reader)(
-    challengeHandler orElse minRoomHandler(rooms) orElse remoteSocketApi.baseHandler
+    challengeHandler orElse minRoomHandler(rooms, lila log "challenge") orElse remoteSocketApi.baseHandler
   )
 
   api registerSocket this

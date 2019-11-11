@@ -222,7 +222,8 @@ final class LobbySocket(
     }
     case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
 
-    case P.In.DisconnectAll =>
+    case P.In.WsBoot =>
+      logger.warn("Remote socket boot")
       lobby ! LeaveAll
       trouper ! LeaveAll
 

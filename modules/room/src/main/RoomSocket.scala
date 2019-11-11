@@ -4,6 +4,7 @@ import lila.chat.{ Chat, UserLine, actorApi => chatApi }
 import lila.common.Bus
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
+import lila.log.Logger
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion, Sri }
 import lila.user.User
@@ -56,6 +57,7 @@ object RoomSocket {
   def roomHandler(
     rooms: TrouperMap[RoomState],
     chat: akka.actor.ActorSelection,
+    logger: Logger,
     publicSource: RoomId => PublicSource.type => Option[PublicSource],
     localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
   ): Handler = ({
@@ -66,13 +68,15 @@ object RoomSocket {
         chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = local)
       }
     }
-  }: Handler) orElse minRoomHandler(rooms)
+  }: Handler) orElse minRoomHandler(rooms, logger)
 
-  def minRoomHandler(rooms: TrouperMap[RoomState]): Handler = {
+  def minRoomHandler(rooms: TrouperMap[RoomState], logger: Logger): Handler = {
     case Protocol.In.KeepAlives(roomIds) => roomIds foreach { roomId =>
       rooms touchOrMake roomId.value
     }
-    case P.In.DisconnectAll => rooms.killAll
+    case P.In.WsBoot =>
+      logger.warn("Remote socket boot")
+      rooms.killAll
     case Protocol.In.SetVersions(versions) => versions foreach {
       case (roomId, version) => rooms.tell(roomId, SetVersion(version))
     }

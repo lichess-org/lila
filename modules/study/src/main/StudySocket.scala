@@ -185,7 +185,7 @@ private final class StudySocket(
     }
   }
 
-  private lazy val rHandler: Handler = roomHandler(rooms, chat,
+  private lazy val rHandler: Handler = roomHandler(rooms, chat, logger,
     roomId => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
