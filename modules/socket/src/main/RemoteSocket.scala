@@ -118,7 +118,7 @@ final class RemoteSocket(
 
   private val send: Send = makeSender("site-out").apply _
 
-  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Unit = {
+  def subscribe(channel: Channel, reader: In.Reader)(handler: Handler): Future[Unit] = {
     val conn = redisClient.connectPubSub()
     conn.addListener(new pubsub.RedisPubSubAdapter[String, String] {
       override def message(_channel: String, message: String): Unit = {
@@ -132,7 +132,11 @@ final class RemoteSocket(
         }
       }
     })
-    conn.async.subscribe(channel)
+    val subPromise = Promise[Unit]
+    conn.async.subscribe(channel).thenRun {
+      new Runnable { def run = subPromise.success(()) }
+    }
+    subPromise.future
   }
 
   lifecycle.addStopHook { () =>
@@ -257,6 +261,7 @@ object RemoteSocket {
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: String, by: Option[String]) =
         s"mod/impersonate $userId ${optional(by)}"
+      def boot = "boot"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String = if (v) "+" else "-"

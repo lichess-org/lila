@@ -27,6 +27,7 @@ object RoomSocket {
 
     val process: Trouper.Receive = {
       case GetVersion(promise) => promise success version
+      case SetVersion(v) => version = v
       case nv: NotifyVersion[_] =>
         version = version.inc
         send(Protocol.Out.tellRoomVersion(roomId, nv.msg, version, nv.troll))
@@ -73,6 +74,9 @@ object RoomSocket {
       rooms touchOrMake roomId.value
     }
     case P.In.DisconnectAll => rooms.killAll
+    case Protocol.In.SetVersions(versions) => versions foreach {
+      case (roomId, version) => rooms.tell(roomId, SetVersion(version))
+    }
   }
 
   object Protocol {
@@ -83,6 +87,7 @@ object RoomSocket {
       case class ChatTimeout(roomId: RoomId, userId: String, suspect: String, reason: String) extends P.In
       case class KeepAlives(roomIds: Iterable[RoomId]) extends P.In
       case class TellRoomSri(roomId: RoomId, tellSri: P.In.TellSri) extends P.In
+      case class SetVersions(versions: Iterable[(String, SocketVersion)]) extends P.In
 
       val reader: P.In.Reader = raw => raw.path match {
         case "room/alives" => KeepAlives(raw.args split "," map RoomId.apply).some
@@ -97,7 +102,12 @@ object RoomSocket {
             TellRoomSri(RoomId(roomId), _)
           }
         }
-        case other => P.In.baseReader(raw)
+        case "room/versions" => SetVersions(P.In.commas(raw.args) map {
+          _.split(':') match {
+            case Array(roomId, v) => (roomId, SocketVersion(java.lang.Integer.parseInt(v)))
+          }
+        }).some
+        case _ => P.In.baseReader(raw)
       }
     }
 
@@ -117,4 +127,6 @@ object RoomSocket {
         s"room/stop $roomId"
     }
   }
+
+  case class SetVersion(version: SocketVersion)
 }

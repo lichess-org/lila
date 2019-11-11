@@ -103,6 +103,9 @@ private[round] final class RoundRemoteDuct(
     case GetVersion(promise) => fuccess {
       promise success version
     }
+    case SetVersion(v) => fuccess {
+      version = v
+    }
 
     case RoomCrowd(white, black) => fuccess {
       whitePlayer setOnline white

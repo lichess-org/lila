@@ -15,8 +15,8 @@ import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign, TourStanding }
-import lila.hub.actorApi.tv.TvSelect
 import lila.hub.actorApi.socket.remote.TellSriIn
+import lila.hub.actorApi.tv.TvSelect
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -108,6 +108,9 @@ final class RoundRemoteSocket(
     case userTv: Protocol.In.UserTv => tellRound(userTv.gameId, userTv)
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$tpe"))
+    case RP.In.SetVersions(versions) => versions foreach {
+      case (roomId, version) => rounds.tell(roomId, SetVersion(version))
+    }
   }
 
   private def finishRound(gameId: Game.Id): Unit =
@@ -119,7 +122,8 @@ final class RoundRemoteSocket(
 
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
-  )
+  ) >>- send(P.Out.boot)
+
   bus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, BotConnected(color, v)) if useRemoteSocket(gameId) => send(Protocol.Out.botConnected(gameId, color, v))
@@ -171,12 +175,6 @@ object RoundRemoteSocket {
             tpe <- obj str "t"
           } yield PlayerDo(FullId(fullId), tpe, obj)
         }
-        // case "r/do/any" => raw.get(3) {
-        //   case Array(gameId, playerId, payload) => for {
-        //     obj <- Json.parse(payload).asOpt[JsObject]
-        //     tpe <- obj str "t"
-        //   } yield AnyDo(Game.Id(gameId), P.In.optional(playerId) map PlayerId.apply, tpe, obj)
-        // }
         case "r/move" => raw.get(5) {
           case Array(fullId, uciS, blurS, lagS, mtS) => Uci(uciS) map { uci =>
             PlayerMove(FullId(fullId), uci, P.In.boolean(blurS), MoveMetrics(centis(lagS), centis(mtS)))
