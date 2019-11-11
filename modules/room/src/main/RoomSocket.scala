@@ -45,7 +45,6 @@ object RoomSocket {
       send(Protocol.Out.stop(roomId))
       bus.unsubscribe(this, chatClassifier)
     }
-    send(Protocol.Out.start(roomId))
     bus.subscribe(this, chatClassifier)
   }
 
@@ -121,8 +120,6 @@ object RoomSocket {
         s"tell/room/user $roomId $userId ${Json stringify payload}"
       def tellRoomUsers(roomId: RoomId, userIds: Iterable[User.ID], payload: JsObject) =
         s"tell/room/users $roomId ${P.Out.commas(userIds)} ${Json stringify payload}"
-      def start(roomId: RoomId) =
-        s"room/start $roomId"
       def stop(roomId: RoomId) =
         s"room/stop $roomId"
     }

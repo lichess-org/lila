@@ -142,9 +142,7 @@ private[round] final class RoundRemoteDuct(
       gameSpeed = game.speed.some
       whitePlayer.goneWeight = whiteGoneWeight
       blackPlayer.goneWeight = blackGoneWeight
-      // only run the following if the game actually exists, and not on duct start
       buscriptions.chat
-      socketSend(RP.Out.start(roomId))
     }
 
     case lila.chat.actorApi.ChatLine(chatId, line) => fuccess {
