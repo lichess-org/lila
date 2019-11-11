@@ -21,7 +21,7 @@
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkas</string>
-  <string name="blackIsVictorious">Nigro venkas</string>
+  <string name="blackIsVictorious">Nigro venkis</string>
   <string name="kingInTheCenter">Reĝo en la centro</string>
   <string name="threeChecks">Tri ŝakoj</string>
   <string name="raceFinished">Kuro finiĝis</string>
@@ -422,8 +422,8 @@
   <string name="performance">Efikeco</string>
   <string name="tournamentComplete">Turniro finitis</string>
   <string name="movesPlayed">Moviĝoj luditaj</string>
-  <string name="whiteWins">Blanko venkas</string>
-  <string name="blackWins">Nigro venkas</string>
+  <string name="whiteWins">Blankaj venkoj</string>
+  <string name="blackWins">Nigraj venkoj</string>
   <string name="draws">Egalvenkoj</string>
   <string name="nextXTournament">Proksima %s turniro:</string>
   <string name="viewMoreTournaments">Spektu pli da turniroj</string>
@@ -519,6 +519,7 @@
   <string name="troll">Trolo</string>
   <string name="other">Io alia</string>
   <string name="reportDescriptionHelp">Inkluzivu la ligilon al la ludo(j) kaj ekspliku tion, kio malbonas pri la konduto de ĉi tiu uzanto.</string>
+  <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
   <string name="thisTopicIsNowClosed">Tiu ĉi temo nun estas fermita.</string>
   <string name="theming">Aspekto</string>
@@ -858,5 +859,6 @@
   <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
   <string name="timeoutExpires">La suspendo finiĝos %s.</string>
   <string name="why">Kial?</string>
+  <string name="playEveryGame">Ludu ĉiun ludon, kiun vi komencas.</string>
   <string name="thankYouForReading">Dankon pro via legado!</string>
 </resources>
