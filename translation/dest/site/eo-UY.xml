@@ -164,7 +164,7 @@
   <string name="username">Uzantnomo</string>
   <string name="usernameOrEmail">Uzantnomo aŭ retpoŝtadreso</string>
   <string name="changeUsername">Ŝanĝi uzantnomon</string>
-  <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝi. Por ekzemple \"johndoe\" al \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
@@ -198,7 +198,7 @@
   <string name="blackDeclinesDraw">Nigro malakceptas egalvenkon</string>
   <string name="yourOpponentOffersADraw">Via kontraŭulo ofertas egalvenkon</string>
   <string name="accept">Akcepti</string>
-  <string name="decline">Malakcepti</string>
+  <string name="decline">Rifuzi</string>
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
@@ -848,5 +848,9 @@
     <item quantity="one">kaj savi %s antaŭmovan vicon</item>
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
   </plurals>
+  <string name="sorry">Bedaŭrinde :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
+  <string name="timeoutExpires">La suspendo finiĝos %s.</string>
   <string name="why">Kial?</string>
+  <string name="thankYouForReading">Dankon pro via legado!</string>
 </resources>
