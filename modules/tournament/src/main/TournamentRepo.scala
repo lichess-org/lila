@@ -70,15 +70,17 @@ object TournamentRepo {
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
 
   def publicStarted: Fu[List[Tournament]] =
-    coll.find(startedSelect ++ $doc("private" $exists false))
+    coll.find(startedSelect)
       .sort($doc("createdAt" -> -1))
-      .list[Tournament]()
+      .list[Tournament]() map {
+        _.filterNot(_.isHidden)
+      }
 
   def standardPublicStartedFromSecondary: Fu[List[Tournament]] =
-    coll.find(startedSelect ++ $doc(
-      "private" $exists false,
-      "variant" $exists false
-    )).list[Tournament](None, ReadPreference.secondaryPreferred)
+    coll.find(startedSelect ++ $doc("variant" $exists false))
+      .list[Tournament](None, ReadPreference.secondaryPreferred) map {
+        _.filterNot(_.isHidden)
+      }
 
   def finished(limit: Int): Fu[List[Tournament]] =
     coll.find(finishedSelect)
@@ -138,18 +140,21 @@ object TournamentRepo {
     )
   )
 
-  def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.find(
-    allCreatedSelect(aheadMinutes) ++ $doc("private" $exists false)
-  ).sort($doc("startsAt" -> 1)).list[Tournament](none)
+  def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] =
+    coll.find(allCreatedSelect(aheadMinutes))
+      .sort($doc("startsAt" -> 1))
+      .list[Tournament](none) map {
+        _.filterNot(_.isHidden)
+      }
 
   def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
     coll.find(allCreatedSelect(aheadMinutes)).list[Tournament]()
 
-  private def stillWorthEntering: Fu[List[Tournament]] = coll.find(
-    startedSelect ++ $doc("private" $exists false)
-  ).sort($doc("startsAt" -> 1)).list[Tournament]() map {
-      _.filter(_.isStillWorthEntering)
-    }
+  private def stillWorthEntering: Fu[List[Tournament]] =
+    coll.find(startedSelect)
+      .sort($doc("startsAt" -> 1)).list[Tournament]() map {
+        _.filter(t => !t.isHidden && t.isStillWorthEntering)
+      }
 
   private def isPromotable(tour: Tournament) = tour.startsAt isBefore DateTime.now.plusMinutes {
     import Schedule.Freq._
