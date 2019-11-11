@@ -24,5 +24,8 @@ export default class TransientMove {
     if (this.current) clearTimeout(this.current);
   }
 
-  expire = () => this.socket.reload({});
+  expire = () => {
+    $.ajax({ method: 'POST', url: '/statlog?e=roundTransientExpire' });
+    this.socket.reload({});
+  }
 }
