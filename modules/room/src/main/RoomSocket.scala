@@ -76,7 +76,7 @@ object RoomSocket {
     }
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
-      rooms.killAll
+    // rooms.killAll // apparently not
     case Protocol.In.SetVersions(versions) => versions foreach {
       case (roomId, version) => rooms.tell(roomId, SetVersion(version))
     }

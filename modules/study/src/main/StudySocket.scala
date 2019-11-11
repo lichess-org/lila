@@ -208,7 +208,7 @@ private final class StudySocket(
 
   remoteSocketApi.subscribe("study-in", Protocol.In.reader)(
     studyHandler orElse rHandler orElse remoteSocketApi.baseHandler
-  )
+  ) >>- send(P.Out.boot)
 
   // send API
 
