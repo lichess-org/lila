@@ -35,6 +35,10 @@ final class DuctConcMap[D <: Duct](
 
   def exists(id: String): Boolean = ducts.get(id) != null
 
+  def foreachKey(f: String => Unit): Unit = ducts.forEachKey(16, new Consumer[String] {
+    def accept(key: String) = f(key)
+  })
+
   def size: Int = ducts.size()
 
   def terminate(id: String, lastWill: Duct => Unit): Unit =
@@ -53,6 +57,6 @@ final class DuctConcMap[D <: Duct](
     def apply(k: String) = mkDuct(k)
   }
 
-  // used to remove entriies
-  private var nullD: D = _
+  // used to remove entries
+  private[this] var nullD: D = _
 }

@@ -113,6 +113,9 @@ final class RoundRemoteSocket(
     }
     case P.In.WsBoot =>
       logger.warn("Remote socket boot")
+      // schedule termination for all game ducts
+      // until players actually reconnect
+      rounds foreachKey { id => terminationDelay schedule Game.Id(id) }
   }
 
   private def finishRound(gameId: Game.Id): Unit =
