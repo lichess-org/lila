@@ -90,7 +90,8 @@ final class Env(
   private val defaultGoneWeight = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
   private def goneWeightsFor(game: Game): Fu[(Float, Float)] =
-    game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
+    if (!game.playable || !game.hasClock || game.hasAi) fuccess(1f -> 1f)
+    else game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
       game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
   lazy val roundSocket = new RoundRemoteSocket(
