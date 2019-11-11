@@ -14,6 +14,7 @@ import { Api as CgApi } from 'chessground/api';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
+import TransientMove from './transientMove';
 import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
@@ -53,6 +54,7 @@ export default class RoundController {
   loading: boolean = false;
   loadingTimeout: number;
   redirecting: boolean = false;
+  transientMove: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
   goneBerserk: GoneBerserk = {};
@@ -99,6 +101,7 @@ export default class RoundController {
     this.setQuietMode();
 
     this.moveOn = new MoveOn(this, 'move-on');
+    this.transientMove = new TransientMove(this.socket);
 
     this.trans = li.trans(opts.i18n);
     this.noarg = this.trans.noarg;
@@ -249,7 +252,7 @@ export default class RoundController {
 
   setTitle = () => title.set(this);
 
-  actualSendMove = (type: string, action: any, meta: MoveMetadata = {}) => {
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
     const socketOpts: SocketOpts = {
       ackable: true
     };
@@ -265,11 +268,12 @@ export default class RoundController {
         }
       }
     }
-    this.socket.send(type, action, socketOpts);
+    this.socket.send(tpe, data, socketOpts);
 
     this.justDropped = meta.justDropped;
     this.justCaptured = meta.justCaptured;
     this.preDrop = undefined;
+    this.transientMove.register();
     this.redraw();
   }
 
@@ -421,6 +425,7 @@ export default class RoundController {
     }
     this.redraw();
     if (playing && playedColor == d.player.color) {
+      this.transientMove.clear();
       this.moveOn.next();
       cevalSub.publish(d, o);
     }

@@ -154,6 +154,7 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
         return true;
       }
       return false;
-    }
+    },
+    reload
   };
 }
