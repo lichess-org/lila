@@ -59,6 +59,7 @@
   <string name="promoteVariation">Plivalorigi variaĵon</string>
   <string name="makeMainLine">Precipigi vicon</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
+  <string name="forceVariation">Devigi variaĵon</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Variaĵa malvenko</string>
   <string name="variantWin">Variaĵa venko</string>
@@ -165,6 +166,7 @@
   <string name="usernameOrEmail">Uzantnomo aŭ retpoŝtadreso</string>
   <string name="changeUsername">Ŝanĝi uzantnomon</string>
   <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
@@ -202,6 +204,7 @@
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
+  <string name="finishesX">finiĝos %s</string>
   <string name="abortGame">Abortigi ludon</string>
   <string name="gameAborted">Ludo estis abortigita</string>
   <string name="standard">Normale</string>
@@ -271,7 +274,7 @@
   <string name="takebackPropositionDeclined">Reprena propono estis malakceptita</string>
   <string name="takebackPropositionAccepted">Reprena propono estis akceptita</string>
   <string name="takebackPropositionCanceled">Reprena propono estis nuligita</string>
-  <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas reprenon</string>
+  <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas nuligi la movon</string>
   <string name="bookmarkThisGame">Paĝmarki ĉi tiun ludon</string>
   <string name="search">Serĉi</string>
   <string name="advancedSearch">Pli detala serĉo</string>
@@ -399,6 +402,8 @@
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
   <string name="advancedSettings">Spertulaj agordoj</string>
   <string name="safeTournamentName">Elekti tre sekuran nomon por la turniro.</string>
+  <string name="inappropriateNameWarning">Se vi uzas maltaŭgan aŭ maldecan nomon, ni fermos vian konton.</string>
+  <string name="emptyTournamentName">Se vi lasas ĝin malplena, ni uzos la nomon de fama ŝakludisto.</string>
   <string name="recommendNotTouching">Ni rekomendi ke vi ne tuŝas ĉi tiujn.</string>
   <string name="showAdvancedSettings">Montri spertulajn agordojn</string>
   <string name="join">Aliĝi</string>
@@ -471,6 +476,7 @@
   <string name="pleaseVotePuzzle">Helpu al Lichess pliboniĝi per voĉdoni, uzante la supren- aŭ suben-sagbutonojn:</string>
   <string name="thankYou">Dankon!</string>
   <string name="ratingX">Rango: %s</string>
+  <string name="hidden">kaŝita</string>
   <plurals name="playedXTimes">
     <item quantity="one">Ludita %s-foje</item>
     <item quantity="other">Ludita %s-foje</item>
