@@ -6,7 +6,7 @@
         <a href="@routes.Simul.show(simul.id)">@simul.fullName</a>
         @*<span>Created by @usernameOrId(simul.createdBy) on @showDate(simul.createdAt)</span>*@
     </h1>
-    <form class="content_box_content material form" action="@routes.SimulCrud.update(simul.id)" method="POST">
+    <form class="content_box_content form3" action="@routes.SimulCrud.update(simul.id)" method="POST">
         @inForm(form, simul.isRunning || simul.isFinished)
     </form>
     @allowedPlayers(simul, simul.isRunning || simul.isFinished)

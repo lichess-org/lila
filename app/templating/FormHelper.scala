@@ -66,13 +66,16 @@ trait FormHelper { self: I18nHelper =>
     def select(
       field: Field,
       options: Iterable[(Any, String)],
-      default: Option[String] = None
+      default: Option[String] = None,
+      disabled: Boolean = false
     ) = Html {
       val defaultH = default ?? { d => s"""<option value="">$d</option>""" }
       val optionsH = options map { v =>
         s"""<option value="${v._1}" ${(field.value == Some(v._1.toString)) ?? "selected"}>${v._2}</option>"""
       } mkString ""
-      s"""<select id="${id(field)}" name="${field.name}" class="form-control">$defaultH$optionsH</select>"""
+      val ctrl = s"""<select id="${id(field)}" name="${field.name}" class="form-control" ${if (disabled) " disabled"}>$defaultH$optionsH</select>"""
+      if (disabled) ctrl + s"""<input type="hidden" name="${field.name}" value="${~field.value}" />"""
+      else ctrl
     }
 
     def textarea(

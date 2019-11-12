@@ -2,6 +2,6 @@
 
 @options.zipWithIndex.map {
 case ((value, text, hint), index) => {
-<div class="checkable">@setup.filterCheckbox(form, key, index, value.toString, checks, Html(text), hint, disabled)</div>
+<div class="checkable form-check form-group">@setup.filterCheckbox(form, key, index, value.toString, checks, Html(text), hint, disabled)</div>
 }
 }

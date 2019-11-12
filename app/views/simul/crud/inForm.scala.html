@@ -4,84 +4,39 @@
 @import lidraughts.simul.crud.CrudForm._
 @import lidraughts.rating.PerfType
 
-<div>
-  @base.form.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true) { field =>
-  <input class="flatpickr has-value" data-enable-time="true" data-time_24hr="true" value="@field.value" name="@field.name" />
-  }
-  @base.form.group(form("name"), Html("Name"), half = true) { field =>
-  @base.form.input(field)
-  }
-</div>
-<div>
-  @base.form.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true) { field =>
-  @base.form.input(field, "Ask first!".some)
-  }
-  @base.form.group(form("image"), Html("Custom icon"), half = true) { field =>
-  @base.form.select(field, imageChoices)
-  }
-</div>
-@base.form.group(form("headline"), Html("Homepage headline")) { field =>
-@base.form.input(field)
+@form3.split {
+@form3.group(form("date"), Html("Start date <strong>UTC</strong>"), half = true)(form3.flatpickr(_))
+@form3.group(form("name"), Html("Name"), half = true)(form3.input(_))
 }
-@base.form.group(form("description"), Html("Full description | Link: [text](url)")) { field =>
-<textarea name="@field.name" id="@field.id">@field.value</textarea>
+@form3.split {
+@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_, typ = "number", required = true))
+@form3.group(form("image"), Html("Custom icon"), half = true)(form3.select(_, imageChoices))
 }
-<div>
-  <div class="form-group@if(form("hostName").hasErrors){ has-error} half">
-    <label class="control-label custom-label">Host</label>
-    <input type="text" class="user-autocomplete"@if(running){ disabled} name="@form("hostName").name" id="@form("hostName").id" value="@form("hostName").value" data-tag="span">
-    @if(running) {<input type="hidden" name="@form("hostName").name" value="@form("hostName").value" />}
-    <i class="bar"></i>
-  </div>
-  <div class="form-group@if(form("arbiterName").hasErrors){ has-error} half">
-    <label class="control-label custom-label">Arbiter (optional)</label>
-    <input type="text" class="user-autocomplete" name="@form("arbiterName").name" id="@form("arbiterName").id" value="@form("arbiterName").value" data-tag="span">
-    <i class="bar"></i>
-  </div>
-</div>
-<div>
-  @base.form.group(form("clockTime"), Html("Clock time"), half = true) { field =>
-  @base.form.select(field, clockTimeChoices, disabled = running)
-  }
-  @base.form.group(form("clockIncrement"), Html("Clock increment"), half = true) { field =>
-  @base.form.select(field, clockIncrementChoices, disabled = running)
-  }
-</div>
-<div>
-  @base.form.group(form("color"), Html("Host color"), half = true) { field =>
-  @base.form.select(field, colorChoices, disabled = running)
-  }
-  @base.form.group(form("clockExtra"), Html("Host extra time"), half = true) { field =>
-  @base.form.select(field, clockExtraChoices, disabled = running)
-  }
-</div>
-<div>
-  @base.form.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)")) { field =>
-  @base.form.input(field, typ = "number")
-  }
-</div>
-<div>
-  @base.form.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)")) { field =>
-  @base.form.input(field, typ = "number")
-  }
-</div>
-@base.form.group(form("chat"), Html("Chat is available for")) { field =>
-@base.form.select(field, chatChoices)
+@form3.group(form("headline"), Html("Homepage headline"))(form3.input(_, required = true))
+@form3.group(form("description"), Html("Full description | Link: [text](url)"))(form3.textarea(_, rows = 6.some))
+
+@form3.split {
+@form3.group(form("hostName"), Html("Host"), half = true)(form3.input(_, required = true, klass = s"user-autocomplete${if(running)" disabled" else ""}", attrs = "data-tag=\"span\""))
+@form3.group(form("arbiterName"), Html("Arbiter (optional)"), half = true)(form3.input(_, klass = s"user-autocomplete", attrs = "data-tag=\"span\""))
+@if(running) {@form3.hidden(form("hostName"))}
 }
-@base.form.group(form("fmjd"), Html("Official rating visibility")) { field =>
-@base.form.select(field, fmjdChoices)
+
+@form3.split {
+@form3.group(form("clockTime"), Html("Clock time"), half = true)(form3.select(_, clockTimeChoices, disabled = running))
+@form3.group(form("clockIncrement"), Html("Clock increment"), half = true)(form3.select(_, clockIncrementChoices, disabled = running))
 }
-@base.form.group(form("ceval"), Html("Computer analysis in lobby")) { field =>
-@base.form.select(field, cevalChoices)
+@form3.split {
+@form3.group(form("color"), Html("Host color"), half = true)(form3.select(_, colorChoices, disabled = running))
+@form3.group(form("clockExtra"), Html("Host extra time"), half = true)(form3.select(_, clockExtraChoices, disabled = running))
 }
-<div class="form-group">
-  <div class="form-group@if(form("variants").hasErrors){ has-error} half short-margin">
-    <label for="@form("variants").id" class="control-label custom-label" style="margin-top: 20%;">Variants</label>
-  </div>
-  <div class="form-group half short-margin">
-    @views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running)
-    @errMsg(form("variants"))
-  </div>
-  <i class="bar"></i>
-</div>
-@base.form.submit()
+
+@form3.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)"))(form3.input(_, typ = "number"))
+@form3.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)"))(form3.input(_, typ = "number"))
+
+@form3.group(form("chat"), Html("Chat is available for"))(form3.select(_, chatChoices))
+@form3.group(form("fmjd"), Html("Official rating visibility"))(form3.select(_, fmjdChoices))
+@form3.group(form("ceval"), Html("Computer analysis in lobby"))(form3.select(_, cevalChoices))
+
+@form3.group(form("variants"), Html("Variants"))(_ => views.html.setup.filterCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running))
+
+@form3.action(form3.submit(trans.apply()))

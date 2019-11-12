@@ -1,11 +1,5 @@
 @(title: String)(body: Html)(implicit ctx: Context)
 
-@moreCss = {
-@cssTag("flatpickr.css")
-@cssTag("material.form.css")
-@cssTag("simul.crud.css")
-}
-
 @moreJs = {
 @flatpickrTag
 @delayFlatpickrStart
@@ -14,5 +8,5 @@
 @mod.layout(
 title = title,
 active = "simul",
-moreCss = moreCss,
+moreCss = cssTags("flatpickr.css", "form3.css", "simul.crud.css"),
 moreJs = moreJs)(body)

@@ -1,17 +1,21 @@
 @(simul: lidraughts.simul.Simul, running: Boolean = false)(implicit ctx: Context)
 
+@allowButton = {
+<button type="button" id="submit_player" class="submit button text" data-icon="E"@if(running){ disabled}>Allow player in simul</button>
+}
+
 <div class="simul_crud edit content_box small_box no_padding">
   <h2 class="lidraughts_title">
     Optionally restrict the simul to the usernames listed below
   </h2>
-  <form class="content_box_content material form" action="#" method="POST">
-    <div class="form-group half">
-      <label class="control-label custom-label">Add player</label>
-      <input type="text" class="user-autocomplete" name="player" id="player" placeholder="Enter username" data-tag="span"@if(running){ disabled}>
-      <i class="bar"></i>
-      <button type="button" id="submit_player" class="small button text" data-icon="E"@if(running){ disabled}>Allow player in simul</button>
+  <form class="content_box_content form3" action="#" method="POST">
+    @form3.split {
+    <div class="form-group form-half">
+      <label for="player">Add player</label>
+      <input type="text" class="form-control user-autocomplete" name="player" id="player" placeholder="Enter username" data-tag="span"@if(running){ disabled}>
+      @form3.action(allowButton)
     </div>
-    <div class="players form-group half">
+    <div class="players form-group form-half">
       <table class="slist">
         <thead>
         <tr>
@@ -22,6 +26,7 @@
         </tbody>
       </table>
     </div>
+    }
   </form>
 </div>
 

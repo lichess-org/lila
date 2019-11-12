@@ -9,7 +9,7 @@
 @form3.group(form("name"), Html("Name"), half = true)(form3.input(_))
 }
 @form3.split {
-@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_, typ = "number", required = true))
+@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true, help = Html("Ask first!").some)(form3.input(_, typ = "number", required = true))
 @form3.group(form("image"), Html("Custom icon"), half = true)(form3.select(_, imageChoices))
 }
 @form3.group(form("headline"), Html("Homepage headline"))(form3.input(_, required = true))
