@@ -51,11 +51,11 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
     li.pubsub.emit('socket.send', 'talk', text);
   };
 
-  const onTimeout = function(username: string) {
+  const onTimeout = function(userId: string) {
     data.lines.forEach(l => {
-      if (l.u === username) l.d = true;
+      if (l.u.toLowerCase() === userId) l.d = true;
     });
-    if (username.toLowerCase() === data.userId) vm.timeout = true;
+    if (userId === data.userId) vm.timeout = true;
     data.domVersion++;
     redraw();
   };
