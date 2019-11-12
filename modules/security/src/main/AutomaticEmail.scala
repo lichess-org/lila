@@ -16,16 +16,18 @@ final class AutomaticEmail(
   def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl = s"$baseUrl/account/profile"
+    val profileHyperlink = s"<a href='$profileUrl'>$profileUrl</a>";
+    val editHyperlink = s"<a href='$editUrl'>$editUrl</a>"
     mailgun send Mailgun.Message(
       to = email,
       subject = trans.welcome_subject.literalTxtTo(lang, List(user.username)),
       text = s"""
-${trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))}
+${trans.welcome_text.literalTxtTo(lang, List(profileHyperlink, editHyperlink))}
 
 ${Mailgun.txt.serviceNote}
 """,
       htmlBody = standardEmail(
-        trans.welcome_text.literalTxtTo(lang, List(profileUrl, editUrl))
+        trans.welcome_text.literalTxtTo(lang, List(profileHyperlink, editHyperlink))
       ).some
     )
   }
