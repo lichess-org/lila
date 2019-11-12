@@ -27,13 +27,13 @@
   <plurals name="nbMembers">
     <item quantity="other">สมาชิก %s ราย</item>
   </plurals>
-  <string name="inviteToTheStudy">เชิญเข้าร่วมการศึกษา</string>
+  <string name="inviteToTheStudy">เชิญเข้าร่วมกรณีศึกษา</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">โปรดเชิญเฉพาะคนที่คุณรู้จักและคนที่ต้องการเข้าร่วมการศึกษานี้จริงๆ</string>
   <string name="searchByUsername">ค้นหาจากชื่อผู้ใช้</string>
   <string name="spectator">ผู้ชม</string>
   <string name="contributor">ผู้ช่วยเอื้อเฟื้อ</string>
   <string name="kick">เตะ</string>
-  <string name="leaveTheStudy">ออกจากการศึกษา</string>
+  <string name="leaveTheStudy">ออกจากกรณีศึกษา</string>
   <string name="youAreNowAContributor">ตอนนี้คุณเป็นผู้ช่วยเอื้อเฟื้อ</string>
   <string name="youAreNowASpectator">ตอนนี้คุณคือผู้ชม</string>
   <string name="pgnTags">แท็ก PGN</string>
@@ -41,7 +41,7 @@
   <string name="newTag">แท็กใหม่</string>
   <string name="commentThisPosition">วิจารณ์ตำแหน่งนี้</string>
   <string name="commentThisMove">วิจารณ์การเดินนี้</string>
-  <string name="annotateWithGlyphs">คำอธิบายพร้อมรูปสัญลักษณ์</string>
+  <string name="annotateWithGlyphs">หมายเหตุด้วยสัญลักษณ์</string>
   <string name="theChapterIsTooShortToBeAnalysed">บทสั้นเกินกว่าจะวิเคราะห์ได้</string>
   <string name="onlyContributorsCanRequestAnalysis">เฉพาะผู้ช่วยเอื้อเฟื้อการศึกษาที่สามารถร้องขอการวิเคราะห์ด้วยคอมพิวเตอร์</string>
   <string name="getAFullComputerAnalysis">รับการวิเคราะห์ด้วยคอมพิวเตอร์ฝั่งเซิร์ฟเวอร์อย่างสมบูรณ์ของสายหลัก</string>
@@ -55,18 +55,18 @@
   <string name="last">สุดท้าย</string>
   <string name="shareAndExport">แชร์ &amp; ส่งออก</string>
   <string name="cloneStudy">ทำสำเนา</string>
-  <string name="studyPgn">PGN การศึกษา</string>
+  <string name="studyPgn">PGN กรณีศึกษา</string>
   <string name="chapterPgn">PGN บท</string>
-  <string name="studyUrl">URL การศึกษา</string>
+  <string name="studyUrl">URL กรณีศึกษา</string>
   <string name="currentChapterUrl">URL บทปัจจุบัน</string>
   <string name="youCanPasteThisInTheForumToEmbedTheChapter">คุณสามารถวางสิ่งนี้ในห้องอภิปรายเพื่อฝังบท</string>
   <string name="startAtInitialPosition">เริ่มที่ตำแหน่งตั้งต้น</string>
   <string name="startAtX">เริ่มที่ %s</string>
   <string name="embedThisChapter">ฝังบทนี้ในเว็บไซต์หรือบล็อกของคุณ</string>
-  <string name="readMoreAboutEmbeddingAStudyChapter">อ่านเพิ่มเติมเกี่ยวกับการฝังบทการศึกษา</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">อ่านเพิ่มเติมเกี่ยวกับการฝังบทของกรณีศึกษา</string>
   <string name="open">เปิด</string>
   <string name="xBroughtToYouByY">%1$s นำมาสู่คุณโดย %2$s</string>
-  <string name="studyNotFound">ไม่พบการศึกษา</string>
+  <string name="studyNotFound">ไม่พบกรณีศึกษา</string>
   <string name="editChapter">แก้ไขบท</string>
   <string name="newChapter">บทใหม่</string>
   <string name="orientation">ทิศทาง</string>
