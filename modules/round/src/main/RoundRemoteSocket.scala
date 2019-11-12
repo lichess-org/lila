@@ -64,6 +64,8 @@ final class RoundRemoteSocket(
 
   def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
+  def countPlayable = rounds.count(_.isPlayable)
+
   private lazy val roundHandler: Handler = {
     case Protocol.In.PlayerDo(id, tpe, o) => tpe match {
       case "moretime" => tellRound(id.gameId, Moretime(id.playerId))

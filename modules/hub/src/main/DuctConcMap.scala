@@ -41,6 +41,14 @@ final class DuctConcMap[D <: Duct](
 
   def size: Int = ducts.size()
 
+  def count(f: D => Boolean): Int = {
+    var nb = 0
+    ducts.forEachValue(16, new Consumer[D] {
+      def accept(duct: D) = if (f(duct)) nb += 1
+    })
+    nb
+  }
+
   def terminate(id: String, lastWill: Duct => Unit): Unit =
     ducts.computeIfPresent(id, new BiFunction[String, D, D] {
       def apply(k: String, duct: D) = {

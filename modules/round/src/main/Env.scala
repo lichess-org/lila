@@ -145,7 +145,7 @@ final class Env(
   def count = nbRounds
 
   system.scheduler.schedule(5 seconds, 2 seconds) {
-    nbRounds = roundMap.size + roundSocket.rounds.size
+    nbRounds = roundMap.size + roundSocket.countPlayable
     bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
   }
 
