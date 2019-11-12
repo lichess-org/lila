@@ -53,15 +53,15 @@ export default function(opts: ChatOpts, redraw: Redraw): Ctrl {
 
   const onTimeout = function(userId: string) {
     data.lines.forEach(l => {
-      if (l.u.toLowerCase() === userId) l.d = true;
+      if (l.u && l.u.toLowerCase() == userId) l.d = true;
     });
-    if (userId === data.userId) vm.timeout = true;
+    if (userId == data.userId) vm.timeout = true;
     data.domVersion++;
     redraw();
   };
 
   const onReinstate = function(userId: string) {
-    if (userId === data.userId) {
+    if (userId == data.userId) {
       vm.timeout = false;
       redraw();
     }
