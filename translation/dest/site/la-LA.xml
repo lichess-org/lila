@@ -87,11 +87,13 @@
   <string name="importPgn">Inferre PGN</string>
   <string name="delete">Delere</string>
   <string name="deleteThisImportedGame">Huncne ludum inlatum vis delere?</string>
+  <string name="replayMode">Modus remonstrabilem</string>
   <string name="realtimeReplay">Praesens tempus</string>
   <string name="byCPL">Ab DCP</string>
   <string name="openStudy">Aperire explorationem</string>
   <string name="enable">Habilitare</string>
   <string name="bestMoveArrow">Optimus adnotamentum actionis</string>
+  <string name="evaluationGauge">Metior iudicium</string>
   <string name="multipleLines">Plures lineae</string>
   <string name="cpus">Calculatoris</string>
   <string name="memory">Memoria</string>
@@ -623,6 +625,7 @@
   <string name="sourceCode">Fons notae</string>
   <string name="simultaneousExhibitions">Exhibitiones simultaneae</string>
   <string name="host">Hospes</string>
+  <string name="hostColorX">Color hospes: %s</string>
   <string name="createdSimuls">Simultaneae nuper factae</string>
   <string name="hostANewSimul">Habe simultaneam novam</string>
   <string name="noSimulFound">Simultanea non inventa</string>
@@ -741,6 +744,8 @@
   <string name="notifications">Nuntii</string>
   <string name="challenges">Provocationes</string>
   <string name="perfRatingX">Ordo: %s</string>
+  <string name="seeBestMove">Maxime motum videre</string>
+  <string name="hideBestMove">Maxime motum celare</string>
   <string name="whiteWinsGame">Albus vincit</string>
   <string name="blackWinsGame">Niger vincit</string>
   <string name="learnFromYourMistakes">Disce ex errata tua</string>
@@ -752,6 +757,7 @@
   <string name="doItAgain">Iterum</string>
   <string name="reviewWhiteMistakes">Retractari errores album</string>
   <string name="reviewBlackMistakes">Retractari errores occaecat</string>
+  <string name="advantage">Commodum</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secunda</item>
     <item quantity="other">%s secundae</item>
@@ -761,5 +767,7 @@
   <string name="registerToSendChallenges">Si di incostans registrarsi per inviare Sfide.</string>
   <string name="youCannotChallengeX">Non puoi sfidare %s.</string>
   <string name="playX">Lude %s</string>
+  <string name="sorry">Paenitet :(</string>
   <string name="why">Cur?</string>
+  <string name="playEveryGame">Lude vos satus omnis ludum.</string>
 </resources>

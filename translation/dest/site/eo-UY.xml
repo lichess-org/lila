@@ -21,7 +21,7 @@
   <string name="randomColor">Hazarda koloro</string>
   <string name="createAGame">Krei ludon</string>
   <string name="whiteIsVictorious">Blanko venkas</string>
-  <string name="blackIsVictorious">Nigro venkas</string>
+  <string name="blackIsVictorious">Nigro venkis</string>
   <string name="kingInTheCenter">Reĝo en la centro</string>
   <string name="threeChecks">Tri ŝakoj</string>
   <string name="raceFinished">Kuro finiĝis</string>
@@ -59,6 +59,7 @@
   <string name="promoteVariation">Plivalorigi variaĵon</string>
   <string name="makeMainLine">Precipigi vicon</string>
   <string name="deleteFromHere">Forigi ekde tie ĉi</string>
+  <string name="forceVariation">Devigi variaĵon</string>
   <string name="move">Movo</string>
   <string name="variantLoss">Variaĵa malvenko</string>
   <string name="variantWin">Variaĵa venko</string>
@@ -164,7 +165,8 @@
   <string name="username">Uzantnomo</string>
   <string name="usernameOrEmail">Uzantnomo aŭ retpoŝtadreso</string>
   <string name="changeUsername">Ŝanĝi uzantnomon</string>
-  <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝi. Por ekzemple \"johndoe\" al \"JohnDoe\".</string>
+  <string name="changeUsernameNotSame">Nur la uskleco de la literoj povas ŝanĝiĝi. Ekzemple de \"johndoe\" al \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">Ŝanĝu ĉiam uzantnomon. Vi rajtas fari tion nur unufoje kaj vi rajtas ŝanĝi nur la usklecon de la literoj en via nomo.</string>
   <string name="password">Pasvorto</string>
   <string name="changePassword">Ŝanĝi pasvorton</string>
   <string name="changeEmail">Ŝanĝi retadreson</string>
@@ -198,10 +200,11 @@
   <string name="blackDeclinesDraw">Nigro malakceptas egalvenkon</string>
   <string name="yourOpponentOffersADraw">Via kontraŭulo ofertas egalvenkon</string>
   <string name="accept">Akcepti</string>
-  <string name="decline">Malakcepti</string>
+  <string name="decline">Rifuzi</string>
   <string name="playingRightNow">Ludate nun</string>
   <string name="eventInProgress">Ludanta</string>
   <string name="finished">Finite</string>
+  <string name="finishesX">finiĝos %s</string>
   <string name="abortGame">Abortigi ludon</string>
   <string name="gameAborted">Ludo estis abortigita</string>
   <string name="standard">Normale</string>
@@ -271,7 +274,7 @@
   <string name="takebackPropositionDeclined">Reprena propono estis malakceptita</string>
   <string name="takebackPropositionAccepted">Reprena propono estis akceptita</string>
   <string name="takebackPropositionCanceled">Reprena propono estis nuligita</string>
-  <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas reprenon</string>
+  <string name="yourOpponentProposesATakeback">Via kontraŭulo proponas nuligi la movon</string>
   <string name="bookmarkThisGame">Paĝmarki ĉi tiun ludon</string>
   <string name="search">Serĉi</string>
   <string name="advancedSearch">Pli detala serĉo</string>
@@ -351,8 +354,14 @@
   <string name="clickOnTheBoardToMakeYourMove">Alklaku la ŝaktabulon por fari movon kaj pruvi, ke vi estas homa.</string>
   <string name="captcha.fail">Bonvolu solvi la ŝakan captcha-on.</string>
   <string name="notACheckmate">Ne ŝakmato</string>
+  <string name="whiteCheckmatesInOneMove">La blanka ludanto devas matigi per unu movo</string>
+  <string name="blackCheckmatesInOneMove">La nigra ludanto devas matigi per unu movo</string>
   <string name="retry">Reprovi</string>
   <string name="reconnecting">Rekonektante</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amiko konektita</item>
+    <item quantity="other">%s amikoj konektitaj</item>
+  </plurals>
   <string name="noFriendsOnline">Neniuj amikoj konektitaj</string>
   <string name="findFriends">Trovi amikojn</string>
   <string name="favoriteOpponents">Plej ŝatataj kontraŭuloj</string>
@@ -393,6 +402,8 @@
   <string name="conditionOfEntry">Kondiĉo de eniro:</string>
   <string name="advancedSettings">Spertulaj agordoj</string>
   <string name="safeTournamentName">Elekti tre sekuran nomon por la turniro.</string>
+  <string name="inappropriateNameWarning">Se vi uzas maltaŭgan aŭ maldecan nomon, ni fermos vian konton.</string>
+  <string name="emptyTournamentName">Se vi lasas ĝin malplena, ni uzos la nomon de fama ŝakludisto.</string>
   <string name="recommendNotTouching">Ni rekomendi ke vi ne tuŝas ĉi tiujn.</string>
   <string name="showAdvancedSettings">Montri spertulajn agordojn</string>
   <string name="join">Aliĝi</string>
@@ -411,8 +422,8 @@
   <string name="performance">Efikeco</string>
   <string name="tournamentComplete">Turniro finitis</string>
   <string name="movesPlayed">Moviĝoj luditaj</string>
-  <string name="whiteWins">Blanko venkas</string>
-  <string name="blackWins">Nigro venkas</string>
+  <string name="whiteWins">Blankaj venkoj</string>
+  <string name="blackWins">Nigraj venkoj</string>
   <string name="draws">Egalvenkoj</string>
   <string name="nextXTournament">Proksima %s turniro:</string>
   <string name="viewMoreTournaments">Spektu pli da turniroj</string>
@@ -465,6 +476,7 @@
   <string name="pleaseVotePuzzle">Helpu al Lichess pliboniĝi per voĉdoni, uzante la supren- aŭ suben-sagbutonojn:</string>
   <string name="thankYou">Dankon!</string>
   <string name="ratingX">Rango: %s</string>
+  <string name="hidden">kaŝita</string>
   <plurals name="playedXTimes">
     <item quantity="one">Ludita %s-foje</item>
     <item quantity="other">Ludita %s-foje</item>
@@ -507,6 +519,7 @@
   <string name="troll">Trolo</string>
   <string name="other">Io alia</string>
   <string name="reportDescriptionHelp">Inkluzivu la ligilon al la ludo(j) kaj ekspliku tion, kio malbonas pri la konduto de ĉi tiu uzanto.</string>
+  <string name="error.provideOneCheatedGameLink">Bonvolu doni almenaŭ unu ligilon al ludo en kiu oni friponis.</string>
   <string name="by">de %s</string>
   <string name="thisTopicIsNowClosed">Tiu ĉi temo nun estas fermita.</string>
   <string name="theming">Aspekto</string>
@@ -842,4 +855,10 @@
     <item quantity="one">kaj savi %s antaŭmovan vicon</item>
     <item quantity="other">kaj savi %s antaŭmovajn vicojn</item>
   </plurals>
+  <string name="sorry">Bedaŭrinde :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Ni devis provizore suspendi vin.</string>
+  <string name="timeoutExpires">La suspendo finiĝos %s.</string>
+  <string name="why">Kial?</string>
+  <string name="playEveryGame">Ludu ĉiun ludon, kiun vi komencas.</string>
+  <string name="thankYouForReading">Dankon pro via legado!</string>
 </resources>

@@ -194,6 +194,7 @@
   <string name="playingRightNow">กำลังเล่น</string>
   <string name="eventInProgress">กำลังแข่ง</string>
   <string name="finished">จบแล้ว</string>
+  <string name="finishesX">เสร็จสิ้น%s</string>
   <string name="abortGame">ยกเลิกเกม</string>
   <string name="gameAborted">เกมถูกยกเลิก</string>
   <string name="standard">มาตรฐาน</string>
@@ -334,6 +335,9 @@
   <string name="blackCheckmatesInOneMove">ดำต้องรุกจนโดยเดินครั้งเดียว</string>
   <string name="retry">ลองอีกครั้ง</string>
   <string name="reconnecting">กำลังเชื่อมต่อใหม่</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">เพื่อนออนไลน์ %s คน</item>
+  </plurals>
   <string name="noFriendsOnline">ไม่มีเพื่อนออนไลน์</string>
   <string name="findFriends">ค้นหาเพื่อน</string>
   <string name="favoriteOpponents">คู่แข่งที่ชอบ</string>
@@ -559,6 +563,9 @@
   <string name="xCommentedY">%1$s ได้แสดงความคิดเห็น %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s ใน %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s ใน %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s ใน %3$s</string>
   <string name="timeline">ไทม์ไลน์</string>
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
@@ -670,6 +677,9 @@
   <string name="yourPerfTypeRatingIsRating">ระดับคะแนน %1$s ของคุณคือ %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">คุณทำได้ดีกว่า %1$s ของผู้เล่น %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">คุณยังไม่มีระดับคะแนน %s ที่แท้จริง</string>
+  <string name="yourRating">ระดับคะแนนของคุณ</string>
+  <string name="cumulative">สะสม</string>
+  <string name="glicko2Rating">ระดับคะแนน Glicko-2</string>
   <string name="checkYourEmail">ตรวจสอบอีเมลของคุณ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">เราได้ส่งอีเมลให้คุณแล้ว คลิกลิงค์ในอีเมลนั้นเพื่อให้บัญชีของคุณพร้อมใช้งาน</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
@@ -817,4 +827,24 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">และบันทึก %s เส้นทางเดินล่วงหน้า</item>
   </plurals>
+  <string name="sorry">ขออภัย :(</string>
+  <string name="weHadToTimeYouOutForAWhile">เราจำเป็นต้องให้คุณรอคอยสักช่วงหนึ่ง</string>
+  <string name="timeoutExpires">เวลารอคอย สิ้นสุดใน %s</string>
+  <string name="why">ทำไม?</string>
+  <string name="pleasantChessExperience">เรามุ่งหวังจะมอบประสบการณ์เกมหมากรุกที่น่าพอใจให้กับทุกคน</string>
+  <string name="goodPractice">เพื่อให้ได้ผล เราต้องแน่ใจว่าผู้เล่นทุกคนได้ปฏิบัติตามเป็นอย่างดี</string>
+  <string name="potentialProblem">เมื่อตรวจพบปัญหาที่อาจจะเกิดขึ้น เราจะแสดงข้อความนี้</string>
+  <string name="howToAvoidThis">จะหลีกเลี่ยงสิ่งนี้อย่างไร?</string>
+  <string name="playEveryGame">เล่นทุกเกมที่คุณได้เริ่ม</string>
+  <string name="tryToWin">พยายามเอาชนะ (หรืออย่างน้อยก็เสมอ) ทุกเกมที่คุณเล่น</string>
+  <string name="resignLostGames">ยอมแพ้ในเกมที่แพ้ (อย่าปล่อยให้นาฬิกาหมดเวลา)</string>
+  <string name="temporaryInconvenience">เราขออภัยในความไม่สะดวกชั่วคราว</string>
+  <string name="wishYouGreatGames">และปรารถนาให้คุณมีเกมที่ยอดเยี่ยมบน lichess.org</string>
+  <string name="thankYouForReading">ขอบคุณที่อ่าน!</string>
+  <string name="lifetimeScore">สกอร์ตลอดชีพ</string>
+  <string name="currentMatchScore">สกอร์เกมปัจจุบัน</string>
+  <string name="agreementAssistance">ฉันยอมรับว่า จะไม่ใช้ตัวช่วยระหว่างเกมของฉัน (จากคอมพิวเตอร์หมากรุก, หนังสือ, ฐานข้อมูล หรือบุคคลอื่น)</string>
+  <string name="agreementNice">ฉันยอมรับว่า ฉันจะเคารพผู้เล่นคนอื่นเสมอ</string>
+  <string name="agreementAccount">ฉันยอมรับว่า ฉันจะไม่สร้างหลายบัญชี</string>
+  <string name="agreementPolicy">ฉันยอมรับว่า ฉันจะปฏิบัติตามทุกนโยบายของ Lichess</string>
 </resources>

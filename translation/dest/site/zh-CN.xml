@@ -7,7 +7,7 @@
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
   <string name="waiting">等待中</string>
-  <string name="yourTurn">该你走</string>
+  <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
   <string name="toggleTheChat">聊天开关</string>

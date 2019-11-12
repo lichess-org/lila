@@ -201,8 +201,8 @@
   <string name="yourOpponentOffersADraw">Votre adversaire propose la nulle</string>
   <string name="accept">Accepter</string>
   <string name="decline">Refuser</string>
-  <string name="playingRightNow">Parties en cours</string>
-  <string name="eventInProgress">En cours</string>
+  <string name="playingRightNow">En cours</string>
+  <string name="eventInProgress">Parties en cours</string>
   <string name="finished">Terminé</string>
   <string name="finishesX">se termine %s</string>
   <string name="abortGame">Annuler la partie</string>

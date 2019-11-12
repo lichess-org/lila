@@ -11,6 +11,7 @@
   <string name="allStudies">Све студије</string>
   <string name="studiesCreatedByX">Студије направљене од стране %s</string>
   <string name="noneYet">Ниједна за сад.</string>
+  <string name="hot">Врело</string>
   <string name="dateAddedNewest">Датум додавања (најновије)</string>
   <string name="dateAddedOldest">Датум додавања (најстарије)</string>
   <string name="recentlyUpdated">Недавно ажурирано</string>
@@ -106,6 +107,7 @@
   <string name="editStudy">Измени студију</string>
   <string name="visibility">Видљивост</string>
   <string name="public">Јавно</string>
+  <string name="unlisted">Неизлистани</string>
   <string name="allowCloning">Дозволи клонирање</string>
   <string name="nobody">Нико</string>
   <string name="onlyMe">Само ја</string>
