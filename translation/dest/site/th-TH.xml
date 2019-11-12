@@ -539,7 +539,7 @@
   <string name="privacy">ความเป็นส่วนตัว</string>
   <string name="letOtherPlayersFollowYou">อนุญาตให้ผู้อื่นติดตามคุณได้</string>
   <string name="letOtherPlayersChallengeYou">อนุญาตให้ผู้อื่นท้าดวลเกมกับคุณได้</string>
-  <string name="letOtherPlayersInviteYouToStudy">ให้ผู้เล่นคนอื่นๆ เชิญคุณเพื่อทำการศึกษา</string>
+  <string name="letOtherPlayersInviteYouToStudy">อนุญาตให้ผู้เล่นคนอื่นเชิญคุณเพื่อศึกษา</string>
   <string name="sound">เสียง</string>
   <string name="yourPreferencesHaveBeenSaved">การตั้งค่าของคุณถูกบันทึกแล้ว</string>
   <string name="none">ไม่มี</string>
@@ -687,7 +687,7 @@
   <string name="byRegisteringYouAgreeToBeBoundByOur">โดยการลงทะเบียน คุณยอมรับที่จะผูกพันธ์ด้วย %s ของเรา</string>
   <string name="networkLagBetweenYouAndLichess">เครือข่ายล่าช้าระหว่างคุณกับ lichess</string>
   <string name="timeToProcessAMoveOnLichessServer">เวลาเพื่อทำการเดินหนึ่งครั้งบนเซิร์ฟเวอร์ของ lichess</string>
-  <string name="downloadAnnotated">ดาวน์โหลดพร้อมสัญกรณ์</string>
+  <string name="downloadAnnotated">ดาวน์โหลดพร้อมตัวอธิบาย</string>
   <string name="downloadRaw">ดาวน์โหลดข้อมูลดิบ</string>
   <string name="downloadImported">ดาวน์โหลดสิ่งที่นำเข้า</string>
   <string name="printFriendlyPDF">พิมพ์เป็นแฟ้ม PDF</string>
