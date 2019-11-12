@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(622.03 581.58)">
+  <g transform="matrix(1.0012 0 0 1.0011 -295.3 -40.357)" stroke-width=".99882">
+   <g transform="matrix(1.0748 0 0 1.1202 -137.22 -285.45)" stroke-width=".91029">
+    <g transform="matrix(1.1628 0 0 1.1144 -404.11 -63.069)" stroke-width=".79965">
+     <ellipse cx="216.28" cy="-132.25" rx="4.478" ry="4.1616" fill="#f5e9da" stroke="#191919" stroke-linecap="round" stroke-linejoin="round" stroke-opacity=".99964" stroke-width=".63972" style="paint-order:normal"/>
+    </g>
+    <path d="m-155.39-203.87h5.2909m-4.6257-2.5408c-0.0105 4e-3 -0.0159 8e-3 -0.0258 0.0115h-1.5647l-2.2756 1.2647s8e-3 1.0366 2.2756 1.2647h0.92538c0 9.8532-4.7383 10.318-4.7383 10.318l14.774 5e-3s-4.7453-0.46883-4.7453-10.322h1.2006c2.2673-0.2281 2.2755-1.2647 2.2755-1.2647l-2.2755-1.2647h-3.7087z" fill="#f5e9da" stroke="#191919" stroke-linejoin="round" stroke-opacity=".99964" stroke-width=".72823"/>
+   </g>
+   <path d="m-301.13-525.89a5.5963 5.1955 0 0 0-1.3203 0.15346 5.5963 5.1955 0 0 1 4.2711 5.0421 5.5963 5.1955 0 0 1-2.8784 4.5346h1.2681l2.4453 1.417s-9e-3 1.1614-2.4453 1.417h-1.2904c0 11.038 5.1 11.563 5.1 11.563h2.6458s-5.0999-0.52512-5.0999-11.563h1.2904c2.4368-0.25554 2.4453-1.417 2.4453-1.417l-2.4453-1.417h-1.2681a5.5963 5.1955 0 0 0 2.8784-4.5346 5.5963 5.1955 0 0 0-5.5966-5.1956z" opacity=".25" style="paint-order:normal"/>
+  </g>
+  <g transform="matrix(.74048 0 0 1.0658 -350.17 -8.5136)" stroke-width="1.1257">
+   <path d="m-344.14-501.69c-4.3501 1.9116-4.7454 2.7785-4.7454 6.6181 10.322 0.14064 20.643 0.0551 30.965 0 0.11948-3.8603 0.39195-4.8307-4.7472-6.6181z" fill="#f5e9da" stroke="#191919" stroke-linejoin="round" stroke-opacity=".99964" stroke-width=".90054"/>
+   <path d="m-327.13-501.7c5.1362 1.7887 4.8634 2.76 4.744 6.6234 0 0 1.1469-2e-3 4.4647 0 0.11942-3.8634 0.39158-4.8346-4.7446-6.6234z" opacity=".25"/>
+  </g>
+ </g>
+</svg>

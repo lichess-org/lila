@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(284.7 594.39)">
+  <g transform="matrix(1.0752 0 0 1.0592 19.89 34.599)" stroke-width=".93703">
+   <g stroke="#191919">
+    <path d="m-250.1-557.63s9.6693-19.077-11.368-27.384l0.28795 2.6748-4.2792 0.25472c-0.51083 0.58427-1.3576 5.3793-8.5835 9.5214l-0.0368 2.6895 0.8827 0.98729 1.8075-0.95046 0.74313 0.9464-1.4599 0.91424 1.2327 1.3074 1.87-0.62625 0.78166-1.7734 6.818-1.4244c0.51261 5.5356-6.0924 8.9234-6.0924 8.9234l0.49213 3.9395z" fill="#f5e9da" stroke-width=".74963"/>
+    <path d="m-261.41-582.32c2.8896-0.0556 3.7474-1.2094 5.621-1.8142 0.40899 1.5613 0.20395 2.454-1.047 4.205" fill="#f5e9da" stroke-width=".74963"/>
+    <path d="m-272.54-571.93s0.28117 0.71966 0.5061 0.6597c0.22493-0.06 0.86223-1.1395 0.58107-1.1795-0.28117-0.04-1.0872 0.51977-1.0872 0.51977z" fill="#191919" stroke-width=".24792px"/>
+   </g>
+   <g fill="none" stroke="#191919" stroke-linecap="round" stroke-width=".56222">
+    <path d="m-254.48-581.02-1.4661 4.6665"/>
+    <path d="m-253.18-579.85-1.7982 5.8894"/>
+    <path d="m-250.63-576.69-1.2634 4.0371"/>
+    <path d="m-251.82-578.35-2.032 6.7322"/>
+   </g>
+   <path d="m-256.22-581.84c11.232 9.607 2.8804 24.324 1.8919 24.208h4.2333s7.4378-15.438-6.1253-24.208z" opacity=".25"/>
+   <ellipse cx="-263.29" cy="-577.63" rx=".52229" ry=".56983" fill="#191919" style="paint-order:normal"/>
+   <ellipse cx="-263" cy="-577.72" rx=".94128" ry=".99138" fill="none" stroke="#191919" stroke-linecap="round" stroke-linejoin="round" stroke-width=".56222" style="paint-order:normal"/>
+   <path d="m-264.77-577.45c-0.0193-3e-3 0.83551-1.5598 3.4448-1.6248" fill="none" stroke="#191919" stroke-linecap="round" stroke-width=".74963"/>
+  </g>
+  <g transform="matrix(.8741 0 0 1.0764 33.31 -16.002)" stroke-width="1.0309">
+   <path d="m-344.13-501.7c-4.3476 1.9131-4.7427 2.7807-4.7427 6.6233 10.316 0.14075 20.631 0.0552 30.947 0 0.1194-3.8634 0.39172-4.8345-4.7444-6.6233z" fill="#f5e9da" stroke="#191919" stroke-linejoin="round" stroke-width=".82474"/>
+   <path d="m-327.13-501.7c5.1362 1.7887 4.8634 2.76 4.744 6.6234 0 0 1.1469-2e-3 4.4647 0 0.11942-3.8634 0.39158-4.8346-4.7446-6.6234z" opacity=".25"/>
+  </g>
+ </g>
+</svg>
