@@ -334,6 +334,9 @@
   <string name="blackCheckmatesInOneMove">ดำต้องรุกจนโดยเดินครั้งเดียว</string>
   <string name="retry">ลองอีกครั้ง</string>
   <string name="reconnecting">กำลังเชื่อมต่อใหม่</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">เพื่อนออนไลน์ %s คน</item>
+  </plurals>
   <string name="noFriendsOnline">ไม่มีเพื่อนออนไลน์</string>
   <string name="findFriends">ค้นหาเพื่อน</string>
   <string name="favoriteOpponents">คู่แข่งที่ชอบ</string>
@@ -559,6 +562,9 @@
   <string name="xCommentedY">%1$s ได้แสดงความคิดเห็น %2$s</string>
   <string name="victory">ชัยชนะ</string>
   <string name="defeat">ปราชัย</string>
+  <string name="victoryVsYInZ">%1$s vs %2$s ใน %3$s</string>
+  <string name="defeatVsYInZ">%1$s vs %2$s ใน %3$s</string>
+  <string name="drawVsYInZ">%1$s vs %2$s ใน %3$s</string>
   <string name="timeline">ไทม์ไลน์</string>
   <string name="starting">กำลังเริ่ม:</string>
   <string name="allInformationIsPublicAndOptional">ข้อมูลทั้งหมดเป็นสาธารณะ และไม่บังคับกรอก</string>
@@ -670,6 +676,7 @@
   <string name="yourPerfTypeRatingIsRating">ระดับคะแนน %1$s ของคุณคือ %2$s</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">คุณทำได้ดีกว่า %1$s ของผู้เล่น %2$s</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">คุณยังไม่มีระดับคะแนน %s ที่แท้จริง</string>
+  <string name="yourRating">ระดับคะแนนของคุณ</string>
   <string name="checkYourEmail">ตรวจสอบอีเมลของคุณ</string>
   <string name="weHaveSentYouAnEmailClickTheLink">เราได้ส่งอีเมลให้คุณแล้ว คลิกลิงค์ในอีเมลนั้นเพื่อให้บัญชีของคุณพร้อมใช้งาน</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">ถ้าคุณไม่พบอีเมล ลองตรวจดูในหมวดอื่นๆ เช่น ถังขยะ สแปม โซเชียล หรือโฟลเดอร์อื่นๆ</string>
