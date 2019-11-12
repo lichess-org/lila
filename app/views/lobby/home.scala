@@ -38,18 +38,20 @@ object home {
     moreJs = frag(
       jsAt(s"compiled/lichess.lobby${isProd ?? (".min")}.js", defer = true),
       embedJsUnsafe(
-        s"""lichess=window.lichess||{};customWS=true;lichess_lobby=${
-          safeJsonValue(Json.obj(
-            "data" -> data,
-            "playban" -> playban.map { pb =>
-              Json.obj(
-                "minutes" -> pb.mins,
-                "remainingSeconds" -> (pb.remainingSeconds + 3)
-              )
-            },
-            "i18n" -> i18nJsObject(translations)
-          ))
-        }"""
+        s"""lichess=window.lichess||{};customWS=true;lichess_lobby=JSON.parse('${
+          Json.parse(
+            Json.stringify(Json.obj(
+              "data" -> data,
+              "playban" -> playban.map { pb =>
+                Json.obj(
+                  "minutes" -> pb.mins,
+                  "remainingSeconds" -> (pb.remainingSeconds + 3)
+                )
+              },
+              "i18n" -> i18nJsObject(translations)
+            ))
+          )
+        }')"""
       )
     ),
     moreCss = cssTag("lobby"),
