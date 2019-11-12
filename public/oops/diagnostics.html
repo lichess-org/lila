@@ -91,13 +91,14 @@ function serviceWorkerInfo() {
 }
 
 var info = {
-  diagnosticsVersion: 3,
+  diagnosticsVersion: 4,
   navigator: {
     userAgent: navigator.userAgent,
     platform: navigator.platform,
     chrome: !!window.chrome,
     is64Bit: is64Bit(),
-    hardwareConcurrency: navigator.hardwareConcurrency
+    hardwareConcurrency: navigator.hardwareConcurrency,
+    deviceMemory: navigator.deviceMemory
   },
   wasm: wasmInfo(),
   pnacl: pnaclInfo(),

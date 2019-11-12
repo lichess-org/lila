@@ -18,6 +18,9 @@
   &__board {
     flex: 0 0 16rem;
     margin-right: 1em;
+    @include breakpoint($mq-not-small) {
+      display: none;
+    }
   }
   &__infos {
     flex: 1 1 100%;
