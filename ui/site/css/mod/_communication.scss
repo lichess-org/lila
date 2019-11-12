@@ -33,6 +33,7 @@
     border-bottom: 1px solid $border;
   }
   .player_chats {
+    @extend %break-word;
     overflow: hidden;
   }
   .public_chats li {
