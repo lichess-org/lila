@@ -66,4 +66,15 @@
   <string name="open">เปิด</string>
   <string name="xBroughtToYouByY">%1$s นำมาสู่คุณโดย %2$s</string>
   <string name="studyNotFound">ไม่พบการศึกษา</string>
+  <string name="editChapter">แก้ไขบท</string>
+  <string name="newChapter">บทใหม่</string>
+  <string name="orientation">ทิศทาง</string>
+  <string name="analysisMode">โหมดวิเคราะห์</string>
+  <string name="pinnedChapterComment">ความคิดเห็นที่ถูกปักของบท</string>
+  <string name="saveChapter">บันทึกบท</string>
+  <string name="clearAnnotations">ล้างหมายเหตุ</string>
+  <string name="deleteChapter">ลบบท</string>
+  <string name="deleteThisChapter">ลบบทหรือไม่? จะคืนกลับมาไม่ได้!</string>
+  <string name="clearAllCommentsInThisChapter">ล้างความคิดเห็น, สัญลักษณ์, และรูปวาดทั้งหมดในบทนี้?</string>
+  <string name="rightUnderTheBoard">ด้านล่างของกระดาน</string>
 </resources>
