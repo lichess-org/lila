@@ -23,6 +23,10 @@
   <string name="howDoesItEnd">มันจบลงอย่างไร?</string>
   <string name="howDoesItEndAnswer">ทัวร์นาเมนต์มีนาฬิกานับถอยหลัง เมื่อเวลาถึงศูนย์ การจัดอันดับของทัวร์นาเมนต์จะหยุดนิ่งและจะประกาศผู้ชนะ ส่วนเกมที่กำลังแข่งอยู่จะต้องแข่งให้เสร็จสิ้น เพียงแต่จะไม่ถูกนับรวมในทัวร์นาเมนต์</string>
   <string name="otherRules">กติกาสำคัญอื่นๆ</string>
+  <string name="thereIsACountdown">มีการนับถอยหลังสำหรับการเดินครั้งแรกของคุณ หากไม่เดินภายในเวลาที่กำหนด คุณจะถูกปรับแพ้ให้กับคู่แข่งของคุณ</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="other">การเสมอกันภายในการเดิน %s ครั้งแรก จะไม่ได้รับแต้มทั้งคู่</item>
+  </plurals>
   <string name="thisIsPrivate">นี่คือทัวร์นาเมนต์ส่วนตัว</string>
   <string name="shareUrl">แชร์ URL นี้เพื่อให้คนอื่นๆได้เข้าร่วม: %s</string>
 </resources>
