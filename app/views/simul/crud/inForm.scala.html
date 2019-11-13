@@ -30,8 +30,8 @@
 @form3.group(form("clockExtra"), Html("Host extra time"), half = true)(form3.select(_, clockExtraChoices, disabled = running))
 }
 
-@form3.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)"))(form3.input(_, typ = "number"))
-@form3.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)"))(form3.input(_, typ = "number"))
+@form3.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)"))(form3.input(_, typ = "number", maxLength = 3))
+@form3.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)"))(form3.input(_, typ = "number", maxLength = 3))
 
 @form3.group(form("chat"), Html("Chat is available for"))(form3.select(_, chatChoices))
 @form3.group(form("fmjd"), Html("Official rating visibility"))(form3.select(_, fmjdChoices))

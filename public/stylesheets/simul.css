@@ -402,3 +402,11 @@ div.eval_gauge .black {
 #simul .game_list .gauge_displayed .host.vstext {
   border-width: 0 0 1px 1px;
 }
+.form3 div.form-group.variants {
+  flex-flow: row wrap;
+  display: flex;
+}
+.form3 div.form-group.variants .checkable {
+  flex: 50%;
+  white-space: nowrap;
+}

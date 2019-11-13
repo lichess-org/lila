@@ -1,7 +1,7 @@
-@(title: String, moreJs: Html = emptyHtml, moreCss: Html = emptyHtml, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, draughtsground: Boolean = true, openGraph: Option[lidraughts.app.ui.OpenGraph] = None)(body: Html)(implicit ctx: Context)
+@(title: String, moreJs: Html = emptyHtml, moreCss: Html = emptyHtml, side: Option[Html] = None, chat: Option[Html] = None, underchat: Option[Html] = None, draughtsground: Boolean = true, openGraph: Option[lidraughts.app.ui.OpenGraph] = None, formCss: Boolean = false)(body: Html)(implicit ctx: Context)
 
 @evenMoreCss = {
-@cssTag("simul.css")
+@cssTags(Map("simul.css" -> true, "form3.css" -> formCss))
 @moreCss
 }
 

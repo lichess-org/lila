@@ -1,8 +1,7 @@
 @(form: Form[_], key: String, index: Int, value: String, checks: List[String], text: Html, hint: Option[String], disabled: Boolean = false)
 
-<label class="hover form-check-label" @hint.map { h => title="@h" }>
+<label class="hover" @hint.map { h => title="@h" }>
   <input
-  class="form-check-input"
   type="checkbox"
   name="@{form(key).name}[@index]"
   value="@value"
