@@ -101,7 +101,7 @@ final class RoundRemoteSocket(
         tellRound(gameId, on)
         terminationDelay cancel gameId
       case (gameId, _) =>
-        terminationDelay schedule gameId
+        if (rounds exists gameId.value) terminationDelay schedule gameId
     }
     case Protocol.In.Bye(fullId) => tellRound(fullId.gameId, ByePlayer(fullId.playerId))
     case RP.In.TellRoomSri(gameId, P.In.TellSri(sri, user, tpe, o)) => tpe match {
