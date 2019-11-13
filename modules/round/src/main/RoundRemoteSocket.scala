@@ -41,8 +41,11 @@ final class RoundRemoteSocket(
   def getGame(gameId: Game.ID): Fu[Option[Game]] = rounds.getOrMake(gameId).getGame addEffect { g =>
     if (!g.isDefined) finishRound(Game.Id(gameId))
   }
+
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
-  def updateIfPresent(game: Game): Fu[Game] = rounds.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+
+  def updateIfPresent(game: Game): Fu[Game] =
+    rounds.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
 
   val rounds = new DuctConcMap[RoundRemoteDuct](
     mkDuct = id => {
@@ -51,6 +54,7 @@ final class RoundRemoteSocket(
         gameId = id,
         socketSend = send
       )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
+      terminationDelay schedule Game.Id(id)
       duct.getGame foreach {
         _ foreach { game =>
           scheduleExpiration(game)
@@ -63,8 +67,6 @@ final class RoundRemoteSocket(
   )
 
   def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
-
-  def countPlayable = rounds.count(_.isPlayable)
 
   private lazy val roundHandler: Handler = {
     case Protocol.In.PlayerDo(id, tpe, o) => tpe match {
@@ -96,8 +98,8 @@ final class RoundRemoteSocket(
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
     case Protocol.In.PlayerOnlines(onlines) => onlines foreach {
       case (gameId, Some(on)) =>
-        terminationDelay cancel gameId
         tellRound(gameId, on)
+        terminationDelay cancel gameId
       case (gameId, _) =>
         terminationDelay schedule gameId
     }

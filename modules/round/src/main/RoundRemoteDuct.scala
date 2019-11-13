@@ -90,8 +90,6 @@ private[round] final class RoundRemoteDuct(
 
   def getGame: Fu[Option[Game]] = proxy.game
 
-  def isPlayable = proxy.current.exists(_.playable)
-
   val process: Duct.ReceiveAsync = {
 
     // socket stuff

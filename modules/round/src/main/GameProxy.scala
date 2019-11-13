@@ -48,8 +48,6 @@ private final class GameProxy(
 
   def withGame[A: Zero](f: Game => Fu[A]): Fu[A] = game.flatMap(_ ?? f)
 
-  def current: Option[Game] = game.value.flatMap(_.toOption).flatten
-
   // internals
 
   private var dirtyProgress: Option[Progress] = None
