@@ -63,7 +63,6 @@ private[round] final class RoundRemoteDuct(
       bye = bye && !on
     }
     def setBye: Unit = {
-      setOnline(false)
       bye = true
     }
 
