@@ -147,6 +147,7 @@ final class Env(
   system.scheduler.schedule(5 seconds, 2 seconds) {
     nbRounds = roundMap.size + roundSocket.countPlayable
     bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
+    lila.mon.round.duct.count(roundSocket.rounds.size)
   }
 
   import lila.memo.SettingStore.Regex._

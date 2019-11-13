@@ -185,6 +185,9 @@ object mon {
     object actor {
       val count = rec("round.actor.count")
     }
+    object duct {
+      val count = rec("round.duct.count")
+    }
     object forecast {
       val create = inc("round.forecast.create")
     }
