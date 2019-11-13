@@ -35,7 +35,6 @@ jobs:
         JAVA_OPTS: -Xms2048M -Xmx2560M
       with:
         args: test:compile test stage
-    - run: du -h ~/.ivy2/cache
     - uses: actions/upload-artifact@v1
       with:
         name: lila-server
