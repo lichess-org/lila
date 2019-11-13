@@ -154,7 +154,7 @@ final class ChatApi(
       UserRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled => Writer cut t1 flatMap { t2 =>
           (user.isBot || flood.allowMessage(userId, t2)) option {
-            if (~user.troll) lila.mon.chat.trollTrue() else lila.mon.chat.trollFalse()
+            if (~user.troll) lila.mon.chat.trollTrue()
             UserLine(user.username, user.title.map(_.value), Writer preprocessUserInput t2, troll = ~user.troll, deleted = false)
           }
         }

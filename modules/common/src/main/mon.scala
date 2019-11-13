@@ -569,7 +569,6 @@ object mon {
   }
   object chat {
     val message = inc("chat.message")
-    val trollFalse = inc("chat.message.troll.false")
     val trollTrue = inc("chat.message.troll.true")
   }
   object push {
