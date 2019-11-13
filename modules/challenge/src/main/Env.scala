@@ -46,8 +46,7 @@ final class Env(
 
   private lazy val socket = new ChallengeSocket(
     api = api,
-    remoteSocketApi = remoteSocketApi,
-    bus = system.lilaBus
+    remoteSocketApi = remoteSocketApi
   )
 
   lazy val granter = new ChallengeGranter(

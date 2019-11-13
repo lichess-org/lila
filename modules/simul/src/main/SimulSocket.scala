@@ -48,7 +48,7 @@ private final class SimulSocket(
       send(RP.Out.tellRoomUser(RoomId(simul.id), userId, makeMessage("redirect", pov.fullId)))
     }
 
-  lazy val rooms = makeRoomMap(send, bus)
+  lazy val rooms = makeRoomMap(send, bus.some)
 
   private lazy val handler: Handler = roomHandler(rooms, chat, logger,
     roomId => _.Simul(roomId.value).some)

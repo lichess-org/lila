@@ -10,8 +10,7 @@ import lila.socket.Socket.makeMessage
 
 private final class ChallengeSocket(
     api: ChallengeApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    bus: lila.common.Bus
+    remoteSocketApi: lila.socket.RemoteSocket
 ) {
 
   import ChallengeSocket._
@@ -19,7 +18,7 @@ private final class ChallengeSocket(
   def reload(challengeId: Challenge.ID): Unit =
     rooms.tell(challengeId, NotifyVersion("reload", JsNull))
 
-  lazy val rooms = makeRoomMap(send, bus)
+  lazy val rooms = makeRoomMap(send, chatBus = none)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply _
 

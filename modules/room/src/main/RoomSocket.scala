@@ -20,10 +20,10 @@ object RoomSocket {
     def msg = makeMessage(tpe, data)
   }
 
-  final class RoomState(roomId: RoomId, send: Send, bus: Bus) extends Trouper {
+  case class RoomChat(classifier: Symbol, bus: Bus)
 
-    private val chatId = Chat.Id(roomId.value)
-    private def chatClassifier = Chat classify chatId
+  final class RoomState(roomId: RoomId, send: Send, chat: Option[RoomChat]) extends Trouper {
+
     private var version = SocketVersion(0)
 
     val process: Trouper.Receive = {
@@ -44,13 +44,19 @@ object RoomSocket {
     override def stop() {
       super.stop()
       send(Protocol.Out.stop(roomId))
-      bus.unsubscribe(this, chatClassifier)
+      chat foreach { c =>
+        c.bus.unsubscribe(this, c.classifier)
+      }
     }
-    bus.subscribe(this, chatClassifier)
+    chat foreach { c => c.bus.subscribe(this, c.classifier) }
   }
 
-  def makeRoomMap(send: Send, bus: Bus) = new TrouperMap(
-    mkTrouper = roomId => new RoomState(RoomId(roomId), send, bus),
+  def makeRoomMap(send: Send, chatBus: Option[Bus]) = new TrouperMap(
+    mkTrouper = roomId => new RoomState(
+      RoomId(roomId),
+      send,
+      chatBus map { RoomChat(Chat classify Chat.Id(roomId), _) }
+    ),
     accessTimeout = 5 minutes
   )
 

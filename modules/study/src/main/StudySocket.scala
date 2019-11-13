@@ -29,7 +29,7 @@ private final class StudySocket(
   implicit def roomIdToStudyId(roomId: RoomId) = Study.Id(roomId.value)
   implicit def studyIdToRoomId(studyId: Study.Id) = RoomId(studyId.value)
 
-  lazy val rooms = makeRoomMap(send, bus)
+  lazy val rooms = makeRoomMap(send, bus.some)
 
   def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
