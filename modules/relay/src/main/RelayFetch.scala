@@ -132,7 +132,7 @@ private final class RelayFetch(
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
     import RelayFetch.DgtJson._
-    formatApi.get(upstream.url) flatMap {
+    formatApi get upstream.withRound flatMap {
       case RelayFormat.SingleFile(doc) => doc.format match {
         // all games in a single PGN file
         case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }

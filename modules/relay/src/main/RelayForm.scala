@@ -3,25 +3,31 @@ package lila.relay
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
+import play.api.data.validation._
 import play.api.data.validation.Constraints._
 
-import lila.user.User
 import lila.security.Granter
+import lila.user.User
 
 object RelayForm {
 
   import lila.common.Form.UTCDate._
 
-  val form = Form(mapping(
-    "name" -> text(minLength = 3, maxLength = 80),
-    "description" -> text(minLength = 3, maxLength = 400),
-    "markup" -> optional(text(maxLength = 20000)),
-    "official" -> optional(boolean),
-    "syncUrl" -> nonEmptyText.verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
-    "credit" -> optional(nonEmptyText),
-    "startsAt" -> optional(utcDate),
-    "throttle" -> optional(number(min = 2, max = 60))
-  )(Data.apply)(Data.unapply))
+  val form = Form(
+    mapping(
+      "name" -> text(minLength = 3, maxLength = 80),
+      "description" -> text(minLength = 3, maxLength = 400),
+      "markup" -> optional(text(maxLength = 20000)),
+      "official" -> optional(boolean),
+      "syncUrl" -> nonEmptyText
+        .verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
+      "syncUrlRound" -> optional(number(min = 1, max = 999)),
+      "credit" -> optional(nonEmptyText),
+      "startsAt" -> optional(utcDate),
+      "throttle" -> optional(number(min = 2, max = 60))
+    )(Data.apply)(Data.unapply)
+      .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
+  )
 
   private def isTournamentApi(url: String) =
     """/api/tournament/\w{8}/games""".r.find(url)
@@ -36,10 +42,15 @@ object RelayForm {
       markup: Option[String],
       official: Option[Boolean],
       syncUrl: String,
+      syncUrlRound: Option[Int],
       credit: Option[String],
       startsAt: Option[DateTime],
       throttle: Option[Int]
   ) {
+
+    def requiresRound = Relay.Sync.LccRegex matches syncUrl
+
+    def roundMissing = requiresRound && syncUrlRound.isEmpty
 
     def cleanUrl = {
       val trimmed = syncUrl.trim
@@ -59,7 +70,7 @@ object RelayForm {
     )
 
     def makeSync = Relay.Sync(
-      upstream = Relay.Sync.Upstream(cleanUrl),
+      upstream = Relay.Sync.Upstream(s"$cleanUrl${syncUrlRound.??(" " +)}"),
       until = none,
       nextAt = none,
       delay = throttle,
@@ -90,7 +101,8 @@ object RelayForm {
       description = relay.description,
       markup = relay.markup,
       official = relay.official option true,
-      syncUrl = relay.sync.upstream.url,
+      syncUrl = relay.sync.upstream.withRound.url,
+      syncUrlRound = relay.sync.upstream.withRound.round,
       credit = relay.credit,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay

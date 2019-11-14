@@ -15,17 +15,20 @@ private final class RelayFormatApi(
 ) {
 
   import RelayFormat._
+  import Relay.Sync.UpstreamWithRound
 
-  def get(url: String): Fu[RelayFormat] = cache get Url.parse(url)
+  def get(upstream: UpstreamWithRound): Fu[RelayFormat] = cache get upstream
 
-  def refresh(url: Url): Unit = cache refresh url
+  def refresh(upstream: UpstreamWithRound): Unit = cache refresh upstream
 
-  private def guessFormat(originalUrl: Url): Fu[RelayFormat] = {
+  private def guessFormat(upstream: UpstreamWithRound): Fu[RelayFormat] = {
+
+    val originalUrl = Url parse upstream.url
 
     // http://view.livechesscloud.com/ed5fb586-f549-4029-a470-d590f8e30c76
     def guessLcc(url: Url): Fu[Option[RelayFormat]] = url.toString match {
-      case LccRegex(id) => guessManyFiles(Url.parse(
-        s"http://1.pool.livechesscloud.com/get/$id/round-1/index.json"
+      case Relay.Sync.LccRegex(id) => guessManyFiles(Url.parse(
+        s"http://1.pool.livechesscloud.com/get/$id/round-${upstream.round | 1}/index.json"
       ))
       case _ => fuccess(none)
     }
@@ -56,9 +59,9 @@ private final class RelayFormatApi(
       guessSingleFile(originalUrl) orElse
       guessManyFiles(originalUrl) flatten "Cannot find any DGT compatible files"
   } addEffect { format =>
-    logger.info(s"guessed format of $originalUrl: $format")
+    logger.info(s"guessed format of $upstream: $format")
   } addFailureEffect { err =>
-    logger.info(s"can't guess format of $originalUrl: $err")
+    logger.info(s"can't guess format of $upstream: $err")
   }
 
   private def httpGet(url: Url): Fu[Option[String]] =
@@ -81,7 +84,7 @@ private final class RelayFormatApi(
   }
   private def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
 
-  private val cache = asyncCache.multi[Url, RelayFormat](
+  private val cache = asyncCache.multi[UpstreamWithRound, RelayFormat](
     name = "relayFormat",
     f = guessFormat,
     expireAfter = _.ExpireAfterWrite(10 minutes)
@@ -122,6 +125,4 @@ private object RelayFormat {
 
   val mostCommonSingleFileName = "games.pgn"
   val mostCommonIndexNames = List("round.json", "index.json")
-
-  val LccRegex = """.*view\.livechesscloud\.com/([0-9a-f\-]+)""".r
 }
