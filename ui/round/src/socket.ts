@@ -138,11 +138,18 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
   li.pubsub.on('ab.rep', n => send('rep', { n: n }));
 
+  function sendFlag(player: Color) {
+    let credits = 10;
+    return () => {
+      if (--credits >= 0) send('flag', player);
+    };
+  }
+
   return {
     send,
     handlers,
     moreTime: throttle(300, () => send('moretime')),
-    outoftime: throttle(500, () => send('flag', d.game.player)),
+    outoftime: throttle(500, sendFlag(d.game.player)),
     berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);
