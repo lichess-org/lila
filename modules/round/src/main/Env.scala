@@ -151,8 +151,8 @@ final class Env(
 
   import lila.memo.SettingStore.Regex._
   lazy val remoteSocketSetting = settingStore[scala.util.matching.Regex](
-    "roundRemoteSocket",
-    default = "[0-9].+".r,
+    "roundRemoteSocket2",
+    default = "[0-9a-u].+".r,
     text = "Remote socket game ID regex".some
   )
   def useRemoteSocket(gameId: Game.ID) = remoteSocketSetting.get().matches(gameId)
