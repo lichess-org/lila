@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient3131-8" x1="-15.796" x2="15.796" y1="316.7" y2="316.7" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fbf5d1" offset="0"/>
+   <stop stop-color="#d8cc92" offset="1"/>
+  </linearGradient>
+ </defs>
  <metadata>
   <rdf:RDF>
    <cc:Work rdf:about="">
@@ -9,14 +15,14 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g transform="matrix(1.0129 0 0 1.0119 25 -293.98)" stroke-width=".98775">
-  <path d="m-13.12 299.8v5.6326l4.4225 3.8814v13.078l-0.085983 2.7867-4.3365 4.0338h-2.2817v4.3843h30.803v-4.3843h-2.2816v0l-4.3365-4.0338-0.085983-2.7867 9.45e-5 -13.078 4.4224-3.8814v-5.6326h-4.5631v2.253h-5.7044v-2.253h-5.7042v2.253h-5.7041v-2.253z" fill="#fbf5d1" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7902"/>
-  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".7902">
+ <g transform="matrix(1.0125 0 0 .9819 25 -284.98)" stroke-width="1.0029">
+  <path d="m-13.12 299.8v5.6326l4.4225 3.8814v13.078l-0.085983 2.7867-3.2912 4.0338h-3.3269v5.4302h30.803v-5.4302h-3.3268l-3.2912-4.0338-0.085983-2.7867 9.45e-5 -13.078 4.4224-3.8814v-5.6326h-4.5631v2.253h-5.7044v-2.253h-5.7042v2.253h-5.7041v-2.253z" fill="url(#linearGradient3131-8)" fill-rule="evenodd" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".80234"/>
+  <g fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width=".80234">
    <path d="m-13.12 305.43h26.239"/>
    <path d="m-8.6972 309.32h17.394"/>
    <path d="m-8.7832 325.18h17.567"/>
    <path d="m-13.12 329.21h26.239"/>
   </g>
-  <path d="m-10.673 299.8 2.1167 2.2531v-2.2531zm11.409 0 2.1167 2.2531v-2.2531zm9.2087 0v5.6327l-4.4225 3.8814v13.078l0.0863 2.7864 4.3362 4.0339h2.2815v4.3848h3.175v-4.3848h-2.2815l-4.3362-4.0339-0.0863-2.7864v-13.078l4.4225-3.8814v-5.6327z" fill-rule="evenodd" opacity=".2"/>
+  <path d="m-10.673 299.8 2.1167 2.2531v-2.2531zm11.409 0 2.1167 2.2531v-2.2531zm9.2087 0v5.6327l-4.4225 3.8814v13.078l0.0863 2.7864 3.2908 4.0342h3.175l0.15185 5.4302h3.175l1e-6 -5.4305-3.3268 3.3e-4 -3.2908-4.0342-0.0863-2.7864v-13.078l4.4225-3.8814v-5.6327z" fill-rule="evenodd" opacity=".2"/>
  </g>
 </svg>
