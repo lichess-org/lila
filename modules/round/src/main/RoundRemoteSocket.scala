@@ -17,6 +17,7 @@ import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
+import lila.hub.actorApi.DeployPost
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -120,6 +121,7 @@ final class RoundRemoteSocket(
       // schedule termination for all game ducts
       // until players actually reconnect
       rounds foreachKey { id => terminationDelay schedule Game.Id(id) }
+      rounds.tellAll(DeployPost)
   }
 
   private def finishRound(gameId: Game.Id): Unit =
