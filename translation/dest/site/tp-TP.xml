@@ -53,6 +53,7 @@
   <string name="close">o pini</string>
   <string name="unknown">sona ala</string>
   <string name="openingExplorer">ilo open</string>
+  <string name="delete">weka</string>
   <string name="blunder">pakala suli</string>
   <string name="blunders">pakala</string>
   <string name="mistake">pakala</string>
@@ -226,6 +227,9 @@ o musi lon lipu pona. sina wile ala pana e nimi li wile ala e ilo. sitelen esun 
   <string name="winStreak">musi awen pi kama pona</string>
   <string name="createdBy">tan jan</string>
   <string name="tournamentIsStarting">musi li open</string>
+  <string name="whiteWins">pini walo</string>
+  <string name="blackWins">pini pimeja</string>
+  <string name="nextXTournament">musi mute %s kama:</string>
   <string name="membersOnly">jan nimi taso</string>
   <string name="boardEditor">ilo pi ante e supa</string>
   <string name="startPosition">musi lon open</string>
