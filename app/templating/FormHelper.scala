@@ -76,7 +76,7 @@ trait FormHelper { self: I18nHelper =>
       val optionsH = options map { v =>
         s"""<option value="${v._1}" ${(field.value == Some(v._1.toString)) ?? "selected"}>${v._2}</option>"""
       } mkString ""
-      val ctrl = s"""<select id="${id(field)}" name="${field.name}" class="form-control" ${if (disabled) " disabled"}>$defaultH$optionsH</select>"""
+      val ctrl = s"""<select id="${id(field)}" name="${field.name}" class="form-control" ${disabled ?? " disabled"}>$defaultH$optionsH</select>"""
       if (disabled) ctrl + s"""<input type="hidden" name="${field.name}" value="${~field.value}" />"""
       else ctrl
     }

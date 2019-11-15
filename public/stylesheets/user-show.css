@@ -442,11 +442,16 @@ div.crosstable {
 .user_show .search table:first-child {
   width: 400px;
 }
-.user_show .search .header {
+.user_show form.search.form3 .header th {
   font-size: 1.3em;
 }
 .user_show .search td {
   padding: 5px 0;
+}
+.user_show .search th {
+  width: 30%;
+  max-width: 100px;
+  white-space: normal;
 }
 .user_show .search label {
   margin-right: 10px;
@@ -454,11 +459,26 @@ div.crosstable {
 .user_show .search .single select {
   width: 100%;
 }
+.user_show .search .half select {
+  width: 72%;
+}
+.user_show .search .half.wide select {
+  width: 92%;
+}
+.user_show .search .half select.form-control {
+  display: inline-block;
+}
 .user_show .search table .half {
   float: left;
-  width: 49%;
-  padding-right: 1%;
+  width: 50%;
   text-align: right;
+}
+.user_show form.search.form3 * {
+  font-size: 12px;
+}
+.user_show form.search.form3 .form-control {
+  height: calc(1.4rem + 2px);
+  padding: 0 2px;
 }
 .user_show .search_status {
   text-align: right;

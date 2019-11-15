@@ -6,8 +6,10 @@
   margin-top: 10px;
 }
 #simul form.plain .help {
-  margin-bottom: 40px;
+  margin-bottom: 28px;
   text-align: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 16px;
 }
 #simul form.plain td {
   padding: 0.6em;

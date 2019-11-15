@@ -15,7 +15,7 @@ form.search td {
 
 form.search .half {
   float: left;
-  width: 49%;
+  width: 50%;
   padding-right: 1%;
   text-align: right;
 }
@@ -33,6 +33,9 @@ form.search select {
   padding: 0.5% 1%;
   text-transform: capitalize;
 }
+form.search .half select.form-control {
+  display: inline-block;
+}
 form.search .user_row select {
   text-transform: none;
 }
@@ -42,7 +45,7 @@ form.search .single select {
 }
 
 form.search .half select {
-  width: 78%;
+  width: 70%;
 }
 
 form.search input.submit {
@@ -86,4 +89,12 @@ form.search.searching .wait {
 }
 form.search.searching .submit {
   display: none;
+}
+
+form.search.form3 * {
+  font-size: 12px;
+}
+form.search.form3 .form-control {
+  height: calc(1.5rem + 2px);
+  padding: 0 0.4rem;
 }
