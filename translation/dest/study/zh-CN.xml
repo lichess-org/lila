@@ -6,13 +6,14 @@
   <string name="studiesIContributeTo">我贡献的课程</string>
   <string name="myPublicStudies">我的公开课程</string>
   <string name="myPrivateStudies">我的私人课程</string>
-  <string name="myFavoriteStudies">我的收藏课程</string>
+  <string name="myFavoriteStudies">我收藏的课程</string>
   <string name="whatAreStudies">什么是课程？</string>
-  <string name="allStudies">所有的课程</string>
+  <string name="allStudies">所有课程</string>
   <string name="studiesCreatedByX">由 %s 创建的课程</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
   <string name="dateAddedNewest">最新</string>
+  <string name="dateAddedOldest">添加时间 (倒序)</string>
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="addNewChapter">添加一个新章节</string>
