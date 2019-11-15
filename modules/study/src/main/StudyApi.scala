@@ -51,7 +51,7 @@ final class StudyApi(
     _ ?? { study =>
       chapterRepo byId study.position.chapterId flatMap {
         case None => chapterRepo firstByStudy study.id flatMap {
-          case None => fuccess(none)
+          case None => fixNoChapter(study)
           case Some(chapter) =>
             val fixed = study withChapter chapter
             studyRepo updateSomeFields fixed inject
@@ -66,7 +66,7 @@ final class StudyApi(
     _ ?? { study =>
       chapterRepo byId chapterId map {
         _.filter(_.studyId == study.id) map { Study.WithChapter(study, _) }
-      }
+      } orElse byIdWithChapter(id)
     }
   }
 
@@ -74,9 +74,21 @@ final class StudyApi(
     _ ?? { study =>
       chapterRepo.firstByStudy(study.id) map {
         _ ?? { Study.WithChapter(study, _).some }
-      }
+      } orElse byIdWithChapter(id)
     }
   }
+
+  private def fixNoChapter(study: Study): Fu[Option[Study.WithChapter]] = sequenceStudy(study.id) { study =>
+    chapterRepo existsByStudy study.id flatMap {
+      case true => funit
+      case _ => chapterMaker.fromFenOrPgnOrBlank(
+        study,
+        ChapterMaker.Data(Chapter.Name("Chapter 1")),
+        order = 1,
+        userId = study.ownerId
+      ) flatMap chapterRepo.insert
+    }
+  } >> byIdWithFirstChapter(study.id)
 
   def studyIdOf = chapterRepo.studyIdOf _
 

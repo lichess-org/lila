@@ -29,6 +29,9 @@ final class ChapterRepo(coll: Coll) {
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
     coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
 
+  def existsByStudy(studyId: Study.Id): Fu[Boolean] =
+    coll exists $studyId(studyId)
+
   def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
     coll.find(
       $studyId(studyId),
