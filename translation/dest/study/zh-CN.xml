@@ -13,6 +13,7 @@
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
   <string name="dateAddedNewest">最新</string>
+  <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="addNewChapter">添加一个新章节</string>
   <plurals name="nbChapters">
@@ -77,6 +78,7 @@
   <string name="rightUnderTheBoard">正下方</string>
   <string name="noPinnedComment">不需要</string>
   <string name="normalAnalysis">普通模式</string>
+  <string name="hideNextMoves">隐藏下一步</string>
   <string name="chapterX">章节 %s</string>
   <string name="startFromInitialPosition">从初始位置开始</string>
   <string name="editor">编辑器</string>
