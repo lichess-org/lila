@@ -700,6 +700,12 @@ final class StudyApi(
       }
     }
 
+  def deleteAllChapters(studyId: Study.Id, by: User) = sequenceStudy(studyId) { study =>
+    Contribute(by.id, study) {
+      chapterRepo deleteByStudy study
+    }
+  }
+
   def erase(user: User) = studyRepo.allIdsByOwner(user.id) flatMap { ids =>
     chat ! lila.chat.actorApi.RemoveAll(ids.map(id => Chat.Id(id.value)))
     studyRepo.deleteByIds(ids) >>
@@ -725,7 +731,7 @@ final class StudyApi(
 
   private def reloadChapters(study: Study) =
     chapterRepo.orderedMetadataByStudy(study.id).foreach { chapters =>
-      sendTo(study.id)(_.reloadChapters(chapters))
+      sendTo(study.id)(_ reloadChapters chapters)
     }
 
   import ornicar.scalalib.Zero

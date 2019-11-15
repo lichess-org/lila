@@ -55,6 +55,12 @@ object Relay extends LilaController {
     }
   }
 
+  def reset(slug: String, id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(env.api.byIdAndContributor(id, me)) { relay =>
+      env.api.reset(relay, me) inject Redirect(showRoute(relay))
+    }
+  }
+
   def show(slug: String, id: String) = Open { implicit ctx =>
     pageHit
     WithRelay(slug, id) { relay =>

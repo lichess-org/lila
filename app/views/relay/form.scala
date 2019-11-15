@@ -21,7 +21,14 @@ object form {
   def edit(r: lila.relay.Relay, form: Form[Data])(implicit ctx: Context) =
     layout(r.name)(
       h1("Edit ", r.name),
-      inner(form, routes.Relay.update(r.slug, r.id.value))
+      inner(form, routes.Relay.update(r.slug, r.id.value)),
+      hr,
+      postForm(action := routes.Relay.reset(r.slug, r.id.value))(
+        submitButton(
+          cls := "button button-red confirm",
+          title := "The source will need to be active in order to re-create the chapters!"
+        )("Reset the broadcast")
+      )
     )
 
   private def layout(title: String)(body: Modifier*)(implicit ctx: Context) =

@@ -87,6 +87,10 @@ final class RelayApi(
     } inject relay
   }
 
+  def reset(relay: Relay, by: User): Funit =
+    studyApi.deleteAllChapters(relay.studyId, by) >>
+      requestPlay(relay.id, true)
+
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     repo.coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
 
