@@ -25,6 +25,9 @@ version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo Java version: $version
 if [[ "$version" != 1.8* ]]; then
   echo "Lichess requires Java 8. Newer and older versions of Java will not work."
+  echo "It's possible to have several versions of Java installed."
+  echo "For ArchLinux, see: https://wiki.archlinux.org/index.php/Java#Switching_between_JVM"
+  echo "https://wiki.archlinux.org/index.php/Java#Launching_an_application_with_the_non-default_java_version"
   exit 1;
 fi
 echo Java options: $JAVA_OPTS
