@@ -32,6 +32,7 @@ export interface EditorOptions {
   orientation?: Color;
   is3d?: boolean;
   onChange?: (fen: string) => void;
+  inlineCastling?: boolean;
 }
 
 export interface EditorData {

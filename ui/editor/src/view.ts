@@ -1,5 +1,5 @@
 import { dragNewPiece } from 'chessground/drag';
-import { eventPosition } from 'chessground/util';
+import { eventPosition, opposite } from 'chessground/util';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import * as editor from './editor';
@@ -8,10 +8,15 @@ import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
 function castleCheckBox(ctrl: EditorCtrl, id, label, reversed: boolean) {
-  const input = h('input[type=checkbox]', {
-    checked: ctrl.data.castles[id](),
-    onchange: function(e) {
-      ctrl.setCastle(id, e.target.checked);
+  const input = h('input', {
+    attrs: {
+      type: 'checkbox',
+      checked: ctrl.data.castles[id](),
+    },
+    on: {
+      change(e) {
+        ctrl.setCastle(id, (e.target as HTMLInputElement).checked);
+      }
     }
   });
   return h('label', reversed ? [input, label] : [label, input]);
@@ -30,18 +35,24 @@ function studyButton(ctrl: EditorCtrl, fen: string) {
     method: 'post',
     action: '/study/as'
   }, [
-    h('input[type=hidden][name=orientation]', {
+    h('input', {
       attrs: {
+        type: 'hidden',
+        name: 'orientation',
         value: ctrl.bottomColor()
       }
     }),
-    h('input[type=hidden][name=variant]', {
+    h('input', {
       attrs: {
+        type: 'hidden',
+        name: 'variant',
         value: ctrl.data.variant
       }
     }),
-    h('input[type=hidden][name=fen]', {
+    h('input', {
       attrs: {
+        type: 'hidden',
+        name: 'fen',
         value: fen
       }
     }),
@@ -65,7 +76,7 @@ function variant2option(key: string, name: string, ctrl: EditorCtrl): VNode {
   }, `${ctrl.trans.noarg('variant')} | ${name}`);
 }
 
-function controls(ctrl, fen) {
+function controls(ctrl: EditorCtrl, fen: string): VNode {
   var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
   var currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
   var position2option = function(pos) {
@@ -103,13 +114,15 @@ function controls(ctrl, fen) {
         h('select', {
           on: {
             change(e) {
-              ctrl.setColor((e.target as HTMLSelectElement).value);
+              ctrl.setColor((e.target as HTMLSelectElement).value as 'w' | 'b');
             }
           }
         }, ['whitePlays', 'blackPlays'].map(function(key) {
           return h('option', {
-            value: key[0],
-            selected: ctrl.data.color() === key[0]
+            attrs: {
+              value: key[0],
+              selected: ctrl.data.color() === key[0]
+            }
           }, ctrl.trans(key));
         }))
       ),
@@ -135,8 +148,10 @@ function controls(ctrl, fen) {
     ]) : [
       h('div', [
         h('select#variants', {
-          onchange: function(e) {
-            ctrl.changeVariant(e.target.value);
+          on: {
+            change(e) {
+              ctrl.changeVariant((e.target as HTMLSelectElement).value);
+            }
           }
         }, [
           ['standard', 'Standard'],
@@ -151,14 +166,22 @@ function controls(ctrl, fen) {
         )
       ]),
       h('div.actions', [
-        h('a.button.button-empty.text[data-icon=B]', {
-          onclick: function() {
-            ctrl.chessground.toggleOrientation();
+        h('a.button.button-empty.text', {
+          attrs: {
+            'data-icon': 'B',
+          },
+          on: {
+            click() {
+              ctrl.chessground.toggleOrientation();
+            }
           }
         }, ctrl.trans.noarg('flipBoard')),
-        looksLegit ? h('a.button.button-empty.text[data-icon="A"]', {
-          href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
-          rel: 'nofollow'
+        looksLegit ? h('a.button.button-empty.text', {
+          attrs: {
+            'data-icon': 'A',
+            href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
+            rel: 'nofollow',
+          }
         }, ctrl.trans.noarg('analysis')) : h('span.button.button-empty.disabled.text[data-icon="A"]', {
           rel: 'nofollow'
         }, ctrl.trans.noarg('analysis')),
@@ -176,34 +199,48 @@ function controls(ctrl, fen) {
       ]),
       h('div.continue-with.none', [
         h('a.button', {
-          href: '/?fen=' + fen + '#ai',
-          rel: 'nofollow'
+          attrs: {
+            href: '/?fen=' + fen + '#ai',
+            rel: 'nofollow'
+          }
         }, ctrl.trans.noarg('playWithTheMachine')),
         h('a.button', {
-          href: '/?fen=' + fen + '#friend',
-          rel: 'nofollow'
+          attrs: {
+            href: '/?fen=' + fen + '#friend',
+            rel: 'nofollow'
+          }
         }, ctrl.trans.noarg('playWithAFriend'))
       ])
     ]
   ]);
 }
 
-function inputs(ctrl, fen) {
+function inputs(ctrl: EditorCtrl, fen: string): VNode {
   if (ctrl.embed) return;
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
-      h('input.copyable.autoselect[spellCheck=false]', {
-        value: fen,
-        onchange: function(e) {
-          if (e.target.value !== fen) ctrl.changeFen(e.target.value);
+      h('input.copyable.autoselect', {
+        attrs: {
+          spellcheck: false,
+          value: fen,
+        },
+        on: {
+          change(e) {
+            const value = (e.target as HTMLInputElement).value;
+            if (value !== fen) ctrl.changeFen(value);
+          }
         }
       })
     ]),
     h('p', [
       h('strong.name', 'URL'),
       h('input.copyable.autoselect[readonly][spellCheck=false]', {
-        value: editor.makeUrl(ctrl.data.baseUrl, fen)
+        attrs: {
+          readonly: true,
+          spellcheck: false,
+          value: editor.makeUrl(ctrl.data.baseUrl, fen)
+        }
       })
     ])
   ]);
@@ -216,16 +253,15 @@ function selectedToClass(s): string {
 
 var lastTouchMovePos;
 
-function sparePieces(ctrl, color, orientation, position) {
+function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, position: 'top' | 'bottom'): VNode {
+  const selectedClass = selectedToClass(ctrl.selected());
 
-  var selectedClass = selectedToClass(ctrl.selected());
-
-  var pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
+  const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
     return [color, role];
   });
 
   return h('div', {
-    attr: {
+    attrs: {
       class: ['spare', 'spare-' + position, 'spare-' + color].join(' ')
     }
   }, ['pointer', ...pieces, 'trash'].map(function(s) {
@@ -259,7 +295,7 @@ function sparePieces(ctrl, color, orientation, position) {
     }
 
     return h('div', {
-      attr: {
+      attrs: {
         class: containerClass,
       },
       on: {
@@ -310,16 +346,15 @@ function makeCursor(selected) {
 }
 
 export default function(ctrl: EditorCtrl) {
-  var fen = ctrl.computeFen();
-  var color = ctrl.bottomColor();
-  var opposite = color === 'white' ? 'black' : 'white';
+  const fen = ctrl.computeFen();
+  const color = ctrl.bottomColor();
 
   return h('div.board-editor', {
     attrs: {
       style: 'cursor: ' + makeCursor(ctrl.selected())
     }
   }, [
-    sparePieces(ctrl, opposite, color, 'top'),
+    sparePieces(ctrl, opposite(color), color, 'top'),
     h('div.main-board', [chessground(ctrl)]),
     sparePieces(ctrl, color, color, 'bottom'),
     controls(ctrl, fen),
