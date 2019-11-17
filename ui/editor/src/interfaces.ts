@@ -8,7 +8,7 @@ export interface Castles<T> {
 }
 
 export interface Position {
-  eco: string;
+  eco?: string;
   name: string;
   fen: string;
 }

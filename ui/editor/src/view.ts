@@ -3,6 +3,7 @@ import { eventPosition, opposite } from 'chessground/util';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import * as editor from './editor';
+import { Position } from './interfaces';
 
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
@@ -30,10 +31,12 @@ function optgroup(name: string, opts) {
   }, opts);
 }
 
-function studyButton(ctrl: EditorCtrl, fen: string) {
+function studyButton(ctrl: EditorCtrl, fen: string): VNode {
   return h('form', {
-    method: 'post',
-    action: '/study/as'
+    attrs: {
+      method: 'post',
+      action: '/study/as'
+    }
   }, [
     h('input', {
       attrs: {
@@ -77,9 +80,9 @@ function variant2option(key: string, name: string, ctrl: EditorCtrl): VNode {
 }
 
 function controls(ctrl: EditorCtrl, fen: string): VNode {
-  var positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
-  var currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
-  var position2option = function(pos) {
+  const positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
+  const currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
+  const position2option = function(pos: Position): VNode {
     return h('option', {
       attrs: {
         value: pos.fen,
@@ -88,8 +91,8 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
       children: [pos.eco ? pos.eco + ' ' + pos.name : pos.name]
     });
   };
-  var selectedVariant = ctrl.data.variant;
-  var looksLegit = ctrl.positionLooksLegit();
+  const selectedVariant = ctrl.data.variant;
+  const looksLegit = ctrl.positionLooksLegit();
   return h('div.board-editor__tools', [
     ctrl.embed ? null : h('div', [
       ctrl.data.positions ? h('select.positions', {
@@ -140,14 +143,21 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
     ]),
     ctrl.embed ? h('div.actions', [
       h('a.button.button-empty', {
-        onclick: ctrl.startPosition
+        on: {
+          click: ctrl.startPosition
+        }
       }, ctrl.trans.noarg('startPosition')),
       h('a.button.button-empty', {
-        onclick: ctrl.clearBoard
+        on: {
+          click: ctrl.clearBoard
+        }
       }, ctrl.trans.noarg('clearBoard'))
     ]) : [
       h('div', [
-        h('select#variants', {
+        h('select', {
+          attrs: {
+            id: 'variants'
+          },
           on: {
             change(e) {
               ctrl.changeVariant((e.target as HTMLSelectElement).value);
@@ -194,7 +204,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
               if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue-with'));
             }
           }
-        }, [h('span.text[data-icon=U]', ctrl.trans.noarg('continueFromHere'))]),
+        }, [h('span.text', { attrs: { 'data-icon' : 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
         studyButton(ctrl, fen)
       ]),
       h('div.continue-with.none', [
@@ -235,7 +245,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode {
     ]),
     h('p', [
       h('strong.name', 'URL'),
-      h('input.copyable.autoselect[readonly][spellCheck=false]', {
+      h('input.copyable.autoselect', {
         attrs: {
           readonly: true,
           spellcheck: false,
@@ -268,7 +278,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, positio
 
     var className = selectedToClass(s);
 
-    var attrs = {
+    const attrs = {
       class: className
     };
 
