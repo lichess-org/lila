@@ -45,8 +45,10 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
         }));
         if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
       }
-      return h('div.nvui', [
-        h('h1', 'Textual representation'),
+      return h('div.nvui', {
+        hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000))
+      }, [
+        h('h1', gameText(ctrl)),
         h('h2', 'Game info'),
         ...(['white', 'black'].map((color: Color) => h('p', [
           color + ' player: ',
@@ -257,5 +259,17 @@ function playerText(ctrl: RoundController, player: game.Player) {
     perf = user ? user.perfs[d.game.perf] : null,
     rating = player.rating ? player.rating : (perf && perf.rating);
   if (!user) return 'Anonymous';
-  return `${user.title || ''} ${user.username} rating = ${rating || 'none'}`;
+  return `${user.title || ''} ${user.username} rated ${rating || 'unknown'}`;
+}
+
+function gameText(ctrl: RoundController) {
+  const d = ctrl.data;
+  return [
+    d.game.rated ? 'rated' : 'casual',
+    d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
+    d.game.perf,
+    'game versus',
+    playerText(ctrl, ctrl.data.opponent),
+    ', you play ' + ctrl.data.player.color
+  ].join(' ');
 }

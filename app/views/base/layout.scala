@@ -122,10 +122,11 @@ object layout {
         viewport,
         metaCsp(csp),
         metaThemeColor,
-        if (isProd && !isStage) frag(
-          st.headTitle(fullTitle | s"$title • lichess.org")
-        )
-        else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
+        st.headTitle {
+          if (ctx.blind) "lichess"
+          else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
+          else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+        },
         cssTag("site"),
         ctx.pref.is3d option cssTag("board-3d"),
         ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
