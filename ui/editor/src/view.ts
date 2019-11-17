@@ -59,12 +59,12 @@ function studyButton(ctrl: EditorCtrl, fen: string): VNode {
         value: fen
       }
     }),
-    h('button.button.button-empty.text', {
+    h('button', {
       attrs: {
         type: 'submit',
         'data-icon': '4',
         disabled: !ctrl.positionLooksLegit(),
-        class: ctrl.positionLooksLegit() ? '' : 'disabled'
+        class: `button button-empty text ${ctrl.positionLooksLegit() ? '' : 'disabled'}`
       }
     }, 'Study')
   ]);
@@ -141,7 +141,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
         ])
       ])
     ]),
-    ctrl.embed ? h('div.actions', [
+    ...(ctrl.embed ? [h('div.actions', [
       h('a.button.button-empty', {
         on: {
           click: ctrl.startPosition
@@ -152,7 +152,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           click: ctrl.clearBoard
         }
       }, ctrl.trans.noarg('clearBoard'))
-    ]) : [
+    ])] : [
       h('div', [
         h('select', {
           attrs: {
@@ -192,12 +192,15 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
             href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
             rel: 'nofollow',
           }
-        }, ctrl.trans.noarg('analysis')) : h('span.button.button-empty.disabled.text[data-icon="A"]', {
-          rel: 'nofollow'
-        }, ctrl.trans.noarg('analysis')),
-        h('a.button.button-empty', {
+        }, ctrl.trans.noarg('analysis')) : h('span.button.button-empty.disabled.text', {
           attrs: {
-            class: (looksLegit && selectedVariant === 'standard') ? '' : 'disabled',
+            'data-icon': 'A',
+            rel: 'nofollow'
+          }
+        }, ctrl.trans.noarg('analysis')),
+        h('a', {
+          attrs: {
+            class: `button button-empty ${(looksLegit && selectedVariant === 'standard') ? '' : 'disabled'}`,
           },
           on: {
             click: () => {
@@ -221,7 +224,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           }
         }, ctrl.trans.noarg('playWithAFriend'))
       ])
-    ]
+    ])
   ]);
 }
 
