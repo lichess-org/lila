@@ -1,14 +1,14 @@
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { MouchEvent } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import * as editor from './editor';
-import { Position } from './interfaces';
+import { OpeningPosition } from './interfaces';
 
-import { h } from 'snabbdom';
-import { VNode } from 'snabbdom/vnode';
-
-function castleCheckBox(ctrl: EditorCtrl, id, label, reversed: boolean): VNode {
+function castleCheckBox(ctrl: EditorCtrl, id: 'K' | 'Q' | 'k' | 'q', label: string, reversed: boolean): VNode {
   const input = h('input', {
     attrs: {
       type: 'checkbox',
@@ -24,11 +24,7 @@ function castleCheckBox(ctrl: EditorCtrl, id, label, reversed: boolean): VNode {
 }
 
 function optgroup(name: string, opts: VNode[]): VNode {
-  return h('optgroup', {
-    attrs: {
-      label: name
-    }
-  }, opts);
+  return h('optgroup', { attrs: { label: name } }, opts);
 }
 
 function studyButton(ctrl: EditorCtrl, fen: string): VNode {
@@ -38,39 +34,26 @@ function studyButton(ctrl: EditorCtrl, fen: string): VNode {
       action: '/study/as'
     }
   }, [
-    h('input', {
-      attrs: {
-        type: 'hidden',
-        name: 'orientation',
-        value: ctrl.bottomColor()
-      }
-    }),
-    h('input', {
-      attrs: {
-        type: 'hidden',
-        name: 'variant',
-        value: ctrl.data.variant
-      }
-    }),
-    h('input', {
-      attrs: {
-        type: 'hidden',
-        name: 'fen',
-        value: fen
-      }
-    }),
+    h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
+    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.data.variant } }),
+    h('input', { attrs: { type: 'hidden', name: 'fen', value: fen } }),
     h('button', {
       attrs: {
         type: 'submit',
         'data-icon': '4',
         disabled: !ctrl.positionLooksLegit(),
-        class: `button button-empty text ${ctrl.positionLooksLegit() ? '' : 'disabled'}`
+      },
+      class: {
+        button: true,
+        'button-empty': true,
+        text: true,
+        disabled: !ctrl.positionLooksLegit()
       }
     }, 'Study')
   ]);
 }
 
-function variant2option(key: string, name: string, ctrl: EditorCtrl): VNode {
+function variant2option(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
   return h('option', {
     attrs: {
       value: key,
@@ -79,22 +62,33 @@ function variant2option(key: string, name: string, ctrl: EditorCtrl): VNode {
   }, `${ctrl.trans.noarg('variant')} | ${name}`);
 }
 
+const allVariants: Array<[VariantKey, string]> = [
+  ['standard', 'Standard'],
+  ['antichess', 'Antichess'],
+  ['atomic', 'Atomic'],
+  ['crazyhouse', 'Crazyhouse'],
+  ['horde', 'Horde'],
+  ['kingOfTheHill', 'King of the Hill'],
+  ['racingKings', 'Racing Kings'],
+  ['threeCheck', 'Three-check'],
+];
+
 function controls(ctrl: EditorCtrl, fen: string): VNode {
   const positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
   const currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
-  const position2option = function(pos: Position): VNode {
+  const position2option = function(pos: OpeningPosition): VNode {
     return h('option', {
       attrs: {
         value: pos.fen,
         selected: currentPosition && currentPosition.fen === pos.fen
       }
-    }, pos.eco ? pos.eco + ' ' + pos.name : pos.name);
+    }, pos.eco ? `${pos.eco} ${pos.name}` : pos.name);
   };
   const selectedVariant = ctrl.data.variant;
   const looksLegit = ctrl.positionLooksLegit();
   return h('div.board-editor__tools', [
-    ctrl.embed ? null : h('div', [
-      ctrl.data.positions ? h('select.positions', {
+    ...(ctrl.embed || !ctrl.data.positions ? [] : [h('div', [
+      h('select.positions', {
         on: {
           change(e) {
             ctrl.loadNewFen((e.target as HTMLSelectElement).value);
@@ -108,11 +102,9 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           }, `- ${ctrl.trans.noarg('boardEditor')}  -`)]),
           ...ctrl.extraPositions.map(position2option)
         ]),
-        optgroup(ctrl.trans.noarg('popularOpenings'),
-          ctrl.data.positions.map(position2option)
-        )
-      ]) : null
-    ]),
+        optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.data.positions.map(position2option))
+      ])
+    ])]),
     h('div.metadata', [
       h('div.color',
         h('select', {
@@ -160,52 +152,41 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
     ])] : [
       h('div', [
         h('select', {
-          attrs: {
-            id: 'variants'
-          },
+          attrs: { id: 'variants' },
           on: {
             change(e) {
-              ctrl.changeVariant((e.target as HTMLSelectElement).value);
+              ctrl.changeVariant((e.target as HTMLSelectElement).value as VariantKey);
             }
           }
-        }, [
-          ['standard', 'Standard'],
-          ['antichess', 'Antichess'],
-          ['atomic', 'Atomic'],
-          ['crazyhouse', 'Crazyhouse'],
-          ['horde', 'Horde'],
-          ['kingOfTheHill', 'King of the Hill'],
-          ['racingKings', 'Racing Kings'],
-          ['threeCheck', 'Three-check']
-        ].map(function(x) { return variant2option(x[0], x[1], ctrl) })
-        )
+        }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
       ]),
       h('div.actions', [
         h('a.button.button-empty.text', {
-          attrs: {
-            'data-icon': 'B',
-          },
+          attrs: { 'data-icon': 'B' },
           on: {
             click() {
               ctrl.chessground.toggleOrientation();
             }
           }
         }, ctrl.trans.noarg('flipBoard')),
-        looksLegit ? h('a.button.button-empty.text', {
+        h('a', {
           attrs: {
             'data-icon': 'A',
-            href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen),
             rel: 'nofollow',
-          }
-        }, ctrl.trans.noarg('analysis')) : h('span.button.button-empty.disabled.text', {
-          attrs: {
-            'data-icon': 'A',
-            rel: 'nofollow'
+            href: looksLegit ? editor.makeUrl('/analysis/' + selectedVariant + '/', fen) : undefined
+          },
+          class: {
+            button: true,
+            'button-empty': true,
+            text: true,
+            disabled: !looksLegit
           }
         }, ctrl.trans.noarg('analysis')),
         h('a', {
-          attrs: {
-            class: `button button-empty ${(looksLegit && selectedVariant === 'standard') ? '' : 'disabled'}`,
+          class: {
+            button: true,
+            'button-empty': true,
+            disabled: !looksLegit || selectedVariant !== 'standard'
           },
           on: {
             click: () => {
@@ -233,7 +214,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
   ]);
 }
 
-function inputs(ctrl: EditorCtrl, fen: string): VNode {
+function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
   if (ctrl.embed) return;
   return h('div.copyables', [
     h('p', [
@@ -269,7 +250,7 @@ function selectedToClass(s): string {
   return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
 }
 
-var lastTouchMovePos;
+let lastTouchMovePos;
 
 function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
@@ -283,14 +264,12 @@ function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, positio
       class: ['spare', 'spare-' + position, 'spare-' + color].join(' ')
     }
   }, ['pointer', ...pieces, 'trash'].map(function(s) {
-
-    var className = selectedToClass(s);
-
+    const className = selectedToClass(s);
     const attrs = {
       class: className
     };
 
-    var containerClass = 'no-square' +
+    let containerClass = 'no-square' +
       (
         (
           selectedClass === className &&
@@ -327,12 +306,11 @@ function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, positio
   }));
 }
 
-function onSelectSparePiece(ctrl: EditorCtrl, s, upEvent) {
-  return function(e) {
+function onSelectSparePiece(ctrl: EditorCtrl, s, upEvent: string): (e: MouchEvent) => void {
+  return function(e: MouchEvent): void {
     e.preventDefault();
-    if (['pointer', 'trash'].includes(s)) {
-      ctrl.selected(s);
-    } else {
+    if (['pointer', 'trash'].includes(s)) ctrl.selected(s);
+    else {
       ctrl.selected('pointer');
 
       dragNewPiece(ctrl.chessground.state, {
@@ -340,16 +318,13 @@ function onSelectSparePiece(ctrl: EditorCtrl, s, upEvent) {
         role: s[1]
       }, e, true);
 
-      document.addEventListener(upEvent, function(e) {
-        var eventPos = eventPosition(e) || lastTouchMovePos;
+      document.addEventListener(upEvent, (e: MouchEvent) => {
+        const eventPos = eventPosition(e) || lastTouchMovePos;
 
-        if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) {
-          ctrl.selected('pointer');
-        } else {
-          ctrl.selected(s);
-        }
+        if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
+        else ctrl.selected(s);
         ctrl.redraw();
-      }, {once: true});
+      }, { once: true });
     }
   };
 }
@@ -363,13 +338,13 @@ function makeCursor(selected): string {
   return `url('${url}'), default !important`;
 }
 
-export default function(ctrl: EditorCtrl) {
+export default function(ctrl: EditorCtrl): VNode {
   const fen = ctrl.computeFen();
   const color = ctrl.bottomColor();
 
   return h('div.board-editor', {
     attrs: {
-      style: 'cursor: ' + makeCursor(ctrl.selected())
+      style: `cursor: ${makeCursor(ctrl.selected())}`
     }
   }, [
     sparePieces(ctrl, opposite(color), color, 'top'),

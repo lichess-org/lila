@@ -7,7 +7,7 @@ export interface Castles<T> {
   q: T;
 }
 
-export interface Position {
+export interface OpeningPosition {
   eco?: string;
   name: string;
   fen: string;
@@ -22,7 +22,7 @@ export interface EditorConfig {
     duration: number;
   };
   embed: boolean;
-  positions: Position[];
+  positions: OpeningPosition[];
   color: 'w' | 'b';
   i18n: any;
   castles: Castles<boolean>;
@@ -41,7 +41,7 @@ export interface EditorData {
   castles: Castles<Prop<boolean>>;
   variant: VariantKey;
   i18n: any;
-  positions: Position[];
+  positions: OpeningPosition[];
 }
 
 export type Redraw = () => void;

@@ -1,4 +1,4 @@
-import { EditorConfig, EditorData, EditorOptions, Selection, Redraw } from './interfaces';
+import { EditorConfig, EditorData, EditorOptions, Selection, Redraw, OpeningPosition } from './interfaces';
 import * as editor from './editor';
 import { read as fenRead } from 'chessground/fen';
 import { Api as CgApi } from 'chessground/api';
@@ -11,9 +11,9 @@ export default class EditorCtrl {
   embed: boolean;
   trans: Trans;
   selected: Prop<Selection>;
-  extraPositions: Array<{fen: string, name: string}>;
+  extraPositions?: OpeningPosition[];
   chessground: CgApi | undefined;
-  positionIndex: any;
+  positionIndex: { [boardFen: string]: number };
   redraw: Redraw;
 
   constructor(cfg: EditorConfig, redraw: Redraw) {
@@ -38,11 +38,9 @@ export default class EditorCtrl {
     }];
 
     this.positionIndex = {};
-    cfg.positions && cfg.positions.forEach(function(p, i) {
+    if (cfg.positions) cfg.positions.forEach((p, i) => {
       this.positionIndex[p.fen.split(' ')[0]] = i;
-    }.bind(this));
-
-    this.chessground; // will be set from the view when instanciating chessground
+    });
 
     window.Mousetrap.bind('f', (e) => {
       e.preventDefault();
@@ -109,20 +107,20 @@ export default class EditorCtrl {
     window.location.href = editor.makeUrl(this.data.baseUrl, fen);
   }
 
-  changeVariant(variant): void {
+  changeVariant(variant: VariantKey): void {
     this.data.variant = variant;
     this.redraw();
   }
 
   positionLooksLegit(): boolean {
-    var variant = this.data.variant;
-    if (variant === "antichess") return true;
-    var pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
-    var kings = {
+    const variant = this.data.variant;
+    if (variant === 'antichess') return true;
+    const pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
+    const kings = {
       white: 0,
       black: 0
     };
-    for (var pos in pieces) {
+    for (const pos in pieces) {
       if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
     }
     return kings.white === (variant !== "horde" ? 1 : 0) && kings.black === 1;

@@ -27,15 +27,15 @@ export function castlesAt(v: boolean): Castles<Prop<boolean>> {
 }
 
 function fenMetadatas(data: EditorData): string {
-  var castles = '';
-  Object.keys(data.castles).forEach(function(piece) {
+  let castles = '';
+  Object.keys(data.castles).forEach(piece => {
     if (data.castles[piece]()) castles += piece;
   });
-  return data.color() + ' ' + (castles.length ? castles : '-') + ' -';
+  return `${data.color()} ${castles.length ? castles : '-'} -`;
 }
 
 export function computeFen(data: EditorData, cgFen: string): string {
-  return cgFen + ' ' + fenMetadatas(data);
+  return `${cgFen} ${fenMetadatas(data)}`;
 }
 
 export function makeUrl(url: string, fen: string): string {
