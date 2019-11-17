@@ -1,33 +1,39 @@
-var m = require('mithril');
-var Chessground = require('chessground').Chessground;
-var util = require('chessground/util');
+import { h } from 'snabbdom';
+import { VNode } from 'snabbdom/vnode';
+import { Chessground } from 'chessground';
+import { Config as CgConfig } from 'chessground/config';
+import EditorCtrl from './ctrl';
+import * as util from 'chessground/util';
 
-module.exports = function(ctrl) {
-  return m('div.cg-wrap', {
-    config: function(el, isUpdate) {
-      if (isUpdate) return;
-      ctrl.chessground = Chessground(el, makeConfig(ctrl));
-      bindEvents(el, ctrl);
+export default function(ctrl: EditorCtrl): VNode {
+  return h('div.cg-wrap', {
+    hook: {
+      insert: vnode => {
+        const el = vnode.elm as HTMLElement;
+        ctrl.chessground = Chessground(el, makeConfig(ctrl));
+        bindEvents(el, ctrl);
+      },
+      destroy: _ => ctrl.chessground.destroy()
     }
   });
 }
 
-function bindEvents(el, ctrl) {
-  var handler = onMouseEvent(ctrl);
+function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
+  const handler = onMouseEvent(ctrl);
   ['touchstart', 'touchmove', 'mousedown', 'mousemove', 'contextmenu'].forEach(function(ev) {
     el.addEventListener(ev, handler)
   });
 }
 
-function isLeftButton(e) {
+function isLeftButton(e): boolean {
   return e.buttons === 1 || e.button === 1;
 }
 
-function isLeftClick(e) {
+function isLeftClick(e): boolean {
   return isLeftButton(e) && !e.ctrlKey;
 }
 
-function isRightClick(e) {
+function isRightClick(e): boolean {
   return util.isRightButton(e) || (e.ctrlKey && isLeftButton(e));
 }
 
@@ -35,7 +41,7 @@ var downKey;
 var lastKey;
 var placeDelete;
 
-function onMouseEvent(ctrl) {
+function onMouseEvent(ctrl: EditorCtrl) {
   return function(e) {
     var sel = ctrl.selected();
 
@@ -98,23 +104,20 @@ function onMouseEvent(ctrl) {
         ctrl.chessground.state.drawable.current = undefined;
         ctrl.chessground.state.drawable.shapes = [];
 
-        if (
-          e.type === 'contextmenu' &&
-            !['pointer', 'trash'].includes(sel) && sel.length >= 2
-        ) {
+        if (e.type === 'contextmenu' && sel != 'trash') {
           ctrl.chessground.cancelMove();
           sel[0] = util.opposite(sel[0]);
-          m.redraw();
+          ctrl.redraw();
         }
       }
     }
   };
 }
 
-function deleteOrHidePiece(ctrl, key, e) {
+function deleteOrHidePiece(ctrl: EditorCtrl, key: Key, e: Event) {
   if (e.type === 'touchstart') {
     if (ctrl.chessground.state.pieces[key]) {
-      ctrl.chessground.state.draggable.current.element.style.display = 'none';
+      (ctrl.chessground.state.draggable.current.element as HTMLElement).style.display = 'none';
       ctrl.chessground.cancelMove();
     }
 
@@ -126,14 +129,14 @@ function deleteOrHidePiece(ctrl, key, e) {
   }
 }
 
-function deletePiece(ctrl, key) {
+function deletePiece(ctrl: EditorCtrl, key: Key): void {
   ctrl.chessground.setPieces({
-    [key]: false
+    [key]: undefined
   });
   ctrl.onChange();
 }
 
-function makeConfig(ctrl) {
+function makeConfig(ctrl: EditorCtrl): CgConfig {
   return {
     fen: ctrl.cfg.fen,
     orientation: ctrl.options.orientation || 'white',
@@ -142,8 +145,7 @@ function makeConfig(ctrl) {
     addPieceZIndex: ctrl.cfg.is3d,
     movable: {
       free: true,
-      color: 'both',
-      dropOff: 'trash'
+      color: 'both'
     },
     animation: {
       duration: ctrl.cfg.animation.duration
