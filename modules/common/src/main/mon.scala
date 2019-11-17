@@ -332,18 +332,6 @@ object mon {
         val users = rec("socket.remote.sets.users")
         val games = rec("socket.remote.sets.games")
       }
-      val connections = rec("socket.remote.connections")
-      object redis {
-        val publishTime = rec("socket.remote.redis.publish_time")
-        object in {
-          def channel(channel: String) = inc(s"socket.remote.redis.in.channel.$channel")
-          def path(channel: String, path: String) = inc(s"socket.remote.redis.in.path.$channel:$path")
-        }
-        object out {
-          def channel(channel: String) = inc(s"socket.remote.redis.out.channel.$channel")
-          def path(channel: String, path: String) = inc(s"socket.remote.redis.out.path.$channel:$path")
-        }
-      }
     }
   }
   object trouper {
