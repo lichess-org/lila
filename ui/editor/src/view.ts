@@ -173,7 +173,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           attrs: {
             'data-icon': 'A',
             rel: 'nofollow',
-            href: looksLegit ? editor.makeUrl('/analysis/' + selectedVariant + '/', fen) : undefined
+            ...(looksLegit ? { href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen) } : {})
           },
           class: {
             button: true,
