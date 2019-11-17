@@ -265,11 +265,13 @@ function playerText(ctrl: RoundController, player: game.Player) {
 function gameText(ctrl: RoundController) {
   const d = ctrl.data;
   return [
-    d.game.rated ? 'rated' : 'casual',
+    d.game.status.name == 'started' ? (
+      ctrl.isPlaying() ? 'You play the ' + ctrl.data.player.color + ' pieces.' : 'Spectating.'
+    ) : 'Game over.',
+    d.game.rated ? 'Rated' : 'Casual',
     d.clock ? `${d.clock.initial / 60} + ${d.clock.increment}` : '',
     d.game.perf,
     'game versus',
-    playerText(ctrl, ctrl.data.opponent),
-    ', you play ' + ctrl.data.player.color
+    playerText(ctrl, ctrl.data.opponent)
   ].join(' ');
 }
