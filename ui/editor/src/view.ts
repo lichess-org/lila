@@ -8,7 +8,7 @@ import { Position } from './interfaces';
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 
-function castleCheckBox(ctrl: EditorCtrl, id, label, reversed: boolean) {
+function castleCheckBox(ctrl: EditorCtrl, id, label, reversed: boolean): VNode {
   const input = h('input', {
     attrs: {
       type: 'checkbox',
@@ -23,7 +23,7 @@ function castleCheckBox(ctrl: EditorCtrl, id, label, reversed: boolean) {
   return h('label', reversed ? [input, label] : [label, input]);
 }
 
-function optgroup(name: string, opts) {
+function optgroup(name: string, opts: VNode[]): VNode {
   return h('optgroup', {
     attrs: {
       label: name
@@ -87,25 +87,26 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
       attrs: {
         value: pos.fen,
         selected: currentPosition && currentPosition.fen === pos.fen
-      },
-      children: [pos.eco ? pos.eco + ' ' + pos.name : pos.name]
-    });
+      }
+    }, pos.eco ? pos.eco + ' ' + pos.name : pos.name);
   };
   const selectedVariant = ctrl.data.variant;
   const looksLegit = ctrl.positionLooksLegit();
   return h('div.board-editor__tools', [
     ctrl.embed ? null : h('div', [
       ctrl.data.positions ? h('select.positions', {
-        onchange: function(e) {
-          ctrl.loadNewFen(e.target.value);
+        on: {
+          change(e) {
+            ctrl.loadNewFen((e.target as HTMLSelectElement).value);
+          }
         }
       }, [
         optgroup(ctrl.trans.noarg('setTheBoard'), [
-          currentPosition ? null : h('option', {
+          ...(currentPosition ? [] : [h('option', {
             value: fen,
             selected: true
-          }, '- ' + ctrl.trans.noarg('boardEditor') + ' -'),
-          ctrl.extraPositions.map(position2option)
+          }, `- ${ctrl.trans.noarg('boardEditor')}  -`)]),
+          ...ctrl.extraPositions.map(position2option)
         ]),
         optgroup(ctrl.trans.noarg('popularOpenings'),
           ctrl.data.positions.map(position2option)
@@ -322,7 +323,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, positio
   }));
 }
 
-function onSelectSparePiece(ctrl, s, upEvent) {
+function onSelectSparePiece(ctrl: EditorCtrl, s, upEvent) {
   return function(e) {
     e.preventDefault();
     if (['pointer', 'trash'].includes(s)) {
@@ -349,7 +350,7 @@ function onSelectSparePiece(ctrl, s, upEvent) {
   };
 }
 
-function makeCursor(selected) {
+function makeCursor(selected): string {
   if (selected === 'pointer') return 'pointer';
 
   const name = selected === 'trash' ? 'trash' : selected.join('-');
