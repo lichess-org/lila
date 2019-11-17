@@ -11,7 +11,7 @@ export default class EditorCtrl {
   embed: boolean;
   trans: Trans;
   selected: Prop<Selection>;
-  extraPositions?: OpeningPosition[];
+  extraPositions: OpeningPosition[];
   chessground: CgApi | undefined;
   positionIndex: { [boardFen: string]: number };
   redraw: Redraw;
@@ -42,7 +42,7 @@ export default class EditorCtrl {
       this.positionIndex[p.fen.split(' ')[0]] = i;
     });
 
-    window.Mousetrap.bind('f', (e) => {
+    window.Mousetrap.bind('f', (e: Event) => {
       e.preventDefault();
       if (this.chessground) this.chessground.toggleOrientation();
       redraw();
@@ -73,13 +73,13 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  setCastle(id, value): void {
+  setCastle(id: 'K' | 'Q' | 'k' | 'q', value: boolean): void {
     this.data.castles[id](value);
     this.onChange();
   }
 
   startPosition(): void {
-    this.chessground.set({
+    this.chessground!.set({
       fen: 'start'
     });
     this.data.castles = editor.castlesAt(true);
@@ -88,7 +88,7 @@ export default class EditorCtrl {
   }
 
   clearBoard(): void {
-    this.chessground.set({
+    this.chessground!.set({
       fen: '8/8/8/8/8/8/8/8'
     });
     this.data.castles = editor.castlesAt(false);
@@ -97,7 +97,7 @@ export default class EditorCtrl {
 
   loadNewFen(fen: string | 'prompt'): void {
     if (fen === 'prompt') {
-      fen = prompt('Paste FEN position').trim();
+      fen = (prompt('Paste FEN position') || '').trim();
       if (!fen) return;
     }
     this.changeFen(fen);
@@ -121,15 +121,16 @@ export default class EditorCtrl {
       black: 0
     };
     for (const pos in pieces) {
-      if (pieces[pos] && pieces[pos].role === 'king') kings[pieces[pos].color]++;
+      const piece = pieces[pos];
+      if (piece && piece.role === 'king') kings[piece.color]++;
     }
     return kings.white === (variant !== "horde" ? 1 : 0) && kings.black === 1;
   }
 
-  setOrientation = function(o: Color): void {
+  setOrientation(o: Color): void {
     this.options.orientation = o;
-    if (this.chessground.state.orientation !== o)
-    this.chessground.toggleOrientation();
+    if (this.chessground!.state.orientation !== o)
+    this.chessground!.toggleOrientation();
     this.redraw();
   }
 }

@@ -15,7 +15,7 @@ menuHover();
 
 const patch = init([klass, attributes, eventlisteners]);
 
-export default function(element, config: EditorConfig) {
+export default function(element: HTMLElement, config: EditorConfig) {
   let vnode: VNode, ctrl: EditorCtrl;
 
   const redraw = () => {

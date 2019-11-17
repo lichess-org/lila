@@ -1,12 +1,12 @@
 import { h } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
-import { MouchEvent } from 'chessground/types';
+import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import * as editor from './editor';
-import { OpeningPosition } from './interfaces';
+import { OpeningPosition, Selection } from './interfaces';
 
 function castleCheckBox(ctrl: EditorCtrl, id: 'K' | 'Q' | 'k' | 'q', label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -80,7 +80,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
     return h('option', {
       attrs: {
         value: pos.fen,
-        selected: currentPosition && currentPosition.fen === pos.fen
+        selected: !!currentPosition && currentPosition.fen === pos.fen
       }
     }, pos.eco ? `${pos.eco} ${pos.name}` : pos.name);
   };
@@ -125,11 +125,11 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
       h('div.castling', [
         h('strong', ctrl.trans.noarg('castling')),
         h('div', [
-          castleCheckBox(ctrl, 'K', ctrl.trans.noarg('whiteCastlingKingside'), ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'K', ctrl.trans.noarg('whiteCastlingKingside'), !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'Q', 'O-O-O', true)
         ]),
         h('div', [
-          castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), ctrl.options.inlineCastling),
+          castleCheckBox(ctrl, 'k', ctrl.trans.noarg('blackCastlingKingside'), !!ctrl.options.inlineCastling),
           castleCheckBox(ctrl, 'q', 'O-O-O', true)
         ])
       ])
@@ -165,7 +165,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           attrs: { 'data-icon': 'B' },
           on: {
             click() {
-              ctrl.chessground.toggleOrientation();
+              ctrl.chessground!.toggleOrientation();
             }
           }
         }, ctrl.trans.noarg('flipBoard')),
@@ -246,13 +246,13 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
 }
 
 // can be 'pointer', 'trash', or [color, role]
-function selectedToClass(s): string {
+function selectedToClass(s: Selection): string {
   return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
 }
 
-let lastTouchMovePos;
+let lastTouchMovePos: NumberPair | undefined;
 
-function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, position: 'top' | 'bottom'): VNode {
+function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, position: 'top' | 'bottom'): VNode {
   const selectedClass = selectedToClass(ctrl.selected());
 
   const pieces = ['king', 'queen', 'rook', 'bishop', 'knight', 'pawn'].map(function(role) {
@@ -263,37 +263,25 @@ function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, positio
     attrs: {
       class: ['spare', 'spare-' + position, 'spare-' + color].join(' ')
     }
-  }, ['pointer', ...pieces, 'trash'].map(function(s) {
+  }, ['pointer', ...pieces, 'trash'].map((s: Selection) => {
     const className = selectedToClass(s);
     const attrs = {
-      class: className
+      class: className,
+      ...((s !== 'pointer' && s !== 'trash') ? {
+        'data-color': s[0],
+        'data-role': s[1]
+      } : {})
     };
-
-    let containerClass = 'no-square' +
-      (
-        (
-          selectedClass === className &&
-          (
-            !ctrl.chessground ||
-            !ctrl.chessground.state.draggable.current ||
-            !ctrl.chessground.state.draggable.current.newPiece
-          )
-        ) ?
-        ' selected-square' : ''
-      );
-
-    if (s === 'pointer') {
-      containerClass += ' pointer';
-    } else if (s === 'trash') {
-      containerClass += ' trash';
-    } else {
-      attrs['data-color'] = s[0];
-      attrs['data-role'] = s[1];
-    }
-
+    const selectedSquare = selectedClass === className && (
+      !ctrl.chessground ||
+      !ctrl.chessground.state.draggable.current ||
+      !ctrl.chessground.state.draggable.current.newPiece);
     return h('div', {
-      attrs: {
-        class: containerClass,
+      class: {
+        'no-square': true,
+        pointer: s === 'pointer',
+        trash: s === 'trash',
+        'selected-square': selectedSquare
       },
       on: {
         mousedown: onSelectSparePiece(ctrl, s, 'mouseup'),
@@ -306,22 +294,21 @@ function sparePieces(ctrl: EditorCtrl, color: Color, orientation: Color, positio
   }));
 }
 
-function onSelectSparePiece(ctrl: EditorCtrl, s, upEvent: string): (e: MouchEvent) => void {
+function onSelectSparePiece(ctrl: EditorCtrl, s: Selection, upEvent: string): (e: MouchEvent) => void {
   return function(e: MouchEvent): void {
     e.preventDefault();
-    if (['pointer', 'trash'].includes(s)) ctrl.selected(s);
+    if (s === 'pointer' || s === 'trash') ctrl.selected(s);
     else {
       ctrl.selected('pointer');
 
-      dragNewPiece(ctrl.chessground.state, {
+      dragNewPiece(ctrl.chessground!.state, {
         color: s[0],
         role: s[1]
       }, e, true);
 
       document.addEventListener(upEvent, (e: MouchEvent) => {
         const eventPos = eventPosition(e) || lastTouchMovePos;
-
-        if (eventPos && ctrl.chessground.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
+        if (eventPos && ctrl.chessground!.getKeyAtDomPos(eventPos)) ctrl.selected('pointer');
         else ctrl.selected(s);
         ctrl.redraw();
       }, { once: true });
@@ -329,7 +316,7 @@ function onSelectSparePiece(ctrl: EditorCtrl, s, upEvent: string): (e: MouchEven
   };
 }
 
-function makeCursor(selected): string {
+function makeCursor(selected: Selection): string {
   if (selected === 'pointer') return 'pointer';
 
   const name = selected === 'trash' ? 'trash' : selected.join('-');

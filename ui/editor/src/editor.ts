@@ -1,5 +1,5 @@
 import { prop, Prop } from 'common';
-import { EditorConfig, EditorData, Castles } from './interfaces';
+import { EditorConfig, EditorData, Castles, CASTLING_SIDES } from './interfaces';
 
 export function init(cfg: EditorConfig): EditorData {
   return {
@@ -28,9 +28,9 @@ export function castlesAt(v: boolean): Castles<Prop<boolean>> {
 
 function fenMetadatas(data: EditorData): string {
   let castles = '';
-  Object.keys(data.castles).forEach(piece => {
-    if (data.castles[piece]()) castles += piece;
-  });
+  for (const side of CASTLING_SIDES) {
+    if (data.castles[side]()) castles += side;
+  }
   return `${data.color()} ${castles.length ? castles : '-'} -`;
 }
 

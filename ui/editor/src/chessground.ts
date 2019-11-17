@@ -14,7 +14,7 @@ export default function(ctrl: EditorCtrl): VNode {
         ctrl.chessground = Chessground(el, makeConfig(ctrl));
         bindEvents(el, ctrl);
       },
-      destroy: _ => ctrl.chessground.destroy()
+      destroy: _ => ctrl.chessground!.destroy()
     }
   });
 }
@@ -26,15 +26,15 @@ function bindEvents(el: HTMLElement, ctrl: EditorCtrl): void {
   });
 }
 
-function isLeftButton(e): boolean {
+function isLeftButton(e: MouchEvent): boolean {
   return e.buttons === 1 || e.button === 1;
 }
 
-function isLeftClick(e): boolean {
+function isLeftClick(e: MouchEvent): boolean {
   return isLeftButton(e) && !e.ctrlKey;
 }
 
-function isRightClick(e): boolean {
+function isRightClick(e: MouchEvent): boolean {
   return util.isRightButton(e) || (e.ctrlKey && isLeftButton(e));
 }
 
@@ -52,12 +52,14 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
 
     if (isLeftClick(e) || e.type === 'touchstart' || e.type === 'touchmove') {
       if (sel === 'pointer' || (ctrl.chessground && ctrl.chessground.state.draggable.current && ctrl.chessground.state.draggable.current.newPiece)) return;
-      const key = ctrl.chessground.getKeyAtDomPos(util.eventPosition(e));
+      const pos = util.eventPosition(e);
+      if (!pos) return;
+      const key = ctrl.chessground!.getKeyAtDomPos(pos);
       if (!key) return;
       if (e.type === 'mousedown' || e.type === 'touchstart') downKey = key;
       if (sel === 'trash') deleteOrHidePiece(ctrl, key, e);
       else {
-        const existingPiece = ctrl.chessground.state.pieces[key];
+        const existingPiece = ctrl.chessground!.state.pieces[key];
         const piece = {
           color: sel[0],
           role: sel[1]
@@ -70,21 +72,21 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
           const endEvents = { mousedown: 'mouseup', touchstart: 'touchend' };
           document.addEventListener(endEvents[e.type], () => placeDelete = false, { once: true });
         } else if (!placeDelete && (e.type === 'mousedown' || e.type === 'touchstart' || key !== lastKey)) {
-          ctrl.chessground.setPieces({
+          ctrl.chessground!.setPieces({
             [key]: piece
           });
           ctrl.onChange();
-          ctrl.chessground.cancelMove();
+          ctrl.chessground!.cancelMove();
         }
       }
       lastKey = key;
     } else if (isRightClick(e)) {
       if (sel !== 'pointer') {
-        ctrl.chessground.state.drawable.current = undefined;
-        ctrl.chessground.state.drawable.shapes = [];
+        ctrl.chessground!.state.drawable.current = undefined;
+        ctrl.chessground!.state.drawable.shapes = [];
 
         if (e.type === 'contextmenu' && sel != 'trash') {
-          ctrl.chessground.cancelMove();
+          ctrl.chessground!.cancelMove();
           sel[0] = util.opposite(sel[0]);
           ctrl.redraw();
         }
@@ -95,9 +97,9 @@ function onMouseEvent(ctrl: EditorCtrl): (e: MouchEvent) => void {
 
 function deleteOrHidePiece(ctrl: EditorCtrl, key: Key, e: Event): void {
   if (e.type === 'touchstart') {
-    if (ctrl.chessground.state.pieces[key]) {
-      (ctrl.chessground.state.draggable.current.element as HTMLElement).style.display = 'none';
-      ctrl.chessground.cancelMove();
+    if (ctrl.chessground!.state.pieces[key]) {
+      (ctrl.chessground!.state.draggable.current!.element as HTMLElement).style.display = 'none';
+      ctrl.chessground!.cancelMove();
     }
     document.addEventListener('touchend', () => deletePiece(ctrl, key), { once: true });
   } else if (e.type === 'mousedown' || key !== downKey) {
@@ -106,7 +108,7 @@ function deleteOrHidePiece(ctrl: EditorCtrl, key: Key, e: Event): void {
 }
 
 function deletePiece(ctrl: EditorCtrl, key: Key): void {
-  ctrl.chessground.setPieces({
+  ctrl.chessground!.setPieces({
     [key]: undefined
   });
   ctrl.onChange();

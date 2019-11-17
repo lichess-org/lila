@@ -1,5 +1,9 @@
 import { Prop } from 'common';
 
+export type CastlingSide = 'K' | 'Q' | 'k' | 'q';
+
+export const CASTLING_SIDES: CastlingSide[] = ['K', 'Q', 'k', 'q'];
+
 export interface Castles<T> {
   K: T;
   Q: T;
@@ -41,7 +45,7 @@ export interface EditorData {
   castles: Castles<Prop<boolean>>;
   variant: VariantKey;
   i18n: any;
-  positions: OpeningPosition[];
+  positions?: OpeningPosition[];
 }
 
 export type Redraw = () => void;
