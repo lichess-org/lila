@@ -145,12 +145,16 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
     ...(ctrl.embed ? [h('div.actions', [
       h('a.button.button-empty', {
         on: {
-          click: ctrl.startPosition
+          click() {
+           ctrl.startPosition();
+          }
         }
       }, ctrl.trans.noarg('startPosition')),
       h('a.button.button-empty', {
         on: {
-          click: ctrl.clearBoard
+          click() {
+            ctrl.clearBoard();
+          }
         }
       }, ctrl.trans.noarg('clearBoard'))
     ])] : [

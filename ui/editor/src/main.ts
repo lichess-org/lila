@@ -26,8 +26,8 @@ export default function(element, config: EditorConfig) {
   vnode = patch(element, view(ctrl));
 
   return {
-    getFen: ctrl.computeFen,
-    setOrientation: ctrl.setOrientation
+    getFen: ctrl.computeFen.bind(ctrl),
+    setOrientation: ctrl.setOrientation.bind(ctrl)
   };
 };
 
