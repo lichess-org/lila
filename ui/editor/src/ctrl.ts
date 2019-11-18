@@ -1,4 +1,4 @@
-import { EditorConfig, EditorData, EditorOptions, Selected, Redraw, OpeningPosition } from './interfaces';
+import { EditorConfig, EditorData, EditorOptions, Selected, Redraw, OpeningPosition, CastlingSide } from './interfaces';
 import * as editor from './editor';
 import { read as fenRead } from 'chessground/fen';
 import { Api as CgApi } from 'chessground/api';
@@ -8,7 +8,6 @@ export default class EditorCtrl {
   cfg: EditorConfig;
   data: EditorData;
   options: EditorOptions;
-  embed: boolean;
   trans: Trans;
   selected: Prop<Selected>;
   extraPositions: OpeningPosition[];
@@ -20,9 +19,8 @@ export default class EditorCtrl {
     this.cfg = cfg;
     this.data = editor.init(cfg);
     this.options = cfg.options || {};
-    this.embed = cfg.embed;
 
-    this.trans = window.lichess.trans(this.data.i18n);
+    this.trans = window.lichess.trans(this.cfg.i18n);
 
     this.selected = prop('pointer');
 
@@ -73,7 +71,7 @@ export default class EditorCtrl {
     this.onChange();
   }
 
-  setCastle(id: 'K' | 'Q' | 'k' | 'q', value: boolean): void {
+  setCastle(id: CastlingSide, value: boolean): void {
     this.data.castles[id](value);
     this.onChange();
   }
@@ -124,13 +122,12 @@ export default class EditorCtrl {
       const piece = pieces[pos];
       if (piece && piece.role === 'king') kings[piece.color]++;
     }
-    return kings.white === (variant !== "horde" ? 1 : 0) && kings.black === 1;
+    return kings.white === (variant !== 'horde' ? 1 : 0) && kings.black === 1;
   }
 
   setOrientation(o: Color): void {
     this.options.orientation = o;
-    if (this.chessground!.state.orientation !== o)
-    this.chessground!.toggleOrientation();
+    if (this.chessground!.state.orientation !== o) this.chessground!.toggleOrientation();
     this.redraw();
   }
 }

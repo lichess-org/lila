@@ -32,7 +32,6 @@ export interface EditorConfig {
 
 export interface EditorOptions {
   orientation?: Color;
-  is3d?: boolean;
   onChange?: (fen: string) => void;
   inlineCastling?: boolean;
 }
@@ -42,8 +41,6 @@ export interface EditorData {
   color: Prop<'w' | 'b'>;
   castles: Castles<Prop<boolean>>;
   variant: VariantKey;
-  i18n: any;
-  positions?: OpeningPosition[];
 }
 
 export type Redraw = () => void;

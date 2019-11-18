@@ -11,9 +11,7 @@ export function init(cfg: EditorConfig): EditorData {
       q: prop(cfg.castles.q),
     },
     baseUrl: cfg.baseUrl,
-    positions: cfg.positions,
-    variant: 'standard',
-    i18n: cfg.i18n
+    variant: 'standard'
   };
 }
 

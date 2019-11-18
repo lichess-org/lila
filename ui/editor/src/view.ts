@@ -75,7 +75,7 @@ const allVariants: Array<[VariantKey, string]> = [
 
 function controls(ctrl: EditorCtrl, fen: string): VNode {
   const positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
-  const currentPosition = ctrl.data.positions && positionIndex !== -1 ? ctrl.data.positions[positionIndex] : null;
+  const currentPosition = ctrl.cfg.positions && positionIndex !== -1 ? ctrl.cfg.positions[positionIndex] : null;
   const position2option = function(pos: OpeningPosition): VNode {
     return h('option', {
       attrs: {
@@ -87,7 +87,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
   const selectedVariant = ctrl.data.variant;
   const looksLegit = ctrl.positionLooksLegit();
   return h('div.board-editor__tools', [
-    ...(ctrl.embed || !ctrl.data.positions ? [] : [h('div', [
+    ...(ctrl.cfg.embed || !ctrl.cfg.positions ? [] : [h('div', [
       h('select.positions', {
         on: {
           change(e) {
@@ -102,7 +102,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           }, `- ${ctrl.trans.noarg('boardEditor')}  -`)]),
           ...ctrl.extraPositions.map(position2option)
         ]),
-        optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.data.positions.map(position2option))
+        optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option))
       ])
     ])]),
     h('div.metadata', [
@@ -134,7 +134,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
         ])
       ])
     ]),
-    ...(ctrl.embed ? [h('div.actions', [
+    ...(ctrl.cfg.embed ? [h('div.actions', [
       h('a.button.button-empty', {
         on: {
           click() {
@@ -215,7 +215,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
 }
 
 function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
-  if (ctrl.embed) return;
+  if (ctrl.cfg.embed) return;
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
