@@ -70,7 +70,7 @@ Please also remember that, over the long run, ratings tend to gravitate towards 
 
 Warning: Username that implies you are a titled player
 
-The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lichess states that you can't have a username that implies that you have a FIDE title or the Lichess Master title. Actual titled players can verify using the form here (https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform) with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lichess user profile. Since your username implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
+The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lichess states that you can't have a username that implies that you have a FIDE title or the Lichess Master title. Actual titled players can verify using the form here (https://lichess.org/verify-title) with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lichess user profile. Since your username implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
 
 """, /* ---------------------------------------------------------------*/ """
 
