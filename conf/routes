@@ -562,6 +562,7 @@ GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
+GET   /verify-title                    controllers.Main.verifyTitle
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli

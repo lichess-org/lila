@@ -133,6 +133,10 @@ Disallow: /games/export
     Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview").fuccess
   }
 
+  def verifyTitle = Open { implicit ctx =>
+    Redirect("https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform").fuccess
+  }
+
   def contact = Open { implicit ctx =>
     Ok(html.site.contact()).fuccess
   }
