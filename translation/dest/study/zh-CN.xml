@@ -12,8 +12,8 @@
   <string name="studiesCreatedByX">由 %s 创建的课程</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
-  <string name="dateAddedNewest">最新</string>
-  <string name="dateAddedOldest">添加时间 (倒序)</string>
+  <string name="dateAddedNewest">添加时间 (倒序)</string>
+  <string name="dateAddedOldest">添加时间 (正序)</string>
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="addNewChapter">添加一个新章节</string>
