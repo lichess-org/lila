@@ -1,15 +1,13 @@
 import { Prop } from 'common';
+import { Role } from 'chessground/types';
 
 export type CastlingSide = 'K' | 'Q' | 'k' | 'q';
 
 export const CASTLING_SIDES: CastlingSide[] = ['K', 'Q', 'k', 'q'];
 
-export interface Castles<T> {
-  K: T;
-  Q: T;
-  k: T;
-  q: T;
-}
+export type Castles<T> = {
+  [side in CastlingSide]: T;
+};
 
 export interface OpeningPosition {
   eco?: string;
@@ -26,7 +24,7 @@ export interface EditorConfig {
     duration: number;
   };
   embed: boolean;
-  positions: OpeningPosition[];
+  positions?: OpeningPosition[];
   color: 'w' | 'b';
   i18n: any;
   castles: Castles<boolean>;
@@ -50,6 +48,4 @@ export interface EditorData {
 
 export type Redraw = () => void;
 
-export type Role = 'pawn' | 'knight' | 'bishop' | 'rook' | 'queen' | 'king';
-
-export type Selection = 'pointer' | 'trash' | [Color, Role];
+export type Selected = 'pointer' | 'trash' | [Color, Role];

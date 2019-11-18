@@ -1,4 +1,4 @@
-import { EditorConfig, EditorData, EditorOptions, Selection, Redraw, OpeningPosition } from './interfaces';
+import { EditorConfig, EditorData, EditorOptions, Selected, Redraw, OpeningPosition } from './interfaces';
 import * as editor from './editor';
 import { read as fenRead } from 'chessground/fen';
 import { Api as CgApi } from 'chessground/api';
@@ -10,7 +10,7 @@ export default class EditorCtrl {
   options: EditorOptions;
   embed: boolean;
   trans: Trans;
-  selected: Prop<Selection>;
+  selected: Prop<Selected>;
   extraPositions: OpeningPosition[];
   chessground: CgApi | undefined;
   positionIndex: { [boardFen: string]: number };

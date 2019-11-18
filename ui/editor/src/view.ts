@@ -6,7 +6,7 @@ import { eventPosition, opposite } from 'chessground/util';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import * as editor from './editor';
-import { OpeningPosition, Selection } from './interfaces';
+import { OpeningPosition, Selected } from './interfaces';
 
 function castleCheckBox(ctrl: EditorCtrl, id: 'K' | 'Q' | 'k' | 'q', label: string, reversed: boolean): VNode {
   const input = h('input', {
@@ -246,7 +246,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
 }
 
 // can be 'pointer', 'trash', or [color, role]
-function selectedToClass(s: Selection): string {
+function selectedToClass(s: Selected): string {
   return (s === 'pointer' || s === 'trash') ? s : s.join(' ');
 }
 
@@ -263,7 +263,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
     attrs: {
       class: ['spare', 'spare-' + position, 'spare-' + color].join(' ')
     }
-  }, ['pointer', ...pieces, 'trash'].map((s: Selection) => {
+  }, ['pointer', ...pieces, 'trash'].map((s: Selected) => {
     const className = selectedToClass(s);
     const attrs = {
       class: className,
@@ -294,7 +294,7 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
   }));
 }
 
-function onSelectSparePiece(ctrl: EditorCtrl, s: Selection, upEvent: string): (e: MouchEvent) => void {
+function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e: MouchEvent) => void {
   return function(e: MouchEvent): void {
     e.preventDefault();
     if (s === 'pointer' || s === 'trash') ctrl.selected(s);
@@ -316,7 +316,7 @@ function onSelectSparePiece(ctrl: EditorCtrl, s: Selection, upEvent: string): (e
   };
 }
 
-function makeCursor(selected: Selection): string {
+function makeCursor(selected: Selected): string {
   if (selected === 'pointer') return 'pointer';
 
   const name = selected === 'trash' ? 'trash' : selected.join('-');
