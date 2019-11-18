@@ -12,8 +12,8 @@
   <string name="studiesCreatedByX">由 %s 创建的课程</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
-  <string name="dateAddedNewest">添加时间 (倒序)</string>
-  <string name="dateAddedOldest">添加时间 (正序)</string>
+  <string name="dateAddedNewest">添加时间 (最新)</string>
+  <string name="dateAddedOldest">添加时间 (最早)</string>
   <string name="recentlyUpdated">最近更新</string>
   <string name="mostPopular">最受欢迎</string>
   <string name="addNewChapter">添加一个新章节</string>
@@ -27,16 +27,16 @@
   <plurals name="nbMembers">
     <item quantity="other">%s 位成员</item>
   </plurals>
-  <string name="inviteToTheStudy">邀请参加研究</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且积极希望参与这个研究的成员</string>
+  <string name="inviteToTheStudy">邀请到本课程</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且希望积极参与这个课程的成员</string>
   <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
   <string name="kick">踢出</string>
-  <string name="leaveTheStudy">离开研究</string>
+  <string name="leaveTheStudy">离开课程</string>
   <string name="youAreNowAContributor">您现在是一位贡献者</string>
-  <string name="youAreNowASpectator">你现在是一位旁观者</string>
-  <string name="pgnTags">PGN棋谱</string>
+  <string name="youAreNowASpectator">您现在是一位旁观者</string>
+  <string name="pgnTags">PGN标签</string>
   <string name="like">赞</string>
   <string name="newTag">新建标签</string>
   <string name="commentThisPosition">评论这个棋局</string>
