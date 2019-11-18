@@ -27,13 +27,13 @@
   <plurals name="nbMembers">
     <item quantity="other">%s 位成员</item>
   </plurals>
-  <string name="inviteToTheStudy">邀请到本课程</string>
-  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且希望积极参与这个课程的成员</string>
+  <string name="inviteToTheStudy">邀请参加研究</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">请仅邀请您认识并且积极希望参与这个研究的成员</string>
   <string name="searchByUsername">按用户名搜索</string>
   <string name="spectator">旁观者</string>
   <string name="contributor">贡献者</string>
-  <string name="kick">踢出</string>
-  <string name="leaveTheStudy">离开课程</string>
+  <string name="kick">踢除</string>
+  <string name="leaveTheStudy">离开研究</string>
   <string name="youAreNowAContributor">您现在是一位贡献者</string>
   <string name="youAreNowASpectator">您现在是一位旁观者</string>
   <string name="pgnTags">PGN标签</string>
@@ -46,9 +46,9 @@
   <string name="onlyContributorsCanRequestAnalysis">只有研究贡献者可以请求进行计算机分析。</string>
   <string name="getAFullComputerAnalysis">请求服务器完整地分析主线走法。</string>
   <string name="makeSureTheChapterIsComplete">请确保章节已完成。您只能请求分析一次。</string>
-  <string name="allSyncMembersRemainOnTheSamePosition">SYNC所有成员仍处于同样地位</string>
-  <string name="shareChanges">与旁观者共享更改并保存在云端</string>
-  <string name="playing">正在下棋</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">SYNC 中所有成员处于相同局面</string>
+  <string name="shareChanges">与旁观者共享更改并云端保存</string>
+  <string name="playing">下棋中</string>
   <string name="first">首页</string>
   <string name="previous">前一页</string>
   <string name="next">下一页</string>
@@ -80,6 +80,7 @@
   <string name="noPinnedComment">不需要</string>
   <string name="normalAnalysis">普通模式</string>
   <string name="hideNextMoves">隐藏下一步</string>
+  <string name="interactiveLesson">互动课</string>
   <string name="chapterX">章节 %s</string>
   <string name="startFromInitialPosition">从初始位置开始</string>
   <string name="editor">编辑器</string>
