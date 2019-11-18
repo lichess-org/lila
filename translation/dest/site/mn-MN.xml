@@ -268,6 +268,10 @@
   <string name="tournament">Тэмцээн</string>
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">Тэмцээн оноо</item>
+    <item quantity="other">Тэмцээн оноонууд</item>
+  </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
@@ -451,6 +455,7 @@
   <string name="pleaseVotePuzzle">Бодлогын чанарыг үнэлэх</string>
   <string name="thankYou">Баярлалаа!</string>
   <string name="ratingX">Чансаа:%s</string>
+  <string name="hidden">Нуугдсан</string>
   <plurals name="playedXTimes">
     <item quantity="one">Бодлогыг оролдсон тоо: %s</item>
     <item quantity="other">Бодлогыг оролдсон тоо: %s</item>
@@ -807,5 +812,11 @@
   <string name="opening">Гараа</string>
   <string name="middlegame">Тоглолтын дунд үе</string>
   <string name="endgame">Төгсгөл үе</string>
+  <string name="playX">Тоглох</string>
   <string name="sorry">Уучлаарай</string>
+  <string name="why">Яагаад</string>
+  <string name="thankYouForReading">Уншсанд баярлалаа</string>
+  <string name="lifetimeScore">Амьдралын оноо</string>
+  <string name="agreementAccount">Олон хаяг нээхгүйгээ амлаж байна уу?</string>
+  <string name="agreementPolicy">Личесс-н дүрмээ баримталж байхаа зөвшөөр ч байна уу?</string>
 </resources>
