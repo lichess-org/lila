@@ -675,6 +675,7 @@
   <string name="yourPerfTypeRatingIsRating">Шатрын %1$s төрөлд таны чансаа %2$s байна.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Та нийт гишүүдийн %1$s-иас шатрын %2$s төрөлд илүү байна.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">%s төрөлд таньд тогтсон чансаа алга байна.</string>
+  <string name="yourRating">Чиний чансаа</string>
   <string name="checkYourEmail">Та цахим шуудангаа шалгана уу</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Бид тань руу зурвас илгээлээ. Зурвас доторх холбоос хаяг дээр дарснаар хэрэглэгчийн данс тань идэвхжинэ.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Хэрэв бидний зурвас үндсэн шуудангийн хайрцаг дотор тань олдохгүй байвал та бусад хайрцгуудаа ( junk, spam, social гэх мэт) шалгана уу.</string>
