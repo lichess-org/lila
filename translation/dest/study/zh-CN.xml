@@ -3,13 +3,13 @@
 <resources>
   <string name="private">私人</string>
   <string name="myStudies">我的研究</string>
-  <string name="studiesIContributeTo">我贡献的课程</string>
-  <string name="myPublicStudies">我的公开课程</string>
-  <string name="myPrivateStudies">我的私人课程</string>
-  <string name="myFavoriteStudies">我收藏的课程</string>
-  <string name="whatAreStudies">什么是课程？</string>
-  <string name="allStudies">所有课程</string>
-  <string name="studiesCreatedByX">由 %s 创建的课程</string>
+  <string name="studiesIContributeTo">我贡献的研究</string>
+  <string name="myPublicStudies">我的公开研究</string>
+  <string name="myPrivateStudies">我的私有研究</string>
+  <string name="myFavoriteStudies">我收藏的研究</string>
+  <string name="whatAreStudies">什么是研究？</string>
+  <string name="allStudies">所有研究</string>
+  <string name="studiesCreatedByX">由 %s 创建的研究</string>
   <string name="noneYet">暂无。</string>
   <string name="hot">热门</string>
   <string name="dateAddedNewest">添加时间 (最新)</string>
