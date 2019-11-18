@@ -97,8 +97,10 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
       }, [
         optgroup(ctrl.trans.noarg('setTheBoard'), [
           ...(currentPosition ? [] : [h('option', {
-            value: fen,
-            selected: true
+            attrs: {
+              value: fen,
+              selected: true
+            }
           }, `- ${ctrl.trans.noarg('boardEditor')}  -`)]),
           ...ctrl.extraPositions.map(position2option)
         ]),
@@ -138,7 +140,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
       h('a.button.button-empty', {
         on: {
           click() {
-           ctrl.startPosition();
+            ctrl.startPosition();
           }
         }
       }, ctrl.trans.noarg('startPosition')),
