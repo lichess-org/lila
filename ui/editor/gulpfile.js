@@ -1,2 +1,3 @@
-require('@build/jsProject')('LichessEditor', 'lichess.editor', __dirname);
-require('@build/cssProject')(__dirname);
+const lilaGulp = require('@build/tsProject');
+
+lilaGulp('LichessEditor', 'lichess.editor', __dirname);

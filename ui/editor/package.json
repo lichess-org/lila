@@ -3,7 +3,6 @@
   "version": "2.0.0",
   "private": true,
   "description": "lichess.org board editor",
-  "main": "src/main.js",
   "keywords": [
     "chess",
     "lichess.org",
@@ -13,12 +12,12 @@
   "author": "Thibault Duplessis",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@build/jsProject": "2.0.0",
+    "@build/tsProject": "2.0.0",
     "@build/cssProject": "2.0.0"
   },
   "dependencies": {
     "chessground": "^7.6",
-    "mithril": "github:ornicar/mithril.js#lila-1",
+    "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "common": "2.0.0"
   }
 }
