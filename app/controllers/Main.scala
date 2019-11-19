@@ -129,12 +129,12 @@ Disallow: /games/export
     Ok(html.site.bits.getFishnet()).fuccess
   }
 
-  def costs = Open { implicit ctx =>
-    Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview").fuccess
+  def costs = Action {
+    Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview")
   }
 
-  def verifyTitle = Open { implicit ctx =>
-    Redirect("https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform").fuccess
+  def verifyTitle = Action {
+    Redirect("https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")
   }
 
   def contact = Open { implicit ctx =>
