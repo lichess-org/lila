@@ -21,7 +21,7 @@ object editor {
     moreJs = frag(
       jsAt(s"compiled/lichess.editor${isProd ?? (".min")}.js"),
       embedJsUnsafe(s"""var data=${safeJsonValue(bits.jsData(sit, fen, animationDuration))};data.positions=$positionsJson;
-LichessEditor.default(document.querySelector('#board-editor > .board-editor'), data);""")
+LichessEditor(document.getElementById('board-editor'), data);""")
     ),
     moreCss = cssTag("editor"),
     chessground = false,

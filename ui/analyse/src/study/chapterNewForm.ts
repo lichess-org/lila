@@ -184,7 +184,7 @@ export function view(ctrl: StudyChapterNewFormCtrl): VNode {
                   inlineCastling: true,
                   onChange: ctrl.vm.editorFen
                 };
-                ctrl.vm.editor = window['LichessEditor'].default(vnode.elm as HTMLElement, data);
+                ctrl.vm.editor = window['LichessEditor'](vnode.elm as HTMLElement, data);
                 ctrl.vm.editorFen(ctrl.vm.editor.getFen());
               });
             },

@@ -15,7 +15,7 @@ menuHover();
 
 const patch = init([klass, attributes, eventlisteners]);
 
-export default function(element: HTMLElement, config: EditorConfig) {
+window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
   let vnode: VNode, ctrl: EditorCtrl;
 
   const redraw = () => {
@@ -23,7 +23,10 @@ export default function(element: HTMLElement, config: EditorConfig) {
   };
 
   ctrl = new EditorCtrl(config, redraw);
-  vnode = patch(element, view(ctrl));
+  element.innerHTML = '';
+  const inner = document.createElement('div');
+  element.appendChild(inner);
+  vnode = patch(inner, view(ctrl));
 
   return {
     getFen: ctrl.computeFen.bind(ctrl),
