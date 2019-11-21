@@ -1,7 +1,6 @@
 package lila.push
 
 import java.io.FileInputStream
-import scala.concurrent.ExecutionContext
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential
 import collection.JavaConverters._
 
@@ -15,9 +14,6 @@ private final class FirebasePush(
     appId: String,
     key: String
 ) {
-
-  // private implicit val blockingIOContext: ExecutionContext =
-  //   system.dispatchers.lookup("push.blocking-io-context")
 
   def apply(userId: String)(data: => PushApi.Data): Funit =
     getDevices(userId) flatMap {
@@ -52,7 +48,7 @@ private final class FirebasePush(
           }
     }
 
-  private def getAccessToken() {
+  private def getAccessToken(): String = {
     val googleCredential = GoogleCredential
       .fromStream(new FileInputStream("service-account.json"))
       .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
