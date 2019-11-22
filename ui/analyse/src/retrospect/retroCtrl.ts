@@ -71,7 +71,7 @@ export function make(root: AnalyseCtrl): RetroCtrl {
         });
         if (ucis.includes(fault.node.uci!)) {
           explorerCancelPlies.push(fault.node.ply);
-          window.setTimeout(jumpToNext, 100);
+          setTimeout(jumpToNext, 100);
         } else {
           cur.openingUcis = ucis;
           current(cur);

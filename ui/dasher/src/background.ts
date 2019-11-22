@@ -104,7 +104,7 @@ function applyBackground(data: BackgroundData, list: Background[]) {
     link.type = 'text/css';
     link.rel = 'stylesheet';
     link.href = $(this).attr('href').replace('.' + prev + '.', '.' + key + '.');
-    link.onload = () => window.setTimeout(() => this.remove(), 100);
+    link.onload = () => setTimeout(() => this.remove(), 100);
     document.head.appendChild(link);
   });
 

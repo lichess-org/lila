@@ -29,6 +29,6 @@ export default function(msg: string | (() => string)) {
   if (document.hasFocus() || !('Notification' in window)) return;
   if (Notification.permission === 'granted') {
     // increase chances that the first tab can put a local storage lock
-    window.setTimeout(notify, 10 + Math.random() * 500, msg);
+    setTimeout(notify, 10 + Math.random() * 500, msg);
   }
 }

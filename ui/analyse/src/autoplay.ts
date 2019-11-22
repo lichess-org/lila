@@ -51,7 +51,7 @@ export class Autoplay {
   }
 
   private schedule(): void {
-    this.timeout = window.setTimeout(() => {
+    this.timeout = setTimeout(() => {
       if (this.move()) this.schedule();
     }, this.nextDelay());
   }

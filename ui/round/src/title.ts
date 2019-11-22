@@ -28,10 +28,10 @@ function startTicker() {
   function tick() {
     if (!document.hasFocus()) {
       F[1 - curFaviconIdx]();
-      tickerTimer = window.setTimeout(tick, 1000);
+      tickerTimer = setTimeout(tick, 1000);
     }
   }
-  if (!tickerTimer) tickerTimer = window.setTimeout(tick, 200);
+  if (!tickerTimer) tickerTimer = setTimeout(tick, 200);
 }
 
 export function init() {

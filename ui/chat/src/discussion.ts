@@ -18,7 +18,7 @@ export default function(ctrl: Ctrl): Array<VNode | undefined> {
       const autoScroll = (el.scrollTop === 0 || (el.scrollTop > (el.scrollHeight - el.clientHeight - 100)));
       if (autoScroll) {
         el.scrollTop = 999999;
-        window.setTimeout((_: any) => el.scrollTop = 999999, 300)
+        setTimeout((_: any) => el.scrollTop = 999999, 300)
       }
     }
   },
@@ -85,7 +85,7 @@ let mouchListener: EventListener;
 
 const setupHooks = (ctrl: Ctrl, chatEl: HTMLElement) => {
   chatEl.addEventListener('keypress',
-    (e: KeyboardEvent) => window.setTimeout(() => {
+    (e: KeyboardEvent) => setTimeout(() => {
       const el = e.target as HTMLInputElement,
         txt = el.value,
         pub = ctrl.opts.public;

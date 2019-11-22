@@ -28,19 +28,19 @@ export default function(opts) {
   var sendAnaMove = function(req) {
     clearTimeout(anaMoveTimeout);
     opts.send('anaMove', req);
-    anaMoveTimeout = window.setTimeout(function() {
+    anaMoveTimeout = setTimeout(function() {
       sendAnaMove(req);
     }, 3000);
   };
 
   var sendAnaDests = function(req) {
     clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path]) window.setTimeout(function() {
+    if (anaDestsCache[req.path]) setTimeout(function() {
       handlers.dests(anaDestsCache[req.path]);
     }, 10);
     else {
       opts.send('anaDests', req);
-      anaDestsTimeout = window.setTimeout(function() {
+      anaDestsTimeout = setTimeout(function() {
         sendAnaDests(req);
       }, 3000);
     }

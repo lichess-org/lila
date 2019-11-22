@@ -43,10 +43,10 @@ window.lichess.RoundNVUI = function(redraw: Redraw) {
           drawable: { enabled: false },
           coordinates: false
         }));
-        if (variantNope) window.setTimeout(() => notify.set(variantNope), 3000);
+        if (variantNope) setTimeout(() => notify.set(variantNope), 3000);
       }
       return h('div.nvui', {
-        hook: onInsert(_ => window.setTimeout(() => notify.set(gameText(ctrl)), 2000))
+        hook: onInsert(_ => setTimeout(() => notify.set(gameText(ctrl)), 2000))
       }, [
         h('h1', gameText(ctrl)),
         h('h2', 'Game info'),

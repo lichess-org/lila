@@ -60,7 +60,7 @@ export default function(root: AnalyseCtrl, studyData: StudyData, data: StudyPrac
   function onVictory(): void {
     saveNbMoves();
     sound.success();
-    if (autoNext()) window.setTimeout(goToNext, 1000);
+    if (autoNext()) setTimeout(goToNext, 1000);
   }
 
   function saveNbMoves(): void {

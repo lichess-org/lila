@@ -57,7 +57,7 @@ export function renderResult(ctrl: RoundController): VNode | undefined {
       h('p.status', {
         hook: util.onInsert(() => {
           if (ctrl.autoScroll) ctrl.autoScroll();
-          else window.setTimeout(() => ctrl.autoScroll(), 200);
+          else setTimeout(() => ctrl.autoScroll(), 200);
         })
       }, [
         viewStatus(ctrl),

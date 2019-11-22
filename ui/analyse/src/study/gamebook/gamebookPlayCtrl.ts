@@ -59,8 +59,8 @@ export default class GamebookPlayCtrl {
     }
     this.state = state as State;
     if (!state.comment) {
-      if (state.feedback === 'good') window.setTimeout(this.next, this.root.path ? 1000 : 300);
-      else if (state.feedback === 'bad') window.setTimeout(this.retry, 800);
+      if (state.feedback === 'good') setTimeout(this.next, this.root.path ? 1000 : 300);
+      else if (state.feedback === 'bad') setTimeout(this.retry, 800);
     }
   }
 
@@ -114,7 +114,7 @@ export default class GamebookPlayCtrl {
   onJump = () => {
     this.makeState();
     // wait for the root ctrl to make the move
-    window.setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
+    setTimeout(() => this.root.withCg(cg => cg.playPremove()), 100);
   }
 
   onShapeChange = shapes => {

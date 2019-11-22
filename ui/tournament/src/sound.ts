@@ -17,7 +17,7 @@ function doCountDown(targetTime: number) {
 
     if (bestTick > 0) {
       let nextTick = Math.min(10, bestTick - 1);
-      countDownTimeout = window.setTimeout(curCounter, 1000 *
+      countDownTimeout = setTimeout(curCounter, 1000 *
         Math.min(1.1, Math.max(0.8, (secondsToStart - nextTick))));
     }
 
@@ -50,11 +50,11 @@ export function countDown(data: TournamentData) {
   if (countDownTimeout) return;
   if (data.secondsToStart > 60 * 60 * 24) return;
 
-  countDownTimeout = window.setTimeout(
+  countDownTimeout = setTimeout(
     doCountDown(performance.now() + 1000 * data.secondsToStart - 100),
     900);  // wait 900ms before starting countdown.
 
-  window.setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);
+  setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);
 
   // Preload countdown sounds.
   for (let i = 10; i>=0; i--) li.sound.load('countDown' + i);

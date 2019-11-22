@@ -82,5 +82,5 @@ function addNag(el: HTMLElement) {
     }, { once: true });
   }
 
-  window.setTimeout(() => storage.set(true), 15000);
+  setTimeout(() => storage.set(true), 15000);
 }

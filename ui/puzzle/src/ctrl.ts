@@ -57,14 +57,14 @@ export default function(opts, redraw: () => void): Controller {
     vm.initialNode = tree.nodeAtPath(initialPath);
 
     setPath(treePath.init(initialPath));
-    window.setTimeout(function() {
+    setTimeout(function() {
       jump(initialPath);
       redraw();
     }, 500);
 
     // just to delay button display
     vm.canViewSolution = false;
-    window.setTimeout(function() {
+    setTimeout(function() {
       vm.canViewSolution = true;
       redraw();
     }, 5000);
@@ -180,7 +180,7 @@ export default function(opts, redraw: () => void): Controller {
   };
 
   var revertUserMove = function() {
-    window.setTimeout(function() {
+    setTimeout(function() {
       withGround(function(g) { g.cancelPremove(); });
       userJump(treePath.init(vm.path));
       redraw();
@@ -209,7 +209,7 @@ export default function(opts, redraw: () => void): Controller {
       }
     } else if (progress && progress.orig) {
       vm.lastFeedback = 'good';
-      window.setTimeout(function() {
+      setTimeout(function() {
         socket.sendAnaMove(progress);
       }, 500);
     }

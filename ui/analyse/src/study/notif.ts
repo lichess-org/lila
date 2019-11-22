@@ -19,7 +19,7 @@ export function ctrl(redraw: () => void) {
     set(n: Notif) {
       clearTimeout(timeout);
       current = n;
-      timeout = window.setTimeout(function() {
+      timeout = setTimeout(function() {
         current = undefined;
         redraw();
       }, n.duration);
