@@ -46,7 +46,7 @@ function backoff(delay: number, factor: number, callback: (...args: any[]) => vo
     if (timer) clearTimeout(timer);
 
     if (elapsed > delay) exec();
-    else timer = setTimeout(exec, delay - elapsed);
+    else timer = window.setTimeout(exec, delay - elapsed);
   }
 }
 
