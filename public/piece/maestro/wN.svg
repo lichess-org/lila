@@ -5,8 +5,8 @@
    <stop stop-color="#fbf5d1" offset="0"/>
    <stop stop-color="#d8cc92" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient3139-5" x1="-115.84" x2="-78.433" y1="315.71" y2="315.71" gradientTransform="matrix(.99992 0 0 1.0089 121.93 -293.01)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3257"/>
-  <linearGradient id="linearGradient3213-3" x1="-117.25" x2="-78.639" y1="299.64" y2="299.97" gradientTransform="matrix(.99992 0 0 1.0089 121.93 -293.01)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3257"/>
+  <linearGradient id="linearGradient4314" x1="-115.84" x2="-78.433" y1="315.71" y2="315.71" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3257"/>
+  <linearGradient id="linearGradient4316" x1="-116.32" x2="-78.639" y1="299.9" y2="299.97" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3257"/>
  </defs>
  <metadata>
   <rdf:RDF>
@@ -17,16 +17,20 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <path d="m12.452 34.83c2.6135 2.2429 3.4643-0.99143 4.3885-3.1826 1.4771-3.321 6.7454-2.9662 8.6729-6.9293 2.4356 9.8077-7.4352 7.8209-7.9076 18.88h25.219c1.7316-20.595-4.5284-34.869-23.499-32.881-1.8861-2.0277-4.5195-3.3154-4.5195-3.3154-1.0224 1.9426-0.91646 4.3949 0.60368 5.3317 0 0-3.9343 3.0855-3.5456 7.7668 0 0-2.921 4.7492-4.6071 8.0053-0.78812 1.6344-0.21224 4.4652 1.1537 5.6513 0.37287 0.5829 3.3492 1.4625 3.3492 1.2159" clip-rule="evenodd" fill="url(#linearGradient3139-5)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-dashoffset="1.852" stroke-linecap="round" stroke-linejoin="round" stroke-width=".8"/>
- <path d="m15.554 19.119s0.3452-1.8119 2.6102-2.5748" fill="none" stroke="#040404" stroke-linecap="round" stroke-linejoin="round"/>
- <ellipse transform="matrix(.96858 -.24871 .18463 .98281 0 0)" cx="13.192" cy="22.124" rx="1.0694" ry="1.0953" style="paint-order:markers fill stroke"/>
- <g stroke="#000" stroke-linecap="round">
-  <g stroke-linejoin="round">
-   <path d="m9.2735 30.695s-0.049196-0.54528 0.64642-1.2576" fill="#fff" stroke-width="1.4"/>
-   <path d="m25.513 24.718s0.67394-1.2673 0.92761-2.5187c0.25367-1.2513 0.16104-2.4948 0.16104-2.4948" fill="none" stroke-width=".8"/>
-   <path d="m19.312 11.994s0.59059-3.8602 3.5311-4.5172c0 0 2.0915 0.82651 1.027 5.5618" fill="url(#linearGradient3213-3)" stroke-width=".8" style="paint-order:markers fill stroke"/>
+ <g transform="matrix(1.0109 0 0 1.02 225.91 -227.21)" stroke-width=".98477">
+  <g transform="matrix(.98911 0 0 .98907 -103.3 -64.507)" stroke-width=".99563">
+   <path d="m-109.02 324.03c2.6137 2.2231 3.4646-0.98271 4.3889-3.1546 1.4772-3.2918 6.2782-2.0129 8.2058-5.9411 2.4358 9.7214-7.4358 7.7521-7.9083 18.714h25.221c1.7318-20.414-4.5288-34.562-23.501-32.592-1.8863-2.0099-4.5199-3.2863-4.5199-3.2863-1.0225 1.9255-0.91653 4.3563 0.60373 5.2848 0 0-3.5136 3.4756-2.8443 6.0758 0 0-2.7582 6.124-4.4444 9.3515-0.78818 1.62-0.0138 3.7703 1.3523 4.9459 0.3729 0.57777 2.7541 1.3841 2.7541 1.1397" clip-rule="evenodd" fill="url(#linearGradient4314)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#000" stroke-dashoffset="1.852" stroke-linecap="round" stroke-linejoin="round" stroke-width=".79651"/>
+   <path d="m-106.52 309.51c0.0172 2e-3 0.8048-1.7491 2.6104-2.5522" fill="none" stroke="#040404" stroke-linecap="round" stroke-linejoin="round" stroke-width=".99563"/>
+   <ellipse transform="matrix(.96911 -.24664 .18623 .98251 0 0)" cx="-161.18" cy="273.82" rx=".99987" ry="1.0158" style="paint-order:markers fill stroke"/>
+   <g stroke="#000" stroke-linecap="round">
+    <g stroke-linejoin="round">
+     <path d="m-111.45 320.3s-0.0492-0.54048 0.64647-1.2465" fill="#fff" stroke-width="1.1948"/>
+     <path d="m-96.427 314.93s0.674-1.2562 0.92769-2.4965c0.25369-1.2403 0.16105-2.4729 0.16105-2.4729" fill="none" stroke-width=".79651"/>
+     <path d="m-102.63 302.32s0.59064-3.8262 3.5314-4.4774c0 0 2.0917 0.81924 1.0271 5.5128" fill="url(#linearGradient4316)" stroke-width=".79651" style="paint-order:markers fill stroke"/>
+    </g>
+    <path d="m-107.38 322.07c-0.2775 0.48597-1.3145 1.6132-2.3318 2.4948" fill="none" stroke-width=".79651"/>
+   </g>
   </g>
-  <path d="m14.406 32.459c-0.24782 0.50511-1.4205 2.1284-2.6458 2.9138" fill="none" stroke-width=".8"/>
+  <path d="m-200.47 234.12c15.311 0.5866 17.298 13.639 15.773 31.366h3.1404c1.5702-18.508-3.5046-31.807-18.816-32.393z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".2" shape-rendering="geometricPrecision"/>
  </g>
- <path d="m23.705 11.604c15.479 0.59835 17.487 13.913 15.945 31.994h3.1747c1.5874-18.879-3.5429-32.444-19.022-33.042z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".2" shape-rendering="geometricPrecision"/>
 </svg>
