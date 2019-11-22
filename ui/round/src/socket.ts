@@ -28,6 +28,28 @@ interface Handlers {
   [key: string]: (data: any) => void;
 }
 
+function backoff(delay: number, factor: number, callback: (...args: any[]) => void): (...args:any[]) => void {
+  let timer: number | undefined;
+  let lastExec = 0;
+
+  return function(this: any, ...args: any[]): void {
+    const self: any = this;
+    const elapsed = performance.now() - lastExec;
+
+    function exec() {
+      timer = undefined;
+      lastExec = performance.now();
+      delay *= factor;
+      callback.apply(self, args);
+    }
+
+    if (timer) clearTimeout(timer);
+
+    if (elapsed > delay) exec();
+    else timer = setTimeout(exec, delay - elapsed);
+  }
+}
+
 export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
   function reload(o: Incoming, isRetry?: boolean) {
@@ -138,18 +160,11 @@ export function make(send: SocketSend, ctrl: RoundController): RoundSocket {
 
   li.pubsub.on('ab.rep', n => send('rep', { n: n }));
 
-  function sendFlag(player: Color) {
-    let credits = 10;
-    return () => {
-      if (--credits >= 0) send('flag', player);
-    };
-  }
-
   return {
     send,
     handlers,
     moreTime: throttle(300, () => send('moretime')),
-    outoftime: throttle(500, sendFlag(d.game.player)),
+    outoftime: backoff(500, 1.1, () => send('flag', d.game.player)),
     berserk: throttle(200, () => send('berserk', null, { ackable: true })),
     sendLoading(typ: string, data?: any) {
       ctrl.setLoading(true);
