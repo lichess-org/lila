@@ -10,14 +10,14 @@
 @form3.group(form("name"), Html("Name"), half = true)(form3.input(_))
 }
 @form3.split {
-@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true, help = Html("Ask on slack first!").some)(form3.input(_, typ = "number"))
+@form3.group(form("homepageHours"), Html(s"Hours on homepage (0 to $maxHomepageHours)"), half = true, help = Html("Ask first!").some)(form3.input(_, typ = "number"))
 @form3.group(form("image"), Html("Custom icon"), half = true)(form3.select(_, imageChoices))
 }
 @form3.group(form("headline"), Html("Homepage headline"))(form3.input(_))
 @form3.group(form("description"), Html("Full description | Link: [text](url)"))(form3.textarea(_)(*.rows := 6))
 
 @form3.split {
-@form3.group(form("hostName"), Html("Host"), half = true)(form3.input(_, klass = s"user-autocomplete${running ?? " disabled"}")(*.attr("data-tag") := "span"))
+@form3.group(form("hostName"), Html("Host"), half = true)(form3.input(_, klass = s"user-autocomplete${running ?? " disabled"}", disabled = running)(*.attr("data-tag") := "span"))
 @form3.group(form("arbiterName"), Html("Arbiter (optional)"), half = true)(form3.input(_, klass = s"user-autocomplete")(*.attr("data-tag") := "span"))
 @if(running) {@form3.hidden(form("hostName"))}
 }

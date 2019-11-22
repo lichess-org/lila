@@ -78,17 +78,18 @@ trait FormHelper { self: I18nHelper =>
         help map { helper(_) }
       )
 
-    def input(field: Field, typ: String = "", klass: String = ""): BaseTagType =
+    def input(field: Field, typ: String = "", klass: String = "", disabled: Boolean = false): BaseTagType =
       st.input(
         st.id := id(field),
         name := field.name,
         value := field.value,
         `type` := typ.nonEmpty.option(typ),
-        cls := List("form-control" -> true, klass -> klass.nonEmpty)
+        cls := List("form-control" -> true, klass -> klass.nonEmpty),
+        st.disabled := disabled.option(true)
       )(validationModifiers(field))
 
-    def inputHtml(field: Field, typ: String = "", klass: String = "")(modifiers: Modifier*): Html =
-      input(field, typ, klass)(modifiers)
+    def inputHtml(field: Field, typ: String = "", klass: String = "", disabled: Boolean = false)(modifiers: Modifier*): Html =
+      input(field, typ, klass, disabled)(modifiers)
 
     def checkbox(
       field: Field,
@@ -129,7 +130,7 @@ trait FormHelper { self: I18nHelper =>
         st.id := id(field),
         name := field.name,
         cls := "form-control",
-        st.disabled := disabled ?? true.some
+        st.disabled := disabled.option(true)
       )(validationModifiers(field))(
           default map { option(value := "")(_) },
           options.toSeq map {
