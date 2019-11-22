@@ -6,9 +6,10 @@ import scala.util.control.NonFatal
 
 object BlockingIO {
   private val threadPool: ExecutorService =
+    // TODO conf
     Executors.newFixedThreadPool(100)
 
-  def execute[T](cb: => T): Future[T] = {
+  def apply[T](cb: => T): Future[T] = {
     val p = Promise[T]()
 
     threadPool.execute(new Runnable {

@@ -15,6 +15,7 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
+    firebasePush: FirebasePush,
     oneSignalPush: OneSignalPush,
     webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
@@ -209,6 +210,9 @@ private final class PushApi(
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
     webPush(userId)(data) >> oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
+      data
+    } >> firebasePush(userId) {
+      monitor(lila.mon.push.send)("firebase")
       data
     }
 

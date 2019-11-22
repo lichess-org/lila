@@ -21,6 +21,8 @@ final class Env(
   private val OneSignalAppId = config getString "onesignal.app_id"
   private val OneSignalKey = config getString "onesignal.key"
 
+  private val FirebaseUrl = config getString "firebase.url"
+
   private val WebUrl = config getString "web.url"
   val WebVapidPublicKey = config getString "web.vapid_public_key"
 
@@ -37,6 +39,11 @@ final class Env(
     key = OneSignalKey
   )
 
+  private lazy val firebasePush = new FirebasePush(
+    deviceApi.findLastManyByUserId("firebase", 3) _,
+    url = FirebaseUrl
+  )
+
   private lazy val webPush = new WebPush(
     webSubscriptionApi.getSubscriptions(5) _,
     url = WebUrl,
@@ -44,6 +51,7 @@ final class Env(
   )
 
   private lazy val pushApi = new PushApi(
+    firebasePush,
     oneSignalPush,
     webPush,
     getLightUser,
