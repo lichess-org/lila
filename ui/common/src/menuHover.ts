@@ -52,7 +52,7 @@ export const menuHover = () => window.lichess.raf(function() {
         // set previous coordinates for next comparison
         state.pX = cX; state.pY = cY;
         // use self-calling timeout, guarantees intervals are spaced out properly (avoids JavaScript timer bugs)
-        state.timeoutId = setTimeout(compare, interval );
+        state.timeoutId = window.setTimeout(compare, interval );
       }
     };
 
@@ -74,7 +74,7 @@ export const menuHover = () => window.lichess.raf(function() {
         // update "current" X and Y position based on mousemove
         $el.off(mousemove, track).on(mousemove, track);
         // start polling interval (self-calling timeout) to compare mouse coordinates over time
-        state.timeoutId = setTimeout(compare, interval );
+        state.timeoutId = window.setTimeout(compare, interval );
       } else { // "mouseleave"
         // do nothing if not already active
         if (!state.isActive) return;

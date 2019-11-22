@@ -62,7 +62,7 @@ export function ctrl(root: AnalyseCtrl): CommentForm {
     submit,
     start,
     onSetPath(chapterId: string, path: Tree.Path, node: Tree.Node, playedMyself: boolean): void {
-      setTimeout(() => {
+      window.setTimeout(() => {
         const cur = current();
         if (cur && (path !== cur.path || chapterId !== cur.chapterId) && (!focus() || playedMyself)) {
           cur.chapterId = chapterId;
@@ -121,7 +121,7 @@ export function view(root: AnalyseCtrl): VNode {
               setupTextarea(vnode);
               const el = vnode.elm as HTMLInputElement;
               function onChange() {
-                setTimeout(function() {
+                window.setTimeout(function() {
                   ctrl.submit(el.value);
                 }, 50);
               }

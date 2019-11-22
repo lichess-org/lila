@@ -25,7 +25,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
 
   if (!li.AnalyseNVUI) {
     li.pubsub.on('analysis.comp.toggle', (v: boolean) => {
-      setTimeout(function() {
+      window.setTimeout(function() {
         (v ? $menu.find('[data-panel="computer-analysis"]') : $menu.find('span:eq(1)')).trigger('mousedown');
       }, 50);
     });
@@ -101,7 +101,7 @@ export default function(element: HTMLElement, ctrl: AnalyseCtrl) {
       });
     } catch (e) {}
     if (panel == 'computer-analysis' && $("#acpl-chart").length)
-      setTimeout(startAdvantageChart, 200);
+      window.setTimeout(startAdvantageChart, 200);
   };
   $menu.on('mousedown', 'span', function(this: HTMLElement) {
     const panel = $(this).data('panel');

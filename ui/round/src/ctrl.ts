@@ -82,7 +82,7 @@ export default class RoundController {
     this.goneBerserk[d.player.color] = d.player.berserk;
     this.goneBerserk[d.opponent.color] = d.opponent.berserk;
 
-    setTimeout(() => { this.firstSeconds = false; this.redraw(); }, 3000);
+    window.setTimeout(() => { this.firstSeconds = false; this.redraw(); }, 3000);
 
     this.socket = makeSocket(opts.socketSend, this);
 
@@ -106,12 +106,12 @@ export default class RoundController {
     this.trans = li.trans(opts.i18n);
     this.noarg = this.trans.noarg;
 
-    setTimeout(this.delayedInit, 200);
+    window.setTimeout(this.delayedInit, 200);
 
-    setTimeout(this.showExpiration, 350);
+    window.setTimeout(this.showExpiration, 350);
 
     if (!document.referrer || document.referrer.indexOf('/service-worker.js') === -1)
-      setTimeout(this.showYourMoveNotification, 500);
+      window.setTimeout(this.showYourMoveNotification, 500);
 
     // at the end:
     li.pubsub.on('jump', ply => { this.jump(parseInt(ply)); this.redraw(); });
@@ -139,7 +139,7 @@ export default class RoundController {
   private showExpiration = () => {
     if (!this.data.expiration) return;
     this.redraw();
-    setTimeout(this.showExpiration, 250);
+    window.setTimeout(this.showExpiration, 250);
   }
 
   private onUserMove = (orig: cg.Key, dest: cg.Key, meta: cg.MoveMetadata) => {
@@ -434,7 +434,7 @@ export default class RoundController {
       // with explosions and premoves
       // https://github.com/ornicar/lila/issues/343
       const premoveDelay = d.game.variant.key === 'atomic' ? 100 : 1;
-      setTimeout(() => {
+      window.setTimeout(() => {
         if (!this.chessground.playPremove() && !this.playPredrop()) {
           promotion.cancel(this);
           this.showYourMoveNotification();
@@ -502,7 +502,7 @@ export default class RoundController {
     this.redraw();
     this.autoScroll();
     this.onChange();
-    if (d.tv) setTimeout(li.reload, 10000);
+    if (d.tv) window.setTimeout(li.reload, 10000);
     speech.status(this);
   };
 
@@ -510,7 +510,7 @@ export default class RoundController {
     this.challengeRematched = true;
     xhr.challengeRematch(this.data.game.id).then(() => {
       li.challengeApp.open();
-      if (li.once('rematch-challenge')) setTimeout(() => {
+      if (li.once('rematch-challenge')) window.setTimeout(() => {
         li.hopscotch(function() {
           window.hopscotch.configure({
             i18n: { doneBtn: 'OK, got it' }
@@ -569,7 +569,7 @@ export default class RoundController {
         this.socket.sendLoading('resign');
         clearTimeout(this.resignConfirm);
       } else {
-        this.resignConfirm = setTimeout(() => this.resign(false), 3000);
+        this.resignConfirm = window.setTimeout(() => this.resign(false), 3000);
       }
       this.redraw();
     } else if (this.resignConfirm) {
@@ -595,7 +595,7 @@ export default class RoundController {
     clearTimeout(this.loadingTimeout);
     if (v) {
       this.loading = true;
-      this.loadingTimeout = setTimeout(() => {
+      this.loadingTimeout = window.setTimeout(() => {
         this.loading = false;
         this.redraw();
       }, duration);
@@ -608,7 +608,7 @@ export default class RoundController {
 
   setRedirecting = () => {
     this.redirecting = true;
-    setTimeout(() => {
+    window.setTimeout(() => {
       this.redirecting = false;
       this.redraw();
     }, 2500);
@@ -632,7 +632,7 @@ export default class RoundController {
   };
 
   private onChange = () => {
-    if (this.opts.onChange) setTimeout(() => this.opts.onChange(this.data), 150);
+    if (this.opts.onChange) window.setTimeout(() => this.opts.onChange(this.data), 150);
   };
 
   forceResignable = (): boolean => {
@@ -654,7 +654,7 @@ export default class RoundController {
         clearTimeout(this.drawConfirm);
         this.drawConfirm = undefined;
       } else if (v) {
-        if (this.data.pref.confirmResign) this.drawConfirm = setTimeout(() => {
+        if (this.data.pref.confirmResign) this.drawConfirm = window.setTimeout(() => {
           this.offerDraw(false);
         }, 3000);
         else this.doOfferDraw();

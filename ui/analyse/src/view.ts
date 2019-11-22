@@ -151,10 +151,10 @@ function repeater(ctrl: AnalyseCtrl, action: 'prev' | 'next', e: Event) {
     control[action](ctrl);
     ctrl.redraw();
     delay = Math.max(100, delay - delay / 15);
-    timeout = setTimeout(repeat, delay);
+    timeout = window.setTimeout(repeat, delay);
   };
   let delay = 350;
-  let timeout = setTimeout(repeat, 500);
+  let timeout = window.setTimeout(repeat, 500);
   control[action](ctrl);
   const eventName = e.type == 'touchstart' ? 'touchend' : 'mouseup';
   document.addEventListener(eventName, () => clearTimeout(timeout), {once: true});

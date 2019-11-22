@@ -29,7 +29,7 @@ export default class RelayCtrl {
     if (this.clockInterval) clearInterval(this.clockInterval);
     if (r) {
       c.relay = this.convertDate(r);
-      if (!isFinished(c)) this.clockInterval = setInterval(this.redraw, 1000);
+      if (!isFinished(c)) this.clockInterval = window.setInterval(this.redraw, 1000);
     }
   }
 
@@ -51,7 +51,7 @@ export default class RelayCtrl {
       this.data.sync.log.push(event);
       this.data.sync.log = this.data.sync.log.slice(-20);
       this.cooldown = true;
-      setTimeout(() => { this.cooldown = false; this.redraw(); }, 4500);
+      window.setTimeout(() => { this.cooldown = false; this.redraw(); }, 4500);
       this.redraw();
       if (event.error) console.warn(`relay synchronisation error: ${event.error}`);
     }

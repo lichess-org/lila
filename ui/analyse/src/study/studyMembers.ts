@@ -23,7 +23,7 @@ function memberActivity(onIdle) {
   let timeout;
   let schedule = function() {
     if (timeout) clearTimeout(timeout);
-    timeout = setTimeout(onIdle, 100);
+    timeout = window.setTimeout(onIdle, 100);
   };
   schedule();
   return schedule;

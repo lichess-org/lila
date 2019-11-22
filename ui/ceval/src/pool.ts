@@ -15,7 +15,7 @@ export function makeWatchdog(name: string): Watchdog {
     disarmSoon() {
       if (failed || disarming) return;
       disarming = true;
-      setTimeout(() => {
+      window.setTimeout(() => {
         // delayed to detect potential tab crash
         prop(0);
         console.log('watchdog disarmed (delayed): ' + name);
@@ -83,7 +83,7 @@ class WebWorker extends AbstractWorker {
   start(work: Work): Promise<void> {
     // wait for boot
     return this.protocol.promise.then(protocol => {
-      const timeout = new Promise((_, reject) => setTimeout(reject, 1000));
+      const timeout = new Promise((_, reject) => window.setTimeout(reject, 1000));
       return Promise.race([protocol.stop(), timeout]).catch(() => {
         // reboot if not stopped after 1s
         this.destroy();
@@ -209,7 +209,7 @@ export class Pool {
     const worker = new Promise<AbstractWorker>((resolve, reject) => {
       const currentWorker = this.workers[this.token];
       currentWorker.stop().then(() => resolve(currentWorker));
-      setTimeout(reject, 50);
+      window.setTimeout(reject, 50);
     });
 
     return worker.catch(() => {
@@ -244,7 +244,7 @@ export class Pool {
       worker.start(work);
     }).catch(function(error) {
       console.log(error);
-      setTimeout(() => window.lichess.reload(), 10000);
+      window.setTimeout(() => window.lichess.reload(), 10000);
     });
   };
 

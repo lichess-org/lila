@@ -17,7 +17,7 @@ export default class TransientMove {
   current: number | undefined = undefined;
 
   register = () => {
-    this.current = setTimeout(this.expire, 5000);
+    this.current = window.setTimeout(this.expire, 5000);
   }
 
   clear = () => {

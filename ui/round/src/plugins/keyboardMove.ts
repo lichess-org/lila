@@ -52,7 +52,7 @@ window.lichess.keyboardMove = function(opts: any) {
         clear();
       }
     } else if (submitOpts.yourMove && v.length > 1) {
-      setTimeout(window.lichess.sound.error, 500);
+      window.setTimeout(window.lichess.sound.error, 500);
       opts.input.value = '';
     }
     else {

@@ -37,7 +37,7 @@ function moveTableAttributes(ctrl: AnalyseCtrl, fen: Fen) {
         });
       },
       postpatch: (_, vnode) => {
-        setTimeout(() => {
+        window.setTimeout(() => {
           const el = vnode.elm as HTMLElement;
           ctrl.explorer.setHovering($(el).attr('data-fen'), $(el).find('tr:hover').attr('data-uci'));
         }, 100);

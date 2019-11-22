@@ -154,8 +154,8 @@ interface LightUser {
   patron?: boolean
 }
 
-declare var SharedArrayBuffer: any | undefined;
-declare var Atomics: any | undefined;
+// declare var SharedArrayBuffer: any | undefined;
+// declare var Atomics: any | undefined;
 
 declare type VariantKey = 'standard' | 'chess960' | 'antichess' | 'fromPosition' | 'kingOfTheHill' | 'threeCheck' | 'atomic' | 'horde' | 'racingKings' | 'crazyhouse';
 

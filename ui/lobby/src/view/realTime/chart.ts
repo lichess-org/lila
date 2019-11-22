@@ -58,7 +58,7 @@ function renderPlot(ctrl: LobbyController, hook: Hook) {
           closeDelay: 200,
           popupId: 'hook'
         }).data('powertipjq', $(renderHook(ctrl, hook)));
-        setTimeout(function() {
+        window.setTimeout(function() {
           (vnode.elm as HTMLElement).classList.remove('new');
         }, 20);
       },

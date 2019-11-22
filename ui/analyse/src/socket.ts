@@ -49,7 +49,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
   clearCache();
 
   // forecast mode: reload when opponent moves
-  if (!ctrl.synthetic) setTimeout(function() {
+  if (!ctrl.synthetic) window.setTimeout(function() {
     send("startWatching", ctrl.data.game.id);
   }, 1000);
 
@@ -119,14 +119,14 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
 
   function sendAnaDests(req) {
     clearTimeout(anaDestsTimeout);
-    if (anaDestsCache[req.path]) setTimeout(function() {
+    if (anaDestsCache[req.path]) window.setTimeout(function() {
       handlers.dests(anaDestsCache[req.path]);
     }, 300);
     else {
       withoutStandardVariant(req);
       addStudyData(req);
       send('anaDests', req);
-      anaDestsTimeout = setTimeout(function() {
+      anaDestsTimeout = window.setTimeout(function() {
         console.log(req, 'resendAnaDests');
         sendAnaDests(req);
       }, 3000);
@@ -138,7 +138,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     withoutStandardVariant(req);
     addStudyData(req, true);
     send('anaMove', req);
-    anaMoveTimeout = setTimeout(() => sendAnaMove(req), 3000);
+    anaMoveTimeout = window.setTimeout(() => sendAnaMove(req), 3000);
   }
 
   function sendAnaDrop(req) {
@@ -146,7 +146,7 @@ export function make(send: SocketSend, ctrl: AnalyseCtrl): Socket {
     withoutStandardVariant(req);
     addStudyData(req, true);
     send('anaDrop', req);
-    anaMoveTimeout = setTimeout(() => sendAnaDrop(req), 3000);
+    anaMoveTimeout = window.setTimeout(() => sendAnaDrop(req), 3000);
   }
 
   return {

@@ -62,7 +62,7 @@ export default class LobbyController {
     this.startWatching();
 
     if (this.playban) {
-      if (this.playban.remainingSecond < 86400) setTimeout(li.reload, this.playban.remainingSeconds * 1000);
+      if (this.playban.remainingSecond < 86400) window.setTimeout(li.reload, this.playban.remainingSeconds * 1000);
     }
     else {
       setInterval(() => {
@@ -95,7 +95,7 @@ export default class LobbyController {
     else {
       this.stepping = true;
       if (this.tab === 'real_time') this.redraw();
-      setTimeout(() => {
+      window.setTimeout(() => {
         this.stepping = false;
         this.doFlushHooks();
       }, 500);
@@ -104,7 +104,7 @@ export default class LobbyController {
   };
 
   private flushHooksSchedule(): number {
-    return setTimeout(this.flushHooks, 8000);
+    return window.setTimeout(this.flushHooks, 8000);
   }
 
   setTab = (tab: Tab) => {
@@ -204,14 +204,14 @@ export default class LobbyController {
       .map(p => p.gameId)
       .filter(id => !this.alreadyWatching.includes(id));
     if (newIds.length) {
-      setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
+      window.setTimeout(() => this.socket.send("startWatching", newIds.join(' ')), 2000);
       newIds.forEach(id => this.alreadyWatching.push(id));
     }
   };
 
   setRedirecting = () => {
     this.redirecting = true;
-    setTimeout(() => {
+    window.setTimeout(() => {
       this.redirecting = false;
       this.redraw();
     }, 4000);

@@ -40,7 +40,7 @@ export default class TournamentController {
     this.socket = makeSocket(opts.socketSend, this);
     this.page = this.data.standing.page;
     this.focusOnMe = tour.isIn(this);
-    setTimeout(() => this.disableClicks = false, 1500);
+    window.setTimeout(() => this.disableClicks = false, 1500);
     this.loadPage(this.data.standing);
     this.scrollToMe();
     sound.end(this.data);
@@ -79,7 +79,7 @@ export default class TournamentController {
 
   redirectFirst = (gameId: string, rightNow?: boolean) => {
     const delay = (rightNow || document.hasFocus()) ? 10 : (1000 + Math.random() * 500);
-    setTimeout(() => {
+    window.setTimeout(() => {
       if (this.lastStorage.get() !== gameId) {
         this.lastStorage.set(gameId);
         window.lichess.redirect('/' + gameId);
@@ -139,7 +139,7 @@ export default class TournamentController {
   private startWatching(id: string) {
     if (id !== this.watchingGameId) {
       this.watchingGameId = id;
-      setTimeout(() => this.socket.send("startWatching", id), 1000);
+      window.setTimeout(() => this.socket.send("startWatching", id), 1000);
     }
   };
 
