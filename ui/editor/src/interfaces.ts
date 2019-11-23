@@ -30,7 +30,7 @@ export interface EditorConfig {
 
 export interface EditorOptions {
   orientation?: Color;
-  onChange?: (fen: string | undefined) => void;
+  onChange?: (fen: string) => void;
   inlineCastling?: boolean;
 }
 

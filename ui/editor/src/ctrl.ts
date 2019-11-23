@@ -70,7 +70,7 @@ export default class EditorCtrl {
   onChange(): void {
     const state = this.getState();
     window.history.replaceState(null, '', this.makeUrl('/editor/', state.fen));
-    this.options.onChange && this.options.onChange(state.legalFen);
+    this.options.onChange && this.options.onChange(state.fen);
     this.redraw();
   }
 
