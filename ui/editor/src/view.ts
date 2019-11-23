@@ -222,6 +222,8 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
       h('input.copyable.autoselect', {
         attrs: {
           spellcheck: false,
+        },
+        props: {
           value: fen,
         },
         on: {

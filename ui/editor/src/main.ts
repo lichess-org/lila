@@ -6,6 +6,7 @@ import { init } from 'snabbdom';
 import { VNode } from 'snabbdom/vnode';
 import klass from 'snabbdom/modules/class';
 import attributes from 'snabbdom/modules/attributes';
+import props from 'snabbdom/modules/props';
 import eventlisteners from 'snabbdom/modules/eventlisteners';
 
 import { menuHover } from 'common/menuHover';
@@ -13,7 +14,7 @@ import { Chessground } from 'chessground';
 
 menuHover();
 
-const patch = init([klass, attributes, eventlisteners]);
+const patch = init([klass, attributes, props, eventlisteners]);
 
 window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
   let vnode: VNode, ctrl: EditorCtrl;
