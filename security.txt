@@ -2,4 +2,4 @@ Contact: mailto:contact@lichess.org
 Encryption: https://lichess.org/.well-known/gpg.asc
 Preferred-Languages: en
 Canonical: https://lichess.org/.well-known/security.txt
-Policy: http://localhost/contact#help-security
+Policy: https://lichess.org/contact#help-security
