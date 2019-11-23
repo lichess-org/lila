@@ -117,7 +117,17 @@ export default class EditorCtrl {
   }
 
   makeAnalysisUrl(legalFen: string): string {
-    return this.makeUrl('', legalFen); // TODO
+    switch (this.rules) {
+      case 'chess': return this.makeUrl('/analysis/', legalFen);
+      case '3check': return this.makeUrl('/analysis/threeCheck/', legalFen);
+      case 'kingofthehill': return this.makeUrl('/analysis/kingOfTheHill/', legalFen);
+      case 'racingkings': return this.makeUrl('/analysis/racingKings/', legalFen);
+      case 'antichess':
+      case 'atomic':
+      case 'horde':
+      case 'crazyhouse':
+        return this.makeUrl(`/analysis/${this.rules}/`, legalFen);
+    }
   }
 
   makeUrl(baseUrl: string, fen: string): string {
