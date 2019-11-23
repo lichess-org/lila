@@ -311,6 +311,8 @@ interface JQuery {
   watchers(): JQuery;
   watchers(method: 'set', data: any): void;
   highcharts(conf?: any): any;
+  slider(key: string, value: any): any;
+  slider(opts: any): any;
 }
 
 declare namespace PowerTip {
