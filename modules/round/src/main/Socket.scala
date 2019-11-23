@@ -120,6 +120,7 @@ private[round] final class Socket(
 
     def tv = members.flatMap { case (_, m) => m.userTv }.toSet foreach { (userId: String) =>
       sub(Symbol(s"userStartGame:$userId"))
+      sub(Symbol(s"simulNextGame:$userId"))
     }
 
     def chat = chatIds.all foreach { chatId =>
