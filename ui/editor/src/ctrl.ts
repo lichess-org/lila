@@ -1,23 +1,34 @@
-import { EditorConfig, EditorData, EditorOptions, Selected, Redraw, OpeningPosition, CastlingSide } from './interfaces';
-import * as editor from './editor';
-import { read as fenRead } from 'chessground/fen';
+import { EditorConfig, EditorOptions, EditorState, Selected, Redraw, OpeningPosition, CastlingToggle, CastlingToggles, CASTLING_TOGGLES } from './interfaces';
 import { Api as CgApi } from 'chessground/api';
-import { prop, Prop } from 'common';
+import { Rules, Square } from 'chessops/types';
+import { SquareSet } from 'chessops/squareSet';
+import { Board } from 'chessops/board';
+import { Setup, Material, RemainingChecks } from 'chessops/setup';
+import { Castles, setupPosition } from 'chessops/variant';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
+import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
   cfg: EditorConfig;
-  data: EditorData;
   options: EditorOptions;
   trans: Trans;
-  selected: Prop<Selected>;
   extraPositions: OpeningPosition[];
   chessground: CgApi | undefined;
   positionIndex: { [boardFen: string]: number };
   redraw: Redraw;
 
+  selected: Prop<Selected>;
+
+  pockets: Material | undefined;
+  turn: Color;
+  unmovedRooks: SquareSet | undefined;
+  castlingToggles: CastlingToggles<boolean>;
+  epSquare: Square | undefined;
+  remainingChecks: RemainingChecks | undefined;
+  rules: Rules;
+
   constructor(cfg: EditorConfig, redraw: Redraw) {
     this.cfg = cfg;
-    this.data = editor.init(cfg);
     this.options = cfg.options || {};
 
     this.trans = window.lichess.trans(this.cfg.i18n);
@@ -46,18 +57,71 @@ export default class EditorCtrl {
       redraw();
     });
 
+
+    this.castlingToggles = { K: false, Q: false, k: false, q: false };
+    this.rules = 'chess';
+
+    this.redraw = () => {};
+    this.setFen(cfg.fen);
     this.redraw = redraw;
   }
 
   onChange(): void {
-    this.options.onChange && this.options.onChange(this.computeFen());
+    this.options.onChange && this.options.onChange(this.getLegalFen());
     this.redraw();
   }
 
-  computeFen(): string {
-    return this.chessground ?
-    editor.computeFen(this.data, this.chessground.getFen()) :
-    this.cfg.fen;
+  private castlingToggleFen(): string {
+    let fen = '';
+    for (const toggle of CASTLING_TOGGLES) {
+      if (this.castlingToggles[toggle]) fen += toggle;
+    }
+    return fen;
+  }
+
+  private getSetup(): Setup {
+    const boardFen = this.chessground ? this.chessground.getFen() : this.cfg.fen;
+    const board = parseFen(boardFen).unwrap(setup => setup.board, _ => Board.empty());
+    return {
+      board,
+      pockets: this.pockets,
+      turn: this.turn,
+      unmovedRooks: this.unmovedRooks || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
+      epSquare: this.epSquare,
+      remainingChecks: this.remainingChecks,
+      halfmoves: 0,
+      fullmoves: 1,
+    };
+  }
+
+  getFen(): string {
+    return makeFen(this.getSetup(), {promoted: this.rules == 'crazyhouse'});
+  }
+
+  getLegalFen(): string | undefined {
+    return setupPosition(this.rules, this.getSetup()).unwrap(pos => {
+      return makeFen(pos.toSetup(), {promoted: pos.rules == 'crazyhouse'});
+    }, _ => undefined);
+  }
+
+  isPlayable(): boolean {
+    return setupPosition(this.rules, this.getSetup()).unwrap(pos => !pos.isEnd(), _ => false);
+  }
+
+  getState(): EditorState {
+    return {
+      fen: this.getFen(),
+      legalFen: this.getLegalFen(),
+      playable: this.isPlayable(),
+    };
+  }
+
+  makeAnalysisUrl(legalFen: string): string {
+    return this.makeUrl('', legalFen); // TODO
+  }
+
+  makeUrl(baseUrl: string, fen: string): string {
+    return baseUrl + encodeURIComponent(fen).replace(/%20/g, '_').replace(/%2F/g, '/');
   }
 
   bottomColor(): Color {
@@ -66,31 +130,23 @@ export default class EditorCtrl {
     this.options.orientation || 'white';
   }
 
-  setColor(letter: 'w' | 'b'): void {
-    this.data.color(letter);
+  setCastlingToggle(id: CastlingToggle, value: boolean): void {
+    if (this.castlingToggles[id] != value) this.unmovedRooks = undefined;
+    this.castlingToggles[id] = value;
     this.onChange();
   }
 
-  setCastle(id: CastlingSide, value: boolean): void {
-    this.data.castles[id](value);
+  setTurn(turn: Color): void {
+    this.turn = turn;
     this.onChange();
   }
 
   startPosition(): void {
-    this.chessground!.set({
-      fen: 'start'
-    });
-    this.data.castles = editor.castlesAt(true);
-    this.data.color('w');
-    this.onChange();
+    this.setFen(INITIAL_FEN);
   }
 
   clearBoard(): void {
-    this.chessground!.set({
-      fen: '8/8/8/8/8/8/8/8'
-    });
-    this.data.castles = editor.castlesAt(false);
-    this.onChange();
+    this.setFen(EMPTY_FEN);
   }
 
   loadNewFen(fen: string | 'prompt'): void {
@@ -98,31 +154,36 @@ export default class EditorCtrl {
       fen = (prompt('Paste FEN position') || '').trim();
       if (!fen) return;
     }
-    this.changeFen(fen);
+    this.setFen(fen);
   }
 
-  changeFen(fen: string) {
-    window.location.href = editor.makeUrl(this.data.baseUrl, fen);
+  setFen(fen: string): boolean {
+    return parseFen(fen).unwrap(setup => {
+      if (this.chessground) this.chessground.set({fen});
+      this.pockets = setup.pockets;
+      this.turn = setup.turn;
+      this.unmovedRooks = setup.unmovedRooks;
+      this.epSquare = setup.epSquare;
+      this.remainingChecks = setup.remainingChecks;
+
+      const castles = Castles.fromSetup(setup);
+      this.castlingToggles['K'] = defined(castles.rook.white.h);
+      this.castlingToggles['Q'] = defined(castles.rook.white.a);
+      this.castlingToggles['k'] = defined(castles.rook.white.h);
+      this.castlingToggles['q'] = defined(castles.rook.white.a);
+
+      this.onChange();
+      return true;
+    }, _ => false);
   }
 
-  changeVariant(variant: VariantKey): void {
-    this.data.variant = variant;
-    this.redraw();
-  }
-
-  positionLooksLegit(): boolean {
-    const variant = this.data.variant;
-    if (variant === 'antichess') return true;
-    const pieces = this.chessground ? this.chessground.state.pieces : fenRead(this.cfg.fen);
-    const kings = {
-      white: 0,
-      black: 0
-    };
-    for (const pos in pieces) {
-      const piece = pieces[pos];
-      if (piece && piece.role === 'king') kings[piece.color]++;
-    }
-    return kings.white === (variant !== 'horde' ? 1 : 0) && kings.black === 1;
+  setRules(rules: Rules): void {
+    this.rules = rules;
+    if (rules != 'crazyhouse') this.pockets = undefined;
+    else if (!this.pockets) this.pockets = Material.empty();
+    if (rules != '3check') this.remainingChecks = undefined;
+    else if (!this.remainingChecks) this.remainingChecks = RemainingChecks.default();
+    this.onChange();
   }
 
   setOrientation(o: Color): void {

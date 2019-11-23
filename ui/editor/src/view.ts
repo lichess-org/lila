@@ -3,20 +3,20 @@ import { VNode } from 'snabbdom/vnode';
 import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
+import { Rules } from 'chessops/types';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
-import * as editor from './editor';
-import { OpeningPosition, Selected } from './interfaces';
+import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
 
-function castleCheckBox(ctrl: EditorCtrl, id: 'K' | 'Q' | 'k' | 'q', label: string, reversed: boolean): VNode {
+function castleCheckBox(ctrl: EditorCtrl, id: CastlingToggle, label: string, reversed: boolean): VNode {
   const input = h('input', {
     attrs: {
       type: 'checkbox',
-      checked: ctrl.data.castles[id](),
+      checked: ctrl.castlingToggles[id],
     },
     on: {
       change(e) {
-        ctrl.setCastle(id, (e.target as HTMLInputElement).checked);
+        ctrl.setCastlingToggle(id, (e.target as HTMLInputElement).checked);
       }
     }
   });
@@ -27,7 +27,7 @@ function optgroup(name: string, opts: VNode[]): VNode {
   return h('optgroup', { attrs: { label: name } }, opts);
 }
 
-function studyButton(ctrl: EditorCtrl, fen: string): VNode {
+function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
   return h('form', {
     attrs: {
       method: 'post',
@@ -35,46 +35,46 @@ function studyButton(ctrl: EditorCtrl, fen: string): VNode {
     }
   }, [
     h('input', { attrs: { type: 'hidden', name: 'orientation', value: ctrl.bottomColor() } }),
-    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.data.variant } }),
-    h('input', { attrs: { type: 'hidden', name: 'fen', value: fen } }),
+    h('input', { attrs: { type: 'hidden', name: 'variant', value: ctrl.rules } }),
+    h('input', { attrs: { type: 'hidden', name: 'fen', value: state.legalFen || '' } }),
     h('button', {
       attrs: {
         type: 'submit',
         'data-icon': '4',
-        disabled: !ctrl.positionLooksLegit(),
+        disabled: !state.legalFen,
       },
       class: {
         button: true,
         'button-empty': true,
         text: true,
-        disabled: !ctrl.positionLooksLegit()
+        disabled: !state.legalFen,
       }
     }, 'Study')
   ]);
 }
 
-function variant2option(key: VariantKey, name: string, ctrl: EditorCtrl): VNode {
+function variant2option(key: Rules, name: string, ctrl: EditorCtrl): VNode {
   return h('option', {
     attrs: {
       value: key,
-      selected: key == ctrl.data.variant
+      selected: key == ctrl.rules
     },
   }, `${ctrl.trans.noarg('variant')} | ${name}`);
 }
 
-const allVariants: Array<[VariantKey, string]> = [
-  ['standard', 'Standard'],
+const allVariants: Array<[Rules, string]> = [
+  ['chess', 'Standard'],
   ['antichess', 'Antichess'],
   ['atomic', 'Atomic'],
   ['crazyhouse', 'Crazyhouse'],
   ['horde', 'Horde'],
-  ['kingOfTheHill', 'King of the Hill'],
-  ['racingKings', 'Racing Kings'],
-  ['threeCheck', 'Three-check'],
+  ['kingofthehill', 'King of the Hill'],
+  ['racingkings', 'Racing Kings'],
+  ['3check', 'Three-check'],
 ];
 
-function controls(ctrl: EditorCtrl, fen: string): VNode {
-  const positionIndex = ctrl.positionIndex[fen.split(' ')[0]];
+function controls(ctrl: EditorCtrl, state: EditorState): VNode {
+  const positionIndex = ctrl.positionIndex[state.fen.split(' ')[0]];
   const currentPosition = ctrl.cfg.positions && positionIndex !== -1 ? ctrl.cfg.positions[positionIndex] : null;
   const position2option = function(pos: OpeningPosition): VNode {
     return h('option', {
@@ -84,8 +84,6 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
       }
     }, pos.eco ? `${pos.eco} ${pos.name}` : pos.name);
   };
-  const selectedVariant = ctrl.data.variant;
-  const looksLegit = ctrl.positionLooksLegit();
   return h('div.board-editor__tools', [
     ...(ctrl.cfg.embed || !ctrl.cfg.positions ? [] : [h('div', [
       h('select.positions', {
@@ -98,7 +96,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
         optgroup(ctrl.trans.noarg('setTheBoard'), [
           ...(currentPosition ? [] : [h('option', {
             attrs: {
-              value: fen,
+              value: state.fen,
               selected: true
             }
           }, `- ${ctrl.trans.noarg('boardEditor')}  -`)]),
@@ -112,14 +110,14 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
         h('select', {
           on: {
             change(e) {
-              ctrl.setColor((e.target as HTMLSelectElement).value as 'w' | 'b');
+              ctrl.setTurn((e.target as HTMLSelectElement).value as Color);
             }
           }
         }, ['whitePlays', 'blackPlays'].map(function(key) {
           return h('option', {
             attrs: {
-              value: key[0],
-              selected: ctrl.data.color() === key[0]
+              value: key[0] == 'w' ? 'white' : 'black',
+              selected: ctrl.turn[0] === key[0]
             }
           }, ctrl.trans(key));
         }))
@@ -157,7 +155,7 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           attrs: { id: 'variants' },
           on: {
             change(e) {
-              ctrl.changeVariant((e.target as HTMLSelectElement).value as VariantKey);
+              ctrl.setRules((e.target as HTMLSelectElement).value as Rules);
             }
           }
         }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
@@ -175,39 +173,39 @@ function controls(ctrl: EditorCtrl, fen: string): VNode {
           attrs: {
             'data-icon': 'A',
             rel: 'nofollow',
-            ...(looksLegit ? { href: editor.makeUrl('/analysis/' + selectedVariant + '/', fen) } : {})
+            ...(state.legalFen ? { href: ctrl.makeAnalysisUrl(state.legalFen) } : {})
           },
           class: {
             button: true,
             'button-empty': true,
             text: true,
-            disabled: !looksLegit
+            disabled: !state.legalFen
           }
         }, ctrl.trans.noarg('analysis')),
         h('a', {
           class: {
             button: true,
             'button-empty': true,
-            disabled: !looksLegit || selectedVariant !== 'standard'
+            disabled: !state.playable || ctrl.rules !== 'chess'
           },
           on: {
             click: () => {
-              if (ctrl.positionLooksLegit() && selectedVariant === 'standard') $.modal($('.continue-with'));
+              if (state.playable && ctrl.rules === 'chess') $.modal($('.continue-with'));
             }
           }
         }, [h('span.text', { attrs: { 'data-icon' : 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
-        studyButton(ctrl, fen)
+        studyButton(ctrl, state)
       ]),
       h('div.continue-with.none', [
         h('a.button', {
           attrs: {
-            href: '/?fen=' + fen + '#ai',
+            href: '/?fen=' + state.legalFen + '#ai',
             rel: 'nofollow'
           }
         }, ctrl.trans.noarg('playWithTheMachine')),
         h('a.button', {
           attrs: {
-            href: '/?fen=' + fen + '#friend',
+            href: '/?fen=' + state.legalFen + '#friend',
             rel: 'nofollow'
           }
         }, ctrl.trans.noarg('playWithAFriend'))
@@ -229,7 +227,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         on: {
           change(e) {
             const value = (e.target as HTMLInputElement).value;
-            if (value !== fen) ctrl.changeFen(value);
+            if (value !== fen) ctrl.setFen(value);
           }
         }
       })
@@ -240,7 +238,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         attrs: {
           readonly: true,
           spellcheck: false,
-          value: editor.makeUrl(ctrl.data.baseUrl, fen)
+          value: ctrl.makeUrl(ctrl.cfg.baseUrl, fen)
         }
       })
     ])
@@ -328,7 +326,7 @@ function makeCursor(selected: Selected): string {
 }
 
 export default function(ctrl: EditorCtrl): VNode {
-  const fen = ctrl.computeFen();
+  const state = ctrl.getState();
   const color = ctrl.bottomColor();
 
   return h('div.board-editor', {
@@ -339,7 +337,7 @@ export default function(ctrl: EditorCtrl): VNode {
     sparePieces(ctrl, opposite(color), color, 'top'),
     h('div.main-board', [chessground(ctrl)]),
     sparePieces(ctrl, color, color, 'bottom'),
-    controls(ctrl, fen),
-    inputs(ctrl, fen)
+    controls(ctrl, state),
+    inputs(ctrl, state.fen)
   ]);
 }

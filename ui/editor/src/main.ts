@@ -29,7 +29,8 @@ window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
   vnode = patch(inner, view(ctrl));
 
   return {
-    getFen: ctrl.computeFen.bind(ctrl),
+    getFen: ctrl.getFen.bind(ctrl),
+    getLegalFen: ctrl.getLegalFen.bind(ctrl),
     setOrientation: ctrl.setOrientation.bind(ctrl)
   };
 };
