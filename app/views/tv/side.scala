@@ -54,7 +54,7 @@ object side {
         }
       },*/
       div(id := "tv_channels")(
-        lidraughts.tv.Tv.Channel.all.map { c =>
+        lidraughts.tv.Tv.Channel.visible.map { c =>
           a(dataIcon := c.icon, href := s"$baseUrl/${c.key}", cls := List(c.key -> true, "active" -> (c == channel)))(
             strong(c.name),
             span(

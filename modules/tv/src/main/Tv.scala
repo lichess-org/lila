@@ -122,13 +122,14 @@ object Tv {
       icon = "n",
       filters = Seq(computerFromInitialPosition, freshBlitz)
     )
-    val all = List(
+    val visible = List(
       Best,
       Bullet, Blitz, Rapid, Classical,
       Frisian, Frysk, Antidraughts, Breakthrough,
       UltraBullet,
-      Bot, Computer
+      Computer
     )
+    val all = visible :+ Bot
     val byKey = all.map { c => c.key -> c }.toMap
   }
 
