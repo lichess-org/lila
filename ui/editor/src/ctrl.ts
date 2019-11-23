@@ -68,9 +68,9 @@ export default class EditorCtrl {
   }
 
   onChange(): void {
-    const state = this.getState();
-    window.history.replaceState(null, '', this.makeUrl('/editor/', state.fen));
-    this.options.onChange && this.options.onChange(state.fen);
+    const fen = this.getFen();
+    window.history.replaceState(null, '', this.makeUrl('/editor/', fen));
+    this.options.onChange && this.options.onChange(fen);
     this.redraw();
   }
 
@@ -101,13 +101,13 @@ export default class EditorCtrl {
     return makeFen(this.getSetup(), {promoted: this.rules == 'crazyhouse'});
   }
 
-  getLegalFen(): string | undefined {
+  private getLegalFen(): string | undefined {
     return setupPosition(this.rules, this.getSetup()).unwrap(pos => {
       return makeFen(pos.toSetup(), {promoted: pos.rules == 'crazyhouse'});
     }, _ => undefined);
   }
 
-  isPlayable(): boolean {
+  private isPlayable(): boolean {
     return setupPosition(this.rules, this.getSetup()).unwrap(pos => !pos.isEnd(), _ => false);
   }
 
@@ -115,7 +115,7 @@ export default class EditorCtrl {
     return {
       fen: this.getFen(),
       legalFen: this.getLegalFen(),
-      playable: this.isPlayable(),
+      playable: this.rules == 'chess' && this.isPlayable(),
     };
   }
 

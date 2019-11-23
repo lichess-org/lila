@@ -31,7 +31,6 @@ window.LichessEditor = (element: HTMLElement, config: EditorConfig) => {
 
   return {
     getFen: ctrl.getFen.bind(ctrl),
-    getLegalFen: ctrl.getLegalFen.bind(ctrl),
     setOrientation: ctrl.setOrientation.bind(ctrl)
   };
 };

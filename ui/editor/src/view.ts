@@ -190,7 +190,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           class: {
             button: true,
             'button-empty': true,
-            disabled: !state.playable || ctrl.rules !== 'chess'
+            disabled: !state.playable,
           },
           on: {
             click: () => {
