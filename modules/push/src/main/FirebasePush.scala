@@ -26,19 +26,6 @@ private final class FirebasePush(
     }
 
   private def send(authToken: String, device: Device, data: => PushApi.Data): Funit = {
-    val message = Json.obj(
-      "message" -> Json.obj(
-        "token" -> device._id,
-        // firebase doesn't support nested data object
-        // and I only use what is inside userData
-        "data" -> (data.payload \ "userData").get,
-        "notification" -> Json.obj(
-          "body" -> data.body,
-          "title" -> data.title
-        )
-      )
-    )
-    println(Json.stringify(message))
     WS.url(url)
       .withHeaders(
         "Authorization" -> s"Bearer $authToken",
