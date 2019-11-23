@@ -98,7 +98,14 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           }
         }
       }, [
-        optgroup(ctrl.trans.noarg('setTheBoard'), ctrl.extraPositions.map(position2option)),
+        optgroup(ctrl.trans.noarg('setTheBoard'), [
+          h('option', {
+            attrs: {
+              selected: true
+            }
+          }, `- ${ctrl.trans.noarg('boardEditor')}  -`),
+          ...ctrl.extraPositions.map(position2option)
+        ]),
         optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option))
       ])
     ])]),
