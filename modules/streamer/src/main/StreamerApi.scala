@@ -54,6 +54,15 @@ final class StreamerApi(
   def setLiveNow(ids: List[Streamer.Id]): Funit =
     coll.update($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
 
+  private[streamer] def mostRecentlySeenIds(ids: List[Streamer.Id], max: Int): Fu[Set[Streamer.Id]] =
+    coll.find($inIds(ids))
+      .sort($doc("seenAt" -> -1))
+      .list[Bdoc](max) map {
+        _ flatMap {
+          _.getAs[Streamer.Id]("_id")
+        }
+      } map (_.toSet)
+
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update($id(streamer.id), streamer) >>-

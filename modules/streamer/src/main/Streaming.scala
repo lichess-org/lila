@@ -94,26 +94,40 @@ private final class Streaming(
   }
 
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
-    val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
-    userIds.nonEmpty ?? {
-      val url = WS.url("https://api.twitch.tv/helix/streams")
-        .withQueryString(
-          (("first" -> "100") :: userIds.map("user_login" -> _)): _*
-        )
-        .withHeaders(
-          "Client-ID" -> twitchClientId
-        )
-      if (userIds.size > 1) logger.info(url.uri.toString)
-      url.get().map { res =>
-        res.json.validate[Twitch.Result](twitchResultReads) match {
-          case JsSuccess(data, _) => data.streams(
-            keyword,
-            streamers,
-            alwaysFeatured().value.map(_.toLowerCase)
+    val maxIds = 100
+    val allTwitchStreamers = streamers.flatMap { s =>
+      s.twitch map (s.id -> _)
+    }
+    val futureTwitchStreamers: Fu[List[Streamer.Twitch]] =
+      if (allTwitchStreamers.size > maxIds)
+        api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
+          allTwitchStreamers collect {
+            case (streamerId, twitch) if ids(streamerId) => twitch
+          }
+        }
+      else fuccess(allTwitchStreamers.map(_._2))
+    futureTwitchStreamers flatMap { twitchStreamers =>
+      twitchStreamers.nonEmpty ?? {
+        val twitchUserIds = twitchStreamers.map(_.userId)
+        val url = WS.url("https://api.twitch.tv/helix/streams")
+          .withQueryString(
+            (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
           )
-          case JsError(err) =>
-            logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
-            Nil
+          .withHeaders(
+            "Client-ID" -> twitchClientId
+          )
+        if (twitchUserIds.size > 1) logger.info(url.uri.toString)
+        url.get().map { res =>
+          res.json.validate[Twitch.Result](twitchResultReads) match {
+            case JsSuccess(data, _) => data.streams(
+              keyword,
+              streamers,
+              alwaysFeatured().value.map(_.toLowerCase)
+            )
+            case JsError(err) =>
+              logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+              Nil
+          }
         }
       }
     }
