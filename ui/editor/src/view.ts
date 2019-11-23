@@ -4,6 +4,7 @@ import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
+import { parseFen } from 'chessops/fen';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
@@ -219,7 +220,7 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
   return h('div.copyables', [
     h('p', [
       h('strong', 'FEN'),
-      h('input.copyable.autoselect', {
+      h('input.copyable', {
         attrs: {
           spellcheck: false,
         },
@@ -228,9 +229,20 @@ function inputs(ctrl: EditorCtrl, fen: string): VNode | undefined {
         },
         on: {
           change(e) {
-            const value = (e.target as HTMLInputElement).value;
-            if (value !== fen) ctrl.setFen(value);
-          }
+            const el = e.target as HTMLInputElement;
+            ctrl.setFen(el.value.trim());
+            el.reportValidity();
+          },
+          input(e) {
+            const el = e.target as HTMLInputElement;
+            const valid = parseFen(el.value.trim()).isOk;
+            el.setCustomValidity(valid ? '' : 'Invalid FEN');
+          },
+          blur(e) {
+            const el = e.target as HTMLInputElement;
+            el.value = ctrl.getFen();
+            el.setCustomValidity('');
+          },
         }
       })
     ]),

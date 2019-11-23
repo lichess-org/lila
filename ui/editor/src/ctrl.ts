@@ -26,6 +26,8 @@ export default class EditorCtrl {
   epSquare: Square | undefined;
   remainingChecks: RemainingChecks | undefined;
   rules: Rules;
+  halfmoves: number;
+  fullmoves: number;
 
   constructor(cfg: EditorConfig, redraw: Redraw) {
     this.cfg = cfg;
@@ -89,8 +91,8 @@ export default class EditorCtrl {
       unmovedRooks: this.unmovedRooks || parseCastlingFen(board, this.castlingToggleFen()).unwrap(),
       epSquare: this.epSquare,
       remainingChecks: this.remainingChecks,
-      halfmoves: 0,
-      fullmoves: 1,
+      halfmoves: this.halfmoves,
+      fullmoves: this.fullmoves,
     };
   }
 
@@ -175,6 +177,8 @@ export default class EditorCtrl {
       this.unmovedRooks = setup.unmovedRooks;
       this.epSquare = setup.epSquare;
       this.remainingChecks = setup.remainingChecks;
+      this.halfmoves = setup.halfmoves;
+      this.fullmoves = setup.fullmoves;
 
       const castles = Castles.fromSetup(setup);
       this.castlingToggles['K'] = defined(castles.rook.white.h);
