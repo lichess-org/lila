@@ -179,13 +179,13 @@ object contact {
         Leaf("insufficient", "Insufficient mating material", frag(
           p(
             "According to the ",
-            a(href := "https://www.fide.com/fide/handbook.html?id=171&view=article")(
-              "FIDE Laws of Chess"
+            a(href := "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf")(
+              "FIDE Laws of Chess §6.9 (pdf)"
             ),
             ", if a checkmate is possible with any legal sequence of moves, then the game is not a draw."
           ),
           p(
-            "It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board."
+            "It can be possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board."
           )
         )),
         Leaf("casual", "No rating points were awarded", frag(
