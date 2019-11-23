@@ -5,7 +5,7 @@ import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN } from 'chessops/fen';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD, EMPTY_EPD } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
@@ -14,7 +14,6 @@ export default class EditorCtrl {
   trans: Trans;
   extraPositions: OpeningPosition[];
   chessground: CgApi | undefined;
-  positionIndex: { [boardFen: string]: number };
   redraw: Redraw;
 
   selected: Prop<Selected>;
@@ -38,27 +37,27 @@ export default class EditorCtrl {
     this.selected = prop('pointer');
 
     this.extraPositions = [{
-      fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
+      fen: INITIAL_FEN,
+      epd: INITIAL_EPD,
       name: this.trans('startPosition')
     }, {
-      fen: '8/8/8/8/8/8/8/8 w - -',
+      fen: EMPTY_FEN,
+      epd: EMPTY_EPD,
       name: this.trans('clearBoard')
     }, {
       fen: 'prompt',
       name: this.trans('loadPosition')
     }];
 
-    this.positionIndex = {};
-    if (cfg.positions) cfg.positions.forEach((p, i) => {
-      this.positionIndex[p.fen.split(' ')[0]] = i;
-    });
+    if (cfg.positions) {
+      cfg.positions.forEach(p => p.epd = p.fen.split(' ').splice(0, 4).join(' '));
+    }
 
     window.Mousetrap.bind('f', (e: Event) => {
       e.preventDefault();
       if (this.chessground) this.chessground.toggleOrientation();
       redraw();
     });
-
 
     this.castlingToggles = { K: false, Q: false, k: false, q: false };
     this.rules = 'chess';

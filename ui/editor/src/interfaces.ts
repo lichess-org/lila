@@ -12,6 +12,7 @@ export interface OpeningPosition {
   eco?: string;
   name: string;
   fen: string;
+  epd?: string;
 }
 
 export interface EditorConfig {

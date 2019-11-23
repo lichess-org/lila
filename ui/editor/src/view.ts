@@ -75,34 +75,30 @@ const allVariants: Array<[Rules, string]> = [
 ];
 
 function controls(ctrl: EditorCtrl, state: EditorState): VNode {
-  const positionIndex = ctrl.positionIndex[state.fen.split(' ')[0]];
-  const currentPosition = ctrl.cfg.positions && positionIndex !== -1 ? ctrl.cfg.positions[positionIndex] : null;
   const position2option = function(pos: OpeningPosition): VNode {
     return h('option', {
       attrs: {
-        value: pos.fen,
-        selected: !!currentPosition && currentPosition.fen === pos.fen
+        value: pos.epd || pos.fen,
+        'data-fen': pos.fen,
       }
     }, pos.eco ? `${pos.eco} ${pos.name}` : pos.name);
   };
   return h('div.board-editor__tools', [
     ...(ctrl.cfg.embed || !ctrl.cfg.positions ? [] : [h('div', [
       h('select.positions', {
+        props: {
+          value: state.fen.split(' ').slice(0, 4).join(' ')
+        },
         on: {
           change(e) {
-            ctrl.loadNewFen((e.target as HTMLSelectElement).value);
+            const el = e.target as HTMLSelectElement;
+            let value = el.selectedOptions[0].getAttribute('data-fen');
+            if (value == 'prompt') value = (prompt('Paste FEN') || '').trim();
+            if (!value || !ctrl.setFen(value)) el.value = '';
           }
         }
       }, [
-        optgroup(ctrl.trans.noarg('setTheBoard'), [
-          ...(currentPosition ? [] : [h('option', {
-            attrs: {
-              value: state.fen,
-              selected: true
-            }
-          }, `- ${ctrl.trans.noarg('boardEditor')}  -`)]),
-          ...ctrl.extraPositions.map(position2option)
-        ]),
+        optgroup(ctrl.trans.noarg('setTheBoard'), ctrl.extraPositions.map(position2option)),
         optgroup(ctrl.trans.noarg('popularOpenings'), ctrl.cfg.positions.map(position2option))
       ])
     ])]),
