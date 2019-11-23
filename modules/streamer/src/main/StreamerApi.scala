@@ -46,7 +46,7 @@ final class StreamerApi(
     coll.distinctWithReadPreference[Streamer.Id, List]("_id", selectListedApproved.some, ReadPreference.secondaryPreferred)
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.get flatMap { ids =>
+    listedIdsCache.get.nevermind flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
@@ -142,7 +142,11 @@ final class StreamerApi(
 
   private val listedIdsCache = asyncCache.single[Set[Streamer.Id]](
     name = "streamer.ids",
-    f = coll.distinctWithReadPreference[Streamer.Id, Set]("_id", selectListedApproved.some, ReadPreference.secondaryPreferred),
+    f = coll.distinctWithReadPreference[Streamer.Id, Set](
+      "_id",
+      selectListedApproved.some,
+      ReadPreference.secondaryPreferred
+    ),
     expireAfter = _.ExpireAfterWrite(1 hour)
   )
 }
