@@ -17,7 +17,7 @@
   },
   "dependencies": {
     "chessground": "^7.6",
-    "chessops": "^0.1.0",
+    "chessops": "^0.2.0",
     "snabbdom": "ornicar/snabbdom#0.7.1-lichess",
     "common": "2.0.0"
   }
