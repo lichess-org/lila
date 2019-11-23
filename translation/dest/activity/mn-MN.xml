@@ -12,11 +12,7 @@
   </plurals>
   <plurals name="createdNbStudies">
     <item quantity="one">Судалгаа нээх</item>
-    <item quantity="other">% S шинэ судалгааг үүсгэсэн</item>
-  </plurals>
-  <plurals name="competedInNbTournaments">
-    <item quantity="one">Тэмцээн амжилттай дууслаа.</item>
-    <item quantity="other">Тэмцээн амжилттай дууслаа.</item>
+    <item quantity="other">%s шинэ судалгааг үүсгэсэн</item>
   </plurals>
   <string name="signedUp">Lichess.org-т гарын үсэг зурлаа</string>
   <plurals name="joinedNbTeams">
