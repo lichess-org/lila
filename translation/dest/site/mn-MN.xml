@@ -268,10 +268,6 @@
   <string name="tournament">Тэмцээн</string>
   <string name="tournaments">Тэмцээнүүд</string>
   <string name="tournamentPoints">Тэмцээний оноо</string>
-  <plurals name="nbTournamentPoints">
-    <item quantity="one">Тэмцээн оноо</item>
-    <item quantity="other">Тэмцээн оноонууд</item>
-  </plurals>
   <string name="viewTournament">Тэмцээн үзэх</string>
   <string name="backToTournament">Тэмцээний үндсэн хуудас руу эргэж орох</string>
   <string name="thematic">Хэлбэржүүлсэн</string>
@@ -812,7 +808,6 @@
   <string name="opening">Гараа</string>
   <string name="middlegame">Тоглолтын дунд үе</string>
   <string name="endgame">Төгсгөл үе</string>
-  <string name="playX">Тоглох</string>
   <string name="sorry">Уучлаарай</string>
   <string name="why">Яагаад</string>
   <string name="thankYouForReading">Уншсанд баярлалаа</string>
