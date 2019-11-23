@@ -12,22 +12,18 @@ private[app] final class Renderer extends Actor {
   def receive = {
 
     case lidraughts.tv.actorApi.RenderFeaturedJs(game) =>
-      sender ! V.game.featuredJs(Pov first game)
+      sender ! V.game.bits.featuredJs(Pov first game).body
 
     case lidraughts.tournament.actorApi.TournamentTable(tours) =>
-      sender ! spaceless(V.tournament.enterable(tours))
+      sender ! V.tournament.enterable(tours).render
 
     case lidraughts.simul.actorApi.SimulTable(simuls) =>
-      sender ! spaceless(V.simul.allCreated(simuls))
+      sender ! V.simul.allCreated(simuls).render
 
     case lidraughts.puzzle.RenderDaily(puzzle, fen, lastMove) =>
-      sender ! spaceless(V.puzzle.daily(puzzle, fen, lastMove))
+      sender ! V.puzzle.bits.daily(puzzle, fen, lastMove).render
 
-    case streams: lidraughts.streamer.LiveStreams.WithTitles => sender ! V.streamer.liveStreams(streams)
-  }
-
-  private val spaceRegex = """\s{2,}+""".r
-  private def spaceless(html: Html) = Html {
-    spaceRegex.replaceAllIn(html.body.replace("\\n", " "), " ")
+    case streams: lidraughts.streamer.LiveStreams.WithTitles =>
+      sender ! V.streamer.bits.liveStreams(streams).render
   }
 }

@@ -23,7 +23,7 @@ object ForumPost extends LidraughtsController with ForumController {
   def recent = Open { implicit ctx =>
     NotForKids {
       Env.forum.recent(ctx.me, teamCache.teamIdsList) map { posts =>
-        html.forum.post.recent(posts)
+        Ok(html.forum.post.recent(posts))
       }
     }
   }

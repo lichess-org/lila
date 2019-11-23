@@ -1,4 +1,4 @@
-package lila.common
+package lidraughts.common
 
 object constants {
 

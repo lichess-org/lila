@@ -80,6 +80,14 @@ case class Pref(
   def bgImgOrDefault = bgImg | Pref.defaultBgImg
 
   def isZen = zen == Zen.YES
+
+  // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+  def botCompatible =
+    theme == "brown" &&
+      pieceSet == "wide_crown" &&
+      animation == Animation.NONE &&
+      highlight &&
+      coords == Coords.OUTSIDE
 }
 
 object Pref {

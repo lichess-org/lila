@@ -64,7 +64,10 @@ object Auth extends LidraughtsController {
     )
 
   private def authRecovery(implicit ctx: Context): PartialFunction[Throwable, Fu[Result]] = {
-    case lidraughts.security.SecurityApi.MustConfirmEmail(_) => BadRequest(Account.renderCheckYourEmail).fuccess
+    case lidraughts.security.SecurityApi.MustConfirmEmail(_) => fuccess {
+      if (HTTPRequest isXhr ctx.req) Ok(s"ok:${routes.Auth.checkYourEmail}")
+      else BadRequest(Account.renderCheckYourEmail)
+    }
   }
 
   def login = Open { implicit ctx =>
@@ -78,13 +81,13 @@ object Auth extends LidraughtsController {
     Firewall({
       implicit val req = ctx.body
       val referrer = get("referrer")
-      api.usernameForm.bindFromRequest.fold(
+      api.usernameOrEmailForm.bindFromRequest.fold(
         err => negotiate(
           html = Unauthorized(html.auth.login(api.loginForm, referrer)).fuccess,
           api = _ => Unauthorized(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))).fuccess
         ),
-        username => HasherRateLimit(username, ctx.req) { chargeIpLimiter =>
-          api.loadLoginForm(username) flatMap { loginForm =>
+        usernameOrEmail => HasherRateLimit(usernameOrEmail, ctx.req) { chargeIpLimiter =>
+          api.loadLoginForm(usernameOrEmail) flatMap { loginForm =>
             loginForm.bindFromRequest.fold(
               err => {
                 chargeIpLimiter(1)
@@ -250,7 +253,10 @@ object Auth extends LidraughtsController {
     Env.security.garbageCollector.delay(user, email, ctx.req)
 
   def checkYourEmail = Open { implicit ctx =>
-    fuccess(Account.renderCheckYourEmail)
+    fuccess {
+      if (ctx.isAuth) Redirect(routes.Lobby.home)
+      else Account.renderCheckYourEmail
+    }
   }
 
   // after signup and before confirmation
@@ -281,11 +287,16 @@ object Auth extends LidraughtsController {
   }
 
   def signupConfirmEmail(token: String) = Open { implicit ctx =>
+    import lidraughts.security.EmailConfirm.Result
     Env.security.emailConfirm.confirm(token) flatMap {
-      case None =>
+      case Result.NotFound =>
         lidraughts.mon.user.register.confirmEmailResult(false)()
         notFound
-      case Some(user) =>
+      case Result.AlreadyConfirmed(user) if ctx.is(user) =>
+        Redirect(routes.User.show(user.username)).fuccess
+      case Result.AlreadyConfirmed(user) =>
+        Redirect(routes.Auth.login).fuccess
+      case Result.JustConfirmed(user) =>
         lidraughts.mon.user.register.confirmEmailResult(true)()
         UserRepo.email(user.id).flatMap {
           _.?? { email =>
@@ -385,6 +396,7 @@ object Auth extends LidraughtsController {
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
+              UserRepo.setEmailConfirmed(user.id) >>
               env.store.disconnect(user.id) >>
               authenticateUser(user) >>-
               lidraughts.mon.user.auth.passwordResetConfirm("success")()

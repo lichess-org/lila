@@ -18,13 +18,13 @@
   <div class="services">
     @s.streamer.twitch.map { twitch =>
     <div class="service twitch">
-      @StreamerSvg.twitch
+      @bits.svg.twitch
       @twitch.minUrl
     </div>
     }
     @s.streamer.youTube.map { youTube =>
     <div class="service youTube">
-      @StreamerSvg.youTube
+      @bits.svg.youTube
       @youTube.minUrl
     </div>
     }
@@ -60,7 +60,7 @@ menu = menu("index", none).some) {
   }
   <div class="list infinitescroll">
     @pager.currentPageResults.map { s =>
-    <div class="streamer paginated_element" data-dedup="@s.streamer.id">@widget(s, none)</div>
+    <div class="streamer paginated" data-dedup="@s.streamer.id">@widget(s, none)</div>
     }
     @pager.nextPage.map { np =>
     @* <div class="pager none">
@@ -69,4 +69,4 @@ menu = menu("index", none).some) {
     }
   </div>
 </div>
-}
+}.toHtml

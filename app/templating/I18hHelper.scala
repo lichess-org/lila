@@ -1,21 +1,21 @@
 package lidraughts.app
 package templating
 
-import play.api.i18n.Lang
 import play.api.libs.json.JsObject
 import play.twirl.api.Html
 
+import lidraughts.common.Lang
 import lidraughts.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump, TimeagoLocales }
 import lidraughts.user.UserContext
 
 trait I18nHelper {
 
-  implicit def lang(implicit ctx: UserContext) = ctx.lang
+  implicit def ctxLang(implicit ctx: UserContext): Lang = ctx.lang
 
   def transKey(key: String, db: I18nDb.Ref, args: Seq[Any] = Nil)(implicit lang: Lang): Html =
     Translator.html.literal(key, db, args, lang)
 
-  def i18nJsObject(keys: I18nKey*)(implicit lang: Lang): JsObject =
+  def i18nJsObject(keys: Seq[I18nKey])(implicit lang: Lang): JsObject =
     JsDump.keysToObject(keys, I18nDb.Site, lang)
 
   def i18nOptionJsObject(keys: Option[I18nKey]*)(implicit lang: Lang): JsObject =
@@ -24,10 +24,8 @@ trait I18nHelper {
   def i18nFullDbJsObject(db: I18nDb.Ref)(implicit lang: Lang): JsObject =
     JsDump.dbToObject(db, lang)
 
-  def i18nJsQuantityFunction(implicit lang: Lang): Html = Html(JsQuantity(lang))
-
   private val defaultTimeagoLocale = TimeagoLocales.js.get("en") err "Missing en TimeagoLocales"
-  def timeagoLocaleScript(implicit ctx: lidraughts.api.Context) = Html {
+  def timeagoLocaleScript(implicit ctx: lidraughts.api.Context): String = {
     TimeagoLocales.js.get(ctx.lang.code) orElse
       TimeagoLocales.js.get(ctx.lang.language) getOrElse
       defaultTimeagoLocale

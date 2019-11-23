@@ -6,14 +6,14 @@
 
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false).some,
+side = Some(views.html.game.side(pov, initialFen, none, simul = simul, bookmarked = false)),
 chat = none,
-underchat = views.html.game.watchers().some,
+underchat = Some(views.html.game.bits.watchers),
 moreCss = cssTag("analyse.css"),
 openGraph = povOpenGraph(pov).some,
 draughtsground = false) {
 <div class="analyse cg-512">
-  @board.domPreload(pov.some)
+  @board.bits.domPreload(pov.some).toHtml
   <div class="lidraughts_ground for_bot">
     <h1>@titleGame(pov.game)</h1>
     <p>@describePov(pov)</p>

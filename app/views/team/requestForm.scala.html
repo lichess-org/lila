@@ -8,7 +8,7 @@
     <h1>@title</h1>
     <p style="margin:2em 0">@richText(t.description)</p>
     <form class="form3" action="@routes.Team.requestCreate(t.id)" method="POST">
-      @form3.group(form("message"), Html("Message"))(form3.textarea(_))
+      @form3.group(form("message"), Html("Message"))(form3.textarea(_)())
       <hr />
       <p>Your join request will be reviewed by the team leader.</p>
       <hr />

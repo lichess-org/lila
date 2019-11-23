@@ -5,12 +5,13 @@ import play.api.data.Form
 import play.api.http._
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
+import play.api.mvc.BodyParsers.parse
 import play.twirl.api.Html
-import BodyParsers.parse
+import scalatags.Text.{ TypedTag, Frag }
 
 import lidraughts.api.{ PageData, Context, HeaderContext, BodyContext }
 import lidraughts.app._
-import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion, Nonce }
+import lidraughts.common.{ LidraughtsCookie, HTTPRequest, ApiVersion, Nonce, Lang }
 import lidraughts.notify.Notification.Notifies
 import lidraughts.oauth.{ OAuthScope, OAuthServer }
 import lidraughts.security.{ Permission, Granter, FingerprintedUser }
@@ -34,6 +35,15 @@ private[controllers] trait LidraughtsController
   }
 
   protected implicit def LidraughtsHtmlToResult(content: Html): Result = Ok(content)
+
+  protected implicit def contentTypeOfFrag(implicit codec: Codec): ContentTypeOf[Frag] =
+    ContentTypeOf[Frag](Some(ContentTypes.HTML))
+  protected implicit def writeableOfFrag(implicit codec: Codec): Writeable[Frag] =
+    Writeable(frag => codec.encode(frag.render))
+
+  protected implicit def LidraughtsScalatagsToHtml(tags: scalatags.Text.TypedTag[String]): Html = Html(tags.render)
+
+  protected implicit def LidraughtsFragToResult(content: Frag): Result = Ok(content)
 
   protected val jsonOkBody = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
@@ -205,16 +215,16 @@ private[controllers] trait LidraughtsController
     else res
 
   protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.noEngine()).fuccess else a
+    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
 
   protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.noBooster()).fuccess else a
+    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.message.noBooster).fuccess else a
 
   protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoEngine(NoBooster(a))
 
   protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.noBot()).fuccess else a
+    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.message.noBot).fuccess else a
 
   protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     NoLame(NoBot(a))
@@ -466,7 +476,7 @@ private[controllers] trait LidraughtsController
     ) andThen (__ \ "").json.prune
   }
 
-  protected def errorsAsJson(form: Form[_])(implicit lang: play.api.i18n.Lang): JsObject = {
+  protected def errorsAsJson(form: Form[_])(implicit lang: Lang): JsObject = {
     val json = JsObject(
       form.errors.groupBy(_.key).mapValues { errors =>
         JsArray {
@@ -479,8 +489,11 @@ private[controllers] trait LidraughtsController
     json validate jsonGlobalErrorRenamer getOrElse json
   }
 
-  protected def jsonFormError(err: Form[_])(implicit lang: play.api.i18n.Lang) =
+  protected def jsonFormError(err: Form[_])(implicit lang: Lang) =
     fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
+
+  protected def jsonFormErrorDefaultLang(err: Form[_]) =
+    jsonFormError(err)(lidraughts.i18n.defaultLang)
 
   protected def pageHit(implicit ctx: lidraughts.api.Context) =
     if (HTTPRequest isHuman ctx.req) lidraughts.mon.http.request.path(ctx.req.path)()

@@ -3,9 +3,9 @@ package lidraughts.i18n
 import java.io._
 import scala.concurrent.Future
 import scala.collection.JavaConversions._
-
-import play.api.i18n.Lang
 import play.api.libs.json.{ JsString, JsObject }
+
+import lidraughts.common.Lang
 
 private[i18n] final class JsDump(path: String) {
 
@@ -31,7 +31,7 @@ private[i18n] final class JsDump(path: String) {
 
   private def writeFullJson = I18nDb.langs foreach { lang =>
     val dbs = List(I18nDb.Site, I18nDb.Arena)
-    val keys = dbs.foldLeft(Set[String]()) { (set, ref) => set ++ dumpFromKey(asScalaSet(I18nDb(ref)(defaultLang).keySet).toSet, lang, ref) }
+    val keys = dbs.foldLeft(Set[String]()) { (set, ref) => set ++ dumpFromKey(asScalaSet(I18nDb(ref)(defaultLang.value).keySet).toSet, lang, ref) }
     val code = keys.mkString("{", ",", "}")
     val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code))
     writeFile(file, code)
@@ -76,9 +76,9 @@ object JsDump {
   val emptyMessages: MessageMap = new java.util.HashMap()
 
   def dbToObject(ref: I18nDb.Ref, lang: Lang): JsObject =
-    I18nDb(ref).get(defaultLang) ?? { defaultMsgs =>
+    I18nDb(ref).get(defaultLang.value) ?? { defaultMsgs =>
       JsObject {
-        val msgs = I18nDb(ref).get(lang) | emptyMessages
+        val msgs = I18nDb(ref).get(lang.value) | emptyMessages
         defaultMsgs.flatMap {
           case (k, v) => translatedJs(k, msgs.getOrDefault(k, v), lang)
         }

@@ -1,11 +1,11 @@
 package lidraughts.challenge
 
-import play.api.i18n.Lang
 import play.api.libs.json._
 
+import lidraughts.common.Lang
 import lidraughts.i18n.{ I18nKeys => trans }
-import lidraughts.socket.UserLagCache
 import lidraughts.socket.Socket.SocketVersion
+import lidraughts.socket.UserLagCache
 
 final class JsonView(
     getLightUser: lidraughts.common.LightUser.GetterSync,

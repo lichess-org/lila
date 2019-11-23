@@ -9,8 +9,8 @@ moreCss = cssTag("mobile.css")) {
   </div>
   <div class="left-side">
     <h1>@trans.playDraughtsEverywhere()</h1>
-    @googlePlayButton()
-    @appleStoreButton()
+    @bits.googlePlayButton.toHtml
+    @bits.appleStoreButton.toHtml
     <h2>@trans.asFreeAsLidraughts()</h2>
     <ul class="block">
       <li>@trans.builtForTheLoveOfDraughtsNotMoney()</li>
@@ -34,4 +34,4 @@ moreCss = cssTag("mobile.css")) {
     </ul>
   </div>
 </div>
-}
+}.toHtml

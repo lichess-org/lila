@@ -16,9 +16,13 @@ final class GarbageCollector(
     system: akka.actor.ActorSystem
 ) {
 
+  private val logger = lidraughts.security.logger.branch("GarbageCollector")
+
   private val done = new lidraughts.memo.ExpireSetMemo(10 minutes)
 
-  private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader)
+  private case class ApplyData(user: User, ip: IpAddress, email: EmailAddress, req: RequestHeader) {
+    override def toString = s"${user.username} $ip $email $req"
+  }
 
   // User just signed up and doesn't have security data yet, so wait a bit
   def delay(user: User, email: EmailAddress, req: RequestHeader): Unit =
@@ -26,6 +30,7 @@ final class GarbageCollector(
       val ip = HTTPRequest lastRemoteAddress req
       system.scheduler.scheduleOnce(6 seconds) {
         val applyData = ApplyData(user, ip, email, req)
+        logger.info(s"delay $applyData")
         lidraughts.common.Future.retry(
           () => ensurePrintAvailable(applyData),
           delay = 10 seconds,
@@ -44,11 +49,14 @@ final class GarbageCollector(
   private def apply(data: ApplyData): Funit = data match {
     case ApplyData(user, ip, email, req) =>
       userSpy(user) flatMap { spy =>
+        val print = spy.prints.headOption
+        logger.info(s"apply ${data.user.username} print=${print}")
         system.lidraughtsBus.publish(
-          lidraughts.security.Signup(user, email, req, spy.prints.headOption.map(_.value)),
+          lidraughts.security.Signup(user, email, req, print.map(_.value)),
           'userSignup
         )
         badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+          logger.info(s"other ${data.user.username} others=${others.map(_.username)}")
           lidraughts.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
             _ ?? {
               val ipBan = spy.usersSharingIp.forall { u =>
@@ -79,7 +87,7 @@ final class GarbageCollector(
     val wait = (30 + scala.util.Random.nextInt(300)).seconds
     val othersStr = others.map(o => "@" + o.username).mkString(", ")
     val message = s"Will dispose of @${user.username} in $wait. Email: $email. Prev users: $othersStr${!armed ?? " [SIMULATION]"}"
-    logger.branch("GarbageCollector").info(message)
+    logger.info(message)
     slack.garbageCollector(message) >>- {
       if (armed) {
         doInitialSb(user)

@@ -1,5 +1,4 @@
 @(pov: Pov, bg: String, theme: String)(implicit req: RequestHeader)
-
 <!doctype html>
 <html>
   <head>
@@ -19,7 +18,7 @@
     data-stream-url="@routes.Tv.feed">
     <div id="featured_game" class="is2d highlight @bg @theme wide_crown" title="lidraughts.org TV">
       @gameFenNoCtx(pov, tv = true, blank = true)
-      @game.vstext(pov)(none)
+      @game.bits.vstext(pov)(none).toHtml
     </div>
     @jQueryTag
     @jsAt("javascripts/vendor/draughtsground.min.js", false)

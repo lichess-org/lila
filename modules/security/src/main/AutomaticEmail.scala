@@ -1,9 +1,8 @@
 package lidraughts.security
 
-import play.api.i18n.Lang
 import play.twirl.api.Html
 
-import lidraughts.common.EmailAddress
+import lidraughts.common.{ Lang, EmailAddress }
 import lidraughts.common.String.html.nl2brUnsafe
 import lidraughts.user.{ User, UserRepo }
 

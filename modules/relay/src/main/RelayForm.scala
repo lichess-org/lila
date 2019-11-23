@@ -13,8 +13,8 @@ object RelayForm {
   import lidraughts.common.Form.UTCDate._
 
   val form = Form(mapping(
-    "name" -> nonEmptyText(minLength = 3, maxLength = 80),
-    "description" -> nonEmptyText(minLength = 3, maxLength = 400),
+    "name" -> text(minLength = 3, maxLength = 80),
+    "description" -> text(minLength = 3, maxLength = 400),
     "markup" -> optional(text(maxLength = 9000)),
     "official" -> optional(boolean),
     "syncUrl" -> nonEmptyText.verifying("Lidraughts tournaments can't be used as broadcast source", u => !isTournamentApi(u)),

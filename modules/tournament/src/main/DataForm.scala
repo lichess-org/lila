@@ -31,7 +31,7 @@ final class DataForm {
     berserkable = true.some
   )
 
-  private val nameType = nonEmptyText.verifying(
+  private val nameType = text.verifying(
     Constraints minLength 2,
     Constraints maxLength 30,
     Constraints.pattern(
@@ -47,7 +47,7 @@ final class DataForm {
     "minutes" -> numberIn(minuteChoices),
     "waitMinutes" -> optional(numberIn(waitMinuteChoices)),
     "startDate" -> optional(inTheFuture(ISODateOrTimestamp.isoDateOrTimestamp)),
-    "variant" -> optional(nonEmptyText.verifying(v => guessVariant(v).isDefined)),
+    "variant" -> optional(text.verifying(v => guessVariant(v).isDefined)),
     "position" -> optional(nonEmptyText),
     "mode" -> optional(number.verifying(Mode.all map (_.id) contains _)), // deprecated, use rated
     "rated" -> optional(boolean),
@@ -57,7 +57,8 @@ final class DataForm {
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
     .verifying("15s variant games cannot be rated", _.validRatedUltraBulletVariant)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming))
+    .verifying("Increase tournament duration, or decrease game clock", _.sufficientDuration)
+    .verifying("Reduce tournament duration, or increase game clock", _.excessiveDuration))
 }
 
 object DataForm {
@@ -124,8 +125,6 @@ private[tournament] case class TournamentSetup(
 
   def validClock = (clockTime + clockIncrement) > 0
 
-  def validTiming = (minutes * 60) >= (3 * estimatedGameDuration)
-
   def realMode = Mode(rated.orElse(mode.map(Mode.Rated.id ==)) | true)
 
   def realVariant = variant.flatMap(DataForm.guessVariant) | draughts.variant.Standard
@@ -136,5 +135,14 @@ private[tournament] case class TournamentSetup(
     realMode == Mode.Casual ||
       lidraughts.game.Game.allowRated(realVariant, clockConfig)
 
-  private def estimatedGameDuration = 60 * clockTime + 30 * clockIncrement
+  def sufficientDuration = estimateNumberOfGamesOneCanPlay >= 3
+  def excessiveDuration = estimateNumberOfGamesOneCanPlay <= 80
+
+  private def estimateNumberOfGamesOneCanPlay: Double = (minutes * 60) / estimatedGameSeconds
+
+  // There are 2 players, and they don't always use all their time (0.8)
+  // add 15 seconds for pairing delay
+  private def estimatedGameSeconds: Double = {
+    (60 * clockTime + 30 * clockIncrement) * 2 * 0.8
+  } + 15
 }

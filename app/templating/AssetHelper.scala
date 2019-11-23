@@ -33,8 +33,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       cssTag(name).body
     } mkString ""
   }
-  def cssTags(names: Map[String, Boolean]): Html =
-    cssTags(names.collect { case (k, true) => k }.toList: _*)
+  def cssTags(names: List[(String, Boolean)]): Html =
+    cssTags(names.collect { case (k, true) => k }: _*)
 
   def cssVendorTag(name: String) = cssAt("vendor/" + name)
 
@@ -54,8 +54,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
-  def roundTag =
-    jsAt(s"compiled/lidraughts.round${isProd ?? (".min")}.js", async = true)
+  def roundTag = jsAt(s"compiled/lidraughts.round${isProd ?? (".min")}.js", async = true)
 
   val highchartsLatestTag = Html {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
@@ -116,6 +115,10 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Html = Html {
+    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
+    s"""<script$nonce>$js</script>"""
+  }
+  def embedJsUnsafe(js: scalatags.Text.RawFrag)(implicit ctx: Context): scalatags.Text.RawFrag = scalatags.Text.all.raw {
     val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
     s"""<script$nonce>$js</script>"""
   }

@@ -1,7 +1,7 @@
 @(daily: lidraughts.puzzle.DailyPuzzle)(implicit ctx: Context)
 
 <!doctype html>
-<html lang="@lang.language">
+<html lang="@ctx.lang.language">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Security-Policy" content="@defaultCsp">
@@ -20,7 +20,7 @@
     @if(ctx.currentBg == "transp") {"dark transp"} else {@ctx.currentBg} @ctx.currentTheme.cssClass"
     style="width: 224px; height: 264px; overflow: hidden; background: none!important">
     <div id="daily_puzzle" class="is2d highlight wide_crown" title="@trans.clickToSolve()">
-      @daily.html
+      @Html(daily.html)
       <div class="vstext" style="text-align: center">
         @trans.puzzleOfTheDay()<br />
         @daily.color.fold(trans.whitePlays, trans.blackPlays)()

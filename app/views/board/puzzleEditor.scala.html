@@ -43,12 +43,8 @@ moreCss = moreCss,
 moreJs = moreJs,
 side = side.some,
 draughtsground = false,
-openGraph = lidraughts.app.ui.OpenGraph(
-title = "Draughts puzzle editor",
-url = s"$netBaseUrl${routes.UserAnalysis.index.url}",
-description = "Create puzzles on an interactive draughts board").some,
 zoomable = true) {
 <div class="analyse cg-512">
-    @board.domPreload(none)
+    @board.bits.domPreload(none)
 </div>
-}
+}.toHtml

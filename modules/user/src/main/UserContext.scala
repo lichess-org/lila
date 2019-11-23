@@ -1,7 +1,8 @@
 package lidraughts.user
 
-import play.api.i18n.Lang
 import play.api.mvc.{ Request, RequestHeader }
+
+import lidraughts.common.Lang
 
 sealed trait UserContext {
 

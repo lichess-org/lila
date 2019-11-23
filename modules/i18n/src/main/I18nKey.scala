@@ -1,8 +1,9 @@
 package lidraughts.i18n
 
-import play.api.i18n.Lang
 import play.twirl.api.Html
+
 import lidraughts.user.UserContext
+import lidraughts.common.Lang
 
 sealed trait I18nKey {
 

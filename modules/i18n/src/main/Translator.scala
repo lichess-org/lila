@@ -1,8 +1,8 @@
 package lidraughts.i18n
 
-import play.api.i18n.Lang
 import play.twirl.api.Html
 
+import lidraughts.common.Lang
 import lidraughts.common.String.html.escapeHtml
 
 object Translator {
@@ -69,6 +69,6 @@ object Translator {
   }
 
   private[i18n] def findTranslation(key: MessageKey, db: I18nDb.Ref, lang: Lang): Option[Translation] =
-    I18nDb(db).get(lang).flatMap(t => Option(t get key)) orElse
-      I18nDb(db).get(defaultLang).flatMap(t => Option(t get key))
+    I18nDb(db).get(lang.value).flatMap(t => Option(t get key)) orElse
+      I18nDb(db).get(defaultLang.value).flatMap(t => Option(t get key))
 }

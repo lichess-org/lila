@@ -1,6 +1,7 @@
 @(form: Form[lidraughts.simul.SimulSetup], config: lidraughts.simul.DataForm)(implicit ctx: Context)
 
 @import config._
+@import lidraughts.app.ui.ScalatagsTwirlForm._
 @import lidraughts.simul.DataForm._
 
 @simul.layout(
@@ -23,7 +24,7 @@ formCss = true) {
       @form3.group(form("color"), trans.simulHostColor(), half = true)(form3.select(_, translatedColorChoices))
       }
         
-      @form3.group(form("targetPct"), trans.winningPercentage(), help = trans.simulTargetPercentageHint().some)(form3.input(_, placeholder = trans.targetPercentage.txt().some, typ = "number", maxLength = 3))
+      @form3.group(form("targetPct"), trans.winningPercentage(), help = trans.simulTargetPercentageHint().some)(form3.input(_, typ = "number")(*.placeholder := trans.targetPercentage.txt(), *.min := 50, *.max := 100))
       @form3.group(form("chat"), trans.chatAvailableFor(), help = trans.simulChatRestrictionsHint().some)(form3.select(_, translatedChatChoices))
 
       @form3.actions { 

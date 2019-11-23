@@ -1,4 +1,5 @@
 @(categ: lidraughts.forum.Categ, form: Form[_], captcha: lidraughts.common.Captcha)(implicit ctx: Context)
+@import lidraughts.app.ui.ScalatagsTwirlForm._
 
 @forum.layout(title = "New forum topic", moreJs = jsTag("forum-post.js"), formCss = true) {
 <ol class="crumbs">
@@ -18,10 +19,8 @@
 </div>
 
 <form class="form3 create-topic" action="@routes.ForumTopic.create(categ.slug)" method="POST" novalidate>
-  @form3.group(form("name"), trans.subject()) { f =>
-  @form3.input(f, autofocus = true, required = true, minLength = 3, maxLength = 100)
-  }
-  @forum.post.formFields(form("post")("text"), None)
+  @form3.group(form("name"), trans.subject())(form3.input(_)(*.autofocus := true))
+  @form3.group(form("post")("text"), trans.message())(form3.textarea(_, klass = "post-text-area")(*.rows := 10))
   @base.captcha(form("post"), captcha)
   @form3.actions {
   <a href="@routes.ForumCateg.show(categ.slug)">@trans.cancel()</a>

@@ -189,7 +189,8 @@ final class Env(
   def cli = new Cli
 
   system.lidraughtsBus.subscribeFun('draughtsnet) {
-    case lidraughts.hub.actorApi.draughtsnet.NewKey(userId, key) => automaticEmail.onDraughtsnetKey(userId, key)
+    case lidraughts.hub.actorApi.draughtsnet.NewKey(userId, key) =>
+      automaticEmail.onDraughtsnetKey(userId, key)(lidraughts.i18n.defaultLang)
   }
 
   private[security] lazy val storeColl = db(CollectionSecurity)

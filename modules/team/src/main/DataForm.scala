@@ -58,7 +58,7 @@ private[team] final class DataForm(
   ))
 
   val selectMember = Form(single(
-    "userId" -> nonEmptyText
+    "userId" -> lidraughts.user.DataForm.historicalUsernameField
   ))
 
   def createWithCaptcha = withCaptcha(create)

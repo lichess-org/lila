@@ -4,11 +4,11 @@
 title = title,
 side = side,
 menu = menu,
-moreCss = cssTags(Map("forum.css" -> true, "form3.css" -> formCss)),
+moreCss = cssTags(List("forum.css" -> true, "form3.css" -> formCss)),
 moreJs = moreJs,
 openGraph = openGraph) {
 <div id="lidraughts_forum" class="content_box no_padding">
   @forum.searchForm(searchText.trim)
   @body
 </div>
-}
+}.toHtml

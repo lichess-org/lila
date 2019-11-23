@@ -309,7 +309,11 @@ object UserRepo {
       $set(F.totpSecret -> totp.secret)
     ).void
 
-  def enable(id: ID) = coll.updateField($id(id), F.enabled, true)
+  def reopen(id: ID) = coll.updateField($id(id), F.enabled, true) >>
+    coll.update(
+      $id(id) ++ $doc(F.email $exists false),
+      $doc("$rename" -> $doc(F.prevEmail -> F.email))
+    ).recover(lidraughts.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update(
     $id(user.id),
@@ -426,7 +430,8 @@ object UserRepo {
   def mustConfirmEmail(id: User.ID): Fu[Boolean] =
     coll.exists($id(id) ++ $doc(F.mustConfirmEmail $exists true))
 
-  def setEmailConfirmed(id: User.ID): Funit = coll.update($id(id), $unset(F.mustConfirmEmail)).void
+  def setEmailConfirmed(id: User.ID): Funit =
+    coll.update($id(id) ++ $doc(F.mustConfirmEmail $exists true), $unset(F.mustConfirmEmail)).void
 
   def erase(user: User): Funit = coll.update(
     $id(user.id),

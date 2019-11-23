@@ -1,6 +1,6 @@
 package lidraughts.shutup
 
-import lila.common.constants.bannedYoutubeIds
+import lidraughts.common.constants.bannedYoutubeIds
 
 object Analyser {
 

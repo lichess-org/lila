@@ -24,7 +24,11 @@ moreJs = infiniteScrollTag) {
 <div class="content_box no_padding relays">
   <div class="top">
     <h1>@title</h1>
-    @newForm()
+    @if(isGranted(_.Relay)) {
+    <a href="@routes.Relay.form" class="new_relay button frameless hint--top" data-hint="New Broadcast">
+      <i data-icon="O"></i>
+    </a>
+    }
   </div>
   @fresh.map { f =>
   @sublist("Ongoing", f.started)
@@ -34,7 +38,7 @@ moreJs = infiniteScrollTag) {
     <h2>Completed</h2>
     <div class="list infinitescroll">
       @pager.currentPageResults.map { r =>
-      <div class="relay paginated_element">
+      <div class="relay paginated">
         @widget(r)
       </div>
       }
@@ -46,4 +50,4 @@ moreJs = infiniteScrollTag) {
     </div>
   </section>
 </div>
-}
+}.toHtml

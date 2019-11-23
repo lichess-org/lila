@@ -1,12 +1,5 @@
 @(winners: lidraughts.tournament.AllWinners)(implicit ctx: Context)
-
 @import lidraughts.rating.PerfType
-
-@moreCss = {
-@cssTag("tournament_leaderboard.css")
-@cssTag("user-list.css")
-}
-
 @freqWinner(w: lidraughts.tournament.Winner, freq: String) = {
 <li>
   @userIdLink(w.userId.some)
@@ -56,7 +49,8 @@
 
 @base.layout(
 title = "Tournament leaderboard",
-moreCss = moreCss) {
+moreCss = cssTags("tournament_leaderboard.css", "user-list.css")
+) {
 <div class="content_box no_padding tournament_leaderboard">
   @user.communityTabs("tournament")
   <h1>Tournament winners</h1>
@@ -78,5 +72,4 @@ moreCss = moreCss) {
     }
   </div>
 </div>
-}
-
+}.toHtml

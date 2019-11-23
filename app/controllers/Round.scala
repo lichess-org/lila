@@ -294,7 +294,7 @@ object Round extends LidraughtsController with TheftPrevention {
         Env.game.crosstableApi.withMatchup(pov.game) zip
         Env.bookmark.api.exists(pov.game, ctx.me) map {
           case tour ~ simul ~ initialFen ~ crosstable ~ bookmarked =>
-            Ok(html.game.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
+            Ok(html.game.bits.sides(pov, initialFen, tour, crosstable, simul, bookmarked = bookmarked))
         }
     }
   }
@@ -341,24 +341,13 @@ object Round extends LidraughtsController with TheftPrevention {
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
     OptionOk(GameRepo.pov(gameId, color)) { pov =>
-      html.game.mini(pov)
+      html.game.bits.mini(pov)
     }
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
     OptionOk(GameRepo pov fullId) { pov =>
-      html.game.mini(pov)
-    }
-  }
-
-  def atom(gameId: String, color: String) = Action.async { implicit req =>
-    GameRepo.pov(gameId, color) flatMap {
-      case Some(pov) => GameRepo initialFen pov.game flatMap { initialFen =>
-        Env.game.pdnDump(pov.game, initialFen, PdnDump.WithFlags(clocks = false, draughtsResult = lidraughts.pref.Pref.default.draughtsResult)) map { pdn =>
-          Ok(views.xml.round.atom(pov, pdn)) as XML
-        }
-      }
-      case _ => NotFound("no such game").fuccess
+      html.game.bits.mini(pov)
     }
   }
 }

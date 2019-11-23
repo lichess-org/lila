@@ -458,33 +458,31 @@ body.dark #hooks_wrap .pools .active {
 div.undertable {
   width: 512px;
 }
-div.blog.undertable div.undertable_inner {
+.blog.undertable .undertable_inner {
   height: auto;
   padding: 5px 5px 0 5px;
 }
-div.blog.undertable div.undertable_inner:hover {
+.blog.undertable .undertable_inner:hover {
   overflow: hidden;
 }
-div.blog.undertable .post {
+.blog.undertable .post {
   overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-div.blog.undertable .text {
-  margin-top: 5px;
+.blog.undertable .post .text {
+  flex: 1 1 100%;
 }
-div.blog.undertable .image {
-  display: block;
-  float: left;
-  margin-right: 10px;
-}
-div.blog.undertable .image img {
+.blog.undertable .post img {
   height: 48px;
   width: 48px;
-  margin: 3px;
+  margin: 3px 20px 3px 3px;
 }
-div.blog.undertable .title {
+.blog.undertable .post .title {
   font-weight: bold;
 }
-div.blog.undertable time {
+.blog.undertable time {
   margin-top: 10px;
   float: right;
   font-weight: 100;
@@ -497,16 +495,16 @@ div.blog.undertable time {
   justify-content: space-between;
   white-space: nowrap;
 }
-.leaderboards .leaderboard {
+.leaderboards > div {
   flex: 0 0 48.5%;
   max-width: 48.5%;
 }
-.leaderboards .leaderboard td:first-child {
+.leaderboards td:first-child {
   max-width: 135px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.leaderboards .leaderboard td:last-child {
+.leaderboards td:last-child {
   text-align: right;
 }
 #lidraughts .enterable_list {
@@ -534,12 +532,7 @@ div.blog.undertable time {
 #lidraughts .enterable_list td.name a {
   font-weight: bold;
   white-space: nowrap;
-}
-#lidraughts .enterable_list tr.scheduled td.name a {
   color: #d59120;
-}
-#lidraughts .enterable_list tr:not(.scheduled) td.name a {
-  color: #808080;
 }
 #lidraughts .enterable_list td:last-child {
   width: 20px;
@@ -682,7 +675,7 @@ div.lidraughts_overboard .color_submits .spinner {
   line-height: 13px;
   display: block;
 }
-body.dark .tour_spotlight.little {
+body.dark a.tour_spotlight {
   background: #444;
   color: #ccc;
   text-shadow: 0 0 2px rgba(0,0,0,0.6);

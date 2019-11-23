@@ -513,7 +513,7 @@ lidraughts.topMenuIntent = function() {
           var $scroller = $(this).infinitescroll({
             navSelector: ".pager",
             nextSelector: ".pager a",
-            itemSelector: ".infinitescroll .paginated_element",
+            itemSelector: ".infinitescroll .paginated",
             errorCallback: function() {
               $("#infscr-loading").remove();
             },
@@ -524,7 +524,7 @@ lidraughts.topMenuIntent = function() {
             $("#infscr-loading").remove();
             lidraughts.pubsub.emit('content_loaded')();
             var ids = [];
-            $(el).find('.paginated_element[data-dedup]').each(function() {
+            $(el).find('.paginated[data-dedup]').each(function() {
               var id = $(this).data('dedup');
               if (id) {
                 if (lidraughts.fp.contains(ids, id)) $(this).remove();
@@ -803,8 +803,9 @@ lidraughts.topMenuIntent = function() {
           }));
           this.$nbOnline.text(this.users.length);
           this.$nobody.toggleNone(!this.users.length);
+          var getId = function(user) { return user.name.toLowerCase().replace(/^\w+\s/, ''); }
           this.$list.html(this.users.sort(function(a, b) {
-            return a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1;
+            return getId(a) < getId(b) ? -1 : 1;
           }).map(this._renderUser).join(""));
         }.bind(this));
       },

@@ -3,7 +3,7 @@ div.create_tournament {
   top: 26px;
   right: 15px;
 }
-#tournament .init.spinner {
+#tournament .content_box_content.spinner {
   padding-top: 200px;
   margin: 0 auto 0 auto;
 }
@@ -340,6 +340,25 @@ body.dark #tournament .delay button {
 #tournament .notice.closed {
   background: #3893E8;
 }
+#tournament .notice.wait {
+  position: relative;
+  overflow: hidden;
+}
+@keyframes bar-anim {
+  0%{transform:translateX(-1500px);}
+  100%{transform:translateX(2500px);}
+}
+#tournament .notice.wait::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 70px;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.3));
+  animation: bar-anim 3s linear infinite;
+}
+
 #tournament table.standing {
   width: 525px;
   border-bottom: none;
@@ -1076,11 +1095,11 @@ body.dark .scheduled_tournaments a:hover {
   font-size: 1.7em;
   display: block;
 }
-#tournament_list .icon span {
+#tournament_list .icon i {
   font-size: 4em;
   opacity: 0.6;
 }
-#tournament_list .scheduled .icon span {
+#tournament_list .scheduled .icon i {
   color: #d59120;
   opacity: 0.8;
 }

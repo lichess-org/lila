@@ -18,7 +18,7 @@ csp = defaultCsp.withSpreadshirt.some) {
 
 <div class="content_box swag no_padding">
   <div id="myShop">
-    @base.spinner()
+    @spinner
     <p class="loading">
       Not loading? <a target="_blank" href="https://shop.spreadshirt.com/lidraughts-org/">Open the shop in a new tab</a>.
     </p>
@@ -35,4 +35,4 @@ csp = defaultCsp.withSpreadshirt.some) {
 
   <script src="https://shop.spreadshirt.com/shopfiles/shopclient/shopclient.nocache.js"></script>
 </div>
-}
+}.toHtml

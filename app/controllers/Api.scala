@@ -232,7 +232,7 @@ object Api extends LidraughtsController {
     lidraughts.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
         val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, lidraughts.i18n.defaultLang) map some
+        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, partial = false, lidraughts.i18n.defaultLang) map some
       }
     } map toApiResult
   }

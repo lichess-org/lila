@@ -70,7 +70,7 @@ $(function() {
     $(this).infinitescroll({
       navSelector: ".pager",
       nextSelector: $next,
-      itemSelector: ".search_infinitescroll .paginated_element",
+      itemSelector: ".search_infinitescroll .paginated",
       loading: {
         msgText: "",
         finishedMsg: "---"

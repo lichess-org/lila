@@ -32,7 +32,7 @@ title = trans.inbox.txt()) {
       </th></tr>
       }
       @threads.currentPageResults.map { thread =>
-      <tr class="paginated_element @if(thread.isUnReadBy(me)){ new} @if(thread.asMod){ mod}">
+      <tr class="paginated @if(thread.isUnReadBy(me)){ new} @if(thread.asMod){ mod}">
         <td class="author">
           @userIdLink(thread.visibleOtherUserId(me), none)
         </td>

@@ -139,15 +139,15 @@ object DataForm {
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
 
   val theme = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme contains _)
+    "theme" -> text.verifying(Theme contains _)
   ))
 
   val pieceSet = Form(single(
-    "set" -> nonEmptyText.verifying(PieceSet contains _)
+    "set" -> text.verifying(PieceSet contains _)
   ))
 
   val soundSet = Form(single(
-    "set" -> nonEmptyText.verifying(SoundSet contains _)
+    "set" -> text.verifying(SoundSet contains _)
   ))
 
   val bg = Form(single(
@@ -163,7 +163,7 @@ object DataForm {
   ))
 
   val puzzleVariant = Form(single(
-    "puzzleVariant" -> nonEmptyText.verifying(key => draughts.variant.Variant(key).fold(false)(Pref.puzzleVariants contains _))
+    "puzzleVariant" -> text.verifying(key => draughts.variant.Variant(key).fold(false)(Pref.puzzleVariants contains _))
   ))
 
 }

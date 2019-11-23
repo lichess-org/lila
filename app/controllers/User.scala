@@ -81,7 +81,7 @@ object User extends LidraughtsController {
       } yield status(html.user.show.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
     else Env.activity.read.recent(u) map { as =>
-      status(html.activity.list(u, as))
+      status(html.activity(u, as))
     }
 
   def gamesAll(username: String, page: Int) = games(username, GameFilter.All.name, page)
@@ -151,7 +151,7 @@ object User extends LidraughtsController {
           }
         )
       } yield res
-      else fuccess(Ok(html.user.miniClosed(user)))
+      else fuccess(Ok(html.user.bits.miniClosed(user)))
     }
   }
 
@@ -267,22 +267,22 @@ object User extends LidraughtsController {
     UserRepo withEmails username flatten s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         val parts =
-          Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 100 millis) zip
-            Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 100 millis) zip
-            Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 100 millis) zip
-            Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 100 millis) flatMap {
+          Env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 2 seconds) zip
+            Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 2 seconds) zip
+            Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 2 seconds) zip
+            Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) flatMap {
               case history ~ charges ~ reports ~ pref =>
-                Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 100 millis) inject
+                Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
                   html.user.mod.parts(user, history, charges, reports, pref).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased).some
         }
-        val spyFu = Env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 100 millis)
+        val spyFu = Env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
         val others = spyFu flatMap { spy =>
           val familyUserIds = user.id :: spy.otherUserIds.toList
-          Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 100 millis) zip
-            Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 100 millis) map {
+          Env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds) zip
+            Env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) map {
               case notes ~ bans => html.user.mod.otherUsers(user, spy, notes, bans).some
             }
         }
@@ -298,11 +298,11 @@ object User extends LidraughtsController {
         implicit val extractor = EventSource.EventDataExtractor[Html](_.toString)
         Ok.chunked {
           (Enumerator(html.user.mod.menu(user)) interleave
-            futureToEnumerator(parts.logTimeIfGt(s"$username parts", 100 millis)) interleave
-            futureToEnumerator(actions.logTimeIfGt(s"$username actions", 100 millis)) interleave
-            futureToEnumerator(others.logTimeIfGt(s"$username others", 100 millis)) interleave
-            futureToEnumerator(identification.logTimeIfGt(s"$username identification", 100 millis)) interleave
-            futureToEnumerator(assess.logTimeIfGt(s"$username assess", 100 millis))) &>
+            futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave
+            futureToEnumerator(actions.logTimeIfGt(s"$username actions", 2 seconds)) interleave
+            futureToEnumerator(others.logTimeIfGt(s"$username others", 2 seconds)) interleave
+            futureToEnumerator(identification.logTimeIfGt(s"$username identification", 2 seconds)) interleave
+            futureToEnumerator(assess.logTimeIfGt(s"$username assess", 2 seconds))) &>
             EventSource()
         }.as("text/event-stream")
     }
@@ -325,7 +325,7 @@ object User extends LidraughtsController {
 
   def apiWriteNote(username: String) = ScopedBody() { implicit req => me =>
     doWriteNote(username, me)(
-      err = err => _ => jsonFormError(err),
+      err = err => _ => jsonFormErrorDefaultLang(err),
       suc = jsonOkResult
     )
   }

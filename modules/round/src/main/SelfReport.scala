@@ -6,12 +6,14 @@ import lidraughts.hub.DuctMap
 
 final class SelfReport(roundMap: DuctMap[Round]) {
 
+  private val whitelist = Set("")
+
   def apply(
     userId: Option[User.ID],
     ip: IpAddress,
     fullId: String,
     name: String
-  ): Funit =
+  ): Funit = !userId.exists(whitelist.contains) ?? {
     userId.??(UserRepo.named) flatMap { user =>
       val known = user.??(_.engine)
       lidraughts.mon.cheat.cssBot()
@@ -35,4 +37,5 @@ final class SelfReport(roundMap: DuctMap[Round]) {
         }
       }
     }
+  }
 }

@@ -1,5 +1,7 @@
 package lidraughts.i18n
 
+import lidraughts.common.Lang
+
 object I18nDb {
 
   sealed trait Ref
@@ -26,5 +28,5 @@ object I18nDb {
     case Coordinates => coordinates
   }
 
-  val langs = site.keySet
+  val langs: Set[Lang] = site.keys.map(Lang.apply)(scala.collection.breakOut)
 }

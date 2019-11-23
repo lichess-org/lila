@@ -18,7 +18,7 @@ data: @safeJson(data),
 i18n: @jsI18n(),
 userId: @jsUserId,
 chat: @jsOrNull(chatOption map { c =>
-chat.ChatJsData.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
+chat.json(c.chat, name = trans.spectatorRoom.txt(), timeout = c.timeout, withNote = ctx.isAuth, public = true)
 }),
 explorer: {
 endpoint: "@explorerEndpoint",
@@ -28,31 +28,17 @@ tablebaseEndpoint: "@tablebaseEndpoint"
 }
 }
 
-@atom = {
-<link href="@routes.Round.atom(pov.gameId, pov.color.name)" type="application/atom+xml" rel="alternate" title="Game feed" />
-}
-
-@underchat = {
-@views.html.game.watchers()
-@round.blurs(game)
-@round.holdAlerts(game)
-@onCheatList.map { v =>
-@round.cheatFlag(game, v)
-}
-}
-
 @analyse.layout(
 title = title,
-side = views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked).some,
-chat = chat.dom().some,
-underchat = underchat.some,
+side = Some(views.html.game.side(pov, initialFen, none, simul = simul, userTv = userTv, bookmarked = bookmarked)),
+chat = chat.html.some,
+underchat = Some(round.bits underchat pov.game),
 moreCss = moreCss,
 moreJs = moreJs,
 openGraph = povOpenGraph(pov).some,
-draughtsground = false,
-atom = atom.some) {
+draughtsground = false) {
 <div class="analyse cg-512">
-  @board.domPreload(none)
+  @board.bits.domPreload(none).toHtml
 </div>
 <div class="underboard_content none">
   <div class="analysis_panels">

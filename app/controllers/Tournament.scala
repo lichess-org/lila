@@ -33,7 +33,7 @@ object Tournament extends LidraughtsController {
   def home(page: Int) = Open { implicit ctx =>
     negotiate(
       html = Reasonable(page, 20) {
-        val finishedPaginator = repo.finishedPaginator(lidraughts.common.MaxPerPage(30), page = page)
+        val finishedPaginator = repo.finishedPaginator(lidraughts.common.MaxPerPage(15), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
           _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
@@ -81,30 +81,29 @@ object Tournament extends LidraughtsController {
 
   def show(id: String) = Open { implicit ctx =>
     val page = getInt("page")
-    negotiate(
-      html = repo byId id flatMap {
-        _.fold(tournamentNotFound.fuccess) { tour =>
+    repo byId id flatMap { tourOption =>
+      negotiate(
+        html = tourOption.fold(tournamentNotFound.fuccess) { tour =>
           (for {
             verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
             version <- env.version(tour.id)
             chat <- canHaveChat(tour) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, ctx.lang)
+            json <- env.jsonView(tour, page, ctx.me, getUserTeamIds, none, version.some, partial = false, ctx.lang)
             _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
-        }
-      }, api = _ => repo byId id flatMap {
-        case None => NotFound(jsonError("No such tournament")).fuccess
-        case Some(tour) => {
+        }, api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
+          lidraughts.mon.tournament.apiShowHit()
           get("playerInfo").?? { env.api.playerInfo(tour.id, _) } zip
             getBool("socketVersion").??(env version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
-                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, ctx.lang)
+                val partial = getBool("partial")
+                env.jsonView(tour, page, ctx.me, getUserTeamIds, playerInfoExt, socketVersion, partial = partial, ctx.lang)
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
-      } map (_ as JSON)
-    ) map NoCache
+      ) map NoCache
+    }
   }
 
   def standing(id: String, page: Int) = Open { implicit ctx =>
@@ -247,9 +246,9 @@ object Tournament extends LidraughtsController {
 
   private def doApiCreate(me: lidraughts.user.User, teams: TeamIdsWithNames)(implicit req: Request[_]): Fu[Result] =
     env.forms(me).bindFromRequest.fold(
-      jsonFormError,
+      jsonFormErrorDefaultLang,
       setup => env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-        Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, lidraughts.i18n.defaultLang)
+        Env.tournament.jsonView(tour, none, none, getUserTeamIds, none, none, partial = false, lidraughts.i18n.defaultLang)
       } map { Ok(_) }
     )
 

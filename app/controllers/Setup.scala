@@ -69,10 +69,12 @@ object Setup extends LidraughtsController with TheftPrevention {
         ), {
           case config => userId ?? UserRepo.byId flatMap { destUser =>
             destUser ?? { Env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
-              case Some(denied) => negotiate(
-                html = BadRequest(html.challenge.denied(denied)).fuccess,
-                api = _ => BadRequest(jsonError(lidraughts.challenge.ChallengeDenied.translated(denied))).fuccess
-              )
+              case Some(denied) =>
+                val message = lidraughts.challenge.ChallengeDenied.translated(denied)
+                negotiate(
+                  html = BadRequest(message).fuccess,
+                  api = _ => BadRequest(jsonError(message)).fuccess
+                )
               case None =>
                 import lidraughts.challenge.Challenge._
                 val challenge = lidraughts.challenge.Challenge.make(
@@ -192,7 +194,7 @@ object Setup extends LidraughtsController with TheftPrevention {
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None => BadRequest.fuccess
       case Some(v) if getBool("kings") && v.tooManyKings => BadRequest.fuccess
-      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color)).fuccess
+      case Some(v) => Ok(html.game.bits.miniBoard(v.fen, v.color)).fuccess
     }
   }
 
@@ -200,7 +202,7 @@ object Setup extends LidraughtsController with TheftPrevention {
     get("fen") flatMap ValidFen(getBool("strict")) match {
       case None => Ok("<p class=\"errortext\">Invalid position</p>").fuccess
       case Some(v) if getBool("kings") && v.tooManyKings => Ok("<p class=\"errortext\">" + lidraughts.i18n.I18nKeys.tooManyKings.txt() + "</p>").fuccess
-      case Some(v) => Ok(html.game.miniBoard(v.fen, v.color)).fuccess
+      case Some(v) => Ok(html.game.bits.miniBoard(v.fen, v.color)).fuccess
     }
   }
 

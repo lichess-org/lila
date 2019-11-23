@@ -31,7 +31,7 @@ object Duel {
   }
 }
 
-final class DuelStore {
+private final class DuelStore {
 
   import Duel._
 

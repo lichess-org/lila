@@ -1,9 +1,8 @@
 package lidraughts.api
 
 import play.api.mvc.RequestHeader
-import play.api.i18n.Lang
 
-import lidraughts.common.{ HTTPRequest, Nonce }
+import lidraughts.common.{ HTTPRequest, Nonce, Lang }
 import lidraughts.pref.Pref
 import lidraughts.relation.actorApi.OnlineFriends
 import lidraughts.user.{ UserContext, HeaderUserContext, BodyUserContext }
