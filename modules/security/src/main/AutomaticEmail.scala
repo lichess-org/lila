@@ -14,6 +14,7 @@ final class AutomaticEmail(
   import Mailgun.html._
 
   def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
+    val lichessHyperlink = s"<a href='https://lichess.org'>https://lichess.org</a>"
     val profileUrl = s"$baseUrl/@/${user.username}"
     val editUrl = s"$baseUrl/account/profile"
     val profileHyperlink = s"<a href='$profileUrl'>$profileUrl</a>";
@@ -22,12 +23,12 @@ final class AutomaticEmail(
       to = email,
       subject = trans.welcome_subject.literalTxtTo(lang, List(user.username)),
       text = s"""
-${trans.welcome_text.literalTxtTo(lang, List(profileHyperlink, editHyperlink))}
+${trans.welcome_text.literalTxtTo(lang, List(lichessHyperlink, profileHyperlink, editHyperlink))}
 
 ${Mailgun.txt.serviceNote}
 """,
       htmlBody = standardEmail(
-        trans.welcome_text.literalTxtTo(lang, List(profileHyperlink, editHyperlink))
+        trans.welcome_text.literalTxtTo(lang, List(lichessHyperlink, profileHyperlink, editHyperlink))
       ).some
     )
   }

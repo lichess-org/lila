@@ -13,9 +13,9 @@
   <string name="emailChange_click">To confirm you have access to this email, please click the link below:</string>
 
   <string name="welcome_subject">Welcome to lichess.org, %s</string>
-  <string name="welcome_text">You have successfully created your account on <a href="https://lichess.org">https://lichess.org</a>.
+  <string name="welcome_text">You have successfully created your account on %1$s.
 
-Here is your profile page: %1$s. You can personalise it on %2$s.
+Here is your profile page: %2$s. You can personalise it on %3$s.
 
 Have fun, and may your pieces always find their way to your opponent's king!</string>
 
