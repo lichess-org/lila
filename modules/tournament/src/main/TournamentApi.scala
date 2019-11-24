@@ -26,7 +26,7 @@ final class TournamentApi(
     system: ActorSystem,
     sequencers: DuctMap[_],
     autoPairing: AutoPairing,
-    clearJsonViewCache: Tournament.ID => Unit,
+    clearJsonViewCache: Tournament => Unit,
     clearWinnersCache: Tournament => Unit,
     clearTrophyCache: Tournament => Unit,
     renderer: ActorSelection,
@@ -171,7 +171,7 @@ final class TournamentApi(
           winner <- PlayerRepo winner tour.id
           _ <- winner.??(p => TournamentRepo.setWinnerId(tour.id, p.userId))
         } yield {
-          clearJsonViewCache(tour.id)
+          clearJsonViewCache(tour)
           socket.finish(tour.id)
           publish()
           PlayerRepo withPoints tour.id foreach {

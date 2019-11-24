@@ -121,13 +121,9 @@ final class JsonView(
         })
     }
 
-  def standing(tour: Tournament, page: Int): Fu[JsObject] =
-    if (page == 1) firstPageCache get tour.id
-    else computeStanding(tour, page)
-
-  def clearCache(id: String): Unit = {
-    firstPageCache invalidate id
-    cachableData invalidate id
+  def clearCache(tour: Tournament): Unit = {
+    standing clearCache tour
+    cachableData invalidate tour.id
   }
 
   def myInfo(tour: Tournament, me: User): Fu[Option[MyInfo]] =
@@ -218,24 +214,48 @@ final class JsonView(
     )
   }
 
-  private def computeStanding(tour: Tournament, page: Int): Fu[JsObject] = for {
-    rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
-    sheets <- rankedPlayers.map { p =>
-      cached.sheet(tour, p.player.userId) map { sheet =>
-        p.player.userId -> sheet
-      }
-    }.sequenceFu.map(_.toMap)
-    players <- rankedPlayers.map(playerJson(sheets, tour)).sequenceFu
-  } yield Json.obj(
-    "page" -> page,
-    "players" -> players
-  )
+  object standing {
 
-  private val firstPageCache = asyncCache.clearable[String, JsObject](
-    name = "tournament.firstPage",
-    id => TournamentRepo byId id flatten s"No such tournament: $id" flatMap { computeStanding(_, 1) },
-    expireAfter = _.ExpireAfterWrite(1 second)
-  )
+    def apply(tour: Tournament, page: Int): Fu[JsObject] =
+      if (page == 1) first get tour.id
+      else if (page > 50 && tour.isCreated) deep.get(tour.id -> page)
+      else compute(tour, page)
+
+    val first = asyncCache.clearable[Tournament.ID, JsObject](
+      name = "tournament.page.first",
+      id => compute(id, 1),
+      expireAfter = _.ExpireAfterWrite(1 second)
+    )
+    val deep = asyncCache.clearable[(Tournament.ID, Int), JsObject](
+      name = "tournament.page.deep",
+      t => compute(t._1, t._2),
+      expireAfter = _.ExpireAfterWrite(10 second)
+    )
+
+    private[JsonView] def clearCache(tour: Tournament): Unit = {
+      first invalidate tour.id
+      // no need to invalidate, these are only cached when tour.isCreated
+      // if (tour.nbPlayers > 500) (51 to math.ceil(tour.nbPlayers / 10d).toInt) foreach { page =>
+      //   deep.invalidate(tour.id -> page)
+      // }
+    }
+
+    private def compute(id: Tournament.ID, page: Int): Fu[JsObject] =
+      TournamentRepo byId id flatten s"No such tournament: $id" flatMap { compute(_, page) }
+
+    private def compute(tour: Tournament, page: Int): Fu[JsObject] = for {
+      rankedPlayers <- PlayerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
+      sheets <- rankedPlayers.map { p =>
+        cached.sheet(tour, p.player.userId) map { sheet =>
+          p.player.userId -> sheet
+        }
+      }.sequenceFu.map(_.toMap)
+      players <- rankedPlayers.map(playerJson(sheets, tour)).sequenceFu
+    } yield Json.obj(
+      "page" -> page,
+      "players" -> players
+    )
+  }
 
   private val cachableData = asyncCache.clearable[String, CachableData](
     name = "tournament.json.cachable",
