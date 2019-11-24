@@ -39,7 +39,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var ws;
   var pingSchedule;
   var connectSchedule;
-  var ackable = makeAckable(function(t, d) { send(t, d) });
+  var ackable = makeAckable((t, d) => send(t, d));
   var lastPingTime = performance.now();
   var pongCount = 0;
   var averageLag = 0;
@@ -231,7 +231,7 @@ lichess.StrongSocket = function(url, version, settings) {
       var disconnectTimeout;
       lichess.idleTimer(10 * 60 * 1000, function() {
         options.idle = true;
-        disconnectTimeout = setTimeout(lichess.socket.destroy, 2 * 60 * 60 * 1000);
+        disconnectTimeout = setTimeout(destroy, 2 * 60 * 60 * 1000);
       }, function() {
         options.idle = false;
         if (ws) clearTimeout(disconnectTimeout);
@@ -265,10 +265,8 @@ lichess.StrongSocket = function(url, version, settings) {
   window.addEventListener('unload', destroy);
 
   return {
-    connect: connect,
     disconnect: disconnect,
     send: send,
-    destroy: destroy,
     options: options,
     pingInterval: function() {
       return computePingDelay() + averageLag;
