@@ -59,6 +59,10 @@
   <string name="promoteVariation">Нұсқажолды көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
+  <string name="forceVariation">Ádepki boıynsha, taldaý oıynnyń sońynda ótedi, taldaý jaı ǵana negizgi jelini jalǵastyrady.
+
+
+\"Kúsh varıasıasy\" taldaý oıyn kezinde shyn máninde oınatylǵan qadamdardan erekshelenip, varıasıa retinde (negizgi jalǵasy joq bolǵanyna qaramastan) kórinedi</string>
   <string name="move">Жүру</string>
   <string name="variantLoss">Ұтылыс жолы</string>
   <string name="variantWin">Ұтыс жолы</string>
@@ -143,6 +147,9 @@
   <string name="ratingStats">Рейтинг статистикасы</string>
   <string name="username">пайдаланушы аты</string>
   <string name="usernameOrEmail">Есіміңіз</string>
+  <string name="changeUsername">Paıdalanýshy atyn ózgertý</string>
+  <string name="changeUsernameNotSame">Tek áripter regıstri ózgerýi múmkin. Mysaly,\" Djon Doý \"\"Djon Doýda\".</string>
+  <string name="changeUsernameDescription">Paıdalanýshy atyn ózgertińiz. Bul tek bir ret jasaýǵa bolady jáne siz tek paıdalanýshy aty áripter regıstri ózgerte alasyz.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">жұмбақ сөзді өзгерту</string>
   <string name="changeEmail">Емаилды ауыстыру</string>
@@ -151,7 +158,19 @@
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="rank">Деңгей</string>
   <string name="rankX">Дәреже: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Reıtıń ár mınýt saıyn jańartylady</item>
+    <item quantity="other">Reıtıń ár % s mınýt saıyn jańartylady</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s basqatyrǵysh</item>
+    <item quantity="other">% s basqatyrǵyshs</item>
+  </plurals>
   <string name="gamesPlayed">Ойындар ойналған</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s sizben oıyn</item>
+    <item quantity="other">senimen oıyndardyń %</item>
+  </plurals>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
   <string name="drawOfferSent">Тепе-теңдік ұсынысы жіберілді</string>
