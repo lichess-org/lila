@@ -246,10 +246,9 @@ lichess.StrongSocket = function(url, version, settings) {
 
   const baseUrls = (
     d => [d].concat((d.includes('lichess.org') ? [5, 6, 7, 8, 9] : []).map(port => d + ':' + (9020 + port)))
-  )(options.remoteSocketDomain || document.body.getAttribute('data-socket-domain'));
+  )(document.body.getAttribute('data-socket-domain'));
 
   const baseUrl = function() {
-    if (options.remoteSocketDomain) return baseUrls[Math.floor(Math.random() * baseUrls.length)];
     let url = storage.get();
     if (!url) {
       url = baseUrls[0];
@@ -314,7 +313,6 @@ lichess.StrongSocket.defaults = {
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    onFirstConnect: $.noop,
-    remoteSocketDomain: null
+    onFirstConnect: $.noop
   }
 };

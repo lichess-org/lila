@@ -292,11 +292,7 @@
 
       if (!window.customWS) setTimeout(function() {
         if (lichess.socket === null) {
-          lichess.socket = lichess.StrongSocket("/socket/v4", false, {
-            options: {
-              remoteSocketDomain: document.body.getAttribute('data-remote-socket-domain')
-            }
-          });
+          lichess.socket = lichess.StrongSocket("/socket/v4", false);
         }
       }, 300);
 
