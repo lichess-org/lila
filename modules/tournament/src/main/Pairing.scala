@@ -38,6 +38,7 @@ case class Pairing(
 
   def wonBy(user: User.ID): Boolean = winner.??(user ==)
   def lostBy(user: User.ID): Boolean = winner.??(user !=)
+  def notLostBy(user: User.ID): Boolean = winner.fold(true)(user ==)
   def draw: Boolean = finished && winner.isEmpty
 
   def colorOf(userId: User.ID): Option[Color] =

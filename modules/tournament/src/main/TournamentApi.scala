@@ -249,7 +249,8 @@ final class TournamentApi(
             }
           }
         }
-      } else {
+      }
+      else {
         socket.reload(tour.id)
         fuccess(false)
       }
@@ -277,7 +278,7 @@ final class TournamentApi(
       }
     }
 
-  private def updateNbPlayers(tourId: Tournament.ID) =
+  private def updateNbPlayers(tourId: Tournament.ID): Funit =
     PlayerRepo count tourId flatMap { TournamentRepo.setNbPlayers(tourId, _) }
 
   private def withdrawOtherTournaments(tourId: Tournament.ID, userId: User.ID): Unit =
@@ -414,14 +415,14 @@ final class TournamentApi(
 
   def ejectLame(tourId: Tournament.ID, userId: User.ID): Unit =
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
-      PlayerRepo.remove(tour.id, userId) >> {
+      PlayerRepo.withdraw(tourId, userId) >> {
         if (tour.isStarted)
           PairingRepo.findPlaying(tour.id, userId).map {
             _ foreach { currentPairing =>
               tellRound(currentPairing.gameId, AbortForce)
             }
           } >> PairingRepo.opponentsOf(tour.id, userId).flatMap { uids =>
-            PairingRepo.removeByTourAndUserId(tour.id, userId) >>
+            PairingRepo.forfeitByTourAndUserId(tour.id, userId) >>
               lila.common.Future.applySequentially(uids.toList)(updatePlayer(tour, none))
           }
         else if (tour.isFinished && tour.winnerId.contains(userId))

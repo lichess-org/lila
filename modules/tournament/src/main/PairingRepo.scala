@@ -1,8 +1,8 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
 import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.bson._
 import scala.collection.breakOut
 
 import BSONHandlers._
@@ -66,8 +66,14 @@ object PairingRepo {
 
   def removeByTour(tourId: Tournament.ID) = coll.remove(selectTour(tourId)).void
 
-  def removeByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =
-    coll.remove(selectTourUser(tourId, userId)).void
+  private[tournament] def forfeitByTourAndUserId(tourId: Tournament.ID, userId: User.ID) =
+    coll.find(selectTourUser(tourId, userId)).list[Pairing]().flatMap {
+      _.filter(_ notLostBy userId).map { p =>
+        coll.update($id(p.id), $set(
+          "w" -> p.colorOf(userId).map(_.black)
+        ))
+      }.sequenceFu
+    }
 
   def count(tourId: Tournament.ID): Fu[Int] =
     coll.count(selectTour(tourId).some)
