@@ -249,8 +249,7 @@ final class TournamentApi(
             }
           }
         }
-      }
-      else {
+      } else {
         socket.reload(tour.id)
         fuccess(false)
       }
@@ -413,6 +412,7 @@ final class TournamentApi(
       }
     }
 
+  // withdraws the player and forfeits all pairings in ongoing tournaments
   def ejectLame(tourId: Tournament.ID, userId: User.ID): Unit =
     Sequencing(tourId)(TournamentRepo.byId) { tour =>
       PlayerRepo.withdraw(tourId, userId) >> {

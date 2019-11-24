@@ -30,6 +30,12 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
 
     def isBerserk = berserk != NoBerserk
 
+    def isWin = res match {
+      case ResWin => Some(true)
+      case ResLoss => Some(false)
+      case _ => None
+    }
+
     val value = ((res, flag) match {
       case (ResWin, Double) => 4
       case (ResWin, _) => 2
