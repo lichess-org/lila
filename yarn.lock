@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@badrap/result@^0.2.5":
+  version "0.2.5"
+  resolved "https://registry.yarnpkg.com/@badrap/result/-/result-0.2.5.tgz#d2594ab32ad4a9150d489ecddbf08fb9f6d71d11"
+  integrity sha512-gPu1w+LiYkcfPuRK2de68g14VFRGNSQ+CXF6GXIa+0NfUeacuHplJlXyyN57ihZXJ1kbbLYcWdeRUARX8htocA==
+
 "@gulp-sourcemaps/identity-map@1.X":
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/@gulp-sourcemaps/identity-map/-/identity-map-1.0.2.tgz#1e6fe5d8027b1f285dc0d31762f566bccd73d5a9"
@@ -790,6 +795,13 @@ chessground@^7.6:
   version "7.6.10"
   resolved "https://registry.yarnpkg.com/chessground/-/chessground-7.6.10.tgz#b837c11e27a8504c6f3ed06c659e8e2d8ea11f3e"
   integrity sha512-kAnS6hy7NNdGLu6H1b2IOodwEHu9cDfaG/GVhh96KuBm2D9llZ2Ccf/j0sLwmMQctn3cIxOXV4yeRsT4/8szzg==
+
+chessops@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/chessops/-/chessops-0.2.0.tgz#55ae383528816b1ff8d9429fade6de09ac7ca8d0"
+  integrity sha512-N9KRHaCkTZ05v/tRmDuJxYitKiRvciiRobP70JWPZSEZNUz1+2SkbRxpENRM4fZY9siXXOj0+XRuy3rQ/RGN7Q==
+  dependencies:
+    "@badrap/result" "^0.2.5"
 
 chokidar@^2.0.0, chokidar@^2.1.1:
   version "2.1.8"
