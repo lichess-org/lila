@@ -194,7 +194,7 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
           },
           on: {
             click: () => {
-              if (state.playable && ctrl.rules === 'chess') $.modal($('.continue-with'));
+              if (state.playable) $.modal($('.continue-with'));
             }
           }
         }, [h('span.text', { attrs: { 'data-icon' : 'U' } }, ctrl.trans.noarg('continueFromHere'))]),
