@@ -184,8 +184,8 @@ export default class EditorCtrl {
       const castles = Castles.fromSetup(setup);
       this.castlingToggles['K'] = defined(castles.rook.white.h);
       this.castlingToggles['Q'] = defined(castles.rook.white.a);
-      this.castlingToggles['k'] = defined(castles.rook.white.h);
-      this.castlingToggles['q'] = defined(castles.rook.white.a);
+      this.castlingToggles['k'] = defined(castles.rook.black.h);
+      this.castlingToggles['q'] = defined(castles.rook.black.a);
 
       this.onChange();
       return true;
