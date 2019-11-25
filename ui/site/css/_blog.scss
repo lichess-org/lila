@@ -105,16 +105,35 @@
     }
   }
 
-  &.list {
-    article {
-      margin: 3em 0 7em 0;
-    }
+  &.index {
     h2 {
-      text-align: center;
-      margin-bottom: 1rem;
+      @extend %box-padding-horiz;
+      margin: 2rem 0;
+    }
+    article {
+      h2 {
+        text-align: center;
+      }
+      margin-bottom: 7em;
     }
     .meta {
       text-align: center;
+    }
+    .parts {
+      @extend %box-padding-horiz;
+      margin-top: 2em;
+      .illustration {
+        float: left;
+        max-width: 40%;
+        margin: 0 3em 2em 0;
+        img {
+          margin: 0;
+        }
+      }
+      .body {
+        font-size: 1.15em;
+        line-height: 1.7;
+      }
     }
     .more {
       margin-top: 2em;
@@ -134,6 +153,61 @@
       &::before {
         vertical-align: bottom;
       }
+    }
+  }
+}
+
+.blog-cards {
+
+  @extend %box-padding;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+  grid-gap: 3vmin;
+
+  > a {
+    @extend %box-neat-force;
+    background: $c-bg-zebra;
+    color: $c-font;
+    position: relative;
+
+    &:hover {
+      background: $c-link;
+      &, h2 {
+        color: $c-link-over;
+      }
+    }
+
+    time {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: .2em .5em;
+      background: #111;
+      color: #ddd;
+      border-radius: 0 0 $box-radius-size 0;
+      opacity: 1;
+    }
+
+    img {
+      width: 100%;
+      background: $c-bg-zebra;
+    }
+
+    .content {
+      padding: 2vmin;
+    }
+
+    .title {
+      font-size: 1.3em;
+      color: $c-font-clear;
+      display: block;
+    }
+
+    span {
+      @extend %roboto;
+      margin-top: 2vmin;
+      display: block;
     }
   }
 }

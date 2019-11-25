@@ -22,26 +22,26 @@ object show {
       moreCss = cssTag("blog"),
       csp = bits.csp
     )(
-        main(cls := s"blog page-small box post ${~doc.getText("blog.cssClasses")}")(
-          h1(
-            a(href := routes.Blog.index(), dataIcon := "I", cls := "text"),
-            doc.getText("blog.title")
-          ),
-          bits.metas(doc),
-          doc.getImage("blog.image", "main").map { img =>
-            div(cls := "illustration")(st.img(src := img.url))
-          },
-          div(cls := "body embed_analyse")(
-            doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(lila.blog.ProtocolFix.remove).map(raw)
-          ),
-          NotForKids {
-            div(cls := "footer")(
-              if (prismic.maybeRef.isEmpty) {
-                (doc.getDate("blog.date").exists(_.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2))) option
-                  a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "d")("Discuss this blog post in the forum")
-              } else p("This is a preview.")
-            )
-          }
+        main(cls := "page-menu page-small")(
+          bits.menu(none, false),
+          div(cls := s"blog page-menu__content box post ${~doc.getText("blog.cssClasses")}")(
+            h1(doc.getText("blog.title")),
+            bits.metas(doc),
+            doc.getImage("blog.image", "main").map { img =>
+              div(cls := "illustration")(st.img(src := img.url))
+            },
+            div(cls := "body embed_analyse")(
+              doc.getHtml("blog.body", prismic.linkResolver).map(lila.blog.Youtube.fixStartTimes).map(lila.blog.ProtocolFix.remove).map(raw)
+            ),
+            NotForKids {
+              div(cls := "footer")(
+                if (prismic.maybeRef.isEmpty) {
+                  (doc.getDate("blog.date").exists(_.value.toDateTimeAtStartOfDay isAfter org.joda.time.DateTime.now.minusWeeks(2))) option
+                    a(href := routes.Blog.discuss(doc.id), cls := "button text discuss", dataIcon := "d")("Discuss this blog post in the forum")
+                } else p("This is a preview.")
+              )
+            }
+          )
         )
       )
 }

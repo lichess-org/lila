@@ -16,7 +16,7 @@ object Blog extends LilaController {
 
   def index(page: Int, ref: Option[String]) = WithPrismic { implicit ctx => implicit prismic =>
     pageHit
-    blogApi.recent(prismic, page, lila.common.MaxPerPage(10)) flatMap {
+    blogApi.recent(prismic, page, lila.common.MaxPerPage(12)) flatMap {
       case Some(response) => fuccess(Ok(views.html.blog.index(response)))
       case _ => notFound
     }
@@ -53,14 +53,14 @@ object Blog extends LilaController {
 
   def all = WithPrismic { implicit ctx => implicit prismic =>
     blogApi.byYear(prismic, lila.blog.thisYear) map { posts =>
-      Ok(views.html.blog.all(lila.blog.thisYear, posts))
+      Ok(views.html.blog.index.byYear(lila.blog.thisYear, posts))
     }
   }
 
   def year(year: Int) = WithPrismic { implicit ctx => implicit prismic =>
     if (lila.blog.allYears contains year)
       blogApi.byYear(prismic, year) map { posts =>
-        Ok(views.html.blog.all(year, posts))
+        Ok(views.html.blog.index.byYear(year, posts))
       }
     else notFound
   }

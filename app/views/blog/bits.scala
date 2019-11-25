@@ -3,11 +3,34 @@ package views.html.blog
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.blog.MiniPost
 import lila.common.String.html.richText
 
 import controllers.routes
 
 object bits {
+
+  private[blog] def menu(year: Option[Int], hasActive: Boolean = true) =
+    st.nav(cls := "page-menu__menu subnav")(
+      a(cls := (year.isEmpty && hasActive).option("active"), href := routes.Blog.index())("Latest"),
+      lila.blog.allYears map { y =>
+        a(cls := (year has y).option("active"), href := routes.Blog.year(y))(y)
+      }
+    )
+
+  private[blog] def postCard(
+    post: MiniPost,
+    postClass: Option[String] = None,
+    header: Tag = h2
+  )(implicit ctx: Context) =
+    a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
+      st.img(src := post.image),
+      div(cls := "content")(
+        header(cls := "title")(post.title),
+        span(post.shortlede),
+        semanticDate(post.date)
+      )
+    )
 
   private[blog] def metas(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
