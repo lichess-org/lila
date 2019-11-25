@@ -327,12 +327,6 @@ object mon {
     }
     val deadMsg = inc("socket.dead.msg")
     def queueSize(name: String) = rec(s"socket.queue_size.$name")
-    object remote {
-      object sets {
-        val users = rec("socket.remote.sets.users")
-        val games = rec("socket.remote.sets.games")
-      }
-    }
   }
   object trouper {
     def queueSize(name: String) = rec(s"trouper.queue_size.$name")

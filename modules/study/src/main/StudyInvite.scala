@@ -4,7 +4,6 @@ import akka.actor._
 import akka.pattern.ask
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.socket.HasUserId
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }

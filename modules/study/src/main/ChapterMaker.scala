@@ -3,7 +3,7 @@ package lila.study
 import chess.format.pgn.Tags
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
-import lila.chat.Chat
+import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, GameRepo, Namer }
 import lila.importer.Importer
 import lila.user.User
@@ -11,7 +11,7 @@ import lila.user.User
 private final class ChapterMaker(
     domain: String,
     lightUser: lila.user.LightUserApi,
-    chat: akka.actor.ActorSelection,
+    chatApi: ChatApi,
     importer: Importer,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
@@ -138,7 +138,7 @@ private final class ChapterMaker(
 
   def notifyChat(study: Study, game: Game, userId: User.ID) =
     if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
-      chat ! lila.chat.actorApi.UserTalk(
+      chatApi.userChat.write(
         chatId = Chat.Id(chatId),
         userId = userId,
         text = s"I'm studying this game on ${domain}/study/${study.id}",

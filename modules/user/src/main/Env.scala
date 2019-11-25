@@ -4,8 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.socket.WithUserIds
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -13,6 +11,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler,
     timeline: ActorSelection,
+    onlineUserIds: () => Set[User.ID],
     system: ActorSystem
 ) {
 
@@ -33,7 +32,6 @@ final class Env(
 
   val lightUserApi = new LightUserApi(userColl)(system)
 
-  val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
   val recentTitledUserIdMemo = new lila.memo.ExpireSetMemo(ttl = 3 hours)
 
   def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
@@ -83,15 +81,10 @@ final class Env(
     }
   )
 
-  scheduler.effect(3 seconds, "refresh online user ids") {
-    system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'socketUsers)
-    onlineUserIdMemo put User.lichessId
-  }
-
   lazy val cached = new Cached(
     userColl = userColl,
     nbTtl = CachedNbTtl,
-    onlineUserIdMemo = onlineUserIdMemo,
+    onlineUserIds = onlineUserIds,
     mongoCache = mongoCache,
     asyncCache = asyncCache,
     rankingApi = rankingApi
@@ -122,6 +115,7 @@ object Env {
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
     timeline = lila.hub.Env.current.timeline,
+    onlineUserIds = lila.socket.Env.current.onlineUserIds,
     system = lila.common.PlayApp.system
   )
 }

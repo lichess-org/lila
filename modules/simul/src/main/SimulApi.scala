@@ -12,7 +12,7 @@ import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.hub.{ Duct, DuctMap }
-import lila.socket.actorApi.SendToFlag
+import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 

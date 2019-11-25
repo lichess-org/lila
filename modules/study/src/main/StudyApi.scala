@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import actorApi.Who
 import chess.Centis
 import chess.format.pgn.{ Tags, Glyph }
-import lila.chat.Chat
+import lila.chat.{ Chat, ChatApi }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
@@ -24,7 +24,7 @@ final class StudyApi(
     explorerGameHandler: ExplorerGame,
     lightUser: lila.common.LightUser.GetterSync,
     scheduler: akka.actor.Scheduler,
-    chat: ActorSelection,
+    chatApi: ChatApi,
     bus: lila.common.Bus,
     timeline: ActorSelection,
     serverEvalRequester: ServerEval.Requester,
@@ -127,7 +127,7 @@ final class StudyApi(
         newChapters.headOption.map(study1.rewindTo) ?? { study =>
           studyRepo.insert(study) >>
             newChapters.map(chapterRepo.insert).sequenceFu >>- {
-              chat ! lila.chat.actorApi.SystemTalk(
+              chatApi.userChat.system(
                 Chat.Id(study.id.value),
                 s"Cloned from lichess.org/study/${prev.id}"
               )
@@ -157,7 +157,7 @@ final class StudyApi(
   def talk(userId: User.ID, studyId: Study.Id, text: String) = byId(studyId) foreach {
     _ foreach { study =>
       (study canChat userId) ?? {
-        chat ! lila.chat.actorApi.UserTalk(
+        chatApi.userChat.write(
           Chat.Id(studyId.value),
           userId = userId,
           text = text,
@@ -719,7 +719,7 @@ final class StudyApi(
   }
 
   def erase(user: User) = studyRepo.allIdsByOwner(user.id) flatMap { ids =>
-    chat ! lila.chat.actorApi.RemoveAll(ids.map(id => Chat.Id(id.value)))
+    chatApi.removeAll(ids.map(id => Chat.Id(id.value)))
     studyRepo.deleteByIds(ids) >>
       chapterRepo.deleteByStudyIds(ids)
   }

@@ -1,6 +1,5 @@
 package lila.simul
 
-import akka.actor.ActorSelection
 import play.api.libs.json._
 import scala.concurrent.duration._
 
@@ -14,7 +13,7 @@ private final class SimulSocket(
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: ActorSelection,
+    chat: lila.chat.ChatApi,
     bus: lila.common.Bus
 ) {
 

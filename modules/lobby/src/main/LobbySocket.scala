@@ -27,6 +27,7 @@ final class LobbySocket(
 
   import LobbySocket._
   import Protocol._
+  type SocketController = PartialFunction[(String, JsObject), Unit]
 
   val trouper: Trouper = new Trouper {
 
@@ -142,7 +143,7 @@ final class LobbySocket(
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op)
 
-  def controller(member: Member): lila.socket.Handler.Controller = {
+  def controller(member: Member): SocketController = {
     case ("join", o) if !member.bot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.sri, member.user)
@@ -231,7 +232,7 @@ final class LobbySocket(
       getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(tpe -> msg, {
           case _ => logger.warn(s"Can't handle $tpe")
-        }: lila.socket.Handler.Controller)
+        }: SocketController)
       }
   }
 
@@ -241,11 +242,6 @@ final class LobbySocket(
   remoteSocketApi.subscribe("lobby-in", P.In.baseReader)(handler orElse remoteSocketApi.baseHandler)
 
   private val send: String => Unit = remoteSocketApi.makeSender("lobby-out").apply _
-
-  system.lilaBus.subscribeFun('nbMembers, 'nbRounds) {
-    case lila.socket.actorApi.NbMembers(nb) => send(Out.nbMembers(nb))
-    case lila.hub.actorApi.round.NbRounds(nb) => send(Out.nbRounds(nb))
-  }
 }
 
 private object LobbySocket {
@@ -260,8 +256,6 @@ private object LobbySocket {
 
   object Protocol {
     object Out {
-      def nbMembers(nb: Int) = s"member/nb $nb"
-      def nbRounds(nb: Int) = s"round/nb $nb"
       def pairings(pairings: List[PoolApi.Pairing]) = {
         val redirs = for {
           pairing <- pairings

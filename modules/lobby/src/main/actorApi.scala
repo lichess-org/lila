@@ -6,7 +6,6 @@ import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.socket.Socket.{ Sri, Sris }
-import lila.socket.{ SocketMember, DirectSocketMember, RemoteSocketMember }
 import lila.user.User
 
 private[lobby] case class SaveSeek(msg: AddSeek)

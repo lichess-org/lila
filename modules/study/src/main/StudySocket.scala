@@ -11,7 +11,7 @@ import chess.format.pgn.{ Glyph, Glyphs }
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ Sri, makeMessage }
-import lila.socket.{ AnaMove, AnaDrop, AnaAny, SocketTrouper, History, Historical, AnaDests, DirectSocketMember }
+import lila.socket.{ AnaMove, AnaDrop, AnaAny, AnaDests }
 import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
 import lila.user.User
 
@@ -20,7 +20,7 @@ private final class StudySocket(
     jsonView: JsonView,
     lightStudyCache: LightStudyCache,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: ActorSelection,
+    chatApi: lila.chat.ChatApi,
     bus: lila.common.Bus
 ) {
 
@@ -185,7 +185,7 @@ private final class StudySocket(
     }
   }
 
-  private lazy val rHandler: Handler = roomHandler(rooms, chat, logger,
+  private lazy val rHandler: Handler = roomHandler(rooms, chatApi, logger,
     roomId => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)

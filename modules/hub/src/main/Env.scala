@@ -18,13 +18,10 @@ final class Env(config: Config, system: ActorSystem) {
   val report = select("actor.report")
   val shutup = select("actor.shutup")
   val mod = select("actor.mod")
-  val chat = select("actor.chat")
   val notification = select("actor.notify")
 
-  val bus = system.lilaBus
-
   private def select(name: String) =
-    system actorSelection ("/user/" + config.getString(name))
+    system.actorSelection("/user/" + config.getString(name))
 }
 
 object Env {

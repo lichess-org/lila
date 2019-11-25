@@ -1,6 +1,6 @@
 package lila.room
 
-import lila.chat.{ Chat, UserLine, actorApi => chatApi }
+import lila.chat.{ Chat, ChatApi, UserLine, actorApi => chatApi }
 import lila.common.Bus
 import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
@@ -62,16 +62,16 @@ object RoomSocket {
 
   def roomHandler(
     rooms: TrouperMap[RoomState],
-    chat: akka.actor.ActorSelection,
+    chat: ChatApi,
     logger: Logger,
     publicSource: RoomId => PublicSource.type => Option[PublicSource],
     localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
   ): Handler = ({
     case Protocol.In.ChatSay(roomId, userId, msg) =>
-      chat ! lila.chat.actorApi.UserTalk(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
+      chat.userChat.write(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))
     case Protocol.In.ChatTimeout(roomId, modId, suspect, reason) => lila.chat.ChatTimeout.Reason(reason) foreach { r =>
       localTimeout.?? { _(roomId, modId, suspect) } foreach { local =>
-        chat ! lila.chat.actorApi.Timeout(Chat.Id(roomId.value), modId, suspect, r, local = local)
+        chat.userChat.timeout(Chat.Id(roomId.value), modId, suspect, r, local = local)
       }
     }
   }: Handler) orElse minRoomHandler(rooms, logger)

@@ -6,7 +6,7 @@ import lila.game.{ Game, Pov }
 
 final class Env(
     system: ActorSystem,
-    hub: lila.hub.Env,
+    chatApi: lila.chat.ChatApi,
     onlineUserIds: lila.memo.ExpireSetMemo,
     lightUserApi: lila.user.LightUserApi,
     rematchOf: Game.ID => Option[Game.ID],
@@ -17,7 +17,7 @@ final class Env(
 
   lazy val gameStateStream = new GameStateStream(system, jsonView)
 
-  lazy val player = new BotPlayer(hub.chat, isOfferingRematch)(system)
+  lazy val player = new BotPlayer(chatApi, isOfferingRematch)(system)
 
   val form = BotForm
 }
@@ -26,7 +26,7 @@ object Env {
 
   lazy val current: Env = "bot" boot new Env(
     system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
+    chatApi = lila.chat.Env.current.api,
     onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
     lightUserApi = lila.user.Env.current.lightUserApi,
     rematchOf = lila.game.Env.current.rematches.getIfPresent,

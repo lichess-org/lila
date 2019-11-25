@@ -28,15 +28,11 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  lazy val socketHandler = new EvalCacheSocketHandler(
+  private lazy val socketHandler = new EvalCacheSocketHandler(
     api = api,
     truster = truster,
     upgrade = upgrade
   )
-
-  bus.subscribeFun('socketLeave) {
-    case lila.socket.actorApi.SocketLeave(sri, _) => upgrade unregister sri
-  }
 
   // remote socket support
   bus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {

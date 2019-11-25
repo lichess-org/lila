@@ -16,7 +16,7 @@ import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
 import lila.hub.lightTeam._
 import lila.hub.{ Duct, DuctMap }
 import lila.round.actorApi.round.{ GoBerserk, AbortForce }
-import lila.socket.actorApi.SendToFlag
+import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 

@@ -18,7 +18,7 @@ import lila.round.actorApi.round.{ QuietFlag, Abandon }
 private[round] final class Titivate(
     tellRound: TellRound,
     bookmark: ActorSelection,
-    chat: ActorSelection
+    chatApi: lila.chat.ChatApi
 ) extends Actor {
 
   object Run
@@ -59,7 +59,7 @@ private[round] final class Titivate(
 
             else if (game.unplayed) {
               bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
-              chat ! lila.chat.actorApi.Remove(lila.chat.Chat.Id(game.id))
+              chatApi.remove(lila.chat.Chat.Id(game.id))
               GameRepo remove game.id
             } else game.clock match {
 

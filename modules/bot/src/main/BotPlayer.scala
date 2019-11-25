@@ -14,7 +14,7 @@ import lila.round.actorApi.round.{ DrawNo, DrawYes }
 import lila.user.User
 
 final class BotPlayer(
-    chatActor: ActorSelection,
+    chatApi: lila.chat.ChatApi,
     isOfferingRematch: Pov => Boolean
 )(implicit system: ActorSystem) {
 
@@ -44,7 +44,7 @@ final class BotPlayer(
     val source = d.room == "spectator" option {
       lila.hub.actorApi.shutup.PublicSource.Watcher(gameId)
     }
-    chatActor ! lila.chat.actorApi.UserTalk(chatId, me.id, d.text, publicSource = source)
+    chatApi.userChat.write(chatId, me.id, d.text, publicSource = source)
   }
 
   def rematchAccept(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, true)

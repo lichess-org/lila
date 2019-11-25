@@ -5,8 +5,6 @@ import com.typesafe.config.Config
 import io.lettuce.core._
 import scala.concurrent.duration._
 
-import actorApi._
-
 final class Env(
     system: ActorSystem,
     config: Config,
@@ -16,22 +14,15 @@ final class Env(
 
   private val RedisUri = config getString "redis.uri"
 
-  val population = new SocketPopulation(system)
-
-  private val moveBroadcast = new MoveBroadcast(system)
-
-  private val userRegister = new UserRegister(system)
-
   val remoteSocket = new RemoteSocket(
     redisClient = RedisClient create RedisURI.create(RedisUri),
     notificationActor = hub.notification,
-    setNb = nb => population ! actorApi.RemoteNbMembers(nb),
     bus = system.lilaBus,
     lifecycle = lifecycle
   )
   remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
-  system.scheduler.schedule(5 seconds, 1 seconds) { population ! PopulationTell }
+  val onlineUserIds: () => Set[String] = () => remoteSocket.onlineUserIds.get
 }
 
 object Env {

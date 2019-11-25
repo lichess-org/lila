@@ -80,7 +80,6 @@ final class Env(
     user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
-    _ = Env.user.onlineUserIdMemo.remove(user.id)
     _ = Env.user.recentTitledUserIdMemo.remove(user.id)
     _ <- !goodUser ?? Env.relation.api.fetchFollowing(user.id) flatMap {
       Env.activity.write.unfollowAll(user, _)

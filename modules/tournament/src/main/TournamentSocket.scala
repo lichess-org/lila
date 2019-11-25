@@ -14,7 +14,7 @@ import lila.user.User
 
 private final class TournamentSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: ActorSelection,
+    chat: lila.chat.ChatApi,
     system: ActorSystem
 ) {
 

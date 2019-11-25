@@ -4,7 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.socket.HasUserId
 import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
@@ -16,13 +15,13 @@ final class Env(
     divider: lila.game.Divider,
     importer: lila.importer.Importer,
     explorerImporter: lila.explorer.ExplorerImporter,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     notifyApi: lila.notify.NotifyApi,
     getPref: User => Fu[lila.pref.Pref],
     getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]],
     remoteSocketApi: lila.socket.RemoteSocket,
     system: ActorSystem,
     hub: lila.hub.Env,
+    chatApi: lila.chat.ChatApi,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
@@ -48,7 +47,7 @@ final class Env(
     jsonView = jsonView,
     lightStudyCache = lightStudyCache,
     remoteSocketApi = remoteSocketApi,
-    chat = hub.chat,
+    chatApi = chatApi,
     bus = system.lilaBus
   )
 
@@ -67,7 +66,7 @@ final class Env(
     pgnFetch = new PgnFetch,
     pgnDump = gamePgnDump,
     lightUser = lightUserApi,
-    chat = hub.chat,
+    chatApi = chatApi,
     domain = NetDomain
   )
 
@@ -121,7 +120,7 @@ final class Env(
     explorerGameHandler = explorerGame,
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
-    chat = hub.chat,
+    chatApi = chatApi,
     bus = system.lilaBus,
     timeline = hub.timeline,
     serverEvalRequester = serverEvalRequester,
@@ -174,13 +173,13 @@ object Env {
     divider = lila.game.Env.current.divider,
     importer = lila.importer.Env.current.importer,
     explorerImporter = lila.explorer.Env.current.importer,
-    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     notifyApi = lila.notify.Env.current.api,
     getPref = lila.pref.Env.current.api.getPref,
     getRelation = lila.relation.Env.current.api.fetchRelation,
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
     system = lila.common.PlayApp.system,
     hub = lila.hub.Env.current,
+    chatApi = lila.chat.Env.current.api,
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache
   )

@@ -4,9 +4,6 @@ import akka.actor._
 import java.lang.management.ManagementFactory
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.round.NbRounds
-import lila.socket.actorApi.NbMembers
-
 private final class KamonPusher(
     countUsers: () => Int
 ) extends Actor {
@@ -25,12 +22,6 @@ private final class KamonPusher(
 
   def receive = {
 
-    case NbMembers(nb) =>
-      lila.mon.socket.count.all(nb)
-
-    case NbRounds(nb) =>
-      lila.mon.round.actor.count(nb)
-
     case Tick =>
       lila.mon.jvm.thread(threadStats.getThreadCount)
       lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
@@ -45,5 +36,5 @@ object KamonPusher {
   private case object Tick
 
   def start(system: ActorSystem)(instance: => Actor) =
-    system.lilaBus.subscribe(system.actorOf(Props(instance)), 'nbMembers, 'nbRounds)
+    system.lilaBus.subscribe(system.actorOf(Props(instance)))
 }

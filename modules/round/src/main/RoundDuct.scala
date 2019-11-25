@@ -3,6 +3,7 @@ package lila.round
 import play.api.libs.json._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 import ornicar.scalalib.Zero
 
 import actorApi._, round._
@@ -15,7 +16,6 @@ import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
 import lila.hub.actorApi.simul.GetHostIds
-import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Duct
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -478,6 +478,7 @@ private[round] final class RoundDuct(
 
 object RoundDuct {
 
+  case class HasUserId(userId: User.ID, promise: Promise[Boolean])
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop

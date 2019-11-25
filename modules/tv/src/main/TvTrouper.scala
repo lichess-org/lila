@@ -13,7 +13,6 @@ import lila.hub.Trouper
 private[tv] final class TvTrouper(
     system: ActorSystem,
     rendererActor: ActorSelection,
-    selectChannel: lila.socket.Channel,
     lightUser: LightUser.GetterSync,
     onSelect: Game => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
@@ -75,8 +74,7 @@ private[tv] final class TvTrouper(
           )
         }
       )
-      selectChannel ! lila.socket.Channel.Publish(makeMessage("tvSelect", data)) // TODO remove: old rounds
-      system.lilaBus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), 'tvSelect) // new rounds
+      system.lilaBus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), 'tvSelect)
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
         actorAsk(rendererActor, actorApi.RenderFeaturedJs(game)) onSuccess {

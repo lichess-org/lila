@@ -7,10 +7,8 @@ import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.hub.{ Duct, DuctMap, TrouperMap }
-import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
-import makeTimeout.short
 
 final class Env(
     config: Config,
@@ -21,6 +19,7 @@ final class Env(
     proxyGame: Game.ID => Fu[Option[Game]],
     flood: lila.security.Flood,
     hub: lila.hub.Env,
+    chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     lightUserApi: lila.user.LightUserApi,
     isOnline: User.ID => Boolean,
@@ -85,7 +84,7 @@ final class Env(
 
   private val socket = new TournamentSocket(
     remoteSocketApi = remoteSocketApi,
-    chat = hub.chat,
+    chat = chatApi,
     system = system
   )
 
@@ -193,6 +192,7 @@ object Env {
     proxyGame = lila.round.Env.current.proxy.game _,
     flood = lila.security.Env.current.flood,
     hub = lila.hub.Env.current,
+    chatApi = lila.chat.Env.current.api,
     tellRound = lila.round.Env.current.tellRound,
     lightUserApi = lila.user.Env.current.lightUserApi,
     isOnline = lila.user.Env.current.isOnline,

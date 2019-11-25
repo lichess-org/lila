@@ -1,8 +1,6 @@
 package lila
 
-import lila.socket.WithSocket
-
-package object simul extends PackageObject with WithSocket {
+package object simul extends PackageObject {
 
   private[simul] object RandomName {
 

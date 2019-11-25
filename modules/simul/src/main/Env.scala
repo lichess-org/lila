@@ -6,7 +6,6 @@ import scala.concurrent.duration._
 
 import lila.game.Game
 import lila.hub.{ Duct, DuctMap }
-import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 final class Env(
@@ -15,6 +14,7 @@ final class Env(
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
@@ -49,7 +49,7 @@ final class Env(
     getSimul = repo.find,
     jsonView = jsonView,
     remoteSocketApi = remoteSocketApi,
-    chat = hub.chat,
+    chat = chatApi,
     bus = system.lilaBus
   )
 
@@ -122,6 +122,7 @@ object Env {
     scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    chatApi = lila.chat.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.round.Env.current.onStart,
     isOnline = lila.user.Env.current.isOnline,

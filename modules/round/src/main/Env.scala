@@ -11,8 +11,6 @@ import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.game.{ Game, GameRepo, Pov, PlayerRef }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
-import lila.hub.actorApi.socket.HasUserId
-import lila.hub.actorApi.{ Announce, DeployPost }
 import lila.user.User
 
 final class Env(
@@ -20,6 +18,7 @@ final class Env(
     system: ActorSystem,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.Player,
     aiPerfApi: lila.fishnet.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
@@ -35,12 +34,10 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
     evalCache: lila.evalCache.EvalCacheApi,
-    evalCacheHandler: lila.evalCache.EvalCacheSocketHandler,
     remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors,
-    settingStore: lila.memo.SettingStore.Builder
+    ratingFactors: () => lila.rating.RatingFactors
 ) {
 
   private val settings = new {
@@ -58,9 +55,6 @@ final class Env(
   import settings._
 
   private val bus = system.lilaBus
-
-  private val moveTimeChannel = new lila.socket.Channel(system)
-  bus.subscribe(moveTimeChannel, 'roundMoveTimeChannel)
 
   private val deployPersistence = new DeployPersistence(system)
 
@@ -114,10 +108,6 @@ final class Env(
 
   private var nbRounds = 0
   def count = nbRounds
-
-  system.scheduler.schedule(5 seconds, 2 seconds) {
-    bus.publish(lila.hub.actorApi.round.NbRounds(roundSocket.rounds.size), 'nbRounds)
-  }
 
   def tellRound(gameId: Game.ID, msg: Any): Unit = roundSocket.rounds.tell(gameId, msg)
 
@@ -228,15 +218,13 @@ final class Env(
     bus = bus
   )
 
-  lazy val messenger = new Messenger(
-    chat = hub.chat
-  )
+  lazy val messenger = new Messenger(chatApi)
 
   def getSocketStatus(game: Game): Fu[SocketStatus] =
     roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
-    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(HasUserId(userId, _))
+    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundDuct.HasUserId(userId, _))
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
@@ -263,10 +251,10 @@ final class Env(
     }
   }
 
-  MoveMonitor.start(system, moveTimeChannel)
+  MoveMonitor.start(system)
 
   system.actorOf(
-    Props(new Titivate(tellRound, hub.bookmark, hub.chat)),
+    Props(new Titivate(tellRound, hub.bookmark, chatApi)),
     name = "titivate"
   )
 
@@ -303,6 +291,7 @@ object Env {
     system = lila.common.PlayApp.system,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    chatApi = lila.chat.Env.current.api,
     fishnetPlayer = lila.fishnet.Env.current.player,
     aiPerfApi = lila.fishnet.Env.current.aiPerfApi,
     crosstableApi = lila.game.Env.current.crosstableApi,
@@ -318,11 +307,9 @@ object Env {
     prefApi = lila.pref.Env.current.api,
     historyApi = lila.history.Env.current.api,
     evalCache = lila.evalCache.Env.current.api,
-    evalCacheHandler = lila.evalCache.Env.current.socketHandler,
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
     isBotSync = lila.user.Env.current.lightUserApi.isBotSync,
     slackApi = lila.slack.Env.current.api,
-    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get,
-    settingStore = lila.memo.Env.current.settingStore
+    ratingFactors = lila.rating.Env.current.ratingFactorsSetting.get
   )
 }
