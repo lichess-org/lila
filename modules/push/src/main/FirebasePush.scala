@@ -10,7 +10,6 @@ import play.api.libs.ws.WS
 import play.api.Play.current
 
 private final class FirebasePush(
-    blockingIO: BlockingIO,
     credentialsOpt: Option[GoogleCredentials],
     getDevices: String => Fu[List[Device]],
     url: String
@@ -20,7 +19,7 @@ private final class FirebasePush(
     credentialsOpt.fold(fuccess({})) { creds =>
       getDevices(userId) flatMap {
         case Nil => funit
-        case devices => blockingIO {
+        case devices => BlockingIO {
           creds.refreshIfExpired()
           creds.getAccessToken()
         } flatMap { token =>

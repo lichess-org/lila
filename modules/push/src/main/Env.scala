@@ -51,12 +51,7 @@ final class Env(
   }
   if (googleCredentials.isEmpty) logger.warn(s"Missing $serviceAccountFile file, firebase push notifications will not work.")
 
-  private val minNbThread = config getInt "blocking_io.min_nb_threads_per_cpu"
-  private val maxNbThread = config getInt "blocking_io.max_nb_threads_per_cpu"
-  private lazy val blockingIO = new BlockingIO(minNbThread, maxNbThread)
-
   private lazy val firebasePush = new FirebasePush(
-    blockingIO,
     googleCredentials,
     deviceApi.findLastManyByUserId("firebase", 3) _,
     url = FirebaseUrl
