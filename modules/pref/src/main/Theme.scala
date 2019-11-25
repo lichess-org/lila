@@ -43,6 +43,7 @@ object Theme extends ThemeObject {
     "wood", "wood2",
     "wood3", "maple",
     "green", "marble",
+    "green-plastic", "green-glass",
     "brown", "leather",
     "grey", "metal",
     "olive", "purple",
