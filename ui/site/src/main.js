@@ -100,7 +100,6 @@
           lichess.redirect(o);
         }, 200);
       },
-      deployPost: () => lichess.socket.disconnect(),
       tournamentReminder: function(data) {
         if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;

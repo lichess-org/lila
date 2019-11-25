@@ -85,8 +85,6 @@ final class RemoteSocket(
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
     case SendTo(userId, payload) if connectedUserIds.get.contains(userId) =>
       send(Out.tellUser(userId, payload))
-    case d: Deploy =>
-      send(Out.tellAll(Json.obj("t" -> d.key)))
     case Announce(_, _, json) =>
       send(Out.tellAll(Json.obj("t" -> "announce", "d" -> json)))
     case Mlat(micros) =>
