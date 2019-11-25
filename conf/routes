@@ -184,10 +184,6 @@ GET   /streamer/:username              controllers.Streamer.show(username: Strin
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: String)
-# mobile app BC
-GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String, apiVersion: Int = 3)
-GET   /$gameId<\w{8}>/$color<white|black>/socket/v:apiVersion controllers.Round.websocketWatcher(gameId: String, color: String, apiVersion: Int)
-GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
 GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId: String, color: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: String)

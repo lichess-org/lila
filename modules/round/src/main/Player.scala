@@ -24,7 +24,7 @@ private[round] final class Player(
   private case object Flagged extends MoveResult
   private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
 
-  private[round] def human(play: HumanPlay, round: AnyRoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def human(play: HumanPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -46,7 +46,7 @@ private[round] final class Player(
     }
   }
 
-  private[round] def bot(play: BotPlay, round: AnyRoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
+  private[round] def bot(play: BotPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
     case p @ BotPlay(playerId, uci, promiseOption) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
@@ -68,7 +68,7 @@ private[round] final class Player(
   }
 
   private def postHumanOrBotPlay(
-    round: AnyRoundDuct,
+    round: RoundDuct,
     pov: Pov,
     progress: Progress,
     moveOrDrop: MoveOrDrop,
@@ -90,7 +90,7 @@ private[round] final class Player(
     res >>- promiseOption.foreach(_.success(()))
   }
 
-  private[round] def fishnet(game: Game, ply: Int, uci: Uci, round: AnyRoundDuct)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def fishnet(game: Game, ply: Int, uci: Uci, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi && game.playedTurns == ply) {
       applyUci(game, uci, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
@@ -105,7 +105,7 @@ private[round] final class Player(
         }
     } else fufail(FishnetError(s"Not AI turn move: ${uci} id: ${game.id} playable: ${game.playable} player: ${game.player}"))
 
-  private[round] def requestFishnet(game: Game, round: AnyRoundDuct): Funit = game.playableByAi ?? {
+  private[round] def requestFishnet(game: Game, round: RoundDuct): Funit = game.playableByAi ?? {
     if (game.turns <= fishnetPlayer.maxPlies) fishnetPlayer(game)
     else fuccess(round ! actorApi.round.ResignAi)
   }

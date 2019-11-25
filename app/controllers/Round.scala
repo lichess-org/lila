@@ -17,47 +17,6 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    proxyPov(gameId, color) flatMap {
-      _ ?? { pov =>
-        getSocketSri("sri") ?? { sri =>
-          val userTv = get("userTv") map UserModel.normalize map { userId =>
-            lila.round.actorApi.UserTv(
-              userId,
-              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlayingId(userId).map(_.isDefined)
-            )
-          }
-          env.socketHandler.watcher(
-            pov = pov,
-            sri = sri,
-            user = ctx.me,
-            ip = ctx.ip,
-            userTv = userTv,
-            version = getSocketVersion,
-            apiVersion = apiVersion,
-            mobile = getMobile
-          ) map some
-        }
-      }
-    }
-  }
-
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    env.proxy.pov(fullId) flatMap {
-      case Some(pov) =>
-        if (isTheft(pov)) fuccess(Left(theftResponse))
-        else getSocketSri("sri") match {
-          case Some(sri) =>
-            requestAiMove(pov) >>
-              env.socketHandler.player(pov, sri, ctx.me, ctx.ip, getSocketVersion, apiVersion, getMobile) map Right.apply
-          case None => fuccess(Left(NotFound))
-        }
-      case None => fuccess(Left(NotFound))
-    }
-  }
-
-  private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
-
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
     html = if (!pov.game.started) notFound
     else PreventTheft(pov) {

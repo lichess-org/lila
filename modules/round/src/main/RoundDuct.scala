@@ -1,55 +1,220 @@
 package lila.round
 
-import akka.actor._
-import akka.pattern.ask
+import play.api.libs.json._
 import org.joda.time.DateTime
-import ornicar.scalalib.Zero
 import scala.concurrent.duration._
+import ornicar.scalalib.Zero
 
 import actorApi._, round._
-import chess.Color
-import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
+import chess.{ Color, White, Black, Speed }
+import lila.chat.Chat
+import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ PlayerId, FullId }
+import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
-import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign }
+import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
+import lila.hub.actorApi.simul.GetHostIds
+import lila.hub.actorApi.socket.HasUserId
 import lila.hub.Duct
+import lila.room.RoomSocket.{ Protocol => RP, _ }
+import lila.socket.RemoteSocket.{ Protocol => P, _ }
+import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
 import lila.socket.UserLagCache
-import makeTimeout.large
-
-trait AnyRoundDuct extends Duct
+import lila.user.User
 
 private[round] final class RoundDuct(
     dependencies: RoundDuct.Dependencies,
-    gameId: Game.ID
-)(implicit proxy: GameProxy) extends AnyRoundDuct {
+    gameId: Game.ID,
+    socketSend: String => Unit
+)(implicit proxy: GameProxy) extends Duct {
 
+  import RoundSocket.Protocol
   import RoundDuct._
   import dependencies._
 
-  private[this] var takebackSituation: Option[TakebackSituation] = None
+  private var takebackSituation: Option[TakebackSituation] = None
+
+  private var version = SocketVersion(0)
+
+  private var mightBeSimul = true // until proven false
+  private var gameSpeed: Option[Speed] = none
+  private var chatIds = ChatIds(
+    priv = Left(Chat.Id(gameId)), // until replaced with tourney/simul chat
+    pub = Chat.Id(s"$gameId/w")
+  )
+
+  private final class Player(color: Color) {
+
+    private var offlineSince: Option[Long] = nowMillis.some
+    // wether the player closed the window intentionally
+    private var bye: Boolean = false
+    // connected as a bot
+    private var botConnected: Boolean = false
+
+    var userId = none[User.ID]
+    var goneWeight = 1f
+
+    def isOnline = offlineSince.isEmpty || botConnected
+
+    def setOnline(on: Boolean): Unit = {
+      isLongGone foreach { _ ?? notifyGone(color, false) }
+      offlineSince = if (on) None else offlineSince orElse nowMillis.some
+      bye = bye && !on
+    }
+    def setBye: Unit = {
+      bye = true
+    }
+
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
+      bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
+    }
+
+    private def timeoutMillis = {
+      if (bye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
+    } * goneWeight atLeast 12000
+
+    def isLongGone: Fu[Boolean] = {
+      !botConnected && offlineSince.exists(_ < (nowMillis - timeoutMillis))
+    } ?? !isHostingSimul
+
+    def setBotConnected(v: Boolean) =
+      botConnected = v
+
+    def isBotConnected = botConnected
+  }
+
+  private val whitePlayer = new Player(White)
+  private val blackPlayer = new Player(Black)
 
   def getGame: Fu[Option[Game]] = proxy.game
 
   val process: Duct.ReceiveAsync = {
 
-    case p: HumanPlay =>
-      handleHumanPlay(p) { pov =>
-        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else {
-          recordLag(pov)
-          player.human(p, this)(pov)
-        }
-      } >>- {
-        p.trace.finish()
-        lila.mon.round.move.full.count()
+    // socket stuff
+
+    case ByePlayer(playerId) => proxy playerPov playerId.value map {
+      _ foreach { pov =>
+        getPlayer(pov.color).setBye
+      }
+    }
+
+    case GetVersion(promise) => fuccess {
+      promise success version
+    }
+    case SetVersion(v) => fuccess {
+      version = v
+    }
+
+    case RoomCrowd(white, black) => fuccess {
+      whitePlayer setOnline white
+      blackPlayer setOnline black
+    }
+
+    case IsOnGame(color, promise) => fuccess {
+      promise success getPlayer(color).isOnline
+    }
+
+    case GetSocketStatus(promise) =>
+      whitePlayer.isLongGone zip blackPlayer.isLongGone map {
+        case (whiteIsGone, blackIsGone) => promise success SocketStatus(
+          version = version,
+          whiteOnGame = whitePlayer.isOnline,
+          whiteIsGone = whiteIsGone,
+          blackOnGame = blackPlayer.isOnline,
+          blackIsGone = blackIsGone
+        )
       }
 
-    case p: BotPlay =>
-      handleBotPlay(p) { pov =>
-        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-        else player.bot(p, this)(pov)
+    case HasUserId(userId, promise) => fuccess {
+      promise success {
+        (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
+          (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
       }
+    }
+
+    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) => fuccess {
+      whitePlayer.userId = game.player(White).userId
+      blackPlayer.userId = game.player(Black).userId
+      mightBeSimul = game.isSimul
+      chatIds = chatIds update game
+      gameSpeed = game.speed.some
+      whitePlayer.goneWeight = whiteGoneWeight
+      blackPlayer.goneWeight = blackGoneWeight
+      buscriptions.chat
+    }
+
+    case lila.chat.actorApi.ChatLine(chatId, line) => fuccess {
+      publish(List(line match {
+        case l: lila.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)
+        case l: lila.chat.PlayerLine => Event.PlayerMessage(l)
+      }))
+    }
+    case lila.chat.actorApi.OnTimeout(userId) => fuccess {
+      socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_timeout", userId)))
+    }
+    case lila.chat.actorApi.OnReinstate(userId) => fuccess {
+      socketSend(RP.Out.tellRoom(roomId, makeMessage("chat_reinstate", userId)))
+    }
+
+    case Protocol.In.PlayerChatSay(_, Right(color), msg) => fuccess {
+      chatIds.priv.left.toOption foreach { messenger.owner(_, color, msg) }
+    }
+    case Protocol.In.PlayerChatSay(_, Left(userId), msg) => fuccess(chatIds.priv match {
+      case Left(chatId) => messenger.owner(chatId, userId, msg)
+      case Right(setup) => messenger.external(setup, userId, msg)
+    })
+
+    case Protocol.In.HoldAlert(fullId, ip, mean, sd) => handle(fullId.playerId) { pov =>
+      lila.game.GameRepo hasHoldAlert pov flatMap {
+        case true => funit
+        case false =>
+          lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
+          lila.mon.cheat.holdAlert()
+          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
+      } inject Nil
+    }
+
+    case Protocol.In.UserTv(_, userId) => fuccess {
+      buscriptions tv userId
+    }
+
+    case UserStartGame(userId, _) => fuccess {
+      socketSend(Protocol.Out.userTvNewGame(Game.Id(gameId), userId))
+    }
+
+    case a: lila.analyse.actorApi.AnalysisProgress => fuccess {
+      socketSend(RP.Out.tellRoom(roomId, makeMessage("analysisProgress", Json.obj(
+        "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
+        "tree" -> TreeBuilder(
+          id = a.analysis.id,
+          pgnMoves = a.game.pgnMoves,
+          variant = a.variant,
+          analysis = a.analysis.some,
+          initialFen = a.initialFen,
+          withFlags = JsonView.WithFlags(),
+          clocks = none
+        )
+      ))))
+    }
+
+    // round stuff
+
+    case p: HumanPlay => handleHumanPlay(p) { pov =>
+      if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+      else {
+        recordLag(pov)
+        player.human(p, this)(pov)
+      }
+    } >>- {
+      p.trace.finish()
+      lila.mon.round.move.full.count()
+    }
+
+    case p: BotPlay => handleBotPlay(p) { pov =>
+      if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+      else player.bot(p, this)(pov)
+    }
 
     case FishnetPlay(uci, ply) => handle { game =>
       player.fishnet(game, ply, uci, this)
@@ -75,7 +240,7 @@ private[round] final class RoundDuct(
 
     case ResignForce(playerId) => handle(playerId) { pov =>
       (pov.game.resignable && !pov.game.hasAi && pov.game.hasClock && !pov.isMyTurn && pov.forceResignable) ?? {
-        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
+        getPlayer(!pov.color).isLongGone flatMap {
           case true if !pov.game.variant.insufficientWinningMaterial(pov.game.board, pov.color) => finisher.rageQuit(pov.game, Some(pov.color))
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
@@ -85,7 +250,7 @@ private[round] final class RoundDuct(
 
     case DrawForce(playerId) => handle(playerId) { pov =>
       (pov.game.drawable && !pov.game.hasAi && pov.game.hasClock) ?? {
-        socketMap.ask[Boolean](pov.gameId)(IsGone(!pov.color, _)) flatMap {
+        getPlayer(!pov.color).isLongGone flatMap {
           case true => finisher.rageQuit(pov.game, None)
           case _ => fuccess(List(Event.Reload))
         }
@@ -116,8 +281,8 @@ private[round] final class RoundDuct(
       }
     }
 
-    case DrawYes(playerRef) => handle(playerRef)(drawer.yes)
-    case DrawNo(playerRef) => handle(playerRef)(drawer.no)
+    case DrawYes(playerId) => handle(playerId)(drawer.yes)
+    case DrawNo(playerId) => handle(playerId)(drawer.no)
     case DrawClaim(playerId) => handle(playerId)(drawer.claim)
     case Cheat(color) => handle { game =>
       (game.playable && !game.imported) ?? {
@@ -134,27 +299,17 @@ private[round] final class RoundDuct(
       }
     }
 
-    case HoldAlert(playerId, mean, sd, ip) => handle(playerId) { pov =>
-      lila.game.GameRepo hasHoldAlert pov flatMap {
-        case true => funit
-        case false =>
-          lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-          lila.mon.cheat.holdAlert()
-          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
-      } inject Nil
-    }
+    case RematchYes(playerId) => handle(PlayerId(playerId))(rematcher.yes)
+    case RematchNo(playerId) => handle(PlayerId(playerId))(rematcher.no)
 
-    case RematchYes(playerRef) => handle(PlayerId(playerRef))(rematcher.yes)
-    case RematchNo(playerRef) => handle(PlayerId(playerRef))(rematcher.no)
-
-    case TakebackYes(playerRef) => handle(playerRef) { pov =>
+    case TakebackYes(playerId) => handle(playerId) { pov =>
       takebacker.yes(~takebackSituation)(pov) map {
         case (events, situation) =>
           takebackSituation = situation.some
           events
       }
     }
-    case TakebackNo(playerRef) => handle(playerRef) { pov =>
+    case TakebackNo(playerId) => handle(playerId) { pov =>
       takebacker.no(~takebackSituation)(pov) map {
         case (events, situation) =>
           takebackSituation = situation.some
@@ -162,7 +317,7 @@ private[round] final class RoundDuct(
       }
     }
 
-    case Moretime(playerRef) => handle(playerRef) { pov =>
+    case Moretime(playerId) => handle(playerId) { pov =>
       moretimer(pov) flatMap {
         _ ?? { progress =>
           proxy save progress inject progress.events
@@ -206,9 +361,48 @@ private[round] final class RoundDuct(
         player.requestFishnet(_, this)
       }
     }
+
+    case Tick => getGame map { g =>
+      if (g.exists(_.forceResignable)) Color.all.foreach { c =>
+        if (!getPlayer(c).isOnline) getPlayer(c).isLongGone foreach { _ ?? notifyGone(c, true) }
+      }
+    }
+
+    case Stop => fuccess {
+      if (buscriptions.started) {
+        buscriptions.unsubAll
+        socketSend(RP.Out.stop(roomId))
+      }
+    }
   }
 
-  private[this] def recordLag(pov: Pov): Unit =
+  private object buscriptions {
+
+    private var classifiers = collection.mutable.Set.empty[Symbol]
+
+    private def sub(classifier: Symbol) =
+      if (!classifiers(classifier)) {
+        bus.subscribe(RoundDuct.this, classifier)
+        classifiers += classifier
+      }
+
+    def started = classifiers.nonEmpty
+
+    def unsubAll = {
+      bus.unsubscribe(RoundDuct.this, classifiers.toSeq)
+      classifiers.clear
+    }
+
+    def tv(userId: User.ID): Unit = sub(Symbol(s"userStartGame:$userId"))
+
+    def chat = chatIds.allIds foreach { chatId =>
+      sub(lila.chat.Chat classify chatId)
+    }
+  }
+
+  private def getPlayer(color: Color): Player = color.fold(whitePlayer, blackPlayer)
+
+  private def recordLag(pov: Pov): Unit =
     if ((pov.game.playedTurns & 30) == 10) {
       // Triggers every 32 moves starting on ply 10.
       // i.e. 10, 11, 42, 43, 74, 75, ...
@@ -219,52 +413,57 @@ private[round] final class RoundDuct(
       } UserLagCache.put(user, lag)
     }
 
-  private[this] def handle[A](op: Game => Fu[Events]): Funit =
+  private def notifyGone(color: Color, gone: Boolean): Unit = proxy pov color foreach {
+    _ foreach { notifyGone(_, gone) }
+  }
+  private def notifyGone(pov: Pov, gone: Boolean): Unit =
+    socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
+
+  private def handle[A](op: Game => Fu[Events]): Funit =
     handleGame(proxy.game)(op)
 
-  private[this] def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
+  private def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov playerId.value)(op)
 
-  private[this] def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
+  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
     handlePov {
       p.trace.segment("fetch", "db") {
         proxy playerPov p.playerId.value
       }
     }(op)
 
-  private[this] def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
+  private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov p.playerId)(op)
 
-  private[this] def handle(color: Color)(op: Pov => Fu[Events]): Funit =
+  private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy pov color)(op)
 
-  private[this] def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
+  private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
     pov flatten "pov not found" flatMap { p =>
-      (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map {
-        publish(p.game, _)
-      }
+      (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map publish
     } recover errorHandler("handlePov")
 
-  private[this] def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
-    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap { pov =>
-      op(pov) map { publish(pov.game, _) }
-    } recover errorHandler("handleAi")
+  private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
+    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op map publish recover errorHandler("handleAi")
 
-  private[this] def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
-    game flatten "game not found" flatMap { g =>
-      op(g) map { publish(g, _) }
-    } recover errorHandler("handleGame")
+  private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
+    game flatten "game not found" flatMap op map publish recover errorHandler("handleGame")
 
-  private[this] def publish[A](game: Game, events: Events): Unit =
+  private def publish[A](events: Events): Unit =
     if (events.nonEmpty) {
-      socketMap.tell(gameId, EventList(events))
+      events map { e =>
+        version = version.inc
+        socketSend {
+          Protocol.Out.tellVersion(roomId, version, e)
+        }
+      }
       if (events exists {
         case e: Event.Move => e.threefold
         case _ => false
       }) this ! Threefold
     }
 
-  private[this] def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
+  private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
       lila.mon.round.error.client()
@@ -273,21 +472,23 @@ private[round] final class RoundDuct(
       lila.mon.round.error.fishnet()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
+
+  def roomId = RoomId(gameId)
 }
 
 object RoundDuct {
 
-  private[round] case class Dependencies(
-      messenger: Messenger,
-      takebacker: Takebacker,
-      moretimer: Moretimer,
-      finisher: Finisher,
-      rematcher: Rematcher,
-      player: Player,
-      drawer: Drawer,
-      forecastApi: ForecastApi,
-      socketMap: SocketMap
-  )
+  case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
+  case object Tick
+  case object Stop
+
+  case class ChatIds(priv: Either[Chat.Id, Chat.Setup], pub: Chat.Id) {
+    def allIds = Seq(priv.fold(identity, _.id), pub)
+    def update(g: Game) = {
+      g.tournamentId.map(Chat.tournamentSetup) orElse
+        g.simulId.map(Chat.simulSetup)
+    }.fold(this)(setup => copy(priv = Right(setup)))
+  }
 
   private[round] case class TakebackSituation(nbDeclined: Int, lastDeclined: Option[DateTime]) {
 
@@ -302,4 +503,16 @@ object RoundDuct {
 
   private[round] implicit val takebackSituationZero: Zero[TakebackSituation] =
     Zero.instance(TakebackSituation(0, none))
+
+  private[round] case class Dependencies(
+      messenger: Messenger,
+      takebacker: Takebacker,
+      moretimer: Moretimer,
+      finisher: Finisher,
+      rematcher: Rematcher,
+      player: Player,
+      drawer: Drawer,
+      forecastApi: ForecastApi,
+      bus: lila.common.Bus
+  )
 }

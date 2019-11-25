@@ -64,29 +64,6 @@ final class Env(
 
   private val deployPersistence = new DeployPersistence(system)
 
-  private lazy val roundDependencies = RoundDuct.Dependencies(
-    messenger = messenger,
-    takebacker = takebacker,
-    moretimer = moretimer,
-    finisher = finisher,
-    rematcher = rematcher,
-    player = player,
-    drawer = drawer,
-    forecastApi = forecastApi,
-    socketMap = socketMap
-  )
-  private val roundMap = new lila.hub.DuctMap[RoundDuct](
-    mkDuct = id => {
-      val duct = new RoundDuct(
-        dependencies = roundDependencies,
-        gameId = id
-      )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
-      duct.getGame foreach { _ foreach scheduleExpiration }
-      duct
-    },
-    accessTimeout = ActiveTtl
-  )
-
   private val defaultGoneWeight = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
   private def goneWeightsFor(game: Game): Fu[(Float, Float)] =
@@ -94,9 +71,9 @@ final class Env(
     else game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
       game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
-  lazy val roundSocket = new RoundRemoteSocket(
+  lazy val roundSocket = new RoundSocket(
     remoteSocketApi = remoteSocketApi,
-    roundDependencies = RoundRemoteDuct.Dependencies(
+    roundDependencies = RoundDuct.Dependencies(
       messenger = messenger,
       takebacker = takebacker,
       moretimer = moretimer,
@@ -113,7 +90,6 @@ final class Env(
     selfReport = selfReport,
     messenger = messenger,
     goneWeightsFor = goneWeightsFor,
-    useRemoteSocket = useRemoteSocket _,
     system = system
   )
 
@@ -122,9 +98,7 @@ final class Env(
       case Tell(id, msg) => tellRound(id, msg)
     },
     'roundMapTellAll -> {
-      case msg =>
-        roundMap.tellAll(msg)
-        roundSocket.rounds.tellAll(msg)
+      case msg => roundSocket.rounds.tellAll(msg)
     },
     'accountClose -> {
       case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
@@ -142,28 +116,14 @@ final class Env(
   def count = nbRounds
 
   system.scheduler.schedule(5 seconds, 2 seconds) {
-    nbRounds = roundMap.size + roundSocket.rounds.size
-    bus.publish(lila.hub.actorApi.round.NbRounds(nbRounds), 'nbRounds)
+    bus.publish(lila.hub.actorApi.round.NbRounds(roundSocket.rounds.size), 'nbRounds)
   }
 
-  import lila.memo.SettingStore.Regex._
-  lazy val remoteSocketSetting = settingStore[scala.util.matching.Regex](
-    "roundRemoteSocket5",
-    default = "[0-9a-u].+".r,
-    text = "Remote socket game ID regex".some
-  )
-  def useRemoteSocket(gameId: Game.ID) = remoteSocketSetting.get().matches(gameId)
-  def selectRoundMap(gameId: Game.ID) = if (useRemoteSocket(gameId)) roundSocket.rounds else roundMap
-  def tellRound(gameId: Game.ID, msg: Any): Unit = selectRoundMap(gameId).tell(gameId, msg)
+  def tellRound(gameId: Game.ID, msg: Any): Unit = roundSocket.rounds.tell(gameId, msg)
 
   object proxy {
 
-    def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? {
-      if (useRemoteSocket(gameId)) roundSocket getGame gameId
-      else roundMap.getOrMake(gameId).getGame addEffect { g =>
-        if (!g.isDefined) roundMap kill gameId
-      }
-    }
+    def game(gameId: Game.ID): Fu[Option[Game]] = Game.validId(gameId) ?? roundSocket.getGame(gameId)
 
     def pov(gameId: Game.ID, user: lila.user.User): Fu[Option[Pov]] =
       game(gameId) map { _ flatMap { Pov(_, user) } }
@@ -176,14 +136,11 @@ final class Env(
     def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
       game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
 
-    def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] =
-      if (useRemoteSocket(gameId)) roundSocket gameIfPresent gameId
-      else roundMap.getIfPresent(gameId).??(_.getGame)
+    def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = roundSocket gameIfPresent gameId
 
     def updateIfPresent(game: Game): Fu[Game] =
       if (game.finishedOrAborted) fuccess(game)
-      else if (useRemoteSocket(game.id)) roundSocket updateIfPresent game
-      else roundMap.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+      else roundSocket updateIfPresent game
 
     def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
       gameIfPresent(gameId) map2 { (g: Game) => Pov(g, color) }
@@ -209,19 +166,6 @@ final class Env(
     }
   }
 
-  val socketMap = SocketMap.make(
-    makeHistory = History(db(CollectionHistory), deployPersistence.isEnabled _) _,
-    socketTimeout = SocketTimeout,
-    dependencies = RoundSocket.Dependencies(
-      system = system,
-      lightUser = lightUser,
-      sriTtl = SocketSriTimeout,
-      getGame = proxy.game _
-    ),
-    playban = playban,
-    useRemoteSocket = useRemoteSocket _
-  )
-
   lazy val selfReport = new SelfReport(tellRound, slackApi, proxy.pov)
 
   lazy val recentTvGames = new {
@@ -233,17 +177,6 @@ final class Env(
       (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
     }
   }
-
-  lazy val socketHandler = new SocketHandler(
-    hub = hub,
-    roundMap = roundMap,
-    socketMap = socketMap,
-    messenger = messenger,
-    evalCacheHandler = evalCacheHandler,
-    selfReport = selfReport,
-    bus = bus,
-    isRecentTv = recentTvGames get _
-  )
 
   private lazy val botFarming = new BotFarming(crosstableApi, isBotSync)
 
@@ -300,16 +233,10 @@ final class Env(
   )
 
   def getSocketStatus(game: Game): Fu[SocketStatus] =
-    if (useRemoteSocket(game.id))
-      roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
-    else
-      socketMap.ask[SocketStatus](game.id)(GetSocketStatus)
+    roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
-    if (useRemoteSocket(game.id))
-      roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(HasUserId(userId, _))
-    else
-      socketMap.ask[Boolean](game.id)(HasUserId(userId, _))
+    roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(HasUserId(userId, _))
 
   lazy val jsonView = new JsonView(
     noteApi = noteApi,
@@ -322,8 +249,7 @@ final class Env(
     evalCache = evalCache,
     isOfferingRematch = rematcher.isOffering,
     baseAnimationDuration = AnimationDuration,
-    moretimeSeconds = MoretimeDuration.toSeconds.toInt,
-    useRemoteSocket = useRemoteSocket _
+    moretimeSeconds = MoretimeDuration.toSeconds.toInt
   )
 
   lazy val noteApi = new NoteApi(db(CollectionNote))
