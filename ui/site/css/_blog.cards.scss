@@ -1,0 +1,60 @@
+.blog-cards {
+  .atom {
+    font-size: 2.6em;
+    color: $c-accent;
+  }
+
+  .list {
+    @extend %box-padding;
+
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20em, 1fr));
+    grid-gap: 3vmin;
+
+    > a {
+      @extend %box-neat-force;
+      background: $c-bg-zebra;
+      color: $c-font;
+      position: relative;
+
+      &:hover {
+        background: $c-link;
+        &, h2 {
+          color: $c-link-over;
+        }
+      }
+
+      time {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: .2em .5em;
+        background: #111;
+        color: #ddd;
+        border-radius: 0 0 $box-radius-size 0;
+        opacity: 1;
+      }
+
+      img {
+        width: 100%;
+        background: $c-bg-zebra;
+      }
+
+      .content {
+        padding: 2vmin;
+      }
+
+      h2 {
+        font-size: 1.3em;
+        color: $c-font-clear;
+        display: block;
+      }
+
+      span {
+        @extend %roboto;
+        margin-top: 2vmin;
+        display: block;
+      }
+    }
+  }
+}
