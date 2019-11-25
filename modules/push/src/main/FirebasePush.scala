@@ -44,7 +44,7 @@ private final class FirebasePush(
           // firebase doesn't support nested data object and we only use what is
           // inside userData
           // note: send will silently fail if data contains any non string value
-          "data" -> (data.payload \ "userData").get,
+          "data" -> (data.payload \ "userData").asOpt[JsObject].map(prefixKeys(_)),
           "notification" -> Json.obj(
             "body" -> data.body,
             "title" -> data.title
@@ -55,4 +55,9 @@ private final class FirebasePush(
         case res => fufail(s"[push] firebase: ${res.status} ${res.body}")
       }
   }
+
+  private def prefixKeys(obj: JsObject): JsObject =
+    JsObject(obj.fields.map {
+      case (k, v) => s"lichess.$k" -> v
+    })
 }
