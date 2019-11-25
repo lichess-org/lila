@@ -10,7 +10,10 @@ import controllers.routes
 
 object index {
 
-  def apply(pager: Paginator[io.prismic.Document])(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  def apply(pager: Paginator[io.prismic.Document])(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) = {
+
+    val primaryPost = (pager.currentPage == 1).??(pager.currentPageResults.headOption)
+
     views.html.base.layout(
       title = "Blog",
       moreCss = cssTag("blog"),
@@ -24,7 +27,7 @@ object index {
               h1("Lichess Official Blog"),
               a(cls := "atom", href := routes.Blog.atom, dataIcon := "3")
             ),
-            (pager.currentPage == 1).??(pager.currentPageResults.headOption) map { post =>
+            primaryPost map { post =>
               frag(
                 latestPost(post),
                 h2("Previous blog posts")
@@ -32,13 +35,14 @@ object index {
             },
             div(cls := "blog-cards list infinitescroll")(
               pager.currentPageResults flatMap MiniPost.fromDocument("blog", "wide") map { post =>
-                bits.postCard(post, "paginated".some, h3)
+                primaryPost.fold(true)(_.id != post.id) option bits.postCard(post, "paginated".some, h3)
               },
               pagerNext(pager, np => routes.Blog.index(np, none).url)
             )
           )
         )
       )
+  }
 
   def byYear(year: Int, posts: List[MiniPost])(implicit ctx: Context) =
     views.html.base.layout(

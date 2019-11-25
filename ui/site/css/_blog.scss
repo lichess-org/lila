@@ -173,7 +173,7 @@
 
     &:hover {
       background: $c-link;
-      &, h2 {
+      &, .title {
         color: $c-link-over;
       }
     }
