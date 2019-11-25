@@ -126,9 +126,6 @@ final class Env(
         roundMap.tellAll(msg)
         roundSocket.rounds.tellAll(msg)
     },
-    'deploy -> {
-      case DeployPost => roundMap tellAll DeployPost
-    },
     'accountClose -> {
       case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
         _ foreach { pov =>
@@ -151,8 +148,8 @@ final class Env(
 
   import lila.memo.SettingStore.Regex._
   lazy val remoteSocketSetting = settingStore[scala.util.matching.Regex](
-    "roundRemoteSocket4",
-    default = "[0-9].+".r,
+    "roundRemoteSocket5",
+    default = "[0-9a-u].+".r,
     text = "Remote socket game ID regex".some
   )
   def useRemoteSocket(gameId: Game.ID) = remoteSocketSetting.get().matches(gameId)
