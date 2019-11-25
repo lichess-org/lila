@@ -207,14 +207,13 @@ lichess.StrongSocket = function(url, version, settings) {
     ws = null;
   };
 
-  var disconnect = function(onNextConnect) {
+  var disconnect = function() {
     if (ws) {
       debug("Disconnect");
       autoReconnect = false;
       ws.onerror = ws.onclose = ws.onopen = ws.onmessage = $.noop;
       ws.close();
     }
-    if (onNextConnect) options.onNextConnect = onNextConnect;
   };
 
   var onError = function(e) {
@@ -237,10 +236,6 @@ lichess.StrongSocket = function(url, version, settings) {
         if (ws) clearTimeout(disconnectTimeout);
         else location.reload();
       });
-    }
-    if (options.onNextConnect) {
-      options.onNextConnect();
-      delete options.onNextConnect;
     }
   };
 
