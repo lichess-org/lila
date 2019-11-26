@@ -139,7 +139,7 @@ final class Env(
     accessTimeout = SequencerTimeout
   )
 
-  system.lilaBus.subscribe(
+  lila.common.Bus.subscribe(
     system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),
     'finishGame, 'adjustCheater, 'adjustBooster, 'playban
   )

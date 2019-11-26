@@ -5,13 +5,13 @@ import play.api.libs.json.JsValue
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
+import lila.common.Bus
 import lila.socket.Socket.Sri
 
 final class Env(
     config: Config,
     settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Env,
-    bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -35,13 +35,13 @@ final class Env(
   )
 
   // remote socket support
-  bus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
+  Bus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
     case TellSriIn(sri, _, msg) => msg obj "d" foreach { d =>
       // TODO send once, let lila-ws distribute
-      socketHandler.evalGet(Sri(sri), d, res => bus.publish(TellSriOut(sri, res), 'remoteSocketOut))
+      socketHandler.evalGet(Sri(sri), d, res => Bus.publish(TellSriOut(sri, res), 'remoteSocketOut))
     }
   }
-  bus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
+  Bus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
     case TellSriIn(sri, Some(userId), msg) => msg obj "d" foreach { d =>
       socketHandler.untrustedEvalPut(Sri(sri), userId, d)
     }
@@ -62,7 +62,6 @@ object Env {
     config = lila.common.PlayApp loadConfig "evalCache",
     settingStore = lila.memo.Env.current.settingStore,
     db = lila.db.Env.current,
-    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache
   )
 }

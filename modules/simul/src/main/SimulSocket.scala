@@ -13,8 +13,7 @@ private final class SimulSocket(
     getSimul: Simul.ID => Fu[Option[Simul]],
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chat: lila.chat.ChatApi,
-    bus: lila.common.Bus
+    chat: lila.chat.ChatApi
 ) {
 
   def hostIsOn(simulId: Simul.ID, gameId: Game.ID): Unit =
@@ -47,7 +46,7 @@ private final class SimulSocket(
       send(RP.Out.tellRoomUser(RoomId(simul.id), userId, makeMessage("redirect", pov.fullId)))
     }
 
-  lazy val rooms = makeRoomMap(send, bus.some)
+  lazy val rooms = makeRoomMap(send, true)
 
   private lazy val handler: Handler = roomHandler(rooms, chat, logger,
     roomId => _.Simul(roomId.value).some)

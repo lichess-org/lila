@@ -31,7 +31,6 @@ final class Env(
   lazy val api = new RelationApi(
     coll = coll,
     actor = hub.relation,
-    bus = system.lilaBus,
     timeline = hub.timeline,
     reporter = hub.report,
     followable = followable,

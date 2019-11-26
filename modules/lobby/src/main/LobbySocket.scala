@@ -108,7 +108,7 @@ final class LobbySocket(
         hookSubscriberSris += member.sri.value
     }
 
-    system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolPairings, 'lobbySocket)
+    lila.common.Bus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolPairings, 'lobbySocket)
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
     system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
 

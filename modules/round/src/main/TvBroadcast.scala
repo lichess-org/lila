@@ -7,13 +7,15 @@ import lila.socket.Socket.makeMessage
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
+import lila.common.Bus
+
 private final class TvBroadcast extends Actor {
 
   private val (enumerator, channel) = Concurrent.broadcast[JsValue]
 
   private var featuredId = none[String]
 
-  bus.subscribe(self, 'changeFeaturedGame)
+  Bus.subscribe(self, 'changeFeaturedGame)
 
   def receive = {
 
@@ -21,9 +23,9 @@ private final class TvBroadcast extends Actor {
 
     case ChangeFeatured(id, msg) =>
       featuredId foreach { previous =>
-        bus.unsubscribe(self, MoveGameEvent makeSymbol previous)
+        Bus.unsubscribe(self, MoveGameEvent makeSymbol previous)
       }
-      bus.subscribe(self, MoveGameEvent makeSymbol id)
+      Bus.subscribe(self, MoveGameEvent makeSymbol id)
       featuredId = id.some
       channel push msg
 
@@ -33,8 +35,6 @@ private final class TvBroadcast extends Actor {
         "lm" -> move
       ))
   }
-
-  private def bus = context.system.lilaBus
 }
 
 object TvBroadcast {

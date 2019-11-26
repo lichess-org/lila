@@ -20,8 +20,8 @@ private final class PushApi(
     webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
     gameProxy: Game.ID => Fu[Option[Game]],
-    bus: lila.common.Bus,
-    scheduler: lila.common.Scheduler
+    scheduler: lila.common.Scheduler,
+    system: ActorSystem
 ) {
 
   def finish(game: Game): Funit =
@@ -220,9 +220,9 @@ private final class PushApi(
   }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
-    bus.ask[Boolean]('roundSocket) { p =>
+    lila.common.Bus.ask[Boolean]('roundSocket) { p =>
       Tell(pov.gameId, IsOnGame(pov.color, p))
-    } flatMap {
+    }(system) flatMap {
       case true => funit
       case false => f
     }

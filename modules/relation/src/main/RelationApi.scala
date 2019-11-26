@@ -3,6 +3,7 @@ package lila.relation
 import akka.actor.ActorSelection
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
@@ -16,7 +17,6 @@ import reactivemongo.bson._
 final class RelationApi(
     coll: Coll,
     actor: ActorSelection,
-    bus: lila.common.Bus,
     timeline: ActorSelection,
     reporter: ActorSelection,
     followable: ID => Fu[Boolean],
@@ -124,7 +124,7 @@ final class RelationApi(
         countFollowingCache.update(u1, prev => (prev + 1) atMost maxFollow)
         reloadOnlineFriends(u1, u2)
         timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
-        bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), 'relation)
+        Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), 'relation)
         lila.mon.relation.follow()
       }
     }
@@ -144,7 +144,7 @@ final class RelationApi(
       case _ =>
         RelationRepo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
           reloadOnlineFriends(u1, u2)
-          bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
+          Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), 'relation)
           lila.mon.relation.block()
         }
     }
@@ -168,7 +168,7 @@ final class RelationApi(
     fetchBlocks(u1, u2) flatMap {
       case true => RelationRepo.unblock(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
-        bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
+        Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), 'relation)
         lila.mon.relation.unblock()
       }
       case _ => funit

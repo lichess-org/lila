@@ -9,7 +9,6 @@ import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
 private final class GameStarter(
-    bus: lila.common.Bus,
     onStart: Game.ID => Unit,
     sequencer: FutureSequencer
 ) {
@@ -21,7 +20,7 @@ private final class GameStarter(
       val userIds = couples.flatMap(_.userIds)
       UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
         couples.map(one(pool, perfs)).sequenceFu.map { pairings =>
-          bus.publish(Pairings(pairings.flatten.toList), 'poolPairings)
+          lila.common.Bus.publish(Pairings(pairings.flatten.toList), 'poolPairings)
         }
       }
     }

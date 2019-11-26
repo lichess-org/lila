@@ -44,7 +44,7 @@ final class Env(
 
   lazy val logApi = new ModlogApi(logColl)
 
-  lazy val impersonate = new ImpersonateApi(system.lilaBus)
+  lazy val impersonate = new ImpersonateApi
 
   private lazy val notifier = new ModNotifier(notifyApi, reportApi)
 
@@ -67,8 +67,7 @@ final class Env(
     reportApi = reportApi,
     lightUserApi = lightUserApi,
     notifier = notifier,
-    refunder = ratingRefund,
-    lilaBus = system.lilaBus
+    refunder = ratingRefund
   )
 
   private lazy val boosting = new BoostingApi(
@@ -106,7 +105,7 @@ final class Env(
   lazy val stream = new ModStream(system)
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  lila.common.Bus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)

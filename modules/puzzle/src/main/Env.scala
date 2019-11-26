@@ -46,8 +46,7 @@ final class Env(
   lazy val finisher = new Finisher(
     historyApi = historyApi,
     api = api,
-    puzzleColl = puzzleColl,
-    bus = system.lilaBus
+    puzzleColl = puzzleColl
   )
 
   lazy val selector = new Selector(

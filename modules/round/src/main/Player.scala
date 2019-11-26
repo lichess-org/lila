@@ -8,13 +8,13 @@ import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
 import akka.actor.ActorRef
 import lila.game.actorApi.MoveGameEvent
+import lila.common.Bus
 import lila.game.{ Game, GameDiff, Progress, Pov, UciMemo }
 import lila.game.Game.{ PlayerId, FullId }
 import lila.hub.actorApi.round.BotPlay
 
 private[round] final class Player(
     fishnetPlayer: lila.fishnet.Player,
-    bus: lila.common.Bus,
     finisher: Finisher,
     scheduleExpiration: Game => Unit,
     uciMemo: UciMemo
@@ -141,10 +141,10 @@ private[round] final class Player(
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
     // also used for targeted TvBroadcast subscription
-    bus.publish(MoveGameEvent makeBusEvent MoveGameEvent(game, moveEvent.fen, moveEvent.move))
+    Bus.publish(MoveGameEvent makeBusEvent MoveGameEvent(game, moveEvent.fen, moveEvent.move))
 
     // publish correspondence moves
-    if (game.isCorrespondence && game.nonAi) bus.publish(
+    if (game.isCorrespondence && game.nonAi) Bus.publish(
       CorresMoveEvent(
         move = moveEvent,
         playerUserId = game.player(color).userId,
@@ -159,7 +159,7 @@ private[round] final class Player(
     for {
       simulId <- game.simulId
       opponentUserId <- game.player(!color).userId
-    } bus.publish(
+    } Bus.publish(
       SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId),
       'moveEventSimul
     )

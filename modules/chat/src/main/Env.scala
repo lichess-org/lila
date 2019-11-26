@@ -38,7 +38,6 @@ final class Env(
     shutup = shutup,
     modLog = modLog,
     asyncCache = asyncCache,
-    lilaBus = system.lilaBus,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain
   )

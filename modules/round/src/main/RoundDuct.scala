@@ -1,21 +1,21 @@
 package lila.round
 
-import play.api.libs.json._
 import org.joda.time.DateTime
+import ornicar.scalalib.Zero
+import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-import ornicar.scalalib.Zero
 
 import actorApi._, round._
 import chess.{ Color, White, Black, Speed }
 import lila.chat.Chat
+import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
-import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.Duct
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -66,9 +66,7 @@ private[round] final class RoundDuct(
       bye = true
     }
 
-    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? { u =>
-      bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds).map(_ contains u)
-    }
+    private def isHostingSimul: Fu[Boolean] = mightBeSimul ?? userId ?? isSimulHost
 
     private def timeoutMillis = {
       if (bye) RoundSocket.ragequitTimeout.toMillis else RoundSocket.gameDisconnectTimeout(gameSpeed).toMillis
@@ -382,14 +380,14 @@ private[round] final class RoundDuct(
 
     private def sub(classifier: Symbol) =
       if (!classifiers(classifier)) {
-        bus.subscribe(RoundDuct.this, classifier)
+        Bus.subscribe(RoundDuct.this, classifier)
         classifiers += classifier
       }
 
     def started = classifiers.nonEmpty
 
     def unsubAll = {
-      bus.unsubscribe(RoundDuct.this, classifiers.toSeq)
+      Bus.unsubscribe(RoundDuct.this, classifiers)
       classifiers.clear
     }
 
@@ -505,15 +503,15 @@ object RoundDuct {
   private[round] implicit val takebackSituationZero: Zero[TakebackSituation] =
     Zero.instance(TakebackSituation(0, none))
 
-  private[round] case class Dependencies(
-      messenger: Messenger,
-      takebacker: Takebacker,
-      moretimer: Moretimer,
-      finisher: Finisher,
-      rematcher: Rematcher,
-      player: Player,
-      drawer: Drawer,
-      forecastApi: ForecastApi,
-      bus: lila.common.Bus
+  private[round] class Dependencies(
+      val messenger: Messenger,
+      val takebacker: Takebacker,
+      val moretimer: Moretimer,
+      val finisher: Finisher,
+      val rematcher: Rematcher,
+      val player: Player,
+      val drawer: Drawer,
+      val forecastApi: ForecastApi,
+      val isSimulHost: User.ID => Fu[Boolean]
   )
 }

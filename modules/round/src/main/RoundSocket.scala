@@ -10,7 +10,7 @@ import actorApi.round._
 import chess.format.Uci
 import chess.{ Color, White, Black, Speed, Centis, MoveMetrics }
 import lila.chat.Chat
-import lila.common.IpAddress
+import lila.common.{ Bus, IpAddress }
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
 import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
@@ -111,7 +111,7 @@ final class RoundSocket(
     case Protocol.In.SelfReport(fullId, ip, userId, name) => selfReport(userId, ip, fullId, name)
     case userTv: Protocol.In.UserTv => tellRound(userTv.gameId, userTv)
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
-      bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$tpe"))
+      Bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$tpe"))
     case RP.In.SetVersions(versions) => versions foreach {
       case (roomId, version) => rounds.tell(roomId, SetVersion(version))
     }
@@ -128,13 +128,11 @@ final class RoundSocket(
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("r-out").apply _
 
-  private val bus = system.lilaBus
-
   remoteSocketApi.subscribe("r-in", Protocol.In.reader)(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
-  bus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
+  Bus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg) => rounds.tell(gameId, msg)

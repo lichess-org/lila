@@ -6,6 +6,8 @@ import io.lettuce.core._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
+import lila.common.Bus
+
 final class Env(
     config: Config,
     uciMemo: lila.game.UciMemo,
@@ -15,7 +17,6 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
-    bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder,
     sink: lila.analyse.Analyser
 ) {
@@ -64,7 +65,7 @@ final class Env(
     sequencer = sequencer,
     monitor = monitor,
     sink = sink,
-    socketExists = id => bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _)),
+    socketExists = id => Bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _))(system),
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes
@@ -98,11 +99,7 @@ final class Env(
     scheduler = scheduler
   )
 
-  new MainWatcher(
-    repo = repo,
-    bus = bus,
-    scheduler = scheduler
-  )
+  new MainWatcher(repo = repo, scheduler = scheduler)
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -117,7 +114,7 @@ final class Env(
     def process = {
       case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
         api.createClient(Client.UserId(userId.toLowerCase), skill) map { client =>
-          bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
+          Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
           s"Created key: ${(client.key.value)} for: $userId"
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
@@ -143,7 +140,6 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
-    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
     sink = lila.analyse.Env.current.analyser
   )

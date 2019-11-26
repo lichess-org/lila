@@ -18,7 +18,7 @@ private final class ChallengeSocket(
   def reload(challengeId: Challenge.ID): Unit =
     rooms.tell(challengeId, NotifyVersion("reload", JsNull))
 
-  lazy val rooms = makeRoomMap(send, chatBus = none)
+  lazy val rooms = makeRoomMap(send, false)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("chal-out").apply _
 

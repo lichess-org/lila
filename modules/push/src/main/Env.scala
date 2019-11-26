@@ -69,11 +69,11 @@ final class Env(
     webPush,
     getLightUser,
     gameProxy,
-    bus = system.lilaBus,
-    scheduler = scheduler
+    scheduler = scheduler,
+    system = system
   )
 
-  system.lilaBus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
+  lila.common.Bus.subscribeFun('finishGame, 'moveEventCorres, 'newMessage, 'challenge, 'corresAlarm, 'offerEventCorres) {
     case lila.game.actorApi.FinishGame(game, _, _) => pushApi finish game logFailure logger
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, pushable, _, _) if pushable => pushApi move move logFailure logger
     case lila.hub.actorApi.round.CorresTakebackOfferEvent(gameId) => pushApi takebackOffer gameId logFailure logger

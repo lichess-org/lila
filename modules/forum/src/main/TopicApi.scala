@@ -3,6 +3,7 @@ package lila.forum
 import actorApi._
 import akka.actor.ActorSelection
 
+import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
@@ -19,8 +20,7 @@ private[forum] final class TopicApi(
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier,
-    bus: lila.common.Bus
+    mentionNotifier: MentionNotifier
 ) {
 
   import BSONHandlers._
@@ -83,7 +83,7 @@ private[forum] final class TopicApi(
             lila.mon.forum.post.create()
           } >>- {
             mentionNotifier.notifyMentionedUsers(post, topic)
-            bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+            Bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
           } inject topic
     }
 
@@ -113,7 +113,7 @@ private[forum] final class TopicApi(
       env.categColl.update($id(categ.id), categ withTopic post) >>-
       (indexer ! InsertPost(post)) >>-
       env.recent.invalidate >>-
-      bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
+      Bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
   }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {

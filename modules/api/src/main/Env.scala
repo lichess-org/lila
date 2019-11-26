@@ -136,7 +136,7 @@ final class Env(
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
-  lazy val cli = new Cli(system.lilaBus)
+  lazy val cli = new Cli
 
   KamonPusher.start(system)
 
@@ -146,7 +146,7 @@ final class Env(
   )), name = "influx-event")
 
   system.registerOnTermination {
-    system.lilaBus.publish(lila.hub.actorApi.Shutdown, 'shutdown)
+    lila.common.Bus.publish(lila.hub.actorApi.Shutdown, 'shutdown)
   }
 }
 

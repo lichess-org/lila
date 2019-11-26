@@ -9,7 +9,6 @@ import lila.security.{ Granter, Permission }
 import lila.user.{ User, UserRepo }
 
 private[timeline] final class Push(
-    bus: lila.common.Bus,
     renderer: ActorSelection,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
@@ -24,7 +23,7 @@ private[timeline] final class Push(
         unsubApi.filterUnsub(data.channel, users)
       } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
-          bus.publish(ReloadTimelines(users), 'lobbySocket)
+          lila.common.Bus.publish(ReloadTimelines(users), 'lobbySocket)
         lila.mon.timeline.notification(users.size)
       }
   }

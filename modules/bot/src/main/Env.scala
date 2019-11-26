@@ -18,7 +18,7 @@ final class Env(
 
   lazy val player = new BotPlayer(chatApi, isOfferingRematch)(system)
 
-  private lazy val onlineBots = new OnlineBots(system.lilaBus, system.scheduler)
+  private lazy val onlineBots = new OnlineBots(system.scheduler)
 
   val setOnline = onlineBots.setOnline _
 

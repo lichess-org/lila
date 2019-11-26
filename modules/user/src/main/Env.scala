@@ -36,7 +36,7 @@ final class Env(
 
   val jsonView = new JsonView(isOnline)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
 
@@ -51,7 +51,7 @@ final class Env(
     lightUserApi.monitorCache
   }
 
-  system.lilaBus.subscribeFuns(
+  lila.common.Bus.subscribeFuns(
     'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
         rankingApi remove userId

@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import chess.variant._
 import chess.{ Status, Color }
-import lila.common.Iso
+import lila.common.{ Bus, Iso }
 import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
@@ -18,7 +18,6 @@ final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
-    bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder,
     messenger: MessageApi
 ) {
@@ -117,7 +116,7 @@ final class PlaybanApi(
 
   private def propagateSitting(game: Game, userId: User.ID): Funit =
     rageSitCache get userId map { rageSit =>
-      if (rageSit.isBad) bus.publish(SittingDetected(game, userId), 'playban)
+      if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), 'playban)
     }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
@@ -220,7 +219,7 @@ final class PlaybanApi(
       } yield (mod zip user).headOption foreach {
         case (m, u) =>
           lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-          bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
+          Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
           messenger.sendPreset(m, u, ModPreset.sittingAuto).void
       }
       else funit
@@ -231,7 +230,7 @@ final class PlaybanApi(
     (!record.banInEffect) ?? {
       lila.mon.playban.ban.count()
       lila.mon.playban.ban.mins(ban.mins)
-      bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
+      Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
       coll.update(
         $id(record.userId),
         $unset("o") ++

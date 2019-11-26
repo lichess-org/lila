@@ -10,7 +10,6 @@ import lila.user.User
 
 final class Env(
     config: Config,
-    system: ActorSystem,
     onStart: Game.ID => Unit,
     gameCache: lila.game.Cached,
     lightUser: lila.common.LightUser.GetterSync,
@@ -40,8 +39,7 @@ final class Env(
     jsonView = jsonView,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
-    asyncCache = asyncCache,
-    lilaBus = system.lilaBus
+    asyncCache = asyncCache
   )
 
   private lazy val socket = new ChallengeSocket(
@@ -70,7 +68,6 @@ object Env {
 
   lazy val current: Env = "challenge" boot new Env(
     config = lila.common.PlayApp loadConfig "challenge",
-    system = lila.common.PlayApp.system,
     onStart = lila.round.Env.current.onStart,
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,

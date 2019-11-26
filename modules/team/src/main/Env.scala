@@ -40,7 +40,6 @@ final class Env(
     coll = colls,
     cached = cached,
     notifier = notifier,
-    bus = system.lilaBus,
     indexer = hub.teamSearch,
     timeline = hub.timeline,
     modLog = modLog
@@ -58,7 +57,7 @@ final class Env(
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 
-  system.lilaBus.subscribeFun('shadowban) {
+  lila.common.Bus.subscribeFun('shadowban) {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
   }
 }

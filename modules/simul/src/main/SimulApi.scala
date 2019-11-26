@@ -6,7 +6,7 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import chess.variant.Variant
-import lila.common.Debouncer
+import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
@@ -106,7 +106,7 @@ final class SimulApi(
                 }
               }
             } flatMap { s =>
-              system.lilaBus.publish(Simul.OnStart(s), 'startSimul)
+              Bus.publish(Simul.OnStart(s), 'startSimul)
               update(s) >>- currentHostIdsCache.refresh
             }
           }
@@ -160,7 +160,7 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.refresh
-    system.lilaBus.publish(
+    Bus.publish(
       lila.hub.actorApi.socket.SendTo(
         simul.hostId,
         lila.socket.Socket.makeMessage("simulEnd", Json.obj(
@@ -239,10 +239,10 @@ final class SimulApi(
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        system.lilaBus.publish(siteMessage, 'sendToFlag)
+        Bus.publish(siteMessage, 'sendToFlag)
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
-            case view: String => system.lilaBus.publish(ReloadSimuls(view), 'lobbySocket)
+            case view: String => Bus.publish(ReloadSimuls(view), 'lobbySocket)
           }
         }
     })))

@@ -6,6 +6,7 @@ import io.lettuce.core.pubsub._
 
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
+import lila.common.Bus
 
 final class FishnetRedis(
     client: RedisClient,
@@ -24,12 +25,12 @@ final class FishnetRedis(
   connIn.addListener(new RedisPubSubAdapter[String, String] {
     override def message(chan: String, msg: String): Unit = msg split ' ' match {
 
-      case Array("start") => system.lilaBus.publish(FishnetStart, 'roundMapTellAll)
+      case Array("start") => Bus.publish(FishnetStart, 'roundMapTellAll)
 
       case Array(gameId, plyS, uci) => for {
         move <- Uci(uci)
         ply <- parseIntOption(plyS)
-      } system.lilaBus.publish(Tell(gameId, FishnetPlay(move, ply)), 'roundMapTell)
+      } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), 'roundMapTell)
       case _ =>
     }
   })

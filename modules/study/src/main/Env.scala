@@ -47,8 +47,7 @@ final class Env(
     jsonView = jsonView,
     lightStudyCache = lightStudyCache,
     remoteSocketApi = remoteSocketApi,
-    chatApi = chatApi,
-    bus = system.lilaBus
+    chatApi = chatApi
   )
 
   private lazy val chapterColl = db(CollectionChapter)
@@ -121,7 +120,6 @@ final class Env(
     lightUser = lightUserApi.sync,
     scheduler = system.scheduler,
     chatApi = chatApi,
-    bus = system.lilaBus,
     timeline = hub.timeline,
     serverEvalRequester = serverEvalRequester,
     lightStudyCache = lightStudyCache
@@ -158,7 +156,7 @@ final class Env(
     }
   }
 
-  system.lilaBus.subscribeFun('gdprErase, 'studyAnalysisProgress) {
+  lila.common.Bus.subscribeFun('gdprErase, 'studyAnalysisProgress) {
     case lila.user.User.GDPRErase(user) => api erase user
     case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
   }

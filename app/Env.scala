@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.user.User
 
 final class Env(
@@ -96,15 +97,14 @@ final class Env(
     reports <- Env.report.api.processAndGetBySuspect(lila.report.Suspect(user))
     _ <- self ?? Env.mod.logApi.selfCloseAccount(user.id, reports)
   } yield {
-    system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
+    Bus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribeFun('garbageCollect, 'playban) {
+  Bus.subscribeFun('garbageCollect) {
     case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
       lila.user.UserRepo.isTroll(userId) foreach { troll =>
         if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
       }
-    case lila.hub.actorApi.playban.SitcounterClose(userId) => kill(userId)
   }
 
   private def kill(userId: User.ID): Unit =

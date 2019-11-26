@@ -8,9 +8,11 @@ import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
 
+import lila.common.Bus
 import lila.game.{ Game, GameRepo, Pov, PlayerRef }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
+import lila.hub.actorApi.simul.GetHostIds
 import lila.user.User
 
 final class Env(
@@ -54,8 +56,6 @@ final class Env(
   }
   import settings._
 
-  private val bus = system.lilaBus
-
   private val deployPersistence = new DeployPersistence(system)
 
   private val defaultGoneWeight = fuccess(1f)
@@ -67,7 +67,7 @@ final class Env(
 
   lazy val roundSocket = new RoundSocket(
     remoteSocketApi = remoteSocketApi,
-    roundDependencies = RoundDuct.Dependencies(
+    roundDependencies = new RoundDuct.Dependencies(
       messenger = messenger,
       takebacker = takebacker,
       moretimer = moretimer,
@@ -76,7 +76,7 @@ final class Env(
       player = player,
       drawer = drawer,
       forecastApi = forecastApi,
-      bus = bus
+      isSimulHost = userId => Bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds)(system).dmap(_ contains userId)
     ),
     deployPersistence = deployPersistence,
     scheduleExpiration = scheduleExpiration,
@@ -87,7 +87,7 @@ final class Env(
     system = system
   )
 
-  bus.subscribeFuns(
+  Bus.subscribeFuns(
     'roundMapTell -> {
       case Tell(id, msg) => tellRound(id, msg)
     },
@@ -186,7 +186,6 @@ final class Env(
     crosstableApi = crosstableApi,
     notifier = notifier,
     playban = playban,
-    bus = bus,
     getSocketStatus = getSocketStatus,
     isRecentTv = recentTvGames get _
   )
@@ -194,14 +193,12 @@ final class Env(
   private lazy val rematcher = new Rematcher(
     messenger = messenger,
     onStart = onStart,
-    rematches = rematches,
-    bus = bus
+    rematches = rematches
   )
   val isOfferingRematch = rematcher.isOffering _
 
   private lazy val player: Player = new Player(
     fishnetPlayer = fishnetPlayer,
-    bus = bus,
     finisher = finisher,
     scheduleExpiration = scheduleExpiration,
     uciMemo = uciMemo
@@ -211,8 +208,7 @@ final class Env(
     prefApi = prefApi,
     messenger = messenger,
     finisher = finisher,
-    isBotSync = isBotSync,
-    bus = bus
+    isBotSync = isBotSync
   )
 
   lazy val messenger = new Messenger(chatApi)
@@ -241,9 +237,9 @@ final class Env(
 
   def onStart(gameId: Game.ID): Unit = proxy game gameId foreach {
     _ foreach { game =>
-      bus.publish(lila.game.actorApi.StartGame(game), 'startGame)
+      Bus.publish(lila.game.actorApi.StartGame(game), 'startGame)
       game.userIds foreach { userId =>
-        bus.publish(lila.game.actorApi.UserStartGame(userId, game), Symbol(s"userStartGame:$userId"))
+        Bus.publish(lila.game.actorApi.UserStartGame(userId, game), Symbol(s"userStartGame:$userId"))
       }
     }
   }
@@ -260,8 +256,7 @@ final class Env(
   private lazy val takebacker = new Takebacker(
     messenger = messenger,
     uciMemo = uciMemo,
-    prefApi = prefApi,
-    bus = bus
+    prefApi = prefApi
   )
   private lazy val moretimer = new Moretimer(
     messenger = messenger,

@@ -8,6 +8,7 @@ import scala.concurrent.Promise
 import actorApi.Who
 import chess.Centis
 import chess.format.pgn.{ Glyph, Glyphs }
+import lila.common.Bus
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ Sri, makeMessage }
@@ -20,8 +21,7 @@ private final class StudySocket(
     jsonView: JsonView,
     lightStudyCache: LightStudyCache,
     remoteSocketApi: lila.socket.RemoteSocket,
-    chatApi: lila.chat.ChatApi,
-    bus: lila.common.Bus
+    chatApi: lila.chat.ChatApi
 ) {
 
   import StudySocket._
@@ -29,7 +29,7 @@ private final class StudySocket(
   implicit def roomIdToStudyId(roomId: RoomId) = Study.Id(roomId.value)
   implicit def studyIdToRoomId(studyId: Study.Id) = RoomId(studyId.value)
 
-  lazy val rooms = makeRoomMap(send, bus.some)
+  lazy val rooms = makeRoomMap(send, true)
 
   def isPresent(studyId: Study.Id, userId: User.ID): Fu[Boolean] =
     remoteSocketApi.request[Boolean](
@@ -164,7 +164,7 @@ private final class StudySocket(
             onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err))))
         }
         case "relaySync" => who foreach { w =>
-          bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), 'relayToggle)
+          Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), 'relayToggle)
         }
         case t => logger.warn(s"Unhandled study socket message: $t")
       }
@@ -173,7 +173,7 @@ private final class StudySocket(
         val studyId = through.fold(identity, identity)
         lightStudyCache get studyId foreach {
           _ foreach { study =>
-            bus.publish(lila.hub.actorApi.study.StudyDoor(
+            Bus.publish(lila.hub.actorApi.study.StudyDoor(
               userId = userId,
               studyId = studyId.value,
               contributor = study contributors userId,

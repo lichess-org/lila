@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 
 import lila.challenge.{ Challenge, ChallengeMaker }
 import lila.game.actorApi.UserStartGame
+import lila.common.Bus
 import lila.game.Game
 import lila.user.User
 import lila.hub.actorApi.socket.BotIsOnline
@@ -35,7 +36,7 @@ final class EventStream(
 
           override def postStop() = {
             super.postStop()
-            system.lilaBus.unsubscribe(self, classifiers)
+            Bus.unsubscribe(self, classifiers)
           }
 
           self ! SetOnline
@@ -62,7 +63,7 @@ final class EventStream(
             }
           }
         }))
-        system.lilaBus.subscribe(actor, classifiers: _*)
+        Bus.subscribe(actor, classifiers: _*)
         stream = actor.some
       },
       onComplete = stream foreach { _ ! PoisonPill }

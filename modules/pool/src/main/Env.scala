@@ -3,13 +3,14 @@ package lila.pool
 import scala.concurrent.duration._
 
 import lila.hub.FutureSequencer
+import lila.common.Bus
 
 final class Env(
     system: akka.actor.ActorSystem,
     playbanApi: lila.playban.PlaybanApi
 ) {
 
-  private lazy val hookThieve = new HookThieve(system.lilaBus)
+  private lazy val hookThieve = new HookThieve()(system)
 
   lazy val api = new PoolApi(
     configs = PoolList.all,
@@ -20,8 +21,7 @@ final class Env(
   )
 
   private lazy val gameStarter = new GameStarter(
-    bus = system.lilaBus,
-    onStart = gameId => system.lilaBus.publish(lila.game.Game.Id(gameId), 'gameStartId),
+    onStart = gameId => Bus.publish(lila.game.Game.Id(gameId), 'gameStartId),
     sequencer = new FutureSequencer(
       system = system,
       executionTimeout = 5.seconds.some,

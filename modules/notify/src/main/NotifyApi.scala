@@ -2,6 +2,7 @@ package lila.notify
 
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
@@ -9,7 +10,6 @@ import lila.hub.actorApi.socket.SendTo
 import lila.user.UserRepo
 
 final class NotifyApi(
-    bus: lila.common.Bus,
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -96,6 +96,6 @@ final class NotifyApi(
   private def notifyUser(notifies: Notification.Notifies): Funit =
     getNotificationsAndCount(notifies, 1) map { msg =>
       import play.api.libs.json.Json
-      bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'socketUsers)
+      Bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'socketUsers)
     }
 }

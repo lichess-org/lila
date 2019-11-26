@@ -85,7 +85,6 @@ package mod {
 
 package playban {
   case class Playban(userId: String, mins: Int)
-  case class SitcounterClose(userId: String)
 }
 
 package captcha {

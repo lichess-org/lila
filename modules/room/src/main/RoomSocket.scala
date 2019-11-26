@@ -20,7 +20,7 @@ object RoomSocket {
     def msg = makeMessage(tpe, data)
   }
 
-  case class RoomChat(classifier: Symbol, bus: Bus)
+  case class RoomChat(classifier: Symbol)
 
   final class RoomState(roomId: RoomId, send: Send, chat: Option[RoomChat]) extends Trouper {
 
@@ -45,17 +45,17 @@ object RoomSocket {
       super.stop()
       send(Protocol.Out.stop(roomId))
       chat foreach { c =>
-        c.bus.unsubscribe(this, c.classifier)
+        Bus.unsubscribe(this, c.classifier)
       }
     }
-    chat foreach { c => c.bus.subscribe(this, c.classifier) }
+    chat foreach { c => Bus.subscribe(this, c.classifier) }
   }
 
-  def makeRoomMap(send: Send, chatBus: Option[Bus]) = new TrouperMap(
+  def makeRoomMap(send: Send, chatBus: Boolean) = new TrouperMap(
     mkTrouper = roomId => new RoomState(
       RoomId(roomId),
       send,
-      chatBus map { RoomChat(Chat classify Chat.Id(roomId), _) }
+      chatBus option RoomChat(Chat classify Chat.Id(roomId))
     ),
     accessTimeout = 5 minutes
   )

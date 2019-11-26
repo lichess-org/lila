@@ -4,10 +4,10 @@ import scala.concurrent.duration._
 
 import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
+import lila.common.Bus
 
 private final class MainWatcher(
     repo: FishnetRepo,
-    bus: lila.common.Bus,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -17,12 +17,12 @@ private final class MainWatcher(
 
   private def alert(client: Client) = if (!isAlerted(client)) {
     alerted put client.key.value
-    bus.publish(Warning(s"Fishnet server ${client.userId} might be down!"), 'slack)
+    Bus.publish(Warning(s"Fishnet server ${client.userId} might be down!"), 'slack)
   }
 
   private def unalert(client: Client) = if (isAlerted(client)) {
     alerted remove client.key.value
-    bus.publish(Victory(s"Fishnet server ${client.userId} is back!"), 'slack)
+    Bus.publish(Victory(s"Fishnet server ${client.userId} is back!"), 'slack)
   }
 
   private def watch: Funit = repo.lichessClients map { clients =>

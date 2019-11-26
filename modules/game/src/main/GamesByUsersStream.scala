@@ -6,9 +6,10 @@ import play.api.libs.json._
 
 import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN
+import lila.common.Bus
 import lila.user.User
 
-final class GamesByUsersStream(system: ActorSystem) {
+final class GamesByUsersStream {
 
   import GamesByUsersStream._
 
@@ -22,12 +23,12 @@ final class GamesByUsersStream(system: ActorSystem) {
 
     val enumerator = Concurrent.unicast[Game](
       onStart = channel => {
-        subscriber = system.lilaBus.subscribeFun(classifiers: _*) {
+        subscriber = Bus.subscribeFun(classifiers: _*) {
           case StartGame(game) if matches(game) => channel push game
           case FinishGame(game, _, _) if matches(game) => channel push game
         } some
       },
-      onComplete = subscriber foreach { system.lilaBus.unsubscribe(_, classifiers) }
+      onComplete = subscriber foreach { Bus.unsubscribe(_, classifiers) }
     )
 
     enumerator &> withInitialFen &> toJson

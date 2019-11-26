@@ -23,7 +23,6 @@ import Socket.{ SocketVersion, GetVersion, Sri, SendToFlag }
 final class RemoteSocket(
     redisClient: RedisClient,
     notificationActor: akka.actor.ActorSelection,
-    bus: lila.common.Bus,
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
@@ -50,14 +49,14 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
     case In.NotifiedBatch(userIds) => notificationActor ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
     case In.FriendsBatch(userIds) => userIds foreach { userId =>
-      bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
+      Bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
     }
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
-      bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
+      Bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds set Set("lichess")
@@ -68,7 +67,7 @@ final class RemoteSocket(
       })
   }
 
-  bus.subscribeFun('socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban, 'impersonate, 'botIsOnline) {
+  Bus.subscribeFun('socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban, 'impersonate, 'botIsOnline) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))

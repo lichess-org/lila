@@ -3,13 +3,11 @@ package lila.common
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import akka.actor._
-import akka.event._
+import akka.actor.{ ActorRef, ActorSystem }
 
-// can only ever be instanciated once per actor system
-final class Bus private (system: ActorSystem) extends Extension with EventBus {
+object Bus {
 
-  type Event = Bus.Event
+  case class Event(payload: Any, channel: Symbol)
   type Classifier = Symbol
   type Subscriber = Tellable
 
@@ -17,16 +15,13 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
     publish(Bus.Event(payload, channel))
   }
 
-  def subscribe(subscriber: Tellable, to: Classifier): Boolean = {
-    bus.subscribe(subscriber, to)
-  }
-  def subscribe(ref: ActorRef, to: Classifier): Boolean = subscribe(Tellable(ref), to)
+  def subscribe = bus.subscribe _
 
-  def subscribe(subscriber: Tellable, to: Classifier*): Boolean = {
-    to foreach { subscribe(subscriber, _) }
-    true
-  }
-  def subscribe(ref: ActorRef, to: Classifier*): Boolean = subscribe(Tellable(ref), to: _*)
+  def subscribe(ref: ActorRef, to: Classifier) = bus.subscribe(Tellable(ref), to)
+
+  def subscribe(subscriber: Tellable, to: Classifier*) = to foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Classifier*) = to foreach { bus.subscribe(Tellable(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Classifier]) = to foreach { bus.subscribe(Tellable(ref), _) }
 
   def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Tellable = {
     val t = lila.common.Tellable(f)
@@ -39,58 +34,87 @@ final class Bus private (system: ActorSystem) extends Extension with EventBus {
       case (classifier, subscriber) => subscribeFun(classifier)(subscriber)
     }
 
-  def unsubscribe(subscriber: Tellable, from: Classifier): Boolean = bus.unsubscribe(subscriber, from)
-  def unsubscribe(ref: ActorRef, from: Classifier): Boolean = unsubscribe(Tellable(ref), from)
+  def unsubscribe = bus.unsubscribe _
+  def unsubscribe(ref: ActorRef, from: Classifier) = bus.unsubscribe(Tellable(ref), from)
 
-  def unsubscribe(subscriber: Tellable, from: Seq[Classifier]): Boolean =
-    from forall { unsubscribe(subscriber, _) }
-  def unsubscribe(ref: ActorRef, from: Seq[Classifier]): Boolean =
-    unsubscribe(Tellable(ref), from)
+  def unsubscribe(subscriber: Tellable, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(subscriber, _) }
+  def unsubscribe(ref: ActorRef, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
 
-  def unsubscribe(subscriber: Tellable): Unit = bus unsubscribe subscriber
-  def unsubscribe(ref: ActorRef): Unit = unsubscribe(Tellable(ref))
+  // def unsubscribe(subscriber: Tellable): Unit = bus unsubscribe subscriber
+  // def unsubscribe(ref: ActorRef): Unit = unsubscribe(Tellable(ref))
 
-  def publish(event: Event): Unit = bus publish event
+  def publish(event: Event): Unit = bus.publish(event.payload, event.channel)
 
-  def ask[A](classifier: Classifier, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any): Fu[A] = {
+  def ask[A](classifier: Classifier, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
+    implicit
+    system: ActorSystem
+  ): Fu[A] = {
     val promise = Promise[A]
     val msg = makeMsg(promise)
     publish(msg, classifier)
     promise.future.withTimeout(
       timeout,
       Bus.AskTimeout(s"Bus.ask timeout: $classifier $msg")
-    )(system)
+    )
   }
 
-  private val bus = new EventBus with LookupClassification {
+  private val bus = new EventBus[Any, Classifier, Tellable](
+    initialCapacity = 65535,
+    publish = (tellable, event) => tellable ! event
+  )
 
-    type Event = Bus.Event
-    type Classifier = Symbol
-    type Subscriber = Tellable
+  //   private val bus = new EventBus with LookupClassification {
 
-    override protected val mapSize = 65536
+  //     type Event = Bus.Event
+  //     type Classifier = Symbol
+  //     type Subscriber = Tellable
 
-    protected def compareSubscribers(a: Tellable, b: Tellable) = a.uniqueId compareTo b.uniqueId
+  //     override protected val mapSize = 65536
 
-    def classify(event: Event): Symbol = event.channel
+  //     protected def compareSubscribers(a: Tellable, b: Tellable) = a.uniqueId compareTo b.uniqueId
 
-    def publish(event: Event, subscriber: Tellable) =
-      subscriber ! event.payload
+  //     def classify(event: Event): Symbol = event.channel
 
-    system.scheduler.schedule(1 minute, 1 minute) {
-      lila.mon.bus.classifiers(subscribers.keys.size)
-      lila.mon.bus.subscribers(subscribers.values.size)
-    }
-  }
-}
+  //     def publish(event: Event, subscriber: Tellable) =
+  //       subscriber ! event.payload
 
-object Bus extends ExtensionId[Bus] with ExtensionIdProvider {
-
-  case class Event(payload: Any, channel: Symbol)
-
-  override def lookup() = Bus
-
-  override def createExtension(system: ExtendedActorSystem) = new Bus(system)
+  // system.scheduler.schedule(1 minute, 1 minute) {
+  //   lila.mon.bus.classifiers(subscribers.keys.size)
+  //   lila.mon.bus.subscribers(subscribers.values.size)
+  // }
+  // }
 
   case class AskTimeout(message: String) extends lila.base.LilaException
+
+  private final class EventBus[Event, Channel, Subscriber](
+      initialCapacity: Int,
+      publish: (Subscriber, Event) => Unit
+  ) {
+
+    import java.util.concurrent.ConcurrentHashMap
+
+    private val entries = new ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
+
+    def subscribe(subscriber: Subscriber, channel: Channel): Unit =
+      entries.compute(channel, (c: Channel, subs: Set[Subscriber]) => {
+        Option(subs).fold(Set(subscriber))(_ + subscriber)
+      })
+
+    def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
+      entries.computeIfPresent(channel, (c: Channel, subs: Set[Subscriber]) => {
+        val newSubs = subs - subscriber
+        if (newSubs.isEmpty) null
+        else newSubs
+      })
+
+    def publish(event: Event, channel: Channel): Unit =
+      Option(entries get channel) foreach {
+        _ foreach {
+          publish(_, event)
+        }
+      }
+
+    def size = entries.size
+    def sizeOf(channel: Channel) = Option(entries get channel).fold(0)(_.size)
+  }
 }

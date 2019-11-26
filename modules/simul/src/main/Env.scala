@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.game.Game
 import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
@@ -49,11 +50,10 @@ final class Env(
     getSimul = repo.find,
     jsonView = jsonView,
     remoteSocketApi = remoteSocketApi,
-    chat = chatApi,
-    bus = system.lilaBus
+    chat = chatApi
   )
 
-  system.lilaBus.subscribeFuns(
+  Bus.subscribeFuns(
     'finishGame -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
     },
@@ -65,7 +65,7 @@ final class Env(
     },
     'moveEventSimul -> {
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
-        system.lilaBus.publish(
+        Bus.publish(
           lila.hub.actorApi.socket.SendTo(
             opponentUserId,
             lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)

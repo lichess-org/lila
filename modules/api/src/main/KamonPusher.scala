@@ -33,5 +33,5 @@ object KamonPusher {
   private case object Tick
 
   def start(system: ActorSystem) =
-    system.lilaBus.subscribe(system.actorOf(Props(new KamonPusher)))
+    lila.common.Bus.subscribe(system.actorOf(Props(new KamonPusher)))
 }
