@@ -40,9 +40,6 @@ object Bus {
   def unsubscribe(subscriber: Tellable, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(subscriber, _) }
   def unsubscribe(ref: ActorRef, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
 
-  // def unsubscribe(subscriber: Tellable): Unit = bus unsubscribe subscriber
-  // def unsubscribe(ref: ActorRef): Unit = unsubscribe(Tellable(ref))
-
   def publish(event: Event): Unit = bus.publish(event.payload, event.channel)
 
   def ask[A](classifier: Classifier, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
@@ -63,26 +60,7 @@ object Bus {
     publish = (tellable, event) => tellable ! event
   )
 
-  //   private val bus = new EventBus with LookupClassification {
-
-  //     type Event = Bus.Event
-  //     type Classifier = Symbol
-  //     type Subscriber = Tellable
-
-  //     override protected val mapSize = 65536
-
-  //     protected def compareSubscribers(a: Tellable, b: Tellable) = a.uniqueId compareTo b.uniqueId
-
-  //     def classify(event: Event): Symbol = event.channel
-
-  //     def publish(event: Event, subscriber: Tellable) =
-  //       subscriber ! event.payload
-
-  // system.scheduler.schedule(1 minute, 1 minute) {
-  //   lila.mon.bus.classifiers(subscribers.keys.size)
-  //   lila.mon.bus.subscribers(subscribers.values.size)
-  // }
-  // }
+  def size = bus.size
 
   case class AskTimeout(message: String) extends lila.base.LilaException
 

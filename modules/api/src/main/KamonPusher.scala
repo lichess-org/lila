@@ -24,6 +24,7 @@ private final class KamonPusher extends Actor {
       lila.mon.jvm.thread(threadStats.getThreadCount)
       lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
       lila.mon.jvm.uptime(app.uptimeSeconds)
+      lila.mon.bus.classifiers(lila.common.Bus.size)
       scheduleTick
   }
 }
