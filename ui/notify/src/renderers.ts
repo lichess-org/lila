@@ -73,7 +73,7 @@ export const renderers: Renderers = {
       ]),
       h('span', n.content.text)
     ]),
-    text: n => 'Lichess Titled Arena'
+    text: _ => 'Lichess Titled Arena'
   },
   reportedBanned: {
     html: n => generic(n, undefined, '', [
