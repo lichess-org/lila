@@ -22,7 +22,6 @@ final class Env(
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
     liveStreams = () => Env.streamer.liveStreamApi.all,
-    countRounds = () => Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUserApi = Env.user.lightUserApi,

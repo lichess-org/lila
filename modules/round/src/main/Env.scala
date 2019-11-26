@@ -106,9 +106,6 @@ final class Env(
     }
   )
 
-  private var nbRounds = 0
-  def count = nbRounds
-
   def tellRound(gameId: Game.ID, msg: Any): Unit = roundSocket.rounds.tell(gameId, msg)
 
   object proxy {
