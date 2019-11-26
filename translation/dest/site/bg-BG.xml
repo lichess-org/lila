@@ -204,6 +204,7 @@
   <string name="playingRightNow">Играещи сега</string>
   <string name="eventInProgress">Играещи сега</string>
   <string name="finished">Приключи</string>
+  <string name="finishesX">свършва след %s</string>
   <string name="abortGame">Отмени играта</string>
   <string name="gameAborted">Играта е отменена</string>
   <string name="standard">Обикновен</string>
@@ -473,6 +474,7 @@
   <string name="pleaseVotePuzzle">Гласувайте, за да помогнете за подобряването на lichess, като използвате стрелките \"нагоре\" и \"надолу\"</string>
   <string name="thankYou">Благодаря!</string>
   <string name="ratingX">Рейтинг: %s</string>
+  <string name="hidden">скрито</string>
   <plurals name="playedXTimes">
     <item quantity="one">Решавана %s пъти</item>
     <item quantity="other">Изиграна %s  пъти</item>
@@ -587,6 +589,9 @@
   <string name="xCommentedY">%1$s говори %2$s</string>
   <string name="victory">Успех!</string>
   <string name="defeat">Загуба</string>
+  <string name="victoryVsYInZ">%1$s срещу %2$s в %3$s</string>
+  <string name="defeatVsYInZ">%1$s срещу %2$s в %3$s</string>
+  <string name="drawVsYInZ">%1$s срещу %2$s в %3$s</string>
   <string name="timeline">Уведомления</string>
   <string name="starting">Начало:</string>
   <string name="allInformationIsPublicAndOptional">Всички данни са публични и са по избор.</string>
@@ -702,6 +707,7 @@
   <string name="yourPerfTypeRatingIsRating">Вашият %1$s рейтинг е %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Вие сте по-добър от %1$s от %2$s играчите.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Нямате установен %s рейтинг.</string>
+  <string name="yourRating">Твоят рейтинг</string>
   <string name="checkYourEmail">Проверете вашата ел. поща</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Изпратихме ви писмо. Натиснете върху връзката в писмото, за да задействате вашата регистрация.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не намирате писмото, проверете и на другите места, в които може бъде, като например кошче, спам, социални или други папки.</string>
@@ -853,4 +859,11 @@
     <item quantity="one">и запиши %s като предварителен ход</item>
     <item quantity="other">и запиши %s като предварителен ход</item>
   </plurals>
+  <string name="sorry">Съжалявам :(</string>
+  <string name="why">Защо?</string>
+  <string name="pleasantChessExperience">Стремим се да доставим приятно удоволствие от Шаха на всеки.</string>
+  <string name="howToAvoidThis">Как да се избегне това?</string>
+  <string name="agreementNice">Съгласявам се, че винаги ще уважавам другите играчи.</string>
+  <string name="agreementAccount">Съгласявам се, че няма да си правя няколко акаунта.</string>
+  <string name="agreementPolicy">Съгласявам се, че ше спазвам всички правила на Lichess.</string>
 </resources>
