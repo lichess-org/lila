@@ -971,8 +971,9 @@
   ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {noVersion: true, sameDomain: true});
-    navigator.serviceWorker.register(workerUrl, {scope: '/'}).then(reg => {
+    const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {sameDomain: true});
+    const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
+    navigator.serviceWorker.register(workerUrl, {scope: '/', updateViaCache}).then(reg => {
       const storage = lichess.storage.make('push-subscribed');
       const vapid = document.body.getAttribute('data-vapid');
       if (vapid && Notification.permission == 'granted') return reg.pushManager.getSubscription().then(sub => {
