@@ -19,12 +19,13 @@ private final class FirebasePush(
     credentialsOpt.fold(fuccess({})) { creds =>
       getDevices(userId) flatMap {
         case Nil => funit
+        // access token has 1h lifetime and is requested only if expired
         case devices => BlockingIO {
           creds.refreshIfExpired()
           creds.getAccessToken()
         } flatMap { token =>
-          // TODO batch send
-          // cf: https://firebase.google.com/docs/cloud-messaging/send-message#send_messages_to_multiple_devices
+          // TODO http batch request is possible using a multipart/mixed content
+          // unfortuntely it doesn't seem easily doable with play WS
           Future.sequence(devices.map(send(token, _, data))).map(_ => ())
         }
       }
