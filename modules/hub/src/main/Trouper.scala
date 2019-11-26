@@ -62,8 +62,6 @@ trait Trouper extends lila.common.Tellable {
     case Shutdown => stop()
     case msg => lila.log("trouper").warn(s"unhandled msg: $msg")
   }
-
-  lazy val uniqueId = Integer.toHexString(hashCode)
 }
 
 object Trouper {

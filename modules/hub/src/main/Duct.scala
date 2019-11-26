@@ -46,8 +46,6 @@ trait Duct extends lila.common.Tellable {
 
   private[this] val postRun = (_: Any) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
-
-  lazy val uniqueId = Integer.toHexString(hashCode)
 }
 
 object Duct {
