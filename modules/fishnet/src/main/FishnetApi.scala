@@ -40,7 +40,7 @@ final class FishnetApi(
   }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
-    case Skill.Move => fufail("Can't acquire a move directly on lichess!")
+    case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
     case Skill.Analysis | Skill.All => acquireAnalysis(client)
   }).chronometer
     .mon(_.fishnet.acquire time client.skill.key)

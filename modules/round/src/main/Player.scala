@@ -140,7 +140,7 @@ private[round] final class Player(
 
     // I checked and the bus doesn't do much if there's no subscriber for a classifier,
     // so we should be good here.
-    // also use for targeted TvBroadcast subscription
+    // also used for targeted TvBroadcast subscription
     bus.publish(MoveGameEvent makeBusEvent MoveGameEvent(game, moveEvent.fen, moveEvent.move))
 
     // publish correspondence moves
