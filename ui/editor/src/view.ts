@@ -314,8 +314,10 @@ function sparePieces(ctrl: EditorCtrl, color: Color, _orientation: Color, positi
 function onSelectSparePiece(ctrl: EditorCtrl, s: Selected, upEvent: string): (e: MouchEvent) => void {
   return function(e: MouchEvent): void {
     e.preventDefault();
-    if (s === 'pointer' || s === 'trash') ctrl.selected(s);
-    else {
+    if (s === 'pointer' || s === 'trash') {
+      ctrl.selected(s);
+      ctrl.redraw();
+    } else {
       ctrl.selected('pointer');
 
       dragNewPiece(ctrl.chessground!.state, {
