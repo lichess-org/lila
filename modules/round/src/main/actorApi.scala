@@ -28,9 +28,7 @@ case class SocketStatus(
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
 case class RoomCrowd(white: Boolean, black: Boolean)
-object RoomIsEmpty
 case class SetGame(game: Option[lila.game.Game])
-case object GetGame
 case class BotConnected(color: Color, v: Boolean)
 
 package round {
@@ -70,6 +68,3 @@ package round {
   case object NoStart
   case object TooManyPlies
 }
-
-private[round] case object GetNbRounds
-private[round] case object NotifyCrowd

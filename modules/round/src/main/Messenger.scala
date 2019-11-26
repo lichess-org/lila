@@ -1,9 +1,5 @@
 package lila.round
 
-import akka.actor.ActorSelection
-
-import actorApi._
-import lila.chat.actorApi._
 import lila.chat.{ Chat, ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
@@ -11,7 +7,7 @@ import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.{ I18nKeys, enLang }
 import lila.user.User
 
-final class Messenger(val api: ChatApi) {
+final class Messenger(api: ChatApi) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)

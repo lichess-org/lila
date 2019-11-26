@@ -142,6 +142,7 @@ private[round] final class RoundDuct(
       buscriptions.chat
     }
 
+    // chat
     case lila.chat.actorApi.ChatLine(chatId, line) => fuccess {
       publish(List(line match {
         case l: lila.chat.UserLine => Event.UserMessage(l, chatId == chatIds.pub)
@@ -162,6 +163,7 @@ private[round] final class RoundDuct(
       case Left(chatId) => messenger.owner(chatId, userId, msg)
       case Right(setup) => messenger.external(setup, userId, msg)
     })
+    // chat end
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) => handle(fullId.playerId) { pov =>
       lila.game.GameRepo hasHoldAlert pov flatMap {
