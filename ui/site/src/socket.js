@@ -76,15 +76,9 @@ lichess.StrongSocket = function(url, version, settings) {
       };
       ws.onmessage = function(e) {
         if (e.data == 0) return pong();
-        var m = JSON.parse(e.data);
-        // if (Math.random() > 0.5) {
-        //   console.log(m, 'skip');
-        //   return;
-        // }
+        const m = JSON.parse(e.data);
         if (m.t === 'n') pong();
-        // else debug(e.data);
-        if (m.t === 'b') m.d.forEach(handle);
-        else handle(m);
+        handle(m);
       };
     } catch (e) {
       onError(e);
