@@ -20,6 +20,7 @@ object Round extends LilaController with TheftPrevention {
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
     html = if (!pov.game.started) notFound
     else PreventTheft(pov) {
+      pov.game.playableByAi ?? Env.fishnet.player(pov.game)
       myTour(pov.game.tournamentId, true) flatMap { tour =>
         Game.preloadUsers(pov.game) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
@@ -42,13 +43,16 @@ object Round extends LilaController with TheftPrevention {
     }.mon(_.http.response.player.website),
     api = apiVersion => {
       if (isTheft(pov)) fuccess(theftResponse)
-      else Game.preloadUsers(pov.game) zip
-        Env.api.roundApi.player(pov, apiVersion) zip
-        getPlayerChat(pov.game, none) map {
-          case _ ~ data ~ chat => Ok {
-            data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+      else {
+        pov.game.playableByAi ?? Env.fishnet.player(pov.game)
+        Game.preloadUsers(pov.game) zip
+          Env.api.roundApi.player(pov, apiVersion) zip
+          getPlayerChat(pov.game, none) map {
+            case _ ~ data ~ chat => Ok {
+              data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+            }
           }
-        }
+      }
     }.mon(_.http.response.player.mobile)
   ) map NoCache
 
