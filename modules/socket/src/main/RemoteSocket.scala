@@ -15,7 +15,7 @@ import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
-import lila.hub.actorApi.socket.{ SendTo, SendTos }
+import lila.hub.actorApi.socket.{ SendTo, SendTos, BotIsOnline }
 import lila.hub.actorApi.{ Deploy, Announce }
 import lila.hub.{ TrouperMap, Trouper }
 import Socket.{ SocketVersion, GetVersion, Sri, SendToFlag }
@@ -68,7 +68,7 @@ final class RemoteSocket(
       })
   }
 
-  bus.subscribeFun('socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban, 'impersonate) {
+  bus.subscribeFun('socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban, 'impersonate, 'botIsOnline) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
@@ -88,6 +88,8 @@ final class RemoteSocket(
       send(Out.setTroll(userId, v))
     case lila.hub.actorApi.mod.Impersonate(userId, modId) =>
       send(Out.impersonate(userId, modId))
+    case BotIsOnline(userId, value) =>
+      onlineUserIds.getAndUpdate((x: UserIds) => { if (value) x + userId else x - userId })
   }
 
   def makeSender(channel: Channel): Sender = new Sender(redisClient.connectPubSub(), channel)

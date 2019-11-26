@@ -34,6 +34,7 @@ final class Env(
     isOnline: User.ID => Boolean,
     isStreaming: User.ID => Boolean,
     isPlaying: User.ID => Boolean,
+    setBotOnline: User.ID => Unit,
     pools: List[lila.pool.PoolConfig],
     challengeJsonView: lila.challenge.JsonView,
     val isProd: Boolean
@@ -131,7 +132,7 @@ final class Env(
     urgentGames = urgentGames
   )
 
-  lazy val eventStream = new EventStream(system, challengeJsonView)
+  lazy val eventStream = new EventStream(system, challengeJsonView, setBotOnline)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
@@ -179,6 +180,7 @@ object Env {
     isOnline = lila.socket.Env.current.isOnline,
     isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
     isPlaying = lila.relation.Env.current.online.isPlaying,
+    setBotOnline = lila.bot.Env.current.setOnline,
     pools = lila.pool.Env.current.api.configs,
     challengeJsonView = lila.challenge.Env.current.jsonView,
     isProd = lila.common.PlayApp.isProd

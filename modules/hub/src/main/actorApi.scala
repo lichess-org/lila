@@ -41,6 +41,7 @@ package socket {
     case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
   }
+  case class BotIsOnline(userId: String, isOnline: Boolean)
 }
 
 package report {
