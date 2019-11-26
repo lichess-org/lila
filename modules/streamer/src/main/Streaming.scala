@@ -117,7 +117,6 @@ private final class Streaming(
           .withHeaders(
             "Client-ID" -> twitchClientId
           )
-        if (twitchUserIds.size > 1) logger.info(url.uri.toString)
         url.get().map { res =>
           res.json.validate[Twitch.Result](twitchResultReads) match {
             case JsSuccess(data, _) => data.streams(
