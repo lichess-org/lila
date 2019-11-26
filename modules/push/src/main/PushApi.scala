@@ -15,7 +15,6 @@ import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
-    firebasePush: FirebasePush,
     oneSignalPush: OneSignalPush,
     webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
@@ -42,7 +41,11 @@ private final class PushApi(
               "userData" -> Json.obj(
                 "type" -> "gameFinish",
                 "gameId" -> game.id,
-                "fullId" -> pov.fullId
+                "fullId" -> pov.fullId,
+                "color" -> pov.color.name,
+                "fen" -> Forsyth.exportBoard(game.board),
+                "lastMove" -> game.lastMoveKeys,
+                "win" -> pov.win
               )
             )
           ))
@@ -137,7 +140,11 @@ private final class PushApi(
   private def corresGameJson(pov: Pov, typ: String) = Json.obj(
     "type" -> typ,
     "gameId" -> pov.gameId,
-    "fullId" -> pov.fullId
+    "fullId" -> pov.fullId,
+    "color" -> pov.color.name,
+    "fen" -> Forsyth.exportBoard(pov.game.board),
+    "lastMove" -> pov.game.lastMoveKeys,
+    "secondsLeft" -> pov.remainingSeconds
   )
 
   def newMessage(t: Thread, p: Post): Funit =
@@ -152,7 +159,8 @@ private final class PushApi(
             "userId" -> t.receiverOf(p),
             "userData" -> Json.obj(
               "type" -> "newMessage",
-              "threadId" -> t.id
+              "threadId" -> t.id,
+              "sender" -> sender
             )
           )
         ))
@@ -189,7 +197,8 @@ private final class PushApi(
           "userId" -> challenger.id,
           "userData" -> Json.obj(
             "type" -> "challengeAccept",
-            "challengeId" -> c.id
+            "challengeId" -> c.id,
+            "joiner" -> lightJoiner
           )
         )
       ))
@@ -200,9 +209,6 @@ private final class PushApi(
   private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
     webPush(userId)(data) >> oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
-      data
-    } >> firebasePush(userId) {
-      monitor(lila.mon.push.send)("firebase")
       data
     }
 

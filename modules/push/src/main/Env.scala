@@ -1,11 +1,7 @@
 package lila.push
 
 import akka.actor._
-import collection.JavaConverters._
 import com.typesafe.config.Config
-import com.google.auth.oauth2.ServiceAccountCredentials
-import play.api.Play
-import Play.current
 
 import lila.game.Game
 
@@ -25,8 +21,6 @@ final class Env(
   private val OneSignalAppId = config getString "onesignal.app_id"
   private val OneSignalKey = config getString "onesignal.key"
 
-  private val FirebaseUrl = config getString "firebase.url"
-
   private val WebUrl = config getString "web.url"
   val WebVapidPublicKey = config getString "web.vapid_public_key"
 
@@ -43,20 +37,6 @@ final class Env(
     key = OneSignalKey
   )
 
-  val serviceAccountFile = config getString "firebase.service_account_file"
-  val googleCredentials = Play.resourceAsStream(serviceAccountFile).map { file =>
-    ServiceAccountCredentials
-      .fromStream(file)
-      .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
-  }
-  if (googleCredentials.isEmpty) logger.warn(s"Missing $serviceAccountFile file, firebase push notifications will not work.")
-
-  private lazy val firebasePush = new FirebasePush(
-    googleCredentials,
-    deviceApi.findLastManyByUserId("firebase", 3) _,
-    url = FirebaseUrl
-  )
-
   private lazy val webPush = new WebPush(
     webSubscriptionApi.getSubscriptions(5) _,
     url = WebUrl,
@@ -64,7 +44,6 @@ final class Env(
   )
 
   private lazy val pushApi = new PushApi(
-    firebasePush,
     oneSignalPush,
     webPush,
     getLightUser,
