@@ -42,10 +42,10 @@ final class StreamerApi(
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
     live.streams.map(withUser).sequenceFu.map(_.flatten)
 
-  def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get.nevermind
+  def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.get.nevermind flatMap { ids =>
+    listedIdsCache.get flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
@@ -101,7 +101,7 @@ final class StreamerApi(
       !exists ?? coll.insert(Streamer make u).void
     }
 
-  def isStreamer(user: User): Fu[Boolean] = listedIdsCache.get.map(_ contains Streamer.Id(user.id))
+  def isStreamer(user: User): Fu[Boolean] = listedIdsCache.get.dmap(_ contains Streamer.Id(user.id))
 
   def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
     photographer(s.id.value, picture).flatMap { pic =>
@@ -155,6 +155,8 @@ final class StreamerApi(
       selectListedApproved.some,
       ReadPreference.secondaryPreferred
     ),
-    expireAfter = _.ExpireAfterWrite(1 hour)
+    expireAfter = _.ExpireAfterWrite(1 hour),
+    resultTimeout = 10.seconds,
+    monitor = false
   )
 }
