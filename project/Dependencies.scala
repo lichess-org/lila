@@ -39,6 +39,7 @@ object Dependencies {
   val scaffeine = "com.github.blemale" %% "scaffeine" % "2.6.0" % "compile"
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "0.18.0"
   val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
   val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
