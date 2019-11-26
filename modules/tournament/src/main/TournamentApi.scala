@@ -561,10 +561,6 @@ final class TournamentApi(
       val lastHash: Int = ~lastPublished.getIfPresent(tourId)
       if (lastHash != top.hashCode) {
         bus.publish(
-          lila.hub.actorApi.round.TourStandingOld(JsonView.top(top, lightUserApi.sync)),
-          Symbol(s"tour-standing-$tourId")
-        ) // old TODO remove
-        bus.publish(
           lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
           'tourStanding
         )

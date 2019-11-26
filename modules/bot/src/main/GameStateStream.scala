@@ -72,8 +72,6 @@ final class GameStateStream(
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
             case SetOnline =>
-              // TODO superfluous since lila-ws?
-              setConnected(true)
               context.system.scheduler.scheduleOnce(6 second) {
                 // gotta send a message to check if the client has disconnected
                 channel push None
