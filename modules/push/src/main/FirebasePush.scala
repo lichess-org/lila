@@ -43,8 +43,7 @@ private final class FirebasePush(
           "token" -> device._id,
           // firebase doesn't support nested data object and we only use what is
           // inside userData
-          // note: send will silently fail if data contains any non string value
-          "data" -> (data.payload \ "userData").asOpt[JsObject].map(prefixKeys(_)),
+          "data" -> (data.payload \ "userData").asOpt[JsObject].map(transform(_)),
           "notification" -> Json.obj(
             "body" -> data.body,
             "title" -> data.title
@@ -56,8 +55,11 @@ private final class FirebasePush(
       }
   }
 
-  private def prefixKeys(obj: JsObject): JsObject =
-    JsObject(obj.fields.map {
-      case (k, v) => s"lichess.$k" -> v
+  // filter out any non string value, otherwise Firebase API silently rejects
+  // the request
+  private def transform(obj: JsObject): JsObject =
+    JsObject(obj.fields.collect {
+      case (k, v: JsString) => s"lichess.$k" -> v
+      case (k, v: JsNumber) => s"lichess.$k" -> JsString(v.toString)
     })
 }
