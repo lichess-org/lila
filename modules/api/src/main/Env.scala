@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.simul.Simul
+import lila.user.User
 
 final class Env(
     config: Config,
@@ -14,7 +15,7 @@ final class Env(
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
-    urgentGames: lila.user.User => Fu[List[lila.game.Pov]],
+    urgentGames: User => Fu[List[lila.game.Pov]],
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
@@ -30,8 +31,9 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
-    isStreaming: lila.user.User.ID => Boolean,
-    isPlaying: lila.user.User.ID => Boolean,
+    isOnline: User.ID => Boolean,
+    isStreaming: User.ID => Boolean,
+    isPlaying: User.ID => Boolean,
     pools: List[lila.pool.PoolConfig],
     challengeJsonView: lila.challenge.JsonView,
     val isProd: Boolean
@@ -88,8 +90,7 @@ final class Env(
     gameCache = gameCache,
     isStreaming = isStreaming,
     isPlaying = isPlaying,
-    isOnline = userEnv.onlineUserIdMemo.get,
-    recentTitledUserIds = () => userEnv.recentTitledUserIdMemo.keys,
+    isOnline = isOnline,
     prefApi = prefApi,
     urgentGames = urgentGames
   )(system)
@@ -130,15 +131,13 @@ final class Env(
     urgentGames = urgentGames
   )
 
-  lazy val eventStream = new EventStream(system, challengeJsonView, userEnv.onlineUserIdMemo.put)
+  lazy val eventStream = new EventStream(system, challengeJsonView)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
   lazy val cli = new Cli(system.lilaBus)
 
-  KamonPusher.start(system) {
-    new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
-  }
+  KamonPusher.start(system)
 
   if (InfluxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
     endpoint = InfluxEventEndpoint,
@@ -177,6 +176,7 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    isOnline = lila.socket.Env.current.isOnline,
     isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
     isPlaying = lila.relation.Env.current.online.isPlaying,
     pools = lila.pool.Env.current.api.configs,

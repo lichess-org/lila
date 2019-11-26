@@ -156,8 +156,6 @@ final class Env(
 
   TournamentScheduler.start(system, api)
 
-  TournamentInviter.start(system.lilaBus, api, notifyApi)
-
   def version(tourId: Tournament.ID): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](tourId)(GetVersion)
 
@@ -195,7 +193,7 @@ object Env {
     chatApi = lila.chat.Env.current.api,
     tellRound = lila.round.Env.current.tellRound,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     onStart = lila.round.Env.current.onStart,
     historyApi = lila.history.Env.current.api,
     trophyApi = lila.user.Env.current.trophyApi,

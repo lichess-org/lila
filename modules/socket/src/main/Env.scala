@@ -23,6 +23,8 @@ final class Env(
   remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
   val onlineUserIds: () => Set[String] = () => remoteSocket.onlineUserIds.get
+
+  val isOnline: String => Boolean = userId => onlineUserIds() contains userId
 }
 
 object Env {

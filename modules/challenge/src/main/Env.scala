@@ -75,7 +75,7 @@ object Env {
     hub = lila.hub.Env.current,
     gameCache = lila.game.Env.current.cached,
     lightUser = lila.user.Env.current.lightUserSync,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     db = lila.db.Env.current,
     asyncCache = lila.memo.Env.current.asyncCache,
     getPref = lila.pref.Env.current.api.getPref,

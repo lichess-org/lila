@@ -119,10 +119,7 @@ final class SecurityApi(
   val sessionIdKey = "sessionId"
 
   def reqSessionId(req: RequestHeader): Option[String] =
-    req.session.get(sessionIdKey) orElse
-      req.headers.get(sessionIdKey) orElse {
-        HTTPRequest.isSocket(req) ?? req.queryString.get(sessionIdKey).flatMap(_.headOption)
-      }
+    req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 

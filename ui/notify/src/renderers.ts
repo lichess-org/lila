@@ -65,25 +65,15 @@ export const renderers: Renderers = {
     ]),
     text: n => "You are now the owner of  « " + n.content.name + "  »."
   },
-  u: {
-    html: n => generic(n, '/tournament/limited-invitation', 'g', [
-      h('span', [
-        h('strong', 'Rating limited tournament'),
-        drawTime(n)
-      ]),
-      h('span', 'An event you can win!')
-    ]),
-    text: n => 'Game with ' + n.content.opponentName + '.'
-  },
   titledTourney: {
     html: n => generic(n, '/tournament/' + n.content.id, 'g', [
       h('span', [
-        h('strong', 'Lichess Titled Tournament'),
+        h('strong', 'Lichess Titled Arena'),
         drawTime(n)
       ]),
       h('span', n.content.text)
     ]),
-    text: n => 'Game with ' + n.content.opponentName + '.'
+    text: n => 'Lichess Titled Arena'
   },
   reportedBanned: {
     html: n => generic(n, undefined, '', [

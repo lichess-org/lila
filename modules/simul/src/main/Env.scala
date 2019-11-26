@@ -125,7 +125,7 @@ object Env {
     chatApi = lila.chat.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.round.Env.current.onStart,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
     remoteSocketApi = lila.socket.Env.current.remoteSocket,
     proxyGame = lila.round.Env.current.proxy.game _

@@ -40,7 +40,6 @@ package socket {
   object remote {
     case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
-    case class ConnectUser(userId: String)
   }
 }
 

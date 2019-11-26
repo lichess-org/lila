@@ -14,9 +14,7 @@ object mon {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
       val xhr = inc("http.request.xhr")
-      val ws = inc("http.request.ws")
       val bot = inc("http.request.bot")
-      val fishnet = inc("http.request.fishnet")
       val page = inc("http.request.page")
       def path(p: String) = inc(s"http.request.path.$p")
     }
@@ -67,7 +65,6 @@ object mon {
     object csrf {
       val missingOrigin = inc("http.csrf.missing_origin")
       val forbidden = inc("http.csrf.forbidden")
-      val websocket = inc("http.csrf.websocket")
     }
     object fingerPrint {
       val count = inc("http.finger_print.count")
@@ -316,17 +313,6 @@ object mon {
         val failure = inc("user.oauth.usage.success")
       }
     }
-  }
-  object socket {
-    val open = inc("socket.open")
-    val close = inc("socket.close")
-    def eject(userId: String) = inc(s"socket.eject.user.$userId")
-    val ejectAll = inc(s"socket.eject.all")
-    object count {
-      val all = rec("socket.count")
-    }
-    val deadMsg = inc("socket.dead.msg")
-    def queueSize(name: String) = rec(s"socket.queue_size.$name")
   }
   object trouper {
     def queueSize(name: String) = rec(s"trouper.queue_size.$name")

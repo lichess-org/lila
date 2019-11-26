@@ -65,7 +65,7 @@ object Env {
     getPref = lila.pref.Env.current.api.getPref,
     spam = lila.security.Env.current.spam,
     system = lila.common.PlayApp.system,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     lightUser = lila.user.Env.current.lightUserSync
   )
 }

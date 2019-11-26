@@ -83,13 +83,12 @@ object Api extends LilaController {
     val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
     Env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
       val actualIds = users.map(_.id)
-      val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
       val playingIds = Env.relation.online.playing intersect actualIds
       val streamingIds = Env.streamer.liveStreamApi.userIds
       toApiResult {
         users.map { u =>
           lila.common.LightUser.lightUserWrites.writes(u)
-            .add("online" -> onlineIds(u.id))
+            .add("online" -> Env.socket.isOnline(u.id))
             .add("playing" -> playingIds(u.id))
             .add("streaming" -> streamingIds(u.id))
         }
@@ -97,17 +96,21 @@ object Api extends LilaController {
     }
   }
 
-  def titledUsers = Action.async { req =>
-    val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
-    GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-      val config = UserApi.Titled(
-        titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
-        online = getBool("online", req),
-        perSecond = MaxPerSecond(50)
-      )
-      jsonStream(userApi.exportTitled(config)).fuccess
-    }
+  def titledUsers = Action {
+    ServiceUnavailable("This API is disabled at the moment.")
   }
+
+  // def titledUsers = Action.async { req =>
+  //   val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
+  //   GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+  //     val config = UserApi.Titled(
+  //       titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
+  //       online = getBool("online", req),
+  //       perSecond = MaxPerSecond(50)
+  //     )
+  //     jsonStream(userApi.exportTitled(config)).fuccess
+  //   }
+  // }
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,

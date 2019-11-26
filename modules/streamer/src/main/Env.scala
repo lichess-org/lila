@@ -66,8 +66,7 @@ final class Env(
 
   lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
 
-  system.lilaBus.subscribeFun('userActive, 'adjustCheater) {
-    case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
+  system.lilaBus.subscribeFun('adjustCheater) {
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
   }
 
@@ -83,7 +82,7 @@ object Env {
     system = lila.common.PlayApp.system,
     settingStore = lila.memo.Env.current.settingStore,
     renderer = lila.hub.Env.current.renderer,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,

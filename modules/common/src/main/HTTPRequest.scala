@@ -8,10 +8,7 @@ object HTTPRequest {
   def isXhr(req: RequestHeader): Boolean =
     req.headers get "X-Requested-With" contains "XMLHttpRequest"
 
-  def isSocket(req: RequestHeader): Boolean =
-    (req.headers get HeaderNames.UPGRADE).exists(_.toLowerCase == "websocket")
-
-  def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
+  def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
   def isEventSource(req: RequestHeader): Boolean =
     req.headers get "Accept" contains "text/event-stream"

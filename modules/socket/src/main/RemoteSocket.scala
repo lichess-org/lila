@@ -47,7 +47,6 @@ final class RemoteSocket(
 
   val baseHandler: Handler = {
     case In.ConnectUser(userId) =>
-      bus.publish(lila.hub.actorApi.socket.remote.ConnectUser(userId), 'userActive)
       onlineUserIds.getAndUpdate((x: UserIds) => x + userId)
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)

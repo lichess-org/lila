@@ -4,9 +4,7 @@ import akka.actor._
 import java.lang.management.ManagementFactory
 import scala.concurrent.duration._
 
-private final class KamonPusher(
-    countUsers: () => Int
-) extends Actor {
+private final class KamonPusher extends Actor {
 
   import KamonPusher._
 
@@ -26,7 +24,6 @@ private final class KamonPusher(
       lila.mon.jvm.thread(threadStats.getThreadCount)
       lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
       lila.mon.jvm.uptime(app.uptimeSeconds)
-      lila.mon.user.online(countUsers())
       scheduleTick
   }
 }
@@ -35,6 +32,6 @@ object KamonPusher {
 
   private case object Tick
 
-  def start(system: ActorSystem)(instance: => Actor) =
-    system.lilaBus.subscribe(system.actorOf(Props(instance)))
+  def start(system: ActorSystem) =
+    system.lilaBus.subscribe(system.actorOf(Props(new KamonPusher)))
 }

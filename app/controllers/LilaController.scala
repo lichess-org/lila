@@ -20,8 +20,7 @@ private[controllers] trait LilaController
   extends Controller
   with ContentTypes
   with RequestGetter
-  with ResponseWriter
-  with LilaSocket {
+  with ResponseWriter {
 
   protected val controllerLogger = lila.log("controller")
   protected val authLogger = lila.log("auth")
@@ -423,11 +422,7 @@ private[controllers] trait LilaController
   // user, impersonatedBy
   type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
   private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
-    Env.security.api restoreUser req addEffect {
-      _ ifTrue (HTTPRequest isSocket req) foreach { d =>
-        Env.current.system.lilaBus.publish(lila.user.User.Active(d.user), 'userActive)
-      }
-    } dmap {
+    Env.security.api restoreUser req dmap {
       case Some(d) if !lila.common.PlayApp.isProd =>
         d.copy(user = d.user
           .addRole(lila.security.Permission.Beta.name)

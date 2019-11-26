@@ -68,7 +68,6 @@ private object BSONHandlers {
         case p: PrivateMessage => PrivateMessageHandler.write(p)
         case t: TeamJoined => TeamJoinedHandler.write(t)
         case o: TeamMadeOwner => TeamMadeOwnerHandler.write(o)
-        case LimitedTournamentInvitation => $empty
         case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.write(x)
         case x: GameEnd => GameEndHandler.write(x)
         case x: PlanStart => PlanStartHandler.write(x)
@@ -106,7 +105,6 @@ private object BSONHandlers {
       case "privateMessage" => PrivateMessageHandler read reader.doc
       case "teamJoined" => TeamJoinedHandler read reader.doc
       case "teamMadeOwner" => TeamMadeOwnerHandler read reader.doc
-      case "u" => LimitedTournamentInvitation
       case "titledTourney" => TitledTournamentInvitationHandler read reader.doc
       case "gameEnd" => GameEndHandler read reader.doc
       case "planStart" => PlanStartHandler read reader.doc

@@ -323,15 +323,6 @@ object Tournament extends LilaController {
     }
   }
 
-  def limitedInvitation = Auth { implicit ctx => me =>
-    for {
-      (tours, _) <- upcomingCache.get
-      res <- lila.tournament.TournamentInviter.findNextFor(me, tours, env.verify.canEnter(me, getUserTeamIds))
-    } yield res.fold(Redirect(routes.Tournament.home(1))) { t =>
-      Redirect(routes.Tournament.show(t.id))
-    }
-  }
-
   def featured = Open { implicit ctx =>
     negotiate(
       html = notFound,

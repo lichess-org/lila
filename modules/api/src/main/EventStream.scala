@@ -12,8 +12,7 @@ import lila.user.User
 
 final class EventStream(
     system: ActorSystem,
-    challengeJsonView: lila.challenge.JsonView,
-    setOnline: User.ID => Unit
+    challengeJsonView: lila.challenge.JsonView
 ) {
 
   private case object SetOnline
@@ -42,7 +41,6 @@ final class EventStream(
           def receive = {
 
             case SetOnline =>
-              setOnline(me.id)
               context.system.scheduler.scheduleOnce(6 second) {
                 // gotta send a message to check if the client has disconnected
                 channel push None
