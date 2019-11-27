@@ -175,8 +175,8 @@ object Clock {
 
     def toClock = Clock(this)
 
-    def limitString = limitSeconds match {
-      case l if l % 60 == 0 => l / 60
+    def limitString: String = limitSeconds match {
+      case l if l % 60 == 0 => (l / 60).toString
       case 15 => "¼"
       case 30 => "½"
       case 45 => "¾"
