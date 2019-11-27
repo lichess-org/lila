@@ -303,7 +303,7 @@ lazy val playban = module("playban", Seq(common, db, game, message, chat)).setti
 )
 
 lazy val push = module("push", Seq(common, db, user, game, challenge, message)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= Seq(googleOAuth) ++ provided(play.api, reactivemongo.driver)
 )
 
 lazy val slack = module("slack", Seq(common, hub, user)).settings(
