@@ -100,12 +100,9 @@ object AsyncCache {
         resultTimeout,
         lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
       )
-      val builder: AsyncLoadingCache[Unit, V] = makeExpire(
-        Scaffeine().maximumSize(1),
-        expireAfter
-      )
+      val builder = makeExpire(Scaffeine().maximumSize(1), expireAfter)
       if (monitor) builder.recordStats
-      val cache = builder.buildAsyncFuture(safeF)
+      val cache: AsyncLoadingCache[Unit, V] = builder.buildAsyncFuture(safeF)
       if (monitor) startMonitoring(name, cache.underlying.synchronous)
       new AsyncCacheSingle[V](cache, safeF)
     }

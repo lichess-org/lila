@@ -34,7 +34,7 @@ final class Syncache[K, V](
       case ExpireAfterWrite(duration) => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
     }
     val cache = b2.recordStats.build[K, V]()
-    AsyncCache.monitor(s"syncache.$name", cache)
+    AsyncCache.startMonitoring(s"syncache.$name", cache)
     cache
   }
 
