@@ -1,10 +1,11 @@
 package lila.push
 
 import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
-import java.io.FileInputStream
+import java.util.concurrent.atomic.AtomicReference
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
+import scala.concurrent.Future
 
 import lila.user.User
 
@@ -14,22 +15,31 @@ private final class FirebasePush(
     url: String
 ) {
 
+  private object sequentialBlock {
+
+    private val queue: AtomicReference[Option[Fu[AccessToken]]] = new AtomicReference(none)
+
+    def apply(blockingCall: => AccessToken): Fu[AccessToken] =
+      queue.updateAndGet((prev: Option[Fu[AccessToken]]) => some {
+        prev match {
+          case None => Future(blockingCall)
+          case Some(previous) => previous >> Future(blockingCall)
+        }
+      }).get
+  }
+
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
       getDevices(userId) flatMap {
         case Nil => funit
         // access token has 1h lifetime and is requested only if expired
-        case devices => BlockingIO {
+        case devices => sequentialBlock {
           creds.refreshIfExpired()
           creds.getAccessToken()
         } flatMap { token =>
           // TODO http batch request is possible using a multipart/mixed content
           // unfortuntely it doesn't seem easily doable with play WS
           devices.map(send(token, _, data)).sequenceFu.void
-        } recoverWith {
-          case e: java.util.concurrent.RejectedExecutionException =>
-            logger.warn("Couldn't push to firebase", e)
-            funit
         }
       }
     }
