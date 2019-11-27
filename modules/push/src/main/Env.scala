@@ -2,7 +2,7 @@ package lila.push
 
 import akka.actor._
 import collection.JavaConverters._
-import com.google.auth.oauth2.ServiceAccountCredentials
+import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
 import com.typesafe.config.Config
 import play.api.Play
 import Play.current
@@ -43,15 +43,18 @@ final class Env(
     key = OneSignalKey
   )
 
-  val googleCredentials = config.getString("firebase.json").some.filter(_.nonEmpty).map { json =>
-    ServiceAccountCredentials
-      .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
-      .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
+  val googleCredentials: Option[GoogleCredentials] = try {
+    config.getString("firebase.json").some.filter(_.nonEmpty).map { json =>
+      ServiceAccountCredentials
+        .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
+        .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
+    }
+  } catch {
+    case e: Exception =>
+      logger.warn("Failed to create google credentials", e)
+      none
   }
-  if (googleCredentials.isDefined)
-    logger.info(s"Firebase push notifications are enabled.")
-  else
-    logger.info(s"Missing push.firebase.json config, firebase push notifications are disabled.")
+  if (googleCredentials.isDefined) logger.info("Firebase push notifications are enabled.")
 
   private lazy val firebasePush = new FirebasePush(
     googleCredentials,
