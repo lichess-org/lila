@@ -22,6 +22,9 @@ textarea {
 button, a {
   cursor: pointer;
 }
+::placeholder {
+  color: $c-font-dim;
+}
 
 .copyable {
   background: $c-page-input;
