@@ -25,7 +25,7 @@ private[round] final class Player(
   private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
 
   private[round] def human(play: HumanPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
-    case p @ HumanPlay(playerId, uci, blur, lag, promiseOption) => pov match {
+    case p @ HumanPlay(playerId, uci, blur, lag, _) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
@@ -35,9 +35,7 @@ private[round] final class Player(
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
               p.trace.segment("save", "db")(proxy.save(progress)) >>
-                postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
-          } addFailureEffect { e =>
-            promiseOption.foreach(_ failure e)
+                postHumanOrBotPlay(round, pov, progress, moveOrDrop)
           }
       case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))
       case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
@@ -47,7 +45,7 @@ private[round] final class Player(
   }
 
   private[round] def bot(play: BotPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
-    case p @ BotPlay(playerId, uci, promiseOption) => pov match {
+    case p @ BotPlay(playerId, uci, _) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
@@ -56,9 +54,7 @@ private[round] final class Player(
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
-              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop, promiseOption)
-          } addFailureEffect { e =>
-            promiseOption.foreach(_ failure e)
+              proxy.save(progress) >> postHumanOrBotPlay(round, pov, progress, moveOrDrop)
           }
       case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))
       case Pov(game, _) if game.aborted => fufail(ClientError(s"$pov game is aborted"))
@@ -71,12 +67,11 @@ private[round] final class Player(
     round: RoundDuct,
     pov: Pov,
     progress: Progress,
-    moveOrDrop: MoveOrDrop,
-    promiseOption: Option[Promise[Unit]]
+    moveOrDrop: MoveOrDrop
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    val res = if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
+    if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
@@ -87,7 +82,6 @@ private[round] final class Player(
       scheduleExpiration(progress.game)
       fuccess(progress.events)
     }
-    res >>- promiseOption.foreach(_.success(()))
   }
 
   private[round] def fishnet(game: Game, ply: Int, uci: Uci, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =

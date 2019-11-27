@@ -91,10 +91,7 @@ final class RoundSocket(
     case RP.In.ChatTimeout(roomId, modId, suspect, reason) =>
       messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason)
     case Protocol.In.PlayerMove(fullId, uci, blur, lag) =>
-      // TODO remove promise, resync from remote round duct
-      val promise = Promise[Unit]
-      promise.future onFailure { case _: Exception => send(Protocol.Out.resyncPlayer(fullId)) }
-      tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, promise.some))
+      tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
     case Protocol.In.PlayerOnlines(onlines) => onlines foreach {
       case (gameId, Some(on)) =>

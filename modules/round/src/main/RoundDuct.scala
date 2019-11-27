@@ -206,15 +206,25 @@ private[round] final class RoundDuct(
         recordLag(pov)
         player.human(p, this)(pov)
       }
-    } >>- {
-      p.trace.finish()
-      lila.mon.round.move.full.count()
-    }
+    }.addEffects(
+      err => {
+        p.promise.foreach(_ failure err)
+        socketSend(Protocol.Out.resyncPlayer(Game.Id(gameId) full p.playerId))
+      },
+      suc => {
+        p.promise.foreach(_ success {})
+        p.trace.finish()
+        lila.mon.round.move.full.count()
+      }
+    )
 
-    case p: BotPlay => handleBotPlay(p) { pov =>
-      if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
-      else player.bot(p, this)(pov)
-    }
+    case p: BotPlay =>
+      val res = handleBotPlay(p) { pov =>
+        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+        else player.bot(p, this)(pov)
+      }
+      p.promise.foreach(_ completeWith res)
+      res
 
     case FishnetPlay(uci, ply) => handle { game =>
       player.fishnet(game, ply, uci, this)

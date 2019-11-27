@@ -40,7 +40,6 @@ package round {
       moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
   ) {
-
     val trace = lila.mon.round.move.trace.create
   }
 
