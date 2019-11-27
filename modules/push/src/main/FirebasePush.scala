@@ -2,21 +2,22 @@ package lila.push
 
 import java.io.FileInputStream
 import scala.concurrent.Future
-
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.auth.oauth2.AccessToken
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
 
+import lila.user.User
+
 private final class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
-    getDevices: String => Fu[List[Device]],
+    getDevices: User.ID => Fu[List[Device]],
     url: String
 ) {
 
-  def apply(userId: String)(data: => PushApi.Data): Funit =
-    credentialsOpt.fold(fuccess({})) { creds =>
+  def apply(userId: User.ID)(data: => PushApi.Data): Funit =
+    credentialsOpt ?? { creds =>
       getDevices(userId) flatMap {
         case Nil => funit
         // access token has 1h lifetime and is requested only if expired

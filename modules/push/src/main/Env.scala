@@ -2,8 +2,8 @@ package lila.push
 
 import akka.actor._
 import collection.JavaConverters._
-import com.typesafe.config.Config
 import com.google.auth.oauth2.ServiceAccountCredentials
+import com.typesafe.config.Config
 import play.api.Play
 import Play.current
 
@@ -43,13 +43,15 @@ final class Env(
     key = OneSignalKey
   )
 
-  val serviceAccountFile = config getString "firebase.service_account_file"
-  val googleCredentials = Play.resourceAsStream(serviceAccountFile).map { file =>
+  val googleCredentials = config.getString("firebase.json").some.filter(_.nonEmpty).map { json =>
     ServiceAccountCredentials
-      .fromStream(file)
+      .fromStream(new java.io.ByteArrayInputStream(json.getBytes()))
       .createScoped(Set("https://www.googleapis.com/auth/firebase.messaging").asJava)
   }
-  if (googleCredentials.isEmpty) logger.warn(s"Missing $serviceAccountFile file, firebase push notifications will not work.")
+  if (googleCredentials.isDefined)
+    logger.info(s"Firebase push notifications are enabled.")
+  else
+    logger.info(s"Missing push.firebase.json config, firebase push notifications are disabled.")
 
   private lazy val firebasePush = new FirebasePush(
     googleCredentials,
