@@ -555,6 +555,7 @@ object mon {
         def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
       }
     }
+    def googleTokenTime = rec("push.send.google-token")
   }
   object fishnet {
     object client {

@@ -60,7 +60,7 @@ final class Env(
     googleCredentials,
     deviceApi.findLastManyByUserId("firebase", 3) _,
     url = FirebaseUrl
-  )
+  )(system)
 
   private lazy val webPush = new WebPush(
     webSubscriptionApi.getSubscriptions(5) _,

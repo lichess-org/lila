@@ -1,10 +1,11 @@
 package lila.push
 
 import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
-import java.util.concurrent.atomic.AtomicReference
+import akka.actor.ActorSystem
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
+import scala.concurrent.duration._
 import scala.concurrent.Future
 
 import lila.user.User
@@ -13,20 +14,9 @@ private final class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     getDevices: User.ID => Fu[List[Device]],
     url: String
-) {
+)(implicit system: ActorSystem) {
 
-  private object sequentialBlock {
-
-    private val queue: AtomicReference[Option[Fu[AccessToken]]] = new AtomicReference(none)
-
-    def apply(blockingCall: => AccessToken): Fu[AccessToken] =
-      queue.updateAndGet((prev: Option[Fu[AccessToken]]) => some {
-        prev match {
-          case None => Future(blockingCall)
-          case Some(previous) => previous >> Future(blockingCall)
-        }
-      }).get
-  }
+  private val sequentialBlock = new SequentialBlock[AccessToken](timeout = 10 seconds)
 
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
@@ -36,7 +26,7 @@ private final class FirebasePush(
         case devices => sequentialBlock {
           creds.refreshIfExpired()
           creds.getAccessToken()
-        } flatMap { token =>
+        }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
           // TODO http batch request is possible using a multipart/mixed content
           // unfortuntely it doesn't seem easily doable with play WS
           devices.map(send(token, _, data)).sequenceFu.void
@@ -74,4 +64,21 @@ private final class FirebasePush(
       case (k, v: JsString) => s"lichess.$k" -> v
       case (k, v: JsNumber) => s"lichess.$k" -> JsString(v.toString)
     })
+}
+
+private final class SequentialBlock[T](timeout: FiniteDuration)(implicit system: ActorSystem) {
+
+  import java.util.concurrent.atomic.AtomicReference
+
+  private val queue: AtomicReference[Option[Fu[T]]] = new AtomicReference(none)
+
+  private def run(blocking: => T) = Future(blocking) withTimeout timeout
+
+  def apply(blockingCall: => T): Fu[T] =
+    queue.updateAndGet((prev: Option[Fu[T]]) => some {
+      prev match {
+        case None => run(blockingCall)
+        case Some(previous) => previous >> run(blockingCall)
+      }
+    }).get
 }
