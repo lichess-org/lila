@@ -5,7 +5,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import scala.concurrent.{ Promise, Future }
 import scala.util.control.NonFatal
 
-object BlockingIO {
+private object BlockingIO {
 
   /**
    * Current google oauth client (v0.18.0) doesn't support timeout setting
@@ -17,24 +17,26 @@ object BlockingIO {
    * it will reject the task and throw a RejectedExecutionException
    */
   private val threadPool = new ThreadPoolExecutor(
-    1,
-    Runtime.getRuntime.availableProcessors,
-    60,
+    1, // min threads
+    4, // max threads
+    60, //keep alive (?)
     TimeUnit.SECONDS,
     new SynchronousQueue[Runnable](),
     new ThreadFactory {
       private val count = new AtomicInteger()
 
       override def newThread(r: Runnable) = {
+        val threadName = s"push-blocking-io-thread-${count.incrementAndGet}"
+        logger.info(s"Create blocking IO thread $threadName")
         val thread = new Thread(r)
-        thread.setName(s"push-blocking-io-thread-${count.incrementAndGet}")
+        thread.setName(threadName)
         thread.setDaemon(true)
         thread
       }
     }
   )
 
-  def apply[T](cb: => T): Future[T] = {
+  def apply[T](cb: => T): Fu[T] = {
     val p = Promise[T]()
 
     threadPool.execute(new Runnable {

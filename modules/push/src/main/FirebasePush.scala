@@ -1,9 +1,7 @@
 package lila.push
 
+import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
 import java.io.FileInputStream
-import scala.concurrent.Future
-import com.google.auth.oauth2.GoogleCredentials
-import com.google.auth.oauth2.AccessToken
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
@@ -27,12 +25,16 @@ private final class FirebasePush(
         } flatMap { token =>
           // TODO http batch request is possible using a multipart/mixed content
           // unfortuntely it doesn't seem easily doable with play WS
-          Future.sequence(devices.map(send(token, _, data))).map(_ => ())
+          devices.map(send(token, _, data)).sequenceFu.void
+        } recoverWith {
+          case e: java.util.concurrent.RejectedExecutionException =>
+            logger.warn("Couldn't push to firebase", e)
+            funit
         }
       }
     }
 
-  private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit = {
+  private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit =
     WS.url(url)
       .withHeaders(
         "Authorization" -> s"Bearer ${token.getTokenValue}",
@@ -54,7 +56,6 @@ private final class FirebasePush(
         case res if res.status == 200 => funit
         case res => fufail(s"[push] firebase: ${res.status} ${res.body}")
       }
-  }
 
   // filter out any non string value, otherwise Firebase API silently rejects
   // the request
