@@ -28,7 +28,7 @@ final class Player(
   private val defaultClock = Clock(300, 0)
 
   private def delayFor(g: Game): Option[FiniteDuration] =
-    if (!g.bothPlayersHaveMoved) 4.seconds.some
+    if (!g.bothPlayersHaveMoved) 2.seconds.some
     else for {
       pov <- g.aiPov
       clock = g.clock | defaultClock
