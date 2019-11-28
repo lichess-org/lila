@@ -1,15 +1,26 @@
-const searchParams = new URL(self.location.href).searchParams;
-const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
+const assetBase = new URL(new URL(self.location.href).searchParams.get('asset-url')!, self.location.href).href;
+const assetVersion = self.location.pathname.split('/')[2];
 
 function assetUrl(path: string): string {
-  return `${assetBase}assets/${path}`;
+  const r = `${assetBase}assets/${assetVersion}/${path}`;
+  console.log(r);
+  return r;
 }
+
+self.addEventListener('install', event => {
+  event.waitUntil(caches.open(assetVersion).then(cache => cache.addAll([
+    'css/site.light.dev.css', // TODO: prod
+    'css/site.dark.dev.css', // TODO: prod
+    'font/lichess.woff2',
+    'font/lichess.chess.woff2',
+  ].map(assetUrl))));
+});
 
 self.addEventListener('push', event => {
   const data = event.data!.json();
   return self.registration.showNotification(data.title, {
-    badge: assetUrl('logo/lichess-favicon-256.png'),
-    icon: assetUrl('logo/lichess-favicon-256.png'),
+    badge: assetUrl('images/logo.256.png'),
+    icon: assetUrl('images/logo.256.png'),
     body: data.body,
     tag: data.tag,
     data: data.payload,
