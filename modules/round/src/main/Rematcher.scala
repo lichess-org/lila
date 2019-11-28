@@ -52,11 +52,11 @@ private[round] final class Rematcher(
   private def rematchJoin(pov: Pov): Fu[Events] =
     rematches.getIfPresent(pov.gameId) match {
       case None => for {
-        nextGame ← returnGame(pov) map (_.start)
+        nextGame <- returnGame(pov) map (_.start)
         _ = offers invalidate pov.game.id
         _ = rematches.put(pov.gameId, nextGame.id)
         _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
-        _ ← GameRepo insertDenormalized nextGame
+        _ <- GameRepo insertDenormalized nextGame
       } yield {
         messenger.system(pov.game, _.rematchOfferAccepted)
         onStart(nextGame.id)

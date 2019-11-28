@@ -74,16 +74,16 @@ final class TeamApi(
     TeamRepo.userHasCreatedSince(me.id, creationPeriod)
 
   def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] = for {
-    requests ← RequestRepo findByTeam team.id
-    users ← UserRepo usersFromSecondary requests.map(_.user)
+    requests <- RequestRepo findByTeam team.id
+    users <- UserRepo usersFromSecondary requests.map(_.user)
   } yield requests zip users map {
     case (request, user) => RequestWithUser(request, user)
   }
 
   def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for {
-    teamIds ← TeamRepo teamIdsByCreator user.id
-    requests ← RequestRepo findByTeams teamIds
-    users ← UserRepo usersFromSecondary requests.map(_.user)
+    teamIds <- TeamRepo teamIdsByCreator user.id
+    requests <- RequestRepo findByTeams teamIds
+    users <- UserRepo usersFromSecondary requests.map(_.user)
   } yield requests zip users map {
     case (request, user) => RequestWithUser(request, user)
   }
@@ -105,8 +105,8 @@ final class TeamApi(
     }
 
   def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] = for {
-    teamOption ← coll.team.byId[Team](teamId)
-    able ← teamOption.??(requestable(_, user))
+    teamOption <- coll.team.byId[Team](teamId)
+    able <- teamOption.??(requestable(_, user))
   } yield teamOption filter (_ => able)
 
   def requestable(team: Team, user: User): Fu[Boolean] = for {
@@ -123,10 +123,10 @@ final class TeamApi(
     }
 
   def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
-    _ ← coll.request.remove(request)
+    _ <- coll.request.remove(request)
     _ = cached.nbRequests invalidate team.createdBy
-    userOption ← UserRepo byId request.user
-    _ ← userOption.filter(_ => accept).??(user =>
+    userOption <- UserRepo byId request.user
+    _ <- userOption.filter(_ => accept).??(user =>
       doJoin(team, user) >>- notifier.acceptRequest(team, request))
   } yield ()
 

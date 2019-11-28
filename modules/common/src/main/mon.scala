@@ -83,7 +83,7 @@ object mon {
     def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
     def chmSize(name: String) = rec(s"syncache.chm.size.$name")
   }
-  def caffeineStats(cache: CaffeineCache[_, _], name: String) {
+  def caffeineStats(cache: CaffeineCache[_, _], name: String): Unit = {
     val stats = cache.stats
     rec(s"caffeine.count.hit.$name")(stats.hitCount)
     rate(s"caffeine.rate.hit.$name")(stats.hitRate)

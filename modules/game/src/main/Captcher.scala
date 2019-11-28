@@ -73,8 +73,8 @@ private final class Captcher extends Actor {
     private def makeCaptcha(game: Game, moves: PgnMoves): OptionT[Fu, Captcha] =
       optionT(Future {
         for {
-          rewinded ← rewind(game, moves)
-          solutions ← solve(rewinded)
+          rewinded <- rewind(game, moves)
+          solutions <- solve(rewinded)
           moves = rewinded.situation.destinations map {
             case (from, dests) => from.key -> dests.mkString
           }

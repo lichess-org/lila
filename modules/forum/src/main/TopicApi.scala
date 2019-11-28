@@ -27,11 +27,11 @@ private[forum] final class TopicApi(
 
   def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
-      data ← (for {
-        categ ← optionT(CategRepo bySlug categSlug)
-        topic ← optionT(TopicRepo(troll).byTree(categSlug, slug))
+      data <- (for {
+        categ <- optionT(CategRepo bySlug categSlug)
+        topic <- optionT(TopicRepo(troll).byTree(categSlug, slug))
       } yield categ -> topic).run
-      res ← data ?? {
+      res <- data ?? {
         case (categ, topic) =>
           lila.mon.forum.topic.view()
           TopicRepo incViews topic
@@ -180,11 +180,11 @@ private[forum] final class TopicApi(
     }
 
   def denormalize(topic: Topic): Funit = for {
-    nbPosts ← PostRepo countByTopic topic
-    lastPost ← PostRepo lastByTopic topic
-    nbPostsTroll ← PostRepoTroll countByTopic topic
-    lastPostTroll ← PostRepoTroll lastByTopic topic
-    _ ← env.topicColl.update($id(topic.id), topic.copy(
+    nbPosts <- PostRepo countByTopic topic
+    lastPost <- PostRepo lastByTopic topic
+    nbPostsTroll <- PostRepoTroll countByTopic topic
+    lastPostTroll <- PostRepoTroll lastByTopic topic
+    _ <- env.topicColl.update($id(topic.id), topic.copy(
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),
       updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),

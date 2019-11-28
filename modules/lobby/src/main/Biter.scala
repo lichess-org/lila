@@ -18,30 +18,30 @@ private[lobby] object Biter {
     else fufail(s"$user cannot join seek $seek")
 
   private def join(hook: Hook, sri: Sri, lobbyUserOption: Option[LobbyUser]): Fu[JoinHook] = for {
-    userOption ← lobbyUserOption.map(_.id) ?? UserRepo.byId
-    ownerOption ← hook.userId ?? UserRepo.byId
+    userOption <- lobbyUserOption.map(_.id) ?? UserRepo.byId
+    ownerOption <- hook.userId ?? UserRepo.byId
     creatorColor <- assignCreatorColor(ownerOption, userOption, hook.realColor)
     game <- makeGame(
       hook,
       whiteUser = creatorColor.fold(ownerOption, userOption),
       blackUser = creatorColor.fold(userOption, ownerOption)
     ).withUniqueId
-    _ ← GameRepo insertDenormalized game
+    _ <- GameRepo insertDenormalized game
   } yield {
     lila.mon.lobby.hook.join()
     JoinHook(sri, hook, game, creatorColor)
   }
 
   private def join(seek: Seek, lobbyUser: LobbyUser): Fu[JoinSeek] = for {
-    user ← UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
-    owner ← UserRepo byId seek.user.id flatten s"No such user: ${seek.user.id}"
+    user <- UserRepo byId lobbyUser.id flatten s"No such user: ${lobbyUser.id}"
+    owner <- UserRepo byId seek.user.id flatten s"No such user: ${seek.user.id}"
     creatorColor <- assignCreatorColor(owner.some, user.some, seek.realColor)
     game <- makeGame(
       seek,
       whiteUser = creatorColor.fold(owner.some, user.some),
       blackUser = creatorColor.fold(user.some, owner.some)
     ).withUniqueId
-    _ ← GameRepo insertDenormalized game
+    _ <- GameRepo insertDenormalized game
   } yield JoinSeek(user.id, seek, game, creatorColor)
 
   private def assignCreatorColor(

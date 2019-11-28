@@ -108,18 +108,18 @@ final class PostApi(
 
   def get(postId: String): Fu[Option[(Topic, Post)]] = {
     for {
-      post ← optionT(env.postColl.byId[Post](postId))
-      topic ← optionT(env.topicColl.byId[Topic](post.topicId))
+      post <- optionT(env.postColl.byId[Post](postId))
+      topic <- optionT(env.topicColl.byId[Topic](post.topicId))
     } yield topic -> post
   } run
 
   def views(posts: List[Post]): Fu[List[PostView]] = for {
-    topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
-    categs ← env.categColl.byIds[Categ](topics.map(_.categId).distinct)
+    topics <- env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
+    categs <- env.categColl.byIds[Categ](topics.map(_.categId).distinct)
   } yield posts map { post =>
     for {
-      topic ← topics find (_.id == post.topicId)
-      categ ← categs find (_.slug == topic.categId)
+      topic <- topics find (_.id == post.topicId)
+      categ <- categs find (_.slug == topic.categId)
     } yield PostView(post, topic, categ, lastPageOf(topic))
   } flatten
 
@@ -131,7 +131,7 @@ final class PostApi(
 
   def liteViews(posts: List[Post]): Fu[List[PostLiteView]] =
     for {
-      topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
+      topics <- env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
     } yield posts flatMap { post =>
       topics find (_.id == post.topicId) map { topic =>
         PostLiteView(post, topic)
@@ -144,7 +144,7 @@ final class PostApi(
     liteViews(List(post)) map (_.headOption)
 
   def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] = for {
-    topics ← env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
+    topics <- env.topicColl.byIds[Topic](posts.map(_.topicId).distinct)
   } yield posts flatMap { post =>
     topics find (_.id == post.topicId) map { topic =>
       MiniForumPost(
@@ -176,17 +176,17 @@ final class PostApi(
   )
 
   def delete(categSlug: String, postId: String, mod: User): Funit = (for {
-    post ← optionT(PostRepo(true).byCategAndId(categSlug, postId))
-    view ← optionT(view(post))
-    _ ← optionT(for {
-      first ← PostRepo.isFirstPost(view.topic.id, view.post.id)
-      _ ← if (first) env.topicApi.delete(view.categ, view.topic)
+    post <- optionT(PostRepo(true).byCategAndId(categSlug, postId))
+    view <- optionT(view(post))
+    _ <- optionT(for {
+      first <- PostRepo.isFirstPost(view.topic.id, view.post.id)
+      _ <- if (first) env.topicApi.delete(view.categ, view.topic)
       else env.postColl.remove(view.post) >>
         (env.topicApi denormalize view.topic) >>
         (env.categApi denormalize view.categ) >>-
         env.recent.invalidate >>-
         (indexer ! RemovePost(post.id))
-      _ ← MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
+      _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
         text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
     } yield true.some)
   } yield ()).run.void

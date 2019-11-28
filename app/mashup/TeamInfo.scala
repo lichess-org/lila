@@ -29,11 +29,11 @@ final class TeamInfoApi(
 ) {
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
-    requests ← (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
+    requests <- (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
     mine <- me.??(m => api.belongsTo(team.id, m.id))
-    requestedByMe ← !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
-    forumNbPosts ← getForumNbPosts(team.id)
-    forumPosts ← getForumPosts(team.id)
+    requestedByMe <- !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
+    forumNbPosts <- getForumNbPosts(team.id)
+    forumPosts <- getForumPosts(team.id)
     tours <- lila.tournament.TournamentRepo.byTeam(team.id, 10)
     _ <- tours.nonEmpty ?? {
       preloadTeams(tours.flatMap(_.teamBattle.??(_.teams)).toSet)

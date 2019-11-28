@@ -36,9 +36,9 @@ private[team] final class PaginatorBuilder(
     val nbResults = fuccess(team.nbMembers)
 
     def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] = for {
-      members ← coll.member.find(selector)
+      members <- coll.member.find(selector)
         .sort(sorting).skip(offset).cursor[Member]().gather[List](length)
-      users ← UserRepo usersFromSecondary members.map(_.user)
+      users <- UserRepo usersFromSecondary members.map(_.user)
     } yield members zip users map {
       case (member, user) => MemberWithUser(member, user)
     }

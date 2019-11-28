@@ -78,7 +78,7 @@ object GameDiff {
     dOpt(clock, _.clock, (o: Option[Clock]) => o map { c =>
       BSONHandlers.clockBSONWrite(a.createdAt, c)
     })
-    for (i ← 0 to 1) {
+    for (i <- 0 to 1) {
       import Player.BSONFields._
       val name = s"p$i."
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)

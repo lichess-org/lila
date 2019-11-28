@@ -49,12 +49,12 @@ case class AnaDrop(
 object AnaDrop {
 
   def parse(o: JsObject) = for {
-    d ← o obj "d"
-    role ← d str "role" flatMap chess.Role.allByName.get
-    pos ← d str "pos" flatMap chess.Pos.posAt
+    d <- o obj "d"
+    role <- d str "role" flatMap chess.Role.allByName.get
+    pos <- d str "pos" flatMap chess.Pos.posAt
     variant = chess.variant.Variant orDefault ~d.str("variant")
-    fen ← d str "fen"
-    path ← d str "path"
+    fen <- d str "fen"
+    path <- d str "path"
   } yield AnaDrop(
     role = role,
     pos = pos,

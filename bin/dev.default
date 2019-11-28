@@ -8,8 +8,9 @@
 # Usage:
 # ./bin/dev [compile] [run]
 
-# Yes it needs tons of memory. Go for 2048M  if you have them.
-export JAVA_OPTS="-Xms2048M -Xmx2048M -XX:ReservedCodeCacheSize=128m -XX:+CMSClassUnloadingEnabled -XX:+ExitOnOutOfMemoryError -Dkamon.auto-start=true"
+# Yes it needs tons of memory to build. Go for 2048M  if you have them.
+# To run, 256M is sufficient.
+export JAVA_OPTS="-Xms2048M -Xmx2048M -XX:+UseParallelGC -XX:+ExitOnOutOfMemoryError"
 
 # For development without nginx (not recommended).
 export SERVE_ASSETS=0
@@ -23,13 +24,6 @@ echo "
                                                   |___/"
 version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo Java version: $version
-if [[ "$version" != 1.8* ]]; then
-  echo "Lichess requires Java 8. Newer and older versions of Java will not work."
-  echo "It's possible to have several versions of Java installed."
-  echo "For ArchLinux, see: https://wiki.archlinux.org/index.php/Java#Switching_between_JVM"
-  echo "https://wiki.archlinux.org/index.php/Java#Launching_an_application_with_the_non-default_java_version"
-  exit 1;
-fi
 echo Java options: $JAVA_OPTS
 
 sbt -Dhttp.port=9663 "$@"

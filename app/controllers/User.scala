@@ -63,10 +63,10 @@ object User extends LilaController {
   private def renderShow(u: UserModel, status: Results.Status = Results.Ok)(implicit ctx: Context) =
     if (HTTPRequest.isSynchronousHttp(ctx.req)) {
       for {
-        as ← Env.activity.read.recent(u)
-        nbs ← Env.current.userNbGames(u, ctx)
-        info ← Env.current.userInfo(u, nbs, ctx)
-        social ← Env.current.socialInfo(u, ctx)
+        as <- Env.activity.read.recent(u)
+        nbs <- Env.current.userNbGames(u, ctx)
+        info <- Env.current.userInfo(u, nbs, ctx)
+        social <- Env.current.socialInfo(u, ctx)
       } yield status(html.user.show.page.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
     else Env.activity.read.recent(u) map { as =>
@@ -80,7 +80,7 @@ object User extends LilaController {
       EnabledUser(username) { u =>
         negotiate(
           html = for {
-            nbs ← Env.current.userNbGames(u, ctx)
+            nbs <- Env.current.userNbGames(u, ctx)
             filters = GameFilterMenu(u, nbs, filter)
             pag <- GameFilterMenu.paginatorOf(
               userGameSearch = userGameSearch,
@@ -93,9 +93,9 @@ object User extends LilaController {
             _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
             _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
             res <- if (HTTPRequest isSynchronousHttp ctx.req) for {
-              info ← Env.current.userInfo(u, nbs, ctx)
+              info <- Env.current.userInfo(u, nbs, ctx)
               _ <- Env.team.cached.nameCache preloadMany info.teamIds
-              social ← Env.current.socialInfo(u, ctx)
+              social <- Env.current.socialInfo(u, ctx)
               searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
             } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
             else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
@@ -203,9 +203,9 @@ object User extends LilaController {
     val leaderboards = env.cached.top10.get
     negotiate(
       html = for {
-        nbAllTime ← env.cached topNbGame nb
-        nbDay ← fuccess(Nil)
-        tourneyWinners ← Env.tournament.winners.all.map(_.top)
+        nbAllTime <- env.cached topNbGame nb
+        nbDay <- fuccess(Nil)
+        tourneyWinners <- Env.tournament.winners.all.map(_.top)
         _ <- Env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
       } yield Ok(html.user.list(
         tourneyWinners = tourneyWinners,

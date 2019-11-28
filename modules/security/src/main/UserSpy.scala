@@ -39,11 +39,11 @@ final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
   import UserSpy._
 
   def apply(user: User): Fu[UserSpy] = for {
-    infos ← Store.chronoInfoByUser(user.id)
+    infos <- Store.chronoInfoByUser(user.id)
     ips = distinctRecent(infos.map(_.datedIp))
     prints = distinctRecent(infos.flatMap(_.datedFp))
-    sharingIp ← exploreSimilar("ip")(user)
-    sharingFingerprint ← exploreSimilar("fp")(user)
+    sharingIp <- exploreSimilar("ip")(user)
+    sharingFingerprint <- exploreSimilar("fp")(user)
   } yield UserSpy(
     ips = ips map { ip =>
       IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value)

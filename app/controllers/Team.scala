@@ -197,8 +197,8 @@ object Team extends LilaController {
 
   def requestProcess(requestId: String) = AuthBody { implicit ctx => me =>
     OptionFuRedirectUrl(for {
-      requestOption ← api request requestId
-      teamOption ← requestOption.??(req => TeamRepo.owned(req.team, me.id))
+      requestOption <- api request requestId
+      teamOption <- requestOption.??(req => TeamRepo.owned(req.team, me.id))
     } yield (teamOption |@| requestOption).tupled) {
       case (team, request) => {
         implicit val req = ctx.body

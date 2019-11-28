@@ -7,7 +7,7 @@ object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.11.12"
+  val globalScalaVersion = "2.13.1"
 
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
     organization := "org.lichess",
@@ -15,8 +15,6 @@ object BuildSettings {
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
     javacOptions += "-Xlint:unchecked",
-    incOptions := incOptions.value.withNameHashing(true),
-    updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
@@ -29,7 +27,7 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
+  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime) // , specs2, specs2Scalaz)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
@@ -48,14 +46,10 @@ object BuildSettings {
       )
 
   val compilerOptions = Seq(
-    "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
-    "-Ywarn-dead-code",
-    // "-Ywarn-unused-import",
-    // "-Ywarn-unused",
-    // "-Xlint:missing-interpolator",
-    // "-Ywarn-unused-import",
-    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"
+    "-language:implicitConversions",
+    "-feature",
+    "-deprecation",
+    "-Xfatal-warnings"
   )
 
   val srcMain = Seq(

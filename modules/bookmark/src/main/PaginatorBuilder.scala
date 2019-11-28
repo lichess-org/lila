@@ -25,12 +25,12 @@ private[bookmark] final class PaginatorBuilder(
     def nbResults: Fu[Int] = coll countSel selector
 
     def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
-      gameIds ← coll.find(selector, $doc("g" -> true))
+      gameIds <- coll.find(selector, $doc("g" -> true))
         .sort(sorting)
         .skip(offset)
         .cursor[Bdoc]()
         .gather[List](length) map { _ flatMap { _.getAs[String]("g") } }
-      games ← GameRepo gamesFromSecondary gameIds
+      games <- GameRepo gamesFromSecondary gameIds
     } yield games map { g => Bookmark(g, user) }
 
     private def selector = $doc("u" -> user.id)

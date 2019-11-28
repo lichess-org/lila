@@ -23,11 +23,11 @@ object help {
     table(
       tbody(
         header("Navigate the move tree"),
-        row(frag(k("←"), or, k("→")), trans.keyMoveBackwardOrForward()),
+        row(frag(k("<-"), or, k("→")), trans.keyMoveBackwardOrForward()),
         row(frag(k("j"), or, k("k")), trans.keyMoveBackwardOrForward()),
         row(frag(k("↑"), or, k("↓")), trans.keyGoToStartOrEnd()),
         row(frag(k("0"), or, k("$")), trans.keyGoToStartOrEnd()),
-        row(frag(k("shift"), k("←"), or, k("shift"), k("→")), trans.keyEnterOrExitVariation()),
+        row(frag(k("shift"), k("<-"), or, k("shift"), k("→")), trans.keyEnterOrExitVariation()),
         row(frag(k("shift"), k("J"), or, k("shift"), k("K")), trans.keyEnterOrExitVariation()),
         header("Analysis options"),
         row(frag(k("shift"), k("I")), trans.inlineNotation()),

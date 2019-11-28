@@ -192,8 +192,8 @@ object BinaryFormat {
       CastleLastMove(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
         lastMove = for {
-          orig ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-          dest ← posAt((b2 & 63) >> 3, b2 & 7)
+          orig <- posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
+          dest <- posAt((b2 & 63) >> 3, b2 & 7)
           if orig != Pos.A1 || dest != Pos.A1
         } yield Uci.Move(orig, dest)
       )

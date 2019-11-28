@@ -63,12 +63,12 @@ private[analyse] object CpAdvice {
   )
 
   def apply(prev: Info, info: Info): Option[CpAdvice] = for {
-    cp ← prev.cp map (_.ceiled.centipawns)
-    infoCp ← info.cp map (_.ceiled.centipawns)
+    cp <- prev.cp map (_.ceiled.centipawns)
+    infoCp <- info.cp map (_.ceiled.centipawns)
     prevWinningChances = cpWinningChances(cp)
     currentWinningChances = cpWinningChances(infoCp)
     delta = (currentWinningChances - prevWinningChances) |> { d => info.color.fold(-d, d) }
-    judgement ← winningChanceJudgements find { case (d, n) => d <= delta } map (_._2)
+    judgement <- winningChanceJudgements find { case (d, n) => d <= delta } map (_._2)
   } yield CpAdvice(judgement, info, prev)
 }
 

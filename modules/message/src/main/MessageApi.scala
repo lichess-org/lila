@@ -38,8 +38,8 @@ final class MessageApi(
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
-    threadOption ← coll.byId[Thread](id) map (_ filter (_ hasUser me))
-    _ ← threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setReadFor(me))
+    threadOption <- coll.byId[Thread](id) map (_ filter (_ hasUser me))
+    _ <- threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setReadFor(me))
   } yield threadOption
 
   def sendPreset(mod: User, user: User, preset: ModPreset): Fu[Thread] =

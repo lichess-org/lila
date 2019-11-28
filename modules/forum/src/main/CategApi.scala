@@ -8,8 +8,8 @@ private[forum] final class CategApi(env: Env) {
   import BSONHandlers._
 
   def list(teams: Iterable[String], troll: Boolean): Fu[List[CategView]] = for {
-    categs ← CategRepo withTeams teams
-    views ← (categs map { categ =>
+    categs <- CategRepo withTeams teams
+    views <- (categs map { categ =>
       env.postApi get (categ lastPostId troll) map { topicPost =>
         CategView(categ, topicPost map {
           _ match {
@@ -69,13 +69,13 @@ private[forum] final class CategApi(env: Env) {
     } run
 
   def denormalize(categ: Categ): Funit = for {
-    nbTopics ← TopicRepo countByCateg categ
-    nbPosts ← PostRepo countByCateg categ
-    lastPost ← PostRepo lastByCateg categ
-    nbTopicsTroll ← TopicRepoTroll countByCateg categ
-    nbPostsTroll ← PostRepoTroll countByCateg categ
-    lastPostTroll ← PostRepoTroll lastByCateg categ
-    _ ← env.categColl.update($id(categ.id), categ.copy(
+    nbTopics <- TopicRepo countByCateg categ
+    nbPosts <- PostRepo countByCateg categ
+    lastPost <- PostRepo lastByCateg categ
+    nbTopicsTroll <- TopicRepoTroll countByCateg categ
+    nbPostsTroll <- PostRepoTroll countByCateg categ
+    lastPostTroll <- PostRepoTroll lastByCateg categ
+    _ <- env.categColl.update($id(categ.id), categ.copy(
       nbTopics = nbTopics,
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),

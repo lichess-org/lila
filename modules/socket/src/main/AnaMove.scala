@@ -57,11 +57,11 @@ case class AnaMove(
 object AnaMove {
 
   def parse(o: JsObject) = for {
-    d ← o obj "d"
-    orig ← d str "orig" flatMap chess.Pos.posAt
-    dest ← d str "dest" flatMap chess.Pos.posAt
-    fen ← d str "fen"
-    path ← d str "path"
+    d <- o obj "d"
+    orig <- d str "orig" flatMap chess.Pos.posAt
+    dest <- d str "dest" flatMap chess.Pos.posAt
+    fen <- d str "fen"
+    path <- d str "path"
   } yield AnaMove(
     orig = orig,
     dest = dest,

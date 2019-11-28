@@ -192,7 +192,7 @@ final class SimulApi(
     repo find id map2 { (simul: Simul) => simul.fullName }
 
   private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] = for {
-    user ← UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
+    user <- UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
@@ -213,7 +213,7 @@ final class SimulApi(
       .withId(pairing.gameId)
       .withSimulId(simul.id)
       .start
-    _ ← (GameRepo insertDenormalized game2) >>-
+    _ <- (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
       socket.startGame(simul, game2)
   } yield game2 -> hostColor
