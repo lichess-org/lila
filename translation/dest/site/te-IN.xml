@@ -125,4 +125,11 @@
   <string name="signUp">దరఖాస్తు</string>
   <string name="computersAreNotAllowedToPlay">కంప్యూటర్ గానీ కంప్యూటర్ ఆధారిత ఆటగాళలను కానీ మేము అనుమతించం. దయచేసి చేస్ ఎంజన్ల, డేటా బేసుల లేక ఇతర ఆటగాళల సహకారం పొందకండి. ఒకటి కంటె ఎక్కువ అకౌంట్లు వాడటం నిషేదం. ఎక్కువ అకౌంట్లు సృష్టించడం లేక వాడటం వంటి మరియు పైనా చెప్పిన పనులు చేస్తే తమ అకౌంట్ నిషేదించబడగలదని గమనించవలసిందిగా కోరుతున్నాం.</string>
   <string name="games">ఆటలు</string>
+  <string name="xPostedInForumY">%2$s అనే టాపికు పై %1$s పోస్టు చేశారు</string>
+  <string name="players">ఆటగాళ్లు</string>
+  <string name="minutesPerSide">గడువు</string>
+  <string name="variant">రకం</string>
+  <string name="variants">రకాలు</string>
+  <string name="timeControl">సమయ పాలన</string>
+  <string name="oneDay">ఒక రోజు</string>
 </resources>
