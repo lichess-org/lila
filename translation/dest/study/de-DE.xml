@@ -37,7 +37,7 @@
   <string name="contributor">Mitwirkender</string>
   <string name="kick">Rauswerfen</string>
   <string name="leaveTheStudy">Studie verlassen</string>
-  <string name="youAreNowAContributor">Du bist jetzt Mitwirkender</string>
+  <string name="youAreNowAContributor">Du bist jetzt ein Mitwirkender</string>
   <string name="youAreNowASpectator">Du bist jetzt Zuschauer</string>
   <string name="pgnTags">PGN Tags</string>
   <string name="like">Gefällt mir</string>
@@ -70,7 +70,7 @@
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
-  <string name="editChapter">Kapitel editieren</string>
+  <string name="editChapter">Kapitel bearbeiten</string>
   <string name="newChapter">Neues Kapitel</string>
   <string name="orientation">Ausrichtung</string>
   <string name="analysisMode">Analysemodus</string>
@@ -103,10 +103,10 @@
   <string name="createChapter">Kapitel erstellen</string>
   <string name="configureLiveBroadcast">Live-Übertragung konfigurieren</string>
   <string name="createStudy">Studie erstellen</string>
-  <string name="editStudy">Studie editieren</string>
+  <string name="editStudy">Studie bearbeiten</string>
   <string name="visibility">Sichtbarkeit</string>
   <string name="public">Öffentlich</string>
-  <string name="unlisted">Unveröffentlicht</string>
+  <string name="unlisted">Ungelistet</string>
   <string name="inviteOnly">Nur mit Einladung</string>
   <string name="allowCloning">Klonen erlaubt</string>
   <string name="nobody">Niemand</string>
