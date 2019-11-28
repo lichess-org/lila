@@ -1,12 +1,11 @@
 package lila.push
 
-import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
 import akka.actor.ActorSystem
+import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.user.User
 
@@ -69,6 +68,7 @@ private final class FirebasePush(
 private final class SequentialBlock[T](timeout: FiniteDuration)(implicit system: ActorSystem) {
 
   import java.util.concurrent.atomic.AtomicReference
+  import scala.concurrent.Future
 
   private val queue: AtomicReference[Option[Fu[T]]] = new AtomicReference(none)
 
