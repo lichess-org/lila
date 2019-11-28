@@ -33,6 +33,7 @@
   <string name="blackPlays">ఇప్పుడు నలుపుసైన్యం వంతు</string>
   <string name="opponentLeftChoices">మీ ప్రత్యర్థి బహుశా ఆట విడిచి వెళ్లిపోయారేమో. మీరు కాసేపు ఆగి చూడవచ్చు, లేదా గెలుపోటములు సమానంగా పంచుకోవచ్చు, లేదా విజయం ప్రకటించుకోవచ్చు.</string>
   <string name="makeYourOpponentResign">మీ ప్రత్యర్థిని ఓడించండి</string>
+  <string name="forceResignation">గెలుపు పొందడం</string>
   <string name="forceDraw">గెలుపోటములు సమానంగా పంచుకోండి</string>
   <string name="talkInChat">దయచేసి బాతాఖానీ లో మర్యాదగా మసలుకోండి!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ఈ లింకుకు మొదట వచ్చిన వారు మీతో ఆడతారు.</string>
