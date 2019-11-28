@@ -122,4 +122,5 @@
   <string name="logOut">నిష్క్రమించండి</string>
   <string name="signIn">ప్రవేశించండి</string>
   <string name="youNeedAnAccountToDoThat">అది చెయ్యడానికి ఒక ఖాతా అవసరం</string>
+  <string name="signUp">దరఖాస్తు</string>
 </resources>
