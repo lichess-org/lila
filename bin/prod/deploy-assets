@@ -8,7 +8,7 @@ if [ -z $to ]; then
   echo "Empty deploy target"
   exit 1
 elif [ $to = "main" ]; then
-  REMOTE="leess"
+  REMOTE="root@maple.lichess.ovh"
   REMOTE_DIR="/home/lichess-deploy"
 elif [ $to = "stage" ]; then
   REMOTE="khiaw"
