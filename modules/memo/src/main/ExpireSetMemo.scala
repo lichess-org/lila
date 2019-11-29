@@ -20,7 +20,7 @@ final class ExpireSetMemo(ttl: Duration) {
 
   def put(key: String) = cache.put(key, true)
 
-  def putAll(keys: Iterable[String]) = cache putAll keys.map(_ -> true)(scala.collection.breakOut)
+  def putAll(keys: Iterable[String]) = cache putAll keys.view.map(_ -> true).to(Map)
 
   def remove(key: String) = cache invalidate key
 

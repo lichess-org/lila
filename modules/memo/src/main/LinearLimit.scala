@@ -2,7 +2,7 @@ package lila.memo
 
 import scala.concurrent.duration.FiniteDuration
 import play.api.mvc.Result
-import play.api.mvc.Results.TooManyRequest
+import play.api.mvc.Results.TooManyRequests
 import play.api.libs.json.Json
 
 /**
@@ -12,7 +12,7 @@ final class LinearLimit[K](
     name: String,
     key: String,
     ttl: FiniteDuration,
-    limitedDefault: Fu[Result] = fuccess(TooManyRequest(Json.obj("error" -> "Try again later"))),
+    limitedDefault: Fu[Result] = fuccess(TooManyRequests(Json.obj("error" -> "Try again later"))),
     toString: K => String = (k: K) => k.toString
 ) {
   private val storage = new ExpireSetMemo(ttl)

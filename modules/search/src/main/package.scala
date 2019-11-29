@@ -7,10 +7,4 @@ package object search extends PackageObject {
     val format = "YYYY-MM-dd HH:mm:ss"
     val formatter: DateTimeFormatter = DateTimeFormat forPattern format
   }
-
-  case class SearchConfig(
-      enabled: Boolean,
-      writeable: Boolean,
-      endpoint: String
-  )
 }

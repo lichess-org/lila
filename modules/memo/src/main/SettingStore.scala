@@ -2,6 +2,7 @@ package lila.memo
 
 import scala.util.matching.Regex
 import scala.util.Try
+import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl._
 import play.api.data._, Forms._
@@ -23,7 +24,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
 
   def set(v: A): Funit = {
     value = v
-    persist ?? coll.update(dbId, $set(dbField -> v), upsert = true).void
+    persist ?? coll.update.one(dbId, $set(dbField -> v), upsert = true).void
   }
 
   def form: Form[_] = implicitly[SettingStore.Formable[A]] form value
@@ -47,7 +48,7 @@ object SettingStore {
   type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
   final class Builder(coll: Coll) {
-    def apply[A: BSONValur: StringReader: Formable](
+    def apply[A: BSONHandler: StringReader: Formable](
       id: String,
       default: A,
       text: Option[String] = None,

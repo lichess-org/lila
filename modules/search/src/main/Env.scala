@@ -6,12 +6,19 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws._
 
+case class SearchConfig(
+    enabled: Boolean,
+    writeable: Boolean,
+    endpoint: String
+)
+
 final class Env(
     appConfig: Configuration,
     system: ActorSystem,
     ws: WSClient
 ) {
-  val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
+
+  private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 
   def makeHttp(index: Index): ESClientHttp = wire[ESClientHttp]
 

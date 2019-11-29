@@ -109,7 +109,7 @@ object AsyncCache {
   }
 
   private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
-    system.scheduler.schedule(1 minute, 1 minute) {
+    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       lila.mon.caffeineStats(cache, name)
     }
 
