@@ -117,8 +117,8 @@ object StudyMultiBoard {
       wName <- tags(_.White)
       bName <- tags(_.Black)
     } yield Color.Map(
-      white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap parseIntOption),
-      black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap parseIntOption)
+      white = Player(wName, tags(_.WhiteTitle), tags(_.WhiteElo) flatMap (_.toIntOption)),
+      black = Player(bName, tags(_.BlackTitle), tags(_.BlackElo) flatMap (_.toIntOption))
     )
   }
 }

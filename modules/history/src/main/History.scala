@@ -48,7 +48,7 @@ object History {
 
   private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
     def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {
-      case scala.util.Success(BSONElement(k, BSONInteger(v))) => parseIntOption(k) map (_ -> v)
+      case scala.util.Success(BSONElement(k, BSONInteger(v))) => k.toIntOption map (_ -> v)
       case _ => none[(Int, Int)]
     }.toList sortBy (_._1)
   }

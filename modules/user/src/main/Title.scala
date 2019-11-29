@@ -49,8 +49,8 @@ object Title {
     private val NewFideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/profile/(\d+)""".r
 
     def apply(url: String): Fu[Option[Title]] = url.trim match {
-      case FideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
-      case NewFideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
+      case FideProfileUrlRegex(id) => id.toIntOption ?? fromFideProfile
+      case NewFideProfileUrlRegex(id) => id.toIntOption ?? fromFideProfile
       case _ => fuccess(none)
     }
 

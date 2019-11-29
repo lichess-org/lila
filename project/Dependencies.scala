@@ -43,6 +43,7 @@ object Dependencies {
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"
   val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.59.58"
   val macwire = "com.softwaremill.macwire" %% "macros" % "2.3.3" % "provided"
+  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.0"
 
   object reactivemongo {
     val version = "0.19.1"

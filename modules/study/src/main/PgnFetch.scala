@@ -14,7 +14,7 @@ private final class PgnFetch {
   private val ChessbaseRegex = """chessgames\.com/.*[\?&]gid=(\d+)""".r.unanchored
 
   def fromUrl(url: String): Fu[Option[Pgn]] = url match {
-    case ChessbaseRegex(id) => parseIntOption(id) ?? downloadChessbase
+    case ChessbaseRegex(id) => id.toIntOption ?? downloadChessbase
     case _ => fuccess(none)
   }
 

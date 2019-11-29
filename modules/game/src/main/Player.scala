@@ -61,7 +61,7 @@ case class Player(
   def withName(name: String) = copy(name = name.some)
 
   def nameSplit: Option[(String, Option[Int])] = name map {
-    case Player.nameSplitRegex(n, r) => n -> parseIntOption(r)
+    case Player.nameSplitRegex(n, r) => n -> r.toIntOption
     case n => n -> none
   }
 

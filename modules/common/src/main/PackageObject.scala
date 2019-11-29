@@ -38,22 +38,6 @@ trait PackageObject extends Lilaisms {
     def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
   }
 
-  @deprecated
-  def parseIntOption(str: String): Option[Int] =
-    str.toIntOption
-
-  @deprecated
-  def parseFloatOption(str: String): Option[Float] =
-    Try(java.lang.Float.parseFloat(str)).toOption
-
-  @deprecated
-  def parseLongOption(str: String): Option[Long] =
-    Try(java.lang.Long.parseLong(str)).toOption
-
-  @deprecated
-  def parseDoubleOption(str: String): Option[Double] =
-    Try(java.lang.Double.parseDouble(str)).toOption
-
   def intBox(in: Range.Inclusive)(v: Int): Int =
     math.max(in.start, math.min(v, in.end))
 

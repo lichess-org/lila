@@ -89,7 +89,7 @@ object Sheet {
     def youtubeId = `gsx$youtubeid`.toString.trim
     def author = `gsx$youtubeauthor`.toString.trim
     def title = `gsx$title`.toString.trim
-    def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap parseIntOption
+    def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap (_.toIntOption)
     def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList.filter(_.nonEmpty) ::: {
       if (targets contains 1) List("beginner")
       else if (targets contains 3) List("advanced")
@@ -98,6 +98,6 @@ object Sheet {
     def lang = `gsx$language`.toString.trim
     def ads = `gsx$ads`.toString.trim == "yes"
     def include = `gsx$include`.toString.trim == "yes"
-    def startTime = ~parseIntOption(`gsx$starttimeinseconds`.toString.trim)
+    def startTime = ~`gsx$starttimeinseconds`.toString.trim.toIntOption
   }
 }

@@ -1,28 +1,21 @@
 package lila.search
 
 import akka.actor.ActorSystem
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import play.api.libs.ws._
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    ws: WSClient
 ) {
+  val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 
-  private val Enabled = config getBoolean "enabled"
-  private val Writeable = config getBoolean "writeable"
-  private val Endpoint = config getString "endpoint"
+  def makeHttp(index: Index): ESClientHttp = wire[ESClientHttp]
 
   val makeClient = (index: Index) =>
-    if (Enabled) new ESClientHttp(Endpoint, index, Writeable)
-    else new ESClientStub
-}
-
-object Env {
-
-  lazy val current = "search" boot new Env(
-    config = lila.common.PlayApp loadConfig "search",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
-  )
+    if (config.enabled) makeHttp(index)
+    else wire[ESClientStub]
 }

@@ -104,7 +104,7 @@ object Relay {
     case class Upstream(url: String) extends AnyVal {
       def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
       def withRound = url.split(" ", 2) match {
-        case Array(u, round) => UpstreamWithRound(u, parseIntOption(round))
+        case Array(u, round) => UpstreamWithRound(u, round.toIntOption)
         case _ => UpstreamWithRound(url, none)
       }
     }

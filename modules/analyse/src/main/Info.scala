@@ -58,8 +58,8 @@ object Info {
 
   def start(ply: Int) = Info(ply, Eval.initial, Nil)
 
-  private def strCp(s: String) = parseIntOption(s) map Cp.apply
-  private def strMate(s: String) = parseIntOption(s) map Mate.apply
+  private def strCp(s: String) = s.toIntOption map Cp.apply
+  private def strMate(s: String) = s.toIntOption map Mate.apply
 
   private def decode(ply: Int, str: String): Option[Info] = str.split(separator) match {
     case Array() => Info(ply, Eval.empty).some

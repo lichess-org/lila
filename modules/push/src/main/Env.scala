@@ -1,7 +1,7 @@
 package lila.push
 
 import akka.actor._
-import collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import com.google.auth.oauth2.{ GoogleCredentials, ServiceAccountCredentials }
 import com.typesafe.config.Config
 import play.api.Play

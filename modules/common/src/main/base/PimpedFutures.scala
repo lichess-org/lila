@@ -2,6 +2,7 @@ package lila.base
 
 import LilaTypes._
 import ornicar.scalalib.Zero
+import scala.collection.BuildFrom
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, ExecutionContext }
@@ -174,11 +175,4 @@ final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
   def flatten: Fu[A] = fua.flatMap {
     _.fold[Fu[A]](fufail(_), fuccess(_))
   }(ExecutionContext.parasitic)
-}
-
-final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
-  import scala.collection.generic.CanBuildFrom
-
-  def sequenceFu(implicit cbf: CanBuildFrom[M[Fu[A]], A, M[A]]): Fu[M[A]] =
-    Future.sequence(t)
 }

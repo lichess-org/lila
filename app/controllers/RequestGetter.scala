@@ -15,16 +15,16 @@ trait RequestGetter {
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
 
   protected def getInt(name: String)(implicit ctx: UserContext) =
-    get(name) flatMap parseIntOption
+    get(name) flatMap (_.toIntOption)
 
   protected def getInt(name: String, req: RequestHeader): Option[Int] =
-    req.queryString get name flatMap (_.headOption) flatMap parseIntOption
+    req.queryString get name flatMap (_.headOption) flatMap (_.toIntOption)
 
   protected def getLong(name: String)(implicit ctx: UserContext) =
-    get(name) flatMap parseLongOption
+    get(name) flatMap (_.toLongOption)
 
   protected def getLong(name: String, req: RequestHeader) =
-    get(name, req) flatMap parseLongOption
+    get(name, req) flatMap (_.toLongOption)
 
   protected def getBool(name: String)(implicit ctx: UserContext) =
     (getInt(name) exists trueish) || (get(name) exists trueish)

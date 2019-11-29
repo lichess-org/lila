@@ -1,5 +1,5 @@
 import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
-import play.sbt.Play.autoImport._
+import play.sbt.PlayImport._
 import sbt._, Keys._
 import scalariform.formatter.preferences._
 
@@ -27,7 +27,7 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, macwire) // , specs2, specs2Scalaz)
+  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, macwire, autoconfig) // , specs2, specs2Scalaz)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")

@@ -56,8 +56,8 @@ object Mobile {
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] = {
       (req.headers.get(HeaderNames.ACCEPT), req.path) match {
-        case (Some(HeaderPattern(v)), _) => parseIntOption(v) map ApiVersion.apply
-        case (_, PathPattern(v)) => parseIntOption(v) map ApiVersion.apply
+        case (Some(HeaderPattern(v)), _) => v.toIntOption map ApiVersion.apply
+        case (_, PathPattern(v)) => v.toIntOption map ApiVersion.apply
         case _ => none
       }
     } filter acceptedVersions.contains

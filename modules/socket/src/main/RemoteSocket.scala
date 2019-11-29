@@ -169,17 +169,17 @@ object RemoteSocket {
         }.some
         case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
         case "notified/batch" => NotifiedBatch(commas(raw.args)).some
-        case "lag" => raw.all |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
+        case "lag" => raw.all |> { s => s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(s(0), _) } }
         case "lags" => Lags(commas(raw.args).flatMap {
           _ split ':' match {
-            case Array(user, l) => parseIntOption(l) map { lag => user -> Centis(lag) }
+            case Array(user, l) => l.toIntOption map { lag => user -> Centis(lag) }
             case _ => None
           }
         }.toMap).some
         case "friends/batch" => FriendsBatch(commas(raw.args)).some
         case "tell/sri" => raw.get(3)(tellSriMapper)
         case "req/response" => raw.get(2) {
-          case Array(reqId, response) => parseIntOption(reqId) map { ReqResponse(_, response) }
+          case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }
         }
         case "boot" => WsBoot.some
         case _ => none

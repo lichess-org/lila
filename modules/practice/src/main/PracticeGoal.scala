@@ -23,14 +23,14 @@ object PracticeGoal {
   def apply(chapter: lila.study.Chapter): PracticeGoal =
     chapter.tags(_.Termination).map(v => MultiSpaceR.replaceAllIn(v.trim, " ")).flatMap {
       case MateR() => Mate.some
-      case MateInR(movesStr) => parseIntOption(movesStr) map MateIn.apply
-      case DrawInR(movesStr) => parseIntOption(movesStr) map DrawIn.apply
-      case EqualInR(movesStr) => parseIntOption(movesStr) map EqualIn.apply
+      case MateInR(movesStr) => movesStr.toIntOption map MateIn.apply
+      case DrawInR(movesStr) => movesStr.toIntOption map DrawIn.apply
+      case EqualInR(movesStr) => movesStr.toIntOption map EqualIn.apply
       case EvalInR(cpStr, movesStr) => for {
-        cp <- parseIntOption(cpStr)
-        moves <- parseIntOption(movesStr)
+        cp <- cpStr.toIntOption
+        moves <- movesStr.toIntOption
       } yield EvalIn(cp, moves)
-      case PromotionR(cpStr) => parseIntOption(cpStr) map Promotion.apply
+      case PromotionR(cpStr) => cpStr.toIntOption map Promotion.apply
       case _ => none
     } | Mate // default to mate
 }

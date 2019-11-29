@@ -24,9 +24,9 @@ private[video] final class Youtube(
   def updateAll: Funit = fetch flatMap { entries =>
     entries.map { entry =>
       api.video.setMetadata(entry.id, Metadata(
-        views = ~parseIntOption(entry.statistics.viewCount),
-        likes = ~parseIntOption(entry.statistics.likeCount) -
-          ~parseIntOption(entry.statistics.dislikeCount),
+        views = ~entry.statistics.viewCount.toIntOption,
+        likes = ~entry.statistics.likeCount.toIntOption -
+          ~entry.statistics.dislikeCount.toIntOption,
         description = entry.snippet.description,
         duration = Some(entry.contentDetails.seconds),
         publishedAt = entry.snippet.publishedAt.flatMap { at =>

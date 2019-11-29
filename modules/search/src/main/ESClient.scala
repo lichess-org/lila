@@ -1,6 +1,7 @@
 package lila.search
 
 import play.api.libs.json._
+import play.api.libs.ws._
 
 sealed trait ESClient {
 
@@ -18,14 +19,12 @@ sealed trait ESClient {
 }
 
 final class ESClientHttp(
-    endpoint: String,
-    val index: Index,
-    writeable: Boolean
+    ws: WSClient,
+    config: SearchConfig,
+    val index: Index
 ) extends ESClient {
-  import play.api.libs.ws.WS
-  import play.api.Play.current
 
-  def store(id: Id, doc: JsObject) = writeable ?? monitor("store") {
+  def store(id: Id, doc: JsObject) = config.writeable ?? monitor("store") {
     HTTP(s"store/${index.name}/${id.value}", doc)
   }
 
@@ -37,10 +36,10 @@ final class ESClientHttp(
     HTTP(s"count/${index.name}", query, CountResponse.apply)
   }
 
-  def deleteById(id: lila.search.Id) = writeable ??
+  def deleteById(id: lila.search.Id) = config.writeable ??
     HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
 
-  def deleteByIds(ids: List[lila.search.Id]) = writeable ??
+  def deleteByIds(ids: List[lila.search.Id]) = config.writeable ??
     HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
 
   def putMapping =
@@ -55,7 +54,7 @@ final class ESClientHttp(
     HTTP(s"refresh/${index.name}", Json.obj())
 
   private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
-    WS.url(s"$endpoint/$url").post(Json toJson data) flatMap {
+    ws.url(s"${config.endpoint}/$url").post(Json toJson data) flatMap {
       case res if res.status == 200 => fuccess(read(res.body))
       case res => fufail(s"$url ${res.status}")
     }

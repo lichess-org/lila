@@ -17,8 +17,8 @@ private object BSONHandlers {
   implicit val PvsHandler = new BSONHandler[BSONString, NonEmptyList[Pv]] {
     private def scoreWrite(s: Score): String = s.value.fold(_.value.toString, m => s"#${m.value}")
     private def scoreRead(str: String): Option[Score] =
-      if (str startsWith "#") parseIntOption(str drop 1) map { m => Score mate Mate(m) }
-      else parseIntOption(str) map { c => Score cp Cp(c) }
+      if (str startsWith "#") str.drop(1).toIntOption map { m => Score mate Mate(m) }
+      else str.toIntOption map { c => Score cp Cp(c) }
     private def movesWrite(moves: Moves): String = Uci writeListPiotr moves.value.toList
     private def movesRead(str: String): Option[Moves] =
       Uci readListPiotr str flatMap (_.toNel) map Moves.apply
@@ -45,7 +45,7 @@ private object BSONHandlers {
     def read(bs: BSONString): Id = bs.value split ':' match {
       case Array(fen) => Id(chess.variant.Standard, SmallFen raw fen)
       case Array(variantId, fen) => Id(
-        parseIntOption(variantId) flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
+        variantId.toIntOption flatMap chess.variant.Variant.apply err s"Invalid evalcache variant $variantId",
         SmallFen raw fen
       )
       case _ => sys error s"Invalid evalcache id ${bs.value}"

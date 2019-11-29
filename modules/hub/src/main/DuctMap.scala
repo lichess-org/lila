@@ -4,7 +4,7 @@ import com.github.benmanes.caffeine.cache._
 import ornicar.scalalib.Zero
 
 import java.util.concurrent.TimeUnit
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 

@@ -208,8 +208,8 @@ object RoundSocket {
         case "r/bye" => Bye(Game.FullId(raw.args)).some
         case "r/hold" => raw.get(4) {
           case Array(fullId, ip, meanS, sdS) => for {
-            mean <- parseIntOption(meanS)
-            sd <- parseIntOption(sdS)
+            mean <- meanS.toIntOption
+            sd <- sdS.toIntOption
           } yield HoldAlert(FullId(fullId), IpAddress(ip), mean, sd)
         }
         case "r/report" => raw.get(4) {
@@ -228,7 +228,7 @@ object RoundSocket {
 
       private def centis(s: String): Option[Centis] =
         if (s == "-") none
-        else parseIntOption(s) map Centis.apply
+        else s.toIntOption map Centis.apply
 
       private def readColor(s: String) =
         if (s == "w") Some(White)

@@ -208,7 +208,7 @@ private object RelayFetch {
         val strMoves = moves.map(_ split ' ') map { move =>
           chess.format.pgn.Move(
             san = ~move.headOption,
-            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption
+            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )
         } mkString " "
         s"${extraTags}\n\n$strMoves"

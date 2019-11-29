@@ -29,7 +29,7 @@ final class FishnetRedis(
 
       case Array(gameId, plyS, uci) => for {
         move <- Uci(uci)
-        ply <- parseIntOption(plyS)
+        ply <- plyS.toIntOption
       } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), 'roundMapTell)
       case _ =>
     }

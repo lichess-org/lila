@@ -29,6 +29,6 @@ private object LoginToken {
 
   object DateStr {
     def toStr(date: DateTime) = date.getMillis.toString
-    def toDate(str: String) = parseLongOption(str) map { new DateTime(_) }
+    def toDate(str: String) = str.toLongOption map { new DateTime(_) }
   }
 }

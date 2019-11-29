@@ -2,8 +2,14 @@ package lila.hub
 
 import akka.actor._
 import com.typesafe.config.Config
+import play.api.Configuration
 
-final class Env(config: Config, system: ActorSystem) {
+final class Env(
+    appConfig: Configuration,
+    system: ActorSystem
+) {
+
+  val config = appConfig.get[Config]("hub")
 
   val gameSearch = select("actor.game.search")
   val renderer = select("actor.renderer")
@@ -22,12 +28,4 @@ final class Env(config: Config, system: ActorSystem) {
 
   private def select(name: String) =
     system.actorSelection("/user/" + config.getString(name))
-}
-
-object Env {
-
-  lazy val current = "hub" boot new Env(
-    config = lila.common.PlayApp loadConfig "hub",
-    system = lila.common.PlayApp.system
-  )
 }
