@@ -24,7 +24,7 @@ final class PimpedJsObject(private val js: JsObject) extends AnyVal {
 
   def arrAs[A](key: String)(as: JsValue => Option[A]): Option[List[A]] =
     arr(key) map { j =>
-      (j.value.map(as)(scala.collection.breakOut): List[Option[A]]).flatten
+      j.value.iterator.map(as).to(List).flatten
     }
 
   def ints(key: String): Option[List[Int]] = arrAs(key)(_.asOpt[Int])

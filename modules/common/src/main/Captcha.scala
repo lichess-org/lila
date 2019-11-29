@@ -27,6 +27,8 @@ object Captcha {
 
   val failMessage = "captcha.fail"
 
+  // TODO remove
+  import scala.language.reflectiveCalls
   def isFailed(form: Form.FormLike) =
     form.errors.exists { _.messages has failMessage }
 }

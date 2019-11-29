@@ -1,11 +1,11 @@
 package lila.common
 
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws._
+import scala.math.Ordering.Float.TotalOrdering
 
 // http://detectlanguage.com
-final class DetectLanguage(url: String, key: String) {
+final class DetectLanguage(ws: WSClient, url: String, key: String) {
 
   private case class Detection(
       language: String,
@@ -21,7 +21,7 @@ final class DetectLanguage(url: String, key: String) {
 
   def apply(message: String): Fu[Option[Lang]] =
     if (key.isEmpty) fuccess(defaultLang.some)
-    else WS.url(url).post(Map(
+    else ws.url(url).post(Map(
       "key" -> Seq(key),
       "q" -> Seq(message take messageMaxLength)
     )) map { response =>
@@ -43,7 +43,8 @@ final class DetectLanguage(url: String, key: String) {
 object DetectLanguage {
 
   import com.typesafe.config.Config
-  def apply(config: Config): DetectLanguage = new DetectLanguage(
+  def apply(ws: WSClient, config: Config): DetectLanguage = new DetectLanguage(
+    ws = ws,
     url = config getString "api.url",
     key = config getString "api.key"
   )

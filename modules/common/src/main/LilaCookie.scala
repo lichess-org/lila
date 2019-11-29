@@ -1,18 +1,16 @@
 package lila.common
 
 import ornicar.scalalib.Random
-import play.api.mvc.{ Cookie, DiscardingCookie, Session, RequestHeader }
+import play.api.mvc.{ Cookie, DiscardingCookie, Session, RequestHeader, SessionCookieBaker }
 
-object LilaCookie {
+final class LilaCookie(baker: SessionCookieBaker) {
 
   private val domainRegex = """\.[^.]++\.[^.]++$""".r
 
   private def domain(req: RequestHeader): String =
     domainRegex.findFirstIn(req.domain).getOrElse(req.domain)
 
-  val sessionId = "sid"
-
-  def makeSessionId(implicit req: RequestHeader) = session(sessionId, Random secureString 22)
+  def makeSessionId(implicit req: RequestHeader) = session(LilaCookie.sessionId, Random secureString 22)
 
   def session(name: String, value: String)(implicit req: RequestHeader): Cookie = withSession { s =>
     s + (name -> value)
@@ -21,20 +19,25 @@ object LilaCookie {
   def newSession(implicit req: RequestHeader): Cookie = withSession(_ => Session.emptyCookie)
 
   def withSession(op: Session => Session)(implicit req: RequestHeader): Cookie = cookie(
-    Session.COOKIE_NAME,
-    Session.encode(Session.serialize(op(req.session)))
+    baker.COOKIE_NAME,
+    baker.encode(baker.serialize(op(req.session)))
   )
 
   def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(implicit req: RequestHeader): Cookie = Cookie(
     name,
     value,
-    maxAge orElse Session.maxAge orElse 86400.some,
+    maxAge orElse baker.maxAge orElse 86400.some,
     "/",
     domain(req).some,
-    Session.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
-    httpOnly | Session.httpOnly
+    baker.secure || req.headers.get("X-Forwarded-Proto").contains("https"),
+    httpOnly | baker.httpOnly
   )
 
   def discard(name: String)(implicit req: RequestHeader) =
-    DiscardingCookie(name, "/", domain(req).some, Session.httpOnly)
+    DiscardingCookie(name, "/", domain(req).some, baker.httpOnly)
+}
+
+object LilaCookie {
+
+  val sessionId = "sid"
 }

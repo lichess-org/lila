@@ -134,7 +134,7 @@ final object RawHtml {
         escapeHtmlRaw(sb, sArr, lastAppendIdx, sArr.length)
         sb
       }
-    } concat
+    } mkString ""
   }
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {

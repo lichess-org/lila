@@ -24,7 +24,7 @@ PlayKeys.externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  play.json, akka.actor, akka.slf4j, jodaForms,
+  macwire, play.json, akka.actor, akka.slf4j, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, reactivemongo.bson, reactivemongo.native,
   maxmind, prismic, markdown, scalatags,
@@ -110,7 +110,7 @@ lazy val evaluation = module("evaluation", Seq(
 )
 
 lazy val common = module("common", Seq()).settings(
-  libraryDependencies ++= provided(play.api, kamon.core, scalatags) ++ Seq(scaffeine) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, kamon.core, scalatags, ws, jodaForms) ++ Seq(scaffeine) ++ reactivemongo.bundle
 )
 
 lazy val rating = module("rating", Seq(common, db, memo)).settings(

@@ -3,14 +3,14 @@ package lila.base
 import LilaTypes._
 import ornicar.scalalib.Zero
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, ExecutionContext }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   private type Fu[A] = Future[A]
 
-  // see DirectExecutionContext
-  @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(ExecutionContext.parasiticn)
-  @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(ExecutionContext.parasiticn)
+  @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(ExecutionContext.parasitic)
+  @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(ExecutionContext.parasitic)
 
   def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
     case _ => sideEffect
@@ -38,13 +38,13 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B]): Fu[B] =
     fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-  def logFailure(logger: => lila.log.Logger, msg: Exception => String): Fu[A] =
+  def logFailure(logger: => lila.log.Logger, msg: Throwable => String): Fu[A] =
     addFailureEffect { e => logger.warn(msg(e), e) }
   def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
-  def addFailureEffect(effect: Exception => Unit) = {
-    fua onFailure {
-      case e: Exception => effect(e)
+  def addFailureEffect(effect: Throwable => Unit) = {
+    fua.failed.foreach {
+      case e: Throwable => effect(e)
     }
     fua
   }
@@ -144,12 +144,12 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
 
   def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-    fua.flatMap { if (_) fub else fuFalse }(DirectExecutionContext)
+    fua.flatMap { if (_) fub else fuFalse }(ExecutionContext.parasitic)
 
   def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-    fua.flatMap { if (_) fuTrue else fub }(DirectExecutionContext)
+    fua.flatMap { if (_) fuTrue else fub }(ExecutionContext.parasitic)
 
-  @inline def unary_! = fua.map { !_ }(DirectExecutionContext)
+  @inline def unary_! = fua.map { !_ }(ExecutionContext.parasitic)
 }
 
 final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
@@ -173,10 +173,10 @@ final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
 
   def flatten: Fu[A] = fua.flatMap {
     _.fold[Fu[A]](fufail(_), fuccess(_))
-  }(DirectExecutionContext)
+  }(ExecutionContext.parasitic)
 }
 
-final class PimpedTraversableFuture[A, M[X] <: TraversableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
+final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
   import scala.collection.generic.CanBuildFrom
 
   def sequenceFu(implicit cbf: CanBuildFrom[M[Fu[A]], A, M[A]]): Fu[M[A]] =

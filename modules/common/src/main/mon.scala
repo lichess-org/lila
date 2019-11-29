@@ -3,9 +3,8 @@ package lila
 import scala.concurrent.Future
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
-import kamon.Kamon.{ metrics, tracer }
-import kamon.trace.{ TraceContext, Segment, Status }
-import kamon.util.RelativeNanoTimestamp
+import kamon.Kamon
+import kamon.tag.TagSet
 
 object mon {
 
@@ -191,9 +190,6 @@ object mon {
     object move {
       object full {
         val count = inc("round.move.full")
-      }
-      object trace {
-        def create = makeTrace("round.move.trace")
       }
       object lag {
         val compDeviation = rec("round.move.lag.comp_deviation")
@@ -684,29 +680,29 @@ object mon {
   def recPath(f: lila.mon.type => Rec): Rec = f(this)
   def incPath(f: lila.mon.type => Inc): Inc = f(this)
 
-  private def inc(name: String): Inc = metrics.counter(name).increment _
+  private def inc(name: String): Inc = Kamon.counter(name).withoutTags.increment _
   private def incX(name: String): IncX = {
-    val count = metrics.counter(name)
+    val count = Kamon.counter(name).withoutTags
     value => {
       if (value < 0) logger.warn(s"Negative increment value: $name=$value")
       else count.increment(value)
     }
   }
   private def rec(name: String): Rec = {
-    val hist = metrics.histogram(name)
+    val gauge = Kamon.gauge(name).withoutTags
     value => {
       if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
-      else hist.record(value)
+      else gauge.update(value)
     }
   }
 
   // to record Double rates [0..1],
   // we multiply by 100,000 and convert to Int [0..100000]
   private def rate(name: String): Rate = {
-    val hist = metrics.histogram(name)
+    val gauge = Kamon.gauge(name).withoutTags
     value => {
       if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
-      else hist.record((value * 100000).toInt)
+      else gauge.update((value * 100000).toInt)
     }
   }
 
@@ -715,40 +711,6 @@ object mon {
   }
 
   def startMeasurement(path: RecPath) = new Measurement(System.nanoTime(), path)
-
-  trait Trace {
-
-    def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
-
-    def segmentSync[A](name: String, categ: String)(f: => A): A
-
-    def finish(): Unit
-  }
-
-  private final class KamonTrace(
-      context: TraceContext
-  ) extends Trace {
-
-    def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
-      context.withNewAsyncSegment(name, categ, "mon")(code)
-
-    def segmentSync[A](name: String, categ: String)(code: => A): A =
-      context.withNewSegment(name, categ, "mon")(code)
-
-    def finish() = context.finish()
-  }
-
-  private def makeTrace(name: String, firstName: String = "first"): Trace = {
-    val context = tracer.newContext(
-      name = name,
-      token = None,
-      tags = Map.empty,
-      timestamp = RelativeNanoTimestamp.now,
-      status = Status.Open,
-      isLocal = false
-    )
-    new KamonTrace(context)
-  }
 
   private val stripVersionRegex = """[^\w\.\-]""".r
   private def stripVersion(v: String) = stripVersionRegex.replaceAllIn(v, "")

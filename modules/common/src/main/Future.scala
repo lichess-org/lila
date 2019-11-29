@@ -12,8 +12,8 @@ object Future {
       case Nil => fuccess(zero)
     }
 
-  def lazyFold[T, R](futures: Stream[Fu[T]])(zero: R)(op: (R, T) => R): Fu[R] =
-    Stream.cons.unapply(futures).fold(fuccess(zero)) {
+  def lazyFold[T, R](futures: LazyList[Fu[T]])(zero: R)(op: (R, T) => R): Fu[R] =
+    LazyList.cons.unapply(futures).fold(fuccess(zero)) {
       case (future, rest) => future flatMap { f =>
         lazyFold(rest)(op(zero, f))(op)
       }

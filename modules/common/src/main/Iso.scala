@@ -1,7 +1,5 @@
 package lila.common
 
-import scala.collection.breakOut
-
 import chess.Centis
 
 trait Iso[A, B] {
@@ -26,7 +24,7 @@ object Iso {
   def double[B](from: Double => B, to: B => Double): DoubleIso[B] = apply(from, to)
 
   def strings(sep: String): StringIso[Strings] = Iso[String, Strings](
-    str => Strings(str.split(sep).map(_.trim)(breakOut)),
+    str => Strings(str.split(sep).iterator.map(_.trim).to(List)),
     strs => strs.value mkString sep
   )
 

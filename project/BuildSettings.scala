@@ -27,7 +27,7 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime) // , specs2, specs2Scalaz)
+  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, macwire) // , specs2, specs2Scalaz)
 
   def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
   def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
@@ -47,6 +47,8 @@ object BuildSettings {
 
   val compilerOptions = Seq(
     "-language:implicitConversions",
+    "-language:postfixOps",
+    "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
     "-deprecation",
     "-Xfatal-warnings"
