@@ -198,7 +198,7 @@ object Schedule {
     }
   }
 
-  private def standardInc(s: Schedule) = s.at.getHourOfDay % 6 == 1
+  private def standardInc(s: Schedule) = s.at.getHourOfDay % 3 == 1
   private def bulletInc(s: Schedule) = s.at.getHourOfDay % 3 == 1
 
   private[tournament] def clockFor(s: Schedule) = {

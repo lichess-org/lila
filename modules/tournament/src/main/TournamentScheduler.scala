@@ -134,10 +134,10 @@ Thank you all, you rock!"""
           },
 
         List( // yearly variant tournaments!
-          secondWeekOf(JANUARY).withDayOfWeek(TUESDAY) -> Breakthrough,
-          secondWeekOf(FEBRUARY).withDayOfWeek(WEDNESDAY) -> Frysk,
-          secondWeekOf(MARCH).withDayOfWeek(THURSDAY) -> Antidraughts,
-          secondWeekOf(APRIL).withDayOfWeek(FRIDAY) -> Frisian
+          secondWeekOf(JANUARY).withDayOfWeek(MONDAY) -> Breakthrough,
+          secondWeekOf(FEBRUARY).withDayOfWeek(FRIDAY) -> Frysk,
+          secondWeekOf(MARCH).withDayOfWeek(SATURDAY) -> Antidraughts,
+          secondWeekOf(APRIL).withDayOfWeek(SUNDAY) -> Frisian
         ).flatMap {
             case (day, variant) =>
               at(day, 18) filter farFuture.isAfter map { date =>
@@ -218,8 +218,8 @@ Thank you all, you rock!"""
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = if (hour % 3 == 1) HyperBullet else if (hour % 3 == 2) HippoBullet else Bullet
-          val blitzType = if (hour % 3 == 0) Blitz else SuperBlitz
+          val bulletType = if (hour % 6 == 1) HyperBullet else if (hour % 3 == 2) HippoBullet else Bullet
+          val blitzType = if (hour % 6 == 0) Blitz else SuperBlitz
           List(
             //Frisian bullet, not during daily frisian or daily/eastern bullet
             at(date, hour) map { date => Schedule(Hourly, bulletType, if (hour % 3 == 0 && hour != 21 - todayCET && hour != 17 - todayCET && hour != 5 - todayCET) Frisian else Standard, std, date).plan },
