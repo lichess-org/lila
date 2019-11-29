@@ -51,7 +51,7 @@ object BuildSettings {
     "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
     "-deprecation",
-    "-Xfatal-warnings",
+    // "-Xfatal-warnings",
     "-Xmaxerrs", "5"
   )
 

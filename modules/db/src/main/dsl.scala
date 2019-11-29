@@ -27,32 +27,19 @@ trait dsl {
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
-  type QueryBuilder[P] = GenericQueryBuilder[P]
-
-  implicit val LilaBSONDocumentZero: Zero[BSONDocument] =
-    Zero.instance($doc())
-
-  implicit def bsonDocumentToPretty(document: BSONDocument): String = {
-    BSONDocument.pretty(document)
-  }
+  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero.instance($empty)
 
   //**********************************************************************************************//
   // Helpers
-  def $empty: BSONDocument = BSONDocument.empty
+  def $empty: Bdoc = document
 
-  def $doc(elements: ElementProducer*): BSONDocument = BSONDocument(elements: _*)
+  def $doc(elements: ElementProducer*): Bdoc = BSONDocument(elements: _*)
 
-  def $doc(elements: Iterable[(String, BSONValue)]): BSONDocument = BSONDocument(elements)
+  def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument(elements)
 
-  def $doc(elements: Iterable[BSONElement]): BSONDocument = BSONDocument {
-    elements.map {
-      e => e.name -> e.value
-    }
-  }
+  def $id[T: BSONWriter](id: T): Bdoc = $doc("_id" -> id)
 
-  def $id[T: BSONWriter](id: T): BSONDocument = $doc("_id" -> id)
-
-  def $inIds[T: BSONWriter](ids: Iterable[T]): BSONDocument =
+  def $inIds[T: BSONWriter](ids: Iterable[T]): Bdoc =
     $id($doc("$in" -> ids))
 
   def $boolean(b: Boolean) = BSONBoolean(b)
@@ -64,15 +51,15 @@ trait dsl {
 
   //**********************************************************************************************//
   // Top Level Logical Operators
-  def $or(expressions: BSONDocument*): BSONDocument = {
+  def $or(expressions: Bdoc*): Bdoc = {
     $doc("$or" -> expressions)
   }
 
-  def $and(expressions: BSONDocument*): BSONDocument = {
+  def $and(expressions: Bdoc*): Bdoc = {
     $doc("$and" -> expressions)
   }
 
-  def $nor(expressions: BSONDocument*): BSONDocument = {
+  def $nor(expressions: Bdoc*): Bdoc = {
     $doc("$nor" -> expressions)
   }
   // End of Top Level Logical Operators
@@ -80,15 +67,15 @@ trait dsl {
 
   //**********************************************************************************************//
   // Top Level Evaluation Operators
-  def $text(search: String): BSONDocument = {
+  def $text(search: String): Bdoc = {
     $doc("$text" -> $doc("$search" -> search))
   }
 
-  def $text(search: String, language: String): BSONDocument = {
+  def $text(search: String, language: String): Bdoc = {
     $doc("$text" -> $doc("$search" -> search, "$language" -> language))
   }
 
-  def $where(expression: String): BSONDocument = {
+  def $where(expression: String): Bdoc = {
     $doc("$where" -> expression)
   }
   // End of Top Level Evaluation Operators
@@ -96,37 +83,37 @@ trait dsl {
 
   //**********************************************************************************************//
   // Top Level Field Update Operators
-  def $inc(item: ElementProducer, items: ElementProducer*): BSONDocument = {
+  def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = {
     $doc("$inc" -> $doc((Seq(item) ++ items): _*))
   }
-  // def $inc(items: Traversable[BSONElement]): BSONDocument =
+  // def $inc(items: Traversable[BSONElement]): Bdoc =
   //   $doc("$inc" -> $doc(items.map { e => (e.name, e.value) }): _*)
 
-  def $mul(item: ElementProducer): BSONDocument = {
+  def $mul(item: ElementProducer): Bdoc = {
     $doc("$mul" -> $doc(item))
   }
 
-  def $setOnInsert(item: ElementProducer, items: ElementProducer*): BSONDocument = {
+  def $setOnInsert(item: ElementProducer, items: ElementProducer*): Bdoc = {
     $doc("$setOnInsert" -> $doc((Seq(item) ++ items): _*))
   }
 
-  def $set(item: ElementProducer, items: ElementProducer*): BSONDocument = {
+  def $set(item: ElementProducer, items: ElementProducer*): Bdoc = {
     $doc("$set" -> $doc((Seq(item) ++ items): _*))
   }
 
-  def $unset(field: String, fields: String*): BSONDocument = {
-    $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => BSONElement(k, BSONString("")))))
+  def $unset(field: String, fields: String*): Bdoc = {
+    $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => (k, BSONString("")))))
   }
 
-  def $setBoolOrUnset(field: String, value: Boolean): BSONDocument = {
+  def $setBoolOrUnset(field: String, value: Boolean): Bdoc = {
     if (value) $set(field -> true) else $unset(field)
   }
 
-  def $min(item: ElementProducer): BSONDocument = {
+  def $min(item: ElementProducer): Bdoc = {
     $doc("$min" -> $doc(item))
   }
 
-  def $max(item: ElementProducer): BSONDocument = {
+  def $max(item: ElementProducer): Bdoc = {
     $doc("$max" -> $doc(item))
   }
 
@@ -174,30 +161,30 @@ trait dsl {
     }
   }
 
-  def $currentDate(items: (String, CurrentDateValueProducer[_])*): BSONDocument = {
-    $doc("$currentDate" -> $doc(items.map(item => BSONElement(item._1, item._2.produce))))
+  def $currentDate(items: (String, CurrentDateValueProducer[_])*): Bdoc = {
+    $doc("$currentDate" -> $doc(items.map(item => (item._1, item._2.produce))))
   }
   // End of Top Level Field Update Operators
   //**********************************************************************************************//
 
   //**********************************************************************************************//
   // Top Level Array Update Operators
-  def $addToSet(item: ElementProducer, items: ElementProducer*): BSONDocument = {
+  def $addToSet(item: ElementProducer, items: ElementProducer*): Bdoc = {
     $doc("$addToSet" -> $doc((Seq(item) ++ items): _*))
   }
 
-  def $pop(item: (String, Int)): BSONDocument = {
+  def $pop(item: (String, Int)): Bdoc = {
     if (item._2 != -1 && item._2 != 1)
       throw new IllegalArgumentException(s"${item._2} is not equal to: -1 | 1")
 
     $doc("$pop" -> $doc(item))
   }
 
-  def $push(item: ElementProducer): BSONDocument = {
+  def $push(item: ElementProducer): Bdoc = {
     $doc("$push" -> $doc(item))
   }
 
-  def $pushEach[T: BSONWriter](field: String, values: T*): BSONDocument = {
+  def $pushEach[T: BSONWriter](field: String, values: T*): Bdoc = {
     $doc(
       "$push" -> $doc(
         field -> $doc(
@@ -207,7 +194,7 @@ trait dsl {
     )
   }
 
-  def $pull(item: ElementProducer): BSONDocument = {
+  def $pull(item: ElementProducer): Bdoc = {
     $doc("$pull" -> $doc(item))
   }
   // End ofTop Level Array Update Operators
@@ -221,7 +208,7 @@ trait dsl {
    */
   trait ElementBuilder {
     def field: String
-    def append(value: BSONDocument): BSONDocument = value
+    def append(value: Bdoc): Bdoc = value
   }
 
   /** Represents the state of an expression which has a field and a value */
@@ -253,10 +240,10 @@ trait dsl {
    * }}}
    *
    */
-  case class CompositeExpression(field: String, value: BSONDocument)
-    extends Expression[BSONDocument]
+  case class CompositeExpression(field: String, value: Bdoc)
+    extends Expression[Bdoc]
     with ComparisonOperators {
-    override def append(value: BSONDocument): BSONDocument = {
+    override def append(value: Bdoc): Bdoc = {
       this.value ++ value
     }
   }
@@ -279,7 +266,7 @@ trait dsl {
     }
 
     /** Matches any of the values that exist in an array specified in the query.*/
-    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[BSONDocument] = {
+    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$in" -> values))
     }
 
@@ -294,32 +281,32 @@ trait dsl {
     }
 
     /** Matches all values that are not equal to the value specified in the query. */
-    def $ne[T: BSONWriter](value: T): SimpleExpression[BSONDocument] = {
+    def $ne[T: BSONWriter](value: T): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$ne" -> value))
     }
 
     /** Matches values that do not exist in an array specified to the query. */
-    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[BSONDocument] = {
+    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$nin" -> values))
     }
 
   }
 
   trait LogicalOperators { self: ElementBuilder =>
-    def $not(f: (String => Expression[BSONDocument])): SimpleExpression[BSONDocument] = {
+    def $not(f: (String => Expression[Bdoc])): SimpleExpression[Bdoc] = {
       val expression = f(field)
       SimpleExpression(field, $doc("$not" -> expression.value))
     }
   }
 
   trait ElementOperators { self: ElementBuilder =>
-    def $exists(exists: Boolean): SimpleExpression[BSONDocument] = {
+    def $exists(exists: Boolean): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$exists" -> exists))
     }
   }
 
   trait EvaluationOperators { self: ElementBuilder =>
-    def $mod(divisor: Int, remainder: Int): SimpleExpression[BSONDocument] =
+    def $mod(divisor: Int, remainder: Int): SimpleExpression[Bdoc] =
       SimpleExpression(field, $doc("$mod" -> BSONArray(divisor, remainder)))
 
     def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
@@ -330,15 +317,15 @@ trait dsl {
   }
 
   trait ArrayOperators { self: ElementBuilder =>
-    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[BSONDocument] = {
+    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$all" -> values))
     }
 
-    def $elemMatch(query: ElementProducer*): SimpleExpression[BSONDocument] = {
+    def $elemMatch(query: ElementProducer*): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$elemMatch" -> $doc(query: _*)))
     }
 
-    def $size(size: Int): SimpleExpression[BSONDocument] = {
+    def $size(size: Int): SimpleExpression[Bdoc] = {
       SimpleExpression(field, $doc("$size" -> size))
     }
   }
@@ -365,7 +352,7 @@ trait dsl {
     with LogicalOperators
     with ArrayOperators
 
-  implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): BSONDocument =
+  implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =
     $doc(expression.field -> expression.value)
 
 }

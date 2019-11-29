@@ -8,7 +8,8 @@ import reactivemongo.api.bson._
 trait QueryBuilderExt { self: dsl =>
 
   // #TODO is uno, gather really needed?
-  final implicit class ExtendQueryBuilder[P <: SerializationPack](val b: dsl.QueryBuilder[P]) {
+  // probably remove this entirely
+  final implicit class ExtendQueryBuilder[P <: SerializationPack](val b: collections.GenericQueryBuilder[P]) {
 
     def skip(nb: Int) = b.options(b.options skip nb)
 
