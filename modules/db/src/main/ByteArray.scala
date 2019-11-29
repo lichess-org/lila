@@ -1,7 +1,8 @@
 package lila.db
 
-import scala.util.Try
+import scala.util.{ Try, Success, Failure }
 
+import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import reactivemongo.api.bson._
 
 case class ByteArray(value: Array[Byte]) {
@@ -25,8 +26,11 @@ object ByteArray {
     Try(ByteArray(hex str2Hex hexStr))
 
   implicit val ByteArrayBSONHandler = new BSONHandler[ByteArray] {
-    def read(bin: BSONBinary) = ByteArray(bin.byteArray)
-    def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
+    def readTry(bson: BSONValue) = bson match {
+      case v: BSONBinary => Success(ByteArray(v.byteArray))
+      case _ => Failure(TypeDoesNotMatchException("BSONBinary", bson.getClass.getSimpleName))
+    }
+    def writeTry(ba: ByteArray) = Success(BSONBinary(ba.value, subtype))
   }
 
   implicit def fromBytes(value: Array[Byte]) = new ByteArray(value)

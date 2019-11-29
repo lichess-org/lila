@@ -22,10 +22,6 @@ case class DbImage(
   def path = s"$id/$hash/$name"
 }
 
-case class Uh(
-    foo: Option[String]
-)
-
 object DbImage {
 
   def make(id: String, name: String, contentType: Option[String], file: File) = {
@@ -42,6 +38,5 @@ object DbImage {
     )
   }
 
-  implicit val UhHandler = Macros.handler[Uh]
   // implicit val DbImageBSONHandler = Macros.handler[DbImage]
 }

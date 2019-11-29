@@ -18,8 +18,8 @@ package lila.db
 
 import ornicar.scalalib.Zero
 import reactivemongo.api._
-import reactivemongo.api.collections.GenericQueryBuilder
 import reactivemongo.api.bson._
+import reactivemongo.api.collections.GenericQueryBuilder
 
 trait dsl {
 
@@ -40,17 +40,19 @@ trait dsl {
   // Helpers
   def $empty: BSONDocument = BSONDocument.empty
 
-  def $doc(elements: Producer[BSONElement]*): BSONDocument = BSONDocument(elements: _*)
+  def $doc(elements: ElementProducer*): BSONDocument = BSONDocument(elements: _*)
 
-  def $doc(elements: Traversable[BSONElement]): BSONDocument = BSONDocument(elements)
+  def $doc(elements: Iterable[(String, BSONValue)]): BSONDocument = BSONDocument(elements)
 
-  def $arr(elements: Producer[BSONValue]*): BSONArray = {
-    BSONArray(elements: _*)
+  def $doc(elements: Iterable[BSONElement]): BSONDocument = BSONDocument {
+    elements.map {
+      e => e.name -> e.value
+    }
   }
 
-  def $id[T](id: T)(implicit writer: BSONWriter[T]): BSONDocument = $doc("_id" -> id)
+  def $id[T: BSONWriter](id: T): BSONDocument = $doc("_id" -> id)
 
-  def $inIds[T](ids: Iterable[T])(implicit writer: BSONWriter[T]): BSONDocument =
+  def $inIds[T: BSONWriter](ids: Iterable[T]): BSONDocument =
     $id($doc("$in" -> ids))
 
   def $boolean(b: Boolean) = BSONBoolean(b)
@@ -94,27 +96,21 @@ trait dsl {
 
   //**********************************************************************************************//
   // Top Level Field Update Operators
-  def $inc(item: Producer[BSONElement], items: Producer[BSONElement]*): BSONDocument = {
+  def $inc(item: ElementProducer, items: ElementProducer*): BSONDocument = {
     $doc("$inc" -> $doc((Seq(item) ++ items): _*))
   }
-  def $inc(items: Iterable[BSONElement]): BSONDocument = {
-    $doc("$inc" -> $doc(items))
-  }
+  // def $inc(items: Traversable[BSONElement]): BSONDocument =
+  //   $doc("$inc" -> $doc(items.map { e => (e.name, e.value) }): _*)
 
-  def $mul(item: Producer[BSONElement]): BSONDocument = {
+  def $mul(item: ElementProducer): BSONDocument = {
     $doc("$mul" -> $doc(item))
   }
 
-  def $rename(item: (String, String), items: (String, String)*)(implicit writer: BSONWriter[String, _ <: BSONValue]): BSONDocument = {
-    $doc("$rename" -> $doc((item +: items).
-      map { case (k, v) => BSONElement(k, BSONString(v)) }))
-  }
-
-  def $setOnInsert(item: Producer[BSONElement], items: Producer[BSONElement]*): BSONDocument = {
+  def $setOnInsert(item: ElementProducer, items: ElementProducer*): BSONDocument = {
     $doc("$setOnInsert" -> $doc((Seq(item) ++ items): _*))
   }
 
-  def $set(item: Producer[BSONElement], items: Producer[BSONElement]*): BSONDocument = {
+  def $set(item: ElementProducer, items: ElementProducer*): BSONDocument = {
     $doc("$set" -> $doc((Seq(item) ++ items): _*))
   }
 
@@ -126,36 +122,36 @@ trait dsl {
     if (value) $set(field -> true) else $unset(field)
   }
 
-  def $min(item: Producer[BSONElement]): BSONDocument = {
+  def $min(item: ElementProducer): BSONDocument = {
     $doc("$min" -> $doc(item))
   }
 
-  def $max(item: Producer[BSONElement]): BSONDocument = {
+  def $max(item: ElementProducer): BSONDocument = {
     $doc("$max" -> $doc(item))
   }
 
   // Helpers
-  def $eq[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$eq" -> value)
+  def $eq[T: BSONWriter](value: T) = $doc("$eq" -> value)
 
-  def $gt[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$gt" -> value)
+  def $gt[T: BSONWriter](value: T) = $doc("$gt" -> value)
 
   /** Matches values that are greater than or equal to the value specified in the query. */
-  def $gte[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$gte" -> value)
+  def $gte[T: BSONWriter](value: T) = $doc("$gte" -> value)
 
   /** Matches any of the values that exist in an array specified in the query.*/
-  def $in[T](values: T*)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$in" -> values)
+  def $in[T: BSONWriter](values: T*) = $doc("$in" -> values)
 
   /** Matches values that are less than the value specified in the query. */
-  def $lt[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$lt" -> value)
+  def $lt[T: BSONWriter](value: T) = $doc("$lt" -> value)
 
   /** Matches values that are less than or equal to the value specified in the query. */
-  def $lte[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$lte" -> value)
+  def $lte[T: BSONWriter](value: T) = $doc("$lte" -> value)
 
   /** Matches all values that are not equal to the value specified in the query. */
-  def $ne[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$ne" -> value)
+  def $ne[T: BSONWriter](value: T) = $doc("$ne" -> value)
 
   /** Matches values that do not exist in an array specified to the query. */
-  def $nin[T](values: T*)(implicit writer: BSONWriter[T, _ <: BSONValue]) = $doc("$nin" -> values)
+  def $nin[T: BSONWriter](values: T*) = $doc("$nin" -> values)
 
   def $exists(value: Boolean) = $doc("$exists" -> value)
 
@@ -163,11 +159,11 @@ trait dsl {
     def produce: BSONValue
   }
 
-  implicit class BooleanCurrentDateValueProducer(value: Boolean) extends CurrentDateValueProducer[Boolean] {
+  implicit final class BooleanCurrentDateValueProducer(value: Boolean) extends CurrentDateValueProducer[Boolean] {
     def produce: BSONValue = BSONBoolean(value)
   }
 
-  implicit class StringCurrentDateValueProducer(value: String) extends CurrentDateValueProducer[String] {
+  implicit final class StringCurrentDateValueProducer(value: String) extends CurrentDateValueProducer[String] {
     def isValid: Boolean = Seq("date", "timestamp") contains value
 
     def produce: BSONValue = {
@@ -186,7 +182,7 @@ trait dsl {
 
   //**********************************************************************************************//
   // Top Level Array Update Operators
-  def $addToSet(item: Producer[BSONElement], items: Producer[BSONElement]*): BSONDocument = {
+  def $addToSet(item: ElementProducer, items: ElementProducer*): BSONDocument = {
     $doc("$addToSet" -> $doc((Seq(item) ++ items): _*))
   }
 
@@ -197,11 +193,11 @@ trait dsl {
     $doc("$pop" -> $doc(item))
   }
 
-  def $push(item: Producer[BSONElement]): BSONDocument = {
+  def $push(item: ElementProducer): BSONDocument = {
     $doc("$push" -> $doc(item))
   }
 
-  def $pushEach[T](field: String, values: T*)(implicit writer: BSONWriter[T, _ <: BSONValue]): BSONDocument = {
+  def $pushEach[T: BSONWriter](field: String, values: T*): BSONDocument = {
     $doc(
       "$push" -> $doc(
         field -> $doc(
@@ -211,13 +207,13 @@ trait dsl {
     )
   }
 
-  def $pull(item: Producer[BSONElement]): BSONDocument = {
+  def $pull(item: ElementProducer): BSONDocument = {
     $doc("$pull" -> $doc(item))
   }
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
 
-  def Facet(doc: Bdoc) = reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.PipelineOperator($doc("$facet" -> doc))
+  // def Facet(doc: Bdoc) = reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.PipelineOperator($doc("$facet" -> doc))
 
   /**
    * Represents the initial state of the expression which has only the name of the field.
@@ -229,9 +225,9 @@ trait dsl {
   }
 
   /** Represents the state of an expression which has a field and a value */
-  trait Expression[V <: BSONValue] extends ElementBuilder {
+  trait Expression[V] extends ElementBuilder {
     def value: V
-    def toBdoc(implicit writer: BSONWriter[V, _ <: BSONValue]) = toBSONDocument(this)
+    def toBdoc(implicit writer: BSONWriter[V]) = toBSONDocument(this)
   }
 
   /*
@@ -268,42 +264,42 @@ trait dsl {
   /** MongoDB comparison operators. */
   trait ComparisonOperators { self: ElementBuilder =>
 
-    def $eq[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONValue] = {
-      SimpleExpression(field, writer.write(value))
+    def $eq[T: BSONWriter](value: T): SimpleExpression[BSONValue] = {
+      SimpleExpression(field, implicitly[BSONWriter[T]].writeTry(value).get)
     }
 
     /** Matches values that are greater than the value specified in the query. */
-    def $gt[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): CompositeExpression = {
+    def $gt[T: BSONWriter](value: T): CompositeExpression = {
       CompositeExpression(field, append($doc("$gt" -> value)))
     }
 
     /** Matches values that are greater than or equal to the value specified in the query. */
-    def $gte[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): CompositeExpression = {
+    def $gte[T: BSONWriter](value: T): CompositeExpression = {
       CompositeExpression(field, append($doc("$gte" -> value)))
     }
 
     /** Matches any of the values that exist in an array specified in the query.*/
-    def $in[T](values: Iterable[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $in[T: BSONWriter](values: Iterable[T]): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$in" -> values))
     }
 
     /** Matches values that are less than the value specified in the query. */
-    def $lt[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): CompositeExpression = {
+    def $lt[T: BSONWriter](value: T): CompositeExpression = {
       CompositeExpression(field, append($doc("$lt" -> value)))
     }
 
     /** Matches values that are less than or equal to the value specified in the query. */
-    def $lte[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): CompositeExpression = {
+    def $lte[T: BSONWriter](value: T): CompositeExpression = {
       CompositeExpression(field, append($doc("$lte" -> value)))
     }
 
     /** Matches all values that are not equal to the value specified in the query. */
-    def $ne[T](value: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $ne[T: BSONWriter](value: T): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$ne" -> value))
     }
 
     /** Matches values that do not exist in an array specified to the query. */
-    def $nin[T](values: Iterable[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $nin[T: BSONWriter](values: Iterable[T]): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$nin" -> values))
     }
 
@@ -334,11 +330,11 @@ trait dsl {
   }
 
   trait ArrayOperators { self: ElementBuilder =>
-    def $all[T](values: Seq[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): SimpleExpression[BSONDocument] = {
+    def $all[T: BSONWriter](values: Seq[T]): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$all" -> values))
     }
 
-    def $elemMatch(query: Producer[BSONElement]*): SimpleExpression[BSONDocument] = {
+    def $elemMatch(query: ElementProducer*): SimpleExpression[BSONDocument] = {
       SimpleExpression(field, $doc("$elemMatch" -> $doc(query: _*)))
     }
 
@@ -369,14 +365,14 @@ trait dsl {
     with LogicalOperators
     with ArrayOperators
 
-  // implicit def toBSONDocument(expression: Expression[V])(implicit writer: BSONWriter[V): BSONDocument =
-  //   $doc(expression.field -> expression.value)
+  implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): BSONDocument =
+    $doc(expression.field -> expression.value)
 
 }
 
 // sealed trait LowPriorityDsl { self: dsl =>
 //   // Priority lower than toBSONDocument
-//   implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): Producer[BSONElement] = {
+//   implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): ElementProducer = {
 //     BSONElement(expression.field, expression.value)
 //   }
 // }
