@@ -1,6 +1,7 @@
 package lila.db
 
-import com.typesafe.config.Config
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 import reactivemongo.api.BSONSerializationPack
 import reactivemongo.api.commands.Command
 import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver, FailoverStrategy, ReadPreference }
@@ -11,63 +12,40 @@ import scala.util.{ Failure, Success }
 import dsl.Coll
 import lila.common.Chronometer
 
-final class Env(
-    name: String,
-    config: Config,
-    lifecycle: play.api.inject.ApplicationLifecycle
-) {
+final class Env(name: String, config: DbConfig) {
 
-  private lazy val (connection, dbName) = {
-
-    val driver = MongoDriver(config)
-
-    registerDriverShutdownHook(driver)
-
-    (for {
-      parsedUri <- MongoConnection.parseURI(config getString "uri")
-      con <- driver.connection(parsedUri, true)
-      db <- parsedUri.db match {
-        case Some(name) => Success(name)
-        case _ => Failure[String](new IllegalArgumentException(
-          s"cannot resolve connection from URI: $parsedUri"
-        ))
-      }
-    } yield con -> db).get
-  }
-
-  private lazy val lnm = s"$name ${connection.supervisor}/${connection.name}"
-
-  private lazy val db =
-    Chronometer.syncEffect(Await.result(connection database dbName, 5.seconds)) { lap =>
-      logger.info(s"$lnm MongoDB connected in ${lap.showDuration}")
+  private val driver = MongoDriver()
+  private val parsedUri = MongoConnection.parseURI(config.uri).get
+  // private val connection = Future.fromTry(parsedUri.flatMap(driver.connection(_, true)))
+  private val dbName = parsedUri.db | "lichess"
+  val conn = driver.connection(parsedUri, name.some, true).get
+  private val db = Chronometer.syncEffect(
+    Await.result(conn database dbName, 3.seconds)
+  ) { lap =>
+      logger.info(s"$name MongoDB connected to $dbName in ${lap.showDuration}")
     }
 
   def apply(name: String): Coll = db(name)
 
-  val runCommand: RunCommand = (command, readPreference) => {
-    val runner = Command.run(BSONSerializationPack, FailoverStrategy.strict)
-    runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
-  }
+  // val runCommand: RunCommand = (command, readPreference) => {
+  //   val runner = Command.run(BSONSerializationPack, FailoverStrategy.strict)
+  //   runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
+  // }
 
   object image {
-    private lazy val imageColl = apply(config getString "image.collection")
+    private lazy val imageColl = config.imageCollName map apply
     import dsl._
-    import DbImage.DbImageBSONHandler
-    def fetch(id: String): Fu[Option[DbImage]] = imageColl.byId[DbImage](id)
+    // import DbImage.DbImageBSONHandler
+    // def fetch(id: String): Fu[Option[DbImage]] = imageColl ?? {
+    //   _.byId[DbImage](id)
+    // }
   }
-
-  private def registerDriverShutdownHook(mongoDriver: MongoDriver): Unit =
-    lifecycle.addStopHook { () =>
-      logger.info(s"$lnm Stopping the MongoDriver...")
-      Future(mongoDriver.close())
-    }
 }
 
 object Env {
 
-  lazy val current = "db" boot new Env(
+  def main(appConfig: Configuration) = new Env(
     name = "main",
-    config = lila.common.PlayApp loadConfig "mongodb",
-    lifecycle = lila.common.PlayApp.lifecycle
+    config = appConfig.get[DbConfig]("mongodb")(AutoConfig.loader)
   )
 }

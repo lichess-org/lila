@@ -97,7 +97,7 @@ final class ChapterRepo(coll: Coll) {
 
   def setChildren(children: Node.Children) = setNodeValue("n", children.some) _
 
-  private def setNodeValue[A: BSONValueWriter](field: String, value: Option[A])(chapter: Chapter, path: Path): Funit =
+  private def setNodeValue[A: BSONWriter](field: String, value: Option[A])(chapter: Chapter, path: Path): Funit =
     pathToField(chapter, path, field) match {
       case None =>
         logger.warn(s"Can't setNodeValue ${chapter.id} $path $field")

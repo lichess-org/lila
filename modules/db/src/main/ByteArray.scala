@@ -2,14 +2,13 @@ package lila.db
 
 import scala.util.Try
 
-import reactivemongo.bson._
-import reactivemongo.bson.utils.Converters
+import reactivemongo.api.bson._
 
-case class ByteArray(value: Array[Byte]) extends AnyVal {
+case class ByteArray(value: Array[Byte]) {
 
   def isEmpty = value.size == 0
 
-  def toHexStr = Converters hex2Str value
+  def toHexStr = ByteArray.hex hex2Str value
 
   def showBytes: String = value map { b =>
     "%08d" format { b & 0xff }.toBinaryString.toInt
@@ -23,9 +22,9 @@ object ByteArray {
   val empty = ByteArray(Array())
 
   def fromHexStr(hexStr: String): Try[ByteArray] =
-    Try(ByteArray(Converters str2Hex hexStr))
+    Try(ByteArray(hex str2Hex hexStr))
 
-  implicit val ByteArrayBSONHandler = new BSONHandler[BSONBinary, ByteArray] {
+  implicit val ByteArrayBSONHandler = new BSONHandler[ByteArray] {
     def read(bin: BSONBinary) = ByteArray(bin.byteArray)
     def write(ba: ByteArray) = BSONBinary(ba.value, subtype)
   }
@@ -48,6 +47,47 @@ object ByteArray {
       i -= 1
     }
     sum.toByte
+  }
+
+  // from https://github.com/ReactiveMongo/ReactiveMongo-BSON/blob/master/api/src/main/scala/Digest.scala
+  private object hex {
+
+    private val HEX_CHARS: Array[Char] = "0123456789abcdef".toCharArray
+
+    /** Turns a hexadecimal String into an array of Byte. */
+    def str2Hex(str: String): Array[Byte] = {
+      val sz = str.length / 2
+      val bytes = new Array[Byte](sz)
+
+      var i = 0
+      while (i < sz) {
+        val t = 2 * i
+        bytes(i) = Integer.parseInt(str.substring(t, t + 2), 16).toByte
+        i += 1
+      }
+
+      bytes
+    }
+
+    /** Turns an array of Byte into a String representation in hexadecimal. */
+    def hex2Str(bytes: Array[Byte]): String = {
+      val len = bytes.length
+      val hex = new Array[Char](2 * len)
+
+      var i = 0
+      while (i < len) {
+        val b = bytes(i)
+
+        val t = 2 * i // index in output buffer
+
+        hex(t) = HEX_CHARS((b & 0xF0) >>> 4)
+        hex(t + 1) = HEX_CHARS(b & 0x0F)
+
+        i = i + 1
+      }
+
+      new String(hex)
+    }
   }
 
   def subtype = Subtype.GenericBinarySubtype

@@ -9,7 +9,7 @@ import chess.{ Color, Role }
 import lila.db.dsl._
 import lila.rating.PerfType
 
-sealed abstract class Dimension[A: BSONValueHandler](
+sealed abstract class Dimension[A: BSONHandler](
     val key: String,
     val name: String,
     val dbKey: String,
@@ -17,7 +17,7 @@ sealed abstract class Dimension[A: BSONValueHandler](
     val description: Frag
 ) {
 
-  def bson = implicitly[BSONValueHandler[A]]
+  def bson = implicitly[BSONHandler[A]]
 
   def isInGame = position == Position.Game
   def isInMove = position == Position.Move

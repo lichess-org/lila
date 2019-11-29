@@ -1,7 +1,8 @@
 package lila
 
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.commands.WriteResult
+import reactivemongo.api.ReadPreference
+import io.methvin.play.autoconfig._
 
 package object db extends PackageObject {
 
@@ -12,6 +13,11 @@ package object db extends PackageObject {
   }
 
   def isDuplicateKey(wr: WriteResult) = wr.code.contains(11000)
+
+  case class DbConfig(
+      uri: String,
+      @ConfigName("image.collection") imageCollName: Option[String]
+  )
 
   private[db] def logger = lila.log("db")
 }

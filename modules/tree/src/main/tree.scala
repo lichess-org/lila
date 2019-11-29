@@ -247,6 +247,17 @@ object Node {
 
   @inline implicit private def toPimpedJsObject(jo: JsObject) = new lila.base.PimpedJsObject(jo)
 
+  implicit val defaultNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = true)
+
+  val minimalNodeJsonWriter: Writes[Node] =
+    makeNodeJsonWriter(alwaysChildren = false)
+
+  implicit def nodeListJsonWriter(alwaysChildren: Boolean): Writes[List[Node]] = Writes[List[Node]] { list =>
+    val writer = if (alwaysChildren) defaultNodeJsonWriter else minimalNodeJsonWriter
+    JsArray(list map writer.writes)
+  }
+
   def makeNodeJsonWriter(alwaysChildren: Boolean): Writes[Node] = Writes { node =>
     import node._
     try {
@@ -271,7 +282,10 @@ object Node {
         .add("clock", clock)
         .add("crazy", crazyData)
         .add("comp", comp)
-        .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
+        .add("children", if (alwaysChildren || children.nonEmpty) Some {
+          nodeListJsonWriter(alwaysChildren) writes children
+        }
+        else None)
         .add("forceVariation", forceVariation)
     } catch {
       case e: StackOverflowError =>
@@ -296,12 +310,6 @@ object Node {
   implicit val destsJsonWriter: Writes[Map[Pos, List[Pos]]] = Writes { dests =>
     JsString(destString(dests))
   }
-
-  implicit val defaultNodeJsonWriter: Writes[Node] =
-    makeNodeJsonWriter(alwaysChildren = true)
-
-  val minimalNodeJsonWriter: Writes[Node] =
-    makeNodeJsonWriter(alwaysChildren = false)
 
   val partitionTreeJsonWriter: Writes[Node] = Writes { node =>
     JsArray {

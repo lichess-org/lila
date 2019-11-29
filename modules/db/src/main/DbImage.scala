@@ -1,10 +1,9 @@
 package lila.db
 
-import com.roundeights.hasher.Implicits._
 import java.io.File
 import java.nio.file.Files
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import dsl._
 
@@ -23,9 +22,14 @@ case class DbImage(
   def path = s"$id/$hash/$name"
 }
 
+case class Uh(
+    foo: Option[String]
+)
+
 object DbImage {
 
   def make(id: String, name: String, contentType: Option[String], file: File) = {
+    import com.roundeights.hasher.Implicits._
     val data = Files.readAllBytes(file.toPath)
     DbImage(
       _id = id,
@@ -38,5 +42,6 @@ object DbImage {
     )
   }
 
-  implicit val DbImageBSONHandler = Macros.handler[DbImage]
+  implicit val UhHandler = Macros.handler[Uh]
+  // implicit val DbImageBSONHandler = Macros.handler[DbImage]
 }

@@ -6,7 +6,7 @@ import scala.util.Try
 import lila.db.dsl._
 import play.api.data._, Forms._
 
-final class SettingStore[A: BSONValueHandler: SettingStore.StringReader: SettingStore.Formable] private (
+final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
     val id: String,
     val default: A,
@@ -47,7 +47,7 @@ object SettingStore {
   type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
   final class Builder(coll: Coll) {
-    def apply[A: BSONValueHandler: StringReader: Formable](
+    def apply[A: BSONValur: StringReader: Formable](
       id: String,
       default: A,
       text: Option[String] = None,

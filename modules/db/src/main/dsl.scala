@@ -27,15 +27,7 @@ trait dsl {
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
-  type QueryBuilder = GenericQueryBuilder[BSONSerializationPack.type]
-
-  type BSONValueReader[A] = BSONReader[_ <: BSONValue, A]
-  type BSONValueWriter[A] = BSONWriter[A, _ <: BSONValue]
-  type BSONValueHandler[A] = BSONHandler[_ <: BSONValue, A]
-
-  type BSONArrayReader[A] = BSONReader[BSONArray, A]
-  type BSONArrayWriter[A] = BSONWriter[A, BSONArray]
-  type BSONArrayHandler[A] = BSONHandler[BSONArray, A]
+  type QueryBuilder[P] = GenericQueryBuilder[P]
 
   implicit val LilaBSONDocumentZero: Zero[BSONDocument] =
     Zero.instance($doc())
@@ -56,9 +48,9 @@ trait dsl {
     BSONArray(elements: _*)
   }
 
-  def $id[T](id: T)(implicit writer: BSONWriter[T, _ <: BSONValue]): BSONDocument = $doc("_id" -> id)
+  def $id[T](id: T)(implicit writer: BSONWriter[T]): BSONDocument = $doc("_id" -> id)
 
-  def $inIds[T](ids: Iterable[T])(implicit writer: BSONWriter[T, _ <: BSONValue]): BSONDocument =
+  def $inIds[T](ids: Iterable[T])(implicit writer: BSONWriter[T]): BSONDocument =
     $id($doc("$in" -> ids))
 
   def $boolean(b: Boolean) = BSONBoolean(b)

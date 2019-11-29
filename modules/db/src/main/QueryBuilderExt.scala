@@ -3,11 +3,11 @@ package lila.db
 import scala.collection.generic.CanBuildFrom
 
 import reactivemongo.api._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 trait QueryBuilderExt { self: dsl =>
 
-  final implicit class ExtendQueryBuilder[A](val b: dsl.QueryBuilder) {
+  final implicit class ExtendQueryBuilder[P](val b: dsl.QueryBuilder[P]) {
 
     def skip(nb: Int) = b.options(b.options skip nb)
 

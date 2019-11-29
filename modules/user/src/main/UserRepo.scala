@@ -445,7 +445,7 @@ object UserRepo {
   def getTitle(id: ID): Fu[Option[Title]] = coll.primitiveOne[Title]($id(id), F.title)
 
   def setPlan(user: User, plan: Plan): Funit = {
-    implicit val pbw: BSONValueWriter[Plan] = Plan.planBSONHandler
+    implicit val pbw: BSONWriter[Plan] = Plan.planBSONHandler
     coll.updateField($id(user.id), "plan", plan).void
   }
 
