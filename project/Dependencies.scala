@@ -42,7 +42,7 @@ object Dependencies {
   val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "0.18.0"
   val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
-  val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
+  val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.5.0"
   val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
   val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"

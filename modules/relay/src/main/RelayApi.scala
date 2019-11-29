@@ -1,7 +1,6 @@
 package lila.relay
 
 import akka.actor._
-import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
