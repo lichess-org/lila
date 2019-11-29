@@ -19,11 +19,11 @@ package lila.db
 import ornicar.scalalib.Zero
 import reactivemongo.api._
 import reactivemongo.api.collections.GenericQueryBuilder
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
-trait dsl extends LowPriorityDsl {
+trait dsl {
 
-  type Coll = reactivemongo.api.collections.bson.BSONCollection
+  type Coll = reactivemongo.api.bson.collection.BSONCollection
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
@@ -377,16 +377,16 @@ trait dsl extends LowPriorityDsl {
     with LogicalOperators
     with ArrayOperators
 
-  implicit def toBSONDocument[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): BSONDocument =
-    $doc(expression.field -> expression.value)
+  // implicit def toBSONDocument(expression: Expression[V])(implicit writer: BSONWriter[V): BSONDocument =
+  //   $doc(expression.field -> expression.value)
 
 }
 
-sealed trait LowPriorityDsl { self: dsl =>
-  // Priority lower than toBSONDocument
-  implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): Producer[BSONElement] = {
-    BSONElement(expression.field, expression.value)
-  }
-}
+// sealed trait LowPriorityDsl { self: dsl =>
+//   // Priority lower than toBSONDocument
+//   implicit def toBSONElement[V <: BSONValue](expression: Expression[V])(implicit writer: BSONWriter[V, _ <: BSONValue]): Producer[BSONElement] = {
+//     BSONElement(expression.field, expression.value)
+//   }
+// }
 
 object dsl extends dsl with CollExt with QueryBuilderExt with CursorExt with Handlers

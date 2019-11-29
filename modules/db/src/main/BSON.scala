@@ -2,14 +2,14 @@ package lila.db
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import dsl._
 import lila.common.Iso
 
 abstract class BSON[T]
   extends BSONReadOnly[T]
-  with BSONHandler[Bdoc, T]
+  with BSONHandler[T]
   with BSONDocumentReader[T]
   with BSONDocumentWriter[T] {
 
@@ -40,8 +40,8 @@ abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
 
 object BSON extends Handlers {
 
-  def toDocHandler[A](implicit handler: BSONHandler[BSONDocument, A]): BSONDocumentHandler[A] =
-    new BSONDocumentReader[A] with BSONDocumentWriter[A] with BSONHandler[BSONDocument, A] {
+  def toDocHandler[A](implicit handler: BSONHandler[A]): BSONDocumentHandler[A] =
+    new BSONDocumentReader[A] with BSONDocumentWriter[A] with BSONHandler[A] {
       def read(doc: BSONDocument) = handler read doc
       def write(o: A) = handler write o
     }

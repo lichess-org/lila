@@ -1,13 +1,11 @@
 package lila.db
 
-import scala.collection.breakOut
-import scala.collection.generic.CanBuildFrom
 import scala.util.{ Success, Failure }
 
 import reactivemongo.api._
 import reactivemongo.api.collections.bson.BSONBatchCommands._
 import reactivemongo.api.commands.GetLastError
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import reactivemongo.core.protocol.MongoWireVersion
 
 trait CollExt { self: dsl with QueryBuilderExt =>

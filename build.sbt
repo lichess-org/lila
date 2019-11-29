@@ -24,20 +24,18 @@ PlayKeys.externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  macwire, play.json, akka.actor, akka.slf4j, jodaForms, ws,
+  macwire, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, reactivemongo.bson, reactivemongo.native,
   maxmind, prismic, markdown, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  semver, scrimage, scaffeine, lettuce, epoll
+  scrimage, scaffeine, lettuce, epoll
 )
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
-
-Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
@@ -234,7 +232,7 @@ lazy val simul = module("simul", Seq(
 )
 
 lazy val fishnet = module("fishnet", Seq(common, game, analyse, db, evalCache)).settings(
-  libraryDependencies ++= provided(play.api, semver, lettuce) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).settings(

@@ -1,6 +1,5 @@
 package lila.db
 
-import scala.collection.breakOut
 import org.joda.time.DateTime
 import reactivemongo.bson._
 import scalaz.NonEmptyList
