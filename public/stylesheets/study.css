@@ -226,6 +226,9 @@ div.intro .lidraughts_overboard {
   overflow-y: auto;
   position: relative;
 }
+.study_box .list.relay {
+  max-height: 240px;
+}
 .study_box .list .elem {
   display: flex;
   justify-content: space-between;

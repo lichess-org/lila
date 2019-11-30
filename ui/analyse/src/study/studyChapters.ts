@@ -114,7 +114,7 @@ export function view(ctrl: StudyCtrl): VNode {
 
   const introActive = ctrl.relay && ctrl.relay.intro.active;
 
-  return h('div.list.chapters', {
+  return h('div.list.chapters' + (ctrl.relay ? '.relay' : ''), {
     hook: {
       insert(vnode) {
         (vnode.elm as HTMLElement).addEventListener('click', e => {
