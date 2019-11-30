@@ -47,7 +47,7 @@ final class TeamApi(
         timeline ! Propagate(
           TeamCreate(me.id, team.id)
         ).toFollowersOf(me.id)
-        Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), 'team)
+        Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
       } inject team
   }
 
@@ -144,7 +144,7 @@ final class TeamApi(
         TeamRepo.incMembers(team.id, +1) >>- {
           cached invalidateTeamIds user.id
           timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-          Bus.publish(JoinTeam(id = team.id, userId = user.id), 'team)
+          Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
         }
     } recover lila.db.recoverDuplicateKey(_ => ())
   }

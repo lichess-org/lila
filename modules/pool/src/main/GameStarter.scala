@@ -20,7 +20,7 @@ private final class GameStarter(
       val userIds = couples.flatMap(_.userIds)
       UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
         couples.map(one(pool, perfs)).sequenceFu.map { pairings =>
-          lila.common.Bus.publish(Pairings(pairings.flatten.toList), 'poolPairings)
+          lila.common.Bus.publish(Pairings(pairings.flatten.toList), "poolPairings")
         }
       }
     }

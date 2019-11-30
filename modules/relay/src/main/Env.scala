@@ -61,7 +61,7 @@ final class Env(
     api.autoStart >> api.autoFinishNotSyncing
   }
 
-  lila.common.Bus.subscribeFun('studyLikes, 'study, 'relayToggle) {
+  lila.common.Bus.subscribeFun("studyLikes", "study", "relayToggle") {
     case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
     case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
     case lila.study.actorApi.RelayToggle(id, v, who) =>

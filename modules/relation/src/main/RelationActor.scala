@@ -17,7 +17,7 @@ private[relation] final class RelationActor(
 
   private var previousOnlineIds = Set.empty[ID]
 
-  private val subs = List('startGame, 'finishGame, 'study, 'reloadOnlineFriends)
+  private val subs = List("startGame", "finishGame", "study", "reloadOnlineFriends")
 
   override def preStart(): Unit = {
     Bus.subscribe(self, subs)
@@ -47,7 +47,7 @@ private[relation] final class RelationActor(
     case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
       // the mobile app requests this on every WS connection
       // we can skip it if empty
-      if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'socketUsers)
+      if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), "socketUsers")
     }
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
@@ -118,7 +118,7 @@ private[relation] final class RelationActor(
   ) =
     friendsEntering foreach { entering =>
       api fetchFollowersFromSecondary entering.user.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'socketUsers)
+        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), "socketUsers")
       }
     }
 
@@ -128,19 +128,19 @@ private[relation] final class RelationActor(
   ) =
     friendsLeaving foreach { leaving =>
       api fetchFollowersFromSecondary leaving.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'socketUsers)
+        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), "socketUsers")
       }
     }
 
   private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
     userIds foreach { userId =>
       api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), 'socketUsers)
+        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), "socketUsers")
       }
     }
 
   private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
     api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-      if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), 'socketUsers)
+      if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), "socketUsers")
     }
 }

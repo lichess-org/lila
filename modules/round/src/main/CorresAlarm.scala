@@ -31,12 +31,12 @@ private final class CorresAlarm(
 
   system.scheduler.scheduleOnce(10 seconds)(scheduleNext)
 
-  Bus.subscribeFun('finishGame) {
+  Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) =>
       if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
   }
 
-  Bus.subscribeFun('moveEventCorres) {
+  Bus.subscribeFun("moveEventCorres") {
     case lila.hub.actorApi.round.CorresMoveEvent(move, _, _, alarmable, _) if alarmable =>
       proxyGame(move.gameId) flatMap {
         _ ?? { game =>
@@ -71,7 +71,7 @@ private final class CorresAlarm(
             case true => // already looking at the game
             case false => Bus.publish(
               lila.game.actorApi.CorresAlarmEvent(pov),
-              'corresAlarm
+              "corresAlarm"
             )
           }
         }

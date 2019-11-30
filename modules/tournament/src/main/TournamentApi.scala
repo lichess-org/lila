@@ -69,7 +69,7 @@ final class TournamentApi(
         }
       }
     if (tour.name != me.titleUsername && lila.common.LameName.anyNameButLichessIsOk(tour.name))
-      Bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), 'slack)
+      Bus.publish(lila.hub.actorApi.slack.TournamentName(me.username, tour.id, tour.name), "slack")
     logger.info(s"Create $tour")
     TournamentRepo.insert(tour) >>- join(tour.id, me, tour.password, setup.teamBattleByTeam, getUserTeamIds, none) inject tour
   }
@@ -533,12 +533,12 @@ final class TournamentApi(
         fetchVisibleTournaments flatMap apiJsonView.apply foreach { json =>
           Bus.publish(
             SendToFlag("tournament", Json.obj("t" -> "reload", "d" -> json)),
-            'sendToFlag
+            "sendToFlag"
           )
         }
         TournamentRepo.promotable foreach { tours =>
           renderer ? Tournament.TournamentTable(tours) map {
-            case view: String => Bus.publish(ReloadTournaments(view), 'lobbySocket)
+            case view: String => Bus.publish(ReloadTournaments(view), "lobbySocket")
           }
         }
     })))
@@ -560,7 +560,7 @@ final class TournamentApi(
       if (lastHash != top.hashCode) {
         Bus.publish(
           lila.hub.actorApi.round.TourStanding(tourId, JsonView.top(top, lightUserApi.sync)),
-          'tourStanding
+          "tourStanding"
         )
         lastPublished.put(tourId, top.hashCode)
       }

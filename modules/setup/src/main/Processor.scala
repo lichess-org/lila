@@ -37,13 +37,13 @@ private[setup] final class Processor(
     saveConfig(_ withHook config) >> {
       config.hook(sri, ctx.me, sid, blocking) match {
         case Left(hook) => fuccess {
-          Bus.publish(AddHook(hook), 'lobbyTrouper)
+          Bus.publish(AddHook(hook), "lobbyTrouper")
           Created(hook.id)
         }
         case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
           if (nbPlaying >= maxPlaying) Refused
           else {
-            Bus.publish(AddSeek(seek), 'lobbyTrouper)
+            Bus.publish(AddSeek(seek), "lobbyTrouper")
             Created(seek.id)
           }
         }

@@ -220,7 +220,7 @@ private final class PushApi(
   }
 
   private def IfAway(pov: Pov)(f: => Funit): Funit =
-    lila.common.Bus.ask[Boolean]('roundSocket) { p =>
+    lila.common.Bus.ask[Boolean]("roundSocket") { p =>
       Tell(pov.gameId, IsOnGame(pov.color, p))
     }(system) flatMap {
       case true => funit

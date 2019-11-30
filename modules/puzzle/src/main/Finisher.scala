@@ -41,7 +41,7 @@ private[puzzle] final class Finisher(
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
             ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
           } inject {
-            Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
+            Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), "finishPuzzle")
             round -> Mode.Rated
           }
         }
@@ -80,7 +80,7 @@ private[puzzle] final class Finisher(
       UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
       Bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-        'finishPuzzle
+        "finishPuzzle"
       ) inject
         user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   } recover lila.db.recoverDuplicateKey { _ =>

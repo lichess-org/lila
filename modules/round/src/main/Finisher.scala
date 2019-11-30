@@ -23,7 +23,7 @@ private[round] final class Finisher(
     getSocketStatus(pov.game) foreach { ss =>
       playban.abort(pov, ss.colorsOnGame)
     }
-    Bus.publish(AbortedBy(pov), 'abortGame)
+    Bus.publish(AbortedBy(pov), "abortGame")
   }
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
@@ -120,7 +120,7 @@ private[round] final class Finisher(
               message foreach { messenger.system(g, _) }
               GameRepo game g.id foreach { newGame =>
                 newGame foreach proxy.setFinishedGame
-                Bus.publish(finish.copy(game = newGame | g), 'finishGame)
+                Bus.publish(finish.copy(game = newGame | g), "finishGame")
               }
               prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }

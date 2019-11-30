@@ -65,7 +65,7 @@ final class Env(
     sequencer = sequencer,
     monitor = monitor,
     sink = sink,
-    socketExists = id => Bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _))(system),
+    socketExists = id => Bus.ask[Boolean]("roundSocket")(lila.hub.actorApi.map.Exists(id, _))(system),
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes
@@ -114,7 +114,7 @@ final class Env(
     def process = {
       case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
         api.createClient(Client.UserId(userId.toLowerCase), skill) map { client =>
-          Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
+          Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
           s"Created key: ${(client.key.value)} for: $userId"
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>

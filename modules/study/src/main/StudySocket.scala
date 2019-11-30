@@ -164,7 +164,7 @@ private final class StudySocket(
             onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err))))
         }
         case "relaySync" => who foreach { w =>
-          Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), 'relayToggle)
+          Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
         }
         case t => logger.warn(s"Unhandled study socket message: $t")
       }
@@ -179,7 +179,7 @@ private final class StudySocket(
               contributor = study contributors userId,
               public = study.isPublic,
               enters = through.isRight
-            ), 'study)
+            ), "study")
           }
         }
     }

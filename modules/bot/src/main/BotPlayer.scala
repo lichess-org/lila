@@ -30,7 +30,7 @@ final class BotPlayer(
           else if (!pov.player.isOfferingDraw && (offeringDraw contains true)) offerDraw(pov)
           Bus.publish(
             Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
-            'roundMapTell
+            "roundMapTell"
           )
           promise.future
         }
@@ -60,7 +60,7 @@ final class BotPlayer(
           fuccess {
             Bus.publish(
               Tell(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId)),
-              'roundMapTell
+              "roundMapTell"
             )
           }
         }(system)
@@ -73,7 +73,7 @@ final class BotPlayer(
     else fuccess {
       Bus.publish(
         Tell(pov.gameId, Abort(pov.playerId)),
-        'roundMapTell
+        "roundMapTell"
       )
     }
 
@@ -82,7 +82,7 @@ final class BotPlayer(
     else if (pov.game.resignable) fuccess {
       Bus.publish(
         Tell(pov.gameId, Resign(pov.playerId)),
-        'roundMapTell
+        "roundMapTell"
       )
     }
     else fufail("This game cannot be resigned")
@@ -91,13 +91,13 @@ final class BotPlayer(
     if (pov.game.drawable && pov.opponent.isOfferingDraw)
       Bus.publish(
         Tell(pov.gameId, DrawNo(PlayerId(pov.playerId))),
-        'roundMapTell
+        "roundMapTell"
       )
 
   def offerDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn)
       Bus.publish(
         Tell(pov.gameId, DrawYes(PlayerId(pov.playerId))),
-        'roundMapTell
+        "roundMapTell"
       )
 }

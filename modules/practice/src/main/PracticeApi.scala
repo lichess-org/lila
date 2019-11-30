@@ -89,7 +89,7 @@ final class PracticeApi(
       }
     } >>- studyApi.studyIdOf(chapterId).foreach {
       _ ?? { studyId =>
-        Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), 'finishPractice)
+        Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), "finishPractice")
       }
     }
 

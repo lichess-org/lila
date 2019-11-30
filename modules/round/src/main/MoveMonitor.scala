@@ -12,7 +12,7 @@ private object MoveMonitor {
     Kamon.metrics.subscribe("trace", "round.move.trace", system.actorOf(Props(new Actor {
       var currentMicros: Int = 0
       context.system.scheduler.schedule(5 second, 2 second) {
-        lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(currentMicros), 'mlat)
+        lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(currentMicros), "mlat")
       }
       def receive = {
         case tick: TickMetricSnapshot => tick.metrics.collectFirst {

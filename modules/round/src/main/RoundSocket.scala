@@ -108,7 +108,7 @@ final class RoundSocket(
     case Protocol.In.SelfReport(fullId, ip, userId, name) => selfReport(userId, ip, fullId, name)
     case userTv: Protocol.In.UserTv => tellRound(userTv.gameId, userTv)
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
-      Bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$tpe"))
+      Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")
     case RP.In.SetVersions(versions) => versions foreach {
       case (roomId, version) => rounds.tell(roomId, SetVersion(version))
     }
@@ -129,7 +129,7 @@ final class RoundSocket(
     roundHandler orElse remoteSocketApi.baseHandler
   ) >>- send(P.Out.boot)
 
-  Bus.subscribeFun('tvSelect, 'roundSocket, 'tourStanding) {
+  Bus.subscribeFun("tvSelect", "roundSocket", "tourStanding") {
     case TvSelect(gameId, speed, json) => send(Protocol.Out.tvSelect(gameId, speed, json))
     case Tell(gameId, BotConnected(color, v)) => send(Protocol.Out.botConnected(gameId, color, v))
     case Tell(gameId, msg) => rounds.tell(gameId, msg)

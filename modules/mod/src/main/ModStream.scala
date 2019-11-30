@@ -14,7 +14,7 @@ final class ModStream(system: ActorSystem) {
       Json.stringify(js) + "\n"
     }
 
-  private val classifier = 'userSignup
+  private val classifier = "userSignup"
 
   def enumerator: Enumerator[String] = {
     var subscriber: Option[lila.common.Tellable] = None

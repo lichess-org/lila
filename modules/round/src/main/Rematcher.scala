@@ -68,7 +68,7 @@ private[round] final class Rematcher(
   private def rematchCreate(pov: Pov): Events = {
     messenger.system(pov.game, _.rematchOfferSent)
     pov.opponent.userId foreach { forId =>
-      Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), Symbol(s"rematchFor:$forId"))
+      Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), s"rematchFor:$forId")
     }
     offers.put(pov.gameId, Offers(white = pov.color.white, black = pov.color.black))
     List(Event.RematchOffer(by = pov.color.some))

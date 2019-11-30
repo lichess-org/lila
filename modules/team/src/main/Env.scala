@@ -57,7 +57,7 @@ final class Env(
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 
-  lila.common.Bus.subscribeFun('shadowban) {
+  lila.common.Bus.subscribeFun("shadowban") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
   }
 }

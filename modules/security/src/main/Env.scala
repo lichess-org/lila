@@ -192,7 +192,7 @@ final class Env(
 
   def cli = new Cli
 
-  Bus.subscribeFun('fishnet) {
+  Bus.subscribeFun("fishnet") {
     case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)(lila.i18n.defaultLang)
   }

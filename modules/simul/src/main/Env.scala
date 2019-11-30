@@ -54,23 +54,23 @@ final class Env(
   )
 
   Bus.subscribeFuns(
-    'finishGame -> {
+    "finishGame" -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
     },
-    'adjustCheater -> {
+    "adjustCheater" -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
     },
-    'simulGetHosts -> {
+    "simulGetHosts" -> {
       case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
     },
-    'moveEventSimul -> {
+    "moveEventSimul" -> {
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
         Bus.publish(
           lila.hub.actorApi.socket.SendTo(
             opponentUserId,
             lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
           ),
-          'socketUsers
+          "socketUsers"
         )
     }
   )

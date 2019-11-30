@@ -194,7 +194,7 @@ private object LobbyTrouper {
     resyncIdsPeriod: FiniteDuration
   )(makeTrouper: () => LobbyTrouper)(implicit system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
-    lila.common.Bus.subscribe(trouper, 'lobbyTrouper)
+    lila.common.Bus.subscribe(trouper, "lobbyTrouper")
     system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),

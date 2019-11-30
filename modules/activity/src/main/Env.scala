@@ -43,8 +43,8 @@ final class Env(
   )
 
   lila.common.Bus.subscribeFun(
-    'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
-    'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy, 'streamStart
+    "finishGame", "forumPost", "finishPuzzle", "finishPractice", "team",
+    'startSimul, "moveEventCorres", "plan", "relation", "startStudy", "streamStart"
   ) {
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
       case lila.forum.actorApi.CreatePost(post, topic) => write.forumPost(post, topic)

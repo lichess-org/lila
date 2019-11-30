@@ -141,7 +141,7 @@ final class Env(
 
   lila.common.Bus.subscribe(
     system.actorOf(Props(new ApiActor(api, leaderboardApi)), name = ApiActorName),
-    'finishGame, 'adjustCheater, 'adjustBooster, 'playban
+    "finishGame", "adjustCheater", "adjustBooster", "playban"
   )
 
   system.actorOf(Props(new CreatedOrganizer(

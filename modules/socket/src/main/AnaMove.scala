@@ -8,10 +8,11 @@ import scalaz.Validation.FlatMap._
 
 import lila.tree.Branch
 
+// #TODO remove?
 trait AnaAny {
 
   def branch: Valid[Branch]
-  def json(b: Branch): JsObject
+  // def json(b: Branch): JsObject
   def chapterId: Option[String]
   def path: String
 }
@@ -48,10 +49,10 @@ case class AnaMove(
       }
     }
 
-  def json(b: Branch): JsObject = Json.obj(
-    "node" -> b,
-    "path" -> path
-  ).add("ch" -> chapterId)
+  // def json(b: Branch): JsObject = Json.obj(
+  //   "node" -> b,
+  //   "path" -> path
+  // ).add("ch" -> chapterId)
 }
 
 object AnaMove {

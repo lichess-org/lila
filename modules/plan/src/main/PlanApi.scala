@@ -147,7 +147,7 @@ final class PlanApi(
     val plan =
       if (patron.canLevelUp) user.plan.incMonths
       else user.plan.enable
-    Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, plan.months), 'plan)
+    Bus.publish(lila.hub.actorApi.plan.MonthInc(user.id, plan.months), "plan")
     setDbUserPlan(user, plan)
   }
 
@@ -315,7 +315,7 @@ final class PlanApi(
           amount = charge.cents.value,
           percent = m.percent,
           DateTime.now
-        ), 'plan)
+        ), "plan")
         lila.mon.plan.goal(m.goal.value)
         lila.mon.plan.current(m.current.value)
         lila.mon.plan.percent(m.percent)

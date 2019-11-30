@@ -146,7 +146,7 @@ private[round] final class Player(
         alarmable = game.alarmable,
         unlimited = game.isUnlimited
       ),
-      'moveEventCorres
+      "moveEventCorres"
     )
 
     // publish simul moves
@@ -155,7 +155,7 @@ private[round] final class Player(
       opponentUserId <- game.player(!color).userId
     } Bus.publish(
       SimulMoveEvent(move = moveEvent, simulId = simulId, opponentUserId = opponentUserId),
-      'moveEventSimul
+      "moveEventSimul"
     )
   }
 

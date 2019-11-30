@@ -35,13 +35,13 @@ final class Env(
   )
 
   // remote socket support
-  Bus.subscribeFun(Symbol("remoteSocketIn:evalGet")) {
+  Bus.subscribeFun("remoteSocketIn:evalGet") {
     case TellSriIn(sri, _, msg) => msg obj "d" foreach { d =>
       // TODO send once, let lila-ws distribute
-      socketHandler.evalGet(Sri(sri), d, res => Bus.publish(TellSriOut(sri, res), 'remoteSocketOut))
+      socketHandler.evalGet(Sri(sri), d, res => Bus.publish(TellSriOut(sri, res), "remoteSocketOut"))
     }
   }
-  Bus.subscribeFun(Symbol("remoteSocketIn:evalPut")) {
+  Bus.subscribeFun("remoteSocketIn:evalPut") {
     case TellSriIn(sri, Some(userId), msg) => msg obj "d" foreach { d =>
       socketHandler.untrustedEvalPut(Sri(sri), userId, d)
     }

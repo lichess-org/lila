@@ -1,17 +1,15 @@
 package lila.socket
 
-import akka.actor._
-import com.typesafe.config.Config
+import play.api.Configuration
 import io.lettuce.core._
-import scala.concurrent.duration._
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     lifecycle: play.api.inject.ApplicationLifecycle,
     hub: lila.hub.Env
 ) {
 
-  private val RedisUri = config getString "redis.uri"
+  private val RedisUri = appConfig.get[String]("socket.redis.uri")
 
   val remoteSocket = new RemoteSocket(
     redisClient = RedisClient create RedisURI.create(RedisUri),
@@ -23,13 +21,4 @@ final class Env(
   val onlineUserIds: () => Set[String] = () => remoteSocket.onlineUserIds.get
 
   val isOnline: String => Boolean = userId => onlineUserIds() contains userId
-}
-
-object Env {
-
-  lazy val current = "socket" boot new Env(
-    config = lila.common.PlayApp loadConfig "socket",
-    lifecycle = lila.common.PlayApp.lifecycle,
-    hub = lila.hub.Env.current
-  )
 }

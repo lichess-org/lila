@@ -69,7 +69,7 @@ final class PostApi(
                 }
                 lila.mon.forum.post.create()
                 mentionNotifier.notifyMentionedUsers(post, topic)
-                Bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+                Bus.publish(actorApi.CreatePost(post, topic), "forumPost")
               } inject post
         }
     }

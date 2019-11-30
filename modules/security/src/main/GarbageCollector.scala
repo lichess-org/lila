@@ -56,7 +56,7 @@ final class GarbageCollector(
       logger.debug(s"apply ${data.user.username} print=${printOpt}")
       Bus.publish(
         lila.security.Signup(user, email, req, printOpt.map(_.value), ipSusp),
-        'userSignup
+        "userSignup"
       )
       printOpt.map(_.value) filter printBan.blocks match {
         case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
@@ -104,12 +104,12 @@ final class GarbageCollector(
   private def doInitialSb(user: User): Unit =
     Bus.publish(
       lila.hub.actorApi.security.GCImmediateSb(user.id),
-      'garbageCollect
+      "garbageCollect"
     )
 
   private def doCollect(user: User, ipBan: Boolean): Unit =
     Bus.publish(
       lila.hub.actorApi.security.GarbageCollect(user.id, ipBan),
-      'garbageCollect
+      "garbageCollect"
     )
 }

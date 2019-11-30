@@ -12,7 +12,7 @@ private final class InfluxEvent(endpoint: String, env: String) extends Actor {
   private val seed = ornicar.scalalib.Random.nextString(6)
 
   override def preStart(): Unit = {
-    Bus.subscribe(self, 'deploy)
+    Bus.subscribe(self, "deploy")
     event("lila_start", s"Lila starts: $seed".pp)
   }
 

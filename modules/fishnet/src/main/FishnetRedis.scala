@@ -25,12 +25,12 @@ final class FishnetRedis(
   connIn.addListener(new RedisPubSubAdapter[String, String] {
     override def message(chan: String, msg: String): Unit = msg split ' ' match {
 
-      case Array("start") => Bus.publish(FishnetStart, 'roundMapTellAll)
+      case Array("start") => Bus.publish(FishnetStart, "roundMapTellAll")
 
       case Array(gameId, plyS, uci) => for {
         move <- Uci(uci)
         ply <- plyS.toIntOption
-      } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), 'roundMapTell)
+      } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
       case _ =>
     }
   })

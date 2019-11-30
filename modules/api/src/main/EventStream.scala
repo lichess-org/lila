@@ -25,9 +25,9 @@ final class EventStream(
     var stream: Option[ActorRef] = None
 
     val classifiers = List(
-      Symbol(s"userStartGame:${me.id}"),
-      Symbol(s"rematchFor:${me.id}"),
-      'challenge
+      s"userStartGame:${me.id}",
+      s"rematchFor:${me.id}",
+      "challenge"
     )
 
     val enumerator = Concurrent.unicast[Option[JsObject]](

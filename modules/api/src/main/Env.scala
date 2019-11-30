@@ -146,7 +146,7 @@ final class Env(
   )), name = "influx-event")
 
   system.registerOnTermination {
-    lila.common.Bus.publish(lila.hub.actorApi.Shutdown, 'shutdown)
+    lila.common.Bus.publish(lila.hub.actorApi.Shutdown, "shutdown")
   }
 }
 

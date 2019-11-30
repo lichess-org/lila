@@ -38,8 +38,8 @@ final class GameStateStream(
           var gameOver = false
 
           private val classifiers = List(
-            MoveGameEvent makeSymbol id,
-            'finishGame, 'abortGame,
+            MoveGameEvent makeChan id,
+            "finishGame", "abortGame",
             Chat classify Chat.Id(id),
             Chat classify Chat.Id(s"$id/w")
           )
@@ -89,7 +89,7 @@ final class GameStateStream(
           }
           def setConnected(v: Boolean) = Bus.publish(
             Tell(init.game.id, BotConnected(as, v)),
-            'roundSocket
+            "roundSocket"
           )
         }))
         stream = actor.some

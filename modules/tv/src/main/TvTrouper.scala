@@ -21,7 +21,7 @@ private[tv] final class TvTrouper(
 
   import TvTrouper._
 
-  Bus.subscribe(this, 'startGame)
+  Bus.subscribe(this, "startGame")
 
   private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
     c -> new ChannelTrouper(c, lightUser, onSelect = this.!, proxyGame, rematchOf)
@@ -74,7 +74,7 @@ private[tv] final class TvTrouper(
           )
         }
       )
-      Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), 'tvSelect)
+      Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
         actorAsk(rendererActor, actorApi.RenderFeaturedJs(game)) onSuccess {
@@ -87,7 +87,7 @@ private[tv] final class TvTrouper(
                 "id" -> game.id
               ))
             )
-            Bus.publish(event, 'changeFeaturedGame)
+            Bus.publish(event, "changeFeaturedGame")
         }
       }
   }

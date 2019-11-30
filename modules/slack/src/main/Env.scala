@@ -27,7 +27,7 @@ final class Env(
     defaultChannel = IncomingDefaultChannel
   )
 
-  lila.common.Bus.subscribeFun('deploy, 'slack, 'plan, 'userNote) {
+  lila.common.Bus.subscribeFun("deploy", "slack", "plan", "userNote") {
     case d: ChargeEvent => api charge d
     case DeployPre => api.deployPre
     case DeployPost => api.deployPost

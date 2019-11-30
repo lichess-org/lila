@@ -64,7 +64,7 @@ private final class Streaming(
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: String =>
-          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
+          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), "streams")
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -75,7 +75,7 @@ private final class Streaming(
         }
         Bus.publish(
           lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
-          'streamStart
+          "streamStart"
         )
       }
     }

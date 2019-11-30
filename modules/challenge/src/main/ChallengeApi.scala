@@ -31,7 +31,7 @@ final class ChallengeApi(
       repo like c flatMap { _ ?? repo.cancel }
     } >> (repo insert c) >>- {
       uncacheAndNotify(c)
-      Bus.publish(Event.Create(c), 'challenge)
+      Bus.publish(Event.Create(c), "challenge")
     } inject true
   }
 
@@ -68,7 +68,7 @@ final class ChallengeApi(
       case None => fuccess(None)
       case Some(pov) => (repo accept c) >>- {
         uncacheAndNotify(c)
-        Bus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
+        Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
       } inject pov.some
     }
 
@@ -79,7 +79,7 @@ final class ChallengeApi(
     val challenge = c setDestUser u
     repo.update(challenge) >>- {
       uncacheAndNotify(challenge)
-      Bus.publish(Event.Create(challenge), 'challenge)
+      Bus.publish(Event.Create(challenge), "challenge")
     }
   }
 
@@ -121,7 +121,7 @@ final class ChallengeApi(
     }
   } yield Bus.publish(
     SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
-    'socketUsers
+    "socketUsers"
   )
 
   // work around circular dependency

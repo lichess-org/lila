@@ -20,7 +20,7 @@ object RoomSocket {
     def msg = makeMessage(tpe, data)
   }
 
-  case class RoomChat(classifier: Symbol)
+  case class RoomChat(classifier: String)
 
   final class RoomState(roomId: RoomId, send: Send, chat: Option[RoomChat]) extends Trouper {
 

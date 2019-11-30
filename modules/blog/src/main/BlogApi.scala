@@ -56,8 +56,8 @@ final class BlogApi(
 
   private val cache = BuiltInCache(200)
   private val prismicLogger = (level: Symbol, message: String) => level match {
-    case 'DEBUG => logger debug message
-    case 'ERROR => logger error message
+    case Symbol("DEBUG") => logger debug message
+    case Symbol("ERROR") => logger error message
     case _ => logger info message
   }
 

@@ -47,7 +47,7 @@ final class Env(
     spam = spam
   )
 
-  lila.common.Bus.subscribeFun('gdprErase) {
+  lila.common.Bus.subscribeFun("gdprErase") {
     case lila.user.User.GDPRErase(user) => api erase user
   }
 }

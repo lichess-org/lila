@@ -104,7 +104,7 @@ object Chat {
   def makeUser(id: Chat.Id) = UserChat(id, Nil)
   def makeMixed(id: Chat.Id) = MixedChat(id, Nil)
 
-  def classify(id: Chat.Id): Symbol = Symbol(s"chat:$id")
+  def chanOf(id: Chat.Id) = s"chat:$id"
 
   object BSONFields {
     val id = "_id"

@@ -68,7 +68,7 @@ final class Env(
   lazy val forms = new DataForm(hub.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
-  lila.common.Bus.subscribeFun('team, 'gdprErase) {
+  lila.common.Bus.subscribeFun("team", "gdprErase") {
     case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
     case lila.user.User.GDPRErase(user) => postApi erase user
   }

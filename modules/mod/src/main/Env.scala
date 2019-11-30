@@ -130,7 +130,7 @@ final class Env(
       case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
         logApi.modMessage(User.lichessId, userId, subject)
     }
-  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban, 'autoWarning)
+  }), name = ActorName), "finishGame", "analysisReady", "garbageCollect", "playban", "autoWarning")
 }
 
 object Env {

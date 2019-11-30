@@ -116,7 +116,7 @@ final class PlaybanApi(
 
   private def propagateSitting(game: Game, userId: User.ID): Funit =
     rageSitCache get userId map { rageSit =>
-      if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), 'playban)
+      if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), "playban")
     }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
@@ -211,7 +211,6 @@ final class PlaybanApi(
     (delta < 0) ?? {
       if (record.rageSit.isTerrible) {
         lila.log("ragesit").warn(s"Close https://lichess.org/@/${record.userId} ragesit=${record.rageSit}")
-        // bus.publish(lila.hub.actorApi.playban.SitcounterClose(userId), 'playban)
         funit
       } else if (record.rageSit.isVeryBad) for {
         mod <- UserRepo.lichess
@@ -219,7 +218,7 @@ final class PlaybanApi(
       } yield (mod zip user).headOption foreach {
         case (m, u) =>
           lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
-          Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
+          Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), "autoWarning")
           messenger.sendPreset(m, u, ModPreset.sittingAuto).void
       }
       else funit
@@ -230,7 +229,7 @@ final class PlaybanApi(
     (!record.banInEffect) ?? {
       lila.mon.playban.ban.count()
       lila.mon.playban.ban.mins(ban.mins)
-      Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
+      Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), "playban")
       coll.update(
         $id(record.userId),
         $unset("o") ++

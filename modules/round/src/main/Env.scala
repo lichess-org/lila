@@ -76,7 +76,7 @@ final class Env(
       player = player,
       drawer = drawer,
       forecastApi = forecastApi,
-      isSimulHost = userId => Bus.ask[Set[User.ID]]('simulGetHosts)(GetHostIds)(system).dmap(_ contains userId)
+      isSimulHost = userId => Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds)(system).dmap(_ contains userId)
     ),
     deployPersistence = deployPersistence,
     scheduleExpiration = scheduleExpiration,
@@ -88,20 +88,20 @@ final class Env(
   )
 
   Bus.subscribeFuns(
-    'roundMapTell -> {
+    "roundMapTell" -> {
       case Tell(id, msg) => tellRound(id, msg)
     },
-    'roundMapTellAll -> {
+    "roundMapTellAll" -> {
       case msg => roundSocket.rounds.tellAll(msg)
     },
-    'accountClose -> {
+    "accountClose" -> {
       case lila.hub.actorApi.security.CloseAccount(userId) => GameRepo.allPlaying(userId) map {
         _ foreach { pov =>
           tellRound(pov.gameId, Resign(pov.playerId))
         }
       }
     },
-    'gameStartId -> {
+    "gameStartId" -> {
       case Game.Id(gameId) => onStart(gameId)
     }
   )
@@ -237,9 +237,9 @@ final class Env(
 
   def onStart(gameId: Game.ID): Unit = proxy game gameId foreach {
     _ foreach { game =>
-      Bus.publish(lila.game.actorApi.StartGame(game), 'startGame)
+      Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
       game.userIds foreach { userId =>
-        Bus.publish(lila.game.actorApi.UserStartGame(userId, game), Symbol(s"userStartGame:$userId"))
+        Bus.publish(lila.game.actorApi.UserStartGame(userId, game), s"userStartGame:$userId")
       }
     }
   }

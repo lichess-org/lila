@@ -66,7 +66,7 @@ final class Env(
 
   lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
 
-  lila.common.Bus.subscribeFun('adjustCheater) {
+  lila.common.Bus.subscribeFun("adjustCheater") {
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
   }
 

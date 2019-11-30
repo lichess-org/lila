@@ -43,7 +43,7 @@ final class GamesByUsersStream {
 
 private object GamesByUsersStream {
 
-  private val classifiers = List('startGame, 'finishGame)
+  private val classifiers = List("startGame", "finishGame")
 
   private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)

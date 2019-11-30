@@ -72,7 +72,7 @@ final class NoteApi(coll: Coll, timeline: akka.actor.ActorSelection) {
         to = to.username,
         text = note.text,
         mod = modOnly
-      ), 'userNote)
+      ), "userNote")
     }
   } >> {
     modOnly ?? Title.fromUrl(text) flatMap {

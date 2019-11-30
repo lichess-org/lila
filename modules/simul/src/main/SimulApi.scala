@@ -106,7 +106,7 @@ final class SimulApi(
                 }
               }
             } flatMap { s =>
-              Bus.publish(Simul.OnStart(s), 'startSimul)
+              Bus.publish(Simul.OnStart(s), "startSimul")
               update(s) >>- currentHostIdsCache.refresh
             }
           }
@@ -168,7 +168,7 @@ final class SimulApi(
           "name" -> simul.name
         ))
       ),
-      'socketUsers
+      "socketUsers"
     )
   }
 
@@ -239,10 +239,10 @@ final class SimulApi(
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        Bus.publish(siteMessage, 'sendToFlag)
+        Bus.publish(siteMessage, "sendToFlag")
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
-            case view: String => Bus.publish(ReloadSimuls(view), 'lobbySocket)
+            case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
           }
         }
     })))

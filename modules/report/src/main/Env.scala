@@ -71,7 +71,7 @@ final class Env(
     }
   }), name = ActorName)
 
-  lila.common.Bus.subscribeFun('playban) {
+  lila.common.Bus.subscribeFun("playban") {
     case lila.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId)
   }
 

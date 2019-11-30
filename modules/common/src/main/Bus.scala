@@ -7,55 +7,55 @@ import akka.actor.{ ActorRef, ActorSystem }
 
 object Bus {
 
-  case class Event(payload: Any, channel: Symbol)
-  type Classifier = Symbol
+  case class Event(payload: Any, channel: String)
+  type Channel = String
   type Subscriber = Tellable
 
-  def publish(payload: Any, channel: Classifier): Unit = {
+  def publish(payload: Any, channel: Channel): Unit = {
     publish(Bus.Event(payload, channel))
   }
 
   def subscribe = bus.subscribe _
 
-  def subscribe(ref: ActorRef, to: Classifier) = bus.subscribe(Tellable(ref), to)
+  def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable(ref), to)
 
-  def subscribe(subscriber: Tellable, to: Classifier*) = to foreach { bus.subscribe(subscriber, _) }
-  def subscribe(ref: ActorRef, to: Classifier*) = to foreach { bus.subscribe(Tellable(ref), _) }
-  def subscribe(ref: ActorRef, to: Iterable[Classifier]) = to foreach { bus.subscribe(Tellable(ref), _) }
+  def subscribe(subscriber: Tellable, to: Channel*) = to foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Channel*) = to foreach { bus.subscribe(Tellable(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable(ref), _) }
 
-  def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Tellable = {
+  def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable = {
     val t = lila.common.Tellable(f)
     subscribe(t, to: _*)
     t
   }
 
-  def subscribeFuns(subscriptions: (Classifier, PartialFunction[Any, Unit])*): Unit =
+  def subscribeFuns(subscriptions: (Channel, PartialFunction[Any, Unit])*): Unit =
     subscriptions foreach {
-      case (classifier, subscriber) => subscribeFun(classifier)(subscriber)
+      case (channel, subscriber) => subscribeFun(channel)(subscriber)
     }
 
   def unsubscribe = bus.unsubscribe _
-  def unsubscribe(ref: ActorRef, from: Classifier) = bus.unsubscribe(Tellable(ref), from)
+  def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable(ref), from)
 
-  def unsubscribe(subscriber: Tellable, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(subscriber, _) }
-  def unsubscribe(ref: ActorRef, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
+  def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) = from foreach { bus.unsubscribe(subscriber, _) }
+  def unsubscribe(ref: ActorRef, from: Iterable[Channel]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
 
   def publish(event: Event): Unit = bus.publish(event.payload, event.channel)
 
-  def ask[A](classifier: Classifier, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
+  def ask[A](channel: Channel, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
     implicit
     system: ActorSystem
   ): Fu[A] = {
     val promise = Promise[A]
     val msg = makeMsg(promise)
-    publish(msg, classifier)
+    publish(msg, channel)
     promise.future.withTimeout(
       timeout,
-      Bus.AskTimeout(s"Bus.ask timeout: $classifier $msg")
+      Bus.AskTimeout(s"Bus.ask timeout: $channel $msg")
     )
   }
 
-  private val bus = new EventBus[Any, Classifier, Tellable](
+  private val bus = new EventBus[Any, Channel, Tellable](
     initialCapacity = 65535,
     publish = (tellable, event) => tellable ! event
   )

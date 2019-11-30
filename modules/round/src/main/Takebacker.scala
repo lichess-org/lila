@@ -65,7 +65,7 @@ private final class Takebacker(
     if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
       Bus.publish(
         lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
-        'offerEventCorres
+        "offerEventCorres"
       )
     }
 

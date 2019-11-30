@@ -15,7 +15,7 @@ private final class TvBroadcast extends Actor {
 
   private var featuredId = none[String]
 
-  Bus.subscribe(self, 'changeFeaturedGame)
+  Bus.subscribe(self, "changeFeaturedGame")
 
   def receive = {
 
@@ -23,9 +23,9 @@ private final class TvBroadcast extends Actor {
 
     case ChangeFeatured(id, msg) =>
       featuredId foreach { previous =>
-        Bus.unsubscribe(self, MoveGameEvent makeSymbol previous)
+        Bus.unsubscribe(self, MoveGameEvent makeChan previous)
       }
-      Bus.subscribe(self, MoveGameEvent makeSymbol id)
+      Bus.subscribe(self, MoveGameEvent makeChan id)
       featuredId = id.some
       channel push msg
 

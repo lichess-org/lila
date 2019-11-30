@@ -21,7 +21,7 @@ final class Env(
   )
 
   private lazy val gameStarter = new GameStarter(
-    onStart = gameId => Bus.publish(lila.game.Game.Id(gameId), 'gameStartId),
+    onStart = gameId => Bus.publish(lila.game.Game.Id(gameId), "gameStartId"),
     sequencer = new FutureSequencer(
       system = system,
       executionTimeout = 5.seconds.some,

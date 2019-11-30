@@ -17,12 +17,12 @@ private final class MainWatcher(
 
   private def alert(client: Client) = if (!isAlerted(client)) {
     alerted put client.key.value
-    Bus.publish(Warning(s"Fishnet server ${client.userId} might be down!"), 'slack)
+    Bus.publish(Warning(s"Fishnet server ${client.userId} might be down!"), "slack")
   }
 
   private def unalert(client: Client) = if (isAlerted(client)) {
     alerted remove client.key.value
-    Bus.publish(Victory(s"Fishnet server ${client.userId} is back!"), 'slack)
+    Bus.publish(Victory(s"Fishnet server ${client.userId} is back!"), "slack")
   }
 
   private def watch: Funit = repo.lichessClients map { clients =>

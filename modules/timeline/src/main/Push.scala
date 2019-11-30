@@ -23,7 +23,7 @@ private[timeline] final class Push(
         unsubApi.filterUnsub(data.channel, users)
       } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
-          lila.common.Bus.publish(ReloadTimelines(users), 'lobbySocket)
+          lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
         lila.mon.timeline.notification(users.size)
       }
   }

@@ -24,7 +24,7 @@ final class ModApi(
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.engine(mod, sus, v)
     } yield {
-      Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), 'adjustCheater)
+      Bus.publish(lila.hub.actorApi.mod.MarkCheater(sus.user.id, v), "adjustCheater")
       if (v) {
         notifier.reporters(mod, sus)
         refunder schedule sus
@@ -54,7 +54,7 @@ final class ModApi(
       _ <- logApi.booster(mod, sus, v)
     } yield {
       if (v) {
-        Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), 'adjustBooster)
+        Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
         notifier.reporters(mod, sus)
       }
       sus
@@ -72,7 +72,7 @@ final class ModApi(
     changed ?? {
       UserRepo.updateTroll(sus.user).void >>- {
         logApi.troll(mod, sus)
-        Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), 'shadowban)
+        Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
       }
     } >>
       reportApi.process(mod, sus, Set(Room.Comm)) >>- {
@@ -134,7 +134,7 @@ final class ModApi(
       // only add permissions the mod can actually grant
       permissions.filter(Granter.canGrant(mod.user, _))
     UserRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
-      Bus.publish(lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList), 'setPermissions)
+      Bus.publish(lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList), "setPermissions")
       logApi.setPermissions(mod, user.id, permissions.toList)
     }
   }
@@ -144,7 +144,7 @@ final class ModApi(
   }
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
-    if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), 'kickFromRankings)
+    if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
     UserRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }
 

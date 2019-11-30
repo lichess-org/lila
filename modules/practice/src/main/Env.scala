@@ -20,7 +20,7 @@ final class Env(
     studyApi = studyApi
   )
 
-  lila.common.Bus.subscribeFun('study) {
+  lila.common.Bus.subscribeFun("study") {
     case lila.study.actorApi.SaveStudy(study) => api.structure onSave study
   }
 }

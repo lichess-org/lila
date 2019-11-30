@@ -388,25 +388,25 @@ private[round] final class RoundDuct(
 
   private object buscriptions {
 
-    private var classifiers = collection.mutable.Set.empty[Symbol]
+    private var chans = collection.mutable.Set.empty[String]
 
-    private def sub(classifier: Symbol) =
-      if (!classifiers(classifier)) {
-        Bus.subscribe(RoundDuct.this, classifier)
-        classifiers += classifier
+    private def sub(chan: String) =
+      if (!chans(chan)) {
+        Bus.subscribe(RoundDuct.this, chan)
+        chans += chan
       }
 
-    def started = classifiers.nonEmpty
+    def started = chans.nonEmpty
 
     def unsubAll = {
-      Bus.unsubscribe(RoundDuct.this, classifiers)
-      classifiers.clear
+      Bus.unsubscribe(RoundDuct.this, chans)
+      chans.clear
     }
 
-    def tv(userId: User.ID): Unit = sub(Symbol(s"userStartGame:$userId"))
+    def tv(userId: User.ID): Unit = sub(s"userStartGame:$userId")
 
     def chat = chatIds.allIds foreach { chatId =>
-      sub(lila.chat.Chat classify chatId)
+      sub(lila.chat.Chat chanOf chatId)
     }
   }
 

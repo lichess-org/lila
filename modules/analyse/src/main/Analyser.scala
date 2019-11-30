@@ -24,8 +24,8 @@ final class Analyser(
         GameRepo.setAnalysed(game.id)
         AnalysisRepo.save(analysis) >>
           sendAnalysisProgress(analysis, complete = true) >>- {
-            Bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-            Bus.publish(InsertGame(game), 'gameSearchInsert)
+            Bus.publish(actorApi.AnalysisReady(game, analysis), "analysisReady")
+            Bus.publish(InsertGame(game), "gameSearchInsert")
             requesterApi save analysis
           }
       }
@@ -49,12 +49,12 @@ final class Analyser(
             variant = game.variant,
             initialFen = initialFen | FEN(game.variant.initialFen)
           )),
-          'roundSocket
+          "roundSocket"
         )
       }
     }
     case Some(studyId) => fuccess {
-      Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), 'studyAnalysisProgress)
+      Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
     }
   }
 }

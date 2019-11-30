@@ -15,7 +15,7 @@ final class IrwinStream(system: ActorSystem) {
       Json.stringify(js) + "\n"
     }
 
-  private val classifier = 'irwin
+  private val classifier = "irwin"
 
   def enumerator: Enumerator[String] = {
     var subscriber: Option[lila.common.Tellable] = None

@@ -56,6 +56,6 @@ private[round] final class Drawer(
   private def publishDrawOffer(pov: Pov): Unit =
     if (pov.game.isCorrespondence && pov.game.nonAi) Bus.publish(
       lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
-      'offerEventCorres
+      "offerEventCorres"
     )
 }

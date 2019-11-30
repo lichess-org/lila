@@ -28,16 +28,16 @@ private[api] final class Cli extends lila.common.Cli {
         case None => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
-          Bus.publish(lila.user.User.GDPRErase(user), 'gdprErase)
+          Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
           s"Erasing all data about ${user.username} now"
       }
     case "announce" :: "cancel" :: Nil =>
       AnnounceStore set none
-      Bus.publish(AnnounceStore.cancel, 'announce)
+      Bus.publish(AnnounceStore.cancel, "announce")
       fuccess("Removed announce")
     case "announce" :: msgWords => AnnounceStore.set(msgWords mkString " ") match {
       case Some(announce) =>
-        Bus.publish(announce, 'announce)
+        Bus.publish(announce, "announce")
         fuccess(announce.json.toString)
       case None =>
         fuccess("Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it")
@@ -45,7 +45,7 @@ private[api] final class Cli extends lila.common.Cli {
   }
 
   private def remindDeploy(event: Deploy): Fu[String] = {
-    Bus.publish(event, 'deploy)
+    Bus.publish(event, "deploy")
     fuccess("Deploy in progress")
   }
 

@@ -92,7 +92,7 @@ final class IrwinApi(
       suspect = suspect,
       origin = origin(Origin),
       games = all
-    ), 'irwin)
+    ), "irwin")
 
     private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
       lila.common.Future.applySequentially(leaders.toList) {
