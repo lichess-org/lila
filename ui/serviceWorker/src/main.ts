@@ -24,18 +24,38 @@ function themedStylesheets(name: string): string[] {
 async function handleInstall() {
   await caches.open(assetVersion).then(cache => cache.addAll([
     '/favicon.ico',
+    '/manifest.json',
     ...[
       ...themedStylesheets('site'),
+      ...themedStylesheets('editor'),
+      ...themedStylesheets('challenge'),
+      ...themedStylesheets('notify'),
+      ...themedStylesheets('dasher'),
+      ...themedStylesheets('autocomplete'),
+      compiledScript('site'),
+      compiledScript('deps'),
+      compiledScript('editor'),
+      compiledScript('cli'),
+      compiledScript('challenge'),
+      compiledScript('notify'),
+      compiledScript('dasher'),
+      'javascripts/vendor/typeahead.jquery.min.js',
+      'images/icons/trash.svg',
+      'images/icons/pointer.svg',
       'font/lichess.woff2',
       'font/lichess.chess.woff2',
       'font/noto-sans-latin.woff2',
       'font/noto-sans-bold-latin.woff2',
+      'font/roboto-light-latin.woff2',
+      'piece-css/cburnett.css',
+      'images/board/svg/brown.svg',
     ].map(versionedAssetUrl),
     ...[
       'images/logo.256.png',
       'images/favicon-32-white.png',
       'favicon.64.png',
       'favicon.128.png',
+      'favicon.192.png',
       'favicon.256.png',
     ].map(assetUrl),
   ]));
@@ -46,13 +66,23 @@ async function handleInstall() {
 
 self.addEventListener('install', e => e.waitUntil(handleInstall()));
 
+async function handleFetch(event: FetchEvent) {
+  const url = new URL(event.request.url, self.location.href);
+  if (url.pathname == '/editor' || url.pathname.startsWith('/editor/')) {
+    const offlineCache = await self.caches.open('offline' + assetVersion);
+    const editorResponse = await offlineCache.match(new Request('/editor'));
+    if (editorResponse) return editorResponse;
+  } else {
+    const assetCache = await self.caches.open(assetVersion);
+    const assetReponse = await assetCache.match(event.request);
+    if (assetReponse) return assetReponse;
+  }
+  return fetch(event.request);
+}
+
 self.addEventListener('fetch', event => {
-  event.respondWith((async () => {
-    const cache = await caches.open(assetVersion);
-    const cachedReponse = await cache.match(event.request);
-    if (cachedReponse) return cachedReponse;
-    return fetch(event.request);
-  })());
+  if (event.request.method != 'GET') return;
+  return event.respondWith(handleFetch(event));
 });
 
 self.addEventListener('push', event => {
