@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient1861" x1="3295.1" x2="3321.5" y1="-411.88" y2="-411.88" gradientTransform="matrix(1.0621 0 0 1.0589 -3487.5 459.63)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2244"/>
+  <linearGradient id="linearGradient2244">
+   <stop stop-color="#f2e7da" offset="0"/>
+   <stop stop-color="#bba38a" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient1859" x1="-177.63" x2="-151.24" y1="156.68" y2="156.68" gradientTransform="matrix(1.1509 0 0 1.1499 214.24 -138.92)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2244"/>
+ </defs>
  <metadata>
   <rdf:RDF>
    <cc:Work rdf:about="">
@@ -9,13 +17,10 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g transform="translate(-3283.3 488.79)">
-  <path class="st28" d="m3308.3-468.91-10.914 1.0362-1.3689-4.9258 13.622-6.4357 1.6596-3.6844 10.705 11.231-3.3221 11.198-1.6538 5.497-19.317-2e-5c-0.9763-8.8414 9.2195-6.6206 10.589-13.916z" fill="#e7d6c3" stroke="#3c3c3c" stroke-width="1.5"/>
-  <path d="m3311.3-482.91-0.8274 1.836 0.4011-0.89027c2.5347 3.5154 5.2798 6.8738 7.9555 10.282l-3.3218 11.193-1.6542 5.4953h3.1755l1.6537-5.4953 3.3224-11.193z" opacity=".4"/>
-  <g transform="matrix(1.0577 0 0 1.2258 -221.92 74.627)" fill="#e7d6c3" stroke="#3c3c3c" stroke-linecap="round" stroke-linejoin="round">
-   <path class="st29" d="m3320.2-427.41h34.92c0.4515 0 0.7902 0.29875 0.7902 0.69705v3.2528c0 0.39831-0.3387 0.69705-0.7902 0.69705h-34.92c-0.4515 0-0.7902-0.29874-0.7902-0.69705v-3.2528c0-0.3983 0.3387-0.69705 0.7902-0.69705z" stroke-width="1.3173"/>
-   <path class="st29" d="m3326.7-432.05h21.562c1.317 0 2.4082 0.96258 2.4082 2.1243v0.43148c0 1.1617-1.0912 2.1243-2.4082 2.1243h-21.562c-1.3171 0-2.4084-0.96255-2.4084-2.1243v-0.43148c0-1.1617 1.0913-2.1243 2.4084-2.1243z" stroke-width="1.3173"/>
-  </g>
-  <path d="m3316.2-454.95s2.5472 1.1799 2.5472 2.604v0.52867c0 1.2739-0.9242 2.3498-2.1162 2.5632h6.8125c0.4776 0 0.8361 0.36647 0.8361 0.85471v3.9874c0 0.39698-0.2389 0.70959-0.5845 0.81389h3.1028c0.4776 0 0.8355-0.36648 0.8355-0.85471v-3.9874c0-0.48826-0.3579-0.85424-0.8355-0.85424h-6.8162c1.1935-0.21198 2.1193-1.2886 2.1193-2.5636v-0.52866c0-1.4241-1.1541-2.604-2.5471-2.604-3.3539 0.0408-3.3539 0.0408-3.3539 0.0408z" fill="#090704" opacity=".4"/>
+ <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
+  <path class="st28" d="m25.987 23.546-11.592 1.0972-1.4539-5.2159 14.468-6.8148 1.7627-3.9014 10.201 11.893c0 7.4e-5 -4.1164 17.678-4.1164 17.678l-20.517-3.2e-5c0.24439-11.292 9.6388-8.1002 11.247-14.736z" fill="url(#linearGradient1861)" image-rendering="optimizeQuality" stroke="#323232" stroke-linejoin="round" stroke-width="1.6"/>
+  <path d="m29.173 8.7209-0.87878 1.9441 0.42601-0.94271c2.6921 3.7225 5.6077 7.2787 8.4495 10.888l-5.285 17.671h3.3727s4.1154-17.667 4.1166-17.671z" image-rendering="optimizeQuality" opacity=".3" stroke-width="1.0999"/>
+  <path d="m13.24 38.286c-1.4368 0-2.627 1.2165-2.627 2.6847v0.5449l0.01254 2.6847h28.749l0.01254-2.6847v-0.5449c0-1.4682-1.1903-2.6847-2.627-2.6847h-11.76z" fill="url(#linearGradient1859)" image-rendering="optimizeQuality" stroke="#323232" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+  <path d="m31.896 38.286c1.4368 0 2.627 1.2165 2.627 2.6847v0.5449l-0.01254 2.6847h4.8721l0.01255-2.6847v-0.5449c0-1.4682-1.1903-2.6847-2.627-2.6847z" image-rendering="optimizeQuality" opacity=".3" stroke-width="1.1"/>
  </g>
 </svg>

@@ -127,7 +127,7 @@ object User extends LilaController {
         crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) map some }
         followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
-        ping = env.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
+        ping = Env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
         res <- negotiate(
           html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
             Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
@@ -427,7 +427,7 @@ object User extends LilaController {
         if (getBool("object")) Env.user.lightUserApi.asyncMany(userIds) map { users =>
           Json.obj(
             "result" -> JsArray(users.flatten.map { u =>
-              lila.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.user.isOnline(u.id))
+              lila.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.socket.isOnline(u.id))
             })
           )
         }

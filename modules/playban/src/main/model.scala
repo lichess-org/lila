@@ -42,15 +42,26 @@ case class UserRecord(
   }
 
   def bannable(accountCreationDate: DateTime): Option[TempBan] = {
-    outcomes.lastOption.exists(_ != Outcome.Good) && {
-      // too many bad overall
-      badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
-        // bad result streak
-        outcomes.size >= badOutcomesStreakSize &&
-          outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
+    rageSitRecidive || {
+      outcomes.lastOption.exists(_ != Outcome.Good) && {
+        // too many bad overall
+        badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
+          // bad result streak
+          outcomes.size >= badOutcomesStreakSize &&
+            outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
+        }
       }
     }
   } option TempBan.make(bans, accountCreationDate)
+
+  def rageSitRecidive =
+    outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
+      rageSit.isTerrible || {
+        rageSit.isVeryBad && outcomes.count(Outcome.rageSitLike.contains) > 1
+      } || {
+        rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
+      }
+    }
 }
 
 case class TempBan(
@@ -114,6 +125,8 @@ object Outcome {
   case object SitMoving extends Outcome(5, "Waits then moves at last moment")
   case object Sandbag extends Outcome(6, "Deliberately lost the game")
 
+  val rageSitLike: Set[Outcome] = Set(RageQuit, Sitting, SitMoving)
+
   val all = List(Good, Abort, NoPlay, RageQuit, Sitting, SitMoving, Sandbag)
 
   val byId = all map { v => (v.id, v) } toMap
@@ -127,8 +140,10 @@ case class RageSit(counter: Int) extends AnyVal {
   def isTerrible = counter <= -200
 
   def goneWeight: Float =
-    if (isBad) 1f
+    if (!isBad) 1f
     else (1 - 0.7 * sqrt(log10(-(counter / 10) - 3))).toFloat atLeast 0.1f
+
+  def counterView = counter / 10
 }
 
 object RageSit {

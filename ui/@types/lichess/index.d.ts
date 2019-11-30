@@ -57,9 +57,7 @@ interface Lichess {
   spinnerHtml: string;
   movetimeChart: any;
   hasTouchEvents: boolean;
-  mousedownEvent: 'mousedown' | 'touchstart';
   isCol1(): boolean;
-  pushSubscribe(ask: boolean): void;
   formAjax(form: JQuery): any;
   reverse(s: string): string;
 }
@@ -118,7 +116,7 @@ interface LichessStorageHelper {
 
 interface LichessStorage {
   get(): string | null;
-  set(v: string): void;
+  set(v: any): void;
   remove(): void;
   listen(f: (e: StorageEvent) => void): void;
 }
@@ -313,6 +311,8 @@ interface JQuery {
   watchers(): JQuery;
   watchers(method: 'set', data: any): void;
   highcharts(conf?: any): any;
+  slider(key: string, value: any): any;
+  slider(opts: any): any;
 }
 
 declare namespace PowerTip {

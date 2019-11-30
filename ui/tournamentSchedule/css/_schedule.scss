@@ -9,6 +9,7 @@ $c-tour-weekend: $c-brag;
 $c-tour-marathon: #66558C;
 $c-tour-unique: $c-brag;
 $c-tour-max-rating: #8572ff;
+$c-tour-battle: hsl(49, 74%, 37%);
 
 .tour-chart {
   min-height: 400px;
@@ -118,6 +119,9 @@ $c-tour-max-rating: #8572ff;
   }
   &-max-rating {
     background-color: $c-tour-max-rating;
+  }
+  &-battle {
+    background-color: $c-tour-battle;
   }
   &-short.tsht-thematic {
     letter-spacing: -1px;

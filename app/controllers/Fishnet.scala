@@ -23,11 +23,6 @@ object Fishnet extends LilaController {
     } map Right.apply
   }
 
-  def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data => client =>
-    api.postMove(Work.Id(workId), client, data) >>
-      api.acquire(client).map(Right.apply)
-  }
-
   def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
     import lila.fishnet.FishnetApi._
     def acquireNext = api acquire client map Right.apply

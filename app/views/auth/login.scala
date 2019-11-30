@@ -24,7 +24,7 @@ object login {
         h1(trans.signIn()),
         postForm(
           cls := "form3",
-          action := s"${routes.Auth.authenticate}${referrer.?? { ref => s"?referrer=${java.net.URLEncoder.encode(ref, "US-ASCII")}" }}"
+          action := s"${routes.Auth.authenticate}${referrer.?? { ref => s"?referrer=${urlencode(ref)}" }}"
         )(
             div(cls := "one-factor")(
               form3.globalError(form),
@@ -39,7 +39,8 @@ object login {
           ),
         div(cls := "alternative")(
           a(href := routes.Auth.signup())(trans.signUp()),
-          a(href := routes.Auth.passwordReset())(trans.passwordReset())
+          a(href := routes.Auth.passwordReset())(trans.passwordReset()),
+          a(href := routes.Auth.magicLink)("Log in by email")
         )
       )
     }

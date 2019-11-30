@@ -16,7 +16,6 @@ final class ChatApi(
     shutup: akka.actor.ActorSelection,
     modLog: akka.actor.ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
-    lilaBus: lila.common.Bus,
     maxLinesPerChat: Int,
     netDomain: String
 ) {
@@ -83,7 +82,7 @@ final class ChatApi(
                 case _ => RecordPrivateChat(chatId.value, userId, text)
               }
             }
-            lilaBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
+            publish(chatId, actorApi.ChatLine(chatId, line))
           }
         }
       }
@@ -93,16 +92,16 @@ final class ChatApi(
     def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
       pushLine(chatId, line) >>-
-        lilaBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
+        publish(chatId, actorApi.ChatLine(chatId, line))
     }
 
     // like system, but not persisted.
     def volatile(chatId: Chat.Id, text: String): Unit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
-      lilaBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
+      publish(chatId, actorApi.ChatLine(chatId, line))
     }
 
-    def timeout(chatId: Chat.Id, modId: String, userId: String, reason: ChatTimeout.Reason, local: Boolean): Funit =
+    def timeout(chatId: Chat.Id, modId: User.ID, userId: User.ID, reason: ChatTimeout.Reason, local: Boolean): Funit =
       coll.byId[UserChat](chatId.value) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason)
         case _ => fuccess(none)
@@ -116,18 +115,19 @@ final class ChatApi(
       }
 
     private def doTimeout(c: UserChat, mod: User, user: User, reason: ChatTimeout.Reason): Funit = {
-      val line = UserLine(
+      val line = c.hasRecentLine(user) option UserLine(
         username = systemUserId,
         title = None,
         text = s"${user.username} was timed out 10 minutes for ${reason.name}.",
         troll = false, deleted = false
       )
-      val chat = c.markDeleted(user) add line
+      val c2 = c.markDeleted(user)
+      val chat = line.fold(c2)(c2.add)
       coll.update($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
-          lilaBus.publish(actorApi.OnTimeout(user.username), classify(chat.id))
-          lilaBus.publish(actorApi.ChatLine(chat.id, line), classify(chat.id))
+          publish(chat.id, actorApi.OnTimeout(user.id))
+          line foreach { l => publish(chat.id, actorApi.ChatLine(chat.id, l)) }
           if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
@@ -139,24 +139,23 @@ final class ChatApi(
       val chat = c.markDeleted(user)
       coll.update($id(chat.id), chat).void >>- {
         cached invalidate chat.id
-        lilaBus.publish(actorApi.OnTimeout(user.username), classify(chat.id))
+        publish(chat.id, actorApi.OnTimeout(user.id))
       }
     }
 
     private def isMod(user: User) = lila.security.Granter(_.ChatTimeout)(user)
 
     def reinstate(list: List[ChatTimeout.Reinstate]) = list.foreach { r =>
-      lilaBus.publish(
-        actorApi.OnReinstate(r.user),
-        Chat classify Chat.Id(r.chat)
-      )
+      publish(Chat.Id(r.chat), actorApi.OnReinstate(r.user))
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
       UserRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled => Writer cut t1 flatMap { t2 =>
-          (user.isBot || flood.allowMessage(userId, t2)) option
+          (user.isBot || flood.allowMessage(userId, t2)) option {
+            if (~user.troll) lila.mon.chat.trollTrue()
             UserLine(user.username, user.title.map(_.value), Writer preprocessUserInput t2, troll = ~user.troll, deleted = false)
+          }
         }
         case _ => none
       }
@@ -183,7 +182,7 @@ final class ChatApi(
     def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
         pushLine(chatId, line) >>-
-          lilaBus.publish(actorApi.ChatLine(chatId, line), classify(chatId))
+          publish(chatId, actorApi.ChatLine(chatId, line))
       }
 
     private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
@@ -193,9 +192,12 @@ final class ChatApi(
       }
   }
 
-  private[chat] def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
+  private def publish(chatId: Chat.Id, msg: Any): Unit =
+    lila.common.Bus.publish(msg, classify(chatId))
 
-  private[chat] def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
+  def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
+
+  def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
 
   private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
     $id(chatId),

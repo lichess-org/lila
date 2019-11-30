@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Oýun tapylmady</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkäm ileri tutmalar menýusyndan has köp oýun importirlenmeli?</string>
-  <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
+  <string name="openingExplorer">Açylyşlar eksploreri</string>
   <string name="xOpeningExplorer">%s açylyşlar eksploreri</string>
   <string name="winPreventedBy50MoveRule">50-göçüm düzgüni zerarly gabzalan ýeňiş</string>
   <string name="lossSavedBy50MoveRule">50-göçüm düzgüni zerarly halas edilen utulyş</string>

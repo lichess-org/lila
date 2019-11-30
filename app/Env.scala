@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.user.User
 
 final class Env(
@@ -22,7 +23,6 @@ final class Env(
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
     liveStreams = () => Env.streamer.liveStreamApi.all,
-    countRounds = () => Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
     lightUserApi = Env.user.lightUserApi,
@@ -80,8 +80,6 @@ final class Env(
     user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
-    _ = Env.user.onlineUserIdMemo.remove(user.id)
-    _ = Env.user.recentTitledUserIdMemo.remove(user.id)
     _ <- !goodUser ?? Env.relation.api.fetchFollowing(user.id) flatMap {
       Env.activity.write.unfollowAll(user, _)
     }
@@ -99,12 +97,14 @@ final class Env(
     reports <- Env.report.api.processAndGetBySuspect(lila.report.Suspect(user))
     _ <- self ?? Env.mod.logApi.selfCloseAccount(user.id, reports)
   } yield {
-    system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
+    Bus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribeFun('garbageCollect, 'playban) {
-    case lila.hub.actorApi.security.GarbageCollect(userId, _) => kill(userId)
-    case lila.hub.actorApi.playban.SitcounterClose(userId) => kill(userId)
+  Bus.subscribeFun('garbageCollect) {
+    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      lila.user.UserRepo.isTroll(userId) foreach { troll =>
+        if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
+      }
   }
 
   private def kill(userId: User.ID): Unit =

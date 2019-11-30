@@ -8,3 +8,8 @@
 .lobby__app {
   display: none!important;
 }
+
+#clinput {
+  .link { display: none; }
+  input { width: auto; }
+}

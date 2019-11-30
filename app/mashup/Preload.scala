@@ -22,7 +22,6 @@ final class Preload(
     timelineEntries: String => Fu[Vector[Entry]],
     liveStreams: () => Fu[LiveStreams],
     dailyPuzzle: lila.puzzle.Daily.Try,
-    countRounds: () => Int,
     lobbyApi: lila.api.LobbyApi,
     getPlayban: User.ID => Fu[Option[TempBan]],
     lightUserApi: LightUserApi,
@@ -32,7 +31,7 @@ final class Preload(
 
   import Preload._
 
-  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], Int, List[Pov])
+  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], List[Pov])
 
   def apply(
     posts: Fu[List[MiniForumPost]],
@@ -74,7 +73,6 @@ final class Preload(
               Env.blog.lastPostCache.apply,
               playban,
               currentGame,
-              countRounds(),
               blindGames
             ))
           }

@@ -102,6 +102,7 @@ export default class TournamentController {
       this.loadPage(data);
       this.page = data.page;
       this.searching = false;
+      this.focusOnMe = false;
       this.pages[this.page].filter(p => p.name.toLowerCase() == userId).forEach(this.showPlayerInfo);
       this.redraw();
     });

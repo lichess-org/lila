@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.common.{ EmailAddress, IpAddress, HTTPRequest }
+import lila.common.{ Bus, EmailAddress, IpAddress, HTTPRequest }
 import lila.user.{ User, UserRepo }
 
 // codename UGC
@@ -54,7 +54,7 @@ final class GarbageCollector(
     } yield {
       val printOpt = spy.prints.headOption
       logger.debug(s"apply ${data.user.username} print=${printOpt}")
-      system.lilaBus.publish(
+      Bus.publish(
         lila.security.Signup(user, email, req, printOpt.map(_.value), ipSusp),
         'userSignup
       )
@@ -102,13 +102,13 @@ final class GarbageCollector(
   }
 
   private def doInitialSb(user: User): Unit =
-    system.lilaBus.publish(
+    Bus.publish(
       lila.hub.actorApi.security.GCImmediateSb(user.id),
       'garbageCollect
     )
 
   private def doCollect(user: User, ipBan: Boolean): Unit =
-    system.lilaBus.publish(
+    Bus.publish(
       lila.hub.actorApi.security.GarbageCollect(user.id, ipBan),
       'garbageCollect
     )

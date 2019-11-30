@@ -24,7 +24,7 @@ final class Syncache[K, V](
   import Syncache._
 
   // ongoing async computations
-  private val chm = new ConcurrentHashMap[K, Fu[V]]
+  private val chm = new ConcurrentHashMap[K, Fu[V]](64)
 
   // sync cached values
   private val cache: Cache[K, V] = {
@@ -34,7 +34,7 @@ final class Syncache[K, V](
       case ExpireAfterWrite(duration) => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
     }
     val cache = b2.recordStats.build[K, V]()
-    AsyncCache.monitor(s"syncache.$name", cache)
+    AsyncCache.startMonitoring(s"syncache.$name", cache)
     cache
   }
 

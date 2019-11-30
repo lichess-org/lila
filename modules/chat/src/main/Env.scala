@@ -38,20 +38,15 @@ final class Env(
     shutup = shutup,
     modLog = modLog,
     asyncCache = asyncCache,
-    lilaBus = system.lilaBus,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain
   )
 
   val panic = new ChatPanic
 
-  private val palantir = new Palantir(system.lilaBus)
-
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
   }
-
-  system.actorOf(Props(new FrontActor(api, palantir)), name = ActorName)
 
   private[chat] lazy val chatColl = db(CollectionChat)
   private[chat] lazy val timeoutColl = db(CollectionTimeout)

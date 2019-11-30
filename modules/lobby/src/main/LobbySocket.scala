@@ -27,6 +27,7 @@ final class LobbySocket(
 
   import LobbySocket._
   import Protocol._
+  type SocketController = PartialFunction[(String, JsObject), Unit]
 
   val trouper: Trouper = new Trouper {
 
@@ -50,7 +51,6 @@ final class LobbySocket(
 
       case Join(member) => members += (member.sri.value -> member)
 
-      case Leave(sri) => quit(sri)
       case LeaveBatch(sris) => sris foreach quit
       case LeaveAll =>
         members.clear()
@@ -61,7 +61,6 @@ final class LobbySocket(
 
       case ReloadSimuls(html) => tellActive(makeMessage("simuls", html))
 
-      // TODO send only to lobby users
       case ReloadTimelines(users) => send(Out.tellLobbyUsers(users, makeMessage("reload_timeline")))
 
       case AddHook(hook) => send(P.Out.tellSris(
@@ -90,9 +89,7 @@ final class LobbySocket(
         send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game pov creatorColor)))
         send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game pov !creatorColor)))
 
-      case p: PoolApi.Pairing =>
-        send(P.Out.tellSri(p.whiteSri, gameStartRedirect(p.game pov chess.White)))
-        send(P.Out.tellSri(p.blackSri, gameStartRedirect(p.game pov chess.Black)))
+      case PoolApi.Pairings(pairings) => send(Protocol.Out.pairings(pairings))
 
       case HookIds(ids) => tellActiveHookSubscribers(makeMessage("hli", ids mkString ""))
 
@@ -111,7 +108,7 @@ final class LobbySocket(
         hookSubscriberSris += member.sri.value
     }
 
-    system.lilaBus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolGame, 'lobbySocket)
+    lila.common.Bus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolPairings, 'lobbySocket)
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
     system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
 
@@ -146,7 +143,7 @@ final class LobbySocket(
   private def HookPoolLimit[A: Zero](member: Member, cost: Int, msg: => String)(op: => A) =
     poolLimitPerSri(k = member.sri.value, cost = cost, msg = msg)(op)
 
-  def controller(member: Member): lila.socket.Handler.Controller = {
+  def controller(member: Member): SocketController = {
     case ("join", o) if !member.bot => HookPoolLimit(member, cost = 5, msg = s"join $o") {
       o str "d" foreach { id =>
         lobby ! BiteHook(id, member.sri, member.user)
@@ -221,23 +218,21 @@ final class LobbySocket(
     }
 
   private val handler: Handler = {
-    case P.In.ConnectSri(sri, userOpt) => getOrConnect(sri, userOpt)
     case P.In.ConnectSris(cons) => cons foreach {
       case (sri, userId) => getOrConnect(sri, userId)
     }
-    case P.In.DisconnectSri(sri) => trouper ! Leave(sri)
     case P.In.DisconnectSris(sris) => trouper ! LeaveBatch(sris)
 
-    case P.In.DisconnectAll =>
+    case P.In.WsBoot =>
+      logger.warn("Remote socket boot")
       lobby ! LeaveAll
       trouper ! LeaveAll
 
-    case tell @ P.In.TellSri(sri, user, typ, msg) if messagesHandled(typ) =>
-      lila.mon.socket.remote.lobby.tellSri(typ)
+    case tell @ P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
-        controller(member).applyOrElse(typ -> msg, {
-          case _ => logger.warn(s"Can't handle $typ")
-        }: lila.socket.Handler.Controller)
+        controller(member).applyOrElse(tpe -> msg, {
+          case _ => logger.warn(s"Can't handle $tpe")
+        }: SocketController)
       }
   }
 
@@ -247,11 +242,6 @@ final class LobbySocket(
   remoteSocketApi.subscribe("lobby-in", P.In.baseReader)(handler orElse remoteSocketApi.baseHandler)
 
   private val send: String => Unit = remoteSocketApi.makeSender("lobby-out").apply _
-
-  system.lilaBus.subscribeFun('nbMembers, 'nbRounds) {
-    case lila.socket.actorApi.NbMembers(nb) => send(Out.nbMembers(nb))
-    case lila.hub.actorApi.round.NbRounds(nb) => send(Out.nbRounds(nb))
-  }
 }
 
 private object LobbySocket {
@@ -266,12 +256,19 @@ private object LobbySocket {
 
   object Protocol {
     object Out {
-      def nbMembers(nb: Int) = s"member/nb $nb"
-      def nbRounds(nb: Int) = s"round/nb $nb"
+      def pairings(pairings: List[PoolApi.Pairing]) = {
+        val redirs = for {
+          pairing <- pairings
+          color <- chess.Color.all
+          sri = pairing sri color
+          fullId = pairing.game fullIdOf color
+        } yield s"$sri:$fullId"
+        s"lobby/pairings ${P.Out.commas(redirs)}"
+      }
       def tellLobby(payload: JsObject) = s"tell/lobby ${Json stringify payload}"
       def tellLobbyActive(payload: JsObject) = s"tell/lobby/active ${Json stringify payload}"
       def tellLobbyUsers(userIds: Iterable[User.ID], payload: JsObject) =
-        s"tell/lobby/users ${P.Out.commaList(userIds)} ${Json stringify payload}"
+        s"tell/lobby/users ${P.Out.commas(userIds)} ${Json stringify payload}"
     }
   }
 

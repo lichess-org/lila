@@ -39,7 +39,7 @@ lichess.StrongSocket = function(url, version, settings) {
   var ws;
   var pingSchedule;
   var connectSchedule;
-  var ackable = makeAckable(function(t, d) { send(t, d) });
+  var ackable = makeAckable((t, d) => send(t, d));
   var lastPingTime = performance.now();
   var pongCount = 0;
   var averageLag = 0;
@@ -76,15 +76,9 @@ lichess.StrongSocket = function(url, version, settings) {
       };
       ws.onmessage = function(e) {
         if (e.data == 0) return pong();
-        var m = JSON.parse(e.data);
-        // if (Math.random() > 0.5) {
-        //   console.log(m, 'skip');
-        //   return;
-        // }
+        const m = JSON.parse(e.data);
         if (m.t === 'n') pong();
-        // else debug(e.data);
-        if (m.t === 'b') m.d.forEach(handle);
-        else handle(m);
+        handle(m);
       };
     } catch (e) {
       onError(e);
@@ -207,14 +201,13 @@ lichess.StrongSocket = function(url, version, settings) {
     ws = null;
   };
 
-  var disconnect = function(onNextConnect) {
+  var disconnect = function() {
     if (ws) {
       debug("Disconnect");
       autoReconnect = false;
       ws.onerror = ws.onclose = ws.onopen = ws.onmessage = $.noop;
       ws.close();
     }
-    if (onNextConnect) options.onNextConnect = onNextConnect;
   };
 
   var onError = function(e) {
@@ -231,25 +224,20 @@ lichess.StrongSocket = function(url, version, settings) {
       var disconnectTimeout;
       lichess.idleTimer(10 * 60 * 1000, function() {
         options.idle = true;
-        disconnectTimeout = setTimeout(lichess.socket.destroy, 2 * 60 * 60 * 1000);
+        disconnectTimeout = setTimeout(destroy, 2 * 60 * 60 * 1000);
       }, function() {
         options.idle = false;
         if (ws) clearTimeout(disconnectTimeout);
         else location.reload();
       });
     }
-    if (options.onNextConnect) {
-      options.onNextConnect();
-      delete options.onNextConnect;
-    }
   };
 
   const baseUrls = (
     d => [d].concat((d.includes('lichess.org') ? [5, 6, 7, 8, 9] : []).map(port => d + ':' + (9020 + port)))
-  )(options.remoteSocketDomain || document.body.getAttribute('data-socket-domain'));
+  )(document.body.getAttribute('data-socket-domain'));
 
   const baseUrl = function() {
-    if (options.remoteSocketDomain) return baseUrls[Math.floor(Math.random() * baseUrls.length)];
     let url = storage.get();
     if (!url) {
       url = baseUrls[0];
@@ -266,10 +254,8 @@ lichess.StrongSocket = function(url, version, settings) {
   window.addEventListener('unload', destroy);
 
   return {
-    connect: connect,
     disconnect: disconnect,
     send: send,
-    destroy: destroy,
     options: options,
     pingInterval: function() {
       return computePingDelay() + averageLag;
@@ -314,7 +300,6 @@ lichess.StrongSocket.defaults = {
     pingDelay: 2500, // time between pong and ping
     autoReconnectDelay: 3500,
     protocol: location.protocol === 'https:' ? 'wss:' : 'ws:',
-    onFirstConnect: $.noop,
-    remoteSocketDomain: null
+    onFirstConnect: $.noop
   }
 };

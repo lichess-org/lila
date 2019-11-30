@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(1032.8 -254.83)">
+  <path d="m-1011.2 282.43h6.741m-9.1533-9.2635c0 1.6784 0.6865 3.2835 1.8945 4.4463l-3.5182 2.0355 0.4153 2.7816h4.1499c-0.7656 3.4499-2.655 7.619-4.8788 8.8661s-5.1074 3.0019-4.6671 7.938l24.774 2e-5c0.44032-4.936-2.4434-6.6909-4.6671-7.938-2.2238-1.2471-4.1132-5.4162-4.8788-8.8661h4.1499l0.4153-2.7816-3.5181-2.0355c1.2079-1.1629 1.8943-2.7679 1.8943-4.4463 3e-4 -3.2635-2.5328-5.7305-5.7832-5.7305-3.2504-1e-5 -5.7834 2.467-5.7832 5.7305z" fill="#f5f5f5" stroke="#373737" stroke-width="1.2"/>
+  <g transform="matrix(1 0 0 1.0067 -.086738 -.84905)" stroke-width=".99668">
+   <g transform="matrix(.22844 0 0 .248 -2288.3 1233.4)" stroke-width="1.1079">
+    <g transform="matrix(3.7797 0 0 3.7788 5511 -3938.6)" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke-width="1.108">
+     <g transform="matrix(.26458 0 0 .26458 -750.81 976.17)" stroke-width="1.108">
+      <path d="m2932.2-3649.8c4.9397-1.781 40.193 22.935 2.7301 41.836l19.035 8.1555-2.3718 10.081h11.216l1.8085-11.144-15.4-8.1552c5.2879-4.6585 8.2765-10.024 8.288-16.749-1.9781-21.033-25.306-24.024-25.306-24.024zm-12.439 60.073c0.7682 38.881 68.612 32.559 68.972 68.388h-2.3163c2.5743-22.987-13.473-28.6-25.324-36.432-8.7539-5.7846-12.747-17.353-14.14-31.957z" opacity=".15" stroke-width="1.108"/>
+     </g>
+    </g>
+   </g>
+   <g fill="#fff">
+    <path d="m-1010.6 276.73-1.5873 2.2596-2.2707-0.0132 3.8676-2.2372z"/>
+    <path d="m-1008.4 267.15c-2.9685 0.0821-7.2558 4.7715-2.2303 9.5868-3.4328-3.6766-0.5178-8.9684 2.2303-9.5868z"/>
+    <path d="m-1014.6 291.57c-3.8396 2.2198-4.9317 5.9125-4.9317 5.9125-0.01 0-0.5277-4.0203 3.8131-6.4072 4.3407-2.3869 4.6468-6.4322 5.6479-9.0725-0.614 3.5658-0.6898 7.3475-4.5293 9.5673z"/>
+   </g>
+  </g>
+ </g>
+</svg>

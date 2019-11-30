@@ -8,7 +8,7 @@
     background: $c-accent;
     color: $c-primary-over;
     padding: 1em;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
     text-align: left;
     &::before {
       font-size: 3.6em;
@@ -17,7 +17,7 @@
   }
   .users {
     @extend %flex-between;
-    margin-bottom: 2em;
+    margin-top: 2em;
     .button {
       @extend %ellipsis;
       flex: 0 0 48%;

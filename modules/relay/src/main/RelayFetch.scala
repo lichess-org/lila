@@ -20,7 +20,8 @@ private final class RelayFetch(
     api: RelayApi,
     slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
-    chapterRepo: lila.study.ChapterRepo
+    chapterRepo: lila.study.ChapterRepo,
+    userAgent: String
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -76,17 +77,17 @@ private final class RelayFetch(
           logger.info(s"Sync error $relay ${e.getMessage take 80}")
           SyncResult.Error(e.getMessage)
       }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
-    } flatMap {
+    } map {
       case (result, newRelay) => afterSync(result, newRelay)
     }
 
-  def afterSync(result: SyncResult, relay: Relay): Fu[Relay] = {
+  def afterSync(result: SyncResult, relay: Relay): Relay = {
     lila.mon.relay.sync.result(result.reportKey)()
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) {
           logger.info(s"Finish because all games are over $relay")
-          fuccess(relay.finish)
+          relay.finish
         } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, games) =>
         lila.mon.relay.moves(nbMoves)
@@ -95,19 +96,14 @@ private final class RelayFetch(
     }
   }
 
-  def continueRelay(r: Relay): Fu[Relay] = {
-    if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
-      r.sync.log.events.lastOption.flatMap(_.error).ifTrue(r.official && r.hasStarted) foreach { error =>
-        slackApi.broadcastError(r.id.value, r.name, error)
-      }
-      fuccess(60)
-    } else r.sync.delay match {
-      case Some(delay) => fuccess(delay)
-      case None => api getNbViewers r map { nb =>
-        (18 - nb) atLeast 7
-      }
-    }
-  } map { seconds =>
+  def continueRelay(r: Relay): Relay = {
+    val seconds =
+      if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
+        r.sync.log.events.lastOption.flatMap(_.error).ifTrue(r.official && r.hasStarted) foreach { error =>
+          slackApi.broadcastError(r.id.value, r.name, error)
+        }
+        60
+      } else r.sync.delay getOrElse 7
     r.withSync {
       _.copy(
         nextAt = DateTime.now plusSeconds {
@@ -136,7 +132,7 @@ private final class RelayFetch(
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
     import RelayFetch.DgtJson._
-    formatApi.get(upstream.url) flatMap {
+    formatApi get upstream.withRound flatMap {
       case RelayFormat.SingleFile(doc) => doc.format match {
         // all games in a single PGN file
         case RelayFormat.DocFormat.Pgn => httpGet(doc.url) map { MultiPgn.split(_, max) }
@@ -162,10 +158,12 @@ private final class RelayFetch(
   }
 
   private def httpGet(url: Url): Fu[String] =
-    WS.url(url.toString).withRequestTimeout(4.seconds.toMillis).get().flatMap {
-      case res if res.status == 200 => fuccess(res.body)
-      case res => fufail(s"[${res.status}] $url")
-    }
+    WS.url(url.toString)
+      .withHeaders("User-Agent" -> userAgent)
+      .withRequestTimeout(4.seconds.toMillis).get().flatMap {
+        case res if res.status == 200 => fuccess(res.body)
+        case res => fufail(s"[${res.status}] $url")
+      }
 
   private def httpGetJson[A: Reads](url: Url): Fu[A] = for {
     str <- httpGet(url)

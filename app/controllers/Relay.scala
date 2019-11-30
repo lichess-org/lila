@@ -55,6 +55,12 @@ object Relay extends LilaController {
     }
   }
 
+  def reset(slug: String, id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(env.api.byIdAndContributor(id, me)) { relay =>
+      env.api.reset(relay, me) inject Redirect(showRoute(relay))
+    }
+  }
+
   def show(slug: String, id: String) = Open { implicit ctx =>
     pageHit
     WithRelay(slug, id) { relay =>
@@ -84,29 +90,16 @@ object Relay extends LilaController {
       else f(relay)
     }
 
-  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] = for {
-    (sc, studyData) <- Study.getJsonData(oldSc)
-    data = env.jsonView.makeData(relay, studyData)
-    chat <- Study.chatOf(sc.study)
-    sVersion <- Env.study.version(sc.study.id)
-    streams <- Study.streamsOf(sc.study)
-  } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
-
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { sri =>
-      env.api byId id flatMap {
-        _ ?? { relay =>
-          env.socketHandler.join(
-            relayId = relay.id,
-            sri = lila.socket.Socket.Sri(sri),
-            user = ctx.me,
-            getSocketVersion,
-            apiVersion
-          ) map some
-        }
-      }
+  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] =
+    Study.CanViewResult(oldSc.study) {
+      for {
+        (sc, studyData) <- Study.getJsonData(oldSc)
+        data = env.jsonView.makeData(relay, studyData)
+        chat <- Study.chatOf(sc.study)
+        sVersion <- Env.study.version(sc.study.id)
+        streams <- Study.streamsOf(sc.study)
+      } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
     }
-  }
 
   private def showRoute(r: RelayModel) = routes.Relay.show(r.slug, r.id.value)
 

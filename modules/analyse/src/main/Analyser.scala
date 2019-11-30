@@ -3,14 +3,14 @@ package lila.analyse
 import akka.actor.ActorSelection
 
 import chess.format.FEN
+import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ GameRepo, Game }
 import lila.hub.actorApi.map.TellIfExists
 
 final class Analyser(
     indexer: ActorSelection,
-    requesterApi: RequesterApi,
-    bus: lila.common.Bus
+    requesterApi: RequesterApi
 ) {
 
   def get(game: Game): Fu[Option[Analysis]] =
@@ -24,8 +24,8 @@ final class Analyser(
         GameRepo.setAnalysed(game.id)
         AnalysisRepo.save(analysis) >>
           sendAnalysisProgress(analysis, complete = true) >>- {
-            bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
-            bus.publish(InsertGame(game), 'gameSearchInsert)
+            Bus.publish(actorApi.AnalysisReady(game, analysis), 'analysisReady)
+            Bus.publish(InsertGame(game), 'gameSearchInsert)
             requesterApi save analysis
           }
       }
@@ -42,7 +42,7 @@ final class Analyser(
   private def sendAnalysisProgress(analysis: Analysis, complete: Boolean): Funit = analysis.studyId match {
     case None => GameRepo gameWithInitialFen analysis.id map {
       _ ?? {
-        case (game, initialFen) => bus.publish(
+        case (game, initialFen) => Bus.publish(
           TellIfExists(analysis.id, actorApi.AnalysisProgress(
             analysis = analysis,
             game = game,
@@ -54,7 +54,7 @@ final class Analyser(
       }
     }
     case Some(studyId) => fuccess {
-      bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), 'studyAnalysisProgress)
+      Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), 'studyAnalysisProgress)
     }
   }
 }

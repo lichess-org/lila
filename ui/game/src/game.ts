@@ -23,10 +23,6 @@ export function isClassical(data: GameData): boolean {
   return data.game.perf === 'classical';
 }
 
-export function isForceResignable(data: GameData): boolean {
-  return !(isFriendGame(data) && isClassical(data));
-}
-
 export function mandatory(data: GameData): boolean {
   return !!data.tournament || !!data.simul;
 }
@@ -108,14 +104,14 @@ export function isCorrespondence(data: GameData): boolean {
 }
 
 export function setOnGame(data: GameData, color: Color, onGame: boolean): void {
-  var player = getPlayer(data, color);
+  const player = getPlayer(data, color);
   onGame = onGame || !!player.ai;
   player.onGame = onGame;
   if (onGame) setIsGone(data, color, false);
 }
 
 export function setIsGone(data: GameData, color: Color, isGone: boolean): void {
-  var player = getPlayer(data, color);
+  const player = getPlayer(data, color);
   isGone = isGone && !player.ai;
   player.isGone = isGone;
   if (!isGone && player.user) player.user.online = true;

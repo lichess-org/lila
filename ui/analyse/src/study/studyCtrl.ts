@@ -33,7 +33,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
 
   const sri: string = li.StrongSocket ? li.StrongSocket.sri : '';
 
-  const vm: StudyVm = (function() {
+  const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
     return {

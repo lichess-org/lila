@@ -5,6 +5,7 @@ import play.api.libs.iteratee._
 import play.api.libs.json._
 
 import lila.analyse.Analysis.Analyzed
+import lila.common.Bus
 import lila.report.SuspectId
 
 final class IrwinStream(system: ActorSystem) {
@@ -20,13 +21,13 @@ final class IrwinStream(system: ActorSystem) {
     var subscriber: Option[lila.common.Tellable] = None
     Concurrent.unicast[JsValue](
       onStart = channel => {
-        subscriber = system.lilaBus.subscribeFun(classifier) {
+        subscriber = Bus.subscribeFun(classifier) {
           case req: IrwinRequest =>
             lila.mon.mod.irwin.streamEventType("request")()
             channel.push(requestJson(req))
         } some
       },
-      onComplete = subscriber foreach { system.lilaBus.unsubscribe(_, classifier) }
+      onComplete = subscriber foreach { Bus.unsubscribe(_, classifier) }
     ) &> stringify
   }
 

@@ -3,7 +3,8 @@ package lila.tournament
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
+import play.api.data.validation
+import play.api.data.validation.{ Constraint, Constraints }
 
 import chess.Mode
 import chess.StartingPosition
@@ -39,7 +40,11 @@ final class DataForm {
     Constraints.pattern(
       regex = """[\p{L}\p{N}-\s:,;]+""".r,
       error = "error.unknown"
-    )
+    ),
+    Constraint[String] { (t: String) =>
+      if (t.toLowerCase contains "lichess") validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
+      else validation.Valid
+    }
   )
 
   private lazy val create = Form(mapping(

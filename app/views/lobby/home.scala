@@ -28,7 +28,6 @@ object home {
     lastPost: List[lila.blog.MiniPost],
     playban: Option[lila.playban.TempBan],
     currentGame: Option[lila.app.mashup.Preload.CurrentGame],
-    nbRounds: Int,
     blindGames: List[Pov] // only in blind mode
   )(implicit ctx: Context) = views.html.base.layout(
     title = "",
@@ -84,9 +83,11 @@ object home {
           ),
           div(cls := "lobby__counters")(
             ctx.blind option h2("Counters"),
-            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(trans.nbPlayers(nbPlayersPlaceholder)),
+            a(id := "nb_connected_players", href := ctx.noBlind.option(routes.User.list.toString))(
+              trans.nbPlayers(nbPlaceholder)
+            ),
             a(id := "nb_games_in_play", href := ctx.noBlind.option(routes.Tv.games.toString))(
-              trans.nbGamesInPlay.plural(nbRounds, strong(nbRounds.localize))
+              trans.nbGamesInPlay(nbPlaceholder)
             )
           )
         ),
@@ -203,5 +204,5 @@ object home {
     trans.anonymous
   )
 
-  private val nbPlayersPlaceholder = strong("--,---")
+  private val nbPlaceholder = strong("--,---")
 }

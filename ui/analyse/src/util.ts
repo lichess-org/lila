@@ -11,11 +11,13 @@ export function plyColor(ply: number): Color {
 }
 
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
-  el.addEventListener(window.lichess.mousedownEvent, e => {
-    f(e);
-    e.preventDefault();
-    if (redraw) redraw();
-  })
+  for (const mousedownEvent of ['touchstart', 'mousedown']) {
+    el.addEventListener(mousedownEvent, e => {
+      f(e);
+      e.preventDefault();
+      if (redraw) redraw();
+    });
+  }
 }
 
 function listenTo(el: HTMLElement, eventName: string, f: (e: Event) => any, redraw?: () => void) {

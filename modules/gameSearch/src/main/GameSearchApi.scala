@@ -31,8 +31,8 @@ final class GameSearchApi(
     GameRepo isAnalysed game.id flatMap { analysed =>
       lila.common.Future.retry(
         () => client.store(Id(game.id), toDoc(game, analysed)),
-        delay = 10.seconds,
-        retries = 5,
+        delay = 20.seconds,
+        retries = 2,
         logger.some
       )(system)
     }

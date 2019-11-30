@@ -52,10 +52,10 @@
   <string name="allSyncMembersRemainOnTheSamePosition">Alle synchronisierten Mitglieder sehen die gleiche Stellung</string>
   <string name="shareChanges">Teile Änderungen mit den Zuschauern und speichere sie auf dem Server</string>
   <string name="playing">Laufende Partien</string>
-  <string name="first">Ganz nach vorn</string>
+  <string name="first">Erste Seite</string>
   <string name="previous">Zurück</string>
   <string name="next">Weiter</string>
-  <string name="last">Ganz nach hinten</string>
+  <string name="last">Letzte Seite</string>
   <string name="shareAndExport">Teilen und exportieren</string>
   <string name="cloneStudy">Klonen</string>
   <string name="studyPgn">Studien PGN</string>

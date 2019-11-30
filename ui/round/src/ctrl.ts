@@ -14,11 +14,12 @@ import { Api as CgApi } from 'chessground/api';
 import { ClockController } from './clock/clockCtrl';
 import { CorresClockController, ctrl as makeCorresClock } from './corresClock/corresClockCtrl';
 import MoveOn from './moveOn';
+import TransientMove from './transientMove';
 import atomic = require('./atomic');
 import sound = require('./sound');
 import util = require('./util');
 import xhr = require('./xhr');
-import { valid as crazyValid, init as crazyInit } from './crazy/crazyCtrl';
+import { valid as crazyValid, init as crazyInit, onEnd as crazyEndHook } from './crazy/crazyCtrl';
 import { ctrl as makeKeyboardMove, KeyboardMove } from './keyboardMove';
 import renderUser = require('./view/user');
 import cevalSub = require('./cevalSub');
@@ -53,6 +54,7 @@ export default class RoundController {
   loading: boolean = false;
   loadingTimeout: number;
   redirecting: boolean = false;
+  transientMove: TransientMove;
   moveToSubmit?: SocketMove;
   dropToSubmit?: SocketDrop;
   goneBerserk: GoneBerserk = {};
@@ -99,6 +101,7 @@ export default class RoundController {
     this.setQuietMode();
 
     this.moveOn = new MoveOn(this, 'move-on');
+    this.transientMove = new TransientMove(this.socket);
 
     this.trans = li.trans(opts.i18n);
     this.noarg = this.trans.noarg;
@@ -249,7 +252,7 @@ export default class RoundController {
 
   setTitle = () => title.set(this);
 
-  actualSendMove = (type: string, action: any, meta: MoveMetadata = {}) => {
+  actualSendMove = (tpe: string, data: any, meta: MoveMetadata = {}) => {
     const socketOpts: SocketOpts = {
       ackable: true
     };
@@ -265,11 +268,12 @@ export default class RoundController {
         }
       }
     }
-    this.socket.send(type, action, socketOpts);
+    this.socket.send(tpe, data, socketOpts);
 
     this.justDropped = meta.justDropped;
     this.justCaptured = meta.justCaptured;
     this.preDrop = undefined;
+    this.transientMove.register();
     this.redraw();
   }
 
@@ -407,9 +411,9 @@ export default class RoundController {
     game.setOnGame(d, playedColor, true);
     this.data.forecastCount = undefined;
     if (o.clock) {
-      const oc = o.clock;
       this.shouldSendMoveTime = true;
-      const delay = (playing && activeColor) ? 0 : (oc.lag || 1);
+      const oc = o.clock,
+        delay = (playing && activeColor) ? 0 : (oc.lag || 1);
       if (this.clock) this.clock.setClock(d, oc.white, oc.black, delay);
       else if (this.corresClock) this.corresClock.update(
         oc.white,
@@ -421,6 +425,7 @@ export default class RoundController {
     }
     this.redraw();
     if (playing && playedColor == d.player.color) {
+      this.transientMove.clear();
       this.moveOn.next();
       cevalSub.publish(d, o);
     }
@@ -487,6 +492,7 @@ export default class RoundController {
     }
     if (!d.player.spectator && d.game.turns > 1)
       li.sound[o.winner ? (d.player.color === o.winner ? 'victory' : 'defeat') : 'draw']();
+    if (d.crazyhouse) crazyEndHook();
     this.clearJust();
     this.setTitle();
     this.moveOn.next();
@@ -632,7 +638,6 @@ export default class RoundController {
   forceResignable = (): boolean => {
     const d = this.data;
     return !d.opponent.ai &&
-      game.isForceResignable(d) &&
       !!d.clock &&
       d.opponent.isGone &&
       !game.isPlayerTurn(d) &&
@@ -665,7 +670,7 @@ export default class RoundController {
 
   setChessground = (cg: CgApi) => {
     this.chessground = cg;
-    if (this.data.pref.keyboardMove && !window.lichess.hasTouchEvents) {
+    if (this.data.pref.keyboardMove) {
       this.keyboardMove = makeKeyboardMove(this, this.stepAt(this.ply), this.redraw);
       li.raf(this.redraw);
     }
@@ -685,7 +690,7 @@ export default class RoundController {
         title.init();
         this.setTitle();
 
-        crazyInit(this);
+        if (d.crazyhouse) crazyInit(this);
 
         window.addEventListener('beforeunload', e => {
           if (li.hasToReload ||

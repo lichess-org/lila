@@ -144,6 +144,10 @@ lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).se
   libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
 )
 
+lazy val room = module("room", Seq(common, socket, chat)).settings(
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
+)
+
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
@@ -157,7 +161,7 @@ lazy val mod = module("mod", Seq(common, db, user, hub, security, tournament, si
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver)
 )
 
-lazy val user = module("user", Seq(common, memo, db, hub, rating)).settings(
+lazy val user = module("user", Seq(common, memo, db, hub, rating, socket)).settings(
   libraryDependencies ++= provided(play.api, play.test, reactivemongo.driver, hasher,
     reactivemongo.iteratees // only for bcrypt migration
     )
@@ -187,10 +191,10 @@ lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, 
 
 lazy val round = module("round", Seq(
   common, db, memo, hub, socket, game, user,
-  i18n, fishnet, pref, chat, history, playban
+  i18n, fishnet, pref, chat, history, playban, room
 )).settings(
   libraryDependencies ++= provided(play.api, scalatags, hasher, kamon.core,
-    reactivemongo.driver, reactivemongo.iteratees)
+    reactivemongo.driver, reactivemongo.iteratees, lettuce)
 )
 
 lazy val pool = module("pool", Seq(common, game, user, playban)).settings(
@@ -228,21 +232,21 @@ lazy val insight = module(
   )
 
 lazy val tournament = module("tournament", Seq(
-  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n
+  common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room
 )).settings(
   libraryDependencies ++= provided(
-    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees
+    play.api, scalatags, reactivemongo.driver, reactivemongo.iteratees, lettuce
   )
 )
 
 lazy val simul = module("simul", Seq(
-  common, hub, socket, game, round, chat, memo, quote
+  common, hub, socket, game, round, chat, memo, quote, room
 )).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, lettuce)
 )
 
 lazy val fishnet = module("fishnet", Seq(common, game, analyse, db, evalCache)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver, semver)
+  libraryDependencies ++= provided(play.api, reactivemongo.driver, semver, lettuce)
 )
 
 lazy val irwin = module("irwin", Seq(common, db, user, game, tournament, mod)).settings(
@@ -261,14 +265,14 @@ lazy val shutup = module("shutup", Seq(common, db, hub, game, relation)).setting
   libraryDependencies ++= provided(play.api, reactivemongo.driver)
 )
 
-lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relation, pref)).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
+lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relation, pref, socket, room)).settings(
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, lettuce)
 )
 
 lazy val study = module("study", Seq(
-  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n
+  common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room
 )).settings(
-  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver)
+  libraryDependencies ++= provided(play.api, scalatags, reactivemongo.driver, lettuce)
 )
 
 lazy val relay = module("relay", Seq(common, study)).settings(
@@ -299,7 +303,7 @@ lazy val playban = module("playban", Seq(common, db, game, message, chat)).setti
 )
 
 lazy val push = module("push", Seq(common, db, user, game, challenge, message)).settings(
-  libraryDependencies ++= provided(play.api, reactivemongo.driver)
+  libraryDependencies ++= Seq(googleOAuth) ++ provided(play.api, reactivemongo.driver)
 )
 
 lazy val slack = module("slack", Seq(common, hub, user)).settings(

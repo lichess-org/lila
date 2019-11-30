@@ -67,7 +67,7 @@ object Main extends LilaController {
     Env.round.selfReport(
       userId = ctx.userId,
       ip = HTTPRequest lastRemoteAddress ctx.req,
-      fullId = id,
+      fullId = lila.game.Game.FullId(id),
       name = get("n", ctx.req) | "?"
     )
     NoContent.fuccess
@@ -129,8 +129,12 @@ Disallow: /games/export
     Ok(html.site.bits.getFishnet()).fuccess
   }
 
-  def costs = Open { implicit ctx =>
-    Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview").fuccess
+  def costs = Action {
+    Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview")
+  }
+
+  def verifyTitle = Action {
+    Redirect("https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")
   }
 
   def contact = Open { implicit ctx =>

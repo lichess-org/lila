@@ -48,6 +48,8 @@ case class Thread(
 
   def firstPost: Option[Post] = posts.headOption
 
+  def isFirstPost(post: Post) = firstPost contains post
+
   def firstPostUnreadBy(user: User): Option[Post] = posts find isPostUnreadBy(user)
 
   def unreadIndexesBy(user: User): List[Int] = posts.zipWithIndex collect {

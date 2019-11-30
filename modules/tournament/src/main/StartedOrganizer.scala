@@ -4,14 +4,12 @@ import akka.actor._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import actorApi._
+import lila.user.User
 import makeTimeout.short
 
 private final class StartedOrganizer(
     api: TournamentApi,
-    reminder: TournamentReminder,
-    isOnline: String => Boolean,
-    socketMap: SocketMap
+    socket: TournamentSocket
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -36,17 +34,18 @@ private final class StartedOrganizer(
       val startAt = nowMillis
       TournamentRepo.startedTours.flatMap { started =>
         lila.common.Future.traverseSequentially(started) { tour =>
-          PlayerRepo activeUserIds tour.id flatMap { activeUserIds =>
-            val nb = activeUserIds.size
-            val result: Funit =
-              if (tour.secondsToFinish <= 0) fuccess(api finish tour)
-              else if (!tour.isScheduled && nb < 2) fuccess(api finish tour)
-              else if (!tour.pairingsClosed) startPairing(tour, activeUserIds, startAt)
-              else funit
-            result >>- reminder(tour, activeUserIds) inject nb
+          if (tour.secondsToFinish <= 0) fuccess(api finish tour)
+          else {
+            def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour, startAt)
+            if (!tour.isScheduled && tour.nbPlayers < 40)
+              PlayerRepo nbActiveUserIds tour.id flatMap { nb =>
+                if (nb < 2) fuccess(api finish tour)
+                else pairIfStillTime
+              }
+            else pairIfStillTime
           }
-        }.addEffect { playerCounts =>
-          lila.mon.tournament.player(playerCounts.sum)
+        }.addEffect { _ =>
+          // lila.mon.tournament.player(playerCounts.sum)
           lila.mon.tournament.started(started.size)
         }
       }.chronometer
@@ -55,13 +54,8 @@ private final class StartedOrganizer(
         .result addEffectAnyway scheduleNext
   }
 
-  private def startPairing(tour: Tournament, activeUserIds: List[String], startAt: Long): Funit =
-    getWaitingUsers(tour) zip PairingRepo.playingUserIds(tour) map {
-      case (waitingUsers, playingUserIds) =>
-        val users = waitingUsers intersect activeUserIds.toSet diff playingUserIds
-        api.makePairings(tour, users, startAt)
+  private def startPairing(tour: Tournament, startAt: Long): Funit =
+    socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) map {
+      api.makePairings(tour, _, startAt)
     }
-
-  private def getWaitingUsers(tour: Tournament): Fu[WaitingUsers] =
-    socketMap.askIfPresent[WaitingUsers](tour.id)(GetWaitingUsersP) map (_ | WaitingUsers.empty)
 }

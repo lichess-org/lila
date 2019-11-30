@@ -26,7 +26,7 @@ private final class DeployPersistence(system: ActorSystem) {
     ongoing = none
   }
 
-  system.lilaBus.subscribeFun('deploy) {
+  lila.common.Bus.subscribeFun('deploy) {
     case _: Deploy => enable()
   }
 }

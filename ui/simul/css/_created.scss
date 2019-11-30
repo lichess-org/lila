@@ -1,6 +1,6 @@
 .simul {
   .halves {
-    @extend %flex-center;
+    @extend %flex-center-nowrap;
     align-items: stretch;
   }
   .half {

@@ -59,6 +59,10 @@
   <string name="promoteVariation">Нұсқажолды көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
+  <string name="forceVariation">Ádepki boıynsha, taldaý oıynnyń sońynda ótedi, taldaý jaı ǵana negizgi jelini jalǵastyrady.
+
+
+\"Kúsh varıasıasy\" taldaý oıyn kezinde shyn máninde oınatylǵan qadamdardan erekshelenip, varıasıa retinde (negizgi jalǵasy joq bolǵanyna qaramastan) kórinedi</string>
   <string name="move">Жүру</string>
   <string name="variantLoss">Ұтылыс жолы</string>
   <string name="variantWin">Ұтыс жолы</string>
@@ -143,6 +147,9 @@
   <string name="ratingStats">Рейтинг статистикасы</string>
   <string name="username">пайдаланушы аты</string>
   <string name="usernameOrEmail">Есіміңіз</string>
+  <string name="changeUsername">Paıdalanýshy atyn ózgertý</string>
+  <string name="changeUsernameNotSame">Tek áripter regıstri ózgerýi múmkin. Mysaly,\" Djon Doý \"\"Djon Doýda\".</string>
+  <string name="changeUsernameDescription">Paıdalanýshy atyn ózgertińiz. Bul tek bir ret jasaýǵa bolady jáne siz tek paıdalanýshy aty áripter regıstri ózgerte alasyz.</string>
   <string name="password">Пароль</string>
   <string name="changePassword">жұмбақ сөзді өзгерту</string>
   <string name="changeEmail">Емаилды ауыстыру</string>
@@ -151,7 +158,19 @@
   <string name="forgotPassword">Құпиясөзді ұмытып қалдыңыз ба?</string>
   <string name="rank">Деңгей</string>
   <string name="rankX">Дәреже: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">Reıtıń ár mınýt saıyn jańartylady</item>
+    <item quantity="other">Reıtıń ár % s mınýt saıyn jańartylady</item>
+  </plurals>
+  <plurals name="nbPuzzles">
+    <item quantity="one">%s basqatyrǵysh</item>
+    <item quantity="other">% s basqatyrǵyshs</item>
+  </plurals>
   <string name="gamesPlayed">Ойындар ойналған</string>
+  <plurals name="nbGamesWithYou">
+    <item quantity="one">%s sizben oıyn</item>
+    <item quantity="other">senimen oıyndardyń %</item>
+  </plurals>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
   <string name="drawOfferSent">Тепе-теңдік ұсынысы жіберілді</string>
@@ -168,6 +187,7 @@
   <string name="playingRightNow">Ойналып жатыр</string>
   <string name="eventInProgress">Тап қазір ойнау</string>
   <string name="finished">Бітті</string>
+  <string name="finishesX">%s aıaqtaıdy</string>
   <string name="abortGame">Ойынды болдырмау</string>
   <string name="gameAborted">Ойын жойылды</string>
   <string name="standard">Классикалық</string>
@@ -175,17 +195,46 @@
   <string name="mode">Мод</string>
   <string name="casual">Достық ойын</string>
   <string name="rated">Бағаланатын ойын</string>
+  <string name="casualTournament">Kúndelikti</string>
+  <string name="ratedTournament">Nomınaldy</string>
+  <string name="thisGameIsRated">Bul oıyn baǵalanady</string>
   <string name="rematch">Кек қайтару</string>
+  <string name="rematchOfferSent">Revansh týraly usynys jiberildi</string>
+  <string name="rematchOfferSentWhite">Aq revansh usynady</string>
+  <string name="rematchOfferSentBlack">Aq revansh ýsynady</string>
+  <string name="rematchOfferAccepted">Revansh týraly usynys qabyldandy</string>
+  <string name="rematchOfferCanceled">Revansh týraly usynys joıyldy</string>
+  <string name="rematchOfferDeclined">Revansh týraly usynys qabyldanbad</string>
+  <string name="cancelRematchOffer">Revansh týraly usynysty boldyrmaý</string>
+  <string name="viewRematch">Qaraý mach-revansh</string>
   <string name="play">Ойнау</string>
   <string name="inbox">Хаттар</string>
   <string name="chatRoom">Сөйлесу бөлмесі</string>
+  <string name="loginToChat">Suhbat kirý</string>
+  <string name="youHaveBeenTimedOut">Siz taım-aýt boldy.</string>
+  <string name="spectatorRoom">Kórermender bólmesi</string>
   <string name="composeMessage">Хат жазу</string>
+  <string name="noNewMessages">Eshqandaı jańa habarlamalar</string>
+  <string name="subject">Pán</string>
+  <string name="recipient">Recipient</string>
+  <string name="send">Jiberý</string>
   <string name="incrementInSeconds">Секунд қосылады</string>
   <string name="freeOnlineChess">Тегін онлайн шахмат</string>
   <string name="spectators">Көрермен</string>
+  <plurals name="nbRated">
+    <item quantity="one">%s nomınaldy</item>
+    <item quantity="other">%s nomınaldy</item>
+  </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="one">oıynnan %s</item>
+    <item quantity="other">oıynnan %s</item>
+  </plurals>
   <string name="exportGames">Ойынды экспорттау</string>
   <string name="ratingRange">Эло ауқымы</string>
+  <string name="giveMoreTime">Kóp ýaqyt berińiz</string>
   <string name="thisPlayerUsesChessComputerAssistance">Бұл ойыншы компьютер бағдарламасын қолданады</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Bul oıynshy óz reıtıńin jasandy arttyrady/azaıtady</string>
+  <string name="openingExplorerAndTablebase">&amp;Amp ótkizgishin ashý; kesteniń negizi</string>
   <string name="takeback">Қайтару</string>
   <string name="proposeATakeback">Жүрісті қайтару ұсыну</string>
   <string name="takebackPropositionSent">Жүрісті қайтару ұсынысы жіберілді</string>
@@ -193,13 +242,103 @@
   <string name="takebackPropositionAccepted">Жүрісті қайтару ұсынысы қабылданды</string>
   <string name="takebackPropositionCanceled">Жүрісті қайтару ұсынысы жойылды</string>
   <string name="yourOpponentProposesATakeback">Қарсыласыңыз жүрісті қайтаруды ұсынды</string>
+  <string name="bookmarkThisGame">Bul oıyn betbelgi</string>
+  <string name="search">Izdeý</string>
   <string name="advancedSearch">Көлемді іздеу</string>
   <string name="tournament">Жарыс</string>
+  <string name="tournaments">Týrnırler</string>
+  <string name="tournamentPoints">Týrnır upaılary</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="one">%s týrnırlik upaılardan</item>
+    <item quantity="other">% týrnırlik upaılardan</item>
+  </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
+  <string name="backToTournament">Týrnırge oralaıyq</string>
+  <string name="thematic">Taqyryptyq</string>
+  <plurals name="moreThanNbRatedGames">
+    <item quantity="one">oıyn reıtıńi bar ≥ %</item>
+    <item quantity="other">≥ % c oıyndar reıtıńi</item>
+  </plurals>
+  <plurals name="moreThanNbPerfRatedGames">
+    <item quantity="one">≥ %1 $ s % 2 $ s reıtıń oıyny</item>
+    <item quantity="other">≥ %1$s % 2 $ s reıtıńtik oıyndar</item>
+  </plurals>
+  <plurals name="needNbMorePerfGames">
+    <item quantity="one">Siz %1$s-da % 2$s artyq oınaýyńyz kerek reıtıń oıyny</item>
+    <item quantity="other">Siz %1$s artyq % 2$s reıtıńtik oıyn oınaý kerek</item>
+  </plurals>
+  <plurals name="needNbMoreGames">
+    <item quantity="one">Siz %s kóp reıtıńtik oıyndy oınaý kerek</item>
+    <item quantity="other">Siz oınaýǵa tıis oınaýǵa % s kóp reıtıńtik oıyndar</item>
+  </plurals>
+  <string name="yourPerfRatingIsProvisional">Sizdiń %s reıtıńi aldyn ala bolyp tabylady</string>
+  <string name="yourPerfRatingIsTooHigh">%1$s (%2$s) reıtıńi tym joǵary</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizdiń eń jaqsy aptalyq reıtıńi %1$s (%2$s) tym joǵary</string>
+  <string name="yourPerfRatingIsTooLow">Sizdiń reıtıńi % 1 $ s (%2 $ s) tym tómen</string>
+  <string name="ratedMoreThanInPerf">Reıtıń = %1 $ sin %2 $ s</string>
+  <string name="ratedLessThanInPerf">Nomınaldy ≤ %1 $ sin %2 $ s</string>
+  <string name="mustBeInTeam">%S komandasynda bolý kerek</string>
+  <string name="youAreNotInTeam">Siz komandada emes %s</string>
   <string name="siteDescription">Тікелей желідегі тегін шахмат сервері. Еш тіркелмей-ақ, плагин қоймай-ақ, жарнама көрмей-ақ қарапайым интерфейс арқылы тап қазір шахмат ойнаңыз. Ойыныңызды компьютермен, досыңызбен әлде кездейсоқ қарсыласпен ойнаңыз.</string>
   <string name="noFriendsOnline">Желіде жостар жоқ</string>
   <string name="findFriends">Дос іздестіру</string>
+  <plurals name="nbFollowing">
+    <item quantity="one">kelesi %s</item>
+    <item quantity="other">kelesi %s</item>
+  </plurals>
+  <string name="more">Kóp</string>
+  <string name="memberSince">Sodan beri múshesi</string>
+  <string name="lastSeenActive">Belsendi % s</string>
+  <string name="challengeToPlay">Oıynǵa shaqyrý</string>
   <string name="player">ойыншы</string>
+  <string name="list">Tizim</string>
+  <string name="graph">Dıagram</string>
+  <plurals name="lessThanNbMinutes">
+    <item quantity="one">% S mınýttan az</item>
+    <item quantity="other">% S mınýttan az</item>
+  </plurals>
+  <string name="required">Talap etiletin.</string>
+  <string name="openTournaments">Ashyq týrnır</string>
+  <string name="duration">Uzaqtyǵy</string>
+  <string name="winner">Jeńimpaz</string>
+  <string name="standing">Turǵan</string>
+  <string name="createANewTournament">Jańa týrnır jasańyz</string>
+  <string name="tournamentCalendar">Týrnır kúntizbesi</string>
+  <string name="conditionOfEntry">Kirý sharttary:</string>
+  <string name="advancedSettings">Qosymsha parametrler</string>
+  <string name="safeTournamentName">Týrnır úshin óte qaýipsiz ataýdy tańdańyz.</string>
+  <string name="inappropriateNameWarning">Barlyq, tipti sál orynsyz, múmkin jabý sizdiń shot.</string>
+  <string name="emptyTournamentName">Belgili shahmatshynyń qurmetine týrnırdi ataý úshin bos qaldyryńyz.</string>
+  <string name="recommendNotTouching">Biz olardy ustamaýǵa keńes beremiz.</string>
+  <string name="fewerPlayers">Eger siz kirý sharttaryn ornatsańyz, onda sizdiń týrnırińizde oıynshylar az bolady.</string>
+  <string name="showAdvancedSettings">Qosymsha parametrlerdi kórsetý</string>
+  <string name="join">Qosylyńyz</string>
+  <string name="withdraw">Shyǵarý</string>
+  <string name="points">Núkteler</string>
+  <string name="wins">Jeńedi</string>
+  <string name="losses">Joǵaltý</string>
+  <string name="winStreak">Jeńisteri</string>
+  <string name="createdBy">Qurylady</string>
+  <string name="tournamentIsStarting">Týrnır bastaldy</string>
+  <string name="tournamentPairingsAreNowClosed">Týrnır juby endi jabyq.</string>
+  <string name="standByX">%S-ǵa daıyndalyńyz, oıynshylardy juptastyrý, daıyndańyz!</string>
+  <string name="youArePlaying">Sen oınaısyń!</string>
+  <string name="winRate">Utys stavkasy</string>
+  <string name="berserkRate">Berserka jyldamdyǵy</string>
+  <string name="performance">Qoıylym</string>
+  <string name="tournamentComplete">Týrnır aıaqtaldy</string>
+  <string name="movesPlayed">Oınalǵan qadamdar</string>
+  <string name="whiteWins">Aq jeńedi</string>
+  <string name="blackWins">Qara utady</string>
+  <string name="draws">Ten</string>
+  <string name="nextXTournament">Kelesi %c týrnır:</string>
+  <string name="viewMoreTournaments">Kóbirek týrnırlerdi kórý</string>
+  <string name="averageOpponent">Ortasha qarsylas</string>
+  <string name="membersOnly">Tek músheler úshin</string>
+  <string name="boardEditor">Taqta óńdegishi</string>
+  <string name="setTheBoard">Taqtany ornatyńyz</string>
+  <string name="popularOpenings">Qyzyqty nachalo</string>
+  <string name="startPosition">Bastapqy pozichia</string>
   <string name="watchLichessTV">Lichess TВ көріп отыру</string>
   <string name="learnMenu">Үйрену</string>
   <string name="community">Қоғамдастығы</string>

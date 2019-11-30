@@ -10,10 +10,11 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import chess.Pos
 import Forecast.Step
+import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Pov, Game }
 import lila.hub.DuctMap
 
-final class ForecastApi(coll: Coll, roundMap: DuctMap[RoundDuct]) {
+final class ForecastApi(coll: Coll, tellRound: TellRound) {
 
   private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
     def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
@@ -50,8 +51,8 @@ final class ForecastApi(coll: Coll, roundMap: DuctMap[RoundDuct]) {
     if (!pov.isMyTurn) funit
     else Uci.Move(uciMove).fold[Funit](fufail(s"Invalid move $uciMove on $pov")) { uci =>
       val promise = Promise[Unit]
-      roundMap.tell(pov.gameId, actorApi.round.HumanPlay(
-        playerId = pov.playerId,
+      tellRound(pov.gameId, actorApi.round.HumanPlay(
+        playerId = PlayerId(pov.playerId),
         uci = uci,
         blur = true,
         promise = promise.some

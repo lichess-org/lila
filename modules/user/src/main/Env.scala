@@ -4,8 +4,6 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.socket.WithUserIds
-
 final class Env(
     config: Config,
     db: lila.db.Env,
@@ -13,6 +11,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler,
     timeline: ActorSelection,
+    onlineUserIds: () => Set[User.ID],
     system: ActorSystem
 ) {
 
@@ -33,14 +32,11 @@ final class Env(
 
   val lightUserApi = new LightUserApi(userColl)(system)
 
-  val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
-  val recentTitledUserIdMemo = new lila.memo.ExpireSetMemo(ttl = 3 hours)
-
-  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
+  private def isOnline(userId: User.ID): Boolean = onlineUserIds() contains userId
 
   val jsonView = new JsonView(isOnline)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
   lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
 
@@ -55,7 +51,7 @@ final class Env(
     lightUserApi.monitorCache
   }
 
-  system.lilaBus.subscribeFuns(
+  lila.common.Bus.subscribeFuns(
     'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
         rankingApi remove userId
@@ -63,15 +59,6 @@ final class Env(
     },
     'adjustBooster -> {
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
-    },
-    'userActive -> {
-      case User.Active(user) =>
-        if (!user.seenRecently) UserRepo setSeenAt user.id
-        onlineUserIdMemo put user.id
-        if (user.hasTitle) recentTitledUserIdMemo put user.id
-      case lila.hub.actorApi.socket.remote.ConnectUser(userId) =>
-        // lila-ws sets user.seenAt itself
-        onlineUserIdMemo put userId
     },
     'kickFromRankings -> {
       case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
@@ -83,15 +70,10 @@ final class Env(
     }
   )
 
-  scheduler.effect(3 seconds, "refresh online user ids") {
-    system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'socketUsers)
-    onlineUserIdMemo put User.lichessId
-  }
-
   lazy val cached = new Cached(
     userColl = userColl,
     nbTtl = CachedNbTtl,
-    onlineUserIdMemo = onlineUserIdMemo,
+    onlineUserIds = onlineUserIds,
     mongoCache = mongoCache,
     asyncCache = asyncCache,
     rankingApi = rankingApi
@@ -122,6 +104,7 @@ object Env {
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
     timeline = lila.hub.Env.current.timeline,
+    onlineUserIds = lila.socket.Env.current.onlineUserIds,
     system = lila.common.PlayApp.system
   )
 }

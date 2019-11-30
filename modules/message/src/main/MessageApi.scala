@@ -15,8 +15,7 @@ final class MessageApi(
     maxPerPage: lila.common.MaxPerPage,
     blocks: (String, String) => Fu[Boolean],
     notifyApi: lila.notify.NotifyApi,
-    security: MessageSecurity,
-    lilaBus: lila.common.Bus
+    security: MessageSecurity
 ) {
 
   import Thread.ThreadBSONHandler
@@ -135,7 +134,7 @@ final class MessageApi(
     (thread isVisibleBy thread.receiverOf(post)) ?? {
       import lila.notify.{ Notification, PrivateMessage }
       import lila.common.String.shorten
-      lilaBus.publish(Event.NewMessage(thread, post), 'newMessage)
+      lila.common.Bus.publish(Event.NewMessage(thread, post), 'newMessage)
       notifyApi addNotification Notification.make(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(

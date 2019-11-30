@@ -8,3 +8,8 @@ package object lightTeam {
     def pair = id -> name
   }
 }
+
+trait TellMap {
+
+  def tell(id: String, msg: Any): Unit
+}

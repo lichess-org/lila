@@ -2,9 +2,10 @@ package lila.api
 
 import akka.actor.ActorSelection
 
+import lila.common.Bus
 import lila.hub.actorApi.Deploy
 
-private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
+private[api] final class Cli extends lila.common.Cli {
 
   private val logger = lila.log("cli")
 
@@ -27,17 +28,24 @@ private[api] final class Cli(bus: lila.common.Bus) extends lila.common.Cli {
         case None => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
-          bus.publish(lila.user.User.GDPRErase(user), 'gdprErase)
+          Bus.publish(lila.user.User.GDPRErase(user), 'gdprErase)
           s"Erasing all data about ${user.username} now"
       }
-    case "announce" :: msgWords =>
-      val msg = msgWords mkString " "
-      bus.publish(lila.hub.actorApi.Announce(msg), 'announce)
-      fuccess(s"Announcing: $msg")
+    case "announce" :: "cancel" :: Nil =>
+      AnnounceStore set none
+      Bus.publish(AnnounceStore.cancel, 'announce)
+      fuccess("Removed announce")
+    case "announce" :: msgWords => AnnounceStore.set(msgWords mkString " ") match {
+      case Some(announce) =>
+        Bus.publish(announce, 'announce)
+        fuccess(announce.json.toString)
+      case None =>
+        fuccess("Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it")
+    }
   }
 
   private def remindDeploy(event: Deploy): Fu[String] = {
-    bus.publish(event, 'deploy)
+    Bus.publish(event, 'deploy)
     fuccess("Deploy in progress")
   }
 

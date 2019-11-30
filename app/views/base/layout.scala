@@ -2,11 +2,11 @@ package views.html.base
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, AnnounceStore }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.common.String.html.safeJsonValue
+import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.pref.Pref
 
 import controllers.routes
@@ -23,6 +23,9 @@ object layout {
       s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
     }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag = metaCsp(csp getOrElse defaultCsp)
+    def metaThemeColor(implicit ctx: Context): Frag = raw {
+      s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    }
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
@@ -74,7 +77,12 @@ object layout {
   private def clinput(implicit ctx: Context) =
     div(id := "clinput")(
       clinputLink,
-      input(spellcheck := "false", placeholder := trans.search.txt())
+      input(
+        spellcheck := "false",
+        autocomplete := ctx.blind.toString,
+        aria.label := trans.search.txt(),
+        placeholder := trans.search.txt()
+      )
     )
 
   private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style :=
@@ -90,6 +98,7 @@ object layout {
   private val dataZoom = attr("data-zoom")
   private val dataPreload = attr("data-preload")
   private val dataNonce = attr("data-nonce")
+  private val dataAnnounce = attr("data-announce")
 
   def apply(
     title: String,
@@ -112,10 +121,12 @@ object layout {
         charset,
         viewport,
         metaCsp(csp),
-        if (isProd && !isStage) frag(
-          st.headTitle(fullTitle | s"$title • lichess.org")
-        )
-        else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
+        metaThemeColor,
+        st.headTitle {
+          if (ctx.blind) "lichess"
+          else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
+          else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+        },
         cssTag("site"),
         ctx.pref.is3d option cssTag("board-3d"),
         ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
@@ -157,6 +168,7 @@ object layout {
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
         dataTheme := ctx.currentBg,
+        dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
         style := zoomable option s"--zoom:${ctx.zoom}"
       )(
           blindModeForm,

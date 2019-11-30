@@ -1,6 +1,6 @@
 package lila.rating
 
-case object RatingRegulator {
+object RatingRegulator {
 
   def apply(factors: RatingFactors)(perfType: PerfType, before: Perf, after: Perf): Perf =
     factors.get(perfType).filter(1!=).fold(after) {

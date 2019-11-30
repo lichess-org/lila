@@ -88,7 +88,7 @@ case class Simul(
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
 
   private def finishIfDone =
-    if (pairings.forall(_.finished))
+    if (isStarted && pairings.forall(_.finished))
       copy(
         status = SimulStatus.Finished,
         finishedAt = DateTime.now.some,

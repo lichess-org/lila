@@ -77,7 +77,7 @@ final class Env(
     captcher -> actorApi.NewCaptcha
   }
 
-  lazy val gamesByUsersStream = new GamesByUsersStream(system)
+  lazy val gamesByUsersStream = new GamesByUsersStream
 
   lazy val bestOpponents = new BestOpponents
 

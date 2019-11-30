@@ -5,7 +5,7 @@ var text = require('../text');
 var xhr = require('../xhr');
 
 function byName(a, b) {
-  return a.player.username > b.player.username
+  return a.player.name > b.player.name
 }
 
 function randomButton(ctrl, candidates) {
@@ -51,12 +51,12 @@ module.exports = function(ctrl) {
               'data-icon': 'G',
               onclick: ctrl.teamBlock ? undefined : () => {
                 if (ctrl.data.variants.length === 1)
-                  xhr.join(ctrl.data.variants[0].key)(ctrl);
+                  xhr.join(ctrl, ctrl.data.variants[0].key);
                 else {
                   $.modal($('.simul .continue-with'));
                   $('#modal-wrap .continue-with a').click(function() {
                     $.modal.close();
-                    xhr.join($(this).data('variant'))(ctrl);
+                    xhr.join(ctrl, $(this).data('variant'));
                   });
                 }
               }

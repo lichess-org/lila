@@ -19,7 +19,7 @@ object EmailConfirmSkip extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang) = UserRepo setEmailConfirmed user.id
+  def send(user: User, email: EmailAddress)(implicit lang: Lang) = UserRepo setEmailConfirmed user.id void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }

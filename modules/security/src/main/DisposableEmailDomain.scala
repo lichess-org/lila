@@ -7,8 +7,7 @@ import lila.common.Domain
 
 final class DisposableEmailDomain(
     providerUrl: String,
-    checkMailBlocked: () => Fu[List[String]],
-    bus: lila.common.Bus
+    checkMailBlocked: () => Fu[List[String]]
 ) {
 
   private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)

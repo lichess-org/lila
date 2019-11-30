@@ -6,7 +6,6 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     db: lila.db.Env,
-    bus: lila.common.Bus,
     indexer: ActorSelection
 ) {
 
@@ -20,8 +19,7 @@ final class Env(
 
   lazy val analyser = new Analyser(
     indexer = indexer,
-    requesterApi = requesterApi,
-    bus = bus
+    requesterApi = requesterApi
   )
 
   lazy val annotator = new Annotator(NetDomain)
@@ -32,7 +30,6 @@ object Env {
   lazy val current = "analyse" boot new Env(
     config = lila.common.PlayApp loadConfig "analyse",
     db = lila.db.Env.current,
-    bus = lila.common.PlayApp.system.lilaBus,
     indexer = lila.hub.Env.current.gameSearch
   )
 }

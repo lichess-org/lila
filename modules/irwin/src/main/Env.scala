@@ -34,7 +34,6 @@ final class Env(
     modApi = modApi,
     reportApi = reportApi,
     notifyApi = notifyApi,
-    bus = system.lilaBus,
     mode = irwinModeSetting.get
   )
 

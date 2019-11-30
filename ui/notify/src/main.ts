@@ -27,6 +27,7 @@ export default function LichessNotify(element: Element, opts: NotifyOpts) {
 
   return {
     update: ctrl.update,
-    setVisible: ctrl.setVisible
+    setVisible: ctrl.setVisible,
+    redraw
   };
 };

@@ -191,10 +191,8 @@ object PlayerRepo {
   private[tournament] def userIds(tourId: Tournament.ID): Fu[List[User.ID]] =
     coll.distinct[User.ID, List]("uid", selectTour(tourId).some)
 
-  private[tournament] def activeUserIds(tourId: Tournament.ID): Fu[List[User.ID]] =
-    coll.distinct[User.ID, List](
-      "uid", (selectTour(tourId) ++ selectActive).some
-    )
+  private[tournament] def nbActiveUserIds(tourId: Tournament.ID): Fu[Int] =
+    coll.countSel(selectTour(tourId) ++ selectActive)
 
   def winner(tourId: Tournament.ID): Fu[Option[Player]] =
     coll.find(selectTour(tourId)).sort(bestSort).uno[Player]

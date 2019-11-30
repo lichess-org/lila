@@ -118,11 +118,19 @@ window.lichess.AnalyseNVUI = function(redraw: Redraw) {
 
 function onSubmit(ctrl: AnalyseController, notify: (txt: string) => void, style: () => Style, $input: JQuery) {
   return function() {
-    const input = $input.val();
+    let input = $input.val().trim();
+    if (isShortCommand(input)) input = '/' + input;
     if (input[0] === '/') onCommand(ctrl, notify, input.slice(1), style());
     else notify('Invalid command');
+    $input.val('');
     return false;
   };
+}
+
+const shortCommands = ['p', 'scan'];
+
+function isShortCommand(input: string): boolean {
+  return shortCommands.includes(input.split(' ')[0]);
 }
 
 function onCommand(ctrl: AnalyseController, notify: (txt: string) => void, c: string, style: Style) {

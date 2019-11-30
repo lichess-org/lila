@@ -47,7 +47,7 @@ object show {
             "endpoint" -> explorerEndpoint,
             "tablebaseEndpoint" -> tablebaseEndpoint
           ),
-          "socketUrl" -> routes.Relay.websocket(s.id.value, apiVersion.value).url,
+          "socketUrl" -> views.html.study.show.socketUrl(s.id.value),
           "socketVersion" -> socketVersion.value
         ))
       }""")

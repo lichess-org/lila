@@ -3,6 +3,8 @@ package lila.notify
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.common.Bus
+
 final class Env(
     db: lila.db.Env,
     config: Config,
@@ -19,14 +21,13 @@ final class Env(
   private lazy val repo = new NotificationRepo(coll = db(CollectionNotifications))
 
   lazy val api = new NotifyApi(
-    bus = system.lilaBus,
     jsonHandlers = jsonHandlers,
     repo = repo,
     asyncCache = asyncCache
   )
 
   // api actor
-  system.lilaBus.subscribe(
+  Bus.subscribe(
     system.actorOf(Props(new Actor {
       def receive = {
         case lila.hub.actorApi.notify.Notified(userId) =>

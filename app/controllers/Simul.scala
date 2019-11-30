@@ -22,9 +22,18 @@ object Simul extends LilaController {
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls map {
-      case ((created, started), finished) =>
-        Ok(html.simul.home(created, started, finished))
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        Ok(html.simul.home(created, started, finished)).fuccess
+    }
+  }
+
+  val apiList = Action.async {
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        env.jsonView.apiAll(created, started, finished) map { json =>
+          Ok(json) as JSON
+        }
     }
   }
 
@@ -62,6 +71,13 @@ object Simul extends LilaController {
       ctx.me.fold(true) { // anon can see public chats
         Env.chat.panic.allowed
       }
+
+  def hostPing(simulId: String) = Open { implicit ctx =>
+    AsHost(simulId) { simul =>
+      Env.simul.cleaner hostPing simul
+      jsonOkResult
+    }
+  }
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
@@ -141,12 +157,6 @@ object Simul extends LilaController {
       env.api.removeApplicant(id, me)
       if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
       else Redirect(routes.Simul.show(id))
-    }
-  }
-
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      env.socketHandler.join(id, sri, ctx.me, getSocketVersion, apiVersion)
     }
   }
 

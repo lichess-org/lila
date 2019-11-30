@@ -11,14 +11,14 @@ import lila.game.{ Game, GameRepo, UciMemo }
 import ornicar.scalalib.Random.approximatly
 
 final class Player(
-    moveDb: MoveDB,
+    redis: FishnetRedis,
     uciMemo: UciMemo,
     val maxPlies: Int
 )(implicit system: akka.actor.ActorSystem) {
 
   def apply(game: Game): Funit = game.aiLevel ?? { level =>
     Future.delay(delayFor(game) | 0.millis) {
-      makeWork(game, level) addEffect moveDb.add void
+      makeWork(game, level) addEffect redis.request void
     }
   } recover {
     case e: Exception => logger.info(e.getMessage)
@@ -28,7 +28,7 @@ final class Player(
   private val defaultClock = Clock(300, 0)
 
   private def delayFor(g: Game): Option[FiniteDuration] =
-    if (!g.bothPlayersHaveMoved) 4.seconds.some
+    if (!g.bothPlayersHaveMoved) 2.seconds.some
     else for {
       pov <- g.aiPov
       clock = g.clock | defaultClock
@@ -55,7 +55,6 @@ final class Player(
             variant = game.variant,
             moves = moves mkString " "
           ),
-          currentFen = FEN(Forsyth >> game.chess),
           level =
             if (level < 3 && game.clock.exists(_.config.limit.toSeconds < 60)) 3
             else level,
@@ -65,11 +64,7 @@ final class Player(
               btime = clk.remainingTime(Black).centis,
               inc = clk.incrementSeconds
             )
-          },
-          tries = 0,
-          lastTryByKey = none,
-          acquired = none,
-          createdAt = DateTime.now
+          }
         )
       }
       else fufail(s"[fishnet] Too many moves (${game.turns}), won't play ${game.id}")

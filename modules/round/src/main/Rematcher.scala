@@ -8,6 +8,7 @@ import com.github.blemale.scaffeine.Cache
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
@@ -15,8 +16,7 @@ import lila.user.{ User, UserRepo }
 private[round] final class Rematcher(
     messenger: Messenger,
     onStart: Game.ID => Unit,
-    rematches: Cache[Game.ID, Game.ID],
-    bus: lila.common.Bus
+    rematches: Cache[Game.ID, Game.ID]
 ) {
 
   import Rematcher.Offers
@@ -68,7 +68,7 @@ private[round] final class Rematcher(
   private def rematchCreate(pov: Pov): Events = {
     messenger.system(pov.game, _.rematchOfferSent)
     pov.opponent.userId foreach { forId =>
-      bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), Symbol(s"rematchFor:$forId"))
+      Bus.publish(lila.hub.actorApi.round.RematchOffer(pov.gameId), Symbol(s"rematchFor:$forId"))
     }
     offers.put(pov.gameId, Offers(white = pov.color.white, black = pov.color.black))
     List(Event.RematchOffer(by = pov.color.some))

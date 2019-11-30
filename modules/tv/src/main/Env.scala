@@ -22,13 +22,9 @@ final class Env(
 
   private val FeaturedSelect = config duration "featured.select"
 
-  private val selectChannel = new lila.socket.Channel(system)
-  system.lilaBus.subscribe(selectChannel, 'tvSelectChannel)
-
   private val tvTrouper = new TvTrouper(
     system,
     hub.renderer,
-    selectChannel,
     lightUser,
     onSelect,
     proxyGame,

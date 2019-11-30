@@ -17,50 +17,10 @@ object Round extends LilaController with TheftPrevention {
   private def env = Env.round
   private def analyser = Env.analyse.analyser
 
-  def websocketWatcher(gameId: String, color: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    proxyPov(gameId, color) flatMap {
-      _ ?? { pov =>
-        getSocketSri("sri") ?? { sri =>
-          val userTv = get("userTv") map UserModel.normalize map { userId =>
-            lila.round.actorApi.UserTv(
-              userId,
-              pov.game.finishedOrAborted ?? GameRepo.lastPlayedPlayingId(userId).map(_.isDefined)
-            )
-          }
-          env.socketHandler.watcher(
-            pov = pov,
-            sri = sri,
-            user = ctx.me,
-            ip = ctx.ip,
-            userTv = userTv,
-            version = getSocketVersion,
-            apiVersion = apiVersion,
-            mobile = getMobile
-          ) map some
-        }
-      }
-    }
-  }
-
-  def websocketPlayer(fullId: String, apiVersion: Int) = SocketEither[JsValue] { implicit ctx =>
-    env.proxy.pov(fullId) flatMap {
-      case Some(pov) =>
-        if (isTheft(pov)) fuccess(Left(theftResponse))
-        else getSocketSri("sri") match {
-          case Some(sri) =>
-            requestAiMove(pov) >>
-              env.socketHandler.player(pov, sri, ctx.me, ctx.ip, getSocketVersion, apiVersion, getMobile) map Right.apply
-          case None => fuccess(Left(NotFound))
-        }
-      case None => fuccess(Left(NotFound))
-    }
-  }
-
-  private def requestAiMove(pov: Pov) = pov.game.playableByAi ?? Env.fishnet.player(pov.game)
-
   private def renderPlayer(pov: Pov)(implicit ctx: Context): Fu[Result] = negotiate(
     html = if (!pov.game.started) notFound
     else PreventTheft(pov) {
+      pov.game.playableByAi ?? Env.fishnet.player(pov.game)
       myTour(pov.game.tournamentId, true) flatMap { tour =>
         Game.preloadUsers(pov.game) zip
           (pov.game.simulId ?? Env.simul.repo.find) zip
@@ -83,13 +43,16 @@ object Round extends LilaController with TheftPrevention {
     }.mon(_.http.response.player.website),
     api = apiVersion => {
       if (isTheft(pov)) fuccess(theftResponse)
-      else Game.preloadUsers(pov.game) zip
-        Env.api.roundApi.player(pov, apiVersion) zip
-        getPlayerChat(pov.game, none) map {
-          case _ ~ data ~ chat => Ok {
-            data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+      else {
+        pov.game.playableByAi ?? Env.fishnet.player(pov.game)
+        Game.preloadUsers(pov.game) zip
+          Env.api.roundApi.player(pov, apiVersion) zip
+          getPlayerChat(pov.game, none) map {
+            case _ ~ data ~ chat => Ok {
+              data.add("chat", chat.flatMap(_.game).map(c => lila.chat.JsonView(c.chat)))
+            }
           }
-        }
+      }
     }.mon(_.http.response.player.mobile)
   ) map NoCache
 
@@ -167,10 +130,9 @@ object Round extends LilaController with TheftPrevention {
       case Some(player) if userTv.isEmpty => renderPlayer(pov withColor player.color)
       case _ if pov.game.variant == chess.variant.RacingKings && pov.color.black =>
         Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
-      case _ => Game.preloadUsers(pov.game) >> negotiate(
+      case _ => negotiate(
         html = {
-          if (getBool("sudo") && isGranted(_.SuperAdmin)) Redirect(routes.Round.player(pov.fullId)).fuccess
-          else if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
+          if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? Env.simul.repo.find) zip

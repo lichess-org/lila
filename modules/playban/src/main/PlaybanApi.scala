@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import chess.variant._
 import chess.{ Status, Color }
-import lila.common.Iso
+import lila.common.{ Bus, Iso }
 import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
@@ -18,7 +18,6 @@ final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
-    bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder,
     messenger: MessageApi
 ) {
@@ -117,7 +116,7 @@ final class PlaybanApi(
 
   private def propagateSitting(game: Game, userId: User.ID): Funit =
     rageSitCache get userId map { rageSit =>
-      if (rageSit.isBad) bus.publish(SittingDetected(game, userId), 'playban)
+      if (rageSit.isBad) Bus.publish(SittingDetected(game, userId), 'playban)
     }
 
   def other(game: Game, status: Status.type => Status, winner: Option[Color]): Funit =
@@ -136,7 +135,7 @@ final class PlaybanApi(
   private def goodOrSandbag(game: Game, loserColor: Color, isSandbag: Boolean): Funit =
     game.player(loserColor).userId ?? { userId =>
       if (isSandbag) feedback.sandbag(Pov(game, loserColor))
-      val rageSitDelta = if (isSandbag) 0 else 2 // proper defeat decays ragesit
+      val rageSitDelta = if (isSandbag) 0 else 1 // proper defeat decays ragesit
       save(if (isSandbag) Outcome.Sandbag else Outcome.Good, userId, rageSitDelta)
     }
 
@@ -181,7 +180,7 @@ final class PlaybanApi(
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
   private val rageSitCache = asyncCache.multi[User.ID, RageSit](
-    name = "playban.sit_dc_counter",
+    name = "playban.ragesit",
     f = userId => coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty),
     expireAfter = _.ExpireAfterWrite(30 minutes)
   )
@@ -192,7 +191,8 @@ final class PlaybanApi(
       selector = $id(userId),
       update = $doc(
         $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)),
-        $inc("c" -> rageSitDelta)
+        if (rageSitDelta == 0) $min("c" -> 0)
+        else $inc("c" -> rageSitDelta)
       ),
       fetchNewObject = true,
       upsert = true
@@ -218,8 +218,8 @@ final class PlaybanApi(
         user <- UserRepo byId record.userId
       } yield (mod zip user).headOption foreach {
         case (m, u) =>
-          lila.log("ragesit").info(s"https://lichess.org/@/${u.username}")
-          bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
+          lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")
+          Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sittingAuto.subject), 'autoWarning)
           messenger.sendPreset(m, u, ModPreset.sittingAuto).void
       }
       else funit
@@ -230,7 +230,7 @@ final class PlaybanApi(
     (!record.banInEffect) ?? {
       lila.mon.playban.ban.count()
       lila.mon.playban.ban.mins(ban.mins)
-      bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
+      Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), 'playban)
       coll.update(
         $id(record.userId),
         $unset("o") ++

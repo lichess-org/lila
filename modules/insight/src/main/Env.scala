@@ -45,7 +45,7 @@ final class Env(
     indexer = indexer
   )
 
-  system.lilaBus.subscribeFun('analysisReady) {
+  lila.common.Bus.subscribeFun('analysisReady) {
     case lila.analyse.actorApi.AnalysisReady(game, _) => api updateGame game
   }
 }

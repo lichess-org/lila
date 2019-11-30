@@ -84,7 +84,6 @@ $team-colors: (
   }
 }
 
-
 .team-battle {
   &__title {}
   &__list {
@@ -102,4 +101,11 @@ $team-colors: (
 
 .tour__duels team {
   line-height: normal;
+}
+
+.team-picker {
+  ul {
+    text-align: left;
+    font-size: 1.1em;
+  }
 }

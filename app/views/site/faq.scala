@@ -8,6 +8,8 @@ import lila.app.ui.ScalatagsTemplate._
 
 object faq {
 
+  private val fideHandbook = "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf"
+
   private def question(id: String, title: String, answer: Frag*) = div(
     st.id := id,
     cls := "question"
@@ -95,14 +97,15 @@ object faq {
         question(
           "timeout",
           "Losing on time, drawing and insufficient material",
-          p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player’s king by any possible series of legal moves (", a(href := "https://www.fide.com/fide/handbook.html?id=208&view=article")("FIDE handbook §6.9"), ")."),
-          p("Note that it can be possible to mate with a single knight or bishop if the opponent has pieces that could block the king.")
+          p("In the event of one player running out of time, that player will usually lose the game. However, the game is drawn if the position is such that the opponent cannot checkmate the player's king by any possible series of legal moves (", a(href := fideHandbook)("FIDE handbook §6.9, pdf"), ")."),
+          p("In rare cases this can be difficult to decide automatically (forced lines, fortresses). By default we always side with the player who did not run out of time."),
+          p("Note that it can be possible to mate with a single knight or bishop if the opponent has a piece that could block the king.")
         ),
         question(
           "en-passant",
           "Why can a pawn capture another pawn when it is already passed? (en passant)",
           p("""This is a legal move known as "en passant". The Wikipedia article gives a """, a(href := "https://en.wikipedia.org/wiki/En_passant")("good introduction.")),
-          p("It is described in section 3.7 (d) of the ", a(href := "https://www.fide.com/fide/handbook.html?id=171&view=article")("official rules"), ":"),
+          p("It is described in section 3.7 (d) of the ", a(href := fideHandbook)("official rules (pdf)"), ":"),
           p(""""A pawn occupying a square on the same rank as and on an adjacent file to an opponent’s pawn which has just advanced two squares in one move from its original square may capture this opponent’s pawn as though the latter had been moved only one square. This capture is only legal on the move following this advance and is called an ‘en passant’ capture.""""),
           p("See the ", a(href := s"${routes.Learn.index()}#/15")("Lichess training"), " on this move for some practice with it.")
         ),
@@ -125,7 +128,7 @@ object faq {
             li("Woman FIDE Master (WFM)"),
             li("Woman Candidate Master (WCM)")
           ),
-          p("If you have an OTB title, you can apply to have this displayed on your account by completing the ", a(href := "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")("verification form"), ", including a clear image of an identifying document/card and a selfie of you holding the document/card."),
+          p("If you have an OTB title, you can apply to have this displayed on your account by completing the ", a(href := routes.Main.verifyTitle())("verification form"), ", including a clear image of an identifying document/card and a selfie of you holding the document/card."),
           p("Verifying as a titled player on Lichess gives access to play in the Titled Arena events."),
           p("Finally there is an honorary ", a(href := "#lm")("Lichess Master (LM)"), " title.")
         ),
@@ -195,6 +198,15 @@ object faq {
             a(href := routes.Pref.form("game-display"))("display preferences"),
             " or by pressing ", em("z"), " during a game."
           )
+        ),
+        h2("How to..."),
+        question(
+          "browser-notifications",
+          "Enable or disable notification popups?",
+          p(img(src := assetUrl("images/connection-info.png"), alt := "View site information popup")),
+          p("Lichess can optionally send popup notifications, for example when it is your turn or you received a private message."),
+          p("Click the lock icon next to the lichess.org address in the URL bar of your browser."),
+          p("Then select whether to allow or block notifications from Lichess.")
         )
       )
     }

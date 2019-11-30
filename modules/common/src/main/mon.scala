@@ -14,9 +14,7 @@ object mon {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
       val xhr = inc("http.request.xhr")
-      val ws = inc("http.request.ws")
       val bot = inc("http.request.bot")
-      val fishnet = inc("http.request.fishnet")
       val page = inc("http.request.page")
       def path(p: String) = inc(s"http.request.path.$p")
     }
@@ -67,7 +65,6 @@ object mon {
     object csrf {
       val missingOrigin = inc("http.csrf.missing_origin")
       val forbidden = inc("http.csrf.forbidden")
-      val websocket = inc("http.csrf.websocket")
     }
     object fingerPrint {
       val count = inc("http.finger_print.count")
@@ -184,6 +181,9 @@ object mon {
     }
     object actor {
       val count = rec("round.actor.count")
+    }
+    object duct {
+      val count = rec("round.duct.count")
     }
     object forecast {
       val create = inc("round.forecast.create")
@@ -303,45 +303,14 @@ object mon {
 
       def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
       def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
+
+      def magicLinkRequest(s: String) = inc(s"user.auth.magic_link_request.$s")
+      def magicLinkConfirm(s: String) = inc(s"user.auth.magic_link_confirm.$s")
     }
     object oauth {
       object usage {
         val success = inc("user.oauth.usage.success")
         val failure = inc("user.oauth.usage.success")
-      }
-    }
-  }
-  object socket {
-    val open = inc("socket.open")
-    val close = inc("socket.close")
-    def eject(userId: String) = inc(s"socket.eject.user.$userId")
-    val ejectAll = inc(s"socket.eject.all")
-    object count {
-      val all = rec("socket.count")
-    }
-    val deadMsg = inc("socket.dead.msg")
-    def queueSize(name: String) = rec(s"socket.queue_size.$name")
-    object remote {
-      object sets {
-        val users = rec("socket.remote.sets.users")
-        val games = rec("socket.remote.sets.games")
-      }
-      val connections = rec("socket.remote.connections")
-      object redis {
-        val publishTime = rec("socket.remote.redis.publish_time")
-        val publishTimeSync = rec("socket.remote.redis.publish_time.sync")
-        object in {
-          def channel(channel: String) = inc(s"socket.remote.redis.in.channel.$channel")
-          def path(channel: String, path: String) = inc(s"socket.remote.redis.in.path.$channel:$path")
-        }
-        object out {
-          def channel(channel: String) = inc(s"socket.remote.redis.out.channel.$channel")
-          def path(channel: String, path: String) = inc(s"socket.remote.redis.out.path.$channel:$path")
-        }
-      }
-      object lobby {
-        def tellSri(tpe: String) = inc(s"socket.remote.lobby.tell_sri.$tpe")
-        val missingSri = inc("socket.remote.lobby.missing_sri")
       }
     }
   }
@@ -395,6 +364,7 @@ object mon {
   object email {
     object types {
       val resetPassword = inc("email.reset_password")
+      val magicLink = inc("email.magic_link")
       val fix = inc("email.fix")
       val change = inc("email.change")
       val confirmation = inc("email.confirmation")
@@ -477,6 +447,7 @@ object mon {
     val player = rec("tournament.player")
     object startedOrganizer {
       val tickTime = rec("tournament.started_organizer.tick_time")
+      val waitingUsersTime = rec("tournament.started_organizer.waiting_users_time")
     }
     object createdOrganizer {
       val tickTime = rec("tournament.created_organizer.tick_time")
@@ -566,6 +537,7 @@ object mon {
   }
   object chat {
     val message = inc("chat.message")
+    val trollTrue = inc("chat.message.troll.true")
   }
   object push {
     object register {
@@ -583,6 +555,7 @@ object mon {
         def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
       }
     }
+    def googleTokenTime = rec("push.send.google-token")
   }
   object fishnet {
     object client {
@@ -617,13 +590,6 @@ object mon {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
       def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
-      val moveDbSize = rec("fishnet.work.move.db_size")
-    }
-    object move {
-      def time(client: String) = rec(s"fishnet.move.time.$client")
-      def fullTimeLvl1(client: String) = rec(s"fishnet.move.full_time_lvl_1.$client")
-      val post = rec("fishnet.move.post")
-      val dbDrop = inc("fishnet.move.db_drop")
     }
     object analysis {
       def by(client: String) = new {

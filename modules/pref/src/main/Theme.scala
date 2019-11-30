@@ -42,11 +42,12 @@ object Theme extends ThemeObject {
     "blue3", "canvas",
     "wood", "wood2",
     "wood3", "maple",
-    "green", "marble",
     "brown", "leather",
+    "green", "marble",
+    "green-plastic", "green-glass",
     "grey", "metal",
-    "olive", "purple",
-    "newspaper"
+    "olive", "newspaper",
+    "purple", "pink"
   ) map { name =>
       new Theme(name, colors.getOrElse(name, defaultHexColors))
     }

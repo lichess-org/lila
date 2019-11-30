@@ -50,7 +50,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.size == Game.fullIdSize) && player.id == (fullId drop 8)
+    (fullId.size == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -99,7 +99,7 @@ case class Game(
     case seconds => seconds.toInt.some
   }
 
-  def everyOther[A](l: List[A]): List[A] = l match {
+  private def everyOther[A](l: List[A]): List[A] = l match {
     case a :: b :: tail => a :: everyOther(tail)
     case _ => l
   }
@@ -344,6 +344,7 @@ case class Game(
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
+  def forceResignable = resignable && nonAi && !fromFriend && speed < Speed.Classical
 
   def finish(status: Status, winner: Option[Color]) = {
     val newClock = clock map { _.stop }
@@ -568,6 +569,15 @@ case class Game(
 object Game {
 
   type ID = String
+
+  case class Id(value: String) extends AnyVal with StringValue {
+    def full(playerId: PlayerId) = FullId(s"$value{$playerId.value}")
+  }
+  case class FullId(value: String) extends AnyVal with StringValue {
+    def gameId = Id(value take gameIdSize)
+    def playerId = PlayerId(value drop gameIdSize)
+  }
+  case class PlayerId(value: String) extends AnyVal with StringValue
 
   case class WithInitialFen(game: Game, fen: Option[FEN])
 

@@ -55,7 +55,6 @@ object Account extends LilaController {
           Env.challenge.api.countInFor.get(me.id) zip
           Env.playban.api.currentBan(me.id) map {
             case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
-              Env.current.system.lilaBus.publish(lila.user.User.Active(me), 'userActive)
               Ok {
                 import lila.pref.JsonView._
                 Env.user.jsonView(me) ++ Json.obj(

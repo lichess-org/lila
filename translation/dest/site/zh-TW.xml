@@ -48,6 +48,7 @@
   <string name="computerAnalysis">電腦分析</string>
   <string name="analysis">分析</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="delete">刪除</string>
   <string name="blunders">嚴重錯誤</string>
   <string name="mistakes">錯誤</string>
   <string name="inaccuracies">輕微失誤</string>
@@ -533,6 +534,7 @@
     <item quantity="other">支持%s种语言！</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="background">背景</string>
   <string name="boardSize">棋盤大小</string>
   <string name="chessBasics">基本知識</string>
   <string name="error.minLength">%s 字以上</string>

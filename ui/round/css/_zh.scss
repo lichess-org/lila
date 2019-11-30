@@ -50,6 +50,8 @@
   }
 }
 
+// These images are also referenced in crazyCtrl.ts (for preloading).
+// The other file should be kept in sync.
 @each $color, $c in ('white': w, 'black': b) {
   @each $role, $r in (pawn: P, knight: N, bishop: B, rook: R, queen: Q) {
     body.cursor-#{$color}-#{$role} * {

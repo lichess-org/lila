@@ -4,9 +4,9 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.game.Game
 import lila.hub.{ Duct, DuctMap }
-import lila.socket.History
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 final class Env(
@@ -15,19 +15,18 @@ final class Env(
     scheduler: lila.common.Scheduler,
     db: lila.db.Env,
     hub: lila.hub.Env,
+    chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: String => Unit,
     isOnline: String => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
+    remoteSocketApi: lila.socket.RemoteSocket,
     proxyGame: Game.ID => Fu[Option[Game]]
 ) {
 
   private val CollectionSimul = config getString "collection.simul"
   private val SequencerTimeout = config duration "sequencer.timeout"
   private val CreatedCacheTtl = config duration "created.cache.ttl"
-  private val HistoryMessageTtl = config duration "history.message.ttl"
-  private val SriTimeout = config duration "sri.timeout"
-  private val SocketTimeout = config duration "socket.timeout"
   private val FeatureViews = config getInt "feature.views"
 
   lazy val repo = new SimulRepo(
@@ -37,7 +36,7 @@ final class Env(
   lazy val api = new SimulApi(
     repo = repo,
     system = system,
-    socketMap = socketMap,
+    socket = simulSocket,
     renderer = hub.renderer,
     timeline = hub.timeline,
     onGameStart = onGameStart,
@@ -47,46 +46,26 @@ final class Env(
 
   lazy val jsonView = new JsonView(lightUser, proxyGame)
 
-  private val socketMap: SocketMap = lila.socket.SocketMap[Socket](
-    system = system,
-    mkTrouper = (simulId: String) => new Socket(
-      system = system,
-      simulId = simulId,
-      history = new History(ttl = HistoryMessageTtl),
-      getSimul = repo.find,
-      jsonView = jsonView,
-      sriTtl = SriTimeout,
-      lightUser = lightUser,
-      keepMeAlive = () => socketMap touch simulId
-    ),
-    accessTimeout = SocketTimeout,
-    monitoringName = "simul.socketMap",
-    broomFrequency = 3691 millis
+  private val simulSocket = new SimulSocket(
+    getSimul = repo.find,
+    jsonView = jsonView,
+    remoteSocketApi = remoteSocketApi,
+    chat = chatApi
   )
 
-  lazy val socketHandler = new SocketHandler(
-    hub = hub,
-    socketMap = socketMap,
-    chat = hub.chat,
-    exists = repo.exists
-  )
-
-  system.lilaBus.subscribeFuns(
+  Bus.subscribeFuns(
     'finishGame -> {
       case lila.game.actorApi.FinishGame(game, _, _) => api finishGame game
     },
     'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) => api ejectCheater userId
     },
-    'deploy -> {
-      case m: lila.hub.actorApi.Deploy => socketMap tellAll m
-    },
     'simulGetHosts -> {
       case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
     },
     'moveEventSimul -> {
       case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
-        system.lilaBus.publish(
+        Bus.publish(
           lila.hub.actorApi.socket.SendTo(
             opponentUserId,
             lila.socket.Socket.makeMessage("simulPlayerMove", move.gameId)
@@ -120,8 +99,8 @@ final class Env(
     log = false
   )
 
-  def version(simulId: String): Fu[SocketVersion] =
-    socketMap.askIfPresentOrZero[SocketVersion](simulId)(GetVersion)
+  def version(simulId: Simul.ID) =
+    simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
   private[simul] val simulColl = db(CollectionSimul)
 
@@ -130,9 +109,9 @@ final class Env(
     accessTimeout = SequencerTimeout
   )
 
-  private lazy val simulCleaner = new SimulCleaner(repo, api, socketMap)
+  lazy val cleaner = new SimulCleaner(repo, api)
 
-  scheduler.effect(15 seconds, "[simul] cleaner")(simulCleaner.apply)
+  scheduler.effect(30 seconds, "[simul] cleaner")(cleaner.cleanUp)
 }
 
 object Env {
@@ -143,10 +122,12 @@ object Env {
     scheduler = lila.common.PlayApp.scheduler,
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
+    chatApi = lila.chat.Env.current.api,
     lightUser = lila.user.Env.current.lightUser,
     onGameStart = lila.round.Env.current.onStart,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
+    remoteSocketApi = lila.socket.Env.current.remoteSocket,
     proxyGame = lila.round.Env.current.proxy.game _
   )
 }

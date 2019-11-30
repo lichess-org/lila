@@ -71,7 +71,7 @@ final class Env(
     }
   }), name = ActorName)
 
-  system.lilaBus.subscribeFun('playban) {
+  lila.common.Bus.subscribeFun('playban) {
     case lila.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId)
   }
 
@@ -85,7 +85,7 @@ object Env {
   lazy val current = "report" boot new Env(
     config = lila.common.PlayApp loadConfig "report",
     db = lila.db.Env.current,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     noteApi = lila.user.Env.current.noteApi,
     securityApi = lila.security.Env.current.api,
     userSpyApi = lila.security.Env.current.userSpyApi,

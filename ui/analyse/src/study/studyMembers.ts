@@ -135,9 +135,10 @@ export function ctrl(opts: Opts) {
     size() {
       return Object.keys(dict()).length;
     },
-    setSpectators(usernames: string[]) {
-      this.inviteForm.setSpectators(usernames);
-      spectatorIds = usernames.map(titleNameToId);
+    setSpectators(usernames?: string[]) {
+      const names = usernames || [];
+      this.inviteForm.setSpectators(names);
+      spectatorIds = names.map(titleNameToId);
       updateOnline();
     },
     isOnline(userId: string) {

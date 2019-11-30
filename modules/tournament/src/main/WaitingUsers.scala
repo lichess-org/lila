@@ -1,13 +1,14 @@
 package lila.tournament
 
 import org.joda.time.DateTime
+import scala.concurrent.Promise
 
 import chess.Clock.{ Config => TournamentClock }
 import lila.user.User
 
 private[tournament] case class WaitingUsers(
     hash: Map[User.ID, DateTime],
-    clock: Option[TournamentClock],
+    clock: TournamentClock,
     date: DateTime
 ) {
 
@@ -17,13 +18,12 @@ private[tournament] case class WaitingUsers(
   // 3+0  -> 24  -> 24
   // 5+0  -> 36  -> 36
   // 10+0 -> 66  -> 50
-  private val waitSeconds: Int = clock.fold(30) { c =>
-    if (c.estimateTotalSeconds < 30) 9
-    else if (c.estimateTotalSeconds < 60) 11
+  private val waitSeconds: Int =
+    if (clock.estimateTotalSeconds < 30) 9
+    else if (clock.estimateTotalSeconds < 60) 11
     else {
-      c.estimateTotalSeconds / 10 + 6
+      clock.estimateTotalSeconds / 10 + 6
     } atMost 50 atLeast 15
-  }
 
   lazy val all = hash.keys.toList
   lazy val size = hash.size
@@ -36,10 +36,6 @@ private[tournament] case class WaitingUsers(
     else all
   }
 
-  def waitSecondsOf(userId: User.ID) = hash get userId map { d =>
-    nowSeconds - d.getSeconds
-  }
-
   def waiting: List[User.ID] = {
     val since = date minusSeconds waitSeconds
     hash.collect {
@@ -47,24 +43,23 @@ private[tournament] case class WaitingUsers(
     }(scala.collection.breakOut)
   }
 
-  def update(us: Set[User.ID], clock: Option[TournamentClock]) = {
+  def update(us: Set[User.ID]) = {
     val newDate = DateTime.now
     copy(
       date = newDate,
-      clock = clock,
       hash = hash.filterKeys(us.contains) ++
         us.filterNot(hash.contains).map { _ -> newDate }
     )
   }
 
-  def intersect(us: Set[User.ID]) = copy(hash = hash filterKeys us.contains)
-
-  def diff(us: Set[User.ID]) = copy(hash = hash filterKeys { k => !us.contains(k) })
-
-  override def toString = all.toString
+  def hasUser(userId: User.ID) = hash contains userId
 }
 
 private[tournament] object WaitingUsers {
 
-  val empty = WaitingUsers(Map.empty, none, DateTime.now)
+  def empty(clock: TournamentClock) = WaitingUsers(Map.empty, clock, DateTime.now)
+
+  case class WithNext(waiting: WaitingUsers, next: Option[Promise[WaitingUsers]])
+
+  def emptyWithNext(clock: TournamentClock) = WithNext(empty(clock), none)
 }
