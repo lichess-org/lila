@@ -31,5 +31,5 @@ object I18nDb {
     case Study => study
   }
 
-  val langs: Set[Lang] = site.keys.map(Lang.apply)(scala.collection.breakOut)
+  val langs: Set[Lang] = site.keys.view.map(Lang.apply).to(Set)
 }

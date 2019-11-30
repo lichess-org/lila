@@ -2,7 +2,7 @@ package lila.i18n
 
 import java.io._
 import scala.concurrent.Future
-import scala.collection.JavaConversions._
+import scala.jdk.CollectionConverters._
 import play.api.libs.json.{ JsString, JsObject }
 
 import lila.common.Lang
@@ -30,7 +30,7 @@ private[i18n] final class JsDump(path: String) {
   )
 
   private def writeFullJson = I18nDb.langs foreach { lang =>
-    val code = dumpFromKey(asScalaSet(I18nDb.site(defaultLang.value).keySet).toSet, lang)
+    val code = dumpFromKey(I18nDb.site(defaultLang.value).keySet.asScala.toSet, lang)
     val file = new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code))
     writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
@@ -77,7 +77,7 @@ object JsDump {
     I18nDb(ref).get(defaultLang.value) ?? { defaultMsgs =>
       JsObject {
         val msgs = I18nDb(ref).get(lang.value) | emptyMessages
-        defaultMsgs.flatMap {
+        defaultMsgs.asScala.flatMap {
           case (k, v) => translatedJs(k, msgs.getOrDefault(k, v), lang)
         }
       }

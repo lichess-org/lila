@@ -1,26 +1,33 @@
 package lila.video
 
-import com.typesafe.config.Config
+import play.api.libs.ws.WSClient
+import play.api.{ Mode, Configuration }
+import scala.concurrent.duration._
+
+import lila.common.CollName
+import lila.common.config._
 
 final class Env(
-    config: Config,
-    scheduler: lila.common.Scheduler,
+    appConfig: Configuration,
+    scheduler: akka.actor.Scheduler,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
-    isDev: Boolean
+    ws: WSClient,
+    mode: Mode
 ) {
 
-  private val settings = new {
-    val CollectionVideo = config getString "collection.video"
-    val CollectionView = config getString "collection.view"
-    val SheetUrl = config getString "sheet.url"
-    val SheetDelay = config duration "sheet.delay"
-    val YoutubeUrl = config getString "youtube.url"
-    val YoutubeApiKey = config getString "youtube.api_key"
-    val YoutubeMax = config getInt "youtube.max"
-    val YoutubeDelay = config duration "youtube.delay"
-  }
-  import settings._
+  private val config = appConfig.get[Configuration]("video")
+  private val CollectionVideo = config.get[CollName]("collection.video")
+  private val CollectionView = config.get[CollName]("collection.view")
+  private val SheetUrl = config.get[String]("sheet.url")
+  private val SheetDelay = config.get[FiniteDuration]("sheet.delay")
+  private val YoutubeUrl = config.get[String]("youtube.url")
+  private val YoutubeApiKey = config.get[String]("youtube.api_key")
+  private val YoutubeMax = config.get[Int]("youtube.max")
+  private val YoutubeDelay = config.get[FiniteDuration]("youtube.delay")
+
+  private lazy val videoColl = db(CollectionVideo)
+  private lazy val viewColl = db(CollectionView)
 
   lazy val api = new VideoApi(
     asyncCache = asyncCache,
@@ -28,39 +35,23 @@ final class Env(
     viewColl = viewColl
   )
 
-  private lazy val sheet = new Sheet(
-    url = SheetUrl,
-    api = api
-  )
+  private lazy val sheet = new Sheet(ws, SheetUrl, api)
 
   private lazy val youtube = new Youtube(
+    ws = ws,
     url = YoutubeUrl,
     apiKey = YoutubeApiKey,
     max = YoutubeMax,
     api = api
   )
 
-  if (!isDev) {
-    scheduler.effect(SheetDelay, "video update from sheet") {
+  if (mode == Mode.Prod) {
+    scheduler.scheduleWithFixedDelay(SheetDelay, SheetDelay) { () =>
       sheet.fetchAll logFailure logger nevermind
     }
 
-    scheduler.effect(YoutubeDelay, "video update from youtube") {
+    scheduler.scheduleWithFixedDelay(YoutubeDelay, YoutubeDelay) { () =>
       youtube.updateAll logFailure logger nevermind
     }
   }
-
-  private[video] lazy val videoColl = db(CollectionVideo)
-  private[video] lazy val viewColl = db(CollectionView)
-}
-
-object Env {
-
-  lazy val current: Env = "video" boot new Env(
-    config = lila.common.PlayApp loadConfig "video",
-    scheduler = lila.common.PlayApp.scheduler,
-    isDev = lila.common.PlayApp.isDev,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current
-  )
 }

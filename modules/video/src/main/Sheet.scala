@@ -2,10 +2,11 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import scala.concurrent.Future
 
 private[video] final class Sheet(
+    ws: WSClient,
     url: String,
     api: VideoApi
 ) {
@@ -21,7 +22,7 @@ private[video] final class Sheet(
     entry.include && entry.lang == "en"
 
   def fetchAll: Funit = fetch map (_ filter select) flatMap { entries =>
-    entries.map { entry =>
+    Future.traverse(entries) { entry =>
       api.video.find(entry.youtubeId).flatMap {
         case Some(video) =>
           val updated = video.copy(
@@ -56,11 +57,11 @@ private[video] final class Sheet(
       }.recover {
         case e: Exception => logger.warn("sheet update", e)
       }
-    }.sequenceFu.void >>
+    }.void >>
       api.video.removeNotIn(entries.map(_.youtubeId))
   }
 
-  private def fetch: Fu[List[Entry]] = WS.url(url).get() flatMap {
+  private def fetch: Fu[List[Entry]] = ws.url(url).get() flatMap {
     case res if res.status == 200 => readEntries reads res.json match {
       case JsError(err) => fufail(err.toString)
       case JsSuccess(entries, _) => fuccess(entries.toList)

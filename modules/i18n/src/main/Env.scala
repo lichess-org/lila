@@ -1,16 +1,15 @@
 package lila.i18n
 
-import com.typesafe.config.Config
+import play.api.Configuration
 
 final class Env(
-    config: Config,
-    appPath: String
+    appConfig: Configuration,
+    application: play.Application
 ) {
 
-  private val WebPathRelative = config getString "web_path.relative"
-  private val NetDomain = config getString "net.domain"
-
-  lazy val jsDump = new JsDump(path = appPath + "/" + WebPathRelative)
+  lazy val jsDump = new JsDump(
+    path = s"${application.path}/${appConfig.get[String]("i18n.web_path.relative")}"
+  )
 
   def cli = new lila.common.Cli {
     def process = {
@@ -18,14 +17,4 @@ final class Env(
         jsDump.apply inject "Dumped JavaScript translations"
     }
   }
-}
-
-object Env {
-
-  import lila.common.PlayApp
-
-  lazy val current = "i18n" boot new Env(
-    config = lila.common.PlayApp loadConfig "i18n",
-    appPath = PlayApp withApp (_.path.getCanonicalPath)
-  )
 }

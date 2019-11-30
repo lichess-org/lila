@@ -2,10 +2,11 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import scala.concurrent.Future
 
 private[video] final class Youtube(
+    ws: WSClient,
     url: String,
     apiKey: String,
     max: Int,
@@ -22,7 +23,7 @@ private[video] final class Youtube(
     (__ \ "items").read(Reads seq readEntry)
 
   def updateAll: Funit = fetch flatMap { entries =>
-    entries.map { entry =>
+    Future.traverse(entries) { entry =>
       api.video.setMetadata(entry.id, Metadata(
         views = ~entry.statistics.viewCount.toIntOption,
         likes = ~entry.statistics.likeCount.toIntOption -
@@ -35,11 +36,11 @@ private[video] final class Youtube(
       )).recover {
         case e: Exception => logger.warn("update all youtube", e)
       }
-    }.sequenceFu.void
+    }.void
   }
 
   private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
-    WS.url(url).withQueryString(
+    ws.url(url).withQueryString(
       "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
       "part" -> "id,statistics,snippet,contentDetails",
       "key" -> apiKey

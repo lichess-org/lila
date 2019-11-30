@@ -1,24 +1,23 @@
 package lila.pref
 
-import com.typesafe.config.Config
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import scala.concurrent.duration._
+
+import lila.common.CollName
+import lila.common.config._
+
+case class PrefConfig(
+    @ConfigName("collection.pref") prefColl: CollName,
+    @ConfigName("cache.ttl") cacheTtl: FiniteDuration
+)
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Env
 ) {
+  private val config = appConfig.get[PrefConfig]("pref")(AutoConfig.loader)
 
-  private val CollectionPref = config getString "collection.pref"
-  private val CacheTtl = config duration "cache.ttl"
-
-  lazy val api = new PrefApi(db(CollectionPref), asyncCache, CacheTtl)
-}
-
-object Env {
-
-  lazy val current = "pref" boot new Env(
-    config = lila.common.PlayApp loadConfig "pref",
-    asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current
-  )
+  lazy val api = new PrefApi(db(config.prefColl), asyncCache, config.cacheTtl)
 }

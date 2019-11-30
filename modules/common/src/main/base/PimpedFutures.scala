@@ -155,11 +155,11 @@ final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
 
 final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
 
-  def flatten(msg: => String): Fu[A] = fua flatMap {
+  def orFail(msg: => String): Fu[A] = fua flatMap {
     _.fold[Fu[A]](fufail(msg))(fuccess(_))
   }
 
-  def flattenWith(err: => Exception): Fu[A] = fua flatMap {
+  def orFailWith(err: => Exception): Fu[A] = fua flatMap {
     _.fold[Fu[A]](fufail(err))(fuccess(_))
   }
 

@@ -56,6 +56,14 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       readConcern = ReadConcern.Local
     ).dmap(_.toInt)
 
+    def countAll: Fu[Int] = coll.count(
+      selector = none,
+      limit = None,
+      skip = 0,
+      hint = None,
+      readConcern = ReadConcern.Local
+    ).dmap(_.toInt)
+
     def exists(selector: Bdoc): Fu[Boolean] = countSel(selector).dmap(0!=)
 
     def byOrderedIds[D: BSONDocumentReader, I: BSONWriter](ids: Iterable[I], projection: Option[Bdoc] = None, readPreference: ReadPreference = ReadPreference.primary)(docId: D => I): Fu[List[D]] =
