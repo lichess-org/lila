@@ -7,14 +7,15 @@ import akka.pattern.pipe
 import chess.format.pgn.{ Tags, Sans }
 import chess.format.{ Forsyth, pgn }
 import chess.{ Game => ChessGame }
-import scalaz.{ NonEmptyList, OptionT }
+import scala.util.{ Try, Success, Failure }
 import scalaz.Validation.FlatMap._
+import scalaz.{ NonEmptyList, OptionT }
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
 
 // only works with standard chess (not chess960)
-private final class Captcher extends Actor {
+private final class Captcher(gameRepo: GameRepo) extends Actor {
 
   def receive = {
 
@@ -37,8 +38,8 @@ private final class Captcher extends Actor {
 
     def current = challenges.head
 
-    def refresh = createFromDb onSuccess {
-      case Some(captcha) => add(captcha)
+    def refresh = createFromDb andThen {
+      case Success(Some(captcha)) => add(captcha)
     }
 
     // Private stuff
@@ -62,13 +63,13 @@ private final class Captcher extends Actor {
     }.run
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
-      GameRepo findRandomStandardCheckmate distribution
+      gameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] =
-      optionT(GameRepo game id) flatMap fromGame run
+      optionT(gameRepo game id) flatMap fromGame run
 
     private def fromGame(game: Game): OptionT[Fu, Captcha] =
-      optionT(GameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }
+      optionT(gameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }
 
     private def makeCaptcha(game: Game, moves: PgnMoves): OptionT[Fu, Captcha] =
       optionT(Future {
@@ -82,11 +83,11 @@ private final class Captcher extends Actor {
       })
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
-      (game.situation.moves.flatMap {
+      game.situation.moves.view.flatMap {
         case (_, moves) => moves filter { move =>
           (move.after situationOf !game.player).checkMate
         }
-      }(scala.collection.breakOut): List[chess.Move]) map { move =>
+      }.to(List) map { move =>
         s"${move.orig} ${move.dest}"
       } toNel
 

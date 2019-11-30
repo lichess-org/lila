@@ -7,7 +7,7 @@ import lila.memo.{ MongoCache, ExpireSetMemo }
 import lila.user.User
 
 final class Cached(
-    coll: Coll,
+    gameRepo: GameRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     mongoCache: MongoCache.Builder
 ) {
@@ -23,13 +23,13 @@ final class Cached(
 
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
-    f = coll.countSel(_),
+    f = gameRepo.coll.countSel(_),
     expireAfter = _.ExpireAfterWrite(5.seconds)
   )
 
   private val nbImportedCache = mongoCache[User.ID, Int](
     prefix = "game:imported",
-    f = userId => coll countSel Query.imported(userId),
+    f = userId => gameRepo.coll countSel Query.imported(userId),
     timeToLive = 1 hour,
     timeToLiveMongo = 30.days.some,
     keyToString = identity
@@ -37,7 +37,7 @@ final class Cached(
 
   private val countCache = mongoCache[Bdoc, Int](
     prefix = "game:count",
-    f = coll.countSel(_),
+    f = gameRepo.coll.countSel(_),
     timeToLive = 1 hour,
     keyToString = lila.db.BSON.hashDoc
   )

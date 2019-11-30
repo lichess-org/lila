@@ -35,8 +35,10 @@ case class PgnImport(
 object PgnImport {
 
   def hash(pgn: String) = ByteArray {
-    MessageDigest getInstance "MD5" digest
-      pgn.lines.map(_.replace(" ", "")).filter(_.nonEmpty).mkString("\n").getBytes("UTF-8") take 12
+    MessageDigest getInstance "MD5" digest {
+      pgn.linesIterator.map(_.replace(" ", "")).filter(_.nonEmpty)
+        .to(List).mkString("\n").getBytes("UTF-8")
+    } take 12
   }
 
   def make(

@@ -193,7 +193,7 @@ object Player {
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
           provisional -> w.boolO(p.provisional),
-          blursBits -> (!p.blurs.isEmpty).option(BlursBSONWriter write p.blurs),
+          blursBits -> (!p.blurs.isEmpty).??(BlursBSONWriter writeOpt p.blurs),
           name -> p.name
         )
       }

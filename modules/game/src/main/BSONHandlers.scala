@@ -1,12 +1,11 @@
 package lila.game
 
+import chess.format.FEN
+import chess.variant.{ Variant, Crazyhouse }
+import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory, Game => ChessGame }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.collection.breakOut
-
-import chess.variant.{ Variant, Crazyhouse }
-import chess.format.FEN
-import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory, Game => ChessGame }
+import scala.util.{ Try, Success, Failure }
 
 import lila.db.BSON
 import lila.db.dsl._
@@ -17,23 +16,19 @@ object BSONHandlers {
 
   implicit val FENBSONHandler = stringAnyValHandler[FEN](_.value, FEN.apply)
 
-  private[game] implicit val checkCountWriter = new BSONWriter[CheckCount, BSONArray] {
-    def write(cc: CheckCount) = BSONArray(cc.white, cc.black)
+  private[game] implicit val checkCountWriter = new BSONWriter[CheckCount] {
+    def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
   }
 
-  implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
-    def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
-    def write(x: Status) = BSONInteger(x.id)
-  }
+  implicit val StatusBSONHandler = lila.db.BSON.tryHandler[Status](
+    { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
+    x => BSONInteger(x.id)
+  )
 
-  private[game] implicit val unmovedRooksHandler = new BSONHandler[BSONBinary, UnmovedRooks] {
-    def read(bin: BSONBinary): UnmovedRooks = BinaryFormat.unmovedRooks.read {
-      ByteArrayBSONHandler.read(bin)
-    }
-    def write(x: UnmovedRooks): BSONBinary = ByteArrayBSONHandler.write {
-      BinaryFormat.unmovedRooks.write(x)
-    }
-  }
+  private[game] implicit val unmovedRooksHandler = lila.db.BSON.tryHandler[UnmovedRooks](
+    { case bin: BSONBinary => ByteArrayBSONHandler.readTry(bin) map BinaryFormat.unmovedRooks.read },
+    x => ByteArrayBSONHandler.writeTry(BinaryFormat.unmovedRooks write x).get
+  )
 
   private[game] implicit val crazyhouseDataBSONHandler = new BSON[Crazyhouse.Data] {
 
@@ -42,14 +37,14 @@ object BSONHandlers {
     def reads(r: BSON.Reader) = Crazyhouse.Data(
       pockets = {
         val (white, black) = {
-          r.str("p").flatMap(chess.Piece.fromChar)(breakOut): List[chess.Piece]
+          r.str("p").view.flatMap(chess.Piece.fromChar).to(List)
         }.partition(_ is chess.White)
         Pockets(
           white = Pocket(white.map(_.role)),
           black = Pocket(black.map(_.role))
         )
       },
-      promoted = r.str("t").flatMap(chess.Pos.piotr)(breakOut)
+      promoted = r.str("t").view.flatMap(chess.Pos.piotr).to(Set)
     )
 
     def writes(w: BSON.Writer, o: Crazyhouse.Data) = BSONDocument(
@@ -160,7 +155,7 @@ object BSONHandlers {
       F.status -> o.status,
       F.turns -> o.chess.turns,
       F.startedAtTurn -> w.intO(o.chess.startedAtTurn),
-      F.clock -> (o.chess.clock map { c => clockBSONWrite(o.createdAt, c) }),
+      F.clock -> (o.chess.clock flatMap { c => clockBSONWrite(o.createdAt, c).toOption }),
       F.daysPerTurn -> o.daysPerTurn,
       F.moveTimes -> o.binaryMoveTimes,
       F.whiteClockHistory -> clockHistory(White, o.clockHistory, o.chess.clock, o.flagged),
@@ -185,10 +180,10 @@ object BSONHandlers {
             F.binaryPieces -> BinaryFormat.piece.write(o.board.pieces),
             F.positionHashes -> o.history.positionHashes,
             F.unmovedRooks -> o.history.unmovedRooks,
-            F.castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.write(CastleLastMove(
+            F.castleLastMove -> CastleLastMove.castleLastMoveBSONHandler.writeTry(CastleLastMove(
               castles = o.history.castles,
               lastMove = o.history.lastMove
-            )),
+            )).toOption,
             F.checkCount -> o.history.checkCount.nonEmpty.option(o.history.checkCount),
             F.crazyData -> o.board.crazyData
           )
@@ -231,13 +226,16 @@ object BSONHandlers {
       times = history(color)
     } yield BinaryFormat.clockHistory.writeSide(clk.limit, times, flagged has color)
 
-  private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[BSONBinary, Color => Clock] {
-    def read(bin: BSONBinary) = BinaryFormat.clock(since).read(
-      ByteArrayBSONHandler read bin, whiteBerserk, blackBerserk
-    )
+  private[game] def clockBSONReader(since: DateTime, whiteBerserk: Boolean, blackBerserk: Boolean) = new BSONReader[Color => Clock] {
+    def readTry(bson: BSONValue): Try[Color => Clock] = bson match {
+      case bin: BSONBinary => ByteArrayBSONHandler readTry bin map { cl =>
+        BinaryFormat.clock(since).read(cl, whiteBerserk, blackBerserk)
+      }
+      case b => lila.db.BSON.handlerBadType(b)
+    }
   }
 
-  private[game] def clockBSONWrite(since: DateTime, clock: Clock) = ByteArrayBSONHandler write {
+  private[game] def clockBSONWrite(since: DateTime, clock: Clock) = ByteArrayBSONHandler writeTry {
     BinaryFormat clock since write clock
   }
 }

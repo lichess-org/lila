@@ -733,11 +733,12 @@ object CastleLastMove {
   import reactivemongo.api.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  private[game] implicit val castleLastMoveBSONHandler = new BSONHandler[BSONBinary, CastleLastMove] {
-    def read(bin: BSONBinary) = BinaryFormat.castleLastMove read {
-      ByteArrayBSONHandler read bin
+  private[game] implicit val castleLastMoveBSONHandler = new BSONHandler[CastleLastMove] {
+    def readTry(bson: BSONValue) = bson match {
+      case bin: BSONBinary => ByteArrayBSONHandler readTry bin map BinaryFormat.castleLastMove.read
+      case b => lila.db.BSON.handlerBadType(b)
     }
-    def write(clmt: CastleLastMove) = ByteArrayBSONHandler write {
+    def writeTry(clmt: CastleLastMove) = ByteArrayBSONHandler writeTry {
       BinaryFormat.castleLastMove write clmt
     }
   }

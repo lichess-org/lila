@@ -25,7 +25,7 @@ private object PgnStorage {
   case object Huffman extends PgnStorage {
 
     import org.lichess.compression.game.{ Encoder, Square => JavaSquare, Piece => JavaPiece, Role => JavaRole }
-    import scala.collection.JavaConversions._
+    import scala.jdk.CollectionConverters._
 
     def encode(pgnMoves: PgnMoves) = ByteArray {
       monitor(lila.mon.game.pgn.huffman.encode) {
@@ -34,10 +34,10 @@ private object PgnStorage {
     }
     def decode(bytes: ByteArray, plies: Int): Decoded = monitor(lila.mon.game.pgn.huffman.decode) {
       val decoded = Encoder.decode(bytes.value, plies)
-      val unmovedRooks = asScalaSet(decoded.unmovedRooks.flatMap(chessPos)).toSet
+      val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
       Decoded(
         pgnMoves = decoded.pgnMoves.toVector,
-        pieces = mapAsScalaMap(decoded.pieces).flatMap {
+        pieces = decoded.pieces.asScala.flatMap {
           case (k, v) => chessPos(k).map(_ -> chessPiece(v))
         }.toMap,
         positionHashes = decoded.positionHashes,

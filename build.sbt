@@ -161,7 +161,7 @@ lazy val user = module("user", Seq(common, memo, db, hub, rating, socket)).setti
 )
 
 lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
-  libraryDependencies ++= provided(compression, play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(compression, play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(

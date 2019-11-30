@@ -9,10 +9,10 @@ import lila.user.{ User, UserRepo }
 final class CrosstableApi(
     coll: Coll,
     matchupColl: Coll,
-    gameColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: akka.actor.ActorSystem
-) {
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
+    asyncCache: lila.memo.AsyncCache.Builder
+)(implicit system: akka.actor.ActorSystem) {
 
   import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields => F }
@@ -39,12 +39,12 @@ final class CrosstableApi(
   def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
     coll.find(
       select(u1, u2),
-      $doc("s1" -> true, "s2" -> true)
+      $doc("s1" -> true, "s2" -> true).some
     ).uno[Bdoc] map { res =>
         ~(for {
           o <- res
-          s1 <- o.getAs[Int]("s1")
-          s2 <- o.getAs[Int]("s2")
+          s1 <- o.int("s1")
+          s2 <- o.int("s2")
         } yield (s1 + s2) / 10)
       }
 
@@ -59,7 +59,7 @@ final class CrosstableApi(
       }
       val inc1 = incScore(u1)
       val inc2 = incScore(u2)
-      val updateCrosstable = coll.update(select(u1, u2), $inc(
+      val updateCrosstable = coll.update.one(select(u1, u2), $inc(
         F.score1 -> inc1,
         F.score2 -> inc2
       ) ++ $push(
@@ -69,7 +69,7 @@ final class CrosstableApi(
           )
         ))
       val updateMatchup =
-        matchupColl.update(select(u1, u2), $inc(
+        matchupColl.update.one(select(u1, u2), $inc(
           F.score1 -> inc1,
           F.score2 -> inc2
         ) ++ $set(
@@ -83,10 +83,10 @@ final class CrosstableApi(
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), matchupProjection).uno[Matchup]
+    matchupColl.find(select(u1, u2), matchupProjection.some).uno[Matchup]
 
   private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration) =
-    creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)(system)
+    creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)
 
   // to avoid creating it twice during a new matchup
   private val creationCache = asyncCache.multi[(User.ID, User.ID), Option[Crosstable]](
@@ -99,7 +99,7 @@ final class CrosstableApi(
   private val winnerProjection = $doc(GF.winnerId -> true)
 
   private def create(x1: User.ID, x2: User.ID): Fu[Option[Crosstable]] = {
-    UserRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
+    userRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
           GF.playerUids $all List(u1, u2),
@@ -108,13 +108,13 @@ final class CrosstableApi(
 
         import reactivemongo.api.ReadPreference
 
-        gameColl.find(selector, winnerProjection)
+        gameRepo.coll.find(selector, winnerProjection.some)
           .sort($doc(GF.createdAt -> -1))
           .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
           .gather[List]().map { docs =>
 
             val (s1, s2) = docs.foldLeft(0 -> 0) {
-              case ((s1, s2), doc) => doc.getAs[User.ID](GF.winnerId) match {
+              case ((s1, s2), doc) => doc.getAsOpt[User.ID](GF.winnerId) match {
                 case Some(u) if u == su1 => (s1 + 10, s2)
                 case Some(u) if u == su2 => (s1, s2 + 10)
                 case _ => (s1 + 5, s2 + 5)
@@ -126,13 +126,13 @@ final class CrosstableApi(
                 Crosstable.User(su2, s2)
               ),
               results = docs.take(Crosstable.maxGames).flatMap { doc =>
-                doc.getAs[String](GF.id).map { id =>
-                  Result(id, doc.getAs[User.ID](GF.winnerId))
+                doc.string(GF.id).map { id =>
+                  Result(id, doc.getAsOpt[User.ID](GF.winnerId))
                 }
               }.reverse
             )
           } flatMap { crosstable =>
-            coll insert crosstable inject crosstable.some
+            coll.insert.one(crosstable) inject crosstable.some
           }
 
       case _ => fuccess(none)

@@ -1,8 +1,6 @@
 package lila.game
 
 import org.joda.time.DateTime
-import scala.collection.breakOut
-import scala.collection.breakOut
 import scala.collection.Searching._
 import scala.util.Try
 
@@ -33,11 +31,11 @@ object BinaryFormat {
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) = {
       val timesToWrite = if (flagged) times.dropRight(1) else times
-      ByteArray(ClockEncoder.encode(timesToWrite.map(_.centis)(breakOut), start.centis))
+      ByteArray(ClockEncoder.encode(timesToWrite.view.map(_.centis).to(Array), start.centis))
     }
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) = {
-      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).map(Centis.apply)(breakOut)
+      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).view.map(Centis.apply).to(Vector)
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
@@ -61,7 +59,7 @@ object BinaryFormat {
       case (i1, i2) => (i1 + i2) / 2
     } toVector
 
-    private val decodeMap: Map[Int, MT] = buckets.zipWithIndex.map(x => x._2 -> x._1)(breakOut)
+    private val decodeMap: Map[Int, MT] = buckets.view.zipWithIndex.map(x => x._2 -> x._1).to(Map)
 
     def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
@@ -76,7 +74,7 @@ object BinaryFormat {
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.take(turns).map(Centis.apply)(breakOut)
+    }.view.take(turns).map(Centis.apply).to(Vector)
   }
 
   case class clock(start: Timestamp) {
@@ -222,9 +220,9 @@ object BinaryFormat {
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 7, variant) map { role => Piece(Color((int & 8) == 0), role) }
       val pieceInts = ba.value flatMap splitInts
-      (Pos.all zip pieceInts).flatMap {
+      (Pos.all zip pieceInts).view.flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
-      }(breakOut)
+      }.to(Map)
     }
 
     // cache standard start position

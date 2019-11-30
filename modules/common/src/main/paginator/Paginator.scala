@@ -3,6 +3,8 @@ package paginator
 
 import scalaz.Success
 
+import config.MaxPerPage
+
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: MaxPerPage,

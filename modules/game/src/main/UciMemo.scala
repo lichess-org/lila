@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import chess.format.UciDump
 
-final class UciMemo(ttl: Duration) {
+final class UciMemo(gameRepo: GameRepo, ttl: Duration) {
 
   type UciVector = Vector[String]
 
@@ -39,7 +39,7 @@ final class UciMemo(ttl: Duration) {
   }
 
   private def compute(game: Game, max: Int): Fu[UciVector] = for {
-    fen <- GameRepo initialFen game
+    fen <- gameRepo initialFen game
     uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).future
   } yield uciMoves.toVector
 }

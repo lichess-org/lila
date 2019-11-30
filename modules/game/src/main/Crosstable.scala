@@ -1,5 +1,7 @@
 package lila.game
 
+import scala.util.{ Try, Success, Failure }
+
 case class Crosstable(
     users: Crosstable.Users,
     results: List[Crosstable.Result] // chronological order, oldest to most recent
@@ -67,7 +69,7 @@ object Crosstable {
 
   case class Result(gameId: Game.ID, winnerId: Option[String])
 
-  case class Matchup(users: Users) extends AnyVal { // score is x10
+  case class Matchup(users: Users) { // score is x10
     def fromPov(userId: String) = copy(users = users fromPov userId)
     def nonEmpty = users.nbGames > 0
   }
@@ -131,11 +133,13 @@ object Crosstable {
 
   private[game] implicit val MatchupBSONReader = new BSONDocumentReader[Matchup] {
     import BSONFields._
-    def read(doc: Bdoc): Matchup = {
+    def readDocument(doc: Bdoc) = {
       val r = new BSON.Reader(doc)
       r str id split '/' match {
-        case Array(u1Id, u2Id) => Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
-        case x => sys error s"Invalid crosstable id $x"
+        case Array(u1Id, u2Id) => Success {
+          Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
+        }
+        case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")
       }
     }
   }

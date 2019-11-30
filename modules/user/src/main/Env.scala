@@ -7,9 +7,9 @@ import play.api.Configuration
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.db.dsl.Coll
 import lila.common.config._
-import lila.common.{ MaxPerPage, LightUser }
+import lila.common.LightUser
+import lila.db.dsl.Coll
 
 case class UserConfig(
     @ConfigName("paginator.max_per_page") paginatorMaxPerPage: MaxPerPage,

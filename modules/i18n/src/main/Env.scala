@@ -2,13 +2,15 @@ package lila.i18n
 
 import play.api.Configuration
 
+import lila.common.config.AppPath
+
 final class Env(
     appConfig: Configuration,
-    application: play.Application
+    appPath: AppPath
 ) {
 
   lazy val jsDump = new JsDump(
-    path = s"${application.path}/${appConfig.get[String]("i18n.web_path.relative")}"
+    path = s"${appPath}/${appConfig.get[String]("i18n.web_path.relative")}"
   )
 
   def cli = new lila.common.Cli {
