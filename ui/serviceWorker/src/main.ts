@@ -22,10 +22,24 @@ function themedStylesheets(name: string): string[] {
 }
 
 async function handleInstall() {
+  const offlineCache = await caches.open('offline' + assetVersion);
+
+  await offlineCache.add(new Request('/dasher', {
+    headers: {
+      'Accept': 'application/vnd.lichess.v2+json'
+    }
+  }));
+
+  await offlineCache.addAll([
+    '/444',
+    '/editor',
+  ]);
+
   await caches.open(assetVersion).then(cache => cache.addAll([
     '/favicon.ico',
     '/manifest.json',
     ...[
+      // TODO: 'trans/refs.json',
       ...themedStylesheets('site'),
       ...themedStylesheets('editor'),
       ...themedStylesheets('challenge'),
@@ -40,6 +54,7 @@ async function handleInstall() {
       compiledScript('notify'),
       compiledScript('dasher'),
       'javascripts/vendor/typeahead.jquery.min.js',
+      'javascripts/vendor/chessground.min.js',
       'images/icons/trash.svg',
       'images/icons/pointer.svg',
       'font/lichess.woff2',
@@ -59,10 +74,6 @@ async function handleInstall() {
       'favicon.256.png',
     ].map(assetUrl),
   ]));
-  await caches.open('offline' + assetVersion).then(cache => cache.addAll([
-    '/444',
-    '/editor',
-  ]));
 }
 
 self.addEventListener('install', e => e.waitUntil(handleInstall()));
@@ -79,7 +90,12 @@ self.addEventListener('activate', e => e.waitUntil(handleActivate()));
 
 async function handleFetch(event: FetchEvent) {
   const url = new URL(event.request.url, self.location.href);
-  if (url.pathname == '/editor' || url.pathname.startsWith('/editor/')) {
+  console.log(url.pathname);
+  if (url.pathname == '/dasher') {
+    const offlineDasher = await caches.match('/dasher', {ignoreSearch: true, ignoreVary: true});
+    console.log('offline dasher', offlineDasher);
+    if (offlineDasher) return offlineDasher;
+  } else if (url.pathname == '/editor' || url.pathname.startsWith('/editor/')) {
     const editorResponse = await caches.match('/editor');
     if (editorResponse) return editorResponse;
   } else {
@@ -96,11 +112,11 @@ async function handleFetch(event: FetchEvent) {
       if (offlinePage) return offlinePage;
     }
     throw err;
- }
+  }
 }
 
 self.addEventListener('fetch', event => {
-  if (event.request.method != 'GET') return;
+  //if (event.request.method != 'GET') return;
   return event.respondWith(handleFetch(event));
 });
 
