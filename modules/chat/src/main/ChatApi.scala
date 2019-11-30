@@ -5,22 +5,24 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.common.config.NetConfig
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
 
 final class ChatApi(
     coll: Coll,
+    userRepo: UserRepo,
     chatTimeout: ChatTimeout,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
     shutup: akka.actor.ActorSelection,
     modLog: akka.actor.ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
-    maxLinesPerChat: Int,
-    netDomain: String
+    maxLinesPerChat: Chat.MaxLines,
+    net: NetConfig
 ) {
 
-  import Chat.{ userChatBSONHandler, chatIdBSONHandler, classify }
+  import Chat.{ userChatBSONHandler, chatIdBSONHandler, chanOf }
 
   object userChat {
 
@@ -87,7 +89,7 @@ final class ChatApi(
         }
       }
 
-    def clear(chatId: Chat.Id) = coll.remove($id(chatId)).void
+    def clear(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 
     def system(chatId: Chat.Id, text: String): Funit = {
       val line = UserLine(systemUserId, None, text, troll = false, deleted = false)
@@ -102,13 +104,13 @@ final class ChatApi(
     }
 
     def timeout(chatId: Chat.Id, modId: User.ID, userId: User.ID, reason: ChatTimeout.Reason, local: Boolean): Funit =
-      coll.byId[UserChat](chatId.value) zip UserRepo.byId(modId) zip UserRepo.byId(userId) flatMap {
+      coll.byId[UserChat](chatId.value) zip userRepo.byId(modId) zip userRepo.byId(userId) flatMap {
         case Some(chat) ~ Some(mod) ~ Some(user) if isMod(mod) || local => doTimeout(chat, mod, user, reason)
         case _ => fuccess(none)
       }
 
     def userModInfo(username: String): Fu[Option[UserModInfo]] =
-      UserRepo named username flatMap {
+      userRepo named username flatMap {
         _ ?? { user =>
           chatTimeout.history(user, 20) dmap { UserModInfo(user, _).some }
         }
@@ -123,7 +125,7 @@ final class ChatApi(
       )
       val c2 = c.markDeleted(user)
       val chat = line.fold(c2)(c2.add)
-      coll.update($id(chat.id), chat).void >>
+      coll.update.one($id(chat.id), chat).void >>
         chatTimeout.add(c, mod, user, reason) >>- {
           cached invalidate chat.id
           publish(chat.id, actorApi.OnTimeout(user.id))
@@ -137,7 +139,7 @@ final class ChatApi(
 
     def delete(c: UserChat, user: User): Funit = {
       val chat = c.markDeleted(user)
-      coll.update($id(chat.id), chat).void >>- {
+      coll.update.one($id(chat.id), chat).void >>- {
         cached invalidate chat.id
         publish(chat.id, actorApi.OnTimeout(user.id))
       }
@@ -150,7 +152,7 @@ final class ChatApi(
     }
 
     private[ChatApi] def makeLine(chatId: Chat.Id, userId: String, t1: String): Fu[Option[UserLine]] =
-      UserRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
+      userRepo.speaker(userId) zip chatTimeout.isActive(chatId, userId) dmap {
         case (Some(user), false) if user.enabled => Writer cut t1 flatMap { t2 =>
           (user.isBot || flood.allowMessage(userId, t2)) option {
             if (~user.troll) lila.mon.chat.trollTrue()
@@ -193,18 +195,18 @@ final class ChatApi(
   }
 
   private def publish(chatId: Chat.Id, msg: Any): Unit =
-    lila.common.Bus.publish(msg, classify(chatId))
+    lila.common.Bus.publish(msg, chanOf(chatId))
 
-  def remove(chatId: Chat.Id) = coll.remove($id(chatId)).void
+  def remove(chatId: Chat.Id) = coll.delete.one($id(chatId)).void
 
-  def removeAll(chatIds: List[Chat.Id]) = coll.remove($inIds(chatIds)).void
+  def removeAll(chatIds: List[Chat.Id]) = coll.delete.one($inIds(chatIds)).void
 
-  private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update(
+  private def pushLine(chatId: Chat.Id, line: Line): Funit = coll.update.one(
     $id(chatId),
     $doc("$push" -> $doc(
       Chat.BSONFields.lines -> $doc(
         "$each" -> List(line),
-        "$slice" -> -maxLinesPerChat
+        "$slice" -> -maxLinesPerChat.value
       )
     )),
     upsert = true
@@ -218,8 +220,8 @@ final class ChatApi(
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
-    private val gameUrlRegex = (Pattern.quote(netDomain) + """\b/(\w{8})\w{4}\b""").r
-    private val gameUrlReplace = Matcher.quoteReplacement(netDomain) + "/$1";
+    private val gameUrlRegex = (Pattern.quote(net.domain) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlReplace = Matcher.quoteReplacement(net.domain) + "/$1";
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
     private val multilineRegex = """\n\n{2,}+""".r

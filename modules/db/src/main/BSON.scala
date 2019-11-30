@@ -3,8 +3,8 @@ package lila.db
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
-import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import reactivemongo.api.bson.compat._
+import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Try, Success, Failure }
 
 import dsl._
@@ -108,7 +108,7 @@ object BSON extends Handlers {
   def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
     def readTry(bson: BSONValue) = read.andThen(Success(_)).applyOrElse(
       bson,
-      (b: BSONValue) => Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+      (b: BSONValue) => handlerBadType(b)
     )
     def writeTry(t: T) = Success(write(t))
   }
@@ -116,10 +116,16 @@ object BSON extends Handlers {
   def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
     def readTry(bson: BSONValue) = read.applyOrElse(
       bson,
-      (b: BSONValue) => Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+      (b: BSONValue) => handlerBadType(b)
     )
     def writeTry(t: T) = Success(write(t))
   }
+
+  def handlerBadType[T](b: BSONValue): Try[T] =
+    Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+
+  def handlerBadValue[T](msg: String): Try[T] =
+    Failure(new IllegalArgumentException(msg))
 
   final class Reader(val doc: Bdoc) {
 

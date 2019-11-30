@@ -1,12 +1,15 @@
 package lila.evalCache
 
-import scala.concurrent.duration._
 import org.joda.time.{ DateTime, Days }
+import scala.concurrent.duration._
 
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-private final class EvalCacheTruster(asyncCache: lila.memo.AsyncCache.Builder) {
+private final class EvalCacheTruster(
+    asyncCache: lila.memo.AsyncCache.Builder,
+    userRepo: UserRepo
+) {
 
   import EvalCacheEntry.{ Trust, TrustedUser }
 
@@ -25,7 +28,7 @@ private final class EvalCacheTruster(asyncCache: lila.memo.AsyncCache.Builder) {
 
   private val userIdCache = asyncCache.multi[User.ID, Option[TrustedUser]](
     name = "evalCache.userIdTrustCache  ",
-    f = userId => UserRepo named userId map2 makeTrusted,
+    f = userId => userRepo named userId map2 makeTrusted,
     expireAfter = _.ExpireAfterWrite(10 minutes),
     resultTimeout = 10 seconds
   )

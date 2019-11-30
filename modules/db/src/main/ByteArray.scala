@@ -3,7 +3,6 @@ package lila.db
 import scala.util.{ Try, Success, Failure }
 
 import reactivemongo.api.bson._
-import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 
 case class ByteArray(value: Array[Byte]) {
 

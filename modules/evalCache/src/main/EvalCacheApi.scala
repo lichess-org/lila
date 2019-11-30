@@ -42,7 +42,7 @@ final class EvalCacheApi(
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
     val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
-    coll.remove($id(id)).void >>- cache.put(id, none)
+    coll.delete.one($id(id)).void >>- cache.put(id, none)
   }
 
   private val cache = asyncCache.multi[Id, Option[EvalCacheEntry]](
@@ -58,7 +58,7 @@ final class EvalCacheApi(
   private def getEntry(id: Id): Fu[Option[EvalCacheEntry]] = cache get id
 
   private def fetchAndSetAccess(id: Id): Fu[Option[EvalCacheEntry]] =
-    coll.find($id(id)).one[EvalCacheEntry] addEffect { res =>
+    coll.ext.find($id(id)).one[EvalCacheEntry] addEffect { res =>
       if (res.isDefined) coll.updateFieldUnchecked($id(id), "usedAt", DateTime.now)
     }
 
@@ -74,13 +74,13 @@ final class EvalCacheApi(
           evals = List(input.eval),
           usedAt = DateTime.now
         )
-        coll.insert(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
+        coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
           cache.put(input.id, entry.some) >>-
           upgrade.onEval(input, sri)
       case Some(oldEntry) =>
         val entry = oldEntry add input.eval
         !(entry similarTo oldEntry) ?? {
-          coll.update($id(entry.id), entry, upsert = true).void >>-
+          coll.update.one($id(entry.id), entry, upsert = true).void >>-
             cache.put(input.id, entry.some) >>-
             upgrade.onEval(input, sri)
         }

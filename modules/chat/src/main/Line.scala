@@ -46,15 +46,15 @@ object Line {
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  private[chat] implicit val userLineBSONHandler = new BSONHandler[BSONString, UserLine] {
-    def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) getOrElse invalidLine
-    def write(x: UserLine) = BSONString(userLineToStr(x))
-  }
+  private[chat] implicit val userLineBSONHandler = lila.db.BSON.quickHandler[UserLine](
+    { case BSONString(value) => strToUserLine(value) getOrElse invalidLine },
+    x => BSONString(userLineToStr(x))
+  )
 
-  private[chat] implicit val lineBSONHandler = new BSONHandler[BSONString, Line] {
-    def read(bsonStr: BSONString) = strToLine(bsonStr.value) getOrElse invalidLine
-    def write(x: Line) = BSONString(lineToStr(x))
-  }
+  private[chat] implicit val lineBSONHandler = lila.db.BSON.quickHandler[Line](
+    { case BSONString(value) => strToLine(value) getOrElse invalidLine },
+    x => BSONString(lineToStr(x))
+  )
 
   private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
   private def strToUserLine(str: String): Option[UserLine] = str match {

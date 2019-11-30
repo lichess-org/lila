@@ -27,6 +27,6 @@ object config {
   implicit val emailAddressLoader = strLoader(EmailAddress.apply)
   implicit val netLoader = AutoConfig.loader[NetConfig]
 
-  private def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
-  private def intLoader[A](f: Int => A): ConfigLoader[A] = ConfigLoader(_.getInt) map f
+  def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
+  def intLoader[A](f: Int => A): ConfigLoader[A] = ConfigLoader(_.getInt) map f
 }

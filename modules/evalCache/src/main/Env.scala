@@ -1,38 +1,32 @@
 package lila.evalCache
 
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import play.api.Configuration
 import play.api.libs.json.JsValue
 import scala.concurrent.duration._
 
-import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.common.Bus
+import lila.common.config.CollName
+import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.socket.Socket.Sri
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
+    userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
-  private val CollectionEvalCache = config getString "collection.eval_cache"
+  private lazy val coll = db(appConfig.get[CollName]("evalCache.collection.evalCache"))
 
-  private lazy val truster = new EvalCacheTruster(asyncCache)
+  private lazy val truster = wire[EvalCacheTruster]
 
-  private lazy val upgrade = new EvalCacheUpgrade
+  private lazy val upgrade = wire[EvalCacheUpgrade]
 
-  lazy val api = new EvalCacheApi(
-    coll = db(CollectionEvalCache),
-    truster = truster,
-    upgrade = upgrade,
-    asyncCache = asyncCache
-  )
+  lazy val api: EvalCacheApi = wire[EvalCacheApi]
 
-  private lazy val socketHandler = new EvalCacheSocketHandler(
-    api = api,
-    truster = truster,
-    upgrade = upgrade
-  )
+  private lazy val socketHandler = wire[EvalCacheSocketHandler]
 
   // remote socket support
   Bus.subscribeFun("remoteSocketIn:evalGet") {
@@ -54,14 +48,4 @@ final class Env(
         api.drop(chess.variant.Standard, chess.format.FEN(fenParts mkString " ")) inject "done!"
     }
   }
-}
-
-object Env {
-
-  lazy val current: Env = "evalCache" boot new Env(
-    config = lila.common.PlayApp loadConfig "evalCache",
-    settingStore = lila.memo.Env.current.settingStore,
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache
-  )
 }

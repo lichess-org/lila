@@ -28,8 +28,10 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
   def toFailure[B](b: => B): scalaz.Validation[A, B] = o.toFailure(self)(b)
 
-  def toTry(err: => Exception): Try[A] =
+  def toTryWith(err: => Exception): Try[A] =
     self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
+
+  def toTry(err: => String): Try[A] = toTryWith(lila.base.LilaException(err))
 
   def err(message: => String): A = self.getOrElse(sys.error(message))
 

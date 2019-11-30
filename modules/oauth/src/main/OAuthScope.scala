@@ -59,10 +59,7 @@ object OAuthScope {
   import reactivemongo.api.bson._
   import lila.db.dsl._
   private[oauth] implicit val scopeHandler = lila.db.BSON.tryHandler[OAuthScope](
-    {
-      case b: BSONString => OAuthScope.byKey.get(b.value) toTry
-        lila.base.LilaException(s"No such scope: ${b.value}")
-    },
+    { case b: BSONString => OAuthScope.byKey.get(b.value) toTry s"No such scope: ${b.value}" },
     s => BSONString(s.key)
   )
 }

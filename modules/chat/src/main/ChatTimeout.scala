@@ -66,13 +66,13 @@ object ChatTimeout {
     case object Insult extends Reason("insult", "disrespecting other players")
     case object Spam extends Reason("spam", "spamming the chat")
     case object Other extends Reason("other", "inappropriate behavior")
-    val all = List(PublicShaming, Insult, Spam, Other)
+    val all: List[Reason] = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
   }
-  implicit val ReasonBSONHandler: BSONHandler[BSONString, Reason] = new BSONHandler[BSONString, Reason] {
-    def read(b: BSONString) = Reason(b.value) err s"Invalid reason ${b.value}"
-    def write(x: Reason) = BSONString(x.key)
-  }
+  implicit val ReasonBSONHandler: BSONHandler[Reason] = lila.db.BSON.tryHandler[Reason](
+    { case BSONString(value) => Reason(value) toTry s"Invalid reason ${value}" },
+    x => BSONString(x.key)
+  )
 
   case class Reinstate(_id: String, chat: String, user: String)
   implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader[Reinstate]

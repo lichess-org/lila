@@ -136,7 +136,7 @@ lazy val search = module("search", Seq(common, hub)).settings(
 )
 
 lazy val chat = module("chat", Seq(common, db, user, security, i18n, socket)).settings(
-  libraryDependencies ++= provided(play.api, scalatags) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda, scalatags) ++ reactivemongo.bundle
 )
 
 lazy val room = module("room", Seq(common, socket, chat)).settings(

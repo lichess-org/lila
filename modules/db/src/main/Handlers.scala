@@ -2,7 +2,6 @@ package lila.db
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Try, Success, Failure }
 import scalaz.NonEmptyList
 
