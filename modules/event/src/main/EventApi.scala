@@ -29,14 +29,14 @@ final class EventApi(
     expireAfter = _.ExpireAfterWrite(5 minutes)
   )
 
-  def fetchPromotable: Fu[List[Event]] = coll.find($doc(
+  def fetchPromotable: Fu[List[Event]] = coll.ext.find($doc(
     "enabled" -> true,
     "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
   )).sort($doc("startsAt" -> 1)).list[Event](10).map {
     _.filter(_.featureNow) take 3
   }
 
-  def list = coll.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
+  def list = coll.ext.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
 
   def oneEnabled(id: String) = coll.byId[Event](id).map(_.filter(_.enabled))
 
@@ -47,13 +47,13 @@ final class EventApi(
   }
 
   def update(old: Event, data: EventForm.Data) =
-    coll.update($id(old.id), data update old) >>- promotable.refresh
+    coll.update.one($id(old.id), data update old) >>- promotable.refresh
 
   def createForm = EventForm.form
 
   def create(data: EventForm.Data, userId: String): Fu[Event] = {
     val event = data make userId
-    coll.insert(event) >>- promotable.refresh inject event
+    coll.insert.one(event) >>- promotable.refresh inject event
   }
 
   def clone(old: Event) = old.copy(

@@ -1,28 +1,17 @@
 package lila.event
 
-import akka.actor._
-import com.typesafe.config.Config
+import play.api.Configuration
+
+import lila.common.CollName
+import lila.common.config._
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     db: lila.db.Env,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
-  private val CollectionEvent = config getString "collection.event"
-
-  private lazy val eventColl = db(CollectionEvent)
+  private lazy val eventColl = db(appConfig.get[CollName]("event.collection.event"))
 
   lazy val api = new EventApi(coll = eventColl, asyncCache = asyncCache)
-}
-
-object Env {
-
-  lazy val current = "event" boot new Env(
-    config = lila.common.PlayApp loadConfig "event",
-    db = lila.db.Env.current,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
-  )
 }

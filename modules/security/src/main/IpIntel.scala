@@ -1,12 +1,15 @@
 package lila.security
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.{ IpAddress, EmailAddress }
 
-final class IpIntel(asyncCache: lila.memo.AsyncCache.Builder, contactEmail: EmailAddress) {
+final class IpIntel(
+    ws: WSClient,
+    asyncCache: lila.memo.AsyncCache.Builder,
+    contactEmail: EmailAddress
+) {
 
   def apply(ip: IpAddress): Fu[Int] = failable(ip) recover {
     case e: Exception =>
@@ -22,7 +25,7 @@ final class IpIntel(asyncCache: lila.memo.AsyncCache.Builder, contactEmail: Emai
     name = "ipIntel",
     f = ip => {
       val url = s"https://check.getipintel.net/check.php?ip=$ip&contact=${contactEmail.value}"
-      WS.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
+      ws.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
         str.toFloatOption.fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
           if (ratio < 0) fufail(s"IpIntel error $ratio on $url")
           else fuccess((ratio * 100).toInt)

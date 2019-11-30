@@ -6,7 +6,6 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
 
-import lila.common.CollName
 import lila.common.config._
 import lila.db.DbConfig
 import lila.db.dsl.Coll
@@ -14,7 +13,6 @@ import lila.db.Env.configLoader
 
 private case class OauthConfig(
     mongodb: DbConfig,
-    @ConfigName("base_url") baseUrl: String,
     @ConfigName("collection.access_token") tokenColl: CollName,
     @ConfigName("collection.app") appColl: CollName
 )
@@ -35,9 +33,18 @@ final class Env(
 
   lazy val appApi = new OAuthAppApi(appColl)
 
+  // #TODO lila should be able to start without it
   lazy val server = {
     val mk = (coll: Coll) => wire[OAuthServer]
     mk(tokenColl)
+  }
+
+  lazy val tryServer: OAuthServer.Try = () => scala.concurrent.Future {
+    server.some
+  }.withTimeoutDefault(50 millis, none)(system) recover {
+    case e: Exception =>
+      lila.log("security").warn("oauth", e)
+      none
   }
 
   lazy val tokenApi = new PersonalTokenApi(

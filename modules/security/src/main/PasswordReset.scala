@@ -3,13 +3,15 @@ package lila.security
 import scalatags.Text.all._
 
 import lila.common.{ Lang, EmailAddress }
+import lila.common.config._
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class PasswordReset(
     mailgun: Mailgun,
-    baseUrl: String,
-    tokenerSecret: String
+    userRepo: UserRepo,
+    baseUrl: BaseUrl,
+    tokenerSecret: Secret
 ) {
 
   import Mailgun.html._
@@ -42,10 +44,10 @@ ${Mailgun.txt.serviceNote}
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? UserRepo.byId }
+    tokener read token flatMap { _ ?? userRepo.byId }
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,
-    getCurrentValue = id => UserRepo getPasswordHash id map (~_)
+    getCurrentValue = id => userRepo getPasswordHash id map (~_)
   )
 }

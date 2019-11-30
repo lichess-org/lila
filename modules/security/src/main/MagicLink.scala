@@ -4,13 +4,15 @@ import scala.concurrent.duration._
 import scalatags.Text.all._
 
 import lila.common.{ Lang, EmailAddress }
+import lila.common.config._
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class MagicLink(
     mailgun: Mailgun,
-    baseUrl: String,
-    tokenerSecret: String
+    userRepo: UserRepo,
+    baseUrl: BaseUrl,
+    tokenerSecret: Secret
 ) {
 
   import Mailgun.html._
@@ -40,7 +42,7 @@ ${Mailgun.txt.serviceNote}
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? UserRepo.byId }
+    tokener read token flatMap { _ ?? userRepo.byId }
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
 }

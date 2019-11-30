@@ -2,14 +2,16 @@ package lila.security
 
 import scalatags.Text.all._
 
+import lila.common.config._
 import lila.common.{ Lang, EmailAddress }
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class EmailChange(
+    userRepo: UserRepo,
     mailgun: Mailgun,
-    baseUrl: String,
-    tokenerSecret: String
+    baseUrl: BaseUrl,
+    tokenerSecret: Secret
 ) {
 
   import Mailgun.html._
@@ -45,7 +47,7 @@ ${Mailgun.txt.serviceNote}
     tokener read token map (_.flatten) flatMap {
       _ ?? {
         case TokenPayload(userId, email) =>
-          UserRepo.setEmail(userId, email).nevermind >> UserRepo.byId(userId)
+          userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId)
       }
     }
 
@@ -65,7 +67,7 @@ ${Mailgun.txt.serviceNote}
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
     getCurrentValue = p => p ?? {
-      case TokenPayload(userId, _) => UserRepo email userId map (_.??(_.value))
+      case TokenPayload(userId, _) => userRepo email userId map (_.??(_.value))
     }
   )
 }

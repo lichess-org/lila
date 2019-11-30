@@ -52,13 +52,13 @@ final class OAuthServer(
   )
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    tokenColl.findAndUpdate(
+    tokenColl.ext.findAndUpdate(
       selector = $doc(F.id -> tokenId),
       update = $set(F.usedAt -> DateTime.now),
       fields = AccessToken.forAuthProjection.some
     ).map(_.value) map {
-      _ ?? AccessToken.ForAuthBSONReader.readOpt
-    }
+        _ ?? AccessToken.ForAuthBSONReader.readOpt
+      }
 }
 
 object OAuthServer {

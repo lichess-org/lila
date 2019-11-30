@@ -3,8 +3,8 @@ package lila.memo
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+
 import lila.db.dsl.Coll
-import lila.common.CollName
 import lila.common.config._
 
 case class MemoConfig(

@@ -1,11 +1,11 @@
 package lila.security
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 
 import lila.common.Domain
 
 final class DisposableEmailDomain(
+    ws: WSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
 ) {
@@ -15,14 +15,14 @@ final class DisposableEmailDomain(
   private var regex = finalizeRegex(staticRegex)
 
   private[security] def refresh: Unit = for {
-    blacklist <- WS.url(providerUrl).get().map(_.body.lines) recover {
+    blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover {
       case e: Exception =>
         logger.warn("DisposableEmailDomain.refresh", e)
         Iterator.empty
     }
     checked <- checkMailBlocked()
   } {
-    val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.toIterator)}"
+    val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
     val nbDomains = regexStr.count('|' ==)
     lila.mon.email.disposableDomain(nbDomains)
     regex = finalizeRegex(s"$staticRegex|$regexStr")

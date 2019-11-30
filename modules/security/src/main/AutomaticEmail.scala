@@ -7,6 +7,7 @@ import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class AutomaticEmail(
+    userRepo: UserRepo,
     mailgun: Mailgun,
     baseUrl: String
 ) {
@@ -31,8 +32,8 @@ ${Mailgun.txt.serviceNote}
   }
 
   def onTitleSet(username: String)(implicit lang: Lang): Funit = for {
-    user <- UserRepo named username flatten s"No such user $username"
-    emailOption <- UserRepo email user.id
+    user <- userRepo named username orFail s"No such user $username"
+    emailOption <- userRepo email user.id
   } yield for {
     title <- user.title
     email <- emailOption
@@ -62,7 +63,7 @@ ${Mailgun.txt.serviceNote}
   }
 
   def onBecomeCoach(user: User)(implicit lang: Lang): Funit =
-    UserRepo email user.id flatMap {
+    userRepo email user.id flatMap {
       _ ?? { email =>
         val body = s"""Hello,
 
@@ -88,8 +89,8 @@ ${Mailgun.txt.serviceNote}
     }
 
   def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
-    user <- UserRepo named userId flatten s"No such user $userId"
-    emailOption <- UserRepo email user.id
+    user <- userRepo named userId orFail s"No such user $userId"
+    emailOption <- userRepo email user.id
   } yield emailOption ?? { email =>
 
     val body = s"""Hello,

@@ -22,7 +22,7 @@ final class PrintBan(coll: Coll) {
   } >> loadFromDb
 
   private def loadFromDb: Funit =
-    coll.distinct[String, Set]("_id", none).map { hashes =>
+    coll.distinctEasy[String, Set]("_id", $empty).map { hashes =>
       current = hashes
       lila.mon.security.firewall.prints(hashes.size)
     }

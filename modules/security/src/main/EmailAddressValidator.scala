@@ -4,12 +4,13 @@ import play.api.data.validation._
 import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, Domain }
-import lila.user.User
+import lila.user.{ User, UserRepo }
 
 /**
  * Validate and normalize emails
  */
 final class EmailAddressValidator(
+    userRepo: UserRepo,
     disposable: DisposableEmailDomain,
     dnsApi: DnsApi,
     checkMail: CheckMail
@@ -29,14 +30,14 @@ final class EmailAddressValidator(
    * @return
    */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
-    lila.user.UserRepo.idByEmail(email.normalize) map (_ -> forUser) map {
+    userRepo.idByEmail(email.normalize) map (_ -> forUser) map {
       case (None, _) => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _) => true
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    lila.user.UserRepo.countRecentByPrevEmail(email.normalize).map(1<)
+    userRepo.countRecentByPrevEmail(email.normalize).map(1<)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isAcceptable(EmailAddress(e))) Valid

@@ -9,6 +9,7 @@ import lila.user.{ User, TotpSecret, UserRepo }
 import User.{ ClearPassword, TotpToken }
 
 final class DataForm(
+    userRepo: UserRepo,
     val captcher: akka.actor.ActorSelection,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
@@ -61,7 +62,7 @@ final class DataForm(
         error = "usernameCharsInvalid"
       )
     ).verifying("usernameUnacceptable", u => !LameName.username(u))
-      .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
+      .verifying("usernameAlreadyUsed", u => !userRepo.nameExists(u).awaitSeconds(4))
 
     private val agreementBool = boolean.verifying(b => b)
 

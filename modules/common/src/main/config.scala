@@ -1,15 +1,32 @@
 package lila.common
 
+import io.methvin.play.autoconfig._
 import play.api.ConfigLoader
 
 object config {
 
-  implicit val maxPerPageLoader: ConfigLoader[MaxPerPage] =
-    ConfigLoader(_.getInt).map(MaxPerPage.apply)
+  case class CollName(value: String) extends AnyVal with StringValue
 
-  implicit val collNameLoader: ConfigLoader[CollName] =
-    ConfigLoader(_.getString).map(CollName.apply)
+  case class Secret(value: String) extends AnyVal {
+    override def toString = "Secret(****)"
+  }
 
-  implicit val SecretLoader: ConfigLoader[Secret] =
-    ConfigLoader(_.getString).map(Secret.apply)
+  case class BaseUrl(value: String) extends AnyVal with StringValue
+
+  case class NetConfig(
+      domain: String,
+      protocol: String,
+      @ConfigName("base_url") baseUrl: BaseUrl,
+      email: String
+  )
+
+  implicit val maxPerPageLoader = intLoader(MaxPerPage.apply)
+  implicit val collNameLoader = strLoader(CollName.apply)
+  implicit val secretLoader = strLoader(Secret.apply)
+  implicit val baseUrlLoader = strLoader(BaseUrl.apply)
+  implicit val emailAddressLoader = strLoader(EmailAddress.apply)
+  implicit val netLoader = AutoConfig.loader[NetConfig]
+
+  private def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
+  private def intLoader[A](f: Int => A): ConfigLoader[A] = ConfigLoader(_.getInt) map f
 }

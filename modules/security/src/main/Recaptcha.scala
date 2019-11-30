@@ -1,26 +1,41 @@
 package lila.security
 
-import play.api.libs.ws.WS
-import play.api.mvc.RequestHeader
-import play.api.Play.current
 import play.api.libs.json._
+import play.api.libs.ws.WSClient
+import play.api.mvc.RequestHeader
+import io.methvin.play.autoconfig._
 
 import lila.common.HTTPRequest
+import lila.common.config.Secret
 
 trait Recaptcha {
 
   def verify(response: String, req: RequestHeader): Fu[Boolean]
 }
 
+private object Recaptcha {
+
+  case class Config(
+      endpoint: String,
+      @ConfigName("public_key") publicKey: String,
+      @ConfigName("private_key") privateKey: Secret,
+      enabled: Boolean,
+      netDomain: String
+  ) {
+    def public = RecaptchaPublicConfig(publicKey, enabled)
+  }
+  implicit val configLoader = AutoConfig.loader[Config]
+}
+
 object RecaptchaSkip extends Recaptcha {
 
   def verify(response: String, req: RequestHeader) = fuTrue
+
 }
 
 final class RecaptchaGoogle(
-    endpoint: String,
-    privateKey: String,
-    lichessHostname: String
+    ws: WSClient,
+    config: Recaptcha.Config
 ) extends Recaptcha {
 
   private case class Response(
@@ -31,18 +46,18 @@ final class RecaptchaGoogle(
   private implicit val responseReader = Json.reads[Response]
 
   def verify(response: String, req: RequestHeader): Fu[Boolean] = {
-    WS.url(endpoint).post(Map(
-      "secret" -> Seq(privateKey),
-      "response" -> Seq(response),
-      "remoteip" -> Seq(HTTPRequest lastRemoteAddress req value)
+    ws.url(config.endpoint).post(Map(
+      "secret" -> config.privateKey.value,
+      "response" -> response,
+      "remoteip" -> HTTPRequest.lastRemoteAddress(req).value
     )) flatMap {
       case res if res.status == 200 =>
         res.json.validate[Response] match {
           case JsSuccess(res, _) => fuccess {
-            res.success && res.hostname == lichessHostname
+            res.success && res.hostname == config.netDomain
           }
           case JsError(err) =>
-            fufail(s"$err ${~res.body.lines.toList.headOption}")
+            fufail(s"$err ${~res.body.linesIterator.to(LazyList).headOption}")
         }
       case res => fufail(s"${res.status} ${res.body}")
     } recover {

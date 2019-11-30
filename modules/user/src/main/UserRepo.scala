@@ -5,7 +5,7 @@ import reactivemongo.api._
 import reactivemongo.api.bson._
 import reactivemongo.api.commands.GetLastError
 
-import lila.common.{ CollName, ApiVersion, EmailAddress, NormalizedEmailAddress }
+import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }

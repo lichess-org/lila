@@ -2,7 +2,6 @@ package lila.security
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import scala.collection.breakOut
 
 import lila.common.{ IpAddress, EmailAddress }
 import lila.db.dsl._
@@ -34,12 +33,18 @@ case class UserSpy(
   def otherUserIds = otherUsers.map(_.user.id)
 }
 
-final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
+final class UserSpyApi(
+    firewall: Firewall,
+    store: Store,
+    userRepo: UserRepo,
+    geoIP: GeoIP,
+    coll: Coll
+) {
 
   import UserSpy._
 
   def apply(user: User): Fu[UserSpy] = for {
-    infos <- Store.chronoInfoByUser(user.id)
+    infos <- store.chronoInfoByUser(user.id)
     ips = distinctRecent(infos.map(_.datedIp))
     prints = distinctRecent(infos.flatMap(_.datedFp))
     sharingIp <- exploreSimilar("ip")(user)
@@ -54,10 +59,10 @@ final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
     usersSharingFingerprint = sharingFingerprint
   )
 
-  private[security] def userHasPrint(u: User): Fu[Boolean] = coll.exists(
-    $doc("user" -> u.id, "fp" $exists true),
-    readPreference = ReadPreference.secondaryPreferred
-  )
+  private[security] def userHasPrint(u: User): Fu[Boolean] =
+    coll.secondaryPreferred.exists(
+      $doc("user" -> u.id, "fp" $exists true)
+    )
 
   private def exploreSimilar(field: String)(user: User): Fu[Set[User]] =
     nextValues(field)(user.id) flatMap { nValues =>
@@ -69,34 +74,32 @@ final class UserSpyApi(firewall: Firewall, geoIP: GeoIP, coll: Coll) {
       $doc("user" -> userId),
       $doc(field -> true)
     ).list[Bdoc]() map {
-        _.flatMap(_.getAs[Value](field))(breakOut)
+        _.view.flatMap(_.getAsOpt[Value](field)).to(Set)
       }
 
   private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
-      coll.distinctWithReadPreference[String, Set](
+      coll.secondaryPreferred.distinctEasy[String, Set](
         "user",
         $doc(
           field $in values,
           "user" $ne user.id
-        ).some,
-        ReadPreference.secondaryPreferred
+        )
       ) flatMap { userIds =>
-          userIds.nonEmpty ?? (UserRepo byIds userIds) map (_.toSet)
+          userIds.nonEmpty ?? (userRepo byIds userIds) map (_.toSet)
         }
     }
 
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = for {
     ips <- nextValues("ip")(userId)
     fps <- nextValues("fp")(userId)
-    users <- (ips.nonEmpty && fps.nonEmpty) ?? coll.distinctWithReadPreference[User.ID, Set](
+    users <- (ips.nonEmpty && fps.nonEmpty) ?? coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "user",
       $doc(
         "ip" $in ips,
         "fp" $in fps,
         "user" $ne userId
-      ).some,
-      ReadPreference.secondaryPreferred
+      )
     )
   } yield users
 }
@@ -113,7 +116,7 @@ object UserSpy {
     all.foldLeft(Map.empty[V, DateTime]) {
       case (acc, Dated(v, _)) if acc.contains(v) => acc
       case (acc, Dated(v, date)) => acc + (v -> date)
-    }.map { case (v, date) => Dated(v, date) }(breakOut)
+    }.view.map { case (v, date) => Dated(v, date) }.to(List)
 
   type Value = String
 
@@ -123,9 +126,9 @@ object UserSpy {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)
   }
 
-  def withMeSortedWithEmails(me: User, others: Set[OtherUser]): Fu[WithMeSortedWithEmails] = {
+  def withMeSortedWithEmails(userRepo: UserRepo, me: User, others: Set[OtherUser]): Fu[WithMeSortedWithEmails] = {
     val othersList = others.toList
-    lila.user.UserRepo.emailMap(me.id :: othersList.map(_.user.id)) map { emailMap =>
+    userRepo.emailMap(me.id :: othersList.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(
         (OtherUser(me, true, true) :: othersList).sortBy(-_.user.createdAt.getMillis),
         emailMap

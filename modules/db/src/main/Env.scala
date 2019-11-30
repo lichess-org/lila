@@ -10,7 +10,7 @@ import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success }
 
 import dsl.Coll
-import lila.common.{ CollName, Chronometer }
+import lila.common.Chronometer
 import lila.common.config._
 
 case class DbConfig(

@@ -1,13 +1,15 @@
 package lila.security
 
 import com.roundeights.hasher.Algo
-import lila.common.String.base64
 import org.mindrot.BCrypt
+
+import lila.common.String.base64
+import lila.common.config.Secret
 
 import StringToken.ValueChecker
 
 private[security] final class StringToken[A](
-    secret: String,
+    secret: Secret,
     getCurrentValue: A => Fu[String],
     valueChecker: ValueChecker = ValueChecker.Same,
     fullHashSize: Int = 14,
@@ -36,7 +38,7 @@ private[security] final class StringToken[A](
     }
   }
 
-  private def makeHash(msg: String) = Algo.hmac(secret).sha1(msg).hex take fullHashSize
+  private def makeHash(msg: String) = Algo.hmac(secret.value).sha1(msg).hex take fullHashSize
 
   private def hashCurrentValue(payload: A) = getCurrentValue(payload) map { v =>
     currentValueHashSize.fold(v)(makeHash(v) take _)

@@ -2,7 +2,8 @@ package lila.security
 
 import scalatags.Text.all._
 
-import lila.common.{ Lang, EmailAddress }
+import lila.common.config._
+import lila.common.{ Lang, EmailAddress, LilaCookie }
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
@@ -15,19 +16,20 @@ trait EmailConfirm {
   def confirm(token: String): Fu[EmailConfirm.Result]
 }
 
-object EmailConfirmSkip extends EmailConfirm {
+final class EmailConfirmSkip(userRepo: UserRepo) extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang) = UserRepo setEmailConfirmed user.id void
+  def send(user: User, email: EmailAddress)(implicit lang: Lang) = userRepo setEmailConfirmed user.id void
 
   def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }
 
 final class EmailConfirmMailgun(
+    userRepo: UserRepo,
     mailgun: Mailgun,
-    baseUrl: String,
-    tokenerSecret: String
+    baseUrl: BaseUrl,
+    tokenerSecret: Secret
 ) extends EmailConfirm {
 
   import Mailgun.html._
@@ -70,11 +72,11 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
   import EmailConfirm.Result
 
   def confirm(token: String): Fu[Result] = tokener read token flatMap {
-    _ ?? UserRepo.enabledById
+    _ ?? userRepo.enabledById
   } flatMap {
     _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
-      UserRepo.mustConfirmEmail(user.id) flatMap {
-        case true => (UserRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+      userRepo.mustConfirmEmail(user.id) flatMap {
+        case true => (userRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
         case false => fuccess(Result.AlreadyConfirmed(user))
       }
     }
@@ -82,7 +84,7 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,
-    getCurrentValue = id => UserRepo email id map (_.??(_.value))
+    getCurrentValue = id => userRepo email id map (_.??(_.value))
   )
 }
 
@@ -97,7 +99,7 @@ object EmailConfirm {
 
   case class UserEmail(username: String, email: EmailAddress)
 
-  object cookie {
+  final class CookieApi(lilaCookie: LilaCookie) {
 
     import play.api.mvc.{ Cookie, RequestHeader }
 
@@ -108,10 +110,11 @@ object EmailConfirm {
       case Array(username, email) => UserEmail(username, EmailAddress(email))
     }
 
-    def make(user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie = lila.common.LilaCookie.session(
-      name = name,
-      value = s"${user.username}$sep${email.value}"
-    )
+    def make(user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
+      lilaCookie.session(
+        name = name,
+        value = s"${user.username}$sep${email.value}"
+      )
   }
 
   import scala.concurrent.duration._
@@ -171,11 +174,11 @@ object EmailConfirm {
       ))
     )
 
-    def getStatus(username: String): Fu[Status] = UserRepo withEmails username flatMap {
+    def getStatus(userRepo: UserRepo, username: String): Fu[Status] = userRepo withEmails username flatMap {
       case None => fuccess(NoSuchUser(username))
       case Some(User.WithEmails(user, emails)) =>
         if (!user.enabled) fuccess(Closed(username))
-        else UserRepo mustConfirmEmail user.id map {
+        else userRepo mustConfirmEmail user.id map {
           case true => emails.current match {
             case None => NoEmail(user.username)
             case Some(email) => EmailSent(user.username, email)

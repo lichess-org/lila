@@ -2,16 +2,15 @@ package lila.security
 
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSResponse }
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.base.LilaException
 import lila.common.{ Chronometer, Domain }
 
 private final class DnsApi(
-    resolverUrl: String,
-    fetchTimeout: FiniteDuration
+    ws: WSClient,
+    config: SecurityConfig.DnsApi
 )(implicit system: akka.actor.ActorSystem) {
 
   // only valid email domains that are not whitelisted should make it here
@@ -38,10 +37,10 @@ private final class DnsApi(
     })
 
   private def fetch[A](domain: Domain.Lower, tpe: String)(f: List[JsObject] => A): Fu[A] =
-    WS.url(resolverUrl)
-      .withQueryString("name" -> domain.value, "type" -> tpe)
-      .withHeaders("Accept" -> "application/dns-json")
-      .get withTimeout fetchTimeout map {
+    ws.url(config.url)
+      .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
+      .withHttpHeaders("Accept" -> "application/dns-json")
+      .get withTimeout config.timeout map {
         case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
         case res => throw LilaException(s"Status ${res.status}")
       }

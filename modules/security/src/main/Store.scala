@@ -2,24 +2,21 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson.Macros
+import reactivemongo.api.ReadPreference
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 
-object Store {
+private final class Store(coll: Coll) {
 
-  // dirty
-  private val coll = Env.current.storeColl
-
-  private implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
+  import Store._
 
   private val localhost = IpAddress("127.0.0.1")
 
-  private[security] def save(
+  def save(
     sessionId: String,
     userId: User.ID,
     req: RequestHeader,
@@ -39,7 +36,7 @@ object Store {
       "date" -> DateTime.now,
       "up" -> up,
       "api" -> apiVersion.map(_.value),
-      "fp" -> fp.flatMap(FingerHash.apply)
+      "fp" -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt)
     )).void
 
   private val userIdFingerprintProjection = $doc(
@@ -105,17 +102,6 @@ object Store {
       case Some(hash) => coll.updateField($doc("_id" -> id), "fp", hash) inject hash
     }
 
-  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
-    def datedIp = Dated(ip, date)
-    def datedFp = fp.map { Dated(_, date) }
-    def datedUa = Dated(ua, date)
-  }
-  private implicit val InfoReader = Macros.reader[Info]
-
-  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date compareTo date
-  }
-
   def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
     coll.find(
       $doc(
@@ -123,7 +109,7 @@ object Store {
         "date" $gt DateTime.now.minusYears(2)
       ),
       $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
-    ).sort($sort desc "date").list[Info]()
+    ).sort($sort desc "date").list[Info]()(InfoReader)
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
@@ -147,16 +133,30 @@ object Store {
     coll.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
-    coll.exists(
-      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)),
-      readPreference = ReadPreference.secondaryPreferred
+    coll.secondaryPreferred.exists(
+      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7))
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash(fp) ?? { hash =>
-      coll.exists(
-        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7)),
-        readPreference = ReadPreference.secondaryPreferred
+      coll.secondaryPreferred.exists(
+        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7))
       )
     }
+}
+
+object Store {
+
+  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
+    def compare(other: Dated[V]) = other.date compareTo date
+  }
+
+  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
+    def datedIp = Dated(ip, date)
+    def datedFp = fp.map { Dated(_, date) }
+    def datedUa = Dated(ua, date)
+  }
+
+  implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
+  implicit val InfoReader = Macros.reader[Info]
 }

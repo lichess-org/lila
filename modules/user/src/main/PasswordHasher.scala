@@ -6,7 +6,7 @@ import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
 import com.roundeights.hasher.Implicits._
 
-import lila.common.Secret
+import lila.common.config.Secret
 
 /**
  * Encryption for bcrypt hashes.

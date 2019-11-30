@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lila.db.dsl.Coll
 import lila.common.config._
-import lila.common.{ CollName, Secret, MaxPerPage, LightUser }
+import lila.common.{ MaxPerPage, LightUser }
 
 case class UserConfig(
     @ConfigName("paginator.max_per_page") paginatorMaxPerPage: MaxPerPage,
