@@ -33,7 +33,7 @@ final class Firewall(
   def blockIps(ips: List[IpAddress]): Funit = Future.sequence {
     ips.map { ip =>
       validIp(ip) ?? {
-        coll.update(
+        coll.update.one(
           $id(ip),
           $doc("_id" -> ip, "date" -> DateTime.now),
           upsert = true
@@ -43,7 +43,7 @@ final class Firewall(
   } >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
-    coll.remove($inIds(ips.filter(validIp))).void >>- loadFromDb
+    coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb
 
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { ips =>

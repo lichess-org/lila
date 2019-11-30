@@ -37,8 +37,7 @@ final class UserSpyApi(
     firewall: Firewall,
     store: Store,
     userRepo: UserRepo,
-    geoIP: GeoIP,
-    coll: Coll
+    geoIP: GeoIP
 ) {
 
   import UserSpy._
@@ -60,7 +59,7 @@ final class UserSpyApi(
   )
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
-    coll.secondaryPreferred.exists(
+    store.coll.secondaryPreferred.exists(
       $doc("user" -> u.id, "fp" $exists true)
     )
 
@@ -70,16 +69,16 @@ final class UserSpyApi(
     }
 
   private def nextValues(field: String)(userId: User.ID): Fu[Set[Value]] =
-    coll.find(
+    store.coll.find(
       $doc("user" -> userId),
-      $doc(field -> true)
+      $doc(field -> true).some
     ).list[Bdoc]() map {
         _.view.flatMap(_.getAsOpt[Value](field)).to(Set)
       }
 
   private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
-      coll.secondaryPreferred.distinctEasy[String, Set](
+      store.coll.secondaryPreferred.distinctEasy[String, Set](
         "user",
         $doc(
           field $in values,
@@ -93,7 +92,7 @@ final class UserSpyApi(
   def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = for {
     ips <- nextValues("ip")(userId)
     fps <- nextValues("fp")(userId)
-    users <- (ips.nonEmpty && fps.nonEmpty) ?? coll.secondaryPreferred.distinctEasy[User.ID, Set](
+    users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
       "user",
       $doc(
         "ip" $in ips,

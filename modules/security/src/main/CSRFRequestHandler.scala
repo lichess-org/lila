@@ -3,8 +3,9 @@ package lila.security
 import play.api.mvc.RequestHeader
 
 import lila.common.HTTPRequest._
+import lila.common.config.NetConfig
 
-final class CSRFRequestHandler(domain: String) {
+final class CSRFRequestHandler(net: NetConfig) {
 
   private def logger = lila.log("csrf")
 
@@ -26,8 +27,8 @@ final class CSRFRequestHandler(domain: String) {
     }
   }
 
-  private val topDomain = s"://$domain"
-  private val subDomain = s".$domain"
+  private val topDomain = s"://${net.domain}"
+  private val subDomain = s".${net.domain}"
 
   // origin = "https://lichess.org"
   // domain = "lichess.org"

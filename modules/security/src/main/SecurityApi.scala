@@ -19,9 +19,8 @@ import User.LoginCandidate
 
 final class SecurityApi(
     userRepo: UserRepo,
-    coll: Coll,
-    firewall: Firewall,
     store: Store,
+    firewall: Firewall,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
@@ -130,12 +129,12 @@ final class SecurityApi(
   def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = store recentByPrintExists fp
 
   private def userIdsSharingField(field: String)(userId: User.ID): Fu[List[User.ID]] =
-    coll.secondaryPreferred.distinctEasy[User.ID, List](
+    store.coll.secondaryPreferred.distinctEasy[User.ID, List](
       field,
       $doc("user" -> userId, field $exists true)
     ).flatMap {
         case Nil => fuccess(Nil)
-        case values => coll.secondaryPreferred.distinctEasy[User.ID, List](
+        case values => store.coll.secondaryPreferred.distinctEasy[User.ID, List](
           "user",
           $doc(
             field $in values,
@@ -161,10 +160,10 @@ final class SecurityApi(
     }
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value))
+    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value))
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
-    coll.distinctEasy[User.ID, List](
+    store.coll.distinctEasy[User.ID, List](
       "user",
       $doc(
         field -> value,

@@ -6,11 +6,10 @@ import reactivemongo.api.bson.Macros
 import reactivemongo.api.ReadPreference
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 
-private final class Store(coll: Coll) {
+final class Store(val coll: Coll) {
 
   import Store._
 
@@ -24,7 +23,7 @@ private final class Store(coll: Coll) {
     up: Boolean,
     fp: Option[FingerPrint]
   ): Funit =
-    coll.insert($doc(
+    coll.insert.one($doc(
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
@@ -57,26 +56,26 @@ private final class Store(coll: Coll) {
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
     coll.find(
       $doc("_id" -> sessionId, "up" -> true),
-      userIdFingerprintProjection
+      userIdFingerprintProjection.some
     ).uno[UserIdAndFingerprint]
 
   def setDateToNow(sessionId: String): Unit =
     coll.updateFieldUnchecked($id(sessionId), "date", DateTime.now)
 
   def delete(sessionId: String): Funit =
-    coll.update(
+    coll.update.one(
       $id(sessionId),
       $set("up" -> false)
     ).void
 
   def closeUserAndSessionId(userId: User.ID, sessionId: String): Funit =
-    coll.update(
+    coll.update.one(
       $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
       $set("up" -> false)
     ).void
 
   def closeUserExceptSessionId(userId: User.ID, sessionId: String): Funit =
-    coll.update(
+    coll.update.one(
       $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
       $set("up" -> false),
       multi = true
@@ -84,7 +83,7 @@ private final class Store(coll: Coll) {
 
   // useful when closing an account,
   // we want to logout too
-  def disconnect(userId: User.ID): Funit = coll.update(
+  def disconnect(userId: User.ID): Funit = coll.update.one(
     $doc("user" -> userId),
     $set("up" -> false),
     multi = true
@@ -92,7 +91,7 @@ private final class Store(coll: Coll) {
 
   private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
-    coll.find(
+    coll.ext.find(
       $doc("user" -> userId, "up" -> true)
     ).sort($doc("date" -> -1)).cursor[UserSession]().gather[List](nb)
 
@@ -103,7 +102,7 @@ private final class Store(coll: Coll) {
     }
 
   def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
-    coll.find(
+    coll.ext.find(
       $doc(
         "user" -> userId,
         "date" $gt DateTime.now.minusYears(2)
@@ -117,20 +116,20 @@ private final class Store(coll: Coll) {
   private implicit val DedupInfoReader = Macros.reader[DedupInfo]
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
-    coll.find($doc(
+    coll.ext.find($doc(
       "user" -> userId,
       "up" -> true
     )).sort($doc("date" -> -1))
       .cursor[DedupInfo]().gather[List]() flatMap { sessions =>
         val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
           .filter(_._id != keepSessionId)
-        coll.remove($inIds(olds.map(_._id))).void
+        coll.delete.one($inIds(olds.map(_._id))).void
       }
 
   private implicit val IpAndFpReader = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
+    coll.ext.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
     coll.secondaryPreferred.exists(

@@ -13,12 +13,12 @@ final class PrintBan(coll: Coll) {
   def blocks(hash: FingerHash): Boolean = current contains hash.value
 
   def toggle(hash: FingerHash, block: Boolean): Funit = {
-    if (block) coll.update(
+    if (block) coll.update.one(
       $id(hash.value),
       $doc("_id" -> hash.value, "date" -> DateTime.now),
       upsert = true
     ).void
-    else coll.remove($id(hash.value))
+    else coll.delete.one($id(hash.value))
   } >> loadFromDb
 
   private def loadFromDb: Funit =

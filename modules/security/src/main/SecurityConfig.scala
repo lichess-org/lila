@@ -1,30 +1,34 @@
 package lila.security
 
+import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
+import java.lang.annotation._
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
 import lila.common.EmailAddress
 
-private object SecurityConfig {
+import SecurityConfig._
 
-  case class Root(
-      collection: Collection,
-      floodDuration: FiniteDuration,
-      geoIP: GeoIP.Config,
-      @ConfigName("password_reset.secret") passwordResetSecret: Secret,
-      emailConfirm: EmailConfirm,
-      @ConfigName("email_change.secret") emailChangeSecret: Secret,
-      @ConfigName("login_token.secret") loginTokenSecret: Secret,
-      tor: Tor,
-      @ConfigName("disposable_email") disposableEmail: DisposableEmail,
-      @ConfigName("dns_api") dnsApi: DnsApi,
-      @ConfigName("check_mail_api") checkMail: CheckMail,
-      recaptcha: Recaptcha.Config,
-      mailgun: Mailgun.Config,
-      net: NetConfig,
-      @ConfigName("ipintel.email") ipIntelEmail: EmailAddress
-  )
+private case class SecurityConfig(
+    collection: Collection,
+    @ConfigName("flood.duration") floodDuration: FiniteDuration,
+    @ConfigName("geoip") geoIP: GeoIP.Config,
+    @ConfigName("password_reset.secret") passwordResetSecret: Secret,
+    @ConfigName("email_config") emailConfirm: EmailConfirm,
+    @ConfigName("email_change.secret") emailChangeSecret: Secret,
+    @ConfigName("login_token.secret") loginTokenSecret: Secret,
+    tor: Tor,
+    @ConfigName("disposable_email") disposableEmail: DisposableEmail,
+    @ConfigName("dns_api") dnsApi: DnsApi,
+    @ConfigName("check_mail_api") checkMail: CheckMail,
+    recaptchaC: Recaptcha.Config,
+    mailgun: Mailgun.Config,
+    net: NetConfig,
+    @ConfigName("ipintel.email") ipIntelEmail: EmailAddress
+)
+
+private object SecurityConfig {
 
   case class Collection(
       security: CollName,
@@ -64,5 +68,5 @@ private object SecurityConfig {
   )
   implicit val checkMailLoader = AutoConfig.loader[CheckMail]
 
-  implicit val loader = AutoConfig.loader[Root]
+  implicit val loader = AutoConfig.loader[SecurityConfig]
 }

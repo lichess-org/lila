@@ -17,7 +17,7 @@ object config {
       domain: String,
       protocol: String,
       @ConfigName("base_url") baseUrl: BaseUrl,
-      email: String
+      email: EmailAddress
   )
 
   implicit val maxPerPageLoader = intLoader(MaxPerPage.apply)
