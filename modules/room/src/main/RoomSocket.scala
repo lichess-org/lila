@@ -41,7 +41,7 @@ object RoomSocket {
       case chatApi.OnReinstate(userId) =>
         this ! NotifyVersion("chat_reinstate", userId, false)
     }
-    override def stop() {
+    override def stop() = {
       super.stop()
       send(Protocol.Out.stop(roomId))
       chat foreach { c =>
@@ -55,7 +55,7 @@ object RoomSocket {
     mkTrouper = roomId => new RoomState(
       RoomId(roomId),
       send,
-      chatBus option RoomChat(Chat classify Chat.Id(roomId))
+      chatBus option RoomChat(Chat chanOf Chat.Id(roomId))
     ),
     accessTimeout = 5 minutes
   )

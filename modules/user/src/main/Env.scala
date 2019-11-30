@@ -11,16 +11,15 @@ import lila.common.config._
 import lila.common.LightUser
 import lila.db.dsl.Coll
 
-case class UserConfig(
-    @ConfigName("paginator.max_per_page") paginatorMaxPerPage: MaxPerPage,
-    @ConfigName("cached.nb.ttl") cachedNbTtl: FiniteDuration,
-    @ConfigName("online.ttl") onlineTtl: FiniteDuration,
-    @ConfigName("collection.user") collectionUser: CollName,
-    @ConfigName("collection.note") collectionNote: CollName,
-    @ConfigName("collection.trophy") collectionTrophy: CollName,
-    @ConfigName("collection.trophyKind") collectionTrophyKind: CollName,
-    @ConfigName("collection.ranking") collectionRanking: CollName,
-    @ConfigName("password.bpass.secret") passwordBPassSecret: Secret
+private class UserConfig(
+    @ConfigName("cached.nb.ttl") val cachedNbTtl: FiniteDuration,
+    @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
+    @ConfigName("collection.user") val collectionUser: CollName,
+    @ConfigName("collection.note") val collectionNote: CollName,
+    @ConfigName("collection.trophy") val collectionTrophy: CollName,
+    @ConfigName("collection.trophyKind") val collectionTrophyKind: CollName,
+    @ConfigName("collection.ranking") val collectionRanking: CollName,
+    @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 
 final class Env(

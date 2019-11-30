@@ -14,15 +14,15 @@ final class PersonalTokenApi(
   import AccessToken.{ BSONFields => F, _ }
 
   def list(u: User): Fu[List[AccessToken]] =
-    tokenColl.find($doc(
+    tokenColl.ext.find($doc(
       F.userId -> u.id,
       F.clientId -> clientId
     )).sort($sort desc F.createdAt).list[AccessToken](100)
 
-  def create(token: AccessToken) = tokenColl insert token void
+  def create(token: AccessToken) = tokenColl.insert.one(token).void
 
   def deleteBy(tokenId: AccessToken.Id, user: User) =
-    tokenColl.remove($doc(
+    tokenColl.delete.one($doc(
       F.id -> tokenId,
       F.clientId -> clientId,
       F.userId -> user.id

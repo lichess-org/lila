@@ -1,28 +1,29 @@
 package lila.relation
 
 import akka.actor.ActorSelection
+import reactivemongo.api._
+import reactivemongo.api.bson._
+import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import scala.concurrent.duration._
 
+import BSONHandlers._
 import lila.common.Bus
+import lila.common.config.Max
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.User
 
-import BSONHandlers._
-import reactivemongo.api._
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.api.bson._
-
 final class RelationApi(
     coll: Coll,
+    repo: RelationRepo,
     actor: ActorSelection,
     timeline: ActorSelection,
     reporter: ActorSelection,
     followable: ID => Fu[Boolean],
     asyncCache: lila.memo.AsyncCache.Builder,
-    maxFollow: Int,
-    maxBlock: Int
+    maxFollow: Max,
+    maxBlock: Max
 ) {
 
   import RelationRepo.makeId
@@ -32,25 +33,29 @@ final class RelationApi(
   }
   def fetchRelation(u1: User, u2: User): Fu[Option[Relation]] = fetchRelation(u1.id, u2.id)
 
-  def fetchFollowing = RelationRepo following _
+  def fetchFollowing = repo following _
 
-  def fetchFollowersFromSecondary = RelationRepo.followersFromSecondary _
+  def fetchFollowersFromSecondary = repo.followersFromSecondary _
 
-  def fetchBlocking = RelationRepo blocking _
+  def fetchBlocking = repo blocking _
 
-  def fetchFriends(userId: ID) = coll.aggregateOne(Match($doc(
-    "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
-    "r" -> Follow
-  )), List(
-    Group(BSONNull)(
-      "u1" -> AddFieldToSet("u1"),
-      "u2" -> AddFieldToSet("u2")
-    ),
-    Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
-  ),
-    ReadPreference.secondaryPreferred).map {
-      ~_.flatMap(_.getAs[Set[String]]("_id")) - userId
-    }
+  def fetchFriends(userId: ID) = coll.aggregateWith[Bdoc](
+    readPreference = ReadPreference.secondaryPreferred
+  ) { framework =>
+    import framework._
+    Match($doc(
+      "$or" -> $arr($doc("u1" -> userId), $doc("u2" -> userId)),
+      "r" -> Follow
+    )) -> List(
+      Group(BSONNull)(
+        "u1" -> AddFieldToSet("u1"),
+        "u2" -> AddFieldToSet("u2")
+      ),
+      Project($id($doc("$setIntersection" -> $arr("$u1", "$u2"))))
+    )
+  }.headOption.map {
+    ~_.flatMap(_.getAsOpt[Set[String]]("_id")) - userId
+  }
 
   def fetchFollows(u1: ID, u2: ID): Fu[Boolean] = (u1 != u2) ?? {
     coll.exists($doc("_id" -> makeId(u1, u2), "r" -> Follow))
@@ -82,16 +87,16 @@ final class RelationApi(
   def countFollowers(userId: ID) = countFollowersCache get userId
 
   def countBlocking(userId: ID) =
-    coll.count($doc("u1" -> userId, "r" -> Block).some)
+    coll.countSel($doc("u1" -> userId, "r" -> Block))
 
   def countBlockers(userId: ID) =
-    coll.count($doc("u2" -> userId, "r" -> Block).some)
+    coll.countSel($doc("u2" -> userId, "r" -> Block))
 
   def followingPaginatorAdapter(userId: ID) = new CachedAdapter[Followed](
     adapter = new Adapter[Followed](
       collection = coll,
       selector = $doc("u1" -> userId, "r" -> Follow),
-      projection = $doc("u2" -> true, "_id" -> false),
+      projection = $doc("u2" -> true, "_id" -> false).some,
       sort = $empty
     ),
     nbResults = countFollowing(userId)
@@ -101,7 +106,7 @@ final class RelationApi(
     adapter = new Adapter[Follower](
       collection = coll,
       selector = $doc("u2" -> userId, "r" -> Follow),
-      projection = $doc("u1" -> true, "_id" -> false),
+      projection = $doc("u1" -> true, "_id" -> false).some,
       sort = $empty
     ),
     nbResults = countFollowers(userId)
@@ -110,7 +115,7 @@ final class RelationApi(
   def blockingPaginatorAdapter(userId: ID) = new Adapter[Blocked](
     collection = coll,
     selector = $doc("u1" -> userId, "r" -> Block),
-    projection = $doc("u2" -> true, "_id" -> false),
+    projection = $doc("u2" -> true, "_id" -> false).some,
     sort = $empty
   ).map(_.userId)
 
@@ -119,9 +124,9 @@ final class RelationApi(
     case true => fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
       case (Some(Follow), _) => funit
       case (_, Some(Block)) => funit
-      case _ => RelationRepo.follow(u1, u2) >> limitFollow(u1) >>- {
+      case _ => repo.follow(u1, u2) >> limitFollow(u1) >>- {
         countFollowersCache.update(u2, 1+)
-        countFollowingCache.update(u1, prev => (prev + 1) atMost maxFollow)
+        countFollowingCache.update(u1, prev => (prev + 1) atMost maxFollow.value)
         reloadOnlineFriends(u1, u2)
         timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
         Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
@@ -131,18 +136,18 @@ final class RelationApi(
   }
 
   private def limitFollow(u: ID) = countFollowing(u) flatMap { nb =>
-    (nb > maxFollow) ?? RelationRepo.drop(u, true, nb - maxFollow)
+    (maxFollow < nb) ?? repo.drop(u, true, nb - maxFollow.value)
   }
 
   private def limitBlock(u: ID) = countBlocking(u) flatMap { nb =>
-    (nb > maxBlock) ?? RelationRepo.drop(u, false, nb - maxBlock)
+    (maxBlock < nb) ?? repo.drop(u, false, nb - maxBlock.value)
   }
 
   def block(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
     fetchBlocks(u1, u2) flatMap {
       case true => funit
       case _ =>
-        RelationRepo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
+        repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
           reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
           lila.mon.relation.block()
@@ -152,7 +157,7 @@ final class RelationApi(
 
   def unfollow(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
     fetchFollows(u1, u2) flatMap {
-      case true => RelationRepo.unfollow(u1, u2) >>- {
+      case true => repo.unfollow(u1, u2) >>- {
         countFollowersCache.update(u2, _ - 1)
         countFollowingCache.update(u1, _ - 1)
         reloadOnlineFriends(u1, u2)
@@ -162,11 +167,11 @@ final class RelationApi(
     }
   }
 
-  def unfollowAll(u1: ID): Funit = RelationRepo.unfollowAll(u1)
+  def unfollowAll(u1: ID): Funit = repo.unfollowAll(u1)
 
   def unblock(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
     fetchBlocks(u1, u2) flatMap {
-      case true => RelationRepo.unblock(u1, u2) >>- {
+      case true => repo.unblock(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
         Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
         lila.mon.relation.unblock()
@@ -176,7 +181,7 @@ final class RelationApi(
   }
 
   def searchFollowedBy(u: User, term: String, max: Int): Fu[List[User.ID]] =
-    RelationRepo.followingLike(u.id, term) map { _.sorted take max }
+    repo.followingLike(u.id, term) map { _.sorted take max }
 
   private def reloadOnlineFriends(u1: ID, u2: ID): Unit = {
     import lila.hub.actorApi.relation.ReloadOnlineFriends

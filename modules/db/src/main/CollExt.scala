@@ -177,14 +177,6 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       readPreference = readPreference
     )(f).collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
 
-    def aggregateOne(
-      firstOperator: coll.PipelineOperator,
-      otherOperators: List[coll.PipelineOperator] = Nil,
-      readPreference: ReadPreference = ReadPreference.primary
-    ): Fu[Option[Bdoc]] =
-      coll.aggregatorContext[Bdoc](firstOperator, otherOperators, readPreference = readPreference)
-        .prepared(CursorProducer.defaultCursorProducer[Bdoc]).cursor.headOption
-
     def distinctEasy[T, M[_] <: Iterable[_]](
       key: String,
       selector: coll.pack.Document

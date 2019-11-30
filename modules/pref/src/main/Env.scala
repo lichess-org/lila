@@ -4,7 +4,6 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration._
 
-import lila.common.CollName
 import lila.common.config._
 
 case class PrefConfig(

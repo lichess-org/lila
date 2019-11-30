@@ -1,4 +1,4 @@
-package lila
+package lila.common
 
 /**
  * Tag instances with arbitrary types. The tags are usually empty `trait`s. Tags have no runtime overhead and are only

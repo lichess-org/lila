@@ -15,6 +15,9 @@ object config {
 
   case class AppPath(value: String) extends AnyVal with StringValue
 
+  case class Max(value: Int) extends AnyVal with IntValue with Ordered[Int] {
+    def compare(other: Int) = Integer.compare(value, other)
+  }
   case class MaxPerPage(value: Int) extends AnyVal with IntValue
 
   case class MaxPerSecond(value: Int) extends AnyVal with IntValue
@@ -26,6 +29,7 @@ object config {
       email: EmailAddress
   )
 
+  implicit val maxLoader = intLoader(Max.apply)
   implicit val maxPerPageLoader = intLoader(MaxPerPage.apply)
   implicit val maxPerSecondLoader = intLoader(MaxPerSecond.apply)
   implicit val collNameLoader = strLoader(CollName.apply)

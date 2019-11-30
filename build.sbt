@@ -24,7 +24,7 @@ PlayKeys.externalizeResources := false
 scriptClasspath := Seq("*")
 // offline := true
 libraryDependencies ++= Seq(
-  macwire, play.json, jodaForms, ws,
+  macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
   reactivemongo.driver, reactivemongo.bson, reactivemongo.native,
   maxmind, prismic, markdown, scalatags,

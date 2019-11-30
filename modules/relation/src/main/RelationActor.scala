@@ -1,7 +1,6 @@
 package lila.relation
 
 import akka.actor.Actor
-import scala.collection.breakOut
 
 import actorApi._
 import lila.common.{ Bus, LightUser }
@@ -32,8 +31,8 @@ private[relation] final class RelationActor(
 
     case ComputeMovement =>
       val curIds = online.userIds()
-      val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).flatMap { lightUser(_) }(breakOut)
-      val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).flatMap { lightUser(_) }(breakOut)
+      val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
+      val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
 
       val friendsEntering = enterUsers map { u =>
         FriendEntering(u, online.playing get u.id, online isStudying u.id)
@@ -132,7 +131,7 @@ private[relation] final class RelationActor(
       }
     }
 
-  private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
+  private def notifyFollowersGameStateChanged(userIds: Iterable[ID], message: String) =
     userIds foreach { userId =>
       api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
         if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), "socketUsers")

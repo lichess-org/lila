@@ -1,6 +1,6 @@
 package lila.search
 
-import lila.common.MaxPerPage
+import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
 import play.api.libs.json.Writes

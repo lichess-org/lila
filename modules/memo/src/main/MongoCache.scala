@@ -7,7 +7,6 @@ import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.tagging._
 
 final class MongoCache[K, V: BSONHandler] private (
     prefix: String,
