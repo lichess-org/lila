@@ -1,5 +1,5 @@
-self.addEventListener('push', (event: any) => {
-  const data = event.data.json();
+self.addEventListener('push', event => {
+  const data = event.data!.json();
   return self.registration.showNotification(data.title, {
     badge: 'https://lichess1.org/assets/images/logo.256.png',
     icon: 'https://lichess1.org/assets/images/logo.256.png',
@@ -10,14 +10,14 @@ self.addEventListener('push', (event: any) => {
   });
 });
 
-self.addEventListener('notificationclick', (event: any) => {
+self.addEventListener('notificationclick', event => {
   event.waitUntil(self.registration.getNotifications().then(notifications => {
     notifications.forEach(notification => notification.close());
     return self.clients.matchAll({
       type: 'window',
       includeUncontrolled: true
     });
-  }).then(windowClients => {
+  }).then((windowClients: WindowClient[]) => {
     // determine url
     const data = event.notification.data.userData;
     let url = '/';
