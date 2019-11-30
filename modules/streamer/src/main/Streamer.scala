@@ -49,7 +49,7 @@ object Streamer {
       lastGrantedAt = none
     ),
     picturePath = none,
-    name = Name(s"${user.title.??(_ + " ")}${user.realNameOrUsername}"),
+    name = Name(s"${user.title.??(t => s"$t ")}${user.realNameOrUsername}"),
     headline = none,
     description = none,
     twitch = none,
@@ -105,7 +105,7 @@ object Streamer {
   }
 
   case class WithUser(streamer: Streamer, user: User) {
-    def titleName = s"${user.title.fold("")(_ + " ")}${streamer.name}"
+    def titleName = s"${user.title.fold("")(t => s"$t ")}${streamer.name}"
   }
   case class WithUserAndStream(streamer: Streamer, user: User, stream: Option[Stream]) {
     def withoutStream = WithUser(streamer, user)

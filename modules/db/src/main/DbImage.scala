@@ -38,5 +38,5 @@ object DbImage {
     )
   }
 
-  // implicit val DbImageBSONHandler = Macros.handler[DbImage]
+  implicit val DbImageBSONHandler = Macros.handler[DbImage]
 }

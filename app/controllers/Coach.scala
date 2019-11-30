@@ -106,7 +106,7 @@ object Coach extends LilaController {
 
   def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => me =>
     OptionFuResult(api findOrInit me) { c =>
-      ctx.body.body.file("picture") match {
+      ctx.body.body.file("picture").getRef match {
         case Some(pic) => api.uploadPicture(c, pic) recover {
           case e: lila.base.LilaException => BadRequest(html.coach.picture(c, e.message.some))
         } inject Redirect(routes.Coach.edit)

@@ -1,8 +1,10 @@
 package lila.notify
 
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import lila.common.Bus
+import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
@@ -12,23 +14,23 @@ import lila.user.UserRepo
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    userRepo: UserRepo,
+    asyncCache: lila.memo.AsyncCache.Builder,
+    maxPerPage: MaxPerPage
 ) {
 
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._
 
-  val perPage = lila.common.MaxPerPage(7)
-
   def getNotifications(userId: Notification.Notifies, page: Int): Fu[Paginator[Notification]] = Paginator(
     adapter = new Adapter(
       collection = repo.coll,
       selector = repo.userNotificationsQuery(userId),
-      projection = $empty,
+      projection = none,
       sort = repo.recentSort
     ),
     currentPage = page,
-    maxPerPage = perPage
+    maxPerPage = maxPerPage
   )
 
   def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
@@ -63,7 +65,7 @@ final class NotifyApi(
     repo.insert(notification) >>- unreadCountCache.update(notification.notifies, _ + 1)
 
   def addNotifications(notifications: List[Notification]): Funit =
-    notifications.map(addNotification).sequenceFu.void
+    Future.sequence(notifications.map(addNotification)).void
 
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
     repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)
@@ -71,7 +73,7 @@ final class NotifyApi(
   def exists = repo.exists _
 
   private def shouldSkip(notification: Notification) =
-    UserRepo.isKid(notification.notifies.value) >>| {
+    userRepo.isKid(notification.notifies.value) >>| {
       notification.content match {
         case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(invitedBy, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)

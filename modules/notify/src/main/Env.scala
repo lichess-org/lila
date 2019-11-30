@@ -1,30 +1,35 @@
 package lila.notify
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
 import lila.common.Bus
+import lila.common.config._
+
+private class NotifyConfig(
+    @ConfigName("collection.notify") val notifyColl: CollName,
+    @ConfigName("actor.name") val actorName: String
+)
 
 final class Env(
+    appConfig: Configuration,
     db: lila.db.Env,
-    config: Config,
+    userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.GetterSync,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem
-) {
+    asyncCache: lila.memo.AsyncCache.Builder
+)(implicit system: ActorSystem) {
 
-  private val CollectionNotifications = config getString "collection.notify"
-  private val ActorName = config getString "actor.name"
+  private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
 
-  val jsonHandlers = new JSONHandlers(getLightUser)
+  val jsonHandlers = wire[JSONHandlers]
 
-  private lazy val repo = new NotificationRepo(coll = db(CollectionNotifications))
+  private lazy val repo = new NotificationRepo(coll = db(config.notifyColl))
 
-  lazy val api = new NotifyApi(
-    jsonHandlers = jsonHandlers,
-    repo = repo,
-    asyncCache = asyncCache
-  )
+  private val maxPerPage = MaxPerPage(7)
+
+  lazy val api = wire[NotifyApi]
 
   // api actor
   Bus.subscribe(
@@ -44,19 +49,7 @@ final class Env(
           )
         }
       }
-    }), name = ActorName),
+    }), name = config.actorName),
     "corresAlarm"
   )
-}
-
-object Env {
-
-  lazy val current = "notify" boot new Env(
-    db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "notify",
-    getLightUser = lila.user.Env.current.lightUserSync,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system
-  )
-
 }

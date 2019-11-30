@@ -350,7 +350,7 @@ lazy val explorer = module("explorer", Seq(common, db, game, importer)).settings
 )
 
 lazy val notifyModule = module("notify", Seq(common, db, game, user, hub, relation)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val tree = module("tree", Seq(common)).settings(

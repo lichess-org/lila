@@ -3,6 +3,7 @@ package lila.streamer
 import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import lila.db.dsl._
 import lila.db.Photographer
@@ -10,6 +11,7 @@ import lila.user.{ User, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
+    userRepo: UserRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     photographer: Photographer,
     notifyApi: lila.notify.NotifyApi
@@ -23,7 +25,7 @@ final class StreamerApi(
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
-    UserRepo named username flatMap { _ ?? find }
+    userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
     byId(Streamer.Id(user.id)) map2 withUser(user)
@@ -35,12 +37,12 @@ final class StreamerApi(
     }
 
   def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
-    UserRepo named s.streamer.userId map {
+    userRepo named s.streamer.userId map {
       _ map { user => Streamer.WithUserAndStream(s.streamer, user, s.some) }
     }
 
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
-    live.streams.map(withUser).sequenceFu.map(_.flatten)
+    Future.sequence(live.streams.map(withUser)).map(_.flatten)
 
   def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get
 
@@ -58,7 +60,7 @@ final class StreamerApi(
       .sort($doc("seenAt" -> -1))
       .list[Bdoc](max) map {
         _ flatMap {
-          _.getAs[Streamer.Id]("_id")
+          _.getAsOpt[Streamer.Id]("_id")
         }
       } map (_.toSet)
 
@@ -150,10 +152,9 @@ final class StreamerApi(
 
   private val listedIdsCache = asyncCache.single[Set[Streamer.Id]](
     name = "streamer.ids",
-    f = coll.distinctWithReadPreference[Streamer.Id, Set](
+    f = coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
       "_id",
-      selectListedApproved.some,
-      ReadPreference.secondaryPreferred
+      selectListedApproved
     ),
     expireAfter = _.ExpireAfterWrite(1 hour),
     resultTimeout = 10.seconds,
