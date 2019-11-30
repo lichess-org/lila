@@ -42,7 +42,7 @@ object Line {
   val textMaxSize = 140
   val titleSep = '~'
 
-  import reactivemongo.bson.{ BSONHandler, BSONString }
+  import reactivemongo.api.bson.{ BSONHandler, BSONString }
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 

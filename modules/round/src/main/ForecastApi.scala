@@ -1,6 +1,6 @@
 package lila.round
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._

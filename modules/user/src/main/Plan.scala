@@ -35,5 +35,5 @@ object Plan {
   def start = Plan(1, true, DateTime.now.some)
 
   import lila.db.dsl._
-  private[user] val planBSONHandler = reactivemongo.bson.Macros.handler[Plan]
+  private[user] val planBSONHandler = reactivemongo.api.bson.Macros.handler[Plan]
 }

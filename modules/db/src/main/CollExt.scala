@@ -1,5 +1,6 @@
 package lila.db
 
+import scala.collection.Factory
 import scala.util.{ Success, Failure }
 
 import reactivemongo.api._
@@ -14,6 +15,8 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary = coll withReadPreference ReadPreference.secondary
+
+    def ext = this
 
     def find(selector: Bdoc) = coll.find(selector, none)
 
@@ -158,16 +161,13 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     private val mongoWireVersion = MongoWireVersion.V34
 
     def aggregateList(
-      firstOperator: coll.PipelineOperator,
-      otherOperators: List[coll.PipelineOperator] = Nil,
       maxDocs: Int,
       readPreference: ReadPreference = ReadPreference.primary,
       allowDiskUse: Boolean = false
-    ): Fu[List[Bdoc]] = coll.aggregatorContext[Bdoc](
-      firstOperator,
-      otherOperators,
+    )(f: coll.AggregationFramework => (coll.PipelineOperator, List[coll.PipelineOperator]))(implicit cp: CursorProducer[Bdoc]): Fu[List[Bdoc]] = coll.aggregateWith[Bdoc](
+      allowDiskUse = allowDiskUse,
       readPreference = readPreference
-    ).prepared(CursorProducer.defaultCursorProducer[Bdoc]).cursor.collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
+    )(f).collect[List](maxDocs = maxDocs, Cursor.FailOnError[List[Bdoc]]())
 
     def aggregateOne(
       firstOperator: coll.PipelineOperator,
@@ -176,6 +176,15 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     ): Fu[Option[Bdoc]] =
       coll.aggregatorContext[Bdoc](firstOperator, otherOperators, readPreference = readPreference)
         .prepared(CursorProducer.defaultCursorProducer[Bdoc]).cursor.headOption
+
+    def distinctEasy[T, M[_] <: Iterable[_]](
+      key: String,
+      selector: coll.pack.Document
+    )(implicit
+      reader: coll.pack.NarrowValueReader[T],
+      cbf: Factory[T, M[T]]
+    ): Fu[M[T]] =
+      coll.distinct(key, selector.some, ReadConcern.Local, None)
 
     // def distinctWithReadPreference[T, M[_] <: Iterable[_]](
     //   key: String,

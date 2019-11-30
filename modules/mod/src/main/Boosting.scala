@@ -5,7 +5,7 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 final class BoostingApi(
     modApi: ModApi,

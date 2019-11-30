@@ -7,7 +7,7 @@ import lila.security.Permission
 final class ModlogApi(coll: Coll) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val ModlogBSONHandler = reactivemongo.bson.Macros.handler[Modlog]
+  private implicit val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
   def streamerList(mod: Mod, streamerId: String, v: Boolean) = add {
     Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)

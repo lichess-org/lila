@@ -3,7 +3,7 @@ package lila.study
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import chess.Color

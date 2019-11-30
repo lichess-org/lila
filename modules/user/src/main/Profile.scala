@@ -50,6 +50,6 @@ object Profile {
 
   val default = Profile()
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   private[user] val profileBSONHandler = Macros.handler[Profile]
 }

@@ -12,7 +12,7 @@ import lila.user.User
 import BSONHandlers._
 import reactivemongo.api._
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 final class RelationApi(
     coll: Coll,

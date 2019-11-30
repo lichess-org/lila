@@ -1,7 +1,7 @@
 package lila.plan
 
 import lila.db.dsl._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 private[plan] object BsonHandlers {
 

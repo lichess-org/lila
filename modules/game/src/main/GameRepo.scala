@@ -8,7 +8,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
-import reactivemongo.bson.BSONDocument
+import reactivemongo.api.bson.BSONDocument
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._

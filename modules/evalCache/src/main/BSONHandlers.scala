@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scalaz.NonEmptyList
 
 import chess.format.Uci

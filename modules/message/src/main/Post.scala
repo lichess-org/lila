@@ -36,5 +36,5 @@ object Post {
   )
 
   import lila.db.dsl.BSONJodaDateTimeHandler
-  private[message] implicit val PostBSONHandler = reactivemongo.bson.Macros.handler[Post]
+  private[message] implicit val PostBSONHandler = reactivemongo.api.bson.Macros.handler[Post]
 }

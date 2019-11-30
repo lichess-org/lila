@@ -1,7 +1,7 @@
 package lila.pref
 
 import play.api.mvc.RequestHeader
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration.FiniteDuration
 
 import lila.db.BSON

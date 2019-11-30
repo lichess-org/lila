@@ -124,7 +124,7 @@ object Player {
 
   case class UserInfo(id: String, rating: Int, provisional: Boolean)
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
 
   object BSONFields {
@@ -143,7 +143,7 @@ object Player {
     val name = "na"
   }
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
 
   type ID = String

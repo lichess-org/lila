@@ -1,7 +1,7 @@
 package lila.insight
 
 import scalatags.Text.all._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import play.api.libs.json._
 
 import chess.opening.EcopeningDB

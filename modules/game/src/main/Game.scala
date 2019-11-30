@@ -730,7 +730,7 @@ object CastleLastMove {
 
   def init = CastleLastMove(Castles.all, None)
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
 
   private[game] implicit val castleLastMoveBSONHandler = new BSONHandler[BSONBinary, CastleLastMove] {

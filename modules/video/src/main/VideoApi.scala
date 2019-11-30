@@ -1,7 +1,7 @@
 package lila.video
 
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.common.paginator._
@@ -16,7 +16,7 @@ private[video] final class VideoApi(
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   private implicit val YoutubeBSONHandler = {
     import Youtube.Metadata
     Macros.handler[Metadata]

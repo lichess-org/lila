@@ -1,7 +1,7 @@
 package lila.simul
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import reactivemongo.core.commands._
 
 import chess.Status

@@ -2,7 +2,7 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import reactivemongo.api.{ CursorProducer, ReadPreference }
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.collection.breakOut
 
 import BSONHandlers._

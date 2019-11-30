@@ -1,6 +1,6 @@
 package lila.event
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.common.Lang
 import lila.db.dsl._

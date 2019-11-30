@@ -10,10 +10,3 @@ final class Env(settingStore: lila.memo.SettingStore.Builder) {
     text = "Rating gain factor per perf type".some
   )
 }
-
-object Env {
-
-  lazy val current: Env = "rating" boot new Env(
-    settingStore = lila.memo.Env.current.settingStore
-  )
-}

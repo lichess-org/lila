@@ -1,6 +1,6 @@
 package lila.playban
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import chess.variant._
@@ -23,7 +23,7 @@ final class PlaybanApi(
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   private implicit val OutcomeBSONHandler = new BSONHandler[BSONInteger, Outcome] {
     def read(bsonInt: BSONInteger): Outcome = Outcome(bsonInt.value) err s"No such playban outcome: ${bsonInt.value}"
     def write(x: Outcome) = BSONInteger(x.id)

@@ -4,7 +4,7 @@ import akka.actor.ActorRef
 import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.db.dsl._

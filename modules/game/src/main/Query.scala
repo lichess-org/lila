@@ -2,7 +2,7 @@ package lila.game
 
 import chess.Status
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._

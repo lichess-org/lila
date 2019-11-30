@@ -1,7 +1,7 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
 import lila.common.Maths
@@ -30,7 +30,7 @@ final class LeaderboardApi(
     )).sort($sort desc "d").list[Entry]()
 
   def chart(user: User): Fu[ChartData] = {
-    import reactivemongo.bson._
+    import reactivemongo.api.bson._
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(
       Match($doc("u" -> user.id)),

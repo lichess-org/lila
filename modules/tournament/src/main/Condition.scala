@@ -162,7 +162,7 @@ object Condition {
   }
 
   object BSONHandlers {
-    import reactivemongo.bson._
+    import reactivemongo.api.bson._
     private implicit val NbRatedGameHandler = Macros.handler[NbRatedGame]
     private implicit val MaxRatingHandler = Macros.handler[MaxRating]
     private implicit val MinRatingHandler = Macros.handler[MinRating]

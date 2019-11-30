@@ -1,17 +1,18 @@
 package lila.user
 
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Project, GroupField, SumValue }
+import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
 import scala.concurrent.duration._
+import scala.concurrent.Future
 
-import lila.db.dsl._
-import lila.rating.{ Glicko, Perf, PerfType }
-import lila.memo.PeriodicRefreshCache
 import lila.common.{ Every, AtMost }
+import lila.db.dsl._
+import lila.memo.PeriodicRefreshCache
+import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
+    userRepo: UserRepo,
     coll: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
     lightUser: lila.common.LightUser.Getter
@@ -26,7 +27,7 @@ final class RankingApi(
     }
 
   def save(user: User, perfType: PerfType, perf: Perf): Funit =
-    (user.rankable && perf.nb >= 2) ?? coll.update($id(makeId(user.id, perfType)), $doc(
+    (user.rankable && perf.nb >= 2) ?? coll.update.one($id(makeId(user.id, perfType)), $doc(
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
       "prog" -> perf.progress,
@@ -35,9 +36,9 @@ final class RankingApi(
     ),
       upsert = true).void
 
-  def remove(userId: User.ID): Funit = UserRepo byId userId flatMap {
+  def remove(userId: User.ID): Funit = userRepo byId userId flatMap {
     _ ?? { user =>
-      coll.remove($inIds(
+      coll.delete.one($inIds(
         PerfType.leaderboardable.filter { pt =>
           user.perfs(pt).nonEmpty
         }.map { makeId(user.id, _) }
@@ -50,22 +51,24 @@ final class RankingApi(
 
   private[user] def topPerf(perfId: Perf.ID, nb: Int): Fu[List[User.LightPerf]] =
     PerfType.id2key(perfId) ?? { perfKey =>
-      coll.find($doc("perf" -> perfId, "stable" -> true))
+      coll.ext.find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
         .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
-        .gather[List](nb) flatMap {
-          _.map { r =>
-            lightUser(r.user).map {
-              _ map { light =>
-                User.LightPerf(
-                  user = light,
-                  perfKey = perfKey,
-                  rating = r.rating,
-                  progress = ~r.prog
-                )
+        .gather[List](nb) flatMap { res =>
+          Future.sequence {
+            res.map { r =>
+              lightUser(r.user).map {
+                _ map { light =>
+                  User.LightPerf(
+                    user = light,
+                    perfKey = perfKey,
+                    rating = r.rating,
+                    progress = ~r.prog
+                  )
+                }
               }
             }
-          }.sequenceFu.map(_.flatten)
+          }.map(_.flatten)
         }
     }
 
@@ -120,13 +123,13 @@ final class RankingApi(
     )
 
     private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] =
-      coll.find(
+      coll.ext.find(
         $doc("perf" -> pt.id, "stable" -> true),
         $doc("_id" -> true)
       ).sort($doc("rating" -> -1)).cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
         .fold(1 -> Map.newBuilder[User.ID, Rank]) {
           case (state @ (rank, b), doc) =>
-            doc.getAs[String]("_id").fold(state) { id =>
+            doc.string("_id").fold(state) { id =>
               val user = id takeWhile (':' !=)
               b += (user -> rank)
               (rank + 1) -> b
@@ -151,28 +154,29 @@ final class RankingApi(
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =
       lila.rating.PerfType(perfId).exists(lila.rating.PerfType.leaderboardable.contains) ?? {
         coll.aggregateList(
-          Match($doc("perf" -> perfId)),
-          List(
-            Project($doc(
-              "_id" -> false,
-              "r" -> $doc(
-                "$subtract" -> $arr(
-                  "$rating",
-                  $doc("$mod" -> $arr("$rating", Stat.group))
-                )
-              )
-            )),
-            GroupField("r")("nb" -> SumValue(1))
-          ),
           maxDocs = Int.MaxValue,
           ReadPreference.secondaryPreferred
-        ).map { res =>
-            val hash: Map[Int, NbUsers] = res.flatMap { obj =>
+        ) { framework =>
+            import framework._
+            Match($doc("perf" -> perfId)) -> List(
+              Project($doc(
+                "_id" -> false,
+                "r" -> $doc(
+                  "$subtract" -> $arr(
+                    "$rating",
+                    $doc("$mod" -> $arr("$rating", Stat.group))
+                  )
+                )
+              )),
+              GroupField("r")("nb" -> SumAll)
+            )
+          }.map { res =>
+            val hash: Map[Int, NbUsers] = res.view.flatMap { obj =>
               for {
-                rating <- obj.getAs[Int]("_id")
-                nb <- obj.getAs[NbUsers]("nb")
+                rating <- obj.int("_id")
+                nb <- obj.getAsOpt[NbUsers]("nb")
               } yield rating -> nb
-            }(scala.collection.breakOut)
+            }.to(Map)
             (Glicko.minRating to 2800 by Stat.group).map { r =>
               hash.getOrElse(r, 0)
             }.toList

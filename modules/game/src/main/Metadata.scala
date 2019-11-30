@@ -50,7 +50,7 @@ object PgnImport {
     h = hash(pgn).some
   )
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   import ByteArray.ByteArrayBSONHandler
   implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
 }

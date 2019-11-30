@@ -1,7 +1,8 @@
 package lila.user
 
 import com.roundeights.hasher.Implicits._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
+import scala.util.{ Try, Success, Failure }
 
 import lila.common.NormalizedEmailAddress
 import lila.db.dsl._
@@ -9,7 +10,7 @@ import lila.user.User.{ ClearPassword, PasswordAndToken, BSONFields => F }
 
 final class Authenticator(
     passHasher: PasswordHasher,
-    userRepo: UserRepo.type
+    userRepo: UserRepo
 ) {
   import Authenticator._
 
@@ -39,7 +40,7 @@ final class Authenticator(
     loginCandidate($doc(F.email -> email))
 
   def setPassword(id: User.ID, p: ClearPassword): Funit =
-    userRepo.coll.update(
+    userRepo.coll.update.one(
       $id(id),
       $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
     ).void
@@ -77,10 +78,10 @@ object Authenticator {
     F.sha512 -> true
   )
 
-  implicit val HashedPasswordBsonHandler = new BSONHandler[BSONBinary, HashedPassword] {
-    def read(b: BSONBinary) = HashedPassword(b.byteArray)
-    def write(hash: HashedPassword) = BSONBinary(hash.bytes, Subtype.GenericBinarySubtype)
-  }
+  private[user] implicit val HashedPasswordBsonHandler = lila.db.BSON.quickHandler[HashedPassword](
+    { case v: BSONBinary => HashedPassword(v.byteArray) },
+    v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
+  )
 
   implicit val AuthDataBSONHandler = Macros.handler[AuthData]
 }

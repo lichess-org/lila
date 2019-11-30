@@ -2,7 +2,7 @@ package lila.plan
 
 import org.joda.time.DateTime
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.bson.BSONNull
+import reactivemongo.api.bson.BSONNull
 
 import lila.db.dsl._
 

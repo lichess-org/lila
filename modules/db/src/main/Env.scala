@@ -10,7 +10,13 @@ import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success }
 
 import dsl.Coll
-import lila.common.Chronometer
+import lila.common.{ CollName, Chronometer }
+import lila.common.config._
+
+case class DbConfig(
+    uri: String,
+    @ConfigName("image.collection") imageCollName: Option[CollName]
+)
 
 final class Env(name: String, config: DbConfig) {
 
@@ -25,7 +31,7 @@ final class Env(name: String, config: DbConfig) {
       logger.info(s"$name MongoDB connected to $dbName in ${lap.showDuration}")
     }
 
-  def apply(name: String): Coll = db(name)
+  def apply(name: CollName): Coll = db(name.value)
 
   // val runCommand: RunCommand = (command, readPreference) => {
   //   val runner = Command.run(BSONSerializationPack, FailoverStrategy.strict)

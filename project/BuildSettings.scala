@@ -52,7 +52,8 @@ object BuildSettings {
     "-feature",
     "-deprecation",
     // "-Xfatal-warnings",
-    "-Xmaxerrs", "5"
+    "-Xmaxerrs", "5",
+    "-Xmaxwarns", "5"
   )
 
   val srcMain = Seq(

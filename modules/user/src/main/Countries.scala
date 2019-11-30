@@ -1,7 +1,6 @@
 package lila.user
 
 import scala._
-import scala.collection.breakOut
 
 sealed trait Country {
   def code: String
@@ -275,7 +274,7 @@ object Countries {
 
   val allPairs = all map { c => c.code -> c.name }
 
-  val map: Map[String, Country] = all.map { c => c.code -> c }(breakOut)
+  val map: Map[String, Country] = all.view.map { c => c.code -> c }.to(Map)
 
   val codeSet = map.keySet
 

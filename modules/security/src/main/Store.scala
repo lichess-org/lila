@@ -3,7 +3,7 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson.Macros
+import reactivemongo.api.bson.Macros
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler

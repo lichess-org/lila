@@ -62,7 +62,9 @@ case class User(
 
   def titleUsername = title.fold(username)(t => s"$t $username")
 
-  def titleUsernameWithBestRating = title.fold(usernameWithBestRating)(_ + " " + usernameWithBestRating)
+  def titleUsernameWithBestRating = title.fold(usernameWithBestRating) { t =>
+    s"$t $usernameWithBestRating"
+  }
 
   def profileOrDefault = profile | Profile.default
 
@@ -179,11 +181,11 @@ object User {
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
-    def totalPeriod = new Period(total * 1000l)
-    def tvPeriod = new Period(tv * 1000l)
+    def totalPeriod = new Period(total * 1000L)
+    def tvPeriod = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
-  implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
+  implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
 
   // what existing usernames are like
   val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
@@ -244,7 +246,7 @@ object User {
   implicit val userBSONHandler = new BSON[User] {
 
     import BSONFields._
-    import reactivemongo.bson.BSONDocument
+    import reactivemongo.api.bson.BSONDocument
     private implicit def countHandler = Count.countBSONHandler
     private implicit def profileHandler = Profile.profileBSONHandler
     private implicit def perfsHandler = Perfs.perfsBSONHandler
@@ -302,7 +304,7 @@ object User {
     )
   }
 
-  implicit val speakerHandler = reactivemongo.bson.Macros.handler[Speaker]
+  implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]
 
   private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
   private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)

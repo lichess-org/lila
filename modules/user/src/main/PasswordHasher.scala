@@ -4,8 +4,9 @@ import java.security.SecureRandom
 import java.util.Base64
 import javax.crypto.Cipher
 import javax.crypto.spec.{ IvParameterSpec, SecretKeySpec }
-
 import com.roundeights.hasher.Implicits._
+
+import lila.common.Secret
 
 /**
  * Encryption for bcrypt hashes.
@@ -13,9 +14,9 @@ import com.roundeights.hasher.Implicits._
  * CTS reveals input length, which is fine for
  * this application.
  */
-private final class Aes(secret: String) {
+private final class Aes(secret: Secret) {
   private val sKey = {
-    val sk = Base64.getDecoder.decode(secret)
+    val sk = Base64.getDecoder.decode(secret.value)
     val kBits = sk.length * 8
     if (kBits != 128) {
       if (!(kBits == 192 || kBits == 256)) throw new IllegalArgumentException
@@ -47,7 +48,7 @@ case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
 }
 
 private final class PasswordHasher(
-    secret: String,
+    secret: Secret,
     logRounds: Int,
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
 ) {

@@ -1,53 +1,59 @@
 package lila.user
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
+import lila.common.config._
+import lila.common.{ CollName, Secret, MaxPerPage }
+
+case class UserConfig(
+    @ConfigName("paginator.max_per_page") paginatorMaxPerPage: MaxPerPage,
+    @ConfigName("cached.nb.ttl") cachedNbTtl: FiniteDuration,
+    @ConfigName("online.ttl") onlineTtl: FiniteDuration,
+    @ConfigName("collection.user") collectionUser: CollName,
+    @ConfigName("collection.note") collectionNote: CollName,
+    @ConfigName("collection.trophy") collectionTrophy: CollName,
+    @ConfigName("collection.trophyKind") collectionTrophyKind: CollName,
+    @ConfigName("collection.ranking") collectionRanking: CollName,
+    @ConfigName("password.bpass.secret") passwordBPassSecret: Secret
+)
+
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: lila.common.Scheduler,
+    scheduler: Scheduler,
     timeline: ActorSelection,
-    onlineUserIds: () => Set[User.ID],
-    system: ActorSystem
-) {
+    onlineUserIds: () => Set[User.ID]
+)(implicit system: ActorSystem, ws: WSClient) {
 
-  private val settings = new {
-    val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-    val CachedNbTtl = config duration "cached.nb.ttl"
-    val OnlineTtl = config duration "online.ttl"
-    val CollectionUser = config getString "collection.user"
-    val CollectionNote = config getString "collection.note"
-    val CollectionTrophy = config getString "collection.trophy"
-    val CollectionTrophyKind = config getString "collection.trophyKind"
-    val CollectionRanking = config getString "collection.ranking"
-    val PasswordBPassSecret = config getString "password.bpass.secret"
-  }
-  import settings._
+  private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
-  val userColl = db(CollectionUser)
+  val userRepo = new UserRepo(db(config.collectionUser))
 
-  val lightUserApi = new LightUserApi(userColl)(system)
+  val lightUserApi = wire[LightUserApi]
 
   private def isOnline(userId: User.ID): Boolean = onlineUserIds() contains userId
 
   val jsonView = new JsonView(isOnline)
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
+  lazy val noteApi = new NoteApi(userRepo, db(config.collectionNote), timeline)
 
-  lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
+  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind))(system)
 
-  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, lightUser)(system)
+  lazy val rankingApi = new RankingApi(userRepo, db(config.collectionRanking), mongoCache, lightUser)(system)
 
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
-  system.scheduler.schedule(1 minute, 1 minute) {
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lightUserApi.monitorCache
   }
 
@@ -55,7 +61,7 @@ final class Env(
     "adjustCheater" -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
         rankingApi remove userId
-        UserRepo.setRoles(userId, Nil)
+        userRepo.setRoles(userId, Nil)
     },
     "adjustBooster" -> {
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
@@ -65,23 +71,18 @@ final class Env(
     },
     "gdprErase" -> {
       case User.GDPRErase(user) =>
-        UserRepo erase user
+        userRepo erase user
         noteApi erase user
     }
   )
 
-  lazy val cached = new Cached(
-    userColl = userColl,
-    nbTtl = CachedNbTtl,
-    onlineUserIds = onlineUserIds,
-    mongoCache = mongoCache,
-    asyncCache = asyncCache,
-    rankingApi = rankingApi
-  )(system)
+  def makeCached = (nbTtl: FiniteDuration) => wire[Cached]
+
+  lazy val cached: Cached = makeCached(config.cachedNbTtl)
 
   lazy val authenticator = new Authenticator(
     passHasher = new PasswordHasher(
-      secret = PasswordBPassSecret,
+      secret = config.passwordBPassSecret,
       logRounds = 10,
       hashTimer = res => {
         lila.mon.measure(_.user.auth.hashTime) {
@@ -89,22 +90,8 @@ final class Env(
         }
       }
     ),
-    userRepo = UserRepo
+    userRepo = userRepo
   )
 
   lazy val forms = new DataForm(authenticator)
-}
-
-object Env {
-
-  lazy val current: Env = "user" boot new Env(
-    config = lila.common.PlayApp loadConfig "user",
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    scheduler = lila.common.PlayApp.scheduler,
-    timeline = lila.hub.Env.current.timeline,
-    onlineUserIds = lila.socket.Env.current.onlineUserIds,
-    system = lila.common.PlayApp.system
-  )
 }

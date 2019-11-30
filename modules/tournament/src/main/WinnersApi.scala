@@ -65,9 +65,9 @@ final class WinnersApi(
 
   import BSONHandlers._
   import lila.db.BSON.MapDocument.MapHandler
-  private implicit val WinnerHandler = reactivemongo.bson.Macros.handler[Winner]
-  private implicit val FreqWinnersHandler = reactivemongo.bson.Macros.handler[FreqWinners]
-  private implicit val AllWinnersHandler = reactivemongo.bson.Macros.handler[AllWinners]
+  private implicit val WinnerHandler = reactivemongo.api.bson.Macros.handler[Winner]
+  private implicit val FreqWinnersHandler = reactivemongo.api.bson.Macros.handler[FreqWinners]
+  private implicit val AllWinnersHandler = reactivemongo.api.bson.Macros.handler[AllWinners]
 
   private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] = coll.find($doc(
     "schedule.freq" -> freq.name,

@@ -1,7 +1,8 @@
 package lila.user
 
 import org.apache.commons.codec.binary.Base32
-import reactivemongo.bson._
+import reactivemongo.api.bson._
+import scala.util.{ Try, Success, Failure }
 
 import java.security.SecureRandom
 import javax.crypto.Mac
@@ -55,8 +56,8 @@ object TotpSecret {
     TotpSecret(secret)
   }
 
-  private[user] val totpSecretBSONHandler = new BSONHandler[BSONBinary, TotpSecret] {
-    def read(bin: BSONBinary): TotpSecret = TotpSecret(bin.byteArray)
-    def write(s: TotpSecret): BSONBinary = BSONBinary(s.secret, Subtype.GenericBinarySubtype)
-  }
+  private[user] val totpSecretBSONHandler = lila.db.BSON.quickHandler[TotpSecret](
+    { case v: BSONBinary => TotpSecret(v.byteArray) },
+    v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
+  )
 }

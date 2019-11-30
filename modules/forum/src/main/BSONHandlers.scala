@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.db.BSON.LoggingHandler
 import lila.db.dsl._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 private object BSONHandlers {
 

@@ -1,7 +1,7 @@
 package lila.game
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.collection.breakOut
 
 import chess.variant.{ Variant, Crazyhouse }

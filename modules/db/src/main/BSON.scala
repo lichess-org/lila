@@ -3,7 +3,9 @@ package lila.db
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
+import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import reactivemongo.api.bson.compat._
+import scala.util.{ Try, Success, Failure }
 
 import dsl._
 import lila.common.Iso
@@ -18,7 +20,9 @@ abstract class BSON[T]
 
   def writes(writer: Writer, obj: T): Bdoc
 
-  def write(obj: T): Bdoc = writes(writer, obj)
+  def writeTry(obj: T) = Success(writes(writer, obj))
+
+  def write(obj: T) = writes(writer, obj)
 }
 
 abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
@@ -29,14 +33,11 @@ abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
 
   def reads(reader: Reader): T
 
-  def read(doc: Bdoc): T = if (logMalformed) try {
+  def readDocument(doc: Bdoc) = Try {
     reads(new Reader(doc))
-  } catch {
-    case e: Exception =>
-      logger.warn(s"Can't read malformed doc ${debug(doc)}", e)
-      throw e
   }
-  else reads(new Reader(doc))
+
+  def read(doc: Bdoc) = readDocument(doc).get
 }
 
 object BSON extends Handlers {
@@ -104,6 +105,14 @@ object BSON extends Handlers {
   //   }
   // }
 
+  def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
+    def readTry(bson: BSONValue) = read.andThen(Success(_)).applyOrElse(
+      bson,
+      (b: BSONValue) => Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+    )
+    def writeTry(t: T) = Success(write(t))
+  }
+
   final class Reader(val doc: Bdoc) {
 
     val map = {
@@ -117,7 +126,7 @@ object BSON extends Handlers {
       reader.readTry(map(k)).get
     // reader.asInstanceOf[BSONReader[A]].readTry(map(k)).get
     def getO[A](k: String)(implicit reader: BSONReader[A]): Option[A] =
-      map get k flatMap reader.asInstanceOf[BSONReader[A]].readOpt
+      map get k flatMap reader.readOpt
     def getD[A](k: String)(implicit zero: Zero[A], reader: BSONReader[A]): A =
       getO[A](k) getOrElse zero.zero
     def getD[A](k: String, default: => A)(implicit reader: BSONReader[A]): A =
@@ -143,9 +152,9 @@ object BSON extends Handlers {
     def bytes(k: String) = get[ByteArray](k)
     def bytesO(k: String) = getO[ByteArray](k)
     def bytesD(k: String) = bytesO(k) getOrElse ByteArray.empty
-    def nInt(k: String) = get[BSONNumberLike](k).toInt
-    def nIntO(k: String) = getO[BSONNumberLike](k) map (_.toInt)
-    def nIntD(k: String) = nIntO(k) getOrElse 0
+    def nInt(k: String) = get[BSONNumberLike](k).toInt.get
+    def nIntO(k: String): Option[Int] = getO[BSONNumberLike](k) flatMap (_.toInt.toOption)
+    def nIntD(k: String): Int = nIntO(k) getOrElse 0
     def intsD(k: String) = getO[List[Int]](k) getOrElse Nil
     def strsD(k: String) = getO[List[String]](k) getOrElse Nil
 
@@ -163,7 +172,7 @@ object BSON extends Handlers {
     def strO(s: String): Option[BSONString] = if (s.nonEmpty) Some(BSONString(s)) else None
     def int(i: Int): BSONInteger = BSONInteger(i)
     def intO(i: Int): Option[BSONInteger] = if (i != 0) Some(BSONInteger(i)) else None
-    def date(d: DateTime): BSONDateTime = BSONJodaDateTimeHandler.writeTry(d).get
+    def date(d: DateTime): BSONValue = BSONJodaDateTimeHandler.writeTry(d).get
     def byteArrayO(b: ByteArray): Option[BSONValue] =
       if (b.isEmpty) None else ByteArray.ByteArrayBSONHandler.writeOpt(b)
     def bytesO(b: Array[Byte]): Option[BSONValue] = byteArrayO(ByteArray(b))

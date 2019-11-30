@@ -41,7 +41,7 @@ object Blurs {
 
   implicit val blursZero = Zero.instance[Blurs](Bits(0l))
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   private[game] implicit val BlursBitsBSONHandler = new BSONHandler[BSONValue, Bits] {
     def read(bv: BSONValue): Bits = bv match {

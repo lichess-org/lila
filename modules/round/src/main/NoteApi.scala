@@ -2,7 +2,7 @@ package lila.round
 
 import lila.db.dsl._
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 final class NoteApi(coll: Coll) {
 

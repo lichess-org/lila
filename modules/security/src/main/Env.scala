@@ -166,7 +166,7 @@ final class Env(
     checkMailBlocked = () => checkMail.fetchAllBlocked
   )
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   lazy val spamKeywordsSetting =
     settingStore[Strings](

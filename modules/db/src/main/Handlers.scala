@@ -11,13 +11,10 @@ import lila.common.{ Iso, IpAddress, EmailAddress, NormalizedEmailAddress }
 
 trait Handlers {
 
-  implicit val BSONJodaDateTimeHandler = new BSONHandler[DateTime] {
-    def readTry(bson: BSONValue) = bson match {
-      case v: BSONDateTime => Success(new DateTime(v.value))
-      case _ => Failure(TypeDoesNotMatchException("BSONBinary", bson.getClass.getSimpleName))
-    }
-    def writeTry(v: DateTime) = Success(BSONDateTime(v.getMillis))
-  }
+  implicit val BSONJodaDateTimeHandler = lila.db.BSON.quickHandler[DateTime](
+    { case v: BSONDateTime => new DateTime(v.value) },
+    v => BSONDateTime(v.getMillis)
+  )
 
   def isoHandler[A, B](iso: Iso[B, A])(implicit handler: BSONHandler[B]): BSONHandler[A] = new BSONHandler[A] {
     def readTry(x: BSONValue) = handler.readTry(x) map iso.from
@@ -41,13 +38,10 @@ trait Handlers {
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] = isoHandler[A, DateTime](iso)
 
   implicit def bsonArrayToListHandler[T](implicit handler: BSONHandler[T]): BSONHandler[List[T]] =
-    new BSONHandler[List[T]] {
-      def readTry(bson: BSONValue) = bson match {
-        case BSONArray(values) => Success(values.view.flatMap(handler.readOpt).to(List))
-        case _ => Failure(TypeDoesNotMatchException("BSONArray", bson.getClass.getSimpleName))
-      }
-      def writeTry(repr: List[T]) = Success(BSONArray(repr.flatMap(handler.writeOpt)))
-    }
+    lila.db.BSON.quickHandler[List[T]](
+      { case BSONArray(values) => values.view.flatMap(handler.readOpt).to(List) },
+      repr => BSONArray(repr.flatMap(handler.writeOpt))
+    )
 
   // implicit def bsonArrayToVectorHandler[T](implicit handler: BSONHandler[T]): BSONHandler[Vector[T]] = new BSONHandler[Vector[T]] {
   //   def read(array: BSONArray) = array.values.view.flatMap(handler.readOpt).to(Vector)

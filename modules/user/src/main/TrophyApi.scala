@@ -1,10 +1,10 @@
 package lila.user
 
-import lila.db.dsl._
 import lila.db.BSON.BSONJodaDateTimeHandler
+import lila.db.dsl._
 import lila.memo._
-import reactivemongo.bson._
 import org.joda.time.DateTime
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 final class TrophyApi(
@@ -22,16 +22,15 @@ final class TrophyApi(
     logger = logger
   )
 
-  private implicit val trophyKindStringBSONHandler = new BSONHandler[BSONString, TrophyKind] {
-    def read(bsonString: BSONString): TrophyKind =
-      kindCache sync bsonString.value
-    def write(x: TrophyKind) = BSONString(x._id)
-  }
+  private implicit val trophyKindStringBSONHandler = lila.db.BSON.quickHandler[TrophyKind](
+    { case BSONString(str) => kindCache sync str },
+    x => BSONString(x._id)
+  )
 
   private implicit val trophyBSONHandler = Macros.handler[Trophy]
 
   def findByUser(user: User, max: Int = 50): Fu[List[Trophy]] =
-    coll.find($doc("user" -> user.id)).list[Trophy](max).map(_.filter(_.kind != TrophyKind.Unknown))
+    coll.ext.find($doc("user" -> user.id)).list[Trophy](max).map(_.filter(_.kind != TrophyKind.Unknown))
 
   def roleBasedTrophies(user: User, isPublicMod: Boolean, isDev: Boolean, isVerified: Boolean): List[Trophy] = List(
     isPublicMod option Trophy(
@@ -55,7 +54,7 @@ final class TrophyApi(
   ).flatten
 
   def award(userId: String, kindKey: String): Funit =
-    coll.insert(BSONDocument(
+    coll.insert.one($doc(
       "_id" -> ornicar.scalalib.Random.nextString(8),
       "user" -> userId,
       "kind" -> kindKey,

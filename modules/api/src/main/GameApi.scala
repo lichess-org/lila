@@ -4,7 +4,7 @@ import chess.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }

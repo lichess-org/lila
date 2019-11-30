@@ -1,7 +1,7 @@
 package lila.relay
 
 import lila.db.dsl._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 object BSONHandlers {
 

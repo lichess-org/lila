@@ -2,7 +2,7 @@ package lila.tournament
 
 import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, Group, Match, PushField, Sort, AvgField }
 import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import BSONHandlers._
 import lila.common.MaxPerSecond

@@ -51,7 +51,7 @@ object ThreadRepo {
     }
 
   def unreadCount(userId: String): Fu[Int] = {
-    import reactivemongo.bson.BSONNull
+    import reactivemongo.api.bson.BSONNull
     import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateOne(
       Match($doc(

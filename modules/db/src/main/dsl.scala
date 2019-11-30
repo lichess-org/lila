@@ -37,6 +37,10 @@ trait dsl {
 
   def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument(elements)
 
+  def $arr(elements: Producer[BSONValue]*): Barr = {
+    BSONArray(elements: _*)
+  }
+
   def $id[T: BSONWriter](id: T): Bdoc = $doc("_id" -> id)
 
   def $inIds[T: BSONWriter](ids: Iterable[T]): Bdoc =
@@ -86,8 +90,8 @@ trait dsl {
   def $inc(item: ElementProducer, items: ElementProducer*): Bdoc = {
     $doc("$inc" -> $doc((Seq(item) ++ items): _*))
   }
-  // def $inc(items: Traversable[BSONElement]): Bdoc =
-  //   $doc("$inc" -> $doc(items.map { e => (e.name, e.value) }): _*)
+  def $inc(doc: Bdoc): Bdoc =
+    $doc("$inc" -> doc)
 
   def $mul(item: ElementProducer): Bdoc = {
     $doc("$mul" -> $doc(item))

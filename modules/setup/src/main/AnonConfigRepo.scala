@@ -1,7 +1,7 @@
 package lila.setup
 
 import play.api.mvc._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 

@@ -25,7 +25,7 @@ private final class CorresAlarm(
       expiresAt: DateTime
   )
 
-  private implicit val AlarmHandler = reactivemongo.bson.Macros.handler[Alarm]
+  private implicit val AlarmHandler = reactivemongo.api.bson.Macros.handler[Alarm]
 
   private def scheduleNext: Unit = system.scheduler.scheduleOnce(10 seconds)(run)
 

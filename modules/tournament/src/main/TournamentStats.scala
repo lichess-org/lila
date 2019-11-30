@@ -1,6 +1,6 @@
 package lila.tournament
 
-import reactivemongo.bson.Macros
+import reactivemongo.api.bson.Macros
 import scala.concurrent.duration._
 
 import chess.Color

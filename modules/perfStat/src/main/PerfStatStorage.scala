@@ -1,6 +1,6 @@
 package lila.perfStat
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler

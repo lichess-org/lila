@@ -1,7 +1,7 @@
 package lila.tournament
 
 import play.api.libs.iteratee._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 

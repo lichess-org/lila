@@ -44,7 +44,7 @@ case class History(
 
 object History {
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
     def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {

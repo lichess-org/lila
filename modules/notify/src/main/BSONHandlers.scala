@@ -6,7 +6,7 @@ import lila.db.{ dsl, BSON }
 import lila.notify.InvitedToStudy.{ StudyName, InvitedBy, StudyId }
 import lila.notify.MentionedInThread._
 import lila.notify.Notification._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 private object BSONHandlers {
 

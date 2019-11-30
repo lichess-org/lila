@@ -1,6 +1,6 @@
 package lila.fishnet
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler

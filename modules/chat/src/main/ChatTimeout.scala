@@ -4,7 +4,7 @@ import lila.db.dsl._
 import lila.user.User
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 final class ChatTimeout(

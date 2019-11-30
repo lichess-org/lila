@@ -156,7 +156,7 @@ case class PlayerFlags(
 
 object PlayerFlags {
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
 
   implicit val playerFlagsBSONHandler = new BSON[PlayerFlags] {

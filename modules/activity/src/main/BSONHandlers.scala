@@ -1,6 +1,6 @@
 package lila.activity
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.common.Iso
 import lila.db.BSON.{ MapDocument, MapValue }

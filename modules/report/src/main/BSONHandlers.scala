@@ -2,7 +2,7 @@ package lila.report
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 object BSONHandlers {
 

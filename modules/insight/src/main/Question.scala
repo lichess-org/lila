@@ -13,7 +13,7 @@ case class Filter[A](
 
   def isEmpty = selected.isEmpty || selected.size == Dimension.valuesOf(dimension).size
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   def matcher: BSONDocument = Dimension.filtersOf(dimension, selected)
 }

@@ -7,7 +7,7 @@ import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lichessId
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 object BSONHandlers {
 

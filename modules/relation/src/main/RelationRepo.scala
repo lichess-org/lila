@@ -1,7 +1,7 @@
 package lila.relation
 
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 

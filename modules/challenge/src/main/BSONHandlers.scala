@@ -1,6 +1,6 @@
 package lila.challenge
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import chess.Mode
 import chess.variant.Variant

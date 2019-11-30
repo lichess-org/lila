@@ -2,7 +2,7 @@ package lila.rating
 
 import org.goochjs.glicko2._
 import org.joda.time.DateTime
-import reactivemongo.bson.BSONDocument
+import reactivemongo.api.bson.BSONDocument
 
 import lila.db.BSON
 

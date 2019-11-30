@@ -4,10 +4,12 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 import lila.db.dsl.Coll
+import lila.common.CollName
+import lila.common.config._
 
 case class MemoConfig(
-    @ConfigName("collection.cache") cacheColl: String,
-    @ConfigName("collection.config") configColl: String
+    @ConfigName("collection.cache") cacheColl: CollName,
+    @ConfigName("collection.config") configColl: CollName
 )
 
 final class Env(appConfig: Configuration, db: lila.db.Env)(implicit system: akka.actor.ActorSystem) {

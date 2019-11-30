@@ -43,7 +43,7 @@ case object PuzzlePerf {
   implicit val puzzlePerfBSONHandler = new BSON[PuzzlePerf] {
 
     import Glicko.glickoBSONHandler
-    import reactivemongo.bson.BSONDocument
+    import reactivemongo.api.bson.BSONDocument
 
     def reads(r: BSON.Reader): PuzzlePerf = PuzzlePerf(
       glicko = r.getO[Glicko]("gl") | Glicko.default,

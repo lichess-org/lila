@@ -2,7 +2,7 @@ package lila.game
 
 import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
 import Game.BSONFields._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import Blurs.BlursBSONWriter
 import chess.Centis

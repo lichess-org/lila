@@ -1,6 +1,6 @@
 package lila.timeline
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 

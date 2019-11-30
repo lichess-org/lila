@@ -1,9 +1,9 @@
 package lila.user
 
-import scala.concurrent.duration._
-
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
+import scala.concurrent.duration._
+import scala.concurrent.Future
 
 import lila.common.{ LightUser, Every, AtMost }
 import lila.db.dsl._
@@ -12,7 +12,7 @@ import lila.rating.{ Perf, PerfType }
 import User.{ LightPerf, LightCount }
 
 final class Cached(
-    userColl: Coll,
+    userRepo: UserRepo,
     nbTtl: FiniteDuration,
     onlineUserIds: () => Set[User.ID],
     mongoCache: lila.memo.MongoCache.Builder,
@@ -42,9 +42,11 @@ final class Cached(
 
   private val topWeekCache = mongoCache.single[List[User.LightPerf]](
     prefix = "user:top:week",
-    f = PerfType.leaderboardable.map { perf =>
-      rankingApi.topPerf(perf.id, 1)
-    }.sequenceFu.map(_.flatten),
+    f = Future sequence {
+      PerfType.leaderboardable.map { perf =>
+        rankingApi.topPerf(perf.id, 1)
+      }
+    } map (_.flatten),
     timeToLive = 9 minutes
   )
 
@@ -52,7 +54,7 @@ final class Cached(
 
   val topNbGame = mongoCache[Int, List[User.LightCount]](
     prefix = "user:top:nbGame",
-    f = nb => UserRepo topNbGame nb map { _ map (_.lightCount) },
+    f = nb => userRepo topNbGame nb map { _ map (_.lightCount) },
     timeToLive = 74 minutes,
     keyToString = _.toString
   )
@@ -60,7 +62,7 @@ final class Cached(
   private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
     every = Every(30 seconds),
     atMost = AtMost(30 seconds),
-    f = () => UserRepo.byIdsSortRatingNoBot(onlineUserIds(), 50),
+    f = () => userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50),
     default = Nil,
     logger = logger branch "top50online",
     initialDelay = 15 seconds
@@ -75,7 +77,7 @@ final class Cached(
 
   val botIds = asyncCache.single[Set[User.ID]](
     name = "user.botIds",
-    f = UserRepo.botIds,
+    f = userRepo.botIds,
     expireAfter = _.ExpireAfterWrite(10 minutes)
   )
 }

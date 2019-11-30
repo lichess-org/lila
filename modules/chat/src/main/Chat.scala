@@ -112,7 +112,7 @@ object Chat {
   }
 
   import BSONFields._
-  import reactivemongo.bson.BSONDocument
+  import reactivemongo.api.bson.BSONDocument
   import Line.{ lineBSONHandler, userLineBSONHandler }
 
   implicit val chatIdIso = lila.common.Iso.string[Id](Id.apply, _.value)

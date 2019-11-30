@@ -7,7 +7,7 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.common.{ ApiVersion, IpAddress, EmailAddress, HTTPRequest }

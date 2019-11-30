@@ -2,7 +2,7 @@ package lila.irwin
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.analyse.Analysis.Analyzed
 import lila.analyse.AnalysisRepo

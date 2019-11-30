@@ -1,6 +1,6 @@
 package lila.insight
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import chess.opening.{ Ecopening, EcopeningDB }
 import chess.{ Role, Color }

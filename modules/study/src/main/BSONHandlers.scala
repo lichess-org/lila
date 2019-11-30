@@ -5,7 +5,7 @@ import chess.format.{ Uci, UciCharPair, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import chess.{ Centis, Pos, Role, PromotableRole }
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }

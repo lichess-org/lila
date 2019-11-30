@@ -48,7 +48,7 @@ case class Analysis(
 object Analysis {
 
   import lila.db.BSON
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 

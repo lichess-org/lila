@@ -2,7 +2,7 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._

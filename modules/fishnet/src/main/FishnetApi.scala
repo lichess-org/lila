@@ -1,7 +1,7 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.util.{ Try, Success, Failure }
 
 import Client.Skill

@@ -14,7 +14,7 @@ object PublicLine {
   def make(text: String, from: Source): PublicLine =
     PublicLine(text, from.some, DateTime.now.some)
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.dsl._
   private implicit val SourceHandler = new BSONHandler[BSONString, Source] {
     def read(bs: BSONString): Source = bs.value split ':' match {

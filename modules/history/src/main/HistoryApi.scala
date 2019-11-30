@@ -3,7 +3,7 @@ package lila.history
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import org.joda.time.{ DateTime, Days }
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import chess.Speed
