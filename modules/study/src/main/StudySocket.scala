@@ -169,10 +169,15 @@ final class StudySocket(
       "w" -> who(uid)
     ), noMessadata)
 
-    case SetClock(pos, clock, uid) => notifyVersion("clock", Json.obj(
+    case SetClock(pos, clock, uid, relay) => notifyVersion("clock", Json.obj(
       "p" -> pos,
       "c" -> clock,
       "w" -> who(uid)
+    ).add("relay", relay), noMessadata)
+
+    case SetRelay(chapterId, relay) => notifyVersion("relay", Json.obj(
+      "chapterId" -> chapterId,
+      "relay" -> relay
     ), noMessadata)
 
     case SetConceal(pos, ply) => notifyVersion("conceal", Json.obj(
@@ -305,7 +310,8 @@ object StudySocket {
   case class SetComment(position: Position.Ref, comment: Comment, uid: Uid)
   case class DeleteComment(position: Position.Ref, commentId: Comment.Id, uid: Uid)
   case class SetGlyphs(position: Position.Ref, glyphs: Glyphs, uid: Uid)
-  case class SetClock(position: Position.Ref, clock: Option[Centis], uid: Uid)
+  case class SetClock(position: Position.Ref, clock: Option[Centis], uid: Uid, relay: Option[Chapter.Relay])
+  case class SetRelay(chapterId: Chapter.Id, relay: Chapter.Relay)
   case class ReloadChapters(chapters: List[Chapter.Metadata])
   case object ReloadAll
   case class ChangeChapter(uid: Uid, position: Position.Ref)

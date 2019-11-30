@@ -445,7 +445,14 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
       setMemberActive(who);
       if (wrongChapter(d)) return;
       ctrl.tree.setClockAt(d.c, position.path);
+      if (relay) relay.applyChapterRelay(data.chapter, d.relay);
       redraw();
+    },
+    relay(d) {
+      if (d.chapterId === vm.chapterId && relay) {
+        relay.applyChapterRelay(data.chapter, d.relay);
+        redraw();
+      }
     },
     conceal(d) {
       if (wrongChapter(d)) return;

@@ -354,17 +354,27 @@ final class StudyApi(
     }
   }
 
-  def setClock(studyId: Study.Id, position: Position.Ref, clock: Option[Centis], uid: Uid): Funit =
+  def setClock(studyId: Study.Id, position: Position.Ref, clock: Option[Centis], uid: Uid, relay: Option[Chapter.Relay] = None): Funit =
     sequenceStudyWithChapter(studyId, position.chapterId) { sc =>
       sc.chapter.setClock(clock, position.path) match {
         case Some(newChapter) =>
           studyRepo.updateNow(sc.study)
-          chapterRepo.setClock(newChapter, position.path, clock) >>-
-            sendTo(sc.study, StudySocket.SetClock(position, clock, uid))
+          chapterRepo.setClock(newChapter, position.path, clock) >>
+            (relay ?? {
+              chapterRepo.setRelay(position.chapterId, _)
+            }) >>-
+            sendTo(sc.study, StudySocket.SetClock(position, clock, uid, relay))
         case None =>
           fufail(s"Invalid setClock $position $clock") >>-
             reloadUidBecauseOf(sc.study, uid, position.chapterId)
       }
+    }
+
+  def setRelay(studyId: Study.Id, chapterId: Chapter.Id, relay: Chapter.Relay): Funit =
+    sequenceStudyWithChapter(studyId, chapterId) { sc =>
+      studyRepo.updateNow(sc.study)
+      chapterRepo.setRelay(chapterId, relay) >>-
+        sendTo(sc.study, StudySocket.SetRelay(chapterId, relay))
     }
 
   def setTag(userId: User.ID, studyId: Study.Id, setTag: actorApi.SetTag, uid: Uid) = sequenceStudyWithChapter(studyId, setTag.chapterId) {

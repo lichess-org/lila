@@ -53,14 +53,30 @@ private final class RelaySync(
         chapter.root.nodeAt(path) match {
           case None => parentPath -> gameNode.some
           case Some(existing) =>
-            gameNode.clock.filter(c => !existing.clock.has(c)) ?? { c =>
-              studyApi.setClock(
-                studyId = study.id,
-                position = Position(chapter, path).ref,
-                clock = c.some,
-                uid = socketUid
-              )
-            }
+            def relay = Chapter.Relay(
+              index = game.index,
+              path = path,
+              lastMoveAt = DateTime.now
+            )
+            gameNode.clock.filter(c => !existing.clock.has(c)).fold(
+              chapter.relay.foreach { r =>
+                if (r.path.ids.length < path.ids.length) {
+                  studyApi.setRelay(
+                    studyId = study.id,
+                    chapterId = chapter.id,
+                    relay = relay
+                  )
+                }
+              }
+            ) { c =>
+                studyApi.setClock(
+                  studyId = study.id,
+                  position = Position(chapter, path).ref,
+                  clock = c.some,
+                  uid = socketUid,
+                  relay = relay.some
+                )
+              }
             path -> none
         }
       case (found, _) => found
