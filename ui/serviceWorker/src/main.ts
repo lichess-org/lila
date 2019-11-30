@@ -1,4 +1,6 @@
-const assetBase = new URL(new URL(self.location.href).searchParams.get('asset-url')!, self.location.href).href;
+const searchParams = new URL(self.location.href).searchParams;
+const isDev = searchParams.has('dev');
+const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
 const assetVersion = self.location.pathname.split('/')[2];
 
 function assetUrl(path: string): string {
@@ -7,13 +9,34 @@ function assetUrl(path: string): string {
   return r;
 }
 
+function compiledScript(name: string): string {
+  return `compiled/lichess.${name}${isDev ? '' : '.min'}.js`;
+}
+
+function themedStylesheets(name: string): string[] {
+  return ['light', 'dark', 'transp'].map(theme => {
+    return `css/${name}.${theme}.${isDev ? 'dev' : 'min'}.css`;
+  });
+}
+
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(assetVersion).then(cache => cache.addAll([
-    'css/site.light.dev.css', // TODO: prod
-    'css/site.dark.dev.css', // TODO: prod
-    'font/lichess.woff2',
-    'font/lichess.chess.woff2',
-  ].map(assetUrl))));
+    ...[
+      ...themedStylesheets('site'),
+      'font/lichess.woff2',
+      'font/lichess.chess.woff2',
+    ].map(assetUrl),
+    '/editor',
+  ])));
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith((async () => {
+    const cache = await caches.open(assetVersion);
+    const cachedReponse = await cache.match(event.request);
+    if (cachedReponse) return cachedReponse;
+    return fetch(event.request);
+  })());
 });
 
 self.addEventListener('push', event => {
