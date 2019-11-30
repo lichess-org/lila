@@ -1,7 +1,8 @@
 package lila.slack
 
 import akka.actor._
-import com.typesafe.config.Config
+import play.api.Configuration
+import play.api.libs.ws.WSClient
 
 import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.slack.Event
@@ -9,20 +10,23 @@ import lila.hub.actorApi.user.Note
 import lila.hub.actorApi.{ DeployPre, DeployPost }
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     getLightUser: lila.common.LightUser.Getter,
+    ws: WSClient,
     system: ActorSystem
 ) {
 
-  private val IncomingUrl = config getString "incoming.url"
-  private val IncomingDefaultChannel = config getString "incoming.default_channel"
-  private val NetDomain = config getString "domain"
+  private val config = appConfig.get[Configuration]("slack")
+  private val IncomingUrl = config.get[String]("incoming.url")
+  private val IncomingDefaultChannel = config.get[String]("incoming.default_channel")
+  private val NetDomain = config.get[String]("domain")
 
   private val isProd = NetDomain == "lichess.org"
 
   lazy val api = new SlackApi(client, isProd, getLightUser)
 
   private lazy val client = new SlackClient(
+    ws = ws,
     url = IncomingUrl,
     defaultChannel = IncomingDefaultChannel
   )
@@ -34,13 +38,4 @@ final class Env(
     case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
     case e: Event => api publishEvent e
   }
-}
-
-object Env {
-
-  lazy val current: Env = "slack" boot new Env(
-    system = lila.common.PlayApp.system,
-    getLightUser = lila.user.Env.current.lightUser,
-    config = lila.common.PlayApp loadConfig "slack"
-  )
 }

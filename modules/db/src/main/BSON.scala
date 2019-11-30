@@ -113,6 +113,14 @@ object BSON extends Handlers {
     def writeTry(t: T) = Success(write(t))
   }
 
+  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
+    def readTry(bson: BSONValue) = read.applyOrElse(
+      bson,
+      (b: BSONValue) => Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+    )
+    def writeTry(t: T) = Success(write(t))
+  }
+
   final class Reader(val doc: Bdoc) {
 
     val map = {

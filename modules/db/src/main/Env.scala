@@ -15,7 +15,7 @@ import lila.common.config._
 
 case class DbConfig(
     uri: String,
-    @ConfigName("image.collection") imageCollName: Option[CollName]
+    @ConfigName("image.collection") imageCollName: Option[CollName] = None
 )
 
 final class Env(name: String, config: DbConfig) {
@@ -30,6 +30,7 @@ final class Env(name: String, config: DbConfig) {
   ) { lap =>
       logger.info(s"$name MongoDB connected to $dbName in ${lap.showDuration}")
     }
+  //#TODO add lifecycle?
 
   def apply(name: CollName): Coll = db(name.value)
 
@@ -50,8 +51,10 @@ final class Env(name: String, config: DbConfig) {
 
 object Env {
 
+  implicit val configLoader = AutoConfig.loader[DbConfig]
+
   def main(appConfig: Configuration) = new Env(
     name = "main",
-    config = appConfig.get[DbConfig]("mongodb")(AutoConfig.loader)
+    config = appConfig.get[DbConfig]("mongodb")
   )
 }

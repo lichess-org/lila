@@ -11,6 +11,7 @@ import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
     tokenColl: Coll,
+    userRepo: UserRepo,
     appApi: OAuthAppApi,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
@@ -21,9 +22,9 @@ final class OAuthServer(
 
   def auth(req: RequestHeader, scopes: List[OAuthScope]): Fu[AuthResult] =
     reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) { tokenId =>
-      accessTokenCache.get(tokenId) flattenWith NoSuchToken flatMap {
+      accessTokenCache.get(tokenId) orFailWith NoSuchToken flatMap {
         case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-        case at => UserRepo enabledById at.userId flatMap {
+        case at => userRepo enabledById at.userId flatMap {
           case None => fufail(NoSuchUser)
           case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
         }
@@ -55,7 +56,9 @@ final class OAuthServer(
       selector = $doc(F.id -> tokenId),
       update = $set(F.usedAt -> DateTime.now),
       fields = AccessToken.forAuthProjection.some
-    ).map(_.value) map2 AccessToken.ForAuthBSONReader.read
+    ).map(_.value) map {
+      _ ?? AccessToken.ForAuthBSONReader.readOpt
+    }
 }
 
 object OAuthServer {

@@ -6,7 +6,7 @@ import scala.util.{ Success, Failure }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import reactivemongo.api.collections.bson.BSONBatchCommands._
-import reactivemongo.api.commands.GetLastError
+import reactivemongo.api.commands.{ WriteConcern => CWC, FindAndModifyCommand => FNM }
 import reactivemongo.core.protocol.MongoWireVersion
 
 trait CollExt { self: dsl with QueryBuilderExt =>
@@ -193,6 +193,29 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       cbf: Factory[T, M[T]]
     ): Fu[M[T]] =
       coll.distinct(key, selector.some, ReadConcern.Local, None)
+
+    def findAndUpdate[S, T](
+      selector: coll.pack.Document,
+      update: coll.pack.Document,
+      fetchNewObject: Boolean = false,
+      upsert: Boolean = false,
+      sort: Option[coll.pack.Document] = None,
+      fields: Option[coll.pack.Document] = None,
+      writeConcern: CWC = CWC.Acknowledged
+    ): Fu[FNM.Result[coll.pack.type]] =
+      coll.findAndUpdate(
+        selector = selector,
+        update = update,
+        fetchNewObject = fetchNewObject,
+        upsert = upsert,
+        sort = none,
+        fields = none,
+        bypassDocumentValidation = false,
+        writeConcern = writeConcern,
+        maxTime = none,
+        collation = none,
+        arrayFilters = Seq.empty
+      )
 
     // def distinctWithReadPreference[T, M[_] <: Iterable[_]](
     //   key: String,
