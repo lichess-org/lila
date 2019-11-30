@@ -4,9 +4,11 @@ const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).hr
 const assetVersion = self.location.pathname.split('/')[2];
 
 function assetUrl(path: string): string {
-  const r = `${assetBase}assets/${assetVersion}/${path}`;
-  console.log(r);
-  return r;
+  return `${assetBase}assets/${path}`;
+}
+
+function versionedAssetUrl(path: string): string {
+  return assetUrl(`${assetVersion}/${path}`);
 }
 
 function compiledScript(name: string): string {
@@ -19,16 +21,30 @@ function themedStylesheets(name: string): string[] {
   });
 }
 
-self.addEventListener('install', event => {
-  event.waitUntil(caches.open(assetVersion).then(cache => cache.addAll([
+async function handleInstall() {
+  await caches.open(assetVersion).then(cache => cache.addAll([
+    '/favicon.ico',
     ...[
       ...themedStylesheets('site'),
       'font/lichess.woff2',
       'font/lichess.chess.woff2',
+      'font/noto-sans-latin.woff2',
+      'font/noto-sans-bold-latin.woff2',
+    ].map(versionedAssetUrl),
+    ...[
+      'images/logo.256.png',
+      'images/favicon-32-white.png',
+      'favicon.64.png',
+      'favicon.128.png',
+      'favicon.256.png',
     ].map(assetUrl),
+  ]));
+  await caches.open('offline' + assetVersion).then(cache => cache.addAll([
     '/editor',
-  ])));
-});
+  ]));
+}
+
+self.addEventListener('install', e => e.waitUntil(handleInstall()));
 
 self.addEventListener('fetch', event => {
   event.respondWith((async () => {
