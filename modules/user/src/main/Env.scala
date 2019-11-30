@@ -7,8 +7,9 @@ import play.api.Configuration
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
+import lila.db.dsl.Coll
 import lila.common.config._
-import lila.common.{ CollName, Secret, MaxPerPage }
+import lila.common.{ CollName, Secret, MaxPerPage, LightUser }
 
 case class UserConfig(
     @ConfigName("paginator.max_per_page") paginatorMaxPerPage: MaxPerPage,
@@ -36,22 +37,44 @@ final class Env(
 
   val userRepo = new UserRepo(db(config.collectionUser))
 
-  val lightUserApi = wire[LightUserApi]
+  val lightUserApi: LightUserApi = wire[LightUserApi]
+  val lightUser = (id: User.ID) => lightUserApi async id
+  val lightUserSync = (id: User.ID) => lightUserApi sync id
 
-  private def isOnline(userId: User.ID): Boolean = onlineUserIds() contains userId
+  private val isOnline = (userId: User.ID) => onlineUserIds() contains userId
 
-  val jsonView = new JsonView(isOnline)
+  lazy val jsonView = wire[JsonView]
 
-  lazy val noteApi = new NoteApi(userRepo, db(config.collectionNote), timeline)
+  lazy val noteApi = {
+    def mk = (coll: Coll) => wire[NoteApi]
+    mk(db(config.collectionNote))
+  }
 
-  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind))(system)
+  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind))
 
-  lazy val rankingApi = new RankingApi(userRepo, db(config.collectionRanking), mongoCache, lightUser)(system)
+  lazy val rankingApi = {
+    def mk = (coll: Coll) => wire[RankingApi]
+    mk(db(config.collectionRanking))
+  }
 
-  def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
-  def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
+  lazy val cached: Cached = {
+    def mk = (nbTtl: FiniteDuration) => wire[Cached]
+    mk(config.cachedNbTtl)
+  }
 
-  def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
+  private lazy val passHasher = new PasswordHasher(
+    secret = config.passwordBPassSecret,
+    logRounds = 10,
+    hashTimer = res => {
+      lila.mon.measure(_.user.auth.hashTime) {
+        lila.mon.measureIncMicros(_.user.auth.hashTimeInc)(res)
+      }
+    }
+  )
+
+  lazy val authenticator = wire[Authenticator]
+
+  lazy val forms = wire[DataForm]
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     lightUserApi.monitorCache
@@ -75,23 +98,4 @@ final class Env(
         noteApi erase user
     }
   )
-
-  def makeCached = (nbTtl: FiniteDuration) => wire[Cached]
-
-  lazy val cached: Cached = makeCached(config.cachedNbTtl)
-
-  lazy val authenticator = new Authenticator(
-    passHasher = new PasswordHasher(
-      secret = config.passwordBPassSecret,
-      logRounds = 10,
-      hashTimer = res => {
-        lila.mon.measure(_.user.auth.hashTime) {
-          lila.mon.measureIncMicros(_.user.auth.hashTimeInc)(res)
-        }
-      }
-    ),
-    userRepo = userRepo
-  )
-
-  lazy val forms = new DataForm(authenticator)
 }

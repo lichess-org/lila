@@ -137,7 +137,7 @@ object Mod extends LilaController {
       err => fuccess(redirect(username, mod = true)),
       title => modApi.setTitle(me.id, username, title map Title.apply) >>
         Env.security.automaticEmail.onTitleSet(username) >>-
-        Env.user.uncacheLightUser(UserModel normalize username) inject
+        Env.user.lightUserApi.invalidate(UserModel normalize username) inject
         redirect(username, mod = false)
     )
   }
