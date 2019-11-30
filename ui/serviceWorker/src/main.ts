@@ -67,6 +67,16 @@ async function handleInstall() {
 
 self.addEventListener('install', e => e.waitUntil(handleInstall()));
 
+async function handleActivate() {
+  const cacheNames = await caches.keys();
+  await Promise.all(
+    cacheNames
+      .filter(cacheName => !cacheName.endsWith(assetVersion))
+      .map(cacheName => caches.delete(cacheName)));
+}
+
+self.addEventListener('activate', e => e.waitUntil(handleActivate()));
+
 async function handleFetch(event: FetchEvent) {
   const url = new URL(event.request.url, self.location.href);
   if (url.pathname == '/editor' || url.pathname.startsWith('/editor/')) {
