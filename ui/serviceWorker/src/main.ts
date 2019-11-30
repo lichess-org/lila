@@ -60,6 +60,7 @@ async function handleInstall() {
     ].map(assetUrl),
   ]));
   await caches.open('offline' + assetVersion).then(cache => cache.addAll([
+    '/444',
     '/editor',
   ]));
 }
@@ -69,15 +70,23 @@ self.addEventListener('install', e => e.waitUntil(handleInstall()));
 async function handleFetch(event: FetchEvent) {
   const url = new URL(event.request.url, self.location.href);
   if (url.pathname == '/editor' || url.pathname.startsWith('/editor/')) {
-    const offlineCache = await self.caches.open('offline' + assetVersion);
-    const editorResponse = await offlineCache.match(new Request('/editor'));
+    const editorResponse = await caches.match('/editor');
     if (editorResponse) return editorResponse;
   } else {
     const assetCache = await self.caches.open(assetVersion);
     const assetReponse = await assetCache.match(event.request);
     if (assetReponse) return assetReponse;
   }
-  return fetch(event.request);
+
+  try {
+    return await fetch(event.request);
+  } catch(err) {
+    if (event.request.mode == 'navigate') {
+      const offlinePage = await caches.match('/444');
+      if (offlinePage) return offlinePage;
+    }
+    throw err;
+ }
 }
 
 self.addEventListener('fetch', event => {
