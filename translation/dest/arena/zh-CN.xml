@@ -3,14 +3,14 @@
 <resources>
   <string name="isItRated">锦标赛有积分吗？</string>
   <string name="willBeNotified">锦标赛开始时系统会通知您，所以在锦标赛开始以前您可以在另一个选项卡下棋而不至于错过锦标赛。</string>
-  <string name="isRated">本锦标赛有积分。所以它会影响您的积分。</string>
-  <string name="isNotRated">本锦标赛是*无*积分的。所以它*不*会影响您的积分。</string>
-  <string name="someRated">有些锦标赛有积分，会影响您的积分。</string>
+  <string name="isRated">本锦标赛计分并会影响您的排名。</string>
+  <string name="isNotRated">本锦标赛*不*计分，所以它*不*会影响您的排名。</string>
+  <string name="someRated">有些锦标赛计分并会影响您的排名。</string>
   <string name="howAreScoresCalculated">分数是怎么计算的？</string>
   <string name="howAreScoresCalculatedAnswer">赢局的基础分数是2 分，平局的基础分数是1分，输局不得分。如果您连续赢了两局将开始双倍计分，此时您会发现火焰图标。接下来的对局将继续双倍积分，直到你不能赢得一局棋。也就是说，在双倍计分的情况下一场赢局值 4 分，而一场平局值2分。输局仍然不得分。 
 
 例如两场胜利紧接着一场平局得 6 分： 2 + 2 + (2 x 1)。</string>
-  <string name="berserk">锦标赛加快棋速</string>
+  <string name="berserk">狂躁竞技场</string>
   <string name="berserkAnswer">如果棋手在棋局开始时点击“加快棋速”按钮他／她将损失一半的时间，但是每局赢棋将多得1分。如果时间控制存在着步时／加秒那么加快棋速会导致步时／加秒被取消。唯一的例外是1+2。在这个情况下加快棋速会把时间控制变为1+0。
 
 在没有局时的棋局， 如0+1、0+2等不得使用加快棋速功能。
