@@ -60,6 +60,7 @@ public/piece/cardinal | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA
 public/piece/gioco | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/tatiana | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/staunty | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/dubrovny | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
