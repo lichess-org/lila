@@ -8,7 +8,7 @@
   <string name="resetMyProgress">Шинээр эхлэх</string>
   <string name="youWillLoseAllYourProgress">Таны бүх ахиц арилах болно!</string>
   <string name="play">Тоглоё!</string>
-  <string name="chessPieces">Шатрын хөлгүүд</string>
+  <string name="chessPieces">Шатрын дүрсүүд</string>
   <string name="theRook">Тэрэг</string>
   <string name="itMovesInStraightLines">Тэрэг шулуун шугамаар нүүдэг</string>
   <string name="rookIntro">Тэрэг бол маш хүчтэй бод. Түүний чадварыг та бүрэн эзэмшихдээ бэлэн үү?</string>
