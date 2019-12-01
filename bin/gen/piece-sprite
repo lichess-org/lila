@@ -33,6 +33,7 @@ themes = [
   ['tatiana', 'svg'],
   ['staunty', 'svg'],
   ['dubrovny', 'svg']
+  ['icpieces', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',
