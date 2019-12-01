@@ -15,7 +15,6 @@ final class ShutupApi(
     reporter: akka.actor.ActorSelection
 ) {
 
-  private implicit val doubleListHandler = bsonArrayToListHandler[Double]
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
   import PublicLine.PublicLineBSONHandler
 

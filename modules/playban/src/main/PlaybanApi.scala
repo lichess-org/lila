@@ -5,8 +5,8 @@ import scala.concurrent.duration._
 
 import chess.variant._
 import chess.{ Status, Color }
+import lila.common.PlayApp.startedSinceMinutes
 import lila.common.{ Bus, Iso }
-import lila.common.PlayApp.{ startedSinceMinutes, isDev }
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.message.{ MessageApi, ModPreset }
@@ -18,16 +18,17 @@ final class PlaybanApi(
     coll: Coll,
     sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
+    userRepo: UserRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     messenger: MessageApi
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
-  private implicit val OutcomeBSONHandler = new BSONHandler[BSONInteger, Outcome] {
-    def read(bsonInt: BSONInteger): Outcome = Outcome(bsonInt.value) err s"No such playban outcome: ${bsonInt.value}"
-    def write(x: Outcome) = BSONInteger(x.id)
-  }
+  private implicit val OutcomeBSONHandler = tryHandler[Outcome](
+    { case BSONInteger(v) => Outcome(v) toTry s"No such playban outcome: $v" },
+    x => BSONInteger(x.id)
+  )
   private implicit val RageSitBSONHandler = intIsoHandler(Iso.int[RageSit](RageSit.apply, _.counter))
   private implicit val BanBSONHandler = Macros.handler[TempBan]
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
@@ -39,11 +40,11 @@ final class PlaybanApi(
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(s => blameableSources(s)) && game.hasClock) ?? {
       if (game.rated) fuTrue
-      else UserRepo.containsEngine(game.userIds) map (!_)
+      else userRepo.containsEngine(game.userIds) map (!_)
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    (isDev || startedSinceMinutes(10)) ?? {
+    startedSinceMinutes(10) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
@@ -143,11 +144,11 @@ final class PlaybanApi(
   private val cleanUserIds = new lila.memo.ExpireSetMemo(30 minutes)
 
   def currentBan(userId: User.ID): Fu[Option[TempBan]] = !cleanUserIds.get(userId) ?? {
-    coll.find(
+    coll.ext.find(
       $doc("_id" -> userId, "b.0" $exists true),
       $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
-    ).uno[Bdoc].map {
-        _.flatMap(_.getAs[List[TempBan]]("b")).??(_.find(_.inEffect))
+    ).uno[Bdoc].dmap {
+        _.flatMap(_.getAsOpt[List[TempBan]]("b")).??(_.find(_.inEffect))
       } addEffect { ban =>
         if (ban.isEmpty) cleanUserIds put userId
       }
@@ -166,15 +167,15 @@ final class PlaybanApi(
       }
     }
 
-  def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] = coll.find(
+  def bans(userIds: List[User.ID]): Fu[Map[User.ID, Int]] = coll.ext.find(
     $inIds(userIds),
     $doc("b" -> true)
   ).list[Bdoc]().map {
       _.flatMap { obj =>
-        obj.getAs[User.ID]("_id") flatMap { id =>
-          obj.getAs[Barr]("b") map { id -> _.stream.size }
+        obj.getAsOpt[User.ID]("_id") flatMap { id =>
+          obj.getAsOpt[Barr]("b") map { id -> _.size }
         }
-      }(scala.collection.breakOut)
+      }.toMap
     }
 
   def getRageSit(userId: User.ID) = rageSitCache get userId
@@ -196,10 +197,10 @@ final class PlaybanApi(
       ),
       fetchNewObject = true,
       upsert = true
-    ).map(_.value) map2 UserRecordBSONHandler.read flatten
+    ).dmap(_.value flatMap UserRecordBSONHandler.readOpt) orFail
       s"can't find newly created record for user $userId" flatMap { record =>
         (outcome != Outcome.Good) ?? {
-          UserRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _) } }
+          userRepo.createdAtById(userId).flatMap { _ ?? { legiferate(record, _) } }
         } >> {
           (rageSitDelta != 0) ?? registerRageSit(record, rageSitDelta)
         }
@@ -213,8 +214,8 @@ final class PlaybanApi(
         lila.log("ragesit").warn(s"Close https://lichess.org/@/${record.userId} ragesit=${record.rageSit}")
         funit
       } else if (record.rageSit.isVeryBad) for {
-        mod <- UserRepo.lichess
-        user <- UserRepo byId record.userId
+        mod <- userRepo.lichess
+        user <- userRepo byId record.userId
       } yield (mod zip user).headOption foreach {
         case (m, u) =>
           lila.log("ragesit").info(s"https://lichess.org/@/${u.username} ${record.rageSit.counterView}")

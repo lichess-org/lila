@@ -2,6 +2,7 @@ package lila.playban
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import scala.math.{ log10, sqrt }
 
 import lila.game.Game

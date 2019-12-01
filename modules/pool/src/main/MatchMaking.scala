@@ -76,7 +76,7 @@ object MatchMaking {
           none
         },
         pairs => Some {
-          pairs.map { case (a, b) => Couple(a, b) }(scala.collection.breakOut)
+          pairs.view.map { case (a, b) => Couple(a, b) } to Vector
         }
       )
     }
