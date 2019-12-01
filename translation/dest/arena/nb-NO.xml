@@ -24,10 +24,10 @@ Berserk gir ett ekstrapoeng bare om du spiller minst 7 trekk i partiet.</string>
   <string name="howDoesItEnd">Hvordan avsluttes den?</string>
   <string name="howDoesItEndAnswer">Turneringen har en nedtellingsklokke. Når den når null, fryses turneringsrangeringen, og vinneren blir kunngjort. Partier som allerede foregår, må spilles ferdig, men de teller ikke for turneringen.</string>
   <string name="otherRules">Andre viktige regler</string>
-  <string name="thereIsACountdown">Der er en nedtelling på ditt første trekk. Du taper partiet om du ikke trekker i tide.</string>
+  <string name="thereIsACountdown">Det første trekket ditt har nedtelling. Du taper partiet om du ikke trekker i tide.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Dersom det blir remis innen første %s trekk vil ingen av spillerne få poeng.</item>
-    <item quantity="other">Ved remis innen de første %s trekkene vil ingen av spillerne få poeng.</item>
+    <item quantity="one">Dersom det blir remis innen trekk %s, vil ingen av spillerne få poeng.</item>
+    <item quantity="other">Dersom det blir remis innen trekk %s, vil ingen av spillerne få poeng.</item>
   </plurals>
   <string name="thisIsPrivate">Dette er en privat turnering</string>
   <string name="shareUrl">Del denne URL-en for å la folk bli med: %s</string>
