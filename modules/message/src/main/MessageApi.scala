@@ -11,9 +11,11 @@ import lila.user.{ User, UserRepo }
 
 final class MessageApi(
     coll: Coll,
+    userRepo: UserRepo,
+    threadRepo: ThreadRepo,
     shutup: akka.actor.ActorSelection,
-    maxPerPage: lila.common.MaxPerPage,
-    blocks: (String, String) => Fu[Boolean],
+    maxPerPage: lila.common.config.MaxPerPage,
+    relationApi: lila.relation.RelationApi,
     notifyApi: lila.notify.NotifyApi,
     security: MessageSecurity
 ) {
@@ -23,9 +25,9 @@ final class MessageApi(
   def inbox(me: User, page: Int): Fu[Paginator[Thread]] = Paginator(
     adapter = new Adapter(
       collection = coll,
-      selector = ThreadRepo visibleByUserQuery me.id,
-      projection = $empty,
-      sort = ThreadRepo.recentSort
+      selector = threadRepo visibleByUserQuery me.id,
+      projection = none,
+      sort = threadRepo.recentSort
     ),
     currentPage = page,
     maxPerPage = maxPerPage
@@ -33,13 +35,13 @@ final class MessageApi(
 
   private val unreadCountCache: AsyncLoadingCache[User.ID, Int] = Scaffeine()
     .expireAfterWrite(1 minute)
-    .buildAsyncFuture[User.ID, Int](ThreadRepo.unreadCount _)
+    .buildAsyncFuture[User.ID, Int](threadRepo.unreadCount _)
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption <- coll.byId[Thread](id) map (_ filter (_ hasUser me))
-    _ <- threadOption.filter(_ isUnReadBy me).??(ThreadRepo.setReadFor(me))
+    _ <- threadOption.filter(_ isUnReadBy me).??(threadRepo.setReadFor(me))
   } yield threadOption
 
   def sendPreset(mod: User, user: User, preset: ModPreset): Fu[Thread] =
@@ -54,11 +56,11 @@ final class MessageApi(
     )
 
   def sendPresetFromLichess(user: User, preset: ModPreset) =
-    UserRepo.lichess flatten "Missing lichess user" flatMap { sendPreset(_, user, preset) }
+    userRepo.lichess orFail "Missing lichess user" flatMap { sendPreset(_, user, preset) }
 
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)
-    UserRepo named data.user.id flatMap {
+    userRepo named data.user.id flatMap {
       _.fold(fufail[Thread]("No such recipient")) { invited =>
         val t = Thread.make(
           name = data.subject,
@@ -81,9 +83,9 @@ final class MessageApi(
   }
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
-    if (fromMod) coll.insert(thread) inject true
-    else blocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
-      ((!blocks) ?? coll.insert(thread).void) inject !blocks
+    if (fromMod) coll.insert.one(thread) inject true
+    else relationApi.fetchBlocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
+      ((!blocks) ?? coll.insert.one(thread).void) inject !blocks
     }
 
   def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
@@ -92,11 +94,11 @@ final class MessageApi(
       isByCreator = thread isCreator me
     )
     if (thread endsWith post) fuccess(thread) // prevent duplicate post
-    else blocks(thread receiverOf post, me.id) flatMap {
+    else relationApi.fetchBlocks(thread receiverOf post, me.id) flatMap {
       case true => fuccess(thread)
       case false =>
         val newThread = thread + post
-        coll.update($id(newThread.id), newThread) >> {
+        coll.update.one($id(newThread.id), newThread) >> {
           val toUserId = newThread otherUserId me
           shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text, muted = false)
           notify(thread, post)
@@ -107,7 +109,7 @@ final class MessageApi(
   def deleteThread(id: String, me: User): Funit =
     thread(id, me) flatMap {
       _ ?? { thread =>
-        ThreadRepo.deleteFor(me.id)(thread.id) zip
+        threadRepo.deleteFor(me.id)(thread.id) zip
           notifyApi.remove(
             lila.notify.Notification.Notifies(me.id),
             $doc("content.thread.id" -> thread.id)
@@ -116,10 +118,10 @@ final class MessageApi(
     }
 
   def deleteThreadsBy(user: User): Funit =
-    ThreadRepo.createdByUser(user.id) flatMap {
+    threadRepo.createdByUser(user.id) flatMap {
       _.map { thread =>
         val victimId = thread otherUserId user
-        ThreadRepo.deleteFor(victimId)(thread.id) zip
+        threadRepo.deleteFor(victimId)(thread.id) zip
           notifyApi.remove(
             lila.notify.Notification.Notifies(victimId),
             $doc("content.thread.id" -> thread.id)
@@ -145,9 +147,9 @@ final class MessageApi(
       )
     }
 
-  def erase(user: User) = ThreadRepo.byAndForWithoutIndex(user) flatMap { threads =>
+  def erase(user: User) = threadRepo.byAndForWithoutIndex(user) flatMap { threads =>
     lila.common.Future.applySequentially(threads) { thread =>
-      coll.update($id(thread.id), thread erase user).void
+      coll.update.one($id(thread.id), thread erase user).void
     }
   }
 }

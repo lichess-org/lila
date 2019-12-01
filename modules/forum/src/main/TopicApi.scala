@@ -141,14 +141,11 @@ private[forum] final class TopicApi(
 
   def getSticky(categ: Categ, troll: Boolean): Fu[List[TopicView]] =
     TopicRepo.stickyByCateg(categ) flatMap { topics =>
-      scala.concurrent.Future.sequence(topics map {
-        topic =>
-          {
-            env.postColl.byId[Post](topic lastPostId troll) map { post =>
-              TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
-            }
-          }
-      })
+      topics.map { topic =>
+        env.postColl.byId[Post](topic lastPostId troll) map { post =>
+          TopicView(categ, topic, post, env.postApi lastPageOf topic, troll)
+        }
+      }.sequenceFu
     }
 
   def delete(categ: Categ, topic: Topic): Funit =

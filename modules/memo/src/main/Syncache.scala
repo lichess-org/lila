@@ -4,7 +4,6 @@ import com.github.benmanes.caffeine.cache._
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.TimeUnit
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 /**
  * A synchronous cache from asynchronous computations.
@@ -66,7 +65,7 @@ final class Syncache[K, V](
   }
 
   // maybe optimize later with cache batching
-  def asyncMany(ks: List[K]): Fu[List[V]] = Future sequence ks.map(async)
+  def asyncMany(ks: List[K]): Fu[List[V]] = ks.map(async).sequenceFu
 
   def invalidate(k: K): Unit = cache invalidate k
 
@@ -78,8 +77,8 @@ final class Syncache[K, V](
     } else funit
 
   // maybe optimize later with cach batching
-  def preloadMany(ks: Seq[K]): Funit = Future.sequence(ks.distinct.map(preloadOne)).void
-  def preloadSet(ks: Set[K]): Funit = Future.sequence(ks.map(preloadOne)).void
+  def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
+  def preloadSet(ks: Set[K]): Funit = ks.map(preloadOne).sequenceFu.void
   // def preloadSet(ks: Set[K]): Funit = ks.map(preloadOne).sequenceFu.void
 
   def setOneIfAbsent(k: K, v: => V): Unit =

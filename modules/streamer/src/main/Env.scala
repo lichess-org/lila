@@ -7,10 +7,9 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.Strings
 
 @Module
-private class NotifyConfig(
+private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
     @ConfigName("collection.image") val imageColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
@@ -34,7 +33,7 @@ final class Env(
 )(implicit system: ActorSystem) {
 
   private implicit val keywordLoader = strLoader(Stream.Keyword.apply)
-  private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
+  private val config = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
 
@@ -42,6 +41,7 @@ final class Env(
 
   lazy val alwaysFeaturedSetting = {
     import lila.memo.SettingStore.Strings._
+    import lila.common.Strings
     settingStore[Strings](
       "streamerAlwaysFeatured",
       default = Strings(Nil),

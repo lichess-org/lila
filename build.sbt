@@ -306,7 +306,7 @@ lazy val pref = module("pref", Seq(common, db, user)).settings(
 )
 
 lazy val message = module("message", Seq(common, db, user, hub, relation, security, shutup, notifyModule)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notifyModule)).settings(

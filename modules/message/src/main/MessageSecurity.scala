@@ -6,8 +6,7 @@ import lila.shutup.Analyser
 import lila.user.User
 
 private[message] final class MessageSecurity(
-    follows: (User.ID, User.ID) => Fu[Boolean],
-    blocks: (User.ID, User.ID) => Fu[Boolean],
+    relationApi: lila.relation.RelationApi,
     getPref: User.ID => Fu[lila.pref.Pref],
     spam: lila.security.Spam
 ) {
@@ -15,11 +14,11 @@ private[message] final class MessageSecurity(
   import lila.pref.Pref.Message._
 
   def canMessage(from: User.ID, to: User.ID): Fu[Boolean] =
-    blocks(to, from) flatMap {
+    relationApi.fetchBlocks(to, from) flatMap {
       case true => fuFalse
       case false => getPref(to).map(_.message) flatMap {
         case NEVER => fuFalse
-        case FRIEND => follows(to, from)
+        case FRIEND => relationApi.fetchFollows(to, from)
         case ALWAYS => fuTrue
       }
     }
@@ -29,9 +28,9 @@ private[message] final class MessageSecurity(
     if (spam.detect(fullText)) {
       logger.warn(s"PM spam from ${creator.username}: $fullText")
       fuTrue
-    } else if (creator.troll) !follows(invited.id, creator.id)
+    } else if (creator.troll) !relationApi.fetchFollows(invited.id, creator.id)
     else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(30))) {
-      follows(invited.id, creator.id) map { f =>
+      relationApi.fetchFollows(invited.id, creator.id) map { f =>
         if (!f) logger.warn(s"Mute dirty thread ${creator.username} -> ${invited.username} ${fullText.take(140)}")
         !f
       }

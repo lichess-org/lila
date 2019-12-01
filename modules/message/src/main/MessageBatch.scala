@@ -5,6 +5,7 @@ import lila.user.User
 
 final class MessageBatch(
     coll: Coll,
+    threadRepo: ThreadRepo,
     notifyApi: lila.notify.NotifyApi
 ) {
 
@@ -18,19 +19,19 @@ final class MessageBatch(
   }
 
   def markRead(me: User, ids: List[String]): Funit =
-    ThreadRepo.visibleByUserByIds(me, ids).flatMap {
-      _.map(ThreadRepo.setReadFor(me)).sequenceFu
+    threadRepo.visibleByUserByIds(me, ids).flatMap {
+      _.map(threadRepo.setReadFor(me)).sequenceFu
     }.void
 
   def markUnread(me: User, ids: List[String]): Funit =
-    ThreadRepo.visibleByUserByIds(me, ids).flatMap {
-      _.map(ThreadRepo.setUnreadFor(me)).sequenceFu
+    threadRepo.visibleByUserByIds(me, ids).flatMap {
+      _.map(threadRepo.setUnreadFor(me)).sequenceFu
     }.void
 
   def delete(me: User, ids: List[String]): Funit =
-    ThreadRepo.visibleByUserByIds(me, ids).flatMap {
+    threadRepo.visibleByUserByIds(me, ids).flatMap {
       _.map { thread =>
-        ThreadRepo.deleteFor(me.id)(thread.id) zip
+        threadRepo.deleteFor(me.id)(thread.id) zip
           notifyApi.remove(
             lila.notify.Notification.Notifies(me.id),
             $doc("content.thread.id" -> thread.id)

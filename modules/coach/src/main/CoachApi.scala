@@ -2,7 +2,6 @@ package lila.coach
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.db.dsl._
 import lila.db.Photographer
@@ -152,12 +151,10 @@ final class CoachApi(
 
     def deleteAllBy(userId: User.ID): Funit = for {
       reviews <- reviewColl.ext.find($doc("userId" -> userId)).list[CoachReview]
-      _ <- Future.sequence(reviews.map { review =>
+      _ <- reviews.map { review =>
         reviewColl.delete.one($doc("userId" -> review.userId)).void
-      })
-      _ <- Future sequence {
-        reviews.map(_.coachId).distinct.map(refreshCoachNbReviews)
-      }
+      }.sequenceFu
+      _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
     } yield ()
 
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =

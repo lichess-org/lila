@@ -3,7 +3,6 @@ package lila.user
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.common.{ LightUser, Every, AtMost }
 import lila.db.dsl._
@@ -42,11 +41,9 @@ final class Cached(
 
   private val topWeekCache = mongoCache.single[List[User.LightPerf]](
     prefix = "user:top:week",
-    f = Future sequence {
-      PerfType.leaderboardable.map { perf =>
-        rankingApi.topPerf(perf.id, 1)
-      }
-    } map (_.flatten),
+    f = PerfType.leaderboardable.map { perf =>
+      rankingApi.topPerf(perf.id, 1)
+    }.sequenceFu.map(_.flatten),
     timeToLive = 9 minutes
   )
 

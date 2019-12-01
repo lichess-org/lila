@@ -3,7 +3,6 @@ package lila.streamer
 import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.db.dsl._
 import lila.db.Photographer
@@ -42,7 +41,7 @@ final class StreamerApi(
     }
 
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
-    Future.sequence(live.streams.map(withUser)).map(_.flatten)
+    live.streams.map(withUser).sequenceFu.map(_.flatten)
 
   def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get
 

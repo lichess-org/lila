@@ -9,7 +9,6 @@ import reactivemongo.api.bson.BSONDocument
 import reactivemongo.api.WriteConcern
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
-import scala.concurrent.Future
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -349,11 +348,10 @@ final class GameRepo(val coll: Coll) {
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
     initialFen(game) map { Game.WithInitialFen(game, _) }
 
-  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] = Future sequence {
+  def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] =
     games.map { game =>
       initialFen(game) map { game -> _ }
-    }
-  }
+    }.sequenceFu
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 

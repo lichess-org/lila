@@ -3,7 +3,6 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.common.IpAddress
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -30,17 +29,15 @@ final class Firewall(
 
   def accepts(req: RequestHeader): Boolean = !blocks(req)
 
-  def blockIps(ips: List[IpAddress]): Funit = Future.sequence {
-    ips.map { ip =>
-      validIp(ip) ?? {
-        coll.update.one(
-          $id(ip),
-          $doc("_id" -> ip, "date" -> DateTime.now),
-          upsert = true
-        ).void
-      }
+  def blockIps(ips: List[IpAddress]): Funit = ips.map { ip =>
+    validIp(ip) ?? {
+      coll.update.one(
+        $id(ip),
+        $doc("_id" -> ip, "date" -> DateTime.now),
+        upsert = true
+      ).void
     }
-  } >> loadFromDb
+  }.sequenceFu >> loadFromDb
 
   def unblockIps(ips: Iterable[IpAddress]): Funit =
     coll.delete.one($inIds(ips.filter(validIp))).void >>- loadFromDb

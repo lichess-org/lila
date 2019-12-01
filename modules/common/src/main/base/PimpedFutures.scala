@@ -170,9 +170,13 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
   def getOrElse(other: => Fu[A]): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
 }
 
-final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
+// final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
 
-  def flatten: Fu[A] = fua.flatMap {
-    _.fold[Fu[A]](fufail(_), fuccess(_))
-  }(ExecutionContext.parasitic)
+//   def flatten: Fu[A] = fua.flatMap {
+//     _.fold[Fu[A]](fufail(_), fuccess(_))
+//   }(ExecutionContext.parasitic)
+// }
+
+final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
+  def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]]): Fu[M[A]] = Future.sequence(t)
 }

@@ -1,70 +1,49 @@
 package lila.message
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+
+import lila.common.config._
+import lila.user.{ User, UserRepo }
+
+@Module
+private class MessageConfig(
+    @ConfigName("collection.thread") val threadColl: CollName,
+    @ConfigName("thread.max_per_page") val threadMaxPerPage: MaxPerPage
+)
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     db: lila.db.Env,
     shutup: ActorSelection,
     notifyApi: lila.notify.NotifyApi,
-    blocks: (String, String) => Fu[Boolean],
-    follows: (String, String) => Fu[Boolean],
-    getPref: String => Fu[lila.pref.Pref],
+    relationApi: lila.relation.RelationApi,
+    userRepo: UserRepo,
+    getPref: User.ID => Fu[lila.pref.Pref],
     spam: lila.security.Spam,
-    system: ActorSystem,
     isOnline: lila.user.User.ID => Boolean,
     lightUser: lila.common.LightUser.GetterSync
-) {
+)(implicit system: ActorSystem) {
 
-  private val CollectionThread = config getString "collection.thread"
-  private val ThreadMaxPerPage = config getInt "thread.max_per_page"
+  private val config = appConfig.get[MessageConfig]("message")(AutoConfig.loader)
 
-  private[message] lazy val threadColl = db(CollectionThread)
+  private lazy val threadColl = db(config.threadColl)
 
-  lazy val forms = new DataForm(security = security)
+  private lazy val repo = wire[ThreadRepo]
 
-  lazy val jsonView = new JsonView(isOnline, lightUser)
+  lazy val forms = wire[DataForm]
 
-  lazy val batch = new MessageBatch(
-    coll = threadColl,
-    notifyApi = notifyApi
-  )
+  lazy val jsonView = wire[JsonView]
 
-  lazy val api = new MessageApi(
-    coll = threadColl,
-    shutup = shutup,
-    maxPerPage = lila.common.MaxPerPage(ThreadMaxPerPage),
-    blocks = blocks,
-    notifyApi = notifyApi,
-    security = security
-  )
+  lazy val batch = wire[MessageBatch]
 
-  lazy val security = new MessageSecurity(
-    follows = follows,
-    blocks = blocks,
-    getPref = getPref,
-    spam = spam
-  )
+  lazy val api = wire[MessageApi]
+
+  lazy val security = wire[MessageSecurity]
 
   lila.common.Bus.subscribeFun("gdprErase") {
     case lila.user.User.GDPRErase(user) => api erase user
   }
-}
-
-object Env {
-
-  lazy val current = "message" boot new Env(
-    config = lila.common.PlayApp loadConfig "message",
-    db = lila.db.Env.current,
-    shutup = lila.hub.Env.current.shutup,
-    notifyApi = lila.notify.Env.current.api,
-    blocks = lila.relation.Env.current.api.fetchBlocks,
-    follows = lila.relation.Env.current.api.fetchFollows,
-    getPref = lila.pref.Env.current.api.getPref,
-    spam = lila.security.Env.current.spam,
-    system = lila.common.PlayApp.system,
-    isOnline = lila.socket.Env.current.isOnline,
-    lightUser = lila.user.Env.current.lightUserSync
-  )
 }

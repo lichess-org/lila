@@ -1,7 +1,6 @@
 package lila.notify
 
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.common.Bus
 import lila.common.config.MaxPerPage
@@ -65,7 +64,7 @@ final class NotifyApi(
     repo.insert(notification) >>- unreadCountCache.update(notification.notifies, _ + 1)
 
   def addNotifications(notifications: List[Notification]): Funit =
-    Future.sequence(notifications.map(addNotification)).void
+    notifications.map(addNotification).sequenceFu.void
 
   def remove(notifies: Notification.Notifies, selector: Bdoc): Funit =
     repo.remove(notifies, selector) >>- unreadCountCache.invalidate(notifies)

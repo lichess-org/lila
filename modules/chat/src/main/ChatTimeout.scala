@@ -17,7 +17,7 @@ final class ChatTimeout(
   def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
     isActive(chat.id, user.id) flatMap {
       case true => funit
-      case false => coll.insert($doc(
+      case false => coll.insert.one($doc(
         "_id" -> makeId,
         "chat" -> chat.id,
         "mod" -> mod.id,
@@ -42,7 +42,7 @@ final class ChatTimeout(
     ), "user")
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
+    coll.ext.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
 
   def checkExpired: Fu[List[Reinstate]] = coll.list[Reinstate]($doc(
     "expiresAt" $lt DateTime.now

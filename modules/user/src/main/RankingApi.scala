@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
-import scala.concurrent.Future
 
 import lila.common.{ Every, AtMost }
 import lila.db.dsl._
@@ -55,20 +54,18 @@ final class RankingApi(
         .sort($doc("rating" -> -1))
         .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
         .gather[List](nb) flatMap { res =>
-          Future.sequence {
-            res.map { r =>
-              lightUser(r.user).map {
-                _ map { light =>
-                  User.LightPerf(
-                    user = light,
-                    perfKey = perfKey,
-                    rating = r.rating,
-                    progress = ~r.prog
-                  )
-                }
+          res.map { r =>
+            lightUser(r.user).map {
+              _ map { light =>
+                User.LightPerf(
+                  user = light,
+                  perfKey = perfKey,
+                  rating = r.rating,
+                  progress = ~r.prog
+                )
               }
             }
-          }.map(_.flatten)
+          }.sequenceFu.map(_.flatten)
         }
     }
 

@@ -29,9 +29,7 @@ trait AdapterLike[A] {
     def nbResults = AdapterLike.this.nbResults
 
     def slice(offset: Int, length: Int) =
-      AdapterLike.this.slice(offset, length) flatMap { results =>
-        scala.concurrent.Future sequence results.map(f)
-      }
+      AdapterLike.this.slice(offset, length) flatMap { _.map(f).sequenceFu }
   }
 
   def mapFutureList[B](f: Seq[A] => Fu[Seq[B]]): AdapterLike[B] = new AdapterLike[B] {
