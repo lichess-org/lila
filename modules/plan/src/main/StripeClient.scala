@@ -1,12 +1,15 @@
 package lila.plan
 
 import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSResponse }
-import play.api.Play.current
+import play.api.libs.ws.{ WSClient, WSResponse }
 
+import lila.common.config.Secret
 import lila.user.User
 
-private final class StripeClient(config: StripeClient.Config) {
+private final class StripeClient(
+    ws: WSClient,
+    config: StripeClient.Config
+) {
 
   import StripeClient._
   import JsonHandlers._
@@ -125,7 +128,7 @@ private final class StripeClient(config: StripeClient.Config) {
 
   private def post[A: Reads](url: String, data: Seq[(String, Any)]): Fu[A] = {
     logger.info(s"POST $url ${debugInput(data)}")
-    request(url).post(fixInput(data).toMap mapValues { Seq(_) }) flatMap response[A]
+    request(url).post(fixInput(data).toMap) flatMap response[A]
   }
 
   private def delete[A: Reads](url: String, data: Seq[(String, Any)]): Fu[A] = {
@@ -134,7 +137,7 @@ private final class StripeClient(config: StripeClient.Config) {
   }
 
   private def request(url: String) =
-    WS.url(s"${config.endpoint}/$url").withHeaders("Authorization" -> s"Bearer ${config.secretKey}")
+    ws.url(s"${config.endpoint}/$url").withHeaders("Authorization" -> s"Bearer ${config.secretKey}")
 
   private def response[A: Reads](res: WSResponse): Fu[A] = res.status match {
     case 200 => (implicitly[Reads[A]] reads res.json).fold(
@@ -156,9 +159,9 @@ private final class StripeClient(config: StripeClient.Config) {
     (js.asOpt[JsObject] flatMap { o => (o \ "deleted").asOpt[Boolean] }) == Some(true)
 
   private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] = (in map {
-    case (sym, Some(x)) => Some(sym.name -> x.toString)
-    case (sym, None) => None
-    case (sym, x) => Some(sym.name -> x.toString)
+    case (name, Some(x)) => Some(name -> x.toString)
+    case (name, None) => None
+    case (name, x) => Some(name -> x.toString)
   }).flatten
 
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
@@ -166,7 +169,7 @@ private final class StripeClient(config: StripeClient.Config) {
   private def debugInput(data: Seq[(String, Any)]) = fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
 }
 
-object StripeClient {
+private object StripeClient {
 
   class StripeException(msg: String) extends Exception(msg)
   class DeletedException(msg: String) extends StripeException(msg)
@@ -174,5 +177,11 @@ object StripeClient {
   class NotFoundException(msg: String) extends StatusException(msg)
   class InvalidRequestException(msg: String) extends StatusException(msg)
 
-  case class Config(endpoint: String, publicKey: String, secretKey: String)
+  import io.methvin.play.autoconfig._
+  case class Config(
+      endpoint: String,
+      @ConfigName("keys.public") publicKey: String,
+      @ConfigName("keys.public") secretKey: Secret
+  )
+  implicit val configLoader = AutoConfig.loader[Config]
 }

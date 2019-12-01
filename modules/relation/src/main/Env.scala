@@ -7,6 +7,7 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
+import lila.hub.actors
 
 @Module
 private class RelationConfig(
@@ -20,7 +21,9 @@ private class RelationConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
-    hub: lila.hub.Env,
+    relation: actors.Relation,
+    timeline: actors.Timeline,
+    report: actors.Report,
     onlineUserIds: () => Set[lila.user.User.ID],
     lightUserApi: lila.user.LightUserApi,
     followable: String => Fu[Boolean],
@@ -38,9 +41,9 @@ final class Env(
   lazy val api = new RelationApi(
     coll = coll,
     repo = repo,
-    actor = hub.relation,
-    timeline = hub.timeline,
-    reporter = hub.report,
+    actor = relation,
+    timeline = timeline,
+    reporter = report,
     followable = followable,
     asyncCache = asyncCache,
     maxFollow = config.maxFollow,

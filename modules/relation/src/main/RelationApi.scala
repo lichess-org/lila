@@ -11,15 +11,16 @@ import lila.common.Bus
 import lila.common.config.Max
 import lila.db.dsl._
 import lila.db.paginator._
+import lila.hub.actors
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
 import lila.user.User
 
 final class RelationApi(
     coll: Coll,
     repo: RelationRepo,
-    actor: ActorSelection,
-    timeline: ActorSelection,
-    reporter: ActorSelection,
+    actor: actors.Relation,
+    timeline: actors.Timeline,
+    reporter: actors.Report,
     followable: ID => Fu[Boolean],
     asyncCache: lila.memo.AsyncCache.Builder,
     maxFollow: Max,

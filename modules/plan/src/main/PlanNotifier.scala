@@ -1,6 +1,6 @@
 package lila.plan
 
-import akka.actor.ActorSelection
+import akka.actor._
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.timeline.{ Propagate }
@@ -10,12 +10,11 @@ import lila.user.User
 
 private[plan] final class PlanNotifier(
     notifyApi: NotifyApi,
-    scheduler: lila.common.Scheduler,
-    timeline: ActorSelection
-) {
+    timeline: lila.hub.actors.Timeline
+)(implicit system: ActorSystem) {
 
   def onStart(user: User) = fuccess {
-    scheduler.once(5 seconds) {
+    system.scheduler.scheduleOnce(5 seconds) {
       notifyApi.addNotification(Notification.make(
         Notifies(user.id),
         lila.notify.PlanStart(user.id)

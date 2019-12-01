@@ -1,40 +1,43 @@
 package lila.plan
 
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.libs.ws.WSClient
 import lila.memo.SettingStore.{ StringReader, Formable }
+import play.api.Configuration
 import scala.concurrent.duration._
 
+import lila.common.config._
+
+@Module
+private class PlanConfig(
+    @ConfigName("collection.patron") val patronColl: CollName,
+    @ConfigName("collection.charge") val chargeColl: CollName,
+    val stripe: StripeClient.Config,
+    @ConfigName("paypal.ipn_key") val payPalIpnKey: Secret
+)
+
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     db: lila.db.Env,
-    hub: lila.hub.Env,
+    ws: WSClient,
+    timeline: lila.hub.actors.Timeline,
     notifyApi: lila.notify.NotifyApi,
-    system: akka.actor.ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
-    settingStore: lila.memo.SettingStore.Builder,
-    scheduler: lila.common.Scheduler
-) {
+    userRepo: lila.user.UserRepo,
+    settingStore: lila.memo.SettingStore.Builder
+)(implicit system: akka.actor.ActorSystem) {
 
-  val stripePublicKey = config getString "stripe.keys.public"
+  import StripeClient.configLoader
+  private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
 
-  private val CollectionPatron = config getString "collection.patron"
-  private val CollectionCharge = config getString "collection.charge"
+  private lazy val patronColl = db(config.patronColl)
+  private lazy val chargeColl = db(config.chargeColl)
 
-  private lazy val patronColl = db(CollectionPatron)
-  private lazy val chargeColl = db(CollectionCharge)
+  private lazy val stripeClient: StripeClient = wire[StripeClient]
 
-  private lazy val stripeClient = new StripeClient(StripeClient.Config(
-    endpoint = config getString "stripe.endpoint",
-    publicKey = stripePublicKey,
-    secretKey = config getString "stripe.keys.secret"
-  ))
-
-  private lazy val notifier = new PlanNotifier(
-    notifyApi = notifyApi,
-    scheduler = scheduler,
-    timeline = hub.timeline
-  )
+  private lazy val notifier: PlanNotifier = wire[PlanNotifier]
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
     getGoal = () => Usd(donationGoalSetting.get()),
@@ -43,27 +46,32 @@ final class Env(
 
   val donationGoalSetting = settingStore[Int](
     "donationGoal",
-    default = 10 * 1000,
+    default = 0,
     text = "Monthly donation goal in USD from https://lichess.org/costs".some
   )
 
   lazy val api = new PlanApi(
-    stripeClient,
+    stripeClient = stripeClient,
     patronColl = patronColl,
     chargeColl = chargeColl,
     notifier = notifier,
+    userRepo = userRepo,
     lightUserApi = lightUserApi,
     asyncCache = asyncCache,
-    payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
+    payPalIpnKey = config.payPalIpnKey,
     monthlyGoalApi = monthlyGoalApi
-  )(system)
+  )
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
-  private lazy val expiration = new Expiration(patronColl, notifier)
+  private lazy val expiration = new Expiration(
+    userRepo,
+    patronColl,
+    notifier
+  )
 
-  scheduler.future(15 minutes, "Expire patron plans") {
-    expiration.run
+  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) {
+    () => expiration.run
   }
 
   def webhook = webhookHandler.apply _
@@ -71,27 +79,12 @@ final class Env(
   def cli = new lila.common.Cli {
     def process = {
       case "patron" :: "lifetime" :: user :: Nil =>
-        lila.user.UserRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+        userRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
       // someone donated while logged off.
       // we cannot bind the charge to the user so they get their precious wings.
       // instead, give them a free month.
       case "patron" :: "month" :: user :: Nil =>
-        lila.user.UserRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
+        userRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
     }
   }
-}
-
-object Env {
-
-  lazy val current: Env = "plan" boot new Env(
-    config = lila.common.PlayApp loadConfig "plan",
-    db = lila.db.Env.current,
-    hub = lila.hub.Env.current,
-    notifyApi = lila.notify.Env.current.api,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    system = lila.common.PlayApp.system,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    settingStore = lila.memo.Env.current.settingStore,
-    scheduler = lila.common.PlayApp.scheduler
-  )
 }
