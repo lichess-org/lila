@@ -80,6 +80,7 @@ RSYNC_OPTIONS=" \
   --exclude '*.psd' \
   --exclude '*.h' \
   --exclude '*.cpp' \
+  --exclude '*.xcf' \
   --exclude '.git/' \
   --exclude node_modules"
 
