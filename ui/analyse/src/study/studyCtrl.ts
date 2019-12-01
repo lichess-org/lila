@@ -158,7 +158,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     if (practice) practice.onLoad();
   };
 
-  function onReload(d: ReloadData) {
+  function onReload(d: ReloadData, path?: Tree.Path) {
     const s = d.study!;
     const prevPath = ctrl.path;
     const sameChapter = data.chapter.id === s.chapter.id;
@@ -185,15 +185,20 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
 
     let nextPath: Tree.Path;
 
+    // only jump to existing paths
+    if (path && ctrl.tree.longestValidPath(path) != path) {
+      path = undefined;
+    }
+
     if (vm.mode.sticky) {
       vm.chapterId = data.position.chapterId;
-      nextPath = (
+      nextPath = path || (
         (vm.justSetChapterId === vm.chapterId) && chapters.localPaths[vm.chapterId]
       ) || data.position.path;
     } else {
-      nextPath = sameChapter ? prevPath : (
+      nextPath = path || (sameChapter ? prevPath : (
         data.chapter.relay ? data.chapter.relay!.path : (chapters.localPaths[vm.chapterId] || treePath.root)
-      );
+      ));
     }
 
     // path could be gone (because of subtree deletion), go as far as possible
@@ -209,13 +214,13 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     ctrl.startCeval();
   };
 
-  function xhrReload() {
+  function xhrReload(path?: Tree.Path) {
     vm.loading = true;
     return xhr.reload(
       practice ? 'practice/load' : (ctrl.embed ? 'study/embed' : 'study'),
       data.id,
       vm.mode.sticky ? undefined : vm.chapterId
-    ).then(onReload, li.reload);
+    ).then(d => onReload(d, path), li.reload);
   };
 
   const onSetPath = throttle(300, (path: Tree.Path) => {
@@ -537,7 +542,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
         path
       }));
     },
-    setChapter(id, force) {
+    setChapter(id, force, path) {
       const alreadySet = id === vm.chapterId && !force;
       if (relay && relay.intro.active) {
         relay.intro.disable();
@@ -548,7 +553,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
         vm.mode.sticky = false;
         if (!vm.behind) vm.behind = 1;
         vm.chapterId = id;
-        xhrReload();
+        xhrReload(path);
       }
       vm.loading = true;
       vm.nextChapterId = id;

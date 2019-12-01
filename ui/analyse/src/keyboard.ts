@@ -56,7 +56,16 @@ export function bind(ctrl: AnalyseCtrl): void {
       ctrl.toggleComputer();
       ctrl.redraw();
     }));
-    
+
+    for (let i = 1; i < 10; i++) {
+      kbd.bind('ctrl+' + i, preventing(function() {
+        ctrl.setBookmark(i);
+      }));
+      kbd.bind('' + i, preventing(function() {
+        ctrl.restoreBookmark(i);
+      }));
+    }
+
     kbd.bind('space', preventing(function() {
       const gb = ctrl.gamebookPlay();
       if (gb) gb.onSpace();

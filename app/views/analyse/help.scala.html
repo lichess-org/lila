@@ -19,6 +19,9 @@
 @or = {
 <or>/</or>
 }
+@to = {
+<or>-</or>
+}
 
 <h2>@trans.keyboardShortcuts()</h2>
 <table>
@@ -30,6 +33,8 @@
     @row(List(k("0"), or, k("$")), trans.keyGoToStartOrEnd.txt())
     @row(List(k("shift"), k("←"), or, k("shift"), k("→")), trans.keyEnterOrExitVariation.txt())
     @row(List(k("shift"), k("J"), or, k("shift"), k("K")), trans.keyEnterOrExitVariation.txt())
+    @row(List(k("ctrl"), k("1"), to, k("9")), "Bookmark position")
+    @row(List(k("1"), to, k("9")), "Jump to bookmarked position")
     @header("Analysis options")
     @row(List(k("shift"), k("I")), trans.inlineNotation.txt())
     @row(List(k("l")), "Toggle local computer analysis")

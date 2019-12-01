@@ -200,6 +200,28 @@ export default class AnalyseCtrl {
     this.onMainline = this.tree.pathIsMainline(path)
   }
 
+  setBookmark = (index: number) => {
+    const bookmarkData = this.study ? [this.study.data.id, this.study.currentChapter().id] : [];
+    li.storage.set('analysis.bookmark.' + index, [this.path].concat(bookmarkData).join(' '));
+  }
+
+  restoreBookmark = (index: number) => {
+    var bookmarkStorage = li.storage.make('analysis.bookmark.' + index), 
+      storedBookmark = bookmarkStorage.get();
+    if (!storedBookmark) return;
+    const pieces = storedBookmark.split(' ');
+    if (this.study && pieces.length > 2 && 
+      this.study.data.id === pieces[1] && 
+      this.study.currentChapter().id !== pieces[2] && 
+      this.study.chapters.get(pieces[2])) {
+      this.study.setChapter(pieces[2], false, pieces[0]);
+    } else if (this.tree.longestValidPath(pieces[0]) === pieces[0]) {
+      // only jump when entire path exists
+      this.userJump(pieces[0]);
+      this.redraw();
+    }
+  }
+
   flip = () => {
     this.flipped = !this.flipped;
     this.draughtsground.set({
