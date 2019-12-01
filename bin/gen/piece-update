@@ -1,0 +1,29 @@
+#!/bin/sh -e
+
+file=$1
+single_name=$2
+build_dir=$(mktemp -d)
+commit_msg=""
+
+echo "Building in $build_dir"
+unzip $file -d $build_dir
+
+if [[ ! -z "$single_name" ]]; then
+  cp -v $build_dir/* public/piece/$single_name/
+  commit_msg="Update $single_name"
+else
+  unzip $file -d $build_dir
+  cp -v $build_dir/* public/piece/
+  commit_msg="Update pieces"
+fi
+
+bin/gen/piece-sprite
+git add public/piece
+git add public/piece-css
+
+git log --name-status HEAD^..HEAD
+read -n 1 -p "Press [Enter] to push"
+
+git push
+
+rm $file
