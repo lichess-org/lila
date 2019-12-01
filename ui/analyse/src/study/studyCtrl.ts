@@ -19,7 +19,7 @@ import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { DescriptionCtrl } from './description';
 import RelayCtrl from './relay/relayCtrl';
 import { RelayData } from './relay/interfaces';
-import { MultiBoardCtrl } from './multiBoard';
+import { MultiBoardCtrl, MultiBoardMenuCtrl } from './multiBoard';
 
 const li = window.lidraughts;
 
@@ -90,6 +90,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
   const multiBoard = new MultiBoardCtrl(data.id, redraw);
 
   const relay = relayData ? new RelayCtrl(relayData, send, redraw, members, data.chapter) : undefined;
+  const multiBoardMenu = relay ? new MultiBoardMenuCtrl() : undefined;
 
   const form: StudyFormCtrl = studyFormCtrl((d, isNew) => {
     send("editStudy", d);
@@ -492,6 +493,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     vm,
     relay,
     multiBoard,
+    multiBoardMenu,
     isUpdatedRecently() {
       return Date.now() - vm.updatedAt < 300 * 1000;
     },

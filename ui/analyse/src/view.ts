@@ -173,7 +173,8 @@ function navClick(ctrl: AnalyseCtrl, action: 'prev' | 'next') {
 function buttons(ctrl: AnalyseCtrl) {
   const canJumpPrev = ctrl.path !== '',
     canJumpNext = !!ctrl.node.children[0],
-    menuIsOpen = ctrl.actionMenu.open;
+    menuIsOpen = ctrl.actionMenu.open,
+    multiBoardMenu = ctrl.study && ctrl.study.relay && ctrl.study.members.canContribute() && ctrl.study.multiBoardMenu;
   return h('div.game_control', {
     hook: bind('mousedown', e => {
       const action = dataAct(e);
@@ -182,7 +183,15 @@ function buttons(ctrl: AnalyseCtrl) {
       else if (action === 'last') control.last(ctrl);
       else if (action === 'explorer') ctrl.toggleExplorer();
       else if (action === 'practice') ctrl.togglePractice();
-      else if (action === 'menu') ctrl.actionMenu.toggle();
+      else if (action === 'menu') {
+        ctrl.actionMenu.toggle();
+        if (ctrl.study && ctrl.study.multiBoardMenu)
+          ctrl.study.multiBoardMenu.open = false;
+      } else if (action === 'multiboard-menu') {
+        ctrl.actionMenu.open = false;
+        if (ctrl.study && ctrl.study.multiBoardMenu)
+          ctrl.study.multiBoardMenu.toggle();
+      }
     }, ctrl.redraw)
   }, [
       ctrl.embed ? null : h('div.features', ctrl.studyPractice ? [
@@ -221,13 +230,22 @@ function buttons(ctrl: AnalyseCtrl) {
         jumpButton('X', 'next', canJumpNext),
         jumpButton('V', 'last', canJumpNext)
       ]),
-      ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
-        class: { active: menuIsOpen },
-        attrs: {
-          'data-hint': ctrl.trans.noarg('menu'),
-          'data-act': 'menu'
-        }
-      }, [iconTag('[')])
+      h('div.buttons', [
+        multiBoardMenu ? h('button.hint--bottom', {
+          class: { active: multiBoardMenu.open },
+          attrs: {
+            'data-hint': 'Multiboard',
+            'data-act': 'multiboard-menu'
+          }
+        }, [iconTag('')]) : null,
+        ctrl.studyPractice ? h('div.noop') : h('button.hint--bottom', {
+          class: { active: menuIsOpen },
+          attrs: {
+            'data-hint': ctrl.trans.noarg('menu'),
+            'data-act': 'menu'
+          }
+        }, [iconTag('[')])
+      ])
     ]);
 }
 
@@ -266,6 +284,8 @@ export default function (ctrl: AnalyseCtrl): VNode {
     study = ctrl.study,
     showCevalPvs = !(ctrl.retro && ctrl.retro.isSolving()) && !ctrl.practice,
     menuIsOpen = ctrl.actionMenu.open,
+    multiBoardMenu = ctrl.study && ctrl.study.multiBoardMenu,
+    multiBoardMenuIsOpen = multiBoardMenu && multiBoardMenu.open && ctrl.study && ctrl.study.members.canContribute(),
     gamebookPlay = ctrl.gamebookPlay(),
     gamebookPlayView = gamebookPlay && gbPlay.render(gamebookPlay),
     gamebookEditView = gbEdit.running(ctrl) ? gbEdit.render(ctrl) : undefined,
@@ -305,16 +325,17 @@ export default function (ctrl: AnalyseCtrl): VNode {
         }, [
             visualBoard(ctrl, playerBars),
             intro ? null : h('div.lidraughts_ground', gamebookPlayView || [
-              menuIsOpen || playerBars ? null : renderClocks(ctrl),
-              (menuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
-              ...(menuIsOpen ? [actionMenu(ctrl)] : [
-                cevalView.renderCeval(ctrl),
-                showCevalPvs ? cevalView.renderPvs(ctrl) : null,
-                renderAnalyse(ctrl, concealOf),
-                gamebookEditView ? null : forkView(ctrl, concealOf),
-                retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
-              ]),
-              (menuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
+              (menuIsOpen || multiBoardMenuIsOpen || playerBars) ? null : renderClocks(ctrl),
+              (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.topColor(), 'top'),
+              ...(menuIsOpen ? [actionMenu(ctrl)] : (
+                multiBoardMenu && multiBoardMenuIsOpen ? [multiBoardMenu.view(ctrl.study)] : [
+                  cevalView.renderCeval(ctrl),
+                  showCevalPvs ? cevalView.renderPvs(ctrl) : null,
+                  renderAnalyse(ctrl, concealOf),
+                  gamebookEditView ? null : forkView(ctrl, concealOf),
+                  retroView(ctrl) || practiceView(ctrl) || explorerView(ctrl)
+                ])),
+              (menuIsOpen || multiBoardMenuIsOpen || intro) ? null : crazyView(ctrl, ctrl.bottomColor(), 'bottom'),
               buttons(ctrl),
               gamebookEditView || relayEdit
             ])

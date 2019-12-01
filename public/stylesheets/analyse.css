@@ -1023,6 +1023,11 @@ body.dark .practice_box .comment {
   justify-content: flex-end;
   padding-bottom: 10px;
 }
+.action_menu.multi_board_menu {
+  justify-content: flex-start;
+  margin-top: -24px;
+  overflow: visible
+}
 .explorer_box, .retro_box, .practice_box, .action_menu {
   border-bottom: 3px solid #3893E8!important;
 }

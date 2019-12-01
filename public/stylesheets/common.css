@@ -1374,6 +1374,13 @@ div.vstext .right {
   width: 160px;
   height: 160px;
 }
+.multi_board.tiny #now_playing .meta {
+  width: 130px;
+}
+.multi_board.tiny #now_playing .cg-board-wrap {
+  width: 130px;
+  height: 130px;
+}
 
 div.lidraughts_overboard h2 {
   margin-bottom: 1em;

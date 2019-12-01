@@ -9,7 +9,7 @@ import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
-import { MultiBoardCtrl } from './multiBoard';
+import { MultiBoardCtrl, MultiBoardMenuCtrl } from './multiBoard';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -18,6 +18,7 @@ export interface StudyCtrl {
   vm: StudyVm;
   relay?: RelayCtrl;
   multiBoard: MultiBoardCtrl;
+  multiBoardMenu?: MultiBoardMenuCtrl;
   form: any;
   members: any;
   chapters: StudyChaptersCtrl;

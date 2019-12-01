@@ -68,9 +68,9 @@ export class MultiBoardCtrl {
   };
 }
 
-export function view(ctrl: MultiBoardCtrl, study: StudyCtrl): VNode | undefined {
+export function view(ctrl: MultiBoardCtrl, study: StudyCtrl, tiny?: boolean): VNode | undefined {
 
-  return h('div.multi_board', {
+  return h('div.multi_board' + (tiny ? '.tiny' : ''), {
     class: { loading: ctrl.loading },
     hook: {
       insert() { ctrl.reload(true); }
@@ -94,7 +94,10 @@ function renderPlayingToggle(ctrl: MultiBoardCtrl): VNode {
     attrs: { title: 'Only ongoing games' }
   }, [
     h('input', {
-      attrs: { type: 'checkbox' },
+      attrs: { 
+        type: 'checkbox',
+        checked: ctrl.playing
+      },
       hook: bind('change', e => {
         ctrl.setPlaying((e.target as HTMLInputElement).checked);
       })
@@ -130,9 +133,11 @@ function pagerButton(text: string, icon: string, click: () => void, enable: bool
 function makePreview(study: StudyCtrl) {
   return (preview: ChapterPreview) => {
     const contents = preview.players ? [
-      makePlayer(preview.players[opposite(preview.orientation)], preview.result ? resultOf([['result', preview.result]], opposite(preview.orientation) == 'white', true) : undefined),
+      preview.result ? h('span.player_result', [resultOf([['result', preview.result]], opposite(preview.orientation) == 'white', true)]) : undefined,
+      makePlayer(preview.players[opposite(preview.orientation)]),
       makeCg(preview),
-      makePlayer(preview.players[preview.orientation], preview.result ? resultOf([['result', preview.result]], preview.orientation == 'white', true) : undefined)
+      preview.result ? h('span.player_result', [resultOf([['result', preview.result]], preview.orientation == 'white', true)]) : undefined,
+      makePlayer(preview.players[preview.orientation])
     ] : [
       h('div.name', preview.name),
       makeCg(preview)
@@ -145,11 +150,10 @@ function makePreview(study: StudyCtrl) {
   };
 }
 
-function makePlayer(player: ChapterPreviewPlayer, result?: string): VNode {
+function makePlayer(player: ChapterPreviewPlayer): VNode {
   return h('div.player', [
     player.title ? `${player.title} ${player.name}` : player.name,
-    player.rating && h('span', '' + player.rating),
-    result ? h('b', result) : undefined
+    player.rating && h('span', '' + player.rating)
   ]);
 }
 
@@ -184,4 +188,10 @@ function makeCg(preview: ChapterPreview): VNode {
       }
     }
   }, [h('div.cg-board')])
+}
+
+export class MultiBoardMenuCtrl {
+  open: boolean = false;
+  toggle = () => this.open = !this.open;
+  view = (study?: StudyCtrl) => study && h('div.action_menu.multi_board_menu', [view(study.multiBoard, study, true)]);
 }

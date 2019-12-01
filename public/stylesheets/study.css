@@ -658,6 +658,12 @@ body.base .study_buttons .fbt.active {
   align-items: center;
   display: flex;
 }
+.multi_board.tiny {
+  width: 416px;
+}
+.multi_board.tiny .top {
+  margin-top: -2px;
+}
 .multi_board .playing {
   cursor: pointer;
 }
@@ -679,6 +685,10 @@ body.base .study_buttons .fbt.active {
 }
 #now_playing a:nth-child(even) {
   background: rgba(128, 128, 128, 0.2);
+}
+.multi_board.tiny #now_playing > a {
+  flex: 0 0 130px;
+  padding: 0 4px;
 }
 body.dark #now_playing a {
   background: #000;
@@ -702,11 +712,29 @@ body.base #now_playing > a:hover {
   display: flex;
   justify-content: space-between;
 }
+#now_playing .player span {
+  margin-left: 0.3em;
+}
 #now_playing .name {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 3em;
+}
+#now_playing .player_result {
+  float: left;
+  font-weight: bolder;
+  margin-right: 0.3em;
+}
+.multi_board.tiny #now_playing .player {
+  height: 1.4em;
+  font-size: 11px;
+}
+.multi_board.tiny #now_playing .player span {
+  margin-left: 0.2em;
+}
+.multi_board.tiny #now_playing .player_result {
+  margin-right: 0.2em;
 }
 
 div.advice_summary {
