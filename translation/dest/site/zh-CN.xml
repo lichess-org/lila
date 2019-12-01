@@ -87,8 +87,8 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="winPreventedBy50MoveRule">本棋局本应取胜，但由于50回合规则导致和棋。</string>
-  <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
+  <string name="winPreventedBy50MoveRule">因50步和棋规则未赢</string>
+  <string name="lossSavedBy50MoveRule">因50步和棋规则未输</string>
   <string name="allSet">一切就绪！</string>
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
@@ -292,7 +292,7 @@
   <string name="mustBeInTeam">您必须在队伍 %s 中</string>
   <string name="youAreNotInTeam">您不在队伍 %s 中</string>
   <string name="backToGame">返回棋局</string>
-  <string name="siteDescription">界面清新的免费在线国际象棋平台。不用注册，没有广告，无需插件。快來与电脑、朋友和陌生人一起对战吧！</string>
+  <string name="siteDescription">界面简介且免费在线国际象棋平台。免注册，免广告，无插件。与电脑、朋友或随机的对手开始博弈吧。</string>
   <string name="teams">团队</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成员</item>
@@ -424,7 +424,7 @@
   <string name="country">国家</string>
   <string name="preferences">偏好设置</string>
   <string name="inlineNotation">棋谱无格式</string>
-  <string name="watchLichessTV">观看Lichess直播</string>
+  <string name="watchLichessTV">观看 Lichess TV</string>
   <string name="previouslyOnLichessTV">过去的Lichess直播</string>
   <string name="onlinePlayers">在线棋手</string>
   <string name="activeToday">本日活跃棋手</string>
@@ -590,7 +590,7 @@
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
-  <string name="learnMenu">学</string>
+  <string name="learnMenu">学棋</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
@@ -622,14 +622,14 @@
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">观看对局</string>
   <string name="tpTimeSpentOnTV">在Lichess直播上的时间：%s</string>
-  <string name="watch">观看</string>
+  <string name="watch">观棋</string>
   <string name="videoLibrary">视频库</string>
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
   <string name="about">关于</string>
   <string name="aboutX">关于 %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s是一个免费 (%2$s), 自由，没有广告的国际象棋服务器。</string>
-  <string name="really">真的</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源国际象棋服务器。</string>
+  <string name="really">不信？</string>
   <string name="contribute">协助我们</string>
   <string name="contact">联系我们</string>
   <string name="termsOfService">服务条款</string>
@@ -825,7 +825,7 @@
   <string name="noConditionalPremoves">没有条件预先走棋</string>
   <string name="playX">走%s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="other">并保存%s条预先走棋线</item>
+    <item quantity="other">已保存 %s 条先前的走子</item>
   </plurals>
   <string name="sorry">抱歉 :(</string>
   <string name="weHadToTimeYouOutForAWhile">请稍候再试！</string>
