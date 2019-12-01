@@ -252,8 +252,8 @@
   <string name="backToTournament">Týrnırge oralaıyq</string>
   <string name="thematic">Taqyryptyq</string>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1 $ s % 2 $ s reıtıń oıyny</item>
-    <item quantity="other">≥ %1$s % 2 $ s reıtıńtik oıyndar</item>
+    <item quantity="one">≥ %1$s %2$s reıtıń oıyny</item>
+    <item quantity="other">≥ %1$s %2$s reıtıńtik oıyndar</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Siz %1$s-da %2$s artyq oınaýyńyz kerek reıtıń oıyny</item>
