@@ -10,22 +10,23 @@ import lila.common.EmailAddress
 
 import SecurityConfig._
 
-private case class SecurityConfig(
-    collection: Collection,
-    @ConfigName("flood.duration") floodDuration: FiniteDuration,
-    @ConfigName("geoip") geoIP: GeoIP.Config,
-    @ConfigName("password_reset.secret") passwordResetSecret: Secret,
-    @ConfigName("email_config") emailConfirm: EmailConfirm,
-    @ConfigName("email_change.secret") emailChangeSecret: Secret,
-    @ConfigName("login_token.secret") loginTokenSecret: Secret,
-    tor: Tor,
-    @ConfigName("disposable_email") disposableEmail: DisposableEmail,
-    @ConfigName("dns_api") dnsApi: DnsApi,
-    @ConfigName("check_mail_api") checkMail: CheckMail,
-    recaptchaC: Recaptcha.Config,
-    mailgun: Mailgun.Config,
-    net: NetConfig,
-    @ConfigName("ipintel.email") ipIntelEmail: EmailAddress
+@Module
+private class SecurityConfig(
+    val collection: Collection,
+    @ConfigName("flood.duration") val floodDuration: FiniteDuration,
+    @ConfigName("geoip") val geoIP: GeoIP.Config,
+    @ConfigName("password_reset.secret") val passwordResetSecret: Secret,
+    @ConfigName("email_config") val emailConfirm: EmailConfirm,
+    @ConfigName("email_change.secret") val emailChangeSecret: Secret,
+    @ConfigName("login_token.secret") val loginTokenSecret: Secret,
+    val tor: Tor,
+    @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
+    @ConfigName("dns_api") val dnsApi: DnsApi,
+    @ConfigName("check_mail_api") val checkMail: CheckMail,
+    val recaptchaC: Recaptcha.Config,
+    val mailgun: Mailgun.Config,
+    val net: NetConfig,
+    @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress
 )
 
 private object SecurityConfig {

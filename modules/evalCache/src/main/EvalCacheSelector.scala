@@ -1,5 +1,7 @@
 package lila.evalCache
 
+import scala.math.Ordering.Float.TotalOrdering
+
 import EvalCacheEntry._
 
 /**

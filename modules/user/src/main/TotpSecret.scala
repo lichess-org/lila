@@ -56,7 +56,7 @@ object TotpSecret {
     TotpSecret(secret)
   }
 
-  private[user] val totpSecretBSONHandler = lila.db.BSON.quickHandler[TotpSecret](
+  private[user] val totpSecretBSONHandler = lila.db.dsl.quickHandler[TotpSecret](
     { case v: BSONBinary => TotpSecret(v.byteArray) },
     v => BSONBinary(v.secret, Subtype.GenericBinarySubtype)
   )

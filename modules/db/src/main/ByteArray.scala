@@ -24,7 +24,7 @@ object ByteArray {
   def fromHexStr(hexStr: String): Try[ByteArray] =
     Try(ByteArray(hex str2Hex hexStr))
 
-  implicit val ByteArrayBSONHandler = lila.db.BSON.quickHandler[ByteArray](
+  implicit val ByteArrayBSONHandler = dsl.quickHandler[ByteArray](
     { case v: BSONBinary => ByteArray(v.byteArray) },
     v => BSONBinary(v.value, subtype)
   )

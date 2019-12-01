@@ -42,18 +42,18 @@ object Line {
   val textMaxSize = 140
   val titleSep = '~'
 
-  import reactivemongo.api.bson.{ BSONHandler, BSONString }
+  import reactivemongo.api.bson._
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  private[chat] implicit val userLineBSONHandler = lila.db.BSON.quickHandler[UserLine](
-    { case BSONString(value) => strToUserLine(value) getOrElse invalidLine },
-    x => BSONString(userLineToStr(x))
+  private[chat] implicit val userLineBSONHandler = BSONStringHandler.as[UserLine](
+    v => strToUserLine(v) getOrElse invalidLine,
+    userLineToStr
   )
 
-  private[chat] implicit val lineBSONHandler = lila.db.BSON.quickHandler[Line](
-    { case BSONString(value) => strToLine(value) getOrElse invalidLine },
-    x => BSONString(lineToStr(x))
+  private[chat] implicit val lineBSONHandler = BSONStringHandler.as[Line](
+    v => strToLine(v) getOrElse invalidLine,
+    lineToStr
   )
 
   private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r

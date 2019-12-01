@@ -46,7 +46,7 @@ private[puzzle] final class Selector(
         }
       }
     }
-  }.mon(_.puzzle.selector.time) flattenWith NoPuzzlesAvailableException addEffect { puzzle =>
+  }.mon(_.puzzle.selector.time) orFailWith NoPuzzlesAvailableException addEffect { puzzle =>
     if (puzzle.vote.sum < -1000)
       logger.info(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
     else

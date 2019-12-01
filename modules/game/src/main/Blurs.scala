@@ -44,7 +44,7 @@ object Blurs {
 
   import reactivemongo.api.bson._
 
-  private[game] implicit val BlursBitsBSONHandler = lila.db.BSON.tryHandler[Bits](
+  private[game] implicit val BlursBitsBSONHandler = lila.db.dsl.tryHandler[Bits](
     {
       case BSONInteger(bits) => Success(Bits(bits & 0xffffffffL))
       case BSONLong(bits) => Success(Bits(bits))

@@ -78,7 +78,7 @@ object Authenticator {
     F.sha512 -> true
   )
 
-  private[user] implicit val HashedPasswordBsonHandler = lila.db.BSON.quickHandler[HashedPassword](
+  private[user] implicit val HashedPasswordBsonHandler = quickHandler[HashedPassword](
     { case v: BSONBinary => HashedPassword(v.byteArray) },
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )

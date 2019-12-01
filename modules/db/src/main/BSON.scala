@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.compat._
-import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Try, Success, Failure }
 
 import dsl._
@@ -41,91 +40,6 @@ abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
 }
 
 object BSON extends Handlers {
-
-  // def toDocHandler[A](implicit handler: BSONHandler[A]): BSONDocumentHandler[A] =
-  //   new BSONDocumentReader[A] with BSONDocumentWriter[A] with BSONHandler[A] {
-  //     def read(doc: BSONDocument) = handler read doc
-  //     def write(o: A) = handler write o
-  //   }
-
-  // object MapDocument {
-
-  //   implicit def MapReader[K, V](implicit kIso: Iso.StringIso[K], vr: BSONDocumentReader[V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-  //     def read(bson: Bdoc): Map[K, V] = {
-  //       // mutable optimized implementation
-  //       val b = Map.newBuilder[K, V]
-  //       for (tuple <- bson.elements)
-  //         // assume that all values in the document are Bdocs
-  //         b += (kIso.from(tuple.name) -> vr.read(tuple.value.asInstanceOf[Bdoc]))
-  //       b.result
-  //     }
-  //   }
-
-  //   implicit def MapWriter[K, V](implicit kIso: Iso.StringIso[K], vw: reactivemongo.api.bson.BSONDocumentWriter[V]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-  //     def write(map: Map[K, V]): Bdoc = BSONDocument {
-  //       map.map { tuple =>
-  //         kIso.to(tuple._1) -> vw.writeTry(tuple._2).get
-  //       }
-  //     }
-  //   }
-
-  //   implicit def MapHandler[K: Iso.StringIso, V: BSONDocumentHandler]: BSONHandler[Map[K, V]] = new BSONHandler[Map[K, V]] {
-  //     private val reader = MapReader[K, V]
-  //     private val writer = MapWriter[K, V]
-  //     def read(bson: Bdoc): Map[K, V] = reader read bson
-  //     def write(map: Map[K, V]): Bdoc = writer write map
-  //   }
-  // }
-
-  // object MapValue {
-
-  //   implicit def MapReader[K, V](implicit kIso: Iso.StringIso[K], vr: BSONReader[V]): BSONDocumentReader[Map[K, V]] = new BSONDocumentReader[Map[K, V]] {
-  //     def read(bson: Bdoc): Map[K, V] = {
-  //       val valueReader = vr.asInstanceOf[BSONReader[V]]
-  //       // mutable optimized implementation
-  //       val b = Map.newBuilder[K, V]
-  //       for (tuple <- bson.elements) b += (kIso.from(tuple.name) -> valueReader.read(tuple.value))
-  //       b.result
-  //     }
-  //   }
-
-  //   implicit def MapWriter[K, V](implicit kIso: Iso.StringIso[K], vw: BSONWriter[V]): BSONDocumentWriter[Map[K, V]] = new BSONDocumentWriter[Map[K, V]] {
-  //     def write(map: Map[K, V]): Bdoc = BSONDocument {
-  //       map.toStream.map { tuple =>
-  //         kIso.to(tuple._1) -> vw.writeTry(tuple._2).get
-  //       }
-  //     }
-  //   }
-
-  //   implicit def MapHandler[K, V](implicit kIso: Iso.StringIso[K], vr: BSONReader[V], vw: BSONWriter[V]): BSONHandler[Map[K, V]] = new BSONHandler[Map[K, V]] {
-  //     private val reader = MapReader[K, V]
-  //     private val writer = MapWriter[K, V]
-  //     def read(bson: Bdoc): Map[K, V] = reader read bson
-  //     def write(map: Map[K, V]): Bdoc = writer write map
-  //   }
-  // }
-
-  def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
-    def readTry(bson: BSONValue) = read.andThen(Success(_)).applyOrElse(
-      bson,
-      (b: BSONValue) => handlerBadType(b)
-    )
-    def writeTry(t: T) = Success(write(t))
-  }
-
-  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
-    def readTry(bson: BSONValue) = read.applyOrElse(
-      bson,
-      (b: BSONValue) => handlerBadType(b)
-    )
-    def writeTry(t: T) = Success(write(t))
-  }
-
-  def handlerBadType[T](b: BSONValue): Try[T] =
-    Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
-
-  def handlerBadValue[T](msg: String): Try[T] =
-    Failure(new IllegalArgumentException(msg))
 
   final class Reader(val doc: Bdoc) {
 

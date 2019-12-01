@@ -49,7 +49,7 @@ private object BSONHandlers {
     })
   }
 
-  implicit val EntryIdHandler = lila.db.BSON.tryHandler[Id](
+  implicit val EntryIdHandler = tryHandler[Id](
     {
       case BSONString(value) =>
         value split ':' match {

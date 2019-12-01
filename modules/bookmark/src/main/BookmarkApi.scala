@@ -33,12 +33,12 @@ final class BookmarkApi(
     }
 
   def removeByGameId(gameId: Game.ID): Funit =
-    coll.remove($doc("g" -> gameId)).void
+    coll.delete.one($doc("g" -> gameId)).void
 
   def removeByGameIds(gameIds: List[Game.ID]): Funit =
-    coll.remove($doc("g" $in gameIds)).void
+    coll.delete.one($doc("g" $in gameIds)).void
 
-  def remove(gameId: Game.ID, userId: User.ID): Funit = coll.remove(selectId(gameId, userId)).void
+  def remove(gameId: Game.ID, userId: User.ID): Funit = coll.delete.one(selectId(gameId, userId)).void
   // def remove(selector: Bdoc): Funit = coll.remove(selector).void
 
   def toggle(gameId: Game.ID, userId: User.ID): Funit =
@@ -54,7 +54,7 @@ final class BookmarkApi(
     paginator.byUser(user, page) map2 { (b: Bookmark) => b.game }
 
   private def add(gameId: Game.ID, userId: User.ID, date: DateTime): Funit =
-    coll.insert($doc(
+    coll.insert.one($doc(
       "_id" -> makeId(gameId, userId),
       "g" -> gameId,
       "u" -> userId,

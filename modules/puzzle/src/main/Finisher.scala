@@ -1,16 +1,17 @@
 package lila.puzzle
 
-import org.goochjs.glicko2._
+import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
 
 import chess.Mode
+import lila.common.Bus
 import lila.db.dsl._
 import lila.rating.{ Glicko, PerfType }
-import lila.common.Bus
 import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
+    userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColl: Coll
 ) {
@@ -35,11 +36,11 @@ private[puzzle] final class Finisher(
           )
           historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
-            puzzleColl.update(
+            puzzleColl.update.one(
               $id(puzzle.id),
               $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
-            ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
+            ) zip userRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
           } inject {
             Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), "finishPuzzle")
             round -> Mode.Rated
@@ -77,7 +78,7 @@ private[puzzle] final class Finisher(
       ratingDiff = userPerf.intRating - formerUserRating
     )
     (api.round add a) >>
-      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+      userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
       Bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
         "finishPuzzle"

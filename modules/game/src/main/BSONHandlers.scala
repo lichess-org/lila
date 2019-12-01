@@ -20,12 +20,12 @@ object BSONHandlers {
     def writeTry(cc: CheckCount) = Success(BSONArray(cc.white, cc.black))
   }
 
-  implicit val StatusBSONHandler = lila.db.BSON.tryHandler[Status](
+  implicit val StatusBSONHandler = tryHandler[Status](
     { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
     x => BSONInteger(x.id)
   )
 
-  private[game] implicit val unmovedRooksHandler = lila.db.BSON.tryHandler[UnmovedRooks](
+  private[game] implicit val unmovedRooksHandler = tryHandler[UnmovedRooks](
     { case bin: BSONBinary => ByteArrayBSONHandler.readTry(bin) map BinaryFormat.unmovedRooks.read },
     x => ByteArrayBSONHandler.writeTry(BinaryFormat.unmovedRooks write x).get
   )

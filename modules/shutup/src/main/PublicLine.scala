@@ -18,7 +18,7 @@ object PublicLine {
 
   import reactivemongo.api.bson._
   import lila.db.dsl._
-  private implicit val SourceHandler = lila.db.BSON.tryHandler[Source](
+  private implicit val SourceHandler = lila.db.dsl.tryHandler[Source](
     {
       case BSONString(v) => v split ':' match {
         case Array("t", id) => Success(Source.Tournament(id))
@@ -38,7 +38,7 @@ object PublicLine {
 
   private val objectHandler = Macros.handler[PublicLine]
 
-  implicit val PublicLineBSONHandler = lila.db.BSON.tryHandler[PublicLine](
+  implicit val PublicLineBSONHandler = lila.db.dsl.tryHandler[PublicLine](
     {
       case doc: BSONDocument => objectHandler readTry doc
       case BSONString(text) => Success(PublicLine(text, none, none))

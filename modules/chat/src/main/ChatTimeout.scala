@@ -69,7 +69,7 @@ object ChatTimeout {
     val all: List[Reason] = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
   }
-  implicit val ReasonBSONHandler: BSONHandler[Reason] = lila.db.BSON.tryHandler[Reason](
+  implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](
     { case BSONString(value) => Reason(value) toTry s"Invalid reason ${value}" },
     x => BSONString(x.key)
   )

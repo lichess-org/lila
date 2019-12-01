@@ -8,7 +8,8 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 final class TrophyApi(
-    coll: Coll, kindColl: Coll
+    coll: Coll,
+    kindColl: Coll
 )(implicit system: akka.actor.ActorSystem) {
 
   private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
@@ -22,10 +23,8 @@ final class TrophyApi(
     logger = logger
   )
 
-  private implicit val trophyKindStringBSONHandler = lila.db.BSON.quickHandler[TrophyKind](
-    { case BSONString(str) => kindCache sync str },
-    x => BSONString(x._id)
-  )
+  private implicit val trophyKindStringBSONHandler =
+    BSONStringHandler.as[TrophyKind](kindCache.sync, _._id)
 
   private implicit val trophyBSONHandler = Macros.handler[Trophy]
 

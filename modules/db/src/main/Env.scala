@@ -13,9 +13,9 @@ import dsl.Coll
 import lila.common.Chronometer
 import lila.common.config._
 
-case class DbConfig(
-    uri: String,
-    @ConfigName("image.collection") imageCollName: Option[CollName] = None
+class DbConfig(
+    val uri: String,
+    @ConfigName("image.collection") val imageCollName: Option[CollName] = None
 )
 
 final class Env(name: String, config: DbConfig) {

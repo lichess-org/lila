@@ -29,17 +29,16 @@ final class Env(
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
-  import config._
-  import net.baseUrl
+  import config.net.baseUrl
 
   // val recaptchaPublicConfig = recaptcha.public
 
   lazy val firewall = new Firewall(
-    coll = db(collection.firewall),
+    coll = db(config.collection.firewall),
     scheduler = scheduler
   )
 
-  lazy val flood = new Flood(config.floodDuration)
+  lazy val flood = wire[Flood]
 
   lazy val recaptcha: Recaptcha =
     if (config.recaptchaC.enabled) wire[RecaptchaGoogle]
@@ -51,11 +50,11 @@ final class Env(
 
   lazy val userSpyApi = wire[UserSpyApi]
 
-  lazy val store = new Store(db(collection.security))
+  lazy val store = new Store(db(config.collection.security))
 
   lazy val ipIntel = {
     def mk = (email: EmailAddress) => wire[IpIntel]
-    mk(ipIntelEmail)
+    mk(config.ipIntelEmail)
   }
 
   lazy val ugcArmedSetting = settingStore[Boolean](
@@ -64,7 +63,7 @@ final class Env(
     text = "Enable the user garbage collector".some
   )
 
-  lazy val printBan = new PrintBan(db(collection.printBan))
+  lazy val printBan = new PrintBan(db(config.collection.printBan))
 
   lazy val garbageCollector = {
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
@@ -84,20 +83,20 @@ final class Env(
 
   lazy val passwordReset = {
     def mk = (s: Secret) => wire[PasswordReset]
-    mk(passwordResetSecret)
+    mk(config.passwordResetSecret)
   }
 
   lazy val magicLink = {
     def mk = (s: Secret) => wire[MagicLink]
-    mk(passwordResetSecret)
+    mk(config.passwordResetSecret)
   }
 
   lazy val emailChange = {
     def mk = (s: Secret) => wire[EmailChange]
-    mk(emailChangeSecret)
+    mk(config.emailChangeSecret)
   }
 
-  lazy val loginToken = new LoginToken(loginTokenSecret, userRepo)
+  lazy val loginToken = new LoginToken(config.loginTokenSecret, userRepo)
 
   lazy val automaticEmail = wire[AutomaticEmail]
 
@@ -109,7 +108,7 @@ final class Env(
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     ws = ws,
-    providerUrl = disposableEmail.providerUrl,
+    providerUrl = config.disposableEmail.providerUrl,
     checkMailBlocked = () => checkMail.fetchAllBlocked
   )
 
@@ -124,7 +123,7 @@ final class Env(
   lazy val spam = new Spam(spamKeywordsSetting.get)
 
   scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh)
-  scheduler.scheduleWithFixedDelay(disposableEmail.refreshDelay, disposableEmail.refreshDelay) {
+  scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
     () => disposableEmailDomain.refresh
   }
 
@@ -138,7 +137,7 @@ final class Env(
 
   lazy val api = wire[SecurityApi]
 
-  lazy val csrfRequestHandler = new CSRFRequestHandler(net)
+  lazy val csrfRequestHandler = wire[CSRFRequestHandler]
 
   def cli = wire[Cli]
 

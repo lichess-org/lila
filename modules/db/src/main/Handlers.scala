@@ -2,6 +2,7 @@ package lila.db
 
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
+import reactivemongo.api.bson.exceptions.TypeDoesNotMatchException
 import scala.util.{ Try, Success, Failure }
 import scalaz.NonEmptyList
 
@@ -10,7 +11,7 @@ import lila.common.{ Iso, IpAddress, EmailAddress, NormalizedEmailAddress }
 
 trait Handlers {
 
-  implicit val BSONJodaDateTimeHandler = lila.db.BSON.quickHandler[DateTime](
+  implicit val BSONJodaDateTimeHandler = dsl.quickHandler[DateTime](
     { case v: BSONDateTime => new DateTime(v.value) },
     v => BSONDateTime(v.getMillis)
   )
@@ -36,11 +37,33 @@ trait Handlers {
 
   def dateIsoHandler[A](implicit iso: Iso[DateTime, A]): BSONHandler[A] = isoHandler[A, DateTime](iso)
 
-  implicit def bsonArrayToListHandler[T](implicit handler: BSONHandler[T]): BSONHandler[List[T]] =
-    lila.db.BSON.quickHandler[List[T]](
-      { case BSONArray(values) => values.view.flatMap(handler.readOpt).to(List) },
-      repr => BSONArray(repr.flatMap(handler.writeOpt))
+  def quickHandler[T](read: PartialFunction[BSONValue, T], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
+    def readTry(bson: BSONValue) = read.andThen(Success(_)).applyOrElse(
+      bson,
+      (b: BSONValue) => handlerBadType(b)
     )
+    def writeTry(t: T) = Success(write(t))
+  }
+
+  def tryHandler[T](read: PartialFunction[BSONValue, Try[T]], write: T => BSONValue): BSONHandler[T] = new BSONHandler[T] {
+    def readTry(bson: BSONValue) = read.applyOrElse(
+      bson,
+      (b: BSONValue) => handlerBadType(b)
+    )
+    def writeTry(t: T) = Success(write(t))
+  }
+
+  def handlerBadType[T](b: BSONValue): Try[T] =
+    Failure(TypeDoesNotMatchException("BSONBinary", b.getClass.getSimpleName))
+
+  def handlerBadValue[T](msg: String): Try[T] =
+    Failure(new IllegalArgumentException(msg))
+
+  // implicit def bsonArrayToListHandler[T](implicit handler: BSONHandler[T]): BSONHandler[List[T]] =
+  //   dsl.quickHandler[List[T]](
+  //     { case BSONArray(values) => values.view.flatMap(handler.readOpt).to(List) },
+  //     repr => BSONArray(repr.flatMap(handler.writeOpt))
+  //   )
 
   // implicit def bsonArrayToVectorHandler[T](implicit handler: BSONHandler[T]): BSONHandler[Vector[T]] = new BSONHandler[Vector[T]] {
   //   def read(array: BSONArray) = array.values.view.flatMap(handler.readOpt).to(Vector)

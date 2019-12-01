@@ -1,50 +1,57 @@
 package lila.puzzle
 
 import akka.actor.{ ActorSelection, ActorSystem }
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import scala.concurrent.duration.FiniteDuration
+import play.api.Configuration
+
+import lila.common.config._
+import lila.db.Env.configLoader
+
+@Module
+private class CoachConfig(
+    val mongodb: lila.db.DbConfig,
+    @ConfigName("collection.puzzle") val puzzleColl: CollName,
+    @ConfigName("collection.round") val roundColl: CollName,
+    @ConfigName("collection.vote") val voteColl: CollName,
+    @ConfigName("collection.head") val headColl: CollName,
+    @ConfigName("api.token") val apiToken: Secret,
+    @ConfigName("animation.duration") val animationDuration: FiniteDuration,
+    @ConfigName("selector.puzzle_id_min") val puzzleIdMin: Int
+)
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     renderer: ActorSelection,
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    system: ActorSystem,
-    lifecycle: play.api.inject.ApplicationLifecycle
-) {
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo
+)(implicit system: ActorSystem) {
 
-  private val settings = new {
-    val CollectionPuzzle = config getString "collection.puzzle"
-    val CollectionRound = config getString "collection.round"
-    val CollectionVote = config getString "collection.vote"
-    val CollectionHead = config getString "collection.head"
-    val ApiToken = config getString "api.token"
-    val AnimationDuration = config duration "animation.duration"
-    val PuzzleIdMin = config getInt "selector.puzzle_id_min"
-  }
-  import settings._
+  private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
-  private val db = new lila.db.Env("puzzle", config getConfig "mongodb", lifecycle)
+  private lazy val db = new lila.db.Env("puzzle", config.mongodb)
 
-  private lazy val gameJson = new GameJson(asyncCache, lightUserApi)
+  private lazy val gameJson = wire[GameJson]
 
-  lazy val jsonView = new JsonView(
-    gameJson,
-    animationDuration = AnimationDuration
-  )
+  lazy val jsonView = wire[JsonView]
 
   lazy val api = new PuzzleApi(
     puzzleColl = puzzleColl,
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
-    puzzleIdMin = PuzzleIdMin,
+    puzzleIdMin = config.puzzleIdMin,
     asyncCache = asyncCache,
-    apiToken = ApiToken
+    apiToken = config.apiToken
   )
 
   lazy val finisher = new Finisher(
     historyApi = historyApi,
+    userRepo = userRepo,
     api = api,
     puzzleColl = puzzleColl
   )
@@ -52,14 +59,14 @@ final class Env(
   lazy val selector = new Selector(
     puzzleColl = puzzleColl,
     api = api,
-    puzzleIdMin = PuzzleIdMin
+    puzzleIdMin = config.puzzleIdMin
   )
 
   lazy val batch = new PuzzleBatch(
     puzzleColl = puzzleColl,
     api = api,
     finisher = finisher,
-    puzzleIdMin = PuzzleIdMin
+    puzzleIdMin = config.puzzleIdMin
   )
 
   lazy val userInfos = new UserInfosApi(
@@ -89,21 +96,8 @@ final class Env(
     }
   }
 
-  private[puzzle] lazy val puzzleColl = db(CollectionPuzzle)
-  private[puzzle] lazy val roundColl = db(CollectionRound)
-  private[puzzle] lazy val voteColl = db(CollectionVote)
-  private[puzzle] lazy val headColl = db(CollectionHead)
-}
-
-object Env {
-
-  lazy val current: Env = "puzzle" boot new Env(
-    config = lila.common.PlayApp loadConfig "puzzle",
-    renderer = lila.hub.Env.current.renderer,
-    historyApi = lila.history.Env.current.api,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    system = lila.common.PlayApp.system,
-    lifecycle = lila.common.PlayApp.lifecycle
-  )
+  private lazy val puzzleColl = db(config.puzzleColl)
+  private lazy val roundColl = db(config.roundColl)
+  private lazy val voteColl = db(config.voteColl)
+  private lazy val headColl = db(config.headColl)
 }
