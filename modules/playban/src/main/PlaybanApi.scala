@@ -187,7 +187,7 @@ final class PlaybanApi(
 
   private def save(outcome: Outcome, userId: User.ID, rageSitDelta: Int): Funit = {
     lila.mon.playban.outcome(outcome.key)()
-    coll.findAndUpdate(
+    coll.ext.findAndUpdate(
       selector = $id(userId),
       update = $doc(
         $push("o" -> $doc("$each" -> List(outcome), "$slice" -> -30)),
@@ -230,7 +230,7 @@ final class PlaybanApi(
       lila.mon.playban.ban.count()
       lila.mon.playban.ban.mins(ban.mins)
       Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), "playban")
-      coll.update(
+      coll.update.one(
         $id(record.userId),
         $unset("o") ++
           $push(

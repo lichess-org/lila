@@ -165,7 +165,7 @@ lazy val game = module("game", Seq(common, memo, db, hub, user, chat)).settings(
 )
 
 lazy val gameSearch = module("gameSearch", Seq(common, hub, search, game)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val tv = module("tv", Seq(common, db, hub, socket, game, round, user)).settings(
@@ -270,7 +270,7 @@ lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).se
 )
 
 lazy val learn = module("learn", Seq(common, db, user)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val evalCache = module("evalCache", Seq(common, db, user, security, socket, tree)).settings(

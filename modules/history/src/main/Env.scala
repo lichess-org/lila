@@ -1,31 +1,29 @@
 package lila.history
 
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import scala.concurrent.duration.FiniteDuration
+
+import lila.common.config._
+
+@Module
+private class HistoryConfig(
+    @ConfigName("collection.history") val historyColl: CollName,
+    @ConfigName("cached.rating_chart.ttl") val ratingChartTtl: FiniteDuration
+)
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     mongoCache: lila.memo.MongoCache.Builder,
     db: lila.db.Env
 ) {
 
-  private val CachedRatingChartTtl = config duration "cached.rating_chart.ttl"
+  private val config = appConfig.get[HistoryConfig]("history")(AutoConfig.loader)
 
-  private val Collectionhistory = config getString "collection.history"
+  private lazy val coll = db(config.historyColl)
 
-  lazy val api = new HistoryApi(db(Collectionhistory))
+  lazy val api = wire[HistoryApi]
 
-  lazy val ratingChartApi = new RatingChartApi(
-    historyApi = api,
-    mongoCache = mongoCache,
-    cacheTtl = CachedRatingChartTtl
-  )
-}
-
-object Env {
-
-  lazy val current = "history" boot new Env(
-    config = lila.common.PlayApp loadConfig "history",
-    mongoCache = lila.memo.Env.current.mongoCache,
-    db = lila.db.Env.current
-  )
+  lazy val ratingChartApi = wire[RatingChartApi]
 }

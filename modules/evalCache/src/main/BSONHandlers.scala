@@ -38,7 +38,7 @@ private object BSONHandlers {
           }
         }
       }.flatMap {
-        _.toNel toTry lila.base.LilaException(s"Empty PVs ${value}")
+        _.toNel toTry s"Empty PVs ${value}"
       }
       case b => lila.db.BSON.handlerBadType[NonEmptyList[Pv]](b)
     }

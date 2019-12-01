@@ -18,7 +18,7 @@ final class HistoryApi(coll: Coll) {
 
   def addPuzzle(user: User, completedAt: DateTime, perf: Perf): Funit = {
     val days = daysBetween(user.createdAt, completedAt)
-    coll.update(
+    coll.update.one(
       $id(user.id),
       $set(s"puzzle.$days" -> $int(perf.intRating)),
       upsert = true
@@ -47,10 +47,10 @@ final class HistoryApi(coll: Coll) {
         case (k, p) => k -> p.intRating
       }
     val days = daysBetween(user.createdAt, game.movedAt)
-    coll.update(
+    coll.update.one(
       $id(user.id),
       $doc("$set" -> $doc(changes.map {
-        case (perf, rating) => BSONElement(s"$perf.$days", $int(rating))
+        case (perf, rating) => (s"$perf.$days", $int(rating))
       })),
       upsert = true
     ).void
@@ -59,7 +59,7 @@ final class HistoryApi(coll: Coll) {
   // used for rating refunds
   def setPerfRating(user: User, perf: PerfType, rating: Int): Funit = {
     val days = daysBetween(user.createdAt, DateTime.now)
-    coll.update(
+    coll.update.one(
       $id(user.id),
       $set(s"${perf.key}.$days" -> $int(rating))
     ).void
@@ -91,11 +91,11 @@ final class HistoryApi(coll: Coll) {
           val project = BSONDocument {
             ("_id" -> BSONBoolean(false)) :: days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) }
           }
-          coll.find($id(user.id), project).uno[Bdoc](ReadPreference.secondaryPreferred).map {
+          coll.find($id(user.id), project.some).uno[Bdoc](ReadPreference.secondaryPreferred).map {
             _.flatMap {
-              _.getAs[Bdoc](perf.key) map {
-                _.stream.foldLeft(currentRating) {
-                  case (max, scala.util.Success(BSONElement(_, BSONInteger(v)))) if v > max => v
+              _.child(perf.key) map {
+                _.elements.foldLeft(currentRating) {
+                  case (max, BSONElement(_, BSONInteger(v))) if v > max => v
                   case (max, _) => max
                 }
               }

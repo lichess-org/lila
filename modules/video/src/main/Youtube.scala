@@ -5,11 +5,13 @@ import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.Future
 
+import lila.common.config._
+
 private[video] final class Youtube(
     ws: WSClient,
     url: String,
-    apiKey: String,
-    max: Int,
+    apiKey: Secret,
+    max: Max,
     api: VideoApi
 ) {
 
@@ -40,10 +42,10 @@ private[video] final class Youtube(
   }
 
   private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
-    ws.url(url).withQueryString(
-      "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
+    ws.url(url).withQueryStringParameters(
+      "id" -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
       "part" -> "id,statistics,snippet,contentDetails",
-      "key" -> apiKey
+      "key" -> apiKey.value
     ).get() flatMap {
         case res if res.status == 200 => readEntries reads res.json match {
           case JsError(err) => fufail(err.toString)

@@ -1,16 +1,21 @@
 package lila.perfStat
 
 import akka.actor.ActorRef
+import scala.concurrent.Future
 
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.hub.FutureSequencer
 import lila.rating.PerfType
 import lila.user.User
 
-final class PerfStatIndexer(storage: PerfStatStorage, sequencer: FutureSequencer) {
+final class PerfStatIndexer(
+    gameRepo: GameRepo,
+    storage: PerfStatStorage,
+    sequencer: FutureSequencer
+) {
 
   def userPerf(user: User, perfType: PerfType): Funit = sequencer {
-    GameRepo.sortedCursor(
+    gameRepo.sortedCursor(
       Query.user(user.id) ++
         Query.finished ++
         Query.turnsGt(2) ++
@@ -23,11 +28,13 @@ final class PerfStatIndexer(storage: PerfStatStorage, sequencer: FutureSequencer
       } flatMap storage.insert recover lila.db.recoverDuplicateKey(_ => ())
   }
 
-  def addGame(game: Game): Funit = game.players.flatMap { player =>
-    player.userId.map { userId =>
-      addPov(Pov(game, player), userId)
+  def addGame(game: Game): Funit = Future.sequence {
+    game.players.flatMap { player =>
+      player.userId.map { userId =>
+        addPov(Pov(game, player), userId)
+      }
     }
-  }.sequenceFu.void
+  }.void
 
   private def addPov(pov: Pov, userId: String): Funit = pov.game.perfType ?? { perfType =>
     storage.find(userId, perfType) flatMap {

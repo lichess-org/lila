@@ -2,6 +2,7 @@ package lila.gameSearch
 
 import chess.{ Mode, Status }
 import org.joda.time.DateTime
+import play.api.libs.json.JodaWrites._
 
 import lila.rating.RatingRange
 import lila.search.Range
@@ -90,7 +91,7 @@ object Query {
     "%d move{s}"
   )
 
-  val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e => e -> (e + " Rating") }
+  val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e => e -> s"$e Rating" }
 
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 

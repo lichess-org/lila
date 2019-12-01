@@ -1,8 +1,9 @@
 package lila.event
 
 import play.api.Configuration
+import com.softwaremill.macwire._
 
-import lila.common.CollName
+import lila.common.config.CollName
 import lila.common.config._
 
 final class Env(
@@ -13,5 +14,5 @@ final class Env(
 
   private lazy val eventColl = db(appConfig.get[CollName]("event.collection.event"))
 
-  lazy val api = new EventApi(coll = eventColl, asyncCache = asyncCache)
+  lazy val api = wire[EventApi]
 }

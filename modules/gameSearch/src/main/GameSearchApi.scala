@@ -2,7 +2,6 @@ package lila.gameSearch
 
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.util.Try
@@ -13,12 +12,12 @@ import lila.search._
 
 final class GameSearchApi(
     client: ESClient,
-    system: akka.actor.ActorSystem
-) extends SearchReadApi[Game, Query] {
+    gameRepo: GameRepo
+)(implicit system: akka.actor.ActorSystem) extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      GameRepo gamesFromSecondary res.ids
+      gameRepo gamesFromSecondary res.ids
     }
 
   def count(query: Query) =
@@ -28,13 +27,13 @@ final class GameSearchApi(
     client.search(query, From(0), Size(max)).map(_.ids)
 
   def store(game: Game) = storable(game) ?? {
-    GameRepo isAnalysed game.id flatMap { analysed =>
+    gameRepo isAnalysed game.id flatMap { analysed =>
       lila.common.Future.retry(
         () => client.store(Id(game.id), toDoc(game, analysed)),
         delay = 20.seconds,
         retries = 2,
         logger.some
-      )(system)
+      )
     }
   }
 

@@ -24,8 +24,8 @@ final class PerfStatStorage(coll: Coll) {
     coll.byId[PerfStat](PerfStat.makeId(userId, perfType))
 
   def update(perfStat: PerfStat): Funit =
-    coll.update($id(perfStat.id), perfStat).void
+    coll.update.one($id(perfStat.id), perfStat).void
 
   def insert(perfStat: PerfStat): Funit =
-    coll.insert(perfStat).void
+    coll.insert.one(perfStat).void
 }

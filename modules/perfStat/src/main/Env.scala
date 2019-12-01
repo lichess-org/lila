@@ -1,36 +1,31 @@
 package lila.perfStat
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import play.api.Configuration
 
-import akka.actor._
+import lila.common.config._
 
 final class Env(
-    config: Config,
-    system: ActorSystem,
+    appConfig: Configuration,
     lightUser: lila.common.LightUser.GetterSync,
+    gameRepo: lila.game.GameRepo,
     db: lila.db.Env
-) {
-
-  private val settings = new {
-    val CollectionPerfStat = config getString "collection.perf_stat"
-  }
-  import settings._
+)(implicit system: ActorSystem) {
 
   lazy val storage = new PerfStatStorage(
-    coll = db(CollectionPerfStat)
+    coll = db(appConfig.get[CollName]("perfStat.collection.perf_stat"))
   )
 
-  lazy val indexer = new PerfStatIndexer(
-    storage = storage,
-    sequencer = new lila.hub.FutureSequencer(
-      system = system,
-      executionTimeout = None,
-      logger = lila.log("perfStat")
-    )
+  private lazy val sequencer = new lila.hub.FutureSequencer(
+    system = system,
+    executionTimeout = None,
+    logger = lila.log("perfStat")
   )
 
-  lazy val jsonView = new JsonView(lightUser)
+  lazy val indexer = wire[PerfStatIndexer]
+
+  lazy val jsonView = wire[JsonView]
 
   def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
     storage.find(user.id, perfType) orElse {
@@ -43,14 +38,4 @@ final class Env(
         lila.log("perfStat").error(s"index game ${game.id}", e)
       }
   }
-}
-
-object Env {
-
-  lazy val current: Env = "perfStat" boot new Env(
-    config = lila.common.PlayApp loadConfig "perfStat",
-    system = lila.common.PlayApp.system,
-    lightUser = lila.user.Env.current.lightUserSync,
-    db = lila.db.Env.current
-  )
 }
