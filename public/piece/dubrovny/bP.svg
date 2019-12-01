@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g transform="translate(-430.15 534.99)">
+  <g transform="translate(308.92 53.254)">
+   <path d="m146.13-562.34h-3.1564s-0.6226 7.3531-2.3707 9.5379c-4.2105 1.053-3.1213 1.8162-2.6484 2.8218 0.30978 0.8446-7.4972 2.8956-4.173 6.1314h24.901c3.3242-3.2359-4.4827-5.2869-4.173-6.1315 0.4729-1.0056 1.5622-1.7688-2.6484-2.8218-1.748-2.1848-2.3707-9.5379-2.3707-9.5379z" fill="#561a0e" stroke="#1f0905" stroke-linejoin="round" stroke-width="1.2"/>
+   <g transform="matrix(.98141 0 0 .94512 5.1097 -28.181)" stroke-linejoin="round" stroke-width="1.0383">
+    <path d="m143.69-580.04c-3.2984 3e-5 -5.9722 2.4763-5.9722 5.5312 0 1.8362 0.98538 3.5525 2.6278 4.5809l-4.3939 4.7493h15.477l-4.3938-4.7493c1.6424-1.0284 2.6274-2.7447 2.6274-4.5809 0-3.055-2.6737-5.5312-5.9722-5.5312z" fill="#561a0e" stroke="#1f0905" stroke-linejoin="round" stroke-width="1.246"/>
+    <path transform="matrix(.2696 0 0 .27995 -39.528 99.672)" d="m679.61-2428c25.857 10.696 16.172 34.791-8.3242 36.121 11.93-0.4124 17.368 8.9923 25.027 16.965h12l-16.297-16.965c6.0922-3.6735 9.7461-9.8043 9.7461-16.363 0-10.913-9.9175-19.758-22.152-19.758z" fill="#1f0905"/>
+   </g>
+   <path d="m145.03-562.58c2.805 6.0401 5.9822 9.3795-0.99489 10.161 3.2795 0.20992 4.2396 0.0761 7.2685 1.4214 0.79372 0.83926 0.23722 0.87268-10.524 1.4874 3.4824 0.13738 19.689 0.57579 14.726 5.6667h3.175c3.3242-3.2358-4.4826-5.2873-4.1729-6.1319 0.47289-1.0056 1.5621-1.7685-2.6484-2.8215-1.748-2.1848-2.4289-9.7835-2.4289-9.7835z" fill="#1f0905"/>
+  </g>
+  <path d="m449.52-499.55h11.258" fill="none" stroke="#1f0905" stroke-width="1.2"/>
+ </g>
+</svg>
