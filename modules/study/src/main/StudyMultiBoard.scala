@@ -70,7 +70,7 @@ emit(this._id, result)""",
         orientation = doc.getAs[Color]("orientation") getOrElse Color.White,
         fen = doc.getAs[FEN]("fen") err "Preview missing FEN",
         lastMove = doc.getAs[Uci]("uci"),
-        playing = tags.flatMap(_(_.Result)) has "*"
+        result = tags.flatMap(_(_.Result))
       )
     }
   }
@@ -97,7 +97,7 @@ object StudyMultiBoard {
       orientation: Color,
       fen: FEN,
       lastMove: Option[Uci],
-      playing: Boolean
+      result: Option[String]
   )
 
   object ChapterPreview {

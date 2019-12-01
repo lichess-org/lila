@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 import { Draughtsground } from 'draughtsground';
 import { opposite } from 'draughtsground/util';
+import { resultOf } from './studyChapters';
 import * as draughtsUtil from 'draughts';
 import { StudyCtrl, ChapterPreview, ChapterPreviewPlayer } from './interfaces';
 import { MaybeVNodes } from '../interfaces';
@@ -19,9 +20,18 @@ export class MultiBoardCtrl {
 
   addNode(pos, node) {
     const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == pos.chapterId);
-    if (cp && cp.playing) {
+    if (cp && (!cp.result || cp.result === "*")) {
       cp.fen = node.fen;
       cp.lastMove = node.uci;
+      this.redraw();
+    }
+  }
+
+  setResult(chapterId, result?: string) {
+    if (!result) return;
+    const cp = this.pager && this.pager.currentPageResults.find(cp => cp.id == chapterId);
+    if (cp && cp.result !== result) {
+      cp.result = result;
       this.redraw();
     }
   }
@@ -120,9 +130,9 @@ function pagerButton(text: string, icon: string, click: () => void, enable: bool
 function makePreview(study: StudyCtrl) {
   return (preview: ChapterPreview) => {
     const contents = preview.players ? [
-      makePlayer(preview.players[opposite(preview.orientation)]),
+      makePlayer(preview.players[opposite(preview.orientation)], preview.result ? resultOf([['result', preview.result]], opposite(preview.orientation) == 'white', true) : undefined),
       makeCg(preview),
-      makePlayer(preview.players[preview.orientation])
+      makePlayer(preview.players[preview.orientation], preview.result ? resultOf([['result', preview.result]], preview.orientation == 'white', true) : undefined)
     ] : [
       h('div.name', preview.name),
       makeCg(preview)
@@ -135,10 +145,11 @@ function makePreview(study: StudyCtrl) {
   };
 }
 
-function makePlayer(player: ChapterPreviewPlayer): VNode {
+function makePlayer(player: ChapterPreviewPlayer, result?: string): VNode {
   return h('div.player', [
     player.title ? `${player.title} ${player.name}` : player.name,
-    player.rating && h('span', '' + player.rating)
+    player.rating && h('span', '' + player.rating),
+    result ? h('b', result) : undefined
   ]);
 }
 

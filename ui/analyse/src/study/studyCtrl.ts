@@ -1,7 +1,7 @@
 import { throttle, prop } from 'common';
 import AnalyseCtrl from '../ctrl';
 import { ctrl as memberCtrl } from './studyMembers';
-import { ctrl as chapterCtrl } from './studyChapters';
+import { ctrl as chapterCtrl, findTag } from './studyChapters';
 import practiceCtrl from './practice/studyPracticeCtrl';
 import { StudyPracticeData, StudyPracticeCtrl } from './practice/interfaces';
 import { ctrl as commentFormCtrl, CommentForm } from './commentForm';
@@ -419,6 +419,7 @@ export default function (data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes,
     },
     setTags(d) {
       setMemberActive(d.w);
+      if (multiBoard) multiBoard.setResult(d.chapterId, findTag(d.tags, 'result'))
       if (d.chapterId !== vm.chapterId) return;
       data.chapter.tags = d.tags;
       redraw();
