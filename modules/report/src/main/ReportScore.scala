@@ -6,6 +6,7 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo, Title }
 
 private final class ReportScore(
+    userRepo: UserRepo,
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
 ) {
 
@@ -55,8 +56,8 @@ private final class ReportScore(
   }
 
   private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {
-    reporter <- UserRepo byId atom.by.value map2 Reporter.apply
-    suspect <- UserRepo named report.suspect.value map2 Suspect.apply
+    reporter <- userRepo byId atom.by.value map2 Reporter.apply
+    suspect <- userRepo named report.suspect.value map2 Suspect.apply
     score <- (reporter |@| suspect).tupled ?? {
       case (r, s) => apply(Report.Candidate(
         reporter = r,

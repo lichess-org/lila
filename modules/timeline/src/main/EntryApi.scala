@@ -50,7 +50,7 @@ final class EntryApi(
     ).some) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
-    coll.insert(EntryBSONHandler.write(e.entry) ++ $doc("users" -> e.userIds)) void
+    coll.insert(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void
 
   // can't remove from capped collection,
   // so we set a date in the past instead.

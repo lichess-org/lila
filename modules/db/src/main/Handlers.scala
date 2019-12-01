@@ -59,22 +59,19 @@ trait Handlers {
   def handlerBadValue[T](msg: String): Try[T] =
     Failure(new IllegalArgumentException(msg))
 
-  // implicit def bsonArrayToListHandler[T](implicit handler: BSONHandler[T]): BSONHandler[List[T]] =
-  //   dsl.quickHandler[List[T]](
-  //     { case BSONArray(values) => values.view.flatMap(handler.readOpt).to(List) },
-  //     repr => BSONArray(repr.flatMap(handler.writeOpt))
-  //   )
-
-  // implicit def bsonArrayToVectorHandler[T](implicit handler: BSONHandler[T]): BSONHandler[Vector[T]] = new BSONHandler[Vector[T]] {
-  //   def read(array: BSONArray) = array.values.view.flatMap(handler.readOpt).to(Vector)
-  //   def write(repr: Vector[T]) = BSONArray(repr.flatMap(handler.writeOpt))
-  // }
-
-  // implicit def bsonArrayToNonEmptyListHandler[T](implicit handler: BSONHandler[T]): BSONHandler[NonEmptyList[T]] = new BSONHandler[NonEmptyList[T]] {
-  //   private val listHandler = bsonArrayToListHandler[T]
-  //   def read(array: BSONArray) = listHandler.readOpt(array).flatMap(_.toNel) err s"BSONArray is empty, can't build NonEmptyList"
-  //   def write(repr: NonEmptyList[T]) = listHandler.writeTry(repr.toList).get
-  // }
+  implicit def bsonArrayToNonEmptyListHandler[T](implicit handler: BSONHandler[T]) = {
+    def listWriter = collectionWriter[T, List[T]]
+    def listReader = collectionReader[List, T]
+    tryHandler[NonEmptyList[T]](
+      {
+        case array: BSONArray =>
+          listReader.readTry(array).flatMap {
+            _.toNel toTry s"BSONArray is empty, can't build NonEmptyList"
+          }
+      },
+      nel => listWriter.writeTry(nel.toList).get
+    )
+  }
 
   implicit val ipAddressHandler = isoHandler[IpAddress, String](ipAddressIso)
 

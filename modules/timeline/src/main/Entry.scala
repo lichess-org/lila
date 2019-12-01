@@ -2,6 +2,7 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import reactivemongo.api.bson._
 import scala.util.{ Try, Success, Failure }
 
@@ -26,20 +27,20 @@ case class Entry(
   }
 
   lazy val decode: Option[Atom] = Try(typ match {
-    case "follow" => followHandler.read(data)
-    case "team-join" => teamJoinHandler.read(data)
-    case "team-create" => teamCreateHandler.read(data)
-    case "forum-post" => forumPostHandler.read(data)
-    case "note-create" => noteCreateHandler.read(data)
-    case "tour-join" => tourJoinHandler.read(data)
-    case "game-end" => gameEndHandler.read(data)
-    case "simul-create" => simulCreateHandler.read(data)
-    case "simul-join" => simulJoinHandler.read(data)
-    case "study-create" => studyCreateHandler.read(data)
-    case "study-like" => studyLikeHandler.read(data)
-    case "plan-start" => planStartHandler.read(data)
-    case "blog-post" => blogPostHandler.read(data)
-    case "stream-start" => streamStartHandler.read(data)
+    case "follow" => followHandler.readTry(data).get
+    case "team-join" => teamJoinHandler.readTry(data).get
+    case "team-create" => teamCreateHandler.readTry(data).get
+    case "forum-post" => forumPostHandler.readTry(data).get
+    case "note-create" => noteCreateHandler.readTry(data).get
+    case "tour-join" => tourJoinHandler.readTry(data).get
+    case "game-end" => gameEndHandler.readTry(data).get
+    case "simul-create" => simulCreateHandler.readTry(data).get
+    case "simul-join" => simulJoinHandler.readTry(data).get
+    case "study-create" => studyCreateHandler.readTry(data).get
+    case "study-like" => studyLikeHandler.readTry(data).get
+    case "plan-start" => planStartHandler.readTry(data).get
+    case "blog-post" => blogPostHandler.readTry(data).get
+    case "stream-start" => streamStartHandler.readTry(data).get
     case "qa-question" | "qa-answer" | "qa-comment" => throw Deprecated
     case _ => sys error s"Unhandled atom type: $typ"
   }) match {
@@ -59,7 +60,7 @@ object Entry {
 
   case class ForUsers(entry: Entry, userIds: List[String])
 
-  private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer write data
+  private def toBson[A](data: A)(implicit writer: BSONDocumentWriter[A]) = writer.writeTry(data).get
 
   private[timeline] def make(data: Atom): Entry = {
     import atomBsonHandlers._

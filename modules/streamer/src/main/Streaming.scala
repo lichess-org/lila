@@ -15,7 +15,7 @@ private final class Streaming(
     renderer: ActorSelection,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
-    timeline: ActorSelection,
+    timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.Strings,
     googleApiKey: Secret,

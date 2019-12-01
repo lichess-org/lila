@@ -10,7 +10,7 @@ import User.{ ClearPassword, TotpToken }
 
 final class DataForm(
     userRepo: UserRepo,
-    val captcher: akka.actor.ActorSelection,
+    val captcher: lila.hub.actors.Captcher,
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator
 ) extends lila.hub.CaptchedForm {

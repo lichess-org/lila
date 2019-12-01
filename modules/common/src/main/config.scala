@@ -23,7 +23,7 @@ object config {
   case class MaxPerSecond(value: Int) extends AnyVal with IntValue
 
   case class NetConfig(
-      domain: String,
+      domain: Domain,
       protocol: String,
       @ConfigName("base_url") baseUrl: BaseUrl,
       email: EmailAddress
@@ -37,6 +37,7 @@ object config {
   implicit val baseUrlLoader = strLoader(BaseUrl.apply)
   implicit val emailAddressLoader = strLoader(EmailAddress.apply)
   implicit val appPathLoader = strLoader(AppPath.apply)
+  implicit val domainLoader = strLoader(Domain.unsafe)
   implicit val netLoader = AutoConfig.loader[NetConfig]
 
   def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f

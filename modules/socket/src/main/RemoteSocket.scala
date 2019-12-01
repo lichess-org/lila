@@ -22,7 +22,7 @@ import Socket.{ SocketVersion, GetVersion, Sri, SendToFlag }
 
 final class RemoteSocket(
     redisClient: RedisClient,
-    notificationActor: akka.actor.ActorSelection,
+    notification: lila.hub.actors.Notification,
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
@@ -47,7 +47,7 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate((x: UserIds) => x + userId)
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
-    case In.NotifiedBatch(userIds) => notificationActor ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
+    case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
     case In.FriendsBatch(userIds) => userIds foreach { userId =>
       Bus.publish(ReloadOnlineFriends(userId), "reloadOnlineFriends")
     }

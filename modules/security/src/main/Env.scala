@@ -16,7 +16,7 @@ import lila.user.{ UserRepo, Authenticator }
 final class Env(
     appConfig: Configuration,
     ws: WSClient,
-    captcher: ActorSelection,
+    captcher: lila.hub.actors.Captcher,
     userRepo: UserRepo,
     authenticator: Authenticator,
     slack: lila.slack.SlackApi,

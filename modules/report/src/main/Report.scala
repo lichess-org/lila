@@ -68,7 +68,7 @@ case class Report(
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
   def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
-    atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.lines).collectFirst {
+    atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.linesIterator).collectFirst {
       case Report.farmWithRegex(userId) => userId
       case Report.sandbagWithRegex(userId) => userId
     }
@@ -95,7 +95,7 @@ object Report {
       score: Score,
       at: DateTime
   ) {
-    def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+    def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
     def byHuman = !byLichess && by != ReporterId.irwin
 

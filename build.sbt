@@ -144,7 +144,7 @@ lazy val room = module("room", Seq(common, socket, chat)).settings(
 )
 
 lazy val timeline = module("timeline", Seq(common, db, game, user, hub, security, relation)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val event = module("event", Seq(common, db, memo, i18n)).settings(

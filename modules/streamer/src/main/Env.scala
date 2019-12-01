@@ -28,7 +28,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
-    hub: lila.hub.Env,
+    timeline: lila.hub.actors.Timeline,
     db: lila.db.Env
 )(implicit system: ActorSystem) {
 
@@ -58,7 +58,7 @@ final class Env(
     renderer = renderer,
     api = api,
     isOnline = isOnline,
-    timeline = hub.timeline,
+    timeline = timeline,
     keyword = config.keyword,
     alwaysFeatured = alwaysFeaturedSetting.get,
     googleApiKey = config.googleApiKey,

@@ -9,9 +9,9 @@ import lila.security.{ Granter, Permission }
 import lila.user.{ User, UserRepo }
 
 private[timeline] final class Push(
-    renderer: ActorSelection,
-    getFriendIds: String => Fu[Set[String]],
-    getFollowerIds: String => Fu[Set[String]],
+    renderer: lila.hub.actors.Renderer,
+    relationApi: lila.relation.RelationApi,
+    userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi
 ) extends Actor {
@@ -31,8 +31,8 @@ private[timeline] final class Push(
   private def propagate(propagations: List[Propagation]): Fu[List[User.ID]] =
     propagations.map {
       case Users(ids) => fuccess(ids)
-      case Followers(id) => getFollowerIds(id)
-      case Friends(id) => getFriendIds(id)
+      case Followers(id) => relationApi.fetchFollowersFromSecondary(id)
+      case Friends(id) => relationApi.fetchFriends(id)
       case ExceptUser(_) => fuccess(Nil)
       case ModsOnly(_) => fuccess(Nil)
     }.sequence flatMap { users =>
@@ -40,7 +40,7 @@ private[timeline] final class Push(
         case (fus, ExceptUser(id)) => fus.map(_.filter(id!=))
         case (fus, ModsOnly(true)) => for {
           us <- fus
-          userIds <- UserRepo.userIdsWithRoles(modPermissions.map(_.name))
+          userIds <- userRepo.userIdsWithRoles(modPermissions.map(_.name))
         } yield us filter userIds.contains
         case (fus, _) => fus
       }

@@ -220,8 +220,8 @@ final class ChatApi(
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
-    private val gameUrlRegex = (Pattern.quote(net.domain) + """\b/(\w{8})\w{4}\b""").r
-    private val gameUrlReplace = Matcher.quoteReplacement(net.domain) + "/$1";
+    private val gameUrlRegex = (Pattern.quote(net.domain.value) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlReplace = Matcher.quoteReplacement(net.domain.value) + "/$1";
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
     private val multilineRegex = """\n\n{2,}+""".r

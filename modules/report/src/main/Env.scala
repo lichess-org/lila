@@ -1,32 +1,48 @@
 package lila.report
 
-import scala.concurrent.duration._
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+import scala.concurrent.duration._
+
+import lila.common.config._
+import lila.common.Domain
+
+@Module
+private class CoachConfig(
+    @ConfigName("collection.report") val reportColl: CollName,
+    @ConfigName("score.threshold") val scoreThreshold: Int,
+    @ConfigName("net.domain") val netDomain: Domain,
+    @ConfigName("actor.name") val actorName: String
+)
+
+private case class Thresholds(score: () => Int, slack: () => Int)
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     db: lila.db.Env,
     isOnline: lila.user.User.ID => Boolean,
     noteApi: lila.user.NoteApi,
+    userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
     slackApi: lila.slack.SlackApi,
-    system: ActorSystem,
-    hub: lila.hub.Env,
+    captcher: lila.hub.actors.Captcher,
+    fishnet: lila.hub.actors.Fishnet,
     settingStore: lila.memo.SettingStore.Builder,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit system: ActorSystem) {
 
-  private val CollectionReport = config getString "collection.report"
-  private val ActorName = config getString "actor.name"
-  private val ScoreThreshold = config getInt "score.threshold"
-  private val NetDomain = config getString "net.domain"
+  private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
+
+  private lazy val reportColl = db(config.reportColl)
 
   val scoreThresholdSetting = settingStore[Int](
     "reportScoreThreshold",
-    default = ScoreThreshold,
+    default = config.scoreThreshold,
     text = "Report score threshold. Reports with lower scores are concealed to moderators".some
   )
 
@@ -36,26 +52,16 @@ final class Env(
     text = "Slack score threshold. Comm reports with higher scores are notified in slack".some
   )
 
-  lazy val forms = new DataForm(hub.captcher, NetDomain)
-
-  private lazy val autoAnalysis = new AutoAnalysis(
-    fishnet = hub.fishnet,
-    system = system
+  private val thresholds = Thresholds(
+    score = scoreThresholdSetting.get,
+    slack = slackScoreThresholdSetting.get
   )
 
-  lazy val api = new ReportApi(
-    reportColl,
-    autoAnalysis,
-    noteApi,
-    securityApi,
-    userSpyApi,
-    playbanApi,
-    slackApi,
-    isOnline,
-    asyncCache,
-    scoreThreshold = scoreThresholdSetting.get,
-    slackScoreThreshold = slackScoreThresholdSetting.get
-  )
+  lazy val forms = wire[DataForm]
+
+  private lazy val autoAnalysis = wire[AutoAnalysis]
+
+  lazy val api = wire[ReportApi]
 
   lazy val modFilters = new ModReportFilter
 
@@ -69,31 +75,11 @@ final class Env(
       case lila.hub.actorApi.report.Booster(winnerId, loserId) =>
         api.autoBoostReport(winnerId, loserId)
     }
-  }), name = ActorName)
+  }), name = config.actorName)
 
   lila.common.Bus.subscribeFun("playban") {
     case lila.hub.actorApi.playban.Playban(userId, _) => api.maybeAutoPlaybanReport(userId)
   }
 
-  system.scheduler.schedule(1 minute, 1 minute) { api.inquiries.expire }
-
-  lazy val reportColl = db(CollectionReport)
-}
-
-object Env {
-
-  lazy val current = "report" boot new Env(
-    config = lila.common.PlayApp loadConfig "report",
-    db = lila.db.Env.current,
-    isOnline = lila.socket.Env.current.isOnline,
-    noteApi = lila.user.Env.current.noteApi,
-    securityApi = lila.security.Env.current.api,
-    userSpyApi = lila.security.Env.current.userSpyApi,
-    playbanApi = lila.playban.Env.current.api,
-    slackApi = lila.slack.Env.current.api,
-    system = lila.common.PlayApp.system,
-    hub = lila.hub.Env.current,
-    settingStore = lila.memo.Env.current.settingStore,
-    asyncCache = lila.memo.Env.current.asyncCache
-  )
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () => api.inquiries.expire }
 }
