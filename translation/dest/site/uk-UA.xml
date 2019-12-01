@@ -804,9 +804,14 @@
   <string name="noConditionalPremoves">Безумовні передходи</string>
   <string name="playX">Зіграти %s</string>
   <string name="sorry">Вибачте :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Нам довелося тебе деавторизувати на певний час.</string>
+  <string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
   <string name="why">Чому?</string>
+  <string name="pleasantChessExperience">Ми прагнемо надати приємний досвід гри в шахи всім.</string>
+  <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці дотримуються хорошої практики.</string>
   <string name="potentialProblem">Це повідомлення відображається якщо ми знайшли потенційну проблему.</string>
   <string name="howToAvoidThis">Як запобігти цьому?</string>
+  <string name="playEveryGame">Доводьте кожну гру, в яку ви починали грати, до кінця.</string>
   <string name="lifetimeScore">Загальний результат</string>
   <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
 </resources>
