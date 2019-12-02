@@ -318,7 +318,7 @@
   <string name="thisPuzzleIsCorrect">本题正确有趣</string>
   <string name="thisPuzzleIsWrong">本题错误无味</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="other">%s场对局正在进行中</item>
+    <item quantity="other">%s場對局正在進行中</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">移动棋子后自动进入下一盘棋</string>
   <string name="autoSwitch">自动更换</string>
@@ -364,7 +364,7 @@
   <string name="changedMindDoNotCloseAccount">我改主意了，不要注销账号</string>
   <string name="closeAccountExplanation">您确定注销账号？此操作不可逆。您将无法再登录，而您的个人资料也将不可使用。</string>
   <string name="thisAccountIsClosed">此帐号已被注销。</string>
-  <string name="invalidUsernameOrPassword">账号名称或密码错误</string>
+  <string name="invalidUsernameOrPassword">用户名或密碼錯誤</string>
   <string name="emailMeALink">向我电邮链接</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
@@ -460,12 +460,13 @@
   <string name="tpTimeSpentOnTV">花在Lichess直播上的时间：%s</string>
   <string name="watch">观看</string>
   <string name="videoLibrary">视频库</string>
-  <string name="mobileApp">手机app</string>
+  <string name="mobileApp">行動應用程式</string>
   <string name="webmasters">网站管理员</string>
+  <string name="aboutX">關於 %s</string>
   <string name="contribute">协助</string>
-  <string name="contact">联系我们</string>
+  <string name="contact">聯繫我們</string>
   <string name="termsOfService">服務條款</string>
-  <string name="sourceCode">源代码</string>
+  <string name="sourceCode">原始碼</string>
   <string name="simultaneousExhibitions">同步表演赛</string>
   <string name="host">主持</string>
   <string name="createdSimuls">最近开始的同步赛</string>
