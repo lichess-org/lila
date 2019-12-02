@@ -43,7 +43,7 @@ object layout {
   private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
 
   private val favicons = raw {
-    List(512, 256, 128, 64) map { px =>
+    List(512, 256, 192, 128, 64) map { px =>
       s"""<link rel="icon" type="image/png" href="${staticUrl(s"logo/lichess-favicon-$px.png")}" sizes="${px}x${px}">"""
     } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("logo/lichess-favicon-32.png")}" sizes="32x32">""")
   }
