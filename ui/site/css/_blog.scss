@@ -106,6 +106,7 @@
   }
 
   &.index {
+    @extend %flex-column;
     h2 {
       @extend %box-padding-horiz;
       margin: 2rem 0;
@@ -114,14 +115,14 @@
       h2 {
         text-align: center;
       }
-      margin-bottom: 7em;
+      margin-bottom: 2em;
     }
     .meta {
       text-align: center;
     }
     .parts {
       @extend %box-padding-horiz;
-      margin-top: 2em;
+      margin-top: 3em;
       .illustration {
         float: left;
         max-width: 40%;
