@@ -46,8 +46,11 @@
   <string name="viewTheComputerAnalysis">查看電腦分析結果</string>
   <string name="requestAComputerAnalysis">請求電腦分析</string>
   <string name="computerAnalysis">電腦分析</string>
+  <string name="computerAnalysisAvailable">電腦分析可用</string>
   <string name="analysis">分析</string>
   <string name="depthX">深度 %s</string>
+  <string name="usingServerAnalysis">正在使用伺服器分析</string>
+  <string name="cloudAnalysis">雲分析</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
   <string name="close">關閉</string>
   <string name="openingExplorer">開局瀏覽器</string>
@@ -511,7 +514,7 @@
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了从新设密码的链接。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
-  <string name="networkLagBetweenYouAndLichess">你和 lichess 之间的网络时滞</string>
+  <string name="networkLagBetweenYouAndLichess">你和 lichess 之間的網絡時滯</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
   <string name="downloadRaw">下载无笔记的记录</string>
