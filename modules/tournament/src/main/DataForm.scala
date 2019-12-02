@@ -77,7 +77,9 @@ object DataForm {
 
   import chess.variant._
 
-  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d) ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
+    (2 to 7 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  }.map(_.toDouble)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
     chess.Clock.Config(l * 60 toInt, 0).limitString + {

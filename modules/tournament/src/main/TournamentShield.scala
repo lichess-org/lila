@@ -9,7 +9,7 @@ import lila.rating.PerfType
 import lila.user.User
 
 final class TournamentShieldApi(
-    coll: Coll,
+    tournamentRepo: TournamentRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -43,9 +43,9 @@ final class TournamentShieldApi(
   private val cache = asyncCache.single[History](
     name = "tournament.shield",
     expireAfter = _.ExpireAfterWrite(1 day),
-    f = coll.find($doc(
-      "schedule.freq" -> scheduleFreqHandler.write(Schedule.Freq.Shield),
-      "status" -> statusBSONHandler.write(Status.Finished)
+    f = tournamentRepo.coll.find($doc(
+      "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
+      "status" -> statusBSONHandler.writeTry(Status.Finished).get
     )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
       for {
         tour <- tours

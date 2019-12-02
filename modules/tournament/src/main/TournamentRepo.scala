@@ -13,9 +13,7 @@ import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.Game
 import lila.user.User
 
-object TournamentRepo {
-
-  private[tournament] lazy val coll = Env.current.tournamentColl
+final class TournamentRepo(val coll: Coll) {
 
   private val enterableSelect = $doc("status" $lt Status.Finished.id)
   private val createdSelect = $doc("status" -> Status.Created.id)

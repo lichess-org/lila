@@ -1,6 +1,7 @@
 package lila.tournament
 
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 
 import lila.common.LightUser
 import lila.rating.PerfType

@@ -5,15 +5,13 @@ import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 import reactivemongo.api.bson._
 
 import BSONHandlers._
-import lila.common.MaxPerSecond
+import lila.common.config.MaxPerSecond
 import lila.db.dsl._
 import lila.hub.lightTeam.TeamId
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
-object PlayerRepo {
-
-  private lazy val coll = Env.current.playerColl
+final class PlayerRepo(coll: Coll) {
 
   private def selectId(id: Tournament.ID) = $doc("_id" -> id)
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)

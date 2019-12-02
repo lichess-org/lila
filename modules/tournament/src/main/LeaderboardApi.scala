@@ -13,7 +13,7 @@ import lila.user.User
 
 final class LeaderboardApi(
     coll: Coll,
-    maxPerPage: lila.common.MaxPerPage
+    maxPerPage: lila.common.config.MaxPerPage
 ) {
 
   import LeaderboardApi._

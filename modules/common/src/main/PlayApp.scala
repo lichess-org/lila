@@ -3,7 +3,7 @@ package lila.common
 import org.joda.time.DateTime
 import scala.jdk.CollectionConverters._
 
-object PlayApp {
+object Uptime {
 
   val startedAt = DateTime.now
   val startedAtMillis = nowMillis

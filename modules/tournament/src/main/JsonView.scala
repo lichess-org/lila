@@ -5,7 +5,7 @@ import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.{ Lang, LightUser }
+import lila.common.{ Lang, LightUser, Uptime }
 import lila.game.{ LightPov, Game }
 import lila.hub.lightTeam._
 import lila.quote.Quote.quoteWriter
@@ -22,8 +22,7 @@ final class JsonView(
     proxyGame: Game.ID => Fu[Option[Game]],
     verify: Condition.Verify,
     duelStore: DuelStore,
-    pause: Pause,
-    startedSinceSeconds: Int => Boolean
+    pause: Pause
 ) {
 
   import JsonView._
@@ -184,7 +183,7 @@ final class JsonView(
   }
 
   private def fetchCurrentGameId(tour: Tournament, user: User): Fu[Option[Game.ID]] =
-    if (startedSinceSeconds(60)) fuccess(duelStore.find(tour, user))
+    if (Uptime.startedSinceSeconds(60)) fuccess(duelStore.find(tour, user))
     else PairingRepo.playingByTourAndUserId(tour.id, user.id)
 
   private def fetchFeaturedGame(tour: Tournament): Fu[Option[FeaturedGame]] =

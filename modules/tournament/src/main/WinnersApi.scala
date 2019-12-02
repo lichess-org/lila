@@ -57,7 +57,7 @@ case class AllWinners(
 }
 
 final class WinnersApi(
-    coll: Coll,
+    tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Builder,
     ttl: FiniteDuration,
     scheduler: lila.common.Scheduler
@@ -69,13 +69,13 @@ final class WinnersApi(
   private implicit val FreqWinnersHandler = reactivemongo.api.bson.Macros.handler[FreqWinners]
   private implicit val AllWinnersHandler = reactivemongo.api.bson.Macros.handler[AllWinners]
 
-  private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] = coll.find($doc(
-    "schedule.freq" -> freq.name,
-    "startsAt" $gt since.minusHours(12),
-    "winner" $exists true
-  )).sort($sort desc "startsAt")
-    .cursor[Tournament](readPreference = ReadPreference.secondaryPreferred)
-    .gather[List]()
+  private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
+    tournamentRepo.coll.find($doc(
+      "schedule.freq" -> freq.name,
+      "startsAt" $gt since.minusHours(12),
+      "winner" $exists true
+    )).sort($sort desc "startsAt")
+      .list[Tournament](ReadPreference.secondaryPreferred)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours.find { t =>
@@ -107,14 +107,14 @@ final class WinnersApi(
       rapid = standardFreqWinners(Speed.Rapid),
       elite = elites flatMap (_.winner) take 4,
       marathon = marathons flatMap (_.winner) take 4,
-      variants = WinnersApi.variants.map { v =>
+      variants = WinnersApi.variants.view.map { v =>
         v.key -> FreqWinners(
           yearly = firstVariantWinner(yearlies, v),
           monthly = firstVariantWinner(monthlies, v),
           weekly = firstVariantWinner(weeklies, v),
           daily = firstVariantWinner(dailies, v)
         )
-      }(scala.collection.breakOut)
+      }.toMap
     )
   }
 

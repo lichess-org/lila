@@ -1,18 +1,29 @@
 package lila.tournament
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 import scala.concurrent.duration._
-import scala.concurrent.Promise
 
+import lila.common.config._
 import lila.game.Game
 import lila.hub.{ Duct, DuctMap, TrouperMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
+@Module
+private class RoundConfig(
+    @ConfigName("collection.tournament") val tournamentColl: CollName,
+    @ConfigName("collection.player") val playerColl: CollName,
+    @ConfigName("collection.pairing") val pairingColl: CollName,
+    @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
+    @ConfigName("leaderboard.cache.ttl") val leaderboardCacheTtl: FiniteDuration,
+    @ConfigName("api_actor.name") val apiActorName: String
+)
+
 final class Env(
-    config: Config,
-    system: ActorSystem,
+    appConfig: Configuration,
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -27,116 +38,65 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     notifyApi: lila.notify.NotifyApi,
-    remoteSocketApi: lila.socket.RemoteSocket,
-    scheduler: lila.common.Scheduler,
-    startedSinceSeconds: Int => Boolean
-) {
+    remoteSocketApi: lila.socket.RemoteSocket
+)(implicit system: ActorSystem) {
 
-  private val startsAtMillis = nowMillis
+  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
-  private val settings = new {
-    val CollectionTournament = config getString "collection.tournament"
-    val CollectionPlayer = config getString "collection.player"
-    val CollectionPairing = config getString "collection.pairing"
-    val CollectionLeaderboard = config getString "collection.leaderboard"
-    val CreatedCacheTtl = config duration "created.cache.ttl"
-    val LeaderboardCacheTtl = config duration "leaderboard.cache.ttl"
-    val RankingCacheTtl = config duration "ranking.cache.ttl"
-    val ApiActorName = config getString "api_actor.name"
-    val SequencerTimeout = config duration "sequencer.timeout"
+  private val scheduler = system.scheduler
+
+  lazy val forms = wire[DataForm]
+
+  private lazy val tournamentRepo = new TournamentRepo(db(config.tournamentColl))
+  private lazy val pairingRepo = new PairingRepo(db(config.pairingColl))
+  private lazy val playerRepo = new PlayerRepo(db(config.playerColl))
+  private lazy val leaderboardColl = db(config.leaderboardColl)
+
+  lazy val cached = wire[Cached]
+
+  lazy val verify = wire[Condition.Verify]
+
+  lazy val winners = wire[WinnersApi]
+
+  lazy val statsApi = wire[TournamentStatsApi]
+
+  lazy val shieldApi: TournamentShieldApi = wire[TournamentShieldApi]
+
+  lazy val revolutionApi: RevolutionApi = wire[RevolutionApi]
+
+  private val duelStore = wire[DuelStore]
+
+  private val pause = wire[Pause]
+
+  private val socket = wire[TournamentSocket]
+
+  private lazy val clearTrophyCache = (tour: Tournament) => {
+    if (tour.isShield) scheduler.scheduleOnce(10 seconds)(shieldApi.clear)
+    else if (Revolution is tour) scheduler.scheduleOnce(10 seconds)(revolutionApi.clear)
   }
-  import settings._
 
-  lazy val forms = new DataForm
+  lazy val api: TournamentApi = wire[TournamentApi]
 
-  lazy val cached = new Cached(
-    asyncCache = asyncCache,
-    createdTtl = CreatedCacheTtl,
-    rankingTtl = RankingCacheTtl
-  )(system)
-
-  lazy val verify = new Condition.Verify(historyApi)
-
-  lazy val winners = new WinnersApi(
-    coll = tournamentColl,
-    mongoCache = mongoCache,
-    ttl = LeaderboardCacheTtl,
-    scheduler = scheduler
-  )
-
-  lazy val statsApi = new TournamentStatsApi(
-    mongoCache = mongoCache
-  )
-
-  lazy val shieldApi = new TournamentShieldApi(
-    coll = tournamentColl,
-    asyncCache = asyncCache
-  )
-
-  lazy val revolutionApi = new RevolutionApi(
-    coll = tournamentColl,
-    asyncCache = asyncCache
-  )
-
-  private val duelStore = new DuelStore
-
-  private val pause = new Pause
-
-  private val socket = new TournamentSocket(
-    remoteSocketApi = remoteSocketApi,
-    chat = chatApi,
-    system = system
-  )
-
-  lazy val api = new TournamentApi(
-    cached = cached,
-    apiJsonView = apiJsonView,
-    system = system,
-    sequencers = sequencerMap,
-    autoPairing = autoPairing,
-    clearJsonViewCache = jsonView.clearCache,
-    clearWinnersCache = winners.clearCache,
-    clearTrophyCache = tour => {
-      if (tour.isShield) scheduler.once(10 seconds)(shieldApi.clear)
-      else if (Revolution is tour) scheduler.once(10 seconds)(revolutionApi.clear)
-    },
-    renderer = hub.renderer,
-    timeline = hub.timeline,
-    socket = socket,
-    trophyApi = trophyApi,
-    verify = verify,
-    indexLeaderboard = leaderboardIndexer.indexOne _,
-    tellRound = tellRound,
-    asyncCache = asyncCache,
-    duelStore = duelStore,
-    pause = pause,
-    lightUserApi = lightUserApi,
-    proxyGame = proxyGame
-  )
-
-  lazy val crudApi = new crud.CrudApi
+  lazy val crudApi = wire[crud.CrudApi]
 
   val tourAndRanks = api tourAndRanks _
 
-  lazy val jsonView = new JsonView(lightUserApi, cached, statsApi, shieldApi, asyncCache, proxyGame, verify, duelStore, pause, startedSinceSeconds)
+  lazy val jsonView = wire[JsonView]
 
   lazy val apiJsonView = new ApiJsonView(lightUserApi.async)
 
   lazy val leaderboardApi = new LeaderboardApi(
     coll = leaderboardColl,
-    maxPerPage = lila.common.MaxPerPage(15)
+    maxPerPage = MaxPerPage(15)
   )
 
-  def playerRepo = PlayerRepo
-
   private lazy val leaderboardIndexer = new LeaderboardIndexer(
-    tournamentColl = tournamentColl,
-    leaderboardColl = leaderboardColl
+    tournamentRepo = tournamentRepo leaderboardColl = leaderboardColl
   )
 
   private val sequencerMap = new DuctMap(
-    mkDuct = _ => Duct.extra.lazyFu(5.seconds)(system),
-    accessTimeout = SequencerTimeout
+    mkDuct = _ => Duct.extra.lazyFu(5 seconds)(system),
+    accessTimeout = 10 minutes
   )
 
   lila.common.Bus.subscribe(
@@ -172,34 +132,4 @@ final class Env(
   }
 
   private lazy val autoPairing = new AutoPairing(duelStore, onStart)
-
-  private[tournament] lazy val tournamentColl = db(CollectionTournament)
-  private[tournament] lazy val pairingColl = db(CollectionPairing)
-  private[tournament] lazy val playerColl = db(CollectionPlayer)
-  private[tournament] lazy val leaderboardColl = db(CollectionLeaderboard)
-}
-
-object Env {
-
-  lazy val current = "tournament" boot new Env(
-    config = lila.common.PlayApp loadConfig "tournament",
-    system = lila.common.PlayApp.system,
-    db = lila.db.Env.current,
-    mongoCache = lila.memo.Env.current.mongoCache,
-    asyncCache = lila.memo.Env.current.asyncCache,
-    proxyGame = lila.round.Env.current.proxy.game _,
-    flood = lila.security.Env.current.flood,
-    hub = lila.hub.Env.current,
-    chatApi = lila.chat.Env.current.api,
-    tellRound = lila.round.Env.current.tellRound,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    isOnline = lila.socket.Env.current.isOnline,
-    onStart = lila.round.Env.current.onStart,
-    historyApi = lila.history.Env.current.api,
-    trophyApi = lila.user.Env.current.trophyApi,
-    notifyApi = lila.notify.Env.current.api,
-    remoteSocketApi = lila.socket.Env.current.remoteSocket,
-    scheduler = lila.common.PlayApp.scheduler,
-    startedSinceSeconds = lila.common.PlayApp.startedSinceSeconds
-  )
 }

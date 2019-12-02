@@ -76,7 +76,7 @@ final class Env(
 
   private val sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu,
-    accessTimeout = 10.seconds
+    accessTimeout = 10 minutes
   )
 
   lazy val cleaner = new SimulCleaner(repo, api)

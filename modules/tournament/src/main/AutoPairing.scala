@@ -6,6 +6,7 @@ import lila.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPic
 import lila.user.User
 
 final class AutoPairing(
+    gameRepo: GameRepo,
     duelStore: DuelStore,
     onStart: Game.ID => Unit
 ) {
@@ -42,7 +43,7 @@ final class AutoPairing(
     ).withId(pairing.gameId)
       .withTournamentId(tour.id)
       .start
-    (GameRepo insertDenormalized game) >>- {
+    (gameRepo insertDenormalized game) >>- {
       onStart(game.id)
       duelStore.add(
         tour = tour,

@@ -5,7 +5,9 @@ import scala.concurrent.duration._
 
 private final class CreatedOrganizer(
     api: TournamentApi,
-    isOnline: String => Boolean
+    tournamentRepo: TournamentRepo,
+    playerRepo: PlayerRepo,
+    isOnline: lila.user.IsOnline
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -27,11 +29,11 @@ private final class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick =>
-      TournamentRepo.allCreated(30).map { tours =>
+      tournamentRepo.allCreated(30).map { tours =>
         tours foreach { tour =>
           tour.schedule match {
             case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
-            case None => PlayerRepo count tour.id foreach {
+            case None => playerRepo count tour.id foreach {
               case 0 => api wipe tour
               case nb if tour.hasWaitedEnough =>
                 if (nb >= Tournament.minPlayers) api start tour

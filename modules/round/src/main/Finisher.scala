@@ -3,7 +3,7 @@ package lila.round
 import chess.{ Status, DecayingStats, Color, Clock }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.common.Bus
+import lila.common.{ Bus, Uptime }
 import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
@@ -33,8 +33,7 @@ private final class Finisher(
       winner.?? { color => playban.rageQuit(game, !color) }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
-    import lila.common.PlayApp
-    if (!PlayApp.startedSinceSeconds(60) && (game.movedAt isBefore PlayApp.startedAt)) {
+    if (!Uptime.startedSinceSeconds(60) && (game.movedAt isBefore Uptime.startedAt)) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     } else {

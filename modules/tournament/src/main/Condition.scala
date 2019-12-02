@@ -163,13 +163,14 @@ object Condition {
 
   object BSONHandlers {
     import reactivemongo.api.bson._
+    import lila.db.dsl._
     private implicit val NbRatedGameHandler = Macros.handler[NbRatedGame]
     private implicit val MaxRatingHandler = Macros.handler[MaxRating]
     private implicit val MinRatingHandler = Macros.handler[MinRating]
-    private implicit val TitledHandler = new BSONHandler[BSONValue, Titled.type] {
-      def read(x: BSONValue) = Titled
-      def write(x: Titled.type) = BSONBoolean(true)
-    }
+    private implicit val TitledHandler = quickHandler[Titled.type](
+      { case _: BSONValue => Titled },
+      x => BSONBoolean(true)
+    )
     private implicit val TeamMemberHandler = Macros.handler[TeamMember]
     implicit val AllBSONHandler = Macros.handler[All]
   }

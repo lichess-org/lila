@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 
 private final class LeaderboardIndexer(
-    tournamentColl: Coll,
+    tournamentRepo: TournamentRepo,
     leaderboardColl: Coll
 ) {
 
@@ -16,7 +16,7 @@ private final class LeaderboardIndexer(
   def generateAll: Funit = leaderboardColl.remove($empty) >> {
     import reactivemongo.play.iteratees.cursorProducer
 
-    tournamentColl.find(TournamentRepo.finishedSelect)
+    tournamentRepo.coll.find(TournamentRepo.finishedSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament]().enumerator(20 * 1000) &>
       Enumeratee.mapM[Tournament].apply[Seq[Entry]](generateTour) &>

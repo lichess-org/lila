@@ -222,7 +222,7 @@ lazy val insight = module(
 lazy val tournament = module("tournament", Seq(
   common, hub, socket, game, round, security, chat, memo, quote, history, notifyModule, i18n, room
 )).settings(
-  libraryDependencies ++= provided(play.api, scalatags, lettuce) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda, scalatags, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val simul = module("simul", Seq(

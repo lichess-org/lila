@@ -51,7 +51,7 @@ final class Syncache[K, V](
         case NeverWait => default(k)
         case AlwaysWait(duration) => waitForResult(k, fu, duration)
         case WaitAfterUptime(duration, uptime) =>
-          if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, fu, duration)
+          if (lila.common.Uptime startedSinceSeconds uptime) waitForResult(k, fu, duration)
           else default(k)
       }
     }

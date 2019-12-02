@@ -10,9 +10,7 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
 
-object PairingRepo {
-
-  private lazy val coll = Env.current.pairingColl
+final class PairingRepo(coll: Coll) {
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   def selectUser(userId: User.ID) = $doc("u" -> userId)

@@ -5,8 +5,7 @@ import scala.concurrent.duration._
 
 import chess.variant._
 import chess.{ Status, Color }
-import lila.common.PlayApp.startedSinceMinutes
-import lila.common.{ Bus, Iso }
+import lila.common.{ Bus, Iso, Uptime }
 import lila.db.dsl._
 import lila.game.{ Pov, Game, Player, Source }
 import lila.message.{ MessageApi, ModPreset }
@@ -44,7 +43,7 @@ final class PlaybanApi(
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =
-    startedSinceMinutes(10) ?? {
+    Uptime.startedSinceMinutes(10) ?? {
       blameable(game) flatMap { _ ?? f }
     }
 
