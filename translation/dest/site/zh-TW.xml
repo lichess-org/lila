@@ -62,9 +62,14 @@
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="allSet">一切就緒！</string>
   <string name="delete">刪除</string>
+  <string name="replayMode">重播模式</string>
   <string name="enable">開啟</string>
+  <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
+  <string name="infiniteAnalysis">無限分析</string>
+  <string name="removesTheDepthLimit">取消深度限制，使你的電腦發熱。</string>
   <string name="blunders">嚴重錯誤</string>
+  <string name="mistake">錯誤</string>
   <string name="mistakes">錯誤</string>
   <string name="inaccuracies">輕微失誤</string>
   <string name="moveTimes">走棋時間</string>
@@ -113,6 +118,7 @@
   <string name="ratingStats">評分數據</string>
   <string name="username">用戶名</string>
   <string name="usernameOrEmail">用戶名或電子郵箱</string>
+  <string name="changeUsername">更改用戶名</string>
   <string name="password">密碼</string>
   <string name="changePassword">修改密碼</string>
   <string name="changeEmail">更換電子郵件</string>
@@ -196,8 +202,14 @@
   <string name="tournament">錦標賽</string>
   <string name="tournaments">錦標賽</string>
   <string name="tournamentPoints">錦標賽得分</string>
+  <plurals name="nbTournamentPoints">
+    <item quantity="other">%s比赛得分</item>
+  </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
+  <string name="yourPerfRatingIsTooHigh">你的 %1$s 積分 (%2$s) 過高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">你本週最高 %1$s 積分 (%2$s) 過高</string>
+  <string name="yourPerfRatingIsTooLow">你的 %1$s 積分 (%2$s) 過低</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面清新的免費在線國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="teams">團隊</string>
