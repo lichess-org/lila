@@ -50,7 +50,8 @@
   <string name="analysis">分析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
-  <string name="cloudAnalysis">雲分析</string>
+  <string name="cloudAnalysis">雲端分析</string>
+  <string name="goDeeper">深入分析</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
   <string name="deleteFromHere">從這處開始刪除</string>
   <string name="move">走棋</string>
@@ -250,6 +251,9 @@
   <string name="notACheckmate">沒有將死</string>
   <string name="retry">重試</string>
   <string name="reconnecting">重新連接中</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s 位好友在線</item>
+  </plurals>
   <string name="noFriendsOnline">沒有好友在線</string>
   <string name="findFriends">好友建議</string>
   <string name="follow">關注</string>
