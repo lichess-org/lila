@@ -71,6 +71,7 @@ Exceptions (non-free)
 
 Files | Author(s) | License
 --- | --- | ---
+public/logo | [sadsnake1](https://github.com/sadsnake1) | Only use to refer to lichess.org
 public/piece/alpha | Eric Bentzen | "free for personal non commercial use" (see [zip](http://www.enpassant.dk/chess/downl/alpha.zip))
 public/piece/chess7 | [Style-7](http://www.styleseven.com/) | "freeware"
 public/piece/companion | David L. Brown | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#GC)
