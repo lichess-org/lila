@@ -48,8 +48,13 @@
   <string name="computerAnalysis">電腦分析</string>
   <string name="analysis">分析</string>
   <string name="depthX">深度 %s</string>
+  <string name="inLocalBrowser">在本地瀏覽器</string>
+  <string name="close">關閉</string>
   <string name="openingExplorer">開局瀏覽器</string>
+  <string name="allSet">一切就緒！</string>
   <string name="delete">刪除</string>
+  <string name="enable">開啟</string>
+  <string name="memory">記憶體</string>
   <string name="blunders">嚴重錯誤</string>
   <string name="mistakes">錯誤</string>
   <string name="inaccuracies">輕微失誤</string>
@@ -73,7 +78,7 @@
   <string name="logOut">登出</string>
   <string name="signIn">登入</string>
   <string name="youNeedAnAccountToDoThat">請註冊以完成該操作</string>
-  <string name="signUp">注册</string>
+  <string name="signUp">註冊</string>
   <string name="computersAreNotAllowedToPlay">電腦與電腦輔助棋手不允許參加對弈。對弈時，請勿從國際象棋引擎、數據庫以及其他棋手那裡獲取幫助。另外，強烈建議不要創建多個帳號；過分地使用多個帳號將導致封號。</string>
   <string name="games">棋局</string>
   <string name="forum">論壇</string>
@@ -459,7 +464,7 @@
   <string name="webmasters">网站管理员</string>
   <string name="contribute">协助</string>
   <string name="contact">联系我们</string>
-  <string name="termsOfService">服务守则</string>
+  <string name="termsOfService">服務條款</string>
   <string name="sourceCode">源代码</string>
   <string name="simultaneousExhibitions">同步表演赛</string>
   <string name="host">主持</string>
@@ -506,7 +511,7 @@
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了从新设密码的链接。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
   <string name="networkLagBetweenYouAndLichess">你和 lichess 之间的网络时滞</string>
-  <string name="timeToProcessAMoveOnLichessServer">lichess 服务器上处理步数的时间</string>
+  <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
   <string name="downloadAnnotated">下载带笔记的记录</string>
   <string name="downloadRaw">下载无笔记的记录</string>
   <string name="downloadImported">下载已导入棋局</string>
