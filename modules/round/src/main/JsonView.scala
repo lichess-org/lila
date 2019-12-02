@@ -18,19 +18,22 @@ import actorApi.SocketStatus
 
 final class JsonView(
     noteApi: NoteApi,
+    userRepo: UserRepo,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
     getSocketStatus: Game => Fu[SocketStatus],
-    canTakeback: Game => Fu[Boolean],
-    canMoretime: Game => Fu[Boolean],
+    takebacker: Takebacker,
+    moretimer: Moretimer,
     divider: lila.game.Divider,
     evalCache: lila.evalCache.EvalCacheApi,
     isOfferingRematch: Pov => Boolean,
-    baseAnimationDuration: Duration,
-    moretimeSeconds: Int
+    animation: AnimationDuration,
+    moretime: MoretimeDuration
 ) {
 
   import JsonView._
+
+  private val moretimeSeconds = moretime.value.toSeconds.toInt
 
   private def checkCount(game: Game, color: Color) =
     (game.variant == chess.variant.ThreeCheck) option game.history.checkCount(color)
@@ -58,9 +61,9 @@ final class JsonView(
     withFlags: WithFlags,
     nvui: Boolean
   ): Fu[JsObject] = getSocketStatus(pov.game) zip
-    (pov.opponent.userId ?? UserRepo.byId) zip
-    canTakeback(pov.game) zip
-    canMoretime(pov.game) map {
+    (pov.opponent.userId ?? userRepo.byId) zip
+    takebacker.isAllowedIn(pov.game) zip
+    moretimer.isAllowedIn(pov.game) map {
       case socket ~ opponentUser ~ takebackable ~ moretimeable =>
         import pov._
         Json.obj(
@@ -148,7 +151,7 @@ final class JsonView(
     initialFen: Option[FEN] = None,
     withFlags: WithFlags
   ) = getSocketStatus(pov.game) zip
-    UserRepo.pair(pov.player.userId, pov.opponent.userId) map {
+    userRepo.pair(pov.player.userId, pov.opponent.userId) map {
       case (socket, (playerUser, opponentUser)) =>
         import pov._
         Json.obj(
@@ -271,7 +274,7 @@ final class JsonView(
   }
 
   private def animationDuration(pov: Pov, pref: Pref) = math.round {
-    animationFactor(pref) * baseAnimationDuration.toMillis * {
+    animationFactor(pref) * animation.value.toMillis * {
       if (pov.game.finished) 1
       else math.max(0, math.min(1.2, ((pov.game.estimateTotalTime - 60) / 60) * 0.2))
     }

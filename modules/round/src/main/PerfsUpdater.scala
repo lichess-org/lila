@@ -10,6 +10,8 @@ import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, PerfType => P
 import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
 final class PerfsUpdater(
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
     historyApi: HistoryApi,
     rankingApi: RankingApi,
     botFarming: BotFarming,
@@ -64,9 +66,9 @@ final class PerfsUpdater(
           intRatingLens(perfsW) - intRatingLens(white.perfs),
           intRatingLens(perfsB) - intRatingLens(black.perfs)
         )
-        GameRepo.setRatingDiffs(game.id, ratingDiffs) zip
-          UserRepo.setPerfs(white, perfsW, white.perfs) zip
-          UserRepo.setPerfs(black, perfsB, black.perfs) zip
+        gameRepo.setRatingDiffs(game.id, ratingDiffs) zip
+          userRepo.setPerfs(white, perfsW, white.perfs) zip
+          userRepo.setPerfs(black, perfsB, black.perfs) zip
           historyApi.add(white, game, perfsW) zip
           historyApi.add(black, game, perfsB) zip
           rankingApi.save(white, game.perfType, perfsW) zip

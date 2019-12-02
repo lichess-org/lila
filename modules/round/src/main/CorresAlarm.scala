@@ -1,9 +1,7 @@
 package lila.round
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
 import reactivemongo.api._
-import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, Tellable }
@@ -13,11 +11,10 @@ import lila.hub.actorApi.round.IsOnGame
 import makeTimeout.short
 
 private final class CorresAlarm(
-    system: akka.actor.ActorSystem,
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
     proxyGame: Game.ID => Fu[Option[Game]]
-) {
+)(implicit system: akka.actor.ActorSystem) {
 
   private case class Alarm(
       _id: String, // game id
@@ -33,7 +30,7 @@ private final class CorresAlarm(
 
   Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) =>
-      if (game.hasCorrespondenceClock && !game.hasAi) coll.remove($id(game.id))
+      if (game.hasCorrespondenceClock && !game.hasAi) coll.delete.one($id(game.id))
   }
 
   Bus.subscribeFun("moveEventCorres") {
@@ -44,7 +41,7 @@ private final class CorresAlarm(
             game.playableCorrespondenceClock ?? { clock =>
               val remainingTime = clock remainingTime game.turnColor
               val ringsAt = DateTime.now.plusSeconds(remainingTime.toInt * 8 / 10)
-              coll.update(
+              coll.update.one(
                 $id(game.id),
                 Alarm(
                   _id = game.id,
@@ -59,12 +56,11 @@ private final class CorresAlarm(
       }
   }
 
-  private def run: Unit = coll.find($doc(
+  private def run: Unit = coll.ext.find($doc(
     "ringsAt" $lt DateTime.now
-  )).cursor[Alarm](ReadPreference.secondaryPreferred)
-    .enumerator(100, Cursor.ContOnError())
-    .|>>>(Iteratee.foldM[Alarm, Int](0) {
-      case (count, alarm) => proxyGame(alarm._id).flatMap {
+  )).list[Alarm](100) flatMap { alarms =>
+    alarms.map { alarm =>
+      proxyGame(alarm._id).flatMap {
         _ ?? { game =>
           val pov = Pov(game, game.turnColor)
           pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)) addEffect {
@@ -75,9 +71,10 @@ private final class CorresAlarm(
             )
           }
         }
-      } >> coll.remove($id(alarm._id)) inject (count + 1)
-    })
-    .mon(_.round.alarm.time)
-    .addEffect(c => lila.mon.round.alarm.count(c))
-    .addEffectAnyway(scheduleNext)
+      } >> coll.delete.one($id(alarm._id))
+    }.sequenceFu
+      .mon(_.round.alarm.time)
+      .addEffect(c => lila.mon.round.alarm.count(c.size))
+      .addEffectAnyway(scheduleNext)
+  }
 }

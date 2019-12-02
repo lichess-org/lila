@@ -19,7 +19,6 @@ final class Env(
   private lazy val configs = PoolList.all
 
   private lazy val sequencer = new FutureSequencer(
-    system = system,
     executionTimeout = 5.seconds.some,
     logger = logger
   )

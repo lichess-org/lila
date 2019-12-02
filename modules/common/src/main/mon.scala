@@ -186,9 +186,6 @@ object mon {
       val create = inc("round.forecast.create")
     }
     object move {
-      object full {
-        val count = inc("round.move.full")
-      }
       object lag {
         val compDeviation = rec("round.move.lag.comp_deviation")
         def uncomped(key: String) = rec(s"round.move.lag.uncomped_ms.$key")
@@ -200,6 +197,8 @@ object mon {
         val compEstStdErr = rec(s"round.move.lag.comp_est_stderr_1000")
         val compEstOverErr = rec("round.move.lag.avg_over_error_ms")
       }
+      val count = inc("round.move.full")
+      val time = rec("round.move.time")
     }
     object error {
       val client = inc("round.error.client")

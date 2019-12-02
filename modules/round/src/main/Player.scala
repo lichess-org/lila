@@ -1,7 +1,5 @@
 package lila.round
 
-import scala.concurrent.Promise
-
 import chess.format.{ Forsyth, FEN, Uci }
 import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
 
@@ -13,10 +11,10 @@ import lila.game.{ Game, GameDiff, Progress, Pov, UciMemo }
 import lila.game.Game.{ PlayerId, FullId }
 import lila.hub.actorApi.round.BotPlay
 
-private[round] final class Player(
+private final class Player(
     fishnetPlayer: lila.fishnet.Player,
     finisher: Finisher,
-    scheduleExpiration: Game => Unit,
+    scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
 ) {
 
@@ -30,11 +28,11 @@ private[round] final class Player(
         round ! TooManyPlies
         fuccess(Nil)
       case Pov(game, color) if game playableBy color =>
-        p.trace.segmentSync("applyUci", "logic")(applyUci(game, uci, blur, lag)).prefixFailuresWith(s"$pov ")
+        applyUci(game, uci, blur, lag).prefixFailuresWith(s"$pov ")
           .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
             case Flagged => finisher.outOfTime(game)
             case MoveApplied(progress, moveOrDrop) =>
-              p.trace.segment("save", "db")(proxy.save(progress)) >>
+              proxy.save(progress) >>
                 postHumanOrBotPlay(round, pov, progress, moveOrDrop)
           }
       case Pov(game, _) if game.finished => fufail(ClientError(s"$pov game is finished"))

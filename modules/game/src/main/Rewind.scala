@@ -5,7 +5,7 @@ import scalaz.Validation.FlatMap._
 
 import chess.format.{ FEN, pgn => chessPgn }
 
-final class Rewind {
+object Rewind {
 
   private def createTags(fen: Option[FEN], game: Game) = {
     val variantTag = Some(chessPgn.Tag(_.Variant, game.variant.name))

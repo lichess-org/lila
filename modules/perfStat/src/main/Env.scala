@@ -18,7 +18,6 @@ final class Env(
   )
 
   private lazy val sequencer = new lila.hub.FutureSequencer(
-    system = system,
     executionTimeout = None,
     logger = lila.log("perfStat")
   )

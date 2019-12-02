@@ -16,10 +16,10 @@ import lila.hub.DuctMap
 
 final class ForecastApi(coll: Coll, tellRound: TellRound) {
 
-  private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
-    def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
-    def write(x: Pos) = BSONString(x.key)
-  }
+  private implicit val PosBSONHandler = tryHandler[Pos](
+    { case BSONString(v) => Pos.posAt(v) toTry s"No such pos: $v" },
+    x => BSONString(x.key)
+  )
 
   private implicit val stepBSONHandler = Macros.handler[Step]
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
@@ -38,7 +38,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
   }
 
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
-    case None => coll.remove($id(pov.fullId)).void
+    case None => coll.delete.one($id(pov.fullId)).void
     case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
     case _ => fufail(Forecast.OutOfSync)
   }
@@ -90,7 +90,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
-  def clearGame(g: Game) = coll.remove($inIds(chess.Color.all.map(g.fullIdOf))).void
+  def clearGame(g: Game) = coll.delete.one($inIds(chess.Color.all.map(g.fullIdOf))).void
 
-  def clearPov(pov: Pov) = coll.remove($id(pov.fullId)).void
+  def clearPov(pov: Pov) = coll.delete.one($id(pov.fullId)).void
 }

@@ -9,13 +9,13 @@ import lila.pref.{ Pref, PrefApi }
 private final class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi,
-    defaultDuration: FiniteDuration
+    duration: MoretimeDuration
 ) {
 
   // pov of the player giving more time
   def apply(pov: Pov): Fu[Option[Progress]] = IfAllowed(pov.game) {
     (pov.game moretimeable !pov.color) ?? {
-      if (pov.game.hasClock) give(pov.game, List(!pov.color), defaultDuration).some
+      if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
       else pov.game.correspondenceClock map { clock =>
         messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
         val p = pov.game.correspondenceGiveTime
@@ -28,14 +28,14 @@ private final class Moretimer(
     if (game.isMandatory) fuFalse
     else isAllowedByPrefs(game)
 
-  private[round] def give(game: Game, colors: List[Color], duration: FiniteDuration): Progress =
+  private[round] def give(game: Game, colors: List[Color], duration: MoretimeDuration): Progress =
     game.clock.fold(Progress(game)) { clock =>
-      val centis = duration.toCentis
+      val centis = duration.value.toCentis
       val newClock = colors.foldLeft(clock) {
         case (c, color) => c.giveTime(color, centis)
       }
       colors.foreach { c =>
-        messenger.system(game, (_.untranslated(s"$c + ${duration.toSeconds} seconds")))
+        messenger.system(game, (_.untranslated(s"$c + ${duration.value.toSeconds} seconds")))
       }
       (game withClock newClock) ++ colors.map { Event.ClockInc(_, centis) }
     }

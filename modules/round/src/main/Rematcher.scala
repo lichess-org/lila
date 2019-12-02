@@ -13,9 +13,12 @@ import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, Per
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 
-private[round] final class Rematcher(
+private final class Rematcher(
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
+    idGenerator: lila.game.IdGenerator,
     messenger: Messenger,
-    onStart: Game.ID => Unit,
+    onStart: OnStart,
     rematches: Cache[Game.ID, Game.ID]
 ) {
 
@@ -45,7 +48,7 @@ private[round] final class Rematcher(
   }
 
   private def rematchExists(pov: Pov)(nextId: Game.ID): Fu[Events] =
-    GameRepo game nextId flatMap {
+    gameRepo game nextId flatMap {
       _.fold(rematchJoin(pov))(g => fuccess(redirectEvents(g)))
     }
 
@@ -56,13 +59,13 @@ private[round] final class Rematcher(
         _ = offers invalidate pov.game.id
         _ = rematches.put(pov.gameId, nextGame.id)
         _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
-        _ <- GameRepo insertDenormalized nextGame
+        _ <- gameRepo insertDenormalized nextGame
       } yield {
         messenger.system(pov.game, _.rematchOfferAccepted)
         onStart(nextGame.id)
         redirectEvents(nextGame)
       }
-      case Some(rematchId) => GameRepo game rematchId map { _ ?? redirectEvents }
+      case Some(rematchId) => gameRepo game rematchId map { _ ?? redirectEvents }
     }
 
   private def rematchCreate(pov: Pov): Events = {
@@ -75,7 +78,7 @@ private[round] final class Rematcher(
   }
 
   private def returnGame(pov: Pov): Fu[Game] = for {
-    initialFen <- GameRepo initialFen pov.game
+    initialFen <- gameRepo initialFen pov.game
     situation = initialFen flatMap { fen => Forsyth <<< fen.value }
     pieces = pov.game.variant match {
       case Chess960 =>
@@ -84,7 +87,7 @@ private[round] final class Rematcher(
       case FromPosition => situation.fold(Standard.pieces)(_.situation.board.pieces)
       case variant => variant.pieces
     }
-    users <- UserRepo byIds pov.game.userIds
+    users <- userRepo byIds pov.game.userIds
     game <- Game.make(
       chess = ChessGame(
         situation = Situation(
@@ -103,7 +106,7 @@ private[round] final class Rematcher(
       source = pov.game.source | Source.Lobby,
       daysPerTurn = pov.game.daysPerTurn,
       pgnImport = None
-    ).withUniqueId
+    ) withUniqueId idGenerator
   } yield game
 
   private def returnPlayer(game: Game, color: ChessColor, users: List[User]): lila.game.Player =

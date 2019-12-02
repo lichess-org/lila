@@ -7,7 +7,7 @@ import lila.game.Game
 import lila.user.User
 
 private final class RoundNotifier(
-    timeline: akka.actor.ActorSelection,
+    timeline: lila.hub.actors.Timeline,
     isUserPresent: (Game, User.ID) => Fu[Boolean],
     notifyApi: NotifyApi
 ) {

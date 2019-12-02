@@ -53,9 +53,9 @@ object TreeBuilder {
           else _ => None
         val fen = Forsyth >> init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.??(_.advices.map { a =>
+        val advices: Map[Ply, Advice] = analysis.??(_.advices.view.map { a =>
           a.ply -> a
-        }(scala.collection.breakOut))
+        }.toMap)
         val root = Root(
           ply = init.turns,
           fen = fen,
@@ -134,5 +134,5 @@ object TreeBuilder {
   }
 
   private val logChessError = (id: String) => (err: String) =>
-    logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.lines.toList.headOption}")
+    logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
 }

@@ -184,7 +184,7 @@ lazy val round = module("round", Seq(
   common, db, memo, hub, socket, game, user,
   i18n, fishnet, pref, chat, history, playban, room
 )).settings(
-  libraryDependencies ++= provided(play.api, scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda, scalatags, hasher, kamon.core, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val pool = module("pool", Seq(common, game, user, playban)).settings(

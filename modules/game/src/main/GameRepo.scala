@@ -5,10 +5,11 @@ import scala.util.Random
 import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer, State }
 import reactivemongo.api.bson.BSONDocument
-import reactivemongo.api.WriteConcern
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
+import reactivemongo.api.WriteConcern
+import reactivemongo.api.ReadPreference
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -108,10 +109,16 @@ final class GameRepo(val coll: Coll) {
     .sort($sort asc F.createdAt)
     .list[Game](nb, ReadPreference.secondaryPreferred)
 
+  // def cursor(
+  //   selector: Bdoc,
+  //   readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  // )(implicit cp: CursorProducer[Game]) =
+  //   coll.ext.find(selector).cursor[Game](readPreference)
+
   def cursor(
     selector: Bdoc,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]) =
+  ): AkkaStreamCursor[Game] =
     coll.ext.find(selector).cursor[Game](readPreference)
 
   def sortedCursor(
@@ -119,9 +126,8 @@ final class GameRepo(val coll: Coll) {
     sort: Bdoc,
     batchSize: Int = 0,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]): cp.ProducedCursor = {
+  ): AkkaStreamCursor[Game] =
     coll.ext.find(selector).sort(sort).batchSize(batchSize).cursor[Game](readPreference)
-  }
 
   def goBerserk(pov: Pov): Funit =
     coll.update.one($id(pov.gameId), $set(

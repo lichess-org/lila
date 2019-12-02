@@ -9,7 +9,9 @@ import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
 
-private[round] final class Finisher(
+private final class Finisher(
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
     messenger: Messenger,
     perfsUpdater: PerfsUpdater,
     playban: PlaybanApi,
@@ -104,13 +106,13 @@ private[round] final class Finisher(
     val g = prog.game
     recordLagStats(g)
     proxy.save(prog) >>
-      GameRepo.finish(
+      gameRepo.finish(
         id = g.id,
         winnerColor = winner,
         winnerId = winner flatMap (g.player(_).userId),
         status = prog.game.status
       ) >>
-      UserRepo.pair(
+      userRepo.pair(
         g.whitePlayer.userId,
         g.blackPlayer.userId
       ).flatMap {
@@ -118,7 +120,7 @@ private[round] final class Finisher(
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
-              GameRepo game g.id foreach { newGame =>
+              gameRepo game g.id foreach { newGame =>
                 newGame foreach proxy.setFinishedGame
                 Bus.publish(finish.copy(game = newGame | g), "finishGame")
               }
@@ -149,7 +151,7 @@ private[round] final class Finisher(
       if (game.winnerUserId has user.id) 1
       else if (game.loserUserId has user.id) -1
       else 0
-    UserRepo.incNbGames(user.id, game.rated, game.hasAi,
+    userRepo.incNbGames(user.id, game.rated, game.hasAi,
       result = result,
       totalTime = totalTime,
       tvTime = tvTime).void

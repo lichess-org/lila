@@ -7,9 +7,9 @@ import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
 import lila.common.{ IpAddress, IsMobile }
+import lila.game.Game.{ FullId, PlayerId }
 import lila.socket.Socket.{ SocketVersion, Sri }
 import lila.user.User
-import lila.game.Game.{ FullId, PlayerId }
 
 case class EventList(events: List[lila.game.Event])
 case class UserTv(userId: User.ID, reload: Fu[Boolean])
@@ -39,9 +39,7 @@ package round {
       blur: Boolean,
       moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
-  ) {
-    val trace = lila.mon.round.move.trace.create
-  }
+  )
 
   case class PlayResult(events: Events, fen: String, lastMove: Option[String])
 

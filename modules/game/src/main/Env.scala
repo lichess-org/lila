@@ -48,8 +48,6 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val rewind = wire[Rewind]
-
   lazy val uciMemo = new UciMemo(gameRepo, config.uciMemoTtl)
 
   lazy val pgnDump = wire[PgnDump]

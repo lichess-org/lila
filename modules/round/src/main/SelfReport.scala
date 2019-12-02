@@ -9,8 +9,10 @@ import lila.user.{ User, UserRepo }
 
 final class SelfReport(
     tellRound: TellRound,
+    gameRepo: lila.game.GameRepo,
+    userRepo: UserRepo,
     slackApi: lila.slack.SlackApi,
-    proxyPov: String => Fu[Option[Pov]]
+    proxyRepo: GameProxyRepo
 ) {
 
   private val whitelist = Set("treehugger")
@@ -31,7 +33,7 @@ final class SelfReport(
     fullId: Game.FullId,
     name: String
   ): Funit = !userId.exists(whitelist.contains) ?? {
-    userId.??(UserRepo.named) flatMap { user =>
+    userId.??(userRepo.named) flatMap { user =>
       val known = user.??(_.engine)
       lila.mon.cheat.cssBot()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
@@ -51,7 +53,7 @@ final class SelfReport(
         }
       }
       if (fullId == "________") fuccess(doLog)
-      else proxyPov(fullId.value) map {
+      else proxyRepo.pov(fullId.value) map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
@@ -60,7 +62,7 @@ final class SelfReport(
               lila.round.actorApi.round.Cheat(pov.color)
             )
           }
-          else lila.game.GameRepo.setBorderAlert(pov).void
+          else gameRepo.setBorderAlert(pov).void
         }
       }
     }

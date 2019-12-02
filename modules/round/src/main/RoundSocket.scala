@@ -27,14 +27,14 @@ import lila.user.User
 final class RoundSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     roundDependencies: RoundDuct.Dependencies,
+    proxyDependencies: GameProxy.Dependencies,
     deployPersistence: DeployPersistence,
-    scheduleExpiration: Game => Unit,
-    tournamentActor: ActorSelection,
+    scheduleExpiration: ScheduleExpiration,
+    tournamentActor: lila.hub.actors.TournamentApi,
     selfReport: SelfReport,
     messenger: Messenger,
-    goneWeightsFor: Game => Fu[(Float, Float)],
-    system: ActorSystem
-) {
+    goneWeightsFor: Game => Fu[(Float, Float)]
+)(implicit system: ActorSystem) {
 
   import RoundSocket._
 
@@ -53,7 +53,7 @@ final class RoundSocket(
         dependencies = roundDependencies,
         gameId = id,
         socketSend = send
-      )(new GameProxy(id, deployPersistence.isEnabled, system.scheduler))
+      )(new GameProxy(id, proxyDependencies))
       terminationDelay schedule Game.Id(id)
       duct.getGame foreach {
         _ foreach { game =>
@@ -138,8 +138,8 @@ final class RoundSocket(
     case TourStanding(tourId, json) => send(Protocol.Out.tourStanding(tourId, json))
   }
 
-  system.scheduler.schedule(30 seconds, 5 seconds) {
-    rounds.tellAll(RoundDuct.Tick)
+  system.scheduler.scheduleWithFixedDelay(25 seconds, 5 seconds) {
+    () => rounds.tellAll(RoundDuct.Tick)
   }
 
   private val terminationDelay = new TerminationDelay(system.scheduler, 1 minute, finishRound)
@@ -283,7 +283,7 @@ object RoundSocket {
         def apply(id: String, canc: Cancellable) = {
           Option(canc).foreach(_.cancel)
           scheduler.scheduleOnce(duration) {
-            terminations.remove(id)
+            terminations remove id
             terminate(Game.Id(id))
           }
         }

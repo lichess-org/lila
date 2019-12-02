@@ -52,8 +52,6 @@ object GameAssessment {
 
   import reactivemongo.api.bson.{ BSONHandler, BSONInteger }
 
-  implicit val GameAssessmentBSONHandler = new BSONHandler[BSONInteger, GameAssessment] {
-    def read(bsonInt: BSONInteger): GameAssessment = orDefault(bsonInt.value)
-    def write(x: GameAssessment) = BSONInteger(x.id)
-  }
+  implicit val GameAssessmentBSONHandler =
+    reactivemongo.api.bson.BSONIntegerHandler.as[GameAssessment](orDefault, _.id)
 }

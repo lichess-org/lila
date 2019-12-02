@@ -12,7 +12,7 @@ import lila.chat.Chat
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ PlayerId, FullId }
-import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
+import lila.game.{ Game, GameRepo, Progress, Pov, Event, Source, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
@@ -166,12 +166,12 @@ private[round] final class RoundDuct(
     // chat end
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) => handle(fullId.playerId) { pov =>
-      lila.game.GameRepo hasHoldAlert pov flatMap {
+      gameRepo hasHoldAlert pov flatMap {
         case true => funit
         case false =>
           lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
           lila.mon.cheat.holdAlert()
-          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
+          gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
       } inject Nil
     }
 
@@ -186,35 +186,36 @@ private[round] final class RoundDuct(
     case a: lila.analyse.actorApi.AnalysisProgress => fuccess {
       socketSend(RP.Out.tellRoom(roomId, makeMessage("analysisProgress", Json.obj(
         "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
-        "tree" -> TreeBuilder(
-          id = a.analysis.id,
-          pgnMoves = a.game.pgnMoves,
-          variant = a.variant,
-          analysis = a.analysis.some,
-          initialFen = a.initialFen,
-          withFlags = JsonView.WithFlags(),
-          clocks = none
-        )
+        "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
+          TreeBuilder(
+            id = a.analysis.id,
+            pgnMoves = a.game.pgnMoves,
+            variant = a.variant,
+            analysis = a.analysis.some,
+            initialFen = a.initialFen,
+            withFlags = JsonView.WithFlags(),
+            clocks = none
+          )
+        }
       ))))
     }
 
     // round stuff
 
-    case p: HumanPlay => handleHumanPlay(p) { pov =>
+    case p: HumanPlay => handlePov(proxy playerPov p.playerId.value) { pov =>
       if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
       else {
         recordLag(pov)
         player.human(p, this)(pov)
       }
-    }.addEffects(
+    }.mon(_.round.move.time).addEffects(
       err => {
         p.promise.foreach(_ failure err)
         socketSend(Protocol.Out.resyncPlayer(Game.Id(gameId) full p.playerId))
       },
       suc => {
         p.promise.foreach(_ success {})
-        p.trace.finish()
-        lila.mon.round.move.full.count()
+        lila.mon.round.move.count()
       }
     )
 
@@ -228,7 +229,7 @@ private[round] final class RoundDuct(
 
     case FishnetPlay(uci, ply) => handle { game =>
       player.fishnet(game, ply, uci, this)
-    } >>- lila.mon.round.move.full.count()
+    } >>- lila.mon.round.move.count()
 
     case Abort(playerId) => handle(PlayerId(playerId)) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -244,7 +245,7 @@ private[round] final class RoundDuct(
 
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.goBerserk(color) ?? { progress =>
-        proxy.save(progress) >> proxy.persist(_ goBerserk pov) inject progress.events
+        proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
       }
     }
 
@@ -346,9 +347,8 @@ private[round] final class RoundDuct(
 
     case DeployPost => handle { game =>
       game.playable ?? {
-        val freeTime = 20.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
-        val progress = moretimer.give(game, Color.all, freeTime)
+        val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
         proxy save progress inject progress.events
       }
     }
@@ -435,13 +435,6 @@ private[round] final class RoundDuct(
   private def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov playerId.value)(op)
 
-  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
-    handlePov {
-      p.trace.segment("fetch", "db") {
-        proxy playerPov p.playerId.value
-      }
-    }(op)
-
   private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov p.playerId)(op)
 
@@ -449,15 +442,15 @@ private[round] final class RoundDuct(
     handlePov(proxy pov color)(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
-    pov flatten "pov not found" flatMap { p =>
+    pov orFail "pov not found" flatMap { p =>
       (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map publish
     } recover errorHandler("handlePov")
 
   private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
-    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op map publish recover errorHandler("handleAi")
+    game.map(_.flatMap(_.aiPov)) orFail "pov not found" flatMap op map publish recover errorHandler("handleAi")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
-    game flatten "game not found" flatMap op map publish recover errorHandler("handleGame")
+    game orFail "game not found" flatMap op map publish recover errorHandler("handleGame")
 
   private def publish[A](events: Events): Unit =
     if (events.nonEmpty) {
@@ -516,6 +509,7 @@ object RoundDuct {
     Zero.instance(TakebackSituation(0, none))
 
   private[round] class Dependencies(
+      val gameRepo: GameRepo,
       val messenger: Messenger,
       val takebacker: Takebacker,
       val moretimer: Moretimer,
@@ -524,6 +518,6 @@ object RoundDuct {
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: User.ID => Fu[Boolean]
+      val isSimulHost: IsSimulHost
   )
 }
