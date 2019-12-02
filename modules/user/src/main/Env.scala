@@ -40,7 +40,7 @@ final class Env(
   val lightUser = (id: User.ID) => lightUserApi async id
   val lightUserSync = (id: User.ID) => lightUserApi sync id
 
-  private val isOnline = (userId: User.ID) => onlineUserIds() contains userId
+  val isOnline = new IsOnline(userId => onlineUserIds() contains userId)
 
   lazy val jsonView = wire[JsonView]
 

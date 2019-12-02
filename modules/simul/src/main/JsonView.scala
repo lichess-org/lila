@@ -7,13 +7,20 @@ import lila.game.{ Game, GameRepo }
 import lila.user.User
 
 final class JsonView(
+    gameRepo: GameRepo,
     getLightUser: LightUser.Getter,
-    proxyGame: Game.ID => Fu[Option[Game]]
+    proxyRepo: lila.round.GameProxyRepo
 ) {
 
+  private implicit val colorWriter: Writes[chess.Color] = Writes { c =>
+    JsString(c.name)
+  }
+
+  private implicit val simulTeamWriter = Json.writes[SimulTeam]
+
   private def fetchGames(simul: Simul) =
-    if (simul.isFinished) GameRepo gamesFromSecondary simul.gameIds
-    else simul.gameIds.map(proxyGame).sequenceFu.map(_.flatten)
+    if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
+    else simul.gameIds.map(proxyRepo.game).sequenceFu.map(_.flatten)
 
   def apply(simul: Simul, team: Option[SimulTeam]): Fu[JsObject] = for {
     games <- fetchGames(simul)
@@ -117,10 +124,4 @@ final class JsonView(
         ).some
       }
     }
-
-  private implicit val colorWriter: Writes[chess.Color] = Writes { c =>
-    JsString(c.name)
-  }
-
-  private implicit val simulTeamWriter = Json.writes[SimulTeam]
 }

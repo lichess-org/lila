@@ -66,11 +66,11 @@ final class Env(
 
   lazy val bestOpponents = wire[BestOpponents]
 
-  lazy val rematches: Cache[Game.ID, Game.ID] = Scaffeine()
-    .expireAfterWrite(3 hour)
-    .build[Game.ID, Game.ID]
+  lazy val rematches = Rematches(
+    Scaffeine().expireAfterWrite(3 hour).build[Game.ID, Game.ID]
+  )
 
-  lazy val jsonView = new JsonView(rematchOf = rematches.getIfPresent)
+  lazy val jsonView = wire[JsonView]
 
   // eargerly load captcher actor
   private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)

@@ -6,7 +6,11 @@ import lila.common.LightUser
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.Trouper
 
-final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
+final class Tv(
+    gameRepo: GameRepo,
+    trouper: Trouper,
+    roundProxyGame: Game.ID => Fu[Option[Game]]
+) {
 
   import Tv._
   import ChannelTrouper._
@@ -19,7 +23,7 @@ final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
       case GameIdAndHistory(gameId, historyIds) => for {
         game <- gameId ?? roundProxyGame
         games <- historyIds.map { id =>
-          roundProxyGame(id) orElse GameRepo.game(id)
+          roundProxyGame(id) orElse gameRepo.game(id)
         }.sequenceFu.map(_.flatten)
         history = games map Pov.first
       } yield game map (_ -> history)
@@ -30,7 +34,7 @@ final class Tv(trouper: Trouper, roundProxyGame: Game.ID => Fu[Option[Game]]) {
       _.map(roundProxyGame).sequenceFu.map(_.flatten)
     }
 
-  def getBestGame = getGame(Tv.Channel.Best) orElse lila.game.GameRepo.random
+  def getBestGame = getGame(Tv.Channel.Best) orElse gameRepo.random
 
   def getBestAndHistory = getGameAndHistory(Tv.Channel.Best)
 
@@ -63,7 +67,7 @@ object Tv {
   ) {
     def isFresh(g: Game): Boolean = fresh(secondsSinceLastMove, g)
     def filter(c: Candidate): Boolean = filters.forall { _(c) } && isFresh(c.game)
-    val key = toString.head.toLower + toString.drop(1)
+    val key = s"${toString.head.toLower}${toString.drop(1)}"
   }
   object Channel {
     case object Best extends Channel(

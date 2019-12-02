@@ -1,7 +1,6 @@
 package lila.round
 
 import akka.actor._
-import com.github.blemale.scaffeine.Cache
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -47,7 +46,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     notifyApi: lila.notify.NotifyApi,
     uciMemo: lila.game.UciMemo,
-    rematches: Cache[Game.ID, Game.ID],
+    rematches: lila.game.Rematches,
     divider: lila.game.Divider,
     prefApi: lila.pref.PrefApi,
     historyApi: lila.history.HistoryApi,
@@ -123,15 +122,7 @@ final class Env(
 
   lazy val selfReport = wire[SelfReport]
 
-  lazy val recentTvGames = new {
-    val fast = new lila.memo.ExpireSetMemo(7 minutes)
-    val slow = new lila.memo.ExpireSetMemo(2 hours)
-    def get(gameId: Game.ID) = fast.get(gameId) || slow.get(gameId)
-    def put(game: Game) = {
-      gameRepo.setTv(game.id)
-      (if (game.speed <= chess.Speed.Bullet) fast else slow) put game.id
-    }
-  }
+  lazy val recentTvGames = wire[RecentTvGames]
 
   private lazy val botFarming = wire[BotFarming]
 

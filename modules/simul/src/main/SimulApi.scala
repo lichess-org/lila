@@ -18,11 +18,13 @@ import makeTimeout.short
 
 final class SimulApi(
     system: ActorSystem,
+    userRepo: UserRepo,
+    gameRepo: GameRepo,
     sequencers: DuctMap[_],
-    onGameStart: Game.ID => Unit,
+    onGameStart: lila.round.OnStart,
     socket: SimulSocket,
-    renderer: ActorSelection,
-    timeline: ActorSelection,
+    renderer: lila.hub.actors.Renderer,
+    timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
@@ -33,7 +35,7 @@ final class SimulApi(
 
   private val currentHostIdsCache = asyncCache.single[Set[String]](
     name = "simul.currentHostIds",
-    f = repo.allStarted dmap (_.map(_.hostId)(scala.collection.breakOut)),
+    f = repo.allStarted dmap (_.view.map(_.hostId).toSet),
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
@@ -84,7 +86,7 @@ final class SimulApi(
   }
 
   def accept(simulId: Simul.ID, userId: String, v: Boolean): Unit = {
-    UserRepo byId userId foreach {
+    userRepo byId userId foreach {
       _ foreach { user =>
         WithSimul(repo.findCreated, simulId) { _.accept(user.id, v) }
       }
@@ -96,7 +98,7 @@ final class SimulApi(
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
           simul.start ?? { started =>
-            UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
+            userRepo byId started.hostId orFail s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
                 games.headOption foreach {
                   case (game, _) => socket.startSimul(simul, game)
@@ -192,7 +194,7 @@ final class SimulApi(
     repo find id map2 { (simul: Simul) => simul.fullName }
 
   private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] = for {
-    user <- UserRepo byId pairing.player.user flatten s"No user with id ${pairing.player.user}"
+    user <- userRepo byId pairing.player.user orFail s"No user with id ${pairing.player.user}"
     hostColor = simul.hostColor
     whiteUser = hostColor.fold(host, user)
     blackUser = hostColor.fold(user, host)
@@ -213,7 +215,7 @@ final class SimulApi(
       .withId(pairing.gameId)
       .withSimulId(simul.id)
       .start
-    _ <- (GameRepo insertDenormalized game2) >>-
+    _ <- (gameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
       socket.startGame(simul, game2)
   } yield game2 -> hostColor
@@ -241,7 +243,7 @@ final class SimulApi(
       (_: Debouncer.Nothing) =>
         Bus.publish(siteMessage, "sendToFlag")
         repo.allCreated foreach { simuls =>
-          renderer ? actorApi.SimulTable(simuls) map {
+          renderer.actor ? actorApi.SimulTable(simuls) map {
             case view: String => Bus.publish(ReloadSimuls(view), "lobbySocket")
           }
         }

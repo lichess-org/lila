@@ -16,7 +16,7 @@ final class TellRound(f: (Game.ID, Any) => Unit) extends ((Game.ID, Any) => Unit
   def apply(g: Game.ID, msg: Any) = f(g, msg)
 }
 
-private final class IsSimulHost(f: User.ID => Fu[Boolean]) extends (User.ID => Fu[Boolean]) {
+final class IsSimulHost(f: User.ID => Fu[Boolean]) extends (User.ID => Fu[Boolean]) {
   def apply(u: User.ID) = f(u)
 }
 

@@ -12,9 +12,9 @@ import lila.hub.Trouper
 
 private[tv] final class TvTrouper(
     system: ActorSystem,
-    rendererActor: ActorSelection,
+    renderer: lila.hub.actors.Renderer,
     lightUser: LightUser.GetterSync,
-    onSelect: Game => Unit,
+    recentTvGames: lila.round.RecentTvGames,
     proxyGame: Game.ID => Fu[Option[Game]],
     rematchOf: Game.ID => Option[Game.ID]
 ) extends Trouper {
@@ -61,7 +61,7 @@ private[tv] final class TvTrouper(
       (user |@| player.rating) apply {
         case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
-      onSelect(game)
+      recentTvGames.put(game)
       val data = Json.obj(
         "channel" -> channel.key,
         "id" -> game.id,
@@ -77,7 +77,7 @@ private[tv] final class TvTrouper(
       Bus.publish(lila.hub.actorApi.tv.TvSelect(game.id, game.speed, data), "tvSelect")
       if (channel == Tv.Channel.Best) {
         implicit def timeout = makeTimeout(100 millis)
-        actorAsk(rendererActor, actorApi.RenderFeaturedJs(game)) onSuccess {
+        actorAsk(renderer.actor, actorApi.RenderFeaturedJs(game)) foreach {
           case html: String =>
             val event = lila.hub.actorApi.game.ChangeFeatured(
               game.id,

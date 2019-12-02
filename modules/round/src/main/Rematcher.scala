@@ -9,7 +9,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker }
+import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker, Rematches }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 
@@ -19,7 +19,7 @@ private final class Rematcher(
     idGenerator: lila.game.IdGenerator,
     messenger: Messenger,
     onStart: OnStart,
-    rematches: Cache[Game.ID, Game.ID]
+    rematches: Rematches
 ) {
 
   import Rematcher.Offers
@@ -35,7 +35,7 @@ private final class Rematcher(
   def yes(pov: Pov): Fu[Events] = pov match {
     case Pov(game, color) if game playerCouldRematch color =>
       if (isOffering(!pov) || game.opponent(color).isAi)
-        rematches.getIfPresent(game.id).fold(rematchJoin(pov))(rematchExists(pov))
+        rematches.of(game.id).fold(rematchJoin(pov))(rematchExists(pov))
       else fuccess(rematchCreate(pov))
     case _ => fuccess(List(Event.ReloadOwner))
   }
@@ -53,11 +53,11 @@ private final class Rematcher(
     }
 
   private def rematchJoin(pov: Pov): Fu[Events] =
-    rematches.getIfPresent(pov.gameId) match {
+    rematches.of(pov.gameId) match {
       case None => for {
         nextGame <- returnGame(pov) map (_.start)
         _ = offers invalidate pov.game.id
-        _ = rematches.put(pov.gameId, nextGame.id)
+        _ = rematches.cache.put(pov.gameId, nextGame.id)
         _ = if (pov.game.variant == Chess960 && !chess960.get(pov.gameId)) chess960.put(nextGame.id)
         _ <- gameRepo insertDenormalized nextGame
       } yield {
