@@ -1,9 +1,9 @@
 {
   "name": "lichess.org",
-  "short_name": "lichess.org",
-  "start_url": ".",
+  "short_name": "Lichess",
+  "start_url": "/",
   "display": "standalone",
-  "background_color": "#317EFB",
+  "background_color": "#161512",
   "theme_color": "#161512",
   "description": "The (really) free, no-ads, open source chess server.",
   "icons": [{
