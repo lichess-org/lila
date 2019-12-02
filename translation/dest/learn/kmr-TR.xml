@@ -11,9 +11,9 @@
   <string name="chessPieces">Kabikên kişikê</string>
   <string name="theRook">Keleh</string>
   <string name="itMovesInStraightLines">Ew di xetên rast de dimeşe</string>
-  <string name="rookIntro">Keleh kabikeke xurt e. Tu hazir î ku tu ferman bidiyê?</string>
-  <string name="rookGoal">Ji bo ku kelehê bînî 
-cihê stêrkkirî bitikîne serê!</string>
+  <string name="rookIntro">Keleh kabikeke xûrt e. Tu amade yî ku tu ferman bidiyê?</string>
+  <string name="rookGoal">Bitîkîne kelehê 
+da ku tu wê bînî cihî stêrkkirî!</string>
   <string name="grabAllTheStars">Hemû stêrkan bicivîne!</string>
   <string name="theFewerMoves">Çiqasî bi hemleyên kêmtir bikî,
 tu yê ewqas zêtir poîntan bi dest bixî!</string>
@@ -63,8 +63,8 @@ Ne hewce ye ku bilind bikî.</string>
   <string name="pawnComplete">Serkeftin! Ti tişteke veşartî yê peyayan nema bo te.</string>
   <string name="pawnPromotion">Blindkirina peyayê</string>
   <string name="yourPawnReachedTheEndOfTheBoard">Peyaya te gihîşt dawiya texteyê!</string>
-  <string name="itNowPromotesToAStrongerPiece">Wê ew vêga bibe kabikeke xurttir.</string>
-  <string name="selectThePieceYouWant">Kabikê ku dixwazî bibijêre!</string>
+  <string name="itNowPromotesToAStrongerPiece">Ew ê vêga bibe kabikeke xurttir.</string>
+  <string name="selectThePieceYouWant">Kabikê ku dixwazî hilbijêre!</string>
   <string name="fundamentals">Esasên kişikê</string>
   <string name="capture">Xwarin</string>
   <string name="takeTheEnemyPieces">Kabikên dijberê bigire</string>
@@ -130,7 +130,7 @@ Ew tê li ser rengê xwe.</string>
   <string name="placeTheKing">Şahê bi cih bike! Li kêleka wezîrê xwe.</string>
   <string name="pawnsFormTheFrontLine">Peya xeta pêşîn ava dikin.
 Ji bo dewamkirinê hemleyekê bike.</string>
-  <string name="boardSetupComplete">Serkeftin! Tu êdî dizanî ku texteyê kişikê çawa tê tertîbkirin.</string>
+  <string name="boardSetupComplete">Serkeftin! Tu êdî dizanî kabikên kişikê çawa tên rêz kirin.</string>
   <string name="castling">Rokkirin</string>
   <string name="theSpecialKingMove">Hemleya şahê yê taybet</string>
   <string name="castlingIntro">Şahê xwe bîne ewlehiyê, û keleha xwe ji bo êrîşê amade bike!</string>
@@ -210,24 +210,24 @@ bi du gavan!</string>
   <string name="watchInstructiveChessVideos">Vîdeoyên kişikê yên hînker seyr bike</string>
   <string name="playPeople">Bi kesên din re bilîze</string>
   <string name="opponentsFromAroundTheWorld">Dijberên ji seranserê dinyayê</string>
-  <string name="playMachine">Bi makîneyê re bilîze</string>
+  <string name="playMachine">Bi makîneyê ra bilîze</string>
   <string name="testYourSkillsWithTheComputer">Qabiliyetên xwe biceribîne li gel kombersê</string>
   <string name="letsGo">De dest pê bike!</string>
   <string name="stageX">Asta %s</string>
   <string name="awesome">Pir baş e!</string>
   <string name="excellent">Bêkêmasî!</string>
   <string name="greatJob">Karek baş!</string>
-  <string name="perfect">Mikemmel!</string>
+  <string name="perfect">Bêkêmasîl!</string>
   <string name="outstanding">Hêja!</string>
-  <string name="wayToGo">Super, wisa dewam bike!</string>
-  <string name="yesYesYes">Belê super î!</string>
-  <string name="youreGoodAtThis">Gelek baş î di vî warî de!</string>
+  <string name="wayToGo">Ha wisa berdewam bike!</string>
+  <string name="yesYesYes">Wûlaaaaa!</string>
+  <string name="youreGoodAtThis">Di vî warî da pir baş î!</string>
   <string name="nailedIt">Tu têgihîştî.</string>
   <string name="rightOn">Eynen wisa!</string>
   <string name="stageXComplete">Asta %sem temam bû</string>
   <string name="yourScore">Skora te</string>
-  <string name="next">Yê piştre</string>
+  <string name="next">Pêş ve</string>
   <string name="backToMenu">Vegere menuyê</string>
   <string name="puzzleFailed">Pazil hel nebû!</string>
-  <string name="retry">Cardin bike</string>
+  <string name="retry">Dîsa biceribîne</string>
 </resources>

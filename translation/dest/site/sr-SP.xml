@@ -178,7 +178,7 @@
   <string name="changePassword">Промените лозинку</string>
   <string name="changeEmail">Промени е-пошту</string>
   <string name="email">Е-пошта</string>
-  <string name="passwordReset">Ресетовање лозинке</string>
+  <string name="passwordReset">Мењање лозинке</string>
   <string name="forgotPassword">Заборавили сте лозинку?</string>
   <string name="rank">Ранг</string>
   <string name="rankX">Ранг: %s</string>
@@ -383,7 +383,7 @@
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поновно повезивање</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s пријатељ онлајн</item>
+    <item quantity="one">%s пријатеља на мрежи</item>
     <item quantity="few">%s пријатеља онлајн</item>
     <item quantity="other">%s пријатеља онлајн</item>
   </plurals>
@@ -750,7 +750,7 @@
   <string name="checkYourEmail">Проверите е-пошту.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо вам е-маил. Кликните на линк да бисте активирали вашу рачун.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
-  <string name="weHaveSentYouAnEmailTo">Послали смо вам е-маил на %s. Молимо вас клините линк у мејлу да ресетујете своју шифру.</string>
+  <string name="weHaveSentYouAnEmailTo">Послали смо вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
@@ -903,14 +903,14 @@
     <item quantity="other">и сачувај %s пре-потезних линија</item>
   </plurals>
   <string name="sorry">Извините :(</string>
-  <string name="weHadToTimeYouOutForAWhile">Морали смо те привремено избацити.</string>
+  <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
   <string name="timeoutExpires">Тајм-аут истиче %s.</string>
   <string name="why">Зашто?</string>
-  <string name="pleasantChessExperience">Наш циљ је да свима обезбедимо пријатно шаховско искуство.</string>
-  <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
-  <string name="potentialProblem">Када је потенцијални проблем детектован, ми прикажемо ову поруку.</string>
+  <string name="pleasantChessExperience">Желимо да свима обезбедимо пријатно искуство у шаху.</string>
+  <string name="goodPractice">Баш због тога ми се морамо постарати да се сви играчи држе правила добре и равноправне игре.</string>
+  <string name="potentialProblem">Када се уочи надоказни проблем, ми прикажемо ову поруку.</string>
   <string name="howToAvoidThis">Како ово избећи?</string>
-  <string name="playEveryGame">Играј сваку игру коју започнеш.</string>
+  <string name="playEveryGame">Одиграј сваку игру коју започнеш.</string>
   <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваки меч који играш.</string>
   <string name="resignLostGames">Предај изгубљене игре (уместо пуштања времена да истекне).</string>
   <string name="temporaryInconvenience">Извињавамо се на тренутној нелагодности,</string>
@@ -918,7 +918,7 @@
   <string name="thankYouForReading">Хвала на читању!</string>
   <string name="lifetimeScore">Животни резултат</string>
   <string name="currentMatchScore">Резултат тренутног меча</string>
-  <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
+  <string name="agreementAssistance">Слажем се да никада нећу затражити помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити учтив према другим играчима.</string>
   <string name="agreementAccount">Слажем се да нећу правити више налога.</string>
   <string name="agreementPolicy">Слажем се да ћу поштовати све Lichess полисе.</string>
