@@ -135,7 +135,7 @@ object layout {
         moreCss,
         pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
-        link(rel := "mask-icon", href := staticUrl("favicon.svg"), color := "black"),
+        link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
         noTranslate,
