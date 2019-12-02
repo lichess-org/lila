@@ -2,14 +2,13 @@ package lila.fishnet
 
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
-import lila.common.Bus
 
 private final class MainWatcher(
-    repo: FishnetRepo,
-    scheduler: lila.common.Scheduler
-) {
+    repo: FishnetRepo
+)(implicit system: akka.actor.ActorSystem) {
 
   private val alerted = new ExpireSetMemo(12 hour)
 
@@ -34,5 +33,5 @@ private final class MainWatcher(
     }
   }
 
-  scheduler.future(1 minute, "fishnet main watcher")(watch)
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => watch)
 }

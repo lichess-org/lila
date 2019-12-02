@@ -11,7 +11,7 @@ private final class Cleaner(
     repo: FishnetRepo,
     analysisColl: Coll,
     monitor: Monitor,
-    scheduler: lila.common.Scheduler
+    system: akka.actor.ActorSystem
 ) {
 
   import BSONHandlers._
@@ -21,9 +21,9 @@ private final class Cleaner(
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
 
-  private def cleanAnalysis: Funit = analysisColl.find(BSONDocument(
-    "acquired.date" -> BSONDocument("$lt" -> durationAgo(analysisTimeoutBase))
-  )).sort(BSONDocument("acquired.date" -> 1)).cursor[Work.Analysis]().gather[List](100).flatMap {
+  private def cleanAnalysis: Funit = analysisColl.ext.find($doc(
+    "acquired.date" $lt durationAgo(analysisTimeoutBase)
+  )).sort($sort desc "acquired.date").list[Work.Analysis](100).flatMap {
     _.filter { ana =>
       ana.acquiredAt.??(_ isBefore durationAgo(analysisTimeout(ana.nbMoves)))
     }.map { ana =>
@@ -33,5 +33,5 @@ private final class Cleaner(
     }.sequenceFu.void
   }
 
-  scheduler.effect(10 seconds, "fishnet clean analysis")(cleanAnalysis)
+  system.scheduler.scheduleWithFixedDelay(15 seconds, 10 seconds) { () => cleanAnalysis }
 }

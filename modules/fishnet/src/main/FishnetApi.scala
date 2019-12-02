@@ -18,8 +18,7 @@ final class FishnetApi(
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
-    offlineMode: Boolean,
-    analysisNodes: Int
+    config: FishnetApi.Config
 )(implicit system: akka.actor.ActorSystem) {
 
   import FishnetApi._
@@ -29,7 +28,7 @@ final class FishnetApi(
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
   def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
-    if (offlineMode) repo.getOfflineClient map some
+    if (config.offlineMode) repo.getOfflineClient map some
     else repo.getEnabledClient(req.fishnet.apikey)
   } map {
     case None => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
@@ -57,7 +56,7 @@ final class FishnetApi(
     }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
-    analysisColl.find(
+    analysisColl.ext.find(
       $doc("acquired" $exists false) ++ {
         !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
       }
@@ -69,7 +68,7 @@ final class FishnetApi(
           repo.updateAnalysis(work assignTo client) inject work.some
         }
       }
-  }.map { _ map JsonApi.analysisFromWork(analysisNodes) }
+  }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] =
     repo.getAnalysis(workId).flatMap {
@@ -149,9 +148,9 @@ final class FishnetApi(
       repo addClient client inject client
     }
 
-  private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
+  private[fishnet] def setClientSkill(key: Client.Key, skill: String): Funit =
     Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      repo getClient key flatten s"No client with key $key" flatMap { client =>
+      repo getClient key orFail s"No client with key $key" flatMap { client =>
         repo updateClient client.copy(skill = sk)
       }
     }
@@ -160,6 +159,11 @@ final class FishnetApi(
 object FishnetApi {
 
   import lila.base.LilaException
+
+  case class Config(
+      offlineMode: Boolean,
+      analysisNodes: Int
+  )
 
   case class WeakAnalysis(client: Client) extends LilaException {
     val message = s"$client: Analysis nodes per move is too low"

@@ -9,6 +9,8 @@ import lila.game.{ Game, GameRepo, UciMemo }
 
 final class Analyser(
     repo: FishnetRepo,
+    analysisRepo: AnalysisRepo,
+    gameRepo: lila.game.GameRepo,
     uciMemo: UciMemo,
     sequencer: lila.hub.FutureSequencer,
     evalCache: FishnetEvalCache,
@@ -18,7 +20,7 @@ final class Analyser(
   val maxPlies = 200
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
-    (game.metadata.analysed ?? AnalysisRepo.exists(game.id)) flatMap {
+    (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
       case true => fuFalse
       case _ if Game.isOldHorde(game) => fuFalse
       case _ =>
@@ -49,10 +51,10 @@ final class Analyser(
     }
 
   def apply(gameId: String, sender: Work.Sender): Fu[Boolean] =
-    GameRepo game gameId flatMap { _ ?? { apply(_, sender) } }
+    gameRepo game gameId flatMap { _ ?? { apply(_, sender) } }
 
   def study(req: lila.hub.actorApi.fishnet.StudyChapterRequest): Fu[Boolean] =
-    AnalysisRepo exists req.chapterId flatMap {
+    analysisRepo exists req.chapterId flatMap {
       case true => fuFalse
       case _ => {
         import req._
@@ -89,7 +91,7 @@ final class Analyser(
     }
 
   private def makeWork(game: Game, sender: Work.Sender): Fu[Work.Analysis] =
-    GameRepo.initialFen(game) zip uciMemo.get(game) map {
+    gameRepo.initialFen(game) zip uciMemo.get(game) map {
       case (initialFen, moves) => makeWork(
         game = Work.Game(
           id = game.id,

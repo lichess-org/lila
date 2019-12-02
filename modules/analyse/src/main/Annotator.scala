@@ -4,7 +4,7 @@ import chess.format.pgn.{ Pgn, Tag, Turn, Move, Glyphs }
 import chess.opening._
 import chess.{ Status, Color, Clock }
 
-final class Annotator(netDomain: String) {
+final class Annotator(netDomain: lila.common.Domain) {
 
   def apply(
     p: Pgn,

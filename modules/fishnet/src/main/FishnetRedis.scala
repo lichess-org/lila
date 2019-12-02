@@ -11,9 +11,8 @@ import lila.common.Bus
 final class FishnetRedis(
     client: RedisClient,
     chanIn: String,
-    chanOut: String,
-    system: akka.actor.ActorSystem
-) {
+    chanOut: String
+)(implicit ec: akka.actor.ActorSystem) {
 
   val connIn = client.connectPubSub()
   val connOut = client.connectPubSub()

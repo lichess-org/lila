@@ -2,16 +2,17 @@ package lila.blog
 
 import io.prismic._
 import play.api.mvc.RequestHeader
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.common.MaxPerPage
+import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
 final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     prismicUrl: String,
     collection: String
-) {
+)(implicit ws: WSClient) {
 
   def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
     api.forms(collection).ref(ref | api.master.ref)

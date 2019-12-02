@@ -4,9 +4,8 @@ import scala.concurrent.duration._
 
 private final class Monitor(
     repo: FishnetRepo,
-    sequencer: lila.hub.FutureSequencer,
-    scheduler: lila.common.Scheduler
-) {
+    sequencer: lila.hub.FutureSequencer
+)(implicit system: akka.actor.ActorSystem) {
 
   private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
     case (acc, a) => acc + f(a).getOrElse(0)
@@ -90,8 +89,8 @@ private final class Monitor(
 
   } addEffectAnyway scheduleWork
 
-  private def scheduleClients = scheduler.once(1 minute)(monitorClients)
-  private def scheduleWork = scheduler.once(10 seconds)(monitorWork)
+  private def scheduleClients = system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => monitorClients)
+  private def scheduleWork = system.scheduler.scheduleWithFixedDelay(10 seconds, 10 seconds)(() => monitorWork)
 
   scheduleClients
   scheduleWork

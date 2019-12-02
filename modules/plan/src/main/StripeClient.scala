@@ -123,7 +123,7 @@ private final class StripeClient(
 
   private def get[A: Reads](url: String, queryString: Seq[(String, Any)]): Fu[A] = {
     logger.info(s"GET $url ${debugInput(queryString)}")
-    request(url).withQueryString(fixInput(queryString): _*).get() flatMap response[A]
+    request(url).withQueryStringParameters(fixInput(queryString): _*).get() flatMap response[A]
   }
 
   private def post[A: Reads](url: String, data: Seq[(String, Any)]): Fu[A] = {
@@ -133,11 +133,11 @@ private final class StripeClient(
 
   private def delete[A: Reads](url: String, data: Seq[(String, Any)]): Fu[A] = {
     logger.info(s"DELETE $url ${debugInput(data)}")
-    request(url).withQueryString(fixInput(data): _*).delete() flatMap response[A]
+    request(url).withQueryStringParameters(fixInput(data): _*).delete() flatMap response[A]
   }
 
   private def request(url: String) =
-    ws.url(s"${config.endpoint}/$url").withHeaders("Authorization" -> s"Bearer ${config.secretKey}")
+    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey}")
 
   private def response[A: Reads](res: WSResponse): Fu[A] = res.status match {
     case 200 => (implicitly[Reads[A]] reads res.json).fold(
