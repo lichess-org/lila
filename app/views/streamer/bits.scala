@@ -37,7 +37,7 @@ object bits {
       width := size,
       height := size,
       cls := "default picture",
-      src := staticUrl("images/streamer-nopic.svg"),
+      src := staticUrl("images/placeholder.png"),
       alt := "Default streamer picture"
     )
   }
