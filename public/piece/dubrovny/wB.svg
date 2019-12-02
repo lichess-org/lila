@@ -12,7 +12,7 @@
  <g transform="translate(326.14 -244.92)">
   <g transform="translate(-903.7 831.44)">
    <g transform="translate(311.29 1.603)">
-    <ellipse cx="291.27" cy="-580.62" rx="2.2728" ry="2.0156" fill="#561a0e" stroke="#282828" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
+    <ellipse cx="291.27" cy="-580.62" rx="2.2728" ry="2.0156" fill="#a32811" stroke="#282828" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
     <path d="m291.27-582.63a2.2728 2.0156 0 0 0-0.79582 0.1287 2.2728 2.0156 0 0 1 1.481 1.8867 2.2728 2.0156 0 0 1-1.4774 1.8867 2.2728 2.0156 0 0 0 0.79219 0.1292 2.2728 2.0156 0 0 0 2.2727-2.0159 2.2728 2.0156 0 0 0-2.2727-2.0154z" opacity=".4" style="paint-order:normal"/>
     <path d="m286.33-554.12s-14.088-23.466 4.9432-23.845c19.031 0.37849 4.9432 23.845 4.9432 23.845z" fill="#f0f0f0" stroke="#282828" stroke-linejoin="round" stroke-width="1.2"/>
     <path d="m290.99-577.97c-0.55801 0.0111-1.0852 0.0439-1.5875 0.0935 15.68-0.53235 8.4198 20.833-0.19935 23.752l7.0166-7.8e-4c8.6615-16.161 6.5583-23.187-5.2298-23.844z" opacity=".4"/>

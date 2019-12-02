@@ -11,7 +11,7 @@
  </metadata>
  <g transform="translate(291.67 -244.9)">
   <g transform="matrix(.97547 0 0 .99818 -920.37 729.87)" stroke-width="1.0134">
-   <ellipse cx="670.14" cy="-478.68" rx="3.0636" ry="2.7423" fill="#561a0e" stroke="#282828" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2161" style="paint-order:normal"/>
+   <ellipse cx="670.14" cy="-478.68" rx="3.0636" ry="2.7423" fill="#a32811" stroke="#282828" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2161" style="paint-order:normal"/>
    <path d="m670.14-481.42a3.0636 2.7423 0 0 0-1.0604 0.17156 3.0636 2.7423 0 0 1 2.0071 2.5709 3.0636 2.7423 0 0 1-2.003 2.5709 3.0636 2.7423 0 0 0 1.0563 0.17158 3.0636 2.7423 0 0 0 3.0634-2.7425 3.0636 2.7423 0 0 0-3.0634-2.7425z" opacity=".4" style="paint-order:normal"/>
   </g>
   <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
