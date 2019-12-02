@@ -52,7 +52,13 @@
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
   <string name="cloudAnalysis">雲分析</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
+  <string name="deleteFromHere">從這處開始刪除</string>
+  <string name="move">走棋</string>
   <string name="close">關閉</string>
+  <string name="winning">贏棋</string>
+  <string name="losing">輸棋</string>
+  <string name="unknown">未知</string>
+  <string name="database">資料庫</string>
   <string name="openingExplorer">開局瀏覽器</string>
   <string name="allSet">一切就緒！</string>
   <string name="delete">刪除</string>
