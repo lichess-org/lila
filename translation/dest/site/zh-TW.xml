@@ -72,6 +72,7 @@
   <string name="blunders">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
   <string name="mistakes">錯誤</string>
+  <string name="inaccuracy">輕微失誤</string>
   <string name="inaccuracies">輕微失誤</string>
   <string name="moveTimes">走棋時間</string>
   <string name="flipBoard">翻轉棋盤</string>
@@ -127,6 +128,7 @@
   <string name="passwordReset">重置密碼</string>
   <string name="forgotPassword">忘記密碼？</string>
   <string name="rank">排名</string>
+  <string name="rankX">排名：%s</string>
   <string name="gamesPlayed">盤棋已結束</string>
   <plurals name="nbGamesWithYou">
     <item quantity="other">與你下過%s盤棋</item>
@@ -147,6 +149,7 @@
   <string name="playingRightNow">正在對局</string>
   <string name="eventInProgress">正在進行</string>
   <string name="finished">已結束</string>
+  <string name="finishesX">%s 後結束</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">標準</string>
@@ -157,6 +160,8 @@
   <string name="thisGameIsRated">這盤棋是定級的</string>
   <string name="rematch">重賽</string>
   <string name="rematchOfferSent">重賽請求已發送</string>
+  <string name="rematchOfferSentWhite">白方請求重賽</string>
+  <string name="rematchOfferSentBlack">黑方請求重賽</string>
   <string name="rematchOfferAccepted">重賽請求被接受</string>
   <string name="rematchOfferCanceled">重賽請求被取消</string>
   <string name="rematchOfferDeclined">重賽請求被拒絕</string>
@@ -165,6 +170,8 @@
   <string name="play">下棋</string>
   <string name="inbox">收件箱</string>
   <string name="chatRoom">聊天室</string>
+  <string name="loginToChat">登入以聊天</string>
+  <string name="youHaveBeenTimedOut">由於時間原因你不能發言</string>
   <string name="spectatorRoom">觀眾室</string>
   <string name="composeMessage">寫信息</string>
   <string name="noNewMessages">沒有新信息</string>
@@ -183,11 +190,15 @@
   <plurals name="nbDraws">
     <item quantity="other">%s局和</item>
   </plurals>
+  <plurals name="nbPlaying">
+    <item quantity="other">%s下棋中</item>
+  </plurals>
   <string name="exportGames">導出棋局</string>
   <string name="ratingRange">對方級別範圍</string>
   <plurals name="giveNbSeconds">
     <item quantity="other">給對方加%s秒</item>
   </plurals>
+  <string name="giveMoreTime">給對方更多時間</string>
   <string name="thisPlayerUsesChessComputerAssistance">該棋手使用電腦輔助下棋</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">該棋手操縱評級</string>
   <string name="takeback">悔棋</string>
