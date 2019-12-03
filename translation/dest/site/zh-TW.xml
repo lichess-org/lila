@@ -468,8 +468,8 @@
   <string name="unauthorizedError">无权访问。</string>
   <string name="noInternetConnection">无网络。您仍然可以从菜单栏离线对弈。</string>
   <string name="connectedToLichess">您已接入lichess.org</string>
-  <string name="signedOut">您已登出</string>
-  <string name="loginSuccessful">您已登录</string>
+  <string name="signedOut">登出成功</string>
+  <string name="loginSuccessful">登出成功</string>
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
