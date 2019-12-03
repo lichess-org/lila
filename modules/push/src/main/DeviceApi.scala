@@ -11,10 +11,10 @@ private final class DeviceApi(coll: Coll) {
   private implicit val DeviceBSONHandler = Macros.handler[Device]
 
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
-    coll.find($id(deviceId)).uno[Device]
+    coll.ext.find($id(deviceId)).uno[Device]
 
   private[push] def findLastManyByUserId(platform: String, max: Int)(userId: String): Fu[List[Device]] =
-    coll.find($doc(
+    coll.ext.find($doc(
       "platform" -> platform,
       "userId" -> userId
     )).sort($doc("seenAt" -> -1)).list[Device](max)
@@ -24,7 +24,7 @@ private final class DeviceApi(coll: Coll) {
 
   def register(user: User, platform: String, deviceId: String) = {
     lila.mon.push.register.in(platform)()
-    coll.update($id(deviceId), Device(
+    coll.update.one($id(deviceId), Device(
       _id = deviceId,
       platform = platform,
       userId = user.id,
@@ -34,6 +34,6 @@ private final class DeviceApi(coll: Coll) {
 
   def unregister(user: User) = {
     lila.mon.push.register.out()
-    coll.remove($doc("userId" -> user.id)).void
+    coll.delete.one($doc("userId" -> user.id)).void
   }
 }

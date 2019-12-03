@@ -11,7 +11,7 @@ import lila.common.EmailAddress
 import SecurityConfig._
 
 @Module
-private class SecurityConfig(
+private final class SecurityConfig(
     val collection: Collection,
     @ConfigName("flood.duration") val floodDuration: FiniteDuration,
     @ConfigName("geoip") val geoIP: GeoIP.Config,

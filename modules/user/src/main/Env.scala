@@ -36,8 +36,8 @@ final class Env(
   val userRepo = new UserRepo(db(config.collectionUser))
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
-  val lightUser = (id: User.ID) => lightUserApi async id
-  val lightUserSync = (id: User.ID) => lightUserApi sync id
+  val lightUser = new LightUser.Getter(lightUserApi.async)
+  val lightUserSync = new LightUser.GetterSync(lightUserApi.sync)
 
   val isOnline = new IsOnline(userId => onlineUserIds() contains userId)
 

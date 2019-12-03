@@ -15,9 +15,9 @@ final class WebSubscriptionApi(coll: Coll) {
     )).sort($doc("seenAt" -> -1)).list[Bdoc](max).map { docs =>
       docs.flatMap { doc =>
         for {
-          endpoint <- doc.getAs[String]("endpoint")
-          auth <- doc.getAs[String]("auth")
-          p256dh <- doc.getAs[String]("p256dh")
+          endpoint <- doc.string("endpoint")
+          auth <- doc.string("auth")
+          p256dh <- doc.string("p256dh")
         } yield WebSubscription(endpoint, auth, p256dh)
       }
     }

@@ -25,7 +25,7 @@ final class Env(
     timeline: actors.Timeline,
     report: actors.Report,
     onlineUserIds: () => Set[lila.user.User.ID],
-    lightUserApi: lila.user.LightUserApi,
+    lightUserSync: lila.common.LightUser.GetterSync,
     followable: String => Fu[Boolean],
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem) {
@@ -55,8 +55,6 @@ final class Env(
   lazy val online: OnlineDoing = wire[OnlineDoing]
 
   def isPlaying(userId: lila.user.User.ID): Boolean = online.playing.get(userId)
-
-  private val lightSync = lightUserApi.sync _
 
   private[relation] val actor = system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 

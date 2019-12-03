@@ -1,23 +1,24 @@
 package lila.push
 
+import io.methvin.play.autoconfig._
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 
 private final class OneSignalPush(
-    getDevices: String => Fu[List[Device]],
-    url: String,
-    appId: String,
-    key: String
+    deviceApi: DeviceApi,
+    ws: WSClient,
+    config: OneSignalPush.Config
 ) {
 
+  import config._
+
   def apply(userId: String)(data: => PushApi.Data): Funit =
-    getDevices(userId) flatMap {
+    deviceApi.findLastManyByUserId("onesignal", 3)(userId) flatMap {
       case Nil => funit
       case devices =>
-        WS.url(url)
-          .withHeaders(
-            "Authorization" -> s"key=$key",
+        ws.url(config.url)
+          .withHttpHeaders(
+            "Authorization" -> s"key=${key.value}",
             "Accept" -> "application/json",
             "Content-type" -> "application/json"
           )
@@ -43,4 +44,14 @@ private final class OneSignalPush(
             case res => fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${res.body}")
           }
     }
+}
+
+private object OneSignalPush {
+
+  final class Config(
+      val url: String,
+      val appId: String,
+      val key: lila.common.config.Secret
+  )
+  implicit val configLoader = AutoConfig.loader[Config]
 }

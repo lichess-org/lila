@@ -7,22 +7,21 @@ import scala.concurrent.Promise
 
 import chess.format.Forsyth
 import lila.challenge.Challenge
-import lila.common.LightUser
+import lila.common.{ LightUser, Future }
 import lila.game.{ Game, Pov, Namer }
-import lila.user.User
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
+import lila.user.User
 
 private final class PushApi(
     firebasePush: FirebasePush,
     oneSignalPush: OneSignalPush,
     webPush: WebPush,
-    implicit val lightUser: LightUser.GetterSync,
-    gameProxy: Game.ID => Fu[Option[Game]],
-    scheduler: lila.common.Scheduler,
-    system: ActorSystem
-) {
+    userRepo: lila.user.UserRepo,
+    implicit val lightUserSync: LightUser.GetterSync,
+    proxyRepo: lila.round.GameProxyRepo
+)(implicit system: ActorSystem, scheduler: Scheduler) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -50,8 +49,8 @@ private final class PushApi(
       }
     }.sequenceFu.void
 
-  def move(move: MoveEvent): Funit = scheduler.after(2 seconds) {
-    gameProxy(move.gameId) flatMap {
+  def move(move: MoveEvent): Funit = Future.delay(2 seconds) {
+    proxyRepo.game(move.gameId) flatMap {
       _.filter(_.playable) ?? { game =>
         val pov = Pov(game, game.player.color)
         game.player.userId ?? { userId =>
@@ -73,8 +72,8 @@ private final class PushApi(
     }
   }
 
-  def takebackOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
-    gameProxy(gameId) flatMap {
+  def takebackOffer(gameId: Game.ID): Funit = Future.delay(1 seconds) {
+    proxyRepo.game(gameId) flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
           case p if p.isProposingTakeback => Pov(game, game opponent p)
@@ -97,8 +96,8 @@ private final class PushApi(
     }
   }
 
-  def drawOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
-    gameProxy(gameId) flatMap {
+  def drawOffer(gameId: Game.ID): Funit = Future.delay(1 seconds) {
+    proxyRepo.game(gameId) flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
           case p if p.isOfferingDraw => Pov(game, game opponent p)
@@ -141,8 +140,8 @@ private final class PushApi(
   )
 
   def newMessage(t: Thread, p: Post): Funit =
-    lightUser(t.visibleSenderOf(p)) ?? { sender =>
-      lila.user.UserRepo.isKid(t receiverOf p) flatMap {
+    lightUserSync(t.visibleSenderOf(p)) ?? { sender =>
+      userRepo.isKid(t receiverOf p) flatMap {
         case true => funit
         case _ => pushToAll(t receiverOf p, _.message, PushApi.Data(
           title = s"${sender.titleName}: ${t.name}",
@@ -161,7 +160,7 @@ private final class PushApi(
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
     c.challengerUser.ifFalse(c.hasClock) ?? { challenger =>
-      lightUser(challenger.id) ?? { lightChallenger =>
+      lightUserSync(challenger.id) ?? { lightChallenger =>
         pushToAll(dest.id, _.challenge.create, PushApi.Data(
           title = s"${lightChallenger.titleName} (${challenger.rating.show}) challenges you!",
           body = describeChallenge(c),
@@ -180,7 +179,7 @@ private final class PushApi(
 
   def challengeAccept(c: Challenge, joinerId: Option[String]): Funit =
     c.challengerUser.ifTrue(c.finalColor.white && !c.hasClock) ?? { challenger =>
-      val lightJoiner = joinerId flatMap lightUser
+      val lightJoiner = joinerId flatMap lightUserSync
       pushToAll(challenger.id, _.challenge.accept, PushApi.Data(
         title = s"${lightJoiner.fold("Anonymous")(_.titleName)} accepts your challenge!",
         body = describeChallenge(c),
