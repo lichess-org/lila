@@ -11,11 +11,14 @@ function onFail(_1, _2, errorMessage) {
   else window.lichess.reload();
 }
 
-function join(ctrl: TournamentController, password?: string) {
+function join(ctrl: TournamentController, password?: string, team?: string) {
   return $.ajax({
     method: 'POST',
     url: '/tournament/' + ctrl.data.id + '/join',
-    data: JSON.stringify({ p: password || null }),
+    data: JSON.stringify({
+      p: password || null,
+      team: team || null
+    }),
     contentType: 'application/json; charset=utf-8',
     headers
   }).fail(onFail);
@@ -71,6 +74,16 @@ function playerInfo(ctrl: TournamentController, userId: string) {
   }, onFail);
 }
 
+function teamInfo(ctrl: TournamentController, teamId: string) {
+  return $.ajax({
+    url: ['/tournament', ctrl.data.id, 'team', teamId].join('/'),
+    headers
+  }).then(data => {
+    ctrl.setTeamInfo(data);
+    ctrl.redraw();
+  }, onFail);
+}
+
 export default {
   join: throttle(1000, join),
   withdraw: throttle(1000, withdraw),
@@ -78,5 +91,6 @@ export default {
   loadPageOf,
   reloadSoon: throttle(4000, reload),
   reloadNow: reload,
-  playerInfo
+  playerInfo,
+  teamInfo
 };

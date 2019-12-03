@@ -8,10 +8,7 @@ object HTTPRequest {
   def isXhr(req: RequestHeader): Boolean =
     req.headers get "X-Requested-With" contains "XMLHttpRequest"
 
-  def isSocket(req: RequestHeader): Boolean =
-    (req.headers get HeaderNames.UPGRADE).exists(_.toLowerCase == "websocket")
-
-  def isSynchronousHttp(req: RequestHeader) = !isXhr(req) && !isSocket(req)
+  def isSynchronousHttp(req: RequestHeader) = !isXhr(req)
 
   def isEventSource(req: RequestHeader): Boolean =
     req.headers get "Accept" contains "text/event-stream"
@@ -22,7 +19,20 @@ object HTTPRequest {
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
   def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || req.path.startsWith("/api/") || req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
+    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
+
+  private val appOrigins = Set(
+    "capacitor://localhost", // ios
+    "ionic://localhost", // ios
+    "http://localhost", // android
+    "http://localhost:8080", // local dev
+    "file://" // old app
+  )
+
+  def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
+
+  def isApi(req: RequestHeader) = req.path startsWith "/api/"
+  def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
@@ -63,7 +73,7 @@ object HTTPRequest {
     ua.contains("facebookexternalhit/") || ua.contains("twitterbot/")
   }
 
-  private[this] val fileExtensionRegex = """\.(?<!^\.)[a-z0-9]{2,4}$""".r
+  private[this] val fileExtensionRegex = """\.(?<!^\.)[a-zA-Z0-9]{2,4}$""".r
 
   def hasFileExtension(req: RequestHeader) = fileExtensionRegex.find(req.path)
 
@@ -76,8 +86,6 @@ object HTTPRequest {
   def printClient(req: RequestHeader) = s"${lastRemoteAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
 
   def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
-
-  def isHttp10(req: RequestHeader) = req.version == "HTTP/1.0"
 
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
   def acceptsJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/json"

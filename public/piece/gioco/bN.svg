@@ -1,14 +1,26 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
- <g transform="matrix(.26138 0 0 .25945 -359.5 179.04)">
-  <g fill="#4d463f" stroke="#392d2d" stroke-width="5.76">
-   <path class="st29" d="m1404.2-540.89h133.58c1.7273 0 3.0228 1.1263 3.0228 2.6281v12.264c0 1.5018-1.2955 2.6281-3.0228 2.6281h-133.58c-1.7273 0-3.0228-1.1263-3.0228-2.6281v-12.264c0-1.5018 1.2955-2.6281 3.0228-2.6281z" stroke-linecap="round" stroke-linejoin="round"/>
-   <path class="st28" d="m1431.4-558.41v-28.533l29.94-23.903-37.568 3.1287-4.4621-21.525 44.621-13.766 10.364-3.2538 4.6061-15.268 41.743 41.423-12.955 41.298 2.8788 20.274h-79.167z"/>
-   <path class="st29" d="m1429.1-558.41h82.478c5.0379 0 9.2121 3.6292 9.2121 8.0094v1.6269c0 4.3801-4.1742 8.0094-9.2121 8.0094h-82.478c-5.0379 0-9.2122-3.6292-9.2122-8.0094v-1.6269c0-4.3801 4.1743-8.0094 9.2122-8.0094z" stroke-linecap="round" stroke-linejoin="round"/>
-  </g>
-  <g stroke-width=".84685">
-   <path class="st26" d="m1478.2-661.4-4.0303 13.266 28.356 28.283-12.955 41.298 2.8788 20.274h17.273l-2.8788-20.274 12.955-41.298z" opacity=".3"/>
-   <path class="st26" d="m1494.2-558.41c5.0379 0 9.2122 3.6292 9.2122 8.1345v1.1263c0 4.5053-4.0304 8.1345-9.2122 8.1345h17.273c5.0379 0 9.2122-3.6292 9.2122-8.0094v-1.6269c0-4.3801-4.1743-8.0094-9.2122-8.0094h-17.273z" opacity=".3"/>
-   <path class="st26" d="m1519.1-540.89c1.7272 0 3.0227 1.2515 3.0227 2.7532v12.014c0 1.5018-1.2955 2.7532-3.0227 2.7532h17.273c1.7273 0 3.0227-1.1263 3.0227-2.6281v-12.264c0-1.5018-1.2954-2.6281-3.0227-2.6281z" opacity=".3"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient1861-4" x1="3295.1" x2="3321.5" y1="-411.88" y2="-411.88" gradientTransform="matrix(1.0621 0 0 1.0589 -3487.5 459.63)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2250"/>
+  <linearGradient id="linearGradient2250">
+   <stop stop-color="#796c60" offset="0"/>
+   <stop stop-color="#4b403b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient2216" x1="-177.63" x2="-151.24" y1="156.68" y2="156.68" gradientTransform="matrix(1.1509 0 0 1.1499 214.24 -138.92)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient2250"/>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
+  <path class="st28" d="m25.987 23.546-11.592 1.0972-1.4539-5.2159 14.468-6.8148 1.7627-3.9014 10.201 11.893c0 7.4e-5 -4.1164 17.678-4.1164 17.678l-20.517-3.2e-5c0.24439-11.292 9.6388-8.1002 11.247-14.736z" fill="url(#linearGradient1861-4)" image-rendering="optimizeQuality" stroke="#1e1e1e" stroke-linejoin="round" stroke-width="1.6"/>
+  <path d="m29.173 8.7209-0.87878 1.9441 0.42601-0.94271c2.6921 3.7225 5.6077 7.2787 8.4495 10.888l-5.285 17.671h3.3727s4.1154-17.667 4.1166-17.671z" image-rendering="optimizeQuality" opacity=".3" stroke-width="1.0999"/>
+  <path d="m13.24 38.286c-1.4368 0-2.627 1.2165-2.627 2.6847v0.5449l0.01254 2.6847h28.749l0.01254-2.6847v-0.5449c0-1.4682-1.1903-2.6847-2.627-2.6847h-11.76z" fill="url(#linearGradient2216)" image-rendering="optimizeQuality" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+  <path d="m31.896 38.286c1.4368 0 2.627 1.2165 2.627 2.6847v0.5449l-0.01254 2.6847h4.8721l0.01255-2.6847v-0.5449c0-1.4682-1.1903-2.6847-2.627-2.6847z" image-rendering="optimizeQuality" opacity=".3" stroke-width="1.1"/>
  </g>
 </svg>

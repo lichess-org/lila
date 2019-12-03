@@ -127,7 +127,7 @@ object User extends LilaController {
         crosstable <- ctx.userId ?? { Env.game.crosstableApi(user.id, _) map some }
         followable <- ctx.isAuth ?? { Env.pref.api.followable(user.id) }
         relation <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
-        ping = env.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
+        ping = Env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
         res <- negotiate(
           html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
             Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
@@ -183,7 +183,7 @@ object User extends LilaController {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGames.cost(page)
       for {
-        pag <- GameFilterMenu.paginatorOf(
+        pagFromDb <- GameFilterMenu.paginatorOf(
           userGameSearch = userGameSearch,
           user = u,
           nbs = none,
@@ -191,6 +191,7 @@ object User extends LilaController {
           me = ctx.me,
           page = page
         )(ctx.body)
+        pag <- pagFromDb.mapFutureResults(Env.round.proxy.updateIfPresent)
         _ <- Env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
         _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       } yield pag
@@ -277,10 +278,10 @@ object User extends LilaController {
             Env.plan.api.recentChargesOf(user).logTimeIfGt(s"$username plan.recentChargesOf", 2 seconds) zip
             Env.report.api.byAndAbout(user, 20).logTimeIfGt(s"$username report.byAndAbout", 2 seconds) zip
             Env.pref.api.getPref(user).logTimeIfGt(s"$username pref.getPref", 2 seconds) zip
-            Env.playban.api.sitAndDcCounter(user.id) flatMap {
-              case history ~ charges ~ reports ~ pref ~ sitAndDcCounter =>
+            Env.playban.api.getRageSit(user.id) flatMap {
+              case history ~ charges ~ reports ~ pref ~ rageSit =>
                 Env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
-                  html.user.mod.parts(user, history, charges, reports, pref, sitAndDcCounter).some
+                  html.user.mod.parts(user, history, charges, reports, pref, rageSit).some
             }
         val actions = UserRepo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased).some
@@ -426,7 +427,7 @@ object User extends LilaController {
         if (getBool("object")) Env.user.lightUserApi.asyncMany(userIds) map { users =>
           Json.obj(
             "result" -> JsArray(users.flatten.map { u =>
-              lila.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.user.isOnline(u.id))
+              lila.common.LightUser.lightUserWrites.writes(u).add("online" -> Env.socket.isOnline(u.id))
             })
           )
         }

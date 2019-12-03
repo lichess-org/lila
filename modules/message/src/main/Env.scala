@@ -37,8 +37,7 @@ final class Env(
     maxPerPage = lila.common.MaxPerPage(ThreadMaxPerPage),
     blocks = blocks,
     notifyApi = notifyApi,
-    security = security,
-    lilaBus = system.lilaBus
+    security = security
   )
 
   lazy val security = new MessageSecurity(
@@ -48,7 +47,7 @@ final class Env(
     spam = spam
   )
 
-  system.lilaBus.subscribeFun('gdprErase) {
+  lila.common.Bus.subscribeFun('gdprErase) {
     case lila.user.User.GDPRErase(user) => api erase user
   }
 }
@@ -65,7 +64,7 @@ object Env {
     getPref = lila.pref.Env.current.api.getPref,
     spam = lila.security.Env.current.spam,
     system = lila.common.PlayApp.system,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     lightUser = lila.user.Env.current.lightUserSync
   )
 }

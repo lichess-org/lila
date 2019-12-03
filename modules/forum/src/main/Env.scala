@@ -50,8 +50,7 @@ final class Env(
     shutup = shutup,
     timeline = hub.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier,
-    bus = system.lilaBus
+    mentionNotifier = mentionNotifier
   )
 
   lazy val postApi = new PostApi(
@@ -63,14 +62,13 @@ final class Env(
     shutup = shutup,
     timeline = hub.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier,
-    bus = system.lilaBus
+    mentionNotifier = mentionNotifier
   )
 
   lazy val forms = new DataForm(hub.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
-  system.lilaBus.subscribeFun('team, 'gdprErase) {
+  lila.common.Bus.subscribeFun('team, 'gdprErase) {
     case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
     case lila.user.User.GDPRErase(user) => postApi erase user
   }

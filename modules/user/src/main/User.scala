@@ -84,8 +84,6 @@ case class User(
 
   def lameOrTroll = lame || troll
 
-  def watchList = booster || engine || troll || reportban || rankban || ipBan
-
   def lightPerf(key: String) = perfs(key) map { perf =>
     User.LightPerf(light, key, perf.intRating, perf.progress)
   }
@@ -164,8 +162,6 @@ object User {
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)
 
-  case class Active(user: User)
-
   case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]) {
     def list = current.toList ::: previous.toList
   }
@@ -238,7 +234,6 @@ object User {
     val bpass = "bpass"
     val sha512 = "sha512"
     val totpSecret = "totp"
-    val watchList = "watchList"
     val changedCase = "changedCase"
   }
 

@@ -25,6 +25,7 @@
     }
   }
   li {
+    @extend %break-word-hard;
     list-style: inside disc;
   }
 }

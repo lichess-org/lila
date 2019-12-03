@@ -39,30 +39,28 @@ object ServerEval {
 
   final class Merger(
       sequencer: StudySequencer,
-      socketMap: SocketMap,
+      socket: StudySocket,
       api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
   ) {
 
-    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId ?? { studyId =>
-      sequencer.sequenceStudyWithChapter(Study.Id(studyId), Chapter.Id(analysis.id)) {
+    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? { studyId =>
+      sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
         case Study.WithChapter(study, chapter) =>
           (complete ?? chapterRepo.completeServerEval(chapter)) >> {
             lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
               case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
-                chapterRepo.setScore(chapter, path + node, score.some) >>
+                chapterRepo.setScore(score.some)(chapter, path + node) >>
                   advOpt.?? { adv =>
-                    chapterRepo.setComments(chapter, path + node, node.comments + Comment(
+                    chapterRepo.setComments(node.comments + Comment(
                       Comment.Id.make,
                       Comment.Text(adv.makeComment(false, true)),
                       Comment.Author.Lichess
-                    )) >>
+                    ))(chapter, path + node) >>
                       chapterRepo.setGlyphs(
-                        chapter,
-                        path + node,
                         node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                      ) >> {
+                      )(chapter, path + node) >> {
                           chapter.root.nodeAt(path).flatMap { parent =>
                             analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
                               parent.addChild(child).children.get(child.id)
@@ -75,7 +73,7 @@ object ServerEval {
           } >>- {
             chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
               _ ?? { chapter =>
-                socketMap.tell(studyId, ServerEval.Progress(
+                socket.onServerEval(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
                   tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
                   analysis = toJson(chapter, analysis),

@@ -1,14 +1,14 @@
 import { h } from 'snabbdom'
 import { Hooks } from 'snabbdom/hooks'
 
-export const hasTouchEvents = 'ontouchstart' in window;
-
 export function bindMobileMousedown(el: HTMLElement, f: (e: Event) => any, redraw?: () => void) {
-  el.addEventListener(hasTouchEvents ? 'touchstart' : 'mousedown', e => {
-    f(e);
-    e.preventDefault();
-    if (redraw) redraw();
-  })
+  for (const mousedownEvent of ['touchstart', 'mousedown']) {
+    el.addEventListener(mousedownEvent, e => {
+      f(e);
+      e.preventDefault();
+      if (redraw) redraw();
+    });
+  }
 }
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {

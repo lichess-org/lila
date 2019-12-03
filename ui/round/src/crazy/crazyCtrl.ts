@@ -5,6 +5,8 @@ import RoundController from '../ctrl';
 import * as cg from 'chessground/types';
 import { RoundData } from '../interfaces';
 
+const li = window.lichess;
+
 export const pieceRoles: cg.Role[] = ['pawn', 'knight', 'bishop', 'rook', 'queen'];
 
 export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
@@ -20,7 +22,16 @@ export function drag(ctrl: RoundController, e: cg.MouchEvent): void {
   dragNewPiece(ctrl.chessground.state, { color, role }, e);
 }
 
+let dropWithKey = false;
+let dropWithDrag = false;
+let mouseIconsLoaded = false;
+
 export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
+  if (crazyKeys.length === 0) dropWithDrag = true;
+  else {
+    dropWithKey = true;
+    if (!mouseIconsLoaded) preloadMouseIcons(data);
+  }
 
   if (!isPlayerTurn(data)) return false;
 
@@ -35,10 +46,19 @@ export function valid(data: RoundData, role: cg.Role, key: cg.Key): boolean {
   return drops.includes(key);
 }
 
+export function onEnd() {
+  const store = li.storage.make('crazyKeyHist');
+  if (dropWithKey) store.set(10);
+  else if (dropWithDrag) {
+    const cur = parseInt(store.get()!);
+    if (cur > 0 && cur <= 10) store.set(cur - 1);
+    else if (cur !== 0) store.set(3);
+  }
+}
+
 export const crazyKeys: Array<number> = [];
 
 export function init(ctrl: RoundController) {
-  if (!ctrl.data.crazyhouse) return;
   const k = window.Mousetrap;
 
   let activeCursor: string | undefined;
@@ -107,4 +127,20 @@ export function init(ctrl: RoundController) {
     if (e.target && (e.target as HTMLElement).localName === 'input')
       resetKeys();
   }, { capture: true });
+
+  if (li.storage.get('crazyKeyHist') !== '0')
+    preloadMouseIcons(ctrl.data);
+}
+
+// zh keys has unacceptable jank when cursors need to dl,
+// so preload when the feature might be used.
+// Images are used in _zh.scss, which should be kept in sync.
+function preloadMouseIcons(data: RoundData) {
+  const colorKey = data.player.color === 'white' ? 'w' : 'b';
+  if (window.fetch !== undefined) {
+    for (const pKey of 'PNBRQ') {
+      fetch(li.assetUrl(`piece/cburnett/${colorKey}${pKey}.svg`));
+    }
+  }
+  mouseIconsLoaded = true;
 }

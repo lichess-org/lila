@@ -4,6 +4,7 @@ package html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
+import lila.tournament.{ Tournament, TournamentShield, TeamBattle }
 
 import controllers.routes
 
@@ -12,10 +13,10 @@ object side {
   private val separator = " • "
 
   def apply(
-    tour: lila.tournament.Tournament,
+    tour: Tournament,
     verdicts: lila.tournament.Condition.All.WithVerdicts,
     streamers: Set[lila.user.User.ID],
-    shieldOwner: Option[lila.tournament.TournamentShield.OwnerId],
+    shieldOwner: Option[TournamentShield.OwnerId],
     chat: Boolean
   )(implicit ctx: Context) = frag(
     div(cls := "tour__meta")(
@@ -30,7 +31,7 @@ object side {
                 if (tour.variant == chess.variant.KingOfTheHill) tour.variant.shortName else tour.variant.name
               )
             } else tour.perfType.map(_.name),
-            (!tour.position.initial) ?? s"$separator ${trans.thematic.txt()}",
+            (!tour.position.initial) ?? s"$separator${trans.thematic.txt()}",
             separator,
             tour.durationString
           ),
@@ -43,6 +44,7 @@ object side {
             )
         )
       ),
+      tour.teamBattle map teamBattle(tour),
       tour.spotlight map { s =>
         st.section(
           lila.common.String.html.markdownLinks(s.description),
@@ -82,4 +84,13 @@ object side {
     streamers.toList map views.html.streamer.bits.contextual,
     chat option views.html.chat.frag
   )
+
+  private def teamBattle(tour: Tournament)(battle: TeamBattle)(implicit ctx: Context) =
+    st.section(cls := "team-battle")(
+      p(cls := "team-battle__title text", dataIcon := "f")(
+        s"Battle of ${battle.teams.size} teams and ${battle.nbLeaders} leaders",
+        ctx.userId.has(tour.createdBy) option
+          a(href := routes.Tournament.teamBattleEdit(tour.id), title := "Edit team battle")(iconTag("%"))
+      )
+    )
 }

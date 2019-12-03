@@ -34,7 +34,7 @@ final class Adapter[A: BSONDocumentReader](
 }
 
 /*
- * because mongodb mapReduce doesn't support `skip`, slice requires to queries.
+ * because mongodb mapReduce doesn't support `skip`, slice requires two queries.
  * The first one gets the IDs with `skip`.
  * The second one runs the mapReduce on these IDs.
  * This avoid running mapReduce on many unnecessary docs.

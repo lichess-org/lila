@@ -2,11 +2,11 @@ package views.html.base
 
 import play.api.libs.json.Json
 
-import lila.api.Context
+import lila.api.{ Context, AnnounceStore }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.common.String.html.safeJsonValue
+import lila.common.{ Lang, ContentSecurityPolicy }
 import lila.pref.Pref
 
 import controllers.routes
@@ -15,36 +15,39 @@ object layout {
 
   object bits {
     val doctype = raw("<!doctype html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lang.language)
+    def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
     val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
     val charset = raw("""<meta charset="utf-8">""")
-    val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
+    val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">""")
     def metaCsp(csp: ContentSecurityPolicy): Frag = raw {
       s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
     }
     def metaCsp(csp: Option[ContentSecurityPolicy])(implicit ctx: Context): Frag = metaCsp(csp getOrElse defaultCsp)
+    def metaThemeColor(implicit ctx: Context): Frag = raw {
+      s"""<meta name="theme-color" content="${ctx.pref.themeColor}">"""
+    }
     def pieceSprite(implicit ctx: Context): Frag = pieceSprite(ctx.currentPieceSet)
     def pieceSprite(ps: lila.pref.PieceSet): Frag =
       link(id := "piece-sprite", href := assetUrl(s"piece-css/$ps.css"), tpe := "text/css", rel := "stylesheet")
   }
   import bits._
 
-  private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
+  private val noTranslate = raw("""<meta name="google" content="notranslate">""")
   private def fontPreload(implicit ctx: Context) = raw {
-    s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin/>""" +
+    s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin>""" +
       !ctx.pref.pieceNotationIsLetter ??
-      s"""<link rel="preload" href="${assetUrl(s"font/lichess.chess.woff2")}" as="font" type="font/woff2" crossorigin/>"""
+      s"""<link rel="preload" href="${assetUrl(s"font/lichess.chess.woff2")}" as="font" type="font/woff2" crossorigin>"""
   }
-  private val manifests = raw("""<link rel="manifest" href="/manifest.json" /><meta name="twitter:site" content="@lichess" />""")
+  private val manifests = raw("""<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">""")
 
-  private val jsLicense = raw("""<link rel="jslicense" href="/source"/>""")
+  private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
 
   private val favicons = raw {
-    List(256, 128, 64) map { px =>
-      s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}">"""
-    } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("images/favicon-32-white.png")}" sizes="32x32">""")
+    List(512, 256, 192, 128, 64) map { px =>
+      s"""<link rel="icon" type="image/png" href="${staticUrl(s"logo/lichess-favicon-$px.png")}" sizes="${px}x${px}">"""
+    } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("logo/lichess-favicon-32.png")}" sizes="32x32">""")
   }
-  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
+  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
@@ -74,7 +77,12 @@ object layout {
   private def clinput(implicit ctx: Context) =
     div(id := "clinput")(
       clinputLink,
-      input(spellcheck := "false", placeholder := trans.search.txt())
+      input(
+        spellcheck := "false",
+        autocomplete := ctx.blind.toString,
+        aria.label := trans.search.txt(),
+        placeholder := trans.search.txt()
+      )
     )
 
   private lazy val botImage = img(src := staticUrl("images/icons/bot.png"), title := "Robot chess", style :=
@@ -90,6 +98,7 @@ object layout {
   private val dataZoom = attr("data-zoom")
   private val dataPreload = attr("data-preload")
   private val dataNonce = attr("data-nonce")
+  private val dataAnnounce = attr("data-announce")
 
   def apply(
     title: String,
@@ -112,10 +121,12 @@ object layout {
         charset,
         viewport,
         metaCsp(csp),
-        if (isProd && !isStage) frag(
-          st.headTitle(fullTitle | s"$title • lichess.org")
-        )
-        else st.headTitle(s"[dev] ${fullTitle | s"$title • lichess.dev"}"),
+        metaThemeColor,
+        st.headTitle {
+          if (ctx.blind) "lichess"
+          else if (isProd && !isStage) fullTitle | s"$title • lichess.org"
+          else s"[dev] ${fullTitle | s"$title • lichess.dev"}"
+        },
         cssTag("site"),
         ctx.pref.is3d option cssTag("board-3d"),
         ctx.pageData.inquiry.isDefined option cssTagNoTheme("mod.inquiry"),
@@ -124,7 +135,7 @@ object layout {
         moreCss,
         pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
-        link(rel := "mask-icon", href := staticUrl("favicon.svg"), color := "black"),
+        link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
         noTranslate,
@@ -157,6 +168,7 @@ object layout {
         dataAssetVersion := assetVersion.value,
         dataNonce := ctx.nonce.ifTrue(sameAssetDomain).map(_.value),
         dataTheme := ctx.currentBg,
+        dataAnnounce := AnnounceStore.get.map(a => safeJsonValue(a.json)),
         style := zoomable option s"--zoom:${ctx.zoom}"
       )(
           blindModeForm,

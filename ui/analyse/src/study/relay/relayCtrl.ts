@@ -13,7 +13,7 @@ export default class RelayCtrl {
     this.applyChapterRelay(chapter, chapter.relay);
     this.intro = {
       exists: !!data.markup,
-      active: !!data.markup,
+      active: !!data.markup && (location.pathname.match(/\//g)||[]).length < 4,
       disable: () => { this.intro.active = false }
     };
   }

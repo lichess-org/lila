@@ -118,14 +118,8 @@ final class SecurityApi(
 
   val sessionIdKey = "sessionId"
 
-  private def isMobileAppWS(req: RequestHeader) =
-    HTTPRequest.isSocket(req) && HTTPRequest.origin(req).fold(true)("file://" ==)
-
   def reqSessionId(req: RequestHeader): Option[String] =
-    req.session.get(sessionIdKey) orElse
-      req.headers.get(sessionIdKey) orElse {
-        isMobileAppWS(req) ?? req.queryString.get(sessionIdKey).flatMap(_.headOption)
-      }
+    req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
 
   def userIdsSharingIp = userIdsSharingField("ip") _
 

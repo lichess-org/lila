@@ -23,6 +23,7 @@ $player-height: 1.6rem;
   right: 0;
   font-weight: bold;
   height: $player-height;
+  white-space: nowrap;
   &-top {
     @extend %box-radius-top;
     top: #{-$player-height};

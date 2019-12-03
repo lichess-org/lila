@@ -2,9 +2,11 @@ package lila.team
 
 import actorApi._
 import akka.actor.ActorSelection
+import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
+import lila.hub.lightTeam.LightTeam
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period
@@ -14,7 +16,6 @@ final class TeamApi(
     coll: Colls,
     cached: Cached,
     notifier: Notifier,
-    bus: lila.common.Bus,
     indexer: ActorSelection,
     timeline: ActorSelection,
     modLog: ModlogApi
@@ -25,6 +26,8 @@ final class TeamApi(
   val creationPeriod = Period weeks 1
 
   def team(id: Team.ID) = coll.team.byId[Team](id)
+
+  def light(id: Team.ID) = coll.team.byId[LightTeam](id, $doc("name" -> true))
 
   def request(id: Team.ID) = coll.request.byId[Request](id)
 
@@ -44,7 +47,7 @@ final class TeamApi(
         timeline ! Propagate(
           TeamCreate(me.id, team.id)
         ).toFollowersOf(me.id)
-        bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), 'team)
+        Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), 'team)
       } inject team
   }
 
@@ -141,7 +144,7 @@ final class TeamApi(
         TeamRepo.incMembers(team.id, +1) >>- {
           cached invalidateTeamIds user.id
           timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-          bus.publish(JoinTeam(id = team.id, userId = user.id), 'team)
+          Bus.publish(JoinTeam(id = team.id, userId = user.id), 'team)
         }
     } recover lila.db.recoverDuplicateKey(_ => ())
   }
@@ -197,9 +200,18 @@ final class TeamApi(
     cached.teamIds(userId) map (_ contains teamId)
 
   def owns(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
-    TeamRepo ownerOf teamId map (Some(userId) ==)
+    TeamRepo ownerOf teamId map (_ has userId)
 
   def teamName(teamId: Team.ID): Option[String] = cached.name(teamId)
+
+  def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
+    coll.team.distinct[Team.ID, Set]("_id", Some("_id" $in ids))
+
+  def autocomplete(term: String, max: Int): Fu[List[Team]] =
+    coll.team.find($doc(
+      "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
+      "enabled" -> true
+    )).sort($sort desc "nbMembers").list[Team](max, ReadPreference.secondaryPreferred)
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 

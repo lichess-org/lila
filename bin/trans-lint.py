@@ -82,6 +82,9 @@ def lint_string(path, name, dest, source, allow_missing=0):
         #elif pattern not in m_source and pattern in m_dest:
         #    print("NOTICE", path, "unexpected {}:".format(pattern), name, dest)
 
+    if "\n" not in source and "\n" in dest:
+        print("NOTICE", path, "expected single line string:", name, dest)
+
     return errs, warns
 
 
@@ -93,7 +96,7 @@ if __name__ == "__main__":
             errs, warns = lint(arg)
             errors += errs
             warnings += warns
-        print("{} error(s), {} warning(s)".format(errors, warnings), file=sys.stderr)
+        print("{} error(s), {} warning(s)".format(errors, warnings))
         if errors:
             sys.exit(1)
     else:

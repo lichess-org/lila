@@ -1,49 +1,51 @@
 package lila.round
 
-import akka.actor.ActorSelection
-
-import actorApi._
-import lila.chat.Chat
-import lila.chat.actorApi._
+import lila.chat.{ Chat, ChatApi, ChatTimeout }
 import lila.game.Game
+import lila.hub.actorApi.shutup.PublicSource
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.i18n.{ I18nKeys, enLang }
-import lila.hub.actorApi.shutup.PublicSource
+import lila.user.User
 
-final class Messenger(val chat: ActorSelection) {
+final class Messenger(api: ChatApi) {
 
   def system(game: Game, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    chat ! SystemTalk(Chat.Id(watcherId(game.id)), translated)
-    if (game.nonAi) chat ! SystemTalk(Chat.Id(game.id), translated)
+    api.userChat.system(watcherId(Chat.Id(game.id)), translated)
+    if (game.nonAi) api.userChat.system(Chat.Id(game.id), translated)
   }
 
-  def systemForOwners(gameId: Game.ID, message: SelectI18nKey, args: Any*): Unit = {
+  def systemForOwners(chatId: Chat.Id, message: SelectI18nKey, args: Any*): Unit = {
     val translated = message(I18nKeys).literalTxtTo(enLang, args)
-    chat ! SystemTalk(Chat.Id(gameId), translated)
+    api.userChat.system(chatId, translated)
   }
 
-  def watcher(gameId: Game.ID, member: Member, text: String) =
-    member.userId foreach { userId =>
-      val source = PublicSource.Watcher(gameId)
-      chat ! UserTalk(Chat.Id(watcherId(gameId)), userId, text, source.some)
-    }
+  def watcher(chatId: Chat.Id, userId: User.ID, text: String) =
+    api.userChat.write(watcherId(chatId), userId, text, PublicSource.Watcher(chatId.value).some)
 
   private val whisperCommands = List("/whisper ", "/w ")
 
-  def owner(gameId: Game.ID, member: Member, text: String) = (member.userId match {
-    case Some(userId) =>
-      whisperCommands.collectFirst {
-        case command if text startsWith command =>
-          val source = PublicSource.Watcher(gameId)
-          UserTalk(Chat.Id(watcherId(gameId)), userId, text drop command.size, source.some)
-      } orElse {
-        if (text startsWith "/") none // mistyped command?
-        else UserTalk(Chat.Id(gameId), userId, text, publicSource = none).some
-      }
-    case None =>
-      PlayerTalk(Chat.Id(gameId), member.color.white, text).some
-  }) foreach chat.!
+  def owner(chatId: Chat.Id, userId: User.ID, text: String): Unit =
+    whisperCommands.collectFirst {
+      case command if text startsWith command =>
+        val source = PublicSource.Watcher(chatId.value)
+        api.userChat.write(watcherId(chatId), userId, text drop command.size, source.some)
+    } getOrElse {
+      if (!text.startsWith("/")) // mistyped command?
+        api.userChat.write(chatId, userId, text, publicSource = none).some
+    }
 
-  private def watcherId(gameId: Game.ID) = s"$gameId/w"
+  def owner(chatId: Chat.Id, anonColor: chess.Color, text: String): Unit =
+    api.playerChat.write(chatId, anonColor, text)
+
+  // simul or tour chat from a game
+  def external(setup: Chat.Setup, userId: User.ID, text: String): Unit =
+    api.userChat.write(setup.id, userId, text, setup.publicSource.some)
+
+  def timeout(chatId: Chat.Id, modId: User.ID, suspect: User.ID, reason: String): Unit =
+    ChatTimeout.Reason(reason) foreach { r =>
+      api.userChat.timeout(chatId, modId, suspect, r, local = false)
+    }
+
+  private def watcherId(chatId: Chat.Id) = Chat.Id(s"$chatId/w")
 }

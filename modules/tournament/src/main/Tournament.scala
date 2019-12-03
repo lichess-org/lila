@@ -21,6 +21,7 @@ case class Tournament(
     mode: Mode,
     password: Option[String] = None,
     conditions: Condition.All,
+    teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
@@ -38,12 +39,16 @@ case class Tournament(
 
   def isPrivate = password.isDefined
 
-  def fullName = schedule.map(_.freq).fold(s"$name $system") {
-    case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
-    case Schedule.Freq.Shield => s"$name $system"
-    case _ if clock.hasIncrement => s"$name Inc $system"
-    case _ => s"$name $system"
-  }
+  def isTeamBattle = teamBattle.isDefined
+
+  def fullName =
+    if (isTeamBattle) s"$name Team Battle"
+    else schedule.map(_.freq).fold(s"$name $system") {
+      case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
+      case Schedule.Freq.Shield => s"$name $system"
+      case _ if clock.hasIncrement => s"$name Inc $system"
+      case _ => s"$name $system"
+    }
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
@@ -142,7 +147,8 @@ object Tournament {
     password: Option[String],
     waitMinutes: Int,
     startDate: Option[DateTime],
-    berserkable: Boolean
+    berserkable: Boolean,
+    teamBattle: Option[TeamBattle]
   ) = Tournament(
     id = makeId,
     name = name | {
@@ -161,6 +167,7 @@ object Tournament {
     mode = mode,
     password = password,
     conditions = Condition.All.empty,
+    teamBattle = teamBattle,
     noBerserk = !berserkable,
     schedule = None,
     startsAt = startDate | {
@@ -187,4 +194,6 @@ object Tournament {
   )
 
   def makeId = Random nextString 8
+
+  case class TournamentTable(tours: List[Tournament])
 }

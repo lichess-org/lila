@@ -29,7 +29,15 @@ final class BlogApi(
 
   def one(prismic: BlogApi.Context, id: String): Fu[Option[Document]] = one(prismic.api, prismic.ref.some, id)
 
-  def context(req: RequestHeader)(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver) = {
+  def byYear(prismic: BlogApi.Context, year: Int): Fu[List[MiniPost]] = {
+    prismic.api.forms(collection).ref(prismic.ref)
+      .query(s"[[date.year(my.$collection.date, $year)]]")
+      .orderings(s"[my.$collection.date desc]")
+      .pageSize(100) // prismic max
+      .submit().fold(_ => Nil, _.results flatMap MiniPost.fromDocument(collection, "wide"))
+  }
+
+  def context(req: RequestHeader)(implicit linkResolver: (Api, Option[String]) => DocumentLinkResolver): Fu[BlogApi.Context] = {
     prismicApi map { api =>
       val ref = resolveRef(api) {
         req.cookies.get(Prismic.previewCookie).map(_.value)

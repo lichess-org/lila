@@ -45,8 +45,12 @@ object Title {
     // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
     private val FideProfileTitleRegex = """>&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;([^<]+)</td>""".r.unanchored
 
+    // https://ratings.fide.com/profile/740411
+    private val NewFideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/profile/(\d+)""".r
+
     def apply(url: String): Fu[Option[Title]] = url.trim match {
       case FideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
+      case NewFideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
       case _ => fuccess(none)
     }
 

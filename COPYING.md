@@ -58,6 +58,9 @@ public/piece/maestro | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 
 public/piece/fresca | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/cardinal | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/gioco | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/tatiana | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/staunty | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/dubrovny | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -68,6 +71,7 @@ Exceptions (non-free)
 
 Files | Author(s) | License
 --- | --- | ---
+public/logo, public/favicon.ico, public/apple-touch-icon.png | [sadsnake1](https://github.com/sadsnake1) | Only use to refer to lichess.org
 public/piece/alpha | Eric Bentzen | "free for personal non commercial use" (see [zip](http://www.enpassant.dk/chess/downl/alpha.zip))
 public/piece/chess7 | [Style-7](http://www.styleseven.com/) | "freeware"
 public/piece/companion | David L. Brown | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#GC)
@@ -76,7 +80,6 @@ public/piece/leipzig | Armando Hernandez Marroquin | ["freeware"](http://www.enp
 public/piece/spatial | [Maurizio Monge](http://poisson.phc.unipi.it/~monge/chess_art.php) | "give credit in a suitable way"
 public/piece/reillycraig | [Reilly Craig](https://instagram.com/fader_) |
 public/piece/riohacha | |
-public/piece/other | [Twitch](http://lazythunk.com/kappa/) |
 public/images/staunton/piece/Staunton | [Eden Murs](https://userstyles.org/styles/134558/lichess-pieces-3d-staunton) (?) |
 
 * The other sounds in public/sound.
@@ -100,4 +103,5 @@ Lichess as deployed on https://lichess.org/ also uses these external services:
 * Fallback to [Google Fonts](https://fonts.google.com/)
 * [Google Cloud Messaging](https://developers.google.com/cloud-messaging/) and [OneSignal](https://onesignal.com/) for mobile notifications
 * [reCAPTCHA](https://www.google.com/recaptcha/)
+* [PeerJS](https://peerjs.com/) for voice chat
 * [crowdin](https://crowdin.com/project/lichess) for localization

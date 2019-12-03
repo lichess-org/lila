@@ -41,6 +41,29 @@
     return u ? '<a class="user-link ulpt ' + (klass || '') + '" href="/@/' + id + '">' + (limit ? u.substring(0, limit) : u) + '</a>' : 'Anonymous';
   };
 
+  lichess.announce = (() => {
+    let timeout;
+    const kill = () => $('#announce').remove();
+    const set = (d) => {
+      if (!d) return;
+      kill();
+      if (timeout) clearTimeout(timeout);
+      if (d.msg) {
+        $('body').append(
+          '<div id="announce" class="announce">' +
+          d.msg +
+          '<time class="timeago" datetime="' + d.date + '"></time>' +
+          '<div class="actions"><a class="close">X</a></div>' +
+          '</div>'
+        ).find('#announce .close').click(kill);
+        timeout = setTimeout(kill, new Date(d.date) - Date.now());
+        lichess.pubsub.emit('content_loaded');
+      }
+    };
+    set($('body').data('announce'));
+    return set;
+  })();
+
   lichess.socket = null;
   const $friendsBox = $('#friend_box');
   $.extend(true, lichess.StrongSocket.defaults, {
@@ -77,22 +100,6 @@
           lichess.redirect(o);
         }, 200);
       },
-      deployPost: function() {
-        $('#notifications').append(
-          '<div id="deploy_post" class="notification">' +
-          '<div class="inner"><p data-icon="j" class="is3 text">Site update in progress...</p></div>' +
-          '</div>');
-        lichess.socket.disconnect(function() {
-          $('#deploy_post').remove();
-          $('#notifications').append(
-            '<div id="deploy_done" class="notification">' +
-            '<div class="inner"><p data-icon="E" class="is3 is-green text">Site update complete.</p></div>' +
-            '</div>');
-          setTimeout(function() {
-            $('#deploy_done').fadeOut(1000).remove();
-          }, $('body').hasClass('playing') ? 9000 : 15000);
-        });
-      },
       tournamentReminder: function(data) {
         if ($('#announce').length || $('body').data("tournament-id") == data.id) return;
         var url = '/tournament/' + data.id;
@@ -109,14 +116,7 @@
           return false;
         });
       },
-      announce: function(d) {
-        if (!$('#announce').length) $('body').append(
-          '<div id="announce" class="announce">' +
-          d.msg +
-          '<div class="actions"><a class="close">X</a></div>' +
-          '</div>'
-        ).find('#announce .close').click(function() { $('#announce').remove(); });
-      }
+      announce: lichess.announce
     },
     params: {},
     options: {
@@ -129,7 +129,7 @@
   lichess.reverse = s => s.split('').reverse().join('');
   lichess.readServerFen = t => atob(lichess.reverse(t));
 
-  lichess.userAutocomplete = function($input, opts) {
+  lichess.userAutocomplete = ($input, opts) => {
     opts = opts || {};
     lichess.loadCssPath('autocomplete');
     return lichess.loadScript('javascripts/vendor/typeahead.jquery.min.js').done(function() {
@@ -148,7 +148,7 @@
               tour: opts.tour,
               object: 1
             },
-            success: function(res) {
+            success(res) {
               res = res.result;
               // hack to fix typeahead limit bug
               if (res.length === 10) res.push(null);
@@ -168,15 +168,13 @@
               '</' + tag + '>';
           }
         }
-      }).on('typeahead:render', function() {
-        lichess.pubsub.emit('content_loaded');
-      });
+      }).on('typeahead:render', () => lichess.pubsub.emit('content_loaded'));
       if (opts.focus) $input.focus();
-      if (opts.onSelect) $input.on('typeahead:select', function(ev, sel) {
-        opts.onSelect(sel);
-      }).on('keypress', function(e) {
-        if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
-      });
+      if (opts.onSelect) $input
+        .on('typeahead:select', (_, sel) => opts.onSelect(sel))
+        .on('keypress', function(e) {
+          if (e.which == 10 || e.which == 13) opts.onSelect($(this).val());
+        });
     });
   };
 
@@ -265,28 +263,24 @@
       document.body.addEventListener('mouseover', lichess.powertip.mouseover);
 
       function renderTimeago() {
-        lichess.raf(function() {
-          lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99));
-        });
+        lichess.raf(() =>
+          lichess.timeago.render([].slice.call(document.getElementsByClassName('timeago'), 0, 99))
+        );
       }
       function setTimeago(interval) {
         renderTimeago();
-        setTimeout(function() { setTimeago(interval * 1.1); }, interval);
+        setTimeout(() => setTimeago(interval * 1.1), interval);
       }
       setTimeago(1200);
       lichess.pubsub.on('content_loaded', renderTimeago);
 
       if (!window.customWS) setTimeout(function() {
         if (lichess.socket === null) {
-          lichess.socket = lichess.StrongSocket("/socket/v4", false, {
-            options: {
-              remoteSocketDomain: document.body.getAttribute('data-remote-socket-domain')
-            }
-          });
+          lichess.socket = lichess.StrongSocket("/socket/v4", false);
         }
       }, 300);
 
-      var initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
+      const initiatingHtml = '<div class="initiating">' + lichess.spinnerHtml + '</div>';
 
       lichess.challengeApp = (function() {
         var instance, booted;
@@ -325,14 +319,21 @@
         };
       })();
 
-      lichess.notifyApp = (function() {
-        var instance, booted;
-        var $toggle = $('#notify-toggle');
-        var isVisible = function() {
-          return $('#notify-app').is(':visible');
-        };
+      lichess.notifyApp = (() => {
+        let instance, booted;
+        const $toggle = $('#notify-toggle'),
+          isVisible = () => $('#notify-app').is(':visible'),
+          permissionChanged = () => {
+            $toggle.find('span').attr('data-icon', 'Notification' in window && Notification.permission == 'granted' ? '\ue00f' : '\xbf');
+            if (instance) instance.redraw();
+          };
 
-        var load = function(data, incoming) {
+        if ('permissions' in navigator) navigator.permissions.query({name: 'notifications'}).then(perm => {
+          perm.onchange = permissionChanged;
+        });
+        permissionChanged();
+
+        const load = function(data, incoming) {
           if (booted) return;
           booted = true;
           var $el = $('#notify-app').html(initiatingHtml);
@@ -342,27 +343,25 @@
               data: data,
               incoming: incoming,
               isVisible: isVisible,
-              setCount: function(nb) {
+              setCount(nb) {
                 $toggle.find('span').attr('data-count', nb);
               },
-              show: function() {
+              show() {
                 if (!isVisible()) $toggle.click();
               },
-              setNotified: function() {
+              setNotified() {
                 lichess.socket.send('notified');
               },
-              pulse: function() {
+              pulse() {
                 $toggle.addClass('pulse');
               }
             });
           });
         };
 
-        $toggle.one('mouseover click', function() {
-          load();
-        }).click(function() {
-          setTimeout(function() {
-            lichess.pushSubscribe(true);
+        $toggle.one('mouseover click', () => load()).click(() => {
+          if ('Notification' in window) Notification.requestPermission(p => permissionChanged());
+          setTimeout(() => {
             if (instance && isVisible()) instance.setVisible();
           }, 200);
         });
@@ -378,55 +377,49 @@
       window.addEventListener('resize', () => lichess.dispatchEvent(document.body, 'chessground.resize'));
 
       // dasher
-      (function() {
-        var booted;
+      {
+        let booted;
         $('#top .dasher .toggle').one('mouseover click', function() {
           if (booted) return;
           booted = true;
-          var $el = $('#dasher_app').html(initiatingHtml);
-          var isPlaying = $('body').hasClass('playing');
+          const $el = $('#dasher_app').html(initiatingHtml),
+            playing = $('body').hasClass('playing');
           lichess.loadCssPath('dasher');
-          lichess.loadScript(lichess.compiledScript('dasher')).done(function() {
-            LichessDasher.default($el.empty()[0], {
-              playing: isPlaying
-            });
-          });
+          lichess.loadScript(lichess.compiledScript('dasher')).done(() =>
+            LichessDasher.default($el.empty()[0], { playing })
+          );
         });
-      })();
+      }
 
       // cli
-      (function() {
-        var $wrap = $('#clinput');
+      {
+        const $wrap = $('#clinput');
         if (!$wrap.length) return;
-        var booted;
-        var boot = function() {
+        let booted;
+        const $input = $wrap.find('input');
+        const boot = () => {
           if (booted) return $.Deferred().resolve();
           booted = true;
-          return lichess.loadScript(lichess.compiledScript('cli')).done(function() {
-            LichessCli.app($wrap, toggle);
-          });
-        }
-        var toggle = function(txt) {
-          boot().done(function() {
-            $wrap.find('input').val(txt || '');
-          });
-          $('body').toggleClass('clinput');
-          if ($('body').hasClass('clinput')) $wrap.find('input').focus();
+          return lichess.loadScript(lichess.compiledScript('cli')).done(() =>
+            LichessCli.app($wrap, toggle)
+          );
         };
-        $wrap.find('a').on('mouseover click', function(e) {
-          (e.type === 'mouseover' ? boot : toggle)();
-        });
-        Mousetrap.bind('/', function() {
-          lichess.raf(function() { toggle('/') });
+        const toggle = txt => {
+          boot().done(() => $input.val(txt || ''));
+          $('body').toggleClass('clinput');
+          if ($('body').hasClass('clinput')) $input.focus();
+        };
+        $wrap.find('a').on('mouseover click', e => (e.type === 'mouseover' ? boot : toggle)());
+        Mousetrap.bind('/', () => {
+          lichess.raf(() => toggle('/'));
           return false;
         });
-        Mousetrap.bind('s', function() {
-          lichess.raf(function() { toggle() });
-        });
-      })();
+        Mousetrap.bind('s', () => lichess.raf(() => toggle()));
+        if ($('body').hasClass('blind-mode')) $input.one('focus', () => toggle());
+      }
 
-      $('.user-autocomplete').each(function() {
-        var opts = {
+      $('.user-autocomplete').each(() => {
+        const opts = {
           focus: 1,
           friend: $(this).data('friend'),
           tag: $(this).data('tag')
@@ -978,39 +971,31 @@
   ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {noVersion: true, sameDomain: true});
-    navigator.serviceWorker.register(workerUrl, {scope: '/'});
-  }
-
-  lichess.pushSubscribe = function(ask) {
-    if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-      navigator.serviceWorker.ready.then(reg => {
-        const storage = lichess.storage.make('push-subscribed');
-        const vapid = document.body.getAttribute('data-vapid');
-        const allowed = (ask || Notification.permission === 'granted') && Notification.permission !== 'denied';
-        if (vapid && allowed) return reg.pushManager.getSubscription().then(sub => {
-          const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
-          const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
-          if (!sub || resub) {
-            return reg.pushManager.subscribe({
-              userVisibleOnly: true,
-              applicationServerKey: applicationServerKey
-            }).then(sub => fetch('/push/subscribe', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              body: JSON.stringify(sub)
-            })).then(res => {
-              if (res.ok) storage.set('' + Date.now());
-              else throw Error(response.statusText);
-            }).catch(err => console.log('push subscribe failed', err.message));
-          }
-        });
-        else storage.remove();
+    const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {sameDomain: true});
+    const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
+    navigator.serviceWorker.register(workerUrl, {scope: '/', updateViaCache}).then(reg => {
+      const storage = lichess.storage.make('push-subscribed');
+      const vapid = document.body.getAttribute('data-vapid');
+      if (vapid && Notification.permission == 'granted') return reg.pushManager.getSubscription().then(sub => {
+        const resub = parseInt(storage.get() || '0', 10) + 43200000 < Date.now(); // 12 hours
+        const applicationServerKey = Uint8Array.from(atob(vapid), c => c.charCodeAt(0));
+        if (!sub || resub) {
+          return reg.pushManager.subscribe({
+            userVisibleOnly: true,
+            applicationServerKey: applicationServerKey
+          }).then(sub => fetch('/push/subscribe', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(sub)
+          })).then(res => {
+            if (res.ok) storage.set('' + Date.now());
+            else throw Error(response.statusText);
+          }).catch(err => console.log('push subscribe failed', err.message));
+        }
       });
-    }
-  };
-
-  lichess.pushSubscribe(false); // opportunistic push subscription
+      else storage.remove();
+    });
+  }
 })();

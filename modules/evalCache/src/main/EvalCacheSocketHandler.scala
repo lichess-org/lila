@@ -7,7 +7,7 @@ import chess.format.FEN
 import lila.socket._
 import lila.user.User
 
-final class EvalCacheSocketHandler(
+private final class EvalCacheSocketHandler(
     api: EvalCacheApi,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade
@@ -15,23 +15,7 @@ final class EvalCacheSocketHandler(
 
   import EvalCacheEntry._
 
-  def apply(sri: Socket.Sri, member: SocketMember, user: Option[User]): Handler.Controller =
-    makeController(sri, member, user map truster.makeTrusted)
-
-  private def makeController(
-    sri: Socket.Sri,
-    member: SocketMember,
-    trustedUser: Option[TrustedUser]
-  ): Handler.Controller = {
-
-    case ("evalPut", o) => trustedUser foreach { tu =>
-      JsonHandlers.readPut(tu, o) foreach { api.put(tu, _, sri) }
-    }
-
-    case ("evalGet", o) => o obj "d" foreach { evalGet(sri, _, member.push) }
-  }
-
-  private[evalCache] def evalGet(
+  def evalGet(
     sri: Socket.Sri,
     d: JsObject,
     push: JsObject => Unit
@@ -50,7 +34,7 @@ final class EvalCacheSocketHandler(
     if (d.value contains "up") upgrade.register(sri, variant, fen, multiPv, path)(pushData)
   }
 
-  private[evalCache] def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
+  def untrustedEvalPut(sri: Socket.Sri, userId: User.ID, data: JsObject): Unit =
     truster cachedTrusted userId foreach {
       _ foreach { tu =>
         JsonHandlers.readPutData(tu, data) foreach {

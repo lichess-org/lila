@@ -15,14 +15,14 @@ object bits {
         a(cls := tab.active("requests"), href := routes.Team.requests())(
           ctx.teamNbRequests, " join requests"
         ),
-      ctx.me.??(_.canTeam) option
+      ctx.me.exists(_.canTeam) option
         a(cls := tab.active("mine"), href := routes.Team.mine())(
           trans.myTeams()
         ),
       a(cls := tab.active("all"), href := routes.Team.all())(
         trans.allTeams()
       ),
-      ctx.me.??(_.canTeam) option
+      ctx.me.exists(_.canTeam) option
         a(cls := tab.active("form"), href := routes.Team.form())(
           trans.newTeam()
         )

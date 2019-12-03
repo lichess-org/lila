@@ -66,27 +66,41 @@ object show {
                     submitButton(cls := "button button-empty button-red confirm")(trans.quitTeam.txt())
                   ),
                 (info.createdByMe || isGranted(_.Admin)) option
-                  a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(trans.settings())
+                  a(href := routes.Team.edit(t.id), cls := "button button-empty text", dataIcon := "%")(trans.settings()),
+                info.createdByMe option
+                  a(href := routes.Tournament.teamBattleForm(t.id), cls := "button button-empty text", dataIcon := "g")("Team Battle")
               ),
-              st.section(cls := "team-show__forum")(
-                h2(dataIcon := "d", cls := "text")(
-                  a(href := teamForumUrl(t.id))(trans.forum()),
-                  " (", info.forumNbPosts, ")"
-                ),
-                info.forumPosts.take(10).map { post =>
-                  st.article(
-                    p(cls := "meta")(
-                      a(href := routes.ForumPost.redirect(post.postId))(post.topicName),
-                      em(
-                        userIdLink(post.userId, withOnline = false),
-                        " ",
-                        momentFromNow(post.createdAt)
-                      )
+              div(cls := "team-show__tour-forum")(
+                info.teamBattles.nonEmpty option frag(
+                  st.section(cls := "team-show__tour")(
+                    h2(dataIcon := "g", cls := "text")(
+                      trans.tournaments()
                     ),
-                    p(shorten(post.text, 200))
+                    views.html.tournament.teamBattle.list(info.teamBattles)
                   )
-                },
-                a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
+                ),
+                NotForKids {
+                  st.section(cls := "team-show__forum")(
+                    h2(dataIcon := "d", cls := "text")(
+                      a(href := teamForumUrl(t.id))(trans.forum()),
+                      " (", info.forumNbPosts, ")"
+                    ),
+                    info.forumPosts.take(10).map { post =>
+                      st.article(
+                        p(cls := "meta")(
+                          a(href := routes.ForumPost.redirect(post.postId))(post.topicName),
+                          em(
+                            userIdLink(post.userId, withOnline = false),
+                            " ",
+                            momentFromNow(post.createdAt)
+                          )
+                        ),
+                        p(shorten(post.text, 200))
+                      )
+                    },
+                    a(cls := "more", href := teamForumUrl(t.id))(t.name, " ", trans.forum(), " »")
+                  )
+                }
               )
             )
           )

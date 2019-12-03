@@ -60,6 +60,7 @@ object LangList {
     Lang("ka", "GE") -> "ქართული",
     Lang("kab", "KAB") -> "Taqvaylit",
     Lang("kk", "KZ") -> "қазақша",
+    Lang("kmr", "TR") -> "Kurdî (Kurmancî)",
     Lang("kn", "IN") -> "ಕನ್ನಡ",
     Lang("ko", "KR") -> "한국어",
     Lang("ky", "KG") -> "кыргызча",

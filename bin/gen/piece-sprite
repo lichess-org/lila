@@ -29,7 +29,10 @@ themes = [
   ['maestro', 'svg'],
   ['fresca', 'svg'],
   ['cardinal', 'svg'],
-  ['gioco', 'svg']
+  ['gioco', 'svg'],
+  ['tatiana', 'svg'],
+  ['staunty', 'svg'],
+  ['dubrovny', 'svg']
 ]
 types = {
   'svg' => 'svg+xml;base64,',

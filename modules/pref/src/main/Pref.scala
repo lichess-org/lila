@@ -52,6 +52,8 @@ case class Pref(
   def realTheme3d = Theme3d(theme3d)
   def realPieceSet3d = PieceSet3d(pieceSet3d)
 
+  def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
+
   def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)

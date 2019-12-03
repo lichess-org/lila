@@ -85,7 +85,7 @@
   </plurals>
   <string name="noGameFound">ゲームが見つかりません</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">設定メニューからさらに広い範囲を指定しますか？</string>
-  <string name="openingExplorer">序盤探索&amp;テーブルベース</string>
+  <string name="openingExplorer">序盤探索</string>
   <string name="xOpeningExplorer">%s オープニング・エクスプローラー</string>
   <string name="winPreventedBy50MoveRule">勝勢ながら 50 手ルールでドロー</string>
   <string name="lossSavedBy50MoveRule">敗勢ながら 50 手ルールでドロー</string>
@@ -565,6 +565,8 @@
   <string name="victory">勝利！</string>
   <string name="defeat">失敗</string>
   <string name="victoryVsYInZ">%1$s 対 %2$s、%3$s</string>
+  <string name="defeatVsYInZ">%1$s 対 %2$s、%3$s で</string>
+  <string name="drawVsYInZ">%1$s 対 %2$s、%3$s で</string>
   <string name="timeline">タイムライン</string>
   <string name="starting">開始時刻：</string>
   <string name="allInformationIsPublicAndOptional">情報の記入はすべて任意で、すべて公開されます。</string>

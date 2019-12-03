@@ -42,7 +42,7 @@ final class Env(
     getTeamName = getTeamName
   )
 
-  system.lilaBus.subscribeFun(
+  lila.common.Bus.subscribeFun(
     'finishGame, 'forumPost, 'finishPuzzle, 'finishPractice, 'team,
     'startSimul, 'moveEventCorres, 'plan, 'relation, 'startStudy, 'streamStart
   ) {

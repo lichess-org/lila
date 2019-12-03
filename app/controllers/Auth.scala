@@ -429,7 +429,7 @@ object Auth extends LilaController {
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             Env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
-              UserRepo.setEmailConfirmed(user.id) >>
+              UserRepo.setEmailConfirmed(user.id).flatMap { _ ?? { e => welcome(user, e) } } >>
               UserRepo.disableTwoFactor(user.id) >>
               env.store.disconnect(user.id) >>
               Env.push.webSubscriptionApi.unsubscribeByUser(user) >>
@@ -437,6 +437,56 @@ object Auth extends LilaController {
               lila.mon.user.auth.passwordResetConfirm("success")()
           }
         }
+    }
+  }
+
+  def magicLink = Open { implicit ctx =>
+    forms.passwordResetWithCaptcha map {
+      case (form, captcha) => Ok(html.auth.bits.magicLink(form, captcha))
+    }
+  }
+
+  def magicLinkApply = OpenBody { implicit ctx =>
+    implicit val req = ctx.body
+    forms.magicLink.bindFromRequest.fold(
+      err => forms.anyCaptcha map { captcha =>
+        BadRequest(html.auth.bits.magicLink(err, captcha, false.some))
+      },
+      data =>
+        UserRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
+          case Some((user, storedEmail)) => {
+            MagicLinkRateLimit(user, storedEmail, ctx.req) {
+              lila.mon.user.auth.magicLinkRequest("success")()
+              Env.security.magicLink.send(user, storedEmail) inject Redirect(routes.Auth.magicLinkSent(storedEmail.conceal))
+            }
+          }
+          case _ => {
+            lila.mon.user.auth.magicLinkRequest("no_email")()
+            forms.magicLinkWithCaptcha map {
+              case (form, captcha) => BadRequest(html.auth.bits.magicLink(form, captcha, false.some))
+            }
+          }
+        }
+    )
+  }
+
+  def magicLinkSent(email: String) = Open { implicit ctx =>
+    fuccess {
+      Ok(html.auth.bits.magicLinkSent(email))
+    }
+  }
+
+  def magicLinkLogin(token: String) = Open { implicit ctx =>
+    Env.security.magicLink confirm token flatMap {
+      case None => {
+        lila.mon.user.auth.magicLinkConfirm("token_fail")()
+        notFound
+      }
+      case Some(user) => {
+        authLog(user.username, "-", "Magic link")
+        authenticateUser(user) >>-
+          lila.mon.user.auth.magicLinkConfirm("success")()
+      }
     }
   }
 
@@ -465,4 +515,6 @@ object Auth extends LilaController {
     PasswordHasher.rateLimit[Result](enforce = Env.api.Net.RateLimit) _
 
   private[controllers] def EmailConfirmRateLimit = lila.security.EmailConfirm.rateLimit[Result] _
+
+  private[controllers] def MagicLinkRateLimit = lila.security.MagicLink.rateLimit[Result] _
 }

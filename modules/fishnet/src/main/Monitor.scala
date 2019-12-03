@@ -3,7 +3,6 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 private final class Monitor(
-    moveDb: MoveDB,
     repo: FishnetRepo,
     sequencer: lila.hub.FutureSequencer,
     scheduler: lila.common.Scheduler
@@ -83,8 +82,6 @@ private final class Monitor(
     import lila.mon.fishnet.work._
     import Client.Skill._
 
-    moveDb.monitor
-
     lila.mon.fishnet.queue.sequencer(Analysis.key)(sequencer.queueSize)
 
     repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
@@ -101,15 +98,6 @@ private final class Monitor(
 }
 
 object Monitor {
-
-  private[fishnet] def move(work: Work.Move, client: Client) = {
-    success(work, client)
-    if (work.level == 8) work.acquiredAt foreach { acquiredAt =>
-      lila.mon.fishnet.move.time(client.userId.value)(nowMillis - acquiredAt.getMillis)
-    }
-    if (work.level == 1)
-      lila.mon.fishnet.move.fullTimeLvl1(client.userId.value)(nowMillis - work.createdAt.getMillis)
-  }
 
   private def success(work: Work, client: Client) = {
 

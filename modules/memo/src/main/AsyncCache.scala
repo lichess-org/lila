@@ -1,7 +1,6 @@
 package lila.memo
 
 import akka.actor.ActorSystem
-import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Cache, Scaffeine }
 import scala.concurrent.duration._
@@ -66,7 +65,7 @@ object AsyncCache {
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
       ).recordStats.buildAsyncFuture(safeF)
-      monitor(name, cache.underlying.synchronous)
+      startMonitoring(name, cache.underlying.synchronous)
       new AsyncCache[K, V](cache, safeF)
     }
 
@@ -86,7 +85,7 @@ object AsyncCache {
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
       ).recordStats.build[K, Fu[V]]
-      monitor(name, cache.underlying)
+      startMonitoring(name, cache.underlying)
       new AsyncCacheClearable[K, V](cache, safeF, logger = logger branch fullName)
     }
 
@@ -94,22 +93,22 @@ object AsyncCache {
       name: String,
       f: => Fu[V],
       expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds
+      resultTimeout: FiniteDuration = 5 seconds,
+      monitor: Boolean = true
     ) = {
       val safeF = (_: Unit) => f.withTimeout(
         resultTimeout,
         lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
       )
-      val cache: AsyncLoadingCache[Unit, V] = makeExpire(
-        Scaffeine().maximumSize(1),
-        expireAfter
-      ).recordStats.buildAsyncFuture(safeF)
-      monitor(name, cache.underlying.synchronous)
+      val builder = makeExpire(Scaffeine().maximumSize(1), expireAfter)
+      if (monitor) builder.recordStats
+      val cache: AsyncLoadingCache[Unit, V] = builder.buildAsyncFuture(safeF)
+      if (monitor) startMonitoring(name, cache.underlying.synchronous)
       new AsyncCacheSingle[V](cache, safeF)
     }
   }
 
-  private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
+  private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
     system.scheduler.schedule(1 minute, 1 minute) {
       lila.mon.caffeineStats(cache, name)
     }

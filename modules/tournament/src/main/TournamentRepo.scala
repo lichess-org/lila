@@ -3,12 +3,15 @@ package lila.tournament
 import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
+import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 
 import BSONHandlers._
 import lila.common.paginator.Paginator
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
+import lila.game.Game
+import lila.user.User
 
 object TournamentRepo {
 
@@ -112,27 +115,40 @@ object TournamentRepo {
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 
-  def setStatus(tourId: String, status: Status) = coll.update(
-    $id(tourId),
-    $set("status" -> status.id)
-  ).void
+  // all team-only tournament
+  // and team battles
+  // this query is carefully crafted so that it hits both indexes
+  def byTeam(teamId: String, nb: Int): Fu[List[Tournament]] =
+    coll.find($or(
+      $doc(
+        "teamBattle.teams" -> teamId,
+        "teamBattle" $exists true
+      ),
+      $doc(
+        "conditions.teamMember.teamId" -> teamId,
+        "conditions.teamMember" $exists true
+      )
+    )).sort($sort desc "startsAt").list[Tournament](nb)
 
-  def setNbPlayers(tourId: String, nb: Int) = coll.update(
-    $id(tourId),
-    $set("nbPlayers" -> nb)
-  ).void
+  def setStatus(tourId: Tournament.ID, status: Status) =
+    coll.update($id(tourId), $set("status" -> status.id)).void
 
-  def setWinnerId(tourId: String, userId: String) = coll.update(
-    $id(tourId),
-    $set("winner" -> userId)
-  ).void
+  def setNbPlayers(tourId: Tournament.ID, nb: Int) =
+    coll.update($id(tourId), $set("nbPlayers" -> nb)).void
 
-  def setFeaturedGameId(tourId: String, gameId: String) = coll.update(
-    $id(tourId),
-    $set("featured" -> gameId)
-  ).void
+  def setWinnerId(tourId: Tournament.ID, userId: User.ID) =
+    coll.update($id(tourId), $set("winner" -> userId)).void
 
-  def featuredGameId(tourId: String) = coll.primitiveOne[String]($id(tourId), "featured")
+  def setFeaturedGameId(tourId: Tournament.ID, gameId: Game.ID) =
+    coll.update($id(tourId), $set("featured" -> gameId)).void
+
+  def setTeamBattle(tourId: Tournament.ID, battle: TeamBattle) =
+    coll.update($id(tourId), $set("teamBattle" -> battle)).void
+
+  def teamBattleOf(tourId: Tournament.ID): Fu[Option[TeamBattle]] =
+    coll.primitiveOne[TeamBattle]($id(tourId), "teamBattle")
+
+  def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
 
   private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++
     $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
@@ -241,4 +257,15 @@ object TournamentRepo {
       "startsAt" $gte from $lte to,
       "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter)
     )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred)
+
+  private[tournament] def cursor(
+    owner: lila.user.User,
+    batchSize: Int,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  )(implicit cp: CursorProducer[Tournament]): cp.ProducedCursor = {
+    val query = coll
+      .find($doc("createdBy" -> owner.id))
+      .sort($sort desc "startsAt")
+    query.copy(options = query.options.batchSize(batchSize)).cursor[Tournament](readPreference)
+  }
 }

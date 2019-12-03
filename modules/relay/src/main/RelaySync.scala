@@ -23,7 +23,9 @@ private final class RelaySync(
               case Some(chapter) => updateChapter(study, chapter, game)
               case None => createChapter(study, game) flatMap { chapter =>
                 chapters.find(_.isEmptyInitial).ifTrue(chapter.order == 2).?? { initial =>
-                  studyApi.deleteChapter(study.ownerId, study.id, initial.id, socketSri)
+                  studyApi.deleteChapter(study.id, initial.id) {
+                    actorApi.Who(study.ownerId, sri)
+                  }
                 } inject chapter.root.mainline.size
               }
             }
@@ -46,7 +48,8 @@ private final class RelaySync(
     updateChapterTags(study, chapter, game) >>
       updateChapterTree(study, chapter, game)
 
-  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] =
+  private def updateChapterTree(study: Study, chapter: Chapter, game: RelayGame): Fu[NbMoves] = {
+    val who = actorApi.Who(chapter.ownerId, sri)
     game.root.mainline.foldLeft(Path.root -> none[Node]) {
       case ((parentPath, None), gameNode) =>
         val path = parentPath + gameNode
@@ -57,9 +60,8 @@ private final class RelaySync(
               studyApi.setClock(
                 studyId = study.id,
                 position = Position(chapter, path).ref,
-                clock = c.some,
-                sri = socketSri
-              )
+                clock = c.some
+              )(who)
             }
             path -> none
         }
@@ -69,30 +71,27 @@ private final class RelaySync(
         !Path.isMainline(chapter.root, path) ?? {
           logger.info(s"Change mainline ${showSC(study, chapter)} $path")
           studyApi.promote(
-            userId = chapter.ownerId,
             studyId = study.id,
             position = Position(chapter, path).ref,
-            toMainline = true,
-            sri = socketSri
-          ) >> chapterRepo.setRelayPath(chapter.id, path)
+            toMainline = true
+          )(who) >> chapterRepo.setRelayPath(chapter.id, path)
         } >> newNode.?? { node =>
           lila.common.Future.fold(node.mainline)(Position(chapter, path).ref) {
             case (position, n) => studyApi.addNode(
-              userId = chapter.ownerId,
               studyId = study.id,
               position = position,
               node = n,
-              sri = socketSri,
               opts = moveOpts.copy(clock = n.clock),
               relay = Chapter.Relay(
                 index = game.index,
                 path = position.path + n,
                 lastMoveAt = DateTime.now
               ).some
-            ) inject position + n
+            )(who) inject position + n
           } inject node.mainline.size
         }
     }
+  }
 
   private def updateChapterTags(study: Study, chapter: Chapter, game: RelayGame): Funit = {
     val gameTags = game.tags.value.foldLeft(Tags(Nil)) {
@@ -113,12 +112,10 @@ private final class RelaySync(
       if (vs(chapterNewTags) != vs(chapter.tags))
         logger.info(s"Update ${showSC(study, chapter)} tags '${vs(chapter.tags)}' -> '${vs(chapterNewTags)}'")
       studyApi.setTags(
-        userId = chapter.ownerId,
         studyId = study.id,
         chapterId = chapter.id,
-        tags = chapterNewTags,
-        sri = socketSri
-      ) >> {
+        tags = chapterNewTags
+      )(actorApi.Who(chapter.ownerId, sri)) >> {
         chapterNewTags.resultColor.isDefined ?? onChapterEnd(study.id, chapter.id)
       }
     }
@@ -161,7 +158,7 @@ private final class RelaySync(
           lastMoveAt = DateTime.now
         ).some
       )
-      studyApi.doAddChapter(study, chapter, sticky = false, sri = socketSri) inject chapter
+      studyApi.doAddChapter(study, chapter, sticky = false, actorApi.Who(study.ownerId, sri)) inject chapter
     }
 
   private val moveOpts = MoveOpts(
@@ -171,7 +168,7 @@ private final class RelaySync(
     clock = none
   )
 
-  private val socketSri = Sri("")
+  private val sri = Sri("")
 
   private def vs(tags: Tags) = s"${tags(_.White) | "?"} - ${tags(_.Black) | "?"}"
 

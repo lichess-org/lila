@@ -90,10 +90,11 @@ export function view(ctrl: StudyCtrl): VNode {
       scrollTo(el, el.querySelector('.loading'));
     }
     vData.count = newCount;
-    if (!window.lichess.hasTouchEvents && canContribute && newCount > 1 && !vData.sortable) {
+    if (canContribute && newCount > 1 && !vData.sortable) {
       const makeSortable = function() {
         vData.sortable = window['Sortable'].create(el, {
           draggable: '.draggable',
+          handle: window.lichess.hasTouchEvents ? 'span' : undefined,
           onSort() {
             ctrl.chapters.sort(vData.sortable.toArray());
           }
@@ -148,7 +149,7 @@ export function view(ctrl: StudyCtrl): VNode {
         hook: bind('click', ctrl.chapters.toggleNewForm, ctrl.redraw)
       }, [
         h('span', iconTag('O')),
-        h('h3.add', ctrl.trans.noarg('addNewChapter'))
+        h('h3', ctrl.trans.noarg('addNewChapter'))
       ])
     ] : []
   ));

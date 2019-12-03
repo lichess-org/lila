@@ -5,6 +5,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 object UserLagCache {
+
   private val cache: Cache[String, Centis] = Scaffeine()
     .expireAfterWrite(15 minutes)
     .build[String, Centis]

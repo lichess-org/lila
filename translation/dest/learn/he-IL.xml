@@ -95,6 +95,7 @@
   <string name="mateInOneIntro">נצחונך מובטח אם היריב לא מצליח להגן על מלכו.</string>
   <string name="attackYourOpponentsKing">חפש התקפות שח שאין להן הגנה!</string>
   <string name="mateInOneComplete">יפה, זו הדרך לנצחונות בשחמט!</string>
+  <string name="intermediate">דרגה בינונית</string>
   <string name="boardSetup">מצב הלוח</string>
   <string name="howTheGameStarts">פתיחת המשחק</string>
   <string name="boardSetupIntro">שני הצבאות מוכנים לקרב, זה מול זה.</string>

@@ -119,8 +119,8 @@
   <string name="offerDraw">Προσφορά ισοπαλίας</string>
   <string name="draw">Ισοπαλία</string>
   <plurals name="nbPlayers">
-    <item quantity="one">%s συνδεδεμένος παίκτης</item>
-    <item quantity="other">%s συνδεδεμένοι παίκτες</item>
+    <item quantity="one">%s παίκτης</item>
+    <item quantity="other">%s παίκτες</item>
   </plurals>
   <string name="currentGames">Παιχνίδια σε εξέλιξη</string>
   <plurals name="nbGames">
@@ -198,8 +198,8 @@
   <string name="yourOpponentOffersADraw">Ο αντίπαλος σας προτείνει ισοπαλία</string>
   <string name="accept">Αποδοχή</string>
   <string name="decline">Άρνηση</string>
-  <string name="playingRightNow">Παιχνίδια σε εξέλιξη τώρα</string>
-  <string name="eventInProgress">Παιχνίδια σε εξέλιξη τώρα</string>
+  <string name="playingRightNow">Παιχνίδι σε εξέλιξη τώρα</string>
+  <string name="eventInProgress">Σε εξέλιξη τώρα</string>
   <string name="finished">Ολοκληρωμένα</string>
   <string name="finishesX">τελειώνει %s</string>
   <string name="abortGame">Εγκαταλείψτε το παιχνίδι</string>
@@ -352,6 +352,8 @@
   <string name="clickOnTheBoardToMakeYourMove">Κάνετε κλικ στη σκακιέρα για να κινήσετε τα πιόνια και να αποδείξετε πως είστε άνθρωπος.</string>
   <string name="captcha.fail">Παρακαλούμε λύστε το σκακιστικό captcha.</string>
   <string name="notACheckmate">Δεν είναι ματ</string>
+  <string name="whiteCheckmatesInOneMove">Παίζουν τα λευκά, κάντε ματ με μια κίνηση</string>
+  <string name="blackCheckmatesInOneMove">Παίζουν τα μαύρα, κάντε ματ με μια κίνηση</string>
   <string name="retry">Επανάληψη</string>
   <string name="reconnecting">Επανασύνδεση</string>
   <string name="noFriendsOnline">Δεν υπάρχουν συνδεδεμένοι φίλοι</string>
@@ -634,8 +636,8 @@
   <string name="onlyOnInitialPosition">Μόνο στην αρχική διάταξη</string>
   <string name="menu">Κατάλογος</string>
   <string name="castling">Pοκέ</string>
-  <string name="whiteCastlingKingside">Λευκά Ο-Ο</string>
-  <string name="blackCastlingKingside">Μαύρα Ο-Ο</string>
+  <string name="whiteCastlingKingside">Λευκά O-O</string>
+  <string name="blackCastlingKingside">Μαύρα O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s δημοσίευση φόρουμ</item>
     <item quantity="other">%s δημοσιεύσεις φόρουμ</item>
@@ -852,4 +854,13 @@
     <item quantity="one">και αποθηκεύστε %s γραμμή προκίνησης</item>
     <item quantity="other">και αποθηκεύστε %s γραμμές προκίνησης</item>
   </plurals>
+  <string name="pleasantChessExperience">Ο σκοπός μας είναι να προσφέρουμε μια ευχάριστη σκακιστική ατμόσφαιρα για όλους.</string>
+  <string name="goodPractice">Για να πραγματοποιηθεί αυτό, πρέπει να βεβαιωθούμε ότι όλοι οι παίκτες ακολουθούν τους κανόνες.</string>
+  <string name="howToAvoidThis">Πώς να το αποφύγετε αυτό;</string>
+  <string name="playEveryGame">Τελειώστε κάθε παρτίδα που ξεκινάτε.</string>
+  <string name="tryToWin">Προσπαθήστε να νικήσετε (ή να φέρετε ισοπαλία) σε κάθε παιχνίδι που παίζετε.</string>
+  <string name="resignLostGames">Παραιτηθείτε σε παιχνίδια που χάνετε (μην αφήνετε τον χρόνο σας να τελειώσει).</string>
+  <string name="temporaryInconvenience">Συγχωρέστε μας για την προσωρινή δυσφορία,</string>
+  <string name="wishYouGreatGames">και σας ευχόμαστε καλές παρτίδες στο lichess.org.</string>
+  <string name="thankYouForReading">Ευχαριστούμε που αφιερώσατε χρόνο για να να τα διαβάσετε!</string>
 </resources>

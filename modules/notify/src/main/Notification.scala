@@ -95,8 +95,6 @@ object TeamMadeOwner {
   case class Name(value: String) extends AnyVal with StringValue
 }
 
-case object LimitedTournamentInvitation extends NotificationContent("u")
-
 case class TitledTournamentInvitation(
     id: String,
     text: String

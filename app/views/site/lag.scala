@@ -46,7 +46,7 @@ object lag {
             div(cls := "meter"),
             p(
               "The time it takes to send a move from your computer to Lichess server, ",
-              "and get the response back.",
+              "and get the response back. ",
               "It's specific to your ", strong("distance to Lichess (France)"), ", and ",
               "to the ", strong("quality of your Internet connection"), ". ",
               "Lichess developers can not fix your wifi or make light go faster."
@@ -57,8 +57,9 @@ object lag {
           p("You can find both these values at any time, by clicking your username in the top bar."),
           h2("Lag compensation"),
           p(
-            "Lichess compensates network lag, up to one second per move. ",
-            "After your move, ", strong("your average network lag is added to your clock"), ". ",
+            "Lichess compensates network lag. This includes sustained lag and occasional lag spikes. ",
+            "There are limits and heuristics based on time control and the compensated lag so far, ",
+            "so that the result should feel reasonable for both players. ",
             "As a result, having a higher network lag than your opponent is ", strong("not a handicap"), "!"
           )
         )

@@ -82,6 +82,39 @@ object bits {
         )
       }
 
+  def magicLink(form: Form[_], captcha: lila.common.Captcha, ok: Option[Boolean] = None)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Log in by email",
+      moreCss = cssTag("auth"),
+      moreJs = captchaTag
+    ) {
+        main(cls := "auth auth-signup box box-pad")(
+          h1(
+            ok.map { r =>
+              span(cls := (if (r) "is-green" else "is-red"), dataIcon := (if (r) "E" else "L"))
+            },
+            "Log in by email"
+          ),
+          p("We will send you an email containing a link to log you in."),
+          postForm(cls := "form3", action := routes.Auth.magicLinkApply)(
+            form3.group(form("email"), trans.email())(form3.input(_, typ = "email")(autofocus)),
+            views.html.base.captcha(form, captcha),
+            form3.action(form3.submit(trans.emailMeALink()))
+          )
+        )
+      }
+
+  def magicLinkSent(email: String)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Log in by email"
+    ) {
+      main(cls := "page-small box box-pad")(
+        h1(cls := "is-green text", dataIcon := "E")(trans.checkYourEmail()),
+        p("We've sent you an email with a log in link."),
+        p(trans.ifYouDoNotSeeTheEmailCheckOtherPlaces())
+      )
+    }
+
   def checkYourEmailBanner(userEmail: lila.security.EmailConfirm.UserEmail) = frag(
     styleTag("""
 body { margin-top: 45px; }

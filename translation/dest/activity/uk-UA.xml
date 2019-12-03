@@ -74,6 +74,12 @@
     <item quantity="many">Брав участь в %s сеансах одночасної гри</item>
     <item quantity="other">Брав участь в %s сеансів одночасної гри</item>
   </plurals>
+  <plurals name="competedInNbTournaments">
+    <item quantity="one">Змагався в %s турнірі</item>
+    <item quantity="few">Змагався в %s турнірах</item>
+    <item quantity="many">Змагався в %s турнірах</item>
+    <item quantity="other">Змагався в %s турнірів</item>
+  </plurals>
   <string name="signedUp">Зареєструвався на lichess</string>
   <plurals name="joinedNbTeams">
     <item quantity="one">Приєднався до %s команди</item>

@@ -11,6 +11,10 @@ final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit) {
     .removalListener((key: String, value: Boolean, cause) => callback(key))
     .build[String, Boolean]
 
+  @inline private def isNotNull[A](a: A) = a != null
+
+  def get(key: String): Boolean = isNotNull(cache.underlying getIfPresent key)
+
   def put(key: String) = cache.put(key, true)
 
   def remove(key: String) = cache invalidate key

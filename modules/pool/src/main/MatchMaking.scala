@@ -50,7 +50,7 @@ object MatchMaking {
     // score bonus based on how many waves the member missed
     // when the user's sit counter is lower than -3, the maximum bonus becomes lower
     private def missBonus(p: PoolMember) =
-      (p.misses * 15) atMost ((460 + (p.ragesitCounter atMost -3) * 20) atLeast 0)
+      (p.misses * 15) atMost ((460 + (p.rageSitCounter atMost -3) * 20) atLeast 0)
 
     // big malus if players have conflicting rating ranges
     private def rangeMalus(a: PoolMember, b: PoolMember) =
@@ -64,10 +64,10 @@ object MatchMaking {
     // bonus if the two players both have a bad sit counter
     // malus (so negative number as bonus) if neither of those are true, meaning that their sit counters are far away (e.g. 0 and -5)
     private def ragesitBonus(a: PoolMember, b: PoolMember) =
-      if (a.ragesitCounter >= -2 && b.ragesitCounter >= -2) 50 // good players
-      else if (a.ragesitCounter <= -10 && b.ragesitCounter <= -10) 100 // very bad players
-      else if (a.ragesitCounter <= -5 && b.ragesitCounter <= -5) 50 // bad players
-      else (abs(a.ragesitCounter - b.ragesitCounter) atMost 10) * -10 // match of good and bad player
+      if (a.rageSitCounter >= -2 && b.rageSitCounter >= -2) 50 // good players
+      else if (a.rageSitCounter <= -10 && b.rageSitCounter <= -10) 100 // very bad players
+      else if (a.rageSitCounter <= -5 && b.rageSitCounter <= -5) 50 // bad players
+      else (abs(a.rageSitCounter - b.rageSitCounter) atMost 10) * -10 // match of good and bad player
 
     def apply(members: Vector[PoolMember]): Option[Vector[Couple]] = {
       WMMatching(members.toArray, pairScore).fold(

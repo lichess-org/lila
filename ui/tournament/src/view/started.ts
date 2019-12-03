@@ -1,9 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { controls, standing } from './arena';
+import { teamStanding } from './battle';
 import header from './header';
 import tourTable from './table';
 import playerInfo from './playerInfo';
+import teamInfo from './teamInfo';
 import * as pagination from '../pagination';
 import * as tour from '../tournament';
 import TournamentController from '../ctrl';
@@ -32,11 +34,13 @@ export function main(ctrl: TournamentController): MaybeVNodes {
   return [
     header(ctrl),
     gameId ? joinTheGame(ctrl, gameId) : (tour.isIn(ctrl) ? notice(ctrl) : null),
+    teamStanding(ctrl, 'started'),
     controls(ctrl, pag),
     standing(ctrl, pag, 'started'),
   ];
 }
 
-export function table(ctrl: TournamentController): VNode {
-  return ctrl.playerInfo.id ? playerInfo(ctrl) : tourTable(ctrl);
+export function table(ctrl: TournamentController): VNode | undefined {
+  return ctrl.playerInfo.id ? playerInfo(ctrl) :
+    ctrl.teamInfo.requested ? teamInfo(ctrl) : tourTable(ctrl);
 }

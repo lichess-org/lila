@@ -670,11 +670,13 @@ export default class AnalyseCtrl {
   }
 
   cevalSetThreads = (v: number): void => {
+    if (!this.ceval.threads) return;
     this.ceval.threads(v);
     this.cevalReset();
   }
 
   cevalSetHashSize = (v: number): void => {
+    if (!this.ceval.hashSize) return;
     this.ceval.hashSize(v);
     this.cevalReset();
   }
@@ -732,7 +734,7 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval);
+    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();

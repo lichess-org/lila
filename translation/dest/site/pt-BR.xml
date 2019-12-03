@@ -661,7 +661,7 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
   <string name="aboutX">Sobre %s</string>
-  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor grátis de xadrez (%2$s), sem publicidade e open source.</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é um servidor de xadrez gratuito (%2$s), livre, sem anúncios e código aberto.</string>
   <string name="really">realmente</string>
   <string name="contribute">Contribuir</string>
   <string name="contact">Contato</string>

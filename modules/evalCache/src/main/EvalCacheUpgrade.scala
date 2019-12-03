@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 import chess.format.FEN
 import chess.variant.Variant
-import lila.socket.{ Socket, SocketMember }
+import lila.socket.Socket
 import lila.memo.ExpireCallbackMemo
 
 /* Upgrades the user's eval when a better one becomes available,

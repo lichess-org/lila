@@ -13,6 +13,7 @@
     "moduleResolution": "node",
     "target": "ES6",
     "module": "commonjs",
-    "lib": ["DOM", "ES6"]
+    "lib": ["DOM", "ES6"],
+    "types": ["lichess", "jquery", "defer-promise"]
   }
 }

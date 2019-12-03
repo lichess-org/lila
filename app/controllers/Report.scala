@@ -43,7 +43,7 @@ object Report extends LilaController {
 
   private def onInquiryStart(inquiry: ReportModel) =
     inquiry.room match {
-      case Room.Coms => Redirect(routes.Mod.communicationPrivate(inquiry.user))
+      case Room.Comm => Redirect(routes.Mod.communicationPrivate(inquiry.user))
       case _ => Mod.redirect(inquiry.user)
     }
 

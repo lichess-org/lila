@@ -179,13 +179,13 @@ object contact {
         Leaf("insufficient", "Insufficient mating material", frag(
           p(
             "According to the ",
-            a(href := "https://www.fide.com/fide/handbook.html?id=171&view=article")(
-              "FIDE Laws of Chess"
+            a(href := "https://www.fide.com/FIDE/handbook/LawsOfChess.pdf")(
+              "FIDE Laws of Chess §6.9 (pdf)"
             ),
             ", if a checkmate is possible with any legal sequence of moves, then the game is not a draw."
           ),
           p(
-            "It is possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board."
+            "It can be possible to checkmate with only a knight or a bishop, if the opponent has more than a king on the board."
           )
         )),
         Leaf("casual", "No rating points were awarded", frag(
@@ -195,6 +195,29 @@ object contact {
         Leaf("error-page", "Error page", frag(
           p("If you faced an error page, you may report it:"),
           howToReportBugs
+        )),
+        Leaf("security", "Security vulnerability", frag(
+          p(s"Please report security issues to $contactEmail."),
+          p(
+            "Like all contributions to Lichess, security reviews and pentesting are appreciated. ",
+            "Note that Lichess is built by volunteers and we currently do not have a bug bounty program. ",
+            "At your option, we're happy to publicly thank you for any findings."
+          ),
+          p(
+            "Vulnerabilities are relevant even when they are not directly exploitable, ",
+            "for example XSS mitigated by CSP."
+          ),
+          p(
+            "When doing your research, please minimize negative impact for other users. ",
+            "As long as you keep this in mind, testing should not require prior coordination. ",
+            "Avoid spamming, DDoS and volumetric attacks."
+          ),
+          p(
+            "We believe transport encryption should be sufficient for all reports. ",
+            "If you insist on using PGP, please clarify the nature of the message ",
+            "in the plain-text subject and encrypt for ",
+            a(href := "/.well-known/gpg.asc")("multiple recipients"), "."
+          )
         )),
         Leaf("other-bug", "Other bug", frag(
           p("If you found a new bug, you may report it:"),

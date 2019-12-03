@@ -69,6 +69,8 @@ GET   /dasher                          controllers.Dasher.get
 
 # Blog
 GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
+GET   /blog/all                        controllers.Blog.all
+GET   /blog/:year                      controllers.Blog.year(year: Int)
 GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
 GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
 GET   /blog.atom                       controllers.Blog.atom
@@ -116,7 +118,6 @@ GET   /study/search                    controllers.Study.search(q: String ?= "",
 GET   /study/$id<\w{8}>                controllers.Study.show(id: String)
 POST  /study                           controllers.Study.create
 POST  /study/as                        controllers.Study.createAs
-GET   /study/$id<\w{8}>/socket/v:apiVersion controllers.Study.websocket(id: String, apiVersion: Int)
 GET   /study/$id<\w{8}>.pgn            controllers.Study.pgn(id: String)
 GET   /study/$id<\w{8}>/$chapterId<\w{8}>.pgn controllers.Study.chapterPgn(id: String, chapterId: String)
 POST  /study/$id<\w{8}>/delete         controllers.Study.delete(id: String)
@@ -137,8 +138,7 @@ GET   /broadcast/:slug/$id<\w{8}>          controllers.Relay.show(slug: String, 
 GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
 GET   /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.edit(slug: String, id: String)
 POST  /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.update(slug: String, id: String)
-# GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(slug: String, id: String, chapterId: String)
-GET   /broadcast/$id<\w{8}>/socket/v:apiVersion controllers.Relay.websocket(id: String, apiVersion: Int)
+POST  /broadcast/:slug/$id<\w{8}>/reset    controllers.Relay.reset(slug: String, id: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -184,10 +184,6 @@ GET   /streamer/:username              controllers.Streamer.show(username: Strin
 GET   /$gameId<\w{8}>                            controllers.Round.watcher(gameId: String, color: String = "white")
 GET   /$gameId<\w{8}>/$color<white|black>        controllers.Round.watcher(gameId: String, color: String)
 GET   /$fullId<\w{12}>                           controllers.Round.player(fullId: String)
-# mobile app BC
-GET   /$gameId<\w{8}>/$color<white|black>/socket controllers.Round.websocketWatcher(gameId: String, color: String, apiVersion: Int = 3)
-GET   /$gameId<\w{8}>/$color<white|black>/socket/v:apiVersion controllers.Round.websocketWatcher(gameId: String, color: String, apiVersion: Int)
-GET   /$fullId<\w{12}>/socket/v:apiVersion       controllers.Round.websocketPlayer(fullId: String, apiVersion: Int)
 GET   /$gameId<\w{8}>/$color<white|black>/sides  controllers.Round.sides(gameId: String, color: String)
 GET   /$gameId<\w{8}>/continue/:mode             controllers.Round.continue(gameId: String, mode: String)
 GET   /$gameId<\w{8}>/note                       controllers.Round.readNote(gameId: String)
@@ -214,17 +210,19 @@ GET   /tournament                             controllers.Tournament.home(page: 
 GET   /tournament/featured                    controllers.Tournament.featured
 GET   /tournament/new                         controllers.Tournament.form
 POST  /tournament/new                         controllers.Tournament.create
+GET   /tournament/team-battle/new/:teamId     controllers.Tournament.teamBattleForm(teamId: String)
+GET   /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleEdit(id: String)
+POST  /tournament/team-battle/edit/:id        controllers.Tournament.teamBattleUpdate(id: String)
 GET   /tournament/calendar                    controllers.Tournament.calendar
 GET   /tournament/$id<\w{8}>                  controllers.Tournament.show(id: String)
 GET   /tournament/$id<\w{8}>/standing/:page   controllers.Tournament.standing(id: String, page: Int)
 GET   /tournament/$id<\w{8}>/page-of/:userId  controllers.Tournament.pageOf(id: String, userId: String)
-GET   /tournament/$id<\w{8}>/socket/v:apiVersion controllers.Tournament.websocket(id: String, apiVersion: Int)
 POST  /tournament/$id<\w{8}>/join             controllers.Tournament.join(id: String)
 POST  /tournament/$id<\w{8}>/withdraw         controllers.Tournament.pause(id: String)
 GET   /tournament/$id<\w{8}>/player/:user     controllers.Tournament.player(id: String, user: String)
+GET   /tournament/$id<\w{8}>/team/:team       controllers.Tournament.teamInfo(id: String, team: String)
 POST  /tournament/$id<\w{8}>/terminate        controllers.Tournament.terminate(id: String)
 GET   /tournament/help                        controllers.Tournament.help(system: Option[String] ?= None)
-GET   /tournament/limited-invitation          controllers.Tournament.limitedInvitation
 GET   /tournament/leaderboard                 controllers.Tournament.leaderboard
 GET   /tournament/shields                     controllers.Tournament.shields
 GET   /tournament/shields/:categ              controllers.Tournament.categShields(categ: String)
@@ -243,7 +241,7 @@ GET   /simul/new                              controllers.Simul.form
 POST  /simul/new                              controllers.Simul.create
 GET   /simul/reload                           controllers.Simul.homeReload
 GET   /simul/$id<\w{8}>                       controllers.Simul.show(id: String)
-GET   /simul/$id<\w{8}>/socket/v:apiVersion   controllers.Simul.websocket(id: String, apiVersion: Int)
+POST  /simul/$id<\w{8}>/host-ping             controllers.Simul.hostPing(id: String)
 POST  /simul/$id<\w{8}>/accept/:user          controllers.Simul.accept(id: String, user: String)
 POST  /simul/$id<\w{8}>/reject/:user          controllers.Simul.reject(id: String, user: String)
 POST  /simul/$id<\w{8}>/start                 controllers.Simul.start(id: String)
@@ -260,6 +258,7 @@ GET   /team/me                                controllers.Team.mine
 GET   /team/all                               controllers.Team.all(page: Int ?= 1)
 GET   /team/requests                          controllers.Team.requests
 GET   /team/search                            controllers.Team.search(text: String ?= "", page: Int ?= 1)
+GET   /team/autocomplete                      controllers.Team.autocomplete
 GET   /team/:id                               controllers.Team.show(id: String, page: Int ?= 1)
 POST  /team/:id/join                          controllers.Team.join(id: String)
 POST  /team/:id/quit                          controllers.Team.quit(id: String)
@@ -285,7 +284,6 @@ GET   /game/export/png/$gameId<\w{8}>.png     controllers.Export.png(gameId: Str
 
 # Fishnet
 POST  /fishnet/acquire                        controllers.Fishnet.acquire
-POST  /fishnet/move/$workId<\w{8}>            controllers.Fishnet.move(workId: String)
 POST  /fishnet/analysis/$workId<\w{8}>        controllers.Fishnet.analysis(workId: String)
 POST  /fishnet/abort/$workId<\w{8}>           controllers.Fishnet.abort(workId: String)
 GET   /fishnet/key/$key<\w{8}>                controllers.Fishnet.keyExists(key: String)
@@ -316,7 +314,6 @@ POST  /challenge/$id<\w{8}>/accept     controllers.Challenge.accept(id: String)
 POST  /challenge/$id<\w{8}>/decline    controllers.Challenge.decline(id: String)
 POST  /challenge/$id<\w{8}>/cancel     controllers.Challenge.cancel(id: String)
 POST  /challenge/$id<\w{8}>/to-friend  controllers.Challenge.toFriend(id: String)
-GET   /challenge/$id<\w{8}>/socket/v:apiVersion controllers.Challenge.websocket(id: String, apiVersion: Int)
 POST  /challenge/rematch-of/$id<\w{8}> controllers.Challenge.rematchOf(id: String)
 
 # Notify
@@ -349,6 +346,10 @@ POST  /password/reset/confirm/:token   controllers.Auth.passwordResetConfirmAppl
 POST  /auth/set-fp/:fp/:ms             controllers.Auth.setFingerPrint(fp: String, ms: Int)
 POST  /auth/token                      controllers.Auth.makeLoginToken
 GET   /auth/token/:token               controllers.Auth.loginWithToken(token: String)
+GET   /auth/magic-link                 controllers.Auth.magicLink
+POST  /auth/magic-link/send            controllers.Auth.magicLinkApply
+GET   /auth/magic-link/sent/:email     controllers.Auth.magicLinkSent(email: String)
+GET   /auth/magic-link/login/:token    controllers.Auth.magicLinkLogin(token: String)
 
 # Mod
 POST  /mod/:username/engine/:v         controllers.Mod.engine(username: String, v: Boolean)
@@ -382,8 +383,8 @@ GET   /mod/public-chat                 controllers.Mod.publicChat
 GET   /mod/email-confirm               controllers.Mod.emailConfirm
 GET   /mod/chat-panic                  controllers.Mod.chatPanic
 POST  /mod/chat-panic                  controllers.Mod.chatPanicPost
-GET   /mod/print/*fh                   controllers.Mod.print(fh: String)
-POST  /mod/print/ban/:v/*fh            controllers.Mod.printBan(v: Boolean, fh: String)
+GET   /mod/print/:fh                   controllers.Mod.print(fh: String)
+POST  /mod/print/ban/:v/:fh            controllers.Mod.printBan(v: Boolean, fh: String)
 GET   /api/stream/mod                  controllers.Mod.eventStream
 
 # Irwin
@@ -465,6 +466,7 @@ GET    /stat/rating/distribution/:perf controllers.Stat.ratingDistribution(perf:
 GET   /api                             controllers.Api.index
 POST  /api/users                       controllers.Api.usersByIds
 GET   /api/user/puzzle-activity        controllers.Puzzle.activity
+GET   /api/user/:name/tournament/created controllers.Api.tournamentsByOwner(name: String)
 GET   /api/user/:name                  controllers.Api.user(name: String)
 GET   /api/user/:name/activity         controllers.Api.activity(name: String)
 GET   /api/user/:name/following        controllers.Relation.apiFollowing(name: String)
@@ -477,6 +479,7 @@ GET   /api/tournament/:id              controllers.Api.tournament(id: String)
 GET   /api/tournament/:id/games        controllers.Api.tournamentGames(id: String)
 GET   /api/tournament/:id/results      controllers.Api.tournamentResults(id: String)
 POST  /api/tournament                  controllers.Tournament.apiCreate
+GET   /api/simul                       controllers.Simul.apiList
 GET   /api/status                      controllers.Api.status
 GET   /api/users/status                controllers.Api.usersStatus
 GET   /api/users/titled                controllers.Api.titledUsers
@@ -556,6 +559,7 @@ GET   /mobile                          controllers.Main.mobile
 GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
+GET   /verify-title                    controllers.Main.verifyTitle
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli
@@ -601,3 +605,6 @@ GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: 
 GET   /assets/*file                    controllers.Assets.at(path = "/public", file: String)
 
 GET   /robots.txt                      controllers.Main.robots
+
+OPTIONS /                              controllers.Options.root
+OPTIONS /*url                          controllers.Options.all(url: String)

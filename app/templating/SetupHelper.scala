@@ -42,8 +42,8 @@ trait SetupHelper { self: I18nHelper =>
 
   def translatedReasonChoices(implicit ctx: Context) = List(
     (Reason.Cheat.key, trans.cheat.txt()),
-    (Reason.Insult.key, trans.insult.txt()),
-    (Reason.Troll.key, trans.troll.txt()),
+    (Reason.Comm.key, trans.insult.txt()),
+    (Reason.Comm.key, trans.troll.txt()),
     (Reason.Other.key, trans.other.txt())
   )
 

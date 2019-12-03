@@ -3,9 +3,9 @@
   .slist {
     td {
       padding: 1em inherit;
-    }
-    td.duration {
-      white-space: nowrap;
+      &.duration {
+        white-space: nowrap;
+      }
     }
     .header {
       letter-spacing: 2px;
@@ -39,7 +39,7 @@
     opacity: 0.6;
   }
   .tour-scheduled .icon i {
-    color: #d59120;
+    color: $c-brag;
     opacity: 0.8;
   }
 }

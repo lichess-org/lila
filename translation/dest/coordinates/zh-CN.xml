@@ -8,7 +8,7 @@
   <string name="knowingTheChessBoard">了解棋盘坐标是一门很重要的象棋技能：</string>
   <string name="mostChessCourses">象棋课程及练习普遍使用代数记谱法。</string>
   <string name="talkToYourChessFriends">这能让您更便捷地与棋友交谈，因为你们都懂这门“象棋语言”。</string>
-  <string name="youCanAnalyseAGameMoreEffectively">如果不需寻找格子的名称，分析对局会更高效。</string>
-  <string name="aSquareNameAppears">棋盘中间出现格子的名称之后，您必须点击正确的格子。您有30秒的时间认出尽可能多的格子！</string>
+  <string name="youCanAnalyseAGameMoreEffectively">快速识别格子可以高效的分析对局。</string>
+  <string name="aSquareNameAppears">棋盘中间出现格子的名称之后，您必须点击正确的格子。在30秒内认出尽可能多的格子！</string>
   <string name="startTraining">开始训练</string>
 </resources>

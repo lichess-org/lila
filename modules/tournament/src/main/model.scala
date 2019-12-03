@@ -1,5 +1,7 @@
 package lila.tournament
 
+import lila.hub.lightTeam.LightTeam
+
 case class TournamentTop(value: List[Player]) extends AnyVal
 
 case class TourMiniView(tour: Tournament, top: Option[TournamentTop])
@@ -22,7 +24,6 @@ case class VisibleTournaments(
 }
 
 case class PlayerInfoExt(
-    tour: Tournament,
     user: lila.user.User,
     player: Player,
     recentPovs: List[lila.game.LightPov]

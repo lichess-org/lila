@@ -49,7 +49,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     import data._
     if (users.size < 2) fuccess(Nil)
     else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (data.tour.isRecentlyStarted) naivePairings(tour, idles)
+      if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) proximityPairings(tour, idles)
       else if (idles.size > maxGroupSize) {
         // make sure groupSize is even with / 4 * 2
         val groupSize = (idles.size / 4 * 2) atMost maxGroupSize
@@ -68,14 +68,14 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     }.sequenceFu
     else preps.map(_ toPairing Random.nextBoolean).sequenceFu
 
-  private def naivePairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
+  private def proximityPairings(tour: Tournament, players: RankedPlayers): List[Pairing.Prep] =
     players grouped 2 collect {
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
     case x if x < 2 => Nil
-    case x if x <= 10 => OrnicarPairing(data, players)
+    case x if x <= 10 && !data.tour.isTeamBattle => OrnicarPairing(data, players)
     case _ => AntmaPairing(data, players)
   }
 

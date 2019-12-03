@@ -1,8 +1,9 @@
 package lila.tournament
 
+import lila.common.LightUser
+import lila.hub.lightTeam.TeamId
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
-import lila.common.LightUser
 
 import ornicar.scalalib.Random
 
@@ -15,7 +16,8 @@ private[tournament] case class Player(
     withdraw: Boolean = false,
     score: Int = 0,
     fire: Boolean = false,
-    performance: Int = 0
+    performance: Int = 0,
+    team: Option[TeamId] = None
 ) {
 
   def id = _id
@@ -42,11 +44,17 @@ private[tournament] object Player {
 
   case class Result(player: Player, lightUser: LightUser, rank: Int)
 
-  private[tournament] def make(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf): Player = new Player(
+  private[tournament] def make(
+    tourId: Tournament.ID,
+    user: User,
+    perfLens: Perfs => Perf,
+    team: Option[TeamId]
+  ): Player = new Player(
     _id = Random.nextString(8),
     tourId = tourId,
     userId = user.id,
     rating = perfLens(user.perfs).intRating,
-    provisional = perfLens(user.perfs).provisional
+    provisional = perfLens(user.perfs).provisional,
+    team = team
   )
 }

@@ -6,7 +6,6 @@ import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.concurrent.duration._
 
-import actorApi._
 import chess.StartingPosition
 
 private final class TournamentScheduler private (api: TournamentApi) extends Actor {
@@ -414,7 +413,7 @@ Thank you all, you rock!"""
 
   def receive = {
 
-    case ScheduleNow =>
+    case TournamentScheduler.ScheduleNow =>
       TournamentRepo.scheduledUnfinished map { tourneys =>
         self ! ScheduleNowWith(tourneys)
       }
@@ -431,6 +430,8 @@ Thank you all, you rock!"""
 }
 
 private object TournamentScheduler {
+
+  case object ScheduleNow
 
   def start(system: ActorSystem, api: TournamentApi) = {
     val ref = system.actorOf(Props(new TournamentScheduler(api)))

@@ -1,11 +1,8 @@
 package lila
 
-import lila.socket.WithSocket
 import lila.hub.TrouperMap
 
-package object study extends PackageObject with WithSocket {
-
-  type SocketMap = TrouperMap[StudySocket]
+package object study extends PackageObject {
 
   private[study] val logger = lila.log("study")
 

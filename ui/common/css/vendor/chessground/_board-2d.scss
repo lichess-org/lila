@@ -9,6 +9,8 @@ $board-files: (
 'marble': 'marble.jpg',
 'brown': 'svg/brown.svg',
 'green': 'svg/green.svg',
+'green-plastic': 'green-plastic.png',
+'green-glass': 'green-glass.png',
 'olive': 'olive.jpg',
 'purple': 'svg/purple.svg',
 'grey': 'grey.jpg',
@@ -18,6 +20,7 @@ $board-files: (
 'metal': 'metal-1024.jpg',
 'maple': 'maple.jpg',
 'newspaper': 'newspaper.png',
+'pink': 'pink-pyramid.png',
 );
 
 @each $color, $file in $board-files {

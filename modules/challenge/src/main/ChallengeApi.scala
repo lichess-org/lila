@@ -4,6 +4,7 @@ import akka.actor._
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.socket.SendTo
@@ -15,9 +16,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Int,
-    socketMap: SocketMap,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    lilaBus: lila.common.Bus
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   import Challenge._
@@ -32,7 +31,7 @@ final class ChallengeApi(
       repo like c flatMap { _ ?? repo.cancel }
     } >> (repo insert c) >>- {
       uncacheAndNotify(c)
-      lilaBus.publish(Event.Create(c), 'challenge)
+      Bus.publish(Event.Create(c), 'challenge)
     } inject true
   }
 
@@ -69,7 +68,7 @@ final class ChallengeApi(
       case None => fuccess(None)
       case Some(pov) => (repo accept c) >>- {
         uncacheAndNotify(c)
-        lilaBus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
+        Bus.publish(Event.Accept(c, user.map(_.id)), 'challenge)
       } inject pov.some
     }
 
@@ -80,7 +79,7 @@ final class ChallengeApi(
     val challenge = c setDestUser u
     repo.update(challenge) >>- {
       uncacheAndNotify(challenge)
-      lilaBus.publish(Event.Create(challenge), 'challenge)
+      Bus.publish(Event.Create(challenge), 'challenge)
     }
   }
 
@@ -113,15 +112,19 @@ final class ChallengeApi(
   }
 
   private def socketReload(id: Challenge.ID): Unit =
-    socketMap.tell(id, ChallengeSocket.Reload)
+    socket foreach (_ reload id)
 
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)
     lang <- UserRepo langOf userId map {
       _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
     }
-  } yield lilaBus.publish(
+  } yield Bus.publish(
     SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
     'socketUsers
   )
+
+  // work around circular dependency
+  private var socket: Option[ChallengeSocket] = None
+  private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
 }

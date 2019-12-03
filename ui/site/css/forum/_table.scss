@@ -4,9 +4,6 @@
     padding-top: 1.5rem;
     padding-bottom: 1.5rem;
   }
-  &.topics td {
-    @extend %break-word;
-  }
 
   td.right, & th.right {
     display: none;

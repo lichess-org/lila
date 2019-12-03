@@ -24,6 +24,7 @@
     grid-template-rows: auto max-content;
     grid-template-areas:
     'main side'
+    'main uchat'
     '.    uchat';
   }
 
@@ -32,6 +33,7 @@
     grid-template-rows: auto fit-content(0);
     grid-template-areas:
     'side  main main'
+    'uchat main main'
     'uchat .    .';
   }
 }

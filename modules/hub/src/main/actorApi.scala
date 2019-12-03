@@ -13,7 +13,7 @@ case object DeployPost extends Deploy("deployPost")
 case object Shutdown // on actor system termination
 
 // announce something to all clients
-case class Announce(msg: String)
+case class Announce(msg: String, date: DateTime, json: JsObject)
 
 package streamer {
   case class StreamsOnAir(html: String)
@@ -27,8 +27,6 @@ package map {
 }
 
 package socket {
-  case class WithUserIds(f: Iterable[String] => Unit)
-  case class HasUserId(userId: String, promise: Promise[Boolean])
   case class SendTo(userId: String, message: JsObject)
   object SendTo {
     def apply[A: Writes](userId: String, typ: String, data: A): SendTo =
@@ -42,8 +40,8 @@ package socket {
   object remote {
     case class TellSriIn(sri: String, user: Option[String], msg: JsObject)
     case class TellSriOut(sri: String, payload: JsValue)
-    case class ConnectUser(userId: String)
   }
+  case class BotIsOnline(userId: String, isOnline: Boolean)
 }
 
 package report {
@@ -82,11 +80,11 @@ package mod {
   case class KickFromRankings(userId: String)
   case class SetPermissions(userId: String, permissions: List[String])
   case class AutoWarning(userId: String, subject: String)
+  case class Impersonate(userId: String, by: Option[String])
 }
 
 package playban {
   case class Playban(userId: String, mins: Int)
-  case class SitcounterClose(userId: String)
 }
 
 package captcha {
@@ -191,7 +189,7 @@ package game {
 }
 
 package tv {
-  case class Select(msg: JsObject)
+  case class TvSelect(gameId: String, speed: chess.Speed, data: JsObject)
 }
 
 package notify {
@@ -241,12 +239,12 @@ package round {
       simulId: String,
       opponentUserId: String
   )
-  case class NbRounds(nb: Int)
   case class Berserk(gameId: String, userId: String)
   case class IsOnGame(color: chess.Color, promise: Promise[Boolean])
-  sealed trait SocketEvent
-  case class TourStanding(json: JsArray)
-  case class FishnetPlay(uci: Uci, currentFen: chess.format.FEN)
+  case class TourStandingOld(data: JsArray)
+  case class TourStanding(tourId: String, data: JsArray)
+  case class FishnetPlay(uci: Uci, ply: Int)
+  case object FishnetStart
   case class BotPlay(playerId: String, uci: Uci, promise: Option[scala.concurrent.Promise[Unit]] = None)
   case class RematchOffer(gameId: String)
   case class RematchYes(playerId: String)

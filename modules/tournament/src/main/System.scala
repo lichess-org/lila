@@ -35,6 +35,7 @@ trait PairingSystem {
 
 trait Score {
   val value: Int
+  def isWin: Option[Boolean]
 }
 
 trait ScoreSheet {

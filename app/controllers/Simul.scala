@@ -16,13 +16,24 @@ object Simul extends LilaController {
   private def env = Env.simul
   private def forms = lila.simul.SimulForm
 
+  import Team.teamsIBelongTo
+
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
   val home = Open { implicit ctx =>
     pageHit
-    fetchSimuls map {
-      case ((created, started), finished) =>
-        Ok(html.simul.home(created, started, finished))
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        Ok(html.simul.home(created, started, finished)).fuccess
+    }
+  }
+
+  val apiList = Action.async {
+    fetchSimuls flatMap {
+      case created ~ started ~ finished =>
+        env.jsonView.apiAll(created, started, finished) map { json =>
+          Ok(json) as JSON
+        }
     }
   }
 
@@ -60,6 +71,13 @@ object Simul extends LilaController {
       ctx.me.fold(true) { // anon can see public chats
         Env.chat.panic.allowed
       }
+
+  def hostPing(simulId: String) = Open { implicit ctx =>
+    AsHost(simulId) { simul =>
+      Env.simul.cleaner hostPing simul
+      jsonOkResult
+    }
+  }
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
@@ -142,19 +160,10 @@ object Simul extends LilaController {
     }
   }
 
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    getSocketSri("sri") ?? { sri =>
-      env.socketHandler.join(id, sri, ctx.me, getSocketVersion, apiVersion)
-    }
-  }
-
   private def AsHost(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
     env.repo.find(simulId) flatMap {
       case None => notFound
       case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)
     }
-
-  private def teamsIBelongTo(me: lila.user.User): Fu[TeamIdsWithNames] =
-    Env.team.api.mine(me) map { _.map(t => t._id -> t.name) }
 }

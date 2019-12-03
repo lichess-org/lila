@@ -2,6 +2,7 @@ package lila.forum
 
 import actorApi._
 import akka.actor.ActorSelection
+import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
@@ -20,8 +21,7 @@ final class PostApi(
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier,
-    bus: lila.common.Bus
+    mentionNotifier: MentionNotifier
 ) {
 
   import BSONHandlers._
@@ -69,7 +69,7 @@ final class PostApi(
                 }
                 lila.mon.forum.post.create()
                 mentionNotifier.notifyMentionedUsers(post, topic)
-                bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+                Bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
               } inject post
         }
     }

@@ -8,6 +8,7 @@ import lila.oauth.OAuthServer
 import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
+import lila.common.Bus
 
 final class Env(
     config: Config,
@@ -133,6 +134,12 @@ final class Env(
     tokenerSecret = PasswordResetSecret
   )
 
+  lazy val magicLink = new MagicLink(
+    mailgun = mailgun,
+    baseUrl = NetBaseUrl,
+    tokenerSecret = PasswordResetSecret
+  )
+
   lazy val emailChange = new EmailChange(
     mailgun = mailgun,
     baseUrl = NetBaseUrl,
@@ -156,8 +163,7 @@ final class Env(
 
   private lazy val disposableEmailDomain = new DisposableEmailDomain(
     providerUrl = DisposableEmailProviderUrl,
-    checkMailBlocked = () => checkMail.fetchAllBlocked,
-    bus = system.lilaBus
+    checkMailBlocked = () => checkMail.fetchAllBlocked
   )
 
   import reactivemongo.bson._
@@ -186,7 +192,7 @@ final class Env(
 
   def cli = new Cli
 
-  system.lilaBus.subscribeFun('fishnet) {
+  Bus.subscribeFun('fishnet) {
     case lila.hub.actorApi.fishnet.NewKey(userId, key) =>
       automaticEmail.onFishnetKey(userId, key)(lila.i18n.defaultLang)
   }

@@ -98,12 +98,12 @@ case object Glicko {
     )
   }
 
-  sealed abstract class Result(val v: Double) {
+  sealed abstract class Result {
     def negate: Result
   }
   object Result {
-    case object Win extends Result(1) { def negate = Loss }
-    case object Loss extends Result(0) { def negate = Win }
-    case object Draw extends Result(0.5) { def negate = Draw }
+    case object Win extends Result { def negate = Loss }
+    case object Loss extends Result { def negate = Win }
+    case object Draw extends Result { def negate = Draw }
   }
 }

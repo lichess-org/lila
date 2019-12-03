@@ -7,6 +7,7 @@ import play.api.Play.current
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.common.Bus
 import lila.user.User
 
 private final class Streaming(
@@ -63,7 +64,7 @@ private final class Streaming(
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: String =>
-          context.system.lilaBus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
+          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -72,7 +73,7 @@ private final class Streaming(
           import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
           Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
         }
-        context.system.lilaBus.publish(
+        Bus.publish(
           lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
           'streamStart
         )
@@ -94,26 +95,39 @@ private final class Streaming(
   }
 
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
-    val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
-    userIds.nonEmpty ?? {
-      val url = WS.url("https://api.twitch.tv/helix/streams")
-        .withQueryString(
-          (("first" -> "100") :: userIds.map("user_login" -> _)): _*
-        )
-        .withHeaders(
-          "Client-ID" -> twitchClientId
-        )
-      logger.info(url.uri.toString)
-      url.get().map { res =>
-        res.json.validate[Twitch.Result](twitchResultReads) match {
-          case JsSuccess(data, _) => data.streams(
-            keyword,
-            streamers,
-            alwaysFeatured().value.map(_.toLowerCase)
+    val maxIds = 100
+    val allTwitchStreamers = streamers.flatMap { s =>
+      s.twitch map (s.id -> _)
+    }
+    val futureTwitchStreamers: Fu[List[Streamer.Twitch]] =
+      if (allTwitchStreamers.size > maxIds)
+        api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
+          allTwitchStreamers collect {
+            case (streamerId, twitch) if ids(streamerId) => twitch
+          }
+        }
+      else fuccess(allTwitchStreamers.map(_._2))
+    futureTwitchStreamers flatMap { twitchStreamers =>
+      twitchStreamers.nonEmpty ?? {
+        val twitchUserIds = twitchStreamers.map(_.userId)
+        val url = WS.url("https://api.twitch.tv/helix/streams")
+          .withQueryString(
+            (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
           )
-          case JsError(err) =>
-            logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
-            Nil
+          .withHeaders(
+            "Client-ID" -> twitchClientId
+          )
+        url.get().map { res =>
+          res.json.validate[Twitch.Result](twitchResultReads) match {
+            case JsSuccess(data, _) => data.streams(
+              keyword,
+              streamers,
+              alwaysFeatured().value.map(_.toLowerCase)
+            )
+            case JsError(err) =>
+              logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+              Nil
+          }
         }
       }
     }

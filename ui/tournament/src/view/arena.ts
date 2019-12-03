@@ -2,6 +2,7 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
 import { player as renderPlayer, ratio2percent, bind, dataIcon, playerName } from './util';
+import { teamName } from './battle';
 import { MaybeVNodes } from '../interfaces';
 import * as button from './button';
 import * as pagination from '../pagination';
@@ -15,6 +16,7 @@ function scoreTag(s) {
 function playerTr(ctrl: TournamentController, player) {
   const userId = player.name.toLowerCase(),
     nbScores = player.sheet.scores.length;
+  const battle = ctrl.data.teamBattle;
   return h('tr', {
     key: userId,
     class: {
@@ -31,13 +33,15 @@ function playerTr(ctrl: TournamentController, player) {
         'title': ctrl.trans.noarg('pause')
       }
     }) : player.rank),
-    h('td.player', renderPlayer(player, false, true, userId === ctrl.data.defender)),
+    h('td.player', [
+      renderPlayer(player, false, true, userId === ctrl.data.defender),
+      ...(battle && player.team ? [' ', teamName(battle, player.team)] : [])
+    ]),
     h('td.sheet', player.sheet.scores.map(scoreTag)),
     h('td.total', [
-      h('strong',
-        player.sheet.fire && !ctrl.data.isFinished ?
-        h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
-        h('strong', player.sheet.total))
+      player.sheet.fire && !ctrl.data.isFinished ?
+      h('strong.is-gold', { attrs: dataIcon('Q') }, player.sheet.total) :
+      h('strong', player.sheet.total)
     ])
   ]);
 }

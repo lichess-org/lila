@@ -1,8 +1,10 @@
 package lila.study
 
+import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import play.api.libs.json._
 import reactivemongo.api.ReadPreference
 import reactivemongo.bson._
+import scala.concurrent.duration._
 
 import chess.Color
 import chess.format.pgn.{ Tag, Tags }
@@ -24,13 +26,18 @@ final class StudyMultiBoard(
 
   import StudyMultiBoard._
 
-  def json(study: Study, page: Int, playing: Boolean): Fu[JsObject] = get(study, page, playing) map { p =>
-    PaginatorJson(p)
-  }
+  def json(studyId: Study.Id, page: Int, playing: Boolean): Fu[JsObject] = {
+    if (page == 1 && !playing) firstPageCache.get(studyId)
+    else fetch(studyId, page, playing)
+  } map { PaginatorJson(_) }
 
-  private def get(study: Study, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = {
+  private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] = Scaffeine()
+    .expireAfterWrite(4 seconds)
+    .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, false) }
 
-    val selector = $doc("studyId" -> study.id) ++ playing.??(playingSelector)
+  private def fetch(studyId: Study.Id, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = {
+
+    val selector = $doc("studyId" -> studyId) ++ playing.??(playingSelector)
 
     /* If players are found in the tags,
      * return the last mainline node.
@@ -43,8 +50,7 @@ final class StudyMultiBoard(
         sort = $sort asc "order",
         runCommand = runCommand,
         command = $doc(
-          "map" -> """var node = this.root, child, tagPrefixes = ['White','Black','Result'], result =
-          {name:this.name,orientation:this.setup.orientation,tags:this.tags.filter(t => tagPrefixes.find(p => t.startsWith(p)))};
+          "map" -> """var node = this.root, child, tagPrefixes = ['White','Black','Result'], result = {name:this.name,orientation:this.setup.orientation,tags:this.tags.filter(t => tagPrefixes.find(p => t.startsWith(p)))};
 if (result.tags.length > 1) { while(child = node.n[0]) { node = child }; }
 result.fen = node.f;
 result.uci = node.u;

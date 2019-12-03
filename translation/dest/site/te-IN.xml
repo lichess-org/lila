@@ -33,6 +33,7 @@
   <string name="blackPlays">ఇప్పుడు నలుపుసైన్యం వంతు</string>
   <string name="opponentLeftChoices">మీ ప్రత్యర్థి బహుశా ఆట విడిచి వెళ్లిపోయారేమో. మీరు కాసేపు ఆగి చూడవచ్చు, లేదా గెలుపోటములు సమానంగా పంచుకోవచ్చు, లేదా విజయం ప్రకటించుకోవచ్చు.</string>
   <string name="makeYourOpponentResign">మీ ప్రత్యర్థిని ఓడించండి</string>
+  <string name="forceResignation">గెలుపు పొందడం</string>
   <string name="forceDraw">గెలుపోటములు సమానంగా పంచుకోండి</string>
   <string name="talkInChat">దయచేసి బాతాఖానీ లో మర్యాదగా మసలుకోండి!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">ఈ లింకుకు మొదట వచ్చిన వారు మీతో ఆడతారు.</string>
@@ -121,4 +122,14 @@
   <string name="logOut">నిష్క్రమించండి</string>
   <string name="signIn">ప్రవేశించండి</string>
   <string name="youNeedAnAccountToDoThat">అది చెయ్యడానికి ఒక ఖాతా అవసరం</string>
+  <string name="signUp">దరఖాస్తు</string>
+  <string name="computersAreNotAllowedToPlay">కంప్యూటర్ గానీ కంప్యూటర్ ఆధారిత ఆటగాళలను కానీ మేము అనుమతించం. దయచేసి చేస్ ఎంజన్ల, డేటా బేసుల లేక ఇతర ఆటగాళల సహకారం పొందకండి. ఒకటి కంటె ఎక్కువ అకౌంట్లు వాడటం నిషేదం. ఎక్కువ అకౌంట్లు సృష్టించడం లేక వాడటం వంటి మరియు పైనా చెప్పిన పనులు చేస్తే తమ అకౌంట్ నిషేదించబడగలదని గమనించవలసిందిగా కోరుతున్నాం.</string>
+  <string name="games">ఆటలు</string>
+  <string name="xPostedInForumY">%2$s అనే టాపికు పై %1$s పోస్టు చేశారు</string>
+  <string name="players">ఆటగాళ్లు</string>
+  <string name="minutesPerSide">గడువు</string>
+  <string name="variant">రకం</string>
+  <string name="variants">రకాలు</string>
+  <string name="timeControl">సమయ పాలన</string>
+  <string name="oneDay">ఒక రోజు</string>
 </resources>

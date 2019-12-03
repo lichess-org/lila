@@ -14,9 +14,11 @@ final class ReportApi(
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
+    slackApi: lila.slack.SlackApi,
     isOnline: User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scoreThreshold: () => Int
+    scoreThreshold: () => Int,
+    slackScoreThreshold: () => Int
 ) {
 
   import BSONHandlers._
@@ -28,13 +30,16 @@ final class ReportApi(
     (!c.reporter.user.reportban && !isAlreadySlain(c)) ?? {
       scorer(c) map (_ withScore score) flatMap {
         case scored @ Candidate.Scored(candidate, _) =>
-          coll.find($doc(
+          coll.uno[Report]($doc(
             "user" -> candidate.suspect.user.id,
             "reason" -> candidate.reason,
             "open" -> true
-          )).one[Report].flatMap { existing =>
-            val report = Report.make(scored, existing)
+          )).flatMap { prev =>
+            val report = Report.make(scored, prev)
             lila.mon.mod.report.create(report.reason.key)()
+            if (report.isRecentComm &&
+              report.score.value >= slackScoreThreshold() &&
+              prev.exists(_.score.value < slackScoreThreshold())) slackApi.commReportBurst(c.suspect.user)
             coll.update($id(report.id), report, upsert = true).void >>
               autoAnalysis(candidate)
           } >>- monitorOpen
@@ -44,8 +49,8 @@ final class ReportApi(
   def commFlag(reporter: Reporter, suspect: Suspect, resource: String, text: String) = create(Candidate(
     reporter,
     suspect,
-    Reason.CommFlag,
-    s"[FLAG] $resource ${text take 140}"
+    Reason.Comm,
+    s"${Reason.Comm.flagText} $resource ${text take 140}"
   ))
 
   private def monitorOpen = {
@@ -58,7 +63,7 @@ final class ReportApi(
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
-      (candidate.isAboutComm && candidate.suspect.user.troll)
+      (candidate.isComm && candidate.suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
     UserRepo named username map2 Mod.apply
@@ -190,7 +195,7 @@ final class ReportApi(
         Candidate(
           reporter = reporter,
           suspect = suspect,
-          reason = Reason.Insult,
+          reason = Reason.Comm,
           text = text
         ),
         score => if (major) Report.Score(score.value atLeast scoreThreshold()) else score

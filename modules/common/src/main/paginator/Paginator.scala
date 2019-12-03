@@ -58,13 +58,16 @@ final class Paginator[A] private[paginator] (
 
   def mapResults[B](f: A => B): Paginator[B] =
     withCurrentPageResults(currentPageResults map f)
+
+  def mapFutureResults[B](f: A => Fu[B]): Fu[Paginator[B]] =
+    currentPageResults.map(f).sequenceFu map withCurrentPageResults
 }
 
 object Paginator {
 
   def apply[A](
     adapter: AdapterLike[A],
-    currentPage: Int = 1,
+    currentPage: Int,
     maxPerPage: MaxPerPage = MaxPerPage(10)
   ): Fu[Paginator[A]] =
     validate(adapter, currentPage, maxPerPage) | apply(adapter, 1, maxPerPage)

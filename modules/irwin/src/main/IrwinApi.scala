@@ -6,6 +6,7 @@ import reactivemongo.bson._
 
 import lila.analyse.Analysis.Analyzed
 import lila.analyse.AnalysisRepo
+import lila.common.Bus
 import lila.db.dsl._
 import lila.game.{ Game, Pov, GameRepo, Query }
 import lila.report.{ Report, Mod, Suspect, Reporter, SuspectId, ModId }
@@ -17,7 +18,6 @@ final class IrwinApi(
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
-    bus: lila.common.Bus,
     mode: () => String
 ) {
 
@@ -88,7 +88,7 @@ final class IrwinApi(
       analyzed <- getAnalyzedGames(suspect, 15)
       more <- getMoreGames(suspect, 20 - analyzed.size)
       all = analyzed.map { a => a.game -> a.analysis.some } ::: more.map(_ -> none)
-    } yield bus.publish(IrwinRequest(
+    } yield Bus.publish(IrwinRequest(
       suspect = suspect,
       origin = origin(Origin),
       games = all

@@ -33,10 +33,11 @@ private object OrnicarPairing {
         case (a, b) =>
           // lower is better
           i = i + Math.abs(a.rank - b.rank) * rankFactor(a, b) +
-            Math.abs(a.player.rating - b.player.rating) +
-            justPlayedTogether(a.player.userId, b.player.userId).?? {
-              if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
-              else 8000 * 1000
+            Math.abs(a.player.rating - b.player.rating) + {
+              if (justPlayedTogether(a.player.userId, b.player.userId)) {
+                if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
+                else 8000 * 1000
+              } else 0
             }
       }
       i

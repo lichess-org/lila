@@ -5,13 +5,14 @@ import play.api.libs.ws.WS
 import play.api.Play.current
 
 import lila.hub.actorApi.{ DeployPre, DeployPost }
+import lila.common.Bus
 
 private final class InfluxEvent(endpoint: String, env: String) extends Actor {
 
   private val seed = ornicar.scalalib.Random.nextString(6)
 
   override def preStart(): Unit = {
-    context.system.lilaBus.subscribe(self, 'deploy)
+    Bus.subscribe(self, 'deploy)
     event("lila_start", s"Lila starts: $seed".pp)
   }
 

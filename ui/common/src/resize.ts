@@ -11,12 +11,12 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
   const el = document.createElement('cg-resize');
   els.container.appendChild(el);
 
-  const mousemoveEvent = window.lichess.hasTouchEvents ? 'touchmove' : 'mousemove';
-  const mouseupEvent = window.lichess.hasTouchEvents ? 'touchend' : 'mouseup';
-
-  el.addEventListener(window.lichess.mousedownEvent, (start: MouchEvent) => {
+  const startResize = (start: MouchEvent) => {
 
     start.preventDefault();
+
+    const mousemoveEvent = start.type === 'touchstart' ? 'touchmove' : 'mousemove';
+    const mouseupEvent = start.type === 'touchstart' ? 'touchend' : 'mouseup';
 
     const startPos = eventPosition(start)!;
     const initialZoom = parseInt(getComputedStyle(document.body).getPropertyValue('--zoom'));
@@ -47,7 +47,10 @@ export default function resizeHandle(els: cg.Elements, pref: number, ply: number
       document.removeEventListener(mousemoveEvent, resize);
       document.body.classList.remove('resizing');
     }, { once: true });
-  });
+  };
+
+  el.addEventListener('touchstart', startResize);
+  el.addEventListener('mousedown', startResize);
 
   if (pref == 1) {
     const toggle = (ply: number) => el.classList.toggle('none', visible ? !visible(ply) : ply >= 2);
@@ -72,10 +75,12 @@ function addNag(el: HTMLElement) {
   window.lichess.loadCssPath('nag-circle');
   el.title = 'Drag to resize';
   el.innerHTML = '<div class="nag-circle"></div>';
-  el.addEventListener(window.lichess.mousedownEvent, () => {
-    storage.set(true);
-    el.innerHTML = '';
-  }, { once: true });
+  for (const mousedownEvent of ['touchstart', 'mousedown']) {
+    el.addEventListener(mousedownEvent, () => {
+      storage.set(true);
+      el.innerHTML = '';
+    }, { once: true });
+  }
 
   setTimeout(() => storage.set(true), 15000);
 }

@@ -108,7 +108,6 @@
   }
   &-column > index {
     flex: 0 0 13%;
-    // max-width: 13%; /* required by IE 11 https://github.com/philipwalton/flexbugs/issues/3 */
     display: flex;
     justify-content: center;
     border-right: $border;

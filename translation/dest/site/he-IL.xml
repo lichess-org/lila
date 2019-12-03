@@ -338,6 +338,12 @@
   <string name="blackCheckmatesInOneMove">השחור כופה מט במסע אחד</string>
   <string name="retry">נסה שוב</string>
   <string name="reconnecting">מתחבר מחדש</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s חבר מחובר</item>
+    <item quantity="two">%s חברים מחוברים</item>
+    <item quantity="many">%s חברים מחוברים</item>
+    <item quantity="other">%s חברים מחוברים</item>
+  </plurals>
   <string name="noFriendsOnline">אין חברים מחוברים</string>
   <string name="findFriends">מצא חברים</string>
   <string name="favoriteOpponents">יריבים מועדפים</string>
@@ -554,6 +560,12 @@
   <string name="xCommentedY">%1$s כתב %2$s</string>
   <string name="victory">ניצחון!</string>
   <string name="defeat">הפסד</string>
+  <string name="victoryVsYInZ">%1$s נגד %2$s
+ב%3$s</string>
+  <string name="defeatVsYInZ">%1$s נגד %2$s
+ב%3$s</string>
+  <string name="drawVsYInZ">%1$s נגד %2$s
+ב%3$s</string>
   <string name="timeline">ציר הזמן</string>
   <string name="starting">מתחיל:</string>
   <string name="allInformationIsPublicAndOptional">כל המידע הוא פומבי ואופציונלי</string>

@@ -14,7 +14,7 @@ import User.{ LightPerf, LightCount }
 final class Cached(
     userColl: Coll,
     nbTtl: FiniteDuration,
-    onlineUserIdMemo: lila.memo.ExpireSetMemo,
+    onlineUserIds: () => Set[User.ID],
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
     rankingApi: RankingApi
@@ -60,7 +60,7 @@ final class Cached(
   private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
     every = Every(30 seconds),
     atMost = AtMost(30 seconds),
-    f = () => UserRepo.byIdsSortRatingNoBot(onlineUserIdMemo.keys, 50),
+    f = () => UserRepo.byIdsSortRatingNoBot(onlineUserIds(), 50),
     default = Nil,
     logger = logger branch "top50online",
     initialDelay = 15 seconds

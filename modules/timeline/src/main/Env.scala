@@ -26,7 +26,6 @@ final class Env(
   )
 
   system.actorOf(Props(new Push(
-    bus = system.lilaBus,
     renderer = renderer,
     getFriendIds = getFriendIds,
     getFollowerIds = getFollowerIds,
@@ -48,7 +47,7 @@ final class Env(
       }
     }
 
-  system.lilaBus.subscribeFun('shadowban) {
+  lila.common.Bus.subscribeFun('shadowban) {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => entryApi removeRecentFollowsBy userId
   }
 

@@ -382,6 +382,11 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="blackCheckmatesInOneMove">Crnu matira u jednom potezu</string>
   <string name="retry">Pokušaj ponovno</string>
   <string name="reconnecting">Ponovno spajanje</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s prijatelj online</item>
+    <item quantity="few">%s prijatelja online</item>
+    <item quantity="other">%s prijatelja online</item>
+  </plurals>
   <string name="noFriendsOnline">Nema online prijatelja</string>
   <string name="findFriends">Nađi prijatelje</string>
   <string name="favoriteOpponents">Omiljeni protivnici</string>
@@ -911,6 +916,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="temporaryInconvenience">Ispričavamo se zbog privremene neugodnosti,</string>
   <string name="wishYouGreatGames">i želimo vam sjajne igre na lichess.org.</string>
   <string name="thankYouForReading">Hvala na čitanju!</string>
+  <string name="lifetimeScore">Ukupni rezultat</string>
   <string name="currentMatchScore">Trenutni rezultat partije</string>
   <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računala, knjige, baze podataka ili neke druge osobe).</string>
   <string name="agreementNice">Slažem se da ću uvijek biti uljudan prema drugim igračima.</string>

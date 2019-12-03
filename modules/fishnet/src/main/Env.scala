@@ -2,8 +2,11 @@ package lila.fishnet
 
 import akka.actor._
 import com.typesafe.config.Config
+import io.lettuce.core._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
+
+import lila.common.Bus
 
 final class Env(
     config: Config,
@@ -14,7 +17,6 @@ final class Env(
     db: lila.db.Env,
     system: ActorSystem,
     scheduler: lila.common.Scheduler,
-    bus: lila.common.Bus,
     asyncCache: lila.memo.AsyncCache.Builder,
     sink: lila.analyse.Analyser
 ) {
@@ -24,11 +26,19 @@ final class Env(
   private val AnalysisNodes = config getInt "analysis.nodes"
   private val MovePlies = config getInt "move.plies"
   private val ClientMinVersion = config getString "client_min_version"
+  private val RedisUri = config getString "redis.uri"
 
   private val analysisColl = db(config getString "collection.analysis")
   private val clientColl = db(config getString "collection.client")
 
-  private val clientVersion = new ClientVersion(ClientMinVersion)
+  private val redis = new FishnetRedis(
+    RedisClient create RedisURI.create(RedisUri),
+    "fishnet-in",
+    "fishnet-out",
+    system
+  )
+
+  private val clientVersion = new Client.ClientVersion(ClientMinVersion)
 
   private val repo = new FishnetRepo(
     analysisColl = analysisColl,
@@ -36,15 +46,13 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  private val moveDb = new MoveDB(system = system)
-
   private val sequencer = new lila.hub.FutureSequencer(
     system = system,
     executionTimeout = Some(1 second),
     logger = logger
   )
 
-  private val monitor = new Monitor(moveDb, repo, sequencer, scheduler)
+  private val monitor = new Monitor(repo, sequencer, scheduler)
 
   private val evalCache = new FishnetEvalCache(evalCacheApi)
 
@@ -52,20 +60,19 @@ final class Env(
 
   val api = new FishnetApi(
     repo = repo,
-    moveDb = moveDb,
     analysisBuilder = analysisBuilder,
     analysisColl = analysisColl,
     sequencer = sequencer,
     monitor = monitor,
     sink = sink,
-    socketExists = id => bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _)),
+    socketExists = id => Bus.ask[Boolean]('roundSocket)(lila.hub.actorApi.map.Exists(id, _))(system),
     clientVersion = clientVersion,
     offlineMode = OfflineMode,
     analysisNodes = AnalysisNodes
   )(system)
 
   val player = new Player(
-    moveDb = moveDb,
+    redis = redis,
     uciMemo = uciMemo,
     maxPlies = MovePlies
   )(system)
@@ -87,17 +94,12 @@ final class Env(
 
   new Cleaner(
     repo = repo,
-    moveDb = moveDb,
     analysisColl = analysisColl,
     monitor = monitor,
     scheduler = scheduler
   )
 
-  new MainWatcher(
-    repo = repo,
-    bus = bus,
-    scheduler = scheduler
-  )
+  new MainWatcher(repo = repo, scheduler = scheduler)
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -112,7 +114,7 @@ final class Env(
     def process = {
       case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
         api.createClient(Client.UserId(userId.toLowerCase), skill) map { client =>
-          bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
+          Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), 'fishnet)
           s"Created key: ${(client.key.value)} for: $userId"
         }
       case "fishnet" :: "client" :: "delete" :: key :: Nil =>
@@ -138,7 +140,6 @@ object Env {
     db = lila.db.Env.current,
     config = lila.common.PlayApp loadConfig "fishnet",
     scheduler = lila.common.PlayApp.scheduler,
-    bus = lila.common.PlayApp.system.lilaBus,
     asyncCache = lila.memo.Env.current.asyncCache,
     sink = lila.analyse.Env.current.analyser
   )

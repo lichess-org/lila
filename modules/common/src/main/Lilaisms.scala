@@ -68,10 +68,4 @@ trait Lilaisms
   @inline implicit def toPimpedTry[A](t: Try[A]) = new PimpedTry(t)
   @inline implicit def toPimpedEither[A, B](e: Either[A, B]) = new PimpedEither(e)
   @inline implicit def toPimpedFiniteDuration(d: FiniteDuration) = new PimpedFiniteDuration(d)
-
-  @inline implicit def toPimpedActorSystem(a: akka.actor.ActorSystem) = new PimpedActorSystem(a)
-}
-
-final class PimpedActorSystem(private val a: akka.actor.ActorSystem) extends AnyVal {
-  def lilaBus = lila.common.Bus(a)
 }

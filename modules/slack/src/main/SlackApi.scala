@@ -99,6 +99,13 @@ final class SlackApi(
     channel = rooms.tavernBots
   ))
 
+  def commReportBurst(user: User): Funit = client(SlackMessage(
+    username = "Comm alert",
+    icon = "anger",
+    text = linkifyUsers(s"Burst of comm reports about @${user.username}"),
+    channel = rooms.tavern
+  ))
+
   def broadcastError(id: String, name: String, error: String): Funit = client(SlackMessage(
     username = "lichess error",
     icon = "lightning",

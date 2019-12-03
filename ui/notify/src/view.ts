@@ -33,11 +33,23 @@ function renderContent(ctrl: Ctrl, d: NotifyData): VNode[] {
     hook: clickHook(ctrl.nextPage)
   }));
 
+  if (!('Notification' in window)) nodes.push(h('div.browser-notification', 'Browser does not support notification popups'));
+  else if (Notification.permission == 'denied') nodes.push(notificationDenied());
+
   return nodes;
 }
 
 export function asText(n: Notification): string | undefined {
   return renderers[n.type] ? renderers[n.type].text(n) : undefined;
+}
+
+function notificationDenied(): VNode {
+  return h('a.browser-notification.denied', {
+    attrs: {
+      href: '/faq#browser-notifications',
+      target: '_blank'
+    }
+  }, 'Notification popups disabled by browser setting');
 }
 
 function asHtml(n: Notification): VNode | undefined {

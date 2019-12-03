@@ -1,5 +1,6 @@
 package lila.round
 
+import lila.common.Bus
 import lila.game.{ GameRepo, Game, UciMemo, Pov, Rewind, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 import RoundDuct.TakebackSituation
@@ -7,8 +8,7 @@ import RoundDuct.TakebackSituation
 private final class Takebacker(
     messenger: Messenger,
     uciMemo: UciMemo,
-    prefApi: PrefApi,
-    bus: lila.common.Bus
+    prefApi: PrefApi
 ) {
 
   def yes(situation: TakebackSituation)(pov: Pov)(implicit proxy: GameProxy): Fu[(Events, TakebackSituation)] = IfAllowed(pov.game) {
@@ -17,6 +17,7 @@ private final class Takebacker(
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
         else double(game)
       } map (_ -> situation.reset)
+      case Pov(game, _) if pov.game.playableByAi => single(game) map (_ -> situation)
       case Pov(game, _) if pov.opponent.isAi => double(game) map (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
@@ -62,7 +63,7 @@ private final class Takebacker(
 
   private def publishTakebackOffer(pov: Pov): Unit =
     if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
-      bus.publish(
+      Bus.publish(
         lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
         'offerEventCorres
       )

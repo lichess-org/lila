@@ -59,8 +59,8 @@ object EarlyMultiThrottler {
       id: String,
       run: () => Funit,
       cooldown: FiniteDuration, // how long to wait after running, before next run
-      timeout: Option[FiniteDuration]
-  ) // how long to wait before timing out
+      timeout: Option[FiniteDuration] // how long to wait before timing out
+  )
 
   def work(
     id: String,

@@ -11,7 +11,7 @@ object JsonView {
     case c: UserChat => userChatWriter writes c
   }
 
-  def apply(line: Line): JsValue = lineWriter writes line
+  def apply(line: Line): JsObject = lineWriter writes line
 
   def userModInfo(u: UserModInfo)(implicit lightUser: LightUser.GetterSync) =
     lila.user.JsonView.modWrites.writes(u.user) ++ Json.obj(
@@ -47,19 +47,19 @@ object JsonView {
     JsArray(c.lines map userLineWriter.writes)
   }
 
-  private[chat] implicit val lineWriter: Writes[Line] = Writes[Line] {
+  private[chat] implicit val lineWriter: OWrites[Line] = OWrites[Line] {
     case l: UserLine => userLineWriter writes l
     case l: PlayerLine => playerLineWriter writes l
   }
 
-  private implicit val userLineWriter = Writes[UserLine] { l =>
+  private implicit val userLineWriter = OWrites[UserLine] { l =>
     Json.obj(
       "u" -> l.username,
       "t" -> l.text
     ).add("r" -> l.troll).add("d" -> l.deleted).add("title" -> l.title)
   }
 
-  private implicit val playerLineWriter = Writes[PlayerLine] { l =>
+  private implicit val playerLineWriter = OWrites[PlayerLine] { l =>
     Json.obj(
       "c" -> l.color.name,
       "t" -> l.text

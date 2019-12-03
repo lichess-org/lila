@@ -6,18 +6,25 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
     <dc:title/>
+    <cc:license rdf:resource="http://creativecommons.org/licenses/by-nc-nd/4.0/"/>
    </cc:Work>
+   <cc:License rdf:about="http://creativecommons.org/licenses/by-nc-nd/4.0/">
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+    <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+    <cc:requires rdf:resource="http://creativecommons.org/ns#Notice"/>
+    <cc:requires rdf:resource="http://creativecommons.org/ns#Attribution"/>
+    <cc:prohibits rdf:resource="http://creativecommons.org/ns#CommercialUse"/>
+   </cc:License>
   </rdf:RDF>
  </metadata>
- <g transform="matrix(.33131 0 0 .33443 -922.22 -18.81)">
-  <path class="st31" d="m2869 85.619h12v-6.6392h19v25.134l-16 11.476v36.326l23 21.056v16.029h-96v-16.029l23-21.056v-36.326c-5.3-3.7938-10.7-7.6825-16-11.476v-25.134h19v6.6392h12v-6.6392h20z" fill="#323232" stroke="#1e1e1e" stroke-width="3.605"/>
-  <g transform="matrix(3.785 0 0 3.806 2185.2 -374.67)" fill="#e6e6e6" stroke-width=".79486">
-   <path class="st32" d="m178.2 124.5h-7.5v0.8l1.1 1h12.9l1-1v-0.8z"/>
-   <path class="st32" d="m178 127.9h-3.7v0.8l0.5 1h6.4l0.5-1v-0.8z"/>
-  </g>
-  <g transform="matrix(3.785 0 0 -3.806 2185.1 732.95)" fill="#e6e6e6" stroke-width=".79486">
-   <path class="st32" d="m178.2 148.2h-7.5v0.8l1.1 1h12.9l1-1v-0.8z"/>
-   <path class="st32" d="m178 151.3h-3.7v0.8l0.5 1h6.4l0.5-1v-0.8z"/>
+ <g transform="translate(535 -76.285)">
+  <path d="m-522.62 85.833v7.7333l4.8329 4.0175v10.204l-6.588 6.9652v4.932h28.745v-4.932l-6.5874-6.9652v-10.204l4.8329-4.0175v-7.7333h-5.2993v3.1011h-3.992v-3.1011h-6.6534v3.1011h-3.992v-3.1011z" fill="#404040" stroke="#141414" stroke-width="1.2"/>
+  <path class="st32" d="m-510 92.741h-8.7496l3.3066 2.5h11.004l3.1887-2.5z" fill="#e6e6e6" stroke-width="1.0042"/>
+  <path d="m-500.96 85.833v7.7332l-4.8326 4.0174v10.204l6.5873 6.9653v4.9319h3.5728v-4.9319l-6.5878-6.9653v-10.204l4.8331-4.0174v-7.7332z" opacity=".15"/>
+  <g fill="#e6e6e6" stroke-width="1.0042">
+   <path class="st32" d="m-510 115.02h-10.027l2.7763-2.5h14.636l2.6422 2.5z"/>
+   <path class="st32" d="m-509.94 110.94h-6.7886l1.7622-2.2h10.146l1.6693 2.2z"/>
+   <path class="st32" d="m-509.94 96.828h-4.9728l1.7453 2.2h6.525l1.6754-2.2z"/>
   </g>
  </g>
 </svg>

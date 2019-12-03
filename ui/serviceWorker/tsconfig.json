@@ -3,6 +3,6 @@
   "include": ["src/*.ts"],
   "lib": ["ES6"],
   "compilerOptions": {
-    "noImplicitAny": false
+    "types": ["types-serviceworker"]
   }
 }

@@ -29,7 +29,6 @@ final class Env(
     ctx.me.fold(anonConfigRepo filter ctx.req)(userConfigRepo.filter)
 
   lazy val processor = new Processor(
-    bus = system.lilaBus,
     gameCache = gameCache,
     maxPlaying = MaxPlaying,
     fishnetPlayer = fishnetPlayer,

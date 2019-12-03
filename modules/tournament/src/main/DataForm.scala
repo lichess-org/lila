@@ -3,12 +3,13 @@ package lila.tournament
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
+import play.api.data.validation
+import play.api.data.validation.{ Constraint, Constraints }
 
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
-import lila.common.Form.ISODateTime._
+import lila.hub.lightTeam._
 import lila.user.User
 
 final class DataForm {
@@ -16,8 +17,8 @@ final class DataForm {
   import DataForm._
   import UTCDate._
 
-  def apply(user: User) = create fill TournamentSetup(
-    name = canPickName(user) option user.titleUsername,
+  def apply(user: User, teamBattleId: Option[TeamId] = None) = create fill TournamentSetup(
+    name = canPickName(user) && teamBattleId.isEmpty option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
     minutes = minuteDefault,
@@ -29,6 +30,7 @@ final class DataForm {
     mode = none,
     rated = true.some,
     conditions = Condition.DataForm.AllSetup.default,
+    teamBattleByTeam = teamBattleId,
     berserkable = true.some
   )
 
@@ -38,7 +40,11 @@ final class DataForm {
     Constraints.pattern(
       regex = """[\p{L}\p{N}-\s:,;]+""".r,
       error = "error.unknown"
-    )
+    ),
+    Constraint[String] { (t: String) =>
+      if (t.toLowerCase contains "lichess") validation.Invalid(validation.ValidationError("Must not contain \"lichess\""))
+      else validation.Valid
+    }
   )
 
   private lazy val create = Form(mapping(
@@ -54,6 +60,7 @@ final class DataForm {
     "rated" -> optional(boolean),
     "password" -> optional(nonEmptyText),
     "conditions" -> Condition.DataForm.all,
+    "teamBattleByTeam" -> optional(nonEmptyText),
     "berserkable" -> optional(boolean)
   )(TournamentSetup.apply)(TournamentSetup.unapply)
     .verifying("Invalid clock", _.validClock)
@@ -119,6 +126,7 @@ private[tournament] case class TournamentSetup(
     rated: Option[Boolean],
     password: Option[String],
     conditions: Condition.DataForm.AllSetup,
+    teamBattleByTeam: Option[String],
     berserkable: Option[Boolean]
 ) {
 

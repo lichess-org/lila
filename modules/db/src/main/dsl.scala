@@ -337,8 +337,8 @@ trait dsl extends LowPriorityDsl {
     def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       SimpleExpression(field, BSONRegex(value, options))
 
-    def $startsWith(value: String): SimpleExpression[BSONRegex] =
-      $regex(s"^$value", "")
+    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      $regex(s"^$value", options)
   }
 
   trait ArrayOperators { self: ElementBuilder =>

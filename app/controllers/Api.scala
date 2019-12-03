@@ -11,6 +11,7 @@ import lila.api.{ Context, GameApiV2, UserApi }
 import lila.app._
 import lila.common.PimpedJson._
 import lila.common.{ HTTPRequest, IpAddress, MaxPerPage, MaxPerSecond }
+import lila.user.UserRepo
 
 object Api extends LilaController {
 
@@ -71,7 +72,7 @@ object Api extends LilaController {
     UsersRateLimitPerIP(ip, cost = cost) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
         lila.mon.api.users.cost(cost)
-        lila.user.UserRepo nameds usernames map {
+        UserRepo nameds usernames map {
           _.map { Env.user.jsonView(_, none) }
         } map toApiResult map toHttp
       }
@@ -82,13 +83,12 @@ object Api extends LilaController {
     val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
     Env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
       val actualIds = users.map(_.id)
-      val onlineIds = Env.user.onlineUserIdMemo intersect actualIds
       val playingIds = Env.relation.online.playing intersect actualIds
       val streamingIds = Env.streamer.liveStreamApi.userIds
       toApiResult {
         users.map { u =>
           lila.common.LightUser.lightUserWrites.writes(u)
-            .add("online" -> onlineIds(u.id))
+            .add("online" -> Env.socket.isOnline(u.id))
             .add("playing" -> playingIds(u.id))
             .add("streaming" -> streamingIds(u.id))
         }
@@ -96,17 +96,21 @@ object Api extends LilaController {
     }
   }
 
-  def titledUsers = Action.async { req =>
-    val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
-    GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-      val config = UserApi.Titled(
-        titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
-        online = getBool("online", req),
-        perSecond = MaxPerSecond(50)
-      )
-      jsonStream(userApi.exportTitled(config)).fuccess
-    }
+  def titledUsers = Action {
+    ServiceUnavailable("This API is disabled at the moment.")
   }
+
+  // def titledUsers = Action.async { req =>
+  //   val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
+  //   GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+  //     val config = UserApi.Titled(
+  //       titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
+  //       online = getBool("online", req),
+  //       perSecond = MaxPerSecond(50)
+  //     )
+  //     jsonStream(userApi.exportTitled(config)).fuccess
+  //   }
+  // }
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,
@@ -157,7 +161,7 @@ object Api extends LilaController {
     val cost = page * nb + 10
     UserGamesRateLimit(cost, req) {
       lila.mon.api.userGames.cost(cost)
-      lila.user.UserRepo named name flatMap {
+      UserRepo named name flatMap {
         _ ?? { user =>
           gameApi.byUser(
             user = user,
@@ -206,14 +210,24 @@ object Api extends LilaController {
 
   def currentTournaments = ApiRequest { implicit ctx =>
     Env.tournament.api.fetchVisibleTournaments flatMap
-      Env.tournament.scheduleJsonView.apply map Data.apply
+      Env.tournament.apiJsonView.apply map Data.apply
   }
 
   def tournament(id: String) = ApiRequest { req =>
     lila.tournament.TournamentRepo byId id flatMap {
       _ ?? { tour =>
         val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-        Env.tournament.jsonView(tour, page.some, none, { _ => fuccess(Nil) }, none, none, partial = false, lila.i18n.defaultLang) map some
+        Env.tournament.jsonView(
+          tour = tour,
+          page = page.some,
+          me = none,
+          getUserTeamIds = _ => fuccess(Nil),
+          getTeamName = Env.team.cached.name _,
+          playerInfoExt = none,
+          socketVersion = none,
+          partial = false,
+          lang = lila.i18n.defaultLang
+        ) map some
       }
     } map toApiResult
   }
@@ -244,8 +258,21 @@ object Api extends LilaController {
         GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           import lila.tournament.JsonView.playerResultWrites
           val nb = getInt("nb", req) | Int.MaxValue
-          val enumerator = Env.tournament.api.resultStream(tour, 50, nb) &>
+          val enumerator = Env.tournament.api.resultStream(tour, MaxPerSecond(50), nb) &>
             Enumeratee.map(playerResultWrites.writes)
+          jsonStream(enumerator).fuccess
+        }
+      }
+    }
+  }
+
+  def tournamentsByOwner(name: String) = Action.async { req =>
+    (name != "lichess") ?? UserRepo.named(name) flatMap {
+      _ ?? { user =>
+        GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          val nb = getInt("nb", req) | Int.MaxValue
+          val enumerator = Env.tournament.api.byOwnerStream(user, MaxPerSecond(20), nb) &>
+            Enumeratee.mapM(Env.tournament.apiJsonView.fullJson)
           jsonStream(enumerator).fuccess
         }
       }
@@ -275,7 +302,7 @@ object Api extends LilaController {
   def activity(name: String) = ApiRequest { req =>
     UserActivityRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
       lila.mon.api.activity.cost(1)
-      lila.user.UserRepo named name flatMap {
+      UserRepo named name flatMap {
         _ ?? { user =>
           Env.activity.read.recent(user) flatMap {
             _.map { Env.activity.jsonView(_, user) }.sequenceFu

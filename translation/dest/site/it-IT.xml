@@ -811,7 +811,7 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   </plurals>
   <string name="practiceWithComputer">Allenati con il computer</string>
   <string name="anotherWasX">In alternativa %s</string>
-  <string name="bestWasX">Mossa migliore %s</string>
+  <string name="bestWasX">Mossa migliore: %s</string>
   <string name="youBrowsedAway">Ti sei allontanato</string>
   <string name="resumePractice">Riprendi la pratica</string>
   <string name="theGameIsADraw">La partita è patta.</string>
@@ -840,8 +840,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="doneReviewingWhiteMistakes">Hai finito di rivedere gli errori del Bianco</string>
   <string name="doneReviewingBlackMistakes">Hai finito di rivedere gli errori del Nero</string>
   <string name="doItAgain">Rifallo</string>
-  <string name="reviewWhiteMistakes">Revisiona gli errori del Bianco</string>
-  <string name="reviewBlackMistakes">Revisiona gli errori del Nero</string>
+  <string name="reviewWhiteMistakes">Analizza gli errori del Bianco</string>
+  <string name="reviewBlackMistakes">Analizza gli errori del Nero</string>
   <string name="advantage">Vantaggio</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s secondo</item>
