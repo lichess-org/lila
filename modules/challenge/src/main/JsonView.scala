@@ -15,6 +15,19 @@ final class JsonView(
   import lila.game.JsonView._
   import Challenge._
 
+  private implicit val RegisteredWrites = OWrites[Registered] { r =>
+    val light = getLightUser(r.id)
+    Json.obj(
+      "id" -> r.id,
+      "name" -> light.fold(r.id)(_.name),
+      "title" -> light.map(_.title),
+      "rating" -> r.rating.int
+    ).add("provisional" -> r.rating.provisional)
+      .add("patron" -> light.??(_.isPatron))
+      .add("online" -> isOnline(r.id))
+      .add("lag" -> UserLagCache.getLagRating(r.id))
+  }
+
   def apply(a: AllChallenges, lang: Lang): JsObject = Json.obj(
     "in" -> a.in.map(apply(Direction.In.some)),
     "out" -> a.out.map(apply(Direction.Out.some)),
@@ -58,19 +71,6 @@ final class JsonView(
   private def iconChar(c: Challenge) =
     if (c.variant == chess.variant.FromPosition) '*'
     else c.perfType.iconChar
-
-  private implicit val RegisteredWrites = OWrites[Registered] { r =>
-    val light = getLightUser(r.id)
-    Json.obj(
-      "id" -> r.id,
-      "name" -> light.fold(r.id)(_.name),
-      "title" -> light.map(_.title),
-      "rating" -> r.rating.int
-    ).add("provisional" -> r.rating.provisional)
-      .add("patron" -> light.??(_.isPatron))
-      .add("online" -> isOnline(r.id))
-      .add("lag" -> UserLagCache.getLagRating(r.id))
-  }
 
   private def translations(lang: Lang) = lila.i18n.JsDump.keysToObject(List(
     trans.rated,

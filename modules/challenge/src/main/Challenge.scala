@@ -30,7 +30,7 @@ case class Challenge(
 
   def id = _id
 
-  def challengerUser = challenger.right.toOption
+  def challengerUser = challenger.toOption
   def challengerUserId = challengerUser.map(_.id)
   def challengerIsAnon = challenger.isLeft
   def destUserId = destUser.map(_.id)

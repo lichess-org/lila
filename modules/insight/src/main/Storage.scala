@@ -14,27 +14,27 @@ private final class Storage(val coll: Coll) {
   import Entry.{ BSONFields => F }
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
+    coll.ext.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
+    coll.ext.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
 
   def count(userId: String): Fu[Int] =
     coll.countSel(selectUserId(userId))
 
-  def insert(p: Entry) = coll.insert(p).void
+  def insert(p: Entry) = coll.insert.one(p).void
 
   def bulkInsert(ps: Seq[Entry]) = coll.insert.many(
     ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
   )
 
-  def update(p: Entry) = coll.update(selectId(p.id), p, upsert = true).void
+  def update(p: Entry) = coll.update.one(selectId(p.id), p, upsert = true).void
 
-  def remove(p: Entry) = coll.remove(selectId(p.id)).void
+  def remove(p: Entry) = coll.delete.one(selectId(p.id)).void
 
-  def removeAll(userId: String) = coll.remove(selectUserId(userId)).void
+  def removeAll(userId: String) = coll.delete.one(selectUserId(userId)).void
 
-  def find(id: String) = coll.find(selectId(id)).uno[Entry]
+  def find(id: String) = coll.ext.find(selectId(id)).uno[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
     coll.distinctEasy[String, Set](F.eco, selectUserId(userId))
@@ -44,7 +44,7 @@ private final class Storage(val coll: Coll) {
   ) { framework =>
     import framework._
     Match(BSONDocument(F.userId -> userId)) -> List(
-      GroupField(F.perf)("nb" -> SumValue(1))
+      GroupField(F.perf)("nb" -> SumAll)
     )
   }.map {
     _.flatMap { doc =>

@@ -12,22 +12,15 @@ private object BSONHandlers {
 
   import Challenge._
 
-  implicit val ColorChoiceBSONHandler = new BSONHandler[BSONInteger, ColorChoice] {
-    def read(b: BSONInteger) = b.value match {
-      case 1 => ColorChoice.White
-      case 2 => ColorChoice.Black
-      case _ => ColorChoice.Random
-    }
-    def write(c: ColorChoice) = BSONInteger(c match {
-      case ColorChoice.White => 1
-      case ColorChoice.Black => 2
-      case ColorChoice.Random => 0
-    })
-  }
-  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
-    def read(b: BSONBoolean) = chess.Color(b.value)
-    def write(c: chess.Color) = BSONBoolean(c.white)
-  }
+  implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice]({
+    case 1 => ColorChoice.White
+    case 2 => ColorChoice.Black
+    case _ => ColorChoice.Random
+  }, {
+    case ColorChoice.White => 1
+    case ColorChoice.Black => 2
+    case ColorChoice.Random => 0
+  })
   implicit val TimeControlBSONHandler = new BSON[TimeControl] {
     def reads(r: Reader) = (r.intO("l") |@| r.intO("i")) {
       case (limit, inc) => TimeControl.Clock(chess.Clock.Config(limit, inc))
@@ -40,18 +33,15 @@ private object BSONHandlers {
       case TimeControl.Unlimited => $empty
     }
   }
-  implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
-    def read(b: BSONInteger): Variant = Variant(b.value) err s"No such variant: ${b.value}"
-    def write(x: Variant) = BSONInteger(x.id)
-  }
-  implicit val StatusBSONHandler = new BSONHandler[BSONInteger, Status] {
-    def read(b: BSONInteger): Status = Status(b.value) err s"No such status: ${b.value}"
-    def write(x: Status) = BSONInteger(x.id)
-  }
-  implicit val ModeBSONHandler = new BSONHandler[BSONBoolean, Mode] {
-    def read(b: BSONBoolean) = Mode(b.value)
-    def write(m: Mode) = BSONBoolean(m.rated)
-  }
+  implicit val VariantBSONHandler = tryHandler[Variant](
+    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
+    x => BSONInteger(x.id)
+  )
+  implicit val StatusBSONHandler = tryHandler[Status](
+    { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
+    x => BSONInteger(x.id)
+  )
+  implicit val ModeBSONHandler = BSONBooleanHandler.as[Mode](Mode.apply, _.rated)
   implicit val RatingBSONHandler = new BSON[Rating] {
     def reads(r: Reader) = Rating(r.int("i"), r.boolD("p"))
     def writes(w: Writer, r: Rating) = $doc(

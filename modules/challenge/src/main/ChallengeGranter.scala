@@ -32,8 +32,8 @@ object ChallengeDenied {
 }
 
 final class ChallengeGranter(
-    getPref: User => Fu[Pref],
-    getRelation: (User, User) => Fu[Option[Relation]]
+    prefApi: lila.pref.PrefApi,
+    relationApi: lila.relation.RelationApi
 ) {
 
   import ChallengeDenied.Reason._
@@ -42,22 +42,23 @@ final class ChallengeGranter(
 
   def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType]): Fu[Option[ChallengeDenied]] =
     fromOption.fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>
-      getRelation(dest, from) zip getPref(dest).map(_.challenge) map {
-        case (Some(Block), _) => YouAreBlocked.some
-        case (_, Pref.Challenge.NEVER) => TheyDontAcceptChallenges.some
-        case (Some(Follow), _) => none // always accept from followed
-        case (_, _) if from.engine && !dest.engine => YouAreBlocked.some
-        case (_, Pref.Challenge.FRIEND) => FriendsOnly.some
-        case (_, Pref.Challenge.RATING) => perfType ?? { pt =>
-          if (from.perfs(pt).provisional || dest.perfs(pt).provisional)
-            RatingIsProvisional(pt).some
-          else {
-            val diff = math.abs(from.perfs(pt).intRating - dest.perfs(pt).intRating)
-            (diff > ratingThreshold) option RatingOutsideRange(pt)
+      relationApi.fetchRelation(dest, from) zip
+        prefApi.getPref(dest).map(_.challenge) map {
+          case (Some(Block), _) => YouAreBlocked.some
+          case (_, Pref.Challenge.NEVER) => TheyDontAcceptChallenges.some
+          case (Some(Follow), _) => none // always accept from followed
+          case (_, _) if from.engine && !dest.engine => YouAreBlocked.some
+          case (_, Pref.Challenge.FRIEND) => FriendsOnly.some
+          case (_, Pref.Challenge.RATING) => perfType ?? { pt =>
+            if (from.perfs(pt).provisional || dest.perfs(pt).provisional)
+              RatingIsProvisional(pt).some
+            else {
+              val diff = math.abs(from.perfs(pt).intRating - dest.perfs(pt).intRating)
+              (diff > ratingThreshold) option RatingOutsideRange(pt)
+            }
           }
+          case (_, Pref.Challenge.ALWAYS) => none
         }
-        case (_, Pref.Challenge.ALWAYS) => none
-      }
     }.map {
       _.map { ChallengeDenied(dest, _) }
     }

@@ -5,6 +5,7 @@ import org.joda.time.DateTime
 import scala.concurrent.duration._
 
 import lila.common.Bus
+import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.socket.SendTo
@@ -12,10 +13,12 @@ import lila.user.{ User, UserRepo }
 
 final class ChallengeApi(
     repo: ChallengeRepo,
+    challengeMaker: ChallengeMaker,
+    userRepo: UserRepo,
     joiner: Joiner,
     jsonView: JsonView,
     gameCache: lila.game.Cached,
-    maxPlaying: Int,
+    maxPlaying: Max,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -73,7 +76,7 @@ final class ChallengeApi(
     }
 
   def sendRematchOf(game: Game, user: User): Fu[Boolean] =
-    ChallengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
+    challengeMaker.makeRematchOf(game, user) flatMap { _ ?? create }
 
   def setDestUser(c: Challenge, u: User): Funit = {
     val challenge = c setDestUser u
@@ -116,7 +119,7 @@ final class ChallengeApi(
 
   private def notify(userId: User.ID): Funit = for {
     all <- allFor(userId)
-    lang <- UserRepo langOf userId map {
+    lang <- userRepo langOf userId map {
       _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
     }
   } yield Bus.publish(

@@ -11,7 +11,6 @@ import lila.rating.PerfType
 
 private object BSONHandlers {
 
-  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.apply, _.white)
   implicit val EcopeningBSONHandler = tryHandler[Ecopening](
     { case BSONString(v) => EcopeningDB.allByEco get v toTry s"Invalid ECO $v" },
     e => BSONString(e.eco)
