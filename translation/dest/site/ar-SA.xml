@@ -432,6 +432,7 @@
   <string name="pasteThePgnStringHere">ألصق الـPGN هنا</string>
   <string name="fromPosition">من وضع</string>
   <string name="continueFromHere">تابع من هنا</string>
+  <string name="toStudy">دراسة</string>
   <string name="importGame">استورد مباراة</string>
   <string name="importGameExplanation">عند لصق مباراة PGN تحصل على إمكانية كرار استعراضها وتحليل حاسوبي ودردشة للمباراة ورابط قابل للمشاركة.</string>
   <plurals name="nbImportedGames">
