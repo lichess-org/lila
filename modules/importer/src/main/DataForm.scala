@@ -9,7 +9,7 @@ import scalaz.Validation.FlatMap._
 
 import lila.game._
 
-private[importer] final class DataForm {
+private final class DataForm {
 
   lazy val importForm = Form(mapping(
     "pgn" -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isSuccess),
@@ -19,7 +19,7 @@ private[importer] final class DataForm {
   def checkPgn(pgn: String): Valid[Preprocessed] = ImportData(pgn, none).preprocess(none)
 }
 
-private[importer] case class TagResult(status: Status, winner: Option[Color])
+private case class TagResult(status: Status, winner: Option[Color])
 case class Preprocessed(
     game: NewGame,
     replay: Replay,

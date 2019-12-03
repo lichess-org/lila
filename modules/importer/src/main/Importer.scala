@@ -1,31 +1,28 @@
 package lila.importer
 
-import scala.concurrent.duration._
-
-import akka.actor.ActorRef
 import chess.format.FEN
 import chess.{ Status, Situation }
 
 import lila.game.{ Game, GameRepo }
 
 final class Importer(
-    delay: FiniteDuration,
+    gameRepo: GameRepo,
     scheduler: akka.actor.Scheduler
 ) {
 
   def apply(data: ImportData, user: Option[String], forceId: Option[String] = None): Fu[Game] = {
 
     def gameExists(processing: => Fu[Game]): Fu[Game] =
-      GameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
+      gameRepo.findPgnImport(data.pgn) flatMap { _.fold(processing)(fuccess) }
 
     gameExists {
       (data preprocess user).future flatMap {
         case Preprocessed(g, replay, initialFen, _) =>
           val game = forceId.fold(g.sloppy)(g.withId)
-          (GameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
-            game.pgnImport.flatMap(_.user).isDefined ?? GameRepo.setImportCreatedAt(game)
+          (gameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
+            game.pgnImport.flatMap(_.user).isDefined ?? gameRepo.setImportCreatedAt(game)
           } >> {
-            GameRepo.finish(
+            gameRepo.finish(
               id = game.id,
               winnerColor = game.winnerColor,
               winnerId = None,
