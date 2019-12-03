@@ -343,6 +343,7 @@
   <string name="pasteThePgnStringHere">Paste the PGN text here</string>
   <string name="fromPosition">From position</string>
   <string name="continueFromHere">Continue from here</string>
+  <string name="toStudy">Study</string>
   <string name="importGame">Import game</string>
   <string name="importGameExplanation">Paste a game PGN to get a browsable replay,
 computer analysis, game chat and shareable URL.</string>

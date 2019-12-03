@@ -50,7 +50,7 @@ function studyButton(ctrl: EditorCtrl, state: EditorState): VNode {
         text: true,
         disabled: !state.legalFen,
       }
-    }, 'Study')
+    }, ctrl.trans.noarg('toStudy'))
   ]);
 }
 
