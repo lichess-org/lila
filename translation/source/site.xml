@@ -622,6 +622,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Opponent</string>
   <string name="learnMenu">Learn</string>
+  <string name="studyMenu">Study</string>
+  <string name="practice">Practice</string>
   <string name="community">Community</string>
   <string name="tools">Tools</string>
   <string name="increment">Increment</string>
