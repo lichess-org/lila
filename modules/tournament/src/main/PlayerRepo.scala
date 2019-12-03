@@ -26,7 +26,7 @@ final class PlayerRepo(coll: Coll) {
   def byId(id: Tournament.ID): Fu[Option[Player]] = coll.uno[Player](selectId(id))
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
+    coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
 
   private[tournament] def bestByTourWithRank(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[RankedPlayers] =
     bestByTour(tourId, nb, skip).map { res =>
@@ -87,22 +87,22 @@ final class PlayerRepo(coll: Coll) {
   private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamId, battle: TeamBattle): Fu[TeamBattle.TeamInfo] = {
     coll.aggregateWith[Bdoc]() { framework =>
       import framework._
-      Match(selectTour(tourId) ++ $doc("t" -> teamId)) ->
-        List(
-          Sort(Descending("m")),
-          Facet($doc(
-            "agg" -> $arr($doc(
-              "$group" -> $doc(
-                "_id" -> BSONNull,
-                "nb" -> $doc("$sum" -> 1),
-                "rating" -> $doc("$avg" -> "$r"),
-                "perf" -> $doc("$avg" -> "$e"),
-                "score" -> $doc("$avg" -> "$s")
-              )
-            )),
-            "topPlayers" -> $arr($doc("$limit" -> 50))
-          ))
-        )
+      Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
+        Sort(Descending("m")),
+        Facet(List(
+          "agg" -> {
+            Group(BSONNull)(
+              "nb" -> SumAll,
+              "rating" -> AvgField("r"),
+              "perf" -> AvgField("e"),
+              "score" -> AvgField("s")
+            ) -> Nil
+          },
+          "topPlayers" -> {
+            Limit(50) -> Nil
+          }
+        ))
+      )
     }.headOption.map {
       _.flatMap { doc =>
         for {
@@ -119,13 +119,13 @@ final class PlayerRepo(coll: Coll) {
   }
 
   def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamId, nb: Int): Fu[List[Player]] =
-    coll.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").list[Player](nb)
+    coll.ext.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").list[Player](nb)
 
   def countTeamPlayers(tourId: Tournament.ID, teamId: TeamId): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
   def teamsOfPlayers(tourId: Tournament.ID, userIds: List[User.ID]): Fu[List[(User.ID, TeamId)]] =
-    coll.find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true))
+    coll.ext.find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true))
       .list[Bdoc]()
       .map {
         _.flatMap { doc =>
@@ -140,10 +140,10 @@ final class PlayerRepo(coll: Coll) {
 
   def count(tourId: Tournament.ID): Fu[Int] = coll.countSel(selectTour(tourId))
 
-  def removeByTour(tourId: Tournament.ID) = coll.remove(selectTour(tourId)).void
+  def removeByTour(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId)).void
 
   def remove(tourId: Tournament.ID, userId: User.ID) =
-    coll.remove(selectTourUser(tourId, userId)).void
+    coll.delete.one(selectTourUser(tourId, userId)).void
 
   def filterExists(tourIds: List[Tournament.ID], userId: User.ID): Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID]($doc(

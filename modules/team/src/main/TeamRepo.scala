@@ -1,13 +1,14 @@
 package lila.team
 
 import org.joda.time.{ DateTime, Period }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.user.User
 
-private final class TeamRepo(val coll: Coll) {
+final class TeamRepo(val coll: Coll) {
 
   import BSONHandlers._
 
@@ -35,20 +36,24 @@ private final class TeamRepo(val coll: Coll) {
     coll.primitiveOne[String]($id(teamId), "createdBy")
 
   def incMembers(teamId: String, by: Int): Funit =
-    coll.update($id(teamId), $inc("nbMembers" -> by)).void
+    coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
   def enable(team: Team) = coll.updateField($id(team.id), "enabled", true)
 
   def disable(team: Team) = coll.updateField($id(team.id), "enabled", false)
 
   def addRequest(teamId: String, request: Request): Funit =
-    coll.update(
+    coll.update.one(
       $id(teamId) ++ $doc("requests.user" $ne request.user),
       $push("requests", request.user)
     ).void
 
   def changeOwner(teamId: String, newOwner: User.ID) =
     coll.updateField($id(teamId), "createdBy", newOwner)
+
+  def cursor =
+    coll.ext.find($doc("enabled" -> true))
+      .cursor[Team](ReadPreference.secondaryPreferred)
 
   val enabledQuery = $doc("enabled" -> true)
 

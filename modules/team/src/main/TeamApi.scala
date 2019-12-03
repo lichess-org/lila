@@ -42,7 +42,7 @@ final class TeamApi(
       open = s.isOpen,
       createdBy = me
     )
-    teamRepo.coll.insert(team) >>
+    teamRepo.coll.insert.one(team) >>
       memberRepo.add(team.id, me.id) >>- {
         cached invalidateTeamIds me.id
         indexer ! InsertTeam(team)
@@ -59,7 +59,7 @@ final class TeamApi(
       description = e.description,
       open = e.isOpen
     ) |> { team =>
-      teamRepo.coll.update($id(team.id), team).void >>
+      teamRepo.coll.update.one($id(team.id), team).void >>
         !team.isCreator(me.id) ?? {
           modLog.teamEdit(me.id, team.createdBy, team.name)
         } >>-
@@ -120,12 +120,12 @@ final class TeamApi(
     requestable(team, user) flatMap {
       _ ?? {
         val request = Request.make(team = team.id, user = user.id, message = setup.message)
-        requestRepo.coll.insert(request).void >>- (cached.nbRequests invalidate team.createdBy)
+        requestRepo.coll.insert.one(request).void >>- (cached.nbRequests invalidate team.createdBy)
       }
     }
 
   def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
-    _ <- requestRepo.coll.remove(request)
+    _ <- requestRepo.coll.delete.one(request)
     _ = cached.nbRequests invalidate team.createdBy
     userOption <- userRepo byId request.user
     _ <- userOption.filter(_ => accept).??(user =>
@@ -191,7 +191,7 @@ final class TeamApi(
 
   // delete for ever, with members but not forums
   def delete(team: Team): Funit =
-    teamRepo.coll.remove($id(team.id)) >>
+    teamRepo.coll.delete.one($id(team.id)) >>
       memberRepo.removeByteam(team.id) >>-
       (indexer ! RemoveTeam(team.id))
 
@@ -210,7 +210,7 @@ final class TeamApi(
     teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids))
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
-    teamRepo.coll.find($doc(
+    teamRepo.coll.ext.find($doc(
       "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
       "enabled" -> true
     )).sort($sort desc "nbMembers").list[Team](max, ReadPreference.secondaryPreferred)
@@ -218,7 +218,7 @@ final class TeamApi(
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 
   def recomputeNbMembers =
-    teamRepo.coll.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>
+    teamRepo.coll.ext.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>
       for {
         nb <- memberRepo.countByTeam(team.id)
         _ <- teamRepo.coll.updateField($id(team.id), "nbMembers", nb)
