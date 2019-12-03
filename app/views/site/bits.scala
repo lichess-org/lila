@@ -30,7 +30,6 @@ object bits {
     <title>Lichess.org API reference</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-    <link rel="icon" type="image/png" href="https://lichess1.org/assets/logo/lichess-favicon-32.png">
     <style>body { margin: 0; padding: 0; }</style>
   </head>
   <body>
