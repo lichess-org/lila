@@ -1,53 +1,31 @@
 package lila.setup
 
 import akka.actor._
-import com.typesafe.config.{ Config => AppConfig }
+import com.softwaremill.macwire._
+import play.api.Configuration
 
+import lila.common.config._
 import lila.user.UserContext
 
 final class Env(
-    config: AppConfig,
+    appConfig: Configuration,
     db: lila.db.Env,
+    gameRepo: lila.game.GameRepo,
     fishnetPlayer: lila.fishnet.Player,
-    onStart: String => Unit,
+    onStart: lila.round.OnStart,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
-    gameCache: lila.game.Cached,
-    system: ActorSystem
-) {
+    gameCache: lila.game.Cached
+)(implicit system: akka.actor.ActorSystem) {
 
-  private val MaxPlaying = config getInt "max_playing"
-  private val CollectionUserConfig = config getString "collection.user_config"
-  private val CollectionAnonConfig = config getString "collection.anon_config"
+  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
+  private lazy val anonConfigRepo = new AnonConfigRepo(db(CollName("config")))
+  private lazy val userConfigRepo = new UserConfigRepo(db(CollName("config_anon")))
 
-  private lazy val anonConfigRepo = new AnonConfigRepo(db(CollectionAnonConfig))
-  private lazy val userConfigRepo = new UserConfigRepo(db(CollectionUserConfig))
-
-  lazy val forms = new FormFactory(anonConfigRepo, userConfigRepo)
+  lazy val forms = wire[FormFactory]
 
   def filter(ctx: UserContext): Fu[FilterConfig] =
     ctx.me.fold(anonConfigRepo filter ctx.req)(userConfigRepo.filter)
 
-  lazy val processor = new Processor(
-    gameCache = gameCache,
-    maxPlaying = MaxPlaying,
-    fishnetPlayer = fishnetPlayer,
-    anonConfigRepo = anonConfigRepo,
-    userConfigRepo = userConfigRepo,
-    onStart = onStart
-  )
-}
-
-object Env {
-
-  lazy val current = "setup" boot new Env(
-    config = lila.common.PlayApp loadConfig "setup",
-    db = lila.db.Env.current,
-    fishnetPlayer = lila.fishnet.Env.current.player,
-    onStart = lila.round.Env.current.onStart,
-    prefApi = lila.pref.Env.current.api,
-    relationApi = lila.relation.Env.current.api,
-    gameCache = lila.game.Env.current.cached,
-    system = lila.common.PlayApp.system
-  )
+  lazy val processor = wire[Processor]
 }

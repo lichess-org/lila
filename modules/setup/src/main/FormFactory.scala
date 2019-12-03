@@ -7,7 +7,7 @@ import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
 
-private[setup] final class FormFactory(
+final class FormFactory(
     anonConfigRepo: AnonConfigRepo,
     userConfigRepo: UserConfigRepo
 ) {

@@ -1,17 +1,19 @@
 package lila.setup
 
 import lila.common.Bus
-import lila.game.{ GameRepo, Pov, PerfPicker }
+import lila.common.config.Max
+import lila.game.{ Pov, PerfPicker }
 import lila.lobby.actorApi.{ AddHook, AddSeek }
 import lila.user.{ User, UserContext }
 
 private[setup] final class Processor(
     gameCache: lila.game.Cached,
-    maxPlaying: Int,
+    gameRepo: lila.game.GameRepo,
+    maxPlaying: Max,
     fishnetPlayer: lila.fishnet.Player,
     anonConfigRepo: AnonConfigRepo,
     userConfigRepo: UserConfigRepo,
-    onStart: String => Unit
+    onStart: lila.round.OnStart
 ) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
@@ -20,7 +22,7 @@ private[setup] final class Processor(
   def ai(config: AiConfig)(implicit ctx: UserContext): Fu[Pov] = {
     val pov = config pov ctx.me
     saveConfig(_ withAi config) >>
-      (GameRepo insertDenormalized pov.game) >>-
+      (gameRepo insertDenormalized pov.game) >>-
       onStart(pov.gameId) >> {
         pov.game.player.isAi ?? fishnetPlayer(pov.game)
       } inject pov
@@ -41,7 +43,7 @@ private[setup] final class Processor(
           Created(hook.id)
         }
         case Right(Some(seek)) => ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
-          if (nbPlaying >= maxPlaying) Refused
+          if (maxPlaying <= nbPlaying) Refused
           else {
             Bus.publish(AddSeek(seek), "lobbyTrouper")
             Created(seek.id)
