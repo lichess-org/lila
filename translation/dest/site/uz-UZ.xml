@@ -545,7 +545,7 @@ tushuntirsangiz uni ko\'rib chiqishimiz tezlashadi.</string>
   <string name="newPassword">Yangi parol</string>
   <string name="newPasswordAgain">Yangi parol (yana)</string>
   <string name="boardHighlights">Doskadagi rang bilan ajratsih (oxirgi yurish va shoh)</string>
-  <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish </string>
+  <string name="pieceDestinations">Mumkin bo\'lgan yurishlani ko\'rsatish</string>
   <string name="boardCoordinates">Doska koordinatalari (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">O\'yin davomida yurishlar ro\'yhatini ko\'rsatish</string>
   <string name="pgnPieceNotation">Yurishlarni qayd qilib borish</string>
