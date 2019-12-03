@@ -96,10 +96,6 @@ def lint_string(path, name, dest, source, allow_missing=0):
         print("WARNING", path, "has trailing spaces:", name, dest)
         warns += 1
 
-    if re.search(r"[^\S\n]{2,}", dest):
-        print("WARNING", path, "has multiple successive spaces:", name, dest)
-        warns += 1
-
     if re.search(r"\t", dest):
         print("WARNING", path, "has tabs:", name, dest)
         warns += 1
