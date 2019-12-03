@@ -17,7 +17,7 @@ object inquiry {
       val path = resType match {
         case "game" => routes.Round.watcher(resId, "white")
         case "relay" => routes.Relay.show("-", resId)
-        case "simul" | "study" | "tournament" | "message" => s"$resType/$resId"
+        case "simul" | "study" | "tournament" | "message" | "broadcast" => s"$resType/$resId"
         case _ => s"$resType/$resId"
       }
       s"$netBaseUrl/$path $text"

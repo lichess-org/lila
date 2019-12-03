@@ -27,6 +27,13 @@
   <string name="howDoesItEnd">איך מסתיימת התחרות?</string>
   <string name="howDoesItEndAnswer">לכל תחרות יש ספירת זמן יורדת. בהתאפס הזמן, שינויי הדרוג נעצרים ומוכרז המנצח. אחרי מועד זה, יש להשלים את המשחקים שלא הסתיימו, אך אלה לא ייחשבו במסגרת התחרות.</string>
   <string name="otherRules">חוקים חשובים נוספים</string>
+  <string name="thereIsACountdown">ישנו זמן מוגבל עבור המהלך הראשון שלך. אם לא יבוצע מהלך עד סוף הזמן, המשחק יגמר בהפסד.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
+    <item quantity="two">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
+    <item quantity="many">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
+    <item quantity="other">תיקו במספר ה%s תורות הראשונים לא ירוויח נקודות עבור אף שחקן.</item>
+  </plurals>
   <string name="thisIsPrivate">זהו טורניר פרטי</string>
   <string name="shareUrl">פרסם אתר זה למציאת חברים נוספים: %s</string>
 </resources>

@@ -9,18 +9,25 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <g transform="translate(291.67 -244.9)">
-  <g transform="matrix(.97547 0 0 .99818 -920.37 729.87)" stroke-width="1.0134">
-   <ellipse cx="670.14" cy="-478.68" rx="3.0636" ry="2.7423" fill="#f0f0f0" stroke="#1f0905" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2161" style="paint-order:normal"/>
-   <path d="m670.14-481.42a3.0636 2.7423 0 0 0-1.0604 0.17156 3.0636 2.7423 0 0 1 2.0071 2.5709 3.0636 2.7423 0 0 1-2.003 2.5709 3.0636 2.7423 0 0 0 1.0563 0.17158 3.0636 2.7423 0 0 0 3.0634-2.7425 3.0636 2.7423 0 0 0-3.0634-2.7425z" opacity=".4" style="paint-order:normal"/>
+ <g transform="translate(414.77 -263.32)">
+  <g transform="translate(-29.17 2.7635)">
+   <g transform="translate(-7.6544 -15.239)">
+    <path d="m-342.29 320.19c0.51797-1.0054 1.7112-5.6681-2.9007-6.7209h-15.507c-4.6119 1.0528-3.4187 5.7155-2.9007 6.7209z" fill="#a32811" stroke="#000" stroke-linejoin="round" stroke-width="1.2"/>
+    <path d="m-354.9 313.44c9.9794 0.27756 8.5166 6.7319-3.7394 6.7027h16.128c0.51011-0.99018 1.4262-5.5289-2.2029-6.6689" opacity=".4"/>
+   </g>
+   <rect x="-368.33" y="295.34" width="15.465" height="2.8957" ry="1.4479" fill="#a32811" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
   </g>
-  <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
-   <ellipse cx="-266.67" cy="259.95" rx="9.6536" ry="5.6742" fill="#561a0e" image-rendering="optimizeQuality" stroke="#1f0905" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" style="paint-order:normal"/>
-   <path d="m-266.67 254.27a9.6536 5.6742 0 0 0-1.6185 0.0811 9.6536 5.6742 0 0 1 8.0972 5.5929 9.6536 5.6742 0 0 1-8.0352 5.5929 9.6536 5.6742 0 0 0 1.5565 0.0811 9.6536 5.6742 0 0 0 9.6537-5.6741 9.6536 5.6742 0 0 0-9.6537-5.6741z" image-rendering="optimizeQuality" opacity=".4" style="paint-order:normal"/>
-   <path d="m-277.26 258.34c-3.9549 1.959-2.2948 5.8628-2.2948 5.8628 4.7898 7.8906 6.238 14.699 6.238 14.699h13.291c-1e-5 0 1.4483-6.8084 6.238-14.699 0 0 1.6601-3.9038-2.2948-5.8628l-1.2394 0.0612c0.29318 1.0239 0.5184 2.3077 0.0329 2.8668-0.86863 1.0004-1.9996 0.85478-2.7418 0-0.74224-0.85477-0.53831-2.8668-0.53831-2.8668h-4.3452s2.2968 4.1114-1.7571 4.1114-1.7571-4.1114-1.7571-4.1114h-4.3452s0.20391 2.0121-0.53831 2.8668c-0.74223 0.85469-1.8731 1.0004-2.7418 0-0.48547-0.55908-0.26025-1.843 0.033-2.8668z" fill="#561a0e" image-rendering="optimizeQuality" stroke="#1f0905" stroke-linejoin="round" stroke-width="1.2"/>
-   <path d="m-256.09 258.34-1.2392 0.0608c6.4941 2.3351-7.4478 16.671-7.9954 20.5h5.2917c-3e-5 0 1.4481-6.8084 6.2379-14.699 0 0 1.6599-3.9036-2.295-5.8626z" image-rendering="optimizeQuality" opacity=".4"/>
+  <g transform="matrix(1 0 0 1.0129 -32.165 -5.7476)" stroke-width=".99363">
+   <g transform="translate(.48539 1.2601)" stroke-width=".99363">
+    <ellipse cx="-358.09" cy="271.65" rx="2.9884" ry="2.7374" fill="#f0f0f0" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1924" style="paint-order:normal"/>
+    <path d="m-358.09 268.91a2.9884 2.7374 0 0 0-1.0344 0.17125 2.9884 2.7374 0 0 1 1.9579 2.5662 2.9884 2.7374 0 0 1-1.9538 2.5662 2.9884 2.7374 0 0 0 1.0304 0.17127 2.9884 2.7374 0 0 0 2.9882-2.7375 2.9884 2.7374 0 0 0-2.9882-2.7375z" opacity=".4" style="paint-order:normal"/>
+   </g>
+   <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
+    <path d="m-360.03 275.12c-8.2664 3.8595-6.1141 14.463-6.1141 14.463l17.185-3e-5s2.0516-10.607-6.2168-14.465z" fill="#a32811" image-rendering="optimizeQuality" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1923"/>
+    <path d="m-355.17 275.12-2.427 1e-3c6.8798 3.8767 0.70619 12.083 0.70619 12.083l7.9375 2.3812s2.0517-10.607-6.2167-14.465z" image-rendering="optimizeQuality" opacity=".4"/>
+    <path transform="scale(.26458)" d="m-1376.7 1133.8c3.469-28.908-42.236-50-16.904-71.713l5.6003-0.034c-1.1084 3.8696-2.8764 8.9873-1.0415 11.1 3.2831 3.7808 11.557 3.2303 14.363 0 2.8047-3.2303 0.034-10.835 0.034-10.835h18.423s-10.681 15.539 4.6412 15.539 4.6412-15.539 4.6412-15.539h18.423s-2.7707 7.6049 0.034 10.835c2.8053 3.2303 11.08 3.7808 14.363 0 1.8349-2.1131 0.067-7.2308-1.0415-11.1l5.6003 0.034c25.333 21.713-20.372 42.805-16.904 71.713h-25.116z" fill="#a32811" image-rendering="optimizeQuality" stroke="#000" stroke-linejoin="round" stroke-width="4.5066"/>
+    <path d="m-347.97 281.01c0.29327 1.0238 0.76145 2.3782 0.27596 2.9373-6e-3 7e-3 -0.0135 0.0127-0.0196 0.0196 0.99353 4.7688-9.2992 9.6874-8.5385 16.026h5.2917c-0.91784-7.6487 11.175-13.229 4.4726-18.974z" image-rendering="optimizeQuality" opacity=".4"/>
+   </g>
   </g>
-  <path d="m-272.76 278.9c-4.5484 1.2233-3.3717 2.1101-2.8608 3.2784 0.33465 0.9812-8.0988 3.364-4.5077 7.1231h26.9c3.591-3.7591-4.8429-6.1419-4.5082-7.1231 0.51085-1.1682 1.6877-2.055-2.8608-3.2784z" fill="#561a0e" stroke="#1f0905" stroke-linejoin="round" stroke-width="1.2"/>
-  <path d="m-268.38 278.92c9.8421 0.32247 8.3995 4.7431-3.688 4.7093 6.0677 0.72665 17.39-0.0874 14.085 5.671h4.7625c3.591-3.7591-4.8424-6.1419-4.5077-7.1231 0.50309-1.1505 1.4066-1.8932-2.1726-3.2179" fill="#070705" opacity=".4"/>
  </g>
 </svg>

@@ -33,7 +33,7 @@ Juega rápido y vuelve al recibidor para jugar más partidas y ganar más puntos
   <string name="otherRules">Otras reglas importantes</string>
   <string name="thereIsACountdown">Hay una cuenta regresiva para el primer movimiento. Si no haces el primer movimiento dentro del tiempo, pierdes la partida.</string>
   <plurals name="drawingWithinNbMoves">
-    <item quantity="one">Si la partida acaba en tablas durante el primer movimiento, no se concederán puntos a ninguno de los jugadores.</item>
+    <item quantity="one">Si la partida acaba en tablas durante los primeros %s movimientos, no se concederán puntos a ninguno de los jugadores.</item>
     <item quantity="other">Si la partida acaba en tablas durante los primeros %s movimientos, no se concederán puntos a ninguno de los jugadores.</item>
   </plurals>
   <string name="thisIsPrivate">Este es un torneo privado</string>
