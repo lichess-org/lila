@@ -587,6 +587,7 @@
     <item quantity="other">支持%s种语言！</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="lobby">大廳</string>
   <string name="language">語言</string>
   <string name="background">背景</string>
   <string name="boardSize">棋盤大小</string>
