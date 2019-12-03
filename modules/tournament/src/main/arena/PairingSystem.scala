@@ -1,30 +1,28 @@
 package lila.tournament
 package arena
 
-import lila.tournament.{ PairingSystem => AbstractPairingSystem }
 import lila.user.UserRepo
 
 import scala.util.Random
 
-private[tournament] object PairingSystem extends AbstractPairingSystem {
-  type P = (String, String)
+private[tournament] final class PairingSystem(
+    pairingRepo: PairingRepo,
+    playerRepo: PlayerRepo,
+    userRepo: UserRepo
+)(implicit idGenerator: lila.game.IdGenerator) {
 
-  case class Data(
-      tour: Tournament,
-      lastOpponents: Pairing.LastOpponents,
-      ranking: Map[String, Int],
-      onlyTwoActivePlayers: Boolean
-  ) {
-
-    val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
-  }
+  import PairingSystem._
 
   // if waiting users can make pairings
   // then pair all users
-  def createPairings(tour: Tournament, users: WaitingUsers, ranking: Ranking): Fu[Pairings] = {
+  def createPairings(
+    tour: Tournament,
+    users: WaitingUsers,
+    ranking: Ranking
+  ): Fu[Pairings] = {
     for {
-      lastOpponents <- PairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? PlayerRepo.countActive(tour.id).map(2==)
+      lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
+      onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? playerRepo.countActive(tour.id).map(2==)
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
       preps <- if (data.isFirstRound) evenOrAll(data, users)
       else makePreps(data, users.waiting) flatMap {
@@ -48,7 +46,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else PlayerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+    else playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
       if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) proximityPairings(tour, idles)
       else if (idles.size > maxGroupSize) {
         // make sure groupSize is even with / 4 * 2
@@ -64,7 +62,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
     if (preps.size < 50) preps.map { prep =>
-      UserRepo.firstGetsWhite(prep.user1.some, prep.user2.some) flatMap prep.toPairing
+      userRepo.firstGetsWhite(prep.user1.some, prep.user2.some) flatMap prep.toPairing
     }.sequenceFu
     else preps.map(_ toPairing Random.nextBoolean).sequenceFu
 
@@ -78,8 +76,22 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
     case x if x <= 10 && !data.tour.isTeamBattle => OrnicarPairing(data, players)
     case _ => AntmaPairing(data, players)
   }
+}
 
-  private[arena] def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
+private object PairingSystem {
+
+  type P = (String, String)
+
+  case class Data(
+      tour: Tournament,
+      lastOpponents: Pairing.LastOpponents,
+      ranking: Map[String, Int],
+      onlyTwoActivePlayers: Boolean
+  ) {
+    val isFirstRound = lastOpponents.hash.isEmpty && tour.isRecentlyStarted
+  }
+
+  def url(tourId: String) = s"https://lichess.org/tournament/$tourId"
 
   /* Was previously static 1000.
    * By increasing the factor for high ranked players,
@@ -92,7 +104,7 @@ private[tournament] object PairingSystem extends AbstractPairingSystem {
    * top rank factor = 2000
    * bottom rank factor = 300
    */
-  private[arena] def rankFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
+  def rankFactorFor(players: RankedPlayers): (RankedPlayer, RankedPlayer) => Int = {
     val maxRank = players.map(_.rank).max
     (a, b) => {
       val rank = Math.min(a.rank, b.rank)

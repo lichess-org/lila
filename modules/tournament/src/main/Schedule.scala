@@ -67,7 +67,7 @@ object Schedule {
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]) {
 
     def build: Tournament = {
-      val t = Tournament.schedule(addCondition(schedule), durationFor(schedule))
+      val t = Tournament.scheduleAs(addCondition(schedule), durationFor(schedule))
       buildFunc.foldRight(t) { _(_) }
     }
 

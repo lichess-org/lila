@@ -26,7 +26,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
     lila.mon.round.forecast.create()
-    coll.update(
+    coll.update.one(
       $id(pov.fullId),
       Forecast(
         _id = pov.fullId,
@@ -61,7 +61,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
     }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
+    pov.forecastable ?? coll.ext.find($id(pov.fullId)).uno[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
@@ -69,7 +69,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
+    pov.game.forecastable ?? coll.ext.find($id(pov.fullId)).uno[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
@@ -81,7 +81,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
       case None => fuccess(none)
       case Some(fc) => fc(g, last) match {
         case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
-          coll.update($id(fc._id), newFc) inject uciMove.some
+          coll.update.one($id(fc._id), newFc) inject uciMove.some
         case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
         case _ => clearPov(Pov player g) inject none
       }

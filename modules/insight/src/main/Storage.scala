@@ -1,6 +1,5 @@
 package lila.insight
 
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import reactivemongo.api.bson._
 import scalaz.NonEmptyList
 

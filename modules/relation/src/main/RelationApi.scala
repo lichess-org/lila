@@ -3,7 +3,6 @@ package lila.relation
 import akka.actor.ActorSelection
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
 import scala.concurrent.duration._
 
 import BSONHandlers._

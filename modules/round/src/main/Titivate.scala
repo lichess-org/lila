@@ -7,8 +7,7 @@ import lila.game.{ Query, Game, GameRepo }
 import lila.hub.DuctMap
 import lila.round.actorApi.round.{ QuietFlag, Abandon }
 import org.joda.time.DateTime
-import org.reactivestreams.Publisher
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer, State }
+import reactivemongo.akkastream.AkkaStreamCursor
 import reactivemongo.api._
 import scala.concurrent.duration._
 

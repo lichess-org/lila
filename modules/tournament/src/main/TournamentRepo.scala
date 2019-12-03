@@ -2,6 +2,7 @@ package lila.tournament
 
 import chess.variant.Variant
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 
@@ -96,12 +97,12 @@ final class TournamentRepo(val coll: Coll) {
       .sort($doc("startsAt" -> -1))
       .list[Tournament](limit)
 
-  def finishedPaginator(maxPerPage: lila.common.MaxPerPage, page: Int) = Paginator(
+  def finishedPaginator(maxPerPage: lila.common.config.MaxPerPage, page: Int) = Paginator(
     adapter = new CachedAdapter(
       new Adapter[Tournament](
         collection = coll,
         selector = finishedSelect,
-        projection = $empty,
+        projection = none,
         sort = $doc("startsAt" -> -1)
       ),
       nbResults = fuccess(200 * 1000)
@@ -256,14 +257,14 @@ final class TournamentRepo(val coll: Coll) {
       "schedule.freq" $in Schedule.Freq.all.filter(_.isWeeklyOrBetter)
     )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred)
 
-  private[tournament] def cursor(
+  private[tournament] def sortedCursor(
     owner: lila.user.User,
     batchSize: Int,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Tournament]): cp.ProducedCursor = {
-    val query = coll
+  ): AkkaStreamCursor[Tournament] =
+    coll
       .find($doc("createdBy" -> owner.id))
       .sort($sort desc "startsAt")
-    query.copy(options = query.options.batchSize(batchSize)).cursor[Tournament](readPreference)
-  }
+      .batchSize(batchSize)
+      .cursor[Tournament](readPreference)
 }

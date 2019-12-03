@@ -2,7 +2,6 @@ package lila.study
 
 import org.joda.time.DateTime
 import reactivemongo.api._
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Project, Match }
 
 import lila.db.dsl._
 import lila.user.User
@@ -184,14 +183,15 @@ final class StudyRepo(private[study] val coll: Coll) {
   }
 
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
-    coll.aggregateOne(
-      Match($id(studyId)),
-      List(Project($doc(
+    coll.aggregateWith { framework =>
+      import framework._
+      Match($id(studyId)) -> List(
+        Project($doc(
         "_id" -> false,
         F.likes -> $doc("$size" -> s"$$${F.likers}"),
         F.createdAt -> true
       )))
-    ).map { docOption =>
+    }.headOption.map { docOption =>
         for {
           doc <- docOption
           likes <- doc.getAs[Study.Likes](F.likes)

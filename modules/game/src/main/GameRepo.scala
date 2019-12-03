@@ -5,7 +5,7 @@ import scala.util.Random
 import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer, State }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson.BSONDocument
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.WriteConcern
@@ -108,12 +108,6 @@ final class GameRepo(val coll: Coll) {
   )
     .sort($sort asc F.createdAt)
     .list[Game](nb, ReadPreference.secondaryPreferred)
-
-  // def cursor(
-  //   selector: Bdoc,
-  //   readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  // )(implicit cp: CursorProducer[Game]) =
-  //   coll.ext.find(selector).cursor[Game](readPreference)
 
   def cursor(
     selector: Bdoc,
@@ -362,7 +356,6 @@ final class GameRepo(val coll: Coll) {
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 
   private[game] def bestOpponents(userId: String, limit: Int): Fu[List[(User.ID, Int)]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(
       maxDocs = limit,
       ReadPreference.secondaryPreferred

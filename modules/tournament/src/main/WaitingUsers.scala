@@ -38,17 +38,19 @@ private[tournament] case class WaitingUsers(
 
   def waiting: List[User.ID] = {
     val since = date minusSeconds waitSeconds
-    hash.collect {
+    hash.view.collect {
       case (u, d) if d.isBefore(since) => u
-    }(scala.collection.breakOut)
+    }.toList
   }
 
   def update(us: Set[User.ID]) = {
     val newDate = DateTime.now
     copy(
       date = newDate,
-      hash = hash.filterKeys(us.contains) ++
-        us.filterNot(hash.contains).map { _ -> newDate }
+      hash = {
+        hash.filterKeys(us.contains) ++
+          us.filterNot(hash.contains).map { _ -> newDate }
+      }.toMap
     )
   }
 

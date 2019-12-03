@@ -323,7 +323,6 @@ final class ReportApi(
   }
 
   def countOpenByRooms: Fu[Room.Counts] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateList(maxDocs = 100) { framework =>
       import framework._
       Match(selectOpenAvailableInRoom(none)) -> List(

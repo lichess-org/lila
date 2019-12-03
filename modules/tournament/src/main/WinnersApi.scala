@@ -60,11 +60,10 @@ final class WinnersApi(
     tournamentRepo: TournamentRepo,
     mongoCache: lila.memo.MongoCache.Builder,
     ttl: FiniteDuration,
-    scheduler: lila.common.Scheduler
+    scheduler: akka.actor.Scheduler
 ) {
 
   import BSONHandlers._
-  import lila.db.BSON.MapDocument.MapHandler
   private implicit val WinnerHandler = reactivemongo.api.bson.Macros.handler[Winner]
   private implicit val FreqWinnersHandler = reactivemongo.api.bson.Macros.handler[FreqWinners]
   private implicit val AllWinnersHandler = reactivemongo.api.bson.Macros.handler[AllWinners]
@@ -75,7 +74,7 @@ final class WinnersApi(
       "startsAt" $gt since.minusHours(12),
       "winner" $exists true
     )).sort($sort desc "startsAt")
-      .list[Tournament](ReadPreference.secondaryPreferred)
+      .list[Tournament](Int.MaxValue, ReadPreference.secondaryPreferred)
 
   private def firstStandardWinner(tours: List[Tournament], speed: Speed): Option[Winner] =
     tours.find { t =>
@@ -129,7 +128,7 @@ final class WinnersApi(
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament) =
     if (tour.schedule.exists(_.freq.isDailyOrBetter))
-      scheduler.once(5.seconds) { allCache.remove(()) }
+      scheduler.scheduleOnce(5.seconds) { allCache.remove(()) }
 
 }
 

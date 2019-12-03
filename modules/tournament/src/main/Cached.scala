@@ -52,7 +52,7 @@ private[tournament] final class Cached(
 
   private[tournament] object sheet {
 
-    import arena.ScoringSystem.Sheet
+    import arena.Sheet
 
     private case class SheetKey(tourId: Tournament.ID, userId: User.ID)
 
@@ -67,7 +67,7 @@ private[tournament] final class Cached(
 
     private def compute(key: SheetKey): Fu[Sheet] =
       pairingRepo.finishedByPlayerChronological(key.tourId, key.userId) map {
-        arena.ScoringSystem.sheet(key.userId, _)
+        arena.Sheet(key.userId, _)
       }
 
     private val cache = asyncCache.multi[SheetKey, Sheet](

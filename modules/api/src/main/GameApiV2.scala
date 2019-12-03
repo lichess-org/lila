@@ -1,7 +1,6 @@
 package lila.api
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import reactivemongo.play.iteratees.cursorProducer
 import scala.concurrent.duration._

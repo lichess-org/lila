@@ -18,8 +18,6 @@ final class UserRepo(val coll: Coll) {
   import User.{ BSONFields => F }
   import Title.titleBsonHandler
 
-  import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Match, Group, SumField }
-
   def withColl[A](f: Coll => A): A = f(coll)
 
   val normalize = User normalize _

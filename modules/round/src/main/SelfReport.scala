@@ -52,7 +52,7 @@ final class SelfReport(
           )
         }
       }
-      if (fullId == "________") fuccess(doLog)
+      if (fullId.value == "________") fuccess(doLog)
       else proxyRepo.pov(fullId.value) map {
         _ ?? { pov =>
           if (!known) doLog

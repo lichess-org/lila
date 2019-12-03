@@ -58,8 +58,12 @@ private[tournament] object Pairing {
 
   case class LastOpponents(hash: Map[User.ID, User.ID]) extends AnyVal
 
-  private def make(tourId: Tournament.ID, u1: User.ID, u2: User.ID): Fu[Pairing] =
-    IdGenerator.game dmap { id =>
+  private def make(
+    tourId: Tournament.ID,
+    u1: User.ID,
+    u2: User.ID
+  )(implicit idGenerator: IdGenerator): Fu[Pairing] =
+    idGenerator.game dmap { id =>
       new Pairing(
         id = id,
         tourId = tourId,
@@ -74,12 +78,15 @@ private[tournament] object Pairing {
     }
 
   case class Prep(tourId: Tournament.ID, user1: User.ID, user2: User.ID) {
-    def toPairing(firstGetsWhite: Boolean): Fu[Pairing] =
+    def toPairing(firstGetsWhite: Boolean)(implicit idGenerator: IdGenerator): Fu[Pairing] =
       if (firstGetsWhite) Pairing.make(tourId, user1, user2)
       else Pairing.make(tourId, user2, user1)
   }
 
-  def prep(tour: Tournament, ps: (Player, Player)) = Pairing.Prep(tour.id, ps._1.userId, ps._2.userId)
-  def prep(tour: Tournament, u1: User.ID, u2: User.ID) = Pairing.Prep(tour.id, u1, u2)
-  def prep(tour: Tournament, p1: Player, p2: Player) = Pairing.Prep(tour.id, p1.userId, p2.userId)
+  def prep(tour: Tournament, ps: (Player, Player)) =
+    Pairing.Prep(tour.id, ps._1.userId, ps._2.userId)
+  def prep(tour: Tournament, u1: User.ID, u2: User.ID) =
+    Pairing.Prep(tour.id, u1, u2)
+  def prep(tour: Tournament, p1: Player, p2: Player) =
+    Pairing.Prep(tour.id, p1.userId, p2.userId)
 }

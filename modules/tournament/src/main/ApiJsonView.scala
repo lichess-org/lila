@@ -38,7 +38,7 @@ final class ApiJsonView(lightUser: LightUser.Getter) {
   private def baseJson(tour: Tournament): JsObject = Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
-    "system" -> tour.system.toString.toLowerCase,
+    "system" -> "arena", // BC
     "minutes" -> tour.minutes,
     "clock" -> tour.clock,
     "rated" -> tour.mode.rated,

@@ -37,8 +37,6 @@ final class PlayTimeApi(
   private def computeNow(userId: User.ID): Fu[Option[User.PlayTime]] =
     userRepo.getPlayTime(userId) orElse {
 
-      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-
       def extractSeconds(docs: Iterable[Bdoc], onTv: Boolean): Int = ~docs.collectFirst {
         case doc if doc.getAsOpt[Boolean]("_id").has(onTv) =>
           doc.long("ms") map { millis => (millis / 1000).toInt }

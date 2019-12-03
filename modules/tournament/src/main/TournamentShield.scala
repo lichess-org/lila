@@ -87,7 +87,7 @@ object TournamentShield {
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
 
     def take(max: Int) = copy(
-      value = value.mapValues(_ take max)
+      value = value.mapValues(_ take max).toMap
     )
   }
 

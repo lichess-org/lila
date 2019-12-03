@@ -9,6 +9,8 @@ import makeTimeout.short
 
 private final class StartedOrganizer(
     api: TournamentApi,
+    tournamentRepo: TournamentRepo,
+    playerRepo: PlayerRepo,
     socket: TournamentSocket
 ) extends Actor {
 
@@ -32,13 +34,13 @@ private final class StartedOrganizer(
 
     case Tick =>
       val startAt = nowMillis
-      TournamentRepo.startedTours.flatMap { started =>
+      tournamentRepo.startedTours.flatMap { started =>
         lila.common.Future.traverseSequentially(started) { tour =>
           if (tour.secondsToFinish <= 0) fuccess(api finish tour)
           else {
             def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour, startAt)
             if (!tour.isScheduled && tour.nbPlayers < 40)
-              PlayerRepo nbActiveUserIds tour.id flatMap { nb =>
+              playerRepo nbActiveUserIds tour.id flatMap { nb =>
                 if (nb < 2) fuccess(api finish tour)
                 else pairIfStillTime
               }

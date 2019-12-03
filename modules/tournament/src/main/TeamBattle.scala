@@ -61,7 +61,7 @@ object TeamBattle {
         nbLeaders: Int
     ) {
       def potentialTeamIds: Set[String] =
-        teams.lines.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet
+        teams.linesIterator.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet
     }
   }
 }

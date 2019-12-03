@@ -49,7 +49,6 @@ final class ThreadRepo(coll: Coll) {
 
   def unreadCount(userId: String): Fu[Int] = {
     import reactivemongo.api.bson.BSONNull
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     coll.aggregateWith(
       readPreference = ReadPreference.secondaryPreferred
     ) { framework =>

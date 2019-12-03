@@ -1,8 +1,7 @@
 package lila.plan
 
 import org.joda.time.DateTime
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-import reactivemongo.api.ReadPreference
+import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.common.config.Secret
