@@ -1,34 +1,29 @@
 package lila.irwin
 
-import akka.actor._
-import play.api.libs.iteratee._
+import akka.stream.scaladsl._
 import play.api.libs.json._
 
-import lila.analyse.Analysis.Analyzed
 import lila.common.Bus
-import lila.report.SuspectId
 
-final class IrwinStream(system: ActorSystem) {
+final class IrwinStream(implicit mat: akka.stream.Materializer) {
 
-  private val stringify =
-    Enumeratee.map[JsValue].apply[String] { js =>
-      Json.stringify(js) + "\n"
+  private val classifier = "userSignup"
+
+  private val blueprint =
+    Source.queue[IrwinRequest](32, akka.stream.OverflowStrategy.dropHead)
+      .map(requestJson)
+      .map { js => s"${Json.stringify(js)}\n" }
+
+  def plugTo(sink: Sink[String, Fu[akka.Done]]): Unit = {
+
+    val (queue, done) = blueprint.toMat(sink)(Keep.both).run()
+
+    val sub = Bus.subscribeFun(classifier) {
+      case req: IrwinRequest =>
+        lila.mon.mod.irwin.streamEventType("request")()
+        queue offer req
     }
-
-  private val classifier = "irwin"
-
-  def enumerator: Enumerator[String] = {
-    var subscriber: Option[lila.common.Tellable] = None
-    Concurrent.unicast[JsValue](
-      onStart = channel => {
-        subscriber = Bus.subscribeFun(classifier) {
-          case req: IrwinRequest =>
-            lila.mon.mod.irwin.streamEventType("request")()
-            channel.push(requestJson(req))
-        } some
-      },
-      onComplete = subscriber foreach { Bus.unsubscribe(_, classifier) }
-    ) &> stringify
+    done onComplete { _ => Bus.unsubscribe(sub, classifier) }
   }
 
   private def requestJson(req: IrwinRequest) = Json.obj(

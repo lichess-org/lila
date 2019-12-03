@@ -1,16 +1,12 @@
 package lila.mod
 
-import akka.actor._
 import akka.stream.scaladsl._
 import play.api.libs.json._
 
 import lila.common.{ Bus, HTTPRequest }
 import lila.security.Signup
 
-final class ModStream(implicit
-    system: ActorSystem,
-    mat: akka.stream.Materializer
-) {
+final class ModStream(implicit mat: akka.stream.Materializer) {
 
   private val classifier = "userSignup"
 

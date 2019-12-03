@@ -1,8 +1,8 @@
 package lila.irwin
 
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 
 import lila.analyse.Analysis.Analyzed
 import lila.analyse.AnalysisRepo
@@ -15,10 +15,13 @@ import lila.user.{ User, UserRepo }
 
 final class IrwinApi(
     reportColl: Coll,
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
+    analysisRepo: AnalysisRepo,
     modApi: lila.mod.ModApi,
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
-    mode: () => String
+    mode: lila.memo.SettingStore[String]
 ) {
 
   val reportThreshold = 85
@@ -27,13 +30,13 @@ final class IrwinApi(
   import BSONHandlers._
 
   def dashboard: Fu[IrwinDashboard] =
-    reportColl.find($empty).sort($sort desc "date").list[IrwinReport](20) map IrwinDashboard.apply
+    reportColl.ext.find($empty).sort($sort desc "date").list[IrwinReport](20) map IrwinDashboard.apply
 
   object reports {
 
-    def insert(report: IrwinReport) = (mode() != "none") ?? {
+    def insert(report: IrwinReport) = (mode.get() != "none") ?? {
       for {
-        _ <- reportColl.update($id(report._id), report, upsert = true)
+        _ <- reportColl.update.one($id(report._id), report, upsert = true)
         _ <- markOrReport(report)
         _ <- notification(report)
       } yield {
@@ -42,11 +45,11 @@ final class IrwinApi(
     }
 
     def get(user: User): Fu[Option[IrwinReport]] =
-      reportColl.find($id(user.id)).uno[IrwinReport]
+      reportColl.ext.find($id(user.id)).uno[IrwinReport]
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] = get(user) flatMap {
       _ ?? { report =>
-        GameRepo.gamesFromSecondary(report.games.map(_.gameId)) map { games =>
+        gameRepo.gamesFromSecondary(report.games.map(_.gameId)) map { games =>
           val povs = games.flatMap { g =>
             Pov(g, user) map { g.id -> _ }
           }.toMap
@@ -56,15 +59,15 @@ final class IrwinApi(
     }
 
     private def getSuspect(suspectId: User.ID) =
-      UserRepo byId suspectId flatten s"suspect $suspectId not found" map Suspect.apply
+      userRepo byId suspectId orFail s"suspect $suspectId not found" map Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
-      if (report.activation >= markThreshold && mode() == "mark")
+      if (report.activation >= markThreshold && mode.get() == "mark")
         modApi.autoMark(report.suspectId, ModId.irwin) >>-
           lila.mon.mod.irwin.mark()
-      else if (report.activation >= reportThreshold && mode() != "none") for {
+      else if (report.activation >= reportThreshold && mode.get() != "none") for {
         suspect <- getSuspect(report.suspectId.value)
-        irwin <- UserRepo byId "irwin" flatten s"Irwin user not found" map Mod.apply
+        irwin <- userRepo byId "irwin" orFail s"Irwin user not found" map Mod.apply
         _ <- reportApi.create(Report.Candidate(
           reporter = Reporter(irwin.user),
           suspect = suspect,
@@ -97,7 +100,7 @@ final class IrwinApi(
     private[irwin] def fromTournamentLeaders(leaders: Map[Tournament, TournamentTop]): Funit =
       lila.common.Future.applySequentially(leaders.toList) {
         case (tour, top) =>
-          UserRepo byIds top.value.zipWithIndex
+          userRepo byIds top.value.zipWithIndex
             .filter(_._2 <= tour.nbPlayers * 2 / 100)
             .map(_._1.userId)
             .take(20) flatMap { users =>
@@ -123,16 +126,15 @@ final class IrwinApi(
         Query.createdSince(DateTime.now minusMonths 6)
 
     private def getAnalyzedGames(suspect: Suspect, nb: Int): Fu[List[Analyzed]] =
-      GameRepo.coll.find(baseQuery(suspect) ++ Query.analysed(true))
+      gameRepo.coll.ext.find(baseQuery(suspect) ++ Query.analysed(true))
         .sort(Query.sortCreated)
-        .cursor[Game](ReadPreference.secondaryPreferred)
-        .list(nb)
-        .flatMap(AnalysisRepo.associateToGames)
+        .list[Game](nb, ReadPreference.secondaryPreferred)
+        .flatMap(analysisRepo.associateToGames)
 
     private def getMoreGames(suspect: Suspect, nb: Int): Fu[List[Game]] = (nb > 0) ??
-      GameRepo.coll.find(baseQuery(suspect) ++ Query.analysed(false))
-      .sort(Query.sortCreated).cursor[Game](ReadPreference.secondaryPreferred)
-      .list(nb)
+      gameRepo.coll.ext.find(baseQuery(suspect) ++ Query.analysed(false))
+      .sort(Query.sortCreated).
+      list[Game](nb, ReadPreference.secondaryPreferred)
   }
 
   object notification {

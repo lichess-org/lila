@@ -27,7 +27,6 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: Scheduler,
     timeline: ActorSelection,
     onlineUserIds: () => Set[User.ID]
 )(implicit system: ActorSystem, ws: WSClient) {
