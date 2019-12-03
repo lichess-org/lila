@@ -81,7 +81,7 @@ private final class Indexer(
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
         .grouped(50)
-        .mapAsyncUnordered(1)(storage.bulkInsert)
+        .map(storage.bulkInsert)
         .to(Sink.ignore)
         .run
     } void

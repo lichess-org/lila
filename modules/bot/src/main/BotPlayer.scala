@@ -1,7 +1,5 @@
 package lila.bot
 
-import akka.actor._
-
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
@@ -16,8 +14,9 @@ import lila.user.User
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
-    isOfferingRematch: Pov => Boolean
-)(implicit system: ActorSystem) {
+    gameRepo: GameRepo,
+    isOfferingRematch: lila.round.IsOfferingRematch
+)(implicit system: akka.actor.ActorSystem) {
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
@@ -53,7 +52,7 @@ final class BotPlayer(
   def rematchDecline(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, false)
 
   private def rematch(id: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
-    GameRepo game id map {
+    gameRepo game id map {
       _.flatMap(Pov(_, me)).filter(p => isOfferingRematch(!p)) ?? { pov =>
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
@@ -63,7 +62,7 @@ final class BotPlayer(
               "roundMapTell"
             )
           }
-        }(system)
+        }
         true
       }
     }

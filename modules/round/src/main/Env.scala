@@ -143,7 +143,7 @@ final class Env(
 
   private lazy val rematcher: Rematcher = wire[Rematcher]
 
-  lazy val isOfferingRematch = rematcher.isOffering _
+  lazy val isOfferingRematch = new IsOfferingRematch(rematcher.isOffering)
 
   private lazy val player: Player = wire[Player]
 

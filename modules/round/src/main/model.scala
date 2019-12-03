@@ -2,7 +2,7 @@ package lila.round
 
 import scala.concurrent.duration.FiniteDuration
 
-import lila.game.Game
+import lila.game.{ Game, Pov }
 import lila.user.User
 
 private case class MoretimeDuration(value: FiniteDuration) extends AnyVal
@@ -22,4 +22,8 @@ final class IsSimulHost(f: User.ID => Fu[Boolean]) extends (User.ID => Fu[Boolea
 
 private final class ScheduleExpiration(f: Game => Unit) extends (Game => Unit) {
   def apply(g: Game) = f(g)
+}
+
+final class IsOfferingRematch(f: Pov => Boolean) extends (Pov => Boolean) {
+  def apply(p: Pov) = f(p)
 }

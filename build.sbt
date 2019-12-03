@@ -173,7 +173,7 @@ lazy val tv = module("tv", Seq(common, db, hub, socket, game, round, user)).sett
 )
 
 lazy val bot = module("bot", Seq(common, db, hub, game, user, challenge, chat)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val analyse = module("analyse", Seq(common, hub, game, user, notifyModule, evalCache)).settings(
