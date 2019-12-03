@@ -152,7 +152,7 @@ Disallow: /games/export
   def instantChess = Open { implicit ctx =>
     if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
     else fuccess {
-      Redirect(routes.Lobby.home).withCookies(
+      Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
         lila.common.LilaCookie.withSession { s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
         }
