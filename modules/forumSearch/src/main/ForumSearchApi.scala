@@ -1,14 +1,19 @@
 package lila.forumSearch
 
+import akka.stream.scaladsl._
+import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.api._
+
 import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
 import lila.search._
 
-import play.api.libs.json._
-
 final class ForumSearchApi(
     client: ESClient,
-    postApi: PostApi
-) extends SearchReadApi[PostView, Query] {
+    postApi: PostApi,
+    postRepo: PostRepo
+)(implicit mat: akka.stream.Materializer) extends SearchReadApi[PostView, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -33,31 +38,23 @@ final class ForumSearchApi(
     Fields.date -> view.post.createdAt
   )
 
-  import reactivemongo.play.iteratees.cursorProducer
-
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      import play.api.libs.iteratee._
-      import reactivemongo.api.ReadPreference
-      import lila.db.dsl._
-      logger.info(s"Index to ${c.index.name}")
-      val batchSize = 500
-      val maxEntries = Int.MaxValue
-      PostRepo.cursor(
-        selector = $empty,
-        readPreference = ReadPreference.secondaryPreferred
-      )
-        .enumerator(maxEntries) &>
-        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[Post], Int](0) {
-          case (nb, posts) => for {
-            views <- postApi liteViews posts.toList
-            _ <- c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
-          } yield {
-            logger.info(s"Indexed $nb forum posts")
-            nb + posts.size
-          }
+
+      postRepo.cursor
+        .documentSource()
+        .grouped(500)
+        .mapAsyncUnordered(1)(postApi.liteViews)
+        .map(views => views.map(v => Id(v.post.id) -> toDoc(v)))
+        .mapAsyncUnordered(1) { views =>
+          c.storeBulk(views) inject views.size
         }
+        .fold(0)((acc, nb) => acc + nb)
+        .wireTap { nb =>
+          if (nb % 5 == 0) logger.info(s"Indexing forum posts... $nb")
+        }
+        .to(Sink.ignore)
+        .run
     } >> client.refresh
 
     case _ => funit

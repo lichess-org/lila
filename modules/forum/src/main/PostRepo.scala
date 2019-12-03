@@ -1,12 +1,13 @@
 package lila.forum
 
 import org.joda.time.DateTime
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.user.User
 
-private final class PostRepo(val coll: Coll, troll: Boolean = false) {
+final class PostRepo(val coll: Coll, troll: Boolean = false) {
 
   def withTroll(t: Boolean) = if (t == troll) this else new PostRepo(coll, t)
 
@@ -14,7 +15,7 @@ private final class PostRepo(val coll: Coll, troll: Boolean = false) {
 
   private val trollFilter = !troll ?? $doc("troll" -> false)
 
-  def byIds(ids: List[Post.ID]) = coll.byIds[Post](ids)
+  def byIds(ids: Seq[Post.ID]) = coll.byIds[Post](ids)
 
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
     coll.uno[Post](selectCateg(categSlug) ++ $id(id))
@@ -37,7 +38,7 @@ private final class PostRepo(val coll: Coll, troll: Boolean = false) {
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
     coll.ext.find(
       selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
-    ).sort($sort.createdDesc).cursor[Post]().gather[List](nb)
+    ).sort($sort.createdDesc).list[Post](nb)
 
   def countByCateg(categ: Categ): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
@@ -75,4 +76,8 @@ private final class PostRepo(val coll: Coll, troll: Boolean = false) {
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId))
+
+  def cursor =
+    coll.ext.find($empty)
+      .cursor[Post](ReadPreference.secondaryPreferred)
 }

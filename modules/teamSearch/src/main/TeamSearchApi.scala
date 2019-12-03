@@ -12,10 +12,7 @@ import lila.team.{ Team, TeamRepo }
 final class TeamSearchApi(
     client: ESClient,
     teamRepo: TeamRepo
-)(implicit
-    system: akka.actor.ActorSystem,
-    mat: akka.stream.Materializer
-) extends SearchReadApi[Team, Query] {
+)(implicit mat: akka.stream.Materializer) extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>

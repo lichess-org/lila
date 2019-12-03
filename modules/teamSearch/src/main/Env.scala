@@ -9,7 +9,7 @@ import lila.common.config._
 import lila.search._
 
 @Module
-private class RoundConfig(
+private class TeamSearchConfig(
     @ConfigName("index.name") val indexName: String,
     @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
@@ -24,7 +24,7 @@ final class Env(
     mat: akka.stream.Materializer
 ) {
 
-  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
 
   private lazy val client = makeClient(Index(config.indexName))
 

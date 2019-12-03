@@ -314,7 +314,7 @@ lazy val forum = module("forum", Seq(common, db, user, security, hub, mod, notif
 )
 
 lazy val forumSearch = module("forumSearch", Seq(common, hub, forum, search)).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val team = module("team", Seq(common, memo, db, user, forum, security, hub, notifyModule)).settings(

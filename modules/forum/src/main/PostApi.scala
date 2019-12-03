@@ -133,7 +133,7 @@ final class PostApi(
   def view(post: Post): Fu[Option[PostView]] =
     views(List(post)) map (_.headOption)
 
-  def liteViews(posts: List[Post]): Fu[List[PostLiteView]] =
+  def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
     for {
       topics <- topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
     } yield posts flatMap { post =>
@@ -141,7 +141,7 @@ final class PostApi(
         PostLiteView(post, topic)
       }
     }
-  def liteViewsByIds(postIds: List[Post.ID]): Fu[List[PostLiteView]] =
+  def liteViewsByIds(postIds: Seq[Post.ID]): Fu[Seq[PostLiteView]] =
     postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: Post): Fu[Option[PostLiteView]] =
@@ -185,7 +185,7 @@ final class PostApi(
     _ <- optionT(for {
       first <- postRepo.isFirstPost(view.topic.id, view.post.id)
       _ <- if (first) topicApi.delete(view.categ, view.topic)
-      else postRepo.coll.remove(view.post) >>
+      else postRepo.coll.delete.one(view.post) >>
         (topicApi denormalize view.topic) >>
         (categApi denormalize view.categ) >>-
         recent.invalidate >>-
