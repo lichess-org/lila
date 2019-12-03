@@ -1,22 +1,16 @@
 package lila.forum
 
-import lila.db.dsl._
 import org.joda.time.DateTime
 import reactivemongo.api.{ CursorProducer, ReadPreference }
 
-object PostRepo extends PostRepo(false) {
+import lila.db.dsl._
+import lila.user.User
 
-  def apply(troll: Boolean): PostRepo = if (troll) PostRepoTroll else PostRepo
-}
+private final class PostRepo(val coll: Coll, troll: Boolean = false) {
 
-object PostRepoTroll extends PostRepo(true)
-
-sealed abstract class PostRepo(troll: Boolean) {
+  def withTroll(t: Boolean) = if (t == troll) this else new PostRepo(coll, t)
 
   import BSONHandlers.PostBSONHandler
-
-  // dirty
-  private val coll = Env.current.postColl
 
   private val trollFilter = !troll ?? $doc("troll" -> false)
 
@@ -35,13 +29,13 @@ sealed abstract class PostRepo(troll: Boolean) {
     coll.countSel(selectTopic(topic.id))
 
   def lastByCateg(categ: Categ): Fu[Option[Post]] =
-    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).uno[Post]
+    coll.ext.find(selectCateg(categ.id)).sort($sort.createdDesc).uno[Post]
 
   def lastByTopic(topic: Topic): Fu[Option[Post]] =
-    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).uno[Post]
+    coll.ext.find(selectTopic(topic.id)).sort($sort.createdDesc).uno[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    coll.find(
+    coll.ext.find(
       selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
     ).sort($sort.createdDesc).cursor[Post]().gather[List](nb)
 
@@ -49,9 +43,9 @@ sealed abstract class PostRepo(troll: Boolean) {
     coll.countSel(selectCateg(categ.id))
 
   def removeByTopic(topicId: String): Funit =
-    coll.remove(selectTopic(topicId)).void
+    coll.delete.one(selectTopic(topicId)).void
 
-  def hideByTopic(topicId: String, value: Boolean): Funit = coll.update(
+  def hideByTopic(topicId: String, value: Boolean): Funit = coll.update.one(
     selectTopic(topicId),
     $set("hidden" -> value),
     multi = true
@@ -77,14 +71,8 @@ sealed abstract class PostRepo(troll: Boolean) {
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinct[String, List]("userId", $doc("topicId" -> topicId).some)
+    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId))
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinct[String, List]("_id", $doc("topicId" -> topicId).some)
-
-  def cursor(
-    selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Post]) =
-    coll.find(selector).cursor[Post](readPreference)
+    coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId))
 }

@@ -2,6 +2,7 @@ package lila.common
 
 import scala.concurrent.duration.FiniteDuration
 import io.methvin.play.autoconfig._
+import scala.jdk.CollectionConverters._
 import play.api.ConfigLoader
 
 object config {
@@ -40,6 +41,10 @@ object config {
   implicit val appPathLoader = strLoader(AppPath.apply)
   implicit val domainLoader = strLoader(Domain.unsafe)
   implicit val netLoader = AutoConfig.loader[NetConfig]
+
+  implicit val listLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>
+    c.getStringList(k).asScala.toList
+  }
 
   def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
   def intLoader[A](f: Int => A): ConfigLoader[A] = ConfigLoader(_.getInt) map f

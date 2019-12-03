@@ -1,17 +1,18 @@
 package lila.forum
 
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
 
 import lila.security.{ Permission, Granter => MasterGranter }
 import lila.user.User
 
 private[forum] final class Recent(
     postApi: PostApi,
-    ttl: FiniteDuration,
-    nb: Int,
+    postRepo: PostRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     categIds: List[String]
 ) {
+  private val ttl: FiniteDuration = 1 hour
+  private val nb: Int = 12
 
   private type GetTeamIds = String => Fu[List[String]]
 
@@ -30,8 +31,7 @@ private[forum] final class Recent(
     (user.map(_.id) ?? getTeams).map { teamIds =>
       user.fold("en")(_.langs.mkString(",")) :: {
         (user.??(_.troll) ?? List("[troll]")) :::
-          categIds :::
-          (teamIds.map(teamSlug)(scala.collection.breakOut): List[String])
+          categIds ::: teamIds.view.map(teamSlug).toList
       } mkString ";"
     }
 
@@ -45,8 +45,8 @@ private[forum] final class Recent(
 
   private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {
-      case langs :: "[troll]" :: categs => PostRepoTroll.recentInCategs(nb)(categs, parseLangs(langs))
-      case langs :: categs => PostRepo.recentInCategs(nb)(categs, parseLangs(langs))
-      case categs => PostRepo.recentInCategs(nb)(categs, parseLangs("en"))
+      case langs :: "[troll]" :: categs => postRepo.withTroll(true).recentInCategs(nb)(categs, parseLangs(langs))
+      case langs :: categs => postRepo.recentInCategs(nb)(categs, parseLangs(langs))
+      case categs => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
     }) flatMap postApi.miniPosts
 }
