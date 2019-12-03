@@ -65,9 +65,10 @@ export function main(ctrl: RoundController): VNode {
   const d = ctrl.data,
   cgState = ctrl.draughtsground && ctrl.draughtsground.state,
   topColor = d[ctrl.flip ? 'player' : 'opponent'].color,
-  bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color;
+  bottomColor = d[ctrl.flip ? 'opponent' : 'player'].color,
+  noAssistance = d.simul && d.simul.noAssistance;
   let material: cg.MaterialDiff, score: number = 0;
-  if (d.pref.showCaptured) {
+  if (d.pref.showCaptured && !noAssistance) {
     var pieces = cgState ? cgState.pieces : fenRead(plyStep(ctrl.data, ctrl.ply).fen);
     material = util.getMaterialDiff(pieces);
     score = util.getScore(pieces) * (bottomColor === 'white' ? 1 : -1);

@@ -10,7 +10,8 @@ case class Spotlight(
     iconImg: Option[String] = None,
     ceval: Option[Simul.EvalSetting] = None,
     fmjdRating: Option[Simul.ShowFmjdRating] = None,
-    drawLimit: Option[Int] = None
+    drawLimit: Option[Int] = None,
+    noAssistance: Option[Boolean] = None
 ) {
 
   def isNow = startsAt.isBefore(DateTime.now)

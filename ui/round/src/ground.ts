@@ -16,7 +16,8 @@ function makeConfig(ctrl: RoundController): Config {
         step = plyStep(data, ctrl.ply),
         playing = ctrl.isPlaying();
 
-    const ghosts = countGhosts(step.fen);
+    const ghosts = countGhosts(step.fen),
+      noAssistance = data.simul && data.simul.noAssistance;
 
     return {
         fen: step.fen,
@@ -29,7 +30,7 @@ function makeConfig(ctrl: RoundController): Config {
         highlight: {
             lastMove: data.pref.highlight,
             check: data.pref.highlight,
-            kingMoves: data.pref.showKingMoves && (data.game.variant.key === 'frisian' || data.game.variant.key === 'frysk')
+            kingMoves: !noAssistance && data.pref.showKingMoves && (data.game.variant.key === 'frisian' || data.game.variant.key === 'frysk')
         },
         events: {
             move: hooks.onMove,
@@ -39,7 +40,7 @@ function makeConfig(ctrl: RoundController): Config {
             free: false,
             color: playing ? data.player.color : undefined,
             dests: playing ? util.parsePossibleMoves(data.possibleMoves) : {},
-            showDests: data.pref.destination,
+            showDests: !noAssistance && data.pref.destination,
             events: {
                 after: hooks.onUserMove,
                 afterNewPiece: hooks.onUserNewPiece
@@ -50,8 +51,8 @@ function makeConfig(ctrl: RoundController): Config {
             duration: data.pref.animationDuration
         },
         premovable: {
-            enabled: data.pref.enablePremove,
-            showDests: data.pref.destination,
+            enabled: !noAssistance && data.pref.enablePremove,
+            showDests: !noAssistance && data.pref.destination,
             castle: false,
             variant: data.game.variant.key,
             events: {

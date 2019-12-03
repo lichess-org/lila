@@ -38,7 +38,8 @@ object CrudForm {
       .verifying("invalidTargetPercentage", pct => pct.length == 0 || parseIntOption(pct).??(p => p >= 50 && p <= 100)),
     "fmjd" -> stringIn(fmjdChoices),
     "drawLimit" -> text(minLength = 0, maxLength = 2)
-      .verifying("Enter a value between 0 and 99, or leave empty", mvs => mvs.length == 0 || parseIntOption(mvs).??(m => m >= 0 && m <= 99))
+      .verifying("Enter a value between 0 and 99, or leave empty", mvs => mvs.length == 0 || parseIntOption(mvs).??(m => m >= 0 && m <= 99)),
+    "noAssistance" -> boolean
   )(CrudForm.Data.apply)(CrudForm.Data.unapply)) fill empty
 
   case class Data(
@@ -59,7 +60,8 @@ object CrudForm {
       ceval: String,
       percentage: String,
       fmjd: String,
-      drawLimit: String
+      drawLimit: String,
+      noAssistance: Boolean
   )
 
   val imageChoices = List(
@@ -104,6 +106,7 @@ object CrudForm {
     ceval = cevalDefault,
     percentage = "",
     fmjd = fmjdDefault,
-    drawLimit = ""
+    drawLimit = "",
+    noAssistance = false
   )
 }

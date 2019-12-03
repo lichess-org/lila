@@ -34,9 +34,14 @@
 @form3.group(form("percentage"), Html("Target winning percentage (optional, min. 50%)"))(form3.input(_, typ = "number")(*.min := 50, *.max := 100))
 @form3.group(form("drawLimit"), Html("No draw offers before move (optional, 0 disables draw offers)"))(form3.input(_, typ = "number")(*.min := 0, *.max := 99))
 
-@form3.group(form("chat"), Html("Chat is available for"))(form3.select(_, chatChoices))
-@form3.group(form("fmjd"), Html("Official rating visibility"))(form3.select(_, fmjdChoices))
-@form3.group(form("ceval"), Html("Computer analysis in lobby"))(form3.select(_, cevalChoices))
+@form3.split {
+@form3.group(form("chat"), Html("Chat is available for"), half = true)(form3.select(_, chatChoices))
+@form3.group(form("ceval"), Html("Computer analysis in lobby"), half = true)(form3.select(_, cevalChoices))
+}
+@form3.split {
+@form3.checkbox(form("noAssistance"), Html("No playing assistance"), help = Html("Disables premoves, piece destinations and material difference").some, half = true)
+@form3.group(form("fmjd"), Html("Official rating visibility"), half = true)(form3.select(_, fmjdChoices))
+}
 
 @form3.group(form("variants"), Html("Variants"))(_ => views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants, disabled = running).toHtml)
 

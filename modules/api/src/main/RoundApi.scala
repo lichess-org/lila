@@ -36,7 +36,7 @@ private[api] final class RoundApi(
           case json ~ tourOption ~ simulOption ~ note ~ forecast ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption) _ compose
-            withSimul(pov, simulOption) _ compose
+            withSimul(pov, simulOption, true) _ compose
             withSteps(pov, initialFen) _ compose
             withNote(note) _ compose
             withBookmark(bookmarked) _ compose
@@ -58,7 +58,7 @@ private[api] final class RoundApi(
           case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
-            withSimul(pov, simulOption)_ compose
+            withSimul(pov, simulOption, false)_ compose
             withNote(note)_ compose
             withBookmark(bookmarked)_ compose
             withSteps(pov, initialFen)_
@@ -82,7 +82,7 @@ private[api] final class RoundApi(
           case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             blindMode _ compose
             withTournament(pov, tourOption)_ compose
-            withSimul(pov, simulOption)_ compose
+            withSimul(pov, simulOption, false)_ compose
             withNote(note)_ compose
             withBookmark(bookmarked)_ compose
             withTree(pov, analysis, initialFen, withFlags, pov.game.metadata.pdnImport.isDefined)_ compose
@@ -178,7 +178,7 @@ private[api] final class RoundApi(
         )))
     })
 
-  private def withSimul(pov: Pov, simulOption: Option[Simul])(json: JsObject) =
+  private def withSimul(pov: Pov, simulOption: Option[Simul], player: Boolean)(json: JsObject) =
     json.add("simul", simulOption.map { simul =>
       Json.obj(
         "id" -> simul.id,
@@ -186,7 +186,8 @@ private[api] final class RoundApi(
         "name" -> simul.name,
         "nbPlaying" -> simul.ongoing
       ).add("timeOutUntil" -> pov.game.isWithinTimeOut ?? pov.game.metadata.timeOutUntil)
-        .add("isUnique" -> simul.isUnique ?? true.some)
+        .add("isUnique" -> simul.isUnique.option(true))
+        .add("noAssistance" -> simul.spotlight.flatMap(_.noAssistance).ifTrue(player))
     })
 
   private def blindMode(js: JsObject)(implicit ctx: Context) =

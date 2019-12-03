@@ -85,6 +85,7 @@ export interface Simul {
   nbPlaying: number;
   timeOutUntil?: number;
   isUnique?: boolean;
+  noAssistance?: boolean;
 }
 
 export interface Clock {
