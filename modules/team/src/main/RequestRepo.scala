@@ -2,10 +2,7 @@ package lila.team
 
 import lila.db.dsl._
 
-object RequestRepo {
-
-  // dirty
-  private val coll = Env.current.colls.request
+private final class RequestRepo(val coll: Coll) {
 
   import BSONHandlers._
 

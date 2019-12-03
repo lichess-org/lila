@@ -4,12 +4,15 @@ import lila.memo.Syncache
 import scala.concurrent.duration._
 
 private[team] final class Cached(
+    teamRepo: TeamRepo,
+    memberRepo: MemberRepo,
+    requestRepo: RequestRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
   val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
-    compute = TeamRepo.name,
+    compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),
@@ -23,7 +26,7 @@ private[team] final class Cached(
   // ~ 30k entries as of 04/02/17
   private val teamIdsCache = new Syncache[lila.user.User.ID, Team.IdsStr](
     name = "team.ids",
-    compute = u => MemberRepo.teamIdsByUser(u).dmap(Team.IdsStr.apply),
+    compute = u => memberRepo.teamIdsByUser(u).dmap(Team.IdsStr.apply),
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),
@@ -38,7 +41,7 @@ private[team] final class Cached(
 
   val nbRequests = asyncCache.clearable[lila.user.User.ID, Int](
     name = "team.nbRequests",
-    f = userId => TeamRepo teamIdsByCreator userId flatMap RequestRepo.countByTeams,
-    expireAfter = _.ExpireAfterAccess(12 minutes)
+    f = userId => teamRepo teamIdsByCreator userId flatMap requestRepo.countByTeams,
+    expireAfter = _.ExpireAfterAccess(15 minutes)
   )
 }

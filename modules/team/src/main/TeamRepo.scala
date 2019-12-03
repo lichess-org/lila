@@ -7,26 +7,17 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-object TeamRepo {
-
-  // dirty
-  private val coll = Env.current.colls.team
+private final class TeamRepo(val coll: Coll) {
 
   import BSONHandlers._
 
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
-  def cursor(
-    selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Team]) =
-    coll.find(selector).cursor[Team](readPreference)
-
   def owned(id: Team.ID, createdBy: User.ID): Fu[Option[Team]] =
     coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: User.ID): Fu[List[String]] =
-    coll.distinct[String, List]("_id", $doc("createdBy" -> userId).some)
+    coll.distinctEasy[String, List]("_id", $doc("createdBy" -> userId))
 
   def creatorOf(teamId: Team.ID): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(teamId), "_id")
