@@ -13,9 +13,9 @@
   <string name="toggleTheChat">පිළිසඳර මාරුකරන්න</string>
   <string name="toggleSound">ටොගල ශබ්දය</string>
   <string name="chat">පිළිසඳර</string>
-  <string name="resign">ඉල්ලා අස්වන්න</string>
-  <string name="checkmate">පරදවනවා</string>
-  <string name="stalemate">අමාරු තැනට පත්වෙනවා</string>
+  <string name="resign">ඉවත්වන්න</string>
+  <string name="checkmate">රජ වටකර ඇත</string>
+  <string name="stalemate">ජය පැරදුමෙන් තොර</string>
   <string name="white">සුදු</string>
   <string name="black">කළු</string>
   <string name="randomColor">අහඹු පැත්ත</string>
@@ -23,7 +23,7 @@
   <string name="whiteIsVictorious">සුදු ජයග්‍රාහී වේ</string>
   <string name="blackIsVictorious">කළු ජයග්‍රාහී වේ</string>
   <string name="kingInTheCenter">රජු කෙන්ද්‍රයේය</string>
-  <string name="threeChecks">චෙක්පත් තුනක්</string>
+  <string name="threeChecks">වැටලුම් තුනක්</string>
   <string name="raceFinished">තරඟය අවසන්</string>
   <string name="variantEnding">විචල්‍ය අවසානය</string>
   <string name="newOpponent">නව ප්‍රතිවාදියා</string>
