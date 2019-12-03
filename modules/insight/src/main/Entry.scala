@@ -132,7 +132,7 @@ object Castling {
   object None extends Castling(3, "No castling")
   val all = List(Kingside, Queenside, None)
   val byId = all map { p => (p.id, p) } toMap
-  def fromMoves(moves: Traversable[String]) = moves.find(_ startsWith "O") match {
+  def fromMoves(moves: Iterable[String]) = moves.find(_ startsWith "O") match {
     case Some("O-O") => Kingside
     case Some("O-O-O") => Queenside
     case _ => None

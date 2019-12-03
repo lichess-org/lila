@@ -216,7 +216,7 @@ lazy val insight = module(
   "insight",
   Seq(common, game, user, analyse, relation, pref, socket, round, security)
 ).settings(
-    libraryDependencies ++= provided(play.api, scalatags) ++ reactivemongo.bundle
+    libraryDependencies ++= provided(play.api, play.joda, scalatags) ++ reactivemongo.bundle
   )
 
 lazy val tournament = module("tournament", Seq(

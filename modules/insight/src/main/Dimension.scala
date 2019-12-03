@@ -193,7 +193,7 @@ object Dimension {
     case Dimension.Period => selected.sortBy(-_.days).headOption.fold($empty) { period =>
       $doc(d.dbKey $gt period.min)
     }
-    case _ => selected map d.bson.write match {
+    case _ => selected flatMap d.bson.writeOpt match {
       case Nil => $empty
       case List(x) => $doc(d.dbKey -> x)
       case xs => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))

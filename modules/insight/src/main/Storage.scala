@@ -7,19 +7,11 @@ import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-private final class Storage(coll: Coll) {
+private final class Storage(val coll: Coll) {
 
   import Storage._
   import BSONHandlers._
   import Entry.{ BSONFields => F }
-
-  def aggregate(operators: NonEmptyList[PipelineOperator]): Fu[List[Bdoc]] =
-    coll.aggregateList(
-      operators.head,
-      operators.tail.toList,
-      maxDocs = Int.MaxValue,
-      allowDiskUse = true
-    )
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
     coll.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
@@ -28,13 +20,12 @@ private final class Storage(coll: Coll) {
     coll.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
 
   def count(userId: String): Fu[Int] =
-    coll.count(selectUserId(userId).some)
+    coll.countSel(selectUserId(userId))
 
   def insert(p: Entry) = coll.insert(p).void
 
-  def bulkInsert(ps: Seq[Entry]) = coll.bulkInsert(
-    documents = ps.map(BSONHandlers.EntryBSONHandler.write).toStream,
-    ordered = false
+  def bulkInsert(ps: Seq[Entry]) = coll.insert.many(
+    ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
   )
 
   def update(p: Entry) = coll.update(selectId(p.id), p, upsert = true).void
@@ -46,20 +37,23 @@ private final class Storage(coll: Coll) {
   def find(id: String) = coll.find(selectId(id)).uno[Entry]
 
   def ecos(userId: String): Fu[Set[String]] =
-    coll.distinct[String, Set](F.eco, selectUserId(userId).some)
+    coll.distinctEasy[String, Set](F.eco, selectUserId(userId))
 
   def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregateList(
-    Match(BSONDocument(F.userId -> userId)),
-    List(GroupField(F.perf)("nb" -> SumValue(1))),
     maxDocs = 50
-  ).map {
-      _.flatMap { doc =>
-        for {
-          perfType <- doc.getAs[PerfType]("_id")
-          nb <- doc.getAs[Int]("nb")
-        } yield perfType -> nb
-      }(scala.collection.breakOut)
-    }
+  ) { framework =>
+    import framework._
+    Match(BSONDocument(F.userId -> userId)) -> List(
+      GroupField(F.perf)("nb" -> SumValue(1))
+    )
+  }.map {
+    _.flatMap { doc =>
+      for {
+        perfType <- doc.getAsOpt[PerfType]("_id")
+        nb <- doc.int("nb")
+      } yield perfType -> nb
+    }.toMap
+  }
 }
 
 private object Storage {

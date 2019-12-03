@@ -63,10 +63,10 @@ object JsonQuestion {
   def fromQuestion(q: Question[_]) = JsonQuestion(
     dimension = q.dimension.key,
     metric = q.metric.key,
-    filters = q.filters.map {
+    filters = q.filters.view.map {
       case Filter(dimension, selected) =>
         dimension.key -> selected.map(Dimension.valueKey(dimension))
-    }(scala.collection.breakOut)
+    }.toMap
   )
 
   implicit val QuestionFormats = Json.format[JsonQuestion]

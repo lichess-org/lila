@@ -322,7 +322,7 @@ final class ReportApi(
       }.void
   }
 
-  def countOpenByRooms: Fu[Room.Counts] = {
+  def countOpenByRooms: Fu[Room.Counts] =
     coll.aggregateList(maxDocs = 100) { framework =>
       import framework._
       Match(selectOpenAvailableInRoom(none)) -> List(
@@ -335,7 +335,6 @@ final class ReportApi(
         }
       }.toMap)
     }
-  }
 
   private def findRecent(nb: Int, selector: Bdoc): Fu[List[Report]] = (nb > 0) ?? {
     coll.ext.find(selector).sort(sortLastAtomAt).list[Report](nb)
