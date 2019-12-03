@@ -69,7 +69,7 @@ private[puzzle] final class Selector(
     tolerance: Int,
     step: Int,
     idRange: Range
-  ): Fu[Option[Puzzle]] = puzzleColl.find(rangeSelector(
+  ): Fu[Option[Puzzle]] = puzzleColl.ext.find(rangeSelector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange

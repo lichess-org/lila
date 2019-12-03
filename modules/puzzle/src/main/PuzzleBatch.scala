@@ -63,7 +63,7 @@ private[puzzle] final class PuzzleBatch(
       step: Int,
       idRange: Range,
       nb: Int
-    ): Fu[List[Puzzle]] = puzzleColl.find(rangeSelector(
+    ): Fu[List[Puzzle]] = puzzleColl.ext.find(rangeSelector(
       rating = rating,
       tolerance = tolerance,
       idRange = idRange

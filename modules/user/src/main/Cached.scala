@@ -72,7 +72,7 @@ final class Cached(
     def apply(perf: PerfType) = rankingApi.weeklyRatingDistribution(perf)
   }
 
-  val botIds = asyncCache.single[Set[User.ID]](
+  private[user] val botIds = asyncCache.single[Set[User.ID]](
     name = "user.botIds",
     f = userRepo.botIds,
     expireAfter = _.ExpireAfterWrite(10 minutes)

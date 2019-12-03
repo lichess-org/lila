@@ -1,27 +1,27 @@
 package lila.explorer
 
+import akka.stream.scaladsl.Sink
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.iteratee._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.util.Random.nextFloat
 import scala.util.{ Try, Success, Failure }
 
+import lila.common.LilaStream
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
 import lila.user.{ User, UserRepo }
 
 private final class ExplorerIndexer(
-    gameColl: Coll,
-    getBotUserIds: () => Fu[Set[User.ID]],
-    internalEndpoint: String
-) {
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
+    getBotUserIds: lila.user.GetBotIds,
+    ws: play.api.libs.ws.WSClient,
+    internalEndpoint: InternalEndpoint
+)(implicit mat: akka.stream.Materializer) {
 
-  private val maxGames = Int.MaxValue
-  private val batchSize = 50
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
   private val dateFormatter = DateTimeFormat forPattern datePattern
@@ -31,8 +31,6 @@ private final class ExplorerIndexer(
 
   private def parseDate(str: String): Option[DateTime] =
     Try(dateFormatter parseDateTime str).toOption
-
-  type GamePGN = (Game, String)
 
   def apply(sinceStr: String): Funit = getBotUserIds() flatMap { botUserIds =>
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
@@ -46,36 +44,24 @@ private final class ExplorerIndexer(
           Query.bothRatingsGreaterThan(1501)
 
       import reactivemongo.api._
-      import reactivemongo.play.iteratees.cursorProducer
 
-      gameColl.find(query)
-        .sort(Query.sortChronological)
-        .cursor[Game](ReadPreference.secondary)
-        .enumerator(maxGames) &>
-        Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
-          makeFastPgn(game, botUserIds) map { _ map { game -> _ } }
-        } &>
-        Enumeratee.collect { case Some(el) => el } &>
-        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[GamePGN], Long](nowMillis) {
-          case (millis, pairs) =>
-            WS.url(internalEndPointUrl).put(pairs.map(_._2) mkString separator).flatMap {
-              case res if res.status == 200 =>
-                val date = pairs.headOption.map(_._1.createdAt) ?? dateTimeFormatter.print
-                val nb = pairs.size
-                val gameMs = (nowMillis - millis) / nb.toDouble
-                logger.info(s"$date $nb ${gameMs.toInt} ms/game ${(1000 / gameMs).toInt} games/s")
-                funit
-              case res => fufail(s"Stop import because of status ${res.status}")
-            } >> {
-              pairs.headOption match {
-                case None => fufail(s"No games left, import complete!")
-                case Some((g, _)) if (g.createdAt.isAfter(DateTime.now.minusMinutes(10))) =>
-                  fufail(s"Found a recent game, import complete!")
-                case _ => funit
-              }
-            } inject nowMillis
-        } void
+      gameRepo
+        .sortedCursor(query, Query.sortChronological)
+        .documentSource()
+        .via(LilaStream.logRate[Game]("fetch")(logger))
+        .mapAsyncUnordered(8) { makeFastPgn(_, botUserIds) }
+        .mapConcat(_.toList)
+        .via(LilaStream.logRate("index")(logger))
+        .grouped(50)
+        .map(_ mkString separator)
+        .mapAsyncUnordered(2) { pgn =>
+          ws.url(internalEndPointUrl).put(pgn).flatMap {
+            case res if res.status == 200 => funit
+            case res => fufail(s"Stop import because of status ${res.status}")
+          }
+        }
+        .to(Sink.ignore)
+        .run.void
     }
   }
 
@@ -92,7 +78,7 @@ private final class ExplorerIndexer(
       buf += pgn
       val startAt = nowMillis
       if (buf.size >= max) {
-        WS.url(internalEndPointUrl).put(buf mkString separator) andThen {
+        ws.url(internalEndPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
             lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
             lila.mon.explorer.index.success(max)
@@ -150,8 +136,8 @@ private final class ExplorerIndexer(
     if probability(game, averageRating) > nextFloat
     if !game.userIds.exists(botUserIds.contains)
     if valid(game)
-  } yield GameRepo initialFen game flatMap { initialFen =>
-    UserRepo.usernamesByIds(game.userIds) map { usernames =>
+  } yield gameRepo initialFen game flatMap { initialFen =>
+    userRepo.usernamesByIds(game.userIds) map { usernames =>
       def username(color: chess.Color) = game.player(color).userId flatMap { id =>
         usernames.find(_.toLowerCase == id)
       } orElse game.player(color).userId getOrElse "?"

@@ -41,6 +41,8 @@ final class Env(
 
   val isOnline = new IsOnline(userId => onlineUserIds() contains userId)
 
+  lazy val botIds = new GetBotIds(() => cached.botIds.get)
+
   lazy val jsonView = wire[JsonView]
 
   lazy val noteApi = {
