@@ -74,7 +74,7 @@ final class Env(
   def version(simulId: Simul.ID) =
     simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
 
-  private val sequencerMap = new DuctMap(
+  private def sequencerMap = new DuctMap(
     mkDuct = _ => Duct.extra.lazyFu,
     accessTimeout = 10 minutes
   )

@@ -283,8 +283,8 @@ final class PlayerRepo(coll: Coll) {
   ): AkkaStreamCursor[Player] =
     coll
       .find(selectTour(tournamentId))
-      .batchSize(batchSize)
       .sort($sort desc "m")
+      .batchSize(batchSize)
       .cursor[Player](readPreference)
 
 }

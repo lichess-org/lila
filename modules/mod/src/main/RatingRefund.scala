@@ -7,31 +7,33 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.game.BSONHandlers._
 import lila.game.{ Game, GameRepo, Query }
-import lila.rating.PerfType
-import lila.user.{ User, UserRepo }
-import lila.report.{ Suspect, Victim }
 import lila.perfStat.PerfStat
+import lila.rating.PerfType
+import lila.report.{ Suspect, Victim }
+import lila.user.{ User, UserRepo }
 
 private final class RatingRefund(
-    scheduler: lila.common.Scheduler,
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
+    scheduler: akka.actor.Scheduler,
     notifier: ModNotifier,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
-    wasUnengined: Suspect => Fu[Boolean],
-    perfStatter: (User, PerfType) => Fu[PerfStat]
+    logApi: ModlogApi,
+    perfStat: lila.perfStat.Env
 ) {
 
   import RatingRefund._
 
-  def schedule(sus: Suspect): Unit = scheduler.once(delay)(apply(sus))
+  def schedule(sus: Suspect): Unit = scheduler.scheduleOnce(delay)(apply(sus))
 
-  private def apply(sus: Suspect): Unit = wasUnengined(sus) flatMap {
+  private def apply(sus: Suspect): Unit = logApi.wasUnengined(sus) flatMap {
     case true => funit
     case false =>
 
       logger.info(s"Refunding ${sus.user.username} victims")
 
-      def lastGames = GameRepo.coll.find(
+      def lastGames = gameRepo.coll.ext.find(
         Query.user(sus.user.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3) ++ Query.finished
       ).sort(Query.sortCreated)
         .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
@@ -56,16 +58,16 @@ private final class RatingRefund(
 
       def refundPoints(victim: Victim, pt: PerfType, points: Int): Funit = {
         val newPerf = victim.user.perfs(pt) refund points
-        UserRepo.setPerf(victim.user.id, pt, newPerf) >>
+        userRepo.setPerf(victim.user.id, pt, newPerf) >>
           historyApi.setPerfRating(victim.user, pt, newPerf.intRating) >>
           rankingApi.save(victim.user, pt, newPerf) >>
           notifier.refund(victim, pt, points)
       }
 
       def applyRefund(ref: Refund) =
-        UserRepo byId ref.victim flatMap {
+        userRepo byId ref.victim flatMap {
           _ ?? { user =>
-            perfStatter(user, ref.perf) flatMap { perfs =>
+            perfStat.get(user, ref.perf) flatMap { perfs =>
               val points = pointsToRefund(
                 ref,
                 curRating = user.perfs(ref.perf).intRating,

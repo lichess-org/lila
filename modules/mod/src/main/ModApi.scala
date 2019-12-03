@@ -7,19 +7,21 @@ import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
 import lila.user.{ User, UserRepo, Title, LightUserApi }
 
 final class ModApi(
+    userRepo: UserRepo,
     logApi: ModlogApi,
     userSpy: User => Fu[UserSpy],
     firewall: Firewall,
-    reporter: akka.actor.ActorSelection,
     reportApi: lila.report.ReportApi,
+    reporter: lila.hub.actors.Report,
     notifier: ModNotifier,
     lightUserApi: LightUserApi,
-    refunder: RatingRefund
+    refunder: RatingRefund,
+    securityStore: SecurityStore
 ) {
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.engine != v) ?? {
     for {
-      _ <- UserRepo.setEngine(prev.user.id, v)
+      _ <- userRepo.setEngine(prev.user.id, v)
       sus = prev.set(_.copy(engine = v))
       _ <- reportApi.process(mod, sus, Set(Room.Cheat, Room.Print))
       _ <- logApi.engine(mod, sus, v)
@@ -33,7 +35,7 @@ final class ModApi(
   }
 
   def autoMark(suspectId: SuspectId, modId: ModId): Funit = for {
-    sus <- reportApi.getSuspect(suspectId.value) flatten s"No such suspect $suspectId"
+    sus <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
     unengined <- logApi.wasUnengined(sus)
     _ <- (!sus.user.isBot && !unengined) ?? {
       reportApi.getMod(modId.value) flatMap {
@@ -48,7 +50,7 @@ final class ModApi(
   def setBooster(mod: Mod, prev: Suspect, v: Boolean): Fu[Suspect] =
     if (prev.user.booster == v) fuccess(prev)
     else for {
-      _ <- UserRepo.setBooster(prev.user.id, v)
+      _ <- userRepo.setBooster(prev.user.id, v)
       sus = prev.set(_.copy(booster = v))
       _ <- reportApi.process(mod, sus, Set(Room.Other))
       _ <- logApi.booster(mod, sus, v)
@@ -70,7 +72,7 @@ final class ModApi(
     val changed = value != prev.user.troll
     val sus = prev.set(_.copy(troll = value))
     changed ?? {
-      UserRepo.updateTroll(sus.user).void >>- {
+      userRepo.updateTroll(sus.user).void >>- {
         logApi.troll(mod, sus)
         Bus.publish(lila.hub.actorApi.mod.Shadowban(sus.user.id, value), "shadowban")
       }
@@ -83,9 +85,9 @@ final class ModApi(
   def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit = for {
     spy <- userSpy(prev.user)
     sus = prev.set(_.copy(ipBan = value))
-    _ <- UserRepo.setIpBan(sus.user.id, sus.user.ipBan)
+    _ <- userRepo.setIpBan(sus.user.id, sus.user.ipBan)
     _ <- logApi.ban(mod, sus)
-    _ <- if (sus.user.ipBan) firewall.blockIps(spy.rawIps) >> SecurityStore.disconnect(sus.user.id)
+    _ <- if (sus.user.ipBan) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
     else firewall unblockIps spy.rawIps
   } yield ()
 
@@ -96,24 +98,24 @@ final class ModApi(
   } yield logApi.garbageCollect(mod, sus)
 
   def disableTwoFactor(mod: String, username: String): Funit = withUser(username) { user =>
-    (UserRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
+    (userRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
   }
 
   def reopenAccount(mod: String, username: String): Funit = withUser(username) { user =>
     !user.enabled ?? {
-      (UserRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
+      (userRepo reopen user.id) >> logApi.reopenAccount(mod, user.id)
     }
   }
 
   def setTitle(mod: String, username: String, title: Option[Title]): Funit = withUser(username) { user =>
     title match {
       case None => {
-        UserRepo.removeTitle(user.id) >>-
+        userRepo.removeTitle(user.id) >>-
           logApi.removeTitle(mod, user.id) >>-
           lightUserApi.invalidate(user.id)
       }
       case Some(t) => Title.names.get(t) ?? { tFull =>
-        UserRepo.addTitle(user.id, t) >>-
+        userRepo.addTitle(user.id, t) >>-
           logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
           lightUserApi.invalidate(user.id)
       }
@@ -121,8 +123,8 @@ final class ModApi(
   }
 
   def setEmail(mod: String, username: String, email: EmailAddress): Funit = withUser(username) { user =>
-    UserRepo.setEmail(user.id, email) >>
-      UserRepo.setEmailConfirmed(user.id) >>
+    userRepo.setEmail(user.id, email) >>
+      userRepo.setEmailConfirmed(user.id) >>
       logApi.setEmail(mod, user.id)
   }
 
@@ -133,21 +135,21 @@ final class ModApi(
     } ++
       // only add permissions the mod can actually grant
       permissions.filter(Granter.canGrant(mod.user, _))
-    UserRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
+    userRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
       Bus.publish(lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList), "setPermissions")
       logApi.setPermissions(mod, user.id, permissions.toList)
     }
   }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {
-    UserRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
+    userRepo.setReportban(sus.user.id, v) >>- logApi.reportban(mod, sus, v)
   }
 
   def setRankban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.rankban != v) ?? {
     if (v) Bus.publish(lila.hub.actorApi.mod.KickFromRankings(sus.user.id), "kickFromRankings")
-    UserRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
+    userRepo.setRankban(sus.user.id, v) >>- logApi.rankban(mod, sus, v)
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    UserRepo named username flatten "[mod] missing user " + username flatMap op
+    userRepo named username orFail s"[mod] missing user $username" flatMap op
 }

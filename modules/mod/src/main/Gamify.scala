@@ -11,22 +11,25 @@ import lila.report.Room
 import lila.user.User.lichessId
 
 final class Gamify(
-    logColl: Coll,
+    logRepo: ModlogRepo,
     reportApi: lila.report.ReportApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    historyColl: Coll
+    historyRepo: HistoryRepo
 ) {
 
   import Gamify._
   import lila.report.BSONHandlers.RoomBSONHandler
 
+  private implicit val modMixedBSONHandler = Macros.handler[ModMixed]
+  private implicit val historyMonthBSONHandler = Macros.handler[HistoryMonth]
+
   def history(orCompute: Boolean = true): Fu[List[HistoryMonth]] = {
     val until = DateTime.now minusMonths 1 withDayOfMonth 1
     val lastId = HistoryMonth.makeId(until.getYear, until.getMonthOfYear)
-    historyColl.find($empty).sort($doc(
+    historyRepo.coll.ext.find($empty).sort($doc(
       "year" -> -1,
       "month" -> -1
-    )).cursor[HistoryMonth]().gather[List]().flatMap { months =>
+    )).list[HistoryMonth]() flatMap { months =>
       months.headOption match {
         case Some(m) if m._id == lastId => fuccess(months)
         case _ if !orCompute => fuccess(months)
@@ -35,9 +38,6 @@ final class Gamify(
       }
     }
   }
-
-  private implicit val modMixedBSONHandler = Macros.handler[ModMixed]
-  private implicit val historyMonthBSONHandler = Macros.handler[HistoryMonth]
 
   private def buildHistoryAfter(afterYear: Int, afterMonth: Int, until: DateTime): Funit =
     (afterYear to until.getYear).flatMap { year =>
@@ -54,7 +54,7 @@ final class Gamify(
         }.toList
     }.toList.sequenceFu.map(_.flatten).flatMap {
       _.map { month =>
-        historyColl.update($doc("_id" -> month._id), month, upsert = true).void
+        historyRepo.coll.update.one($doc("_id" -> month._id), month, upsert = true).void
       }.sequenceFu
     }.void
 
@@ -87,35 +87,40 @@ final class Gamify(
   private val notLichess = $doc("$ne" -> lichessId)
 
   private def actionLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
-    logColl.aggregateList(Match($doc(
-      "date" -> dateRange(after, before),
-      "mod" -> notLichess
-    )), List(
-      GroupField("mod")("nb" -> SumValue(1)),
-      Sort(Descending("nb"))
-    ), maxDocs = 100).map {
+    logRepo.coll.aggregateList(maxDocs = 100) { framework =>
+      import framework._
+      Match($doc(
+        "date" -> dateRange(after, before),
+        "mod" -> notLichess
+      )) -> List(
+        GroupField("mod")("nb" -> SumValue(1)),
+        Sort(Descending("nb"))
+      )
+    }.map {
       _.flatMap { obj =>
-        obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
+        obj.string("_id") |@| obj.int("nb") apply ModCount.apply
       }
     }
 
   private def reportLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModCount]] =
     reportApi.coll.aggregateList(
+      maxDocs = Int.MaxValue,
+      readPreference = ReadPreference.secondaryPreferred
+    ) { framework =>
+      import framework._
       Match($doc(
         "atoms.0.at" -> dateRange(after, before),
         "room" $in Room.all, // required to make use of the mongodb index room+atoms.0.at
         "processedBy" -> notLichess
-      )), List(
+      )) -> List(
         GroupField("processedBy")("nb" -> SumValue(1)),
         Sort(Descending("nb"))
-      ),
-      maxDocs = Int.MaxValue,
-      readPreference = ReadPreference.secondaryPreferred
-    ).map {
-        _.flatMap { obj =>
-          obj.getAs[String]("_id") |@| obj.getAs[Int]("nb") apply ModCount.apply
-        }
+      )
+    }.map {
+      _.flatMap { obj =>
+        obj.string("_id") |@| obj.int("nb") apply ModCount.apply
       }
+    }
 }
 
 object Gamify {

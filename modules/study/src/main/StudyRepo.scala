@@ -187,15 +187,16 @@ final class StudyRepo(private[study] val coll: Coll) {
       import framework._
       Match($id(studyId)) -> List(
         Project($doc(
-        "_id" -> false,
-        F.likes -> $doc("$size" -> s"$$${F.likers}"),
-        F.createdAt -> true
-      )))
+          "_id" -> false,
+          F.likes -> $doc("$size" -> s"$$${F.likers}"),
+          F.createdAt -> true
+        ))
+      )
     }.headOption.map { docOption =>
-        for {
-          doc <- docOption
-          likes <- doc.getAs[Study.Likes](F.likes)
-          createdAt <- doc.getAs[DateTime](F.createdAt)
-        } yield likes -> createdAt
-      }
+      for {
+        doc <- docOption
+        likes <- doc.getAs[Study.Likes](F.likes)
+        createdAt <- doc.getAs[DateTime](F.createdAt)
+      } yield likes -> createdAt
+    }
 }

@@ -1,39 +1,41 @@
 package lila.mod
 
 import akka.actor._
-import play.api.libs.iteratee._
+import akka.stream.scaladsl._
 import play.api.libs.json._
 
 import lila.common.{ Bus, HTTPRequest }
-import lila.report.ModId
+import lila.security.Signup
 
-final class ModStream(system: ActorSystem) {
-
-  private val stringify =
-    Enumeratee.map[JsValue].apply[String] { js =>
-      Json.stringify(js) + "\n"
-    }
+final class ModStream(implicit
+    system: ActorSystem,
+    mat: akka.stream.Materializer
+) {
 
   private val classifier = "userSignup"
 
-  def enumerator: Enumerator[String] = {
-    var subscriber: Option[lila.common.Tellable] = None
-    Concurrent.unicast[JsValue](
-      onStart = channel => {
-        subscriber = Bus.subscribeFun(classifier) {
-          case lila.security.Signup(user, email, req, fp, suspIp) =>
-            channel push Json.obj(
-              "t" -> "signup",
-              "username" -> user.username,
-              "email" -> email.value,
-              "ip" -> HTTPRequest.lastRemoteAddress(req).value,
-              "suspIp" -> suspIp,
-              "userAgent" -> HTTPRequest.userAgent(req),
-              "fingerPrint" -> fp.map(_.value)
-            )
-        } some
-      },
-      onComplete = subscriber foreach { Bus.unsubscribe(_, classifier) }
-    ) &> stringify
+  private val blueprint =
+    Source.queue[Signup](32, akka.stream.OverflowStrategy.dropHead)
+      .map {
+        case Signup(user, email, req, fp, suspIp) => Json.obj(
+          "t" -> "signup",
+          "username" -> user.username,
+          "email" -> email.value,
+          "ip" -> HTTPRequest.lastRemoteAddress(req).value,
+          "suspIp" -> suspIp,
+          "userAgent" -> HTTPRequest.userAgent(req),
+          "fingerPrint" -> fp.map(_.value)
+        )
+      }
+      .map { js => s"${Json.stringify(js)}\n" }
+
+  def plugTo(sink: Sink[String, Fu[akka.Done]]): Unit = {
+
+    val (queue, done) = blueprint.toMat(sink)(Keep.both).run()
+
+    val sub = Bus.subscribeFun(classifier) {
+      case signup: Signup => queue offer signup
+    }
+    done onComplete { _ => Bus.unsubscribe(sub, classifier) }
   }
 }

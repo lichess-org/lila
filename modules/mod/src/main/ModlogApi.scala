@@ -4,7 +4,9 @@ import lila.db.dsl._
 import lila.report.{ Report, Mod, Suspect, ModId }
 import lila.security.Permission
 
-final class ModlogApi(coll: Coll) {
+final class ModlogApi(repo: ModlogRepo) {
+
+  private def coll = repo.coll
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]

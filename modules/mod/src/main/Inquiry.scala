@@ -17,6 +17,7 @@ case class Inquiry(
 }
 
 final class InquiryApi(
+    userRepo: UserRepo,
     reportApi: ReportApi,
     noteApi: NoteApi,
     logApi: ModlogApi
@@ -27,7 +28,7 @@ final class InquiryApi(
       reportApi.inquiries.ofModId(mod.id).flatMap {
         _ ?? { report =>
           reportApi.moreLike(report, 10) zip
-            UserRepo.named(report.user) zip
+            userRepo.named(report.user) zip
             noteApi.forMod(report.user) zip
             logApi.userHistory(report.user) map {
               case moreReports ~ userOption ~ notes ~ history =>

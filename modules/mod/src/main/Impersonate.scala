@@ -5,7 +5,7 @@ import lila.hub.actorApi.mod.Impersonate
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-final class ImpersonateApi {
+final class ImpersonateApi(userRepo: UserRepo) {
 
   private var modToUser = Map.empty[User.ID, User.ID]
   private var userToMod = Map.empty[User.ID, User.ID]
@@ -25,7 +25,7 @@ final class ImpersonateApi {
     Bus.publish(Impersonate(user.id, none), "impersonate")
   }
 
-  def impersonating(mod: User): Fu[Option[User]] = modToUser.get(mod.id) ?? UserRepo.byId
+  def impersonating(mod: User): Fu[Option[User]] = modToUser.get(mod.id) ?? userRepo.byId
 
   def impersonatedBy(user: User): Option[User.ID] = userToMod get user.id
 

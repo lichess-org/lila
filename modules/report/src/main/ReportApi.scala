@@ -9,7 +9,7 @@ import lila.db.dsl._
 import lila.user.{ User, UserRepo, NoteApi }
 
 final class ReportApi(
-    coll: Coll,
+    val coll: Coll,
     userRepo: UserRepo,
     autoAnalysis: AutoAnalysis,
     noteApi: NoteApi,

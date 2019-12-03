@@ -50,7 +50,7 @@ final class Env(
 
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
-  private val scheduler = system.scheduler
+  private def scheduler = system.scheduler
 
   lazy val forms = wire[DataForm]
 

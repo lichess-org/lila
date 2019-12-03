@@ -19,11 +19,14 @@ import scala.util.Random
 import chess.Color
 
 final class AssessApi(
-    collAssessments: Coll,
+    assessRepo: AssessmentRepo,
     logApi: ModlogApi,
     modApi: ModApi,
-    reporter: ActorSelection,
-    fishnet: ActorSelection
+    userRepo: lila.user.UserRepo,
+    reporter: lila.hub.actors.Report,
+    fishnet: lila.hub.actors.Fishnet,
+    gameRepo: lila.game.GameRepo,
+    analysisRepo: AnalysisRepo
 ) {
 
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
@@ -33,13 +36,13 @@ final class AssessApi(
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
-    collAssessments.update($id(assessed._id), assessed, upsert = true).void
+    assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 
   def getPlayerAssessmentById(id: String) =
-    collAssessments.byId[PlayerAssessment](id)
+    assessRepo.coll.byId[PlayerAssessment](id)
 
   private def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
-    collAssessments.find($doc("userId" -> userId))
+    assessRepo.coll.ext.find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
       .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
       .gather[List](nb)
@@ -54,7 +57,7 @@ final class AssessApi(
       }
 
   private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] =
-    UserRepo byId userId flatMap {
+    userRepo byId userId flatMap {
       _.filter(_.noBot) ?? { user =>
         getPlayerAssessmentsByUserId(userId, nb) map { games =>
           games.nonEmpty option PlayerAggregateAssessment(user, games)
@@ -63,7 +66,7 @@ final class AssessApi(
     }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
-    GameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
+    gameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
@@ -75,9 +78,9 @@ final class AssessApi(
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     if (user.isBot) funit
-    else (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+    else (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
-        AnalysisRepo.byGame(g) flatMap {
+        analysisRepo.byGame(g) flatMap {
           _ ?? { onAnalysisReady(g, _, false) }
         }
       }).sequenceFu.void
@@ -85,7 +88,7 @@ final class AssessApi(
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
-    GameRepo holdAlerts game flatMap { holdAlerts =>
+    gameRepo holdAlerts game flatMap { holdAlerts =>
       def consistentMoveTimes(game: Game)(player: Player) = Statistics.moderatelyConsistentMoveTimes(Pov(game, player))
       val shouldAssess =
         if (!game.source.exists(assessableSources.contains)) false
@@ -111,7 +114,7 @@ final class AssessApi(
     getPlayerAggregateAssessment(userId) flatMap {
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
-          UserRepo.getTitle(userId).flatMap {
+          userRepo.getTitle(userId).flatMap {
             case None => modApi.autoMark(SuspectId(userId), ModId.lichess)
             case Some(title) => fuccess {
               val reason = s"Would mark as engine, but has a $title title"
@@ -177,7 +180,7 @@ final class AssessApi(
       // discard old games
       else if (game.createdAt isBefore bottomDate) fuccess(none)
       // someone is using a bot
-      else GameRepo holdAlerts game map { holdAlerts =>
+      else gameRepo holdAlerts game map { holdAlerts =>
         if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
         // white has consistent move times
         else if (whiteSuspCoefVariation.isDefined && randomPercent(70)) whiteSuspCoefVariation.map(_ => WhiteMoveTime)
@@ -205,6 +208,6 @@ final class AssessApi(
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    UserRepo named username flatten "[mod] missing user " + username flatMap op
+    userRepo named username orFail s"[mod] missing user $username" flatMap op
 
 }
