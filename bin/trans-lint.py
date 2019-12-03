@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
 import re
@@ -84,6 +84,29 @@ def lint_string(path, name, dest, source, allow_missing=0):
 
     if "\n" not in source and "\n" in dest:
         print("NOTICE", path, "expected single line string:", name, dest)
+
+    if re.match(r"\n", dest):
+        print("ERROR", path, "has leading newlines:", name, dest)
+        errs += 1
+    elif re.match(r"\s+", dest):
+        print("WARNING", path, "has leading spaces:", name, dest)
+        warns += 1
+
+    if re.search(r"\s+$", dest):
+        print("WARNING", path, "has trailing spaces:", name, dest)
+        warns += 1
+
+    if re.search(r"[^\S\n]{2,}", dest):
+        print("WARNING", path, "has multiple successive spaces:", name, dest)
+        warns += 1
+
+    if re.search(r"\t", dest):
+        print("WARNING", path, "has tabs:", name, dest)
+        warns += 1
+
+    if re.search(r"\n{3,}", dest):
+        print("WARNING", path, "has more than one successive empty line:", name, dest)
+        warns += 1
 
     return errs, warns
 
