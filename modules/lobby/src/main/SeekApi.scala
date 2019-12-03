@@ -3,17 +3,17 @@ package lila.lobby
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
+import lila.common.config._
 import lila.db.dsl._
 import lila.user.User
 
 final class SeekApi(
-    coll: Coll,
-    archiveColl: Coll,
-    blocking: String => Fu[Set[User.ID]],
-    asyncCache: lila.memo.AsyncCache.Builder,
-    maxPerPage: Int,
-    maxPerUser: Int
+    config: SeekApi.Config,
+    biter: Biter,
+    relationApi: lila.relation.RelationApi,
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
+  import config._
 
   private sealed trait CacheKey
   private object ForAnon extends CacheKey
@@ -27,7 +27,7 @@ final class SeekApi(
   private val cache = asyncCache.clearable[CacheKey, List[Seek]](
     name = "lobby.seek.list",
     f = {
-      case ForAnon => allCursor.gather[List](maxPerPage)
+      case ForAnon => allCursor.gather[List](maxPerPage.value)
       case ForUser => allCursor.gather[List]()
     },
     maxCapacity = 2,
@@ -42,15 +42,15 @@ final class SeekApi(
   def forAnon = cache get ForAnon
 
   def forUser(user: User): Fu[List[Seek]] =
-    blocking(user.id) flatMap { blocking =>
+    relationApi.fetchBlocking(user.id) flatMap { blocking =>
       forUser(LobbyUser.make(user, blocking))
     }
 
   def forUser(user: LobbyUser): Fu[List[Seek]] = cache get ForUser map { seeks =>
     val filtered = seeks.filter { seek =>
-      seek.user.id == user.id || Biter.canJoin(seek, user)
+      seek.user.id == user.id || biter.canJoin(seek, user)
     }
-    noDupsFor(user, filtered) take maxPerPage
+    noDupsFor(user, filtered) take maxPerPage.value
   }
 
   private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
@@ -66,8 +66,8 @@ final class SeekApi(
     coll.find($id(id)).uno[Seek]
 
   def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
-    case seeks if seeks.size <= maxPerUser => funit
-    case seeks => seeks.drop(maxPerUser).map(remove).sequenceFu
+    case seeks if maxPerUser >= seeks.size => funit
+    case seeks => seeks.drop(maxPerUser.value).map(remove).sequenceFu
   }.void >>- cacheClear
 
   def findByUser(userId: String): Fu[List[Seek]] =
@@ -79,7 +79,7 @@ final class SeekApi(
     coll.remove($doc("_id" -> seek.id)).void >>- cacheClear
 
   def archive(seek: Seek, gameId: String) = {
-    val archiveDoc = Seek.seekBSONHandler.write(seek) ++ $doc(
+    val archiveDoc = Seek.seekBSONHandler.writeTry(seek).get ++ $doc(
       "gameId" -> gameId,
       "archivedAt" -> DateTime.now
     )
@@ -99,4 +99,14 @@ final class SeekApi(
 
   def removeByUser(user: User) =
     coll.remove($doc("user.id" -> user.id)).void >>- cacheClear
+}
+
+private object SeekApi {
+
+  final class Config(
+      val coll: Coll,
+      val archiveColl: Coll,
+      val maxPerPage: MaxPerPage,
+      val maxPerUser: Max
+  )
 }

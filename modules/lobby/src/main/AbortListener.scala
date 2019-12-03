@@ -1,9 +1,9 @@
 package lila.lobby
 
 import lila.game.Pov
-import lila.user.UserRepo
 
-private[lobby] final class AbortListener(
+private final class AbortListener(
+    userRepo: lila.user.UserRepo,
     seekApi: SeekApi,
     lobbyTrouper: LobbyTrouper
 ) {
@@ -15,8 +15,8 @@ private[lobby] final class AbortListener(
 
   private def cancelColorIncrement(pov: Pov): Unit = pov.game.userIds match {
     case List(u1, u2) =>
-      UserRepo.incColor(u1, -1)
-      UserRepo.incColor(u2, 1)
+      userRepo.incColor(u1, -1)
+      userRepo.incColor(u2, 1)
     case _ =>
   }
 
@@ -32,7 +32,7 @@ private[lobby] final class AbortListener(
     }
   }
 
-  private def worthRecreating(seek: Seek): Fu[Boolean] = UserRepo byId seek.user.id map {
+  private def worthRecreating(seek: Seek): Fu[Boolean] = userRepo byId seek.user.id map {
     _ exists { u =>
       u.enabled && !u.lame
     }

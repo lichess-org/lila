@@ -6,20 +6,22 @@ import org.joda.time.DateTime
 
 import actorApi._
 import lila.common.{ Every, AtMost }
+import lila.common.config.Max
 import lila.game.Game
 import lila.hub.Trouper
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
-private[lobby] final class LobbyTrouper(
+private final class LobbyTrouper(
     system: akka.actor.ActorSystem,
     seekApi: SeekApi,
+    biter: Biter,
     gameCache: lila.game.Cached,
-    maxPlaying: Int,
-    blocking: String => Fu[Set[String]],
-    playban: String => Fu[Option[lila.playban.TempBan]],
+    maxPlaying: Max,
+    relationApi: lila.relation.RelationApi,
+    playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
-    onStart: Game.ID => Unit
+    onStart: lila.round.OnStart
 ) extends Trouper {
 
   import LobbyTrouper._
@@ -68,11 +70,11 @@ private[lobby] final class LobbyTrouper(
 
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
       gameCache.nbPlaying(user.id) foreach { nbPlaying =>
-        if (nbPlaying < maxPlaying) {
+        if (maxPlaying > nbPlaying) {
           lila.mon.lobby.seek.join()
           seekApi find seekId foreach {
             _ foreach { seek =>
-              Biter(seek, user) foreach this.!
+              biter(seek, user) foreach this.!
             }
           }
         }
@@ -121,7 +123,7 @@ private[lobby] final class LobbyTrouper(
     case Resync => socket ! HookIds(HookRepo.vector.map(_.id))
 
     case HookSub(member, true) =>
-      socket ! AllHooksFor(member, HookRepo.vector.filter { Biter.showHookTo(_, member) })
+      socket ! AllHooksFor(member, HookRepo.vector.filter { biter.showHookTo(_, member) })
 
     case lila.pool.HookThieve.GetCandidates(clock, promise) =>
       promise success lila.pool.HookThieve.PoolHooks(HookRepo poolCandidates clock)
@@ -131,7 +133,7 @@ private[lobby] final class LobbyTrouper(
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit = {
-    user.?? { u => playban(u.id) } foreach {
+    user.?? { u => playbanApi.currentBan(u.id) } foreach {
       case None => f
       case _ =>
     }
@@ -141,7 +143,7 @@ private[lobby] final class LobbyTrouper(
     HookRepo byId hookId foreach { hook =>
       remove(hook)
       HookRepo bySri sri foreach remove
-      Biter(hook, sri, user) foreach this.!
+      biter(hook, sri, user) foreach this.!
     }
 
   private def findCompatible(hook: Hook): Option[Hook] =
@@ -149,7 +151,7 @@ private[lobby] final class LobbyTrouper(
 
   private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Option[Hook] = in match {
     case Vector() => none
-    case h +: rest => if (Biter.canJoin(h, hook.user) && !(
+    case h +: rest => if (biter.canJoin(h, hook.user) && !(
       (h.user |@| hook.user).tupled ?? {
         case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
       }
@@ -195,7 +197,7 @@ private object LobbyTrouper {
   )(makeTrouper: () => LobbyTrouper)(implicit system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
     lila.common.Bus.subscribe(trouper, "lobbyTrouper")
-    system.scheduler.schedule(15 seconds, resyncIdsPeriod)(trouper ! actorApi.Resync)
+    system.scheduler.scheduleWithFixedDelay(15 seconds, resyncIdsPeriod)(() => trouper ! actorApi.Resync)
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),
       atMost = AtMost(10 seconds),

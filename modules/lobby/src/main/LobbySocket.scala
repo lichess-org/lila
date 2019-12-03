@@ -15,12 +15,14 @@ import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class LobbySocket(
+    biter: Biter,
+    userRepo: lila.user.UserRepo,
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbyTrouper,
-    blocking: User.ID => Fu[Set[User.ID]],
+    relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     system: akka.actor.ActorSystem
 ) {
@@ -41,13 +43,13 @@ final class LobbySocket(
       case GetMember(sri, promise) => promise success members.get(sri.value)
 
       case GetSrisP(promise) =>
-        promise success Sris(members.keySet.map(Sri.apply)(scala.collection.breakOut))
+        promise success Sris(members.keySet.view.map(Sri.apply).toSet)
         lila.mon.lobby.socket.idle(idleSris.size)
         lila.mon.lobby.socket.hookSubscribers(hookSubscriberSris.size)
 
       case Cleanup =>
-        idleSris retain members.contains
-        hookSubscriberSris retain members.contains
+        idleSris filterInPlace members.contains
+        hookSubscriberSris filterInPlace members.contains
 
       case Join(member) => members += (member.sri.value -> member)
 
@@ -65,7 +67,7 @@ final class LobbySocket(
 
       case AddHook(hook) => send(P.Out.tellSris(
         hookSubscriberSris diff idleSris filter { sri =>
-          members get sri exists { Biter.showHookTo(hook, _) }
+          members get sri exists { biter.showHookTo(hook, _) }
         } map Sri.apply,
         makeMessage("had", hook.render)
       ))
@@ -110,7 +112,7 @@ final class LobbySocket(
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
-    system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
+    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => this ! Cleanup)
 
     private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
 
@@ -180,7 +182,7 @@ final class LobbySocket(
           PoolApi.Joiner(
             userId = user.id,
             sri = member.sri,
-            ratingMap = user.perfMap.mapValues(_.rating),
+            ratingMap = user.perfMap.view.mapValues(_.rating).toMap,
             ratingRange = ratingRange,
             lame = user.lame,
             blocking = user.blocking ++ blocking
@@ -205,10 +207,10 @@ final class LobbySocket(
 
   private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
     trouper.ask[Option[Member]](GetMember(sri, _)) getOrElse {
-      userOpt ?? UserRepo.enabledById flatMap { user =>
+      userOpt ?? userRepo.enabledById flatMap { user =>
         (user ?? { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
-          blocking(u.id)
+          relationApi.fetchBlocking(u.id)
         }) map { blocks =>
           val member = Member(sri, user map { LobbyUser.make(_, blocks) })
           trouper ! Join(member)
