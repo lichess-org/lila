@@ -659,6 +659,8 @@ computer analysis, game chat and shareable URL.</string>
   <string name="tpTimeSpentOnTV">Time on TV: %s</string>
   <string name="watch">Watch</string>
   <string name="videoLibrary">Video library</string>
+  <string name="streamersMenu">Streamers</string>
+  <string name="broadcastsMenu">Broadcasts</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">About</string>
