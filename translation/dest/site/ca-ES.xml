@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Enganxa el text PGN aquí</string>
   <string name="fromPosition">Des de la posició</string>
   <string name="continueFromHere">Continua des d\'aquí</string>
+  <string name="toStudy">Estudi</string>
   <string name="importGame">Importa una partida</string>
   <string name="importGameExplanation">Al enganxar el PGN d\'una partida, s\'obté una repetició navegable, una anàlisi per ordinador, un xat de joc i una URL per compartir.</string>
   <plurals name="nbImportedGames">
@@ -625,6 +626,8 @@ en %3$s</string>
   <string name="playOfflineComputer">Ordinador (offline)</string>
   <string name="opponent">Rival</string>
   <string name="learnMenu">Aprèn</string>
+  <string name="studyMenu">Estudi</string>
+  <string name="practice">Pràctica</string>
   <string name="community">Comunitat</string>
   <string name="tools">Eines</string>
   <string name="increment">Increment</string>
@@ -659,6 +662,8 @@ en %3$s</string>
   <string name="tpTimeSpentOnTV">Temps pasat a la TV: %s</string>
   <string name="watch">Visualitza</string>
   <string name="videoLibrary">Col·lecció de vídeos</string>
+  <string name="streamersMenu">Comunicadors</string>
+  <string name="broadcastsMenu">Difusions</string>
   <string name="mobileApp">Aplicació mòbil</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">En quant a</string>
