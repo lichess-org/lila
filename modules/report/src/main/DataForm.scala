@@ -3,7 +3,6 @@ package lila.report
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation._
-import play.api.data.validation.Constraints._
 
 import lila.user.{ User, UserRepo }
 import lila.common.Domain

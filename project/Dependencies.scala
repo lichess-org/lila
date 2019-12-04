@@ -51,16 +51,16 @@ object Dependencies {
   object reactivemongo {
     val version = "0.19.2"
     val driver = "org.reactivemongo" %% "reactivemongo" % "0.20.0-SNAPSHOT"
-    val bson = "org.reactivemongo" %% "reactivemongo-bson-api" % version
+    val bson = "org.reactivemongo" %% "reactivemongo-bson-api" % "0.20.0-SNAPSHOT"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % version
     val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64" % "runtime" classifier "linux-x86_64"
     // #TODO remove compat
-    val compat = "org.reactivemongo" %% "reactivemongo-bson-compat" % version
+    val compat = "org.reactivemongo" %% "reactivemongo-bson-compat" % "0.20.0-SNAPSHOT"
     def bundle = Seq(driver, bson, compat, stream)
   }
 
   object play {
-    val version = "2.8.0-RC2"
+    val version = "2.8.0-RC5"
     val libVersion = "2.8.0"
     val api = "com.typesafe.play" %% "play" % version
     val json = "com.typesafe.play" %% "play-json" % libVersion
