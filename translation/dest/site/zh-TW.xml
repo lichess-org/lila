@@ -124,10 +124,11 @@
   <string name="usernameOrEmail">用戶名或電郵地址</string>
   <string name="changeUsername">更改用戶名</string>
   <string name="changeUsernameNotSame">只能更改字母大小字。例如，將「johndoe」變成「JohnDoe」。</string>
+  <string name="changeUsernameDescription">更改用戶名。您最多可以更改一次字母大小字。</string>
   <string name="password">密碼</string>
   <string name="changePassword">更改密碼</string>
   <string name="changeEmail">更改電郵地址</string>
-  <string name="email">電郵</string>
+  <string name="email">電郵地址</string>
   <string name="passwordReset">重置密碼</string>
   <string name="forgotPassword">忘記密碼？</string>
   <string name="rank">排名</string>
@@ -251,7 +252,7 @@
   <string name="settings">設置</string>
   <string name="filterGames">篩選棋局</string>
   <string name="reset">重置</string>
-  <string name="apply">應用</string>
+  <string name="apply">套用</string>
   <string name="leaderboard">排行榜</string>
   <string name="pasteTheFenStringHere">在此處黏貼FEN棋譜</string>
   <string name="pasteThePgnStringHere">在此處黏貼PGN棋譜</string>
@@ -410,7 +411,7 @@
   <string name="invalidUsernameOrPassword">用户名或密碼錯誤</string>
   <string name="incorrectPassword">舊密碼錯誤</string>
   <string name="invalidAuthenticationCode">驗證碼無效</string>
-  <string name="emailMeALink">向我电邮链接</string>
+  <string name="emailMeALink">通過電郵發送連結給我</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
   <string name="newPasswordAgain">新密码（重复）</string>
@@ -476,6 +477,8 @@
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
+  <string name="learnMenu">學棋</string>
+  <string name="studyMenu">研究</string>
   <string name="practice">練習</string>
   <string name="community">社區</string>
   <string name="tools">工具</string>
@@ -503,12 +506,12 @@
     <item quantity="other">%s个论坛帖子</item>
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
-  <string name="watchGames">觀看對局</string>
-  <string name="tpTimeSpentOnTV">花在Lichess直播上的时间：%s</string>
+  <string name="watchGames">觀看對局直播</string>
+  <string name="tpTimeSpentOnTV">花在Lichess觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">實況主</string>
-  <string name="broadcastsMenu">實況</string>
+  <string name="broadcastsMenu">直播</string>
   <string name="mobileApp">行動應用程式</string>
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
