@@ -32,6 +32,10 @@ Speel snel en ga terug naar de toernooilobby om meer partijen te spelen en meer 
 Partijen die nog aan de gang zijn moeten uitgespeeld worden, maar tellen niet meer mee voor de rangschikking in het toernooi.</string>
   <string name="otherRules">Andere belangrijke regels</string>
   <string name="thereIsACountdown">Er wordt afgeteld tot je je eerste zet maakt. Als je binnen deze tijd geen zet maakt verlies je het spel.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">Wanneer een partij binnen %s zetten in een gelijkspel eindigt, levert dit voor beide spelers geen punten op.</item>
+    <item quantity="other">Wanneer een partij binnen %s zetten in een gelijkspel eindigt, levert dit voor beide spelers geen punten op.</item>
+  </plurals>
   <string name="thisIsPrivate">Dit is een privétoernooi</string>
   <string name="shareUrl">Deel deze URL om mensen deel te laten nemen: %s</string>
 </resources>
