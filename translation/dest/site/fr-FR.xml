@@ -661,6 +661,7 @@
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
   <string name="videoLibrary">Vidéothèque</string>
+  <string name="streamersMenu">Streamers</string>
   <string name="broadcastsMenu">Diffusion</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
