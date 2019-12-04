@@ -1,5 +1,6 @@
 package lila.api
 
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.json.JodaWrites._
@@ -20,6 +21,7 @@ import lila.user.User
 final class GameApiV2(
     pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
+    pairingRepo: lila.tournament.PairingRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter
 )(implicit system: akka.actor.ActorSystem) {
@@ -50,59 +52,46 @@ final class GameApiV2(
     )
   }
 
-  // def exportByUser(config: ByUserConfig): Enumerator[String] = {
+  def exportByUser(config: ByUserConfig): Source[String, _] =
+    gameRepo.sortedCursor(
+      config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
+        Query.createdBetween(config.since, config.until) ++
+        (!config.ongoing).??(Query.finished),
+      Query.sortCreated,
+      batchSize = config.perSecond.value
+    ).documentSource()
+      .grouped(config.perSecond.value)
+      .delay(1 second)
+      .mapConcat(_ filter config.postFilter)
+      .take(config.max | Int.MaxValue)
+      .via(preparationFlow(config))
 
-  //   val query =
-  //     config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
-  //       Query.createdBetween(config.since, config.until) ++
-  //       (!config.ongoing).??(Query.finished)
+  def exportByIds(config: ByIdsConfig): Source[String, _] =
+    gameRepo.sortedCursor(
+      $inIds(config.ids) ++ Query.finished,
+      Query.sortCreated,
+      batchSize = config.perSecond.value
+    ).documentSource()
+      .grouped(config.perSecond.value)
+      .delay(1 second)
+      .mapConcat(identity)
+      .via(preparationFlow(config))
 
-  //   val infiniteGames = gameRepo.sortedCursor(
-  //     query,
-  //     Query.sortCreated,
-  //     batchSize = config.perSecond.value
-  //   ).bulkEnumerator() &>
-  //     lila.common.Iteratee.delay(1 second) &>
-  //     Enumeratee.mapConcat(_.filter(config.postFilter).toSeq)
+  def exportByTournament(config: ByTournamentConfig): Source[String, _] =
+    pairingRepo.sortedGameIdsCursor(
+      tournamentId = config.tournamentId,
+      batchSize = config.perSecond.value
+    ).documentSource()
+      .mapConcat(_.getAsOpt[Game.ID]("_id").toList)
+      .grouped(config.perSecond.value)
+      .delay(1 second)
+      .mapAsync(1)(gameRepo.gamesFromSecondary)
+      .mapConcat(identity)
+      .via(preparationFlow(config))
 
-  //   val games = config.max.fold(infiniteGames) { max =>
-  //     // I couldn't figure out how to do it properly :( :( :(
-  //     // the nb can't be set as bulkEnumerator(nb)
-  //     // because games are further filtered after being fetched
-  //     var nb = 0
-  //     infiniteGames &> Enumeratee.mapInput { in =>
-  //       nb = nb + 1
-  //       if (nb <= max) in
-  //       else Input.EOF
-  //     }
-  //   }
-
-  //   games &> Enumeratee.mapM(enrich(config.flags)) &> formatterFor(config)
-  // }
-
-  // def exportByIds(config: ByIdsConfig): Enumerator[String] =
-  //   gameRepo.sortedCursor(
-  //     $inIds(config.ids) ++ Query.finished,
-  //     Query.sortCreated,
-  //     batchSize = config.perSecond.value
-  //   ).bulkEnumerator() &>
-  //     lila.common.Iteratee.delay(1 second) &>
-  //     Enumeratee.mapConcat(_.toSeq) &>
-  //     Enumeratee.mapM(enrich(config.flags)) &>
-  //     formatterFor(config)
-
-  // def exportByTournament(config: ByTournamentConfig): Enumerator[String] =
-  //   lila.tournament.PairingRepo.sortedGameIdsCursor(
-  //     tournamentId = config.tournamentId,
-  //     batchSize = config.perSecond.value
-  //   ).bulkEnumerator() &>
-  //     Enumeratee.mapM { pairingDocs =>
-  //       gameRepo.gamesFromSecondary(pairingDocs.flatMap { _.getAs[Game.ID]("_id") }.toSeq)
-  //     } &>
-  //     lila.common.Iteratee.delay(1 second) &>
-  //     Enumeratee.mapConcat(_.toSeq) &>
-  //     Enumeratee.mapM(enrich(config.flags)) &>
-  //     formatterFor(config)
+  private def preparationFlow(config: Config) = Flow[Game]
+    .mapAsync(4)(enrich(config.flags))
+    .mapAsync(4)(formatterFor(config).tupled)
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
@@ -111,17 +100,16 @@ final class GameApiV2(
       }
     }
 
-  // private def formatterFor(config: Config) = config.format match {
-  //   case Format.PGN => pgnDump.formatter(config.flags)
-  //   case Format.JSON => jsonFormatter(config.flags)
-  // }
+  private def formatterFor(config: Config) = config.format match {
+    case Format.PGN => pgnDump.formatter(config.flags)
+    case Format.JSON => jsonFormatter(config.flags)
+  }
 
-  // private def jsonFormatter(flags: WithFlags) =
-  //   Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-  //     case (game, initialFen, analysis) => toJson(game, initialFen, analysis, flags) map { json =>
-  //       s"${Json.stringify(json)}\n"
-  //     }
-  //   }
+  private def jsonFormatter(flags: WithFlags) =
+    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis]) =>
+      toJson(game, initialFen, analysis, flags) map { json =>
+        s"${Json.stringify(json)}\n"
+      }
 
   private def toJson(
     g: Game,

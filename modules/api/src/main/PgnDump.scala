@@ -39,10 +39,9 @@ final class PgnDump(
       }))
   }
 
-  // def formatter(flags: WithFlags) =
-  //   Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-  //     case (game, initialFen, analysis) => toPgnString(game, initialFen, analysis, flags)
-  //   }
+  def formatter(flags: WithFlags) =
+    (game: Game, initialFen: Option[FEN], analysis: Option[Analysis]) =>
+      toPgnString(game, initialFen, analysis, flags)
 
   def toPgnString(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags) =
     apply(game, initialFen, analysis, flags).map { pgn =>
