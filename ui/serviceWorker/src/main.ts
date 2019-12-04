@@ -1,8 +1,8 @@
 self.addEventListener('push', event => {
   const data = event.data!.json();
   return self.registration.showNotification(data.title, {
-    badge: 'https://lichess1.org/assets/images/logo.256.png',
-    icon: 'https://lichess1.org/assets/images/logo.256.png',
+    badge: 'https://lichess1.org/assets/logo/lichess-favicon-256.png',
+    icon: 'https://lichess1.org/assets/logo/lichess-favicon-256.png',
     body: data.body,
     tag: data.tag,
     data: data.payload,
