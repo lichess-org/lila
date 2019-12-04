@@ -48,7 +48,7 @@ private final class GameJson(
         "players" -> JsArray(game.players.map { p =>
           Json.obj(
             "userId" -> p.userId,
-            "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
+            "name" -> lila.game.Namer.playerTextBlocking(p, withRating = true)(lightUserApi.sync),
             "color" -> p.color.name
           )
         }),

@@ -27,7 +27,7 @@ final class Env(
     ws: WSClient,
     db: lila.db.Env,
     userRepo: lila.user.UserRepo,
-    getLightUser: lila.common.LightUser.GetterSync,
+    getLightUser: lila.common.LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
