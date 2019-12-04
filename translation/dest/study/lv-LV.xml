@@ -128,4 +128,5 @@
   <string name="deleteTheStudyChatHistory">Vai dzēst izpētes sarakstes vēsturi? Atpakaļceļa nav!</string>
   <string name="deleteStudy">Dzēst izpēti</string>
   <string name="deleteTheEntireStudy">Vai dzēst visu izpēti? Atpakaļceļa nav!</string>
+  <string name="whereDoYouWantToStudyThat">Kur vēlaties to izpētīt?</string>
 </resources>
