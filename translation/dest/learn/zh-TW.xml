@@ -53,5 +53,6 @@
   <string name="stageX">階段 %s</string>
   <string name="stageXComplete">階段 %s 成功</string>
   <string name="next">繼續</string>
+  <string name="puzzleFailed">解題失敗！</string>
   <string name="retry">重試</string>
 </resources>
