@@ -7,7 +7,7 @@
   <string name="gameOver">遊戲結束</string>
   <string name="waitingForOpponent">等待對手</string>
   <string name="waiting">請稍等</string>
-  <string name="yourTurn">該你走</string>
+  <string name="yourTurn">該您走</string>
   <string name="aiNameLevelAiLevel">%1$s 難度 %2$s</string>
   <string name="level">難度</string>
   <string name="toggleTheChat">聊天開關</string>
@@ -27,16 +27,16 @@
   <string name="raceFinished">競王結束</string>
   <string name="variantEnding">變體終局</string>
   <string name="newOpponent">換個對手</string>
-  <string name="yourOpponentWantsToPlayANewGameWithYou">你的對手想和你複賽</string>
+  <string name="yourOpponentWantsToPlayANewGameWithYou">您的對手想和你複賽</string>
   <string name="joinTheGame">加入這盤棋</string>
   <string name="whitePlays">白方走棋</string>
   <string name="blackPlays">黑方走棋</string>
-  <string name="opponentLeftChoices">對方可能已經離開遊戲。你可以選擇：取勝、和棋，也可以等待對方走棋。</string>
+  <string name="opponentLeftChoices">對方可能已經離開遊戲。您可以選擇：取勝、和棋或等待對方走棋。</string>
   <string name="makeYourOpponentResign">取勝</string>
   <string name="forceResignation">取勝</string>
   <string name="forceDraw">和棋</string>
   <string name="talkInChat">請在聊天室裡文明一點</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一個訪問該網址的人將與你對弈。</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">第一個訪問該網址的人將與您下棋。</string>
   <string name="whiteResigned">白方認輸</string>
   <string name="blackResigned">黑方認輸</string>
   <string name="whiteLeftTheGame">白方棄局</string>
@@ -69,7 +69,7 @@
   <string name="cpus">CPU數</string>
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
-  <string name="removesTheDepthLimit">取消深度限制，使你的電腦發熱。</string>
+  <string name="removesTheDepthLimit">取消深度限制，使您的電腦發熱。</string>
   <string name="blunder">嚴重錯誤</string>
   <string name="blunders">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
@@ -135,7 +135,7 @@
   <string name="rankX">排名：%s</string>
   <string name="gamesPlayed">盤棋已結束</string>
   <plurals name="nbGamesWithYou">
-    <item quantity="other">與你下過%s盤棋</item>
+    <item quantity="other">與您下過%s盤棋</item>
   </plurals>
   <string name="cancel">取消</string>
   <string name="timeOut">時間到</string>
@@ -147,7 +147,7 @@
   <string name="blackOffersDraw">黑方提出和棋</string>
   <string name="whiteDeclinesDraw">白方拒絕和棋</string>
   <string name="blackDeclinesDraw">黑方拒絕和棋</string>
-  <string name="yourOpponentOffersADraw">你的對手提出和棋</string>
+  <string name="yourOpponentOffersADraw">您的對手提出和棋</string>
   <string name="accept">接受</string>
   <string name="decline">拒絕</string>
   <string name="playingRightNow">正在對局</string>
@@ -175,7 +175,7 @@
   <string name="inbox">收件箱</string>
   <string name="chatRoom">聊天室</string>
   <string name="loginToChat">登入以聊天</string>
-  <string name="youHaveBeenTimedOut">由於時間原因你不能發言</string>
+  <string name="youHaveBeenTimedOut">由於時間原因您不能發言</string>
   <string name="spectatorRoom">觀眾室</string>
   <string name="composeMessage">寫信息</string>
   <string name="noNewMessages">沒有新信息</string>
@@ -224,9 +224,9 @@
   </plurals>
   <string name="viewTournament">觀看錦標賽</string>
   <string name="backToTournament">返回錦標賽主頁</string>
-  <string name="yourPerfRatingIsTooHigh">你的 %1$s 積分 (%2$s) 過高</string>
-  <string name="yourTopWeeklyPerfRatingIsTooHigh">你本週最高 %1$s 積分 (%2$s) 過高</string>
-  <string name="yourPerfRatingIsTooLow">你的 %1$s 積分 (%2$s) 過低</string>
+  <string name="yourPerfRatingIsTooHigh">您的 %1$s 積分 (%2$s) 過高</string>
+  <string name="yourTopWeeklyPerfRatingIsTooHigh">您本週最高 %1$s 積分 (%2$s) 過高</string>
+  <string name="yourPerfRatingIsTooLow">您的 %1$s 積分 (%2$s) 過低</string>
   <string name="backToGame">返回棋局</string>
   <string name="siteDescription">界面清新的免費在線國際象棋平台。不用註冊，沒有廣告，無需插件。快來與電腦、朋友和陌生人一起對戰吧！</string>
   <string name="teams">團隊</string>
@@ -236,7 +236,7 @@
   <string name="allTeams">所有團隊</string>
   <string name="newTeam">組建團隊</string>
   <string name="myTeams">我的團隊</string>
-  <string name="noTeamFound">你不在任何團隊中</string>
+  <string name="noTeamFound">您不在任何團隊中</string>
   <string name="joinTeam">加入團隊</string>
   <string name="quitTeam">退出團隊</string>
   <string name="anyoneCanJoin">對所有人開放</string>
@@ -263,7 +263,7 @@
     <item quantity="other">已導入%s盤棋局</item>
   </plurals>
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
-  <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明你是人類。</string>
+  <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
   <string name="notACheckmate">沒有將死</string>
   <string name="retry">重試</string>
   <string name="reconnecting">重新連接中</string>
@@ -278,7 +278,7 @@
   <string name="block">加入黑名單</string>
   <string name="blocked">已加入黑名單</string>
   <string name="unblock">移除出黑名單</string>
-  <string name="followsYou">關注你</string>
+  <string name="followsYou">關注您</string>
   <string name="xStartedFollowingY">%1$s開始關注%2$s</string>
   <plurals name="nbFollowers">
     <item quantity="other">%s個關注者</item>
@@ -334,20 +334,20 @@
   <string name="activePlayers">活躍棋手</string>
   <string name="bewareTheGameIsRatedButHasNoClock">注意，這盤棋是評級的，但是没有計時！</string>
   <string name="training">訓練題</string>
-  <string name="yourPuzzleRatingX">你的解題等級：%s</string>
+  <string name="yourPuzzleRatingX">您的解題等級：%s</string>
   <string name="findTheBestMoveForWhite">找出白方的最佳著法</string>
   <string name="findTheBestMoveForBlack">找出黑方的最佳著法</string>
-  <string name="toTrackYourProgress">註冊以跟蹤你的進度：</string>
+  <string name="toTrackYourProgress">註冊以跟蹤您的進度：</string>
   <string name="trainingSignupExplanation">Lichess会提供与您的能力相匹配的谜题，从而更好地训练解题。</string>
   <string name="puzzleId">%s号题</string>
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
-  <string name="butYouCanDoBetter">你还可以做得更好。</string>
+  <string name="butYouCanDoBetter">您還可以做得更好。</string>
   <string name="bestMove">最佳着法！</string>
   <string name="keepGoing">继续……</string>
   <string name="puzzleFailed">解题失败</string>
-  <string name="butYouCanKeepTrying">但你可以继续尝试。</string>
+  <string name="butYouCanKeepTrying">但您可以繼續嘗試。</string>
   <string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票，帮助Lichess改进：</string>
   <string name="thankYou">謝謝！</string>
@@ -533,7 +533,7 @@
   <string name="aboutSimulRules">当表演赛开始的时候， 每个玩家都与主持开始对弈， 而主持用白方。 当所有的对局都结束时，表演赛就结束了。</string>
   <string name="aboutSimulSettings">表演赛总是不定级的。 复赛、悔棋和\"加时\"功能将被禁用。</string>
   <string name="create">创建</string>
-  <string name="whenCreateSimul">当你创建一个同步赛时，你要一次同时跟几个棋手一起下棋。</string>
+  <string name="whenCreateSimul">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您选择几个变体，每个玩家都要选择下哪一种。</string>
   <string name="simulClockHint">菲舍尔时钟设置。棋手越多，你需要的时间可能就越多。</string>
   <string name="simulAddExtraTime">您可以给时钟多加点时间以帮助应对同步赛。</string>
@@ -573,12 +573,12 @@
   <string name="crosstable">历史表</string>
   <string name="youCanAlsoScrollOverTheBoardToMoveInTheGame">您也可以用滚动键在棋盘游戏中移动。</string>
   <string name="analysisShapesHowTo">按shift点击或右键棋盘上绘制圆圈和箭头。</string>
-  <string name="letOtherPlayersMessageYou">然其他人给你发信息。</string>
+  <string name="letOtherPlayersMessageYou">允許其他人發送私訊給您</string>
   <string name="shareYourInsightsData">分享您的慧眼数据</string>
   <string name="withNobody">不分享</string>
   <string name="withFriends">與好友分享</string>
   <string name="withEverybody">與所有人分享</string>
-  <string name="youHaveAlreadyRegisteredTheEmail">你已经用《%s》登记过账户。</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">您已經用過 %s 來註冊 Lichess 賬戶</string>
   <string name="kidMode">受限模式</string>
   <string name="playChessEverywhere">随处下棋！</string>
   <string name="asFreeAsLichess">完全又永远的免费。</string>
