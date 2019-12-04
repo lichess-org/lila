@@ -17,6 +17,9 @@
     color: $c-primary-over;
     background: lighten($c-primary, 7);
   }
+  &:not(.disabled):focus {
+    @extend %focus-shadow;
+  }
   &-no-upper {
     text-transform: none;
   }

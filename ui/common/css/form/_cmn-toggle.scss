@@ -1,7 +1,6 @@
 .cmn-toggle {
   position: absolute;
-  margin-left: -9999px;
-  visibility: hidden;
+  margin-left: -99999px;
 }
 .cmn-toggle + label {
   display: block;
@@ -32,10 +31,14 @@
   background-color: $c-bad;
   border-radius: 24px;
 }
+.cmn-toggle:focus + label::before {
+  @extend %focus-shadow;
+}
 .cmn-toggle--subtle + label::before {
   background-color: $c-font-dimmer;
 }
 .cmn-toggle:hover + label::before {
+  @extend %focus-shadow;
   @include transition(background);
 }
 .cmn-toggle + label::after {
