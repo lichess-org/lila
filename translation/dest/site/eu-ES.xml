@@ -589,6 +589,7 @@
   <string name="xLeftANoteOnY">%1$s(e)k ohar bat utzi dio %2$s(r)i</string>
   <string name="xCompetesInY">%1$s %2$s-(e)n jokatzen ari da</string>
   <string name="xAskedY">%1$s(e)k galdetu zuen %2$s</string>
+  <string name="xAnsweredY">%1$s erabiltzaileak %2$s-ri egindako erantzuna</string>
   <string name="xCommentedY">%1$s(e)k esan zuen %2$s</string>
   <string name="victory">Garaipena</string>
   <string name="defeat">Porrota</string>
@@ -623,6 +624,7 @@
   <string name="opponent">Aurkaria</string>
   <string name="learnMenu">Ikasi</string>
   <string name="studyMenu">Azterlanak</string>
+  <string name="practice">Ikasi eta probatu</string>
   <string name="community">Komunitatea</string>
   <string name="tools">Tresnak</string>
   <string name="increment">Gehikuntza</string>
@@ -657,6 +659,7 @@
   <string name="tpTimeSpentOnTV">TV ikusten egondako denbora: %s</string>
   <string name="watch">Ikusi</string>
   <string name="videoLibrary">Bideo-bilduma</string>
+  <string name="streamersMenu">Esatariak</string>
   <string name="broadcastsMenu">Emanaldiak</string>
   <string name="mobileApp">Aplikazio mugikorra</string>
   <string name="webmasters">Web-orriko administratzaileak</string>
