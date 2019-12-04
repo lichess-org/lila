@@ -11,7 +11,7 @@ if [ -z $mode ]; then
 elif [ $mode = "main" ]; then
   REMOTE="keres"
   REMOTE_DIR="/home/lichess-deploy"
-  FRONT_REMOTE="leess"
+  FRONT_REMOTE="root@maple.lichess.ovh"
   FRONT_REMOTE_DIR="/home/lichess-deploy"
   CLI="bin/cli-prod"
 elif [ $mode = "stage" ]; then
