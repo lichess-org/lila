@@ -8,52 +8,53 @@ import controllers.routes
 
 object mobile {
 
-  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) = base.layout(
-    title = "Mobile",
-    moreCss = cssTag("mobile")
-  ) {
-      main(
-        div(cls := "mobile page-small box box-pad")(
-          h1(trans.playChessEverywhere()),
-          div(cls := "sides")(
-            div(cls := "left-side")(
-              div(cls := "stores")(
-                googlePlayButton,
-                appleStoreButton
+  def apply(apkDoc: io.prismic.Document, resolver: io.prismic.DocumentLinkResolver)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Mobile",
+      moreCss = cssTag("mobile")
+    ) {
+        main(
+          div(cls := "mobile page-small box box-pad")(
+            h1(trans.playChessEverywhere()),
+            div(cls := "sides")(
+              div(cls := "left-side")(
+                div(cls := "stores")(
+                  googlePlayButton,
+                  appleStoreButton
+                ),
+                div(cls := "apk")(
+                  raw(~apkDoc.getHtml("doc.content", resolver))
+                ),
+                h2(trans.asFreeAsLichess()),
+                ul(cls := "block")(
+                  li(trans.builtForTheLoveOfChessNotMoney()),
+                  li(trans.everybodyGetsAllFeaturesForFree()),
+                  li(trans.zeroAdvertisement()),
+                  li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
+                ),
+                h2(trans.fullFeatured()),
+                ul(cls := "block")(
+                  li(trans.phoneAndTablet()),
+                  li(trans.bulletBlitzClassical()),
+                  li(trans.correspondenceChess()),
+                  li(trans.onlineAndOfflinePlay()),
+                  li(trans.tournaments()),
+                  li(trans.puzzles()),
+                  li(trans.gameAnalysis()),
+                  li(trans.boardEditor()),
+                  li("Lichess TV"),
+                  li(trans.followAndChallengeFriends()),
+                  li(trans.availableInNbLanguages.pluralSame(80))
+                )
               ),
-              div(cls := "apk")(
-                raw(~apkDoc.getHtml("doc.content", resolver))
-              ),
-              h2(trans.asFreeAsLichess()),
-              ul(cls := "block")(
-                li(trans.builtForTheLoveOfChessNotMoney()),
-                li(trans.everybodyGetsAllFeaturesForFree()),
-                li(trans.zeroAdvertisement()),
-                li("Entirely ", a(href := "https://github.com/veloce/lichobile")("Open Source"))
-              ),
-              h2(trans.fullFeatured()),
-              ul(cls := "block")(
-                li(trans.phoneAndTablet()),
-                li(trans.bulletBlitzClassical()),
-                li(trans.correspondenceChess()),
-                li(trans.onlineAndOfflinePlay()),
-                li(trans.tournaments()),
-                li(trans.puzzles()),
-                li(trans.gameAnalysis()),
-                li(trans.boardEditor()),
-                li("Lichess TV"),
-                li(trans.followAndChallengeFriends()),
-                li(trans.availableInNbLanguages.pluralSame(80))
+              div(cls := "right-side")(
+                img(cls := "nexus5-playing", width := "268", height := "513", src := staticUrl("images/mobile/nexus5-playing.png"), alt := "Lichess mobile on nexus 5"),
+                img(cls := "qrcode", width := "200", height := "200", src := staticUrl("images/mobile/dynamic-qrcode.png"), alt := "Download QR code")
               )
-            ),
-            div(cls := "right-side")(
-              img(cls := "nexus5-playing", width := "268", height := "513", src := staticUrl("images/mobile/nexus5-playing.png"), alt := "Lichess mobile on nexus 5"),
-              img(cls := "qrcode", width := "200", height := "200", src := staticUrl("images/mobile/dynamic-qrcode.png"), alt := "Download QR code")
             )
           )
         )
-      )
-    }
+      }
 
   lazy val appleStoreButton = raw("""
 <a class="store"

@@ -6,7 +6,9 @@ import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
 
-object Prismic {
+final class Prismic(
+    env: Env
+)(implicit ws: play.api.libs.ws.WSClient) {
 
   private val logger = lila.log("prismic")
 
@@ -16,9 +18,9 @@ object Prismic {
     case _ => logger info message
   }
 
-  private val prismicApiCache = Env.memo.asyncCache.single[PrismicApi](
+  private val prismicApiCache = env.memo.asyncCache.single[PrismicApi](
     name = "prismic.fetchPrismicApi",
-    f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
+    f = PrismicApi.get(env.api.config.prismicApiUrl, logger = prismicLogger),
     expireAfter = _.ExpireAfterWrite(1 minute)
   )
 

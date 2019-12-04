@@ -11,9 +11,8 @@ import lila.hub.lightTeam._
 import lila.simul.{ Simul => Sim }
 import views._
 
-object Simul extends LilaController {
+final class Simul(env: Env) extends LilaController(env) {
 
-  private def env = Env.simul
   private def forms = lila.simul.SimulForm
 
   import Team.teamsIBelongTo
@@ -51,16 +50,16 @@ object Simul extends LilaController {
     env.repo find id flatMap {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
-          team <- sim.team ?? Env.team.api.team
+          team <- sim.team ?? env.team.api.team
           version <- env.version(sim.id)
           json <- env.jsonView(sim, team.map { t =>
             lila.simul.SimulTeam(t.id, t.name, ctx.userId exists {
-              Env.team.api.syncBelongsTo(t.id, _)
+              env.team.api.syncBelongsTo(t.id, _)
             })
           })
-          chat <- canHaveChat ?? Env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
-          _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
-          stream <- Env.streamer.liveStreamApi one sim.hostId
+          chat <- canHaveChat ?? env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
+          _ <- chat ?? { c => env.user.lightUserApi.preloadMany(c.chat.userIds) }
+          stream <- env.streamer.liveStreamApi one sim.hostId
         } yield html.simul.show(sim, version, json, chat, stream, team)
       }
     } map NoCache
@@ -69,12 +68,12 @@ object Simul extends LilaController {
   private[controllers] def canHaveChat(implicit ctx: Context): Boolean =
     !ctx.kid && // no public chats for kids
       ctx.me.fold(true) { // anon can see public chats
-        Env.chat.panic.allowed
+        env.chat.panic.allowed
       }
 
   def hostPing(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      Env.simul.cleaner hostPing simul
+      env.simul.cleaner hostPing simul
       jsonOkResult
     }
   }

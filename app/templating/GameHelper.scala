@@ -115,10 +115,10 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     ) { level => raw(s"A.I. level $level") }
 
   def playerText(player: Player, withRating: Boolean = false) =
-    Namer.playerText(player, withRating)(lightUser)
+    Namer.playerTextBlocking(player, withRating)(env.user.lightUserSync)
 
   def gameVsText(game: Game, withRatings: Boolean = false): String =
-    Namer.gameVsText(game, withRatings)(lightUser)
+    Namer.gameVsTextBlocking(game, withRatings)(env.user.lightUserSync)
 
   val berserkIconSpan = iconTag("`")
   val statusIconSpan = i(cls := "status")

@@ -5,7 +5,7 @@ import lila.common.{ HTTPRequest, IpAddress }
 import scala.concurrent.duration._
 import views._
 
-object ForumPost extends LilaController with ForumController {
+final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit = new lila.memo.RateLimit[IpAddress](4, 5 minutes,
     name = "forum create post",
@@ -14,7 +14,7 @@ object ForumPost extends LilaController with ForumController {
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
       if (text.trim.isEmpty) Redirect(routes.ForumCateg.index).fuccess
-      else Env.forumSearch(text, page, ctx.troll) map { html.forum.search(text, _) }
+      else env.forumSearch(text, page, ctx.troll) map { html.forum.search(text, _) }
     }
   }
 
@@ -28,7 +28,7 @@ object ForumPost extends LilaController with ForumController {
           else forms.post.bindFromRequest.fold(
             err => for {
               captcha <- forms.anyCaptcha
-              unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
+              unsub <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
               canModCateg <- isGrantedMod(categ.slug)
             } yield BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)),
             data => CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {

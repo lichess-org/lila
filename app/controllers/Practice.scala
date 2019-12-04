@@ -11,10 +11,7 @@ import lila.study.{ Chapter, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views._
 
-object Practice extends LilaController {
-
-  private def env = Env.practice
-  private def studyEnv = Env.study
+final class Practice(env: Env) extends LilaController(env) {
 
   def index = Open { implicit ctx =>
     pageHit
@@ -72,10 +69,10 @@ object Practice extends LilaController {
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-      studyEnv.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
+      studyenv.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
         val initialFen = chapter.root.fen.some
         val pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-        val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
+        val baseData = env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
         val analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeJsonWriter.writes {
             lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
@@ -109,7 +106,7 @@ object Practice extends LilaController {
       } { text =>
         ~env.api.config.set(text).right.toOption >>-
           env.api.structure.clear >>
-          Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
+          env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
     }
   }

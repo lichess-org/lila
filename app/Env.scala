@@ -2,7 +2,8 @@ package lila.app
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.{ Application, Configuration }
+import play.api.{ Application, Configuration, Mode }
+import play.api.mvc.SessionCookieBaker
 import scala.concurrent.duration._
 
 import lila.common.Bus
@@ -10,7 +11,7 @@ import lila.user.User
 
 final class Env(
     val config: Configuration,
-    val application: Application,
+    val playApp: Application,
     val api: lila.api.Env,
     val user: lila.user.Env,
     val security: lila.security.Env,
@@ -74,9 +75,12 @@ final class Env(
     val rating: lila.rating.Env
 )(implicit system: ActorSystem) {
 
-  val version = System.getProperty("java.version")
-  val memory = Runtime.getRuntime().maxMemory() / 1024 / 1024
-  lila.log.boot.info(s"Java: $version, memory: ${memory}MB")
+  Env.bootMessage()
+
+  val isProd = playApp.mode == Mode.Prod
+  val isStage = config.get[Boolean]("app.stage")
+
+  def net = api.net
 
   lazy val preloader = wire[mashup.Preload]
 
@@ -87,6 +91,10 @@ final class Env(
   lazy val userInfo = wire[mashup.UserInfo.UserInfoApi]
 
   lazy val teamInfo = wire[mashup.TeamInfoApi]
+
+  private lazy val cookieBacker: SessionCookieBaker = playApp.injector.instanceOf[SessionCookieBaker]
+
+  lazy val lilaCookie = wire[lila.common.LilaCookie]
 
   private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
     scala.concurrent.Future {
@@ -136,4 +144,15 @@ final class Env(
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 
   system.scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
+
+  templating.Environment setEnv this
+}
+
+private object Env {
+
+  def bootMessage(): Unit = {
+    val version = System.getProperty("java.version")
+    val memory = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    lila.log.boot.info(s"Java: $version, memory: ${memory}MB")
+  }
 }

@@ -10,7 +10,7 @@ import lila.common.config._
 @Module
 final class Env(
     appConfig: Configuration,
-    netConfig: NetConfig,
+    val net: NetConfig,
     securityEnv: lila.security.Env,
     i18nEnv: lila.i18n.Env,
     teamSearchEnv: lila.teamSearch.Env,

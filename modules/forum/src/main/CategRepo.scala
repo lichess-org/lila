@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.db.dsl._
 
-private final class CategRepo(val coll: Coll) {
+final class CategRepo(val coll: Coll) {
 
   import BSONHandlers.CategBSONHandler
 

@@ -113,7 +113,7 @@ object layout {
     deferJs: Boolean = false,
     csp: Option[ContentSecurityPolicy] = None,
     wrapClass: String = ""
-  )(body: Frag)(implicit ctx: Context) = frag(
+  )(body: Frag)(implicit ctx: Context): Frag = frag(
     doctype,
     htmlTag(ctx.lang)(
       topComment,
@@ -238,7 +238,7 @@ object layout {
 <label for="tn-tg" class="hbg"><span class="hbg__in"></span></label>""")
 
     private def reports(implicit ctx: Context) = isGranted(_.SeeReport) option
-      a(cls := "link data-count link-center", title := "Moderation", href := routes.Report.list, dataCount := reportNbOpen, dataIcon := "")
+      a(cls := "link data-count link-center", title := "Moderation", href := routes.Report.list, dataCount := blockingReportNbOpen, dataIcon := "")
 
     private def teamRequests(implicit ctx: Context) = ctx.teamNbRequests > 0 option
       a(cls := "link data-count link-center", href := routes.Team.requests, dataCount := ctx.teamNbRequests, dataIcon := "f", title := trans.teams.txt())

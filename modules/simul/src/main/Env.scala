@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config._
-import lila.game.{ Game, GameRepo }
 import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
@@ -62,7 +61,7 @@ final class Env(
     expireAfter = _.ExpireAfterWrite(config.createdCacheTtl)
   )
 
-  def featurable(simul: Simul): Boolean = featureLimiter(simul.hostId)(true)
+  val featurable = (simul: Simul) => featureLimiter(simul.hostId)(true)
 
   private val featureLimiter = new lila.memo.RateLimit[lila.user.User.ID](
     credits = config.featureViews.value,

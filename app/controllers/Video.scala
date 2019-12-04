@@ -6,9 +6,7 @@ import lila.common.HTTPRequest
 import lila.video.{ View, UserControl, Filter }
 import views._
 
-object Video extends LilaController {
-
-  private def env = Env.video
+final class Video(env: Env) extends LilaController(env) {
 
   private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] = {
     val reqTags = get("tags") ?? (_.split('/').toList.map(_.trim.toLowerCase))

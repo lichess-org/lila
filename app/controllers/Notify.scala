@@ -5,9 +5,9 @@ import lila.notify.Notification.Notifies
 
 import play.api.libs.json._
 
-object Notify extends LilaController {
+final class Notify(env: Env) extends LilaController(env) {
 
-  val env = Env.notifyModule
+  val env = env.notifyModule
 
   import env.jsonHandlers._
 

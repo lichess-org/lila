@@ -5,40 +5,38 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaCookie
-import lila.user.{ User => UserModel, UserRepo, TotpSecret }
-import UserModel.{ ClearPassword, TotpToken, PasswordAndToken }
+import lila.user.{ User => UserModel, TotpSecret }
 import views.html
 
-object Account extends LilaController {
-
-  private def env = Env.user
-  private def relationEnv = Env.relation
+final class Account(
+    env: Env,
+    auth: Auth
+) extends LilaController(env) {
 
   def profile = Auth { implicit ctx => me =>
-    Ok(html.account.profile(me, env.forms profileOf me)).fuccess
+    Ok(html.account.profile(me, env.user.forms profileOf me)).fuccess
   }
 
   def username = Auth { implicit ctx => me =>
-    Ok(html.account.username(me, env.forms usernameOf me)).fuccess
+    Ok(html.account.username(me, env.user.forms usernameOf me)).fuccess
   }
 
   def profileApply = AuthBody { implicit ctx => me =>
     implicit val req: Request[_] = ctx.body
-    FormFuResult(env.forms.profile) { err =>
+    FormFuResult(env.user.forms.profile) { err =>
       fuccess(html.account.profile(me, err))
     } { profile =>
-      UserRepo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
+      env.user.userRepo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
     }
   }
 
   def usernameApply = AuthBody { implicit ctx => me =>
     implicit val req: Request[_] = ctx.body
-    FormFuResult(env.forms.username(me)) { err =>
+    FormFuResult(env.user.forms.username(me)) { err =>
       fuccess(html.account.username(me, err))
     } { username =>
-      UserRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
-        case e => fuccess(html.account.username(me, env.forms.username(me).withGlobalError(e.getMessage)))
+      env.user.userRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
+        case e => fuccess(html.account.username(me, env.user.forms.username(me).withGlobalError(e.getMessage)))
       }
     }
   }
@@ -48,18 +46,18 @@ object Account extends LilaController {
       html = notFound,
       api = _ => {
         lila.mon.http.response.accountInfo.count()
-        relationEnv.api.countFollowers(me.id) zip
-          relationEnv.api.countFollowing(me.id) zip
-          Env.pref.api.getPref(me) zip
-          Env.round.proxy.urgentGames(me) zip
-          Env.challenge.api.countInFor.get(me.id) zip
-          Env.playban.api.currentBan(me.id) map {
+        env.relation.api.countFollowers(me.id) zip
+          env.relation.api.countFollowing(me.id) zip
+          env.pref.api.getPref(me) zip
+          env.round.proxyRepo.urgentGames(me) zip
+          env.challenge.api.countInFor.get(me.id) zip
+          env.playban.api.currentBan(me.id) map {
             case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
               Ok {
                 import lila.pref.JsonView._
-                Env.user.jsonView(me) ++ Json.obj(
+                env.user.jsonView(me) ++ Json.obj(
                   "prefs" -> prefs,
-                  "nowPlaying" -> JsArray(povs take 50 map Env.api.lobbyApi.nowPlaying),
+                  "nowPlaying" -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
                   "nbFollowing" -> nbFollowing,
                   "nbFollowers" -> nbFollowers,
                   "nbChallenges" -> nbChallenges
@@ -80,7 +78,7 @@ object Account extends LilaController {
   }
 
   def apiMe = Scoped() { _ => me =>
-    Env.api.userApi.extended(me, me.some) map { JsonOk(_) }
+    env.api.userApi.extended(me, me.some) dmap { JsonOk(_) }
   }
 
   def apiNowPlaying = Scoped() { req => me =>
@@ -88,15 +86,15 @@ object Account extends LilaController {
   }
 
   private def doNowPlaying(me: lila.user.User, req: RequestHeader) =
-    Env.round.proxy.urgentGames(me) map { povs =>
+    env.round.proxyRepo.urgentGames(me) map { povs =>
       val nb = (getInt("nb", req) | 9) atMost 50
-      Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map Env.api.lobbyApi.nowPlaying)))
+      Ok(Json.obj("nowPlaying" -> JsArray(povs take nb map env.api.lobbyApi.nowPlaying)))
     }
 
   def dasher = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => Env.pref.api.getPref(me) map { prefs =>
+      api = _ => env.pref.api.getPref(me) map { prefs =>
         Ok {
           import lila.pref.JsonView._
           lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
@@ -109,27 +107,27 @@ object Account extends LilaController {
   }
 
   def passwd = Auth { implicit ctx => me =>
-    env.forms passwd me map { form =>
+    env.user.forms passwd me map { form =>
       Ok(html.account.passwd(form))
     }
   }
 
   def passwdApply = AuthBody { implicit ctx => me =>
-    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+    auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      env.forms passwd me flatMap { form =>
+      env.user.forms passwd me flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.passwd(err))
         } { data =>
-          Env.user.authenticator.setPassword(me.id, ClearPassword(data.newPasswd1)) inject
+          env.user.authenticator.setPassword(me.id, UserModel.ClearPassword(data.newPasswd1)) inject
             Redirect(s"${routes.Account.passwd}?ok=1")
         }
       }
     }
   }
 
-  private def emailForm(user: UserModel) = UserRepo email user.id flatMap {
-    Env.security.forms.changeEmail(user, _)
+  private def emailForm(user: UserModel) = env.user.userRepo email user.id flatMap {
+    env.security.forms.changeEmail(user, _)
   }
 
   def email = Auth { implicit ctx => me =>
@@ -140,7 +138,7 @@ object Account extends LilaController {
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ => me =>
-    UserRepo email me.id map {
+    env.user.userRepo email me.id map {
       _ ?? { email =>
         JsonOk(Json.obj("email" -> email.value))
       }
@@ -151,16 +149,16 @@ object Account extends LilaController {
     html.auth.checkYourEmail(lila.security.EmailConfirm.cookie get ctx.req)
 
   def emailApply = AuthBody { implicit ctx => me =>
-    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+    auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      Env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
+      env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.email(me, err))
         } { data =>
-          val email = Env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+          val email = env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)
-          controllers.Auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
-            Env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
+          auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
+            env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
               s"${routes.Account.email}?check=1"
             }
           }
@@ -170,9 +168,9 @@ object Account extends LilaController {
   }
 
   def emailConfirm(token: String) = Open { implicit ctx =>
-    Env.security.emailChange.confirm(token) flatMap {
+    env.security.emailChange.confirm(token) flatMap {
       _ ?? { user =>
-        controllers.Auth.authenticateUser(user, result = Some { _ =>
+        auth.authenticateUser(user, result = Some { _ =>
           Redirect(s"${routes.Account.email}?ok=1")
         })
       }
@@ -190,7 +188,7 @@ object Account extends LilaController {
         implicit val req = ctx.body
         helpForm.bindFromRequest.fold(
           err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
-          username => getStatus(username) map { status =>
+          username => getStatus(env.user.userRepo, username) map { status =>
             Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
           }
         )
@@ -199,26 +197,26 @@ object Account extends LilaController {
 
   def twoFactor = Auth { implicit ctx => me =>
     if (me.totpSecret.isDefined)
-      Env.security.forms.disableTwoFactor(me) map { form =>
+      env.security.forms.disableTwoFactor(me) map { form =>
         html.account.twoFactor.disable(me, form)
       }
     else
-      Env.security.forms.setupTwoFactor(me) map { form =>
+      env.security.forms.setupTwoFactor(me) map { form =>
         html.account.twoFactor.setup(me, form)
       }
   }
 
   def setupTwoFactor = AuthBody { implicit ctx => me =>
-    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+    auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      val currentSessionId = ~Env.security.api.reqSessionId(ctx.req)
-      Env.security.forms.setupTwoFactor(me) flatMap { form =>
+      val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
+      env.security.forms.setupTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.twoFactor.setup(me, err))
         } { data =>
-          UserRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
-            lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) >>
-            Env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
+          env.user.userRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+            env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
+            env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
             Redirect(routes.Account.twoFactor)
         }
       }
@@ -226,32 +224,32 @@ object Account extends LilaController {
   }
 
   def disableTwoFactor = AuthBody { implicit ctx => me =>
-    controllers.Auth.HasherRateLimit(me.username, ctx.req) { _ =>
+    auth.HasherRateLimit(me.username, ctx.req) { _ =>
       implicit val req = ctx.body
-      Env.security.forms.disableTwoFactor(me) flatMap { form =>
+      env.security.forms.disableTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
           fuccess(html.account.twoFactor.disable(me, err))
         } { _ =>
-          UserRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
+          env.user.userRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
         }
       }
     }
   }
 
   def close = Auth { implicit ctx => me =>
-    Env.security.forms closeAccount me map { form =>
+    env.security.forms closeAccount me map { form =>
       Ok(html.account.close(me, form))
     }
   }
 
   def closeConfirm = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    Env.security.forms closeAccount me flatMap { form =>
+    env.security.forms closeAccount me flatMap { form =>
       FormFuResult(form) { err =>
         fuccess(html.account.close(me, err))
       } { _ =>
-        Env.current.closeAccount(me.id, self = true) inject {
-          Redirect(routes.User show me.username) withCookies LilaCookie.newSession
+        env.closeAccount(me.id, self = true) inject {
+          Redirect(routes.User show me.username) withCookies env.lilaCookie.newSession
         }
       }
     }
@@ -266,33 +264,33 @@ object Account extends LilaController {
 
   // App BC
   def kidToggle = Auth { ctx => me =>
-    UserRepo.setKid(me, !me.kid) inject Ok
+    env.user.userRepo.setKid(me, !me.kid) inject Ok
   }
 
   def kidPost = Auth { implicit ctx => me =>
-    UserRepo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
+    env.user.userRepo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
   }
   def apiKidPost = Scoped(_.Preference.Write) { req => me =>
-    UserRepo.setKid(me, getBool("v", req)) inject jsonOkResult
+    env.user.userRepo.setKid(me, getBool("v", req)) inject jsonOkResult
   }
 
   private def currentSessionId(implicit ctx: Context) =
-    ~Env.security.api.reqSessionId(ctx.req)
+    ~env.security.api.reqSessionId(ctx.req)
 
   def security = Auth { implicit ctx => me =>
-    Env.security.api.dedup(me.id, ctx.req) >>
-      Env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
+    env.security.api.dedup(me.id, ctx.req) >>
+      env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
         Ok(html.account.security(me, sessions, currentSessionId))
       }
   }
 
-  def signout(sessionId: String) = Auth { implicit ctx => me =>
+  def signout(sessionId: String) = Auth { implicit _ctx => me =>
     if (sessionId == "all")
-      lila.security.Store.closeUserExceptSessionId(me.id, currentSessionId) >>
-        Env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
+      env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
+        env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
         Redirect(routes.Account.security)
     else
-      lila.security.Store.closeUserAndSessionId(me.id, sessionId) >>
-        Env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
+      env.security.store.closeUserAndSessionId(me.id, sessionId) >>
+        env.push.webSubscriptionApi.unsubscribeBySession(sessionId)
   }
 }

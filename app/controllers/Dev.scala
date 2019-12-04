@@ -1,25 +1,22 @@
 package controllers
 
 import play.api.data._, Forms._
-import play.api.mvc._
 
 import lila.app._
 import views._
 
-import lila.user.User.{ ClearPassword, TotpToken, PasswordAndToken }
-
-object Dev extends LilaController {
+final class Dev(env: Env) extends LilaController(env) {
 
   private lazy val settingsList = List[lila.memo.SettingStore[_]](
-    Env.security.ugcArmedSetting,
-    Env.security.spamKeywordsSetting,
-    Env.irwin.irwinModeSetting,
-    Env.explorer.indexFlowSetting,
-    Env.report.scoreThresholdSetting,
-    Env.report.slackScoreThresholdSetting,
-    Env.streamer.alwaysFeaturedSetting,
-    Env.rating.ratingFactorsSetting,
-    Env.plan.donationGoalSetting
+    env.security.ugcArmedSetting,
+    env.security.spamKeywordsSetting,
+    env.irwin.irwinModeSetting,
+    env.explorer.indexFlowSetting,
+    env.report.scoreThresholdSetting,
+    env.report.slackScoreThresholdSetting,
+    env.streamer.alwaysFeaturedSetting,
+    env.rating.ratingFactorsSetting,
+    env.plan.donationGoalSetting
   )
 
   def settings = Secure(_.Settings) { implicit ctx => me =>
@@ -61,6 +58,6 @@ object Dev extends LilaController {
   }
 
   private def runAs(user: lila.user.User.ID, command: String): Fu[String] =
-    Env.mod.logApi.cli(user, command) >>
-      Env.api.cli(command.split(" ").toList)
+    env.mod.logApi.cli(user, command) >>
+      env.api.cli(command.split(" ").toList)
 }

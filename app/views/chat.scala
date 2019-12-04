@@ -16,7 +16,7 @@ object chat {
     div(cls := "mchat__content")
   )
 
-  import lila.chat.JsonView.chatIdWrites
+  import lila.chat.JsonView.writers.chatIdWrites
 
   def restrictedJson(
     chat: lila.chat.Chat.Restricted,

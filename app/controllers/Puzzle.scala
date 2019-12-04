@@ -8,12 +8,9 @@ import lila.app._
 import lila.common.{ HTTPRequest, IpAddress, MaxPerSecond }
 import lila.game.PgnDump
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
-import lila.user.UserRepo
 import views._
 
-object Puzzle extends LilaController {
-
-  private def env = Env.puzzle
+final class Puzzle(env: Env) extends LilaController(env) {
 
   private def renderJson(
     puzzle: PuzzleModel,
@@ -105,7 +102,7 @@ object Puzzle extends LilaController {
           ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(puzzle, me, result, mobile = true)
-              me2 <- if (mode.rated) UserRepo byId me.id map (_ | me) else fuccess(me)
+              me2 <- if (mode.rated) env.user.userRepo byId me.id map (_ | me) else fuccess(me)
               infos <- env userInfos me2
               voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
               data <- renderJson(puzzle, infos.some, "view", voted = voted, result = result.some, round = round.some)
@@ -144,7 +141,7 @@ object Puzzle extends LilaController {
                 result = Result(resultInt == 1),
                 mobile = lila.api.Mobile.Api.requested(ctx.req)
               )
-              me2 <- if (mode.rated) UserRepo byId me.id map (_ | me) else fuccess(me)
+              me2 <- if (mode.rated) env.user.userRepo byId me.id map (_ | me) else fuccess(me)
               infos <- env userInfos me2
               voted <- ctx.me.?? { env.api.vote.value(puzzle.id, _) }
             } yield {
@@ -207,7 +204,7 @@ object Puzzle extends LilaController {
         html = notFound,
         api = _ => for {
           _ <- env.batch.solve(me, data)
-          me2 <- UserRepo byId me.id map (_ | me)
+          me2 <- env.user.userRepo byId me.id map (_ | me)
           infos <- env userInfos me2
         } yield Ok(Json.obj(
           "user" -> lila.puzzle.JsonView.infos(false)(infos)

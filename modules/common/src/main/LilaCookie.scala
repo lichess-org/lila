@@ -1,7 +1,7 @@
 package lila.common
 
 import ornicar.scalalib.Random
-import play.api.mvc.{ Cookie, DiscardingCookie, Session, RequestHeader, SessionCookieBaker }
+import play.api.mvc._
 
 final class LilaCookie(baker: SessionCookieBaker) {
 
@@ -35,6 +35,10 @@ final class LilaCookie(baker: SessionCookieBaker) {
 
   def discard(name: String)(implicit req: RequestHeader) =
     DiscardingCookie(name, "/", domain(req).some, baker.httpOnly)
+
+  def ensure(req: RequestHeader)(res: Result): Result =
+    if (req.session.data.contains(LilaCookie.sessionId)) res
+    else res withCookies makeSessionId(req)
 }
 
 object LilaCookie {

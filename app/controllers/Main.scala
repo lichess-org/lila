@@ -5,14 +5,16 @@ import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._
 
-import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
 import lila.hub.actorApi.captcha.ValidCaptcha
 import makeTimeout.large
 import views._
 
-object Main extends LilaController {
+final class Main(
+    env: Env,
+    prismicC: Prismic
+) extends LilaController(env) {
 
   private lazy val blindForm = Form(tuple(
     "enable" -> nonEmptyText,
@@ -25,10 +27,10 @@ object Main extends LilaController {
       blindForm.bindFromRequest.fold(
         err => BadRequest, {
           case (enable, redirect) =>
-            Redirect(redirect) withCookies lila.common.LilaCookie.cookie(
-              Env.api.Accessibility.blindCookieName,
-              if (enable == "0") "" else Env.api.Accessibility.hash,
-              maxAge = Env.api.Accessibility.blindCookieMaxAge.some,
+            Redirect(redirect) withCookies env.lilaCookie.cookie(
+              env.api.config.accessibility.blindCookieName,
+              if (enable == "0") "" else env.api.config.accessibility.hash,
+              maxAge = env.api.config.accessibility.blindCookieMaxAge.toSeconds.toInt.some,
               httpOnly = true.some
             )
         }
@@ -37,7 +39,7 @@ object Main extends LilaController {
   }
 
   def captchaCheck(id: String) = Open { implicit ctx =>
-    Env.hub.captcher ? ValidCaptcha(id, ~get("solution")) map {
+    env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(if (valid) 1 else 0)
     }
   }
@@ -58,13 +60,13 @@ object Main extends LilaController {
 
   def mobile = Open { implicit ctx =>
     pageHit
-    OptionOk(Prismic getBookmark "mobile-apk") {
+    OptionOk(prismicC getBookmark "mobile-apk") {
       case (doc, resolver) => html.mobile(doc, resolver)
     }
   }
 
   def jslog(id: String) = Open { ctx =>
-    Env.round.selfReport(
+    env.round.selfReport(
       userId = ctx.userId,
       ip = HTTPRequest lastRemoteAddress ctx.req,
       fullId = lila.game.Game.FullId(id),
@@ -94,7 +96,7 @@ object Main extends LilaController {
   val glyphs = Action(glyphsResult)
 
   def image(id: String, hash: String, name: String) = Action.async { req =>
-    Env.db.image.fetch(id) map {
+    env.db.image.fetch(id) map {
       case None => NotFound
       case Some(image) =>
         lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
@@ -108,21 +110,13 @@ object Main extends LilaController {
 
   val robots = Action { req =>
     Ok {
-      if (Env.api.Net.Crawlable && req.domain == Env.api.Net.Domain) """User-agent: *
+      if (env.net.crawlable && req.domain == env.net.domain) """User-agent: *
 Allow: /
 Disallow: /game/export
 Disallow: /games/export
 """
       else "User-agent: *\nDisallow: /"
     }
-  }
-
-  def renderNotFound(req: RequestHeader): Fu[Result] =
-    reqToCtx(req) map renderNotFound
-
-  def renderNotFound(ctx: Context): Result = {
-    lila.mon.http.response.code404()
-    NotFound(html.base.notFound()(ctx))
   }
 
   def getFishnet = Open { implicit ctx =>

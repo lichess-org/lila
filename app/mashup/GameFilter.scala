@@ -3,7 +3,7 @@ package mashup
 
 import lila.common.paginator.Paginator
 import lila.db.dsl._
-import lila.game.{ Game, Query, GameRepo }
+import lila.game.{ Game, Query }
 import lila.user.User
 
 import play.api.mvc.Request
@@ -109,7 +109,7 @@ object GameFilterMenu {
         sort = $empty,
         nb = nb
       )(page) addEffect { p =>
-        p.currentPageResults.filter(_.finishedOrAborted) foreach GameRepo.unsetPlayingUids
+        p.currentPageResults.filter(_.finishedOrAborted) foreach env.game.gameRepo.unsetPlayingUids
       }
       case Search => userGameSearch(user, page)
     }

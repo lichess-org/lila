@@ -3,7 +3,7 @@ package controllers
 import lila.app._
 import views._
 
-object Page extends LilaController {
+final class Page(env: Env) extends LilaController(env) {
 
   val thanks = helpBookmark("thanks")
   val help = helpBookmark("help")

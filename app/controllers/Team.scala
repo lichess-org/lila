@@ -12,11 +12,11 @@ import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lila.user.{ User => UserModel }
 import views._
 
-object Team extends LilaController {
+final class Team(env: Env) extends LilaController(env) {
 
-  private def forms = Env.team.forms
-  private def api = Env.team.api
-  private def paginator = Env.team.paginator
+  private def forms = env.team.forms
+  private def api = env.team.api
+  private def paginator = env.team.paginator
 
   def all(page: Int) = Open { implicit ctx =>
     paginator popularTeams page map { html.team.list.all(_) }
@@ -35,24 +35,24 @@ object Team extends LilaController {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
-    else Env.teamSearch(text, page) map { html.team.list.search(text, _) }
+    else env.teamSearch(text, page) map { html.team.list.search(text, _) }
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
-    info <- Env.current.teamInfo(team, ctx.me)
+    info <- env.current.teamInfo(team, ctx.me)
     members <- paginator.teamMembers(team, page)
-    _ <- Env.user.lightUserApi preloadMany info.userIds
+    _ <- env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
 
   def users(teamId: String) = Action.async { req =>
     import Api.limitedDefault
-    Env.team.api.team(teamId) flatMap {
+    env.team.api.team(teamId) flatMap {
       _ ?? { team =>
         Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           import play.api.libs.iteratee._
           Api.jsonStream {
-            Env.team.memberStream(team, MaxPerSecond(20)) &>
-              Enumeratee.map(Env.api.userApi.one)
+            env.team.memberStream(team, MaxPerSecond(20)) &>
+              Enumeratee.map(env.api.userApi.one)
           } |> fuccess
         }
       }
@@ -126,7 +126,7 @@ object Team extends LilaController {
   def close(id: String) = Secure(_.ManageTeam) { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       (api delete team) >>
-        Env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
+        env.mod.logApi.deleteTeam(me.id, team.name, team.description) inject
         Redirect(routes.Team all 1)
     }
   }
@@ -163,7 +163,7 @@ object Team extends LilaController {
       case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
       case _ => notFound(ctx)
     },
-    scoped = req => me => Env.oAuth.server.fetchAppAuthor(req) flatMap {
+    scoped = req => me => env.oAuth.server.fetchAppAuthor(req) flatMap {
       _ ?? { api.joinApi(id, me, _) }
     } map {
       case Some(Joined(_)) => jsonOkResult
@@ -173,7 +173,7 @@ object Team extends LilaController {
   )
 
   def requests = Auth { implicit ctx => me =>
-    Env.team.cached.nbRequests invalidate me.id
+    env.team.cached.nbRequests invalidate me.id
     api requestsWithUsers me map { html.team.request.all(_) }
   }
 
@@ -226,13 +226,13 @@ object Team extends LilaController {
       case None => BadRequest("No search term provided").fuccess
       case Some(term) => for {
         teams <- api.autocomplete(term, 10)
-        _ <- Env.user.lightUserApi preloadMany teams.map(_.createdBy)
+        _ <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
       } yield Ok {
         JsArray(teams map { team =>
           Json.obj(
             "id" -> team.id,
             "name" -> team.name,
-            "owner" -> Env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
+            "owner" -> env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
             "members" -> team.nbMembers
           )
         })

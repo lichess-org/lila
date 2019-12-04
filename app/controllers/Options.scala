@@ -7,7 +7,7 @@ import lila.app._
 import lila.common.HTTPRequest.isApiOrApp
 import lila.common.ResponseHeaders.allowMethods
 
-object Options extends LilaController {
+final class Options(env: Env) extends LilaController(env) {
 
   val root = all("")
 

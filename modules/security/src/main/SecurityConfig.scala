@@ -2,7 +2,6 @@ package lila.security
 
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import java.lang.annotation._
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
@@ -23,7 +22,7 @@ private final class SecurityConfig(
     @ConfigName("disposable_email") val disposableEmail: DisposableEmail,
     @ConfigName("dns_api") val dnsApi: DnsApi,
     @ConfigName("check_mail_api") val checkMail: CheckMail,
-    val recaptchaC: Recaptcha.Config,
+    val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
     val net: NetConfig,
     @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress

@@ -10,13 +10,13 @@ import scala.concurrent.duration._
 
 import lila.api.Context
 import lila.app._
-import lila.game.{ GameRepo, Pov }
+import lila.game.Pov
 import lila.i18n.I18nKeys
 import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import lila.round.JsonView.WithFlags
 import views._
 
-object UserAnalysis extends LilaController with TheftPrevention {
+final class UserAnalysis(env: Env) extends LilaController(env) with TheftPrevention {
 
   def index = load("", Standard)
 
@@ -36,7 +36,7 @@ object UserAnalysis extends LilaController with TheftPrevention {
       .orElse(get("fen")) map FEN.apply
     val pov = makePov(decodedFen, variant)
     val orientation = get("color").flatMap(chess.Color.apply) | pov.color
-    Env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
+    env.api.roundApi.userAnalysisJson(pov, ctx.pref, decodedFen, orientation, owner = false, me = ctx.me) map { data =>
       Ok(html.board.userAnalysis(data, pov))
     }
   }
@@ -63,15 +63,15 @@ object UserAnalysis extends LilaController with TheftPrevention {
   )
 
   def game(id: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(GameRepo game id) { g =>
-      Env.round.proxy updateIfPresent g flatMap { game =>
+    OptionFuResult(env.game.gameRepo game id) { g =>
+      env.round.proxy updateIfPresent g flatMap { game =>
         val pov = Pov(game, chess.Color(color == "white"))
         negotiate(
           html =
             if (game.replayable) Redirect(routes.Round.watcher(game.id, color)).fuccess
             else for {
-              initialFen <- GameRepo initialFen game.id
-              data <- Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
+              initialFen <- env.game.gameRepo initialFen game.id
+              data <- env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen, pov.color, owner = isMyPov(pov), me = ctx.me)
             } yield NoCache(Ok(html.board.userAnalysis(data, pov))),
           api = apiVersion => mobileAnalysis(pov, apiVersion)
         )
@@ -80,14 +80,14 @@ object UserAnalysis extends LilaController with TheftPrevention {
   }
 
   private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit ctx: Context): Fu[Result] =
-    GameRepo initialFen pov.gameId flatMap { initialFen =>
+    env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
       Game.preloadUsers(pov.game) zip
-        (Env.analyse.analyser get pov.game) zip
-        Env.game.crosstableApi(pov.game) zip
-        Env.bookmark.api.exists(pov.game, ctx.me) flatMap {
+        (env.analyse.analyser get pov.game) zip
+        env.game.crosstableApi(pov.game) zip
+        env.bookmark.api.exists(pov.game, ctx.me) flatMap {
           case _ ~ analysis ~ crosstable ~ bookmarked =>
             import lila.game.JsonView.crosstableWrites
-            Env.api.roundApi.review(pov, apiVersion,
+            env.api.roundApi.review(pov, apiVersion,
               tv = none,
               analysis,
               initialFenO = initialFen.some,
@@ -100,13 +100,13 @@ object UserAnalysis extends LilaController with TheftPrevention {
   // XHR only
   def pgn = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    Env.importer.forms.importForm.bindFromRequest.fold(
+    env.importer.forms.importForm.bindFromRequest.fold(
       jsonFormError,
-      data => Env.importer.importer.inMemory(data).fold(
+      data => env.importer.importer.inMemory(data).fold(
         err => BadRequest(jsonError(err.shows)).fuccess, {
           case (game, fen) =>
             val pov = Pov(game, chess.White)
-            Env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = fen, pov.color, owner = false, me = ctx.me) map { data =>
+            env.api.roundApi.userAnalysisJson(pov, ctx.pref, initialFen = fen, pov.color, owner = false, me = ctx.me) map { data =>
               Ok(data)
             }
         }
@@ -116,12 +116,12 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     import lila.round.Forecast
-    OptionFuResult(Env.round.proxy pov fullId) { pov =>
+    OptionFuResult(env.round.proxy pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
       else ctx.body.body.validate[Forecast.Steps].fold(
         err => BadRequest(err.toString).fuccess,
-        forecasts => Env.round.forecastApi.save(pov, forecasts) >>
-          Env.round.forecastApi.loadForDisplay(pov) map {
+        forecasts => env.round.forecastApi.save(pov, forecasts) >>
+          env.round.forecastApi.loadForDisplay(pov) map {
             case None => Ok(Json.obj("none" -> true))
             case Some(fc) => Ok(Json toJson fc) as JSON
           } recover {
@@ -133,14 +133,14 @@ object UserAnalysis extends LilaController with TheftPrevention {
 
   def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
     import lila.round.Forecast
-    OptionFuResult(Env.round.proxy pov fullId) { pov =>
+    OptionFuResult(env.round.proxy pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
       else ctx.body.body.validate[Forecast.Steps].fold(
         err => BadRequest(err.toString).fuccess,
         forecasts => {
           val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
-          Env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
-            Env.current.scheduler.after(wait.millis) {
+          env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
+            env.current.scheduler.after(wait.millis) {
               Ok(Json.obj("reload" -> true))
             }
         }

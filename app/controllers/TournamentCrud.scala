@@ -3,10 +3,9 @@ package controllers
 import lila.app._
 import views._
 
-object TournamentCrud extends LilaController {
+final class TournamentCrud(env: Env) extends LilaController(env) {
 
-  private def env = Env.tournament
-  private def crud = env.crudApi
+  private def crud = env.tournament.crudApi
 
   def index(page: Int) = Secure(_.ManageTournament) { implicit ctx => me =>
     crud.paginator(page) map { paginator =>

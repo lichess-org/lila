@@ -5,11 +5,10 @@ import akka.stream.scaladsl._
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.challenge.{ Challenge, ChallengeMaker }
+import lila.challenge.Challenge
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game
-import lila.hub.actorApi.socket.BotIsOnline
 import lila.user.User
 
 final class EventStream(
@@ -23,18 +22,18 @@ final class EventStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def plugTo(me: User, gamesInProgress: List[Game], challenges: List[Challenge])(
-    sink: Sink[Option[JsObject], Fu[akka.Done]]
-  ): Unit = {
-
-    val (queue, done) = blueprint.toMat(sink)(Keep.both).run()
+  def apply(
+    me: User,
+    gamesInProgress: List[Game],
+    challenges: List[Challenge]
+  ): Source[Option[JsObject], _] = blueprint mapMaterializedValue { queue =>
 
     gamesInProgress map toJson map some foreach queue.offer
     challenges map toJson map some foreach queue.offer
 
     val actor = system.actorOf(Props(mkActor(me, queue)))
 
-    done onComplete { _ => actor ! PoisonPill }
+    queue.watchCompletion.foreach { _ => actor ! PoisonPill }
   }
 
   private def mkActor(me: User, queue: SourceQueueWithComplete[Option[JsObject]]) = new Actor {

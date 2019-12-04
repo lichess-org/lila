@@ -1,5 +1,6 @@
 package lila.security
 
+import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all._
 
 import lila.common.config._
@@ -99,22 +100,21 @@ object EmailConfirm {
 
   case class UserEmail(username: String, email: EmailAddress)
 
-  final class CookieApi(lilaCookie: LilaCookie) {
-
-    import play.api.mvc.{ Cookie, RequestHeader }
+  object cookie {
 
     val name = "email_confirm"
-    val sep = ":"
+    private val sep = ":"
 
-    def get(req: RequestHeader): Option[UserEmail] = req.session get name map (_.split(sep, 2)) collect {
-      case Array(username, email) => UserEmail(username, EmailAddress(email))
-    }
-
-    def make(user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
+    def make(lilaCookie: LilaCookie, user: User, email: EmailAddress)(implicit req: RequestHeader): Cookie =
       lilaCookie.session(
         name = name,
         value = s"${user.username}$sep${email.value}"
       )
+
+    def get(req: RequestHeader): Option[UserEmail] =
+      req.session get name map (_.split(sep, 2)) collect {
+        case Array(username, email) => UserEmail(username, EmailAddress(email))
+      }
   }
 
   import scala.concurrent.duration._

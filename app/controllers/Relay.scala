@@ -8,9 +8,9 @@ import lila.app._
 import lila.relay.{ Relay => RelayModel }
 import views._
 
-object Relay extends LilaController {
+final class Relay(env: Env) extends LilaController(env) {
 
-  private val env = Env.relay
+  private val env = env.relay
 
   def index(page: Int) = Open { implicit ctx =>
     Reasonable(page) {
@@ -65,20 +65,20 @@ object Relay extends LilaController {
     pageHit
     WithRelay(slug, id) { relay =>
       val sc =
-        if (relay.sync.ongoing) Env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
+        if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
           chapters.find(_.looksAlive) orElse chapters.headOption match {
-            case Some(chapter) => Env.study.api.byIdWithChapter(relay.studyId, chapter.id)
-            case None => Env.study.api byIdWithChapter relay.studyId
+            case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+            case None => env.study.api byIdWithChapter relay.studyId
           }
         }
-        else Env.study.api byIdWithChapter relay.studyId
+        else env.study.api byIdWithChapter relay.studyId
       sc flatMap { _ ?? { doShow(relay, _) } }
     }
   }
 
   def chapter(slug: String, id: String, chapterId: String) = Open { implicit ctx =>
     WithRelay(slug, id) { relay =>
-      Env.study.api.byIdWithChapter(relay.studyId, chapterId) flatMap {
+      env.study.api.byIdWithChapter(relay.studyId, chapterId) flatMap {
         _ ?? { doShow(relay, _) }
       }
     }
@@ -96,7 +96,7 @@ object Relay extends LilaController {
         (sc, studyData) <- Study.getJsonData(oldSc)
         data = env.jsonView.makeData(relay, studyData)
         chat <- Study.chatOf(sc.study)
-        sVersion <- Env.study.version(sc.study.id)
+        sVersion <- env.study.version(sc.study.id)
         streams <- Study.streamsOf(sc.study)
       } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
     }

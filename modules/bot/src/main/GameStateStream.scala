@@ -9,13 +9,11 @@ import lila.chat.Chat
 import lila.chat.UserLine
 import lila.common.Bus
 import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
-import lila.game.Event.ReloadOwner
 import lila.game.Game
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
 import lila.round.actorApi.BotConnected
 import lila.round.actorApi.round.{ DrawNo, DrawYes }
-import lila.user.User
 import scala.concurrent.duration._
 
 final class GameStateStream(
@@ -27,16 +25,11 @@ final class GameStateStream(
   private val blueprint =
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
-  def plugTo(init: Game.WithInitialFen, as: chess.Color)(
-    sink: Sink[Option[JsObject], Fu[akka.Done]]
-  ): Unit = {
-
-    val (queue, done) = blueprint.toMat(sink)(Keep.both).run()
-
-    val actor = system.actorOf(Props(mkActor(init, as, queue)))
-
-    done onComplete { _ => actor ! PoisonPill }
-  }
+  def apply(init: Game.WithInitialFen, as: chess.Color): Source[Option[JsObject], _] =
+    blueprint mapMaterializedValue { queue =>
+      val actor = system.actorOf(Props(mkActor(init, as, queue)))
+      queue.watchCompletion.foreach { _ => actor ! PoisonPill }
+    }
 
   private def mkActor(
     init: Game.WithInitialFen,

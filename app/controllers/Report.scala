@@ -8,15 +8,14 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
-import lila.user.{ UserRepo, User => UserModel }
+import lila.user.{ User => UserModel }
 
-object Report extends LilaController {
+final class Report(env: Env) extends LilaController(env) {
 
-  private def env = Env.report
-  private def api = env.api
+  private def api = env.report.api
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
-    if (Env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force")) fuccess(Forbidden(html.site.message.streamingMod))
+    if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force")) fuccess(Forbidden(html.site.message.streamingMod))
     else renderList(env.modFilters.get(me).fold("all")(_.key))
   }
 
@@ -28,15 +27,15 @@ object Report extends LilaController {
   private def renderList(room: String)(implicit ctx: Context) =
     api.openAndRecentWithFilter(12, Room(room)) zip
       api.countOpenByRooms zip
-      Env.streamer.api.approval.countRequests flatMap {
+      env.streamer.api.approval.countRequests flatMap {
         case reports ~ counts ~ streamers =>
-          (Env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
+          (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
             Ok(html.report.list(reports, room, counts, streamers))
       }
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     for {
-      current <- Env.report.api.inquiries ofModId me.id
+      current <- env.report.api.inquiries ofModId me.id
       newInquiry <- api.inquiries.toggle(AsMod(me), id)
     } yield newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
@@ -93,7 +92,7 @@ object Report extends LilaController {
   }
 
   def process(id: String) = SecureBody(_.SeeReport) { implicit ctx => me =>
-    Env.report.api.inquiries ofModId me.id flatMap { inquiry =>
+    env.report.api.inquiries ofModId me.id flatMap { inquiry =>
       api.process(AsMod(me), id) >> onInquiryClose(inquiry, me, none, force = true)
     }
   }
@@ -103,7 +102,7 @@ object Report extends LilaController {
   }
 
   def currentCheatInquiry(username: String) = Secure(_.Hunter) { implicit ctx => me =>
-    OptionFuResult(UserRepo named username) { user =>
+    OptionFuResult(env.user.userRepo named username) { user =>
       env.api.currentCheatReport(lila.report.Suspect(user)) flatMap {
         _ ?? { report =>
           env.api.inquiries.toggle(lila.report.Mod(me), report.id)
@@ -113,7 +112,7 @@ object Report extends LilaController {
   }
 
   def form = Auth { implicit ctx => implicit me =>
-    get("username") ?? UserRepo.named flatMap { user =>
+    get("username") ?? env.user.userRepo.named flatMap { user =>
       env.forms.createWithCaptcha map {
         case (form, captcha) => Ok(html.report.form(form, user, captcha))
       }
@@ -123,7 +122,7 @@ object Report extends LilaController {
   def create = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
     env.forms.create.bindFromRequest.fold(
-      err => get("username") ?? UserRepo.named flatMap { user =>
+      err => get("username") ?? env.user.userRepo.named flatMap { user =>
         env.forms.anyCaptcha map { captcha =>
           BadRequest(html.report.form(err, user, captcha))
         }
@@ -140,7 +139,7 @@ object Report extends LilaController {
     implicit val req = ctx.body
     env.forms.flag.bindFromRequest.fold(
       err => BadRequest.fuccess,
-      data => UserRepo named data.username flatMap {
+      data => env.user.userRepo named data.username flatMap {
         _ ?? { user =>
           if (user == me) BadRequest.fuccess
           else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
@@ -150,7 +149,7 @@ object Report extends LilaController {
   }
 
   def thanks(reported: String) = Auth { implicit ctx => me =>
-    Env.relation.api.fetchBlocks(me.id, reported) map { blocked =>
+    env.relation.api.fetchBlocks(me.id, reported) map { blocked =>
       html.report.thanks(reported, blocked)
     }
   }

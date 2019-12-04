@@ -4,7 +4,7 @@ package mashup
 import lila.api.Context
 import lila.event.Event
 import lila.forum.MiniForumPost
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Game, Pov }
 import lila.playban.TempBan
 import lila.simul.Simul
 import lila.streamer.LiveStreams
@@ -25,19 +25,18 @@ final class Preload(
     lobbyApi: lila.api.LobbyApi,
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
-    roundProxy: lila.round.GameProxyRepo
+    roundProxy: lila.round.GameProxyRepo,
+    simulIsFeaturable: Simul => Boolean
 ) {
 
   import Preload._
-
-  private type Response = (JsObject, Vector[Entry], List[MiniForumPost], List[Tournament], List[Event], List[Simul], Option[Game], List[User.LightPerf], List[Winner], Option[lila.puzzle.DailyPuzzle], LiveStreams.WithTitles, List[lila.blog.MiniPost], Option[TempBan], Option[Preload.CurrentGame], List[Pov])
 
   def apply(
     posts: Fu[List[MiniForumPost]],
     tours: Fu[List[Tournament]],
     events: Fu[List[Event]],
     simuls: Fu[List[Simul]]
-  )(implicit ctx: Context): Fu[Response] =
+  )(implicit ctx: Context): Fu[Homepage] =
     lobbyApi(ctx) zip
       posts zip
       tours zip
@@ -57,7 +56,7 @@ final class Preload(
               tWinners.map(_.userId) :::
                 posts.flatMap(_.userId) :::
                 entries.flatMap(_.userIds).toList
-            } inject ((
+            } inject Homepage(
               data,
               entries,
               posts,
@@ -72,13 +71,14 @@ final class Preload(
               Env.blog.lastPostCache.apply,
               playban,
               currentGame,
+              simulIsFeaturable,
               blindGames
-            ))
+            )
           }
       }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
-    GameRepo.playingRealtimeNoAi(user, 10).flatMap {
+    env.game.gameRepo.playingRealtimeNoAi(user, 10).flatMap {
       _.map { roundProxy.pov(_, user) }.sequenceFu.dmap(_.flatten)
     } flatMap {
       currentGameMyTurn(_, lightUserApi.sync)(user)
@@ -103,6 +103,25 @@ final class Preload(
 }
 
 object Preload {
+
+  case class Homepage(
+      data: JsObject,
+      userTimeline: Vector[Entry],
+      forumRecent: List[MiniForumPost],
+      tours: List[Tournament],
+      events: List[Event],
+      simuls: List[Simul],
+      featured: Option[Game],
+      leaderboard: List[User.LightPerf],
+      tournamentWinners: List[Winner],
+      puzzle: Option[lila.puzzle.DailyPuzzle],
+      streams: LiveStreams.WithTitles,
+      lastPost: List[lila.blog.MiniPost],
+      playban: Option[TempBan],
+      currentGame: Option[Preload.CurrentGame],
+      isFeaturable: Simul => Boolean,
+      blindGames: List[Pov]
+  )
 
   case class CurrentGame(pov: Pov, json: JsObject, opponent: String)
 }

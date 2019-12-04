@@ -17,7 +17,7 @@ final class ApiConfig(
     @ConfigName("editor.animation.duration") val editorAnimationDuration: FiniteDuration,
     @ConfigName("explorer.endpoint") val explorerEndpoint: String,
     @ConfigName("explorer.tablebase.endpoint") val tablebaseEndpoint: String,
-    accessibility: ApiConfig.Accessibility
+    val accessibility: ApiConfig.Accessibility
 )
 
 object ApiConfig {

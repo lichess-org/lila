@@ -55,7 +55,7 @@ final class Env(
 
   lazy val forms = wire[DataForm]
 
-  private lazy val tournamentRepo = new TournamentRepo(db(config.tournamentColl))
+  lazy val tournamentRepo = new TournamentRepo(db(config.tournamentColl))
   lazy val pairingRepo = new PairingRepo(db(config.pairingColl))
   private lazy val playerRepo = new PlayerRepo(db(config.playerColl))
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))

@@ -8,9 +8,9 @@ import lila.app._
 import lila.oauth.{ OAuthApp => App }
 import views._
 
-object OAuthApp extends LilaController {
+final class OAuthApp(env: Env) extends LilaController(env) {
 
-  private val env = Env.oAuth
+  private val env = env.oAuth
 
   def index = Auth { implicit ctx => me =>
     env.appApi.list(me) map { apps =>

@@ -4,7 +4,6 @@ import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.common.DetectLanguage
@@ -39,8 +38,8 @@ final class Env(
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 
-  private lazy val categRepo = new CategRepo(db(CollName("f_categ")))
-  private lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
+  lazy val categRepo = new CategRepo(db(CollName("f_categ")))
+  lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
   private lazy val postColl = new PostRepo(db(CollName("f_post")))
 
   lazy val categApi: CategApi = wire[CategApi]

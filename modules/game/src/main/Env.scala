@@ -1,7 +1,7 @@
 package lila.game
 
 import akka.actor._
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Scaffeine
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration

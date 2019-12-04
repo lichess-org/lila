@@ -8,7 +8,7 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ Bus, Strings, Iso, EmailAddress }
+import lila.common.{ Bus, Strings, EmailAddress }
 import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 import lila.user.{ UserRepo, Authenticator }
@@ -31,7 +31,7 @@ final class Env(
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
   import config.net.baseUrl
 
-  // val recaptchaPublicConfig = recaptcha.public
+  val recaptchaPublicConfig = config.recaptcha.public
 
   lazy val firewall = new Firewall(
     coll = db(config.collection.firewall),
@@ -41,7 +41,7 @@ final class Env(
   lazy val flood = wire[Flood]
 
   lazy val recaptcha: Recaptcha =
-    if (config.recaptchaC.enabled) wire[RecaptchaGoogle]
+    if (config.recaptcha.enabled) wire[RecaptchaGoogle]
     else RecaptchaSkip
 
   lazy val forms = wire[DataForm]

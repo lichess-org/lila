@@ -6,10 +6,9 @@ import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import views._
 
-object Search extends LilaController {
+final class Search(env: Env) extends LilaController(env) {
 
-  private def env = Env.gameSearch
-  def searchForm = env.forms.search
+  def searchForm = env.gameSearch.forms.search
 
   private val RateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 50,
@@ -32,7 +31,7 @@ object Search extends LilaController {
         val ip = HTTPRequest lastRemoteAddress ctx.req
         val cost = scala.math.sqrt(page).toInt
         implicit def req = ctx.body
-        Env.game.cached.nbTotal flatMap { nbGames =>
+        env.game.cached.nbTotal flatMap { nbGames =>
           def limited = fuccess {
             val form = searchForm.bindFromRequest.withError(
               key = "",
@@ -58,7 +57,7 @@ object Search extends LilaController {
                       env.paginator(query, page) map (_.some)
                     } flatMap {
                       case Some(s) =>
-                        Env.api.userGameApi.jsPaginator(s) map {
+                        env.api.userGameApi.jsPaginator(s) map {
                           Ok(_)
                         }
                       case None =>

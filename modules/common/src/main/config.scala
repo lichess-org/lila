@@ -32,6 +32,7 @@ object config {
       @ConfigName("asset.domain") assetDomain: String,
       @ConfigName("socket.domain") socketDomain: String,
       crawlable: Boolean,
+      @ConfigName("ratelimit") rateLimit: Boolean,
       email: EmailAddress
   )
 

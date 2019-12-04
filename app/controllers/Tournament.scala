@@ -13,16 +13,15 @@ import lila.tournament.{ System, TournamentRepo, PairingRepo, VisibleTournaments
 import lila.user.{ User => UserModel }
 import views._
 
-object Tournament extends LilaController {
+final class Tournament(env: Env) extends LilaController(env) {
 
-  private def env = Env.tournament
-  private def repo = TournamentRepo
+  private def repo = env.tournament.tournamentRepo
 
   import Team.teamsIBelongTo
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
-  private[controllers] val upcomingCache = Env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
+  private[controllers] val upcomingCache = env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
     name = "tournament.home",
     for {
       visible <- env.api.fetchVisibleTournaments
@@ -38,13 +37,13 @@ object Tournament extends LilaController {
         val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(15), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
-          _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
+          _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
         } yield Ok(html.tournament.finishedPaginator(pag))
         else for {
           (visible, scheduled) <- upcomingCache.get
           finished <- finishedPaginator
           winners <- env.winners.all
-          _ <- Env.user.lightUserApi preloadMany {
+          _ <- env.user.lightUserApi preloadMany {
             finished.currentPageResults.flatMap(_.winnerId).toList :::
               scheduled.flatMap(_.winnerId) ::: winners.userIds
           }
@@ -71,7 +70,7 @@ object Tournament extends LilaController {
   def leaderboard = Open { implicit ctx =>
     for {
       winners <- env.winners.all
-      _ <- Env.user.lightUserApi preloadMany winners.userIds
+      _ <- env.user.lightUserApi preloadMany winners.userIds
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
@@ -79,7 +78,7 @@ object Tournament extends LilaController {
     !ctx.kid && // no public chats for kids
       ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
         (!tour.isPrivate || json.fold(true)(jsonHasMe)) && // private tournament that I joined
-          Env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
+          env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
@@ -97,15 +96,15 @@ object Tournament extends LilaController {
               page = page,
               me = ctx.me,
               getUserTeamIds = getUserTeamIds,
-              getTeamName = Env.team.cached.name,
+              getTeamName = env.team.cached.name,
               playerInfoExt = none,
               socketVersion = version.some,
               partial = false,
               lang = ctx.lang
             )
-            chat <- canHaveChat(tour, json.some) ?? Env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-            _ <- chat ?? { c => Env.user.lightUserApi.preloadMany(c.chat.userIds) }
-            _ <- tour.teamBattle ?? { b => Env.team.cached.preloadSet(b.teams) }
+            chat <- canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
+            _ <- chat ?? { c => env.user.lightUserApi.preloadMany(c.chat.userIds) }
+            _ <- tour.teamBattle ?? { b => env.team.cached.preloadSet(b.teams) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
@@ -120,7 +119,7 @@ object Tournament extends LilaController {
                   page = page,
                   me = ctx.me,
                   getUserTeamIds = getUserTeamIds,
-                  getTeamName = Env.team.cached.name,
+                  getTeamName = env.team.cached.name,
                   playerInfoExt = playerInfoExt,
                   socketVersion = socketVersion,
                   partial = partial,
@@ -205,7 +204,7 @@ object Tournament extends LilaController {
   def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx => me =>
     OptionResult(repo byId id) { tour =>
       env.api kill tour
-      Env.mod.logApi.terminateTournament(me.id, tour.fullName)
+      env.mod.logApi.terminateTournament(me.id, tour.fullName)
       Redirect(routes.Tournament show tour.id)
     }
   }
@@ -220,7 +219,7 @@ object Tournament extends LilaController {
 
   def teamBattleForm(teamId: String) = Auth { implicit ctx => me =>
     NoLameOrBot {
-      Env.team.api.owns(teamId, me.id) map {
+      env.team.api.owns(teamId, me.id) map {
         _ ?? {
           Ok(html.tournament.form(env.forms(me, teamId.some), env.forms, me, Nil))
         }
@@ -255,7 +254,7 @@ object Tournament extends LilaController {
             err => BadRequest(html.tournament.form(err, env.forms, me, teams)).fuccess,
             setup => {
               val cost = if (me.hasTitle ||
-                Env.streamer.liveStreamApi.isStreaming(me.id) ||
+                env.streamer.liveStreamApi.isStreaming(me.id) ||
                 isGranted(_.ManageTournament) ||
                 setup.password.isDefined) 1 else 4
               CreateLimitPerUser(me.id, cost = cost) {
@@ -284,7 +283,7 @@ object Tournament extends LilaController {
       jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
         env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-          Env.tournament.jsonView(tour, none, none, getUserTeamIds, Env.team.cached.name, none, none, partial = false, lila.i18n.defaultLang)
+          env.tournament.jsonView(tour, none, none, getUserTeamIds, env.team.cached.name, none, none, partial = false, lila.i18n.defaultLang)
         }
       } map { Ok(_) }
     )
@@ -295,9 +294,9 @@ object Tournament extends LilaController {
         case tour if tour.createdBy == me.id =>
           tour.teamBattle ?? { battle =>
             lila.team.TeamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
-              Env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
+              env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
                 val form = lila.tournament.TeamBattle.DataForm.edit(teams.map { t =>
-                  s"""${t.id} "${t.name}" by ${Env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
+                  s"""${t.id} "${t.name}" by ${env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
                 }, battle.nbLeaders)
                 Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
               }
@@ -315,7 +314,7 @@ object Tournament extends LilaController {
           implicit val req = ctx.body
           lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
             err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
-            res => env.api.teamBattleUpdate(tour, res, Env.team.api.filterExistingIds) inject
+            res => env.api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
               Redirect(routes.Tournament.show(tour.id))
           )
         case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
@@ -327,7 +326,7 @@ object Tournament extends LilaController {
     negotiate(
       html = notFound,
       api = _ =>
-        Env.tournament.cached.promotable.get.nevermind map {
+        env.tournament.cached.promotable.get.nevermind map {
           lila.tournament.Spotlight.select(_, ctx.me, 4)
         } flatMap env.apiJsonView.featured map { Ok(_) }
     )
@@ -336,14 +335,14 @@ object Tournament extends LilaController {
   def shields = Open { implicit ctx =>
     for {
       history <- env.shieldApi.history(5.some)
-      _ <- Env.user.lightUserApi preloadMany history.userIds
+      _ <- env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
   }
 
   def categShields(k: String) = Open { implicit ctx =>
     OptionFuOk(env.shieldApi.byCategKey(k)) {
       case (categ, awards) =>
-        Env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
+        env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
           html.tournament.shields.byCateg(categ, awards)
     }
   }
@@ -354,9 +353,9 @@ object Tournament extends LilaController {
     }
   }
 
-  private val streamerCache = Env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
+  private val streamerCache = env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
     name = "tournament.streamers",
-    f = tourId => Env.streamer.liveStreamApi.all.flatMap {
+    f = tourId => env.streamer.liveStreamApi.all.flatMap {
       _.streams.map { stream =>
         env.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
       }.sequenceFu.map(_.flatten.toSet)
@@ -365,5 +364,5 @@ object Tournament extends LilaController {
   )
 
   private def getUserTeamIds(user: lila.user.User): Fu[List[TeamId]] =
-    Env.team.cached.teamIdsList(user.id)
+    env.team.cached.teamIdsList(user.id)
 }

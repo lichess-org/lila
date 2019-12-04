@@ -10,16 +10,14 @@ import lila.common.paginator.{ Paginator, AdapterLike, PaginatorJson }
 import lila.common.{ HTTPRequest, MaxPerSecond }
 import lila.relation.Related
 import lila.relation.RelationStream._
-import lila.user.{ User => UserModel, UserRepo }
+import lila.user.{ User => UserModel }
 import views._
 
-object Relation extends LilaController {
-
-  private def env = Env.relation
+final class Relation(env: Env) extends LilaController(env) {
 
   private def renderActions(userId: String, mini: Boolean)(implicit ctx: Context) =
     (ctx.userId ?? { env.api.fetchRelation(_, userId) }) zip
-      (ctx.isAuth ?? { Env.pref.api followable userId }) zip
+      (ctx.isAuth ?? { env.pref.api followable userId }) zip
       (ctx.userId ?? { env.api.fetchBlocks(userId, _) }) flatMap {
         case relation ~ followable ~ blocked => negotiate(
           html = fuccess(Ok {
@@ -36,9 +34,9 @@ object Relation extends LilaController {
 
   def follow(userId: String) = Auth { implicit ctx => me =>
     env.api.reachedMaxFollowing(me.id) flatMap {
-      case true => Env.message.api.sendPresetFromLichess(
+      case true => env.message.api.sendPresetFromLichess(
         me,
-        lila.message.ModPreset.maxFollow(me.username, Env.relation.MaxFollow)
+        lila.message.ModPreset.maxFollow(me.username, env.relation.MaxFollow)
       ).void
       case _ => env.api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
     }
@@ -58,7 +56,7 @@ object Relation extends LilaController {
 
   def following(username: String, page: Int) = Open { implicit ctx =>
     Reasonable(page, 20) {
-      OptionFuResult(UserRepo named username) { user =>
+      OptionFuResult(env.user.userRepo named username) { user =>
         RelatedPager(env.api.followingPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowers user.id map { nbFollowers =>
@@ -73,7 +71,7 @@ object Relation extends LilaController {
 
   def followers(username: String, page: Int) = Open { implicit ctx =>
     Reasonable(page, 20) {
-      OptionFuResult(UserRepo named username) { user =>
+      OptionFuResult(env.user.userRepo named username) { user =>
         RelatedPager(env.api.followersPaginatorAdapter(user.id), page) flatMap { pag =>
           negotiate(
             html = env.api countFollowing user.id map { nbFollowing =>
@@ -91,12 +89,12 @@ object Relation extends LilaController {
   def apiFollowers(name: String) = apiRelation(name, Direction.Followers)
 
   private def apiRelation(name: String, direction: Direction) = Action.async { req =>
-    UserRepo.named(name) flatMap {
+    env.user.userRepo.named(name) flatMap {
       _ ?? { user =>
         import Api.limitedDefault
         Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           Api.jsonStream {
-            env.stream.follow(user, direction, MaxPerSecond(20)) &> Enumeratee.map(Env.api.userApi.one)
+            env.stream.follow(user, direction, MaxPerSecond(20)) &> Enumeratee.map(env.api.userApi.one)
           } |> fuccess
         }
       }
@@ -111,7 +109,7 @@ object Relation extends LilaController {
         "perfs" -> r.user.perfs.bestPerfType.map { best =>
           lila.user.JsonView.perfs(r.user, best.some)
         }
-      ).add("online" -> Env.socket.isOnline(r.user.id))
+      ).add("online" -> env.socket.isOnline(r.user.id))
     }))
   }
 
@@ -130,8 +128,8 @@ object Relation extends LilaController {
   )
 
   private def followship(userIds: Seq[String])(implicit ctx: Context): Fu[List[Related]] =
-    UserRepo usersFromSecondary userIds.map(UserModel.normalize) flatMap { users =>
-      (ctx.isAuth ?? { Env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
+    env.user.userRepo usersFromSecondary userIds.map(UserModel.normalize) flatMap { users =>
+      (ctx.isAuth ?? { env.pref.api.followableIds(users map (_.id)) }) flatMap { followables =>
         users.map { u =>
           ctx.userId ?? { env.api.fetchRelation(_, u.id) } map { rel =>
             lila.relation.Related(u, none, followables(u.id), rel)

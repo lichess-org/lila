@@ -4,11 +4,10 @@ import scala.concurrent.duration._
 
 import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
-import lila.forum.CategRepo
 import play.api.libs.json._
 import views._
 
-object ForumTopic extends LilaController with ForumController {
+final class ForumTopic(env: Env) extends LilaController(env) with ForumController {
 
   private val CreateRateLimit = new lila.memo.RateLimit[IpAddress](2, 5 minutes,
     name = "forum create topic",
@@ -16,7 +15,7 @@ object ForumTopic extends LilaController with ForumController {
 
   def form(categSlug: String) = Open { implicit ctx =>
     NotForKids {
-      OptionFuOk(CategRepo bySlug categSlug) { categ =>
+      OptionFuOk(env.forum.categRepo bySlug categSlug) { categ =>
         forms.anyCaptcha map { html.forum.topic.form(categ, forms.topic, _) }
       }
     }
@@ -25,7 +24,7 @@ object ForumTopic extends LilaController with ForumController {
   def create(categSlug: String) = OpenBody { implicit ctx =>
     CategGrantWrite(categSlug) {
       implicit val req = ctx.body
-      OptionFuResult(CategRepo bySlug categSlug) { categ =>
+      OptionFuResult(env.forum.categRepo bySlug categSlug) { categ =>
         forms.topic.bindFromRequest.fold(
           err => forms.anyCaptcha map { captcha =>
             BadRequest(html.forum.topic.form(categ, err, captcha))
@@ -44,11 +43,11 @@ object ForumTopic extends LilaController with ForumController {
     NotForKids {
       OptionFuOk(topicApi.show(categSlug, slug, page, ctx.troll)) {
         case (categ, topic, posts) => for {
-          unsub <- ctx.userId ?? Env.timeline.status(s"forum:${topic.id}")
+          unsub <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
           canWrite <- isGrantedWrite(categSlug)
           form <- (!posts.hasNextPage && canWrite && topic.open && !topic.isOld) ?? forms.postWithCaptcha.map(_.some)
           canModCateg <- isGrantedMod(categ.slug)
-          _ <- Env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
+          _ <- env.user.lightUserApi preloadMany posts.currentPageResults.flatMap(_.userId)
         } yield html.forum.topic.show(categ, topic, posts, form, unsub, canModCateg = canModCateg)
       }
     }
@@ -82,10 +81,10 @@ object ForumTopic extends LilaController with ForumController {
   /**
    * Returns a list of the usernames of people participating in a forum topic conversation
    */
-  def participants(topicId: String) = Auth { implicit ctx => _ =>
+  def participants(topicId: String) = Auth { _ => _ =>
     for {
       userIds <- postApi userIds topicId
-      usernames <- lila.user.UserRepo usernamesByIds userIds
+      usernames <- env.user.userRepo usernamesByIds userIds
     } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
   }
 }

@@ -7,13 +7,13 @@ import lila.app._
 import lila.common.LilaCookie
 import views._
 
-object Pref extends LilaController {
+final class Pref(env: Env) extends LilaController(env) {
 
-  private def api = Env.pref.api
+  private def api = env.pref.api
   private def forms = lila.pref.DataForm
 
   def apiGet = Scoped(_.Preference.Read) { _ => me =>
-    Env.pref.api.getPref(me) map { prefs =>
+    env.pref.api.getPref(me) map { prefs =>
       JsonOk {
         import play.api.libs.json._
         import lila.pref.JsonView._

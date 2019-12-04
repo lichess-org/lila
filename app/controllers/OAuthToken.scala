@@ -8,9 +8,9 @@ import lila.app._
 import lila.oauth.AccessToken
 import views._
 
-object OAuthToken extends LilaController {
+final class OAuthToken(env: Env) extends LilaController(env) {
 
-  private val env = Env.oAuth
+  private val env = env.oAuth
 
   def index = Auth { implicit ctx => me =>
     env.tokenApi.list(me) map { tokens =>

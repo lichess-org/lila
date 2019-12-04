@@ -3,9 +3,9 @@ package controllers
 import lila.app._
 import views._
 
-object Event extends LilaController {
+final class Event(env: Env) extends LilaController(env) {
 
-  private def api = Env.event.api
+  private def api = env.event.api
 
   def show(id: String) = Open { implicit ctx =>
     OptionOk(api oneEnabled id) { event =>

@@ -7,16 +7,16 @@ import lila.app._
 import lila.coach.{ Coach => CoachModel, CoachProfileForm, CoachPager }
 import views._
 
-object Coach extends LilaController {
+final class Coach(env: Env) extends LilaController(env) {
 
-  private def api = Env.coach.api
+  private def api = env.coach.api
 
   def allDefault(page: Int) = all(CoachPager.Order.Login.key, page)
 
   def all(o: String, page: Int) = Open { implicit ctx =>
     pageHit
     val order = CoachPager.Order(o)
-    Env.coach.pager(order, page) map { pager =>
+    env.coach.pager(order, page) map { pager =>
       Ok(html.coach.index(pager, order))
     }
   }
@@ -24,9 +24,9 @@ object Coach extends LilaController {
   def show(username: String) = Open { implicit ctx =>
     OptionFuResult(api find username) { c =>
       WithVisibleCoach(c) {
-        Env.study.api.publicByIds {
+        env.study.api.publicByIds {
           c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
-        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me, 4) flatMap { studies =>
+        } flatMap env.study.pager.withChaptersAndLiking(ctx.me, 4) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
             ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
               lila.mon.coach.pageView.profile(c.coach.id.value)()
@@ -45,7 +45,7 @@ object Coach extends LilaController {
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
           err => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
-            if (data.score < 4 && !me.reportban) Env.report.api.create(lila.report.Report.Candidate(
+            if (data.score < 4 && !me.reportban) env.report.api.create(lila.report.Report.Candidate(
               reporter = lila.report.Reporter(me),
               suspect = lila.report.Suspect(c.user),
               reason = lila.report.Reason.Other,
@@ -71,7 +71,7 @@ object Coach extends LilaController {
 
   def modReview(id: String) = SecureBody(_.DisapproveCoachReview) { implicit ctx => me =>
     OptionFuResult(api.reviews byId id) { review =>
-      Env.mod.logApi.coachReview(me.id, review.coachId.value, review.userId) >>
+      env.mod.logApi.coachReview(me.id, review.coachId.value, review.userId) >>
         api.reviews.mod(review) inject Redirect(routes.Coach.show(review.coachId.value))
     }
   }
@@ -104,9 +104,9 @@ object Coach extends LilaController {
     }
   }
 
-  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => me =>
+  def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => me =>
     OptionFuResult(api findOrInit me) { c =>
-      ctx.body.body.file("picture").getRef match {
+      ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(c, pic) recover {
           case e: lila.base.LilaException => BadRequest(html.coach.picture(c, e.message.some))
         } inject Redirect(routes.Coach.edit)

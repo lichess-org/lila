@@ -5,7 +5,7 @@ import play.api.libs.json._
 
 import lila.common.Bus
 
-final class IrwinStream(implicit mat: akka.stream.Materializer) {
+final class IrwinStream {
 
   private val classifier = "userSignup"
 
@@ -14,16 +14,15 @@ final class IrwinStream(implicit mat: akka.stream.Materializer) {
       .map(requestJson)
       .map { js => s"${Json.stringify(js)}\n" }
 
-  def plugTo(sink: Sink[String, Fu[akka.Done]]): Unit = {
-
-    val (queue, done) = blueprint.toMat(sink)(Keep.both).run()
+  def apply(): Source[String, _] = blueprint mapMaterializedValue { queue =>
 
     val sub = Bus.subscribeFun(classifier) {
       case req: IrwinRequest =>
         lila.mon.mod.irwin.streamEventType("request")()
         queue offer req
     }
-    done onComplete { _ => Bus.unsubscribe(sub, classifier) }
+
+    queue.watchCompletion foreach { _ => Bus.unsubscribe(sub, classifier) }
   }
 
   private def requestJson(req: IrwinRequest) = Json.obj(

@@ -5,10 +5,9 @@ import chess.Situation
 import play.api.libs.json._
 
 import lila.app._
-import lila.game.GameRepo
 import views._
 
-object Editor extends LilaController {
+final class Editor(env: Env) extends LilaController(env) {
 
   private lazy val positionsJson = lila.common.String.html.safeJsonValue {
     JsArray(chess.StartingPosition.all map { p =>
@@ -32,7 +31,7 @@ object Editor extends LilaController {
         sit = situation,
         fen = Forsyth >> situation,
         positionsJson,
-        animationDuration = Env.api.EditorAnimationDuration
+        animationDuration = env.api.config.editorAnimationDuration
       ))
     }
   }
@@ -43,7 +42,7 @@ object Editor extends LilaController {
       Ok(html.board.bits.jsData(
         sit = situation,
         fen = Forsyth >> situation,
-        animationDuration = Env.api.EditorAnimationDuration
+        animationDuration = env.api.config.editorAnimationDuration
       )) as JSON
     }
   }
@@ -52,7 +51,7 @@ object Editor extends LilaController {
     fen.map(_.trim).filter(_.nonEmpty).flatMap(Forsyth.<<<).map(_.situation) | Situation(chess.variant.Standard)
 
   def game(id: String) = Open { implicit ctx =>
-    OptionResult(GameRepo game id) { game =>
+    OptionResult(env.game.gameRepo game id) { game =>
       Redirect {
         if (game.playable) routes.Round.watcher(game.id, "white")
         else routes.Editor.load(get("fen") | (chess.format.Forsyth >> game.chess))
