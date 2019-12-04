@@ -55,6 +55,7 @@
   <string name="inLocalBrowser">在本地瀏覽器</string>
   <string name="deleteFromHere">從這處開始刪除</string>
   <string name="move">走棋</string>
+  <string name="capture">吃子</string>
   <string name="close">關閉</string>
   <string name="winning">贏棋</string>
   <string name="losing">輸棋</string>
@@ -69,6 +70,7 @@
   <string name="memory">記憶體</string>
   <string name="infiniteAnalysis">無限分析</string>
   <string name="removesTheDepthLimit">取消深度限制，使你的電腦發熱。</string>
+  <string name="blunder">嚴重錯誤</string>
   <string name="blunders">嚴重錯誤</string>
   <string name="mistake">錯誤</string>
   <string name="mistakes">錯誤</string>
@@ -121,9 +123,10 @@
   <string name="username">用戶名</string>
   <string name="usernameOrEmail">用戶名或電郵地址</string>
   <string name="changeUsername">更改用戶名</string>
+  <string name="changeUsernameNotSame">只能更改字母大小字。例如，將「johndoe」變成「JohnDoe」。</string>
   <string name="password">密碼</string>
-  <string name="changePassword">修改密碼</string>
-  <string name="changeEmail">更換電郵地址</string>
+  <string name="changePassword">更改密碼</string>
+  <string name="changeEmail">更改電郵地址</string>
   <string name="email">電郵</string>
   <string name="passwordReset">重置密碼</string>
   <string name="forgotPassword">忘記密碼？</string>
@@ -486,6 +489,7 @@
   <string name="error.email">电邮地址无效</string>
   <string name="error.email_acceptable">不接受此电邮地址</string>
   <string name="error.email_unique">电邮地址已被使用</string>
+  <string name="error.email_different">這已經是您的電郵地址</string>
   <string name="blindfoldChess">蒙眼象棋 (看不见棋子)</string>
   <string name="moveConfirmation">走棋确认</string>
   <string name="inCorrespondenceGames">在长期对局中</string>
