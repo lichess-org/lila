@@ -1,7 +1,6 @@
 package lila.api
 
 import org.joda.time.DateTime
-import play.api.libs.iteratee._
 import scala.concurrent.duration._
 
 import chess.format.FEN
@@ -13,13 +12,13 @@ import lila.game.{ Game, GameRepo, Query }
 final class PgnDump(
     val dumper: lila.game.PgnDump,
     annotator: Annotator,
-    getSimulName: String => Fu[Option[String]],
-    getTournamentName: String => Option[String]
+    simulApi: lila.simul.SimulApi,
+    getTournamentName: lila.tournament.GetTourName
 ) {
 
   def apply(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags): Fu[Pgn] =
     dumper(game, initialFen, flags) flatMap { pgn =>
-      if (flags.tags) (game.simulId ?? getSimulName) map { simulName =>
+      if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
         simulName.orElse(game.tournamentId flatMap getTournamentName).fold(pgn)(pgn.withEvent)
       }
       else fuccess(pgn)
@@ -40,10 +39,10 @@ final class PgnDump(
       }))
   }
 
-  def formatter(flags: WithFlags) =
-    Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-      case (game, initialFen, analysis) => toPgnString(game, initialFen, analysis, flags)
-    }
+  // def formatter(flags: WithFlags) =
+  //   Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
+  //     case (game, initialFen, analysis) => toPgnString(game, initialFen, analysis, flags)
+  //   }
 
   def toPgnString(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags) =
     apply(game, initialFen, analysis, flags).map { pgn =>

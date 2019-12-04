@@ -5,6 +5,7 @@ import com.softwaremill.macwire._
 import lila.common.config._
 import lila.hub.actors.GameSearch
 
+@Module
 final class Env(
     db: lila.db.Env,
     gameRepo: lila.game.GameRepo,

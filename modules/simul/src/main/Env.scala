@@ -19,6 +19,7 @@ private class RoundConfig(
     @ConfigName("feature.views") val featureViews: Max
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,

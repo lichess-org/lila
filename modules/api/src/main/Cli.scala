@@ -5,7 +5,23 @@ import akka.actor.ActorSelection
 import lila.common.Bus
 import lila.hub.actorApi.Deploy
 
-private[api] final class Cli extends lila.common.Cli {
+private[api] final class Cli(
+    userRepo: lila.user.UserRepo,
+    security: lila.security.Env,
+    i18n: lila.i18n.Env,
+    teamSearch: lila.teamSearch.Env,
+    forumSearch: lila.forumSearch.Env,
+    team: lila.team.Env,
+    puzzle: lila.puzzle.Env,
+    tournament: lila.tournament.Env,
+    explorer: lila.explorer.Env,
+    fishnet: lila.fishnet.Env,
+    study: lila.study.Env,
+    studySearch: lila.studySearch.Env,
+    coach: lila.coach.Env,
+    evalCache: lila.evalCache.Env,
+    plan: lila.plan.Env
+) extends lila.common.Cli {
 
   private val logger = lila.log("cli")
 
@@ -16,7 +32,7 @@ private[api] final class Cli extends lila.common.Cli {
   }
 
   def process = {
-    case "uptime" :: Nil => fuccess(s"${lila.common.PlayApp.uptimeSeconds} seconds")
+    case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "deploy" :: "pre" :: Nil => remindDeploy(lila.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
@@ -24,7 +40,7 @@ private[api] final class Cli extends lila.common.Cli {
       AssetVersion.change
       fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
-      lila.user.UserRepo named username map {
+      userRepo named username map {
         case None => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
@@ -56,19 +72,19 @@ private[api] final class Cli extends lila.common.Cli {
   }
 
   private def processors =
-    lila.security.Env.current.cli.process orElse
-      lila.i18n.Env.current.cli.process orElse
-      lila.teamSearch.Env.current.cli.process orElse
-      lila.forumSearch.Env.current.cli.process orElse
-      lila.team.Env.current.cli.process orElse
-      lila.puzzle.Env.current.cli.process orElse
-      lila.tournament.Env.current.cli.process orElse
-      lila.explorer.Env.current.cli.process orElse
-      lila.fishnet.Env.current.cli.process orElse
-      lila.study.Env.current.cli.process orElse
-      lila.studySearch.Env.current.cli.process orElse
-      lila.coach.Env.current.cli.process orElse
-      lila.evalCache.Env.current.cli.process orElse
-      lila.plan.Env.current.cli.process orElse
+    security.cli.process orElse
+      i18n.cli.process orElse
+      teamSearch.cli.process orElse
+      forumSearch.cli.process orElse
+      team.cli.process orElse
+      puzzle.cli.process orElse
+      tournament.cli.process orElse
+      explorer.cli.process orElse
+      fishnet.cli.process orElse
+      study.cli.process orElse
+      studySearch.cli.process orElse
+      coach.cli.process orElse
+      evalCache.cli.process orElse
+      plan.cli.process orElse
       process
 }

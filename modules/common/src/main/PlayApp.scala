@@ -8,7 +8,7 @@ object Uptime {
   val startedAt = DateTime.now
   val startedAtMillis = nowMillis
 
-  def uptimeSeconds = nowSeconds - startedAt.getSeconds
+  def seconds = nowSeconds - startedAt.getSeconds
 
   def startedSinceMinutes(minutes: Int) =
     startedSinceSeconds(minutes * 60)

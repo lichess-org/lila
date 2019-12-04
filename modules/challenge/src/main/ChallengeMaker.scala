@@ -4,7 +4,7 @@ import Challenge.TimeControl
 import lila.game.{ Game, Pov, PovRef }
 import lila.user.User
 
-private final class ChallengeMaker(
+final class ChallengeMaker(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
 ) {

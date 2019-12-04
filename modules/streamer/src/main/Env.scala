@@ -18,6 +18,7 @@ private class StreamerConfig(
     @ConfigName("streaming.twitch.client_id") val twitchClientId: Secret
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: play.api.libs.ws.WSClient,

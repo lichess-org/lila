@@ -10,6 +10,7 @@ import lila.game.Game
 import lila.socket.Socket.{ SocketVersion, GetVersion }
 import lila.user.User
 
+@Module
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,
@@ -32,7 +33,7 @@ final class Env(
 
   private lazy val joiner = wire[Joiner]
 
-  private lazy val maker = wire[ChallengeMaker]
+  lazy val maker = wire[ChallengeMaker]
 
   lazy val api = wire[ChallengeApi]
 

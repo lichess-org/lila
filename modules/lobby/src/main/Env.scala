@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 import lila.common.config._
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,

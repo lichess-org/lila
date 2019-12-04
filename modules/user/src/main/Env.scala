@@ -22,6 +22,7 @@ private class UserConfig(
     @ConfigName("password.bpass.secret") val passwordBPassSecret: Secret
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,

@@ -2,22 +2,25 @@ package lila.api
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import reactivemongo.play.iteratees.cursorProducer
+import play.api.libs.json.JodaWrites._
 import scala.concurrent.duration._
 
 import chess.format.FEN
 import chess.format.pgn.Tag
-import lila.analyse.{ AnalysisRepo, JsonView => analysisJson, Analysis }
-import lila.common.{ LightUser, MaxPerSecond, HTTPRequest }
+import lila.analyse.{ JsonView => analysisJson, Analysis }
+import lila.common.config.MaxPerSecond
+import lila.common.{ LightUser, HTTPRequest }
 import lila.db.dsl._
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Game, GameRepo, Query, PerfPicker }
+import lila.game.{ Game, Query, PerfPicker }
 import lila.tournament.Tournament
 import lila.user.User
 
 final class GameApiV2(
     pgnDump: PgnDump,
+    gameRepo: lila.game.GameRepo,
+    analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter
 )(implicit system: akka.actor.ActorSystem) {
 
@@ -47,78 +50,78 @@ final class GameApiV2(
     )
   }
 
-  def exportByUser(config: ByUserConfig): Enumerator[String] = {
+  // def exportByUser(config: ByUserConfig): Enumerator[String] = {
 
-    val query =
-      config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
-        Query.createdBetween(config.since, config.until) ++
-        (!config.ongoing).??(Query.finished)
+  //   val query =
+  //     config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
+  //       Query.createdBetween(config.since, config.until) ++
+  //       (!config.ongoing).??(Query.finished)
 
-    val infiniteGames = GameRepo.sortedCursor(
-      query,
-      Query.sortCreated,
-      batchSize = config.perSecond.value
-    ).bulkEnumerator() &>
-      lila.common.Iteratee.delay(1 second) &>
-      Enumeratee.mapConcat(_.filter(config.postFilter).toSeq)
+  //   val infiniteGames = gameRepo.sortedCursor(
+  //     query,
+  //     Query.sortCreated,
+  //     batchSize = config.perSecond.value
+  //   ).bulkEnumerator() &>
+  //     lila.common.Iteratee.delay(1 second) &>
+  //     Enumeratee.mapConcat(_.filter(config.postFilter).toSeq)
 
-    val games = config.max.fold(infiniteGames) { max =>
-      // I couldn't figure out how to do it properly :( :( :(
-      // the nb can't be set as bulkEnumerator(nb)
-      // because games are further filtered after being fetched
-      var nb = 0
-      infiniteGames &> Enumeratee.mapInput { in =>
-        nb = nb + 1
-        if (nb <= max) in
-        else Input.EOF
-      }
-    }
+  //   val games = config.max.fold(infiniteGames) { max =>
+  //     // I couldn't figure out how to do it properly :( :( :(
+  //     // the nb can't be set as bulkEnumerator(nb)
+  //     // because games are further filtered after being fetched
+  //     var nb = 0
+  //     infiniteGames &> Enumeratee.mapInput { in =>
+  //       nb = nb + 1
+  //       if (nb <= max) in
+  //       else Input.EOF
+  //     }
+  //   }
 
-    games &> Enumeratee.mapM(enrich(config.flags)) &> formatterFor(config)
-  }
+  //   games &> Enumeratee.mapM(enrich(config.flags)) &> formatterFor(config)
+  // }
 
-  def exportByIds(config: ByIdsConfig): Enumerator[String] =
-    GameRepo.sortedCursor(
-      $inIds(config.ids) ++ Query.finished,
-      Query.sortCreated,
-      batchSize = config.perSecond.value
-    ).bulkEnumerator() &>
-      lila.common.Iteratee.delay(1 second) &>
-      Enumeratee.mapConcat(_.toSeq) &>
-      Enumeratee.mapM(enrich(config.flags)) &>
-      formatterFor(config)
+  // def exportByIds(config: ByIdsConfig): Enumerator[String] =
+  //   gameRepo.sortedCursor(
+  //     $inIds(config.ids) ++ Query.finished,
+  //     Query.sortCreated,
+  //     batchSize = config.perSecond.value
+  //   ).bulkEnumerator() &>
+  //     lila.common.Iteratee.delay(1 second) &>
+  //     Enumeratee.mapConcat(_.toSeq) &>
+  //     Enumeratee.mapM(enrich(config.flags)) &>
+  //     formatterFor(config)
 
-  def exportByTournament(config: ByTournamentConfig): Enumerator[String] =
-    lila.tournament.PairingRepo.sortedGameIdsCursor(
-      tournamentId = config.tournamentId,
-      batchSize = config.perSecond.value
-    ).bulkEnumerator() &>
-      Enumeratee.mapM { pairingDocs =>
-        GameRepo.gamesFromSecondary(pairingDocs.flatMap { _.getAs[Game.ID]("_id") }.toSeq)
-      } &>
-      lila.common.Iteratee.delay(1 second) &>
-      Enumeratee.mapConcat(_.toSeq) &>
-      Enumeratee.mapM(enrich(config.flags)) &>
-      formatterFor(config)
+  // def exportByTournament(config: ByTournamentConfig): Enumerator[String] =
+  //   lila.tournament.PairingRepo.sortedGameIdsCursor(
+  //     tournamentId = config.tournamentId,
+  //     batchSize = config.perSecond.value
+  //   ).bulkEnumerator() &>
+  //     Enumeratee.mapM { pairingDocs =>
+  //       gameRepo.gamesFromSecondary(pairingDocs.flatMap { _.getAs[Game.ID]("_id") }.toSeq)
+  //     } &>
+  //     lila.common.Iteratee.delay(1 second) &>
+  //     Enumeratee.mapConcat(_.toSeq) &>
+  //     Enumeratee.mapM(enrich(config.flags)) &>
+  //     formatterFor(config)
 
   private def enrich(flags: WithFlags)(game: Game) =
-    GameRepo initialFen game flatMap { initialFen =>
-      (flags.evals ?? AnalysisRepo.byGame(game)) map { analysis =>
+    gameRepo initialFen game flatMap { initialFen =>
+      (flags.evals ?? analysisRepo.byGame(game)) map { analysis =>
         (game, initialFen, analysis)
       }
     }
 
-  private def formatterFor(config: Config) = config.format match {
-    case Format.PGN => pgnDump.formatter(config.flags)
-    case Format.JSON => jsonFormatter(config.flags)
-  }
+  // private def formatterFor(config: Config) = config.format match {
+  //   case Format.PGN => pgnDump.formatter(config.flags)
+  //   case Format.JSON => jsonFormatter(config.flags)
+  // }
 
-  private def jsonFormatter(flags: WithFlags) =
-    Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
-      case (game, initialFen, analysis) => toJson(game, initialFen, analysis, flags) map { json =>
-        s"${Json.stringify(json)}\n"
-      }
-    }
+  // private def jsonFormatter(flags: WithFlags) =
+  //   Enumeratee.mapM[(Game, Option[FEN], Option[Analysis])].apply[String] {
+  //     case (game, initialFen, analysis) => toJson(game, initialFen, analysis, flags) map { json =>
+  //       s"${Json.stringify(json)}\n"
+  //     }
+  //   }
 
   private def toJson(
     g: Game,

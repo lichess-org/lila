@@ -31,6 +31,7 @@ final class SimulApi(
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 
+  def find = repo.find _
   def byIds = repo.byIds _
 
   private val currentHostIdsCache = asyncCache.single[Set[String]](

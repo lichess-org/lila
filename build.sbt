@@ -57,7 +57,7 @@ lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
 lazy val api = module("api", moduleCPDeps)
   .settings(
     libraryDependencies ++= provided(
-      play.api, play.json, hasher,
+      play.api, play.joda, play.json, hasher,
       kamon.core, kamon.influxdb, lettuce
     ) ++ reactivemongo.bundle,
     aggregate in Runtime := false,

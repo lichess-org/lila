@@ -23,6 +23,7 @@ private class GameConfig(
     val pngSize: Int
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: WSClient,

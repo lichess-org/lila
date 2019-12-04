@@ -13,14 +13,14 @@ final class LobbyApi(
     lightUserApi: lila.user.LightUserApi,
     seekApi: SeekApi,
     pools: List[lila.pool.PoolConfig],
-    urgentGames: lila.user.User => Fu[List[Pov]]
+    gameProxyRepo: lila.round.GameProxyRepo
 ) {
 
   val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
     ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
-      (ctx.me ?? urgentGames) zip
+      (ctx.me ?? gameProxyRepo.urgentGames) zip
       getFilter(ctx) flatMap {
         case seeks ~ povs ~ filter =>
           val displayedPovs = povs take 9
@@ -52,7 +52,7 @@ final class LobbyApi(
     "rated" -> pov.game.rated,
     "opponent" -> Json.obj(
       "id" -> pov.opponent.userId,
-      "username" -> lila.game.Namer.playerText(pov.opponent, withRating = false)(lightUserApi.sync)
+      "username" -> lila.game.Namer.playerTextBlocking(pov.opponent, withRating = false)(lightUserApi.sync)
     ).add("rating" -> pov.opponent.rating)
       .add("ai" -> pov.opponent.aiLevel),
     "isMyTurn" -> pov.isMyTurn

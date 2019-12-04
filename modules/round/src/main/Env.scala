@@ -25,6 +25,7 @@ private class RoundConfig(
     @ConfigName("moretime") val moretimeDuration: MoretimeDuration
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     net: NetConfig,

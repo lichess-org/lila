@@ -20,9 +20,7 @@ final class Env(
 
   lazy val player = wire[BotPlayer]
 
-  private lazy val onlineBots: OnlineBots = wire[OnlineBots]
-
-  val setOnline = onlineBots.setOnline _
+  lazy val onlineBots: OnlineBots = wire[OnlineBots]
 
   val form = BotForm
 }

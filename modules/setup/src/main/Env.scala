@@ -7,6 +7,7 @@ import play.api.Configuration
 import lila.common.config._
 import lila.user.UserContext
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
@@ -24,7 +25,7 @@ final class Env(
 
   lazy val forms = wire[FormFactory]
 
-  def filter(ctx: UserContext): Fu[FilterConfig] =
+  val filter: UserContext => Fu[FilterConfig] = ctx =>
     ctx.me.fold(anonConfigRepo filter ctx.req)(userConfigRepo.filter)
 
   lazy val processor = wire[Processor]

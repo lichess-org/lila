@@ -28,6 +28,10 @@ object config {
       domain: Domain,
       protocol: String,
       @ConfigName("base_url") baseUrl: BaseUrl,
+      port: Int,
+      @ConfigName("asset.domain") assetDomain: String,
+      @ConfigName("socket.domain") socketDomain: String,
+      crawlable: Boolean,
       email: EmailAddress
   )
 

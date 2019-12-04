@@ -6,11 +6,11 @@ import lila.common.Bus
 import lila.hub.actorApi.socket.BotIsOnline
 import lila.memo.ExpireCallbackMemo
 
-private final class OnlineBots(
+final class OnlineBots(
     scheduler: akka.actor.Scheduler
 ) {
 
-  val cache = new ExpireCallbackMemo(
+  private val cache = new ExpireCallbackMemo(
     10.seconds,
     userId => Bus.publish(BotIsOnline(userId, false), "botIsOnline")
   )

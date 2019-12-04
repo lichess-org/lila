@@ -22,6 +22,7 @@ private class RoundConfig(
     @ConfigName("api_actor.name") val apiActorName: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
@@ -92,8 +93,6 @@ final class Env(
   lazy val api: TournamentApi = wire[TournamentApi]
 
   lazy val crudApi = wire[crud.CrudApi]
-
-  lazy val tourAndRanks = api tourAndRanks _
 
   lazy val jsonView: JsonView = wire[JsonView]
 

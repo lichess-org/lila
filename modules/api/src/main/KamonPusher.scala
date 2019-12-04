@@ -4,6 +4,8 @@ import akka.actor._
 import java.lang.management.ManagementFactory
 import scala.concurrent.duration._
 
+import lila.common.Uptime
+
 private final class KamonPusher extends Actor {
 
   import KamonPusher._
@@ -13,7 +15,6 @@ private final class KamonPusher extends Actor {
   }
 
   private val threadStats = ManagementFactory.getThreadMXBean
-  private val app = lila.common.PlayApp
 
   private def scheduleTick =
     context.system.scheduler.scheduleOnce(1 second, self, Tick)
@@ -23,7 +24,7 @@ private final class KamonPusher extends Actor {
     case Tick =>
       lila.mon.jvm.thread(threadStats.getThreadCount)
       lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
-      lila.mon.jvm.uptime(app.uptimeSeconds)
+      lila.mon.jvm.uptime(Uptime.seconds)
       lila.mon.bus.classifiers(lila.common.Bus.size)
       scheduleTick
   }

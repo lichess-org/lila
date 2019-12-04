@@ -3,26 +3,29 @@ package lila.api
 import chess.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
+import play.api.libs.json.JodaWrites._
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
-import lila.common.MaxPerPage
+import lila.common.config._
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.BSONHandlers._
 import lila.game.Game.{ BSONFields => G }
 import lila.game.JsonView._
-import lila.game.{ Game, GameRepo, PerfPicker, CrosstableApi }
+import lila.game.{ Game, PerfPicker, CrosstableApi }
 import lila.user.User
 
 private[api] final class GameApi(
-    netBaseUrl: String,
-    apiToken: String,
+    net: NetConfig,
+    apiToken: Secret,
     pgnDump: PgnDump,
+    gameRepo: lila.game.GameRepo,
     gameCache: lila.game.Cached,
+    analysisRepo: lila.analyse.AnalysisRepo,
     crosstableApi: CrosstableApi
 ) {
 
@@ -39,7 +42,7 @@ private[api] final class GameApi(
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
       adapter = new Adapter[Game](
-        collection = GameRepo.coll,
+        collection = gameRepo.coll,
         selector = {
           if (~playing) lila.game.Query.nowPlaying(user.id)
           else $doc(
@@ -56,7 +59,7 @@ private[api] final class GameApi(
             case _ => $doc("$exists" -> false)
           }
         ),
-        projection = $empty,
+        projection = none,
         sort = $doc(G.createdAt -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
@@ -78,7 +81,7 @@ private[api] final class GameApi(
     }
 
   def one(id: String, withFlags: WithFlags): Fu[Option[JsObject]] =
-    GameRepo game id flatMap {
+    gameRepo game id flatMap {
       _ ?? { g =>
         gamesJson(withFlags)(List(g)) map (_.headOption)
       }
@@ -95,7 +98,7 @@ private[api] final class GameApi(
   ): Fu[JsObject] = Paginator(
     adapter = new CachedAdapter(
       adapter = new Adapter[Game](
-        collection = GameRepo.coll,
+        collection = gameRepo.coll,
         selector = {
           if (~playing) lila.game.Query.nowPlayingVs(users._1.id, users._2.id)
           else lila.game.Query.opponents(users._1, users._2) ++ $doc(
@@ -111,7 +114,7 @@ private[api] final class GameApi(
             case _ => $doc("$exists" -> false)
           }
         ),
-        projection = $empty,
+        projection = none,
         sort = $doc(G.createdAt -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ),
@@ -138,7 +141,7 @@ private[api] final class GameApi(
     page: Int
   ): Fu[JsObject] = Paginator(
     adapter = new Adapter[Game](
-      collection = GameRepo.coll,
+      collection = gameRepo.coll,
       selector = {
         if (~playing) lila.game.Query.nowPlayingVs(userIds)
         else lila.game.Query.opponents(userIds) ++ $doc(
@@ -155,7 +158,7 @@ private[api] final class GameApi(
         },
         G.createdAt $gte since
       ),
-      projection = $empty,
+      projection = none,
       sort = $doc(G.createdAt -> -1),
       readPreference = ReadPreference.secondaryPreferred
     ),
@@ -167,14 +170,14 @@ private[api] final class GameApi(
       }
     }
 
-  private def makeUrl(game: Game) = s"$netBaseUrl/${game.id}/${game.firstPlayer.color.name}"
+  private def makeUrl(game: Game) = s"${net.baseUrl}/${game.id}/${game.firstPlayer.color.name}"
 
   private def gamesJson(withFlags: WithFlags)(games: Seq[Game]): Fu[Seq[JsObject]] = {
     val allAnalysis =
-      if (withFlags.analysis) AnalysisRepo byIds games.map(_.id)
+      if (withFlags.analysis) analysisRepo byIds games.map(_.id)
       else fuccess(List.fill(games.size)(none[Analysis]))
     allAnalysis flatMap { analysisOptions =>
-      (games map GameRepo.initialFen).sequenceFu map { initialFens =>
+      (games map gameRepo.initialFen).sequenceFu map { initialFens =>
         games zip analysisOptions zip initialFens map {
           case ((g, analysisOption), initialFen) =>
             gameToJson(g, analysisOption, initialFen, checkToken(withFlags))
@@ -183,7 +186,7 @@ private[api] final class GameApi(
     }
   }
 
-  private def checkToken(withFlags: WithFlags) = withFlags applyToken apiToken
+  private def checkToken(withFlags: WithFlags) = withFlags applyToken apiToken.value
 
   private def gameToJson(
     g: Game,
