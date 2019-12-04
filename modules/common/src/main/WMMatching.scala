@@ -17,7 +17,6 @@ to validate this new code.
 
 package lila.common
 
-import scala.annotation.tailrec
 import scala.util.Try
 
 object WMMatching {

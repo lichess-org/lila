@@ -4,11 +4,9 @@ import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
 
-import lila.common.{ Bus, Tellable }
+import lila.common.Bus
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
-import lila.hub.actorApi.round.IsOnGame
-import makeTimeout.short
 
 private final class CorresAlarm(
     coll: Coll,

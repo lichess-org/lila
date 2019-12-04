@@ -12,14 +12,13 @@ import lila.chat.Chat
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ PlayerId, FullId }
-import lila.game.{ Game, GameRepo, Progress, Pov, Event, Source, Player => GamePlayer }
+import lila.game.{ Game, GameRepo, Pov, Event, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
-import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
 import lila.hub.Duct
 import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
+import lila.socket.RemoteSocket.{ Protocol => _, _ }
+import lila.socket.Socket.{ SocketVersion, GetVersion, makeMessage }
 import lila.socket.UserLagCache
 import lila.user.User
 
@@ -388,7 +387,7 @@ private[round] final class RoundDuct(
 
   private object buscriptions {
 
-    private var chans = collection.mutable.Set.empty[String]
+    private val chans = collection.mutable.Set.empty[String]
 
     private def sub(chan: String) =
       if (!chans(chan)) {

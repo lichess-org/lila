@@ -2,7 +2,6 @@ package lila.user
 
 import com.roundeights.hasher.Implicits._
 import reactivemongo.api.bson._
-import scala.util.{ Try, Success, Failure }
 
 import lila.common.NormalizedEmailAddress
 import lila.db.dsl._

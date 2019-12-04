@@ -1,6 +1,5 @@
 package lila.common
 
-import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
 object ResponseHeaders {

@@ -1,7 +1,7 @@
 package lila.game
 
 import ornicar.scalalib.Zero
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 
 sealed trait Blurs extends Any {
 

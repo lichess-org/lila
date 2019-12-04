@@ -1,7 +1,5 @@
 package lila
 
-import scala.util.Try
-
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Lilaisms {

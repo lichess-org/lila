@@ -1,7 +1,7 @@
 package lila.db
 
 import scala.collection.Factory
-import scala.util.{ Success, Failure }
+import scala.util.Failure
 
 import reactivemongo.api._
 import reactivemongo.api.bson._
@@ -208,21 +208,5 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         collation = none,
         arrayFilters = Seq.empty
       )
-
-    // def distinctWithReadPreference[T, M[_] <: Iterable[_]](
-    //   key: String,
-    //   selector: Option[Bdoc],
-    //   readPreference: ReadPreference
-    // )(implicit reader: BSONReader[T]): Fu[M[T]] = {
-    //   implicit val widenReader = pack.widenReader(reader)
-    //   coll.runCommand(DistinctCommand.Distinct(
-    //     key, selector, ReadConcern.Local, mongoWireVersion
-    //   ), readPreference).flatMap {
-    //     _.result[T, M] match {
-    //       case Failure(cause) => scala.concurrent.Future.failed[M[T]](cause)
-    //       case Success(result) => fuccess(result)
-    //     }
-    //   }
-    // }
   }
 }

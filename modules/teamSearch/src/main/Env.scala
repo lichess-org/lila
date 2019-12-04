@@ -19,10 +19,7 @@ final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
     teamRepo: lila.team.TeamRepo
-)(implicit
-    system: ActorSystem,
-    mat: akka.stream.Materializer
-) {
+)(implicit system: ActorSystem) {
 
   private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
 

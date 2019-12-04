@@ -1,7 +1,6 @@
 package lila.importer
 
 import com.softwaremill.macwire._
-import scala.concurrent.duration._
 
 final class Env(
     gameRepo: lila.game.GameRepo,

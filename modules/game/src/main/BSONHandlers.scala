@@ -5,7 +5,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import chess.{ CheckCount, Color, Clock, White, Black, Status, Mode, UnmovedRooks, History => ChessHistory, Game => ChessGame }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Try, Success }
 
 import lila.db.BSON
 import lila.db.dsl._

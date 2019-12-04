@@ -1,7 +1,6 @@
 package lila.common
 
 import org.joda.time.DateTime
-import scala.jdk.CollectionConverters._
 
 object Uptime {
 

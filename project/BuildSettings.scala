@@ -14,7 +14,6 @@ object BuildSettings {
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
-    javacOptions += "-Xlint:unchecked",
     sources in doc in Compile := List(),
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
@@ -54,7 +53,9 @@ object BuildSettings {
     "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
     "-deprecation",
-    // "-Xfatal-warnings",
+    "-unchecked",
+    "-Wunused:imports,privates,locals,implicits",
+    "inaccessible,infer-any",
     "-Xmaxerrs", "5",
     "-Xmaxwarns", "5"
   )

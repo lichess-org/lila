@@ -1,7 +1,5 @@
 package lila.api
 
-import akka.actor.ActorSelection
-
 import lila.common.Bus
 import lila.hub.actorApi.Deploy
 

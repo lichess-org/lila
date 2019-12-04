@@ -9,9 +9,9 @@ import scala.concurrent.duration._
 import actorApi.{ GetSocketStatus, SocketStatus }
 import lila.common.Bus
 import lila.common.config._
-import lila.game.{ Game, GameRepo, Pov, PlayerRef }
+import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.{ Abort, Resign, FishnetPlay }
+import lila.hub.actorApi.round.{ Abort, Resign }
 import lila.hub.actorApi.simul.GetHostIds
 import lila.hub.actors
 import lila.user.User

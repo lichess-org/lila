@@ -2,7 +2,6 @@ package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import kamon.Kamon
-import kamon.tag.TagSet
 
 object mon {
 

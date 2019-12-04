@@ -28,7 +28,7 @@ final class Env(
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
     mode: Mode
-)(implicit system: akka.actor.ActorSystem) {
+) {
 
   private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
 

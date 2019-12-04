@@ -2,7 +2,6 @@ package lila.api
 
 import akka.actor._
 import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
 import play.api.libs.ws.WSClient
 import play.api.{ Mode, Configuration }
 
@@ -43,10 +42,7 @@ final class Env(
     challengeEnv: lila.challenge.Env,
     ws: WSClient,
     val mode: Mode
-)(implicit
-    system: ActorSystem,
-    mat: akka.stream.Materializer
-) {
+)(implicit system: ActorSystem) {
 
   val config = appConfig.get[ApiConfig]("")(ApiConfig.loader)
 

@@ -3,7 +3,6 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.duration._
 import scala.concurrent.{ Future, Promise }
 
 import lila.hub.actorApi.Shutdown

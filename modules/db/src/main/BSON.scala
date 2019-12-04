@@ -4,10 +4,9 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import reactivemongo.api.bson._
 import reactivemongo.api.bson.compat._
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Try, Success }
 
 import dsl._
-import lila.common.Iso
 
 abstract class BSON[T]
   extends BSONReadOnly[T]

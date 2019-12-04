@@ -6,7 +6,7 @@ import play.api.data.format.{ Formatter, JodaFormats }
 import play.api.data.Forms._
 import play.api.data.JodaForms._
 import play.api.data.validation.Constraint
-import play.api.data.{ Mapping, FormError, Field, Form => PlayForm }
+import play.api.data.{ Mapping, FormError, Field }
 import scala.util.Try
 
 object Form {
@@ -108,7 +108,6 @@ object Form {
     implicit val dateFormat = JodaFormats.jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
-    import lila.base.PimpedTry
     val formatter = new Formatter[org.joda.time.DateTime] {
       def bind(key: String, data: Map[String, String]) =
         stringFormat.bind(key, data).flatMap { str =>

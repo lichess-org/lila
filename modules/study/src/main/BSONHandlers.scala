@@ -17,7 +17,6 @@ import lila.tree.Eval.Score
 import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
 
 import lila.common.Iso
-import lila.common.Iso._
 
 object BSONHandlers {
 
@@ -76,7 +75,6 @@ object BSONHandlers {
   implicit val StudyIdNameBSONHandler = Macros.handler[IdName]
 
   import Uci.WithSan
-  private implicit val UciWithSanBSONHandler = Macros.handler[WithSan]
 
   implicit val ShapesBSONHandler: BSONHandler[Shapes] =
     isoHandler[Shapes, List[Shape]]((s: Shapes) => s.value, Shapes(_))

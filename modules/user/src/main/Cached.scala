@@ -1,11 +1,9 @@
 package lila.user
 
-import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.common.{ LightUser, Every, AtMost }
-import lila.db.dsl._
 import lila.memo.PeriodicRefreshCache
 import lila.rating.{ Perf, PerfType }
 import User.{ LightPerf, LightCount }

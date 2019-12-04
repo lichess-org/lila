@@ -1,7 +1,6 @@
 package lila.game
 
 import org.joda.time.DateTime
-import scala.collection.Searching._
 import scala.util.Try
 
 import chess.variant.Variant

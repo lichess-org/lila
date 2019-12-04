@@ -9,7 +9,7 @@ import scalaz.Validation.FlatMap._
 
 import lila.game._
 
-private final class DataForm {
+final class DataForm {
 
   lazy val importForm = Form(mapping(
     "pgn" -> nonEmptyText.verifying("invalidPgn", p => checkPgn(p).isSuccess),

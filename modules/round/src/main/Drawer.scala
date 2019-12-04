@@ -13,7 +13,7 @@ private[round] final class Drawer(
     isBotSync: lila.common.LightUser.IsBotSync
 ) {
 
-  def autoThreefold(game: Game)(implicit proxy: GameProxy): Fu[Option[Pov]] = Pov(game).map { pov =>
+  def autoThreefold(game: Game): Fu[Option[Pov]] = Pov(game).map { pov =>
     import Pref.PrefZero
     if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
     else pov.player.userId ?? prefApi.getPref map { pref =>

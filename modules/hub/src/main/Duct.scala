@@ -6,8 +6,6 @@ import scala.collection.immutable.Queue
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.base.LilaException
-
 /*
  * Sequential like an actor, but for async functions,
  * and using an STM backend instead of akka actor.
