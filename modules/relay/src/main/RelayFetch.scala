@@ -5,8 +5,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSResponse }
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tags
@@ -21,7 +20,7 @@ private final class RelayFetch(
     slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
     chapterRepo: lila.study.ChapterRepo,
-    userAgent: String
+    ws: WSClient
 ) extends Actor {
 
   override def preStart: Unit = {
@@ -70,9 +69,9 @@ private final class RelayFetch(
         }
     } recover {
       case e: Exception => (e match {
-        case res @ SyncResult.Timeout =>
+        case SyncResult.Timeout =>
           logger.info(s"Sync timeout $relay")
-          res
+          SyncResult.Timeout
         case _ =>
           logger.info(s"Sync error $relay ${e.getMessage take 80}")
           SyncResult.Error(e.getMessage)
@@ -158,9 +157,8 @@ private final class RelayFetch(
   }
 
   private def httpGet(url: Url): Fu[String] =
-    WS.url(url.toString)
-      .withHeaders("User-Agent" -> userAgent)
-      .withRequestTimeout(4.seconds.toMillis).get().flatMap {
+    ws.url(url.toString)
+      .withRequestTimeout(4.seconds).get().flatMap {
         case res if res.status == 200 => fuccess(res.body)
         case res => fufail(s"[${res.status}] $url")
       }

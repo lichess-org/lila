@@ -17,7 +17,7 @@ final class RelayApi(
     studyApi: StudyApi,
     withStudy: RelayWithStudy,
     jsonView: JsonView,
-    clearFormatCache: Relay.Sync.UpstreamWithRound => Unit,
+    formatApi: RelayFormatApi,
     system: ActorSystem
 ) {
 
@@ -67,7 +67,7 @@ final class RelayApi(
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
-    clearFormatCache(relay.sync.upstream.withRound)
+    formatApi.refresh(relay.sync.upstream.withRound)
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void

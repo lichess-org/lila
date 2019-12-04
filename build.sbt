@@ -262,7 +262,7 @@ lazy val study = module("study", Seq(
 )
 
 lazy val relay = module("relay", Seq(common, study)).settings(
-  libraryDependencies ++= Seq(scalaUri) ++ provided(play.api, markdown) ++ reactivemongo.bundle
+  libraryDependencies ++= Seq(scalaUri) ++ provided(play.api, play.joda, markdown) ++ reactivemongo.bundle
 )
 
 lazy val studySearch = module("studySearch", Seq(common, hub, study, search)).settings(
