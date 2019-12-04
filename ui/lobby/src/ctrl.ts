@@ -242,7 +242,7 @@ export default class LobbyController {
       if (match) {
         this.setTab('pools');
         if (this.data.me) this.enterPool(member);
-        else this.clickPool(member.id);
+        else setTimeout(() => this.clickPool(member.id), 1500);
         history.replaceState(null, '', '/');
       }
     }
