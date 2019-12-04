@@ -524,14 +524,14 @@
   <string name="contact">聯繫我們</string>
   <string name="termsOfService">服務條款</string>
   <string name="sourceCode">原始碼</string>
-  <string name="simultaneousExhibitions">同步表演赛</string>
+  <string name="simultaneousExhibitions">車輪戰</string>
   <string name="host">主持</string>
   <string name="createdSimuls">最近开始的同步赛</string>
   <string name="hostANewSimul">主持新同步赛</string>
   <string name="noSimulFound">找不到该同步赛</string>
-  <string name="noSimulExplanation">这个同步表演赛不存在。</string>
+  <string name="noSimulExplanation">此車輪戰不存在。</string>
   <string name="returnToSimulHomepage">返回表演赛主页</string>
-  <string name="aboutSimul">同步表演赛涉及到一个人同时和几位棋手下棋。</string>
+  <string name="aboutSimul">車輪戰涉及到一個人同時和幾位棋手下棋。</string>
   <string name="aboutSimulImage">在50个对手中，菲舍尔赢了47局，和了2局，输了1局。</string>
   <string name="aboutSimulRealLife">这个概念来自真实的国际赛事。 在现实中，这涉及到主持在桌与桌之间来回穿梭走棋。</string>
   <string name="aboutSimulRules">当表演赛开始的时候， 每个玩家都与主持开始对弈， 而主持用白方。 当所有的对局都结束时，表演赛就结束了。</string>
