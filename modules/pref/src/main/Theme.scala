@@ -34,7 +34,8 @@ object Theme extends ThemeObject {
     "blue" -> (HexColor("dee3e6"), HexColor("8ca2ad")),
     "brown" -> (HexColor("f0d9b5"), HexColor("b58863")),
     "green" -> (HexColor("ffffdd"), HexColor("86a666")),
-    "purple" -> (HexColor("9f90b0"), HexColor("7d4a8d"))
+    "purple" -> (HexColor("9f90b0"), HexColor("7d4a8d")),
+    "ic" -> (HexColor("ececec"), HexColor("c1c18e"))
   )
 
   val all = List(
@@ -47,7 +48,8 @@ object Theme extends ThemeObject {
     "green-plastic", "green-glass",
     "grey", "metal",
     "olive", "newspaper",
-    "purple", "pink"
+    "purple", "pink",
+    "ic"
   ) map { name =>
       new Theme(name, colors.getOrElse(name, defaultHexColors))
     }

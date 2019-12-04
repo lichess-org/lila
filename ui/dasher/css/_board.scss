@@ -93,6 +93,10 @@
     .pink {
       background-image: url(../images/board/pink-pyramid.thumbnail.png);
     }
+    .ic {
+      background-image: url(../images/board/svg/ic.svg);
+      background-size: 256px;
+    }
   }
   &.d3 {
     $board-files: (

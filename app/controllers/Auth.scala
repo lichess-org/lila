@@ -274,9 +274,10 @@ object Auth extends LilaController {
     }
   }
 
-  private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context) = {
+  private def welcome(user: UserModel, email: EmailAddress)(implicit ctx: Context): Funit = {
     garbageCollect(user, email)
     env.automaticEmail.welcome(user, email)
+    Env.pref.api.saveNewUserPrefs(user, ctx.req)
   }
 
   private def garbageCollect(user: UserModel, email: EmailAddress)(implicit ctx: Context) =

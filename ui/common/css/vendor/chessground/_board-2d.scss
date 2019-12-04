@@ -21,6 +21,7 @@ $board-files: (
 'maple': 'maple.jpg',
 'newspaper': 'newspaper.png',
 'pink': 'pink-pyramid.png',
+'ic': 'svg/ic.svg',
 );
 
 @each $color, $file in $board-files {

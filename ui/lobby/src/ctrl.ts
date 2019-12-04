@@ -69,7 +69,7 @@ export default class LobbyController {
         if (this.poolMember) this.poolIn();
         else if (this.tab === 'real_time' && !this.data.hooks.length) this.socket.realTimeIn();
       }, 10 * 1000);
-      this.onNewOpponent();
+      this.joinPoolFromLocationHash();
     }
 
     li.pubsub.on('socket.open', () => {
@@ -231,7 +231,8 @@ export default class LobbyController {
   };
 
   // after click on round "new opponent" button
-  private onNewOpponent() {
+  // also handles onboardink link for anon users
+  private joinPoolFromLocationHash() {
     if (location.hash.startsWith('#pool/')) {
       const regex = /^#pool\/(\d+\+\d+)(?:\/(.+))?$/,
         match = regex.exec(location.hash),
@@ -240,7 +241,8 @@ export default class LobbyController {
       if (range) member.range = range;
       if (match) {
         this.setTab('pools');
-        this.enterPool(member);
+        if (this.data.me) this.enterPool(member);
+        else this.clickPool(member.id);
         history.replaceState(null, '', '/');
       }
     }
