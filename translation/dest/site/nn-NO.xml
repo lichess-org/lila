@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Lim inn PGN-fila her</string>
   <string name="fromPosition">Frå stilling</string>
   <string name="continueFromHere">Fortsett herfrå</string>
+  <string name="toStudy">Studér</string>
   <string name="importGame">Importér parti</string>
   <string name="importGameExplanation">Når du limer inn eit PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele ein URL.</string>
@@ -626,6 +627,8 @@ i %3$s</string>
   <string name="playOfflineComputer">Spel fråkopla mot sjakkprogrammet</string>
   <string name="opponent">Motspelar</string>
   <string name="learnMenu">Lær</string>
+  <string name="studyMenu">Studie</string>
+  <string name="practice">Øvingar</string>
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
   <string name="increment">Tilleggstid</string>
@@ -660,6 +663,8 @@ i %3$s</string>
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Sjå</string>
   <string name="videoLibrary">Videobibliotek</string>
+  <string name="streamersMenu">Strøymingar</string>
+  <string name="broadcastsMenu">Overføringar</string>
   <string name="mobileApp">Mobilapp</string>
   <string name="webmasters">Webadministratorar</string>
   <string name="about">Om</string>
