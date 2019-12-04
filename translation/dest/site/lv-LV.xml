@@ -366,6 +366,7 @@
   <string name="pasteThePgnStringHere">Ielīmējiet PGN tekstu šeit</string>
   <string name="fromPosition">No pozīcijas</string>
   <string name="continueFromHere">Turpināt no šejienes</string>
+  <string name="toStudy">Izpētīt</string>
   <string name="importGame">Importēt spēli</string>
   <string name="importGameExplanation">Ielīmējiet spēles PGN, lai iegūtu pārskatāmu atkārtojumu, datoranalīzi, spēles sarunu un URL ar ko dalīties.</string>
   <plurals name="nbImportedGames">
@@ -653,6 +654,8 @@
   <string name="playOfflineComputer">Pret datoru</string>
   <string name="opponent">Pretinieks</string>
   <string name="learnMenu">Apgūt</string>
+  <string name="studyMenu">Izpētīt</string>
+  <string name="practice">Trenēties</string>
   <string name="community">Kopiena</string>
   <string name="tools">Rīki</string>
   <string name="increment">Pieaugums</string>
@@ -688,6 +691,8 @@
   <string name="tpTimeSpentOnTV">TV laiks: %s</string>
   <string name="watch">Skatīties</string>
   <string name="videoLibrary">Video bibliotēka</string>
+  <string name="streamersMenu">Straumētāji</string>
+  <string name="broadcastsMenu">Raidījumi</string>
   <string name="mobileApp">Mobilā aplikācija</string>
   <string name="webmasters">Tīmekļa pārziņi</string>
   <string name="about">Par</string>
