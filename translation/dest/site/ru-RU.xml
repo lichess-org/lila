@@ -685,6 +685,8 @@
   <string name="playOfflineComputer">С компьютером</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Обучение</string>
+  <string name="studyMenu">Студия</string>
+  <string name="practice">Упражнения</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
@@ -721,6 +723,8 @@
   <string name="tpTimeSpentOnTV">Времени на TV: %s</string>
   <string name="watch">Просмотр</string>
   <string name="videoLibrary">Видеотека</string>
+  <string name="streamersMenu">Стримеры</string>
+  <string name="broadcastsMenu">Трансляции</string>
   <string name="mobileApp">Мобильное приложение</string>
   <string name="webmasters">Разработчикам</string>
   <string name="about">О сайте</string>
