@@ -15,6 +15,7 @@ private class TimelineConfig(
     @ConfigName("user.actor.name") val userActorName: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,

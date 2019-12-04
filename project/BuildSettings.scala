@@ -54,7 +54,7 @@ object BuildSettings {
     "-feature",
     "-deprecation",
     "-unchecked",
-    "-Wunused:imports,privates,locals,implicits",
+    "-Wunused:imports,locals,implicits",
     "inaccessible,infer-any",
     "-Xmaxerrs", "5",
     "-Xmaxwarns", "5"

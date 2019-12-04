@@ -1,14 +1,12 @@
 package lila.relay
 
 import akka.actor._
-import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.security.Granter
 import lila.study.{ StudyApi, Study, StudyMaker, Settings }
 import lila.user.User
 

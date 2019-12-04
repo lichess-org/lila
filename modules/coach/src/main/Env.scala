@@ -10,12 +10,13 @@ import lila.common.config._
 import lila.security.Permission
 
 @Module
-private class CoachConfig(
+private final class CoachConfig(
     @ConfigName("collection.coach") val coachColl: CollName,
     @ConfigName("collection.review") val reviewColl: CollName,
     @ConfigName("collection.image") val imageColl: CollName
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,

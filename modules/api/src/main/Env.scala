@@ -7,6 +7,7 @@ import play.api.{ Mode, Configuration }
 
 import lila.common.config._
 
+@Module
 final class Env(
     appConfig: Configuration,
     netConfig: NetConfig,

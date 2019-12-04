@@ -12,7 +12,7 @@ import lila.user.User
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
     lightUser: lila.user.LightUserApi,
-    getTournamentName: String => Option[String]
+    getTournamentName: lila.tournament.GetTourName
 ) {
 
   import lila.game.JsonView._

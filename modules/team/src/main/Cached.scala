@@ -3,14 +3,14 @@ package lila.team
 import lila.memo.Syncache
 import scala.concurrent.duration._
 
-private[team] final class Cached(
+final class Cached(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
-  val nameCache = new Syncache[String, Option[String]](
+  private val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
     compute = teamRepo.name,
     default = _ => none,
@@ -18,6 +18,8 @@ private[team] final class Cached(
     expireAfter = Syncache.ExpireAfterAccess(1 hour),
     logger = logger
   )
+
+  def blockingTeamName(id: Team.ID) = nameCache sync id
 
   def preloadSet = nameCache preloadSet _
 

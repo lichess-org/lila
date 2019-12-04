@@ -14,12 +14,13 @@ import lila.notify.NotifyApi
 import lila.relation.RelationApi
 
 @Module
-private class ForumConfig(
+private final class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
     @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
     @ConfigName("public_categ_ids") val publicCategIds: List[String]
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,

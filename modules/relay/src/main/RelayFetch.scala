@@ -214,7 +214,6 @@ private object RelayFetch {
     }
     implicit val gameReads = Json.reads[GameJson]
   }
-  import DgtJson._
 
   private object multiPgnToGames {
 

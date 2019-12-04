@@ -17,16 +17,15 @@ import play.api.libs.json._
 
 final class Preload(
     tv: Tv,
-    leaderboard: Unit => Fu[List[User.LightPerf]],
-    tourneyWinners: Fu[List[Winner]],
-    timelineEntries: String => Fu[Vector[Entry]],
-    liveStreams: () => Fu[LiveStreams],
+    userCached: lila.user.Cached,
+    tourWinners: lila.tournament.WinnersApi,
+    timelineApi: lila.timeline.EntryApi,
+    liveStreamApi: lila.streamer.LiveStreamApi,
     dailyPuzzle: lila.puzzle.Daily.Try,
     lobbyApi: lila.api.LobbyApi,
-    getPlayban: User.ID => Fu[Option[TempBan]],
+    playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
-    roundProxyPov: (Game.ID, User) => Fu[Option[Pov]],
-    urgentGames: User => Fu[List[Pov]]
+    roundProxy: lila.round.GameProxyRepo
 ) {
 
   import Preload._
@@ -45,13 +44,13 @@ final class Preload(
       events zip
       simuls zip
       tv.getBestGame zip
-      (ctx.userId ?? timelineEntries) zip
-      leaderboard(()) zip
-      tourneyWinners zip
+      (ctx.userId ?? timelineApi.userEntries) zip
+      userCached.topWeek(()) zip
+      tourWinners.all.dmap(_.top) zip
       (ctx.noBot ?? dailyPuzzle()) zip
-      liveStreams().dmap(_.autoFeatured withTitles lightUserApi) zip
-      (ctx.userId ?? getPlayban) zip
-      (ctx.blind ?? ctx.me ?? urgentGames) flatMap {
+      liveStreamApi.all.dmap(_.autoFeatured withTitles lightUserApi) zip
+      (ctx.userId ?? playbanApi.currentBan) zip
+      (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
         case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
           (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _) flatMap { currentGame =>
             lightUserApi.preloadMany {
@@ -80,7 +79,7 @@ final class Preload(
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
     GameRepo.playingRealtimeNoAi(user, 10).flatMap {
-      _.map { roundProxyPov(_, user) }.sequenceFu.map(_.flatten)
+      _.map { roundProxy.pov(_, user) }.sequenceFu.dmap(_.flatten)
     } flatMap {
       currentGameMyTurn(_, lightUserApi.sync)(user)
     }

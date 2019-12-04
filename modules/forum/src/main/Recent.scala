@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import lila.security.{ Permission, Granter => MasterGranter }
 import lila.user.User
 
-private[forum] final class Recent(
+final class Recent(
     postApi: PostApi,
     postRepo: PostRepo,
     asyncCache: lila.memo.AsyncCache.Builder,

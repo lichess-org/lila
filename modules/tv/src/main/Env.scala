@@ -10,6 +10,7 @@ import lila.game.Game
 
 import scala.concurrent.duration._
 
+@Module
 final class Env(
     db: lila.db.Env,
     gameRepo: lila.game.GameRepo,

@@ -5,6 +5,7 @@ import play.api.Configuration
 
 import lila.common.config.CollName
 
+@Module
 final class Env(
     appConfig: Configuration,
     messenger: lila.message.MessageApi,

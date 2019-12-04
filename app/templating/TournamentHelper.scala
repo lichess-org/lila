@@ -4,7 +4,7 @@ package templating
 import controllers.routes
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.Env.{ current => tournamentEnv }
-import lila.tournament.{ Tournament, System, Schedule }
+import lila.tournament.{ Tournament, Schedule }
 import lila.user.{ User, UserContext }
 
 import play.api.libs.json.Json
@@ -53,10 +53,6 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
         case (n, (from, to)) => n.replace(from, to)
       }
     }
-  }
-
-  def systemName(sys: System)(implicit ctx: UserContext) = sys match {
-    case System.Arena => System.Arena.toString
   }
 
   def tournamentIconChar(tour: Tournament): String = tour.schedule.map(_.freq) match {

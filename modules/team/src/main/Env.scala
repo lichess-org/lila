@@ -7,6 +7,7 @@ import lila.common.config._
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
 
+@Module
 final class Env(
     captcher: lila.hub.actors.Captcher,
     timeline: lila.hub.actors.Timeline,
@@ -36,7 +37,7 @@ final class Env(
 
   private lazy val notifier = wire[Notifier]
 
-  lazy val getTeamName = new GetTeamName(cached.nameCache.sync _)
+  lazy val getTeamName = new GetTeamName(cached.blockingTeamName)
 
   lila.common.Bus.subscribeFun("shadowban") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId

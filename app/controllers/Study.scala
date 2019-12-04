@@ -60,7 +60,7 @@ object Study extends LilaController {
   def byOwnerDefault(username: String, page: Int) = byOwner(username, Order.default.key, page)
 
   def byOwner(username: String, order: String, page: Int) = Open { implicit ctx =>
-    lila.user.UserRepo.named(username).flatMap {
+    userRepo.named(username).flatMap {
       _.fold(notFound(ctx)) { owner =>
         env.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
           negotiate(

@@ -10,12 +10,13 @@ import lila.common.tagging._
 import lila.hub.actorApi.bookmark._
 
 @Module
-private class BookmarkConfig(
+private final class BookmarkConfig(
     @ConfigName("collection.bookmark") val bookmarkCollName: CollName,
     @ConfigName("paginator.maxPerPage") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,

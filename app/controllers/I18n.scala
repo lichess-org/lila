@@ -22,7 +22,7 @@ object I18n extends LilaController {
       code => {
         val lang = toLang(code) err "Universe is collapsing"
         ctx.me.filterNot(_.lang contains lang.code).?? { me =>
-          lila.user.UserRepo.setLang(me.id, lang.code)
+          userRepo.setLang(me.id, lang.code)
         } >> negotiate(
           html = {
             val redir = Redirect {

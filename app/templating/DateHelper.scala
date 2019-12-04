@@ -68,7 +68,7 @@ trait DateHelper { self: I18nHelper =>
     periodFormatter(ctx) print period.normalizedStandard(periodType)
 
   def showMinutes(minutes: Int)(implicit ctx: Context): String =
-    showPeriod(new Period(minutes * 60 * 1000l))
+    showPeriod(new Period(minutes * 60 * 1000L))
 
   def isoDate(date: DateTime): String = isoFormatter print date
 

@@ -9,6 +9,7 @@ import lila.common.config._
 import lila.db.DbConfig
 import lila.db.Env.configLoader
 
+@Module
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,

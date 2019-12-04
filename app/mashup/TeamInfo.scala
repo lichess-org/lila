@@ -23,20 +23,20 @@ case class TeamInfo(
 
 final class TeamInfoApi(
     api: TeamApi,
-    getForumNbPosts: String => Fu[Int],
-    getForumPosts: String => Fu[List[MiniForumPost]],
-    preloadTeams: Set[Team.ID] => Funit
+    categApi: lila.forum.CategApi,
+    forumRecent: lila.forum.Recent,
+    teamCached: lila.team.Cached
 ) {
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
     requests <- (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
     mine <- me.??(m => api.belongsTo(team.id, m.id))
     requestedByMe <- !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
-    forumNbPosts <- getForumNbPosts(team.id)
-    forumPosts <- getForumPosts(team.id)
+    forumNbPosts <- categApi.teamNbPosts(team.id)
+    forumPosts <- recent.team(team.id)
     tours <- lila.tournament.TournamentRepo.byTeam(team.id, 10)
     _ <- tours.nonEmpty ?? {
-      preloadTeams(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
+      teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
     }
   } yield TeamInfo(
     mine = mine,

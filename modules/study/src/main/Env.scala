@@ -1,6 +1,5 @@
 package lila.study
 
-import akka.actor._
 import com.softwaremill.macwire._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
@@ -11,6 +10,7 @@ import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: WSClient,
@@ -43,7 +43,7 @@ final class Env(
 
   private val socket = wire[StudySocket]
 
-  private lazy val studyRepo = new StudyRepo(db(CollName("study")))
+  lazy val studyRepo = new StudyRepo(db(CollName("study")))
   private lazy val chapterRepo = new ChapterRepo(db(CollName("study_chapter")))
 
   lazy val jsonView = wire[JsonView]
