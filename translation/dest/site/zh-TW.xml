@@ -50,6 +50,7 @@
   <string name="analysis">分析</string>
   <string name="depthX">深度 %s</string>
   <string name="usingServerAnalysis">正在使用伺服器分析</string>
+  <string name="loadingEngine">正在載入引擎 ...</string>
   <string name="cloudAnalysis">雲端分析</string>
   <string name="goDeeper">深入分析</string>
   <string name="inLocalBrowser">在本地瀏覽器</string>
@@ -97,7 +98,7 @@
   <string name="signIn">登入</string>
   <string name="youNeedAnAccountToDoThat">請註冊以完成該操作</string>
   <string name="signUp">註冊</string>
-  <string name="computersAreNotAllowedToPlay">電腦與電腦輔助棋手不允許參加對弈。對弈時，請勿從國際象棋引擎、數據庫以及其他棋手那裡獲取幫助。另外，強烈建議不要創建多個帳號；過分地使用多個帳號將導致封號。</string>
+  <string name="computersAreNotAllowedToPlay">電腦與電腦輔助棋手不允許參加對弈。對弈時，請勿從國際象棋引擎、資料庫以及其他棋手那裡獲取幫助。另外，強烈建議不要創建多個帳號；過分地使用多個帳號將導致封號。</string>
   <string name="games">棋局</string>
   <string name="forum">論壇</string>
   <string name="xPostedInForumY">%1$s發帖：%2$s</string>
@@ -265,6 +266,7 @@
   <string name="thisIsAChessCaptcha">這是一個國際象棋驗證碼。</string>
   <string name="clickOnTheBoardToMakeYourMove">點擊棋盤走棋以證明您是人類。</string>
   <string name="notACheckmate">沒有將死</string>
+  <string name="whiteCheckmatesInOneMove">白方一步將死</string>
   <string name="retry">重試</string>
   <string name="reconnecting">重新連接中</string>
   <plurals name="nbFriendsOnline">
@@ -339,7 +341,7 @@
   <string name="findTheBestMoveForBlack">找出黑方的最佳著法</string>
   <string name="toTrackYourProgress">註冊以跟蹤您的進度：</string>
   <string name="trainingSignupExplanation">Lichess会提供与您的能力相匹配的谜题，从而更好地训练解题。</string>
-  <string name="puzzleId">%s号题</string>
+  <string name="puzzleId">%s 號題</string>
   <string name="puzzleOfTheDay">每日一题</string>
   <string name="clickToSolve">点击解题</string>
   <string name="goodMove">好棋</string>
@@ -348,6 +350,7 @@
   <string name="keepGoing">繼續…</string>
   <string name="puzzleFailed">解題失敗</string>
   <string name="butYouCanKeepTrying">但您可以繼續嘗試。</string>
+  <string name="success">大功告成！</string>
   <string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票，帮助Lichess改进：</string>
   <string name="thankYou">謝謝！</string>
@@ -356,7 +359,7 @@
   <plurals name="playedXTimes">
     <item quantity="other">已被嘗試%s次</item>
   </plurals>
-  <string name="fromGameLink">来自对局%s</string>
+  <string name="fromGameLink">來自對局 %s</string>
   <string name="continueTraining">繼續訓練</string>
   <string name="retryThisPuzzle">重试本题</string>
   <string name="thisPuzzleIsCorrect">本题正确有趣</string>
@@ -373,7 +376,7 @@
   <string name="description">描述</string>
   <string name="no">否</string>
   <string name="yes">是</string>
-  <string name="help">帮助：</string>
+  <string name="help">幫助：</string>
   <string name="createANewTopic">新话题</string>
   <string name="topics">话题</string>
   <string name="posts">帖子</string>
@@ -536,7 +539,7 @@
   <string name="whenCreateSimul">當您創建車輪戰時，您要同時跟幾個棋手一起下棋。</string>
   <string name="simulVariantsHint">如果您选择几个变体，每个玩家都要选择下哪一种。</string>
   <string name="simulClockHint">菲舍爾時鐘設定。棋手越多，您需要的時間可能就越多。</string>
-  <string name="simulAddExtraTime">您可以给时钟多加点时间以帮助应对同步赛。</string>
+  <string name="simulAddExtraTime">您可以給您的時鍾多加點時間以幫助您應對車輪戰。</string>
   <string name="simulHostExtraTime">主持人的额外时间</string>
   <string name="lichessTournaments">Lichess比赛</string>
   <string name="tournamentFAQ">比赛常见问题</string>
