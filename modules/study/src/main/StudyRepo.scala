@@ -1,6 +1,7 @@
 package lila.study
 
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api._
 
 import lila.db.dsl._
@@ -39,11 +40,11 @@ final class StudyRepo(private[study] val coll: Coll) {
   def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
     coll.find($id(id), lightProjection.some).uno[Study.LightStudy]
 
-  def cursor(
+  def sortedCursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred,
-    sort: Bdoc = $empty
-  )(implicit cp: CursorProducer[Study]) =
+    sort: Bdoc,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): AkkaStreamCursor[Study] =
     coll.ext.find(selector).sort(sort).cursor[Study](readPreference)
 
   def exists(id: Study.Id) = coll.exists($id(id))

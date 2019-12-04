@@ -137,7 +137,7 @@ final class PostApi(
     for {
       topics <- topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
     } yield posts flatMap { post =>
-      topics find (_.id == post.topicId) map { topic =>
+      topics.find(_.id == post.topicId) map { topic =>
         PostLiteView(post, topic)
       }
     }

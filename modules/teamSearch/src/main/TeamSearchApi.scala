@@ -37,6 +37,7 @@ final class TeamSearchApi(
 
       teamRepo.cursor
         .documentSource()
+        .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
         .map(t => Id(t.id) -> toDoc(t))
         .grouped(200)
         .mapAsyncUnordered(1) { teams =>

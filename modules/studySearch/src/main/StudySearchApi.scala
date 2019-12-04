@@ -1,11 +1,12 @@
 package lila.studySearch
 
-import akka.actor.ActorRef
+import akka.actor._
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.concurrent._
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import scala.concurrent.Await
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tag
@@ -19,7 +20,8 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-) extends SearchReadApi[Study, Query] {
+
+)(implicit system: ActorSystem, mat: akka.stream.Materializer) extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) = {
     client.search(query, from, size) flatMap { res =>
@@ -91,8 +93,7 @@ final class StudySearchApi(
   private val multiSpaceRegex = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
-  import reactivemongo.play.iteratees.cursorProducer
-  def reset(sinceStr: String, system: akka.actor.ActorSystem) = client match {
+  def reset(sinceStr: String) = client match {
     case c: ESClientHttp => {
       val sinceOption: Either[Unit, Option[DateTime]] =
         if (sinceStr == "reset") Left(()) else Right(parseDate(sinceStr))
@@ -109,18 +110,16 @@ final class StudySearchApi(
       logger.info(s"Index to ${c.index.name} since $since")
       val retryLogger = logger.branch("index")
       import lila.db.dsl._
-      studyRepo.cursor($doc("createdAt" $gte since), sort = $sort asc "createdAt").enumerator() &>
-        Enumeratee.grouped(Iteratee takeUpTo 12) |>>>
-        Iteratee.foldM[Seq[Study], Int](0) {
-          case (nb, studies) => studies.map { study =>
-            lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)(system)
-          }.sequenceFu inject {
-            studies.headOption.ifTrue(nb % 100 == 0) foreach { study =>
-              logger.info(s"Indexed $nb studies - ${study.createdAt}")
-            }
-            nb + studies.size
-          }
+      studyRepo
+        .sortedCursor(
+          $doc("createdAt" $gte since),
+          sort = $sort asc "createdAt"
+        ).documentSource()
+        .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
+        .mapAsyncUnordered(8) { study =>
+          lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
         }
+        .to(Sink.ignore).run
     } >> client.refresh
     case _ => funit
   }

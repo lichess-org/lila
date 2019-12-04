@@ -43,10 +43,11 @@ final class ForumSearchApi(
 
       postRepo.cursor
         .documentSource()
-        .grouped(500)
+        .via(lila.common.LilaStream.logRate[Post]("forum index")(logger))
+        .grouped(200)
         .mapAsyncUnordered(1)(postApi.liteViews)
         .map(views => views.map(v => Id(v.post.id) -> toDoc(v)))
-        .mapAsyncUnordered(1) { views =>
+        .mapAsyncUnordered(2) { views =>
           c.storeBulk(views) inject views.size
         }
         .fold(0)((acc, nb) => acc + nb)
