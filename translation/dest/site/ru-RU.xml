@@ -124,10 +124,10 @@
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
-    <item quantity="one">Игроков в сети: %s</item>
-    <item quantity="few">Игроков в сети: %s</item>
-    <item quantity="many">Игроков в сети: %s</item>
-    <item quantity="other">Игроков в сети: %s</item>
+    <item quantity="one">%s игрок</item>
+    <item quantity="few">%s игрока</item>
+    <item quantity="many">%s игроков</item>
+    <item quantity="other">%s игроков</item>
   </plurals>
   <string name="currentGames">Текущие партии</string>
   <plurals name="nbGames">
@@ -224,7 +224,7 @@
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершено</string>
-  <string name="finishesX">завершает %s</string>
+  <string name="finishesX">завершится %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
