@@ -1,12 +1,13 @@
 package lila.activity
 
 import reactivemongo.api.bson._
+import scala.util.Success
 
 import lila.common.Iso
-import lila.db.BSON.{ MapDocument, MapValue }
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
 import lila.rating.PerfType
+import lila.study.BSONHandlers._
 import lila.study.Study
 import lila.user.User
 
@@ -18,25 +19,31 @@ private object BSONHandlers {
 
   def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId:"
 
-  implicit val activityIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
-    private val sep = ':'
-    def read(bs: BSONString) = bs.value split sep match {
-      case Array(userId, dayStr) => Id(userId, Day(Integer.parseInt(dayStr)))
-      case _ => sys error s"Invalid activity id ${bs.value}"
-    }
-    def write(id: Id) = BSONString(s"${id.userId}$sep${id.day.value}")
+  implicit val activityIdHandler = {
+    val sep = ':'
+    tryHandler[Id](
+      {
+        case BSONString(v) => v split sep match {
+          case Array(userId, dayStr) => Success(Id(userId, Day(Integer.parseInt(dayStr))))
+          case _ => handlerBadValue(s"Invalid activity id $v")
+        }
+      },
+      id => BSONString(s"${id.userId}$sep${id.day.value}")
+    )
   }
 
-  private implicit val ratingHandler = intAnyValHandler[Rating](_.value, Rating.apply)
-  private implicit val ratingProgHandler: BSONHandler[Barr, RatingProg] = new BSONHandler[Barr, RatingProg] {
-    def read(b: BSONArray) = (for {
-      before <- b.getAs[Rating](0)
-      after <- b.getAs[Rating](1)
-    } yield RatingProg(before, after)) err s"Invalid rating prog ${b.elements}"
-    def write(o: RatingProg) = BSONArray(o.before, o.after)
-  }
+  private implicit val ratingHandler = BSONIntegerHandler.as[Rating](Rating.apply, _.value)
+  private implicit val ratingProgHandler = tryHandler[RatingProg](
+    {
+      case v: BSONArray => for {
+        before <- v.getAsTry[Rating](0)
+        after <- v.getAsTry[Rating](1)
+      } yield RatingProg(before, after)
+    },
+    o => BSONArray(o.before, o.after)
+  )
 
-  private implicit val scoreHandler = new lila.db.BSON[Score] {
+  private implicit val scoreHandler: BSONHandler[Score] = new lila.db.BSON[Score] {
     private val win = "w"
     private val loss = "l"
     private val draw = "d"
@@ -57,34 +64,29 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val gamesMapHandler = MapDocument.MapHandler[PerfType, Score]
-  implicit val gamesHandler = isoHandler[Games, Map[PerfType, Score], Bdoc]((g: Games) => g.value, Games.apply _)
+  private implicit val perfTypeHandler: BSONHandler[PerfType] = isoHandler(perfTypeKeyIso)
+  private implicit val gameMapHandler: BSONHandler[Map[PerfType, Score]] = implicitly[BSONHandler[Map[PerfType, Score]]]
+  implicit val gamesHandler = gameMapHandler.as[Games](Games.apply, _.value)
 
-  private implicit val gameIdHandler = stringAnyValHandler[GameId](_.value, GameId.apply)
-  private implicit val gameIdsHandler = bsonArrayToListHandler[GameId]
+  private implicit val gameIdHandler = BSONStringHandler.as[GameId](GameId.apply, _.value)
 
-  private implicit val postIdHandler = stringAnyValHandler[PostId](_.value, PostId.apply)
-  private implicit val postIdsHandler = bsonArrayToListHandler[PostId]
-  implicit val postsHandler = isoHandler[Posts, List[PostId], Barr]((p: Posts) => p.value, Posts.apply _)
+  private implicit val postIdHandler = BSONStringHandler.as[PostId](PostId.apply, _.value)
+  implicit val postsHandler = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
 
-  implicit val puzzlesHandler = isoHandler[Puzzles, Score, Bdoc]((p: Puzzles) => p.score, Puzzles.apply _)
+  implicit val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
 
-  private implicit val learnStageIso = Iso.string[Learn.Stage](Learn.Stage.apply, _.value)
-  private implicit val learnMapHandler = MapValue.MapHandler[Learn.Stage, Int]
-  private implicit val learnHandler = isoHandler[Learn, Map[Learn.Stage, Int], Bdoc]((l: Learn) => l.value, Learn.apply _)
+  private implicit val learnMapHandler: BSONHandler[Map[Learn.Stage, Int]] = implicitly[BSONHandler[Map[Learn.Stage, Int]]]
+  private implicit val learnHandler = learnMapHandler.as[Learn](Learn.apply, _.value)
 
-  private implicit val studyIdIso = Iso.string[Study.Id](Study.Id.apply, _.value)
-  private implicit val practiceMapHandler = MapValue.MapHandler[Study.Id, Int]
-  private implicit val practiceHandler = isoHandler[Practice, Map[Study.Id, Int], Bdoc]((p: Practice) => p.value, Practice.apply _)
+  private implicit val practiceMapHandler: BSONHandler[Map[Study.Id, Int]] = implicitly[BSONHandler[Map[Study.Id, Int]]]
+  private implicit val practiceHandler = practiceMapHandler.as[Practice](Practice.apply, _.value)
 
-  private implicit val simulIdHandler = stringAnyValHandler[SimulId](_.value, SimulId.apply)
-  private implicit val simulIdsHandler = bsonArrayToListHandler[SimulId]
-  private implicit val simulsHandler = isoHandler[Simuls, List[SimulId], Barr]((s: Simuls) => s.value, Simuls.apply _)
+  private implicit val simulIdHandler = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
+  private implicit val simulsHandler = isoHandler[Simuls, List[SimulId]]((s: Simuls) => s.value, Simuls.apply _)
 
   implicit val corresHandler = Macros.handler[Corres]
-  private implicit val patronHandler = intAnyValHandler[Patron](_.months, Patron.apply)
+  private implicit val patronHandler = BSONIntegerHandler.as[Patron](Patron.apply, _.months)
 
-  private implicit val followIdsHandler = bsonArrayToListHandler[User.ID]
   private implicit val followListHandler = Macros.handler[FollowList]
 
   private implicit val followsHandler = new lila.db.BSON[Follows] {
@@ -98,10 +100,8 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val studyIdHandler = isoHandler(studyIdIso)
-  private implicit val studyIdsHandler = bsonArrayToListHandler[Study.Id]
-  private implicit val studiesHandler = isoHandler[Studies, List[Study.Id], Barr]((s: Studies) => s.value, Studies.apply _)
-  private implicit val teamsHandler = isoHandler[Teams, List[String], Barr]((s: Teams) => s.value, Teams.apply _)
+  private implicit val studiesHandler = isoHandler[Studies, List[Study.Id]]((s: Studies) => s.value, Studies.apply _)
+  private implicit val teamsHandler = isoHandler[Teams, List[String]]((s: Teams) => s.value, Teams.apply _)
 
   object ActivityFields {
     val id = "_id"

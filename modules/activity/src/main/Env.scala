@@ -1,50 +1,39 @@
 package lila.activity
 
 import akka.actor._
+import com.softwaremill.macwire._
 import com.typesafe.config.Config
+import play.api.Configuration
 import scala.concurrent.duration._
 
+import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent
 
 final class Env(
-    config: Config,
+    appConfig: Configuration,
     db: lila.db.Env,
-    system: akka.actor.ActorSystem,
     practiceApi: lila.practice.PracticeApi,
+    gameRepo: lila.game.GameRepo,
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     lightUserApi: lila.user.LightUserApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
-    getTourName: lila.tournament.Tournament.ID => Option[String],
-    getTeamName: lila.team.Team.ID => Option[String]
-) {
+    getTourName: lila.tournament.GetTourName,
+    getTeamName: lila.team.GetTeamName
+)(implicit system: ActorSystem) {
 
-  private val activityColl = db(config getString "collection.activity")
+  private lazy val coll = db(CollName("activity"))
 
-  val write = new ActivityWriteApi(
-    coll = activityColl,
-    studyApi = studyApi
-  )
+  lazy val write: ActivityWriteApi = wire[ActivityWriteApi]
 
-  val read = new ActivityReadApi(
-    coll = activityColl,
-    practiceApi = practiceApi,
-    postApi = postApi,
-    simulApi = simulApi,
-    studyApi = studyApi,
-    tourLeaderApi = tourLeaderApi
-  )
+  lazy val read: ActivityReadApi = wire[ActivityReadApi]
 
-  lazy val jsonView = new JsonView(
-    lightUserApi = lightUserApi,
-    getTourName = getTourName,
-    getTeamName = getTeamName
-  )
+  lazy val jsonView = wire[JsonView]
 
   lila.common.Bus.subscribeFun(
     "finishGame", "forumPost", "finishPuzzle", "finishPractice", "team",
-    'startSimul, "moveEventCorres", "plan", "relation", "startStudy", "streamStart"
+    "startSimul", "moveEventCorres", "plan", "relation", "startStudy", "streamStart"
   ) {
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
       case lila.forum.actorApi.CreatePost(post, topic) => write.forumPost(post, topic)
@@ -62,21 +51,4 @@ final class Env(
       case lila.hub.actorApi.streamer.StreamStart(userId) => write.streamStart(userId)
       case lila.user.User.GDPRErase(user) => write erase user
     }
-}
-
-object Env {
-
-  lazy val current: Env = "activity" boot new Env(
-    db = lila.db.Env.current,
-    config = lila.common.PlayApp loadConfig "activity",
-    system = lila.common.PlayApp.system,
-    practiceApi = lila.practice.Env.current.api,
-    postApi = lila.forum.Env.current.postApi,
-    simulApi = lila.simul.Env.current.api,
-    studyApi = lila.study.Env.current.api,
-    lightUserApi = lila.user.Env.current.lightUserApi,
-    tourLeaderApi = lila.tournament.Env.current.leaderboardApi,
-    getTourName = lila.tournament.Env.current.cached.name _,
-    getTeamName = lila.team.Env.current.cached.name _
-  )
 }

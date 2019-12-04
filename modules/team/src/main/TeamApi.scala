@@ -204,8 +204,6 @@ final class TeamApi(
   def owns(teamId: Team.ID, userId: User.ID): Fu[Boolean] =
     teamRepo ownerOf teamId map (_ has userId)
 
-  def teamName(teamId: Team.ID): Option[String] = cached.name(teamId)
-
   def filterExistingIds(ids: Set[String]): Fu[Set[Team.ID]] =
     teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids))
 

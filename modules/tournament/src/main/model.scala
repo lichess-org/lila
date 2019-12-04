@@ -73,3 +73,7 @@ case class FeaturedGame(
     white: RankedPlayer,
     black: RankedPlayer
 )
+
+final class GetTourName(f: (Tournament.ID => Option[String])) extends (Tournament.ID => Option[String]) {
+  def apply(id: Tournament.ID) = f(id)
+}

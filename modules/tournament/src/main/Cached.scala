@@ -24,8 +24,6 @@ private[tournament] final class Cached(
     logger = logger
   )
 
-  def name(id: Tournament.ID): Option[String] = nameCache sync id
-
   val promotable = asyncCache.single(
     name = "tournament.promotable",
     tournamentRepo.promotable,

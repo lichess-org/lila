@@ -59,7 +59,7 @@ final class Env(
   private lazy val playerRepo = new PlayerRepo(db(config.playerColl))
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
 
-  lazy val cached = wire[Cached]
+  lazy val cached: Cached = wire[Cached]
 
   lazy val verify = wire[Condition.Verify]
 
@@ -109,6 +109,8 @@ final class Env(
   )
 
   private lazy val autoPairing = wire[AutoPairing]
+
+  lazy val getTourName = new GetTourName(cached.nameCache.sync _)
 
   lila.common.Bus.subscribe(
     system.actorOf(Props(wire[ApiActor]), name = config.apiActorName),

@@ -32,9 +32,11 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  lazy val cached = wire[Cached]
+  lazy val cached: Cached = wire[Cached]
 
   private lazy val notifier = wire[Notifier]
+
+  lazy val getTeamName = new GetTeamName(cached.nameCache.sync _)
 
   lila.common.Bus.subscribeFun("shadowban") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId

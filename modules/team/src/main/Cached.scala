@@ -19,8 +19,6 @@ private[team] final class Cached(
     logger = logger
   )
 
-  def name(id: String) = nameCache sync id
-
   def preloadSet = nameCache preloadSet _
 
   // ~ 30k entries as of 04/02/17

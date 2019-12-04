@@ -20,8 +20,8 @@ import model._
 
 final class JsonView(
     lightUserApi: lila.user.LightUserApi,
-    getTourName: Tournament.ID => Option[String],
-    getTeamName: Team.ID => Option[String]
+    getTourName: lila.tournament.GetTourName,
+    getTeamName: lila.team.GetTeamName
 ) {
 
   private object Writers {

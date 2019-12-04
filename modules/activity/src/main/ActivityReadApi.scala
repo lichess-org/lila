@@ -1,14 +1,16 @@
 package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
+import scala.math.Ordering.Float.TotalOrdering
 
 import lila.db.dsl._
-import lila.game.{ LightPov, GameRepo }
+import lila.game.LightPov
 import lila.practice.PracticeStructure
 import lila.user.User
 
 final class ActivityReadApi(
     coll: Coll,
+    gameRepo: lila.game.GameRepo,
     practiceApi: lila.practice.PracticeApi,
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
@@ -23,7 +25,7 @@ final class ActivityReadApi(
   private val recentNb = 7
 
   def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] = for {
-    allActivities <- coll.find(regexId(u.id))
+    allActivities <- coll.ext.find(regexId(u.id))
       .sort($sort desc "_id")
       .gather[Activity, Vector](nb)
     activities = allActivities.filterNot(_.isEmpty)
@@ -44,9 +46,9 @@ final class ActivityReadApi(
       case (studyId, nb) => struct study studyId map (_ -> nb)
     } toMap)
     postView = posts.map { p =>
-      p.groupBy(_.topic).mapValues { posts =>
-        posts.map(_.post).sortBy(_.createdAt)
-      }
+      p.groupBy(_.topic).view.mapValues { posts =>
+        posts.view.map(_.post).sortBy(_.createdAt).toList
+      }.toMap
     } filter (_.nonEmpty)
     corresMoves <- a.corres ?? { corres =>
       getLightPovs(a.id.userId, corres.movesIn) dmap {
@@ -106,7 +108,7 @@ final class ActivityReadApi(
   }
 
   private def getLightPovs(userId: User.ID, gameIds: List[GameId]): Fu[Option[List[LightPov]]] = gameIds.nonEmpty ?? {
-    GameRepo.light.gamesFromSecondary(gameIds.map(_.value)).dmap {
+    gameRepo.light.gamesFromSecondary(gameIds.map(_.value)).dmap {
       _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
     }
   }
