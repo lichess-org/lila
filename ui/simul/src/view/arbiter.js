@@ -95,7 +95,8 @@ module.exports = function(ctrl) {
         data = ctrl.arbiterData.find(function (d) { return d.id == pairing.player.id }),
         assessment = data ? data.assessment : undefined,
         oldeval = oldEval(ctrl, pairing),
-        eval = data ? data.ceval : undefined;
+        eval = data ? data.ceval : undefined,
+        drawReason = data ? data.drawReason : undefined, drawText;
       if (eval) {
         if (ctrl.evals && ctrl.evals.length && ctrl.evals.find(function (e) { return e.id === pairing.game.id })) {
           ctrl.evals = ctrl.evals.map(function(e) {
@@ -115,6 +116,18 @@ module.exports = function(ctrl) {
         : (ctrl.pref.draughtsResult ? '1-1' : '½-½'))
       ) : '*';
       var evalText = ceval.renderEval(eval, pairing, ctrl.pref.draughtsResult);
+      switch (drawReason) {
+        case 'repetition':
+          drawText = 'Threefold repetition';
+          break;
+        case 'autodraw':
+          drawText = 'Autodraw';
+          if (result !== '*') result += ' (A)';
+          break;
+        case 'agreement':
+          drawText = 'Draw by agreement';
+          break;
+      }
       return m('tr', [
         m('td', util.player(pairing.player, pairing.player.rating, pairing.player.provisional, '', '/' + pairing.game.id)),
         ctrl.data.variants.length === 1 ? null : m('td.variant', { 'data-icon': variant.icon }),
@@ -145,7 +158,7 @@ module.exports = function(ctrl) {
           'data-icon': 'J',
           'title': assessment.totalTxt + ' (eval ' + evalText + ')'
         }) : '-'),
-        result !== '*'? m('td', m('span', result)) :
+        result !== '*' ? m('td', m('span' + drawReason ? '.hint--top' : '', drawReason ? { 'data-hint': drawText } : undefined, result)) :
         m('td.action', !playing ? '-' : m('a.button.hint--top-left', {
           'data-icon': '2',
           'title': 'Settle ' + gameDesc(pairing, ctrl.data.host.username) + ' as a win/draw/loss',

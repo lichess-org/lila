@@ -104,7 +104,8 @@ private[round] final class Finisher(
         id = g.id,
         winnerColor = winner,
         winnerId = winner flatMap (g.player(_).userId),
-        status = prog.game.status
+        status = prog.game.status,
+        keepHashes = g.isSimul && g.metadata.drawLimit.isDefined
       ) >>
       UserRepo.pair(
         g.whitePlayer.userId,

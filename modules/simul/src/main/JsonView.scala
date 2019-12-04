@@ -100,7 +100,16 @@ final class JsonView(getLightUser: LightUser.Getter, isOnline: String => Boolean
       .add("hostClock" -> clock.map(_.remainingTime(!playerColor).roundSeconds))
       .add("ceval" -> eval.flatMap(_._2 ?? { gameEvalJson(pairing.gameId, _).some }))
       .add("assessment" -> game.??(_.playedTurns > 5) ?? assessment.flatMap(_._2 ?? { _.color(playerColor).map(assessmentJson) }))
+      .add("drawReason" -> game.flatMap(drawReason))
   }))
+
+  private def drawReason(game: Game) = game.status match {
+    case draughts.Status.Draw =>
+      if (game.situation.threefoldRepetition) "repetition".some
+      else if (game.situation.autoDraw) "autodraw".some
+      else "agreement".some
+    case _ => none
+  }
 
   def evalWithGame(simul: Simul, gameId: Game.ID, eval: JsObject) =
     GameRepo.game(gameId) map { game =>

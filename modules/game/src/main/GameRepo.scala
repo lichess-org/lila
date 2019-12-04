@@ -258,7 +258,6 @@ object GameRepo {
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
 
   private val finishUnsets = $doc(
-    F.positionHashes -> true,
     F.playingUids -> true,
     F.unmovedRooks -> true,
     ("p0." + Player.BSONFields.lastDrawOffer) -> true,
@@ -273,7 +272,8 @@ object GameRepo {
     id: ID,
     winnerColor: Option[Color],
     winnerId: Option[String],
-    status: Status
+    status: Status,
+    keepHashes: Boolean = false
   ) = coll.update(
     $id(id),
     nonEmptyMod("$set", $doc(
@@ -285,6 +285,8 @@ object GameRepo {
         // keep the checkAt field when game is aborted,
         // so it gets deleted in 24h
         (status >= Status.Mate) ?? $doc(F.checkAt -> true)
+      }.++ {
+        (!keepHashes) ?? $doc(F.positionHashes -> true)
       }
     )
   )
