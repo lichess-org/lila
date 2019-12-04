@@ -335,7 +335,7 @@ export function timeOutConfirmChoice(ctrl: RoundController): VNode {
         return h('option', {
           attrs: {
             value: m * 60,
-            selected: m === 5
+            selected: m === 1
           }
         }, ctrl.trans.plural('nbMinutes', m));
       })

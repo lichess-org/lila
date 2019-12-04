@@ -1109,10 +1109,12 @@ div.underboard a {
 }
 
 div.timeout_choice {
-  margin: 0 8px 0 0;
+  width: 85px;
+  margin-left: 35px;
 }
 div.timeout_choice select {
-  margin: 1px 0 0 0;
+  margin-top: 3px;
+  width: 90%
 }
 
 #now_playing.other_games {
