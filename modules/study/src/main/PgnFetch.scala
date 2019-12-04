@@ -1,9 +1,8 @@
 package lila.study
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 
-private final class PgnFetch {
+private final class PgnFetch(ws: WSClient) {
 
   private type Pgn = String
   private val pgnContentType = "application/x-chess-pgn"
@@ -19,7 +18,7 @@ private final class PgnFetch {
   }
 
   private def downloadChessbase(id: Int): Fu[Option[Pgn]] = {
-    WS.url(s"""http://www.chessgames.com/pgn/any.pgn?gid=$id""").get().map { res =>
+    ws.url(s"""http://www.chessgames.com/pgn/any.pgn?gid=$id""").get().map { res =>
       res.header("Content-Type").contains(pgnContentType) option res.body
     }
   }

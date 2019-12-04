@@ -13,7 +13,7 @@ import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaMove, AnaDrop, AnaAny, AnaDests }
-import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
+import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook, defaultNodeJsonWriter }
 import lila.user.User
 
 private final class StudySocket(
@@ -44,7 +44,7 @@ private final class StudySocket(
       send(RP.Out.tellRoom(studyId, makeMessage("analysisProgress", Json.obj(
         "analysis" -> analysis,
         "ch" -> chapterId,
-        "tree" -> tree,
+        "tree" -> defaultNodeJsonWriter.writes(tree),
         "division" -> division
       ))))
   }
@@ -214,7 +214,7 @@ private final class StudySocket(
 
   import JsonView._
   import jsonView.membersWrites
-  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
+  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites, defaultNodeJsonWriter }
   private type SendToStudy = Study.Id => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy = studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
   private def notify[A: Writes](tpe: String, data: A): SendToStudy = studyId => send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
@@ -231,7 +231,7 @@ private final class StudySocket(
   ) = {
     val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
     version("addNode", Json.obj(
-      "n" -> TreeBuilder.toBranch(node, variant),
+      "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
       "p" -> pos,
       "w" -> who,
       "d" -> dests.dests,
@@ -328,10 +328,10 @@ object StudySocket {
 
       val reader: P.In.Reader = raw => raw.path match {
         case "study/door" => Some(StudyDoor {
-          P.In.commas(raw.args).map(_ split ":").collect {
+          P.In.commas(raw.args).view.map(_ split ":").collect {
             case Array(u, s, "+") => u -> Right(Study.Id(s))
             case Array(u, s, "-") => u -> Left(Study.Id(s))
-          }(scala.collection.breakOut)
+          }.toMap
         })
         case _ => RP.In.reader(raw)
       }

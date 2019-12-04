@@ -9,8 +9,8 @@ import lila.user.User
 
 private final class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
-    lightUser: LightUser.GetterSync,
-    baseUrl: String
+    lightUserApi: lila.user.LightUserApi,
+    net: lila.common.config.NetConfig
 ) {
 
   def quote(gameId: Game.ID): Fu[Option[Comment]] =
@@ -64,12 +64,12 @@ private final class ExplorerGame(
     by = Comment.Author.Lichess
   )
 
-  private def gameUrl(game: Game) = s"$baseUrl/${game.id}"
+  private def gameUrl(game: Game) = s"${net.baseUrl}/${game.id}"
 
   private def gameTitle(g: Game): String = {
     val pgn = g.pgnImport.flatMap(pgnImport => Parser.full(pgnImport.pgn).toOption)
-    val white = pgn.flatMap(_.tags(_.White)) | Namer.playerText(g.whitePlayer)(lightUser)
-    val black = pgn.flatMap(_.tags(_.Black)) | Namer.playerText(g.blackPlayer)(lightUser)
+    val white = pgn.flatMap(_.tags(_.White)) | Namer.playerTextBlocking(g.whitePlayer)(lightUserApi.sync)
+    val black = pgn.flatMap(_.tags(_.Black)) | Namer.playerTextBlocking(g.blackPlayer)(lightUserApi.sync)
     val result = chess.Color.showResult(g.winnerColor)
     val event: Option[String] =
       (pgn.flatMap(_.tags(_.Event)), pgn.flatMap(_.tags.year).map(_.toString)) match {

@@ -97,7 +97,7 @@ final class Env(
 
   lazy val jsonView: JsonView = wire[JsonView]
 
-  lazy val apiJsonView = new ApiJsonView(lightUserApi.async)
+  lazy val apiJsonView = wire[ApiJsonView]
 
   lazy val leaderboardApi = wire[LeaderboardApi]
 

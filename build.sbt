@@ -258,7 +258,7 @@ lazy val challenge = module("challenge", Seq(common, db, hub, setup, game, relat
 lazy val study = module("study", Seq(
   common, db, hub, socket, game, round, importer, notifyModule, relation, evalCache, explorer, i18n, room
 )).settings(
-  libraryDependencies ++= provided(play.api, scalatags, lettuce) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda, scalatags, lettuce) ++ reactivemongo.bundle
 )
 
 lazy val relay = module("relay", Seq(common, study)).settings(

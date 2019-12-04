@@ -17,7 +17,8 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
     userRepo: lila.user.UserRepo,
-    getLightUser: lila.common.LightUser.GetterSync,
+    getLightUser: lila.common.LightUser.Getter,
+    getLightUserSync: lila.common.LightUser.GetterSync,
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem) {
 
@@ -40,13 +41,15 @@ final class Env(
         case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
           api markAllRead userIds.map(Notification.Notifies.apply)
         case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
-          api addNotification Notification.make(
-            Notification.Notifies(userId),
-            CorresAlarm(
-              gameId = pov.gameId,
-              opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
+          lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
+            api addNotification Notification.make(
+              Notification.Notifies(userId),
+              CorresAlarm(
+                gameId = pov.gameId,
+                opponent = opponent
+              )
             )
-          )
+          }
         }
       }
     }), name = config.actorName),

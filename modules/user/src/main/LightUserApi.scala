@@ -13,8 +13,8 @@ final class LightUserApi(repo: UserRepo)(implicit system: akka.actor.ActorSystem
 
   import LightUserApi._
 
-  def sync(id: User.ID): Option[LightUser] = cache sync id
-  def async(id: User.ID): Fu[Option[LightUser]] = cache async id
+  val async = new LightUser.Getter(cache.async)
+  val sync = new LightUser.GetterSync(cache.sync)
 
   def asyncMany = cache.asyncMany _
 

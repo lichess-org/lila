@@ -319,7 +319,7 @@ object Node {
       check = b.check,
       clock = b.clock,
       crazyData = b.crazyData,
-      children = Children(b.children.map(fromBranch)(scala.collection.breakOut))
+      children = Children(b.children.view.map(fromBranch).toVector)
     )
   }
 
@@ -331,7 +331,7 @@ object Node {
     check = b.check,
     crazyData = b.crazyData,
     clock = b.clock,
-    children = Children(b.children.map(fromBranch)(scala.collection.breakOut)),
+    children = Children(b.children.view.map(fromBranch).toVector),
     forceVariation = false
   )
 }

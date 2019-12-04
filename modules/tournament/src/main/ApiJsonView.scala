@@ -3,10 +3,10 @@ package lila.tournament
 import play.api.libs.json._
 import play.api.libs.json.JodaWrites._
 
-import lila.common.LightUser
+import lila.user.LightUserApi
 import lila.rating.PerfType
 
-final class ApiJsonView(lightUser: LightUser.Getter) {
+final class ApiJsonView(lightUserApi: LightUserApi) {
 
   import JsonView._
 
@@ -61,13 +61,13 @@ final class ApiJsonView(lightUser: LightUser.Getter) {
     .add("battle", tour.teamBattle map teamBattleJson)
 
   def fullJson(tour: Tournament): Fu[JsObject] = for {
-    owner <- tour.nonLichessCreatedBy ?? lightUser
-    winner <- tour.winnerId ?? lightUser
+    owner <- tour.nonLichessCreatedBy ?? lightUserApi.async
+    winner <- tour.winnerId ?? lightUserApi.async
   } yield baseJson(tour) ++ Json.obj(
     "winner" -> winner.map(userJson)
   ).add("major", owner.exists(_.title.isDefined))
 
-  private def userJson(u: LightUser) = Json.obj(
+  private def userJson(u: lila.common.LightUser) = Json.obj(
     "id" -> u.id,
     "name" -> u.name,
     "title" -> u.title

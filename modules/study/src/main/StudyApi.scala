@@ -1,6 +1,5 @@
 package lila.study
 
-import akka.actor.ActorSelection
 import scala.concurrent.duration._
 
 import actorApi.Who
@@ -23,10 +22,10 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     scheduler: akka.actor.Scheduler,
     chatApi: ChatApi,
-    timeline: ActorSelection,
+    timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester,
     lightStudyCache: LightStudyCache
 ) {
@@ -399,13 +398,15 @@ final class StudyApi(
 
   def setComment(studyId: Study.Id, position: Position.Ref, text: Comment.Text)(who: Who) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(who.u, study) {
-      lightUser(who.u) ?? { author =>
-        val comment = Comment(
-          id = Comment.Id.make,
-          text = text,
-          by = Comment.Author.User(author.id, author.titleName)
-        )
-        doSetComment(study, Position(chapter, position.path), comment, who)
+      lightUserApi.async(who.u) flatMap {
+        _ ?? { author =>
+          val comment = Comment(
+            id = Comment.Id.make,
+            text = text,
+            by = Comment.Author.User(author.id, author.titleName)
+          )
+          doSetComment(study, Position(chapter, position.path), comment, who)
+        }
       }
     }
   }

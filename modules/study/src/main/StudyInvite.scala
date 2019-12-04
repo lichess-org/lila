@@ -7,14 +7,15 @@ import scala.concurrent.duration._
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 import makeTimeout.short
 
 private final class StudyInvite(
     studyRepo: StudyRepo,
+    userRepo: lila.user.UserRepo,
     notifyApi: NotifyApi,
-    getPref: User => Fu[Pref],
-    getRelation: (User.ID, User.ID) => Fu[Option[lila.relation.Relation]]
+    prefApi: lila.pref.PrefApi,
+    relationApi: lila.relation.RelationApi
 ) {
 
   private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
@@ -29,13 +30,13 @@ private final class StudyInvite(
   def apply(byUserId: User.ID, study: Study, invitedUsername: String, getIsPresent: User.ID => Fu[Boolean]): Funit = for {
     _ <- !study.isOwner(byUserId) ?? fufail[Unit]("Only study owner can invite")
     _ <- (study.nbMembers >= maxMembers) ?? fufail[Unit](s"Max study members reached: $maxMembers")
-    inviter <- UserRepo.named(byUserId) flatten "No such inviter"
-    invited <- UserRepo.named(invitedUsername).map(_.filterNot(_.id == User.lichessId)) flatten "No such invited"
+    inviter <- userRepo.named(byUserId) orFail "No such inviter"
+    invited <- userRepo.named(invitedUsername).map(_.filterNot(_.id == User.lichessId)) orFail "No such invited"
     _ <- study.members.contains(invited) ?? fufail[Unit]("Already a member")
-    relation <- getRelation(invited.id, byUserId)
+    relation <- relationApi.fetchRelation(invited.id, byUserId)
     _ <- relation.has(Block) ?? fufail[Unit]("This user does not want to join")
     isPresent <- getIsPresent(invited.id)
-    _ <- if (isPresent) funit else getPref(invited).map(_.studyInvite).flatMap {
+    _ <- if (isPresent) funit else prefApi.getPref(invited).map(_.studyInvite).flatMap {
       case Pref.StudyInvite.ALWAYS => funit
       case Pref.StudyInvite.NEVER => fufail("This user doesn't accept study invitations")
       case Pref.StudyInvite.FRIEND =>

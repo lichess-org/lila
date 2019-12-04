@@ -3,15 +3,15 @@ package lila.study
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
-import lila.user.User
 import lila.i18n.{ Translated, I18nKeys => trans }
+import lila.user.User
 
 final class StudyPager(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo,
-    maxPerPage: lila.common.MaxPerPage
+    chapterRepo: ChapterRepo
 ) {
 
+  private val maxPerPage = lila.common.config.MaxPerPage(14)
   private val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers._
@@ -60,7 +60,7 @@ final class StudyPager(
     val adapter = new Adapter[Study](
       collection = studyRepo.coll,
       selector = selector,
-      projection = studyRepo.projection,
+      projection = studyRepo.projection.some,
       sort = order match {
         case Order.Hot => $sort desc "rank"
         case Order.Newest => $sort desc "createdAt"
@@ -109,6 +109,6 @@ object Order {
   val default = Hot
   val all = List(Hot, Newest, Oldest, Updated, Popular)
   val allButOldest = all filter (Oldest !=)
-  private val byKey: Map[String, Order] = all.map { o => o.key -> o }(scala.collection.breakOut)
+  private val byKey: Map[String, Order] = all.map { o => o.key -> o }.toMap
   def apply(key: String): Order = byKey.getOrElse(key, default)
 }

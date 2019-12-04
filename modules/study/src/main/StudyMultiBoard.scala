@@ -2,8 +2,8 @@ package lila.study
 
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import play.api.libs.json._
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import chess.Color
@@ -12,7 +12,7 @@ import chess.format.{ FEN, Uci }
 
 import BSONHandlers._
 import JsonView._
-import lila.common.MaxPerPage
+import lila.common.config.MaxPerPage
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, MapReduceAdapter }
@@ -20,11 +20,12 @@ import lila.game.BSONHandlers.FENBSONHandler
 
 final class StudyMultiBoard(
     runCommand: lila.db.RunCommand,
-    chapterColl: Coll,
-    maxPerPage: MaxPerPage
+    chapterRepo: ChapterRepo
 ) {
+  private val maxPerPage = MaxPerPage(9)
 
   import StudyMultiBoard._
+  import handlers._
 
   def json(studyId: Study.Id, page: Int, playing: Boolean): Fu[JsObject] = {
     if (page == 1 && !playing) firstPageCache.get(studyId)
@@ -45,7 +46,7 @@ final class StudyMultiBoard(
      */
     Paginator(
       adapter = new MapReduceAdapter[ChapterPreview](
-        collection = chapterColl,
+        collection = chapterRepo.coll,
         selector = selector,
         sort = $sort asc "order",
         runCommand = runCommand,
@@ -58,7 +59,7 @@ emit(this._id, result)""",
           "reduce" -> """function() {}""",
           "jsMode" -> true
         )
-      ),
+      )(previewBSONReader),
       currentPage = page,
       maxPerPage = maxPerPage
     )
@@ -66,33 +67,36 @@ emit(this._id, result)""",
 
   private val playingSelector = $doc("tags" -> "Result:*")
 
-  private implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
-    def read(result: BSONDocument) = {
-      val doc = result.getAs[List[Bdoc]]("value").flatMap(_.headOption) err "No mapReduce value?!"
-      val tags = doc.getAs[Tags]("tags")
-      ChapterPreview(
-        id = result.getAs[Chapter.Id]("_id") err "Preview missing id",
-        name = doc.getAs[Chapter.Name]("name") err "Preview missing name",
+  private object handlers {
+
+    implicit val previewBSONReader = new BSONDocumentReader[ChapterPreview] {
+      def readDocument(result: BSONDocument) = for {
+        value <- result.getAsTry[List[Bdoc]]("value")
+        doc <- value.headOption toTry "No mapReduce value?!"
+        tags = doc.getAsOpt[Tags]("tags")
+      } yield ChapterPreview(
+        id = result.getAsOpt[Chapter.Id]("_id") err "Preview missing id",
+        name = doc.getAsOpt[Chapter.Name]("name") err "Preview missing name",
         players = tags flatMap ChapterPreview.players,
-        orientation = doc.getAs[Color]("orientation") getOrElse Color.White,
-        fen = doc.getAs[FEN]("fen") err "Preview missing FEN",
-        lastMove = doc.getAs[Uci]("uci"),
+        orientation = doc.getAsOpt[Color]("orientation") getOrElse Color.White,
+        fen = doc.getAsOpt[FEN]("fen") err "Preview missing FEN",
+        lastMove = doc.getAsOpt[Uci]("uci"),
         playing = tags.flatMap(_(_.Result)) has "*"
       )
     }
-  }
 
-  private implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
-    Json.obj("name" -> p.name)
-      .add("title" -> p.title)
-      .add("rating" -> p.rating)
-  }
+    implicit val previewPlayerWriter: Writes[ChapterPreview.Player] = Writes[ChapterPreview.Player] { p =>
+      Json.obj("name" -> p.name)
+        .add("title" -> p.title)
+        .add("rating" -> p.rating)
+    }
 
-  private implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] { players =>
-    Json.obj("white" -> players.white, "black" -> players.black)
-  }
+    implicit val previewPlayersWriter: Writes[ChapterPreview.Players] = Writes[ChapterPreview.Players] { players =>
+      Json.obj("white" -> players.white, "black" -> players.black)
+    }
 
-  private implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
+    implicit val previewWriter: Writes[ChapterPreview] = Json.writes[ChapterPreview]
+  }
 }
 
 object StudyMultiBoard {

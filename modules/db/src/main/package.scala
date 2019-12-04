@@ -5,8 +5,6 @@ import reactivemongo.api.ReadPreference
 
 package object db extends PackageObject {
 
-  type RunCommand = (dsl.Bdoc, ReadPreference) => Fu[dsl.Bdoc]
-
   def recoverDuplicateKey[A](f: WriteResult => A): PartialFunction[Throwable, A] = {
     case wr: WriteResult if isDuplicateKey(wr) => f(wr)
   }

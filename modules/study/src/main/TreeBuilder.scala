@@ -57,5 +57,5 @@ object TreeBuilder {
     )
 
   private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =
-    children.nodes.map(toBranch(_, variant))(scala.collection.breakOut)
+    children.nodes.view.map(toBranch(_, variant)).toList
 }

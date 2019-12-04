@@ -2,9 +2,8 @@ package lila.db
 
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import reactivemongo.api.BSONSerializationPack
+import reactivemongo.api._
 import reactivemongo.api.commands.Command
-import reactivemongo.api.{ DefaultDB, MongoConnection, MongoDriver, FailoverStrategy, ReadPreference }
 import scala.concurrent.duration._
 import scala.concurrent.{ Await, ExecutionContext, Future }
 import scala.util.{ Failure, Success }
@@ -34,10 +33,11 @@ final class Env(name: String, config: DbConfig) {
 
   def apply(name: CollName): Coll = db(name.value)
 
-  // val runCommand: RunCommand = (command, readPreference) => {
-  //   val runner = Command.run(BSONSerializationPack, FailoverStrategy.strict)
-  //   runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
-  // }
+  val runCommand = new RunCommand((command, readPreference) => {
+    val pack = reactivemongo.api.bson.collection.BSONSerializationPack
+    val runner = Command.run(pack, FailoverStrategy.strict)
+    runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
+  })
 
   object image {
     private lazy val imageColl = config.imageCollName map apply
