@@ -415,8 +415,8 @@
   <string name="incorrectPassword">舊密碼錯誤</string>
   <string name="invalidAuthenticationCode">驗證碼無效</string>
   <string name="emailMeALink">通過電郵發送連結給我</string>
-  <string name="currentPassword">当前密码</string>
-  <string name="newPassword">新密码</string>
+  <string name="currentPassword">目前密碼</string>
+  <string name="newPassword">新密碼</string>
   <string name="newPasswordAgain">新密码（重复）</string>
   <string name="boardHighlights">棋盘高亮（最后一步与将军）</string>
   <string name="pieceDestinations">棋子目的地（有效着法与预先走棋）</string>
@@ -564,8 +564,8 @@
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有准确的%s评级。</string>
   <string name="checkYourEmail">請檢查您的電子郵件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱. 点击邮件中的链接以激活您的账号.</string>
-  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
-  <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了从新设密码的链接。</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">若您沒收到郵件，請檢查您的其他收件箱，例如垃圾箱、促銷、社交等。</string>
+  <string name="weHaveSentYouAnEmailTo">我們發送了一封郵件到 %s。點擊郵件中的連結來重置您的密碼。</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">您一登记，我们就假设您同意尊重我们的使用规则（%s）。</string>
   <string name="networkLagBetweenYouAndLichess">您和 lichess 之間的網絡時滯</string>
   <string name="timeToProcessAMoveOnLichessServer">lichess 伺服器上處理走棋的時間</string>
@@ -600,6 +600,7 @@
     <item quantity="other">支援%s種語言！</item>
   </plurals>
   <string name="gameAnalysis">象棋分析研究</string>
+  <string name="quickPairing">快速配對</string>
   <string name="lobby">大廳</string>
   <string name="language">語言</string>
   <string name="background">背景</string>
@@ -613,6 +614,6 @@
   <string name="error.min">必須起碼 %s 字或以上</string>
   <string name="error.max">必須 %s 字或以下</string>
   <string name="error.unknown">錯誤</string>
-  <string name="custom">個別設定</string>
+  <string name="custom">自訂設定</string>
   <string name="challenges">挑戰</string>
 </resources>
