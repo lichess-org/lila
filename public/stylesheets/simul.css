@@ -139,6 +139,9 @@
   display: inline-block;
   text-align: center;
 }
+#simul .results.partial > div {
+  width: 33%;
+}
 #simul div.partial {
   text-align: center;
 }
@@ -158,7 +161,7 @@
 }
 #simul div.targets {
   font-size: 1.5em;
-  padding: 12px 30px 12px 30px;
+  padding: 14px 30px 10px 30px;
   text-align: center;
 }
 #simul .targets .req {

@@ -26,37 +26,43 @@ function filterWins(p) { return p.wins === false; }
 function filterDraws(p) { return p.game.status >= status.ids.mate && p.wins === null; }
 function filterLosses(p) { return p.wins === true; }
 
-function winningPercentage(pairings) {
+function currentPoints(pairings) {
   var wins = pairings.filter(filterWins).length,
-    draws = pairings.filter(filterDraws).length,
-    finished = pairings.length - pairings.filter(filterPlaying).length;
-  return finished == 0 ? 0 : (100 * (wins + 0.5 * draws) / finished);
+    draws = pairings.filter(filterDraws).length;
+  return wins + draws * 0.5;
+}
+
+function winningPercentage(pairings) {
+  var finished = pairings.length - pairings.filter(filterPlaying).length;
+  return finished == 0 ? 0 : (100 * currentPoints(pairings) / finished);
 }
 
 function requiredPoints(pairings, target) {
-  var wins = pairings.filter(filterWins).length,
-    draws = pairings.filter(filterDraws).length;
-  return pairings.length * (target / 100.0) - (wins + draws * 0.5);
+  return pairings.length * (target / 100.0);
+}
+
+function remainingPoints(pairings, target) {
+  return pairings.length * (target / 100.0) - currentPoints(pairings);
 }
 
 function requiredWins(pairings, target) {
-  var remaining = requiredPoints(pairings, target);
+  var remaining = remainingPoints(pairings, target);
   if (remaining <= 0.5) return false;
   var remainingDec = remaining - Math.floor(remaining);
   return remainingDec > 0.5 ? Math.ceil(remaining) : Math.floor(remaining);
 }
 
 function requiredDraws(pairings, target) {
-  var remaining = requiredPoints(pairings, target);
+  var remaining = remainingPoints(pairings, target);
   if (remaining <= 0) return false;
   var remainingDec = remaining - Math.floor(remaining)
   return (remainingDec == 0 || remainingDec > 0.5) ? 0 : 1;
 }
 
 function targetDistance(pairings, target, trans) {
-  var points = requiredPoints(pairings, target),
-    targetReached = points <= 0,
-    targetFailed = points > pairings.filter(filterPlaying).length;
+  var remaining = remainingPoints(pairings, target),
+    targetReached = remaining <= 0,
+    targetFailed = remaining > pairings.filter(filterPlaying).length;
   if (targetReached)
     return m('span.req.win', trans('succeeded'))
   else if (targetFailed)
@@ -71,15 +77,32 @@ function targetDistance(pairings, target, trans) {
   return targets;
 }
 
+function toHalfPoints(points) {
+  var decimal = points - Math.floor(points)
+  if (decimal > 0.5)
+    return Math.ceil(points)
+  else if (decimal > 0)
+    return Math.floor(points) + 0.5
+  else
+    return points
+}
+
+function relativeScoreRequired(pairings, target) {
+  var remaining = toHalfPoints(requiredPoints(pairings, target)) - currentPoints(pairings)
+  return remaining - pairings.filter(filterPlaying).length * 0.5
+}
+
 module.exports = function(ctrl) {
-  return ctrl.toggleArbiter ? null : [
+  var requiredScore = ctrl.data.targetPct && ctrl.toggleArbiter ? relativeScoreRequired(ctrl.data.pairings, ctrl.data.targetPct) : 0;
+  if (ctrl.pref.draughtsResult) requiredScore *= 2;
+  return [
     m('div.results', [
       m('div', trans(ctrl, 'nbPlaying', filterPlaying)),
       m('div', trans(ctrl, 'nbWins', filterWins)),
       m('div', trans(ctrl, 'nbDraws', filterDraws)),
       m('div', trans(ctrl, 'nbLosses', filterLosses))
     ]),
-    ctrl.data.targetPct ? m('div.results.partial', [
+    ctrl.data.targetPct && !ctrl.toggleArbiter ? m('div.results.partial', [
       m('div.target', [
         m('div.number', Math.round(winningPercentage(ctrl.data.pairings) * 10) / 10 + '%'),
         m('div.text', ctrl.trans('winningPercentage'))
@@ -89,9 +112,20 @@ module.exports = function(ctrl) {
         m('div.text', ctrl.trans('targetPercentage'))
       ])
     ]) : null,
-    ctrl.data.targetPct ? m('div.targets', [
-      m('span', ctrl.trans('toReachTarget', '')),
-      targetDistance(ctrl.data.pairings, ctrl.data.targetPct, ctrl.trans)
-    ]) : null
+    !ctrl.data.targetPct ? null : !ctrl.toggleArbiter ?
+      m('div.targets', [
+        m('span', ctrl.trans('toReachTarget', '')),
+        targetDistance(ctrl.data.pairings, ctrl.data.targetPct, ctrl.trans)
+      ]) :
+      m('div.results.partial', [
+        m('div.targets', [
+          m('span', ctrl.trans('winningPercentage') + ': '),
+          Math.round(winningPercentage(ctrl.data.pairings) * 10) / 10 + '%'
+        ]),
+        m('div.targets', [
+          m('span', ctrl.trans('relativeScoreRequired', '')),
+          (requiredScore < 0 ? ' ' : ' +') + Math.round(requiredScore * 10) / 10
+        ])
+      ])
   ];
 };
