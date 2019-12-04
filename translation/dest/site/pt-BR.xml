@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Cole a notação PGN aqui</string>
   <string name="fromPosition">A partir da posição</string>
   <string name="continueFromHere">Continuar daqui</string>
+  <string name="toStudy">Estudo</string>
   <string name="importGame">Importar partida</string>
   <string name="importGameExplanation">Após colar uma partida em PGN você poderá revisá-la interativamente, consultar uma análise de computador, utilizar o chat e compartilhar um link.</string>
   <plurals name="nbImportedGames">
@@ -623,6 +624,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="playOfflineComputer">Jogar offline contra o computador</string>
   <string name="opponent">Oponente</string>
   <string name="learnMenu">Aprender</string>
+  <string name="studyMenu">Estudar</string>
+  <string name="practice">Praticar</string>
   <string name="community">Comunidade</string>
   <string name="tools">Ferramentas</string>
   <string name="increment">Incremento</string>
@@ -657,6 +660,8 @@ Aparece quando o usuário tenta enviar o formulário sem resolver preciamente o 
   <string name="tpTimeSpentOnTV">Tempo na TV: %s</string>
   <string name="watch">Observar</string>
   <string name="videoLibrary">Videoteca</string>
+  <string name="streamersMenu">Streamers</string>
+  <string name="broadcastsMenu">Transmissões</string>
   <string name="mobileApp">Aplicativo Móvel</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Sobre</string>
