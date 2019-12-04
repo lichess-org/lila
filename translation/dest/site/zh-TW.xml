@@ -473,6 +473,7 @@
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
+  <string name="practice">練習</string>
   <string name="community">社區</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
@@ -503,7 +504,7 @@
   <string name="watch">觀看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">實況主</string>
-  <string name="broadcastsMenu">直播</string>
+  <string name="broadcastsMenu">實況</string>
   <string name="mobileApp">行動應用程式</string>
   <string name="webmasters">網站管理員</string>
   <string name="about">關於</string>
