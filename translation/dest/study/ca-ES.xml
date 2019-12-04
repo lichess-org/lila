@@ -125,4 +125,5 @@ Segura’t que el capítol és complert. Només pots requerir l’anàlisi una s
   <string name="deleteTheStudyChatHistory">Eliminar el xat de l’estudi? No hi ha volta enrera!</string>
   <string name="deleteStudy">Eliminar estudi</string>
   <string name="deleteTheEntireStudy">Eliminar l’estudi complert? No hi ha volta enrera!</string>
+  <string name="whereDoYouWantToStudyThat">A on vols estudiar-ho?</string>
 </resources>

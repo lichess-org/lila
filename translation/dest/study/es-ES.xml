@@ -124,4 +124,5 @@
   <string name="deleteTheStudyChatHistory">¿Realmente quieres borrar el historial de chat? ¡Esta acción no se puede deshacer!</string>
   <string name="deleteStudy">Borrar estudio</string>
   <string name="deleteTheEntireStudy">¿Realmente quieres borrar todo el estudio? ¡Esta acción no se puede deshacer!</string>
+  <string name="whereDoYouWantToStudyThat">¿Dónde quieres estudiar eso?</string>
 </resources>

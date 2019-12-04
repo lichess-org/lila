@@ -591,6 +591,8 @@
   <string name="playOfflineComputer">Komputer</string>
   <string name="opponent">Lawan</string>
   <string name="learnMenu">Materi</string>
+  <string name="studyMenu">Materi</string>
+  <string name="practice">Latihan</string>
   <string name="community">Komunitas</string>
   <string name="tools">Alat</string>
   <string name="increment">Kenaikan</string>
@@ -624,6 +626,8 @@
   <string name="tpTimeSpentOnTV">Waktu pada TV: %s</string>
   <string name="watch">Tonton</string>
   <string name="videoLibrary">Pustaka Video</string>
+  <string name="streamersMenu">Penonton</string>
+  <string name="broadcastsMenu">Siaran</string>
   <string name="mobileApp">Aplikasi Mobile</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Tentang</string>

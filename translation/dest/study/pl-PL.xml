@@ -132,4 +132,5 @@
   <string name="deleteTheStudyChatHistory">Usunąć historię czatu opracowania? Nie będzie można tego cofnąć!</string>
   <string name="deleteStudy">Usuń opracowanie</string>
   <string name="deleteTheEntireStudy">Usunąć całe opracowanie? Nie będzie można tego cofnąć!</string>
+  <string name="whereDoYouWantToStudyThat">Gdzie chcesz się tego uczyć?</string>
 </resources>
