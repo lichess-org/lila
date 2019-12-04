@@ -120,4 +120,5 @@
   <string name="deleteTheStudyChatHistory">Hapus riwayat obrolan materi? Ini tidak akan dapat mengulangkan kembali!</string>
   <string name="deleteStudy">Hapus materi</string>
   <string name="deleteTheEntireStudy">Hapus semua materi? Ini tidak akan dapat mengulangkan kembali!</string>
+  <string name="whereDoYouWantToStudyThat">Dimana Anda ingin mempelajarinya?</string>
 </resources>
