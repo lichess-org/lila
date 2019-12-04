@@ -61,6 +61,7 @@ object userAnalysisI18n {
     trans.menu,
     trans.boardEditor,
     trans.continueFromHere,
+    trans.toStudy,
     trans.playWithTheMachine,
     trans.playWithAFriend,
     trans.openStudy,

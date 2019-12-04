@@ -560,6 +560,7 @@ GET   /lag                             controllers.Main.lag
 GET   /get-fishnet                     controllers.Main.getFishnet
 GET   /costs                           controllers.Main.costs
 GET   /verify-title                    controllers.Main.verifyTitle
+GET   /InstantChess.com                controllers.Main.instantChess
 
 # Dev
 GET   /dev/cli                         controllers.Dev.cli

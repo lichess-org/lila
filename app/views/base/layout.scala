@@ -15,10 +15,10 @@ object layout {
 
   object bits {
     val doctype = raw("<!doctype html>")
-    def htmlTag(implicit lang: Lang) = html(st.lang := lang.language)
+    def htmlTag(implicit lang: Lang) = html(st.lang := lang.code)
     val topComment = raw("""<!-- Lichess is open source! See https://github.com/ornicar/lila -->""")
     val charset = raw("""<meta charset="utf-8">""")
-    val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>""")
+    val viewport = raw("""<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">""")
     def metaCsp(csp: ContentSecurityPolicy): Frag = raw {
       s"""<meta http-equiv="Content-Security-Policy" content="$csp">"""
     }
@@ -32,22 +32,22 @@ object layout {
   }
   import bits._
 
-  private val noTranslate = raw("""<meta name="google" content="notranslate" />""")
+  private val noTranslate = raw("""<meta name="google" content="notranslate">""")
   private def fontPreload(implicit ctx: Context) = raw {
-    s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin/>""" +
+    s"""<link rel="preload" href="${assetUrl(s"font/lichess.woff2")}" as="font" type="font/woff2" crossorigin>""" +
       !ctx.pref.pieceNotationIsLetter ??
-      s"""<link rel="preload" href="${assetUrl(s"font/lichess.chess.woff2")}" as="font" type="font/woff2" crossorigin/>"""
+      s"""<link rel="preload" href="${assetUrl(s"font/lichess.chess.woff2")}" as="font" type="font/woff2" crossorigin>"""
   }
-  private val manifests = raw("""<link rel="manifest" href="/manifest.json" /><meta name="twitter:site" content="@lichess" />""")
+  private val manifests = raw("""<link rel="manifest" href="/manifest.json"><meta name="twitter:site" content="@lichess">""")
 
-  private val jsLicense = raw("""<link rel="jslicense" href="/source"/>""")
+  private val jsLicense = raw("""<link rel="jslicense" href="/source">""")
 
   private val favicons = raw {
-    List(256, 128, 64) map { px =>
-      s"""<link rel="icon" type="image/png" href="${staticUrl(s"favicon.$px.png")}" sizes="${px}x${px}">"""
-    } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("images/favicon-32-white.png")}" sizes="32x32">""")
+    List(512, 256, 192, 128, 64) map { px =>
+      s"""<link rel="icon" type="image/png" href="${staticUrl(s"logo/lichess-favicon-$px.png")}" sizes="${px}x${px}">"""
+    } mkString ("", "", s"""<link id="favicon" rel="icon" type="image/png" href="${staticUrl("logo/lichess-favicon-32.png")}" sizes="32x32">""")
   }
-  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}" /><input type="hidden" name="redirect" value="${ctx.req.path}" /><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
+  private def blindModeForm(implicit ctx: Context) = raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind) 0 else 1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (ctx.blind) "Disable" else "Enable"} blind mode</button></form>""")
   private val zenToggle = raw("""<a data-icon="E" id="zentog" class="text fbt active">ZEN MODE</a>""")
   private def dasher(me: lila.user.User) = raw(s"""<div class="dasher"><a id="user_tag" class="toggle link">${me.username}</a><div id="dasher_app" class="dropdown"></div></div>""")
 
@@ -135,7 +135,7 @@ object layout {
         moreCss,
         pieceSprite,
         meta(content := openGraph.fold(trans.siteDescription.txt())(o => o.description), name := "description"),
-        link(rel := "mask-icon", href := staticUrl("favicon.svg"), color := "black"),
+        link(rel := "mask-icon", href := staticUrl("logo/lichess.svg"), color := "black"),
         favicons,
         !robots option raw("""<meta content="noindex, nofollow" name="robots">"""),
         noTranslate,

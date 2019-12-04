@@ -78,4 +78,9 @@ final class PrefApi(
       moretime = Pref.Moretime.NEVER,
       insightShare = Pref.InsightShare.EVERYBODY
     ))
+
+  def saveNewUserPrefs(user: User, req: RequestHeader): Funit = {
+    val reqPref = RequestPref fromRequest req
+    (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
+  }
 }

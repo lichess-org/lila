@@ -48,7 +48,7 @@
   <string name="computerAnalysis">Analizë kompjuterike</string>
   <string name="computerAnalysisAvailable">Perdor analizen e kopmjuterit</string>
   <string name="analysis">Analiza</string>
-  <string name="depthX">Thellesia%s </string>
+  <string name="depthX">Thellesia %s</string>
   <string name="usingServerAnalysis">Analiza me server</string>
   <string name="loadingEngine">Duke ngarkuar...</string>
   <string name="cloudAnalysis">Analiza cloud</string>

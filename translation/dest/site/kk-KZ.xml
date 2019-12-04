@@ -59,10 +59,6 @@
   <string name="promoteVariation">Нұсқажолды көтеру</string>
   <string name="makeMainLine">Бас жол жасау</string>
   <string name="deleteFromHere">Мына жерден жою</string>
-  <string name="forceVariation">Ádepki boıynsha, taldaý oıynnyń sońynda ótedi, taldaý jaı ǵana negizgi jelini jalǵastyrady.
-
-
-\"Kúsh varıasıasy\" taldaý oıyn kezinde shyn máninde oınatylǵan qadamdardan erekshelenip, varıasıa retinde (negizgi jalǵasy joq bolǵanyna qaramastan) kórinedi</string>
   <string name="move">Жүру</string>
   <string name="variantLoss">Ұтылыс жолы</string>
   <string name="variantWin">Ұтыс жолы</string>
@@ -160,17 +156,13 @@
   <string name="rankX">Дәреже: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Reıtıń ár mınýt saıyn jańartylady</item>
-    <item quantity="other">Reıtıń ár % s mınýt saıyn jańartylady</item>
+    <item quantity="other">Reıtıń ár %s mınýt saıyn jańartylady</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s basqatyrǵysh</item>
-    <item quantity="other">% s basqatyrǵyshs</item>
+    <item quantity="other">%s basqatyrǵyshs</item>
   </plurals>
   <string name="gamesPlayed">Ойындар ойналған</string>
-  <plurals name="nbGamesWithYou">
-    <item quantity="one">%s sizben oıyn</item>
-    <item quantity="other">senimen oıyndardyń %</item>
-  </plurals>
   <string name="cancel">Жабу</string>
   <string name="timeOut">Уақыт бітті</string>
   <string name="drawOfferSent">Тепе-теңдік ұсынысы жіберілді</string>
@@ -250,34 +242,30 @@
   <string name="tournamentPoints">Týrnır upaılary</string>
   <plurals name="nbTournamentPoints">
     <item quantity="one">%s týrnırlik upaılardan</item>
-    <item quantity="other">% týrnırlik upaılardan</item>
+    <item quantity="other">%s týrnırlik upaılardan</item>
   </plurals>
   <string name="viewTournament">Жарысты қарап шығу</string>
   <string name="backToTournament">Týrnırge oralaıyq</string>
   <string name="thematic">Taqyryptyq</string>
-  <plurals name="moreThanNbRatedGames">
-    <item quantity="one">oıyn reıtıńi bar ≥ %</item>
-    <item quantity="other">≥ % c oıyndar reıtıńi</item>
-  </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1 $ s % 2 $ s reıtıń oıyny</item>
-    <item quantity="other">≥ %1$s % 2 $ s reıtıńtik oıyndar</item>
+    <item quantity="one">≥ %1$s %2$s reıtıń oıyny</item>
+    <item quantity="other">≥ %1$s %2$s reıtıńtik oıyndar</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
-    <item quantity="one">Siz %1$s-da % 2$s artyq oınaýyńyz kerek reıtıń oıyny</item>
-    <item quantity="other">Siz %1$s artyq % 2$s reıtıńtik oıyn oınaý kerek</item>
+    <item quantity="one">Siz %1$s-da %2$s artyq oınaýyńyz kerek reıtıń oıyny</item>
+    <item quantity="other">Siz %1$s artyq %2$s reıtıńtik oıyn oınaý kerek</item>
   </plurals>
   <plurals name="needNbMoreGames">
     <item quantity="one">Siz %s kóp reıtıńtik oıyndy oınaý kerek</item>
-    <item quantity="other">Siz oınaýǵa tıis oınaýǵa % s kóp reıtıńtik oıyndar</item>
+    <item quantity="other">Siz oınaýǵa tıis oınaýǵa %s kóp reıtıńtik oıyndar</item>
   </plurals>
   <string name="yourPerfRatingIsProvisional">Sizdiń %s reıtıńi aldyn ala bolyp tabylady</string>
   <string name="yourPerfRatingIsTooHigh">%1$s (%2$s) reıtıńi tym joǵary</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Sizdiń eń jaqsy aptalyq reıtıńi %1$s (%2$s) tym joǵary</string>
-  <string name="yourPerfRatingIsTooLow">Sizdiń reıtıńi % 1 $ s (%2 $ s) tym tómen</string>
-  <string name="ratedMoreThanInPerf">Reıtıń = %1 $ sin %2 $ s</string>
-  <string name="ratedLessThanInPerf">Nomınaldy ≤ %1 $ sin %2 $ s</string>
-  <string name="mustBeInTeam">%S komandasynda bolý kerek</string>
+  <string name="yourPerfRatingIsTooLow">Sizdiń reıtıńi %1$s (%2$s) tym tómen</string>
+  <string name="ratedMoreThanInPerf">Reıtıń = %1$s sin %2$s</string>
+  <string name="ratedLessThanInPerf">Nomınaldy ≤ %1$s sin %2$s</string>
+  <string name="mustBeInTeam">%s komandasynda bolý kerek</string>
   <string name="youAreNotInTeam">Siz komandada emes %s</string>
   <string name="siteDescription">Тікелей желідегі тегін шахмат сервері. Еш тіркелмей-ақ, плагин қоймай-ақ, жарнама көрмей-ақ қарапайым интерфейс арқылы тап қазір шахмат ойнаңыз. Ойыныңызды компьютермен, досыңызбен әлде кездейсоқ қарсыласпен ойнаңыз.</string>
   <string name="noFriendsOnline">Желіде жостар жоқ</string>
@@ -288,14 +276,14 @@
   </plurals>
   <string name="more">Kóp</string>
   <string name="memberSince">Sodan beri múshesi</string>
-  <string name="lastSeenActive">Belsendi % s</string>
+  <string name="lastSeenActive">Belsendi %s</string>
   <string name="challengeToPlay">Oıynǵa shaqyrý</string>
   <string name="player">ойыншы</string>
   <string name="list">Tizim</string>
   <string name="graph">Dıagram</string>
   <plurals name="lessThanNbMinutes">
-    <item quantity="one">% S mınýttan az</item>
-    <item quantity="other">% S mınýttan az</item>
+    <item quantity="one">%s mınýttan az</item>
+    <item quantity="other">%s mınýttan az</item>
   </plurals>
   <string name="required">Talap etiletin.</string>
   <string name="openTournaments">Ashyq týrnır</string>
@@ -321,7 +309,7 @@
   <string name="createdBy">Qurylady</string>
   <string name="tournamentIsStarting">Týrnır bastaldy</string>
   <string name="tournamentPairingsAreNowClosed">Týrnır juby endi jabyq.</string>
-  <string name="standByX">%S-ǵa daıyndalyńyz, oıynshylardy juptastyrý, daıyndańyz!</string>
+  <string name="standByX">%s-ǵa daıyndalyńyz, oıynshylardy juptastyrý, daıyndańyz!</string>
   <string name="youArePlaying">Sen oınaısyń!</string>
   <string name="winRate">Utys stavkasy</string>
   <string name="berserkRate">Berserka jyldamdyǵy</string>
@@ -331,7 +319,7 @@
   <string name="whiteWins">Aq jeńedi</string>
   <string name="blackWins">Qara utady</string>
   <string name="draws">Ten</string>
-  <string name="nextXTournament">Kelesi %c týrnır:</string>
+  <string name="nextXTournament">Kelesi %s týrnır:</string>
   <string name="viewMoreTournaments">Kóbirek týrnırlerdi kórý</string>
   <string name="averageOpponent">Ortasha qarsylas</string>
   <string name="membersOnly">Tek músheler úshin</string>

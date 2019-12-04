@@ -204,6 +204,7 @@
   <string name="playingRightNow">Jocante ora mesmo</string>
   <string name="eventInProgress">Jocante ora mesmo</string>
   <string name="finished">Finite</string>
+  <string name="finishesX">fini %s</string>
   <string name="abortGame">Cancellar partita</string>
   <string name="gameAborted">Partita cancellate</string>
   <string name="standard">Standard</string>
@@ -343,6 +344,7 @@
   <string name="pasteThePgnStringHere">Colla le notation PGN ci</string>
   <string name="fromPosition">A partir del position</string>
   <string name="continueFromHere">Continuar a partir de iste position</string>
+  <string name="toStudy">Studio</string>
   <string name="importGame">Importar partita</string>
   <string name="importGameExplanation">Quando tu colla un partita in PGN tu potera: revider la interactivemente, consultar un analyse de computator, utilisar le chat de joco, e publicar un ligamine URL.</string>
   <plurals name="nbImportedGames">

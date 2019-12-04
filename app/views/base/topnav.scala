@@ -32,10 +32,10 @@ object topnav {
         ctx.noBot option frag(
           a(href := routes.Learn.index)(trans.chessBasics()),
           a(href := routes.Puzzle.home)(trans.training()),
-          a(href := routes.Practice.index)("Practice"),
+          a(href := routes.Practice.index)(trans.practice()),
           a(href := routes.Coordinate.home)(trans.coordinates.coordinates())
         ),
-        a(href := routes.Study.allDefault(1))("Study"),
+        a(href := routes.Study.allDefault(1))(trans.studyMenu()),
         a(href := routes.Coach.allDefault(1))(trans.coaches())
       )
     ),
@@ -44,8 +44,8 @@ object topnav {
       div(role := "group")(
         a(href := routes.Tv.index)("Lichess TV"),
         a(href := routes.Tv.games)(trans.currentGames()),
-        a(href := routes.Streamer.index())("Streamers"),
-        a(href := routes.Relay.index())("Broadcasts"),
+        a(href := routes.Streamer.index())(trans.streamersMenu()),
+        a(href := routes.Relay.index())(trans.broadcastsMenu()),
         ctx.noBot option a(href := routes.Video.index)(trans.videoLibrary())
       )
     ),

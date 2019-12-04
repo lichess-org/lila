@@ -760,7 +760,7 @@
   <string name="usernameAlreadyUsed">এই ব্যবহারকারীর নাম ইতিমধ্যে ব্যবহার করা হয়েছে, দয়া করে অন্য একটি চেষ্টা করুন.</string>
   <string name="usernamePrefixInvalid">ইউজারনেম অবশ্যই কোন অক্ষর দ্বারা শুরু হতে হবে।</string>
   <string name="usernameSuffixInvalid">ইউজারনেম অবশ্যই কোন অক্ষর বা সংখ্যা দ্বারা শেষ হতে হবে।</string>
-  <string name="usernameCharsInvalid">ইউজারনেমে শুধুমাত্র অক্ষর, নাম্বার, আন্ডারস্কোর এবং হাইফেন থাকতে পারবে। </string>
+  <string name="usernameCharsInvalid">ইউজারনেমে শুধুমাত্র অক্ষর, নাম্বার, আন্ডারস্কোর এবং হাইফেন থাকতে পারবে।</string>
   <string name="usernameUnacceptable">এই ব্যবহারকারী নামটি গ্রহণযোগ্য নয়.</string>
   <string name="directlySupportLichess">সরাসরি লিচাস সমার্থন</string>
   <string name="playChessInStyle">দাবা খেলুন শৈলিতে</string>

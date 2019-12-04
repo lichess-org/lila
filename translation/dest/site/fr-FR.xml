@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Coller le PGN ici</string>
   <string name="fromPosition">Depuis une position</string>
   <string name="continueFromHere">Continuer depuis cette position</string>
+  <string name="toStudy">Étude</string>
   <string name="importGame">Importer une partie</string>
   <string name="importGameExplanation">Quand vous collez une partie en PGN vous pouvez la rejouer, consulter l\'analyse de l\'ordinateur, utiliser le tchat et partager le lien.</string>
   <plurals name="nbImportedGames">
@@ -624,6 +625,8 @@
   <string name="playOfflineComputer">Jouer hors ligne, avec l\'ordinateur</string>
   <string name="opponent">Adversaire</string>
   <string name="learnMenu">Apprendre</string>
+  <string name="studyMenu">Étude</string>
+  <string name="practice">Entraînement</string>
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
@@ -658,6 +661,7 @@
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
   <string name="videoLibrary">Vidéothèque</string>
+  <string name="broadcastsMenu">Diffusion</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
   <string name="about">À propos</string>

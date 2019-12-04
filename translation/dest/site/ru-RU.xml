@@ -31,10 +31,10 @@
   <string name="joinTheGame">Принять вызов</string>
   <string name="whitePlays">Ход белых</string>
   <string name="blackPlays">Ход чёрных</string>
-  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете запросить победу, ничью, или ещё подождать.</string>
+  <string name="opponentLeftChoices">Вероятно, ваш соперник покинул игру. Вы можете объявить победу или ничью, или ещё подождать.</string>
   <string name="makeYourOpponentResign">Сопернику будет засчитано поражение</string>
-  <string name="forceResignation">Запросить победу</string>
-  <string name="forceDraw">Запросить ничью</string>
+  <string name="forceResignation">Объявить победу</string>
+  <string name="forceDraw">Объявить ничью</string>
   <string name="talkInChat">Будьте вежливы в чате!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">С вами сыграет первый, кто перейдёт по этой ссылке.</string>
   <string name="whiteResigned">Белые сдались</string>
@@ -44,7 +44,7 @@
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">Пригласите зрителей с помощью этой ссылки</string>
   <string name="theComputerAnalysisHasFailed">Произошёл сбой</string>
   <string name="viewTheComputerAnalysis">Просмотреть компьютерный анализ</string>
-  <string name="requestAComputerAnalysis">Запросить компьютерный анализ</string>
+  <string name="requestAComputerAnalysis">Выполнить компьютерный анализ</string>
   <string name="computerAnalysis">Компьютерный анализ</string>
   <string name="computerAnalysisAvailable">Доступен компьютерный анализ</string>
   <string name="analysis">Анализировать партию</string>
@@ -158,7 +158,7 @@
   <string name="variants">Варианты</string>
   <string name="timeControl">Контроль времени</string>
   <string name="realTime">По часам</string>
-  <string name="correspondence">Дневная игра</string>
+  <string name="correspondence">Игра по переписке</string>
   <string name="daysPerTurn">Дней на ход</string>
   <string name="oneDay">Один день</string>
   <plurals name="nbDays">
@@ -388,6 +388,7 @@
   <string name="pasteThePgnStringHere">Вставьте текст в формате PGN</string>
   <string name="fromPosition">С позиции</string>
   <string name="continueFromHere">Продолжить с этой позиции</string>
+  <string name="toStudy">Изучать</string>
   <string name="importGame">Импортировать игру</string>
   <string name="importGameExplanation">Вставьте запись игры в формате PGN, и вы получите возможность переигрывать партию, выполнять компьютерный анализ, общаться в чате и делиться ссылкой на эту игру.</string>
   <plurals name="nbImportedGames">
@@ -623,7 +624,7 @@
   <string name="takebacksWithOpponentApproval">Возвраты (с согласия противника)</string>
   <string name="promoteToQueenAutomatically">Пешка превращается в ферзя автоматически</string>
   <string name="claimDrawOnThreefoldRepetitionAutomatically">Автоматически запрашивать ничью при троекратном повторении позиции</string>
-  <string name="privacy">Приватность</string>
+  <string name="privacy">Конфиденциальность</string>
   <string name="letOtherPlayersFollowYou">Разрешить другим игрокам подписываться на вас</string>
   <string name="letOtherPlayersChallengeYou">Разрешить другим игрокам вызывать вас на игру</string>
   <string name="letOtherPlayersInviteYouToStudy">Разрешить другим игрокам приглашать вас в студию</string>
@@ -700,7 +701,7 @@
   <string name="blindfoldChess">Шахматы вслепую (фигуры не видны)</string>
   <string name="zenMode">Режим «Дзен» (только доска и часы)</string>
   <string name="moveConfirmation">Подтвердить ход</string>
-  <string name="inCorrespondenceGames">В дневной игре</string>
+  <string name="inCorrespondenceGames">В игре по переписке</string>
   <string name="ifRatingIsPlusMinusX">Если их рейтинг ± %s</string>
   <string name="onlyFriends">Только друзьям</string>
   <string name="displayBoardResizeHandle">Показывать ручку изменения размера доски</string>
@@ -821,9 +822,9 @@
   <string name="fullFeatured">Максимальная функциональность</string>
   <string name="phoneAndTablet">На телефоне и планшете</string>
   <string name="bulletBlitzClassical">Блиц, Рапид, Классика</string>
-  <string name="correspondenceChess">Дневные шахматы</string>
+  <string name="correspondenceChess">Игра по переписке</string>
   <string name="onlineAndOfflinePlay">Игра онлайн и офлайн</string>
-  <string name="correspondenceAndUnlimited">В дневной и без ограничения времени</string>
+  <string name="correspondenceAndUnlimited">В игре по переписке или без ограничения времени</string>
   <string name="viewTheSolution">Посмотреть решение</string>
   <string name="followAndChallengeFriends">Подписки и игра с друзьями</string>
   <plurals name="availableInNbLanguages">

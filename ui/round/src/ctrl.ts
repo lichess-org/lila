@@ -89,7 +89,7 @@ export default class RoundController {
     if (li.RoundNVUI) this.nvui = li.RoundNVUI(redraw) as NvuiPlugin;
 
     if (d.clock) this.clock = new ClockController(d, {
-      onFlag: () => { this.socket.outoftime(); this.redraw(); },
+      onFlag: this.socket.outoftime,
       soundColor: (d.simul || d.player.spectator || !d.pref.clockSound) ? undefined : d.player.color,
       nvui: !!this.nvui
     });

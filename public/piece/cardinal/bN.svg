@@ -22,10 +22,12 @@
    </cc:Work>
   </rdf:RDF>
  </metadata>
- <path d="m21.65 10.246-2.9994-0.0316s-0.93456-2.8605-3.2448-2.6788c-0.7892 1.2289 0.60623 4.8488 0.60623 4.8488l-1.3826 1.4815s-8.0737 12.394-8.0737 14.686c-0.16536 3.7518 3.4609 4.9739 5.7599 5.7307 2.5111 0.38966 4.0919-3.4784 7.5474-5.7705 3.4473-1.883 4.1354-1.93 6.2136-3.554-2.3604 12.011-9.7345 8.5347-9.1536 18.493h26.494c0.57076-23.847-6.2131-31.938-18.104-33.199-0.051704-1.532 0.24297-4.1795-1.328-3.6451-1.5709 0.53445-2.3351 3.6394-2.3351 3.6394z" fill="url(#linearGradient1841)" fill-rule="evenodd" filter="url(#filter847)" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/>
+ <path d="m21.65 10.246-2.9994-0.0316s-0.93456-2.8605-3.2448-2.6788c-0.7892 1.2289 0.60623 4.8488 0.60623 4.8488v0s-9.4563 13.876-9.4563 16.168c-0.16536 3.7518 3.4609 4.9739 5.7599 5.7307 2.5111 0.38966 4.0919-3.4784 7.5474-5.7705 3.4473-1.883 4.1354-1.93 6.2136-3.554-2.3604 12.011-9.7345 8.5347-9.1536 18.493h26.494c0.57076-23.847-6.2131-31.938-18.104-33.199-0.0517-1.532 0.24297-4.1795-1.328-3.6451-1.5709 0.53445-2.3351 3.6394-2.3351 3.6394z" fill="url(#linearGradient1841)" fill-rule="evenodd" filter="url(#filter847)" stroke="#e6e6e6" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.1"/>
  <path d="m15.761 19.132s0.45736-2.368 3.1068-2.7763" fill="#fff" stroke="#e6e6e6" stroke-linecap="round" stroke-width="1.4"/>
  <ellipse cx="17.799" cy="18.356" rx="1.1506" ry="1.0652" fill="#e6e6e6" style="paint-order:markers fill stroke"/>
- <path d="m11.163 33.134s1.6154-0.93424 2.1373-2.2619" stroke="#e6e6e6" stroke-linecap="round" stroke-width="1.1"/>
- <path d="m25.565 13.032c2.355 0.15014 15.251 0.91814 14.691 27.86" fill="none" stroke="#e6e6e6" stroke-linejoin="round" stroke-width="1.4"/>
- <path d="m9.124 28.879s-5e-3 -0.75792 1.0552-1.1794" fill="#fff" stroke="#e6e6e6" stroke-linecap="round" stroke-width="1.4"/>
+ <g stroke="#e6e6e6">
+  <path d="m11.163 33.134s1.6154-0.93424 2.1373-2.2619" stroke-linecap="round" stroke-width="1.1"/>
+  <path d="m25.565 13.032c2.355 0.15014 15.251 0.91814 14.691 27.86" fill="none" stroke-linejoin="round" stroke-width="1.4"/>
+  <path d="m9.124 28.879s-5e-3 -0.75792 1.0552-1.1794" fill="#fff" stroke-linecap="round" stroke-width="1.4"/>
+ </g>
 </svg>

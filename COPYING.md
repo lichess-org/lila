@@ -60,6 +60,7 @@ public/piece/cardinal | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA
 public/piece/gioco | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/tatiana | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/piece/staunty | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+public/piece/dubrovny | [sadsnake1](https://github.com/sadsnake1) | [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 public/sounds/futuristic | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/nes | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
 public/sounds/piano | [Enigmahack](https://github.com/Enigmahack) | AGPLv3+
@@ -70,6 +71,7 @@ Exceptions (non-free)
 
 Files | Author(s) | License
 --- | --- | ---
+public/logo, public/favicon.ico, public/apple-touch-icon.png | [sadsnake1](https://github.com/sadsnake1) | Only use to refer to lichess.org
 public/piece/alpha | Eric Bentzen | "free for personal non commercial use" (see [zip](http://www.enpassant.dk/chess/downl/alpha.zip))
 public/piece/chess7 | [Style-7](http://www.styleseven.com/) | "freeware"
 public/piece/companion | David L. Brown | ["freeware"](http://www.enpassant.dk/chess/fonteng.htm#GC)

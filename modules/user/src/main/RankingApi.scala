@@ -30,7 +30,7 @@ final class RankingApi(
       "perf" -> perfType.id,
       "rating" -> perf.intRating,
       "prog" -> perf.progress,
-      "stable" -> perf.rankable,
+      "stable" -> perf.rankable(PerfType variantOf perfType),
       "expiresAt" -> DateTime.now.plusDays(7)
     ),
       upsert = true).void

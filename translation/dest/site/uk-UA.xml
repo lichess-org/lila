@@ -561,6 +561,9 @@
   <string name="xCommentedY">%1$s має коментар на %2$s</string>
   <string name="victory">Перемога</string>
   <string name="defeat">Поразка</string>
+  <string name="victoryVsYInZ">%1$s проти %2$s в %3$s</string>
+  <string name="defeatVsYInZ">%1$s проти %2$s в %3$s</string>
+  <string name="drawVsYInZ">%1$s проти %2$s в %3$s</string>
   <string name="timeline">Смуга подій</string>
   <string name="starting">Початок:</string>
   <string name="allInformationIsPublicAndOptional">Уся інформація публічна та необов\'язкова.</string>
@@ -661,6 +664,7 @@
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Ви кращі від %1$s із %2$s гравців.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Ваш рейтинґ %s ще не визначений.</string>
   <string name="yourRating">Ваш рейтинг</string>
+  <string name="cumulative">Кумулятивний</string>
   <string name="glicko2Rating">Рейтинг Glicko-2</string>
   <string name="checkYourEmail">Перевірити пошту</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Ми надіслали вам листа. Перейдіть за посиланням у листі для активації облікового запису.</string>
@@ -804,9 +808,23 @@
   <string name="noConditionalPremoves">Безумовні передходи</string>
   <string name="playX">Зіграти %s</string>
   <string name="sorry">Вибачте :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Нам довелося тебе деавторизувати на певний час.</string>
+  <string name="timeoutExpires">Тайм-аут закінчується через %s.</string>
   <string name="why">Чому?</string>
+  <string name="pleasantChessExperience">Ми прагнемо надати приємний досвід гри в шахи всім.</string>
+  <string name="goodPractice">Щоб домігтися цього ефекту, ми повинні впевнитися, що всі гравці дотримуються хорошої практики.</string>
   <string name="potentialProblem">Це повідомлення відображається якщо ми знайшли потенційну проблему.</string>
   <string name="howToAvoidThis">Як запобігти цьому?</string>
+  <string name="playEveryGame">Доводьте кожну гру, в яку ви починали грати, до кінця.</string>
+  <string name="tryToWin">Спробуйте виграти (чи принаймні звести до нічиї) кожну гру, яку ви граєте.</string>
+  <string name="resignLostGames">Здайтеся в програшних іграх (не треба чекати кінця таймера).</string>
+  <string name="temporaryInconvenience">Ми вибачаємося за тимчасові незручності,</string>
+  <string name="wishYouGreatGames">і бажаємо чудових ігор на lichess.org.</string>
+  <string name="thankYouForReading">Дякуємо, що прочитали!</string>
   <string name="lifetimeScore">Загальний результат</string>
+  <string name="currentMatchScore">Поточний рахунок матчу</string>
   <string name="agreementAssistance">Я погоджуюся, що не буду отримувати допомогу під час моїх ігор (від шахового комп\'ютера, книги, бази даних або іншої особи).</string>
+  <string name="agreementNice">Погоджуся, що я завжди буду ставитись поважно до інших гравців.</string>
+  <string name="agreementAccount">Я згоден, що не створюватиму кількох облікових записів.</string>
+  <string name="agreementPolicy">Я згоден, що буду слідувати всій політиці Lichess.</string>
 </resources>

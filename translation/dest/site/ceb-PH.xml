@@ -59,6 +59,7 @@
   <string name="promoteVariation">Ipataas ang ranggo sa pagkalain-lain</string>
   <string name="makeMainLine">Maghimo ug unang linya</string>
   <string name="deleteFromHere">Tanggala gikan diri</string>
+  <string name="forceVariation">Pag-usab sa kusog</string>
   <string name="move">Lihok</string>
   <string name="variantLoss">Lahi-lahing pagkapildi</string>
   <string name="variantWin">Lahi-lahing pagkapildi</string>
@@ -79,6 +80,10 @@
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Namate sa %s tunga nga lihok</item>
     <item quantity="other">Namate sa %s tunga nga mga lihok</item>
+  </plurals>
+  <plurals name="nextCaptureOrPawnMoveInXHalfMoves">
+    <item quantity="one">Sunod nga pagdakup o paglihok sa lakang sa %s tunga sa paglihok (Distansya Ngadto sa Zeroing sa 50 ka lakang sa pagbalhin)</item>
+    <item quantity="other">Sunod nga pagdakup o paglihok sa lakang sa %s tunga-tunga nga paglihok (Distansya Ngadto sa Zeroing sa 50 move counter)</item>
   </plurals>
   <string name="noGameFound">Walay makita nga duwa</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Pwedeng mag-apil ug mga duwa gikan sa gustong menu?</string>
@@ -112,6 +117,7 @@
   <string name="flipBoard">Baliha ang board</string>
   <string name="threefoldRepetition">Katulo nga pagbali-bali</string>
   <string name="claimADraw">Kuhaa nga tabla</string>
+  <string name="offerDraw">tanyag draw</string>
   <string name="players">Mga manuwaay</string>
   <string name="minutesPerSide">Minuto kada side</string>
   <string name="variant">Nagkalahi-lahi</string>

@@ -388,6 +388,7 @@
   <string name="pasteThePgnStringHere">Poniżej wklej partię w formacie PGN</string>
   <string name="fromPosition">Z pozycji</string>
   <string name="continueFromHere">Kontynuuj z tej pozycji</string>
+  <string name="toStudy">Opracowanie</string>
   <string name="importGame">Importuj partię</string>
   <string name="importGameExplanation">Wklejenie zapisu partii daje możliwość jej odtworzenia, analizy komputerowej, rozmowy i udostępnienia.</string>
   <plurals name="nbImportedGames">
@@ -684,6 +685,8 @@
   <string name="playOfflineComputer">Z komputerem</string>
   <string name="opponent">Przeciwnik</string>
   <string name="learnMenu">Nauka</string>
+  <string name="studyMenu">Opracowanie</string>
+  <string name="practice">Ćwiczenia</string>
   <string name="community">Społeczność</string>
   <string name="tools">Narzędzia</string>
   <string name="increment">Czas dodawany</string>
@@ -720,6 +723,8 @@
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="videoLibrary">Wideoteka</string>
+  <string name="streamersMenu">Transmitujący</string>
+  <string name="broadcastsMenu">Transmisje</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>
   <string name="about">Informacje o</string>
