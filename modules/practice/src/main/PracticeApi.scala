@@ -81,7 +81,7 @@ final class PracticeApi(
       coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
 
     private def save(p: PracticeProgress): Funit =
-      coll.update($id(p.id), p, upsert = true).void
+      coll.update.one($id(p.id), p, upsert = true).void
 
     def setNbMoves(user: User, chapterId: Chapter.Id, score: NbMoves) = {
       get(user) flatMap { prog =>
@@ -94,6 +94,6 @@ final class PracticeApi(
     }
 
     def reset(user: User) =
-      coll.remove($id(user.id)).void
+      coll.delete.one($id(user.id)).void
   }
 }

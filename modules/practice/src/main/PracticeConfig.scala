@@ -1,6 +1,8 @@
 package lila.practice
 
+import io.methvin.play.autoconfig._
 import lila.study.Study
+import lila.common.config._
 
 case class PracticeConfig(
     sections: List[PracticeConfigSection]
@@ -11,6 +13,11 @@ case class PracticeConfig(
 
 object PracticeConfig {
   val empty = PracticeConfig(Nil)
+
+  private implicit val studyLoader = AutoConfig.loader[PracticeConfigStudy]
+  private implicit val studiesLoader = listLoader[List[PracticeConfigStudy]]
+  private implicit val sectionLoader = AutoConfig.loader[PracticeConfigSection]
+  implicit val loader = AutoConfig.loader[PracticeConfig]
 }
 
 case class PracticeConfigSection(

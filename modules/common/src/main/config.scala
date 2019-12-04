@@ -42,8 +42,11 @@ object config {
   implicit val domainLoader = strLoader(Domain.unsafe)
   implicit val netLoader = AutoConfig.loader[NetConfig]
 
-  implicit val listLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>
+  implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>
     c.getStringList(k).asScala.toList
+  }
+  implicit def listLoader[A](implicit l: ConfigLoader[A]): ConfigLoader[List[A]] = ConfigLoader { c => k =>
+    c.getConfigList(k).asScala.toList map { l.load(_) }
   }
 
   def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
