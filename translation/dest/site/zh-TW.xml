@@ -83,7 +83,7 @@
   <string name="offerDraw">提出和棋</string>
   <string name="draw">和棋</string>
   <plurals name="nbPlayers">
-    <item quantity="other">在線棋手%s位</item>
+    <item quantity="other">%s位棋手目前在線</item>
   </plurals>
   <string name="currentGames">當前對局</string>
   <plurals name="nbGames">
@@ -327,8 +327,8 @@
   <string name="biography">個人簡介</string>
   <string name="country">國家</string>
   <string name="preferences">偏好設置</string>
-  <string name="watchLichessTV">觀看Lichess直播</string>
-  <string name="previouslyOnLichessTV">過去的Lichess直播</string>
+  <string name="watchLichessTV">觀看Lichess TV</string>
+  <string name="previouslyOnLichessTV">過去的Lichess TV直播</string>
   <string name="onlinePlayers">在線棋手</string>
   <string name="activeToday">本日活躍棋手</string>
   <string name="activePlayers">活躍棋手</string>
@@ -345,19 +345,19 @@
   <string name="goodMove">好棋</string>
   <string name="butYouCanDoBetter">您還可以做得更好。</string>
   <string name="bestMove">最佳着法！</string>
-  <string name="keepGoing">继续……</string>
-  <string name="puzzleFailed">解题失败</string>
+  <string name="keepGoing">繼續…</string>
+  <string name="puzzleFailed">解題失敗</string>
   <string name="butYouCanKeepTrying">但您可以繼續嘗試。</string>
   <string name="wasThisPuzzleAnyGood">这道题目好不好？</string>
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票，帮助Lichess改进：</string>
   <string name="thankYou">謝謝！</string>
-  <string name="ratingX">评级：%s</string>
+  <string name="ratingX">評級：%s</string>
   <string name="hidden">隱藏</string>
   <plurals name="playedXTimes">
-    <item quantity="other">已被尝试%s次</item>
+    <item quantity="other">已被嘗試%s次</item>
   </plurals>
   <string name="fromGameLink">来自对局%s</string>
-  <string name="continueTraining">继续训练</string>
+  <string name="continueTraining">繼續訓練</string>
   <string name="retryThisPuzzle">重试本题</string>
   <string name="thisPuzzleIsCorrect">本题正确有趣</string>
   <string name="thisPuzzleIsWrong">本题错误无味</string>
@@ -507,7 +507,7 @@
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">觀看對局直播</string>
-  <string name="tpTimeSpentOnTV">花在Lichess觀看直播的時間：%s</string>
+  <string name="tpTimeSpentOnTV">花在Lichess TV觀看直播的時間：%s</string>
   <string name="watch">觀看</string>
   <string name="videoLibrary">视频库</string>
   <string name="streamersMenu">實況主</string>
