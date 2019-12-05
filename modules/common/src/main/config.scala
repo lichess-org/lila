@@ -31,7 +31,6 @@ object config {
       domain: NetDomain,
       protocol: String,
       @ConfigName("base_url") baseUrl: BaseUrl,
-      port: Int,
       @ConfigName("asset.domain") assetDomain: AssetDomain,
       @ConfigName("socket.domain") socketDomain: String,
       crawlable: Boolean,
@@ -57,7 +56,11 @@ object config {
     c.getConfigList(k).asScala.toList map { l.load(_) }
   }
 
-  def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
+  def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(c => s => {
+    println(c)
+    println(s"{$s}")
+    c.getString(s)
+  }) map f
   def intLoader[A](f: Int => A): ConfigLoader[A] = ConfigLoader(_.getInt) map f
   def durationLoader[A](f: FiniteDuration => A): ConfigLoader[A] = ConfigLoader(_.duration) map f
 }

@@ -12,14 +12,14 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
 
-  val siteDomain = env.net.domain
-  val assetDomain = env.net.assetDomain
-  val socketDomain = env.net.socketDomain
-  val vapidPublicKey = env.push.vapidPublicKey
+  def netDomain: lila.common.config.NetDomain
+  lazy val assetDomain = env.net.assetDomain
+  lazy val socketDomain = env.net.socketDomain
+  lazy val vapidPublicKey = env.push.vapidPublicKey
 
-  val sameAssetDomain = siteDomain.value == assetDomain.value
+  lazy val sameAssetDomain = netDomain.value == assetDomain.value
 
-  val assetBaseUrl = s"//$assetDomain"
+  lazy val assetBaseUrl = s"//$assetDomain"
 
   def assetVersion = AssetVersion.current
 
@@ -53,7 +53,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     src := assetUrl(path)
   )
 
-  val jQueryTag = raw {
+  lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
@@ -67,23 +67,23 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def captchaTag = jsAt(s"compiled/captcha.js")
 
-  val highchartsLatestTag = raw {
+  lazy val highchartsLatestTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
   }
 
-  val highchartsMoreTag = raw {
+  lazy val highchartsMoreTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
-  val fingerprintTag = raw {
+  lazy val fingerprintTag = raw {
     s"""<script async src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
   }
 
-  val flatpickrTag = raw {
+  lazy val flatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
-  val nonAsyncFlatpickrTag = raw {
+  lazy val nonAsyncFlatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
@@ -91,7 +91,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
   }
 
-  val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+  lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
 
   def prismicJs(implicit ctx: Context): Frag = raw {
     isGranted(_.Prismic) ?? {

@@ -12,7 +12,10 @@ final class Env(
     appConfig: Configuration,
     ws: WSClient
 ) {
-
+  appConfig.underlying.getString("net.asset.domain")
+  val c = appConfig.underlying.getConfig("net")
+  println(c)
+  println(c getString "asset.domain")
   val netConfig = appConfig.get[NetConfig]("net")
   def netDomain = netConfig.domain
 

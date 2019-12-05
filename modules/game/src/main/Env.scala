@@ -15,7 +15,7 @@ private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
-    @ConfigName("paginator.maxPerPage") val paginatorMaxPerPage: MaxPerPage,
+    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
     val uciMemoTtl: FiniteDuration,

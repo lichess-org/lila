@@ -6,13 +6,12 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.common.tagging._
 import lila.hub.actorApi.bookmark._
 
 @Module
 private final class BookmarkConfig(
     @ConfigName("collection.bookmark") val bookmarkCollName: CollName,
-    @ConfigName("paginator.maxPerPage") val paginatorMaxPerPage: MaxPerPage,
+    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
 )
 

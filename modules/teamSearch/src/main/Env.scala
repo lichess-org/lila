@@ -11,7 +11,6 @@ import lila.search._
 @Module
 private class TeamSearchConfig(
     @ConfigName("index.name") val indexName: String,
-    @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
 )
 
@@ -22,6 +21,8 @@ final class Env(
 )(implicit system: ActorSystem) {
 
   private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
+
+  private val maxPerPage = MaxPerPage(15)
 
   private lazy val client = makeClient(Index(config.indexName))
 

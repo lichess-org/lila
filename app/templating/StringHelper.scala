@@ -6,8 +6,6 @@ import ui.ScalatagsTemplate._
 
 trait StringHelper { self: NumberHelper =>
 
-  def netDomain: String
-
   val slugify = lila.common.String.slugify _
 
   def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)

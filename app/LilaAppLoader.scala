@@ -24,7 +24,11 @@ class LilaComponents(ctx: Context) extends BuiltInComponentsFromContext(ctx)
 
   implicit def system = actorSystem
   implicit def ws = wsClient
-  def cookieBacker: SessionCookieBaker = injector.instanceOf[SessionCookieBaker]
+  def cookieBacker: SessionCookieBaker = new DefaultSessionCookieBaker(
+    httpConfiguration.session,
+    httpConfiguration.secret,
+    new libs.crypto.CookieSignerProvider(httpConfiguration.secret).get
+  )
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env = boot.env

@@ -1,7 +1,6 @@
 package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
-import scala.math.Ordering.Float.TotalOrdering
 
 import lila.db.dsl._
 import lila.game.LightPov
