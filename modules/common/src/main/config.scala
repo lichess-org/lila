@@ -15,7 +15,7 @@ object config {
 
   case class BaseUrl(value: String) extends AnyVal with StringValue
 
-  case class AppPath(value: String) extends AnyVal with StringValue
+  case class AppPath(value: java.io.File) extends AnyVal
 
   case class Max(value: Int) extends AnyVal with IntValue with Ordered[Int] {
     def compare(other: Int) = Integer.compare(value, other)
@@ -43,7 +43,6 @@ object config {
   implicit val secretLoader = strLoader(Secret.apply)
   implicit val baseUrlLoader = strLoader(BaseUrl.apply)
   implicit val emailAddressLoader = strLoader(EmailAddress.apply)
-  implicit val appPathLoader = strLoader(AppPath.apply)
   implicit val domainLoader = strLoader(Domain.unsafe)
   implicit val netLoader = AutoConfig.loader[NetConfig]
 

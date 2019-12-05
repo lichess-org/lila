@@ -6,6 +6,7 @@ import scala.concurrent.duration._
 
 case class InternalEndpoint(value: String) extends AnyVal with StringValue
 
+@Module
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,

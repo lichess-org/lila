@@ -12,7 +12,7 @@ import lila.user.User
 
 private final class Streaming(
     ws: WSClient,
-    renderer: ActorSelection,
+    renderer: lila.hub.actors.Renderer,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
     timeline: lila.hub.actors.Timeline,
@@ -63,7 +63,7 @@ private final class Streaming(
     import makeTimeout.short
     import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
+      renderer.actor ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: String =>
           Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), "streams")
       }

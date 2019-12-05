@@ -30,7 +30,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    isOnline: lila.user.IsOnline,
+    isOnline: lila.socket.IsOnline,
     proxyRepo: lila.round.GameProxyRepo,
     flood: lila.security.Flood,
     renderer: lila.hub.actors.Renderer,

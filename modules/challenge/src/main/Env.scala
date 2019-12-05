@@ -18,7 +18,7 @@ final class Env(
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached,
     lightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.user.IsOnline,
+    isOnline: lila.socket.IsOnline,
     db: lila.db.Env,
     asyncCache: lila.memo.AsyncCache.Builder,
     prefApi: lila.pref.PrefApi,

@@ -1,6 +1,7 @@
 package lila.slack
 
 import org.joda.time.DateTime
+import play.api.Mode
 
 import lila.common.{ LightUser, IpAddress, EmailAddress }
 import lila.hub.actorApi.slack._
@@ -8,7 +9,7 @@ import lila.user.User
 
 final class SlackApi(
     client: SlackClient,
-    isProd: Boolean,
+    mode: Mode,
     implicit val lightUser: LightUser.Getter
 ) {
 
@@ -150,6 +151,7 @@ final class SlackApi(
       channel = rooms.devNoise
     ))
 
+  private val isProd = mode == Mode.Prod
   private def link(url: String, name: String) = s"<$url|$name>"
   private def lichessLink(path: String, name: String) = s"<https://lichess.org$path|$name>"
   private def userLink(name: String): String = lichessLink(s"/@/$name?mod", name)

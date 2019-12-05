@@ -2,6 +2,7 @@ package lila.importer
 
 import com.softwaremill.macwire._
 
+@Module
 final class Env(
     gameRepo: lila.game.GameRepo,
     scheduler: akka.actor.Scheduler

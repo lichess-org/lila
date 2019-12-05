@@ -10,6 +10,7 @@ import lila.common.config.CollName
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.socket.Socket.Sri
 
+@Module
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,

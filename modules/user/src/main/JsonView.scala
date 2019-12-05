@@ -5,7 +5,7 @@ import play.api.libs.json._
 import play.api.libs.json.JodaWrites._
 import User.{ PlayTime, LightPerf }
 
-final class JsonView(isOnline: User.ID => Boolean) {
+final class JsonView(isOnline: lila.socket.IsOnline) {
 
   import JsonView._
   private implicit val profileWrites = Json.writes[Profile]

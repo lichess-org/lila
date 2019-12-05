@@ -1,35 +1,31 @@
 package lila.slack
 
 import akka.actor._
+import com.softwaremill.macwire._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
 
+import lila.common.config._
 import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.slack.Event
 import lila.hub.actorApi.user.Note
 import lila.hub.actorApi.{ DeployPre, DeployPost }
 
+@Module
 final class Env(
     appConfig: Configuration,
     getLightUser: lila.common.LightUser.Getter,
+    net: NetConfig,
+    mode: play.api.Mode,
     ws: WSClient,
     system: ActorSystem
 ) {
 
-  private val config = appConfig.get[Configuration]("slack")
-  private val IncomingUrl = config.get[String]("incoming.url")
-  private val IncomingDefaultChannel = config.get[String]("incoming.default_channel")
-  private val NetDomain = config.get[String]("domain")
+  private val incomingUrl = appConfig.get[Secret]("slack.incoming.url")
 
-  private val isProd = NetDomain == "lichess.org"
+  private lazy val client = wire[SlackClient]
 
-  lazy val api = new SlackApi(client, isProd, getLightUser)
-
-  private lazy val client = new SlackClient(
-    ws = ws,
-    url = IncomingUrl,
-    defaultChannel = IncomingDefaultChannel
-  )
+  lazy val api: SlackApi = wire[SlackApi]
 
   lila.common.Bus.subscribeFun("deploy", "slack", "plan", "userNote") {
     case d: ChargeEvent => api charge d

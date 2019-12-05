@@ -4,6 +4,7 @@ import com.softwaremill.macwire._
 
 import lila.game.{ Game, Pov }
 
+@Module
 final class Env(
     chatApi: lila.chat.ChatApi,
     gameRepo: lila.game.GameRepo,

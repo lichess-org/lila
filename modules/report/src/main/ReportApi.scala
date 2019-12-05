@@ -17,7 +17,7 @@ final class ReportApi(
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
     slackApi: lila.slack.SlackApi,
-    isOnline: User.ID => Boolean,
+    isOnline: lila.socket.IsOnline,
     asyncCache: lila.memo.AsyncCache.Builder,
     thresholds: Thresholds
 ) {

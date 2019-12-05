@@ -5,6 +5,7 @@ import play.api.Configuration
 
 import lila.common.config._
 
+@Module
 final class Env(
     appConfig: Configuration,
     configStoreApi: lila.memo.ConfigStore.Builder,

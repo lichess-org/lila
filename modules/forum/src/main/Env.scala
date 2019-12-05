@@ -40,7 +40,7 @@ final class Env(
 
   lazy val categRepo = new CategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
-  private lazy val postColl = new PostRepo(db(CollName("f_post")))
+  lazy val postRepo = new PostRepo(db(CollName("f_post")))
 
   lazy val categApi: CategApi = wire[CategApi]
 

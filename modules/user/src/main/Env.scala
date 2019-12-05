@@ -8,6 +8,7 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
+import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(
@@ -27,8 +28,9 @@ final class Env(
     db: lila.db.Env,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
-    timeline: ActorSelection,
-    onlineUserIds: () => Set[User.ID]
+    timeline: lila.hub.actors.Timeline,
+    isOnline: lila.socket.IsOnline,
+    onlineIds: lila.socket.OnlineIds
 )(implicit system: ActorSystem, ws: WSClient) {
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
@@ -38,8 +40,7 @@ final class Env(
   val lightUserApi: LightUserApi = wire[LightUserApi]
   val lightUser = lightUserApi.async
   val lightUserSync = lightUserApi.sync
-
-  val isOnline = new IsOnline(userId => onlineUserIds() contains userId)
+  val isBotSync = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
 
   lazy val botIds = new GetBotIds(() => cached.botIds.get)
 

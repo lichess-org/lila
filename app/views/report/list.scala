@@ -82,7 +82,7 @@ object list {
                           ),
                           p(cls := List(
                             "text" -> true,
-                            "large" -> (atom.text.size > 100 || atom.text.lines.size > 3)
+                            "large" -> (atom.text.size > 100 || atom.text.linesIterator.size > 3)
                           ))(shorten(atom.text, 200))
                         )
                       },

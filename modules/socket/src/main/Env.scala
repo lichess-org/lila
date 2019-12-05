@@ -4,6 +4,7 @@ import com.softwaremill.macwire._
 import io.lettuce.core._
 import play.api.Configuration
 
+@Module
 final class Env(
     appConfig: Configuration,
     lifecycle: play.api.inject.ApplicationLifecycle,
@@ -14,11 +15,11 @@ final class Env(
 
   private val redisClient = RedisClient create RedisURI.create(RedisUri)
 
-  val remoteSocket = wire[RemoteSocket]
+  val remoteSocket: RemoteSocket = wire[RemoteSocket]
 
   remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
-  val onlineUserIds: () => Set[String] = () => remoteSocket.onlineUserIds.get
+  val onlineIds = new OnlineIds(() => remoteSocket.onlineUserIds.get)
 
-  val isOnline: String => Boolean = userId => onlineUserIds() contains userId
+  val isOnline = new IsOnline(userId => onlineIds() contains userId)
 }

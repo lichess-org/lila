@@ -12,7 +12,10 @@ import lila.tournament.{ TourMiniView, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
 
-final class Round(env: Env) extends LilaController(env) with TheftPrevention {
+final class Round(
+    env: Env,
+    gameC: Game
+) extends LilaController(env) with TheftPrevention {
 
   private def analyser = env.analyse.analyser
 
@@ -21,7 +24,7 @@ final class Round(env: Env) extends LilaController(env) with TheftPrevention {
     else PreventTheft(pov) {
       pov.game.playableByAi ?? env.fishnet.player(pov.game)
       myTour(pov.game.tournamentId, true) flatMap { tour =>
-        Game.preloadUsers(pov.game) zip
+        gameC.preloadUsers(pov.game) zip
           (pov.game.simulId ?? env.simul.repo.find) zip
           getPlayerChat(pov.game, tour.map(_.tour)) zip
           (ctx.noBlind ?? env.game.crosstableApi.withMatchup(pov.game)) zip // probably what raises page mean time?
@@ -44,7 +47,7 @@ final class Round(env: Env) extends LilaController(env) with TheftPrevention {
       if (isTheft(pov)) fuccess(theftResponse)
       else {
         pov.game.playableByAi ?? env.fishnet.player(pov.game)
-        Game.preloadUsers(pov.game) zip
+        gameC.preloadUsers(pov.game) zip
           env.api.roundApi.player(pov, apiVersion) zip
           getPlayerChat(pov.game, none) map {
             case _ ~ data ~ chat => Ok {
@@ -56,14 +59,14 @@ final class Round(env: Env) extends LilaController(env) with TheftPrevention {
   ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(env.proxy.pov(fullId)) { pov =>
+    OptionFuResult(env.proxyRepo.pov(fullId)) { pov =>
       env.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
   }
 
   private def otherPovs(game: GameModel)(implicit ctx: Context) = ctx.me ?? { user =>
-    env.round.proxy urgentGames user map {
+    env.round.proxyRepo urgentGames user map {
       _ filter { pov =>
         pov.gameId != game.id && pov.game.isSwitchable && pov.game.isSimul == game.isSimul
       }
@@ -76,7 +79,7 @@ final class Round(env: Env) extends LilaController(env) with TheftPrevention {
     }
 
   def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(env.proxy.pov(fullId)) { currentPov =>
+    OptionFuResult(env.proxyRepo.pov(fullId)) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
         Ok(Json.obj("nope" -> true))
       }
@@ -87,7 +90,7 @@ final class Round(env: Env) extends LilaController(env) with TheftPrevention {
   }
 
   def next(gameId: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.proxy game gameId) { currentGame =>
+    OptionFuResult(env.proxyRepo game gameId) { currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {

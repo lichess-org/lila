@@ -14,16 +14,17 @@ private class MessageConfig(
     @ConfigName("thread.max_per_page") val threadMaxPerPage: MaxPerPage
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
-    shutup: ActorSelection,
+    shutup: lila.hub.actors.Shutup,
     notifyApi: lila.notify.NotifyApi,
     relationApi: lila.relation.RelationApi,
     userRepo: UserRepo,
-    getPref: User.ID => Fu[lila.pref.Pref],
+    prefApi: lila.pref.PrefApi,
     spam: lila.security.Spam,
-    isOnline: lila.user.User.ID => Boolean,
+    isOnline: lila.socket.IsOnline,
     lightUser: lila.common.LightUser.GetterSync
 )(implicit system: ActorSystem) {
 

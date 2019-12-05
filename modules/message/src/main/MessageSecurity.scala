@@ -7,7 +7,7 @@ import lila.user.User
 
 private[message] final class MessageSecurity(
     relationApi: lila.relation.RelationApi,
-    getPref: User.ID => Fu[lila.pref.Pref],
+    prefApi: lila.pref.PrefApi,
     spam: lila.security.Spam
 ) {
 
@@ -16,7 +16,7 @@ private[message] final class MessageSecurity(
   def canMessage(from: User.ID, to: User.ID): Fu[Boolean] =
     relationApi.fetchBlocks(to, from) flatMap {
       case true => fuFalse
-      case false => getPref(to).map(_.message) flatMap {
+      case false => prefApi.getPref(to).dmap(_.message) flatMap {
         case NEVER => fuFalse
         case FRIEND => relationApi.fetchFollows(to, from)
         case ALWAYS => fuTrue

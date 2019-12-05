@@ -1,6 +1,6 @@
 package lila.puzzle
 
-import akka.actor.{ ActorSelection, ActorSystem }
+import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import scala.concurrent.duration.FiniteDuration
@@ -23,7 +23,7 @@ private class CoachConfig(
 
 final class Env(
     appConfig: Configuration,
-    renderer: ActorSelection,
+    renderer: lila.hub.actors.Renderer,
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,

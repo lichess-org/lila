@@ -20,7 +20,7 @@ final class SeekApi(
   private object ForUser extends CacheKey
 
   private def allCursor =
-    coll.find($empty)
+    coll.ext.find($empty)
       .sort($doc("createdAt" -> -1))
       .cursor[Seek]()
 
@@ -63,42 +63,42 @@ final class SeekApi(
     }._1.reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.find($id(id)).uno[Seek]
+    coll.ext.find($id(id)).uno[Seek]
 
-  def insert(seek: Seek) = coll.insert(seek) >> findByUser(seek.user.id).flatMap {
+  def insert(seek: Seek) = coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if maxPerUser >= seeks.size => funit
     case seeks => seeks.drop(maxPerUser.value).map(remove).sequenceFu
   }.void >>- cacheClear
 
   def findByUser(userId: String): Fu[List[Seek]] =
-    coll.find($doc("user.id" -> userId))
+    coll.ext.find($doc("user.id" -> userId))
       .sort($doc("createdAt" -> -1))
       .cursor[Seek]().gather[List]()
 
   def remove(seek: Seek) =
-    coll.remove($doc("_id" -> seek.id)).void >>- cacheClear
+    coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear
 
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.writeTry(seek).get ++ $doc(
       "gameId" -> gameId,
       "archivedAt" -> DateTime.now
     )
-    coll.remove($doc("_id" -> seek.id)).void >>-
+    coll.delete.one($doc("_id" -> seek.id)).void >>-
       cacheClear >>
-      archiveColl.insert(archiveDoc)
+      archiveColl.insert.one(archiveDoc)
   }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
-    archiveColl.find($doc("gameId" -> gameId)).uno[Seek]
+    archiveColl.ext.find($doc("gameId" -> gameId)).uno[Seek]
 
   def removeBy(seekId: String, userId: String) =
-    coll.remove($doc(
+    coll.delete.one($doc(
       "_id" -> seekId,
       "user.id" -> userId
     )).void >>- cacheClear
 
   def removeByUser(user: User) =
-    coll.remove($doc("user.id" -> user.id)).void >>- cacheClear
+    coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear
 }
 
 private object SeekApi {

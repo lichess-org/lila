@@ -19,10 +19,11 @@ private class CoachConfig(
 
 private case class Thresholds(score: () => Int, slack: () => Int)
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
-    isOnline: lila.user.User.ID => Boolean,
+    isOnline: lila.socket.IsOnline,
     noteApi: lila.user.NoteApi,
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
@@ -40,13 +41,13 @@ final class Env(
 
   private lazy val reportColl = db(config.reportColl)
 
-  val scoreThresholdSetting = settingStore[Int](
+  lazy val scoreThresholdSetting = settingStore[Int](
     "reportScoreThreshold",
     default = config.scoreThreshold,
     text = "Report score threshold. Reports with lower scores are concealed to moderators".some
   )
 
-  val slackScoreThresholdSetting = settingStore[Int](
+  lazy val slackScoreThresholdSetting = settingStore[Int](
     "slackScoreThreshold",
     default = 80,
     text = "Slack score threshold. Comm reports with higher scores are notified in slack".some

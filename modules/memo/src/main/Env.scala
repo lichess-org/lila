@@ -12,6 +12,7 @@ case class MemoConfig(
     @ConfigName("collection.config") configColl: CollName
 )
 
+@Module
 final class Env(appConfig: Configuration, db: lila.db.Env)(implicit system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)

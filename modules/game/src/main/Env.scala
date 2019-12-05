@@ -41,6 +41,8 @@ final class Env(
 
   lazy val gameRepo = new GameRepo(db(config.gameColl))
 
+  lazy val idGenerator = wire[IdGenerator]
+
   lazy val pngExport = new PngExport(ws, config.pngUrl, config.pngSize)
 
   lazy val divider = wire[Divider]

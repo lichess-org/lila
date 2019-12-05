@@ -11,8 +11,8 @@ final class ShutupApi(
     coll: Coll,
     gameRepo: GameRepo,
     userRepo: UserRepo,
-    follows: (User.ID, User.ID) => Fu[Boolean],
-    reporter: akka.actor.ActorSelection
+    relationApi: lila.relation.RelationApi,
+    reporter: lila.hub.actors.Report
 ) {
 
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
@@ -48,7 +48,7 @@ final class ShutupApi(
   ): Funit =
     userRepo isTroll userId flatMap {
       case true => funit
-      case false => toUserId ?? { follows(_, userId) } flatMap {
+      case false => toUserId ?? { relationApi.fetchFollows(_, userId) } flatMap {
         case true => funit
         case false =>
           val analysed = Analyser(text)

@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo, Title, LightUserApi }
 final class ModApi(
     userRepo: UserRepo,
     logApi: ModlogApi,
-    userSpy: User => Fu[UserSpy],
+    userSpyApi: lila.security.UserSpyApi,
     firewall: Firewall,
     reportApi: lila.report.ReportApi,
     reporter: lila.hub.actors.Report,
@@ -83,7 +83,7 @@ final class ModApi(
   }
 
   def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit = for {
-    spy <- userSpy(prev.user)
+    spy <- userSpyApi(prev.user)
     sus = prev.set(_.copy(ipBan = value))
     _ <- userRepo.setIpBan(sus.user.id, sus.user.ipBan)
     _ <- logApi.ban(mod, sus)

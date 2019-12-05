@@ -15,8 +15,8 @@ final class ChatApi(
     chatTimeout: ChatTimeout,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
-    shutup: akka.actor.ActorSelection,
-    modLog: akka.actor.ActorSelection,
+    shutup: lila.hub.actors.Shutup,
+    modActor: lila.hub.actors.Mod,
     asyncCache: lila.memo.AsyncCache.Builder,
     maxLinesPerChat: Chat.MaxLines,
     net: NetConfig
@@ -130,7 +130,7 @@ final class ChatApi(
           cached invalidate chat.id
           publish(chat.id, actorApi.OnTimeout(user.id))
           line foreach { l => publish(chat.id, actorApi.ChatLine(chat.id, l)) }
-          if (isMod(mod)) modLog ! lila.hub.actorApi.mod.ChatTimeout(
+          if (isMod(mod)) modActor ! lila.hub.actorApi.mod.ChatTimeout(
             mod = mod.id, user = user.id, reason = reason.key
           )
           else logger.info(s"${mod.username} times out ${user.username} in #${c.id} for ${reason.key}")

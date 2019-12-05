@@ -22,7 +22,7 @@ private[api] final class UserApi(
     prefApi: lila.pref.PrefApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
     onlineDoing: lila.relation.OnlineDoing,
-    isOnline: lila.user.IsOnline,
+    isOnline: lila.socket.IsOnline,
     gameProxyRepo: lila.round.GameProxyRepo,
     net: NetConfig
 )(implicit system: akka.actor.ActorSystem) {

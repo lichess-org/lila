@@ -7,7 +7,7 @@ private final class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
-    isOnline: lila.user.IsOnline
+    isOnline: lila.socket.IsOnline
 ) extends Actor {
 
   override def preStart: Unit = {

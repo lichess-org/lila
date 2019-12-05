@@ -20,11 +20,11 @@ final class Report(
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
     if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force")) fuccess(Forbidden(html.site.message.streamingMod))
-    else renderList(env.modFilters.get(me).fold("all")(_.key))
+    else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
 
   def listWithFilter(room: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    env.modFilters.set(me, Room(room))
+    env.report.modFilters.set(me, Room(room))
     renderList(room)
   }
 
@@ -39,7 +39,7 @@ final class Report(
 
   def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
     for {
-      current <- env.report.api.inquiries ofModId me.id
+      current <- api.inquiries ofModId me.id
       newInquiry <- api.inquiries.toggle(AsMod(me), id)
     } yield newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
   }
@@ -96,7 +96,7 @@ final class Report(
   }
 
   def process(id: String) = SecureBody(_.SeeReport) { implicit ctx => me =>
-    env.report.api.inquiries ofModId me.id flatMap { inquiry =>
+    api.inquiries ofModId me.id flatMap { inquiry =>
       api.process(AsMod(me), id) >> onInquiryClose(inquiry, me, none, force = true)
     }
   }
@@ -107,17 +107,17 @@ final class Report(
 
   def currentCheatInquiry(username: String) = Secure(_.Hunter) { implicit ctx => me =>
     OptionFuResult(env.user.repo named username) { user =>
-      env.api.currentCheatReport(lila.report.Suspect(user)) flatMap {
+      api.currentCheatReport(lila.report.Suspect(user)) flatMap {
         _ ?? { report =>
-          env.api.inquiries.toggle(lila.report.Mod(me), report.id)
-        } inject Mod.redirect(username, true)
+          api.inquiries.toggle(lila.report.Mod(me), report.id)
+        } inject modC.redirect(username, true)
       }
     }
   }
 
   def form = Auth { implicit ctx => implicit me =>
     get("username") ?? env.user.repo.named flatMap { user =>
-      env.forms.createWithCaptcha map {
+      env.report.forms.createWithCaptcha map {
         case (form, captcha) => Ok(html.report.form(form, user, captcha))
       }
     }
@@ -125,9 +125,9 @@ final class Report(
 
   def create = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
-    env.forms.create.bindFromRequest.fold(
+    env.report.forms.create.bindFromRequest.fold(
       err => get("username") ?? env.user.repo.named flatMap { user =>
-        env.forms.anyCaptcha map { captcha =>
+        env.report.forms.anyCaptcha map { captcha =>
           BadRequest(html.report.form(err, user, captcha))
         }
       },
@@ -141,7 +141,7 @@ final class Report(
 
   def flag = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
-    env.forms.flag.bindFromRequest.fold(
+    env.report.forms.flag.bindFromRequest.fold(
       err => BadRequest.fuccess,
       data => env.user.repo named data.username flatMap {
         _ ?? { user =>

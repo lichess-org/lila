@@ -9,11 +9,13 @@ import lila.hub.Trouper
 final class Tv(
     gameRepo: GameRepo,
     trouper: Trouper,
-    roundProxyGame: Game.ID => Fu[Option[Game]]
+    gameProxyRepo: lila.round.GameProxyRepo
 ) {
 
   import Tv._
   import ChannelTrouper._
+
+  private def roundProxyGame = gameProxyRepo.game _
 
   def getGame(channel: Tv.Channel): Fu[Option[Game]] =
     trouper.ask[Option[Game.ID]](TvTrouper.GetGameId(channel, _)) flatMap { _ ?? roundProxyGame }

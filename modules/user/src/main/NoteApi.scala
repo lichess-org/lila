@@ -21,7 +21,7 @@ case class UserNotes(user: User, notes: List[Note])
 final class NoteApi(
     userRepo: UserRepo,
     coll: Coll,
-    timeline: akka.actor.ActorSelection
+    timeline: lila.hub.actors.Timeline
 )(implicit ws: play.api.libs.ws.WSClient) {
 
   import reactivemongo.api.bson._

@@ -16,10 +16,10 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     renderer: lila.hub.actors.Renderer,
     lightUser: lila.common.LightUser.GetterSync,
-    proxyGame: Game.ID => Fu[Option[Game]],
+    gameProxyRepo: lila.round.GameProxyRepo,
     system: ActorSystem,
     recentTvGames: lila.round.RecentTvGames,
-    rematchOf: Game.ID => Option[Game.ID]
+    rematches: lila.game.Rematches
 ) {
 
   private val tvTrouper = wire[TvTrouper]

@@ -29,7 +29,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
-    isOnline: lila.user.IsOnline,
+    isOnline: lila.socket.IsOnline,
     asyncCache: lila.memo.AsyncCache.Builder,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo

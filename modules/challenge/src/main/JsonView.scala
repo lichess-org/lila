@@ -9,7 +9,7 @@ import lila.socket.UserLagCache
 
 final class JsonView(
     getLightUser: lila.common.LightUser.GetterSync,
-    isOnline: lila.user.User.ID => Boolean
+    isOnline: lila.socket.IsOnline
 ) {
 
   import lila.game.JsonView._

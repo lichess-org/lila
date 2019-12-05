@@ -1,6 +1,7 @@
 package lila.hub
 
 import akka.actor._
+import com.softwaremill.macwire._
 import com.typesafe.config.Config
 import play.api.Configuration
 
@@ -25,6 +26,7 @@ object actors {
   case class Captcher(actor: ActorSelection) extends Actor
 }
 
+@Module
 final class Env(
     appConfig: Configuration,
     system: ActorSystem
@@ -32,7 +34,7 @@ final class Env(
 
   import actors._
 
-  val config = appConfig.get[Config]("hub")
+  private val config = appConfig.get[Config]("hub")
 
   val gameSearch = GameSearch(select("actor.game.search"))
   val renderer = Renderer(select("actor.renderer"))

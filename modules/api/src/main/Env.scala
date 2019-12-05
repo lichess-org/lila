@@ -10,7 +10,7 @@ import lila.common.config._
 @Module
 final class Env(
     appConfig: Configuration,
-    val net: NetConfig,
+    net: NetConfig,
     securityEnv: lila.security.Env,
     i18nEnv: lila.i18n.Env,
     teamSearchEnv: lila.teamSearch.Env,
@@ -30,6 +30,7 @@ final class Env(
     bookmarkApi: lila.bookmark.BookmarkApi,
     prefApi: lila.pref.PrefApi,
     playBanApi: lila.playban.PlaybanApi,
+    socketEnv: lila.socket.Env,
     userEnv: lila.user.Env,
     streamerEnv: lila.streamer.Env,
     relationEnv: lila.relation.Env,

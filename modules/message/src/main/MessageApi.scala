@@ -13,7 +13,7 @@ final class MessageApi(
     coll: Coll,
     userRepo: UserRepo,
     threadRepo: ThreadRepo,
-    shutup: akka.actor.ActorSelection,
+    shutup: lila.hub.actors.Shutup,
     maxPerPage: lila.common.config.MaxPerPage,
     relationApi: lila.relation.RelationApi,
     notifyApi: lila.notify.NotifyApi,

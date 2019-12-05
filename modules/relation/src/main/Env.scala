@@ -25,6 +25,7 @@ final class Env(
     relation: actors.Relation,
     timeline: actors.Timeline,
     report: actors.Report,
+    userRepo: lila.user.UserRepo,
     onlineUserIds: () => Set[lila.user.User.ID],
     lightUserSync: lila.common.LightUser.GetterSync,
     followable: String => Fu[Boolean],

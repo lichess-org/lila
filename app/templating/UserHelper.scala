@@ -66,11 +66,10 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
     case d => badTag(s"−${-d}")
   }
 
-  def lightUser(userId: String): Option[LightUser] = env.user lightUserSync userId
-  def lightUser(userId: Option[String]): Option[LightUser] = userId flatMap lightUser
+  def lightUser = env.user.lightUserSync
 
   def usernameOrId(userId: String) = lightUser(userId).fold(userId)(_.titleName)
-  def usernameOrAnon(userId: Option[String]) = lightUser(userId).fold(User.anonymous)(_.titleName)
+  def usernameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
   def isOnline(userId: String) = Env.socket isOnline userId
 

@@ -1,6 +1,6 @@
 package lila.chat
 
-import akka.actor.{ ActorSystem, Props, ActorSelection }
+import akka.actor.{ ActorSystem, Props }
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -18,14 +18,15 @@ private case class ChatConfig(
     @ConfigName("timeout.check_every") timeoutCheckEvery: FiniteDuration
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
     db: lila.db.Env,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
-    shutup: ActorSelection,
-    modLog: ActorSelection,
+    shutup: lila.hub.actors.Shutup,
+    mod: lila.hub.actors.Mod,
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem) {
 
@@ -33,25 +34,25 @@ final class Env(
   private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
   import config._
 
-  val timeout = new ChatTimeout(
+  lazy val timeout = new ChatTimeout(
     coll = db(timeoutColl),
     duration = timeoutDuration
   )
 
-  val api = new ChatApi(
+  lazy val api = new ChatApi(
     coll = db(chatColl),
     userRepo = userRepo,
     chatTimeout = timeout,
     flood = flood,
     spam = spam,
     shutup = shutup,
-    modLog = modLog,
+    modActor = mod,
     asyncCache = asyncCache,
     maxLinesPerChat = maxLines,
     net = net
   )
 
-  val panic = wire[ChatPanic]
+  lazy val panic = wire[ChatPanic]
 
   system.scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) {
     () => timeout.checkExpired foreach api.userChat.reinstate

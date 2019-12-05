@@ -13,6 +13,7 @@ private class NotifyConfig(
     @ConfigName("actor.name") val actorName: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
@@ -24,7 +25,7 @@ final class Env(
 
   private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
 
-  val jsonHandlers = wire[JSONHandlers]
+  lazy val jsonHandlers = wire[JSONHandlers]
 
   private lazy val repo = new NotificationRepo(coll = db(config.notifyColl))
 

@@ -24,8 +24,6 @@ final class LightUserApi(repo: UserRepo)(implicit system: akka.actor.ActorSystem
   def preloadMany = cache preloadMany _
   def preloadUser(user: User) = cache.setOneIfAbsent(user.id, user.light.some)
 
-  def isBotSync(id: User.ID) = new LightUser.IsBotSync(id => sync(id).exists(_.isBot))
-
   private val cacheName = "user.light"
 
   private val cache = new Syncache[User.ID, Option[LightUser]](

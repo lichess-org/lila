@@ -2,7 +2,7 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 
-import akka.actor.{ ActorSelection, Scheduler }
+import akka.actor.Scheduler
 import akka.pattern.ask
 import org.joda.time.DateTime
 
@@ -11,7 +11,7 @@ import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Daily(
     coll: Coll,
-    renderer: ActorSelection,
+    renderer: lila.hub.actors.Renderer,
     asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: Scheduler
 ) {
@@ -37,7 +37,7 @@ private[puzzle] final class Daily(
   private def makeDaily(puzzle: Puzzle): Fu[Option[DailyPuzzle]] = {
     import makeTimeout.short
     ~puzzle.fenAfterInitialMove.map { fen =>
-      renderer ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map {
+      renderer.actor ? RenderDaily(puzzle, fen, puzzle.initialMove.uci) map {
         case html: String => DailyPuzzle(html, puzzle.color, puzzle.id).some
       }
     }

@@ -20,6 +20,7 @@ private class ModConfig(
     @ConfigName("boosting.ratio_games_to_mark") val boostingRatioToMark: Int
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     db: lila.db.Env,
@@ -29,7 +30,7 @@ final class Env(
     firewall: Firewall,
     reportApi: lila.report.ReportApi,
     lightUserApi: lila.user.LightUserApi,
-    userSpy: User => Fu[UserSpy],
+    userSpyApi: lila.security.UserSpyApi,
     securityApi: lila.security.SecurityApi,
     tournamentApi: lila.tournament.TournamentApi,
     gameRepo: lila.game.GameRepo,

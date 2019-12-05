@@ -1,7 +1,7 @@
 package lila.common
 
 import play.api.libs.json._
-import play.api.libs.ws._
+import play.api.libs.ws.WSClient
 import io.methvin.play.autoconfig._
 import scala.math.Ordering.Float.TotalOrdering
 

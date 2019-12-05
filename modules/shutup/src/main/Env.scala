@@ -16,8 +16,8 @@ private class ShutupConfig(
 
 final class Env(
     appConfig: Configuration,
-    reporter: akka.actor.ActorSelection,
-    follows: (User.ID, User.ID) => Fu[Boolean],
+    reporter: lila.hub.actors.Report,
+    relationApi: lila.relation.RelationApi,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
     db: lila.db.Env

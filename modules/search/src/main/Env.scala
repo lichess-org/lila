@@ -13,6 +13,7 @@ private class SearchConfig(
     val endpoint: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: WSClient

@@ -13,6 +13,7 @@ import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
 import lila.user.{ UserRepo, Authenticator }
 
+@Module
 final class Env(
     appConfig: Configuration,
     ws: WSClient,

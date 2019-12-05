@@ -44,7 +44,7 @@ final class Env(
   private val socket = wire[StudySocket]
 
   lazy val studyRepo = new StudyRepo(db(CollName("study")))
-  private lazy val chapterRepo = new ChapterRepo(db(CollName("study_chapter")))
+  lazy val chapterRepo = new ChapterRepo(db(CollName("study_chapter")))
 
   lazy val jsonView = wire[JsonView]
 

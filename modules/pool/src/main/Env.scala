@@ -7,6 +7,7 @@ import lila.common.Bus
 import lila.game.Game
 import lila.hub.FutureSequencer
 
+@Module
 final class Env(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
@@ -15,8 +16,6 @@ final class Env(
 )(implicit system: akka.actor.ActorSystem) {
 
   private lazy val hookThieve = wire[HookThieve]
-
-  private lazy val configs = PoolList.all
 
   private lazy val sequencer = new FutureSequencer(
     executionTimeout = 5.seconds.some,
@@ -28,4 +27,6 @@ final class Env(
   private lazy val gameStarter = wire[GameStarter]
 
   lazy val api = wire[PoolApi]
+
+  def poolConfigs = PoolList.all
 }

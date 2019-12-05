@@ -17,6 +17,7 @@ private case class OauthConfig(
     @ConfigName("collection.app") appColl: CollName
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     asyncCache: lila.memo.AsyncCache.Builder,

@@ -99,7 +99,9 @@ final class Relation(
         import apiC.limitedDefault
         apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           apiC.jsonStream {
-            env.stream.follow(user, direction, MaxPerSecond(20)) &> Enumeratee.map(api.userApi.one)
+            env.relation.stream
+              .follow(user, direction, MaxPerSecond(20))
+              .map(env.api.userApi.one)
           } |> fuccess
         }
       }

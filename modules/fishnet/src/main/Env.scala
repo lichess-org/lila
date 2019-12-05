@@ -23,6 +23,7 @@ private class FishnetConfig(
     @ConfigName("redis.uri") val redisUri: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     uciMemo: lila.game.UciMemo,
