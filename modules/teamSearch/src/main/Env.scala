@@ -10,7 +10,7 @@ import lila.search._
 
 @Module
 private class TeamSearchConfig(
-    @ConfigName("index.name") val indexName: String,
+    @ConfigName("index") val indexName: String,
     @ConfigName("actor.name") val actorName: String
 )
 

@@ -13,7 +13,6 @@ private case class ChatConfig(
     @ConfigName("collection.timeout") timeoutColl: CollName,
     @ConfigName("max_lines") maxLines: Chat.MaxLines,
     @ConfigName("actor.name") actorName: String,
-    net: NetConfig,
     @ConfigName("timeout.duration") timeoutDuration: FiniteDuration,
     @ConfigName("timeout.check_every") timeoutCheckEvery: FiniteDuration
 )
@@ -21,6 +20,7 @@ private case class ChatConfig(
 @Module
 final class Env(
     appConfig: Configuration,
+    netDomain: NetDomain,
     userRepo: lila.user.UserRepo,
     db: lila.db.Env,
     flood: lila.security.Flood,
@@ -49,7 +49,7 @@ final class Env(
     modActor = mod,
     asyncCache = asyncCache,
     maxLinesPerChat = maxLines,
-    net = net
+    netDomain = netDomain
   )
 
   lazy val panic = wire[ChatPanic]

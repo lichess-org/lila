@@ -26,9 +26,9 @@ final class Env(
     timeline: actors.Timeline,
     report: actors.Report,
     userRepo: lila.user.UserRepo,
-    onlineUserIds: () => Set[lila.user.User.ID],
+    onlineUserIds: lila.socket.OnlineIds,
     lightUserSync: lila.common.LightUser.GetterSync,
-    followable: String => Fu[Boolean],
+    prefApi: lila.pref.PrefApi,
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem) {
 
@@ -46,7 +46,7 @@ final class Env(
     actor = relation,
     timeline = timeline,
     reporter = report,
-    followable = followable,
+    prefApi = prefApi,
     asyncCache = asyncCache,
     maxFollow = config.maxFollow,
     maxBlock = config.maxBlock
@@ -58,7 +58,7 @@ final class Env(
 
   def isPlaying(userId: lila.user.User.ID): Boolean = online.playing.get(userId)
 
-  private[relation] val actor = system.actorOf(Props(wire[RelationActor]), name = config.actorName)
+  private val actor = system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 
   system.scheduler.scheduleWithFixedDelay(15 seconds, config.actorNotifyFreq) {
     () => actor ! actorApi.ComputeMovement

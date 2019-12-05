@@ -6,7 +6,7 @@ import play.api.mvc.RequestHeader
 import io.methvin.play.autoconfig._
 
 import lila.common.HTTPRequest
-import lila.common.config.Secret
+import lila.common.config._
 
 trait Recaptcha {
 
@@ -19,8 +19,7 @@ private object Recaptcha {
       endpoint: String,
       @ConfigName("public_key") publicKey: String,
       @ConfigName("private_key") privateKey: Secret,
-      enabled: Boolean,
-      netDomain: String
+      enabled: Boolean
   ) {
     def public = RecaptchaPublicConfig(publicKey, enabled)
   }
@@ -35,6 +34,7 @@ object RecaptchaSkip extends Recaptcha {
 
 final class RecaptchaGoogle(
     ws: WSClient,
+    netDomain: NetDomain,
     config: Recaptcha.Config
 ) extends Recaptcha {
 
@@ -54,7 +54,7 @@ final class RecaptchaGoogle(
       case res if res.status == 200 =>
         res.json.validate[Response] match {
           case JsSuccess(res, _) => fuccess {
-            res.success && res.hostname == config.netDomain
+            res.success && res.hostname == netDomain.value
           }
           case JsError(err) =>
             fufail(s"$err ${~res.body.linesIterator.to(LazyList).headOption}")

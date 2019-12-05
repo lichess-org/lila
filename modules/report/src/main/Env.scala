@@ -10,7 +10,7 @@ import lila.common.config._
 import lila.common.Domain
 
 @Module
-private class CoachConfig(
+private class ReportConfig(
     @ConfigName("collection.report") val reportColl: CollName,
     @ConfigName("score.threshold") val scoreThreshold: Int,
     @ConfigName("actor.name") val actorName: String
@@ -37,7 +37,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem) {
 
-  private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
+  private val config = appConfig.get[ReportConfig]("report")(AutoConfig.loader)
 
   private lazy val reportColl = db(config.reportColl)
 

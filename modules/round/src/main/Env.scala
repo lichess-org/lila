@@ -104,6 +104,10 @@ final class Env(
     },
     "gameStartId" -> {
       case Game.Id(gameId) => onStart(gameId)
+    },
+    "selfReport" -> {
+      case RoundSocket.Protocol.In.SelfReport(fullId, ip, userId, name) =>
+        selfReport(userId, ip, fullId, name)
     }
   )
 

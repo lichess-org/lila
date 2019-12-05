@@ -13,7 +13,7 @@ import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
 @Module
-private class RoundConfig(
+private class TournamentConfig(
     @ConfigName("collection.tournament") val tournamentColl: CollName,
     @ConfigName("collection.player") val playerColl: CollName,
     @ConfigName("collection.pairing") val pairingColl: CollName,
@@ -49,7 +49,7 @@ final class Env(
     idGenerator: lila.game.IdGenerator
 ) {
 
-  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)
 
   private def scheduler = system.scheduler
 

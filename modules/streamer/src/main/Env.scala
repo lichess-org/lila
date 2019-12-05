@@ -11,7 +11,6 @@ import lila.common.config._
 @Module
 private class StreamerConfig(
     @ConfigName("collection.streamer") val streamerColl: CollName,
-    @ConfigName("collection.image") val imageColl: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("streaming.keyword") val keyword: Stream.Keyword,
     @ConfigName("streaming.google.api_key") val googleApiKey: Secret,
@@ -38,7 +37,7 @@ final class Env(
 
   private lazy val streamerColl = db(config.streamerColl)
 
-  private lazy val photographer = new lila.db.Photographer(db(config.imageColl), "streamer")
+  private lazy val photographer = new lila.db.Photographer(db(CollName("image")), "streamer")
 
   lazy val alwaysFeaturedSetting = {
     import lila.memo.SettingStore.Strings._

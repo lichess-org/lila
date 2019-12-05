@@ -12,7 +12,7 @@ import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
-private class RoundConfig(
+private class SimulConfig(
     @ConfigName("collection.simul") val simulColl: CollName,
     @ConfigName("created.cache.ttl") val createdCacheTtl: FiniteDuration,
     @ConfigName("feature.views") val featureViews: Max
@@ -35,7 +35,7 @@ final class Env(
     proxyRepo: lila.round.GameProxyRepo
 )(implicit system: ActorSystem) {
 
-  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  private val config = appConfig.get[SimulConfig]("simul")(AutoConfig.loader)
 
   private lazy val simulColl = db(config.simulColl)
 

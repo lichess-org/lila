@@ -17,6 +17,7 @@ import lila.user.{ UserRepo, Authenticator }
 final class Env(
     appConfig: Configuration,
     ws: WSClient,
+    net: NetConfig,
     captcher: lila.hub.actors.Captcher,
     userRepo: UserRepo,
     authenticator: Authenticator,
@@ -30,7 +31,7 @@ final class Env(
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
-  import config.net.baseUrl
+  import net.{ domain, baseUrl }
 
   val recaptchaPublicConfig = config.recaptcha.public
 

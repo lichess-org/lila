@@ -13,8 +13,7 @@ import lila.common.Chronometer
 import lila.common.config._
 
 class DbConfig(
-    val uri: String,
-    @ConfigName("image.collection") val imageCollName: Option[CollName] = None
+    val uri: String
 )
 
 final class Env(name: String, config: DbConfig) {
@@ -40,12 +39,10 @@ final class Env(name: String, config: DbConfig) {
   })
 
   object image {
-    private lazy val imageColl = config.imageCollName map apply
+    private lazy val imageColl = apply(CollName("image"))
     import dsl._
     import DbImage.DbImageBSONHandler
-    def fetch(id: String): Fu[Option[DbImage]] = imageColl ?? {
-      _.byId[DbImage](id)
-    }
+    def fetch(id: String): Fu[Option[DbImage]] = imageColl.byId[DbImage](id)
   }
 }
 

@@ -12,8 +12,7 @@ import lila.security.Permission
 @Module
 private final class CoachConfig(
     @ConfigName("collection.coach") val coachColl: CollName,
-    @ConfigName("collection.review") val reviewColl: CollName,
-    @ConfigName("collection.image") val imageColl: CollName
+    @ConfigName("collection.review") val reviewColl: CollName
 )
 
 @Module
@@ -28,7 +27,7 @@ final class Env(
 
   private lazy val coachColl = db(config.coachColl)
 
-  private lazy val photographer = new lila.db.Photographer(db(config.imageColl), "coach")
+  private lazy val photographer = new lila.db.Photographer(db(CollName("image")), "coach")
 
   lazy val api = new CoachApi(
     coachColl = coachColl,

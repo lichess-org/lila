@@ -20,7 +20,7 @@ final class RelationApi(
     actor: actors.Relation,
     timeline: actors.Timeline,
     reporter: actors.Report,
-    followable: ID => Fu[Boolean],
+    prefApi: lila.pref.PrefApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     maxFollow: Max,
     maxBlock: Max
@@ -119,7 +119,7 @@ final class RelationApi(
     sort = $empty
   ).map(_.userId)
 
-  def follow(u1: ID, u2: ID): Funit = (u1 != u2) ?? followable(u2).flatMap {
+  def follow(u1: ID, u2: ID): Funit = (u1 != u2) ?? prefApi.followable(u2).flatMap {
     case false => funit
     case true => fetchRelation(u1, u2) zip fetchRelation(u2, u1) flatMap {
       case (Some(Follow), _) => funit

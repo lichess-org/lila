@@ -31,7 +31,6 @@ final class RoundSocket(
     deployPersistence: DeployPersistence,
     scheduleExpiration: ScheduleExpiration,
     tournamentActor: lila.hub.actors.TournamentApi,
-    selfReport: SelfReport,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)]
 )(implicit system: ActorSystem) {
@@ -105,7 +104,7 @@ final class RoundSocket(
       case t => logger.warn(s"Unhandled round socket message: $t")
     }
     case hold: Protocol.In.HoldAlert => tellRound(hold.fullId.gameId, hold)
-    case Protocol.In.SelfReport(fullId, ip, userId, name) => selfReport(userId, ip, fullId, name)
+    case r: Protocol.In.SelfReport => Bus.publish(r, "selfReport")
     case userTv: Protocol.In.UserTv => tellRound(userTv.gameId, userTv)
     case P.In.TellSri(sri, userId, tpe, msg) => // eval cache
       Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$tpe")

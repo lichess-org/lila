@@ -151,7 +151,7 @@ final class ModlogApi(repo: ModlogRepo) {
     Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
   }
 
-  def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
+  def recent = coll.ext.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(sus: Suspect) = coll.exists($doc(
     "user" -> sus.user.id,
@@ -164,11 +164,11 @@ final class ModlogApi(repo: ModlogRepo) {
   ))
 
   def userHistory(userId: String): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+    coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
 
   private def add(m: Modlog): Funit = {
     lila.mon.mod.log.create()
     lila.log("mod").info(m.toString)
-    coll.insert(m).void
+    coll.insert.one(m).void
   }
 }

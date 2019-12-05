@@ -15,7 +15,7 @@ private final class SecurityConfig(
     @ConfigName("flood.duration") val floodDuration: FiniteDuration,
     @ConfigName("geoip") val geoIP: GeoIP.Config,
     @ConfigName("password_reset.secret") val passwordResetSecret: Secret,
-    @ConfigName("email_config") val emailConfirm: EmailConfirm,
+    @ConfigName("email_confirm") val emailConfirm: EmailConfirm,
     @ConfigName("email_change.secret") val emailChangeSecret: Secret,
     @ConfigName("login_token.secret") val loginTokenSecret: Secret,
     val tor: Tor,
@@ -24,7 +24,6 @@ private final class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
-    val net: NetConfig,
     @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress
 )
 
@@ -32,7 +31,7 @@ private object SecurityConfig {
 
   case class Collection(
       security: CollName,
-      printBan: CollName,
+      @ConfigName("print_ban") printBan: CollName,
       firewall: CollName
   )
   implicit val collectionLoader = AutoConfig.loader[Collection]

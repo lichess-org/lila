@@ -5,7 +5,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.common.config.NetConfig
+import lila.common.config.NetDomain
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPublicChat, RecordPrivateChat }
 import lila.user.{ User, UserRepo }
 
@@ -19,7 +19,7 @@ final class ChatApi(
     modActor: lila.hub.actors.Mod,
     asyncCache: lila.memo.AsyncCache.Builder,
     maxLinesPerChat: Chat.MaxLines,
-    net: NetConfig
+    netDomain: NetDomain
 ) {
 
   import Chat.{ userChatBSONHandler, chatIdBSONHandler, chanOf }
@@ -220,8 +220,8 @@ final class ChatApi(
 
     def cut(text: String) = Some(text.trim take Line.textMaxSize) filter (_.nonEmpty)
 
-    private val gameUrlRegex = (Pattern.quote(net.domain.value) + """\b/(\w{8})\w{4}\b""").r
-    private val gameUrlReplace = Matcher.quoteReplacement(net.domain.value) + "/$1";
+    private val gameUrlRegex = (Pattern.quote(netDomain.value) + """\b/(\w{8})\w{4}\b""").r
+    private val gameUrlReplace = Matcher.quoteReplacement(netDomain.value) + "/$1";
     private def noPrivateUrl(str: String): String = gameUrlRegex.replaceAllIn(str, gameUrlReplace)
     private def noShouting(str: String): String = if (isShouting(str)) str.toLowerCase else str
     private val multilineRegex = """\n\n{2,}+""".r

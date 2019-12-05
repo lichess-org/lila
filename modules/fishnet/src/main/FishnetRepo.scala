@@ -16,7 +16,7 @@ private final class FishnetRepo(
 
   private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
     name = "fishnet.client",
-    f = key => clientColl.find(selectClient(key)).uno[Client],
+    f = key => clientColl.ext.find(selectClient(key)).uno[Client],
     expireAfter = _.ExpireAfterWrite(5 minutes)
   )
 
@@ -24,16 +24,16 @@ private final class FishnetRepo(
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client] = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClient(client: Client): Funit =
-    clientColl.update(selectClient(client.key), client, upsert = true).void >>- clientCache.invalidate(client.key)
+    clientColl.update.one(selectClient(client.key), client, upsert = true).void >>- clientCache.invalidate(client.key)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
       updateClient(updated) inject updated
     }
-  def addClient(client: Client) = clientColl.insert(client)
-  def deleteClient(key: Client.Key) = clientColl.remove(selectClient(key)) >>- clientCache.invalidate(key)
+  def addClient(client: Client) = clientColl.insert.one(client)
+  def deleteClient(key: Client.Key) = clientColl.delete.one(selectClient(key)) >>- clientCache.invalidate(key)
   def enableClient(key: Client.Key, v: Boolean): Funit =
-    clientColl.update(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
-  def allRecentClients = clientColl.find($doc(
+    clientColl.update.one(selectClient(key), $set("enabled" -> v)).void >>- clientCache.invalidate(key)
+  def allRecentClients = clientColl.ext.find($doc(
     "instance.seenAt" $gt Client.Instance.recentSince
   )).cursor[Client]().gather[List]()
   def lichessClients = clientColl.find($doc(
