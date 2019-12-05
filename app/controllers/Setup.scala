@@ -15,7 +15,13 @@ import lila.setup.ValidFen
 import lila.socket.Socket.Sri
 import views._
 
-final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
+final class Setup(
+    env: Env,
+    challengeC: Challenge
+) extends LilaController(env) with TheftPrevention {
+
+  private def forms = env.setup.forms
+  private def processor = env.setup.processor
 
   private[controllers] val PostRateLimit = new lila.memo.RateLimit[IpAddress](5, 1 minute,
     name = "setup post",
@@ -24,7 +30,7 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
 
   def aiForm = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req) {
-      env.forms aiFilled get("fen").map(FEN) map { form =>
+      forms aiFilled get("fen").map(FEN) map { form =>
         html.setup.forms.ai(
           form,
           env.fishnet.aiPerfApi.intRatings,
@@ -36,13 +42,13 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
     }
   }
 
-  def ai = process(env.forms.ai) { config => implicit ctx =>
-    env.processor ai config
+  def ai = process(forms.ai) { config => implicit ctx =>
+    processor ai config
   }
 
   def friendForm(userId: Option[String]) = Open { implicit ctx =>
     if (HTTPRequest isXhr ctx.req)
-      env.forms friendFilled get("fen").map(FEN) flatMap { form =>
+      forms friendFilled get("fen").map(FEN) flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
         userId ?? env.user.repo.named flatMap {
           case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
@@ -60,7 +66,7 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
   def friend(userId: Option[String]) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-      env.forms.friend(ctx).bindFromRequest.fold(
+      forms.friend(ctx).bindFromRequest.fold(
         err => negotiate(
           html = keyPages.home(Results.BadRequest),
           api = _ => jsonFormError(err)
@@ -93,11 +99,11 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
                 destUser = destUser,
                 rematchOf = none
               )
-              env.processor.saveFriendConfig(config) >>
+              processor.saveFriendConfig(config) >>
                 (env.challenge.api create challenge) flatMap {
                   case true => negotiate(
                     html = fuccess(Redirect(routes.Round.watcher(challenge.id, "white"))),
-                    api = _ => Challenge showChallenge challenge
+                    api = _ => challengeC showChallenge challenge
                   )
                   case false => negotiate(
                     html = fuccess(Redirect(routes.Lobby.home)),
@@ -113,7 +119,7 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
   def hookForm = Open { implicit ctx =>
     NoBot {
       if (HTTPRequest isXhr ctx.req) NoPlaybanOrCurrent {
-        env.forms.hookFilled(timeModeString = get("time")) map { html.setup.forms.hook(_) }
+        forms.hookFilled(timeModeString = get("time")) map { html.setup.forms.hook(_) }
       }
       else fuccess {
         Redirect(routes.Lobby.home + "#hook")
@@ -136,14 +142,14 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
       implicit val req = ctx.body
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         NoPlaybanOrCurrent {
-          env.forms.hook(ctx).bindFromRequest.fold(
+          forms.hook(ctx).bindFromRequest.fold(
             jsonFormError,
             userConfig => {
               val config = userConfig withinLimits ctx.me
-              if (getBool("pool")) env.processor.saveHookConfig(config) inject hookSaveOnlyResponse
+              if (getBool("pool")) processor.saveHookConfig(config) inject hookSaveOnlyResponse
               else (ctx.userId ?? env.relation.api.fetchBlocking) flatMap {
                 blocking =>
-                  env.processor.hook(config, Sri(sri), HTTPRequest sid req, blocking) map hookResponse
+                  processor.hook(config, Sri(sri), HTTPRequest sid req, blocking) map hookResponse
               }
             }
           )
@@ -157,12 +163,12 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
       PostRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
         NoPlaybanOrCurrent {
           for {
-            config <- env.forms.hookConfig
+            config <- forms.hookConfig
             game <- env.game.gameRepo game gameId
             blocking <- ctx.userId ?? env.relation.api.fetchBlocking
             hookConfig = game.fold(config)(config.updateFrom)
             sameOpponents = game.??(_.userIds)
-            hookResult <- env.processor.hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
+            hookResult <- processor.hook(hookConfig, Sri(sri), HTTPRequest sid ctx.req, blocking ++ sameOpponents)
           } yield hookResponse(hookResult)
         }
       }
@@ -170,19 +176,19 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
   }
 
   def filterForm = Open { implicit ctx =>
-    env.forms.filterFilled map {
+    forms.filterFilled map {
       case (form, filter) => html.setup.filter(form, filter)
     }
   }
 
   def filter = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    env.forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
+    forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
       f => {
         lila.log("setup").warn(f.errors.toString)
         BadRequest(()).fuccess
       },
-      config => JsonOk(env.processor filter config inject config.render)
+      config => JsonOk(processor filter config inject config.render)
     )
   }
 
@@ -217,7 +223,7 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
   private[controllers] def redirectPov(pov: Pov)(implicit ctx: Context) = {
     val redir = Redirect(routes.Round.watcher(pov.gameId, "white"))
     if (ctx.isAuth) redir
-    else redir withCookies LilaCookie.cookie(
+    else redir withCookies env.lilaCookie.cookie(
       AnonCookie.name,
       pov.playerId,
       maxAge = AnonCookie.maxAge.some,

@@ -11,11 +11,14 @@ import lila.hub.lightTeam._
 import lila.simul.{ Simul => Sim }
 import views._
 
-final class Simul(env: Env) extends LilaController(env) {
+final class Simul(
+    env: Env,
+    teamC: Team
+) extends LilaController(env) {
 
   private def forms = lila.simul.SimulForm
 
-  import Team.teamsIBelongTo
+  import teamC.teamsIBelongTo
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
@@ -30,7 +33,7 @@ final class Simul(env: Env) extends LilaController(env) {
   val apiList = Action.async {
     fetchSimuls flatMap {
       case created ~ started ~ finished =>
-        env.jsonView.apiAll(created, started, finished) map { json =>
+        env.simul.jsonView.apiAll(created, started, finished) map { json =>
           Ok(json) as JSON
         }
     }
@@ -44,15 +47,15 @@ final class Simul(env: Env) extends LilaController(env) {
   }
 
   private def fetchSimuls =
-    env.allCreated.get zip env.repo.allStarted zip env.repo.allFinished(30)
+    env.simul.allCreated.get zip env.simul.repo.allStarted zip env.simul.repo.allFinished(30)
 
   def show(id: String) = Open { implicit ctx =>
-    env.repo find id flatMap {
+    env.simul.repo find id flatMap {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
           team <- sim.team ?? env.team.api.team
-          version <- env.version(sim.id)
-          json <- env.jsonView(sim, team.map { t =>
+          version <- env.simul.version(sim.id)
+          json <- env.simul.jsonView(sim, team.map { t =>
             lila.simul.SimulTeam(t.id, t.name, ctx.userId exists {
               env.team.api.syncBelongsTo(t.id, _)
             })
@@ -80,28 +83,28 @@ final class Simul(env: Env) extends LilaController(env) {
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.api start simul.id
+      env.simul.api start simul.id
       jsonOkResult
     }
   }
 
   def abort(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.api abort simul.id
+      env.simul.api abort simul.id
       jsonOkResult
     }
   }
 
   def accept(simulId: String, userId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.api.accept(simul.id, userId, true)
+      env.simul.api.accept(simul.id, userId, true)
       jsonOkResult
     }
   }
 
   def reject(simulId: String, userId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.api.accept(simul.id, userId, false)
+      env.simul.api.accept(simul.id, userId, false)
       jsonOkResult
     }
   }
@@ -112,7 +115,7 @@ final class Simul(env: Env) extends LilaController(env) {
       forms.setText.bindFromRequest.fold(
         err => BadRequest,
         text => {
-          env.api.setText(simul.id, text)
+          env.simul.api.setText(simul.id, text)
           jsonOkResult
         }
       )
@@ -134,7 +137,7 @@ final class Simul(env: Env) extends LilaController(env) {
         err => teamsIBelongTo(me) map { teams =>
           BadRequest(html.simul.form(err, teams))
         },
-        setup => env.api.create(setup, me) map { simul =>
+        setup => env.simul.api.create(setup, me) map { simul =>
           Redirect(routes.Simul.show(simul.id))
         }
       )
@@ -144,7 +147,7 @@ final class Simul(env: Env) extends LilaController(env) {
   def join(id: String, variant: String) = Auth { implicit ctx => implicit me =>
     NoLameOrBot {
       fuccess {
-        env.api.addApplicant(id, me, variant)
+        env.simul.api.addApplicant(id, me, variant)
         if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Simul.show(id))
       }
@@ -153,14 +156,14 @@ final class Simul(env: Env) extends LilaController(env) {
 
   def withdraw(id: String) = Auth { implicit ctx => me =>
     fuccess {
-      env.api.removeApplicant(id, me)
+      env.simul.api.removeApplicant(id, me)
       if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
       else Redirect(routes.Simul.show(id))
     }
   }
 
   private def AsHost(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
-    env.repo.find(simulId) flatMap {
+    env.simul.repo.find(simulId) flatMap {
       case None => notFound
       case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
       case _ => fuccess(Unauthorized)

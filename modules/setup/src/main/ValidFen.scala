@@ -2,7 +2,7 @@ package lila.setup
 
 import chess.format.FEN
 
-private case class ValidFen(
+case class ValidFen(
     fen: FEN,
     situation: chess.Situation
 ) {
@@ -10,7 +10,7 @@ private case class ValidFen(
   def color = situation.color
 }
 
-private object ValidFen {
+object ValidFen {
   def apply(strict: Boolean)(fen: String): Option[ValidFen] = for {
     parsed <- chess.format.Forsyth <<< fen
     if (parsed.situation playable strict)

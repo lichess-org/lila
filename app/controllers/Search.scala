@@ -6,7 +6,10 @@ import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import views._
 
-final class Search(env: Env) extends LilaController(env) {
+final class Search(
+    env: Env,
+    apiC: Api
+) extends LilaController(env) {
 
   def searchForm = env.gameSearch.forms.search
 
@@ -37,16 +40,16 @@ final class Search(env: Env) extends LilaController(env) {
               key = "",
               message = "Please only send one request at a time per IP address"
             )
-            TooManyRequest(html.search.index(form, none, nbGames))
+            TooManyRequests(html.search.index(form, none, nbGames))
           }
-          Api.GlobalLinearLimitPerIP(ip, limited = limited) {
+          apiC.GlobalLinearLimitPerIP(ip, limited = limited) {
             RateLimitPerIP(ip, cost = cost) {
               RateLimitGlobal("-", cost = cost) {
                 negotiate(
                   html = searchForm.bindFromRequest.fold(
                     failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                     data => data.nonEmptyQuery ?? { query =>
-                      env.paginator(query, page) map (_.some)
+                      env.gameSearch.paginator(query, page) map (_.some)
                     } map { pager =>
                       Ok(html.search.index(searchForm fill data, pager, nbGames))
                     }
@@ -54,7 +57,7 @@ final class Search(env: Env) extends LilaController(env) {
                   api = _ => searchForm.bindFromRequest.fold(
                     failure => Ok(jsonError("Could not process search query")).fuccess,
                     data => data.nonEmptyQuery ?? { query =>
-                      env.paginator(query, page) map (_.some)
+                      env.gameSearch.paginator(query, page) map (_.some)
                     } flatMap {
                       case Some(s) =>
                         env.api.userGameApi.jsPaginator(s) map {

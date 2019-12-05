@@ -14,7 +14,10 @@ import views._
 
 final class Round(
     env: Env,
-    gameC: Game
+    gameC: Game,
+    challengeC: Challenge,
+    analyseC: Analyse,
+    tournamentC: Tournament
 ) extends LilaController(env) with TheftPrevention {
 
   private def analyser = env.analyse.analyser
@@ -59,8 +62,8 @@ final class Round(
   ) map NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(env.proxyRepo.pov(fullId)) { pov =>
-      env.checkOutoftime(pov.game)
+    OptionFuResult(env.round.proxyRepo.pov(fullId)) { pov =>
+      env.round.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
   }
@@ -79,7 +82,7 @@ final class Round(
     }
 
   def whatsNext(fullId: String) = Open { implicit ctx =>
-    OptionFuResult(env.proxyRepo.pov(fullId)) { currentPov =>
+    OptionFuResult(env.round.proxyRepo.pov(fullId)) { currentPov =>
       if (currentPov.isMyTurn) fuccess {
         Ok(Json.obj("nope" -> true))
       }
@@ -90,7 +93,7 @@ final class Round(
   }
 
   def next(gameId: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.proxyRepo game gameId) { currentGame =>
+    OptionFuResult(env.round.proxyRepo game gameId) { currentGame =>
       otherPovs(currentGame) map getNext(currentGame) map {
         _ orElse Pov(currentGame, me)
       } flatMap {
@@ -115,16 +118,16 @@ final class Round(
             Redirect(routes.Round.watcher(gameId, "white")).fuccess
         }
         case None => {
-          env.checkOutoftime(pov.game)
+          env.round.checkOutoftime(pov.game)
           watch(pov)
         }
       }
-      case None => Challenge showId gameId
+      case None => challengeC showId gameId
     }
   }
 
   private def proxyPov(gameId: String, color: String): Fu[Option[Pov]] = chess.Color(color) ?? {
-    env.proxy.pov(gameId, _)
+    env.round.proxyRepo.pov(gameId, _)
   }
 
   private[controllers] def watch(pov: Pov, userTv: Option[UserModel] = None)(implicit ctx: Context): Fu[Result] =
@@ -134,7 +137,7 @@ final class Round(
         Redirect(routes.Round.watcher(pov.gameId, "white")).fuccess
       case _ => negotiate(
         html = {
-          if (pov.game.replayable) Analyse.replay(pov, userTv = userTv)
+          if (pov.game.replayable) analyseC.replay(pov, userTv = userTv)
           else if (HTTPRequest.isHuman(ctx.req))
             myTour(pov.game.tournamentId, false) zip
               (pov.game.simulId ?? env.simul.repo.find) zip
@@ -163,7 +166,7 @@ final class Round(
             .add("chat" -> chat.map(c => lila.chat.JsonView(c.chat)))
             .add("analysis" -> analysis.map(a => lila.analyse.JsonView.mobile(pov.game, a)))
         }
-      ) map NoCache
+      ) map { NoCache(_) }
     }
 
   private def myTour(tourId: Option[String], withTop: Boolean): Fu[Option[TourMiniView]] =
@@ -187,7 +190,7 @@ final class Round(
     ))).some
     (game.tournamentId, game.simulId) match {
       case (Some(tid), _) => {
-        ctx.isAuth && tour.fold(true)(Tournament.canHaveChat(_, none))
+        ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
       } ?? env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map(toEventChat(s"tournament/$tid"))
       case (_, Some(sid)) => game.simulId.?? { sid =>
         env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map(toEventChat(s"simul/$sid"))
@@ -205,7 +208,7 @@ final class Round(
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
     OptionFuResult(proxyPov(gameId, color)) { pov =>
-      (pov.game.tournamentId ?? lila.tournament.TournamentRepo.byId) zip
+      (pov.game.tournamentId ?? env.tournament.tournamentRepo.byId) zip
         (pov.game.simulId ?? env.simul.repo.find) zip
         env.game.gameRepo.initialFen(pov.game) zip
         env.game.crosstableApi.withMatchup(pov.game) zip
@@ -243,24 +246,23 @@ final class Round(
   }
 
   def resign(fullId: String) = Open { implicit ctx =>
-    OptionFuRedirect(env.proxy.pov(fullId)) { pov =>
+    OptionFuRedirect(env.round.proxyRepo.pov(fullId)) { pov =>
       if (isTheft(pov)) {
-        lila.log("round")(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
+        lila.log("round").warn(s"theft resign $fullId ${HTTPRequest.lastRemoteAddress(ctx.req)}")
         fuccess(routes.Lobby.home)
       } else {
-        env resign pov
+        env.round resign pov
         import scala.concurrent.duration._
-        val scheduler = lila.common.PlayApp.system.scheduler
-        akka.pattern.after(500 millis, scheduler)(fuccess(routes.Lobby.home))
+        akka.pattern.after(500 millis, env.system.scheduler)(fuccess(routes.Lobby.home))
       }
     }
   }
 
   def mini(gameId: String, color: String) = Open { implicit ctx =>
-    OptionOk(chess.Color(color).??(env.proxy.povIfPresent(gameId, _)) orElse env.game.gameRepo.pov(gameId, color))(html.game.bits.mini)
+    OptionOk(chess.Color(color).??(env.round.proxyRepo.povIfPresent(gameId, _)) orElse env.game.gameRepo.pov(gameId, color))(html.game.bits.mini)
   }
 
   def miniFullId(fullId: String) = Open { implicit ctx =>
-    OptionOk(env.proxy.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(html.game.bits.mini)
+    OptionOk(env.round.proxyRepo.povIfPresent(fullId) orElse env.game.gameRepo.pov(fullId))(html.game.bits.mini)
   }
 }

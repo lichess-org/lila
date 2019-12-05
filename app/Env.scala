@@ -78,7 +78,7 @@ final class Env(
     val bot: lila.bot.Env,
     val evalCache: lila.evalCache.Env,
     val rating: lila.rating.Env
-)(implicit system: ActorSystem) {
+)(implicit val system: ActorSystem) {
 
   val isProd = playApp.mode == Mode.Prod
   val isStage = config.get[Boolean]("app.stage")
@@ -147,21 +147,23 @@ final class Env(
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 
   system.scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
-
-  templating.Environment setEnv this
 }
 
-final class EnvBoot(
-    app: Application
-) extends AhcWSComponents {
-  lila.log.boot.info(s"Java: ${System.getProperty("java.version")}, memory: ${Runtime.getRuntime().maxMemory() / 1024 / 1024}MB")
+final class EnvBoot(app: Application) extends AhcWSComponents {
 
-  implicit val system = app.actorSystem
-  implicit val scheduler = system.scheduler
+  lila.log.boot.info {
+    s"Java: ${System.getProperty("java.version")}, memory: ${Runtime.getRuntime().maxMemory() / 1024 / 1024}MB"
+  }
+
+  implicit def system = app.actorSystem
+  implicit def scheduler = system.scheduler
   def config = app.configuration
   def appPath = AppPath(app.path)
   def mode = app.mode
-  implicit lazy val ws: WSClient = wsClient
+  implicit def ws: WSClient = wsClient
+  implicit def idGenerator = game.idGenerator
+
+  // wire all the lila modules
   lazy val common: lila.common.Env = wire[lila.common.Env]
   lazy val baseUrl = common.netConfig.baseUrl
   lazy val memo: lila.memo.Env = wire[lila.memo.Env]
@@ -173,7 +175,6 @@ final class EnvBoot(
   lazy val message: lila.message.Env = wire[lila.message.Env]
   lazy val i18n: lila.i18n.Env = wire[lila.i18n.Env]
   lazy val game: lila.game.Env = wire[lila.game.Env]
-  implicit def idGenerator = game.idGenerator
   lazy val bookmark: lila.bookmark.Env = wire[lila.bookmark.Env]
   lazy val search: lila.search.Env = wire[lila.search.Env]
   lazy val gameSearch: lila.gameSearch.Env = wire[lila.gameSearch.Env]
@@ -229,4 +230,6 @@ final class EnvBoot(
   lazy val api: lila.api.Env = wire[lila.api.Env]
 
   lazy val env: lila.app.Env = wire[lila.app.Env]
+
+  templating.Environment setEnv env
 }
