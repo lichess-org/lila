@@ -654,6 +654,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="playOfflineComputer">Igraj protiv računala</string>
   <string name="opponent">Protivnik</string>
   <string name="learnMenu">Uči</string>
+  <string name="studyMenu">Uči</string>
+  <string name="practice">Vježbaj</string>
   <string name="community">Zajednica</string>
   <string name="tools">Alati</string>
   <string name="increment">Dodatak</string>
