@@ -82,6 +82,8 @@ final class Env(
 
   val isProd = playApp.mode == Mode.Prod
   val isStage = config.get[Boolean]("app.stage")
+  val explorerEndpoint = config.get[String]("explorer.endpoint")
+  val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
 
   def net = common.netConfig
 
@@ -95,6 +97,8 @@ final class Env(
 
   lazy val teamInfo = wire[mashup.TeamInfoApi]
 
+  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+
   private lazy val cookieBacker: SessionCookieBaker = playApp.injector.instanceOf[SessionCookieBaker]
 
   lazy val lilaCookie = wire[lila.common.LilaCookie]
@@ -107,6 +111,8 @@ final class Env(
         lila.log("preloader").warn("daily puzzle", e)
         none
     }
+
+  def scheduler = system.scheduler
 
   def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit = for {
     u <- user.repo byId userId orFail s"No such user $userId"
@@ -140,13 +146,13 @@ final class Env(
   }
 
   private def kill(userId: User.ID): Unit =
-    system.scheduler.scheduleOnce(1 second) {
+    scheduler.scheduleOnce(1 second) {
       closeAccount(userId, self = false)
     }
 
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 
-  system.scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
+  scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
 }
 
 final class EnvBoot(app: Application) extends AhcWSComponents {

@@ -275,7 +275,7 @@ final class PlanApi(
 
   def recentChargeUserIds: Fu[List[User.ID]] = recentChargeUserIdsCache.get
 
-  def recentCharesOf(user: User): Fu[List[Charge]] =
+  def recentChargesOf(user: User): Fu[List[Charge]] =
     chargeColl.ext.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
 
   private val topPatronUserIdsNb = 300

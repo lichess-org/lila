@@ -8,9 +8,11 @@ import views._
 
 final class Video(env: Env) extends LilaController(env) {
 
+  private def api = env.video.api
+
   private def WithUserControl[A](f: UserControl => Fu[A])(implicit ctx: Context): Fu[A] = {
     val reqTags = get("tags") ?? (_.split('/').toList.map(_.trim.toLowerCase))
-    env.api.tag.paths(reqTags) map { tags =>
+    api.tag.paths(reqTags) map { tags =>
       UserControl(
         filter = Filter(reqTags),
         tags = tags,
@@ -24,11 +26,11 @@ final class Video(env: Env) extends LilaController(env) {
     pageHit
     WithUserControl { control =>
       control.query match {
-        case Some(query) => env.api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>
+        case Some(query) => api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>
           Ok(html.video.search(videos, control))
         }
-        case None => env.api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
-          env.api.video.count.apply map {
+        case None => api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
+          api.video.count.apply map {
             case (videos, count) =>
               Ok(html.video.index(videos, count, control))
           }
@@ -38,11 +40,11 @@ final class Video(env: Env) extends LilaController(env) {
 
   def show(id: String) = Open { implicit ctx =>
     WithUserControl { control =>
-      env.api.video.find(id) flatMap {
+      api.video.find(id) flatMap {
         case None => fuccess(NotFound(html.video.bits.notFound(control)))
-        case Some(video) => env.api.video.similar(ctx.me, video, 9) zip
+        case Some(video) => api.video.similar(ctx.me, video, 9) zip
           ctx.userId.?? { userId =>
-            env.api.view.add(View.make(videoId = video.id, userId = userId))
+            api.view.add(View.make(videoId = video.id, userId = userId))
           } map {
             case (similar, _) =>
               Ok(html.video.show(video, similar, control))
@@ -53,7 +55,7 @@ final class Video(env: Env) extends LilaController(env) {
 
   def author(author: String) = Open { implicit ctx =>
     WithUserControl { control =>
-      env.api.video.byAuthor(ctx.me, author, getInt("page") | 1) map { videos =>
+      api.video.byAuthor(ctx.me, author, getInt("page") | 1) map { videos =>
         Ok(html.video.bits.author(author, videos, control))
       }
     }
@@ -61,7 +63,7 @@ final class Video(env: Env) extends LilaController(env) {
 
   def tags = Open { implicit ctx =>
     WithUserControl { control =>
-      env.api.tag.allPopular map { tags =>
+      api.tag.allPopular map { tags =>
         Ok(html.video.bits.tags(tags, control))
       }
     }

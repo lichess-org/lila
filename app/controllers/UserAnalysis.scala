@@ -16,11 +16,14 @@ import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import lila.round.JsonView.WithFlags
 import views._
 
-final class UserAnalysis(env: Env) extends LilaController(env) with TheftPrevention {
+final class UserAnalysis(
+    env: Env,
+    gameC: Game
+) extends LilaController(env) with TheftPrevention {
 
   def index = load("", Standard)
 
-  def parse(arg: String) = arg.split("/", 2) match {
+  def parseArg(arg: String) = arg.split("/", 2) match {
     case Array(key) => load("", Variant orDefault key)
     case Array(key, fen) => Variant.byKey get key match {
       case Some(variant) => load(fen, variant)
@@ -64,7 +67,7 @@ final class UserAnalysis(env: Env) extends LilaController(env) with TheftPrevent
 
   def game(id: String, color: String) = Open { implicit ctx =>
     OptionFuResult(env.game.gameRepo game id) { g =>
-      env.round.proxy updateIfPresent g flatMap { game =>
+      env.round.proxyRepo updateIfPresent g flatMap { game =>
         val pov = Pov(game, chess.Color(color == "white"))
         negotiate(
           html =
@@ -81,7 +84,7 @@ final class UserAnalysis(env: Env) extends LilaController(env) with TheftPrevent
 
   private def mobileAnalysis(pov: Pov, apiVersion: lila.common.ApiVersion)(implicit ctx: Context): Fu[Result] =
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
-      Game.preloadUsers(pov.game) zip
+      gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
         env.game.crosstableApi(pov.game) zip
         env.bookmark.api.exists(pov.game, ctx.me) flatMap {
@@ -114,9 +117,9 @@ final class UserAnalysis(env: Env) extends LilaController(env) with TheftPrevent
     ).map(_ as JSON)
   }
 
-  def forecasts(fullId: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def forecasts(fullId: String) = AuthBody(parse.json) { implicit ctx => me =>
     import lila.round.Forecast
-    OptionFuResult(env.round.proxy pov fullId) { pov =>
+    OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
       else ctx.body.body.validate[Forecast.Steps].fold(
         err => BadRequest(err.toString).fuccess,
@@ -131,18 +134,17 @@ final class UserAnalysis(env: Env) extends LilaController(env) with TheftPrevent
     }
   }
 
-  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(parse.json) { implicit ctx => me =>
     import lila.round.Forecast
-    OptionFuResult(env.round.proxy pov fullId) { pov =>
+    OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
       else ctx.body.body.validate[Forecast.Steps].fold(
         err => BadRequest(err.toString).fuccess,
         forecasts => {
           val wait = 50 + (Forecast maxPlies forecasts min 10) * 50
           env.round.forecastApi.playAndSave(pov, uci, forecasts) >>
-            env.current.scheduler.after(wait.millis) {
-              Ok(Json.obj("reload" -> true))
-            }
+            lila.common.Future.sleep(wait.millis)(env.scheduler) inject
+            Ok(Json.obj("reload" -> true))
         }
       )
     }

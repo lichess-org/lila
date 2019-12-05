@@ -5,16 +5,13 @@ import controllers.routes
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.team.Env.{ current => teamEnv }
 
-trait TeamHelper {
-
-  private def api = teamEnv.api
+trait TeamHelper { self: HasEnv =>
 
   def myTeam(teamId: String)(implicit ctx: Context): Boolean =
-    ctx.me.??(me => api.syncBelongsTo(teamId, me.id))
+    ctx.me.??(me => env.team.api.syncBelongsTo(teamId, me.id))
 
-  def teamIdToName(id: String): Frag = StringFrag(api.teamName(id).getOrElse(id))
+  def teamIdToName(id: String): Frag = StringFrag(env.team.getTeamName(id).getOrElse(id))
 
   def teamLink(id: String, withIcon: Boolean = true): Frag = a(
     href := routes.Team.show(id),

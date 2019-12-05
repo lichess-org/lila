@@ -8,23 +8,30 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
+import lila.common.config.MaxPerPage
 import lila.hub.lightTeam._
 import lila.tournament.{ TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
 
-final class Tournament(env: Env) extends LilaController(env) {
+final class Tournament(
+    env: Env,
+    teamC: Team
+) extends LilaController(env) {
 
   private def repo = env.tournament.tournamentRepo
+  private def api = env.tournament.api
+  private def jsonView = env.tournament.jsonView
+  private def forms = env.tournament.forms
 
-  import Team.teamsIBelongTo
+  import teamC.teamsIBelongTo
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
     name = "tournament.home",
     for {
-      visible <- env.api.fetchVisibleTournaments
+      visible <- api.fetchVisibleTournaments
       scheduled <- repo.scheduledDedup
     } yield (visible, scheduled),
     expireAfter = _.ExpireAfterWrite(3 seconds)
@@ -34,7 +41,7 @@ final class Tournament(env: Env) extends LilaController(env) {
     negotiate(
       html = Reasonable(page, 20) {
         pageHit
-        val finishedPaginator = repo.finishedPaginator(lila.common.MaxPerPage(15), page = page)
+        val finishedPaginator = repo.finishedPaginator(MaxPerPage(15), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
           _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
@@ -42,34 +49,30 @@ final class Tournament(env: Env) extends LilaController(env) {
         else for {
           (visible, scheduled) <- upcomingCache.get
           finished <- finishedPaginator
-          winners <- env.winners.all
+          winners <- env.tournament.winners.all
           _ <- env.user.lightUserApi preloadMany {
             finished.currentPageResults.flatMap(_.winnerId).toList :::
               scheduled.flatMap(_.winnerId) ::: winners.userIds
           }
-          scheduleJson <- env apiJsonView visible
+          scheduleJson <- env.tournament apiJsonView visible
         } yield NoCache {
           Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
         }
       },
       api = _ => for {
         (visible, _) <- upcomingCache.get
-        scheduleJson <- env apiJsonView visible
+        scheduleJson <- env.tournament apiJsonView visible
       } yield Ok(scheduleJson)
     )
   }
 
   def help(sysStr: Option[String]) = Open { implicit ctx =>
-    val system = sysStr flatMap {
-      case "arena" => System.Arena.some
-      case _ => none
-    }
-    Ok(html.tournament.faq.page(system)).fuccess
+    Ok(html.tournament.faq.page).fuccess
   }
 
   def leaderboard = Open { implicit ctx =>
     for {
-      winners <- env.winners.all
+      winners <- env.tournament.winners.all
       _ <- env.user.lightUserApi preloadMany winners.userIds
     } yield Ok(html.tournament.leaderboard(winners))
   }
@@ -89,14 +92,14 @@ final class Tournament(env: Env) extends LilaController(env) {
       negotiate(
         html = tourOption.fold(tournamentNotFound.fuccess) { tour =>
           (for {
-            verdicts <- env.api.verdicts(tour, ctx.me, getUserTeamIds)
-            version <- env.version(tour.id)
-            json <- env.jsonView(
+            verdicts <- api.verdicts(tour, ctx.me, getUserTeamIds)
+            version <- env.tournament.version(tour.id)
+            json <- jsonView(
               tour = tour,
               page = page,
               me = ctx.me,
               getUserTeamIds = getUserTeamIds,
-              getTeamName = env.team.cached.name,
+              getTeamName = env.team.getTeamName,
               playerInfoExt = none,
               socketVersion = version.some,
               partial = false,
@@ -106,20 +109,20 @@ final class Tournament(env: Env) extends LilaController(env) {
             _ <- chat ?? { c => env.user.lightUserApi.preloadMany(c.chat.userIds) }
             _ <- tour.teamBattle ?? { b => env.team.cached.preloadSet(b.teams) }
             streamers <- streamerCache get tour.id
-            shieldOwner <- env.shieldApi currentOwner tour
+            shieldOwner <- env.tournament.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
         }, api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
-          get("playerInfo").?? { env.api.playerInfo(tour, _) } zip
-            getBool("socketVersion").??(env version tour.id map some) flatMap {
+          get("playerInfo").?? { api.playerInfo(tour, _) } zip
+            getBool("socketVersion").??(env.tournament version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
                 lila.mon.tournament.apiShowPartial(partial)()
-                env.jsonView(
+                jsonView(
                   tour = tour,
                   page = page,
                   me = ctx.me,
                   getUserTeamIds = getUserTeamIds,
-                  getTeamName = env.team.cached.name,
+                  getTeamName = env.team.getTeamName,
                   playerInfoExt = playerInfoExt,
                   socketVersion = socketVersion,
                   partial = partial,
@@ -127,13 +130,13 @@ final class Tournament(env: Env) extends LilaController(env) {
                 )
             } map { Ok(_) }
         }.mon(_.http.response.tournament.show.mobile)
-      ) map NoCache
+      ) map { NoCache(_) }
     }
   }
 
   def standing(id: String, page: Int) = Open { implicit ctx =>
     OptionFuResult(repo byId id) { tour =>
-      env.jsonView.standing(tour, page) map { data =>
+      jsonView.standing(tour, page) map { data =>
         Ok(data) as JSON
       }
     }
@@ -141,9 +144,9 @@ final class Tournament(env: Env) extends LilaController(env) {
 
   def pageOf(id: String, userId: String) = Open { implicit ctx =>
     OptionFuResult(repo byId id) { tour =>
-      env.api.pageOf(tour, UserModel normalize userId) flatMap {
+      api.pageOf(tour, UserModel normalize userId) flatMap {
         _ ?? { page =>
-          env.jsonView.standing(tour, page) map { data =>
+          jsonView.standing(tour, page) map { data =>
             Ok(data) as JSON
           }
         }
@@ -152,11 +155,11 @@ final class Tournament(env: Env) extends LilaController(env) {
   }
 
   def player(tourId: String, userId: String) = Open { implicit ctx =>
-    TournamentRepo byId tourId flatMap {
+    env.tournament.tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
         JsonOk {
-          env.api.playerInfo(tour, userId) flatMap {
-            _ ?? { env.jsonView.playerInfoExtended(tour, _) }
+          api.playerInfo(tour, userId) flatMap {
+            _ ?? { jsonView.playerInfoExtended(tour, _) }
           }
         }
       }
@@ -164,9 +167,9 @@ final class Tournament(env: Env) extends LilaController(env) {
   }
 
   def teamInfo(tourId: String, teamId: String) = Open { implicit ctx =>
-    TournamentRepo byId tourId flatMap {
+    env.tournament.tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
-        env.jsonView.teamInfo(tour, teamId) map {
+        jsonView.teamInfo(tour, teamId) map {
           _ ?? { json =>
             Ok(json) as JSON
           }
@@ -175,12 +178,12 @@ final class Tournament(env: Env) extends LilaController(env) {
     }
   }
 
-  def join(id: String) = AuthBody(BodyParsers.parse.json) { implicit ctx => implicit me =>
+  def join(id: String) = AuthBody(parse.json) { implicit ctx => implicit me =>
     NoLameOrBot {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
         val teamId = ctx.body.body.\("team").asOpt[String]
-        env.api.joinWithResult(id, me, password, teamId, getUserTeamIds) flatMap { result =>
+        api.joinWithResult(id, me, password, teamId, getUserTeamIds) flatMap { result =>
           negotiate(
             html = Redirect(routes.Tournament.show(id)).fuccess,
             api = _ => fuccess {
@@ -195,7 +198,7 @@ final class Tournament(env: Env) extends LilaController(env) {
 
   def pause(id: String) = Auth { implicit ctx => me =>
     OptionResult(repo byId id) { tour =>
-      env.api.selfPause(tour.id, me.id)
+      api.selfPause(tour.id, me.id)
       if (HTTPRequest.isXhr(ctx.req)) jsonOkResult
       else Redirect(routes.Tournament.show(tour.id))
     }
@@ -203,7 +206,7 @@ final class Tournament(env: Env) extends LilaController(env) {
 
   def terminate(id: String) = Secure(_.TerminateTournament) { implicit ctx => me =>
     OptionResult(repo byId id) { tour =>
-      env.api kill tour
+      api kill tour
       env.mod.logApi.terminateTournament(me.id, tour.fullName)
       Redirect(routes.Tournament show tour.id)
     }
@@ -212,7 +215,7 @@ final class Tournament(env: Env) extends LilaController(env) {
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamsIBelongTo(me) map { teams =>
-        Ok(html.tournament.form(env.forms(me), env.forms, me, teams))
+        Ok(html.tournament.form(forms(me), forms, me, teams))
       }
     }
   }
@@ -221,7 +224,7 @@ final class Tournament(env: Env) extends LilaController(env) {
     NoLameOrBot {
       env.team.api.owns(teamId, me.id) map {
         _ ?? {
-          Ok(html.tournament.form(env.forms(me, teamId.some), env.forms, me, Nil))
+          Ok(html.tournament.form(forms(me, teamId.some), forms, me, Nil))
         }
       }
     }
@@ -250,8 +253,8 @@ final class Tournament(env: Env) extends LilaController(env) {
       teamsIBelongTo(me) flatMap { teams =>
         implicit val req = ctx.body
         negotiate(
-          html = env.forms(me).bindFromRequest.fold(
-            err => BadRequest(html.tournament.form(err, env.forms, me, teams)).fuccess,
+          html = forms(me).bindFromRequest.fold(
+            err => BadRequest(html.tournament.form(err, forms, me, teams)).fuccess,
             setup => {
               val cost = if (me.hasTitle ||
                 env.streamer.liveStreamApi.isStreaming(me.id) ||
@@ -259,7 +262,7 @@ final class Tournament(env: Env) extends LilaController(env) {
                 setup.password.isDefined) 1 else 4
               CreateLimitPerUser(me.id, cost = cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
-                  env.api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
+                  api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
                     if (tour.teamBattle.isDefined) Redirect(routes.Tournament.teamBattleEdit(tour.id))
                     else Redirect(routes.Tournament.show(tour.id))
                   }
@@ -279,11 +282,11 @@ final class Tournament(env: Env) extends LilaController(env) {
   }
 
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
-    env.forms(me).bindFromRequest.fold(
+    forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
       setup => teamsIBelongTo(me) flatMap { teams =>
-        env.api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-          env.tournament.jsonView(tour, none, none, getUserTeamIds, env.team.cached.name, none, none, partial = false, lila.i18n.defaultLang)
+        api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
+          jsonView(tour, none, none, getUserTeamIds, env.team.getTeamName, none, none, partial = false, lila.i18n.defaultLang)
         }
       } map { Ok(_) }
     )
@@ -293,7 +296,7 @@ final class Tournament(env: Env) extends LilaController(env) {
       _ ?? {
         case tour if tour.createdBy == me.id =>
           tour.teamBattle ?? { battle =>
-            lila.team.TeamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
+            env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
               env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
                 val form = lila.tournament.TeamBattle.DataForm.edit(teams.map { t =>
                   s"""${t.id} "${t.name}" by ${env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
@@ -314,7 +317,7 @@ final class Tournament(env: Env) extends LilaController(env) {
           implicit val req = ctx.body
           lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
             err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
-            res => env.api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
+            res => api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
               Redirect(routes.Tournament.show(tour.id))
           )
         case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
@@ -328,19 +331,19 @@ final class Tournament(env: Env) extends LilaController(env) {
       api = _ =>
         env.tournament.cached.promotable.get.nevermind map {
           lila.tournament.Spotlight.select(_, ctx.me, 4)
-        } flatMap env.apiJsonView.featured map { Ok(_) }
+        } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
     )
   }
 
   def shields = Open { implicit ctx =>
     for {
-      history <- env.shieldApi.history(5.some)
+      history <- env.tournament.shieldApi.history(5.some)
       _ <- env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
   }
 
   def categShields(k: String) = Open { implicit ctx =>
-    OptionFuOk(env.shieldApi.byCategKey(k)) {
+    OptionFuOk(env.tournament.shieldApi.byCategKey(k)) {
       case (categ, awards) =>
         env.user.lightUserApi preloadMany awards.map(_.owner.value) inject
           html.tournament.shields.byCateg(categ, awards)
@@ -348,8 +351,8 @@ final class Tournament(env: Env) extends LilaController(env) {
   }
 
   def calendar = Open { implicit ctx =>
-    env.api.calendar map { tours =>
-      Ok(html.tournament.calendar(env.apiJsonView calendar tours))
+    api.calendar map { tours =>
+      Ok(html.tournament.calendar(env.tournament.apiJsonView calendar tours))
     }
   }
 
@@ -357,7 +360,7 @@ final class Tournament(env: Env) extends LilaController(env) {
     name = "tournament.streamers",
     f = tourId => env.streamer.liveStreamApi.all.flatMap {
       _.streams.map { stream =>
-        env.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
+        env.tournament.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
       }.sequenceFu.map(_.flatten.toSet)
     },
     expireAfter = _.ExpireAfterWrite(15.seconds)

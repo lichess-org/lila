@@ -68,7 +68,7 @@ object bits {
   )(name)
 
   private def playerTitle(player: Player) =
-    lightUser(player.userId).flatMap(_.title) map Title.apply map { t =>
+    player.userId.flatMap(lightUser).flatMap(_.title) map Title.apply map { t =>
       span(cls := "title", dataBot(t), title := Title titleName t)(t.value)
     }
 

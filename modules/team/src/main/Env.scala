@@ -20,8 +20,8 @@ final class Env(
 )(implicit system: ActorSystem) {
 
   lazy val teamRepo = new TeamRepo(db(CollName("team")))
-  private lazy val memberRepo = new MemberRepo(db(CollName("team_member")))
-  private lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
+  lazy val memberRepo = new MemberRepo(db(CollName("team_member")))
+  lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[DataForm]
 

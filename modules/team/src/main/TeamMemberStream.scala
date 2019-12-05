@@ -23,8 +23,7 @@ final class TeamMemberStream(
       .documentSource()
       .grouped(perSecond.value)
       .delay(1 second)
-      .mapAsync(1) { docs =>
-        userRepo usersFromSecondary docs.toSeq.flatMap(_.getAsOpt[User.ID]("user"))
-      }
+      .map(_.flatMap(_.getAsOpt[User.ID]("user")))
+      .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
 }

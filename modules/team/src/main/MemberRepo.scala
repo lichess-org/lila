@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-private final class MemberRepo(val coll: Coll) {
+final class MemberRepo(val coll: Coll) {
 
   import BSONHandlers._
 

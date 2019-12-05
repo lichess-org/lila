@@ -5,14 +5,18 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ HTTPRequest, MaxPerSecond }
+import lila.common.config.MaxPerSecond
+import lila.common.HTTPRequest
 import lila.hub.lightTeam._
 import lila.security.Granter
-import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
+import lila.team.{ Joined, Motivate, Team => TeamModel }
 import lila.user.{ User => UserModel }
 import views._
 
-final class Team(env: Env) extends LilaController(env) {
+final class Team(
+    env: Env,
+    apiC: Api
+) extends LilaController(env) {
 
   private def forms = env.team.forms
   private def api = env.team.api
@@ -39,20 +43,19 @@ final class Team(env: Env) extends LilaController(env) {
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
-    info <- env.current.teamInfo(team, ctx.me)
+    info <- env.teamInfo(team, ctx.me)
     members <- paginator.teamMembers(team, page)
     _ <- env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
 
   def users(teamId: String) = Action.async { req =>
-    import Api.limitedDefault
-    env.team.api.team(teamId) flatMap {
+    import apiC.limitedDefault
+    api.team(teamId) flatMap {
       _ ?? { team =>
-        Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-          import play.api.libs.iteratee._
-          Api.jsonStream {
-            env.team.memberStream(team, MaxPerSecond(20)) &>
-              Enumeratee.map(env.api.userApi.one)
+        apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+          apiC.jsonStream {
+            env.team.memberStream(team, MaxPerSecond(20))
+              .map(env.api.userApi.one)
           } |> fuccess
         }
       }
@@ -80,7 +83,7 @@ final class Team(env: Env) extends LilaController(env) {
   def kickForm(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       Owner(team) {
-        MemberRepo userIdsByTeam team.id map { userIds =>
+        env.team.memberRepo userIdsByTeam team.id map { userIds =>
           html.team.admin.kick(team, userIds - me.id)
         }
       }
@@ -107,7 +110,7 @@ final class Team(env: Env) extends LilaController(env) {
   def changeOwnerForm(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       Owner(team) {
-        MemberRepo userIdsByTeam team.id map { userIds =>
+        env.team.memberRepo userIdsByTeam team.id map { userIds =>
           html.team.admin.changeOwner(team, userIds - team.createdBy)
         }
       }
@@ -198,7 +201,7 @@ final class Team(env: Env) extends LilaController(env) {
   def requestProcess(requestId: String) = AuthBody { implicit ctx => me =>
     OptionFuRedirectUrl(for {
       requestOption <- api request requestId
-      teamOption <- requestOption.??(req => TeamRepo.owned(req.team, me.id))
+      teamOption <- requestOption.??(req => env.team.teamRepo.owned(req.team, me.id))
     } yield (teamOption |@| requestOption).tupled) {
       case (team, request) => {
         implicit val req = ctx.body

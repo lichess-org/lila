@@ -1,5 +1,6 @@
 package controllers
 
+import play.api.http.ContentTypes
 import play.api.mvc._
 
 import lila.api.Context
@@ -7,7 +8,10 @@ import lila.app._
 import lila.game.Pov
 import views._
 
-final class Tv(env: Env) extends LilaController(env) {
+final class Tv(
+    env: Env,
+    apiC: Api
+) extends LilaController(env) {
 
   def index = onChannel(lila.tv.Tv.Channel.Best.key)
 
@@ -16,19 +20,19 @@ final class Tv(env: Env) extends LilaController(env) {
   }
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(chess.Color(color) ?? { env.round.proxy.pov(gameId, _) }) { pov =>
+    OptionFuResult(chess.Color(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
       env.game.crosstableApi.withMatchup(pov.game) map { ct =>
         Ok(html.tv.side.sides(pov, ct))
       }
     }
   }
 
-  def channels = Api.ApiRequest { implicit ctx =>
+  def channels = apiC.ApiRequest { implicit ctx =>
     import play.api.libs.json._
     implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
     env.tv.tv.getChampions map {
       _.channels map { case (chan, champ) => chan.name -> champ }
-    } map { Json.toJson(_) } map Api.Data.apply
+    } map { Json.toJson(_) } map apiC.Data.apply
   }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
@@ -68,9 +72,9 @@ final class Tv(env: Env) extends LilaController(env) {
     import akka.pattern.ask
     import lila.round.TvBroadcast
     import play.api.libs.EventSource
-    env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
-      manifest[TvBroadcast.EnumeratorType] map { enum =>
-        Ok.chunked(enum &> EventSource()).as("text/event-stream") |> noProxyBuffer
+    env.round.tvBroadcast ? TvBroadcast.Connect mapTo
+      manifest[TvBroadcast.SourceType] map { source =>
+        Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
       }
   }
 

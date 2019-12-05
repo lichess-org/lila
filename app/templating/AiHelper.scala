@@ -17,5 +17,5 @@ trait AiHelper { self: I18nHelper =>
   def aiNameFrag(level: Int, withRating: Boolean = true)(implicit ctx: UserContext) =
     raw(aiName(level, withRating).replace(" ", "&nbsp;"))
 
-  def aiRating(level: Int): Option[Int] = Env.fishnet.aiPerfApi.intRatings get level
+  def aiRating(level: Int): Option[Int] = env.fishnet.aiPerfApi.intRatings get level
 }

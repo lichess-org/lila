@@ -37,7 +37,7 @@ object side {
           ),
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
-          systemName(tour.system).capitalize,
+          "Arena",
           isGranted(_.TerminateTournament) option
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
               submitButton(dataIcon := "j", cls := "fbt fbt-red confirm", title := "Terminates the tournament immediately")

@@ -42,8 +42,8 @@ object Environment
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  val explorerEndpoint = env.config.get[String]("explorer.endpoint")
-  val tablebaseEndpoint = env.config.get[String]("explorer.tablebase.endpoint")
+  val explorerEndpoint = env.explorerEndpoint
+  val tablebaseEndpoint = env.tablebaseEndpoint
 
   def contactEmail = env.net.email
 
@@ -51,7 +51,7 @@ object Environment
 
   def isChatPanicEnabled = env.chat.panic.enabled
 
-  def blockingReportNbOpen: Int = env.api.nbOpen.awaitOrElse(10.millis, 0)
+  def blockingReportNbOpen: Int = env.report.api.nbOpen.awaitOrElse(10.millis, 0)
 
   def NotForKids(f: => Frag)(implicit ctx: Context) = if (ctx.kid) emptyFrag else f
 

@@ -5,7 +5,7 @@ import lila.db.dsl._
 import lila.game.GameRepo
 import lila.user.User
 
-private[bookmark] final class PaginatorBuilder(
+final class PaginatorBuilder(
     coll: Coll,
     gameRepo: GameRepo,
     maxPerPage: lila.common.config.MaxPerPage

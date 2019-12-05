@@ -17,7 +17,7 @@ object timeline {
     )
 
   def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
-    base.layout(
+    views.html.base.layout(
       title = trans.timeline.txt(),
       moreCss = cssTag("slist")
     )(

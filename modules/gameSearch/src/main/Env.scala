@@ -16,6 +16,7 @@ private class GameSearchConfig(
     @ConfigName("actor.name") val actorName: String
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     gameRepo: lila.game.GameRepo,

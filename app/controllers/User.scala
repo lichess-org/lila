@@ -1,9 +1,12 @@
 package controllers
 
+import akka.stream.scaladsl._
 import play.api.data.Form
+import play.api.http.ContentTypes
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
+import scala.language.existentials
 
 import lila.api.{ Context, BodyContext }
 import lila.app._
@@ -17,7 +20,11 @@ import lila.socket.UserLagCache
 import lila.user.{ User => UserModel }
 import views._
 
-final class User(env: Env) extends LilaController(env) {
+final class User(
+    env: Env,
+    roundC: Round,
+    modC: Mod
+) extends LilaController(env) {
 
   private def relationApi = env.relation.api
   private def userGameSearch = env.gameSearch.userGameSearch
@@ -27,7 +34,7 @@ final class User(env: Env) extends LilaController(env) {
       currentlyPlaying(user) orElse
         env.game.gameRepo.lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
-            Round.watch(pov, userTv = user.some)
+            roundC.watch(pov, userTv = user.some)
           }
         }
     }
@@ -62,9 +69,9 @@ final class User(env: Env) extends LilaController(env) {
     if (HTTPRequest.isSynchronousHttp(ctx.req)) {
       for {
         as <- env.activity.read.recent(u)
-        nbs <- env.current.userNbGames(u, ctx)
-        info <- env.current.userInfo(u, nbs, ctx)
-        social <- env.current.socialInfo(u, ctx)
+        nbs <- env.userNbGames(u, ctx)
+        info <- env.userInfo(u, nbs, ctx)
+        social <- env.socialInfo(u, ctx)
       } yield status(html.user.show.page.activity(u, as, info, social))
     }.mon(_.http.response.user.show.website)
     else env.activity.read.recent(u) map { as =>
@@ -78,10 +85,9 @@ final class User(env: Env) extends LilaController(env) {
       EnabledUser(username) { u =>
         negotiate(
           html = for {
-            nbs <- env.current.userNbGames(u, ctx)
+            nbs <- env.userNbGames(u, ctx)
             filters = GameFilterMenu(u, nbs, filter)
-            pag <- GameFilterMenu.paginatorOf(
-              userGameSearch = userGameSearch,
+            pag <- env.gamePaginator(
               user = u,
               nbs = nbs.some,
               filter = filters.current,
@@ -91,10 +97,11 @@ final class User(env: Env) extends LilaController(env) {
             _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
             _ <- env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
             res <- if (HTTPRequest isSynchronousHttp ctx.req) for {
-              info <- env.current.userInfo(u, nbs, ctx)
+              info <- env.userInfo(u, nbs, ctx)
               _ <- env.team.cached.nameCache preloadMany info.teamIds
-              social <- env.current.socialInfo(u, ctx)
-              searchForm = (filters.current == GameFilter.Search) option GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
+              social <- env.socialInfo(u, ctx)
+              searchForm = (filters.current == GameFilter.Search) option
+                GameFilterMenu.searchForm(userGameSearch, filters.current)(ctx.body)
             } yield html.user.show.page.games(u, info, pag, filters, searchForm, social)
             else fuccess(html.user.show.gamesContent(u, nbs, pag, filters, filter))
           } yield res,
@@ -106,7 +113,7 @@ final class User(env: Env) extends LilaController(env) {
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.user.repo named username flatMap {
-      case None if isGranted(_.UserSpy) => Mod.searchTerm(username.trim)
+      case None if isGranted(_.UserSpy) => modC.searchTerm(username.trim)
       case None => notFound
       case Some(u) if (u.enabled || isGranted(_.UserSpy)) => f(u)
       case Some(u) => negotiate(
@@ -149,7 +156,7 @@ final class User(env: Env) extends LilaController(env) {
     negotiate(
       html = notFoundJson(),
       api = _ => fuccess {
-        Ok(Json.toJson(env.cached.getTop50Online.take(getInt("nb", req).fold(10)(_ min max)).map(env.jsonView(_))))
+        Ok(Json.toJson(env.user.cached.getTop50Online.take(getInt("nb", req).fold(10)(_ min max)).map(env.user.jsonView(_))))
       }
     )
   }
@@ -161,7 +168,7 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.gameRepo.lastPlayedPlayingId(user.id).flatMap(_ ?? { env.round.proxy.pov(_, user) })
+    env.game.gameRepo.lastPlayedPlayingId(user.id).flatMap(_ ?? { env.round.proxyRepo.pov(_, user) })
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,
@@ -181,15 +188,14 @@ final class User(env: Env) extends LilaController(env) {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
       lila.mon.http.userGames.cost(page)
       for {
-        pagFromDb <- GameFilterMenu.paginatorOf(
-          userGameSearch = userGameSearch,
+        pagFromDb <- env.gamePaginator(
           user = u,
           nbs = none,
           filter = GameFilterMenu.currentOf(GameFilterMenu.all, filterName),
           me = ctx.me,
           page = page
         )(ctx.body)
-        pag <- pagFromDb.mapFutureResults(env.round.proxy.updateIfPresent)
+        pag <- pagFromDb.mapFutureResults(env.round.proxyRepo.updateIfPresent)
         _ <- env.tournament.cached.nameCache preloadMany pag.currentPageResults.flatMap(_.tournamentId)
         _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
       } yield pag
@@ -198,22 +204,22 @@ final class User(env: Env) extends LilaController(env) {
 
   def list = Open { implicit ctx =>
     val nb = 10
-    val leaderboards = env.cached.top10.get
+    val leaderboards = env.user.cached.top10.get
     negotiate(
       html = for {
-        nbAllTime <- env.cached topNbGame nb
+        nbAllTime <- env.user.cached topNbGame nb
         nbDay <- fuccess(Nil)
         tourneyWinners <- env.tournament.winners.all.map(_.top)
         _ <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
       } yield Ok(html.user.list(
         tourneyWinners = tourneyWinners,
-        online = env.cached.getTop50Online,
+        online = env.user.cached.getTop50Online,
         leaderboards = leaderboards,
         nbDay = nbDay,
         nbAllTime = nbAllTime
       )),
       api = _ => fuccess {
-        implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
+        implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
         Ok(Json.obj(
           "bullet" -> leaderboards.bullet,
           "blitz" -> leaderboards.blitz,
@@ -235,11 +241,11 @@ final class User(env: Env) extends LilaController(env) {
 
   def topNb(nb: Int, perfKey: String) = Open { implicit ctx =>
     PerfType(perfKey) ?? { perfType =>
-      env.cached top200Perf perfType.id map { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
+      env.user.cached top200Perf perfType.id map { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
         negotiate(
           html = Ok(html.user.top(perfType, users)).fuccess,
           api = _ => fuccess {
-            implicit val lpWrites = OWrites[UserModel.LightPerf](env.jsonView.lightPerfIsOnline)
+            implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
             Ok(Json.obj("users" -> users))
           }
         )
@@ -250,8 +256,8 @@ final class User(env: Env) extends LilaController(env) {
   def topWeek = Open { implicit ctx =>
     negotiate(
       html = notFound,
-      api = _ => env.cached.topWeek(()).map { users =>
-        Ok(Json toJson users.map(env.jsonView.lightPerfIsOnline))
+      api = _ => env.user.cached.topWeek(()).map { users =>
+        Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
       }
     )
   }
@@ -262,14 +268,14 @@ final class User(env: Env) extends LilaController(env) {
 
   protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isEventSource ctx.req) renderModZone(username, me)
-    else fuccess(Mod.redirect(username))
+    else fuccess(modC.redirect(username))
 
-  private def futureToEnumerator[A](fu: Fu[Option[A]]): Enumerator[A] = Enumerator flatten fu.map {
-    _.fold(Enumerator.empty[A]) { Enumerator(_) }
+  private def futureToSource[A](fu: Fu[Option[A]]): Source[A, _] = Source futureSource {
+    fu.map(_.fold(Source.empty[A])(Source.single))
   }
 
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] = {
-    env.user.repo withEmails username flatten s"No such user $username" map {
+    env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         val parts =
           env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 2 seconds) zip
@@ -289,7 +295,7 @@ final class User(env: Env) extends LilaController(env) {
           val familyUserIds = user.id :: spy.otherUserIds.toList
           env.user.noteApi.forMod(familyUserIds).logTimeIfGt(s"$username noteApi.forMod", 2 seconds) zip
             env.playban.api.bans(familyUserIds).logTimeIfGt(s"$username playban.bans", 2 seconds) zip
-            lila.security.UserSpy.withMeSortedWithEmails(user, spy.otherUsers) map {
+            lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
               case notes ~ bans ~ othersWithEmail => html.user.mod.otherUsers(user, spy, othersWithEmail, notes, bans).some
             }
         }
@@ -309,15 +315,15 @@ final class User(env: Env) extends LilaController(env) {
         import play.api.libs.EventSource
         implicit val extractor = EventSource.EventDataExtractor[scalatags.Text.Frag](_.render)
         Ok.chunked {
-          (Enumerator(html.user.mod.menu(user)) interleave
-            futureToEnumerator(parts.logTimeIfGt(s"$username parts", 2 seconds)) interleave
-            futureToEnumerator(actions.logTimeIfGt(s"$username actions", 2 seconds)) interleave
-            futureToEnumerator(others.logTimeIfGt(s"$username others", 2 seconds)) interleave
-            futureToEnumerator(identification.logTimeIfGt(s"$username identification", 2 seconds)) interleave
-            futureToEnumerator(irwin.logTimeIfGt(s"$username irwin", 2 seconds)) interleave
-            futureToEnumerator(assess.logTimeIfGt(s"$username assess", 2 seconds))) &>
-            EventSource()
-        }.as("text/event-stream") |> noProxyBuffer
+          (Source.single(html.user.mod.menu(user)) merge
+            futureToSource(parts.logTimeIfGt(s"$username parts", 2 seconds)) merge
+            futureToSource(actions.logTimeIfGt(s"$username actions", 2 seconds)) merge
+            futureToSource(others.logTimeIfGt(s"$username others", 2 seconds)) merge
+            futureToSource(identification.logTimeIfGt(s"$username identification", 2 seconds)) merge
+            futureToSource(irwin.logTimeIfGt(s"$username irwin", 2 seconds)) merge
+            futureToSource(assess.logTimeIfGt(s"$username assess", 2 seconds))) via
+            EventSource.flow
+        }.as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
     }
   }
 
@@ -346,17 +352,17 @@ final class User(env: Env) extends LilaController(env) {
   private def doWriteNote(username: String, me: UserModel)(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
     env.user.repo named username flatMap {
       _ ?? { user =>
-        env.forms.note.bindFromRequest.fold(
+        env.user.forms.note.bindFromRequest.fold(
           e => err(e)(user),
-          data => env.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote, me)) inject suc
+          data => env.user.noteApi.write(user, data.text, me, data.mod && isGranted(_.ModNote, me)) inject suc
         )
       }
     }
 
   def deleteNote(id: String) = Auth { implicit ctx => me =>
-    OptionFuResult(env.noteApi.byId(id)) { note =>
+    OptionFuResult(env.user.noteApi.byId(id)) { note =>
       (note.isFrom(me) && !note.mod) ?? {
-        env.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
+        env.user.noteApi.delete(note._id) inject Redirect(routes.User.show(note.to).url + "?note")
       }
     }
   }

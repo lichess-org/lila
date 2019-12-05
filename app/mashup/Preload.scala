@@ -17,6 +17,7 @@ import play.api.libs.json._
 
 final class Preload(
     tv: Tv,
+    gameRepo: lila.game.GameRepo,
     userCached: lila.user.Cached,
     tourWinners: lila.tournament.WinnersApi,
     timelineApi: lila.timeline.EntryApi,
@@ -26,7 +27,8 @@ final class Preload(
     playbanApi: lila.playban.PlaybanApi,
     lightUserApi: LightUserApi,
     roundProxy: lila.round.GameProxyRepo,
-    simulIsFeaturable: Simul => Boolean
+    simulIsFeaturable: Simul => Boolean,
+    lastPostCache: lila.blog.LastPostCache
 ) {
 
   import Preload._
@@ -68,7 +70,7 @@ final class Preload(
               tWinners,
               puzzle,
               streams.excludeUsers(events.flatMap(_.hostedBy)),
-              Env.blog.lastPostCache.apply,
+              lastPostCache.apply,
               playban,
               currentGame,
               simulIsFeaturable,
@@ -78,7 +80,7 @@ final class Preload(
       }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
-    env.game.gameRepo.playingRealtimeNoAi(user, 10).flatMap {
+    gameRepo.playingRealtimeNoAi(user, 10).flatMap {
       _.map { roundProxy.pov(_, user) }.sequenceFu.dmap(_.flatten)
     } flatMap {
       currentGameMyTurn(_, lightUserApi.sync)(user)
@@ -87,8 +89,8 @@ final class Preload(
   private def currentGameMyTurn(povs: List[Pov], lightUser: lila.common.LightUser.GetterSync)(user: User): Fu[Option[CurrentGame]] =
     ~povs.collectFirst {
       case p1 if p1.game.nonAi && p1.game.hasClock && p1.isMyTurn =>
-        roundProxyPov(p1.gameId, user) map (_ | p1) map { pov =>
-          val opponent = lila.game.Namer.playerText(pov.opponent)(lightUser)
+        roundProxy.pov(p1.gameId, user) dmap (_ | p1) map { pov =>
+          val opponent = lila.game.Namer.playerTextBlocking(pov.opponent)(lightUser)
           CurrentGame(
             pov = pov,
             opponent = opponent,

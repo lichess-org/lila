@@ -71,9 +71,9 @@ trait UserHelper { self: I18nHelper with StringHelper with NumberHelper =>
   def usernameOrId(userId: String) = lightUser(userId).fold(userId)(_.titleName)
   def usernameOrAnon(userId: Option[String]) = userId.flatMap(lightUser).fold(User.anonymous)(_.titleName)
 
-  def isOnline(userId: String) = Env.socket isOnline userId
+  def isOnline(userId: String) = env.socket isOnline userId
 
-  def isStreaming(userId: String) = Env.streamer.liveStreamApi isStreaming userId
+  def isStreaming(userId: String) = env.streamer.liveStreamApi isStreaming userId
 
   def userIdLink(
     userIdOption: Option[String],

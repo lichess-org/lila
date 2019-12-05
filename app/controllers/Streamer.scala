@@ -7,7 +7,10 @@ import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
 import views._
 
-final class Streamer(env: Env) extends LilaController(env) {
+final class Streamer(
+    env: Env,
+    apiC: Api
+) extends LilaController(env) {
 
   private def api = env.streamer.api
 
@@ -21,10 +24,10 @@ final class Streamer(env: Env) extends LilaController(env) {
     } yield Ok(html.streamer.index(live, pager, requests))
   }
 
-  def live = Api.ApiRequest { implicit ctx =>
+  def live = apiC.ApiRequest { implicit ctx =>
     env.user.lightUserApi asyncMany env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map { users =>
       val playingIds = env.relation.online.playing intersect users.map(_.id)
-      Api.toApiResult {
+      apiC.toApiResult {
         users.map { u =>
           lila.common.LightUser.lightUserWrites.writes(u).add("playing" -> playingIds(u.id))
         }
@@ -100,7 +103,7 @@ final class Streamer(env: Env) extends LilaController(env) {
     }
   }
 
-  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => _ =>
+  def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => _ =>
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(s.streamer, pic) recover {

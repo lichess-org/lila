@@ -1,8 +1,8 @@
 package lila.common
 
-import akka.actor.ActorSystem
+import akka.actor.{ ActorSystem, Scheduler }
 import scala.concurrent.duration._
-import scala.concurrent.{ Future => ScalaFu }
+import scala.concurrent.{ Promise, Future => ScalaFu }
 
 object Future {
 
@@ -57,6 +57,12 @@ object Future {
   def delay[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: ActorSystem): Fu[A] =
     if (duration == 0.millis) run
     else akka.pattern.after(duration, system.scheduler)(run)
+
+  def sleep(duration: FiniteDuration)(implicit scheduler: Scheduler): Funit = {
+    val p = Promise[Unit]
+    scheduler.scheduleOnce(duration)(p success {})
+    p.future
+  }
 
   def makeItLast[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: ActorSystem): Fu[A] =
     if (duration == 0.millis) run

@@ -109,8 +109,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
         "'self'",
         assets,
         socket,
-        lila.api.Env.current.ExplorerEndpoint,
-        lila.api.Env.current.TablebaseEndpoint
+        env.explorerEndpoint,
+        env.tablebaseEndpoint
       ),
       styleSrc = List("'self'", "'unsafe-inline'", assets),
       fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),

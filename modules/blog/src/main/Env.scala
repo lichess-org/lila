@@ -11,6 +11,7 @@ private class PlanConfig(
     @ConfigName("last_post_cache.ttl") val lastPostTtl: FiniteDuration
 )
 
+@Module
 final class Env(
     appConfig: Configuration,
     asyncCache: lila.memo.AsyncCache.Builder,

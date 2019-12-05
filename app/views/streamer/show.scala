@@ -83,7 +83,7 @@ method:'post'
             } getOrElse div(cls := "box embed")(div(cls := "nostream")("OFFLINE"))
           },
           div(cls := "box streamer")(
-            header(s, following.some),
+            views.html.streamer.header(s, following.some),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
             a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }

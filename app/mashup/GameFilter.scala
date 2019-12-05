@@ -79,39 +79,44 @@ object GameFilterMenu {
     case _ => None
   }
 
-  private def pag = Env.game.paginator
+  final class PaginatorBuilder(
+      userGameSearch: lila.gameSearch.UserGameSearch,
+      pag: lila.game.PaginatorBuilder,
+      gameRepo: lila.game.GameRepo,
+      bookmarkApi: lila.bookmark.BookmarkApi
+  ) {
 
-  def paginatorOf(
-    userGameSearch: lila.gameSearch.UserGameSearch,
-    user: User,
-    nbs: Option[UserInfo.NbGames],
-    filter: GameFilter,
-    me: Option[User],
-    page: Int
-  )(implicit req: Request[_]): Fu[Paginator[Game]] = {
-    val nb = cachedNbOf(user, nbs, filter)
-    def std(query: Bdoc) = pag.recentlyCreated(query, nb)(page)
-    filter match {
-      case Bookmark => Env.bookmark.api.gamePaginatorByUser(user, page)
-      case Imported => pag.apply(
-        selector = Query imported user.id,
-        sort = $sort desc "pgni.ca",
-        nb = nb
-      )(page)
-      case All => std(Query started user.id)
-      case Me => std(Query.opponents(user, me | user))
-      case Rated => std(Query rated user.id)
-      case Win => std(Query win user.id)
-      case Loss => std(Query loss user.id)
-      case Draw => std(Query draw user.id)
-      case Playing => pag(
-        selector = Query nowPlaying user.id,
-        sort = $empty,
-        nb = nb
-      )(page) addEffect { p =>
-        p.currentPageResults.filter(_.finishedOrAborted) foreach env.game.gameRepo.unsetPlayingUids
+    def apply(
+      user: User,
+      nbs: Option[UserInfo.NbGames],
+      filter: GameFilter,
+      me: Option[User],
+      page: Int
+    )(implicit req: Request[_]): Fu[Paginator[Game]] = {
+      val nb = cachedNbOf(user, nbs, filter)
+      def std(query: Bdoc) = pag.recentlyCreated(query, nb)(page)
+      filter match {
+        case Bookmark => bookmarkApi.gamePaginatorByUser(user, page)
+        case Imported => pag.apply(
+          selector = Query imported user.id,
+          sort = $sort desc "pgni.ca",
+          nb = nb
+        )(page)
+        case All => std(Query started user.id)
+        case Me => std(Query.opponents(user, me | user))
+        case Rated => std(Query rated user.id)
+        case Win => std(Query win user.id)
+        case Loss => std(Query loss user.id)
+        case Draw => std(Query draw user.id)
+        case Playing => pag(
+          selector = Query nowPlaying user.id,
+          sort = $empty,
+          nb = nb
+        )(page) addEffect { p =>
+          p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids
+        }
+        case Search => userGameSearch(user, page)
       }
-      case Search => userGameSearch(user, page)
     }
   }
 

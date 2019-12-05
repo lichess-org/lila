@@ -42,7 +42,7 @@ object edit {
                 bits.rules()
               )
             )
-            else header(s, none),
+            else views.html.streamer.header(s, none),
             div(cls := "box__pad") {
               val granted = s.streamer.approval.granted
               frag(

@@ -33,7 +33,7 @@ final class Env(
     userMax = config.userDisplayMax
   )
 
-  private lazy val unsubApi = new UnsubApi(db(config.unsubColl))
+  lazy val unsubApi = new UnsubApi(db(config.unsubColl))
 
   def isUnsub(channel: String)(userId: String): Fu[Boolean] =
     unsubApi.get(channel, userId)

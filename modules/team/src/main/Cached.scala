@@ -10,7 +10,7 @@ final class Cached(
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
-  private val nameCache = new Syncache[String, Option[String]](
+  val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
     compute = teamRepo.name,
     default = _ => none,

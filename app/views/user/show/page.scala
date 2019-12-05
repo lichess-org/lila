@@ -38,7 +38,7 @@ object page {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          header(u, info, Angle.Activity, social),
+          views.html.user.show.header(u, info, Angle.Activity, social),
           div(cls := "angle-content")(views.html.activity(u, activities))
         )
       )
@@ -64,7 +64,7 @@ object page {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
-          header(u, info, Angle.Games(searchForm), social),
+          views.html.user.show.header(u, info, Angle.Games(searchForm), social),
           div(cls := "angle-content")(gamesContent(u, info.nbs, games, filters, filters.current.name))
         )
       )

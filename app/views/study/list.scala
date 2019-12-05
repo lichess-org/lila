@@ -131,7 +131,7 @@ object list {
     active: String,
     order: Order,
     pag: Paginator[WithChaptersAndLiked],
-    url: controllers.Study.ListUrl,
+    url: String => Call,
     searchFilter: String
   )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
     title = title,

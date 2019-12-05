@@ -25,16 +25,18 @@ final class TeamInfoApi(
     api: TeamApi,
     categApi: lila.forum.CategApi,
     forumRecent: lila.forum.Recent,
-    teamCached: lila.team.Cached
+    teamCached: lila.team.Cached,
+    tournamentRepo: lila.tournament.TournamentRepo,
+    requestRepo: lila.team.RequestRepo
 ) {
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {
     requests <- (team.enabled && me.??(m => team.isCreator(m.id))) ?? api.requestsWithUsers(team)
     mine <- me.??(m => api.belongsTo(team.id, m.id))
-    requestedByMe <- !mine ?? me.??(m => RequestRepo.exists(team.id, m.id))
+    requestedByMe <- !mine ?? me.??(m => requestRepo.exists(team.id, m.id))
     forumNbPosts <- categApi.teamNbPosts(team.id)
-    forumPosts <- recent.team(team.id)
-    tours <- lila.tournament.TournamentRepo.byTeam(team.id, 10)
+    forumPosts <- forumRecent.team(team.id)
+    tours <- tournamentRepo.byTeam(team.id, 10)
     _ <- tours.nonEmpty ?? {
       teamCached.preloadSet(tours.flatMap(_.teamBattle.??(_.teams)).toSet)
     }
