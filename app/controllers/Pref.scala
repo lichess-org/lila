@@ -4,7 +4,6 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaCookie
 import views._
 
 final class Pref(env: Env) extends LilaController(env) {
@@ -43,9 +42,8 @@ final class Pref(env: Env) extends LilaController(env) {
   }
 
   def set(name: String) = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
     if (name == "zoom") {
-      Ok.withCookies(LilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+      Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
     } else {
       implicit val req = ctx.body
       (setters get name) ?? {
@@ -82,5 +80,5 @@ final class Pref(env: Env) extends LilaController(env) {
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value)
-    } inject LilaCookie.session(name, value)(ctx.req)
+    } inject env.lilaCookie.session(name, value)(ctx.req)
 }

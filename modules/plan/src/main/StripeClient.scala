@@ -169,7 +169,7 @@ private final class StripeClient(
   private def debugInput(data: Seq[(String, Any)]) = fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
 }
 
-private object StripeClient {
+object StripeClient {
 
   class StripeException(msg: String) extends Exception(msg)
   class DeletedException(msg: String) extends StripeException(msg)
@@ -178,10 +178,10 @@ private object StripeClient {
   class InvalidRequestException(msg: String) extends StatusException(msg)
 
   import io.methvin.play.autoconfig._
-  case class Config(
+  private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
       @ConfigName("keys.public") secretKey: Secret
   )
-  implicit val configLoader = AutoConfig.loader[Config]
+  private[plan] implicit val configLoader = AutoConfig.loader[Config]
 }

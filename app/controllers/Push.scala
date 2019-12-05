@@ -16,7 +16,7 @@ final class Push(env: Env) extends LilaController(env) {
     env.push.unregisterDevices(me)
   }
 
-  def webSubscribe = AuthBody(BodyParsers.parse.json) { implicit ctx => me =>
+  def webSubscribe = AuthBody(parse.json) { implicit ctx => me =>
     val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
     ctx.body.body.validate[WebSubscription].fold(
       err => BadRequest(err.toString).fuccess,

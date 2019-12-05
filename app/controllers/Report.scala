@@ -10,7 +10,11 @@ import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
 import lila.user.{ User => UserModel }
 
-final class Report(env: Env) extends LilaController(env) {
+final class Report(
+    env: Env,
+    userC: User,
+    modC: Mod
+) extends LilaController(env) {
 
   private def api = env.report.api
 
@@ -43,7 +47,7 @@ final class Report(env: Env) extends LilaController(env) {
   private def onInquiryStart(inquiry: ReportModel) =
     inquiry.room match {
       case Room.Comm => Redirect(routes.Mod.communicationPrivate(inquiry.user))
-      case _ => Mod.redirect(inquiry.user)
+      case _ => modC.redirect(inquiry.user)
     }
 
   protected[controllers] def onInquiryClose(
@@ -53,7 +57,7 @@ final class Report(env: Env) extends LilaController(env) {
     force: Boolean = false
   )(implicit ctx: BodyContext[_]) = {
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
-      case Some(suspect) => User.renderModZoneActions(suspect.user.username)
+      case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
       case None =>
         val dataOpt = ctx.body.body match {
           case AnyContentAsFormUrlEncoded(data) => data.some
@@ -62,12 +66,12 @@ final class Report(env: Env) extends LilaController(env) {
         inquiry match {
           case None =>
             goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
-              User.modZoneOrRedirect(s.user.username, me)
+              userC.modZoneOrRedirect(s.user.username, me)
             }
           case Some(prev) =>
             def thenGoTo = dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
               case "back" => HTTPRequest referer ctx.req
-              case "profile" => Mod.userUrl(prev.user, true).some
+              case "profile" => modC.userUrl(prev.user, true).some
               case url => url.some
             }
             thenGoTo match {
@@ -82,7 +86,7 @@ final class Report(env: Env) extends LilaController(env) {
                       }
                     }
                   }
-                else if (force) User.modZoneOrRedirect(prev.user, me)
+                else if (force) userC.modZoneOrRedirect(prev.user, me)
                 else api.inquiries.toggle(AsMod(me), prev.id) map {
                   _.fold(redirectToList)(onInquiryStart)
                 }
@@ -102,7 +106,7 @@ final class Report(env: Env) extends LilaController(env) {
   }
 
   def currentCheatInquiry(username: String) = Secure(_.Hunter) { implicit ctx => me =>
-    OptionFuResult(env.user.userRepo named username) { user =>
+    OptionFuResult(env.user.repo named username) { user =>
       env.api.currentCheatReport(lila.report.Suspect(user)) flatMap {
         _ ?? { report =>
           env.api.inquiries.toggle(lila.report.Mod(me), report.id)
@@ -112,7 +116,7 @@ final class Report(env: Env) extends LilaController(env) {
   }
 
   def form = Auth { implicit ctx => implicit me =>
-    get("username") ?? env.user.userRepo.named flatMap { user =>
+    get("username") ?? env.user.repo.named flatMap { user =>
       env.forms.createWithCaptcha map {
         case (form, captcha) => Ok(html.report.form(form, user, captcha))
       }
@@ -122,7 +126,7 @@ final class Report(env: Env) extends LilaController(env) {
   def create = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
     env.forms.create.bindFromRequest.fold(
-      err => get("username") ?? env.user.userRepo.named flatMap { user =>
+      err => get("username") ?? env.user.repo.named flatMap { user =>
         env.forms.anyCaptcha map { captcha =>
           BadRequest(html.report.form(err, user, captcha))
         }
@@ -139,7 +143,7 @@ final class Report(env: Env) extends LilaController(env) {
     implicit val req = ctx.body
     env.forms.flag.bindFromRequest.fold(
       err => BadRequest.fuccess,
-      data => env.user.userRepo named data.username flatMap {
+      data => env.user.repo named data.username flatMap {
         _ ?? { user =>
           if (user == me) BadRequest.fuccess
           else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok

@@ -44,10 +44,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     securityStore: lila.security.Store,
     emailValidator: lila.security.EmailAddressValidator
-)(implicit
-    system: ActorSystem,
-    mat: akka.stream.Materializer
-) {
+)(implicit system: ActorSystem) {
 
   private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)
 

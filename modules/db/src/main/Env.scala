@@ -5,7 +5,7 @@ import play.api.Configuration
 import reactivemongo.api._
 import reactivemongo.api.commands.Command
 import scala.concurrent.duration._
-import scala.concurrent.{ Await, ExecutionContext, Future }
+import scala.concurrent.Await
 import scala.util.{ Failure, Success }
 
 import dsl.Coll
@@ -42,10 +42,10 @@ final class Env(name: String, config: DbConfig) {
   object image {
     private lazy val imageColl = config.imageCollName map apply
     import dsl._
-    // import DbImage.DbImageBSONHandler
-    // def fetch(id: String): Fu[Option[DbImage]] = imageColl ?? {
-    //   _.byId[DbImage](id)
-    // }
+    import DbImage.DbImageBSONHandler
+    def fetch(id: String): Fu[Option[DbImage]] = imageColl ?? {
+      _.byId[DbImage](id)
+    }
   }
 }
 

@@ -2,7 +2,7 @@ package lila.user
 
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 
 import lila.common.LightUser
 import lila.db.dsl._

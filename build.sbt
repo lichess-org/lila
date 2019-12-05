@@ -67,7 +67,7 @@ lazy val api = module("api", moduleCPDeps)
 lazy val puzzle = module("puzzle", Seq(
   common, memo, hub, history, db, user, rating, pref, tree, game
 )).settings(
-  libraryDependencies ++= provided(play.api) ++ reactivemongo.bundle
+  libraryDependencies ++= provided(play.api, play.joda) ++ reactivemongo.bundle
 )
 
 lazy val quote = module("quote", Seq()).settings(

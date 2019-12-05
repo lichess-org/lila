@@ -2,7 +2,6 @@ package lila.user
 
 import org.apache.commons.codec.binary.Base32
 import reactivemongo.api.bson._
-import scala.util.{ Try, Success, Failure }
 
 import java.security.SecureRandom
 import javax.crypto.Mac

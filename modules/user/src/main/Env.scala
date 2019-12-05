@@ -8,7 +8,6 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(
@@ -34,7 +33,7 @@ final class Env(
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
-  val userRepo = new UserRepo(db(config.collectionUser))
+  val repo = new UserRepo(db(config.collectionUser))
 
   val lightUserApi: LightUserApi = wire[LightUserApi]
   val lightUser = lightUserApi.async
@@ -85,7 +84,7 @@ final class Env(
     "adjustCheater" -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
         rankingApi remove userId
-        userRepo.setRoles(userId, Nil)
+        repo.setRoles(userId, Nil)
     },
     "adjustBooster" -> {
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
@@ -95,7 +94,7 @@ final class Env(
     },
     "gdprErase" -> {
       case User.GDPRErase(user) =>
-        userRepo erase user
+        repo erase user
         noteApi erase user
     }
   )

@@ -62,7 +62,7 @@ final class Game(
   )
 
   private def handleExport(username: String, me: Option[lila.user.User], req: RequestHeader, oauth: Boolean) =
-    env.user.userRepo named username flatMap {
+    env.user.repo named username flatMap {
       _ ?? { user =>
         apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           apiC.GlobalLinearLimitPerUserOption(me) {
@@ -119,7 +119,7 @@ final class Game(
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
     get("vs", req) match {
       case None => f(none)
-      case Some(name) => env.user.userRepo named name flatMap {
+      case Some(name) => env.user.repo named name flatMap {
         case None => notFoundJson(s"No such opponent: $name")
         case Some(user) => f(user.some)
       }

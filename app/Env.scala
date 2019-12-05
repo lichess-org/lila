@@ -11,6 +11,7 @@ import lila.user.User
 
 final class Env(
     val config: Configuration,
+    val db: lila.db.Env,
     val playApp: Application,
     val api: lila.api.Env,
     val user: lila.user.Env,
@@ -31,7 +32,7 @@ final class Env(
     val teamSearch: lila.teamSearch.Env,
     val analyse: lila.analyse.Env,
     val mod: lila.mod.Env,
-    val notifyModule: lila.notify.Env,
+    val notify: lila.notify.Env,
     val round: lila.round.Env,
     val lobby: lila.lobby.Env,
     val setup: lila.setup.Env,
@@ -106,9 +107,9 @@ final class Env(
     }
 
   def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit = for {
-    u <- user.userRepo byId userId orFail s"No such user $userId"
+    u <- user.repo byId userId orFail s"No such user $userId"
     goodUser <- !u.lameOrTroll ?? { !playban.api.hasCurrentBan(u.id) }
-    _ <- user.userRepo.disable(u, keepEmail = !goodUser)
+    _ <- user.repo.disable(u, keepEmail = !goodUser)
     _ <- !goodUser ?? relation.api.fetchFollowing(u.id) flatMap {
       activity.write.unfollowAll(u, _)
     }
@@ -131,7 +132,7 @@ final class Env(
 
   Bus.subscribeFun("garbageCollect") {
     case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
-      user.userRepo.isTroll(userId) foreach { troll =>
+      user.repo.isTroll(userId) foreach { troll =>
         if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
       }
   }

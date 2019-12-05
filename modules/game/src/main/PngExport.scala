@@ -38,7 +38,7 @@ final class PngExport(
       ).flatten
 
     ws.url(url)
-      .withQueryString(queryString: _*)
+      .withQueryStringParameters(queryString: _*)
       .withMethod("GET")
       .stream() flatMap {
         case res if res.status != 200 =>

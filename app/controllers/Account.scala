@@ -26,7 +26,7 @@ final class Account(
     FormFuResult(env.user.forms.profile) { err =>
       fuccess(html.account.profile(me, err))
     } { profile =>
-      env.user.userRepo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
+      env.user.repo.setProfile(me.id, profile) inject Redirect(routes.User show me.username)
     }
   }
 
@@ -35,7 +35,7 @@ final class Account(
     FormFuResult(env.user.forms.username(me)) { err =>
       fuccess(html.account.username(me, err))
     } { username =>
-      env.user.userRepo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
+      env.user.repo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
         case e => fuccess(html.account.username(me, env.user.forms.username(me).withGlobalError(e.getMessage)))
       }
     }
@@ -126,7 +126,7 @@ final class Account(
     }
   }
 
-  private def emailForm(user: UserModel) = env.user.userRepo email user.id flatMap {
+  private def emailForm(user: UserModel) = env.user.repo email user.id flatMap {
     env.security.forms.changeEmail(user, _)
   }
 
@@ -138,7 +138,7 @@ final class Account(
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ => me =>
-    env.user.userRepo email me.id map {
+    env.user.repo email me.id map {
       _ ?? { email =>
         JsonOk(Json.obj("email" -> email.value))
       }
@@ -188,7 +188,7 @@ final class Account(
         implicit val req = ctx.body
         helpForm.bindFromRequest.fold(
           err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
-          username => getStatus(env.user.userRepo, username) map { status =>
+          username => getStatus(env.user.repo, username) map { status =>
             Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
           }
         )
@@ -214,7 +214,7 @@ final class Account(
         FormFuResult(form) { err =>
           fuccess(html.account.twoFactor.setup(me, err))
         } { data =>
-          env.user.userRepo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
+          env.user.repo.setupTwoFactor(me.id, TotpSecret(data.secret)) >>
             env.security.store.closeUserExceptSessionId(me.id, currentSessionId) >>
             env.push.webSubscriptionApi.unsubscribeByUserExceptSession(me, currentSessionId) inject
             Redirect(routes.Account.twoFactor)
@@ -230,7 +230,7 @@ final class Account(
         FormFuResult(form) { err =>
           fuccess(html.account.twoFactor.disable(me, err))
         } { _ =>
-          env.user.userRepo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
+          env.user.repo.disableTwoFactor(me.id) inject Redirect(routes.Account.twoFactor)
         }
       }
     }
@@ -264,14 +264,14 @@ final class Account(
 
   // App BC
   def kidToggle = Auth { ctx => me =>
-    env.user.userRepo.setKid(me, !me.kid) inject Ok
+    env.user.repo.setKid(me, !me.kid) inject Ok
   }
 
   def kidPost = Auth { implicit ctx => me =>
-    env.user.userRepo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
+    env.user.repo.setKid(me, getBool("v")) inject Redirect(routes.Account.kid)
   }
   def apiKidPost = Scoped(_.Preference.Write) { req => me =>
-    env.user.userRepo.setKid(me, getBool("v", req)) inject jsonOkResult
+    env.user.repo.setKid(me, getBool("v", req)) inject jsonOkResult
   }
 
   private def currentSessionId(implicit ctx: Context) =

@@ -2,7 +2,6 @@ package controllers
 
 import scala.concurrent.duration._
 
-import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
 

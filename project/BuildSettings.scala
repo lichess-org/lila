@@ -53,11 +53,10 @@ object BuildSettings {
     "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
     "-deprecation",
-    "-unchecked",
-    "-Wunused:imports,locals,implicits",
-    "inaccessible,infer-any",
-    "-Xmaxerrs", "5",
-    "-Xmaxwarns", "5"
+    // "-unchecked",
+    // "-Wunused:imports,locals,implicits",// "inaccessible,infer-any",
+    "-Xmaxerrs", "6",
+    "-Xmaxwarns", "6"
   )
 
   val srcMain = Seq(

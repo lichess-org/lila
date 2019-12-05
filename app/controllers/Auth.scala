@@ -109,7 +109,7 @@ final class Auth(
               result => result.toOption match {
                 case None => InternalServerError("Authentication error").fuccess
                 case Some(u) =>
-                  env.user.userRepo.email(u.id) foreach {
+                  env.user.repo.email(u.id) foreach {
                     _ foreach { garbageCollect(u, _) }
                   }
                   authenticateUser(u, Some(redirectTo))
@@ -210,7 +210,7 @@ final class Auth(
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   val passwordHash = env.user.authenticator passEnc ClearPassword(data.password)
-                  env.user.userRepo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
+                  env.user.repo.create(data.username, passwordHash, email.acceptable, ctx.blind, none,
                     mustConfirmEmail = mustConfirm.value)
                     .orFail(s"No user could be created for ${data.username}")
                     .addEffect { logSignup(_, email.acceptable, data.fingerPrint, mustConfirm) }
@@ -242,7 +242,7 @@ final class Auth(
               lila.mon.user.register.mobile()
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
               val passwordHash = env.user.authenticator passEnc ClearPassword(data.password)
-              env.user.userRepo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,
+              env.user.repo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,
                 mustConfirmEmail = mustConfirm.value)
                 .orFail(s"No user could be created for ${data.username}")
                 .addEffect { logSignup(_, email.acceptable, none, mustConfirm) }
@@ -289,7 +289,7 @@ final class Auth(
       case None => lila.security.EmailConfirm.cookie get ctx.req match {
         case None => Ok(accountC.renderCheckYourEmail).fuccess
         case Some(userEmail) =>
-          env.user.userRepo nameExists userEmail.username map {
+          env.user.repo nameExists userEmail.username map {
             case false => Redirect(routes.Auth.signup) withCookies env.lilaCookie.newSession(ctx.req)
             case true => Ok(accountC.renderCheckYourEmail)
           }
@@ -303,15 +303,15 @@ final class Auth(
       implicit val req = ctx.body
       forms.preloadEmailDns >> forms.fixEmail(userEmail.email).bindFromRequest.fold(
         err => BadRequest(html.auth.checkYourEmail(userEmail.some, err.some)).fuccess,
-        email => env.user.userRepo.named(userEmail.username) flatMap {
+        email => env.user.repo.named(userEmail.username) flatMap {
           _.fold(Redirect(routes.Auth.signup).fuccess) { user =>
-            env.user.userRepo.mustConfirmEmail(user.id) flatMap {
+            env.user.repo.mustConfirmEmail(user.id) flatMap {
               case false => Redirect(routes.Auth.login).fuccess
               case _ =>
                 val newUserEmail = userEmail.copy(email = EmailAddress(email))
                 EmailConfirmRateLimit(newUserEmail, ctx.req) {
                   lila.mon.email.types.fix()
-                  env.user.userRepo.setEmail(user.id, newUserEmail.email) >>
+                  env.user.repo.setEmail(user.id, newUserEmail.email) >>
                     env.security.emailConfirm.send(user, newUserEmail.email) inject {
                       Redirect(routes.Auth.checkYourEmail) withCookies
                         lila.security.EmailConfirm.cookie.make(env.lilaCookie, user, newUserEmail.email)(ctx.req)
@@ -336,7 +336,7 @@ final class Auth(
         Redirect(routes.Auth.login).fuccess
       case Result.JustConfirmed(user) =>
         lila.mon.user.register.confirmEmailResult(true)()
-        env.user.userRepo.email(user.id).flatMap {
+        env.user.repo.email(user.id).flatMap {
           _.?? { email =>
             authLog(user.username, email.value, s"Confirmed email ${email.value}")
             welcome(user, email)
@@ -359,7 +359,7 @@ final class Auth(
       _ ?? { hash =>
         !me.lame ?? (for {
           otherIds <- api.recentUserIdsByFingerHash(hash).map(_.filter(me.id!=))
-          autoReport <- (otherIds.size >= 2) ?? env.user.userRepo.countEngines(otherIds).flatMap {
+          autoReport <- (otherIds.size >= 2) ?? env.user.repo.countEngines(otherIds).flatMap {
             case nb if nb >= 2 && nb >= otherIds.size / 2 => env.report.api.autoCheatPrintReport(me.id)
             case _ => funit
           }
@@ -381,7 +381,7 @@ final class Auth(
         BadRequest(html.auth.bits.passwordReset(err, captcha, false.some))
       },
       data => {
-        env.user.userRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
+        env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
           case Some((user, storedEmail)) => {
             lila.mon.user.auth.passwordResetRequest("success")()
             env.security.passwordReset.send(user, storedEmail) inject Redirect(routes.Auth.passwordResetSent(storedEmail.conceal))
@@ -430,8 +430,8 @@ final class Auth(
         } { data =>
           HasherRateLimit(user.username, ctx.req) { _ =>
             env.user.authenticator.setPassword(user.id, ClearPassword(data.newPasswd1)) >>
-              env.user.userRepo.setEmailConfirmed(user.id).flatMap { _ ?? { e => welcome(user, e) } } >>
-              env.user.userRepo.disableTwoFactor(user.id) >>
+              env.user.repo.setEmailConfirmed(user.id).flatMap { _ ?? { e => welcome(user, e) } } >>
+              env.user.repo.disableTwoFactor(user.id) >>
               env.security.store.disconnect(user.id) >>
               env.push.webSubscriptionApi.unsubscribeByUser(user) >>
               authenticateUser(user) >>-
@@ -454,7 +454,7 @@ final class Auth(
         BadRequest(html.auth.bits.magicLink(err, captcha, false.some))
       },
       data =>
-        env.user.userRepo.enabledWithEmail(data.realEmail.normalize) flatMap {
+        env.user.repo.enabledWithEmail(data.realEmail.normalize) flatMap {
           case Some((user, storedEmail)) => {
             MagicLinkRateLimit(user, storedEmail, ctx.req) {
               lila.mon.user.auth.magicLinkRequest("success")()

@@ -31,7 +31,7 @@ private final class RequestRepo(val coll: Coll) {
   def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
 
   def getByUserId(userId: lila.user.User.ID) =
-    coll.find($doc("user" -> userId)).list[Request]()
+    coll.ext.find($doc("user" -> userId)).list[Request]()
 
-  def remove(id: ID) = coll.remove($id(id))
+  def remove(id: ID) = coll.delete.one($id(id))
 }

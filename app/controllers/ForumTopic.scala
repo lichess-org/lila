@@ -84,7 +84,7 @@ final class ForumTopic(env: Env) extends LilaController(env) with ForumControlle
   def participants(topicId: String) = Auth { _ => _ =>
     for {
       userIds <- postApi userIds topicId
-      usernames <- env.user.userRepo usernamesByIds userIds
+      usernames <- env.user.repo usernamesByIds userIds
     } yield Ok(Json.toJson(usernames.sortBy(_.toLowerCase)))
   }
 }

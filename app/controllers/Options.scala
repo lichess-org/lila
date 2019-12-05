@@ -1,8 +1,5 @@
 package controllers
 
-import play.api.mvc._
-import scala.concurrent.duration._
-
 import lila.app._
 import lila.common.HTTPRequest.isApiOrApp
 import lila.common.ResponseHeaders.allowMethods

@@ -29,7 +29,7 @@ final class EntryApi(
     coll.find($doc(
       "users" -> userId,
       "date" $gt DateTime.now.minusWeeks(2)
-    ), projection)
+    ), projection.some)
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[Vector](max)
@@ -37,17 +37,17 @@ final class EntryApi(
   def findRecent(typ: String, since: DateTime, max: Int) =
     coll.find(
       $doc("typ" -> typ, "date" $gt since),
-      projection
+      projection.some
     ).sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[Vector](max)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
-    coll.count($doc(
+    coll.countSel($doc(
       "users" -> userId,
       "chan" -> channel,
       "date" $gt DateTime.now.minusDays(7)
-    ).some) map (0 !=)
+    )) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
     coll.insert(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void
@@ -55,7 +55,7 @@ final class EntryApi(
   // can't remove from capped collection,
   // so we set a date in the past instead.
   private[timeline] def removeRecentFollowsBy(userId: User.ID): Funit =
-    coll.update(
+    coll.update.one(
       $doc("typ" -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
       $set("date" -> DateTime.now().minusDays(365)),
       multi = true
@@ -71,7 +71,7 @@ final class EntryApi(
       expireAfter = _.ExpireAfterWrite(1 hour)
     )
 
-    private def fetch: Fu[Vector[Entry]] = coll
+    private def fetch: Fu[Vector[Entry]] = coll.ext
       .find($doc(
         "users" $exists false,
         "date" $gt DateTime.now.minusWeeks(2)

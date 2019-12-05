@@ -74,7 +74,7 @@ final class Api(
     UsersRateLimitPerIP(ip, cost = cost) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
         lila.mon.api.users.cost(cost)
-        env.user.userRepo nameds usernames map {
+        env.user.repo nameds usernames map {
           _.map { env.user.jsonView(_, none) }
         } map toApiResult map toHttp
       }
@@ -163,7 +163,7 @@ final class Api(
     val cost = page * nb.value + 10
     UserGamesRateLimit(cost, req) {
       lila.mon.api.userGames.cost(cost)
-      env.user.userRepo named name flatMap {
+      env.user.repo named name flatMap {
         _ ?? { user =>
           gameApi.byUser(
             user = user,
@@ -269,7 +269,7 @@ final class Api(
   }
 
   def tournamentsByOwner(name: String) = Action.async { req =>
-    (name != "lichess") ?? env.user.userRepo.named(name) flatMap {
+    (name != "lichess") ?? env.user.repo.named(name) flatMap {
       _ ?? { user =>
         GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           val nb = getInt("nb", req) | Int.MaxValue
@@ -309,7 +309,7 @@ final class Api(
   def activity(name: String) = ApiRequest { req =>
     UserActivityRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
       lila.mon.api.activity.cost(1)
-      env.user.userRepo named name flatMap {
+      env.user.repo named name flatMap {
         _ ?? { user =>
           env.activity.read.recent(user) flatMap {
             _.map { env.activity.jsonView(_, user) }.sequenceFu

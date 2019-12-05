@@ -49,7 +49,7 @@ final class Challenge(
               case None => Ok(html.challenge.mine(c, json, none))
             }
           }
-          else (c.challengerUserId ?? env.user.userRepo.named) map { user =>
+          else (c.challengerUserId ?? env.user.repo.named) map { user =>
             Ok(html.challenge.theirs(c, json, user))
           },
         api = _ => Ok(json).fuccess
@@ -138,7 +138,7 @@ final class Challenge(
         "username" -> lila.user.DataForm.historicalUsernameField
       )).bindFromRequest.fold(
         err => funit,
-        username => env.user.userRepo named username flatMap {
+        username => env.user.repo named username flatMap {
           case None => Redirect(routes.Challenge.show(c.id)).fuccess
           case Some(dest) => env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
             case Some(denied) => showChallenge(c, lila.challenge.ChallengeDenied.translated(denied).some)
@@ -155,7 +155,7 @@ final class Challenge(
     setupC.PostRateLimit(HTTPRequest lastRemoteAddress req) {
       env.setup.forms.api.bindFromRequest.fold(
         jsonFormErrorDefaultLang,
-        config => env.user.userRepo enabledById userId.toLowerCase flatMap { destUser =>
+        config => env.user.repo enabledById userId.toLowerCase flatMap { destUser =>
           destUser ?? { env.challenge.granter(me.some, _, config.perfType) } flatMap {
             case Some(denied) =>
               BadRequest(jsonError(lila.challenge.ChallengeDenied.translated(denied))).fuccess
@@ -189,7 +189,7 @@ final class Challenge(
 
   def rematchOf(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.game.gameRepo game gameId) { g =>
-      Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.userRepo.byId flatMap {
+      Pov.opponentOfUserId(g, me.id).flatMap(_.userId) ?? env.user.repo.byId flatMap {
         _ ?? { opponent =>
           env.challenge.granter(me.some, opponent, g.perfType) flatMap {
             case Some(d) => BadRequest(jsonError {

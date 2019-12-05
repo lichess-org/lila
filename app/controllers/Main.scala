@@ -88,9 +88,9 @@ final class Main(
     import chess.format.pgn.Glyph
     import lila.tree.Node.glyphWriter
     Ok(Json.obj(
-      "move" -> Glyph.MoveAssessment.display,
-      "position" -> Glyph.PositionAssessment.display,
-      "observation" -> Glyph.Observation.display
+      "move" -> (Glyph.MoveAssessment.display: List[Glyph]),
+      "position" -> (Glyph.PositionAssessment.display: List[Glyph]),
+      "observation" -> (Glyph.Observation.display: List[Glyph])
     )) as JSON
   }
   val glyphs = Action(glyphsResult)
@@ -147,14 +147,14 @@ Disallow: /games/export
     if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
     else fuccess {
       Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
-        lila.common.LilaCookie.withSession { s =>
+        env.lilaCookie.withSession { s =>
           s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
         }
       )
     }
   }
 
-  def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>
+  def legacyQaQuestion(id: Int, slug: String) = Open { _ =>
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match {
@@ -179,6 +179,4 @@ Disallow: /games/export
       }
     }.fuccess
   }
-
-  def versionedAsset(version: String, file: String) = Assets.at(path = "/public", file)
 }

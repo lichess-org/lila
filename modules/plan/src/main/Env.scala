@@ -2,7 +2,6 @@ package lila.plan
 
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import lila.memo.SettingStore.{ StringReader, Formable }
 import play.api.Configuration
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
@@ -31,6 +30,8 @@ final class Env(
 
   import StripeClient.configLoader
   private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
+
+  val stripePublicKey = config.stripe.publicKey
 
   private lazy val patronColl = db(config.patronColl)
   private lazy val chargeColl = db(config.chargeColl)

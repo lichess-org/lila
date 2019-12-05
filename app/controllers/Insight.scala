@@ -57,7 +57,7 @@ final class Insight(env: Env) extends LilaController(env) {
   }
 
   private def Accessible(username: String)(f: lila.user.User => Fu[Result])(implicit ctx: Context) =
-    env.user.userRepo named username flatMap {
+    env.user.repo named username flatMap {
       _.fold(notFound) { u =>
         env.insight.share.grant(u, ctx.me) flatMap {
           case true => f(u)

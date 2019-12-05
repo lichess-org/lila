@@ -31,7 +31,7 @@ final class Env(
 
   private lazy val threadColl = db(config.threadColl)
 
-  private lazy val repo = wire[ThreadRepo]
+  lazy val repo = wire[ThreadRepo]
 
   lazy val forms = wire[DataForm]
 

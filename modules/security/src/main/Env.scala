@@ -48,7 +48,7 @@ final class Env(
 
   lazy val geoIP: GeoIP = wire[GeoIP]
 
-  lazy val userSpyApi = wire[UserSpyApi]
+  lazy val userSpy = wire[UserSpyApi]
 
   lazy val store = new Store(db(config.collection.security))
 

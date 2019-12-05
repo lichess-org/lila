@@ -2,9 +2,10 @@ package lila.report
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
+import scala.math.Ordering.Float.TotalOrdering
 import scalaz.NonEmptyList
 
-import lila.user.{ User, Note }
+import lila.user.User
 
 case class Report(
     _id: Report.ID, // also the url slug

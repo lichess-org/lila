@@ -16,7 +16,7 @@ final class TeamMemberStream(
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[User, _] =
     memberRepo.coll
-      .find($doc("team" -> team.id), $doc("user" -> true))
+      .ext.find($doc("team" -> team.id), $doc("user" -> true))
       .sort($sort desc "date")
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPreference.secondaryPreferred)

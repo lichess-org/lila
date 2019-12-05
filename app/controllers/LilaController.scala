@@ -392,7 +392,7 @@ private[controllers] abstract class LilaController(val env: Env)
           env.relation.online.friendsOf(me.id) zip
             env.team.api.nbRequests(me.id) zip
             env.challenge.api.countInFor.get(me.id) zip
-            env.notifyModule.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
+            env.notify.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             env.mod.inquiryApi.forMod(me)
         } else fuccess {
           ((((OnlineFriends.empty, 0), 0), 0), none)

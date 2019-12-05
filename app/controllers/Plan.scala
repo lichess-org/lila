@@ -19,7 +19,7 @@ final class Plan(env: Env) extends LilaController(env) {
       import lila.plan.PlanApi.SyncResult._
       env.plan.api.sync(me) flatMap {
         case ReloadUser => Redirect(routes.Plan.index).fuccess
-        case Synced(Some(patron), None) => env.user.userRepo email me.id flatMap { email =>
+        case Synced(Some(patron), None) => env.user.repo email me.id flatMap { email =>
           renderIndex(email, patron.some)
         }
         case Synced(Some(patron), Some(customer)) => indexPatron(me, patron, customer)
@@ -42,7 +42,7 @@ final class Plan(env: Env) extends LilaController(env) {
   private def indexAnon(implicit ctx: Context) = renderIndex(email = none, patron = none)
 
   private def indexFreeUser(me: UserModel)(implicit ctx: Context) =
-    env.user.userRepo email me.id flatMap { email =>
+    env.user.repo email me.id flatMap { email =>
       renderIndex(email, patron = none)
     }
 
@@ -62,7 +62,7 @@ final class Plan(env: Env) extends LilaController(env) {
     env.plan.api.customerInfo(me, customer) flatMap {
       case Some(info: MonthlyCustomerInfo) => Ok(html.plan.indexStripe(me, patron, info)).fuccess
       case Some(info: OneTimeCustomerInfo) => renderIndex(info.customer.email map EmailAddress.apply, patron.some)
-      case None => env.user.userRepo email me.id flatMap { email =>
+      case None => env.user.repo email me.id flatMap { email =>
         renderIndex(email, patron.some)
       }
     }
@@ -82,7 +82,7 @@ final class Plan(env: Env) extends LilaController(env) {
     ) inject Redirect(routes.Plan.index)
   }
 
-  def cancel = AuthBody { implicit ctx => me =>
+  def cancel = AuthBody { _ => me =>
     env.plan.api.cancel(me) inject Redirect(routes.Plan.index())
   }
 
@@ -134,7 +134,7 @@ final class Plan(env: Env) extends LilaController(env) {
         name = ipn.name,
         txnId = ipn.txnId,
         ip = lila.common.HTTPRequest.lastRemoteAddress(req).value,
-        key = lila.plan.PayPalIpnKey(get("key", req) | "N/A")
+        key = get("key", req) | "N/A"
       ) inject Ok
     )
   }

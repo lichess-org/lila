@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -24,7 +23,7 @@ final class User(env: Env) extends LilaController(env) {
   private def userGameSearch = env.gameSearch.userGameSearch
 
   def tv(username: String) = Open { implicit ctx =>
-    OptionFuResult(env.user.userRepo named username) { user =>
+    OptionFuResult(env.user.repo named username) { user =>
       currentlyPlaying(user) orElse
         env.game.gameRepo.lastPlayed(user) flatMap {
           _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
@@ -35,7 +34,7 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   def studyTv(username: String) = Open { implicit ctx =>
-    OptionResult(env.user.userRepo named username) { user =>
+    OptionResult(env.user.repo named username) { user =>
       Redirect {
         env.relation.online.studying getIfPresent user.id match {
           case None => routes.Study.byOwnerDefault(user.id)
@@ -106,12 +105,12 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   private def EnabledUser(username: String)(f: UserModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
-    env.user.userRepo named username flatMap {
+    env.user.repo named username flatMap {
       case None if isGranted(_.UserSpy) => Mod.searchTerm(username.trim)
       case None => notFound
       case Some(u) if (u.enabled || isGranted(_.UserSpy)) => f(u)
       case Some(u) => negotiate(
-        html = env.user.userRepo isErased u flatMap { erased =>
+        html = env.user.repo isErased u flatMap { erased =>
           if (erased.value) notFound
           else NotFound(html.user.show.page.disabled(u)).fuccess
         },
@@ -120,7 +119,7 @@ final class User(env: Env) extends LilaController(env) {
     }
 
   def showMini(username: String) = Open { implicit ctx =>
-    OptionFuResult(env.user.userRepo named username) { user =>
+    OptionFuResult(env.user.repo named username) { user =>
       if (user.enabled || isGranted(_.UserSpy)) for {
         blocked <- ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }
         crosstable <- ctx.userId ?? { env.game.crosstableApi(user.id, _) map some }
@@ -270,7 +269,7 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] = {
-    env.user.userRepo withEmails username flatten s"No such user $username" map {
+    env.user.repo withEmails username flatten s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         val parts =
           env.mod.logApi.userHistory(user.id).logTimeIfGt(s"$username logApi.userHistory", 2 seconds) zip
@@ -282,7 +281,7 @@ final class User(env: Env) extends LilaController(env) {
                 env.user.lightUserApi.preloadMany(reports.userIds).logTimeIfGt(s"$username lightUserApi.preloadMany", 2 seconds) inject
                   html.user.mod.parts(user, history, charges, reports, pref, rageSit).some
             }
-        val actions = env.user.userRepo.isErased(user) map { erased =>
+        val actions = env.user.repo.isErased(user) map { erased =>
           html.user.mod.actions(user, emails, erased).some
         }
         val spyFu = env.security.userSpy(user).logTimeIfGt(s"$username security.userSpy", 2 seconds)
@@ -323,9 +322,9 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   protected[controllers] def renderModZoneActions(username: String)(implicit ctx: Context) =
-    env.user.userRepo withEmails username flatten s"No such user $username" flatMap {
+    env.user.repo withEmails username orFail s"No such user $username" flatMap {
       case UserModel.WithEmails(user, emails) =>
-        env.user.userRepo.isErased(user) map { erased =>
+        env.user.repo.isErased(user) map { erased =>
           Ok(html.user.mod.actions(user, emails, erased))
         }
     }
@@ -345,7 +344,7 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   private def doWriteNote(username: String, me: UserModel)(err: Form[_] => UserModel => Fu[Result], suc: => Result)(implicit req: Request[_]) =
-    env.user.userRepo named username flatMap {
+    env.user.repo named username flatMap {
       _ ?? { user =>
         env.forms.note.bindFromRequest.fold(
           e => err(e)(user),
@@ -375,7 +374,7 @@ final class User(env: Env) extends LilaController(env) {
   }
 
   def perfStat(username: String, perfKey: String) = Open { implicit ctx =>
-    OptionFuResult(env.user.userRepo named username) { u =>
+    OptionFuResult(env.user.repo named username) { u =>
       if ((u.disabled || (u.lame && !ctx.is(u))) && !isGranted(_.UserSpy)) notFound
       else PerfType(perfKey).fold(notFound) { perfType =>
         for {
@@ -409,15 +408,15 @@ final class User(env: Env) extends LilaController(env) {
   def autocomplete = Open { implicit ctx =>
     get("term", ctx.req).filter(_.nonEmpty).filter(lila.user.User.couldBeUsername) match {
       case None => BadRequest("No search term provided").fuccess
-      case Some(term) if getBool("exists") => env.user.userRepo nameExists term map { r => Ok(JsBoolean(r)) }
+      case Some(term) if getBool("exists") => env.user.repo nameExists term map { r => Ok(JsBoolean(r)) }
       case Some(term) => {
         get("tour") match {
           case Some(tourId) => env.tournament.playerRepo.searchPlayers(tourId, term, 10)
           case None => ctx.me.ifTrue(getBool("friend")) match {
-            case None => env.user.userRepo userIdsLike term
+            case None => env.user.repo userIdsLike term
             case Some(follower) =>
               env.relation.api.searchFollowedBy(follower, term, 10) flatMap {
-                case Nil => env.user.userRepo userIdsLike term
+                case Nil => env.user.repo userIdsLike term
                 case userIds => fuccess(userIds)
               }
           }

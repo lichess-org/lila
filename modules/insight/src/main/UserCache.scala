@@ -21,7 +21,7 @@ private final class UserCacheApi(coll: Coll) {
 
   def find(id: String) = coll.uno[UserCache]($id(id))
 
-  def save(u: UserCache) = coll.update($id(u.id), u, upsert = true).void
+  def save(u: UserCache) = coll.update.one($id(u.id), u, upsert = true).void
 
-  def remove(id: String) = coll.remove($id(id)).void
+  def remove(id: String) = coll.delete.one($id(id)).void
 }

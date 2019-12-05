@@ -44,7 +44,7 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
     if (HTTPRequest isXhr ctx.req)
       env.forms friendFilled get("fen").map(FEN) flatMap { form =>
         val validFen = form("fen").value flatMap ValidFen(false)
-        userId ?? env.user.userRepo.named flatMap {
+        userId ?? env.user.repo.named flatMap {
           case None => Ok(html.setup.forms.friend(form, none, none, validFen)).fuccess
           case Some(user) => env.challenge.granter(ctx.me, user, none) map {
             case Some(denied) => BadRequest(lila.challenge.ChallengeDenied.translated(denied))
@@ -65,7 +65,7 @@ final class Setup(env: Env) extends LilaController(env) with TheftPrevention {
           html = keyPages.home(Results.BadRequest),
           api = _ => jsonFormError(err)
         ),
-        config => userId ?? env.user.userRepo.enabledById flatMap { destUser =>
+        config => userId ?? env.user.repo.enabledById flatMap { destUser =>
           destUser ?? { env.challenge.granter(ctx.me, _, config.perfType) } flatMap {
             case Some(denied) =>
               val message = lila.challenge.ChallengeDenied.translated(denied)
