@@ -58,7 +58,7 @@ object LangList {
     Lang("jbo", "EN") -> "lojban",
     Lang("jv", "ID") -> "basa Jawa",
     Lang("ka", "GE") -> "ქართული",
-    Lang("kab", "KAB") -> "Taqvaylit",
+    Lang("kab", "DZ") -> "Taqvaylit",
     Lang("kk", "KZ") -> "қазақша",
     Lang("kmr", "TR") -> "Kurdî (Kurmancî)",
     Lang("kn", "IN") -> "ಕನ್ನಡ",

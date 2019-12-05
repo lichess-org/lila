@@ -6,6 +6,7 @@ import play.api.i18n.{ Lang => PlayLang }
  * by the fact that it comes from its companion object.
  * Therefore we can't trust any implicit Lang value.
  * This type works around that */
+// #TODO remove, play 2.8
 case class Lang(value: PlayLang) extends AnyVal {
 
   def language = value.language
