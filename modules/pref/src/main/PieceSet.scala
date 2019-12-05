@@ -32,8 +32,8 @@ object PieceSet extends PieceSetObject {
     "spatial", "california", "pixel",
     "maestro", "fresca", "cardinal",
     "gioco", "tatiana", "staunty",
-    "dubrovny", "icpieces", "shapes",
-    "letter"
+    "libra", "dubrovny", "icpieces",
+    "shapes", "letter"
   ) map { name => new PieceSet(name) }
 }
 
