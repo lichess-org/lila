@@ -64,7 +64,9 @@ final class Message(env: Env) extends LilaController(env) {
           err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
             BadRequest(html.message.thread(thread, err.some, blocked))
           },
-          text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
+          text => api.makePost(thread, text, me) inject Redirect {
+            s"${routes.Message.thread(thread.id)}#bottom"
+          }
         ),
         api = _ => forms.post.bindFromRequest.fold(
           err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),

@@ -38,7 +38,7 @@ final class Setup(
         )
       }
     } else fuccess {
-      Redirect(routes.Lobby.home + "#ai")
+      Redirect(s"${routes.Lobby.home}#ai")
     }
   }
 
@@ -59,7 +59,7 @@ final class Setup(
         }
       }
     else fuccess {
-      Redirect(routes.Lobby.home + "#friend")
+      Redirect(s"${routes.Lobby.home}#friend")
     }
   }
 
@@ -122,7 +122,7 @@ final class Setup(
         forms.hookFilled(timeModeString = get("time")) map { html.setup.forms.hook(_) }
       }
       else fuccess {
-        Redirect(routes.Lobby.home + "#hook")
+        Redirect(s"${routes.Lobby.home}#hook")
       }
     }
   }

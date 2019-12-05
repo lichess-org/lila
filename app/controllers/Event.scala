@@ -49,7 +49,7 @@ final class Event(env: Env) extends LilaController(env) {
     )
   }
 
-  def clone(id: String) = Secure(_.ManageEvent) { implicit ctx => me =>
+  def cloneE(id: String) = Secure(_.ManageEvent) { implicit ctx => me =>
     OptionFuResult(api one id) { old =>
       val event = api clone old
       Ok(html.event.create(api editForm event)).fuccess

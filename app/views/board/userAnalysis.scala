@@ -55,7 +55,7 @@ object userAnalysis {
               a(
                 dataIcon := iconByVariant(v),
                 cls := (pov.game.variant == v).option("current"),
-                href := routes.UserAnalysis.parse(v.key)
+                href := routes.UserAnalysis.parseArg(v.key)
               )(v.name)
             }
           )

@@ -1,12 +1,13 @@
 package lila.app
 
 import akka.actor._
+import akka.stream.Materializer
 import com.softwaremill.macwire._
-import play.api.mvc.SessionCookieBaker
-import play.api.{ Application, Configuration, Mode }
-import scala.concurrent.duration._
-import play.api.libs.ws.ahc.AhcWSComponents
+import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.WSClient
+import play.api.mvc.{ SessionCookieBaker, ControllerComponents }
+import play.api.{ Application, Configuration, Environment, Mode }
+import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config._
@@ -14,9 +15,9 @@ import lila.user.User
 
 final class Env(
     val config: Configuration,
+    val mode: Mode,
     val common: lila.common.Env,
     val db: lila.db.Env,
-    val playApp: Application,
     val api: lila.api.Env,
     val user: lila.user.Env,
     val security: lila.security.Env,
@@ -36,7 +37,7 @@ final class Env(
     val teamSearch: lila.teamSearch.Env,
     val analyse: lila.analyse.Env,
     val mod: lila.mod.Env,
-    val notify: lila.notify.Env,
+    val notifyM: lila.notify.Env,
     val round: lila.round.Env,
     val lobby: lila.lobby.Env,
     val setup: lila.setup.Env,
@@ -77,10 +78,12 @@ final class Env(
     val oAuth: lila.oauth.Env,
     val bot: lila.bot.Env,
     val evalCache: lila.evalCache.Env,
-    val rating: lila.rating.Env
+    val rating: lila.rating.Env,
+    val controllerComponents: ControllerComponents,
+    cookieBacker: SessionCookieBaker
 )(implicit val system: ActorSystem) {
 
-  val isProd = playApp.mode == Mode.Prod
+  val isProd = mode == Mode.Prod
   val isStage = config.get[Boolean]("app.stage")
   val explorerEndpoint = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
@@ -88,19 +91,11 @@ final class Env(
   def net = common.netConfig
 
   lazy val preloader = wire[mashup.Preload]
-
   lazy val socialInfo = wire[mashup.UserInfo.SocialApi]
-
   lazy val userNbGames = wire[mashup.UserInfo.NbGamesApi]
-
   lazy val userInfo = wire[mashup.UserInfo.UserInfoApi]
-
   lazy val teamInfo = wire[mashup.TeamInfoApi]
-
   lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-
-  private lazy val cookieBacker: SessionCookieBaker = playApp.injector.instanceOf[SessionCookieBaker]
-
   lazy val lilaCookie = wire[lila.common.LilaCookie]
 
   private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
@@ -155,18 +150,21 @@ final class Env(
   scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
 }
 
-final class EnvBoot(app: Application) extends AhcWSComponents {
+final class EnvBoot(
+    config: Configuration,
+    environment: Environment,
+    lifecycle: ApplicationLifecycle,
+    controllerComponents: ControllerComponents,
+    cookieBacker: SessionCookieBaker
+)(implicit system: ActorSystem, ws: WSClient) {
 
   lila.log.boot.info {
     s"Java: ${System.getProperty("java.version")}, memory: ${Runtime.getRuntime().maxMemory() / 1024 / 1024}MB"
   }
 
-  implicit def system = app.actorSystem
   implicit def scheduler = system.scheduler
-  def config = app.configuration
-  def appPath = AppPath(app.path)
-  def mode = app.mode
-  implicit def ws: WSClient = wsClient
+  def appPath = AppPath(environment.rootPath)
+  def mode = environment.mode
   implicit def idGenerator = game.idGenerator
 
   // wire all the lila modules
@@ -191,7 +189,7 @@ final class EnvBoot(app: Application) extends AhcWSComponents {
   lazy val teamSearch: lila.teamSearch.Env = wire[lila.teamSearch.Env]
   lazy val analyse: lila.analyse.Env = wire[lila.analyse.Env]
   lazy val mod: lila.mod.Env = wire[lila.mod.Env]
-  lazy val notify: lila.notify.Env = wire[lila.notify.Env]
+  lazy val notifyM: lila.notify.Env = wire[lila.notify.Env]
   lazy val round: lila.round.Env = wire[lila.round.Env]
   lazy val lobby: lila.lobby.Env = wire[lila.lobby.Env]
   lazy val setup: lila.setup.Env = wire[lila.setup.Env]

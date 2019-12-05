@@ -5,12 +5,11 @@ import play.api.data.Forms._
 import play.api.data.validation._
 
 import lila.user.{ User, UserRepo }
-import lila.common.Domain
 
 private[report] final class DataForm(
     userRepo: UserRepo,
     val captcher: lila.hub.actors.Captcher,
-    domain: Domain
+    domain: lila.common.config.NetDomain
 ) extends lila.hub.CaptchedForm {
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink")({ setup =>
     if (setup.reason != "cheat" || (domain.value + """/(\w{8}|\w{12})""").r.findFirstIn(setup.text).isDefined)

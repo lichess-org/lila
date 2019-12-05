@@ -21,7 +21,9 @@ private[controllers] abstract class LilaController(val env: Env)
   with RequestGetter
   with ResponseWriter {
 
-  implicit val defaultExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
+  val controllerComponents = env.controllerComponents
+
+  implicit val executionContext = defaultExecutionContext
 
   protected implicit val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
@@ -392,7 +394,7 @@ private[controllers] abstract class LilaController(val env: Env)
           env.relation.online.friendsOf(me.id) zip
             env.team.api.nbRequests(me.id) zip
             env.challenge.api.countInFor.get(me.id) zip
-            env.notify.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
+            env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
             env.mod.inquiryApi.forMod(me)
         } else fuccess {
           ((((OnlineFriends.empty, 0), 0), 0), none)
@@ -471,7 +473,7 @@ private[controllers] abstract class LilaController(val env: Env)
 
   protected def errorsAsJson(form: Form[_])(implicit lang: Lang): JsObject = {
     val json = JsObject(
-      form.errors.groupBy(_.key).mapValues { errors =>
+      form.errors.groupBy(_.key).view.mapValues { errors =>
         JsArray {
           errors.map { e =>
             JsString(lila.i18n.Translator.txt.literal(e.message, lila.i18n.I18nDb.Site, e.args, lang))

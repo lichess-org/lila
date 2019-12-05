@@ -78,7 +78,7 @@ object side {
           strong(tour.position.eco), " ", tour.position.name
         ),
         separator,
-        a(href := routes.UserAnalysis.parse(tour.position.fen.replace(" ", "_")))(trans.analysis())
+        a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
     streamers.toList map views.html.streamer.bits.contextual,

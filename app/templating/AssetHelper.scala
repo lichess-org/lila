@@ -17,7 +17,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   val socketDomain = env.net.socketDomain
   val vapidPublicKey = env.push.vapidPublicKey
 
-  val sameAssetDomain = siteDomain == assetDomain
+  val sameAssetDomain = siteDomain.value == assetDomain.value
 
   val assetBaseUrl = s"//$assetDomain"
 
@@ -101,8 +101,12 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
-    val assets = if (req.secure) "https://" + assetDomain else assetDomain
-    val socket = (if (req.secure) "wss://" else "ws://") + socketDomain + (if (socketDomain.contains(":")) "" else ":*")
+    val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
+    val socket = {
+      val protocol = if (req.secure) "wss://" else "ws://"
+      val port = if (socketDomain.contains(":")) "" else ":*"
+      s"$protocol$socketDomain$port"
+    }
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
       connectSrc = List(
@@ -113,7 +117,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
         env.tablebaseEndpoint
       ),
       styleSrc = List("'self'", "'unsafe-inline'", assets),
-      fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
+      fontSrc = List("'self'", assetDomain.value, "https://fonts.gstatic.com"),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),

@@ -30,7 +30,7 @@ object event {
             event.title,
             span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
           ),
-          st.form(cls := "box__top__actions", action := routes.Event.clone(event.id), method := "get")(
+          st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
             form3.submit("Clone", "".some, klass = "button-green")
           )
         ),

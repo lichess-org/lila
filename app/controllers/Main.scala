@@ -110,7 +110,7 @@ final class Main(
 
   val robots = Action { req =>
     Ok {
-      if (env.net.crawlable && req.domain == env.net.domain) """User-agent: *
+      if (env.net.crawlable && req.domain == env.net.domain.value) """User-agent: *
 Allow: /
 Disallow: /game/export
 Disallow: /games/export

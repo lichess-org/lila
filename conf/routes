@@ -100,7 +100,7 @@ POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
-GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
+GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
@@ -229,7 +229,7 @@ GET   /tournament/shields/:categ              controllers.Tournament.categShield
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
-GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.clone(id: String)
+GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.cloneT(id: String)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
@@ -548,7 +548,7 @@ GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
 POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
-GET   /event/manager/clone/$id<\w{8}>  controllers.Event.clone(id: String)
+GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id: String)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 

@@ -1,4 +1,4 @@
-package lila.app
+// package lila.app
 
 // #TODO relocate that shit
 // object Global extends GlobalSettings {

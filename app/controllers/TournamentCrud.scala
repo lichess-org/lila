@@ -43,7 +43,7 @@ final class TournamentCrud(env: Env) extends LilaController(env) {
     )
   }
 
-  def clone(id: String) = Secure(_.ManageTournament) { implicit ctx => me =>
+  def cloneT(id: String) = Secure(_.ManageTournament) { implicit ctx => me =>
     OptionFuResult(crud one id) { old =>
       val tour = crud clone old
       Ok(html.tournament.crud.create(crud editForm tour)).fuccess

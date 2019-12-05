@@ -13,7 +13,6 @@ import lila.common.Domain
 private class CoachConfig(
     @ConfigName("collection.report") val reportColl: CollName,
     @ConfigName("score.threshold") val scoreThreshold: Int,
-    @ConfigName("net.domain") val netDomain: Domain,
     @ConfigName("actor.name") val actorName: String
 )
 
@@ -22,6 +21,7 @@ private case class Thresholds(score: () => Int, slack: () => Int)
 @Module
 final class Env(
     appConfig: Configuration,
+    domain: lila.common.config.NetDomain,
     db: lila.db.Env,
     isOnline: lila.socket.IsOnline,
     noteApi: lila.user.NoteApi,

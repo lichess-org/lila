@@ -109,7 +109,7 @@ final class Practice(
       FormFuResult(form) { err =>
         api.structure.get map { html.practice.config(_, err) }
       } { text =>
-        ~api.config.set(text).right.toOption >>-
+        ~api.config.set(text).toOption >>-
           api.structure.clear >>
           env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
