@@ -10,8 +10,7 @@ import scala.concurrent.duration._
 
 import lila.common.config._
 
-@Module
-private class GameConfig(
+private final class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
@@ -38,6 +37,7 @@ final class Env(
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
+  import config.paginatorMaxPerPage
 
   lazy val gameRepo = new GameRepo(db(config.gameColl))
 

@@ -16,15 +16,13 @@ import views._
 
 final class Tournament(
     env: Env,
-    teamC: Team
+    teamC: => Team
 ) extends LilaController(env) {
 
   private def repo = env.tournament.tournamentRepo
   private def api = env.tournament.api
   private def jsonView = env.tournament.jsonView
   private def forms = env.tournament.forms
-
-  import teamC.teamsIBelongTo
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
@@ -214,7 +212,7 @@ final class Tournament(
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
-      teamsIBelongTo(me) map { teams =>
+      teamC.teamsIBelongTo(me) map { teams =>
         Ok(html.tournament.form(forms(me), forms, me, teams))
       }
     }
@@ -250,7 +248,7 @@ final class Tournament(
 
   def create = AuthBody { implicit ctx => me =>
     NoLameOrBot {
-      teamsIBelongTo(me) flatMap { teams =>
+      teamC.teamsIBelongTo(me) flatMap { teams =>
         implicit val req = ctx.body
         negotiate(
           html = forms(me).bindFromRequest.fold(
@@ -284,7 +282,7 @@ final class Tournament(
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
-      setup => teamsIBelongTo(me) flatMap { teams =>
+      setup => teamC.teamsIBelongTo(me) flatMap { teams =>
         api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
           jsonView(tour, none, none, getUserTeamIds, env.team.getTeamName, none, none, partial = false, lila.i18n.defaultLang)
         }

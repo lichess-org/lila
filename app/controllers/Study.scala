@@ -18,7 +18,7 @@ import views._
 
 final class Study(
     env: Env,
-    userAnalysisC: UserAnalysis
+    userAnalysisC: => UserAnalysis
 ) extends LilaController(env) {
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>

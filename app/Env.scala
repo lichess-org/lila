@@ -171,7 +171,7 @@ final class EnvBoot(
   lazy val common: lila.common.Env = wire[lila.common.Env]
   lazy val baseUrl = common.netConfig.baseUrl
   lazy val memo: lila.memo.Env = wire[lila.memo.Env]
-  lazy val db: lila.db.Env = lila.db.Env.main(config)
+  lazy val db: lila.db.Env = lila.db.Env.main(config, lifecycle)
   lazy val user: lila.user.Env = wire[lila.user.Env]
   lazy val security: lila.security.Env = wire[lila.security.Env]
   lazy val hub: lila.hub.Env = wire[lila.hub.Env]

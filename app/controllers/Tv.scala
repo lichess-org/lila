@@ -10,7 +10,7 @@ import views._
 
 final class Tv(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   def index = onChannel(lila.tv.Tv.Channel.Best.key)
@@ -32,7 +32,7 @@ final class Tv(
     implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
     env.tv.tv.getChampions map {
       _.channels map { case (chan, champ) => chan.name -> champ }
-    } map { Json.toJson(_) } map apiC.Data.apply
+    } map { Json.toJson(_) } map Api.Data.apply
   }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =

@@ -13,7 +13,7 @@ import views._
 
 final class Puzzle(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   private def renderJson(

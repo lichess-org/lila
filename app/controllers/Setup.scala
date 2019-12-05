@@ -17,7 +17,7 @@ import views._
 
 final class Setup(
     env: Env,
-    challengeC: Challenge
+    challengeC: => Challenge
 ) extends LilaController(env) with TheftPrevention {
 
   private def forms = env.setup.forms

@@ -15,12 +15,14 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi
+    relationApi: lila.relation.RelationApi,
+    lifecycle: play.api.inject.ApplicationLifecycle
 )(implicit system: akka.actor.ActorSystem) {
 
   private lazy val db = new lila.db.Env(
     "insight",
-    appConfig.get[DbConfig]("insight.mongodb")(AutoConfig.loader)
+    appConfig.get[DbConfig]("insight.mongodb")(AutoConfig.loader),
+    lifecycle
   )
 
   lazy val share = wire[Share]

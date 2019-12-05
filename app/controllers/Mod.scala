@@ -17,8 +17,8 @@ import play.api.mvc._
 
 final class Mod(
     env: Env,
-    reportC: Report,
-    userC: User
+    reportC: => Report,
+    userC: => User
 ) extends LilaController(env) {
 
   private def modApi = env.mod.api

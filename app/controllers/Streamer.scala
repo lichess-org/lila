@@ -9,7 +9,7 @@ import views._
 
 final class Streamer(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   private def api = env.streamer.api

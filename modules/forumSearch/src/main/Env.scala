@@ -11,7 +11,7 @@ import Query.jsonWriter
 
 @Module
 private class ForumSearchConfig(
-    @ConfigName("index.name") val indexName: String,
+    @ConfigName("index") val indexName: String,
     @ConfigName("paginator.max_per_page") val maxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
 )

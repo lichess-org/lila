@@ -10,7 +10,7 @@ import lila.common.config._
 import lila.db.Env.configLoader
 
 @Module
-private class CoachConfig(
+private class PuzzleConfig(
     val mongodb: lila.db.DbConfig,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
@@ -28,12 +28,13 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     gameRepo: lila.game.GameRepo,
-    userRepo: lila.user.UserRepo
+    userRepo: lila.user.UserRepo,
+    lifecycle: play.api.inject.ApplicationLifecycle
 )(implicit system: ActorSystem) {
 
-  private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
+  private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private lazy val db = new lila.db.Env("puzzle", config.mongodb)
+  private lazy val db = new lila.db.Env("puzzle", config.mongodb, lifecycle)
 
   private lazy val gameJson = wire[GameJson]
 

@@ -10,7 +10,7 @@ import views._
 
 final class Relay(
     env: Env,
-    studyC: Study
+    studyC: => Study
 ) extends LilaController(env) {
 
   def index(page: Int) = Open { implicit ctx =>

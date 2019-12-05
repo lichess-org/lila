@@ -15,7 +15,7 @@ import views._
 
 final class Team(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   private def forms = env.team.forms
@@ -49,7 +49,6 @@ final class Team(
   } yield html.team.show(team, members, info)
 
   def users(teamId: String) = Action.async { req =>
-    import apiC.limitedDefault
     api.team(teamId) flatMap {
       _ ?? { team =>
         apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {

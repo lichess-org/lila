@@ -22,13 +22,12 @@ final class Env(
     appConfig: Configuration,
     asyncCache: lila.memo.AsyncCache.Builder,
     userRepo: lila.user.UserRepo,
-    system: ActorSystem,
     lifecycle: play.api.inject.ApplicationLifecycle
-) {
+)(implicit system: ActorSystem) {
 
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
-  private lazy val db = new lila.db.Env("oauth", config.mongodb)
+  private lazy val db = new lila.db.Env("oauth", config.mongodb, lifecycle)
   private lazy val tokenColl = db(config.tokenColl)
   private lazy val appColl = db(config.appColl)
 

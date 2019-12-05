@@ -30,5 +30,6 @@ object WMMatching {
       }
   }
 
-  private def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = ???
+  // #TODO implement
+  private def lowLevel(nvertex: Int, pairScore: (Int, Int) => Option[Int]): List[(Int, Int)] = Nil
 }

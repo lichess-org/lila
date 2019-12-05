@@ -50,7 +50,7 @@ private object OneSignalPush {
 
   final class Config(
       val url: String,
-      val appId: String,
+      @ConfigName("app_id") val appId: String,
       val key: lila.common.config.Secret
   )
   implicit val configLoader = AutoConfig.loader[Config]

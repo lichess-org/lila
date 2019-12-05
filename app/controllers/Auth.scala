@@ -15,7 +15,7 @@ import views._
 
 final class Auth(
     env: Env,
-    accountC: Account
+    accountC: => Account
 ) extends LilaController(env) {
 
   private def api = env.security.api

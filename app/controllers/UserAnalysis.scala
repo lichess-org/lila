@@ -18,7 +18,7 @@ import views._
 
 final class UserAnalysis(
     env: Env,
-    gameC: Game
+    gameC: => Game
 ) extends LilaController(env) with TheftPrevention {
 
   def index = load("", Standard)

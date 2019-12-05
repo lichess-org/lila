@@ -12,7 +12,7 @@ import lila.game.{ Game => GameModel }
 
 final class Game(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   def delete(gameId: String) = Auth { implicit ctx => me =>

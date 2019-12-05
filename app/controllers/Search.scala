@@ -8,7 +8,7 @@ import views._
 
 final class Search(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   def searchForm = env.gameSearch.forms.search

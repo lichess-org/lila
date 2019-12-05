@@ -14,10 +14,10 @@ import views._
 
 final class Round(
     env: Env,
-    gameC: Game,
-    challengeC: Challenge,
-    analyseC: Analyse,
-    tournamentC: Tournament
+    gameC: => Game,
+    challengeC: => Challenge,
+    analyseC: => Analyse,
+    tournamentC: => Tournament
 ) extends LilaController(env) with TheftPrevention {
 
   private def analyser = env.analyse.analyser

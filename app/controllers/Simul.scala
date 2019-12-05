@@ -13,12 +13,11 @@ import views._
 
 final class Simul(
     env: Env,
-    teamC: Team
+    teamC: => Team,
+    apiC: => Team
 ) extends LilaController(env) {
 
   private def forms = lila.simul.SimulForm
-
-  import teamC.teamsIBelongTo
 
   private def simulNotFound(implicit ctx: Context) = NotFound(html.simul.bits.notFound())
 
@@ -124,7 +123,7 @@ final class Simul(
 
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
-      teamsIBelongTo(me) map { teams =>
+      apiC.teamsIBelongTo(me) map { teams =>
         Ok(html.simul.form(forms.create, teams))
       }
     }
@@ -134,7 +133,7 @@ final class Simul(
     NoLameOrBot {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
-        err => teamsIBelongTo(me) map { teams =>
+        err => apiC.teamsIBelongTo(me) map { teams =>
           BadRequest(html.simul.form(err, teams))
         },
         setup => env.simul.api.create(setup, me) map { simul =>

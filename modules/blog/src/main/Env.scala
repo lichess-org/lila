@@ -6,7 +6,7 @@ import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 
 @Module
-private class PlanConfig(
+private class BlogConfig(
     @ConfigName("prismic.api_url") val apiUrl: String,
     @ConfigName("last_post_cache.ttl") val lastPostTtl: FiniteDuration
 )
@@ -18,7 +18,7 @@ final class Env(
     timelineApi: lila.timeline.EntryApi
 )(implicit system: akka.actor.ActorSystem, ws: play.api.libs.ws.WSClient) {
 
-  private val config = appConfig.get[PlanConfig]("plan")(AutoConfig.loader)
+  private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)
 
   lazy val api = new BlogApi(
     prismicUrl = config.apiUrl,

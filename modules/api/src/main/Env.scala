@@ -46,7 +46,8 @@ final class Env(
     val mode: Mode
 )(implicit system: ActorSystem) {
 
-  val config = appConfig.get[ApiConfig]("")(ApiConfig.loader)
+  val config = ApiConfig loadFrom appConfig
+  import config.apiToken
 
   lazy val pgnDump: PgnDump = wire[PgnDump]
 

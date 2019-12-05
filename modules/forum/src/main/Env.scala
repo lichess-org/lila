@@ -42,20 +42,22 @@ final class Env(
   lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
   lazy val postRepo = new PostRepo(db(CollName("f_post")))
 
-  lazy val categApi: CategApi = wire[CategApi]
-
-  lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
+  lazy val categApi: CategApi = {
+    val mk = (env: Env) => wire[CategApi]
+    mk(this)
+  }
 
   lazy val topicApi: TopicApi = {
-    val mk = (max: MaxPerPage) => wire[TopicApi]
-    mk(config.topicMaxPerPage)
+    val mk = (max: MaxPerPage, env: Env) => wire[TopicApi]
+    mk(config.topicMaxPerPage, this)
   }
 
   lazy val postApi: PostApi = {
-    val mk = (max: MaxPerPage) => wire[PostApi]
-    mk(config.postMaxPerPage)
+    val mk = (max: MaxPerPage, env: Env) => wire[PostApi]
+    mk(config.postMaxPerPage, this)
   }
 
+  lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
   lazy val forms = wire[DataForm]
   lazy val recent = wire[Recent]
 

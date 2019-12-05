@@ -22,8 +22,8 @@ import views._
 
 final class User(
     env: Env,
-    roundC: Round,
-    modC: Mod
+    roundC: => Round,
+    modC: => Mod
 ) extends LilaController(env) {
 
   private def relationApi = env.relation.api

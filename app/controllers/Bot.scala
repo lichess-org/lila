@@ -6,7 +6,7 @@ import lila.app._
 
 final class Bot(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   def gameStream(id: String) = Scoped(_.Bot.Play) { req => me =>

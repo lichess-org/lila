@@ -12,7 +12,7 @@ import views.html
 
 final class Challenge(
     env: Env,
-    setupC: Setup
+    setupC: => Setup
 ) extends LilaController(env) {
 
   def api = env.challenge.api

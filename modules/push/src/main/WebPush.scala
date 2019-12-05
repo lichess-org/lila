@@ -49,7 +49,7 @@ private object WebPush {
 
   final class Config(
       val url: String,
-      val vapidPublicKey: String
+      @ConfigName("vapid_public_key") val vapidPublicKey: String
   )
   implicit val configLoader = AutoConfig.loader[Config]
 }

@@ -14,8 +14,10 @@ import lila.common.{ HTTPRequest, IpAddress }
 
 final class Api(
     env: Env,
-    gameC: Game
+    gameC: => Game
 ) extends LilaController(env) {
+
+  import Api._
 
   private val userApi = env.api.userApi
   private val gameApi = env.api.gameApi
@@ -319,6 +321,39 @@ final class Api(
     }
   }
 
+  def CookieBasedApiRequest(js: Context => Fu[ApiResult]) = Open { ctx =>
+    js(ctx) map toHttp
+  }
+  def ApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
+    js(req) map toHttp
+  }
+  def MobileApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
+    if (lila.api.Mobile.Api requested req) js(req) map toHttp
+    else fuccess(NotFound)
+  }
+
+  lazy val tooManyRequests = Results.TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
+  def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
+  def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
+
+  def toHttp(result: ApiResult): Result = result match {
+    case Limited => tooManyRequests
+    case NoData => NotFound
+    case Custom(result) => result
+    case Data(json) => Ok(json) as JSON
+  }
+
+  def jsonStream(stream: Source[JsObject, _]): Result = jsonStringStream {
+    stream.map { o => Json.stringify(o) + "\n" }
+  }
+
+  def jsonOptionStream(stream: Source[Option[JsObject], _]): Result = jsonStringStream {
+    stream.map { _ ?? Json.stringify + "\n" }
+  }
+
+  def jsonStringStream(stream: Source[String, _]): Result =
+    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType) |> noProxyBuffer
+
   private[controllers] val GlobalLinearLimitPerIP = new lila.memo.LinearLimit[IpAddress](
     name = "linear API per IP",
     key = "api.ip",
@@ -333,43 +368,13 @@ final class Api(
     user.fold(f) { u =>
       GlobalLinearLimitPerUser(u.id)(f)
     }
+}
+
+private[controllers] object Api {
 
   sealed trait ApiResult
   case class Data(json: JsValue) extends ApiResult
   case object NoData extends ApiResult
   case object Limited extends ApiResult
   case class Custom(result: Result) extends ApiResult
-  def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
-  def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
-
-  def CookieBasedApiRequest(js: Context => Fu[ApiResult]) = Open { ctx =>
-    js(ctx) map toHttp
-  }
-  def ApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
-    js(req) map toHttp
-  }
-  def MobileApiRequest(js: RequestHeader => Fu[ApiResult]) = Action.async { req =>
-    if (lila.api.Mobile.Api requested req) js(req) map toHttp
-    else fuccess(NotFound)
-  }
-
-  private[controllers] val tooManyRequests = TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
-
-  private[controllers] def toHttp(result: ApiResult): Result = result match {
-    case Limited => tooManyRequests
-    case NoData => NotFound
-    case Custom(result) => result
-    case Data(json) => Ok(json) as JSON
-  }
-
-  private[controllers] def jsonStream(stream: Source[JsObject, _]): Result = jsonStringStream {
-    stream.map { o => Json.stringify(o) + "\n" }
-  }
-
-  private[controllers] def jsonOptionStream(stream: Source[Option[JsObject], _]): Result = jsonStringStream {
-    stream.map { _ ?? Json.stringify + "\n" }
-  }
-
-  private def jsonStringStream(stream: Source[String, _]): Result =
-    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType) |> noProxyBuffer
 }

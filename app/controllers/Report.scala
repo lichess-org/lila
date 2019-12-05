@@ -12,8 +12,8 @@ import lila.user.{ User => UserModel }
 
 final class Report(
     env: Env,
-    userC: User,
-    modC: Mod
+    userC: => User,
+    modC: => Mod
 ) extends LilaController(env) {
 
   private def api = env.report.api

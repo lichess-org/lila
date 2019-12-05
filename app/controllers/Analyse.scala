@@ -12,8 +12,8 @@ import views._
 
 final class Analyse(
     env: Env,
-    gameC: Game,
-    roundC: Round
+    gameC: => Game,
+    roundC: => Round
 ) extends LilaController(env) {
 
   def requestAnalysis(id: String) = Auth { implicit ctx => me =>

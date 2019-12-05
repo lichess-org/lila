@@ -22,7 +22,7 @@ final class Env(
     gameRepo: lila.game.GameRepo
 )(implicit system: ActorSystem) {
 
-  private val config = appConfig.get[BookmarkConfig]("game")(AutoConfig.loader)
+  private val config = appConfig.get[BookmarkConfig]("bookmark")(AutoConfig.loader)
 
   private lazy val bookmarkColl = db(config.bookmarkCollName)
 

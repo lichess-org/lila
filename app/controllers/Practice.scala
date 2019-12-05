@@ -13,7 +13,7 @@ import views._
 
 final class Practice(
     env: Env,
-    userAnalysisC: UserAnalysis
+    userAnalysisC: => UserAnalysis
 ) extends LilaController(env) {
 
   val api = env.practice.api

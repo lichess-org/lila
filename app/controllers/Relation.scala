@@ -15,7 +15,7 @@ import views._
 
 final class Relation(
     env: Env,
-    apiC: Api
+    apiC: => Api
 ) extends LilaController(env) {
 
   val api = env.relation.api
@@ -96,7 +96,6 @@ final class Relation(
   private def apiRelation(name: String, direction: Direction) = Action.async { req =>
     env.user.repo.named(name) flatMap {
       _ ?? { user =>
-        import apiC.limitedDefault
         apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           apiC.jsonStream {
             env.relation.stream
