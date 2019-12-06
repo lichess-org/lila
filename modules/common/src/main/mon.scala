@@ -702,12 +702,6 @@ object mon {
     }
   }
 
-  final class Measurement(since: Long, path: RecPath) {
-    def finish() = path(lila.mon)(System.nanoTime() - since)
-  }
-
-  def startMeasurement(path: RecPath) = new Measurement(System.nanoTime(), path)
-
   private val stripVersionRegex = """[^\w\.\-]""".r
   private def stripVersion(v: String) = stripVersionRegex.replaceAllIn(v, "")
   private def nodots(s: String) = s.replace('.', '_')

@@ -6,11 +6,11 @@ import play.api.mvc._
 import play.api.routing.Router
 import router.Routes
 
-class LilaAppLoader extends ApplicationLoader {
+final class LilaAppLoader extends ApplicationLoader {
   def load(ctx: Context): Application = new LilaComponents(ctx).application
 }
 
-class LilaComponents(ctx: Context) extends BuiltInComponentsFromContext(ctx)
+final class LilaComponents(ctx: Context) extends BuiltInComponentsFromContext(ctx)
   with _root_.controllers.AssetsComponents
   with play.api.libs.ws.ahc.AhcWSComponents {
 
@@ -93,8 +93,14 @@ class LilaComponents(ctx: Context) extends BuiltInComponentsFromContext(ctx)
   lazy val userTournament: UserTournament = wire[UserTournament]
   lazy val video: Video = wire[Video]
 
-  lazy val router: Router = {
+  // eagerly wire up all controllers
+  val router: Router = {
     val prefix: String = "/"
     wire[Routes]
+  }
+
+  if (configuration.get[String]("kamon.influxdb.hostname").nonEmpty) {
+    lila.log("boot").info("Kamon is enabled")
+    kamon.Kamon.loadModules()
   }
 }
