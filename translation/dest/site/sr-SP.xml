@@ -656,6 +656,7 @@
   <string name="opponent">Противник</string>
   <string name="learnMenu">учи</string>
   <string name="studyMenu">Проучи</string>
+  <string name="practice">Вежбање</string>
   <string name="community">Заједница</string>
   <string name="tools">Алати</string>
   <string name="increment">додатак</string>
@@ -691,6 +692,8 @@
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Посматрај</string>
   <string name="videoLibrary">Видео библиотека</string>
+  <string name="streamersMenu">Стримери</string>
+  <string name="broadcastsMenu">Емитовања</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
