@@ -1,3 +1,5 @@
+import { parse, DefaultTreeDocument, DefaultTreeElement } from 'parse5';
+
 const searchParams = new URL(self.location.href).searchParams;
 const isDev = searchParams.has('dev');
 const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
@@ -89,8 +91,64 @@ async function handleActivate() {
 
 self.addEventListener('activate', e => e.waitUntil(handleActivate()));
 
-async function handleResponse(_response: Response) {
-  //console.log(response.url, response.body);
+function bodyAttributes(doc: DefaultTreeDocument): Map<string, string> | undefined {
+  for (const node of doc.childNodes) {
+    if (node.nodeName == 'html') {
+      for (const element of (node as DefaultTreeElement).childNodes) {
+        if (element.nodeName == 'body') {
+          return new Map((element as DefaultTreeElement).attrs.map(attr => [attr.name, attr.value]));
+        }
+      }
+    }
+  }
+  return;
+}
+
+async function handleResponse(response: Response) {
+  const text = await response.text();
+  const doc = parse(text) as DefaultTreeDocument;
+  const body = bodyAttributes(doc);
+  if (!body || !body.has('data-nonce') || !body.has('data-asset-url')) return;
+  await new Promise((success, fail) => {
+    const req = self.indexedDB.open('lila', 1);
+    req.onupgradeneeded = e => {
+      const db = (e.target as any).result as IDBDatabase;
+      db.createObjectStore('offline');
+    };
+    req.onsuccess = e => {
+      const db = (e.target as any).result as IDBDatabase;
+      const transaction = db.transaction('offline', 'readwrite');
+      const store = transaction.objectStore('offline');
+      store.put({
+        'user': body.get('data-user'),
+        'theme': body.get('data-theme'),
+        'sound-set': body.get('data-sound-set'),
+        'style': body.get('style'),
+        'class': body.get('class'),
+      }, 'offline');
+      transaction.onerror = e => fail(e);
+      transaction.oncomplete = _ => success();
+    };
+    req.onerror = e => fail(e);
+  });
+}
+
+async function adjustResponse(response: Response): Promise<Response> {
+  const settings = await new Promise((success, fail) => {
+    const req = self.indexedDB.open('lila', 1);
+    req.onsuccess = e => {
+      const db = (e.target as any).result as IDBDatabase;
+      const transaction = db.transaction('offline', 'readonly');
+      const query = transaction.objectStore('offline').openCursor();
+      query.onerror = e => fail(e);
+      query.onsuccess = e => {
+        success((e as any).target.result.value);
+      };
+    };
+    req.onerror = e => fail(e);
+  });
+  console.log('settings', settings);
+  return response;
 }
 
 async function handleFetch(event: FetchEvent) {
@@ -101,7 +159,7 @@ async function handleFetch(event: FetchEvent) {
     if (offlineDasher) return offlineDasher;
   } else if (url.pathname == '/editor' || url.pathname.startsWith('/editor/')) {
     const editorResponse = await caches.match('/editor');
-    if (editorResponse) return editorResponse;
+    if (editorResponse) return await adjustResponse(editorResponse);
   } else {
     const assetCache = await self.caches.open(assetVersion);
     const assetReponse = await assetCache.match(event.request);
@@ -110,13 +168,13 @@ async function handleFetch(event: FetchEvent) {
 
   try {
     const response = await fetch(event.request);
-    console.log(event.request, response);
+    //console.log(event.request, response);
     event.waitUntil(handleResponse(response.clone()));
     return response;
   } catch(err) {
     if (event.request.mode == 'navigate') {
       const offlinePage = await caches.match('/444');
-      if (offlinePage) return offlinePage;
+      if (offlinePage) return await adjustResponse(offlinePage);
     }
     throw err;
   }
