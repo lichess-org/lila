@@ -1,0 +1,20 @@
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(-.03861 -.0264)" style="clip-rule:evenodd;fill-rule:evenodd;image-rendering:optimizeQuality;shape-rendering:geometricPrecision">
+  <g transform="translate(576.74,-486.36)">
+   <g transform="translate(-58.586,-32.19)">
+    <g transform="translate(14.78,15.903)">
+     <g transform="matrix(2.0852,0,0,2.0602,-3037.1,1290.9)" style="stroke-width:.7237">
+      <g transform="matrix(.7525 0 0 .7525 262.22 -90.214)" style="stroke-width:.96173">
+       <path transform="matrix(.16862 0 0 .17067 1247.4 -388.57)" d="m84.045 34.312v2e-3c0 9e-4 0.37305 11.006 0.37305 11.006l-36.061 41.883c7.8885 12.29 5.608 11.189 18.891 14.043 8.7219-8.6755 17.269-13.363 27.139-12.234 0.70636 8.0686-40.406 30.098-27.365 53.35h-10.941v21.123h42.391v4e-3h42.391v-21.121h-8.0586l-5.8555-25.021s33.304-63.308-26.939-75.852c0 0-6.6275-6.3279-15.959-7.1797-8.34e-4 -5.25e-4 -0.0031-0.0014-0.0039-2e-3zm20.502 86.334c-2.5914 2.6329-4.7922 4.3098-6.0762 4.6992v-2e-3c1.2839-0.38928 3.4851-2.065 6.0762-4.6973z" style="fill:#f0f0f0"/>
+      </g>
+      <path transform="scale(.26458)" d="m4579.3-1429.4v0l0.1777 5.3418-17.295 20.328c1.7182 5.0487 2.1789 4.9372 9.0606 6.8184 4.2464-5.9847 11.268-5.0102 13.016-5.9395 0.3402 3.9168-19.38 14.609-13.123 25.896h-5.246v10.254h40.658v-10.254h-3.8653l-2.8066-12.144s15.971-30.73-12.92-36.818c0 0-3.1802-3.0717-7.6563-3.4843z" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:2.7353;stroke:#191919"/>
+     </g>
+    </g>
+   </g>
+   <path d="m-551.8 509.91c0.25891-0.10031 2.265-1.8977 2.265-1.8977" style="fill:none;stroke-linecap:round;stroke-width:1.5;stroke:#191919"/>
+   <path d="m-559.04 524.03h2.6229" style="fill:none;stroke-linecap:round;stroke-width:1.5;stroke:#191919"/>
+   <path d="m-544.26 524.03h2.6229" style="fill:none;stroke-linecap:round;stroke-width:1.5;stroke:#191919"/>
+  </g>
+  <path d="m22.245 9.1036c0.65024 0.40842 3.5258 3.068 3.5258 3.068 14.585 5.7667 2.4649 20.358 0.29094 21.017v10.092h11.216v-5.5886h-2.1322l-1.5493-6.6202s8.8114-16.75-7.1279-20.069c0 0-1.7541-1.6746-4.2236-1.8996z" style="fill:#000000;opacity:.15;stroke-width:.25445"/>
+ </g>
+</svg>

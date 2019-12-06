@@ -101,7 +101,7 @@ export function view(ctrl: StudyCtrl): VNode {
         });
       }
       if (window['Sortable']) makeSortable();
-      else window.lichess.loadScript('javascripts/vendor/Sortable.min.js').done(makeSortable);
+      else window.lichess.loadScript('javascripts/vendor/Sortable.min.js').then(makeSortable);
     }
   }
 

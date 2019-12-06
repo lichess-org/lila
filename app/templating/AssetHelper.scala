@@ -8,6 +8,8 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.{ Nonce, AssetVersion, ContentSecurityPolicy }
 
+import scala.util.Random
+
 trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
@@ -122,7 +124,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
       scriptSrc = List("'self'", "'unsafe-eval'", assets), // unsafe-eval for WebAssembly (wasmx)
-      baseUri = List("'none'")
+      baseUri = List("'none'"),
+      reportTo = if (Random.nextInt(1000) == 0) List("default") else Nil
     )
   }
 

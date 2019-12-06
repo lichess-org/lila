@@ -1,52 +1,69 @@
 interface Lichess {
-  pubsub: Pubsub
-  trans(i18n: { [key: string]: string | undefined }): Trans
-  numberFormat(n: number): string
-  once(key: string): boolean
-  quietMode: boolean
+  // standalones/util.js
   engineName: string;
-  assetUrl(url: string, opts?: AssetUrlOpts): string;
-  storage: LichessStorageHelper
-  reload(): void;
-  redirect(o: string | { url: string, cookie: Cookie }): void;
-  loadScript(url: string, opts?: AssetUrlOpts): any
-  compiledScript(path: string): string
-  keyboardMove: any
-  slider(): any
   raf(f: () => void): void;
   requestIdleCallback(f: () => void): void;
+  dispatchEvent(el: HTMLElement | Window, eventName: string): void;
+  hasTouchEvents: boolean;
+  isCol1(): boolean;
+  storage: LichessStorageHelper;
+  tempStorage: LichessStorageHelper; // TODO: unused
+  once(key: string, mod?: 'always'): boolean;
+  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
+  powertip: any;
+  widget: unknown;
+  hoverable?: boolean;
+  isHoverable(): boolean;
+  spinnerHtml: string;
+  assetUrl(url: string, opts?: AssetUrlOpts): string;
+  loadedCss: { [key: string]: boolean };
   loadCss(path: string): void;
   loadCssPath(path: string): void;
-  loadedCss: {
-    [key: string]: boolean;
-  }
-  escapeHtml(str: string): string
-  debounce(func: (...args: any[]) => void, wait: number, immediate?: boolean): (...args: any[]) => void;
-  sound: any
-  powertip: any
-  userAutocomplete: any
+  compiledScript(path: string): string;
+  loadScript(url: string, opts?: AssetUrlOpts): Promise<unknown>;
+  hopscotch: any;
+  slider(): any;
+  makeChat(data: any, callback?: (chat: any) => void): void;
+  formAjax(form: JQuery): any;
+  numberFormat(n: number): string;
+  idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
+  pubsub: Pubsub;
+  hasToReload: boolean;
+  redirect(o: string | { url: string, cookie: Cookie }): void;
+  reload(): void;
+  escapeHtml(str: string): string;
+
+  // standalones/trans.js
+  trans(i18n: { [key: string]: string | undefined }): Trans
+
+  // main.js
+  socket: any;
+  reverse(s: string): string;
+  sound: any;
+  userAutocomplete: any;
+  parseFen(el: any): void;
+  challengeApp: any;
+  ab?: any;
+
+  // socket.js
   StrongSocket: {
     sri: string
     (url: string, version: number, cfg: any): any;
   }
-  socket: any;
-  idleTimer(delay: number, onIdle: () => void, onWakeUp: () => void): void;
-  parseFen(el: any): void;
-  hasToReload: boolean;
-  ab: any;
-  challengeApp: any;
-  hopscotch: any;
-  makeChat(data: any, callback?: (chat: any) => void): void;
+
+  // timeago.js
   timeago: {
     render(nodes: HTMLElement | HTMLElement[]): void;
     format(date: number | Date): string;
     absolute(date: number | Date): string;
   }
+
+  // misc
   advantageChart: {
     update(data: any): void;
     (data: any, trans: Trans, el: HTMLElement): void;
   }
-  dispatchEvent(el: HTMLElement | Window, eventName: string): void;
+  movetimeChart: any;
   RoundNVUI(redraw: () => void): {
     render(ctrl: any): any;
   }
@@ -54,12 +71,8 @@ interface Lichess {
     render(ctrl: any): any;
   }
   playMusic(): any;
-  spinnerHtml: string;
-  movetimeChart: any;
-  hasTouchEvents: boolean;
-  isCol1(): boolean;
-  formAjax(form: JQuery): any;
-  reverse(s: string): string;
+  quietMode?: boolean;
+  keyboardMove?: any;
 }
 
 interface LichessSpeech {

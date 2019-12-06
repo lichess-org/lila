@@ -43,10 +43,12 @@ function wasmThreadsSupported() {
   if (typeof Atomics !== 'object') return false;
 
   // Shared memory
-  if (!(new WebAssembly.Memory({shared: true, initial: 8, maximum: 8} as WebAssembly.MemoryDescriptor).buffer instanceof SharedArrayBuffer)) return false;
+  const mem = new WebAssembly.Memory({shared: true, initial: 8, maximum: 8} as WebAssembly.MemoryDescriptor);
+  if (!(mem.buffer instanceof SharedArrayBuffer)) return false;
 
   // Structured cloning
   try {
+    window.postMessage(mem, '*');
     window.postMessage(new WebAssembly.Module(source), '*');
   } catch (e) {
     return false;
