@@ -8,8 +8,8 @@ function assetUrl(path: string): string {
 self.addEventListener('push', event => {
   const data = event.data!.json();
   return self.registration.showNotification(data.title, {
-    badge: assetUrl('logo/lichess-favicon-256.png'),
-    icon: assetUrl('logo/lichess-favicon-256.png'),
+    badge: assetUrl('logo/lichess-mono-128.png'),
+    icon: assetUrl('logo/lichess-favicon-192.png'),
     body: data.body,
     tag: data.tag,
     data: data.payload,
