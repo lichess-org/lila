@@ -38,6 +38,8 @@ final class Main(
     }
   }
 
+  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map renderNotFound
+
   def captchaCheck(id: String) = Open { implicit ctx =>
     env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map {
       case valid: Boolean => Ok(if (valid) 1 else 0)
