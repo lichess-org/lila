@@ -89,9 +89,12 @@ async function handleActivate() {
 
 self.addEventListener('activate', e => e.waitUntil(handleActivate()));
 
+async function handleResponse(_response: Response) {
+  //console.log(response.url, response.body);
+}
+
 async function handleFetch(event: FetchEvent) {
   const url = new URL(event.request.url, self.location.href);
-  console.log(url.pathname);
   if (url.pathname == '/dasher') {
     const offlineDasher = await caches.match('/dasher', {ignoreSearch: true, ignoreVary: true});
     console.log('offline dasher', offlineDasher);
@@ -106,7 +109,10 @@ async function handleFetch(event: FetchEvent) {
   }
 
   try {
-    return await fetch(event.request);
+    const response = await fetch(event.request);
+    console.log(event.request, response);
+    event.waitUntil(handleResponse(response.clone()));
+    return response;
   } catch(err) {
     if (event.request.mode == 'navigate') {
       const offlinePage = await caches.match('/444');
