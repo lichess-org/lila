@@ -1,10 +1,12 @@
+package lila.app
+
 import com.softwaremill.macwire._
 import play.api._
 import play.api.mvc._
 import play.api.routing.Router
 import router.Routes
 
-final class LilaAppLoader extends ApplicationLoader {
+final class AppLoader extends ApplicationLoader {
   def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
 }
 
@@ -18,7 +20,9 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   import _root_.controllers._
 
-  lazy val httpFilters = Seq(wire[lila.app.LilaHttpFilter])
+  lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
+  override lazy val httpErrorHandler =
+    new lila.app.http.ErrorHandler(environment, configuration, devContext.map(_.sourceMapper), Some(router))
 
   implicit def system = actorSystem
   implicit def ws = wsClient

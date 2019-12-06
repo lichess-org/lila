@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app._
 import views._
 
-private final class KeyPages(env: Env) {
+final class KeyPages(env: Env) {
 
   def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     env.preloader(

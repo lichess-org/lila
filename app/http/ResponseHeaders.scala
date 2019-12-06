@@ -1,6 +1,9 @@
-package lila.common
+package lila.app
+package http
 
 import play.api.mvc.RequestHeader
+
+import lila.common.HTTPRequest
 
 object ResponseHeaders {
 
