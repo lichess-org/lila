@@ -158,7 +158,7 @@ final class EnvBoot(
     cookieBacker: SessionCookieBaker
 )(implicit system: ActorSystem, ws: WSClient) {
 
-  lila.log.boot.info {
+  lila.log("boot").info {
     s"Java: ${System.getProperty("java.version")}, memory: ${Runtime.getRuntime().maxMemory() / 1024 / 1024}MB"
   }
 
@@ -233,7 +233,11 @@ final class EnvBoot(
   lazy val rating: lila.rating.Env = wire[lila.rating.Env]
   lazy val api: lila.api.Env = wire[lila.api.Env]
 
-  lazy val env: lila.app.Env = wire[lila.app.Env]
+  lazy val env: lila.app.Env = {
+    val c = lila.common.Chronometer.sync(wire[lila.app.Env])
+    lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
+    c.result
+  }
 
   templating.Environment setEnv env
 }

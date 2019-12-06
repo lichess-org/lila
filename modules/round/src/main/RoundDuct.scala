@@ -207,14 +207,16 @@ private[round] final class RoundDuct(
         recordLag(pov)
         player.human(p, this)(pov)
       }
-    }.mon(_.round.move.time).addEffects(
+    }.chronometer.lap.addEffects(
       err => {
         p.promise.foreach(_ failure err)
         socketSend(Protocol.Out.resyncPlayer(Game.Id(gameId) full p.playerId))
       },
-      suc => {
+      lap => {
         p.promise.foreach(_ success {})
         lila.mon.round.move.count()
+        lila.mon.round.move.time(lap.nanos)
+        MoveLatMonitor record lap.micros
       }
     )
 

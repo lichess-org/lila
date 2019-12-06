@@ -1,28 +1,22 @@
 package lila.round
 
-import akka.actor._
-import kamon._
-// import metric.SubscriptionsDispatcher.TickMetricSnapshot
+import akka.actor.Scheduler
 import scala.concurrent.duration._
+import java.util.concurrent.atomic.{ AtomicInteger, AtomicLong }
 
-private object MoveMonitor {
+private object MoveLatMonitor {
 
-  // #TODO implement!
-  def start(system: ActorSystem) = {
-    println("TODO start MoveMonitor")
+  private var totalMicros = new AtomicLong
+  private var count = new AtomicInteger
+
+  def start(scheduler: Scheduler) =
+    scheduler.scheduleWithFixedDelay(10 second, 2 second) { () =>
+      val average = (totalMicros.getAndSet(0) / count.getAndSet(0).atLeast(1)).toInt
+      lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(average), "mlat")
+    }
+
+  def record(micros: Int) = {
+    totalMicros getAndAdd micros
+    count.getAndIncrement
   }
-
-  // Kamon.metrics.subscribe("trace", "round.move.trace", system.actorOf(Props(new Actor {
-  //   var currentMicros: Int = 0
-  //   context.system.scheduler.schedule(5 second, 2 second) {
-  //     lila.common.Bus.publish(lila.hub.actorApi.round.Mlat(currentMicros), "mlat")
-  //   }
-  //   def receive = {
-  //     case tick: TickMetricSnapshot => tick.metrics.collectFirst {
-  //       case (entity, snapshot) if entity.category == "trace" => snapshot
-  //     } flatMap (_ histogram "elapsed-time") foreach { h =>
-  //       if (!h.isEmpty) currentMicros = Math.round(h.sum / h.numberOfMeasurements / 1000).toInt
-  //     }
-  //   }
-  // })))
 }

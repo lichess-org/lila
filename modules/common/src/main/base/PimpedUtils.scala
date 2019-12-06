@@ -42,10 +42,6 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
 final class PimpedString(private val s: String) extends AnyVal {
 
-  def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
-    lila.log.boot.info(s"${lap.millis}ms $s")
-  }
-
   def replaceIf(t: Char, r: Char): String =
     if (s.indexOf(t) >= 0) s.replace(t, r) else s
 

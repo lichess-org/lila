@@ -51,7 +51,7 @@ object Chronometer {
     def result = lap.dmap(_.result)
   }
 
-  def apply[A](f: => Fu[A]): FuLap[A] = {
+  def apply[A](f: Fu[A]): FuLap[A] = {
     val start = nowNanos
     FuLap(f dmap { Lap(_, nowNanos - start) })
   }

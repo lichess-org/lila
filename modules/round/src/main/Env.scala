@@ -63,6 +63,7 @@ final class Env(
   private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private lazy val deployPersistence: DeployPersistence = wire[DeployPersistence]
+  private val scheduler = system.scheduler
 
   private val defaultGoneWeight = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
@@ -76,14 +77,14 @@ final class Env(
 
   private val scheduleExpiration = new ScheduleExpiration(game => {
     game.timeBeforeExpiration foreach { centis =>
-      system.scheduler.scheduleOnce((centis.millis + 1000).millis) {
+      scheduler.scheduleOnce((centis.millis + 1000).millis) {
         tellRound(game.id, actorApi.round.NoStart)
       }
     }
   })
 
   private lazy val proxyDependencies =
-    new GameProxy.Dependencies(gameRepo, deployPersistence.isEnabled, system.scheduler)
+    new GameProxy.Dependencies(gameRepo, deployPersistence.isEnabled, scheduler)
   private lazy val roundDependencies = wire[RoundDuct.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
@@ -166,7 +167,7 @@ final class Env(
 
   lazy val noteApi = new NoteApi(db(config.noteColl))
 
-  MoveMonitor.start(system)
+  MoveLatMonitor.start(scheduler)
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 

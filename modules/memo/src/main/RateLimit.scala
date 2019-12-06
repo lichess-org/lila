@@ -24,10 +24,8 @@ final class RateLimit[K](
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private val logger = lila.log("ratelimit")
+  private lazy val logger = lila.log("ratelimit").branch(name)
   private val monitor = lila.mon.security.rateLimit.generic(key)
-
-  logger.info(s"[start] $name ($credits/$duration)")
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(implicit default: Zero[A]): A =
     apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
@@ -44,7 +42,7 @@ final class RateLimit[K](
         storage.put(k, cost -> makeClearAt)
         op
       case _ if enforce =>
-        if (log) logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
+        if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
         monitor()
         default.zero
       case _ =>
