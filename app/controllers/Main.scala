@@ -149,6 +149,17 @@ Disallow: /games/export
     MovedPermanently(to)
   }
 
+  def instantChess = Open { implicit ctx =>
+    if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
+    else fuccess {
+      Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
+        lila.common.LilaCookie.withSession { s =>
+          s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
+        }
+      )
+    }
+  }
+
   def legacyQaQuestion(id: Int, slug: String) = Open { implicit ctx =>
     MovedPermanently {
       val faq = routes.Main.faq.url

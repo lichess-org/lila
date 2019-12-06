@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Indsæt PGN-teksten her</string>
   <string name="fromPosition">Fra position</string>
   <string name="continueFromHere">Fortsæt herfra</string>
+  <string name="toStudy">Studér</string>
   <string name="importGame">Importér spil</string>
   <string name="importGameExplanation">Når du indsætter et partis PGN, får du en afspillelig gengivelse, en computeranalyse, en spilchat og en URL til deling.</string>
   <plurals name="nbImportedGames">
@@ -622,6 +623,8 @@
   <string name="playOfflineComputer">Spil computer offline</string>
   <string name="opponent">Modstander</string>
   <string name="learnMenu">Lær</string>
+  <string name="studyMenu">Studie</string>
+  <string name="practice">Øvelser</string>
   <string name="community">Fællesskab</string>
   <string name="tools">Værktøjer</string>
   <string name="increment">Forøgelse</string>
@@ -656,6 +659,8 @@
   <string name="tpTimeSpentOnTV">Tid på TV: %s</string>
   <string name="watch">Se</string>
   <string name="videoLibrary">Video bibliotek</string>
+  <string name="streamersMenu">Streamere</string>
+  <string name="broadcastsMenu">Transmissioner</string>
   <string name="mobileApp">Mobil App</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Om os</string>

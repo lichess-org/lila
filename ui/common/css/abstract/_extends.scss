@@ -102,6 +102,11 @@
     border-color: $c-secondary-dim;
   }
 }
+
+%focus-shadow {
+  box-shadow: 0 0 12px $c-font-dim;
+}
+
 %nowrap-hidden {
   white-space: nowrap;
   overflow: hidden;

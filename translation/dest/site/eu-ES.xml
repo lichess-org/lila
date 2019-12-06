@@ -64,7 +64,7 @@
   <string name="variantLoss">Galtzeko bidea</string>
   <string name="variantWin">Irabazteko bidea</string>
   <string name="insufficientMaterial">Ez dago material nahikoa</string>
-  <string name="pawnMove">Peoi jokaldia </string>
+  <string name="pawnMove">Peoi jokaldia</string>
   <string name="capture">Harrapaketa</string>
   <string name="close">Itxi</string>
   <string name="winning">Irabazlea</string>

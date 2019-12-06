@@ -49,6 +49,7 @@ object bits {
     trans.continueFromHere,
     trans.playWithTheMachine,
     trans.playWithAFriend,
-    trans.analysis
+    trans.analysis,
+    trans.toStudy
   )
 }

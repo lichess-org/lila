@@ -163,7 +163,7 @@ class PNaClWorker extends AbstractWorker {
 }
 
 class ThreadedWasmWorker extends AbstractWorker {
-  static global: Promise<{instance: any, protocol: any}>;
+  static global: Promise<{instance: unknown, protocol: Protocol}>;
 
   private instance?: any;
 

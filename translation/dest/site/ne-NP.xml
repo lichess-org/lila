@@ -10,7 +10,7 @@
   <string name="yourTurn">तपाइको पालो</string>
   <string name="aiNameLevelAiLevel">%1$s तह %2$s</string>
   <string name="level">तह</string>
-  <string name="toggleTheChat">बार्तालाप खोल्ने/बन्द गर्ने </string>
+  <string name="toggleTheChat">बार्तालाप खोल्ने/बन्द गर्ने</string>
   <string name="toggleSound">ध्वनी खोल्ने/बन्द गर्ने</string>
   <string name="chat">बार्तालाप</string>
   <string name="resign">छाेड्नुहाेस्</string>
@@ -204,7 +204,7 @@
   <string name="playingRightNow">खेल चालु छ</string>
   <string name="eventInProgress">खेल चालु छ</string>
   <string name="finished">समाप्त भयो</string>
-  <string name="finishesX">समापन हुदैं %s </string>
+  <string name="finishesX">समापन हुदैं %s</string>
   <string name="abortGame">खेल रद्द गरौ</string>
   <string name="gameAborted">खेल रद्द गरियो</string>
   <string name="standard">सामान्य</string>
