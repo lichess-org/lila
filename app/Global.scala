@@ -13,15 +13,6 @@
 //     }
 //   }
 
-//   override def onStart(app: Application): Unit = {
-//     kamon.Kamon.start()
-//     lila.app.Env.current
-//   }
-
-//   override def onStop(app: Application): Unit = {
-//     kamon.Kamon.shutdown()
-//   }
-
 //   override def onRouteRequest(req: RequestHeader): Option[Handler] = {
 //     lila.mon.http.request.all()
 //     if (req.remoteAddress contains ":") lila.mon.http.request.ipv6()

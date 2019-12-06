@@ -24,7 +24,6 @@ private final class RelayFetch(
 ) extends Actor {
 
   override def preStart: Unit = {
-    logger.info("Start RelaySync")
     context setReceiveTimeout 20.seconds
     context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)
   }

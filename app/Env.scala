@@ -84,6 +84,7 @@ final class Env(
 )(implicit val system: ActorSystem) {
 
   val isProd = mode == Mode.Prod
+  val isDev = mode == Mode.Dev
   val isStage = config.get[Boolean]("app.stage")
   val explorerEndpoint = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")

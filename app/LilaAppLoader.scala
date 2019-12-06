@@ -1,16 +1,14 @@
 import com.softwaremill.macwire._
 import play.api._
-import play.api.ApplicationLoader.Context
-import play.api.i18n._
 import play.api.mvc._
 import play.api.routing.Router
 import router.Routes
 
 final class LilaAppLoader extends ApplicationLoader {
-  def load(ctx: Context): Application = new LilaComponents(ctx).application
+  def load(ctx: ApplicationLoader.Context): Application = new LilaComponents(ctx).application
 }
 
-final class LilaComponents(ctx: Context) extends BuiltInComponentsFromContext(ctx)
+final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInComponentsFromContext(ctx)
   with _root_.controllers.AssetsComponents
   with play.api.libs.ws.ahc.AhcWSComponents {
 
@@ -20,7 +18,7 @@ final class LilaComponents(ctx: Context) extends BuiltInComponentsFromContext(ct
 
   import _root_.controllers._
 
-  def httpFilters = Seq.empty[EssentialFilter]
+  lazy val httpFilters = Seq(wire[lila.app.LilaHttpFilter])
 
   implicit def system = actorSystem
   implicit def ws = wsClient

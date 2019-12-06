@@ -115,6 +115,7 @@ final class RemoteSocket(
     logger.info("Stopping the Redis pool...")
     Future {
       redisClient.shutdown()
+      logger.info("Stopped the Redis pool.")
     }
   }
 }

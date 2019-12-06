@@ -157,14 +157,14 @@ final class PlayerRepo(coll: Coll) {
   def exists(tourId: Tournament.ID, userId: User.ID) =
     coll.exists(selectTourUser(tourId, userId))
 
-  def unWithdraw(tourId: Tournament.ID) = coll.update(
+  def unWithdraw(tourId: Tournament.ID) = coll.update.one(
     selectTour(tourId) ++ selectWithdraw,
     $doc("$unset" -> $doc("w" -> true)),
     multi = true
   ).void
 
   def find(tourId: Tournament.ID, userId: User.ID): Fu[Option[Player]] =
-    coll.find(selectTourUser(tourId, userId)).uno[Player]
+    coll.ext.find(selectTourUser(tourId, userId)).uno[Player]
 
   def update(tourId: Tournament.ID, userId: User.ID)(f: Player => Fu[Player]) =
     find(tourId, userId) orFail s"No such player: $tourId/$userId" flatMap f flatMap { player =>
@@ -173,16 +173,16 @@ final class PlayerRepo(coll: Coll) {
 
   def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamId]) =
     find(tourId, user.id) flatMap {
-      case Some(p) if p.withdraw => coll.update(selectId(p._id), $unset("w"))
+      case Some(p) if p.withdraw => coll.update.one(selectId(p._id), $unset("w"))
       case Some(p) => funit
-      case None => coll.insert(Player.make(tourId, user, perfLens, team))
+      case None => coll.insert.one(Player.make(tourId, user, perfLens, team))
     } void
 
   def withdraw(tourId: Tournament.ID, userId: User.ID) =
-    coll.update(selectTourUser(tourId, userId), $set("w" -> true)).void
+    coll.update.one(selectTourUser(tourId, userId), $set("w" -> true)).void
 
   private[tournament] def withPoints(tourId: Tournament.ID): Fu[List[Player]] =
-    coll.find(
+    coll.ext.find(
       selectTour(tourId) ++ $doc("m" $gt 0)
     ).list[Player]()
 

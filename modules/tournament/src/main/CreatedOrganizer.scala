@@ -11,7 +11,6 @@ private final class CreatedOrganizer(
 ) extends Actor {
 
   override def preStart: Unit = {
-    pairingLogger.info("Start CreatedOrganizer")
     context setReceiveTimeout 15.seconds
     scheduleNext
   }

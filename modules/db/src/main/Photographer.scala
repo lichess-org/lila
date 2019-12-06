@@ -1,6 +1,6 @@
 package lila.db
 
-import java.io.File
+import java.nio.file.Path
 
 import dsl._
 
@@ -15,23 +15,24 @@ final class Photographer(coll: Coll, prefix: String) {
       fufail(s"File size must not exceed ${uploadMaxMb}MB.")
     else {
 
-      process(uploaded.ref.file)
+      process(uploaded.ref.path)
 
       val image = DbImage.make(
         id = pictureId(id),
         name = sanitizeName(uploaded.filename),
         contentType = uploaded.contentType,
-        file = uploaded.ref.file
+        path = uploaded.ref.path,
+        size = uploaded.fileSize.toInt
       )
 
       coll.update.one($id(image.id), image, upsert = true) inject image
     }
 
-  private def process(file: File) = {
+  private def process(path: Path) = {
 
     import com.sksamuel.scrimage._
 
-    Image.fromFile(file).cover(500, 500).output(file)
+    Image.fromPath(path).cover(500, 500).output(path)
   }
 
   private def sanitizeName(name: String) = {

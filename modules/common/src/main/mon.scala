@@ -6,6 +6,7 @@ import kamon.Kamon
 object mon {
 
   object http {
+    def time(action: String) = Kamon.gauge("http.time").withTag("action", action).update _
     object request {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")

@@ -23,6 +23,8 @@ final class Env(
     lifecycle: ApplicationLifecycle
 ) {
 
+  private val logger = lila.db.logger branch name
+
   private val driver = MongoDriver()
   private val parsedUri = MongoConnection.parseURI(config.uri).get
   // private val connection = Future.fromTry(parsedUri.flatMap(driver.connection(_, true)))
@@ -32,9 +34,8 @@ final class Env(
   private val db = Chronometer.syncEffect(
     Await.result(conn database dbName, 3.seconds)
   ) { lap =>
-      logger.info(s"$name MongoDB connected to $dbName in ${lap.showDuration}")
+      logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
     }
-  //#TODO add lifecycle?
 
   def apply(name: CollName): Coll = db(name.value)
 
@@ -51,22 +52,19 @@ final class Env(
     def fetch(id: String): Fu[Option[DbImage]] = imageColl.byId[DbImage](id)
   }
 
-  private def registerDriverShutdownHook(
-    mongoDriver: MongoDriver,
-    connection: MongoConnection
-  ): Unit = lifecycle.addStopHook { () =>
-    logger.info("ReactiveMongoApi stopping...")
-
-    Await.ready(connection.askClose()(10.seconds).map { _ =>
-      logger.info("ReactiveMongoApi connections are stopped")
-    }.andThen {
-      case Failure(reason) =>
-        reason.printStackTrace()
-        mongoDriver.close() // Close anyway
-
-      case _ => mongoDriver.close()
-    }, 12.seconds)
-  }
+  private def registerDriverShutdownHook(mongoDriver: MongoDriver, connection: MongoConnection) =
+    lifecycle.addStopHook { () =>
+      logger.info("ReactiveMongoApi stopping...")
+      Await.ready(connection.askClose()(5.seconds).map { _ =>
+        logger.info("MongoDB connection closed")
+      }.andThen {
+        case Failure(reason) =>
+          logger.error(s"MongoDB connection didn't close: $reason")
+          reason.printStackTrace()
+          mongoDriver.close() // Close anyway
+        case _ => mongoDriver.close()
+      }, 6.seconds)
+    }
 }
 
 object Env {
