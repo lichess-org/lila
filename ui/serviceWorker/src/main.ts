@@ -39,7 +39,7 @@ async function handleInstall() {
     '/favicon.ico',
     '/manifest.json',
     ...[
-      // TODO: 'trans/refs.json',
+      'trans/refs.json',
       ...themedStylesheets('site'),
       ...themedStylesheets('editor'),
       ...themedStylesheets('challenge'),
@@ -66,12 +66,13 @@ async function handleInstall() {
       'images/board/svg/brown.svg',
     ].map(versionedAssetUrl),
     ...[
-      'images/logo.256.png',
-      'images/favicon-32-white.png',
-      'favicon.64.png',
-      'favicon.128.png',
-      'favicon.192.png',
-      'favicon.256.png',
+      'logo/lichess-favicon-32.png',
+      'logo/lichess-favicon-32-invert.png',
+      'logo/lichess-favicon-64.png',
+      'logo/lichess-favicon-128.png',
+      'logo/lichess-favicon-256.png',
+      'logo/lichess-favicon-192.png',
+      'logo/lichess-favicon-512.png',
     ].map(assetUrl),
   ]));
 }
