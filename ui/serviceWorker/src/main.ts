@@ -1,8 +1,15 @@
+const searchParams = new URL(self.location.href).searchParams;
+const assetBase = new URL(searchParams.get('asset-url')!, self.location.href).href;
+
+function assetUrl(path: string): string {
+  return `${assetBase}assets/${path}`;
+}
+
 self.addEventListener('push', event => {
   const data = event.data!.json();
   return self.registration.showNotification(data.title, {
-    badge: 'https://lichess1.org/assets/logo/lichess-favicon-256.png',
-    icon: 'https://lichess1.org/assets/logo/lichess-favicon-256.png',
+    badge: assetUrl('logo/lichess-favicon-256.png'),
+    icon: assetUrl('logo/lichess-favicon-256.png'),
     body: data.body,
     tag: data.tag,
     data: data.payload,

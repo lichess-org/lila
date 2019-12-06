@@ -971,9 +971,11 @@
   ////////////////////
 
   if ('serviceWorker' in navigator && 'Notification' in window && 'PushManager' in window) {
-    const workerUrl = lichess.assetUrl(lichess.compiledScript('serviceWorker'), {sameDomain: true});
+    const workerUrl = new URL(lichess.assetUrl(lichess.compiledScript('serviceWorker'), {sameDomain: true}), self.location.href);
+    workerUrl.searchParams.set('asset-url', document.body.getAttribute('data-asset-url'));
+    if (document.body.getAttribute('data-dev')) workerUrl.searchParams.set('dev', '1');
     const updateViaCache = document.body.getAttribute('data-dev') ? 'none' : 'all';
-    navigator.serviceWorker.register(workerUrl, {scope: '/', updateViaCache}).then(reg => {
+    navigator.serviceWorker.register(workerUrl.href, {scope: '/', updateViaCache}).then(reg => {
       const storage = lichess.storage.make('push-subscribed');
       const vapid = document.body.getAttribute('data-vapid');
       if (vapid && Notification.permission == 'granted') return reg.pushManager.getSubscription().then(sub => {
