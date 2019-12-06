@@ -366,6 +366,7 @@
   <string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
+  <string name="toStudy">Проучи</string>
   <string name="importGame">Увези игру</string>
   <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
 рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
@@ -654,6 +655,7 @@
   <string name="playOfflineComputer">Рачунар</string>
   <string name="opponent">Противник</string>
   <string name="learnMenu">учи</string>
+  <string name="studyMenu">Проучи</string>
   <string name="community">Заједница</string>
   <string name="tools">Алати</string>
   <string name="increment">додатак</string>
