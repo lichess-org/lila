@@ -156,8 +156,7 @@ object layout {
           "blind-mode" -> ctx.blind,
           "kid" -> ctx.kid,
           "mobile" -> ctx.isMobileBrowser,
-          "playing fixed-scroll" -> playing,
-          "coords-out" -> (ctx.pref.coords == Pref.Coords.OUTSIDE)
+          "playing fixed-scroll" -> playing
         ),
         dataDev := (!isProd).option("true"),
         dataVapid := vapidPublicKey,
