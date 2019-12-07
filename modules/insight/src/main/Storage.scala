@@ -4,55 +4,61 @@ import reactivemongo.api.bson._
 import scalaz.NonEmptyList
 
 import lila.db.dsl._
+import lila.db.AsyncColl
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-private final class Storage(val coll: Coll) {
+private final class Storage(val coll: AsyncColl) {
 
   import Storage._
   import BSONHandlers._
   import Entry.{ BSONFields => F }
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll.ext.find(selectUserId(userId)).sort(sortChronological).uno[Entry]
+    coll(_.ext.find(selectUserId(userId)).sort(sortChronological).uno[Entry])
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll.ext.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry]
+    coll(_.ext.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry])
 
   def count(userId: String): Fu[Int] =
-    coll.countSel(selectUserId(userId))
+    coll(_.countSel(selectUserId(userId)))
 
-  def insert(p: Entry) = coll.insert.one(p).void
+  def insert(p: Entry) = coll(_.insert.one(p).void)
 
-  def bulkInsert(ps: Seq[Entry]) = coll.insert.many(
-    ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
-  )
-
-  def update(p: Entry) = coll.update.one(selectId(p.id), p, upsert = true).void
-
-  def remove(p: Entry) = coll.delete.one(selectId(p.id)).void
-
-  def removeAll(userId: String) = coll.delete.one(selectUserId(userId)).void
-
-  def find(id: String) = coll.ext.find(selectId(id)).uno[Entry]
-
-  def ecos(userId: String): Fu[Set[String]] =
-    coll.distinctEasy[String, Set](F.eco, selectUserId(userId))
-
-  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll.aggregateList(
-    maxDocs = 50
-  ) { framework =>
-    import framework._
-    Match(BSONDocument(F.userId -> userId)) -> List(
-      GroupField(F.perf)("nb" -> SumAll)
+  def bulkInsert(ps: Seq[Entry]) = coll {
+    _.insert.many(
+      ps.flatMap(BSONHandlers.EntryBSONHandler.writeOpt)
     )
-  }.map {
-    _.flatMap { doc =>
-      for {
-        perfType <- doc.getAsOpt[PerfType]("_id")
-        nb <- doc.int("nb")
-      } yield perfType -> nb
-    }.toMap
+  }
+
+  def update(p: Entry) = coll(_.update.one(selectId(p.id), p, upsert = true).void)
+
+  def remove(p: Entry) = coll(_.delete.one(selectId(p.id)).void)
+
+  def removeAll(userId: String) = coll(_.delete.one(selectUserId(userId)).void)
+
+  def find(id: String) = coll(_.ext.find(selectId(id)).uno[Entry])
+
+  def ecos(userId: String): Fu[Set[String]] = coll {
+    _.distinctEasy[String, Set](F.eco, selectUserId(userId))
+  }
+
+  def nbByPerf(userId: String): Fu[Map[PerfType, Int]] = coll {
+    _.aggregateList(
+      maxDocs = 50
+    ) { framework =>
+      import framework._
+      Match(BSONDocument(F.userId -> userId)) -> List(
+        GroupField(F.perf)("nb" -> SumAll)
+      )
+    }.map {
+      _.flatMap { doc =>
+        for {
+          perfType <- doc.getAsOpt[PerfType]("_id")
+          nb <- doc.int("nb")
+        } yield perfType -> nb
+      }.toMap
+    }
   }
 }
 

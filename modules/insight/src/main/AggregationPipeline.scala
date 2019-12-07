@@ -9,13 +9,13 @@ import lila.user.User
 
 private final class AggregationPipeline(store: Storage) {
 
-  def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] =
-    store.coll.aggregateList(
+  def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] = store.coll {
+    _.aggregateList(
       maxDocs = Int.MaxValue,
       allowDiskUse = true
     ) { implicit framework =>
-      import framework._
-    import question.{ dimension, metric, filters }
+  import framework._
+  import question.{ dimension, metric, filters }
 
   import lila.insight.{ Dimension => D, Metric => M }
   import Entry.{ BSONFields => F }
@@ -223,5 +223,6 @@ private final class AggregationPipeline(store: Storage) {
         case _ => Nil
       })).flatten
     }
+  }
   }
 }

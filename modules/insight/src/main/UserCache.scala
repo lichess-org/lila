@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
+import lila.db.AsyncColl
 
 case class UserCache(
     _id: String, // user id
@@ -15,13 +16,13 @@ case class UserCache(
   def id = _id
 }
 
-private final class UserCacheApi(coll: Coll) {
+private final class UserCacheApi(coll: AsyncColl) {
 
   private implicit val userCacheBSONHandler = Macros.handler[UserCache]
 
-  def find(id: String) = coll.uno[UserCache]($id(id))
+  def find(id: String) = coll(_.uno[UserCache]($id(id)))
 
-  def save(u: UserCache) = coll.update.one($id(u.id), u, upsert = true).void
+  def save(u: UserCache) = coll(_.update.one($id(u.id), u, upsert = true).void)
 
-  def remove(id: String) = coll.delete.one($id(id)).void
+  def remove(id: String) = coll(_.delete.one($id(id)).void)
 }

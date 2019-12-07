@@ -19,7 +19,7 @@ final class Env(
     mongo: lila.db.Env
 )(implicit system: akka.actor.ActorSystem) {
 
-  private lazy val db = mongo.blockingDb(
+  private lazy val db = mongo.asyncDb(
     "insight",
     appConfig.get[ParsedURI]("insight.mongodb.uri")
   )
