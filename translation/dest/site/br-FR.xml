@@ -181,10 +181,14 @@
   <string name="send">Kas</string>
   <string name="freeOnlineChess">C\'hoari echedoù en-linenn digoust</string>
   <string name="spectators">Arvesterien:</string>
+  <string name="exportGames">Ezporzhiañ krogadoù</string>
+  <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
+  <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="search">Klask</string>
   <string name="advancedSearch">Klask kempleshoc\'h</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
+  <string name="tournamentPoints">Poentoù tournamant</string>
   <string name="viewTournament">Sellet ouzh an tournamant</string>
   <string name="backToTournament">Distreiñ d\'an tournamant</string>
   <string name="thematic">Tematek</string>
@@ -207,6 +211,7 @@
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="settings">Arventennoù</string>
   <string name="apply">Enrollañ</string>
+  <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
   <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>
   <string name="retry">Klask en-dro</string>
