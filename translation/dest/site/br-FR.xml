@@ -296,10 +296,18 @@
   <string name="light">Sklaer</string>
   <string name="dark">Teñval</string>
   <string name="transparent">Treuzwelus</string>
+  <string name="usernameAlreadyUsed">Implijet eo an anv-mañ dija. Dibabit unan all mar plij.</string>
+  <string name="usernamePrefixInvalid">Gant ul lizherenn e rank kregiñ an anv implijer.</string>
+  <string name="usernameUnacceptable">Ne c\'haller degemer an anv-implijer-mañ.</string>
+  <string name="directlySupportLichess">Skoazell Lichess war-eeun</string>
+  <string name="chessBasics">Diazezoù an echedoù</string>
   <string name="error.unknown">Fazi</string>
+  <string name="practiceWithComputer">Pleustriñ gant an urzhiataer</string>
+  <string name="getAHint">Kaout un tamm sikour</string>
   <string name="whiteWinsGame">Ar re wenn o deus trec\'het</string>
   <string name="blackWinsGame">Ar re zu o deus trec\'het</string>
   <string name="next">War-raok</string>
+  <string name="doItAgain">Klask en-dro</string>
   <plurals name="nbSeconds">
     <item quantity="one">%s eilenn</item>
     <item quantity="two">%s eilenn</item>
@@ -307,4 +315,11 @@
     <item quantity="many">%s eilenn</item>
     <item quantity="other">%s eilenn</item>
   </plurals>
+  <string name="sorry">Hon digarezit :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Ret e oa deomp ho skarzhañ e-pad ur prantad.</string>
+  <string name="why">Perak?</string>
+  <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
+  <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
+  <string name="playEveryGame">Kit betek penn ho krogadoù.</string>
+  <string name="tryToWin">Klaskit gounit ( pe bezañ rampo diantow) pep krogad.</string>
 </resources>
