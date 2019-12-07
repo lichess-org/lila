@@ -26,7 +26,7 @@ private final class GameConfig(
 final class Env(
     appConfig: Configuration,
     ws: WSClient,
-    db: lila.db.Env,
+    db: lila.db.Db,
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Builder,

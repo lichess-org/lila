@@ -98,7 +98,7 @@ final class Main(
   val glyphs = Action(glyphsResult)
 
   def image(id: String, hash: String, name: String) = Action.async { req =>
-    env.db.image.fetch(id) map {
+    env.imageRepo.fetch(id) map {
       case None => NotFound
       case Some(image) =>
         lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")

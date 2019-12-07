@@ -17,7 +17,7 @@ private class MessageConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     shutup: lila.hub.actors.Shutup,
     notifyApi: lila.notify.NotifyApi,
     relationApi: lila.relation.RelationApi,

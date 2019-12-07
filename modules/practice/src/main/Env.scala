@@ -11,7 +11,7 @@ final class Env(
     configStoreApi: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
+    db: lila.db.Db
 ) {
 
   private lazy val coll = db(CollName("practice_progress"))

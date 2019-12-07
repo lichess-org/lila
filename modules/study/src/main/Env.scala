@@ -28,7 +28,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     fishnet: lila.hub.actors.Fishnet,
     chatApi: lila.chat.ChatApi,
-    db: lila.db.Env,
+    db: lila.db.Db,
     net: lila.common.config.NetConfig,
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: akka.actor.ActorSystem) {

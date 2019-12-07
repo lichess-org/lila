@@ -22,7 +22,7 @@ private final class ForumConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     modLog: ModlogApi,
     spam: lila.security.Spam,
     captcher: lila.hub.actors.Captcher,

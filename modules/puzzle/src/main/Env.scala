@@ -3,15 +3,16 @@ package lila.puzzle
 import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
-import scala.concurrent.duration.FiniteDuration
 import play.api.Configuration
+import reactivemongo.api.MongoConnection.ParsedURI
+import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
-import lila.db.Env.configLoader
+import lila.db.DbConfig.uriLoader
 
 @Module
 private class PuzzleConfig(
-    val mongodb: lila.db.DbConfig,
+    @ConfigName("mongodb.uri") val mongoUri: ParsedURI,
     @ConfigName("collection.puzzle") val puzzleColl: CollName,
     @ConfigName("collection.round") val roundColl: CollName,
     @ConfigName("collection.vote") val voteColl: CollName,
@@ -29,12 +30,12 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    mongo: lila.db.Env
 )(implicit system: ActorSystem) {
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private lazy val db = new lila.db.Env("puzzle", config.mongodb, lifecycle)
+  private lazy val db = mongo.connectToDb("puzzle", config.mongoUri)
 
   private lazy val gameJson = wire[GameJson]
 

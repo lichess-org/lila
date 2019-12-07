@@ -23,7 +23,7 @@ private class ModConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     reporter: lila.hub.actors.Report,
     fishnet: lila.hub.actors.Fishnet,
     perfStat: lila.perfStat.Env,

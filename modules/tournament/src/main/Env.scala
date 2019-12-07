@@ -25,7 +25,7 @@ private class TournamentConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
     gameRepo: lila.game.GameRepo,

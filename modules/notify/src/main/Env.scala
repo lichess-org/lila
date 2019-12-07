@@ -16,7 +16,7 @@ private class NotifyConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,

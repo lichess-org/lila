@@ -47,7 +47,7 @@ object SettingStore {
 
   type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
-  final class Builder(db: lila.db.Env, config: MemoConfig) {
+  final class Builder(db: lila.db.Db, config: MemoConfig) {
     val coll = db(config.configColl)
     def apply[A: BSONHandler: StringReader: Formable](
       id: String,

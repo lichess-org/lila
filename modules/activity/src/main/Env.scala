@@ -11,7 +11,7 @@ import lila.hub.actorApi.round.CorresMoveEvent
 
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
     postApi: lila.forum.PostApi,

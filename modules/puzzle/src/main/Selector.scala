@@ -20,7 +20,7 @@ private[puzzle] final class Selector(
     me match {
       // anon
       case None => puzzleColl // this query precisely matches a mongodb partial index
-        .find($doc(F.voteNb $gte 50))
+        .ext.find($doc(F.voteNb $gte 50))
         .sort($sort desc F.voteRatio)
         .skip(Random nextInt anonSkipMax)
         .uno[Puzzle]

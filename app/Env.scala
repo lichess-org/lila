@@ -17,7 +17,7 @@ final class Env(
     val config: Configuration,
     val mode: Mode,
     val common: lila.common.Env,
-    val db: lila.db.Env,
+    val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
     val user: lila.user.Env,
     val security: lila.security.Env,
@@ -79,8 +79,8 @@ final class Env(
     val bot: lila.bot.Env,
     val evalCache: lila.evalCache.Env,
     val rating: lila.rating.Env,
-    val controllerComponents: ControllerComponents,
-    cookieBacker: SessionCookieBaker
+    val lilaCookie: lila.common.LilaCookie,
+    val controllerComponents: ControllerComponents
 )(implicit val system: ActorSystem) {
 
   val isProd = mode == Mode.Prod
@@ -97,7 +97,6 @@ final class Env(
   lazy val userInfo = wire[mashup.UserInfo.UserInfoApi]
   lazy val teamInfo = wire[mashup.TeamInfoApi]
   lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
-  lazy val lilaCookie = wire[lila.common.LilaCookie]
 
   private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
     scala.concurrent.Future {
@@ -168,11 +167,16 @@ final class EnvBoot(
   def mode = environment.mode
   implicit def idGenerator = game.idGenerator
 
+  import reactivemongo.api.MongoConnection.ParsedURI
+  import lila.db.DbConfig.uriLoader
+  lazy val mainDb: lila.db.Db = mongo.connectToDb("main", config.get[ParsedURI]("mongodb.uri"))
+  lazy val imageRepo = new lila.db.ImageRepo(mainDb(CollName("image")))
+
   // wire all the lila modules
   lazy val common: lila.common.Env = wire[lila.common.Env]
   lazy val baseUrl = common.netConfig.baseUrl
   lazy val memo: lila.memo.Env = wire[lila.memo.Env]
-  lazy val db: lila.db.Env = lila.db.Env.main(config, lifecycle)
+  lazy val mongo: lila.db.Env = wire[lila.db.Env]
   lazy val user: lila.user.Env = wire[lila.user.Env]
   lazy val security: lila.security.Env = wire[lila.security.Env]
   lazy val hub: lila.hub.Env = wire[lila.hub.Env]
@@ -233,6 +237,7 @@ final class EnvBoot(
   lazy val evalCache: lila.evalCache.Env = wire[lila.evalCache.Env]
   lazy val rating: lila.rating.Env = wire[lila.rating.Env]
   lazy val api: lila.api.Env = wire[lila.api.Env]
+  lazy val lilaCookie = wire[lila.common.LilaCookie]
 
   lazy val env: lila.app.Env = {
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])

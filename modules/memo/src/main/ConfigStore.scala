@@ -60,7 +60,7 @@ final class ConfigStore[A](coll: Coll, id: String, logger: lila.log.Logger)(impl
 
 object ConfigStore {
 
-  final class Builder(db: lila.db.Env, config: MemoConfig) {
+  final class Builder(db: lila.db.Db, config: MemoConfig) {
     val coll = db(config.configColl)
     def apply[A: ConfigLoader](id: String, logger: lila.log.Logger) =
       new ConfigStore[A](coll, id, logger branch "config_store")

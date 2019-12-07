@@ -29,7 +29,8 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     timeline: lila.hub.actors.Timeline,
-    db: lila.db.Env
+    db: lila.db.Db,
+    imageRepo: lila.db.ImageRepo
 )(implicit system: ActorSystem) {
 
   private implicit val keywordLoader = strLoader(Stream.Keyword.apply)
@@ -37,7 +38,7 @@ final class Env(
 
   private lazy val streamerColl = db(config.streamerColl)
 
-  private lazy val photographer = new lila.db.Photographer(db(CollName("image")), "streamer")
+  private lazy val photographer = new lila.db.Photographer(imageRepo, "streamer")
 
   lazy val alwaysFeaturedSetting = {
     import lila.memo.SettingStore.Strings._

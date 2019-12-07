@@ -18,7 +18,7 @@ private class PlanConfig(
 
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     ws: WSClient,
     timeline: lila.hub.actors.Timeline,
     notifyApi: lila.notify.NotifyApi,

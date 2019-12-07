@@ -3,16 +3,16 @@ package lila.oauth
 import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
+import reactivemongo.api.MongoConnection.ParsedURI
 import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.db.DbConfig
+import lila.db.DbConfig.uriLoader
 import lila.db.dsl.Coll
-import lila.db.Env.configLoader
 
 private case class OauthConfig(
-    mongodb: DbConfig,
+    @ConfigName("mongodb.uri") mongoUri: ParsedURI,
     @ConfigName("collection.access_token") tokenColl: CollName,
     @ConfigName("collection.app") appColl: CollName
 )
@@ -22,12 +22,12 @@ final class Env(
     appConfig: Configuration,
     asyncCache: lila.memo.AsyncCache.Builder,
     userRepo: lila.user.UserRepo,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    mongo: lila.db.Env
 )(implicit system: ActorSystem) {
 
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
-  private lazy val db = new lila.db.Env("oauth", config.mongodb, lifecycle)
+  private lazy val db = mongo.connectToDb("oauth", config.mongoUri)
   private lazy val tokenColl = db(config.tokenColl)
   private lazy val appColl = db(config.appColl)
 

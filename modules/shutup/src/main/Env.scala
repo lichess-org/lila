@@ -20,7 +20,7 @@ final class Env(
     relationApi: lila.relation.RelationApi,
     gameRepo: lila.game.GameRepo,
     userRepo: UserRepo,
-    db: lila.db.Env
+    db: lila.db.Db
 )(implicit system: ActorSystem) {
 
   private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)

@@ -4,16 +4,19 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 
-import lila.db.dsl.Coll
 import lila.common.config._
+import lila.db.dsl.Coll
 
-case class MemoConfig(
-    @ConfigName("collection.cache") cacheColl: CollName,
-    @ConfigName("collection.config") configColl: CollName
+final class MemoConfig(
+    @ConfigName("collection.cache") val cacheColl: CollName,
+    @ConfigName("collection.config") val configColl: CollName
 )
 
 @Module
-final class Env(appConfig: Configuration, db: lila.db.Env)(implicit system: akka.actor.ActorSystem) {
+final class Env(
+    appConfig: Configuration,
+    db: lila.db.Db
+)(implicit system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 

@@ -20,14 +20,15 @@ final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
     notifyApi: lila.notify.NotifyApi,
-    db: lila.db.Env
+    db: lila.db.Db,
+    imageRepo: lila.db.ImageRepo
 )(implicit system: ActorSystem) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
   private lazy val coachColl = db(config.coachColl)
 
-  private lazy val photographer = new lila.db.Photographer(db(CollName("image")), "coach")
+  private lazy val photographer = new lila.db.Photographer(imageRepo, "coach")
 
   lazy val api = new CoachApi(
     coachColl = coachColl,

@@ -16,7 +16,7 @@ final class Env(
     modLog: ModlogApi,
     notifyApi: NotifyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
+    db: lila.db.Db
 )(implicit system: ActorSystem) {
 
   lazy val teamRepo = new TeamRepo(db(CollName("team")))

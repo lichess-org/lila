@@ -26,7 +26,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     tryOAuthServer: OAuthServer.Try,
     mongoCache: lila.memo.MongoCache.Builder,
-    db: lila.db.Env,
+    db: lila.db.Db,
     lifecycle: play.api.inject.ApplicationLifecycle
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 

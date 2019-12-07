@@ -3,11 +3,11 @@ package lila.insight
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
+import reactivemongo.api.MongoConnection.ParsedURI
 import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
-import lila.db.DbConfig
-import lila.db.Env.configLoader
+import lila.db.DbConfig.uriLoader
 
 @Module
 final class Env(
@@ -16,13 +16,12 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    mongo: lila.db.Env
 )(implicit system: akka.actor.ActorSystem) {
 
-  private lazy val db = new lila.db.Env(
+  private lazy val db = mongo.connectToDb(
     "insight",
-    appConfig.get[DbConfig]("insight.mongodb")(AutoConfig.loader),
-    lifecycle
+    appConfig.get[ParsedURI]("insight.mongodb.uri")
   )
 
   lazy val share = wire[Share]

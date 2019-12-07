@@ -8,7 +8,7 @@ import lila.common.config.CollName
 @Module
 final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env
+    db: lila.db.Db
 ) {
   lazy val api = new PrefApi(
     db(CollName("pref")),

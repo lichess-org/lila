@@ -4,7 +4,7 @@ import java.nio.file.Path
 
 import dsl._
 
-final class Photographer(coll: Coll, prefix: String) {
+final class Photographer(repo: ImageRepo, prefix: String) {
 
   import Photographer.uploadMaxMb
   private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
@@ -25,7 +25,7 @@ final class Photographer(coll: Coll, prefix: String) {
         size = uploaded.fileSize.toInt
       )
 
-      coll.update.one($id(image.id), image, upsert = true) inject image
+      repo save image inject image
     }
 
   private def process(path: Path) = {

@@ -9,7 +9,7 @@ import lila.common.config._
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     onStart: lila.round.OnStart,
     relationApi: lila.relation.RelationApi,
     playbanApi: lila.playban.PlaybanApi,

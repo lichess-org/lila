@@ -29,7 +29,7 @@ private class RoundConfig(
 final class Env(
     appConfig: Configuration,
     net: NetConfig,
-    db: lila.db.Env,
+    db: lila.db.Db,
     gameRepo: GameRepo,
     idGenerator: lila.game.IdGenerator,
     userRepo: lila.user.UserRepo,

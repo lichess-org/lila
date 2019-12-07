@@ -10,7 +10,7 @@ final class Env(
     appConfig: Configuration,
     lightUser: lila.common.LightUser.GetterSync,
     gameRepo: lila.game.GameRepo,
-    db: lila.db.Env
+    db: lila.db.Db
 )(implicit system: ActorSystem) {
 
   lazy val storage = new PerfStatStorage(

@@ -17,7 +17,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     settingStore: lila.memo.SettingStore.Builder,
-    db: lila.db.Env
+    db: lila.db.Db
 )(implicit system: ActorSystem) {
 
   private lazy val reportColl = db(CollName("irwin_report"))

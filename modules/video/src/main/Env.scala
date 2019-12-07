@@ -25,7 +25,7 @@ final class Env(
     appConfig: Configuration,
     ws: WSClient,
     scheduler: akka.actor.Scheduler,
-    db: lila.db.Env,
+    db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder,
     mode: Mode
 ) {

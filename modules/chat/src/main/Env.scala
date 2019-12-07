@@ -22,7 +22,7 @@ final class Env(
     appConfig: Configuration,
     netDomain: NetDomain,
     userRepo: lila.user.UserRepo,
-    db: lila.db.Env,
+    db: lila.db.Db,
     flood: lila.security.Flood,
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,

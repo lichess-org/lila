@@ -22,7 +22,7 @@ private case class Thresholds(score: () => Int, slack: () => Int)
 final class Env(
     appConfig: Configuration,
     domain: lila.common.config.NetDomain,
-    db: lila.db.Env,
+    db: lila.db.Db,
     isOnline: lila.socket.IsOnline,
     noteApi: lila.user.NoteApi,
     userRepo: lila.user.UserRepo,

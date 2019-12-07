@@ -12,7 +12,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     userRepo: lila.user.UserRepo,
     lightUser: lila.common.LightUser.Getter,
-    db: lila.db.Env,
+    db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 

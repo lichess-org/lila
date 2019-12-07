@@ -31,7 +31,7 @@ final class Env(
     evalCacheApi: lila.evalCache.EvalCacheApi,
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
-    db: lila.db.Env,
+    db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder,
     sink: lila.analyse.Analyser
 )(implicit system: ActorSystem) {

@@ -59,7 +59,7 @@ object MongoCache {
     () => DateTime.now plusSeconds seconds
   }
 
-  final class Builder(db: lila.db.Env, config: MemoConfig) {
+  final class Builder(db: lila.db.Db, config: MemoConfig) {
 
     val coll = db(config.cacheColl)
 

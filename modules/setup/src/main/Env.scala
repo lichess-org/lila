@@ -10,7 +10,7 @@ import lila.user.UserContext
 @Module
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     fishnetPlayer: lila.fishnet.Player,
     onStart: lila.round.OnStart,

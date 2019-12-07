@@ -25,7 +25,7 @@ private final class PushConfig(
 final class Env(
     appConfig: Configuration,
     ws: WSClient,
-    db: lila.db.Env,
+    db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo

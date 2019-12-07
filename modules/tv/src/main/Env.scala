@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 
 @Module
 final class Env(
-    db: lila.db.Env,
+    db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     renderer: lila.hub.actors.Renderer,
     lightUser: lila.common.LightUser.GetterSync,

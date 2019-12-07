@@ -7,7 +7,7 @@ import lila.common.config._
 
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env
+    db: lila.db.Db
 ) {
   lazy val api = new LearnApi(
     coll = db(appConfig.get[CollName]("learn.collection.progress"))

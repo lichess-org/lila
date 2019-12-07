@@ -7,7 +7,7 @@ import lila.hub.actors.GameSearch
 
 @Module
 final class Env(
-    db: lila.db.Env,
+    db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
     indexer: GameSearch,
     net: NetConfig

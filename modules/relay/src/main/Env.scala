@@ -11,7 +11,7 @@ import lila.common.config._
 final class Env(
     appConfig: Configuration,
     ws: WSClient,
-    db: lila.db.Env,
+    db: lila.db.Db,
     studyApi: lila.study.StudyApi,
     chapterRepo: lila.study.ChapterRepo,
     asyncCache: lila.memo.AsyncCache.Builder,

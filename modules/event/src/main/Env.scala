@@ -8,7 +8,7 @@ import lila.common.config._
 
 final class Env(
     appConfig: Configuration,
-    db: lila.db.Env,
+    db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 

@@ -15,7 +15,7 @@ final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder,
-    db: lila.db.Env,
+    db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
