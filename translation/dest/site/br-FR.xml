@@ -23,6 +23,9 @@
   <string name="whiteIsVictorious">Troc\'het o deus ar re wenn</string>
   <string name="blackIsVictorious">Troc\'het o deus ar re zu</string>
   <string name="kingInTheCenter">Roue e kreiz</string>
+  <string name="threeChecks">Tri bec\'h d\'ar roue</string>
+  <string name="raceFinished">Redadeg echu</string>
+  <string name="variantEnding">Fin dre eilstumm</string>
   <string name="newOpponent">Enebour nevez</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Hoc\'h enebour en deus c\'hoant da c\'hoari enep deoc\'h adarre</string>
   <string name="joinTheGame">Kejañ ouzh ar c\'hoari</string>
@@ -31,6 +34,7 @@
   <string name="opponentLeftChoices">Aet eo kuit hoc\'h enebour marteze. Gallout a rit arc\'hañ an trec\'h, dibab bezañ rampo pe gortoz.</string>
   <string name="makeYourOpponentResign">Lakaat hoc\'h enebour da zilezel</string>
   <string name="forceResignation">Arc\'hañ an trec\'h</string>
+  <string name="forceDraw">Diskleriañ ar rampo</string>
   <string name="talkInChat">Bezit hegarat er flapañ!</string>
   <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">Un den kentañ a zeuy war an URL-mañ a c\'hoario enep deoc\'h.</string>
   <string name="whiteResigned">Ar re wenn o deus dilezet</string>
@@ -60,8 +64,12 @@
   <string name="variantLoss">Koll an eilstumm</string>
   <string name="variantWin">Trec\'h an eisltumm</string>
   <string name="insufficientMaterial">N\'eus ket trawalc\'h a bezhioù</string>
+  <string name="pawnMove">Fiñvadenn ar pezh gwerin</string>
+  <string name="capture">Pakadenn</string>
   <string name="close">Serriñ</string>
   <string name="winning">O c\'hounit</string>
+  <string name="losing">Koller</string>
+  <string name="drawn">Rampo</string>
   <string name="unknown">Dianav</string>
   <string name="database">Stlennvon</string>
   <string name="whiteDrawBlack">Gwenn / Rampo / Du</string>
@@ -215,6 +223,7 @@
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
   <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>
+  <string name="notACheckmate">N\'eo ket boud ar roue</string>
   <string name="retry">Klask en-dro</string>
   <string name="reconnecting">Oc\'h adkennaskañ</string>
   <string name="noFriendsOnline">Mignon ebet enlinenn</string>
@@ -302,6 +311,9 @@
   <string name="tools">Ostilhoù</string>
   <string name="playOnline">C\'hoari enlinenn</string>
   <string name="playOffline">C\'hoari ezlinenn</string>
+  <string name="error.email">Diwiriek eo ar chomlec\'h postel-mañ</string>
+  <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ</string>
+  <string name="error.email_unique">Tapet eo bet ar chomlec\'h postel-mañ dija</string>
   <string name="error.email_different">Ho chomlec\'h postel an hini eo dija</string>
   <string name="onlyFriends">Mignoned hepken</string>
   <string name="menu">Lañser</string>
@@ -322,6 +334,8 @@
   <string name="newTournament">Tournamant nevez</string>
   <string name="tournamentNotFound">N\'eo ket bet kavet an tournamant</string>
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
+  <string name="checkYourEmail">Gwiriañ ar posteloù</string>
+  <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
   <string name="withEverybody">Gant an holl dud</string>
