@@ -21,7 +21,7 @@ final class AsyncDb(
 
   lazy val connection = Future fromTry driver.connection(uri, name.some, true)
 
-  def db = connection.flatMap(_ database dbName)
+  private def db = connection.flatMap(_ database dbName)
 
   def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
 }
