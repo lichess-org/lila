@@ -53,6 +53,12 @@
   <string name="toggleLocalEvaluation">Enaouiñ/lazhañ an dielfennañ lec\'hel</string>
   <string name="promoteVariation">Kas war-raok an eilstumm</string>
   <string name="makeMainLine">Kas war-raok evel doare pennañ</string>
+  <string name="deleteFromHere">Dilezel deus amañ</string>
+  <string name="forceVariation">Rediañ an eilstumm</string>
+  <string name="move">Fiñvadenn</string>
+  <string name="variantLoss">Koll an eilstumm</string>
+  <string name="variantWin">Trec\'h an eisltumm</string>
+  <string name="insufficientMaterial">N\'eus ket trawalc\'h a bezhioù</string>
   <string name="close">Serriñ</string>
   <string name="winning">O c\'hounit</string>
   <string name="database">Stlennvon</string>
@@ -80,8 +86,15 @@
     <item quantity="many">%s sined</item>
     <item quantity="other">%s sined</item>
   </plurals>
+  <string name="logOut">Digevreañ</string>
+  <string name="signIn">Kevreañ</string>
+  <string name="youNeedAnAccountToDoThat">Ezhomm ho peus da gaout ur gont evit hen ober</string>
+  <string name="signUp">Koumanantiñ</string>
+  <string name="computersAreNotAllowedToPlay">Urzhiataerioù ha c\'hoarierien sikouret gant un urzhiataer n\'int ket aotreet da c\'hoari. Na vezit ket skoazellet gant mekanikoù, diaz roadennoù pe c\'hoarierien all pa vezit o c\'hoari. Ne aliomp ket ac\'hanoc\'h da gaout kalz kontoù kennebeut. M\'ho peus re a gontoù e veoc\'h forbannet.</string>
   <string name="games">C\'hoariadennoù</string>
   <string name="forum">Forom</string>
+  <string name="xPostedInForumY">%1$s en deus embannet er forom %2$s</string>
+  <string name="latestForumPosts">Embannoù diwezhañ er forom</string>
   <string name="players">C\'hoarierien</string>
   <string name="oneDay">Un devezh</string>
   <plurals name="nbHours">
