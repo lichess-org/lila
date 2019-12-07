@@ -1,10 +1,9 @@
-<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg">
- <g transform="translate(606.13 -486.39)">
-  <path transform="matrix(.26458 0 0 .26458 -606.13 486.39)" d="m105.24 39.684-10.73 0.001953h-0.017578-10.734v11.275h-13.912v-11.078l-9.9434 0.19727v37.258h13.391l-8.3711 64.908h-12.961v21.211h42.531 0.019531 42.527v-21.211h-12.959l-8.373-64.91h13.391v-37.258l-9.9434-0.19727v11.078h-13.914v-11.275z" style="fill:#4b4b4b;stroke-width:3.7795"/>
-  <path d="m-583.97 496.89v2.9826h-3.1514v-2.9302l-3.1606 0.0514v9.8576h3.5431l-2.215 17.174h-3.4296v5.6125h22.515v-5.6125h-3.4285l-2.215-17.174h3.5432v-9.8576l-3.1606-0.0514v2.9302h-3.1514v-2.9826h-2.8445z" style="fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5;stroke:#191919"/>
-  <path d="m-586.74 506.86 11.227-4.2e-4" style="fill:none;stroke-width:1.5;stroke:#191919"/>
-  <path d="m-588.96 524.03h2.6229" style="fill:none;stroke-linecap:round;stroke-width:1.5;stroke:#191919"/>
-  <path d="m-576.28 524.03h2.6229" style="fill:none;stroke-linecap:round;stroke-width:1.5;stroke:#191919"/>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <g transform="translate(-893.53 -1362.7)">
+  <path d="m924.14 1407.7" style="fill:#f0f0f0"/>
+  <path d="m922.01 1407.7" style="fill:#f0f0f0"/>
+  <path d="m924.14 1407.7h-2.1322" style="fill:#f0f0f0"/>
+  <rect x="905.44" y="1399.2" width="26.175" height="6.586" ry="3.293" style="fill:#404040;paint-order:normal;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.5;stroke:#141414"/>
+  <path d="m912.47 1382.2h12.103m-16.868-10.746c-1.8249 10.607 4.7659 10.746 4.7659 10.746l-3.3735 17.006h18.849l-3.3735-17.006s6.5909-0.1381 4.7659-10.746h-3.8588v2.9727h-4.1794v-2.9132h-5.5578v2.9132h-4.1794v-2.9727z" style="fill:#404040;stroke-width:1.5;stroke:#141414"/>
  </g>
- <path d="m24.644 10.504v27.136h7.8285l-2.2154-17.174h3.5429v-9.8578l-2.6308-0.0522v2.9311h-3.6814v-2.9833zm0 27.136v5.6121h11.257v-5.6121z" style="fill:#000000;opacity:.15"/>
 </svg>
