@@ -197,6 +197,7 @@
   <string name="freeOnlineChess">C\'hoari echedoù en-linenn digoust</string>
   <string name="spectators">Arvesterien:</string>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
+  <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
   <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="search">Klask</string>
@@ -261,9 +262,15 @@
   <string name="profile">Profil</string>
   <string name="editProfile">Aozañ ar profil</string>
   <string name="country">Bro</string>
+  <string name="goodMove">Fiñvadenn vat</string>
   <string name="butYouCanDoBetter">Gallout a rit ober gwelloc\'h avat.</string>
+  <string name="bestMove">Fiñvadenn wellañ!</string>
   <string name="keepGoing">Kendalc\'hit…</string>
+  <string name="puzzleFailed">C\'hwitet warni</string>
   <string name="butYouCanKeepTrying">Gallout a rit klask c\'hoazh.</string>
+  <string name="success">Deuet oc\'h a-benn</string>
+  <string name="wasThisPuzzleAnyGood">Mat e oa ar boelladenn?</string>
+  <string name="pleaseVotePuzzle">Skoazellit lichess da wellaat en ur votiñ gant ar bir war-zu an nec\'h pe an traoñ:</string>
   <string name="thankYou">Trugarez!</string>
   <string name="hidden">kuzhet</string>
   <string name="name">Anv</string>
