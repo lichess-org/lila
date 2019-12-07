@@ -197,6 +197,13 @@
   <string name="freeOnlineChess">C\'hoari echedoù en-linenn digoust</string>
   <string name="spectators">Arvesterien:</string>
   <string name="exportGames">Ezporzhiañ krogadoù</string>
+  <plurals name="giveNbSeconds">
+    <item quantity="one">Reiñ %s eilenn</item>
+    <item quantity="two">Reiñ %s eilenn</item>
+    <item quantity="few">Reiñ %s eilennoù</item>
+    <item quantity="many">Reiñ %s eilennoù</item>
+    <item quantity="other">Reiñ %s eilennoù</item>
+  </plurals>
   <string name="giveMoreTime">Reiñ muioc\'h a amzer</string>
   <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
@@ -208,7 +215,10 @@
   <string name="viewTournament">Sellet ouzh an tournamant</string>
   <string name="backToTournament">Distreiñ d\'an tournamant</string>
   <string name="thematic">Tematek</string>
+  <string name="mustBeInTeam">A rank bezañ e skipailh %s</string>
+  <string name="youAreNotInTeam">N\'oc\'h ket e skipailh %s</string>
   <string name="backToGame">Distreiñ d\'ar c\'hrogad</string>
+  <string name="siteDescription">C\'hoari echedoù en-linenn evit netra war un etrefas simpl. Enskrivadur ebet, bruderezh ebet ha lugant ebet. C\'hoarit enep an urzhiataer, enep ho mignoned pe enep enebourien dianav deus ar bed a-bezh.</string>
   <string name="teams">Skipailhoù</string>
   <plurals name="nbMembers">
     <item quantity="one">%s ezel</item>
@@ -224,6 +234,8 @@
   <string name="joinTeam">Kajañ ouzh ar skipailh</string>
   <string name="quitTeam">Kuitaat ar skipailh</string>
   <string name="anyoneCanJoin">Digor d\'an holl</string>
+  <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
+  <string name="teamBestPlayers">C\'hoarierien wellañ</string>
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="settings">Arventennoù</string>
   <string name="apply">Enrollañ</string>
