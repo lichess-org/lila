@@ -51,6 +51,29 @@ Achapit kuit ha bezit trec\'h war ar stered!</string>
   <string name="combat">Emgann</string>
   <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
   <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
+  <string name="thisIsTheInitialPosition">Setu penaos e stalier ar pezhioù 
+evit c\'hoari echedoù!
+Diblasit forzh peseurt pezh evit genderc\'hel.</string>
+  <string name="firstPlaceTheRooks">Plasit an tourioù da gentañ!
+Er c\'hornioù e vez lakaet anezhe.</string>
+  <string name="thenPlaceTheKnights">Ar varc\'heien da c\'houde!
+E-kichen an tourioù ez eont.</string>
+  <string name="placeTheBishops">D\'ar furlukined bremañ!
+E-kichen ar varc\'heien.</string>
+  <string name="placeTheQueen">Lakait ar rouanez!
+Mont a ra war he liv.</string>
+  <string name="placeTheKing">Lakait ar roue!
+Tal-kichen e rouanez.</string>
+  <string name="pawnsFormTheFrontLine">Ar pezhioù gwerin a ya war an talbenn.
+Fiñvit ur pezh da genderc\'hel.</string>
+  <string name="boardSetupComplete">Gourc\'hemennoù! Desket ho peus penaos staliañ ur c\'hoari echedoù.</string>
+  <string name="castling">Rokañ</string>
+  <string name="theSpecialKingMove">Ur fiñvadenn ispisial evit ar roue</string>
+  <string name="castlingIntro">Kasit ho roue d\'ar goudor ha ho tourioù d\'an emgann!</string>
+  <string name="castleKingSide">Fiñvit ho roue eus div garrezenn
+evit rokañ eus tu ar roue!</string>
+  <string name="castleQueenSide">Fiñvit ho roue eus div garrezenn
+evit rokañ eus tu ar rouanez!</string>
   <string name="videos">Videoioù</string>
   <string name="next">War-raok</string>
   <string name="retry">Klask en-dro</string>
