@@ -25,9 +25,28 @@
   </plurals>
   <string name="searchByUsername">Klask dre anv implijer</string>
   <string name="spectator">Arvester</string>
+  <string name="kick">Forbannañ</string>
+  <string name="leaveTheStudy">Kuitaat ar studiadenn</string>
+  <string name="youAreNowASpectator">Un arvester oc\'h bremañ</string>
+  <string name="pgnTags">Tikedennoù PNG</string>
+  <string name="like">Plijet</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Re verr eo ar pennad evit bezañ dielfennet.</string>
+  <string name="playing">O c\'hoari</string>
   <string name="first">Kentañ</string>
   <string name="previous">A-raok</string>
   <string name="next">War-lec\'h</string>
   <string name="last">Diwezhañ</string>
+  <string name="studyPgn">Studiañ PGN</string>
+  <string name="studyUrl">Studiañ URL</string>
+  <string name="startAtX">Kregiñ e %s</string>
   <string name="open">Digeriñ</string>
+  <string name="automatic">Emgefre</string>
+  <string name="createStudy">Krouiñ ur studiadenn</string>
+  <string name="editStudy">Aozañ studiadenn</string>
+  <string name="visibility">Gwelusted</string>
+  <string name="public">Foran</string>
+  <string name="inviteOnly">Kouvidi hepken</string>
+  <string name="nobody">Den ebet</string>
+  <string name="onlyMe">Me hepken</string>
+  <string name="contributors">Perzhidi</string>
 </resources>
