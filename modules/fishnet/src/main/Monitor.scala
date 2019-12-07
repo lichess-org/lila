@@ -65,13 +65,13 @@ private final class Monitor(
 
     val instances = clients.flatMap(_.instance)
 
-    instances.map(_.version.value).groupBy(identity).mapValues(_.size) foreach {
+    instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach {
       case (v, nb) => version(v)(nb)
     }
-    instances.map(_.engines.stockfish.name).groupBy(identity).mapValues(_.size) foreach {
+    instances.map(_.engines.stockfish.name).groupBy(identity).view.mapValues(_.size) foreach {
       case (s, nb) => stockfish(s)(nb)
     }
-    instances.map(_.python.value).groupBy(identity).mapValues(_.size) foreach {
+    instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
       case (s, nb) => python(s)(nb)
     }
   } addEffectAnyway scheduleClients
