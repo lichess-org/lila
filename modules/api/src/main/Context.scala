@@ -1,8 +1,9 @@
 package lila.api
 
 import play.api.mvc.RequestHeader
+import play.api.i18n.Lang
 
-import lila.common.{ HTTPRequest, Nonce, Lang }
+import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
 import lila.relation.actorApi.OnlineFriends
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }

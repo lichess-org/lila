@@ -2,10 +2,11 @@ package lila.tournament
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
+import play.api.i18n.Lang
 import play.api.libs.json._
 import scala.concurrent.duration._
 
-import lila.common.{ Lang, LightUser, Uptime }
+import lila.common.{ LightUser, Uptime }
 import lila.game.{ LightPov, Game }
 import lila.hub.lightTeam._
 import lila.quote.Quote.quoteWriter

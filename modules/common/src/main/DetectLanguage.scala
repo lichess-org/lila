@@ -2,6 +2,7 @@ package lila.common
 
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
+import play.api.i18n.Lang
 import io.methvin.play.autoconfig._
 import scala.math.Ordering.Float.TotalOrdering
 

@@ -1,14 +1,13 @@
 package views.html.analyse
 
-import play.api.libs.json.Json
-
 import chess.variant.Crazyhouse
+import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.Lang
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 

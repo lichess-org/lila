@@ -1,7 +1,7 @@
 package lila.security
 
 import scala.concurrent.duration.{ span => _, _ }
-
+import play.api.i18n.Lang
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.libs.ws.{ WSClient, WSAuthScheme }
@@ -9,7 +9,7 @@ import scalatags.Text.all._
 
 import lila.common.config.Secret
 import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
-import lila.common.{ Lang, EmailAddress }
+import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(

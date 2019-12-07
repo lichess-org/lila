@@ -27,7 +27,6 @@ object Captcha {
 
   val failMessage = "captcha.fail"
 
-  // TODO remove
   def isFailed(form: Form.FormLike) =
     form.errors.exists { _.messages has failMessage }
 }

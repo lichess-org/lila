@@ -1,6 +1,6 @@
 package lila.i18n
 
-import lila.common.Lang
+import play.api.i18n.Lang
 
 object I18nDb {
 
@@ -31,5 +31,5 @@ object I18nDb {
     case Study => study
   }
 
-  val langs: Set[Lang] = site.keys.view.map(Lang.apply).to(Set)
+  val langs: Set[Lang] = site.keys.toSet
 }

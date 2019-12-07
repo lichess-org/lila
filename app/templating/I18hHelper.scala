@@ -2,8 +2,8 @@ package lila.app
 package templating
 
 import play.api.libs.json.JsObject
+import play.api.i18n.Lang
 
-import lila.common.Lang
 import lila.app.ui.ScalatagsTemplate._
 import lila.i18n.{ LangList, I18nKey, Translator, JsQuantity, I18nDb, JsDump, TimeagoLocales }
 import lila.user.UserContext

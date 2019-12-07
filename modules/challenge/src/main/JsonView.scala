@@ -1,8 +1,8 @@
 package lila.challenge
 
 import play.api.libs.json._
+import play.api.i18n.Lang
 
-import lila.common.Lang
 import lila.i18n.{ I18nKeys => trans }
 import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache

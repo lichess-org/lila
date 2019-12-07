@@ -3,13 +3,14 @@ package controllers
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
+import play.api.i18n.Lang
 import play.api.libs.json.{ Json, JsObject, JsArray, JsString, Writes }
 import play.api.mvc._
 import scalatags.Text.Frag
 
 import lila.api.{ PageData, Context, HeaderContext, BodyContext }
 import lila.app._
-import lila.common.{ HTTPRequest, ApiVersion, Nonce, Lang }
+import lila.common.{ HTTPRequest, ApiVersion, Nonce }
 import lila.notify.Notification.Notifies
 import lila.oauth.{ OAuthScope, OAuthServer }
 import lila.security.{ Permission, Granter, FingerPrintedUser, FingerHash }

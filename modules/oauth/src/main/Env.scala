@@ -33,7 +33,6 @@ final class Env(
 
   lazy val appApi = new OAuthAppApi(appColl)
 
-  // #TODO lila should be able to start without it
   lazy val server = {
     val mk = (coll: AsyncColl) => wire[OAuthServer]
     mk(tokenColl)

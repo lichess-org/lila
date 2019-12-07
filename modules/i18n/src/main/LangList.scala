@@ -1,6 +1,6 @@
 package lila.i18n
 
-import lila.common.Lang
+import play.api.i18n.Lang
 
 object LangList {
 

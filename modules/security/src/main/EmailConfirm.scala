@@ -1,10 +1,11 @@
 package lila.security
 
+import play.api.i18n.Lang
 import play.api.mvc.{ Cookie, RequestHeader }
 import scalatags.Text.all._
 
 import lila.common.config._
-import lila.common.{ Lang, EmailAddress, LilaCookie }
+import lila.common.{ EmailAddress, LilaCookie }
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 

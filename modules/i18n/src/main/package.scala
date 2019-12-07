@@ -1,6 +1,6 @@
 package lila
 
-import lila.common.Lang
+import play.api.i18n.Lang
 
 package object i18n extends PackageObject {
 
@@ -8,7 +8,7 @@ package object i18n extends PackageObject {
   type MessageKey = String
 
   private[i18n] type MessageMap = java.util.Map[MessageKey, Translation]
-  private[i18n] type Messages = Map[play.api.i18n.Lang, MessageMap]
+  private[i18n] type Messages = Map[Lang, MessageMap]
 
   private[i18n] def logger = lila.log("i18n")
 

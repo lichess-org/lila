@@ -1,9 +1,9 @@
 package lila.event
 
 import org.joda.time.DateTime
+import play.api.i18n.Lang
 
 import lila.user.User
-import lila.common.Lang
 
 case class Event(
     _id: String,

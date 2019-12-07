@@ -1,9 +1,9 @@
 package lila.security
 
 import scalatags.Text.all._
-
+import play.api.i18n.Lang
 import lila.common.config._
-import lila.common.{ Lang, EmailAddress }
+import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
