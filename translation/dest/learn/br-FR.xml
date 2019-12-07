@@ -10,6 +10,7 @@
   <string name="play">c\'hoari!</string>
   <string name="chessPieces">Pezhioù ar c\'hoari echedoù</string>
   <string name="theRook">Ar c\'hastell</string>
+  <string name="itMovesInStraightLines">Fiñval a ra a-blom hag a-blaen</string>
   <string name="rookIntro">Galloudus eo an tour. Prest oc\'h d\'ober war e dro?</string>
   <string name="rookGoal">Klikit war an tour
 da gas anezhañ d\'ar steredenn!</string>
@@ -35,7 +36,9 @@ Into-daou ho peus ezhomm da gaout!</string>
   <string name="kingIntro">Ar roue oc\'h. Ma varvit e-pad an emgann e vo kollet ar c\'hrogad.</string>
   <string name="theKingIsSlow">Gorrek eo ar roue.</string>
   <string name="lastOne">An hini diwezhañ!</string>
+  <string name="kingComplete">Mestroniañ a rit ar roue!</string>
   <string name="theKnight">Ar marc\'heg</string>
+  <string name="itMovesInAnLShape">Fiñval a ra e stumm un L</string>
   <string name="knightsHaveAFancyWay">Ar varc\'heien o deus un doare ispisial 
 da lammat a-zehou a-gleiz!</string>
   <string name="knightsCanJumpOverObstacles">Gallout a ra ar varc\'heien lammat dreist skoilhoù!
@@ -120,6 +123,16 @@ gant ar muiañ a dalvoudegezh!</string>
   <string name="awesome">Dreist!</string>
   <string name="excellent">Mat-kenañ!</string>
   <string name="greatJob">Mat-tre!</string>
+  <string name="perfect">Peurvat!</string>
+  <string name="outstanding">Eus ar c\'hentañ!</string>
+  <string name="wayToGo">Un taol kaer!</string>
+  <string name="yesYesYes">Ya, ya, ya!</string>
+  <string name="youreGoodAtThis">Barrek oc\'h!</string>
+  <string name="nailedIt">Deuet oc\'h a-benn.</string>
+  <string name="rightOn">Mat!</string>
+  <string name="yourScore">Ho tisoc\'h</string>
   <string name="next">War-raok</string>
+  <string name="backToMenu">Distreiñ d\'al lañser</string>
+  <string name="puzzleFailed">C\'hwitet warni!</string>
   <string name="retry">Klask en-dro</string>
 </resources>
