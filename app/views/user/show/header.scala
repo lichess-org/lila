@@ -120,7 +120,7 @@ object header {
         )
       }
     ),
-    ((ctx is u) && u.perfs.bestStandardRating > 2400 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle) option claimTitle(u),
+    ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle) option claimTitle(u),
     isGranted(_.UserSpy) option div(cls := "mod-zone none"),
     angle match {
       case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)

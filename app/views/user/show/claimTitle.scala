@@ -11,7 +11,7 @@ object claimTitle {
 
   def apply(u: User)(implicit ctx: Context) =
     div(cls := "claim-title")(
-      h2(dataIcon := "C", cls := "text")("Congratulations for breaking the 2400 rating threshold!"),
+      h2(dataIcon := "C", cls := "text")("Congratulations for breaking the 2500 rating threshold!"),
       p(
         "To ensure honest players aren't falsely accused of cheating, we request titled players ",
         "to identify themselves. For instance, ", a(href := routes.User.show("opperwezen"))("opperwezen"), " and ",
