@@ -1,11 +1,12 @@
 package lila.puzzle
 
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleBatch(
-    puzzleColl: Coll,
+    puzzleColl: AsyncColl,
     api: PuzzleApi,
     finisher: Finisher,
     puzzleIdMin: PuzzleId
@@ -47,29 +48,34 @@ private[puzzle] final class PuzzleBatch(
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => after.fold(l)(_ atLeast l)
           case _ => puzzleIdMin
         }
-        tryRange(
-          rating = rating,
-          tolerance = step,
-          step = step,
-          idRange = Range(fromId, fromId + nb * 50),
-          nb = nb
-        )
+        puzzleColl { coll =>
+          tryRange(
+            coll = coll,
+            rating = rating,
+            tolerance = step,
+            step = step,
+            idRange = Range(fromId, fromId + nb * 50),
+            nb = nb
+          )
+        }
       }
     }
 
     private def tryRange(
+      coll: Coll,
       rating: Int,
       tolerance: Int,
       step: Int,
       idRange: Range,
       nb: Int
-    ): Fu[List[Puzzle]] = puzzleColl.ext.find(rangeSelector(
+    ): Fu[List[Puzzle]] = coll.ext.find(rangeSelector(
       rating = rating,
       tolerance = tolerance,
       idRange = idRange
     )).list[Puzzle](nb) flatMap {
       case res if res.size < nb && (tolerance + step) <= toleranceMax =>
         tryRange(
+          coll = coll,
           rating = rating,
           tolerance = tolerance + step,
           step = step,

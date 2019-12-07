@@ -2,13 +2,14 @@ package lila.puzzle
 
 import scala.util.Random
 
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.Perf
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
-    puzzleColl: Coll,
+    puzzleColl: AsyncColl,
     api: PuzzleApi,
     puzzleIdMin: Int
 ) {
@@ -19,11 +20,12 @@ private[puzzle] final class Selector(
     lila.mon.puzzle.selector.count()
     me match {
       // anon
-      case None => puzzleColl // this query precisely matches a mongodb partial index
-        .ext.find($doc(F.voteNb $gte 50))
-        .sort($sort desc F.voteRatio)
-        .skip(Random nextInt anonSkipMax)
-        .uno[Puzzle]
+      case None => puzzleColl { // this query precisely matches a mongodb partial index
+        _.ext.find($doc(F.voteNb $gte 50))
+          .sort($sort desc F.voteRatio)
+          .skip(Random nextInt anonSkipMax)
+          .uno[Puzzle]
+      }
       // user
       case Some(user) => api.head find user flatMap {
         // new player
@@ -56,26 +58,30 @@ private[puzzle] final class Selector(
   private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating atMost 2300 atLeast 900
     val step = toleranceStepFor(rating, user.perfs.puzzle.nb)
-    tryRange(
-      rating = rating,
-      tolerance = step,
-      step = step,
-      idRange = Range(lastPlayed, lastPlayed + 200)
-    )
+    puzzleColl { coll =>
+      tryRange(
+        coll = coll,
+        rating = rating,
+        tolerance = step,
+        step = step,
+        idRange = Range(lastPlayed, lastPlayed + 200)
+      )
+    }
   }
 
   private def tryRange(
+    coll: Coll,
     rating: Int,
     tolerance: Int,
     step: Int,
     idRange: Range
-  ): Fu[Option[Puzzle]] = puzzleColl.ext.find(rangeSelector(
+  ): Fu[Option[Puzzle]] = coll.ext.find(rangeSelector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange
   )).sort($sort asc F.id).uno[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
-      tryRange(rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
+      tryRange(coll, rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
     case res => fuccess(res)
   }
 }

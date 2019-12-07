@@ -35,7 +35,11 @@ final class Env(
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private lazy val db = mongo.blockingDb("puzzle", config.mongoUri)
+  private lazy val db = mongo.asyncDb("puzzle", config.mongoUri)
+  private def puzzleColl = db(config.puzzleColl)
+  private def roundColl = db(config.roundColl)
+  private def voteColl = db(config.voteColl)
+  private def headColl = db(config.headColl)
 
   private lazy val gameJson = wire[GameJson]
 
@@ -97,9 +101,4 @@ final class Env(
       }
     }
   }
-
-  private lazy val puzzleColl = db(config.puzzleColl)
-  private lazy val roundColl = db(config.roundColl)
-  private lazy val voteColl = db(config.voteColl)
-  private lazy val headColl = db(config.headColl)
 }

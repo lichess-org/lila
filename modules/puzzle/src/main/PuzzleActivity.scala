@@ -9,32 +9,36 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.common.config.MaxPerSecond
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
 final class PuzzleActivity(
-    puzzleColl: Coll,
-    roundColl: Coll
+    puzzleColl: AsyncColl,
+    roundColl: AsyncColl
 )(implicit system: akka.actor.ActorSystem) {
 
   import PuzzleActivity._
   import Round.RoundBSONHandler
 
-  def stream(config: Config): Source[String, _] = roundColl
-    .ext.find($doc("_id" $startsWith config.user.id))
-    .sort($sort desc "_id")
-    .batchSize(config.perSecond.value)
-    .cursor[Round](ReadPreference.secondaryPreferred)
-    .documentSource()
-    .take(config.max | Int.MaxValue)
-    .grouped(config.perSecond.value)
-    .delay(1 second)
-    .mapAsync(1)(enrich)
-    .mapConcat(identity)
-    .map { json => s"${Json.stringify(json)}\n" }
+  def stream(config: Config): Source[String, _] = Source futureSource {
+    roundColl.map {
+      _.ext.find($doc("_id" $startsWith config.user.id))
+        .sort($sort desc "_id")
+        .batchSize(config.perSecond.value)
+        .cursor[Round](ReadPreference.secondaryPreferred)
+        .documentSource()
+        .take(config.max | Int.MaxValue)
+        .grouped(config.perSecond.value)
+        .delay(1 second)
+        .mapAsync(1)(enrich)
+        .mapConcat(identity)
+        .map { json => s"${Json.stringify(json)}\n" }
+    }
+  }
 
-  private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] =
-    puzzleColl.primitiveMap[Int, Double](
+  private def enrich(rounds: Seq[Round]): Fu[Seq[JsObject]] = puzzleColl {
+    _.primitiveMap[Int, Double](
       ids = rounds.map(_.id.puzzleId).toSeq,
       field = "perf.gl.r",
       fieldExtractor = obj => for {
@@ -55,6 +59,7 @@ final class PuzzleActivity(
           }
         }
       }
+  }
 }
 
 object PuzzleActivity {
