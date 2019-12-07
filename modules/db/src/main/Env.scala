@@ -24,14 +24,16 @@ final class Env(
 ) {
 
   private val logger = lila.db.logger branch name
-
-  private val driver = MongoDriver()
-  private val parsedUri = MongoConnection.parseURI(config.uri).get
+  private lazy val driver = {
+    println(s"########################################### $name driver")
+    new MongoDriver()
+  }
+  private lazy val parsedUri = MongoConnection.parseURI(config.uri).get
   // private val connection = Future.fromTry(parsedUri.flatMap(driver.connection(_, true)))
-  private val dbName = parsedUri.db | "lichess"
+  private lazy val dbName = parsedUri.db | "lichess"
   val conn = driver.connection(parsedUri, name.some, true).get
   registerDriverShutdownHook(driver, conn)
-  private val db = Chronometer.syncEffect(
+  private lazy val db = Chronometer.syncEffect(
     Await.result(conn database dbName, 3.seconds)
   ) { lap =>
       logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")

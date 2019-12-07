@@ -21,9 +21,8 @@ final class ErrorHandler(
 ) extends DefaultHttpErrorHandler(environment, config, sourceMapper, router) {
 
   override def onProdServerError(req: RequestHeader, exception: UsefulException) = Future {
-    val handlerDef: HandlerDef = req.attrs(Router.Attrs.HandlerDef)
-    val action = s"${handlerDef.controller}.${handlerDef.method}"
-    lila.log("http").error(s"ERROR 500 $action", exception)
+    val actionName = HTTPRequest actionName req
+    lila.log("http").error(s"ERROR 500 $actionName", exception)
     lila.mon.http.response.code500()
     if (canShowErrorPage(req))
       InternalServerError(views.html.base.errorPage(exception) {

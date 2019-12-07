@@ -8,10 +8,11 @@ import play.api.routing._
 
 import lila.common.HTTPRequest
 
-final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter with Logging {
+final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter {
 
   private val httpMon = lila.mon.http
   private val net = env.net
+  private val logger = lila.log("http")
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] = {
 
@@ -26,11 +27,10 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   }
 
   private def monitorTime(req: RequestHeader, startTime: Long) = {
-    val handlerDef: HandlerDef = req.attrs(Router.Attrs.HandlerDef)
-    val action = s"${handlerDef.controller}.${handlerDef.method}"
+    val actionName = HTTPRequest actionName req
     val reqTime = nowMillis - startTime
-    if (env.isDev) logger.info(s"${action} took ${reqTime}ms")
-    httpMon.time(action)(reqTime)
+    if (env.isDev) logger.info(s"$req $actionName ${reqTime}ms")
+    httpMon.time(actionName)(reqTime)
     httpMon.request.all()
     if (req.remoteAddress contains ":") httpMon.request.ipv6()
     if (HTTPRequest isXhr req) httpMon.request.xhr()
