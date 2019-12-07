@@ -3,7 +3,9 @@ package lila.app
 import com.softwaremill.macwire._
 import play.api._
 import play.api.mvc._
+import play.api.mvc.request._
 import play.api.routing.Router
+import play.api.libs.crypto.CookieSignerProvider
 import router.Routes
 
 final class AppLoader extends ApplicationLoader {
@@ -17,8 +19,20 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
   }
-
   import _root_.controllers._
+
+  // we want to use the legacy session cookie baker
+  // for compatibility with lila-ws
+  def cookieBaker = new LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
+
+  override lazy val requestFactory: RequestFactory = {
+    val cookieSigner = new CookieSignerProvider(httpConfiguration.secret).get
+    new DefaultRequestFactory(
+      new DefaultCookieHeaderEncoding(httpConfiguration.cookies),
+      cookieBaker,
+      new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
+    )
+  }
 
   lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
@@ -30,11 +44,6 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
 
   implicit def system = actorSystem
   implicit def ws = wsClient
-  def cookieBacker: SessionCookieBaker = new DefaultSessionCookieBaker(
-    httpConfiguration.session,
-    httpConfiguration.secret,
-    new libs.crypto.CookieSignerProvider(httpConfiguration.secret).get
-  )
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env = boot.env
