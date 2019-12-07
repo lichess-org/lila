@@ -15,7 +15,11 @@ Into-daou ho peus ezhomm da gaout!</string>
   <string name="bishopComplete">Gourc\'hemennoù! Gouzout a rit ober gant ar furlukin.</string>
   <string name="theQueen">Ar rouanez</string>
   <string name="queenCombinesRookAndBishop">Rouanez = kastell + eskop</string>
+  <string name="queenIntro">Setu ar pezh galloudusañ er c\'hoari. He Meurdez ar rouanez!</string>
+  <string name="queenComplete">Gourc\'hemennoù! Mestroniañ a rit ar rouanez.</string>
   <string name="theKing">Ar roue</string>
+  <string name="theMostImportantPiece">Ar pezh pouezusañ</string>
+  <string name="kingIntro">Ar roue oc\'h. Ma varvit e-pad an emgann e vo kollet ar c\'hrogad.</string>
   <string name="theKnight">Ar marc\'heg</string>
   <string name="thePawn">Ar gwerinour</string>
   <string name="videos">Videoioù</string>
