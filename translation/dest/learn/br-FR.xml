@@ -4,8 +4,21 @@
   <string name="learnChess">Deskiñ echedoù</string>
   <string name="byPlaying">en ur c\'hoari!</string>
   <string name="menu">Lañser</string>
+  <string name="progressX">Araokadur: %s</string>
+  <string name="resetMyProgress">Nullañ ma araokadur</string>
+  <string name="youWillLoseAllYourProgress">Kollet e vo hoc\'h araokadur ganeoc\'h!</string>
   <string name="play">c\'hoari!</string>
+  <string name="chessPieces">Pezhioù ar c\'hoari echedoù</string>
   <string name="theRook">Ar c\'hastell</string>
+  <string name="rookIntro">Galloudus eo an tour. Prest oc\'h d\'ober war e dro?</string>
+  <string name="rookGoal">Klikit war an tour
+da gas anezhañ d\'ar steredenn!</string>
+  <string name="grabAllTheStars">Pakit an holl stered!</string>
+  <string name="theFewerMoves">Seul nebeutoc\'h a fiñvadennoù,
+seul vuioc\'h a boentoù!</string>
+  <string name="useTwoRooks">Grit gant daou dour
+da echuiñ buanoc\'h!</string>
+  <string name="rookComplete">Gourc\'hemennoù! Mestroniañ a rit an tour.</string>
   <string name="theBishop">An eskop</string>
   <string name="itMovesDiagonally">Fiñval a ra a-skizh</string>
   <string name="bishopIntro">Bremañ emaomp o vont da zeskiñ penaos fiñval ar furlukin!</string>
@@ -20,7 +33,11 @@ Into-daou ho peus ezhomm da gaout!</string>
   <string name="theKing">Ar roue</string>
   <string name="theMostImportantPiece">Ar pezh pouezusañ</string>
   <string name="kingIntro">Ar roue oc\'h. Ma varvit e-pad an emgann e vo kollet ar c\'hrogad.</string>
+  <string name="theKingIsSlow">Gorrek eo ar roue.</string>
+  <string name="lastOne">An hini diwezhañ!</string>
   <string name="theKnight">Ar marc\'heg</string>
+  <string name="knightsHaveAFancyWay">Ar varc\'heien o deus un doare ispisial 
+da lammat a-zehou a-gleiz!</string>
   <string name="thePawn">Ar gwerinour</string>
   <string name="videos">Videoioù</string>
   <string name="next">War-raok</string>
