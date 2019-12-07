@@ -3,13 +3,28 @@ package lila.db
 import play.api.inject.ApplicationLifecycle
 import reactivemongo.api._
 import reactivemongo.api.commands.Command
-import scala.concurrent.Await
+import scala.concurrent.{ Future, Await }
 import scala.concurrent.duration._
 import scala.util.Failure
 
 import dsl.Coll
 import lila.common.Chronometer
 import lila.common.config.CollName
+
+final class AsyncDb(
+    name: String,
+    uri: MongoConnection.ParsedURI,
+    driver: MongoDriver
+) {
+
+  private val dbName = uri.db | "lichess"
+
+  lazy val connection = Future fromTry driver.connection(uri, name.some, true)
+
+  def db = connection.flatMap(_ database dbName)
+
+  def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
+}
 
 final class Db(
     name: String,
@@ -36,17 +51,4 @@ final class Db(
     val runner = Command.run(pack, FailoverStrategy.strict)
     runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
   })
-
-  //   lifecycle.addStopHook { () =>
-  //     logger.info("ReactiveMongoApi stopping...")
-  //     Await.ready(connection.askClose()(5.seconds).map { _ =>
-  //       logger.info("MongoDB connection closed")
-  //     }.andThen {
-  //       case Failure(_: reactivemongo.core.actors.Exceptions.ClosedException) =>
-  //       case Failure(reason) =>
-  //         logger.error(s"MongoDB connection didn't close: $reason")
-  //         reason.printStackTrace()
-  //       case _ =>
-  //     }, 6.seconds)
-  //   }
 }

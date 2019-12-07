@@ -7,10 +7,11 @@ import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.db.AsyncColl
 import lila.user.{ User, UserRepo }
 
 final class OAuthServer(
-    tokenColl: Coll,
+    tokenColl: AsyncColl,
     userRepo: UserRepo,
     appApi: OAuthAppApi,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -35,8 +36,10 @@ final class OAuthServer(
 
   def fetchAppAuthor(req: RequestHeader): Fu[Option[User.ID]] =
     reqToTokenId(req) ?? { tokenId =>
-      tokenColl.primitiveOne[OAuthApp.Id]($doc(F.id -> tokenId), F.clientId) flatMap {
-        _ ?? appApi.authorOf
+      tokenColl {
+        _.primitiveOne[OAuthApp.Id]($doc(F.id -> tokenId), F.clientId) flatMap {
+          _ ?? appApi.authorOf
+        }
       }
     }
 
@@ -52,13 +55,15 @@ final class OAuthServer(
   )
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
-    tokenColl.ext.findAndUpdate(
-      selector = $doc(F.id -> tokenId),
-      update = $set(F.usedAt -> DateTime.now),
-      fields = AccessToken.forAuthProjection.some
-    ).map(_.value) map {
-        _ ?? AccessToken.ForAuthBSONReader.readOpt
-      }
+    tokenColl {
+      _.ext.findAndUpdate(
+        selector = $doc(F.id -> tokenId),
+        update = $set(F.usedAt -> DateTime.now),
+        fields = AccessToken.forAuthProjection.some
+      ).map(_.value) map {
+          _ ?? AccessToken.ForAuthBSONReader.readOpt
+        }
+    }
 }
 
 object OAuthServer {

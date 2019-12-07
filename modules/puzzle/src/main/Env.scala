@@ -35,7 +35,7 @@ final class Env(
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private lazy val db = mongo.connectToDb("puzzle", config.mongoUri)
+  private lazy val db = mongo.blockingDb("puzzle", config.mongoUri)
 
   private lazy val gameJson = wire[GameJson]
 

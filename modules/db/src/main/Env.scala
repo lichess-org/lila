@@ -12,7 +12,13 @@ final class Env(
 
   private lazy val driver = new MongoDriver(appConfig.get[Config]("mongodb").some)
 
-  def connectToDb(name: String, uri: MongoConnection.ParsedURI) = new Db(
+  def asyncDb(name: String, uri: MongoConnection.ParsedURI) = new AsyncDb(
+    name = name,
+    uri = uri,
+    driver = driver
+  )
+
+  def blockingDb(name: String, uri: MongoConnection.ParsedURI) = new Db(
     name = name,
     uri = uri,
     driver = driver

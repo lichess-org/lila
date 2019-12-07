@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.db.DbConfig.uriLoader
-import lila.db.dsl.Coll
+import lila.db.AsyncColl
 
 private case class OauthConfig(
     @ConfigName("mongodb.uri") mongoUri: ParsedURI,
@@ -27,15 +27,15 @@ final class Env(
 
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
-  private lazy val db = mongo.connectToDb("oauth", config.mongoUri)
-  private lazy val tokenColl = db(config.tokenColl)
-  private lazy val appColl = db(config.appColl)
+  private lazy val db = mongo.asyncDb("oauth", config.mongoUri)
+  private def tokenColl = db(config.tokenColl)
+  private def appColl = db(config.appColl)
 
   lazy val appApi = new OAuthAppApi(appColl)
 
   // #TODO lila should be able to start without it
   lazy val server = {
-    val mk = (coll: Coll) => wire[OAuthServer]
+    val mk = (coll: AsyncColl) => wire[OAuthServer]
     mk(tokenColl)
   }
 
@@ -47,9 +47,7 @@ final class Env(
       none
   }
 
-  lazy val tokenApi = new PersonalTokenApi(
-    tokenColl = tokenColl
-  )
+  lazy val tokenApi = new PersonalTokenApi(tokenColl)
 
   def forms = OAuthForm
 }

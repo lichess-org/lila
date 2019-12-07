@@ -169,7 +169,7 @@ final class EnvBoot(
 
   import reactivemongo.api.MongoConnection.ParsedURI
   import lila.db.DbConfig.uriLoader
-  lazy val mainDb: lila.db.Db = mongo.connectToDb("main", config.get[ParsedURI]("mongodb.uri"))
+  lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[ParsedURI]("mongodb.uri"))
   lazy val imageRepo = new lila.db.ImageRepo(mainDb(CollName("image")))
 
   // wire all the lila modules
