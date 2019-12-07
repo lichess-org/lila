@@ -74,6 +74,27 @@ Fiñvit ur pezh da genderc\'hel.</string>
 evit rokañ eus tu ar roue!</string>
   <string name="castleQueenSide">Fiñvit ho roue eus div garrezenn
 evit rokañ eus tu ar rouanez!</string>
+  <string name="theKnightIsInTheWay">E-kreiz an hent emañ ar marc\'heg!
+Lakait anezhañ da fiñval ha rokit tu ar roue goude-se.</string>
+  <string name="castleKingSideMovePiecesFirst">Rokit tu ar roue!
+Ret eo deoc\'h diblasañ pezhioù a-raok.</string>
+  <string name="castleQueenSideMovePiecesFirst">Rokit tu ar rouanez!
+Ret eo deoc\'h diblasañ pezhioù a-raok.</string>
+  <string name="youCannotCastleIfMoved">Ne c\'hallit ket rokañ ma
+en deus fiñvet ar roue dija
+pe ma en deus fiñvet an tour.</string>
+  <string name="findAWayToCastleKingSide">Kavit un doare da rokañ eus tu ar roue!</string>
+  <string name="findAWayToCastleQueenSide">Kavit un doare da rokañ eus tu ar rouanez!</string>
+  <string name="castlingComplete">Gourc\'hemennoù! Gwelloc\'h e vefe deoc\'h rokañ e-kerz pep krogad.</string>
+  <string name="enPassant">En ur dremen</string>
+  <string name="theSpecialPawnMove">Fiñvadenn ispisial ar pezh gwerin</string>
+  <string name="enPassantComplete">Gourc\'hemennoù! Gallout a rit debriñ en ur dremen bremañ.</string>
+  <string name="stalemate">Rampo</string>
+  <string name="theGameIsADraw">Rampo oc\'h</string>
+  <string name="stalemateComplete">Gourc\'hemennoù! Gwelloc\'h eo bezañ rampo evit koll!</string>
+  <string name="pieceValue">Talvoudegezh ar pezhioù</string>
+  <string name="whatNext">Ha bremañ?</string>
+  <string name="youKnowHowToPlayChess">Gourc\'hemennoù! Gouzout a rit penaos c\'hoari echedoù! Plijout a rafe deoc\'h bezañ barrekoc\'h?</string>
   <string name="videos">Videoioù</string>
   <string name="next">War-raok</string>
   <string name="retry">Klask en-dro</string>
