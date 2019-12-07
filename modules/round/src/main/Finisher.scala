@@ -33,7 +33,7 @@ private final class Finisher(
       winner.?? { color => playban.rageQuit(game, !color) }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
-    if (!Uptime.startedSinceSeconds(60) && (game.movedAt isBefore Uptime.startedAt)) {
+    if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)) {
       logger.info(s"Aborting game last played before JVM boot: ${game.id}")
       other(game, _.Aborted, none)
     } else {
