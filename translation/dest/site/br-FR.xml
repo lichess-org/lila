@@ -87,10 +87,15 @@
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
+  <string name="blunder">Bourd</string>
+  <string name="blunders">Bourdoù</string>
   <string name="mistake">Fazi</string>
   <string name="mistakes">Fazioù</string>
   <string name="inaccuracy">Diresisted</string>
   <string name="inaccuracies">Diresistedoù</string>
+  <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
+  <string name="threefoldRepetition">Teir gwech ar memestra</string>
+  <string name="draw">Rampo</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s c\'hoarier</item>
     <item quantity="two">%s c\'hoarier</item>
@@ -98,6 +103,7 @@
     <item quantity="many">%s c\'hoarier</item>
     <item quantity="other">%s c\'hoarier</item>
   </plurals>
+  <string name="currentGames">Krogadoù o ren</string>
   <plurals name="nbGames">
     <item quantity="one">%s c\'hoariadenn</item>
     <item quantity="two">%s c\'hoariadenn</item>
@@ -257,6 +263,7 @@
   <string name="country">Bro</string>
   <string name="butYouCanDoBetter">Gallout a rit ober gwelloc\'h avat.</string>
   <string name="keepGoing">Kendalc\'hit…</string>
+  <string name="butYouCanKeepTrying">Gallout a rit klask c\'hoazh.</string>
   <string name="thankYou">Trugarez!</string>
   <string name="hidden">kuzhet</string>
   <string name="name">Anv</string>
@@ -336,9 +343,12 @@
   <string name="tournamentDoesNotExist">N\'eus ket diouzh an tournamant-mañ.</string>
   <string name="checkYourEmail">Gwiriañ ar posteloù</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Kaset zo bet ur postel deoc\'h. Klikit war al liamm er postel evit gweredekaat ho kont.</string>
+  <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ma ne zeuit ket a-benn gwelet ar postel-mañ, klaskit e lec\'hioù all evel ar boubellenn, ar stroboù pe teuliadoù all c\'hoazh.</string>
+  <string name="weHaveSentYouAnEmailTo">Kaset hon eus ur postel da %s. Klikit war al liamm er postel evit cheñch ho ker-tremen.</string>
   <string name="withNobody">Gant den ebet</string>
   <string name="withFriends">Gant ma mignoned</string>
   <string name="withEverybody">Gant an holl dud</string>
+  <string name="youHaveAlreadyRegisteredTheEmail">Ar postel-mañ: %s ho peus enrollet dija</string>
   <string name="security">Diogelroez</string>
   <string name="phoneAndTablet">Pellgomzer ha tabletenn</string>
   <string name="language">Yezh</string>
