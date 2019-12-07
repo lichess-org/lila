@@ -1,19 +1,26 @@
 package lila.db
 
-import play.api.ConfigLoader
+import com.typesafe.config.Config
 import play.api.inject.ApplicationLifecycle
+import play.api.{ Configuration, ConfigLoader }
 import reactivemongo.api._
 
-final class Env(lifecycle: ApplicationLifecycle) {
+final class Env(
+    appConfig: Configuration,
+    lifecycle: ApplicationLifecycle
+) {
 
-  private lazy val driver = new MongoDriver()
+  private lazy val driver = new MongoDriver(appConfig.get[Config]("mongodb").some)
 
   def connectToDb(name: String, uri: MongoConnection.ParsedURI) = new Db(
     name = name,
     uri = uri,
-    driver = driver,
-    lifecycle = lifecycle
+    driver = driver
   )
+
+  lifecycle.addStopHook { () =>
+    scala.concurrent.Future(driver.close())
+  }
 }
 
 object DbConfig {

@@ -14,8 +14,7 @@ import lila.common.config.CollName
 final class Db(
     name: String,
     uri: MongoConnection.ParsedURI,
-    driver: MongoDriver,
-    lifecycle: ApplicationLifecycle
+    driver: MongoDriver
 ) {
 
   private val logger = lila.db.logger branch name
@@ -38,16 +37,16 @@ final class Db(
     runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
   })
 
-  lifecycle.addStopHook { () =>
-    logger.info("ReactiveMongoApi stopping...")
-    Await.ready(connection.askClose()(5.seconds).map { _ =>
-      logger.info("MongoDB connection closed")
-    }.andThen {
-      case Failure(reason) =>
-        logger.error(s"MongoDB connection didn't close: $reason")
-        reason.printStackTrace()
-        driver.close()
-      case _ => driver.close()
-    }, 6.seconds)
-  }
+  //   lifecycle.addStopHook { () =>
+  //     logger.info("ReactiveMongoApi stopping...")
+  //     Await.ready(connection.askClose()(5.seconds).map { _ =>
+  //       logger.info("MongoDB connection closed")
+  //     }.andThen {
+  //       case Failure(_: reactivemongo.core.actors.Exceptions.ClosedException) =>
+  //       case Failure(reason) =>
+  //         logger.error(s"MongoDB connection didn't close: $reason")
+  //         reason.printStackTrace()
+  //       case _ =>
+  //     }, 6.seconds)
+  //   }
 }

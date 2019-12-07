@@ -8,11 +8,9 @@ import scalaz.Validation.FlatMap._
 
 import lila.tree.Branch
 
-// #TODO remove?
 trait AnaAny {
 
   def branch: Valid[Branch]
-  // def json(b: Branch): JsObject
   def chapterId: Option[String]
   def path: String
 }
