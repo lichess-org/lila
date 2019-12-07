@@ -53,7 +53,7 @@
   <string name="toggleLocalEvaluation">Enaouiñ/lazhañ an dielfennañ lec\'hel</string>
   <string name="promoteVariation">Kas war-raok an eilstumm</string>
   <string name="makeMainLine">Kas war-raok evel doare pennañ</string>
-  <string name="deleteFromHere">Dilezel deus amañ</string>
+  <string name="deleteFromHere">Dilemel deus amañ</string>
   <string name="forceVariation">Rediañ an eilstumm</string>
   <string name="move">Fiñvadenn</string>
   <string name="variantLoss">Koll an eilstumm</string>
@@ -68,11 +68,19 @@
   <string name="noGameFound">C\'hoariadenn ebet</string>
   <string name="allSet">Prest eo!</string>
   <string name="delete">Dilemel</string>
+  <string name="deleteThisImportedGame">Dilemel ar c\'hoari enporzhiet-mañ?</string>
   <string name="byCPL">Dre CPL</string>
   <string name="openStudy">Digeriñ ar studi</string>
   <string name="enable">Enaouiñ</string>
+  <string name="bestMoveArrow">Bir ar fiñvadenn wellañ</string>
+  <string name="evaluationGauge">Jaoj priziañ</string>
+  <string name="multipleLines">Lieslinennoù</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
+  <string name="infiniteAnalysis">Dielfennañ didermen</string>
+  <string name="mistake">Fazi</string>
+  <string name="mistakes">Fazioù</string>
+  <string name="inaccuracy">Diresisted</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s c\'hoarier</item>
     <item quantity="two">%s c\'hoarier</item>
@@ -322,4 +330,6 @@
   <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
   <string name="playEveryGame">Kit betek penn ho krogadoù.</string>
   <string name="tryToWin">Klaskit gounit ( pe bezañ rampo diantow) pep krogad.</string>
+  <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
+  <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
 </resources>
