@@ -471,14 +471,14 @@ object mon {
   }
   object puzzle {
     object selector {
-      val count = inc("puzzle.selector")
-      val time = rec("puzzle.selector")
+      val count = inc("puzzle.selector.count")
+      val time = rec("puzzle.selector.time")
       def vote(v: Int) = rec("puzzle.selector.vote")(1000 + v) // vote sum of selected puzzle
     }
     object batch {
       object selector {
-        val count = incX("puzzle.batch.selector")
-        val time = rec("puzzle.batch.selector")
+        val count = incX("puzzle.batch.selector.count")
+        val time = rec("puzzle.batch.selector.time")
       }
       val solve = incX("puzzle.batch.solve")
     }
@@ -496,8 +496,8 @@ object mon {
   }
   object opening {
     object selector {
-      val count = inc("opening.selector")
-      val time = rec("opening.selector")
+      val count = inc("opening.selector.count")
+      val time = rec("opening.selector.time")
     }
     val crazyGlicko = inc("opening.crazy_glicko")
   }
