@@ -89,8 +89,8 @@ private final class Monitor(
 
   } addEffectAnyway scheduleWork
 
-  private def scheduleClients = system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => monitorClients)
-  private def scheduleWork = system.scheduler.scheduleWithFixedDelay(10 seconds, 10 seconds)(() => monitorWork)
+  private def scheduleClients = system.scheduler.scheduleOnce(1 minute)(monitorClients)
+  private def scheduleWork = system.scheduler.scheduleOnce(10 seconds)(monitorWork)
 
   scheduleClients
   scheduleWork
