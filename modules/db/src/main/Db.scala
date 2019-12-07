@@ -41,7 +41,7 @@ final class Db(
   private lazy val db = Chronometer.syncEffect(
     Await.result(connection database dbName, 5.seconds)
   ) { lap =>
-      logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
+      logger.info(s"MongoDB has connected to $dbName in ${lap.showDuration}")
     }
 
   def apply(name: CollName): Coll = db(name.value)
