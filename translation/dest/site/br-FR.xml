@@ -83,7 +83,7 @@
   <string name="enable">Enaouiñ</string>
   <string name="bestMoveArrow">Bir ar fiñvadenn wellañ</string>
   <string name="evaluationGauge">Jaoj priziañ</string>
-  <string name="multipleLines">Lieslinenn</string>
+  <string name="multipleLines">Kalz linennoù</string>
   <string name="cpus">CPUs</string>
   <string name="memory">Memor</string>
   <string name="infiniteAnalysis">Dielfennañ didermen</string>
@@ -208,7 +208,7 @@
   <string name="thisPlayerUsesChessComputerAssistance">Skoazell un urzhiataer a vez implijet gant ar c\'hoarier-mañ</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Kresket/digresket e vez e live en un doare direizh gant ar c\'hoarier-mañ</string>
   <string name="search">Klask</string>
-  <string name="advancedSearch">Klask kempleshoc\'h</string>
+  <string name="advancedSearch">Enklask araokaet</string>
   <string name="tournament">Tournamant</string>
   <string name="tournaments">Tournamantoù</string>
   <string name="tournamentPoints">Poentoù tournamant</string>
@@ -231,7 +231,7 @@
   <string name="newTeam">Skipailh nevez</string>
   <string name="myTeams">Ma skipailhoù</string>
   <string name="noTeamFound">Skipailh ebet</string>
-  <string name="joinTeam">Kajañ ouzh ar skipailh</string>
+  <string name="joinTeam">Kejañ ouzh ar skipailh</string>
   <string name="quitTeam">Kuitaat ar skipailh</string>
   <string name="anyoneCanJoin">Digor d\'an holl</string>
   <string name="aConfirmationIsRequiredToJoin">Ret eo kadarnaat evit kemer perzh</string>
@@ -337,7 +337,7 @@
   <string name="community">Kumuniezh</string>
   <string name="tools">Ostilhoù</string>
   <string name="playOnline">C\'hoari enlinenn</string>
-  <string name="playOffline">C\'hoari ezlinenn</string>
+  <string name="playOffline">C\'hoari enlinenn</string>
   <string name="error.email">Diwiriek eo ar chomlec\'h postel-mañ</string>
   <string name="error.email_acceptable">Ne c\'hall ket bet degemeret ar chomlec\'h postel-mañ</string>
   <string name="error.email_unique">Tapet eo bet ar chomlec\'h postel-mañ dija</string>
@@ -400,7 +400,7 @@
   <string name="goodPractice">Evit hen ober e dav deomp bezañ sur e vez graet gant doareoù dereat gant an holl.</string>
   <string name="potentialProblem">Pa vez merzhet ar pezh a c\'hallfe bezañ ur gudenn e vez dispaket ar gemennadenn-mañ ganeomp.</string>
   <string name="playEveryGame">Kit betek penn ho krogadoù.</string>
-  <string name="tryToWin">Klaskit gounit ( pe bezañ rampo diantow) pep krogad.</string>
+  <string name="tryToWin">Klaskit gounit pep krogad (pe bezañ rampo diantav).</string>
   <string name="temporaryInconvenience">Hon digarezit evit an diaezamant berrbad,</string>
   <string name="wishYouGreatGames">hag e hetomp krogadoù mat deoc\'h war lichess.org.</string>
 </resources>
