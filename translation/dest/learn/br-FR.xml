@@ -38,7 +38,19 @@ Into-daou ho peus ezhomm da gaout!</string>
   <string name="theKnight">Ar marc\'heg</string>
   <string name="knightsHaveAFancyWay">Ar varc\'heien o deus un doare ispisial 
 da lammat a-zehou a-gleiz!</string>
+  <string name="knightsCanJumpOverObstacles">Gallout a ra ar varc\'heien lammat dreist skoilhoù!
+Achapit kuit ha bezit trec\'h war ar stered!</string>
+  <string name="knightComplete">Gourc\'hemennoù! Mestroniañ a rit ar marc\'heg.</string>
   <string name="thePawn">Ar gwerinour</string>
+  <string name="itMovesForwardOnly">Mont a ra war-raok hepken</string>
+  <string name="pawnsMoveOneSquareOnly">Deus ur garrezenn e c\'hall ar pezhioù gwerin fiñval hepken. Pa dizhont an tu all eus an dachenn emgann avat e teuont da vezañ galloudusoc\'h!</string>
+  <string name="pawnsMoveForward">Fiñval a ra ar pezhioù gwerin a-blom met a-skizh e tebront!</string>
+  <string name="pawnComplete">Gourc\'hemennoù! Mestroniañ a rit ar pezhioù gwerin.</string>
+  <string name="selectThePieceYouWant">Dibabit ar pezh ho peus c\'hoant da gaout!</string>
+  <string name="fundamentals">Diazezoù</string>
+  <string name="combat">Emgann</string>
+  <string name="combatIntro">Ur brezelour mat zo gouest da dagañ ha da zifenn!</string>
+  <string name="boardSetupIntro">Tal-ouzh-tal eo an daou arme, prest d\'en em gannañ.</string>
   <string name="videos">Videoioù</string>
   <string name="next">War-raok</string>
   <string name="retry">Klask en-dro</string>
