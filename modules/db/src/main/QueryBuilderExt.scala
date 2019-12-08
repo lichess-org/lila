@@ -7,13 +7,7 @@ import reactivemongo.api.bson._
 
 trait QueryBuilderExt { self: dsl =>
 
-  // #TODO is uno, gather really needed?
-  // probably remove this entirely
-  final implicit class ExtendQueryBuilder[P <: SerializationPack](val b: collections.GenericQueryBuilder[P]) {
-
-    def skip(nb: Int) = b.options(b.options skip nb)
-
-    def batch(nb: Int) = b.options(b.options batchSize nb)
+  final implicit class ExtendQueryBuilder[P <: SerializationPack](b: collections.GenericQueryBuilder[P]) {
 
     // like collect, but with stopOnError defaulting to false
     def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(
