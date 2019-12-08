@@ -19,7 +19,7 @@ private object BSONHandlers {
 
   def regexId(userId: User.ID): Bdoc = "_id" $startsWith s"$userId:"
 
-  implicit val activityIdHandler = {
+  implicit lazy val activityIdHandler = {
     val sep = ':'
     tryHandler[Id](
       {
@@ -32,8 +32,8 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val ratingHandler = BSONIntegerHandler.as[Rating](Rating.apply, _.value)
-  private implicit val ratingProgHandler = tryHandler[RatingProg](
+  private implicit lazy val ratingHandler = BSONIntegerHandler.as[Rating](Rating.apply, _.value)
+  private implicit lazy val ratingProgHandler = tryHandler[RatingProg](
     {
       case v: BSONArray => for {
         before <- v.getAsTry[Rating](0)
@@ -43,7 +43,7 @@ private object BSONHandlers {
     o => BSONArray(o.before, o.after)
   )
 
-  private implicit val scoreHandler: BSONHandler[Score] = new lila.db.BSON[Score] {
+  private implicit lazy val scoreHandler: BSONHandler[Score] = new lila.db.BSON[Score] {
     private val win = "w"
     private val loss = "l"
     private val draw = "d"
@@ -64,32 +64,32 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val perfTypeHandler: BSONHandler[PerfType] = isoHandler(perfTypeKeyIso)
-  private implicit val gameMapHandler: BSONHandler[Map[PerfType, Score]] = implicitly[BSONHandler[Map[PerfType, Score]]]
-  implicit val gamesHandler = gameMapHandler.as[Games](Games.apply, _.value)
+  private implicit lazy val perfTypeHandler: BSONHandler[PerfType] = isoHandler(perfTypeKeyIso)
+  private implicit lazy val gameMapHandler: BSONHandler[Map[PerfType, Score]] = implicitly[BSONHandler[Map[PerfType, Score]]]
+  implicit lazy val gamesHandler = gameMapHandler.as[Games](Games.apply, _.value)
 
-  private implicit val gameIdHandler = BSONStringHandler.as[GameId](GameId.apply, _.value)
+  private implicit lazy val gameIdHandler = BSONStringHandler.as[GameId](GameId.apply, _.value)
 
-  private implicit val postIdHandler = BSONStringHandler.as[PostId](PostId.apply, _.value)
-  implicit val postsHandler = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
+  private implicit lazy val postIdHandler = BSONStringHandler.as[PostId](PostId.apply, _.value)
+  implicit lazy val postsHandler = isoHandler[Posts, List[PostId]]((p: Posts) => p.value, Posts.apply _)
 
-  implicit val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
+  implicit lazy val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
 
-  private implicit val learnMapHandler: BSONHandler[Map[Learn.Stage, Int]] = implicitly[BSONHandler[Map[Learn.Stage, Int]]]
-  private implicit val learnHandler = learnMapHandler.as[Learn](Learn.apply, _.value)
+  private implicit lazy val learnMapHandler: BSONHandler[Map[Learn.Stage, Int]] = implicitly[BSONHandler[Map[Learn.Stage, Int]]]
+  private implicit lazy val learnHandler = learnMapHandler.as[Learn](Learn.apply, _.value)
 
-  private implicit val practiceMapHandler: BSONHandler[Map[Study.Id, Int]] = implicitly[BSONHandler[Map[Study.Id, Int]]]
-  private implicit val practiceHandler = practiceMapHandler.as[Practice](Practice.apply, _.value)
+  private implicit lazy val practiceMapHandler: BSONHandler[Map[Study.Id, Int]] = implicitly[BSONHandler[Map[Study.Id, Int]]]
+  private implicit lazy val practiceHandler = practiceMapHandler.as[Practice](Practice.apply, _.value)
 
-  private implicit val simulIdHandler = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
-  private implicit val simulsHandler = isoHandler[Simuls, List[SimulId]]((s: Simuls) => s.value, Simuls.apply _)
+  private implicit lazy val simulIdHandler = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
+  private implicit lazy val simulsHandler = isoHandler[Simuls, List[SimulId]]((s: Simuls) => s.value, Simuls.apply _)
 
-  implicit val corresHandler = Macros.handler[Corres]
-  private implicit val patronHandler = BSONIntegerHandler.as[Patron](Patron.apply, _.months)
+  implicit lazy val corresHandler = Macros.handler[Corres]
+  private implicit lazy val patronHandler = BSONIntegerHandler.as[Patron](Patron.apply, _.months)
 
-  private implicit val followListHandler = Macros.handler[FollowList]
+  private implicit lazy val followListHandler = Macros.handler[FollowList]
 
-  private implicit val followsHandler = new lila.db.BSON[Follows] {
+  private implicit lazy val followsHandler = new lila.db.BSON[Follows] {
     def reads(r: lila.db.BSON.Reader) = Follows(
       in = r.getO[FollowList]("i").filterNot(_.isEmpty),
       out = r.getO[FollowList]("o").filterNot(_.isEmpty)
@@ -100,8 +100,8 @@ private object BSONHandlers {
     )
   }
 
-  private implicit val studiesHandler = isoHandler[Studies, List[Study.Id]]((s: Studies) => s.value, Studies.apply _)
-  private implicit val teamsHandler = isoHandler[Teams, List[String]]((s: Teams) => s.value, Teams.apply _)
+  private implicit lazy val studiesHandler = isoHandler[Studies, List[Study.Id]]((s: Studies) => s.value, Studies.apply _)
+  private implicit lazy val teamsHandler = isoHandler[Teams, List[String]]((s: Teams) => s.value, Teams.apply _)
 
   object ActivityFields {
     val id = "_id"
@@ -119,7 +119,7 @@ private object BSONHandlers {
     val stream = "st"
   }
 
-  implicit val activityHandler = new lila.db.BSON[Activity] {
+  implicit lazy val activityHandler = new lila.db.BSON[Activity] {
 
     import ActivityFields._
 
