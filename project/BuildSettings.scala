@@ -53,8 +53,8 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
-    // "-deprecation",
-    // "-Xlint:unused,inaccessible,nullary-unit,adapted-args,infer-any,missing-interpolator,eta-zero",
+    "-unchecked",
+    "-deprecation",
     "-Xlint:_",
     "-Ywarn-macros:after",
     "-Ywarn-unused:_",
