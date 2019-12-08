@@ -25,9 +25,6 @@ final class JsonView(
 ) {
 
   private object Writers {
-    implicit val dateWrites = Writes[DateTime] { date =>
-      JsNumber(date.getSeconds)
-    }
     implicit val intervalWrites = OWrites[Interval] { i =>
       Json.obj("start" -> i.getStart, "end" -> i.getEnd)
     }
