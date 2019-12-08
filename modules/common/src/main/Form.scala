@@ -68,7 +68,7 @@ object Form {
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean] {
       override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =
-        Right(data.get(key).getOrElse("false")).flatMap { v =>
+        Right(data.getOrElse(key, "false")).flatMap { v =>
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)

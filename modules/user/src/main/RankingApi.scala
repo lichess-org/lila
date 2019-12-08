@@ -192,7 +192,7 @@ final class RankingApi(
      */
     private def monitorRatingDistribution(perfId: Perf.ID)(nbUsersList: List[NbUsers]): Unit = {
       val total = nbUsersList.foldLeft(0)(_ + _)
-      (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList.toList).foldLeft(0) {
+      (Stat.minRating to 2800 by Stat.group).toList.zip(nbUsersList).foldLeft(0) {
         case (prev, (rating, nbUsers)) =>
           val acc = prev + nbUsers
           PerfType(perfId) foreach { pt =>

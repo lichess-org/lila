@@ -88,17 +88,6 @@ object Paginator {
     nbResults = nbResults
   )
 
-  def fromList[A](
-    list: List[A],
-    currentPage: Int = 1,
-    maxPerPage: MaxPerPage = MaxPerPage(10)
-  ): Paginator[A] = new Paginator(
-    currentPage = currentPage,
-    maxPerPage = maxPerPage,
-    currentPageResults = list.drop((currentPage - 1) * maxPerPage.value).take(maxPerPage.value),
-    nbResults = list.size
-  )
-
   def validate[A](
     adapter: AdapterLike[A],
     currentPage: Int = 1,

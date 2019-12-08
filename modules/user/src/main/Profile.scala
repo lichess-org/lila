@@ -27,10 +27,8 @@ case class Profile(
 
   def isComplete = completionPercent == 100
 
-  def completionPercent: Int = {
-    val c = List(country, bio, firstName, lastName)
-    100 * c.count(_.isDefined) / c.size
-  }
+  def completionPercent: Int =
+    100 * List(country, bio, firstName, lastName).count(_.isDefined) / 4
 
   def actualLinks: List[Link] = links ?? Links.make
 
