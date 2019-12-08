@@ -21,7 +21,7 @@ private[tournament] final class PairingSystem(
     ranking: Ranking
   ): Fu[Pairings] = {
     for {
-      lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(120, users.size * 4))
+      lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
       onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? playerRepo.countActive(tour.id).map(2==)
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
       preps <- if (data.isFirstRound) evenOrAll(data, users)

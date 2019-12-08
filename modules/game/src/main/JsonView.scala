@@ -1,11 +1,11 @@
 package lila.game
 
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import chess.format.{ FEN, Forsyth }
 import chess.variant.Crazyhouse
 import chess.{ Color, Clock }
+import lila.common.Json.jodaWrites
 
 final class JsonView(rematches: Rematches) {
 

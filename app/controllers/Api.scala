@@ -3,13 +3,13 @@ package controllers
 import akka.stream.scaladsl._
 import ornicar.scalalib.Zero
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 import play.api.mvc._
 import scala.concurrent.duration._
 
 import lila.api.{ Context, GameApiV2 }
 import lila.app._
 import lila.common.config.{ MaxPerPage, MaxPerSecond }
+import lila.common.Json.jodaWrites
 import lila.common.{ HTTPRequest, IpAddress }
 
 final class Api(

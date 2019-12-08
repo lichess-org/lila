@@ -3,13 +3,13 @@ package lila.api
 import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 import scala.concurrent.duration._
 
 import chess.format.FEN
 import chess.format.pgn.Tag
 import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config.MaxPerSecond
+import lila.common.Json.jodaWrites
 import lila.common.{ LightUser, HTTPRequest }
 import lila.db.dsl._
 import lila.game.JsonView._

@@ -6,7 +6,7 @@ object Title {
 
   implicit val titleIso = lila.common.Iso.string[Title](Title.apply, _.value)
   implicit val titleBsonHandler = lila.db.dsl.stringIsoHandler(Title.titleIso)
-  implicit val titleJsonWrites = lila.common.PimpedJson.stringIsoWriter(Title.titleIso)
+  implicit val titleJsonWrites = lila.common.Json.stringIsoWriter(Title.titleIso)
 
   val LM = Title("LM")
   val BOT = Title("BOT")

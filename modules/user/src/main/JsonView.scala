@@ -1,8 +1,9 @@
 package lila.user
 
-import lila.rating.{ Perf, PerfType }
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
+
+import lila.common.Json.jodaWrites
+import lila.rating.{ Perf, PerfType }
 import User.{ PlayTime, LightPerf }
 
 final class JsonView(isOnline: lila.socket.IsOnline) {

@@ -2,10 +2,10 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 import reactivemongo.api.bson._
 import scala.util.{ Try, Success, Failure }
 
+import lila.common.Json.jodaWrites
 import lila.db.dsl._
 import lila.hub.actorApi.timeline._
 

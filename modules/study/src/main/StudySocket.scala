@@ -337,7 +337,7 @@ object StudySocket {
       }
 
       object Data {
-        import lila.common.PimpedJson._
+        import lila.common.Json._
         import play.api.libs.functional.syntax._
 
         def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

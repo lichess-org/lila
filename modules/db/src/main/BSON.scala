@@ -136,5 +136,7 @@ object BSON extends Handlers {
     case BSONElement(k, v) => s"$k: ${debug(v)}"
   }).mkString("{", ", ", "}")
 
+  def print(v: BSONValue): Unit = println(debug(v))
+
   def hashDoc(doc: Bdoc): String = debugDoc(doc).replace(" ", "")
 }

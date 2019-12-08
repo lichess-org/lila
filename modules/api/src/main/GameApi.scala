@@ -3,13 +3,13 @@ package lila.api
 import chess.format.FEN
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
 import lila.common.config._
+import lila.common.Json.jodaWrites
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }

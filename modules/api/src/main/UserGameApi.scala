@@ -1,9 +1,9 @@
 package lila.api
 
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import chess.format.Forsyth
+import lila.common.Json.jodaWrites
 import lila.common.LightUser
 import lila.common.paginator.Paginator
 import lila.game.{ Game, PerfPicker }

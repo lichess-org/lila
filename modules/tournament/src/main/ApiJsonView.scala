@@ -1,10 +1,10 @@
 package lila.tournament
 
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import lila.user.LightUserApi
 import lila.rating.PerfType
+import lila.common.Json.jodaWrites
 
 final class ApiJsonView(lightUserApi: LightUserApi) {
 

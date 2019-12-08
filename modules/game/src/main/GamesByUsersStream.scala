@@ -2,11 +2,11 @@ package lila.game
 
 import akka.stream.scaladsl._
 import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 
 import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN
 import lila.common.Bus
+import lila.common.Json.jodaWrites
 import lila.game.Game
 import lila.user.User
 

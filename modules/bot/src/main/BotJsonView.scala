@@ -1,9 +1,9 @@
 package lila.bot
 
-import play.api.libs.json._
-import play.api.libs.json.JodaWrites._
 import chess.format.FEN
+import play.api.libs.json._
 
+import lila.common.Json.jodaWrites
 import lila.game.JsonView._
 import lila.game.{ Game, Pov, GameRepo }
 

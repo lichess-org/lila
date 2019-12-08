@@ -12,7 +12,7 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
-import lila.common.PimpedJson._
+import lila.common.Json._
 import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType

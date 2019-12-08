@@ -1,5 +1,7 @@
 package lila.tournament
 
+import akka.stream.Materializer
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson._
@@ -10,7 +12,7 @@ import lila.db.dsl._
 import lila.game.Game
 import lila.user.User
 
-final class PairingRepo(coll: Coll) {
+final class PairingRepo(coll: Coll)(implicit mat: Materializer) {
 
   def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)
   def selectUser(userId: User.ID) = $doc("u" -> userId)
@@ -25,24 +27,33 @@ final class PairingRepo(coll: Coll) {
 
   def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.ext.find($id(id)).uno[Pairing]
 
-  def recentByTour(tourId: Tournament.ID, nb: Int): Fu[Pairings] =
-    coll.ext.find(selectTour(tourId)).sort(recentSort).list[Pairing](nb)
-
-  def lastOpponents(tourId: Tournament.ID, userIds: Iterable[User.ID], nb: Int): Fu[Pairing.LastOpponents] = coll.find(
-    selectTour(tourId) ++ $doc("u" $in userIds),
-    $doc("_id" -> false, "u" -> true).some
-  ).sort(recentSort).cursor[Bdoc]().fold(Map.empty[User.ID, User.ID], nb) { (acc, doc) =>
-      ~doc.getAsOpt[List[User.ID]]("u") match {
-        case List(u1, u2) =>
-          val acc1 = if (acc.contains(u1)) acc else acc.updated(u1, u2)
-          if (acc.contains(u2)) acc1 else acc1.updated(u2, u1)
-      }
-    } map Pairing.LastOpponents.apply
+  private[tournament] def lastOpponents(tourId: Tournament.ID, userIds: Iterable[User.ID], max: Int): Fu[Pairing.LastOpponents] =
+    userIds.nonEmpty.?? {
+      coll.find(
+        selectTour(tourId) ++ $doc("u" $in userIds),
+        $doc("_id" -> false, "u" -> true).some
+      )
+        .sort(recentSort)
+        .batchSize(20)
+        .cursor[Bdoc]()
+        .documentSource()
+        .take(max)
+        .mapConcat(_.getAsOpt[List[User.ID]]("u").toList)
+        .scan(Map.empty[User.ID, User.ID]) {
+          case (acc, List(u1, u2)) =>
+            val acc1 = if (acc.contains(u1)) acc else acc.updated(u1, u2)
+            if (acc.contains(u2)) acc1 else acc1.updated(u2, u1)
+        }
+        .takeWhile(_.size < userIds.size)
+        .toMat(Sink.lastOption)(Keep.right)
+        .run
+        .dmap(~_)
+    } dmap Pairing.LastOpponents.apply
 
   def opponentsOf(tourId: Tournament.ID, userId: User.ID): Fu[Set[User.ID]] = coll.find(
     selectTourUser(tourId, userId),
     $doc("_id" -> false, "u" -> true).some
-  ).list[Bdoc]().map {
+  ).list[Bdoc]().dmap {
       _.view.flatMap { doc =>
         ~doc.getAsOpt[List[User.ID]]("u").find(userId!=)
       }.toSet
@@ -51,14 +62,14 @@ final class PairingRepo(coll: Coll) {
   def recentIdsByTourAndUserId(tourId: Tournament.ID, userId: User.ID, nb: Int): Fu[List[Tournament.ID]] = coll.find(
     selectTourUser(tourId, userId),
     $doc("_id" -> true).some
-  ).sort(recentSort).list[Bdoc](nb).map {
+  ).sort(recentSort).list[Bdoc](nb).dmap {
       _.flatMap(_.getAsOpt[Game.ID]("_id"))
     }
 
   def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[Game.ID]] = coll.find(
     selectTourUser(tourId, userId) ++ selectPlaying,
     $doc("_id" -> true).some
-  ).sort(recentSort).uno[Bdoc].map {
+  ).sort(recentSort).uno[Bdoc].dmap {
       _.flatMap(_.getAsOpt[Game.ID]("_id"))
     }
 
@@ -77,7 +88,7 @@ final class PairingRepo(coll: Coll) {
     coll.countSel(selectTour(tourId))
 
   private[tournament] def countByTourIdAndUserIds(tourId: Tournament.ID): Fu[Map[User.ID, Int]] = {
-    coll.aggregateList(maxDocs = 10_000) { framework =>
+    coll.aggregateList(maxDocs = 10000) { framework =>
       import framework._
       Match(selectTour(tourId)) -> List(
         Project($doc("u" -> true, "_id" -> false)),
@@ -86,12 +97,12 @@ final class PairingRepo(coll: Coll) {
         Sort(Descending("nb"))
       )
     }.map {
-        _.view.flatMap { doc =>
-          doc.getAsOpt[User.ID]("_id") flatMap { uid =>
-            doc.int("nb") map { uid -> _ }
-          }
-        }.toMap
-      }
+      _.view.flatMap { doc =>
+        doc.getAsOpt[User.ID]("_id") flatMap { uid =>
+          doc.int("nb") map { uid -> _ }
+        }
+      }.toMap
+    }
   }
 
   def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
