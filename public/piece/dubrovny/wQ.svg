@@ -1,13 +1,13 @@
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient5151" x1="-485.18" x2="-477.45" y1="240.48" y2="240.48" gradientTransform="matrix(1.0665 0 0 1.0192 538.34 -238.26)" gradientUnits="userSpaceOnUse" xlink:href="#ZZZ"/>
-  <linearGradient id="ZZZ">
-   <stop style="stop-color:#f0f0f0" offset="0"/>
-   <stop style="stop-color:#afafaf" offset="1"/>
+  <linearGradient id="linearGradient5151" x1="-485.18" x2="-477.45" y1="240.48" y2="240.48" gradientTransform="matrix(1.0665,0,0,1.0192,538.34,-238.26)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient5153" x1="-491.54" x2="-471.01" y1="249.26" y2="249.26" gradientTransform="matrix(1.0665,0,0,1.0192,538.34,-238.26)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient5155" x1="-501.31" x2="-465.78" y1="324.22" y2="324.22" gradientTransform="matrix(1.0419,0,0,1.0192,528.81,-304.14)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient5157" x1="-34.989" x2="-8.1378" y1="570.45" y2="570.45" gradientTransform="translate(46.564,-530.02)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient3935">
+   <stop stop-color="#f2e7da" style="stop-color:#fbf6dc" offset="0"/>
+   <stop stop-color="#bba38a" style="stop-color:#aa9445" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient5153" x1="-491.54" x2="-471.01" y1="249.26" y2="249.26" gradientTransform="matrix(1.0665 0 0 1.0192 538.34 -238.26)" gradientUnits="userSpaceOnUse" xlink:href="#ZZZ"/>
-  <linearGradient id="linearGradient5155" x1="-501.31" x2="-465.78" y1="324.22" y2="324.22" gradientTransform="matrix(1.0419 0 0 1.0192 528.81 -304.14)" gradientUnits="userSpaceOnUse" xlink:href="#ZZZ"/>
-  <linearGradient id="linearGradient5157" x1="-34.989" x2="-8.1378" y1="570.45" y2="570.45" gradientTransform="translate(46.564 -530.02)" gradientUnits="userSpaceOnUse" xlink:href="#ZZZ"/>
  </defs>
  <path d="m25.003 3.7685a3.061 3.5086 90 0 0-3.5083 3.061 3.061 3.5086 90 0 0 3.5083 3.061 3.061 3.5086 90 0 0 3.5087-3.061 3.061 3.5086 90 0 0-3.5087-3.061z" style="clip-rule:evenodd;fill-rule:evenodd;fill:url(#linearGradient5151);image-rendering:optimizeQuality;paint-order:normal;shape-rendering:geometricPrecision;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.1999;stroke:#323232"/>
  <path d="m25.003 9.8905c-6.9819 0-10.296 7.1465-10.296 11.776h20.669c2.14e-4 -4.6292-3.3915-11.776-10.373-11.776z" style="fill:url(#linearGradient5153);paint-order:normal;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.2;stroke:#323232"/>

@@ -1,11 +1,11 @@
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient5173" x1="-144.63" x2="-118.08" y1="495" y2="495" gradientTransform="translate(156.35 -459.87)" gradientUnits="userSpaceOnUse" xlink:href="#ZZZ"/>
-  <linearGradient id="ZZZ">
-   <stop style="stop-color:#f0f0f0" offset="0"/>
-   <stop style="stop-color:#afafaf" offset="1"/>
+  <linearGradient id="linearGradient5173" x1="-144.63" x2="-118.08" y1="495" y2="495" gradientTransform="translate(156.35,-459.87)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient5171" x1="-140.16" x2="-123.6" y1="472.02" y2="472.02" gradientTransform="matrix(1.1068,0,0,1.1073,170.97,-502.76)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient3935">
+   <stop stop-color="#f2e7da" style="stop-color:#fbf6dc" offset="0"/>
+   <stop stop-color="#bba38a" style="stop-color:#aa9445" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient5171" x1="-140.16" x2="-123.6" y1="472.02" y2="472.02" gradientTransform="matrix(1.1068 0 0 1.1073 170.97 -502.76)" gradientUnits="userSpaceOnUse" xlink:href="#ZZZ"/>
  </defs>
  <path d="m21.918 25.868c-0.99218 11.9-9.5922 8.8726-9.5922 18.532h25.348c0-9.6596-8.6-6.6322-9.5922-18.532h-3.0825z" style="fill:url(#linearGradient5173);stroke-linejoin:round;stroke-width:1.2;stroke:#323232"/>
  <path d="m23.849 25.868c0.99218 11.9 9.5922 8.8726 9.5922 18.532h4.2333c0-9.6596-8.6-6.6323-9.5922-18.532h-3.0825z" style="fill:#000000;opacity:.15"/>
