@@ -146,7 +146,7 @@ final class PlaybanApi(
     coll.ext.find(
       $doc("_id" -> userId, "b.0" $exists true),
       $doc("_id" -> false, "b" -> $doc("$slice" -> -1))
-    ).uno[Bdoc].dmap {
+    ).one[Bdoc].dmap {
         _.flatMap(_.getAsOpt[List[TempBan]]("b")).??(_.find(_.inEffect))
       } addEffect { ban =>
         if (ban.isEmpty) cleanUserIds put userId

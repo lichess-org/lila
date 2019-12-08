@@ -24,7 +24,7 @@ private[puzzle] final class Selector(
         _.ext.find($doc(F.voteNb $gte 50))
           .sort($sort desc F.voteRatio)
           .skip(Random nextInt anonSkipMax)
-          .uno[Puzzle]
+          .one[Puzzle]
       }
       // user
       case Some(user) => api.head find user flatMap {
@@ -79,7 +79,7 @@ private[puzzle] final class Selector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange
-  )).sort($sort asc F.id).uno[Puzzle] flatMap {
+  )).sort($sort asc F.id).one[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
       tryRange(coll, rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
     case res => fuccess(res)

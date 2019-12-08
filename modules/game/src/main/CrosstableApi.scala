@@ -27,7 +27,7 @@ final class CrosstableApi(
   }
 
   def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable] =
-    coll.uno[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) map {
+    coll.one[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) map {
       _ | Crosstable.empty(u1, u2)
     }
 
@@ -40,7 +40,7 @@ final class CrosstableApi(
     coll.find(
       select(u1, u2),
       $doc("s1" -> true, "s2" -> true).some
-    ).uno[Bdoc] map { res =>
+    ).one[Bdoc] map { res =>
         ~(for {
           o <- res
           s1 <- o.int("s1")
@@ -83,7 +83,7 @@ final class CrosstableApi(
   private val matchupProjection = $doc(F.lastPlayed -> false)
 
   private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
-    matchupColl.find(select(u1, u2), matchupProjection.some).uno[Matchup]
+    matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
   private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration) =
     creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)
@@ -138,7 +138,7 @@ final class CrosstableApi(
       case _ => fuccess(none)
     }
   } recoverWith lila.db.recoverDuplicateKey { _ =>
-    coll.uno[Crosstable](select(x1, x2))
+    coll.one[Crosstable](select(x1, x2))
   } recover {
     case e: Exception =>
       logger.error("CrosstableApi.create", e)

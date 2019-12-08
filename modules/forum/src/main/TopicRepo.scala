@@ -28,7 +28,7 @@ final class TopicRepo(val coll: Coll, troll: Boolean = false) {
     coll.countSel(byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
-    coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+    coll.one[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def existsByTree(categSlug: String, slug: String): Fu[Boolean] =
     coll.exists($doc("categId" -> categSlug, "slug" -> slug))

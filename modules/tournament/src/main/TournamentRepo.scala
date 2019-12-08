@@ -29,30 +29,30 @@ final class TournamentRepo(val coll: Coll) {
   private val nonEmptySelect = $doc("nbPlayers" -> $doc("$ne" -> 0))
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
-  def byId(id: String): Fu[Option[Tournament]] = coll.find($id(id)).uno[Tournament]
+  def byId(id: String): Fu[Option[Tournament]] = coll.find($id(id)).one[Tournament]
 
   def byIds(ids: Iterable[String]): Fu[List[Tournament]] =
     coll.find($inIds(ids)).list[Tournament](none)
 
   def uniqueById(id: String): Fu[Option[Tournament]] =
-    coll.find($id(id) ++ selectUnique).uno[Tournament]
+    coll.find($id(id) ++ selectUnique).one[Tournament]
 
   def byIdAndPlayerId(id: String, userId: String): Fu[Option[Tournament]] =
     coll.find(
       $id(id) ++ $doc("players.id" -> userId)
-    ).uno[Tournament]
+    ).one[Tournament]
 
   def createdById(id: String): Fu[Option[Tournament]] =
-    coll.find($id(id) ++ createdSelect).uno[Tournament]
+    coll.find($id(id) ++ createdSelect).one[Tournament]
 
   def enterableById(id: String): Fu[Option[Tournament]] =
-    coll.find($id(id) ++ enterableSelect).uno[Tournament]
+    coll.find($id(id) ++ enterableSelect).one[Tournament]
 
   def startedById(id: String): Fu[Option[Tournament]] =
-    coll.find($id(id) ++ startedSelect).uno[Tournament]
+    coll.find($id(id) ++ startedSelect).one[Tournament]
 
   def finishedById(id: String): Fu[Option[Tournament]] =
-    coll.find($id(id) ++ finishedSelect).uno[Tournament]
+    coll.find($id(id) ++ finishedSelect).one[Tournament]
 
   def startedOrFinishedById(id: String): Fu[Option[Tournament]] =
     byId(id) map { _ filterNot (_.isCreated) }
@@ -231,7 +231,7 @@ final class TournamentRepo(val coll: Coll) {
   def lastFinishedDaily(variant: Variant): Fu[Option[Tournament]] = coll.find(
     finishedSelect ++ sinceSelect(DateTime.now minusDays 1) ++ variantSelect(variant) ++
       $doc("schedule.freq" -> Schedule.Freq.Daily.name)
-  ).sort($doc("startsAt" -> -1)).uno[Tournament]
+  ).sort($doc("startsAt" -> -1)).one[Tournament]
 
   def update(tour: Tournament) = coll.update($id(tour.id), tour)
 

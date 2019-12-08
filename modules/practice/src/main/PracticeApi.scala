@@ -78,7 +78,7 @@ final class PracticeApi(
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.uno[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
+      coll.one[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
 
     private def save(p: PracticeProgress): Funit =
       coll.update.one($id(p.id), p, upsert = true).void

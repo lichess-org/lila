@@ -25,7 +25,7 @@ final class PairingRepo(coll: Coll)(implicit mat: Materializer) {
   private val recentSort = $doc("d" -> -1)
   private val chronoSort = $doc("d" -> 1)
 
-  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.ext.find($id(id)).uno[Pairing]
+  def byId(id: Tournament.ID): Fu[Option[Pairing]] = coll.ext.find($id(id)).one[Pairing]
 
   private[tournament] def lastOpponents(tourId: Tournament.ID, userIds: Iterable[User.ID], max: Int): Fu[Pairing.LastOpponents] =
     userIds.nonEmpty.?? {
@@ -69,7 +69,7 @@ final class PairingRepo(coll: Coll)(implicit mat: Materializer) {
   def playingByTourAndUserId(tourId: Tournament.ID, userId: User.ID): Fu[Option[Game.ID]] = coll.find(
     selectTourUser(tourId, userId) ++ selectPlaying,
     $doc("_id" -> true).some
-  ).sort(recentSort).uno[Bdoc].dmap {
+  ).sort(recentSort).one[Bdoc].dmap {
       _.flatMap(_.getAsOpt[Game.ID]("_id"))
     }
 
@@ -111,7 +111,7 @@ final class PairingRepo(coll: Coll)(implicit mat: Materializer) {
     coll.ext.find(selectTour(tourId) ++ selectPlaying).list[Pairing]()
 
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
-    coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).uno[Pairing]
+    coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 
   def isPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Boolean] =
     coll.exists(selectTourUser(tourId, userId) ++ selectPlaying)

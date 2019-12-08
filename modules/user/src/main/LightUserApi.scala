@@ -28,7 +28,7 @@ final class LightUserApi(repo: UserRepo)(implicit system: akka.actor.ActorSystem
 
   private val cache = new Syncache[User.ID, Option[LightUser]](
     name = cacheName,
-    compute = id => repo.coll.find($id(id), projection.some).uno[LightUser],
+    compute = id => repo.coll.find($id(id), projection.some).one[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfterAccess(15 minutes),

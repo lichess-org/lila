@@ -20,7 +20,7 @@ final class OAuthAppApi(coll: AsyncColl) {
 
   def findBy(clientId: OAuthApp.Id, user: User): Fu[Option[OAuthApp]] =
     coll {
-      _.uno[OAuthApp]($doc(
+      _.one[OAuthApp]($doc(
         F.clientId -> clientId,
         F.author -> user.id
       ))

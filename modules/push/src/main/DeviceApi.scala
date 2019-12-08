@@ -11,7 +11,7 @@ private final class DeviceApi(coll: Coll) {
   private implicit val DeviceBSONHandler = Macros.handler[Device]
 
   private[push] def findByDeviceId(deviceId: String): Fu[Option[Device]] =
-    coll.ext.find($id(deviceId)).uno[Device]
+    coll.ext.find($id(deviceId)).one[Device]
 
   private[push] def findLastManyByUserId(platform: String, max: Int)(userId: String): Fu[List[Device]] =
     coll.ext.find($doc(

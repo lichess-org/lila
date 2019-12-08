@@ -16,7 +16,7 @@ private final class FishnetRepo(
 
   private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
     name = "fishnet.client",
-    f = key => clientColl.ext.find(selectClient(key)).uno[Client],
+    f = key => clientColl.ext.find(selectClient(key)).one[Client],
     expireAfter = _.ExpireAfterWrite(5 minutes)
   )
 
@@ -42,7 +42,7 @@ private final class FishnetRepo(
   )).cursor[Client]().gather[List]()
 
   def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
-  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).uno[Work.Analysis]
+  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
   def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
   def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
@@ -55,7 +55,7 @@ private final class FishnetRepo(
   ).some)
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
-    analysisColl.find($doc("game.id" -> work.game.id)).uno[Work.Analysis]
+    analysisColl.find($doc("game.id" -> work.game.id)).one[Work.Analysis]
 
   def selectWork(id: Work.Id) = $id(id.value)
   def selectClient(key: Client.Key) = $id(key.value)

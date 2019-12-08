@@ -45,7 +45,7 @@ final class IrwinApi(
     }
 
     def get(user: User): Fu[Option[IrwinReport]] =
-      reportColl.ext.find($id(user.id)).uno[IrwinReport]
+      reportColl.ext.find($id(user.id)).one[IrwinReport]
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] = get(user) flatMap {
       _ ?? { report =>

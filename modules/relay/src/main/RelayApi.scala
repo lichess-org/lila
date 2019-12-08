@@ -90,7 +90,7 @@ final class RelayApi(
       requestPlay(relay.id, true)
 
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
-    repo.coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
+    repo.coll.find($doc("_id" -> id, "finished" -> false)).one[Relay]
 
   private[relay] def autoStart: Funit =
     repo.coll.find($doc(

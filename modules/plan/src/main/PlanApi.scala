@@ -414,9 +414,9 @@ final class PlanApi(
     patron.stripe.map(_.customerId) ?? stripeClient.getCustomer
 
   private def customerIdPatron(id: CustomerId): Fu[Option[Patron]] =
-    patronColl.uno[Patron]($doc("stripe.customerId" -> id))
+    patronColl.one[Patron]($doc("stripe.customerId" -> id))
 
-  def userPatron(user: User): Fu[Option[Patron]] = patronColl.uno[Patron]($id(user.id))
+  def userPatron(user: User): Fu[Option[Patron]] = patronColl.one[Patron]($id(user.id))
 }
 
 object PlanApi {

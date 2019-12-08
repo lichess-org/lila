@@ -63,7 +63,7 @@ final class FishnetApi(
     ).sort($doc(
         "sender.system" -> 1, // user requests first, then lichess auto analysis
         "createdAt" -> 1 // oldest requests first
-      )).uno[Work.Analysis].flatMap {
+      )).one[Work.Analysis].flatMap {
         _ ?? { work =>
           repo.updateAnalysis(work assignTo client) inject work.some
         }

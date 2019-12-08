@@ -18,7 +18,7 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
   def byIds(ids: Seq[Post.ID]) = coll.byIds[Post](ids)
 
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
-    coll.uno[Post](selectCateg(categSlug) ++ $id(id))
+    coll.one[Post](selectCateg(categSlug) ++ $id(id))
 
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
@@ -30,10 +30,10 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
     coll.countSel(selectTopic(topic.id))
 
   def lastByCateg(categ: Categ): Fu[Option[Post]] =
-    coll.ext.find(selectCateg(categ.id)).sort($sort.createdDesc).uno[Post]
+    coll.ext.find(selectCateg(categ.id)).sort($sort.createdDesc).one[Post]
 
   def lastByTopic(topic: Topic): Fu[Option[Post]] =
-    coll.ext.find(selectTopic(topic.id)).sort($sort.createdDesc).uno[Post]
+    coll.ext.find(selectTopic(topic.id)).sort($sort.createdDesc).one[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
     coll.ext.find(
@@ -63,7 +63,7 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
     if (langs.isEmpty) $empty
     else $doc("lang" $in langs)
 
-  def findDuplicate(post: Post): Fu[Option[Post]] = coll.uno[Post]($doc(
+  def findDuplicate(post: Post): Fu[Option[Post]] = coll.one[Post]($doc(
     "createdAt" $gt DateTime.now.minusHours(1),
     "userId" -> ~post.userId,
     "text" -> post.text

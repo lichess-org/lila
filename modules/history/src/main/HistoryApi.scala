@@ -68,7 +68,7 @@ final class HistoryApi(coll: Coll) {
   private def daysBetween(from: DateTime, to: DateTime): Int =
     Days.daysBetween(from.withTimeAtStartOfDay, to.withTimeAtStartOfDay).getDays
 
-  def get(userId: String): Fu[Option[History]] = coll.uno[History]($id(userId))
+  def get(userId: String): Fu[Option[History]] = coll.one[History]($id(userId))
 
   def ratingsMap(user: User, perf: PerfType): Fu[RatingsMap] =
     coll.primitiveOne[RatingsMap]($id(user.id), perf.key) map (~_)
@@ -91,7 +91,7 @@ final class HistoryApi(coll: Coll) {
           val project = BSONDocument {
             ("_id" -> BSONBoolean(false)) :: days.map { d => s"${perf.key}.$d" -> BSONBoolean(true) }
           }
-          coll.find($id(user.id), project.some).uno[Bdoc](ReadPreference.secondaryPreferred).map {
+          coll.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
             _.flatMap {
               _.child(perf.key) map {
                 _.elements.foldLeft(currentRating) {

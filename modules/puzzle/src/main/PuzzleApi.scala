@@ -25,7 +25,7 @@ private[puzzle] final class PuzzleApi(
   object puzzle {
 
     def find(id: PuzzleId): Fu[Option[Puzzle]] =
-      puzzleColl(_.ext.find($doc(F.id -> id)).uno[Puzzle])
+      puzzleColl(_.ext.find($doc(F.id -> id)).one[Puzzle])
 
     def findMany(ids: List[PuzzleId]): Fu[List[Option[Puzzle]]] =
       puzzleColl(_.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id))

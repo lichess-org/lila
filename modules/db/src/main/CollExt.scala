@@ -22,11 +22,11 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def find(selector: Bdoc, proj: Bdoc) = coll.find(selector, proj.some)
 
-    def uno[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
-      coll.find(selector, none).uno[D]
+    def one[D: BSONDocumentReader](selector: Bdoc): Fu[Option[D]] =
+      coll.find(selector, none).one[D]
 
-    def uno[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
-      coll.find(selector, projection.some).uno[D]
+    def one[D: BSONDocumentReader](selector: Bdoc, projection: Bdoc): Fu[Option[D]] =
+      coll.find(selector, projection.some).one[D]
 
     def list[D: BSONDocumentReader](selector: Bdoc, readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
       coll.find(selector, none).list[D](Int.MaxValue, readPreference = readPreference)
@@ -35,12 +35,12 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.find(selector, none).list[D](limit = limit)
 
     def byId[D: BSONDocumentReader, I: BSONWriter](id: I): Fu[Option[D]] =
-      uno[D]($id(id))
+      one[D]($id(id))
 
-    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = uno[D]($id(id))
-    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = uno[D]($id(id), projection)
+    def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
+    def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = one[D]($id(id), projection)
 
-    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = uno[D]($id(id))
+    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = one[D]($id(id))
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](ids: Iterable[I], readPreference: ReadPreference): Fu[List[D]] =
       list[D]($inIds(ids))
@@ -115,7 +115,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
 
     def primitiveOne[V: BSONReader](selector: Bdoc, field: String): Fu[Option[V]] =
       find(selector, $doc(field -> true))
-        .uno[Bdoc]
+        .one[Bdoc]
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
@@ -123,7 +123,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def primitiveOne[V: BSONReader](selector: Bdoc, sort: Bdoc, field: String): Fu[Option[V]] =
       find(selector, $doc(field -> true))
         .sort(sort)
-        .uno[Bdoc]
+        .one[Bdoc]
         .dmap {
           _ flatMap { _.getAsOpt[V](field) }
         }
@@ -159,7 +159,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       coll.update.one(selector, $unset(field), multi = multi)
 
     def fetchUpdate[D: BSONDocumentHandler](selector: Bdoc)(update: D => Bdoc): Funit =
-      uno[D](selector) flatMap {
+      one[D](selector) flatMap {
         _ ?? { doc =>
           coll.update.one(selector, update(doc)).void
         }

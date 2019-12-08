@@ -54,11 +54,11 @@ private final class Indexer(
         .find(gameQuery(user))
         .sort(Query.sortCreated)
         .skip(maxGames - 1)
-        .uno[Game](readPreference = ReadPreference.secondaryPreferred)
+        .one[Game](readPreference = ReadPreference.secondaryPreferred)
     } orElse gameRepo.coll.ext
       .find(gameQuery(user))
       .sort(Query.sortChronological)
-      .uno[Game](readPreference = ReadPreference.secondaryPreferred)
+      .one[Game](readPreference = ReadPreference.secondaryPreferred)
 
   private def computeFrom(user: User, from: DateTime, fromNumber: Int): Funit = {
 

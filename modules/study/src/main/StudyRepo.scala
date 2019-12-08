@@ -33,12 +33,12 @@ final class StudyRepo(private[study] val coll: Coll) {
     "members" -> true
   )
 
-  def byId(id: Study.Id) = coll.find($id(id), projection.some).uno[Study]
+  def byId(id: Study.Id) = coll.find($id(id), projection.some).one[Study]
 
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
   def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
-    coll.find($id(id), lightProjection.some).uno[Study.LightStudy]
+    coll.find($id(id), lightProjection.some).one[Study.LightStudy]
 
   def sortedCursor(
     selector: Bdoc,

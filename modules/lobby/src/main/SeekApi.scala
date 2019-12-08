@@ -63,7 +63,7 @@ final class SeekApi(
     }._1.reverse
 
   def find(id: String): Fu[Option[Seek]] =
-    coll.ext.find($id(id)).uno[Seek]
+    coll.ext.find($id(id)).one[Seek]
 
   def insert(seek: Seek) = coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
     case seeks if maxPerUser >= seeks.size => funit
@@ -89,7 +89,7 @@ final class SeekApi(
   }
 
   def findArchived(gameId: String): Fu[Option[Seek]] =
-    archiveColl.ext.find($doc("gameId" -> gameId)).uno[Seek]
+    archiveColl.ext.find($doc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: String) =
     coll.delete.one($doc(

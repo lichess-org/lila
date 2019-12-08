@@ -33,7 +33,7 @@ final class ReportApi(
     (!c.reporter.user.reportban && !isAlreadySlain(c)) ?? {
       scorer(c) map (_ withScore score) flatMap {
         case scored @ Candidate.Scored(candidate, _) =>
-          coll.uno[Report]($doc(
+          coll.one[Report]($doc(
             "user" -> candidate.suspect.user.id,
             "reason" -> candidate.reason,
             "open" -> true
@@ -250,7 +250,7 @@ final class ReportApi(
     ), "score")
 
   def currentCheatReport(suspect: Suspect): Fu[Option[Report]] =
-    coll.uno[Report]($doc(
+    coll.one[Report]($doc(
       "user" -> suspect.user.id,
       "room" -> Room.Cheat.key,
       "open" -> true
@@ -354,7 +354,7 @@ final class ReportApi(
 
     def all: Fu[List[Report]] = coll.list[Report]($doc("inquiry.mod" $exists true))
 
-    def ofModId(modId: User.ID): Fu[Option[Report]] = coll.uno[Report]($doc("inquiry.mod" -> modId))
+    def ofModId(modId: User.ID): Fu[Option[Report]] = coll.one[Report]($doc("inquiry.mod" -> modId))
 
     /*
      * If the mod has no current inquiry, just start this one.

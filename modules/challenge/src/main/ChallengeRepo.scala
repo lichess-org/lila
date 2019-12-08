@@ -10,10 +10,10 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Max) {
   import BSONHandlers._
   import Challenge._
 
-  def byId(id: Challenge.ID) = coll.ext.find($id(id)).uno[Challenge]
+  def byId(id: Challenge.ID) = coll.ext.find($id(id)).one[Challenge]
 
   def byIdFor(id: Challenge.ID, dest: lila.user.User) =
-    coll.ext.find($id(id) ++ $doc("destUser.id" -> dest.id)).uno[Challenge]
+    coll.ext.find($id(id) ++ $doc("destUser.id" -> dest.id)).one[Challenge]
 
   def exists(id: Challenge.ID) = coll.countSel($id(id)).dmap(0<)
 
@@ -47,7 +47,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Max) {
   } yield coll.ext.find(selectCreated ++ $doc(
     "challenger.id" -> challengerId,
     "destUser.id" -> destUserId
-  )).uno[Challenge])
+  )).one[Challenge])
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))
@@ -84,7 +84,7 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Max) {
   def statusById(id: Challenge.ID) = coll.ext.find(
     $id(id),
     $doc("status" -> true, "_id" -> false)
-  ).uno[Bdoc].map { _.flatMap(_.getAsOpt[Status]("status")) }
+  ).one[Bdoc].map { _.flatMap(_.getAsOpt[Status]("status")) }
 
   private def setStatus(
     challenge: Challenge,

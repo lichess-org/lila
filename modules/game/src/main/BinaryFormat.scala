@@ -84,12 +84,6 @@ object BinaryFormat {
     def computeRemaining(config: Clock.Config, legacyElapsed: Centis) =
       config.limit - legacyElapsed
 
-    // TODO: new binary clock format
-    // - clock history
-    // - berserk bits
-    // - "real" elapsed
-    // - lag stats
-
     def write(clock: Clock): ByteArray = {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
         writeSignedInt24(legacyElapsed(clock, White).centis) ++

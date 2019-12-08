@@ -23,7 +23,7 @@ final class PlayerRepo(coll: Coll) {
   private val selectWithdraw = $doc("w" -> true)
   private val bestSort = $doc("m" -> -1)
 
-  def byId(id: Tournament.ID): Fu[Option[Player]] = coll.uno[Player](selectId(id))
+  def byId(id: Tournament.ID): Fu[Option[Player]] = coll.one[Player](selectId(id))
 
   private[tournament] def bestByTour(tourId: Tournament.ID, nb: Int, skip: Int = 0): Fu[List[Player]] =
     coll.ext.find(selectTour(tourId)).sort(bestSort).skip(skip).list[Player](nb)
@@ -164,7 +164,7 @@ final class PlayerRepo(coll: Coll) {
   ).void
 
   def find(tourId: Tournament.ID, userId: User.ID): Fu[Option[Player]] =
-    coll.ext.find(selectTourUser(tourId, userId)).uno[Player]
+    coll.ext.find(selectTourUser(tourId, userId)).one[Player]
 
   def update(tourId: Tournament.ID, userId: User.ID)(f: Player => Fu[Player]) =
     find(tourId, userId) orFail s"No such player: $tourId/$userId" flatMap f flatMap { player =>
@@ -193,7 +193,7 @@ final class PlayerRepo(coll: Coll) {
     coll.countSel(selectTour(tourId) ++ selectActive)
 
   def winner(tourId: Tournament.ID): Fu[Option[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).uno[Player]
+    coll.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: Tournament.ID): Fu[Ranking] =

@@ -49,7 +49,7 @@ final class GameRepo(val coll: Coll) {
   }
 
   def finished(gameId: ID): Fu[Option[Game]] =
-    coll.uno[Game]($id(gameId) ++ Query.finished)
+    coll.one[Game]($id(gameId) ++ Query.finished)
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
     game(gameId) map2 { (game: Game) => game player color }
@@ -160,7 +160,7 @@ final class GameRepo(val coll: Coll) {
   def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
     coll.find(Query recentlyPlaying userId, $id(true).some)
       .sort(Query.sortMovedAtNoIndex)
-      .uno[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+      .one[Bdoc](readPreference = ReadPreference.secondaryPreferred)
       .map { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
@@ -180,7 +180,7 @@ final class GameRepo(val coll: Coll) {
       Query.finished ++
       Query.turnsGt(2) ++
       Query.notFromPosition
-  ).sort(Query.sortAntiChronological).uno[Game]
+  ).sort(Query.sortAntiChronological).one[Game]
 
   def setTv(id: ID) = coll.updateFieldUnchecked($id(id), F.tvAt, DateTime.now)
 
@@ -211,7 +211,7 @@ final class GameRepo(val coll: Coll) {
   def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
 
   def holdAlerts(game: Game): Fu[Player.HoldAlert.Map] =
-    coll.uno[Bdoc](
+    coll.one[Bdoc](
       $doc(
         F.id -> game.id,
         $or(
@@ -278,7 +278,7 @@ final class GameRepo(val coll: Coll) {
     Query.mate ++ Query.variantStandard
   ).sort(Query.sortCreated)
     .skip(Random nextInt distribution)
-    .uno[Game]
+    .one[Game]
 
   def insertDenormalized(g: Game, initialFen: Option[chess.format.FEN] = None): Funit = {
     val g2 = if (g.rated && (g.userIds.distinct.size != 2 || !Game.allowRated(g.variant, g.clock.map(_.config))))
@@ -385,16 +385,16 @@ final class GameRepo(val coll: Coll) {
   def random: Fu[Option[Game]] = coll.ext.find($empty)
     .sort(Query.sortCreated)
     .skip(Random nextInt 1000)
-    .uno[Game]
+    .one[Game]
 
-  def findPgnImport(pgn: String): Fu[Option[Game]] = coll.uno[Game](
+  def findPgnImport(pgn: String): Fu[Option[Game]] = coll.one[Game](
     $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
   )
 
   def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) map2 { (g: Game) => g.pgnMoves }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
-    coll.uno[Game]($doc(
+    coll.one[Game]($doc(
       F.playerUids $all List(u1, u2),
       F.createdAt $gt since
     ))
@@ -407,7 +407,7 @@ final class GameRepo(val coll: Coll) {
       )).list[Game](nb, ReadPreference.secondaryPreferred)
 
   def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
-    coll.uno[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) map {
+    coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) map {
       _.fold(none[Source] -> List.empty[User.ID]) { doc =>
         (doc.int(F.source) flatMap Source.apply,
           ~doc.getAsOpt[List[User.ID]](F.playerUids))

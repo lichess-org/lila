@@ -12,7 +12,7 @@ final class RequestRepo(val coll: Coll) {
     coll.exists(selectId(teamId, userId))
 
   def find(teamId: ID, userId: ID): Fu[Option[Request]] =
-    coll.uno[Request](selectId(teamId, userId))
+    coll.one[Request](selectId(teamId, userId))
 
   def countByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))

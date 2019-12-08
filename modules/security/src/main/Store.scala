@@ -57,7 +57,7 @@ final class Store(val coll: Coll) {
     coll.find(
       $doc("_id" -> sessionId, "up" -> true),
       userIdFingerprintProjection.some
-    ).uno[UserIdAndFingerprint]
+    ).one[UserIdAndFingerprint]
 
   def setDateToNow(sessionId: String): Unit =
     coll.updateFieldUnchecked($id(sessionId), "date", DateTime.now)

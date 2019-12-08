@@ -31,7 +31,7 @@ final class UserRepo(val coll: Coll) {
 
   def byIdsSecondary(ids: Iterable[ID]): Fu[List[User]] = coll.byIds[User](ids, ReadPreference.secondaryPreferred)
 
-  def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.uno[User]($doc(F.email -> email))
+  def byEmail(email: NormalizedEmailAddress): Fu[Option[User]] = coll.one[User]($doc(F.email -> email))
   def byPrevEmail(
     email: NormalizedEmailAddress,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
@@ -84,7 +84,7 @@ final class UserRepo(val coll: Coll) {
     coll.list[User](enabledSelect ++ $inIds(ids), ReadPreference.secondaryPreferred)
 
   def enabledById(id: ID): Fu[Option[User]] =
-    coll.uno[User](enabledSelect ++ $id(id))
+    coll.one[User](enabledSelect ++ $id(id))
 
   def named(username: String): Fu[Option[User]] = coll.byId[User](normalize(username))
 
@@ -136,7 +136,7 @@ final class UserRepo(val coll: Coll) {
   def firstGetsWhite(u1: User.ID, u2: User.ID): Fu[Boolean] = coll.ext.find(
     $inIds(List(u1, u2)),
     $id(true)
-  ).sort($doc(F.colorIt -> 1)).uno[Bdoc].map {
+  ).sort($doc(F.colorIt -> 1)).one[Bdoc].map {
       _.fold(scala.util.Random.nextBoolean) { doc =>
         doc.string("_id") contains u1
       }
@@ -373,13 +373,13 @@ final class UserRepo(val coll: Coll) {
       F.email -> true,
       F.verbatimEmail -> true
     )
-  ).uno[Bdoc].map { _ ?? anyEmail }
+  ).one[Bdoc].map { _ ?? anyEmail }
 
   def enabledWithEmail(email: NormalizedEmailAddress): Fu[Option[(User, EmailAddress)]] =
     coll.ext.find($doc(
       F.email -> email,
       F.enabled -> true
-    )).uno[Bdoc].map { maybeDoc =>
+    )).one[Bdoc].map { maybeDoc =>
       for {
         doc <- maybeDoc
         storedEmail <- anyEmail(doc)
@@ -387,7 +387,7 @@ final class UserRepo(val coll: Coll) {
     }
 
   def withEmails(name: String): Fu[Option[User.WithEmails]] =
-    coll.ext.find($id(normalize(name))).uno[Bdoc].map {
+    coll.ext.find($id(normalize(name))).one[Bdoc].map {
       _ ?? { doc =>
         User.WithEmails(
           userBSONHandler read doc,
@@ -450,7 +450,7 @@ final class UserRepo(val coll: Coll) {
   def perfOf(id: ID, perfType: PerfType): Fu[Option[Perf]] = coll.ext.find(
     $id(id),
     $doc(s"${F.perfs}.${perfType.key}" -> true)
-  ).uno[Bdoc].map {
+  ).one[Bdoc].map {
       _.flatMap { docPerf(_, perfType) }
     }
 
@@ -510,7 +510,7 @@ final class UserRepo(val coll: Coll) {
 
   def speaker(id: User.ID): Fu[Option[User.Speaker]] = {
     import User.speakerHandler
-    coll.uno[User.Speaker]($id(id))
+    coll.one[User.Speaker]($id(id))
   }
 
   def erase(user: User): Funit = coll.update.one(

@@ -15,7 +15,7 @@ final class TeamRepo(val coll: Coll) {
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
   def owned(id: Team.ID, createdBy: User.ID): Fu[Option[Team]] =
-    coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
+    coll.one[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: User.ID): Fu[List[String]] =
     coll.distinctEasy[String, List]("_id", $doc("createdBy" -> userId))

@@ -15,10 +15,10 @@ private final class Storage(val coll: AsyncColl) {
   import Entry.{ BSONFields => F }
 
   def fetchFirst(userId: String): Fu[Option[Entry]] =
-    coll(_.ext.find(selectUserId(userId)).sort(sortChronological).uno[Entry])
+    coll(_.ext.find(selectUserId(userId)).sort(sortChronological).one[Entry])
 
   def fetchLast(userId: String): Fu[Option[Entry]] =
-    coll(_.ext.find(selectUserId(userId)).sort(sortAntiChronological).uno[Entry])
+    coll(_.ext.find(selectUserId(userId)).sort(sortAntiChronological).one[Entry])
 
   def count(userId: String): Fu[Int] =
     coll(_.countSel(selectUserId(userId)))
@@ -37,7 +37,7 @@ private final class Storage(val coll: AsyncColl) {
 
   def removeAll(userId: String) = coll(_.delete.one(selectUserId(userId)).void)
 
-  def find(id: String) = coll(_.ext.find(selectId(id)).uno[Entry])
+  def find(id: String) = coll(_.ext.find(selectId(id)).one[Entry])
 
   def ecos(userId: String): Fu[Set[String]] = coll {
     _.distinctEasy[String, Set](F.eco, selectUserId(userId))
