@@ -1,11 +1,8 @@
 package lila.oauth
 
-import play.api.libs.json.Json
-import play.api.mvc.{ RequestHeader, Result }
-
 import lila.db.AsyncColl
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class OAuthAppApi(coll: AsyncColl) {
 

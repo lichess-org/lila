@@ -4,7 +4,7 @@ import chess.Color.{ Black, White }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory }
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -100,7 +100,7 @@ case class Game(
   }
 
   private def everyOther[A](l: List[A]): List[A] = l match {
-    case a :: b :: tail => a :: everyOther(tail)
+    case a :: _ :: tail => a :: everyOther(tail)
     case _ => l
   }
 
@@ -156,8 +156,7 @@ case class Game(
   def update(
     game: ChessGame, // new chess position
     moveOrDrop: MoveOrDrop,
-    blur: Boolean = false,
-    moveMetrics: MoveMetrics = MoveMetrics()
+    blur: Boolean = false
   ): Progress = {
 
     def copyPlayer(player: Player) =
@@ -302,7 +301,7 @@ case class Game(
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
 
-  def playerCouldRematch(color: Color) =
+  def playerCouldRematch =
     finishedOrAborted &&
       nonMandatory &&
       !boosted && !{

@@ -1,13 +1,11 @@
 package lila.db
 
 import scala.collection.Factory
-import scala.util.Failure
 
+import com.github.ghik.silencer.silent
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.collections.bson.BSONBatchCommands._
 import reactivemongo.api.commands.{ WriteConcern => CWC, FindAndModifyCommand => FNM }
-import reactivemongo.core.protocol.MongoWireVersion
 
 trait CollExt { self: dsl with QueryBuilderExt =>
 
@@ -41,7 +39,7 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = one[D]($id(id), projection)
 
     def byIds[D: BSONDocumentReader, I: BSONWriter](ids: Iterable[I], readPreference: ReadPreference): Fu[List[D]] =
-      list[D]($inIds(ids))
+      list[D]($inIds(ids), readPreference)
 
     def byIds[D: BSONDocumentReader](ids: Iterable[String], readPreference: ReadPreference = ReadPreference.primary): Fu[List[D]] =
       byIds[D, String](ids, readPreference)
@@ -163,9 +161,6 @@ trait CollExt { self: dsl with QueryBuilderExt =>
         }
       }
 
-    // sadly we can't access the connection metadata
-    private val mongoWireVersion = MongoWireVersion.V34
-
     def aggregateList(
       maxDocs: Int,
       readPreference: ReadPreference = ReadPreference.primary,
@@ -191,15 +186,15 @@ trait CollExt { self: dsl with QueryBuilderExt =>
       upsert: Boolean = false,
       sort: Option[coll.pack.Document] = None,
       fields: Option[coll.pack.Document] = None,
-      writeConcern: CWC = CWC.Acknowledged
+      @silent writeConcern: CWC = CWC.Acknowledged
     ): Fu[FNM.Result[coll.pack.type]] =
       coll.findAndUpdate(
         selector = selector,
         update = update,
         fetchNewObject = fetchNewObject,
         upsert = upsert,
-        sort = none,
-        fields = none,
+        sort = sort,
+        fields = fields,
         bypassDocumentValidation = false,
         writeConcern = writeConcern,
         maxTime = none,

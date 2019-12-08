@@ -115,7 +115,6 @@ final class RankingApi(
         compute(pt) map (pt -> _)
       }.map(_.toMap),
       default = Map.empty,
-      logger = logger branch "weeklyStableRanking.cache",
       initialDelay = 1 minute
     )
 

@@ -1,8 +1,5 @@
 package lila.db
 
-import reactivemongo.api._
-import reactivemongo.api.bson._
-
 import dsl._
 
 final class AsyncColl(resolve: () => Fu[Coll]) {

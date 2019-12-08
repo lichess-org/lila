@@ -114,7 +114,7 @@ object Form {
           Try(java.lang.Long.parseLong(str)).toEither.flatMap { long =>
             Try(new DateTime(long)).toEither
           }
-        }.left.map(e => Seq(FormError(key, "Invalid timestamp", Nil)))
+        }.left.map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
       def unbind(key: String, value: org.joda.time.DateTime) = Map(key -> value.getMillis.toString)
     }
     val timestamp = of[org.joda.time.DateTime](formatter)

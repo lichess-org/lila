@@ -2,7 +2,6 @@ package lila.security
 
 import akka.actor._
 import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
@@ -26,8 +25,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     tryOAuthServer: OAuthServer.Try,
     mongoCache: lila.memo.MongoCache.Builder,
-    db: lila.db.Db,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    db: lila.db.Db
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
@@ -69,7 +67,7 @@ final class Env(
 
   lazy val garbageCollector = {
     def mk: (() => Boolean) => GarbageCollector = isArmed => wire[GarbageCollector]
-    mk(ugcArmedSetting.get)
+    mk(ugcArmedSetting.get _)
   }
 
   private lazy val mailgun: Mailgun = wire[Mailgun]
@@ -122,7 +120,7 @@ final class Env(
     text = "Spam keywords separated by a comma".some
   )
 
-  lazy val spam = new Spam(spamKeywordsSetting.get)
+  lazy val spam = new Spam(spamKeywordsSetting.get _)
 
   scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh)
   scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {

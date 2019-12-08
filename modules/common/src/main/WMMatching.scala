@@ -97,7 +97,7 @@ object WMMatching {
     //If v is a vertex,
     //neighbend(v) is the list of remote endpoints of the edges attached to v.
     val neighbend: Array[List[Int]] = Array.fill(nvertex)(Nil)
-    edges.zipWithIndex.reverseIterator.foreach { case ((i, j, w), k) => neighbend(i) ::= (2 * k + 1); neighbend(j) ::= (2 * k) }
+    edges.zipWithIndex.reverseIterator.foreach { case ((i, j, _), k) => neighbend(i) ::= (2 * k + 1); neighbend(j) ::= (2 * k) }
 
     // If v is a vertex,
     // mate(v) is the remote endpoint of its matched edge, or -1 if it is single

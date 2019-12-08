@@ -12,7 +12,6 @@ import lila.common.LightUser
 import lila.db.dsl.Coll
 
 private class UserConfig(
-    @ConfigName("cached.nb.ttl") val cachedNbTtl: FiniteDuration,
     @ConfigName("online.ttl") val onlineTtl: FiniteDuration,
     @ConfigName("collection.user") val collectionUser: CollName,
     @ConfigName("collection.note") val collectionNote: CollName,
@@ -58,10 +57,7 @@ final class Env(
     mk(db(config.collectionRanking))
   }
 
-  lazy val cached: Cached = {
-    def mk = (nbTtl: FiniteDuration) => wire[Cached]
-    mk(config.cachedNbTtl)
-  }
+  lazy val cached: Cached = wire[Cached]
 
   private lazy val passHasher = new PasswordHasher(
     secret = config.passwordBPassSecret,
@@ -78,7 +74,7 @@ final class Env(
   lazy val forms = wire[DataForm]
 
   system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    lightUserApi.monitorCache
+    lightUserApi.monitorCache()
   }
 
   lila.common.Bus.subscribeFuns(

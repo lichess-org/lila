@@ -6,14 +6,13 @@ import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
-import reactivemongo.api.bson.BSONDocument
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.api.WriteConcern
 import reactivemongo.api.ReadPreference
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
-import lila.db.{ ByteArray, isDuplicateKey }
+import lila.db.isDuplicateKey
 import lila.user.User
 
 final class GameRepo(val coll: Coll) {
@@ -78,7 +77,7 @@ final class GameRepo(val coll: Coll) {
   def remove(id: ID) = coll.delete.one($id(id)).void
 
   def userPovsByGameIds(gameIds: List[String], user: User, readPreference: ReadPreference = ReadPreference.secondaryPreferred): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, ID](gameIds)(_.id) map { _.flatMap(g => Pov(g, user)) }
+    coll.byOrderedIds[Game, ID](gameIds, readPreference = readPreference)(_.id) map { _.flatMap(g => Pov(g, user)) }
 
   def recentPovsByUserFromSecondary(user: User, nb: Int): Fu[List[Pov]] =
     coll.ext.find(Query user user)
@@ -154,7 +153,7 @@ final class GameRepo(val coll: Coll) {
       _ flatMap { Pov(_, user) }
     }
 
-  def playingRealtimeNoAi(user: User, nb: Int): Fu[List[Game.ID]] =
+  def playingRealtimeNoAi(user: User): Fu[List[Game.ID]] =
     coll.distinctEasy[Game.ID, List](F.id, Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true))
 
   def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =

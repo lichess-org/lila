@@ -1,8 +1,6 @@
 package lila.insight
 
 import reactivemongo.api.bson._
-import reactivemongo.api.bson.collection.BSONSerializationPack
-import scalaz.{ NonEmptyList, IList }
 
 import lila.db.dsl._
 import lila.user.User

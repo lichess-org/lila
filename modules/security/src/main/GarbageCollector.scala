@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
 import lila.common.{ Bus, EmailAddress, IpAddress, HTTPRequest }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 // codename UGC
 final class GarbageCollector(

@@ -1,7 +1,6 @@
 package lila.security
 
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ IpAddress, EmailAddress }
 import lila.db.dsl._

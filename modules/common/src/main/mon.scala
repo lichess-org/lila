@@ -664,9 +664,9 @@ object mon {
 
   // to record Double rates [0..1],
   // we multiply by 100,000 and convert to Int [0..100000]
-  private def rate(name: String): Rate = value => {
-    Kamon.gauge(name).withoutTags.update((value * 100000).toInt)
-  }
+  // private def rate(name: String): Rate = value => {
+  //   Kamon.gauge(name).withoutTags.update((value * 100000).toInt)
+  // }
   private def rate(name: String, tag: String, tagValue: String): Rate = value => {
     Kamon.gauge(name).withTag(tag, tagValue).update((value * 100000).toInt)
   }

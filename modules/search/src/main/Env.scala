@@ -1,6 +1,5 @@
 package lila.search
 
-import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -17,7 +16,7 @@ private class SearchConfig(
 final class Env(
     appConfig: Configuration,
     ws: WSClient
-)(implicit system: ActorSystem) {
+) {
 
   private val config = appConfig.get[SearchConfig]("search")(AutoConfig.loader)
 

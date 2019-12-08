@@ -36,14 +36,14 @@ final class AsyncCacheClearable[K, V](
 
   def invalidate(k: K): Unit = cache invalidate k
 
-  def invalidateAll: Unit = cache.invalidateAll
+  def invalidateAll(): Unit = cache.invalidateAll
 }
 
 final class AsyncCacheSingle[V](cache: AsyncLoadingCache[Unit, V], f: Unit => Fu[V]) {
 
   def get: Fu[V] = cache.get(())
 
-  def refresh: Unit = cache.put((), f(()))
+  def refresh(): Unit = cache.put((), f(()))
 }
 
 object AsyncCache {

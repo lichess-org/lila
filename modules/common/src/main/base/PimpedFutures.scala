@@ -10,7 +10,6 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, ExecutionContext }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
-  private type Fu[A] = Future[A]
 
   @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(ExecutionContext.parasitic)
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(ExecutionContext.parasitic)
@@ -136,8 +135,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
 
   def nevermind(implicit z: Zero[A]): Fu[A] = fua recover {
-    case e: LilaException => z.zero
-    case e: java.util.concurrent.TimeoutException => z.zero
+    case _: LilaException => z.zero
+    case _: java.util.concurrent.TimeoutException => z.zero
     case e: Exception =>
       lila.log("common").warn("Future.nevermind", e)
       z.zero

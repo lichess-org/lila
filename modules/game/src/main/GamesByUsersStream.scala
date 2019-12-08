@@ -47,8 +47,8 @@ final class GamesByUsersStream(gameRepo: lila.game.GameRepo) {
         "perf" -> PerfPicker.key(g),
         "createdAt" -> g.createdAt,
         "status" -> g.status.id,
-        "players" -> JsObject(g.players.zipWithIndex map {
-          case (p, i) => p.color.name -> Json.obj(
+        "players" -> JsObject(g.players map { p =>
+          p.color.name -> Json.obj(
             "userId" -> p.userId,
             "rating" -> p.rating
           ).add("provisional" -> p.provisional)

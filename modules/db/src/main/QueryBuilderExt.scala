@@ -1,13 +1,12 @@
 package lila.db
 
-import scala.collection.Factory
-
+import com.github.ghik.silencer.silent
 import reactivemongo.api._
-import reactivemongo.api.bson._
+import scala.collection.Factory
 
 trait QueryBuilderExt { self: dsl =>
 
-  final implicit class ExtendQueryBuilder[P <: SerializationPack](b: collections.GenericQueryBuilder[P]) {
+  final implicit class ExtendQueryBuilder[P <: SerializationPack](@silent b: collections.GenericQueryBuilder[P]) {
 
     // like collect, but with stopOnError defaulting to false
     def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(

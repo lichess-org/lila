@@ -19,7 +19,7 @@ final class Mailgun(
 
   def send(msg: Mailgun.Message): Funit =
     if (config.apiUrl.isEmpty) {
-      println(msg, "No mailgun API URL")
+      println(msg -> "No mailgun API URL")
       funit
     } else {
       lila.mon.email.actions.send()
@@ -34,10 +34,10 @@ final class Mailgun(
         ) ++ msg.htmlBody.?? { body =>
             Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
           }).void addFailureEffect {
-          case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
+          case _: java.net.ConnectException => lila.mon.http.mailgun.timeout()
           case _ =>
         } recoverWith {
-          case e if msg.retriesLeft > 0 => {
+          case _ if msg.retriesLeft > 0 => {
             lila.mon.email.actions.retry()
             akka.pattern.after(15 seconds, system.scheduler) {
               send(msg.copy(retriesLeft = msg.retriesLeft - 1))
@@ -102,7 +102,7 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
       )
     )
 
-    def standardEmail(body: String)(implicit lang: Lang): Frag =
+    def standardEmail(body: String): Frag =
       emailMessage(
         pDesc(nl2brUnsafe(body)),
         publisher

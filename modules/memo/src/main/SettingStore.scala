@@ -54,7 +54,7 @@ object SettingStore {
       default: A,
       text: Option[String] = None,
       persist: Boolean = true,
-      init: Init[A] = (config: ConfigValue[A], db: DbValue[A]) => db.value
+      init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value
     ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init)
   }
 

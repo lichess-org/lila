@@ -1,6 +1,5 @@
 package lila.slack
 
-import akka.actor._
 import com.softwaremill.macwire._
 import play.api.Configuration
 import play.api.libs.ws.WSClient
@@ -15,10 +14,8 @@ import lila.hub.actorApi.{ DeployPre, DeployPost }
 final class Env(
     appConfig: Configuration,
     getLightUser: lila.common.LightUser.Getter,
-    net: NetConfig,
     mode: play.api.Mode,
-    ws: WSClient,
-    system: ActorSystem
+    ws: WSClient
 ) {
 
   private val incomingUrl = appConfig.get[Secret]("slack.incoming.url")

@@ -1,7 +1,6 @@
 package lila.game
 
 import lila.common.LightUser
-import lila.user.User
 
 object Namer {
 

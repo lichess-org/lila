@@ -43,7 +43,10 @@ object BuildSettings {
     )
       .dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= defaultLibs ++ libs,
+        libraryDependencies ++= defaultLibs ++ libs ++ Seq(
+          compilerPlugin(silencer.plugin),
+          silencer.lib
+        ),
         buildSettings,
         srcMain
       )
@@ -53,11 +56,15 @@ object BuildSettings {
     "-language:postfixOps",
     "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
-    "-deprecation",
-    // "-unchecked",
-    // "-Wunused:imports,locals,implicits",// "inaccessible,infer-any",
+    // "-deprecation",
+    // "-Xlint:unused,inaccessible,nullary-unit,adapted-args,infer-any,missing-interpolator,eta-zero",
+    "-Xlint:_",
+    "-Ywarn-macros:after",
+    "-Ywarn-unused:_",
+    "-Xfatal-warnings",
     "-Xmaxerrs", "6",
-    "-Xmaxwarns", "6"
+    "-Xmaxwarns", "6",
+    "-P:silencer:pathFilters=modules/i18n/target"
   )
 
   val srcMain = Seq(

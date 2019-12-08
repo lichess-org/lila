@@ -1,6 +1,6 @@
 package lila.game
 
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 
 case class Crosstable(
     users: Crosstable.Users,
@@ -117,7 +117,7 @@ object Crosstable {
     def writeResult(result: Result, u1: String): String = {
       val flag = result.winnerId match {
         case Some(wid) if wid == u1 => ""
-        case Some(wid) => "-"
+        case Some(_) => "-"
         case None => "="
       }
       s"${result.gameId}$flag"

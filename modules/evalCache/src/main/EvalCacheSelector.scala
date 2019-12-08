@@ -1,7 +1,5 @@
 package lila.evalCache
 
-import scala.math.Ordering.Float.TotalOrdering
-
 import EvalCacheEntry._
 
 /**
@@ -11,6 +9,8 @@ import EvalCacheEntry._
 object EvalCacheSelector {
 
   private type Evals = List[Eval]
+
+  private implicit val order = Ordering.Double.TotalOrdering
 
   def apply(evals: Evals): Evals =
     // first, let us group evals by multiPv

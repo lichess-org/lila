@@ -10,7 +10,6 @@ import User.{ LightPerf, LightCount }
 
 final class Cached(
     userRepo: UserRepo,
-    nbTtl: FiniteDuration,
     onlineUserIds: () => Set[User.ID],
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -26,7 +25,6 @@ final class Cached(
     AtMost(1 minute),
     f = () => rankingApi fetchLeaderboard 10,
     default = Perfs.emptyLeaderboards,
-    logger = logger,
     initialDelay = 30 seconds
   )
 
@@ -59,7 +57,6 @@ final class Cached(
     atMost = AtMost(30 seconds),
     f = () => userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50),
     default = Nil,
-    logger = logger branch "top50online",
     initialDelay = 15 seconds
   )
   def getTop50Online = top50OnlineCache.get

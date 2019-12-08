@@ -14,7 +14,7 @@ final class DisposableEmailDomain(
 
   private var regex = finalizeRegex(staticRegex)
 
-  private[security] def refresh: Unit = for {
+  private[security] def refresh(): Unit = for {
     blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover {
       case e: Exception =>
         logger.warn("DisposableEmailDomain.refresh", e)

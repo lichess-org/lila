@@ -2,10 +2,8 @@ package lila.security
 
 import scala.concurrent.duration._
 
-import play.api.libs.json._
 import play.api.libs.ws.WSClient
 
-import lila.common.config.Secret
 import lila.common.Domain
 import lila.db.dsl._
 

@@ -1,7 +1,6 @@
 package lila
 
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.ReadPreference
 
 package object db extends PackageObject {
 

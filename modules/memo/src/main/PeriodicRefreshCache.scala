@@ -10,7 +10,6 @@ final class PeriodicRefreshCache[A](
     atMost: AtMost,
     f: () => Fu[A],
     default: A,
-    logger: lila.log.Logger,
     initialDelay: FiniteDuration = 1.second
 )(implicit system: ActorSystem) {
 
@@ -18,7 +17,7 @@ final class PeriodicRefreshCache[A](
 
   private var cache: A = default
 
-  lila.common.ResilientScheduler(every, atMost, logger, initialDelay) {
+  lila.common.ResilientScheduler(every, atMost, initialDelay) {
     f() map { a =>
       cache = a
     }

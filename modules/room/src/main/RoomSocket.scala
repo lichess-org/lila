@@ -6,7 +6,7 @@ import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
 import lila.log.Logger
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion, Sri }
+import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
 import lila.user.User
 
 import play.api.libs.json._

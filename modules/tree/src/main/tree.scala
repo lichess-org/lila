@@ -239,9 +239,6 @@ object Node {
     case Comment.Author.Unknown => JsNull
   }
   implicit val commentWriter = Json.writes[Node.Comment]
-  private implicit val commentsWriter: Writes[Node.Comments] = Writes[Node.Comments] { s =>
-    JsArray(s.list.map(commentWriter.writes))
-  }
   implicit val gamebookWriter = Json.writes[Node.Gamebook]
   import Eval.JsonHandlers.evalWrites
 

@@ -2,9 +2,8 @@ package lila.memo
 
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import com.typesafe.config.ConfigFactory
-import play.api.{ Configuration, ConfigLoader }
+import play.api.ConfigLoader
 import play.api.data.Form
-import scala.util.Try
 
 import lila.db.dsl._
 

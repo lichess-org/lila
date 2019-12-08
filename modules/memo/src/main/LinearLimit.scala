@@ -23,6 +23,7 @@ final class LinearLimit[K](
   def apply(k: K, msg: => String = "", limited: => Fu[Result] = limitedDefault)(f: => Fu[Result]): Fu[Result] =
     if (storage get toString(k)) {
       logger.info(s"$k $msg")
+      monitor()
       limited
     } else {
       storage put toString(k)

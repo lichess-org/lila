@@ -6,8 +6,7 @@ import scala.concurrent.Promise
 import Duct.extra._
 
 final class FutureSequencer(
-    executionTimeout: Option[FiniteDuration] = None,
-    logger: lila.log.Logger
+    executionTimeout: Option[FiniteDuration] = None
 )(implicit system: akka.actor.ActorSystem) {
 
   def apply[A](fu: => Fu[A]): Fu[A] = {

@@ -113,7 +113,7 @@ final class Syncache[K, V](
       // monitoring: increment lock time
       lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
     } catch {
-      case e: java.util.concurrent.TimeoutException =>
+      case _: java.util.concurrent.TimeoutException =>
         incTimeout()
         default(k)
     }

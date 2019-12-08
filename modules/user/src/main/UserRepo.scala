@@ -3,7 +3,6 @@ package lila.user
 import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.commands.GetLastError
 
 import lila.common.{ ApiVersion, EmailAddress, NormalizedEmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
@@ -334,7 +333,7 @@ final class UserRepo(val coll: Coll) {
     coll.update.one(
       $id(id) ++ $doc(F.email $exists false),
       $doc("$rename" -> $doc(F.prevEmail -> F.email))
-    ).recover(lila.db.recoverDuplicateKey(_ => ()))
+    ).void.recover(lila.db.recoverDuplicateKey(_ => ()))
 
   def disable(user: User, keepEmail: Boolean) = coll.update.one(
     $id(user.id),
@@ -535,7 +534,6 @@ final class UserRepo(val coll: Coll) {
   ) = {
 
     implicit def countHandler = Count.countBSONHandler
-    implicit def perfsHandler = Perfs.perfsBSONHandler
     import lila.db.BSON.BSONJodaDateTimeHandler
 
     val normalizedEmail = email.normalize

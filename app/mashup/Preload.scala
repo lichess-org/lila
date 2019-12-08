@@ -80,7 +80,7 @@ final class Preload(
       }
 
   def currentGameMyTurn(user: User): Fu[Option[CurrentGame]] =
-    gameRepo.playingRealtimeNoAi(user, 10).flatMap {
+    gameRepo.playingRealtimeNoAi(user).flatMap {
       _.map { roundProxy.pov(_, user) }.sequenceFu.dmap(_.flatten)
     } flatMap {
       currentGameMyTurn(_, lightUserApi.sync)(user)

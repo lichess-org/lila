@@ -44,7 +44,7 @@ final class JsonView(isOnline: lila.socket.IsOnline) {
     .add("patron" -> u.isPatron)
 
   def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online", isOnline(lp.user.id))
+    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 }
 
 object JsonView {

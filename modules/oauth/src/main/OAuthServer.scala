@@ -2,7 +2,6 @@ package lila.oauth
 
 import org.joda.time.DateTime
 import play.api.http.HeaderNames.AUTHORIZATION
-import play.api.libs.json.Json
 import play.api.mvc.{ RequestHeader, Result }
 import scala.concurrent.duration._
 
@@ -17,7 +16,7 @@ final class OAuthServer(
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
-  import AccessToken.{ accessTokenIdHandler, ForAuth, ForAuthBSONReader }
+  import AccessToken.accessTokenIdHandler
   import AccessToken.{ BSONFields => F }
   import OAuthServer._
 

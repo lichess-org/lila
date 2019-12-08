@@ -6,7 +6,7 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.base.LilaException
-import lila.common.{ Chronometer, Domain }
+import lila.common.Domain
 
 private final class DnsApi(
     ws: WSClient,

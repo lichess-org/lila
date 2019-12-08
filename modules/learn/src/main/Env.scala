@@ -1,6 +1,5 @@
 package lila.learn
 
-import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._

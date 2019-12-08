@@ -57,4 +57,10 @@ object Dependencies {
     val influxdb = "io.kamon" %% "kamon-influxdb" % "2.0.0"
     val metrics = "io.kamon" %% "kamon-system-metrics" % "2.0.0"
   }
+
+  object silencer {
+    val version = "1.4.4"
+    val plugin = "com.github.ghik" % "silencer-plugin" % version cross CrossVersion.full
+    val lib = "com.github.ghik" % "silencer-lib" % version % Provided cross CrossVersion.full
+  }
 }

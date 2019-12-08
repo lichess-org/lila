@@ -4,7 +4,6 @@ import org.joda.time.DateTime
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.user.User
 
 final class PrintBan(coll: Coll) {
 

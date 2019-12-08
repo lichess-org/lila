@@ -1,7 +1,7 @@
 package lila.oauth
 
 import org.joda.time.DateTime
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 
 import lila.user.User
 

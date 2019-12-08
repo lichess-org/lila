@@ -31,11 +31,11 @@ object Theme extends ThemeObject {
   private[pref] val defaultHexColors = (HexColor("b0b0b0"), HexColor("909090"))
 
   private val colors: Map[String, HexColors] = Map(
-    "blue" -> (HexColor("dee3e6"), HexColor("8ca2ad")),
-    "brown" -> (HexColor("f0d9b5"), HexColor("b58863")),
-    "green" -> (HexColor("ffffdd"), HexColor("86a666")),
-    "purple" -> (HexColor("9f90b0"), HexColor("7d4a8d")),
-    "ic" -> (HexColor("ececec"), HexColor("c1c18e"))
+    "blue" -> (HexColor("dee3e6") -> HexColor("8ca2ad")),
+    "brown" -> (HexColor("f0d9b5") -> HexColor("b58863")),
+    "green" -> (HexColor("ffffdd") -> HexColor("86a666")),
+    "purple" -> (HexColor("9f90b0") -> HexColor("7d4a8d")),
+    "ic" -> (HexColor("ececec") -> HexColor("c1c18e"))
   )
 
   val all = List(

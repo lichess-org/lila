@@ -1,7 +1,7 @@
 package lila.evalCache
 
 import reactivemongo.api.bson._
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Try, Success }
 import scalaz.NonEmptyList
 
 import chess.format.Uci

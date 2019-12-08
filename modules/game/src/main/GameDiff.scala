@@ -1,9 +1,9 @@
 package lila.game
 
-import chess.{ Color, White, Black, Clock, CheckCount, UnmovedRooks }
+import chess.{ Color, White, Black, Clock, CheckCount }
 import Game.BSONFields._
 import reactivemongo.api.bson._
-import scala.util.{ Try, Success, Failure }
+import scala.util.Try
 
 import Blurs.BlursBSONWriter
 import chess.Centis

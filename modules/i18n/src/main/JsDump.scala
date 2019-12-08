@@ -21,14 +21,14 @@ private[i18n] final class JsDump(path: String) {
       """"%s":"%s"""".format(key, escape(Translator.txt.literal(key, I18nDb.Site, Nil, lang)))
     }.mkString("{", ",", "}")
 
-  private def writeRefs = writeFile(
+  private def writeRefs() = writeFile(
     new File("%s/refs.json".format(pathFile.getCanonicalPath)),
     LangList.all.toList.sortBy(_._1.code).map {
       case (lang, name) => s"""["${lang.code}","$name"]"""
     }.mkString("[", ",", "]")
   )
 
-  private def writeFullJson = I18nDb.langs foreach { lang =>
+  private def writeFullJson() = I18nDb.langs foreach { lang =>
     val code = dumpFromKey(I18nDb.site(defaultLang).keySet.asScala.toSet, lang)
     writeFile(new File("%s/%s.all.json".format(pathFile.getCanonicalPath, lang.code)), code)
   }
@@ -55,7 +55,7 @@ object JsDump {
 
   private type JsTrans = Iterable[(String, JsString)]
 
-  private def translatedJs(k: String, t: Translation, lang: Lang): JsTrans = t match {
+  private def translatedJs(k: String, t: Translation): JsTrans = t match {
     case literal: Simple => List(k -> JsString(literal.message))
     case literal: Escaped => List(k -> JsString(literal.message))
     case plurals: Plurals => plurals.messages.map {
@@ -65,7 +65,7 @@ object JsDump {
 
   def keysToObject(keys: Seq[I18nKey], db: I18nDb.Ref, lang: Lang): JsObject = JsObject {
     keys.flatMap { k =>
-      Translator.findTranslation(k.key, db, lang).fold(Nil: JsTrans) { translatedJs(k.key, _, lang) }
+      Translator.findTranslation(k.key, db, lang).fold(Nil: JsTrans) { translatedJs(k.key, _) }
     }
   }
 
@@ -76,7 +76,7 @@ object JsDump {
       JsObject {
         val msgs = I18nDb(ref).get(lang) | emptyMessages
         defaultMsgs.asScala.flatMap {
-          case (k, v) => translatedJs(k, msgs.getOrDefault(k, v), lang)
+          case (k, v) => translatedJs(k, msgs.getOrDefault(k, v))
         }
       }
     }

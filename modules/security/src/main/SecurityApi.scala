@@ -1,5 +1,6 @@
 package lila.security
 
+import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
@@ -7,10 +8,9 @@ import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, IpAddress, EmailAddress, HTTPRequest }
+import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.OAuthServer
@@ -62,7 +62,7 @@ final class SecurityApi(
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-    username: String,
+    @silent _username: String,
     password: String,
     token: Option[String]
   ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {

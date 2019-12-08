@@ -262,7 +262,7 @@ final class Account(
   }
 
   // App BC
-  def kidToggle = Auth { ctx => me =>
+  def kidToggle = Auth { _ => me =>
     env.user.repo.setKid(me, !me.kid) inject Ok
   }
 

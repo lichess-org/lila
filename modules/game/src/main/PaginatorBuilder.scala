@@ -9,7 +9,6 @@ import lila.db.paginator._
 
 final class PaginatorBuilder(
     gameRepo: GameRepo,
-    cached: Cached,
     maxPerPage: MaxPerPage
 ) {
 

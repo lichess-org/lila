@@ -3,7 +3,6 @@ package lila.security
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import lila.common.Iso
 import lila.common.config.Secret
 import lila.user.{ User, UserRepo }
 

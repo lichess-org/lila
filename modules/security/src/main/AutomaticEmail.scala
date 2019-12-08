@@ -1,6 +1,5 @@
 package lila.security
 
-import scalatags.Text.all._
 import play.api.i18n.Lang
 
 import lila.common.EmailAddress
@@ -41,7 +40,6 @@ ${Mailgun.txt.serviceNote}
     email <- emailOption
   } yield {
 
-    val profileUrl = s"$baseUrl/@/${user.username}"
     val body = s"""Hello,
 
 Thank you for confirming your $title title on lichess.org.

@@ -19,7 +19,6 @@ package lila.db
 import ornicar.scalalib.Zero
 import reactivemongo.api._
 import reactivemongo.api.bson._
-import reactivemongo.api.collections.GenericQueryBuilder
 
 trait dsl {
 
@@ -71,16 +70,16 @@ trait dsl {
 
   //**********************************************************************************************//
   // Top Level Evaluation Operators
-  def $text(search: String): Bdoc = {
-    $doc("$text" -> $doc("$search" -> search))
+  def $text(term: String): Bdoc = {
+    $doc("$text" -> $doc("$search" -> term))
   }
 
-  def $text(search: String, language: String): Bdoc = {
-    $doc("$text" -> $doc("$search" -> search, "$language" -> language))
+  def $text(term: String, lang: String): Bdoc = {
+    $doc("$text" -> $doc("$search" -> term, f"$$language" -> lang))
   }
 
-  def $where(expression: String): Bdoc = {
-    $doc("$where" -> expression)
+  def $where(expr: String): Bdoc = {
+    $doc("$where" -> expr)
   }
   // End of Top Level Evaluation Operators
   //**********************************************************************************************//
@@ -302,8 +301,8 @@ trait dsl {
   }
 
   trait ElementOperators { self: ElementBuilder =>
-    def $exists(exists: Boolean): SimpleExpression[Bdoc] = {
-      SimpleExpression(field, $doc("$exists" -> exists))
+    def $exists(v: Boolean): SimpleExpression[Bdoc] = {
+      SimpleExpression(field, $doc("$exists" -> v))
     }
   }
 
@@ -327,8 +326,8 @@ trait dsl {
       SimpleExpression(field, $doc("$elemMatch" -> $doc(query: _*)))
     }
 
-    def $size(size: Int): SimpleExpression[Bdoc] = {
-      SimpleExpression(field, $doc("$size" -> size))
+    def $size(s: Int): SimpleExpression[Bdoc] = {
+      SimpleExpression(field, $doc("$size" -> s))
     }
   }
 

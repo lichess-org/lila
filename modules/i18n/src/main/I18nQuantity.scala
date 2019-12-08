@@ -1,5 +1,6 @@
 package lila.i18n
 
+import com.github.ghik.silencer.silent
 import play.api.i18n.Lang
 
 private sealed trait I18nQuantity
@@ -124,7 +125,7 @@ private object I18nQuantity {
       if (c == 0 || c == 1) One
       else Other
 
-    def none(c: Count) = Other
+    @silent def none(c: Count) = Other
   }
 
   import selectors._

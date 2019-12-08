@@ -30,10 +30,8 @@ final class Env(
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Builder,
-    hub: lila.hub.Env,
     getLightUser: lila.common.LightUser.Getter,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    settingStore: lila.memo.SettingStore.Builder
+    asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)

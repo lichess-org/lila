@@ -1,6 +1,6 @@
 package lila.chat
 
-import akka.actor.{ ActorSystem, Props }
+import akka.actor.ActorSystem
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration

@@ -1,12 +1,11 @@
 package lila.app
 
 import akka.actor._
-import akka.stream.Materializer
 import com.softwaremill.macwire._
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.WSClient
 import play.api.mvc.{ SessionCookieBaker, ControllerComponents }
-import play.api.{ Application, Configuration, Environment, Mode }
+import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration._
 
 import lila.common.Bus

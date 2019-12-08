@@ -2,8 +2,6 @@ package lila.db
 
 import java.nio.file.Path
 
-import dsl._
-
 final class Photographer(repo: ImageRepo, prefix: String) {
 
   import Photographer.uploadMaxMb

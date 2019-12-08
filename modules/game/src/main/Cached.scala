@@ -3,7 +3,7 @@ package lila.game
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.memo.{ MongoCache, ExpireSetMemo }
+import lila.memo.MongoCache
 import lila.user.User
 
 final class Cached(
@@ -18,8 +18,6 @@ final class Cached(
   def nbPlaying(userId: String): Fu[Int] = countShortTtl.get(Query nowPlaying userId)
 
   def nbTotal: Fu[Int] = countCache($empty)
-
-  private implicit val userHandler = User.userBSONHandler
 
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",

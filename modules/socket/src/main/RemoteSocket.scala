@@ -5,20 +5,17 @@ import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
-import ornicar.scalalib.Zero
 import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.concurrent.{ Promise, Future }
 
-import lila.common.{ Bus, Chronometer }
+import lila.common.Bus
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, BotIsOnline }
-import lila.hub.actorApi.{ Deploy, Announce }
-import lila.hub.{ TrouperMap, Trouper }
-import Socket.{ SocketVersion, GetVersion, Sri, SendToFlag }
+import lila.hub.actorApi.Announce
+import Socket.Sri
 
 final class RemoteSocket(
     redisClient: RedisClient,

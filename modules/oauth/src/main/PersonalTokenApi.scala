@@ -1,7 +1,5 @@
 package lila.oauth
 
-import org.joda.time.DateTime
-
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User

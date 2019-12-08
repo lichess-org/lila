@@ -7,7 +7,7 @@ import akka.pattern.pipe
 import chess.format.pgn.{ Tags, Sans }
 import chess.format.{ Forsyth, pgn }
 import chess.{ Game => ChessGame }
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 import scalaz.Validation.FlatMap._
 import scalaz.{ NonEmptyList, OptionT }
 
@@ -74,7 +74,7 @@ private final class Captcher(gameRepo: GameRepo) extends Actor {
     private def makeCaptcha(game: Game, moves: PgnMoves): OptionT[Fu, Captcha] =
       optionT(Future {
         for {
-          rewinded <- rewind(game, moves)
+          rewinded <- rewind(moves)
           solutions <- solve(rewinded)
           moves = rewinded.situation.destinations map {
             case (from, dests) => from.key -> dests.mkString
@@ -91,7 +91,7 @@ private final class Captcher(gameRepo: GameRepo) extends Actor {
         s"${move.orig} ${move.dest}"
       } toNel
 
-    private def rewind(game: Game, moves: PgnMoves): Option[ChessGame] =
+    private def rewind(moves: PgnMoves): Option[ChessGame] =
       pgn.Reader.movesWithSans(
         moves,
         sans => Sans(safeInit(sans.value)),
@@ -99,7 +99,7 @@ private final class Captcher(gameRepo: GameRepo) extends Actor {
       ).flatMap(_.valid) map (_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] = list match {
-      case x :: Nil => Nil
+      case _ :: Nil => Nil
       case x :: xs => x :: safeInit(xs)
       case _ => Nil
     }

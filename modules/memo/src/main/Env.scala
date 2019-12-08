@@ -5,7 +5,6 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.db.dsl.Coll
 
 final class MemoConfig(
     @ConfigName("collection.cache") val cacheColl: CollName,

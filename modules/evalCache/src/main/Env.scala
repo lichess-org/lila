@@ -2,8 +2,6 @@ package lila.evalCache
 
 import com.softwaremill.macwire._
 import play.api.Configuration
-import play.api.libs.json.JsValue
-import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config.CollName
@@ -14,7 +12,6 @@ import lila.socket.Socket.Sri
 final class Env(
     appConfig: Configuration,
     userRepo: lila.user.UserRepo,
-    settingStore: lila.memo.SettingStore.Builder,
     db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
