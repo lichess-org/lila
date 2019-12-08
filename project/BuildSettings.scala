@@ -31,9 +31,6 @@ object BuildSettings {
     macwire.macros, macwire.util, autoconfig
   ) // , specs2, specs2Scalaz)
 
-  def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
-  def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
-
   def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
     Project(
       name,
@@ -41,7 +38,7 @@ object BuildSettings {
     )
       .dependsOn(deps: _*)
       .settings(
-        version := "2.0",
+        version := "3.0",
         libraryDependencies ++= defaultDeps,
         buildSettings,
         srcMain
