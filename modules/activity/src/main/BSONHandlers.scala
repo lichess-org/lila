@@ -6,7 +6,7 @@ import scala.util.Success
 import lila.common.Iso
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
-import lila.rating.{ Perf, PerfType }
+import lila.rating.PerfType
 import lila.study.BSONHandlers._
 import lila.study.Study
 import lila.user.User

@@ -14,14 +14,14 @@ final class BlogApi(
     collection: String
 )(implicit ws: WSClient) {
 
-  def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
+  def recent(api: Api, page: Int, maxPerPage: MaxPerPage, ref: Option[String]): Fu[Option[Paginator[Document]]] =
     api.forms(collection).ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value).page(page).submit().fold(_ => none, some _) map2 { (res: Response) =>
         PrismicPaginator(res, page, maxPerPage)
       }
-  def recent(prismic: BlogApi.Context, page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
-    recent(prismic.api, prismic.ref.some, page, maxPerPage)
+  def recent(prismic: BlogApi.Context, page: Int, maxPerPage: MaxPerPage, ref: Option[String]): Fu[Option[Paginator[Document]]] =
+    recent(prismic.api, page, maxPerPage, ref)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
     api.forms(collection)

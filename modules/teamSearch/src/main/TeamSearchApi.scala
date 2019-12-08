@@ -3,7 +3,6 @@ package lila.teamSearch
 import akka.stream.scaladsl._
 import play.api.libs.json._
 
-import lila.db.dsl._
 import lila.search._
 import lila.team.{ Team, TeamRepo }
 

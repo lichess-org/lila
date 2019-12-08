@@ -43,7 +43,7 @@ final class Coach(env: Env) extends LilaController(env) {
       WithVisibleCoach(c) {
         implicit val req = ctx.body
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
-          err => Redirect(routes.Coach.show(c.user.username)).fuccess,
+          _ => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
             if (data.score < 4 && !me.reportban) env.report.api.create(lila.report.Report.Candidate(
               reporter = lila.report.Reporter(me),
@@ -51,9 +51,8 @@ final class Coach(env: Env) extends LilaController(env) {
               reason = lila.report.Reason.Other,
               text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
             ))
-            api.reviews.add(me, c.coach, data) map { review =>
+            api.reviews.add(me, c.coach, data) inject
               Redirect(routes.Coach.show(c.user.username))
-            }
           }
         )
       }

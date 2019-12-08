@@ -4,7 +4,6 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.user.UserRepo
 
 private[team] final class PaginatorBuilder(
     teamRepo: TeamRepo,

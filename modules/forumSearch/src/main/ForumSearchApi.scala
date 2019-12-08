@@ -2,8 +2,6 @@ package lila.forumSearch
 
 import akka.stream.scaladsl._
 import play.api.libs.json._
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
-import reactivemongo.api._
 
 import lila.common.Json.jodaWrites
 import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }

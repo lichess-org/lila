@@ -364,6 +364,6 @@ final class Tournament(
     expireAfter = _.ExpireAfterWrite(15.seconds)
   )
 
-  private def getUserTeamIds(user: lila.user.User): Fu[List[TeamId]] =
+  private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)
 }

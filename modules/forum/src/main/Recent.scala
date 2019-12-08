@@ -2,7 +2,6 @@ package lila.forum
 
 import scala.concurrent.duration._
 
-import lila.security.{ Permission, Granter => MasterGranter }
 import lila.user.User
 
 final class Recent(
@@ -25,7 +24,7 @@ final class Recent(
     cache get key
   }
 
-  def invalidate: Unit = cache.invalidateAll
+  def invalidate(): Unit = cache.invalidateAll
 
   private def userCacheKey(user: Option[User], getTeams: GetTeamIds): Fu[String] =
     (user.map(_.id) ?? getTeams).map { teamIds =>

@@ -15,7 +15,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
   private def api = env.fishnet.api
   private val logger = lila.log("fishnet")
 
-  def acquire = ClientAction[JsonApi.Request.Acquire] { req => client =>
+  def acquire = ClientAction[JsonApi.Request.Acquire] { _ => client =>
     api acquire client addEffect { jobOpt =>
       val mon = lila.mon.fishnet.http.acquire(client.skill.toString)
       if (jobOpt.isDefined) mon.hit() else mon.miss()
@@ -39,11 +39,11 @@ final class Fishnet(env: Env) extends LilaController(env) {
     })
   }
 
-  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req => client =>
+  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { _ => client =>
     api.abort(Work.Id(workId), client) inject Right(none)
   }
 
-  def keyExists(key: String) = Action.async { req =>
+  def keyExists(key: String) = Action.async { _ =>
     api keyExists lila.fishnet.Client.Key(key) map {
       case true => Ok
       case false => NotFound

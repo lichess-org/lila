@@ -1,7 +1,5 @@
 package controllers
 
-import play.api.mvc._
-
 import lila.app._
 import lila.push.WebSubscription
 import lila.push.WebSubscription.readers._

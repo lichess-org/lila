@@ -29,11 +29,11 @@ final class Pref(env: Env) extends LilaController(env) {
     }
   }
 
-  def formApply = AuthBody { implicit ctx => me =>
+  def formApply = AuthBody { implicit ctx => _ =>
     def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
-      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
+      _ => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
         err => BadRequest(err.toString).fuccess,
         onSuccess
       ),

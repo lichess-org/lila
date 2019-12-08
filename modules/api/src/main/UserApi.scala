@@ -1,18 +1,13 @@
 package lila.api
 
 import play.api.libs.json._
-import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.LightUser
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.db.dsl._
-import lila.game.Pov
-import lila.user.{ User, Title }
+import lila.user.User
 
 private[api] final class UserApi(
     jsonView: lila.user.JsonView,
-    lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
@@ -22,10 +17,9 @@ private[api] final class UserApi(
     prefApi: lila.pref.PrefApi,
     liveStreamApi: lila.streamer.LiveStreamApi,
     onlineDoing: lila.relation.OnlineDoing,
-    isOnline: lila.socket.IsOnline,
     gameProxyRepo: lila.round.GameProxyRepo,
     net: NetConfig
-)(implicit system: akka.actor.ActorSystem) {
+) {
 
   def pagerJson(pag: Paginator[User]): JsObject =
     Json.obj("paginator" -> PaginatorJson(pag mapResults one))
@@ -33,32 +27,6 @@ private[api] final class UserApi(
   def one(u: User): JsObject =
     addPlayingStreaming(jsonView(u), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
-
-  // maybe get titled from LightUsers?
-  // def exportTitled(config: UserApi.Titled): Enumerator[JsObject] =
-  //   if (config.titles.isEmpty) Enumerator.empty[JsObject]
-  //   else if (config.online) Enumerator.enumerate(recentTitledUserIds()) &>
-  //     Enumeratee.filter(isOnline) &>
-  //     Enumeratee.mapM(lightUserApi.async) &>
-  //     Enumeratee.collect {
-  //       case Some(lu) if lu.title.exists(ut => config.titles.exists(_.value == ut)) =>
-  //         addPlayingStreaming(LightUser.lightUserWrites.writes(lu), lu.id)
-  //     }
-  //   else userRepo.idCursor(
-  //     selector = $doc("title" $in config.titles, "enabled" -> true),
-  //     batchSize = config.perSecond.value
-  //   ).bulkEnumerator() &>
-  //     lila.common.Iteratee.delay(1 second) &>
-  //     Enumeratee.mapM { docs =>
-  //       lightUserApi.asyncMany {
-  //         docs.flatMap { _.getAs[User.ID]("_id") } toList
-  //       }
-  //     } &>
-  //     Enumeratee.mapConcat { users =>
-  //       users.flatten.map { u =>
-  //         addPlayingStreaming(LightUser.lightUserWrites.writes(u), u.id)
-  //       }
-  //     }
 
   def extended(username: String, as: Option[User]): Fu[Option[JsObject]] = userRepo named username flatMap {
     _ ?? { extended(_, as) map some }

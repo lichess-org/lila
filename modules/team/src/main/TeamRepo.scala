@@ -1,7 +1,7 @@
 package lila.team
 
 import org.joda.time.{ DateTime, Period }
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
@@ -45,7 +45,7 @@ final class TeamRepo(val coll: Coll) {
   def addRequest(teamId: String, request: Request): Funit =
     coll.update.one(
       $id(teamId) ++ $doc("requests.user" $ne request.user),
-      $push("requests", request.user)
+      $push("requests" -> request.user)
     ).void
 
   def changeOwner(teamId: String, newOwner: User.ID) =

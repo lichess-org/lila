@@ -1,5 +1,6 @@
 package controllers
 
+import com.github.ghik.silencer.silent
 import ornicar.scalalib.Zero
 import play.api.data.Form
 import play.api.http._
@@ -42,7 +43,7 @@ private[controllers] abstract class LilaController(val env: Env)
   protected val keyPages = new KeyPages(env)
   protected val renderNotFound = keyPages.notFound _
 
-  protected implicit def LilaFunitToResult(funit: Funit)(implicit ctx: Context): Fu[Result] =
+  protected implicit def LilaFunitToResult(@silent funit: Funit)(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)

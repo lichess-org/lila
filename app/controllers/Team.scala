@@ -7,6 +7,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
+import lila.hub.LightTeam
 import lila.hub.LightTeam._
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }

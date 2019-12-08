@@ -42,7 +42,7 @@ final class Setup(
     }
   }
 
-  def ai = process(forms.ai) { config => implicit ctx =>
+  def ai = process(_ => forms.ai) { config => implicit ctx =>
     processor ai config
   }
 
@@ -183,7 +183,7 @@ final class Setup(
 
   def filter = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    forms.filter(ctx).bindFromRequest.fold[Fu[Result]](
+    forms.filter.bindFromRequest.fold[Fu[Result]](
       f => {
         lila.log("setup").warn(f.errors.toString)
         BadRequest(()).fuccess

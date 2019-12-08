@@ -81,7 +81,7 @@ private[forum] final class TopicApi(
             lila.mon.forum.post.create()
           } >>- {
             env.mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(actorApi.CreatePost(post, topic), "forumPost")
+            Bus.publish(actorApi.CreatePost(post), "forumPost")
           } inject topic
     }
 
@@ -111,7 +111,7 @@ private[forum] final class TopicApi(
       env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
       (indexer ! InsertPost(post)) >>-
       env.recent.invalidate >>-
-      Bus.publish(actorApi.CreatePost(post, topic), "forumPost") void
+      Bus.publish(actorApi.CreatePost(post), "forumPost") void
   }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {

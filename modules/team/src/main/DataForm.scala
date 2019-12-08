@@ -2,7 +2,6 @@ package lila.team
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints._
 
 import lila.db.dsl._
 

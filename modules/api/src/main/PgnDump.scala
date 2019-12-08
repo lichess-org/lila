@@ -1,13 +1,10 @@
 package lila.api
 
-import org.joda.time.DateTime
-import scala.concurrent.duration._
-
 import chess.format.FEN
 import chess.format.pgn.Pgn
-import lila.analyse.{ Analysis, AnalysisRepo, Annotator }
+import lila.analyse.{ Analysis, Annotator }
 import lila.game.PgnDump.WithFlags
-import lila.game.{ Game, GameRepo, Query }
+import lila.game.Game
 
 final class PgnDump(
     val dumper: lila.game.PgnDump,

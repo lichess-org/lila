@@ -1,6 +1,5 @@
 package lila.api
 
-import com.softwaremill.macwire._
 import lila.common.config._
 import scala.concurrent.duration._
 

@@ -2,22 +2,18 @@ package lila.activity
 
 import akka.actor._
 import com.softwaremill.macwire._
-import com.typesafe.config.Config
-import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.hub.actorApi.round.CorresMoveEvent
 
 final class Env(
-    appConfig: Configuration,
     db: lila.db.Db,
     practiceApi: lila.practice.PracticeApi,
     gameRepo: lila.game.GameRepo,
     postApi: lila.forum.PostApi,
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
-    lightUserApi: lila.user.LightUserApi,
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName
@@ -36,7 +32,7 @@ final class Env(
     "startSimul", "moveEventCorres", "plan", "relation", "startStudy", "streamStart"
   ) {
       case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted => write game game
-      case lila.forum.actorApi.CreatePost(post, topic) => write.forumPost(post, topic)
+      case lila.forum.actorApi.CreatePost(post) => write.forumPost(post)
       case res: lila.puzzle.Puzzle.UserResult => write puzzle res
       case prog: lila.practice.PracticeProgress.OnComplete => write practice prog
       case lila.simul.Simul.OnStart(simul) => write simul simul

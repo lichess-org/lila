@@ -4,7 +4,6 @@ import lila.notify.Notification.Notifies
 import lila.notify.TeamJoined.{ Id => TJId, Name => TJName }
 import lila.notify.TeamMadeOwner.{ Id => TMOId, Name => TMOName }
 import lila.notify.{ Notification, TeamJoined, TeamMadeOwner, NotifyApi }
-import lila.user.User
 
 private[team] final class Notifier(notifyApi: NotifyApi) {
 

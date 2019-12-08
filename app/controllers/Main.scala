@@ -1,6 +1,7 @@
 package controllers
 
 import akka.pattern.ask
+import com.github.ghik.silencer.silent
 import play.api.data._, Forms._
 import play.api.libs.json._
 import play.api.mvc._
@@ -25,7 +26,7 @@ final class Main(
     implicit val req = ctx.body
     fuccess {
       blindForm.bindFromRequest.fold(
-        err => BadRequest, {
+        _ => BadRequest, {
           case (enable, redirect) =>
             Redirect(redirect) withCookies env.lilaCookie.cookie(
               env.api.config.accessibility.blindCookieName,
@@ -97,7 +98,7 @@ final class Main(
   }
   val glyphs = Action(glyphsResult)
 
-  def image(id: String, hash: String, name: String) = Action.async { req =>
+  def image(id: String, @silent hash: String, @silent name: String) = Action.async { req =>
     env.imageRepo.fetch(id) map {
       case None => NotFound
       case Some(image) =>
@@ -156,7 +157,7 @@ Disallow: /games/export
     }
   }
 
-  def legacyQaQuestion(id: Int, slug: String) = Open { _ =>
+  def legacyQaQuestion(id: Int, @silent slug: String) = Open { _ =>
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match {

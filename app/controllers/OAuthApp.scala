@@ -15,7 +15,7 @@ final class OAuthApp(env: Env) extends LilaController(env) {
     }
   }
 
-  def create = Auth { implicit ctx => me =>
+  def create = Auth { implicit ctx => _ =>
     Ok(html.oAuth.app.form.create(forms.app.create)).fuccess
   }
 
@@ -41,7 +41,7 @@ final class OAuthApp(env: Env) extends LilaController(env) {
       implicit val req = ctx.body
       forms.app.edit(app).bindFromRequest.fold(
         err => BadRequest(html.oAuth.app.form.edit(app, err)).fuccess,
-        data => appApi.update(app) { data.update(_) } map { r => Redirect(routes.OAuthApp.edit(app.clientId.value)) }
+        data => appApi.update(app) { data.update(_) } inject Redirect(routes.OAuthApp.edit(app.clientId.value))
       )
     }
   }

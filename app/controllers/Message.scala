@@ -69,7 +69,7 @@ final class Message(env: Env) extends LilaController(env) {
           }
         ),
         api = _ => forms.post.bindFromRequest.fold(
-          err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+          _ => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
           text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
         )
       )

@@ -1,7 +1,6 @@
 package lila.api
 
 import org.joda.time.DateTime
-import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
 import lila.common.{ ApiVersion, HTTPRequest }
@@ -50,8 +49,6 @@ object Mobile {
     //   unsupportedAt = new DateTime("2019-12-14")
     // )
     )
-
-    private val HeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 
     def requestVersion(req: RequestHeader): Option[ApiVersion] =
       HTTPRequest apiVersion req filter acceptedVersions.contains

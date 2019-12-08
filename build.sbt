@@ -31,7 +31,7 @@ libraryDependencies ++= Seq(
   maxmind, prismic, markdown, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce, epoll
-)
+) ++ silencer.bundle
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
 
@@ -74,7 +74,8 @@ lazy val i18n = module("i18n",
       dbs = List("site", "arena", "emails", "learn", "activity", "coordinates", "study"),
       compileTo = (sourceManaged in Compile).value / "messages"
     )
-  }.taskValue
+  }.taskValue,
+  scalacOptions += "-P:silencer:pathFilters=modules/i18n/target"
 )
 
 lazy val puzzle = module("puzzle",

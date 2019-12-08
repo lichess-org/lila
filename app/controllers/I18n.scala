@@ -34,7 +34,7 @@ final class I18n(env: Env) extends LilaController(env) {
                   if (query == null) path
                   else path + "?" + query
                 } catch {
-                  case e: java.net.MalformedURLException => routes.Lobby.home.url
+                  case _: java.net.MalformedURLException => routes.Lobby.home.url
                 }
               }
             }

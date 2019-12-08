@@ -7,7 +7,7 @@ import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
 import lila.hub.LightTeam
 import lila.mod.ModlogApi
-import lila.user.{ User, UserRepo, UserContext }
+import lila.user.{ User, UserRepo }
 import org.joda.time.Period
 import reactivemongo.api.{ Cursor, ReadPreference }
 

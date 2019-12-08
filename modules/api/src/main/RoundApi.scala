@@ -38,7 +38,7 @@ private[api] final class RoundApi(
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ forecast ~ bookmarked => (
             withTournament(pov, tourOption)_ compose
-            withSimul(pov, simulOption)_ compose
+            withSimul(simulOption)_ compose
             withSteps(pov, initialFen)_ compose
             withNote(note)_ compose
             withBookmark(bookmarked)_ compose
@@ -59,7 +59,7 @@ private[api] final class RoundApi(
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             withTournament(pov, tourOption)_ compose
-            withSimul(pov, simulOption)_ compose
+            withSimul(simulOption)_ compose
             withNote(note)_ compose
             withBookmark(bookmarked)_ compose
             withSteps(pov, initialFen)_
@@ -82,7 +82,7 @@ private[api] final class RoundApi(
         bookmarkApi.exists(pov.game, ctx.me) map {
           case json ~ tourOption ~ simulOption ~ note ~ bookmarked => (
             withTournament(pov, tourOption)_ compose
-            withSimul(pov, simulOption)_ compose
+            withSimul(simulOption)_ compose
             withNote(note)_ compose
             withBookmark(bookmarked)_ compose
             withTree(pov, analysis, initialFen, withFlags)_ compose
@@ -183,7 +183,7 @@ private[api] final class RoundApi(
         )))
     })
 
-  private def withSimul(pov: Pov, simulOption: Option[Simul])(json: JsObject) =
+  private def withSimul(simulOption: Option[Simul])(json: JsObject) =
     json.add("simul", simulOption.map { simul =>
       Json.obj(
         "id" -> simul.id,

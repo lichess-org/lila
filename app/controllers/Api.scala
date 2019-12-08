@@ -290,7 +290,7 @@ final class Api(
     }.fuccess
   }
 
-  def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { req => me =>
+  def eventStream = Scoped(_.Bot.Play, _.Challenge.Read) { _ => me =>
     env.round.proxyRepo.urgentGames(me) flatMap { povs =>
       env.challenge.api.createdByDestId(me.id) map { challenges =>
         jsonOptionStream {

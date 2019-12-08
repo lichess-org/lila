@@ -77,7 +77,7 @@ final class Plan(env: Env) extends LilaController(env) {
   def switch = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lila.plan.Switch.form.bindFromRequest.fold(
-      err => funit,
+      _ => funit,
       data => env.plan.api.switch(me, data.cents)
     ) inject Redirect(routes.Plan.index)
   }

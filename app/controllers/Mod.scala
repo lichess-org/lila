@@ -1,5 +1,6 @@
 package controllers
 
+import com.github.ghik.silencer.silent
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.chat.Chat
@@ -86,7 +87,7 @@ final class Mod(
     }
   }(actionResult(username))
 
-  def deletePmsAndChats(username: String) = OAuthMod(_.Shadowban) { _ => me =>
+  def deletePmsAndChats(username: String) = OAuthMod(_.Shadowban) { _ => _ =>
     withSuspect(username) { sus =>
       env.mod.publicChat.delete(sus) >>
         env.message.api.deleteThreadsBy(sus.user) map some
@@ -137,7 +138,7 @@ final class Mod(
   def setTitle(username: String) = SecureBody(_.SetTitle) { implicit ctx => me =>
     implicit def req = ctx.body
     lila.user.DataForm.title.bindFromRequest.fold(
-      err => fuccess(redirect(username, mod = true)),
+      _ => fuccess(redirect(username, mod = true)),
       title => modApi.setTitle(me.id, username, title map Title.apply) >>
         env.security.automaticEmail.onTitleSet(username) >>-
         env.user.lightUserApi.invalidate(UserModel normalize username) inject
@@ -164,7 +165,7 @@ final class Mod(
     }
   }(actionResult(username))
 
-  def log = Secure(_.ModLog) { implicit ctx => me =>
+  def log = Secure(_.ModLog) { implicit ctx => _ =>
     modLogApi.recent map { html.mod.log(_) }
   }
 
@@ -204,7 +205,7 @@ final class Mod(
   def communicationPublic(username: String) = communications(username, false)
   def communicationPrivate(username: String) = communications(username, true)
 
-  def ipIntel(ip: String) = Secure(_.IpBan) { ctx => me =>
+  def ipIntel(ip: String) = Secure(_.IpBan) { _ => _ =>
     env.security.ipIntel.failable(IpAddress(ip)).map { Ok(_) }.recover {
       case e: Exception => InternalServerError(e.getMessage)
     }
@@ -230,13 +231,13 @@ final class Mod(
     }
   }
 
-  def gamify = Secure(_.SeeReport) { implicit ctx => me =>
+  def gamify = Secure(_.SeeReport) { implicit ctx => _ =>
     env.mod.gamify.leaderboards zip
       env.mod.gamify.history(orCompute = true) map {
         case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
       }
   }
-  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx => me =>
+  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx => _ =>
     lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
       env.mod.gamify.leaderboards map { leaderboards =>
         Ok(html.mod.gamify.period(leaderboards, period))
@@ -244,7 +245,7 @@ final class Mod(
     }
   }
 
-  def search = SecureBody(_.UserSearch) { implicit ctx => me =>
+  def search = SecureBody(_.UserSearch) { implicit ctx => _ =>
     implicit def req = ctx.body
     val f = UserSearch.form
     f.bindFromRequest.fold(
@@ -258,7 +259,7 @@ final class Mod(
     env.mod.search(query) map { users => Ok(html.mod.search(UserSearch.form fill query, users)) }
   }
 
-  def print(fh: String) = SecureBody(_.PrintBan) { implicit ctx => me =>
+  def print(fh: String) = SecureBody(_.PrintBan) { implicit ctx => _ =>
     val hash = FingerHash(fh)
     for {
       uids <- env.security.api recentUserIdsByFingerHash hash
@@ -268,19 +269,19 @@ final class Mod(
     } yield Ok(html.mod.search.print(hash, withEmails, uas, env.security.printBan blocks hash))
   }
 
-  def printBan(v: Boolean, fh: String) = Secure(_.PrintBan) { _ => me =>
+  def printBan(v: Boolean, fh: String) = Secure(_.PrintBan) { _ => _ =>
     env.security.printBan.toggle(FingerHash(fh), v) inject
       Redirect(routes.Mod.print(fh))
   }
 
-  def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => me =>
+  def chatUser(username: String) = Secure(_.ChatTimeout) { implicit ctx => _ =>
     implicit val lightUser = env.user.lightUserSync
     JsonOptionOk {
       env.chat.api.userChat userModInfo username map2 lila.chat.JsonView.userModInfo
     }
   }
 
-  def permissions(username: String) = Secure(_.ChangePermission) { implicit ctx => me =>
+  def permissions(username: String) = Secure(_.ChangePermission) { implicit ctx => _ =>
     OptionOk(env.user.repo named username) { user =>
       html.mod.permissions(user)
     }
@@ -295,7 +296,7 @@ final class Mod(
           Permission.allButSuperAdmin.exists(_.name == str)
         })
       )).bindFromRequest.fold(
-        err => BadRequest(html.mod.permissions(user)).fuccess,
+        _ => BadRequest(html.mod.permissions(user)).fuccess,
         permissions =>
           modApi.setPermissions(AsMod(me), user.username, Permission(permissions)) >> {
             (Permission(permissions) diff Permission(user.roles) contains Permission.Coach) ??
@@ -333,7 +334,7 @@ final class Mod(
     }
   }
 
-  def chatPanic = Secure(_.Shadowban) { implicit ctx => me =>
+  def chatPanic = Secure(_.Shadowban) { implicit ctx => _ =>
     Ok(html.mod.chatPanic(env.chat.panic.get)).fuccess
   }
 
@@ -342,9 +343,9 @@ final class Mod(
     env.chat.panic.set(v)
     env.slack.api.chatPanic(me, v)
     fuccess(().some)
-  }(ctx => me => _ => Redirect(routes.Mod.chatPanic).fuccess)
+  }(_ => _ => _ => Redirect(routes.Mod.chatPanic).fuccess)
 
-  def eventStream = OAuthSecure(_.Admin) { req => me =>
+  def eventStream = OAuthSecure(_.Admin) { _ => _ =>
     noProxyBuffer(Ok.chunked(env.mod.stream())).fuccess
   }
 
@@ -370,7 +371,7 @@ final class Mod(
     }
   )
 
-  private def actionResult(username: String)(ctx: Context)(me: UserModel)(res: Any) =
+  private def actionResult(username: String)(ctx: Context)(@silent user: UserModel)(@silent res: Any) =
     if (HTTPRequest isSynchronousHttp ctx.req) fuccess(redirect(username))
     else userC.renderModZoneActions(username)(ctx)
 }

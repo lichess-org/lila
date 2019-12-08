@@ -1,6 +1,6 @@
 package controllers
 
-import play.api.libs.json.JsValue
+import com.github.ghik.silencer.silent
 import play.api.mvc._
 
 import lila.api.Context
@@ -22,7 +22,7 @@ final class Relay(
     }
   }
 
-  def form = Auth { implicit ctx => me =>
+  def form = Auth { implicit ctx => _ =>
     NoLame {
       Ok(html.relay.form.create(env.relay.forms.create)).fuccess
     }
@@ -38,13 +38,13 @@ final class Relay(
     )
   }
 
-  def edit(slug: String, id: String) = Auth { implicit ctx => me =>
+  def edit(@silent slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       Ok(html.relay.form.edit(relay, env.relay.forms.edit(relay))).fuccess
     }
   }
 
-  def update(slug: String, id: String) = AuthBody { implicit ctx => me =>
+  def update(@silent slug: String, id: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       implicit val req = ctx.body
       env.relay.forms.edit(relay).bindFromRequest.fold(
@@ -56,7 +56,7 @@ final class Relay(
     }
   }
 
-  def reset(slug: String, id: String) = Auth { implicit ctx => me =>
+  def reset(@silent slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       env.relay.api.reset(relay, me) inject Redirect(showRoute(relay))
     }

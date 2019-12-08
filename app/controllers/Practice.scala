@@ -1,5 +1,6 @@
 package controllers
 
+import com.github.ghik.silencer.silent
 import play.api.libs.json._
 
 import lila.api.Context
@@ -25,12 +26,12 @@ final class Practice(
     }
   }
 
-  def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
+  def show(@silent sectionId: String, @silent studySlug: String, studyId: String) = Open { implicit ctx =>
     pageHit
     OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
   }
 
-  def showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
+  def showChapter(@silent sectionId: String, @silent studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
     pageHit
     OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
   }
@@ -96,7 +97,7 @@ final class Practice(
     api.progress.reset(me) inject Redirect(routes.Practice.index)
   }
 
-  def config = Auth { implicit ctx => me =>
+  def config = Auth { implicit ctx => _ =>
     for {
       struct <- api.structure.get
       form <- api.config.form

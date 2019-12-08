@@ -19,7 +19,7 @@ final class Blog(
 
   def index(page: Int, ref: Option[String]) = WithPrismic { implicit ctx => implicit prismic =>
     pageHit
-    blogApi.recent(prismic, page, MaxPerPage(12)) flatMap {
+    blogApi.recent(prismic, page, MaxPerPage(12), ref) flatMap {
       case Some(response) => fuccess(Ok(views.html.blog.index(response)))
       case _ => notFound
     }
@@ -46,7 +46,7 @@ final class Blog(
 
   def atom = Action.async { implicit req =>
     blogApi context req flatMap { implicit prismic =>
-      blogApi.recent(prismic.api, none, 1, MaxPerPage(50)) map {
+      blogApi.recent(prismic.api, 1, MaxPerPage(50), none) map {
         _ ?? { docs =>
           Ok(views.html.blog.atom(docs)) as XML
         }

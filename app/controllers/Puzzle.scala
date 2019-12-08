@@ -6,8 +6,7 @@ import play.api.mvc._
 import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
-import lila.common.{ HTTPRequest, IpAddress }
-import lila.game.PgnDump
+import lila.common.HTTPRequest
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import views._
 
@@ -21,15 +20,13 @@ final class Puzzle(
     userInfos: Option[UserInfos],
     mode: String,
     voted: Option[Boolean],
-    round: Option[lila.puzzle.Round] = None,
-    result: Option[Result] = None
+    round: Option[lila.puzzle.Round] = None
   )(implicit ctx: Context): Fu[JsObject] = env.puzzle.jsonView(
     puzzle = puzzle,
     userInfos = userInfos,
     round = round,
     mode = mode,
     mobileApi = ctx.mobileApiVersion,
-    result = result,
     voted = voted
   )
 
@@ -109,7 +106,7 @@ final class Puzzle(
               me2 <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
               infos <- env.puzzle userInfos me2
               voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-              data <- renderJson(puzzle, infos.some, "view", voted = voted, result = result.some, round = round.some)
+              data <- renderJson(puzzle, infos.some, "view", voted = voted, round = round.some)
             } yield {
               lila.mon.puzzle.round.user()
               val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
@@ -118,7 +115,7 @@ final class Puzzle(
             case None =>
               lila.mon.puzzle.round.anon()
               env.puzzle.finisher.incPuzzleAttempts(puzzle)
-              renderJson(puzzle, none, "view", result = result.some, voted = none) map { data =>
+              renderJson(puzzle, none, "view", voted = none) map { data =>
                 val d2 = data ++ Json.obj("win" -> result.win)
                 Ok(d2)
               }

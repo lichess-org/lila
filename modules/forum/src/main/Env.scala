@@ -1,6 +1,5 @@
 package lila.forum
 
-import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -34,7 +33,7 @@ final class Env(
     relationApi: RelationApi,
     userRepo: lila.user.UserRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: ActorSystem) {
+) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)
 

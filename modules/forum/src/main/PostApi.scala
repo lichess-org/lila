@@ -67,7 +67,7 @@ final class PostApi(
                 }
                 lila.mon.forum.post.create()
                 env.mentionNotifier.notifyMentionedUsers(post, topic)
-                Bus.publish(actorApi.CreatePost(post, topic), "forumPost")
+                Bus.publish(actorApi.CreatePost(post), "forumPost")
               } inject post
         }
     }
@@ -96,7 +96,7 @@ final class PostApi(
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
-    case Some((topic, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
+    case Some((_, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
     case Some((topic, post)) => env.postRepo.withTroll(troll).countBeforeNumber(topic.id, post.number) map { nb =>
       val page = nb / maxPerPage.value + 1
       PostUrlData(topic.categId, topic.slug, page, post.number).some

@@ -1,7 +1,5 @@
 package lila.activity
 
-import reactivemongo.api.ReadPreference
-
 import lila.db.dsl._
 import lila.game.Game
 import lila.study.Study
@@ -34,7 +32,7 @@ final class ActivityWriteApi(
     } yield ()
   }.sequenceFu.void
 
-  def forumPost(post: lila.forum.Post, topic: lila.forum.Topic): Funit = post.userId.filter(User.lichessId !=) ?? { userId =>
+  def forumPost(post: lila.forum.Post): Funit = post.userId.filter(User.lichessId !=) ?? { userId =>
     getOrCreate(userId) flatMap { a =>
       coll.update.one(
         $id(a.id),
@@ -65,8 +63,8 @@ final class ActivityWriteApi(
     update(prog.userId) { a => a.copy(practice = Some(~a.practice + prog.studyId)).some }
 
   def simul(simul: lila.simul.Simul) =
-    simulParticipant(simul, simul.hostId, true) >>
-      simul.pairings.map(_.player.user).map { simulParticipant(simul, _, false) }.sequenceFu.void
+    simulParticipant(simul, simul.hostId) >>
+      simul.pairings.map(_.player.user).map { simulParticipant(simul, _) }.sequenceFu.void
 
   def corresMove(gameId: Game.ID, userId: User.ID) =
     update(userId) { a =>
@@ -121,7 +119,7 @@ final class ActivityWriteApi(
 
   def erase(user: User) = coll.delete.one(regexId(user.id))
 
-  private def simulParticipant(simul: lila.simul.Simul, userId: String, host: Boolean) =
+  private def simulParticipant(simul: lila.simul.Simul, userId: String) =
     update(userId) { a => a.copy(simuls = Some(~a.simuls + SimulId(simul.id))).some }
 
   private def get(userId: User.ID) = coll.byId[Activity, Id](Id today userId)

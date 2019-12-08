@@ -7,7 +7,7 @@ import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.analyse.{ JsonView => analysisJson, AnalysisRepo, Analysis }
+import lila.analyse.{ JsonView => analysisJson, Analysis }
 import lila.common.config._
 import lila.common.Json.jodaWrites
 import lila.common.paginator.{ Paginator, PaginatorJson }
@@ -22,7 +22,6 @@ import lila.user.User
 private[api] final class GameApi(
     net: NetConfig,
     apiToken: Secret,
-    pgnDump: PgnDump,
     gameRepo: lila.game.GameRepo,
     gameCache: lila.game.Cached,
     analysisRepo: lila.analyse.AnalysisRepo,

@@ -6,7 +6,7 @@ final class Irwin(env: Env) extends LilaController(env) {
 
   import lila.irwin.JSONHandlers.reportReader
 
-  def dashboard = Secure(_.SeeReport) { implicit ctx => me =>
+  def dashboard = Secure(_.SeeReport) { implicit ctx => _ =>
     env.irwin.api.dashboard map { d =>
       Ok(views.html.irwin.dashboard(d))
     }

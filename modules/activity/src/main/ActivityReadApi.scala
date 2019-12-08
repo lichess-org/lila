@@ -17,9 +17,10 @@ final class ActivityReadApi(
     tourLeaderApi: lila.tournament.LeaderboardApi
 ) {
 
-  import Activity._
   import BSONHandlers._
   import model._
+
+  private implicit val ordering = scala.math.Ordering.Double.TotalOrdering
 
   private val recentNb = 7
 
@@ -31,10 +32,10 @@ final class ActivityReadApi(
     practiceStructure <- activities.exists(_.practice.isDefined) ?? {
       practiceApi.structure.get map some
     }
-    views <- activities.map { one(u, practiceStructure) _ }.sequenceFu
+    views <- activities.map { one(practiceStructure) _ }.sequenceFu
   } yield addSignup(u.createdAt, views)
 
-  private def one(u: User, practiceStructure: Option[PracticeStructure])(a: Activity): Fu[ActivityView] = for {
+  private def one(practiceStructure: Option[PracticeStructure])(a: Activity): Fu[ActivityView] = for {
     posts <- a.posts ?? { p =>
       postApi.liteViewsByIds(p.value.map(_.value)) dmap some
     }
@@ -111,7 +112,4 @@ final class ActivityReadApi(
       _.flatMap { LightPov.ofUserId(_, userId) }.some.filter(_.nonEmpty)
     }
   }
-
-  private def makeIds(userId: User.ID, days: Int): List[Id] =
-    Day.recent(days).map { Id(userId, _) }
 }

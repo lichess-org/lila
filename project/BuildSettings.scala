@@ -43,10 +43,7 @@ object BuildSettings {
     )
       .dependsOn(deps: _*)
       .settings(
-        libraryDependencies ++= defaultLibs ++ libs ++ Seq(
-          compilerPlugin(silencer.plugin),
-          silencer.lib
-        ),
+        libraryDependencies ++= defaultLibs ++ libs ++ silencer.bundle,
         buildSettings,
         srcMain
       )
@@ -62,9 +59,8 @@ object BuildSettings {
     "-Ywarn-macros:after",
     "-Ywarn-unused:_",
     "-Xfatal-warnings",
-    "-Xmaxerrs", "6",
-    "-Xmaxwarns", "6",
-    "-P:silencer:pathFilters=modules/i18n/target"
+    "-Xmaxerrs", "12",
+    "-Xmaxwarns", "12"
   )
 
   val srcMain = Seq(

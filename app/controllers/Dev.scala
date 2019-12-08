@@ -19,15 +19,15 @@ final class Dev(env: Env) extends LilaController(env) {
     env.plan.donationGoalSetting
   )
 
-  def settings = Secure(_.Settings) { implicit ctx => me =>
+  def settings = Secure(_.Settings) { implicit ctx => _ =>
     Ok(html.dev.settings(settingsList)).fuccess
   }
 
-  def settingsPost(id: String) = SecureBody(_.Settings) { implicit ctx => me =>
+  def settingsPost(id: String) = SecureBody(_.Settings) { implicit ctx => _ =>
     settingsList.find(_.id == id) ?? { setting =>
       implicit val req = ctx.body
       setting.form.bindFromRequest.fold(
-        err => BadRequest(html.dev.settings(settingsList)).fuccess,
+        _ => BadRequest(html.dev.settings(settingsList)).fuccess,
         v => setting.setString(v.toString) inject Redirect(routes.Dev.settings)
       )
     }
@@ -37,7 +37,7 @@ final class Dev(env: Env) extends LilaController(env) {
     "command" -> nonEmptyText
   ))
 
-  def cli = Secure(_.Cli) { implicit ctx => me =>
+  def cli = Secure(_.Cli) { implicit ctx => _ =>
     Ok(html.dev.cli(commandForm, none)).fuccess
   }
 

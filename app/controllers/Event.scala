@@ -13,19 +13,19 @@ final class Event(env: Env) extends LilaController(env) {
     }
   }
 
-  def manager = Secure(_.ManageEvent) { implicit ctx => me =>
+  def manager = Secure(_.ManageEvent) { implicit ctx => _ =>
     api.list map { events =>
       html.event.manager(events)
     }
   }
 
-  def edit(id: String) = Secure(_.ManageEvent) { implicit ctx => me =>
+  def edit(id: String) = Secure(_.ManageEvent) { implicit ctx => _ =>
     OptionOk(api one id) { event =>
       html.event.edit(event, api editForm event)
     }
   }
 
-  def update(id: String) = SecureBody(_.ManageEvent) { implicit ctx => me =>
+  def update(id: String) = SecureBody(_.ManageEvent) { implicit ctx => _ =>
     OptionFuResult(api one id) { event =>
       implicit val req = ctx.body
       api.editForm(event).bindFromRequest.fold(
@@ -35,7 +35,7 @@ final class Event(env: Env) extends LilaController(env) {
     }
   }
 
-  def form = Secure(_.ManageEvent) { implicit ctx => me =>
+  def form = Secure(_.ManageEvent) { implicit ctx => _ =>
     Ok(html.event.create(api.createForm)).fuccess
   }
 
@@ -49,7 +49,7 @@ final class Event(env: Env) extends LilaController(env) {
     )
   }
 
-  def cloneE(id: String) = Secure(_.ManageEvent) { implicit ctx => me =>
+  def cloneE(id: String) = Secure(_.ManageEvent) { implicit ctx => _ =>
     OptionFuResult(api one id) { old =>
       val event = api clone old
       Ok(html.event.create(api editForm event)).fuccess

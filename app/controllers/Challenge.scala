@@ -106,7 +106,7 @@ final class Challenge(
       cookieOption.fold(res) { res.withCookies(_) }
     }
 
-  def decline(id: String) = Auth { implicit ctx => me =>
+  def decline(id: String) = Auth { implicit ctx => _ =>
     OptionFuResult(api byId id) { c =>
       if (isForMe(c)) api decline c
       else notFound
@@ -129,7 +129,7 @@ final class Challenge(
     }
   }
 
-  def toFriend(id: String) = AuthBody { implicit ctx => me =>
+  def toFriend(id: String) = AuthBody { implicit ctx => _ =>
     import play.api.data._
     import play.api.data.Forms._
     implicit def req = ctx.body
@@ -137,7 +137,7 @@ final class Challenge(
       if (isMine(c)) Form(single(
         "username" -> lila.user.DataForm.historicalUsernameField
       )).bindFromRequest.fold(
-        err => funit,
+        _ => funit,
         username => env.user.repo named username flatMap {
           case None => Redirect(routes.Challenge.show(c.id)).fuccess
           case Some(dest) => env.challenge.granter(ctx.me, dest, c.perfType.some) flatMap {
