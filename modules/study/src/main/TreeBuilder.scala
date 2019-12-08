@@ -8,7 +8,7 @@ object TreeBuilder {
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: Variant) = {
+  def apply(root: Node.Root, variant: Variant): tree.Root = {
     val dests =
       if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
       else {
@@ -37,7 +37,7 @@ object TreeBuilder {
       forceVariation = node.forceVariation
     )
 
-  def makeRoot(root: Node.Root, variant: Variant) =
+  def makeRoot(root: Node.Root, variant: Variant): tree.Root =
     tree.Root(
       ply = root.ply,
       fen = root.fen.value,

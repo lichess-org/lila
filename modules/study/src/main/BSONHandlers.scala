@@ -7,6 +7,7 @@ import chess.{ Centis, Pos, Role, PromotableRole }
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.util.Success
+import scala.util.Try
 
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
@@ -150,26 +151,16 @@ object BSONHandlers {
     )
   }
 
-  implicit val ChildrenBSONHandler: BSONHandler[Node.Children] =
-    implicitly[BSONHandler[Vector[Node]]].as[Node.Children](Node.Children.apply, _.nodes)
-  // private val nodesHandler = implicitly[BSONHandler[Vector[Node]]]
-  // tryHandler[Node.Children](
-  // { case Barr(v) => nodesHandler readTry b map Node.Children }
-  // }
-  // catch {
-  //   case e: StackOverflowError =>
-  //     println(s"study handler ${e.toString}")
-  //     Node.emptyChildren
-  // }
-  // def write(x: Node.Children) = try {
-  //   nodesHandler write x.nodes
-  // }
-  // catch {
-  //   case e: StackOverflowError =>
-  //     println(s"study handler ${e.toString}")
-  //     $arr()
-  // }
-  // }
+  implicit val ChildrenBSONHandler: BSONHandler[Node.Children] = tryHandler[Node.Children](
+    {
+      case arr: BSONArray => Try {
+        Node.Children(
+          arr.values.view.map(v => NodeBSONHandler.readTry(v).get).toVector
+        )
+      }
+    },
+    children => BSONArray(children.nodes map { n => NodeBSONHandler.writeTry(n).get })
+  )
 
   implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
