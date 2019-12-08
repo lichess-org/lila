@@ -28,13 +28,17 @@ object BuildSettings {
 
   def defaultLibs: Seq[ModuleID] = Seq(
     play.api, scalaz, chess, scalalib, jodaTime, ws,
-    macwire.macros, macwire.util, autoconfig
-  ) // , specs2, specs2Scalaz)
+    macwire.macros, macwire.util, autoconfig // , specs2, specs2Scalaz)
+  ) map configureLib
+
+  def configureLib(lib: ModuleID) = {
+    if (lib.configurations.isEmpty) lib % "provided"
+    else lib
+  }
 
   def module(
     name: String,
-    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-    libs: Seq[ModuleID]
+    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]]
   ) =
     Project(
       name,
@@ -43,7 +47,7 @@ object BuildSettings {
       .dependsOn(deps: _*)
       .settings(
         version := "3.0",
-        libraryDependencies ++= defaultLibs ++ libs,
+        libraryDependencies ++= defaultLibs,
         buildSettings,
         srcMain
       )
