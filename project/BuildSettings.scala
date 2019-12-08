@@ -58,7 +58,7 @@ object BuildSettings {
     "-Xlint:_",
     "-Ywarn-macros:after",
     "-Ywarn-unused:_",
-    "-Xfatal-warnings",
+    // "-Xfatal-warnings",
     "-Xmaxerrs", "12",
     "-Xmaxwarns", "12"
   )
