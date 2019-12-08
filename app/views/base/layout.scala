@@ -1,14 +1,13 @@
 package views.html.base
 
-import play.api.libs.json.Json
 import play.api.i18n.Lang
+import play.api.libs.json.Json
 
 import lila.api.{ Context, AnnounceStore }
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.common.ContentSecurityPolicy
-import lila.pref.Pref
+import lila.common.String.html.safeJsonValue
 
 import controllers.routes
 
@@ -96,7 +95,6 @@ object layout {
   private val dataUser = attr("data-user")
   private val dataSoundSet = attr("data-sound-set")
   private val dataSocketDomain = attr("data-socket-domain")
-  private val dataZoom = attr("data-zoom")
   private val dataPreload = attr("data-preload")
   private val dataNonce = attr("data-nonce")
   private val dataAnnounce = attr("data-announce")
@@ -183,37 +181,33 @@ object layout {
             "is2d" -> ctx.pref.is2d,
             "is3d" -> ctx.pref.is3d
           ))(body),
-          ctx.me.map { me =>
-            div(
-              id := "friend_box",
-              dataPreload := safeJsonValue(Json.obj(
-                "users" -> ctx.onlineFriends.users.map(_.titleName),
-                "playing" -> ctx.onlineFriends.playing,
-                "patrons" -> ctx.onlineFriends.patrons,
-                "studying" -> ctx.onlineFriends.studying,
-                "i18n" -> i18nJsObject(List(
-                  trans.nbFriendsOnline
-                ))
-              ))
-            )(
-                div(cls := "friend_box_title") {
-                  val count = ctx.onlineFriends.users.size
-                  trans.nbFriendsOnline.plural(count, strong(count))
-                },
-                div(cls := "content_wrap")(
-                  div(cls := "content list"),
-                  div(cls := List(
-                    "nobody" -> true,
-                    "none" -> ctx.onlineFriends.users.nonEmpty
-                  ))(
-                    span(trans.noFriendsOnline()),
-                    a(cls := "find button", href := routes.User.opponents)(
-                      span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
-                    )
+          ctx.isAuth option div(
+            id := "friend_box",
+            dataPreload := safeJsonValue(Json.obj(
+              "users" -> ctx.onlineFriends.users.map(_.titleName),
+              "playing" -> ctx.onlineFriends.playing,
+              "patrons" -> ctx.onlineFriends.patrons,
+              "studying" -> ctx.onlineFriends.studying,
+              "i18n" -> i18nJsObject(List(trans.nbFriendsOnline))
+            ))
+          )(
+              div(cls := "friend_box_title") {
+                val count = ctx.onlineFriends.users.size
+                trans.nbFriendsOnline.plural(count, strong(count))
+              },
+              div(cls := "content_wrap")(
+                div(cls := "content list"),
+                div(cls := List(
+                  "nobody" -> true,
+                  "none" -> ctx.onlineFriends.users.nonEmpty
+                ))(
+                  span(trans.noFriendsOnline()),
+                  a(cls := "find button", href := routes.User.opponents)(
+                    span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
                   )
                 )
               )
-          },
+            ),
           a(id := "reconnecting", cls := "link text", dataIcon := "B")(trans.reconnecting()),
           chessground option jsTag("vendor/chessground.min.js"),
           ctx.requiresFingerprint option fingerprintTag,

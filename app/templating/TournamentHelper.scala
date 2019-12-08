@@ -4,7 +4,7 @@ package templating
 import controllers.routes
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.{ Tournament, Schedule }
-import lila.user.{ User, UserContext }
+import lila.user.User
 
 import play.api.libs.json.Json
 

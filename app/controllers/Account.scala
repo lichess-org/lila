@@ -132,7 +132,7 @@ final class Account(
   def email = Auth { implicit ctx => me =>
     if (getBool("check")) Ok(renderCheckYourEmail).fuccess
     else emailForm(me) map { form =>
-      Ok(html.account.email(me, form))
+      Ok(html.account.email(form))
     }
   }
 
@@ -152,7 +152,7 @@ final class Account(
       implicit val req = ctx.body
       env.security.forms.preloadEmailDns >> emailForm(me).flatMap { form =>
         FormFuResult(form) { err =>
-          fuccess(html.account.email(me, err))
+          fuccess(html.account.email(err))
         } { data =>
           val email = env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)

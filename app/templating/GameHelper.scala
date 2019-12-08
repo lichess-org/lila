@@ -240,7 +240,6 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     val cssClass = isLive ?? ("live mini-board-" + game.id)
     val variant = game.variant.key
     val tag = if (withLink) a else span
-    val classes = s"mini-board mini-board-${game.id} cg-wrap parse-fen is2d $cssClass $variant"
     tag(
       href := withLink.option(gameLink(game, pov.color, ownerLink, tv)),
       title := withTitle.option(gameTitle(game, pov.color)),
@@ -270,7 +269,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     )(cgWrapContent)
   }
 
-  def challengeTitle(c: lila.challenge.Challenge)(implicit ctx: UserContext) = {
+  def challengeTitle(c: lila.challenge.Challenge) = {
     val speed = c.clock.map(_.config).fold(chess.Speed.Correspondence.name) { clock =>
       s"${chess.Speed(clock).name} (${clock.show})"
     }
@@ -285,7 +284,7 @@ trait GameHelper { self: I18nHelper with UserHelper with AiHelper with StringHel
     s"$speed$variant ${c.mode.name} Chess • $players"
   }
 
-  def challengeOpenGraph(c: lila.challenge.Challenge)(implicit ctx: UserContext) =
+  def challengeOpenGraph(c: lila.challenge.Challenge) =
     lila.app.ui.OpenGraph(
       title = challengeTitle(c),
       url = s"$netBaseUrl${routes.Round.watcher(c.id, chess.White.name).url}",

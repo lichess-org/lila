@@ -13,15 +13,13 @@ object list {
     name = trans.search.txt() + " \"" + text + "\"",
     teams = teams,
     nextPageUrl = n => routes.Team.search(text, n).url,
-    tab = "all",
     search = text
   )
 
   def all(teams: Paginator[lila.team.Team])(implicit ctx: Context) = list(
     name = trans.teams.txt(),
     teams = teams,
-    nextPageUrl = n => routes.Team.all(n).url,
-    tab = "all"
+    nextPageUrl = n => routes.Team.all(n).url
   )
 
   def mine(teams: List[lila.team.Team])(implicit ctx: Context) =
@@ -49,7 +47,6 @@ object list {
     name: String,
     teams: Paginator[lila.team.Team],
     nextPageUrl: Int => String,
-    tab: String,
     search: String = ""
   )(implicit ctx: Context) =
     bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {

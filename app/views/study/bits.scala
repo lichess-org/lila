@@ -4,7 +4,6 @@ package study
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.User
 
 import controllers.routes
 
@@ -15,7 +14,7 @@ object bits {
       submitButton(cls := "button button-green", dataIcon := "O", title := trans.study.createStudy.txt())
     )
 
-  def authLinks(me: User, active: String, order: lila.study.Order)(implicit ctx: Context) = {
+  def authLinks(active: String, order: lila.study.Order)(implicit ctx: Context) = {
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),

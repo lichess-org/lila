@@ -110,7 +110,7 @@ final class Study(
   def mineLikes(order: String, page: Int) = Auth { implicit ctx => me =>
     env.study.pager.mineLikes(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.list.mineLikes(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mineLikes(pag, Order(order))).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -201,7 +201,7 @@ final class Study(
     }
   }
 
-  def chapterMeta(id: String, chapterId: String) = Open { implicit ctx =>
+  def chapterMeta(id: String, chapterId: String) = Open { _ =>
     env.study.chapterRepo.byId(chapterId).map {
       _.filter(_.studyId.value == id) ?? { chapter =>
         Ok(env.study.jsonView.chapterConfig(chapter))
@@ -219,7 +219,7 @@ final class Study(
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lila.study.DataForm.importGame.form.bindFromRequest.fold(
-      err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+      _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => for {
         owner <- env.study.studyRepo.recentByOwner(me.id, 50)
         contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
@@ -232,7 +232,7 @@ final class Study(
   def create = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     lila.study.DataForm.importGame.form.bindFromRequest.fold(
-      err => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
+      _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
       data => createStudy(data, me)
     )
   }
@@ -244,13 +244,13 @@ final class Study(
       }
     }
 
-  def delete(id: String) = Auth { implicit ctx => me =>
+  def delete(id: String) = Auth { _ => me =>
     env.study.api.byIdAndOwner(id, me) flatMap {
       _ ?? env.study.api.delete
     } inject Redirect(routes.Study.mine("hot"))
   }
 
-  def clearChat(id: String) = Auth { implicit ctx => me =>
+  def clearChat(id: String) = Auth { _ => me =>
     env.study.api.isOwner(id, me) flatMap {
       _ ?? env.chat.api.userChat.clear(Chat.Id(id))
     } inject Redirect(routes.Study.show(id))
@@ -298,7 +298,7 @@ final class Study(
   private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
     fuccess(NotFound(html.study.embed.notFound))
 
-  def cloneStudy(id: String) = Auth { implicit ctx => me =>
+  def cloneStudy(id: String) = Auth { implicit ctx => _ =>
     OptionFuResult(env.study.api.byId(id)) { study =>
       CanViewResult(study) {
         Ok(html.study.clone(study)).fuccess

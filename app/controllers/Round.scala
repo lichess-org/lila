@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.game.{ Pov, Game => GameModel, PgnDump, PlayerRef }
+import lila.game.{ Pov, Game => GameModel, PgnDump }
 import lila.tournament.{ TourMiniView, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
@@ -76,7 +76,7 @@ final class Round(
     }
   }
 
-  private def getNext(currentGame: GameModel)(povs: List[Pov])(implicit ctx: Context) =
+  private def getNext(currentGame: GameModel)(povs: List[Pov]) =
     povs find { pov =>
       pov.isMyTurn && (pov.game.hasClock || !currentGame.hasClock)
     }
@@ -192,7 +192,7 @@ final class Round(
       case (Some(tid), _) => {
         ctx.isAuth && tour.fold(true)(tournamentC.canHaveChat(_, none))
       } ?? env.chat.api.userChat.cached.findMine(Chat.Id(tid), ctx.me).map(toEventChat(s"tournament/$tid"))
-      case (_, Some(sid)) => game.simulId.?? { sid =>
+      case (_, Some(_)) => game.simulId.?? { sid =>
         env.chat.api.userChat.cached.findMine(Chat.Id(sid), ctx.me).map(toEventChat(s"simul/$sid"))
       }
       case _ => game.hasChat ?? {
@@ -224,12 +224,12 @@ final class Round(
     import play.api.data._
     implicit val req = ctx.body
     Form(single("text" -> text)).bindFromRequest.fold(
-      err => fuccess(BadRequest),
+      _ => fuccess(BadRequest),
       text => env.round.noteApi.set(gameId, me.id, text.trim take 10000)
     )
   }
 
-  def readNote(gameId: String) = Auth { implicit ctx => me =>
+  def readNote(gameId: String) = Auth { _ => me =>
     env.round.noteApi.get(gameId, me.id) map { text =>
       Ok(text)
     }

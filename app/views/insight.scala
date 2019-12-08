@@ -87,7 +87,7 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${
       )
     )
 
-  def refreshForm(u: User, action: String)(implicit ctx: Context) =
+  def refreshForm(u: User, action: String) =
     postForm(cls := "insight-refresh", st.action := routes.Insight.refresh(u.username))(
       button(dataIcon := "E", cls := "button text")(action),
       div(cls := "crunching none")(

@@ -1,6 +1,5 @@
 package controllers
 
-import lila.api._
 import lila.user.UserContext
 import lila.common.Form.trueish
 import lila.common.IsMobile

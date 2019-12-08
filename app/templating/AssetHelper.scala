@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import controllers.routes
 import play.api.mvc.RequestHeader
 
 import lila.api.Context
@@ -38,7 +37,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def cssTagWithTheme(name: String, theme: String): Frag =
     cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
 
-  def cssTagNoTheme(name: String)(implicit ctx: Context): Frag =
+  def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
   private def cssAt(path: String): Frag =

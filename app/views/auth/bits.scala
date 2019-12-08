@@ -104,7 +104,7 @@ object bits {
         )
       }
 
-  def magicLinkSent(email: String)(implicit ctx: Context) =
+  def magicLinkSent(implicit ctx: Context) =
     views.html.base.layout(
       title = "Log in by email"
     ) {

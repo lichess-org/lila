@@ -140,7 +140,6 @@ final class Message(env: Env) extends LilaController(env) {
           f(forms thread me),
           reqUser = user,
           reqTitle = title,
-          reqMod = getBool("mod"),
           canMessage = canMessage || Granter(_.MessageAnyone)(me),
           oldEnough = env.chat.panic.allowed(me)
         )

@@ -8,7 +8,6 @@ import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
 import lila.hub.LightTeam
-import lila.hub.LightTeam._
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel }
 import lila.user.{ User => UserModel }
@@ -62,7 +61,7 @@ final class Team(
     }
   }
 
-  def edit(id: String) = Auth { implicit ctx => me =>
+  def edit(id: String) = Auth { implicit ctx => _ =>
     OptionFuResult(api team id) { team =>
       Owner(team) { fuccess(html.team.form.edit(team, forms edit team)) }
     }
@@ -98,7 +97,7 @@ final class Team(
       }
     }
   }
-  def kickUser(teamId: String, userId: String) = Scoped(_.Team.Write) { req => me =>
+  def kickUser(teamId: String, userId: String) = Scoped(_.Team.Write) { _ => me =>
     api team teamId flatMap {
       _ ?? { team =>
         if (team isCreator me.id) api.kick(team, userId, me) inject jsonOkResult
@@ -107,7 +106,7 @@ final class Team(
     }
   }
 
-  def changeOwnerForm(id: String) = Auth { implicit ctx => me =>
+  def changeOwnerForm(id: String) = Auth { implicit ctx => _ =>
     OptionFuResult(api team id) { team =>
       Owner(team) {
         env.team.memberRepo userIdsByTeam team.id map { userIds =>
@@ -219,7 +218,7 @@ final class Team(
     auth = ctx => me => OptionResult(api.quit(id, me)) { team =>
       Redirect(routes.Team.show(team.id))
     }(ctx),
-    scoped = req => me => api.quit(id, me) flatMap {
+    scoped = _ => me => api.quit(id, me) flatMap {
       _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
     }
   )

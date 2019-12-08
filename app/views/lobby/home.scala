@@ -1,12 +1,11 @@
 package views.html.lobby
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.mashup.Preload.Homepage
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.HTTPRequest
 import lila.common.String.html.safeJsonValue
 import lila.game.Pov
 
@@ -93,14 +92,13 @@ object home {
                 simuls.find(_.spotlightable).find(isFeaturable) map views.html.simul.bits.homepageSpotlight
               )
             ),
-            ctx.me map { u =>
-              div(cls := "timeline")(
-                ctx.blind option h2("Timeline"),
-                views.html.timeline entries userTimeline,
-                // userTimeline.size >= 8 option
-                userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
-              )
-            } getOrElse div(cls := "about-side")(
+            if (ctx.isAuth) div(cls := "timeline")(
+              ctx.blind option h2("Timeline"),
+              views.html.timeline entries userTimeline,
+              // userTimeline.size >= 8 option
+              userTimeline.nonEmpty option a(cls := "more", href := routes.Timeline.home)(trans.more(), " »")
+            )
+            else div(cls := "about-side")(
               ctx.blind option h2("About"),
               trans.xIsAFreeYLibreOpenSourceChessServer("Lichess", a(cls := "blue", href := routes.Plan.features)(trans.really.txt())),
               " ",

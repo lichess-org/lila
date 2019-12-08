@@ -9,7 +9,7 @@ import controllers.routes
 
 object email {
 
-  def apply(u: lila.user.User, form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
+  def apply(form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
     title = trans.changeEmail.txt(),
     active = "email"
   ) {

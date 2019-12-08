@@ -84,7 +84,7 @@ private object bits {
   def renderLabel(field: Field, content: Frag) =
     label(`for` := s"$prefix${field.id}")(content)
 
-  def renderTimeMode(form: Form[_], config: lila.setup.BaseConfig)(implicit ctx: Context) =
+  def renderTimeMode(form: Form[_])(implicit ctx: Context) =
     div(cls := "time_mode_config optional_config")(
       div(cls := "label_select")(
         renderLabel(form("timeMode"), trans.timeControl()),

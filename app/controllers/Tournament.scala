@@ -1,5 +1,6 @@
 package controllers
 
+import com.github.ghik.silencer.silent
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -7,10 +8,10 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.HTTPRequest
 import lila.common.config.MaxPerPage
+import lila.common.HTTPRequest
 import lila.hub.LightTeam._
-import lila.tournament.{ TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
+import lila.tournament.{ VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
 
@@ -64,7 +65,7 @@ final class Tournament(
     )
   }
 
-  def help(sysStr: Option[String]) = Open { implicit ctx =>
+  def help(@silent sysStr: Option[String]) = Open { implicit ctx =>
     Ok(html.tournament.faq.page).fuccess
   }
 
@@ -152,7 +153,7 @@ final class Tournament(
     }
   }
 
-  def player(tourId: String, userId: String) = Open { implicit ctx =>
+  def player(tourId: String, userId: String) = Open { _ =>
     env.tournament.tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
         JsonOk {
@@ -164,7 +165,7 @@ final class Tournament(
     }
   }
 
-  def teamInfo(tourId: String, teamId: String) = Open { implicit ctx =>
+  def teamInfo(tourId: String, teamId: String) = Open { _ =>
     env.tournament.tournamentRepo byId tourId flatMap {
       _ ?? { tour =>
         jsonView.teamInfo(tour, teamId) map {
@@ -213,7 +214,7 @@ final class Tournament(
   def form = Auth { implicit ctx => me =>
     NoLameOrBot {
       teamC.teamsIBelongTo(me) map { teams =>
-        Ok(html.tournament.form(forms(me), forms, me, teams))
+        Ok(html.tournament.form(forms(me), me, teams))
       }
     }
   }
@@ -222,7 +223,7 @@ final class Tournament(
     NoLameOrBot {
       env.team.api.owns(teamId, me.id) map {
         _ ?? {
-          Ok(html.tournament.form(forms(me, teamId.some), forms, me, Nil))
+          Ok(html.tournament.form(forms(me, teamId.some), me, Nil))
         }
       }
     }
@@ -252,7 +253,7 @@ final class Tournament(
         implicit val req = ctx.body
         negotiate(
           html = forms(me).bindFromRequest.fold(
-            err => BadRequest(html.tournament.form(err, forms, me, teams)).fuccess,
+            err => BadRequest(html.tournament.form(err, me, teams)).fuccess,
             setup => {
               val cost = if (me.hasTitle ||
                 env.streamer.liveStreamApi.isStreaming(me.id) ||

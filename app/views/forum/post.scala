@@ -10,7 +10,7 @@ import controllers.routes
 
 object post {
 
-  def recent(posts: List[lila.forum.MiniForumPost])(implicit ctx: Context) = ol(
+  def recent(posts: List[lila.forum.MiniForumPost]) = ol(
     posts map { p =>
       li(
         a(dataIcon := p.isTeam.option("f"), cls := "post_link text", href := routes.ForumPost.redirect(p.postId), title := p.topicName)(

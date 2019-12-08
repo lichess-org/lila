@@ -2,7 +2,6 @@ package views.html.board
 
 import play.api.i18n.Lang
 
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.i18n.{ I18nKeys => trans }
 

@@ -3,7 +3,6 @@ package views.html.tournament
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.rating.PerfType
 import lila.tournament.TournamentShield
 
 import controllers.routes

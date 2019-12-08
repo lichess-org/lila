@@ -3,7 +3,6 @@ package views.html.user
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.String.html.safeJsonValue
 import lila.rating.{ Perf, PerfType }
 import lila.perfStat.PerfStat
 import lila.user.User
@@ -170,7 +169,7 @@ object perfStat {
     )
   )
 
-  private def highlowSide(title: String, opt: Option[lila.perfStat.RatingAt], color: String)(implicit ctx: Context): Frag =
+  private def highlowSide(title: String, opt: Option[lila.perfStat.RatingAt], color: String): Frag =
     opt match {
       case Some(r) => div(
         h2(title, ": ", strong(tag(color)(r.int))),
@@ -184,7 +183,7 @@ object perfStat {
     highlowSide("Lowest rating", stat.lowest, "red")
   )
 
-  private def fromTo(s: lila.perfStat.Streak)(implicit ctx: Context): Frag =
+  private def fromTo(s: lila.perfStat.Streak): Frag =
     s.from match {
       case Some(from) => frag(
         "from ",
@@ -219,7 +218,7 @@ object perfStat {
     resultStreakSide(streak.loss, "Losing streak", "red")
   )
 
-  private def resultTable(results: lila.perfStat.Results, title: String)(implicit ctx: Context): Frag = div(
+  private def resultTable(results: lila.perfStat.Results, title: String): Frag = div(
     table(
       thead(
         tr(

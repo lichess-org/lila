@@ -136,7 +136,7 @@ object inquiry {
               button(in.user.engine)(dataIcon := "n"),
               autoNextInput
             ),
-            thenForms(in, url, button(false))
+            thenForms(url, button(false))
           )
         },
         isGranted(_.MarkBooster) option {
@@ -150,7 +150,7 @@ object inquiry {
               button(in.user.booster)(dataIcon := "9"),
               autoNextInput
             ),
-            thenForms(in, url, button(false))
+            thenForms(url, button(false))
           )
         },
         isGranted(_.Shadowban) option {
@@ -168,7 +168,7 @@ object inquiry {
                 button(in.user.troll)(dataIcon := "c"),
                 autoNextInput
               ),
-            thenForms(in, url, button(false))
+            thenForms(url, button(false))
           )
         },
         div(cls := "dropper more buttons")(
@@ -203,7 +203,7 @@ object inquiry {
   }
 
   private def thenInput(what: String) = input(tpe := "hidden", name := "then", value := what)
-  private def thenForms(in: lila.mod.Inquiry, url: String, button: Tag) = div(
+  private def thenForms(url: String, button: Tag) = div(
     postForm(
       action := url,
       button("And stay on this report"),

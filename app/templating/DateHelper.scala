@@ -84,7 +84,7 @@ trait DateHelper { self: I18nHelper =>
 
   def momentFromNowOnce(date: DateTime) = momentFromNow(date, once = true)
 
-  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false)(implicit ctx: Context) =
+  def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false) =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
   private val atomDateFormatter = ISODateTimeFormat.dateTime

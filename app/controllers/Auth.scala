@@ -1,5 +1,6 @@
 package controllers
 
+import com.github.ghik.silencer.silent
 import ornicar.scalalib.Zero
 import play.api.data.{ Form, FormError }
 import play.api.libs.json._
@@ -460,7 +461,7 @@ final class Auth(
           case Some((user, storedEmail)) => {
             MagicLinkRateLimit(user, storedEmail, ctx.req) {
               lila.mon.user.auth.magicLinkRequest("success")()
-              env.security.magicLink.send(user, storedEmail) inject Redirect(routes.Auth.magicLinkSent(storedEmail.conceal))
+              env.security.magicLink.send(user, storedEmail) inject Redirect(routes.Auth.magicLinkSent(storedEmail.value))
             }
           }
           case _ => {
@@ -473,9 +474,9 @@ final class Auth(
     )
   }
 
-  def magicLinkSent(email: String) = Open { implicit ctx =>
+  def magicLinkSent(@silent email: String) = Open { implicit ctx =>
     fuccess {
-      Ok(html.auth.bits.magicLinkSent(email))
+      Ok(html.auth.bits.magicLinkSent)
     }
   }
 

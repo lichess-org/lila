@@ -1,6 +1,6 @@
 package views.html.setup
 
-import play.api.data.{ Form, Field }
+import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -30,20 +30,18 @@ object filter {
             td(trans.mode()),
             td(renderCheckboxes(form, "mode", filter.mode.map(_.id.toString), translatedModeChoices))
           ),
-          ctx.me.map { me =>
-            tr(
-              td(trans.ratingRange()),
-              td(
-                label(cls := "range")("? - ?"),
-                div(cls := "rating-range")(
-                  renderInput(form("ratingRange"))(
-                    dataMin := RatingRange.min,
-                    dataMax := RatingRange.max
-                  )
+          ctx.isAuth option tr(
+            td(trans.ratingRange()),
+            td(
+              label(cls := "range")("? - ?"),
+              div(cls := "rating-range")(
+                renderInput(form("ratingRange"))(
+                  dataMin := RatingRange.min,
+                  dataMax := RatingRange.max
                 )
               )
             )
-          }
+          )
         )
       ),
       ctx.isAnon option frag(
@@ -62,7 +60,7 @@ object filter {
     key: String,
     checks: List[String],
     options: Seq[(Any, String, Option[String])]
-  )(implicit ctx: Context): Frag =
+  ): Frag =
     options.zipWithIndex.map {
       case ((value, text, hint), index) => div(cls := "checkable")(
         renderCheckbox(form, key, index, value.toString, checks, raw(text), hint)

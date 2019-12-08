@@ -55,7 +55,7 @@ final class Search(
                     }
                   ),
                   api = _ => searchForm.bindFromRequest.fold(
-                    failure => Ok(jsonError("Could not process search query")).fuccess,
+                    _ => Ok(jsonError("Could not process search query")).fuccess,
                     data => data.nonEmptyQuery ?? { query =>
                       env.gameSearch.paginator(query, page) map (_.some)
                     } flatMap {

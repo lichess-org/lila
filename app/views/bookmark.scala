@@ -8,8 +8,8 @@ import controllers.routes
 
 object bookmark {
 
-  def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: Context) = ctx.me map { m =>
-    a(cls := List(
+  def toggle(g: lila.game.Game, bookmarked: Boolean)(implicit ctx: Context) =
+    if (ctx.isAuth) a(cls := List(
       "bookmark" -> true,
       "bookmarked" -> bookmarked
     ), href := routes.Bookmark.toggle(g.id), title := trans.bookmarkThisGame.txt())(
@@ -17,9 +17,8 @@ object bookmark {
       iconTag("s")(cls := "off is3"),
       span(g.showBookmarks)
     )
-  } orElse {
-    g.hasBookmarks option span(cls := "bookmark")(
+    else if (g.hasBookmarks) span(cls := "bookmark")(
       span(dataIcon := "s", cls := "is3")(g.showBookmarks)
     )
-  }
+    else emptyFrag
 }

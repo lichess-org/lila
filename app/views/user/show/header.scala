@@ -1,7 +1,5 @@
 package views.html.user.show
 
-import play.api.data.Form
-
 import lila.api.Context
 import lila.app.mashup.UserInfo.Angle
 import lila.app.templating.Environment._
@@ -120,18 +118,18 @@ object header {
         )
       }
     ),
-    ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle) option claimTitle(u),
+    ((ctx is u) && u.perfs.bestStandardRating > 2500 && !u.hasTitle && !ctx.pref.hasSeenVerifyTitle) option
+      views.html.user.bits.claimTitle,
     isGranted(_.UserSpy) option div(cls := "mod-zone none"),
     angle match {
       case Angle.Games(Some(searchForm)) => views.html.search.user(u, searchForm)
       case _ =>
         val profile = u.profileOrDefault
         div(id := "us_profile")(
-          info.ratingChart.ifTrue(!u.lame || ctx.is(u) || isGranted(_.UserSpy)).map { ratingChart =>
+          if (info.ratingChart.isDefined && (!u.lame || ctx.is(u) || isGranted(_.UserSpy)))
             div(cls := "rating-history")(spinner)
-          } getOrElse {
-            ctx.is(u) option newPlayer(u)
-          },
+          else
+            ctx.is(u) option newPlayer(u),
           div(cls := "profile-side")(
             div(cls := "user-infos")(
               !ctx.is(u) option frag(

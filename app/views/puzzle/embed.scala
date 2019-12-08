@@ -1,7 +1,5 @@
 package views.html.puzzle
 
-import play.api.mvc.RequestHeader
-
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.app.ui.EmbedConfig

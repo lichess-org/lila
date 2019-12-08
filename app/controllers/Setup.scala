@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import chess.format.FEN
 import lila.api.{ Context, BodyContext }
 import lila.app._
-import lila.common.{ HTTPRequest, LilaCookie, IpAddress }
+import lila.common.{ HTTPRequest, IpAddress }
 import lila.game.{ Pov, AnonCookie }
 import lila.setup.Processor.HookResult
 import lila.setup.ValidFen

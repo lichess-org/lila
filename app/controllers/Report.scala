@@ -37,11 +37,10 @@ final class Report(
             Ok(html.report.list(reports, room, counts, streamers))
       }
 
-  def inquiry(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
-    for {
-      current <- api.inquiries ofModId me.id
-      newInquiry <- api.inquiries.toggle(AsMod(me), id)
-    } yield newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
+  def inquiry(id: String) = Secure(_.SeeReport) { _ => me =>
+    api.inquiries.toggle(AsMod(me), id) map { newInquiry =>
+      newInquiry.fold(Redirect(routes.Report.list))(onInquiryStart)
+    }
   }
 
   private def onInquiryStart(inquiry: ReportModel) =
@@ -66,7 +65,7 @@ final class Report(
         inquiry match {
           case None =>
             goTo.fold(Redirect(routes.Report.list).fuccess) { s =>
-              userC.modZoneOrRedirect(s.user.username, me)
+              userC.modZoneOrRedirect(s.user.username)
             }
           case Some(prev) =>
             def thenGoTo = dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
@@ -86,7 +85,7 @@ final class Report(
                       }
                     }
                   }
-                else if (force) userC.modZoneOrRedirect(prev.user, me)
+                else if (force) userC.modZoneOrRedirect(prev.user)
                 else api.inquiries.toggle(AsMod(me), prev.id) map {
                   _.fold(redirectToList)(onInquiryStart)
                 }
@@ -101,7 +100,7 @@ final class Report(
     }
   }
 
-  def xfiles(id: String) = Secure(_.SeeReport) { implicit ctx => me =>
+  def xfiles(id: String) = Secure(_.SeeReport) { _ => _ =>
     api.moveToXfiles(id) inject Redirect(routes.Report.list)
   }
 
@@ -115,7 +114,7 @@ final class Report(
     }
   }
 
-  def form = Auth { implicit ctx => implicit me =>
+  def form = Auth { implicit ctx => _ =>
     get("username") ?? env.user.repo.named flatMap { user =>
       env.report.forms.createWithCaptcha map {
         case (form, captcha) => Ok(html.report.form(form, user, captcha))
@@ -133,16 +132,15 @@ final class Report(
       },
       data =>
         if (data.user == me) notFound
-        else api.create(data candidate lila.report.Reporter(me)) map { report =>
+        else api.create(data candidate lila.report.Reporter(me)) inject
           Redirect(routes.Report.thanks(data.user.username))
-        }
     )
   }
 
   def flag = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
     env.report.forms.flag.bindFromRequest.fold(
-      err => BadRequest.fuccess,
+      _ => BadRequest.fuccess,
       data => env.user.repo named data.username flatMap {
         _ ?? { user =>
           if (user == me) BadRequest.fuccess

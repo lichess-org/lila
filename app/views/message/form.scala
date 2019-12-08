@@ -5,7 +5,6 @@ import play.api.data.Form
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.paginator.Paginator
 import lila.common.String.html.safeJsonValue
 
 import controllers.routes
@@ -16,7 +15,6 @@ object form {
     form: Form[_],
     reqUser: Option[lila.user.User],
     reqTitle: Option[String],
-    reqMod: Boolean,
     canMessage: Boolean,
     oldEnough: Boolean
   )(implicit ctx: Context) =

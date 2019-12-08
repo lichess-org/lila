@@ -1,7 +1,6 @@
 package controllers
 
 import play.api.http.ContentTypes
-import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
@@ -27,7 +26,7 @@ final class Tv(
     }
   }
 
-  def channels = apiC.ApiRequest { implicit ctx =>
+  def channels = apiC.ApiRequest { _ =>
     import play.api.libs.json._
     implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
     env.tv.tv.getChampions map {
@@ -47,7 +46,7 @@ final class Tv(
               env.game.crosstableApi.withMatchup(game) zip
               env.tv.tv.getChampions map {
                 case data ~ cross ~ champions => NoCache {
-                  Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
+                  Ok(html.tv.index(channel, champions, pov, data, cross, history))
                 }
               }
           },
@@ -67,7 +66,7 @@ final class Tv(
     }
   }
 
-  def feed = Action.async { req =>
+  def feed = Action.async {
     import makeTimeout.short
     import akka.pattern.ask
     import lila.round.TvBroadcast

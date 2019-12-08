@@ -5,7 +5,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.streamer.Stream.{ Twitch, YouTube }
+import lila.streamer.Stream.YouTube
 
 object show {
 

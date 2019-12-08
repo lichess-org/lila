@@ -89,11 +89,10 @@ object list {
                       r.atoms.size > 3 option i(cls := "more")("And ", (r.atoms.size - 3), " more")
                     ),
                     td(
-                      r.processedBy map { u =>
-                        postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
-                          submitButton(dataIcon := "G", cls := "text button button-metal")("Re-open")
-                        )
-                      } getOrElse postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
+                      if (r.processedBy.isDefined) postForm(action := routes.Report.inquiry(r.id), cls := "reopen")(
+                        submitButton(dataIcon := "G", cls := "text button button-metal")("Re-open")
+                      )
+                      else postForm(action := routes.Report.inquiry(r.id), cls := "inquiry")(
                         submitButton(dataIcon := "G", cls := "button button-metal")
                       ),
                       postForm(action := routes.Report.process(r.id), cls := "cancel")(

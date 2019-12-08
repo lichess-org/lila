@@ -7,13 +7,11 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.hub.LightTeam._
 import lila.simul.{ Simul => Sim }
 import views._
 
 final class Simul(
     env: Env,
-    teamC: => Team,
     apiC: => Team
 ) extends LilaController(env) {
 
@@ -112,7 +110,7 @@ final class Simul(
     AsHost(simulId) { simul =>
       implicit val req = ctx.body
       forms.setText.bindFromRequest.fold(
-        err => BadRequest,
+        _ => BadRequest,
         text => {
           env.simul.api.setText(simul.id, text)
           jsonOkResult

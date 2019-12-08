@@ -8,8 +8,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 
-import controllers.routes
-
 object show {
 
   def apply(

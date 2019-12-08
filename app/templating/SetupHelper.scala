@@ -56,7 +56,7 @@ trait SetupHelper { self: I18nHelper =>
     (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
   )
 
-  private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): SelectChoice =
+  private def variantTuple(variant: chess.variant.Variant): SelectChoice =
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(

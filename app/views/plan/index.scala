@@ -3,7 +3,6 @@ package views.html.plan
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.pref.PrefCateg
 
 import controllers.routes
 
@@ -220,7 +219,7 @@ object index {
       }
   }
 
-  private def faq(implicit ctx: Context) = div(cls := "faq")(
+  private def faq = div(cls := "faq")(
     dl(
       dt("Where does the money go?"),
       dd(

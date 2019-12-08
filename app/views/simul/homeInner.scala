@@ -1,7 +1,5 @@
 package views.html.simul
 
-import play.api.libs.json.Json
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -74,7 +72,7 @@ object homeInner {
       )
     )
 
-  private def simTd(sim: lila.simul.Simul)(implicit ctx: Context) =
+  private def simTd(sim: lila.simul.Simul) =
     td(cls := "header")(
       a(href := routes.Simul.show(sim.id))(
         span(cls := "name")(sim.fullName),

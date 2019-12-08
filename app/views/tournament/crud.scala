@@ -7,7 +7,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.paginator.Paginator
-import lila.rating.PerfType
 import lila.tournament.crud.CrudForm
 import lila.tournament.{ DataForm, Tournament }
 

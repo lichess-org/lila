@@ -25,7 +25,7 @@ object bits {
       )
     )
 
-  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300)(implicit ctx: Context) = s.picturePath match {
+  def pic(s: lila.streamer.Streamer, u: User, size: Int = 300) = s.picturePath match {
     case Some(path) => img(
       width := size,
       height := size,

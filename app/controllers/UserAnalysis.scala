@@ -11,7 +11,6 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.game.Pov
-import lila.i18n.I18nKeys
 import lila.round.Forecast.{ forecastStepJsonFormat, forecastJsonWriter }
 import lila.round.JsonView.WithFlags
 import views._
@@ -86,9 +85,8 @@ final class UserAnalysis(
     env.game.gameRepo initialFen pov.gameId flatMap { initialFen =>
       gameC.preloadUsers(pov.game) zip
         (env.analyse.analyser get pov.game) zip
-        env.game.crosstableApi(pov.game) zip
-        env.bookmark.api.exists(pov.game, ctx.me) flatMap {
-          case _ ~ analysis ~ crosstable ~ bookmarked =>
+        env.game.crosstableApi(pov.game) flatMap {
+          case _ ~ analysis ~ crosstable =>
             import lila.game.JsonView.crosstableWrites
             env.api.roundApi.review(pov, apiVersion,
               tv = none,
@@ -117,7 +115,7 @@ final class UserAnalysis(
     ).map(_ as JSON)
   }
 
-  def forecasts(fullId: String) = AuthBody(parse.json) { implicit ctx => me =>
+  def forecasts(fullId: String) = AuthBody(parse.json) { implicit ctx => _ =>
     import lila.round.Forecast
     OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)
@@ -134,7 +132,7 @@ final class UserAnalysis(
     }
   }
 
-  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(parse.json) { implicit ctx => me =>
+  def forecastsOnMyTurn(fullId: String, uci: String) = AuthBody(parse.json) { implicit ctx => _ =>
     import lila.round.Forecast
     OptionFuResult(env.round.proxyRepo pov fullId) { pov =>
       if (isTheft(pov)) fuccess(theftResponse)

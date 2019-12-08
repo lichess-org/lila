@@ -2,9 +2,9 @@ package lila.app
 package mashup
 
 import lila.forum.MiniForumPost
-import lila.team.{ Team, RequestRepo, MemberRepo, RequestWithUser, TeamApi }
+import lila.team.{ Team, RequestRepo, RequestWithUser, TeamApi }
 import lila.tournament.{ Tournament, TournamentRepo }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 case class TeamInfo(
     mine: Boolean,
@@ -26,8 +26,8 @@ final class TeamInfoApi(
     categApi: lila.forum.CategApi,
     forumRecent: lila.forum.Recent,
     teamCached: lila.team.Cached,
-    tournamentRepo: lila.tournament.TournamentRepo,
-    requestRepo: lila.team.RequestRepo
+    tournamentRepo: TournamentRepo,
+    requestRepo: RequestRepo
 ) {
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] = for {

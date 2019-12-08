@@ -1,13 +1,12 @@
 package views.html
 package tournament
 
-import play.api.data.{ Field, Form }
+import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.Tournament
-import lila.user.User
 
 import controllers.routes
 

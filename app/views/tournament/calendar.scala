@@ -7,8 +7,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
 
-import controllers.routes
-
 object calendar {
 
   def apply(json: play.api.libs.json.JsObject)(implicit ctx: Context) = views.html.base.layout(

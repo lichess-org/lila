@@ -24,7 +24,7 @@ final class Streamer(
     } yield Ok(html.streamer.index(live, pager, requests))
   }
 
-  def live = apiC.ApiRequest { implicit ctx =>
+  def live = apiC.ApiRequest { _ =>
     env.user.lightUserApi asyncMany env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map { users =>
       val playingIds = env.relation.online.playing intersect users.map(_.id)
       apiC.toApiResult {
@@ -63,7 +63,7 @@ final class Streamer(
       env.user.noteApi.forMod(user.id) map some
   }
 
-  def edit = Auth { implicit ctx => me =>
+  def edit = Auth { implicit ctx => _ =>
     AsStreamer { s =>
       env.streamer.liveStreamApi of s flatMap { sws =>
         modData(s.user) map { forMod =>
@@ -93,7 +93,7 @@ final class Streamer(
     }
   }
 
-  def approvalRequest = AuthBody { implicit ctx => me =>
+  def approvalRequest = AuthBody { _ => me =>
     api.approval.request(me) inject Redirect(routes.Streamer.edit)
   }
 

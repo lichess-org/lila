@@ -2,9 +2,7 @@ package lila.app
 package http
 
 import akka.stream.Materializer
-import play.api.Logging
 import play.api.mvc._
-import play.api.routing._
 
 import lila.common.HTTPRequest
 

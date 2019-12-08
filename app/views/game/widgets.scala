@@ -6,8 +6,6 @@ import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.game.{ Game, Pov, Player }
 
-import controllers.routes
-
 object widgets {
 
   private val separator = " • "
@@ -15,8 +13,7 @@ object widgets {
   def apply(
     games: Seq[Game],
     user: Option[lila.user.User] = None,
-    ownerLink: Boolean = false,
-    mini: Boolean = false
+    ownerLink: Boolean = false
   )(implicit ctx: Context): Frag = games map { g =>
     val fromPlayer = user flatMap g.player
     val firstPlayer = fromPlayer | g.firstPlayer
@@ -56,9 +53,9 @@ object widgets {
           )
         ),
         div(cls := "versus")(
-          gamePlayer(g.variant, g.whitePlayer),
+          gamePlayer(g.whitePlayer),
           div(cls := "swords", dataIcon := "U"),
-          gamePlayer(g.variant, g.blackPlayer)
+          gamePlayer(g.blackPlayer)
         ),
         div(cls := "result")(
           if (g.isBeingPlayed) trans.playingRightNow() else {
@@ -114,7 +111,7 @@ object widgets {
 
   private lazy val anonSpan = span(cls := "anon")(lila.user.User.anonymous)
 
-  private def gamePlayer(variant: chess.variant.Variant, player: Player)(implicit ctx: Context) =
+  private def gamePlayer(player: Player)(implicit ctx: Context) =
     div(cls := s"player ${player.color.name}")(
       player.playerUser map { playerUser =>
         frag(

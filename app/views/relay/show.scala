@@ -7,7 +7,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.safeJsonValue
-import lila.game.Pov
 
 import controllers.routes
 
@@ -65,7 +64,7 @@ object show {
       views.html.study.bits.streamers(streams)
     ))
 
-  def widget(r: lila.relay.Relay.WithStudyAndLiked, extraCls: String = "")(implicit ctx: Context) =
+  def widget(r: lila.relay.Relay.WithStudyAndLiked, extraCls: String = "") =
     div(cls := s"relay-widget $extraCls", dataIcon := "")(
       a(cls := "overlay", href := routes.Relay.show(r.relay.slug, r.relay.id.value)),
       div(

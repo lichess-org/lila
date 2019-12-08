@@ -12,7 +12,6 @@ import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.app.mashup.{ GameFilterMenu, GameFilter }
 import lila.common.paginator.Paginator
-import lila.common.Json._
 import lila.common.{ IpAddress, HTTPRequest }
 import lila.game.{ Pov, Game => GameModel }
 import lila.rating.PerfType
@@ -73,8 +72,7 @@ final class User(
         info <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
       } yield status(html.user.show.page.activity(u, as, info, social))
-    }
-    else env.activity.read.recent(u) map { as =>
+    } else env.activity.read.recent(u) map { as =>
       status(html.activity(u, as))
     }
 
@@ -208,14 +206,12 @@ final class User(
     negotiate(
       html = for {
         nbAllTime <- env.user.cached topNbGame nb
-        nbDay <- fuccess(Nil)
         tourneyWinners <- env.tournament.winners.all.map(_.top)
         _ <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
       } yield Ok(html.user.list(
         tourneyWinners = tourneyWinners,
         online = env.user.cached.getTop50Online,
         leaderboards = leaderboards,
-        nbDay = nbDay,
         nbAllTime = nbAllTime
       )),
       api = _ => fuccess {
@@ -262,19 +258,19 @@ final class User(
     )
   }
 
-  def mod(username: String) = Secure(_.UserSpy) { implicit ctx => me =>
-    modZoneOrRedirect(username, me)
+  def mod(username: String) = Secure(_.UserSpy) { implicit ctx => _ =>
+    modZoneOrRedirect(username)
   }
 
-  protected[controllers] def modZoneOrRedirect(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] =
-    if (HTTPRequest isEventSource ctx.req) renderModZone(username, me)
+  protected[controllers] def modZoneOrRedirect(username: String)(implicit ctx: Context): Fu[Result] =
+    if (HTTPRequest isEventSource ctx.req) renderModZone(username)
     else fuccess(modC.redirect(username))
 
   private def futureToSource[A](fu: Fu[Option[A]]): Source[A, _] = Source futureSource {
     fu.map(_.fold(Source.empty[A])(Source.single))
   }
 
-  protected[controllers] def renderModZone(username: String, me: UserModel)(implicit ctx: Context): Fu[Result] = {
+  protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {
       case UserModel.WithEmails(user, emails) =>
         val parts =
@@ -300,7 +296,7 @@ final class User(
             }
         }
         val identification = spyFu map { spy =>
-          html.user.mod.identification(user, spy, env.security.printBan.blocks).some
+          html.user.mod.identification(spy, env.security.printBan.blocks).some
         }
         val irwin = env.irwin.api.reports.withPovs(user) map {
           _ ?? { reps =>
@@ -440,7 +436,7 @@ final class User(
     }
   }
 
-  def myself = Auth { ctx => me =>
+  def myself = Auth { _ => me =>
     fuccess(Redirect(routes.User.show(me.username)))
   }
 }

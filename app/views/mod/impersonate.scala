@@ -1,6 +1,5 @@
 package views.html.mod
 
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 
@@ -8,7 +7,7 @@ import controllers.routes
 
 object impersonate {
 
-  def apply(user: lila.user.User)(implicit ctx: Context) =
+  def apply(user: lila.user.User) =
     div(id := "impersonate")(
       div(cls := "meat")(
         "You are impersonating ",

@@ -15,7 +15,6 @@ object list {
     tourneyWinners: List[lila.tournament.Winner],
     online: List[User],
     leaderboards: lila.user.Perfs.Leaderboards,
-    nbDay: List[User.LightCount],
     nbAllTime: List[User.LightCount]
   )(implicit ctx: Context) = views.html.base.layout(
     title = trans.players.txt(),
@@ -93,7 +92,7 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char] = None)(implicit ctx: Context) =
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit ctx: Context) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>
