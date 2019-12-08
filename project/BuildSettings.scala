@@ -26,12 +26,16 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(
-    scalaz, chess, scalalib, jodaTime, ws,
+  def defaultLibs: Seq[ModuleID] = Seq(
+    play.api, scalaz, chess, scalalib, jodaTime, ws,
     macwire.macros, macwire.util, autoconfig
   ) // , specs2, specs2Scalaz)
 
-  def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
+  def module(
+    name: String,
+    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+    libs: Seq[ModuleID]
+  ) =
     Project(
       name,
       file("modules/" + name)
@@ -39,7 +43,7 @@ object BuildSettings {
       .dependsOn(deps: _*)
       .settings(
         version := "3.0",
-        libraryDependencies ++= defaultDeps,
+        libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
         srcMain
       )
