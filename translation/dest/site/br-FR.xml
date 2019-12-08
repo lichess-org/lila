@@ -285,7 +285,7 @@
   <string name="advancedSettings">Arventennoù kempleshoc\'h</string>
   <string name="safeTournamentName">Choazit un anv dereat-tre evit an tournamant.</string>
   <string name="inappropriateNameWarning">Un draig ha ne vefe ket dereat a vefe trawalc\'h evit ma serrfemp ho kont.</string>
-  <string name="emptyTournamentName">Laoskit goulo evit envel an tournamant diouzh anv ur c\'hoarier echedoù brudet.</string>
+  <string name="emptyTournamentName">Laoskit goullo evit envel an tournamant diouzh anv ur c\'hoarier echedoù brudet.</string>
   <string name="recommendNotTouching">Gwelloc\'h eo deoc\'h chom hep kemm anezhe.</string>
   <string name="fewerPlayers">Ma c\'houlennit strishadurioù evit mont-tre e vo nebeutoc\'h a c\'hoarierien o kemer perzh en ho tournamant.</string>
   <string name="showAdvancedSettings">Diskouez an arventennoù kempleshoc\'h</string>
@@ -298,9 +298,16 @@
   <string name="blackWins">Ar re zu o deus trec\'het</string>
   <string name="nextXTournament">Tournamant %s war-lec\'h:</string>
   <string name="membersOnly">Izili hepken</string>
+  <string name="boardEditor">Aozer ar c\'hrogad</string>
+  <string name="setTheBoard">Kargit ul lec\'hiadur</string>
   <string name="isPrivate">Prevez</string>
+  <string name="reportXToModerators">Diskleriañ %s d\'an habaskaerien</string>
+  <string name="ifNoneLeaveEmpty">Ma n\'eus ket, laoskit goullo</string>
   <string name="profile">Profil</string>
   <string name="editProfile">Aozañ ar profil</string>
+  <string name="firstName">Anv</string>
+  <string name="lastName">Anv familh</string>
+  <string name="biography">Diwar ho penn</string>
   <string name="country">Bro</string>
   <string name="goodMove">Fiñvadenn vat</string>
   <string name="butYouCanDoBetter">Gallout a rit ober gwelloc\'h avat.</string>
