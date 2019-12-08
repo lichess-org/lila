@@ -1,6 +1,5 @@
 package views.html.user.show
 
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.{ Trophy, TrophyKind }
@@ -10,7 +9,7 @@ import controllers.routes
 
 object otherTrophies {
 
-  def apply(u: User, info: lila.app.mashup.UserInfo)(implicit ctx: Context) = frag(
+  def apply(u: User, info: lila.app.mashup.UserInfo) = frag(
     info.trophies.filter(_.kind.klass.has("fire-trophy")).some.filter(_.nonEmpty) map { trophies =>
       div(cls := "stacked")(
         trophies.sorted.map { trophy =>

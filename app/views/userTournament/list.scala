@@ -1,7 +1,6 @@
 package views.html
 package userTournament
 
-import lila.api.Context
 import lila.user.User
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -11,7 +10,7 @@ import controllers.routes
 
 object list {
 
-  def apply(u: User, path: String, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry], title: String, count: String)(implicit ctx: Context) =
+  def apply(u: User, path: String, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry], count: String) =
     if (pager.nbResults == 0) {
       div(cls := "box-pad")(u.username, " hasn't played in any tournament yet!")
     } else {

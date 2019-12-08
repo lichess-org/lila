@@ -12,7 +12,7 @@ lazy val root = Project("lila", file("."))
 
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
-scalacOptions ++= compilerOptions
+scalacOptions ++= compilerOptions :+ "-P:silencer:pathFilters=target/scala-2.13/routes"
 sources in doc in Compile := List()
 // disable publishing the main API jar
 publishArtifact in (Compile, packageDoc) := false

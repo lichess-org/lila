@@ -1,8 +1,5 @@
 package views.html.user.show
 
-import play.api.data.Form
-
-import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.user.User
@@ -11,7 +8,7 @@ import controllers.routes
 
 object newPlayer {
 
-  def apply(u: User)(implicit ctx: Context) =
+  def apply(u: User) =
     div(cls := "new-player")(
       h2("Welcome to lichess.org!"),
       p(
