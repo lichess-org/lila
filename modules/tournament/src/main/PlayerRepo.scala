@@ -193,7 +193,7 @@ final class PlayerRepo(coll: Coll) {
     coll.countSel(selectTour(tourId) ++ selectActive)
 
   def winner(tourId: Tournament.ID): Fu[Option[Player]] =
-    coll.find(selectTour(tourId)).sort(bestSort).one[Player]
+    coll.ext.find(selectTour(tourId)).sort(bestSort).one[Player]
 
   // freaking expensive (marathons)
   private[tournament] def computeRanking(tourId: Tournament.ID): Fu[Ranking] =
@@ -235,7 +235,7 @@ final class PlayerRepo(coll: Coll) {
     }
 
   def byTourAndUserIds(tourId: Tournament.ID, userIds: Iterable[User.ID]): Fu[List[Player]] =
-    coll.find(selectTour(tourId) ++ $doc("uid" $in userIds))
+    coll.ext.find(selectTour(tourId) ++ $doc("uid" $in userIds))
       .list[Player]()
       .chronometer.logIfSlow(200, logger) { players =>
         s"PlayerRepo.byTourAndUserIds $tourId ${userIds.size} user IDs, ${players.size} players"
@@ -249,7 +249,7 @@ final class PlayerRepo(coll: Coll) {
     }
 
   def setPerformance(player: Player, performance: Int) =
-    coll.update(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
+    coll.update.one(selectId(player.id), $doc("$set" -> $doc("e" -> performance))).void
 
   private def rankPlayers(players: List[Player], ranking: Ranking): RankedPlayers =
     players.flatMap { p =>
@@ -282,7 +282,7 @@ final class PlayerRepo(coll: Coll) {
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): AkkaStreamCursor[Player] =
     coll
-      .find(selectTour(tournamentId))
+      .ext.find(selectTour(tournamentId))
       .sort($sort desc "m")
       .batchSize(batchSize)
       .cursor[Player](readPreference)

@@ -40,8 +40,6 @@ trait CollExt { self: dsl with QueryBuilderExt =>
     def byId[D: BSONDocumentReader](id: String): Fu[Option[D]] = one[D]($id(id))
     def byId[D: BSONDocumentReader](id: String, projection: Bdoc): Fu[Option[D]] = one[D]($id(id), projection)
 
-    def byId[D: BSONDocumentReader](id: Int): Fu[Option[D]] = one[D]($id(id))
-
     def byIds[D: BSONDocumentReader, I: BSONWriter](ids: Iterable[I], readPreference: ReadPreference): Fu[List[D]] =
       list[D]($inIds(ids))
 
