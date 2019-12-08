@@ -10,6 +10,7 @@ object BuildSettings {
   val globalScalaVersion = "2.13.1"
 
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
+    version := "3.0",
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
@@ -28,8 +29,8 @@ object BuildSettings {
 
   def defaultLibs: Seq[ModuleID] = Seq(
     play.api, scalaz, chess, scalalib, jodaTime, ws,
-    macwire.macros, macwire.util, autoconfig
-  ) // , specs2, specs2Scalaz)
+    macwire.macros, macwire.util, autoconfig // , specs2, specs2Scalaz)
+  )
 
   def module(
     name: String,
@@ -42,7 +43,6 @@ object BuildSettings {
     )
       .dependsOn(deps: _*)
       .settings(
-        version := "3.0",
         libraryDependencies ++= defaultLibs ++ libs,
         buildSettings,
         srcMain

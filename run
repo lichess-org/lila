@@ -1,16 +1,15 @@
 #!/bin/sh -e
 
 # Starts a dev console to compile and run lichess.
-#
-# To edit this file, copy it to bin/dev. It will not be tracked by Git:
-# cp bin/dev.default bin/dev
-#
+
 # Usage:
-# ./bin/dev [compile] [run]
+# ./run
+# Then in the sbt console:
+# ~run
 
 # Yes it needs tons of memory to build. Go for 2048M  if you have them.
-# To run, 256M is sufficient.
-export JAVA_OPTS="-Xms2048M -Xmx2048M -XX:+UseParallelGC -XX:+ExitOnOutOfMemoryError"
+export JAVA_OPTS="-Xms1024M -Xmx2048M -XX:+UseParallelGC -XX:+ExitOnOutOfMemoryError"
+export SBT_OPTS=""
 
 # For development without nginx (not recommended).
 export SERVE_ASSETS=0
@@ -23,7 +22,7 @@ echo "
   )___(  |_|_|\___|_| |_|\___||___/___(_)___/|_|  \__, |
                                                   |___/"
 version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
-echo Java version: $version
+echo Java version: "$version"
 echo Java options: $JAVA_OPTS
 
 sbt "$@"

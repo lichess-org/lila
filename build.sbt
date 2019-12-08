@@ -18,6 +18,7 @@ sources in doc in Compile := List()
 publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
+PlayKeys.playDefaultPort := 9663
 // don't stage the conf dir
 PlayKeys.externalizeResources := false
 // shorter prod classpath
@@ -54,14 +55,27 @@ lazy val modules = Seq(
 lazy val moduleRefs = modules map projectToRef
 lazy val moduleCPDeps = moduleRefs map { new sbt.ClasspathDependency(_, None) }
 
-lazy val api = module("api", moduleCPDeps, Seq(
-      play.api, play.json, hasher,
-      kamon.core, kamon.influxdb, lettuce
-    ) ++ reactivemongo.bundle)
-  .settings(
-    aggregate in Runtime := false,
-    aggregate in Test := true  // Test <: Runtime
-  ) aggregate (moduleRefs: _*)
+lazy val api = module("api",
+  moduleCPDeps,
+  Seq(play.api, play.json, hasher, kamon.core, kamon.influxdb, lettuce) ++ reactivemongo.bundle
+).settings(
+  aggregate in Runtime := false,
+  aggregate in Test := true  // Test <: Runtime
+) aggregate (moduleRefs: _*)
+
+lazy val i18n = module("i18n",
+  Seq(common, db, user, hub),
+  Seq(scalatags)
+).settings(
+  sourceGenerators in Compile += Def.task {
+    MessageCompiler(
+      sourceDir = new File("translation/source"),
+      destDir = new File("translation/dest"),
+      dbs = List("site", "arena", "emails", "learn", "activity", "coordinates", "study"),
+      compileTo = (sourceManaged in Compile).value / "messages"
+    )
+  }.taskValue
+)
 
 lazy val puzzle = module("puzzle",
   Seq(common, memo, hub, history, db, user, rating, pref, tree, game),
@@ -351,20 +365,6 @@ lazy val team = module("team",
 lazy val teamSearch = module("teamSearch",
   Seq(common, hub, team, search),
   reactivemongo.bundle
-)
-
-lazy val i18n = module("i18n",
-  Seq(common, db, user, hub),
-  Seq(scalatags)
-).settings(
-  sourceGenerators in Compile += Def.task {
-    MessageCompiler(
-      sourceDir = new File("translation/source"),
-      destDir = new File("translation/dest"),
-      dbs = List("site", "arena", "emails", "learn", "activity", "coordinates", "study"),
-      compileTo = (sourceManaged in Compile).value / "messages"
-    )
-  }.taskValue
 )
 
 lazy val bookmark = module("bookmark",
