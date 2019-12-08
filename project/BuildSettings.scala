@@ -38,7 +38,8 @@ object BuildSettings {
 
   def module(
     name: String,
-    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]]
+    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+    libs: Seq[ModuleID]
   ) =
     Project(
       name,
@@ -47,7 +48,7 @@ object BuildSettings {
       .dependsOn(deps: _*)
       .settings(
         version := "3.0",
-        libraryDependencies ++= defaultLibs,
+        libraryDependencies ++= (defaultLibs ++ libs).map(configureLib),
         buildSettings,
         srcMain
       )
