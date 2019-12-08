@@ -95,6 +95,7 @@
   <string name="inaccuracies">Diresistedoù</string>
   <string name="flipBoard">Cheñch tu an dablez c\'hoari</string>
   <string name="threefoldRepetition">Teir gwech ar memestra</string>
+  <string name="offerDraw">Kinnig rampo</string>
   <string name="draw">Rampo</string>
   <plurals name="nbPlayers">
     <item quantity="one">%s c\'hoarier</item>
@@ -165,8 +166,13 @@
   <string name="rankX">Renk: %s</string>
   <string name="gamesPlayed">Krogadoù c\'hoariet</string>
   <string name="cancel">Nullañ</string>
+  <string name="drawOfferSent">Kinnig rampo kaset</string>
+  <string name="drawOfferDeclined">Kinnig rampo nac\'het</string>
+  <string name="drawOfferAccepted">Kinnig rampo asantet</string>
+  <string name="drawOfferCanceled">Kinnig rampo nullet</string>
   <string name="accept">Asantiñ</string>
   <string name="decline">Nac\'hañ</string>
+  <string name="playingRightNow">O c\'hoari bremañ</string>
   <string name="eventInProgress">O c\'hoari bremañ</string>
   <string name="finished">Echu</string>
   <string name="finishesX">a vo echu %s</string>
@@ -174,6 +180,7 @@
   <string name="gameAborted">Krogad nullet</string>
   <string name="standard">Normal</string>
   <string name="unlimited">Didermen</string>
+  <string name="mode">Mod</string>
   <string name="rematch">C\'hoari en-dro</string>
   <string name="rematchOfferSent">Kinnig c\'hoari en-dro kaset</string>
   <string name="rematchOfferSentWhite">Ar re wenn a ginnig c\'hoari en-dro</string>
@@ -242,6 +249,7 @@
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
   <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>
+  <string name="captcha.fail">Diskoulmit ar c\'hCAPTCHA echedoù mar plij.</string>
   <string name="notACheckmate">N\'eo ket boud ar roue</string>
   <string name="retry">Klask en-dro</string>
   <string name="reconnecting">Oc\'h adkennaskañ</string>
