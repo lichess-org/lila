@@ -242,8 +242,7 @@ object BSONHandlers {
     },
     t => BSONString(s"${t.name}:${t.value}")
   )
-  implicit val PgnTagsBSONHandler: BSONHandler[Tags] =
-    isoHandler[Tags, List[Tag]]((s: Tags) => s.value, Tags(_))
+  implicit val tagsHandler = implicitly[BSONHandler[List[Tag]]].as[Tags](Tags.apply, _.value)
   private implicit val ChapterSetupBSONHandler = Macros.handler[Chapter.Setup]
   implicit val ChapterRelayBSONHandler = Macros.handler[Chapter.Relay]
   implicit val ChapterServerEvalBSONHandler = Macros.handler[Chapter.ServerEval]
