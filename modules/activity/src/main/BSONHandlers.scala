@@ -6,7 +6,7 @@ import scala.util.Success
 import lila.common.Iso
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeKeyIso
-import lila.rating.PerfType
+import lila.rating.{ Perf, PerfType }
 import lila.study.BSONHandlers._
 import lila.study.Study
 import lila.user.User
@@ -64,9 +64,9 @@ private object BSONHandlers {
     )
   }
 
-  private implicit lazy val perfTypeHandler: BSONHandler[PerfType] = isoHandler(perfTypeKeyIso)
-  private implicit lazy val gameMapHandler: BSONHandler[Map[PerfType, Score]] = implicitly[BSONHandler[Map[PerfType, Score]]]
-  implicit lazy val gamesHandler = gameMapHandler.as[Games](Games.apply, _.value)
+  implicit lazy val gamesHandler =
+    typedMapHandler[PerfType, Score](perfTypeKeyIso)
+      .as[Games](Games.apply, _.value)
 
   private implicit lazy val gameIdHandler = BSONStringHandler.as[GameId](GameId.apply, _.value)
 
@@ -75,11 +75,13 @@ private object BSONHandlers {
 
   implicit lazy val puzzlesHandler = isoHandler[Puzzles, Score]((p: Puzzles) => p.score, Puzzles.apply _)
 
-  private implicit lazy val learnMapHandler: BSONHandler[Map[Learn.Stage, Int]] = implicitly[BSONHandler[Map[Learn.Stage, Int]]]
-  private implicit lazy val learnHandler = learnMapHandler.as[Learn](Learn.apply, _.value)
+  private implicit lazy val learnHandler =
+    typedMapHandler[Learn.Stage, Int](Iso.string(Learn.Stage.apply, _.value))
+      .as[Learn](Learn.apply, _.value)
 
-  private implicit lazy val practiceMapHandler: BSONHandler[Map[Study.Id, Int]] = implicitly[BSONHandler[Map[Study.Id, Int]]]
-  private implicit lazy val practiceHandler = practiceMapHandler.as[Practice](Practice.apply, _.value)
+  private implicit lazy val practiceHandler =
+    typedMapHandler[Study.Id, Int](Iso.string[Study.Id](Study.Id.apply, _.value))
+      .as[Practice](Practice.apply, _.value)
 
   private implicit lazy val simulIdHandler = BSONStringHandler.as[SimulId](SimulId.apply, _.value)
   private implicit lazy val simulsHandler = isoHandler[Simuls, List[SimulId]]((s: Simuls) => s.value, Simuls.apply _)
