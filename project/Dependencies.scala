@@ -27,12 +27,12 @@ object Dependencies {
   val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"
   val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.44"
-  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.1-LILA"
+  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.1-LILA" % "provided"
 
   object macwire {
     val version = "2.3.3"
-    val macros = "com.softwaremill.macwire" %% "macros" % version
-    val util = "com.softwaremill.macwire" %% "util" % version
+    val macros = "com.softwaremill.macwire" %% "macros" % version % "provided"
+    val util = "com.softwaremill.macwire" %% "util" % version % "provided"
   }
 
   object reactivemongo {
