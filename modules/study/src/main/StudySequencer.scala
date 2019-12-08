@@ -1,7 +1,6 @@
 package lila.study
 
 import lila.hub.{ Duct, DuctMap }
-import lila.hub.actorApi.map.Tell
 
 private final class StudySequencer(
     studyRepo: StudyRepo,

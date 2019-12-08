@@ -39,7 +39,7 @@ final class GameProxyRepo(
       gameIfPresent(pov.gameId) map { _.fold(pov)(pov.withGame) }
     }.sequenceFu map { povs =>
       try { povs sortWith Pov.priority }
-      catch { case e: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+      catch { case _: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
     }
   }
 }

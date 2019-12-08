@@ -215,7 +215,7 @@ final class PlanApi(
         case customer => fuccess(Synced(patron.some, customer))
       }
 
-      case (_, Some(paypal)) =>
+      case (_, Some(_)) =>
         if (!user.plan.active) {
           logger.warn(s"${user.username} sync: enable plan of customer with paypal")
           setDbUserPlan(user, user.plan.enable) inject ReloadUser
@@ -280,7 +280,6 @@ final class PlanApi(
 
   private val topPatronUserIdsNb = 300
   private val topPatronUserIdsCache = new PeriodicRefreshCache[List[User.ID]](
-    logger = logger branch "topPatronUserIds",
     every = Every(1 hour),
     atMost = AtMost(1 minute),
     f = () => chargeColl.aggregateList(

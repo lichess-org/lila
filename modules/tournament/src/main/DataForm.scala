@@ -9,15 +9,14 @@ import play.api.data.validation.{ Constraint, Constraints }
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
-import lila.hub.lightTeam._
+import lila.hub.LightTeam._
 import lila.user.User
 
 final class DataForm {
 
   import DataForm._
-  import UTCDate._
 
-  def apply(user: User, teamBattleId: Option[TeamId] = None) = create fill TournamentSetup(
+  def apply(user: User, teamBattleId: Option[TeamID] = None) = create fill TournamentSetup(
     name = canPickName(user) && teamBattleId.isEmpty option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,

@@ -67,7 +67,7 @@ final class PracticeApi(
     )
 
     def get = cache.get
-    def clear = cache.refresh
+    def clear() = cache.refresh
     def onSave(study: Study) = get foreach { structure =>
       if (structure.hasStudy(study.id)) clear
     }

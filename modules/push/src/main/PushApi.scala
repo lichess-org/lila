@@ -3,9 +3,7 @@ package lila.push
 import akka.actor._
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
 
-import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.{ LightUser, Future }
 import lila.game.{ Game, Pov, Namer }
@@ -21,7 +19,7 @@ private final class PushApi(
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit system: ActorSystem, scheduler: Scheduler) {
+)(implicit system: ActorSystem) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -242,14 +240,6 @@ private final class PushApi(
     }
 
   private def asyncOpponentName(pov: Pov): Fu[String] = Namer playerText pov.opponent
-
-  private implicit val lightUserWriter: OWrites[LightUser] = OWrites { u =>
-    Json.obj(
-      "id" -> u.id,
-      "name" -> u.name,
-      "title" -> u.title
-    )
-  }
 }
 
 private object PushApi {

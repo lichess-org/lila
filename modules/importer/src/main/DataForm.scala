@@ -38,8 +38,8 @@ case class ImportData(pgn: String, analyse: Option[String]) {
     case Reader.Result.Incomplete(replay, _) => replay
   }
 
-  def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap {
-    case parsed @ ParsedPgn(_, tags, sans) => Reader.fullWithSans(
+  def preprocess(user: Option[String]): Valid[Preprocessed] = Parser.full(pgn) flatMap { parsed =>
+    Reader.fullWithSans(
       pgn,
       sans => sans.copy(value = sans.value take maxPlies),
       Tags.empty

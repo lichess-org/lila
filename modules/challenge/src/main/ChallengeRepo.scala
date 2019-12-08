@@ -1,5 +1,6 @@
 package lila.challenge
 
+import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 
 import lila.common.config.Max
@@ -40,14 +41,14 @@ private final class ChallengeRepo(coll: Coll, maxPerUser: Max) {
   private[challenge] def allWithUserId(userId: String): Fu[List[Challenge]] =
     createdByChallengerId(userId) |+| createdByDestId(userId)
 
-  def like(c: Challenge) = ~(for {
+  @silent def like(c: Challenge) = ~(for {
     challengerId <- c.challengerUserId
     destUserId <- c.destUserId
     if c.active
-  } yield coll.ext.find(selectCreated ++ $doc(
+  } yield coll.one[Challenge](selectCreated ++ $doc(
     "challenger.id" -> challengerId,
     "destUser.id" -> destUserId
-  )).one[Challenge])
+  )))
 
   private[challenge] def countCreatedByDestId(userId: String): Fu[Int] =
     coll.countSel(selectCreated ++ $doc("destUser.id" -> userId))

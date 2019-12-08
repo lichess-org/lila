@@ -1,8 +1,6 @@
 package lila.tournament
 
-import scala.concurrent.duration._
-
-import lila.game.{ Game, Player => GamePlayer, GameRepo, PovRef, Source, PerfPicker }
+import lila.game.{ Game, Player => GamePlayer, GameRepo, Source, PerfPicker }
 import lila.user.User
 
 final class AutoPairing(

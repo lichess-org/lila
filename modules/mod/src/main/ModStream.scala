@@ -6,7 +6,7 @@ import play.api.libs.json._
 import lila.common.{ Bus, HTTPRequest }
 import lila.security.Signup
 
-final class ModStream(implicit mat: akka.stream.Materializer) {
+final class ModStream {
 
   private val classifier = "userSignup"
 

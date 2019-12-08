@@ -36,7 +36,7 @@ object SyncLog {
   def event(moves: Int, e: Option[Exception]) = Event(
     moves = moves,
     error = e map {
-      case e: java.util.concurrent.TimeoutException => "Request timeout"
+      case _: java.util.concurrent.TimeoutException => "Request timeout"
       case e: Exception => e.getMessage take 100
     },
     at = DateTime.now

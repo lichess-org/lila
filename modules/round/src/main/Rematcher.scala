@@ -9,7 +9,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.game.{ GameRepo, Game, Event, Progress, Pov, Source, AnonCookie, PerfPicker, Rematches }
+import lila.game.{ GameRepo, Game, Event, Pov, Source, AnonCookie, PerfPicker, Rematches }
 import lila.memo.ExpireSetMemo
 import lila.user.{ User, UserRepo }
 
@@ -33,7 +33,7 @@ private final class Rematcher(
   def isOffering(pov: Pov): Boolean = offers.getIfPresent(pov.gameId).exists(_(pov.color))
 
   def yes(pov: Pov): Fu[Events] = pov match {
-    case Pov(game, color) if game playerCouldRematch color =>
+    case Pov(game, color) if game.playerCouldRematch =>
       if (isOffering(!pov) || game.opponent(color).isAi)
         rematches.of(game.id).fold(rematchJoin(pov))(rematchExists(pov))
       else fuccess(rematchCreate(pov))

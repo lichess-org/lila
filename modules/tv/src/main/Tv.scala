@@ -1,7 +1,5 @@
 package lila.tv
 
-import scala.concurrent.duration._
-
 import lila.common.LightUser
 import lila.game.{ Game, Pov, GameRepo }
 import lila.hub.Trouper

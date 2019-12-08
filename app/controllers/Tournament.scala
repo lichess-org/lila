@@ -9,7 +9,7 @@ import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
 import lila.common.config.MaxPerPage
-import lila.hub.lightTeam._
+import lila.hub.LightTeam._
 import lila.tournament.{ TournamentRepo, PairingRepo, VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._

@@ -4,10 +4,8 @@ import akka.actor._
 import akka.stream.scaladsl._
 import lila.db.dsl._
 import lila.game.{ Query, Game, GameRepo }
-import lila.hub.DuctMap
 import lila.round.actorApi.round.{ QuietFlag, Abandon }
 import org.joda.time.DateTime
-import reactivemongo.akkastream.AkkaStreamCursor
 import reactivemongo.api._
 import scala.concurrent.duration._
 
@@ -78,7 +76,7 @@ private[round] final class Titivate(
         val minutes = clock.estimateTotalSeconds / 60
         gameRepo.setCheckAt(game, DateTime.now plusMinutes minutes).void
 
-      case Some(clock) =>
+      case Some(_) =>
         val hours = Game.unplayedHours
         gameRepo.setCheckAt(game, DateTime.now plusHours hours).void
 

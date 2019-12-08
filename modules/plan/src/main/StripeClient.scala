@@ -160,7 +160,7 @@ private final class StripeClient(
 
   private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] = (in map {
     case (name, Some(x)) => Some(name -> x.toString)
-    case (name, None) => None
+    case (_, None) => None
     case (name, x) => Some(name -> x.toString)
   }).flatten
 

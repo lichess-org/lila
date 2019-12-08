@@ -5,7 +5,7 @@ import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.bson._
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.ReadPreference
 
 import BSONHandlers._
 import lila.db.dsl._

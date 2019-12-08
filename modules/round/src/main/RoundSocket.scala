@@ -1,9 +1,8 @@
 package lila.round
 
-import akka.actor.{ ActorSystem, ActorSelection, Scheduler, Cancellable }
+import akka.actor.{ ActorSystem, Scheduler, Cancellable }
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
 
 import actorApi._
 import actorApi.round._
@@ -21,14 +20,13 @@ import lila.hub.actorApi.DeployPost
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
+import lila.socket.Socket.SocketVersion
 import lila.user.User
 
 final class RoundSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     roundDependencies: RoundDuct.Dependencies,
     proxyDependencies: GameProxy.Dependencies,
-    deployPersistence: DeployPersistence,
     scheduleExpiration: ScheduleExpiration,
     tournamentActor: lila.hub.actors.TournamentApi,
     messenger: Messenger,
@@ -68,7 +66,7 @@ final class RoundSocket(
   def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
-    case Protocol.In.PlayerDo(id, tpe, o) => tpe match {
+    case Protocol.In.PlayerDo(id, tpe) => tpe match {
       case "moretime" => tellRound(id.gameId, Moretime(id.playerId))
       case "rematch-yes" => tellRound(id.gameId, RematchYes(id.playerId.value))
       case "rematch-no" => tellRound(id.gameId, RematchNo(id.playerId.value))
@@ -100,9 +98,8 @@ final class RoundSocket(
         if (rounds exists gameId.value) terminationDelay schedule gameId
     }
     case Protocol.In.Bye(fullId) => tellRound(fullId.gameId, ByePlayer(fullId.playerId))
-    case RP.In.TellRoomSri(gameId, P.In.TellSri(sri, user, tpe, o)) => tpe match {
-      case t => logger.warn(s"Unhandled round socket message: $t")
-    }
+    case RP.In.TellRoomSri(_, P.In.TellSri(_, _, tpe, _)) =>
+      logger.warn(s"Unhandled round socket message: $tpe")
     case hold: Protocol.In.HoldAlert => tellRound(hold.fullId.gameId, hold)
     case r: Protocol.In.SelfReport => Bus.publish(r, "selfReport")
     case userTv: Protocol.In.UserTv => tellRound(userTv.gameId, userTv)
@@ -161,7 +158,7 @@ object RoundSocket {
     object In {
 
       case class PlayerOnlines(onlines: Iterable[(Game.Id, Option[RoomCrowd])]) extends P.In
-      case class PlayerDo(fullId: FullId, tpe: String, msg: JsObject) extends P.In
+      case class PlayerDo(fullId: FullId, tpe: String) extends P.In
       case class PlayerMove(fullId: FullId, uci: Uci, blur: Boolean, lag: MoveMetrics) extends P.In
       case class PlayerChatSay(gameId: Game.Id, userIdOrColor: Either[User.ID, Color], msg: String) extends P.In
       case class WatcherChatSay(gameId: Game.Id, userId: User.ID, msg: String) extends P.In
@@ -187,7 +184,7 @@ object RoundSocket {
           case Array(fullId, payload) => for {
             obj <- Json.parse(payload).asOpt[JsObject]
             tpe <- obj str "t"
-          } yield PlayerDo(FullId(fullId), tpe, obj)
+          } yield PlayerDo(FullId(fullId), tpe)
         }
         case "r/move" => raw.get(5) {
           case Array(fullId, uciS, blurS, lagS, mtS) => Uci(uciS) map { uci =>

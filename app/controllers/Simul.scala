@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.HTTPRequest
-import lila.hub.lightTeam._
+import lila.hub.LightTeam._
 import lila.simul.{ Simul => Sim }
 import views._
 

@@ -15,7 +15,6 @@ object PracticeConfig {
   val empty = PracticeConfig(Nil)
 
   private implicit val studyLoader = AutoConfig.loader[PracticeConfigStudy]
-  private implicit val studiesLoader = listLoader[List[PracticeConfigStudy]]
   private implicit val sectionLoader = AutoConfig.loader[PracticeConfigSection]
   implicit val loader = AutoConfig.loader[PracticeConfig]
 }

@@ -1,12 +1,11 @@
 package lila.message
 
-import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 @Module
 private class MessageConfig(
@@ -26,7 +25,7 @@ final class Env(
     spam: lila.security.Spam,
     isOnline: lila.socket.IsOnline,
     lightUser: lila.common.LightUser.GetterSync
-)(implicit system: ActorSystem) {
+) {
 
   private val config = appConfig.get[MessageConfig]("message")(AutoConfig.loader)
 

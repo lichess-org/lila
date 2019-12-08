@@ -1,9 +1,7 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Forsyth }
 import chess.{ White, Black, Clock }
 
 import lila.common.Future

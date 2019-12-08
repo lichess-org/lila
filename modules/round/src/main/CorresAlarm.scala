@@ -22,7 +22,7 @@ private final class CorresAlarm(
 
   private implicit val AlarmHandler = reactivemongo.api.bson.Macros.handler[Alarm]
 
-  private def scheduleNext: Unit = system.scheduler.scheduleOnce(10 seconds)(run)
+  private def scheduleNext(): Unit = system.scheduler.scheduleOnce(10 seconds)(run)
 
   system.scheduler.scheduleOnce(10 seconds)(scheduleNext)
 
@@ -54,7 +54,7 @@ private final class CorresAlarm(
       }
   }
 
-  private def run: Unit = coll.ext.find($doc(
+  private def run(): Unit = coll.ext.find($doc(
     "ringsAt" $lt DateTime.now
   )).list[Alarm](100) flatMap { alarms =>
     alarms.map { alarm =>

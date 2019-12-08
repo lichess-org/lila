@@ -16,7 +16,7 @@ private final class FishnetRepo(
 
   private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
     name = "fishnet.client",
-    f = key => clientColl.ext.find(selectClient(key)).one[Client],
+    f = key => clientColl.one[Client](selectClient(key)),
     expireAfter = _.ExpireAfterWrite(5 minutes)
   )
 
@@ -36,26 +36,22 @@ private final class FishnetRepo(
   def allRecentClients = clientColl.ext.find($doc(
     "instance.seenAt" $gt Client.Instance.recentSince
   )).cursor[Client]().gather[List]()
-  def lichessClients = clientColl.find($doc(
+  def lichessClients = clientColl.ext.find($doc(
     "enabled" -> true,
     "userId" $startsWith "lichess-"
   )).cursor[Client]().gather[List]()
 
-  def addAnalysis(ana: Work.Analysis) = analysisColl.insert(ana).void
-  def getAnalysis(id: Work.Id) = analysisColl.find(selectWork(id)).one[Work.Analysis]
-  def updateAnalysis(ana: Work.Analysis) = analysisColl.update(selectWork(ana.id), ana).void
-  def deleteAnalysis(ana: Work.Analysis) = analysisColl.remove(selectWork(ana.id)).void
+  def addAnalysis(ana: Work.Analysis) = analysisColl.insert.one(ana).void
+  def getAnalysis(id: Work.Id) = analysisColl.ext.find(selectWork(id)).one[Work.Analysis]
+  def updateAnalysis(ana: Work.Analysis) = analysisColl.update.one(selectWork(ana.id), ana).void
+  def deleteAnalysis(ana: Work.Analysis) = analysisColl.delete.one(selectWork(ana.id)).void
   def giveUpAnalysis(ana: Work.Analysis) = deleteAnalysis(ana) >>- logger.warn(s"Give up on analysis $ana")
   def updateOrGiveUpAnalysis(ana: Work.Analysis) = if (ana.isOutOfTries) giveUpAnalysis(ana) else updateAnalysis(ana)
-  def countAnalysis(acquired: Boolean) = analysisColl.count($doc(
-    "acquired" $exists acquired
-  ).some)
-  def countUserAnalysis = analysisColl.count($doc(
-    "sender.system" -> false
-  ).some)
+  def countAnalysis(acquired: Boolean) = analysisColl.countSel($doc("acquired" $exists acquired))
+  def countUserAnalysis = analysisColl.countSel($doc("sender.system" -> false))
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
-    analysisColl.find($doc("game.id" -> work.game.id)).one[Work.Analysis]
+    analysisColl.one[Work.Analysis]($doc("game.id" -> work.game.id))
 
   def selectWork(id: Work.Id) = $id(id.value)
   def selectClient(key: Client.Key) = $id(key.value)

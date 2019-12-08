@@ -1,13 +1,11 @@
 package lila.practice
 
 import com.softwaremill.macwire._
-import play.api.Configuration
 
 import lila.common.config._
 
 @Module
 final class Env(
-    appConfig: Configuration,
     configStoreApi: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
     asyncCache: lila.memo.AsyncCache.Builder,

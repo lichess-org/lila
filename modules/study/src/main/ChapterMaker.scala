@@ -5,7 +5,6 @@ import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
-import lila.importer.Importer
 import lila.user.User
 
 private final class ChapterMaker(
@@ -13,7 +12,6 @@ private final class ChapterMaker(
     lightUser: lila.user.LightUserApi,
     chatApi: ChatApi,
     gameRepo: lila.game.GameRepo,
-    importer: Importer,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
 ) {
@@ -45,11 +43,13 @@ private final class ChapterMaker(
     }
   } yield Chapter.make(
     studyId = study.id,
-    name = (for {
-      white <- parsed.tags(_.White)
-      black <- parsed.tags(_.Black)
-      if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
-    } yield Chapter.Name(s"$white - $black")) | data.name,
+    name = parsed.tags(_.White).flatMap { white =>
+      parsed.tags(_.Black).ifTrue {
+        data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+      }.map {
+        black => Chapter.Name(s"$white - $black")
+      }
+    } | data.name,
     setup = Chapter.Setup(
       none,
       parsed.variant,

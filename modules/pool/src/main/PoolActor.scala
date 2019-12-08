@@ -7,7 +7,7 @@ import akka.actor._
 import akka.pattern.pipe
 
 import lila.user.User
-import lila.socket.Socket.{ Sri, Sris }
+import lila.socket.Socket.Sris
 
 private final class PoolActor(
     config: PoolConfig,
@@ -21,13 +21,13 @@ private final class PoolActor(
 
   var nextWave: Cancellable = _
 
-  def scheduleWave =
+  def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
       config.wave.every + Random.nextInt(1000).millis,
       self, ScheduledWave
     )
 
-  scheduleWave
+  scheduleWave()
 
   def receive = {
 
@@ -94,7 +94,7 @@ private final class PoolActor(
         monitor.wave.ratingDiff(monId)(p.ratingDiff)
       }
 
-      scheduleWave
+      scheduleWave()
     }
 
     case Sris(sris) =>

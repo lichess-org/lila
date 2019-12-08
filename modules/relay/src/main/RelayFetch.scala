@@ -19,7 +19,6 @@ private final class RelayFetch(
     api: RelayApi,
     slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
-    chapterRepo: lila.study.ChapterRepo,
     ws: WSClient
 ) extends Actor {
 
@@ -87,7 +86,7 @@ private final class RelayFetch(
           logger.info(s"Finish because all games are over $relay")
           relay.finish
         } else continueRelay(relay)
-      case SyncResult.Ok(nbMoves, games) =>
+      case SyncResult.Ok(nbMoves, _) =>
         lila.mon.relay.moves(nbMoves)
         continueRelay(relay.ensureStarted.resume)
       case _ => continueRelay(relay)
@@ -118,7 +117,7 @@ private final class RelayFetch(
       case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
         cache.put(relay.sync.upstream, GamesSeenBy(games, seenBy + relay.id))
         games
-      case x =>
+      case _ =>
         val games = doFetch(relay.sync.upstream, RelayFetch.maxChapters(relay))
         cache.put(relay.sync.upstream, GamesSeenBy(games, Set(relay.id)))
         games
@@ -224,7 +223,7 @@ private object RelayFetch {
         case (Success((acc, index)), pgn) => pgnCache.get(pgn) flatMap { f =>
           val game = f(index)
           if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))
-          else Success(game :: acc, index + 1)
+          else Success((game :: acc, index + 1))
         }
         case (acc, _) => acc
       }.future.map(_._1.reverse)

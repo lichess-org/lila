@@ -1,14 +1,10 @@
 package lila.importer
 
 import chess.format.FEN
-import chess.{ Status, Situation }
 
 import lila.game.{ Game, GameRepo }
 
-final class Importer(
-    gameRepo: GameRepo,
-    scheduler: akka.actor.Scheduler
-) {
+final class Importer(gameRepo: GameRepo) {
 
   def apply(data: ImportData, user: Option[String], forceId: Option[String] = None): Fu[Game] = {
 
@@ -17,7 +13,7 @@ final class Importer(
 
     gameExists {
       (data preprocess user).future flatMap {
-        case Preprocessed(g, replay, initialFen, _) =>
+        case Preprocessed(g, _, initialFen, _) =>
           val game = forceId.fold(g.sloppy)(g.withId)
           (gameRepo.insertDenormalized(game, initialFen = initialFen)) >> {
             game.pgnImport.flatMap(_.user).isDefined ?? gameRepo.setImportCreatedAt(game)
@@ -34,6 +30,6 @@ final class Importer(
   }
 
   def inMemory(data: ImportData): Valid[(Game, Option[FEN])] = data.preprocess(user = none).map {
-    case Preprocessed(game, replay, fen, _) => (game withId "synthetic", fen)
+    case Preprocessed(game, _, fen, _) => (game withId "synthetic", fen)
   }
 }

@@ -34,7 +34,7 @@ final class SeekApi(
     expireAfter = _.ExpireAfterWrite(3.seconds)
   )
 
-  private def cacheClear = {
+  private def cacheClear() = {
     cache invalidate ForAnon
     cache invalidate ForUser
   }

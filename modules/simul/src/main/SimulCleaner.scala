@@ -2,8 +2,6 @@ package lila.simul
 
 import org.joda.time.DateTime
 
-import lila.user.User
-
 private[simul] final class SimulCleaner(
     repo: SimulRepo,
     api: SimulApi

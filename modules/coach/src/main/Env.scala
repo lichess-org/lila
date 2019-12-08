@@ -1,10 +1,8 @@
 package lila.coach
 
-import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
 import lila.security.Permission
@@ -22,7 +20,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     db: lila.db.Db,
     imageRepo: lila.db.ImageRepo
-)(implicit system: ActorSystem) {
+) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 

@@ -2,17 +2,12 @@ package lila.mod
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.db.dsl._
 import lila.user.{ User, UserRepo }
-import User.{ BSONFields => F }
 
 final class UserSearch(
     securityApi: lila.security.SecurityApi,
-    emailValidator: lila.security.EmailAddressValidator,
     userRepo: UserRepo
 ) {
 

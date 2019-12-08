@@ -1,14 +1,11 @@
 package lila.challenge
 
-import akka.actor._
 import com.softwaremill.macwire._
 import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.game.Game
 import lila.socket.Socket.{ SocketVersion, GetVersion }
-import lila.user.User
 
 @Module
 final class Env(

@@ -5,13 +5,11 @@ import chess.format.pgn.{ Pgn, Tag, Tags, Initial }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
-import lila.common.LightUser
 import lila.common.String.slugify
-import lila.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
-    gamePgnDump: lila.game.PgnDump,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
 ) {

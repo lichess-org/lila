@@ -7,10 +7,8 @@ import chess.Centis
 import chess.format.pgn.{ Tags, Glyph }
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
-import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
-import lila.tree.Eval
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.User
 
@@ -103,8 +101,6 @@ final class StudyApi(
       }
     case DataForm.importGame.AsChapterOf(studyId) => byId(studyId) flatMap {
       case Some(study) if study.canContribute(user.id) =>
-        import akka.pattern.ask
-        import makeTimeout.short
         addChapter(
           studyId = study.id,
           data = data.form.toChapterData,
@@ -192,7 +188,7 @@ final class StudyApi(
 
   private def doAddNode(study: Study, position: Position, rawNode: Node, opts: MoveOpts, relay: Option[Chapter.Relay])(who: Who): Funit = {
     val node = rawNode.withoutChildren
-    def failReload = reloadSriBecauseOf(study, who.sri, position.chapter.id)
+    def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(failReload)
@@ -479,7 +475,7 @@ final class StudyApi(
 
   def explorerGame(studyId: Study.Id, data: actorApi.ExplorerGame)(who: Who) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(who.u, study) {
-      if (data.insert) explorerGameHandler.insert(who.u, study, Position(chapter, data.position.path), data.gameId) flatMap {
+      if (data.insert) explorerGameHandler.insert(study, Position(chapter, data.position.path), data.gameId) flatMap {
         case None =>
           fufail(s"Invalid explorerGame insert $studyId $data") >>-
             reloadSriBecauseOf(study, who.sri, chapter.id)

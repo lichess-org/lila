@@ -1,6 +1,5 @@
 package lila.bot
 
-import chess.format.FEN
 import play.api.libs.json._
 
 import lila.common.Json.jodaWrites

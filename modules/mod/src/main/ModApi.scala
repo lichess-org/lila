@@ -1,9 +1,9 @@
 package lila.mod
 
-import lila.common.{ Bus, IpAddress, EmailAddress }
+import lila.common.{ Bus, EmailAddress }
 import lila.report.{ Mod, ModId, Suspect, SuspectId, Room }
 import lila.security.{ Permission, Granter }
-import lila.security.{ Firewall, UserSpy, Store => SecurityStore }
+import lila.security.{ Firewall, Store => SecurityStore }
 import lila.user.{ User, UserRepo, Title, LightUserApi }
 
 final class ModApi(

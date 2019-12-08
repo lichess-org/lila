@@ -1,6 +1,5 @@
 package lila.setup
 
-import akka.actor._
 import com.softwaremill.macwire._
 import play.api.Configuration
 
@@ -14,10 +13,8 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     fishnetPlayer: lila.fishnet.Player,
     onStart: lila.round.OnStart,
-    prefApi: lila.pref.PrefApi,
-    relationApi: lila.relation.RelationApi,
     gameCache: lila.game.Cached
-)(implicit system: akka.actor.ActorSystem) {
+) {
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
   private lazy val anonConfigRepo = new AnonConfigRepo(db(CollName("config")))

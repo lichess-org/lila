@@ -4,7 +4,6 @@ import chess.variant.Variant
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.ReadPreference
-import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 
 import BSONHandlers._
 import lila.common.paginator.Paginator

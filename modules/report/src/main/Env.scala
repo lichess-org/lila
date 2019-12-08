@@ -7,7 +7,6 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.Domain
 
 @Module
 private class ReportConfig(
@@ -24,7 +23,6 @@ final class Env(
     domain: lila.common.config.NetDomain,
     db: lila.db.Db,
     isOnline: lila.socket.IsOnline,
-    noteApi: lila.user.NoteApi,
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
@@ -54,8 +52,8 @@ final class Env(
   )
 
   private val thresholds = Thresholds(
-    score = scoreThresholdSetting.get,
-    slack = slackScoreThresholdSetting.get
+    score = scoreThresholdSetting.get _,
+    slack = slackScoreThresholdSetting.get _
   )
 
   lazy val forms = wire[DataForm]

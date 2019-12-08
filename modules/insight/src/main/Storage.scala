@@ -1,7 +1,6 @@
 package lila.insight
 
 import reactivemongo.api.bson._
-import scalaz.NonEmptyList
 
 import lila.db.dsl._
 import lila.db.AsyncColl

@@ -1,15 +1,13 @@
 package lila.mod
 
-import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.{ Game, Player, GameRepo, Source, Pov }
+import lila.game.{ Game, Player, Source, Pov }
 import lila.report.{ SuspectId, ModId }
-import lila.security.UserSpy
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
@@ -20,7 +18,6 @@ import chess.Color
 
 final class AssessApi(
     assessRepo: AssessmentRepo,
-    logApi: ModlogApi,
     modApi: ModApi,
     userRepo: lila.user.UserRepo,
     reporter: lila.hub.actors.Report,
@@ -41,7 +38,7 @@ final class AssessApi(
   def getPlayerAssessmentById(id: String) =
     assessRepo.coll.byId[PlayerAssessment](id)
 
-  private def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
+  private def getPlayerAssessmentsByUserId(userId: String, nb: Int) =
     assessRepo.coll.ext.find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
       .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
@@ -116,13 +113,12 @@ final class AssessApi(
         case AccountAction.Engine | AccountAction.EngineAndBan =>
           userRepo.getTitle(userId).flatMap {
             case None => modApi.autoMark(SuspectId(userId), ModId.lichess)
-            case Some(title) => fuccess {
-              val reason = s"Would mark as engine, but has a $title title"
-              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+            case Some(_) => fuccess {
+              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
             }
           }
-        case AccountAction.Report(reason) => fuccess {
-          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+        case AccountAction.Report(_) => fuccess {
+          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
         }
         case AccountAction.Nothing =>
           // reporter ! lila.hub.actorApi.report.Clean(userId)

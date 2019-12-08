@@ -4,13 +4,11 @@ import akka.stream.scaladsl.Sink
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
-import play.api.libs.ws.WSClient
 import scala.util.Random.nextFloat
 import scala.util.{ Try, Success, Failure }
 
 import lila.common.LilaStream
 import lila.db.dsl._
-import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
 import lila.user.{ User, UserRepo }
 
@@ -25,7 +23,6 @@ private final class ExplorerIndexer(
   private val separator = "\n\n\n"
   private val datePattern = "yyyy-MM-dd"
   private val dateFormatter = DateTimeFormat forPattern datePattern
-  private val dateTimeFormatter = DateTimeFormat forPattern s"$datePattern HH:mm"
   private val pgnDateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
   private val internalEndPointUrl = s"$internalEndpoint/import/lichess"
 
@@ -42,8 +39,6 @@ private final class ExplorerIndexer(
           Query.turnsGt(8) ++
           Query.noProvisional ++
           Query.bothRatingsGreaterThan(1501)
-
-      import reactivemongo.api._
 
       gameRepo
         .sortedCursor(query, Query.sortChronological)

@@ -4,7 +4,6 @@ import lila.db.dsl._
 import lila.user.User
 
 final class MessageBatch(
-    coll: Coll,
     threadRepo: ThreadRepo,
     notifyApi: lila.notify.NotifyApi
 ) {

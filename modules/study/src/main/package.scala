@@ -1,7 +1,5 @@
 package lila
 
-import lila.hub.TrouperMap
-
 package object study extends PackageObject {
 
   private[study] val logger = lila.log("study")

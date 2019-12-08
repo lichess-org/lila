@@ -113,7 +113,7 @@ sealed abstract class Outcome(
     val id: Int,
     val name: String
 ) {
-  val key = toString.head.toLower + toString.tail
+  val key = s"${toString.head.toLower}${toString.tail}"
 }
 
 object Outcome {

@@ -6,13 +6,12 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo, NoteApi }
+import lila.user.{ User, UserRepo }
 
 final class ReportApi(
     val coll: Coll,
     userRepo: UserRepo,
     autoAnalysis: AutoAnalysis,
-    noteApi: NoteApi,
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
     playbanApi: lila.playban.PlaybanApi,
@@ -56,7 +55,7 @@ final class ReportApi(
     s"${Reason.Comm.flagText} $resource ${text take 140}"
   ))
 
-  private def monitorOpen = {
+  private def monitorOpen() = {
     nbOpenCache.refresh
     nbOpen foreach { nb =>
       lila.mon.mod.report.unprocessed(nb)

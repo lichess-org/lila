@@ -1,9 +1,7 @@
 package lila.study
 
-import akka.actor._
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
 
 import actorApi.Who
 import chess.Centis
@@ -186,7 +184,7 @@ private final class StudySocket(
   }
 
   private lazy val rHandler: Handler = roomHandler(rooms, chatApi, logger,
-    roomId => _ => none, // the "talk" event is handled by the study API
+    _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
     })
@@ -218,7 +216,7 @@ private final class StudySocket(
   private type SendToStudy = Study.Id => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy = studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
   private def notify[A: Writes](tpe: String, data: A): SendToStudy = studyId => send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
-  private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy = studyId => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
+  private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy = _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(

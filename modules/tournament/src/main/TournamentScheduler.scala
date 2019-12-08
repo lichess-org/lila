@@ -1,10 +1,8 @@
 package lila.tournament
 
 import akka.actor._
-import akka.pattern.pipe
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
-import scala.concurrent.duration._
 
 import chess.StartingPosition
 

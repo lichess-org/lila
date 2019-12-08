@@ -28,7 +28,6 @@ private class RoundConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    net: NetConfig,
     db: lila.db.Db,
     gameRepo: GameRepo,
     idGenerator: lila.game.IdGenerator,
@@ -38,10 +37,8 @@ final class Env(
     tournamentApi: actors.TournamentApi,
     chatApi: lila.chat.ChatApi,
     fishnetPlayer: lila.fishnet.Player,
-    aiPerfApi: lila.fishnet.AiPerfApi,
     crosstableApi: lila.game.CrosstableApi,
     playban: lila.playban.PlaybanApi,
-    lightUser: lila.common.LightUser.Getter,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
     rankingApi: lila.user.RankingApi,
@@ -84,7 +81,7 @@ final class Env(
   })
 
   private lazy val proxyDependencies =
-    new GameProxy.Dependencies(gameRepo, deployPersistence.isEnabled, scheduler)
+    new GameProxy.Dependencies(gameRepo, deployPersistence.isEnabled _, scheduler)
   private lazy val roundDependencies = wire[RoundDuct.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]
@@ -171,7 +168,7 @@ final class Env(
 
   system.actorOf(Props(wire[Titivate]), name = "titivate")
 
-  private val corresAlarm = new CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game _)
+  new CorresAlarm(db(config.alarmColl), isUserPresent, proxyRepo.game _)
 
   private lazy val takebacker = wire[Takebacker]
 

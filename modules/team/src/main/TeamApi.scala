@@ -5,7 +5,7 @@ import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
 import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
-import lila.hub.lightTeam.LightTeam
+import lila.hub.LightTeam
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo, UserContext }
 import org.joda.time.Period

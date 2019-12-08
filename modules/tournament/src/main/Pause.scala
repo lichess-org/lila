@@ -31,7 +31,7 @@ private final class Pause {
     baseDelayOf(tour).seconds * (record.pauses - 1) atLeast 10 atMost 120
   }
 
-  def add(userId: User.ID, tour: Tournament): Unit =
+  def add(userId: User.ID): Unit =
     cache.put(
       userId,
       cache.getIfPresent(userId).fold(newRecord)(_.add)

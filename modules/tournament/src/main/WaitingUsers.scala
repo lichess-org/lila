@@ -48,7 +48,7 @@ private[tournament] case class WaitingUsers(
     copy(
       date = newDate,
       hash = {
-        hash.filterKeys(us.contains) ++
+        hash.view.filterKeys(us.contains) ++
           us.filterNot(hash.contains).map { _ -> newDate }
       }.toMap
     )

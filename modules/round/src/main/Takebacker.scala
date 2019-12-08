@@ -63,12 +63,11 @@ private final class Takebacker(
     }
 
   private def publishTakebackOffer(pov: Pov): Unit =
-    if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
+    if (pov.game.isCorrespondence && pov.game.nonAi && pov.player.hasUser)
       Bus.publish(
         lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
         "offerEventCorres"
       )
-    }
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
     if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))

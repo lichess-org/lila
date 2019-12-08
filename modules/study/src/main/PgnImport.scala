@@ -1,8 +1,5 @@
 package lila.study
 
-import scalaz.Validation.FlatMap._
-import scalaz.Validation.success
-
 import chess.format.pgn.{ Tags, Glyphs, San, Dumper, ParsedPgn }
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 
@@ -29,7 +26,7 @@ object PgnImport {
 
   def apply(pgn: String, contributors: List[LightUser]): Valid[Result] =
     ImportData(pgn, analyse = none).preprocess(user = none).map {
-      case prep @ Preprocessed(game, replay, initialFen, parsedPgn) =>
+      case Preprocessed(game, replay, initialFen, parsedPgn) =>
         val annotator = findAnnotator(parsedPgn, contributors)
         parseComments(parsedPgn.initialPosition.comments, annotator) match {
           case (shapes, _, comments) =>
@@ -61,7 +58,7 @@ object PgnImport {
             }
             val commented =
               if (root.mainline.lastOption.??(_.isCommented)) root
-              else end.map(endComment(prep)).fold(root) { comment =>
+              else end.map(endComment).fold(root) { comment =>
                 root updateMainlineLast { _.setComment(comment) }
               }
             Result(
@@ -83,7 +80,7 @@ object PgnImport {
       } getOrElse Comment.Author.External(a)
     }
 
-  private def endComment(prep: Preprocessed)(end: End): Comment = {
+  private def endComment(end: End): Comment = {
     import lila.tree.Node.Comment
     import end._
     val text = s"$resultText $statusText"
@@ -98,7 +95,7 @@ object PgnImport {
     }
 
   private def parseComments(comments: List[String], annotator: Option[Comment.Author]): (Shapes, Option[Centis], Comments) =
-    comments.foldLeft(Shapes(Nil), none[Centis], Comments(Nil)) {
+    comments.foldLeft((Shapes(Nil), none[Centis], Comments(Nil))) {
       case ((shapes, clock, comments), txt) => CommentParser(txt) match {
         case CommentParser.ParsedComment(s, c, str) => (
           (shapes ++ s),

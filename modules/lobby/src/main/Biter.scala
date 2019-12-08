@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Game => ChessGame, Situation, Color => ChessColor }
+import chess.{ Game => ChessGame, Situation }
 
 import actorApi.{ JoinHook, JoinSeek }
 import lila.game.{ Game, Player, PerfPicker }

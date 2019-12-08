@@ -29,7 +29,6 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
-    isOnline: lila.socket.IsOnline,
     asyncCache: lila.memo.AsyncCache.Builder,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo
@@ -92,7 +91,7 @@ final class Env(
       case lila.hub.actorApi.simul.GetHostIds(promise) => promise completeWith api.currentHostIds
     },
     "moveEventSimul" -> {
-      case lila.hub.actorApi.round.SimulMoveEvent(move, simulId, opponentUserId) =>
+      case lila.hub.actorApi.round.SimulMoveEvent(move, _, opponentUserId) =>
         Bus.publish(
           lila.hub.actorApi.socket.SendTo(
             opponentUserId,

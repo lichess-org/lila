@@ -1,13 +1,13 @@
 package lila.tournament
 
+import com.github.ghik.silencer.silent
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api._
 import reactivemongo.api.bson._
 
 import BSONHandlers._
-import lila.common.config.MaxPerSecond
 import lila.db.dsl._
-import lila.hub.lightTeam.TeamId
+import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
@@ -40,7 +40,6 @@ final class PlayerRepo(coll: Coll) {
 
   // very expensive
   private[tournament] def bestTeamIdsByTour(tourId: Tournament.ID, battle: TeamBattle): Fu[List[TeamBattle.RankedTeam]] = {
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
     import TeamBattle.{ RankedTeam, TeamLeader }
     coll.aggregateList(maxDocs = 10) { framework =>
       import framework._
@@ -61,7 +60,7 @@ final class PlayerRepo(coll: Coll) {
     }.map {
       _.flatMap { doc =>
         for {
-          teamId <- doc.getAsOpt[TeamId]("_id")
+          teamId <- doc.getAsOpt[TeamID]("_id")
           leadersBson <- doc.getAsOpt[List[Bdoc]]("p")
           leaders = leadersBson.flatMap {
             case p: Bdoc => for {
@@ -84,7 +83,7 @@ final class PlayerRepo(coll: Coll) {
   }
 
   // very expensive
-  private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamId, battle: TeamBattle): Fu[TeamBattle.TeamInfo] = {
+  private[tournament] def teamInfo(tourId: Tournament.ID, teamId: TeamID, @silent battle: TeamBattle): Fu[TeamBattle.TeamInfo] = {
     coll.aggregateWith[Bdoc]() { framework =>
       import framework._
       Match(selectTour(tourId) ++ $doc("t" -> teamId)) -> List(
@@ -118,19 +117,19 @@ final class PlayerRepo(coll: Coll) {
     }
   }
 
-  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamId, nb: Int): Fu[List[Player]] =
+  def bestTeamPlayers(tourId: Tournament.ID, teamId: TeamID, nb: Int): Fu[List[Player]] =
     coll.ext.find($doc("tid" -> tourId, "t" -> teamId)).sort($sort desc "m").list[Player](nb)
 
-  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamId): Fu[Int] =
+  def countTeamPlayers(tourId: Tournament.ID, teamId: TeamID): Fu[Int] =
     coll.countSel($doc("tid" -> tourId, "t" -> teamId))
 
-  def teamsOfPlayers(tourId: Tournament.ID, userIds: List[User.ID]): Fu[List[(User.ID, TeamId)]] =
+  def teamsOfPlayers(tourId: Tournament.ID, userIds: List[User.ID]): Fu[List[(User.ID, TeamID)]] =
     coll.ext.find($doc("tid" -> tourId, "uid" $in userIds), $doc("_id" -> false, "uid" -> true, "t" -> true))
       .list[Bdoc]()
       .map {
         _.flatMap { doc =>
           doc.getAsOpt[User.ID]("uid") flatMap { userId =>
-            doc.getAsOpt[TeamId]("t") map { (userId, _) }
+            doc.getAsOpt[TeamID]("t") map { (userId, _) }
           }
         }
       }
@@ -171,10 +170,10 @@ final class PlayerRepo(coll: Coll) {
       coll.update.one(selectId(player._id), player).void
     }
 
-  def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamId]) =
+  def join(tourId: Tournament.ID, user: User, perfLens: Perfs => Perf, team: Option[TeamID]) =
     find(tourId, user.id) flatMap {
       case Some(p) if p.withdraw => coll.update.one(selectId(p._id), $unset("w"))
-      case Some(p) => funit
+      case Some(_) => funit
       case None => coll.insert.one(Player.make(tourId, user, perfLens, team))
     } void
 

@@ -93,7 +93,7 @@ case class Node(
     clock = n.clock orElse clock,
     crazyData = n.crazyData orElse crazyData,
     children = n.children.nodes.foldLeft(children) {
-      case (cs, c) => children addNode c
+      case (cs, c) => cs addNode c
     },
     forceVariation = n.forceVariation || forceVariation
   )

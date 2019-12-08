@@ -61,7 +61,7 @@ private[round] final class RoundDuct(
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
     }
-    def setBye: Unit = {
+    def setBye(): Unit = {
       bye = true
     }
 
@@ -138,7 +138,7 @@ private[round] final class RoundDuct(
       gameSpeed = game.speed.some
       whitePlayer.goneWeight = whiteGoneWeight
       blackPlayer.goneWeight = blackGoneWeight
-      buscriptions.chat
+      buscriptions.chat()
     }
 
     // chat
@@ -229,7 +229,7 @@ private[round] final class RoundDuct(
       res
 
     case FishnetPlay(uci, ply) => handle { game =>
-      player.fishnet(game, ply, uci, this)
+      player.fishnet(game, ply, uci)
     } >>- lila.mon.round.move.count()
 
     case Abort(playerId) => handle(PlayerId(playerId)) { pov =>
@@ -399,14 +399,14 @@ private[round] final class RoundDuct(
 
     def started = chans.nonEmpty
 
-    def unsubAll = {
+    def unsubAll() = {
       Bus.unsubscribe(RoundDuct.this, chans)
       chans.clear
     }
 
     def tv(userId: User.ID): Unit = sub(s"userStartGame:$userId")
 
-    def chat = chatIds.allIds foreach { chatId =>
+    def chat() = chatIds.allIds foreach { chatId =>
       sub(lila.chat.Chat chanOf chatId)
     }
   }

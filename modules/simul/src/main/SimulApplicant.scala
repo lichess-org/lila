@@ -1,6 +1,6 @@
 package lila.simul
 
-case class SimulApplicant(
+final case class SimulApplicant(
     player: SimulPlayer,
     accepted: Boolean
 ) {

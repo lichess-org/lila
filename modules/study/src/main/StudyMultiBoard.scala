@@ -3,11 +3,10 @@ package lila.study
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import play.api.libs.json._
 import reactivemongo.api.bson._
-import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import chess.Color
-import chess.format.pgn.{ Tag, Tags }
+import chess.format.pgn.Tags
 import chess.format.{ FEN, Uci }
 
 import BSONHandlers._
@@ -15,7 +14,7 @@ import JsonView._
 import lila.common.config.MaxPerPage
 import lila.common.paginator.{ Paginator, PaginatorJson }
 import lila.db.dsl._
-import lila.db.paginator.{ Adapter, MapReduceAdapter }
+import lila.db.paginator.MapReduceAdapter
 import lila.game.BSONHandlers.FENBSONHandler
 
 final class StudyMultiBoard(

@@ -5,7 +5,6 @@ import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import scala.concurrent.Await
 import scala.concurrent.duration._
 

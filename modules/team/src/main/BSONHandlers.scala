@@ -1,6 +1,6 @@
 package lila.team
 
-import lila.hub.lightTeam.LightTeam
+import lila.hub.LightTeam
 
 private object BSONHandlers {
 

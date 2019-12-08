@@ -8,18 +8,11 @@ import org.joda.time.DateTime
 import scala.concurrent.Promise
 
 import chess.format.Uci
-import chess.Pos
 import Forecast.Step
-import lila.game.Game.{ PlayerId, FullId }
+import lila.game.Game.PlayerId
 import lila.game.{ Pov, Game }
-import lila.hub.DuctMap
 
 final class ForecastApi(coll: Coll, tellRound: TellRound) {
-
-  private implicit val PosBSONHandler = tryHandler[Pos](
-    { case BSONString(v) => Pos.posAt(v) toTry s"No such pos: $v" },
-    x => BSONString(x.key)
-  )
 
   private implicit val stepBSONHandler = Macros.handler[Step]
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
@@ -82,7 +75,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
       case Some(fc) => fc(g, last) match {
         case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
           coll.update.one($id(fc._id), newFc) inject uciMove.some
-        case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
+        case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
         case _ => clearPov(Pov player g) inject none
       }
     }

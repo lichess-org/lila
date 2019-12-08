@@ -50,8 +50,6 @@ object GameAssessment {
   val byId: Map[Int, GameAssessment] = all.map { a => a.id -> a }.toMap
   def orDefault(id: Int) = byId.getOrElse(id, NotCheating)
 
-  import reactivemongo.api.bson.{ BSONHandler, BSONInteger }
-
   implicit val GameAssessmentBSONHandler =
     reactivemongo.api.bson.BSONIntegerHandler.as[GameAssessment](orDefault, _.id)
 }

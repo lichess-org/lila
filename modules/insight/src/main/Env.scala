@@ -1,10 +1,8 @@
 package lila.insight
 
 import com.softwaremill.macwire._
-import io.methvin.play.autoconfig._
 import play.api.Configuration
 import reactivemongo.api.MongoConnection.ParsedURI
-import scala.concurrent.duration.FiniteDuration
 
 import lila.common.config._
 import lila.db.DbConfig.uriLoader
@@ -33,8 +31,7 @@ final class Env(
   private lazy val aggregationPipeline = wire[AggregationPipeline]
 
   private def sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = None,
-    logger = logger
+    executionTimeout = None
   )
 
   private lazy val povToEntry = wire[PovToEntry]

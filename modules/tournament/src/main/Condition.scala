@@ -2,7 +2,7 @@ package lila.tournament
 
 import play.api.i18n.Lang
 
-import lila.hub.lightTeam._
+import lila.hub.LightTeam._
 import lila.i18n.I18nKeys
 import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.rating.PerfType
@@ -97,9 +97,9 @@ object Condition {
     def name(lang: Lang) = I18nKeys.ratedMoreThanInPerf.literalTxtTo(lang, List(rating, perf.name))
   }
 
-  case class TeamMember(teamId: TeamId, teamName: TeamName) extends Condition {
+  case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
     def name(lang: Lang) = I18nKeys.mustBeInTeam.literalTxtTo(lang, List(teamName))
-    def apply(user: User, getUserTeamIds: User => Fu[List[TeamId]]) =
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]]) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
         else Refused { lang => I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName)) }
@@ -120,7 +120,7 @@ object Condition {
 
     def ifNonEmpty = list.nonEmpty option this
 
-    def withVerdicts(getMaxRating: GetMaxRating)(user: User, getUserTeamIds: User => Fu[List[TeamId]]): Fu[All.WithVerdicts] =
+    def withVerdicts(getMaxRating: GetMaxRating)(user: User, getUserTeamIds: User => Fu[List[TeamID]]): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond => fuccess(c withVerdict c(user))
@@ -154,11 +154,11 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamId]]): Fu[All.WithVerdicts] = {
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]]): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
-    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamId]])(tour: Tournament): Fu[Boolean] =
+    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(tour: Tournament): Fu[Boolean] =
       apply(tour.conditions, user, getUserTeamIds).map(_.accepted)
   }
 
@@ -170,7 +170,7 @@ object Condition {
     private implicit val MinRatingHandler = Macros.handler[MinRating]
     private implicit val TitledHandler = quickHandler[Titled.type](
       { case _: BSONValue => Titled },
-      x => BSONBoolean(true)
+      _ => BSONBoolean(true)
     )
     private implicit val TeamMemberHandler = Macros.handler[TeamMember]
     implicit val AllBSONHandler = Macros.handler[All]
@@ -178,9 +178,6 @@ object Condition {
 
   object JSONHandlers {
     import play.api.libs.json._
-    private implicit val perfTypeWriter: OWrites[PerfType] = OWrites { pt =>
-      Json.obj("key" -> pt.key, "name" -> pt.name)
-    }
 
     def verdictsFor(verdicts: All.WithVerdicts, lang: Lang) = Json.obj(
       "list" -> verdicts.list.map {
@@ -205,7 +202,7 @@ object Condition {
     }
     val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
-      case (0, name) => (0, "No restriction")
+      case (0, _) => (0, "No restriction")
       case x => x
     }
     val nbRatedGame = mapping(
@@ -248,8 +245,8 @@ object Condition {
     val teamMember = mapping(
       "teamId" -> optional(text)
     )(TeamMemberSetup.apply)(TeamMemberSetup.unapply)
-    case class TeamMemberSetup(teamId: Option[TeamId]) {
-      def convert(teams: Map[TeamId, TeamName]): Option[TeamMember] =
+    case class TeamMemberSetup(teamId: Option[TeamID]) {
+      def convert(teams: Map[TeamID, TeamName]): Option[TeamMember] =
         teamId flatMap { id =>
           teams.get(id) map { TeamMember(id, _) }
         }

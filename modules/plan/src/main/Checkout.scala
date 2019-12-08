@@ -15,7 +15,7 @@ case class Checkout(
   def cents = amount
 
   def toFormData = Some(
-    token.value, email, amount.value, freq.toString.toLowerCase
+    (token.value, email, amount.value, freq.toString.toLowerCase)
   )
 }
 

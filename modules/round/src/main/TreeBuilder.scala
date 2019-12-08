@@ -108,7 +108,7 @@ object TreeBuilder {
   }
 
   private def withAnalysisChild(id: String, root: Branch, variant: Variant, fromFen: FEN, openingOf: OpeningOf)(info: Info): Branch = {
-    def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+    def makeBranch(g: chess.Game, m: Uci.WithSan) = {
       val fen = Forsyth >> g
       Branch(
         id = UciCharPair(m.uci),
@@ -122,12 +122,12 @@ object TreeBuilder {
       )
     }
     chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
-      case (init, games, error) =>
+      case (_, games, error) =>
         error foreach logChessError(id)
-        games.zipWithIndex.reverse match {
+        games.reverse match {
           case Nil => root
-          case ((g, m), i) :: rest => root addChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-            case (node, ((g, m), i)) => makeBranch(i + 1, g, m) addChild node
+          case (g, m) :: rest => root addChild rest.foldLeft(makeBranch(g, m)) {
+            case (node, (g, m)) => makeBranch(g, m) addChild node
           }.setComp
         }
     }

@@ -2,10 +2,6 @@ package lila.tournament
 
 import akka.actor._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
-
-import lila.user.User
-import makeTimeout.short
 
 private final class StartedOrganizer(
     api: TournamentApi,

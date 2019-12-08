@@ -69,7 +69,7 @@ final class WinnersApi(
   private implicit val AllWinnersHandler = reactivemongo.api.bson.Macros.handler[AllWinners]
 
   private def fetchLastFreq(freq: Freq, since: DateTime): Fu[List[Tournament]] =
-    tournamentRepo.coll.find($doc(
+    tournamentRepo.coll.ext.find($doc(
       "schedule.freq" -> freq.name,
       "startsAt" $gt since.minusHours(12),
       "winner" $exists true

@@ -2,10 +2,10 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.{ FEN, Forsyth, Uci }
+import chess.format.Forsyth
 
 import lila.analyse.AnalysisRepo
-import lila.game.{ Game, GameRepo, UciMemo }
+import lila.game.{ Game, UciMemo }
 
 final class Analyser(
     repo: FishnetRepo,
@@ -35,7 +35,7 @@ final class Analyser(
                   case Some(similar) if similar.sender.system && !sender.system =>
                     repo.updateAnalysis(similar.copy(sender = sender))
                   // queued for someone else, do nothing
-                  case Some(similar) => funit
+                  case Some(_) => funit
                   // first request, store
                   case _ =>
                     lila.mon.fishnet.analysis.requestCount()

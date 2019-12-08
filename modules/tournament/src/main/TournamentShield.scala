@@ -5,7 +5,6 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
-import lila.rating.PerfType
 import lila.user.User
 
 final class TournamentShieldApi(
@@ -38,12 +37,12 @@ final class TournamentShieldApi(
     }
   }
 
-  private[tournament] def clear = cache.refresh
+  private[tournament] def clear() = cache.refresh
 
   private val cache = asyncCache.single[History](
     name = "tournament.shield",
     expireAfter = _.ExpireAfterWrite(1 day),
-    f = tournamentRepo.coll.find($doc(
+    f = tournamentRepo.coll.ext.find($doc(
       "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
       "status" -> statusBSONHandler.writeTry(Status.Finished).get
     )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
@@ -87,7 +86,7 @@ object TournamentShield {
     def current(cat: Category): Option[Award] = value get cat flatMap (_.headOption)
 
     def take(max: Int) = copy(
-      value = value.mapValues(_ take max).toMap
+      value = value.view.mapValues(_ take max).toMap
     )
   }
 
@@ -104,7 +103,7 @@ object TournamentShield {
         tourSpeed <- tour.schedule.map(_.speed)
         categSpeed <- of.left.toOption
       } yield tourSpeed == categSpeed)
-      else of.right.toOption.has(tour.variant)
+      else of.toOption.has(tour.variant)
   }
 
   object Category {

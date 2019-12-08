@@ -6,7 +6,7 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.security.{ Firewall, UserSpy }
+import lila.security.Firewall
 import lila.user.User
 
 @Module
@@ -43,8 +43,7 @@ final class Env(
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    securityStore: lila.security.Store,
-    emailValidator: lila.security.EmailAddressValidator
+    securityStore: lila.security.Store
 )(implicit system: ActorSystem) {
 
   private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)

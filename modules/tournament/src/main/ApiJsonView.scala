@@ -58,7 +58,7 @@ final class ApiJsonView(lightUserApi: LightUserApi) {
     .add("private", tour.isPrivate)
     .add("position", tour.position.some.filterNot(_.initial) map positionJson)
     .add("schedule", tour.schedule map scheduleJson)
-    .add("battle", tour.teamBattle map teamBattleJson)
+    .add("battle", tour.teamBattle.map(_ => Json.obj()))
 
   def fullJson(tour: Tournament): Fu[JsObject] = for {
     owner <- tour.nonLichessCreatedBy ?? lightUserApi.async
@@ -71,10 +71,6 @@ final class ApiJsonView(lightUserApi: LightUserApi) {
     "id" -> u.id,
     "name" -> u.name,
     "title" -> u.title
-  )
-
-  private def teamBattleJson(battle: TeamBattle) = Json.obj( // "nbTeams" -> battle.teams.size,
-  // "nbLeaders" -> battle.nbLeaders
   )
 
   private val perfPositions: Map[PerfType, Int] = {

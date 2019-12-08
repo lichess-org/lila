@@ -10,7 +10,6 @@ import lila.db.dsl._
 private final class Cleaner(
     repo: FishnetRepo,
     analysisColl: Coll,
-    monitor: Monitor,
     system: akka.actor.ActorSystem
 ) {
 

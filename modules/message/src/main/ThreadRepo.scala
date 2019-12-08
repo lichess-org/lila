@@ -81,7 +81,7 @@ final class ThreadRepo(coll: Coll) {
   }
 
   def deleteFor(user: ID)(thread: ID) =
-    coll.update.one($id(thread), $doc($pull("visibleByUserIds", user), $push("deletedByUserIds", user))).void
+    coll.update.one($id(thread), $doc($pull("visibleByUserIds" -> user), $push("deletedByUserIds" -> user))).void
 
   def userQuery(user: String) = $doc("userIds" -> user)
 

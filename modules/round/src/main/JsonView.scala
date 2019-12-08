@@ -1,6 +1,5 @@
 package lila.round
 
-import scala.concurrent.duration._
 import scala.math
 
 import play.api.libs.json._
@@ -17,7 +16,6 @@ import chess.{ Color, Clock }
 import actorApi.SocketStatus
 
 final class JsonView(
-    noteApi: NoteApi,
     userRepo: UserRepo,
     userJsonView: lila.user.JsonView,
     gameJsonView: lila.game.JsonView,
@@ -195,11 +193,6 @@ final class JsonView(
           })
 
     }
-
-  private implicit val userLineWrites = OWrites[lila.chat.UserLine] { l =>
-    val j = Json.obj("u" -> l.username, "t" -> l.text)
-    if (l.deleted) j + ("d" -> JsBoolean(true)) else j
-  }
 
   def userAnalysisJson(
     pov: Pov,

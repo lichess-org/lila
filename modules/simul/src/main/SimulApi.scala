@@ -1,7 +1,7 @@
 package lila.simul
 
 import akka.actor._
-import akka.pattern.{ ask, pipe }
+import akka.pattern.ask
 import play.api.libs.json.Json
 import scala.concurrent.duration._
 
@@ -9,7 +9,6 @@ import chess.variant.Variant
 import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
-import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
 import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.SendToFlag
@@ -118,12 +117,11 @@ final class SimulApi(
     }
   }
 
-  def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
-    user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
+  def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit =
+    if (user.exists(simul.isHost) && simul.isRunning) {
       repo.setHostGameId(simul, game.id)
       socket.hostIsOn(simul.id, game.id)
     }
-  }
 
   def abort(simulId: Simul.ID): Unit = {
     Sequence(simulId) {
@@ -151,7 +149,7 @@ final class SimulApi(
         _ ?? { simul =>
           val simul2 = simul.updatePairing(
             game.id,
-            _.finish(game.status, game.winnerUserId, game.turns)
+            _.finish(game.status, game.winnerUserId)
           )
           update(simul2) >>- {
             if (simul2.isFinished) onComplete(simul2)

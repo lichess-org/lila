@@ -1,21 +1,20 @@
 package lila.tournament
 
-import akka.actor.{ Props, ActorRef, ActorSelection, ActorSystem }
-import akka.pattern.{ ask, pipe }
+import akka.actor.{ Props, ActorSystem }
+import akka.pattern.ask
 import akka.stream.scaladsl._
+import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import play.api.libs.json._
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import lila.common.config.MaxPerSecond
 import lila.common.{ Bus, Debouncer, LightUser }
-import lila.game.{ Game, LightGame, GameRepo, Pov, LightPov }
+import lila.game.{ Game, GameRepo, LightPov }
 import lila.hub.actorApi.lobby.ReloadTournaments
-import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.timeline.{ Propagate, TourJoin }
-import lila.hub.lightTeam._
+import lila.hub.LightTeam
+import lila.hub.LightTeam._
 import lila.hub.{ Duct, DuctMap }
 import lila.round.actorApi.round.{ GoBerserk, AbortForce }
 import lila.socket.Socket.SendToFlag
@@ -35,7 +34,6 @@ final class TournamentApi(
     pairingSystem: arena.PairingSystem,
     callbacks: TournamentApi.Callbacks,
     renderer: lila.hub.actors.Renderer,
-    timeline: lila.hub.actors.Timeline,
     socket: TournamentSocket,
     tellRound: lila.round.TellRound,
     trophyApi: lila.user.TrophyApi,
@@ -51,7 +49,7 @@ final class TournamentApi(
     setup: TournamentSetup,
     me: User,
     myTeams: List[LightTeam],
-    getUserTeamIds: User => Fu[List[TeamId]]
+    getUserTeamIds: User => Fu[List[TeamID]]
   ): Fu[Tournament] = {
     val tour = Tournament.make(
       by = Right(me),
@@ -83,7 +81,7 @@ final class TournamentApi(
   def teamBattleUpdate(
     tour: Tournament,
     data: TeamBattle.DataForm.Setup,
-    filterExistingTeamIds: Set[TeamId] => Fu[Set[TeamId]]
+    filterExistingTeamIds: Set[TeamID] => Fu[Set[TeamID]]
   ): Funit =
     filterExistingTeamIds(data.potentialTeamIds) flatMap { teamIds =>
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
@@ -204,7 +202,7 @@ final class TournamentApi(
     }
   }
 
-  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[List[TeamId]]): Fu[Condition.All.WithVerdicts] = me match {
+  def verdicts(tour: Tournament, me: Option[User], getUserTeamIds: User => Fu[List[TeamID]]): Fu[Condition.All.WithVerdicts] = me match {
     case None => fuccess(tour.conditions.accepted)
     case Some(user) => verify(tour.conditions, user, getUserTeamIds)
   }
@@ -214,7 +212,7 @@ final class TournamentApi(
     me: User,
     password: Option[String],
     withTeamId: Option[String],
-    getUserTeamIds: User => Fu[List[TeamId]],
+    getUserTeamIds: User => Fu[List[TeamID]],
     promise: Option[Promise[Boolean]]
   ): Unit = Sequencing(tourId)(tournamentRepo.enterableById) { tour =>
     val fuJoined =
@@ -262,7 +260,7 @@ final class TournamentApi(
     me: User,
     password: Option[String],
     teamId: Option[String],
-    getUserTeamIds: User => Fu[List[TeamId]]
+    getUserTeamIds: User => Fu[List[TeamID]]
   ): Fu[Boolean] = {
     val promise = Promise[Boolean]
     join(tourId, me, password, teamId, getUserTeamIds, promise.some)
@@ -302,7 +300,7 @@ final class TournamentApi(
         _ <- playerRepo.withdraw(tour.id, userId)
         pausable <- if (isPause) cached.ranking(tour).map { _ get userId exists (7>) } else fuccess(isStalling)
       } yield {
-        if (pausable) pause.add(userId, tour)
+        if (pausable) pause.add(userId)
         socket.reload(tour.id)
         publish()
       }
@@ -388,7 +386,7 @@ final class TournamentApi(
     multiplier = g.winnerUserId.??(winner => if (winner == userId) 1 else -1)
   } yield opponentRating + 500 * multiplier
 
-  private def withdrawNonMover(game: Game): Unit = for {
+  @silent private def withdrawNonMover(game: Game): Unit = for {
     tourId <- game.tournamentId
     if game.status == chess.Status.NoStart
     player <- game.playerWhoDidNotMove

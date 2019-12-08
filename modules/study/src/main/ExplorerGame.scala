@@ -1,11 +1,9 @@
 package lila.study
 
-import chess.format.pgn.{ Parser, ParsedPgn, Tag }
 import chess.format.FEN
-import lila.common.LightUser
+import chess.format.pgn.Parser
 import lila.game.{ Game, Namer }
 import lila.tree.Node.Comment
-import lila.user.User
 
 private final class ExplorerGame(
     importer: lila.explorer.ExplorerImporter,
@@ -20,7 +18,7 @@ private final class ExplorerGame(
       }
     }
 
-  def insert(userId: User.ID, study: Study, position: Position, gameId: Game.ID): Fu[Option[(Chapter, Path)]] =
+  def insert(study: Study, position: Position, gameId: Game.ID): Fu[Option[(Chapter, Path)]] =
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(none)
@@ -49,10 +47,8 @@ private final class ExplorerGame(
     val (path, foundGameNode) = gameNodes.foldLeft((Path.root, none[Node])) {
       case ((path, None), gameNode) =>
         val nextPath = path + gameNode
-        fromNode.children.nodeAt(nextPath) match {
-          case Some(child) => (nextPath, none)
-          case None => (path, gameNode.some)
-        }
+        if (fromNode.children.nodeAt(nextPath).isDefined) (nextPath, none)
+        else (path, gameNode.some)
       case (found, _) => found
     }
     foundGameNode.map { _ -> fromPath.+(path) }

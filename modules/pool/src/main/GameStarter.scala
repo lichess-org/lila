@@ -1,8 +1,5 @@
 package lila.pool
 
-import akka.actor._
-import scala.concurrent.Promise
-
 import lila.game.{ Game, Player, GameRepo, IdGenerator }
 import lila.hub.FutureSequencer
 import lila.rating.Perf

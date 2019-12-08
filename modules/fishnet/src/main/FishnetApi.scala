@@ -19,7 +19,7 @@ final class FishnetApi(
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-)(implicit system: akka.actor.ActorSystem) {
+) {
 
   import FishnetApi._
   import JsonApi.Request.{ PartialAnalysis, CompleteAnalysis }

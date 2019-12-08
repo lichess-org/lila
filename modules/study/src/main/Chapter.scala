@@ -1,7 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Glyph, Tag, Tags }
-import chess.format.FEN
+import chess.format.pgn.{ Glyph, Tags }
 import chess.variant.Variant
 import chess.{ Color, Centis }
 import org.joda.time.DateTime

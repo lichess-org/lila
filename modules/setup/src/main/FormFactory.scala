@@ -2,7 +2,6 @@ package lila.setup
 
 import chess.format.FEN
 import chess.variant.Variant
-import lila.lobby.Color
 import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
@@ -15,9 +14,9 @@ final class FormFactory(
   import Mappings._
 
   def filterFilled(implicit ctx: UserContext): Fu[(Form[FilterConfig], FilterConfig)] =
-    filterConfig map { f => filter(ctx).fill(f) -> f }
+    filterConfig map { f => filter.fill(f) -> f }
 
-  def filter(ctx: UserContext) = Form(
+  def filter = Form(
     mapping(
       "variant" -> list(variantWithVariants),
       "mode" -> list(rawMode(withRated = true)),
@@ -30,12 +29,12 @@ final class FormFactory(
 
   def aiFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
     aiConfig map { config =>
-      ai(ctx) fill fen.fold(config) { f =>
+      ai fill fen.fold(config) { f =>
         config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
     }
 
-  def ai(ctx: UserContext) = Form(
+  def ai = Form(
     mapping(
       "variant" -> aiVariants,
       "timeMode" -> timeMode,

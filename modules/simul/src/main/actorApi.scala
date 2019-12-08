@@ -4,7 +4,6 @@ package actorApi
 import scala.concurrent.Promise
 
 import lila.game.Game
-import lila.socket.Socket.{ Sri, SocketVersion }
 import lila.user.User
 
 private[simul] case class Talk(tourId: String, u: String, t: String, troll: Boolean)

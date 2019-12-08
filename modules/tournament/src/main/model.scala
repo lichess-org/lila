@@ -1,7 +1,5 @@
 package lila.tournament
 
-import lila.hub.lightTeam.LightTeam
-
 final class LeaderboardRepo(val coll: lila.db.dsl.Coll)
 
 case class TournamentTop(value: List[Player]) extends AnyVal

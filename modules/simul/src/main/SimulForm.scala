@@ -4,7 +4,6 @@ import play.api.data._
 import play.api.data.Forms._
 
 import lila.common.Form._
-import lila.hub.lightTeam._
 
 object SimulForm {
 

@@ -4,16 +4,13 @@ import akka.actor._
 import akka.stream.scaladsl._
 import play.api.libs.json._
 
-import chess.format.FEN
 import lila.chat.Chat
 import lila.chat.UserLine
 import lila.common.Bus
 import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
 import lila.game.Game
 import lila.hub.actorApi.map.Tell
-import lila.hub.actorApi.round.MoveEvent
 import lila.round.actorApi.BotConnected
-import lila.round.actorApi.round.{ DrawNo, DrawYes }
 import scala.concurrent.duration._
 
 final class GameStateStream(
@@ -91,7 +88,7 @@ final class GameStateStream(
     def pushChatLine(username: String, text: String, player: Boolean) =
       queue offer jsonView.chatLine(username, text, player).some
 
-    def onGameOver = {
+    def onGameOver() = {
       gameOver = true
       self ! PoisonPill
     }

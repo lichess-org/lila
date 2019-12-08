@@ -1,12 +1,10 @@
 package lila.lobby
 package actorApi
 
-import play.api.libs.json._
 import scala.concurrent.Promise
 
 import lila.game.Game
 import lila.socket.Socket.{ Sri, Sris }
-import lila.user.User
 
 private[lobby] case class SaveSeek(msg: AddSeek)
 private[lobby] case class RemoveHook(hookId: String)

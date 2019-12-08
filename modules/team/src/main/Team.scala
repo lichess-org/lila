@@ -25,7 +25,7 @@ case class Team(
 
   def isCreator(user: String) = user == createdBy
 
-  def light = lila.hub.lightTeam.LightTeam(_id, name)
+  def light = lila.hub.LightTeam(_id, name)
 }
 
 object Team {

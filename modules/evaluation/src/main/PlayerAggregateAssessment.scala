@@ -125,7 +125,7 @@ case class PlayerAggregateAssessment(
 
   def isWorthLookingAt = user.count.rated >= 2
 
-  def reportText(reason: String, maxGames: Int = 10): String = {
+  def reportText(maxGames: Int = 10): String = {
     val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
       a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
     }).mkString("\n")

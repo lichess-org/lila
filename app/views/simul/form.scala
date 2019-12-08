@@ -11,7 +11,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[lila.simul.SimulForm.Setup], teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = {
+  def apply(form: Form[lila.simul.SimulForm.Setup], teams: List[lila.hub.LightTeam])(implicit ctx: Context) = {
 
     import lila.simul.SimulForm._
 

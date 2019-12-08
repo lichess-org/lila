@@ -6,9 +6,9 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
-import lila.common.{ IpAddress, IsMobile }
-import lila.game.Game.{ FullId, PlayerId }
-import lila.socket.Socket.{ SocketVersion, Sri }
+import lila.common.IpAddress
+import lila.game.Game.PlayerId
+import lila.socket.Socket.SocketVersion
 import lila.user.User
 
 case class EventList(events: List[lila.game.Event])

@@ -5,10 +5,10 @@ trait TellMap {
 }
 
 object LightTeam {
-  type TeamId = String
+  type TeamID = String
   type TeamName = String
 }
-case class LightTeam(_id: LightTeam.TeamId, name: LightTeam.TeamName) {
+case class LightTeam(_id: LightTeam.TeamID, name: LightTeam.TeamName) {
   def id = _id
   def pair = id -> name
 }

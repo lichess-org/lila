@@ -48,7 +48,7 @@ final class JsonView(
     "rated" -> c.mode.rated,
     "speed" -> c.speed.key,
     "timeControl" -> (c.timeControl match {
-      case c @ TimeControl.Clock(clock) => Json.obj(
+      case TimeControl.Clock(clock) => Json.obj(
         "type" -> "clock",
         "limit" -> clock.limitSeconds,
         "increment" -> clock.incrementSeconds,

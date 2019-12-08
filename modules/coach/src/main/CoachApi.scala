@@ -1,7 +1,6 @@
 package lila.coach
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.db.Photographer

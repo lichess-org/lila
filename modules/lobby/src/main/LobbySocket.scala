@@ -34,9 +34,9 @@ final class LobbySocket(
   val trouper: Trouper = new Trouper {
 
     private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
-    private var idleSris = collection.mutable.Set[SriStr]()
-    private var hookSubscriberSris = collection.mutable.Set[SriStr]()
-    private var removedHookIds = ""
+    private val idleSris = collection.mutable.Set[SriStr]()
+    private val hookSubscriberSris = collection.mutable.Set[SriStr]()
+    private val removedHookIds = new collection.mutable.StringBuilder(1024)
 
     val process: Trouper.Receive = {
 
@@ -72,12 +72,12 @@ final class LobbySocket(
         makeMessage("had", hook.render)
       ))
 
-      case RemoveHook(hookId) => removedHookIds = s"$removedHookIds$hookId"
+      case RemoveHook(hookId) => removedHookIds append hookId
 
       case SendHookRemovals =>
         if (removedHookIds.nonEmpty) {
-          tellActiveHookSubscribers(makeMessage("hrm", removedHookIds))
-          removedHookIds = ""
+          tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
+          removedHookIds.clear()
         }
         system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
 
@@ -230,7 +230,7 @@ final class LobbySocket(
       lobby ! LeaveAll
       trouper ! LeaveAll
 
-    case tell @ P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
+    case P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(tpe -> msg, {
           case _ => logger.warn(s"Can't handle $tpe")

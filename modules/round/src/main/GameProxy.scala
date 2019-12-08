@@ -4,7 +4,7 @@ import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
 
 import chess.Color
-import lila.game.{ Game, GameDiff, Progress, Pov, GameRepo }
+import lila.game.{ Game, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
 
 private final class GameProxy(
@@ -59,7 +59,7 @@ private final class GameProxy(
       p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
     )
 
-  private def scheduleFlushProgress = {
+  private def scheduleFlushProgress() = {
     scheduledFlush.cancel()
     scheduledFlush = scheduler.scheduleOnce(scheduleDelay)(flushProgress)
   }

@@ -40,11 +40,11 @@ final class Env(
     resyncIdsPeriod = 25 seconds
   ) { () => wire[LobbyTrouper] }
 
-  private lazy val remoteSocket: LobbySocket = wire[LobbySocket]
-
   private lazy val abortListener = wire[AbortListener]
 
   private lazy val biter = wire[Biter]
+
+  wire[LobbySocket]
 
   lila.common.Bus.subscribeFun("abortGame") {
     case lila.game.actorApi.AbortedBy(pov) => abortListener(pov)

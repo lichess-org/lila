@@ -1,14 +1,13 @@
 package lila.round
 
-import chess.format.{ Forsyth, FEN, Uci }
-import chess.{ MoveMetrics, Centis, Status, Color, MoveOrDrop }
+import chess.format.{ Forsyth, Uci }
+import chess.{ MoveMetrics, Centis, Status, MoveOrDrop }
 
 import actorApi.round.{ HumanPlay, DrawNo, TooManyPlies, TakebackNo, ForecastPlay }
-import akka.actor.ActorRef
 import lila.game.actorApi.MoveGameEvent
 import lila.common.Bus
-import lila.game.{ Game, GameDiff, Progress, Pov, UciMemo }
-import lila.game.Game.{ PlayerId, FullId }
+import lila.game.{ Game, Progress, Pov, UciMemo }
+import lila.game.Game.PlayerId
 import lila.hub.actorApi.round.BotPlay
 
 private final class Player(
@@ -23,7 +22,7 @@ private final class Player(
   private case class MoveApplied(progress: Progress, move: MoveOrDrop) extends MoveResult
 
   private[round] def human(play: HumanPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
-    case p @ HumanPlay(playerId, uci, blur, lag, _) => pov match {
+    case HumanPlay(_, uci, blur, lag, _) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
@@ -43,7 +42,7 @@ private final class Player(
   }
 
   private[round] def bot(play: BotPlay, round: RoundDuct)(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = play match {
-    case p @ BotPlay(playerId, uci, _) => pov match {
+    case BotPlay(_, uci, _) => pov match {
       case Pov(game, _) if game.turns > Game.maxPlies =>
         round ! TooManyPlies
         fuccess(Nil)
@@ -69,7 +68,7 @@ private final class Player(
   )(implicit proxy: GameProxy): Fu[Events] = {
     if (pov.game.hasAi) uciMemo.add(pov.game, moveOrDrop)
     notifyMove(moveOrDrop, progress.game)
-    if (progress.game.finished) moveFinish(progress.game, pov.color) dmap { progress.events ::: _ }
+    if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
     else {
       if (progress.game.playableByAi) requestFishnet(progress.game, round)
       if (pov.opponent.isOfferingDraw) round ! DrawNo(PlayerId(pov.player.id))
@@ -82,7 +81,7 @@ private final class Player(
     }
   }
 
-  private[round] def fishnet(game: Game, ply: Int, uci: Uci, round: RoundDuct)(implicit proxy: GameProxy): Fu[Events] =
+  private[round] def fishnet(game: Game, ply: Int, uci: Uci)(implicit proxy: GameProxy): Fu[Events] =
     if (game.playable && game.player.isAi && game.playedTurns == ply) {
       applyUci(game, uci, blur = false, metrics = fishnetLag)
         .fold(errs => fufail(ClientError(errs.shows)), fuccess).flatMap {
@@ -91,7 +90,7 @@ private final class Player(
             proxy.save(progress) >>-
               uciMemo.add(progress.game, moveOrDrop) >>-
               notifyMove(moveOrDrop, progress.game) >> {
-                if (progress.game.finished) moveFinish(progress.game, game.turnColor) dmap { progress.events ::: _ }
+                if (progress.game.finished) moveFinish(progress.game) dmap { progress.events ::: _ }
                 else fuccess(progress.events)
               }
         }
@@ -116,7 +115,7 @@ private final class Player(
     }).map {
       case (ncg, _) if ncg.clock.exists(_.outOfTime(game.turnColor, false)) => Flagged
       case (newChessGame, moveOrDrop) => MoveApplied(
-        game.update(newChessGame, moveOrDrop, blur, metrics),
+        game.update(newChessGame, moveOrDrop, blur),
         moveOrDrop
       )
     }
@@ -157,7 +156,7 @@ private final class Player(
     )
   }
 
-  private def moveFinish(game: Game, color: Color)(implicit proxy: GameProxy): Fu[Events] = game.status match {
+  private def moveFinish(game: Game)(implicit proxy: GameProxy): Fu[Events] = game.status match {
     case Status.Mate => finisher.other(game, _.Mate, game.situation.winner)
     case Status.VariantEnd => finisher.other(game, _.VariantEnd, game.situation.winner)
     case status @ (Status.Stalemate | Status.Draw) => finisher.other(game, _ => status, None)

@@ -1,12 +1,9 @@
 package lila.fishnet
 
-import lila.common.IpAddress
-import lila.db.BSON.{ BSONJodaDateTimeHandler, stringAnyValHandler }
 import lila.db.dsl._
 import lila.game.BSONHandlers.FENBSONHandler
 import reactivemongo.api.bson._
 
-import chess.format.FEN
 import chess.variant.Variant
 
 private object BSONHandlers {

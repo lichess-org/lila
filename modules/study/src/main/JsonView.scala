@@ -1,10 +1,9 @@
 package lila.study
 
-import chess.format.{ Uci, UciCharPair, FEN }
+import chess.format.{ Uci, FEN }
 import chess.Pos
 import play.api.libs.json._
 
-import lila.common.LightUser
 import lila.common.Json._
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
@@ -117,9 +116,6 @@ object JsonView {
 
   private[study] implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
-  }
-  private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
-    JsString(u.toString)
   }
   private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))

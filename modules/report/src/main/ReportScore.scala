@@ -1,9 +1,8 @@
 package lila.report
 
-import lila.user.{ User, UserRepo, Title }
+import lila.user.{ User, Title }
 
 private final class ReportScore(
-    userRepo: UserRepo,
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
 ) {
 
@@ -51,17 +50,4 @@ private final class ReportScore(
       if (c.isCommFlag) score / 2
       else score
   }
-
-  private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {
-    reporter <- userRepo byId atom.by.value map2 Reporter.apply
-    suspect <- userRepo named report.suspect.value map2 Suspect.apply
-    score <- (reporter |@| suspect).tupled ?? {
-      case (r, s) => apply(Report.Candidate(
-        reporter = r,
-        suspect = s,
-        reason = report.reason,
-        text = atom.text
-      )) map some
-    }
-  } yield score
 }

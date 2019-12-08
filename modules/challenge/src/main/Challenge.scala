@@ -1,7 +1,7 @@
 package lila.challenge
 
 import chess.format.FEN
-import chess.variant.{ Variant, FromPosition, Horde, Chess960, RacingKings, KingOfTheHill }
+import chess.variant.{ Variant, FromPosition, Horde, RacingKings }
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 

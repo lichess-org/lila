@@ -1,24 +1,23 @@
 package lila.lobby
 
+import com.github.ghik.silencer.silent
+import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.concurrent.Promise
-import org.joda.time.DateTime
 
 import actorApi._
-import lila.common.{ Every, AtMost }
 import lila.common.config.Max
+import lila.common.{ Every, AtMost }
 import lila.game.Game
 import lila.hub.Trouper
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
 private final class LobbyTrouper(
-    system: akka.actor.ActorSystem,
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
     maxPlaying: Max,
-    relationApi: lila.relation.RelationApi,
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
@@ -97,7 +96,6 @@ private final class LobbyTrouper(
 
     case Tick(promise) =>
       HookRepo.truncateIfNeeded
-      implicit val timeout = makeTimeout seconds 5
       socket.ask[Sris](GetSrisP).chronometer
         .logIfSlow(100, logger) { r => s"GetSris size=${r.sris.size}" }
         .mon(_.lobby.socket.getSris)
@@ -164,7 +162,7 @@ private final class LobbyTrouper(
   private object recentlyAbortedUserIdPairs {
     private val cache = new lila.memo.ExpireSetMemo(1 hour)
     private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
-    def register(g: Game) = for {
+    @silent def register(g: Game) = for {
       w <- g.whitePlayer.userId
       b <- g.blackPlayer.userId
       if g.fromLobby
@@ -201,7 +199,6 @@ private object LobbyTrouper {
     lila.common.ResilientScheduler(
       every = Every(broomPeriod),
       atMost = AtMost(10 seconds),
-      logger = logger branch "trouper.broom",
       initialDelay = 7 seconds
     ) { trouper.ask[Unit](Tick) }
     trouper

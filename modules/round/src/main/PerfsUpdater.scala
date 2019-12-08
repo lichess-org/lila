@@ -2,7 +2,6 @@ package lila.round
 
 import chess.{ Speed, Color }
 import org.goochjs.glicko2._
-import org.joda.time.DateTime
 
 import lila.game.{ GameRepo, Game, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi

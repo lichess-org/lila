@@ -2,7 +2,6 @@ package lila.report
 
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
-import scala.math.Ordering.Float.TotalOrdering
 import scalaz.NonEmptyList
 
 import lila.user.User
@@ -20,6 +19,8 @@ case class Report(
 ) extends Reason.WithReason {
 
   import Report.{ Atom, Score }
+
+  private implicit val ordering = scala.math.Ordering.Double.TotalOrdering
 
   def id = _id
   def slug = _id

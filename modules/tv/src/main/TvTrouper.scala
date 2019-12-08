@@ -1,6 +1,5 @@
 package lila.tv
 
-import akka.actor._
 import akka.pattern.{ ask => actorAsk }
 import play.api.libs.json.Json
 import scala.concurrent.duration._
@@ -11,7 +10,6 @@ import lila.game.Game
 import lila.hub.Trouper
 
 private[tv] final class TvTrouper(
-    system: ActorSystem,
     renderer: lila.hub.actors.Renderer,
     lightUser: LightUser.GetterSync,
     recentTvGames: lila.round.RecentTvGames,
@@ -24,7 +22,7 @@ private[tv] final class TvTrouper(
   Bus.subscribe(this, "startGame")
 
   private val channelTroupers: Map[Tv.Channel, ChannelTrouper] = Tv.Channel.all.map { c =>
-    c -> new ChannelTrouper(c, lightUser, onSelect = this.!, gameProxyRepo.game, rematches.of)
+    c -> new ChannelTrouper(c, onSelect = this.!, gameProxyRepo.game, rematches.of)
   }.toMap
 
   private var channelChampions = Map[Tv.Channel, Tv.Champion]()

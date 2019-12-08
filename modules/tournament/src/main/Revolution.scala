@@ -18,12 +18,12 @@ final class RevolutionApi(
 
   def active(u: User): Fu[List[Award]] = cache.get map { ~_.get(u.id) }
 
-  private[tournament] def clear = cache.refresh
+  private[tournament] def clear() = cache.refresh
 
   private val cache = asyncCache.single[PerOwner](
     name = "tournament.shield",
     expireAfter = _.ExpireAfterWrite(1 day),
-    f = tournamentRepo.coll.find($doc(
+    f = tournamentRepo.coll.ext.find($doc(
       "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
       "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
       "name" $regex Revolution.namePattern,

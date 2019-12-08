@@ -7,8 +7,7 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.game.Game
-import lila.hub.{ Duct, DuctMap, TrouperMap }
+import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
@@ -30,18 +29,14 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    isOnline: lila.socket.IsOnline,
     proxyRepo: lila.round.GameProxyRepo,
-    flood: lila.security.Flood,
     renderer: lila.hub.actors.Renderer,
-    timeline: lila.hub.actors.Timeline,
     chatApi: lila.chat.ChatApi,
     tellRound: lila.round.TellRound,
     lightUserApi: lila.user.LightUserApi,
     onStart: lila.round.OnStart,
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
-    notifyApi: lila.notify.NotifyApi,
     remoteSocketApi: lila.socket.RemoteSocket
 )(implicit
     system: ActorSystem,

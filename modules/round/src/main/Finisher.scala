@@ -1,9 +1,10 @@
 package lila.round
 
-import chess.{ Status, DecayingStats, Color, Clock }
+import chess.{ Status, DecayingStats, Color }
+import com.github.ghik.silencer.silent
 
-import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.common.{ Bus, Uptime }
+import lila.game.actorApi.{ FinishGame, AbortedBy }
 import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
@@ -94,11 +95,11 @@ private final class Finisher(
   private def apply(
     game: Game,
     makeStatus: Status.type => Status,
-    winner: Option[Color] = None,
+    @silent winnerC: Option[Color] = None,
     message: Option[SelectI18nKey] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
-    val prog = game.finish(status, winner)
+    val prog = game.finish(status, winnerC)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
     lila.mon.game.finish(status.name)()
     val g = prog.game
@@ -106,8 +107,8 @@ private final class Finisher(
     proxy.save(prog) >>
       gameRepo.finish(
         id = g.id,
-        winnerColor = winner,
-        winnerId = winner flatMap (g.player(_).userId),
+        winnerColor = winnerC,
+        winnerId = winnerC flatMap (g.player(_).userId),
         status = prog.game.status
       ) >>
       userRepo.pair(

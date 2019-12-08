@@ -1,9 +1,8 @@
 package lila.round
 
 import chess.Color
-import scala.concurrent.duration.FiniteDuration
 
-import lila.game.{ Game, UciMemo, Pov, Rewind, Event, Progress }
+import lila.game.{ Game, Pov, Event, Progress }
 import lila.pref.{ Pref, PrefApi }
 
 private final class Moretimer(
@@ -16,7 +15,7 @@ private final class Moretimer(
   def apply(pov: Pov): Fu[Option[Progress]] = IfAllowed(pov.game) {
     (pov.game moretimeable !pov.color) ?? {
       if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
-      else pov.game.correspondenceClock map { clock =>
+      else pov.game.hasCorrespondenceClock option {
         messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
         val p = pov.game.correspondenceGiveTime
         p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)

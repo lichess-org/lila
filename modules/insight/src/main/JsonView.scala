@@ -2,8 +2,6 @@ package lila.insight
 
 import play.api.libs.json._
 
-import lila.common.Json.jodaWrites
-
 final class JsonView {
 
   import lila.insight.{ Dimension => D, Metric => M }

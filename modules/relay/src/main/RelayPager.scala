@@ -1,7 +1,9 @@
 package lila.relay
 
-import lila.common.paginator.Paginator
+import com.github.ghik.silencer.silent
+
 import lila.common.config.MaxPerPage
+import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.user.User
@@ -19,7 +21,7 @@ final class RelayPager(
     repo.selectors finished true, me, page, fuccess(9999).some
   )
 
-  private def paginator(
+  @silent private def paginator(
     selector: Bdoc,
     me: Option[User],
     page: Int,

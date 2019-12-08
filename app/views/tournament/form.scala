@@ -13,7 +13,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[_], config: DataForm, me: User, teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = views.html.base.layout(
+  def apply(form: Form[_], config: DataForm, me: User, teams: List[lila.hub.LightTeam])(implicit ctx: Context) = views.html.base.layout(
     title = trans.newTournament.txt(),
     moreCss = cssTag("tournament.form"),
     moreJs = frag(
@@ -89,7 +89,7 @@ object form {
     if (auto) form3.hidden(field) else visible(field)
   )
 
-  def condition(form: Form[_], auto: Boolean, teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = frag(
+  def condition(form: Form[_], auto: Boolean, teams: List[lila.hub.LightTeam])(implicit ctx: Context) = frag(
     form3.split(
       form3.group(form("conditions.nbRatedGame.nb"), raw("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices)),
       autoField(auto, form("conditions.nbRatedGame.perf")) { field =>

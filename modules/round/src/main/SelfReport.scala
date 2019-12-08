@@ -3,8 +3,7 @@ package lila.round
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
-import lila.game.{ Game, Pov }
-import lila.hub.DuctMap
+import lila.game.Game
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(

@@ -64,13 +64,13 @@ final class BoostingApi(
                 games = record.games + 1
               )
               createBoostRecord(newRecord) >> determineBoosting(newRecord, result.winner, result.loser)
-            case none => createBoostRecord(BoostingRecord(
+            case None => createBoostRecord(BoostingRecord(
               _id = id,
               games = 1
             ))
           }
         }
-        case none => funit
+        case None => funit
       }
     } else {
       funit

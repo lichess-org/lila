@@ -1,9 +1,7 @@
 package lila.simul
 
 import play.api.libs.json._
-import scala.concurrent.duration._
 
-import actorApi._
 import lila.game.{ Game, Pov }
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }

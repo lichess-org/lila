@@ -1,7 +1,6 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import scalaz.Validation.FlatMap._
 
 import chess.format.Uci
 import JsonApi.Request.Evaluation

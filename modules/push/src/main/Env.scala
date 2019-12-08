@@ -9,7 +9,6 @@ import play.api.libs.ws.WSClient
 import scala.jdk.CollectionConverters._
 
 import lila.common.config._
-import WebPush.configLoader
 import OneSignalPush.configLoader
 import FirebasePush.configLoader
 
@@ -29,7 +28,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit system: ActorSystem, scheduler: Scheduler) {
+)(implicit system: ActorSystem) {
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 

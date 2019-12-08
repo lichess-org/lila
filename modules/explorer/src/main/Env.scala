@@ -2,7 +2,6 @@ package lila.explorer
 
 import com.softwaremill.macwire._
 import play.api.Configuration
-import scala.concurrent.duration._
 
 case class InternalEndpoint(value: String) extends AnyVal with StringValue
 

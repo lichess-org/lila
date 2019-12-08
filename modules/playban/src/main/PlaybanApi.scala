@@ -83,11 +83,10 @@ final class PlaybanApi(
     }
 
     // flagged after waiting a long time
-    def sitting = for {
+    def sitting: Option[Funit] = for {
       userId <- game.player(flaggerColor).userId
       seconds = nowSeconds - game.movedAt.getSeconds
-      limit <- unreasonableTime
-      if seconds >= limit
+      if unreasonableTime.exists(seconds >= _)
     } yield save(Outcome.Sitting, userId, roughWinEstimate(game, flaggerColor) * 10) >>-
       feedback.sitting(Pov(game, flaggerColor)) >>-
       propagateSitting(game, userId)
@@ -95,15 +94,17 @@ final class PlaybanApi(
     // flagged after waiting a short time;
     // but the previous move used a long time.
     // assumes game was already checked for sitting
-    def sitMoving = for {
-      userId <- game.player(flaggerColor).userId
-      movetimes <- game moveTimes flaggerColor
-      lastMovetime <- movetimes.lastOption
-      limit <- unreasonableTime
-      if lastMovetime.toSeconds >= limit
-    } yield save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor) * 10) >>-
-      feedback.sitting(Pov(game, flaggerColor)) >>-
-      propagateSitting(game, userId)
+    def sitMoving: Option[Funit] = game.player(flaggerColor).userId.ifTrue {
+      ~(for {
+        movetimes <- game moveTimes flaggerColor
+        lastMovetime <- movetimes.lastOption
+        limit <- unreasonableTime
+      } yield lastMovetime.toSeconds >= limit)
+    } map { userId =>
+      save(Outcome.SitMoving, userId, roughWinEstimate(game, flaggerColor) * 10) >>-
+        feedback.sitting(Pov(game, flaggerColor)) >>-
+        propagateSitting(game, userId)
+    }
 
     sandbag(game, flaggerColor) flatMap { isSandbag =>
       IfBlameable(game) {

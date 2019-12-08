@@ -2,14 +2,12 @@ package lila.relay
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.Configuration
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
 
 final class Env(
-    appConfig: Configuration,
     ws: WSClient,
     db: lila.db.Db,
     studyApi: lila.study.StudyApi,
@@ -38,7 +36,7 @@ final class Env(
 
   system.actorOf(Props(wire[RelayFetch]))
 
-  system.scheduler.schedule(1 minute, 1 minute) {
+  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
     api.autoStart >> api.autoFinishNotSyncing
   }
 

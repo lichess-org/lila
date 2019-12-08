@@ -9,7 +9,6 @@ import lila.hub.Trouper
 
 private[tv] final class ChannelTrouper(
     channel: Tv.Channel,
-    lightUser: lila.common.LightUser.GetterSync,
     onSelect: TvTrouper.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
     rematchOf: Game.ID => Option[Game.ID]

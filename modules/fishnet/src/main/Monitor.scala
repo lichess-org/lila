@@ -52,7 +52,7 @@ private final class Monitor(
   private def sample[A](elems: List[A], n: Int) =
     if (elems.size <= n) elems else scala.util.Random shuffle elems take n
 
-  private def monitorClients: Unit = repo.allRecentClients map { clients =>
+  private def monitorClients(): Unit = repo.allRecentClients map { clients =>
 
     import lila.mon.fishnet.client._
 
@@ -76,7 +76,7 @@ private final class Monitor(
     }
   } addEffectAnyway scheduleClients
 
-  private def monitorWork: Unit = {
+  private def monitorWork(): Unit = {
 
     import lila.mon.fishnet.work._
     import Client.Skill._
@@ -90,7 +90,7 @@ private final class Monitor(
   } addEffectAnyway scheduleWork
 
   private def scheduleClients = system.scheduler.scheduleOnce(1 minute)(monitorClients)
-  private def scheduleWork = system.scheduler.scheduleOnce(10 seconds)(monitorWork)
+  private def scheduleWork = system.scheduler.scheduleOnce(20 seconds)(monitorWork)
 
   scheduleClients
   scheduleWork

@@ -1,14 +1,11 @@
 package lila.study
 
-import akka.actor._
-import akka.pattern.ask
 import scala.concurrent.duration._
 
 import lila.notify.{ InvitedToStudy, NotifyApi, Notification }
 import lila.pref.Pref
 import lila.relation.{ Block, Follow }
 import lila.user.User
-import makeTimeout.short
 
 private final class StudyInvite(
     studyRepo: StudyRepo,

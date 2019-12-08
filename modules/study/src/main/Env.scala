@@ -1,7 +1,6 @@
 package lila.study
 
 import com.softwaremill.macwire._
-import play.api.Configuration
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
@@ -12,14 +11,12 @@ import lila.user.User
 
 @Module
 final class Env(
-    appConfig: Configuration,
     ws: WSClient,
     lightUserApi: lila.user.LightUserApi,
     gamePgnDump: lila.game.PgnDump,
     divider: lila.game.Divider,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
-    importer: lila.importer.Importer,
     explorerImporter: lila.explorer.ExplorerImporter,
     notifyApi: lila.notify.NotifyApi,
     prefApi: lila.pref.PrefApi,

@@ -9,15 +9,15 @@ private final class RelayRepo(val coll: Coll) {
 
   import BSONHandlers._
 
-  def scheduled = coll.find($doc(
+  def scheduled = coll.ext.find($doc(
     selectors scheduled true
   )).sort($sort asc "startsAt").list[Relay]()
 
-  def ongoing = coll.find($doc(
+  def ongoing = coll.ext.find($doc(
     selectors ongoing true
   )).sort($sort asc "startedAt").list[Relay]()
 
-  def finished = coll.find($doc(
+  def finished = coll.ext.find($doc(
     selectors finished true
   )).sort($sort desc "startedAt").list[Relay]()
 

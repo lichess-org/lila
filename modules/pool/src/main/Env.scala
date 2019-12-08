@@ -18,8 +18,7 @@ final class Env(
   private lazy val hookThieve = wire[HookThieve]
 
   private lazy val sequencer = new FutureSequencer(
-    executionTimeout = 5.seconds.some,
-    logger = logger
+    executionTimeout = 5.seconds.some
   )
 
   private val onStart = (gameId: Game.Id) => Bus.publish(gameId, "gameStartId")
