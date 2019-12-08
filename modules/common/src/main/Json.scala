@@ -30,6 +30,6 @@ object Json {
   implicit val centisReads = Reads.of[Int] map chess.Centis.apply
 
   implicit val jodaWrites = Writes[DateTime] { time =>
-    JsNumber(time.getSeconds)
+    JsNumber(time.getMillis)
   }
 }
