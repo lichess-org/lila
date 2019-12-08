@@ -35,7 +35,7 @@ final class ShutupApi(
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
-  def privateMessage(userId: User.ID, toUserId: User.ID, text: String, major: Boolean) =
+  def privateMessage(userId: User.ID, toUserId: User.ID, text: String) =
     record(userId, text, TextType.PrivateMessage, none, toUserId.some)
 
   private def record(

@@ -4,12 +4,11 @@ import akka.actor._
 import org.joda.time.DateTime
 
 import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimelines }
-import lila.security.{ Granter, Permission }
+import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimelines }
+import lila.security.Permission
 import lila.user.{ User, UserRepo }
 
 private[timeline] final class Push(
-    renderer: lila.hub.actors.Renderer,
     relationApi: lila.relation.RelationApi,
     userRepo: UserRepo,
     entryApi: EntryApi,

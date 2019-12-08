@@ -55,8 +55,7 @@ final class Env(
   )
 
   private lazy val sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = Some(1 second),
-    logger = logger
+    executionTimeout = Some(1 second)
   )
 
   private lazy val monitor: Monitor = wire[Monitor]

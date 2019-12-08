@@ -18,8 +18,7 @@ final class Env(
   )
 
   private lazy val sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = None,
-    logger = lila.log("perfStat")
+    executionTimeout = None
   )
 
   lazy val indexer = wire[PerfStatIndexer]

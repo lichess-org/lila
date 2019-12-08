@@ -3,13 +3,11 @@ package lila.analyse
 import com.softwaremill.macwire._
 
 import lila.common.config._
-import lila.hub.actors.GameSearch
 
 @Module
 final class Env(
     db: lila.db.Db,
     gameRepo: lila.game.GameRepo,
-    indexer: GameSearch,
     net: NetConfig
 ) {
 

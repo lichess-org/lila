@@ -1,9 +1,8 @@
 package lila.puzzle
 
 import akka.stream.scaladsl._
-import org.joda.time.DateTime
 import play.api.libs.json._
-import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 

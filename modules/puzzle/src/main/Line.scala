@@ -43,7 +43,7 @@ object Line {
         case ahead => ahead.collectFirst {
           case Win(m) => path :+ m
         } | {
-          val children = ahead collect { case Node(m, ls) => path :+ m }
+          val children = ahead collect { case Node(m, _) => path :+ m }
           loop(siblings ::: children)
         }
       }

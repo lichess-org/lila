@@ -14,7 +14,7 @@ final class UnsubApi(coll: Coll) {
     if (v) coll.insert.one(select(channel, userId)).void
     else coll.delete.one(select(channel, userId)).void
   } recover {
-    case e: Exception => ()
+    case _: Exception => ()
   }
 
   def get(channel: String, userId: String): Fu[Boolean] =

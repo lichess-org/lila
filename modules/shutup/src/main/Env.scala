@@ -6,7 +6,7 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 
 import lila.common.config._
-import lila.user.{ User, UserRepo }
+import lila.user.UserRepo
 
 @Module
 private class ShutupConfig(
@@ -37,8 +37,8 @@ final class Env(
         api.publicForumMessage(userId, text)
       case RecordTeamForumMessage(userId, text) =>
         api.teamForumMessage(userId, text)
-      case RecordPrivateMessage(userId, toUserId, text, major) =>
-        api.privateMessage(userId, toUserId, text, major)
+      case RecordPrivateMessage(userId, toUserId, text, _) =>
+        api.privateMessage(userId, toUserId, text)
       case RecordPrivateChat(chatId, userId, text) =>
         api.privateChat(chatId, userId, text)
       case RecordPublicChat(userId, text, source) =>

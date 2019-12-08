@@ -50,7 +50,7 @@ final class EntryApi(
     )) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
-    coll.insert(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void
+    coll.insert.one(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void
 
   // can't remove from capped collection,
   // so we set a date in the past instead.
@@ -95,6 +95,6 @@ final class EntryApi(
       }
     }
 
-    def insert(atom: Atom): Funit = coll.insert(Entry make atom).void >>- cache.refresh
+    def insert(atom: Atom): Funit = coll.delete.one(Entry make atom).void >>- cache.refresh
   }
 }

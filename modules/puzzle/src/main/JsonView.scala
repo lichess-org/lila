@@ -18,7 +18,6 @@ final class JsonView(
     mode: String,
     mobileApi: Option[lila.common.ApiVersion],
     round: Option[Round] = None,
-    result: Option[Result] = None,
     voted: Option[Boolean]
   ): Fu[JsObject] = {
     val isOldMobile = mobileApi.exists(_.value < 3)

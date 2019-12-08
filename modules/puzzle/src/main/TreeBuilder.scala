@@ -19,7 +19,7 @@ object TreeBuilder {
           opening = FullOpeningDB findByFen fen,
           crazyData = None
         )
-        def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+        def makeBranch(g: chess.Game, m: Uci.WithSan) = {
           val fen = Forsyth >> g
           tree.Branch(
             id = UciCharPair(m.uci),
@@ -31,10 +31,10 @@ object TreeBuilder {
             crazyData = None
           )
         }
-        games.zipWithIndex.reverse match {
+        games.reverse match {
           case Nil => root
-          case ((g, m), i) :: rest => root prependChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-            case (node, ((g, m), i)) => makeBranch(i + 1, g, m) prependChild node
+          case (g, m) :: rest => root prependChild rest.foldLeft(makeBranch(g, m)) {
+            case (node, (g, m)) => makeBranch(g, m) prependChild node
           }
         }
     }

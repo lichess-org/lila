@@ -72,7 +72,7 @@ final class StreamerApi(
           feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
         )
         import lila.notify.Notification.Notifies
-        import lila.notify.{ Notification, NotifyApi }
+        import lila.notify.Notification
         ~modChange.list ??
           notifyApi.addNotification(Notification.make(
             Notifies(streamer.userId),

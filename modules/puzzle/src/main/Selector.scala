@@ -4,7 +4,6 @@ import scala.util.Random
 
 import lila.db.AsyncColl
 import lila.db.dsl._
-import lila.rating.Perf
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
@@ -100,7 +99,7 @@ private final object Selector {
     math.abs(1500 - rating) match {
       case d if d >= 500 => 300
       case d if d >= 300 => 250
-      case d => 200
+      case _ => 200
     }
   } * {
     // increase rating tolerance for puzzle blitzers,

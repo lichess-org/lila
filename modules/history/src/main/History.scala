@@ -1,6 +1,6 @@
 package lila.history
 
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 
 import lila.rating.PerfType
 

@@ -2,7 +2,6 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 
-import akka.actor.Scheduler
 import akka.pattern.ask
 import org.joda.time.DateTime
 
@@ -13,8 +12,7 @@ import Puzzle.{ BSONFields => F }
 private[puzzle] final class Daily(
     coll: AsyncColl,
     renderer: lila.hub.actors.Renderer,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    scheduler: Scheduler
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   private val cache =

@@ -20,8 +20,6 @@ object Rewind {
     tags = createTags(initialFen, game)
   ).flatMap(_.valid) map { replay =>
       val rewindedGame = replay.state
-      val rewindedHistory = rewindedGame.board.history
-      val rewindedSituation = rewindedGame.situation
       val color = game.turnColor;
       val newClock = game.clock.map(_.takeback) map { clk =>
         game.clockHistory.flatMap(_.last(color)).fold(clk) {

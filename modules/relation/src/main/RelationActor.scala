@@ -64,14 +64,14 @@ private[relation] final class RelationActor(
       if (contributor && public) {
         val wasAlreadyInStudy = online isStudying userId
         online.studying.put(userId, studyId)
-        if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
+        if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
+    case lila.hub.actorApi.study.StudyDoor(userId, _, contributor, public, false) =>
       online.studyingAll invalidate userId
       if (contributor && public) {
         online.studying invalidate userId
-        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
+        notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
@@ -83,26 +83,26 @@ private[relation] final class RelationActor(
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
       contributorsIn(contributors, studyId) foreach { c =>
         online.studying.put(c, studyId)
-        notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
+        notifyFollowersFriendInStudyStateChanged(c, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
       if (online.isStudyingOrWatching(userId, studyId)) {
         online.studying.put(userId, studyId)
-        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
+        notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
       if (online.isStudying(userId, studyId)) {
         online.studying invalidate userId
-        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
+        notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
       }
   }
 
   private def studyBecamePrivateOrDeleted(studyId: String, contributors: Set[ID]) = {
     contributorsIn(contributors, studyId) foreach { c =>
       online.studying invalidate c
-      notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
+      notifyFollowersFriendInStudyStateChanged(c, "following_left_study")
     }
   }
 
@@ -138,7 +138,7 @@ private[relation] final class RelationActor(
       }
     }
 
-  private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
+  private def notifyFollowersFriendInStudyStateChanged(userId: ID, message: String) =
     api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
       if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), "socketUsers")
     }

@@ -60,14 +60,12 @@ object Query {
   private implicit val clockingJsonWriter = Json.writes[Clocking]
   implicit val jsonWriter = Json.writes[Query]
 
-  val durations = {
-    val day = 60 * 60 * 24
+  val durations: List[(Int, String)] =
     ((30, "30 seconds") ::
       options(List(60, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30), _ / 60, "%d minute{s}").toList) :+
-      (60 * 60 * 1, "One hour") :+
-      (60 * 60 * 2, "Two hours") :+
-      (60 * 60 * 3, "Three hours")
-  }
+      (60 * 60 * 1 -> "One hour") :+
+      (60 * 60 * 2 -> "Two hours") :+
+      (60 * 60 * 3 -> "Three hours")
 
   val clockInits = List(
     (0, "0 seconds"),

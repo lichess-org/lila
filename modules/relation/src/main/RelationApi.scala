@@ -1,6 +1,5 @@
 package lila.relation
 
-import akka.actor.ActorSelection
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
@@ -19,7 +18,6 @@ final class RelationApi(
     repo: RelationRepo,
     actor: actors.Relation,
     timeline: actors.Timeline,
-    reporter: actors.Report,
     prefApi: lila.pref.PrefApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     maxFollow: Max,

@@ -1,12 +1,8 @@
 package lila.gameSearch
 
-import org.joda.time.DateTime
-import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.util.Try
 
-import lila.db.dsl._
 import lila.game.{ Game, GameRepo }
 import lila.search._
 
@@ -43,7 +39,7 @@ final class GameSearchApi(
     Fields.status -> (game.status match {
       case s if s.is(_.Timeout) => chess.Status.Resign
       case s if s.is(_.NoStart) => chess.Status.Resign
-      case s => game.status
+      case _ => game.status
     }).id,
     Fields.turns -> math.ceil(game.turns.toFloat / 2),
     Fields.rated -> game.rated,

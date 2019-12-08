@@ -50,9 +50,7 @@ final class Env(
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
-    puzzleIdMin = config.puzzleIdMin,
-    asyncCache = asyncCache,
-    apiToken = config.apiToken
+    asyncCache = asyncCache
   )
 
   lazy val finisher = new Finisher(
@@ -85,8 +83,7 @@ final class Env(
   lazy val daily = new Daily(
     puzzleColl,
     renderer,
-    asyncCache = asyncCache,
-    system.scheduler
+    asyncCache = asyncCache
   )
 
   lazy val activity = new PuzzleActivity(

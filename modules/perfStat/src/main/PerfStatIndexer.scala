@@ -1,7 +1,5 @@
 package lila.perfStat
 
-import akka.actor.ActorRef
-
 import lila.game.{ Game, GameRepo, Pov, Query }
 import lila.hub.FutureSequencer
 import lila.rating.PerfType

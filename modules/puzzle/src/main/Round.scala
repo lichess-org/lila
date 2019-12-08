@@ -28,10 +28,8 @@ object Round {
   import reactivemongo.api.bson._
   import lila.db.BSON
   import lila.db.dsl._
-  import scala.util.{ Try, Success, Failure }
+  import scala.util.Success
   import BSON.BSONJodaDateTimeHandler
-
-  private implicit val ResultBSONHandler = booleanAnyValHandler[Result](_.win, Result.apply)
 
   /* We shift the puzzle ID by -60000
      * Because the initial puzzle is 60000 and something.

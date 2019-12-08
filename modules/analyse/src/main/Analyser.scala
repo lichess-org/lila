@@ -1,16 +1,12 @@
 package lila.analyse
 
-import akka.actor.ActorSelection
-
 import chess.format.FEN
 import lila.common.Bus
 import lila.game.actorApi.InsertGame
 import lila.game.{ GameRepo, Game }
 import lila.hub.actorApi.map.TellIfExists
-import lila.hub.actors.GameSearch
 
 final class Analyser(
-    indexer: GameSearch,
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo,
     requesterApi: RequesterApi
@@ -33,7 +29,7 @@ final class Analyser(
           }
       }
     }
-    case Some(studyId) =>
+    case Some(_) =>
       analysisRepo.save(analysis) >>
         sendAnalysisProgress(analysis, complete = true) >>- {
           requesterApi save analysis
@@ -56,7 +52,7 @@ final class Analyser(
         )
       }
     }
-    case Some(studyId) => fuccess {
+    case Some(_) => fuccess {
       Bus.publish(actorApi.StudyAnalysisProgress(analysis, complete), "studyAnalysisProgress")
     }
   }

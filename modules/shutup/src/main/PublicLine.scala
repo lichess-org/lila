@@ -1,7 +1,7 @@
 package lila.shutup
 
 import org.joda.time.DateTime
-import scala.util.{ Try, Success, Failure }
+import scala.util.Success
 
 import lila.hub.actorApi.shutup.{ PublicSource => Source }
 
@@ -25,7 +25,7 @@ object PublicLine {
         case Array("s", id) => Success(Source.Simul(id))
         case Array("w", gameId) => Success(Source.Watcher(gameId))
         case Array("u", id) => Success(Source.Study(id))
-        case a => lila.db.BSON.handlerBadValue(s"Invalid PublicLine source $v")
+        case _ => lila.db.BSON.handlerBadValue(s"Invalid PublicLine source $v")
       }
     },
     x => BSONString(x match {

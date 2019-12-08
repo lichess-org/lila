@@ -3,7 +3,7 @@ package lila.puzzle
 import chess.Color
 import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
-import scala.util.{ Try, Success, Failure }
+import scala.util.{ Try, Success }
 
 case class Puzzle(
     id: PuzzleId,

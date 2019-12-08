@@ -2,9 +2,6 @@ package lila.puzzle
 
 import scala.concurrent.duration._
 
-import play.api.libs.json.JsValue
-
-import lila.common.config.Secret
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
@@ -15,9 +12,7 @@ private[puzzle] final class PuzzleApi(
     roundColl: AsyncColl,
     voteColl: AsyncColl,
     headColl: AsyncColl,
-    puzzleIdMin: PuzzleId,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    apiToken: Secret
+    asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
   import Puzzle.puzzleBSONHandler

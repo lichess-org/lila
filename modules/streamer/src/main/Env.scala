@@ -61,7 +61,7 @@ final class Env(
     isOnline = isOnline,
     timeline = timeline,
     keyword = config.keyword,
-    alwaysFeatured = alwaysFeaturedSetting.get,
+    alwaysFeatured = alwaysFeaturedSetting.get _,
     googleApiKey = config.googleApiKey,
     twitchClientId = config.twitchClientId,
     lightUserApi = lightUserApi

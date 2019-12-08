@@ -3,7 +3,6 @@ package lila.puzzle
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
-import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class PuzzleBatch(
     puzzleColl: AsyncColl,
