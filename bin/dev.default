@@ -26,4 +26,4 @@ version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo Java version: $version
 echo Java options: $JAVA_OPTS
 
-sbt -Dhttp.port=9663 "$@"
+sbt "$@"
