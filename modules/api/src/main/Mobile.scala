@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.http.HeaderNames
 import play.api.mvc.RequestHeader
 
-import lila.common.ApiVersion
+import lila.common.{ ApiVersion, HTTPRequest }
 
 object Mobile {
 
@@ -51,16 +51,10 @@ object Mobile {
     // )
     )
 
-    private val PathPattern = """/socket/v(\d++)$""".r.unanchored
     private val HeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
 
-    def requestVersion(req: RequestHeader): Option[ApiVersion] = {
-      (req.headers.get(HeaderNames.ACCEPT), req.path) match {
-        case (Some(HeaderPattern(v)), _) => v.toIntOption map ApiVersion.apply
-        case (_, PathPattern(v)) => v.toIntOption map ApiVersion.apply
-        case _ => none
-      }
-    } filter acceptedVersions.contains
+    def requestVersion(req: RequestHeader): Option[ApiVersion] =
+      HTTPRequest apiVersion req filter acceptedVersions.contains
 
     def requested(req: RequestHeader) = requestVersion(req).isDefined
   }

@@ -108,7 +108,7 @@ final class Tournament(
             _ <- tour.teamBattle ?? { b => env.team.cached.preloadSet(b.teams) }
             streamers <- streamerCache get tour.id
             shieldOwner <- env.tournament.shieldApi currentOwner tour
-          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner))).mon(_.http.response.tournament.show.website)
+          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
         }, api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
           get("playerInfo").?? { api.playerInfo(tour, _) } zip
             getBool("socketVersion").??(env.tournament version tour.id map some) flatMap {
@@ -126,9 +126,9 @@ final class Tournament(
                   partial = partial,
                   lang = ctx.lang
                 )
-            } map { Ok(_) }
-        }.mon(_.http.response.tournament.show.mobile)
-      ) map { NoCache(_) }
+            } dmap { Ok(_) }
+        }
+      ) dmap NoCache
     }
   }
 

@@ -17,10 +17,9 @@ final class KeyPages(env: Env) {
       simuls = env.simul.allCreatedFeaturable.get.nevermind
     ).map(h => html.lobby.home(h)).dmap { (html: Frag) =>
       env.lilaCookie.ensure(ctx.req)(status(html))
-    }.mon(_.http.response.home)
+    }
 
   def notFound(ctx: Context): Result = {
-    lila.mon.http.response.code404()
     Results.NotFound(html.base.notFound()(ctx))
   }
 }

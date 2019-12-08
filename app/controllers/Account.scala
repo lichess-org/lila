@@ -45,7 +45,6 @@ final class Account(
     negotiate(
       html = notFound,
       api = _ => {
-        lila.mon.http.response.accountInfo.count()
         env.relation.api.countFollowers(me.id) zip
           env.relation.api.countFollowing(me.id) zip
           env.pref.api.getPref(me) zip
@@ -66,7 +65,7 @@ final class Account(
                   .add("playban" -> playban)
               }
           }
-      }.mon(_.http.response.accountInfo.time)
+      }
     )
   }
 

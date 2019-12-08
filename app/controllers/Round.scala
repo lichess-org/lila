@@ -45,7 +45,7 @@ final class Round(
                 bookmarked = bookmarked))
           }
       }
-    }.mon(_.http.response.player.website),
+    },
     api = apiVersion => {
       if (isTheft(pov)) fuccess(theftResponse)
       else {
@@ -58,8 +58,8 @@ final class Round(
             }
           }
       }
-    }.mon(_.http.response.player.mobile)
-  ) map NoCache
+    }
+  ) dmap NoCache
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(env.round.proxyRepo.pov(fullId)) { pov =>
@@ -156,7 +156,7 @@ final class Round(
             initialFen <- env.game.gameRepo.initialFen(pov.gameId)
             pgn <- env.api.pgnDump(pov.game, initialFen, none, PgnDump.WithFlags(clocks = false))
           } yield Ok(html.round.watcher.crawler(pov, initialFen, pgn))
-        }.mon(_.http.response.watcher.website),
+        },
         api = apiVersion => for {
           data <- env.api.roundApi.watcher(pov, apiVersion, tv = none)
           analysis <- analyser get pov.game

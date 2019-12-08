@@ -81,7 +81,6 @@ private final class Finisher(
     // wikipedia.org/wiki/Coefficient_of_variation#Estimation
     lRec.coefVar(Math.round((1000f + 250f / moves) * sd / mean))
     lRec.uncomped(quotaStr)(uncompAvg)
-    lRec.uncompedAll(uncompAvg)
     uncompStats.stdDev foreach { v =>
       lRec.uncompStdDev(quotaStr)(Math.round(10 * v))
     }

@@ -206,7 +206,7 @@ final class Auth(
                 BadRequest(html.auth.signup(forms.signup.website fill data, env.security.recaptchaPublicConfig)).fuccess
               case true => HasherRateLimit(data.username, ctx.req) { _ =>
                 MustConfirmEmail(data.fingerPrint) flatMap { mustConfirm =>
-                  lila.mon.user.register.website()
+                  lila.mon.user.register.count(none)
                   lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
                   val email = env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
                   val passwordHash = env.user.authenticator passEnc ClearPassword(data.password)
@@ -239,7 +239,7 @@ final class Auth(
             data => HasherRateLimit(data.username, ctx.req) { _ =>
               val email = env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
               val mustConfirm = MustConfirmEmail.YesBecauseMobile
-              lila.mon.user.register.mobile()
+              lila.mon.user.register.count(apiVersion.some)
               lila.mon.user.register.mustConfirmEmail(mustConfirm.toString)()
               val passwordHash = env.user.authenticator passEnc ClearPassword(data.password)
               env.user.repo.create(data.username, passwordHash, email.acceptable, false, apiVersion.some,

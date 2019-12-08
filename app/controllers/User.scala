@@ -55,7 +55,7 @@ final class User(
     userGames(u, filter, page) flatMap env.api.userGameApi.jsPaginator map { res =>
       Ok(res ++ Json.obj("filter" -> GameFilter.All.name))
     }
-  }.mon(_.http.response.user.show.mobile)
+  }
 
   def show(username: String) = OpenBody { implicit ctx =>
     EnabledUser(username) { u =>
@@ -73,7 +73,7 @@ final class User(
         info <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
       } yield status(html.user.show.page.activity(u, as, info, social))
-    }.mon(_.http.response.user.show.website)
+    }
     else env.activity.read.recent(u) map { as =>
       status(html.activity(u, as))
     }

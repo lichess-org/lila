@@ -20,22 +20,26 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
 
     redirectWrongDomain(req) map fuccess getOrElse {
       nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
-        monitorTime(req, startTime)
+        monitoring(req, startTime, result)
         result
       }
     }
   }
 
-  private def monitorTime(req: RequestHeader, startTime: Long) = {
+  private def monitoring(req: RequestHeader, startTime: Long, result: Result) = {
     val actionName = HTTPRequest actionName req
     val reqTime = nowMillis - startTime
-    if (env.isDev) logger.info(s"$req $actionName ${reqTime}ms")
-    httpMon.time(actionName)(reqTime)
-    httpMon.request.all()
-    if (req.remoteAddress contains ":") httpMon.request.ipv6()
-    if (HTTPRequest isXhr req) httpMon.request.xhr()
-    else if (HTTPRequest isBot req) httpMon.request.bot()
-    else httpMon.request.page()
+    val statusCode = result.header.status
+    if (env.isDev) logger.info(s"$statusCode $req $actionName ${reqTime}ms")
+    else {
+      val apiVersion = lila.api.Mobile.Api.requestVersion(req)
+      httpMon.response.code(actionName, apiVersion, statusCode)
+      httpMon.time(actionName, apiVersion)(reqTime)
+      if (req.remoteAddress contains ":") httpMon.request.ipv6()
+      if (HTTPRequest isXhr req) httpMon.request.xhr()
+      else if (HTTPRequest isBot req) httpMon.request.bot()
+      else httpMon.request.page()
+    }
   }
 
   private def redirectWrongDomain(req: RequestHeader): Option[Result] = (

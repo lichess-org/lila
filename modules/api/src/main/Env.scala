@@ -2,8 +2,10 @@ package lila.api
 
 import akka.actor._
 import com.softwaremill.macwire._
+import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.WSClient
 import play.api.{ Mode, Configuration }
+import scala.concurrent.duration._
 
 import lila.common.config._
 
@@ -42,6 +44,7 @@ final class Env(
     onlineBots: lila.bot.OnlineBots,
     pools: List[lila.pool.PoolConfig],
     challengeEnv: lila.challenge.Env,
+    lifecycle: ApplicationLifecycle,
     ws: WSClient,
     val mode: Mode
 )(implicit system: ActorSystem) {
@@ -67,15 +70,16 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  KamonPusher.start(system)
-
   if (config.influxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
     ws = ws,
     endpoint = config.influxEventEndpoint,
     env = config.influxEventEnv
   )), name = "influx-event")
 
-  system.registerOnTermination {
-    lila.common.Bus.publish(lila.hub.actorApi.Shutdown, "shutdown")
+  system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
+    lila.mon.bus.classifiers(lila.common.Bus.size)
+  }
+  lifecycle.addStopHook { () =>
+    fuccess(lila.common.Bus.publish(lila.hub.actorApi.Shutdown, "shutdown"))
   }
 }

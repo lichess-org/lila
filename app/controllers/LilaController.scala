@@ -359,7 +359,6 @@ private[controllers] abstract class LilaController(val env: Env)
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html =
       if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
-        lila.mon.http.response.code403()
         Forbidden(views.html.site.message.authFailed)
       }
       else fuccess(Results.Forbidden("Authorization failed")),

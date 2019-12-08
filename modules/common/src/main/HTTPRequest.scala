@@ -95,4 +95,13 @@ object HTTPRequest {
     req.attrs.get(Router.Attrs.HandlerDef).fold("NoHandler") { handler =>
       s"${handler.controller}.${handler.method}"
     }
+
+  private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
+
+  def apiVersion(req: RequestHeader): Option[ApiVersion] = {
+    req.headers.get(HeaderNames.ACCEPT) flatMap {
+      case ApiVersionHeaderPattern(v) => v.toIntOption map ApiVersion.apply
+      case _ => none
+    }
+  }
 }

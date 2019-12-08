@@ -19,6 +19,7 @@ final class Lobby(
 
   def home = Open { implicit ctx =>
     pageHit
+    sys error "ooooooooops"
     negotiate(
       html = keyPages.home(Results.Ok).map(NoCache),
       api = _ => fuccess {

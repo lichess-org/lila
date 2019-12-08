@@ -22,9 +22,6 @@ private final class KamonPusher extends Actor {
   def receive = {
 
     case Tick =>
-      lila.mon.jvm.thread(threadStats.getThreadCount)
-      lila.mon.jvm.daemon(threadStats.getDaemonThreadCount)
-      lila.mon.jvm.uptime(Uptime.seconds)
       lila.mon.bus.classifiers(lila.common.Bus.size)
       scheduleTick
   }

@@ -15,13 +15,13 @@ final class CSRFRequestHandler(net: NetConfig) {
     else if (appOrigin(req).isDefined) true
     else origin(req) match {
       case None =>
-        lila.mon.http.csrf.missingOrigin()
+        lila.mon.http.csrf.error("missing_origin", apiVersion(req))
         logger.debug(print(req))
         true
       case Some(o) if isSubdomain(o) =>
         true
       case Some(_) =>
-        lila.mon.http.csrf.forbidden()
+        lila.mon.http.csrf.error("forbidden", apiVersion(req))
         logger.info(print(req))
         false
     }

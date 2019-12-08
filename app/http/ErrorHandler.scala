@@ -23,7 +23,6 @@ final class ErrorHandler(
   override def onProdServerError(req: RequestHeader, exception: UsefulException) = Future {
     val actionName = HTTPRequest actionName req
     lila.log("http").error(s"ERROR 500 $actionName", exception)
-    lila.mon.http.response.code500()
     if (canShowErrorPage(req))
       InternalServerError(views.html.base.errorPage(exception) {
         lila.api.Context.error(
@@ -39,15 +38,15 @@ final class ErrorHandler(
       InternalServerError("Sorry, something went very wrong.")
   }
 
-  override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] =
+  override def onClientError(req: RequestHeader, statusCode: Int, msg: String): Fu[Result] = {
     statusCode match {
       case 404 if canShowErrorPage(req) => mainC.handlerNotFound(req)
       case 404 => fuccess(NotFound("404 - Resource not found"))
       case 403 => lobbyC.handleStatus(req, Results.Forbidden)
       case _ =>
-        lila.mon.http.response.code400()
         lobbyC.handleStatus(req, Results.BadRequest)
     }
+  }
 
   private def canShowErrorPage(req: RequestHeader): Boolean =
     HTTPRequest.isSynchronousHttp(req) && !HTTPRequest.hasFileExtension(req)

@@ -12,7 +12,6 @@ final class Timeline(env: Env) extends LilaController(env) {
 
   def home = Auth { implicit ctx => me =>
     def nb = getInt("nb").fold(15)(_ min 50)
-    lila.mon.http.response.timeline.count()
     negotiate(
       html =
         if (HTTPRequest.isXhr(ctx.req))
@@ -26,7 +25,7 @@ final class Timeline(env: Env) extends LilaController(env) {
       _ => env.timeline.entryApi.moreUserEntries(me.id, nb)
         .logTimeIfGt(s"timeline mobile $nb for ${me.id}", 10 seconds)
         .map { es => Ok(Json.obj("entries" -> es)) }
-    ).mon(_.http.response.timeline.time)
+    )
   }
 
   def unsub(channel: String) = Auth { implicit ctx => me =>

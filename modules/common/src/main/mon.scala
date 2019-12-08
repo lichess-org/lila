@@ -2,53 +2,32 @@ package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import kamon.Kamon
+import kamon.tag.TagSet
+
+import lila.common.ApiVersion
 
 object mon {
 
+  private def apiTag(api: Option[ApiVersion]) = api.fold("web")(_.toString)
+
   object http {
-    def time(action: String) = Kamon.gauge("http.time").withTag("action", action).update _
+    private val timeGauge = Kamon.gauge("http.time")
+    def time(action: String, api: Option[ApiVersion]) = timeGauge.withTags(
+      TagSet.from(Map("action" -> action, "api" -> apiTag(api)))
+    ).update _
     object request {
-      val all = inc("http.request.all")
-      val ipv6 = inc("http.request.ipv6")
-      val xhr = inc("http.request.xhr")
-      val bot = inc("http.request.bot")
-      val page = inc("http.request.page")
-      def path(p: String) = inc(s"http.request.path.$p")
+      private val base = Kamon.counter("http.request")
+      val ipv6 = base.withTag("tpe", "ipv6").increment _
+      val xhr = base.withTag("tpe", "xhr").increment _
+      val bot = base.withTag("tpe", "bot").increment _
+      val page = base.withTag("tpe", "page").increment _
+      def path(p: String) = inc("http.request.path", "path", p)
     }
     object response {
-      val code400 = inc("http.response.4.00")
-      val code403 = inc("http.response.4.03")
-      val code404 = inc("http.response.4.04")
-      val code500 = inc("http.response.5.00")
-      val home = rec("http.response.home")
-      object user {
-        object show {
-          val website = rec("http.response.user.show.website")
-          val mobile = rec("http.response.user.show.mobile")
-        }
-      }
-      object tournament {
-        object show {
-          val website = rec("http.response.tournament.show.website")
-          val mobile = rec("http.response.tournament.show.mobile")
-        }
-      }
-      object player {
-        val website = rec("http.response.player.website")
-        val mobile = rec("http.response.player.mobile")
-      }
-      object watcher {
-        val website = rec("http.response.watcher.website")
-        val mobile = rec("http.response.watcher.mobile")
-      }
-      object accountInfo {
-        val time = rec("http.response.accountInfo")
-        val count = inc("http.response.accountInfo")
-      }
-      object timeline {
-        val time = rec("http.response.timeline")
-        val count = inc("http.response.timeline")
-      }
+      private val codeCounter = Kamon.counter("http.response")
+      def code(action: String, api: Option[ApiVersion], code: Int) = codeCounter.withTags(
+        TagSet.from(Map("action" -> action, "api" -> apiTag(api), "code" -> code.toString))
+      ).increment()
     }
     object prismic {
       val timeout = inc("http.prismic.timeout")
@@ -60,47 +39,46 @@ object mon {
       def cost = incX("http.user-games.cost")
     }
     object csrf {
-      val missingOrigin = inc("http.csrf.missing_origin")
-      val forbidden = inc("http.csrf.forbidden")
+      private val base = Kamon.counter("http.csrf")
+      def error(tpe: String, api: Option[ApiVersion]) = base.withTags(
+        TagSet.from(Map("tpe" -> tpe, "api" -> apiTag(api)))
+      ).increment()
     }
     object fingerPrint {
       val count = inc("http.finger_print.count")
       val time = rec("http.finger_print.time")
     }
   }
-  object mobile {
-    def version(v: String) = inc(s"mobile.version.$v")
-  }
   object syncache {
-    def miss(name: String) = inc(s"syncache.miss.$name")
-    def wait(name: String) = inc(s"syncache.wait.$name")
-    def preload(name: String) = inc(s"syncache.preload.$name")
-    def timeout(name: String) = inc(s"syncache.timeout.$name")
-    def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
-    def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
-    def chmSize(name: String) = rec(s"syncache.chm.size.$name")
+    def miss(name: String) = inc("syncache.miss", "name", name)
+    def wait(name: String) = inc("syncache.wait", "name", name)
+    def preload(name: String) = inc("syncache.preload", "name", name)
+    def timeout(name: String) = inc("syncache.timeout", "name", name)
+    def waitMicros(name: String) = incX("syncache.wait_micros", "name", name)
+    def computeNanos(name: String) = rec("syncache.compute_nanos", "name", name)
+    def chmSize(name: String) = rec("syncache.chm.size", "name", name)
   }
   def caffeineStats(cache: CaffeineCache[_, _], name: String): Unit = {
     val stats = cache.stats
-    rec(s"caffeine.count.hit.$name")(stats.hitCount)
-    rate(s"caffeine.rate.hit.$name")(stats.hitRate)
-    rec(s"caffeine.count.miss.$name")(stats.missCount)
+    rec("caffeine.count.hit", "name", name)(stats.hitCount)
+    rate("caffeine.rate.hit", "name", name)(stats.hitRate)
+    rec("caffeine.count.miss", "name", name)(stats.missCount)
     if (stats.totalLoadTime > 0) {
-      rec(s"caffeine.count.load.success.$name")(stats.loadSuccessCount)
-      rec(s"caffeine.count.load.failure.$name")(stats.loadFailureCount)
-      rec(s"caffeine.total.load_time.$name")(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
-      rec(s"caffeine.penalty.load_time.$name")(stats.averageLoadPenalty.toLong)
+      rec("caffeine.count.load.success", "name", name)(stats.loadSuccessCount)
+      rec("caffeine.count.load.failure", "name", name)(stats.loadFailureCount)
+      rec("caffeine.total.load_time", "name", name)(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
+      rec("caffeine.penalty.load_time", "name", name)(stats.averageLoadPenalty.toLong)
     }
-    rec(s"caffeine.count.eviction.$name")(stats.evictionCount)
-    rec(s"caffeine.count.entry.$name")(cache.estimatedSize)
+    rec("caffeine.count.eviction", "name", name)(stats.evictionCount)
+    rec("caffeine.count.entry", "name", name)(cache.estimatedSize)
   }
   object evalCache {
-    private val hit = inc("eval_Cache.all.hit")
-    private val miss = inc("eval_Cache.all.miss")
+    private val hit = inc("eval_cache.all.hit")
+    private val miss = inc("eval_cache.all.miss")
     private def hitIf(cond: Boolean) = if (cond) hit else miss
     private object byPly {
-      def hit(ply: Int) = inc(s"eval_Cache.ply.$ply.hit")
-      def miss(ply: Int) = inc(s"eval_Cache.ply.$ply.miss")
+      def hit(ply: Int) = inc(s"eval_cache.ply.hit", "ply", ply.toString)
+      def miss(ply: Int) = inc(s"eval_cache.ply.miss", "ply", ply.toString)
       def hitIf(ply: Int, cond: Boolean) = if (cond) hit(ply) else miss(ply)
     }
     def register(ply: Int, isHit: Boolean) = {
@@ -108,10 +86,10 @@ object mon {
       if (ply <= 10) byPly.hitIf(ply, isHit)()
     }
     object upgrade {
-      val hit = incX("eval_Cache.upgrade.hit")
-      val members = rec("eval_Cache.upgrade.members")
-      val evals = rec("eval_Cache.upgrade.evals")
-      val expirable = rec("eval_Cache.upgrade.expirable")
+      val hit = incX("eval_cache.upgrade.hit")
+      val members = rec("eval_cache.upgrade.members")
+      val evals = rec("eval_cache.upgrade.evals")
+      val expirable = rec("eval_cache.upgrade.expirable")
     }
   }
   object lobby {
@@ -132,41 +110,44 @@ object mon {
     }
     object pool {
       object wave {
-        def scheduled(id: String) = inc(s"lobby.pool.$id.wave.scheduled")
-        def full(id: String) = inc(s"lobby.pool.$id.wave.full")
-        def candidates(id: String) = rec(s"lobby.pool.$id.wave.candidates")
-        def paired(id: String) = rec(s"lobby.pool.$id.wave.paired")
-        def missed(id: String) = rec(s"lobby.pool.$id.wave.missed")
-        def wait(id: String) = rec(s"lobby.pool.$id.wave.wait")
-        def ratingDiff(id: String) = rec(s"lobby.pool.$id.wave.rating_diff")
-        def withRange(id: String) = rec(s"lobby.pool.$id.wave.with_range")
+        def scheduled(id: String) = inc("lobby.pool.wave.scheduled", "pool", id)
+        def full(id: String) = inc("lobby.pool.wave.full", "pool", id)
+        def candidates(id: String) = rec("lobby.pool.wave.candidates", "pool", id)
+        def paired(id: String) = rec("lobby.pool.wave.paired", "pool", id)
+        def missed(id: String) = rec("lobby.pool.wave.missed", "pool", id)
+        def wait(id: String) = rec("lobby.pool.wave.wait", "pool", id)
+        def ratingDiff(id: String) = rec("lobby.pool.wave.rating_diff", "pool", id)
+        def withRange(id: String) = rec("lobby.pool.wave.with_range", "pool", id)
       }
       object thieve {
-        def timeout(id: String) = inc(s"lobby.pool.$id.thieve.timeout")
-        def candidates(id: String) = rec(s"lobby.pool.$id.thieve.candidates")
-        def stolen(id: String) = rec(s"lobby.pool.$id.thieve.stolen")
+        def timeout(id: String) = inc("lobby.pool.thieve.timeout", "pool", id)
+        def candidates(id: String) = rec("lobby.pool.thieve.candidates", "pool", id)
+        def stolen(id: String) = rec("lobby.pool.thieve.stolen", "pool", id)
       }
       object join {
-        def count(id: String) = inc(s"lobby.pool.$id.join.count")
+        def count(id: String) = inc("lobby.pool.join.count", "pool", id)
       }
       object leave {
-        def count(id: String) = inc(s"lobby.pool.$id.leave.count")
-        def wait(id: String) = rec(s"lobby.pool.$id.leave.wait")
+        def count(id: String) = inc("lobby.pool.leave.count", "pool", id)
+        def wait(id: String) = rec("lobby.pool.leave.wait", "pool", id)
       }
       object matchMaking {
-        def duration(id: String) = rec(s"lobby.pool.$id.match_making.duration")
+        def duration(id: String) = rec("lobby.pool.match_making.duration", "pool", id)
       }
       object gameStart {
-        def duration(id: String) = rec(s"lobby.pool.$id.game_start.duration")
+        def duration(id: String) = rec("lobby.pool.game_start.duration", "pool", id)
       }
     }
   }
   object rating {
     object distribution {
-      def byPerfAndRating(perfKey: String, rating: Int): Rate = rate(s"rating.distribution.$perfKey.$rating")
+      def byPerfAndRating(perfKey: String, rating: Int): Rate = value =>
+        Kamon.gauge("rating.distribution").withTags(
+          TagSet.from(Map("perf" -> perfKey, "rating" -> rating.toString))
+        ).update((value * 100000).toInt)
     }
     object regulator {
-      def micropoints(perfKey: String) = rec(s"rating.regulator.$perfKey")
+      def micropoints(perfKey: String) = rec("rating.regulator", "perf", perfKey)
     }
   }
 
@@ -176,28 +157,21 @@ object mon {
       val watcher = rec("round.api.watcher")
       val embed = rec("round.api.embed")
     }
-    object actor {
-      val count = rec("round.actor.count")
-    }
-    object duct {
-      val count = rec("round.duct.count")
-    }
     object forecast {
       val create = inc("round.forecast.create")
     }
     object move {
       object lag {
         val compDeviation = rec("round.move.lag.comp_deviation")
-        def uncomped(key: String) = rec(s"round.move.lag.uncomped_ms.$key")
-        val uncompedAll = rec(s"round.move.lag.uncomped_ms.all")
-        def uncompStdDev(key: String) = rec(s"round.move.lag.uncomp_stdev_ms.$key")
-        val stdDev = rec(s"round.move.lag.stddev_ms")
-        val mean = rec(s"round.move.lag.mean_ms")
-        val coefVar = rec(s"round.move.lag.coef_var_1000")
-        val compEstStdErr = rec(s"round.move.lag.comp_est_stderr_1000")
+        def uncomped(key: String) = rec("round.move.lag.uncomped_ms", "key", key)
+        def uncompStdDev(key: String) = rec("round.move.lag.uncomp_stdev_ms", "key", key)
+        val stdDev = rec("round.move.lag.stddev_ms")
+        val mean = rec("round.move.lag.mean_ms")
+        val coefVar = rec("round.move.lag.coef_var_1000")
+        val compEstStdErr = rec("round.move.lag.comp_est_stderr_1000")
         val compEstOverErr = rec("round.move.lag.avg_over_error_ms")
       }
-      val count = inc("round.move.full")
+      val count = inc("round.move.count")
       val time = rec("round.move.time")
     }
     object error {
@@ -218,20 +192,9 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
-    object history {
-      sealed abstract class PlatformHistory(platform: String) {
-        val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
-        val getEventsCount = inc(s"round.history.$platform.getEventsCount")
-        val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
-      }
-      object mobile extends PlatformHistory("mobile")
-      object site extends PlatformHistory("site")
-      def apply(isMobile: lila.common.IsMobile): PlatformHistory =
-        if (isMobile.value) mobile else site
-    }
   }
   object playban {
-    def outcome(out: String) = inc(s"playban.outcome.$out")
+    def outcome(out: String) = inc("playban.outcome", "outcome", out)
     object ban {
       val count = inc("playban.ban.count")
       val mins = incX("playban.ban.mins")
@@ -258,9 +221,9 @@ object mon {
     }
   }
   object search {
-    def client(op: String) = rec(s"search.client.$op")
-    def success(op: String) = inc(s"search.client.$op.success")
-    def failure(op: String) = inc(s"search.client.$op.failure")
+    def client(op: String) = rec("search.client", "op", op)
+    def success(op: String) = inc("search.client.success", "op", op)
+    def failure(op: String) = inc("search.client.failure", "op", op)
   }
   object study {
     object search {
@@ -274,19 +237,13 @@ object mon {
       }
     }
   }
-  object jvm {
-    val thread = rec("jvm.thread")
-    val daemon = rec("jvm.daemon")
-    val uptime = rec("jvm.uptime")
-  }
   object user {
     val online = rec("user.online")
     object register {
-      val website = inc("user.register.website")
-      val mobile = inc("user.register.mobile")
-      def mustConfirmEmail(v: String) = inc(s"user.register.must_confirm_email.$v")
-      def confirmEmailResult(v: Boolean) = inc(s"user.register.confirm_email.$v")
-      val modConfirmEmail = inc(s"user.register.mod_confirm_email")
+      def count(api: Option[ApiVersion]) = inc("user.register.count", "api", apiTag(api))
+      def mustConfirmEmail(v: String) = inc("user.register.must_confirm_email", "tpe", v)
+      def confirmEmailResult(v: Boolean) = inc("user.register.confirm_email", "success", v.toString)
+      val modConfirmEmail = inc("user.register.mod_confirm_email")
     }
     object auth {
       val bcFullMigrate = inc("user.auth.bc_full_migrate")
@@ -677,30 +634,41 @@ object mon {
   def recPath(f: lila.mon.type => Rec): Rec = f(this)
   def incPath(f: lila.mon.type => Inc): Inc = f(this)
 
-  private def inc(name: String): Inc = Kamon.counter(name).withoutTags.increment _
-  private def incX(name: String): IncX = {
-    val count = Kamon.counter(name).withoutTags
-    value => {
-      if (value < 0) logger.warn(s"Negative increment value: $name=$value")
-      else count.increment(value)
-    }
+  private def inc(metric: String): Inc =
+    Kamon.counter(metric).withoutTags.increment _
+
+  private def inc(metric: String, tag: String, value: String): Inc =
+    Kamon.counter(metric).withTag(tag, value).increment _
+
+  private def incX(name: String): IncX =
+    incCounter(Kamon.counter(name).withoutTags)
+
+  private def incX(name: String, tag: String, tagValue: String): IncX =
+    incCounter(Kamon.counter(name).withTag(tag, tagValue))
+
+  private def incCounter(counter: kamon.metric.Counter): IncX = value => {
+    if (value < 0) logger.warn(s"Negative counter value: $counter=$value")
+    else counter.increment(value)
   }
-  private def rec(name: String): Rec = {
-    val gauge = Kamon.gauge(name).withoutTags
-    value => {
-      if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
-      else gauge.update(value)
-    }
+
+  private def rec(name: String): Rec =
+    recGauge(Kamon.gauge(name).withoutTags)
+
+  private def rec(name: String, tag: String, tagValue: String): Rec =
+    recGauge(Kamon.gauge(name).withTag(tag, tagValue))
+
+  private def recGauge(gauge: kamon.metric.Gauge): Rec = value => {
+    if (value < 0) logger.warn(s"Negative gauge value: $gauge=$value")
+    else gauge.update(value)
   }
 
   // to record Double rates [0..1],
   // we multiply by 100,000 and convert to Int [0..100000]
-  private def rate(name: String): Rate = {
-    val gauge = Kamon.gauge(name).withoutTags
-    value => {
-      if (value < 0) logger.warn(s"Negative histogram value: $name=$value")
-      else gauge.update((value * 100000).toInt)
-    }
+  private def rate(name: String): Rate = value => {
+    Kamon.gauge(name).withoutTags.update((value * 100000).toInt)
+  }
+  private def rate(name: String, tag: String, tagValue: String): Rate = value => {
+    Kamon.gauge(name).withTag(tag, tagValue).update((value * 100000).toInt)
   }
 
   private val stripVersionRegex = """[^\w\.\-]""".r
