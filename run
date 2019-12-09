@@ -7,8 +7,6 @@
 # Then in the sbt console:
 # ~run
 
-# Yes it needs tons of memory to build. Go for 2048M  if you have them.
-export JAVA_OPTS="-Xms1024M -Xmx2000M -XX:+UseParallelGC -XX:+ExitOnOutOfMemoryError"
 export SBT_OPTS=""
 
 # For development without nginx (not recommended).
@@ -23,6 +21,5 @@ echo "
                                                   |___/"
 version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
 echo Java version: "$version"
-echo Java options: $JAVA_OPTS
 
 sbt "$@"
