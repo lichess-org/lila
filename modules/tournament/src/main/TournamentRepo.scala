@@ -19,13 +19,13 @@ final class TournamentRepo(val coll: Coll) {
   private val createdSelect = $doc("status" -> Status.Created.id)
   private val startedSelect = $doc("status" -> Status.Started.id)
   private[tournament] val finishedSelect = $doc("status" -> Status.Finished.id)
-  private val unfinishedSelect = $doc("status" -> $doc("$ne" -> Status.Finished.id))
-  private[tournament] val scheduledSelect = $doc("schedule" -> $doc("$exists" -> true))
-  private def sinceSelect(date: DateTime) = $doc("startsAt" -> $doc("$gt" -> date))
+  private val unfinishedSelect = $doc("status" $ne Status.Finished.id)
+  private[tournament] val scheduledSelect = $doc("schedule" $exists true)
+  private def sinceSelect(date: DateTime) = $doc("startsAt" $gt date)
   private def variantSelect(variant: Variant) =
-    if (variant.standard) $doc("variant" -> $doc("$exists" -> false))
+    if (variant.standard) $doc("variant" $exists false)
     else $doc("variant" -> variant.id)
-  private val nonEmptySelect = $doc("nbPlayers" -> $doc("$ne" -> 0))
+  private val nonEmptySelect = $doc("nbPlayers" $ne 0)
   private[tournament] val selectUnique = $doc("schedule.freq" -> "unique")
 
   def byId(id: Tournament.ID): Fu[Option[Tournament]] = coll.byId[Tournament](id)
