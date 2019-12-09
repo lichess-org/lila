@@ -38,21 +38,16 @@ final class ForumSearchApi(
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-
       postRepo.cursor
         .documentSource()
         .via(lila.common.LilaStream.logRate[Post]("forum index")(logger))
         .grouped(200)
-        .mapAsyncUnordered(1)(postApi.liteViews)
-        .map(views => views.map(v => Id(v.post.id) -> toDoc(v)))
+        .mapAsync(1)(postApi.liteViews)
+        .map(_.map(v => Id(v.post.id) -> toDoc(v)))
         .mapAsyncUnordered(2) { views =>
           c.storeBulk(views) inject views.size
         }
-        .fold(0)((acc, nb) => acc + nb)
-        .wireTap { nb =>
-          if (nb % 5 == 0) logger.info(s"Indexing forum posts... $nb")
-        }
-        .to(Sink.ignore)
+        .toMat(Sink.ignore)(Keep.right)
         .run
     } >> client.refresh
 

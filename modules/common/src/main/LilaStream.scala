@@ -22,5 +22,5 @@ object LilaStream {
   )(logger: play.api.LoggerLike): Flow[T, T, NotUsed] =
     Flow[T]
       .alsoTo(flowRate[T](metric, outputDelay)
-        .to(Sink.foreach(r => logger.info(s"[rate] $name $r"))))
+        .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}"))))
 }
