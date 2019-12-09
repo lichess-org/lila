@@ -30,10 +30,6 @@ final class Env(
 
   private lazy val aggregationPipeline = wire[AggregationPipeline]
 
-  private def sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = None
-  )
-
   private lazy val povToEntry = wire[PovToEntry]
 
   private lazy val indexer = wire[Indexer]

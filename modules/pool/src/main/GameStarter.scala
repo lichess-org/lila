@@ -1,7 +1,7 @@
 package lila.pool
 
 import lila.game.{ Game, Player, GameRepo, IdGenerator }
-import lila.hub.FutureSequencer
+import lila.common.WorkQueue
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
@@ -9,14 +9,15 @@ private final class GameStarter(
     userRepo: UserRepo,
     gameRepo: GameRepo,
     idGenerator: IdGenerator,
-    onStart: Game.Id => Unit,
-    sequencer: FutureSequencer
-) {
+    onStart: Game.Id => Unit
+)(implicit mat: akka.stream.Materializer) {
 
   import PoolApi._
 
+  private val workQueue = new WorkQueue(16)
+
   def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
-    sequencer {
+    workQueue {
       val userIds = couples.flatMap(_.userIds)
       userRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
         couples.map(one(pool, perfs)).sequenceFu.map { pairings =>

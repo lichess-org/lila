@@ -43,7 +43,7 @@ final class TournamentApi(
     proxyRepo: lila.round.GameProxyRepo
 )(implicit system: ActorSystem, mat: akka.stream.Materializer) {
 
-  private val sequencers = new WorkQueues(256, 1 minute)
+  private val workQueue = new WorkQueues(256, 1 minute)
 
   def createTournament(
     setup: TournamentSetup,
@@ -494,7 +494,7 @@ final class TournamentApi(
       }
 
   private def Sequencing(tourId: Tournament.ID)(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Funit =
-    sequencers.run(tourId) {
+    workQueue(tourId) {
       fetch(tourId) flatMap {
         case Some(t) => run(t)
         case None => fufail(s"Can't run sequenced operation on missing tournament $tourId")

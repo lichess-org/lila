@@ -1,23 +1,24 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-
 import chess.format.Forsyth
 
 import lila.analyse.AnalysisRepo
 import lila.game.{ Game, UciMemo }
+import lila.common.WorkQueue
 
 final class Analyser(
     repo: FishnetRepo,
     analysisRepo: AnalysisRepo,
     gameRepo: lila.game.GameRepo,
     uciMemo: UciMemo,
-    sequencer: lila.hub.FutureSequencer,
     evalCache: FishnetEvalCache,
     limiter: Limiter
-) {
+)(implicit mat: akka.stream.Materializer) {
 
   val maxPlies = 200
+
+  private val workQueue = new WorkQueue(256)
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
@@ -27,7 +28,7 @@ final class Analyser(
         limiter(sender, ignoreConcurrentCheck = false) flatMap { accepted =>
           accepted ?? {
             makeWork(game, sender) flatMap { work =>
-              sequencer {
+              workQueue {
                 repo getSimilarAnalysis work flatMap {
                   // already in progress, do nothing
                   case Some(similar) if similar.isAcquired => funit
@@ -74,7 +75,7 @@ final class Analyser(
               startPly = initialFen.map(_.value).flatMap(Forsyth.getColor).fold(0)(_.fold(0, 1)),
               sender = sender
             )
-            sequencer {
+            workQueue {
               repo getSimilarAnalysis work flatMap {
                 _.isEmpty ?? {
                   lila.mon.fishnet.analysis.requestCount()

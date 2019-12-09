@@ -9,10 +9,10 @@ private final class StudySequencer(
     chapterRepo: ChapterRepo
 )(implicit mat: akka.stream.Materializer) {
 
-  private val sequencers = new WorkQueues(256, 10 minutes)
+  private val workQueue = new WorkQueues(256, 10 minutes)
 
   def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
-    sequencers.run(studyId.value) {
+    workQueue(studyId.value) {
       studyRepo.byId(studyId) flatMap {
         _ ?? { f(_) }
       }

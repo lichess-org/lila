@@ -17,10 +17,6 @@ final class Env(
     coll = db(appConfig.get[CollName]("perfStat.collection.perf_stat"))
   )
 
-  private lazy val sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = None
-  )
-
   lazy val indexer = wire[PerfStatIndexer]
 
   lazy val jsonView = wire[JsonView]

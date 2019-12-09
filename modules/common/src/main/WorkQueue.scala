@@ -21,6 +21,8 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
   type Task[A] = () => Fu[A]
   private type TaskWithPromise[A] = (Task[A], Promise[A])
 
+  def apply[A](future: => Fu[A]): Fu[A] = run(() => future)
+
   def run[A](task: Task[A]): Fu[A] = {
     val promise = Promise[A]
     queue.offer(task -> promise) flatMap {
@@ -44,7 +46,7 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
 // Distributes tasks to many sequencers
 final class WorkQueues(buffer: Int, expiration: FiniteDuration)(implicit mat: Materializer) {
 
-  def run(key: String)(task: => Funit): Funit =
+  def apply(key: String)(task: => Funit): Funit =
     queues.get(key).run(() => task)
 
   private val queues: LoadingCache[String, WorkQueue] = Scaffeine()

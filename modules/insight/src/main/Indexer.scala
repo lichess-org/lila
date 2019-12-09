@@ -9,17 +9,18 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.hub.FutureSequencer
+import lila.common.WorkQueue
 import lila.user.User
 
 private final class Indexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
-    storage: Storage,
-    sequencer: FutureSequencer
+    storage: Storage
 )(implicit mat: akka.stream.Materializer) {
 
-  def all(user: User): Funit = sequencer {
+  private val workQueue = new WorkQueue(64)
+
+  def all(user: User): Funit = workQueue {
     storage.fetchLast(user.id) flatMap {
       case None => fromScratch(user)
       case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)

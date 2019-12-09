@@ -6,24 +6,25 @@ import scala.util.{ Try, Success, Failure }
 
 import Client.Skill
 import lila.common.IpAddress
+import lila.common.WorkQueue
 import lila.db.dsl._
-import lila.hub.FutureSequencer
 
 final class FishnetApi(
     repo: FishnetRepo,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
-    sequencer: FutureSequencer,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-) {
+)(implicit mat: akka.stream.Materializer) {
 
   import FishnetApi._
   import JsonApi.Request.{ PartialAnalysis, CompleteAnalysis }
   import BSONHandlers._
+
+  private val workQueue = new WorkQueue(64)
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
@@ -46,16 +47,13 @@ final class FishnetApi(
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
     .result
     .recover {
-      case e: lila.hub.Duct.Timeout =>
-        lila.mon.fishnet.acquire.timeout(client.skill.key)()
-        logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
-        none
       case e: Exception =>
+        lila.mon.fishnet.acquire.error(client.skill.key)()
         logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
     }
 
-  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
+  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = workQueue {
     analysisColl.ext.find(
       $doc("acquired" $exists false) ++ {
         !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
@@ -115,7 +113,7 @@ final class FishnetApi(
         case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
       }
 
-  def abort(workId: Work.Id, client: Client): Funit = sequencer {
+  def abort(workId: Work.Id, client: Client): Funit = workQueue {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       _ ?? { work =>
         Monitor.abort(work, client)

@@ -530,11 +530,10 @@ object mon {
     }
     object queue {
       def db(skill: String) = rec(s"fishnet.queue.db.$skill")
-      def sequencer(skill: String) = rec(s"fishnet.queue.sequencer.$skill")
     }
     object acquire {
       def time(skill: String) = rec(s"fishnet.acquire.skill.$skill")
-      def timeout(skill: String) = inc(s"fishnet.acquire.timeout.skill.$skill")
+      def error(skill: String) = inc(s"fishnet.acquire.error.skill.$skill")
     }
     object work {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")

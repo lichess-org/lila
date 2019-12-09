@@ -26,7 +26,7 @@ final class SimulApi(
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit mat: akka.stream.Materializer) {
 
-  private val sequencers = new WorkQueues(128, 10 minutes)
+  private val workQueue = new WorkQueues(128, 10 minutes)
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 
@@ -90,7 +90,7 @@ final class SimulApi(
       }
     }
 
-  def start(simulId: Simul.ID): Funit = sequencers.run(simulId) {
+  def start(simulId: Simul.ID): Funit = workQueue(simulId) {
     repo.findCreated(simulId) flatMap {
       _ ?? { simul =>
         simul.start ?? { started =>
@@ -118,7 +118,7 @@ final class SimulApi(
       socket.hostIsOn(simul.id, game.id)
     }
 
-  def abort(simulId: Simul.ID): Funit = sequencers.run(simulId) {
+  def abort(simulId: Simul.ID): Funit = workQueue(simulId) {
     repo.findCreated(simulId) flatMap {
       _ ?? { simul =>
         (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
@@ -126,7 +126,7 @@ final class SimulApi(
     }
   }
 
-  def setText(simulId: Simul.ID, text: String): Funit = sequencers.run(simulId) {
+  def setText(simulId: Simul.ID, text: String): Funit = workQueue(simulId) {
     repo.find(simulId) flatMap {
       _ ?? { simul =>
         repo.setText(simul, text) >>- socket.reload(simulId)
@@ -135,7 +135,7 @@ final class SimulApi(
   }
 
   def finishGame(game: Game): Funit = game.simulId ?? { simulId =>
-    sequencers.run(simulId) {
+    workQueue(simulId) {
       repo.findStarted(simulId) flatMap {
         _ ?? { simul =>
           val simul2 = simul.updatePairing(
@@ -166,7 +166,7 @@ final class SimulApi(
 
   def ejectCheater(userId: String): Unit = repo.allNotFinished foreach {
     _ foreach { oldSimul =>
-      sequencers.run(oldSimul.id) {
+      workQueue(oldSimul.id) {
         repo.findCreated(oldSimul.id) flatMap {
           _ ?? { simul =>
             (simul ejectCheater userId) ?? { simul2 =>
@@ -215,7 +215,7 @@ final class SimulApi(
     finding: Simul.ID => Fu[Option[Simul]],
     simulId: Simul.ID
   )(updating: Simul => Simul): Funit = {
-    sequencers.run(simulId) {
+    workQueue(simulId) {
       finding(simulId) flatMap {
         _ ?? { simul => update(updating(simul)) }
       }

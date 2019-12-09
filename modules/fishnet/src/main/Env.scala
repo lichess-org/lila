@@ -54,10 +54,6 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  private lazy val sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = Some(1 second)
-  )
-
   private lazy val monitor: Monitor = wire[Monitor]
 
   private lazy val evalCache = wire[FishnetEvalCache]

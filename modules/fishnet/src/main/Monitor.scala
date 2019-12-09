@@ -3,8 +3,7 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 private final class Monitor(
-    repo: FishnetRepo,
-    sequencer: lila.hub.FutureSequencer
+    repo: FishnetRepo
 )(implicit system: akka.actor.ActorSystem) {
 
   private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
@@ -80,8 +79,6 @@ private final class Monitor(
 
     import lila.mon.fishnet.work._
     import Client.Skill._
-
-    lila.mon.fishnet.queue.sequencer(Analysis.key)(sequencer.queueSize)
 
     repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
       repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) } >>

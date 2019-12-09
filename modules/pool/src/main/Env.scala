@@ -1,11 +1,9 @@
 package lila.pool
 
 import com.softwaremill.macwire._
-import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.game.Game
-import lila.hub.FutureSequencer
 
 @Module
 final class Env(
@@ -16,10 +14,6 @@ final class Env(
 )(implicit system: akka.actor.ActorSystem) {
 
   private lazy val hookThieve = wire[HookThieve]
-
-  private lazy val sequencer = new FutureSequencer(
-    executionTimeout = 5.seconds.some
-  )
 
   private val onStart = (gameId: Game.Id) => Bus.publish(gameId, "gameStartId")
 
