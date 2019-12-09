@@ -146,15 +146,15 @@ final class TournamentRepo(val coll: Coll) {
 
   def featuredGameId(tourId: Tournament.ID) = coll.primitiveOne[Game.ID]($id(tourId), "featured")
 
-  private def allCreatedSelect(aheadMinutes: Int) = createdSelect ++
+  private def startingSoonSelect(aheadMinutes: Int) = createdSelect ++
     $doc("startsAt" $lt (DateTime.now plusMinutes aheadMinutes))
 
   def publicCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.ext.find(
-    allCreatedSelect(aheadMinutes) ++ $doc("private" $exists false)
+    startingSoonSelect(aheadMinutes) ++ $doc("private" $exists false)
   ).sort($doc("startsAt" -> 1)).list[Tournament](none)
 
-  private[tournament] def allCreatedCursor(aheadMinutes: Int) =
-    coll.ext.find(allCreatedSelect(aheadMinutes)).batchSize(1).cursor[Tournament]()
+  private[tournament] def startingSoonCursor(aheadMinutes: Int) =
+    coll.ext.find(startingSoonSelect(aheadMinutes)).batchSize(1).cursor[Tournament]()
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] = coll.ext.find(
     startedSelect ++ scheduledSelect
@@ -163,7 +163,7 @@ final class TournamentRepo(val coll: Coll) {
     }
 
   private def scheduledCreatedSorted(aheadMinutes: Int): Fu[List[Tournament]] = coll.ext.find(
-    allCreatedSelect(aheadMinutes) ++ scheduledSelect
+    startingSoonSelect(aheadMinutes) ++ scheduledSelect
   ).sort($doc("startsAt" -> 1)).list[Tournament]()
 
   private def isPromotable(tour: Tournament): Boolean = tour.schedule ?? { schedule =>

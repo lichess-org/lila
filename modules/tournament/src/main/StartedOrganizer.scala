@@ -44,6 +44,7 @@ private final class StartedOrganizer(
           else pairIfStillTime
         }
       }
+      .log(getClass.getName)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run
       .addEffect(lila.mon.tournament.started(_))

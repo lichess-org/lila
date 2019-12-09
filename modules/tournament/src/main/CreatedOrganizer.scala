@@ -14,7 +14,7 @@ private final class CreatedOrganizer(
 
   override def preStart: Unit = {
     context setReceiveTimeout 15.seconds
-    scheduleNext
+    context.system.scheduler.scheduleOnce(10 seconds, self, Tick)
   }
 
   case object Tick
@@ -30,7 +30,7 @@ private final class CreatedOrganizer(
       throw new RuntimeException(msg)
 
     case Tick => tournamentRepo
-      .allCreatedCursor(30)
+      .startingSoonCursor(30)
       .documentSource()
       .mapAsync(1) { tour =>
         tour.schedule match {
@@ -50,8 +50,10 @@ private final class CreatedOrganizer(
           case Some(_) if tour.hasWaitedEnough => fuccess {
             api start tour
           }
+          case Some(_) => funit
         }
       }
+      .log(getClass.getName)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run
       .addEffect(lila.mon.tournament.created(_))
