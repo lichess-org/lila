@@ -915,7 +915,7 @@
   <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
   <string name="potentialProblem">Када је потенцијални проблем детектован, ми прикажемо ову поруку.</string>
   <string name="howToAvoidThis">Како ово избећи?</string>
-  <string name="playEveryGame">Одиграј сваку игру коју започнеш.</string>
+  <string name="playEveryGame">Одиграј сваку партију коју започнеш.</string>
   <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваки меч који играш.</string>
   <string name="resignLostGames">Предај изгубљене игре (уместо пуштања времена да истекне).</string>
   <string name="temporaryInconvenience">Извињавамо се на тренутној нелагодности,</string>
