@@ -37,14 +37,8 @@ final class TeamSearchApi(
         .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
         .map(t => Id(t.id) -> toDoc(t))
         .grouped(200)
-        .mapAsyncUnordered(1) { teams =>
-          c.storeBulk(teams) inject teams.size
-        }
-        .fold(0)((acc, nb) => acc + nb)
-        .wireTap { nb =>
-          if (nb % 5 == 0) logger.info(s"Indexing teams... $nb")
-        }
-        .to(Sink.ignore)
+        .mapAsync(1)(c.storeBulk)
+        .toMat(Sink.ignore)(Keep.right)
         .run
     } >> client.refresh
     case _ => funit

@@ -44,9 +44,7 @@ final class ForumSearchApi(
         .grouped(200)
         .mapAsync(1)(postApi.liteViews)
         .map(_.map(v => Id(v.post.id) -> toDoc(v)))
-        .mapAsyncUnordered(2) { views =>
-          c.storeBulk(views) inject views.size
-        }
+        .mapAsyncUnordered(2)(c.storeBulk)
         .toMat(Sink.ignore)(Keep.right)
         .run
     } >> client.refresh
