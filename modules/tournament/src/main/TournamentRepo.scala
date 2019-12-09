@@ -62,8 +62,8 @@ final class TournamentRepo(val coll: Coll) {
 
   def createdIncludingScheduled: Fu[List[Tournament]] = coll.ext.find(createdSelect).list[Tournament]()
 
-  def startedTours: Fu[List[Tournament]] =
-    coll.ext.find(startedSelect).sort($doc("createdAt" -> -1)).list[Tournament]()
+  private[tournament] def startedCursor =
+    coll.ext.find(startedSelect).sort($doc("createdAt" -> -1)).batchSize(1).cursor[Tournament]()
 
   def startedIds: Fu[List[Tournament.ID]] =
     coll.primitive[Tournament.ID](startedSelect, sort = $doc("createdAt" -> -1), "_id")
@@ -153,8 +153,8 @@ final class TournamentRepo(val coll: Coll) {
     allCreatedSelect(aheadMinutes) ++ $doc("private" $exists false)
   ).sort($doc("startsAt" -> 1)).list[Tournament](none)
 
-  def allCreated(aheadMinutes: Int): Fu[List[Tournament]] =
-    coll.ext.find(allCreatedSelect(aheadMinutes)).list[Tournament]()
+  private[tournament] def allCreatedCursor(aheadMinutes: Int) =
+    coll.ext.find(allCreatedSelect(aheadMinutes)).batchSize(1).cursor[Tournament]()
 
   private def scheduledStillWorthEntering: Fu[List[Tournament]] = coll.ext.find(
     startedSelect ++ scheduledSelect
