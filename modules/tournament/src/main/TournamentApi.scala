@@ -43,7 +43,7 @@ final class TournamentApi(
     proxyRepo: lila.round.GameProxyRepo
 )(implicit system: ActorSystem, mat: akka.stream.Materializer) {
 
-  private val sequencers = new WorkQueues(logger, 1 minute)
+  private val sequencers = new WorkQueues(256, 1 minute)
 
   def createTournament(
     setup: TournamentSetup,
