@@ -33,12 +33,12 @@ private final class StartedOrganizer(
     case Tick => tournamentRepo.startedCursor
       .documentSource()
       .mapAsync(1) { tour =>
-        if (tour.secondsToFinish <= 0) fuccess(api finish tour)
+        if (tour.secondsToFinish <= 0) api finish tour
         else {
           def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour)
           if (!tour.isScheduled && tour.nbPlayers < 40)
             playerRepo nbActiveUserIds tour.id flatMap { nb =>
-              if (nb < 2) fuccess(api finish tour)
+              if (nb < 2) api finish tour
               else pairIfStillTime
             }
           else pairIfStillTime
@@ -55,7 +55,7 @@ private final class StartedOrganizer(
   }
 
   private def startPairing(tour: Tournament): Funit =
-    socket.getWaitingUsers(tour).mon(_.tournament.startedOrganizer.waitingUsersTime) map {
-      api.makePairings(tour, _)
-    }
+    socket.getWaitingUsers(tour)
+      .mon(_.tournament.startedOrganizer.waitingUsersTime)
+      .flatMap { api.makePairings(tour, _) }
 }
