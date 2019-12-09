@@ -23,4 +23,8 @@ object LilaStream {
     Flow[T]
       .alsoTo(flowRate[T](metric, outputDelay)
         .to(Sink.foreach(r => logger.info(s"[rate] $name ${r.toInt}"))))
+
+  val sinkCount = Sink.fold[Int, Any](0) {
+    case (total, _) => total + 1
+  }
 }

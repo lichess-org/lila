@@ -1,10 +1,13 @@
 package lila.round
 
+import akka.stream.scaladsl._
 import org.joda.time.DateTime
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.common.Bus
+import lila.common.LilaStream.sinkCount
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 
@@ -54,25 +57,23 @@ private final class CorresAlarm(
       }
   }
 
-  private def run(): Unit = coll.ext.find($doc(
-    "ringsAt" $lt DateTime.now
-  )).list[Alarm](100) flatMap { alarms =>
-    alarms.map { alarm =>
-      proxyGame(alarm._id).flatMap {
-        _ ?? { game =>
-          val pov = Pov(game, game.turnColor)
-          pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)) addEffect {
-            case true => // already looking at the game
-            case false => Bus.publish(
-              lila.game.actorApi.CorresAlarmEvent(pov),
-              "corresAlarm"
-            )
-          }
-        }
-      } >> coll.delete.one($id(alarm._id))
-    }.sequenceFu
-      .mon(_.round.alarm.time)
-      .addEffect(c => lila.mon.round.alarm.count(c.size))
-      .addEffectAnyway(scheduleNext)
-  }
+  private def run(): Unit = coll.ext
+    .find($doc("ringsAt" $lt DateTime.now))
+    .cursor[Alarm]()
+    .documentSource()
+    .take(100)
+    .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))
+    .mapConcat(_.toList)
+    .mapAsyncUnordered(4) { game =>
+      val pov = Pov(game, game.turnColor)
+      pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
+        case true => // already looking at the game
+        case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "corresAlarm")
+      } >> coll.delete.one($id(game.id))
+    }
+    .toMat(sinkCount)(Keep.right)
+    .run
+    .mon(_.round.alarm.time)
+    .addEffect(lila.mon.round.alarm.count(_))
+    .addEffectAnyway(scheduleNext)
 }
