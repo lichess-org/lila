@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Plak de PGN-code hier</string>
   <string name="fromPosition">Vanuit een stelling</string>
   <string name="continueFromHere">Ga vanaf hier verder</string>
+  <string name="toStudy">Studie</string>
   <string name="importGame">Importeer partij</string>
   <string name="importGameExplanation">Wanneer je een PGN in het venster plakt dan krijg je een doorzoekbare replay, een computeranalyse, een chatbox bij de partij en een deelbare URL.</string>
   <plurals name="nbImportedGames">
@@ -358,6 +359,10 @@
   <string name="blackCheckmatesInOneMove">Zwart zet schaakmat in één zet</string>
   <string name="retry">Probeer het opnieuw</string>
   <string name="reconnecting">Opnieuw aan het verbinden</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s vriend online</item>
+    <item quantity="other">%s vrienden online</item>
+  </plurals>
   <string name="noFriendsOnline">Geen vrienden online</string>
   <string name="findFriends">Vind vrienden</string>
   <string name="favoriteOpponents">Favoriete tegenstanders</string>
@@ -618,6 +623,8 @@
   <string name="playOfflineComputer">Computer</string>
   <string name="opponent">Tegenstander</string>
   <string name="learnMenu">Leren</string>
+  <string name="studyMenu">Studie</string>
+  <string name="practice">Oefenen</string>
   <string name="community">Gemeenschap</string>
   <string name="tools">Gereedschap</string>
   <string name="increment">Extra tijd</string>
@@ -652,6 +659,8 @@
   <string name="tpTimeSpentOnTV">Tijd op TV: %s</string>
   <string name="watch">Kijken</string>
   <string name="videoLibrary">Videobibliotheek</string>
+  <string name="streamersMenu">Streamers</string>
+  <string name="broadcastsMenu">Uitzendingen</string>
   <string name="mobileApp">Mobiele app</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Over ons</string>

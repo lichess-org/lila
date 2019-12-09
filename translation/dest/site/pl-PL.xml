@@ -90,7 +90,7 @@
     <item quantity="other">Następne bicie lub ruch pionem w ciągu %s posunięć (zerowanie licznika posunięć reguły 50 ruchów)</item>
   </plurals>
   <string name="noGameFound">Nie znaleziono partii</string>
-  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Możesz zaimportować partie z menu ustawień</string>
+  <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Może zaimportujesz więcej partii z menu narzędzi?</string>
   <string name="openingExplorer">Biblioteka otwarć</string>
   <string name="xOpeningExplorer">Biblioteka otwarć %s</string>
   <string name="winPreventedBy50MoveRule">Bez wygranej ze względu na regułę 50 ruchów</string>
@@ -222,7 +222,7 @@
   <string name="accept">Przyjmij</string>
   <string name="decline">Odrzuć</string>
   <string name="playingRightNow">W toku</string>
-  <string name="eventInProgress">Właśnie trwa</string>
+  <string name="eventInProgress">W toku</string>
   <string name="finished">Zakończone</string>
   <string name="finishesX">kończy się %s</string>
   <string name="abortGame">Przerwij partię</string>
@@ -346,7 +346,7 @@
     <item quantity="many">Musisz rozegrać jeszcze %s partii rankingowych</item>
     <item quantity="other">Musisz rozegrać jeszcze %s partii rankingowych</item>
   </plurals>
-  <string name="yourPerfRatingIsProvisional">Twój ranking (%s) ma charakter przejściowy</string>
+  <string name="yourPerfRatingIsProvisional">Twój ranking (%s) jest prowizoryczny</string>
   <string name="yourPerfRatingIsTooHigh">Twój ranking %2$s (%1$s) jest za wysoki</string>
   <string name="yourTopWeeklyPerfRatingIsTooHigh">Twój ranking tygodniowy %2$s (%1$s) jest za wysoki</string>
   <string name="yourPerfRatingIsTooLow">Twój ranking %2$s (%1$s) jest za niski</string>
@@ -723,7 +723,7 @@
   <string name="tpTimeSpentOnTV">Czas w TV: %s</string>
   <string name="watch">Oglądaj</string>
   <string name="videoLibrary">Wideoteka</string>
-  <string name="streamersMenu">Transmitujący</string>
+  <string name="streamersMenu">Nadawcy</string>
   <string name="broadcastsMenu">Transmisje</string>
   <string name="mobileApp">Aplikacja mobilna</string>
   <string name="webmasters">Webmasterzy</string>

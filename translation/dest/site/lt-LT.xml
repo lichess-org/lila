@@ -388,6 +388,7 @@
   <string name="pasteThePgnStringHere">PGN tekstą įrašykite čia</string>
   <string name="fromPosition">Nuo pozicijos</string>
   <string name="continueFromHere">Tęsti nuo čia</string>
+  <string name="toStudy">Studijuoti</string>
   <string name="importGame">Importuoti partiją</string>
   <string name="importGameExplanation">Įkeldami partijos PGN gausite naršomą peržiūrą,
 kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
@@ -685,6 +686,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="playOfflineComputer">Su kompiuteriu</string>
   <string name="opponent">Varžovas</string>
   <string name="learnMenu">Išmok</string>
+  <string name="studyMenu">Studijuoti</string>
+  <string name="practice">Praktikuotis</string>
   <string name="community">Bendruomenė</string>
   <string name="tools">Įrankiai</string>
   <string name="increment">Prieaugis</string>
@@ -721,6 +724,8 @@ kompiuterinę analizę, partijos pokalbį bei URL dalinimuisi.</string>
   <string name="tpTimeSpentOnTV">Laikas, praleistas stebint: %s</string>
   <string name="watch">Žiūrėk</string>
   <string name="videoLibrary">Video biblioteka</string>
+  <string name="streamersMenu">Transliuotojai</string>
+  <string name="broadcastsMenu">Transliacijos</string>
   <string name="mobileApp">Mobilioji programėlė</string>
   <string name="webmasters">Svetainių kūrėjams</string>
   <string name="about">Apie</string>

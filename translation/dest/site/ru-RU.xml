@@ -124,10 +124,10 @@
   <string name="offerDraw">Предложить ничью</string>
   <string name="draw">Ничья</string>
   <plurals name="nbPlayers">
-    <item quantity="one">Игроков в сети: %s</item>
-    <item quantity="few">Игроков в сети: %s</item>
-    <item quantity="many">Игроков в сети: %s</item>
-    <item quantity="other">Игроков в сети: %s</item>
+    <item quantity="one">%s игрок</item>
+    <item quantity="few">%s игрока</item>
+    <item quantity="many">%s игроков</item>
+    <item quantity="other">%s игроков</item>
   </plurals>
   <string name="currentGames">Текущие партии</string>
   <plurals name="nbGames">
@@ -224,7 +224,7 @@
   <string name="playingRightNow">Идёт игра</string>
   <string name="eventInProgress">Идёт прямо сейчас</string>
   <string name="finished">Завершено</string>
-  <string name="finishesX">завершает %s</string>
+  <string name="finishesX">завершится %s</string>
   <string name="abortGame">Отменить игру</string>
   <string name="gameAborted">Игра отменена</string>
   <string name="standard">Классические шахматы</string>
@@ -545,10 +545,10 @@
   <string name="thisPuzzleIsCorrect">Задача правильная и интересная</string>
   <string name="thisPuzzleIsWrong">Задача неправильная или неинтересная</string>
   <plurals name="nbGamesInPlay">
-    <item quantity="one">Партий онлайн: %s</item>
-    <item quantity="few">Партий онлайн: %s</item>
-    <item quantity="many">Партий онлайн: %s</item>
-    <item quantity="other">Партий онлайн: %s</item>
+    <item quantity="one">%s партия</item>
+    <item quantity="few">%s партии</item>
+    <item quantity="many">%s партий</item>
+    <item quantity="other">%s партий</item>
   </plurals>
   <string name="automaticallyProceedToNextGameAfterMoving">После хода автоматически переходить к следующей игре</string>
   <string name="autoSwitch">Автосмена</string>
@@ -685,6 +685,8 @@
   <string name="playOfflineComputer">С компьютером</string>
   <string name="opponent">Соперник</string>
   <string name="learnMenu">Обучение</string>
+  <string name="studyMenu">Студия</string>
+  <string name="practice">Упражнения</string>
   <string name="community">Сообщество</string>
   <string name="tools">Инструменты</string>
   <string name="increment">Добавка</string>
@@ -721,6 +723,8 @@
   <string name="tpTimeSpentOnTV">Времени на TV: %s</string>
   <string name="watch">Просмотр</string>
   <string name="videoLibrary">Видеотека</string>
+  <string name="streamersMenu">Стримеры</string>
+  <string name="broadcastsMenu">Трансляции</string>
   <string name="mobileApp">Мобильное приложение</string>
   <string name="webmasters">Разработчикам</string>
   <string name="about">О сайте</string>
