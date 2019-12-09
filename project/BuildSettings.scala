@@ -29,7 +29,7 @@ object BuildSettings {
 
   def defaultLibs: Seq[ModuleID] = Seq(
     play.api, scalaz, chess, scalalib, jodaTime, ws,
-    macwire.macros, macwire.util, autoconfig // , specs2, specs2Scalaz)
+    macwire.macros, macwire.util, autoconfig, specs2 // , specs2Scalaz
   )
 
   def module(
