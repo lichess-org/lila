@@ -5,6 +5,7 @@ import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
 import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ Future, Promise }
+import scala.util.chaining._
 
 /* Sequences async tasks, so that:
  * queue.run(() => task1); queue.run(() => task2)
@@ -31,10 +32,7 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
   private val queue = Source
     .queue[TaskWithPromise](buffer, OverflowStrategy.dropNew)
     .mapAsync(1) {
-      case (task, promise) =>
-        val future = task()
-        promise completeWith future
-        future
+      case (task, promise) => task() tap promise.completeWith
     }
     .recover {
       case _: Exception => () // keep processing tasks
