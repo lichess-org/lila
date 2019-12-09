@@ -2,6 +2,7 @@ import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
 import play.sbt.PlayImport._
 import sbt._, Keys._
 import scalariform.formatter.preferences._
+import com.sksamuel.scapegoat.sbt.ScapegoatSbtPlugin.autoImport._
 
 object BuildSettings {
 
@@ -15,6 +16,10 @@ object BuildSettings {
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
+    scalacOptions in Scapegoat ++= Seq(
+      "-P:scapegoat:reports:html",
+      "-P:scapegoat:overrideLevels:ListSize=Error:ReverseFunc=Error:ListAppend=Error"
+    ),
     sources in doc in Compile := List(),
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
