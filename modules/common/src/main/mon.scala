@@ -212,12 +212,12 @@ object mon {
   }
   object insight {
     object request {
-      val count = inc("insight.request")
-      val time = rec("insight.request")
+      val count = inc("insight.request.count")
+      val time = rec("insight.request.time")
     }
     object index {
-      val count = inc("insight.index")
-      val time = rec("insight.index")
+      val count = inc("insight.index.count")
+      val time = rec("insight.index.time")
     }
   }
   object search {
