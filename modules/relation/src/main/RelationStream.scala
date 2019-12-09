@@ -26,7 +26,7 @@ final class RelationStream(
     .documentSource()
     .grouped(perSecond.value)
     .map(_.flatMap(_.getAsOpt[User.ID](projectField(direction))))
-    .delay(1 second)
+    .throttle(1, 1 second)
     .mapAsync(1)(userRepo.usersFromSecondary)
     .mapConcat(identity)
 

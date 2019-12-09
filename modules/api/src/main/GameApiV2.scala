@@ -61,7 +61,7 @@ final class GameApiV2(
       batchSize = config.perSecond.value
     ).documentSource()
       .grouped(config.perSecond.value)
-      .delay(1 second)
+      .throttle(1, 1 second)
       .mapConcat(_ filter config.postFilter)
       .take(config.max | Int.MaxValue)
       .via(preparationFlow(config))
@@ -72,9 +72,7 @@ final class GameApiV2(
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).documentSource()
-      .grouped(config.perSecond.value)
-      .delay(1 second)
-      .mapConcat(identity)
+      .throttle(config.perSecond.value, 1 second)
       .via(preparationFlow(config))
 
   def exportByTournament(config: ByTournamentConfig): Source[String, _] =
@@ -82,9 +80,9 @@ final class GameApiV2(
       tournamentId = config.tournamentId,
       batchSize = config.perSecond.value
     ).documentSource()
-      .mapConcat(_.getAsOpt[Game.ID]("_id").toList)
       .grouped(config.perSecond.value)
-      .delay(1 second)
+      .map(_.flatMap(_.getAsOpt[Game.ID]("_id")))
+      .throttle(1, 1 second)
       .mapAsync(1)(gameRepo.gamesFromSecondary)
       .mapConcat(identity)
       .via(preparationFlow(config))

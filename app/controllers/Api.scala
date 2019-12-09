@@ -351,7 +351,7 @@ final class Api(
   }
 
   def jsonStringStream(stream: Source[String, _]): Result =
-    Ok.chunked(stream).withHeaders(CONTENT_TYPE -> ndJsonContentType) |> noProxyBuffer
+    Ok.chunked(stream).as(ndJsonContentType) |> noProxyBuffer
 
   private[controllers] val GlobalLinearLimitPerIP = new lila.memo.LinearLimit[IpAddress](
     name = "linear API per IP",

@@ -22,8 +22,8 @@ final class TeamMemberStream(
       .cursor[Bdoc](ReadPreference.secondaryPreferred)
       .documentSource()
       .grouped(perSecond.value)
-      .delay(1 second)
       .map(_.flatMap(_.getAsOpt[User.ID]("user")))
+      .throttle(1, 1 second)
       .mapAsync(1)(userRepo.usersFromSecondary)
       .mapConcat(identity)
 }

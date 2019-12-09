@@ -85,16 +85,15 @@ final class Game(
                 ),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
-                  case Some(_) if oauth => 20 // bonus for oauth logged in only (not for XSRF)
-                  case _ => 10
+                  case Some(_) if oauth => 25 // bonus for oauth logged in only (not for CSRF)
+                  case _ => 15
                 })
               )
               val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
               Ok.chunked(env.api.gameApiV2.exportByUser(config)).withHeaders(
                 noProxyBufferHeader,
-                CONTENT_TYPE -> gameContentType(config),
                 CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
-              ).fuccess
+              ).as(gameContentType(config)).fuccess
             }
           }
         }

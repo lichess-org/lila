@@ -29,7 +29,7 @@ final class PuzzleActivity(
         .documentSource()
         .take(config.max | Int.MaxValue)
         .grouped(config.perSecond.value)
-        .delay(1 second)
+        .throttle(1, 1 second)
         .mapAsync(1)(enrich)
         .mapConcat(identity)
         .map { json => s"${Json.stringify(json)}\n" }
