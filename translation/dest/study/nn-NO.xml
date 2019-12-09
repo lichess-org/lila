@@ -25,6 +25,7 @@
     <item quantity="one">%s Parti</item>
     <item quantity="other">%s parti</item>
   </plurals>
+  <string name="addMembers">Legg til medlemar</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Medlem</item>
     <item quantity="other">%s Medlemar</item>
@@ -123,4 +124,5 @@
   <string name="deleteTheStudyChatHistory">Slette studiens kommentar-historikk? Du kan ikkje angre!</string>
   <string name="deleteStudy">Slett studie</string>
   <string name="deleteTheEntireStudy">Slette heile studien? Avgjerda er endeleg og kan ikkje angrast!</string>
+  <string name="whereDoYouWantToStudyThat">Kva for ein studie vil du bruke?</string>
 </resources>

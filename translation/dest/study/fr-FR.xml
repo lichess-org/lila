@@ -124,4 +124,5 @@
   <string name="deleteTheStudyChatHistory">Supprimer l\'historique de tchat? Cette action est irréversible !</string>
   <string name="deleteStudy">Supprimer l\'étude</string>
   <string name="deleteTheEntireStudy">Supprimer toute l\'étude ? Cette action est irréversible!</string>
+  <string name="whereDoYouWantToStudyThat">Où voulez-vous étudier cela ?</string>
 </resources>

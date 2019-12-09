@@ -623,8 +623,8 @@
   <string name="playOfflineComputer">Spiele offline gegen Computer</string>
   <string name="opponent">Gegner</string>
   <string name="learnMenu">Lernen</string>
-  <string name="studyMenu">Studie</string>
-  <string name="practice">Übungen</string>
+  <string name="studyMenu">Trainieren</string>
+  <string name="practice">Trainieren</string>
   <string name="community">Gemeinschaft</string>
   <string name="tools">Werkzeuge</string>
   <string name="increment">Inkrement</string>
@@ -660,7 +660,7 @@
   <string name="watch">Zuschauen</string>
   <string name="videoLibrary">Video-Bibliothek</string>
   <string name="streamersMenu">Streamer</string>
-  <string name="broadcastsMenu">Broadcasts</string>
+  <string name="broadcastsMenu">Übertragungen</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmaster</string>
   <string name="about">Über</string>

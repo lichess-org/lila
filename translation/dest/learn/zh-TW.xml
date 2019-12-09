@@ -11,6 +11,7 @@
   <string name="chessPieces">棋子</string>
   <string name="theRook">車</string>
   <string name="itMovesInStraightLines">它以直線移動</string>
+  <string name="grabAllTheStars">吃掉所有的星星！</string>
   <string name="theFewerMoves">移動的步數越少，
 贏得的點數越多！</string>
   <string name="theBishop">象</string>
@@ -49,6 +50,9 @@
   <string name="opponentsFromAroundTheWorld">世界各地的對手</string>
   <string name="playMachine">與電腦玩</string>
   <string name="testYourSkillsWithTheComputer">看您多強</string>
+  <string name="stageX">階段 %s</string>
+  <string name="stageXComplete">階段 %s 成功</string>
   <string name="next">繼續</string>
+  <string name="puzzleFailed">解題失敗！</string>
   <string name="retry">重試</string>
 </resources>

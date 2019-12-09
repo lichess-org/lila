@@ -322,6 +322,7 @@
   <string name="pasteThePgnStringHere">วางสตริง PGN ที่นี่</string>
   <string name="fromPosition">จากตำแหน่ง</string>
   <string name="continueFromHere">เล่นต่อจากที่นี่</string>
+  <string name="toStudy">ทำเป็นกรณีศึกษา</string>
   <string name="importGame">นำเข้าเกม</string>
   <string name="importGameExplanation">เมื่อวาง PGN ของเกมแล้ว คุณจะได้รับความสามารถเรียกดูการเล่นซ้ำ, การวิเคราะห์ด้วยคอมพิวเตอร์, แชทของเกม และ URL ที่สามารถแชร์ได้</string>
   <plurals name="nbImportedGames">
@@ -591,6 +592,8 @@
   <string name="playOfflineComputer">คอมพิวเตอร์</string>
   <string name="opponent">คู่แข่ง</string>
   <string name="learnMenu">เรียนรู้</string>
+  <string name="studyMenu">ศึกษา</string>
+  <string name="practice">ฝึกหัด</string>
   <string name="community">ชุมชน</string>
   <string name="tools">เครื่องมือ</string>
   <string name="increment">เพิ่มขึ้น</string>
@@ -624,6 +627,8 @@
   <string name="tpTimeSpentOnTV">เวลาบน TV: %s</string>
   <string name="watch">รับชม</string>
   <string name="videoLibrary">คลังวิดีโอ</string>
+  <string name="streamersMenu">ผู้สตรีม</string>
+  <string name="broadcastsMenu">การออกอากาศ</string>
   <string name="mobileApp">แอปมือถือ</string>
   <string name="webmasters">เว็บมาสเตอร์</string>
   <string name="about">เกี่ยวกับ</string>

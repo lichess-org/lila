@@ -322,6 +322,7 @@
   <string name="pasteThePgnStringHere">Paste string PGN di sini</string>
   <string name="fromPosition">Dari posisi</string>
   <string name="continueFromHere">Lanjutkan dari sini</string>
+  <string name="toStudy">Materi</string>
   <string name="importGame">Masukkan permainan</string>
   <string name="importGameExplanation">Ketika menyalin PGN permainan Anda dapat putar-ulang di browser analisis komputer, obrolan permainan dan URL yand dapat di bagi.</string>
   <plurals name="nbImportedGames">

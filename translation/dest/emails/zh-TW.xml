@@ -7,7 +7,7 @@
   <string name="passwordReset_subject">重設您的 lichess.org 密碼，%s</string>
   <string name="passwordReset_intro">我們收到了重設您帳戶密碼的請求。</string>
   <string name="passwordReset_clickOrIgnore">如果您提出此請求，請按一下下面的連結。如果沒有，您可以忽略此電子郵件。</string>
-  <string name="emailChange_subject">確認新的電子郵件地址，%s</string>
+  <string name="emailChange_subject">確認新的電郵地址，%s</string>
   <string name="emailChange_intro">您已要求更改您的電子郵件地址。</string>
   <string name="emailChange_click">要確認您是否可以訪問此電子郵件，請點擊以下連結:</string>
   <string name="welcome_subject">歡迎來到 lichess.org，%s</string>

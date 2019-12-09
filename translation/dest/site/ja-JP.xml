@@ -322,6 +322,7 @@
   <string name="pasteThePgnStringHere">ここにPGN形式の棋譜をペースト</string>
   <string name="fromPosition">特定の局面から</string>
   <string name="continueFromHere">中断した所から再開</string>
+  <string name="toStudy">研究</string>
   <string name="importGame">棋譜をインポート</string>
   <string name="importGameExplanation">ゲームの PGN を貼りつけると、ブラウザ上でのリプレイ、
 コンピュータ解析、ゲームチャット、共有可能 URL が得られます。</string>
@@ -592,6 +593,8 @@
   <string name="playOfflineComputer">オフラインでＣＰＵと対戦する</string>
   <string name="opponent">対戦相手</string>
   <string name="learnMenu">学ぶ</string>
+  <string name="studyMenu">研究</string>
+  <string name="practice">練習問題</string>
   <string name="community">コミュニティ</string>
   <string name="tools">ツール</string>
   <string name="increment">追加時間</string>
@@ -625,6 +628,8 @@
   <string name="tpTimeSpentOnTV">TVに映った時間:%s</string>
   <string name="watch">見る</string>
   <string name="videoLibrary">チェスの動画集</string>
+  <string name="streamersMenu">配信者</string>
+  <string name="broadcastsMenu">イベント中継</string>
   <string name="mobileApp">モバイルアプリ</string>
   <string name="webmasters">ウェブ管理者</string>
   <string name="about">Lichess概要</string>

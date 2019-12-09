@@ -366,6 +366,7 @@
   <string name="pasteThePgnStringHere">Убаци PGN текст овде</string>
   <string name="fromPosition">Од позиције</string>
   <string name="continueFromHere">Настави одавде</string>
+  <string name="toStudy">Проучи</string>
   <string name="importGame">Увези игру</string>
   <string name="importGameExplanation">Кад прекопирате партију у PGN-у, отвори се табла за поновно проигравање,
 рачунарска анализа, прозор за ћаскање и адреса странице коју можете поделити.</string>
@@ -383,9 +384,9 @@
   <string name="retry">Покушај поново</string>
   <string name="reconnecting">Поновно повезивање</string>
   <plurals name="nbFriendsOnline">
-    <item quantity="one">%s пријатеља на мрежи</item>
-    <item quantity="few">%s пријатеља онлајн</item>
-    <item quantity="other">%s пријатеља онлајн</item>
+    <item quantity="one">%s пријатељ на мрежи</item>
+    <item quantity="few">%s пријатеља на мрежи</item>
+    <item quantity="other">%s пријатеља на мрежи</item>
   </plurals>
   <string name="noFriendsOnline">Нема пријатеља на мрежи</string>
   <string name="findFriends">Нађи пријатеље</string>
@@ -579,7 +580,7 @@
   <string name="moveListWhilePlaying">Листа потеза током партије</string>
   <string name="pgnPieceNotation">Нотација</string>
   <string name="chessPieceSymbol">симболи фигура</string>
-  <string name="pgnLetter">Cлова (K, Q, R, B, N)</string>
+  <string name="pgnLetter">Cлово (K, Q, R, B, N)</string>
   <string name="chessClock">Шаховски сат</string>
   <string name="tenthsOfSeconds">Десетинке</string>
   <string name="never">Никада</string>
@@ -654,6 +655,8 @@
   <string name="playOfflineComputer">Рачунар</string>
   <string name="opponent">Противник</string>
   <string name="learnMenu">учи</string>
+  <string name="studyMenu">Проучи</string>
+  <string name="practice">Вежбање</string>
   <string name="community">Заједница</string>
   <string name="tools">Алати</string>
   <string name="increment">додатак</string>
@@ -689,6 +692,8 @@
   <string name="tpTimeSpentOnTV">Време на TV: %s</string>
   <string name="watch">Посматрај</string>
   <string name="videoLibrary">Видео библиотека</string>
+  <string name="streamersMenu">Стримери</string>
+  <string name="broadcastsMenu">Емитовања</string>
   <string name="mobileApp">Апликација за телефон</string>
   <string name="webmasters">Вебмастери</string>
   <string name="about">О нама</string>
@@ -744,13 +749,13 @@
   <string name="yourPerfTypeRatingIsRating">твоје %1$s рејтинг је %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">ви сте бољи од %1$s од %2$s играча.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Немате утврђен %s рејтинг.</string>
-  <string name="yourRating">Твоја оцена</string>
-  <string name="cumulative">Kumulativno</string>
-  <string name="glicko2Rating">Glicko-2 оцена</string>
+  <string name="yourRating">Ваш рејтинг</string>
+  <string name="cumulative">Кумулативно</string>
+  <string name="glicko2Rating">Glicko-2 рејтинг</string>
   <string name="checkYourEmail">Проверите е-пошту.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Послали смо вам е-маил. Кликните на линк да бисте активирали вашу рачун.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ако не видите е-пошту у пријемном сандучету, проверите је у другим местима (датотекама): Јунк, Социал.</string>
-  <string name="weHaveSentYouAnEmailTo">Послали смо вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
+  <string name="weHaveSentYouAnEmailTo">Послали смо Вам е-поруку на %s. Кликните на дати линк да промените Вашу лозинку.</string>
   <string name="byRegisteringYouAgreeToBeBoundByOur">Registracijom prihvatate ograničenja predviđe našim %s.</string>
   <string name="networkLagBetweenYouAndLichess">Мрежно кашњење између вас и Лицхесса</string>
   <string name="timeToProcessAMoveOnLichessServer">Време потребно за процесирање на Лицхесс серверу</string>
@@ -904,21 +909,21 @@
   </plurals>
   <string name="sorry">Извините :(</string>
   <string name="weHadToTimeYouOutForAWhile">Морали смо Вас привремено избацити.</string>
-  <string name="timeoutExpires">Тајм-аут истиче %s.</string>
+  <string name="timeoutExpires">Тајм аут истиче %s.</string>
   <string name="why">Зашто?</string>
   <string name="pleasantChessExperience">Желимо да свима обезбедимо пријатно искуство у шаху.</string>
-  <string name="goodPractice">Баш због тога ми се морамо постарати да се сви играчи држе правила добре и равноправне игре.</string>
-  <string name="potentialProblem">Када се уочи надоказни проблем, ми прикажемо ову поруку.</string>
+  <string name="goodPractice">Баш због тога, ми се морамо потрудити да се сви играчи држе добре праксе.</string>
+  <string name="potentialProblem">Када је потенцијални проблем детектован, ми прикажемо ову поруку.</string>
   <string name="howToAvoidThis">Како ово избећи?</string>
-  <string name="playEveryGame">Одиграј сваку игру коју започнеш.</string>
-  <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваки меч који играш.</string>
-  <string name="resignLostGames">Предај изгубљене игре (уместо пуштања времена да истекне).</string>
-  <string name="temporaryInconvenience">Извињавамо се на тренутној нелагодности,</string>
-  <string name="wishYouGreatGames">и желимо вам одличне игре на lichess.org.</string>
+  <string name="playEveryGame">Одиграј сваку партију коју започнеш.</string>
+  <string name="tryToWin">Пробај да победиш (или барем изједначиш) сваку партију коју одиграш.</string>
+  <string name="resignLostGames">Предај изгубљене игре (немој пуштати да време истекне).</string>
+  <string name="temporaryInconvenience">Извињавамо се на привременој нелагодности,</string>
+  <string name="wishYouGreatGames">и желимо вам одличне партије на lichess.org.</string>
   <string name="thankYouForReading">Хвала на читању!</string>
-  <string name="lifetimeScore">Животни резултат</string>
-  <string name="currentMatchScore">Резултат тренутног меча</string>
-  <string name="agreementAssistance">Слажем се да никада нећу затражити помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
+  <string name="lifetimeScore">Животни скор</string>
+  <string name="currentMatchScore">Скор тренутног меча</string>
+  <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
   <string name="agreementNice">Слажем се да ћу увек бити учтив према другим играчима.</string>
   <string name="agreementAccount">Слажем се да нећу правити више налога.</string>
   <string name="agreementPolicy">Слажем се да ћу поштовати све Lichess полисе.</string>

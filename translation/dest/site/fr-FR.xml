@@ -164,7 +164,7 @@
   <string name="ratingStats">Statistiques de classement</string>
   <string name="username">Nom d\'utilisateur</string>
   <string name="usernameOrEmail">Nom d\'utilisateur ou courriel</string>
-  <string name="changeUsername">Modifier le nom d\'utilisateur</string>
+  <string name="changeUsername">Changer de nom d\'utilisateur</string>
   <string name="changeUsernameNotSame">Seules les majuscules et les minuscules peuvent être changées - ex. JeanDupont plutôt que jeandupont.</string>
   <string name="changeUsernameDescription">Modifiez votre nom d\'utilisateur. Vous pouvez le faire une fois seulement. Seules les majuscules/minuscules peuvent être modifiées.</string>
   <string name="password">Mot de passe</string>
@@ -596,8 +596,8 @@
   <string name="victoryVsYInZ">%1$s contre %2$s en %3$s</string>
   <string name="defeatVsYInZ">%1$s contre %2$s
 > %3$s</string>
-  <string name="drawVsYInZ">%1$s contre %2$s
-> %3$s</string>
+  <string name="drawVsYInZ">%1$s vs. %2$s
+dans %3$s</string>
   <string name="timeline">Activité</string>
   <string name="starting">Début :</string>
   <string name="allInformationIsPublicAndOptional">Toutes les informations sont publiques et facultatives.</string>
@@ -625,8 +625,8 @@
   <string name="playOfflineComputer">Jouer hors ligne, avec l\'ordinateur</string>
   <string name="opponent">Adversaire</string>
   <string name="learnMenu">Apprendre</string>
-  <string name="studyMenu">Étude</string>
-  <string name="practice">Entraînement</string>
+  <string name="studyMenu">Étudier</string>
+  <string name="practice">S\'exercer</string>
   <string name="community">Communauté</string>
   <string name="tools">Outils</string>
   <string name="increment">Incrément</string>
@@ -661,6 +661,7 @@
   <string name="tpTimeSpentOnTV">Temps passé à la TV : %s</string>
   <string name="watch">Regarder</string>
   <string name="videoLibrary">Vidéothèque</string>
+  <string name="streamersMenu">Streamers</string>
   <string name="broadcastsMenu">Diffusion</string>
   <string name="mobileApp">L\'application</string>
   <string name="webmasters">Webmestres</string>
@@ -884,10 +885,10 @@
   <string name="temporaryInconvenience">Nous nous excusons pour les désagréments temporaires,</string>
   <string name="wishYouGreatGames">et vous souhaitons d\'excellentes parties sur lichess.org.</string>
   <string name="thankYouForReading">Merci d\'avoir pris le temps de lire !</string>
-  <string name="lifetimeScore">Meilleur résultat à vie</string>
-  <string name="currentMatchScore">Résultat actuel (match)</string>
-  <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (d\'un ordinateur d\'échecs, d\'un livre, d\'une base de données ou d\'une autre personne).</string>
-  <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres joueurs.</string>
+  <string name="lifetimeScore">Meilleur résultat</string>
+  <string name="currentMatchScore">Résultat d\'aujourd\'hui</string>
+  <string name="agreementAssistance">Je m\'engage à ne jamais recevoir d\'aide pendant mes parties (ni d\'un programme d\'échecs, ni d\'un livre, ni d\'une base de données, ni d\'autrui).</string>
+  <string name="agreementNice">Je m\'engage à toujours être agréable envers les autres.</string>
   <string name="agreementAccount">Je m\'engage à ne pas créer de comptes multiples.</string>
   <string name="agreementPolicy">Je m\'engage à respecter toutes les règles de Lichess.</string>
 </resources>

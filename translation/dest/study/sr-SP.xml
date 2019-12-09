@@ -76,7 +76,10 @@
   <string name="editChapter">Измени поглавље</string>
   <string name="newChapter">Ново поглавље</string>
   <string name="orientation">Оријентација</string>
+  <string name="analysisMode">Врста анализе</string>
+  <string name="pinnedChapterComment">Закачен коментар поглавља</string>
   <string name="saveChapter">Сачувај поглавље</string>
+  <string name="clearAnnotations">Избришите анотације</string>
   <string name="deleteChapter">Избриши поглавље</string>
   <string name="deleteThisChapter">Избриши ово поглавље? Нема повратка назад!</string>
   <string name="clearAllCommentsInThisChapter">Избриши све коментаре, глифове и нацртане облике у овом поглављу?</string>
@@ -108,6 +111,7 @@
   <string name="visibility">Видљивост</string>
   <string name="public">Јавно</string>
   <string name="unlisted">Неизлистани</string>
+  <string name="inviteOnly">Само позвани</string>
   <string name="allowCloning">Дозволи клонирање</string>
   <string name="nobody">Нико</string>
   <string name="onlyMe">Само ја</string>
@@ -117,10 +121,12 @@
   <string name="enableSync">Омогући синхронизацију</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Да: остави све на истим позицијама</string>
   <string name="noLetPeopleBrowseFreely">Не: дозволи људима да слободно прегледају</string>
+  <string name="pinnedStudyComment">Закачен коментар студије</string>
   <string name="start">Започни</string>
   <string name="save">Сачувај</string>
   <string name="clearChat">Очисти разговор</string>
   <string name="deleteTheStudyChatHistory">Избриши историју разговора студије? Нема повратка назад!</string>
   <string name="deleteStudy">Избриши студију</string>
   <string name="deleteTheEntireStudy">Избриши целу студију? Нема повратка назад!</string>
+  <string name="whereDoYouWantToStudyThat">Где желите да проучите партију?</string>
 </resources>

@@ -124,4 +124,5 @@
   <string name="deleteTheStudyChatHistory">Azterlaneko txata ezabatu? Ez dago atzera egiterik!</string>
   <string name="deleteStudy">Azterlana ezabatu</string>
   <string name="deleteTheEntireStudy">Azterlana ezabatu? Ez dago atzera egiterik!</string>
+  <string name="whereDoYouWantToStudyThat">Non nahi duzu hori aztertu?</string>
 </resources>
