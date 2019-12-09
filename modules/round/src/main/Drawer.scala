@@ -22,7 +22,7 @@ private[round] final class Drawer(
           game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
       } || pov.player.userId.exists(isBotSync)
     } map (_ option pov)
-  }.sequenceFu map (_.flatten.headOption)
+  }.sequenceFu dmap (_.flatten.headOption)
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case pov if pov.game.history.threefoldRepetition =>

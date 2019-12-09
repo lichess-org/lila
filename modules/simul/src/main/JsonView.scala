@@ -20,7 +20,7 @@ final class JsonView(
 
   private def fetchGames(simul: Simul) =
     if (simul.isFinished) gameRepo gamesFromSecondary simul.gameIds
-    else simul.gameIds.map(proxyRepo.game).sequenceFu.map(_.flatten)
+    else simul.gameIds.map(proxyRepo.game).sequenceFu.dmap(_.flatten)
 
   def apply(simul: Simul, team: Option[SimulTeam]): Fu[JsObject] = for {
     games <- fetchGames(simul)
