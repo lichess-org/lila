@@ -5,7 +5,6 @@ import com.softwaremill.macwire._
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.common.config._
 import lila.common.paginator._
 import lila.hub.actorApi.study.RemoveStudy
 import lila.hub.LateMultiThrottler
@@ -35,11 +34,9 @@ final class Env(
         def query = Query(text, me.map(_.id))
         def nbResults = api count query
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
-      } mapFutureList {
-        pager.withChapters(_, Study.maxChapters)
-      } mapFutureList pager.withLiking(me),
+      } mapFutureList pager.withChaptersAndLiking(me),
       currentPage = page,
-      maxPerPage = MaxPerPage(15)
+      maxPerPage = pager.maxPerPage
     )
 
   def cli = new lila.common.Cli {

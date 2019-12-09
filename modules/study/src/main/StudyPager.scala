@@ -11,8 +11,8 @@ final class StudyPager(
     chapterRepo: ChapterRepo
 ) {
 
-  private val maxPerPage = lila.common.config.MaxPerPage(14)
-  private val defaultNbChaptersPerStudy = 4
+  val maxPerPage = lila.common.config.MaxPerPage(16)
+  val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers._
   import studyRepo.{ selectPublic, selectPrivateOrUnlisted, selectMemberId, selectOwnerId, selectLiker }
@@ -68,7 +68,7 @@ final class StudyPager(
         case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
-    ) mapFutureList withChaptersAndLiking(me, defaultNbChaptersPerStudy)
+    ) mapFutureList withChaptersAndLiking(me)
     Paginator(
       adapter = nbResults.fold(adapter) { nb =>
         new CachedAdapter(adapter, nb)
@@ -78,23 +78,29 @@ final class StudyPager(
     )
   }
 
-  def withChapters(studies: Seq[Study], nbChaptersPerStudy: Int): Fu[Seq[Study.WithChapters]] =
+  def withChaptersAndLiking(
+    me: Option[User],
+    nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
+  )(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
+
+  private def withChapters(
+    studies: Seq[Study],
+    nbChaptersPerStudy: Int
+  ): Fu[Seq[Study.WithChapters]] =
     chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
       studies.map { study =>
         Study.WithChapters(study, (chapters get study.id) ?? (_ map (_.name)))
       }
     }
 
-  def withLiking(me: Option[User])(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
+  private def withLiking(me: Option[User])(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
     me.?? { u => studyRepo.filterLiked(u, studies.map(_.study.id)) } map { liked =>
       studies.map {
         case Study.WithChapters(study, chapters) =>
           Study.WithChaptersAndLiked(study, chapters, liked(study.id))
       }
     }
-
-  def withChaptersAndLiking(me: Option[User], nbChaptersPerStudy: Int)(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 }
 
 sealed abstract class Order(val key: String, val name: Translated)
