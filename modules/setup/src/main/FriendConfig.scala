@@ -56,8 +56,6 @@ object FriendConfig extends BaseHumanConfig {
 
   private[setup] implicit val friendConfigBSONHandler = new BSON[FriendConfig] {
 
-    override val logMalformed = false
-
     def reads(r: BSON.Reader): FriendConfig = FriendConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),

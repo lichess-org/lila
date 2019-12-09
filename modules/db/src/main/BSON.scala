@@ -25,8 +25,6 @@ abstract class BSON[T]
 
 abstract class BSONReadOnly[T] extends BSONDocumentReader[T] {
 
-  val logMalformed = true
-
   import BSON._
 
   def reads(reader: Reader): T
@@ -42,24 +40,16 @@ object BSON extends Handlers {
 
   final class Reader(val doc: Bdoc) {
 
-    val map = {
-      // mutable optimized implementation
-      val b = Map.newBuilder[String, BSONValue]
-      for (tuple <- doc.stream if tuple.isSuccess) b += (tuple.get.name -> tuple.get.value)
-      b.result
-    }
-
-    def get[A](k: String)(implicit reader: BSONReader[A]): A =
-      reader.readTry(map(k)).get
-    // reader.asInstanceOf[BSONReader[A]].readTry(map(k)).get
-    def getO[A](k: String)(implicit reader: BSONReader[A]): Option[A] =
-      map get k flatMap reader.readOpt
+    def get[A: BSONReader](k: String): A =
+      doc.getAsTry[A](k).get
+    def getO[A: BSONReader](k: String): Option[A] =
+      doc.getAsOpt[A](k)
     def getD[A](k: String)(implicit zero: Zero[A], reader: BSONReader[A]): A =
-      getO[A](k) getOrElse zero.zero
-    def getD[A](k: String, default: => A)(implicit reader: BSONReader[A]): A =
-      getO[A](k) getOrElse default
-    def getsD[A](k: String)(implicit reader: BSONReader[List[A]]) =
-      getO[List[A]](k) getOrElse Nil
+      doc.getAsOpt[A](k) getOrElse zero.zero
+    def getD[A: BSONReader](k: String, default: => A): A =
+      doc.getAsOpt[A](k) getOrElse default
+    def getsD[A: BSONReader](k: String) =
+      doc.getAsOpt[List[A]](k) getOrElse Nil
 
     def str(k: String) = get[String](k)(BSONStringHandler)
     def strO(k: String) = getO[String](k)(BSONStringHandler)
@@ -85,9 +75,7 @@ object BSON extends Handlers {
     def intsD(k: String) = getO[List[Int]](k) getOrElse Nil
     def strsD(k: String) = getO[List[String]](k) getOrElse Nil
 
-    def toList = doc.elements.toList
-
-    def contains = map contains _
+    def contains = doc.contains _
 
     def debug = BSON debug doc
   }
