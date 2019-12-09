@@ -29,6 +29,9 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
         promise completeWith future
         future
     }
+    .recover {
+      case _: Exception => () // keep processing tasks
+    }
     .toMat(Sink.ignore)(Keep.left)
     .run
 }
