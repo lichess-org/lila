@@ -87,15 +87,11 @@ final class TournamentApi(
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
 
-  private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers, startAt: Long): Unit = {
+  private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers): Unit = {
     Sequencing(oldTour.id)(tournamentRepo.startedById) { tour =>
-      cached ranking tour flatMap { ranking =>
+      cached.ranking(tour).flatMap { ranking =>
         pairingSystem.createPairings(tour, users, ranking).flatMap {
           case Nil => funit
-          case pairings if nowMillis - startAt > 1200 =>
-            pairingLogger.warn(s"Give up making https://lichess.org/tournament/${tour.id} ${pairings.size} pairings in ${nowMillis - startAt}ms")
-            lila.mon.tournament.pairing.giveup()
-            funit
           case pairings => userRepo.idsMap(pairings.flatMap(_.users)) flatMap { users =>
             pairings.map { pairing =>
               pairingRepo.insert(pairing) >>
@@ -106,13 +102,12 @@ final class TournamentApi(
               lila.mon.tournament.pairing.create(pairings.size)
             }
           }
-        } >>- {
-          val time = nowMillis - startAt
-          lila.mon.tournament.pairing.createTime(time.toInt)
-          if (time > 100)
-            pairingLogger.debug(s"Done making https://lichess.org/tournament/${tour.id} in ${time}ms")
         }
       }
+        .chronometer
+        .mon(_.tournament.pairing.createTime)
+        .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
+        .result
     }
   }
 
