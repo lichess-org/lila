@@ -8,7 +8,6 @@ import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config._
-import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
@@ -72,11 +71,6 @@ final class Env(
 
   def version(simulId: Simul.ID) =
     simulSocket.rooms.ask[SocketVersion](simulId)(GetVersion)
-
-  private def sequencerMap = new DuctMap(
-    mkDuct = _ => Duct.extra.lazyFu,
-    accessTimeout = 10 minutes
-  )
 
   lazy val cleaner = new SimulCleaner(repo, api)
 
