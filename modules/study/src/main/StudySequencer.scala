@@ -1,15 +1,18 @@
 package lila.study
 
-import lila.hub.{ Duct, DuctMap }
+import scala.concurrent.duration._
+
+import lila.common.WorkQueues
 
 private final class StudySequencer(
     studyRepo: StudyRepo,
-    chapterRepo: ChapterRepo,
-    sequencers: DuctMap[_]
-) {
+    chapterRepo: ChapterRepo
+)(implicit mat: akka.stream.Materializer) {
+
+  private val sequencers = new WorkQueues(256, 10 minutes)
 
   def sequenceStudy(studyId: Study.Id)(f: Study => Funit): Funit =
-    sequence(studyId) {
+    sequencers.run(studyId.value) {
       studyRepo.byId(studyId) flatMap {
         _ ?? { f(_) }
       }
@@ -23,10 +26,4 @@ private final class StudySequencer(
         }
       }
     }
-
-  private def sequence(studyId: Study.Id)(f: => Funit): Funit = {
-    val promise = scala.concurrent.Promise[Unit]
-    sequencers.tell(studyId.value, Duct.extra.LazyPromise(Duct.extra.LazyFu(() => f), promise))
-    promise.future
-  }
 }
