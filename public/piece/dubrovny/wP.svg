@@ -1,16 +1,16 @@
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient5173" x1="-144.63" x2="-118.08" y1="495" y2="495" gradientTransform="translate(156.35,-459.87)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
-  <linearGradient id="linearGradient5171" x1="-140.16" x2="-123.6" y1="472.02" y2="472.02" gradientTransform="matrix(1.1068,0,0,1.1073,170.97,-502.76)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
   <linearGradient id="linearGradient3935">
    <stop stop-color="#f2e7da" style="stop-color:#fbf6dc" offset="0"/>
    <stop stop-color="#bba38a" style="stop-color:#aa9445" offset="1"/>
   </linearGradient>
+  <linearGradient id="linearGradient4065" x1="-144.63" x2="-118.08" y1="495" y2="495" gradientTransform="matrix(.93894 0 0 .97636 148.33 -447.95)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
+  <linearGradient id="linearGradient3887-8-7" x1="1247.8" x2="1265.1" y1="1156.6" y2="1156.6" gradientTransform="matrix(.99908 0 0 1.0007 -1230.3 -1137)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient3935"/>
  </defs>
- <path d="m21.918 25.868c-0.99218 11.9-9.5922 8.8726-9.5922 18.532h25.348c0-9.6596-8.6-6.6322-9.5922-18.532h-3.0825z" style="fill:url(#linearGradient5173);stroke-linejoin:round;stroke-width:1.2;stroke:#323232"/>
- <path d="m23.849 25.868c0.99218 11.9 9.5922 8.8726 9.5922 18.532h4.2333c0-9.6596-8.6-6.6323-9.5922-18.532h-3.0825z" style="fill:#000000;opacity:.15"/>
- <path d="m25.001 11.83c-3.6459 2.2e-5 -6.6013 2.6917-6.6013 6.0125 0 1.996 1.0892 3.8616 2.9046 4.9795l-4.8703 5.1626h17.134s-4.8703-5.1626-4.8703-5.1626c1.8155-1.1179 2.9041-2.9835 2.9041-4.9795 0-3.3208-2.9554-6.0125-6.6013-6.0125z" style="fill:url(#linearGradient5171);stroke-linejoin:round;stroke-width:1.2;stroke:#323232"/>
- <path d="m25.001 11.83c-0.5522 4.4e-5 -1.0885 0.06245-1.6012 0.17883 2.8716 0.65207 4.9991 3.0162 4.9991 5.8337 0 1.996-1.0887 3.8616-2.9041 4.9795l4.8704 5.1571h3.2039l-4.8709-5.1571c1.8155-1.1179 2.9041-2.9835 2.9041-4.9795 0-3.3207-2.9551-6.0123-6.6008-6.0125z" style="fill:#000000;opacity:.15"/>
- <path d="m22.769 12.832c-0.90068 0.22257-5.8355 3.0126-2.7479 8.0097 0 0-1.2206-4.2592 2.7479-8.0097z" style="fill:#ffffff"/>
- <path d="m13.017 43.765c0.0217-7.394 7.0101-6.2779 9.1618-15.114 0.0642 8.5412-7.5148 7.6116-9.1618 15.114z" style="clip-rule:evenodd;fill-rule:evenodd;fill:#ffffff;image-rendering:optimizeQuality;shape-rendering:geometricPrecision"/>
+ <path d="m22.106 26.305c-0.93154 11.619-9.0064 8.663-9.0064 18.094h23.8c0-9.4312-8.0748-6.4754-9.0064-18.094h-2.8942z" style="fill:url(#linearGradient4065);stroke-linejoin:round;stroke-width:1.2;stroke:#323232"/>
+ <path d="m23.919 26.305c0.93164 11.619 9.0064 8.663 9.0064 18.094h3.9748c0-9.4312-8.0749-6.4755-9.0064-18.094h-2.8942z" style="fill:#000000;opacity:.15"/>
+ <path d="m13.748 43.78c0.01998-7.2192 6.582-6.1295 8.6023-14.757 0.05994 8.3393-7.0559 7.4317-8.6023 14.757z" style="clip-rule:evenodd;fill-rule:evenodd;fill:#ffffff;image-rendering:optimizeQuality;shape-rendering:geometricPrecision"/>
+ <path d="m25 12.599c-3.423 4e-4 -6.198 2.6284-6.198 5.8705 0 1.9488 1.0229 3.7702 2.7275 4.8616l-4.5732 5.0405h16.088l-4.5728-5.0405c1.7046-1.0915 2.7271-2.9129 2.7271-4.8616 0-3.2422-2.7746-5.8701-6.1975-5.8705h-6e-4z" style="fill:url(#linearGradient3887-8-7);stroke-linejoin:round;stroke-width:1.2;stroke:#323232"/>
+ <path d="m22.907 13.556c-0.84572 0.21725-5.4792 2.9414-2.5801 7.8204 0 0-1.146-4.1585 2.5801-7.8204z" style="fill:#ffffff"/>
+ <path d="m25 12.6c-0.51852 0-1.0221 0.06104-1.5034 0.17452 2.6962 0.63675 4.6938 2.945 4.6938 5.6958 0 1.9488-1.0222 3.7704-2.7268 4.8619l4.573 5.0352h3.0082l-4.5734-5.0352c1.7045-1.0915 2.7268-2.9131 2.7268-4.8619 0-3.2421-2.7746-5.8701-6.1977-5.8704z" style="fill:#000000;opacity:.15"/>
 </svg>
