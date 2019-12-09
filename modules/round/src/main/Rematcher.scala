@@ -4,7 +4,6 @@ import chess.format.Forsyth
 import chess.variant._
 import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
 import ChessColor.{ White, Black }
-import com.github.blemale.scaffeine.Cache
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 

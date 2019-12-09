@@ -58,7 +58,7 @@ object BinaryFormat {
       case (i1, i2) => (i1 + i2) / 2
     } toVector
 
-    private val decodeMap: Map[Int, MT] = buckets.view.zipWithIndex.map(x => x._2 -> x._1).to(Map)
+    private val decodeMap: Map[Int, MT] = buckets.view.zipWithIndex.map(x => x._2 -> x._1).toMap
 
     def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
@@ -69,11 +69,11 @@ object BinaryFormat {
     }
 
     def read(ba: ByteArray, turns: Int): Vector[Centis] = {
-      def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
+      def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.view.take(turns).map(Centis.apply).to(Vector)
+    }.view.take(turns).map(Centis.apply).toVector
   }
 
   case class clock(start: Timestamp) {

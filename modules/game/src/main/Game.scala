@@ -205,14 +205,13 @@ case class Game(
     val events = moveOrDrop.fold(
       Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
       Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
-    ) ::
-      {
+    ) :: {
         // abstraction leak, I know.
         (updated.board.variant.threeCheck && game.situation.check) ?? List(Event.CheckCount(
           white = updated.history.checkCount.white,
           black = updated.history.checkCount.black
         ))
-      }.toList
+      }
 
     Progress(this, updated, events)
   }

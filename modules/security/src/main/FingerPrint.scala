@@ -26,7 +26,7 @@ object FingerHash {
 
   private def normalize(fp: FingerPrint): String = {
     val str = fp.value.replace("-", "")
-    if (str.size % 2 == 1) s"${str}0" else str
+    if (str.size % 2 != 0) s"${str}0" else str
   }
 
   val impersonate = FingerHash("imperson")

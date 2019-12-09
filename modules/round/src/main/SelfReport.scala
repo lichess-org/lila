@@ -38,7 +38,7 @@ final class SelfReport(
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
-      def doLog = if (name != "ceval") {
+      def doLog(): Unit = if (name != "ceval") {
         lila.log("cheat").branch("jslog").info(
           s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
         )

@@ -103,7 +103,7 @@ final class RemoteSocket(
     })
     val subPromise = Promise[Unit]
     conn.async.subscribe(channel).thenRun {
-      new Runnable { def run = subPromise.success(()) }
+      new Runnable { def run() = subPromise.success(()) }
     }
     subPromise.future
   }

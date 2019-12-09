@@ -2,7 +2,6 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.Pos
 import chess.variant.Crazyhouse
 import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
