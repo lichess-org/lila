@@ -15,7 +15,6 @@ import scala.util.chaining._
  * If the buffer is full, the new task is dropped,
  * and `run` returns a failed future.
  */
-
 final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
 
   type Task[A] = () => Fu[A]
