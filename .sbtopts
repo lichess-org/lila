@@ -2,3 +2,4 @@
 -J-Xmx2048M
 -J-XX:+CMSClassUnloadingEnabled
 -J-XX:+UseParallelGC
+-J-Xss512k
