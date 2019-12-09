@@ -1,8 +1,8 @@
 package lila.base
 
-import scala.annotation.{ tailrec, switch }
-import java.lang.{ StringBuilder => jStringBuilder, Math }
 import java.lang.Character.isLetterOrDigit
+import java.lang.{ StringBuilder => jStringBuilder, Math }
+import scala.annotation.{ tailrec, switch }
 
 import lila.common.base.StringUtils.escapeHtmlRaw
 
@@ -67,7 +67,7 @@ final object RawHtml {
     } else List(text)
   }
 
-  def addLinks(text: String): String = {
+  def addLinks(text: String): String =
     expandAtUser(text) map { expanded =>
       val m = urlPattern.matcher(expanded)
 
@@ -135,7 +135,6 @@ final object RawHtml {
         sb
       }
     } mkString ""
-  }
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {
     var last = end - 1
