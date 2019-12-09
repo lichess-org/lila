@@ -17,25 +17,21 @@ private final class LeaderboardIndexer(
   import LeaderboardApi._
   import BSONHandlers._
 
-  def generateAll: Funit = leaderboardRepo.coll.delete.one($empty) >> {
+  def generateAll: Funit = leaderboardRepo.coll.delete.one($empty) >>
     tournamentRepo.coll.ext.find(tournamentRepo.finishedSelect)
       .sort($sort desc "startsAt")
       .cursor[Tournament](ReadPreference.secondaryPreferred)
       .documentSource()
       .take(20_000)
+      .via(lila.common.LilaStream.logRate[Tournament]("leaderboard index tour")(logger))
       .mapAsyncUnordered(1)(generateTourEntries)
       .mapConcat(identity)
+      .via(lila.common.LilaStream.logRate[Entry]("leaderboard index entries")(logger))
       .grouped(500)
-      .mapAsyncUnordered(1) { entries =>
-          saveEntries(entries) inject entries.size
-      }
-      .fold(0)((acc, nb) => acc + nb)
-      .wireTap { nb =>
-          if (nb % 5 == 0) logger.info(s"Generating leaderboards... $nb")
-      }
-      .to(Sink.ignore)
+      .mapAsyncUnordered(1)(saveEntries)
+      .toMat(Sink.ignore)(Keep.right)
       .run
-  }.void
+      .void
 
   def indexOne(tour: Tournament): Funit =
     leaderboardRepo.coll.delete.one($doc("t" -> tour.id)) >>

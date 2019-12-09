@@ -39,8 +39,12 @@ private[round] final class Titivate(
 
     case Run => gameRepo.count(_.checkable).flatMap { total =>
       lila.mon.round.titivate.total(total)
-      gameRepo.cursor(Query.checkable).documentSource()
-        .via(Flow[Game] take 100).via(gameFlow).toMat(gameSink)(Keep.right).run
+      gameRepo.cursor(Query.checkable)
+        .documentSource()
+        .take(100)
+        .via(gameFlow)
+        .toMat(gameSink)(Keep.right)
+        .run
         .mon(_.round.titivate.time)
         .addEffect(lila.mon.round.titivate.game(_))
         .>> {

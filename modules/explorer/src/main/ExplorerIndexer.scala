@@ -1,6 +1,6 @@
 package lila.explorer
 
-import akka.stream.scaladsl.Sink
+import akka.stream.scaladsl._
 import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
@@ -55,8 +55,9 @@ private final class ExplorerIndexer(
             case res => fufail(s"Stop import because of status ${res.status}")
           }
         }
-        .to(Sink.ignore)
-        .run.void
+        .toMat(Sink.ignore)(Keep.right)
+        .run
+        .void
     }
   }
 
