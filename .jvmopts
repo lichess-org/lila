@@ -1,3 +1,0 @@
--Xms2048M
--Xmx2048M
--XX:+UseParallelGC

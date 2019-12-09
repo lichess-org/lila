@@ -7,6 +7,7 @@
 # Then in the sbt console:
 # ~run
 
+# We use .sbtopts instead
 export SBT_OPTS=""
 
 # For development without nginx (not recommended).
