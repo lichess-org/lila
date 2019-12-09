@@ -1,15 +1,20 @@
 package lila.common
 
 import akka.stream.scaladsl._
-import akka.stream.{ Materializer, OverflowStrategy }
+import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
 import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.Promise
+import scala.concurrent.{ Future, Promise }
 
-// Sequences async tasks, so that:
-// queue.run(() => task1); queue.run(() => task2)
-// runs task2 only after task1 completes, much like:
-// task1 flatMap { _ => task2 }
+/* Sequences async tasks, so that:
+ * queue.run(() => task1); queue.run(() => task2)
+ * runs task2 only after task1 completes, much like:
+ * task1 flatMap { _ => task2 }
+ *
+ * If the buffer is full, the new task is dropped,
+ * and `run` returns a failed future.
+ */
+
 final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
 
   type Task = () => Funit
@@ -17,12 +22,14 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
 
   def run(task: Task): Funit = {
     val promise = Promise[Unit]
-    queue.offer(task -> promise)
-    promise.future
+    queue.offer(task -> promise) flatMap {
+      case QueueOfferResult.Enqueued => promise.future
+      case result => Future failed new Exception(s"Can't enqueue: $result")
+    }
   }
 
   private val queue = Source
-    .queue[TaskWithPromise](buffer, OverflowStrategy.dropHead)
+    .queue[TaskWithPromise](buffer, OverflowStrategy.dropNew)
     .mapAsync(1) {
       case (task, promise) =>
         val future = task()
