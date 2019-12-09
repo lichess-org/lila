@@ -61,7 +61,7 @@ private final class CorresAlarm(
     .find($doc("ringsAt" $lt DateTime.now))
     .cursor[Alarm]()
     .documentSource()
-    .take(100)
+    .take(200)
     .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))
     .mapConcat(_.toList)
     .mapAsyncUnordered(4) { game =>
