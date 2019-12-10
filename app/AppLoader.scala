@@ -109,7 +109,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context) extends BuiltInCompon
   lazy val video: Video = wire[Video]
 
   // eagerly wire up all controllers
-  val router: Router = wire[Routes]
+  val router: Router = {
+    val prefix: String = "/"
+    wire[Routes]
+  }
 
   if (configuration.get[String]("kamon.influxdb.hostname").nonEmpty) {
     lila.log("boot").info("Kamon is enabled")
