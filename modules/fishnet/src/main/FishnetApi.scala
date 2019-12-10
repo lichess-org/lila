@@ -43,13 +43,13 @@ final class FishnetApi(
     case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
     case Skill.Analysis | Skill.All => acquireAnalysis(client)
   }).chronometer
-    .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
+    .mon(_.fishnet.acquire.time)
+    .logIfSlow(100, logger)(_ => "acquire")
     .result
     .recover {
       case e: Exception =>
-        lila.mon.fishnet.acquire.error(client.skill.key)()
-        logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
+        lila.mon.fishnet.acquire.error()
+        logger.error("Fishnet.acquire", e)
         none
     }
 
@@ -133,25 +133,17 @@ final class FishnetApi(
     )
   }
 
-  private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
-    Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>
-      val client = Client(
-        _id = Client.makeKey,
-        userId = userId,
-        skill = sk,
-        instance = None,
-        enabled = true,
-        createdAt = DateTime.now
-      )
-      repo addClient client inject client
-    }
-
-  private[fishnet] def setClientSkill(key: Client.Key, skill: String): Funit =
-    Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      repo getClient key orFail s"No client with key $key" flatMap { client =>
-        repo updateClient client.copy(skill = sk)
-      }
-    }
+  private[fishnet] def createClient(userId: Client.UserId): Fu[Client] = {
+    val client = Client(
+      _id = Client.makeKey,
+      userId = userId,
+      skill = Skill.Analysis,
+      instance = None,
+      enabled = true,
+      createdAt = DateTime.now
+    )
+    repo addClient client inject client
+  }
 }
 
 object FishnetApi {

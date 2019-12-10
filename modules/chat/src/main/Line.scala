@@ -11,6 +11,7 @@ sealed trait Line {
   def isSystem = author == systemUserId
   def isHuman = !isSystem
   def humanAuthor = isHuman option author
+  def troll: Boolean
 }
 
 case class UserLine(
@@ -35,6 +36,7 @@ case class PlayerLine(
 ) extends Line {
   def deleted = false
   def author = color.name
+  def troll = false
 }
 
 object Line {

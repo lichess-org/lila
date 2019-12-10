@@ -8,12 +8,10 @@ import lila.common.ApiVersion
 
 object mon {
 
-  private def apiTag(api: Option[ApiVersion]) = api.fold("web")(_.toString)
-
   object http {
     private val timeGauge = Kamon.gauge("http.time")
     def time(action: String, api: Option[ApiVersion]) = timeGauge.withTags(
-      TagSet.from(Map("action" -> action, "api" -> apiTag(api)))
+      tags("action" -> action, "api" -> apiTag(api))
     ).update _
     object request {
       private val base = Kamon.counter("http.request")
@@ -26,7 +24,7 @@ object mon {
     object response {
       private val codeCounter = Kamon.counter("http.response")
       def code(action: String, api: Option[ApiVersion], code: Int) = codeCounter.withTags(
-        TagSet.from(Map("action" -> action, "api" -> apiTag(api), "code" -> code.toString))
+        tags("action" -> action, "api" -> apiTag(api), "code" -> code.toString)
       ).increment()
     }
     object prismic {
@@ -41,7 +39,7 @@ object mon {
     object csrf {
       private val base = Kamon.counter("http.csrf")
       def error(tpe: String, api: Option[ApiVersion]) = base.withTags(
-        TagSet.from(Map("tpe" -> tpe, "api" -> apiTag(api)))
+        tags("tpe" -> tpe, "api" -> apiTag(api))
       ).increment()
     }
     object fingerPrint {
@@ -143,7 +141,7 @@ object mon {
     object distribution {
       def byPerfAndRating(perfKey: String, rating: Int): Rate = value =>
         Kamon.gauge("rating.distribution").withTags(
-          TagSet.from(Map("perf" -> perfKey, "rating" -> rating.toString))
+          tags("perf" -> perfKey, "rating" -> rating.toString)
         ).update((value * 100000).toInt)
     }
     object regulator {
@@ -249,30 +247,30 @@ object mon {
       val bcFullMigrate = inc("user.auth.bc_full_migrate")
       val hashTime = rec("user.auth.hash_time")
       val hashTimeInc = incX("user.auth.hash_time_inc")
-      def result(v: Boolean) = inc(s"user.auth.result.$v")
+      def result(v: Boolean) = inc("user.auth.result", "success", v.toString)
 
-      def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
-      def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
+      def passwordResetRequest(s: String) = inc("user.auth.password_reset_request", "tpe", s)
+      def passwordResetConfirm(s: String) = inc("user.auth.password_reset_confirm", "tpe", s)
 
-      def magicLinkRequest(s: String) = inc(s"user.auth.magic_link_request.$s")
-      def magicLinkConfirm(s: String) = inc(s"user.auth.magic_link_confirm.$s")
+      def magicLinkRequest(s: String) = inc("user.auth.magic_link_request", "tpe", s)
+      def magicLinkConfirm(s: String) = inc("user.auth.magic_link_confirm", "tpe", s)
     }
     object oauth {
       object usage {
         val success = inc("user.oauth.usage.success")
-        val failure = inc("user.oauth.usage.success")
+        val failure = inc("user.oauth.usage.failure")
       }
     }
   }
   object trouper {
-    def queueSize(name: String) = rec(s"trouper.queue_size.$name")
+    def queueSize(name: String) = rec("trouper.queue_size", "name", name)
   }
   object mod {
     object report {
       val unprocessed = rec("mod.report.unprocessed")
       val close = inc("mod.report.close")
-      def create(reason: String) = inc(s"mod.report.create.$reason")
-      def discard(reason: String) = inc(s"mod.report.discard.$reason")
+      def create(reason: String) = inc("mod.report.create", "reason", reason)
+      def discard(reason: String) = inc("mod.report.discard", "reason", reason)
     }
     object log {
       val create = inc("mod.log.create")
@@ -280,29 +278,29 @@ object mon {
     object irwin {
       val report = inc("mod.report.irwin.report")
       val mark = inc("mod.report.irwin.mark")
-      def ownerReport(name: String) = inc(s"mod.irwin.owner_report.$name")
-      def streamEventType(name: String) = inc(s"mod.irwin.streama.event_type.$name") // yes there's a typo
+      def ownerReport(name: String) = inc("mod.irwin.owner_report", "name", name)
+      def streamEventType(name: String) = inc("mod.irwin.stream.event_type", "name", name)
     }
   }
   object relay {
     val ongoing = rec("relay.ongoing")
     val moves = incX("relay.moves")
     object sync {
-      def result(res: String) = inc(s"relay.sync.result.$res")
+      def result(res: String) = inc("relay.sync.count", "result", res)
       object duration {
         val each = rec("relay.sync.duration.each")
       }
     }
   }
   object bot {
-    def moves(username: String) = inc(s"bot.moves.$username")
-    def chats(username: String) = inc(s"bot.chats.$username")
+    def moves(username: String) = inc("bot.moves", "name", username)
+    def chats(username: String) = inc("bot.chats", "name", username)
   }
   object cheat {
     val cssBot = inc("cheat.css_bot")
     val holdAlert = inc("cheat.hold_alert")
     object autoAnalysis {
-      def reason(r: String) = inc(s"cheat.auto_analysis.reason.$r")
+      def reason(r: String) = inc("cheat.auto_analysis", "reason", r)
     }
     object autoMark {
       val count = inc("cheat.auto_mark.count")
@@ -337,28 +335,23 @@ object mon {
     }
     object proxy {
       object request {
-        val success = inc("security.proxy.success")
-        val failure = inc("security.proxy.failure")
+        val success = inc("security.proxy.count", "success", "true")
+        val failure = inc("security.proxy.count", "success", "false")
         val time = rec("security.proxy.request")
       }
       val percent = rec("security.proxy.percent")
     }
     object rateLimit {
-      def generic(key: String) = inc(s"security.rate_limit.generic.$key")
+      def generic(key: String) = inc("security.rate_limit.generic", "key", key)
     }
     object linearLimit {
-      def generic(key: String) = inc(s"security.linear_limit.generic.$key")
+      def generic(key: String) = inc("security.linear_limit.generic", "key", key)
     }
     object dnsApi {
       object mx {
         val time = rec("security.dnsApi.mx.time")
         val count = inc("security.dnsApi.mx.count")
         val error = inc("security.dnsApi.mx.error")
-      }
-      object a {
-        val time = rec("security.dnsApi.a.time")
-        val count = inc("security.dnsApi.a.count")
-        val error = inc("security.dnsApi.a.error")
       }
     }
     object checkMailApi {
@@ -370,18 +363,18 @@ object mon {
   object tv {
     object stream {
       val count = rec("tv.streamer.count")
-      def name(n: String) = rec(s"tv.streamer.name.$n")
+      def present(n: String) = rec("tv.streamer.present", "name", n)
     }
   }
   object relation {
-    val follow = inc("relation.follow")
-    val unfollow = inc("relation.unfollow")
-    val block = inc("relation.block")
-    val unblock = inc("relation.unblock")
+    val follow = inc("relation.action", "tpe", "follow")
+    val unfollow = inc("relation.action", "tpe", "unfollow")
+    val block = inc("relation.action", "tpe", "block")
+    val unblock = inc("relation.action", "tpe", "unblock")
   }
   object coach {
     object pageView {
-      def profile(coachId: String) = inc(s"coach.page_view.profile.$coachId")
+      def profile(coachId: String) = inc("coach.page_view.profile", "name", coachId)
     }
   }
   object tournament {
@@ -402,17 +395,17 @@ object mon {
     object createdOrganizer {
       val tickTime = rec("tournament.created_organizer.tick_time")
     }
-    def apiShowPartial(partial: Boolean) = inc(s"tournament.api.show.partial.$partial")
+    def apiShowPartial(partial: Boolean) = inc("tournament.api.show.count", "partial", partial.toString)
     val trouperCount = rec("tournament.trouper.count")
   }
   object plan {
     object amount {
-      val paypal = incX("plan.amount.paypal")
-      val stripe = incX("plan.amount.stripe")
+      val paypal = incX("plan.amount", "service", "paypal")
+      val stripe = incX("plan.amount", "service", "stripe")
     }
     object count {
-      val paypal = inc("plan.count.paypal")
-      val stripe = inc("plan.count.stripe")
+      val paypal = inc("plan.count", "service", "paypal")
+      val stripe = inc("plan.count", "service", "stripe")
     }
     val goal = rec("plan.goal")
     val current = rec("plan.current")
@@ -440,14 +433,14 @@ object mon {
       val solve = incX("puzzle.batch.solve")
     }
     object round {
-      val user = inc("puzzle.attempt.user")
-      val anon = inc("puzzle.attempt.anon")
-      val mate = inc("puzzle.attempt.mate")
-      val material = inc("puzzle.attempt.material")
+      val user = inc("puzzle.attempt.by", "registered", "true")
+      val anon = inc("puzzle.attempt.by", "registered", "false")
+      val mate = inc("puzzle.attempt.problem", "tpe", "mate")
+      val material = inc("puzzle.attempt.problem", "tpe", "material")
     }
     object vote {
-      val up = inc("puzzle.vote.up")
-      val down = inc("puzzle.vote.down")
+      val up = inc("puzzle.vote.count", "dir", "up")
+      val down = inc("puzzle.vote.count", "dir", "up")
     }
     val crazyGlicko = inc("puzzle.crazy_glicko")
   }
@@ -459,20 +452,18 @@ object mon {
     val crazyGlicko = inc("opening.crazy_glicko")
   }
   object game {
-    def finish(status: String) = inc(s"game.finish.$status")
-    object create {
-      def variant(v: String) = inc(s"game.create.variant.$v")
-      def speed(v: String) = inc(s"game.create.speed.$v")
-      def source(v: String) = inc(s"game.create.source.$v")
-      def mode(v: String) = inc(s"game.create.mode.$v")
-    }
+    def finish(status: String) = inc("game.finish", "status", status)
+    private val counter = Kamon.counter("game.create")
+    def create(variant: String, speed: String, source: String, mode: String) = counter.withTags(tags(
+      "variant" -> variant, "speed" -> speed, "source" -> source, "mode" -> mode
+    )).increment()
     val fetch = inc("game.fetch.count")
     val fetchLight = inc("game.fetchLight.count")
     val loadClockHistory = inc("game.loadClockHistory.count")
     object pgn {
       final class Protocol(name: String) {
-        val count = inc(s"game.pgn.$name.count")
-        val time = rec(s"game.pgn.$name.time")
+        val count = inc("game.pgn.count", "name", name)
+        val time = rec("game.pgn.time", "name", name)
       }
       object oldBin {
         val encode = new Protocol("oldBin.encode")
@@ -486,23 +477,26 @@ object mon {
     val idCollision = inc("game.id_collision")
   }
   object chat {
-    val message = inc("chat.message")
-    val trollTrue = inc("chat.message.troll.true")
+    def message(troll: Boolean) = inc("chat.message", "troll", troll.toString)
   }
   object push {
     object register {
-      def in(platform: String) = inc(s"push.register.in.$platform")
+      def in(platform: String) = inc("push.register", "platform", platform)
       def out = inc(s"push.register.out")
     }
     object send {
-      def move(platform: String) = inc(s"push.send.$platform.move")()
-      def takeback(platform: String) = inc(s"push.send.$platform.takeback")()
-      def corresAlarm(platform: String) = inc(s"push.send.$platform.corresAlarm")()
-      def finish(platform: String) = inc(s"push.send.$platform.finish")()
-      def message(platform: String) = inc(s"push.send.$platform.message")()
+      private val counter = Kamon.counter("push.send")
+      private def send(tpe: String)(platform: String): Unit = counter.withTags(tags(
+        "tpe" -> tpe, "platform" -> platform
+      )).increment()
+      def move = send("move") _
+      def takeback = send("takeback") _
+      def corresAlarm = send("corresAlarm") _
+      def finish = send("finish") _
+      def message = send("message") _
       object challenge {
-        def create(platform: String) = inc(s"push.send.$platform.challenge_create")()
-        def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
+        def create = send("challenge_create") _
+        def accept = send("challenge_accept") _
       }
     }
     def googleTokenTime = rec("push.send.google-token")
@@ -510,61 +504,58 @@ object mon {
   object fishnet {
     object client {
       def result(client: String, skill: String) = new {
-        def success = apply("success")
-        def failure = apply("failure")
-        def weak = apply("weak")
-        def timeout = apply("timeout")
-        def notFound = apply("not_found")
-        def notAcquired = apply("not_acquired")
-        def abort = apply("abort")
-        private def apply(r: String) = inc(s"fishnet.client.result.$skill.$client.$r")
+        private val counter = Kamon.counter("fishnet.client.result")
+        private def apply(r: String): Unit = counter.withTags(tags(
+          "skill" -> skill, "client" -> client, "r" -> r
+        )).increment()
+        def success() = apply("success")
+        def failure() = apply("failure")
+        def weak() = apply("weak")
+        def timeout() = apply("timeout")
+        def notFound() = apply("not_found")
+        def notAcquired() = apply("not_acquired")
+        def abort() = apply("abort")
       }
-      object status {
-        val enabled = rec("fishnet.client.status.enabled")
-        val disabled = rec("fishnet.client.status.disabled")
-      }
-      def skill(v: String) = rec(s"fishnet.client.skill.$v")
-      def version(v: String) = rec(s"fishnet.client.version.${makeVersion(v)}")
-      def stockfish(v: String) = rec(s"fishnet.client.engine.stockfish.${makeVersion(v)}")
-      def python(v: String) = rec(s"fishnet.client.python.${makeVersion(v)}")
+      def status(enabled: Boolean) = rec("fishnet.client.status", "enabled", enabled.toString)
+      def version(v: String) = rec("fishnet.client.version", "version", makeVersion(v))
+      def stockfish(v: String) = rec("fishnet.client.engine.stockfish", "version", makeVersion(v))
+      def python(v: String) = rec("fishnet.client.python", "version", makeVersion(v))
     }
     object queue {
-      def db(skill: String) = rec(s"fishnet.queue.db.$skill")
+      def time = rec("fishnet.queue.db")
     }
     object acquire {
-      def time(skill: String) = rec(s"fishnet.acquire.skill.$skill")
-      def error(skill: String) = inc(s"fishnet.acquire.error.skill.$skill")
+      def time = rec("fishnet.acquire.time")
+      def error = inc("fishnet.acquire.error")
     }
     object work {
-      def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
-      def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
-      def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
+      def acquired = rec("fishnet.work.acquired")
+      def queued = rec("fishnet.work.queued")
+      def forUser = rec("fishnet.work.for_user")
     }
     object analysis {
       def by(client: String) = new {
-        def hash = rec(s"fishnet.analysis.hash.$client")
-        def threads = rec(s"fishnet.analysis.threads.$client")
-        def movetime = rec(s"fishnet.analysis.movetime.$client")
-        def node = rec(s"fishnet.analysis.node.$client")
-        def nps = rec(s"fishnet.analysis.nps.$client")
-        def depth = rec(s"fishnet.analysis.depth.$client")
-        def pvSize = rec(s"fishnet.analysis.pv_size.$client")
-        def pvTotal = incX(s"fishnet.analysis.pvs.total.$client")
-        def pvShort = incX(s"fishnet.analysis.pvs.short.$client")
-        def pvLong = incX(s"fishnet.analysis.pvs.long.$client")
-        def totalMeganode = incX(s"fishnet.analysis.total.meganode.$client")
-        def totalSecond = incX(s"fishnet.analysis.total.second.$client")
-        def totalPosition = incX(s"fishnet.analysis.total.position.$client")
+        def hash = rec("fishnet.analysis.hash", "client", client)
+        def threads = rec("fishnet.analysis.threads", "client", client)
+        def movetime = rec("fishnet.analysis.movetime", "client", client)
+        def node = rec("fishnet.analysis.node", "client", client)
+        def nps = rec("fishnet.analysis.nps", "client", client)
+        def depth = rec("fishnet.analysis.depth", "client", client)
+        def pvSize = rec("fishnet.analysis.pv_size", "client", client)
+        def pvTotal = incX("fishnet.analysis.pvs.total", "client", client)
+        def pvShort = incX("fishnet.analysis.pvs.short", "client", client)
+        def pvLong = incX("fishnet.analysis.pvs.long", "client", client)
+        def totalMeganode = incX("fishnet.analysis.total.meganode", "client", client)
+        def totalSecond = incX("fishnet.analysis.total.second", "client", client)
+        def totalPosition = incX("fishnet.analysis.total.position", "client", client)
       }
       val post = rec("fishnet.analysis.post")
       val requestCount = inc("fishnet.analysis.request")
       val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
     }
     object http {
-      def acquire(skill: String) = new {
-        def hit = inc(s"fishnet.http.acquire.$skill.hit")
-        def miss = inc(s"fishnet.http.acquire.$skill.miss")
-      }
+      def hit = inc("fishnet.http.acquire.hit")
+      def miss = inc("fishnet.http.acquire.miss")
     }
   }
   object api {
@@ -632,6 +623,10 @@ object mon {
 
   def recPath(f: lila.mon.type => Rec): Rec = f(this)
   def incPath(f: lila.mon.type => Inc): Inc = f(this)
+
+  private def apiTag(api: Option[ApiVersion]) = api.fold("web")(_.toString)
+
+  private def tags(tags: (String, Any)*) = TagSet.from(Map(tags: _*))
 
   private def inc(metric: String): Inc =
     Kamon.counter(metric).withoutTags.increment _
