@@ -16,10 +16,7 @@ object BuildSettings {
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
-    scalacOptions in Scapegoat ++= Seq(
-      "-P:scapegoat:reports:html",
-      "-P:scapegoat:overrideLevels:ListSize=Error:ReverseFunc=Error:ListAppend=Error"
-    ),
+    scapegoatSettings,
     sources in doc in Compile := List(),
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
@@ -31,6 +28,12 @@ object BuildSettings {
   def scalariformPrefs(prefs: IFormattingPreferences) = prefs
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
+
+  def scapegoatSettings = scalacOptions in Scapegoat ++= Seq(
+    "-P:scapegoat:reports:html",
+    "-P:scapegoat:overrideLevels:ListSize=Error:ReverseFunc=Error:ListAppend=Error",
+    "-P:scapegoat:enabledInspections:ComparingUnrelatedTypes"
+  )
 
   def defaultLibs: Seq[ModuleID] = Seq(
     play.api, scalaz, chess, scalalib, jodaTime, ws,

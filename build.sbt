@@ -12,7 +12,6 @@ lazy val root = Project("lila", file("."))
 
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
-scalacOptions ++= compilerOptions :+ "-P:silencer:pathFilters=target/scala-2.13/routes"
 sources in doc in Compile := List()
 // disable publishing the main API jar
 publishArtifact in (Compile, packageDoc) := false
@@ -35,7 +34,7 @@ libraryDependencies ++= Seq(
 
 scapegoatVersion in ThisBuild := "1.4.1"
 scapegoatIgnoredFiles in ThisBuild := Seq(".*/src_managed/.*", ".*/WMMatching.scala")
-scapegoatDisabledInspections in ThisBuild := Seq("FinalModifierOnCaseClass", "VarUse", "UnusedMethodParameter", "CatchException", "IncorrectlyNamedExceptions", "ObjectNames", "MethodNames", "AvoidOperatorOverload", "TryGet", "BigDecimalDoubleConstructor")
+scapegoatSettings
 
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
