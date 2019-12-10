@@ -6,12 +6,13 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.common.config.Max
 import lila.hub.actorApi.timeline.Atom
 import lila.user.User
 
 final class EntryApi(
     coll: Coll,
-    userMax: Int,
+    userMax: Max,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -22,25 +23,25 @@ final class EntryApi(
   def userEntries(userId: User.ID): Fu[Vector[Entry]] =
     userEntries(userId, userMax) flatMap broadcast.interleave
 
-  def moreUserEntries(userId: User.ID, nb: Int): Fu[Vector[Entry]] =
+  def moreUserEntries(userId: User.ID, nb: Max): Fu[Vector[Entry]] =
     userEntries(userId, nb) flatMap broadcast.interleave
 
-  private def userEntries(userId: User.ID, max: Int): Fu[Vector[Entry]] =
+  private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] =
     coll.find($doc(
       "users" -> userId,
       "date" $gt DateTime.now.minusWeeks(2)
     ), projection.some)
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max)
+      .gather[Vector](max.value)
 
-  def findRecent(typ: String, since: DateTime, max: Int) =
+  def findRecent(typ: String, since: DateTime, max: Max) =
     coll.find(
       $doc("typ" -> typ, "date" $gt since),
       projection.some
     ).sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max)
+      .gather[Vector](max.value)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
     coll.countSel($doc(
