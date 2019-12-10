@@ -157,7 +157,7 @@ final class PlaybanApi(
   def hasCurrentBan(userId: User.ID): Fu[Boolean] = currentBan(userId).map(_.isDefined)
 
   def completionRate(userId: User.ID): Fu[Option[Double]] =
-    coll.primitiveOne[List[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
+    coll.primitiveOne[Vector[Outcome]]($id(userId), "o").map(~_) map { outcomes =>
       outcomes.collect {
         case Outcome.RageQuit | Outcome.Sitting | Outcome.NoPlay | Outcome.Abort => false
         case Outcome.Good => true

@@ -109,6 +109,6 @@ private final class Biter(
         (seek.perfType map user.ratingAt) ?? range.contains
       }
 
-  final def showHookTo(hook: Hook, member: LobbySocket.Member): Boolean =
+  def showHookTo(hook: Hook, member: LobbySocket.Member): Boolean =
     hook.sri == member.sri || canJoin(hook, member.user)
 }

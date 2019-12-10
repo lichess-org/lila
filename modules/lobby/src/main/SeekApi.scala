@@ -54,7 +54,7 @@ final class SeekApi(
   }
 
   private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
-    seeks.foldLeft(List[Seek]() -> Set[String]()) {
+    seeks.foldLeft(List.empty[Seek] -> Set.empty[String]) {
       case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
       case ((res, h), seek) =>
         val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","

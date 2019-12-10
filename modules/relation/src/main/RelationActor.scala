@@ -117,7 +117,7 @@ private[relation] final class RelationActor(
   ) =
     friendsEntering foreach { entering =>
       api fetchFollowersFromSecondary entering.user.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), "socketUsers")
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, JsonView.writeFriendEntering(entering)), "socketUsers")
       }
     }
 
@@ -127,19 +127,19 @@ private[relation] final class RelationActor(
   ) =
     friendsLeaving foreach { leaving =>
       api fetchFollowersFromSecondary leaving.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), "socketUsers")
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, "following_leaves", leaving.titleName), "socketUsers")
       }
     }
 
   private def notifyFollowersGameStateChanged(userIds: Iterable[ID], message: String) =
     userIds foreach { userId =>
       api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), "socketUsers")
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
       }
     }
 
   private def notifyFollowersFriendInStudyStateChanged(userId: ID, message: String) =
     api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-      if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), "socketUsers")
+      if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
     }
 }
