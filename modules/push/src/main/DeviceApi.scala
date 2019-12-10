@@ -23,7 +23,7 @@ private final class DeviceApi(coll: Coll) {
     findLastManyByUserId(platform, 1)(userId) map (_.headOption)
 
   def register(user: User, platform: String, deviceId: String) = {
-    lila.mon.push.register.in(platform)()
+    lila.mon.push.register.in(platform).increment()
     coll.update.one($id(deviceId), Device(
       _id = deviceId,
       platform = platform,
@@ -33,7 +33,7 @@ private final class DeviceApi(coll: Coll) {
   }
 
   def unregister(user: User) = {
-    lila.mon.push.register.out()
+    lila.mon.push.register.out.increment()
     coll.delete.one($doc("userId" -> user.id)).void
   }
 }

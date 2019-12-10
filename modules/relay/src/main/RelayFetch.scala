@@ -40,7 +40,7 @@ private final class RelayFetch(
       throw new RuntimeException(msg)
 
     case Tick => api.toSync.flatMap { relays =>
-      lila.mon.relay.ongoing(relays.size)
+      lila.mon.relay.ongoing.update(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
           api.update(relay)(_ => newRelay)
@@ -59,27 +59,28 @@ private final class RelayFetch(
   // no writing the relay; only reading!
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
-    else doProcess(relay) flatMap { games =>
-      sync(relay, games)
-        .chronometer.mon(_.relay.sync.duration.each).result
-        .withTimeout(1500 millis, SyncResult.Timeout)(context.system) map { res =>
-          res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
-        }
-    } recover {
-      case e: Exception => (e match {
-        case SyncResult.Timeout =>
-          logger.info(s"Sync timeout $relay")
-          SyncResult.Timeout
-        case _ =>
-          logger.info(s"Sync error $relay ${e.getMessage take 80}")
-          SyncResult.Error(e.getMessage)
-      }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
-    } map {
-      case (result, newRelay) => afterSync(result, newRelay)
-    }
+    else doProcess(relay)
+      .flatMap { games =>
+        sync(relay, games)
+          .withTimeout(1500 millis, SyncResult.Timeout)(context.system)
+          .monSuccess(_.relay.syncTime)
+          .map { res =>
+            res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
+          }
+      }.recover {
+        case e: Exception => (e match {
+          case SyncResult.Timeout =>
+            logger.info(s"Sync timeout $relay")
+            SyncResult.Timeout
+          case _ =>
+            logger.info(s"Sync error $relay ${e.getMessage take 80}")
+            SyncResult.Error(e.getMessage)
+        }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+      }.map {
+        case (result, newRelay) => afterSync(result, newRelay)
+      }
 
-  def afterSync(result: SyncResult, relay: Relay): Relay = {
-    lila.mon.relay.sync.result(result.reportKey)()
+  def afterSync(result: SyncResult, relay: Relay): Relay =
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) {
@@ -87,11 +88,10 @@ private final class RelayFetch(
           relay.finish
         } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, _) =>
-        lila.mon.relay.moves(nbMoves)
+        lila.mon.relay.moves.increment(nbMoves)
         continueRelay(relay.ensureStarted.resume)
       case _ => continueRelay(relay)
     }
-  }
 
   def continueRelay(r: Relay): Relay = {
     val seconds =

@@ -39,9 +39,9 @@ final class Analyser(
                   case Some(_) => funit
                   // first request, store
                   case _ =>
-                    lila.mon.fishnet.analysis.requestCount()
+                    lila.mon.fishnet.analysis.requestCount("game").increment()
                     evalCache skipPositions work.game flatMap { skipPositions =>
-                      lila.mon.fishnet.analysis.evalCacheHits(skipPositions.size)
+                      lila.mon.fishnet.analysis.evalCacheHits.increment(skipPositions.size)
                       repo addAnalysis work.copy(skipPositions = skipPositions)
                     }
                 }
@@ -78,9 +78,9 @@ final class Analyser(
             workQueue {
               repo getSimilarAnalysis work flatMap {
                 _.isEmpty ?? {
-                  lila.mon.fishnet.analysis.requestCount()
+                  lila.mon.fishnet.analysis.requestCount("study").increment()
                   evalCache skipPositions work.game flatMap { skipPositions =>
-                    lila.mon.fishnet.analysis.evalCacheHits(skipPositions.size)
+                    lila.mon.fishnet.analysis.evalCacheHits.increment(skipPositions.size)
                     repo addAnalysis work.copy(skipPositions = skipPositions)
                   }
                 }

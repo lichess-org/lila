@@ -12,7 +12,7 @@ final class Tor(ws: WSClient, config: SecurityConfig.Tor) {
     ws.url(config.providerUrl).get() map { res =>
       ips = res.body.linesIterator.filterNot(_ startsWith "#").map(IpAddress.apply).toSet
       withIps(ips)
-      lila.mon.security.tor.node(ips.size)
+      lila.mon.security.torNodes.update(ips.size)
     }
   }
 

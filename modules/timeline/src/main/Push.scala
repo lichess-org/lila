@@ -24,7 +24,7 @@ private[timeline] final class Push(
       } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
           lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
-        lila.mon.timeline.notification(users.size)
+        lila.mon.timeline.notification.increment(users.size)
       }
   }
 

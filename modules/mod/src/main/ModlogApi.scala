@@ -167,7 +167,7 @@ final class ModlogApi(repo: ModlogRepo) {
     coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
 
   private def add(m: Modlog): Funit = {
-    lila.mon.mod.log.create()
+    lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
     coll.insert.one(m).void
   }

@@ -31,7 +31,7 @@ private[forum] final class TopicApi(
       } yield categ -> topic).run
       res <- data ?? {
         case (categ, topic) =>
-          lila.mon.forum.topic.view()
+          lila.mon.forum.topic.view.increment()
           env.topicRepo incViews topic
           env.postApi.paginator(topic, page, troll) map { (categ, topic, _).some }
       }
@@ -78,7 +78,7 @@ private[forum] final class TopicApi(
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
               timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
             }
-            lila.mon.forum.post.create()
+            lila.mon.forum.post.create.increment()
           } >>- {
             env.mentionNotifier.notifyMentionedUsers(post, topic)
             Bus.publish(actorApi.CreatePost(post), "forumPost")

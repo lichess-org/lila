@@ -75,7 +75,7 @@ final class Env(
   )), name = "influx-event")
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
-    lila.mon.bus.classifiers(lila.common.Bus.size)
+    lila.mon.bus.classifiers.update(lila.common.Bus.size)
   }
   lifecycle.addStopHook { () =>
     fuccess(lila.common.Bus.publish(lila.hub.actorApi.Shutdown, "shutdown"))

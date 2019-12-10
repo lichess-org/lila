@@ -18,7 +18,7 @@ final class IrwinStream {
 
     val sub = Bus.subscribeFun(classifier) {
       case req: IrwinRequest =>
-        lila.mon.mod.irwin.streamEventType("request")()
+        lila.mon.mod.irwin.streamEventType("request").increment()
         queue offer req
     }
 

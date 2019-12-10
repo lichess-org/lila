@@ -21,7 +21,6 @@ private final class DnsApi(
   private val mxCache: AsyncLoadingCache[Domain.Lower, List[Domain]] = Scaffeine()
     .expireAfterWrite(2 days)
     .buildAsyncFuture(domain => {
-      lila.mon.security.dnsApi.mx.count()
       fetch(domain, "mx") {
         _ flatMap { obj =>
           (obj \ "data").asOpt[String].map(_ split ' ') collect {
@@ -31,9 +30,7 @@ private final class DnsApi(
             }
           }
         }
-      }
-    }.mon(_.security.dnsApi.mx.time) addFailureEffect { _ =>
-      lila.mon.security.dnsApi.mx.error()
+      }.monSuccess(_.security.dnsApi.mx)
     })
 
   private def fetch[A](domain: Domain.Lower, tpe: String)(f: List[JsObject] => A): Fu[A] =

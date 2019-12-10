@@ -35,7 +35,7 @@ private[puzzle] final class PuzzleBatch(
       api.head.find(user) flatMap {
         newPuzzlesForUser(user, _, nb, after)
       } addEffect { puzzles =>
-        lila.mon.puzzle.batch.selector.count(puzzles.size)
+        lila.mon.puzzle.batch.selector.count.increment(puzzles.size)
       }
     }.mon(_.puzzle.batch.selector.time)
 

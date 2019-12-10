@@ -18,12 +18,12 @@ final class LinearLimit[K](
   private val storage = new ExpireSetMemo(ttl)
 
   private lazy val logger = lila.log("linearlimit").branch(name)
-  private val monitor = lila.mon.security.linearLimit.generic(key)
+  private lazy val monitor = lila.mon.security.linearLimit(key)
 
   def apply(k: K, msg: => String = "", limited: => Fu[Result] = limitedDefault)(f: => Fu[Result]): Fu[Result] =
     if (storage get toString(k)) {
       logger.info(s"$k $msg")
-      monitor()
+      monitor.increment()
       limited
     } else {
       storage put toString(k)

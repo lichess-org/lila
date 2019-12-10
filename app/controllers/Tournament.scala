@@ -110,12 +110,12 @@ final class Tournament(
             streamers <- streamerCache get tour.id
             shieldOwner <- env.tournament.shieldApi currentOwner tour
           } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
-        }, api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
+        }.monSuccess(_.tournament.apiShowPartial(false, none)),
+        api = apiVersion => tourOption.fold(notFoundJson("No such tournament")) { tour =>
           get("playerInfo").?? { api.playerInfo(tour, _) } zip
             getBool("socketVersion").??(env.tournament version tour.id map some) flatMap {
               case (playerInfoExt, socketVersion) =>
                 val partial = getBool("partial")
-                lila.mon.tournament.apiShowPartial(partial)()
                 jsonView(
                   tour = tour,
                   page = page,
@@ -128,7 +128,7 @@ final class Tournament(
                   lang = ctx.lang
                 )
             } dmap { Ok(_) }
-        }
+        }.monSuccess(_.tournament.apiShowPartial(getBool("partial"), apiVersion.some))
       ) dmap NoCache
     }
   }

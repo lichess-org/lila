@@ -87,14 +87,12 @@ final class Syncache[K, V](
       cache.put(k, v)
     }
 
-  def chmSize = chm.size
-
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
       error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
-      .mon(_ => recComputeNanos) // monitoring: record async time
+      .mon(_ => recCompute) // monitoring: record async time
       .addEffect { res =>
         cache.put(k, res)
         chm remove k
@@ -108,10 +106,10 @@ final class Syncache[K, V](
   }
 
   private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {
-    incWait()
     try {
-      // monitoring: increment lock time
-      lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
+      lila.common.Chronometer.syncMon(_ => recWait) {
+        fu await duration
+      }
     } catch {
       case _: java.util.concurrent.TimeoutException =>
         incTimeout()
@@ -119,12 +117,11 @@ final class Syncache[K, V](
     }
   }
 
-  private val incMiss = lila.mon.syncache.miss(name)
-  private val incWait = lila.mon.syncache.wait(name)
-  private val incPreload = lila.mon.syncache.preload(name)
-  private val incTimeout = lila.mon.syncache.timeout(name)
-  private val incWaitMicros = lila.mon.syncache.waitMicros(name)
-  private val recComputeNanos = lila.mon.syncache.computeNanos(name)
+  private val incMiss = lila.mon.syncache.miss(name).increment _
+  private val incPreload = lila.mon.syncache.preload(name).increment _
+  private val incTimeout = lila.mon.syncache.timeout(name).increment _
+  private val recWait = lila.mon.syncache.wait(name)
+  private val recCompute = lila.mon.syncache.compute(name)
 }
 
 object Syncache {

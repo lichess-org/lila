@@ -169,7 +169,7 @@ private[round] final class RoundDuct(
         case true => funit
         case false =>
           lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-          lila.mon.cheat.holdAlert()
+          lila.mon.cheat.holdAlert.increment()
           gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
       } inject Nil
     }
@@ -214,8 +214,7 @@ private[round] final class RoundDuct(
       },
       lap => {
         p.promise.foreach(_ success {})
-        lila.mon.round.move.count()
-        lila.mon.round.move.time(lap.nanos)
+        lila.mon.round.move.time.record(lap.nanos)
         MoveLatMonitor record lap.micros
       }
     )
@@ -230,7 +229,7 @@ private[round] final class RoundDuct(
 
     case FishnetPlay(uci, ply) => handle { game =>
       player.fishnet(game, ply, uci)
-    } >>- lila.mon.round.move.count()
+    }.mon(_.round.move.time)
 
     case Abort(playerId) => handle(PlayerId(playerId)) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -470,10 +469,10 @@ private[round] final class RoundDuct(
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
-      lila.mon.round.error.client()
+      lila.mon.round.error.client.increment()
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet()
+      lila.mon.round.error.fishnet.increment()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
 

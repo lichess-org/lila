@@ -35,13 +35,10 @@ final class IrwinApi(
   object reports {
 
     def insert(report: IrwinReport) = (mode.get() != "none") ?? {
-      for {
-        _ <- reportColl.update.one($id(report._id), report, upsert = true)
-        _ <- markOrReport(report)
-        _ <- notification(report)
-      } yield {
-        lila.mon.mod.irwin.ownerReport(report.owner)()
-      }
+      reportColl.update.one($id(report._id), report, upsert = true) >>
+        markOrReport(report) >>
+        notification(report) >>-
+        lila.mon.mod.irwin.ownerReport(report.owner).increment()
     }
 
     def get(user: User): Fu[Option[IrwinReport]] =
@@ -64,7 +61,7 @@ final class IrwinApi(
     private def markOrReport(report: IrwinReport): Funit =
       if (report.activation >= markThreshold && mode.get() == "mark")
         modApi.autoMark(report.suspectId, ModId.irwin) >>-
-          lila.mon.mod.irwin.mark()
+          lila.mon.mod.irwin.mark.increment()
       else if (report.activation >= reportThreshold && mode.get() != "none") for {
         suspect <- getSuspect(report.suspectId.value)
         irwin <- userRepo byId "irwin" orFail s"Irwin user not found" map Mod.apply
@@ -74,7 +71,7 @@ final class IrwinApi(
           reason = lila.report.Reason.Cheat,
           text = s"${report.activation}% over ${report.games.size} games"
         ))
-      } yield lila.mon.mod.irwin.report()
+      } yield lila.mon.mod.irwin.report.increment()
       else funit
   }
 

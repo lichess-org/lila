@@ -49,10 +49,8 @@ private final class CreatedOrganizer(
       .log(getClass.getName)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run
-      .addEffect(lila.mon.tournament.created(_))
-      .chronometer
-      .mon(_.tournament.createdOrganizer.tickTime)
-      .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")
-      .result addEffectAnyway scheduleNext
+      .addEffect(lila.mon.tournament.created.update(_))
+      .monSuccess(_.tournament.createdOrganizer.tick)
+      .addEffectAnyway(scheduleNext)
   }
 }

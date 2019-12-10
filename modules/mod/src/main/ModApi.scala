@@ -40,7 +40,7 @@ final class ModApi(
     _ <- (!sus.user.isBot && !unengined) ?? {
       reportApi.getMod(modId.value) flatMap {
         _ ?? { mod =>
-          lila.mon.cheat.autoMark.count()
+          lila.mon.cheat.autoMark.count.increment()
           setEngine(mod, sus, true)
         }
       }

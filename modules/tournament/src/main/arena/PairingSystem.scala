@@ -56,9 +56,13 @@ private[tournament] final class PairingSystem(
       } else if (idles.size > 1) smartPairings(data, idles)
       else Nil
     }
-  }.chronometer.mon(_.tournament.pairing.prepTime).logIfSlow(200, pairingLogger) { preps =>
-    s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
-  }.result
+  }
+    .monSuccess(_.tournament.pairing.prep)
+    .chronometer
+    .logIfSlow(200, pairingLogger) { preps =>
+      s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
+    }
+    .result
 
   private def prepsToPairings(preps: List[Pairing.Prep]): Fu[List[Pairing]] =
     if (preps.size < 50) preps.map { prep =>

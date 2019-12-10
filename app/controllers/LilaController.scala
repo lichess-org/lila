@@ -167,15 +167,15 @@ private[controllers] abstract class LilaController(val env: Env)
     val scopes = OAuthScope select selectors
     env.security.api.oauthScoped(req, scopes) flatMap {
       case Left(e @ lila.oauth.OAuthServer.MissingScope(available)) =>
-        lila.mon.user.oauth.usage.failure()
+        lila.mon.user.oauth.request(false).increment()
         OAuthServer.responseHeaders(scopes, available) {
           Unauthorized(jsonError(e.message))
         }.fuccess
       case Left(e) =>
-        lila.mon.user.oauth.usage.failure()
+        lila.mon.user.oauth.request(false).increment()
         OAuthServer.responseHeaders(scopes, Nil) { Unauthorized(jsonError(e.message)) }.fuccess
       case Right(scoped) =>
-        lila.mon.user.oauth.usage.success()
+        lila.mon.user.oauth.request(true).increment()
         f(req)(scoped.user) map OAuthServer.responseHeaders(scopes, scoped.scopes)
     }
   }
@@ -492,7 +492,7 @@ private[controllers] abstract class LilaController(val env: Env)
     jsonFormError(err)(lila.i18n.defaultLang)
 
   protected def pageHit(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isHuman ctx.req) lila.mon.http.request.path(ctx.req.path)()
+    if (HTTPRequest isHuman ctx.req) lila.mon.http.path(ctx.req.path).increment()
 
   protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
   protected val noProxyBuffer = (res: Result) => res.withHeaders(noProxyBufferHeader)

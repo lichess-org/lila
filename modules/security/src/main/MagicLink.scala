@@ -20,7 +20,7 @@ final class MagicLink(
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make user.id flatMap { token =>
-      lila.mon.email.types.magicLink()
+      lila.mon.email.send.magicLink.increment()
       val url = s"$baseUrl/auth/magic-link/login/$token"
       mailgun send Mailgun.Message(
         to = email,

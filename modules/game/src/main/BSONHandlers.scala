@@ -66,7 +66,7 @@ object BSONHandlers {
 
     def reads(r: BSON.Reader): Game = {
 
-      lila.mon.game.fetch()
+      lila.mon.game.fetch.increment()
 
       val light = lightGameBSONHandler.readsWithPlayerIds(r, r str F.playerIds)
       val startedAtTurn = r intD F.startedAtTurn
@@ -127,7 +127,7 @@ object BSONHandlers {
           bw <- whiteClockHistory
           bb <- blackClockHistory
           history <- BinaryFormat.clockHistory.read(clk.limit, bw, bb, (light.status == Status.Outoftime).option(turnColor))
-          _ = lila.mon.game.loadClockHistory()
+          _ = lila.mon.game.loadClockHistory.increment()
         } yield history,
         status = light.status,
         daysPerTurn = r intO F.daysPerTurn,
@@ -197,7 +197,7 @@ object BSONHandlers {
     import Player.playerBSONHandler
 
     def reads(r: BSON.Reader): LightGame = {
-      lila.mon.game.fetchLight()
+      lila.mon.game.fetchLight.increment()
       readsWithPlayerIds(r, "")
     }
 

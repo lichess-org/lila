@@ -318,15 +318,15 @@ final class PlanApi(
           percent = m.percent,
           DateTime.now
         ), "plan")
-        lila.mon.plan.goal(m.goal.value)
-        lila.mon.plan.current(m.current.value)
-        lila.mon.plan.percent(m.percent)
+        lila.mon.plan.goal.update(m.goal.value)
+        lila.mon.plan.current.update(m.current.value)
+        lila.mon.plan.percent.update(m.percent)
         if (charge.isPayPal) {
-          lila.mon.plan.amount.paypal(charge.cents.value)
-          lila.mon.plan.count.paypal()
+          lila.mon.plan.amount.paypal.increment(charge.cents.value)
+          lila.mon.plan.count.paypal.increment()
         } else if (charge.isStripe) {
-          lila.mon.plan.amount.stripe(charge.cents.value)
-          lila.mon.plan.count.stripe()
+          lila.mon.plan.amount.stripe.increment(charge.cents.value)
+          lila.mon.plan.count.stripe.increment()
         }
       }
     }

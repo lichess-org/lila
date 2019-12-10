@@ -17,8 +17,7 @@ final class Fishnet(env: Env) extends LilaController(env) {
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { _ => client =>
     api acquire client addEffect { jobOpt =>
-      val mon = lila.mon.fishnet.http
-      if (jobOpt.isDefined) mon.hit() else mon.miss()
+      lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
     } map Right.apply
   }
 

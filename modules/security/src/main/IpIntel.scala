@@ -25,18 +25,19 @@ final class IpIntel(
     name = "ipIntel",
     f = ip => {
       val url = s"https://check.getipintel.net/check.php?ip=$ip&contact=${contactEmail.value}"
-      ws.url(url).get().map(_.body).mon(_.security.proxy.request.time).flatMap { str =>
-        str.toFloatOption.fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-          if (ratio < 0) fufail(s"IpIntel error $ratio on $url")
-          else fuccess((ratio * 100).toInt)
+      ws.url(url)
+        .get()
+        .dmap(_.body)
+        .flatMap { str =>
+          str.toFloatOption.fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
+            if (ratio < 0) fufail(s"IpIntel error $ratio on $url")
+            else fuccess((ratio * 100).toInt)
+          }
         }
-      }.addEffects(
-        fail = _ => lila.mon.security.proxy.request.failure(),
-        succ = percent => {
-          lila.mon.security.proxy.percent(percent max 0)
-          lila.mon.security.proxy.request.success()
+        .monSuccess(_.security.proxy.request)
+        .addEffect { percent =>
+          lila.mon.security.proxy.percent.record(percent max 0)
         }
-      )
     },
     expireAfter = _.ExpireAfterAccess(3 days)
   )

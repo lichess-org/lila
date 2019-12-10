@@ -21,7 +21,7 @@ final class BotPlayer(
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
-        lila.mon.bot.moves(me.username)()
+        lila.mon.bot.moves(me.username).increment()
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]
@@ -37,7 +37,7 @@ final class BotPlayer(
     }
 
   def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) = fuccess {
-    lila.mon.bot.chats(me.username)()
+    lila.mon.bot.chats(me.username).increment()
     val chatId = lila.chat.Chat.Id {
       if (d.room == "player") gameId else s"$gameId/w"
     }

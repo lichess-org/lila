@@ -29,7 +29,7 @@ final class Coach(env: Env) extends LilaController(env) {
         } flatMap env.study.pager.withChaptersAndLiking(ctx.me, 4) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
             ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
-              lila.mon.coach.pageView.profile(c.coach.id.value)()
+              lila.mon.coach.pageView.profile(c.coach.id.value).increment()
               Ok(html.coach.show(c, reviews, studies, myReview))
             }
           }

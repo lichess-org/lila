@@ -34,8 +34,6 @@ final class LightUserApi(repo: UserRepo)(implicit system: akka.actor.ActorSystem
     expireAfter = Syncache.ExpireAfterAccess(15 minutes),
     logger = logger branch "LightUserApi"
   )
-
-  def monitorCache() = lila.mon.syncache.chmSize(cacheName)(cache.chmSize)
 }
 
 private object LightUserApi {

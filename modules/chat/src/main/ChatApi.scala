@@ -209,7 +209,7 @@ final class ChatApi(
       )
     )),
     upsert = true
-  ).void >>- lila.mon.chat.message(line.troll)
+  ).void >>- lila.mon.chat.message(line.troll).increment()
 
   private object Writer {
 

@@ -184,7 +184,7 @@ final class User(
     page: Int
   )(implicit ctx: BodyContext[_]): Fu[Paginator[GameModel]] = {
     UserGamesRateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = page, msg = s"on ${u.username}") {
-      lila.mon.http.userGames.cost(page)
+      lila.mon.http.userGamesCost.increment(page)
       for {
         pagFromDb <- env.gamePaginator(
           user = u,

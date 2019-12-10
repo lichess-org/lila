@@ -16,7 +16,6 @@ private[puzzle] final class Selector(
   import Selector._
 
   def apply(me: Option[User]): Fu[Puzzle] = {
-    lila.mon.puzzle.selector.count()
     me match {
       // anon
       case None => puzzleColl { // this query precisely matches a mongodb partial index
@@ -51,7 +50,7 @@ private[puzzle] final class Selector(
     if (puzzle.vote.sum < -1000)
       logger.info(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
     else
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+      lila.mon.puzzle.selector.vote.record(puzzle.vote.sum)
   }
 
   private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {

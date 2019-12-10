@@ -23,7 +23,7 @@ final class Firewall(
     val v = blocksIp {
       lila.common.HTTPRequest lastRemoteAddress req
     }
-    if (v) lila.mon.security.firewall.block()
+    if (v) lila.mon.security.firewall.block.increment()
     v
   }
 
@@ -45,7 +45,7 @@ final class Firewall(
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { ips =>
       current = ips
-      lila.mon.security.firewall.ip(ips.size)
+      lila.mon.security.firewall.ip.update(ips.size)
     }
 
   private def validIp(ip: IpAddress) =

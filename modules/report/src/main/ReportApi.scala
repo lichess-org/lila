@@ -38,7 +38,7 @@ final class ReportApi(
             "open" -> true
           )).flatMap { prev =>
             val report = Report.make(scored, prev)
-            lila.mon.mod.report.create(report.reason.key)()
+            lila.mon.mod.report.create(report.reason.key).increment()
             if (report.isRecentComm &&
               report.score.value >= thresholds.slack() &&
               prev.exists(_.score.value < thresholds.slack())) slackApi.commReportBurst(c.suspect.user)
@@ -58,7 +58,7 @@ final class ReportApi(
   private def monitorOpen() = {
     nbOpenCache.refresh
     nbOpen foreach { nb =>
-      lila.mon.mod.report.unprocessed(nb)
+      lila.mon.mod.report.unprocessed.increment(nb)
     }
   }
 
@@ -98,7 +98,7 @@ final class ReportApi(
       getLichessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
         case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
-          lila.mon.cheat.autoReport.count()
+          lila.mon.cheat.autoReport.count.increment()
           create(Candidate(
             reporter = reporter,
             suspect = suspect,
@@ -178,7 +178,7 @@ final class ReportApi(
       accuracy.invalidate(reportSelector) >>
         doProcessReport(reportSelector, mod.id).void >>- {
           monitorOpen
-          lila.mon.mod.report.close()
+          lila.mon.mod.report.close.increment()
         }
     }
 

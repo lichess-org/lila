@@ -1,15 +1,15 @@
 package lila.security
 
-import scala.concurrent.duration.{ span => _, _ }
-import play.api.i18n.Lang
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
+import play.api.i18n.Lang
 import play.api.libs.ws.{ WSClient, WSAuthScheme }
+import scala.concurrent.duration.{ span => _, _ }
 import scalatags.Text.all._
 
 import lila.common.config.Secret
-import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.common.EmailAddress
+import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
@@ -21,34 +21,31 @@ final class Mailgun(
     if (config.apiUrl.isEmpty) {
       println(msg -> "No mailgun API URL")
       funit
-    } else {
-      lila.mon.email.actions.send()
-      ws.url(s"${config.apiUrl}/messages")
-        .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC).post(Map(
-          "from" -> Seq(msg.from | config.sender),
-          "to" -> Seq(msg.to.value),
-          "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
-          "o:tag" -> msg.tag.toSeq,
-          "subject" -> Seq(msg.subject),
-          "text" -> Seq(msg.text)
-        ) ++ msg.htmlBody.?? { body =>
-            Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
-          }).void addFailureEffect {
-          case _: java.net.ConnectException => lila.mon.http.mailgun.timeout()
-          case _ =>
-        } recoverWith {
-          case _ if msg.retriesLeft > 0 => {
-            lila.mon.email.actions.retry()
-            akka.pattern.after(15 seconds, system.scheduler) {
-              send(msg.copy(retriesLeft = msg.retriesLeft - 1))
-            }
-          }
-          case e => {
-            lila.mon.email.actions.fail()
-            fufail(e)
+    } else ws.url(s"${config.apiUrl}/messages")
+      .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC).post(Map(
+        "from" -> Seq(msg.from | config.sender),
+        "to" -> Seq(msg.to.value),
+        "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
+        "o:tag" -> msg.tag.toSeq,
+        "subject" -> Seq(msg.subject),
+        "text" -> Seq(msg.text)
+      ) ++ msg.htmlBody.?? { body =>
+          Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
+        })
+      .void
+      .addFailureEffect {
+        case _: java.net.ConnectException => lila.mon.email.send.timeout.increment()
+        case _ =>
+      }
+      .monSuccess(_.email.send.time)
+      .recoverWith {
+        case _ if msg.retriesLeft > 0 => {
+          lila.mon.email.send.retry.increment()
+          akka.pattern.after(15 seconds, system.scheduler) {
+            send(msg.copy(retriesLeft = msg.retriesLeft - 1))
           }
         }
-    }
+      }
 }
 
 object Mailgun {

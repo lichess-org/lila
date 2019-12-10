@@ -38,7 +38,7 @@ final class Game(
           imported = getBool("imported"),
           flags = requestPgnFlags(ctx.req, extended = true)
         )
-        lila.mon.export.pgn.game()
+        lila.mon.export.pgn.game.increment()
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content).withHeaders(

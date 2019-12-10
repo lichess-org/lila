@@ -18,9 +18,9 @@ case class PuzzlePerf(glicko: Glicko, nb: Int) {
     glicko.sanityCheck option add(glicko)
   }
 
-  def addOrReset(monitor: lila.mon.IncPath, msg: => String)(r: Rating): PuzzlePerf = add(r) | {
+  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating): PuzzlePerf = add(r) | {
     lila.log("rating").error(s"Crazy Glicko2 $msg")
-    lila.mon.incPath(monitor)()
+    monitor(lila.mon).increment()
     add(Glicko.default)
   }
 

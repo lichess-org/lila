@@ -44,8 +44,8 @@ final class LobbySocket(
 
       case GetSrisP(promise) =>
         promise success Sris(members.keySet.view.map(Sri.apply).toSet)
-        lila.mon.lobby.socket.idle(idleSris.size)
-        lila.mon.lobby.socket.hookSubscribers(hookSubscriberSris.size)
+        lila.mon.lobby.socket.idle.increment(idleSris.size)
+        lila.mon.lobby.socket.hookSubscribers.increment(hookSubscriberSris.size)
 
       case Cleanup =>
         idleSris filterInPlace members.contains
@@ -82,12 +82,12 @@ final class LobbySocket(
         system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
 
       case JoinHook(sri, hook, game, creatorColor) =>
-        lila.mon.lobby.hook.join()
+        lila.mon.lobby.hook.join.increment()
         send(P.Out.tellSri(hook.sri, gameStartRedirect(game pov creatorColor)))
         send(P.Out.tellSri(sri, gameStartRedirect(game pov !creatorColor)))
 
       case JoinSeek(userId, seek, game, creatorColor) =>
-        lila.mon.lobby.seek.join()
+        lila.mon.lobby.seek.join.increment()
         send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game pov creatorColor)))
         send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game pov !creatorColor)))
 

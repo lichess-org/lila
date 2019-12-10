@@ -128,7 +128,7 @@ final class RelationApi(
         reloadOnlineFriends(u1, u2)
         timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
         Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
-        lila.mon.relation.follow()
+        lila.mon.relation.follow.increment()
       }
     }
   }
@@ -148,7 +148,7 @@ final class RelationApi(
         repo.block(u1, u2) >> limitBlock(u1) >> unfollow(u2, u1) >>- {
           reloadOnlineFriends(u1, u2)
           Bus.publish(lila.hub.actorApi.relation.Block(u1, u2), "relation")
-          lila.mon.relation.block()
+          lila.mon.relation.block.increment()
         }
     }
   }
@@ -159,7 +159,7 @@ final class RelationApi(
         countFollowersCache.update(u2, _ - 1)
         countFollowingCache.update(u1, _ - 1)
         reloadOnlineFriends(u1, u2)
-        lila.mon.relation.unfollow()
+        lila.mon.relation.unfollow.increment()
       }
       case _ => funit
     }
@@ -172,7 +172,7 @@ final class RelationApi(
       case true => repo.unblock(u1, u2) >>- {
         reloadOnlineFriends(u1, u2)
         Bus.publish(lila.hub.actorApi.relation.UnBlock(u1, u2), "relation")
-        lila.mon.relation.unblock()
+        lila.mon.relation.unblock.increment()
       }
       case _ => funit
     }

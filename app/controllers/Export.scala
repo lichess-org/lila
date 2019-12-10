@@ -19,7 +19,7 @@ final class Export(env: Env) extends LilaController(env) {
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
       PngRateLimitGlobal("-", msg = s"${HTTPRequest.lastRemoteAddress(ctx.req).value} ${~HTTPRequest.userAgent(ctx.req)}") {
-        lila.mon.export.png.game()
+        lila.mon.export.png.game.increment()
         OptionFuResult(env.game.gameRepo game id) { game =>
           env.game.pngExport fromGame game map pngStream
         }
@@ -30,7 +30,7 @@ final class Export(env: Env) extends LilaController(env) {
   def puzzlePng(id: Int) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
       PngRateLimitGlobal("-", msg = HTTPRequest.lastRemoteAddress(ctx.req).value) {
-        lila.mon.export.png.puzzle()
+        lila.mon.export.png.puzzle.increment()
         OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
           env.game.pngExport(
             fen = chess.format.FEN(puzzle.fenAfterInitialMove | puzzle.fen),

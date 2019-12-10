@@ -74,7 +74,7 @@ final class Api(
     val cost = usernames.size / 4
     UsersRateLimitPerIP(ip, cost = cost) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
-        lila.mon.api.users.cost(cost)
+        lila.mon.api.users.increment(cost)
         env.user.repo nameds usernames map {
           _.map { env.user.jsonView(_, none) }
         } map toApiResult map toHttp
@@ -163,7 +163,7 @@ final class Api(
     val nb = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
     val cost = page * nb.value + 10
     UserGamesRateLimit(cost, req) {
-      lila.mon.api.userGames.cost(cost)
+      lila.mon.api.userGames.increment(cost)
       env.user.repo named name flatMap {
         _ ?? { user =>
           gameApi.byUser(
@@ -189,7 +189,7 @@ final class Api(
 
   def game(id: String) = ApiRequest { req =>
     GameRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
-      lila.mon.api.game.cost(1)
+      lila.mon.api.game.increment(1)
       gameApi.one(id take lila.game.Game.gameIdSize, gameFlagsFromRequest(req)) map toApiResult
     }
   }
@@ -309,7 +309,7 @@ final class Api(
 
   def activity(name: String) = ApiRequest { req =>
     UserActivityRateLimitPerIP(HTTPRequest lastRemoteAddress req, cost = 1) {
-      lila.mon.api.activity.cost(1)
+      lila.mon.api.activity.increment(1)
       env.user.repo named name flatMap {
         _ ?? { user =>
           env.activity.read.recent(user) flatMap {

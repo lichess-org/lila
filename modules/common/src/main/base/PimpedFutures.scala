@@ -1,6 +1,7 @@
 package lila.base
 
 import akka.actor.ActorSystem
+import scala.util.Try
 
 import LilaTypes._
 import ornicar.scalalib.Zero
@@ -129,8 +130,14 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     lila.common.Future.delay(duration)(fua)
 
   def chronometer = lila.common.Chronometer(fua)
+  def chronometerTry = lila.common.Chronometer.lapTry(fua)
 
-  def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
+  def mon(path: lila.mon.TimerPath) = chronometer.mon(path).result
+  def monTry(path: Try[A] => lila.mon.TimerPath) = chronometerTry.mon(r => path(r)(lila.mon)).result
+  def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer) = chronometerTry.mon {
+    r => path(lila.mon)(r.isSuccess)
+  }.result
+
   def logTime(name: String) = chronometer pp name
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
 

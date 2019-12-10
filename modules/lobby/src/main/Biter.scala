@@ -31,7 +31,7 @@ private final class Biter(
     ).withUniqueId
     _ <- gameRepo insertDenormalized game
   } yield {
-    lila.mon.lobby.hook.join()
+    lila.mon.lobby.hook.join.increment()
     JoinHook(sri, hook, game, creatorColor)
   }
 

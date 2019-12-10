@@ -47,15 +47,13 @@ private final class StartedOrganizer(
       .log(getClass.getName)
       .toMat(LilaStream.sinkCount)(Keep.right)
       .run
-      .addEffect(lila.mon.tournament.started(_))
-      .chronometer
-      .mon(_.tournament.startedOrganizer.tickTime)
-      .logIfSlow(500, logger)(nb => s"Pairings for $nb tournaments")
-      .result addEffectAnyway scheduleNext
+      .addEffect(lila.mon.tournament.started.update(_))
+      .monSuccess(_.tournament.startedOrganizer.tick)
+      .addEffectAnyway(scheduleNext)
   }
 
   private def startPairing(tour: Tournament): Funit =
     socket.getWaitingUsers(tour)
-      .mon(_.tournament.startedOrganizer.waitingUsersTime)
+      .monSuccess(_.tournament.startedOrganizer.waitingUsers)
       .flatMap { api.makePairings(tour, _) }
 }

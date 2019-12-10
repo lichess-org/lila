@@ -82,8 +82,7 @@ final class Main(
    * Event monitoring endpoint
    */
   def jsmon(event: String) = Action {
-    if (event == "socket_gap") lila.mon.jsmon.socketGap()
-    else lila.mon.jsmon.unknown()
+    lila.mon.http.jsmon(event).increment
     NoContent
   }
 

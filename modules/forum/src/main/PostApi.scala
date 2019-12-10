@@ -65,7 +65,7 @@ final class PostApi(
                     prop toFollowersOf userId toUsers topicUserIds exceptUser userId
                   }
                 }
-                lila.mon.forum.post.create()
+                lila.mon.forum.post.create.increment()
                 env.mentionNotifier.notifyMentionedUsers(post, topic)
                 Bus.publish(actorApi.CreatePost(post), "forumPost")
               } inject post

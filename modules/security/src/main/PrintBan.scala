@@ -23,6 +23,6 @@ final class PrintBan(coll: Coll) {
   private def loadFromDb: Funit =
     coll.distinctEasy[String, Set]("_id", $empty).map { hashes =>
       current = hashes
-      lila.mon.security.firewall.prints(hashes.size)
+      lila.mon.security.firewall.prints.update(hashes.size)
     }
 }

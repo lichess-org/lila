@@ -30,13 +30,12 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     val statusCode = result.header.status
     if (env.isDev) logger.info(s"$statusCode $req $actionName ${reqTime}ms")
     else {
+      val tpe =
+        if (HTTPRequest isXhr req) "xhr"
+        else if (HTTPRequest isBot req) "bot"
+        else "page"
       val apiVersion = lila.api.Mobile.Api.requestVersion(req)
-      httpMon.response.code(actionName, apiVersion, statusCode)
-      httpMon.time(actionName, apiVersion)(reqTime)
-      if (req.remoteAddress contains ":") httpMon.request.ipv6()
-      if (HTTPRequest isXhr req) httpMon.request.xhr()
-      else if (HTTPRequest isBot req) httpMon.request.bot()
-      else httpMon.request.page()
+      httpMon.time(actionName, tpe, apiVersion, statusCode).record(reqTime)
     }
   }
 

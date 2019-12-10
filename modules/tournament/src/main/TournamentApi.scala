@@ -101,12 +101,12 @@ final class TournamentApi(
                 }
             }.sequenceFu >>
               featureOneOf(tour, pairings, ranking) >>-
-              lila.mon.tournament.pairing.create(pairings.size)
+              lila.mon.tournament.pairing.count.increment(pairings.size)
           }
         }
       }
+        .monSuccess(_.tournament.pairing.create)
         .chronometer
-        .mon(_.tournament.pairing.createTime)
         .logIfSlow(100, logger)(_ => s"Pairings for https://lichess.org/tournament/${tour.id}")
         .result
     }

@@ -34,7 +34,7 @@ private final class Cleaner(
     .mapAsyncUnordered(4) { ana =>
       repo.updateOrGiveUpAnalysis(ana.timeout) >>-
         logger.info(s"Timeout analysis $ana") >>-
-        ana.acquired.foreach { ack => Monitor.timeout(ana, ack.userId) }
+        ana.acquired.foreach { ack => Monitor.timeout(ack.userId) }
     }
     .toMat(Sink.ignore)(Keep.right)
     .run

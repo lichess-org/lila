@@ -76,14 +76,14 @@ private final class ExplorerIndexer(
       if (buf.size >= max) {
         ws.url(internalEndPointUrl).put(buf mkString separator) andThen {
           case Success(res) if res.status == 200 =>
-            lila.mon.explorer.index.time(((nowMillis - startAt) / max).toInt)
-            lila.mon.explorer.index.success(max)
+            lila.mon.explorer.index.time.record((nowMillis - startAt) / max)
+            lila.mon.explorer.index.count(true).increment(max)
           case Success(res) =>
             logger.warn(s"[${res.status}]")
-            lila.mon.explorer.index.failure(max)
+            lila.mon.explorer.index.count(false).increment(max)
           case Failure(err) =>
             logger.warn(s"$err", err)
-            lila.mon.explorer.index.failure(max)
+            lila.mon.explorer.index.count(false).increment(max)
         }
         buf.clear
       }

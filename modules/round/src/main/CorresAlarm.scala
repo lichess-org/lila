@@ -74,6 +74,5 @@ private final class CorresAlarm(
     .toMat(sinkCount)(Keep.right)
     .run
     .mon(_.round.alarm.time)
-    .addEffect(lila.mon.round.alarm.count(_))
     .addEffectAnyway(scheduleNext)
 }

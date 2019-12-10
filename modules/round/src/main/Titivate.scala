@@ -38,18 +38,19 @@ private[round] final class Titivate(
       throw new RuntimeException(msg)
 
     case Run => gameRepo.count(_.checkable).flatMap { total =>
-      lila.mon.round.titivate.total(total)
+      lila.mon.round.titivate.total.record(total)
       gameRepo.cursor(Query.checkable)
         .documentSource()
         .take(100)
         .via(gameFlow)
         .toMat(gameSink)(Keep.right)
         .run
-        .mon(_.round.titivate.time)
-        .addEffect(lila.mon.round.titivate.game(_))
+        .addEffect(lila.mon.round.titivate.game.record(_))
         .>> {
-          gameRepo.count(_.checkableOld).map(lila.mon.round.titivate.old(_))
+          gameRepo.count(_.checkableOld)
+            .dmap(lila.mon.round.titivate.old.record(_))
         }
+        .mon(_.round.titivate.time)
         .addEffectAnyway(scheduleNext)
     }
   }

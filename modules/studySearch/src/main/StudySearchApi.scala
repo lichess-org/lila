@@ -22,11 +22,10 @@ final class StudySearchApi(
 
 )(implicit system: ActorSystem, mat: akka.stream.Materializer) extends SearchReadApi[Study, Query] {
 
-  def search(query: Query, from: From, size: Size) = {
+  def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
       studyRepo byOrderedIds res.ids.map(Study.Id.apply)
     }
-  }.mon(_.study.search.query.time) >>- lila.mon.study.search.query.count()
 
   def count(query: Query) = client.count(query) map (_.count)
 
@@ -38,12 +37,10 @@ final class StudySearchApi(
     )
   }
 
-  private def doStore(study: Study) = {
-    getChapters(study) flatMap { s =>
+  private def doStore(study: Study) =
+    getChapters(study).flatMap { s =>
       client.store(Id(s.study.id.value), toDoc(s))
-    }
-  }.prefixFailure(study.id.value)
-    .mon(_.study.search.index.time) >>- lila.mon.study.search.index.count()
+    }.prefixFailure(study.id.value)
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
     Fields.name -> s.study.name.value,

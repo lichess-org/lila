@@ -7,22 +7,18 @@ import lila.common.config.NetConfig
 
 final class CSRFRequestHandler(net: NetConfig) {
 
-  private def logger = lila.log("csrf")
-
   def check(req: RequestHeader): Boolean = {
     if (isXhr(req)) true // cross origin xhr not allowed by browsers
     else if (isSafe(req)) true
     else if (appOrigin(req).isDefined) true
     else origin(req) match {
       case None =>
-        lila.mon.http.csrf.error("missing_origin", apiVersion(req))
-        logger.debug(print(req))
+        lila.mon.http.csrfError("missing_origin", apiVersion(req)).increment()
         true
       case Some(o) if isSubdomain(o) =>
         true
       case Some(_) =>
-        lila.mon.http.csrf.error("forbidden", apiVersion(req))
-        logger.info(print(req))
+        lila.mon.http.csrfError("forbidden", apiVersion(req)).increment()
         false
     }
   }

@@ -18,12 +18,13 @@ private final class CheckMail(
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if (config.key.value.isEmpty) fuccess(true)
-    else cache(domain).withTimeoutDefault(2.seconds, true) recover {
-      case e: Exception =>
-        lila.mon.security.checkMailApi.error()
-        logger.warn(s"CheckMail $domain ${e.getMessage}", e)
-        true
-    }
+    else cache(domain)
+      .withTimeoutDefault(2.seconds, true)
+      .recover {
+        case e: Exception =>
+          logger.warn(s"CheckMail $domain ${e.getMessage}", e)
+          true
+      }
 
   private[security] def fetchAllBlocked: Fu[List[String]] = cache.coll.distinctEasy[String, List](
     "_id",
@@ -49,7 +50,9 @@ private final class CheckMail(
     ws.url(config.url)
       .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
       .withHttpHeaders("x-rapidapi-key" -> config.key.value)
-      .get withTimeout 15.seconds map {
+      .get
+      .withTimeout(15.seconds)
+      .map {
         case res if res.status == 200 =>
           val valid = ~(res.json \ "valid").asOpt[Boolean]
           val block = ~(res.json \ "block").asOpt[Boolean]
@@ -57,10 +60,9 @@ private final class CheckMail(
           val reason = ~(res.json \ "reason").asOpt[String]
           val ok = valid && !block && !disposable
           logger.info(s"CheckMail $domain = $ok ($reason)")
-          lila.mon.security.checkMailApi.count()
-          if (!ok) lila.mon.security.checkMailApi.block()
           ok
         case res =>
           throw lila.base.LilaException(s"${config.url} $domain ${res.status} ${res.body take 200}")
       }
+      .monTry(res => _.security.checkMailApi.fetch(res.isSuccess, res.getOrElse(true)))
 }

@@ -62,20 +62,12 @@ final class Env(
   private lazy val passHasher = new PasswordHasher(
     secret = config.passwordBPassSecret,
     logRounds = 10,
-    hashTimer = res => {
-      lila.mon.measure(_.user.auth.hashTime) {
-        lila.mon.measureIncMicros(_.user.auth.hashTimeInc)(res)
-      }
-    }
+    hashTimer = res => lila.common.Chronometer.syncMon(_.user.auth.hashTime)(res)
   )
 
   lazy val authenticator = wire[Authenticator]
 
   lazy val forms = wire[DataForm]
-
-  system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-    lightUserApi.monitorCache()
-  }
 
   lila.common.Bus.subscribeFuns(
     "adjustCheater" -> {

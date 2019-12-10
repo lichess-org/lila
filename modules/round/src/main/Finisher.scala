@@ -48,7 +48,7 @@ private final class Finisher(
 
   def noStart(game: Game)(implicit proxy: GameProxy): Fu[Events] =
     game.playerWhoDidNotMove ?? { culprit =>
-      lila.mon.round.expiration.count()
+      lila.mon.round.expiration.count.increment()
       playban.noStart(Pov(game, culprit))
       if (game.isMandatory) apply(game, _.NoStart, Some(!culprit.color))
       else apply(game, _.Aborted, None, Some(_.untranslated("Game aborted by server")))
@@ -77,19 +77,19 @@ private final class Finisher(
     compEstOvers = lt.compEstOvers.centis
   } {
     import lila.mon.round.move.{ lag => lRec }
-    lRec.mean(Math.round(10 * mean))
-    lRec.stdDev(Math.round(10 * sd))
+    lRec.mean.record(Math.round(10 * mean))
+    lRec.stdDev.record(Math.round(10 * sd))
     // wikipedia.org/wiki/Coefficient_of_variation#Estimation
-    lRec.coefVar(Math.round((1000f + 250f / moves) * sd / mean))
-    lRec.uncomped(quotaStr)(uncompAvg)
+    lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
+    lRec.uncomped(quotaStr).record(uncompAvg)
     uncompStats.stdDev foreach { v =>
-      lRec.uncompStdDev(quotaStr)(Math.round(10 * v))
+      lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
     }
     lt.lagEstimator match {
-      case h: DecayingStats => lRec.compDeviation(h.deviation.toInt)
+      case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
     }
-    lRec.compEstStdErr(Math.round(1000 * compEstStdErr))
-    lRec.compEstOverErr(Math.round(10f * compEstOvers / moves))
+    lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
+    lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
   }
 
   private def apply(
@@ -101,7 +101,7 @@ private final class Finisher(
     val status = makeStatus(Status)
     val prog = game.finish(status, winnerC)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
-    lila.mon.game.finish(status.name)()
+    lila.mon.game.finish(status.name).increment()
     val g = prog.game
     recordLagStats(g)
     proxy.save(prog) >>

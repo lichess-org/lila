@@ -42,13 +42,10 @@ final class FishnetApi(
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
     case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
     case Skill.Analysis | Skill.All => acquireAnalysis(client)
-  }).chronometer
-    .mon(_.fishnet.acquire.time)
-    .logIfSlow(100, logger)(_ => "acquire")
-    .result
+  })
+    .monSuccess(_.fishnet.acquire)
     .recover {
       case e: Exception =>
-        lila.mon.fishnet.acquire.error()
         logger.error("Fishnet.acquire", e)
         none
     }
@@ -116,7 +113,7 @@ final class FishnetApi(
   def abort(workId: Work.Id, client: Client): Funit = workQueue {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       _ ?? { work =>
-        Monitor.abort(work, client)
+        Monitor.abort(client)
         repo.updateAnalysis(work.abort)
       }
     }

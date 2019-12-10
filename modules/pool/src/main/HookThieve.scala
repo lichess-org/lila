@@ -11,12 +11,12 @@ private final class HookThieve()(implicit system: akka.actor.ActorSystem) {
   def candidates(clock: chess.Clock.Config, monId: String): Fu[PoolHooks] =
     Bus.ask[PoolHooks]("lobbyTrouper")(GetCandidates(clock, _)) recover {
       case _ =>
-        lila.mon.lobby.pool.thieve.timeout(monId)()
+        lila.mon.lobby.pool.thieve.timeout(monId).increment()
         PoolHooks(Vector.empty)
     }
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) = {
-    lila.mon.lobby.pool.thieve.stolen(monId)(poolHooks.size)
+    lila.mon.lobby.pool.thieve.stolen(monId).record(poolHooks.size)
     if (poolHooks.nonEmpty) Bus.publish(StolenHookIds(poolHooks.map(_.hookId)), "lobbyTrouper")
   }
 }

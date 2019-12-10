@@ -18,7 +18,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
-    lila.mon.round.forecast.create()
+    lila.mon.round.forecast.create.increment()
     coll.update.one(
       $id(pov.fullId),
       Forecast(

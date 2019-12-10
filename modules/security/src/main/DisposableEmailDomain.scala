@@ -24,7 +24,7 @@ final class DisposableEmailDomain(
   } {
     val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
     val nbDomains = regexStr.count('|' ==)
-    lila.mon.email.disposableDomain(nbDomains)
+    lila.mon.email.disposableDomain.update(nbDomains)
     regex = finalizeRegex(s"$staticRegex|$regexStr")
   }
 

@@ -32,7 +32,7 @@ final class InsightApi(
       gameRepo.userPovsByGameIds(gameIds, user) map { povs =>
         Answer(question, clusters, povs)
       }
-    }.mon(_.insight.request.time) >>- lila.mon.insight.request.count()
+    }.monSuccess(_.insight.request)
 
   def userStatus(user: User): Fu[UserStatus] =
     gameRepo lastFinishedRatedNotFromPosition user flatMap {
@@ -45,9 +45,9 @@ final class InsightApi(
     }
 
   def indexAll(user: User) =
-    indexer.all(user).mon(_.insight.index.time) >>
-      userCacheApi.remove(user.id) >>-
-      lila.mon.insight.index.count()
+    indexer.all(user)
+      .monSuccess(_.insight.index) >>
+      userCacheApi.remove(user.id)
 
   def updateGame(g: Game) = Pov(g).map { pov =>
     pov.player.userId ?? { userId =>

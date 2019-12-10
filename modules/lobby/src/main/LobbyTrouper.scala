@@ -35,7 +35,7 @@ private final class LobbyTrouper(
     case SetSocket(trouper) => socket = trouper
 
     case msg @ AddHook(hook) =>
-      lila.mon.lobby.hook.create()
+      lila.mon.lobby.hook.create.increment()
       HookRepo bySri hook.sri foreach remove
       hook.sid ?? { sid => HookRepo bySid sid foreach remove }
       !hook.compatibleWithPools ?? findCompatible(hook) match {
@@ -46,7 +46,7 @@ private final class LobbyTrouper(
       }
 
     case msg @ AddSeek(seek) =>
-      lila.mon.lobby.seek.create()
+      lila.mon.lobby.seek.create.increment()
       findCompatible(seek) foreach {
         case Some(s) => this ! BiteSeek(s.id, seek.user)
         case None => this ! SaveSeek(msg)
@@ -70,7 +70,7 @@ private final class LobbyTrouper(
     case BiteSeek(seekId, user) => NoPlayban(user.some) {
       gameCache.nbPlaying(user.id) foreach { nbPlaying =>
         if (maxPlaying > nbPlaying) {
-          lila.mon.lobby.seek.join()
+          lila.mon.lobby.seek.join.increment()
           seekApi find seekId foreach {
             _ foreach { seek =>
               biter(seek, user) foreach this.!
@@ -111,9 +111,9 @@ private final class LobbyTrouper(
           _.createdAt isBefore fewSecondsAgo
         } ++ HookRepo.cleanupOld
       }.toSet)
-      lila.mon.lobby.socket.member(sris.size)
-      lila.mon.lobby.hook.size(HookRepo.size)
-      lila.mon.trouper.queueSize("lobby")(queueSize)
+      lila.mon.lobby.socket.member.update(sris.size)
+      lila.mon.lobby.hook.size.record(HookRepo.size)
+      lila.mon.trouper.queueSize("lobby").update(queueSize)
       promise.success(())
 
     case RemoveHooks(hooks) => hooks foreach remove

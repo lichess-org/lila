@@ -94,8 +94,7 @@ final class Puzzle(
   def round(id: PuzzleId) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
     OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-      if (puzzle.mate) lila.mon.puzzle.round.mate()
-      else lila.mon.puzzle.round.material()
+      lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "old")
       env.puzzle.forms.round.bindFromRequest.fold(
         jsonFormError,
         resultInt => {
@@ -108,12 +107,10 @@ final class Puzzle(
               voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
               data <- renderJson(puzzle, infos.some, "view", voted = voted, round = round.some)
             } yield {
-              lila.mon.puzzle.round.user()
               val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
               Ok(d2)
             }
             case None =>
-              lila.mon.puzzle.round.anon()
               env.puzzle.finisher.incPuzzleAttempts(puzzle)
               renderJson(puzzle, none, "view", voted = none) map { data =>
                 val d2 = data ++ Json.obj("win" -> result.win)
@@ -130,8 +127,7 @@ final class Puzzle(
     NoBot {
       implicit val req = ctx.body
       OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
-        if (puzzle.mate) lila.mon.puzzle.round.mate()
-        else lila.mon.puzzle.round.material()
+        lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")
         env.puzzle.forms.round.bindFromRequest.fold(
           jsonFormError,
           resultInt => ctx.me match {
@@ -145,16 +141,12 @@ final class Puzzle(
               me2 <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
               infos <- env.puzzle userInfos me2
               voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-            } yield {
-              lila.mon.puzzle.round.user()
-              Ok(Json.obj(
-                "user" -> lila.puzzle.JsonView.infos(false)(infos),
-                "round" -> lila.puzzle.JsonView.round(round),
-                "voted" -> voted
-              ))
-            }
+            } yield Ok(Json.obj(
+              "user" -> lila.puzzle.JsonView.infos(false)(infos),
+              "round" -> lila.puzzle.JsonView.round(round),
+              "voted" -> voted
+            ))
             case None =>
-              lila.mon.puzzle.round.anon()
               env.puzzle.finisher.incPuzzleAttempts(puzzle)
               Ok(Json.obj("user" -> false)).fuccess
           }
@@ -172,8 +164,8 @@ final class Puzzle(
           v => env.puzzle.api.vote.update(id, me, v, vote == 1)
         } map {
           case (p, a) =>
-            if (vote == 1) lila.mon.puzzle.vote.up()
-            else lila.mon.puzzle.vote.down()
+            if (vote == 1) lila.mon.puzzle.vote.up.increment()
+            else lila.mon.puzzle.vote.down.increment()
             Ok(Json.arr(a.value, p.vote.sum))
         }
       ) map (_ as JSON)

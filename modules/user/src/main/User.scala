@@ -136,7 +136,7 @@ object User {
           }
         }
         else InvalidUsernameOrPassword
-      lila.mon.user.auth.result(res.success)()
+      lila.mon.user.auth.count(res.success).increment()
       res
     }
     def option(p: PasswordAndToken): Option[User] = apply(p).toOption
