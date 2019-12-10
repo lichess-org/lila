@@ -1,17 +1,18 @@
 package lila.perfStat
 
 import lila.game.{ Game, GameRepo, Pov, Query }
-import lila.hub.FutureSequencer
 import lila.rating.PerfType
 import lila.user.User
+import lila.common.WorkQueue
 
 final class PerfStatIndexer(
     gameRepo: GameRepo,
-    storage: PerfStatStorage,
-    sequencer: FutureSequencer
-) {
+    storage: PerfStatStorage
+)(implicit mat: akka.stream.Materializer) {
 
-  def userPerf(user: User, perfType: PerfType): Funit = sequencer {
+  private val workQueue = new WorkQueue(64)
+
+  def userPerf(user: User, perfType: PerfType): Funit = workQueue {
     gameRepo.sortedCursor(
       Query.user(user.id) ++
         Query.finished ++

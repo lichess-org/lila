@@ -5,7 +5,6 @@ import com.softwaremill.macwire._
 import io.lettuce.core._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import scala.concurrent.duration._
 
 import lila.common.Bus
 import lila.common.config._
@@ -54,10 +53,6 @@ final class Env(
     asyncCache = asyncCache
   )
 
-  private lazy val sequencer = new lila.hub.FutureSequencer(
-    executionTimeout = Some(1 second)
-  )
-
   private lazy val monitor: Monitor = wire[Monitor]
 
   private lazy val evalCache = wire[FishnetEvalCache]
@@ -100,8 +95,8 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "fishnet" :: "client" :: "create" :: userId :: skill :: Nil =>
-        api.createClient(Client.UserId(userId.toLowerCase), skill) map { client =>
+      case "fishnet" :: "client" :: "create" :: userId :: Nil =>
+        api.createClient(Client.UserId(userId.toLowerCase)) map { client =>
           Bus.publish(lila.hub.actorApi.fishnet.NewKey(userId, client.key.value), "fishnet")
           s"Created key: ${(client.key.value)} for: $userId"
         }
@@ -111,8 +106,6 @@ final class Env(
         repo toKey key flatMap { repo.enableClient(_, true) } inject "done!"
       case "fishnet" :: "client" :: "disable" :: key :: Nil =>
         repo toKey key flatMap { repo.enableClient(_, false) } inject "done!"
-      case "fishnet" :: "client" :: "skill" :: key :: skill :: Nil =>
-        repo toKey key flatMap { api.setClientSkill(_, skill) } inject "done!"
     }
   }
 }

@@ -81,12 +81,12 @@ private final class Streaming(
     liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.userId}@twitch") {
+        lila.mon.tv.stream.present(s"${t.userId}@twitch") {
           if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer))) 1 else 0
         }
       }
       streamer.youTube.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.channelId}@youtube") {
+        lila.mon.tv.stream.present(s"${t.channelId}@youtube") {
           if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer))) 1 else 0
         }
       }

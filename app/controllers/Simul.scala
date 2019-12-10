@@ -73,36 +73,31 @@ final class Simul(
 
   def hostPing(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.simul.cleaner hostPing simul
-      jsonOkResult
+      env.simul.cleaner hostPing simul inject jsonOkResult
     }
   }
 
   def start(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.simul.api start simul.id
-      jsonOkResult
+      env.simul.api start simul.id inject jsonOkResult
     }
   }
 
   def abort(simulId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.simul.api abort simul.id
-      jsonOkResult
+      env.simul.api abort simul.id inject jsonOkResult
     }
   }
 
   def accept(simulId: String, userId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.simul.api.accept(simul.id, userId, true)
-      jsonOkResult
+      env.simul.api.accept(simul.id, userId, true) inject jsonOkResult
     }
   }
 
   def reject(simulId: String, userId: String) = Open { implicit ctx =>
     AsHost(simulId) { simul =>
-      env.simul.api.accept(simul.id, userId, false)
-      jsonOkResult
+      env.simul.api.accept(simul.id, userId, false) inject jsonOkResult
     }
   }
 
@@ -110,11 +105,8 @@ final class Simul(
     AsHost(simulId) { simul =>
       implicit val req = ctx.body
       forms.setText.bindFromRequest.fold(
-        _ => BadRequest,
-        text => {
-          env.simul.api.setText(simul.id, text)
-          jsonOkResult
-        }
+        _ => BadRequest.fuccess,
+        text => env.simul.api.setText(simul.id, text) inject jsonOkResult
       )
     }
   }
@@ -143,8 +135,7 @@ final class Simul(
 
   def join(id: String, variant: String) = Auth { implicit ctx => implicit me =>
     NoLameOrBot {
-      fuccess {
-        env.simul.api.addApplicant(id, me, variant)
+      env.simul.api.addApplicant(id, me, variant) inject {
         if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
         else Redirect(routes.Simul.show(id))
       }
@@ -152,17 +143,16 @@ final class Simul(
   }
 
   def withdraw(id: String) = Auth { implicit ctx => me =>
-    fuccess {
-      env.simul.api.removeApplicant(id, me)
+    env.simul.api.removeApplicant(id, me) inject {
       if (HTTPRequest isXhr ctx.req) Ok(Json.obj("ok" -> true)) as JSON
       else Redirect(routes.Simul.show(id))
     }
   }
 
-  private def AsHost(simulId: Sim.ID)(f: Sim => Result)(implicit ctx: Context): Fu[Result] =
+  private def AsHost(simulId: Sim.ID)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId) flatMap {
       case None => notFound
-      case Some(simul) if ctx.userId.exists(simul.hostId ==) => fuccess(f(simul))
+      case Some(simul) if ctx.userId.exists(simul.hostId ==) => f(simul)
       case _ => fuccess(Unauthorized)
     }
 }

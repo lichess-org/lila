@@ -7,8 +7,8 @@ import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.WriteConcern
 import reactivemongo.api.ReadPreference
+import reactivemongo.api.WriteConcern
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -302,12 +302,12 @@ final class GameRepo(val coll: Coll) {
     coll.insert.one(bson) addFailureEffect {
       case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision()
     } void
-  } >>- {
-    lila.mon.game.create.variant(g.variant.key)()
-    lila.mon.game.create.source(g.source.fold("unknown")(_.name))()
-    lila.mon.game.create.speed(g.speed.name)()
-    lila.mon.game.create.mode(g.mode.name)()
-  }
+  } >>- lila.mon.game.create(
+    variant = g.variant.key,
+    source = g.source.fold("unknown")(_.name),
+    speed = g.speed.name,
+    mode = g.mode.name
+  )
 
   def removeRecentChallengesOf(userId: String) =
     coll.delete.one(Query.created ++ Query.friend ++ Query.user(userId) ++

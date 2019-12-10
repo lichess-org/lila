@@ -1,0 +1,5 @@
+-J-Xms2048M
+-J-Xmx2048M
+-J-XX:+CMSClassUnloadingEnabled
+-J-XX:+UseParallelGC
+-J-Xss512k

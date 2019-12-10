@@ -3,8 +3,7 @@ package lila.fishnet
 import scala.concurrent.duration._
 
 private final class Monitor(
-    repo: FishnetRepo,
-    sequencer: lila.hub.FutureSequencer
+    repo: FishnetRepo
 )(implicit system: akka.actor.ActorSystem) {
 
   private def sumOf[A](items: List[A])(f: A => Option[Int]) = items.foldLeft(0) {
@@ -56,12 +55,8 @@ private final class Monitor(
 
     import lila.mon.fishnet.client._
 
-    status enabled clients.count(_.enabled)
-    status disabled clients.count(_.disabled)
-
-    Client.Skill.all foreach { s =>
-      skill(s.key)(clients.count(_.skill == s))
-    }
+    status(true)(clients.count(_.enabled))
+    status(false)(clients.count(_.disabled))
 
     val instances = clients.flatMap(_.instance)
 
@@ -79,13 +74,10 @@ private final class Monitor(
   private def monitorWork(): Unit = {
 
     import lila.mon.fishnet.work._
-    import Client.Skill._
 
-    lila.mon.fishnet.queue.sequencer(Analysis.key)(sequencer.queueSize)
-
-    repo.countAnalysis(acquired = false).map { queued(Analysis.key)(_) } >>
-      repo.countAnalysis(acquired = true).map { acquired(Analysis.key)(_) } >>
-      repo.countUserAnalysis.map { forUser(Analysis.key)(_) }
+    repo.countAnalysis(acquired = false).map { queued(_) } >>
+      repo.countAnalysis(acquired = true).map { acquired(_) } >>
+      repo.countUserAnalysis.map { forUser(_) }
 
   } addEffectAnyway scheduleWork
 
@@ -103,7 +95,7 @@ object Monitor {
     lila.mon.fishnet.client.result(client.userId.value, work.skill.key).success()
 
     work.acquiredAt foreach { acquiredAt =>
-      lila.mon.fishnet.queue.db(work.skill.key) {
+      lila.mon.fishnet.queue.time {
         acquiredAt.getMillis - work.createdAt.getMillis
       }
     }

@@ -7,7 +7,6 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
@@ -96,11 +95,6 @@ final class Env(
   lazy val leaderboardApi = wire[LeaderboardApi]
 
   private lazy val leaderboardIndexer: LeaderboardIndexer = wire[LeaderboardIndexer]
-
-  private def sequencerMap = new DuctMap(
-    mkDuct = _ => Duct.extra.lazyFu(5 seconds)(system),
-    accessTimeout = 10 minutes
-  )
 
   private lazy val autoPairing = wire[AutoPairing]
 

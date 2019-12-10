@@ -5,7 +5,6 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.hub.{ Duct, DuctMap }
 import lila.socket.Socket.{ GetVersion, SocketVersion }
 import lila.user.User
 
@@ -28,7 +27,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.common.config.NetConfig,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit system: akka.actor.ActorSystem, mat: akka.stream.Materializer) {
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](studyId.value)(GetVersion)
@@ -55,14 +54,9 @@ final class Env(
 
   private lazy val studyInvite = wire[StudyInvite]
 
-  private lazy val sequencers = new DuctMap(
-    mkDuct = _ => Duct.extra.lazyPromise(5.seconds.some),
-    accessTimeout = 10 minutes
-  )
+  private lazy val serverEvalRequester = wire[ServerEval.Requester]
 
   private lazy val sequencer = wire[StudySequencer]
-
-  private lazy val serverEvalRequester = wire[ServerEval.Requester]
 
   lazy val serverEvalMerger = wire[ServerEval.Merger]
 

@@ -6,24 +6,25 @@ import scala.util.{ Try, Success, Failure }
 
 import Client.Skill
 import lila.common.IpAddress
+import lila.common.WorkQueue
 import lila.db.dsl._
-import lila.hub.FutureSequencer
 
 final class FishnetApi(
     repo: FishnetRepo,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
-    sequencer: FutureSequencer,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-) {
+)(implicit mat: akka.stream.Materializer) {
 
   import FishnetApi._
   import JsonApi.Request.{ PartialAnalysis, CompleteAnalysis }
   import BSONHandlers._
+
+  private val workQueue = new WorkQueue(64)
 
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
@@ -42,20 +43,17 @@ final class FishnetApi(
     case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
     case Skill.Analysis | Skill.All => acquireAnalysis(client)
   }).chronometer
-    .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
+    .mon(_.fishnet.acquire.time)
+    .logIfSlow(100, logger)(_ => "acquire")
     .result
     .recover {
-      case e: lila.hub.Duct.Timeout =>
-        lila.mon.fishnet.acquire.timeout(client.skill.key)()
-        logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
-        none
       case e: Exception =>
-        logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
+        lila.mon.fishnet.acquire.error()
+        logger.error("Fishnet.acquire", e)
         none
     }
 
-  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
+  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = workQueue {
     analysisColl.ext.find(
       $doc("acquired" $exists false) ++ {
         !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
@@ -115,7 +113,7 @@ final class FishnetApi(
         case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
       }
 
-  def abort(workId: Work.Id, client: Client): Funit = sequencer {
+  def abort(workId: Work.Id, client: Client): Funit = workQueue {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       _ ?? { work =>
         Monitor.abort(work, client)
@@ -135,25 +133,17 @@ final class FishnetApi(
     )
   }
 
-  private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
-    Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>
-      val client = Client(
-        _id = Client.makeKey,
-        userId = userId,
-        skill = sk,
-        instance = None,
-        enabled = true,
-        createdAt = DateTime.now
-      )
-      repo addClient client inject client
-    }
-
-  private[fishnet] def setClientSkill(key: Client.Key, skill: String): Funit =
-    Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      repo getClient key orFail s"No client with key $key" flatMap { client =>
-        repo updateClient client.copy(skill = sk)
-      }
-    }
+  private[fishnet] def createClient(userId: Client.UserId): Fu[Client] = {
+    val client = Client(
+      _id = Client.makeKey,
+      userId = userId,
+      skill = Skill.Analysis,
+      instance = None,
+      enabled = true,
+      createdAt = DateTime.now
+    )
+    repo addClient client inject client
+  }
 }
 
 object FishnetApi {

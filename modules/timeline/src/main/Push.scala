@@ -3,6 +3,7 @@ package lila.timeline
 import akka.actor._
 import org.joda.time.DateTime
 
+import lila.common.config.Max
 import lila.hub.actorApi.timeline.propagation._
 import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimelines }
 import lila.security.Permission
@@ -54,7 +55,7 @@ private[timeline] final class Push(
 
   private def makeEntry(users: List[User.ID], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)
-    entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, 1000) flatMap { entries =>
+    entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, Max(1000)) flatMap { entries =>
       if (entries.exists(_ similarTo entry)) fufail[Entry]("[timeline] a similar entry already exists")
       else entryApi insert Entry.ForUsers(entry, users) inject entry
     }
