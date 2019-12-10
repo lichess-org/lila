@@ -12,9 +12,7 @@ final class CategApi(env: Env) {
     views <- (categs map { categ =>
       env.postApi get (categ lastPostId troll) map { topicPost =>
         CategView(categ, topicPost map {
-          _ match {
-            case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-          }
+          case (topic, post) => (topic, post, env.postApi lastPageOf topic)
         }, troll)
       }
     }).sequenceFu

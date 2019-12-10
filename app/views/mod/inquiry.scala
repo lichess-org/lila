@@ -25,10 +25,9 @@ object inquiry {
   })
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
-
     def renderReport(r: lila.report.Report) =
       div(cls := "doc report")(
-        r.bestAtoms(10).toList.map { atom =>
+        r.bestAtoms(10).map { atom =>
           div(cls := "atom")(
             h3(
               reportScore(atom.score),
