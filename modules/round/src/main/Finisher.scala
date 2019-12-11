@@ -101,7 +101,13 @@ private final class Finisher(
     val status = makeStatus(Status)
     val prog = game.finish(status, winnerC)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
-    lila.mon.game.finish(status.name).increment()
+    lila.mon.game.finish(
+      variant = game.variant.key,
+      source = game.source.fold("unknown")(_.name),
+      speed = game.speed.name,
+      mode = game.mode.name,
+      status = status.name
+    ).increment
     val g = prog.game
     recordLagStats(g)
     proxy.save(prog) >>

@@ -138,7 +138,7 @@ object mon {
       val glicko = counter("round.error").withTag("from", "glicko")
     }
     object titivate {
-      val time = timer("round.titivate.time").withoutTags
+      val time = future("round.titivate.time")
       val game = histogram("round.titivate.game").withoutTags // how many games were processed
       val total = histogram("round.titivate.total").withoutTags // how many games should have been processed
       val old = histogram("round.titivate.old").withoutTags // how many old games remain
@@ -360,10 +360,10 @@ object mon {
     val crazyGlicko = counter("puzzle.crazyGlicko").withoutTags
   }
   object game {
-    def finish(status: String) = counter("game.finish").withTag("status", status)
-    def create(variant: String, speed: String, source: String, mode: String) = counter("game.create").withTags(Map(
-      "variant" -> variant, "speed" -> speed, "source" -> source, "mode" -> mode
-    ))
+    def finish(variant: String, speed: String, source: String, mode: String, status: String) =
+      counter("game.finish").withTags(Map(
+        "variant" -> variant, "speed" -> speed, "source" -> source, "mode" -> mode, "status" -> status
+      ))
     val fetch = counter("game.fetch.count").withoutTags
     val fetchLight = counter("game.fetchLight.count").withoutTags
     val loadClockHistory = counter("game.loadClockHistory.count").withoutTags

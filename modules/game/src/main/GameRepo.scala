@@ -302,12 +302,7 @@ final class GameRepo(val coll: Coll) {
     coll.insert.one(bson) addFailureEffect {
       case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision.increment()
     } void
-  } >>- lila.mon.game.create(
-    variant = g.variant.key,
-    source = g.source.fold("unknown")(_.name),
-    speed = g.speed.name,
-    mode = g.mode.name
-  ).increment
+  }
 
   def removeRecentChallengesOf(userId: String) =
     coll.delete.one(Query.created ++ Query.friend ++ Query.user(userId) ++
