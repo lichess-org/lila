@@ -93,7 +93,7 @@ object HTTPRequest {
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.HandlerDef).fold("NoHandler") { handler =>
-      s"${handler.controller}.${handler.method}"
+      s"${handler.controller.drop(12)}.${handler.method}"
     }
 
   private val ApiVersionHeaderPattern = """application/vnd\.lichess\.v(\d++)\+json""".r
