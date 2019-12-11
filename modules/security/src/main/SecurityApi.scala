@@ -122,29 +122,9 @@ final class SecurityApi(
   def reqSessionId(req: RequestHeader): Option[String] =
     req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
 
-  def userIdsSharingIp = userIdsSharingField("ip") _
-
   def recentByIpExists(ip: IpAddress): Fu[Boolean] = store recentByIpExists ip
 
   def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = store recentByPrintExists fp
-
-  private def userIdsSharingField(field: String)(userId: User.ID): Fu[Vector[User.ID]] =
-    store.coll.secondaryPreferred.distinctEasy[User.ID, Vector](
-      field,
-      $doc("user" -> userId, field $exists true)
-    )
-      .flatMap { values =>
-        if (values.isEmpty) fuccess(values)
-        else store.coll.secondaryPreferred.distinctEasy[User.ID, Vector](
-          "user",
-          $doc(
-            field $in values,
-            "user" $ne userId
-          )
-        )
-      }
-      .mon(_.security.usersAlikeTime(field))
-      .addEffect(users => lila.mon.security.usersAlikeFound(field).record(users.size))
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 
