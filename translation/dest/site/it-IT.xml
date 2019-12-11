@@ -344,6 +344,7 @@
   <string name="pasteThePgnStringHere">Incolla qui il testo PGN</string>
   <string name="fromPosition">Da una posizione</string>
   <string name="continueFromHere">Continua da qui</string>
+  <string name="toStudy">Studia</string>
   <string name="importGame">Importa partita</string>
   <string name="importGameExplanation">Quando incolli una partita tramite PGN potrai ripercorrerla,
 analizzarla con il computer, commentarla in chat, e condividerla tramire indirizzo URL.</string>
@@ -623,6 +624,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="playOfflineComputer">Sfida il computer</string>
   <string name="opponent">Avversario</string>
   <string name="learnMenu">Impara</string>
+  <string name="studyMenu">Studia</string>
+  <string name="practice">Allenati</string>
   <string name="community">Community</string>
   <string name="tools">Strumenti</string>
   <string name="increment">Incremento</string>
@@ -657,6 +660,8 @@ analizzarla con il computer, commentarla in chat, e condividerla tramire indiriz
   <string name="tpTimeSpentOnTV">Tempo in TV: %s</string>
   <string name="watch">Guarda</string>
   <string name="videoLibrary">Libreria video</string>
+  <string name="streamersMenu">Streamers</string>
+  <string name="broadcastsMenu">Trasmissioni</string>
   <string name="mobileApp">App mobile</string>
   <string name="webmasters">Webmasters</string>
   <string name="about">Info su</string>
