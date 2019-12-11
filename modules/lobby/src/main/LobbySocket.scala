@@ -35,7 +35,7 @@ final class LobbySocket(
 
     private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
     private val idleSris = collection.mutable.Set[SriStr]()
-    private var hookSubscriberSris = Set[SriStr]()
+    private val hookSubscriberSris = collection.mutable.Set[SriStr]()
     private val removedHookIds = new collection.mutable.StringBuilder(1024)
 
     val process: Trouper.Receive = {
@@ -45,11 +45,11 @@ final class LobbySocket(
       case GetSrisP(promise) =>
         promise success Sris(members.keySet.view.map(Sri.apply).toSet)
         lila.mon.lobby.socket.idle.increment(idleSris.size)
-        lila.mon.lobby.socket.hookSubscribers.increment(hookSubscriberSris.size)
+        lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size)
 
       case Cleanup =>
         idleSris filterInPlace members.contains
-        hookSubscriberSris = hookSubscriberSris.filter(members.contains)
+        hookSubscriberSris filterInPlace members.contains
 
       case Join(member) => members += (member.sri.value -> member)
 
@@ -57,7 +57,7 @@ final class LobbySocket(
       case LeaveAll =>
         members.clear()
         idleSris.clear()
-        hookSubscriberSris = Set.empty
+        hookSubscriberSris.clear()
 
       case ReloadTournaments(html) => tellActive(makeMessage("tournaments", html))
 
@@ -107,7 +107,7 @@ final class LobbySocket(
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send(P.Out.tellSri(member.sri, makeMessage("hooks", JsArray(hooks.map(_.render)))))
-        hookSubscriberSris = hookSubscriberSris + member.sri.value
+        hookSubscriberSris += member.sri.value
     }
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
@@ -128,7 +128,7 @@ final class LobbySocket(
     private def quit(sri: Sri): Unit = {
       members -= sri.value
       idleSris -= sri.value
-      hookSubscriberSris = hookSubscriberSris - sri.value
+      hookSubscriberSris -= sri.value
     }
   }
 
