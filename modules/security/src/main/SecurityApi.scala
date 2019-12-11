@@ -128,13 +128,14 @@ final class SecurityApi(
 
   def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = store recentByPrintExists fp
 
-  private def userIdsSharingField(field: String)(userId: User.ID): Fu[List[User.ID]] =
-    store.coll.secondaryPreferred.distinctEasy[User.ID, List](
+  private def userIdsSharingField(field: String)(userId: User.ID): Fu[Vector[User.ID]] =
+    store.coll.secondaryPreferred.distinctEasy[User.ID, Vector](
       field,
       $doc("user" -> userId, field $exists true)
-    ).flatMap {
-        case Nil => fuccess(Nil)
-        case values => store.coll.secondaryPreferred.distinctEasy[User.ID, List](
+    )
+      .flatMap { values =>
+        if (values.isEmpty) fuccess(values)
+        else store.coll.secondaryPreferred.distinctEasy[User.ID, Vector](
           "user",
           $doc(
             field $in values,
@@ -142,6 +143,8 @@ final class SecurityApi(
           )
         )
       }
+      .mon(_.security.usersAlikeTime(field))
+      .addEffect(users => lila.mon.security.usersAlikeFound(field).record(users.size))
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 

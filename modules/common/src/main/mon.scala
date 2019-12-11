@@ -112,9 +112,9 @@ object mon {
 
   object round {
     object api {
-      val player = timer("round.api.player").withoutTags
-      val watcher = timer("round.api.watcher").withoutTags
-      val embed = timer("round.api.embed").withoutTags
+      val player = timer("round.api").withTag("endpoint", "player")
+      val watcher = timer("round.api").withTag("endpoint", "watcher")
+      val embed = timer("round.api").withTag("endpoint", "embed")
     }
     object forecast {
       val create = counter("round.forecast.create").withoutTags
@@ -274,6 +274,8 @@ object mon {
       def fetch(success: Boolean, block: Boolean) =
         timer("checkMail.fetch").withTags(Map("success" -> success, "block" -> block))
     }
+    def usersAlikeTime(field: String) = timer("security.usersAlike.time").withTag("field", field)
+    def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
   }
   object tv {
     object streamer {

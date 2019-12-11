@@ -19,6 +19,7 @@ final class IpIntel(
 
   def failable(ip: IpAddress): Fu[Int] =
     if (IpIntel isBlacklisted ip) fuccess(90)
+    else if (contactEmail.value.isEmpty) fuccess(0)
     else cache get ip
 
   private val cache = asyncCache.multi[IpAddress, Int](

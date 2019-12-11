@@ -1,8 +1,6 @@
 #!/bin/sh -e
 . bin/lilarc
 
-export PATH="/usr/lib/jvm/java-8-openjdk/jre/bin/:$PATH"
-
 mode=$1
 
 if [ -z $mode ]; then
