@@ -62,12 +62,4 @@ trait PackageObject extends Lilaisms {
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
   }
-
-  implicit def unaryOperator[A](f: A => A) = new java.util.function.UnaryOperator[A] {
-    override def apply(a: A): A = f(a)
-  }
-
-  implicit def biFunction[A, B, C](f: (A, B) => C) = new java.util.function.BiFunction[A, B, C] {
-    override def apply(a: A, b: B): C = f(a, b)
-  }
 }

@@ -12,11 +12,11 @@ import lila.chat.Chat
 import lila.common.{ Bus, IpAddress }
 import lila.game.Game.{ PlayerId, FullId }
 import lila.game.{ Game, Event }
+import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map.{ Tell, TellIfExists, Exists }
 import lila.hub.actorApi.round.{ Berserk, RematchYes, RematchNo, Abort, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
 import lila.hub.actorApi.tv.TvSelect
-import lila.hub.actorApi.DeployPost
 import lila.hub.DuctConcMap
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
@@ -269,19 +269,16 @@ object RoundSocket {
       terminate: Game.Id => Unit
   ) {
     import java.util.concurrent.ConcurrentHashMap
-    import java.util.function.BiFunction
 
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](32768)
 
     def schedule(gameId: Game.Id): Unit = terminations.compute(
       gameId.value,
-      new BiFunction[String, Cancellable, Cancellable] {
-        def apply(id: String, canc: Cancellable) = {
-          Option(canc).foreach(_.cancel)
-          scheduler.scheduleOnce(duration) {
-            terminations remove id
-            terminate(Game.Id(id))
-          }
+      (id, canc) => {
+        Option(canc).foreach(_.cancel)
+        scheduler.scheduleOnce(duration) {
+          terminations remove id
+          terminate(Game.Id(id))
         }
       }
     )

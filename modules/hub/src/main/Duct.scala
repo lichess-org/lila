@@ -17,11 +17,8 @@ trait Duct extends lila.common.Tellable {
   protected val process: ReceiveAsync
 
   def !(msg: Any): Unit =
-    if (stateRef.getAndUpdate(
-      new UnaryOperator[State] {
-        override def apply(state: State): State = Some(state.fold(Queue.empty[Any])(_ enqueue msg))
-      }
-    ).isEmpty) run(msg)
+    if (stateRef.getAndUpdate(state =>
+      Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
