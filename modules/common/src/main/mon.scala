@@ -39,7 +39,7 @@ object mon {
     if (stats.totalLoadTime > 0) {
       counter("caffeine.load.count").withTags(Map("name" -> name, "success" -> true)).increment(stats.loadSuccessCount)
       counter("caffeine.load.count").withTags(Map("name" -> name, "success" -> false)).increment(stats.loadFailureCount)
-      timer("caffeine.loadTime.cumulated").withTag("name", name).record(stats.totalLoadTime)
+      timer("caffeine.loadTime.cumulated").withTag("name", name).record(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
       timer("caffeine.loadTime.penalty").withTag("name", name).record(stats.averageLoadPenalty.toLong)
     }
     counter("caffeine.eviction.count").withTag("name", name).increment(stats.evictionCount)
@@ -303,7 +303,7 @@ object mon {
     }
     val created = gauge("tournament.count").withTag("type", "created")
     val started = gauge("tournament.count").withTag("type", "started")
-    val player = gauge("tournament.player").withoutTags
+    // val player = gauge("tournament.player").withoutTags
     object startedOrganizer {
       val tick = future("tournament.startedOrganizer.tick")
       val waitingUsers = future("tournament.startedOrganizer.waitingUsers")
