@@ -50,7 +50,7 @@ private[round] final class Titivate(
           gameRepo.count(_.checkableOld)
             .dmap(lila.mon.round.titivate.old.record(_))
         }
-        .mon(_.round.titivate.time)
+        .monSuccess(_.round.titivate.time)
         .addEffectAnyway(scheduleNext)
     }
   }
