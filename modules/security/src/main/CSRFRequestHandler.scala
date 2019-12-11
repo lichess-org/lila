@@ -13,15 +13,18 @@ final class CSRFRequestHandler(net: NetConfig) {
     else if (appOrigin(req).isDefined) true
     else origin(req) match {
       case None =>
-        lila.mon.http.csrfError("missing_origin", apiVersion(req)).increment()
+        monitor("missingOrigin", req)
         true
       case Some(o) if isSubdomain(o) =>
         true
       case Some(_) =>
-        lila.mon.http.csrfError("forbidden", apiVersion(req)).increment()
+        monitor("forbidden", req)
         false
     }
   }
+
+  private def monitor(tpe: String, req: RequestHeader) =
+    lila.mon.http.csrfError(tpe, actionName(req), clientName(req)).increment()
 
   private val topDomain = s"://${net.domain}"
   private val subDomain = s".${net.domain}"

@@ -11,16 +11,16 @@ object mon {
 
   object http {
     private val t = timer("http.time")
-    def time(action: String, tpe: String, api: Option[ApiVersion], method: String, code: Int) = t.withTags(Map(
-      "action" -> action, "type" -> tpe, "api" -> apiTag(api), "method" -> method, "code" -> code.toLong
+    def time(action: String, client: String, method: String, code: Int) = t.withTags(Map(
+      "action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong
     ))
-    def error(action: String, tpe: String, api: Option[ApiVersion], method: String, code: Int) = counter("http.error").withTags(Map(
-      "action" -> action, "type" -> tpe, "api" -> apiTag(api), "method" -> method, "code" -> code.toLong
+    def error(action: String, client: String, method: String, code: Int) = counter("http.error").withTags(Map(
+      "action" -> action, "client" -> client, "method" -> method, "code" -> code.toLong
     ))
     def path(p: String) = counter("http.path.count").withTag("path", p)
     val userGamesCost = counter("http.userGames.cost").withoutTags
-    def csrfError(tpe: String, api: Option[ApiVersion]) =
-      counter("http.csrf.error").withTags(Map("type" -> tpe, "api" -> apiTag(api)))
+    def csrfError(tpe: String, action: String, client: String) =
+      counter("http.csrf.error").withTags(Map("type" -> tpe, "action" -> action, "client" -> client))
     val fingerPrint = timer("http.fingerPrint.time").withoutTags
     def jsmon(event: String) = counter("http.jsmon").withTag("event", event)
   }
@@ -311,9 +311,9 @@ object mon {
     object createdOrganizer {
       val tick = future("tournament.createdOrganizer.tick")
     }
-    def apiShowPartial(partial: Boolean, api: Option[ApiVersion])(success: Boolean) =
+    def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(Map(
-        "partial" -> partial, "success" -> success, "api" -> apiTag(api)
+        "partial" -> partial, "success" -> success, "client" -> client
       ))
   }
   object plan {
@@ -470,7 +470,7 @@ object mon {
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", success)
 
-  private def apiTag(api: Option[ApiVersion]) = api.fold("web")(_.toString)
+  private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
 }
