@@ -11,7 +11,7 @@
   <string name="allStudies">Све студије</string>
   <string name="studiesCreatedByX">Студије направљене од стране %s</string>
   <string name="noneYet">Ниједна за сад.</string>
-  <string name="hot">Врело</string>
+  <string name="hot">У тренду</string>
   <string name="dateAddedNewest">Датум додавања (најновије)</string>
   <string name="dateAddedOldest">Датум додавања (најстарије)</string>
   <string name="recentlyUpdated">Недавно ажурирано</string>
