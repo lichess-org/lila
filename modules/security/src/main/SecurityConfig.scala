@@ -24,7 +24,8 @@ private final class SecurityConfig(
     @ConfigName("check_mail_api") val checkMail: CheckMail,
     val recaptcha: Recaptcha.Config,
     val mailgun: Mailgun.Config,
-    @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress
+    @ConfigName("ipintel.email") val ipIntelEmail: EmailAddress,
+    @ConfigName("lame_name_check") val lameNameCheck: LameNameCheck
 )
 
 private object SecurityConfig {
@@ -66,6 +67,8 @@ private object SecurityConfig {
       key: Secret
   )
   implicit val checkMailLoader = AutoConfig.loader[CheckMail]
+
+  implicit val lameNameCheckLoader = boolLoader(LameNameCheck.apply)
 
   implicit val loader = AutoConfig.loader[SecurityConfig]
 }

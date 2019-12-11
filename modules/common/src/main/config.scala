@@ -58,5 +58,6 @@ object config {
 
   def strLoader[A](f: String => A): ConfigLoader[A] = ConfigLoader(_.getString) map f
   def intLoader[A](f: Int => A): ConfigLoader[A] = ConfigLoader(_.getInt) map f
+  def boolLoader[A](f: Boolean => A): ConfigLoader[A] = ConfigLoader(_.getBoolean) map f
   def durationLoader[A](f: FiniteDuration => A): ConfigLoader[A] = ConfigLoader(_.duration) map f
 }

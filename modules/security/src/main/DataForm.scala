@@ -12,7 +12,8 @@ final class DataForm(
     userRepo: UserRepo,
     val captcher: lila.hub.actors.Captcher,
     authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator
+    emailValidator: EmailAddressValidator,
+    lameNameCheck: LameNameCheck
 ) extends lila.hub.CaptchedForm {
 
   import DataForm._
@@ -61,7 +62,7 @@ final class DataForm(
         regex = User.newUsernameChars,
         error = "usernameCharsInvalid"
       )
-    ).verifying("usernameUnacceptable", u => !LameName.username(u))
+    ).verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
       .verifying("usernameAlreadyUsed", u => !userRepo.nameExists(u).awaitSeconds(4))
 
     private val agreementBool = boolean.verifying(b => b)
