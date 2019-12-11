@@ -130,7 +130,7 @@ final class ChapterRepo(val coll: Coll) {
     }
 
   private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id], nbChaptersPerStudy: Int): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
-    coll.find(
+    studyIds.nonEmpty ?? coll.find(
       $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "_id" -> true, "name" -> true).some
     ).sort($sort asc "order").list[Bdoc](nbChaptersPerStudy * studyIds.size).map { docs =>

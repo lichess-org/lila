@@ -166,7 +166,8 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.exists($id(study.id) ++ selectLiker(user.id))
 
   def filterLiked(user: User, studyIds: Seq[Study.Id]): Fu[Set[Study.Id]] =
-    coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
+    studyIds.nonEmpty ??
+      coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet)
 
   def resetAllRanks: Fu[Int] = coll.find(
     $empty,
