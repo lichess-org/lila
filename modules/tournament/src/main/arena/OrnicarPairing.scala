@@ -95,10 +95,8 @@ private object OrnicarPairing {
     }) map {
       Pairing.prep(tour, _)
     }
-    if (!continue) {
-      pairingLogger.info(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
-      lila.mon.tournament.pairing.cutoff.increment()
-    }
+    if (!continue)
+      pairingLogger.warn(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
     preps
   }
 }

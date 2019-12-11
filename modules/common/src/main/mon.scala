@@ -299,7 +299,6 @@ object mon {
       val count = counter("tournament.pairing.count").withoutTags
       val create = future("tournament.pairing.create")
       val prep = future("tournament.pairing.prep")
-      val cutoff = counter("tournament.pairing.cutoff").withoutTags
     }
     val created = gauge("tournament.count").withTag("type", "created")
     val started = gauge("tournament.count").withTag("type", "started")

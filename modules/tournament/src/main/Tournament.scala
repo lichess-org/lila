@@ -123,7 +123,7 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
-  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
+  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock, $nbPlayers players"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
