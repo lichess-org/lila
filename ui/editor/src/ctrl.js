@@ -21,9 +21,6 @@ module.exports = function(cfg) {
     fen: 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq -',
     name: this.trans('startPosition')
   }, {
-    fen: '8/8/8/8/8/8/8/8 w - -',
-    name: this.trans('clearBoard')
-  }, {
     fen: 'prompt',
     name: this.trans('loadPosition')
   }];

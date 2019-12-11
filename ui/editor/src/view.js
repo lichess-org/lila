@@ -137,6 +137,11 @@ function controls(ctrl, fen) {
       }, 'Empty board')
     ]) : [
       m('div', [
+        m('a.button.text[data-icon=q]', {
+          onclick: function() {
+            ctrl.loadNewFen('8/8/8/8/8/8/8/8 w - -');
+          }
+        }, ctrl.trans('clearBoard')),
         m('a.button.text[data-icon=B]', {
           onclick: function() {
             ctrl.chessground.toggleOrientation();
