@@ -50,7 +50,7 @@ final class Env(
 
   lazy val userSpy = wire[UserSpyApi]
 
-  lazy val store = new Store(db(config.collection.security))
+  lazy val store = new Store(db(config.collection.security), net.ip)
 
   lazy val ipIntel = {
     def mk = (email: EmailAddress) => wire[IpIntel]

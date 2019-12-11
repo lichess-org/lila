@@ -4,16 +4,15 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson.Macros
 import reactivemongo.api.ReadPreference
+import scala.util.Random
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
 import lila.db.dsl._
 import lila.user.User
 
-final class Store(val coll: Coll) {
+final class Store(val coll: Coll, localIp: IpAddress) {
 
   import Store._
-
-  private val localhost = IpAddress("127.0.0.1")
 
   def save(
     sessionId: String,
@@ -28,7 +27,7 @@ final class Store(val coll: Coll) {
       "user" -> userId,
       "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
         // randomize stresser IPs to relieve mod tools
-        case ip if ip == localhost => IpAddress(s"127.0.0.${scala.util.Random nextInt 256}")
+        case ip if ip == localIp => IpAddress(s"127.0.${Random nextInt 256}.${Random nextInt 256}")
         case ip => ip
       }),
       "ua" -> HTTPRequest.userAgent(req).|("?"),

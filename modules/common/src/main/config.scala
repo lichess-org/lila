@@ -35,7 +35,8 @@ object config {
       @ConfigName("socket.domain") socketDomain: String,
       crawlable: Boolean,
       @ConfigName("ratelimit") rateLimit: Boolean,
-      email: EmailAddress
+      email: EmailAddress,
+      ip: IpAddress
   )
 
   implicit val maxLoader = intLoader(Max.apply)
@@ -47,6 +48,7 @@ object config {
   implicit val emailAddressLoader = strLoader(EmailAddress.apply)
   implicit val netDomainLoader = strLoader(NetDomain.apply)
   implicit val assetDomainLoader = strLoader(AssetDomain.apply)
+  implicit val ipLoader = strLoader(IpAddress.apply)
   implicit val netLoader = AutoConfig.loader[NetConfig]
 
   implicit val strListLoader: ConfigLoader[List[String]] = ConfigLoader { c => k =>
