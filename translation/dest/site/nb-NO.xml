@@ -344,7 +344,7 @@
   <string name="pasteThePgnStringHere">Lim inn PGN-teksten her</string>
   <string name="fromPosition">Fra stilling</string>
   <string name="continueFromHere">Fortsett herfra</string>
-  <string name="toStudy">Studér</string>
+  <string name="toStudy">Studie</string>
   <string name="importGame">Importer parti</string>
   <string name="importGameExplanation">Når du limer inn et PGN-parti kan du bla gjennom partiet,
 få en computeranalyse, chatte eller dele en URL.</string>
@@ -624,7 +624,7 @@ få en computeranalyse, chatte eller dele en URL.</string>
   <string name="playOfflineComputer">Datamaskin</string>
   <string name="opponent">Motstander</string>
   <string name="learnMenu">Lær</string>
-  <string name="studyMenu">Studie</string>
+  <string name="studyMenu">Studier</string>
   <string name="practice">Øvelser</string>
   <string name="community">Fellesskap</string>
   <string name="tools">Verktøy</string>
