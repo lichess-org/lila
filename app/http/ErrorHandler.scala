@@ -23,7 +23,8 @@ final class ErrorHandler(
   override def onProdServerError(req: RequestHeader, exception: UsefulException) = Future {
     val actionName = HTTPRequest actionName req
     val apiVersion = lila.api.Mobile.Api.requestVersion(req)
-    lila.mon.http.error(actionName, apiVersion, 500)
+    val tpe = HTTPRequest tpe req
+    lila.mon.http.error(actionName, tpe, apiVersion, req.method, 500)
     lila.log("http").error(s"ERROR 500 $actionName", exception)
     if (canShowErrorPage(req))
       InternalServerError(views.html.base.errorPage(exception) {

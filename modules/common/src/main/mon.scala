@@ -11,16 +11,16 @@ object mon {
 
   object http {
     private val t = timer("http.time")
-    def time(action: String, tpe: String, api: Option[ApiVersion], code: Int) = t.withTags(Map(
-      "action" -> action, "tpe" -> tpe, "api" -> apiTag(api), "code" -> code
+    def time(action: String, tpe: String, api: Option[ApiVersion], method: String, code: Int) = t.withTags(Map(
+      "action" -> action, "type" -> tpe, "api" -> apiTag(api), "method" -> method, "code" -> code.toLong
     ))
-    def error(action: String, api: Option[ApiVersion], code: Int) = counter("http.error").withTags(Map(
-      "action" -> action, "api" -> apiTag(api), "code" -> code
+    def error(action: String, tpe: String, api: Option[ApiVersion], method: String, code: Int) = counter("http.error").withTags(Map(
+      "action" -> action, "type" -> tpe, "api" -> apiTag(api), "method" -> method, "code" -> code.toLong
     ))
     def path(p: String) = counter("http.path.count").withTag("path", p)
     val userGamesCost = counter("http.userGames.cost").withoutTags
     def csrfError(tpe: String, api: Option[ApiVersion]) =
-      counter("http.csrf.error").withTags(Map("tpe" -> tpe, "api" -> apiTag(api)))
+      counter("http.csrf.error").withTags(Map("type" -> tpe, "api" -> apiTag(api)))
     val fingerPrint = timer("http.fingerPrint.time").withoutTags
     def jsmon(event: String) = counter("http.jsmon").withTag("event", event)
   }
@@ -47,7 +47,7 @@ object mon {
   }
   object evalCache {
     private val r = counter("evalCache.request")
-    def request(ply: Int, isHit: Boolean) = r.withTags(Map("ply" -> ply, "hit" -> isHit))
+    def request(ply: Int, isHit: Boolean) = r.withTags(Map("ply" -> ply.toLong, "hit" -> isHit))
     object upgrade {
       val count = counter("evalCache.upgrade.count").withoutTags
       val members = gauge("evalCache.upgrade.members").withoutTags
@@ -104,7 +104,7 @@ object mon {
   }
   object rating {
     def distribution(perfKey: String, rating: Int) =
-      gauge("rating.distribution").withTags(Map("perf" -> perfKey, "rating" -> rating.toString))
+      gauge("rating.distribution").withTags(Map("perf" -> perfKey, "rating" -> rating.toLong))
     object regulator {
       def micropoints(perfKey: String) = histogram("rating.regulator").withTag("perf", perfKey)
     }
@@ -179,7 +179,7 @@ object mon {
     val online = gauge("user.online").withoutTags
     object register {
       def count(api: Option[ApiVersion]) = counter("user.register.count").withTag("api", apiTag(api))
-      def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("tpe", v)
+      def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
       def confirmEmailResult(success: Boolean) = counter("user.register.confirmEmail").withTag("success", success)
       val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags
     }
@@ -188,11 +188,11 @@ object mon {
       val hashTime = timer("user.auth.hashTime").withoutTags
       def count(success: Boolean) = counter("user.auth.count").withTag("success", success)
 
-      def passwordResetRequest(s: String) = counter("user.auth.passwordResetRequest").withTag("tpe", s)
-      def passwordResetConfirm(s: String) = counter("user.auth.passwordResetConfirm").withTag("tpe", s)
+      def passwordResetRequest(s: String) = counter("user.auth.passwordResetRequest").withTag("type", s)
+      def passwordResetConfirm(s: String) = counter("user.auth.passwordResetConfirm").withTag("type", s)
 
-      def magicLinkRequest(s: String) = counter("user.auth.magicLinkRequest").withTag("tpe", s)
-      def magicLinkConfirm(s: String) = counter("user.auth.magicLinkConfirm").withTag("tpe", s)
+      def magicLinkRequest(s: String) = counter("user.auth.magicLinkRequest").withTag("type", s)
+      def magicLinkConfirm(s: String) = counter("user.auth.magicLinkConfirm").withTag("type", s)
     }
     object oauth {
       def request(success: Boolean) = counter("user.oauth.request").withTag("success", success)
@@ -243,11 +243,11 @@ object mon {
   object email {
     object send {
       private val c = counter("email.send")
-      val resetPassword = c.withTag("tpe", "resetPassword")
-      val magicLink = c.withTag("tpe", "magicLink")
-      val fix = c.withTag("tpe", "fix")
-      val change = c.withTag("tpe", "change")
-      val confirmation = c.withTag("tpe", "confirmation")
+      val resetPassword = c.withTag("type", "resetPassword")
+      val magicLink = c.withTag("type", "magicLink")
+      val fix = c.withTag("type", "fix")
+      val change = c.withTag("type", "change")
+      val confirmation = c.withTag("type", "confirmation")
       val time = future("email.send.time")
       val retry = counter("email.retry").withoutTags
       val timeout = counter("email.timeout").withoutTags
@@ -282,10 +282,10 @@ object mon {
   }
   object relation {
     private val c = counter("relation.action")
-    val follow = c.withTag("tpe", "follow")
-    val unfollow = c.withTag("tpe", "unfollow")
-    val block = c.withTag("tpe", "block")
-    val unblock = c.withTag("tpe", "unblock")
+    val follow = c.withTag("type", "follow")
+    val unfollow = c.withTag("type", "unfollow")
+    val block = c.withTag("type", "block")
+    val unblock = c.withTag("type", "unblock")
   }
   object coach {
     object pageView {
@@ -299,8 +299,8 @@ object mon {
       val prep = future("tournament.pairing.prep")
       val cutoff = counter("tournament.pairing.cutoff").withoutTags
     }
-    val created = gauge("tournament.count").withTag("tpe", "created")
-    val started = gauge("tournament.count").withTag("tpe", "started")
+    val created = gauge("tournament.count").withTag("type", "created")
+    val started = gauge("tournament.count").withTag("type", "started")
     val player = gauge("tournament.player").withoutTags
     object startedOrganizer {
       val tick = future("tournament.startedOrganizer.tick")
@@ -381,7 +381,7 @@ object mon {
     }
     object send {
       private def send(tpe: String)(platform: String): Unit = counter("push.send").withTags(Map(
-        "tpe" -> tpe, "platform" -> platform
+        "type" -> tpe, "platform" -> platform
       ))
       val move = send("move") _
       val takeback = send("takeback") _
@@ -416,8 +416,8 @@ object mon {
     val queue = timer("fishnet.queue.db").withoutTags
     val acquire = future("fishnet.acquire")
     object work {
-      val acquired = gauge("fishnet.work").withTag("tpe", "acquired")
-      val queued = gauge("fishnet.work").withTag("tpe", "queued")
+      val acquired = gauge("fishnet.work").withTag("type", "acquired")
+      val queued = gauge("fishnet.work").withTag("type", "queued")
       val forUser = gauge("fishnet.work.forUser").withoutTags
     }
     object analysis {
@@ -435,7 +435,7 @@ object mon {
         val totalPosition = counter("fishnet.analysis.total.position").withTag("client", client)
       }
       val post = timer("fishnet.analysis.post").withoutTags
-      def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("tpe", tpe)
+      def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("type", tpe)
       val evalCacheHits = counter("fishnet.analysis.evalCacheHits").withoutTags
     }
     object http {
@@ -450,13 +450,13 @@ object mon {
   }
   object export {
     object pgn {
-      val game = counter("export.pgn").withTag("tpe", "game")
-      val study = counter("export.pgn").withTag("tpe", "study")
-      val studyChapter = counter("export.pgn").withTag("tpe", "studyChapter")
+      val game = counter("export.pgn").withTag("type", "game")
+      val study = counter("export.pgn").withTag("type", "study")
+      val studyChapter = counter("export.pgn").withTag("type", "studyChapter")
     }
     object png {
-      val game = counter("export.png").withTag("tpe", "game")
-      val puzzle = counter("export.png").withTag("tpe", "puzzle")
+      val game = counter("export.png").withTag("type", "game")
+      val puzzle = counter("export.png").withTag("type", "puzzle")
     }
   }
   object bus {

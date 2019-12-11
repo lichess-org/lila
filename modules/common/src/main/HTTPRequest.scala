@@ -104,4 +104,9 @@ object HTTPRequest {
       case _ => none
     }
   }
+
+  def tpe(req: RequestHeader) =
+    if (isXhr(req)) "xhr"
+    else if (isBot(req)) "bot"
+    else "page"
 }

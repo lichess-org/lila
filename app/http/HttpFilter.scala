@@ -30,12 +30,9 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     val statusCode = result.header.status
     if (env.isDev) logger.info(s"$statusCode $req $actionName ${reqTime}ms")
     else {
-      val tpe =
-        if (HTTPRequest isXhr req) "xhr"
-        else if (HTTPRequest isBot req) "bot"
-        else "page"
+      val tpe = HTTPRequest tpe req
       val apiVersion = lila.api.Mobile.Api.requestVersion(req)
-      httpMon.time(actionName, tpe, apiVersion, statusCode).record(reqTime)
+      httpMon.time(actionName, tpe, apiVersion, req.method, statusCode).record(reqTime)
     }
   }
 
