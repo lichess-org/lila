@@ -35,7 +35,7 @@ final class LobbySocket(
 
     private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
     private val idleSris = collection.mutable.Set[SriStr]()
-    private val hookSubscriberSris = collection.mutable.Set[SriStr]()
+    private var hookSubscriberSris = Set[SriStr]()
     private val removedHookIds = new collection.mutable.StringBuilder(1024)
 
     val process: Trouper.Receive = {
@@ -49,7 +49,7 @@ final class LobbySocket(
 
       case Cleanup =>
         idleSris filterInPlace members.contains
-        hookSubscriberSris filterInPlace members.contains
+        hookSubscriberSris = hookSubscriberSris.filter(members.contains)
 
       case Join(member) => members += (member.sri.value -> member)
 
@@ -57,7 +57,7 @@ final class LobbySocket(
       case LeaveAll =>
         members.clear()
         idleSris.clear()
-        hookSubscriberSris.clear()
+        hookSubscriberSris = Set.empty
 
       case ReloadTournaments(html) => tellActive(makeMessage("tournaments", html))
 
@@ -107,7 +107,7 @@ final class LobbySocket(
       case HookSub(member, false) => hookSubscriberSris -= member.sri.value
       case AllHooksFor(member, hooks) =>
         send(P.Out.tellSri(member.sri, makeMessage("hooks", JsArray(hooks.map(_.render)))))
-        hookSubscriberSris += member.sri.value
+        hookSubscriberSris = hookSubscriberSris + member.sri.value
     }
 
     lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
@@ -128,7 +128,7 @@ final class LobbySocket(
     private def quit(sri: Sri): Unit = {
       members -= sri.value
       idleSris -= sri.value
-      hookSubscriberSris -= sri.value
+      hookSubscriberSris = hookSubscriberSris - sri.value
     }
   }
 
