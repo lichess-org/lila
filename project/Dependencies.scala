@@ -37,7 +37,7 @@ object Dependencies {
 
   object reactivemongo {
     val version = "0.19.3"
-    val driver = "org.reactivemongo" %% "reactivemongo" % version
+    val driver = "org.reactivemongo" %% "reactivemongo" % "0.20.0-SNAPSHOT"
     val bson = "org.reactivemongo" %% "reactivemongo-bson-api" % "0.20.0-SNAPSHOT"
     val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % version
     val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64" % "runtime" classifier "linux-x86_64"
