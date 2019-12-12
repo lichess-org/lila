@@ -2,12 +2,14 @@ package lila.round
 
 import akka.actor._
 import akka.stream.scaladsl._
-import lila.db.dsl._
-import lila.game.{ Query, Game, GameRepo }
-import lila.round.actorApi.round.{ QuietFlag, Abandon }
 import org.joda.time.DateTime
 import reactivemongo.api._
 import scala.concurrent.duration._
+
+import lila.db.dsl._
+import lila.game.{ Query, Game, GameRepo }
+import lila.round.actorApi.round.{ QuietFlag, Abandon }
+import lila.common.LilaStream
 
 /*
  * Cleans up unfinished games
@@ -43,7 +45,7 @@ private[round] final class Titivate(
         .documentSource()
         .take(100)
         .via(gameFlow)
-        .toMat(gameSink)(Keep.right)
+        .toMat(LilaStream.sinkCount)(Keep.right)
         .run
         .addEffect(lila.mon.round.titivate.game.record(_))
         .>> {
@@ -54,8 +56,6 @@ private[round] final class Titivate(
         .addEffectAnyway(scheduleNext)
     }
   }
-
-  private lazy val gameSink: Sink[Unit, Fu[Int]] = Sink.fold[Int, Unit](0)((acc, _) => acc + 1)
 
   private lazy val gameFlow: Flow[Game, Unit, _] = Flow[Game].mapAsyncUnordered(8) {
 
