@@ -13,6 +13,10 @@ export SBT_OPTS=""
 # For development without nginx (not recommended).
 export SERVE_ASSETS=0
 
+if [ ! -f "conf/application.conf" ]; then
+  cp conf/application.conf.default conf/application.conf
+fi
+
 echo "
    |\_    _ _      _
   /o \\\\  | (_) ___| |__   ___  ___ ___   ___  _ __ __ _
