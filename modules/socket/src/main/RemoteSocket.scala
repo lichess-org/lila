@@ -5,24 +5,21 @@ import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
-import ornicar.scalalib.Zero
 import play.api.libs.json._
-import scala.concurrent.duration._
 import scala.concurrent.{ Promise, Future }
 
-import lila.common.{ Bus, Chronometer }
+import lila.common.Bus
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.socket.{ SendTo, SendTos, BotIsOnline }
-import lila.hub.actorApi.{ Deploy, Announce }
-import lila.hub.{ TrouperMap, Trouper }
-import Socket.{ SocketVersion, GetVersion, Sri, SendToFlag }
+import lila.hub.actorApi.Announce
+import Socket.Sri
 
 final class RemoteSocket(
     redisClient: RedisClient,
-    notificationActor: akka.actor.ActorSelection,
+    notification: lila.hub.actors.Notification,
     lifecycle: play.api.inject.ApplicationLifecycle
 ) {
 
@@ -47,16 +44,16 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate((x: UserIds) => x + userId)
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
-    case In.NotifiedBatch(userIds) => notificationActor ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
+    case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
     case In.FriendsBatch(userIds) => userIds foreach { userId =>
-      Bus.publish(ReloadOnlineFriends(userId), 'reloadOnlineFriends)
+      Bus.publish(ReloadOnlineFriends(userId), "reloadOnlineFriends")
     }
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online
       onlineUserIds.getAndUpdate((x: UserIds) => x ++ lags.keys)
     case In.TellSri(sri, userId, typ, msg) =>
-      Bus.publish(TellSriIn(sri.value, userId, msg), Symbol(s"remoteSocketIn:$typ"))
+      Bus.publish(TellSriIn(sri.value, userId, msg), s"remoteSocketIn:$typ")
     case In.WsBoot =>
       logger.warn("Remote socket boot")
       onlineUserIds set Set("lichess")
@@ -67,7 +64,7 @@ final class RemoteSocket(
       })
   }
 
-  Bus.subscribeFun('socketUsers, 'deploy, 'announce, 'mlat, 'sendToFlag, 'remoteSocketOut, 'accountClose, 'shadowban, 'impersonate, 'botIsOnline) {
+  Bus.subscribeFun("socketUsers", "deploy", "announce", "mlat", "sendToFlag", "remoteSocketOut", "accountClose", "shadowban", "impersonate", "botIsOnline") {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
@@ -106,7 +103,7 @@ final class RemoteSocket(
     })
     val subPromise = Promise[Unit]
     conn.async.subscribe(channel).thenRun {
-      new Runnable { def run = subPromise.success(()) }
+      new Runnable { def run() = subPromise.success(()) }
     }
     subPromise.future
   }
@@ -115,6 +112,7 @@ final class RemoteSocket(
     logger.info("Stopping the Redis pool...")
     Future {
       redisClient.shutdown()
+      logger.info("Stopped the Redis pool.")
     }
   }
 }
@@ -169,17 +167,17 @@ object RemoteSocket {
         }.some
         case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
         case "notified/batch" => NotifiedBatch(commas(raw.args)).some
-        case "lag" => raw.all |> { s => s lift 1 flatMap parseIntOption map Centis.apply map { Lag(s(0), _) } }
+        case "lag" => raw.all |> { s => s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(s(0), _) } }
         case "lags" => Lags(commas(raw.args).flatMap {
           _ split ':' match {
-            case Array(user, l) => parseIntOption(l) map { lag => user -> Centis(lag) }
+            case Array(user, l) => l.toIntOption map { lag => user -> Centis(lag) }
             case _ => None
           }
         }.toMap).some
         case "friends/batch" => FriendsBatch(commas(raw.args)).some
         case "tell/sri" => raw.get(3)(tellSriMapper)
         case "req/response" => raw.get(2) {
-          case Array(reqId, response) => parseIntOption(reqId) map { ReqResponse(_, response) }
+          case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }
         }
         case "boot" => WsBoot.some
         case _ => none

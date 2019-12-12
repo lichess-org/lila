@@ -31,7 +31,15 @@ object LightUser {
     isPatron = false
   )
 
-  type Getter = String => Fu[Option[LightUser]]
-  type GetterSync = String => Option[LightUser]
-  type IsBotSync = String => Boolean
+  final class Getter(f: String => Fu[Option[LightUser]]) extends (String => Fu[Option[LightUser]]) {
+    def apply(u: String) = f(u)
+  }
+
+  final class GetterSync(f: String => Option[LightUser]) extends (String => Option[LightUser]) {
+    def apply(u: String) = f(u)
+  }
+
+  final class IsBotSync(f: String => Boolean) extends (String => Boolean) {
+    def apply(userId: String) = f(userId)
+  }
 }

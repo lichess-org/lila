@@ -11,11 +11,10 @@ object ResilientScheduler {
   def apply(
     every: Every,
     atMost: AtMost,
-    logger: lila.log.Logger,
     initialDelay: FiniteDuration
   )(f: => Funit)(implicit system: ActorSystem): Unit = {
     val run = () => f
-    def runAndScheduleNext: Unit =
+    def runAndScheduleNext(): Unit =
       run() withTimeout atMost.value addEffectAnyway {
         system.scheduler.scheduleOnce(every.value) { runAndScheduleNext }
       }

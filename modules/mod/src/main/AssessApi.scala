@@ -1,29 +1,29 @@
 package lila.mod
 
-import akka.actor.ActorSelection
 import lila.analyse.{ Analysis, AnalysisRepo }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.evaluation.Statistics
 import lila.evaluation.{ AccountAction, Analysed, PlayerAssessment, PlayerAggregateAssessment, PlayerFlags, PlayerAssessments, Assessible }
-import lila.game.{ Game, Player, GameRepo, Source, Pov }
+import lila.game.{ Game, Player, Source, Pov }
 import lila.report.{ SuspectId, ModId }
-import lila.security.UserSpy
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.util.Random
 
 import chess.Color
 
 final class AssessApi(
-    collAssessments: Coll,
-    logApi: ModlogApi,
+    assessRepo: AssessmentRepo,
     modApi: ModApi,
-    reporter: ActorSelection,
-    fishnet: ActorSelection
+    userRepo: lila.user.UserRepo,
+    reporter: lila.hub.actors.Report,
+    fishnet: lila.hub.actors.Fishnet,
+    gameRepo: lila.game.GameRepo,
+    analysisRepo: AnalysisRepo
 ) {
 
   private def bottomDate = DateTime.now.minusSeconds(3600 * 24 * 30 * 6) // matches a mongo expire index
@@ -33,13 +33,13 @@ final class AssessApi(
   private implicit val playerAssessmentBSONhandler = Macros.handler[PlayerAssessment]
 
   def createPlayerAssessment(assessed: PlayerAssessment) =
-    collAssessments.update($id(assessed._id), assessed, upsert = true).void
+    assessRepo.coll.update.one($id(assessed._id), assessed, upsert = true).void
 
   def getPlayerAssessmentById(id: String) =
-    collAssessments.byId[PlayerAssessment](id)
+    assessRepo.coll.byId[PlayerAssessment](id)
 
-  private def getPlayerAssessmentsByUserId(userId: String, nb: Int = 100) =
-    collAssessments.find($doc("userId" -> userId))
+  private def getPlayerAssessmentsByUserId(userId: String, nb: Int) =
+    assessRepo.coll.ext.find($doc("userId" -> userId))
       .sort($doc("date" -> -1))
       .cursor[PlayerAssessment](ReadPreference.secondaryPreferred)
       .gather[List](nb)
@@ -54,7 +54,7 @@ final class AssessApi(
       }
 
   private def getPlayerAggregateAssessment(userId: String, nb: Int = 100): Fu[Option[PlayerAggregateAssessment]] =
-    UserRepo byId userId flatMap {
+    userRepo byId userId flatMap {
       _.filter(_.noBot) ?? { user =>
         getPlayerAssessmentsByUserId(userId, nb) map { games =>
           games.nonEmpty option PlayerAggregateAssessment(user, games)
@@ -63,7 +63,7 @@ final class AssessApi(
     }
 
   def withGames(pag: PlayerAggregateAssessment): Fu[PlayerAggregateAssessment.WithGames] =
-    GameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
+    gameRepo gamesFromSecondary pag.playerAssessments.map(_.gameId) map {
       PlayerAggregateAssessment.WithGames(pag, _)
     }
 
@@ -75,9 +75,9 @@ final class AssessApi(
 
   def refreshAssessByUsername(username: String): Funit = withUser(username) { user =>
     if (user.isBot) funit
-    else (GameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
+    else (gameRepo.gamesForAssessment(user.id, 100) flatMap { gs =>
       (gs map { g =>
-        AnalysisRepo.byGame(g) flatMap {
+        analysisRepo.byGame(g) flatMap {
           _ ?? { onAnalysisReady(g, _, false) }
         }
       }).sequenceFu.void
@@ -85,7 +85,7 @@ final class AssessApi(
   }
 
   def onAnalysisReady(game: Game, analysis: Analysis, thenAssessUser: Boolean = true): Funit =
-    GameRepo holdAlerts game flatMap { holdAlerts =>
+    gameRepo holdAlerts game flatMap { holdAlerts =>
       def consistentMoveTimes(game: Game)(player: Player) = Statistics.moderatelyConsistentMoveTimes(Pov(game, player))
       val shouldAssess =
         if (!game.source.exists(assessableSources.contains)) false
@@ -111,15 +111,14 @@ final class AssessApi(
     getPlayerAggregateAssessment(userId) flatMap {
       case Some(playerAggregateAssessment) => playerAggregateAssessment.action match {
         case AccountAction.Engine | AccountAction.EngineAndBan =>
-          UserRepo.getTitle(userId).flatMap {
+          userRepo.getTitle(userId).flatMap {
             case None => modApi.autoMark(SuspectId(userId), ModId.lichess)
-            case Some(title) => fuccess {
-              val reason = s"Would mark as engine, but has a $title title"
-              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+            case Some(_) => fuccess {
+              reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
             }
           }
-        case AccountAction.Report(reason) => fuccess {
-          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(reason, 3))
+        case AccountAction.Report(_) => fuccess {
+          reporter ! lila.hub.actorApi.report.Cheater(userId, playerAggregateAssessment.reportText(3))
         }
         case AccountAction.Nothing =>
           // reporter ! lila.hub.actorApi.report.Clean(userId)
@@ -177,7 +176,7 @@ final class AssessApi(
       // discard old games
       else if (game.createdAt isBefore bottomDate) fuccess(none)
       // someone is using a bot
-      else GameRepo holdAlerts game map { holdAlerts =>
+      else gameRepo holdAlerts game map { holdAlerts =>
         if (Player.HoldAlert suspicious holdAlerts) HoldAlert.some
         // white has consistent move times
         else if (whiteSuspCoefVariation.isDefined && randomPercent(70)) whiteSuspCoefVariation.map(_ => WhiteMoveTime)
@@ -198,13 +197,13 @@ final class AssessApi(
 
     shouldAnalyse map {
       _ ?? { reason =>
-        lila.mon.cheat.autoAnalysis.reason(reason.toString)()
+        lila.mon.cheat.autoAnalysis.reason(reason.toString).increment()
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }
   }
 
   private def withUser[A](username: String)(op: User => Fu[A]): Fu[A] =
-    UserRepo named username flatten "[mod] missing user " + username flatMap op
+    userRepo named username orFail s"[mod] missing user $username" flatMap op
 
 }

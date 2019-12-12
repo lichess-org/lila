@@ -5,72 +5,63 @@ object Dependencies {
 
   object Resolvers {
 
-    val typesafe = "typesafe.com" at "http://repo.typesafe.com/typesafe/releases/"
-    val sonatype = "sonatype" at "https://oss.sonatype.org/content/repositories/releases"
-    val sonatypeS = "sonatype snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
-    val awesomepom = "awesomepom" at "https://raw.githubusercontent.com/jibs/maven-repo-scala/master"
+    val sonatype = Resolver.sonatypeRepo("releases")
     val lilaMaven = "lila-maven" at "https://raw.githubusercontent.com/ornicar/lila-maven/master"
-    val prismic = "Prismic.io kits" at "https://s3.amazonaws.com/prismic-maven-kits/repository/maven/"
 
-    val commons = Seq(
-      sonatypeS,
-      lilaMaven,
-      sonatype,
-      awesomepom,
-      typesafe,
-      prismic
-    )
+    val commons = Seq(lilaMaven, sonatype)
   }
 
-  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.16"
+  val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.29"
   val scalalib = "com.github.ornicar" %% "scalalib" % "6.7"
-  val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
-  val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
-  val hasher = "com.roundeights" %% "hasher" % "1.2.0"
+  val hasher = "com.roundeights" %% "hasher" % "1.2.1"
   val jodaTime = "joda-time" % "joda-time" % "2.10.5"
-  val chess = "org.lichess" %% "scalachess" % "8.6.27"
-  val compression = "org.lichess" %% "compression" % "1.4"
-  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.2.13-THIB211"
-  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
-  val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
-  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
-  val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
-  val scaffeine = "com.github.blemale" %% "scaffeine" % "2.6.0" % "compile"
-  val netty = "io.netty" % "netty" % "3.10.6.Final"
-  val guava = "com.google.guava" % "guava" % "21.0"
+  val chess = "org.lichess" %% "scalachess" % "9.0.27"
+  val compression = "org.lichess" %% "compression" % "1.5"
+  val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.3.1-THIB"
+  val prismic = "io.prismic" %% "scala-kit" % "1.2.13-THIB213"
+  val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8-SNAPSHOT"
+  val scaffeine = "com.github.blemale" %% "scaffeine" % "3.1.0" % "compile"
   val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "0.18.0"
-  val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
-  val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
-  val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
-  val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
+  val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.5.1"
+  val scalatags = "com.lihaoyi" %% "scalatags" % "0.7.0"
   val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"
-  val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.42"
+  val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.44"
+  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.2-SNAPSHOT" % "provided"
+
+  object macwire {
+    val version = "2.3.3"
+    val macros = "com.softwaremill.macwire" %% "macros" % version % "provided"
+    val util = "com.softwaremill.macwire" %% "util" % version % "provided"
+  }
 
   object reactivemongo {
-    val version = "0.12.4"
-    val driver = ("org.reactivemongo" %% "reactivemongo" % version)
-      .exclude("com.typesafe.akka", "*") // provided by Play
-      .exclude("com.typesafe.play", "*")
-    val iteratees = ("org.reactivemongo" %% "reactivemongo-iteratees" % version)
-      .exclude("com.typesafe.akka", "*") // provided by Play
-      .exclude("com.typesafe.play", "*")
+    val version = "0.19.3"
+    val driver = "org.reactivemongo" %% "reactivemongo" % "0.20.0-SNAPSHOT"
+    val bson = "org.reactivemongo" %% "reactivemongo-bson-api" % "0.20.0-SNAPSHOT"
+    val stream = "org.reactivemongo" %% "reactivemongo-akkastream" % version
+    // val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64" classifier "linux-x86_64"
+    val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    // #TODO remove compat
+    val compat = "org.reactivemongo" %% "reactivemongo-bson-compat" % version
+    def bundle = Seq(driver, bson, compat, stream)
   }
 
   object play {
-    val version = "2.4.11"
+    val version = "2.8.0"
     val api = "com.typesafe.play" %% "play" % version
-    val test = "com.typesafe.play" %% "play-test" % version
-  }
-  object akka {
-    val version = "2.4.20"
-    val actor = "com.typesafe.akka" %% "akka-actor" % version
-    val slf4j = "com.typesafe.akka" %% "akka-slf4j" % version
+    val json = "com.typesafe.play" %% "play-json" % version
   }
   object kamon {
-    val version = "0.6.4.2-LILA"
-    val core = "io.kamon" %% "kamon-core" % version
-    val influxdb = "io.kamon" %% "kamon-influxdb" % version
+    val core = "io.kamon" %% "kamon-core" % "2.0.2"
+    val influxdb = "io.kamon" %% "kamon-influxdb" % "2.0.1-LILA"
+    val metrics = "io.kamon" %% "kamon-system-metrics" % "2.0.0"
+  }
+
+  object silencer {
+    val version = "1.4.4"
+    val plugin = "com.github.ghik" % "silencer-plugin" % version cross CrossVersion.full
+    val lib = "com.github.ghik" % "silencer-lib" % version % Provided cross CrossVersion.full
+    val bundle = Seq(compilerPlugin(plugin), lib)
   }
 }

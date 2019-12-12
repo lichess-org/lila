@@ -7,8 +7,9 @@ import lila.user.User
 
 final class InsightApi(
     storage: Storage,
-    userCacheApi: UserCacheApi,
     pipeline: AggregationPipeline,
+    userCacheApi: UserCacheApi,
+    gameRepo: GameRepo,
     indexer: Indexer
 ) {
 
@@ -25,16 +26,16 @@ final class InsightApi(
   }
 
   def ask[X](question: Question[X], user: User): Fu[Answer[X]] =
-    storage.aggregate(pipeline(question, user.id)).flatMap { aggDocs =>
+    pipeline.aggregate(question, user).flatMap { aggDocs =>
       val clusters = AggregationClusters(question, aggDocs)
       val gameIds = scala.util.Random.shuffle(clusters.flatMap(_.gameIds)) take 4
-      GameRepo.userPovsByGameIds(gameIds, user) map { povs =>
+      gameRepo.userPovsByGameIds(gameIds, user) map { povs =>
         Answer(question, clusters, povs)
       }
-    }.mon(_.insight.request.time) >>- lila.mon.insight.request.count()
+    }.monSuccess(_.insight.request)
 
   def userStatus(user: User): Fu[UserStatus] =
-    GameRepo lastFinishedRatedNotFromPosition user flatMap {
+    gameRepo lastFinishedRatedNotFromPosition user flatMap {
       case None => fuccess(UserStatus.NoGame)
       case Some(game) => storage fetchLast user.id map {
         case None => UserStatus.Empty
@@ -44,9 +45,9 @@ final class InsightApi(
     }
 
   def indexAll(user: User) =
-    indexer.all(user).mon(_.insight.index.time) >>
-      userCacheApi.remove(user.id) >>-
-      lila.mon.insight.index.count()
+    indexer.all(user)
+      .monSuccess(_.insight.index) >>
+      userCacheApi.remove(user.id)
 
   def updateGame(g: Game) = Pov(g).map { pov =>
     pov.player.userId ?? { userId =>

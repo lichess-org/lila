@@ -6,7 +6,10 @@ import play.api.data.Forms._
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-private[message] final class DataForm(security: MessageSecurity) {
+private[message] final class DataForm(
+    userRepo: UserRepo,
+    security: MessageSecurity
+) {
 
   import DataForm._
 
@@ -34,7 +37,7 @@ private[message] final class DataForm(security: MessageSecurity) {
     "text" -> text(minLength = 3)
   ))
 
-  private def fetchUser(username: String) = UserRepo named username awaitSeconds 2
+  private def fetchUser(username: String) = userRepo named username awaitSeconds 2
 }
 
 object DataForm {

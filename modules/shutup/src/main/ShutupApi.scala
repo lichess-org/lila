@@ -1,6 +1,6 @@
 package lila.shutup
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.game.GameRepo
@@ -9,18 +9,19 @@ import lila.user.{ User, UserRepo }
 
 final class ShutupApi(
     coll: Coll,
-    follows: (User.ID, User.ID) => Fu[Boolean],
-    reporter: akka.actor.ActorSelection
+    gameRepo: GameRepo,
+    userRepo: UserRepo,
+    relationApi: lila.relation.RelationApi,
+    reporter: lila.hub.actors.Report
 ) {
 
-  private implicit val doubleListHandler = bsonArrayToListHandler[Double]
   private implicit val UserRecordBSONHandler = Macros.handler[UserRecord]
   import PublicLine.PublicLineBSONHandler
 
   def getPublicLines(userId: User.ID): Fu[List[PublicLine]] =
-    coll.find($doc("_id" -> userId), $doc("pub" -> 1))
-      .uno[Bdoc].map {
-        ~_.flatMap(_.getAs[List[PublicLine]]("pub"))
+    coll.find($doc("_id" -> userId), $doc("pub" -> 1).some)
+      .one[Bdoc].map {
+        ~_.flatMap(_.getAsOpt[List[PublicLine]]("pub"))
       }
 
   def publicForumMessage(userId: User.ID, text: String) = record(userId, text, TextType.PublicForumMessage)
@@ -28,13 +29,13 @@ final class ShutupApi(
   def publicChat(userId: User.ID, text: String, source: PublicSource) = record(userId, text, TextType.PublicChat, source.some)
 
   def privateChat(chatId: String, userId: User.ID, text: String) =
-    GameRepo.getSourceAndUserIds(chatId) flatMap {
+    gameRepo.getSourceAndUserIds(chatId) flatMap {
       case (source, _) if source.has(lila.game.Source.Friend) => funit // ignore challenges
       case (_, userIds) =>
         record(userId, text, TextType.PrivateChat, none, userIds find (userId !=))
     }
 
-  def privateMessage(userId: User.ID, toUserId: User.ID, text: String, major: Boolean) =
+  def privateMessage(userId: User.ID, toUserId: User.ID, text: String) =
     record(userId, text, TextType.PrivateMessage, none, toUserId.some)
 
   private def record(
@@ -45,9 +46,9 @@ final class ShutupApi(
     toUserId: Option[User.ID] = None,
     major: Boolean = false
   ): Funit =
-    UserRepo isTroll userId flatMap {
+    userRepo isTroll userId flatMap {
       case true => funit
-      case false => toUserId ?? { follows(_, userId) } flatMap {
+      case false => toUserId ?? { relationApi.fetchFollows(_, userId) } flatMap {
         case true => funit
         case false =>
           val analysed = Analyser(text)
@@ -65,12 +66,12 @@ final class ShutupApi(
               "$slice" -> -textType.rotation
             )
           ) ++ pushPublicLine
-          coll.findAndUpdate(
+          coll.ext.findAndUpdate(
             selector = $id(userId),
             update = $push(push),
             fetchNewObject = true,
             upsert = true
-          ).map(_.value) map2 UserRecordBSONHandler.read flatMap {
+          ).dmap(_.value flatMap UserRecordBSONHandler.readOpt) flatMap {
               case None => fufail(s"can't find user record for $userId")
               case Some(userRecord) => legiferate(userRecord, major)
             } logFailure lila.log("shutup")
@@ -81,7 +82,7 @@ final class ShutupApi(
     major || userRecord.reports.exists(_.unacceptable)
   } ?? {
     reporter ! lila.hub.actorApi.report.Shutup(userRecord.userId, reportText(userRecord), major)
-    coll.update(
+    coll.update.one(
       $id(userRecord.userId),
       $unset(
         TextType.PublicForumMessage.key,

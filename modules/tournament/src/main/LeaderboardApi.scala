@@ -1,10 +1,11 @@
 package lila.tournament
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 
 import lila.common.Maths
+import lila.common.config.MaxPerPage
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
@@ -12,33 +13,36 @@ import lila.rating.PerfType
 import lila.user.User
 
 final class LeaderboardApi(
-    coll: Coll,
-    maxPerPage: lila.common.MaxPerPage
+    repo: LeaderboardRepo,
+    tournamentRepo: TournamentRepo
 ) {
 
   import LeaderboardApi._
   import BSONHandlers._
+
+  private val maxPerPage = MaxPerPage(15)
 
   def recentByUser(user: User, page: Int) = paginator(user, page, $sort desc "d")
 
   def bestByUser(user: User, page: Int) = paginator(user, page, $sort asc "w")
 
   def timeRange(userId: User.ID, range: (DateTime, DateTime)): Fu[List[Entry]] =
-    coll.find($doc(
+    repo.coll.ext.find($doc(
       "u" -> userId,
       "d" $gt range._1 $lt range._2
     )).sort($sort desc "d").list[Entry]()
 
   def chart(user: User): Fu[ChartData] = {
-    import reactivemongo.bson._
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
-    coll.aggregateList(
-      Match($doc("u" -> user.id)),
-      List(GroupField("v")("nb" -> SumValue(1), "points" -> PushField("s"), "ratios" -> PushField("w"))),
+    repo.coll.aggregateList(
       maxDocs = Int.MaxValue,
       ReadPreference.secondaryPreferred
-    ).map {
-        _ map leaderboardAggregationResultBSONHandler.read
+    ) { framework =>
+        import framework._
+        Match($doc("u" -> user.id)) -> List(
+          GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
+        )
+      }.map {
+        _ flatMap leaderboardAggregationResultBSONHandler.readOpt
       }.map { aggs =>
         ChartData {
           aggs.flatMap { agg =>
@@ -55,18 +59,18 @@ final class LeaderboardApi(
   }
 
   def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
-    coll.find($doc(
+    repo.coll.ext.find($doc(
       "u" -> userId,
       "d" $gt since
     )).list[Entry]() flatMap { entries =>
-      (entries.nonEmpty ?? coll.remove($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
+      (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
     }
 
   private def paginator(user: User, page: Int, sort: Bdoc): Fu[Paginator[TourEntry]] = Paginator(
     adapter = new Adapter[Entry](
-      collection = coll,
+      collection = repo.coll,
       selector = $doc("u" -> user.id),
-      projection = $empty,
+      projection = none,
       sort = sort,
       readPreference = ReadPreference.secondaryPreferred
     ) mapFutureList withTournaments,
@@ -75,7 +79,7 @@ final class LeaderboardApi(
   )
 
   private def withTournaments(entries: Seq[Entry]): Fu[Seq[TourEntry]] =
-    TournamentRepo byIds entries.map(_.tourId) map { tours =>
+    tournamentRepo byIds entries.map(_.tourId) map { tours =>
       entries.flatMap { entry =>
         tours.find(_.id == entry.tourId).map { TourEntry(_, entry) }
       }

@@ -6,22 +6,20 @@ import chess.format.pgn.Glyphs
 import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
-import lila.hub.actorApi.map.Tell
-import lila.socket.Socket.Sri
-import lila.tree._
+import lila.{ tree => T }
 import lila.tree.Node.Comment
 import lila.user.User
 
 object ServerEval {
 
   final class Requester(
-      fishnetActor: akka.actor.ActorSelection,
+      fishnet: lila.hub.actors.Fishnet,
       chapterRepo: ChapterRepo
   ) {
 
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
       chapterRepo.startServerEval(chapter) >>- {
-        fishnetActor ! StudyChapterRequest(
+        fishnet ! StudyChapterRequest(
           studyId = study.id.value,
           chapterId = chapter.id.value,
           initialFen = chapter.root.fen.some,
@@ -40,14 +38,13 @@ object ServerEval {
   final class Merger(
       sequencer: StudySequencer,
       socket: StudySocket,
-      api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
   ) {
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? { studyId =>
       sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
-        case Study.WithChapter(study, chapter) =>
+        case Study.WithChapter(_, chapter) =>
           (complete ?? chapterRepo.completeServerEval(chapter)) >> {
             lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
               case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
@@ -94,7 +91,7 @@ object ServerEval {
 
     private def analysisLine(root: RootOrNode, variant: chess.variant.Variant, info: Info): Option[Node] =
       chess.Replay.gameMoveWhileValid(info.variation take 20, root.fen.value, variant) match {
-        case (init, games, error) =>
+        case (_, games, error) =>
           error foreach { logger.info(_) }
           games.reverse match {
             case Nil => none
@@ -120,7 +117,7 @@ object ServerEval {
     }
   }
 
-  case class Progress(chapterId: Chapter.Id, tree: Root, analysis: JsObject, division: chess.Division)
+  case class Progress(chapterId: Chapter.Id, tree: T.Root, analysis: JsObject, division: chess.Division)
 
   def toJson(chapter: Chapter, analysis: Analysis) =
     lila.analyse.JsonView.bothPlayers(

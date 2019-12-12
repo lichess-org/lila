@@ -3,15 +3,15 @@ package lila.timeline
 import akka.actor._
 import org.joda.time.DateTime
 
+import lila.common.config.Max
 import lila.hub.actorApi.timeline.propagation._
-import lila.hub.actorApi.timeline.{ Propagate, Atom, ForumPost, ReloadTimelines }
-import lila.security.{ Granter, Permission }
+import lila.hub.actorApi.timeline.{ Propagate, Atom, ReloadTimelines }
+import lila.security.Permission
 import lila.user.{ User, UserRepo }
 
 private[timeline] final class Push(
-    renderer: ActorSelection,
-    getFriendIds: String => Fu[Set[String]],
-    getFollowerIds: String => Fu[Set[String]],
+    relationApi: lila.relation.RelationApi,
+    userRepo: UserRepo,
     entryApi: EntryApi,
     unsubApi: UnsubApi
 ) extends Actor {
@@ -23,16 +23,16 @@ private[timeline] final class Push(
         unsubApi.filterUnsub(data.channel, users)
       } foreach { users =>
         if (users.nonEmpty) makeEntry(users, data) >>-
-          lila.common.Bus.publish(ReloadTimelines(users), 'lobbySocket)
-        lila.mon.timeline.notification(users.size)
+          lila.common.Bus.publish(ReloadTimelines(users), "lobbySocket")
+        lila.mon.timeline.notification.increment(users.size)
       }
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[User.ID]] =
     propagations.map {
       case Users(ids) => fuccess(ids)
-      case Followers(id) => getFollowerIds(id)
-      case Friends(id) => getFriendIds(id)
+      case Followers(id) => relationApi.fetchFollowersFromSecondary(id)
+      case Friends(id) => relationApi.fetchFriends(id)
       case ExceptUser(_) => fuccess(Nil)
       case ModsOnly(_) => fuccess(Nil)
     }.sequence flatMap { users =>
@@ -40,7 +40,7 @@ private[timeline] final class Push(
         case (fus, ExceptUser(id)) => fus.map(_.filter(id!=))
         case (fus, ModsOnly(true)) => for {
           us <- fus
-          userIds <- UserRepo.userIdsWithRoles(modPermissions.map(_.name))
+          userIds <- userRepo.userIdsWithRoles(modPermissions.map(_.name))
         } yield us filter userIds.contains
         case (fus, _) => fus
       }
@@ -55,7 +55,7 @@ private[timeline] final class Push(
 
   private def makeEntry(users: List[User.ID], data: Atom): Fu[Entry] = {
     val entry = Entry.make(data)
-    entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, 1000) flatMap { entries =>
+    entryApi.findRecent(entry.typ, DateTime.now minusMinutes 60, Max(1000)) flatMap { entries =>
       if (entries.exists(_ similarTo entry)) fufail[Entry]("[timeline] a similar entry already exists")
       else entryApi insert Entry.ForUsers(entry, users) inject entry
     }

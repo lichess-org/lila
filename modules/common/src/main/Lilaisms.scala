@@ -41,9 +41,9 @@ trait Lilaisms
   @inline implicit def toPimpedFuture[A](f: Fu[A]) = new PimpedFuture(f)
   @inline implicit def toPimpedFutureBoolean(f: Fu[Boolean]) = new PimpedFutureBoolean(f)
   @inline implicit def toPimpedFutureOption[A](f: Fu[Option[A]]) = new PimpedFutureOption(f)
-  @inline implicit def toPimpedFutureValid[A](f: Fu[Valid[A]]) = new PimpedFutureValid(f)
-  @inline implicit def toPimpedTraversableFuture[A, M[X] <: TraversableOnce[X]](t: M[Fu[A]]) =
-    new PimpedTraversableFuture(t)
+  // @inline implicit def toPimpedFutureValid[A](f: Fu[Valid[A]]) = new PimpedFutureValid(f)
+  @inline implicit def toPimpedIterableFuture[A, M[X] <: IterableOnce[X]](t: M[Fu[A]]) =
+    new PimpedIterableFuture(t)
 
   @inline implicit def toPimpedJsObject(jo: JsObject) = new PimpedJsObject(jo)
   @inline implicit def toPimpedJsValue(jv: JsValue) = new PimpedJsValue(jv)

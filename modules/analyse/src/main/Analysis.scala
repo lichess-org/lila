@@ -1,7 +1,6 @@
 package lila.analyse
 
 import chess.Color
-import chess.format.Uci
 
 import org.joda.time.DateTime
 
@@ -48,7 +47,7 @@ case class Analysis(
 object Analysis {
 
   import lila.db.BSON
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   case class Analyzed(game: lila.game.Game, analysis: Analysis)
 

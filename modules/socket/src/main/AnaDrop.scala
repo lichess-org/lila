@@ -40,21 +40,21 @@ case class AnaDrop(
       }
     }
 
-  def json(b: Branch): JsObject = Json.obj(
-    "node" -> b,
-    "path" -> path
-  ).add("ch" -> chapterId)
+  // def json(b: Branch): JsObject = Json.obj(
+  //   "node" -> b,
+  //   "path" -> path
+  // ).add("ch" -> chapterId)
 }
 
 object AnaDrop {
 
   def parse(o: JsObject) = for {
-    d ← o obj "d"
-    role ← d str "role" flatMap chess.Role.allByName.get
-    pos ← d str "pos" flatMap chess.Pos.posAt
+    d <- o obj "d"
+    role <- d str "role" flatMap chess.Role.allByName.get
+    pos <- d str "pos" flatMap chess.Pos.posAt
     variant = chess.variant.Variant orDefault ~d.str("variant")
-    fen ← d str "fen"
-    path ← d str "path"
+    fen <- d str "fen"
+    path <- d str "path"
   } yield AnaDrop(
     role = role,
     pos = pos,

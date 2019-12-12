@@ -6,8 +6,6 @@ import ui.ScalatagsTemplate._
 
 trait StringHelper { self: NumberHelper =>
 
-  def netDomain: String
-
   val slugify = lila.common.String.slugify _
 
   def shorten(text: String, length: Int, sep: String = "…") = lila.common.String.shorten(text, length, sep)
@@ -32,14 +30,14 @@ trait StringHelper { self: NumberHelper =>
     val rendered = s.render
     rendered match {
       case NumberFirstRegex(number, html) => frag(
-        strong((~parseIntOption(number)).localize),
+        strong((~number.toIntOption).localize),
         br,
         raw(html)
       )
       case NumberLastRegex(n) if rendered.length > n.length + 1 => frag(
         raw(rendered.dropRight(n.length + 1)),
         br,
-        strong((~parseIntOption(n)).localize)
+        strong((~n.toIntOption).localize)
       )
       case h => raw(h.replaceIf('\n', "<br>"))
     }

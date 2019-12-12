@@ -7,7 +7,6 @@ import lila.i18n.{ I18nKeys => trans }
 import lila.pref.Pref
 import lila.report.Reason
 import lila.setup.TimeMode
-import lila.tournament.System
 
 trait SetupHelper { self: I18nHelper =>
 
@@ -57,11 +56,7 @@ trait SetupHelper { self: I18nHelper =>
     (Mode.Rated.id.toString, trans.ratedTournament.txt(), none)
   )
 
-  def translatedSystemChoices(implicit ctx: Context) = List(
-    System.Arena.id.toString -> "Arena"
-  )
-
-  private def variantTuple(variant: chess.variant.Variant)(implicit ctx: Context): SelectChoice =
+  private def variantTuple(variant: chess.variant.Variant): SelectChoice =
     (variant.id.toString, variant.name, variant.title.some)
 
   def translatedVariantChoices(implicit ctx: Context) = List(

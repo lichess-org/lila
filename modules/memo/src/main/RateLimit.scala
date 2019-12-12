@@ -1,6 +1,6 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Scaffeine
 
 import ornicar.scalalib.Zero
 import scala.concurrent.duration.Duration
@@ -24,10 +24,8 @@ final class RateLimit[K](
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private val logger = lila.log("ratelimit")
-  private val monitor = lila.mon.security.rateLimit.generic(key)
-
-  logger.info(s"[start] $name ($credits/$duration)")
+  private lazy val logger = lila.log("ratelimit").branch(name)
+  private lazy val monitor = lila.mon.security.rateLimit(key)
 
   def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(implicit default: Zero[A]): A =
     apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
@@ -44,8 +42,8 @@ final class RateLimit[K](
         storage.put(k, cost -> makeClearAt)
         op
       case _ if enforce =>
-        if (log) logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
-        monitor()
+        if (log) logger.info(s"$credits/$duration $k cost: $cost $msg")
+        monitor.increment()
         default.zero
       case _ =>
         op

@@ -4,15 +4,14 @@ import chess.format.pgn.Tags
 import chess.format.{ Forsyth, FEN }
 import chess.variant.{ Variant, Crazyhouse }
 import lila.chat.{ Chat, ChatApi }
-import lila.game.{ Game, GameRepo, Namer }
-import lila.importer.Importer
+import lila.game.{ Game, Namer }
 import lila.user.User
 
 private final class ChapterMaker(
-    domain: String,
+    net: lila.common.config.NetConfig,
     lightUser: lila.user.LightUserApi,
     chatApi: ChatApi,
-    importer: Importer,
+    gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
 ) {
@@ -44,11 +43,13 @@ private final class ChapterMaker(
     }
   } yield Chapter.make(
     studyId = study.id,
-    name = (for {
-      white <- parsed.tags(_.White)
-      black <- parsed.tags(_.Black)
-      if data.name.value.isEmpty || Chapter.isDefaultName(data.name)
-    } yield Chapter.Name(s"$white - $black")) | data.name,
+    name = parsed.tags(_.White).flatMap { white =>
+      parsed.tags(_.Black).ifTrue {
+        data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+      }.map {
+        black => Chapter.Name(s"$white - $black")
+      }
+    } | data.name,
     setup = Chapter.Setup(
       none,
       parsed.variant,
@@ -115,13 +116,15 @@ private final class ChapterMaker(
   ): Fu[Chapter] = for {
     root <- game2root(game, initialFen)
     tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
+    name <- {
+      if (Chapter isDefaultName data.name)
+        Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
+      else fuccess(data.name)
+    }
     _ = notifyChat(study, game, userId)
   } yield Chapter.make(
     studyId = study.id,
-    name =
-      if (Chapter isDefaultName data.name)
-        Chapter.Name(Namer.gameVsText(game, withRatings = false)(lightUser.sync))
-      else data.name,
+    name = name,
     setup = Chapter.Setup(
       !game.synthetic option game.id,
       game.variant,
@@ -141,24 +144,24 @@ private final class ChapterMaker(
       chatApi.userChat.write(
         chatId = Chat.Id(chatId),
         userId = userId,
-        text = s"I'm studying this game on ${domain}/study/${study.id}",
+        text = s"I'm studying this game on ${net.domain}/study/${study.id}",
         publicSource = none
       )
     }
 
   def game2root(game: Game, initialFen: Option[FEN] = None): Fu[Node.Root] =
-    initialFen.fold(GameRepo initialFen game) { fen =>
+    initialFen.fold(gameRepo initialFen game) { fen =>
       fuccess(fen.some)
     } map { GameToRoot(game, _, withClocks = true) }
 
   private val UrlRegex = {
-    val escapedDomain = domain.replace(".", "\\.")
+    val escapedDomain = net.domain.value.replace(".", "\\.")
     s"""$escapedDomain/(\\w{8,12})"""
   }.r.unanchored
 
   private def parseGame(str: String): Fu[Option[Game]] = str match {
-    case s if s.size == Game.gameIdSize => GameRepo game s
-    case s if s.size == Game.fullIdSize => GameRepo game Game.takeGameId(s)
+    case s if s.size == Game.gameIdSize => gameRepo game s
+    case s if s.size == Game.fullIdSize => gameRepo game Game.takeGameId(s)
     case UrlRegex(id) => parseGame(id)
     case _ => fuccess(none)
   }

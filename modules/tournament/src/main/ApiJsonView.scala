@@ -2,10 +2,11 @@ package lila.tournament
 
 import play.api.libs.json._
 
-import lila.common.LightUser
+import lila.user.LightUserApi
 import lila.rating.PerfType
+import lila.common.Json.jodaWrites
 
-final class ApiJsonView(lightUser: LightUser.Getter) {
+final class ApiJsonView(lightUserApi: LightUserApi) {
 
   import JsonView._
 
@@ -37,7 +38,7 @@ final class ApiJsonView(lightUser: LightUser.Getter) {
   private def baseJson(tour: Tournament): JsObject = Json.obj(
     "id" -> tour.id,
     "createdBy" -> tour.createdBy,
-    "system" -> tour.system.toString.toLowerCase,
+    "system" -> "arena", // BC
     "minutes" -> tour.minutes,
     "clock" -> tour.clock,
     "rated" -> tour.mode.rated,
@@ -57,23 +58,19 @@ final class ApiJsonView(lightUser: LightUser.Getter) {
     .add("private", tour.isPrivate)
     .add("position", tour.position.some.filterNot(_.initial) map positionJson)
     .add("schedule", tour.schedule map scheduleJson)
-    .add("battle", tour.teamBattle map teamBattleJson)
+    .add("battle", tour.teamBattle.map(_ => Json.obj()))
 
   def fullJson(tour: Tournament): Fu[JsObject] = for {
-    owner <- tour.nonLichessCreatedBy ?? lightUser
-    winner <- tour.winnerId ?? lightUser
+    owner <- tour.nonLichessCreatedBy ?? lightUserApi.async
+    winner <- tour.winnerId ?? lightUserApi.async
   } yield baseJson(tour) ++ Json.obj(
     "winner" -> winner.map(userJson)
   ).add("major", owner.exists(_.title.isDefined))
 
-  private def userJson(u: LightUser) = Json.obj(
+  private def userJson(u: lila.common.LightUser) = Json.obj(
     "id" -> u.id,
     "name" -> u.name,
     "title" -> u.title
-  )
-
-  private def teamBattleJson(battle: TeamBattle) = Json.obj( // "nbTeams" -> battle.teams.size,
-  // "nbLeaders" -> battle.nbLeaders
   )
 
   private val perfPositions: Map[PerfType, Int] = {

@@ -18,7 +18,6 @@ object index {
     pov: lila.game.Pov,
     data: play.api.libs.json.JsObject,
     cross: Option[lila.game.Crosstable.WithMatchup],
-    flip: Boolean,
     history: List[lila.game.Pov]
   )(implicit ctx: Context) =
     views.html.round.bits.layout(

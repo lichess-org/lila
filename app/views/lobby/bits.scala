@@ -117,7 +117,7 @@ object bits {
     )
   )
 
-  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame)(implicit ctx: Context) = nopeInfo(
+  def currentGameInfo(current: lila.app.mashup.Preload.CurrentGame) = nopeInfo(
     h1("Hang on!"),
     p("You have a game in progress with ", strong(current.opponent), "."),
     br, br,

@@ -4,9 +4,11 @@ import play.api.libs.json._
 
 import lila.game.GameRepo
 import lila.tree
+import lila.tree.Node.defaultNodeJsonWriter
 
 final class JsonView(
     gameJson: GameJson,
+    gameRepo: GameRepo,
     animationDuration: scala.concurrent.duration.Duration
 ) {
 
@@ -16,7 +18,6 @@ final class JsonView(
     mode: String,
     mobileApi: Option[lila.common.ApiVersion],
     round: Option[Round] = None,
-    result: Option[Result] = None,
     voted: Option[Boolean]
   ): Fu[JsObject] = {
     val isOldMobile = mobileApi.exists(_.value < 3)
@@ -66,7 +67,7 @@ final class JsonView(
   )
 
   def batch(puzzles: List[Puzzle], userInfos: UserInfos): Fu[JsObject] = for {
-    games <- GameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
+    games <- gameRepo.gameOptionsFromSecondary(puzzles.map(_.gameId))
     jsons <- (puzzles zip games).collect {
       case (puzzle, Some(game)) =>
         gameJson.noCache(game, puzzle.initialPly, true) map { gameJson =>
@@ -92,7 +93,7 @@ final class JsonView(
     "lines" -> lila.puzzle.Line.toJson(puzzle.lines),
     "vote" -> puzzle.vote.sum
   ).add("initialMove" -> isOldMobile.option(puzzle.initialMove.uci))
-    .add("branch" -> (!isOldMobile).option(makeBranch(puzzle)))
+    .add("branch" -> (!isOldMobile).??(makeBranch(puzzle)).map(defaultNodeJsonWriter.writes))
     .add("enabled" -> puzzle.enabled)
 
   private def makeBranch(puzzle: Puzzle): Option[tree.Branch] = {

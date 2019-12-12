@@ -1,12 +1,11 @@
 package views.html
 
-import play.api.data.{ Field, Form }
+import play.api.data.Form
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.user.User
 
 import controllers.routes
 
@@ -30,7 +29,7 @@ object event {
             event.title,
             span("Created by ", usernameOrId(event.createdBy.value), " ", momentFromNow(event.createdAt))
           ),
-          st.form(cls := "box__top__actions", action := routes.Event.clone(event.id), method := "get")(
+          st.form(cls := "box__top__actions", action := routes.Event.cloneE(event.id), method := "get")(
             form3.submit("Clone", "".some, klass = "button-green")
           )
         ),

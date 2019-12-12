@@ -4,16 +4,15 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
-import lila.common.LilaCookie
 import views._
 
-object Pref extends LilaController {
+final class Pref(env: Env) extends LilaController(env) {
 
-  private def api = Env.pref.api
+  private def api = env.pref.api
   private def forms = lila.pref.DataForm
 
   def apiGet = Scoped(_.Preference.Read) { _ => me =>
-    Env.pref.api.getPref(me) map { prefs =>
+    env.pref.api.getPref(me) map { prefs =>
       JsonOk {
         import play.api.libs.json._
         import lila.pref.JsonView._
@@ -30,11 +29,11 @@ object Pref extends LilaController {
     }
   }
 
-  def formApply = AuthBody { implicit ctx => me =>
+  def formApply = AuthBody { implicit ctx => _ =>
     def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
-      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
+      _ => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
         err => BadRequest(err.toString).fuccess,
         onSuccess
       ),
@@ -43,9 +42,8 @@ object Pref extends LilaController {
   }
 
   def set(name: String) = OpenBody { implicit ctx =>
-    implicit val req = ctx.body
     if (name == "zoom") {
-      Ok.withCookies(LilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+      Ok.withCookies(env.lilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
     } else {
       implicit val req = ctx.body
       (setters get name) ?? {
@@ -82,5 +80,5 @@ object Pref extends LilaController {
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
       api.setPrefString(_, name, value)
-    } inject LilaCookie.session(name, value)(ctx.req)
+    } inject env.lilaCookie.session(name, value)(ctx.req)
 }

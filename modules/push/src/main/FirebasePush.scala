@@ -1,30 +1,34 @@
 package lila.push
 
-import akka.actor.ActorSystem
 import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
+import io.methvin.play.autoconfig._
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import scala.concurrent.Future
 import scala.concurrent.duration._
 
+import lila.common.WorkQueue
 import lila.user.User
 
 private final class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
-    getDevices: User.ID => Fu[List[Device]],
-    url: String
-)(implicit system: ActorSystem) {
+    deviceApi: DeviceApi,
+    ws: WSClient,
+    config: OneSignalPush.Config
+)(implicit system: akka.actor.ActorSystem) {
 
-  private val sequentialBlock = new SequentialBlock[AccessToken](timeout = 10 seconds)
+  private val workQueue = new WorkQueue(512)
 
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>
-      getDevices(userId) flatMap {
+      deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
         case Nil => funit
         // access token has 1h lifetime and is requested only if expired
-        case devices => sequentialBlock {
-          creds.refreshIfExpired()
-          creds.getAccessToken()
+        case devices => workQueue {
+          Future {
+            creds.refreshIfExpired()
+            creds.getAccessToken()
+          } withTimeout 10.seconds
         }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
           // TODO http batch request is possible using a multipart/mixed content
           // unfortuntely it doesn't seem easily doable with play WS
@@ -34,8 +38,8 @@ private final class FirebasePush(
     }
 
   private def send(token: AccessToken, device: Device, data: => PushApi.Data): Funit =
-    WS.url(url)
-      .withHeaders(
+    ws.url(config.url)
+      .withHttpHeaders(
         "Authorization" -> s"Bearer ${token.getTokenValue}",
         "Accept" -> "application/json",
         "Content-type" -> "application/json; UTF-8"
@@ -65,20 +69,11 @@ private final class FirebasePush(
     })
 }
 
-private final class SequentialBlock[T](timeout: FiniteDuration)(implicit system: ActorSystem) {
+private object FirebasePush {
 
-  import java.util.concurrent.atomic.AtomicReference
-  import scala.concurrent.Future
-
-  private val queue: AtomicReference[Option[Fu[T]]] = new AtomicReference(none)
-
-  private def run(blocking: => T) = Future(blocking) withTimeout timeout
-
-  def apply(blockingCall: => T): Fu[T] =
-    queue.updateAndGet((prev: Option[Fu[T]]) => some {
-      prev match {
-        case None => run(blockingCall)
-        case Some(previous) => previous >> run(blockingCall)
-      }
-    }).get
+  final class Config(
+      val url: String,
+      val json: lila.common.config.Secret
+  )
+  implicit val configLoader = AutoConfig.loader[Config]
 }

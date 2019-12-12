@@ -22,7 +22,7 @@ private final class WebhookHandler(api: PlanApi) {
         case "customer.subscription.deleted" =>
           val sub = data.asOpt[StripeSubscription] err s"Invalid subscription $data"
           api onSubscriptionDeleted sub
-        case typ => funit
+        case _ => funit
       }))
     }
   }

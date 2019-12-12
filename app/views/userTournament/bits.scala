@@ -18,7 +18,7 @@ object bits {
       path = "best",
       moreJs = infiniteScrollTag
     ) {
-      views.html.userTournament.list(u, "best", pager, "Best results", "BEST")
+      views.html.userTournament.list(u, "best", pager, "BEST")
     }
 
   def recent(u: User, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry])(implicit ctx: Context) =
@@ -28,7 +28,7 @@ object bits {
       path = "recent",
       moreJs = infiniteScrollTag
     ) {
-      views.html.userTournament.list(u, "recent", pager, "Recently played", pager.nbResults.toString)
+      views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
     }
 
   def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(body: Frag)(implicit ctx: Context) =

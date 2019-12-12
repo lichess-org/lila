@@ -3,7 +3,7 @@ package controllers
 import lila.app._
 import views._
 
-object ForumCateg extends LilaController with ForumController {
+final class ForumCateg(env: Env) extends LilaController(env) with ForumController {
 
   def index = Open { implicit ctx =>
     pageHit
@@ -11,7 +11,7 @@ object ForumCateg extends LilaController with ForumController {
       for {
         teamIds <- ctx.userId ?? teamCache.teamIdsList
         categs <- categApi.list(teamIds, ctx.troll)
-        _ <- Env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
+        _ <- env.user.lightUserApi preloadMany categs.flatMap(_.lastPostUserId)
       } yield html.forum.categ.index(categs)
     }
   }
@@ -22,8 +22,8 @@ object ForumCateg extends LilaController with ForumController {
         OptionFuOk(categApi.show(slug, page, ctx.troll)) {
           case (categ, topics) => for {
             canWrite <- isGrantedWrite(categ.slug)
-            stickyPosts <- (page == 1) ?? lila.forum.Env.current.topicApi.getSticky(categ, ctx.troll)
-            _ <- Env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
+            stickyPosts <- (page == 1) ?? env.forum.topicApi.getSticky(categ, ctx.troll)
+            _ <- env.user.lightUserApi preloadMany topics.currentPageResults.flatMap(_.lastPostUserId)
           } yield html.forum.categ.show(categ, topics, canWrite, stickyPosts)
         }
       }

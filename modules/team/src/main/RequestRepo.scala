@@ -2,10 +2,7 @@ package lila.team
 
 import lila.db.dsl._
 
-object RequestRepo {
-
-  // dirty
-  private val coll = Env.current.colls.request
+final class RequestRepo(val coll: Coll) {
 
   import BSONHandlers._
 
@@ -15,7 +12,7 @@ object RequestRepo {
     coll.exists(selectId(teamId, userId))
 
   def find(teamId: ID, userId: ID): Fu[Option[Request]] =
-    coll.uno[Request](selectId(teamId, userId))
+    coll.one[Request](selectId(teamId, userId))
 
   def countByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))
@@ -34,7 +31,7 @@ object RequestRepo {
   def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
 
   def getByUserId(userId: lila.user.User.ID) =
-    coll.find($doc("user" -> userId)).list[Request]()
+    coll.ext.find($doc("user" -> userId)).list[Request]()
 
-  def remove(id: ID) = coll.remove($id(id))
+  def remove(id: ID) = coll.delete.one($id(id))
 }

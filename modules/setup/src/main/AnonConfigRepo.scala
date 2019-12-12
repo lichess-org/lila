@@ -1,7 +1,7 @@
 package lila.setup
 
 import play.api.mvc._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
@@ -10,7 +10,7 @@ private final class AnonConfigRepo(coll: Coll) {
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
       _ ?? { config =>
-        coll.update(
+        coll.update.one(
           $id(config.id),
           f(config),
           upsert = true

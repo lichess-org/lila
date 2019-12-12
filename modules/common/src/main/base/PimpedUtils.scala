@@ -28,8 +28,10 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
   def toFailure[B](b: => B): scalaz.Validation[A, B] = o.toFailure(self)(b)
 
-  def toTry(err: => Exception): Try[A] =
+  def toTryWith(err: => Exception): Try[A] =
     self.fold[Try[A]](scala.util.Failure(err))(scala.util.Success.apply)
+
+  def toTry(err: => String): Try[A] = toTryWith(lila.base.LilaException(err))
 
   def err(message: => String): A = self.getOrElse(sys.error(message))
 
@@ -39,10 +41,6 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 }
 
 final class PimpedString(private val s: String) extends AnyVal {
-
-  def boot[A](v: => A): A = lila.common.Chronometer.syncEffect(v) { lap =>
-    lila.log.boot.info(s"${lap.millis}ms $s")
-  }
 
   def replaceIf(t: Char, r: Char): String =
     if (s.indexOf(t) >= 0) s.replace(t, r) else s

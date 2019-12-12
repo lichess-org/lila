@@ -1,7 +1,5 @@
 package views.html.board
 
-import play.api.libs.json.JsObject
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._

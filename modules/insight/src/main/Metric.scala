@@ -2,7 +2,7 @@ package lila.insight
 
 import scalatags.Text.all._
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 sealed abstract class Metric(
     val key: String,

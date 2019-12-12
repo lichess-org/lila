@@ -1,12 +1,9 @@
 package lila.challenge
 
 import play.api.libs.json._
-import scala.concurrent.duration._
 
-import lila.game.Pov
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.makeMessage
 
 private final class ChallengeSocket(
     api: ChallengeApi,

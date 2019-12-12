@@ -1,7 +1,6 @@
 package lila.irwin
 
 import lila.report.Suspect
-import lila.user.User
 import lila.game.Game
 import lila.analyse.Analysis
 

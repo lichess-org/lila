@@ -1,0 +1,6 @@
+-J-Xms256M
+-J-Xmx2048M
+-J-XX:+CMSClassUnloadingEnabled
+-J-XX:+UseParallelGC
+-J-XX:MaxMetaspaceSize=512m
+-J-Xss512k

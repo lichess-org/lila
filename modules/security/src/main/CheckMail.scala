@@ -2,9 +2,7 @@ package lila.security
 
 import scala.concurrent.duration._
 
-import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSResponse }
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 
 import lila.common.Domain
 import lila.db.dsl._
@@ -13,26 +11,27 @@ import lila.db.dsl._
  * Only hit after trying everything else (DnsApi)
  * and save the result forever. */
 private final class CheckMail(
-    url: String,
-    key: String,
+    ws: WSClient,
+    config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Builder
 )(implicit system: akka.actor.ActorSystem) {
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
-    if (key.isEmpty) fuccess(true)
-    else cache(domain).withTimeoutDefault(2.seconds, true) recover {
-      case e: Exception =>
-        lila.mon.security.checkMailApi.error()
-        logger.warn(s"CheckMail $domain ${e.getMessage}", e)
-        true
-    }
+    if (config.key.value.isEmpty) fuccess(true)
+    else cache(domain)
+      .withTimeoutDefault(2.seconds, true)
+      .recover {
+        case e: Exception =>
+          logger.warn(s"CheckMail $domain ${e.getMessage}", e)
+          true
+      }
 
-  private[security] def fetchAllBlocked: Fu[List[String]] = cache.coll.distinct[String, List](
+  private[security] def fetchAllBlocked: Fu[List[String]] = cache.coll.distinctEasy[String, List](
     "_id",
     $doc(
       "_id" $regex s"^$prefix:",
       "v" -> false
-    ).some
+    )
   ) map { ids =>
       val dropSize = prefix.size + 1
       ids.map(_ drop dropSize)
@@ -48,10 +47,12 @@ private final class CheckMail(
   )
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
-    WS.url(url)
-      .withQueryString("domain" -> domain.value, "disable_test_connection" -> "true")
-      .withHeaders("x-rapidapi-key" -> key)
-      .get withTimeout 15.seconds map {
+    ws.url(config.url)
+      .withQueryStringParameters("domain" -> domain.value, "disable_test_connection" -> "true")
+      .withHttpHeaders("x-rapidapi-key" -> config.key.value)
+      .get
+      .withTimeout(15.seconds)
+      .map {
         case res if res.status == 200 =>
           val valid = ~(res.json \ "valid").asOpt[Boolean]
           val block = ~(res.json \ "block").asOpt[Boolean]
@@ -59,10 +60,9 @@ private final class CheckMail(
           val reason = ~(res.json \ "reason").asOpt[String]
           val ok = valid && !block && !disposable
           logger.info(s"CheckMail $domain = $ok ($reason)")
-          lila.mon.security.checkMailApi.count()
-          if (!ok) lila.mon.security.checkMailApi.block()
           ok
         case res =>
-          throw lila.base.LilaException(s"$url $domain ${res.status} ${res.body take 200}")
+          throw lila.base.LilaException(s"${config.url} $domain ${res.status} ${res.body take 200}")
       }
+      .monTry(res => _.security.checkMailApi.fetch(res.isSuccess, res.getOrElse(true)))
 }

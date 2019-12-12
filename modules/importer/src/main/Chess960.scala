@@ -2,7 +2,7 @@ package lila.importer
 
 import chess._
 
-object Chess960 {
+private object Chess960 {
 
   def isStartPosition(board: Board) = board valid true && {
 

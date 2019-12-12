@@ -1,15 +1,18 @@
 package lila.challenge
 
 import Challenge.TimeControl
-import lila.game.{ Game, Pov, PovRef, GameRepo }
-import lila.user.{ User, UserRepo }
+import lila.game.{ Game, Pov }
+import lila.user.User
 
-object ChallengeMaker {
+final class ChallengeMaker(
+    userRepo: lila.user.UserRepo,
+    gameRepo: lila.game.GameRepo
+) {
 
   def makeRematchFor(gameId: Game.ID, dest: User): Fu[Option[Challenge]] =
-    GameRepo game gameId flatMap {
+    gameRepo game gameId flatMap {
       _ ?? { game =>
-        game.opponentByUserId(dest.id).flatMap(_.userId) ?? UserRepo.byId flatMap {
+        game.opponentByUserId(dest.id).flatMap(_.userId) ?? userRepo.byId flatMap {
           _ ?? { challenger =>
             Pov(game, challenger) ?? { pov =>
               makeRematch(pov, challenger, dest) map some
@@ -21,7 +24,7 @@ object ChallengeMaker {
 
   def makeRematchOf(game: Game, challenger: User): Fu[Option[Challenge]] =
     Pov.ofUserId(game, challenger.id) ?? { pov =>
-      pov.opponent.userId ?? UserRepo.byId flatMap {
+      pov.opponent.userId ?? userRepo.byId flatMap {
         _ ?? { dest =>
           makeRematch(pov, challenger, dest) map some
         }
@@ -30,7 +33,7 @@ object ChallengeMaker {
 
   // pov of the challenger
   private def makeRematch(pov: Pov, challenger: User, dest: User): Fu[Challenge] =
-    GameRepo initialFen pov.game map { initialFen =>
+    gameRepo initialFen pov.game map { initialFen =>
       Challenge.make(
         variant = pov.game.variant,
         initialFen = initialFen,

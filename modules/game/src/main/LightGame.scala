@@ -1,7 +1,6 @@
 package lila.game
 
-import chess.{ Color, Status, Mode }
-import org.joda.time.DateTime
+import chess.{ Color, Status }
 
 import lila.user.User
 

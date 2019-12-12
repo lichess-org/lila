@@ -5,10 +5,11 @@ import chess.format.pgn.{ Pgn, Tag, Tags, TagType, Parser, ParsedPgn }
 import chess.format.{ FEN, pgn => chessPgn }
 import chess.{ Centis, Color }
 
+import lila.common.config.BaseUrl
 import lila.common.LightUser
 
 final class PgnDump(
-    netBaseUrl: String,
+    baseUrl: BaseUrl,
     getLightUser: LightUser.Getter
 ) {
 
@@ -36,7 +37,7 @@ final class PgnDump(
     }
   }
 
-  private def gameUrl(id: String) = s"$netBaseUrl/$id"
+  private def gameUrl(id: String) = s"$baseUrl/$id"
 
   private def gameLightUsers(game: Game): Fu[(Option[LightUser], Option[LightUser])] =
     (game.whitePlayer.userId ?? getLightUser) zip (game.blackPlayer.userId ?? getLightUser)

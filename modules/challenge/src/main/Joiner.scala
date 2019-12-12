@@ -3,16 +3,20 @@ package lila.challenge
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
 import chess.{ Situation, Mode }
-import lila.game.{ GameRepo, Game, Pov, Source, Player }
-import lila.user.{ User, UserRepo }
+import lila.game.{ Game, Pov, Source, Player }
+import lila.user.User
 
-private[challenge] final class Joiner(onStart: String => Unit) {
+private[challenge] final class Joiner(
+    gameRepo: lila.game.GameRepo,
+    userRepo: lila.user.UserRepo,
+    onStart: lila.round.OnStart
+) {
 
   def apply(c: Challenge, destUser: Option[User]): Fu[Option[Pov]] =
-    GameRepo exists c.id flatMap {
+    gameRepo exists c.id flatMap {
       case true => fuccess(None)
       case false =>
-        c.challengerUserId.??(UserRepo.byId) flatMap { challengerUser =>
+        c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
 
           def makeChess(variant: chess.variant.Variant): chess.Game =
             chess.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
@@ -55,7 +59,7 @@ private[challenge] final class Joiner(onStart: String => Unit) {
                 )
               }
             }.start
-          (GameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
+          (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
         }
     }
 }

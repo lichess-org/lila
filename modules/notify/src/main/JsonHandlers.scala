@@ -3,6 +3,8 @@ package lila.notify
 import lila.common.LightUser
 import play.api.libs.json._
 
+import lila.common.Json.jodaWrites
+
 final class JSONHandlers(getLightUser: LightUser.GetterSync) {
 
   implicit val privateMessageThreadWrites = Json.writes[PrivateMessage.Thread]

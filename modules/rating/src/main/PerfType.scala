@@ -200,7 +200,7 @@ object PerfType {
     case _ => none
   }
 
-  lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.map { pt =>
+  lazy val totalTimeRoughEstimation: Map[PerfType, Centis] = nonPuzzle.view.map { pt =>
     pt -> Centis(pt match {
       case UltraBullet => 25 * 100
       case Bullet => 90 * 100
@@ -210,7 +210,7 @@ object PerfType {
       case Correspondence => 60 * 60 * 100
       case _ => 7 * 60 * 100
     })
-  }(scala.collection.breakOut)
+  }.to(Map)
 
   def iconByVariant(variant: chess.variant.Variant): Char =
     byVariant(variant).fold('C')(_.iconChar)

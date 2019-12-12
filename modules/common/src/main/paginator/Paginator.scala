@@ -3,6 +3,8 @@ package paginator
 
 import scalaz.Success
 
+import config.MaxPerPage
+
 final class Paginator[A] private[paginator] (
     val currentPage: Int,
     val maxPerPage: MaxPerPage,
@@ -60,7 +62,7 @@ final class Paginator[A] private[paginator] (
     withCurrentPageResults(currentPageResults map f)
 
   def mapFutureResults[B](f: A => Fu[B]): Fu[Paginator[B]] =
-    currentPageResults.map(f).sequenceFu map withCurrentPageResults
+    currentPageResults.map(f).sequenceFu dmap withCurrentPageResults
 }
 
 object Paginator {
@@ -86,17 +88,6 @@ object Paginator {
     nbResults = nbResults
   )
 
-  def fromList[A](
-    list: List[A],
-    currentPage: Int = 1,
-    maxPerPage: MaxPerPage = MaxPerPage(10)
-  ): Paginator[A] = new Paginator(
-    currentPage = currentPage,
-    maxPerPage = maxPerPage,
-    currentPageResults = list.drop((currentPage - 1) * maxPerPage.value).take(maxPerPage.value),
-    nbResults = list.size
-  )
-
   def validate[A](
     adapter: AdapterLike[A],
     currentPage: Int = 1,
@@ -105,7 +96,7 @@ object Paginator {
     if (currentPage < 1) !!("Max per page must be greater than zero")
     else if (maxPerPage.value <= 0) !!("Current page must be greater than zero")
     else Success(for {
-      results ← adapter.slice((currentPage - 1) * maxPerPage.value, maxPerPage.value)
-      nbResults ← adapter.nbResults
+      results <- adapter.slice((currentPage - 1) * maxPerPage.value, maxPerPage.value)
+      nbResults <- adapter.nbResults
     } yield new Paginator(currentPage, maxPerPage, results, nbResults))
 }

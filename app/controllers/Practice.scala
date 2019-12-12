@@ -1,5 +1,6 @@
 package controllers
 
+import com.github.ghik.silencer.silent
 import play.api.libs.json._
 
 import lila.api.Context
@@ -11,26 +12,28 @@ import lila.study.{ Chapter, Study => StudyModel }
 import lila.tree.Node.partitionTreeJsonWriter
 import views._
 
-object Practice extends LilaController {
+final class Practice(
+    env: Env,
+    userAnalysisC: => UserAnalysis
+) extends LilaController(env) {
 
-  private def env = Env.practice
-  private def studyEnv = Env.study
+  val api = env.practice.api
 
   def index = Open { implicit ctx =>
     pageHit
-    env.api.get(ctx.me) flatMap { up =>
+    api.get(ctx.me) flatMap { up =>
       NoCache(Ok(html.practice.index(up))).fuccess
     }
   }
 
-  def show(sectionId: String, studySlug: String, studyId: String) = Open { implicit ctx =>
+  def show(@silent sectionId: String, @silent studySlug: String, studyId: String) = Open { implicit ctx =>
     pageHit
-    OptionFuResult(env.api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
+    OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
   }
 
-  def showChapter(sectionId: String, studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
+  def showChapter(@silent sectionId: String, @silent studySlug: String, studyId: String, chapterId: String) = Open { implicit ctx =>
     pageHit
-    OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
+    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
   }
 
   def showSection(sectionId: String) =
@@ -40,7 +43,7 @@ object Practice extends LilaController {
     redirectTo(sectionId)(_.studies.find(_.slug == studySlug))
 
   private def redirectTo(sectionId: String)(select: PracticeSection => Option[PracticeStudy]) = Open { implicit ctx =>
-    env.api.structure.get.flatMap { struct =>
+    api.structure.get.flatMap { struct =>
       struct.sections.find(_.id == sectionId).fold(notFound) { section =>
         select(section) ?? { study =>
           Redirect(routes.Practice.show(section.id, study.slug, study.id.value)).fuccess
@@ -60,7 +63,7 @@ object Practice extends LilaController {
   }
 
   def chapter(studyId: String, chapterId: String) = Open { implicit ctx =>
-    OptionFuResult(env.api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
+    OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId)) { us =>
       analysisJson(us) map {
         case (analysisJson, studyJson) => Ok(Json.obj(
           "study" -> studyJson,
@@ -72,10 +75,10 @@ object Practice extends LilaController {
 
   private def analysisJson(us: UserStudy)(implicit ctx: Context): Fu[(JsObject, JsObject)] = us match {
     case UserStudy(_, _, chapters, WithChapter(study, chapter), _) =>
-      studyEnv.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
+      env.study.jsonView(study, chapters, chapter, ctx.me) map { studyJson =>
         val initialFen = chapter.root.fen.some
-        val pov = UserAnalysis.makePov(initialFen, chapter.setup.variant)
-        val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
+        val pov = userAnalysisC.makePov(initialFen, chapter.setup.variant)
+        val baseData = env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, chapter.setup.orientation, owner = false, me = ctx.me)
         val analysis = baseData ++ Json.obj(
           "treeParts" -> partitionTreeJsonWriter.writes {
             lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
@@ -87,29 +90,29 @@ object Practice extends LilaController {
   }
 
   def complete(chapterId: String, nbMoves: Int) = Auth { implicit ctx => me =>
-    env.api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
+    api.progress.setNbMoves(me, chapterId, lila.practice.PracticeProgress.NbMoves(nbMoves))
   }
 
-  def reset = AuthBody { implicit ctx => me =>
-    env.api.progress.reset(me) inject Redirect(routes.Practice.index)
+  def reset = AuthBody { _ => me =>
+    api.progress.reset(me) inject Redirect(routes.Practice.index)
   }
 
-  def config = Auth { implicit ctx => me =>
+  def config = Auth { implicit ctx => _ =>
     for {
-      struct <- env.api.structure.get
-      form <- env.api.config.form
+      struct <- api.structure.get
+      form <- api.config.form
     } yield Ok(html.practice.config(struct, form))
   }
 
   def configSave = SecureBody(_.PracticeConfig) { implicit ctx => me =>
     implicit val req = ctx.body
-    env.api.config.form.flatMap { form =>
+    api.config.form.flatMap { form =>
       FormFuResult(form) { err =>
-        env.api.structure.get map { html.practice.config(_, err) }
+        api.structure.get map { html.practice.config(_, err) }
       } { text =>
-        ~env.api.config.set(text).right.toOption >>-
-          env.api.structure.clear >>
-          Env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
+        ~api.config.set(text).toOption >>-
+          api.structure.clear >>
+          env.mod.logApi.practiceConfig(me.id) inject Redirect(routes.Practice.config)
       }
     }
   }

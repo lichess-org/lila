@@ -5,8 +5,9 @@ import play.api.libs.json._
 import chess.format.{ FEN, Forsyth }
 import chess.variant.Crazyhouse
 import chess.{ Color, Clock }
+import lila.common.Json.jodaWrites
 
-final class JsonView(rematchOf: Game.ID => Option[Game.ID]) {
+final class JsonView(rematches: Rematches) {
 
   import JsonView._
 
@@ -30,7 +31,7 @@ final class JsonView(rematchOf: Game.ID => Option[Game.ID]) {
     .add("winner" -> game.winnerColor)
     .add("lastMove" -> game.lastMoveKeys)
     .add("check" -> game.situation.checkSquare.map(_.key))
-    .add("rematch" -> rematchOf(game.id))
+    .add("rematch" -> rematches.of(game.id))
 }
 
 object JsonView {

@@ -2,9 +2,9 @@ package lila.analyse
 
 import chess.format.pgn.{ Pgn, Tag, Turn, Move, Glyphs }
 import chess.opening._
-import chess.{ Status, Color, Clock }
+import chess.{ Status, Color }
 
-final class Annotator(netDomain: String) {
+final class Annotator(netDomain: lila.common.config.NetDomain) {
 
   def apply(
     p: Pgn,

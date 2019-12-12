@@ -2,10 +2,11 @@ package lila.common
 
 import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
-import play.api.data.format.Formatter
-import play.api.data.validation.Constraint
+import play.api.data.format.{ Formatter, JodaFormats }
 import play.api.data.Forms._
-import play.api.data.{ Mapping, FormError, Field, Form => PlayForm }
+import play.api.data.JodaForms._
+import play.api.data.validation.Constraint
+import play.api.data.{ Mapping, FormError, Field }
 import scala.util.Try
 
 object Form {
@@ -26,7 +27,7 @@ object Form {
   }
 
   def options(it: Iterable[Int], code: String, pattern: String): Options[String] = it map { d =>
-    (d + code) -> (pluralize(pattern, d) format d)
+    s"$d$code" -> (pluralize(pattern, d) format d)
   }
 
   def optionsDouble(it: Iterable[Double], format: Double => String): Options[Double] = it map { d =>
@@ -57,17 +58,17 @@ object Form {
 
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = new Formatter[A] {
-      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data).right map to
+      def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
       def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
     }
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = new Formatter[A] {
-      def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data).right map to
+      def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data) map to
       def unbind(key: String, value: A) = intFormat.unbind(key, from(value))
     }
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean] {
       override val format = Some(("format.boolean", Nil))
       def bind(key: String, data: Map[String, String]) =
-        Right(data.get(key).getOrElse("false")).right.flatMap { v =>
+        Right(data.getOrElse(key, "false")).flatMap { v =>
           Right(trueish(v))
         }
       def unbind(key: String, value: Boolean) = Map(key -> value.toString)
@@ -92,29 +93,28 @@ object Form {
   object UTCDate {
     val dateTimePattern = "yyyy-MM-dd HH:mm"
     val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+    implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODateTime {
     val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val formatter = jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
+    val formatter = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
     val isoDateTime = jodaDate(dateTimePattern, DateTimeZone.UTC)
-    implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+    implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODate {
     val datePattern = "yyyy-MM-dd"
-    val formatter = jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
+    val formatter = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
     val isoDateTime = jodaDate(datePattern, DateTimeZone.UTC)
-    implicit val dateFormat = jodaDateTimeFormat(datePattern)
+    implicit val dateFormat = JodaFormats.jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
-    import lila.base.PimpedTry
     val formatter = new Formatter[org.joda.time.DateTime] {
       def bind(key: String, data: Map[String, String]) =
-        stringFormat.bind(key, data).right.flatMap { str =>
-          Try(java.lang.Long.parseLong(str)).toEither.right.flatMap { long =>
+        stringFormat.bind(key, data).flatMap { str =>
+          Try(java.lang.Long.parseLong(str)).toEither.flatMap { long =>
             Try(new DateTime(long)).toEither
           }
-        }.left.map(e => Seq(FormError(key, "Invalid timestamp", Nil)))
+        }.left.map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
       def unbind(key: String, value: org.joda.time.DateTime) = Map(key -> value.getMillis.toString)
     }
     val timestamp = of[org.joda.time.DateTime](formatter)

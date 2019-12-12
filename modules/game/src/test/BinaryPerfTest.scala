@@ -38,7 +38,7 @@ class BinaryPerfTest extends Specification {
     println(s"$name warming up")
     for (i <- 1 to iterations) run()
     println(s"$name running")
-    val durations = for (i ← 1 to nbRuns) yield {
+    val durations = for (i <- 1 to nbRuns) yield {
       val start = System.currentTimeMillis
       for (i <- 1 to iterations) run()
       val duration = System.currentTimeMillis - start

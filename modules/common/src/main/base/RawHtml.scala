@@ -1,8 +1,8 @@
 package lila.base
 
-import scala.annotation.{ tailrec, switch }
-import java.lang.{ StringBuilder => jStringBuilder, Math }
 import java.lang.Character.isLetterOrDigit
+import java.lang.{ StringBuilder => jStringBuilder, Math }
+import scala.annotation.{ tailrec, switch }
 
 import lila.common.base.StringUtils.escapeHtmlRaw
 
@@ -67,8 +67,8 @@ final object RawHtml {
     } else List(text)
   }
 
-  def addLinks(text: String): String = {
-    expandAtUser(text) map { expanded =>
+  def addLinks(text: String): String =
+    expandAtUser(text).map { expanded =>
       val m = urlPattern.matcher(expanded)
 
       if (!m.find) escapeHtmlRaw(expanded) // preserve fast case!
@@ -132,10 +132,12 @@ final object RawHtml {
         } while (m.find)
 
         escapeHtmlRaw(sb, sArr, lastAppendIdx, sArr.length)
-        sb
+        sb.toString
       }
-    } concat
-  }
+    } match {
+      case one :: Nil => one
+      case many => many mkString ""
+    }
 
   private[this] def adjustUrlEnd(sArr: Array[Char], start: Int, end: Int): Int = {
     var last = end - 1

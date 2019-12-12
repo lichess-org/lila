@@ -1,13 +1,11 @@
 package lila.bot
 
-import akka.actor._
-
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
 import chess.format.Uci
 import lila.common.Bus
-import lila.game.Game.{ PlayerId, FullId }
+import lila.game.Game.PlayerId
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ Abort, BotPlay, RematchNo, RematchYes, Resign }
@@ -16,13 +14,14 @@ import lila.user.User
 
 final class BotPlayer(
     chatApi: lila.chat.ChatApi,
-    isOfferingRematch: Pov => Boolean
-)(implicit system: ActorSystem) {
+    gameRepo: GameRepo,
+    isOfferingRematch: lila.round.IsOfferingRematch
+)(implicit system: akka.actor.ActorSystem) {
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {
       Uci(uciStr).fold(fufail[Unit](s"Invalid UCI: $uciStr")) { uci =>
-        lila.mon.bot.moves(me.username)()
+        lila.mon.bot.moves(me.username).increment()
         if (!pov.isMyTurn) fufail("Not your turn, or game already over")
         else {
           val promise = Promise[Unit]
@@ -30,7 +29,7 @@ final class BotPlayer(
           else if (!pov.player.isOfferingDraw && (offeringDraw contains true)) offerDraw(pov)
           Bus.publish(
             Tell(pov.gameId, BotPlay(pov.playerId, uci, promise.some)),
-            'roundMapTell
+            "roundMapTell"
           )
           promise.future
         }
@@ -38,7 +37,7 @@ final class BotPlayer(
     }
 
   def chat(gameId: Game.ID, me: User, d: BotForm.ChatData) = fuccess {
-    lila.mon.bot.chats(me.username)()
+    lila.mon.bot.chats(me.username).increment()
     val chatId = lila.chat.Chat.Id {
       if (d.room == "player") gameId else s"$gameId/w"
     }
@@ -53,17 +52,17 @@ final class BotPlayer(
   def rematchDecline(id: Game.ID, me: User): Fu[Boolean] = rematch(id, me, false)
 
   private def rematch(id: Game.ID, me: User, accept: Boolean): Fu[Boolean] =
-    GameRepo game id map {
+    gameRepo game id map {
       _.flatMap(Pov(_, me)).filter(p => isOfferingRematch(!p)) ?? { pov =>
         // delay so it feels more natural
         lila.common.Future.delay(if (accept) 100.millis else 2.seconds) {
           fuccess {
             Bus.publish(
               Tell(pov.gameId, (if (accept) RematchYes else RematchNo)(pov.playerId)),
-              'roundMapTell
+              "roundMapTell"
             )
           }
-        }(system)
+        }
         true
       }
     }
@@ -73,7 +72,7 @@ final class BotPlayer(
     else fuccess {
       Bus.publish(
         Tell(pov.gameId, Abort(pov.playerId)),
-        'roundMapTell
+        "roundMapTell"
       )
     }
 
@@ -82,7 +81,7 @@ final class BotPlayer(
     else if (pov.game.resignable) fuccess {
       Bus.publish(
         Tell(pov.gameId, Resign(pov.playerId)),
-        'roundMapTell
+        "roundMapTell"
       )
     }
     else fufail("This game cannot be resigned")
@@ -91,13 +90,13 @@ final class BotPlayer(
     if (pov.game.drawable && pov.opponent.isOfferingDraw)
       Bus.publish(
         Tell(pov.gameId, DrawNo(PlayerId(pov.playerId))),
-        'roundMapTell
+        "roundMapTell"
       )
 
   def offerDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.game.playerCanOfferDraw(pov.color) && pov.isMyTurn)
       Bus.publish(
         Tell(pov.gameId, DrawYes(PlayerId(pov.playerId))),
-        'roundMapTell
+        "roundMapTell"
       )
 }

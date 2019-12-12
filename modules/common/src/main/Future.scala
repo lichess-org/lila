@@ -1,6 +1,8 @@
 package lila.common
 
+import akka.actor.{ ActorSystem, Scheduler }
 import scala.concurrent.duration._
+import scala.concurrent.{ Promise, Future => ScalaFu }
 
 object Future {
 
@@ -12,16 +14,18 @@ object Future {
       case Nil => fuccess(zero)
     }
 
-  def lazyFold[T, R](futures: Stream[Fu[T]])(zero: R)(op: (R, T) => R): Fu[R] =
-    Stream.cons.unapply(futures).fold(fuccess(zero)) {
+  def lazyFold[T, R](futures: LazyList[Fu[T]])(zero: R)(op: (R, T) => R): Fu[R] =
+    LazyList.cons.unapply(futures).fold(fuccess(zero)) {
       case (future, rest) => future flatMap { f =>
         lazyFold(rest)(op(zero, f))(op)
       }
     }
 
-  def filter[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] = list.map {
-    element => f(element) dmap (_ option element)
-  }.sequenceFu.dmap(_.flatten)
+  def filter[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] = ScalaFu.sequence {
+    list.map {
+      element => f(element) dmap (_ option element)
+    }
+  }.dmap(_.flatten)
 
   def filterNot[A](list: List[A])(f: A => Fu[Boolean]): Fu[List[A]] =
     filter(list)(a => !f(a))
@@ -50,15 +54,21 @@ object Future {
 
   def exists[A](list: List[A])(pred: A => Fu[Boolean]): Fu[Boolean] = find(list)(pred).map(_.isDefined)
 
-  def delay[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
+  def delay[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: ActorSystem): Fu[A] =
     if (duration == 0.millis) run
     else akka.pattern.after(duration, system.scheduler)(run)
 
-  def makeItLast[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: akka.actor.ActorSystem): Fu[A] =
+  def sleep(duration: FiniteDuration)(implicit scheduler: Scheduler): Funit = {
+    val p = Promise[Unit]
+    scheduler.scheduleOnce(duration)(p success {})
+    p.future
+  }
+
+  def makeItLast[A](duration: FiniteDuration)(run: => Fu[A])(implicit system: ActorSystem): Fu[A] =
     if (duration == 0.millis) run
     else run zip akka.pattern.after(duration, system.scheduler)(funit) dmap (_._1)
 
-  def retry[T](op: () => Fu[T], delay: FiniteDuration, retries: Int, logger: Option[lila.log.Logger])(implicit system: akka.actor.ActorSystem): Fu[T] =
+  def retry[T](op: () => Fu[T], delay: FiniteDuration, retries: Int, logger: Option[lila.log.Logger])(implicit system: ActorSystem): Fu[T] =
     op() recoverWith {
       case e if retries > 0 =>
         logger foreach { _.info(s"$retries retries - ${e.getMessage}") }

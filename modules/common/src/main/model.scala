@@ -16,15 +16,11 @@ case class AssetVersion(value: String) extends AnyVal with StringValue
 
 object AssetVersion {
   var current = random
-  def change = { current = random }
+  def change() = { current = random }
   private def random = AssetVersion(ornicar.scalalib.Random secureString 6)
 }
 
 case class IsMobile(value: Boolean) extends AnyVal with BooleanValue
-
-case class MaxPerPage(value: Int) extends AnyVal with IntValue
-
-case class MaxPerSecond(value: Int) extends AnyVal with IntValue
 
 case class IpAddress(value: String) extends AnyVal with StringValue
 
@@ -97,6 +93,7 @@ object Domain {
   private val regex = """^(((?!-))(xn--|_{1,1})?[a-z0-9-]{0,61}[a-z0-9]{1,1}\.)*(xn--)?([a-z0-9][a-z0-9\-]{0,60}|[a-z0-9-]{1,30}\.[a-z]{2,})$""".r
   def isValid(str: String) = regex.matches(str)
   def from(str: String): Option[Domain] = isValid(str) option Domain(str)
+  def unsafe(str: String): Domain = Domain(str)
 
   case class Lower(value: String) extends AnyVal with StringValue {
     def domain = Domain(value)

@@ -1,6 +1,5 @@
 package lila.study
 
-import akka.actor.ActorSelection
 import scala.concurrent.duration._
 
 import actorApi.Who
@@ -8,10 +7,8 @@ import chess.Centis
 import chess.format.pgn.{ Tags, Glyph }
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
-import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
-import lila.tree.Eval
 import lila.tree.Node.{ Shapes, Comment, Gamebook }
 import lila.user.User
 
@@ -23,10 +20,10 @@ final class StudyApi(
     chapterMaker: ChapterMaker,
     inviter: StudyInvite,
     explorerGameHandler: ExplorerGame,
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
     scheduler: akka.actor.Scheduler,
     chatApi: ChatApi,
-    timeline: ActorSelection,
+    timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester,
     lightStudyCache: LightStudyCache
 ) {
@@ -104,8 +101,6 @@ final class StudyApi(
       }
     case DataForm.importGame.AsChapterOf(studyId) => byId(studyId) flatMap {
       case Some(study) if study.canContribute(user.id) =>
-        import akka.pattern.ask
-        import makeTimeout.short
         addChapter(
           studyId = study.id,
           data = data.form.toChapterData,
@@ -115,7 +110,7 @@ final class StudyApi(
     } orElse importGame(data.copy(form = data.form.copy(asStr = none)), user)
   }) addEffect {
     _ ?? { sc =>
-      Bus.publish(actorApi.StartStudy(sc.study.id), 'startStudy)
+      Bus.publish(actorApi.StartStudy(sc.study.id), "startStudy")
     }
   }
 
@@ -193,7 +188,7 @@ final class StudyApi(
 
   private def doAddNode(study: Study, position: Position, rawNode: Node, opts: MoveOpts, relay: Option[Chapter.Relay])(who: Who): Funit = {
     val node = rawNode.withoutChildren
-    def failReload = reloadSriBecauseOf(study, who.sri, position.chapter.id)
+    def failReload() = reloadSriBecauseOf(study, who.sri, position.chapter.id)
     if (position.chapter.isOverweight) {
       logger.info(s"Overweight chapter ${study.id}/${position.chapter.id}")
       fuccess(failReload)
@@ -305,9 +300,9 @@ final class StudyApi(
       val role = StudyMember.Role.byId.getOrElse(roleStr, StudyMember.Role.Read)
       study.members.get(userId) ifTrue study.isPublic foreach { member =>
         if (!member.role.canWrite && role.canWrite)
-          Bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), 'study)
+          Bus.publish(lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId.value), "study")
         else if (member.role.canWrite && !role.canWrite)
-          Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
+          Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
       }
       studyRepo.setRole(study, userId, role) >>-
         onMembersChange(study)
@@ -324,7 +319,7 @@ final class StudyApi(
   def kick(studyId: Study.Id, userId: User.ID)(who: Who) = sequenceStudy(studyId) { study =>
     (study.isMember(userId) && (study.isOwner(who.u) ^ (who.u == userId))) ?? {
       if (study.isPublic && study.canContribute(userId))
-        Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), 'study)
+        Bus.publish(lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId.value), "study")
       studyRepo.removeMember(study, userId)
     } >>- onMembersChange(study)
   }
@@ -399,13 +394,15 @@ final class StudyApi(
 
   def setComment(studyId: Study.Id, position: Position.Ref, text: Comment.Text)(who: Who) = sequenceStudyWithChapter(studyId, position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(who.u, study) {
-      lightUser(who.u) ?? { author =>
-        val comment = Comment(
-          id = Comment.Id.make,
-          text = text,
-          by = Comment.Author.User(author.id, author.titleName)
-        )
-        doSetComment(study, Position(chapter, position.path), comment, who)
+      lightUserApi.async(who.u) flatMap {
+        _ ?? { author =>
+          val comment = Comment(
+            id = Comment.Id.make,
+            text = text,
+            by = Comment.Author.User(author.id, author.titleName)
+          )
+          doSetComment(study, Position(chapter, position.path), comment, who)
+        }
       }
     }
   }
@@ -478,7 +475,7 @@ final class StudyApi(
 
   def explorerGame(studyId: Study.Id, data: actorApi.ExplorerGame)(who: Who) = sequenceStudyWithChapter(studyId, data.position.chapterId) {
     case Study.WithChapter(study, chapter) => Contribute(who.u, study) {
-      if (data.insert) explorerGameHandler.insert(who.u, study, Position(chapter, data.position.path), data.gameId) flatMap {
+      if (data.insert) explorerGameHandler.insert(study, Position(chapter, data.position.path), data.gameId) flatMap {
         case None =>
           fufail(s"Invalid explorerGame insert $studyId $data") >>-
             reloadSriBecauseOf(study, who.sri, chapter.id)
@@ -659,9 +656,9 @@ final class StudyApi(
         }
       )
       if (!study.isPublic && newStudy.isPublic) {
-        Bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), 'study)
+        Bus.publish(lila.hub.actorApi.study.StudyBecamePublic(studyId.value, study.members.contributorIds), "study")
       } else if (study.isPublic && !newStudy.isPublic) {
-        Bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds), 'study)
+        Bus.publish(lila.hub.actorApi.study.StudyBecamePrivate(studyId.value, study.members.contributorIds), "study")
       }
       (newStudy != study) ?? {
         studyRepo.updateSomeFields(newStudy) >>-
@@ -675,14 +672,14 @@ final class StudyApi(
   def delete(study: Study) = sequenceStudy(study.id) { study =>
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
-      Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), 'study) >>-
+      Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), "study") >>-
       lightStudyCache.put(study.id, none)
   }
 
   def like(studyId: Study.Id, v: Boolean)(who: Who): Funit =
     studyRepo.like(studyId, who.u, v) map { likes =>
       sendTo(studyId)(_.setLiking(Study.Liking(likes, v), who))
-      Bus.publish(actorApi.StudyLikes(studyId, likes), 'studyLikes)
+      Bus.publish(actorApi.StudyLikes(studyId, likes), "studyLikes")
       if (v) studyRepo byId studyId foreach {
         _ foreach { study =>
           if (who.u != study.ownerId && study.isPublic)
@@ -732,11 +729,11 @@ final class StudyApi(
       public = study.isPublic,
       enters = true
     ),
-    'study
+    "study"
   )
 
   private def indexStudy(study: Study) =
-    Bus.publish(actorApi.SaveStudy(study), 'study)
+    Bus.publish(actorApi.SaveStudy(study), "study")
 
   private def reloadSriBecauseOf(study: Study, sri: Sri, chapterId: Chapter.Id) =
     sendTo(study.id)(_.reloadSriBecauseOf(sri, chapterId))

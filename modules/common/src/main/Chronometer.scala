@@ -1,6 +1,8 @@
 package lila.common
 
 import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.{ Future, ExecutionContext }
+import scala.util.Try
 
 object Chronometer {
 
@@ -29,6 +31,7 @@ object Chronometer {
 
     def showDuration: String = if (millis >= 1) f"$millis%.2f ms" else s"$micros micros"
   }
+  case class LapTry[A](result: Try[A], nanos: Long)
 
   case class FuLap[A](lap: Fu[Lap[A]]) extends AnyVal {
 
@@ -37,10 +40,8 @@ object Chronometer {
       this
     }
 
-    def mon(path: lila.mon.RecPath) = {
-      lap dforeach { l =>
-        lila.mon.recPath(path)(l.nanos)
-      }
+    def mon(path: lila.mon.TimerPath) = {
+      lap dforeach { l => path(lila.mon).record(l.nanos) }
       this
     }
 
@@ -51,9 +52,32 @@ object Chronometer {
     def result = lap.dmap(_.result)
   }
 
-  def apply[A](f: => Fu[A]): FuLap[A] = {
+  case class FuLapTry[A](lap: Fu[LapTry[A]]) extends AnyVal {
+
+    def mon(path: Try[A] => kamon.metric.Timer) = {
+      lap.dforeach {
+        l => path(l.result).record(l.nanos)
+      }
+      this
+    }
+
+    def result = lap.flatMap { l =>
+      Future.fromTry(l.result)
+    }(ExecutionContext.parasitic)
+  }
+
+  def apply[A](f: Fu[A]): FuLap[A] = {
     val start = nowNanos
     FuLap(f dmap { Lap(_, nowNanos - start) })
+  }
+
+  def lapTry[A](f: Fu[A]): FuLapTry[A] = {
+    val start = nowNanos
+    FuLapTry {
+      f.transformWith {
+        r => fuccess(LapTry(r, nowNanos - start))
+      }(ExecutionContext.parasitic)
+    }
   }
 
   def sync[A](f: => A): Lap[A] = {
@@ -68,15 +92,10 @@ object Chronometer {
     lap.result
   }
 
-  def syncMon[A](path: lila.mon.RecPath)(f: => A): A = {
-    val start = nowNanos
+  def syncMon[A](path: lila.mon.TimerPath)(f: => A): A = {
+    val timer = path(lila.mon).start
     val res = f
-    lila.mon.recPath(path)(nowNanos - start)
+    timer.stop()
     res
-  }
-
-  def start = new {
-    private val s = nowNanos
-    def mon(path: lila.mon.RecPath): Unit = lila.mon.recPath(path)(nowNanos - s)
   }
 }

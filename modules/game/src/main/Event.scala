@@ -2,7 +2,6 @@ package lila.game
 
 import play.api.libs.json._
 
-import chess.Pos
 import chess.variant.Crazyhouse
 import chess.{ Centis, PromotableRole, Pos, Color, Situation, Move => ChessMove, Drop => ChessDrop, Clock => ChessClock, Status }
 import JsonView._
@@ -172,7 +171,7 @@ object Event {
     def oldJson(moves: Map[Pos, List[Pos]]) =
       if (moves.isEmpty) JsNull
       else moves.foldLeft(JsObject(Nil)) {
-        case (res, (o, d)) => res + (o.key, JsString(d map (_.key) mkString))
+        case (res, (o, d)) => res + (o.key -> JsString(d map (_.key) mkString))
       }
   }
 

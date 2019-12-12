@@ -3,7 +3,6 @@ package controllers
 import lila.api.Context
 import lila.app._
 import lila.game.{ Game => GameModel, Pov, AnonCookie }
-import lila.security.Granter
 import play.api.mvc._
 
 private[controllers] trait TheftPrevention { self: LilaController =>

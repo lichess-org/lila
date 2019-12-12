@@ -20,6 +20,8 @@ private final class EvalCacheUpgrade {
   private val evals = AnyRefMap.empty[SetupId, Set[SriString]]
   private val expirableSris = new ExpireCallbackMemo(20 minutes, sri => unregister(Socket.Sri(sri)))
 
+  private val upgradeMon = lila.mon.evalCache.upgrade
+
   def register(sri: Socket.Sri, variant: Variant, fen: FEN, multiPv: Int, path: String)(push: Push): Unit = {
     members get sri.value foreach { wm =>
       unregisterEval(wm.setupId, sri)
@@ -40,10 +42,10 @@ private final class EvalCacheUpgrade {
         wms foreach { wm =>
           wm.push(json + ("path" -> JsString(wm.path)))
         }
-        lila.mon.evalCache.upgrade.hit(wms.size)
-        lila.mon.evalCache.upgrade.members(members.size)
-        lila.mon.evalCache.upgrade.evals(evals.size)
-        lila.mon.evalCache.upgrade.expirable(expirableSris.count)
+        upgradeMon.count.increment(wms.size)
+        upgradeMon.members.increment(members.size)
+        upgradeMon.evals.increment(evals.size)
+        upgradeMon.expirable.increment(expirableSris.count)
       }
     }
   }

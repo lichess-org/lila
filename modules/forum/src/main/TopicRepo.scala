@@ -2,23 +2,15 @@ package lila.forum
 
 import lila.db.dsl._
 
-object TopicRepo extends TopicRepo(false) {
+final class TopicRepo(val coll: Coll, troll: Boolean = false) {
 
-  def apply(troll: Boolean): TopicRepo = if (troll) TopicRepoTroll else TopicRepo
-}
-
-object TopicRepoTroll extends TopicRepo(true)
-
-sealed abstract class TopicRepo(troll: Boolean) {
+  def withTroll(t: Boolean) = if (t == troll) this else new TopicRepo(coll, t)
 
   import BSONHandlers.TopicBSONHandler
 
-  // dirty
-  private val coll = Env.current.topicColl
-
   private val trollFilter = !troll ?? $doc("troll" -> false)
-  private val notStickyQuery = $doc("sticky" $ne true)
-  private val stickyQuery = $doc("sticky" -> true)
+  private lazy val notStickyQuery = $doc("sticky" $ne true)
+  private lazy val stickyQuery = $doc("sticky" -> true)
 
   def close(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void
@@ -36,7 +28,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
     coll.countSel(byCategQuery(categ))
 
   def byTree(categSlug: String, slug: String): Fu[Option[Topic]] =
-    coll.uno[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
+    coll.one[Topic]($doc("categId" -> categSlug, "slug" -> slug) ++ trollFilter)
 
   def existsByTree(categSlug: String, slug: String): Fu[Boolean] =
     coll.exists($doc("categId" -> categSlug, "slug" -> slug))
@@ -47,7 +39,7 @@ sealed abstract class TopicRepo(troll: Boolean) {
   def nextSlug(categ: Categ, name: String, it: Int = 1): Fu[String] = {
     val slug = Topic.nameToId(name) + ~(it != 1).option("-" + it)
     // also take troll topic into accounts
-    TopicRepoTroll.byTree(categ.slug, slug) flatMap { found =>
+    withTroll(true).byTree(categ.slug, slug) flatMap { found =>
       if (found.isDefined) nextSlug(categ, name, it + 1)
       else fuccess(slug)
     }

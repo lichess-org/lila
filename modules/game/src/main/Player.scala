@@ -61,7 +61,7 @@ case class Player(
   def withName(name: String) = copy(name = name.some)
 
   def nameSplit: Option[(String, Option[Int])] = name map {
-    case Player.nameSplitRegex(n, r) => n -> parseIntOption(r)
+    case Player.nameSplitRegex(n, r) => n -> r.toIntOption
     case n => n -> none
   }
 
@@ -124,7 +124,7 @@ object Player {
 
   case class UserInfo(id: String, rating: Int, provisional: Boolean)
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   implicit val holdAlertBSONHandler = Macros.handler[HoldAlert]
 
   object BSONFields {
@@ -143,7 +143,7 @@ object Player {
     val name = "na"
   }
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
 
   type ID = String
@@ -193,7 +193,7 @@ object Player {
           rating -> p.rating,
           ratingDiff -> p.ratingDiff,
           provisional -> w.boolO(p.provisional),
-          blursBits -> (!p.blurs.isEmpty).option(BlursBSONWriter write p.blurs),
+          blursBits -> (!p.blurs.isEmpty).??(BlursBSONWriter writeOpt p.blurs),
           name -> p.name
         )
       }

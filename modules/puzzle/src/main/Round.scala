@@ -25,12 +25,11 @@ object Round {
     val magic = "m"
   }
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
   import lila.db.dsl._
+  import scala.util.Success
   import BSON.BSONJodaDateTimeHandler
-
-  private implicit val ResultBSONHandler = booleanAnyValHandler[Result](_.win, Result.apply)
 
   /* We shift the puzzle ID by -60000
      * Because the initial puzzle is 60000 and something.
@@ -41,17 +40,19 @@ object Round {
   def encode(puzzleId: PuzzleId) = puzzleId + shiftValue
   def decode(puzzleId: PuzzleId) = puzzleId - shiftValue
 
-  implicit val roundIdHandler: BSONHandler[BSONString, Id] = new BSONHandler[BSONString, Id] {
-    private val sep = ':'
-    def read(bs: BSONString) = bs.value split sep match {
-      case Array(userId, puzzleId) => Id(userId, decode(Integer parseInt puzzleId))
-      case _ => sys error s"Invalid puzzle round id ${bs.value}"
-    }
-    def write(id: Id) = {
+  private val idSep = ':'
+  implicit val roundIdHandler = tryHandler[Id](
+    {
+      case BSONString(v) => v split idSep match {
+        case Array(userId, puzzleId) => Success(Id(userId, decode(Integer parseInt puzzleId)))
+        case _ => handlerBadValue(s"Invalid puzzle round id $v")
+      }
+    },
+    id => {
       val puzzleId = "%05d".format(encode(id.puzzleId))
-      BSONString(s"${id.userId}$sep$puzzleId")
+      BSONString(s"${id.userId}$idSep$puzzleId")
     }
-  }
+  )
 
   implicit val RoundBSONHandler = new BSON[Round] {
 

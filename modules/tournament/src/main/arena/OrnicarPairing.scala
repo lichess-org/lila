@@ -82,7 +82,7 @@ private object OrnicarPairing {
       case List(p1, p2) if onlyTwoActivePlayers => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
       case List(p1, p2) => List(p1.player -> p2.player)
-      case ps => findBetter(Nil, Int.MaxValue) match {
+      case _ => findBetter(Nil, Int.MaxValue) match {
         case Found(best) => best map {
           case (rp0, rp1) => rp0.player -> rp1.player
         }
@@ -95,10 +95,8 @@ private object OrnicarPairing {
     }) map {
       Pairing.prep(tour, _)
     }
-    if (!continue) {
-      pairingLogger.info(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
-      lila.mon.tournament.pairing.cutoff()
-    }
+    if (!continue)
+      pairingLogger.warn(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
     preps
   }
 }

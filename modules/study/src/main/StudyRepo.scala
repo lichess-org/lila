@@ -1,8 +1,8 @@
 package lila.study
 
 import org.joda.time.DateTime
+import reactivemongo.akkastream.{ AkkaStreamCursor, cursorProducer }
 import reactivemongo.api._
-import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Project, Match }
 
 import lila.db.dsl._
 import lila.user.User
@@ -33,26 +33,26 @@ final class StudyRepo(private[study] val coll: Coll) {
     "members" -> true
   )
 
-  def byId(id: Study.Id) = coll.find($id(id), projection).uno[Study]
+  def byId(id: Study.Id) = coll.find($id(id), projection.some).one[Study]
 
   def byOrderedIds(ids: Seq[Study.Id]) = coll.byOrderedIds[Study, Study.Id](ids)(_.id)
 
   def lightById(id: Study.Id): Fu[Option[Study.LightStudy]] =
-    coll.find($id(id), lightProjection).uno[Study.LightStudy]
+    coll.find($id(id), lightProjection.some).one[Study.LightStudy]
 
-  def cursor(
+  def sortedCursor(
     selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred,
-    sort: Bdoc = $empty
-  )(implicit cp: CursorProducer[Study]) =
-    coll.find(selector).sort(sort).cursor[Study](readPreference)
+    sort: Bdoc,
+    readPreference: ReadPreference = ReadPreference.secondaryPreferred
+  ): AkkaStreamCursor[Study] =
+    coll.ext.find(selector).sort(sort).cursor[Study](readPreference)
 
   def exists(id: Study.Id) = coll.exists($id(id))
 
   private[study] def selectOwnerId(ownerId: User.ID) = $doc("ownerId" -> ownerId)
   private[study] def selectMemberId(memberId: User.ID) = $doc(F.uids -> memberId)
-  private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.write(Study.Visibility.Public))
-  private[study] val selectPrivateOrUnlisted = "visibility" $ne VisibilityHandler.write(Study.Visibility.Public)
+  private[study] val selectPublic = $doc("visibility" -> VisibilityHandler.writeTry(Study.Visibility.Public).get)
+  private[study] val selectPrivateOrUnlisted = "visibility" $ne VisibilityHandler.writeTry(Study.Visibility.Public).get
   private[study] def selectLiker(userId: User.ID) = $doc(F.likers -> userId)
   private[study] def selectContributorId(userId: User.ID) =
     selectMemberId(userId) ++ // use the index
@@ -61,8 +61,8 @@ final class StudyRepo(private[study] val coll: Coll) {
 
   def countByOwner(ownerId: User.ID) = coll.countSel(selectOwnerId(ownerId))
 
-  def insert(s: Study): Funit = coll.insert {
-    StudyBSONHandler.write(s) ++ $doc(
+  def insert(s: Study): Funit = coll.insert.one {
+    StudyBSONHandler.writeTry(s).get ++ $doc(
       "updatedAt" -> DateTime.now,
       F.uids -> s.members.ids,
       F.likers -> List(s.ownerId),
@@ -70,7 +70,7 @@ final class StudyRepo(private[study] val coll: Coll) {
     )
   }.void
 
-  def updateSomeFields(s: Study): Funit = coll.update($id(s.id), $set(
+  def updateSomeFields(s: Study): Funit = coll.update.one($id(s.id), $set(
     "position" -> s.position,
     "name" -> s.name,
     "settings" -> s.settings,
@@ -79,15 +79,15 @@ final class StudyRepo(private[study] val coll: Coll) {
     "updatedAt" -> DateTime.now
   )).void
 
-  def delete(s: Study): Funit = coll.remove($id(s.id)).void
+  def delete(s: Study): Funit = coll.delete.one($id(s.id)).void
 
-  def deleteByIds(ids: List[Study.Id]): Funit = coll.remove($inIds(ids)).void
+  def deleteByIds(ids: List[Study.Id]): Funit = coll.delete.one($inIds(ids)).void
 
   def membersById(id: Study.Id): Fu[Option[StudyMembers]] =
     coll.primitiveOne[StudyMembers]($id(id), "members")
 
   def setPosition(studyId: Study.Id, position: Position.Ref): Funit =
-    coll.update(
+    coll.update.one(
       $id(studyId),
       $set(
         "position" -> position,
@@ -101,19 +101,19 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.updateFieldUnchecked($id(s.id), "updatedAt", DateTime.now)
 
   def addMember(study: Study, member: StudyMember): Funit =
-    coll.update(
+    coll.update.one(
       $id(study.id),
       $set(s"members.${member.id}" -> member) ++ $addToSet(F.uids -> member.id)
     ).void
 
   def removeMember(study: Study, userId: User.ID): Funit =
-    coll.update(
+    coll.update.one(
       $id(study.id),
       $unset(s"members.$userId") ++ $pull(F.uids -> userId)
     ).void
 
   def setRole(study: Study, userId: User.ID, role: StudyMember.Role): Funit =
-    coll.update(
+    coll.update.one(
       $id(study.id),
       $set(s"members.$userId.role" -> role)
     ).void
@@ -124,22 +124,19 @@ final class StudyRepo(private[study] val coll: Coll) {
   private val idNameProjection = $doc("name" -> true)
 
   def publicIdNames(ids: List[Study.Id]): Fu[List[Study.IdName]] =
-    coll.find($inIds(ids) ++ selectPublic, idNameProjection).list[Study.IdName]()
+    coll.find($inIds(ids) ++ selectPublic, idNameProjection.some).list[Study.IdName]()
 
   def recentByOwner(userId: User.ID, nb: Int) =
-    coll.find(selectOwnerId(userId), idNameProjection)
+    coll.find(selectOwnerId(userId), idNameProjection.some)
       .sort($sort desc "updatedAt")
       .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
 
   // heavy AF. Only use for GDPR.
   private[study] def allIdsByOwner(userId: User.ID): Fu[List[Study.Id]] =
-    coll.distinct[Study.Id, List]("_id", selectOwnerId(userId).some)
+    coll.distinctEasy[Study.Id, List]("_id", selectOwnerId(userId))
 
   def recentByContributor(userId: User.ID, nb: Int) =
-    coll.find(
-      selectContributorId(userId),
-      idNameProjection
-    )
+    coll.find(selectContributorId(userId), idNameProjection.some)
       .sort($sort desc "updatedAt")
       .list[Study.IdName](nb, ReadPreference.secondaryPreferred)
 
@@ -154,7 +151,7 @@ final class StudyRepo(private[study] val coll: Coll) {
       case None => fuccess(Study.Likes(0))
       case Some((prevLikes, createdAt)) =>
         val likes = Study.Likes(prevLikes.value + (if (v) 1 else -1))
-        coll.update(
+        coll.update.one(
           $id(studyId),
           $set(
             F.likes -> likes,
@@ -169,33 +166,37 @@ final class StudyRepo(private[study] val coll: Coll) {
     coll.exists($id(study.id) ++ selectLiker(user.id))
 
   def filterLiked(user: User, studyIds: Seq[Study.Id]): Fu[Set[Study.Id]] =
-    coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").map(_.toSet)
+    studyIds.nonEmpty ??
+      coll.primitive[Study.Id]($inIds(studyIds) ++ selectLiker(user.id), "_id").dmap(_.toSet)
 
   def resetAllRanks: Fu[Int] = coll.find(
-    $empty, $doc(F.likes -> true, F.createdAt -> true)
+    $empty,
+    $doc(F.likes -> true, F.createdAt -> true).some
   ).cursor[Bdoc]().foldWhileM(0) { (count, doc) =>
-    ~(for {
-      id <- doc.getAs[Study.Id]("_id")
-      likes <- doc.getAs[Study.Likes](F.likes)
-      createdAt <- doc.getAs[DateTime](F.createdAt)
-    } yield coll.update(
-      $id(id), $set(F.rank -> Study.Rank.compute(likes, createdAt))
-    ).void) inject Cursor.Cont(count + 1)
-  }
+      ~(for {
+        id <- doc.getAsOpt[Study.Id]("_id")
+        likes <- doc.getAsOpt[Study.Likes](F.likes)
+        createdAt <- doc.getAsOpt[DateTime](F.createdAt)
+      } yield coll.update.one(
+        $id(id), $set(F.rank -> Study.Rank.compute(likes, createdAt))
+      ).void) inject Cursor.Cont(count + 1)
+    }
 
   private def countLikes(studyId: Study.Id): Fu[Option[(Study.Likes, DateTime)]] =
-    coll.aggregateOne(
-      Match($id(studyId)),
-      List(Project($doc(
-        "_id" -> false,
-        F.likes -> $doc("$size" -> s"$$${F.likers}"),
-        F.createdAt -> true
-      )))
-    ).map { docOption =>
-        for {
-          doc <- docOption
-          likes <- doc.getAs[Study.Likes](F.likes)
-          createdAt <- doc.getAs[DateTime](F.createdAt)
-        } yield likes -> createdAt
-      }
+    coll.aggregateWith[Bdoc]() { framework =>
+      import framework._
+      Match($id(studyId)) -> List(
+        Project($doc(
+          "_id" -> false,
+          F.likes -> $doc("$size" -> s"$$${F.likers}"),
+          F.createdAt -> true
+        ))
+      )
+    }.headOption.map { docOption =>
+      for {
+        doc <- docOption
+        likes <- doc.getAsOpt[Study.Likes](F.likes)
+        createdAt <- doc.getAsOpt[DateTime](F.createdAt)
+      } yield likes -> createdAt
+    }
 }

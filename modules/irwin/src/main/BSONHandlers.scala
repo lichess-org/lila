@@ -1,10 +1,9 @@
 package lila.irwin
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.db.BSON
-import lila.report.ReporterId
 
 object BSONHandlers {
 
@@ -36,7 +35,7 @@ object BSONHandlers {
   }
 
   private implicit val GameReportBSONHandler = Macros.handler[GameReport]
-  private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
-  private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
+  // private implicit val PvBSONHandler = nullableHandler[Int, BSONInteger]
+  // private implicit val ReporterIdBSONHandler = stringIsoHandler[ReporterId](ReporterId.reporterIdIso)
   implicit val ReportBSONHandler = Macros.handler[IrwinReport]
 }

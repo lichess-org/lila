@@ -1,8 +1,8 @@
 package lila.i18n
 
 import play.api.mvc.RequestHeader
+import play.api.i18n.Lang
 
-import lila.common.Lang
 import lila.user.User
 
 object I18nLangPicker {
@@ -18,12 +18,12 @@ object I18nLangPicker {
 
   def bestFromRequestHeaders(req: RequestHeader): Option[Lang] =
     req.acceptLanguages.foldLeft(none[Lang]) {
-      case (None, lang) => findCloser(Lang(lang))
+      case (None, lang) => findCloser(lang)
       case (found, _) => found
     }
 
   def allFromRequestHeaders(req: RequestHeader): List[Lang] =
-    req.acceptLanguages.flatMap(l => findCloser(Lang(l))).distinct.toList
+    req.acceptLanguages.flatMap(findCloser).distinct.toList
 
   def byStr(str: String): Option[Lang] =
     Lang get str flatMap findCloser

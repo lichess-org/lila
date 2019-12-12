@@ -2,13 +2,16 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import scala.concurrent.Future
+
+import lila.common.config._
 
 private[video] final class Youtube(
+    ws: WSClient,
     url: String,
-    apiKey: String,
-    max: Int,
+    apiKey: Secret,
+    max: Max,
     api: VideoApi
 ) {
 
@@ -22,11 +25,11 @@ private[video] final class Youtube(
     (__ \ "items").read(Reads seq readEntry)
 
   def updateAll: Funit = fetch flatMap { entries =>
-    entries.map { entry =>
+    Future.traverse(entries) { entry =>
       api.video.setMetadata(entry.id, Metadata(
-        views = ~parseIntOption(entry.statistics.viewCount),
-        likes = ~parseIntOption(entry.statistics.likeCount) -
-          ~parseIntOption(entry.statistics.dislikeCount),
+        views = ~entry.statistics.viewCount.toIntOption,
+        likes = ~entry.statistics.likeCount.toIntOption -
+          ~entry.statistics.dislikeCount.toIntOption,
         description = entry.snippet.description,
         duration = Some(entry.contentDetails.seconds),
         publishedAt = entry.snippet.publishedAt.flatMap { at =>
@@ -35,14 +38,14 @@ private[video] final class Youtube(
       )).recover {
         case e: Exception => logger.warn("update all youtube", e)
       }
-    }.sequenceFu.void
+    }.void
   }
 
   private def fetch: Fu[List[Entry]] = api.video.allIds flatMap { ids =>
-    WS.url(url).withQueryString(
-      "id" -> scala.util.Random.shuffle(ids).take(max).mkString(","),
+    ws.url(url).withQueryStringParameters(
+      "id" -> scala.util.Random.shuffle(ids).take(max.value).mkString(","),
       "part" -> "id,statistics,snippet,contentDetails",
-      "key" -> apiKey
+      "key" -> apiKey.value
     ).get() flatMap {
         case res if res.status == 200 => readEntries reads res.json match {
           case JsError(err) => fufail(err.toString)

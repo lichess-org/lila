@@ -2,11 +2,12 @@ package lila.memo
 
 import scala.util.matching.Regex
 import scala.util.Try
+import reactivemongo.api.bson.BSONHandler
 
 import lila.db.dsl._
 import play.api.data._, Forms._
 
-final class SettingStore[A: BSONValueHandler: SettingStore.StringReader: SettingStore.Formable] private (
+final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore.Formable] private (
     coll: Coll,
     val id: String,
     val default: A,
@@ -23,7 +24,7 @@ final class SettingStore[A: BSONValueHandler: SettingStore.StringReader: Setting
 
   def set(v: A): Funit = {
     value = v
-    persist ?? coll.update(dbId, $set(dbField -> v), upsert = true).void
+    persist ?? coll.update.one(dbId, $set(dbField -> v), upsert = true).void
   }
 
   def form: Form[_] = implicitly[SettingStore.Formable[A]] form value
@@ -46,13 +47,14 @@ object SettingStore {
 
   type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
-  final class Builder(coll: Coll) {
-    def apply[A: BSONValueHandler: StringReader: Formable](
+  final class Builder(db: lila.db.Db, config: MemoConfig) {
+    val coll = db(config.configColl)
+    def apply[A: BSONHandler: StringReader: Formable](
       id: String,
       default: A,
       text: Option[String] = None,
       persist: Boolean = true,
-      init: Init[A] = (config: ConfigValue[A], db: DbValue[A]) => db.value
+      init: Init[A] = (_: ConfigValue[A], db: DbValue[A]) => db.value
     ) = new SettingStore[A](coll, id, default, text, persist = persist, init = init)
   }
 
@@ -65,7 +67,7 @@ object SettingStore {
         case "off" | "no" | "false" | "0" => false.some
         case _ => none
       })
-    implicit val intReader = new StringReader[Int](parseIntOption)
+    implicit val intReader = new StringReader[Int](_.toIntOption)
     implicit val stringReader = new StringReader[String](some)
     def fromIso[A](iso: lila.common.Iso[String, A]) = new StringReader[A](v => iso.from(v).some)
   }

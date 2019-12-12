@@ -100,7 +100,7 @@ POST  /training/:id/attempt            controllers.Puzzle.round(id: Int)
 
 # User Analysis
 GET   /analysis/help                   controllers.UserAnalysis.help
-GET   /analysis/*something             controllers.UserAnalysis.parse(something: String)
+GET   /analysis/*something             controllers.UserAnalysis.parseArg(something: String)
 GET   /analysis                        controllers.UserAnalysis.index
 POST  /analysis/pgn                    controllers.UserAnalysis.pgn
 
@@ -139,6 +139,7 @@ GET   /broadcast/:slug/$id<\w{8}>/$chapterId<\w{8}> controllers.Relay.chapter(sl
 GET   /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.edit(slug: String, id: String)
 POST  /broadcast/:slug/$id<\w{8}>/edit     controllers.Relay.update(slug: String, id: String)
 POST  /broadcast/:slug/$id<\w{8}>/reset    controllers.Relay.reset(slug: String, id: String)
+POST  /broadcast/:slug/$id<\w{8}>/clone    controllers.Relay.cloneRelay(slug: String, id: String)
 
 # Learn
 GET   /learn                           controllers.Learn.index
@@ -229,7 +230,7 @@ GET   /tournament/shields/:categ              controllers.Tournament.categShield
 
 # Tournament CRUD
 GET   /tournament/manager                     controllers.TournamentCrud.index(page: Int ?= 1)
-GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.clone(id: String)
+GET   /tournament/manager/clone/$id<\w{8}>    controllers.TournamentCrud.cloneT(id: String)
 GET   /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.edit(id: String)
 POST  /tournament/manager/$id<\w{8}>          controllers.TournamentCrud.update(id: String)
 GET   /tournament/manager/new                 controllers.TournamentCrud.form
@@ -548,7 +549,7 @@ GET   /event/$id<\w{8}>                controllers.Event.show(id: String)
 GET   /event/manager                   controllers.Event.manager
 GET   /event/manager/$id<\w{8}>        controllers.Event.edit(id: String)
 POST  /event/manager/$id<\w{8}>        controllers.Event.update(id: String)
-GET   /event/manager/clone/$id<\w{8}>  controllers.Event.clone(id: String)
+GET   /event/manager/clone/$id<\w{8}>  controllers.Event.cloneE(id: String)
 GET   /event/manager/new               controllers.Event.form
 POST  /event/manager                   controllers.Event.create
 
@@ -601,9 +602,8 @@ POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 
 GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
 
-# Assets
-GET   /assets/$version<_\w{6}>/*file   controllers.Main.versionedAsset(version: String, file: String)
-GET   /assets/*file                    controllers.Assets.at(path = "/public", file: String)
+GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, file)
+GET   /assets/*file                    controllers.Assets.at(v, file)
 
 GET   /robots.txt                      controllers.Main.robots
 

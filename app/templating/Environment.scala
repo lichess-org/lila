@@ -4,7 +4,6 @@ package templating
 import scala.concurrent.duration._
 
 import lila.api.Context
-import lila.api.Env.{ current => apiEnv }
 import lila.app.ui.ScalatagsTemplate._
 
 object Environment
@@ -26,30 +25,33 @@ object Environment
   with TournamentHelper
   with ChessgroundHelper {
 
+  // #TODO holy shit fix me
+  // requires injecting all the templates!!
+  private var envVar: Env = _
+  def setEnv(e: Env) = { envVar = e }
+  def env: Env = envVar
+
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 
-  def netDomain = apiEnv.Net.Domain
-  def netBaseUrl = apiEnv.Net.BaseUrl
-  val isGloballyCrawlable = apiEnv.Net.Crawlable
+  def netBaseUrl = env.net.baseUrl.value
+  def isGloballyCrawlable = env.net.crawlable
 
-  def isProd = apiEnv.isProd
-  def isStage = apiEnv.isStage
+  lazy val netDomain = env.net.domain
+  def isProd = env.isProd
+  def isStage = env.isStage
 
   def apiVersion = lila.api.Mobile.Api.currentVersion
 
-  def explorerEndpoint = apiEnv.ExplorerEndpoint
+  lazy val explorerEndpoint = env.explorerEndpoint
+  lazy val tablebaseEndpoint = env.tablebaseEndpoint
 
-  def tablebaseEndpoint = apiEnv.TablebaseEndpoint
-
-  def contactEmail = apiEnv.Net.Email
+  def contactEmail = env.net.email
 
   def contactEmailLink = a(href := s"mailto:$contactEmail")(contactEmail)
 
-  def isChatPanicEnabled =
-    lila.chat.Env.current.panic.enabled
+  def isChatPanicEnabled = env.chat.panic.enabled
 
-  def reportNbOpen: Int =
-    lila.report.Env.current.api.nbOpen.awaitOrElse(10.millis, 0)
+  def blockingReportNbOpen: Int = env.report.api.nbOpen.awaitOrElse(10.millis, 0)
 
   def NotForKids(f: => Frag)(implicit ctx: Context) = if (ctx.kid) emptyFrag else f
 

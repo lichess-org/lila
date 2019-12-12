@@ -81,8 +81,6 @@ object AiConfig extends BaseConfig {
 
   private[setup] implicit val aiConfigBSONHandler = new BSON[AiConfig] {
 
-    override val logMalformed = false
-
     def reads(r: BSON.Reader): AiConfig = AiConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),

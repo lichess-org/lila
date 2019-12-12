@@ -1,7 +1,5 @@
 package lila.study
 
-import org.joda.time.DateTime
-
 import lila.user.User
 
 case class StudyMember(id: User.ID, role: StudyMember.Role) {
@@ -34,9 +32,9 @@ case class StudyMembers(members: StudyMember.MemberMap) {
 
   def ids = members.keys
 
-  def contributorIds: Set[User.ID] = members.collect {
+  def contributorIds: Set[User.ID] = members.view.collect {
     case (id, member) if member.canContribute => id
-  }(scala.collection.breakOut)
+  }.toSet
 }
 
 object StudyMembers {

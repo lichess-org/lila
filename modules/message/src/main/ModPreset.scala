@@ -88,7 +88,7 @@ This can be very annoying for your opponents. If this behavior continues to happ
 """) flatMap toPreset
 
   private def toPreset(txt: String) =
-    txt.lines.toList.map(_.trim).filter(_.nonEmpty) match {
+    txt.linesIterator.toList.map(_.trim).filter(_.nonEmpty) match {
       case subject :: body => ModPreset(subject, body mkString "\n").some
       case _ =>
         logger.warn(s"Invalid mod message preset $txt")

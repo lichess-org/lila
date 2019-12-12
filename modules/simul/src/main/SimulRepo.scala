@@ -1,8 +1,7 @@
 package lila.simul
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
-import reactivemongo.core.commands._
+import reactivemongo.api.bson._
 
 import chess.Status
 import chess.variant.Variant
@@ -12,15 +11,15 @@ import lila.db.dsl._
 
 private[simul] final class SimulRepo(simulColl: Coll) {
 
-  private implicit val SimulStatusBSONHandler = new BSONHandler[BSONInteger, SimulStatus] {
-    def read(bsonInt: BSONInteger): SimulStatus = SimulStatus(bsonInt.value) err s"No such simul status: ${bsonInt.value}"
-    def write(x: SimulStatus) = BSONInteger(x.id)
-  }
+  private implicit val SimulStatusBSONHandler = tryHandler[SimulStatus](
+    { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },
+    x => BSONInteger(x.id)
+  )
   private implicit val ChessStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
-  private implicit val VariantBSONHandler = new BSONHandler[BSONInteger, Variant] {
-    def read(bsonInt: BSONInteger): Variant = Variant(bsonInt.value) err s"No such variant: ${bsonInt.value}"
-    def write(x: Variant) = BSONInteger(x.id)
-  }
+  private implicit val VariantBSONHandler = tryHandler[Variant](
+    { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
+    x => BSONInteger(x.id)
+  )
   private implicit val ClockBSONHandler = {
     import chess.Clock.Config
     implicit val clockHandler = Macros.handler[Config]
@@ -62,7 +61,7 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     simulColl.exists($id(id))
 
   def createdByHostId(hostId: String): Fu[List[Simul]] =
-    simulColl.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
+    simulColl.ext.find(createdSelect ++ $doc("hostId" -> hostId)).list[Simul]()
 
   def findStarted(id: Simul.ID): Fu[Option[Simul]] =
     find(id) map (_ filter (_.isStarted))
@@ -71,48 +70,48 @@ private[simul] final class SimulRepo(simulColl: Coll) {
     find(id) map (_ filter (_.isCreated))
 
   def allCreated: Fu[List[Simul]] =
-    simulColl.find(createdSelect).sort(createdSort).list[Simul]()
+    simulColl.ext.find(createdSelect).sort(createdSort).list[Simul]()
 
-  def allCreatedFeaturable: Fu[List[Simul]] = simulColl.find(
+  def allCreatedFeaturable: Fu[List[Simul]] = simulColl.ext.find(
     createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(15))
   ).sort(createdSort).list[Simul]()
 
-  def allStarted: Fu[List[Simul]] = simulColl.find(
+  def allStarted: Fu[List[Simul]] = simulColl.ext.find(
     startedSelect
   ).sort(createdSort).list[Simul]()
 
-  def allFinished(max: Int): Fu[List[Simul]] = simulColl.find(
+  def allFinished(max: Int): Fu[List[Simul]] = simulColl.ext.find(
     finishedSelect
   ).sort(createdSort).list[Simul](max)
 
   def allNotFinished =
-    simulColl.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
+    simulColl.ext.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
 
   def create(simul: Simul): Funit =
-    simulColl insert simul void
+    simulColl.insert one simul void
 
   def update(simul: Simul) =
-    simulColl.update($id(simul.id), simul).void
+    simulColl.update.one($id(simul.id), simul).void
 
   def remove(simul: Simul) =
-    simulColl.remove($id(simul.id)).void
+    simulColl.delete.one($id(simul.id)).void
 
-  def setHostGameId(simul: Simul, gameId: String) = simulColl.update(
+  def setHostGameId(simul: Simul, gameId: String) = simulColl.update.one(
     $id(simul.id),
     $set("hostGameId" -> gameId)
   ).void
 
-  def setHostSeenNow(simul: Simul) = simulColl.update(
+  def setHostSeenNow(simul: Simul) = simulColl.update.one(
     $id(simul.id),
     $set("hostSeenAt" -> DateTime.now)
   ).void
 
-  def setText(simul: Simul, text: String) = simulColl.update(
+  def setText(simul: Simul, text: String) = simulColl.update.one(
     $id(simul.id),
     $set("text" -> text)
   ).void
 
-  def cleanup = simulColl.remove(
+  def cleanup = simulColl.delete.one(
     createdSelect ++ $doc(
       "createdAt" -> $doc("$lt" -> (DateTime.now minusMinutes 60))
     )

@@ -10,24 +10,24 @@ import lila.api.Context
 import lila.app._
 import lila.common.{ IpAddress, HTTPRequest }
 import lila.security.Granter
-import lila.user.{ User => UserModel, UserRepo }
+import lila.user.{ User => UserModel }
 import views._
 
-object Message extends LilaController {
+final class Message(env: Env) extends LilaController(env) {
 
-  private def api = Env.message.api
-  private def security = Env.message.security
-  private def forms = Env.message.forms
-  private def relationApi = Env.relation.api
+  private def api = env.message.api
+  private def security = env.message.security
+  private def forms = env.message.forms
+  private def relationApi = env.relation.api
 
   def inbox(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
       for {
         pag <- api.inbox(me, page)
-        _ <- Env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+        _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
         res <- negotiate(
           html = fuccess(html.message.inbox(me, pag)),
-          api = _ => fuccess(Env.message.jsonView.inbox(me, pag))
+          api = _ => fuccess(env.message.jsonView.inbox(me, pag))
         )
       } yield res
     }
@@ -51,7 +51,7 @@ object Message extends LilaController {
             html.message.thread(thread, form, blocked)
           }
         } map NoCache,
-        api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => Env.message.jsonView.thread(thread) }
+        api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => env.message.jsonView.thread(thread) }
       )
     }
   }
@@ -64,10 +64,12 @@ object Message extends LilaController {
           err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
             BadRequest(html.message.thread(thread, err.some, blocked))
           },
-          text => api.makePost(thread, text, me) inject Redirect(routes.Message.thread(thread.id) + "#bottom")
+          text => api.makePost(thread, text, me) inject Redirect {
+            s"${routes.Message.thread(thread.id)}#bottom"
+          }
         ),
         api = _ => forms.post.bindFromRequest.fold(
-          err => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+          _ => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
           text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
         )
       )
@@ -100,7 +102,7 @@ object Message extends LilaController {
 
   def create = AuthBody { implicit ctx => implicit me =>
     NotForKids {
-      Env.chat.panic.allowed(me) ?? {
+      env.chat.panic.allowed(me) ?? {
         implicit val req = ctx.body
         negotiate(
           html = forms.thread(me).bindFromRequest.fold(
@@ -113,7 +115,7 @@ object Message extends LilaController {
               ThreadLimitPerUser(me.id, cost = cost) {
                 ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
                   api.makeThread(data, me) map { thread =>
-                    if (thread.asMod) Env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+                    if (thread.asMod) env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
                     Redirect(routes.Message.thread(thread.id))
                   }
                 }
@@ -132,22 +134,21 @@ object Message extends LilaController {
   }
 
   private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Frag] =
-    get("user") ?? UserRepo.named flatMap { user =>
+    get("user") ?? env.user.repo.named flatMap { user =>
       user.fold(fuTrue)(u => security.canMessage(me.id, u.id)) map { canMessage =>
         html.message.form(
           f(forms thread me),
           reqUser = user,
           reqTitle = title,
-          reqMod = getBool("mod"),
           canMessage = canMessage || Granter(_.MessageAnyone)(me),
-          oldEnough = Env.chat.panic.allowed(me)
+          oldEnough = env.chat.panic.allowed(me)
         )
       }
     }
 
   def batch = AuthBody { implicit ctx => implicit me =>
     val ids = get("ids").??(_.split(",").toList).distinct take 200
-    Env.message.batch(me, ~get("action"), ids) inject Redirect(routes.Message.inbox(1))
+    env.message.batch(me, ~get("action"), ids) inject Redirect(routes.Message.inbox(1))
   }
 
   def delete(id: String) = AuthBody { implicit ctx => implicit me =>

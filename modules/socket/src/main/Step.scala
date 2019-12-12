@@ -29,10 +29,6 @@ object Step {
     def uciString = uci.uci
   }
 
-  private implicit val uciJsonWriter: Writes[Uci.Move] = Writes { uci =>
-    JsString(uci.uci)
-  }
-
   // TODO copied from lila.game
   // put all that shit somewhere else
   private implicit val crazyhousePocketWriter: OWrites[Crazyhouse.Pocket] = OWrites { v =>

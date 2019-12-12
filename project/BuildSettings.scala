@@ -1,5 +1,5 @@
 import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
-import play.sbt.Play.autoImport._
+import play.sbt.PlayImport._
 import sbt._, Keys._
 import scalariform.formatter.preferences._
 
@@ -7,16 +7,14 @@ object BuildSettings {
 
   import Dependencies._
 
-  val globalScalaVersion = "2.11.12"
+  val globalScalaVersion = "2.13.1"
 
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
+    version := "3.0",
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
-    javacOptions += "-Xlint:unchecked",
-    incOptions := incOptions.value.withNameHashing(true),
-    updateOptions := updateOptions.value.withCachedResolution(true),
     sources in doc in Compile := List(),
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
@@ -29,33 +27,40 @@ object BuildSettings {
     .setPreference(DanglingCloseParenthesis, Force)
     .setPreference(DoubleIndentConstructorArguments, true)
 
-  def defaultDeps = Seq(scalaz, chess, scalalib, jodaTime, ws, java8compat, specs2, specs2Scalaz)
+  def defaultLibs: Seq[ModuleID] = Seq(
+    play.api, scalaz, chess, scalalib, jodaTime, ws,
+    macwire.macros, macwire.util, autoconfig, specs2 // , specs2Scalaz
+  )
 
-  def compile(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
-  def provided(deps: ModuleID*): Seq[ModuleID] = deps map (_ % "provided")
-
-  def module(name: String, deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]] = Seq.empty) =
+  def module(
+    name: String,
+    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+    libs: Seq[ModuleID]
+  ) =
     Project(
       name,
       file("modules/" + name)
     )
       .dependsOn(deps: _*)
       .settings(
-        version := "2.0",
-        libraryDependencies ++= defaultDeps,
+        libraryDependencies ++= defaultLibs ++ libs ++ silencer.bundle,
         buildSettings,
         srcMain
       )
 
   val compilerOptions = Seq(
-    "-deprecation", "-unchecked", "-feature", "-language:_",
-    "-Xfatal-warnings",
-    "-Ywarn-dead-code",
-    // "-Ywarn-unused-import",
-    // "-Ywarn-unused",
-    // "-Xlint:missing-interpolator",
-    // "-Ywarn-unused-import",
-    "-Ybackend:GenBCode", "-Ydelambdafy:method", "-target:jvm-1.8"
+    "-language:implicitConversions",
+    "-language:postfixOps",
+    "-language:reflectiveCalls", // #TODO remove me for perfs
+    "-feature",
+    "-unchecked",
+    "-deprecation",
+    "-Xlint:_",
+    "-Ywarn-macros:after",
+    "-Ywarn-unused:_",
+    // "-Xfatal-warnings",
+    "-Xmaxerrs", "12",
+    "-Xmaxwarns", "12"
   )
 
   val srcMain = Seq(

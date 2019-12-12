@@ -1,59 +1,62 @@
 package lila.security
 
-import scala.concurrent.duration.{ span => _, _ }
-
 import akka.actor.ActorSystem
-import play.api.libs.ws.{ WS, WSAuthScheme }
-import play.api.Play.current
+import io.methvin.play.autoconfig._
+import play.api.i18n.Lang
+import play.api.libs.ws.{ WSClient, WSAuthScheme }
+import scala.concurrent.duration.{ span => _, _ }
 import scalatags.Text.all._
 
-import lila.common.String.html.escapeHtml
-import lila.common.String.html.nl2brUnsafe
-import lila.common.{ Lang, EmailAddress }
+import lila.common.config.Secret
+import lila.common.EmailAddress
+import lila.common.String.html.{ escapeHtml, nl2brUnsafe }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
-    apiUrl: String,
-    apiKey: String,
-    from: String,
-    replyTo: String,
-    system: ActorSystem
-) {
+    ws: WSClient,
+    config: Mailgun.Config
+)(implicit system: ActorSystem) {
 
   def send(msg: Mailgun.Message): Funit =
-    if (apiUrl.isEmpty) {
-      println(msg, "No mailgun API URL")
+    if (config.apiUrl.isEmpty) {
+      println(msg -> "No mailgun API URL")
       funit
-    } else {
-      lila.mon.email.actions.send()
-      WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
-        "from" -> Seq(msg.from | from),
+    } else ws.url(s"${config.apiUrl}/messages")
+      .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC).post(Map(
+        "from" -> Seq(msg.from | config.sender),
         "to" -> Seq(msg.to.value),
-        "h:Reply-To" -> Seq(msg.replyTo | replyTo),
+        "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
         "o:tag" -> msg.tag.toSeq,
         "subject" -> Seq(msg.subject),
         "text" -> Seq(msg.text)
       ) ++ msg.htmlBody.?? { body =>
           Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
-        }).void addFailureEffect {
-        case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
+        })
+      .void
+      .addFailureEffect {
+        case _: java.net.ConnectException => lila.mon.email.send.timeout.increment()
         case _ =>
-      } recoverWith {
-        case e if msg.retriesLeft > 0 => {
-          lila.mon.email.actions.retry()
+      }
+      .monSuccess(_.email.send.time)
+      .recoverWith {
+        case _ if msg.retriesLeft > 0 => {
+          lila.mon.email.send.retry.increment()
           akka.pattern.after(15 seconds, system.scheduler) {
             send(msg.copy(retriesLeft = msg.retriesLeft - 1))
           }
         }
-        case e => {
-          lila.mon.email.actions.fail()
-          fufail(e)
-        }
       }
-    }
 }
 
 object Mailgun {
+
+  case class Config(
+      @ConfigName("api.url") apiUrl: String,
+      @ConfigName("api.key") apiKey: Secret,
+      sender: String,
+      @ConfigName("reply_to") replyTo: String
+  )
+  implicit val configLoader = AutoConfig.loader[Config]
 
   case class Message(
       to: EmailAddress,
@@ -96,7 +99,7 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
       )
     )
 
-    def standardEmail(body: String)(implicit lang: Lang): Frag =
+    def standardEmail(body: String): Frag =
       emailMessage(
         pDesc(nl2brUnsafe(body)),
         publisher

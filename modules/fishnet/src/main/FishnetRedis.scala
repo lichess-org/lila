@@ -11,8 +11,7 @@ import lila.common.Bus
 final class FishnetRedis(
     client: RedisClient,
     chanIn: String,
-    chanOut: String,
-    system: akka.actor.ActorSystem
+    chanOut: String
 ) {
 
   val connIn = client.connectPubSub()
@@ -25,12 +24,12 @@ final class FishnetRedis(
   connIn.addListener(new RedisPubSubAdapter[String, String] {
     override def message(chan: String, msg: String): Unit = msg split ' ' match {
 
-      case Array("start") => Bus.publish(FishnetStart, 'roundMapTellAll)
+      case Array("start") => Bus.publish(FishnetStart, "roundMapTellAll")
 
       case Array(gameId, plyS, uci) => for {
         move <- Uci(uci)
-        ply <- parseIntOption(plyS)
-      } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), 'roundMapTell)
+        ply <- plyS.toIntOption
+      } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
       case _ =>
     }
   })

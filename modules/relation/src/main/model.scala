@@ -1,7 +1,7 @@
 package lila.relation
 
 import lila.common.LightUser
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 case class Follower(u1: String) {
   def userId = u1

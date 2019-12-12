@@ -2,16 +2,17 @@ package lila.study
 
 import chess.format.FEN
 import chess.format.pgn.Tags
-import lila.game.{ GameRepo, Pov, Namer }
+import lila.game.{ Pov, Namer }
 import lila.user.User
 
 private final class StudyMaker(
-    lightUser: lila.common.LightUser.GetterSync,
+    lightUserApi: lila.user.LightUserApi,
+    gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker
 ) {
 
   def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
-    (data.form.gameId ?? GameRepo.gameWithInitialFen).flatMap {
+    (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {
       case Some((game, initialFen)) => createFromPov(data, Pov(game, data.form.orientation), initialFen, user)
       case None => createFromScratch(data, user)
     } map { sc =>
@@ -38,27 +39,29 @@ private final class StudyMaker(
   }
 
   private def createFromPov(data: StudyMaker.ImportGame, pov: Pov, initialFen: Option[FEN], user: User): Fu[Study.WithChapter] =
-    chapterMaker.game2root(pov.game, initialFen) map { root =>
-      val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
-      val chapter: Chapter = Chapter.make(
-        studyId = study.id,
-        name = Chapter.Name(Namer.gameVsText(pov.game, withRatings = false)(lightUser)),
-        setup = Chapter.Setup(
-          gameId = pov.gameId.some,
-          variant = pov.game.variant,
-          orientation = pov.color
-        ),
-        root = root,
-        tags = Tags.empty,
-        order = 1,
-        ownerId = user.id,
-        practice = false,
-        gamebook = false,
-        conceal = None
-      )
-      Study.WithChapter(study withChapter chapter, chapter)
-    } addEffect { swc =>
-      chapterMaker.notifyChat(swc.study, pov.game, user.id)
+    chapterMaker.game2root(pov.game, initialFen) flatMap { root =>
+      Namer.gameVsText(pov.game, withRatings = false)(lightUserApi.async) dmap Chapter.Name.apply map { name =>
+        val study = Study.make(user, Study.From.Game(pov.gameId), data.id, Study.Name("Game study").some)
+        val chapter: Chapter = Chapter.make(
+          studyId = study.id,
+          name = name,
+          setup = Chapter.Setup(
+            gameId = pov.gameId.some,
+            variant = pov.game.variant,
+            orientation = pov.color
+          ),
+          root = root,
+          tags = Tags.empty,
+          order = 1,
+          ownerId = user.id,
+          practice = false,
+          gamebook = false,
+          conceal = None
+        )
+        Study.WithChapter(study withChapter chapter, chapter)
+      } addEffect { swc =>
+        chapterMaker.notifyChat(swc.study, pov.game, user.id)
+      }
     }
 }
 

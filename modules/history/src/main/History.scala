@@ -1,5 +1,7 @@
 package lila.history
 
+import scala.util.Success
+
 import lila.rating.PerfType
 
 case class History(
@@ -44,19 +46,18 @@ case class History(
 
 object History {
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
-    def read(doc: BSONDocument): RatingsMap = doc.stream.flatMap {
-      case scala.util.Success(BSONElement(k, BSONInteger(v))) => parseIntOption(k) map (_ -> v)
+    def readDocument(doc: BSONDocument) = Success(doc.elements.flatMap {
+      case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> v)
       case _ => none[(Int, Int)]
-    }.toList sortBy (_._1)
+    }.sortBy(_._1) to List)
   }
 
   private[history] implicit val HistoryBSONReader = new BSONDocumentReader[History] {
-
-    def read(doc: BSONDocument): History = {
-      def ratingsMap(key: String): RatingsMap = ~doc.getAs[RatingsMap](key)
+    def readDocument(doc: BSONDocument) = Success {
+      def ratingsMap(key: String): RatingsMap = ~doc.getAsOpt[RatingsMap](key)
       History(
         standard = ratingsMap("standard"),
         chess960 = ratingsMap("chess960"),

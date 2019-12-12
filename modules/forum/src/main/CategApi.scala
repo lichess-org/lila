@@ -3,27 +3,25 @@ package lila.forum
 import lila.common.paginator._
 import lila.db.dsl._
 
-private[forum] final class CategApi(env: Env) {
+final class CategApi(env: Env) {
 
   import BSONHandlers._
 
   def list(teams: Iterable[String], troll: Boolean): Fu[List[CategView]] = for {
-    categs ← CategRepo withTeams teams
-    views ← (categs map { categ =>
+    categs <- env.categRepo withTeams teams
+    views <- (categs map { categ =>
       env.postApi get (categ lastPostId troll) map { topicPost =>
         CategView(categ, topicPost map {
-          _ match {
-            case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-          }
+          case (topic, post) => (topic, post, env.postApi lastPageOf topic)
         }, troll)
       }
     }).sequenceFu
   } yield views
 
-  def teamNbPosts(slug: String): Fu[Int] = CategRepo nbPosts teamSlug(slug)
+  def teamNbPosts(slug: String): Fu[Int] = env.categRepo nbPosts teamSlug(slug)
 
   def makeTeam(slug: String, name: String): Funit =
-    CategRepo.nextPosition flatMap { position =>
+    env.categRepo.nextPosition flatMap { position =>
       val categ = Categ(
         _id = teamSlug(slug),
         name = name,
@@ -57,25 +55,25 @@ private[forum] final class CategApi(env: Env) {
         categId = categ.id,
         modIcon = None
       )
-      env.categColl.insert(categ).void >>
-        env.postColl.insert(post).void >>
-        env.topicColl.insert(topic withPost post).void >>
-        env.categColl.update($id(categ.id), categ withTopic post).void
+      env.categRepo.coll.insert.one(categ).void >>
+        env.postRepo.coll.insert.one(post).void >>
+        env.topicRepo.coll.insert.one(topic withPost post).void >>
+        env.categRepo.coll.update.one($id(categ.id), categ withTopic post).void
     }
 
   def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
-    optionT(CategRepo bySlug slug) flatMap { categ =>
+    optionT(env.categRepo bySlug slug) flatMap { categ =>
       optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
     } run
 
   def denormalize(categ: Categ): Funit = for {
-    nbTopics ← TopicRepo countByCateg categ
-    nbPosts ← PostRepo countByCateg categ
-    lastPost ← PostRepo lastByCateg categ
-    nbTopicsTroll ← TopicRepoTroll countByCateg categ
-    nbPostsTroll ← PostRepoTroll countByCateg categ
-    lastPostTroll ← PostRepoTroll lastByCateg categ
-    _ ← env.categColl.update($id(categ.id), categ.copy(
+    nbTopics <- env.topicRepo countByCateg categ
+    nbPosts <- env.postRepo countByCateg categ
+    lastPost <- env.postRepo lastByCateg categ
+    nbTopicsTroll <- env.topicRepo withTroll true countByCateg categ
+    nbPostsTroll <- env.postRepo withTroll true countByCateg categ
+    lastPostTroll <- env.postRepo withTroll true lastByCateg categ
+    _ <- env.categRepo.coll.update.one($id(categ.id), categ.copy(
       nbTopics = nbTopics,
       nbPosts = nbPosts,
       lastPostId = lastPost ?? (_.id),

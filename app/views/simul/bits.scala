@@ -1,7 +1,5 @@
 package views.html.simul
 
-import play.api.libs.json.Json
-
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -51,7 +49,7 @@ object bits {
       }
     )
 
-  private[simul] def setup(sim: lila.simul.Simul)(implicit ctx: Context) =
+  private[simul] def setup(sim: lila.simul.Simul) =
     span(cls := List("setup" -> true, "rich" -> sim.variantRich))(
       sim.clock.config.show,
       " • ",

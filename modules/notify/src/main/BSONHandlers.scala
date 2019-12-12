@@ -1,12 +1,13 @@
 package lila.notify
 
+import chess.Color
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
 import lila.db.{ dsl, BSON }
 import lila.notify.InvitedToStudy.{ StudyName, InvitedBy, StudyId }
 import lila.notify.MentionedInThread._
 import lila.notify.Notification._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 private object BSONHandlers {
 
@@ -52,10 +53,7 @@ private object BSONHandlers {
   implicit val IrwinDoneHandler = Macros.handler[IrwinDone]
   implicit val GenericLinkHandler = Macros.handler[GenericLink]
 
-  implicit val ColorBSONHandler = new BSONHandler[BSONBoolean, chess.Color] {
-    def read(b: BSONBoolean) = chess.Color(b.value)
-    def write(c: chess.Color) = BSONBoolean(c.white)
-  }
+  implicit val ColorBSONHandler = BSONBooleanHandler.as[Color](Color.apply, _.white)
 
   implicit val NotificationContentHandler = new BSON[NotificationContent] {
 
@@ -65,19 +63,19 @@ private object BSONHandlers {
           $doc("mentionedBy" -> mentionedBy, "topic" -> topic, "topicId" -> topicId, "category" -> category, "postId" -> postId)
         case InvitedToStudy(invitedBy, studyName, studyId) =>
           $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
-        case p: PrivateMessage => PrivateMessageHandler.write(p)
-        case t: TeamJoined => TeamJoinedHandler.write(t)
-        case o: TeamMadeOwner => TeamMadeOwnerHandler.write(o)
-        case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.write(x)
-        case x: GameEnd => GameEndHandler.write(x)
-        case x: PlanStart => PlanStartHandler.write(x)
-        case x: PlanExpire => PlanExpireHandler.write(x)
-        case x: RatingRefund => RatingRefundHandler.write(x)
+        case p: PrivateMessage => PrivateMessageHandler.writeTry(p).get
+        case t: TeamJoined => TeamJoinedHandler.writeTry(t).get
+        case o: TeamMadeOwner => TeamMadeOwnerHandler.writeTry(o).get
+        case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.writeTry(x).get
+        case x: GameEnd => GameEndHandler.writeTry(x).get
+        case x: PlanStart => PlanStartHandler.writeTry(x).get
+        case x: PlanExpire => PlanExpireHandler.writeTry(x).get
+        case x: RatingRefund => RatingRefundHandler.writeTry(x).get
         case ReportedBanned => $empty
         case CoachReview => $empty
-        case x: CorresAlarm => CorresAlarmHandler.write(x)
-        case x: IrwinDone => IrwinDoneHandler.write(x)
-        case x: GenericLink => GenericLinkHandler.write(x)
+        case x: CorresAlarm => CorresAlarmHandler.writeTry(x).get
+        case x: IrwinDone => IrwinDoneHandler.writeTry(x).get
+        case x: GenericLink => GenericLinkHandler.writeTry(x).get
       }
     } ++ $doc("type" -> notificationContent.key)
 
@@ -102,19 +100,19 @@ private object BSONHandlers {
     def reads(reader: Reader): NotificationContent = reader.str("type") match {
       case "mention" => readMentionedNotification(reader)
       case "invitedStudy" => readInvitedStudyNotification(reader)
-      case "privateMessage" => PrivateMessageHandler read reader.doc
-      case "teamJoined" => TeamJoinedHandler read reader.doc
-      case "teamMadeOwner" => TeamMadeOwnerHandler read reader.doc
-      case "titledTourney" => TitledTournamentInvitationHandler read reader.doc
-      case "gameEnd" => GameEndHandler read reader.doc
-      case "planStart" => PlanStartHandler read reader.doc
-      case "planExpire" => PlanExpireHandler read reader.doc
-      case "ratingRefund" => RatingRefundHandler read reader.doc
+      case "privateMessage" => PrivateMessageHandler.readTry(reader.doc).get
+      case "teamJoined" => TeamJoinedHandler.readTry(reader.doc).get
+      case "teamMadeOwner" => TeamMadeOwnerHandler.readTry(reader.doc).get
+      case "titledTourney" => TitledTournamentInvitationHandler.readTry(reader.doc).get
+      case "gameEnd" => GameEndHandler.readTry(reader.doc).get
+      case "planStart" => PlanStartHandler.readTry(reader.doc).get
+      case "planExpire" => PlanExpireHandler.readTry(reader.doc).get
+      case "ratingRefund" => RatingRefundHandler.readTry(reader.doc).get
       case "reportedBanned" => ReportedBanned
       case "coachReview" => CoachReview
-      case "corresAlarm" => CorresAlarmHandler read reader.doc
-      case "irwinDone" => IrwinDoneHandler read reader.doc
-      case "genericLink" => GenericLinkHandler read reader.doc
+      case "corresAlarm" => CorresAlarmHandler.readTry(reader.doc).get
+      case "irwinDone" => IrwinDoneHandler.readTry(reader.doc).get
+      case "genericLink" => GenericLinkHandler.readTry(reader.doc).get
     }
 
     def writes(writer: Writer, n: NotificationContent): dsl.Bdoc = writeNotificationContent(n)

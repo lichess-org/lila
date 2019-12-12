@@ -29,6 +29,8 @@ case class IpAndFp(ip: IpAddress, fp: Option[String], user: User.ID)
 
 case class RecaptchaPublicConfig(key: String, enabled: Boolean)
 
+case class LameNameCheck(value: Boolean) extends AnyVal
+
 case class Signup(
     user: User,
     email: EmailAddress,

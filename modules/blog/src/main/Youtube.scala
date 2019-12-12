@@ -18,16 +18,16 @@ object Youtube {
 
   private def parseSeconds(text: String) = text match {
     case HourMinSecRegex(hourS, minS, secS) => for {
-      hour <- parseIntOption(hourS)
-      min <- parseIntOption(minS)
-      sec <- parseIntOption(secS)
+      hour <- hourS.toIntOption
+      min <- minS.toIntOption
+      sec <- secS.toIntOption
     } yield 3600 * hour + 60 * min + sec
     case MinSecRegex(minS, secS) => for {
-      min <- parseIntOption(minS)
-      sec <- parseIntOption(secS)
+      min <- minS.toIntOption
+      sec <- secS.toIntOption
     } yield 60 * min + sec
     case SecRegex(secS) => for {
-      sec <- parseIntOption(secS)
+      sec <- secS.toIntOption
     } yield sec
     case _ => None
   }

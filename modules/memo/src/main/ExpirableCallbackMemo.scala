@@ -8,7 +8,7 @@ final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit) {
 
   private val cache: Cache[String, Boolean] = Scaffeine()
     .expireAfterWrite(ttl)
-    .removalListener((key: String, value: Boolean, cause) => callback(key))
+    .removalListener((key: String, _: Boolean, _) => callback(key))
     .build[String, Boolean]
 
   @inline private def isNotNull[A](a: A) = a != null

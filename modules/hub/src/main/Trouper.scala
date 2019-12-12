@@ -3,7 +3,6 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.duration._
 import scala.concurrent.{ Future, Promise }
 
 import lila.hub.actorApi.Shutdown
@@ -30,11 +29,8 @@ trait Trouper extends lila.common.Tellable {
   }
 
   def !(msg: Any): Unit =
-    if (isAlive && stateRef.getAndUpdate(
-      new UnaryOperator[State] {
-        override def apply(state: State): State = Some(state.fold(Queue.empty[Any])(_ enqueue msg))
-      }
-    ).isEmpty) run(msg)
+    if (isAlive && stateRef.getAndUpdate(state =>
+      Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]

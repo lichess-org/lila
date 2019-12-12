@@ -6,9 +6,9 @@ import scala.concurrent.duration._
 import lila.game.{ Game, GameRepo }
 
 final class AutoAnalysis(
-    fishnet: akka.actor.ActorSelection,
-    system: akka.actor.ActorSystem
-) {
+    gameRepo: GameRepo,
+    fishnet: lila.hub.actors.Fishnet
+)(implicit system: akka.actor.ActorSystem) {
 
   def apply(candidate: Report.Candidate): Funit =
     if (candidate.isCheat) doItNow(candidate)
@@ -24,14 +24,14 @@ final class AutoAnalysis(
       if (games.nonEmpty)
         logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
       games foreach { game =>
-        lila.mon.cheat.autoAnalysis.reason("Report")()
+        lila.mon.cheat.autoAnalysis.reason("Report").increment()
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }
 
   private def gamesToAnalyse(candidate: Report.Candidate): Fu[List[Game]] = {
-    GameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 10) |+|
-      GameRepo.lastGamesBetween(candidate.suspect.user, candidate.reporter.user, DateTime.now.minusHours(2), 10)
+    gameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 10) |+|
+      gameRepo.lastGamesBetween(candidate.suspect.user, candidate.reporter.user, DateTime.now.minusHours(2), 10)
   }.map {
     _.filter { g => g.analysable && !g.metadata.analysed }
       .distinct

@@ -1,29 +1,16 @@
 package lila.perfStat
 
-import lila.common.LightUser
-import lila.rating.{ PerfType, Perf, Glicko }
-import lila.user.User
-
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
 import play.api.libs.json._
 
+import lila.common.LightUser
+import lila.rating.{ PerfType, Perf, Glicko }
+import lila.user.User
+
 final class JsonView(getLightUser: LightUser.GetterSync) {
 
   import JsonView._
-
-  def apply(
-    user: User,
-    stat: PerfStat,
-    rank: Option[Int],
-    percentile: Option[Double]
-  ) = Json.obj(
-    "user" -> user,
-    "perf" -> user.perfs(stat.perfType),
-    "rank" -> rank,
-    "percentile" -> percentile,
-    "stat" -> stat
-  )
 
   private implicit val userIdWriter: OWrites[UserId] = OWrites { u =>
     val light = getLightUser(u.value)
@@ -43,6 +30,19 @@ final class JsonView(getLightUser: LightUser.GetterSync) {
   implicit val resultStreakWrites = Json.writes[ResultStreak]
   implicit val countWrites = Json.writes[Count]
   implicit val perfStatWrites = Json.writes[PerfStat]
+
+  def apply(
+    user: User,
+    stat: PerfStat,
+    rank: Option[Int],
+    percentile: Option[Double]
+  ) = Json.obj(
+    "user" -> user,
+    "perf" -> user.perfs(stat.perfType),
+    "rank" -> rank,
+    "percentile" -> percentile,
+    "stat" -> stat
+  )
 }
 
 object JsonView {

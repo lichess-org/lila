@@ -1,10 +1,9 @@
 package lila.puzzle
 
-import scala.collection.breakOut
-
 import chess.Color
 import chess.format.{ Uci, Forsyth }
 import org.joda.time.DateTime
+import scala.util.{ Try, Success }
 
 case class Puzzle(
     id: PuzzleId,
@@ -23,7 +22,7 @@ case class Puzzle(
 
   // ply after "initial move" when we start solving
   def initialPly: Int = {
-    fen.split(' ').lastOption flatMap parseIntOption map { move =>
+    fen.split(' ').lastOption flatMap (_.toIntOption) map { move =>
       move * 2 - color.fold(0, 1)
     }
   } | 0
@@ -74,34 +73,32 @@ object Puzzle {
     mate = mate
   )
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
   import BSON.BSONJodaDateTimeHandler
-  private implicit val lineBSONHandler = new BSONHandler[BSONDocument, Lines] {
+  private implicit val linesBSONHandler = new BSONDocumentReader[Lines] with BSONDocumentWriter[Lines] with BSONHandler[Lines] {
     private def readMove(move: String) = chess.Pos.doublePiotrToKey(move take 2) match {
       case Some(m) => s"$m${move drop 2}"
       case _ => sys error s"Invalid piotr move notation: $move"
     }
-    def read(doc: BSONDocument): Lines = doc.elements.map {
-      case BSONElement(move, BSONBoolean(true)) => Win(readMove(move))
-
-      case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
-
-      case BSONElement(move, more: BSONDocument) =>
-        Node(readMove(move), read(more))
-
-      case BSONElement(move, value) =>
-        throw new Exception(s"Can't read value of $move: $value")
-    }(breakOut)
+    def readDocument(doc: BSONDocument): Try[Lines] = Try {
+      doc.elements.map {
+        case BSONElement(move, BSONBoolean(true)) => Win(readMove(move))
+        case BSONElement(move, BSONBoolean(false)) => Retry(readMove(move))
+        case BSONElement(move, more: BSONDocument) => Node(readMove(move), readDocument(more).get)
+        case BSONElement(move, value) =>
+          throw new Exception(s"Can't read value of $move: $value")
+      } to List
+    }
     private def writeMove(move: String) = chess.Pos.doubleKeyToPiotr(move take 4) match {
       case Some(m) => s"$m${move drop 4}"
       case _ => sys error s"Invalid move notation: $move"
     }
-    def write(lines: Lines): BSONDocument = BSONDocument(lines map {
+    def writeTry(lines: Lines): Try[BSONDocument] = Success(BSONDocument(lines map {
       case Win(move) => writeMove(move) -> BSONBoolean(true)
       case Retry(move) => writeMove(move) -> BSONBoolean(false)
-      case Node(move, lines) => writeMove(move) -> write(lines)
-    })
+      case Node(move, lines) => writeMove(move) -> writeTry(lines).get
+    }))
   }
 
   object BSONFields {

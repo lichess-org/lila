@@ -1,34 +1,19 @@
 package lila.base
 
+import akka.actor.ActorSystem
+import scala.util.Try
+
 import LilaTypes._
 import ornicar.scalalib.Zero
-import play.api.libs.concurrent.Execution.Implicits._
+import scala.collection.BuildFrom
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ Future, ExecutionContext }
 
-/*
- * When calling map, foreach, flatMap, etc.. on a future,
- * the asynchronous callback is queued in the thread pool (execution context)
- * and ran asynchronously when a thread is available.
- * By specifying a DirectExecutionContext, we make the callback be called
- * immediately, synchronously, in the same thread that just completed
- * the future. This skips a trip in the thread pool and increases performance.
- * Only use when the callback is trivial.
- * E.g. futureString.map(_ + "!")(DirectExecutionContext)
- * or   futureString.dmap(_ + "!") // shortcut
- */
-object DirectExecutionContext extends ExecutionContext {
-  override def execute(command: Runnable): Unit = command.run()
-  override def reportFailure(cause: Throwable): Unit =
-    throw new IllegalStateException("lila DirectExecutionContext failure", cause)
-}
-
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
-  private type Fu[A] = Future[A]
 
-  // see DirectExecutionContext
-  @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(DirectExecutionContext)
-  @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(DirectExecutionContext)
+  @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(ExecutionContext.parasitic)
+  @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(ExecutionContext.parasitic)
 
   def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
     case _ => sideEffect
@@ -56,13 +41,13 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def flatFold[B](fail: Exception => Fu[B], succ: A => Fu[B]): Fu[B] =
     fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
-  def logFailure(logger: => lila.log.Logger, msg: Exception => String): Fu[A] =
+  def logFailure(logger: => lila.log.Logger, msg: Throwable => String): Fu[A] =
     addFailureEffect { e => logger.warn(msg(e), e) }
   def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
-  def addFailureEffect(effect: Exception => Unit) = {
-    fua onFailure {
-      case e: Exception => effect(e)
+  def addFailureEffect(effect: Throwable => Unit) = {
+    fua.failed.foreach {
+      case e: Throwable => effect(e)
     }
     fua
   }
@@ -124,35 +109,41 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def awaitSeconds(seconds: Int): A =
     await(seconds.seconds)
 
-  def withTimeout(duration: FiniteDuration)(implicit system: akka.actor.ActorSystem): Fu[A] =
+  def withTimeout(duration: FiniteDuration)(implicit system: ActorSystem): Fu[A] =
     withTimeout(duration, LilaException(s"Future timed out after $duration"))
 
-  def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: akka.actor.ActorSystem): Fu[A] = {
+  def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit system: ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
       akka.pattern.after(duration, system.scheduler)(Future failed error)
     )
   }
 
-  def withTimeoutDefault(duration: FiniteDuration, default: => A)(implicit system: akka.actor.ActorSystem): Fu[A] = {
+  def withTimeoutDefault(duration: FiniteDuration, default: => A)(implicit system: ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
       akka.pattern.after(duration, system.scheduler)(Future(default))
     )
   }
 
-  def delay(duration: FiniteDuration)(implicit system: akka.actor.ActorSystem) =
+  def delay(duration: FiniteDuration)(implicit system: ActorSystem) =
     lila.common.Future.delay(duration)(fua)
 
   def chronometer = lila.common.Chronometer(fua)
+  def chronometerTry = lila.common.Chronometer.lapTry(fua)
 
-  def mon(path: lila.mon.RecPath) = chronometer.mon(path).result
+  def mon(path: lila.mon.TimerPath) = chronometer.mon(path).result
+  def monTry(path: Try[A] => lila.mon.TimerPath) = chronometerTry.mon(r => path(r)(lila.mon)).result
+  def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer) = chronometerTry.mon {
+    r => path(lila.mon)(r.isSuccess)
+  }.result
+
   def logTime(name: String) = chronometer pp name
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
 
   def nevermind(implicit z: Zero[A]): Fu[A] = fua recover {
-    case e: LilaException => z.zero
-    case e: java.util.concurrent.TimeoutException => z.zero
+    case _: LilaException => z.zero
+    case _: java.util.concurrent.TimeoutException => z.zero
     case e: Exception =>
       lila.log("common").warn("Future.nevermind", e)
       z.zero
@@ -162,21 +153,21 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 final class PimpedFutureBoolean(private val fua: Fu[Boolean]) extends AnyVal {
 
   def >>&(fub: => Fu[Boolean]): Fu[Boolean] =
-    fua.flatMap { if (_) fub else fuFalse }(DirectExecutionContext)
+    fua.flatMap { if (_) fub else fuFalse }(ExecutionContext.parasitic)
 
   def >>|(fub: => Fu[Boolean]): Fu[Boolean] =
-    fua.flatMap { if (_) fuTrue else fub }(DirectExecutionContext)
+    fua.flatMap { if (_) fuTrue else fub }(ExecutionContext.parasitic)
 
-  @inline def unary_! = fua.map { !_ }(DirectExecutionContext)
+  @inline def unary_! = fua.map { !_ }(ExecutionContext.parasitic)
 }
 
 final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal {
 
-  def flatten(msg: => String): Fu[A] = fua flatMap {
+  def orFail(msg: => String): Fu[A] = fua flatMap {
     _.fold[Fu[A]](fufail(msg))(fuccess(_))
   }
 
-  def flattenWith(err: => Exception): Fu[A] = fua flatMap {
+  def orFailWith(err: => Exception): Fu[A] = fua flatMap {
     _.fold[Fu[A]](fufail(err))(fuccess(_))
   }
 
@@ -187,16 +178,13 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
   def getOrElse(other: => Fu[A]): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
 }
 
-final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
+// final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {
 
-  def flatten: Fu[A] = fua.flatMap {
-    _.fold[Fu[A]](fufail(_), fuccess(_))
-  }(DirectExecutionContext)
-}
+//   def flatten: Fu[A] = fua.flatMap {
+//     _.fold[Fu[A]](fufail(_), fuccess(_))
+//   }(ExecutionContext.parasitic)
+// }
 
-final class PimpedTraversableFuture[A, M[X] <: TraversableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
-  import scala.collection.generic.CanBuildFrom
-
-  def sequenceFu(implicit cbf: CanBuildFrom[M[Fu[A]], A, M[A]]): Fu[M[A]] =
-    Future.sequence(t)
+final class PimpedIterableFuture[A, M[X] <: IterableOnce[X]](private val t: M[Fu[A]]) extends AnyVal {
+  def sequenceFu(implicit bf: BuildFrom[M[Fu[A]], A, M[A]]): Fu[M[A]] = Future.sequence(t)
 }

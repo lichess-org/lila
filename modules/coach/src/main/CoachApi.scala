@@ -1,7 +1,6 @@
 package lila.coach
 
 import org.joda.time.DateTime
-import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.db.Photographer
@@ -12,6 +11,7 @@ import lila.user.{ User, UserRepo }
 final class CoachApi(
     coachColl: Coll,
     reviewColl: Coll,
+    userRepo: UserRepo,
     photographer: Photographer,
     notifyApi: NotifyApi
 ) {
@@ -21,7 +21,7 @@ final class CoachApi(
   def byId(id: Coach.Id): Fu[Option[Coach]] = coachColl.byId[Coach](id.value)
 
   def find(username: String): Fu[Option[Coach.WithUser]] =
-    UserRepo named username flatMap { _ ?? find }
+    userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
     byId(Coach.Id(user.id)) map2 withUser(user)
@@ -30,7 +30,7 @@ final class CoachApi(
   def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
     find(user) orElse {
       val c = Coach.WithUser(Coach make user, user)
-      coachColl insert c.coach inject c.some
+      coachColl.insert.one(c.coach) inject c.some
     }
   }
 
@@ -38,29 +38,29 @@ final class CoachApi(
     Granter(_.Coach)(user) ?? coachColl.exists($id(user.id) ++ $doc("listed" -> true))
 
   def setSeenAt(user: User): Funit =
-    Granter(_.Coach)(user) ?? coachColl.update($id(user.id), $set("user.seenAt" -> DateTime.now)).void
+    Granter(_.Coach)(user) ?? coachColl.update.one($id(user.id), $set("user.seenAt" -> DateTime.now)).void
 
   def setRating(userPre: User): Funit =
     Granter(_.Coach)(userPre) ?? {
-      UserRepo.byId(userPre.id) flatMap {
+      userRepo.byId(userPre.id) flatMap {
         _ ?? { user =>
-          coachColl.update($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
+          coachColl.update.one($id(user.id), $set("user.rating" -> user.perfs.bestStandardRating)).void
         }
       }
     }
 
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
-    coachColl.update(
+    coachColl.update.one(
       $id(c.coach.id),
       data(c.coach),
       upsert = true
     ).void
 
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
-    coachColl.update($id(id), $set("nbReviews" -> nb)).void
+    coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
 
   private[coach] def toggleApproved(username: String, value: Boolean): Fu[String] =
-    coachColl.update(
+    coachColl.update.one(
       $id(User.normalize(username)),
       $set("approved" -> value)
     ) map { result =>
@@ -72,11 +72,11 @@ final class CoachApi(
 
   def uploadPicture(c: Coach.WithUser, picture: Photographer.Uploaded): Funit =
     photographer(c.coach.id.value, picture).flatMap { pic =>
-      coachColl.update($id(c.coach.id), $set("picturePath" -> pic.path)).void
+      coachColl.update.one($id(c.coach.id), $set("picturePath" -> pic.path)).void
     }
 
   def deletePicture(c: Coach.WithUser): Funit =
-    coachColl.update($id(c.coach.id), $unset("picturePath")).void
+    coachColl.update.one($id(c.coach.id), $unset("picturePath")).void
 
   private def withUser(user: User)(coach: Coach) = Coach.WithUser(coach, user)
 
@@ -105,7 +105,7 @@ final class CoachApi(
         }
         if (me.troll) fuccess(review)
         else {
-          reviewColl.update($id(id), review, upsert = true) >>
+          reviewColl.update.one($id(id), review, upsert = true) >>
             notifyApi.addNotification(Notification.make(
               notifies = Notification.Notifies(coach.id.value),
               content = lila.notify.CoachReview
@@ -119,14 +119,14 @@ final class CoachApi(
       reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
 
     def approve(r: CoachReview, v: Boolean) = {
-      if (v) reviewColl.update(
+      if (v) reviewColl.update.one(
         $id(r.id),
         $set("approved" -> v) ++ $unset("moddedAt")
       ).void
-      else reviewColl.remove($id(r.id)).void
+      else reviewColl.delete.one($id(r.id)).void
     } >> refreshCoachNbReviews(r.coachId)
 
-    def mod(r: CoachReview) = reviewColl.update($id(r.id), $set(
+    def mod(r: CoachReview) = reviewColl.update.one($id(r.id), $set(
       "approved" -> false,
       "moddedAt" -> DateTime.now
     )) >> refreshCoachNbReviews(r.coachId)
@@ -149,15 +149,15 @@ final class CoachApi(
       findRecent($doc("coachId" -> c.id.value))
 
     def deleteAllBy(userId: User.ID): Funit = for {
-      reviews <- reviewColl.find($doc("userId" -> userId)).list[CoachReview]
+      reviews <- reviewColl.ext.find($doc("userId" -> userId)).list[CoachReview]
       _ <- reviews.map { review =>
-        reviewColl.remove($doc("userId" -> review.userId)).void
+        reviewColl.delete.one($doc("userId" -> review.userId)).void
       }.sequenceFu
       _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
     } yield ()
 
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
-      reviewColl.find(selector)
+      reviewColl.ext.find(selector)
         .sort($sort desc "createdAt")
         .list[CoachReview](100) map CoachReview.Reviews.apply
   }

@@ -7,14 +7,15 @@ import akka.pattern.pipe
 import chess.format.pgn.{ Tags, Sans }
 import chess.format.{ Forsyth, pgn }
 import chess.{ Game => ChessGame }
-import scalaz.{ NonEmptyList, OptionT }
+import scala.util.Success
 import scalaz.Validation.FlatMap._
+import scalaz.{ NonEmptyList, OptionT }
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
 
 // only works with standard chess (not chess960)
-private final class Captcher extends Actor {
+private final class Captcher(gameRepo: GameRepo) extends Actor {
 
   def receive = {
 
@@ -37,8 +38,8 @@ private final class Captcher extends Actor {
 
     def current = challenges.head
 
-    def refresh = createFromDb onSuccess {
-      case Some(captcha) => add(captcha)
+    def refresh = createFromDb andThen {
+      case Success(Some(captcha)) => add(captcha)
     }
 
     // Private stuff
@@ -62,19 +63,19 @@ private final class Captcher extends Actor {
     }.run
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
-      GameRepo findRandomStandardCheckmate distribution
+      gameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] =
-      optionT(GameRepo game id) flatMap fromGame run
+      optionT(gameRepo game id) flatMap fromGame run
 
     private def fromGame(game: Game): OptionT[Fu, Captcha] =
-      optionT(GameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }
+      optionT(gameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }
 
     private def makeCaptcha(game: Game, moves: PgnMoves): OptionT[Fu, Captcha] =
       optionT(Future {
         for {
-          rewinded ← rewind(game, moves)
-          solutions ← solve(rewinded)
+          rewinded <- rewind(moves)
+          solutions <- solve(rewinded)
           moves = rewinded.situation.destinations map {
             case (from, dests) => from.key -> dests.mkString
           }
@@ -82,15 +83,15 @@ private final class Captcher extends Actor {
       })
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
-      (game.situation.moves.flatMap {
+      game.situation.moves.view.flatMap {
         case (_, moves) => moves filter { move =>
           (move.after situationOf !game.player).checkMate
         }
-      }(scala.collection.breakOut): List[chess.Move]) map { move =>
+      }.to(List) map { move =>
         s"${move.orig} ${move.dest}"
       } toNel
 
-    private def rewind(game: Game, moves: PgnMoves): Option[ChessGame] =
+    private def rewind(moves: PgnMoves): Option[ChessGame] =
       pgn.Reader.movesWithSans(
         moves,
         sans => Sans(safeInit(sans.value)),
@@ -98,7 +99,7 @@ private final class Captcher extends Actor {
       ).flatMap(_.valid) map (_.state) toOption
 
     private def safeInit[A](list: List[A]): List[A] = list match {
-      case x :: Nil => Nil
+      case _ :: Nil => Nil
       case x :: xs => x :: safeInit(xs)
       case _ => Nil
     }

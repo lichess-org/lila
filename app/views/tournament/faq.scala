@@ -9,20 +9,20 @@ import controllers.routes
 
 object faq {
 
-  def page(system: Option[lila.tournament.System])(implicit ctx: Context) = views.html.base.layout(
+  def page(implicit ctx: Context) = views.html.base.layout(
     title = "Tournament FAQ",
     moreCss = cssTag("page")
   ) {
       main(cls := "page-small box box-pad page")(
         h1(
           a(href := routes.Tournament.home(), dataIcon := "I", cls := "text"),
-          system.??(_.toString), " Tournament FAQ"
+          "Arena Tournament FAQ"
         ),
-        div(cls := "body")(apply(system = system))
+        div(cls := "body")(apply())
       )
     }
 
-  def apply(rated: Option[Boolean] = None, system: Option[lila.tournament.System] = None, privateId: Option[String] = None)(implicit ctx: Context) = frag(
+  def apply(rated: Option[Boolean] = None, privateId: Option[String] = None)(implicit ctx: Context) = frag(
     privateId.map { id =>
       frag(
         h2(trans.arena.thisIsPrivate()),

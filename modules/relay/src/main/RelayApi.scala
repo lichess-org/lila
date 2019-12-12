@@ -1,14 +1,11 @@
 package lila.relay
 
-import akka.actor._
-import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import ornicar.scalalib.Zero
 import play.api.libs.json._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.security.Granter
 import lila.study.{ StudyApi, Study, StudyMaker, Settings }
 import lila.user.User
 
@@ -17,8 +14,7 @@ final class RelayApi(
     studyApi: StudyApi,
     withStudy: RelayWithStudy,
     jsonView: JsonView,
-    clearFormatCache: Relay.Sync.UpstreamWithRound => Unit,
-    system: ActorSystem
+    formatApi: RelayFormatApi
 ) {
 
   import BSONHandlers._
@@ -44,7 +40,7 @@ final class RelayApi(
         case c ~ s => Relay.Fresh(c, s)
       }
 
-  private[relay] def toSync = repo.coll.find($doc(
+  private[relay] def toSync = repo.coll.ext.find($doc(
     "sync.until" $exists true,
     "sync.nextAt" $lt DateTime.now
   )).list[Relay]()
@@ -54,7 +50,7 @@ final class RelayApi(
 
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
-    repo.coll.insert(relay) >>
+    repo.coll.insert.one(relay) >>
       studyApi.importGame(StudyMaker.ImportGame(
         id = relay.studyId.some,
         name = Study.Name(relay.name).some,
@@ -67,7 +63,7 @@ final class RelayApi(
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
-    clearFormatCache(relay.sync.upstream.withRound)
+    formatApi.refresh(relay.sync.upstream.withRound)
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void
@@ -78,7 +74,7 @@ final class RelayApi(
       if (r.sync.upstream.url != from.sync.upstream.url) r.withSync(_.clearLog) else r
     }
     if (relay == from) fuccess(relay)
-    else repo.coll.update($id(relay.id), relay).void >> {
+    else repo.coll.update.one($id(relay.id), relay).void >> {
       (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
     } >>- {
       relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
@@ -91,11 +87,16 @@ final class RelayApi(
     studyApi.deleteAllChapters(relay.studyId, by) >>
       requestPlay(relay.id, true)
 
+  def cloneRelay(relay: Relay, by: User): Fu[Relay] = create(
+    RelayForm.Data make relay.copy(name = s"${relay.name} (clone)"),
+    by
+  )
+
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
-    repo.coll.find($doc("_id" -> id, "finished" -> false)).uno[Relay]
+    repo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))
 
   private[relay] def autoStart: Funit =
-    repo.coll.find($doc(
+    repo.coll.ext.find($doc(
       "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
         $gt DateTime.now.minusDays(1), // bit late now
       "startedAt" $exists false,
@@ -108,7 +109,7 @@ final class RelayApi(
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
-    repo.coll.find($doc(
+    repo.coll.ext.find($doc(
       "sync.until" $exists false,
       "finished" -> false,
       "startedAt" $lt DateTime.now.minusHours(3),
@@ -127,7 +128,7 @@ final class RelayApi(
     byId(id) flatMap { _ ?? f }
 
   private[relay] def onStudyRemove(studyId: String) =
-    repo.coll.remove($id(Relay.Id(studyId))).void
+    repo.coll.delete.one($id(Relay.Id(studyId))).void
 
   private[relay] def publishRelay(relay: Relay): Funit =
     sendToContributors(relay.id, "relayData", jsonView.relayWrites writes relay)
@@ -139,7 +140,7 @@ final class RelayApi(
         import JsonView.idWrites
         import lila.socket.Socket.makeMessage
         val payload = makeMessage(t, msg ++ Json.obj("id" -> id))
-        lila.common.Bus.publish(SendTos(userIds, payload), 'socketUsers)
+        lila.common.Bus.publish(SendTos(userIds, payload), "socketUsers")
       }
     }
 }

@@ -17,7 +17,7 @@ object timeline {
     )
 
   def more(entries: Vector[lila.timeline.Entry])(implicit ctx: Context) =
-    base.layout(
+    views.html.base.layout(
       title = trans.timeline.txt(),
       moreCss = cssTag("slist")
     )(
@@ -42,7 +42,7 @@ object timeline {
       case Follow(u1, u2) => trans.xStartedFollowingY(userIdLink(u1.some, withOnline = false), userIdLink(u2.some, withOnline = false))
       case TeamJoin(userId, teamId) => trans.xJoinedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
       case TeamCreate(userId, teamId) => trans.xCreatedTeamY(userIdLink(userId.some, withOnline = false), teamLink(teamId, withIcon = false))
-      case ForumPost(userId, topicId, topicName, postId) => trans.xPostedInForumY(
+      case ForumPost(userId, _, topicName, postId) => trans.xPostedInForumY(
         userIdLink(userId.some, withOnline = false),
         a(
           href := routes.ForumPost.redirect(postId),

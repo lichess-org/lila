@@ -17,7 +17,7 @@ object PuzzleHead {
     val last = "last"
   }
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
   private[puzzle] implicit val puzzleHeadBSONHandler = Macros.handler[PuzzleHead]
 }

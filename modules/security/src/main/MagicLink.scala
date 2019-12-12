@@ -1,23 +1,26 @@
 package lila.security
 
+import play.api.i18n.Lang
 import scala.concurrent.duration._
 import scalatags.Text.all._
 
-import lila.common.{ Lang, EmailAddress }
+import lila.common.config._
+import lila.common.EmailAddress
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class MagicLink(
     mailgun: Mailgun,
-    baseUrl: String,
-    tokenerSecret: String
+    userRepo: UserRepo,
+    baseUrl: BaseUrl,
+    tokenerSecret: Secret
 ) {
 
   import Mailgun.html._
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit =
     tokener make user.id flatMap { token =>
-      lila.mon.email.types.magicLink()
+      lila.mon.email.send.magicLink.increment()
       val url = s"$baseUrl/auth/magic-link/login/$token"
       mailgun send Mailgun.Message(
         to = email,
@@ -40,7 +43,7 @@ ${Mailgun.txt.serviceNote}
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token flatMap { _ ?? UserRepo.byId }
+    tokener read token flatMap { _ ?? userRepo.byId }
 
   private val tokener = LoginToken.makeTokener(tokenerSecret, 10 minutes)
 }

@@ -1,9 +1,11 @@
 package controllers
 
 import lila.app._
-import views._
 
-object Page extends LilaController {
+final class Page(
+    env: Env,
+    prismicC: Prismic
+) extends LilaController(env) {
 
   val thanks = helpBookmark("thanks")
   val help = helpBookmark("help")
@@ -14,7 +16,7 @@ object Page extends LilaController {
 
   private def helpBookmark(name: String) = Open { implicit ctx =>
     pageHit
-    OptionOk(Prismic getBookmark name) {
+    OptionOk(prismicC getBookmark name) {
       case (doc, resolver) => views.html.site.help.page(name, doc, resolver)
     }
   }
@@ -23,14 +25,14 @@ object Page extends LilaController {
 
   private def bookmark(name: String) = Open { implicit ctx =>
     pageHit
-    OptionOk(Prismic getBookmark name) {
+    OptionOk(prismicC getBookmark name) {
       case (doc, resolver) => views.html.site.page(doc, resolver)
     }
   }
 
   def source = Open { implicit ctx =>
     pageHit
-    OptionOk(Prismic getBookmark "source") {
+    OptionOk(prismicC getBookmark "source") {
       case (doc, resolver) => views.html.site.help.source(doc, resolver)
     }
   }
@@ -38,7 +40,7 @@ object Page extends LilaController {
   def variantHome = Open { implicit ctx =>
     import play.api.libs.json._
     negotiate(
-      html = OptionOk(Prismic getBookmark "variant") {
+      html = OptionOk(prismicC getBookmark "variant") {
         case (doc, resolver) => views.html.site.variant.home(doc, resolver)
       },
       api = _ => Ok(JsArray(chess.variant.Variant.all.map { v =>
@@ -55,7 +57,7 @@ object Page extends LilaController {
     (for {
       variant <- chess.variant.Variant.byKey get key
       perfType <- lila.rating.PerfType byVariant variant
-    } yield OptionOk(Prismic getVariant variant) {
+    } yield OptionOk(prismicC getVariant variant) {
       case (doc, resolver) => views.html.site.variant.show(doc, resolver, variant, perfType)
     }) | notFound
   }

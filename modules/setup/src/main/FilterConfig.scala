@@ -62,7 +62,7 @@ object FilterConfig {
     ratingRange = RatingRange orDefault e
   ).nonEmpty
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
 
   private[setup] implicit val filterConfigBSONHandler = new BSON[FilterConfig] {

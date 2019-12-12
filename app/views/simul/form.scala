@@ -1,7 +1,6 @@
 package views.html.simul
 
 import play.api.data.Form
-import play.api.libs.json.Json
 
 import lila.api.Context
 import lila.app.templating.Environment._
@@ -11,7 +10,7 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[lila.simul.SimulForm.Setup], teams: List[lila.hub.lightTeam.LightTeam])(implicit ctx: Context) = {
+  def apply(form: Form[lila.simul.SimulForm.Setup], teams: List[lila.hub.LightTeam])(implicit ctx: Context) = {
 
     import lila.simul.SimulForm._
 
@@ -26,7 +25,7 @@ object form {
             p(trans.whenCreateSimul()),
             br, br,
             globalError(form),
-            form3.group(form("variant"), trans.simulVariantsHint()) { f =>
+            form3.group(form("variant"), trans.simulVariantsHint()) { _ =>
               div(cls := "variants")(
                 views.html.setup.filter.renderCheckboxes(form, "variants", form.value.map(_.variants.map(_.toString)).getOrElse(Nil), translatedVariantChoicesWithVariants)
               )

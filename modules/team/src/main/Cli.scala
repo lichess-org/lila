@@ -1,9 +1,12 @@
 package lila.team
 
 import lila.db.dsl._
-import lila.user.UserRepo
 
-private[team] final class Cli(api: TeamApi, coll: Colls) extends lila.common.Cli {
+private[team] final class Cli(
+    userRepo: lila.user.UserRepo,
+    teamRepo: TeamRepo,
+    api: TeamApi
+) extends lila.common.Cli {
 
   import BSONHandlers._
 
@@ -20,14 +23,14 @@ private[team] final class Cli(api: TeamApi, coll: Colls) extends lila.common.Cli
   }
 
   private def perform(teamId: String)(op: Team => Funit): Fu[String] =
-    coll.team.byId[Team](teamId) flatMap {
+    teamRepo.coll.byId[Team](teamId) flatMap {
       _.fold(fufail[String]("Team not found")) { u => op(u) inject "Success" }
     }
 
   private def perform(teamId: String, userIds: List[String])(op: (Team, String) => Funit): Fu[String] =
-    coll.team.byId[Team](teamId) flatMap {
+    teamRepo.coll.byId[Team](teamId) flatMap {
       _.fold(fufail[String]("Team not found")) { team =>
-        UserRepo nameds userIds flatMap { users =>
+        userRepo nameds userIds flatMap { users =>
           users.map(user => {
             logger.info(user.username)
             op(team, user.id)

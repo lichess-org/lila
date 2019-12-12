@@ -1,27 +1,26 @@
 package lila.push
 
-import scalaz.NonEmptyList
-
+import io.methvin.play.autoconfig._
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import scalaz.NonEmptyList
 
 import lila.user.User
 
 private final class WebPush(
-    getSubscriptions: User.ID => Fu[List[WebSubscription]],
-    url: String,
-    vapidPublicKey: String
+    webSubscriptionApi: WebSubscriptionApi,
+    config: WebPush.Config,
+    ws: WSClient
 ) {
 
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
-    getSubscriptions(userId) flatMap { subscriptions =>
+    webSubscriptionApi.getSubscriptions(5)(userId) flatMap { subscriptions =>
       subscriptions.toNel ?? send(data)
     }
 
   private def send(data: => PushApi.Data)(subscriptions: NonEmptyList[WebSubscription]): Funit = {
-    WS.url(url)
-      .withHeaders("ContentType" -> "application/json")
+    ws.url(config.url)
+      .withHttpHeaders("ContentType" -> "application/json")
       .post(Json.obj(
         "subs" -> JsArray(subscriptions.map { sub =>
           Json.obj(
@@ -44,4 +43,13 @@ private final class WebPush(
         case res => fufail(s"[push] web: ${res.status} ${res.body}")
       }
   }
+}
+
+private object WebPush {
+
+  final class Config(
+      val url: String,
+      @ConfigName("vapid_public_key") val vapidPublicKey: String
+  )
+  implicit val configLoader = AutoConfig.loader[Config]
 }

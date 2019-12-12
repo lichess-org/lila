@@ -2,23 +2,23 @@ package lila.streamer
 
 import akka.actor._
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.db.dsl._
 import lila.common.Bus
+import lila.common.config.Secret
 import lila.user.User
 
 private final class Streaming(
-    renderer: ActorSelection,
+    ws: WSClient,
+    renderer: lila.hub.actors.Renderer,
     api: StreamerApi,
     isOnline: User.ID => Boolean,
-    timeline: ActorSelection,
+    timeline: lila.hub.actors.Timeline,
     keyword: Stream.Keyword,
     alwaysFeatured: () => lila.common.Strings,
-    googleApiKey: String,
-    twitchClientId: String,
+    googleApiKey: Secret,
+    twitchClientId: Secret,
     lightUserApi: lila.user.LightUserApi
 )
   extends Actor {
@@ -26,7 +26,6 @@ private final class Streaming(
   import Stream._
   import Twitch.Reads._
   import YouTube.Reads._
-  import BsonHandlers._
 
   private case object Tick
 
@@ -62,9 +61,9 @@ private final class Streaming(
     import makeTimeout.short
     import akka.pattern.ask
     if (newStreams != liveStreams) {
-      renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
+      renderer.actor ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
         case html: String =>
-          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
+          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), "streams")
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -75,21 +74,19 @@ private final class Streaming(
         }
         Bus.publish(
           lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
-          'streamStart
+          "streamStart"
         )
       }
     }
     liveStreams = newStreams
     streamers foreach { streamer =>
       streamer.twitch.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.userId}@twitch") {
-          if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer))) 1 else 0
-        }
+        if (liveStreams.streams.exists(s => s.serviceName == "twitch" && s.is(streamer)))
+          lila.mon.tv.streamer.present(s"${t.userId}@twitch").increment()
       }
       streamer.youTube.foreach { t =>
-        lila.mon.tv.stream.name(s"${t.channelId}@youtube") {
-          if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer))) 1 else 0
-        }
+        if (liveStreams.streams.exists(s => s.serviceName == "youTube" && s.is(streamer)))
+          lila.mon.tv.streamer.present(s"${t.channelId}@youtube").increment()
       }
     }
   }
@@ -110,12 +107,12 @@ private final class Streaming(
     futureTwitchStreamers flatMap { twitchStreamers =>
       twitchStreamers.nonEmpty ?? {
         val twitchUserIds = twitchStreamers.map(_.userId)
-        val url = WS.url("https://api.twitch.tv/helix/streams")
-          .withQueryString(
+        val url = ws.url("https://api.twitch.tv/helix/streams")
+          .withQueryStringParameters(
             (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
           )
-          .withHeaders(
-            "Client-ID" -> twitchClientId
+          .withHttpHeaders(
+            "Client-ID" -> twitchClientId.value
           )
         url.get().map { res =>
           res.json.validate[Twitch.Result](twitchResultReads) match {
@@ -125,7 +122,7 @@ private final class Streaming(
               alwaysFeatured().value.map(_.toLowerCase)
             )
             case JsError(err) =>
-              logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+              logger.warn(s"twitch ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
               Nil
           }
         }
@@ -133,22 +130,23 @@ private final class Streaming(
     }
   }
 
-  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {
+  def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.value.nonEmpty ?? {
     val youtubeStreamers = streamers.filter(_.youTube.isDefined)
-    youtubeStreamers.nonEmpty ?? WS.url("https://www.googleapis.com/youtube/v3/search").withQueryString(
-      "part" -> "snippet",
-      "type" -> "video",
-      "eventType" -> "live",
-      "q" -> keyword.value,
-      "key" -> googleApiKey
-    ).get().map { res =>
-        res.json.validate[YouTube.Result](youtubeResultReads) match {
-          case JsSuccess(data, _) => data.streams(keyword, youtubeStreamers)
-          case JsError(err) =>
-            logger.warn(s"youtube ${res.status} $err ${~res.body.lines.toList.headOption}")
-            Nil
+    youtubeStreamers.nonEmpty ?? ws.url("https://www.googleapis.com/youtube/v3/search")
+      .withQueryStringParameters(
+        "part" -> "snippet",
+        "type" -> "video",
+        "eventType" -> "live",
+        "q" -> keyword.value,
+        "key" -> googleApiKey.value
+      ).get().map { res =>
+          res.json.validate[YouTube.Result](youtubeResultReads) match {
+            case JsSuccess(data, _) => data.streams(keyword, youtubeStreamers)
+            case JsError(err) =>
+              logger.warn(s"youtube ${res.status} $err ${~res.body.linesIterator.toList.headOption}")
+              Nil
+          }
         }
-      }
   }
 
   def dedupStreamers(streams: List[Stream]): List[Stream] = streams.foldLeft((Set.empty[Streamer.Id], List.empty[Stream])) {

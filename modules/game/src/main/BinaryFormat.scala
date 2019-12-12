@@ -1,9 +1,6 @@
 package lila.game
 
 import org.joda.time.DateTime
-import scala.collection.breakOut
-import scala.collection.breakOut
-import scala.collection.Searching._
 import scala.util.Try
 
 import chess.variant.Variant
@@ -33,11 +30,11 @@ object BinaryFormat {
 
     def writeSide(start: Centis, times: Vector[Centis], flagged: Boolean) = {
       val timesToWrite = if (flagged) times.dropRight(1) else times
-      ByteArray(ClockEncoder.encode(timesToWrite.map(_.centis)(breakOut), start.centis))
+      ByteArray(ClockEncoder.encode(timesToWrite.view.map(_.centis).to(Array), start.centis))
     }
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) = {
-      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).map(Centis.apply)(breakOut)
+      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).view.map(Centis.apply).to(Vector)
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
@@ -61,7 +58,7 @@ object BinaryFormat {
       case (i1, i2) => (i1 + i2) / 2
     } toVector
 
-    private val decodeMap: Map[Int, MT] = buckets.zipWithIndex.map(x => x._2 -> x._1)(breakOut)
+    private val decodeMap: Map[Int, MT] = buckets.view.zipWithIndex.map(x => x._2 -> x._1).toMap
 
     def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
@@ -72,11 +69,11 @@ object BinaryFormat {
     }
 
     def read(ba: ByteArray, turns: Int): Vector[Centis] = {
-      def dec(x: Int) = decodeMap get x getOrElse decodeMap(size - 1)
+      def dec(x: Int) = decodeMap.getOrElse(x, decodeMap(size - 1))
       ba.value map toInt flatMap { k =>
         Array(dec(k >> 4), dec(k & 15))
       }
-    }.take(turns).map(Centis.apply)(breakOut)
+    }.view.take(turns).map(Centis.apply).toVector
   }
 
   case class clock(start: Timestamp) {
@@ -86,12 +83,6 @@ object BinaryFormat {
 
     def computeRemaining(config: Clock.Config, legacyElapsed: Centis) =
       config.limit - legacyElapsed
-
-    // TODO: new binary clock format
-    // - clock history
-    // - berserk bits
-    // - "real" elapsed
-    // - lag stats
 
     def write(clock: Clock): ByteArray = {
       Array(writeClockLimit(clock.limitSeconds), clock.incrementSeconds.toByte) ++
@@ -192,8 +183,8 @@ object BinaryFormat {
       CastleLastMove(
         castles = Castles(b1 > 127, (b1 & 64) != 0, (b1 & 32) != 0, (b1 & 16) != 0),
         lastMove = for {
-          orig ← posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
-          dest ← posAt((b2 & 63) >> 3, b2 & 7)
+          orig <- posAt((b1 & 15) >> 1, ((b1 & 1) << 2) + (b2 >> 6))
+          dest <- posAt((b2 & 63) >> 3, b2 & 7)
           if orig != Pos.A1 || dest != Pos.A1
         } yield Uci.Move(orig, dest)
       )
@@ -222,9 +213,9 @@ object BinaryFormat {
       def intPiece(int: Int): Option[Piece] =
         intToRole(int & 7, variant) map { role => Piece(Color((int & 8) == 0), role) }
       val pieceInts = ba.value flatMap splitInts
-      (Pos.all zip pieceInts).flatMap {
+      (Pos.all zip pieceInts).view.flatMap {
         case (pos, int) => intPiece(int) map (pos -> _)
-      }(breakOut)
+      }.to(Map)
     }
 
     // cache standard start position

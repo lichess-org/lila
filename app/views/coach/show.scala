@@ -59,7 +59,7 @@ $('.coach-review-form form').show();
               "Send a private message"
             ),
             ctx.me.exists(_.id != c.user.id) option review.form(c, myReview),
-            review.list(c, coachReviews)
+            review.list(coachReviews)
           ),
           div(cls := "coach-show__main coach-main box")(
             div(cls := "coach-widget")(widget(c, link = false)),

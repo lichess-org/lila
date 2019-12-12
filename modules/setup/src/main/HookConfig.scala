@@ -121,8 +121,6 @@ object HookConfig extends BaseHumanConfig {
 
   private[setup] implicit val hookConfigBSONHandler = new BSON[HookConfig] {
 
-    override val logMalformed = false
-
     def reads(r: BSON.Reader): HookConfig = HookConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
       timeMode = TimeMode orDefault (r int "tm"),

@@ -4,7 +4,6 @@ package crud
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints._
 
 import chess.StartingPosition
 import chess.variant.Variant

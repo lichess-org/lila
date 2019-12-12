@@ -1,17 +1,20 @@
 package lila.common
 
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import play.api.i18n.Lang
+import io.methvin.play.autoconfig._
+import scala.math.Ordering.Float.TotalOrdering
+
+import lila.common.config.Secret
 
 // http://detectlanguage.com
-final class DetectLanguage(url: String, key: String) {
+final class DetectLanguage(
+    ws: WSClient,
+    config: DetectLanguage.Config
+) {
 
-  private case class Detection(
-      language: String,
-      confidence: Float,
-      isReliable: Boolean
-  )
+  import DetectLanguage.Detection
 
   private implicit val DetectionReads = Json.reads[Detection]
 
@@ -20,10 +23,10 @@ final class DetectLanguage(url: String, key: String) {
   private val defaultLang = Lang("en")
 
   def apply(message: String): Fu[Option[Lang]] =
-    if (key.isEmpty) fuccess(defaultLang.some)
-    else WS.url(url).post(Map(
-      "key" -> Seq(key),
-      "q" -> Seq(message take messageMaxLength)
+    if (config.key.value.isEmpty) fuccess(defaultLang.some)
+    else ws.url(config.url).post(Map(
+      "key" -> config.key.value,
+      "q" -> message.take(messageMaxLength)
     )) map { response =>
       (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
         case None =>
@@ -42,9 +45,12 @@ final class DetectLanguage(url: String, key: String) {
 
 object DetectLanguage {
 
-  import com.typesafe.config.Config
-  def apply(config: Config): DetectLanguage = new DetectLanguage(
-    url = config getString "api.url",
-    key = config getString "api.key"
+  final class Config(val url: String, val key: Secret)
+  implicit val configLoader = AutoConfig.loader[Config]
+
+  private final case class Detection(
+      language: String,
+      confidence: Float,
+      isReliable: Boolean
   )
 }

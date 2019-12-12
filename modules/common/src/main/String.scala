@@ -12,7 +12,7 @@ final object String {
   private[this] val slugR = """[^\w-]""".r
   private[this] val slugMultiDashRegex = """-{2,}""".r
 
-  def lcfirst(str: String) = str(0).toLower + str.drop(1)
+  def lcfirst(str: String) = s"${str(0).toLower}${str.drop(1)}"
 
   def slugify(input: String) = {
     val nowhitespace = input.trim.replace(' ', '-')
@@ -26,7 +26,7 @@ final object String {
     try {
       play.utils.UriEncoding.decodePath(input, "UTF-8").some
     } catch {
-      case e: play.utils.InvalidUriEncodingException => None
+      case _: play.utils.InvalidUriEncodingException => None
     }
   }
 

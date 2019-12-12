@@ -15,13 +15,13 @@ trait CaptchedForm {
     def move: String
   }
 
-  def captcher: akka.actor.ActorSelection
+  val captcher: actors.Captcher
 
   def anyCaptcha: Fu[Captcha] =
-    (captcher ? AnyCaptcha).mapTo[Captcha]
+    (captcher.actor ? AnyCaptcha).mapTo[Captcha]
 
   def getCaptcha(id: String): Fu[Captcha] =
-    (captcher ? GetCaptcha(id)).mapTo[Captcha]
+    (captcher.actor ? GetCaptcha(id)).mapTo[Captcha]
 
   def withCaptcha[A](form: Form[A]): Fu[(Form[A], Captcha)] =
     anyCaptcha map (form -> _)

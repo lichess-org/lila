@@ -39,9 +39,9 @@ object AnaDests {
   private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
 
   def parse(o: JsObject) = for {
-    d ← o obj "d"
+    d <- o obj "d"
     variant = chess.variant.Variant orDefault ~d.str("variant")
-    fen ← d str "fen"
-    path ← d str "path"
+    fen <- d str "fen"
+    path <- d str "path"
   } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = d str "ch")
 }

@@ -9,7 +9,6 @@ import lila.hub.Trouper
 
 private[tv] final class ChannelTrouper(
     channel: Tv.Channel,
-    lightUser: lila.common.LightUser.GetterSync,
     onSelect: TvTrouper.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
     rematchOf: Game.ID => Option[Game.ID]
@@ -42,9 +41,9 @@ private[tv] final class ChannelTrouper(
 
     case TvTrouper.Select =>
       candidateIds.keys.map(proxyGame).sequenceFu
-        .map(_.collect {
+        .map(_.view.collect {
           case Some(g) if channel isFresh g => g
-        }(scala.collection.breakOut): List[Game])
+        }.toList)
         .foreach { candidates =>
           oneId ?? proxyGame foreach {
             case Some(current) if channel isFresh current =>

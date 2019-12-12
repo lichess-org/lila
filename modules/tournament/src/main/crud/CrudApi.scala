@@ -9,11 +9,11 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User
 
-final class CrudApi {
+final class CrudApi(tournamentRepo: TournamentRepo) {
 
-  def list = TournamentRepo uniques 50
+  def list = tournamentRepo uniques 50
 
-  def one(id: String) = TournamentRepo uniqueById id
+  def one(id: String) = tournamentRepo uniqueById id
 
   def editForm(tour: Tournament) = CrudForm.apply fill CrudForm.Data(
     name = tour.name,
@@ -32,13 +32,13 @@ final class CrudApi {
   )
 
   def update(old: Tournament, data: CrudForm.Data) =
-    TournamentRepo update updateTour(old, data) void
+    tournamentRepo update updateTour(old, data) void
 
   def createForm = CrudForm.apply
 
   def create(data: CrudForm.Data, owner: User): Fu[Tournament] = {
     val tour = updateTour(empty, data).copy(createdBy = owner.id)
-    TournamentRepo insert tour inject tour
+    tournamentRepo insert tour inject tour
   }
 
   def clone(old: Tournament) = old.copy(
@@ -47,9 +47,9 @@ final class CrudApi {
   )
 
   def paginator(page: Int) = Paginator[Tournament](adapter = new Adapter[Tournament](
-    collection = TournamentRepo.coll,
-    selector = TournamentRepo.selectUnique,
-    projection = $empty,
+    collection = tournamentRepo.coll,
+    selector = tournamentRepo.selectUnique,
+    projection = none,
     sort = $doc("startsAt" -> -1)
   ), currentPage = page)
 
@@ -58,7 +58,6 @@ final class CrudApi {
     name = none,
     clock = chess.Clock.Config(0, 0),
     minutes = 0,
-    system = System.Arena,
     variant = chess.variant.Standard,
     position = chess.StartingPosition.initial,
     mode = chess.Mode.Rated,

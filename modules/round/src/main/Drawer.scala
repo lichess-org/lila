@@ -13,7 +13,7 @@ private[round] final class Drawer(
     isBotSync: lila.common.LightUser.IsBotSync
 ) {
 
-  def autoThreefold(game: Game)(implicit proxy: GameProxy): Fu[Option[Pov]] = Pov(game).map { pov =>
+  def autoThreefold(game: Game): Fu[Option[Pov]] = Pov(game).map { pov =>
     import Pref.PrefZero
     if (game.playerHasOfferedDraw(pov.color)) fuccess(pov.some)
     else pov.player.userId ?? prefApi.getPref map { pref =>
@@ -22,7 +22,7 @@ private[round] final class Drawer(
           game.clock ?? { _.remainingTime(pov.color) < Centis.ofSeconds(30) }
       } || pov.player.userId.exists(isBotSync)
     } map (_ option pov)
-  }.sequenceFu map (_.flatten.headOption)
+  }.sequenceFu dmap (_.flatten.headOption)
 
   def yes(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = pov match {
     case pov if pov.game.history.threefoldRepetition =>
@@ -56,6 +56,6 @@ private[round] final class Drawer(
   private def publishDrawOffer(pov: Pov): Unit =
     if (pov.game.isCorrespondence && pov.game.nonAi) Bus.publish(
       lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
-      'offerEventCorres
+      "offerEventCorres"
     )
 }

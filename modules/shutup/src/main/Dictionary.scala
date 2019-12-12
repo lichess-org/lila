@@ -202,5 +202,5 @@ pid(a|o|)r
 чмо
 """)
 
-  private def dict(words: String) = words.lines.filter(_.nonEmpty)
+  private def dict(words: String) = words.linesIterator.filter(_.nonEmpty)
 }

@@ -9,15 +9,14 @@ import play.api.data.validation.{ Constraint, Constraints }
 import chess.Mode
 import chess.StartingPosition
 import lila.common.Form._
-import lila.hub.lightTeam._
+import lila.hub.LightTeam._
 import lila.user.User
 
 final class DataForm {
 
   import DataForm._
-  import UTCDate._
 
-  def apply(user: User, teamBattleId: Option[TeamId] = None) = create fill TournamentSetup(
+  def apply(user: User, teamBattleId: Option[TeamID] = None) = create fill TournamentSetup(
     name = canPickName(user) && teamBattleId.isEmpty option user.titleUsername,
     clockTime = clockTimeDefault,
     clockIncrement = clockIncrementDefault,
@@ -77,7 +76,9 @@ object DataForm {
 
   import chess.variant._
 
-  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ (2d to 7d by 1d) ++ (10d to 30d by 5d) ++ (40d to 60d by 10d)
+  val clockTimes: Seq[Double] = Seq(0d, 1 / 4d, 1 / 2d, 3 / 4d, 1d, 3 / 2d) ++ {
+    (2 to 7 by 1) ++ (10 to 30 by 5) ++ (40 to 60 by 10)
+  }.map(_.toDouble)
   val clockTimeDefault = 2d
   private def formatLimit(l: Double) =
     chess.Clock.Config(l * 60 toInt, 0).limitString + {
@@ -106,7 +107,7 @@ object DataForm {
   val validVariants = List(Standard, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings, Crazyhouse)
 
   def guessVariant(from: String): Option[Variant] = validVariants.find { v =>
-    v.key == from || parseIntOption(from).exists(v.id ==)
+    v.key == from || from.toIntOption.exists(v.id ==)
   }
 
   def startingPosition(fen: String, variant: Variant): StartingPosition =

@@ -1,11 +1,10 @@
 package views.html.report
 
-import play.api.data.Form
+import com.github.ghik.silencer.silent
 
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.user.User
 
 import controllers.routes
 
@@ -15,7 +14,7 @@ object thanks {
 
     val title = "Thanks for the report"
 
-    val moreJs = embedJsUnsafe("""
+    @silent val moreJs = embedJsUnsafe("""
 $('button.report-block').one('click', function() {
 var $button = $(this);
 $button.find('span').text('Blocking...');

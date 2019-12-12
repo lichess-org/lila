@@ -12,7 +12,7 @@ object side {
     channel: lila.tv.Tv.Channel,
     champions: lila.tv.Tv.Champions,
     baseUrl: String
-  )(implicit ctx: Context): Frag = div(cls := "tv-channels subnav")(
+  ): Frag = div(cls := "tv-channels subnav")(
     lila.tv.Tv.Channel.all.map { c =>
       a(href := s"$baseUrl/${c.key}", cls := List(
         "tv-channel" -> true,

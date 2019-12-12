@@ -20,6 +20,6 @@ private final class TournamentReminder {
         "id" -> tour.id,
         "name" -> tour.fullName
       )
-    )), 'socketUsers)
+    )), "socketUsers")
   }
 }

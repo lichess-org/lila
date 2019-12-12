@@ -2,7 +2,6 @@ package lila.user
 
 import lila.db.dsl._
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 
 case class Note(
     _id: String,
@@ -19,14 +18,18 @@ case class Note(
 
 case class UserNotes(user: User, notes: List[Note])
 
-final class NoteApi(coll: Coll, timeline: akka.actor.ActorSelection) {
+final class NoteApi(
+    userRepo: UserRepo,
+    coll: Coll,
+    timeline: lila.hub.actors.Timeline
+)(implicit ws: play.api.libs.ws.WSClient) {
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
   private implicit val noteBSONHandler = Macros.handler[Note]
 
   def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
-    coll.find(
+    coll.ext.find(
       $doc("to" -> user.id) ++
         (!me.troll ?? $doc("troll" -> false)) ++
         (if (isMod) $or(
@@ -41,12 +44,12 @@ final class NoteApi(coll: Coll, timeline: akka.actor.ActorSelection) {
     ).sort($doc("date" -> -1)).list[Note](20)
 
   def forMod(id: User.ID): Fu[List[Note]] =
-    coll.find($doc("to" -> id))
+    coll.ext.find($doc("to" -> id))
       .sort($doc("date" -> -1))
       .list[Note](20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.find($doc("to" $in ids))
+    coll.ext.find($doc("to" $in ids))
       .sort($doc("date" -> -1))
       .list[Note](50)
 
@@ -62,7 +65,7 @@ final class NoteApi(coll: Coll, timeline: akka.actor.ActorSelection) {
       date = DateTime.now
     )
 
-    coll.insert(note) >>- {
+    coll.insert.one(note) >>- {
       import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
       timeline ! {
         Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
@@ -72,19 +75,17 @@ final class NoteApi(coll: Coll, timeline: akka.actor.ActorSelection) {
         to = to.username,
         text = note.text,
         mod = modOnly
-      ), 'userNote)
+      ), "userNote")
     }
   } >> {
     modOnly ?? Title.fromUrl(text) flatMap {
-      _ ?? { UserRepo.addTitle(to.id, _) }
+      _ ?? { userRepo.addTitle(to.id, _) }
     }
   }
 
-  def byId(id: String): Fu[Option[Note]] =
-    coll.byId[Note](id)
+  def byId(id: String): Fu[Option[Note]] = coll.byId[Note](id)
 
-  def delete(id: String) =
-    coll.remove($id(id))
+  def delete(id: String) = coll.delete.one($id(id))
 
-  def erase(user: User) = coll.remove($doc("from" -> user.id))
+  def erase(user: User) = coll.delete.one($doc("from" -> user.id))
 }

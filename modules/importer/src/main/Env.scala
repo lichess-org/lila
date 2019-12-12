@@ -1,23 +1,11 @@
 package lila.importer
 
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
 
-final class Env(
-    config: Config,
-    scheduler: akka.actor.Scheduler
-) {
+@Module
+final class Env(gameRepo: lila.game.GameRepo) {
 
-  private val Delay = config duration "delay"
+  lazy val forms = wire[DataForm]
 
-  lazy val forms = new DataForm
-
-  lazy val importer = new Importer(Delay, scheduler)
-}
-
-object Env {
-
-  lazy val current = "importer" boot new Env(
-    config = lila.common.PlayApp loadConfig "importer",
-    scheduler = lila.common.PlayApp.system.scheduler
-  )
+  lazy val importer = wire[Importer]
 }

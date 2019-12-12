@@ -1,11 +1,11 @@
 package lila.security
 
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 
 import lila.common.Domain
 
 final class DisposableEmailDomain(
+    ws: WSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
 ) {
@@ -14,17 +14,17 @@ final class DisposableEmailDomain(
 
   private var regex = finalizeRegex(staticRegex)
 
-  private[security] def refresh: Unit = for {
-    blacklist <- WS.url(providerUrl).get().map(_.body.lines) recover {
+  private[security] def refresh(): Unit = for {
+    blacklist <- ws.url(providerUrl).get().map(_.body.linesIterator) recover {
       case e: Exception =>
         logger.warn("DisposableEmailDomain.refresh", e)
         Iterator.empty
     }
     checked <- checkMailBlocked()
   } {
-    val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.toIterator)}"
+    val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.iterator)}"
     val nbDomains = regexStr.count('|' ==)
-    lila.mon.email.disposableDomain(nbDomains)
+    lila.mon.email.disposableDomain.update(nbDomains)
     regex = finalizeRegex(s"$staticRegex|$regexStr")
   }
 
@@ -52,7 +52,7 @@ private object DisposableEmailDomain {
 
   private val whitelist = Set(
     /* Default domains included */
-    "aol.com", "att.net", "comcast.net", "facebook.com", "gmail.com", "gmx.com", "googlemail.com",
+    "aol.com", "att.net", "facebook.com", "gmail.com", "gmx.com", "googlemail.com",
     "google.com", "hotmail.com", "hotmail.co.uk", "mac.com", "me.com", "mail.com", "msn.com",
     "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk", "protonmail.com", "protonmail.ch",
 

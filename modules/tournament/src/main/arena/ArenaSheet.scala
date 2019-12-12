@@ -1,10 +1,12 @@
 package lila.tournament
 package arena
 
-import lila.tournament.{ Score => AbstractScore }
-import lila.tournament.{ ScoringSystem => AbstractScoringSystem }
+case class Sheet(scores: List[Sheet.Score]) {
+  val total = scores.foldLeft(0)(_ + _.value)
+  def onFire = Sheet.isOnFire(scores)
+}
 
-private[tournament] object ScoringSystem extends AbstractScoringSystem {
+object Sheet {
 
   sealed abstract class Flag(val id: Int)
   case object Double extends Flag(3)
@@ -26,7 +28,7 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
       res: Result,
       flag: Flag,
       berserk: Berserk
-  ) extends AbstractScore {
+  ) {
 
     def isBerserk = berserk != NoBerserk
 
@@ -47,14 +49,9 @@ private[tournament] object ScoringSystem extends AbstractScoringSystem {
     }
   }
 
-  case class Sheet(scores: List[Score]) extends ScoreSheet {
-    val total = scores.foldLeft(0)(_ + _.value)
-    def onFire = isOnFire(scores)
-  }
-
   val emptySheet = Sheet(Nil)
 
-  def sheet(userId: String, pairings: Pairings): Sheet = Sheet {
+  def apply(userId: String, pairings: Pairings): Sheet = Sheet {
     val nexts = (pairings drop 1 map some) :+ None
     pairings.zip(nexts).foldLeft(List.empty[Score]) {
       case (scores, (p, n)) =>

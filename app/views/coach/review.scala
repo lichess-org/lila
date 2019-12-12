@@ -9,7 +9,7 @@ import controllers.routes
 
 object review {
 
-  def list(c: lila.coach.Coach.WithUser, reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
+  def list(reviews: lila.coach.CoachReview.Reviews)(implicit ctx: Context) =
     reviews.list.nonEmpty option div(cls := "coach-show__reviews")(
       h2(pluralize("Player review", reviews.list.size)),
       reviews.list.map { r =>

@@ -13,7 +13,6 @@ case class Tournament(
     id: Tournament.ID,
     name: String,
     status: Status,
-    system: System,
     clock: ClockConfig,
     minutes: Int,
     variant: chess.variant.Variant,
@@ -43,11 +42,11 @@ case class Tournament(
 
   def fullName =
     if (isTeamBattle) s"$name Team Battle"
-    else schedule.map(_.freq).fold(s"$name $system") {
+    else schedule.map(_.freq).fold(s"$name Arena") {
       case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
-      case Schedule.Freq.Shield => s"$name $system"
-      case _ if clock.hasIncrement => s"$name Inc $system"
-      case _ => s"$name $system"
+      case Schedule.Freq.Shield => s"$name Arena"
+      case _ if clock.hasIncrement => s"$name Inc Arena"
+      case _ => s"$name Arena"
     }
 
   def isMarathon = schedule.map(_.freq) exists {
@@ -105,7 +104,7 @@ case class Tournament(
     if (minutes < 60) s"${minutes}m"
     else s"${minutes / 60}h" + (if (minutes % 60 != 0) s" ${(minutes % 60)}m" else "")
 
-  def berserkable = !noBerserk && system.berserkable && clock.berserkable
+  def berserkable = !noBerserk && clock.berserkable
 
   def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
 
@@ -124,7 +123,7 @@ case class Tournament(
 
   def ratingVariant = if (variant.fromPosition) chess.variant.Standard else variant
 
-  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock"
+  override def toString = s"$id $startsAt $fullName $minutes minutes, $clock, $nbPlayers players"
 }
 
 case class EnterableTournaments(tours: List[Tournament], scheduled: List[Tournament])
@@ -140,7 +139,6 @@ object Tournament {
     name: Option[String],
     clock: ClockConfig,
     minutes: Int,
-    system: System,
     variant: chess.variant.Variant,
     position: StartingPosition,
     mode: Mode,
@@ -156,7 +154,6 @@ object Tournament {
       else position.shortName
     },
     status = Status.Created,
-    system = system,
     clock = clock,
     minutes = minutes,
     createdBy = by.fold(identity, _.id),
@@ -175,11 +172,10 @@ object Tournament {
     }
   )
 
-  def schedule(sched: Schedule, minutes: Int) = Tournament(
+  def scheduleAs(sched: Schedule, minutes: Int) = Tournament(
     id = makeId,
     name = sched.name,
     status = Status.Created,
-    system = System.default,
     clock = Schedule clockFor sched,
     minutes = minutes,
     createdBy = User.lichessId,

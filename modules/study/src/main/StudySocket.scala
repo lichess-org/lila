@@ -1,9 +1,7 @@
 package lila.study
 
-import akka.actor._
 import play.api.libs.json._
 import scala.concurrent.duration._
-import scala.concurrent.Promise
 
 import actorApi.Who
 import chess.Centis
@@ -13,7 +11,7 @@ import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ Sri, makeMessage }
 import lila.socket.{ AnaMove, AnaDrop, AnaAny, AnaDests }
-import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook }
+import lila.tree.Node.{ Shape, Shapes, Comment, Gamebook, defaultNodeJsonWriter }
 import lila.user.User
 
 private final class StudySocket(
@@ -44,7 +42,7 @@ private final class StudySocket(
       send(RP.Out.tellRoom(studyId, makeMessage("analysisProgress", Json.obj(
         "analysis" -> analysis,
         "ch" -> chapterId,
-        "tree" -> tree,
+        "tree" -> defaultNodeJsonWriter.writes(tree),
         "division" -> division
       ))))
   }
@@ -164,7 +162,7 @@ private final class StudySocket(
             onError = err => send(P.Out.tellSri(w.sri, makeMessage("error", err))))
         }
         case "relaySync" => who foreach { w =>
-          Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), 'relayToggle)
+          Bus.publish(actorApi.RelayToggle(studyId, ~(o \ "d").asOpt[Boolean], w), "relayToggle")
         }
         case t => logger.warn(s"Unhandled study socket message: $t")
       }
@@ -179,14 +177,14 @@ private final class StudySocket(
               contributor = study contributors userId,
               public = study.isPublic,
               enters = through.isRight
-            ), 'study)
+            ), "study")
           }
         }
     }
   }
 
   private lazy val rHandler: Handler = roomHandler(rooms, chatApi, logger,
-    roomId => _ => none, // the "talk" event is handled by the study API
+    _ => _ => none, // the "talk" event is handled by the study API
     localTimeout = Some { (roomId, modId, suspectId) =>
       api.isContributor(roomId, modId) >>& !api.isMember(roomId, suspectId)
     })
@@ -214,11 +212,11 @@ private final class StudySocket(
 
   import JsonView._
   import jsonView.membersWrites
-  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites }
+  import lila.tree.Node.{ openingWriter, commentWriter, glyphsWriter, shapesWrites, clockWrites, defaultNodeJsonWriter }
   private type SendToStudy = Study.Id => Unit
   private def version[A: Writes](tpe: String, data: A): SendToStudy = studyId => rooms.tell(studyId.value, NotifyVersion(tpe, data))
   private def notify[A: Writes](tpe: String, data: A): SendToStudy = studyId => send(RP.Out.tellRoom(studyId, makeMessage(tpe, data)))
-  private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy = studyId => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
+  private def notifySri[A: Writes](sri: Sri, tpe: String, data: A): SendToStudy = _ => send(P.Out.tellSri(sri, makeMessage(tpe, data)))
 
   def setPath(pos: Position.Ref, who: Who) = version("path", Json.obj("p" -> pos, "w" -> who))
   def addNode(
@@ -231,7 +229,7 @@ private final class StudySocket(
   ) = {
     val dests = AnaDests(variant, node.fen, pos.path.toString, pos.chapterId.value.some)
     version("addNode", Json.obj(
-      "n" -> TreeBuilder.toBranch(node, variant),
+      "n" -> defaultNodeJsonWriter.writes(TreeBuilder.toBranch(node, variant)),
       "p" -> pos,
       "w" -> who,
       "d" -> dests.dests,
@@ -328,16 +326,16 @@ object StudySocket {
 
       val reader: P.In.Reader = raw => raw.path match {
         case "study/door" => Some(StudyDoor {
-          P.In.commas(raw.args).map(_ split ":").collect {
+          P.In.commas(raw.args).view.map(_ split ":").collect {
             case Array(u, s, "+") => u -> Right(Study.Id(s))
             case Array(u, s, "-") => u -> Left(Study.Id(s))
-          }(scala.collection.breakOut)
+          }.toMap
         })
         case _ => RP.In.reader(raw)
       }
 
       object Data {
-        import lila.common.PimpedJson._
+        import lila.common.Json._
         import play.api.libs.functional.syntax._
 
         def reading[A](o: JsValue)(f: A => Unit)(implicit reader: Reads[A]): Unit =

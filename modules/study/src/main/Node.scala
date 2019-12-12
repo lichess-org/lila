@@ -93,14 +93,14 @@ case class Node(
     clock = n.clock orElse clock,
     crazyData = n.crazyData orElse crazyData,
     children = n.children.nodes.foldLeft(children) {
-      case (cs, c) => children addNode c
+      case (cs, c) => cs addNode c
     },
     forceVariation = n.forceVariation || forceVariation
   )
 
   def moveOption = move.some
 
-  override def toString = s"$ply.${move.san} ${children.nodes}"
+  override def toString = s"$ply.${move.san} [${children}]"
 }
 
 object Node {
@@ -217,6 +217,8 @@ object Node {
     def lastMainlineNode: Option[Node] = nodes.headOption map { first =>
       first.children.lastMainlineNode | first
     }
+
+    override def toString = nodes.mkString(", ")
   }
   val emptyChildren = Children(Vector.empty)
 
@@ -300,6 +302,8 @@ object Node {
     def lastMainlineNode: RootOrNode = children.lastMainlineNode getOrElse this
 
     def moveOption = none
+
+    override def toString = s"ROOT [$children]"
   }
 
   object Root {
@@ -319,7 +323,7 @@ object Node {
       check = b.check,
       clock = b.clock,
       crazyData = b.crazyData,
-      children = Children(b.children.map(fromBranch)(scala.collection.breakOut))
+      children = Children(b.children.view.map(fromBranch).toVector)
     )
   }
 
@@ -331,7 +335,7 @@ object Node {
     check = b.check,
     crazyData = b.crazyData,
     clock = b.clock,
-    children = Children(b.children.map(fromBranch)(scala.collection.breakOut)),
+    children = Children(b.children.view.map(fromBranch).toVector),
     forceVariation = false
   )
 }

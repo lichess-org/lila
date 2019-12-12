@@ -65,14 +65,12 @@ object side {
                 frag(if (game.isBeingPlayed) trans.playingRightNow() else momentFromNow(game.createdAt))
               }
             ),
-            game.pgnImport.flatMap(_.date).map { date =>
-              small(
-                "Imported ",
-                game.pgnImport.flatMap(_.user).map { user =>
-                  trans.by(userIdLink(user.some, None, false))
-                }
-              )
-            }
+            game.pgnImport.exists(_.date.isDefined) option small(
+              "Imported ",
+              game.pgnImport.flatMap(_.user).map { user =>
+                trans.by(userIdLink(user.some, None, false))
+              }
+            )
           )
         ),
         div(cls := "game__meta__players")(

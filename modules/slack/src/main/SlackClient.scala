@@ -3,12 +3,14 @@ package lila.slack
 import scala.concurrent.duration._
 
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 
 import lila.memo.RateLimit
+import lila.common.config.Secret
 
-private final class SlackClient(url: String, defaultChannel: String) {
+private final class SlackClient(ws: WSClient, url: Secret) {
+
+  private val defaultChannel = "tavern"
 
   private val limiter = new RateLimit[SlackMessage](
     credits = 1,
@@ -18,8 +20,8 @@ private final class SlackClient(url: String, defaultChannel: String) {
   )
 
   def apply(msg: SlackMessage): Funit = limiter(msg) {
-    if (url.isEmpty) fuccess(lila.log("slack").info(msg.toString))
-    else WS.url(url)
+    if (url.value.isEmpty) fuccess(lila.log("slack").info(msg.toString))
+    else ws.url(url.value)
       .post(Json.obj(
         "username" -> msg.username,
         "text" -> msg.text,

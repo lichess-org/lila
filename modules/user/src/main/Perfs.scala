@@ -89,10 +89,12 @@ case class Perfs(
 
   def bestProgress: Int = bestProgressIn(PerfType.leaderboardable)
 
-  def bestProgressIn(types: List[PerfType]): Int = types map apply match {
-    case Nil => 0
-    case perfs => perfs.map(_.progress).max
-  }
+  def bestProgressIn(types: List[PerfType]): Int =
+    types.foldLeft(0) {
+      case (max, t) =>
+        val p = apply(t).progress
+        if (p > max) p else max
+    }
 
   lazy val perfsMap: Map[String, Perf] = Map(
     "chess960" -> chess960,
@@ -112,7 +114,7 @@ case class Perfs(
     "puzzle" -> puzzle
   )
 
-  def ratingMap: Map[String, Int] = perfsMap mapValues (_.intRating)
+  def ratingMap: Map[String, Int] = perfsMap.view.mapValues(_.intRating).toMap
 
   def ratingOf(pt: String): Option[Int] = perfsMap get pt map (_.intRating)
 
@@ -144,7 +146,7 @@ case class Perfs(
   def updateStandard = copy(
     standard = {
       val subs = List(bullet, blitz, rapid, classical, correspondence)
-      subs.maxBy(_.latest.fold(0l)(_.getMillis)).latest.fold(standard) { date =>
+      subs.maxBy(_.latest.fold(0L)(_.getMillis)).latest.fold(standard) { date =>
         val nb = subs.map(_.nb).sum
         val glicko = Glicko(
           rating = subs.map(s => s.glicko.rating * (s.nb / nb.toDouble)).sum,
@@ -226,7 +228,7 @@ case object Perfs {
 
     private def notNew(p: Perf): Option[Perf] = p.nb > 0 option p
 
-    def writes(w: BSON.Writer, o: Perfs) = reactivemongo.bson.BSONDocument(
+    def writes(w: BSON.Writer, o: Perfs) = reactivemongo.api.bson.BSONDocument(
       "standard" -> notNew(o.standard),
       "chess960" -> notNew(o.chess960),
       "kingOfTheHill" -> notNew(o.kingOfTheHill),

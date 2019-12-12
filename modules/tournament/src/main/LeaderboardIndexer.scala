@@ -1,48 +1,50 @@
 package lila.tournament
 
-import play.api.libs.iteratee._
-import reactivemongo.bson._
+import akka.stream.scaladsl._
+import reactivemongo.akkastream.cursorProducer
+import reactivemongo.api._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
 private final class LeaderboardIndexer(
-    tournamentColl: Coll,
-    leaderboardColl: Coll
-) {
+    tournamentRepo: TournamentRepo,
+    pairingRepo: PairingRepo,
+    playerRepo: PlayerRepo,
+    leaderboardRepo: LeaderboardRepo
+)(implicit mat: akka.stream.Materializer) {
 
   import LeaderboardApi._
   import BSONHandlers._
 
-  def generateAll: Funit = leaderboardColl.remove($empty) >> {
-    import reactivemongo.play.iteratees.cursorProducer
-
-    tournamentColl.find(TournamentRepo.finishedSelect)
+  def generateAll: Funit = leaderboardRepo.coll.delete.one($empty) >>
+    tournamentRepo.coll.ext.find(tournamentRepo.finishedSelect)
       .sort($sort desc "startsAt")
-      .cursor[Tournament]().enumerator(20 * 1000) &>
-      Enumeratee.mapM[Tournament].apply[Seq[Entry]](generateTour) &>
-      Enumeratee.mapConcat[Seq[Entry]].apply[Entry](identity) &>
-      Enumeratee.grouped(Iteratee takeUpTo 500) |>>>
-      Iteratee.foldM[Seq[Entry], Int](0) {
-        case (number, entries) =>
-          if (number % 10000 == 0)
-            logger.info(s"Generating leaderboards... $number")
-          saveEntries("-")(entries) inject (number + entries.size)
-      }
-  }.void
+      .cursor[Tournament](ReadPreference.secondaryPreferred)
+      .documentSource()
+      .take(20_000)
+      .via(lila.common.LilaStream.logRate[Tournament]("leaderboard index tour")(logger))
+      .mapAsyncUnordered(1)(generateTourEntries)
+      .mapConcat(identity)
+      .via(lila.common.LilaStream.logRate[Entry]("leaderboard index entries")(logger))
+      .grouped(500)
+      .mapAsyncUnordered(1)(saveEntries)
+      .toMat(Sink.ignore)(Keep.right)
+      .run
+      .void
 
   def indexOne(tour: Tournament): Funit =
-    leaderboardColl.remove($doc("t" -> tour.id)) >>
-      generateTour(tour) flatMap saveEntries(tour.id)
+    leaderboardRepo.coll.delete.one($doc("t" -> tour.id)) >>
+      generateTourEntries(tour) flatMap saveEntries
 
-  private def saveEntries(tourId: String)(entries: Seq[Entry]): Funit =
-    entries.nonEmpty ?? leaderboardColl.bulkInsert(
-      documents = entries.map(BSONHandlers.leaderboardEntryHandler.write).toStream,
-      ordered = false
+  private def saveEntries(entries: Seq[Entry]): Funit =
+    entries.nonEmpty ?? leaderboardRepo.coll.insert.many(
+      entries.flatMap(BSONHandlers.leaderboardEntryHandler.writeOpt)
     ).void
 
-  private def generateTour(tour: Tournament): Fu[List[Entry]] = for {
-    nbGames <- PairingRepo.countByTourIdAndUserIds(tour.id)
-    players <- PlayerRepo.bestByTourWithRank(tour.id, nb = 9000, skip = 0)
+  private def generateTourEntries(tour: Tournament): Fu[List[Entry]] = for {
+    nbGames <- pairingRepo.countByTourIdAndUserIds(tour.id)
+    players <- playerRepo.bestByTourWithRank(tour.id, nb = 9000, skip = 0)
   } yield players.flatMap {
     case RankedPlayer(rank, player) => for {
       perfType <- tour.perfType

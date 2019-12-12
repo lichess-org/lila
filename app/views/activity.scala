@@ -57,7 +57,7 @@ object activity {
       div(
         ps.headOption map onePractice,
         ps match {
-          case first :: rest if rest.nonEmpty => subTag(rest map onePractice)
+          case _ :: rest if rest.nonEmpty => subTag(rest map onePractice)
           case _ => emptyFrag
         }
       )
@@ -270,7 +270,7 @@ object activity {
     s"""<score>${scoreStr("win", s.win, trans.nbWins)}${scoreStr("draw", s.draw, trans.nbDraws)}${scoreStr("loss", s.loss, trans.nbLosses)}</score>"""
   }
 
-  private def ratingProgFrag(r: RatingProg)(implicit ctx: Context) = ratingTag(
+  private def ratingProgFrag(r: RatingProg) = ratingTag(
     r.after.value,
     ratingProgress(r.diff)
   )

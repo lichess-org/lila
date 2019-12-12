@@ -2,7 +2,6 @@ package lila.game
 
 import java.security.MessageDigest
 import lila.db.ByteArray
-import org.joda.time.DateTime
 
 private[game] case class Metadata(
     source: Option[Source],
@@ -35,8 +34,10 @@ case class PgnImport(
 object PgnImport {
 
   def hash(pgn: String) = ByteArray {
-    MessageDigest getInstance "MD5" digest
-      pgn.lines.map(_.replace(" ", "")).filter(_.nonEmpty).mkString("\n").getBytes("UTF-8") take 12
+    MessageDigest getInstance "MD5" digest {
+      pgn.linesIterator.map(_.replace(" ", "")).filter(_.nonEmpty)
+        .to(List).mkString("\n").getBytes("UTF-8")
+    } take 12
   }
 
   def make(
@@ -50,7 +51,7 @@ object PgnImport {
     h = hash(pgn).some
   )
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   import ByteArray.ByteArrayBSONHandler
   implicit val pgnImportBSONHandler = Macros.handler[PgnImport]
 }

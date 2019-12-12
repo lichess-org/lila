@@ -1,13 +1,16 @@
 package controllers
 
-import play.api.mvc._
+import play.api.http.ContentTypes
 
 import lila.api.Context
 import lila.app._
 import lila.game.Pov
 import views._
 
-object Tv extends LilaController {
+final class Tv(
+    env: Env,
+    apiC: => Api
+) extends LilaController(env) {
 
   def index = onChannel(lila.tv.Tv.Channel.Best.key)
 
@@ -16,38 +19,38 @@ object Tv extends LilaController {
   }
 
   def sides(gameId: String, color: String) = Open { implicit ctx =>
-    OptionFuResult(chess.Color(color) ?? { Env.round.proxy.pov(gameId, _) }) { pov =>
-      Env.game.crosstableApi.withMatchup(pov.game) map { ct =>
+    OptionFuResult(chess.Color(color) ?? { env.round.proxyRepo.pov(gameId, _) }) { pov =>
+      env.game.crosstableApi.withMatchup(pov.game) map { ct =>
         Ok(html.tv.side.sides(pov, ct))
       }
     }
   }
 
-  def channels = Api.ApiRequest { implicit ctx =>
+  def channels = apiC.ApiRequest { _ =>
     import play.api.libs.json._
     implicit val championWrites = Json.writes[lila.tv.Tv.Champion]
-    Env.tv.tv.getChampions map {
+    env.tv.tv.getChampions map {
       _.channels map { case (chan, champ) => chan.name -> champ }
     } map { Json.toJson(_) } map Api.Data.apply
   }
 
   private def lichessTv(channel: lila.tv.Tv.Channel)(implicit ctx: Context) =
-    OptionFuResult(Env.tv.tv getGameAndHistory channel) {
+    OptionFuResult(env.tv.tv getGameAndHistory channel) {
       case (game, history) =>
         val flip = getBool("flip")
         val pov = if (flip) Pov second game else Pov first game
         val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = {
-            Env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
-              Env.game.crosstableApi.withMatchup(game) zip
-              Env.tv.tv.getChampions map {
+            env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
+              env.game.crosstableApi.withMatchup(game) zip
+              env.tv.tv.getChampions map {
                 case data ~ cross ~ champions => NoCache {
-                  Ok(html.tv.index(channel, champions, pov, data, cross, flip, history))
+                  Ok(html.tv.index(channel, champions, pov, data, cross, history))
                 }
               }
           },
-          api = apiVersion => Env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
+          api = apiVersion => env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
         )
     }
 
@@ -55,7 +58,7 @@ object Tv extends LilaController {
 
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
     (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
-      Env.tv.tv.getChampions zip Env.tv.tv.getGames(channel, 15) map {
+      env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map {
         case (champs, games) => NoCache {
           Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
         }
@@ -63,14 +66,14 @@ object Tv extends LilaController {
     }
   }
 
-  def feed = Action.async { req =>
+  def feed = Action.async {
     import makeTimeout.short
     import akka.pattern.ask
     import lila.round.TvBroadcast
     import play.api.libs.EventSource
-    Env.round.tvBroadcast ? TvBroadcast.GetEnumerator mapTo
-      manifest[TvBroadcast.EnumeratorType] map { enum =>
-        Ok.chunked(enum &> EventSource()).as("text/event-stream") |> noProxyBuffer
+    env.round.tvBroadcast ? TvBroadcast.Connect mapTo
+      manifest[TvBroadcast.SourceType] map { source =>
+        Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
       }
   }
 
@@ -84,7 +87,7 @@ object Tv extends LilaController {
   }
 
   def frame = Action.async { implicit req =>
-    Env.tv.tv.getBestGame map {
+    env.tv.tv.getBestGame map {
       case None => NotFound
       case Some(game) => Ok(views.html.tv.embed(Pov first game))
     }

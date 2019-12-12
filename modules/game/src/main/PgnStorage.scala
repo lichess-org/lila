@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.format.Uci
-import chess.variant.Variant
 import chess.{ variant => _, ToOptionOpsFromOption => _, _ }
 import lila.db.ByteArray
 
@@ -12,12 +11,12 @@ private object PgnStorage {
   case object OldBin extends PgnStorage {
 
     def encode(pgnMoves: PgnMoves) = ByteArray {
-      monitor(lila.mon.game.pgn.oldBin.encode) {
+      monitor(_.game.pgn.encode("old")) {
         format.pgn.Binary.writeMoves(pgnMoves).get
       }
     }
 
-    def decode(bytes: ByteArray, plies: Int): PgnMoves = monitor(lila.mon.game.pgn.oldBin.decode) {
+    def decode(bytes: ByteArray, plies: Int): PgnMoves = monitor(_.game.pgn.decode("old")) {
       format.pgn.Binary.readMoves(bytes.value.toList, plies).get.toVector
     }
   }
@@ -25,19 +24,19 @@ private object PgnStorage {
   case object Huffman extends PgnStorage {
 
     import org.lichess.compression.game.{ Encoder, Square => JavaSquare, Piece => JavaPiece, Role => JavaRole }
-    import scala.collection.JavaConversions._
+    import scala.jdk.CollectionConverters._
 
     def encode(pgnMoves: PgnMoves) = ByteArray {
-      monitor(lila.mon.game.pgn.huffman.encode) {
+      monitor(_.game.pgn.encode("huffman")) {
         Encoder.encode(pgnMoves.toArray)
       }
     }
-    def decode(bytes: ByteArray, plies: Int): Decoded = monitor(lila.mon.game.pgn.huffman.decode) {
+    def decode(bytes: ByteArray, plies: Int): Decoded = monitor(_.game.pgn.decode("huffman")) {
       val decoded = Encoder.decode(bytes.value, plies)
-      val unmovedRooks = asScalaSet(decoded.unmovedRooks.flatMap(chessPos)).toSet
+      val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
       Decoded(
         pgnMoves = decoded.pgnMoves.toVector,
-        pieces = mapAsScalaMap(decoded.pieces).flatMap {
+        pieces = decoded.pieces.asScala.flatMap {
           case (k, v) => chessPos(k).map(_ -> chessPiece(v))
         }.toMap,
         positionHashes = decoded.positionHashes,
@@ -73,8 +72,6 @@ private object PgnStorage {
       castles: Castles // irrelevant after game ends
   )
 
-  private def monitor[A](mon: lila.mon.game.pgn.Protocol)(f: => A): A = {
-    mon.count()
-    lila.mon.measureRec(mon.time)(f)
-  }
+  private def monitor[A](mon: lila.mon.TimerPath)(f: => A): A =
+    lila.common.Chronometer.syncMon(mon)(f)
 }

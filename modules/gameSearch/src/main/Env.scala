@@ -1,48 +1,42 @@
 package lila.gameSearch
 
-import akka.actor._
-import com.typesafe.config.Config
+import akka.actor.ActorSystem
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
 
 import lila.game.actorApi.{ InsertGame, FinishGame }
 import lila.search._
+import lila.common.config._
 
+@Module
+private class GameSearchConfig(
+    @ConfigName("index") val indexName: String,
+    @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
+    @ConfigName("actor.name") val actorName: String
+)
+
+@Module
 final class Env(
-    config: Config,
-    system: ActorSystem,
+    appConfig: Configuration,
+    gameRepo: lila.game.GameRepo,
     makeClient: Index => ESClient
-) {
+)(implicit system: ActorSystem) {
 
-  private val IndexName = config getString "index"
-  private val PaginatorMaxPerPage = config getInt "paginator.max_per_page"
-  private val ActorName = config getString "actor.name"
+  private val config = appConfig.get[GameSearchConfig]("gameSearch")(AutoConfig.loader)
 
-  private lazy val client = makeClient(Index(IndexName))
+  private lazy val client = makeClient(Index(config.indexName))
 
-  lazy val api = new GameSearchApi(client, system)
+  lazy val api = wire[GameSearchApi]
 
-  lazy val paginator = new PaginatorBuilder[lila.game.Game, Query](
-    searchApi = api,
-    maxPerPage = lila.common.MaxPerPage(PaginatorMaxPerPage)
-  )
+  lazy val paginator = wire[PaginatorBuilder[lila.game.Game, Query]]
 
-  lazy val forms = new DataForm
+  lazy val forms = wire[DataForm]
 
-  lazy val userGameSearch = new UserGameSearch(
-    forms = forms,
-    paginator = paginator
-  )
+  lazy val userGameSearch = wire[UserGameSearch]
 
-  lila.common.Bus.subscribeFun('finishGame, 'gameSearchInsert) {
+  lila.common.Bus.subscribeFun("finishGame", "gameSearchInsert") {
     case FinishGame(game, _, _) if !game.aborted => api store game
     case InsertGame(game) => api store game
   }
-}
-
-object Env {
-
-  lazy val current = "gameSearch" boot new Env(
-    config = lila.common.PlayApp loadConfig "gameSearch",
-    system = lila.common.PlayApp.system,
-    makeClient = lila.search.Env.current.makeClient
-  )
 }

@@ -1,7 +1,6 @@
 package lila.game
 
 import chess.Color
-import lila.rating.PerfType.Classical
 import lila.user.User
 
 case class Pov(game: Game, color: Color) {

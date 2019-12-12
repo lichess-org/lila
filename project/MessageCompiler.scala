@@ -107,7 +107,7 @@ import I18nQuantity._
 private object `$locale` {
 
   def load: java.util.HashMap[MessageKey, Translation] = {
-    val m = new java.util.HashMap[MessageKey, Translation](${content.size + 1}, 1f)
+    val m = new java.util.HashMap[MessageKey, Translation](${content.size + 1})
 ${content mkString "\n"}
     m
   }

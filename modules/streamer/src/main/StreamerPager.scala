@@ -9,7 +9,8 @@ import lila.user.{ User, UserRepo }
 
 final class StreamerPager(
     coll: Coll,
-    maxPerPage: lila.common.MaxPerPage
+    userRepo: UserRepo,
+    maxPerPage: lila.common.config.MaxPerPage
 ) {
 
   import BsonHandlers._
@@ -27,7 +28,7 @@ final class StreamerPager(
           "listed" -> Streamer.Listed(true),
           "_id" $nin live.streams.map(_.streamer.id)
         ),
-      projection = $empty,
+      projection = none,
       sort = $doc("liveAt" -> -1)
     ) mapFutureList withUsers
     Paginator(
@@ -38,7 +39,7 @@ final class StreamerPager(
   }
 
   private def withUsers(streamers: Seq[Streamer]): Fu[Seq[Streamer.WithUser]] =
-    UserRepo.withColl {
+    userRepo.withColl {
       _.optionsByOrderedIds[User, User.ID](streamers.map(_.id.value), ReadPreference.secondaryPreferred)(_.id)
     } map { users =>
       streamers zip users collect {

@@ -1,17 +1,14 @@
 package lila.study
 
-import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 import chess.opening._
 import chess.variant.Variant
 import lila.tree
-import lila.tree.Eval
-import lila.tree.Node.Comment
 
 object TreeBuilder {
 
   private val initialStandardDests = chess.Game(chess.variant.Standard).situation.destinations
 
-  def apply(root: Node.Root, variant: Variant) = {
+  def apply(root: Node.Root, variant: Variant): tree.Root = {
     val dests =
       if (variant.standard && root.fen.value == chess.format.Forsyth.initial) initialStandardDests
       else {
@@ -40,7 +37,7 @@ object TreeBuilder {
       forceVariation = node.forceVariation
     )
 
-  def makeRoot(root: Node.Root, variant: Variant) =
+  def makeRoot(root: Node.Root, variant: Variant): tree.Root =
     tree.Root(
       ply = root.ply,
       fen = root.fen.value,
@@ -57,5 +54,5 @@ object TreeBuilder {
     )
 
   private def toBranches(children: Node.Children, variant: Variant): List[tree.Branch] =
-    children.nodes.map(toBranch(_, variant))(scala.collection.breakOut)
+    children.nodes.view.map(toBranch(_, variant)).toList
 }

@@ -8,11 +8,6 @@ object JSONHandlers {
 
   import IrwinReport._
 
-  private implicit val pvReader = Reads[Option[Int]] {
-    case JsNumber(n) if n.isValidInt => JsSuccess(n.toInt.some)
-    case _ => JsSuccess(None)
-  }
-
   implicit val moveReader: Reads[MoveReport] = (
     (__ \ "a").read[Int] and // activation
     (__ \ "r").readNullable[Int] and // rank

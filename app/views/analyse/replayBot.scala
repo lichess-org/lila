@@ -1,6 +1,5 @@
 package views.html.analyse
 
-import bits.dataPanel
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -15,8 +14,6 @@ object replayBot {
     simul: Option[lila.simul.Simul],
     cross: Option[lila.game.Crosstable.WithMatchup]
   )(implicit ctx: Context) = {
-
-    import pov._
 
     views.html.analyse.bits.layout(
       title = replay titleOf pov,

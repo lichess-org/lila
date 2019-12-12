@@ -7,7 +7,7 @@ import lila.app._
 import lila.common.LightUser.lightUserWrites
 import lila.i18n.{ I18nKeys, I18nLangPicker, enLang }
 
-object Dasher extends LilaController {
+final class Dasher(env: Env) extends LilaController(env) {
 
   private val translationsBase = List(
     I18nKeys.networkLagBetweenYouAndLichess,
@@ -52,7 +52,7 @@ object Dasher extends LilaController {
   def get = Open { implicit ctx =>
     negotiate(
       html = notFound,
-      api = _ => ctx.me.??(Env.streamer.api.isStreamer) map { isStreamer =>
+      api = _ => ctx.me.??(env.streamer.api.isStreamer) map { isStreamer =>
         Ok {
           Json.obj(
             "user" -> ctx.me.map(_.light),

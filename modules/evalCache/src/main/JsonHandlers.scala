@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 import chess.format.{ Uci, FEN }
 import EvalCacheEntry._
-import lila.common.PimpedJson._
+import lila.common.Json._
 import lila.tree.Eval._
 
 object JsonHandlers {

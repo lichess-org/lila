@@ -5,7 +5,7 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.streamer.Stream.{ Twitch, YouTube }
+import lila.streamer.Stream.YouTube
 
 object show {
 
@@ -83,7 +83,7 @@ method:'post'
             } getOrElse div(cls := "box embed")(div(cls := "nostream")("OFFLINE"))
           },
           div(cls := "box streamer")(
-            header(s, following.some),
+            views.html.streamer.header(s, following.some),
             div(cls := "description")(richText(s.streamer.description.fold("")(_.value))),
             a(cls := "ratings", href := routes.User.show(s.user.username))(
               s.user.best6Perfs.map { showPerfRating(s.user, _) }

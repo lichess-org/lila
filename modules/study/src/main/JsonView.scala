@@ -1,18 +1,17 @@
 package lila.study
 
-import chess.format.{ Uci, UciCharPair, FEN }
+import chess.format.{ Uci, FEN }
 import chess.Pos
 import play.api.libs.json._
 
-import lila.common.LightUser
-import lila.common.PimpedJson._
+import lila.common.Json._
 import lila.socket.Socket.Sri
 import lila.tree.Node.Shape
 import lila.user.User
 
 final class JsonView(
     studyRepo: StudyRepo,
-    lightUser: LightUser.GetterSync
+    lightUserApi: lila.user.LightUserApi
 ) {
 
   import JsonView._
@@ -65,7 +64,7 @@ final class JsonView(
     "liked" -> s.liked,
     "likes" -> s.study.likes.value,
     "updatedAt" -> s.study.updatedAt,
-    "owner" -> lightUser(s.study.ownerId),
+    "owner" -> lightUserApi.sync(s.study.ownerId),
     "chapters" -> s.chapters.take(4),
     "members" -> s.study.members.members.values.take(4)
   )
@@ -79,7 +78,7 @@ final class JsonView(
     JsString(r.id)
   }
   private[study] implicit val memberWrites: Writes[StudyMember] = Writes[StudyMember] { m =>
-    Json.obj("user" -> lightUser(m.id), "role" -> m.role)
+    Json.obj("user" -> lightUserApi.sync(m.id), "role" -> m.role)
   }
 
   private[study] implicit val membersWrites: Writes[StudyMembers] = Writes[StudyMembers] { m =>
@@ -117,9 +116,6 @@ object JsonView {
 
   private[study] implicit val uciWrites: Writes[Uci] = Writes[Uci] { u =>
     JsString(u.uci)
-  }
-  private implicit val uciCharPairWrites: Writes[UciCharPair] = Writes[UciCharPair] { u =>
-    JsString(u.toString)
   }
   private implicit val posReader: Reads[Pos] = Reads[Pos] { v =>
     (v.asOpt[String] flatMap Pos.posAt).fold[JsResult[Pos]](JsError(Nil))(JsSuccess(_))

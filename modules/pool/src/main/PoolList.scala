@@ -17,7 +17,7 @@ object PoolList {
     PoolConfig(15 ++ 15, Wave(60 seconds, 16 players))
   )
 
-  val clockStringSet: Set[String] = all.map(_.clock.show)(scala.collection.breakOut)
+  val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
 
   private implicit class PimpedInt(self: Int) {
     def ++(increment: Int) = chess.Clock.Config(self * 60, increment)

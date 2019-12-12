@@ -2,6 +2,8 @@ package lila.relay
 
 import play.api.libs.json._
 
+import lila.common.Json.jodaWrites
+
 final class JsonView(markup: RelayMarkup) {
 
   import JsonView._

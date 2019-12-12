@@ -1,7 +1,7 @@
 package lila.insight
 
 import scalatags.Text.all._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import play.api.libs.json._
 
 import chess.opening.EcopeningDB
@@ -9,7 +9,7 @@ import chess.{ Color, Role }
 import lila.db.dsl._
 import lila.rating.PerfType
 
-sealed abstract class Dimension[A: BSONValueHandler](
+sealed abstract class Dimension[A: BSONHandler](
     val key: String,
     val name: String,
     val dbKey: String,
@@ -17,7 +17,7 @@ sealed abstract class Dimension[A: BSONValueHandler](
     val description: Frag
 ) {
 
-  def bson = implicitly[BSONValueHandler[A]]
+  def bson = implicitly[BSONHandler[A]]
 
   def isInGame = position == Position.Game
   def isInMove = position == Position.Move
@@ -128,20 +128,20 @@ object Dimension {
   }
 
   def valueByKey[X](d: Dimension[X], key: String): Option[X] = d match {
-    case Period => parseIntOption(key) map lila.insight.Period.apply
+    case Period => key.toIntOption map lila.insight.Period.apply
     case Date => None
     case Perf => PerfType.byKey get key
-    case Phase => parseIntOption(key) flatMap lila.insight.Phase.byId.get
-    case Result => parseIntOption(key) flatMap lila.insight.Result.byId.get
-    case Termination => parseIntOption(key) flatMap lila.insight.Termination.byId.get
+    case Phase => key.toIntOption flatMap lila.insight.Phase.byId.get
+    case Result => key.toIntOption flatMap lila.insight.Result.byId.get
+    case Termination => key.toIntOption flatMap lila.insight.Termination.byId.get
     case Color => chess.Color(key)
     case Opening => EcopeningDB.allByEco get key
-    case OpponentStrength => parseIntOption(key) flatMap RelativeStrength.byId.get
+    case OpponentStrength => key.toIntOption flatMap RelativeStrength.byId.get
     case PieceRole => chess.Role.all.find(_.name == key)
-    case MovetimeRange => parseIntOption(key) flatMap lila.insight.MovetimeRange.byId.get
-    case MyCastling | OpCastling => parseIntOption(key) flatMap lila.insight.Castling.byId.get
+    case MovetimeRange => key.toIntOption flatMap lila.insight.MovetimeRange.byId.get
+    case MyCastling | OpCastling => key.toIntOption flatMap lila.insight.Castling.byId.get
     case QueenTrade => lila.insight.QueenTrade(key == "true").some
-    case MaterialRange => parseIntOption(key) flatMap lila.insight.MaterialRange.byId.get
+    case MaterialRange => key.toIntOption flatMap lila.insight.MaterialRange.byId.get
   }
 
   def valueToJson[X](d: Dimension[X])(v: X): play.api.libs.json.JsObject = {
@@ -193,7 +193,7 @@ object Dimension {
     case Dimension.Period => selected.sortBy(-_.days).headOption.fold($empty) { period =>
       $doc(d.dbKey $gt period.min)
     }
-    case _ => selected map d.bson.write match {
+    case _ => selected flatMap d.bson.writeOpt match {
       case Nil => $empty
       case List(x) => $doc(d.dbKey -> x)
       case xs => $doc(d.dbKey -> $doc("$in" -> BSONArray(xs)))

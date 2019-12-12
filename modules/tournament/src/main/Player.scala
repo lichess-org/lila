@@ -1,7 +1,7 @@
 package lila.tournament
 
 import lila.common.LightUser
-import lila.hub.lightTeam.TeamId
+import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
 import lila.user.{ User, Perfs }
 
@@ -17,7 +17,7 @@ private[tournament] case class Player(
     score: Int = 0,
     fire: Boolean = false,
     performance: Int = 0,
-    team: Option[TeamId] = None
+    team: Option[TeamID] = None
 ) {
 
   def id = _id
@@ -48,7 +48,7 @@ private[tournament] object Player {
     tourId: Tournament.ID,
     user: User,
     perfLens: Perfs => Perf,
-    team: Option[TeamId]
+    team: Option[TeamID]
   ): Player = new Player(
     _id = Random.nextString(8),
     tourId = tourId,

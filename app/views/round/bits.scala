@@ -5,7 +5,7 @@ import chess.variant.{ Variant, Crazyhouse }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
-import lila.game.{ Game, Pov, Player }
+import lila.game.{ Game, Pov }
 
 import controllers.routes
 

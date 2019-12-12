@@ -36,14 +36,14 @@ final class AsyncCacheClearable[K, V](
 
   def invalidate(k: K): Unit = cache invalidate k
 
-  def invalidateAll: Unit = cache.invalidateAll
+  def invalidateAll(): Unit = cache.invalidateAll
 }
 
 final class AsyncCacheSingle[V](cache: AsyncLoadingCache[Unit, V], f: Unit => Fu[V]) {
 
   def get: Fu[V] = cache.get(())
 
-  def refresh: Unit = cache.put((), f(()))
+  def refresh(): Unit = cache.put((), f(()))
 }
 
 object AsyncCache {
@@ -109,7 +109,7 @@ object AsyncCache {
   }
 
   private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
-    system.scheduler.schedule(1 minute, 1 minute) {
+    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       lila.mon.caffeineStats(cache, name)
     }
 

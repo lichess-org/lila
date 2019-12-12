@@ -2,18 +2,13 @@ package lila.mod
 
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation.Constraints
-import reactivemongo.api.ReadPreference
 
 import lila.common.{ EmailAddress, IpAddress }
-import lila.db.dsl._
 import lila.user.{ User, UserRepo }
-import User.{ BSONFields => F }
 
 final class UserSearch(
     securityApi: lila.security.SecurityApi,
-    emailValidator: lila.security.EmailAddressValidator,
-    userColl: Coll
+    userRepo: UserRepo
 ) {
 
   def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] = (~query.as match {
@@ -21,17 +16,17 @@ final class UserSearch(
       EmailAddress.from(query.q).map(searchEmail) orElse
         IpAddress.from(query.q).map(searchIp) getOrElse
         searchUsername(query.q)
-  }) flatMap UserRepo.withEmailsU
+  }) flatMap userRepo.withEmailsU
 
   private def searchIp(ip: IpAddress) =
-    securityApi recentUserIdsByIp ip map (_.reverse) flatMap UserRepo.usersFromSecondary
+    securityApi recentUserIdsByIp ip map (_.reverse) flatMap userRepo.usersFromSecondary
 
-  private def searchUsername(username: String) = UserRepo named username map (_.toList)
+  private def searchUsername(username: String) = userRepo named username map (_.toList)
 
   private def searchEmail(email: EmailAddress): Fu[List[User]] = {
     val normalized = email.normalize
-    UserRepo.byEmail(normalized) flatMap { current =>
-      UserRepo.byPrevEmail(normalized) map current.toList.:::
+    userRepo.byEmail(normalized) flatMap { current =>
+      userRepo.byPrevEmail(normalized) map current.toList.:::
     }
   }
 }

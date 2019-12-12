@@ -2,8 +2,9 @@ package lila.app
 package ui
 
 import play.api.mvc.RequestHeader
+import play.api.i18n.Lang
 
-import lila.common.{ Nonce, Lang }
+import lila.common.Nonce
 
 case class EmbedConfig(bg: String, board: String, lang: Lang, req: RequestHeader, nonce: Nonce)
 

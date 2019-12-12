@@ -41,6 +41,6 @@ object Room {
 
   case class Counts(value: Map[Room, Int]) {
     def get = value.get _
-    lazy val sum = value.filterKeys(Xfiles !=).values.sum
+    lazy val sum = value.view.filterKeys(Xfiles !=).values.sum
   }
 }

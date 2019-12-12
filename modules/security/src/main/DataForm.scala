@@ -9,9 +9,11 @@ import lila.user.{ User, TotpSecret, UserRepo }
 import User.{ ClearPassword, TotpToken }
 
 final class DataForm(
-    val captcher: akka.actor.ActorSelection,
+    userRepo: UserRepo,
+    val captcher: lila.hub.actors.Captcher,
     authenticator: lila.user.Authenticator,
-    emailValidator: EmailAddressValidator
+    emailValidator: EmailAddressValidator,
+    lameNameCheck: LameNameCheck
 ) extends lila.hub.CaptchedForm {
 
   import DataForm._
@@ -60,8 +62,8 @@ final class DataForm(
         regex = User.newUsernameChars,
         error = "usernameCharsInvalid"
       )
-    ).verifying("usernameUnacceptable", u => !LameName.username(u))
-      .verifying("usernameAlreadyUsed", u => !UserRepo.nameExists(u).awaitSeconds(4))
+    ).verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
+      .verifying("usernameAlreadyUsed", u => !userRepo.nameExists(u).awaitSeconds(4))
 
     private val agreementBool = boolean.verifying(b => b)
 

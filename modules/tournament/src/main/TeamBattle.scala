@@ -1,13 +1,12 @@
 package lila.tournament
 
 import play.api.data._
-import play.api.data.Forms._
 
-import lila.hub.lightTeam._
+import lila.hub.LightTeam.TeamID
 import lila.user.User
 
 case class TeamBattle(
-    teams: Set[TeamId],
+    teams: Set[TeamID],
     nbLeaders: Int
 ) {
   def hasEnoughTeams = teams.size > 1
@@ -16,11 +15,11 @@ case class TeamBattle(
 
 object TeamBattle {
 
-  def init(teamId: TeamId) = TeamBattle(Set(teamId), 5)
+  def init(teamId: TeamID) = TeamBattle(Set(teamId), 5)
 
   case class RankedTeam(
       rank: Int,
-      teamId: TeamId,
+      teamId: TeamID,
       leaders: List[TeamLeader]
   ) {
     def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
@@ -32,7 +31,7 @@ object TeamBattle {
   }
 
   case class TeamInfo(
-      teamId: TeamId,
+      teamId: TeamID,
       nbPlayers: Int,
       avgRating: Int,
       avgPerf: Int,
@@ -42,7 +41,6 @@ object TeamBattle {
 
   object DataForm {
     import play.api.data.Forms._
-    import lila.common.Form._
 
     val fields = mapping(
       "teams" -> nonEmptyText,
@@ -60,8 +58,8 @@ object TeamBattle {
         teams: String,
         nbLeaders: Int
     ) {
-      def potentialTeamIds: Set[String] =
-        teams.lines.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet
+      def potentialTeamIds: Set[TeamID] =
+        teams.linesIterator.map(_.takeWhile(' ' !=)).filter(_.nonEmpty).toSet
     }
   }
 }

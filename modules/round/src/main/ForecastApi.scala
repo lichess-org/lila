@@ -1,6 +1,6 @@
 package lila.round
 
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
@@ -8,25 +8,18 @@ import org.joda.time.DateTime
 import scala.concurrent.Promise
 
 import chess.format.Uci
-import chess.Pos
 import Forecast.Step
-import lila.game.Game.{ PlayerId, FullId }
+import lila.game.Game.PlayerId
 import lila.game.{ Pov, Game }
-import lila.hub.DuctMap
 
 final class ForecastApi(coll: Coll, tellRound: TellRound) {
-
-  private implicit val PosBSONHandler = new BSONHandler[BSONString, Pos] {
-    def read(bsonStr: BSONString): Pos = Pos.posAt(bsonStr.value) err s"No such pos: ${bsonStr.value}"
-    def write(x: Pos) = BSONString(x.key)
-  }
 
   private implicit val stepBSONHandler = Macros.handler[Step]
   private implicit val forecastBSONHandler = Macros.handler[Forecast]
 
   private def saveSteps(pov: Pov, steps: Forecast.Steps): Funit = {
-    lila.mon.round.forecast.create()
-    coll.update(
+    lila.mon.round.forecast.create.increment()
+    coll.update.one(
       $id(pov.fullId),
       Forecast(
         _id = pov.fullId,
@@ -38,7 +31,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
   }
 
   def save(pov: Pov, steps: Forecast.Steps): Funit = firstStep(steps) match {
-    case None => coll.remove($id(pov.fullId)).void
+    case None => coll.delete.one($id(pov.fullId)).void
     case Some(step) if pov.game.turns == step.ply - 1 => saveSteps(pov, steps)
     case _ => fufail(Forecast.OutOfSync)
   }
@@ -61,7 +54,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
     }
 
   def loadForDisplay(pov: Pov): Fu[Option[Forecast]] =
-    pov.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
+    pov.forecastable ?? coll.ext.find($id(pov.fullId)).one[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns + 1)) clearPov(pov) inject none
@@ -69,7 +62,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
     }
 
   def loadForPlay(pov: Pov): Fu[Option[Forecast]] =
-    pov.game.forecastable ?? coll.find($id(pov.fullId)).uno[Forecast] flatMap {
+    pov.game.forecastable ?? coll.ext.find($id(pov.fullId)).one[Forecast] flatMap {
       case None => fuccess(none)
       case Some(fc) =>
         if (firstStep(fc.steps).exists(_.ply != pov.game.turns)) clearPov(pov) inject none
@@ -81,8 +74,8 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
       case None => fuccess(none)
       case Some(fc) => fc(g, last) match {
         case Some((newFc, uciMove)) if newFc.steps.nonEmpty =>
-          coll.update($id(fc._id), newFc) inject uciMove.some
-        case Some((newFc, uciMove)) => clearPov(Pov player g) inject uciMove.some
+          coll.update.one($id(fc._id), newFc) inject uciMove.some
+        case Some((_, uciMove)) => clearPov(Pov player g) inject uciMove.some
         case _ => clearPov(Pov player g) inject none
       }
     }
@@ -90,7 +83,7 @@ final class ForecastApi(coll: Coll, tellRound: TellRound) {
 
   private def firstStep(steps: Forecast.Steps) = steps.headOption.flatMap(_.headOption)
 
-  def clearGame(g: Game) = coll.remove($inIds(chess.Color.all.map(g.fullIdOf))).void
+  def clearGame(g: Game) = coll.delete.one($inIds(chess.Color.all.map(g.fullIdOf))).void
 
-  def clearPov(pov: Pov) = coll.remove($id(pov.fullId)).void
+  def clearPov(pov: Pov) = coll.delete.one($id(pov.fullId)).void
 }

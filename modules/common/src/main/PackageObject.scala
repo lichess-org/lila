@@ -1,11 +1,10 @@
 package lila
 
-import scala.util.Try
-
 import scalaz.{ Monad, Monoid, OptionT, ~> }
 
 trait PackageObject extends Lilaisms {
-  implicit lazy val playExecutionContext = play.api.libs.concurrent.Execution.defaultContext
+
+  implicit val defaultExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
@@ -37,18 +36,6 @@ trait PackageObject extends Lilaisms {
     def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
   }
 
-  def parseIntOption(str: String): Option[Int] =
-    Try(java.lang.Integer.parseInt(str)).toOption
-
-  def parseFloatOption(str: String): Option[Float] =
-    Try(java.lang.Float.parseFloat(str)).toOption
-
-  def parseLongOption(str: String): Option[Long] =
-    Try(java.lang.Long.parseLong(str)).toOption
-
-  def parseDoubleOption(str: String): Option[Double] =
-    Try(java.lang.Double.parseDouble(str)).toOption
-
   def intBox(in: Range.Inclusive)(v: Int): Int =
     math.max(in.start, math.min(v, in.end))
 
@@ -74,13 +61,5 @@ trait PackageObject extends Lilaisms {
     def millis(s: Int): Timeout = Timeout(s.millis)
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
-  }
-
-  implicit def unaryOperator[A](f: A => A) = new java.util.function.UnaryOperator[A] {
-    override def apply(a: A): A = f(a)
-  }
-
-  implicit def biFunction[A, B, C](f: (A, B) => C) = new java.util.function.BiFunction[A, B, C] {
-    override def apply(a: A, b: B): C = f(a, b)
   }
 }

@@ -14,7 +14,7 @@ private final class RelaySync(
   private type NbMoves = Int
 
   def apply(relay: Relay, games: RelayGames): Fu[SyncResult.Ok] =
-    studyApi byId relay.studyId flatten "Missing relay study!" flatMap { study =>
+    studyApi byId relay.studyId orFail "Missing relay study!" flatMap { study =>
       chapterRepo orderedByStudy study.id flatMap { chapters =>
         RelayInputSanity(chapters, games) match {
           case Some(fail) => fufail(fail.msg)

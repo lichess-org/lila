@@ -24,8 +24,6 @@ final class Spam(
     case (t, (regex, rep)) => regex.replaceAllIn(t, rep)
   }
 
-  private val protocol = """https?://"""
-
   /* Keep the link to the website but remove the referrer ID */
   private val replacements = List(
     """chess24.com\?ref=\w+""".r -> "chess24.com",

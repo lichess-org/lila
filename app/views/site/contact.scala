@@ -282,13 +282,13 @@ object contact {
     ))
 
   private def renderNode(node: Node, parent: Option[Node]): Frag = node match {
-    case Leaf(id, name, content) => List(
+    case Leaf(_, _, content) => List(
       div(makeId(node.id), cls := "node leaf")(
         h2(parent map goBack, node.name),
         div(cls := "content")(content)
       )
     )
-    case b @ Branch(id, name, children) => frag(
+    case b @ Branch(id, _, children) => frag(
       div(makeId(node.id), cls := s"node branch $id")(
         h2(parent map goBack, node.name),
         div(cls := "links")(

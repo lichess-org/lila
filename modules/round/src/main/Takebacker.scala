@@ -7,6 +7,7 @@ import RoundDuct.TakebackSituation
 
 private final class Takebacker(
     messenger: Messenger,
+    gameRepo: GameRepo,
     uciMemo: UciMemo,
     prefApi: PrefApi
 ) {
@@ -62,12 +63,11 @@ private final class Takebacker(
     }
 
   private def publishTakebackOffer(pov: Pov): Unit =
-    if (pov.game.isCorrespondence && pov.game.nonAi) pov.player.userId foreach { userId =>
+    if (pov.game.isCorrespondence && pov.game.nonAi && pov.player.hasUser)
       Bus.publish(
         lila.hub.actorApi.round.CorresTakebackOfferEvent(pov.gameId),
-        'offerEventCorres
+        "offerEventCorres"
       )
-    }
 
   private def IfAllowed[A](game: Game)(f: => Fu[A]): Fu[A] =
     if (!game.playable) fufail(ClientError("[takebacker] game is over " + game.id))
@@ -78,20 +78,20 @@ private final class Takebacker(
     }
 
   private def single(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
-    fen ← GameRepo initialFen game
-    progress ← Rewind(game, fen).future
-    _ ← fuccess { uciMemo.drop(game, 1) }
-    events ← saveAndNotify(progress)
+    fen <- gameRepo initialFen game
+    progress <- Rewind(game, fen).future
+    _ <- fuccess { uciMemo.drop(game, 1) }
+    events <- saveAndNotify(progress)
   } yield events
 
   private def double(game: Game)(implicit proxy: GameProxy): Fu[Events] = for {
-    fen ← GameRepo initialFen game
-    prog1 ← Rewind(game, fen).future
-    prog2 ← Rewind(prog1.game, fen).future map { progress =>
+    fen <- gameRepo initialFen game
+    prog1 <- Rewind(game, fen).future
+    prog2 <- Rewind(prog1.game, fen).future map { progress =>
       prog1 withGame progress.game
     }
-    _ ← fuccess { uciMemo.drop(game, 2) }
-    events ← saveAndNotify(prog2)
+    _ <- fuccess { uciMemo.drop(game, 2) }
+    events <- saveAndNotify(prog2)
   } yield events
 
   private def saveAndNotify(p1: Progress)(implicit proxy: GameProxy): Fu[Events] = {

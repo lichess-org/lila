@@ -2,7 +2,7 @@ package lila.user
 
 object Links {
 
-  def make(text: String): List[Link] = text.lines.toList.map(_.trim) flatMap toLink
+  def make(text: String): List[Link] = text.linesIterator.to(List).map(_.trim).flatMap(toLink)
 
   private val UrlRegex = """^(?:https?://)?+([^/]+)""".r.unanchored
 

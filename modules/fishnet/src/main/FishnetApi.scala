@@ -1,35 +1,35 @@
 package lila.fishnet
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.util.{ Try, Success, Failure }
 
 import Client.Skill
 import lila.common.IpAddress
+import lila.common.WorkQueue
 import lila.db.dsl._
-import lila.hub.FutureSequencer
 
 final class FishnetApi(
     repo: FishnetRepo,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
-    sequencer: FutureSequencer,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
-    offlineMode: Boolean,
-    analysisNodes: Int
-)(implicit system: akka.actor.ActorSystem) {
+    config: FishnetApi.Config
+)(implicit mat: akka.stream.Materializer) {
 
   import FishnetApi._
   import JsonApi.Request.{ PartialAnalysis, CompleteAnalysis }
   import BSONHandlers._
 
+  private val workQueue = new WorkQueue(64)
+
   def keyExists(key: Client.Key) = repo.getEnabledClient(key).map(_.isDefined)
 
   def authenticateClient(req: JsonApi.Request, ip: IpAddress): Fu[Try[Client]] = {
-    if (offlineMode) repo.getOfflineClient map some
+    if (config.offlineMode) repo.getOfflineClient map some
     else repo.getEnabledClient(req.fishnet.apikey)
   } map {
     case None => Failure(new Exception("Can't authenticate: invalid key or disabled client"))
@@ -42,34 +42,28 @@ final class FishnetApi(
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
     case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
     case Skill.Analysis | Skill.All => acquireAnalysis(client)
-  }).chronometer
-    .mon(_.fishnet.acquire time client.skill.key)
-    .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
-    .result
+  })
+    .monSuccess(_.fishnet.acquire)
     .recover {
-      case e: lila.hub.Duct.Timeout =>
-        lila.mon.fishnet.acquire.timeout(client.skill.key)()
-        logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
-        none
       case e: Exception =>
-        logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
+        logger.error("Fishnet.acquire", e)
         none
     }
 
-  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
-    analysisColl.find(
+  private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = workQueue {
+    analysisColl.ext.find(
       $doc("acquired" $exists false) ++ {
         !client.offline ?? $doc("lastTryByKey" $ne client.key) // client alternation
       }
     ).sort($doc(
         "sender.system" -> 1, // user requests first, then lichess auto analysis
         "createdAt" -> 1 // oldest requests first
-      )).uno[Work.Analysis].flatMap {
+      )).one[Work.Analysis].flatMap {
         _ ?? { work =>
           repo.updateAnalysis(work assignTo client) inject work.some
         }
       }
-  }.map { _ map JsonApi.analysisFromWork(analysisNodes) }
+  }.map { _ map JsonApi.analysisFromWork(config.analysisNodes) }
 
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] =
     repo.getAnalysis(workId).flatMap {
@@ -116,10 +110,10 @@ final class FishnetApi(
         case r @ PostAnalysisResult.UnusedPartial => fuccess(r)
       }
 
-  def abort(workId: Work.Id, client: Client): Funit = sequencer {
+  def abort(workId: Work.Id, client: Client): Funit = workQueue {
     repo.getAnalysis(workId).map(_.filter(_ isAcquiredBy client)) flatMap {
       _ ?? { work =>
-        Monitor.abort(work, client)
+        Monitor.abort(client)
         repo.updateAnalysis(work.abort)
       }
     }
@@ -136,30 +130,27 @@ final class FishnetApi(
     )
   }
 
-  private[fishnet] def createClient(userId: Client.UserId, skill: String): Fu[Client] =
-    Client.Skill.byKey(skill).fold(fufail[Client](s"Invalid skill $skill")) { sk =>
-      val client = Client(
-        _id = Client.makeKey,
-        userId = userId,
-        skill = sk,
-        instance = None,
-        enabled = true,
-        createdAt = DateTime.now
-      )
-      repo addClient client inject client
-    }
-
-  private[fishnet] def setClientSkill(key: Client.Key, skill: String) =
-    Client.Skill.byKey(skill).fold(fufail[Unit](s"Invalid skill $skill")) { sk =>
-      repo getClient key flatten s"No client with key $key" flatMap { client =>
-        repo updateClient client.copy(skill = sk)
-      }
-    }
+  private[fishnet] def createClient(userId: Client.UserId): Fu[Client] = {
+    val client = Client(
+      _id = Client.makeKey,
+      userId = userId,
+      skill = Skill.Analysis,
+      instance = None,
+      enabled = true,
+      createdAt = DateTime.now
+    )
+    repo addClient client inject client
+  }
 }
 
 object FishnetApi {
 
   import lila.base.LilaException
+
+  case class Config(
+      offlineMode: Boolean,
+      analysisNodes: Int
+  )
 
   case class WeakAnalysis(client: Client) extends LilaException {
     val message = s"$client: Analysis nodes per move is too low"

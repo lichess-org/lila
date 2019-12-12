@@ -1,9 +1,7 @@
 package lila.fishnet
 
-import org.joda.time.DateTime
 import scala.concurrent.duration._
 
-import chess.format.{ FEN, Forsyth }
 import chess.{ White, Black, Clock }
 
 import lila.common.Future
@@ -12,6 +10,7 @@ import ornicar.scalalib.Random.approximatly
 
 final class Player(
     redis: FishnetRedis,
+    gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
 )(implicit system: akka.actor.ActorSystem) {
@@ -45,7 +44,7 @@ final class Player(
 
   private def makeWork(game: Game, level: Int): Fu[Work.Move] =
     if (game.situation playable true)
-      if (game.turns <= maxPlies) GameRepo.initialFen(game) zip uciMemo.get(game) map {
+      if (game.turns <= maxPlies) gameRepo.initialFen(game) zip uciMemo.get(game) map {
         case (initialFen, moves) => Work.Move(
           _id = Work.makeId,
           game = Work.Game(

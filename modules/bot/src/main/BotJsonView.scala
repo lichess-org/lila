@@ -2,17 +2,17 @@ package lila.bot
 
 import play.api.libs.json._
 
-import chess.format.FEN
-
+import lila.common.Json.jodaWrites
 import lila.game.JsonView._
 import lila.game.{ Game, Pov, GameRepo }
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
-    rematchOf: Game.ID => Option[Game.ID]
+    gameRepo: GameRepo,
+    rematches: lila.game.Rematches
 ) {
 
-  def gameFull(game: Game): Fu[JsObject] = GameRepo.withInitialFen(game) flatMap gameFull
+  def gameFull(game: Game): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
 
   def gameFull(wf: Game.WithInitialFen): Fu[JsObject] =
     gameState(wf) map { state =>
@@ -54,7 +54,7 @@ final class BotJsonView(
         "bdraw" -> game.blackPlayer.isOfferingDraw,
         "wdraw" -> game.whitePlayer.isOfferingDraw
       )
-        .add("rematch" -> rematchOf(game.id))
+        .add("rematch" -> rematches.of(game.id))
     }
   }
 

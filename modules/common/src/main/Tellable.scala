@@ -13,5 +13,5 @@ object Tellable {
     def !(msg: Any) = ref ! msg
   }
 
-  private def doNothing(msg: Any) = {}
+  private val doNothing = (_: Any) => ()
 }

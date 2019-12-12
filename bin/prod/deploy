@@ -1,8 +1,6 @@
 #!/bin/sh -e
 . bin/lilarc
 
-export PATH="/usr/lib/jvm/java-8-openjdk/jre/bin/:$PATH"
-
 mode=$1
 
 if [ -z $mode ]; then
@@ -49,9 +47,7 @@ if [ $mode = "main" ]; then
   $CLI deploy pre
 fi
 
-SBT_OPTS=""
-export JAVA_OPTS="-Xms512m -Xmx2048m -XX:ReservedCodeCacheSize=64m -XX:+UseConcMarkSweepGC"
-sbt stage exit
+./run stage
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1

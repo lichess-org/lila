@@ -1,31 +1,25 @@
 package lila.api
 
-import play.api.libs.iteratee._
 import play.api.libs.json._
-import reactivemongo.play.iteratees.cursorProducer
-import scala.concurrent.duration._
 
+import lila.common.config._
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ MaxPerSecond, LightUser }
-import lila.db.dsl._
-import lila.game.Pov
-import lila.user.{ UserRepo, User, Title }
+import lila.user.User
 
 private[api] final class UserApi(
     jsonView: lila.user.JsonView,
-    lightUserApi: lila.user.LightUserApi,
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     crosstableApi: lila.game.CrosstableApi,
     playBanApi: lila.playban.PlaybanApi,
     gameCache: lila.game.Cached,
+    userRepo: lila.user.UserRepo,
     prefApi: lila.pref.PrefApi,
-    isStreaming: User.ID => Boolean,
-    isPlaying: User.ID => Boolean,
-    isOnline: User.ID => Boolean,
-    makeUrl: String => String,
-    urgentGames: User => Fu[List[Pov]]
-)(implicit system: akka.actor.ActorSystem) {
+    liveStreamApi: lila.streamer.LiveStreamApi,
+    onlineDoing: lila.relation.OnlineDoing,
+    gameProxyRepo: lila.round.GameProxyRepo,
+    net: NetConfig
+) {
 
   def pagerJson(pag: Paginator[User]): JsObject =
     Json.obj("paginator" -> PaginatorJson(pag mapResults one))
@@ -34,33 +28,7 @@ private[api] final class UserApi(
     addPlayingStreaming(jsonView(u), u.id) ++
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
-  // maybe get titled from LightUsers?
-  // def exportTitled(config: UserApi.Titled): Enumerator[JsObject] =
-  //   if (config.titles.isEmpty) Enumerator.empty[JsObject]
-  //   else if (config.online) Enumerator.enumerate(recentTitledUserIds()) &>
-  //     Enumeratee.filter(isOnline) &>
-  //     Enumeratee.mapM(lightUserApi.async) &>
-  //     Enumeratee.collect {
-  //       case Some(lu) if lu.title.exists(ut => config.titles.exists(_.value == ut)) =>
-  //         addPlayingStreaming(LightUser.lightUserWrites.writes(lu), lu.id)
-  //     }
-  //   else UserRepo.idCursor(
-  //     selector = $doc("title" $in config.titles, "enabled" -> true),
-  //     batchSize = config.perSecond.value
-  //   ).bulkEnumerator() &>
-  //     lila.common.Iteratee.delay(1 second) &>
-  //     Enumeratee.mapM { docs =>
-  //       lightUserApi.asyncMany {
-  //         docs.flatMap { _.getAs[User.ID]("_id") } toList
-  //       }
-  //     } &>
-  //     Enumeratee.mapConcat { users =>
-  //       users.flatten.map { u =>
-  //         addPlayingStreaming(LightUser.lightUserWrites.writes(u), u.id)
-  //       }
-  //     }
-
-  def extended(username: String, as: Option[User]): Fu[Option[JsObject]] = UserRepo named username flatMap {
+  def extended(username: String, as: Option[User]): Fu[Option[JsObject]] = userRepo named username flatMap {
     _ ?? { extended(_, as) map some }
   }
 
@@ -73,7 +41,7 @@ private[api] final class UserApi(
       )
     }
     else {
-      urgentGames(u).map(_.headOption) zip
+      gameProxyRepo.urgentGames(u).map(_.headOption) zip
         (as.filter(u!=) ?? { me => crosstableApi.nbGames(me.id, u.id) }) zip
         relationApi.countFollowing(u.id) zip
         relationApi.countFollowers(u.id) zip
@@ -108,7 +76,7 @@ private[api] final class UserApi(
                   "import" -> nbImported,
                   "me" -> nbGamesWithMe
                 )
-              ).add("streaming", isStreaming(u.id)) ++
+              ).add("streaming", liveStreamApi.isStreaming(u.id)) ++
                 as.isDefined.??(Json.obj(
                   "followable" -> followable,
                   "following" -> relation.has(true),
@@ -120,8 +88,10 @@ private[api] final class UserApi(
     }
 
   private def addPlayingStreaming(js: JsObject, id: User.ID) =
-    js.add("playing", isPlaying(id))
-      .add("streaming", isStreaming(id))
+    js.add("playing", onlineDoing.isPlaying(id))
+      .add("streaming", liveStreamApi.isStreaming(id))
+
+  private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
 }
 
 object UserApi {

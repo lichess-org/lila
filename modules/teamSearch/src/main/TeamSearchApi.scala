@@ -1,15 +1,19 @@
 package lila.teamSearch
 
+import akka.stream.scaladsl._
+import play.api.libs.json._
+
 import lila.search._
 import lila.team.{ Team, TeamRepo }
 
-import play.api.libs.json._
-
-final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
+final class TeamSearchApi(
+    client: ESClient,
+    teamRepo: TeamRepo
+)(implicit mat: akka.stream.Materializer) extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
-      TeamRepo byOrderedIds res.ids
+      teamRepo byOrderedIds res.ids
     }
 
   def count(query: Query) = client.count(query) map (_.count)
@@ -25,29 +29,17 @@ final class TeamSearchApi(client: ESClient) extends SearchReadApi[Team, Query] {
 
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      import play.api.libs.iteratee._
-      import reactivemongo.api.ReadPreference
-      import reactivemongo.play.iteratees.cursorProducer
-      import lila.db.dsl._
 
       logger.info(s"Index to ${c.index.name}")
 
-      val batchSize = 200
-      val maxEntries = Int.MaxValue
-
-      TeamRepo.cursor(
-        selector = $doc("enabled" -> true),
-        readPreference = ReadPreference.secondaryPreferred
-      )
-        .enumerator(maxEntries) &>
-        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[Team], Int](0) {
-          case (nb, teams) =>
-            c.storeBulk(teams.toList map (t => Id(t.id) -> toDoc(t))) inject {
-              logger.info(s"Indexed $nb teams")
-              nb + teams.size
-            }
-        }
+      teamRepo.cursor
+        .documentSource()
+        .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
+        .map(t => Id(t.id) -> toDoc(t))
+        .grouped(200)
+        .mapAsync(1)(c.storeBulk)
+        .toMat(Sink.ignore)(Keep.right)
+        .run
     } >> client.refresh
     case _ => funit
   }

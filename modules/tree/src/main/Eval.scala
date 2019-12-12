@@ -22,12 +22,12 @@ object Eval {
   case class Score(value: Either[Cp, Mate]) extends AnyVal {
 
     def cp: Option[Cp] = value.left.toOption
-    def mate: Option[Mate] = value.right.toOption
+    def mate: Option[Mate] = value.toOption
 
     def isCheckmate = value == Score.checkmate
     def mateFound = value.isRight
 
-    def invert = copy(value = value.left.map(_.invert).right.map(_.invert))
+    def invert = copy(value = value.left.map(_.invert).map(_.invert))
     def invertIf(cond: Boolean) = if (cond) invert else this
 
     def eval = Eval(cp, mate, None)

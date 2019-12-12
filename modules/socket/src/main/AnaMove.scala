@@ -11,7 +11,6 @@ import lila.tree.Branch
 trait AnaAny {
 
   def branch: Valid[Branch]
-  def json(b: Branch): JsObject
   def chapterId: Option[String]
   def path: String
 }
@@ -48,20 +47,20 @@ case class AnaMove(
       }
     }
 
-  def json(b: Branch): JsObject = Json.obj(
-    "node" -> b,
-    "path" -> path
-  ).add("ch" -> chapterId)
+  // def json(b: Branch): JsObject = Json.obj(
+  //   "node" -> b,
+  //   "path" -> path
+  // ).add("ch" -> chapterId)
 }
 
 object AnaMove {
 
   def parse(o: JsObject) = for {
-    d ← o obj "d"
-    orig ← d str "orig" flatMap chess.Pos.posAt
-    dest ← d str "dest" flatMap chess.Pos.posAt
-    fen ← d str "fen"
-    path ← d str "path"
+    d <- o obj "d"
+    orig <- d str "orig" flatMap chess.Pos.posAt
+    dest <- d str "dest" flatMap chess.Pos.posAt
+    fen <- d str "fen"
+    path <- d str "path"
   } yield AnaMove(
     orig = orig,
     dest = dest,

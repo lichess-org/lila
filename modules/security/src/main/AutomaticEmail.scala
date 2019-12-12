@@ -1,14 +1,16 @@
 package lila.security
 
-import scalatags.Text.all._
+import play.api.i18n.Lang
 
-import lila.common.{ Lang, EmailAddress }
+import lila.common.EmailAddress
+import lila.common.config.BaseUrl
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
 final class AutomaticEmail(
+    userRepo: UserRepo,
     mailgun: Mailgun,
-    baseUrl: String
+    baseUrl: BaseUrl
 ) {
 
   import Mailgun.html._
@@ -31,14 +33,13 @@ ${Mailgun.txt.serviceNote}
   }
 
   def onTitleSet(username: String)(implicit lang: Lang): Funit = for {
-    user <- UserRepo named username flatten s"No such user $username"
-    emailOption <- UserRepo email user.id
+    user <- userRepo named username orFail s"No such user $username"
+    emailOption <- userRepo email user.id
   } yield for {
     title <- user.title
     email <- emailOption
   } yield {
 
-    val profileUrl = s"$baseUrl/@/${user.username}"
     val body = s"""Hello,
 
 Thank you for confirming your $title title on lichess.org.
@@ -62,7 +63,7 @@ ${Mailgun.txt.serviceNote}
   }
 
   def onBecomeCoach(user: User)(implicit lang: Lang): Funit =
-    UserRepo email user.id flatMap {
+    userRepo email user.id flatMap {
       _ ?? { email =>
         val body = s"""Hello,
 
@@ -88,8 +89,8 @@ ${Mailgun.txt.serviceNote}
     }
 
   def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
-    user <- UserRepo named userId flatten s"No such user $userId"
-    emailOption <- UserRepo email user.id
+    user <- userRepo named userId orFail s"No such user $userId"
+    emailOption <- userRepo email user.id
   } yield emailOption ?? { email =>
 
     val body = s"""Hello,

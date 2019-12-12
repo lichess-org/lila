@@ -11,7 +11,7 @@ final class RequesterApi(coll: Coll) {
 
   private def today = formatter.print(DateTime.now)
 
-  def save(analysis: Analysis): Funit = coll.update(
+  def save(analysis: Analysis): Funit = coll.update.one(
     $id(analysis.uid | "anonymous"),
     $inc("total" -> 1) ++
       $inc(today -> 1) ++

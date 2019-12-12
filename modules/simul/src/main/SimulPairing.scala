@@ -2,7 +2,7 @@ package lila.simul
 
 import lila.game.IdGenerator
 
-case class SimulPairing(
+final case class SimulPairing(
     player: SimulPlayer,
     gameId: String,
     status: chess.Status,
@@ -16,7 +16,7 @@ case class SimulPairing(
   def is(userId: String): Boolean = player is userId
   def is(other: SimulPlayer): Boolean = player is other
 
-  def finish(s: chess.Status, w: Option[String], t: Int) = copy(
+  def finish(s: chess.Status, w: Option[String]) = copy(
     status = s,
     wins = w map player.is
   )

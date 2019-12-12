@@ -34,7 +34,7 @@ final class Syncache[K, V](
       case ExpireAfterWrite(duration) => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
     }
     val cache = b2.recordStats.build[K, V]()
-    AsyncCache.startMonitoring(s"syncache.$name", cache)
+    lila.memo.AsyncCache.startMonitoring(s"syncache.$name", cache)
     cache
   }
 
@@ -51,7 +51,7 @@ final class Syncache[K, V](
         case NeverWait => default(k)
         case AlwaysWait(duration) => waitForResult(k, fu, duration)
         case WaitAfterUptime(duration, uptime) =>
-          if (lila.common.PlayApp startedSinceSeconds uptime) waitForResult(k, fu, duration)
+          if (lila.common.Uptime startedSinceSeconds uptime) waitForResult(k, fu, duration)
           else default(k)
       }
     }
@@ -87,44 +87,41 @@ final class Syncache[K, V](
       cache.put(k, v)
     }
 
-  def chmSize = chm.size
-
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
       error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
-      .mon(_ => recComputeNanos) // monitoring: record async time
+      .mon(_ => recCompute) // monitoring: record async time
       .addEffect { res =>
         cache.put(k, res)
         chm remove k
       }
       .recover {
         case e: Exception =>
-          logger.branch(name).warn(s"$e key=$k")
+          logger.branch(s"syncache $name").warn(s"key=$k", e)
           chm remove k
           default(k)
       }
   }
 
   private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {
-    incWait()
     try {
-      // monitoring: increment lock time
-      lila.mon.measureIncMicros(_ => incWaitMicros)(fu await duration)
+      lila.common.Chronometer.syncMon(_ => recWait) {
+        fu await duration
+      }
     } catch {
-      case e: java.util.concurrent.TimeoutException =>
+      case _: java.util.concurrent.TimeoutException =>
         incTimeout()
         default(k)
     }
   }
 
-  private val incMiss = lila.mon.syncache.miss(name)
-  private val incWait = lila.mon.syncache.wait(name)
-  private val incPreload = lila.mon.syncache.preload(name)
-  private val incTimeout = lila.mon.syncache.timeout(name)
-  private val incWaitMicros = lila.mon.syncache.waitMicros(name)
-  private val recComputeNanos = lila.mon.syncache.computeNanos(name)
+  private val incMiss = lila.mon.syncache.miss(name).increment _
+  private val incPreload = lila.mon.syncache.preload(name).increment _
+  private val incTimeout = lila.mon.syncache.timeout(name).increment _
+  private val recWait = lila.mon.syncache.wait(name)
+  private val recCompute = lila.mon.syncache.compute(name)
 }
 
 object Syncache {

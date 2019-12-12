@@ -53,9 +53,9 @@ object TreeBuilder {
           else _ => None
         val fen = Forsyth >> init
         val infos: Vector[Info] = analysis.??(_.infos.toVector)
-        val advices: Map[Ply, Advice] = analysis.??(_.advices.map { a =>
+        val advices: Map[Ply, Advice] = analysis.??(_.advices.view.map { a =>
           a.ply -> a
-        }(scala.collection.breakOut))
+        }.toMap)
         val root = Root(
           ply = init.turns,
           fen = fen,
@@ -108,7 +108,7 @@ object TreeBuilder {
   }
 
   private def withAnalysisChild(id: String, root: Branch, variant: Variant, fromFen: FEN, openingOf: OpeningOf)(info: Info): Branch = {
-    def makeBranch(index: Int, g: chess.Game, m: Uci.WithSan) = {
+    def makeBranch(g: chess.Game, m: Uci.WithSan) = {
       val fen = Forsyth >> g
       Branch(
         id = UciCharPair(m.uci),
@@ -122,17 +122,17 @@ object TreeBuilder {
       )
     }
     chess.Replay.gameMoveWhileValid(info.variation take 20, fromFen.value, variant) match {
-      case (init, games, error) =>
+      case (_, games, error) =>
         error foreach logChessError(id)
-        games.zipWithIndex.reverse match {
+        games.reverse match {
           case Nil => root
-          case ((g, m), i) :: rest => root addChild rest.foldLeft(makeBranch(i + 1, g, m)) {
-            case (node, ((g, m), i)) => makeBranch(i + 1, g, m) addChild node
+          case (g, m) :: rest => root addChild rest.foldLeft(makeBranch(g, m)) {
+            case (node, (g, m)) => makeBranch(g, m) addChild node
           }.setComp
         }
     }
   }
 
   private val logChessError = (id: String) => (err: String) =>
-    logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.lines.toList.headOption}")
+    logger.warn(s"round.TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
 }

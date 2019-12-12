@@ -3,14 +3,13 @@ package lila.relay
 import org.joda.time.DateTime
 import play.api.data._
 import play.api.data.Forms._
-import play.api.data.validation._
-import play.api.data.validation.Constraints._
 
 import lila.security.Granter
 import lila.user.User
 
-object RelayForm {
+final class RelayForm {
 
+  import RelayForm._
   import lila.common.Form.UTCDate._
 
   val form = Form(
@@ -35,6 +34,9 @@ object RelayForm {
   def create = form
 
   def edit(r: Relay) = form fill Data.make(r)
+}
+
+object RelayForm {
 
   case class Data(
       name: String,

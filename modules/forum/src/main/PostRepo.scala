@@ -1,29 +1,24 @@
 package lila.forum
 
-import lila.db.dsl._
 import org.joda.time.DateTime
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.akkastream.cursorProducer
+import reactivemongo.api.ReadPreference
 
-object PostRepo extends PostRepo(false) {
+import lila.db.dsl._
+import lila.user.User
 
-  def apply(troll: Boolean): PostRepo = if (troll) PostRepoTroll else PostRepo
-}
+final class PostRepo(val coll: Coll, troll: Boolean = false) {
 
-object PostRepoTroll extends PostRepo(true)
-
-sealed abstract class PostRepo(troll: Boolean) {
+  def withTroll(t: Boolean) = if (t == troll) this else new PostRepo(coll, t)
 
   import BSONHandlers.PostBSONHandler
 
-  // dirty
-  private val coll = Env.current.postColl
-
   private val trollFilter = !troll ?? $doc("troll" -> false)
 
-  def byIds(ids: List[Post.ID]) = coll.byIds[Post](ids)
+  def byIds(ids: Seq[Post.ID]) = coll.byIds[Post](ids)
 
   def byCategAndId(categSlug: String, id: String): Fu[Option[Post]] =
-    coll.uno[Post](selectCateg(categSlug) ++ $id(id))
+    coll.one[Post](selectCateg(categSlug) ++ $id(id))
 
   def countBeforeNumber(topicId: String, number: Int): Fu[Int] =
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
@@ -35,23 +30,23 @@ sealed abstract class PostRepo(troll: Boolean) {
     coll.countSel(selectTopic(topic.id))
 
   def lastByCateg(categ: Categ): Fu[Option[Post]] =
-    coll.find(selectCateg(categ.id)).sort($sort.createdDesc).uno[Post]
+    coll.ext.find(selectCateg(categ.id)).sort($sort.createdDesc).one[Post]
 
   def lastByTopic(topic: Topic): Fu[Option[Post]] =
-    coll.find(selectTopic(topic.id)).sort($sort.createdDesc).uno[Post]
+    coll.ext.find(selectTopic(topic.id)).sort($sort.createdDesc).one[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    coll.find(
+    coll.ext.find(
       selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
-    ).sort($sort.createdDesc).cursor[Post]().gather[List](nb)
+    ).sort($sort.createdDesc).list[Post](nb)
 
   def countByCateg(categ: Categ): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
 
   def removeByTopic(topicId: String): Funit =
-    coll.remove(selectTopic(topicId)).void
+    coll.delete.one(selectTopic(topicId)).void
 
-  def hideByTopic(topicId: String, value: Boolean): Funit = coll.update(
+  def hideByTopic(topicId: String, value: Boolean): Funit = coll.update.one(
     selectTopic(topicId),
     $set("hidden" -> value),
     multi = true
@@ -68,7 +63,7 @@ sealed abstract class PostRepo(troll: Boolean) {
     if (langs.isEmpty) $empty
     else $doc("lang" $in langs)
 
-  def findDuplicate(post: Post): Fu[Option[Post]] = coll.uno[Post]($doc(
+  def findDuplicate(post: Post): Fu[Option[Post]] = coll.one[Post]($doc(
     "createdAt" $gt DateTime.now.minusHours(1),
     "userId" -> ~post.userId,
     "text" -> post.text
@@ -77,14 +72,12 @@ sealed abstract class PostRepo(troll: Boolean) {
   def sortQuery = $sort.createdAsc
 
   def userIdsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinct[String, List]("userId", $doc("topicId" -> topicId).some)
+    coll.distinctEasy[User.ID, List]("userId", $doc("topicId" -> topicId))
 
   def idsByTopicId(topicId: String): Fu[List[String]] =
-    coll.distinct[String, List]("_id", $doc("topicId" -> topicId).some)
+    coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId))
 
-  def cursor(
-    selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Post]) =
-    coll.find(selector).cursor[Post](readPreference)
+  def cursor =
+    coll.ext.find($empty)
+      .cursor[Post](ReadPreference.secondaryPreferred)
 }

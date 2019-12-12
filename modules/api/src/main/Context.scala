@@ -1,8 +1,9 @@
 package lila.api
 
 import play.api.mvc.RequestHeader
+import play.api.i18n.Lang
 
-import lila.common.{ HTTPRequest, Nonce, Lang }
+import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
 import lila.relation.actorApi.OnlineFriends
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
@@ -77,7 +78,7 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
   def zoom: Int = {
-    req.session get "zoom2" flatMap parseIntOption map (_ - 100) filter (0 <=) filter (100 >=)
+    req.session get "zoom2" flatMap (_.toIntOption) map (_ - 100) filter (0 <=) filter (100 >=)
   } | 85
 }
 

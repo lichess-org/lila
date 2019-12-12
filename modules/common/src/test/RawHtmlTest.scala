@@ -123,7 +123,8 @@ class RawHtmlTest extends Specification {
 
     "pass through plain text (fast case)" in {
       val noUrl = "blah blah foobar"
-      addLinks(noUrl) must be(noUrl) // instance eq
+      addLinks(noUrl) must_== noUrl // eq
+      addLinks(noUrl) must be(noUrl) // instance eq - fails in scala 2.13
     }
   }
 

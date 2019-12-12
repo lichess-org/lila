@@ -53,8 +53,8 @@ object JsonApi {
         threads: Option[String],
         hash: Option[String]
     ) {
-      def threadsInt = threads flatMap parseIntOption
-      def hashInt = hash flatMap parseIntOption
+      def threadsInt = threads flatMap (_.toIntOption)
+      def hashInt = hash flatMap (_.toIntOption)
     }
 
     case class Acquire(

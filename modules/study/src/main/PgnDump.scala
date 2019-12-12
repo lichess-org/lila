@@ -5,15 +5,13 @@ import chess.format.pgn.{ Pgn, Tag, Tags, Initial }
 import chess.format.{ pgn => chessPgn }
 import org.joda.time.format.DateTimeFormat
 
-import lila.common.LightUser
 import lila.common.String.slugify
-import lila.tree.Node.{ Shape, Shapes, Comment }
+import lila.tree.Node.{ Shape, Shapes }
 
 final class PgnDump(
     chapterRepo: ChapterRepo,
-    gamePgnDump: lila.game.PgnDump,
-    lightUser: LightUser.GetterSync,
-    netBaseUrl: String
+    lightUserApi: lila.user.LightUserApi,
+    net: lila.common.config.NetConfig
 ) {
 
   import PgnDump._
@@ -33,7 +31,7 @@ final class PgnDump(
 
   private val fileR = """[\s,]""".r
 
-  def ownerName(study: Study) = lightUser(study.ownerId).fold(study.ownerId)(_.name)
+  def ownerName(study: Study) = lightUserApi.sync(study.ownerId).fold(study.ownerId)(_.name)
 
   def filename(study: Study): String = {
     val date = dateFormat.print(study.createdAt)
@@ -49,7 +47,7 @@ final class PgnDump(
     )
   }
 
-  private def chapterUrl(studyId: Study.Id, chapterId: Chapter.Id) = s"$netBaseUrl/study/$studyId/$chapterId"
+  private def chapterUrl(studyId: Study.Id, chapterId: Chapter.Id) = s"${net.baseUrl}/study/$studyId/$chapterId"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
@@ -90,9 +88,9 @@ private[study] object PgnDump {
     comments = node.comments.list.map(_.text.value) ::: shapeComment(node.shapes).toList,
     opening = none,
     result = none,
-    variations = variations.map { child =>
+    variations = variations.view.map { child =>
       toTurns(child.mainline, noVariations)
-    }(scala.collection.breakOut),
+    }.toList,
     secondsLeft = node.clock.map(_.roundSeconds)
   )
 

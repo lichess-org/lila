@@ -69,7 +69,7 @@ case class MixedChat(
     if (u.??(_.troll)) this
     else copy(lines = lines filter {
       case l: UserLine => !l.troll
-      case l: PlayerLine => true
+      case _: PlayerLine => true
     })
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
@@ -86,6 +86,8 @@ object Chat {
   case class ResourceId(value: String) extends AnyVal with StringValue
 
   case class Setup(id: Id, publicSource: PublicSource)
+
+  case class MaxLines(value: Int) extends AnyVal with IntValue
 
   def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
   def simulSetup(simulId: String) = Setup(Id(simulId), PublicSource.Simul(simulId))
@@ -104,7 +106,7 @@ object Chat {
   def makeUser(id: Chat.Id) = UserChat(id, Nil)
   def makeMixed(id: Chat.Id) = MixedChat(id, Nil)
 
-  def classify(id: Chat.Id): Symbol = Symbol(s"chat:$id")
+  def chanOf(id: Chat.Id) = s"chat:$id"
 
   object BSONFields {
     val id = "_id"
@@ -112,7 +114,7 @@ object Chat {
   }
 
   import BSONFields._
-  import reactivemongo.bson.BSONDocument
+  import reactivemongo.api.bson.BSONDocument
   import Line.{ lineBSONHandler, userLineBSONHandler }
 
   implicit val chatIdIso = lila.common.Iso.string[Id](Id.apply, _.value)

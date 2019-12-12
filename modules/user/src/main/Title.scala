@@ -6,7 +6,7 @@ object Title {
 
   implicit val titleIso = lila.common.Iso.string[Title](Title.apply, _.value)
   implicit val titleBsonHandler = lila.db.dsl.stringIsoHandler(Title.titleIso)
-  implicit val titleJsonWrites = lila.common.PimpedJson.stringIsoWriter(Title.titleIso)
+  implicit val titleJsonWrites = lila.common.Json.stringIsoWriter(Title.titleIso)
 
   val LM = Title("LM")
   val BOT = Title("BOT")
@@ -37,9 +37,6 @@ object Title {
 
   object fromUrl {
 
-    import play.api.libs.ws.WS
-    import play.api.Play.current
-
     // https://ratings.fide.com/card.phtml?event=740411
     private val FideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/card\.phtml\?event=(\d+)""".r
     // >&nbsp;FIDE title</td><td colspan=3 bgcolor=#efefef>&nbsp;Grandmaster</td>
@@ -48,14 +45,16 @@ object Title {
     // https://ratings.fide.com/profile/740411
     private val NewFideProfileUrlRegex = """(?:https?://)ratings\.fide\.com/profile/(\d+)""".r
 
-    def apply(url: String): Fu[Option[Title]] = url.trim match {
-      case FideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
-      case NewFideProfileUrlRegex(id) => parseIntOption(id) ?? fromFideProfile
+    import play.api.libs.ws.WSClient
+
+    def apply(url: String)(implicit ws: WSClient): Fu[Option[Title]] = url.trim match {
+      case FideProfileUrlRegex(id) => id.toIntOption ?? fromFideProfile
+      case NewFideProfileUrlRegex(id) => id.toIntOption ?? fromFideProfile
       case _ => fuccess(none)
     }
 
-    private def fromFideProfile(id: Int): Fu[Option[Title]] = {
-      WS.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().map(_.body) map {
+    private def fromFideProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
+      ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().map(_.body) map {
         case FideProfileTitleRegex(name) => Title.fromNames get name
       }
     }

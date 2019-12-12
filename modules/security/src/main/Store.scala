@@ -2,24 +2,19 @@ package lila.security
 
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
+import reactivemongo.api.bson.Macros
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson.Macros
+import scala.util.Random
 
 import lila.common.{ HTTPRequest, ApiVersion, IpAddress }
-import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.user.User
 
-object Store {
+final class Store(val coll: Coll, localIp: IpAddress) {
 
-  // dirty
-  private val coll = Env.current.storeColl
+  import Store._
 
-  private implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
-
-  private val localhost = IpAddress("127.0.0.1")
-
-  private[security] def save(
+  def save(
     sessionId: String,
     userId: User.ID,
     req: RequestHeader,
@@ -27,19 +22,19 @@ object Store {
     up: Boolean,
     fp: Option[FingerPrint]
   ): Funit =
-    coll.insert($doc(
+    coll.insert.one($doc(
       "_id" -> sessionId,
       "user" -> userId,
       "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
         // randomize stresser IPs to relieve mod tools
-        case ip if ip == localhost => IpAddress(s"127.0.0.${scala.util.Random nextInt 256}")
+        case ip if ip == localIp => IpAddress(s"127.0.${Random nextInt 256}.${Random nextInt 256}")
         case ip => ip
       }),
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> up,
       "api" -> apiVersion.map(_.value),
-      "fp" -> fp.flatMap(FingerHash.apply)
+      "fp" -> fp.flatMap(FingerHash.apply).flatMap(fingerHashBSONHandler.writeOpt)
     )).void
 
   private val userIdFingerprintProjection = $doc(
@@ -60,26 +55,26 @@ object Store {
   def userIdAndFingerprint(sessionId: String): Fu[Option[UserIdAndFingerprint]] =
     coll.find(
       $doc("_id" -> sessionId, "up" -> true),
-      userIdFingerprintProjection
-    ).uno[UserIdAndFingerprint]
+      userIdFingerprintProjection.some
+    ).one[UserIdAndFingerprint]
 
   def setDateToNow(sessionId: String): Unit =
     coll.updateFieldUnchecked($id(sessionId), "date", DateTime.now)
 
   def delete(sessionId: String): Funit =
-    coll.update(
+    coll.update.one(
       $id(sessionId),
       $set("up" -> false)
     ).void
 
   def closeUserAndSessionId(userId: User.ID, sessionId: String): Funit =
-    coll.update(
+    coll.update.one(
       $doc("user" -> userId, "_id" -> sessionId, "up" -> true),
       $set("up" -> false)
     ).void
 
   def closeUserExceptSessionId(userId: User.ID, sessionId: String): Funit =
-    coll.update(
+    coll.update.one(
       $doc("user" -> userId, "_id" -> $ne(sessionId), "up" -> true),
       $set("up" -> false),
       multi = true
@@ -87,7 +82,7 @@ object Store {
 
   // useful when closing an account,
   // we want to logout too
-  def disconnect(userId: User.ID): Funit = coll.update(
+  def disconnect(userId: User.ID): Funit = coll.update.one(
     $doc("user" -> userId),
     $set("up" -> false),
     multi = true
@@ -95,7 +90,7 @@ object Store {
 
   private implicit val UserSessionBSONHandler = Macros.handler[UserSession]
   def openSessions(userId: User.ID, nb: Int): Fu[List[UserSession]] =
-    coll.find(
+    coll.ext.find(
       $doc("user" -> userId, "up" -> true)
     ).sort($doc("date" -> -1)).cursor[UserSession]().gather[List](nb)
 
@@ -105,25 +100,14 @@ object Store {
       case Some(hash) => coll.updateField($doc("_id" -> id), "fp", hash) inject hash
     }
 
-  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
-    def datedIp = Dated(ip, date)
-    def datedFp = fp.map { Dated(_, date) }
-    def datedUa = Dated(ua, date)
-  }
-  private implicit val InfoReader = Macros.reader[Info]
-
-  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date compareTo date
-  }
-
   def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =
-    coll.find(
+    coll.ext.find(
       $doc(
         "user" -> userId,
         "date" $gt DateTime.now.minusYears(2)
       ),
       $doc("_id" -> false, "ip" -> true, "ua" -> true, "fp" -> true, "date" -> true)
-    ).sort($sort desc "date").list[Info]()
+    ).sort($sort desc "date").list[Info]()(InfoReader)
 
   private case class DedupInfo(_id: String, ip: String, ua: String) {
     def compositeKey = s"$ip $ua"
@@ -131,32 +115,46 @@ object Store {
   private implicit val DedupInfoReader = Macros.reader[DedupInfo]
 
   def dedup(userId: User.ID, keepSessionId: String): Funit =
-    coll.find($doc(
+    coll.ext.find($doc(
       "user" -> userId,
       "up" -> true
     )).sort($doc("date" -> -1))
       .cursor[DedupInfo]().gather[List]() flatMap { sessions =>
         val olds = sessions.groupBy(_.compositeKey).values.map(_ drop 1).flatten
           .filter(_._id != keepSessionId)
-        coll.remove($inIds(olds.map(_._id))).void
+        coll.delete.one($inIds(olds.map(_._id))).void
       }
 
   private implicit val IpAndFpReader = Macros.reader[IpAndFp]
 
   def ipsAndFps(userIds: List[User.ID], max: Int = 100): Fu[List[IpAndFp]] =
-    coll.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
+    coll.ext.find($doc("user" $in userIds)).list[IpAndFp](max, ReadPreference.secondaryPreferred)
 
   private[security] def recentByIpExists(ip: IpAddress): Fu[Boolean] =
-    coll.exists(
-      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7)),
-      readPreference = ReadPreference.secondaryPreferred
+    coll.secondaryPreferred.exists(
+      $doc("ip" -> ip, "date" -> $gt(DateTime.now minusDays 7))
     )
 
   private[security] def recentByPrintExists(fp: FingerPrint): Fu[Boolean] =
     FingerHash(fp) ?? { hash =>
-      coll.exists(
-        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7)),
-        readPreference = ReadPreference.secondaryPreferred
+      coll.secondaryPreferred.exists(
+        $doc("fp" -> hash, "date" -> $gt(DateTime.now minusDays 7))
       )
     }
+}
+
+object Store {
+
+  case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
+    def compare(other: Dated[V]) = other.date compareTo date
+  }
+
+  case class Info(ip: IpAddress, ua: String, fp: Option[FingerHash], date: DateTime) {
+    def datedIp = Dated(ip, date)
+    def datedFp = fp.map { Dated(_, date) }
+    def datedUa = Dated(ua, date)
+  }
+
+  implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
+  implicit val InfoReader = Macros.reader[Info]
 }

@@ -1,26 +1,33 @@
 package lila.shutup
 
 import akka.actor._
-import com.typesafe.config.Config
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+
+import lila.common.config._
+import lila.user.UserRepo
+
+@Module
+private class ShutupConfig(
+    @ConfigName("collection.shutup") val shutupColl: CollName,
+    @ConfigName("actor.name") val actorName: String
+)
 
 final class Env(
-    config: Config,
-    reporter: akka.actor.ActorSelection,
-    follows: (String, String) => Fu[Boolean],
-    system: ActorSystem,
-    db: lila.db.Env
-) {
+    appConfig: Configuration,
+    reporter: lila.hub.actors.Report,
+    relationApi: lila.relation.RelationApi,
+    gameRepo: lila.game.GameRepo,
+    userRepo: UserRepo,
+    db: lila.db.Db
+)(implicit system: ActorSystem) {
 
-  private val CollectionShutup = config getString "collection.shutup"
-  private val ActorName = config getString "actor.name"
+  private val config = appConfig.get[ShutupConfig]("shutup")(AutoConfig.loader)
 
-  lazy val api = new ShutupApi(
-    coll = coll,
-    follows = follows,
-    reporter = reporter
-  )
+  private lazy val coll = db(config.shutupColl)
 
-  private lazy val coll = db(CollectionShutup)
+  lazy val api = wire[ShutupApi]
 
   // api actor
   system.actorOf(Props(new Actor {
@@ -30,23 +37,12 @@ final class Env(
         api.publicForumMessage(userId, text)
       case RecordTeamForumMessage(userId, text) =>
         api.teamForumMessage(userId, text)
-      case RecordPrivateMessage(userId, toUserId, text, major) =>
-        api.privateMessage(userId, toUserId, text, major)
+      case RecordPrivateMessage(userId, toUserId, text, _) =>
+        api.privateMessage(userId, toUserId, text)
       case RecordPrivateChat(chatId, userId, text) =>
         api.privateChat(chatId, userId, text)
       case RecordPublicChat(userId, text, source) =>
         api.publicChat(userId, text, source)
     }
-  }), name = ActorName)
-}
-
-object Env {
-
-  lazy val current: Env = "shutup" boot new Env(
-    config = lila.common.PlayApp loadConfig "shutup",
-    reporter = lila.hub.Env.current.report,
-    system = lila.common.PlayApp.system,
-    follows = lila.relation.Env.current.api.fetchFollows _,
-    db = lila.db.Env.current
-  )
+  }), name = config.actorName)
 }

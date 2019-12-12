@@ -10,16 +10,14 @@ import lila.fishnet.JsonApi.readers._
 import lila.fishnet.JsonApi.writers._
 import lila.fishnet.{ JsonApi, Work }
 
-object Fishnet extends LilaController {
+final class Fishnet(env: Env) extends LilaController(env) {
 
-  private def env = Env.fishnet
-  private def api = env.api
+  private def api = env.fishnet.api
   private val logger = lila.log("fishnet")
 
-  def acquire = ClientAction[JsonApi.Request.Acquire] { req => client =>
+  def acquire = ClientAction[JsonApi.Request.Acquire] { _ => client =>
     api acquire client addEffect { jobOpt =>
-      val mon = lila.mon.fishnet.http.acquire(client.skill.toString)
-      if (jobOpt.isDefined) mon.hit() else mon.miss()
+      lila.mon.fishnet.http.request(jobOpt.isDefined).increment()
     } map Right.apply
   }
 
@@ -40,11 +38,11 @@ object Fishnet extends LilaController {
     })
   }
 
-  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { req => client =>
+  def abort(workId: String) = ClientAction[JsonApi.Request.Acquire] { _ => client =>
     api.abort(Work.Id(workId), client) inject Right(none)
   }
 
-  def keyExists(key: String) = Action.async { req =>
+  def keyExists(key: String) = Action.async { _ =>
     api keyExists lila.fishnet.Client.Key(key) map {
       case true => Ok
       case false => NotFound
@@ -56,7 +54,7 @@ object Fishnet extends LilaController {
   }
 
   private def ClientAction[A <: JsonApi.Request](f: A => lila.fishnet.Client => Fu[Either[Result, Option[JsonApi.Work]]])(implicit reads: Reads[A]) =
-    Action.async(BodyParsers.parse.tolerantJson) { req =>
+    Action.async(parse.tolerantJson) { req =>
       req.body.validate[A].fold(
         err => {
           logger.warn(s"Malformed request: $err\n${req.body}")

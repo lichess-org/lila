@@ -5,15 +5,15 @@ import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
 import lila.forum.Post
 
-trait ForumHelper { self: UserHelper with StringHelper =>
+trait ForumHelper { self: UserHelper with StringHelper with HasEnv =>
 
   private object Granter extends lila.forum.Granter {
 
     protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean] =
-      Env.team.api.belongsTo(teamId, userId)
+      env.team.api.belongsTo(teamId, userId)
 
     protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
-      Env.team.api.owns(teamId, userId)
+      env.team.api.owns(teamId, userId)
   }
 
   def isGrantedWrite(categSlug: String)(implicit ctx: Context) =

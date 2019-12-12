@@ -1,10 +1,15 @@
 package lila.chat
 
-import lila.common.LightUser
-import lila.common.PimpedJson._
 import play.api.libs.json._
 
+import lila.common.LightUser
+import lila.common.Json._
+
 object JsonView {
+
+  import writers._
+
+  lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
 
   def apply(chat: AnyChat): JsValue = chat match {
     case c: MixedChat => mixedChatWriter writes c
@@ -23,46 +28,48 @@ object JsonView {
     "writeable" -> writeable
   )
 
-  implicit val chatIdWrites: Writes[Chat.Id] = stringIsoWriter(Chat.chatIdIso)
+  object writers {
 
-  lazy val timeoutReasons = Json toJson ChatTimeout.Reason.all
+    implicit val chatIdWrites: Writes[Chat.Id] = stringIsoWriter(Chat.chatIdIso)
 
-  implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
-    Json.obj("key" -> r.key, "name" -> r.name)
-  }
+    implicit val timeoutReasonWriter: Writes[ChatTimeout.Reason] = OWrites[ChatTimeout.Reason] { r =>
+      Json.obj("key" -> r.key, "name" -> r.name)
+    }
 
-  implicit def timeoutEntryWriter(implicit lightUser: LightUser.GetterSync) = OWrites[ChatTimeout.UserEntry] { e =>
-    Json.obj(
-      "reason" -> e.reason.key,
-      "mod" -> lightUser(e.mod).fold("?")(_.name),
-      "date" -> e.createdAt
-    )
-  }
+    implicit def timeoutEntryWriter(implicit lightUser: LightUser.GetterSync): OWrites[ChatTimeout.UserEntry] =
+      OWrites[ChatTimeout.UserEntry] { e =>
+        Json.obj(
+          "reason" -> e.reason.key,
+          "mod" -> lightUser(e.mod).fold("?")(_.name),
+          "date" -> e.createdAt
+        )
+      }
 
-  implicit val mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
-    JsArray(c.lines map lineWriter.writes)
-  }
+    implicit val mixedChatWriter: Writes[MixedChat] = Writes[MixedChat] { c =>
+      JsArray(c.lines map lineWriter.writes)
+    }
 
-  implicit val userChatWriter: Writes[UserChat] = Writes[UserChat] { c =>
-    JsArray(c.lines map userLineWriter.writes)
-  }
+    implicit val userChatWriter: Writes[UserChat] = Writes[UserChat] { c =>
+      JsArray(c.lines map userLineWriter.writes)
+    }
 
-  private[chat] implicit val lineWriter: OWrites[Line] = OWrites[Line] {
-    case l: UserLine => userLineWriter writes l
-    case l: PlayerLine => playerLineWriter writes l
-  }
+    private[chat] implicit val lineWriter: OWrites[Line] = OWrites[Line] {
+      case l: UserLine => userLineWriter writes l
+      case l: PlayerLine => playerLineWriter writes l
+    }
 
-  private implicit val userLineWriter = OWrites[UserLine] { l =>
-    Json.obj(
-      "u" -> l.username,
-      "t" -> l.text
-    ).add("r" -> l.troll).add("d" -> l.deleted).add("title" -> l.title)
-  }
+    private implicit val userLineWriter = OWrites[UserLine] { l =>
+      Json.obj(
+        "u" -> l.username,
+        "t" -> l.text
+      ).add("r" -> l.troll).add("d" -> l.deleted).add("title" -> l.title)
+    }
 
-  private implicit val playerLineWriter = OWrites[PlayerLine] { l =>
-    Json.obj(
-      "c" -> l.color.name,
-      "t" -> l.text
-    )
+    private implicit val playerLineWriter = OWrites[PlayerLine] { l =>
+      Json.obj(
+        "c" -> l.color.name,
+        "t" -> l.text
+      )
+    }
   }
 }

@@ -2,7 +2,7 @@ package lila.practice
 
 import play.api.libs.json._
 
-import lila.common.PimpedJson._
+import lila.common.Json._
 import lila.study.JsonView._
 
 object JsonView {

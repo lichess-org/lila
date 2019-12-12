@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap
 import scala.concurrent.duration._
 import scala.concurrent.Promise
 
-import lila.game.{ Game, Pov }
+import lila.game.Game
 import lila.hub.LateMultiThrottler
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }

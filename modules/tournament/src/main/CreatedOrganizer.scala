@@ -1,17 +1,20 @@
 package lila.tournament
 
 import akka.actor._
+import akka.stream.scaladsl._
 import scala.concurrent.duration._
+
+import lila.common.LilaStream
 
 private final class CreatedOrganizer(
     api: TournamentApi,
-    isOnline: String => Boolean
-) extends Actor {
+    tournamentRepo: TournamentRepo,
+    playerRepo: PlayerRepo
+)(implicit mat: akka.stream.Materializer) extends Actor {
 
   override def preStart: Unit = {
-    pairingLogger.info("Start CreatedOrganizer")
     context setReceiveTimeout 15.seconds
-    scheduleNext
+    context.system.scheduler.scheduleOnce(10 seconds, self, Tick)
   }
 
   case object Tick
@@ -26,26 +29,28 @@ private final class CreatedOrganizer(
       pairingLogger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick =>
-      TournamentRepo.allCreated(30).map { tours =>
-        tours foreach { tour =>
-          tour.schedule match {
-            case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
-            case None => PlayerRepo count tour.id foreach {
-              case 0 => api wipe tour
-              case nb if tour.hasWaitedEnough =>
-                if (nb >= Tournament.minPlayers) api start tour
-                else api wipe tour
-              case _ =>
-            }
-            case Some(schedule) if tour.hasWaitedEnough => api start tour
+    case Tick => tournamentRepo
+      .startingSoonCursor(30)
+      .documentSource()
+      .mapAsync(1) { tour =>
+        tour.schedule match {
+          case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
+          case None => playerRepo count tour.id flatMap {
+            case 0 => api destroy tour
+            case nb if tour.hasWaitedEnough =>
+              if (nb >= Tournament.minPlayers) api start tour
+              else api destroy tour
             case _ => funit
           }
+          case Some(_) if tour.hasWaitedEnough => api start tour
+          case Some(_) => funit
         }
-        lila.mon.tournament.created(tours.size)
-      }.chronometer
-        .mon(_.tournament.createdOrganizer.tickTime)
-        .logIfSlow(500, logger)(_ => "CreatedOrganizer.Tick")
-        .result addEffectAnyway scheduleNext
+      }
+      .log(getClass.getName)
+      .toMat(LilaStream.sinkCount)(Keep.right)
+      .run
+      .addEffect(lila.mon.tournament.created.update(_))
+      .monSuccess(_.tournament.createdOrganizer.tick)
+      .addEffectAnyway(scheduleNext)
   }
 }

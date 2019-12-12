@@ -1,8 +1,6 @@
 package lila.app
 package templating
 
-import scala.collection.breakOut
-
 import lila.common.paginator.Paginator
 
 trait PaginatorHelper {
@@ -15,15 +13,15 @@ trait PaginatorHelper {
       val pre = fromPage match {
         case 1 => Nil
         case 2 => List(1.some)
-        case x => List(1.some, none)
+        case _ => List(1.some, none)
       }
       val post = toPage match {
         case x if x == pager.nbPages => Nil
         case x if x == pager.nbPages - 1 => List(pager.nbPages.some)
-        case x if showPost => List(none, pager.nbPages.some)
+        case _ if showPost => List(none, pager.nbPages.some)
         case _ => List(none)
       }
-      pre ::: ((fromPage to toPage).map(some)(breakOut): List[Option[Int]]) ::: post
+      pre ::: (fromPage to toPage).view.map(some).toList ::: post
     }
 
     def firstIndex: Int =

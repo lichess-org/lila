@@ -18,9 +18,9 @@ case class PuzzlePerf(glicko: Glicko, nb: Int) {
     glicko.sanityCheck option add(glicko)
   }
 
-  def addOrReset(monitor: lila.mon.IncPath, msg: => String)(r: Rating): PuzzlePerf = add(r) | {
+  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating): PuzzlePerf = add(r) | {
     lila.log("rating").error(s"Crazy Glicko2 $msg")
-    lila.mon.incPath(monitor)()
+    monitor(lila.mon).increment()
     add(Glicko.default)
   }
 
@@ -43,7 +43,7 @@ case object PuzzlePerf {
   implicit val puzzlePerfBSONHandler = new BSON[PuzzlePerf] {
 
     import Glicko.glickoBSONHandler
-    import reactivemongo.bson.BSONDocument
+    import reactivemongo.api.bson.BSONDocument
 
     def reads(r: BSON.Reader): PuzzlePerf = PuzzlePerf(
       glicko = r.getO[Glicko]("gl") | Glicko.default,

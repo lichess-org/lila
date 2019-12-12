@@ -1,14 +1,15 @@
 package lila.tournament
 
 import akka.actor._
-import akka.pattern.pipe
 import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
-import scala.concurrent.duration._
 
 import chess.StartingPosition
 
-private final class TournamentScheduler private (api: TournamentApi) extends Actor {
+private final class TournamentScheduler(
+    api: TournamentApi,
+    tournamentRepo: TournamentRepo
+) extends Actor {
 
   import Schedule.Freq._
   import Schedule.Speed._
@@ -414,7 +415,7 @@ Thank you all, you rock!"""
   def receive = {
 
     case TournamentScheduler.ScheduleNow =>
-      TournamentRepo.scheduledUnfinished map { tourneys =>
+      tournamentRepo.scheduledUnfinished map { tourneys =>
         self ! ScheduleNowWith(tourneys)
       }
 
@@ -432,9 +433,4 @@ Thank you all, you rock!"""
 private object TournamentScheduler {
 
   case object ScheduleNow
-
-  def start(system: ActorSystem, api: TournamentApi) = {
-    val ref = system.actorOf(Props(new TournamentScheduler(api)))
-    system.scheduler.schedule(1 minute, 5 minutes, ref, ScheduleNow)
-  }
 }

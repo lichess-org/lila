@@ -1,11 +1,12 @@
 package lila.common
 
-import play.api.libs.json._
+import org.joda.time.DateTime
+import play.api.libs.json.{ Json => PlayJson, _ }
 
-object PimpedJson {
+object Json {
 
   def anyValWriter[O, A: Writes](f: O => A) = Writes[O] { o =>
-    Json toJson f(o)
+    PlayJson toJson f(o)
   }
 
   def intAnyValWriter[O](f: O => Int): Writes[O] = anyValWriter[O, Int](f)
@@ -27,4 +28,8 @@ object PimpedJson {
   )
 
   implicit val centisReads = Reads.of[Int] map chess.Centis.apply
+
+  implicit val jodaWrites = Writes[DateTime] { time =>
+    JsNumber(time.getMillis)
+  }
 }

@@ -2,23 +2,24 @@ package controllers
 
 import scala.concurrent.duration._
 
-import io.prismic.Fragment.DocumentLink
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
 
-object Prismic {
+final class Prismic(
+    env: Env
+)(implicit ws: play.api.libs.ws.WSClient) {
 
   private val logger = lila.log("prismic")
 
   val prismicLogger = (level: Symbol, message: String) => level match {
-    case 'DEBUG => logger debug message
-    case 'ERROR => logger error message
+    case Symbol("DEBUG") => logger debug message
+    case Symbol("ERROR") => logger error message
     case _ => logger info message
   }
 
-  private val prismicApiCache = Env.memo.asyncCache.single[PrismicApi](
+  private val prismicApiCache = env.memo.asyncCache.single[PrismicApi](
     name = "prismic.fetchPrismicApi",
-    f = PrismicApi.get(Env.api.PrismicApiUrl, logger = prismicLogger),
+    f = PrismicApi.get(env.api.config.prismicApiUrl, logger = prismicLogger),
     expireAfter = _.ExpireAfterWrite(1 minute)
   )
 
@@ -46,7 +47,6 @@ object Prismic {
   } recover {
     case e: Exception =>
       logger.error(s"bookmark:$name", e)
-      lila.mon.http.prismic.timeout()
       none
   }
 

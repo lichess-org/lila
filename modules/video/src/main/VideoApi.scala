@@ -1,7 +1,7 @@
 package lila.video
 
+import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
 import scala.concurrent.duration._
 
 import lila.common.paginator._
@@ -16,7 +16,7 @@ private[video] final class VideoApi(
 ) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   private implicit val YoutubeBSONHandler = {
     import Youtube.Metadata
     Macros.handler[Metadata]
@@ -38,10 +38,10 @@ private[video] final class VideoApi(
 
   object video {
 
-    private val maxPerPage = lila.common.MaxPerPage(18)
+    private val maxPerPage = lila.common.config.MaxPerPage(18)
 
     def find(id: Video.ID): Fu[Option[Video]] =
-      videoColl.find($id(id)).uno[Video]
+      videoColl.ext.find($id(id)).one[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
       val q = query.split(' ').map { word => s""""$word"""" } mkString " "
@@ -52,7 +52,7 @@ private[video] final class VideoApi(
           selector = $doc(
             "$text" -> $doc("$search" -> q)
           ),
-          projection = textScore,
+          projection = textScore.some,
           sort = textScore,
           readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
@@ -62,30 +62,30 @@ private[video] final class VideoApi(
     }
 
     def save(video: Video): Funit =
-      videoColl.update(
+      videoColl.update.one(
         $id(video.id),
         $doc("$set" -> video),
         upsert = true
       ).void
 
     def removeNotIn(ids: List[Video.ID]) =
-      videoColl.remove($doc("_id" $nin ids)).void
+      videoColl.delete.one($doc("_id" $nin ids)).void
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
-      videoColl.update(
+      videoColl.update.one(
         $id(id),
         $doc("$set" -> $doc("metadata" -> metadata)),
         upsert = false
       ).void
 
     def allIds: Fu[List[Video.ID]] =
-      videoColl.distinct[String, List]("_id", none)
+      videoColl.distinctEasy[String, List]("_id", $empty)
 
     def popular(user: Option[User], page: Int): Fu[Paginator[VideoView]] = Paginator(
       adapter = new Adapter[Video](
         collection = videoColl,
         selector = $empty,
-        projection = $empty,
+        projection = none,
         sort = $doc("metadata.likes" -> -1),
         readPreference = ReadPreference.secondaryPreferred
       ) mapFutureList videoViews(user),
@@ -99,7 +99,7 @@ private[video] final class VideoApi(
         adapter = new Adapter[Video](
           collection = videoColl,
           selector = $doc("tags" $all tags),
-          projection = $empty,
+          projection = none,
           sort = $doc("metadata.likes" -> -1),
           readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
@@ -112,7 +112,7 @@ private[video] final class VideoApi(
         adapter = new Adapter[Video](
           collection = videoColl,
           selector = $doc("author" -> author),
-          projection = $empty,
+          projection = none,
           sort = $doc("metadata.likes" -> -1),
           readPreference = ReadPreference.secondaryPreferred
         ) mapFutureList videoViews(user),
@@ -120,36 +120,36 @@ private[video] final class VideoApi(
         maxPerPage = maxPerPage
       )
 
-    def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] = {
-      import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework._
+    def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
       videoColl.aggregateList(
-        Match($doc(
-          "tags" $in video.tags,
-          "_id" $ne video.id
-        )), List(
-          AddFields($doc(
-            "int" -> $doc(
-              "$size" -> $doc(
-                "$setIntersection" -> $arr("$tags", video.tags)
-              )
-            )
-          )),
-          Sort(
-            Descending("int"),
-            Descending("metadata.likes")
-          ),
-          Limit(max)
-        ),
         maxDocs = max,
         ReadPreference.secondaryPreferred
-      ).map(_.flatMap(_.asOpt[Video])) flatMap videoViews(user)
-    }
+      ) { framework =>
+          import framework._
+          Match($doc(
+            "tags" $in video.tags,
+            "_id" $ne video.id
+          )) -> List(
+            AddFields($doc(
+              "int" -> $doc(
+                "$size" -> $doc(
+                  "$setIntersection" -> $arr("$tags", video.tags)
+                )
+              )
+            )),
+            Sort(
+              Descending("int"),
+              Descending("metadata.likes")
+            ),
+            Limit(max)
+          )
+        }.map(_.flatMap(_.asOpt[Video])) flatMap videoViews(user)
 
     object count {
 
       private val cache = asyncCache.single(
         name = "video.count",
-        f = videoColl.count(none),
+        f = videoColl.countAll,
         expireAfter = _.ExpireAfterWrite(3 hours)
       )
 
@@ -160,24 +160,24 @@ private[video] final class VideoApi(
   object view {
 
     def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
-      viewColl.find($doc(
+      viewColl.ext.find($doc(
         View.BSONFields.id -> View.makeId(videoId, userId)
-      )).uno[View]
+      )).one[View]
 
-    def add(a: View) = (viewColl insert a).void recover
+    def add(a: View) = (viewColl.insert.one(a)).void recover
       lila.db.recoverDuplicateKey(_ => ())
 
     def hasSeen(user: User, video: Video): Fu[Boolean] =
-      viewColl.count($doc(
+      viewColl.countSel($doc(
         View.BSONFields.id -> View.makeId(video.id, user.id)
-      ).some) map (0!=)
+      )) map (0!=)
 
     def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
-      viewColl.distinct[String, Set](
+      viewColl.distinctEasy[String, Set](
         View.BSONFields.videoId,
         $inIds(videos.map { v =>
           View.makeId(v.id, user.id)
-        }).some
+        })
       )
   }
 
@@ -189,8 +189,6 @@ private[video] final class VideoApi(
 
     private val max = 25
 
-    import reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.{ Descending, GroupField, Match, Project, UnwindField, Sort, SumValue }
-
     private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
       name = "video.paths",
       f = filterTags => {
@@ -199,12 +197,15 @@ private[video] final class VideoApi(
             tags.filterNot(_.isNumeric)
           }
           else videoColl.aggregateList(
-            Match($doc("tags" $all filterTags)),
-            List(Project($doc("tags" -> true)), UnwindField("tags"),
-              GroupField("tags")("nb" -> SumValue(1))),
             maxDocs = Int.MaxValue,
             ReadPreference.secondaryPreferred
-          ).map { _.flatMap(_.asOpt[TagNb]) }
+          ) { framework =>
+              import framework._
+              Match($doc("tags" $all filterTags)) -> List(
+                Project($doc("tags" -> true)), UnwindField("tags"),
+                GroupField("tags")("nb" -> SumAll)
+              )
+            }.map { _.flatMap(_.asOpt[TagNb]) }
 
         allPopular zip allPaths map {
           case (all, paths) =>
@@ -229,15 +230,17 @@ private[video] final class VideoApi(
     private val popularCache = asyncCache.single[List[TagNb]](
       name = "video.popular",
       f = videoColl.aggregateList(
-        Project($doc("tags" -> true)), List(
-          UnwindField("tags"), GroupField("tags")("nb" -> SumValue(1)),
-          Sort(Descending("nb"))
-        ),
         maxDocs = Int.MaxValue,
         readPreference = ReadPreference.secondaryPreferred
-      ).map {
-          _.flatMap(_.asOpt[TagNb])
-        },
+      ) { framework =>
+        import framework._
+        Project($doc("tags" -> true)) -> List(
+          UnwindField("tags"), GroupField("tags")("nb" -> SumAll),
+          Sort(Descending("nb"))
+        )
+      }.map {
+        _.flatMap(_.asOpt[TagNb])
+      },
       expireAfter = _.ExpireAfterWrite(1.day)
     )
   }

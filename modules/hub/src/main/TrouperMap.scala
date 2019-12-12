@@ -4,7 +4,7 @@ import com.github.benmanes.caffeine.cache._
 import ornicar.scalalib.Zero
 
 import java.util.concurrent.TimeUnit
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
 
@@ -40,7 +40,7 @@ final class TrouperMap[T <: Trouper](
 
   def kill(id: String): Unit = troupers invalidate id
 
-  def killAll: Unit = troupers.invalidateAll
+  def killAll(): Unit = troupers.invalidateAll
 
   def touch(id: String): Unit = troupers getIfPresent id
 

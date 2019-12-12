@@ -7,24 +7,27 @@ import lila.app._
 import lila.streamer.{ Streamer => StreamerModel, StreamerForm }
 import views._
 
-object Streamer extends LilaController {
+final class Streamer(
+    env: Env,
+    apiC: => Api
+) extends LilaController(env) {
 
-  private def api = Env.streamer.api
+  private def api = env.streamer.api
 
   def index(page: Int) = Open { implicit ctx =>
     pageHit
     val requests = getBool("requests") && isGranted(_.Streamers)
     for {
-      liveStreams <- Env.streamer.liveStreamApi.all
+      liveStreams <- env.streamer.liveStreamApi.all
       live <- api withUsers liveStreams
-      pager <- Env.streamer.pager.notLive(page, liveStreams, requests)
+      pager <- env.streamer.pager.notLive(page, liveStreams, requests)
     } yield Ok(html.streamer.index(live, pager, requests))
   }
 
-  def live = Api.ApiRequest { implicit ctx =>
-    Env.user.lightUserApi asyncMany Env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map { users =>
-      val playingIds = Env.relation.online.playing intersect users.map(_.id)
-      Api.toApiResult {
+  def live = apiC.ApiRequest { _ =>
+    env.user.lightUserApi asyncMany env.streamer.liveStreamApi.userIds.toList dmap (_.flatten) map { users =>
+      val playingIds = env.relation.online.playing intersect users.map(_.id)
+      apiC.toApiResult {
         users.map { u =>
           lila.common.LightUser.lightUserWrites.writes(u).add("playing" -> playingIds(u.id))
         }
@@ -36,9 +39,9 @@ object Streamer extends LilaController {
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
         for {
-          sws <- Env.streamer.liveStreamApi of s
-          activity <- Env.activity.read.recent(sws.user, 10)
-          following <- ctx.userId.??(Env.relation.api.fetchFollows(_, sws.user.id))
+          sws <- env.streamer.liveStreamApi of s
+          activity <- env.activity.read.recent(sws.user, 10)
+          following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
         } yield Ok(html.streamer.show(sws, activity, following))
       }
     }
@@ -56,13 +59,13 @@ object Streamer extends LilaController {
   }
 
   private def modData(user: lila.user.User)(implicit ctx: Context) = isGranted(_.ModLog) ?? {
-    Env.mod.logApi.userHistory(user.id) zip
-      Env.user.noteApi.forMod(user.id) map some
+    env.mod.logApi.userHistory(user.id) zip
+      env.user.noteApi.forMod(user.id) map some
   }
 
-  def edit = Auth { implicit ctx => me =>
+  def edit = Auth { implicit ctx => _ =>
     AsStreamer { s =>
-      Env.streamer.liveStreamApi of s flatMap { sws =>
+      env.streamer.liveStreamApi of s flatMap { sws =>
         modData(s.user) map { forMod =>
           NoCache(Ok(html.streamer.edit(sws, StreamerForm userForm sws.streamer, forMod)))
         }
@@ -72,15 +75,15 @@ object Streamer extends LilaController {
 
   def editApply = AuthBody { implicit ctx => me =>
     AsStreamer { s =>
-      Env.streamer.liveStreamApi of s flatMap { sws =>
+      env.streamer.liveStreamApi of s flatMap { sws =>
         implicit val req = ctx.body
         StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
           error => modData(s.user) map { forMod =>
             BadRequest(html.streamer.edit(sws, error, forMod))
           },
           data => api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
-            change.list foreach { Env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-            change.feature foreach { Env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
+            change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
+            change.feature foreach { env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
             Redirect {
               s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
             }
@@ -90,7 +93,7 @@ object Streamer extends LilaController {
     }
   }
 
-  def approvalRequest = AuthBody { implicit ctx => me =>
+  def approvalRequest = AuthBody { _ => me =>
     api.approval.request(me) inject Redirect(routes.Streamer.edit)
   }
 
@@ -100,7 +103,7 @@ object Streamer extends LilaController {
     }
   }
 
-  def pictureApply = AuthBody(BodyParsers.parse.multipartFormData) { implicit ctx => _ =>
+  def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => _ =>
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
         case Some(pic) => api.uploadPicture(s.streamer, pic) recover {

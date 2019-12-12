@@ -1,16 +1,16 @@
 package lila.security
 
+import com.github.ghik.silencer.silent
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.{ Constraint, Valid => FormValid, Invalid, ValidationError }
 import play.api.mvc.RequestHeader
-import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, IpAddress, EmailAddress, HTTPRequest }
+import lila.common.{ ApiVersion, IpAddress, EmailAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.OAuthServer
@@ -18,7 +18,8 @@ import lila.user.{ User, UserRepo }
 import User.LoginCandidate
 
 final class SecurityApi(
-    coll: Coll,
+    userRepo: UserRepo,
+    store: Store,
     firewall: Firewall,
     geoIP: GeoIP,
     authenticator: lila.user.Authenticator,
@@ -61,7 +62,7 @@ final class SecurityApi(
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-    username: String,
+    @silent _username: String,
     password: String,
     token: Option[String]
   ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
@@ -69,25 +70,25 @@ final class SecurityApi(
   }
 
   def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
-    UserRepo mustConfirmEmail userId flatMap {
+    userRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
         val sessionId = Random secureString 22
-        Store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
+        store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
   def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit req: RequestHeader): Funit = {
     val sessionId = Random secureString 22
-    Store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
+    store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
 
   def restoreUser(req: RequestHeader): Fu[Option[FingerPrintedUser]] =
     firewall.accepts(req) ?? {
       reqSessionId(req) ?? { sessionId =>
-        Store userIdAndFingerprint sessionId flatMap {
+        store userIdAndFingerprint sessionId flatMap {
           _ ?? { d =>
-            if (d.isOld) Store.setDateToNow(sessionId)
-            UserRepo byId d.user map { _ map { FingerPrintedUser(_, d.fp) } }
+            if (d.isOld) store.setDateToNow(sessionId)
+            userRepo byId d.user map { _ map { FingerPrintedUser(_, d.fp) } }
           }
         }
       }
@@ -104,52 +105,33 @@ final class SecurityApi(
     }
 
   def locatedOpenSessions(userId: User.ID, nb: Int): Fu[List[LocatedSession]] =
-    Store.openSessions(userId, nb) map {
+    store.openSessions(userId, nb) map {
       _.map { session =>
         LocatedSession(session, geoIP(session.ip))
       }
     }
 
   def dedup(userId: User.ID, req: RequestHeader): Funit =
-    reqSessionId(req) ?? { Store.dedup(userId, _) }
+    reqSessionId(req) ?? { store.dedup(userId, _) }
 
   def setFingerPrint(req: RequestHeader, fp: FingerPrint): Fu[Option[FingerHash]] =
-    reqSessionId(req) ?? { Store.setFingerPrint(_, fp) map some }
+    reqSessionId(req) ?? { store.setFingerPrint(_, fp) map some }
 
   val sessionIdKey = "sessionId"
 
   def reqSessionId(req: RequestHeader): Option[String] =
     req.session.get(sessionIdKey) orElse req.headers.get(sessionIdKey)
 
-  def userIdsSharingIp = userIdsSharingField("ip") _
+  def recentByIpExists(ip: IpAddress): Fu[Boolean] = store recentByIpExists ip
 
-  def recentByIpExists(ip: IpAddress): Fu[Boolean] = Store recentByIpExists ip
-
-  def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = Store recentByPrintExists fp
-
-  private def userIdsSharingField(field: String)(userId: User.ID): Fu[List[User.ID]] =
-    coll.distinctWithReadPreference[User.ID, List](
-      field,
-      $doc("user" -> userId, field $exists true).some,
-      readPreference = ReadPreference.secondaryPreferred
-    ).flatMap {
-        case Nil => fuccess(Nil)
-        case values => coll.distinctWithReadPreference[User.ID, List](
-          "user",
-          $doc(
-            field $in values,
-            "user" $ne userId
-          ).some,
-          ReadPreference.secondaryPreferred
-        )
-      }
+  def recentByPrintExists(fp: FingerPrint): Fu[Boolean] = store recentByPrintExists fp
 
   def recentUserIdsByFingerHash(fh: FingerHash) = recentUserIdsByField("fp")(fh.value)
 
   def recentUserIdsByIp(ip: IpAddress) = recentUserIdsByField("ip")(ip.value)
 
   def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
-    Store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
+    store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
       val u1s: Set[String] = ipsAndFps.filter(_.user == u1).flatMap { x =>
         List(x.ip.value, ~x.fp)
       }.toSet
@@ -161,15 +143,15 @@ final class SecurityApi(
     }
 
   def printUas(fh: FingerHash): Fu[List[String]] =
-    coll.distinct[String, List]("ua", $doc("fp" -> fh.value).some)
+    store.coll.distinctEasy[String, List]("ua", $doc("fp" -> fh.value))
 
   private def recentUserIdsByField(field: String)(value: String): Fu[List[User.ID]] =
-    coll.distinct[User.ID, List](
+    store.coll.distinctEasy[User.ID, List](
       "user",
       $doc(
         field -> value,
         "date" $gt DateTime.now.minusYears(1)
-      ).some
+      )
     )
 }
 

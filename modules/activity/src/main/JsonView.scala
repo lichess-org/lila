@@ -1,33 +1,27 @@
 package lila.activity
 
-import org.joda.time.{ DateTime, Interval }
+import org.joda.time.Interval
 import play.api.libs.json._
 
 import lila.common.Iso
-import lila.common.PimpedJson._
+import lila.common.Json._
 import lila.game.JsonView.colorWrites
-import lila.game.{ Pov, LightPov }
+import lila.game.LightPov
 import lila.rating.PerfType
 import lila.simul.Simul
 import lila.study.JsonView.studyIdNameWrites
-import lila.team.Team
 import lila.tournament.LeaderboardApi.{ Entry => TourEntry, Ratio => TourRatio }
-import lila.tournament.Tournament
 import lila.user.User
 
 import activities._
 import model._
 
 final class JsonView(
-    lightUserApi: lila.user.LightUserApi,
-    getTourName: Tournament.ID => Option[String],
-    getTeamName: Team.ID => Option[String]
+    getTourName: lila.tournament.GetTourName,
+    getTeamName: lila.team.GetTeamName
 ) {
 
   private object Writers {
-    implicit val dateWrites = Writes[DateTime] { date =>
-      JsNumber(date.getSeconds)
-    }
     implicit val intervalWrites = OWrites[Interval] { i =>
       Json.obj("start" -> i.getStart, "end" -> i.getEnd)
     }

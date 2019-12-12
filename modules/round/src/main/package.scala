@@ -7,8 +7,6 @@ package object round extends PackageObject {
   private[round] type Events = List[Event]
 
   private[round] def logger = lila.log("round")
-
-  type TellRound = (lila.game.Game.ID, Any) => Unit
 }
 
 package round {

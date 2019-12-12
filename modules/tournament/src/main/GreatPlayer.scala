@@ -600,9 +600,9 @@ object GreatPlayer {
   )
 
   private val size = all.size
-  private val names: Vector[String] = all.map {
+  private val names: Vector[String] = all.view.map {
     case (k, _) => k
-  }(scala.collection.breakOut)
+  }.toVector
 
   def randomName: String = names(scala.util.Random nextInt size)
 

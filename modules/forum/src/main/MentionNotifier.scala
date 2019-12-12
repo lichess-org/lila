@@ -11,7 +11,11 @@ import lila.user.{ User, UserRepo }
  *
  * @param notifyApi Api for sending inbox messages
  */
-final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
+final class MentionNotifier(
+    userRepo: UserRepo,
+    notifyApi: NotifyApi,
+    relationApi: RelationApi
+) {
 
   def notifyMentionedUsers(post: Post, topic: Topic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>
@@ -28,7 +32,7 @@ final class MentionNotifier(notifyApi: NotifyApi, relationApi: RelationApi) {
    */
   private def filterValidUsers(users: Set[User.ID], mentionedBy: User.ID): Fu[List[Notification.Notifies]] = {
     for {
-      validUsers <- UserRepo.existingUsernameIds(users take 20).map(_.take(5))
+      validUsers <- userRepo.existingUsernameIds(users take 20).map(_.take(5))
       validUnblockedUsers <- filterNotBlockedByUsers(validUsers, mentionedBy)
       validNotifies = validUnblockedUsers.map(Notification.Notifies.apply)
     } yield validNotifies

@@ -2,13 +2,13 @@ package lila.puzzle
 
 import scala.util.Random
 
+import lila.db.AsyncColl
 import lila.db.dsl._
-import lila.rating.Perf
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
 private[puzzle] final class Selector(
-    puzzleColl: Coll,
+    puzzleColl: AsyncColl,
     api: PuzzleApi,
     puzzleIdMin: Int
 ) {
@@ -16,14 +16,14 @@ private[puzzle] final class Selector(
   import Selector._
 
   def apply(me: Option[User]): Fu[Puzzle] = {
-    lila.mon.puzzle.selector.count()
     me match {
       // anon
-      case None => puzzleColl // this query precisely matches a mongodb partial index
-        .find($doc(F.voteNb $gte 50))
-        .sort($sort desc F.voteRatio)
-        .skip(Random nextInt anonSkipMax)
-        .uno[Puzzle]
+      case None => puzzleColl { // this query precisely matches a mongodb partial index
+        _.ext.find($doc(F.voteNb $gte 50))
+          .sort($sort desc F.voteRatio)
+          .skip(Random nextInt anonSkipMax)
+          .one[Puzzle]
+      }
       // user
       case Some(user) => api.head find user flatMap {
         // new player
@@ -46,36 +46,40 @@ private[puzzle] final class Selector(
         }
       }
     }
-  }.mon(_.puzzle.selector.time) flattenWith NoPuzzlesAvailableException addEffect { puzzle =>
+  }.mon(_.puzzle.selector.time) orFailWith NoPuzzlesAvailableException addEffect { puzzle =>
     if (puzzle.vote.sum < -1000)
       logger.info(s"Select #${puzzle.id} vote.sum: ${puzzle.vote.sum} for ${me.fold("Anon")(_.username)} (${me.fold("?")(_.perfs.puzzle.intRating.toString)})")
     else
-      lila.mon.puzzle.selector.vote(puzzle.vote.sum)
+      lila.mon.puzzle.selector.vote.record(puzzle.vote.sum)
   }
 
   private def newPuzzleForUser(user: User, lastPlayed: PuzzleId): Fu[Option[Puzzle]] = {
     val rating = user.perfs.puzzle.intRating atMost 2300 atLeast 900
     val step = toleranceStepFor(rating, user.perfs.puzzle.nb)
-    tryRange(
-      rating = rating,
-      tolerance = step,
-      step = step,
-      idRange = Range(lastPlayed, lastPlayed + 200)
-    )
+    puzzleColl { coll =>
+      tryRange(
+        coll = coll,
+        rating = rating,
+        tolerance = step,
+        step = step,
+        idRange = Range(lastPlayed, lastPlayed + 200)
+      )
+    }
   }
 
   private def tryRange(
+    coll: Coll,
     rating: Int,
     tolerance: Int,
     step: Int,
     idRange: Range
-  ): Fu[Option[Puzzle]] = puzzleColl.find(rangeSelector(
+  ): Fu[Option[Puzzle]] = coll.ext.find(rangeSelector(
     rating = rating,
     tolerance = tolerance,
     idRange = idRange
-  )).sort($sort asc F.id).uno[Puzzle] flatMap {
+  )).sort($sort asc F.id).one[Puzzle] flatMap {
     case None if (tolerance + step) <= toleranceMax =>
-      tryRange(rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
+      tryRange(coll, rating, tolerance + step, step, Range(idRange.min, idRange.max + 100))
     case res => fuccess(res)
   }
 }
@@ -94,7 +98,7 @@ private final object Selector {
     math.abs(1500 - rating) match {
       case d if d >= 500 => 300
       case d if d >= 300 => 250
-      case d => 200
+      case _ => 200
     }
   } * {
     // increase rating tolerance for puzzle blitzers,

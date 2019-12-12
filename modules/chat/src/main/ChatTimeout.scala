@@ -4,7 +4,7 @@ import lila.db.dsl._
 import lila.user.User
 
 import org.joda.time.DateTime
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 final class ChatTimeout(
@@ -17,7 +17,7 @@ final class ChatTimeout(
   def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
     isActive(chat.id, user.id) flatMap {
       case true => funit
-      case false => coll.insert($doc(
+      case false => coll.insert.one($doc(
         "_id" -> makeId,
         "chat" -> chat.id,
         "mod" -> mod.id,
@@ -42,7 +42,7 @@ final class ChatTimeout(
     ), "user")
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
-    coll.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
+    coll.ext.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
 
   def checkExpired: Fu[List[Reinstate]] = coll.list[Reinstate]($doc(
     "expiresAt" $lt DateTime.now
@@ -66,13 +66,13 @@ object ChatTimeout {
     case object Insult extends Reason("insult", "disrespecting other players")
     case object Spam extends Reason("spam", "spamming the chat")
     case object Other extends Reason("other", "inappropriate behavior")
-    val all = List(PublicShaming, Insult, Spam, Other)
+    val all: List[Reason] = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
   }
-  implicit val ReasonBSONHandler: BSONHandler[BSONString, Reason] = new BSONHandler[BSONString, Reason] {
-    def read(b: BSONString) = Reason(b.value) err s"Invalid reason ${b.value}"
-    def write(x: Reason) = BSONString(x.key)
-  }
+  implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](
+    { case BSONString(value) => Reason(value) toTry s"Invalid reason ${value}" },
+    x => BSONString(x.key)
+  )
 
   case class Reinstate(_id: String, chat: String, user: String)
   implicit val ReinstateBSONReader: BSONDocumentReader[Reinstate] = Macros.reader[Reinstate]

@@ -37,7 +37,7 @@ object side {
           ),
           tour.mode.fold(trans.casualTournament, trans.ratedTournament)(),
           separator,
-          systemName(tour.system).capitalize,
+          "Arena",
           isGranted(_.TerminateTournament) option
             postForm(cls := "terminate", action := routes.Tournament.terminate(tour.id))(
               submitButton(dataIcon := "j", cls := "fbt fbt-red confirm", title := "Terminates the tournament immediately")
@@ -78,7 +78,7 @@ object side {
           strong(tour.position.eco), " ", tour.position.name
         ),
         separator,
-        a(href := routes.UserAnalysis.parse(tour.position.fen.replace(" ", "_")))(trans.analysis())
+        a(href := routes.UserAnalysis.parseArg(tour.position.fen.replace(" ", "_")))(trans.analysis())
       )
     ),
     streamers.toList map views.html.streamer.bits.contextual,

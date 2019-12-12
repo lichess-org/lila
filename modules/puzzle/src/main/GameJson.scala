@@ -7,6 +7,7 @@ import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.tree.Node.{ partitionTreeJsonWriter, minimalNodeJsonWriter }
 
 private final class GameJson(
+    gameRepo: GameRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi
 ) {
@@ -28,7 +29,7 @@ private final class GameJson(
 
   private def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies, onlyLast) =>
-      (GameRepo game gameId).flatten(s"Missing puzzle game $gameId!") flatMap {
+      gameRepo game gameId orFail s"Missing puzzle game $gameId!" flatMap {
         generate(_, plies, onlyLast)
       }
   }
@@ -47,7 +48,7 @@ private final class GameJson(
         "players" -> JsArray(game.players.map { p =>
           Json.obj(
             "userId" -> p.userId,
-            "name" -> lila.game.Namer.playerText(p, withRating = true)(lightUserApi.sync),
+            "name" -> lila.game.Namer.playerTextBlocking(p, withRating = true)(lightUserApi.sync),
             "color" -> p.color.name
           )
         }),

@@ -7,44 +7,47 @@ import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.PerfType
 import lila.user.User.lichessId
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 object BSONHandlers {
 
-  private[tournament] implicit val statusBSONHandler: BSONHandler[BSONInteger, Status] = new BSONHandler[BSONInteger, Status] {
-    def read(bsonInt: BSONInteger): Status = Status(bsonInt.value) err s"No such status: ${bsonInt.value}"
-    def write(x: Status) = BSONInteger(x.id)
-  }
+  private[tournament] implicit val statusBSONHandler = tryHandler[Status](
+    { case BSONInteger(v) => Status(v) toTry s"No such status: $v" },
+    x => BSONInteger(x.id)
+  )
 
-  private[tournament] implicit val scheduleFreqHandler = new BSONHandler[BSONString, Schedule.Freq] {
-    def read(bsonStr: BSONString) = Schedule.Freq(bsonStr.value) err s"No such freq: ${bsonStr.value}"
-    def write(x: Schedule.Freq) = BSONString(x.name)
-  }
-  private implicit val scheduleSpeedHandler = new BSONHandler[BSONString, Schedule.Speed] {
-    def read(bsonStr: BSONString) = Schedule.Speed(bsonStr.value) err s"No such speed: ${bsonStr.value}"
-    def write(x: Schedule.Speed) = BSONString(x.name)
-  }
+  private[tournament] implicit val scheduleFreqHandler = tryHandler[Schedule.Freq](
+    { case BSONString(v) => Schedule.Freq(v) toTry s"No such freq: $v" },
+    x => BSONString(x.name)
+  )
 
-  implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
-    def read(doc: BSONDocument) = ClockConfig(
-      doc.getAs[Int]("limit").get,
-      doc.getAs[Int]("increment").get
+  private[tournament] implicit val scheduleSpeedHandler = tryHandler[Schedule.Speed](
+    { case BSONString(v) => Schedule.Speed(v) toTry s"No such speed: $v" },
+    x => BSONString(x.name)
+  )
+
+  implicit val tournamentClockBSONHandler = tryHandler[ClockConfig](
+    {
+      case doc: BSONDocument => for {
+        limit <- doc.getAsTry[Int]("limit")
+        inc <- doc.getAsTry[Int]("increment")
+      } yield ClockConfig(limit, inc)
+    },
+    c => BSONDocument(
+      "limit" -> c.limitSeconds,
+      "increment" -> c.incrementSeconds
     )
-
-    def write(config: ClockConfig) = BSONDocument(
-      "limit" -> config.limitSeconds,
-      "increment" -> config.incrementSeconds
-    )
-  }
+  )
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
 
-  implicit val battleBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[TeamBattle])
+  implicit val battleBSONHandler = Macros.handler[TeamBattle]
 
-  private implicit val leaderboardRatio = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
-    def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)
-    def write(x: LeaderboardApi.Ratio) = BSONInteger((x.value * 100000).toInt)
-  }
+  private implicit val leaderboardRatio =
+    BSONIntegerHandler.as[LeaderboardApi.Ratio](
+      i => LeaderboardApi.Ratio(i.toDouble / 10_000),
+      r => (r.value * 10_1000).toInt
+    )
 
   import Condition.BSONHandlers.AllBSONHandler
 
@@ -60,7 +63,6 @@ object BSONHandlers {
         id = r str "_id",
         name = r str "name",
         status = r.get[Status]("status"),
-        system = r.intO("system").fold[System](System.default)(System.orDefault),
         clock = r.get[chess.Clock.Config]("clock"),
         minutes = r int "minutes",
         variant = variant,
@@ -72,8 +74,8 @@ object BSONHandlers {
         noBerserk = r boolD "noBerserk",
         schedule = for {
           doc <- r.getO[Bdoc]("schedule")
-          freq <- doc.getAs[Schedule.Freq]("freq")
-          speed <- doc.getAs[Schedule.Speed]("speed")
+          freq <- doc.getAsOpt[Schedule.Freq]("freq")
+          speed <- doc.getAsOpt[Schedule.Speed]("speed")
         } yield Schedule(freq, speed, variant, position, startsAt, conditions),
         nbPlayers = r int "nbPlayers",
         createdAt = r date "createdAt",
@@ -88,7 +90,6 @@ object BSONHandlers {
       "_id" -> o.id,
       "name" -> o.name,
       "status" -> o.status,
-      "system" -> o.system.some.filterNot(_.default).map(_.id),
       "clock" -> o.clock,
       "minutes" -> o.minutes,
       "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
@@ -205,6 +206,5 @@ object BSONHandlers {
   }
 
   import LeaderboardApi.ChartData.AggregationResult
-  implicit val leaderboardAggregationResultBSONHandler =
-    BSON.LoggingHandler(logger)(Macros.handler[AggregationResult])
+  implicit val leaderboardAggregationResultBSONHandler = Macros.handler[AggregationResult]
 }

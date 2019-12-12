@@ -11,6 +11,7 @@ sealed trait Line {
   def isSystem = author == systemUserId
   def isHuman = !isSystem
   def humanAuthor = isHuman option author
+  def troll: Boolean
 }
 
 case class UserLine(
@@ -35,6 +36,7 @@ case class PlayerLine(
 ) extends Line {
   def deleted = false
   def author = color.name
+  def troll = false
 }
 
 object Line {
@@ -42,19 +44,19 @@ object Line {
   val textMaxSize = 140
   val titleSep = '~'
 
-  import reactivemongo.bson.{ BSONHandler, BSONString }
+  import reactivemongo.api.bson._
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  private[chat] implicit val userLineBSONHandler = new BSONHandler[BSONString, UserLine] {
-    def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) getOrElse invalidLine
-    def write(x: UserLine) = BSONString(userLineToStr(x))
-  }
+  private[chat] implicit val userLineBSONHandler = BSONStringHandler.as[UserLine](
+    v => strToUserLine(v) getOrElse invalidLine,
+    userLineToStr
+  )
 
-  private[chat] implicit val lineBSONHandler = new BSONHandler[BSONString, Line] {
-    def read(bsonStr: BSONString) = strToLine(bsonStr.value) getOrElse invalidLine
-    def write(x: Line) = BSONString(lineToStr(x))
-  }
+  private[chat] implicit val lineBSONHandler = BSONStringHandler.as[Line](
+    v => strToLine(v) getOrElse invalidLine,
+    lineToStr
+  )
 
   private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
   private def strToUserLine(str: String): Option[UserLine] = str match {

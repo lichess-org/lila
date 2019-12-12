@@ -1,12 +1,15 @@
 package lila.insight
 
-import chess.{ Role, Board }
 import chess.format.FEN
+import chess.{ Role, Board }
 import lila.analyse.{ Accuracy, Advice }
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Game, Pov }
 import scalaz.NonEmptyList
 
-object PovToEntry {
+private final class PovToEntry(
+    gameRepo: lila.game.GameRepo,
+    analysisRepo: lila.analyse.AnalysisRepo
+) {
 
   private type Ply = Int
 
@@ -28,8 +31,8 @@ object PovToEntry {
 
   private def removeWrongAnalysis(game: Game): Boolean = {
     if (game.metadata.analysed && !game.analysable) {
-      GameRepo setUnanalysed game.id
-      lila.analyse.AnalysisRepo remove game.id
+      gameRepo setUnanalysed game.id
+      analysisRepo remove game.id
       true
     }
     false
@@ -38,8 +41,8 @@ object PovToEntry {
   private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
     else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
-      lila.game.GameRepo.initialFen(game) zip
-        (game.metadata.analysed ?? lila.analyse.AnalysisRepo.byId(game.id)) map {
+      gameRepo.initialFen(game) zip
+        (game.metadata.analysed ?? analysisRepo.byId(game.id)) map {
           case (fen, an) => for {
             boards <- chess.Replay.boards(
               moveStrs = game.pgnMoves,
@@ -56,7 +59,7 @@ object PovToEntry {
             moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
             boards = boards,
             movetimes = movetimes,
-            advices = an.?? { _.advices.map { a => a.info.ply -> a }(scala.collection.breakOut) }
+            advices = an.?? { _.advices.view.map { a => a.info.ply -> a }.toMap }
           )
         }
     }

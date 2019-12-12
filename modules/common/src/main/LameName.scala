@@ -85,7 +85,7 @@ object LameName {
       "pidar",
       "pidr"
     ).map {
-        _.map(l => subs.getOrElse(l, l)).map(_ + "+").mkString
+        _.map(l => subs.getOrElse(l, l)).iterator.map(l => s"$l+").mkString
       }.mkString("|").r
   }
 }

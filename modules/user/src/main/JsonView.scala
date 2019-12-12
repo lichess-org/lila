@@ -1,10 +1,12 @@
 package lila.user
 
-import lila.rating.{ Perf, PerfType }
 import play.api.libs.json._
+
+import lila.common.Json.jodaWrites
+import lila.rating.{ Perf, PerfType }
 import User.{ PlayTime, LightPerf }
 
-final class JsonView(isOnline: User.ID => Boolean) {
+final class JsonView(isOnline: lila.socket.IsOnline) {
 
   import JsonView._
   private implicit val profileWrites = Json.writes[Profile]
@@ -42,7 +44,7 @@ final class JsonView(isOnline: User.ID => Boolean) {
     .add("patron" -> u.isPatron)
 
   def lightPerfIsOnline(lp: LightPerf) =
-    lightPerfWrites.writes(lp).add("online", isOnline(lp.user.id))
+    lightPerfWrites.writes(lp).add("online" -> isOnline(lp.user.id))
 }
 
 object JsonView {
@@ -85,7 +87,7 @@ object JsonView {
     ).add("prov" -> o.glicko.provisional)
   }
 
-  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key)(scala.collection.breakOut)
+  private val standardPerfKeys: Set[Perf.Key] = PerfType.standard.map(_.key).to(Set)
 
   private def select(key: String, perf: Perf) =
     perf.nb > 0 || standardPerfKeys(key)

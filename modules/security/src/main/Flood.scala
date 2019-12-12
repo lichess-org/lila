@@ -17,9 +17,6 @@ final class Flood(duration: Duration) {
     .expireAfterAccess(duration)
     .build[User.ID, Messages]
 
-  private def filterMessage[A](uid: User.ID, text: String)(op: => Unit): Unit =
-    if (allowMessage(uid, text)) op
-
   def allowMessage(uid: User.ID, text: String): Boolean = {
     val msg = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)

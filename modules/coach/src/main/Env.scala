@@ -1,38 +1,44 @@
 package lila.coach
 
+import com.softwaremill.macwire._
+import io.methvin.play.autoconfig._
+import play.api.Configuration
+
+import lila.common.config._
 import lila.security.Permission
 
-import akka.actor._
-import com.typesafe.config.Config
-import scala.concurrent.duration._
+@Module
+private final class CoachConfig(
+    @ConfigName("collection.coach") val coachColl: CollName,
+    @ConfigName("collection.review") val reviewColl: CollName
+)
 
+@Module
 final class Env(
-    config: Config,
+    appConfig: Configuration,
+    userRepo: lila.user.UserRepo,
     notifyApi: lila.notify.NotifyApi,
-    system: ActorSystem,
-    db: lila.db.Env
+    db: lila.db.Db,
+    imageRepo: lila.db.ImageRepo
 ) {
 
-  private val CollectionCoach = config getString "collection.coach"
-  private val CollectionReview = config getString "collection.review"
-  private val CollectionImage = config getString "collection.image"
+  private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 
-  private lazy val coachColl = db(CollectionCoach)
-  private lazy val reviewColl = db(CollectionReview)
-  private lazy val imageColl = db(CollectionImage)
+  private lazy val coachColl = db(config.coachColl)
 
-  private lazy val photographer = new lila.db.Photographer(imageColl, "coach")
+  private lazy val photographer = new lila.db.Photographer(imageRepo, "coach")
 
   lazy val api = new CoachApi(
     coachColl = coachColl,
-    reviewColl = reviewColl,
+    userRepo = userRepo,
+    reviewColl = db(config.reviewColl),
     photographer = photographer,
     notifyApi = notifyApi
   )
 
-  lazy val pager = new CoachPager(coachColl)
+  lazy val pager = wire[CoachPager]
 
-  lila.common.Bus.subscribeFun('adjustCheater, 'finishGame, 'shadowban, 'setPermissions) {
+  lila.common.Bus.subscribeFun("adjustCheater", "finishGame", "shadowban", "setPermissions") {
     case lila.hub.actorApi.mod.Shadowban(userId, true) =>
       api.toggleApproved(userId, false)
       api.reviews deleteAllBy userId
@@ -55,14 +61,4 @@ final class Env(
       case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, false)
     }
   }
-}
-
-object Env {
-
-  lazy val current: Env = "coach" boot new Env(
-    config = lila.common.PlayApp loadConfig "coach",
-    notifyApi = lila.notify.Env.current.api,
-    system = lila.common.PlayApp.system,
-    db = lila.db.Env.current
-  )
 }

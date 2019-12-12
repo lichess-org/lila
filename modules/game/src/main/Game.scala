@@ -4,7 +4,7 @@ import chess.Color.{ Black, White }
 import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
 import chess.variant.{ FromPosition, Standard, Variant }
-import chess.{ Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory }
+import chess.{ Castles, Centis, CheckCount, Clock, Color, Mode, MoveOrDrop, Speed, Status, Game => ChessGame }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
@@ -100,7 +100,7 @@ case class Game(
   }
 
   private def everyOther[A](l: List[A]): List[A] = l match {
-    case a :: b :: tail => a :: everyOther(tail)
+    case a :: _ :: tail => a :: everyOther(tail)
     case _ => l
   }
 
@@ -156,8 +156,7 @@ case class Game(
   def update(
     game: ChessGame, // new chess position
     moveOrDrop: MoveOrDrop,
-    blur: Boolean = false,
-    moveMetrics: MoveMetrics = MoveMetrics()
+    blur: Boolean = false
   ): Progress = {
 
     def copyPlayer(player: Player) =
@@ -206,14 +205,13 @@ case class Game(
     val events = moveOrDrop.fold(
       Event.Move(_, game.situation, state, clockEvent, updated.board.crazyData),
       Event.Drop(_, game.situation, state, clockEvent, updated.board.crazyData)
-    ) ::
-      {
+    ) :: {
         // abstraction leak, I know.
         (updated.board.variant.threeCheck && game.situation.check) ?? List(Event.CheckCount(
           white = updated.history.checkCount.white,
           black = updated.history.checkCount.black
         ))
-      }.toList
+      }
 
     Progress(this, updated, events)
   }
@@ -302,7 +300,7 @@ case class Game(
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
 
-  def playerCouldRematch(color: Color) =
+  def playerCouldRematch =
     finishedOrAborted &&
       nonMandatory &&
       !boosted && !{
@@ -730,14 +728,15 @@ object CastleLastMove {
 
   def init = CastleLastMove(Castles.all, None)
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.ByteArray.ByteArrayBSONHandler
 
-  private[game] implicit val castleLastMoveBSONHandler = new BSONHandler[BSONBinary, CastleLastMove] {
-    def read(bin: BSONBinary) = BinaryFormat.castleLastMove read {
-      ByteArrayBSONHandler read bin
+  private[game] implicit val castleLastMoveBSONHandler = new BSONHandler[CastleLastMove] {
+    def readTry(bson: BSONValue) = bson match {
+      case bin: BSONBinary => ByteArrayBSONHandler readTry bin map BinaryFormat.castleLastMove.read
+      case b => lila.db.BSON.handlerBadType(b)
     }
-    def write(clmt: CastleLastMove) = ByteArrayBSONHandler write {
+    def writeTry(clmt: CastleLastMove) = ByteArrayBSONHandler writeTry {
       BinaryFormat.castleLastMove write clmt
     }
   }

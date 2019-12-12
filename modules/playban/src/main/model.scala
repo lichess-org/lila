@@ -4,18 +4,19 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.math.{ log10, sqrt }
 
+import lila.common.Json.jodaWrites
 import lila.game.Game
 
 case class UserRecord(
     _id: String,
-    o: Option[List[Outcome]],
-    b: Option[List[TempBan]],
+    o: Option[Vector[Outcome]],
+    b: Option[Vector[TempBan]],
     c: Option[RageSit]
 ) {
 
   def userId = _id
-  def outcomes: List[Outcome] = ~o
-  def bans: List[TempBan] = ~b
+  def outcomes: Vector[Outcome] = ~o
+  def bans: Vector[TempBan] = ~b
   def rageSit = c | RageSit.empty
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
@@ -98,7 +99,7 @@ object TempBan {
    * - >3 days quick drop off
    * Account less than 3 days old --> 2x the usual time
    */
-  def make(bans: List[TempBan], accountCreationDate: DateTime): TempBan = make {
+  def make(bans: Vector[TempBan], accountCreationDate: DateTime): TempBan = make {
     (bans.lastOption ?? { prev =>
       prev.endsAt.toNow.getStandardHours.truncInt match {
         case h if h < 72 => prev.mins * (132 - h) / 60
@@ -112,7 +113,7 @@ sealed abstract class Outcome(
     val id: Int,
     val name: String
 ) {
-  val key = toString.head.toLower + toString.tail
+  val key = s"${toString.head.toLower}${toString.tail}"
 }
 
 object Outcome {

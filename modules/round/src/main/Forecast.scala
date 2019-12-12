@@ -5,6 +5,7 @@ import play.api.libs.json._
 
 import chess.format.Uci
 import chess.Move
+import lila.common.Json.jodaWrites
 import lila.game.Game
 
 case class Forecast(

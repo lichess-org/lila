@@ -6,7 +6,7 @@ import lila.hub.actorApi.shutup.PublicSource
 import lila.hub.{ Trouper, TrouperMap }
 import lila.log.Logger
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion, Sri }
+import lila.socket.Socket.{ makeMessage, GetVersion, SocketVersion }
 import lila.user.User
 
 import play.api.libs.json._
@@ -20,7 +20,7 @@ object RoomSocket {
     def msg = makeMessage(tpe, data)
   }
 
-  case class RoomChat(classifier: Symbol)
+  case class RoomChat(classifier: String)
 
   final class RoomState(roomId: RoomId, send: Send, chat: Option[RoomChat]) extends Trouper {
 
@@ -41,7 +41,7 @@ object RoomSocket {
       case chatApi.OnReinstate(userId) =>
         this ! NotifyVersion("chat_reinstate", userId, false)
     }
-    override def stop() {
+    override def stop() = {
       super.stop()
       send(Protocol.Out.stop(roomId))
       chat foreach { c =>
@@ -55,7 +55,7 @@ object RoomSocket {
     mkTrouper = roomId => new RoomState(
       RoomId(roomId),
       send,
-      chatBus option RoomChat(Chat classify Chat.Id(roomId))
+      chatBus option RoomChat(Chat chanOf Chat.Id(roomId))
     ),
     accessTimeout = 5 minutes
   )

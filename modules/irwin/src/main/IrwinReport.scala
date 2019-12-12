@@ -3,7 +3,7 @@ package lila.irwin
 import org.joda.time.DateTime
 
 import lila.game.{ Game, Pov }
-import lila.report.{ SuspectId, ReporterId }
+import lila.report.SuspectId
 
 case class IrwinReport(
     _id: String, // user id

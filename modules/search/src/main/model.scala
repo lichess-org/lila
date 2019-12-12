@@ -17,5 +17,5 @@ object SearchResponse {
 case class CountResponse(count: Int) extends AnyVal
 
 object CountResponse {
-  def apply(txt: String): CountResponse = CountResponse(~parseIntOption(txt))
+  def apply(txt: String): CountResponse = CountResponse(~txt.toIntOption)
 }

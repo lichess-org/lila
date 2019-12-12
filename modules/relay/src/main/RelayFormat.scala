@@ -2,16 +2,15 @@ package lila.relay
 
 import io.lemonlabs.uri._
 import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSResponse }
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.memo.AsyncCache
 import lila.study.MultiPgn
 
 private final class RelayFormatApi(
-    asyncCache: AsyncCache.Builder,
-    userAgent: String
+    ws: WSClient,
+    asyncCache: AsyncCache.Builder
 ) {
 
   import RelayFormat._
@@ -57,7 +56,7 @@ private final class RelayFormatApi(
 
     guessLcc(originalUrl) orElse
       guessSingleFile(originalUrl) orElse
-      guessManyFiles(originalUrl) flatten "Cannot find any DGT compatible files"
+      guessManyFiles(originalUrl) orFail "Cannot find any DGT compatible files"
   } addEffect { format =>
     logger.info(s"guessed format of $upstream: $format")
   } addFailureEffect { err =>
@@ -65,9 +64,8 @@ private final class RelayFormatApi(
   }
 
   private def httpGet(url: Url): Fu[Option[String]] =
-    WS.url(url.toString)
-      .withHeaders("User-Agent" -> userAgent)
-      .withRequestTimeout(4.seconds.toMillis).get().map {
+    ws.url(url.toString)
+      .withRequestTimeout(4.seconds).get().map {
         case res if res.status == 200 => res.body.some
         case _ => none
       }

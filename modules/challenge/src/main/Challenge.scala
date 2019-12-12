@@ -1,7 +1,7 @@
 package lila.challenge
 
 import chess.format.FEN
-import chess.variant.{ Variant, FromPosition, Horde, Chess960, RacingKings, KingOfTheHill }
+import chess.variant.{ Variant, FromPosition, Horde, RacingKings }
 import chess.{ Mode, Speed }
 import org.joda.time.DateTime
 
@@ -30,7 +30,7 @@ case class Challenge(
 
   def id = _id
 
-  def challengerUser = challenger.right.toOption
+  def challengerUser = challenger.toOption
   def challengerUserId = challengerUser.map(_.id)
   def challengerIsAnon = challenger.isLeft
   def destUserId = destUser.map(_.id)

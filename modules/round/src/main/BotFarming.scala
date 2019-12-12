@@ -4,6 +4,7 @@ import lila.common.LightUser.IsBotSync
 import lila.game.{ Game, GameRepo, CrosstableApi }
 
 private final class BotFarming(
+    gameRepo: GameRepo,
     crosstableApi: CrosstableApi,
     isBotSync: IsBotSync
 ) {
@@ -19,7 +20,7 @@ private final class BotFarming(
   def apply(g: Game): Fu[Boolean] = g.twoUserIds match {
     case Some((u1, u2)) if g.finished && g.rated && g.userIds.exists(isBotSync) =>
       crosstableApi(u1, u2) flatMap { ct =>
-        GameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {
+        gameRepo.gamesFromSecondary(ct.results.reverse.take(PREV_GAMES).map(_.gameId)) map {
           _ exists { prev =>
             g.winnerUserId == prev.winnerUserId &&
               g.pgnMoves.take(SAME_PLIES) == prev.pgnMoves.take(SAME_PLIES)

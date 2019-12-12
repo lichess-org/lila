@@ -1,16 +1,14 @@
 package lila.simul
 
 import play.api.libs.json._
-import scala.concurrent.duration._
 
-import actorApi._
 import lila.game.{ Game, Pov }
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage
 
 private final class SimulSocket(
-    getSimul: Simul.ID => Fu[Option[Simul]],
+    repo: SimulRepo,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi
@@ -20,7 +18,7 @@ private final class SimulSocket(
     rooms.tell(simulId, NotifyVersion("hostGame", gameId))
 
   def reload(simulId: Simul.ID): Unit =
-    getSimul(simulId) foreach {
+    repo find simulId foreach {
       _ foreach { simul =>
         jsonView(simul, none) foreach { obj =>
           rooms.tell(simulId, NotifyVersion("reload", obj))

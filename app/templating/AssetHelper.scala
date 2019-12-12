@@ -1,7 +1,6 @@
 package lila.app
 package templating
 
-import controllers.routes
 import play.api.mvc.RequestHeader
 
 import lila.api.Context
@@ -14,14 +13,14 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def isProd: Boolean
 
-  val siteDomain = lila.api.Env.current.Net.Domain
-  val assetDomain = lila.api.Env.current.Net.AssetDomain
-  val socketDomain = lila.api.Env.current.Net.SocketDomain
-  val vapidPublicKey = lila.push.Env.current.WebVapidPublicKey
+  def netDomain: lila.common.config.NetDomain
+  lazy val assetDomain = env.net.assetDomain
+  lazy val socketDomain = env.net.socketDomain
+  lazy val vapidPublicKey = env.push.vapidPublicKey
 
-  val sameAssetDomain = siteDomain == assetDomain
+  lazy val sameAssetDomain = netDomain.value == assetDomain.value
 
-  val assetBaseUrl = s"//$assetDomain"
+  lazy val assetBaseUrl = s"//$assetDomain"
 
   def assetVersion = AssetVersion.current
 
@@ -38,7 +37,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def cssTagWithTheme(name: String, theme: String): Frag =
     cssAt(s"css/$name.$theme.${if (isProd) "min" else "dev"}.css")
 
-  def cssTagNoTheme(name: String)(implicit ctx: Context): Frag =
+  def cssTagNoTheme(name: String): Frag =
     cssAt(s"css/$name.${if (isProd) "min" else "dev"}.css")
 
   private def cssAt(path: String): Frag =
@@ -55,7 +54,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     src := assetUrl(path)
   )
 
-  val jQueryTag = raw {
+  lazy val jQueryTag = raw {
     s"""<script src="${staticUrl("javascripts/vendor/jquery.min.js")}"></script>"""
   }
 
@@ -69,23 +68,23 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def captchaTag = jsAt(s"compiled/captcha.js")
 
-  val highchartsLatestTag = raw {
+  lazy val highchartsLatestTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts.js")}"></script>"""
   }
 
-  val highchartsMoreTag = raw {
+  lazy val highchartsMoreTag = raw {
     s"""<script src="${staticUrl("vendor/highcharts-4.2.5/highcharts-more.js")}"></script>"""
   }
 
-  val fingerprintTag = raw {
+  lazy val fingerprintTag = raw {
     s"""<script async src="${staticUrl("javascripts/vendor/fp2.min.js")}"></script>"""
   }
 
-  val flatpickrTag = raw {
+  lazy val flatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
-  val nonAsyncFlatpickrTag = raw {
+  lazy val nonAsyncFlatpickrTag = raw {
     s"""<script defer src="${staticUrl("javascripts/vendor/flatpickr.min.js")}"></script>"""
   }
 
@@ -93,7 +92,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     """$(function() { setTimeout(function() { $(".flatpickr").flatpickr(); }, 2000) });"""
   }
 
-  val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
+  lazy val infiniteScrollTag = jsTag("vendor/jquery.infinitescroll.min.js")
 
   def prismicJs(implicit ctx: Context): Frag = raw {
     isGranted(_.Prismic) ?? {
@@ -103,19 +102,23 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def basicCsp(implicit req: RequestHeader): ContentSecurityPolicy = {
-    val assets = if (req.secure) "https://" + assetDomain else assetDomain
-    val socket = (if (req.secure) "wss://" else "ws://") + socketDomain + (if (socketDomain.contains(":")) "" else ":*")
+    val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
+    val socket = {
+      val protocol = if (req.secure) "wss://" else "ws://"
+      val port = if (socketDomain.contains(":")) "" else ":*"
+      s"$protocol$socketDomain$port"
+    }
     ContentSecurityPolicy(
       defaultSrc = List("'self'", assets),
       connectSrc = List(
         "'self'",
         assets,
         socket,
-        lila.api.Env.current.ExplorerEndpoint,
-        lila.api.Env.current.TablebaseEndpoint
+        env.explorerEndpoint,
+        env.tablebaseEndpoint
       ),
       styleSrc = List("'self'", "'unsafe-inline'", assets),
-      fontSrc = List("'self'", assetDomain, "https://fonts.gstatic.com"),
+      fontSrc = List("'self'", assetDomain.value, "https://fonts.gstatic.com"),
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),

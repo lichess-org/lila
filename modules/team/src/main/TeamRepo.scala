@@ -1,32 +1,24 @@
 package lila.team
 
 import org.joda.time.{ DateTime, Period }
+import reactivemongo.akkastream.cursorProducer
 import reactivemongo.api._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.db.dsl._
 import lila.user.User
 
-object TeamRepo {
-
-  // dirty
-  private val coll = Env.current.colls.team
+final class TeamRepo(val coll: Coll) {
 
   import BSONHandlers._
 
   def byOrderedIds(ids: Seq[Team.ID]) = coll.byOrderedIds[Team, Team.ID](ids)(_.id)
 
-  def cursor(
-    selector: Bdoc,
-    readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Team]) =
-    coll.find(selector).cursor[Team](readPreference)
-
   def owned(id: Team.ID, createdBy: User.ID): Fu[Option[Team]] =
-    coll.uno[Team]($id(id) ++ $doc("createdBy" -> createdBy))
+    coll.one[Team]($id(id) ++ $doc("createdBy" -> createdBy))
 
   def teamIdsByCreator(userId: User.ID): Fu[List[String]] =
-    coll.distinct[String, List]("_id", $doc("createdBy" -> userId).some)
+    coll.distinctEasy[String, List]("_id", $doc("createdBy" -> userId))
 
   def creatorOf(teamId: Team.ID): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($id(teamId), "_id")
@@ -44,20 +36,24 @@ object TeamRepo {
     coll.primitiveOne[String]($id(teamId), "createdBy")
 
   def incMembers(teamId: String, by: Int): Funit =
-    coll.update($id(teamId), $inc("nbMembers" -> by)).void
+    coll.update.one($id(teamId), $inc("nbMembers" -> by)).void
 
   def enable(team: Team) = coll.updateField($id(team.id), "enabled", true)
 
   def disable(team: Team) = coll.updateField($id(team.id), "enabled", false)
 
   def addRequest(teamId: String, request: Request): Funit =
-    coll.update(
+    coll.update.one(
       $id(teamId) ++ $doc("requests.user" $ne request.user),
-      $push("requests", request.user)
+      $push("requests" -> request.user)
     ).void
 
   def changeOwner(teamId: String, newOwner: User.ID) =
     coll.updateField($id(teamId), "createdBy", newOwner)
+
+  def cursor =
+    coll.ext.find($doc("enabled" -> true))
+      .cursor[Team](ReadPreference.secondaryPreferred)
 
   val enabledQuery = $doc("enabled" -> true)
 

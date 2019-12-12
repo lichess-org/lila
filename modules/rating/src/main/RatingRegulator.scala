@@ -14,7 +14,7 @@ object RatingRegulator {
     }) {
       val diff = after.glicko.rating - before.glicko.rating
       val extra = diff * (factor.value - 1)
-      lila.mon.rating.regulator.micropoints(perfType.key)((extra * 1000 * 1000).toLong)
+      lila.mon.rating.regulator.micropoints(perfType.key).record((extra * 1000 * 1000).toLong)
       after.copy(
         glicko = after.glicko.copy(
           rating = after.glicko.rating + extra

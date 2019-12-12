@@ -128,10 +128,10 @@ object mod {
 
   def parts(u: User, history: List[lila.mod.Modlog], charges: List[lila.plan.Charge], reports: lila.report.Report.ByAndAbout, pref: lila.pref.Pref, rageSit: RageSit)(implicit ctx: Context) = frag(
     roles(u),
-    prefs(u, pref),
-    plan(u, charges),
+    prefs(pref),
+    plan(charges),
     showRageSit(rageSit),
-    modLog(u, history),
+    modLog(history),
     reportLog(u, reports)
   )
 
@@ -142,7 +142,7 @@ object mod {
     )
   )
 
-  def prefs(u: User, pref: lila.pref.Pref)(implicit ctx: Context) = div(id := "mz_preferences")(
+  def prefs(pref: lila.pref.Pref) = div(id := "mz_preferences")(
     strong(cls := "text inline", dataIcon := "%")("Notable preferences:"),
     ul(
       (pref.keyboardMove != lila.pref.Pref.KeyboardMove.NO) option li("keyboard moves"),
@@ -154,12 +154,12 @@ object mod {
     )
   )
 
-  def showRageSit(rageSit: RageSit)(implicit ctx: Context) = div(id := "mz_sitdccounter")(
+  def showRageSit(rageSit: RageSit) = div(id := "mz_sitdccounter")(
     strong(cls := "text inline")("Ragesit counter: "),
     span(cls := "text inline")(rageSit.counterView)
   )
 
-  def plan(u: User, charges: List[lila.plan.Charge])(implicit ctx: Context) = charges.headOption.map { firstCharge =>
+  def plan(charges: List[lila.plan.Charge])(implicit ctx: Context) = charges.headOption.map { firstCharge =>
     div(id := "mz_plan")(
       strong(cls := "text", dataIcon := patronIconChar)(
         "Patron payments",
@@ -178,7 +178,7 @@ object mod {
     )
   }
 
-  def modLog(u: User, history: List[lila.mod.Modlog])(implicit ctx: Context) = div(id := "mz_mod_log")(
+  def modLog(history: List[lila.mod.Modlog]) = div(id := "mz_mod_log")(
     strong(cls := "text", dataIcon := "!")("Moderation history", history.isEmpty option ": nothing to show"),
     history.nonEmpty ?? frag(
       ul(
@@ -195,7 +195,7 @@ object mod {
     )
   )
 
-  def reportLog(u: User, reports: lila.report.Report.ByAndAbout)(implicit ctx: Context) = frag(
+  def reportLog(u: User, reports: lila.report.Report.ByAndAbout) = frag(
     div(id := "mz_reports_out", cls := "mz_reports")(
       strong(cls := "text", dataIcon := "!")(
         s"Reports sent by ${u.username}",
@@ -328,7 +328,7 @@ object mod {
   private val closed = iconTag("k")
   private val reportban = iconTag("!")
   private val notesText = iconTag("m")
-  private def markTd(nb: Int, content: => Frag = emptyFrag) =
+  private def markTd(nb: Int, content: => Frag) =
     if (nb > 0) td(cls := "i", dataSort := nb)(content)
     else td
 
@@ -385,7 +385,7 @@ object mod {
       )
     )
 
-  def identification(u: User, spy: lila.security.UserSpy, printBlock: FingerHash => Boolean)(implicit ctx: Context): Frag =
+  def identification(spy: lila.security.UserSpy, printBlock: FingerHash => Boolean): Frag =
     div(id := "mz_identification")(
       div(cls := "spy_ips")(
         strong(spy.ips.size, " IP addresses"),
@@ -430,7 +430,7 @@ object mod {
       )
     )
 
-  def userMarks(o: User, playbans: Option[Int])(implicit ctx: Context) = div(cls := "user_marks")(
+  def userMarks(o: User, playbans: Option[Int]) = div(cls := "user_marks")(
     playbans.map { nb => playban(nb) },
     o.troll option shadowban,
     o.booster option boosting,

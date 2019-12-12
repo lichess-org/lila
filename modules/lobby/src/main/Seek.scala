@@ -102,13 +102,13 @@ object Seek {
     createdAt = DateTime.now
   )
 
-  import reactivemongo.bson.{ MapReader => _, MapWriter => _, _ }
-  import lila.db.BSON.MapValue.MapHandler
+  import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
-  implicit val lobbyPerfBSONHandler = new BSONHandler[BSONInteger, LobbyPerf] {
-    def read(b: BSONInteger) = LobbyPerf(b.value.abs, b.value < 0)
-    def write(x: LobbyPerf) = BSONInteger(x.rating * (if (x.provisional) -1 else 1))
-  }
+  implicit val lobbyPerfBSONHandler =
+    BSONIntegerHandler.as[LobbyPerf](
+      b => LobbyPerf(b.abs, b < 0),
+      x => x.rating * (if (x.provisional) -1 else 1)
+    )
   private[lobby] implicit val lobbyUserBSONHandler = Macros.handler[LobbyUser]
   private[lobby] implicit val seekBSONHandler = Macros.handler[Seek]
 }

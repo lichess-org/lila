@@ -1,6 +1,7 @@
 package lila.game
 
 import ornicar.scalalib.Zero
+import scala.util.Success
 
 sealed trait Blurs extends Any {
 
@@ -39,29 +40,26 @@ object Blurs {
     override def toString = s"Blurs.Bits($binaryString)"
   }
 
-  implicit val blursZero = Zero.instance[Blurs](Bits(0l))
+  implicit val blursZero = Zero.instance[Blurs](Bits(0L))
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
 
-  private[game] implicit val BlursBitsBSONHandler = new BSONHandler[BSONValue, Bits] {
-    def read(bv: BSONValue): Bits = bv match {
-      case BSONInteger(bits) => Bits(bits & 0xffffffffL)
-      case BSONLong(bits) => Bits(bits)
-      case v => sys error s"Invalid blurs bits $v"
-    }
-    def write(b: Bits): BSONValue =
-      b.asInt.fold[BSONValue](BSONLong(b.bits))(BSONInteger.apply)
-  }
+  private[game] implicit val BlursBitsBSONHandler = lila.db.dsl.tryHandler[Bits](
+    {
+      case BSONInteger(bits) => Success(Bits(bits & 0xffffffffL))
+      case BSONLong(bits) => Success(Bits(bits))
+      case v => lila.db.BSON.handlerBadValue(s"Invalid blurs bits $v")
+    },
+    bits => bits.asInt.fold[BSONValue](BSONLong(bits.bits))(BSONInteger.apply)
+  )
 
-  private[game] implicit val BlursNbBSONReader = new BSONReader[BSONInteger, Nb] {
-    def read(bi: BSONInteger) = Nb(bi.value)
-  }
+  private[game] implicit val BlursNbBSONHandler = BSONIntegerHandler.as[Nb](Nb.apply, _.nb)
 
-  private[game] implicit val BlursBSONWriter = new BSONWriter[Blurs, BSONValue] {
-    def write(b: Blurs): BSONValue = b match {
-      case bits: Bits => BlursBitsBSONHandler write bits
+  private[game] implicit val BlursBSONWriter = new BSONWriter[Blurs] {
+    def writeTry(b: Blurs) = b match {
+      case bits: Bits => BlursBitsBSONHandler writeTry bits
       // only Bits can be written; Nb results to Bits(0)
-      case _ => BSONInteger(0)
+      case _ => Success[BSONValue](BSONInteger(0))
     }
   }
 }

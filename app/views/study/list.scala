@@ -22,7 +22,7 @@ object list {
     pag = pag,
     searchFilter = "",
     url = o => routes.Study.all(o)
-  )(trans.study.allStudies())
+  )
 
   def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) = layout(
     title = trans.study.studiesCreatedByX.txt(owner.titleUsername),
@@ -31,7 +31,7 @@ object list {
     pag = pag,
     searchFilter = s"owner:${owner.username}",
     url = o => routes.Study.byOwner(owner.username, o)
-  )(trans.study.studiesCreatedByX(userLink(owner)))
+  )
 
   def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
     title = trans.study.myStudies.txt(),
@@ -40,12 +40,11 @@ object list {
     pag = pag,
     searchFilter = s"owner:${me.username}",
     url = o => routes.Study.mine(o)
-  )(trans.study.myStudies())
+  )
 
   def mineLikes(
     pag: Paginator[WithChaptersAndLiked],
-    order: Order,
-    me: User
+    order: Order
   )(implicit ctx: Context) = layout(
     title = trans.study.myFavoriteStudies.txt(),
     active = "mineLikes",
@@ -53,7 +52,7 @@ object list {
     pag = pag,
     searchFilter = "",
     url = o => routes.Study.mineLikes(o)
-  )(trans.study.myFavoriteStudies())
+  )
 
   def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
     title = trans.study.studiesIContributeTo.txt(),
@@ -62,7 +61,7 @@ object list {
     pag = pag,
     searchFilter = s"member:${me.username}",
     url = o => routes.Study.mineMember(o)
-  )(trans.study.studiesIContributeTo())
+  )
 
   def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
     title = trans.study.myPublicStudies.txt(),
@@ -71,7 +70,7 @@ object list {
     pag = pag,
     searchFilter = s"owner:${me.username}",
     url = o => routes.Study.minePublic(o)
-  )(trans.study.myPublicStudies())
+  )
 
   def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
     title = trans.study.myPrivateStudies.txt(),
@@ -80,7 +79,7 @@ object list {
     pag = pag,
     searchFilter = s"owner:${me.username}",
     url = o => routes.Study.minePrivate(o)
-  )(trans.study.myPrivateStudies())
+  )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
     views.html.base.layout(
@@ -116,7 +115,7 @@ object list {
   private[study] def menu(active: String, order: Order)(implicit ctx: Context) =
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(order.key))(trans.study.allStudies()),
-      ctx.me.map { bits.authLinks(_, active, order) },
+      ctx.isAuth option bits.authLinks(active, order),
       a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(trans.study.whatAreStudies())
     )
 
@@ -131,9 +130,9 @@ object list {
     active: String,
     order: Order,
     pag: Paginator[WithChaptersAndLiked],
-    url: controllers.Study.ListUrl,
+    url: String => Call,
     searchFilter: String
-  )(titleFrag: Frag)(implicit ctx: Context) = views.html.base.layout(
+  )(implicit ctx: Context) = views.html.base.layout(
     title = title,
     moreCss = cssTag("study.index"),
     wrapClass = "full-screen-force",

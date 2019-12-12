@@ -2,25 +2,26 @@ package lila.blog
 
 import io.prismic._
 import play.api.mvc.RequestHeader
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.common.MaxPerPage
+import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
 final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     prismicUrl: String,
     collection: String
-) {
+)(implicit ws: WSClient) {
 
-  def recent(api: Api, ref: Option[String], page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
+  def recent(api: Api, page: Int, maxPerPage: MaxPerPage, ref: Option[String]): Fu[Option[Paginator[Document]]] =
     api.forms(collection).ref(ref | api.master.ref)
       .orderings(s"[my.$collection.date desc]")
       .pageSize(maxPerPage.value).page(page).submit().fold(_ => none, some _) map2 { (res: Response) =>
         PrismicPaginator(res, page, maxPerPage)
       }
-  def recent(prismic: BlogApi.Context, page: Int, maxPerPage: MaxPerPage): Fu[Option[Paginator[Document]]] =
-    recent(prismic.api, prismic.ref.some, page, maxPerPage)
+  def recent(prismic: BlogApi.Context, page: Int, maxPerPage: MaxPerPage, ref: Option[String]): Fu[Option[Paginator[Document]]] =
+    recent(prismic.api, page, maxPerPage, ref)
 
   def one(api: Api, ref: Option[String], id: String): Fu[Option[Document]] =
     api.forms(collection)
@@ -56,8 +57,8 @@ final class BlogApi(
 
   private val cache = BuiltInCache(200)
   private val prismicLogger = (level: Symbol, message: String) => level match {
-    case 'DEBUG => logger debug message
-    case 'ERROR => logger error message
+    case Symbol("DEBUG") => logger debug message
+    case Symbol("ERROR") => logger error message
     case _ => logger info message
   }
 

@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import scalaz.NonEmptyList
 
-import lila.user.{ User, Note }
+import lila.user.User
 
 case class Report(
     _id: Report.ID, // also the url slug
@@ -19,6 +19,8 @@ case class Report(
 ) extends Reason.WithReason {
 
   import Report.{ Atom, Score }
+
+  private implicit val ordering = scala.math.Ordering.Double.TotalOrdering
 
   def id = _id
   def slug = _id
@@ -68,7 +70,7 @@ case class Report(
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
   def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
-    atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.lines).collectFirst {
+    atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.linesIterator).collectFirst {
       case Report.farmWithRegex(userId) => userId
       case Report.sandbagWithRegex(userId) => userId
     }
@@ -95,7 +97,7 @@ object Report {
       score: Score,
       at: DateTime
   ) {
-    def simplifiedText = text.lines.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
+    def simplifiedText = text.linesIterator.filterNot(_ startsWith "[AUTOREPORT]") mkString "\n"
 
     def byHuman = !byLichess && by != ReporterId.irwin
 

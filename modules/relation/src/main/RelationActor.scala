@@ -1,7 +1,6 @@
 package lila.relation
 
 import akka.actor.Actor
-import scala.collection.breakOut
 
 import actorApi._
 import lila.common.{ Bus, LightUser }
@@ -17,7 +16,7 @@ private[relation] final class RelationActor(
 
   private var previousOnlineIds = Set.empty[ID]
 
-  private val subs = List('startGame, 'finishGame, 'study, 'reloadOnlineFriends)
+  private val subs = List("startGame", "finishGame", "study", "reloadOnlineFriends")
 
   override def preStart(): Unit = {
     Bus.subscribe(self, subs)
@@ -32,8 +31,8 @@ private[relation] final class RelationActor(
 
     case ComputeMovement =>
       val curIds = online.userIds()
-      val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).flatMap { lightUser(_) }(breakOut)
-      val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).flatMap { lightUser(_) }(breakOut)
+      val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
+      val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
 
       val friendsEntering = enterUsers map { u =>
         FriendEntering(u, online.playing get u.id, online isStudying u.id)
@@ -47,7 +46,7 @@ private[relation] final class RelationActor(
     case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
       // the mobile app requests this on every WS connection
       // we can skip it if empty
-      if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), 'socketUsers)
+      if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), "socketUsers")
     }
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
@@ -65,14 +64,14 @@ private[relation] final class RelationActor(
       if (contributor && public) {
         val wasAlreadyInStudy = online isStudying userId
         online.studying.put(userId, studyId)
-        if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
+        if (!wasAlreadyInStudy) notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
       }
 
-    case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, false) =>
+    case lila.hub.actorApi.study.StudyDoor(userId, _, contributor, public, false) =>
       online.studyingAll invalidate userId
       if (contributor && public) {
         online.studying invalidate userId
-        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
+        notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
       }
 
     case lila.hub.actorApi.study.StudyBecamePrivate(studyId, contributors) =>
@@ -84,26 +83,26 @@ private[relation] final class RelationActor(
     case lila.hub.actorApi.study.StudyBecamePublic(studyId, contributors) =>
       contributorsIn(contributors, studyId) foreach { c =>
         online.studying.put(c, studyId)
-        notifyFollowersFriendInStudyStateChanged(c, studyId, "following_joined_study")
+        notifyFollowersFriendInStudyStateChanged(c, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberGotWriteAccess(userId, studyId) =>
       if (online.isStudyingOrWatching(userId, studyId)) {
         online.studying.put(userId, studyId)
-        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_joined_study")
+        notifyFollowersFriendInStudyStateChanged(userId, "following_joined_study")
       }
 
     case lila.hub.actorApi.study.StudyMemberLostWriteAccess(userId, studyId) =>
       if (online.isStudying(userId, studyId)) {
         online.studying invalidate userId
-        notifyFollowersFriendInStudyStateChanged(userId, studyId, "following_left_study")
+        notifyFollowersFriendInStudyStateChanged(userId, "following_left_study")
       }
   }
 
   private def studyBecamePrivateOrDeleted(studyId: String, contributors: Set[ID]) = {
     contributorsIn(contributors, studyId) foreach { c =>
       online.studying invalidate c
-      notifyFollowersFriendInStudyStateChanged(c, studyId, "following_left_study")
+      notifyFollowersFriendInStudyStateChanged(c, "following_left_study")
     }
   }
 
@@ -118,7 +117,7 @@ private[relation] final class RelationActor(
   ) =
     friendsEntering foreach { entering =>
       api fetchFollowersFromSecondary entering.user.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, JsonView.writeFriendEntering(entering)), 'socketUsers)
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, JsonView.writeFriendEntering(entering)), "socketUsers")
       }
     }
 
@@ -128,19 +127,19 @@ private[relation] final class RelationActor(
   ) =
     friendsLeaving foreach { leaving =>
       api fetchFollowersFromSecondary leaving.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, "following_leaves", leaving.titleName), 'socketUsers)
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, "following_leaves", leaving.titleName), "socketUsers")
       }
     }
 
-  private def notifyFollowersGameStateChanged(userIds: Traversable[ID], message: String) =
+  private def notifyFollowersGameStateChanged(userIds: Iterable[ID], message: String) =
     userIds foreach { userId =>
       api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), 'socketUsers)
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
       }
     }
 
-  private def notifyFollowersFriendInStudyStateChanged(userId: ID, studyId: String, message: String) =
+  private def notifyFollowersFriendInStudyStateChanged(userId: ID, message: String) =
     api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-      if (ids.nonEmpty) Bus.publish(SendTos(ids.toSet, message, userId), 'socketUsers)
+      if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
     }
 }

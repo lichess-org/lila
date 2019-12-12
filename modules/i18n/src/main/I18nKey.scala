@@ -1,8 +1,7 @@
 package lila.i18n
 
+import play.api.i18n.Lang
 import scalatags.Text.RawFrag
-
-import lila.common.Lang
 
 sealed trait I18nKey {
 

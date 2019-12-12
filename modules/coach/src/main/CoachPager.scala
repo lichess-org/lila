@@ -7,9 +7,12 @@ import lila.db.dsl._
 import lila.db.paginator.{ Adapter }
 import lila.user.{ User, UserRepo }
 
-final class CoachPager(coll: Coll) {
+final class CoachPager(
+    userRepo: UserRepo,
+    coll: Coll
+) {
 
-  val maxPerPage = lila.common.MaxPerPage(10)
+  val maxPerPage = lila.common.config.MaxPerPage(10)
 
   import CoachPager._
   import BsonHandlers._
@@ -21,7 +24,7 @@ final class CoachPager(coll: Coll) {
         "listed" -> Coach.Listed(true),
         "approved" -> Coach.Approved(true)
       ),
-      projection = $empty,
+      projection = none,
       sort = order.predicate
     ) mapFutureList withUsers
     Paginator(
@@ -32,7 +35,7 @@ final class CoachPager(coll: Coll) {
   }
 
   private def withUsers(coaches: Seq[Coach]): Fu[Seq[Coach.WithUser]] =
-    UserRepo.withColl {
+    userRepo.withColl {
       _.optionsByOrderedIds[User, User.ID](coaches.map(_.id.value), ReadPreference.secondaryPreferred)(_.id)
     } map { users =>
       coaches zip users collect {

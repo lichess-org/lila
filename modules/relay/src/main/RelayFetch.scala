@@ -5,8 +5,7 @@ import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.{ WS, WSResponse }
-import play.api.Play.current
+import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tags
@@ -20,12 +19,10 @@ private final class RelayFetch(
     api: RelayApi,
     slackApi: lila.slack.SlackApi,
     formatApi: RelayFormatApi,
-    chapterRepo: lila.study.ChapterRepo,
-    userAgent: String
+    ws: WSClient
 ) extends Actor {
 
   override def preStart: Unit = {
-    logger.info("Start RelaySync")
     context setReceiveTimeout 20.seconds
     context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)
   }
@@ -43,7 +40,7 @@ private final class RelayFetch(
       throw new RuntimeException(msg)
 
     case Tick => api.toSync.flatMap { relays =>
-      lila.mon.relay.ongoing(relays.size)
+      lila.mon.relay.ongoing.update(relays.size)
       relays.map { relay =>
         if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
           api.update(relay)(_ => newRelay)
@@ -62,39 +59,39 @@ private final class RelayFetch(
   // no writing the relay; only reading!
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
-    else doProcess(relay) flatMap { games =>
-      sync(relay, games)
-        .chronometer.mon(_.relay.sync.duration.each).result
-        .withTimeout(1500 millis, SyncResult.Timeout)(context.system) map { res =>
-          res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
-        }
-    } recover {
-      case e: Exception => (e match {
-        case res @ SyncResult.Timeout =>
-          logger.info(s"Sync timeout $relay")
-          res
-        case _ =>
-          logger.info(s"Sync error $relay ${e.getMessage take 80}")
-          SyncResult.Error(e.getMessage)
-      }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
-    } map {
-      case (result, newRelay) => afterSync(result, newRelay)
-    }
+    else doProcess(relay)
+      .flatMap { games =>
+        sync(relay, games)
+          .withTimeout(1500 millis, SyncResult.Timeout)(context.system)
+          .monSuccess(_.relay.syncTime)
+          .map { res =>
+            res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
+          }
+      }.recover {
+        case e: Exception => (e match {
+          case SyncResult.Timeout =>
+            logger.info(s"Sync timeout $relay")
+            SyncResult.Timeout
+          case _ =>
+            logger.info(s"Sync error $relay ${e.getMessage take 80}")
+            SyncResult.Error(e.getMessage)
+        }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
+      }.map {
+        case (result, newRelay) => afterSync(result, newRelay)
+      }
 
-  def afterSync(result: SyncResult, relay: Relay): Relay = {
-    lila.mon.relay.sync.result(result.reportKey)()
+  def afterSync(result: SyncResult, relay: Relay): Relay =
     result match {
       case SyncResult.Ok(0, games) =>
         if (games.size > 1 && games.forall(_.finished)) {
           logger.info(s"Finish because all games are over $relay")
           relay.finish
         } else continueRelay(relay)
-      case SyncResult.Ok(nbMoves, games) =>
-        lila.mon.relay.moves(nbMoves)
+      case SyncResult.Ok(nbMoves, _) =>
+        lila.mon.relay.moves.increment(nbMoves)
         continueRelay(relay.ensureStarted.resume)
       case _ => continueRelay(relay)
     }
-  }
 
   def continueRelay(r: Relay): Relay = {
     val seconds =
@@ -120,7 +117,7 @@ private final class RelayFetch(
       case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
         cache.put(relay.sync.upstream, GamesSeenBy(games, seenBy + relay.id))
         games
-      case x =>
+      case _ =>
         val games = doFetch(relay.sync.upstream, RelayFetch.maxChapters(relay))
         cache.put(relay.sync.upstream, GamesSeenBy(games, Set(relay.id)))
         games
@@ -158,9 +155,8 @@ private final class RelayFetch(
   }
 
   private def httpGet(url: Url): Fu[String] =
-    WS.url(url.toString)
-      .withHeaders("User-Agent" -> userAgent)
-      .withRequestTimeout(4.seconds.toMillis).get().flatMap {
+    ws.url(url.toString)
+      .withRequestTimeout(4.seconds).get().flatMap {
         case res if res.status == 200 => fuccess(res.body)
         case res => fufail(s"[${res.status}] $url")
       }
@@ -208,7 +204,7 @@ private object RelayFetch {
         val strMoves = moves.map(_ split ' ') map { move =>
           chess.format.pgn.Move(
             san = ~move.headOption,
-            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap parseIntOption
+            secondsLeft = move.lift(1).map(_.takeWhile(_.isDigit)) flatMap (_.toIntOption)
           )
         } mkString " "
         s"${extraTags}\n\n$strMoves"
@@ -216,7 +212,6 @@ private object RelayFetch {
     }
     implicit val gameReads = Json.reads[GameJson]
   }
-  import DgtJson._
 
   private object multiPgnToGames {
 
@@ -228,7 +223,7 @@ private object RelayFetch {
         case (Success((acc, index)), pgn) => pgnCache.get(pgn) flatMap { f =>
           val game = f(index)
           if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))
-          else Success(game :: acc, index + 1)
+          else Success((game :: acc, index + 1))
         }
         case (acc, _) => acc
       }.future.map(_._1.reverse)

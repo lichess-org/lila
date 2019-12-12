@@ -1,6 +1,7 @@
 package lila.oauth
 
 import org.joda.time.DateTime
+import scala.util.Success
 
 import lila.user.User
 
@@ -38,7 +39,7 @@ object AccessToken {
     val scopes = "scopes"
   }
 
-  import reactivemongo.bson._
+  import reactivemongo.api.bson._
   import lila.db.BSON
   import lila.db.dsl._
   import BSON.BSONJodaDateTimeHandler
@@ -52,10 +53,10 @@ object AccessToken {
   private[oauth] implicit val accessTokenIdHandler = stringAnyValHandler[Id](_.value, Id.apply)
 
   implicit val ForAuthBSONReader = new BSONDocumentReader[ForAuth] {
-    def read(doc: BSONDocument) = ForAuth(
-      userId = doc.getAs[User.ID](BSONFields.userId) err "ForAuth userId missing",
-      scopes = doc.getAs[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
-    )
+    def readDocument(doc: BSONDocument) = Success(ForAuth(
+      userId = doc.getAsOpt[User.ID](BSONFields.userId) err "ForAuth userId missing",
+      scopes = doc.getAsOpt[List[OAuthScope]](BSONFields.scopes) err "ForAuth scopes missing"
+    ))
   }
 
   implicit val AccessTokenBSONHandler = new BSON[AccessToken] {

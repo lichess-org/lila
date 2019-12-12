@@ -13,8 +13,6 @@ private final class EvalCacheSocketHandler(
     upgrade: EvalCacheUpgrade
 ) {
 
-  import EvalCacheEntry._
-
   def evalGet(
     sri: Socket.Sri,
     d: JsObject,

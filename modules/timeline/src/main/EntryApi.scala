@@ -2,16 +2,17 @@ package lila.timeline
 
 import org.joda.time.DateTime
 import reactivemongo.api.ReadPreference
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.common.config.Max
 import lila.hub.actorApi.timeline.Atom
 import lila.user.User
 
 final class EntryApi(
     coll: Coll,
-    userMax: Int,
+    userMax: Max,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
 
@@ -22,40 +23,40 @@ final class EntryApi(
   def userEntries(userId: User.ID): Fu[Vector[Entry]] =
     userEntries(userId, userMax) flatMap broadcast.interleave
 
-  def moreUserEntries(userId: User.ID, nb: Int): Fu[Vector[Entry]] =
+  def moreUserEntries(userId: User.ID, nb: Max): Fu[Vector[Entry]] =
     userEntries(userId, nb) flatMap broadcast.interleave
 
-  private def userEntries(userId: User.ID, max: Int): Fu[Vector[Entry]] =
+  private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] =
     coll.find($doc(
       "users" -> userId,
       "date" $gt DateTime.now.minusWeeks(2)
-    ), projection)
+    ), projection.some)
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max)
+      .gather[Vector](max.value)
 
-  def findRecent(typ: String, since: DateTime, max: Int) =
+  def findRecent(typ: String, since: DateTime, max: Max) =
     coll.find(
       $doc("typ" -> typ, "date" $gt since),
-      projection
+      projection.some
     ).sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max)
+      .gather[Vector](max.value)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
-    coll.count($doc(
+    coll.countSel($doc(
       "users" -> userId,
       "chan" -> channel,
       "date" $gt DateTime.now.minusDays(7)
-    ).some) map (0 !=)
+    )) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
-    coll.insert(EntryBSONHandler.write(e.entry) ++ $doc("users" -> e.userIds)) void
+    coll.insert.one(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void
 
   // can't remove from capped collection,
   // so we set a date in the past instead.
   private[timeline] def removeRecentFollowsBy(userId: User.ID): Funit =
-    coll.update(
+    coll.update.one(
       $doc("typ" -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
       $set("date" -> DateTime.now().minusDays(365)),
       multi = true
@@ -71,7 +72,7 @@ final class EntryApi(
       expireAfter = _.ExpireAfterWrite(1 hour)
     )
 
-    private def fetch: Fu[Vector[Entry]] = coll
+    private def fetch: Fu[Vector[Entry]] = coll.ext
       .find($doc(
         "users" $exists false,
         "date" $gt DateTime.now.minusWeeks(2)
@@ -95,6 +96,6 @@ final class EntryApi(
       }
     }
 
-    def insert(atom: Atom): Funit = coll.insert(Entry make atom).void >>- cache.refresh
+    def insert(atom: Atom): Funit = coll.delete.one(Entry make atom).void >>- cache.refresh
   }
 }

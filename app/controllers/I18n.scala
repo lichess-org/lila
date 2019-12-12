@@ -5,9 +5,9 @@ import play.api.data.Forms._
 import play.api.libs.json.Json
 
 import lila.app._
-import lila.common.{ LilaCookie, HTTPRequest }
+import lila.common.HTTPRequest
 
-object I18n extends LilaController {
+final class I18n(env: Env) extends LilaController(env) {
 
   private def toLang = lila.i18n.I18nLangPicker.byStr _
 
@@ -22,7 +22,7 @@ object I18n extends LilaController {
       code => {
         val lang = toLang(code) err "Universe is collapsing"
         ctx.me.filterNot(_.lang contains lang.code).?? { me =>
-          lila.user.UserRepo.setLang(me.id, lang.code)
+          env.user.repo.setLang(me.id, lang.code)
         } >> negotiate(
           html = {
             val redir = Redirect {
@@ -34,11 +34,11 @@ object I18n extends LilaController {
                   if (query == null) path
                   else path + "?" + query
                 } catch {
-                  case e: java.net.MalformedURLException => routes.Lobby.home.url
+                  case _: java.net.MalformedURLException => routes.Lobby.home.url
                 }
               }
             }
-            if (ctx.isAnon) redir.withCookies(LilaCookie.session("lang", lang.code))
+            if (ctx.isAnon) redir.withCookies(env.lilaCookie.session("lang", lang.code))
             else redir
           }.fuccess,
           api = _ => Ok(Json.obj("lang" -> lang.code)).fuccess

@@ -2,10 +2,11 @@ package lila.video
 
 import org.joda.time.DateTime
 import play.api.libs.json._
-import play.api.libs.ws.WS
-import play.api.Play.current
+import play.api.libs.ws.WSClient
+import scala.concurrent.Future
 
 private[video] final class Sheet(
+    ws: WSClient,
     url: String,
     api: VideoApi
 ) {
@@ -21,7 +22,7 @@ private[video] final class Sheet(
     entry.include && entry.lang == "en"
 
   def fetchAll: Funit = fetch map (_ filter select) flatMap { entries =>
-    entries.map { entry =>
+    Future.traverse(entries) { entry =>
       api.video.find(entry.youtubeId).flatMap {
         case Some(video) =>
           val updated = video.copy(
@@ -56,11 +57,11 @@ private[video] final class Sheet(
       }.recover {
         case e: Exception => logger.warn("sheet update", e)
       }
-    }.sequenceFu.void >>
+    }.void >>
       api.video.removeNotIn(entries.map(_.youtubeId))
   }
 
-  private def fetch: Fu[List[Entry]] = WS.url(url).get() flatMap {
+  private def fetch: Fu[List[Entry]] = ws.url(url).get() flatMap {
     case res if res.status == 200 => readEntries reads res.json match {
       case JsError(err) => fufail(err.toString)
       case JsSuccess(entries, _) => fuccess(entries.toList)
@@ -75,13 +76,14 @@ object Sheet {
     override def toString = `$t`
   }
 
-  case class Entry(
+  import com.github.ghik.silencer.silent
+  @silent case class Entry(
       `gsx$youtubeid`: GStr,
       `gsx$youtubeauthor`: GStr,
       `gsx$title`: GStr,
       `gsx$target`: GStr,
       `gsx$tags`: GStr,
-      `gsx$language`: GStr,
+      @silent `gsx$language`: GStr,
       `gsx$include`: GStr,
       `gsx$starttimeinseconds`: GStr,
       `gsx$ads`: GStr
@@ -89,15 +91,15 @@ object Sheet {
     def youtubeId = `gsx$youtubeid`.toString.trim
     def author = `gsx$youtubeauthor`.toString.trim
     def title = `gsx$title`.toString.trim
-    def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap parseIntOption
+    def targets = `gsx$target`.toString.split(';').map(_.trim).toList flatMap (_.toIntOption)
     def tags = `gsx$tags`.toString.split(';').map(_.trim.toLowerCase).toList.filter(_.nonEmpty) ::: {
       if (targets contains 1) List("beginner")
       else if (targets contains 3) List("advanced")
       else Nil
     }
-    def lang = `gsx$language`.toString.trim
+    @silent def lang = `gsx$language`.toString.trim
     def ads = `gsx$ads`.toString.trim == "yes"
     def include = `gsx$include`.toString.trim == "yes"
-    def startTime = ~parseIntOption(`gsx$starttimeinseconds`.toString.trim)
+    def startTime = ~`gsx$starttimeinseconds`.toString.trim.toIntOption
   }
 }

@@ -6,7 +6,6 @@ import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
 import lila.common.String.html.richText
-import lila.user.User
 
 import controllers.routes
 
@@ -42,7 +41,7 @@ object edit {
                 bits.rules()
               )
             )
-            else header(s, none),
+            else views.html.streamer.header(s, none),
             div(cls := "box__pad") {
               val granted = s.streamer.approval.granted
               frag(

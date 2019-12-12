@@ -1,14 +1,17 @@
 package lila.forumSearch
 
+import akka.stream.scaladsl._
+import play.api.libs.json._
+
+import lila.common.Json.jodaWrites
 import lila.forum.{ Post, PostView, PostLiteView, PostApi, PostRepo }
 import lila.search._
 
-import play.api.libs.json._
-
 final class ForumSearchApi(
     client: ESClient,
-    postApi: PostApi
-) extends SearchReadApi[PostView, Query] {
+    postApi: PostApi,
+    postRepo: PostRepo
+)(implicit mat: akka.stream.Materializer) extends SearchReadApi[PostView, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -33,31 +36,17 @@ final class ForumSearchApi(
     Fields.date -> view.post.createdAt
   )
 
-  import reactivemongo.play.iteratees.cursorProducer
-
   def reset = client match {
     case c: ESClientHttp => c.putMapping >> {
-      import play.api.libs.iteratee._
-      import reactivemongo.api.ReadPreference
-      import lila.db.dsl._
-      logger.info(s"Index to ${c.index.name}")
-      val batchSize = 500
-      val maxEntries = Int.MaxValue
-      PostRepo.cursor(
-        selector = $empty,
-        readPreference = ReadPreference.secondaryPreferred
-      )
-        .enumerator(maxEntries) &>
-        Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
-        Iteratee.foldM[Seq[Post], Int](0) {
-          case (nb, posts) => for {
-            views <- postApi liteViews posts.toList
-            _ <- c.storeBulk(views map (v => Id(v.post.id) -> toDoc(v)))
-          } yield {
-            logger.info(s"Indexed $nb forum posts")
-            nb + posts.size
-          }
-        }
+      postRepo.cursor
+        .documentSource()
+        .via(lila.common.LilaStream.logRate[Post]("forum index")(logger))
+        .grouped(200)
+        .mapAsync(1)(postApi.liteViews)
+        .map(_.map(v => Id(v.post.id) -> toDoc(v)))
+        .mapAsyncUnordered(2)(c.storeBulk)
+        .toMat(Sink.ignore)(Keep.right)
+        .run
     } >> client.refresh
 
     case _ => funit

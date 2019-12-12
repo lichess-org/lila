@@ -15,12 +15,14 @@ import lila.pool.{ PoolApi, PoolConfig }
 import lila.rating.RatingRange
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.{ makeMessage, Sri, Sris }
-import lila.user.{ User, UserRepo }
+import lila.user.User
 
 final class LobbySocket(
+    biter: Biter,
+    userRepo: lila.user.UserRepo,
     remoteSocketApi: lila.socket.RemoteSocket,
     lobby: LobbyTrouper,
-    blocking: User.ID => Fu[Set[User.ID]],
+    relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     system: akka.actor.ActorSystem
 ) {
@@ -32,22 +34,22 @@ final class LobbySocket(
   val trouper: Trouper = new Trouper {
 
     private val members = scala.collection.mutable.AnyRefMap.empty[SriStr, Member]
-    private var idleSris = collection.mutable.Set[SriStr]()
-    private var hookSubscriberSris = collection.mutable.Set[SriStr]()
-    private var removedHookIds = ""
+    private val idleSris = collection.mutable.Set[SriStr]()
+    private val hookSubscriberSris = collection.mutable.Set[SriStr]()
+    private val removedHookIds = new collection.mutable.StringBuilder(1024)
 
     val process: Trouper.Receive = {
 
       case GetMember(sri, promise) => promise success members.get(sri.value)
 
       case GetSrisP(promise) =>
-        promise success Sris(members.keySet.map(Sri.apply)(scala.collection.breakOut))
-        lila.mon.lobby.socket.idle(idleSris.size)
-        lila.mon.lobby.socket.hookSubscribers(hookSubscriberSris.size)
+        promise success Sris(members.keySet.view.map(Sri.apply).toSet)
+        lila.mon.lobby.socket.idle.increment(idleSris.size)
+        lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size)
 
       case Cleanup =>
-        idleSris retain members.contains
-        hookSubscriberSris retain members.contains
+        idleSris filterInPlace members.contains
+        hookSubscriberSris filterInPlace members.contains
 
       case Join(member) => members += (member.sri.value -> member)
 
@@ -65,27 +67,27 @@ final class LobbySocket(
 
       case AddHook(hook) => send(P.Out.tellSris(
         hookSubscriberSris diff idleSris filter { sri =>
-          members get sri exists { Biter.showHookTo(hook, _) }
+          members get sri exists { biter.showHookTo(hook, _) }
         } map Sri.apply,
         makeMessage("had", hook.render)
       ))
 
-      case RemoveHook(hookId) => removedHookIds = s"$removedHookIds$hookId"
+      case RemoveHook(hookId) => removedHookIds append hookId
 
       case SendHookRemovals =>
         if (removedHookIds.nonEmpty) {
-          tellActiveHookSubscribers(makeMessage("hrm", removedHookIds))
-          removedHookIds = ""
+          tellActiveHookSubscribers(makeMessage("hrm", removedHookIds.toString))
+          removedHookIds.clear()
         }
         system.scheduler.scheduleOnce(1249 millis)(this ! SendHookRemovals)
 
       case JoinHook(sri, hook, game, creatorColor) =>
-        lila.mon.lobby.hook.join()
+        lila.mon.lobby.hook.join.increment()
         send(P.Out.tellSri(hook.sri, gameStartRedirect(game pov creatorColor)))
         send(P.Out.tellSri(sri, gameStartRedirect(game pov !creatorColor)))
 
       case JoinSeek(userId, seek, game, creatorColor) =>
-        lila.mon.lobby.seek.join()
+        lila.mon.lobby.seek.join.increment()
         send(Out.tellLobbyUsers(List(seek.user.id), gameStartRedirect(game pov creatorColor)))
         send(Out.tellLobbyUsers(List(userId), gameStartRedirect(game pov !creatorColor)))
 
@@ -108,9 +110,9 @@ final class LobbySocket(
         hookSubscriberSris += member.sri.value
     }
 
-    lila.common.Bus.subscribe(this, 'changeFeaturedGame, 'streams, 'poolPairings, 'lobbySocket)
+    lila.common.Bus.subscribe(this, "changeFeaturedGame", "streams", "poolPairings", "lobbySocket")
     system.scheduler.scheduleOnce(7 seconds)(this ! SendHookRemovals)
-    system.scheduler.schedule(1 minute, 1 minute)(this ! Cleanup)
+    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute)(() => this ! Cleanup)
 
     private def tellActive(msg: JsObject): Unit = send(Out.tellLobbyActive(msg))
 
@@ -180,7 +182,7 @@ final class LobbySocket(
           PoolApi.Joiner(
             userId = user.id,
             sri = member.sri,
-            ratingMap = user.perfMap.mapValues(_.rating),
+            ratingMap = user.perfMap.view.mapValues(_.rating).toMap,
             ratingRange = ratingRange,
             lame = user.lame,
             blocking = user.blocking ++ blocking
@@ -205,10 +207,10 @@ final class LobbySocket(
 
   private def getOrConnect(sri: Sri, userOpt: Option[User.ID]): Fu[Member] =
     trouper.ask[Option[Member]](GetMember(sri, _)) getOrElse {
-      userOpt ?? UserRepo.enabledById flatMap { user =>
+      userOpt ?? userRepo.enabledById flatMap { user =>
         (user ?? { u =>
           remoteSocketApi.baseHandler(P.In.ConnectUser(u.id))
-          blocking(u.id)
+          relationApi.fetchBlocking(u.id)
         }) map { blocks =>
           val member = Member(sri, user map { LobbyUser.make(_, blocks) })
           trouper ! Join(member)
@@ -228,7 +230,7 @@ final class LobbySocket(
       lobby ! LeaveAll
       trouper ! LeaveAll
 
-    case tell @ P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
+    case P.In.TellSri(sri, user, tpe, msg) if messagesHandled(tpe) =>
       getOrConnect(sri, user) foreach { member =>
         controller(member).applyOrElse(tpe -> msg, {
           case _ => logger.warn(s"Can't handle $tpe")

@@ -4,16 +4,16 @@ import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
 
 import chess.Color
-import lila.game.{ Game, GameDiff, Progress, Pov, GameRepo }
+import lila.game.{ Game, Progress, Pov, GameRepo }
 import ornicar.scalalib.Zero
 
 private final class GameProxy(
     id: Game.ID,
-    alwaysPersist: () => Boolean,
-    scheduler: Scheduler
+    dependencies: GameProxy.Dependencies
 ) {
 
   import GameProxy._
+  import dependencies._
 
   def game: Fu[Option[Game]] = cache
 
@@ -24,7 +24,8 @@ private final class GameProxy(
     else fuccess(scheduleFlushProgress)
   }
 
-  def persist(f: GameRepo.type => Funit): Funit = f(GameRepo)
+  // ???
+  // def persist(f: GameRepo => Funit): Funit = f(gameRepo)
 
   private def set(game: Game): Unit = {
     cache = fuccess(game.some)
@@ -58,24 +59,30 @@ private final class GameProxy(
       p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
     )
 
-  private def scheduleFlushProgress = {
+  private def scheduleFlushProgress() = {
     scheduledFlush.cancel()
     scheduledFlush = scheduler.scheduleOnce(scheduleDelay)(flushProgress)
   }
 
   private def flushProgress = {
     scheduledFlush.cancel()
-    dirtyProgress ?? GameRepo.update addEffect { _ =>
+    dirtyProgress ?? gameRepo.update addEffect { _ =>
       dirtyProgress = none
     }
   }
 
   private[this] var cache: Fu[Option[Game]] = fetch
 
-  private[this] def fetch = GameRepo game id
+  private[this] def fetch = gameRepo game id
 }
 
-object GameProxy {
+private object GameProxy {
+
+  class Dependencies(
+      val gameRepo: GameRepo,
+      val alwaysPersist: () => Boolean,
+      val scheduler: Scheduler
+  )
 
   // must be way under round.active.ttl = 40 seconds
   private val scheduleDelay = 20.seconds

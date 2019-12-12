@@ -4,10 +4,12 @@ import lila.db.dsl._
 import lila.report.{ Report, Mod, Suspect, ModId }
 import lila.security.Permission
 
-final class ModlogApi(coll: Coll) {
+final class ModlogApi(repo: ModlogRepo) {
+
+  private def coll = repo.coll
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val ModlogBSONHandler = reactivemongo.bson.Macros.handler[Modlog]
+  private implicit val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
   def streamerList(mod: Mod, streamerId: String, v: Boolean) = add {
     Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
@@ -149,7 +151,7 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.teamMadeOwner, details = Some(teamName take 140))
   }
 
-  def recent = coll.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
+  def recent = coll.ext.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
   def wasUnengined(sus: Suspect) = coll.exists($doc(
     "user" -> sus.user.id,
@@ -162,11 +164,11 @@ final class ModlogApi(coll: Coll) {
   ))
 
   def userHistory(userId: String): Fu[List[Modlog]] =
-    coll.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
+    coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)
 
   private def add(m: Modlog): Funit = {
-    lila.mon.mod.log.create()
+    lila.mon.mod.log.create.increment()
     lila.log("mod").info(m.toString)
-    coll.insert(m).void
+    coll.insert.one(m).void
   }
 }

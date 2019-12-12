@@ -34,6 +34,6 @@ object AggregateVote {
   val minRatio = -50
   val minVotes = 30
 
-  import reactivemongo.bson.Macros
+  import reactivemongo.api.bson.Macros
   implicit val aggregatevoteBSONHandler = Macros.handler[AggregateVote]
 }

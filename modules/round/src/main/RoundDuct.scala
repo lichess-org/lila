@@ -12,14 +12,13 @@ import lila.chat.Chat
 import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ PlayerId, FullId }
-import lila.game.{ Game, Progress, Pov, Event, Source, Player => GamePlayer }
+import lila.game.{ Game, GameRepo, Pov, Event, Player => GamePlayer }
 import lila.hub.actorApi.DeployPost
-import lila.hub.actorApi.map._
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart, BotPlay, RematchYes, RematchNo, Abort, Resign, IsOnGame }
 import lila.hub.Duct
 import lila.room.RoomSocket.{ Protocol => RP, _ }
-import lila.socket.RemoteSocket.{ Protocol => P, _ }
-import lila.socket.Socket.{ Sri, SocketVersion, GetVersion, makeMessage }
+import lila.socket.RemoteSocket.{ Protocol => _, _ }
+import lila.socket.Socket.{ SocketVersion, GetVersion, makeMessage }
 import lila.socket.UserLagCache
 import lila.user.User
 
@@ -62,7 +61,7 @@ private[round] final class RoundDuct(
       offlineSince = if (on) None else offlineSince orElse nowMillis.some
       bye = bye && !on
     }
-    def setBye: Unit = {
+    def setBye(): Unit = {
       bye = true
     }
 
@@ -139,7 +138,7 @@ private[round] final class RoundDuct(
       gameSpeed = game.speed.some
       whitePlayer.goneWeight = whiteGoneWeight
       blackPlayer.goneWeight = blackGoneWeight
-      buscriptions.chat
+      buscriptions.chat()
     }
 
     // chat
@@ -166,12 +165,12 @@ private[round] final class RoundDuct(
     // chat end
 
     case Protocol.In.HoldAlert(fullId, ip, mean, sd) => handle(fullId.playerId) { pov =>
-      lila.game.GameRepo hasHoldAlert pov flatMap {
+      gameRepo hasHoldAlert pov flatMap {
         case true => funit
         case false =>
           lila.log("cheat").info(s"hold alert $ip https://lichess.org/${pov.gameId}/${pov.color.name}#${pov.game.turns} ${pov.player.userId | "anon"} mean: $mean SD: $sd")
-          lila.mon.cheat.holdAlert()
-          proxy.persist(_.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void)
+          lila.mon.cheat.holdAlert.increment()
+          gameRepo.setHoldAlert(pov, GamePlayer.HoldAlert(ply = pov.game.turns, mean = mean, sd = sd)).void
       } inject Nil
     }
 
@@ -186,35 +185,37 @@ private[round] final class RoundDuct(
     case a: lila.analyse.actorApi.AnalysisProgress => fuccess {
       socketSend(RP.Out.tellRoom(roomId, makeMessage("analysisProgress", Json.obj(
         "analysis" -> lila.analyse.JsonView.bothPlayers(a.game, a.analysis),
-        "tree" -> TreeBuilder(
-          id = a.analysis.id,
-          pgnMoves = a.game.pgnMoves,
-          variant = a.variant,
-          analysis = a.analysis.some,
-          initialFen = a.initialFen,
-          withFlags = JsonView.WithFlags(),
-          clocks = none
-        )
+        "tree" -> lila.tree.Node.minimalNodeJsonWriter.writes {
+          TreeBuilder(
+            id = a.analysis.id,
+            pgnMoves = a.game.pgnMoves,
+            variant = a.variant,
+            analysis = a.analysis.some,
+            initialFen = a.initialFen,
+            withFlags = JsonView.WithFlags(),
+            clocks = none
+          )
+        }
       ))))
     }
 
     // round stuff
 
-    case p: HumanPlay => handleHumanPlay(p) { pov =>
+    case p: HumanPlay => handlePov(proxy playerPov p.playerId.value) { pov =>
       if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
       else {
         recordLag(pov)
         player.human(p, this)(pov)
       }
-    }.addEffects(
+    }.chronometer.lap.addEffects(
       err => {
         p.promise.foreach(_ failure err)
         socketSend(Protocol.Out.resyncPlayer(Game.Id(gameId) full p.playerId))
       },
-      suc => {
+      lap => {
         p.promise.foreach(_ success {})
-        p.trace.finish()
-        lila.mon.round.move.full.count()
+        lila.mon.round.move.time.record(lap.nanos)
+        MoveLatMonitor record lap.micros
       }
     )
 
@@ -227,8 +228,8 @@ private[round] final class RoundDuct(
       res
 
     case FishnetPlay(uci, ply) => handle { game =>
-      player.fishnet(game, ply, uci, this)
-    } >>- lila.mon.round.move.full.count()
+      player.fishnet(game, ply, uci)
+    }.mon(_.round.move.time)
 
     case Abort(playerId) => handle(PlayerId(playerId)) { pov =>
       pov.game.abortable ?? finisher.abort(pov)
@@ -244,7 +245,7 @@ private[round] final class RoundDuct(
 
     case GoBerserk(color) => handle(color) { pov =>
       pov.game.goBerserk(color) ?? { progress =>
-        proxy.save(progress) >> proxy.persist(_ goBerserk pov) inject progress.events
+        proxy.save(progress) >> gameRepo.goBerserk(pov) inject progress.events
       }
     }
 
@@ -346,9 +347,8 @@ private[round] final class RoundDuct(
 
     case DeployPost => handle { game =>
       game.playable ?? {
-        val freeTime = 20.seconds
         messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
-        val progress = moretimer.give(game, Color.all, freeTime)
+        val progress = moretimer.give(game, Color.all, MoretimeDuration(20 seconds))
         proxy save progress inject progress.events
       }
     }
@@ -388,25 +388,25 @@ private[round] final class RoundDuct(
 
   private object buscriptions {
 
-    private var classifiers = collection.mutable.Set.empty[Symbol]
+    private val chans = collection.mutable.Set.empty[String]
 
-    private def sub(classifier: Symbol) =
-      if (!classifiers(classifier)) {
-        Bus.subscribe(RoundDuct.this, classifier)
-        classifiers += classifier
+    private def sub(chan: String) =
+      if (!chans(chan)) {
+        Bus.subscribe(RoundDuct.this, chan)
+        chans += chan
       }
 
-    def started = classifiers.nonEmpty
+    def started = chans.nonEmpty
 
-    def unsubAll = {
-      Bus.unsubscribe(RoundDuct.this, classifiers)
-      classifiers.clear
+    def unsubAll() = {
+      Bus.unsubscribe(RoundDuct.this, chans)
+      chans.clear
     }
 
-    def tv(userId: User.ID): Unit = sub(Symbol(s"userStartGame:$userId"))
+    def tv(userId: User.ID): Unit = sub(s"userStartGame:$userId")
 
-    def chat = chatIds.allIds foreach { chatId =>
-      sub(lila.chat.Chat classify chatId)
+    def chat() = chatIds.allIds foreach { chatId =>
+      sub(lila.chat.Chat chanOf chatId)
     }
   }
 
@@ -435,13 +435,6 @@ private[round] final class RoundDuct(
   private def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov playerId.value)(op)
 
-  private def handleHumanPlay(p: HumanPlay)(op: Pov => Fu[Events]): Funit =
-    handlePov {
-      p.trace.segment("fetch", "db") {
-        proxy playerPov p.playerId.value
-      }
-    }(op)
-
   private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
     handlePov(proxy playerPov p.playerId)(op)
 
@@ -449,15 +442,15 @@ private[round] final class RoundDuct(
     handlePov(proxy pov color)(op)
 
   private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
-    pov flatten "pov not found" flatMap { p =>
+    pov orFail "pov not found" flatMap { p =>
       (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map publish
     } recover errorHandler("handlePov")
 
   private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
-    game.map(_.flatMap(_.aiPov)) flatten "pov not found" flatMap op map publish recover errorHandler("handleAi")
+    game.map(_.flatMap(_.aiPov)) orFail "pov not found" flatMap op map publish recover errorHandler("handleAi")
 
   private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
-    game flatten "game not found" flatMap op map publish recover errorHandler("handleGame")
+    game orFail "game not found" flatMap op map publish recover errorHandler("handleGame")
 
   private def publish[A](events: Events): Unit =
     if (events.nonEmpty) {
@@ -476,10 +469,10 @@ private[round] final class RoundDuct(
   private def errorHandler(name: String): PartialFunction[Throwable, Unit] = {
     case e: ClientError =>
       logger.info(s"Round client error $name: ${e.getMessage}")
-      lila.mon.round.error.client()
+      lila.mon.round.error.client.increment()
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
-      lila.mon.round.error.fishnet()
+      lila.mon.round.error.fishnet.increment()
     case e: Exception => logger.warn(s"$name: ${e.getMessage}")
   }
 
@@ -516,6 +509,7 @@ object RoundDuct {
     Zero.instance(TakebackSituation(0, none))
 
   private[round] class Dependencies(
+      val gameRepo: GameRepo,
       val messenger: Messenger,
       val takebacker: Takebacker,
       val moretimer: Moretimer,
@@ -524,6 +518,6 @@ object RoundDuct {
       val player: Player,
       val drawer: Drawer,
       val forecastApi: ForecastApi,
-      val isSimulHost: User.ID => Fu[Boolean]
+      val isSimulHost: IsSimulHost
   )
 }

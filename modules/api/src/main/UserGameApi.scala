@@ -3,6 +3,7 @@ package lila.api
 import play.api.libs.json._
 
 import chess.format.Forsyth
+import lila.common.Json.jodaWrites
 import lila.common.LightUser
 import lila.common.paginator.Paginator
 import lila.game.{ Game, PerfPicker }
@@ -10,22 +11,24 @@ import lila.user.User
 
 final class UserGameApi(
     bookmarkApi: lila.bookmark.BookmarkApi,
-    lightUser: LightUser.GetterSync,
-    getTournamentName: String => Option[String]
+    lightUser: lila.user.LightUserApi,
+    getTournamentName: lila.tournament.GetTourName
 ) {
 
   import lila.game.JsonView._
   import LightUser.lightUserWrites
 
-  def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] =
-    bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me) map { bookmarkedIds =>
-      implicit val gameWriter = Writes[Game] { g =>
-        write(g, bookmarkedIds(g.id), ctx.me)
-      }
-      Json.obj(
-        "paginator" -> lila.common.paginator.PaginatorJson(pag)
-      )
+  def jsPaginator(pag: Paginator[Game])(implicit ctx: Context): Fu[JsObject] = for {
+    bookmarkedIds <- bookmarkApi.filterGameIdsBookmarkedBy(pag.currentPageResults, ctx.me)
+    _ <- lightUser.preloadMany(pag.currentPageResults.flatMap(_.userIds))
+  } yield {
+    implicit val gameWriter = Writes[Game] { g =>
+      write(g, bookmarkedIds(g.id), ctx.me)
     }
+    Json.obj(
+      "paginator" -> lila.common.paginator.PaginatorJson(pag)
+    )
+  }
 
   private def write(g: Game, bookmarked: Boolean, as: Option[User]) = Json.obj(
     "id" -> g.id,
@@ -39,7 +42,7 @@ final class UserGameApi(
     "source" -> g.source.map(_.name),
     "players" -> JsObject(g.players map { p =>
       p.color.name -> Json.obj(
-        "user" -> p.userId.flatMap(lightUser),
+        "user" -> p.userId.flatMap(lightUser.sync),
         "userId" -> p.userId, // for BC
         "name" -> p.name
       )

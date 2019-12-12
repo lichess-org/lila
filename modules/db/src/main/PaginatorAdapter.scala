@@ -3,7 +3,7 @@ package paginator
 
 import dsl._
 import reactivemongo.api._
-import reactivemongo.bson._
+import reactivemongo.api.bson._
 
 import lila.common.paginator.AdapterLike
 
@@ -19,12 +19,12 @@ final class CachedAdapter[A](
 final class Adapter[A: BSONDocumentReader](
     collection: Coll,
     selector: Bdoc,
-    projection: Bdoc,
+    projection: Option[Bdoc],
     sort: Bdoc,
     readPreference: ReadPreference = ReadPreference.primary
 ) extends AdapterLike[A] {
 
-  def nbResults: Fu[Int] = collection.countSel(selector, readPreference)
+  def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
     collection.find(selector, projection)
@@ -49,14 +49,14 @@ final class MapReduceAdapter[A: BSONDocumentReader](
     readPreference: ReadPreference = ReadPreference.primary
 ) extends AdapterLike[A] {
 
-  def nbResults: Fu[Int] = collection.countSel(selector, readPreference)
+  def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection.find(selector, $id(true))
+    collection.find(selector, $id(true).some)
       .sort(sort)
       .skip(offset)
       .list[Bdoc](length, readPreference)
-      .dmap { _ flatMap { _.getAs[BSONString]("_id") } }
+      .dmap { _ flatMap { _.getAsOpt[BSONString]("_id") } }
       .flatMap { ids =>
         runCommand(
           $doc(
@@ -67,7 +67,7 @@ final class MapReduceAdapter[A: BSONDocumentReader](
           ) ++ command,
           readPreference
         ) map { res =>
-            res.getAs[List[Bdoc]]("results").??(_ map implicitly[BSONDocumentReader[A]].read)
+            res.getAsOpt[List[Bdoc]]("results").??(_ flatMap implicitly[BSONDocumentReader[A]].readOpt)
           }
       }
 }

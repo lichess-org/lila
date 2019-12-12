@@ -6,10 +6,12 @@ import lila.app._
 import lila.common.{ HTTPRequest, IpAddress }
 import views._
 
-object Search extends LilaController {
+final class Search(
+    env: Env,
+    apiC: => Api
+) extends LilaController(env) {
 
-  private def env = Env.gameSearch
-  def searchForm = env.forms.search
+  def searchForm = env.gameSearch.forms.search
 
   private val RateLimitGlobal = new lila.memo.RateLimit[String](
     credits = 50,
@@ -32,33 +34,33 @@ object Search extends LilaController {
         val ip = HTTPRequest lastRemoteAddress ctx.req
         val cost = scala.math.sqrt(page).toInt
         implicit def req = ctx.body
-        Env.game.cached.nbTotal flatMap { nbGames =>
+        env.game.cached.nbTotal flatMap { nbGames =>
           def limited = fuccess {
             val form = searchForm.bindFromRequest.withError(
               key = "",
               message = "Please only send one request at a time per IP address"
             )
-            TooManyRequest(html.search.index(form, none, nbGames))
+            TooManyRequests(html.search.index(form, none, nbGames))
           }
-          Api.GlobalLinearLimitPerIP(ip, limited = limited) {
+          apiC.GlobalLinearLimitPerIP(ip, limited = limited) {
             RateLimitPerIP(ip, cost = cost) {
               RateLimitGlobal("-", cost = cost) {
                 negotiate(
                   html = searchForm.bindFromRequest.fold(
                     failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
                     data => data.nonEmptyQuery ?? { query =>
-                      env.paginator(query, page) map (_.some)
+                      env.gameSearch.paginator(query, page) map (_.some)
                     } map { pager =>
                       Ok(html.search.index(searchForm fill data, pager, nbGames))
                     }
                   ),
                   api = _ => searchForm.bindFromRequest.fold(
-                    failure => Ok(jsonError("Could not process search query")).fuccess,
+                    _ => Ok(jsonError("Could not process search query")).fuccess,
                     data => data.nonEmptyQuery ?? { query =>
-                      env.paginator(query, page) map (_.some)
+                      env.gameSearch.paginator(query, page) map (_.some)
                     } flatMap {
                       case Some(s) =>
-                        Env.api.userGameApi.jsPaginator(s) map {
+                        env.api.userGameApi.jsPaginator(s) map {
                           Ok(_)
                         }
                       case None =>

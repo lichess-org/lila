@@ -21,7 +21,7 @@ case class Schedule(
     case _ if variant.standard && position.initial =>
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) => s"${freq.toString} ${speed.toString}"
-        case (Some(min), _) => s"Elite ${speed.toString}"
+        case (Some(_), _) => s"Elite ${speed.toString}"
         case (_, Some(max)) => s"U${max.rating} ${speed.toString}"
       }
     case _ if variant.standard => s"${position.shortName} ${speed.toString}"
@@ -67,7 +67,7 @@ object Schedule {
   case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]) {
 
     def build: Tournament = {
-      val t = Tournament.schedule(addCondition(schedule), durationFor(schedule))
+      val t = Tournament.scheduleAs(addCondition(schedule), durationFor(schedule))
       buildFunc.foldRight(t) { _(_) }
     }
 

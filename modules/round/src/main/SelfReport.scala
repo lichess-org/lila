@@ -3,14 +3,15 @@ package lila.round
 import scala.concurrent.duration._
 
 import lila.common.IpAddress
-import lila.game.{ Game, Pov }
-import lila.hub.DuctMap
+import lila.game.Game
 import lila.user.{ User, UserRepo }
 
 final class SelfReport(
     tellRound: TellRound,
+    gameRepo: lila.game.GameRepo,
+    userRepo: UserRepo,
     slackApi: lila.slack.SlackApi,
-    proxyPov: String => Fu[Option[Pov]]
+    proxyRepo: GameProxyRepo
 ) {
 
   private val whitelist = Set("treehugger")
@@ -31,13 +32,13 @@ final class SelfReport(
     fullId: Game.FullId,
     name: String
   ): Funit = !userId.exists(whitelist.contains) ?? {
-    userId.??(UserRepo.named) flatMap { user =>
+    userId.??(userRepo.named) flatMap { user =>
       val known = user.??(_.engine)
-      lila.mon.cheat.cssBot()
+      lila.mon.cheat.cssBot.increment()
       // user.ifTrue(!known && name != "ceval") ?? { u =>
       //   Env.report.api.autoBotReport(u.id, referer, name)
       // }
-      def doLog = if (name != "ceval") {
+      def doLog(): Unit = if (name != "ceval") {
         lila.log("cheat").branch("jslog").info(
           s"$ip https://lichess.org/$fullId ${user.fold("anon")(_.id)} $name"
         )
@@ -50,8 +51,8 @@ final class SelfReport(
           )
         }
       }
-      if (fullId == "________") fuccess(doLog)
-      else proxyPov(fullId.value) map {
+      if (fullId.value == "________") fuccess(doLog)
+      else proxyRepo.pov(fullId.value) map {
         _ ?? { pov =>
           if (!known) doLog
           if (Set("ceval", "rcb", "ccs")(name)) fuccess {
@@ -60,7 +61,7 @@ final class SelfReport(
               lila.round.actorApi.round.Cheat(pov.color)
             )
           }
-          else lila.game.GameRepo.setBorderAlert(pov).void
+          else gameRepo.setBorderAlert(pov).void
         }
       }
     }

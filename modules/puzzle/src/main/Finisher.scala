@@ -1,18 +1,20 @@
 package lila.puzzle
 
-import org.goochjs.glicko2._
+import org.goochjs.glicko2.{ Rating, RatingCalculator, RatingPeriodResults }
 import org.joda.time.DateTime
 
 import chess.Mode
+import lila.common.Bus
+import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.rating.{ Glicko, PerfType }
-import lila.common.Bus
 import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
+    userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
-    puzzleColl: Coll
+    puzzleColl: AsyncColl
 ) {
 
   def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
@@ -35,26 +37,25 @@ private[puzzle] final class Finisher(
           )
           historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
-            puzzleColl.update(
-              $id(puzzle.id),
-              $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
-                $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
-            ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
+            puzzleColl {
+              _.update.one(
+                $id(puzzle.id),
+                $inc(Puzzle.BSONFields.attempts -> $int(1)) ++
+                  $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
+              )
+            } zip userRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
           } inject {
-            Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
+            Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), "finishPuzzle")
             round -> Mode.Rated
           }
         }
-      case _ => fuccess {
-        incPuzzleAttempts(puzzle)
-        new Round(
-          id = Round.Id(user.id, puzzle.id),
-          date = DateTime.now,
-          result = result,
-          rating = formerUserRating,
-          ratingDiff = 0
-        ) -> Mode.Casual
-      }
+      case _ => incPuzzleAttempts(puzzle) inject new Round(
+        id = Round.Id(user.id, puzzle.id),
+        date = DateTime.now,
+        result = result,
+        rating = formerUserRating,
+        ratingDiff = 0
+      ) -> Mode.Casual
     }
   }
 
@@ -77,10 +78,10 @@ private[puzzle] final class Finisher(
       ratingDiff = userPerf.intRating - formerUserRating
     )
     (api.round add a) >>
-      UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
+      userRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
       Bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
-        'finishPuzzle
+        "finishPuzzle"
       ) inject
         user.copy(perfs = user.perfs.copy(puzzle = userPerf))
   } recover lila.db.recoverDuplicateKey { _ =>
@@ -92,8 +93,8 @@ private[puzzle] final class Finisher(
   private val TAU = 0.75d
   private val system = new RatingCalculator(VOLATILITY, TAU)
 
-  def incPuzzleAttempts(puzzle: Puzzle) =
-    puzzleColl.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts)
+  def incPuzzleAttempts(puzzle: Puzzle): Funit =
+    puzzleColl.map(_.incFieldUnchecked($id(puzzle.id), Puzzle.BSONFields.attempts))
 
   private def updateRatings(u1: Rating, u2: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()

@@ -32,9 +32,9 @@ private[study] object CommentParser {
   private type ClockAndComment = (Option[Centis], String)
 
   private def readCentis(hours: String, minutes: String, seconds: String): Option[Centis] = for {
-    h <- parseIntOption(hours)
-    m <- parseIntOption(minutes)
-    cs <- parseDoubleOption(seconds) match {
+    h <- hours.toIntOption
+    m <- minutes.toIntOption
+    cs <- seconds.toDoubleOption match {
       case Some(s) => Some(Maths.roundAt(s * 100, 0).toInt)
       case _ => none
     }
