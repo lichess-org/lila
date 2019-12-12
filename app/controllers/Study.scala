@@ -214,7 +214,10 @@ final class Study(
       ctx.me.fold(true) { // anon can see public chats
         env.chat.panic.allowed
       }
-  } ?? env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
+  } ?? env.chat.api.userChat
+    .findMine(Chat.Id(study.id.value), ctx.me)
+    .dmap(some)
+    .mon(_.chat.fetch("study"))
 
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body

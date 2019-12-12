@@ -374,6 +374,7 @@ object mon {
   }
   object chat {
     def message(troll: Boolean) = counter("chat.message").withTag("troll", troll)
+    def fetch(parent: String) = timer("chat.fetch").withTag("parent", parent)
   }
   object push {
     object register {
