@@ -14,7 +14,8 @@ import views._
 
 final class Main(
     env: Env,
-    prismicC: Prismic
+    prismicC: Prismic,
+    assetsC: Assets
 ) extends LilaController(env) {
 
   private lazy val blindForm = Form(tuple(
@@ -179,4 +180,6 @@ Disallow: /games/export
       }
     }.fuccess
   }
+
+  def devAsset(@silent v: String, file: String) = assetsC.at(file)
 }

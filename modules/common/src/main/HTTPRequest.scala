@@ -35,6 +35,8 @@ object HTTPRequest {
   def isApi(req: RequestHeader) = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
+  def isAssets(req: RequestHeader) = req.path startsWith "/assets/"
+
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
   val isAndroid = UaMatcher("""(?i)android.+mobile""")

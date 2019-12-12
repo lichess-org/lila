@@ -18,7 +18,6 @@ sources in doc in Compile := List()
 publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
-PlayKeys.playDefaultPort := 9663
 // don't stage the conf dir
 PlayKeys.externalizeResources := false
 // shorter prod classpath
@@ -34,7 +33,10 @@ libraryDependencies ++= Seq(
 ) ++ silencer.bundle
 
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
-unmanagedResourceDirectories in Assets ++= (if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public") else Nil)
+unmanagedResourceDirectories in Assets ++= {
+  if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public")
+  else Nil
+}
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"

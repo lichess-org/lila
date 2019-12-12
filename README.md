@@ -44,6 +44,9 @@ Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and 
 Installation
 ------------
 
+`./lila`
+`run`
+
 The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 
 The source code is available for learning and contribution, but please don't just setup a public Lichess clone. Don't expect developers to help you run your own instance. Questions about the installation and runtime issues will probably be ignored.
