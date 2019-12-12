@@ -27,7 +27,7 @@ object Dependencies {
   val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
   val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"
   val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.44"
-  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.1-LILA" % "provided"
+  val autoconfig = "io.methvin.play" %% "autoconfig-macros" % "0.3.2-SNAPSHOT" % "provided"
 
   object macwire {
     val version = "2.3.3"

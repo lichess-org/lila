@@ -62,6 +62,6 @@ object ConfigStore {
   final class Builder(db: lila.db.Db, config: MemoConfig) {
     val coll = db(config.configColl)
     def apply[A: ConfigLoader](id: String, logger: lila.log.Logger) =
-      new ConfigStore[A](coll, id, logger branch "config_store")
+      new ConfigStore[A](coll, id, logger branch "configStore")
   }
 }
