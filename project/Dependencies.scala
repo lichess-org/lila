@@ -48,10 +48,9 @@ object Dependencies {
   }
 
   object play {
-    val version = "2.8.0-RC5"
-    val libVersion = "2.8.0"
+    val version = "2.8.0"
     val api = "com.typesafe.play" %% "play" % version
-    val json = "com.typesafe.play" %% "play-json" % libVersion
+    val json = "com.typesafe.play" %% "play-json" % version
   }
   object kamon {
     val core = "io.kamon" %% "kamon-core" % "2.0.2"
