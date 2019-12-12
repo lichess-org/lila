@@ -73,14 +73,14 @@
   <string name="open">Отворите</string>
   <string name="xBroughtToYouByY">%2$s вам доноси %1$s</string>
   <string name="studyNotFound">Студија није пронађена</string>
-  <string name="editChapter">Измени поглавље</string>
+  <string name="editChapter">Измените поглавље</string>
   <string name="newChapter">Ново поглавље</string>
   <string name="orientation">Оријентација</string>
   <string name="analysisMode">Врста анализе</string>
   <string name="pinnedChapterComment">Закачен коментар поглавља</string>
-  <string name="saveChapter">Сачувај поглавље</string>
+  <string name="saveChapter">Сачувајте поглавље</string>
   <string name="clearAnnotations">Избришите анотације</string>
-  <string name="deleteChapter">Избриши поглавље</string>
+  <string name="deleteChapter">Избришите поглавље</string>
   <string name="deleteThisChapter">Избриши ово поглавље? Нема повратка назад!</string>
   <string name="clearAllCommentsInThisChapter">Избриши све коментаре, глифове и нацртане облике у овом поглављу?</string>
   <string name="rightUnderTheBoard">Одмах испод даске</string>
