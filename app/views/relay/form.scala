@@ -23,9 +23,16 @@ object form {
       h1("Edit ", r.name),
       inner(form, routes.Relay.update(r.slug, r.id.value)),
       hr,
+      postForm(action := routes.Relay.cloneRelay(r.slug, r.id.value))(
+        submitButton(
+          cls := "button button-empty confirm",
+          title := "Create an new identical broadcast, for another round or a similar tournament"
+        )("Clone the broadcast")
+      ),
+      hr,
       postForm(action := routes.Relay.reset(r.slug, r.id.value))(
         submitButton(
-          cls := "button button-red confirm",
+          cls := "button button-red button-empty confirm",
           title := "The source will need to be active in order to re-create the chapters!"
         )("Reset the broadcast")
       )

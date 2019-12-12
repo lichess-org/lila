@@ -87,6 +87,11 @@ final class RelayApi(
     studyApi.deleteAllChapters(relay.studyId, by) >>
       requestPlay(relay.id, true)
 
+  def cloneRelay(relay: Relay, by: User): Fu[Relay] = create(
+    RelayForm.Data make relay.copy(name = s"${relay.name} (clone)"),
+    by
+  )
+
   def getOngoing(id: Relay.Id): Fu[Option[Relay]] =
     repo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))
 

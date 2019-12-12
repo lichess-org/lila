@@ -85,6 +85,14 @@ final class Relay(
     }
   }
 
+  def cloneRelay(@silent slug: String, id: String) = Auth { implicit ctx => me =>
+    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
+      env.relay.api.cloneRelay(relay, me) map { newRelay =>
+        Redirect(routes.Relay.edit(newRelay.slug, newRelay.id.value))
+      }
+    }
+  }
+
   private def WithRelay(slug: String, id: String)(f: RelayModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byId id) { relay =>
       if (relay.slug != slug) Redirect(showRoute(relay)).fuccess
