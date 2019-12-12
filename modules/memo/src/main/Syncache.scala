@@ -99,7 +99,7 @@ final class Syncache[K, V](
       }
       .recover {
         case e: Exception =>
-          logger.branch(name).warn(s"$e key=$k")
+          logger.branch(s"syncache $name").warn(s"key=$k", e)
           chm remove k
           default(k)
       }
