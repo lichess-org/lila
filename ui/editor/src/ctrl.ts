@@ -5,7 +5,7 @@ import { SquareSet } from 'chessops/squareSet';
 import { Board } from 'chessops/board';
 import { Setup, Material, RemainingChecks } from 'chessops/setup';
 import { Castles, setupPosition } from 'chessops/variant';
-import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD, EMPTY_EPD } from 'chessops/fen';
+import { makeFen, parseFen, parseCastlingFen, INITIAL_FEN, EMPTY_FEN, INITIAL_EPD } from 'chessops/fen';
 import { defined, prop, Prop } from 'common';
 
 export default class EditorCtrl {
@@ -40,10 +40,6 @@ export default class EditorCtrl {
       fen: INITIAL_FEN,
       epd: INITIAL_EPD,
       name: this.trans('startPosition')
-    }, {
-      fen: EMPTY_FEN,
-      epd: EMPTY_EPD,
-      name: this.trans('clearBoard')
     }, {
       fen: 'prompt',
       name: this.trans('loadPosition')
