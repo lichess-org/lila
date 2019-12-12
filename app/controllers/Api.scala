@@ -246,9 +246,8 @@ final class Api(
             perSecond = MaxPerSecond(20)
           )
           Ok.chunked(env.api.gameApiV2.exportByTournament(config)).withHeaders(
-            noProxyBufferHeader,
-            CONTENT_TYPE -> gameC.gameContentType(config)
-          ).fuccess
+            noProxyBufferHeader
+          ).as(gameC.gameContentType(config)).fuccess
         }
       }
     }

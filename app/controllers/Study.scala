@@ -351,9 +351,8 @@ final class Study(
             lila.mon.export.pgn.study.increment()
             env.study.pgnDump(study) map { pgns =>
               Ok(pgns.mkString("\n\n\n")).withHeaders(
-                CONTENT_TYPE -> pgnContentType,
                 CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump filename study))
-              )
+              ) as pgnContentType
             }
           }
         }
@@ -368,9 +367,8 @@ final class Study(
           case WithChapter(study, chapter) => CanViewResult(study) {
             lila.mon.export.pgn.studyChapter.increment()
             Ok(env.study.pgnDump.ofChapter(study, chapter).toString).withHeaders(
-              CONTENT_TYPE -> pgnContentType,
               CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump.filename(study, chapter)))
-            ).fuccess
+            ).as(pgnContentType).fuccess
           }
         }
       }

@@ -103,10 +103,9 @@ final class Main(
       case Some(image) =>
         lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
         Ok(image.data).withHeaders(
-          CONTENT_TYPE -> image.contentType.getOrElse("image/jpeg"),
           CONTENT_DISPOSITION -> image.name,
           CONTENT_LENGTH -> image.size.toString
-        )
+        ) as image.contentType.getOrElse("image/jpeg")
     }
   }
 

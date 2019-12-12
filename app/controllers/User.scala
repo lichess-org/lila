@@ -71,8 +71,7 @@ final class User(
         info <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
       } yield status(html.user.show.page.activity(u, as, info, social))
-    }
-    else env.activity.read.recent(u) map { as =>
+    } else env.activity.read.recent(u) map { as =>
       status(html.activity(u, as))
     }
 

@@ -47,7 +47,6 @@ final class Export(env: Env) extends LilaController(env) {
   private def pngStream(stream: Source[ByteString, _]) =
     Ok.chunked(stream).withHeaders(
       noProxyBufferHeader,
-      CONTENT_TYPE -> "image/png",
       CACHE_CONTROL -> "max-age=7200"
-    )
+    ) as "image/png"
 }

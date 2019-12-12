@@ -232,9 +232,8 @@ final class Puzzle(
           perSecond = MaxPerSecond(20)
         )
         Ok.chunked(env.puzzle.activity.stream(config)).withHeaders(
-          noProxyBufferHeader,
-          CONTENT_TYPE -> ndJsonContentType
-        ).fuccess
+          noProxyBufferHeader
+        ).as(ndJsonContentType).fuccess
       }
     }
   }

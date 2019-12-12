@@ -42,9 +42,8 @@ final class Game(
         env.api.gameApiV2.exportOne(game, config) flatMap { content =>
           env.api.gameApiV2.filename(game, config.format) map { filename =>
             Ok(content).withHeaders(
-              CONTENT_TYPE -> gameContentType(config),
               CONTENT_DISPOSITION -> s"attachment; filename=$filename"
-            )
+            ) as gameContentType(config)
           }
         }
       }
@@ -109,9 +108,8 @@ final class Game(
         perSecond = MaxPerSecond(20)
       )
       Ok.chunked(env.api.gameApiV2.exportByIds(config)).withHeaders(
-        noProxyBufferHeader,
-        CONTENT_TYPE -> gameContentType(config)
-      ).fuccess
+        noProxyBufferHeader
+      ).as(gameContentType(config)).fuccess
     }
   }
 
