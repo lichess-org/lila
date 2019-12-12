@@ -4,7 +4,7 @@ import { MouchEvent, NumberPair } from 'chessground/types';
 import { dragNewPiece } from 'chessground/drag';
 import { eventPosition, opposite } from 'chessground/util';
 import { Rules } from 'chessops/types';
-import { parseFen } from 'chessops/fen';
+import { parseFen, EMPTY_FEN } from 'chessops/fen';
 import EditorCtrl from './ctrl';
 import chessground from './chessground';
 import { OpeningPosition, Selected, CastlingToggle, EditorState } from './interfaces';
@@ -165,6 +165,14 @@ function controls(ctrl: EditorCtrl, state: EditorState): VNode {
         }, allVariants.map(x => variant2option(x[0], x[1], ctrl)))
       ]),
       h('div.actions', [
+        h('a.button.button-empty.text', {
+          attrs: { 'data-icon': 'q' },
+          on: {
+            click() {
+              ctrl.setFen(EMPTY_FEN);
+            }
+          }
+        }, ctrl.trans.noarg('clearBoard')),
         h('a.button.button-empty.text', {
           attrs: { 'data-icon': 'B' },
           on: {
