@@ -280,7 +280,7 @@ object Node {
         .add("crazy", crazyData)
         .add("comp", comp)
         .add("children", if (alwaysChildren || children.nonEmpty) Some {
-          nodeListJsonWriter(alwaysChildren) writes children
+          nodeListJsonWriter(true) writes children
         }
         else None)
         .add("forceVariation", forceVariation)
