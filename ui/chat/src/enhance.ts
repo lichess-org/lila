@@ -1,14 +1,21 @@
-export default function(text: string, parseMoves: boolean): string {
+export function enhance(text: string, parseMoves: boolean): string {
   const escaped = window.lichess.escapeHtml(text);
   const linked = autoLink(escaped);
   const plied = parseMoves && linked === escaped ? addPlies(linked) : linked;
   return plied;
 }
 
+const moreThanTextPattern = /[&<>"@]/;
+const possibleLinkPattern = /\.\w/;
+
+export function isMoreThanText(str: string) {
+  return moreThanTextPattern.test(str) || possibleLinkPattern.test(str);
+}
+
 const linkPattern = /\b(https?:\/\/|lichess\.org\/)[-–—\w+&'@#\/%?=()~|!:,.;]+[\w+&@#\/%=~|]/gi;
 
 function linkReplace(url: string, scheme: string) {
-  if (url.indexOf('&quot;') !== -1) return url;
+  if (url.includes('&quot;')) return url;
   const fullUrl = scheme === 'lichess.org/' ? 'https://' + url : url;
   const minUrl = url.replace(/^https:\/\//, '');
   return '<a target="_blank" rel="nofollow" href="' + fullUrl + '">' + minUrl + '</a>';

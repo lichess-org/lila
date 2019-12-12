@@ -9,7 +9,7 @@ import lila.user.User
 final class OnlineDoing(
     api: RelationApi,
     lightUser: lila.common.LightUser.GetterSync,
-    val userIds: lila.memo.ExpireSetMemo
+    val userIds: () => Set[lila.user.User.ID]
 ) {
 
   private type StudyId = String
@@ -33,8 +33,9 @@ final class OnlineDoing(
   def isStudyingOrWatching(userId: User.ID, studyId: StudyId) = studyingAll.getIfPresent(userId) has studyId
 
   def friendsOf(userId: User.ID): Fu[OnlineFriends] =
-    api fetchFollowing userId map userIds.intersect map { friends =>
-      OnlineFriends(
+    api fetchFollowing userId map userIds().intersect map { friends =>
+      if (friends.isEmpty) OnlineFriends.empty
+      else OnlineFriends(
         users = friends.flatMap { lightUser(_) }(scala.collection.breakOut),
         playing = playing intersect friends,
         studying = friends filter studying.getAllPresent(friends).contains

@@ -2,8 +2,7 @@ package lila.user
 
 import akka.actor._
 import com.typesafe.config.Config
-
-import lila.common.EmailAddress
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
@@ -12,6 +11,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     scheduler: lila.common.Scheduler,
     timeline: ActorSelection,
+    onlineUserIds: () => Set[User.ID],
     system: ActorSystem
 ) {
 
@@ -22,66 +22,62 @@ final class Env(
     val CollectionUser = config getString "collection.user"
     val CollectionNote = config getString "collection.note"
     val CollectionTrophy = config getString "collection.trophy"
+    val CollectionTrophyKind = config getString "collection.trophyKind"
     val CollectionRanking = config getString "collection.ranking"
     val PasswordBPassSecret = config getString "password.bpass.secret"
   }
   import settings._
 
-  lazy val userColl = db(CollectionUser)
+  val userColl = db(CollectionUser)
 
-  lazy val lightUserApi = new LightUserApi(userColl)(system)
+  val lightUserApi = new LightUserApi(userColl)(system)
 
-  lazy val onlineUserIdMemo = new lila.memo.ExpireSetMemo(ttl = OnlineTtl)
+  private def isOnline(userId: User.ID): Boolean = onlineUserIds() contains userId
 
-  lazy val noteApi = new NoteApi(db(CollectionNote), timeline, system.lilaBus)
+  val jsonView = new JsonView(isOnline)
 
-  lazy val trophyApi = new TrophyApi(db(CollectionTrophy))
+  lazy val noteApi = new NoteApi(db(CollectionNote), timeline)
 
-  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, asyncCache, lightUser)
+  lazy val trophyApi = new TrophyApi(db(CollectionTrophy), db(CollectionTrophyKind))(system)
 
-  lazy val jsonView = new JsonView(isOnline)
+  lazy val rankingApi = new RankingApi(db(CollectionRanking), mongoCache, lightUser)(system)
 
   def lightUser(id: User.ID): Fu[Option[lila.common.LightUser]] = lightUserApi async id
   def lightUserSync(id: User.ID): Option[lila.common.LightUser] = lightUserApi sync id
 
   def uncacheLightUser(id: User.ID): Unit = lightUserApi invalidate id
 
-  def isOnline(userId: User.ID): Boolean = onlineUserIdMemo get userId
+  system.scheduler.schedule(1 minute, 1 minute) {
+    lightUserApi.monitorCache
+  }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
+  lila.common.Bus.subscribeFuns(
+    'adjustCheater -> {
       case lila.hub.actorApi.mod.MarkCheater(userId, true) =>
         rankingApi remove userId
         UserRepo.setRoles(userId, Nil)
+    },
+    'adjustBooster -> {
       case lila.hub.actorApi.mod.MarkBooster(userId) => rankingApi remove userId
+    },
+    'kickFromRankings -> {
       case lila.hub.actorApi.mod.KickFromRankings(userId) => rankingApi remove userId
-      case User.Active(user) =>
-        if (!user.seenRecently) UserRepo setSeenAt user.id
-        onlineUserIdMemo put user.id
+    },
+    'gdprErase -> {
       case User.GDPRErase(user) =>
         UserRepo erase user
         noteApi erase user
     }
-  })), 'adjustCheater, 'adjustBooster, 'userActive, 'kickFromRankings, 'gdprErase)
-
-  {
-    import scala.concurrent.duration._
-    import lila.hub.actorApi.WithUserIds
-
-    scheduler.effect(3 seconds, "refresh online user ids") {
-      system.lilaBus.publish(WithUserIds(onlineUserIdMemo.putAll), 'users)
-      onlineUserIdMemo put "lichess"
-    }
-  }
+  )
 
   lazy val cached = new Cached(
     userColl = userColl,
     nbTtl = CachedNbTtl,
-    onlineUserIdMemo = onlineUserIdMemo,
+    onlineUserIds = onlineUserIds,
     mongoCache = mongoCache,
     asyncCache = asyncCache,
     rankingApi = rankingApi
-  )
+  )(system)
 
   lazy val authenticator = new Authenticator(
     passHasher = new PasswordHasher(
@@ -107,7 +103,8 @@ object Env {
     mongoCache = lila.memo.Env.current.mongoCache,
     asyncCache = lila.memo.Env.current.asyncCache,
     scheduler = lila.common.PlayApp.scheduler,
-    timeline = lila.hub.Env.current.actor.timeline,
+    timeline = lila.hub.Env.current.timeline,
+    onlineUserIds = lila.socket.Env.current.onlineUserIds,
     system = lila.common.PlayApp.system
   )
 }

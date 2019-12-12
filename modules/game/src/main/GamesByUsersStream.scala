@@ -6,12 +6,12 @@ import play.api.libs.json._
 
 import actorApi.{ StartGame, FinishGame }
 import chess.format.FEN
+import lila.common.Bus
 import lila.user.User
 
-final class GamesByUsersStream(system: ActorSystem) {
+final class GamesByUsersStream {
 
   import GamesByUsersStream._
-  import lila.common.HttpStream._
 
   def apply(userIds: Set[User.ID]): Enumerator[JsObject] = {
 
@@ -19,20 +19,16 @@ final class GamesByUsersStream(system: ActorSystem) {
       case List(u1, u2) if u1 != u2 => userIds(u1) && userIds(u2)
       case _ => false
     }
-    var stream: Option[ActorRef] = None
+    var subscriber: Option[lila.common.Tellable] = None
 
     val enumerator = Concurrent.unicast[Game](
       onStart = channel => {
-        val actor = system.actorOf(Props(new Actor {
-          def receive = {
-            case StartGame(game) if matches(game) => channel push game
-            case FinishGame(game, _, _) if matches(game) => channel push game
-          }
-        }))
-        system.lilaBus.subscribe(actor, 'startGame, 'finishGame)
-        stream = actor.some
+        subscriber = Bus.subscribeFun(classifiers: _*) {
+          case StartGame(game) if matches(game) => channel push game
+          case FinishGame(game, _, _) if matches(game) => channel push game
+        } some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = subscriber foreach { Bus.unsubscribe(_, classifiers) }
     )
 
     enumerator &> withInitialFen &> toJson
@@ -45,7 +41,9 @@ final class GamesByUsersStream(system: ActorSystem) {
     Enumeratee.map[Game.WithInitialFen].apply[JsObject](gameWithInitialFenWriter.writes)
 }
 
-object GamesByUsersStream {
+private object GamesByUsersStream {
+
+  private val classifiers = List('startGame, 'finishGame)
 
   private implicit val fenWriter: Writes[FEN] = Writes[FEN] { f =>
     JsString(f.value)

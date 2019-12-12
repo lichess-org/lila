@@ -2,9 +2,7 @@ package lila
 
 import org.joda.time.DateTime
 
-import lila.socket.WithSocket
-
-package object challenge extends PackageObject with WithSocket {
+package object challenge extends PackageObject {
 
   type EitherChallenger = Either[Challenge.Anonymous, Challenge.Registered]
 

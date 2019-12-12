@@ -50,7 +50,6 @@
     <item quantity="other">%s spilers</item>
   </plurals>
   <string name="signIn">Oanmelde</string>
-  <string name="newToLichess">Nij by Lichess?</string>
   <string name="signUp">Registrearje</string>
   <string name="games">Spullen</string>
   <string name="players">Spilers</string>

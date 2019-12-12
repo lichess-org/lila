@@ -1,8 +1,8 @@
 $(function() {
 
-  $('#lichess_forum').on('click', 'a.delete', function() {
+  $('.forum').on('click', 'a.delete', function() {
     $.post($(this).attr("href"));
-    $(this).closest(".post").hide();
+    $(this).closest(".forum-post").hide();
     return false;
   }).on('click', 'form.unsub button', function() {
     var $form = $(this).parent().toggleClass('on off');
@@ -13,7 +13,7 @@ $(function() {
   $('.edit.button').add('.edit-post-cancel').click(function(e) {
     e.preventDefault();
 
-    var post = $(this).closest('.post');
+    var post = $(this).closest('.forum-post');
     var message = post.find('.message').toggle();
     var form = post.find('form.edit-post-form').toggle();
 
@@ -23,13 +23,13 @@ $(function() {
 
   $('.post-text-area').one('focus', function() {
 
-    var textarea = this;
+    var textarea = this, topicId = $(this).attr('data-topic');
 
-    lichess.loadScript('/assets/vendor/textcomplete.min.js').then(function() {
+    if (topicId) lichess.loadScript('vendor/textcomplete.min.js').then(function() {
 
       var searchCandidates = function(term, candidateUsers) {
         return candidateUsers.filter(function(user) {
-          return user.toLowerCase().indexOf(term.toLowerCase()) === 0;
+          return user.toLowerCase().startsWith(term.toLowerCase());
         });
       };
 
@@ -37,7 +37,7 @@ $(function() {
       // forums will be only to read the thread. So the 'thread participants' starts out empty until the post text area
       // is focused.
       var threadParticipants = $.ajax({
-        url: "/forum/participants/" + $('.post-text-area').attr('data-topic')
+        url: "/forum/participants/" + topicId
       });
 
       var textcomplete = new Textcomplete(new Textcomplete.editors.Textarea(textarea));

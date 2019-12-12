@@ -7,8 +7,9 @@ import scala.concurrent.duration._
 import lila.api.Context
 import lila.app._
 import lila.chat.Chat
-import lila.common.{ IpAddress, HTTPRequest }
 import lila.common.paginator.{ Paginator, PaginatorJson }
+import lila.common.{ IpAddress, HTTPRequest }
+import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
 import lila.study.{ Chapter, Order, Study => StudyModel }
@@ -26,13 +27,13 @@ object Study extends LilaController {
       if (text.trim.isEmpty)
         env.pager.all(ctx.me, Order.default, page) flatMap { pag =>
           negotiate(
-            html = Ok(html.study.all(pag, Order.default)).fuccess,
+            html = Ok(html.study.list.all(pag, Order.default)).fuccess,
             api = _ => apiStudies(pag)
           )
         }
       else Env.studySearch(ctx.me)(text, page) flatMap { pag =>
         negotiate(
-          html = Ok(html.study.search(pag, text)).fuccess,
+          html = Ok(html.study.list.search(pag, text)).fuccess,
           api = _ => apiStudies(pag)
         )
       }
@@ -48,7 +49,7 @@ object Study extends LilaController {
         case order =>
           env.pager.all(ctx.me, order, page) flatMap { pag =>
             negotiate(
-              html = Ok(html.study.all(pag, order)).fuccess,
+              html = Ok(html.study.list.all(pag, order)).fuccess,
               api = _ => apiStudies(pag)
             )
           }
@@ -63,7 +64,7 @@ object Study extends LilaController {
       _.fold(notFound(ctx)) { owner =>
         env.pager.byOwner(owner, ctx.me, Order(order), page) flatMap { pag =>
           negotiate(
-            html = Ok(html.study.byOwner(pag, Order(order), owner)).fuccess,
+            html = Ok(html.study.list.byOwner(pag, Order(order), owner)).fuccess,
             api = _ => apiStudies(pag)
           )
         }
@@ -74,7 +75,7 @@ object Study extends LilaController {
   def mine(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.mine(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.mine(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mine(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -83,7 +84,7 @@ object Study extends LilaController {
   def minePublic(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.minePublic(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.minePublic(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.minePublic(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -92,7 +93,7 @@ object Study extends LilaController {
   def minePrivate(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.minePrivate(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.minePrivate(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.minePrivate(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -101,7 +102,7 @@ object Study extends LilaController {
   def mineMember(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.mineMember(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.mineMember(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mineMember(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -110,7 +111,7 @@ object Study extends LilaController {
   def mineLikes(order: String, page: Int) = Auth { implicit ctx => me =>
     env.pager.mineLikes(me, Order(order), page) flatMap { pag =>
       negotiate(
-        html = Ok(html.study.mineLikes(pag, Order(order), me)).fuccess,
+        html = Ok(html.study.list.mineLikes(pag, Order(order), me)).fuccess,
         api = _ => apiStudies(pag)
       )
     }
@@ -209,24 +210,12 @@ object Study extends LilaController {
     }
   }
 
-  private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) =
-    (ctx.noKid && ctx.me.exists { me =>
-      study.isMember(me.id) || Env.chat.panic.allowed(me)
-    }) ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
-
-  def websocket(id: String, apiVersion: Int) = SocketOption[JsValue] { implicit ctx =>
-    get("sri") ?? { uid =>
-      env.api byId id flatMap {
-        _.filter(canView) ?? { study =>
-          env.socketHandler.join(
-            studyId = id,
-            uid = lila.socket.Socket.Uid(uid),
-            user = ctx.me
-          )
-        }
+  private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
+    !ctx.kid && // no public chats for kids
+      ctx.me.fold(true) { // anon can see public chats
+        Env.chat.panic.allowed
       }
-    }
-  }
+  } ?? Env.chat.api.userChat.findMine(Chat.Id(study.id.value), ctx.me).map(some)
 
   def createAs = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
@@ -270,44 +259,45 @@ object Study extends LilaController {
 
   def importPgn(id: String) = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
-    lila.study.DataForm.importPgn.form.bindFromRequest.fold(
-      err => BadRequest(errorsAsJson(err)).fuccess,
-      data => env.api.importPgns(me, StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky)
-    )
+    get("sri") ?? { sri =>
+      lila.study.DataForm.importPgn.form.bindFromRequest.fold(
+        jsonFormError,
+        data => env.api.importPgns(
+          StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky
+        )(Who(me.id, lila.socket.Socket.Sri(sri)))
+      )
+    }
   }
 
-  def embed(id: String, chapterId: String) = Open { implicit ctx =>
-    env.api.byIdWithChapter(id, chapterId) flatMap {
+  def embed(id: String, chapterId: String) = Action.async { implicit req =>
+    env.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) {
-        case WithChapter(study, chapter) => CanViewResult(study) {
-          env.jsonView(study.copy(
+        case WithChapter(study, chapter) => for {
+          chapters <- env.chapterRepo.idNames(study.id)
+          studyJson <- env.jsonView(study.copy(
             members = lila.study.StudyMembers(Map.empty) // don't need no members
-          ), List(chapter.metadata), chapter, ctx.me) flatMap { studyJson =>
-            val setup = chapter.setup
-            val initialFen = chapter.root.fen.some
-            val pov = UserAnalysis.makePov(initialFen, setup.variant)
-            val baseData = Env.round.jsonView.userAnalysisJson(pov, ctx.pref, initialFen, setup.orientation, owner = false, me = ctx.me)
-            val analysis = baseData ++ Json.obj(
-              "treeParts" -> partitionTreeJsonWriter.writes {
-                lila.study.TreeBuilder.makeRoot(chapter.root)
-              }
-            )
-            val data = lila.study.JsonView.JsData(
-              study = studyJson,
-              analysis = analysis
-            )
-            negotiate(
-              html = Ok(html.study.embed(study, chapter, data)).fuccess,
-              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-            )
-          }
-        }
+          ), List(chapter.metadata), chapter, none)
+          setup = chapter.setup
+          initialFen = chapter.root.fen.some
+          pov = UserAnalysis.makePov(initialFen, setup.variant)
+          baseData = Env.round.jsonView.userAnalysisJson(pov, lila.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
+          analysis = baseData ++ Json.obj(
+            "treeParts" -> partitionTreeJsonWriter.writes {
+              lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+            }
+          )
+          data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+          result <- negotiate(
+            html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
+            api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+          )
+        } yield result
       }
     } map NoCache
   }
 
-  private def embedNotFound(implicit ctx: Context): Fu[Result] =
-    fuccess(NotFound(html.study.embedNotFound()))
+  private def embedNotFound(implicit req: RequestHeader): Fu[Result] =
+    fuccess(NotFound(html.study.embed.notFound))
 
   def cloneStudy(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.api.byId(id)) { study =>
@@ -388,10 +378,20 @@ object Study extends LilaController {
     }
   }
 
-  private def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
+  def multiBoard(id: String, page: Int) = Open { implicit ctx =>
+    OptionFuResult(env.api byId id) { study =>
+      CanViewResult(study) {
+        env.multiBoard.json(study.id, page, getBool("playing")) map { json =>
+          Ok(json) as JSON
+        }
+      }
+    }
+  }
+
+  private[controllers] def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
     else negotiate(
-      html = fuccess(Unauthorized(html.study.restricted(study))),
+      html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),
       api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
     )
 

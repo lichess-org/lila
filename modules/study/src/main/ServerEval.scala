@@ -2,12 +2,12 @@ package lila.study
 
 import play.api.libs.json._
 
-import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import chess.format.pgn.Glyphs
+import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.hub.actorApi.map.Tell
-import lila.socket.Socket.Uid
+import lila.socket.Socket.Sri
 import lila.tree._
 import lila.tree.Node.Comment
 import lila.user.User
@@ -19,7 +19,7 @@ object ServerEval {
       chapterRepo: ChapterRepo
   ) {
 
-    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit =
+    def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
       chapterRepo.startServerEval(chapter) >>- {
         fishnetActor ! StudyChapterRequest(
           studyId = study.id.value,
@@ -31,37 +31,36 @@ object ServerEval {
             initialFen = chapter.root.fen.value.some,
             variant = chapter.setup.variant
           ).toOption.map(_.map(chess.format.Uci.apply).flatten) | List.empty,
-          userId = userId.some
+          userId = userId
         )
       }
+    }
   }
 
   final class Merger(
       sequencer: StudySequencer,
-      socketHub: akka.actor.ActorRef,
+      socket: StudySocket,
       api: StudyApi,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
   ) {
 
-    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId ?? { studyId =>
-      sequencer.sequenceStudyWithChapter(Study.Id(studyId), Chapter.Id(analysis.id)) {
+    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? { studyId =>
+      sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
         case Study.WithChapter(study, chapter) =>
           (complete ?? chapterRepo.completeServerEval(chapter)) >> {
             lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
               case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
-                chapterRepo.setScore(chapter, path + node, score.some) >>
+                chapterRepo.setScore(score.some)(chapter, path + node) >>
                   advOpt.?? { adv =>
-                    chapterRepo.setComments(chapter, path + node, node.comments + Comment(
+                    chapterRepo.setComments(node.comments + Comment(
                       Comment.Id.make,
                       Comment.Text(adv.makeComment(false, true)),
                       Comment.Author.Lichess
-                    )) >>
+                    ))(chapter, path + node) >>
                       chapterRepo.setGlyphs(
-                        chapter,
-                        path + node,
                         node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                      ) >> {
+                      )(chapter, path + node) >> {
                           chapter.root.nodeAt(path).flatMap { parent =>
                             analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
                               parent.addChild(child).children.get(child.id)
@@ -74,7 +73,7 @@ object ServerEval {
           } >>- {
             chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
               _ ?? { chapter =>
-                socketHub ! Tell(studyId, ServerEval.Progress(
+                socket.onServerEval(studyId, ServerEval.Progress(
                   chapterId = chapter.id,
                   tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
                   analysis = toJson(chapter, analysis),
@@ -115,7 +114,8 @@ object ServerEval {
         check = g.situation.check,
         crazyData = g.situation.board.crazyData,
         clock = none,
-        children = Node.emptyChildren
+        children = Node.emptyChildren,
+        forceVariation = false
       )
     }
   }

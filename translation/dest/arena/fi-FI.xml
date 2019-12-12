@@ -30,8 +30,6 @@ Pelaa nopeasti ja palaa aulaan niin voit pelata lisää pelejä ja ansaita lisä
   <string name="howDoesItEnd">Kuinka turnaus päättyy?</string>
   <string name="howDoesItEndAnswer">Turnauksella on kohti nollaa juokseva ajastin. Kun se menee nollaan, turnauksen sijoitukset virallistetaan ja voittaja julistetaan. Käynnissä olevat pelit tulee pelata loppuun, mutta ne eivät vaikuta sijoituksiin turnauksessa.</string>
   <string name="otherRules">Muita tärkeitä sääntöjä</string>
-  <string name="otherRulesAnswer">Sinun on tehtävä ensimmäinen siirtosi 20 sekunnin kuluessa vuorosi alkamisesta. Jos et tee siirtoa tänä aikana, peli tuomitaan vastustajasi voitoksi.
-Tasapeli ensimmäisten 10 siirron aikana ei tuota kummallekaan pelaajalle pisteitä.</string>
   <string name="thisIsPrivate">Turnaus on yksityinen</string>
   <string name="shareUrl">Jaa tämä URL ihmisille, jotta he voivat liittyä: %s</string>
 </resources>

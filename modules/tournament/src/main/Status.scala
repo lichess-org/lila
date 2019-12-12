@@ -2,7 +2,7 @@ package lila.tournament
 
 private[tournament] sealed abstract class Status(val id: Int) extends Ordered[Status] {
 
-  def compare(other: Status) = id compare other.id
+  def compare(other: Status) = Integer.compare(id, other.id)
 
   def name = toString
 

@@ -8,22 +8,21 @@ interface Filtered {
 
 export default function(ctrl: LobbyController, hooks: Hook[]): Filtered {
   const f = ctrl.data.filter,
-  seen: string[] = [],
-  visible: Hook[] = [],
-  contains = window.lichess.fp.contains;
+    seen: string[] = [],
+    visible: Hook[] = [];
   let variant: string, hidden = 0;
   hooks.forEach(function(hook) {
     variant = hook.variant;
     if (hook.action === 'cancel') visible.push(hook);
     else {
-      if (!contains(f.variant, variant) ||
-        !contains(f.mode, hook.ra || 0) ||
-        !contains(f.speed, hook.s || 1 /* ultrabullet = bullet */) ||
+      if (!f.variant.includes(variant) ||
+        !f.mode.includes(hook.ra || 0) ||
+        !f.speed.includes(hook.s || 1 /* ultrabullet = bullet */) ||
         (f.rating && (!hook.rating || (hook.rating < f.rating[0] || hook.rating > f.rating[1])))) {
         hidden++;
       } else {
-        var hash = hook.ra + variant + hook.t + hook.rating;
-        if (!contains(seen, hash)) visible.push(hook);
+        const hash = hook.ra + variant + hook.t + hook.rating;
+        if (!seen.includes(hash)) visible.push(hook);
         seen.push(hash);
       }
     }

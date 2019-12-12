@@ -23,27 +23,33 @@ object Dependencies {
   }
 
   val scalaz = "org.scalaz" %% "scalaz-core" % "7.2.16"
-  val scalalib = "com.github.ornicar" %% "scalalib" % "6.6"
+  val scalalib = "com.github.ornicar" %% "scalalib" % "6.7"
   val typesafeConfig = "com.typesafe" % "config" % "1.3.1"
   val findbugs = "com.google.code.findbugs" % "jsr305" % "3.0.1"
   val hasher = "com.roundeights" %% "hasher" % "1.2.0"
-  val jodaTime = "joda-time" % "joda-time" % "2.9.9"
-  val chess = "org.lichess" %% "scalachess" % "8.6.11"
+  val jodaTime = "joda-time" % "joda-time" % "2.10.5"
+  val chess = "org.lichess" %% "scalachess" % "8.6.27"
   val compression = "org.lichess" %% "compression" % "1.4"
   val maxmind = "com.sanoma.cda" %% "maxmind-geoip2-scala" % "1.2.3-THIB"
-  val prismic = "io.prismic" %% "scala-kit" % "1.2.11-THIB"
-  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.8.0"
+  val prismic = "io.prismic" %% "scala-kit" % "1.2.13-THIB211"
+  val java8compat = "org.scala-lang.modules" %% "scala-java8-compat" % "0.9.0"
   val semver = "com.gilt" %% "gfc-semver" % "0.0.5"
   val scrimage = "com.sksamuel.scrimage" %% "scrimage-core" % "2.1.8"
   val scalaConfigs = "com.github.kxbmap" %% "configs" % "0.4.4"
-  val scaffeine = "com.github.blemale" %% "scaffeine" % "2.5.0" % "compile"
+  val scaffeine = "com.github.blemale" %% "scaffeine" % "2.6.0" % "compile"
   val netty = "io.netty" % "netty" % "3.10.6.Final"
   val guava = "com.google.guava" % "guava" % "21.0"
+  val googleOAuth = "com.google.auth" % "google-auth-library-oauth2-http" % "0.18.0"
   val specs2 = "org.specs2" %% "specs2-core" % "4.0.2" % "test"
   val specs2Scalaz = "org.specs2" %% "specs2-scalaz" % "4.0.2" % "test"
+  val scalaUri = "io.lemonlabs" %% "scala-uri" % "1.2.0"
+  val scalatags = "com.lihaoyi" %% "scalatags" % "0.6.7"
+  val lettuce = "io.lettuce" % "lettuce-core" % "5.2.1.RELEASE"
+  val epoll = "io.netty" % "netty-transport-native-epoll" % "4.1.43.Final" classifier "linux-x86_64"
+  val markdown = "com.vladsch.flexmark" % "flexmark-all" % "0.50.42"
 
   object reactivemongo {
-    val version = "0.12.3"
+    val version = "0.12.4"
     val driver = ("org.reactivemongo" %% "reactivemongo" % version)
       .exclude("com.typesafe.akka", "*") // provided by Play
       .exclude("com.typesafe.play", "*")

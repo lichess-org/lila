@@ -5,6 +5,7 @@ import play.api.mvc._
 
 import lila.api.Context
 import lila.app._
+import lila.common.{ HTTPRequest, IpAddress, MaxPerSecond }
 import lila.game.PgnDump
 import lila.puzzle.{ PuzzleId, Result, Puzzle => PuzzleModel, UserInfos }
 import lila.user.UserRepo
@@ -98,7 +99,7 @@ object Puzzle extends LilaController {
       if (puzzle.mate) lila.mon.puzzle.round.mate()
       else lila.mon.puzzle.round.material()
       env.forms.round.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         resultInt => {
           val result = Result(resultInt == 1)
           ctx.me match {
@@ -134,7 +135,7 @@ object Puzzle extends LilaController {
         if (puzzle.mate) lila.mon.puzzle.round.mate()
         else lila.mon.puzzle.round.material()
         env.forms.round.bindFromRequest.fold(
-          err => fuccess(BadRequest(errorsAsJson(err))),
+          jsonFormError,
           resultInt => ctx.me match {
             case Some(me) => for {
               (round, mode) <- env.finisher(
@@ -168,7 +169,7 @@ object Puzzle extends LilaController {
     NoBot {
       implicit val req = ctx.body
       env.forms.vote.bindFromRequest.fold(
-        err => fuccess(BadRequest(errorsAsJson(err))),
+        jsonFormError,
         vote => env.api.vote.find(id, me) flatMap {
           v => env.api.vote.update(id, me, v, vote == 1)
         } map {
@@ -215,18 +216,37 @@ object Puzzle extends LilaController {
     )
   }
 
+  /* For BC */
   def embed = Action { req =>
     Ok {
       val bg = get("bg", req) | "light"
       val theme = get("theme", req) | "brown"
       val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
-      s"""document.write("<iframe src='//$url&embed=" + document.domain + "' class='lichess-training-iframe' allowtransparency='true' frameBorder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
+      s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-training-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
-  def frame = Open { implicit ctx =>
-    OptionOk(env.daily.get) { daily =>
-      html.puzzle.embed(daily)
+  def frame = Action.async { implicit req =>
+    env.daily.get map {
+      case None => NotFound
+      case Some(daily) => html.puzzle.embed(daily)
     }
   }
+
+  def activity = Scoped(_.Puzzle.Read) { req => me =>
+    Api.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
+      Api.GlobalLinearLimitPerUserOption(me.some) {
+        val config = lila.puzzle.PuzzleActivity.Config(
+          user = me,
+          max = getInt("max", req) map (_ atLeast 1),
+          perSecond = MaxPerSecond(20)
+        )
+        Ok.chunked(env.activity.stream(config)).withHeaders(
+          noProxyBufferHeader,
+          CONTENT_TYPE -> ndJsonContentType
+        ).fuccess
+      }
+    }
+  }
+
 }

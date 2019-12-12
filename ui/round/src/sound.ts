@@ -1,4 +1,4 @@
-import { throttle } from 'common';
+import throttle from 'common/throttle';
 
 function throttled(sound: string): () => void {
   return throttle(100, () => window.lichess.sound[sound]())

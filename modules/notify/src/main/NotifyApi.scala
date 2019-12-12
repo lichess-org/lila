@@ -2,14 +2,14 @@ package lila.notify
 
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
-import lila.hub.actorApi.SendTo
+import lila.hub.actorApi.socket.SendTo
 import lila.user.UserRepo
 
 final class NotifyApi(
-    bus: lila.common.Bus,
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -35,7 +35,12 @@ final class NotifyApi(
     getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
-    repo.markAllRead(userId) >>- unreadCountCache.invalidate(userId)
+    repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
+
+  def markAllRead(userIds: Iterable[Notification.Notifies]) =
+    repo.markAllRead(userIds) >>- userIds.foreach {
+      unreadCountCache.put(_, fuccess(0))
+    }
 
   private val unreadCountCache = asyncCache.clearable(
     name = "notify.unreadCountCache",
@@ -55,7 +60,7 @@ final class NotifyApi(
     }
 
   def addNotificationWithoutSkipOrEvent(notification: Notification): Funit =
-    repo.insert(notification) >>- unreadCountCache.invalidate(notification.notifies)
+    repo.insert(notification) >>- unreadCountCache.update(notification.notifies, _ + 1)
 
   def addNotifications(notifications: List[Notification]): Funit =
     notifications.map(addNotification).sequenceFu.void
@@ -71,7 +76,6 @@ final class NotifyApi(
         case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(invitedBy, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
         case PrivateMessage(_, thread, _) => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
-        case QaAnswer(_, question, _) => repo.hasRecentQaAnswer(notification.notifies, question)
         case _ => fuFalse
       }
     }
@@ -92,6 +96,6 @@ final class NotifyApi(
   private def notifyUser(notifies: Notification.Notifies): Funit =
     getNotificationsAndCount(notifies, 1) map { msg =>
       import play.api.libs.json.Json
-      bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'users)
+      Bus.publish(SendTo(notifies.value, "notifications", Json toJson msg), 'socketUsers)
     }
 }

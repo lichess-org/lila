@@ -1,5 +1,0 @@
-@(query: Option[String])(implicit ctx: Context)
-<form class="search" method="GET" action="@routes.Video.index">
-  <span data-icon="y"></span>
-  <input placeholder="@trans.search()" type="text" name="q" value="@query" />
-</form>

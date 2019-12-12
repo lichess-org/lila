@@ -1,6 +1,5 @@
 package controllers
 
-import org.joda.time.DateTime
 import play.api.libs.iteratee._
 import play.api.libs.json._
 import play.api.mvc._
@@ -18,9 +17,9 @@ object Bot extends LilaController {
     }
   }
 
-  def move(id: String, uci: String) = Scoped(_.Bot.Play) { _ => me =>
+  def move(id: String, uci: String, offeringDraw: Option[Boolean]) = Scoped(_.Bot.Play) { _ => me =>
     WithMyBotGame(id, me) { pov =>
-      Env.bot.player(pov, me, uci) inject jsonOkResult recover {
+      Env.bot.player(pov, me, uci, offeringDraw) inject jsonOkResult recover {
         case e: Exception => BadRequest(jsonError(e.getMessage))
       }
     }
@@ -29,12 +28,14 @@ object Bot extends LilaController {
   def command(cmd: String) = ScopedBody(_.Bot.Play) { implicit req => me =>
     cmd.split('/') match {
       case Array("account", "upgrade") =>
-        lila.user.UserRepo.setBot(me) >>- Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-          case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
-        }
+        lila.user.UserRepo.setBot(me) >>
+          Env.pref.api.setBot(me) >>-
+          Env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
+            case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
+          }
       case Array("game", id, "chat") => WithBot(me) {
         Env.bot.form.chat.bindFromRequest.fold(
-          err => BadRequest(errorsAsJson(err)).fuccess,
+          jsonFormErrorDefaultLang,
           res => WithMyBotGame(id, me) { pov =>
             Env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
           }
@@ -60,7 +61,7 @@ object Bot extends LilaController {
 
   private def WithMyBotGame(anyId: String, me: lila.user.User)(f: lila.game.Pov => Fu[Result]) =
     WithBot(me) {
-      Env.round.roundProxyGame(lila.game.Game takeGameId anyId) flatMap {
+      Env.round.proxy.game(lila.game.Game takeGameId anyId) flatMap {
         case None => NotFound(jsonError("No such game")).fuccess
         case Some(game) => lila.game.Pov(game, me) match {
           case None => NotFound(jsonError("Not your game")).fuccess

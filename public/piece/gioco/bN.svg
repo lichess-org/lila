@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient1861-4" x1="3295.1" x2="3321.5" y1="-411.88" y2="-411.88" gradientTransform="matrix(1.0621 0 0 1.0589 -3487.5 459.63)" gradientUnits="userSpaceOnUse" xlink:href="#GG"/>
+  <linearGradient id="GG">
+   <stop stop-color="#796c60" offset="0"/>
+   <stop stop-color="#4b403b" offset="1"/>
+  </linearGradient>
+  <linearGradient id="linearGradient4568" x1="-177.63" x2="-151.24" y1="156.68" y2="156.68" gradientTransform="matrix(1.1509 0 0 1.1499 214.24 -138.92)" gradientUnits="userSpaceOnUse" xlink:href="#GG"/>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g clip-rule="evenodd" fill-rule="evenodd" shape-rendering="geometricPrecision">
+  <path class="st28" d="m25.987 23.546-11.592 1.0972-1.4539-5.2159 14.468-6.8148 1.7627-3.9014 10.201 11.893c0 7e-5 -4.1164 17.678-4.1164 17.678l-20.517-3e-5c0.24439-11.292 9.6388-8.1002 11.247-14.736z" fill="url(#linearGradient1861-4)" image-rendering="optimizeQuality" stroke="#1e1e1e" stroke-linejoin="round" stroke-width="1.6"/>
+  <path d="m29.173 8.7206-0.87878 1.9441 0.42601-0.94271c2.6921 3.7225 5.6077 7.2787 8.4495 10.888l-5.285 17.671h3.3727s4.1154-17.667 4.1166-17.671z" image-rendering="optimizeQuality" opacity=".15" stroke-width="1.0999"/>
+  <path d="m13.24 38.286c-1.4368 0-2.627 1.2165-2.627 2.6847v0.5449l0.0125 2.6847h28.749l0.0125-2.6847v-0.5449c0-1.4682-1.1903-2.6847-2.627-2.6847h-11.76z" fill="url(#linearGradient4568)" image-rendering="optimizeQuality" stroke="#1e1e1e" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6"/>
+ </g>
+ <path d="m15.62 37.633c0.15876-4.4723 2.1448-6.9714 8.6668-9.837-0.98675 1.1072-6.4046 2.2365-8.6668 9.837z" fill="#fff" opacity=".25"/>
+ <path d="m14.418 21.67-0.5231-1.8028 14.136-6.6567 1.2167-2.7642-0.67098 3.558-14.35 5.9208z" fill="#fff" opacity=".25"/>
+</svg>

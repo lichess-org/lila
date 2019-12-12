@@ -11,11 +11,8 @@ final class Env(
     db: lila.db.Env
 ) {
 
-  private val settings = new {
-    val CollectionShutup = config getString "collection.shutup"
-    val ActorName = config getString "actor.name"
-  }
-  import settings._
+  private val CollectionShutup = config getString "collection.shutup"
+  private val ActorName = config getString "actor.name"
 
   lazy val api = new ShutupApi(
     coll = coll,
@@ -33,8 +30,8 @@ final class Env(
         api.publicForumMessage(userId, text)
       case RecordTeamForumMessage(userId, text) =>
         api.teamForumMessage(userId, text)
-      case RecordPrivateMessage(userId, toUserId, text) =>
-        api.privateMessage(userId, toUserId, text)
+      case RecordPrivateMessage(userId, toUserId, text, major) =>
+        api.privateMessage(userId, toUserId, text, major)
       case RecordPrivateChat(chatId, userId, text) =>
         api.privateChat(chatId, userId, text)
       case RecordPublicChat(userId, text, source) =>
@@ -47,7 +44,7 @@ object Env {
 
   lazy val current: Env = "shutup" boot new Env(
     config = lila.common.PlayApp loadConfig "shutup",
-    reporter = lila.hub.Env.current.actor.report,
+    reporter = lila.hub.Env.current.report,
     system = lila.common.PlayApp.system,
     follows = lila.relation.Env.current.api.fetchFollows _,
     db = lila.db.Env.current

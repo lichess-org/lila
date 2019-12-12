@@ -2,41 +2,34 @@ package lila.socket
 
 import akka.actor._
 import com.typesafe.config.Config
-
-import actorApi._
+import io.lettuce.core._
+import scala.concurrent.duration._
 
 final class Env(
     config: Config,
-    system: ActorSystem,
-    scheduler: lila.common.Scheduler
+    lifecycle: play.api.inject.ApplicationLifecycle,
+    hub: lila.hub.Env
 ) {
 
-  import scala.concurrent.duration._
+  private val RedisUri = config getString "redis.uri"
 
-  private val HubName = config getString "hub.name"
-  private val MoveBroadcastName = config getString "move_broadcast.name"
-  private val UserRegisterName = config getString "user_register.name"
-  private val PopulationName = config getString "population.name"
+  val remoteSocket = new RemoteSocket(
+    redisClient = RedisClient create RedisURI.create(RedisUri),
+    notificationActor = hub.notification,
+    lifecycle = lifecycle
+  )
+  remoteSocket.subscribe("site-in", RemoteSocket.Protocol.In.baseReader)(remoteSocket.baseHandler)
 
-  private val socketHub = system.actorOf(Props[SocketHub], name = HubName)
+  val onlineUserIds: () => Set[String] = () => remoteSocket.onlineUserIds.get
 
-  private val population = system.actorOf(Props[Population], name = PopulationName)
-
-  system.actorOf(Props[MoveBroadcast], name = MoveBroadcastName)
-
-  system.actorOf(Props[UserRegister], name = UserRegisterName)
-
-  scheduler.once(10 seconds) {
-    scheduler.message(4 seconds) { socketHub -> actorApi.Broom }
-    scheduler.message(1 seconds) { population -> PopulationTell }
-  }
+  val isOnline: String => Boolean = userId => onlineUserIds() contains userId
 }
 
 object Env {
 
   lazy val current = "socket" boot new Env(
     config = lila.common.PlayApp loadConfig "socket",
-    system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler
+    lifecycle = lila.common.PlayApp.lifecycle,
+    hub = lila.hub.Env.current
   )
 }

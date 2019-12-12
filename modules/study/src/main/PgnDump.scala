@@ -26,7 +26,9 @@ final class PgnDump(
   def ofChapter(study: Study, chapter: Chapter) = Pgn(
     tags = makeTags(study, chapter),
     turns = toTurns(chapter.root),
-    initial = Initial(chapter.root.comments.list.map(_.text.value))
+    initial = Initial(
+      chapter.root.comments.list.map(_.text.value) ::: shapeComment(chapter.root.shapes).toList
+    )
   )
 
   private val fileR = """[\s,]""".r
@@ -47,7 +49,7 @@ final class PgnDump(
     )
   }
 
-  private def studyUrl(id: Study.Id) = s"$netBaseUrl/study/$id"
+  private def chapterUrl(studyId: Study.Id, chapterId: Chapter.Id) = s"$netBaseUrl/study/$studyId/$chapterId"
 
   private val dateFormat = DateTimeFormat forPattern "yyyy.MM.dd";
 
@@ -58,7 +60,7 @@ final class PgnDump(
     val opening = chapter.opening
     val genTags = List(
       Tag(_.Event, s"${study.name}: ${chapter.name}"),
-      Tag(_.Site, studyUrl(study.id)),
+      Tag(_.Site, chapterUrl(study.id, chapter.id)),
       Tag(_.UTCDate, Tag.UTCDate.format.print(chapter.createdAt)),
       Tag(_.UTCTime, Tag.UTCTime.format.print(chapter.createdAt)),
       Tag(_.Variant, chapter.setup.variant.name.capitalize),

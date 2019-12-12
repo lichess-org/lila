@@ -6,6 +6,7 @@ import com.typesafe.config.Config
 final class Env(
     config: Config,
     renderer: ActorSelection,
+    historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     system: ActorSystem,
@@ -43,9 +44,9 @@ final class Env(
   )
 
   lazy val finisher = new Finisher(
+    historyApi = historyApi,
     api = api,
-    puzzleColl = puzzleColl,
-    bus = system.lilaBus
+    puzzleColl = puzzleColl
   )
 
   lazy val selector = new Selector(
@@ -75,6 +76,11 @@ final class Env(
     system.scheduler
   )
 
+  lazy val activity = new PuzzleActivity(
+    puzzleColl = puzzleColl,
+    roundColl = roundColl
+  )(system)
+
   def cli = new lila.common.Cli {
     def process = {
       case "puzzle" :: "disable" :: id :: Nil => parseIntOption(id) ?? { id =>
@@ -93,7 +99,8 @@ object Env {
 
   lazy val current: Env = "puzzle" boot new Env(
     config = lila.common.PlayApp loadConfig "puzzle",
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
+    historyApi = lila.history.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system,

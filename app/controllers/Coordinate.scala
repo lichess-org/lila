@@ -30,8 +30,7 @@ object Coordinate extends LilaController {
       err => fuccess(BadRequest),
       value => Env.pref.api.setPref(
         me,
-        (p: lila.pref.Pref) => p.copy(coordColor = value),
-        notifyChange = false
+        (p: lila.pref.Pref) => p.copy(coordColor = value)
       ) inject Ok(())
     )
   }

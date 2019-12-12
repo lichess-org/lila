@@ -4,12 +4,12 @@ import { Ctrl, Challenge, ChallengeData, ChallengeDirection, ChallengeUser, Time
 
 export function loaded(ctrl: Ctrl): VNode {
   return ctrl.redirecting() ?
-  h('div#challenge_app.dropdown', h('div.initiating', spinner())) :
-  h('div#challenge_app.links.dropdown.rendered', renderContent(ctrl));
+  h('div#challenge-app.dropdown', h('div.initiating', spinner())) :
+  h('div#challenge-app.links.dropdown.rendered', renderContent(ctrl));
 }
 
 export function loading(): VNode {
-  return h('div#challenge_app.links.dropdown.rendered', [
+  return h('div#challenge-app.links.dropdown.rendered', [
     h('div.empty.loading', '-'),
     create()
   ]);
@@ -126,13 +126,13 @@ function timeControl(c: TimeControl): string {
 function renderUser(u?: ChallengeUser): VNode {
   if (!u) return h('span', 'Open challenge');
   const rating = u.rating + (u.provisional ? '?' : '');
-  return h('a.ulpt.user_link', {
+  return h('a.ulpt.user-link', {
     attrs: { href: `/@/${u.name}`},
     class: { online: !!u.online }
   }, [
     h('i.line' + (u.patron ? '.patron' : '')),
     h('name', [
-      u.title && h('span.title', { attrs: { 'data-title': u.title } }, u.title + ' '),
+      u.title && h('span.title', u.title == 'BOT' ? { attrs: { 'data-bot': true } } : {}, u.title + ' '),
       u.name + ' (' + rating + ') '
     ]),
       h('signal', u.lag === undefined ? [] : [1, 2, 3, 4].map((i) => h('i', {

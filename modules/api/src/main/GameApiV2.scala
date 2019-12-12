@@ -14,6 +14,7 @@ import lila.db.dsl._
 import lila.game.JsonView._
 import lila.game.PgnDump.WithFlags
 import lila.game.{ Game, GameRepo, Query, PerfPicker }
+import lila.tournament.Tournament
 import lila.user.User
 
 final class GameApiV2(
@@ -49,10 +50,13 @@ final class GameApiV2(
 
   def exportByUser(config: ByUserConfig): Enumerator[String] = {
 
+    val query =
+      config.vs.fold(Query.user(config.user.id)) { Query.opponents(config.user, _) } ++
+        Query.createdBetween(config.since, config.until) ++
+        (!config.ongoing).??(Query.finished)
+
     val infiniteGames = GameRepo.sortedCursor(
-      config.vs.fold(Query.user(config.user.id)) { vs =>
-        Query.opponents(config.user, vs)
-      } ++ Query.createdBetween(config.since, config.until) ++ Query.finished,
+      query,
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
@@ -61,6 +65,8 @@ final class GameApiV2(
 
     val games = config.max.fold(infiniteGames) { max =>
       // I couldn't figure out how to do it properly :( :( :(
+      // the nb can't be set as bulkEnumerator(nb)
+      // because games are further filtered after being fetched
       var nb = 0
       infiniteGames &> Enumeratee.mapInput { in =>
         nb = nb + 1
@@ -78,6 +84,19 @@ final class GameApiV2(
       Query.sortCreated,
       batchSize = config.perSecond.value
     ).bulkEnumerator() &>
+      lila.common.Iteratee.delay(1 second) &>
+      Enumeratee.mapConcat(_.toSeq) &>
+      Enumeratee.mapM(enrich(config.flags)) &>
+      formatterFor(config)
+
+  def exportByTournament(config: ByTournamentConfig): Enumerator[String] =
+    lila.tournament.PairingRepo.sortedGameIdsCursor(
+      tournamentId = config.tournamentId,
+      batchSize = config.perSecond.value
+    ).bulkEnumerator() &>
+      Enumeratee.mapM { pairingDocs =>
+        GameRepo.gamesFromSecondary(pairingDocs.flatMap { _.getAs[Game.ID]("_id") }.toSeq)
+      } &>
       lila.common.Iteratee.delay(1 second) &>
       Enumeratee.mapConcat(_.toSeq) &>
       Enumeratee.mapM(enrich(config.flags)) &>
@@ -124,6 +143,7 @@ final class GameApiV2(
           .add("ratingDiff", p.ratingDiff)
           .add("name", p.name)
           .add("provisional" -> p.provisional)
+          .add("aiLevel" -> p.aiLevel)
           .add("analysis" -> analysisOption.flatMap(analysisJson.player(g pov p.color)))
         // .add("moveCentis" -> withFlags.moveTimes ?? g.moveTimes(p.color).map(_.map(_.centis)))
       })
@@ -133,6 +153,7 @@ final class GameApiV2(
       .add("moves" -> withFlags.moves.option(g.pgnMoves mkString " "))
       .add("daysPerTurn" -> g.daysPerTurn)
       .add("analysis" -> analysisOption.ifTrue(withFlags.evals).map(analysisJson.moves(_, withGlyph = false)))
+      .add("tournament" -> g.tournamentId)
       .add("clock" -> g.clock.map { clock =>
         Json.obj(
           "initial" -> clock.limitSeconds,
@@ -178,6 +199,7 @@ object GameApiV2 {
       rated: Option[Boolean] = None,
       perfType: Set[lila.rating.PerfType],
       analysed: Option[Boolean] = None,
+      ongoing: Boolean = false,
       color: Option[chess.Color],
       flags: WithFlags,
       perSecond: MaxPerSecond
@@ -192,6 +214,13 @@ object GameApiV2 {
 
   case class ByIdsConfig(
       ids: Seq[Game.ID],
+      format: Format,
+      flags: WithFlags,
+      perSecond: MaxPerSecond
+  ) extends Config
+
+  case class ByTournamentConfig(
+      tournamentId: Tournament.ID,
       format: Format,
       flags: WithFlags,
       perSecond: MaxPerSecond

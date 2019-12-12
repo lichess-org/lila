@@ -6,12 +6,13 @@ import org.joda.time.DateTime
 import chess.Mode
 import lila.db.dsl._
 import lila.rating.{ Glicko, PerfType }
+import lila.common.Bus
 import lila.user.{ User, UserRepo }
 
 private[puzzle] final class Finisher(
     api: PuzzleApi,
-    puzzleColl: Coll,
-    bus: lila.common.Bus
+    historyApi: lila.history.HistoryApi,
+    puzzleColl: Coll
 ) {
 
   def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
@@ -32,6 +33,7 @@ private[puzzle] final class Finisher(
             rating = formerUserRating,
             ratingDiff = userPerf.intRating - formerUserRating
           )
+          historyApi.addPuzzle(user = user, completedAt = date, perf = userPerf)
           (api.round upsert round) >> {
             puzzleColl.update(
               $id(puzzle.id),
@@ -39,7 +41,7 @@ private[puzzle] final class Finisher(
                 $set(Puzzle.BSONFields.perf -> PuzzlePerf.puzzlePerfBSONHandler.write(puzzlePerf))
             ) zip UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf)
           } inject {
-            bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
+            Bus.publish(Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating), 'finishPuzzle)
             round -> Mode.Rated
           }
         }
@@ -76,7 +78,7 @@ private[puzzle] final class Finisher(
     )
     (api.round add a) >>
       UserRepo.setPerf(user.id, PerfType.Puzzle, userPerf) >>-
-      bus.publish(
+      Bus.publish(
         Puzzle.UserResult(puzzle.id, user.id, result, formerUserRating -> userPerf.intRating),
         'finishPuzzle
       ) inject

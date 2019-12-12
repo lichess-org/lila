@@ -42,6 +42,7 @@ final class PrefApi(
       autoQueen = r.getD("autoQueen", Pref.default.autoQueen),
       autoThreefold = r.getD("autoThreefold", Pref.default.autoThreefold),
       takeback = r.getD("takeback", Pref.default.takeback),
+      moretime = r.getD("moretime", Pref.default.moretime),
       clockTenths = r.getD("clockTenths", Pref.default.clockTenths),
       clockBar = r.getD("clockBar", Pref.default.clockBar),
       clockSound = r.getD("clockSound", Pref.default.clockSound),
@@ -64,6 +65,7 @@ final class PrefApi(
       zen = r.getD("zen", Pref.default.zen),
       rookCastle = r.getD("rookCastle", Pref.default.rookCastle),
       pieceNotation = r.getD("pieceNotation", Pref.default.pieceNotation),
+      resizeHandle = r.getD("resizeHandle", Pref.default.resizeHandle),
       moveEvent = r.getD("moveEvent", Pref.default.moveEvent),
       tags = r.getD("tags", Pref.default.tags)
     )
@@ -83,6 +85,7 @@ final class PrefApi(
       "autoQueen" -> o.autoQueen,
       "autoThreefold" -> o.autoThreefold,
       "takeback" -> o.takeback,
+      "moretime" -> o.moretime,
       "clockTenths" -> o.clockTenths,
       "clockBar" -> o.clockBar,
       "clockSound" -> o.clockSound,
@@ -106,14 +109,15 @@ final class PrefApi(
       "rookCastle" -> o.rookCastle,
       "moveEvent" -> o.moveEvent,
       "pieceNotation" -> o.pieceNotation,
+      "resizeHandle" -> o.resizeHandle,
       "tags" -> o.tags
     )
   }
 
-  def saveTag(user: User, name: String, value: String) =
+  def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
     coll.update(
       $id(user.id),
-      $set(s"tags.$name" -> value),
+      $set(s"tags.${tag(Pref.Tag)}" -> value),
       upsert = true
     ).void >>- { cache refresh user.id }
 
@@ -144,18 +148,30 @@ final class PrefApi(
   def followables(userIds: List[String]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables => userIds map followables.contains }
 
-  def setPref(pref: Pref, notifyChange: Boolean): Funit =
+  def setPref(pref: Pref): Funit =
     coll.update($id(pref.id), pref, upsert = true).void >>- {
       cache refresh pref.id
     }
 
-  def setPref(user: User, change: Pref => Pref, notifyChange: Boolean): Funit =
-    getPref(user) map change flatMap { setPref(_, notifyChange) }
+  def setPref(user: User, change: Pref => Pref): Funit =
+    getPref(user) map change flatMap setPref
 
-  def setPref(userId: String, change: Pref => Pref, notifyChange: Boolean): Funit =
-    getPref(userId) map change flatMap { setPref(_, notifyChange) }
+  def setPref(userId: String, change: Pref => Pref): Funit =
+    getPref(userId) map change flatMap setPref
 
-  def setPrefString(user: User, name: String, value: String, notifyChange: Boolean): Funit =
+  def setPrefString(user: User, name: String, value: String): Funit =
     getPref(user) map { _.set(name, value) } flatten
-      s"Bad pref ${user.id} $name -> $value" flatMap { setPref(_, notifyChange) }
+      s"Bad pref ${user.id} $name -> $value" flatMap setPref
+
+  def setBot(user: User): Funit =
+    setPref(user, (p: Pref) => p.copy(
+      takeback = Pref.Takeback.NEVER,
+      moretime = Pref.Moretime.NEVER,
+      insightShare = Pref.InsightShare.EVERYBODY
+    ))
+
+  def saveNewUserPrefs(user: User, req: RequestHeader): Funit = {
+    val reqPref = RequestPref fromRequest req
+    (reqPref != Pref.default) ?? setPref(reqPref.copy(_id = user.id))
+  }
 }

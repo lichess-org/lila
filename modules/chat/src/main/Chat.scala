@@ -1,7 +1,7 @@
 package lila.chat
 
-import lila.user.User
 import lila.hub.actorApi.shutup.PublicSource
+import lila.user.User
 
 sealed trait AnyChat {
   def id: Chat.Id
@@ -48,6 +48,8 @@ case class UserChat(
   def userIds = lines.map(_.userId)
 
   def truncate(max: Int) = copy(lines = lines.drop((lines.size - max) atLeast 0))
+
+  def hasRecentLine(u: User): Boolean = lines.reverse.take(12).exists(_.userId == u.id)
 }
 
 object UserChat {
@@ -81,6 +83,8 @@ object Chat {
 
   case class Id(value: String) extends AnyVal with StringValue
 
+  case class ResourceId(value: String) extends AnyVal with StringValue
+
   case class Setup(id: Id, publicSource: PublicSource)
 
   def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
@@ -91,7 +95,7 @@ object Chat {
 
   // left: game chat
   // right: tournament/simul chat
-  case class GameOrEvent(either: Either[Restricted, UserChat.Mine]) {
+  case class GameOrEvent(either: Either[Restricted, (UserChat.Mine, ResourceId)]) {
     def game = either.left.toOption
   }
 
@@ -99,6 +103,8 @@ object Chat {
 
   def makeUser(id: Chat.Id) = UserChat(id, Nil)
   def makeMixed(id: Chat.Id) = MixedChat(id, Nil)
+
+  def classify(id: Chat.Id): Symbol = Symbol(s"chat:$id")
 
   object BSONFields {
     val id = "_id"

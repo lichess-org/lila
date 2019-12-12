@@ -52,12 +52,14 @@ final class JsonView(
   }
 
   def pref(p: lila.pref.Pref) = Json.obj(
+    "blindfold" -> p.blindfold,
     "coords" -> p.coords,
     "rookCastle" -> p.rookCastle,
     "animation" -> Json.obj(
       "duration" -> p.animationFactor * animationDuration.toMillis
     ),
     "destination" -> p.destination,
+    "resizeHandle" -> p.resizeHandle,
     "moveEvent" -> p.moveEvent,
     "highlight" -> p.highlight,
     "is3d" -> p.is3d

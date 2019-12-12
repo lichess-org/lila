@@ -3,7 +3,7 @@ package lila.report
 import reactivemongo.bson._
 
 import lila.db.dsl._
-import lila.user.{ User, UserRepo }
+import lila.user.{ User, UserRepo, Title }
 
 private final class ReportScore(
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
@@ -14,14 +14,17 @@ private final class ReportScore(
       impl.baseScore +
         impl.accuracyScore(accuracy) +
         impl.reporterScore(candidate.reporter) +
-        impl.textScore(candidate.reason, candidate.text)
-    } map impl.fixedAutoCommScore(candidate) map { score =>
-      candidate scored Report.Score(score atLeast 5 atMost 100)
-    }
+        impl.autoScore(candidate)
+    } map
+      impl.fixedAutoCommPrintScore(candidate) map
+      impl.commFlagScore(candidate) map { score =>
+        candidate scored Report.Score(score atLeast 5 atMost 100)
+      }
 
   private object impl {
 
     val baseScore = 30
+    val baseScoreAboveThreshold = 50
 
     def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>
       (accuracy.value - 50) * 0.7d
@@ -30,22 +33,25 @@ private final class ReportScore(
     def reporterScore(r: Reporter) =
       titleScore(r.user.title) + flagScore(r.user)
 
-    def titleScore(title: Option[String]) =
-      (title.isDefined) ?? 30d
+    def titleScore(title: Option[Title]) =
+      title.isDefined ?? 30d
 
     def flagScore(user: User) =
-      (user.lameOrTroll) ?? -30d
+      user.lameOrTroll ?? -30d
 
-    private val gameRegex = """lichess.org/\w{8,12}""".r
-
-    def textScore(reason: Reason, text: String) = {
-      (reason == Reason.Cheat || reason == Reason.Boost) &&
-        gameRegex.find(text)
-    } ?? 20
+    def autoScore(candidate: Report.Candidate) =
+      candidate.isAutomatic ?? 20d
 
     // https://github.com/ornicar/lila/issues/4093
-    def fixedAutoCommScore(c: Report.Candidate)(score: Double): Double =
-      if (c.isAutoComm) baseScore else score
+    // https://github.com/ornicar/lila/issues/4587
+    def fixedAutoCommPrintScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isAutoComm) baseScore
+      else if (c.isPrint || c.isCoachReview || c.isPlaybans) baseScoreAboveThreshold
+      else score
+
+    def commFlagScore(c: Report.Candidate)(score: Double): Double =
+      if (c.isCommFlag) score / 2
+      else score
   }
 
   private def candidateOf(report: Report, atom: Report.Atom): Fu[Option[Report.Candidate.Scored]] = for {

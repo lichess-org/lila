@@ -29,6 +29,7 @@ sealed trait Node {
   def addChild(branch: Branch): Node
   def dropFirstChild: Node
   def clock: Option[Centis]
+  def forceVariation: Boolean
 
   // implementation dependent
   def idOption: Option[UciCharPair]
@@ -62,6 +63,7 @@ case class Root(
   def idOption = None
   def moveOption = None
   def comp = false
+  def forceVariation = false
 
   def addChild(branch: Branch) = copy(children = children :+ branch)
   def prependChild(branch: Branch) = copy(children = branch :: children)
@@ -86,7 +88,8 @@ case class Branch(
     opening: Option[FullOpening] = None,
     comp: Boolean = false,
     clock: Option[Centis] = None, // clock state after the move is played, and the increment applied
-    crazyData: Option[Crazyhouse.Data]
+    crazyData: Option[Crazyhouse.Data],
+    forceVariation: Boolean = false // cannot be mainline
 ) extends Node {
 
   def idOption = Some(id)
@@ -261,11 +264,7 @@ object Node {
         .add("glyphs", glyphs.nonEmpty)
         .add("shapes", if (shapes.list.nonEmpty) Some(shapes.list) else None)
         .add("opening", opening)
-        .add("dests", dests.map {
-          _.map {
-            case (orig, dests) => s"${orig.piotr}${dests.map(_.piotr).mkString}"
-          }.mkString(" ")
-        })
+        .add("dests", dests)
         .add("drops", drops.map { drops =>
           JsString(drops.map(_.key).mkString)
         })
@@ -273,11 +272,29 @@ object Node {
         .add("crazy", crazyData)
         .add("comp", comp)
         .add("children", if (alwaysChildren || children.nonEmpty) Some(children) else None)
+        .add("forceVariation", forceVariation)
     } catch {
       case e: StackOverflowError =>
         e.printStackTrace
         sys error s"### StackOverflowError ### in tree.makeNodeJsonWriter($alwaysChildren)"
     }
+  }
+
+  def destString(dests: Map[Pos, List[Pos]]): String = {
+    val sb = new java.lang.StringBuilder(80)
+    var first = true
+    dests foreach {
+      case (orig, dests) =>
+        if (first) first = false
+        else sb append " "
+        sb append orig.piotr
+        dests foreach { sb append _.piotr }
+    }
+    sb.toString
+  }
+
+  implicit val destsJsonWriter: Writes[Map[Pos, List[Pos]]] = Writes { dests =>
+    JsString(destString(dests))
   }
 
   implicit val defaultNodeJsonWriter: Writes[Node] =

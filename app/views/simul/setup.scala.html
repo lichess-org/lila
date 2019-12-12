@@ -1,5 +1,0 @@
-@(sim: lila.simul.Simul)(implicit ctx: Context)
-<span class="setup @if(sim.variantRich){rich}">
-  @sim.clock.config.show •
-  @sim.variants.map(_.name).mkString(", ")
-</span>

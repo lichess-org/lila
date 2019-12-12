@@ -1,10 +1,12 @@
 import { VNode } from 'snabbdom/vnode'
 import { PresetCtrl } from './preset'
+import { Prop } from 'common';
 
 export interface ChatOpts {
   data: ChatData
   writeable: boolean
   kobold: boolean
+  blind: boolean
   timeout: boolean
   parseMoves: boolean
   public: boolean
@@ -31,8 +33,11 @@ export interface ChatData {
   name: string
   lines: Array<Line>
   userId?: string
+  resourceId: string
   loginRequired: boolean
   restricted: boolean
+  palantir: boolean
+  domVersion: number
 }
 
 export interface Line {
@@ -41,6 +46,7 @@ export interface Line {
   d: boolean // deleted
   c?: string // color
   r?: boolean // troll
+  title?: string
 }
 
 export interface Permissions {
@@ -59,12 +65,20 @@ export interface Ctrl {
   preset: PresetCtrl
   note?: NoteCtrl
   moderation(): ModerationCtrl | undefined
-  post(text: string): boolean
+  post(text: string): void
   trans: Trans
   setTab(tab: Tab): void
   setEnabled(v: boolean): void
   plugin?: ChatPlugin
+  palantir: ChatPalantir;
   redraw: Redraw
+  destroy(): void;
+}
+
+export interface ChatPalantir {
+  instance?: Palantir;
+  loaded: boolean;
+  enabled: Prop<boolean>;
 }
 
 export interface ViewModel {
@@ -93,7 +107,6 @@ export interface NoteCtrl {
 export interface ModerationOpts {
   reasons: ModerationReason[]
   permissions: Permissions
-  send(typ: string, data: any): void
   redraw: Redraw
 }
 

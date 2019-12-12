@@ -1,57 +1,18 @@
-const gulp = require('gulp');
-const gutil = require('gulp-util');
-const watchify = require('watchify');
-const browserify = require('browserify');
-const uglify = require('gulp-uglify');
-const source = require('vinyl-source-stream');
-const buffer = require('vinyl-buffer');
-const tsify = require('tsify');
+const lilaGulp = require('@build/tsProject');
+const lilaGulpPlugins = require('@build/tsPlugins');
 
-const destination = '../../public/compiled/';
+lilaGulp('LichessRound', 'lichess.round', __dirname);
 
-function onError(error) {
-  gutil.log(gutil.colors.red(error.message));
-}
-
-function build(debug) {
-  return browserify('src/main.ts', {
-    standalone: 'LichessRound',
-    debug: debug
-  })
-    .plugin(tsify);
-}
-
-const watchedBrowserify = watchify(build(true, false));
-
-function bundle() {
-  return watchedBrowserify
-    .bundle()
-    .on('error', onError)
-    .pipe(source('lichess.round.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(destination));
-}
-
-watchedBrowserify.on('update', bundle);
-watchedBrowserify.on('log', gutil.log);
-
-function dev() {
-  return () => build(true)
-    .bundle()
-    .pipe(source('lichess.round.js'))
-    .pipe(gulp.dest(destination));
-};
-gulp.task('dev', dev(false));
-
-function prod() {
-  return () => build(false)
-    .bundle()
-    .pipe(source('lichess.round.min.js'))
-    .pipe(buffer())
-    .pipe(uglify())
-    .pipe(gulp.dest(destination));
-}
-
-gulp.task('prod', prod(false));
-
-gulp.task('default', bundle);
+// adds commands: KeyboardMove, Speech, NVUI
+lilaGulpPlugins([
+  {
+    standalone: 'KeyboardMove',
+    entries: ['src/plugins/keyboardMove.ts'],
+    target: 'lichess.round.keyboardMove.min.js'
+  },
+  {
+    standalone: 'NVUI',
+    entries: ['src/plugins/nvui.ts'],
+    target: 'lichess.round.nvui.min.js'
+  }
+]);

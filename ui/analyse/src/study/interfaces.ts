@@ -2,12 +2,15 @@ import { Prop } from 'common';
 import { NotifCtrl } from './notif';
 import { AnalyseData, Redraw } from '../interfaces';
 import { StudyPracticeCtrl } from './practice/interfaces';
-import { ChapterDescriptionCtrl } from './chapterDescription';
+import { StudyChaptersCtrl } from './studyChapters';
+import { DescriptionCtrl } from './description';
 import GamebookPlayCtrl from './gamebook/gamebookPlayCtrl';
 import { GamebookOverride } from './gamebook/interfaces';
 import { GlyphCtrl } from './studyGlyph';
+import { CommentForm } from './commentForm';
 import RelayCtrl from './relay/relayCtrl';
 import { ServerEvalCtrl } from './serverEval';
+import { MultiBoardCtrl } from './multiBoard';
 
 export interface StudyCtrl {
   data: StudyData;
@@ -15,16 +18,18 @@ export interface StudyCtrl {
   socketHandler(t: string, d: any): boolean;
   vm: StudyVm;
   relay?: RelayCtrl;
+  multiBoard: MultiBoardCtrl;
   form: any;
   members: any;
-  chapters: any;
+  chapters: StudyChaptersCtrl;
   notif: NotifCtrl;
-  commentForm: any;
+  commentForm: CommentForm;
   glyphForm: GlyphCtrl;
   serverEval: ServerEvalCtrl;
   share: any;
   tags: any;
-  desc: ChapterDescriptionCtrl;
+  studyDesc: DescriptionCtrl;
+  chapterDesc: DescriptionCtrl;
   toggleLike(): void;
   position(): Position;
   isChapterOwner(): boolean;
@@ -34,6 +39,7 @@ export interface StudyCtrl {
   setPath(path: Tree.Path, node: Tree.Node, playedMyself: boolean): void;
   deleteNode(path: Tree.Path): void;
   promote(path: Tree.Path, toMainline: boolean): void;
+  forceVariation(path: Tree.Path, force: boolean): void;
   setChapter(id: string, force?: boolean): void;
   toggleSticky(): void;
   toggleWrite(): void;
@@ -52,10 +58,11 @@ export interface StudyCtrl {
   onPremoveSet(): void;
   redraw: Redraw;
   trans: Trans;
+  sri: string;
 }
 
-export type Tab = 'members' | 'chapters';
-export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share';
+export type Tab = 'intro' | 'members' | 'chapters';
+export type ToolTab = 'tags' | 'comments' | 'glyphs' | 'serverEval' | 'share' | 'multiBoard';
 
 export interface StudyVm {
   loading: boolean;
@@ -90,6 +97,7 @@ export interface StudyData {
   chapters: StudyChapterMeta[]
   chapter: StudyChapter;
   secondsSinceUpdate: number;
+  description?: string;
 }
 
 type UserSelection = 'nobody' | 'owner' | 'contributor' | 'member' | 'everyone';
@@ -100,6 +108,7 @@ export interface StudySettings {
   cloneable: UserSelection;
   chat: UserSelection;
   sticky: Boolean;
+  description: Boolean;
 }
 
 export interface ReloadData {
@@ -121,6 +130,14 @@ export interface StudyFeatures {
 export interface StudyChapterMeta {
   id: string;
   name: string;
+}
+
+export interface StudyChapterConfig extends StudyChapterMeta {
+  orientation: Color;
+  description?: string;
+  practice: boolean;
+  gamebook: boolean;
+  conceal?: number;
 }
 
 export interface StudyChapter {
@@ -169,4 +186,23 @@ export type TagArray = [string, string];
 
 export interface LocalPaths {
   [chapterId: string]: Tree.Path;
+}
+
+export interface ChapterPreview {
+  id: string
+  name: string
+  players?: {
+    white: ChapterPreviewPlayer
+    black: ChapterPreviewPlayer
+  }
+  orientation: Color
+  fen: string
+  lastMove?: string
+  playing: boolean
+}
+
+export interface ChapterPreviewPlayer {
+  name: string
+  title?: string
+  rating?: number
 }

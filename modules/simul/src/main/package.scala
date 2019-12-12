@@ -1,8 +1,6 @@
 package lila
 
-import lila.socket.WithSocket
-
-package object simul extends PackageObject with WithSocket {
+package object simul extends PackageObject {
 
   private[simul] object RandomName {
 
@@ -12,5 +10,7 @@ package object simul extends PackageObject with WithSocket {
     def apply(): String = names(scala.util.Random nextInt size)
   }
 
-  private[simul] def logger = lila.log("simul")
+  private[simul] val logger = lila.log("simul")
+
+  case class SimulTeam(id: String, name: String, isIn: Boolean)
 }

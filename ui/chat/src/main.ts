@@ -16,8 +16,6 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
 } {
   const patch = init([klass, attributes]);
 
-  const container = element.parentNode as HTMLElement;
-
   let vnode: VNode, ctrl: Ctrl
 
   function redraw() {
@@ -26,12 +24,9 @@ export default function LichessChat(element: Element, opts: ChatOpts): {
 
   ctrl = makeCtrl(opts, redraw);
 
-  vnode = patch(element, view(ctrl));
-
-  window.Mousetrap.bind('/', () => {
-    (container.querySelector('input.lichess_say') as HTMLElement).focus();
-    return false;
-  });
+  const blueprint = view(ctrl);
+  element.innerHTML = '';
+  vnode = patch(element, blueprint);
 
   return ctrl;
 };

@@ -17,6 +17,14 @@ case class Path(ids: List[UciCharPair]) extends AnyVal {
   def +(node: Node): Path = Path(ids :+ node.id)
   def +(more: Path): Path = Path(ids ::: more.ids)
 
+  def prepend(id: UciCharPair) = Path(id :: ids)
+
+  def intersect(other: Path): Path = Path {
+    ids zip other.ids takeWhile {
+      case (a, b) => a == b
+    } map (_._1)
+  }
+
   override def toString = ids.mkString
 }
 

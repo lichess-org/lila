@@ -26,7 +26,7 @@ object Coach extends LilaController {
       WithVisibleCoach(c) {
         Env.study.api.publicByIds {
           c.coach.profile.studyIds.map(_.value).map(lila.study.Study.Id.apply)
-        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me) flatMap { studies =>
+        } flatMap Env.study.pager.withChaptersAndLiking(ctx.me, 4) flatMap { studies =>
           api.reviews.approvedByCoach(c.coach) flatMap { reviews =>
             ctx.me.?? { api.reviews.mine(_, c.coach) } map { myReview =>
               lila.mon.coach.pageView.profile(c.coach.id.value)()
@@ -45,7 +45,7 @@ object Coach extends LilaController {
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
           err => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
-            if (data.score < 4) Env.report.api.create(lila.report.Report.Candidate(
+            if (data.score < 4 && !me.reportban) Env.report.api.create(lila.report.Report.Candidate(
               reporter = lila.report.Reporter(me),
               suspect = lila.report.Suspect(c.user),
               reason = lila.report.Reason.Other,

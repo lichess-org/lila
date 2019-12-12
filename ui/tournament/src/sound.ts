@@ -1,4 +1,5 @@
 import { TournamentData } from './interfaces';
+import notify from 'common/notification';
 
 let countDownTimeout: number | undefined;
 const li = window.lichess;
@@ -8,7 +9,7 @@ function doCountDown(targetTime: number) {
   let started = false;
 
   return function curCounter() {
-    let secondsToStart = targetTime - Date.now() / 1000;
+    let secondsToStart = (targetTime - performance.now()) / 1000;
 
     // always play the 0 sound before completing.
     let bestTick = Math.max(0, Math.round(secondsToStart));
@@ -22,7 +23,7 @@ function doCountDown(targetTime: number) {
 
     if (!started && bestTick <= 10) {
       started = true;
-      li.desktopNotification('The tournament is starting!');
+      notify('The tournament is starting!');
     }
   };
 }
@@ -50,7 +51,7 @@ export function countDown(data: TournamentData) {
   if (data.secondsToStart > 60 * 60 * 24) return;
 
   countDownTimeout = setTimeout(
-    doCountDown(Date.now() / 1000 + data.secondsToStart - 0.1),
+    doCountDown(performance.now() + 1000 * data.secondsToStart - 100),
     900);  // wait 900ms before starting countdown.
 
   setTimeout(li.sound.warmup, (data.secondsToStart - 15) * 1000);

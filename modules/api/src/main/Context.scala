@@ -1,9 +1,8 @@
 package lila.api
 
 import play.api.mvc.RequestHeader
-import play.api.i18n.Lang
 
-import lila.common.{ HTTPRequest, AssetVersion, Nonce }
+import lila.common.{ HTTPRequest, Nonce, Lang }
 import lila.pref.Pref
 import lila.relation.actorApi.OnlineFriends
 import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
@@ -16,7 +15,6 @@ case class PageData(
     pref: Pref,
     blindMode: Boolean,
     hasFingerprint: Boolean,
-    assetVersion: AssetVersion,
     inquiry: Option[lila.mod.Inquiry],
     nonce: Option[Nonce],
     error: Boolean = false
@@ -24,7 +22,7 @@ case class PageData(
 
 object PageData {
 
-  def anon(req: RequestHeader, v: AssetVersion, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
+  def anon(req: RequestHeader, nonce: Option[Nonce], blindMode: Boolean = false) = PageData(
     OnlineFriends.empty,
     teamNbRequests = 0,
     nbChallenges = 0,
@@ -32,12 +30,11 @@ object PageData {
     lila.pref.RequestPref fromRequest req,
     blindMode = blindMode,
     hasFingerprint = false,
-    assetVersion = v,
     inquiry = none,
     nonce = nonce
   )
 
-  def error(req: RequestHeader, v: AssetVersion, nonce: Option[Nonce]) = anon(req, v, nonce).copy(error = true)
+  def error(req: RequestHeader, nonce: Option[Nonce]) = anon(req, nonce).copy(error = true)
 }
 
 sealed trait Context extends lila.user.UserContextWrapper {
@@ -53,7 +50,8 @@ sealed trait Context extends lila.user.UserContextWrapper {
   def nbChallenges = pageData.nbChallenges
   def nbNotifications = pageData.nbNotifications
   def pref = pageData.pref
-  def blindMode = pageData.blindMode
+  def blind = pageData.blindMode
+  def noBlind = !blind
   def nonce = pageData.nonce
 
   def currentTheme = lila.pref.Theme(pref.theme)
@@ -78,7 +76,9 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def requiresFingerprint = isAuth && !pageData.hasFingerprint
 
-  def zoom: Option[Int] = req.session get "zoom" flatMap parseIntOption filter (100<)
+  def zoom: Int = {
+    req.session get "zoom2" flatMap parseIntOption map (_ - 100) filter (0 <=) filter (100 >=)
+  } | 85
 }
 
 sealed abstract class BaseContext(
@@ -101,8 +101,8 @@ final class HeaderContext(
 
 object Context {
 
-  def error(req: RequestHeader, v: AssetVersion, lang: Lang, nonce: Option[Nonce]): HeaderContext =
-    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, v, nonce))
+  def error(req: RequestHeader, lang: Lang, nonce: Option[Nonce]): HeaderContext =
+    new HeaderContext(UserContext(req, none, none, lang), PageData.error(req, nonce))
 
   def apply(userContext: HeaderUserContext, pageData: PageData): HeaderContext =
     new HeaderContext(userContext, pageData)

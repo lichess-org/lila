@@ -2,7 +2,7 @@ package lila.game
 
 case class Crosstable(
     users: Crosstable.Users,
-    results: List[Crosstable.Result]
+    results: List[Crosstable.Result] // chronological order, oldest to most recent
 ) {
 
   def user1 = users.user1
@@ -18,12 +18,17 @@ case class Crosstable(
 
   lazy val size = results.size
 
-  def fill = (1 to Crosstable.maxGames - size)
+  def fillSize = Crosstable.maxGames - size
 }
 
 object Crosstable {
 
   val maxGames = 20
+
+  def empty(u1: lila.user.User.ID, u2: lila.user.User.ID) = Crosstable(
+    Users(User(u1, 0), User(u2, 0)),
+    Nil
+  )
 
   case class User(id: String, score: Int) // score is x10
   case class Users(user1: User, user2: User) {
@@ -60,7 +65,7 @@ object Crosstable {
       else None
   }
 
-  case class Result(gameId: String, winnerId: Option[String])
+  case class Result(gameId: Game.ID, winnerId: Option[String])
 
   case class Matchup(users: Users) extends AnyVal { // score is x10
     def fromPov(userId: String) = copy(users = users fromPov userId)
@@ -74,7 +79,7 @@ object Crosstable {
     )
   }
 
-  private[game] def makeKey(u1: String, u2: String): String = List(u1, u2).sorted mkString "/"
+  private[game] def makeKey(u1: String, u2: String): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
 
   import reactivemongo.bson._
   import lila.db.BSON

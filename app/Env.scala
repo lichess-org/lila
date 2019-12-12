@@ -4,14 +4,15 @@ import akka.actor._
 import com.typesafe.config.Config
 import scala.concurrent.duration._
 
+import lila.common.Bus
+import lila.user.User
+
 final class Env(
     config: Config,
     val scheduler: lila.common.Scheduler,
     val system: ActorSystem,
     appPath: String
 ) {
-
-  val CliUsername = config getString "cli.username"
 
   private val RendererName = config getString "app.renderer.name"
 
@@ -22,10 +23,11 @@ final class Env(
     timelineEntries = Env.timeline.entryApi.userEntries _,
     dailyPuzzle = tryDailyPuzzle,
     liveStreams = () => Env.streamer.liveStreamApi.all,
-    countRounds = Env.round.count,
     lobbyApi = Env.api.lobbyApi,
     getPlayban = Env.playban.api.currentBan _,
-    lightUserApi = Env.user.lightUserApi
+    lightUserApi = Env.user.lightUserApi,
+    roundProxyPov = Env.round.proxy.pov _,
+    urgentGames = Env.round.proxy.urgentGames _
   )
 
   lazy val socialInfo = mashup.UserInfo.Social(
@@ -48,7 +50,7 @@ final class Env(
     postApi = Env.forum.postApi,
     studyRepo = Env.study.studyRepo,
     getRatingChart = Env.history.ratingChartApi.apply,
-    getRanks = Env.user.cached.ranking.getAll,
+    getRanks = Env.user.cached.rankingsOf,
     isHostingSimul = Env.simul.isHosting,
     fetchIsStreamer = Env.streamer.api.isStreamer,
     fetchTeamIds = Env.team.cached.teamIdsList,
@@ -62,7 +64,7 @@ final class Env(
     api = Env.team.api,
     getForumNbPosts = Env.forum.categApi.teamNbPosts _,
     getForumPosts = Env.forum.recent.team _,
-    asyncCache = Env.memo.asyncCache
+    preloadTeams = Env.team.cached.preloadSet
   )
 
   private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
@@ -78,9 +80,9 @@ final class Env(
     user <- lila.user.UserRepo byId userId flatten s"No such user $userId"
     goodUser <- !user.lameOrTroll ?? { !Env.playban.api.hasCurrentBan(user.id) }
     _ <- lila.user.UserRepo.disable(user, keepEmail = !goodUser)
-    _ = Env.user.onlineUserIdMemo.remove(user.id)
-    following <- Env.relation.api fetchFollowing user.id
-    _ <- !goodUser ?? Env.activity.write.unfollowAll(user, following)
+    _ <- !goodUser ?? Env.relation.api.fetchFollowing(user.id) flatMap {
+      Env.activity.write.unfollowAll(user, _)
+    }
     _ <- Env.relation.api.unfollowAll(user.id)
     _ <- Env.user.rankingApi.remove(user.id)
     _ <- Env.team.api.quitAll(user.id)
@@ -89,30 +91,31 @@ final class Env(
     _ <- Env.plan.api.cancel(user).nevermind
     _ <- Env.lobby.seekApi.removeByUser(user)
     _ <- Env.security.store.disconnect(user.id)
+    _ <- Env.push.webSubscriptionApi.unsubscribeByUser(user)
     _ <- Env.streamer.api.demote(user.id)
     _ <- Env.coach.api.remove(user.id)
     reports <- Env.report.api.processAndGetBySuspect(lila.report.Suspect(user))
     _ <- self ?? Env.mod.logApi.selfCloseAccount(user.id, reports)
   } yield {
-    system.lilaBus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
+    Bus.publish(lila.hub.actorApi.security.CloseAccount(user.id), 'accountClose)
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
-        system.scheduler.scheduleOnce(1 second) {
-          closeAccount(userId, self = false)
-        }
+  Bus.subscribeFun('garbageCollect) {
+    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      lila.user.UserRepo.isTroll(userId) foreach { troll =>
+        if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
+      }
+  }
+
+  private def kill(userId: User.ID): Unit =
+    system.scheduler.scheduleOnce(1 second) {
+      closeAccount(userId, self = false)
     }
-  })), 'garbageCollect)
 
   system.actorOf(Props(new actor.Renderer), name = RendererName)
 
-  lila.log.boot.info(s"Java version ${System.getProperty("java.version")}")
-  lila.log.boot.info("Preloading modules")
   lila.common.Chronometer.syncEffect(List(
     Env.socket,
-    Env.site,
     Env.tournament,
     Env.lobby,
     Env.game,
@@ -189,7 +192,6 @@ object Env {
   def analyse = lila.analyse.Env.current
   def mod = lila.mod.Env.current
   def notifyModule = lila.notify.Env.current
-  def site = lila.site.Env.current
   def round = lila.round.Env.current
   def lobby = lila.lobby.Env.current
   def setup = lila.setup.Env.current
@@ -204,7 +206,6 @@ object Env {
   def coordinate = lila.coordinate.Env.current
   def tv = lila.tv.Env.current
   def blog = lila.blog.Env.current
-  def qa = lila.qa.Env.current
   def history = lila.history.Env.current
   def video = lila.video.Env.current
   def playban = lila.playban.Env.current
@@ -230,4 +231,6 @@ object Env {
   def streamer = lila.streamer.Env.current
   def oAuth = lila.oauth.Env.current
   def bot = lila.bot.Env.current
+  def evalCache = lila.evalCache.Env.current
+  def rating = lila.rating.Env.current
 }

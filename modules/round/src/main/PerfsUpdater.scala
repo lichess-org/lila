@@ -2,58 +2,58 @@ package lila.round
 
 import chess.{ Speed, Color }
 import org.goochjs.glicko2._
+import org.joda.time.DateTime
 
 import lila.game.{ GameRepo, Game, PerfPicker, RatingDiffs }
 import lila.history.HistoryApi
-import lila.rating.{ Glicko, Perf }
+import lila.rating.{ Glicko, Perf, RatingFactors, RatingRegulator, PerfType => PT }
 import lila.user.{ UserRepo, User, Perfs, RankingApi }
 
 final class PerfsUpdater(
     historyApi: HistoryApi,
-    rankingApi: RankingApi
+    rankingApi: RankingApi,
+    botFarming: BotFarming,
+    ratingFactors: () => RatingFactors
 ) {
 
-  private val VOLATILITY = Glicko.default.volatility
-  private val TAU = 0.75d
-  private val system = new RatingCalculator(VOLATILITY, TAU)
-
   // returns rating diffs
-  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] =
-    PerfPicker.main(game) ?? { mainPerf =>
+  def save(game: Game, white: User, black: User): Fu[Option[RatingDiffs]] = botFarming(game) flatMap {
+    case true => fuccess(none)
+    case _ => PerfPicker.main(game) ?? { mainPerf =>
       (game.rated && game.finished && game.accountable && !white.lame && !black.lame) ?? {
         val ratingsW = mkRatings(white.perfs)
         val ratingsB = mkRatings(black.perfs)
         val result = resultOf(game)
         game.ratingVariant match {
           case chess.variant.Chess960 =>
-            updateRatings(ratingsW.chess960, ratingsB.chess960, result, system)
+            updateRatings(ratingsW.chess960, ratingsB.chess960, result)
           case chess.variant.KingOfTheHill =>
-            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result, system)
+            updateRatings(ratingsW.kingOfTheHill, ratingsB.kingOfTheHill, result)
           case chess.variant.ThreeCheck =>
-            updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result, system)
+            updateRatings(ratingsW.threeCheck, ratingsB.threeCheck, result)
           case chess.variant.Antichess =>
-            updateRatings(ratingsW.antichess, ratingsB.antichess, result, system)
+            updateRatings(ratingsW.antichess, ratingsB.antichess, result)
           case chess.variant.Atomic =>
-            updateRatings(ratingsW.atomic, ratingsB.atomic, result, system)
+            updateRatings(ratingsW.atomic, ratingsB.atomic, result)
           case chess.variant.Horde =>
-            updateRatings(ratingsW.horde, ratingsB.horde, result, system)
+            updateRatings(ratingsW.horde, ratingsB.horde, result)
           case chess.variant.RacingKings =>
-            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result, system)
+            updateRatings(ratingsW.racingKings, ratingsB.racingKings, result)
           case chess.variant.Crazyhouse =>
-            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result, system)
+            updateRatings(ratingsW.crazyhouse, ratingsB.crazyhouse, result)
           case chess.variant.Standard => game.speed match {
             case Speed.Bullet =>
-              updateRatings(ratingsW.bullet, ratingsB.bullet, result, system)
+              updateRatings(ratingsW.bullet, ratingsB.bullet, result)
             case Speed.Blitz =>
-              updateRatings(ratingsW.blitz, ratingsB.blitz, result, system)
+              updateRatings(ratingsW.blitz, ratingsB.blitz, result)
             case Speed.Rapid =>
-              updateRatings(ratingsW.rapid, ratingsB.rapid, result, system)
+              updateRatings(ratingsW.rapid, ratingsB.rapid, result)
             case Speed.Classical =>
-              updateRatings(ratingsW.classical, ratingsB.classical, result, system)
+              updateRatings(ratingsW.classical, ratingsB.classical, result)
             case Speed.Correspondence =>
-              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result, system)
+              updateRatings(ratingsW.correspondence, ratingsB.correspondence, result)
             case Speed.UltraBullet =>
-              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result, system)
+              updateRatings(ratingsW.ultraBullet, ratingsB.ultraBullet, result)
           }
           case _ =>
         }
@@ -73,6 +73,7 @@ final class PerfsUpdater(
           rankingApi.save(black, game.perfType, perfsB) inject ratingDiffs.some
       }
     }
+  }
 
   private final case class Ratings(
       chess960: Rating,
@@ -115,7 +116,7 @@ final class PerfsUpdater(
       case None => Glicko.Result.Draw
     }
 
-  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result, system: RatingCalculator): Unit = {
+  private def updateRatings(white: Rating, black: Rating, result: Glicko.Result): Unit = {
     val results = new RatingPeriodResults()
     result match {
       case Glicko.Result.Draw => results.addDraw(white, black)
@@ -123,7 +124,7 @@ final class PerfsUpdater(
       case Glicko.Result.Loss => results.addResult(black, white)
     }
     try {
-      system.updateRatings(results)
+      Glicko.system.updateRatings(results, true)
     } catch {
       case e: Exception => logger.error("update ratings", e)
     }
@@ -157,6 +158,22 @@ final class PerfsUpdater(
         classical = addRatingIf(isStd && speed == Speed.Classical, perfs.classical, ratings.classical),
         correspondence = addRatingIf(isStd && speed == Speed.Correspondence, perfs.correspondence, ratings.correspondence)
       )
-      if (isStd) perfs1.updateStandard else perfs1
+      val r = RatingRegulator(ratingFactors()) _
+      val perfs2 = perfs1.copy(
+        chess960 = r(PT.Chess960, perfs.chess960, perfs1.chess960),
+        kingOfTheHill = r(PT.KingOfTheHill, perfs.kingOfTheHill, perfs1.kingOfTheHill),
+        threeCheck = r(PT.ThreeCheck, perfs.threeCheck, perfs1.threeCheck),
+        antichess = r(PT.Antichess, perfs.antichess, perfs1.antichess),
+        atomic = r(PT.Atomic, perfs.atomic, perfs1.atomic),
+        horde = r(PT.Horde, perfs.horde, perfs1.horde),
+        racingKings = r(PT.RacingKings, perfs.racingKings, perfs1.racingKings),
+        crazyhouse = r(PT.Crazyhouse, perfs.crazyhouse, perfs1.crazyhouse),
+        bullet = r(PT.Bullet, perfs.bullet, perfs1.bullet),
+        blitz = r(PT.Blitz, perfs.blitz, perfs1.blitz),
+        rapid = r(PT.Rapid, perfs.rapid, perfs1.rapid),
+        classical = r(PT.Classical, perfs.classical, perfs1.classical),
+        correspondence = r(PT.Correspondence, perfs.correspondence, perfs1.correspondence)
+      )
+      if (isStd) perfs2.updateStandard else perfs2
   }
 }

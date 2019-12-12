@@ -1,61 +1,49 @@
 package views.html.game
 
-import play.twirl.api.Html
-
-import controllers.routes
 import lila.api.Context
 import lila.app.templating.Environment._
+import lila.app.ui.ScalatagsTemplate._
 import lila.game.Crosstable
+
+import controllers.routes
 
 object crosstable {
 
-  def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Html =
+  def apply(ct: Crosstable.WithMatchup, currentId: Option[String])(implicit ctx: Context): Frag =
     apply(ct.crosstable, ct.matchup, currentId)(ctx)
 
-  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit ctx: Context): Html = Html {
-
+  def apply(ct: Crosstable, trueMatchup: Option[Crosstable.Matchup], currentId: Option[String])(implicit ctx: Context): Frag = {
     val matchup = trueMatchup.filter(_.users != ct.users)
-
-    val users = ct.users.toList.map { u =>
-
-      val fill = ct.fill.map { i =>
-        s"""<td${if (i == Crosstable.maxGames) " class=\"last\"" else ""}><a>&nbsp;</a></td>"""
-      } mkString ""
-
-      val matchupSepAt: Option[Int] = matchup map { m =>
-        (ct.nbGames min Crosstable.maxGames) - m.users.nbGames
-      }
-
-      val results = ct.results.zipWithIndex.map {
+    val matchupSepAt: Option[Int] = matchup map { m =>
+      (ct.nbGames min Crosstable.maxGames) - m.users.nbGames
+    }
+    div(cls := "crosstable")(
+      ct.fillSize > 0 option raw { s"""<fill style="flex:${ct.fillSize * 0.75} 1 auto"></fill>""" },
+      ct.results.zipWithIndex.map {
         case (r, i) =>
-          val href = s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}"""
-          val (linkClass, text) = r.winnerId match {
-            case Some(w) if w == u.id => "glpt win" -> "1"
-            case None => "glpt" -> "½"
-            case _ => "glpt loss" -> "0"
-          }
-          val link = s"""<a href="$href" class="$linkClass">$text</a>"""
-          val outClass = matchupSepAt.fold("") { at =>
-            if (at == i) "sep new"
-            else if (at > i) "old"
-            else "new"
-          }
-          val current = if (currentId contains r.gameId) " current" else ""
-          s"""<td class="$outClass$current">$link</td>"""
-      } mkString ""
-
-      val matchScore = matchup ?? { m =>
-        s"""<th title="Current match score" class="matchup${m.users.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${m.users.showScore(u.id)}</th>"""
-      }
-
-      val user = s"""<th class="user">${userIdLink(u.id.some, withOnline = false)}</th>"""
-
-      val score = s"""<th title="Lifetime score" class="score${ct.users.winnerId.fold("")(w => if (w == u.id) " win" else " loss")}">${ct.showScore(u.id)}</th>"""
-
-      s"""<tr>$fill$results$matchScore$user$score</tr>"""
-
-    } mkString ""
-
-    s"""<table><tbody>$users</tbody></table>"""
+          tag("povs")(cls := List(
+            "sep" -> matchupSepAt.has(i),
+            "current" -> currentId.has(r.gameId)
+          ))(ct.users.toList.map { u =>
+            val (linkClass, text) = r.winnerId match {
+              case Some(w) if w == u.id => "glpt win" -> "1"
+              case None => "glpt" -> "½"
+              case _ => "glpt loss" -> "0"
+            }
+            a(href := s"""${routes.Round.watcher(r.gameId, "white")}?pov=${u.id}""", cls := linkClass)(text)
+          })
+      },
+      matchup map { m =>
+        div(cls := "crosstable__matchup", title := trans.currentMatchScore.txt())(ct.users.toList.map { u =>
+          span(cls := m.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(m.users.showScore(u.id))
+        })
+      },
+      div(cls := "crosstable__users")(ct.users.toList.map { u =>
+        userIdLink(u.id.some, withOnline = false)
+      }),
+      div(cls := "crosstable__score", title := trans.lifetimeScore.txt())(ct.users.toList.map { u =>
+        span(cls := ct.users.winnerId.map(w => if (w == u.id) "win" else "loss"))(ct.showScore(u.id))
+      })
+    )
   }
 }

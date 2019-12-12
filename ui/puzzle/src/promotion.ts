@@ -1,5 +1,5 @@
 import { h } from 'snabbdom'
-import { bind } from './util';
+import { bind, onInsert } from './util';
 import * as cgUtil from 'chessground/util';
 import { Vm } from './interfaces';
 
@@ -59,14 +59,11 @@ export default function(vm: Vm, getGround, redraw: () => void) {
 
     const vertical = color === orientation ? 'top' : 'bottom';
 
-    return h('div#promotion_choice.' + vertical, {
-      hook: {
-        insert: vnode => {
-          const el = (vnode.elm as HTMLElement);
+    return h('div#promotion-choice.' + vertical, {
+      hook: onInsert(el => {
           el.addEventListener('click', cancel);
           el.oncontextmenu = () => false;
-        }
-      }
+      })
     }, pieces.map(function(serverRole, i) {
       const top = (color === orientation ? i : 7 - i) * 12.5;
       return h('square', {

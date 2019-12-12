@@ -6,25 +6,23 @@ import play.api.libs.json.Json
 import scala.concurrent.duration._
 
 import chess.variant.Variant
-import lila.common.Debouncer
+import lila.common.{ Bus, Debouncer }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
-import lila.socket.actorApi.SendToFlag
+import lila.hub.{ Duct, DuctMap }
+import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
 
 final class SimulApi(
     system: ActorSystem,
-    sequencers: ActorRef,
+    sequencers: DuctMap[_],
     onGameStart: Game.ID => Unit,
-    socketHub: ActorRef,
-    site: ActorSelection,
+    socket: SimulSocket,
     renderer: ActorSelection,
     timeline: ActorSelection,
-    userRegister: ActorSelection,
-    lobby: ActorSelection,
     repo: SimulRepo,
     asyncCache: lila.memo.AsyncCache.Builder
 ) {
@@ -39,7 +37,7 @@ final class SimulApi(
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
 
-  def create(setup: SimulSetup, me: User): Fu[Simul] = {
+  def create(setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = Simul.make(
       clock = SimulClock(
         config = chess.Clock.Config(setup.clockTime * 60, setup.clockIncrement),
@@ -47,7 +45,9 @@ final class SimulApi(
       ),
       variants = setup.variants.flatMap { chess.variant.Variant(_) },
       host = me,
-      color = setup.color
+      color = setup.color,
+      text = setup.text,
+      team = setup.team
     )
     repo.createdByHostId(me.id) foreach {
       _.filter(_.isNotBrandNew).map(_.id).foreach(abort)
@@ -99,14 +99,14 @@ final class SimulApi(
             UserRepo byId started.hostId flatten s"No such host: ${simul.hostId}" flatMap { host =>
               started.pairings.map(makeGame(started, host)).sequenceFu map { games =>
                 games.headOption foreach {
-                  case (game, _) => sendTo(simul.id, actorApi.StartSimul(game, simul.hostId))
+                  case (game, _) => socket.startSimul(simul, game)
                 }
                 games.foldLeft(started) {
                   case (s, (g, hostColor)) => s.setPairingHostColor(g.id, hostColor)
                 }
               }
             } flatMap { s =>
-              system.lilaBus.publish(Simul.OnStart(s), 'startSimul)
+              Bus.publish(Simul.OnStart(s), 'startSimul)
               update(s) >>- currentHostIdsCache.refresh
             }
           }
@@ -118,7 +118,7 @@ final class SimulApi(
   def onPlayerConnection(game: Game, user: Option[User])(simul: Simul): Unit = {
     user.filter(simul.isHost) ifTrue simul.isRunning foreach { host =>
       repo.setHostGameId(simul, game.id)
-      sendTo(simul.id, actorApi.HostIsOn(game.id))
+      socket.hostIsOn(simul.id, game.id)
     }
   }
 
@@ -126,24 +126,32 @@ final class SimulApi(
     Sequence(simulId) {
       repo.findCreated(simulId) flatMap {
         _ ?? { simul =>
-          (repo remove simul) >>- sendTo(simul.id, actorApi.Aborted) >>- publish()
+          (repo remove simul) >>- socket.aborted(simul.id) >>- publish()
         }
       }
     }
   }
 
-  def finishGame(game: Game): Unit = {
-    game.simulId foreach { simulId =>
-      Sequence(simulId) {
-        repo.findStarted(simulId) flatMap {
-          _ ?? { simul =>
-            val simul2 = simul.updatePairing(
-              game.id,
-              _.finish(game.status, game.winnerUserId, game.turns)
-            )
-            update(simul2) >>- {
-              if (simul2.isFinished) onComplete(simul2)
-            }
+  def setText(simulId: Simul.ID, text: String): Unit = {
+    Sequence(simulId) {
+      repo.find(simulId) flatMap {
+        _ ?? { simul =>
+          repo.setText(simul, text) >>- socket.reload(simulId)
+        }
+      }
+    }
+  }
+
+  def finishGame(game: Game): Unit = game.simulId foreach { simulId =>
+    Sequence(simulId) {
+      repo.findStarted(simulId) flatMap {
+        _ ?? { simul =>
+          val simul2 = simul.updatePairing(
+            game.id,
+            _.finish(game.status, game.winnerUserId, game.turns)
+          )
+          update(simul2) >>- {
+            if (simul2.isFinished) onComplete(simul2)
           }
         }
       }
@@ -152,12 +160,15 @@ final class SimulApi(
 
   private def onComplete(simul: Simul): Unit = {
     currentHostIdsCache.refresh
-    userRegister ! lila.hub.actorApi.SendTo(
-      simul.hostId,
-      lila.socket.Socket.makeMessage("simulEnd", Json.obj(
-        "id" -> simul.id,
-        "name" -> simul.name
-      ))
+    Bus.publish(
+      lila.hub.actorApi.socket.SendTo(
+        simul.hostId,
+        lila.socket.Socket.makeMessage("simulEnd", Json.obj(
+          "id" -> simul.id,
+          "name" -> simul.name
+        ))
+      ),
+      'socketUsers
     )
   }
 
@@ -199,16 +210,16 @@ final class SimulApi(
       pgnImport = None
     )
     game2 = game1
-      .withSimulId(simul.id)
       .withId(pairing.gameId)
+      .withSimulId(simul.id)
       .start
     _ ← (GameRepo insertDenormalized game2) >>-
       onGameStart(game2.id) >>-
-      sendTo(simul.id, actorApi.StartGame(game2, simul.hostId))
+      socket.startGame(simul, game2)
   } yield game2 -> hostColor
 
   private def update(simul: Simul) =
-    repo.update(simul) >>- socketReload(simul.id) >>- publish()
+    repo.update(simul) >>- socket.reload(simul.id) >>- publish()
 
   private def WithSimul(
     finding: Simul.ID => Fu[Option[Simul]],
@@ -221,29 +232,20 @@ final class SimulApi(
     }
   }
 
-  private def Sequence(simulId: Simul.ID)(work: => Funit): Unit = {
-    sequencers ! Tell(simulId, lila.hub.Sequencer work work)
-  }
+  private def Sequence(simulId: Simul.ID)(fu: => Funit): Unit =
+    sequencers.tell(simulId, Duct.extra.LazyFu(() => fu))
 
   private object publish {
     private val siteMessage = SendToFlag("simul", Json.obj("t" -> "reload"))
     private val debouncer = system.actorOf(Props(new Debouncer(5 seconds, {
       (_: Debouncer.Nothing) =>
-        site ! siteMessage
+        Bus.publish(siteMessage, 'sendToFlag)
         repo.allCreated foreach { simuls =>
           renderer ? actorApi.SimulTable(simuls) map {
-            case view: play.twirl.api.Html => ReloadSimuls(view.body)
-          } pipeToSelection lobby
+            case view: String => Bus.publish(ReloadSimuls(view), 'lobbySocket)
+          }
         }
     })))
     def apply(): Unit = { debouncer ! Debouncer.Nothing }
-  }
-
-  private def sendTo(simulId: Simul.ID, msg: Any): Unit = {
-    socketHub ! Tell(simulId, msg)
-  }
-
-  private def socketReload(simulId: Simul.ID): Unit = {
-    sendTo(simulId, actorApi.Reload)
   }
 }

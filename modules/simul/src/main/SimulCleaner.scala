@@ -1,28 +1,21 @@
 package lila.simul
 
-import akka.actor._
-import akka.pattern.ask
-import lila.hub.actorApi.map.Ask
-import makeTimeout.short
 import org.joda.time.DateTime
+
+import lila.user.User
 
 private[simul] final class SimulCleaner(
     repo: SimulRepo,
-    api: SimulApi,
-    socketHub: ActorRef
+    api: SimulApi
 ) {
 
-  def apply: Unit = {
-    repo.allCreated foreach { simuls =>
-      simuls.map { simul =>
-        socketHub ? Ask(simul.id, Socket.GetUserIds) mapTo
-          manifest[Iterable[String]] map
-          (_.toList contains simul.hostId) map {
-            case true => repo setHostSeenNow simul
-            case false if simul.hostSeenAt.??(_ isBefore DateTime.now.minusMinutes(3)) => api abort simul.id
-            case false =>
-          }
-      }
+  def cleanUp: Funit = repo.allCreated.map {
+    _ foreach { simul =>
+      val minutesAgo = DateTime.now.minusMinutes(2)
+      if (simul.createdAt.isBefore(minutesAgo) &&
+        !simul.hostSeenAt.exists(_ isAfter minutesAgo)) api.abort(simul.id)
     }
   }
+
+  def hostPing(simul: Simul) = repo setHostSeenNow simul
 }

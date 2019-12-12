@@ -1,10 +1,10 @@
-import { prop, storedProp } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
 import { opposite } from 'chessground/util';
 import { controller as configCtrl } from './explorerConfig';
 import xhr = require('./explorerXhr');
 import { winnerOf, colorOf } from './explorerUtil';
-import { synthetic } from '../util';
-import { game as gameUtil } from 'game';
+import * as gameUtil from 'game';
 import AnalyseCtrl from '../ctrl';
 import { Hovering, ExplorerCtrl, ExplorerData, OpeningData, TablebaseData, SimpleTablebaseHit } from './interfaces';
 
@@ -13,32 +13,26 @@ function pieceCount(fen: Fen) {
   return parts[0].split(/[nbrqkp]/i).length - 1;
 }
 
-export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
+function tablebasePieces(variant: VariantKey) {
   switch (variant) {
     case 'standard':
     case 'fromPosition':
     case 'chess960':
+      return 7;
     case 'atomic':
     case 'antichess':
-      return pieceCount(fen) <= 6;
+      return 6;
     default:
-      return false;
+      return 0;
   }
 }
 
+export function tablebaseGuaranteed(variant: VariantKey, fen: Fen) {
+  return pieceCount(fen) <= tablebasePieces(variant);
+}
+
 function tablebaseRelevant(variant: VariantKey, fen: Fen) {
-  const count = pieceCount(fen);
-  switch (variant) {
-    case 'standard':
-    case 'fromPosition':
-    case 'chess960':
-      return count <= 8;
-    case 'atomic':
-    case 'antichess':
-      return count <= 7;
-    default:
-      return false;
-  }
+  return pieceCount(fen) - 1 <= tablebasePieces(variant);
 }
 
 export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
@@ -59,11 +53,11 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     setNode();
   }
   const data = root.data,
-  withGames = synthetic(data) || gameUtil.replayable(data) || !!data.opponent.ai,
+  withGames = root.synthetic || gameUtil.replayable(data) || !!data.opponent.ai,
   effectiveVariant = data.game.variant.key === 'fromPosition' ? 'standard' : data.game.variant.key,
   config = configCtrl(data.game, onConfigClose, root.trans, root.redraw);
 
-  const fetch = window.lichess.fp.debounce(function() {
+  const fetch = window.lichess.debounce(function() {
     const fen = root.node.fen;
     const request: JQueryPromise<ExplorerData> = (withGames && tablebaseRelevant(effectiveVariant, fen)) ?
       xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen) :
@@ -154,6 +148,7 @@ export default function(root: AnalyseCtrl, opts, allow: boolean): ExplorerCtrl {
     fetchTablebaseHit(fen: Fen): JQueryPromise<SimpleTablebaseHit> {
       return xhr.tablebase(opts.tablebaseEndpoint, effectiveVariant, fen).then((res: TablebaseData) => {
         const move = res.moves[0];
+        if (move && move.dtz == null) throw 'unknown tablebase position';
         return {
           fen: fen,
           best: move && move.uci,

@@ -1,11 +1,11 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
-import { bind, titleNameToId } from '../util';
+import { bind, titleNameToId, onInsert } from '../util';
 import { prop, Prop } from 'common';
-import * as dialog from './dialog';
+import { modal } from '../modal';
 import { StudyMemberMap } from './interfaces';
 
-export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void) {
+export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: () => void, redraw: () => void, trans: Trans) {
   const open = prop(false);
   let followings = [];
   let spectators = [];
@@ -19,7 +19,7 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       const existing = members();
       return followings.concat(spectators).filter(function(elem, idx, arr) {
         return arr.indexOf(elem) >= idx && // remove duplicates
-        !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
+          !existing.hasOwnProperty(titleNameToId(elem)); // remove existing members
       }).sort();
     },
     members,
@@ -49,51 +49,44 @@ export function ctrl(send: SocketSend, members: Prop<StudyMemberMap>, setTab: ()
       send("invite", titleNameToId(titleName));
       setTab();
     },
-    redraw
+    redraw,
+    trans
   };
 };
 
 export function view(ctrl): VNode {
   const candidates = ctrl.candidates();
-  return dialog.form({
-    class: 'study_invite',
+  return modal({
+    class: 'study__invite',
     onClose() {
       ctrl.open(false);
       ctrl.redraw();
     },
     content: [
-      h('h2', 'Invite to the study'),
-      h('p.info', { attrs: { 'data-icon': '' } }, [
-        'Please only invite people you know,',
-        h('br'),
-        'and who actively want to join this study.'
-      ]),
-      candidates.length ? h('div.users', candidates.map(function(username) {
-        return h('span.user_link.button', {
-          key: username,
-          attrs: { 'data-href': '/@/' + username },
-          hook: bind('click', _ => ctrl.invite(username))
-        }, username);
-      })) : undefined,
+      h('h2', ctrl.trans.noarg('inviteToTheStudy')),
+      h('p.info', { attrs: { 'data-icon': '' } }, ctrl.trans.noarg('pleaseOnlyInvitePeopleYouKnow')),
       h('div.input-wrapper', [ // because typeahead messes up with snabbdom
         h('input', {
-          attrs: { placeholder: 'Search by username' },
-          hook: {
-            insert: vnode => {
-              const el = vnode.elm as HTMLInputElement;
-              window.lichess.userAutocomplete($(el), {
-                tag: 'span',
-                onSelect(v) {
-                  ctrl.invite(v.name);
-                  $(el).typeahead('close');
-                  el.value = '';
-                  ctrl.redraw();
-                }
-              });
-            }
-          }
+          attrs: { placeholder: ctrl.trans.noarg('searchByUsername') },
+          hook: onInsert<HTMLInputElement>(el => {
+            window.lichess.userAutocomplete($(el), {
+              tag: 'span',
+              onSelect(v) {
+                ctrl.invite(v.name);
+                $(el).typeahead('close');
+                el.value = '';
+                ctrl.redraw();
+              }
+            });
+          })
         })
-      ])
+      ]),
+      candidates.length ? h('div.users', candidates.map(function(username) {
+        return h('span.button.button-metal', {
+          key: username,
+          hook: bind('click', _ => ctrl.invite(username))
+        }, username);
+      })) : undefined
     ]
   });
 }

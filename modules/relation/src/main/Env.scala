@@ -8,7 +8,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     hub: lila.hub.Env,
-    onlineUserIds: lila.memo.ExpireSetMemo,
+    onlineUserIds: () => Set[lila.user.User.ID],
     lightUserApi: lila.user.LightUserApi,
     followable: String => Fu[Boolean],
     system: ActorSystem,
@@ -20,19 +20,19 @@ final class Env(
     val CollectionRelation = config getString "collection.relation"
     val ActorNotifyFreq = config duration "actor.notify_freq"
     val ActorName = config getString "actor.name"
-    val MaxFollow = config getInt "limit.follow"
     val MaxBlock = config getInt "limit.block"
   }
   import settings._
+
+  val MaxFollow = config getInt "limit.follow"
 
   private[relation] val coll = db(CollectionRelation)
 
   lazy val api = new RelationApi(
     coll = coll,
-    actor = hub.actor.relation,
-    bus = system.lilaBus,
-    timeline = hub.actor.timeline,
-    reporter = hub.actor.report,
+    actor = hub.relation,
+    timeline = hub.timeline,
+    reporter = hub.report,
     followable = followable,
     asyncCache = asyncCache,
     maxFollow = MaxFollow,
@@ -69,7 +69,7 @@ object Env {
     config = lila.common.PlayApp loadConfig "relation",
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
-    onlineUserIds = lila.user.Env.current.onlineUserIdMemo,
+    onlineUserIds = lila.socket.Env.current.onlineUserIds,
     lightUserApi = lila.user.Env.current.lightUserApi,
     followable = lila.pref.Env.current.api.followable _,
     system = lila.common.PlayApp.system,

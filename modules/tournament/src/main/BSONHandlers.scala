@@ -25,7 +25,7 @@ object BSONHandlers {
     def write(x: Schedule.Speed) = BSONString(x.name)
   }
 
-  private implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
+  implicit val tournamentClockBSONHandler = new BSONHandler[BSONDocument, ClockConfig] {
     def read(doc: BSONDocument) = ClockConfig(
       doc.getAs[Int]("limit").get,
       doc.getAs[Int]("increment").get
@@ -38,6 +38,8 @@ object BSONHandlers {
   }
 
   private implicit val spotlightBSONHandler = Macros.handler[Spotlight]
+
+  implicit val battleBSONHandler = lila.db.BSON.LoggingHandler(logger)(Macros.handler[TeamBattle])
 
   private implicit val leaderboardRatio = new BSONHandler[BSONInteger, LeaderboardApi.Ratio] {
     def read(b: BSONInteger) = LeaderboardApi.Ratio(b.value.toDouble / 100000)
@@ -64,9 +66,9 @@ object BSONHandlers {
         variant = variant,
         position = position,
         mode = r.intO("mode") flatMap Mode.apply getOrElse Mode.Rated,
-        `private` = r boolD "private",
         password = r.strO("password"),
         conditions = conditions,
+        teamBattle = r.getO[TeamBattle]("teamBattle"),
         noBerserk = r boolD "noBerserk",
         schedule = for {
           doc <- r.getO[Bdoc]("schedule")
@@ -92,9 +94,9 @@ object BSONHandlers {
       "variant" -> o.variant.some.filterNot(_.standard).map(_.id),
       "fen" -> o.position.some.filterNot(_.initial).map(_.fen),
       "mode" -> o.mode.some.filterNot(_.rated).map(_.id),
-      "private" -> w.boolO(o.`private`),
       "password" -> o.password,
       "conditions" -> o.conditions.ifNonEmpty,
+      "teamBattle" -> o.teamBattle,
       "noBerserk" -> w.boolO(o.noBerserk),
       "schedule" -> o.schedule.map { s =>
         $doc(
@@ -122,7 +124,8 @@ object BSONHandlers {
       withdraw = r boolD "w",
       score = r intD "s",
       fire = r boolD "f",
-      performance = r intD "e"
+      performance = r intD "e",
+      team = r strO "t"
     )
     def writes(w: BSON.Writer, o: Player) = $doc(
       "_id" -> o._id,
@@ -134,7 +137,8 @@ object BSONHandlers {
       "s" -> w.intO(o.score),
       "m" -> o.magicScore,
       "f" -> w.boolO(o.fire),
-      "e" -> o.performance
+      "e" -> o.performance,
+      "t" -> o.team
     )
   }
 

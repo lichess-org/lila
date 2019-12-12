@@ -60,13 +60,12 @@ object AnaMove {
     d ← o obj "d"
     orig ← d str "orig" flatMap chess.Pos.posAt
     dest ← d str "dest" flatMap chess.Pos.posAt
-    variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
   } yield AnaMove(
     orig = orig,
     dest = dest,
-    variant = variant,
+    variant = chess.variant.Variant orDefault ~d.str("variant"),
     fen = fen,
     path = path,
     chapterId = d str "ch",

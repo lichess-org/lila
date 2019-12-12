@@ -1,6 +1,7 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Tag, Tags }
+import chess.format.FEN
 import chess.variant.Variant
 import chess.{ Color, Centis }
 import org.joda.time.DateTime
@@ -56,6 +57,9 @@ case class Chapter(
 
   def setClock(clock: Option[Centis], path: Path): Option[Chapter] =
     updateRoot(_.setClockAt(clock, path))
+
+  def forceVariation(force: Boolean, path: Path): Option[Chapter] =
+    updateRoot(_.forceVariationAt(force, path))
 
   def opening: Option[FullOpening] =
     if (!Variant.openingSensibleVariants(setup.variant)) none
@@ -139,15 +143,15 @@ object Chapter {
   }
 
   case class Metadata(
-      _id: Chapter.Id,
-      name: Chapter.Name,
-      setup: Chapter.Setup
+      _id: Id,
+      name: Name,
+      setup: Setup
   ) extends Like
 
   case class IdName(id: Id, name: Name)
 
   case class Ply(value: Int) extends AnyVal with Ordered[Ply] {
-    def compare(that: Ply) = value - that.value
+    def compare(that: Ply) = Integer.compare(value, that.value)
   }
 
   def defaultName(order: Int) = Name(s"Chapter $order")

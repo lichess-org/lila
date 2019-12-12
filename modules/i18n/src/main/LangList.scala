@@ -1,6 +1,6 @@
 package lila.i18n
 
-import play.api.i18n.Lang
+import lila.common.Lang
 
 object LangList {
 
@@ -8,11 +8,11 @@ object LangList {
 
   def nameByStr(str: String): String = I18nLangPicker.byStr(str).fold(str)(name)
 
-  lazy val choices = all.toList.map {
-    case (Lang(language, _), name) => language -> name
+  lazy val choices: List[(String, String)] = all.toList.map {
+    case (l, name) => l.language -> name
   }.sortBy(_._1)
 
-  val all = Map(
+  private[i18n] val all = Map(
     Lang("en", "GB") -> "English",
     Lang("af", "ZA") -> "Afrikaans",
     Lang("ar", "SA") -> "العربية",
@@ -51,7 +51,7 @@ object LangList {
     Lang("hy", "AM") -> "Հայերեն",
     Lang("ia", "IA") -> "Interlingua",
     Lang("id", "ID") -> "Bahasa Indonesia",
-    Lang("io", "IO") -> "Ido",
+    Lang("io", "EN") -> "Ido",
     Lang("is", "IS") -> "Íslenska",
     Lang("it", "IT") -> "Italiano",
     Lang("ja", "JP") -> "日本語",
@@ -60,6 +60,7 @@ object LangList {
     Lang("ka", "GE") -> "ქართული",
     Lang("kab", "KAB") -> "Taqvaylit",
     Lang("kk", "KZ") -> "қазақша",
+    Lang("kmr", "TR") -> "Kurdî (Kurmancî)",
     Lang("kn", "IN") -> "ಕನ್ನಡ",
     Lang("ko", "KR") -> "한국어",
     Lang("ky", "KG") -> "кыргызча",
@@ -72,6 +73,7 @@ object LangList {
     Lang("mn", "MN") -> "монгол",
     Lang("mr", "IN") -> "मराठी",
     Lang("nb", "NO") -> "Norsk bokmål",
+    Lang("ne", "NP") -> "नेपाली",
     Lang("nl", "NL") -> "Nederlands",
     Lang("nn", "NO") -> "Norsk nynorsk",
     Lang("pi", "IN") -> "पालि",
@@ -91,11 +93,13 @@ object LangList {
     Lang("ta", "IN") -> "தமிழ்",
     Lang("tg", "TJ") -> "тоҷикӣ",
     Lang("th", "TH") -> "ไทย",
+    Lang("tk", "TM") -> "Türkmençe",
     Lang("tl", "PH") -> "Tagalog",
     Lang("tp", "TP") -> "toki pona",
     Lang("tr", "TR") -> "Türkçe",
     Lang("uk", "UA") -> "українська",
-    Lang("ur", "IN") -> "اُردُو",
+    Lang("ur", "PK") -> "اُردُو",
+    Lang("uz", "UZ") -> "oʻzbekcha",
     Lang("vi", "VN") -> "Tiếng Việt",
     Lang("yo", "NG") -> "Yorùbá",
     Lang("zh", "CN") -> "中文",

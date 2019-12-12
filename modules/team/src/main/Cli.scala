@@ -9,8 +9,6 @@ private[team] final class Cli(api: TeamApi, coll: Colls) extends lila.common.Cli
 
   def process = {
 
-    case "team" :: "join" :: team :: users => perform(team, users)(api.doJoin)
-
     case "team" :: "quit" :: team :: users => perform(team, users)(api.doQuit)
 
     case "team" :: "enable" :: team :: Nil => perform(team)(api.enable)

@@ -10,14 +10,9 @@ trait Granter {
   protected def userBelongsToTeam(teamId: String, userId: String): Fu[Boolean]
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean]
 
-  def isGrantedRead(categSlug: String)(implicit ctx: UserContext): Boolean =
-    categSlug != Categ.staffId || ctx.me.exists(Master(Permission.StaffForum))
-
   def isGrantedWrite(categSlug: String)(implicit ctx: UserContext): Fu[Boolean] =
     ctx.me.filter(isOldEnoughToForum) ?? { me =>
-      if (Master(Permission.StaffForum)(me)) fuTrue
-      else categSlug match {
-        case Categ.staffId => fuFalse
+      categSlug match {
         case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
         case _ => fuTrue
       }

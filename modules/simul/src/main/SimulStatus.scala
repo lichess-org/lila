@@ -2,7 +2,7 @@ package lila.simul
 
 private[simul] sealed abstract class SimulStatus(val id: Int) extends Ordered[SimulStatus] {
 
-  def compare(other: SimulStatus) = id compare other.id
+  def compare(other: SimulStatus) = Integer.compare(id, other.id)
 
   def name = toString
 

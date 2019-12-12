@@ -14,6 +14,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     modLog: ModlogApi,
+    spam: lila.security.Spam,
     shutup: ActorSelection,
     hub: lila.hub.Env,
     detectLanguage: DetectLanguage,
@@ -42,40 +43,35 @@ final class Env(
 
   lazy val topicApi = new TopicApi(
     env = this,
-    indexer = hub.actor.forumSearch,
+    indexer = hub.forumSearch,
     maxPerPage = MaxPerPage(TopicMaxPerPage),
     modLog = modLog,
+    spam = spam,
     shutup = shutup,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier,
-    bus = system.lilaBus
+    mentionNotifier = mentionNotifier
   )
 
   lazy val postApi = new PostApi(
     env = this,
-    indexer = hub.actor.forumSearch,
+    indexer = hub.forumSearch,
     maxPerPage = MaxPerPage(PostMaxPerPage),
     modLog = modLog,
+    spam = spam,
     shutup = shutup,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     detectLanguage = detectLanguage,
-    mentionNotifier = mentionNotifier,
-    bus = system.lilaBus
+    mentionNotifier = mentionNotifier
   )
 
-  lazy val forms = new DataForm(hub.actor.captcher)
+  lazy val forms = new DataForm(hub.captcher)
   lazy val recent = new Recent(postApi, RecentTtl, RecentNb, asyncCache, PublicCategIds)
 
-  system.lilaBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
-        case lila.user.User.GDPRErase(user) => postApi erase user
-      }
-    })),
-    'team, 'gdprErase
-  )
+  lila.common.Bus.subscribeFun('team, 'gdprErase) {
+    case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
+    case lila.user.User.GDPRErase(user) => postApi erase user
+  }
 
   private[forum] lazy val categColl = db(CollectionCateg)
   private[forum] lazy val topicColl = db(CollectionTopic)
@@ -88,7 +84,8 @@ object Env {
     config = lila.common.PlayApp loadConfig "forum",
     db = lila.db.Env.current,
     modLog = lila.mod.Env.current.logApi,
-    shutup = lila.hub.Env.current.actor.shutup,
+    spam = lila.security.Env.current.spam,
+    shutup = lila.hub.Env.current.shutup,
     hub = lila.hub.Env.current,
     detectLanguage = DetectLanguage(lila.common.PlayApp loadConfig "detectlanguage"),
     notifyApi = lila.notify.Env.current.api,

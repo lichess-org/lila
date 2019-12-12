@@ -1,15 +1,8 @@
 import RoundController from './ctrl';
 
-function preventing(f: () => void): (e: Event) => void {
-  return function(e: Event) {
-    if (e.preventDefault) {
-      e.preventDefault();
-    } else {
-      // internet explorer
-      e.returnValue = false;
-    }
-    f();
-  };
+const preventing = (f: () => void) => (e: MouseEvent) => {
+  e.preventDefault();
+  f();
 }
 
 export function prev(ctrl: RoundController) {
@@ -31,7 +24,7 @@ export function init(ctrl: RoundController) {
     ctrl.redraw();
   }));
   k.bind(['up', 'k'], preventing(function() {
-    ctrl.userJump(1);
+    ctrl.userJump(0);
     ctrl.redraw();
   }));
   k.bind(['down', 'j'], preventing(function() {
@@ -39,5 +32,5 @@ export function init(ctrl: RoundController) {
     ctrl.redraw();
   }));
   k.bind('f', preventing(ctrl.flipNow));
-  k.bind('z', preventing(ctrl.toggleZen));
+  k.bind('z', preventing(() => window.lichess.pubsub.emit('zen')));
 }

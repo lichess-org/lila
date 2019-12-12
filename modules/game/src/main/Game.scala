@@ -1,16 +1,16 @@
 package lila.game
 
-import chess.Color.{ White, Black }
-import chess.format.{ Uci, FEN }
+import chess.Color.{ Black, White }
+import chess.format.{ FEN, Uci }
 import chess.opening.{ FullOpening, FullOpeningDB }
-import chess.variant.{ Variant, Standard }
-import chess.{ Speed, PieceMap, MoveMetrics, History => ChessHistory, CheckCount, Castles, Board, MoveOrDrop, Pos, Game => ChessGame, Clock, Status, Color, Mode, PositionHash, UnmovedRooks, Centis, Situation }
-import org.joda.time.DateTime
-
+import chess.variant.{ FromPosition, Standard, Variant }
+import chess.{ Board, Castles, Centis, CheckCount, Clock, Color, Mode, MoveMetrics, MoveOrDrop, PieceMap, Pos, PositionHash, Situation, Speed, Status, UnmovedRooks, Game => ChessGame, History => ChessHistory }
 import lila.common.Sequence
 import lila.db.ByteArray
 import lila.rating.PerfType
+import lila.rating.PerfType.Classical
 import lila.user.User
+import org.joda.time.DateTime
 
 case class Game(
     id: Game.ID,
@@ -22,7 +22,6 @@ case class Game(
     daysPerTurn: Option[Int],
     binaryMoveTimes: Option[ByteArray] = None,
     mode: Mode = Mode.default,
-    next: Option[String] = None,
     bookmarks: Int = 0,
     createdAt: DateTime = DateTime.now,
     movedAt: DateTime = DateTime.now,
@@ -51,7 +50,7 @@ case class Game(
   def player(c: Color.type => Color): Player = player(c(Color))
 
   def isPlayerFullId(player: Player, fullId: String): Boolean =
-    (fullId.size == Game.fullIdSize) && player.id == (fullId drop 8)
+    (fullId.size == Game.fullIdSize) && player.id == (fullId drop Game.gameIdSize)
 
   def player: Player = player(turnColor)
 
@@ -87,6 +86,7 @@ case class Game(
   def isTournament = tournamentId.isDefined
   def isSimul = simulId.isDefined
   def isMandatory = isTournament || isSimul
+  def isClassical = perfType contains Classical
   def nonMandatory = !isMandatory
 
   def hasChat = !isTournament && !isSimul && nonAi
@@ -99,7 +99,7 @@ case class Game(
     case seconds => seconds.toInt.some
   }
 
-  def everyOther[A](l: List[A]): List[A] = l match {
+  private def everyOther[A](l: List[A]): List[A] = l match {
     case a :: b :: tail => a :: everyOther(tail)
     case _ => l
   }
@@ -152,8 +152,9 @@ case class Game(
     }
   }
 
+  // apply a move
   def update(
-    game: ChessGame,
+    game: ChessGame, // new chess position
     moveOrDrop: MoveOrDrop,
     blur: Boolean = false,
     moveMetrics: MoveMetrics = MoveMetrics()
@@ -301,11 +302,12 @@ case class Game(
   def playerHasOfferedDraw(color: Color) =
     player(color).lastDrawOffer ?? (_ >= turns - 20)
 
-  def playerCanRematch(color: Color) =
-    !player(color).isOfferingRematch &&
-      finishedOrAborted &&
+  def playerCouldRematch(color: Color) =
+    finishedOrAborted &&
       nonMandatory &&
-      !boosted
+      !boosted && !{
+        hasAi && variant == FromPosition && clock.exists(_.config.limitSeconds < 60)
+      }
 
   def playerCanProposeTakeback(color: Color) =
     started && playable && !isTournament && !isSimul &&
@@ -342,6 +344,7 @@ case class Game(
 
   def resignable = playable && !abortable
   def drawable = playable && !abortable
+  def forceResignable = resignable && nonAi && !fromFriend && speed < Speed.Classical
 
   def finish(status: Status, winner: Option[Color]) = {
     val newClock = clock map { _.stop }
@@ -461,12 +464,12 @@ case class Game(
       case Rapid => 30
       case _ => 35
     }
-    if (variant.chess960) (base * 2) atMost 90
+    if (variant.chess960) base * 5 / 4
     else base
   }
 
   def expirable =
-    source.exists(Source.expirable.contains) && playable && !bothPlayersHaveMoved && nonAi && hasClock
+    !bothPlayersHaveMoved && source.exists(Source.expirable.contains) && playable && nonAi && hasClock
 
   def timeBeforeExpiration: Option[Centis] = expirable option {
     Centis.ofMillis(movedAt.getMillis - nowMillis + timeForFirstMove.millis).nonNeg
@@ -516,6 +519,12 @@ case class Game(
 
   def userIds = playerMaps(_.userId)
 
+  def twoUserIds: Option[(User.ID, User.ID)] = for {
+    w <- whitePlayer.userId
+    b <- blackPlayer.userId
+    if w != b
+  } yield w -> b
+
   def userRatings = playerMaps(_.rating)
 
   def averageUsersRating = userRatings match {
@@ -553,11 +562,22 @@ case class Game(
   def blackPov = pov(Black)
   def playerPov(p: Player) = pov(p.color)
   def loserPov = loser map playerPov
+
+  override def toString = s"""Game($id)"""
 }
 
 object Game {
 
   type ID = String
+
+  case class Id(value: String) extends AnyVal with StringValue {
+    def full(playerId: PlayerId) = FullId(s"$value{$playerId.value}")
+  }
+  case class FullId(value: String) extends AnyVal with StringValue {
+    def gameId = Id(value take gameIdSize)
+    def playerId = PlayerId(value drop gameIdSize)
+  }
+  case class PlayerId(value: String) extends AnyVal with StringValue
 
   case class WithInitialFen(game: Game, fen: Option[FEN])
 
@@ -590,6 +610,14 @@ object Game {
     chess.variant.Antichess
   )
 
+  val blindModeVariants: Set[Variant] = Set(
+    chess.variant.Standard,
+    chess.variant.Chess960,
+    chess.variant.KingOfTheHill,
+    chess.variant.ThreeCheck,
+    chess.variant.FromPosition
+  )
+
   val hordeWhitePawnsSince = new DateTime(2015, 4, 11, 10, 0)
 
   def isOldHorde(game: Game) =
@@ -617,6 +645,9 @@ object Game {
   def takeGameId(fullId: String) = fullId take gameIdSize
   def takePlayerId(fullId: String) = fullId drop gameIdSize
 
+  val idRegex = """[\w-]{8}""".r
+  def validId(id: ID) = idRegex matches id
+
   private[game] val emptyCheckCount = CheckCount(0, 0)
 
   private[game] val someEmptyClockHistory = Some(ClockHistory())
@@ -629,10 +660,10 @@ object Game {
     source: Source,
     pgnImport: Option[PgnImport],
     daysPerTurn: Option[Int] = None
-  ): Game = {
-    var createdAt = DateTime.now
-    Game(
-      id = IdGenerator.game,
+  ): NewGame = {
+    val createdAt = DateTime.now
+    NewGame(Game(
+      id = IdGenerator.uncheckedGame,
       whitePlayer = whitePlayer,
       blackPlayer = blackPlayer,
       chess = chess,
@@ -648,7 +679,7 @@ object Game {
       ),
       createdAt = createdAt,
       movedAt = createdAt
-    )
+    ))
   }
 
   object BSONFields {
@@ -678,7 +709,6 @@ object Game {
     val analysed = "an"
     val variant = "v"
     val crazyData = "chd"
-    val next = "ne"
     val bookmarks = "bm"
     val createdAt = "ca"
     val movedAt = "ua" // ua = updatedAt (bc)

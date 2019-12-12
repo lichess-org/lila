@@ -3,6 +3,8 @@ package lila.notify
 import akka.actor._
 import com.typesafe.config.Config
 
+import lila.common.Bus
+
 final class Env(
     db: lila.db.Env,
     config: Config,
@@ -19,28 +21,32 @@ final class Env(
   private lazy val repo = new NotificationRepo(coll = db(CollectionNotifications))
 
   lazy val api = new NotifyApi(
-    bus = system.lilaBus,
     jsonHandlers = jsonHandlers,
     repo = repo,
     asyncCache = asyncCache
   )
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.notify.Notified(userId) =>
-        api markAllRead Notification.Notifies(userId)
-      case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
-        api addNotification Notification.make(
-          Notification.Notifies(userId),
-          CorresAlarm(
-            gameId = pov.gameId,
-            opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
+  Bus.subscribe(
+    system.actorOf(Props(new Actor {
+      def receive = {
+        case lila.hub.actorApi.notify.Notified(userId) =>
+          api markAllRead Notification.Notifies(userId)
+        case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
+          api markAllRead userIds.map(Notification.Notifies.apply)
+        case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
+          api addNotification Notification.make(
+            Notification.Notifies(userId),
+            CorresAlarm(
+              gameId = pov.gameId,
+              opponent = lila.game.Namer.playerText(pov.opponent)(getLightUser)
+            )
           )
-        )
+        }
       }
-    }
-  }), name = ActorName), 'corresAlarm)
+    }), name = ActorName),
+    'corresAlarm
+  )
 }
 
 object Env {

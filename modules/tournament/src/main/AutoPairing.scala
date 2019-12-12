@@ -7,7 +7,7 @@ import lila.user.User
 
 final class AutoPairing(
     duelStore: DuelStore,
-    onStart: String => Unit
+    onStart: Game.ID => Unit
 ) {
 
   def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User], ranking: Ranking): Fu[Game] = {
@@ -39,8 +39,8 @@ final class AutoPairing(
       mode = tour.mode,
       source = Source.Tournament,
       pgnImport = None
-    ).withTournamentId(tour.id)
-      .withId(pairing.gameId)
+    ).withId(pairing.gameId)
+      .withTournamentId(tour.id)
       .start
     (GameRepo insertDenormalized game) >>- {
       onStart(game.id)

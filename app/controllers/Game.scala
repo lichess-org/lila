@@ -16,7 +16,7 @@ object Game extends LilaController {
   def delete(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(GameRepo game gameId) { game =>
       if (game.pgnImport.flatMap(_.user) ?? (me.id==)) {
-        Env.hub.actor.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
+        Env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (GameRepo remove game.id) >>
           (lila.analyse.AnalysisRepo remove game.id) >>
           Env.game.cached.clearNbImportedByCache(me.id) inject
@@ -70,13 +70,14 @@ object Game extends LilaController {
                 user = user,
                 format = format,
                 vs = vs,
-                since = getLong("since", req) map { ts => new DateTime(ts) },
-                until = getLong("until", req) map { ts => new DateTime(ts) },
+                since = getLong("since", req) map { new DateTime(_) },
+                until = getLong("until", req) map { new DateTime(_) },
                 max = getInt("max", req) map (_ atLeast 1),
                 rated = getBoolOpt("rated", req),
                 perfType = ~get("perfType", req) split "," flatMap { lila.rating.PerfType(_) } toSet,
                 color = get("color", req) flatMap chess.Color.apply,
                 analysed = getBoolOpt("analysed", req),
+                ongoing = getBool("ongoing", req),
                 flags = requestPgnFlags(req, extended = false).copy(
                   literate = false
                 ),
@@ -88,6 +89,7 @@ object Game extends LilaController {
               )
               val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
               Ok.chunked(Env.api.gameApiV2.exportByUser(config)).withHeaders(
+                noProxyBufferHeader,
                 CONTENT_TYPE -> gameContentType(config),
                 CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
               ).fuccess
@@ -107,6 +109,7 @@ object Game extends LilaController {
         perSecond = MaxPerSecond(20)
       )
       Ok.chunked(Env.api.gameApiV2.exportByIds(config)).withHeaders(
+        noProxyBufferHeader,
         CONTENT_TYPE -> gameContentType(config)
       ).fuccess
     }
@@ -121,7 +124,7 @@ object Game extends LilaController {
       }
     }
 
-  private def requestPgnFlags(req: RequestHeader, extended: Boolean) =
+  private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
     lila.game.PgnDump.WithFlags(
       moves = getBoolOpt("moves", req) | true,
       tags = getBoolOpt("tags", req) | true,
@@ -131,7 +134,7 @@ object Game extends LilaController {
       literate = getBoolOpt("literate", req) | false
     )
 
-  private def gameContentType(config: GameApiV2.Config) = config.format match {
+  private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PGN => pgnContentType
     case GameApiV2.Format.JSON => config match {
       case _: GameApiV2.OneConfig => JSON

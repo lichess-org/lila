@@ -43,7 +43,7 @@ private final class Captcher extends Actor {
 
     // Private stuff
 
-    private val capacity = 512
+    private val capacity = 256
     private var challenges: NonEmptyList[Captcha] = NonEmptyList(Captcha.default)
 
     private def add(c: Captcha): Unit = {

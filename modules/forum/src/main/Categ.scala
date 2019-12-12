@@ -21,8 +21,6 @@ case class Categ(
   def nbPosts(troll: Boolean): Int = if (troll) nbPostsTroll else nbPosts
   def lastPostId(troll: Boolean): String = if (troll) lastPostIdTroll else lastPostId
 
-  def isStaff = slug == Categ.staffId
-
   def isTeam = team.nonEmpty
 
   def withTopic(post: Post): Categ = copy(
@@ -35,8 +33,4 @@ case class Categ(
   )
 
   def slug = id
-}
-
-object Categ {
-  val staffId = "staff"
 }

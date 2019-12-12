@@ -1,17 +1,17 @@
-import { game, status } from 'game';
+import { isPlayerTurn } from 'game';
+import { aborted, finished } from 'game/status';
 import RoundController from './ctrl';
 
 const initialTitle = document.title;
 
 var curFaviconIdx = 0;
 const F = [
-  '/assets/images/favicon-32-white.png',
-  '/assets/images/favicon-32-black.png'
+  '/assets/logo/lichess-favicon-32.png',
+  '/assets/logo/lichess-favicon-32-invert.png'
 ].map(function(path, i) {
   return function() {
     if (curFaviconIdx !== i) {
-      const favicon = document.getElementById('favicon') as HTMLAnchorElement;
-      favicon.href = path;
+      (document.getElementById('favicon') as HTMLAnchorElement).href = path;
       curFaviconIdx = i;
     }
   };
@@ -41,9 +41,9 @@ export function init() {
 export function set(ctrl: RoundController, text?: string) {
   if (ctrl.data.player.spectator) return;
   if (!text) {
-    if (status.finished(ctrl.data)) {
+    if (aborted(ctrl.data) || finished(ctrl.data)) {
       text = ctrl.trans('gameOver');
-    } else if (game.isPlayerTurn(ctrl.data)) {
+    } else if (isPlayerTurn(ctrl.data)) {
       text = ctrl.trans('yourTurn');
       if (!document.hasFocus()) startTicker();
     } else {

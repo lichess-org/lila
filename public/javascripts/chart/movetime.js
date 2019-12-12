@@ -2,11 +2,11 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.movetimeChart = function(data, trans) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').done(function() {
+    lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
         lichess.movetimeChart.render = function() {
-          $('#movetimes_chart:not(.rendered)').each(function() {
+          $('#movetimes-chart:not(.rendered)').each(function() {
             var $this = $(this).addClass('rendered');
 
             var series = {
@@ -106,7 +106,7 @@ lichess.movetimeChart = function(data, trans) {
                     click: function(event) {
                       if (event.point) {
                         event.point.select();
-                        lichess.analyse.jumpToIndex(event.point.x);
+                        lichess.pubsub.emit('analysis.chart.click', event.point.x);
                       }
                     }
                   },
@@ -144,7 +144,7 @@ lichess.movetimeChart = function(data, trans) {
               }
             });
           });
-          lichess.pubsub.emit('analysis.change.trigger')();
+          lichess.pubsub.emit('analysis.change.trigger');
         };
         lichess.movetimeChart.render();
       });

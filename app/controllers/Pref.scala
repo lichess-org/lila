@@ -14,7 +14,7 @@ object Pref extends LilaController {
 
   def apiGet = Scoped(_.Preference.Read) { _ => me =>
     Env.pref.api.getPref(me) map { prefs =>
-      Ok {
+      JsonOk {
         import play.api.libs.json._
         import lila.pref.JsonView._
         Json.obj("prefs" -> prefs)
@@ -31,11 +31,10 @@ object Pref extends LilaController {
   }
 
   def formApply = AuthBody { implicit ctx => me =>
-    def onSuccess(data: lila.pref.DataForm.PrefData) =
-      api.setPref(data(ctx.pref), notifyChange = true) inject Ok("saved")
+    def onSuccess(data: lila.pref.DataForm.PrefData) = api.setPref(data(ctx.pref)) inject Ok("saved")
     implicit val req = ctx.body
     forms.pref.bindFromRequest.fold(
-      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.body)).fold(
+      err => forms.pref.bindFromRequest(lila.pref.FormCompatLayer(ctx.pref, ctx.body)).fold(
         err => BadRequest(err.toString).fuccess,
         onSuccess
       ),
@@ -43,22 +42,29 @@ object Pref extends LilaController {
     )
   }
 
-  def setZoom = Action { implicit req =>
-    val zoom = getInt("v", req) | 100
-    Ok(()).withCookies(LilaCookie.session("zoom", zoom.toString))
-  }
-
   def set(name: String) = OpenBody { implicit ctx =>
     implicit val req = ctx.body
-    (setters get name) ?? {
-      case (form, fn) => FormResult(form) { v =>
-        fn(v, ctx) map { cookie => Ok(()).withCookies(cookie) }
+    if (name == "zoom") {
+      Ok.withCookies(LilaCookie.session("zoom2", (getInt("v") | 185).toString)).fuccess
+    } else {
+      implicit val req = ctx.body
+      (setters get name) ?? {
+        case (form, fn) => FormResult(form) { v =>
+          fn(v, ctx) map { cookie => Ok(()).withCookies(cookie) }
+        }
       }
     }
   }
 
-  def saveTag(name: String, value: String) = Auth { implicit ctx => me =>
-    api.saveTag(me, name, value)
+  def verifyTitle = AuthBody { implicit ctx => me =>
+    import play.api.data._, Forms._
+    implicit val req = ctx.body
+    Form(single("v" -> boolean)).bindFromRequest.fold(
+      _ => fuccess(Redirect(routes.User.show(me.username))),
+      v => api.saveTag(me, _.verifyTitle, if (v) "1" else "0") inject Redirect {
+        if (v) routes.Page.master else routes.User.show(me.username)
+      }
+    )
   }
 
   private lazy val setters = Map(
@@ -75,6 +81,6 @@ object Pref extends LilaController {
 
   private def save(name: String)(value: String, ctx: Context): Fu[Cookie] =
     ctx.me ?? {
-      api.setPrefString(_, name, value, notifyChange = false)
+      api.setPrefString(_, name, value)
     } inject LilaCookie.session(name, value)(ctx.req)
 }

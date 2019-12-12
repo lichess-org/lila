@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <linearGradient id="linearGradient4452-7" x1="-639.4" x2="-612.91" y1="-465.15" y2="-465.15" gradientTransform="matrix(.94331 0 0 1 615.66 493.37)" gradientUnits="userSpaceOnUse">
+   <stop stop-color="#fff" offset="0"/>
+   <stop stop-color="#bba38a" offset="1"/>
+  </linearGradient>
+ </defs>
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <path d="m25 12.264c-3.5606 3.3e-4 -6.4472 2.655-6.4472 5.9308 0 1.7037 0.79913 3.3253 2.1899 4.4501h-1.6658c-1.3124 0-2.3991 0.97737-2.3991 2.1571v0.43774c0 1.1797 1.0867 2.1576 2.3991 2.1576h2.3762c0 7.2926-9.3422 6.4563-8.6888 16.779l12.235-8e-3h4.91e-4l12.235 8e-3c0.65333-10.323-8.6888-9.4864-8.6888-16.779h2.3762c1.3123 0 2.3991-0.97792 2.3991-2.1576v-0.43774c0-1.1797-1.0867-2.1571-2.3991-2.1571h-1.6658c1.3908-1.1249 2.1899-2.7464 2.1899-4.4501 0-3.2758-2.8862-5.9304-6.4467-5.9308z" clip-rule="evenodd" fill="url(#linearGradient4452-7)" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" stroke="#323232" stroke-linejoin="round" stroke-width="1.6"/>
+ <path d="m24.999 12.264c-0.52127 2e-5 -1.0278 0.0583-1.5134 0.16586 6.2576 0.69224 7.6752 6.4659 4.9175 9.2225-2.0156 1.6905-7.6616 0.99304-7.6616 0.99304 2.5601 0.44225 4.9693 1.9534 7.2511 2.4872-6.0327 11.435 9.7003 9.0263 9.2425 19.043 0.99499-10.592-7.6734-8.1475-8.6891-16.779h2.3765c1.3126 0 2.3987-0.97738 2.3987-2.157v-0.43774c0-1.1797-1.0861-2.1576-2.3987-2.1576h-1.6661c1.3909-1.1248 2.1906-2.7458 2.1903-4.4493 0-3.276-2.8868-5.9316-6.4476-5.9316z" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" opacity=".15" shape-rendering="geometricPrecision" stroke-width="1.1"/>
+ <path d="m22.959 13.401c-1.7705 1.6022-2.9678 3.6124-3.4764 6.1894 0 0-1.1588-4.2348 3.4764-6.1894z" fill="#fff"/>
+ <path d="m13.342 43.419c0.27336-5.3214 2.5725-6.1836 7.538-11.434-1.0309 3.5662-7.3866 5.8684-7.538 11.434z" fill="#fff"/>
+</svg>

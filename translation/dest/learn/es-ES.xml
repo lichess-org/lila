@@ -22,7 +22,7 @@
   <string name="bishopIntro">¡A continuación, vamos a aprender como se mueve un alfil!</string>
   <string name="youNeedBothBishops">Un alfil de casillas blancas y un alfil de casillas negras ¡ambos son necesarios!</string>
   <string name="bishopComplete">¡Felicidades! Sabes mover el alfil.</string>
-  <string name="theQueen">La Dama</string>
+  <string name="theQueen">La dama</string>
   <string name="queenCombinesRookAndBishop">Dama = torre + alfil</string>
   <string name="queenIntro">Y ahora, la pieza más poderosa del ajedrez; ¡su majestad la dama!</string>
   <string name="queenComplete">¡Felicidades! La dama no tiene secretos para ti.</string>
@@ -40,13 +40,13 @@
   <string name="knightComplete">¡Felicidades! Dominas el movimiento del caballo.</string>
   <string name="thePawn">El peón</string>
   <string name="itMovesForwardOnly">Sólo mueve hacia adelante</string>
-  <string name="pawnIntro">Peones son débiles, pero encierran mucho potencial.</string>
+  <string name="pawnIntro">Los peones son débiles, pero encierran mucho potencial.</string>
   <string name="pawnsMoveOneSquareOnly">Los peones sólo pueden mover una casilla, pero cuando alcanzan el otro extremo del tablero ¡promocionan a una pieza más fuerte!</string>
   <string name="mostOfTheTimePromotingToAQueenIsBest">La mayoría de las veces, lo mejor es promocionar a dama pero ¡hay ocasiones en que un caballo puede ser útil!</string>
   <string name="pawnsMoveForward">Los peones avanzan en línea recta, ¡pero capturan en diagonal!</string>
-  <string name="captureThenPromote">¡Captura, y luego promociona el peón!</string>
+  <string name="captureThenPromote">¡Captura y luego promociona el peón!</string>
   <string name="useAllThePawns">¡Utiliza todos los peones! No hace falta promocionar.</string>
-  <string name="aPawnOnTheSecondRank">¡Un peón en la segunda fila puede avanzar 2 casillas en solo un movimiento!</string>
+  <string name="aPawnOnTheSecondRank">¡Un peón en la segunda fila puede avanzar dos casillas en solo un movimiento!</string>
   <string name="grabAllTheStarsNoNeedToPromote">¡Captura todas las estrellas! No hace falta promocionar.</string>
   <string name="pawnComplete">¡Felicidades! Los peones no tienen secretos para ti.</string>
   <string name="pawnPromotion">Promoción del peón</string>
@@ -55,7 +55,7 @@
   <string name="selectThePieceYouWant">¡Selecciona la pieza que quieras!</string>
   <string name="fundamentals">Fundamentos</string>
   <string name="capture">Captura</string>
-  <string name="takeTheEnemyPieces">Elimina las piezas enemigas</string>
+  <string name="takeTheEnemyPieces">Captura las piezas enemigas</string>
   <string name="captureIntro">¡Identifica las piezas indefensas del oponente y captúralas!</string>
   <string name="takeTheBlackPieces">¡Captura las piezas negras!</string>
   <string name="takeTheBlackPiecesAndDontLoseYours">¡Captura las piezas negras!
@@ -127,9 +127,9 @@ Y no pierdas las tuyas.</string>
   <string name="stalemate">Ahogado</string>
   <string name="theGameIsADraw">La partida es tablas</string>
   <string name="stalemateIntro">Cuando un jugador no está en jaque y no tiene ningún movimiento legal, está ahogado. La partida es tablas. Nadie gana ni pierde.</string>
-  <string name="stalemateGoal">El negro está ahogado sí
-- No puede hacer ningún movimiento legal, y
-- No está en jaque.</string>
+  <string name="stalemateGoal">Las negras están ahogadas sí:
+- No pueden hacer ningún movimiento legal, y
+- No están en jaque.</string>
   <string name="stalemateComplete">¡Felicidades! ¡Mejor ahogado que recibir un jaque mate!</string>
   <string name="advanced">Avanzado</string>
   <string name="pieceValue">Valor de las piezas</string>
@@ -161,7 +161,7 @@ Peón = 1</string>
   <string name="getAFreeLichessAccount">Crea una cuenta gratuita en Lichess</string>
   <string name="practice">Practicar</string>
   <string name="learnCommonChessPositions">Aprende las posiciones más comunes</string>
-  <string name="puzzles">Entrenar</string>
+  <string name="puzzles">Ejercicios de táctica</string>
   <string name="exerciseYourTacticalSkills">Practica tus habilidades tácticas</string>
   <string name="videos">Vídeos</string>
   <string name="watchInstructiveChessVideos">Ve vídeos educativos de ajedrez</string>

@@ -4,13 +4,19 @@ import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
+  return onInsert(el =>
+    el.addEventListener(eventName, e => {
+      const res = f(e);
+      if (redraw) redraw();
+      return res;
+    })
+  );
+}
+
+export function onInsert(f: (element: HTMLElement) => void): Hooks {
   return {
     insert(vnode) {
-      (vnode.elm as HTMLElement).addEventListener(eventName, e => {
-        const res = f(e);
-        if (redraw) redraw();
-        return res;
-      });
+      f(vnode.elm as HTMLElement)
     }
   };
 }
@@ -22,7 +28,7 @@ export function dataIcon(icon: string): Attrs {
 }
 
 export function miniBoard(game) {
-  return h('a.mini_board.parse_fen.is2d.live_' + game.id, {
+  return h('a.mini-board.parse-fen.is2d.mini-board-' + game.id, {
     key: game.id,
     attrs: {
       href: '/' + game.id + (game.color === 'white' ? '' : '/black'),
@@ -36,7 +42,7 @@ export function miniBoard(game) {
       }
     }
   }, [
-    h('div.cg-board-wrap')
+    h('div.cg-wrap')
   ]);
 }
 
@@ -52,14 +58,14 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
 
   const fullName = playerName(p);
 
-  return h('a.ulpt.user_link' + (fullName.length > 15 ? '.long' : ''), {
+  return h('a.ulpt.user-link' + (fullName.length > 15 ? '.long' : ''), {
     attrs: asLink ? { href: '/@/' + p.name } : { 'data-href': '/@/' + p.name },
     hook: {
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
     h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
-    withRating ? h('span.rating', p.rating + (p.provisional ? '?' : '')) : null
+    withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }
 

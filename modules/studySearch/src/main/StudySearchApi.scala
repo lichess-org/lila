@@ -51,7 +51,9 @@ final class StudySearchApi(
     Fields.chapterNames -> s.chapters.collect {
       case c if !Chapter.isDefaultName(c.name) => c.name.value
     }.mkString(" "),
-    Fields.chapterTexts -> noMultiSpace(s.chapters.flatMap(chapterText).mkString(" ")),
+    Fields.chapterTexts -> noMultiSpace {
+      (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
+    },
     // Fields.createdAt -> study.createdAt)
     // Fields.updatedAt -> study.updatedAt,
     Fields.likes -> s.study.likes.value,
@@ -111,7 +113,7 @@ final class StudySearchApi(
         Enumeratee.grouped(Iteratee takeUpTo 12) |>>>
         Iteratee.foldM[Seq[Study], Int](0) {
           case (nb, studies) => studies.map { study =>
-            lila.common.Future.retry(doStore(study), 5 seconds, 10, retryLogger)(system)
+            lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)(system)
           }.sequenceFu inject {
             studies.headOption.ifTrue(nb % 100 == 0) foreach { study =>
               logger.info(s"Indexed $nb studies - ${study.createdAt}")

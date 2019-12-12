@@ -17,6 +17,8 @@ object Store {
 
   private implicit val fingerHashBSONHandler = stringIsoHandler[FingerHash]
 
+  private val localhost = IpAddress("127.0.0.1")
+
   private[security] def save(
     sessionId: String,
     userId: User.ID,
@@ -28,7 +30,11 @@ object Store {
     coll.insert($doc(
       "_id" -> sessionId,
       "user" -> userId,
-      "ip" -> HTTPRequest.lastRemoteAddress(req),
+      "ip" -> (HTTPRequest.lastRemoteAddress(req) match {
+        // randomize stresser IPs to relieve mod tools
+        case ip if ip == localhost => IpAddress(s"127.0.0.${scala.util.Random nextInt 256}")
+        case ip => ip
+      }),
       "ua" -> HTTPRequest.userAgent(req).|("?"),
       "date" -> DateTime.now,
       "up" -> up,
@@ -46,7 +52,7 @@ object Store {
   def userId(sessionId: String): Fu[Option[User.ID]] =
     coll.primitiveOne[User.ID]($doc("_id" -> sessionId, "up" -> true), "user")
 
-  case class UserIdAndFingerprint(user: User.ID, fp: Option[String], date: DateTime) {
+  case class UserIdAndFingerprint(user: User.ID, fp: Option[FingerHash], date: DateTime) {
     def isOld = date isBefore DateTime.now.minusHours(12)
   }
   private implicit val UserIdAndFingerprintBSONReader = Macros.reader[UserIdAndFingerprint]
@@ -107,7 +113,7 @@ object Store {
   private implicit val InfoReader = Macros.reader[Info]
 
   case class Dated[V](value: V, date: DateTime) extends Ordered[Dated[V]] {
-    def compare(other: Dated[V]) = other.date.getMillis compare date.getMillis
+    def compare(other: Dated[V]) = other.date compareTo date
   }
 
   def chronoInfoByUser(userId: User.ID): Fu[List[Info]] =

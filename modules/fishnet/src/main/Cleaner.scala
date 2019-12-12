@@ -9,7 +9,6 @@ import lila.db.dsl._
 
 private final class Cleaner(
     repo: FishnetRepo,
-    moveDb: MoveDB,
     analysisColl: Coll,
     monitor: Monitor,
     scheduler: lila.common.Scheduler
@@ -21,15 +20,6 @@ private final class Cleaner(
   private def analysisTimeoutBase = analysisTimeout(20)
 
   private def durationAgo(d: FiniteDuration) = DateTime.now.minusSeconds(d.toSeconds.toInt)
-
-  private def cleanMoves: Unit = moveDb.clean map { moves =>
-    moves foreach { move =>
-      logger.info(s"Timeout move $move")
-      move.acquired foreach { ack =>
-        Monitor.timeout(move, ack.userId)
-      }
-    }
-  }
 
   private def cleanAnalysis: Funit = analysisColl.find(BSONDocument(
     "acquired.date" -> BSONDocument("$lt" -> durationAgo(analysisTimeoutBase))
@@ -43,6 +33,5 @@ private final class Cleaner(
     }.sequenceFu.void
   }
 
-  scheduler.effect(3 seconds, "fishnet clean moves")(cleanMoves)
   scheduler.effect(10 seconds, "fishnet clean analysis")(cleanAnalysis)
 }

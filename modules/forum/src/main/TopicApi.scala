@@ -3,6 +3,7 @@ package lila.forum
 import actorApi._
 import akka.actor.ActorSelection
 
+import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
@@ -15,11 +16,11 @@ private[forum] final class TopicApi(
     indexer: ActorSelection,
     maxPerPage: lila.common.MaxPerPage,
     modLog: lila.mod.ModlogApi,
+    spam: lila.security.Spam,
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier,
-    bus: lila.common.Bus
+    mentionNotifier: MentionNotifier
 ) {
 
   import BSONHandlers._
@@ -58,7 +59,7 @@ private[forum] final class TopicApi(
           ip = ctx.isAnon option ctx.req.remoteAddress,
           troll = ctx.troll,
           hidden = topic.hidden,
-          text = lila.security.Spam.replace(data.post.text),
+          text = spam.replace(data.post.text),
           lang = lang map (_.language),
           number = 1,
           categId = categ.id,
@@ -77,15 +78,12 @@ private[forum] final class TopicApi(
             }
           } >>- {
             (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
-                if (post.isStaff) prop toStaffFriendsOf userId
-                else prop toFollowersOf userId
-              }
+              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
             }
             lila.mon.forum.post.create()
           } >>- {
             mentionNotifier.notifyMentionedUsers(post, topic)
-            bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+            Bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
           } inject topic
     }
 
@@ -100,7 +98,7 @@ private[forum] final class TopicApi(
     val post = Post.make(
       topicId = topic.id,
       author = none,
-      userId = "lichess".some,
+      userId = lila.user.User.lichessId.some,
       ip = none,
       troll = false,
       hidden = false,
@@ -115,7 +113,7 @@ private[forum] final class TopicApi(
       env.categColl.update($id(categ.id), categ withTopic post) >>-
       (indexer ! InsertPost(post)) >>-
       env.recent.invalidate >>-
-      bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
+      Bus.publish(actorApi.CreatePost(post, topic), 'forumPost) void
   }
 
   def paginator(categ: Categ, page: Int, troll: Boolean): Fu[Paginator[TopicView]] = {

@@ -18,4 +18,5 @@ Siziň profiliňiziň sahypasy: %1$s. Muny %2$s sahypasynda şahsylaşdyryp bile
 Hoş wagt dileýäris, çöpleriňiziň garşy şa barýan ýoly ak bolsun!</string>
   <string name="common_orPaste">(Tyklamak peýda etmedimi? Brauzeriňiziň adres paneline ýelmemegi barlap görüň!)</string>
   <string name="common_note">Bu, %s saýtyndan peýdalanmagyňyz bilen bagly hyzmat emailidir.</string>
+  <string name="common_contact">Biz bilen %s arkaly habarlaşyp bilersiňiz.</string>
 </resources>

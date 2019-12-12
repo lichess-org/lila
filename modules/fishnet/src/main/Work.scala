@@ -62,7 +62,7 @@ object Work {
   ) {
 
     override def toString =
-      if (system) "lichess"
+      if (system) lila.user.User.lichessId
       else userId orElse ip.map(_.value) getOrElse "unknown"
   }
 
@@ -71,36 +71,9 @@ object Work {
   case class Move(
       _id: Work.Id, // random
       game: Game,
-      currentFen: FEN,
       level: Int,
-      clock: Option[Work.Clock],
-      tries: Int,
-      lastTryByKey: Option[Client.Key],
-      acquired: Option[Acquired],
-      createdAt: DateTime
-  ) extends Work {
-
-    def skill = Client.Skill.Move
-
-    def assignTo(client: Client) = copy(
-      acquired = Acquired(
-        clientKey = client.key,
-        userId = client.userId,
-        date = DateTime.now
-      ).some,
-      lastTryByKey = client.key.some,
-      tries = tries + 1
-    )
-
-    def timeout = copy(acquired = none)
-    def invalid = copy(acquired = none)
-
-    def isOutOfTries = tries >= 3
-
-    def similar(to: Move) = game.id == to.game.id && currentFen == to.currentFen
-
-    override def toString = s"id:$id game:${game.id} variant:${game.variant.key} level:$level tries:$tries created:$createdAt acquired:$acquired"
-  }
+      clock: Option[Work.Clock]
+  )
 
   case class Analysis(
       _id: Work.Id, // random
@@ -134,19 +107,10 @@ object Work {
 
     def abort = copy(acquired = none)
 
-    def inProgress = acquired map { a =>
-      InProgress(a.userId, a.date)
-    }
-
     def nbMoves = game.moves.count(' ' ==) + 1
 
     override def toString = s"id:$id game:${game.id} tries:$tries requestedBy:$sender acquired:$acquired"
   }
 
   def makeId = Id(scala.util.Random.alphanumeric take 8 mkString)
-
-  case class InProgress(by: Client.UserId, since: DateTime) {
-
-    def byLichess = by.value startsWith "lichess-"
-  }
 }

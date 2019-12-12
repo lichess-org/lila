@@ -2,6 +2,7 @@ package lila.forum
 
 import actorApi._
 import akka.actor.ActorSelection
+import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
@@ -16,11 +17,11 @@ final class PostApi(
     indexer: ActorSelection,
     maxPerPage: lila.common.MaxPerPage,
     modLog: ModlogApi,
+    spam: lila.security.Spam,
     shutup: ActorSelection,
     timeline: ActorSelection,
     detectLanguage: lila.common.DetectLanguage,
-    mentionNotifier: MentionNotifier,
-    bus: lila.common.Bus
+    mentionNotifier: MentionNotifier
 ) {
 
   import BSONHandlers._
@@ -37,7 +38,7 @@ final class PostApi(
           author = none,
           userId = ctx.me map (_.id),
           ip = ctx.req.remoteAddress.some,
-          text = lila.security.Spam.replace(data.text),
+          text = spam.replace(data.text),
           number = number + 1,
           lang = lang map (_.language),
           troll = ctx.troll,
@@ -63,35 +64,28 @@ final class PostApi(
               } >>- {
                 (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
                   timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
-                    if (post.isStaff) prop toStaffFriendsOf userId
-                    else prop toFollowersOf userId toUsers topicUserIds exceptUser userId
+                    prop toFollowersOf userId toUsers topicUserIds exceptUser userId
                   }
                 }
                 lila.mon.forum.post.create()
                 mentionNotifier.notifyMentionedUsers(post, topic)
-                bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
+                Bus.publish(actorApi.CreatePost(post, topic), 'forumPost)
               } inject post
         }
     }
 
-  def editPost(postId: String, newText: String, user: User): Fu[Post] = {
-
+  def editPost(postId: String, newText: String, user: User): Fu[Post] =
     get(postId) flatMap { post =>
-      val now = DateTime.now
-
-      post match {
-        case Some((_, post)) if !post.canBeEditedBy(user.id) =>
+      post.fold[Fu[Post]](fufail("Post no longer exists.")) {
+        case (_, post) if !post.canBeEditedBy(user.id) =>
           fufail("You are not authorized to modify this post.")
-        case Some((_, post)) if !post.canStillBeEdited =>
+        case (_, post) if !post.canStillBeEdited =>
           fufail("Post can no longer be edited")
-        case Some((_, post)) =>
-          val spamEscapedTest = lila.security.Spam.replace(newText)
-          val newPost = post.editPost(now, spamEscapedTest)
+        case (_, post) =>
+          val newPost = post.editPost(DateTime.now, spam replace newText)
           env.postColl.update($id(post.id), newPost) inject newPost
-        case None => fufail("Post no longer exists.")
       }
     }
-  }
 
   private val quickHideCategs = Set("lichess-feedback", "off-topic-discussion")
 

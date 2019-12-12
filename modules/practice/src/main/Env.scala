@@ -8,8 +8,7 @@ final class Env(
     configStore: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    db: lila.db.Env,
-    system: ActorSystem
+    db: lila.db.Env
 ) {
 
   private val CollectionProgress = config getString "collection.progress"
@@ -18,16 +17,12 @@ final class Env(
     coll = db(CollectionProgress),
     configStore = configStore[PracticeConfig]("practice", logger),
     asyncCache = asyncCache,
-    studyApi = studyApi,
-    bus = system.lilaBus
+    studyApi = studyApi
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
-    def receive = {
-      case SaveStudy(study) => api.structure onSave study
-    }
-  })), 'study)
+  lila.common.Bus.subscribeFun('study) {
+    case lila.study.actorApi.SaveStudy(study) => api.structure onSave study
+  }
 }
 
 object Env {
@@ -37,7 +32,6 @@ object Env {
     configStore = lila.memo.Env.current.configStore,
     studyApi = lila.study.Env.current.api,
     asyncCache = lila.memo.Env.current.asyncCache,
-    db = lila.db.Env.current,
-    system = lila.common.PlayApp.system
+    db = lila.db.Env.current
   )
 }

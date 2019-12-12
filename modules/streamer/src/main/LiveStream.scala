@@ -9,7 +9,10 @@ import lila.user.User
 
 case class LiveStreams(streams: List[Stream]) {
 
-  def has(streamer: Streamer) = streams.exists(_ is streamer)
+  private lazy val streamerIds: Set[Streamer.Id] = streams.map(_.streamer.id)(scala.collection.breakOut)
+
+  def has(id: Streamer.Id): Boolean = streamerIds(id)
+  def has(streamer: Streamer): Boolean = has(streamer.id)
 
   def get(streamer: Streamer) = streams.find(_ is streamer)
 
@@ -23,11 +26,18 @@ case class LiveStreams(streams: List[Stream]) {
       lightUser.sync(userId).flatMap(_.title) map (userId ->)
     }.toMap
   )
+
+  def excludeUsers(userIds: List[User.ID]) = copy(
+    streams = streams.filterNot(s => userIds contains s.streamer.userId)
+  )
 }
 
 object LiveStreams {
   case class WithTitles(live: LiveStreams, titles: Map[User.ID, String]) {
     def titleName(s: Stream) = s"${titles.get(s.streamer.userId).fold("")(_ + " ")}${s.streamer.name}"
+    def excludeUsers(userIds: List[User.ID]) = copy(
+      live = live excludeUsers userIds
+    )
   }
 }
 
@@ -46,6 +56,31 @@ final class LiveStreamApi(
   private var userIdsCache = Set.empty[User.ID]
 
   def all: Fu[LiveStreams] = cache.get
+  // import org.joda.time.DateTime
+  // def all: Fu[LiveStreams] = fuccess(LiveStreams(List(
+  //   Stream.Twitch.Stream("thibault", "test stream on lichess.org", Streamer(
+  //     _id = Streamer.Id("thibault"),
+  //     listed = Streamer.Listed(true),
+  //     approval = Streamer.Approval(
+  //       requested = false,
+  //       granted = true,
+  //       ignored = false,
+  //       autoFeatured = true,
+  //       chatEnabled = true
+  //     ),
+  //     picturePath = none,
+  //     name = Streamer.Name("thibault"),
+  //     headline = none,
+  //     description = none,
+  //     twitch = none,
+  //     youTube = none,
+  //     seenAt = DateTime.now, // last seen online
+  //     liveAt = DateTime.now.some, // last seen streaming
+  //     createdAt = DateTime.now,
+  //     updatedAt = DateTime.now
+  //   ))
+  // )))
+
   def of(s: Streamer.WithUser): Fu[Streamer.WithUserAndStream] = all.map { live =>
     Streamer.WithUserAndStream(s.streamer, s.user, live get s.streamer)
   }

@@ -9,6 +9,8 @@ case class Relay(
     _id: Relay.Id,
     name: String,
     description: String,
+    markup: Option[String] = None,
+    credit: Option[String] = None,
     sync: Relay.Sync,
     ownerId: User.ID,
     likes: Study.Likes,
@@ -93,18 +95,21 @@ object Relay {
     def paused = !playing
 
     def addLog(event: SyncLog.Event) = copy(log = log add event)
+    def clearLog = copy(log = SyncLog.empty)
 
     override def toString = upstream.toString
   }
 
   object Sync {
-    sealed abstract class Upstream(val key: String, val url: String, val heavy: Boolean) {
-      override def toString = s"$key $url"
+    case class Upstream(url: String) extends AnyVal {
+      def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
+      def withRound = url.split(" ", 2) match {
+        case Array(u, round) => UpstreamWithRound(u, parseIntOption(round))
+        case _ => UpstreamWithRound(url, none)
+      }
     }
-    object Upstream {
-      case class DgtOneFile(fileUrl: String) extends Upstream("dgt-one", fileUrl, false)
-      case class DgtManyFiles(dirUrl: String) extends Upstream("dgt-many", dirUrl, true)
-    }
+    case class UpstreamWithRound(url: String, round: Option[Int])
+    val LccRegex = """.*view\.livechesscloud\.com/([0-9a-f\-]+)""".r
   }
 
   case class WithStudy(relay: Relay, study: Study)

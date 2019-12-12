@@ -1,17 +1,22 @@
 package lila.playban
 
-import play.api.libs.json._
 import org.joda.time.DateTime
+import play.api.libs.json._
+import scala.math.{ log10, sqrt }
+
+import lila.game.Game
 
 case class UserRecord(
     _id: String,
     o: Option[List[Outcome]],
-    b: Option[List[TempBan]]
+    b: Option[List[TempBan]],
+    c: Option[RageSit]
 ) {
 
   def userId = _id
   def outcomes: List[Outcome] = ~o
   def bans: List[TempBan] = ~b
+  def rageSit = c | RageSit.empty
 
   def banInEffect = bans.lastOption.exists(_.inEffect)
 
@@ -36,16 +41,27 @@ case class UserRecord(
     case _ => 4
   }
 
-  def bannable: Option[TempBan] = {
-    outcomes.lastOption.exists(_ != Outcome.Good) && {
-      // too many bad overall
-      badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
-        // bad result streak
-        outcomes.size >= badOutcomesStreakSize &&
-          outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
+  def bannable(accountCreationDate: DateTime): Option[TempBan] = {
+    rageSitRecidive || {
+      outcomes.lastOption.exists(_ != Outcome.Good) && {
+        // too many bad overall
+        badOutcomeScore >= (badOutcomeRatio * nbOutcomes atLeast minBadOutcomes) || {
+          // bad result streak
+          outcomes.size >= badOutcomesStreakSize &&
+            outcomes.takeRight(badOutcomesStreakSize).forall(Outcome.Good !=)
+        }
       }
     }
-  } option TempBan.make(bans)
+  } option TempBan.make(bans, accountCreationDate)
+
+  def rageSitRecidive =
+    outcomes.lastOption.exists(Outcome.rageSitLike.contains) && {
+      rageSit.isTerrible || {
+        rageSit.isVeryBad && outcomes.count(Outcome.rageSitLike.contains) > 1
+      } || {
+        rageSit.isBad && outcomes.count(Outcome.rageSitLike.contains) > 2
+      }
+    }
 }
 
 case class TempBan(
@@ -64,6 +80,7 @@ case class TempBan(
 }
 
 object TempBan {
+
   implicit val tempbanWrites = Json.writes[TempBan]
 
   private def make(minutes: Int) = TempBan(
@@ -71,23 +88,24 @@ object TempBan {
     minutes atMost 48 * 60
   )
 
+  private val baseMinutes = 10
+
   /**
    * Create a playban. First offense: 10 min.
    * Multiplier of repeat offense after X days:
    * - 0 days: 3x
-   * - 0 - 5 days: linear scale from 3x to 1x
-   * - >5 days slow drop off
+   * - 0 - 3 days: linear scale from 3x to 1x
+   * - >3 days quick drop off
+   * Account less than 3 days old --> 2x the usual time
    */
-  def make(bans: List[TempBan]): TempBan = make(bans.lastOption.fold(10) { prev =>
-    prev.endsAt.toNow.getStandardHours.truncInt match {
-      case h if h < 120 => prev.mins * (180 - h) / 60
-      case h => {
-        // Scale cooldown period by total number of playbans
-        val t = (Math.sqrt(bans.size) * 20 * 24).toInt
-        (prev.mins * (t + 120 - h) / t)
+  def make(bans: List[TempBan], accountCreationDate: DateTime): TempBan = make {
+    (bans.lastOption ?? { prev =>
+      prev.endsAt.toNow.getStandardHours.truncInt match {
+        case h if h < 72 => prev.mins * (132 - h) / 60
+        case h => prev.mins - Math.pow(h / 12, 1.5).toInt
       }
-    }
-  } atLeast (15 * bans.size + 10))
+    } atLeast baseMinutes) * (if (accountCreationDate.plusDays(3).isAfter(DateTime.now)) 2 else 1)
+  }
 }
 
 sealed abstract class Outcome(
@@ -107,9 +125,29 @@ object Outcome {
   case object SitMoving extends Outcome(5, "Waits then moves at last moment")
   case object Sandbag extends Outcome(6, "Deliberately lost the game")
 
+  val rageSitLike: Set[Outcome] = Set(RageQuit, Sitting, SitMoving)
+
   val all = List(Good, Abort, NoPlay, RageQuit, Sitting, SitMoving, Sandbag)
 
   val byId = all map { v => (v.id, v) } toMap
 
   def apply(id: Int): Option[Outcome] = byId get id
 }
+
+case class RageSit(counter: Int) extends AnyVal {
+  def isBad = counter <= -50
+  def isVeryBad = counter <= -100
+  def isTerrible = counter <= -200
+
+  def goneWeight: Float =
+    if (!isBad) 1f
+    else (1 - 0.7 * sqrt(log10(-(counter / 10) - 3))).toFloat atLeast 0.1f
+
+  def counterView = counter / 10
+}
+
+object RageSit {
+  val empty = RageSit(0)
+}
+
+case class SittingDetected(game: Game, userId: String)

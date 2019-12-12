@@ -1,12 +1,10 @@
 package lila.oauth
 
-sealed abstract class OAuthScope(val key: String, val name: String)
+sealed abstract class OAuthScope(val key: String, val name: String) {
+  override def toString = s"Scope($key)"
+}
 
 object OAuthScope {
-
-  object Game {
-    case object Read extends OAuthScope("game:read", "Download all games")
-  }
 
   object Preference {
     case object Read extends OAuthScope("preference:read", "Read preferences")
@@ -17,12 +15,25 @@ object OAuthScope {
     case object Read extends OAuthScope("email:read", "Read email address")
   }
 
+  object Challenge {
+    case object Read extends OAuthScope("challenge:read", "Read incoming challenges")
+    case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
+  }
+
   object Tournament {
     case object Write extends OAuthScope("tournament:write", "Create tournaments")
   }
 
+  object Puzzle {
+    case object Read extends OAuthScope("puzzle:read", "Read puzzle activity")
+  }
+
+  object Team {
+    case object Write extends OAuthScope("team:write", "Join, leave, and manage teams")
+  }
+
   object Bot {
-    case object Play extends OAuthScope("bot:play", "Play bot moves")
+    case object Play extends OAuthScope("bot:play", "Play as a bot")
   }
 
   case class Scoped(user: lila.user.User, scopes: List[OAuthScope])
@@ -30,10 +41,12 @@ object OAuthScope {
   type Selector = OAuthScope.type => OAuthScope
 
   val all = List(
-    Game.Read,
     Preference.Read, Preference.Write,
     Email.Read,
+    Challenge.Read, Challenge.Write,
     Tournament.Write,
+    Puzzle.Read,
+    Team.Write,
     Bot.Play
   )
 

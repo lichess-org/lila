@@ -3,25 +3,27 @@ package lila.bot
 import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
-import scala.concurrent.duration._
 
 import chess.format.FEN
-
+import lila.chat.Chat
 import lila.chat.UserLine
-import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ Game, GameRepo }
+import lila.common.Bus
+import lila.game.actorApi.{ AbortedBy, FinishGame, MoveGameEvent }
+import lila.game.Event.ReloadOwner
+import lila.game.Game
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.MoveEvent
-import lila.socket.actorApi.BotConnected
+import lila.round.actorApi.BotConnected
+import lila.round.actorApi.round.{ DrawNo, DrawYes }
 import lila.user.User
+import scala.concurrent.duration._
 
 final class GameStateStream(
     system: ActorSystem,
-    jsonView: BotJsonView,
-    roundSocketHub: ActorSelection
+    jsonView: BotJsonView
 ) {
 
-  import lila.common.HttpStream._
+  private case object SetOnline
 
   def apply(me: User, init: Game.WithInitialFen, as: chess.Color): Enumerator[Option[JsObject]] = {
 
@@ -35,12 +37,16 @@ final class GameStateStream(
 
           var gameOver = false
 
+          private val classifiers = List(
+            MoveGameEvent makeSymbol id,
+            'finishGame, 'abortGame,
+            Chat classify Chat.Id(id),
+            Chat classify Chat.Id(s"$id/w")
+          )
+
           override def preStart(): Unit = {
             super.preStart()
-            system.lilaBus.subscribe(
-              self,
-              Symbol(s"moveGame:$id"), 'finishGame, 'abortGame, Symbol(s"chat:$id"), Symbol(s"chat:$id/w")
-            )
+            Bus.subscribe(self, classifiers: _*)
             jsonView gameFull init foreach { json =>
               // prepend the full game JSON at the start of the stream
               channel push json.some
@@ -52,7 +58,7 @@ final class GameStateStream(
 
           override def postStop(): Unit = {
             super.postStop()
-            system.lilaBus.unsubscribe(self)
+            Bus.unsubscribe(self, classifiers)
             // hang around if game is over
             // so the opponent has a chance to rematch
             context.system.scheduler.scheduleOnce(if (gameOver) 10 second else 1 second) {
@@ -61,14 +67,12 @@ final class GameStateStream(
           }
 
           def receive = {
-            case g: Game if g.id == id => pushState(g)
-            case lila.chat.actorApi.ChatLine(chatId, UserLine(username, text, false, false)) =>
+            case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
+            case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
               pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
             case FinishGame(g, _, _) if g.id == id => onGameOver
             case AbortedBy(pov) if pov.gameId == id => onGameOver
-
             case SetOnline =>
-              setConnected(true)
               context.system.scheduler.scheduleOnce(6 second) {
                 // gotta send a message to check if the client has disconnected
                 channel push None
@@ -78,16 +82,19 @@ final class GameStateStream(
 
           def pushState(g: Game) = jsonView gameState Game.WithInitialFen(g, init.fen) map some map channel.push
           def pushChatLine(username: String, text: String, player: Boolean) = channel push jsonView.chatLine(username, text, player).some
+
           def onGameOver = {
             gameOver = true
             channel.eofAndEnd()
           }
-          def setConnected(v: Boolean) =
-            roundSocketHub ! Tell(init.game.id, BotConnected(as, v))
+          def setConnected(v: Boolean) = Bus.publish(
+            Tell(init.game.id, BotConnected(as, v)),
+            'roundSocket
+          )
         }))
         stream = actor.some
       },
-      onComplete = onComplete(stream, system)
+      onComplete = stream foreach { _ ! PoisonPill }
     )
   }
 }

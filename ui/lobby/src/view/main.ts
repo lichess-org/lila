@@ -10,7 +10,6 @@ import LobbyController from '../ctrl';
 
 export default function(ctrl: LobbyController) {
   let body, data: VNodeData = {};
-  if (ctrl.playban || ctrl.currentGame) return h('div#hooks_wrap');
   if (ctrl.redirecting) body = spinner();
   else switch (ctrl.tab) {
     case 'pools':
@@ -27,8 +26,8 @@ export default function(ctrl: LobbyController) {
       body = renderPlaying(ctrl);
       break;
   }
-  return h('div#hooks_wrap', [
-    h('div.tabs', renderTabs(ctrl)),
-    h('div.lobby_box.' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body)
+  return h('div.lobby__app.lobby__app-' + ctrl.tab, [
+    h('div.tabs-horiz', renderTabs(ctrl)),
+    h('div.lobby__app__content.l' + (ctrl.redirecting ? 'redir' : ctrl.tab), data, body)
   ]);
 };

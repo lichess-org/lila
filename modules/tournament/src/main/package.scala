@@ -1,8 +1,6 @@
 package lila
 
-import lila.socket.WithSocket
-
-package object tournament extends PackageObject with WithSocket {
+package object tournament extends PackageObject {
 
   private[tournament] type Players = List[tournament.Player]
 

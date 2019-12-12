@@ -4,13 +4,13 @@ import lila.game.{ Game, Event, Progress, Pov }
 import lila.pref.{ Pref, PrefApi }
 
 import chess.Centis
+import lila.common.Bus
 
 private[round] final class Drawer(
     messenger: Messenger,
     finisher: Finisher,
     prefApi: PrefApi,
-    isBotSync: lila.common.LightUser.IsBotSync,
-    bus: lila.common.Bus
+    isBotSync: lila.common.LightUser.IsBotSync
 ) {
 
   def autoThreefold(game: Game)(implicit proxy: GameProxy): Fu[Option[Pov]] = Pov(game).map { pov =>
@@ -54,7 +54,7 @@ private[round] final class Drawer(
   def force(game: Game)(implicit proxy: GameProxy): Fu[Events] = finisher.other(game, _.Draw, None, None)
 
   private def publishDrawOffer(pov: Pov): Unit =
-    if (pov.game.isCorrespondence && pov.game.nonAi) bus.publish(
+    if (pov.game.isCorrespondence && pov.game.nonAi) Bus.publish(
       lila.hub.actorApi.round.CorresDrawOfferEvent(pov.gameId),
       'offerEventCorres
     )

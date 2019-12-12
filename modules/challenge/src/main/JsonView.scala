@@ -1,9 +1,10 @@
 package lila.challenge
 
-import play.api.i18n.Lang
 import play.api.libs.json._
 
+import lila.common.Lang
 import lila.i18n.{ I18nKeys => trans }
+import lila.socket.Socket.SocketVersion
 import lila.socket.UserLagCache
 
 final class JsonView(
@@ -20,7 +21,7 @@ final class JsonView(
     "i18n" -> translations(lang)
   )
 
-  def show(challenge: Challenge, socketVersion: Int, direction: Option[Direction]) = Json.obj(
+  def show(challenge: Challenge, socketVersion: SocketVersion, direction: Option[Direction]) = Json.obj(
     "challenge" -> apply(direction)(challenge),
     "socketVersion" -> socketVersion
   )

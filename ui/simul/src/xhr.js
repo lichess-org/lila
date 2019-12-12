@@ -7,7 +7,7 @@ var xhrConfig = function(xhr) {
 
 function partial() {
   return arguments[0].bind.apply(arguments[0], [null].concat(Array.prototype.slice.call(arguments, 1)));
-};
+}
 
 function simulAction(action, ctrl) {
   return m.request({
@@ -21,16 +21,29 @@ function simulAction(action, ctrl) {
 }
 
 module.exports = {
+  ping: partial(simulAction, 'host-ping'),
   start: partial(simulAction, 'start'),
   abort: partial(simulAction, 'abort'),
-  join: function(variantKey) {
-    return partial(simulAction, 'join/' + variantKey);
-  },
+  join: lichess.debounce(
+    (ctrl, variantKey) => simulAction('join/' + variantKey, ctrl),
+    4000,
+    true
+  ),
   withdraw: partial(simulAction, 'withdraw'),
   accept: function(user) {
     return partial(simulAction, 'accept/' + user)
   },
   reject: function(user) {
     return partial(simulAction, 'reject/' + user)
+  },
+  setText: function(ctrl, text) {
+    return m.request({
+      method: 'POST',
+      url: '/simul/' + ctrl.data.id + '/set-text',
+      config: xhrConfig,
+      data: {
+        text: text
+      }
+    });
   }
 };

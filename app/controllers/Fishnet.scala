@@ -17,12 +17,10 @@ object Fishnet extends LilaController {
   private val logger = lila.log("fishnet")
 
   def acquire = ClientAction[JsonApi.Request.Acquire] { req => client =>
-    api acquire client map Right.apply
-  }
-
-  def move(workId: String) = ClientAction[JsonApi.Request.PostMove] { data => client =>
-    api.postMove(Work.Id(workId), client, data) >>
-      api.acquire(client).map(Right.apply)
+    api acquire client addEffect { jobOpt =>
+      val mon = lila.mon.fishnet.http.acquire(client.skill.toString)
+      if (jobOpt.isDefined) mon.hit() else mon.miss()
+    } map Right.apply
   }
 
   def analysis(workId: String) = ClientAction[JsonApi.Request.PostAnalysis] { data => client =>
@@ -32,7 +30,7 @@ object Fishnet extends LilaController {
       case WorkNotFound => acquireNext
       case GameNotFound => acquireNext
       case NotAcquired => acquireNext
-      case WeakAnalysis => acquireNext
+      case WeakAnalysis(_) => acquireNext
       // case WeakAnalysis => fuccess(Left(UnprocessableEntity("Not enough nodes per move")))
       case e => fuccess(Left(InternalServerError(e.getMessage)))
     }, {
@@ -49,10 +47,7 @@ object Fishnet extends LilaController {
   def keyExists(key: String) = Action.async { req =>
     api keyExists lila.fishnet.Client.Key(key) map {
       case true => Ok
-      case false =>
-        val ip = HTTPRequest.lastRemoteAddress(req)
-        logger.info(s"Unauthorized key: $key ip: $ip")
-        NotFound
+      case false => NotFound
     }
   }
 
@@ -68,11 +63,7 @@ object Fishnet extends LilaController {
           BadRequest(jsonError(JsError toJson err)).fuccess
         },
         data => api.authenticateClient(data, HTTPRequest lastRemoteAddress req) flatMap {
-          case Failure(msg) => {
-            val ip = HTTPRequest.lastRemoteAddress(req)
-            logger.info(s"Unauthorized key: ${data.fishnet.apikey} ip: $ip | ${msg.getMessage}")
-            Unauthorized(jsonError(msg.getMessage)).fuccess
-          }
+          case Failure(msg) => Unauthorized(jsonError(msg.getMessage)).fuccess
           case Success(client) => f(data)(client).map {
             case Right(Some(work)) => Accepted(Json toJson work)
             case Right(None) => NoContent

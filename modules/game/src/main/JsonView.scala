@@ -6,9 +6,11 @@ import chess.format.{ FEN, Forsyth }
 import chess.variant.Crazyhouse
 import chess.{ Color, Clock }
 
-object JsonView {
+final class JsonView(rematchOf: Game.ID => Option[Game.ID]) {
 
-  def gameJson(game: Game, initialFen: Option[FEN]) = Json.obj(
+  import JsonView._
+
+  def apply(game: Game, initialFen: Option[FEN]) = Json.obj(
     "id" -> game.id,
     "variant" -> game.variant,
     "speed" -> game.speed.key,
@@ -28,7 +30,10 @@ object JsonView {
     .add("winner" -> game.winnerColor)
     .add("lastMove" -> game.lastMoveKeys)
     .add("check" -> game.situation.checkSquare.map(_.key))
-    .add("rematch" -> game.next)
+    .add("rematch" -> rematchOf(game.id))
+}
+
+object JsonView {
 
   implicit val statusWrites: OWrites[chess.Status] = OWrites { s =>
     Json.obj(

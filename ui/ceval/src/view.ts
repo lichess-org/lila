@@ -7,24 +7,16 @@ import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode'
 
 let gaugeLast = 0;
-const gaugeTicks: VNode[] = [];
-for (let i = 1; i < 8; i++) gaugeTicks.push(h(i === 4 ? 'tick.zero' : 'tick', {
-  attrs: { style: `height: ${i * 12.5}%` }
-}));
-
-function range(len: number): number[] {
-  const r = [];
-  for (let i = 0; i < len; i++) r.push(i);
-  return r;
-}
+const gaugeTicks: VNode[] = [...Array(8).keys()].map(i =>
+  h(i === 3 ? 'tick.zero' : 'tick', { attrs: { style: `height: ${(i + 1) * 12.5}%` } })
+);
 
 function localEvalInfo(ctrl: ParentCtrl, evs: NodeEvals): Array<VNode | string> {
   const ceval = ctrl.getCeval(), trans = ctrl.trans;
-  if (!evs.client) {
-    return [
-      evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : trans.noarg('loadingEngine'),
-    ];
-  }
+  if (!evs.client) return [
+    evs.server && ctrl.nextNodeBest() ? trans.noarg('usingServerAnalysis') : trans.noarg('loadingEngine'),
+  ];
+
   const t: Array<VNode | string> = evs.client.cloud ? [
     trans('depthX', evs.client.depth || 0),
     h('span.cloud', { attrs: { title: trans.noarg('cloudAnalysis') } }, 'Cloud')
@@ -74,10 +66,11 @@ function threatButton(ctrl: ParentCtrl): VNode | null {
 function engineName(ctrl: CevalCtrl): VNode[] {
   const version = ctrl.engineName();
   return [
-    h('span', version ? {
-      attrs: { title: version }
-    } : {}, window.lichess.engineName),
-    ctrl.pnaclSupported ? h('span.native', 'pnacl') : (ctrl.wasmSupported ? h('span.native', 'wasm') : h('span.asmjs', 'asmjs'))
+    h('span', version ? { attrs: { title: version } } : {}, window.lichess.engineName),
+    ctrl.technology == 'pnacl' ? h('span.native', { attrs: { title: 'Portable Native Client (fast but deprecated)' } }, 'pnacl') :
+    (ctrl.technology == 'wasmx' ? h('span.native', { attrs: { title: 'Multi-threaded WebAssembly (experimental)' } }, 'wasmx') :
+      (ctrl.technology == 'wasm' ? h('span.native', { attrs: { title: 'WebAssembly' } }, 'wasm') :
+        h('span.asmjs', { attrs: { title: 'JavaScript fallback' } }, 'asmjs')))
   ];
 }
 
@@ -85,7 +78,7 @@ const serverNodes = 4e6;
 
 export function getBestEval(evs: NodeEvals): Eval | undefined {
   const serverEv = evs.server,
-  localEv = evs.client;
+    localEv = evs.client;
 
   if (!serverEv) return localEv;
   if (!localEv) return serverEv;
@@ -93,7 +86,7 @@ export function getBestEval(evs: NodeEvals): Eval | undefined {
   // Prefer localEv if it exeeds fishnet node limit or finds a better mate.
   if (localEv.nodes > serverNodes ||
     (typeof localEv.mate !== 'undefined' && (typeof serverEv.mate === 'undefined' || Math.abs(localEv.mate) < Math.abs(serverEv.mate))))
-  return localEv;
+    return localEv;
 
   return serverEv;
 }
@@ -105,25 +98,25 @@ export function renderGauge(ctrl: ParentCtrl): VNode | undefined {
     ev = winningChances.povChances('white', bestEv);
     gaugeLast = ev;
   } else ev = gaugeLast;
-  const height = 100 - (ev + 1) * 50;
-  return h('div.eval_gauge', {
+  return h('div.eval-gauge', {
     class: {
       empty: ev === null,
       reverse: ctrl.getOrientation() === 'black'
     }
   }, [
-    h('div.black', { attrs: { style: `height: ${height}%` } })
-  ].concat(gaugeTicks));
+    h('div.black', { attrs: { style: `height: ${100 - (ev + 1) * 50}%` } }),
+    ...gaugeTicks
+  ]);
 }
 
 export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
   const instance = ctrl.getCeval(), trans = ctrl.trans;
   if (!instance.allowed() || !instance.possible || !ctrl.showComputer()) return;
   const enabled = instance.enabled(),
-  evs = ctrl.currentEvals(),
-  threatMode = ctrl.threatMode(),
-  threat = threatMode && ctrl.getNode().threat,
-  bestEv = threat || getBestEval(evs);
+    evs = ctrl.currentEvals(),
+    threatMode = ctrl.threatMode(),
+    threat = threatMode && ctrl.getNode().threat,
+    bestEv = threat || getBestEval(evs);
   let pearl: VNode | string, percent: number;
   if (bestEv && typeof bestEv.cp !== 'undefined') {
     pearl = renderEval(bestEv.cp);
@@ -135,14 +128,13 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     pearl = '-';
     percent = 0;
   } else {
-    pearl = enabled ? h('span.ddloader') : h('span');
+    pearl = enabled ? h('i.ddloader') : h('i');
     percent = 0;
   }
   if (threatMode) {
     if (threat) percent = Math.min(100, Math.round(100 * threat.depth / threat.maxDepth));
     else percent = 0;
   }
-  const mandatoryCeval = ctrl.mandatoryCeval && ctrl.mandatoryCeval();
 
   const progressBar: VNode | null = enabled ? h('div.bar', h('span', {
     class: { threat: threatMode },
@@ -179,10 +171,10 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     ])
   ];
 
-  const switchButton: VNode | null = mandatoryCeval ? null : h('div.switch', {
+  const switchButton: VNode | null = ctrl.mandatoryCeval && ctrl.mandatoryCeval() ? null : h('div.switch', {
     attrs: { title: trans.noarg('toggleLocalEvaluation') + ' (l)' }
   }, [
-    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle-round', {
+    h('input#analyse-toggle-ceval.cmn-toggle.cmn-toggle--subtle', {
       attrs: {
         type: 'checkbox',
         checked: enabled
@@ -194,15 +186,15 @@ export function renderCeval(ctrl: ParentCtrl): VNode | undefined {
     h('label', { attrs: { 'for': 'analyse-toggle-ceval' } })
   ])
 
-  return h('div.ceval_box' + (enabled ? '.enabled' : ''), {
+  return h('div.ceval' + (enabled ? '.enabled' : ''), {
     class: {
       computing: percent < 100 && instance.isComputing()
     }
   }, [
     progressBar,
     ...body,
-    switchButton,
-    threatButton(ctrl)
+    threatButton(ctrl),
+    switchButton
   ]);
 }
 
@@ -224,7 +216,7 @@ export function renderPvs(ctrl: ParentCtrl) {
   const instance = ctrl.getCeval();
   if (!instance.allowed() || !instance.possible || !instance.enabled()) return;
   const multiPv = parseInt(instance.multiPv()),
-  node = ctrl.getNode();
+    node = ctrl.getNode();
   let pvs : Tree.PvData[], threat = false;
   if (ctrl.threatMode() && node.threat) {
     pvs = node.threat.pvs;
@@ -250,7 +242,7 @@ export function renderPvs(ctrl: ParentCtrl) {
       },
       postpatch: (_, vnode) => checkHover(vnode.elm as HTMLElement, instance)
     }
-  }, range(multiPv).map(function(i) {
+  }, [...Array(multiPv).keys()].map(function(i) {
     if (!pvs[i]) return h('div.pv');
     const san = pv2san(instance.variant.key, node.fen, threat, pvs[i].moves.slice(0, 12), pvs[i].mate);
     return h('div.pv', threat ? {} : {

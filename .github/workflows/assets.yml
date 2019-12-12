@@ -1,0 +1,39 @@
+name: Build assets
+
+on:
+  push:
+    paths:
+    - 'public/**'
+    - 'ui/**'
+    - 'package.json'
+    - 'yarn.lock'
+  pull_request:
+    paths:
+    - 'public/**'
+    - 'ui/**'
+    - 'package.json'
+    - 'yarn.lock'
+
+jobs:
+  assets:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+      with:
+        fetch-depth: 1
+    - uses: actions/cache@v1
+      with:
+        path: ~/.cache/yarn
+        key: ${{ runner.os }}-yarn-${{ hashFiles('yarn.lock') }}
+        restore-keys: ${{ runner.os }}-yarn-
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - run: sudo apt-get install -y parallel
+    - run: yarn global add gulp-cli
+    - run: ./ui/build prod
+    - run: mkdir assets && mv public assets/ && cp LICENSE COPYING.md README.md assets/ && git log -n 1 --pretty=oneline > assets/commit.txt
+    - uses: actions/upload-artifact@v1
+      with:
+        name: lila-assets
+        path: assets

@@ -34,6 +34,8 @@ object Blurs {
 
     def binaryString = java.lang.Long.toBinaryString(bits).reverse
 
+    def booleans = binaryString.toArray.map('1'==)
+
     override def toString = s"Blurs.Bits($binaryString)"
   }
 

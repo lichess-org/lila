@@ -12,7 +12,7 @@ import { view as pieceView } from './piece'
 import { spinner } from './util'
 
 export function loading(): VNode {
-  return h('div#dasher_app.dropdown', spinner());
+  return h('div#dasher_app.dropdown', h('div.initiating', spinner()));
 }
 
 export function loaded(ctrl: DasherCtrl): VNode {

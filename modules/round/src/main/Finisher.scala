@@ -3,6 +3,7 @@ package lila.round
 import chess.{ Status, DecayingStats, Color, Clock }
 
 import lila.game.actorApi.{ FinishGame, AbortedBy }
+import lila.common.Bus
 import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
@@ -14,16 +15,15 @@ private[round] final class Finisher(
     playban: PlaybanApi,
     notifier: RoundNotifier,
     crosstableApi: lila.game.CrosstableApi,
-    bus: lila.common.Bus,
-    getSocketStatus: Game.ID => Fu[actorApi.SocketStatus],
+    getSocketStatus: Game => Fu[actorApi.SocketStatus],
     isRecentTv: Game.ID => Boolean
 ) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
-    getSocketStatus(pov.gameId) foreach { ss =>
+    getSocketStatus(pov.game) foreach { ss =>
       playban.abort(pov, ss.colorsOnGame)
     }
-    bus.publish(AbortedBy(pov), 'abortGame)
+    Bus.publish(AbortedBy(pov), 'abortGame)
   }
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
@@ -119,13 +119,14 @@ private[round] final class Finisher(
             updateCountAndPerfs(finish) map { ratingDiffs =>
               message foreach { messenger.system(g, _) }
               GameRepo game g.id foreach { newGame =>
-                bus.publish(finish.copy(game = newGame | g), 'finishGame)
+                newGame foreach proxy.setFinishedGame
+                Bus.publish(finish.copy(game = newGame | g), 'finishGame)
               }
               prog.events :+ lila.game.Event.EndData(g, ratingDiffs)
             }
           }
         }
-  } >>- proxy.invalidate
+  }
 
   private def updateCountAndPerfs(finish: FinishGame): Fu[Option[RatingDiffs]] =
     (!finish.isVsSelf && !finish.game.aborted) ?? {

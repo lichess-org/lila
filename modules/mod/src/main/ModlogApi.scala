@@ -71,7 +71,7 @@ final class ModlogApi(coll: Coll) {
 
   def deletePost(mod: String, user: Option[String], author: Option[String], ip: Option[String], text: String) = add {
     Modlog(mod, user, Modlog.deletePost, details = Some(
-      author.??(_ + " ") + ip.??(_ + " ") + text.take(140)
+      author.??(_ + " ") + ip.??(_ + " ") + text.take(400)
     ))
   }
 
@@ -93,18 +93,6 @@ final class ModlogApi(coll: Coll) {
     ))
   }
 
-  def deleteQaQuestion(mod: String, user: String, title: String) = add {
-    Modlog(mod, user.some, Modlog.deleteQaQuestion, details = Some(title take 140))
-  }
-
-  def deleteQaAnswer(mod: String, user: String, text: String) = add {
-    Modlog(mod, user.some, Modlog.deleteQaAnswer, details = Some(text take 140))
-  }
-
-  def deleteQaComment(mod: String, user: String, text: String) = add {
-    Modlog(mod, user.some, Modlog.deleteQaComment, details = Some(text take 140))
-  }
-
   def deleteTeam(mod: String, name: String, desc: String) = add {
     Modlog(mod, none, Modlog.deleteTeam, details = s"$name / $desc".take(200).some)
   }
@@ -117,8 +105,8 @@ final class ModlogApi(coll: Coll) {
     Modlog(mod, user.some, Modlog.chatTimeout, details = reason.some)
   }
 
-  def setPermissions(mod: String, user: String, permissions: List[Permission]) = add {
-    Modlog(mod, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
+  def setPermissions(mod: Mod, user: String, permissions: List[Permission]) = add {
+    Modlog(mod.id.value, user.some, Modlog.permissions, details = permissions.mkString(", ").some)
   }
 
   def reportban(mod: Mod, sus: Suspect, v: Boolean) = add {

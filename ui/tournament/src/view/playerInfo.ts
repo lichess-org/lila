@@ -1,7 +1,7 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 import { spinner, bind, numberRow, playerName, dataIcon, player as renderPlayer } from './util';
-import { status } from 'game';
+import * as status from 'game/status';
 import TournamentController from '../ctrl';
 
 function result(win, stat): string {
@@ -30,8 +30,9 @@ function setup(vnode: VNode) {
 
 export default function(ctrl: TournamentController): VNode {
   const data = ctrl.playerInfo.data;
-  var noarg = ctrl.trans.noarg;
-  if (!data || data.player.id !== ctrl.playerInfo.id) return h('div.player.box', [
+  const noarg = ctrl.trans.noarg;
+  const tag = 'div.tour__player-info.tour__actor-info';
+  if (!data || data.player.id !== ctrl.playerInfo.id) return h(tag, [
     h('div.stats', [
       playerTitle(ctrl.playerInfo.player),
       spinner()
@@ -42,18 +43,21 @@ export default function(ctrl: TournamentController): VNode {
   avgOp = pairingsLen ? Math.round(data.pairings.reduce(function(a, b) {
     return a + b.op.rating;
   }, 0) / pairingsLen) : undefined;
-  return h('div.player.box', {
+  return h(tag, {
     hook: {
       insert: setup,
       postpatch(_, vnode) { setup(vnode) }
     }
   }, [
-    h('close', {
+    h('a.close', {
       attrs: dataIcon('L'),
       hook: bind('click', () => ctrl.showPlayerInfo(data.player), ctrl.redraw)
     }),
     h('div.stats', [
       playerTitle(data.player),
+      data.player.team ? h('team', {
+        hook: bind('click', () => ctrl.showTeamInfo(data.player.team), ctrl.redraw)
+      }, ctrl.data.teamBattle!.teams[data.player.team]) : null,
       h('table', [
         data.player.performance ? numberRow(
           noarg('performance'),
@@ -67,8 +71,8 @@ export default function(ctrl: TournamentController): VNode {
           ] : [])
       ])
     ]),
-    h('div.scroll-shadow-soft', [
-      h('table.pairings', {
+    h('div', [
+      h('table.pairings.sublist', {
         hook: bind('click', e => {
           const href = ((e.target as HTMLElement).parentNode as HTMLElement).getAttribute('data-href');
           if (href) window.open(href, '_blank');

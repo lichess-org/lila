@@ -4,14 +4,14 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.study.{ Chapter, Study }
+import lila.common.Bus
 import lila.user.User
 
 final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
     asyncCache: lila.memo.AsyncCache.Builder,
-    studyApi: lila.study.StudyApi,
-    bus: lila.common.Bus
+    studyApi: lila.study.StudyApi
 ) {
 
   import BSONHandlers._
@@ -89,7 +89,7 @@ final class PracticeApi(
       }
     } >>- studyApi.studyIdOf(chapterId).foreach {
       _ ?? { studyId =>
-        bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), 'finishPractice)
+        Bus.publish(PracticeProgress.OnComplete(user.id, studyId, chapterId), 'finishPractice)
       }
     }
 

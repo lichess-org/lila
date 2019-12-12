@@ -205,6 +205,16 @@
       </rollingPolicy>
     </appender>
   </logger>
+  <logger name="security" level="DEBUG">
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+      <file>/var/log/lichess/security.log</file>
+      <encoder><pattern>%date %-5level %logger{30} %message%n%xException</pattern></encoder>
+      <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+        <fileNamePattern>/var/log/lichess/security-log-%d{yyyy-MM-dd}.gz</fileNamePattern>
+        <maxHistory>7</maxHistory>
+      </rollingPolicy>
+    </appender>
+  </logger>
 
   <!-- Set a specific actor to DEBUG -->
   <!-- <logger name="actors.MyActor" level="DEBUG" /> -->

@@ -1,7 +1,7 @@
 package lila.security
 
 import org.specs2.mutable.Specification
-import org.joda.time.DateTime
+import org.joda.time.Instant
 
 class FloodTest extends Specification {
 
@@ -9,7 +9,7 @@ class FloodTest extends Specification {
 
   def isDup = duplicateMessage _
 
-  def m(s: String) = Message(s, new DateTime)
+  def m(s: String) = Message(s, Instant.now)
 
   val str = "Implementation uses dynamic programming (Wagner–Fischer algorithm)"
   val msg = m(str)

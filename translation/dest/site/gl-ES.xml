@@ -59,6 +59,7 @@
   <string name="promoteVariation">Promover variante</string>
   <string name="makeMainLine">Converter en liña principal</string>
   <string name="deleteFromHere">Borrar desde aquí</string>
+  <string name="forceVariation">Forzar variante</string>
   <string name="move">Movemento</string>
   <string name="variantLoss">Variante perdedora</string>
   <string name="variantWin">Variante gañadora</string>
@@ -134,7 +135,6 @@
   <string name="viewInFullSize">Ver a tamaño completo</string>
   <string name="logOut">Pechar sesión</string>
   <string name="signIn">Iniciar sesión</string>
-  <string name="newToLichess">Novo en Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Precisas dunha conta de usuario para facer iso</string>
   <string name="signUp">Rexistrarse</string>
   <string name="computersAreNotAllowedToPlay">Non están permitidos os ordenadores ou os xogadores asistidos por eles. Por favor non te axudes de módulos de xadrez, bases de datos ou otros xogadores durante a partida. Lembra tamén que o uso de múltiples contas está altamente desaconsellado e que o uso abusivo deste tipo de contas pode conducir á suspensión</string>
@@ -164,8 +164,10 @@
   <string name="ratingStats">Estatísticas de puntuación</string>
   <string name="username">Nome de usuario</string>
   <string name="usernameOrEmail">Nome de usuario ou correo</string>
+  <string name="changeUsername">Cambiar nome de usuario</string>
+  <string name="changeUsernameNotSame">Só poden cambiar as letras entre minúsculas e maiúsculas. Por exemplo de \"xoanninguen\" a \"XoanNinguen\".</string>
+  <string name="changeUsernameDescription">Cambia o teu nome de usuario. Só o poderás facer unha vez e só está permitido cambiar de entre minúsculas e maiúsculas as letras do teu nome de usuario.</string>
   <string name="password">Contrasinal</string>
-  <string name="haveAnAccount">Tes unha conta?</string>
   <string name="changePassword">Cambiar contrasinal</string>
   <string name="changeEmail">Cambiar correo</string>
   <string name="email">Correo electrónico</string>
@@ -173,7 +175,10 @@
   <string name="forgotPassword">Esqueciches o teu contrasinal?</string>
   <string name="rank">Clasificación</string>
   <string name="rankX">Clasificación: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">A clasificación actualízase cada %s minutos</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">A clasificación actualízase cada minuto</item>
+    <item quantity="other">A clasificación actualízase cada %s minutos</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s problema</item>
     <item quantity="other">%s problemas</item>
@@ -287,8 +292,8 @@
     <item quantity="other">≥ partidas puntuadas %s</item>
   </plurals>
   <plurals name="moreThanNbPerfRatedGames">
-    <item quantity="one">≥ %1$s partida puntuada %2%s</item>
-    <item quantity="other">≥ %1$s partidas puntuadas %2%s</item>
+    <item quantity="one">≥ %1$s partida puntuada %2$s</item>
+    <item quantity="other">≥ %1$s partidas puntuadas %2$s</item>
   </plurals>
   <plurals name="needNbMorePerfGames">
     <item quantity="one">Necesitas xogar %1$s partida %2$s puntuada máis</item>
@@ -304,6 +309,8 @@
   <string name="yourPerfRatingIsTooLow">A túa puntuación %1$s (%2$s) é demasiado baixa</string>
   <string name="ratedMoreThanInPerf">Puntuación ≥ %1$s en %2$s</string>
   <string name="ratedLessThanInPerf">Puntuación ≤ %1$s en %2$s</string>
+  <string name="mustBeInTeam">Tés que estar no equipo %s</string>
+  <string name="youAreNotInTeam">Non estás no equipo %s</string>
   <string name="backToGame">Voltar á partida</string>
   <string name="siteDescription">Xadrez libre en liña. Xoga ó xadrez cunha interface limpa. Sen rexistrarse, sen anuncios, sen necesidade de plugins. Xoga ó xadrez contra o ordenador, amigos ou rivais aleatorios.</string>
   <string name="teams">Equipos</string>
@@ -347,10 +354,8 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="clickOnTheBoardToMakeYourMove">Fai clic no tableiro para facer a túa xogada, e probar que es humano.</string>
   <string name="captcha.fail">Por favor resolve o captcha de xadrez.</string>
   <string name="notACheckmate">Non é xaque mate.</string>
-  <string name="colorPlaysCheckmateInOne">%s xogan; xaque mate nunha xogada</string>
   <string name="retry">Reintentar</string>
   <string name="reconnecting">Reconectando</string>
-  <string name="onlineFriends">Amigos conectados</string>
   <string name="noFriendsOnline">Ningún amigo conectado</string>
   <string name="findFriends">Atopar amigos</string>
   <string name="favoriteOpponents">Rivais preferidos</string>
@@ -508,6 +513,7 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="troll">Troll</string>
   <string name="other">Outro</string>
   <string name="reportDescriptionHelp">Pega a ligazón á(s) partida(s) e explica o que é incorrecto no comportamento dese usuario. Non digas só \"fan trampas\", cóntanos como chegaches a esa conclusión. A túa denuncia será procesada máis rapidamente se está escrita en inglés.</string>
+  <string name="error.provideOneCheatedGameLink">Por favor, incorpora cando menos un enlace a un xogo con trampas.</string>
   <string name="by">por %s</string>
   <string name="thisTopicIsNowClosed">Este tema está xa pechado.</string>
   <string name="theming">Aparencia</string>
@@ -577,12 +583,9 @@ unha análise por ordenador, un chat de xogo e unha URL para compartir.</string>
   <string name="xAskedY">%1$s preguntou %2$s</string>
   <string name="xAnsweredY">%1$s respondeu %2$s</string>
   <string name="xCommentedY">%1$s comentou %2$s</string>
-  <string name="victory">Vitoria!</string>
+  <string name="victory">Vitoria</string>
   <string name="defeat">Derrota</string>
-  <string name="xVsYinZ">%1$s contra %2$s
-en %3$s</string>
   <string name="timeline">Historial</string>
-  <string name="seeAllTournaments">Ver todos os torneos</string>
   <string name="starting">Comezo:</string>
   <string name="allInformationIsPublicAndOptional">Toda a información é pública e opcional.</string>
   <string name="yourCityRegionOrDepartment">A túa cidade, rexión, ou provincia.</string>
@@ -628,12 +631,12 @@ en %3$s</string>
   <string name="inCorrespondenceGames">Partidas por correspondencia</string>
   <string name="ifRatingIsPlusMinusX">Se a puntuación é ± %s</string>
   <string name="onlyFriends">Só amigos</string>
+  <string name="displayBoardResizeHandle">Amosar o control de redimensionamento do taboleiro</string>
+  <string name="onlyOnInitialPosition">Só na posición inicial</string>
   <string name="menu">Menú</string>
   <string name="castling">Enroque</string>
   <string name="whiteCastlingKingside">Brancas O-O</string>
-  <string name="whiteCastlingQueenside">Brancas O-O-O</string>
   <string name="blackCastlingKingside">Negras O-O</string>
-  <string name="blackCastlingQueenside">Negras O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Mensaxes no Foro</item>
     <item quantity="other">%s Mensaxes no Foro</item>
@@ -642,11 +645,13 @@ en %3$s</string>
   <string name="watchGames">Ver partidas</string>
   <string name="tpTimeSpentOnTV">Tempo en TV: %s</string>
   <string name="watch">Ver</string>
-  <string name="internationalEvents">Eventos internacionais</string>
   <string name="videoLibrary">Videoteca</string>
   <string name="mobileApp">Aplicación Móbil</string>
   <string name="webmasters">Administradores web</string>
   <string name="about">Acerca de</string>
+  <string name="aboutX">Acerca de %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s é un servidor de xadrez de código aberto, gratuito (%2$s), libre, e sen publicidade.</string>
+  <string name="really">realmente</string>
   <string name="contribute">Contribuír</string>
   <string name="contact">Contactar</string>
   <string name="termsOfService">Termos do Servizo</string>
@@ -750,6 +755,7 @@ en %3$s</string>
   <string name="xHostsY">%1$s crea %2$s</string>
   <string name="xJoinsY">%1$s únese a %2$s</string>
   <string name="xLikesY">a %1$s gústalle %2$s</string>
+  <string name="xCreatesStudyY">%1$s crea o estudo %2$s</string>
   <string name="quickPairing">Emparellamento rápido</string>
   <string name="lobby">Retos</string>
   <string name="anonymous">Anónimo</string>

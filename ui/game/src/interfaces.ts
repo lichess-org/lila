@@ -6,6 +6,7 @@ export interface GameData {
   tournament?: Tournament;
   simul?: Simul;
   takebackable: boolean;
+  moretimeable: boolean;
   clock?: Clock;
   correspondence?: CorrespondenceClock;
 }
@@ -86,6 +87,8 @@ export interface Simul {
 
 export interface Clock {
   running: boolean;
+  initial: number;
+  increment: number;
 }
 export interface CorrespondenceClock {
   daysPerTurn: number;
@@ -94,7 +97,7 @@ export interface CorrespondenceClock {
   black: number;
 }
 
-export type Source = 'import' | 'lobby' | 'pool';
+export type Source = 'import' | 'lobby' | 'pool' | 'friend';
 
 export interface PlayerUser {
   id: string;

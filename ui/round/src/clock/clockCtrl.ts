@@ -1,15 +1,15 @@
 import { updateElements } from './clockView';
 import { RoundData } from '../interfaces'
-import { game } from 'game';
-
+import * as game from 'game';
 
 export type Seconds = number;
 export type Centis = number;
 export type Millis = number;
 
 interface ClockOpts {
-  onFlag(): void;
+  onFlag(): void
   soundColor?: Color
+  nvui: boolean
 }
 
 export type TenthsPref = 0 | 1 | 2;
@@ -39,6 +39,7 @@ export interface ClockElements {
   time?: HTMLElement;
   clock?: HTMLElement;
   bar?: HTMLElement;
+  barAnim?: Animation;
 }
 
 interface EmergSound {
@@ -50,9 +51,6 @@ interface EmergSound {
     black: boolean;
   };
 }
-
-const nowFun = window.performance && performance.now() > 0 ?
-  performance.now.bind(performance) : Date.now;
 
 export class ClockController {
 
@@ -69,6 +67,7 @@ export class ClockController {
   showBar: boolean;
   times: Times;
 
+  barTime: number
   timeRatioDivisor: number
   emergMs: Millis;
 
@@ -79,7 +78,7 @@ export class ClockController {
 
   private tickCallback?: number;
 
-  constructor(d: RoundData, public opts: ClockOpts) {
+  constructor(d: RoundData, readonly opts: ClockOpts) {
     const cdata = d.clock!;
 
     if (cdata.showTenths === 0) this.showTenths = () => false;
@@ -88,8 +87,9 @@ export class ClockController {
       this.showTenths = (time) => time < cutoff;
     }
 
-    this.showBar = cdata.showBar;
-    this.timeRatioDivisor = .001 / (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.showBar = cdata.showBar && !this.opts.nvui;
+    this.barTime = 1000 * (Math.max(cdata.initial, 2) + 5 * cdata.increment);
+    this.timeRatioDivisor = 1 / this.barTime;
 
     this.emergMs = 1000 * Math.min(60, Math.max(10, cdata.initial * .125));
 
@@ -97,7 +97,7 @@ export class ClockController {
   }
 
   timeRatio = (millis: number): number =>
-    Math.max(0, Math.min(1, millis * this.timeRatioDivisor));
+    Math.min(1, millis * this.timeRatioDivisor);
 
   setClock = (d: RoundData, white: Seconds, black: Seconds, delay: Centis = 0) => {
     const isClockRunning = game.playable(d) && (game.playedTurns(d) > 1 || d.clock!.running),
@@ -107,7 +107,7 @@ export class ClockController {
       white: white * 1000,
       black: black * 1000,
       activeColor: isClockRunning ? d.game.player : undefined,
-      lastUpdate: nowFun() + delayMs
+      lastUpdate: performance.now() + delayMs
     };
 
     if (isClockRunning) this.scheduleTick(this.times[d.game.player], delayMs);
@@ -129,24 +129,27 @@ export class ClockController {
 
   hardStopClock = (): void => this.times.activeColor = undefined;
 
-  scheduleTick = (time: Millis, extraDelay: Millis) => {
+  private scheduleTick = (time: Millis, extraDelay: Millis) => {
     if (this.tickCallback !== undefined) clearTimeout(this.tickCallback);
     this.tickCallback = setTimeout(
       this.tick,
-      time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
+      // changing the value of active node confuses the chromevox screen reader
+      // so update the clock less often
+      this.opts.nvui ? 1000 : time % (this.showTenths(time) ? 100 : 500) + 1 + extraDelay);
   }
 
-  // Should only be involked by scheduleTick.
+  // Should only be invoked by scheduleTick.
   private tick = (): void => {
     this.tickCallback = undefined;
 
     const color = this.times.activeColor;
     if (color === undefined) return;
 
-    const now = nowFun();
-    const millis = this.times[color] - this.elapsed(now);
+    const now = performance.now();
+    const millis = Math.max(0, this.times[color] - this.elapsed(now));
 
-    if (millis <= 0) this.opts.onFlag();
+    this.scheduleTick(millis, 0);
+    if (millis === 0) this.opts.onFlag();
     else updateElements(this, this.elements[color], millis);
 
     if (this.opts.soundColor === color) {
@@ -160,11 +163,9 @@ export class ClockController {
         this.emergSound.playable[color] = true;
       }
     }
-
-    this.scheduleTick(millis, 0);
   };
 
-  elapsed = (now = nowFun()) => Math.max(0, now - this.times.lastUpdate);
+  elapsed = (now = performance.now()) => Math.max(0, now - this.times.lastUpdate);
 
   millisOf = (color: Color): Millis => (this.times.activeColor === color ?
      Math.max(0, this.times[color] - this.elapsed()) :

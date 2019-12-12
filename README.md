@@ -1,7 +1,8 @@
 [lichess.org](https://lichess.org)
 ==================================
 
-[![Build Status](https://travis-ci.org/ornicar/lila.svg?branch=master)](https://travis-ci.org/ornicar/lila)
+[![Build server](https://github.com/ornicar/lila/workflows/Build%20server/badge.svg)](https://github.com/ornicar/lila/actions?query=workflow%3A%22Build+server%22)
+[![Build assets](https://github.com/ornicar/lila/workflows/Build%20assets/badge.svg)](https://github.com/ornicar/lila/actions?query=workflow%3A%22Build+assets%22)
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lichess/localized.svg)](https://crowdin.com/project/lichess)
 [![Twitter](https://img.shields.io/badge/Twitter-%40lichess-blue.svg)](https://twitter.com/lichess)
 
@@ -18,54 +19,59 @@ It features a [search engine](https://lichess.org/games/search),
 [tactic trainer](https://lichess.org/training),
 a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
-The UI is available in more than [80 languages](https://crowdin.com/project/lichess) thanks to the community.
+The UI is available in more than [130 languages](https://crowdin.com/project/lichess) thanks to the community.
 
 Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
-and relies on [Play 2.4](https://www.playframework.com/) for the routing, templating, and JSON.
-Pure chess logic is contained in [scalachess](https://github.com/ornicar/scalachess) submodule.
+and relies on the [Play 2.4](https://www.playframework.com/) framework.
+[scalatags](http://www.lihaoyi.com/scalatags/) is used for templating.
+Pure chess logic is contained in the [scalachess](https://github.com/ornicar/scalachess) submodule.
 The server is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
+Some WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
-It uses [MongoDB 3.4](https://mongodb.org) to store more than 600 million games, which are indexed by [elasticsearch](http://elasticsearch.org).
-HTTP requests and websocket connections are proxied by [nginx 1.9](http://nginx.org).
-The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom).
+It uses [MongoDB](https://mongodb.org) to store more than 1 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
+HTTP requests and WebSocket connections are proxied by [nginx](http://nginx.org).
+The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
-All rated standard games are published in a [free PGN database](https://database.lichess.org).
-Browser testing done with [![](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
+All rated games are published in a [free PGN database](https://database.lichess.org).
+Browser testing done with [![Browserstack](https://raw.githubusercontent.com/ornicar/lila/master/public/images/browserstack.png)](https://www.browserstack.com).
 Please help us [translate lichess with Crowdin](https://crowdin.com/project/lichess).
 
-[Join us on discord](https://discord.gg/hy5jqSs) or in the #lichess freenode IRC channel for more info.
+See [lichess.org/source](https://lichess.org/source) for a list of repositories.
+
+[Join us on discord](https://discord.gg/hy5jqSs) or in the `#lichess` freenode IRC channel for more info.
 Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and feature requests.
 
 Installation
 ------------
 
-> If you want to add a live chess section to your website, you are welcome to [embed lichess](https://lichess.org/developers) into your website. It's very easy to do.
+The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 
-> This project source code is open for other developers to have an example of non-trivial scala/play2/mongodb application. You're welcome to reuse as much code as you want for your projects and to get inspired by the solutions I propose to many common web development problems. But please don't just create a public lichess clone. Instead, [embed lichess using an &lt;iframe&gt;](https://lichess.org/developers) into your website.
+The source code is available for learning and contribution, but please don't just setup a public Lichess clone. Don't expect developers to help you run your own instance. Questions about the installation and runtime issues will probably be ignored.
 
-> Also note that while I provide the source code, I do **not** offer support for your lichess instance. I will probably ignore any question about lichess installation and runtime issues.
+HTTP API
+--------
 
-## HTTP API
-
-Feel free to use [lichess API](https://lichess.org/api) in your applications and websites.
+Feel free to use the [Lichess API](https://lichess.org/api) in your applications and websites.
 
 Credits
 -------
 
-See the [lichess Thanks page](https://lichess.org/thanks)
+See the [contributors](https://github.com/ornicar/lila/graphs/contributors) on this repository and [lichess.org/thanks](https://lichess.org/thanks).
 
 Supported browsers
 ------------------
 
-- [Chrome](https://www.google.com/chrome) or [Chromium](https://www.chromium.org/getting-involved/download-chromium), 1 year old or newer (fastest local analysis!)
-- [Firefox](https://www.mozilla.org/firefox), 1 year old or newer (second fastest local analysis!)
-- Opera 34 and newer (meh)
-- Safari 9 and newer (boo)
-- Microsoft Edge (yuck)
-- Internet Explorer 11 (eew)
+| Name              | Version | Notes |
+| ----------------- | ------- | ----- |
+| Chromium / Chrome | last 10 | Full support, fastest local analysis |
+| Firefox           | 55+     | Full support, second fastest local analysis |
+| Safari            | 10.1+   | Reasonable support |
+| Opera             | 55+     | Reasonable support |
+| Edge              | 17+     | Reasonable support |
 
-Older browsers will not work. For your own sake, please upgrade.
-Security and performance, think about it!
+Older browsers (including any version of Internet Explorer) will not work.
+For your own sake, please upgrade. Security and performance, think about
+it!
 
 License
 -------

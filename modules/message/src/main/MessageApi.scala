@@ -1,5 +1,8 @@
 package lila.message
 
+import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
+import scala.concurrent.duration._
+
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
@@ -12,8 +15,7 @@ final class MessageApi(
     maxPerPage: lila.common.MaxPerPage,
     blocks: (String, String) => Fu[Boolean],
     notifyApi: lila.notify.NotifyApi,
-    security: MessageSecurity,
-    lilaBus: lila.common.Bus
+    security: MessageSecurity
 ) {
 
   import Thread.ThreadBSONHandler
@@ -28,6 +30,12 @@ final class MessageApi(
     currentPage = page,
     maxPerPage = maxPerPage
   )
+
+  private val unreadCountCache: AsyncLoadingCache[User.ID, Int] = Scaffeine()
+    .expireAfterWrite(1 minute)
+    .buildAsyncFuture[User.ID, Int](ThreadRepo.unreadCount _)
+
+  def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
   def thread(id: String, me: User): Fu[Option[Thread]] = for {
     threadOption ← coll.byId[Thread](id) map (_ filter (_ hasUser me))
@@ -45,6 +53,9 @@ final class MessageApi(
       mod
     )
 
+  def sendPresetFromLichess(user: User, preset: ModPreset) =
+    UserRepo.lichess flatten "Missing lichess user" flatMap { sendPreset(_, user, preset) }
+
   def makeThread(data: DataForm.ThreadData, me: User): Fu[Thread] = {
     val fromMod = Granter(_.MessageAnyone)(me)
     UserRepo named data.user.id flatMap {
@@ -60,7 +71,7 @@ final class MessageApi(
           sendUnlessBlocked(thread, fromMod) flatMap {
             _ ?? {
               val text = s"${data.subject} ${data.text}"
-              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text)
+              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text, thread.looksMuted)
               notify(thread)
             }
           } inject thread
@@ -87,7 +98,7 @@ final class MessageApi(
         val newThread = thread + post
         coll.update($id(newThread.id), newThread) >> {
           val toUserId = newThread otherUserId me
-          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text)
+          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text, muted = false)
           notify(thread, post)
         } inject newThread
     }
@@ -123,7 +134,7 @@ final class MessageApi(
     (thread isVisibleBy thread.receiverOf(post)) ?? {
       import lila.notify.{ Notification, PrivateMessage }
       import lila.common.String.shorten
-      lilaBus.publish(Event.NewMessage(thread, post), 'newMessage)
+      lila.common.Bus.publish(Event.NewMessage(thread, post), 'newMessage)
       notifyApi addNotification Notification.make(
         Notification.Notifies(thread receiverOf post),
         PrivateMessage(

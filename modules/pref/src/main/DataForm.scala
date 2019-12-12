@@ -5,36 +5,49 @@ import play.api.data.Forms._
 
 object DataForm {
 
+  private def containedIn(choices: Seq[(Int, String)]): Int => Boolean =
+    choice => choices.exists(_._1 == choice)
+
+  private def checkedNumber(choices: Seq[(Int, String)]) =
+    number.verifying(containedIn(choices))
+
+  private lazy val booleanNumber =
+    number.verifying(Pref.BooleanPref.verify)
+
   val pref = Form(mapping(
     "display" -> mapping(
       "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-      "captured" -> number.verifying(Pref.BooleanPref.verify),
-      "highlight" -> number.verifying(Pref.BooleanPref.verify),
-      "destination" -> number.verifying(Pref.BooleanPref.verify),
-      "coords" -> number.verifying(Pref.Coords.choices.toMap contains _),
-      "replay" -> number.verifying(Pref.Replay.choices.toMap contains _),
-      "pieceNotation" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "zen" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "blindfold" -> number.verifying(Pref.Blindfold.choices.toMap contains _)
+      "captured" -> booleanNumber,
+      "highlight" -> booleanNumber,
+      "destination" -> booleanNumber,
+      "coords" -> checkedNumber(Pref.Coords.choices),
+      "replay" -> checkedNumber(Pref.Replay.choices),
+      "pieceNotation" -> optional(booleanNumber),
+      "zen" -> optional(booleanNumber),
+      "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+      "blindfold" -> checkedNumber(Pref.Blindfold.choices)
     )(DisplayData.apply)(DisplayData.unapply),
     "behavior" -> mapping(
       "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
-      "premove" -> number.verifying(Pref.BooleanPref.verify),
-      "takeback" -> number.verifying(Pref.Takeback.choices.toMap contains _),
-      "autoQueen" -> number.verifying(Pref.AutoQueen.choices.toMap contains _),
-      "autoThreefold" -> number.verifying(Pref.AutoThreefold.choices.toMap contains _),
-      "submitMove" -> number.verifying(Pref.SubmitMove.choices.toMap contains _),
-      "confirmResign" -> number.verifying(Pref.ConfirmResign.choices.toMap contains _),
-      "keyboardMove" -> optional(number.verifying(Pref.BooleanPref.verify)),
-      "rookCastle" -> optional(number.verifying(Pref.BooleanPref.verify))
+      "premove" -> booleanNumber,
+      "takeback" -> checkedNumber(Pref.Takeback.choices),
+      "autoQueen" -> checkedNumber(Pref.AutoQueen.choices),
+      "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
+      "submitMove" -> checkedNumber(Pref.SubmitMove.choices),
+      "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+      "keyboardMove" -> optional(booleanNumber),
+      "rookCastle" -> optional(booleanNumber)
     )(BehaviorData.apply)(BehaviorData.unapply),
-    "clockTenths" -> number.verifying(Pref.ClockTenths.choices.toMap contains _),
-    "clockBar" -> number.verifying(Pref.BooleanPref.verify),
-    "clockSound" -> number.verifying(Pref.BooleanPref.verify),
-    "follow" -> number.verifying(Pref.BooleanPref.verify),
-    "challenge" -> number.verifying(Pref.Challenge.choices.toMap contains _),
-    "message" -> number.verifying(Pref.Message.choices.toMap contains _),
-    "studyInvite" -> optional(number.verifying(Pref.StudyInvite.choices.toMap contains _)),
+    "clock" -> mapping(
+      "tenths" -> checkedNumber(Pref.ClockTenths.choices),
+      "bar" -> booleanNumber,
+      "sound" -> booleanNumber,
+      "moretime" -> checkedNumber(Pref.Moretime.choices)
+    )(ClockData.apply)(ClockData.unapply),
+    "follow" -> booleanNumber,
+    "challenge" -> checkedNumber(Pref.Challenge.choices),
+    "message" -> checkedNumber(Pref.Message.choices),
+    "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
     "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
   )(PrefData.apply)(PrefData.unapply))
 
@@ -47,6 +60,7 @@ object DataForm {
       replay: Int,
       pieceNotation: Option[Int],
       zen: Option[Int],
+      resizeHandle: Option[Int],
       blindfold: Int
   )
 
@@ -62,12 +76,17 @@ object DataForm {
       rookCastle: Option[Int]
   )
 
+  case class ClockData(
+      tenths: Int,
+      bar: Int,
+      sound: Int,
+      moretime: Int
+  )
+
   case class PrefData(
       display: DisplayData,
       behavior: BehaviorData,
-      clockTenths: Int,
-      clockBar: Int,
-      clockSound: Int,
+      clock: ClockData,
       follow: Int,
       challenge: Int,
       message: Int,
@@ -79,9 +98,10 @@ object DataForm {
       autoQueen = behavior.autoQueen,
       autoThreefold = behavior.autoThreefold,
       takeback = behavior.takeback,
-      clockTenths = clockTenths,
-      clockBar = clockBar == 1,
-      clockSound = clockSound == 1,
+      moretime = clock.moretime,
+      clockTenths = clock.tenths,
+      clockBar = clock.bar == 1,
+      clockSound = clock.sound == 1,
       follow = follow == 1,
       highlight = display.highlight == 1,
       destination = display.destination == 1,
@@ -99,6 +119,7 @@ object DataForm {
       captured = display.captured == 1,
       keyboardMove = behavior.keyboardMove | pref.keyboardMove,
       zen = display.zen | pref.zen,
+      resizeHandle = display.resizeHandle | pref.resizeHandle,
       rookCastle = behavior.rookCastle | pref.rookCastle,
       pieceNotation = display.pieceNotation | pref.pieceNotation,
       moveEvent = behavior.moveEvent | pref.moveEvent
@@ -116,6 +137,7 @@ object DataForm {
         captured = if (pref.captured) 1 else 0,
         blindfold = pref.blindfold,
         zen = pref.zen.some,
+        resizeHandle = pref.resizeHandle.some,
         pieceNotation = pref.pieceNotation.some
       ),
       behavior = BehaviorData(
@@ -129,9 +151,12 @@ object DataForm {
         keyboardMove = pref.keyboardMove.some,
         rookCastle = pref.rookCastle.some
       ),
-      clockTenths = pref.clockTenths,
-      clockBar = if (pref.clockBar) 1 else 0,
-      clockSound = if (pref.clockSound) 1 else 0,
+      clock = ClockData(
+        tenths = pref.clockTenths,
+        bar = if (pref.clockBar) 1 else 0,
+        sound = if (pref.clockSound) 1 else 0,
+        moretime = pref.moretime
+      ),
       follow = if (pref.follow) 1 else 0,
       challenge = pref.challenge,
       message = pref.message,
@@ -143,23 +168,23 @@ object DataForm {
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
 
   val theme = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme contains _)
+    "theme" -> text.verifying(Theme contains _)
   ))
 
   val pieceSet = Form(single(
-    "set" -> nonEmptyText.verifying(PieceSet contains _)
+    "set" -> text.verifying(PieceSet contains _)
   ))
 
   val theme3d = Form(single(
-    "theme" -> nonEmptyText.verifying(Theme3d contains _)
+    "theme" -> text.verifying(Theme3d contains _)
   ))
 
   val pieceSet3d = Form(single(
-    "set" -> nonEmptyText.verifying(PieceSet3d contains _)
+    "set" -> text.verifying(PieceSet3d contains _)
   ))
 
   val soundSet = Form(single(
-    "set" -> nonEmptyText.verifying(SoundSet contains _)
+    "set" -> text.verifying(SoundSet contains _)
   ))
 
   val bg = Form(single(

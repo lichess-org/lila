@@ -9,7 +9,6 @@ final class Env(
     hub: lila.hub.Env,
     getFriendIds: String => Fu[Set[String]],
     getFollowerIds: String => Fu[Set[String]],
-    lobbySocket: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
     renderer: ActorSelection,
     system: ActorSystem
@@ -27,7 +26,6 @@ final class Env(
   )
 
   system.actorOf(Props(new Push(
-    lobbySocket = lobbySocket,
     renderer = renderer,
     getFriendIds = getFriendIds,
     getFollowerIds = getFollowerIds,
@@ -49,6 +47,10 @@ final class Env(
       }
     }
 
+  lila.common.Bus.subscribeFun('shadowban) {
+    case lila.hub.actorApi.mod.Shadowban(userId, true) => entryApi removeRecentFollowsBy userId
+  }
+
   private[timeline] lazy val entryColl = db(CollectionEntry)
   private[timeline] lazy val unsubColl = db(CollectionUnsub)
 }
@@ -61,8 +63,7 @@ object Env {
     hub = lila.hub.Env.current,
     getFriendIds = lila.relation.Env.current.api.fetchFriends,
     getFollowerIds = lila.relation.Env.current.api.fetchFollowersFromSecondary,
-    lobbySocket = lila.hub.Env.current.socket.lobby,
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )

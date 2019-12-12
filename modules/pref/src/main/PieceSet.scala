@@ -25,9 +25,15 @@ object PieceSet extends PieceSetObject {
   val default = new PieceSet("cburnett")
 
   val all = List(
-    default.name, "merida", "alpha", "pirouetti",
-    "chessnut", "chess7", "reillycraig", "companion",
-    "fantasy", "spatial", "riohacha", "shapes", "letter"
+    default.name, "merida", "alpha",
+    "pirouetti", "chessnut", "chess7",
+    "reillycraig", "companion", "riohacha",
+    "kosal", "leipzig", "fantasy",
+    "spatial", "california", "pixel",
+    "maestro", "fresca", "cardinal",
+    "gioco", "tatiana", "staunty",
+    "libra", "dubrovny", "icpieces",
+    "shapes", "letter"
   ) map { name => new PieceSet(name) }
 }
 
@@ -38,6 +44,6 @@ object PieceSet3d extends PieceSetObject {
   val all = List(
     default.name, "Wood", "Metal", "RedVBlue",
     "ModernJade", "ModernWood", "Glass", "Trimmed",
-    "Experimental", "Staunton"
+    "Experimental", "Staunton", "CubesAndPi"
   ) map { name => new PieceSet(name) }
 }

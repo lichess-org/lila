@@ -19,16 +19,16 @@ case class Tournament(
     variant: chess.variant.Variant,
     position: StartingPosition,
     mode: Mode,
-    `private`: Boolean,
     password: Option[String] = None,
     conditions: Condition.All,
+    teamBattle: Option[TeamBattle] = None,
     noBerserk: Boolean = false,
     schedule: Option[Schedule],
     nbPlayers: Int,
     createdAt: DateTime,
-    createdBy: String,
+    createdBy: User.ID,
     startsAt: DateTime,
-    winnerId: Option[String] = None,
+    winnerId: Option[User.ID] = None,
     featuredId: Option[String] = None,
     spotlight: Option[Spotlight] = None
 ) {
@@ -37,14 +37,18 @@ case class Tournament(
   def isStarted = status == Status.Started
   def isFinished = status == Status.Finished
 
-  def isPrivate = `private`
+  def isPrivate = password.isDefined
 
-  def fullName = schedule.map(_.freq).fold(s"$name $system") {
-    case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
-    case Schedule.Freq.Shield => s"$name $system"
-    case _ if clock.hasIncrement => s"$name Inc $system"
-    case _ => s"$name $system"
-  }
+  def isTeamBattle = teamBattle.isDefined
+
+  def fullName =
+    if (isTeamBattle) s"$name Team Battle"
+    else schedule.map(_.freq).fold(s"$name $system") {
+      case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
+      case Schedule.Freq.Shield => s"$name $system"
+      case _ if clock.hasIncrement => s"$name Inc $system"
+      case _ => s"$name $system"
+    }
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
@@ -83,7 +87,7 @@ case class Tournament(
 
   def duration = new Duration(minutes * 60 * 1000)
 
-  def interval = new Interval(startsAt, finishesAt)
+  def interval = new Interval(startsAt, duration)
 
   def overlaps(other: Tournament) = interval overlaps other.interval
 
@@ -140,13 +144,13 @@ object Tournament {
     variant: chess.variant.Variant,
     position: StartingPosition,
     mode: Mode,
-    `private`: Boolean,
     password: Option[String],
     waitMinutes: Int,
     startDate: Option[DateTime],
-    berserkable: Boolean
+    berserkable: Boolean,
+    teamBattle: Option[TeamBattle]
   ) = Tournament(
-    id = Random nextString 8,
+    id = makeId,
     name = name | {
       if (position.initial) GreatPlayer.randomName
       else position.shortName
@@ -161,9 +165,9 @@ object Tournament {
     variant = variant,
     position = position,
     mode = mode,
-    `private` = `private`,
     password = password,
     conditions = Condition.All.empty,
+    teamBattle = teamBattle,
     noBerserk = !berserkable,
     schedule = None,
     startsAt = startDate | {
@@ -172,7 +176,7 @@ object Tournament {
   )
 
   def schedule(sched: Schedule, minutes: Int) = Tournament(
-    id = Random nextString 8,
+    id = makeId,
     name = sched.name,
     status = Status.Created,
     system = System.default,
@@ -184,9 +188,12 @@ object Tournament {
     variant = sched.variant,
     position = sched.position,
     mode = Mode.Rated,
-    `private` = false,
     conditions = sched.conditions,
     schedule = Some(sched),
     startsAt = sched.at
   )
+
+  def makeId = Random nextString 8
+
+  case class TournamentTable(tours: List[Tournament])
 }

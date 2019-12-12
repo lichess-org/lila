@@ -2,6 +2,8 @@ package lila.lobby
 
 import org.joda.time.DateTime
 
+import lila.socket.Socket.Sri
+
 object HookRepo {
 
   private var hooks = Vector[Hook]()
@@ -24,11 +26,11 @@ object HookRepo {
 
   def byIds(ids: Set[String]) = hooks filter { h => ids contains h.id }
 
-  def byUid(uid: String) = hooks find (_.uid == uid)
+  def bySri(sri: Sri) = hooks find (_.sri == sri)
 
   def bySid(sid: String) = hooks find (_.sid == sid.some)
 
-  def notInUids(uids: Set[String]): Vector[Hook] = hooks.filterNot(h => uids(h.uid))
+  def notInSris(sris: Set[Sri]): Vector[Hook] = hooks.filterNot(h => sris(h.sri))
 
   def save(hook: Hook): Unit = {
     hooks = hooks.filterNot(_.id == hook.id) :+ hook

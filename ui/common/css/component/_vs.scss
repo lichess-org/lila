@@ -1,0 +1,20 @@
+.vstext {
+  @extend %flex-between-nowrap, %nowrap-hidden, %box-neat;
+  background: $c-bg-box;
+  padding: .3em .6em;
+  color: $c-font;
+  &__center {
+    text-align: center;
+  }
+  &__pl,
+  &__op {
+    @extend %ellipsis;
+    max-width: 45%;
+  }
+  &__pl {
+    text-align: left;
+  }
+  &__op {
+    text-align: right;
+  }
+}

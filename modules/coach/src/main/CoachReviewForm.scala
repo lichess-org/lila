@@ -6,7 +6,7 @@ import play.api.data.Forms._
 object CoachReviewForm {
 
   lazy val form = Form(mapping(
-    "text" -> nonEmptyText(minLength = 3, maxLength = 2010),
+    "text" -> text(minLength = 3, maxLength = 2010),
     "score" -> number(min = 1, max = 5)
   )(Data.apply)(Data.unapply))
 

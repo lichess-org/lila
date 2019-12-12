@@ -1,6 +1,8 @@
 import { GameData, Player } from './interfaces';
 import * as status from './status';
 
+export * from './interfaces';
+
 export function playable(data: GameData): boolean {
   return data.game.status.id < status.ids.aborted && !imported(data);
 }
@@ -11,6 +13,14 @@ export function isPlayerPlaying(data: GameData): boolean {
 
 export function isPlayerTurn(data: GameData): boolean {
   return isPlayerPlaying(data) && data.game.player == data.player.color;
+}
+
+export function isFriendGame(data: GameData): boolean {
+  return data.game.source === 'friend';
+}
+
+export function isClassical(data: GameData): boolean {
+  return data.game.perf === 'classical';
 }
 
 export function mandatory(data: GameData): boolean {
@@ -32,8 +42,6 @@ export function abortable(data: GameData): boolean {
 export function takebackable(data: GameData): boolean {
   return playable(data) &&
     data.takebackable &&
-    !data.tournament &&
-    !data.simul &&
     bothPlayersHavePlayed(data) &&
     !data.player.proposingTakeback &&
     !data.opponent.proposingTakeback;
@@ -59,7 +67,7 @@ export function berserkableBy(data: GameData): boolean {
 }
 
 export function moretimeable(data: GameData): boolean {
-  return isPlayerPlaying(data) && !mandatory(data) && (
+  return isPlayerPlaying(data) && data.moretimeable && (
     !!data.clock ||
     (!!data.correspondence &&
       data.correspondence[data.opponent.color] < (data.correspondence.increment - 3600)
@@ -96,14 +104,14 @@ export function isCorrespondence(data: GameData): boolean {
 }
 
 export function setOnGame(data: GameData, color: Color, onGame: boolean): void {
-  var player = getPlayer(data, color);
+  const player = getPlayer(data, color);
   onGame = onGame || !!player.ai;
   player.onGame = onGame;
   if (onGame) setIsGone(data, color, false);
 }
 
 export function setIsGone(data: GameData, color: Color, isGone: boolean): void {
-  var player = getPlayer(data, color);
+  const player = getPlayer(data, color);
   isGone = isGone && !player.ai;
   player.isGone = isGone;
   if (!isGone && player.user) player.user.online = true;

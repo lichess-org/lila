@@ -21,8 +21,8 @@ final class Env(
 
   val api = new ForumSearchApi(client, postApi)
 
-  def apply(text: String, page: Int, staff: Boolean, troll: Boolean) =
-    paginatorBuilder(Query(text, staff, troll), page)
+  def apply(text: String, page: Int, troll: Boolean) =
+    paginatorBuilder(Query(text, troll), page)
 
   def cli = new lila.common.Cli {
     def process = {

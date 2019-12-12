@@ -1,7 +1,6 @@
 package lila.memo
 
 import akka.actor.ActorSystem
-import com.github.benmanes.caffeine.cache.stats.CacheStats;
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Cache, Scaffeine }
 import scala.concurrent.duration._
@@ -32,6 +31,8 @@ final class AsyncCacheClearable[K, V](
     cache.getIfPresent(k) foreach { fu =>
       cache.put(k, fu map f)
     }
+
+  def put(k: K, v: Fu[V]): Unit = cache.put(k, v)
 
   def invalidate(k: K): Unit = cache invalidate k
 
@@ -64,7 +65,7 @@ object AsyncCache {
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
       ).recordStats.buildAsyncFuture(safeF)
-      monitor(name, cache.underlying.synchronous)
+      startMonitoring(name, cache.underlying.synchronous)
       new AsyncCache[K, V](cache, safeF)
     }
 
@@ -84,7 +85,7 @@ object AsyncCache {
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
       ).recordStats.build[K, Fu[V]]
-      monitor(name, cache.underlying)
+      startMonitoring(name, cache.underlying)
       new AsyncCacheClearable[K, V](cache, safeF, logger = logger branch fullName)
     }
 
@@ -92,39 +93,25 @@ object AsyncCache {
       name: String,
       f: => Fu[V],
       expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds
+      resultTimeout: FiniteDuration = 5 seconds,
+      monitor: Boolean = true
     ) = {
       val safeF = (_: Unit) => f.withTimeout(
         resultTimeout,
         lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
       )
-      val cache: AsyncLoadingCache[Unit, V] = makeExpire(
-        Scaffeine().maximumSize(1),
-        expireAfter
-      ).recordStats.buildAsyncFuture(safeF)
-      monitor(name, cache.underlying.synchronous)
+      val builder = makeExpire(Scaffeine().maximumSize(1), expireAfter)
+      if (monitor) builder.recordStats
+      val cache: AsyncLoadingCache[Unit, V] = builder.buildAsyncFuture(safeF)
+      if (monitor) startMonitoring(name, cache.underlying.synchronous)
       new AsyncCacheSingle[V](cache, safeF)
     }
   }
 
-  private[memo] def monitor(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit = {
-    logger.info(s"Caffeine cache $name started")
-    val monitor = new lila.mon.Caffeine(name)
+  private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
     system.scheduler.schedule(1 minute, 1 minute) {
-      val stats = cache.stats
-      monitor hitCount stats.hitCount
-      monitor hitRate stats.hitRate
-      monitor missCount stats.missCount
-      if (stats.totalLoadTime > 0) {
-        monitor loadSuccessCount stats.loadSuccessCount
-        monitor loadFailureCount stats.loadFailureCount
-        monitor totalLoadTime (stats.totalLoadTime / 1000000) // too much nanos for Kamon to handle
-        monitor averageLoadPenalty stats.averageLoadPenalty.toLong
-      }
-      monitor evictionCount stats.evictionCount
-      monitor entryCount cache.estimatedSize
+      lila.mon.caffeineStats(cache, name)
     }
-  }
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter

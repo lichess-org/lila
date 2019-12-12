@@ -22,10 +22,10 @@ object AnalysisRepo {
   def byIds(ids: Seq[ID]): Fu[Seq[Option[Analysis]]] =
     coll.optionsByOrderedIds[Analysis, Analysis.ID](ids)(_.id)
 
-  def associateToGames(games: List[Game]): Fu[List[(Game, Analysis)]] =
+  def associateToGames(games: List[Game]): Fu[List[Analysis.Analyzed]] =
     byIds(games.map(_.id)) map { as =>
       games zip as collect {
-        case (game, Some(analysis)) => game -> analysis
+        case (game, Some(analysis)) => Analysis.Analyzed(game, analysis)
       }
     }
 

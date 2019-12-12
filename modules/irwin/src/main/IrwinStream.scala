@@ -4,7 +4,9 @@ import akka.actor._
 import play.api.libs.iteratee._
 import play.api.libs.json._
 
-import lila.report.ModId
+import lila.analyse.Analysis.Analyzed
+import lila.common.Bus
+import lila.report.SuspectId
 
 final class IrwinStream(system: ActorSystem) {
 
@@ -13,39 +15,46 @@ final class IrwinStream(system: ActorSystem) {
       Json.stringify(js) + "\n"
     }
 
+  private val classifier = 'irwin
+
   def enumerator: Enumerator[String] = {
-    var stream: Option[ActorRef] = None
+    var subscriber: Option[lila.common.Tellable] = None
     Concurrent.unicast[JsValue](
       onStart = channel => {
-        def push(eventType: String, userId: String, payload: JsObject): Unit = {
-          lila.mon.mod.irwin.streamEventType(eventType)()
-          channel push payload ++ Json.obj(
-            "t" -> eventType,
-            "user" -> userId
-          )
-        }
-        val actor = system.actorOf(Props(new Actor {
-          def receive = {
-            case request: IrwinRequest =>
-              push("request", request.suspect.value, Json.obj("origin" -> request.origin.key))
-            case lila.hub.actorApi.report.Created(userId, "cheat" | "cheatprint", by) if by != ModId.irwin.value =>
-              push("reportCreated", userId, Json.obj())
-            case lila.hub.actorApi.report.Processed(userId, "cheat" | "cheatprint") =>
-              lila.user.UserRepo.isEngine(userId) foreach { marked =>
-                push("reportProcessed", userId, Json.obj("marked" -> marked))
-              }
-            case lila.hub.actorApi.mod.MarkCheater(userId, value) =>
-              push("mark", userId, Json.obj("marked" -> value))
-          }
-        }))
-        system.lilaBus.subscribe(actor, 'report, 'adjustCheater, 'irwin)
+        subscriber = Bus.subscribeFun(classifier) {
+          case req: IrwinRequest =>
+            lila.mon.mod.irwin.streamEventType("request")()
+            channel.push(requestJson(req))
+        } some
       },
-      onComplete = {
-        stream.foreach { actor =>
-          system.lilaBus.unsubscribe(actor)
-          actor ! PoisonPill
-        }
-      }
+      onComplete = subscriber foreach { Bus.unsubscribe(_, classifier) }
     ) &> stringify
   }
+
+  private def requestJson(req: IrwinRequest) = Json.obj(
+    "t" -> "request",
+    "origin" -> req.origin.key,
+    "user" -> Json.obj(
+      "id" -> req.suspect.user.id,
+      "titled" -> req.suspect.user.hasTitle,
+      "engine" -> req.suspect.user.engine,
+      "games" -> req.suspect.user.count.rated
+    ),
+    "games" -> req.games.map {
+      case (game, analysis) => Json.obj(
+        "id" -> game.id,
+        "white" -> game.whitePlayer.userId,
+        "black" -> game.blackPlayer.userId,
+        "pgn" -> game.pgnMoves.mkString(" "),
+        "emts" -> game.clockHistory.isDefined ?? game.moveTimes.map(_.map(_.centis)),
+        "analysis" -> analysis.map {
+          _.infos.map { info =>
+            info.cp.map { cp => Json.obj("cp" -> cp.value) } orElse
+              info.mate.map { mate => Json.obj("mate" -> mate.value) } getOrElse
+              JsNull
+          }
+        }
+      )
+    }
+  )
 }

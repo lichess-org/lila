@@ -3,7 +3,7 @@ package lila.user
 import com.roundeights.hasher.Implicits._
 import reactivemongo.bson._
 
-import lila.common.EmailAddress
+import lila.common.NormalizedEmailAddress
 import lila.db.dsl._
 import lila.user.User.{ ClearPassword, PasswordAndToken, BSONFields => F }
 
@@ -26,7 +26,7 @@ final class Authenticator(
   def authenticateById(id: User.ID, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
     loginCandidateById(id) map { _ flatMap { _ option passwordAndToken } }
 
-  def authenticateByEmail(email: EmailAddress, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
+  def authenticateByEmail(email: NormalizedEmailAddress, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
@@ -35,7 +35,7 @@ final class Authenticator(
   def loginCandidateById(id: User.ID): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))
 
-  def loginCandidateByEmail(email: EmailAddress): Fu[Option[User.LoginCandidate]] =
+  def loginCandidateByEmail(email: NormalizedEmailAddress): Fu[Option[User.LoginCandidate]] =
     loginCandidate($doc(F.email -> email))
 
   def setPassword(id: User.ID, p: ClearPassword): Funit =

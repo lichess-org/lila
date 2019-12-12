@@ -13,12 +13,12 @@ export interface BoolSetting {
 
 export function boolSetting(o: BoolSetting, trans: Trans, redraw: Redraw) {
   const fullId = 'abset-' + o.id;
-  return h('div.setting', o.title ? {
+  return h('div.setting.' + fullId, o.title ? {
     attrs: { title: trans.noarg(o.title) }
   } : {}, [
     h('label', { attrs: { 'for': fullId } }, trans.noarg(o.name)),
     h('div.switch', [
-      h('input#' + fullId + '.cmn-toggle.cmn-toggle-round', {
+      h('input#' + fullId + '.cmn-toggle', {
         attrs: {
           type: 'checkbox',
           checked: o.checked

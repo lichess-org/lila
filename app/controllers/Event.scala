@@ -7,12 +7,6 @@ object Event extends LilaController {
 
   private def api = Env.event.api
 
-  def index = Open { implicit ctx =>
-    api.recentEnabled.map { events =>
-      Ok(html.event.index(events))
-    }
-  }
-
   def show(id: String) = Open { implicit ctx =>
     OptionOk(api oneEnabled id) { event =>
       html.event.show(event)
@@ -53,5 +47,12 @@ object Event extends LilaController {
         Redirect(routes.Event.edit(event.id))
       }
     )
+  }
+
+  def clone(id: String) = Secure(_.ManageEvent) { implicit ctx => me =>
+    OptionFuResult(api one id) { old =>
+      val event = api clone old
+      Ok(html.event.create(api editForm event)).fuccess
+    }
   }
 }

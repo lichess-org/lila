@@ -1,12 +1,12 @@
 $(function() {
 
-  var $editor = $('.coach_edit');
+  var $editor = $('.coach-edit');
 
   var todo = (function() {
 
     var $overview = $editor.find('.overview');
     var $el = $overview.find('.todo');
-    var $option = $editor.find('select[name=listed] option[value=true]');
+    var $checkbox = $editor.find('#form3-listed');
 
     var must = [{
       html: '<a href="/account/profile">Complete your lichess profile</a>',
@@ -42,9 +42,9 @@ $(function() {
       });
       $el.find('ul').html(points);
       var fail = !!points.length;
-      $overview.toggleClass('with_todo', fail);
-      if (fail) $option.parent().val('false');
-      $option.attr('disabled', fail);
+      $overview.toggleClass('with-todo', fail);
+      if (fail) $checkbox.prop('checked', false);
+      $checkbox.attr('disabled', fail);
     };
   })();
   todo();
@@ -56,8 +56,9 @@ $(function() {
     $editor.find('.panel.' + $(this).data('tab')).addClass('active');
     $editor.find('div.status').removeClass('saved');
   });
-  var submit = lichess.fp.debounce(function() {
-    $editor.find('form.form').ajaxSubmit({
+  var submit = lichess.debounce(function() {
+    const $asyncForm = $editor.find('form.async');
+    if ($asyncForm.length) $asyncForm.ajaxSubmit({
       success: function() {
         $editor.find('div.status').addClass('saved');
         todo();

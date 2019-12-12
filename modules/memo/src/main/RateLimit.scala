@@ -12,7 +12,9 @@ final class RateLimit[K](
     credits: Int,
     duration: Duration,
     name: String,
-    key: String
+    key: String,
+    enforce: Boolean = true,
+    log: Boolean = true
 ) {
   import RateLimit._
 
@@ -41,10 +43,12 @@ final class RateLimit[K](
       case Some((_, clearAt)) if nowMillis > clearAt =>
         storage.put(k, cost -> makeClearAt)
         op
-      case _ =>
-        logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
+      case _ if enforce =>
+        if (log) logger.info(s"$name ($credits/$duration) $k cost: $cost $msg")
         monitor()
         default.zero
+      case _ =>
+        op
     }
 }
 

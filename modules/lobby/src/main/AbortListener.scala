@@ -3,11 +3,15 @@ package lila.lobby
 import lila.game.Pov
 import lila.user.UserRepo
 
-private[lobby] final class AbortListener(seekApi: SeekApi) {
+private[lobby] final class AbortListener(
+    seekApi: SeekApi,
+    lobbyTrouper: LobbyTrouper
+) {
 
   def apply(pov: Pov): Funit =
     (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-
-      cancelColorIncrement(pov)
+      cancelColorIncrement(pov) >>-
+      lobbyTrouper.registerAbortedGame(pov.game)
 
   private def cancelColorIncrement(pov: Pov): Unit = pov.game.userIds match {
     case List(u1, u2) =>

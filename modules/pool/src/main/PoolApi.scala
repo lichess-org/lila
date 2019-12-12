@@ -4,7 +4,7 @@ import akka.actor._
 
 import lila.game.Game
 import lila.rating.RatingRange
-import lila.socket.Socket.{ Uid => SocketId }
+import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
 final class PoolApi(
@@ -28,7 +28,7 @@ final class PoolApi(
   def join(poolId: PoolConfig.Id, joiner: Joiner) =
     playbanApi.hasCurrentBan(joiner.userId) foreach {
       case false => actors foreach {
-        case (id, actor) if id == poolId => actor ! Join(joiner)
+        case (id, actor) if id == poolId => playbanApi.getRageSit(joiner.userId).foreach(actor ! Join(joiner, _))
         case (_, actor) => actor ! Leave(joiner.userId)
       }
       case _ =>
@@ -36,10 +36,7 @@ final class PoolApi(
 
   def leave(poolId: PoolConfig.Id, userId: User.ID) = sendTo(poolId, Leave(userId))
 
-  def socketIds(ids: Set[String]) = {
-    val msg = SocketIds(ids)
-    actors.values.foreach(_ ! msg)
-  }
+  def socketIds(ids: Sris) = actors.values.foreach(_ ! ids)
 
   private def sendTo(poolId: PoolConfig.Id, msg: Any) =
     actors get poolId foreach { _ ! msg }
@@ -49,7 +46,7 @@ object PoolApi {
 
   case class Joiner(
       userId: User.ID,
-      socketId: SocketId,
+      sri: Sri,
       ratingMap: Map[String, Int],
       ratingRange: Option[RatingRange],
       lame: Boolean,
@@ -59,5 +56,8 @@ object PoolApi {
     def is(member: PoolMember) = userId == member.userId
   }
 
-  case class Pairing(game: Game, whiteUid: SocketId, blackUid: SocketId)
+  case class Pairing(game: Game, whiteSri: Sri, blackSri: Sri) {
+    def sri(color: chess.Color) = color.fold(whiteSri, blackSri)
+  }
+  case class Pairings(pairings: List[Pairing])
 }

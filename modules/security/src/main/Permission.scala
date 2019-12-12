@@ -7,20 +7,20 @@ sealed abstract class Permission(val name: String, val children: List[Permission
 
 object Permission {
 
-  case object ViewBlurs extends Permission("ROLE_VIEW_BLURS")
-  case object StaffForum extends Permission("ROLE_STAFF_FORUM")
-  case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
+  type Selector = Permission.type => Permission
 
-  case object ModerateQa extends Permission("ROLE_MODERATE_QA")
+  case object ViewBlurs extends Permission("ROLE_VIEW_BLURS")
+  case object ModerateForum extends Permission("ROLE_MODERATE_FORUM")
 
   case object ChatTimeout extends Permission("ROLE_CHAT_TIMEOUT")
   case object UserSpy extends Permission("ROLE_USER_SPY")
   case object UserEvaluate extends Permission("ROLE_USER_EVALUATE")
   case object ViewPrivateComms extends Permission("ROLE_VIEW_PRIVATE_COMS")
-  case object MarkTroll extends Permission("ROLE_CHAT_BAN", List(UserSpy, ChatTimeout))
+  case object Shadowban extends Permission("ROLE_SHADOWBAN", List(UserSpy, ChatTimeout))
   case object MarkEngine extends Permission("ROLE_ADJUST_CHEATER", List(UserSpy))
   case object MarkBooster extends Permission("ROLE_ADJUST_BOOSTER", List(UserSpy))
   case object IpBan extends Permission("ROLE_IP_BAN", List(UserSpy))
+  case object PrintBan extends Permission("ROLE_PRINT_BAN", List(UserSpy))
   case object DisableTwoFactor extends Permission("ROLE_DISABLE_2FA")
   case object CloseAccount extends Permission("ROLE_CLOSE_ACCOUNT", List(UserSpy))
   case object ReopenAccount extends Permission("ROLE_REOPEN_ACCOUNT", List(UserSpy))
@@ -29,7 +29,6 @@ object Permission {
   case object SeeReport extends Permission("ROLE_SEE_REPORT")
   case object ModLog extends Permission("ROLE_MOD_LOG")
   case object SeeInsight extends Permission("ROLE_SEE_INSIGHT")
-  case object StreamConfig extends Permission("ROLE_STREAM_CONFIG")
   case object PracticeConfig extends Permission("ROLE_PRACTICE_CONFIG")
   case object Beta extends Permission("ROLE_BETA")
   case object MessageAnyone extends Permission("ROLE_MESSAGE_ANYONE")
@@ -53,31 +52,38 @@ object Permission {
   case object Cli extends Permission("ROLE_ClI")
   case object Settings extends Permission("ROLE_SETTINGS")
   case object Streamers extends Permission("ROLE_STREAMERS")
+  case object Verified extends Permission("ROLE_VERIFIED")
+  case object Prismic extends Permission("ROLE_PRISMIC")
+
+  case object LichessTeam extends Permission("ROLE_LICHESS_TEAM", List(
+    Prismic
+  ))
 
   case object Hunter extends Permission("ROLE_HUNTER", List(
-    ViewBlurs, MarkEngine, MarkBooster, StaffForum,
+    LichessTeam,
+    ViewBlurs, MarkEngine, MarkBooster,
     UserSpy, UserEvaluate, SeeReport, ModLog, SeeInsight,
     UserSearch, ModNote, RemoveRanking, ModMessage
   ))
 
   case object Admin extends Permission("ROLE_ADMIN", List(
-    Hunter, ModerateForum, IpBan, CloseAccount, ReopenAccount, ViewPrivateComms,
-    ChatTimeout, MarkTroll, SetTitle, SetEmail, ModerateQa, StreamConfig,
+    Hunter, ModerateForum, IpBan, PrintBan, CloseAccount, ReopenAccount, ViewPrivateComms,
+    ChatTimeout, Shadowban, SetTitle, SetEmail,
     MessageAnyone, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
     PracticeConfig, RemoveRanking, ReportBan, DisapproveCoachReview,
-    Relay, Streamers, DisableTwoFactor
+    Relay, Streamers, DisableTwoFactor, ChangePermission
   ))
 
   case object SuperAdmin extends Permission("ROLE_SUPER_ADMIN", List(
-    Admin, ChangePermission, Developer, Impersonate, PayPal, Cli, Settings
+    Admin, Developer, Impersonate, PayPal, Cli, Settings
   ))
 
   lazy val allButSuperAdmin: List[Permission] = List(
-    Admin, Hunter, MarkTroll, ChatTimeout, ChangePermission, ViewBlurs, StaffForum, ModerateForum,
-    UserSpy, MarkEngine, MarkBooster, IpBan, ModerateQa, StreamConfig, PracticeConfig,
+    Admin, Hunter, Shadowban, ChatTimeout, ChangePermission, ViewBlurs, ModerateForum,
+    UserSpy, MarkEngine, MarkBooster, IpBan, PrintBan, PracticeConfig,
     Beta, MessageAnyone, UserSearch, ManageTeam, TerminateTournament, ManageTournament, ManageEvent,
-    PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan,
-    Relay, Cli, Settings, Streamers, DisableTwoFactor
+    PublicMod, Developer, Coach, ModNote, RemoveRanking, ReportBan, Impersonate,
+    Relay, Cli, Settings, Streamers, DisableTwoFactor, Verified, Prismic
   )
 
   lazy private val all: List[Permission] = SuperAdmin :: allButSuperAdmin
@@ -86,7 +92,7 @@ object Permission {
 
   def apply(name: String): Option[Permission] = allByName get name
 
-  def apply(names: List[String]): List[Permission] = names flatMap { apply(_) }
+  def apply(names: List[String]): Set[Permission] = names flatMap { apply(_) } toSet
 
   def exists(name: String) = allByName contains name
 }

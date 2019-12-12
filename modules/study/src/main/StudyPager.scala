@@ -4,12 +4,15 @@ import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.user.User
+import lila.i18n.{ Translated, I18nKeys => trans }
 
 final class StudyPager(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo,
     maxPerPage: lila.common.MaxPerPage
 ) {
+
+  private val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers._
   import studyRepo.{ selectPublic, selectPrivateOrUnlisted, selectMemberId, selectOwnerId, selectLiker }
@@ -65,7 +68,7 @@ final class StudyPager(
         case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
-    ) mapFutureList withChaptersAndLiking(me)
+    ) mapFutureList withChaptersAndLiking(me, defaultNbChaptersPerStudy)
     Paginator(
       adapter = nbResults.fold(adapter) { nb =>
         new CachedAdapter(adapter, nb)
@@ -75,12 +78,10 @@ final class StudyPager(
     )
   }
 
-  def withChapters(studies: Seq[Study]): Fu[Seq[Study.WithChapters]] =
-    chapterRepo idNamesByStudyIds studies.map(_.id) map { chapters =>
+  def withChapters(studies: Seq[Study], nbChaptersPerStudy: Int): Fu[Seq[Study.WithChapters]] =
+    chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
       studies.map { study =>
-        Study.WithChapters(study, ~(chapters get study.id map {
-          _ map (_.name)
-        }))
+        Study.WithChapters(study, (chapters get study.id) ?? (_ map (_.name)))
       }
     }
 
@@ -92,18 +93,18 @@ final class StudyPager(
       }
     }
 
-  def withChaptersAndLiking(me: Option[User])(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    withChapters(studies) flatMap withLiking(me)
+  def withChaptersAndLiking(me: Option[User], nbChaptersPerStudy: Int)(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 }
 
-sealed abstract class Order(val key: String, val name: String)
+sealed abstract class Order(val key: String, val name: Translated)
 
 object Order {
-  case object Hot extends Order("hot", "Hot")
-  case object Newest extends Order("newest", "Date added (newest)")
-  case object Oldest extends Order("oldest", "Date added (oldest)")
-  case object Updated extends Order("updated", "Recently updated")
-  case object Popular extends Order("popular", "Most popular")
+  case object Hot extends Order("hot", trans.study.hot)
+  case object Newest extends Order("newest", trans.study.dateAddedNewest)
+  case object Oldest extends Order("oldest", trans.study.dateAddedOldest)
+  case object Updated extends Order("updated", trans.study.recentlyUpdated)
+  case object Popular extends Order("popular", trans.study.mostPopular)
 
   val default = Hot
   val all = List(Hot, Newest, Oldest, Updated, Popular)

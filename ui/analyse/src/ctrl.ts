@@ -10,14 +10,16 @@ import { Autoplay, AutoplayDelay } from './autoplay';
 import * as promotion from './promotion';
 import * as util from './util';
 import * as chessUtil from 'chess';
-import { storedProp, throttle, defined, prop, Prop, StoredBooleanProp } from 'common';
+import { defined, prop, Prop } from 'common';
+import throttle from 'common/throttle';
+import { storedProp, StoredBooleanProp } from 'common/storage';
 import { make as makeSocket, Socket } from './socket';
 import { ForecastCtrl } from './forecast/interfaces';
 import { make as makeForecast } from './forecast/forecastCtrl';
 import { ctrl as cevalCtrl, isEvalBetter, CevalCtrl, Work as CevalWork, CevalOpts } from 'ceval';
 import explorerCtrl from './explorer/explorerCtrl';
 import { ExplorerCtrl } from './explorer/interfaces';
-import { game, GameData } from 'game';
+import * as game from 'game';
 import { valid as crazyValid } from './crazy/crazyCtrl';
 import makeStudy from './study/studyCtrl';
 import { StudyCtrl } from './study/interfaces';
@@ -28,7 +30,8 @@ import { make as makePractice, PracticeCtrl } from './practice/practiceCtrl';
 import { make as makeEvalCache, EvalCache } from './evalCache';
 import { compute as computeAutoShapes } from './autoShape';
 import { nextGlyphSymbol } from './nodeFinder';
-import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured } from './interfaces';
+import * as speech from './speech';
+import { AnalyseOpts, AnalyseData, ServerEvalData, Key, CgDests, JustCaptured, NvuiPlugin, Redraw } from './interfaces';
 import GamebookPlayCtrl from './study/gamebook/gamebookPlayCtrl';
 import { ctrl as treeViewCtrl, TreeView } from './treeView/treeView';
 
@@ -36,10 +39,8 @@ const li = window.lichess;
 
 export default class AnalyseCtrl {
 
-  opts: AnalyseOpts;
   data: AnalyseData;
   element: HTMLElement;
-  redraw: () => void;
 
   tree: TreeWrapper;
   socket: Socket;
@@ -79,7 +80,7 @@ export default class AnalyseCtrl {
   flipped: boolean = false;
   embed: boolean;
   showComments: boolean = true; // whether to display comments in the move tree
-    showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
+  showAutoShapes: StoredBooleanProp = storedProp('show-auto-shapes', true);
   showGauge: StoredBooleanProp = storedProp('show-gauge', true);
   showComputer: StoredBooleanProp = storedProp('show-computer', true);
   keyboardHelp: boolean = location.hash === '#keyboard';
@@ -98,18 +99,19 @@ export default class AnalyseCtrl {
   // misc
   cgConfig: any; // latest chessground config (useful for revert)
   music?: any;
+  nvui?: NvuiPlugin;
 
-  constructor(opts: AnalyseOpts, redraw: () => void) {
+  constructor(readonly opts: AnalyseOpts, readonly redraw: Redraw) {
 
-    this.opts = opts;
     this.data = opts.data;
     this.element = opts.element;
     this.embed = opts.embed;
-    this.redraw = redraw;
     this.trans = opts.trans;
     this.treeView = treeViewCtrl(opts.embed ? 'inline' : 'column');
 
     if (this.data.forecast) this.forecast = makeForecast(this.data.forecast, this.data, redraw);
+
+    if (li.AnalyseNVUI) this.nvui = li.AnalyseNVUI(redraw) as NvuiPlugin;
 
     this.instanciateEvalCache();
 
@@ -121,8 +123,8 @@ export default class AnalyseCtrl {
 
     if (opts.initialPly) {
       const loc = window.location,
-      intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
-      plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
+        intHash = loc.hash === '#last' ? this.tree.lastPly() : parseInt(loc.hash.substr(1)),
+        plyStr = opts.initialPly === 'url' ? (intHash || '') : opts.initialPly;
       // remove location hash - http://stackoverflow.com/questions/1397329/how-to-remove-the-hash-from-window-location-with-javascript-without-page-refresh/5298684#5298684
       if (intHash) window.history.pushState("", document.title, loc.pathname + loc.search);
       const mainline = treeOps.mainlineNodeList(this.tree.root);
@@ -154,10 +156,10 @@ export default class AnalyseCtrl {
 
     li.pubsub.on('sound_set', (set: string) => {
       if (!this.music && set === 'music')
-        li.loadScript('/assets/javascripts/music/replay.js').then(() => {
+        li.loadScript('javascripts/music/replay.js').then(() => {
           this.music = window.lichessReplayMusic();
         });
-        if (this.music && set !== 'music') this.music = null;
+      if (this.music && set !== 'music') this.music = null;
     });
 
     li.pubsub.on('analysis.change.trigger', this.onChange);
@@ -165,12 +167,14 @@ export default class AnalyseCtrl {
       this.jumpToIndex(index);
       this.redraw()
     });
+
+    li.sound && speech.setup();
   }
 
   initialize(data: AnalyseData, merge: boolean): void {
     this.data = data;
-    this.synthetic = util.synthetic(data);
-    this.ongoing = !this.synthetic && game.playable(data as GameData);
+    this.synthetic = data.game.id === 'synthetic';
+    this.ongoing = !this.synthetic && game.playable(data);
 
     const prevTree = merge && this.tree.root;
     this.tree = makeTree(treeOps.reconstruct(this.data.treeParts));
@@ -182,11 +186,11 @@ export default class AnalyseCtrl {
     else this.socket = makeSocket(this.opts.socketSend, this);
     this.explorer = explorerCtrl(this, this.opts.explorer, this.explorer ? this.explorer.allowed() : !this.embed);
     this.gamePath = this.synthetic || this.ongoing ? undefined :
-      treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
+    treePath.fromNodeList(treeOps.mainlineNodeList(this.tree.root));
     this.fork = makeFork(this);
   }
 
-  setPath = (path: Tree.Path): void => {
+  private setPath = (path: Tree.Path): void => {
     this.path = path;
     this.nodeList = this.tree.getNodeList(path);
     this.node = treeOps.last(this.nodeList) as Tree.Node;
@@ -259,27 +263,27 @@ export default class AnalyseCtrl {
 
   makeCgOpts(): ChessgroundConfig {
     const node = this.node,
-    color = this.turnColor(),
-    dests = chessUtil.readDests(this.node.dests),
-    drops = chessUtil.readDrops(this.node.drops),
-    movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
-      !this.embed && (
-        (dests && Object.keys(dests).length > 0) ||
-        drops === null || drops.length
-      ) ? color : undefined),
-    config: ChessgroundConfig = {
-      fen: node.fen,
-      turnColor: color,
-      movable: this.embed ? {
-        color: undefined,
-        dests: {} as CgDests
-      } : {
-        color: movableColor,
-        dests: (movableColor === color ? (dests || {}) : {}) as CgDests
-      },
-      check: !!node.check,
-      lastMove: this.uciToLastMove(node.uci)
-    };
+      color = this.turnColor(),
+      dests = chessUtil.readDests(this.node.dests),
+      drops = chessUtil.readDrops(this.node.drops),
+      movableColor = (this.practice || this.gamebookPlay()) ? this.bottomColor() : (
+        !this.embed && (
+          (dests && Object.keys(dests).length > 0) ||
+          drops === null || drops.length
+        ) ? color : undefined),
+      config: ChessgroundConfig = {
+        fen: node.fen,
+        turnColor: color,
+        movable: this.embed ? {
+          color: undefined,
+          dests: {} as CgDests
+        } : {
+          color: movableColor,
+          dests: (movableColor === color ? (dests || {}) : {}) as CgDests
+        },
+        check: !!node.check,
+        lastMove: this.uciToLastMove(node.uci)
+      };
     if (!dests && !node.check) {
       // premove while dests are loading from server
       // can't use when in check because it highlights the wrong king
@@ -304,10 +308,10 @@ export default class AnalyseCtrl {
   };
 
   private onChange: () => void = throttle(300, () => {
-    li.pubsub.emit('analysis.change')(this.node.fen, this.path, this.onMainline ? this.node.ply : false);
+    li.pubsub.emit('analysis.change', this.node.fen, this.path, this.onMainline ? this.node.ply : false);
   });
 
-  private updateHref: () => void = li.fp.debounce(() => {
+  private updateHref: () => void = li.debounce(() => {
     if (!this.opts.study) window.history.replaceState(null, '', '#' + this.node.ply);
   }, 750);
 
@@ -316,24 +320,28 @@ export default class AnalyseCtrl {
   }
 
   playedLastMoveMyself = () =>
-    !!this.justPlayed && !!this.node.uci && this.node.uci.indexOf(this.justPlayed) === 0;
+    !!this.justPlayed && !!this.node.uci && this.node.uci.startsWith(this.justPlayed);
 
   jump(path: Tree.Path): void {
-    const pathChanged = path !== this.path;
+    const pathChanged = path !== this.path,
+    isForwardStep = pathChanged && path.length == this.path.length + 2;
     this.setPath(path);
     this.showGround();
     if (pathChanged) {
       const playedMyself = this.playedLastMoveMyself();
       if (this.study) this.study.setPath(path, this.node, playedMyself);
-      if (!this.node.uci) this.sound.move(); // initial position
-      else if (!playedMyself) {
-        if (this.node.san!.indexOf('x') !== -1) this.sound.capture();
-        else this.sound.move();
+      if (isForwardStep) {
+        if (!this.node.uci) this.sound.move(); // initial position
+        else if (!playedMyself) {
+          if (this.node.san!.includes('x')) this.sound.capture();
+          else this.sound.move();
+        }
+        if (/\+|\#/.test(this.node.san!)) this.sound.check();
       }
-      if (/\+|\#/.test(this.node.san!)) this.sound.check();
       this.threatMode(false);
       this.ceval.stop();
       this.startCeval();
+      speech.node(this.node);
     }
     this.justPlayed = this.justDropped = this.justCaptured = undefined;
     this.explorer.setNode();
@@ -346,9 +354,11 @@ export default class AnalyseCtrl {
       if (this.study) this.study.onJump();
     }
     if (this.music) this.music.jump(this.node);
+    li.pubsub.emit('ply', this.node.ply);
   }
 
   userJump = (path: Tree.Path): void => {
+
     this.autoplay.stop();
     this.withCg(cg => cg.selectSquare(null));
     if (this.practice) {
@@ -356,9 +366,7 @@ export default class AnalyseCtrl {
       this.practice.preUserJump(prev, path);
       this.jump(path);
       this.practice.postUserJump(prev, this.path);
-    } else {
-      this.jump(path);
-    }
+    } else this.jump(path);
   }
 
   private canJumpTo(path: Tree.Path): boolean {
@@ -442,7 +450,9 @@ export default class AnalyseCtrl {
   userMove = (orig: Key, dest: Key, capture?: JustCaptured): void => {
     this.justPlayed = orig;
     this.justDropped = undefined;
-    this.sound[capture ? 'capture' : 'move']();
+    const piece = this.chessground.state.pieces[dest];
+    const isCapture = capture || (piece && piece.role == 'pawn' && orig[0] != dest[0]);
+    this.sound[isCapture ? 'capture' : 'move']();
     if (!promotion.start(this, orig, dest, capture, this.sendMove)) this.sendMove(orig, dest, capture);
   }
 
@@ -518,6 +528,12 @@ export default class AnalyseCtrl {
     if (this.study) this.study.promote(path, toMainline);
   }
 
+  forceVariation(path: Tree.Path, force: boolean): void {
+    this.tree.forceVariationAt(path, force);
+    this.jump(path);
+    if (this.study) this.study.forceVariation(path, force);
+  }
+
   reset(): void {
     this.showGround();
     this.redraw();
@@ -547,7 +563,7 @@ export default class AnalyseCtrl {
       if (node.fen !== ev.fen && !isThreat) return;
       if (isThreat) {
         if (!node.threat || isEvalBetter(ev, node.threat) || node.threat.maxDepth < ev.maxDepth)
-        node.threat = ev;
+          node.threat = ev;
       } else if (isEvalBetter(ev, node.ceval)) node.ceval = ev;
       else if (node.ceval && ev.maxDepth > node.ceval.maxDepth) node.ceval.maxDepth = ev.maxDepth;
 
@@ -565,7 +581,7 @@ export default class AnalyseCtrl {
     });
   }
 
-  private instanciateCeval(failsafe: boolean = false): void {
+  private instanciateCeval(): void {
     if (this.ceval) this.ceval.destroy();
     const cfg: CevalOpts = {
       variant: this.data.game.variant,
@@ -576,21 +592,6 @@ export default class AnalyseCtrl {
         this.onNewCeval(ev, work.path, work.threatMode);
       },
       setAutoShapes: this.setAutoShapes,
-      failsafe,
-      onCrash: lastError => {
-        const ceval = this.node.ceval;
-        console.log('Local eval failed after depth ' + (ceval && ceval.depth), lastError);
-        if (this.ceval.pnaclSupported) {
-          if (ceval && ceval.depth >= 20 && !ceval.retried) {
-            console.log('Remain on native Stockfish for now');
-            ceval.retried = true;
-          } else {
-            console.log('Fallback to WASM/ASMJS now');
-            this.instanciateCeval(true);
-            this.startCeval();
-          }
-        }
-      },
       redraw: this.redraw
     };
     if (this.opts.study && this.opts.practice) {
@@ -625,6 +626,7 @@ export default class AnalyseCtrl {
   });
 
   toggleCeval = () => {
+    if (!this.showComputer()) return;
     this.ceval.toggle();
     this.setAutoShapes();
     this.startCeval();
@@ -668,11 +670,13 @@ export default class AnalyseCtrl {
   }
 
   cevalSetThreads = (v: number): void => {
+    if (!this.ceval.threads) return;
     this.ceval.threads(v);
     this.cevalReset();
   }
 
   cevalSetHashSize = (v: number): void => {
+    if (!this.ceval.hashSize) return;
     this.ceval.hashSize(v);
     this.cevalReset();
   }
@@ -717,11 +721,12 @@ export default class AnalyseCtrl {
   }
 
   toggleComputer = () => {
+    if (this.ceval.enabled()) this.toggleCeval();
     const value = !this.showComputer();
     this.showComputer(value);
     if (!value && this.practice) this.togglePractice();
-    if (this.opts.onToggleComputer) this.opts.onToggleComputer(value);
     this.onToggleComputer();
+    li.pubsub.emit('analysis.comp.toggle', value);
   }
 
   mergeAnalysisData(data: ServerEvalData): void {
@@ -729,10 +734,11 @@ export default class AnalyseCtrl {
     this.tree.merge(data.tree);
     if (!this.showComputer()) this.tree.removeComputerVariations();
     this.data.analysis = data.analysis;
-    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval);
+    if (data.analysis) data.analysis.partial = !!treeOps.findInMainline(data.tree, n => !n.eval && !!n.children.length);
     if (data.division) this.data.game.division = data.division;
     if (this.retro) this.retro.onMergeAnalysisData();
     if (this.study) this.study.serverEval.onMergeAnalysisData();
+    li.pubsub.emit('analysis.server.progress', this.data);
     this.redraw();
   }
 

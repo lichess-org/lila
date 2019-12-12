@@ -109,14 +109,14 @@
   <string name="castleQueenSide">Táhněte králem o 2 pole na delší stranu šachovnice. Takto uděláte dlouhou rošádu!</string>
   <string name="theKnightIsInTheWay">V cestě stojí jezdec! Pohněte s ním a poté udělejte krátkou rošádu.</string>
   <string name="castleKingSideMovePiecesFirst">Udělte krátkou rošádu! Nejdříve musíte \"odklidit\" figury.</string>
-  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rochádu! 
+  <string name="castleQueenSideMovePiecesFirst">Udělejte dlouhou rošádu! 
 Nejprve musíte uvolnit místo mezi králem a věží.</string>
-  <string name="youCannotCastleIfMoved">Nemůžete dělat rochádu, pokud se král nebo věž pohli.</string>
-  <string name="youCannotCastleIfAttacked">Nemůžete rochovat, pokud je král v šachu. 
-Zabraňte šachu, a pak zarochujte!</string>
-  <string name="findAWayToCastleKingSide">Najděte cestu k malé rochádě!</string>
-  <string name="findAWayToCastleQueenSide">Najděte cestu k velké rochádě!</string>
-  <string name="castlingComplete">Blahopřejeme! V reálné hře byste vždy měli dělat rochádu.</string>
+  <string name="youCannotCastleIfMoved">Nemůžete dělat rošádu, pokud se král nebo věž pohli.</string>
+  <string name="youCannotCastleIfAttacked">Nemůžete udělat rošádu, pokud je král v šachu. 
+Zabraňte šachu, a pak udělejte rošádu!</string>
+  <string name="findAWayToCastleKingSide">Najděte cestu k malé rošádě!</string>
+  <string name="findAWayToCastleQueenSide">Najděte cestu k velké rošádě!</string>
+  <string name="castlingComplete">Blahopřejeme! V reálné hře byste téměř vždy měli dělat rošádu.</string>
   <string name="enPassant">Braní mimochodem</string>
   <string name="theSpecialPawnMove">Speciální tah pěšcem</string>
   <string name="enPassantIntro">Když soupeř táhne pěšcem o dvě pole, můžete ho sebrat tak, jakoby táhl jen o jedno.</string>
@@ -158,7 +158,7 @@ Jezdec = 3
 Pěšec = 1</string>
   <string name="checkInTwo">Šach 2. tahem</string>
   <string name="twoMovesToGiveCheck">Dejte šach druhým tahem</string>
-  <string name="checkInTwoIntro">Najděte správnou kombinací dvou tahů, abyste dali soupeřovu králi šach!</string>
+  <string name="checkInTwoIntro">Najděte správnou kombinaci dvou tahů, abyste dali soupeřovu králi šach!</string>
   <string name="checkInTwoGoal">Ohrozte soupeřova krále druhým tahem!</string>
   <string name="checkInTwoComplete">Gratulujeme! Dali jste soupeři šach a donutili jej bránit svého krále!</string>
   <string name="whatNext">A co dál?</string>

@@ -1,0 +1,32 @@
+.now-playing {
+  display: grid;
+  --np-min-width: 200px;
+  @include breakpoint($mq-not-xx-small) {
+    --np-min-width: 50%;
+  }
+  grid-template-columns: repeat(auto-fill, minmax(var(--np-min-width), 1fr));
+  a {
+    @extend %box-radius;
+    color: $c-font;
+    padding: .3em;
+    @include transition(background);
+    background: fade-out($c-bg-box, 0.6);
+    &:hover {
+      background: fade-out($c-link, 0.6);
+      color: $c-font-clear;
+    }
+  }
+  .meta {
+    display: block;
+    text-align: center;
+    overflow: hidden;
+  }
+  .indicator {
+    color: $c-accent;
+    margin-top: -3px;
+    display: block;
+  }
+  cg-board {
+    box-shadow: none;
+  }
+}

@@ -1,6 +1,8 @@
 package lila.fishnet
 
+import com.gilt.gfc.semver.SemVer
 import lila.common.IpAddress
+import scala.util.{ Try, Success, Failure }
 
 import org.joda.time.DateTime
 
@@ -22,11 +24,13 @@ case class Client(
       copy(instance = newInstance.some)
     }
 
-  def lichess = userId.value == "lichess"
+  def lichess = userId.value == lila.user.User.lichessId
 
   def offline = key == Client.offline.key
 
   def disabled = !enabled
+
+  override def toString = s"$key by $userId"
 }
 
 object Client {
@@ -80,6 +84,19 @@ object Client {
     case object All extends Skill
     val all = List(Move, Analysis, All)
     def byKey(key: String) = all.find(_.key == key)
+  }
+
+  final class ClientVersion(minVersionString: String) {
+
+    val minVersion = SemVer(minVersionString)
+
+    def accept(v: Client.Version): Try[Unit] = Try(SemVer(v.value)) match {
+      case Success(version) if version >= minVersion => Success(())
+      case Success(version) => Failure(new Exception(
+        s"Version $v is no longer supported. Please restart fishnet to upgrade."
+      ))
+      case Failure(error) => Failure(error)
+    }
   }
 
   def makeKey = Key(scala.util.Random.alphanumeric take 8 mkString)

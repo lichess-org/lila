@@ -1,11 +1,11 @@
 package lila.team
 
-import com.typesafe.config.Config
 import akka.actor._
+import com.typesafe.config.Config
 
+import lila.common.MaxPerPage
 import lila.mod.ModlogApi
 import lila.notify.NotifyApi
-import lila.common.MaxPerPage
 
 final class Env(
     config: Config,
@@ -26,13 +26,13 @@ final class Env(
   }
   import settings._
 
-  private[team] lazy val colls = new Colls(
+  lazy val colls = new Colls(
     team = db(CollectionTeam),
     request = db(CollectionRequest),
     member = db(CollectionMember)
   )
 
-  lazy val forms = new DataForm(colls.team, hub.actor.captcher)
+  lazy val forms = new DataForm(colls.team, hub.captcher)
 
   lazy val memberStream = new TeamMemberStream(colls.member)(system)
 
@@ -40,9 +40,8 @@ final class Env(
     coll = colls,
     cached = cached,
     notifier = notifier,
-    bus = system.lilaBus,
-    indexer = hub.actor.teamSearch,
-    timeline = hub.actor.timeline,
+    indexer = hub.teamSearch,
+    timeline = hub.timeline,
     modLog = modLog
   )
 
@@ -58,11 +57,9 @@ final class Env(
 
   private lazy val notifier = new Notifier(notifyApi = notifyApi)
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
-    }
-  })), 'shadowban)
+  lila.common.Bus.subscribeFun('shadowban) {
+    case lila.hub.actorApi.mod.Shadowban(userId, true) => api deleteRequestsByUserId userId
+  }
 }
 
 object Env {

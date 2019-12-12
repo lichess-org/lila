@@ -36,7 +36,7 @@ function renderPromotion(ctrl, dest, pieces, color, orientation, explain) {
 
   var vertical = color === orientation ? 'top' : 'bottom';
 
-  return m('div#promotion_choice.' + vertical, [
+  return m('div#promotion-choice.' + vertical, [
     pieces.map(function(serverRole, i) {
       return m('square', {
         style: vertical + ': ' + i * 12.5 + '%;left: ' + left + '%',

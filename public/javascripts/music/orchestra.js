@@ -1,6 +1,6 @@
 function lichessOrchestra() {
 
-  var soundDir = lichess.assetUrl('/assets/sound/instrument/', {noVersion:true});
+  var soundDir = lichess.assetUrl('sound/instrument/', {noVersion: true});
 
   var makeSoundPair = function(sound) {
     return [soundDir + sound + '.ogg', soundDir + sound + '.mp3'];

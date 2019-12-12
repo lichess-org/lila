@@ -32,11 +32,11 @@ export function ctrl(data: LangsData, trans: Trans, redraw: Redraw, close: Close
     data,
     list: () => list,
     load() {
-      get(window.lichess.assetUrl('/assets/trans/refs.json'), true).then(d => {
+      get(window.lichess.assetUrl('trans/refs.json'), true).then(d => {
         const accs: Lang[] = [];
         const others: Lang[] = [];
         d.forEach((l: Lang) => {
-          if (data.accepted.indexOf(l[0]) > -1) accs.push(l);
+          if (data.accepted.includes(l[0])) accs.push(l);
           else others.push(l);
         });
         list = accs.concat(others) as Lang[];
@@ -71,7 +71,7 @@ function langLinks(ctrl: LangsCtrl, list: Lang[]) {
 
 function langView(current: Code, accepted: Code[]) {
   return (l: Lang) =>
-  h('button' + (current === l[0] ? '.current' : '') + (accepted.indexOf(l[0]) > -1 ? '.accepted' : ''), {
+  h('button' + (current === l[0] ? '.current' : '') + (accepted.includes(l[0]) ? '.accepted' : ''), {
     attrs: {
       type: 'submit',
       name: 'lang',

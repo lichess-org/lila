@@ -53,9 +53,6 @@ private final class FishnetRepo(
   def countUserAnalysis = analysisColl.count($doc(
     "sender.system" -> false
   ).some)
-  def getAnalysisByGameId(gameId: String) = analysisColl.find($doc(
-    "game.id" -> gameId
-  )).uno[Work.Analysis]
 
   def getSimilarAnalysis(work: Work.Analysis): Fu[Option[Work.Analysis]] =
     analysisColl.find($doc("game.id" -> work.game.id)).uno[Work.Analysis]

@@ -2,10 +2,14 @@ package lila.streamer
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
+
+import lila.common.Strings
 
 final class Env(
     config: Config,
     system: ActorSystem,
+    settingStore: lila.memo.SettingStore.Builder,
     renderer: ActorSelection,
     isOnline: lila.user.User.ID => Boolean,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -27,6 +31,15 @@ final class Env(
 
   private lazy val photographer = new lila.db.Photographer(imageColl, "streamer")
 
+  lazy val alwaysFeaturedSetting = {
+    import lila.memo.SettingStore.Strings._
+    settingStore[Strings](
+      "streamerAlwaysFeatured",
+      default = Strings(Nil),
+      text = "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+    )
+  }
+
   lazy val api = new StreamerApi(
     coll = streamerColl,
     asyncCache = asyncCache,
@@ -43,8 +56,9 @@ final class Env(
     renderer = renderer,
     api = api,
     isOnline = isOnline,
-    timeline = hub.actor.timeline,
+    timeline = hub.timeline,
     keyword = Stream.Keyword(Keyword),
+    alwaysFeatured = alwaysFeaturedSetting.get,
     googleApiKey = GoogleApiKey,
     twitchClientId = TwitchClientId,
     lightUserApi = lightUserApi
@@ -52,14 +66,13 @@ final class Env(
 
   lazy val liveStreamApi = new LiveStreamApi(asyncCache, streamingActor)
 
-  system.lilaBus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case lila.user.User.Active(user) if !user.seenRecently => api setSeenAt user
-        case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
-      }
-    })), 'userActive, 'adjustCheater
-  )
+  lila.common.Bus.subscribeFun('adjustCheater) {
+    case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
+  }
+
+  system.scheduler.schedule(1 hour, 1 day) {
+    api.autoDemoteFakes
+  }
 }
 
 object Env {
@@ -67,8 +80,9 @@ object Env {
   lazy val current: Env = "streamer" boot new Env(
     config = lila.common.PlayApp loadConfig "streamer",
     system = lila.common.PlayApp.system,
-    renderer = lila.hub.Env.current.actor.renderer,
-    isOnline = lila.user.Env.current.isOnline,
+    settingStore = lila.memo.Env.current.settingStore,
+    renderer = lila.hub.Env.current.renderer,
+    isOnline = lila.socket.Env.current.isOnline,
     asyncCache = lila.memo.Env.current.asyncCache,
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,

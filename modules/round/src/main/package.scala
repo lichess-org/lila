@@ -1,15 +1,14 @@
 package lila
 
 import lila.game.Event
-import lila.socket.WithSocket
 
-package object round extends PackageObject with WithSocket {
+package object round extends PackageObject {
 
   private[round] type Events = List[Event]
 
-  private[round] type VersionedEvents = List[VersionedEvent]
-
   private[round] def logger = lila.log("round")
+
+  type TellRound = (lila.game.Game.ID, Any) => Unit
 }
 
 package round {

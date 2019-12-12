@@ -2,6 +2,7 @@ package lila.tv
 
 import akka.actor._
 import com.typesafe.config.Config
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.game.Game
@@ -13,29 +14,27 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     lightUser: lila.common.LightUser.GetterSync,
-    roundProxyGame: Game.ID => Fu[Option[Game]],
+    proxyGame: Game.ID => Fu[Option[Game]],
     system: ActorSystem,
-    scheduler: lila.common.Scheduler,
-    onSelect: Game => Unit
+    onSelect: Game => Unit,
+    rematchOf: Game.ID => Option[Game.ID]
 ) {
 
   private val FeaturedSelect = config duration "featured.select"
-  private val ChannelSelect = config getString "channel.select.name "
 
-  private val selectChannel = system.actorOf(Props(classOf[lila.socket.Channel]), name = ChannelSelect)
-
-  private val tvActor = system.actorOf(
-    Props(new TvActor(hub.actor.renderer, hub.socket.round, selectChannel, lightUser, onSelect))
+  private val tvTrouper = new TvTrouper(
+    system,
+    hub.renderer,
+    lightUser,
+    onSelect,
+    proxyGame,
+    rematchOf
   )
 
-  lazy val tv = new Tv(tvActor, roundProxyGame)
+  lazy val tv = new Tv(tvTrouper, proxyGame)
 
-  {
-    import scala.concurrent.duration._
-
-    scheduler.message(FeaturedSelect) {
-      tvActor -> TvActor.Select
-    }
+  system.scheduler.schedule(10 seconds, FeaturedSelect) {
+    tvTrouper ! TvTrouper.Select
   }
 }
 
@@ -46,9 +45,9 @@ object Env {
     db = lila.db.Env.current,
     hub = lila.hub.Env.current,
     lightUser = lila.user.Env.current.lightUserSync,
-    roundProxyGame = lila.round.Env.current.roundProxyGame _,
+    proxyGame = lila.round.Env.current.proxy.gameIfPresent _,
     system = lila.common.PlayApp.system,
-    scheduler = lila.common.PlayApp.scheduler,
-    onSelect = lila.round.Env.current.recentTvGames.put _
+    onSelect = lila.round.Env.current.recentTvGames.put _,
+    rematchOf = lila.game.Env.current.rematches.getIfPresent
   )
 }

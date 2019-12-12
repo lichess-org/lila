@@ -1,7 +1,9 @@
 package lila.event
 
 import org.joda.time.DateTime
-import play.api.i18n.Lang
+
+import lila.user.User
+import lila.common.Lang
 
 case class Event(
     _id: String,
@@ -15,7 +17,8 @@ case class Event(
     createdBy: Event.UserId,
     createdAt: DateTime,
     startsAt: DateTime,
-    finishesAt: DateTime
+    finishesAt: DateTime,
+    hostedBy: Option[User.ID] = None
 ) {
 
   def willStartLater = startsAt isAfter DateTime.now

@@ -2,6 +2,7 @@ package lila
 
 import scala.concurrent.Future
 
+import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import kamon.Kamon.{ metrics, tracer }
 import kamon.trace.{ TraceContext, Segment, Status }
 import kamon.util.RelativeNanoTimestamp
@@ -13,9 +14,7 @@ object mon {
       val all = inc("http.request.all")
       val ipv6 = inc("http.request.ipv6")
       val xhr = inc("http.request.xhr")
-      val ws = inc("http.request.ws")
       val bot = inc("http.request.bot")
-      val fishnet = inc("http.request.fishnet")
       val page = inc("http.request.page")
       def path(p: String) = inc(s"http.request.path.$p")
     }
@@ -45,6 +44,14 @@ object mon {
         val website = rec("http.response.watcher.website")
         val mobile = rec("http.response.watcher.mobile")
       }
+      object accountInfo {
+        val time = rec("http.response.accountInfo")
+        val count = inc("http.response.accountInfo")
+      }
+      object timeline {
+        val time = rec("http.response.timeline")
+        val count = inc("http.response.timeline")
+      }
     }
     object prismic {
       val timeout = inc("http.prismic.timeout")
@@ -58,7 +65,10 @@ object mon {
     object csrf {
       val missingOrigin = inc("http.csrf.missing_origin")
       val forbidden = inc("http.csrf.forbidden")
-      val websocket = inc("http.csrf.websocket")
+    }
+    object fingerPrint {
+      val count = inc("http.finger_print.count")
+      val time = rec("http.finger_print.time")
     }
   }
   object mobile {
@@ -71,17 +81,21 @@ object mon {
     def timeout(name: String) = inc(s"syncache.timeout.$name")
     def waitMicros(name: String) = incX(s"syncache.wait_micros.$name")
     def computeNanos(name: String) = rec(s"syncache.compute_nanos.$name")
+    def chmSize(name: String) = rec(s"syncache.chm.size.$name")
   }
-  class Caffeine(name: String) {
-    val hitCount = rec(s"caffeine.count.hit.$name")
-    val hitRate = rate(s"caffeine.rate.hit.$name")
-    val missCount = rec(s"caffeine.count.miss.$name")
-    val loadSuccessCount = rec(s"caffeine.count.load.success.$name")
-    val loadFailureCount = rec(s"caffeine.count.load.failure.$name")
-    val totalLoadTime = rec(s"caffeine.total.load_time.$name") // in millis
-    val averageLoadPenalty = rec(s"caffeine.penalty.load_time.$name")
-    val evictionCount = rec(s"caffeine.count.eviction.$name")
-    val entryCount = rec(s"caffeine.count.entry.$name")
+  def caffeineStats(cache: CaffeineCache[_, _], name: String) {
+    val stats = cache.stats
+    rec(s"caffeine.count.hit.$name")(stats.hitCount)
+    rate(s"caffeine.rate.hit.$name")(stats.hitRate)
+    rec(s"caffeine.count.miss.$name")(stats.missCount)
+    if (stats.totalLoadTime > 0) {
+      rec(s"caffeine.count.load.success.$name")(stats.loadSuccessCount)
+      rec(s"caffeine.count.load.failure.$name")(stats.loadFailureCount)
+      rec(s"caffeine.total.load_time.$name")(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
+      rec(s"caffeine.penalty.load_time.$name")(stats.averageLoadPenalty.toLong)
+    }
+    rec(s"caffeine.count.eviction.$name")(stats.evictionCount)
+    rec(s"caffeine.count.entry.$name")(cache.estimatedSize)
   }
   object evalCache {
     private val hit = inc("eval_Cache.all.hit")
@@ -96,27 +110,28 @@ object mon {
       hitIf(isHit)()
       if (ply <= 10) byPly.hitIf(ply, isHit)()
     }
+    object upgrade {
+      val hit = incX("eval_Cache.upgrade.hit")
+      val members = rec("eval_Cache.upgrade.members")
+      val evals = rec("eval_Cache.upgrade.evals")
+      val expirable = rec("eval_Cache.upgrade.expirable")
+    }
   }
   object lobby {
     object hook {
       val create = inc("lobby.hook.create")
       val join = inc("lobby.hook.join")
       val size = rec("lobby.hook.size")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.hook.join_mobile.$isMobile")
-      def createdLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0.$isMobile")
-      def acceptedLikePoolFiveO(isMobile: Boolean) = inc(s"lobby.hook.like_pool_5_0_accepted.$isMobile")
     }
     object seek {
       val create = inc("lobby.seek.create")
       val join = inc("lobby.seek.join")
-      def joinMobile(isMobile: Boolean) = inc(s"lobby.seek.join_mobile.$isMobile")
     }
     object socket {
-      val getUids = rec("lobby.socket.get_uids")
+      val getSris = rec("lobby.socket.get_uids")
       val member = rec("lobby.socket.member")
       val idle = rec("lobby.socket.idle")
       val hookSubscribers = rec("lobby.socket.hook_subscribers")
-      val mobile = rec(s"lobby.socket.mobile")
     }
     object pool {
       object wave {
@@ -149,13 +164,26 @@ object mon {
       }
     }
   }
+  object rating {
+    object distribution {
+      def byPerfAndRating(perfKey: String, rating: Int): Rate = rate(s"rating.distribution.$perfKey.$rating")
+    }
+    object regulator {
+      def micropoints(perfKey: String) = rec(s"rating.regulator.$perfKey")
+    }
+  }
+
   object round {
     object api {
       val player = rec("round.api.player")
       val watcher = rec("round.api.watcher")
+      val embed = rec("round.api.embed")
     }
     object actor {
       val count = rec("round.actor.count")
+    }
+    object duct {
+      val count = rec("round.duct.count")
     }
     object forecast {
       val create = inc("round.forecast.create")
@@ -197,8 +225,17 @@ object mon {
     object expiration {
       val count = inc("round.expiration.count")
     }
-    def proxyGameWatcherCount(result: String) = inc(s"round.proxy_game.watcher.$result")
-    val proxyGameWatcherTime = rec("round.proxy_game.watcher.time")
+    object history {
+      sealed abstract class PlatformHistory(platform: String) {
+        val getEventsDelta = rec(s"round.history.$platform.getEventsDelta")
+        val getEventsCount = inc(s"round.history.$platform.getEventsCount")
+        val getEventsTooFar = inc(s"round.history.$platform.getEventsTooFar")
+      }
+      object mobile extends PlatformHistory("mobile")
+      object site extends PlatformHistory("site")
+      def apply(isMobile: lila.common.IsMobile): PlatformHistory =
+        if (isMobile.value) mobile else site
+    }
   }
   object playban {
     def outcome(out: String) = inc(s"playban.outcome.$out")
@@ -266,6 +303,9 @@ object mon {
 
       def passwordResetRequest(s: String) = inc(s"user.auth.password_reset_request.$s")
       def passwordResetConfirm(s: String) = inc(s"user.auth.password_reset_confirm.$s")
+
+      def magicLinkRequest(s: String) = inc(s"user.auth.magic_link_request.$s")
+      def magicLinkConfirm(s: String) = inc(s"user.auth.magic_link_confirm.$s")
     }
     object oauth {
       object usage {
@@ -274,12 +314,8 @@ object mon {
       }
     }
   }
-  object socket {
-    val member = rec("socket.count")
-    val open = inc("socket.open")
-    val close = inc("socket.close")
-    def eject(userId: String) = inc(s"socket.eject.user.$userId")
-    val ejectAll = inc(s"socket.eject.all")
+  object trouper {
+    def queueSize(name: String) = rec(s"trouper.queue_size.$name")
   }
   object mod {
     object report {
@@ -296,10 +332,6 @@ object mon {
       val mark = inc("mod.report.irwin.mark")
       def ownerReport(name: String) = inc(s"mod.irwin.owner_report.$name")
       def streamEventType(name: String) = inc(s"mod.irwin.streama.event_type.$name") // yes there's a typo
-      object assessment {
-        val count = inc("mod.irwin.assessment.count")
-        val time = rec("mod.irwin.assessment.time")
-      }
     }
   }
   object relay {
@@ -330,11 +362,19 @@ object mon {
     }
   }
   object email {
-    val resetPassword = inc("email.reset_password")
-    val fix = inc("email.fix")
-    val change = inc("email.change")
-    val confirmation = inc("email.confirmation")
+    object types {
+      val resetPassword = inc("email.reset_password")
+      val magicLink = inc("email.magic_link")
+      val fix = inc("email.fix")
+      val change = inc("email.change")
+      val confirmation = inc("email.confirmation")
+    }
     val disposableDomain = rec("email.disposable_domain")
+    object actions {
+      val send = inc("email.send")
+      val fail = inc("email.fail")
+      val retry = inc("email.retry")
+    }
   }
   object security {
     object tor {
@@ -343,6 +383,7 @@ object mon {
     object firewall {
       val block = inc("security.firewall.block")
       val ip = rec("security.firewall.ip")
+      val prints = rec("security.firewall.prints")
     }
     object proxy {
       object request {
@@ -357,6 +398,23 @@ object mon {
     }
     object linearLimit {
       def generic(key: String) = inc(s"security.linear_limit.generic.$key")
+    }
+    object dnsApi {
+      object mx {
+        val time = rec("security.dnsApi.mx.time")
+        val count = inc("security.dnsApi.mx.count")
+        val error = inc("security.dnsApi.mx.error")
+      }
+      object a {
+        val time = rec("security.dnsApi.a.time")
+        val count = inc("security.dnsApi.a.count")
+        val error = inc("security.dnsApi.a.error")
+      }
+    }
+    object checkMailApi {
+      val count = inc("checkMail.fetch.count")
+      val block = inc("checkMail.fetch.block")
+      val error = inc("checkMail.fetch.error")
     }
   }
   object tv {
@@ -389,10 +447,13 @@ object mon {
     val player = rec("tournament.player")
     object startedOrganizer {
       val tickTime = rec("tournament.started_organizer.tick_time")
+      val waitingUsersTime = rec("tournament.started_organizer.waiting_users_time")
     }
     object createdOrganizer {
       val tickTime = rec("tournament.created_organizer.tick_time")
     }
+    def apiShowPartial(partial: Boolean) = inc(s"tournament.api.show.partial.$partial")
+    val trouperCount = rec("tournament.trouper.count")
   }
   object plan {
     object amount {
@@ -472,9 +533,11 @@ object mon {
         val decode = new Protocol("huffman.decode")
       }
     }
+    val idCollision = inc("game.id_collision")
   }
   object chat {
     val message = inc("chat.message")
+    val trollTrue = inc("chat.message.troll.true")
   }
   object push {
     object register {
@@ -492,6 +555,7 @@ object mon {
         def accept(platform: String) = inc(s"push.send.$platform.challenge_accept")()
       }
     }
+    def googleTokenTime = rec("push.send.google-token")
   }
   object fishnet {
     object client {
@@ -526,13 +590,6 @@ object mon {
       def acquired(skill: String) = rec(s"fishnet.work.$skill.acquired")
       def queued(skill: String) = rec(s"fishnet.work.$skill.queued")
       def forUser(skill: String) = rec(s"fishnet.work.$skill.for_user")
-      val moveDbSize = rec("fishnet.work.move.db_size")
-    }
-    object move {
-      def time(client: String) = rec(s"fishnet.move.time.$client")
-      def fullTimeLvl1(client: String) = rec(s"fishnet.move.full_time_lvl_1.$client")
-      val post = rec("fishnet.move.post")
-      val dbDrop = inc("fishnet.move.db_drop")
     }
     object analysis {
       def by(client: String) = new {
@@ -553,6 +610,12 @@ object mon {
       val post = rec("fishnet.analysis.post")
       val requestCount = inc("fishnet.analysis.request")
       val evalCacheHits = rec("fishnet.analysis.eval_cache_hits")
+    }
+    object http {
+      def acquire(skill: String) = new {
+        def hit = inc(s"fishnet.http.acquire.$skill.hit")
+        def miss = inc(s"fishnet.http.acquire.$skill.miss")
+      }
     }
   }
   object api {
@@ -581,10 +644,16 @@ object mon {
     }
     def pdf = inc("export.pdf.game")
   }
-
   object jsmon {
     val socketGap = inc("jsmon.socket_gap")
     val unknown = inc("jsmon.unknown")
+  }
+  object palantir {
+    val channels = rec("palantir.channels.nb")
+  }
+  object bus {
+    val classifiers = rec("bus.classifiers")
+    val subscribers = rec("bus.subscribers")
   }
 
   def measure[A](path: RecPath)(op: => A): A = measureRec(path(this))(op)
@@ -649,8 +718,6 @@ object mon {
 
   trait Trace {
 
-    def finishFirstSegment(): Unit
-
     def segment[A](name: String, categ: String)(f: => Future[A]): Future[A]
 
     def segmentSync[A](name: String, categ: String)(f: => A): A
@@ -659,11 +726,8 @@ object mon {
   }
 
   private final class KamonTrace(
-      context: TraceContext,
-      firstSegment: Segment
+      context: TraceContext
   ) extends Trace {
-
-    def finishFirstSegment() = firstSegment.finish()
 
     def segment[A](name: String, categ: String)(code: => Future[A]): Future[A] =
       context.withNewAsyncSegment(name, categ, "mon")(code)
@@ -683,8 +747,7 @@ object mon {
       status = Status.Open,
       isLocal = false
     )
-    val firstSegment = context.startSegment(firstName, "logic", "mon")
-    new KamonTrace(context, firstSegment)
+    new KamonTrace(context)
   }
 
   private val stripVersionRegex = """[^\w\.\-]""".r

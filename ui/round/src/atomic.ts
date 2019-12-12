@@ -17,8 +17,8 @@ export function capture(ctrl: RoundController, key: cg.Key) {
       const k = util.pos2key([x, y]);
       exploding.push(k);
       const explodes = pieces[k] && (
-        k === key || pieces[k].role !== 'pawn')
-      if (explodes) diff[k] = null;
+        k === key || pieces[k]!.role !== 'pawn')
+      if (explodes) diff[k] = undefined;
     }
   }
   ctrl.chessground.setPieces(diff);

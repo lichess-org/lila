@@ -1,0 +1,18 @@
+body {
+  background: none;
+  overflow: hidden;
+}
+.embedded {
+  .vstext, cg-board {
+    box-shadow: none;
+  }
+  cg-board {
+    border-radius: 3px 3px 0 0;
+  }
+  .vstext {
+    @extend %metal;
+    border-radius: 0 0 3px 3px;
+    border: $border;
+    border-top: 0;
+  }
+}

@@ -130,7 +130,6 @@
   <string name="viewInFullSize">نمایش در اندازه کامل</string>
   <string name="logOut">خروج</string>
   <string name="signIn">ورود</string>
-  <string name="newToLichess">آیا در لیچس حساب کاربری ندارید؟</string>
   <string name="youNeedAnAccountToDoThat">شما برای انجام این کار به یک حساب کاربری نیاز دارید.</string>
   <string name="signUp">نام نویسی</string>
   <string name="computersAreNotAllowedToPlay">كامپيوتر و بازيكناني كه از كامپيوتر كمك مي گيرند،مجاز به بازی نیستند.لطفا از انجین شطرنج يا دیتابیس شطرنج و يا بازيكنان ديگر كمک نگيريد. همچنین توجه کنید که داشتن چند حساب کاربری به شدت نهی شده است. استفاده فزاینده از چند حساب منجر به مسدود شدن حساب شما خواهد شد.</string>
@@ -161,7 +160,6 @@
   <string name="username">نام کاربری</string>
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
   <string name="password">رمز عبور</string>
-  <string name="haveAnAccount">آیا حساب کاربری دارید؟</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
   <string name="email">ایمیل</string>
@@ -169,7 +167,6 @@
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
-  <string name="rankIsUpdatedEveryXMinutes">رتبه در هر %s دقیقه به روز رسانی می شود</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s معما</item>
     <item quantity="other">%s معما</item>
@@ -300,6 +297,8 @@
   <string name="yourPerfRatingIsTooLow">امتیاز%1$s شما(%2$s) کمتر از حد مجاز است :/</string>
   <string name="ratedMoreThanInPerf">امتیاز %2$s بالاتر از %1$s لازم است.</string>
   <string name="ratedLessThanInPerf">برای ورود،امتیاز%2$s شما باید کمتر از%1$s باشد.</string>
+  <string name="mustBeInTeam">باید در تیمه %s باشید</string>
+  <string name="youAreNotInTeam">شما در تیمه %s نیستید</string>
   <string name="backToGame">بازگشت به بازی</string>
   <string name="siteDescription">شطرنج آنلاین رایگان. همین حالا شطرنج بازی کنید. بدون نیاز به ثبت نام، بدون تبلیغات، بدون نیاز به افزونه. بازی با کامپیوتر، دوستان و یا حریفان تصادفی.</string>
   <string name="teams">تیم‌ ها</string>
@@ -342,10 +341,8 @@
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">عدم کیش و مات</string>
-  <string name="colorPlaysCheckmateInOne">نوبت%s ؛ در یک حرکت کیش و مات کنید</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
-  <string name="onlineFriends">دوستان آنلاین</string>
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
@@ -503,6 +500,7 @@
   <string name="troll">ترول</string>
   <string name="other">موضوعات دیگر</string>
   <string name="reportDescriptionHelp">لینک بازی های این کاربر را قرار دهید و توضیع دهید خطای رفتار این بازیکن چه بوده است</string>
+  <string name="error.provideOneCheatedGameLink">لطفآ حداقل یک نمونه تقلب در بازی را مطرح کنید.</string>
   <string name="by">توسط %s</string>
   <string name="thisTopicIsNowClosed">این موضوع بسته شده است</string>
   <string name="theming">قالب</string>
@@ -574,9 +572,7 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
-  <string name="xVsYinZ">%1$s %3$s در مقابل %2$s</string>
   <string name="timeline">جدول زمانی</string>
-  <string name="seeAllTournaments">دیدن تمام مسابقات</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
   <string name="yourCityRegionOrDepartment">شهر شما، منطقه، و یا استان.</string>
@@ -625,9 +621,7 @@
   <string name="menu">فهرست</string>
   <string name="castling">قلعه رفتن</string>
   <string name="whiteCastlingKingside">سفید O-O</string>
-  <string name="whiteCastlingQueenside">سفید O-O-O</string>
   <string name="blackCastlingKingside">سیاه O-O</string>
-  <string name="blackCastlingQueenside">سیاه O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s پست ها در انجمن</item>
     <item quantity="other">%s پست ها در انجمن</item>
@@ -636,11 +630,12 @@
   <string name="watchGames">تماشای بازی ها</string>
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
-  <string name="internationalEvents">رویدادهای بین المللی</string>
   <string name="videoLibrary">فیلم ها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
+  <string name="aboutX">درباره %s</string>
+  <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
   <string name="termsOfService">قوانین</string>
@@ -716,7 +711,7 @@
   <string name="youHaveAlreadyRegisteredTheEmail">این ایمیل %s قبلا برای نام نویسی استفاده شده است</string>
   <string name="kidMode">حالت کودکان</string>
   <string name="kidModeExplanation">این گزینه،امنیتی است.با فعال کردن حالت ((کودکانه))،همه ی ارتباطات(چت کردن و...)غیر فعال می شوند.با فعال کردن این گزینه،کودکان خود را محافطت کنید.</string>
-  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک 😊 اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
+  <string name="inKidModeTheLichessLogoGetsIconX">در حالت کودکانه،به نماد لیچس،یک %s اضافه می شود تا شما از فعال بودن آن مطلع شوید.</string>
   <string name="enableKidMode">فعال کردن حالت کودکانه</string>
   <string name="disableKidMode">غیر فعال کردن حالت کودکانه</string>
   <string name="security">امنیت</string>
@@ -744,6 +739,7 @@
   <string name="xHostsY">%1$s میزبان ها %2$s</string>
   <string name="xJoinsY">%1$s وارد می شود %2$s</string>
   <string name="xLikesY">%1$s می پسندد %2$s</string>
+  <string name="xCreatesStudyY">%1$s بررسی ایجاد میکند %2$s</string>
   <string name="quickPairing">رویارویی سریع</string>
   <string name="lobby">لابی</string>
   <string name="anonymous">ناشناس</string>
@@ -769,8 +765,7 @@
   <string name="chessBasics">اصول شطرنج</string>
   <string name="coaches">مربی ها</string>
   <string name="invalidPgn">فایل PGN نامعتبر است</string>
-  <string name="invalidFen">
-پوزیشن وارد شده نامعتبر است</string>
+  <string name="invalidFen">پوزیشن وارد شده نامعتبر است</string>
   <string name="error.minLength">حداقل تعداد حروف وارد شده %s است</string>
   <string name="error.maxLength">حداکثر تعداد حروف وارد شده %s است</string>
   <string name="error.min">باید بزرگتر یا مساوی باشه با %s</string>

@@ -6,7 +6,7 @@ import { spinner } from './util'
 
 export function noteCtrl(opts: NoteOpts): NoteCtrl {
   let text: string
-  const doPost = window.lichess.fp.debounce(() => {
+  const doPost = window.lichess.debounce(() => {
     xhr.setNote(opts.id, text);
   }, 1000);
   return {

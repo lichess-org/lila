@@ -8,9 +8,9 @@ object TournamentCrud extends LilaController {
   private def env = Env.tournament
   private def crud = env.crudApi
 
-  def index = Secure(_.ManageTournament) { implicit ctx => me =>
-    crud.list map { tours =>
-      html.tournament.crud.index(tours)
+  def index(page: Int) = Secure(_.ManageTournament) { implicit ctx => me =>
+    crud.paginator(page) map { paginator =>
+      html.tournament.crud.index(paginator)
     }
   }
 
@@ -43,4 +43,12 @@ object TournamentCrud extends LilaController {
       }
     )
   }
+
+  def clone(id: String) = Secure(_.ManageTournament) { implicit ctx => me =>
+    OptionFuResult(crud one id) { old =>
+      val tour = crud clone old
+      Ok(html.tournament.crud.create(crud editForm tour)).fuccess
+    }
+  }
+
 }

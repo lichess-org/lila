@@ -29,7 +29,6 @@ final class ForumSearchApi(
     Fields.topic -> view.topic.name,
     Fields.author -> ~(view.post.userId orElse view.post.author map (_.toLowerCase)),
     Fields.topicId -> view.topic.id,
-    Fields.staff -> view.post.isStaff,
     Fields.troll -> view.post.troll,
     Fields.date -> view.post.createdAt
   )

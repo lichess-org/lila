@@ -24,7 +24,7 @@ final class Syncache[K, V](
   import Syncache._
 
   // ongoing async computations
-  private val chm = new ConcurrentHashMap[K, Fu[V]]
+  private val chm = new ConcurrentHashMap[K, Fu[V]](64)
 
   // sync cached values
   private val cache: Cache[K, V] = {
@@ -34,7 +34,7 @@ final class Syncache[K, V](
       case ExpireAfterWrite(duration) => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
     }
     val cache = b2.recordStats.build[K, V]()
-    AsyncCache.monitor(s"syncache.$name", cache)
+    AsyncCache.startMonitoring(s"syncache.$name", cache)
     cache
   }
 
@@ -78,6 +78,7 @@ final class Syncache[K, V](
 
   // maybe optimize later with cach batching
   def preloadMany(ks: Seq[K]): Funit = ks.distinct.map(preloadOne).sequenceFu.void
+  def preloadSet(ks: Set[K]): Funit = ks.map(preloadOne).sequenceFu.void
   // def preloadSet(ks: Set[K]): Funit = ks.map(preloadOne).sequenceFu.void
 
   def setOneIfAbsent(k: K, v: => V): Unit =
@@ -86,22 +87,24 @@ final class Syncache[K, V](
       cache.put(k, v)
     }
 
+  def chmSize = chm.size
+
   private val loadFunction = new java.util.function.Function[K, Fu[V]] {
     def apply(k: K) = compute(k).withTimeout(
       duration = resultTimeout,
       error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
     )
       .mon(_ => recComputeNanos) // monitoring: record async time
-      .addEffects(
-        err => {
-          logger.branch(name).warn(s"$err key=$k")
+      .addEffect { res =>
+        cache.put(k, res)
+        chm remove k
+      }
+      .recover {
+        case e: Exception =>
+          logger.branch(name).warn(s"$e key=$k")
           chm remove k
-        },
-        res => {
-          cache.put(k, res)
-          chm remove k
-        }
-      )
+          default(k)
+      }
   }
 
   private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {

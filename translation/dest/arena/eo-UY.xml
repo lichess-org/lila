@@ -30,8 +30,6 @@ Ludu rapide kaj revenu al la vestiblo por ludi pli da ludoj kaj venki pli da pun
   <string name="howDoesItEnd">Kiel finiĝas?</string>
   <string name="howDoesItEndAnswer">La turniro havas kalkuleran horloĝon. Kiam ĝi atingas nulon, la turniroj estas frostigitaj, kaj la gajninto estas anoncita. Ludoj en progreso devas esti finitaj, tamen ili ne kalkulas por la turniro.</string>
   <string name="otherRules">Aliaj gravaj reguloj.</string>
-  <string name="otherRulesAnswer">Vi devas fari vian unuan movon en 20 sekundoj de via turno. Malsukcesante moviĝi en ĉi tiu tempo forfeos la ludon al via kontraŭulo.
-Dividi la ludon ene de la unuaj 10 moviĝoj ludos nek ludantojn nek punktojn.</string>
   <string name="thisIsPrivate">Tio estas privata turniro</string>
   <string name="shareUrl">Kunhavigu ĉi tiun URLon por lasi homojn aliĝi: %s</string>
 </resources>

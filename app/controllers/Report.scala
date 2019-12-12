@@ -7,7 +7,7 @@ import views._
 import lila.api.{ Context, BodyContext }
 import lila.app._
 import lila.common.HTTPRequest
-import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Suspect }
+import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
 import lila.user.{ UserRepo, User => UserModel }
 
 object Report extends LilaController {
@@ -16,7 +16,7 @@ object Report extends LilaController {
   private def api = env.api
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
-    if (Env.streamer.liveStreamApi.isStreaming(me.id)) fuccess(Forbidden(html.mod.streaming()))
+    if (Env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force")) fuccess(Forbidden(html.site.message.streamingMod))
     else renderList(env.modFilters.get(me).fold("all")(_.key))
   }
 
@@ -26,7 +26,7 @@ object Report extends LilaController {
   }
 
   private def renderList(room: String)(implicit ctx: Context) =
-    api.openAndRecentWithFilter(20, Room(room)) zip
+    api.openAndRecentWithFilter(12, Room(room)) zip
       api.countOpenByRooms zip
       Env.streamer.api.approval.countRequests flatMap {
         case reports ~ counts ~ streamers =>
@@ -43,7 +43,7 @@ object Report extends LilaController {
 
   private def onInquiryStart(inquiry: ReportModel) =
     inquiry.room match {
-      case Room.Coms => Redirect(routes.Mod.communicationPrivate(inquiry.user))
+      case Room.Comm => Redirect(routes.Mod.communicationPrivate(inquiry.user))
       case _ => Mod.redirect(inquiry.user)
     }
 
@@ -54,11 +54,11 @@ object Report extends LilaController {
     force: Boolean = false
   )(implicit ctx: BodyContext[_]) = {
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
-      case Some(suspect) => User.renderModZone(suspect.user.username, me)
+      case Some(suspect) => User.renderModZoneActions(suspect.user.username)
       case None =>
-        def autoNext = ctx.body.body match {
-          case AnyContentAsFormUrlEncoded(data) => data.get("next").exists(_.headOption contains "1")
-          case _ => false
+        val dataOpt = ctx.body.body match {
+          case AnyContentAsFormUrlEncoded(data) => data.some
+          case _ => none
         }
         inquiry match {
           case None =>
@@ -66,17 +66,27 @@ object Report extends LilaController {
               User.modZoneOrRedirect(s.user.username, me)
             }
           case Some(prev) =>
-            def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
-            if (autoNext) api.next(prev.room) flatMap {
-              _.fold(redirectToList.fuccess) { report =>
-                api.inquiries.toggle(AsMod(me), report.id) map {
+            def thenGoTo = dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
+              case "back" => HTTPRequest referer ctx.req
+              case "profile" => Mod.userUrl(prev.user, true).some
+              case url => url.some
+            }
+            thenGoTo match {
+              case Some(url) => api.inquiries.toggle(AsMod(me), prev.id) inject Redirect(url)
+              case _ =>
+                def redirectToList = Redirect(routes.Report.listWithFilter(prev.room.key))
+                if (dataOpt.flatMap(_ get "next").exists(_.headOption contains "1"))
+                  api.next(prev.room) flatMap {
+                    _.fold(redirectToList.fuccess) { report =>
+                      api.inquiries.toggle(AsMod(me), report.id) map {
+                        _.fold(redirectToList)(onInquiryStart)
+                      }
+                    }
+                  }
+                else if (force) User.modZoneOrRedirect(prev.user, me)
+                else api.inquiries.toggle(AsMod(me), prev.id) map {
                   _.fold(redirectToList)(onInquiryStart)
                 }
-              }
-            }
-            else if (force) User.modZoneOrRedirect(prev.user, me)
-            else api.inquiries.toggle(AsMod(me), prev.id) map {
-              _.fold(redirectToList)(onInquiryStart)
             }
         }
     }
@@ -123,6 +133,19 @@ object Report extends LilaController {
         else api.create(data candidate lila.report.Reporter(me)) map { report =>
           Redirect(routes.Report.thanks(data.user.username))
         }
+    )
+  }
+
+  def flag = AuthBody { implicit ctx => implicit me =>
+    implicit val req = ctx.body
+    env.forms.flag.bindFromRequest.fold(
+      err => BadRequest.fuccess,
+      data => UserRepo named data.username flatMap {
+        _ ?? { user =>
+          if (user == me) BadRequest.fuccess
+          else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+        }
+      }
     )
   }
 

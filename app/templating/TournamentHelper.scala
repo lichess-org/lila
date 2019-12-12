@@ -2,12 +2,12 @@ package lila.app
 package templating
 
 import controllers.routes
+import lila.app.ui.ScalatagsTemplate._
 import lila.tournament.Env.{ current => tournamentEnv }
 import lila.tournament.{ Tournament, System, Schedule }
 import lila.user.{ User, UserContext }
 
 import play.api.libs.json.Json
-import play.twirl.api.Html
 
 trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
 
@@ -24,16 +24,17 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     }
   }
 
-  def tournamentLink(tour: Tournament): Html = Html {
-    val cssClass = if (tour.isScheduled) "text is-gold" else "text"
-    val url = routes.Tournament.show(tour.id)
-    s"""<a data-icon="g" class="$cssClass" href="$url">${tour.fullName}</a>"""
-  }
+  def tournamentLink(tour: Tournament): Frag = a(
+    dataIcon := "g",
+    cls := (if (tour.isScheduled) "text is-gold" else "text"),
+    href := routes.Tournament.show(tour.id).url
+  )(tour.fullName)
 
-  def tournamentLink(tourId: String): Html = Html {
-    val url = routes.Tournament.show(tourId)
-    s"""<a class="text" data-icon="g" href="$url">${tournamentIdToName(tourId)}</a>"""
-  }
+  def tournamentLink(tourId: String): Frag = a(
+    dataIcon := "g",
+    cls := "text",
+    href := routes.Tournament.show(tourId).url
+  )(tournamentIdToName(tourId))
 
   def tournamentIdToName(id: String) = tournamentEnv.cached name id getOrElse "Tournament"
 
@@ -47,7 +48,7 @@ trait TournamentHelper { self: I18nHelper with DateHelper with UserHelper =>
     ) ::: lila.rating.PerfType.leaderboardable.map { pt =>
         pt.name -> icon(pt.iconChar)
       }
-    def apply(name: String) = Html {
+    def apply(name: String): Frag = raw {
       replacements.foldLeft(name) {
         case (n, (from, to)) => n.replace(from, to)
       }

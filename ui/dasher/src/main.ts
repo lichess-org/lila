@@ -20,8 +20,9 @@ export default function LichessDasher(element: Element, opts: DasherOpts) {
 
   redraw();
 
-  get('/dasher').then(data => {
+  return get('/dasher').then(data => {
     ctrl = makeCtrl(opts, data, redraw);
     redraw();
+    return ctrl;
   });
 };

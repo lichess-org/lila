@@ -45,19 +45,6 @@ export const renderers: Renderers = {
     ]),
     text: n => userFullName(n.content.sender) + ': ' + n.content.text
   },
-  qaAnswer: {
-    html: n => {
-      const q = n.content.question;
-      return generic(n, "/qa/" + q.id + "/" + q.slug + "#" + "answer-" + n.content.answerId, '&', [
-        h('span', [
-          h('strong', userFullName(n.content.answerer)),
-          drawTime(n)
-        ]),
-        h('span', " answered « " + q.title + "  ».")
-      ]);
-    },
-    text: n => userFullName(n.content.answerer) + " answered « " + n.content.question.title + "  »."
-  },
   teamJoined: {
     html: n => generic(n, "/team/" + n.content.id, 'f', [
       h('span', [
@@ -78,25 +65,15 @@ export const renderers: Renderers = {
     ]),
     text: n => "You are now the owner of  « " + n.content.name + "  »."
   },
-  u: {
-    html: n => generic(n, '/tournament/limited-invitation', 'g', [
-      h('span', [
-        h('strong', 'Rating limited tournament'),
-        drawTime(n)
-      ]),
-      h('span', 'An event you can win!')
-    ]),
-    text: n => 'Game with ' + n.content.opponentName + '.'
-  },
   titledTourney: {
     html: n => generic(n, '/tournament/' + n.content.id, 'g', [
       h('span', [
-        h('strong', 'Lichess Titled Tournament'),
+        h('strong', 'Lichess Titled Arena'),
         drawTime(n)
       ]),
       h('span', n.content.text)
     ]),
-    text: n => 'Game with ' + n.content.opponentName + '.'
+    text: _ => 'Lichess Titled Arena'
   },
   reportedBanned: {
     html: n => generic(n, undefined, '', [

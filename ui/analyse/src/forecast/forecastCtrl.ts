@@ -14,7 +14,7 @@ export function make(cfg: ForecastData, data: AnalyseData, redraw: () => void): 
   }
 
   function contains(fc1: ForecastStep[], fc2: ForecastStep[]): boolean {
-    return fc1.length >= fc2.length && keyOf(fc1).indexOf(keyOf(fc2)) === 0;
+    return fc1.length >= fc2.length && keyOf(fc1).startsWith(keyOf(fc2));
   }
 
   function findStartingWithNode(node: ForecastStep): ForecastStep[][] {

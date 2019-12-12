@@ -1,11 +1,15 @@
 package lila.app
 
-import lila.common.HTTPRequest
+import lila.common.{ HTTPRequest, ResponseHeaders }
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.{ Application, GlobalSettings }
 
 object Global extends GlobalSettings {
+
+  val version = System.getProperty("java.version")
+  val memory = Runtime.getRuntime().maxMemory() / 1024 / 1024
+  lila.log.boot.info(s"Java version: $version, memory: ${memory}MB")
 
   private val httpLogger = lila.log("http")
 
@@ -30,12 +34,21 @@ object Global extends GlobalSettings {
     lila.mon.http.request.all()
     if (req.remoteAddress contains ":") lila.mon.http.request.ipv6()
     if (HTTPRequest isXhr req) lila.mon.http.request.xhr()
-    else if (HTTPRequest isSocket req) lila.mon.http.request.ws()
-    else if (HTTPRequest isFishnet req) lila.mon.http.request.fishnet()
     else if (HTTPRequest isBot req) lila.mon.http.request.bot()
     else lila.mon.http.request.page()
-    lila.i18n.Env.current.subdomainKiller(req) orElse
-      super.onRouteRequest(req)
+
+    if (req.host != Env.api.Net.Domain &&
+      HTTPRequest.isRedirectable(req) &&
+      !HTTPRequest.isProgrammatic(req) &&
+      // asset request going through the CDN, don't redirect
+      !(req.host == Env.api.Net.AssetDomain && HTTPRequest.hasFileExtension(req)))
+      Some(Action(MovedPermanently(s"http${if (req.secure) "s" else ""}://${Env.api.Net.Domain}${req.uri}")))
+    else super.onRouteRequest(req) map {
+      case action: EssentialAction if HTTPRequest.isApiOrApp(req) => EssentialAction { r =>
+        action(r) map { _.withHeaders(ResponseHeaders.headersForApiOrApp(r): _*) }
+      }
+      case other => other
+    }
   }
 
   private def niceError(req: RequestHeader): Boolean =
@@ -67,7 +80,6 @@ object Global extends GlobalSettings {
         fuccess(InternalServerError(views.html.base.errorPage(ex) {
           lila.api.Context.error(
             req,
-            lila.common.AssetVersion(lila.app.Env.api.assetVersionSetting.get()),
             lila.i18n.defaultLang,
             HTTPRequest.isSynchronousHttp(req) option lila.common.Nonce.random
           )

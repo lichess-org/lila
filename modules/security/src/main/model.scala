@@ -3,10 +3,12 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 
-import lila.user.User
 import lila.common.{ IpAddress, EmailAddress }
+import lila.user.User
 
-case class FingerprintedUser(user: User, hasFingerprint: Boolean)
+case class FingerPrintedUser(user: User, fp: Option[FingerHash]) {
+  def hasFingerPrint = fp.isDefined
+}
 
 case class UserSession(
     _id: String,
@@ -27,4 +29,10 @@ case class IpAndFp(ip: IpAddress, fp: Option[String], user: User.ID)
 
 case class RecaptchaPublicConfig(key: String, enabled: Boolean)
 
-case class Signup(user: User, email: EmailAddress, req: RequestHeader, fingerPrint: Option[FingerHash])
+case class Signup(
+    user: User,
+    email: EmailAddress,
+    req: RequestHeader,
+    fingerPrint: Option[FingerHash],
+    suspIp: Boolean
+)

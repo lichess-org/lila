@@ -52,6 +52,7 @@ object DataForm {
   object importPgn {
 
     lazy val form = Form(mapping(
+      "name" -> text,
       "orientation" -> optional(nonEmptyText),
       "variant" -> optional(nonEmptyText),
       "mode" -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
@@ -61,6 +62,7 @@ object DataForm {
     )(Data.apply)(Data.unapply))
 
     case class Data(
+        name: String,
         orientationStr: Option[String] = None,
         variantStr: Option[String] = None,
         mode: String,
@@ -74,7 +76,8 @@ object DataForm {
       def toChapterDatas = MultiPgn.split(pgn, max = 20).value.zipWithIndex map {
         case (onePgn, index) =>
           ChapterMaker.Data(
-            name = Chapter.Name(""),
+            // only the first chapter can be named
+            name = Chapter.Name((index == 0) ?? name),
             variant = variantStr,
             pgn = onePgn.some,
             orientation = orientation.name,

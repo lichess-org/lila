@@ -21,8 +21,8 @@ function formatClockTime(trans: Trans, time: Millis) {
     // days : hours
     const days = date.getUTCDate() - 1;
     hours = date.getUTCHours();
-    str += (days === 1 ? trans('oneDay') : trans('nbDays', days)) + ' ';
-    if (hours !== 0) str += trans('nbHours', hours);
+    str += (days === 1 ? trans('oneDay') : trans.plural('nbDays', days)) + ' ';
+    if (hours !== 0) str += trans.plural('nbHours', hours);
   } else if (time >= 3600 * 1000) {
     // hours : minutes
     hours = date.getUTCHours();
@@ -40,7 +40,7 @@ export default function(ctrl: CorresClockController, trans: Trans, color: Color,
     el.innerHTML = formatClockTime(trans, millis);
   },
   isPlayer = ctrl.root.data.player.color === color;
-  return h('div.correspondence.clock.clock_' + color + '.clock_' + position, {
+  return h('div.rclock.rclock-correspondence.rclock-' + position, {
     class: {
       outoftime: millis <= 0,
       running: runningColor === color

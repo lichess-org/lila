@@ -5,9 +5,9 @@ import { bind } from './view/util';
 
 export function button(ctrl: TournamentController): VNode {
   return h('button.fbt', {
-    class: { 'active-soft': ctrl.searching },
+    class: { active: ctrl.searching },
     attrs: {
-      'data-icon': 'y',
+      'data-icon': ctrl.searching ? 'L' : 'y',
       title: 'Search tournament players'
     },
     hook: bind('mousedown', ctrl.toggleSearch, ctrl.redraw)
@@ -25,7 +25,7 @@ export function input(ctrl: TournamentController): VNode {
               tag: 'span',
               tour: ctrl.data.id,
               focus: true,
-              minLength: 2,
+              minLength: 3,
               onSelect(v) {
                 ctrl.jumpToPageOf(v.id || v);
                 $(el).typeahead('close');

@@ -1,13 +1,21 @@
 package lila.common
 
-import org.joda.time.DateTimeZone
+import org.joda.time.{ DateTime, DateTimeZone }
 import play.api.data.format.Formats._
 import play.api.data.format.Formatter
+import play.api.data.validation.Constraint
 import play.api.data.Forms._
+import play.api.data.{ Mapping, FormError, Field, Form => PlayForm }
+import scala.util.Try
 
 object Form {
 
   type Options[A] = Iterable[(A, String)]
+
+  type FormLike = {
+    def apply(key: String): Field
+    def errors: Seq[FormError]
+  }
 
   def options(it: Iterable[Int], pattern: String): Options[Int] = it map { d =>
     d -> (pluralize(pattern, d) format d)
@@ -27,6 +35,9 @@ object Form {
 
   def numberIn(choices: Options[Int]) =
     number.verifying(hasKey(choices, _))
+
+  def numberIn(choices: Seq[Int]) =
+    number.verifying(choices.contains _)
 
   def numberInDouble(choices: Options[Double]) =
     of[Double].verifying(hasKey(choices, _))
@@ -63,14 +74,65 @@ object Form {
     }
   }
 
+  object constraint {
+    import play.api.data.{ validation => V }
+    def minLength[A](from: A => String)(length: Int): Constraint[A] = Constraint[A]("constraint.minLength", length) { o =>
+      if (from(o).size >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
+    }
+    def maxLength[A](from: A => String)(length: Int): Constraint[A] = Constraint[A]("constraint.maxLength", length) { o =>
+      if (from(o).size <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
+    }
+  }
+
+  def inTheFuture(m: Mapping[DateTime]) = m.verifying(
+    "The date must be set in the future",
+    DateTime.now.isBefore(_)
+  )
+
   object UTCDate {
     val dateTimePattern = "yyyy-MM-dd HH:mm"
     val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
   }
-  object ISODate {
+  object ISODateTime {
     val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val isoDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    val formatter = jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
+    val isoDateTime = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = jodaDateTimeFormat(dateTimePattern)
+  }
+  object ISODate {
+    val datePattern = "yyyy-MM-dd"
+    val formatter = jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
+    val isoDateTime = jodaDate(datePattern, DateTimeZone.UTC)
+    implicit val dateFormat = jodaDateTimeFormat(datePattern)
+  }
+  object Timestamp {
+    import lila.base.PimpedTry
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        stringFormat.bind(key, data).right.flatMap { str =>
+          Try(java.lang.Long.parseLong(str)).toEither.right.flatMap { long =>
+            Try(new DateTime(long)).toEither
+          }
+        }.left.map(e => Seq(FormError(key, "Invalid timestamp", Nil)))
+      def unbind(key: String, value: org.joda.time.DateTime) = Map(key -> value.getMillis.toString)
+    }
+    val timestamp = of[org.joda.time.DateTime](formatter)
+  }
+  object ISODateOrTimestamp {
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        ISODate.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
+      def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
+    }
+    val isoDateOrTimestamp = of[org.joda.time.DateTime](formatter)
+  }
+  object ISODateTimeOrTimestamp {
+    val formatter = new Formatter[org.joda.time.DateTime] {
+      def bind(key: String, data: Map[String, String]) =
+        ISODateTime.formatter.bind(key, data) orElse Timestamp.formatter.bind(key, data)
+      def unbind(key: String, value: org.joda.time.DateTime) = ISODate.formatter.unbind(key, value)
+    }
+    val isoDateTimeOrTimestamp = of[org.joda.time.DateTime](formatter)
   }
 }

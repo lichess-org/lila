@@ -1,6 +1,12 @@
 package lila.tournament
 package crud
 
+import BSONHandlers._
+import org.joda.time.DateTime
+
+import lila.common.paginator.Paginator
+import lila.db.dsl._
+import lila.db.paginator.Adapter
 import lila.user.User
 
 final class CrudApi {
@@ -15,7 +21,7 @@ final class CrudApi {
     clockTime = tour.clock.limitInMinutes,
     clockIncrement = tour.clock.incrementSeconds,
     minutes = tour.minutes,
-    variant = tour.variant.key,
+    variant = tour.variant.id,
     position = tour.position.fen,
     date = tour.startsAt,
     image = ~tour.spotlight.flatMap(_.iconImg),
@@ -35,6 +41,18 @@ final class CrudApi {
     TournamentRepo insert tour inject tour
   }
 
+  def clone(old: Tournament) = old.copy(
+    name = s"${old.name} (clone)",
+    startsAt = DateTime.now plusDays 7
+  )
+
+  def paginator(page: Int) = Paginator[Tournament](adapter = new Adapter[Tournament](
+    collection = TournamentRepo.coll,
+    selector = TournamentRepo.selectUnique,
+    projection = $empty,
+    sort = $doc("startsAt" -> -1)
+  ), currentPage = page)
+
   private def empty = Tournament.make(
     by = Left(User.lichessId),
     name = none,
@@ -44,11 +62,11 @@ final class CrudApi {
     variant = chess.variant.Standard,
     position = chess.StartingPosition.initial,
     mode = chess.Mode.Rated,
-    `private` = false,
     password = None,
     waitMinutes = 0,
     startDate = none,
-    berserkable = true
+    berserkable = true,
+    teamBattle = none
   )
 
   private def updateTour(tour: Tournament, data: CrudForm.Data) = {

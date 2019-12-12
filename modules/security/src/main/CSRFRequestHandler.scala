@@ -10,24 +10,18 @@ final class CSRFRequestHandler(domain: String) {
 
   def check(req: RequestHeader): Boolean = {
     if (isXhr(req)) true // cross origin xhr not allowed by browsers
-    else if (isSafe(req) && !isSocket(req)) true
+    else if (isSafe(req)) true
+    else if (appOrigin(req).isDefined) true
     else origin(req) match {
       case None =>
         lila.mon.http.csrf.missingOrigin()
         logger.debug(print(req))
         true
-      case Some("file://") =>
-        true
       case Some(o) if isSubdomain(o) =>
         true
       case Some(_) =>
-        if (isSocket(req)) {
-          lila.mon.http.csrf.websocket()
-          logger.info(s"WS ${print(req)}")
-        } else {
-          lila.mon.http.csrf.forbidden()
-          logger.info(print(req))
-        }
+        lila.mon.http.csrf.forbidden()
+        logger.info(print(req))
         false
     }
   }

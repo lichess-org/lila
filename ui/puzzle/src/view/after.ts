@@ -13,9 +13,9 @@ function renderVote(ctrl) {
       class: { active: ctrl.vm.voted === true },
       hook: bind('click', () => ctrl.vote(true))
     }),
-    h('span.count.hint--bottom', {
+    h('span.count', {
       attrs: {
-        'data-hint': 'Popularity'
+        title: 'Popularity'
       }
     }, '' + Math.max(0, data.puzzle.vote)),
     h('a', {
@@ -32,7 +32,7 @@ function renderVote(ctrl) {
 export default function(ctrl) {
   const data = ctrl.getData();
   const voteCall = !!data.user && ctrl.callToVote() && data.puzzle.enabled && data.voted === undefined;
-  return h('div.feedback.after' + (voteCall ? '.call' : ''), [
+  return h('div.puzzle__feedback.after' + (voteCall ? '.call' : ''), [
     voteCall ? h('div.vote_call', [
       h('strong', ctrl.trans('wasThisPuzzleAnyGood')),
       h('br'),
@@ -40,7 +40,7 @@ export default function(ctrl) {
     ]) : (ctrl.thanks() ? h('div.vote_call',
       h('strong', ctrl.trans('thankYou'))
     ) : null),
-    h('div.half.top', [
+    h('div.half.half-top', [
       ctrl.vm.lastFeedback === 'win' ? h('div.complete.feedback.win', h('div.player', [
         h('div.icon', '✓'),
         h('div.instruction', ctrl.trans.noarg('success'))

@@ -1,15 +1,15 @@
 package lila.security
 
-import scala.concurrent.duration._
+import scala.concurrent.duration.{ span => _, _ }
 
 import akka.actor.ActorSystem
-import play.api.i18n.Lang
 import play.api.libs.ws.{ WS, WSAuthScheme }
 import play.api.Play.current
-import play.twirl.api.Html
+import scalatags.Text.all._
 
-import lila.common.EmailAddress
 import lila.common.String.html.escapeHtml
+import lila.common.String.html.nl2brUnsafe
+import lila.common.{ Lang, EmailAddress }
 import lila.i18n.I18nKeys.{ emails => trans }
 
 final class Mailgun(
@@ -24,23 +24,32 @@ final class Mailgun(
     if (apiUrl.isEmpty) {
       println(msg, "No mailgun API URL")
       funit
-    } else WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
-      "from" -> Seq(msg.from | from),
-      "to" -> Seq(msg.to.value),
-      "h:Reply-To" -> Seq(msg.replyTo | replyTo),
-      "o:tag" -> msg.tag.toSeq,
-      "subject" -> Seq(msg.subject),
-      "text" -> Seq(msg.text)
-    ) ++ msg.htmlBody.?? { body =>
-        Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).body))
-      }).void addFailureEffect {
-      case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
-      case _ =>
-    } recoverWith {
-      case e if msg.retriesLeft > 0 => akka.pattern.after(15 seconds, system.scheduler) {
-        send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+    } else {
+      lila.mon.email.actions.send()
+      WS.url(s"$apiUrl/messages").withAuth("api", apiKey, WSAuthScheme.BASIC).post(Map(
+        "from" -> Seq(msg.from | from),
+        "to" -> Seq(msg.to.value),
+        "h:Reply-To" -> Seq(msg.replyTo | replyTo),
+        "o:tag" -> msg.tag.toSeq,
+        "subject" -> Seq(msg.subject),
+        "text" -> Seq(msg.text)
+      ) ++ msg.htmlBody.?? { body =>
+          Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
+        }).void addFailureEffect {
+        case e: java.net.ConnectException => lila.mon.http.mailgun.timeout()
+        case _ =>
+      } recoverWith {
+        case e if msg.retriesLeft > 0 => {
+          lila.mon.email.actions.retry()
+          akka.pattern.after(15 seconds, system.scheduler) {
+            send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+          }
+        }
+        case e => {
+          lila.mon.email.actions.fail()
+          fufail(e)
+        }
       }
-      case e => fufail(e)
     }
 }
 
@@ -50,7 +59,7 @@ object Mailgun {
       to: EmailAddress,
       subject: String,
       text: String,
-      htmlBody: Option[Html] = none,
+      htmlBody: Option[Frag] = none,
       from: Option[String] = none,
       replyTo: Option[String] = none,
       tag: Option[String] = none,
@@ -59,40 +68,64 @@ object Mailgun {
 
   object txt {
 
-    def serviceNote(implicit lang: Lang) =
-      trans.common_note.literalHtmlTo(lang, List("https://lichess.org"))
+    def serviceNote(implicit lang: Lang): String = s"""
+${trans.common_note.literalTo(lang, List("https://lichess.org")).render}
+
+${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).render}"""
   }
 
   object html {
 
-    val noteLink = Html {
-      """<a itemprop="url" href="https://lichess.org/"><span itemprop="name">lichess.org</span></a>"""
-    }
+    val itemscope = attr("itemscope").empty
+    val itemtype = attr("itemtype")
+    val itemprop = attr("itemprop")
+    val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
+    val pDesc = p(itemprop := "description")
+    val potentialAction = div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
+    def metaName(cont: String) = meta(itemprop := "name", content := cont)
+    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
+      span(itemprop := "name")("lichess.org/contact")
+    )
 
-    def serviceNote(implicit lang: Lang) = s"""
-<div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-  <small>${trans.common_note.literalHtmlTo(lang, List(noteLink))}</small>
-</div>
-"""
+    def serviceNote(implicit lang: Lang) = publisher(
+      small(
+        trans.common_note.literalTo(lang, List(Mailgun.html.noteLink)),
+        " ",
+        trans.common_contact.literalTo(lang, List(noteContact))
+      )
+    )
 
-    def url(u: String)(implicit lang: Lang) = s"""
-<meta itemprop="url" content="$u">
-<p><a itemprop="target" href="$u">$u</a></p>
-<p>${trans.common_orPaste.literalHtmlTo(lang)}</p>
-"""
+    def standardEmail(body: String)(implicit lang: Lang): Frag =
+      emailMessage(
+        pDesc(nl2brUnsafe(body)),
+        publisher
+      )
 
-    private[Mailgun] def wrap(subject: String, body: Html) = Html {
-      s"""<!doctype html>
+    val noteLink = a(
+      itemprop := "url",
+      href := "https://lichess.org/"
+    )(span(itemprop := "name")("lichess.org"))
+
+    def url(u: String)(implicit lang: Lang) = frag(
+      meta(itemprop := "url", content := u),
+      p(a(itemprop := "target", href := u)(u)),
+      p(trans.common_orPaste.literalTo(lang))
+    )
+
+    private[Mailgun] def wrap(subject: String, body: Frag): Frag = frag(
+      raw(s"""<!doctype html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>${escapeHtml(subject)}</title>
   </head>
-  <body>
-    $body
+  <body>"""),
+      body,
+      raw("""
   </body>
-</html>"""
-    }
+</html>""")
+    )
   }
 }

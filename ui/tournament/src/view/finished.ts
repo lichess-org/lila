@@ -3,23 +3,24 @@ import { VNode } from 'snabbdom/vnode';
 import TournamentController from '../ctrl';
 import { TournamentData, MaybeVNodes } from '../interfaces';
 import * as pagination from '../pagination';
-import { standing, podium } from './arena';
+import { controls, standing, podium } from './arena';
+import { teamStanding } from './battle';
 import header from './header';
-import tourSide from './side';
 import playerInfo from './playerInfo';
+import teamInfo from './teamInfo';
 import { numberRow } from './util';
 
 function confetti(data: TournamentData): VNode | undefined {
   if (data.me && data.isRecentlyFinished && window.lichess.once('tournament.end.canvas.' + data.id))
-  return h('canvas#confetti', {
-    hook: {
-      insert: _ => window.lichess.loadScript('/assets/javascripts/confetti.js')
-    }
-  });
+    return h('canvas#confetti', {
+      hook: {
+        insert: _ => window.lichess.loadScript('javascripts/confetti.js')
+      }
+    });
 }
 
-function stats(st, noarg) {
-  return h('div.stats.box', [
+function stats(st, noarg): VNode {
+  return h('div.tour__stats', [
     h('h2', noarg('tournamentComplete')),
     h('table', [
       numberRow(noarg('averageElo'), st.averageRating, 'raw'),
@@ -33,21 +34,28 @@ function stats(st, noarg) {
   ]);
 }
 
+export const name = 'finished';
+
 export function main(ctrl: TournamentController): MaybeVNodes {
   const pag = pagination.players(ctrl);
+  const teamS = teamStanding(ctrl, 'finished');
   return [
-    h('div.big_top', [
-      confetti(ctrl.data),
-      header(ctrl),
-      podium(ctrl)
+    ...(teamS ? [header(ctrl), teamS] : [
+      h('div.big_top', [
+        confetti(ctrl.data),
+        header(ctrl),
+        podium(ctrl)
+      ])
     ]),
+    controls(ctrl, pag),
     standing(ctrl, pag)
   ];
 }
 
-export function side(ctrl: TournamentController): MaybeVNodes {
-  return ctrl.playerInfo.id ? [playerInfo(ctrl)] : [
-    stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : null,
-    ...tourSide(ctrl)
-  ];
+export function table(ctrl: TournamentController): VNode | undefined {
+  return ctrl.playerInfo.id ? playerInfo(ctrl) : (
+    ctrl.teamInfo.requested ? teamInfo(ctrl) : (
+      stats ? stats(ctrl.data.stats, ctrl.trans.noarg) : undefined
+    )
+  );
 }

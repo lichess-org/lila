@@ -3,63 +3,64 @@ package lila.security
 import play.api.libs.ws.WS
 import play.api.Play.current
 
+import lila.common.Domain
+
 final class DisposableEmailDomain(
     providerUrl: String,
-    blacklistStr: () => String,
-    busOption: Option[lila.common.Bus]
+    checkMailBlocked: () => Fu[List[String]]
 ) {
 
-  private var domains = Set.empty[String]
-  private var failed = false
+  private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
 
-  private[security] def refresh: Unit = {
-    WS.url(providerUrl).get() map { res =>
-      res.json.validate[Set[String]].fold(
-        err => onError(lila.base.LilaException(err.toString)),
-        dat => {
-          domains = dat
-          failed = false
-        }
-      )
-      lila.mon.email.disposableDomain(domains.size)
-    } recover {
-      case _: java.net.ConnectException => // ignore network errors
-      case e: Exception => onError(e)
+  private var regex = finalizeRegex(staticRegex)
+
+  private[security] def refresh: Unit = for {
+    blacklist <- WS.url(providerUrl).get().map(_.body.lines) recover {
+      case e: Exception =>
+        logger.warn("DisposableEmailDomain.refresh", e)
+        Iterator.empty
     }
+    checked <- checkMailBlocked()
+  } {
+    val regexStr = s"${toRegexStr(blacklist)}|${toRegexStr(checked.toIterator)}"
+    val nbDomains = regexStr.count('|' ==)
+    lila.mon.email.disposableDomain(nbDomains)
+    regex = finalizeRegex(s"$staticRegex|$regexStr")
   }
 
-  private def onError(e: Exception): Unit = {
-    logger.error("Can't update disposable emails", e)
-    if (!failed) {
-      failed = true
-      busOption.foreach { bus =>
-        bus.publish(
-          lila.hub.actorApi.slack.Error(s"Disposable emails list: ${e.getMessage}\nPlease fix $providerUrl"),
-          'slack
-        )
-      }
-    }
+  private def toRegexStr(domains: Iterator[String]) = domains.map(l => l.replace(".", "\\.")).mkString("|")
+
+  private def finalizeRegex(regexStr: String) = s"(^|\\.)($regexStr)$$".r
+
+  def apply(domain: Domain): Boolean = {
+    val lower = domain.lower
+    !DisposableEmailDomain.whitelisted(lower) && regex.find(lower.value)
   }
 
-  def apply(domain: String) =
-    !DisposableEmailDomain.mainstreamDomains(domain.toLowerCase) && {
-      domains.contains(domain) || blacklistStr().split(' ').contains(domain)
-    }
+  def isOk(domain: Domain) = !apply(domain)
+
+  def fromDomain(mixedCase: String): Boolean = apply(Domain(mixedCase.toLowerCase))
 }
 
 private object DisposableEmailDomain {
 
-  private val mainstreamDomains = Set(
+  def whitelisted(domain: Domain.Lower) = whitelist contains domain.value
+
+  private val staticBlacklist = Set(
+    "lichess.org", "gamil.com", "gmali.com"
+  )
+
+  private val whitelist = Set(
     /* Default domains included */
     "aol.com", "att.net", "comcast.net", "facebook.com", "gmail.com", "gmx.com", "googlemail.com",
     "google.com", "hotmail.com", "hotmail.co.uk", "mac.com", "me.com", "mail.com", "msn.com",
-    "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk",
+    "live.com", "sbcglobal.net", "verizon.net", "yahoo.com", "yahoo.co.uk", "protonmail.com", "protonmail.ch",
 
     /* Other global domains */
     "email.com", "games.com" /* AOL */ , "gmx.net", "hush.com", "hushmail.com", "icloud.com", "inbox.com",
     "lavabit.com", "love.com" /* AOL */ , "outlook.com", "pobox.com", "rocketmail.com" /* Yahoo */ ,
-    "safe-mail.net", "wow.com" /* AOL */ , "ygm.com" /* AOL */ , "ymail.com" /* Yahoo */ , "zoho.com", "fastmail.fm",
-    "yandex.com",
+    "safe-mail.net", "wow.com" /* AOL */ , "ygm.com" /* AOL */ , "ymail.com" /* Yahoo */ , "zoho.com",
+    "fastmail.com", "fastmail.fm", "yandex.com",
 
     /* United States ISP domains */
     "bellsouth.net", "charter.net", "comcast.net", "cox.net", "earthlink.net", "juno.com",
@@ -91,6 +92,9 @@ private object DisposableEmailDomain {
     "yahoo.com.mx", "live.com.mx", "hotmail.es", "hotmail.com.mx", "prodigy.net.mx",
 
     /* Domains used in Brazil */
-    "yahoo.com.br", "hotmail.com.br", "outlook.com.br", "uol.com.br", "bol.com.br", "terra.com.br", "ig.com.br", "itelefonica.com.br", "r7.com", "zipmail.com.br", "globo.com", "globomail.com", "oi.com.br"
+    "yahoo.com.br", "hotmail.com.br", "outlook.com.br", "uol.com.br", "bol.com.br", "terra.com.br", "ig.com.br", "itelefonica.com.br", "r7.com", "zipmail.com.br", "globo.com", "globomail.com", "oi.com.br",
+
+    /* Domains without an A record */
+    "cabletv.on.ca", "live.ca", "unitybox.de", "volki.at"
   )
 }

@@ -22,6 +22,9 @@ final class OAuthAppApi(appColl: Coll) {
       F.author -> user.id
     ))
 
+  def authorOf(clientId: OAuthApp.Id): Fu[Option[User.ID]] =
+    appColl.primitiveOne[User.ID]($doc(F.clientId -> clientId), F.author)
+
   def update(from: OAuthApp)(f: OAuthApp => OAuthApp): Fu[OAuthApp] = {
     val app = f(from)
     if (app == from) fuccess(app)

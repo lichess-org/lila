@@ -4,10 +4,10 @@ import akka.actor._
 import play.api.libs.json._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import play.twirl.api.Html
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.common.Bus
 import lila.user.User
 
 private final class Streaming(
@@ -16,6 +16,7 @@ private final class Streaming(
     isOnline: User.ID => Boolean,
     timeline: ActorSelection,
     keyword: Stream.Keyword,
+    alwaysFeatured: () => lila.common.Strings,
     googleApiKey: String,
     twitchClientId: String,
     lightUserApi: lila.user.LightUserApi
@@ -43,11 +44,11 @@ private final class Streaming(
   self ! Tick
 
   def updateStreams: Funit = for {
-    streamers <- api.allListed.map {
-      _.filter { streamer =>
-        liveStreams.has(streamer) || isOnline(streamer.userId)
-      }
+    streamerIds <- api.allListedIds
+    activeIds = streamerIds.filter { id =>
+      liveStreams.has(id) || isOnline(id.value)
     }
+    streamers <- api byIds activeIds
     (twitchStreams, youTubeStreams) <- fetchTwitchStreams(streamers) zip fetchYouTubeStreams(streamers)
     streams = LiveStreams {
       scala.util.Random.shuffle {
@@ -62,8 +63,8 @@ private final class Streaming(
     import akka.pattern.ask
     if (newStreams != liveStreams) {
       renderer ? newStreams.autoFeatured.withTitles(lightUserApi) foreach {
-        case html: play.twirl.api.Html =>
-          context.system.lilaBus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html.body), 'streams)
+        case html: String =>
+          Bus.publish(lila.hub.actorApi.streamer.StreamsOnAir(html), 'streams)
       }
       newStreams.streams filterNot { s =>
         liveStreams has s.streamer
@@ -72,7 +73,7 @@ private final class Streaming(
           import lila.hub.actorApi.timeline.{ Propagate, StreamStart }
           Propagate(StreamStart(s.streamer.userId, s.streamer.name.value)) toFollowersOf s.streamer.userId
         }
-        context.system.lilaBus.publish(
+        Bus.publish(
           lila.hub.actorApi.streamer.StreamStart(s.streamer.userId),
           'streamStart
         )
@@ -94,24 +95,42 @@ private final class Streaming(
   }
 
   def fetchTwitchStreams(streamers: List[Streamer]): Fu[List[Twitch.Stream]] = {
-    val userIds = streamers.flatMap(_.twitch).map(_.userId.toLowerCase)
-    userIds.nonEmpty ?? WS.url("https://api.twitch.tv/kraken/streams")
-      .withQueryString(
-        "channel" -> userIds.mkString(","),
-        "stream_type" -> "live"
-      )
-      .withHeaders(
-        "Accept" -> "application/vnd.twitchtv.v3+json",
-        "Client-ID" -> twitchClientId
-      )
-      .get().map { res =>
-        res.json.validate[Twitch.Result](twitchResultReads) match {
-          case JsSuccess(data, _) => data.streams(keyword, streamers)
-          case JsError(err) =>
-            logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
-            Nil
+    val maxIds = 100
+    val allTwitchStreamers = streamers.flatMap { s =>
+      s.twitch map (s.id -> _)
+    }
+    val futureTwitchStreamers: Fu[List[Streamer.Twitch]] =
+      if (allTwitchStreamers.size > maxIds)
+        api.mostRecentlySeenIds(allTwitchStreamers.map(_._1), maxIds) map { ids =>
+          allTwitchStreamers collect {
+            case (streamerId, twitch) if ids(streamerId) => twitch
+          }
+        }
+      else fuccess(allTwitchStreamers.map(_._2))
+    futureTwitchStreamers flatMap { twitchStreamers =>
+      twitchStreamers.nonEmpty ?? {
+        val twitchUserIds = twitchStreamers.map(_.userId)
+        val url = WS.url("https://api.twitch.tv/helix/streams")
+          .withQueryString(
+            (("first" -> maxIds.toString) :: twitchUserIds.map("user_login" -> _)): _*
+          )
+          .withHeaders(
+            "Client-ID" -> twitchClientId
+          )
+        url.get().map { res =>
+          res.json.validate[Twitch.Result](twitchResultReads) match {
+            case JsSuccess(data, _) => data.streams(
+              keyword,
+              streamers,
+              alwaysFeatured().value.map(_.toLowerCase)
+            )
+            case JsError(err) =>
+              logger.warn(s"twitch ${res.status} $err ${~res.body.lines.toList.headOption}")
+              Nil
+          }
         }
       }
+    }
   }
 
   def fetchYouTubeStreams(streamers: List[Streamer]): Fu[List[YouTube.Stream]] = googleApiKey.nonEmpty ?? {

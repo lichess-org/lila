@@ -14,7 +14,7 @@ export function sort(ctrl: LobbyController, hooks: Hook[]) {
 }
 
 export function init(hook: Hook) {
-  hook.action = hook.uid === window.lichess.StrongSocket.sri ? 'cancel' : 'join';
+  hook.action = hook.sri === window.lichess.StrongSocket.sri ? 'cancel' : 'join';
   hook.variant = hook.variant || 'standard';
 }
 
@@ -40,7 +40,7 @@ export function remove(ctrl: LobbyController, id) {
 }
 export function syncIds(ctrl: LobbyController, ids) {
   ctrl.data.hooks = ctrl.data.hooks.filter(function(h) {
-    return ids.indexOf(h.id) !== -1;
+    return ids.includes(h.id);
   });
 }
 export function find(ctrl: LobbyController, id) {

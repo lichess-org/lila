@@ -15,6 +15,7 @@ case class Pref(
     autoQueen: Int,
     autoThreefold: Int,
     takeback: Int,
+    moretime: Int,
     clockTenths: Int,
     clockBar: Boolean,
     clockSound: Boolean,
@@ -38,6 +39,7 @@ case class Pref(
     rookCastle: Int,
     moveEvent: Int,
     pieceNotation: Int,
+    resizeHandle: Int,
     tags: Map[String, String] = Map.empty
 ) {
 
@@ -50,9 +52,12 @@ case class Pref(
   def realTheme3d = Theme3d(theme3d)
   def realPieceSet3d = PieceSet3d(pieceSet3d)
 
+  def themeColor = if (transp || dark) "#2e2a24" else "#dbd7d1"
+
   def realSoundSet = SoundSet(soundSet)
 
   def coordColorName = Color.choices.toMap.get(coordColor).fold("random")(_.toLowerCase)
+  def coordsClass = Coords classOf coords
 
   def hasSeenVerifyTitle = tags contains Tag.verifyTitle
 
@@ -86,6 +91,17 @@ case class Pref(
   def pieceNotationIsLetter = pieceNotation == PieceNotation.LETTER
 
   def isZen = zen == Zen.YES
+
+  def is2d = !is3d
+
+  // atob("aHR0cDovL2NoZXNzLWNoZWF0LmNvbS9ob3dfdG9fY2hlYXRfYXRfbGljaGVzcy5odG1s")
+  def botCompatible =
+    theme == "brown" &&
+      pieceSet == "cburnett" &&
+      is2d &&
+      animation == Animation.NONE &&
+      highlight &&
+      coords == Coords.OUTSIDE
 }
 
 object Pref {
@@ -223,6 +239,18 @@ object Pref {
     )
   }
 
+  object Moretime {
+    val NEVER = 1
+    val CASUAL = 2
+    val ALWAYS = 3
+
+    val choices = Seq(
+      NEVER -> "Never",
+      ALWAYS -> "Always",
+      CASUAL -> "In casual games only"
+    )
+  }
+
   object Animation {
     val NONE = 0
     val FAST = 1
@@ -247,6 +275,12 @@ object Pref {
       INSIDE -> "Inside the board",
       OUTSIDE -> "Outside the board"
     )
+
+    def classOf(v: Int) = v match {
+      case INSIDE => "in"
+      case OUTSIDE => "out"
+      case _ => "no"
+    }
   }
 
   object Replay {
@@ -313,6 +347,18 @@ object Pref {
     )
   }
 
+  object ResizeHandle {
+    val NEVER = 0
+    val INITIAL = 1
+    val ALWAYS = 2
+
+    val choices = Seq(
+      NEVER -> "Never",
+      INITIAL -> "On initial position",
+      ALWAYS -> "Always"
+    )
+  }
+
   object Zen extends BooleanPref {
   }
 
@@ -333,6 +379,7 @@ object Pref {
     autoQueen = AutoQueen.PREMOVE,
     autoThreefold = AutoThreefold.TIME,
     takeback = Takeback.ALWAYS,
+    moretime = Moretime.ALWAYS,
     clockBar = true,
     clockSound = true,
     premove = true,
@@ -341,7 +388,7 @@ object Pref {
     follow = true,
     highlight = true,
     destination = true,
-    coords = Coords.OUTSIDE,
+    coords = Coords.INSIDE,
     replay = Replay.ALWAYS,
     clockTenths = ClockTenths.LOWTIME,
     challenge = Challenge.ALWAYS,
@@ -356,6 +403,7 @@ object Pref {
     rookCastle = RookCastle.YES,
     moveEvent = MoveEvent.BOTH,
     pieceNotation = PieceNotation.SYMBOL,
+    resizeHandle = ResizeHandle.INITIAL,
     tags = Map.empty
   )
 

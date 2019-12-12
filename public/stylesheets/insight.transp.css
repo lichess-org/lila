@@ -1,7 +1,0 @@
-body.transp #insight .chart {
-  background: rgba(0,0,0,0.6);
-  box-shadow: inset 0 0 9px rgba(255,255,255,0.5);
-}
-body.transp #insight .chart rect[fill="rgba(120,120,120,0.2)"] {
-  fill: rgba(120,120,120,0.4);
-}

@@ -2,8 +2,8 @@ package lila.common
 
 import com.typesafe.config.Config
 import org.joda.time.{ DateTime, Period }
-import play.api.i18n.Lang
 import play.api.{ Play, Application, Mode }
+import play.api.routing.Router
 import scala.collection.JavaConversions._
 
 object PlayApp {
@@ -11,7 +11,7 @@ object PlayApp {
   val startedAt = DateTime.now
   val startedAtMillis = nowMillis
 
-  def uptime = new Period(startedAt, DateTime.now)
+  def uptimeSeconds = nowSeconds - startedAt.getSeconds
 
   def startedSinceMinutes(minutes: Int) =
     startedSinceSeconds(minutes * 60)
@@ -29,8 +29,6 @@ object PlayApp {
   def system = withApp { implicit app =>
     play.api.libs.concurrent.Akka.system
   }
-
-  lazy val langs = loadConfig.getStringList("play.i18n.langs").map(Lang.apply)(scala.collection.breakOut)
 
   private def enableScheduler = !(loadConfig getBoolean "app.scheduler.disabled")
 

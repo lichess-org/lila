@@ -1,14 +1,14 @@
 $(function() {
 
-  var $form = $("form.search");
+  var $form = $(".search__form");
   var $usernames = $form.find(".usernames input");
-  var $userRows = $form.find(".user_row");
-  var $result = $(".search_result");
+  var $userRows = $form.find(".user-row");
+  var $result = $(".search__result");
 
   function getUsernames() {
     var us = [];
     $usernames.each(function() {
-      var u = $.trim($(this).val());
+      var u = $(this).val().trim();
       if (u) us.push(u);
     });
     return us;
@@ -63,34 +63,26 @@ $(function() {
     var s = $(this).hasClass('download') ? serialize(true) : serialized;
     $(this).attr("href", $(this).attr("href").split('?')[0] + "?" + s);
   });
-  $result.find('.search_infinitescroll').each(function() {
+  $result.find('.search__rows').each(function() {
     var $next = $(this).find(".pager a");
     if (!$next.length) return;
     $next.attr("href", $next.attr("href") + "&" + serialized);
     $(this).infinitescroll({
       navSelector: ".pager",
       nextSelector: $next,
-      itemSelector: ".search_infinitescroll .paginated_element",
+      itemSelector: ".search__rows .paginated",
       loading: {
         msgText: "",
         finishedMsg: "---"
       }
     }, function() {
       $("#infscr-loading").remove();
-      lichess.pubsub.emit('content_loaded')();
+      lichess.pubsub.emit('content_loaded');
     });
   });
 
   $form.submit(function() {
     $form.find("input,select").filter(function() { return !this.value; }).attr("disabled", "disabled");
-    $(this).addClass('searching');
+    $form.addClass('searching');
   });
-
-  if ($form.hasClass('realtime')) {
-    var submit = function() {
-      $form.submit();
-    };
-    $form.find("select, input[type=checkbox]").change(submit);
-    $usernames.on("keyup", lichess.fp.debounce(submit, 1500));
-  }
 });

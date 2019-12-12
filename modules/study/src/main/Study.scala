@@ -14,6 +14,7 @@ case class Study(
     settings: Settings,
     from: Study.From,
     likes: Study.Likes,
+    description: Option[String] = None,
     createdAt: DateTime,
     updatedAt: DateTime
 ) {
@@ -49,11 +50,7 @@ case class Study(
   def isOld = (nowSeconds - updatedAt.getSeconds) > 20 * 60
 
   def cloneFor(user: User): Study = {
-    val owner = StudyMember(
-      id = user.id,
-      role = StudyMember.Role.Write,
-      addedAt = DateTime.now
-    )
+    val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     copy(
       _id = Study.makeId,
       members = StudyMembers(Map(user.id -> owner)),
@@ -129,7 +126,8 @@ object Study {
       explorer: String,
       cloneable: String,
       chat: String,
-      sticky: String
+      sticky: String,
+      description: String
   ) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
@@ -139,7 +137,8 @@ object Study {
       clon <- UserSelection.byKey get cloneable
       chat <- UserSelection.byKey get chat
       stic = sticky == "true"
-    } yield Settings(comp, expl, clon, chat, stic)
+      desc = description == "true"
+    } yield Settings(comp, expl, clon, chat, stic, desc)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)
@@ -159,11 +158,7 @@ object Study {
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
   def make(user: User, from: From, id: Option[Study.Id] = None, name: Option[Name] = None, settings: Option[Settings] = None) = {
-    val owner = StudyMember(
-      id = user.id,
-      role = StudyMember.Role.Write,
-      addedAt = DateTime.now
-    )
+    val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,
       name = name | Name(s"${user.username}'s Study"),

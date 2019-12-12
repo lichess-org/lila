@@ -5,7 +5,7 @@ import { detectThreefold } from '../nodeFinder';
 import { tablebaseGuaranteed } from '../explorer/explorerCtrl';
 import AnalyseCtrl from '../ctrl';
 import { Redraw } from '../interfaces';
-import { prop, Prop } from 'common';
+import { defined, prop, Prop } from 'common';
 
 export interface Comment {
   prev: Tree.Node;
@@ -81,7 +81,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
     e8h8: 'e8g8'
   };
 
-  function tbhitToEval(hit: Tree.TablebaseHit | undefined) {
+  function tbhitToEval(hit: Tree.TablebaseHit | undefined | null) {
     return hit && (
       hit.winner ? {
         mate: hit.winner === 'white' ? 10 : -10
@@ -136,7 +136,7 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
       comment(null);
       return root.redraw();
     }
-    if (tablebaseGuaranteed(variant, node.fen) && !node.tbhit) return;
+    if (tablebaseGuaranteed(variant, node.fen) && !defined(node.tbhit)) return;
     ensureCevalRunning();
     if (isMyTurn()) {
       const h = hinting();
@@ -171,6 +171,9 @@ export function make(root: AnalyseCtrl, playableDepth: () => number): PracticeCt
   function checkCevalOrTablebase() {
     if (tablebaseGuaranteed(variant, root.node.fen)) root.explorer.fetchTablebaseHit(root.node.fen).then(hit => {
       if (hit && root.node.fen === hit.fen) root.node.tbhit = hit;
+      checkCeval();
+    }, () => {
+      if (!defined(root.node.tbhit)) root.node.tbhit = null;
       checkCeval();
     });
     else checkCeval();

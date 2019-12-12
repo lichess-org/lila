@@ -1,52 +1,45 @@
 package controllers
 
+import play.api.libs.json._
+import play.api.mvc._
+
 import lila.api.Context
 import lila.app._
 import lila.common.{ HTTPRequest, MaxPerSecond }
+import lila.hub.lightTeam._
 import lila.security.Granter
 import lila.team.{ Joined, Motivate, Team => TeamModel, TeamRepo, MemberRepo }
 import lila.user.{ User => UserModel }
 import views._
-
-import play.api.mvc._
 
 object Team extends LilaController {
 
   private def forms = Env.team.forms
   private def api = Env.team.api
   private def paginator = Env.team.paginator
-  private lazy val teamInfo = Env.current.teamInfo
 
   def all(page: Int) = Open { implicit ctx =>
-    NotForKids {
-      paginator popularTeams page map { html.team.all(_) }
-    }
+    paginator popularTeams page map { html.team.list.all(_) }
   }
 
   def home(page: Int) = Open { implicit ctx =>
-    NotForKids {
-      ctx.me.??(api.hasTeams) map {
-        case true => Redirect(routes.Team.mine)
-        case false => Redirect(routes.Team.all(page))
-      }
+    ctx.me.??(api.hasTeams) map {
+      case true => Redirect(routes.Team.mine)
+      case false => Redirect(routes.Team.all(page))
     }
   }
 
   def show(id: String, page: Int) = Open { implicit ctx =>
-    NotForKids {
-      OptionFuOk(api team id) { renderTeam(_, page) }
-    }
+    OptionFuOk(api team id) { renderTeam(_, page) }
   }
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    NotForKids {
-      if (text.trim.isEmpty) paginator popularTeams page map { html.team.all(_) }
-      else Env.teamSearch(text, page) map { html.team.search(text, _) }
-    }
+    if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
+    else Env.teamSearch(text, page) map { html.team.list.search(text, _) }
   }
 
   private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
-    info <- teamInfo(team, ctx.me)
+    info <- Env.current.teamInfo(team, ctx.me)
     members <- paginator.teamMembers(team, page)
     _ <- Env.user.lightUserApi preloadMany info.userIds
   } yield html.team.show(team, members, info)
@@ -68,7 +61,7 @@ object Team extends LilaController {
 
   def edit(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
-      Owner(team) { fuccess(html.team.edit(team, forms edit team)) }
+      Owner(team) { fuccess(html.team.form.edit(team, forms edit team)) }
     }
   }
 
@@ -77,7 +70,7 @@ object Team extends LilaController {
       Owner(team) {
         implicit val req = ctx.body
         forms.edit(team).bindFromRequest.fold(
-          err => BadRequest(html.team.edit(team, err)).fuccess,
+          err => BadRequest(html.team.form.edit(team, err)).fuccess,
           data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id))
         )
       }
@@ -88,7 +81,7 @@ object Team extends LilaController {
     OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.kick(team, userIds - me.id)
+          html.team.admin.kick(team, userIds - me.id)
         }
       }
     }
@@ -102,12 +95,20 @@ object Team extends LilaController {
       }
     }
   }
+  def kickUser(teamId: String, userId: String) = Scoped(_.Team.Write) { req => me =>
+    api team teamId flatMap {
+      _ ?? { team =>
+        if (team isCreator me.id) api.kick(team, userId, me) inject jsonOkResult
+        else Forbidden(jsonError("Not your team")).fuccess
+      }
+    }
+  }
 
   def changeOwnerForm(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(api team id) { team =>
       Owner(team) {
         MemberRepo userIdsByTeam team.id map { userIds =>
-          html.team.changeOwner(team, userIds - team.createdBy)
+          html.team.admin.changeOwner(team, userIds - team.createdBy)
         }
       }
     }
@@ -131,11 +132,9 @@ object Team extends LilaController {
   }
 
   def form = Auth { implicit ctx => me =>
-    NotForKids {
-      OnePerWeek(me) {
-        forms.anyCaptcha map { captcha =>
-          Ok(html.team.form(forms.create, captcha))
-        }
+    OnePerWeek(me) {
+      forms.anyCaptcha map { captcha =>
+        Ok(html.team.form.create(forms.create, captcha))
       }
     }
   }
@@ -145,7 +144,7 @@ object Team extends LilaController {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
         err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.form(err, captcha))
+          BadRequest(html.team.form.create(err, captcha))
         },
         data => api.create(data, me) ?? {
           _ map { team => Redirect(routes.Team.show(team.id)): Result }
@@ -155,34 +154,32 @@ object Team extends LilaController {
   }
 
   def mine = Auth { implicit ctx => me =>
-    api mine me map { html.team.mine(_) }
+    api mine me map { html.team.list.mine(_) }
   }
 
-  def joinPage(id: String) = Auth { implicit ctx => me =>
-    NotForKids {
-      OptionResult(api.requestable(id, me)) { team =>
-        if (team.open) Ok(html.team.join(team))
-        else Redirect(routes.Team.requestForm(team.id))
-      }
-    }
-  }
-
-  def join(id: String) = Auth { implicit ctx => implicit me =>
-    api join id flatMap {
+  def join(id: String) = AuthOrScoped(_.Team.Write)(
+    auth = ctx => me => api.join(id, me) flatMap {
       case Some(Joined(team)) => Redirect(routes.Team.show(team.id)).fuccess
       case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
-      case _ => notFound
+      case _ => notFound(ctx)
+    },
+    scoped = req => me => Env.oAuth.server.fetchAppAuthor(req) flatMap {
+      _ ?? { api.joinApi(id, me, _) }
+    } map {
+      case Some(Joined(_)) => jsonOkResult
+      case Some(Motivate(_)) => Forbidden(jsonError("This team requires confirmation, and is not owned by the oAuth app owner."))
+      case _ => NotFound(jsonError("Team not found"))
     }
-  }
+  )
 
   def requests = Auth { implicit ctx => me =>
     Env.team.cached.nbRequests invalidate me.id
-    api requestsWithUsers me map { html.team.allRequests(_) }
+    api requestsWithUsers me map { html.team.request.all(_) }
   }
 
   def requestForm(id: String) = Auth { implicit ctx => me =>
     OptionFuOk(api.requestable(id, me)) { team =>
-      forms.anyCaptcha map { html.team.requestForm(team, forms.request, _) }
+      forms.anyCaptcha map { html.team.request.requestForm(team, forms.request, _) }
     }
   }
 
@@ -191,7 +188,7 @@ object Team extends LilaController {
       implicit val req = ctx.body
       forms.request.bindFromRequest.fold(
         err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.requestForm(team, err, captcha))
+          BadRequest(html.team.request.requestForm(team, err, captcha))
         },
         setup => api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id))
       )
@@ -215,19 +212,44 @@ object Team extends LilaController {
     }
   }
 
-  def quit(id: String) = Auth { implicit ctx => implicit me =>
-    OptionResult(api quit id) { team =>
+  def quit(id: String) = AuthOrScoped(_.Team.Write)(
+    auth = ctx => me => OptionResult(api.quit(id, me)) { team =>
       Redirect(routes.Team.show(team.id))
+    }(ctx),
+    scoped = req => me => api.quit(id, me) flatMap {
+      _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
+    }
+  )
+
+  def autocomplete = Action.async { req =>
+    get("term", req).filter(_.nonEmpty) match {
+      case None => BadRequest("No search term provided").fuccess
+      case Some(term) => for {
+        teams <- api.autocomplete(term, 10)
+        _ <- Env.user.lightUserApi preloadMany teams.map(_.createdBy)
+      } yield Ok {
+        JsArray(teams map { team =>
+          Json.obj(
+            "id" -> team.id,
+            "name" -> team.name,
+            "owner" -> Env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
+            "members" -> team.nbMembers
+          )
+        })
+      } as JSON
     }
   }
 
   private def OnePerWeek[A <: Result](me: UserModel)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     api.hasCreatedRecently(me) flatMap { did =>
-      if (did && !Granter(_.SuperAdmin)(me)) Forbidden(views.html.team.createLimit()).fuccess
+      if (did && !Granter(_.ManageTeam)(me)) Forbidden(views.html.site.message.teamCreateLimit).fuccess
       else a
     }
 
   private def Owner(team: TeamModel)(a: => Fu[Result])(implicit ctx: Context): Fu[Result] =
     if (ctx.me.??(me => team.isCreator(me.id) || isGranted(_.ManageTeam))) a
     else renderTeam(team) map { Forbidden(_) }
+
+  private[controllers] def teamsIBelongTo(me: lila.user.User): Fu[List[LightTeam]] =
+    api mine me map { _.map(_.light) }
 }

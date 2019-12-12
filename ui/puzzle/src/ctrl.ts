@@ -8,8 +8,11 @@ import moveTestBuild from './moveTest';
 import mergeSolution from './solution';
 import makePromotion from './promotion';
 import computeAutoShapes from './autoShape';
-import { prop, throttle, storedProp } from 'common';
+import { prop } from 'common';
+import { storedProp } from 'common/storage';
+import throttle from 'common/throttle';
 import * as xhr from './xhr';
+import * as speech from './speech';
 import { sound } from './sound';
 import { Api as CgApi } from 'chessground/api';
 import * as cg from 'chessground/types';
@@ -122,9 +125,8 @@ export default function(opts, redraw: () => void): Controller {
     if (!vm.node.dests) getDests();
   };
 
-  function userMove(orig, dest, capture) {
+  function userMove(orig, dest) {
     vm.justPlayed = orig;
-    sound[capture ? 'capture' : 'move']();
     if (!promotion.start(orig, dest, sendMove)) sendMove(orig, dest);
   };
 
@@ -141,10 +143,10 @@ export default function(opts, redraw: () => void): Controller {
 
   var getDests = throttle(800, function() {
     if (!vm.node.dests && treePath.contains(vm.path, vm.initialPath))
-    socket.sendAnaDests({
-      fen: vm.node.fen,
-      path: vm.path
-    });
+      socket.sendAnaDests({
+        fen: vm.node.fen,
+        path: vm.path
+      });
   });
 
   var uciToLastMove = function(uci) {
@@ -161,6 +163,7 @@ export default function(opts, redraw: () => void): Controller {
     var progress = moveTest();
     if (progress) applyProgress(progress);
     redraw();
+    speech.node(node, false);
   };
 
   function reorderChildren(path: Tree.Path, recursive?: boolean) {
@@ -221,6 +224,7 @@ export default function(opts, redraw: () => void): Controller {
       vm.round = res.round;
       vm.voted = res.voted;
       redraw();
+      if (win) speech.success();
     });
   };
 
@@ -246,7 +250,7 @@ export default function(opts, redraw: () => void): Controller {
     withGround(function(g) { g.playPremove(); });
   };
 
-  function instanciateCeval(failsafe: boolean = false) {
+  function instanciateCeval() {
     if (ceval) ceval.destroy();
     ceval = cevalCtrl({
       redraw,
@@ -262,9 +266,9 @@ export default function(opts, redraw: () => void): Controller {
         tree.updateAt(work.path, function(node) {
           if (work.threatMode) {
             if (!node.threat || node.threat.depth <= ev.depth || node.threat.maxDepth < ev.maxDepth)
-            node.threat = ev;
+              node.threat = ev;
           } else if (!node.ceval || node.ceval.depth <= ev.depth || node.ceval.maxDepth < ev.maxDepth)
-          node.ceval = ev;
+            node.ceval = ev;
           if (work.path === vm.path) {
             setAutoShapes();
             redraw();
@@ -272,15 +276,6 @@ export default function(opts, redraw: () => void): Controller {
         });
       },
       setAutoShapes: setAutoShapes,
-      failsafe: failsafe,
-      onCrash: function(e) {
-        console.log('Local eval failed!', e);
-        if (ceval.pnaclSupported) {
-          console.log('Retrying in failsafe mode');
-          instanciateCeval(true);
-          startCeval();
-        }
-      }
     });
   };
 
@@ -350,16 +345,19 @@ export default function(opts, redraw: () => void): Controller {
   };
 
   function jump(path) {
-    var pathChanged = path !== vm.path;
+    const pathChanged = path !== vm.path,
+      isForwardStep = pathChanged && path.length === vm.path.length + 2;
     setPath(path);
     withGround(showGround);
     if (pathChanged) {
-      if (!vm.node.uci) sound.move(); // initial position
-      else if (!vm.justPlayed || vm.node.uci.indexOf(vm.justPlayed) !== 0) {
-        if (vm.node.san!.indexOf('x') !== -1) sound.capture();
-        else sound.move();
+      if (isForwardStep) {
+        if (!vm.node.uci) sound.move(); // initial position
+        else if (!vm.justPlayed || vm.node.uci.includes(vm.justPlayed)) {
+          if (vm.node.san!.includes('x')) sound.capture();
+          else sound.move();
+        }
+        if (/\+|\#/.test(vm.node.san!)) sound.check();
       }
-      if (/\+|\#/.test(vm.node.san!)) sound.check();
       threatMode(false);
       ceval.stop();
       startCeval();
@@ -367,6 +365,7 @@ export default function(opts, redraw: () => void): Controller {
     promotion.cancel();
     vm.justPlayed = undefined;
     vm.autoScrollRequested = true;
+    window.lichess.pubsub.emit('ply', vm.node.ply);
   };
 
   function userJump(path) {
@@ -374,6 +373,7 @@ export default function(opts, redraw: () => void): Controller {
       g.selectSquare(null);
     });
     jump(path);
+    speech.node(vm.node, true);
   };
 
   function viewSolution() {
@@ -409,7 +409,7 @@ export default function(opts, redraw: () => void): Controller {
   });
 
   function recentHash(): string {
-    return data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
+    return 'ph' + data.puzzle.id + (data.user ? data.user.recent.reduce(function(h, r) {
       return h + r[0];
     }, '') : '');
   }
@@ -454,6 +454,8 @@ export default function(opts, redraw: () => void): Controller {
       jump(vm.path);
     });
   });
+
+  speech.setup();
 
   return {
     vm,

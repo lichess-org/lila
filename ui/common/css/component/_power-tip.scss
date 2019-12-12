@@ -1,0 +1,108 @@
+#powerTip,
+#miniGame {
+  @extend %box-radius-force, %popup-shadow;
+  width: 20rem;
+  min-height: 3em;
+  background: $c-bg-popup;
+  display: none;
+  position: absolute;
+  z-index: z('powertip');
+}
+#powerTip {
+  .mini-board {
+    border-width: 0 0 1px 0;
+  }
+}
+.upt {
+  &__info {
+    @extend %flex-column;
+    height: 83px;
+    padding: 4px 5px 4px 2px;
+    border-bottom: $border;
+    overflow: hidden;
+    &__top {
+      @extend %flex-between;
+      .left {
+        @extend %flex-center-nowrap;
+      }
+      &__country {
+        margin-left: .5em;
+      }
+      .user-link {
+        @extend %ellipsis;
+        display: block;
+        .line {
+          vertical-align: middle;
+        }
+      }
+      &__country {
+        @extend %flex-center;
+        font-size: .9em;
+        img {
+          margin-right: .3em;
+        }
+      }
+    }
+    &__ratings {
+      @extend %flex-between;
+      margin-top: 3px;
+      > span {
+        flex: 0 0 25%;
+        max-width: 25%;
+        padding: 2px 3px;
+        text-align: left;
+      }
+    }
+    &__warning {
+      @extend %flex-center;
+      text-align: center;
+      color: $c-bad;
+      flex: 1 1 auto;
+    }
+  }
+  &__score {
+    display: block;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    text-align: center;
+  }
+  &__actions.btn-rack {
+    @extend %box-shadow;
+    width: 100%;
+    justify-content: stretch;
+    border: 0;
+    border-radius: 0;
+    a {
+      flex: 0 0 18%;
+      &.relation-button {
+        flex: 1 1 auto;
+      }
+    }
+  }
+  &__mod {
+    @extend %flex-between;
+    white-space: nowrap;
+    &__marks {
+      padding: 3px 5px;
+      background: $c-bad;
+      color: #fff;
+    }
+    span {
+      padding: .2em .5em;
+      margin: 0;
+    }
+  }
+  &__game-legend {
+    @extend %flex-between;
+    padding: .2em 1em;
+  }
+}
+#miniGame {
+  min-height: 262px;
+  .spinner {
+    margin: 82px auto 0 auto;
+  }
+  cg-board {
+    border-radius: 0;
+  }
+}

@@ -7,6 +7,7 @@ final class Env(
     config: Config,
     db: lila.db.Env,
     flood: lila.security.Flood,
+    spam: lila.security.Spam,
     shutup: ActorSelection,
     modLog: ActorSelection,
     asyncCache: lila.memo.AsyncCache.Builder,
@@ -33,10 +34,10 @@ final class Env(
     coll = chatColl,
     chatTimeout = timeout,
     flood = flood,
+    spam = spam,
     shutup = shutup,
     modLog = modLog,
     asyncCache = asyncCache,
-    lilaBus = system.lilaBus,
     maxLinesPerChat = MaxLinesPerChat,
     netDomain = NetDomain
   )
@@ -46,8 +47,6 @@ final class Env(
   system.scheduler.schedule(TimeoutCheckEvery, TimeoutCheckEvery) {
     timeout.checkExpired foreach api.userChat.reinstate
   }
-
-  system.actorOf(Props(new FrontActor(api)), name = ActorName)
 
   private[chat] lazy val chatColl = db(CollectionChat)
   private[chat] lazy val timeoutColl = db(CollectionTimeout)
@@ -59,8 +58,9 @@ object Env {
     config = lila.common.PlayApp loadConfig "chat",
     db = lila.db.Env.current,
     flood = lila.security.Env.current.flood,
-    shutup = lila.hub.Env.current.actor.shutup,
-    modLog = lila.hub.Env.current.actor.mod,
+    spam = lila.security.Env.current.spam,
+    shutup = lila.hub.Env.current.shutup,
+    modLog = lila.hub.Env.current.mod,
     asyncCache = lila.memo.Env.current.asyncCache,
     system = lila.common.PlayApp.system
   )

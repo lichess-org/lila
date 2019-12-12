@@ -1,43 +1,43 @@
 package lila.i18n
 
-import play.api.i18n.Lang
-import play.twirl.api.Html
+import scalatags.Text.all._
 
+import lila.common.Lang
 import lila.common.String.html.escapeHtml
 
 object Translator {
 
-  object html {
-
-    def literal(key: MessageKey, db: I18nDb.Ref, args: Seq[Any], lang: Lang): Html =
+  object frag {
+    def literal(key: MessageKey, db: I18nDb.Ref, args: Seq[Any], lang: Lang): RawFrag =
       translate(key, db, lang, I18nQuantity.Other /* grmbl */ , args)
 
-    def plural(key: MessageKey, db: I18nDb.Ref, count: Count, args: Seq[Any], lang: Lang): Html =
+    def plural(key: MessageKey, db: I18nDb.Ref, count: Count, args: Seq[Any], lang: Lang): RawFrag =
       translate(key, db, lang, I18nQuantity(lang, count), args)
 
-    private def translate(key: MessageKey, db: I18nDb.Ref, lang: Lang, quantity: I18nQuantity, args: Seq[Any]): Html =
+    private def translate(key: MessageKey, db: I18nDb.Ref, lang: Lang, quantity: I18nQuantity, args: Seq[Any]): RawFrag =
       findTranslation(key, db, lang) flatMap { translation =>
         val htmlArgs = escapeArgs(args)
         try {
           translation match {
-            case literal: Simple => Some(literal.formatHtml(htmlArgs))
-            case literal: Escaped => Some(literal.formatHtml(htmlArgs))
-            case plurals: Plurals => plurals.formatHtml(quantity, htmlArgs)
+            case literal: Simple => Some(literal.format(htmlArgs))
+            case literal: Escaped => Some(literal.format(htmlArgs))
+            case plurals: Plurals => plurals.format(quantity, htmlArgs)
           }
         } catch {
           case e: Exception =>
             logger.warn(s"Failed to format html $db/$lang/$key -> $translation (${args.toList})", e)
-            Some(Html(key))
+            Some(RawFrag(key))
         }
       } getOrElse {
         logger.info(s"No translation found for $quantity $key in $lang")
-        Html(key)
+        RawFrag(key)
       }
 
-    private def escapeArgs(args: Seq[Any]): Seq[Html] = args.map {
+    private def escapeArgs(args: Seq[Any]): Seq[RawFrag] = args.map {
       case s: String => escapeHtml(s)
-      case h: Html => h
-      case a => Html(a.toString)
+      case r: RawFrag => r
+      case f: StringFrag => RawFrag(f.render)
+      case a => RawFrag(a.toString)
     }
   }
 
@@ -69,6 +69,6 @@ object Translator {
   }
 
   private[i18n] def findTranslation(key: MessageKey, db: I18nDb.Ref, lang: Lang): Option[Translation] =
-    I18nDb(db).get(lang).flatMap(t => Option(t get key)) orElse
-      I18nDb(db).get(defaultLang).flatMap(t => Option(t get key))
+    I18nDb(db).get(lang.value).flatMap(t => Option(t get key)) orElse
+      I18nDb(db).get(defaultLang.value).flatMap(t => Option(t get key))
 }

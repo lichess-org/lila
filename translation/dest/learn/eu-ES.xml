@@ -209,7 +209,7 @@ bi jokalditan!</string>
   <string name="getAFreeLichessAccount">Sortu Lichess kontu bat</string>
   <string name="practice">Praktikatu</string>
   <string name="learnCommonChessPositions">Ikasi ohiko posizioak</string>
-  <string name="puzzles">Puzzleak</string>
+  <string name="puzzles">Ariketak</string>
   <string name="exerciseYourTacticalSkills">Entrenatu zure taktika</string>
   <string name="videos">Bideoak</string>
   <string name="watchInstructiveChessVideos">Ikusi bideoak</string>
@@ -233,6 +233,6 @@ bi jokalditan!</string>
   <string name="yourScore">Zure puntuazioa</string>
   <string name="next">Hurrengoa</string>
   <string name="backToMenu">Menura itzuli</string>
-  <string name="puzzleFailed">Puzzlea ez duzu asmatu!</string>
+  <string name="puzzleFailed">Huts egin duzu!</string>
   <string name="retry">Berriro saiatu</string>
 </resources>

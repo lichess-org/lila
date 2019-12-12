@@ -1,27 +1,15 @@
 conf/application.conf
 bin/dev
-bin/dev.bat
 logs
 project/project
 project/target
 public/trans
 public/compiled
-public/vendor/stockfish
-public/images/?N-bg.svg
-public/piece/alpha
-public/piece/cburnett
-public/piece/chess7
-public/piece/chessnut
-public/piece/companion
-public/piece/fantasy
-public/piece/letter
-public/piece/merida
-public/piece/mono
-public/piece/pirouetti
-public/piece/reillycraig
-public/piece/riohacha
-public/piece/spatial
-public/piece/shapes
+public/vendor/stockfish.wasm
+public/vendor/stockfish-mv.wasm
+public/vendor/stockfish.pexe
+public/vendor/stockfish.js
+public/css/
 target
 bin/.translate_version
 data/
@@ -30,6 +18,7 @@ node_modules/
 local/
 ui/*/npm-debug.log
 hs_*.log
+yarn-error.log
 
 RUNNING_PID
 

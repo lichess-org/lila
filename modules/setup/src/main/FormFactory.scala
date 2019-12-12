@@ -1,12 +1,16 @@
 package lila.setup
 
 import chess.format.FEN
+import chess.variant.Variant
 import lila.lobby.Color
 import lila.user.UserContext
 import play.api.data._
 import play.api.data.Forms._
 
-private[setup] final class FormFactory {
+private[setup] final class FormFactory(
+    anonConfigRepo: AnonConfigRepo,
+    userConfigRepo: UserConfigRepo
+) {
 
   import Mappings._
 
@@ -43,6 +47,7 @@ private[setup] final class FormFactory {
       "fen" -> fen
     )(AiConfig.<<)(_.>>)
       .verifying("invalidFen", _.validFen)
+      .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
   def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig map (_.ai)
@@ -83,7 +88,7 @@ private[setup] final class FormFactory {
       "days" -> days,
       "mode" -> mode(ctx.isAuth),
       "ratingRange" -> optional(ratingRange),
-      "color" -> nonEmptyText.verifying(Color.names contains _)
+      "color" -> color
     )(HookConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
@@ -91,6 +96,20 @@ private[setup] final class FormFactory {
 
   def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig map (_.hook)
 
+  lazy val api = Form(
+    mapping(
+      "variant" -> optional(text.verifying(Variant.byKey.contains _)),
+      "clock" -> optional(mapping(
+        "limit" -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
+        "increment" -> increment
+      )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)),
+      "days" -> optional(days),
+      "rated" -> boolean,
+      "color" -> optional(color),
+      "fen" -> fen
+    )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
+  )
+
   def savedConfig(implicit ctx: UserContext): Fu[UserConfig] =
-    ctx.me.fold(AnonConfigRepo config ctx.req)(UserConfigRepo.config)
+    ctx.me.fold(anonConfigRepo config ctx.req)(userConfigRepo.config)
 }

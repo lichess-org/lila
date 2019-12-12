@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 # Makes game-icons SVGs work as M$ Edge CSS background
 grep -rl '.svg' ./public/images/practice/ | xargs sed -i 's/ style="height: 512px; width: 512px;"//g';

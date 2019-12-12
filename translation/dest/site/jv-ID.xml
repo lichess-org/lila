@@ -38,6 +38,8 @@
   <string name="whiteLeftTheGame">putih kabur seko dulanan</string>
   <string name="blackLeftTheGame">ireng kabur seko dulanan</string>
   <string name="shareThisUrlToLetSpectatorsSeeTheGame">sebarke alamat URL iki kanggo wong sing pengen ndelok dulanan</string>
+  <string name="viewTheComputerAnalysis">Ndelok analisa tekan komputer</string>
+  <string name="computerAnalysis">AnalisaKomputer</string>
   <string name="fromPosition">seka posisi</string>
   <string name="continueFromHere">lanjut seka kene</string>
 </resources>

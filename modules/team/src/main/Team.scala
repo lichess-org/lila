@@ -14,7 +14,7 @@ case class Team(
     enabled: Boolean,
     open: Boolean,
     createdAt: DateTime,
-    createdBy: String
+    createdBy: User.ID
 ) {
 
   def id = _id
@@ -24,6 +24,8 @@ case class Team(
   def disabled = !enabled
 
   def isCreator(user: String) = user == createdBy
+
+  def light = lila.hub.lightTeam.LightTeam(_id, name)
 }
 
 object Team {

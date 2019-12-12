@@ -36,25 +36,7 @@ case class UserInfo(
 
   def completionRatePercent = completionRate.map { cr => math.round(cr * 100) }
 
-  def isPublicMod = lila.security.Granter(_.PublicMod)(user)
-  def isDeveloper = lila.security.Granter(_.Developer)(user)
-
-  lazy val allTrophies = List(
-    isPublicMod option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Moderator,
-      date = org.joda.time.DateTime.now
-    ),
-    isDeveloper option Trophy(
-      _id = "",
-      user = user.id,
-      kind = Trophy.Kind.Developer,
-      date = org.joda.time.DateTime.now
-    )
-  ).flatten ::: trophies
-
-  def countTrophiesAndPerfCups = allTrophies.size + ranks.count(_._2 <= 100)
+  def countTrophiesAndPerfCups = trophies.size + ranks.count(_._2 <= 100)
 }
 
 object UserInfo {
@@ -105,7 +87,7 @@ object UserInfo {
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
     )(u: User, ctx: Context): Fu[NbGames] =
-      (ctx.me.filter(u!=) ?? { me => crosstableApi.withMatchup(me.id, u.id) }) zip
+      (ctx.me.filter(u!=) ?? { me => crosstableApi.withMatchup(me.id, u.id) map some }) zip
         gameCached.nbPlaying(u.id) zip
         gameCached.nbImportedBy(u.id) zip
         bookmarkApi.countByUser(u) map {
@@ -127,7 +109,7 @@ object UserInfo {
     postApi: PostApi,
     studyRepo: lila.study.StudyRepo,
     getRatingChart: User => Fu[Option[String]],
-    getRanks: User.ID => Fu[Map[String, Int]],
+    getRanks: User.ID => lila.rating.UserRankMap,
     isHostingSimul: User.ID => Fu[Boolean],
     fetchIsStreamer: User => Fu[Boolean],
     fetchTeamIds: User.ID => Fu[List[String]],
@@ -136,13 +118,18 @@ object UserInfo {
     getPlayTime: User => Fu[Option[User.PlayTime]],
     completionRate: User.ID => Fu[Option[Double]]
   )(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
-    getRanks(user.id) zip
-      getRatingChart(user) zip
+    (ctx.noBlind ?? getRatingChart(user)) zip
       relationApi.countFollowers(user.id) zip
       (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
       postApi.nbByUser(user.id) zip
       studyRepo.countByOwner(user.id) zip
       trophyApi.findByUser(user) zip
+      fuccess(trophyApi.roleBasedTrophies(
+        user,
+        Granter(_.PublicMod)(user),
+        Granter(_.Developer)(user),
+        Granter(_.Verified)(user)
+      )) zip
       shieldApi.active(user) zip
       revolutionApi.active(user) zip
       fetchTeamIds(user.id) zip
@@ -151,11 +138,11 @@ object UserInfo {
       (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
       getPlayTime(user) zip
       completionRate(user.id) flatMap {
-        case ranks ~ ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
+        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ roleTrophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate =>
           (nbs.playing > 0) ?? isHostingSimul(user.id) map { hasSimul =>
             new UserInfo(
               user = user,
-              ranks = ranks,
+              ranks = getRanks(user.id),
               nbs = nbs,
               hasSimul = hasSimul,
               ratingChart = ratingChart,
@@ -164,7 +151,7 @@ object UserInfo {
               nbPosts = nbPosts,
               nbStudies = nbStudies,
               playTime = playTime,
-              trophies = trophies,
+              trophies = trophies ::: roleTrophies,
               shields = shields,
               revolutions = revols,
               teamIds = teamIds,

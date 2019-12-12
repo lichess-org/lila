@@ -1,6 +1,6 @@
 package lila.insight
 
-import play.twirl.api.Html
+import scalatags.Text.all._
 import reactivemongo.bson._
 import play.api.libs.json._
 
@@ -14,7 +14,7 @@ sealed abstract class Dimension[A: BSONValueHandler](
     val name: String,
     val dbKey: String,
     val position: Position,
-    val description: Html
+    val description: Frag
 ) {
 
   def bson = implicitly[BSONValueHandler[A]]
@@ -32,77 +32,77 @@ object Dimension {
 
   case object Period extends Dimension[Period](
     "period", "Date", F.date, Game,
-    Html("The date at which the game was played")
+    raw("The date at which the game was played")
   )
 
   case object Date extends Dimension[lila.insight.DateRange](
     "date", "Date", F.date, Game,
-    Html("The date at which the game was played")
+    raw("The date at which the game was played")
   )
 
   case object Perf extends Dimension[PerfType](
     "variant", "Variant", F.perf, Game,
-    Html("The rating category of the game, like Bullet, Blitz, or Chess960.")
+    raw("The rating category of the game, like Bullet, Blitz, or Chess960.")
   )
 
   case object Phase extends Dimension[Phase](
     "phase", "Game phase", F.moves("p"), Move,
-    Html("The portion of the game: Opening, Middlegame, or Endgame.")
+    raw("The portion of the game: Opening, Middlegame, or Endgame.")
   )
 
   case object Result extends Dimension[Result](
     "result", "Game result", F.result, Game,
-    Html("Whether you won, lost, or drew the game.")
+    raw("Whether you won, lost, or drew the game.")
   )
 
   case object Termination extends Dimension[Termination](
     "termination", "Game termination", F.termination, Game,
-    Html("The way that the game ended, like Checkmate or Resignation.")
+    raw("The way that the game ended, like Checkmate or Resignation.")
   )
 
   case object Color extends Dimension[Color](
     "color", "Color", F.color, Game,
-    Html("The side you are playing: White or Black.")
+    raw("The side you are playing: White or Black.")
   )
 
   case object Opening extends Dimension[chess.opening.Ecopening](
     "opening", "Opening", F.eco, Game,
-    Html("ECO identification of the initial moves, like \"A58 Benko Gambit\".")
+    raw("ECO identification of the initial moves, like \"A58 Benko Gambit\".")
   )
 
   case object OpponentStrength extends Dimension[RelativeStrength](
     "opponentStrength", "Opponent strength", F.opponentStrength, Game,
-    Html("Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200.")
+    raw("Rating of your opponent compared to yours. Much weaker:-200, Weaker:-100, Stronger:+100, Much stronger:+200.")
   )
 
   case object PieceRole extends Dimension[Role](
     "piece", "Piece moved", F.moves("r"), Move,
-    Html("The type of piece you move.")
+    raw("The type of piece you move.")
   )
 
   case object MovetimeRange extends Dimension[MovetimeRange](
     "movetime", "Move time", F.moves("t"), Move,
-    Html("The amount of time you spend thinking on each move, in seconds.")
+    raw("The amount of time you spend thinking on each move, in seconds.")
   )
 
   case object MyCastling extends Dimension[Castling](
     "myCastling", "My castling side", F.myCastling, Game,
-    Html("The side you castled on during the game: kingside, queenside, or none.")
+    raw("The side you castled on during the game: kingside, queenside, or none.")
   )
 
   case object OpCastling extends Dimension[Castling](
     "opCastling", "Opponent castling side", F.opponentCastling, Game,
-    Html("The side your opponent castled on during the game: kingside, queenside, or none.")
+    raw("The side your opponent castled on during the game: kingside, queenside, or none.")
   )
 
   case object QueenTrade extends Dimension[QueenTrade](
     "queenTrade", "Queen trade", F.queenTrade, Game,
-    Html("Whether queens were traded before the endgame or not.")
+    raw("Whether queens were traded before the endgame or not.")
   )
 
   case object MaterialRange extends Dimension[MaterialRange](
     "material", "Material imbalance", F.moves("i"), Move,
-    Html("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
+    raw("Value of your pieces compared to your opponent's. Pawn=1, Bishop/Knight=3, Rook=5, Queen=9.")
   )
 
   def requiresStableRating(d: Dimension[_]) = d match {

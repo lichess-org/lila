@@ -18,6 +18,8 @@ private[team] final class Cached(
 
   def name(id: String) = nameCache sync id
 
+  def preloadSet = nameCache preloadSet _
+
   // ~ 30k entries as of 04/02/17
   private val teamIdsCache = new Syncache[lila.user.User.ID, Team.IdsStr](
     name = "team.ids",

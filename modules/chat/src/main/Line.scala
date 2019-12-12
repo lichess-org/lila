@@ -15,6 +15,7 @@ sealed trait Line {
 
 case class UserLine(
     username: String,
+    title: Option[String],
     text: String,
     troll: Boolean,
     deleted: Boolean
@@ -39,10 +40,11 @@ case class PlayerLine(
 object Line {
 
   val textMaxSize = 140
+  val titleSep = '~'
 
   import reactivemongo.bson.{ BSONHandler, BSONString }
 
-  private val invalidLine = UserLine("", "[invalid character]", troll = false, deleted = true)
+  private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
   private[chat] implicit val userLineBSONHandler = new BSONHandler[BSONString, UserLine] {
     def read(bsonStr: BSONString) = strToUserLine(bsonStr.value) getOrElse invalidLine
@@ -54,18 +56,23 @@ object Line {
     def write(x: Line) = BSONString(lineToStr(x))
   }
 
-  private val UserLineRegex = """(?s)([\w-]{2,}+)([ !?])(.++)""".r
-  def strToUserLine(str: String): Option[UserLine] = str match {
-    case UserLineRegex(username, " ", text) => UserLine(username, text, troll = false, deleted = false).some
-    case UserLineRegex(username, "!", text) => UserLine(username, text, troll = true, deleted = false).some
-    case UserLineRegex(username, "?", text) => UserLine(username, text, troll = false, deleted = true).some
+  private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
+  private def strToUserLine(str: String): Option[UserLine] = str match {
+    case UserLineRegex(username, sep, text) =>
+      val troll = sep == "!"
+      val deleted = sep == "?"
+      username split titleSep match {
+        case Array(title, name) => UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
+        case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
+      }
     case _ => none
   }
-  def userLineToStr(x: UserLine) = {
+  def userLineToStr(x: UserLine): String = {
     val sep = if (x.troll) "!"
     else if (x.deleted) "?"
     else " "
-    s"${x.username}$sep${x.text}"
+    val tit = x.title.??(_ + titleSep)
+    s"$tit${x.username}$sep${x.text}"
   }
 
   def strToLine(str: String): Option[Line] = strToUserLine(str) orElse {

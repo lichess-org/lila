@@ -34,33 +34,36 @@ module.exports = function(ctrl) {
   var level = ctrl.level;
 
   return m('div', {
-    class: 'lichess_game' + ' ' + stage.cssClass + ' ' + level.blueprint.cssClass +
+    class: 'learn learn--run ' + stage.cssClass + ' ' + level.blueprint.cssClass +
     (level.vm.starting ? ' starting' : '') +
     (level.vm.completed && !level.blueprint.nextButton ? ' completed' : '') +
     (level.vm.lastStep ? ' last-step' : '') +
     (level.blueprint.showPieceValues ? ' piece-values' : '')
   }, [
-    ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
-    ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
-    m('div.lichess_board_wrap', [
-      m('div.lichess_board', chessground.view(ground.instance)),
+    m('div.learn__side', ctrl.opts.side.view()),
+    m('div.learn__main.main-board', [
+      ctrl.vm.stageStarting() ? stageStarting(ctrl) : null,
+      ctrl.vm.stageCompleted() ? stageComplete(ctrl) : null,
+      chessground.view(ground.instance),
       renderPromotion(ctrl, level),
     ]),
-    m('div.lichess_ground', [
-      m('div.title', [
-        m('img', {
-          src: stage.image
-        }),
-        m('div.text', [
-          m('h2', ctrl.trans.noarg(stage.title)),
-          m('p.subtitle', ctrl.trans.noarg(stage.subtitle))
-        ])
-      ]),
-      level.vm.failed ? renderFailed(ctrl) : (
-        level.vm.completed ? renderCompleted(ctrl, level) :
-        m('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal)))
-      ),
-      renderProgress(ctrl.progress)
+    m('div.learn__table', [
+      m('div.wrap', [
+        m('div.title', [
+          m('img', {
+            src: stage.image
+          }),
+          m('div.text', [
+            m('h2', ctrl.trans.noarg(stage.title)),
+            m('p.subtitle', ctrl.trans.noarg(stage.subtitle))
+          ])
+        ]),
+        level.vm.failed ? renderFailed(ctrl) : (
+          level.vm.completed ? renderCompleted(ctrl, level) :
+          m('div.goal', util.withLinebreaks(ctrl.trans.noarg(level.blueprint.goal)))
+        ),
+        renderProgress(ctrl.progress)
+      ])
     ])
   ]);
 };

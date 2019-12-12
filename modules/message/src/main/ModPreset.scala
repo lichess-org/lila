@@ -55,9 +55,9 @@ Accusing other players of using computer assistance or otherwise cheating is not
 
 """, /* ---------------------------------------------------------------*/ """
 
-Warning: chat spam is not permitted
+Warning: spam is not permitted
 
-You may post your link only once. Not once per tournament, per forum, or once per day: but just once. Repeated violation of chat policy will result in loss of chat privileges.
+You may post your link only once. Not once per tournament, per forum, per player, or per day: but just once. Repeated violation of this policy will result in loss of communication privileges.
 
 """, /* ---------------------------------------------------------------*/ """
 
@@ -70,13 +70,20 @@ Please also remember that, over the long run, ratings tend to gravitate towards 
 
 Warning: Username that implies you are a titled player
 
-The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lichess states that you can't have a username that implies that you have a FIDE title or the Lichess Master title. Actual titled players can send an email to support@lichess.org with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lichess user profile. Since your username implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
+The username policy (https://github.com/ornicar/lila/wiki/Username-policy) for Lichess states that you can't have a username that implies that you have a FIDE title or the Lichess Master title. Actual titled players can verify using the form here (https://lichess.org/verify-title) with evidence that documents their identity, e.g. a scanned ID card, driving license, passport or similar. We will then verify your identity and title, and your title will be shown in front of your username and on your Lichess user profile. Since your username implies that you have a title, we reserve the right to close your account within two weeks, if you have not verified your title within that time.
 
 """, /* ---------------------------------------------------------------*/ """
 
 Account marked for computer assistance
 
 Our cheating detection algorithms have marked your account for using computer assistance. If you want to contest the mark, please send an email to Lichess Contact contact@lichess.org. If you are a titled player, we will need a proof of your identity. It can be a picture of a document, like an ID card or a driving license.
+
+""", /* ---------------------------------------------------------------*/ """
+
+Warning: leaving games / stalling on time
+
+In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
 
 """) flatMap toPreset
 
@@ -91,7 +98,21 @@ Our cheating detection algorithms have marked your account for using computer as
   lazy val sandbagAuto = ModPreset(
     subject = "Warning: possible sandbagging",
     text = """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
-Losing rated games on purpose is called "sandbagging", and is not allowed on lichess.
+Losing rated games on purpose is called "sandbagging", and is not allowed on Lichess.
+
+Thank you for your understanding."""
+  )
+
+  lazy val sittingAuto = ModPreset(
+    subject = "Warning: leaving games / stalling on time",
+    text = """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
+  )
+
+  def maxFollow(username: String, max: Int) = ModPreset(
+    subject = "Follow limit reached!",
+    text = s"""Sorry, you can't follow more than $max players on Lichess.
+To follow new players, you must first unfollow some on https://lichess.org/@/$username/following.
 
 Thank you for your understanding."""
   )

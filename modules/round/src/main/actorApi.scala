@@ -6,84 +6,18 @@ import scala.concurrent.Promise
 import chess.format.Uci
 import chess.{ MoveMetrics, Color }
 
-import lila.common.IpAddress
-import lila.game.Event
-import lila.socket.Socket.Uid
-import lila.socket.SocketMember
+import lila.common.{ IpAddress, IsMobile }
+import lila.socket.Socket.{ SocketVersion, Sri }
 import lila.user.User
+import lila.game.Game.{ FullId, PlayerId }
 
-case class EventList(events: List[Event])
-
-sealed trait Member extends SocketMember {
-
-  val color: Color
-  val playerIdOption: Option[String]
-  val troll: Boolean
-  val ip: IpAddress
-  val userTv: Option[User.ID]
-
-  def owner = playerIdOption.isDefined
-  def watcher = !owner
-
-  def onUserTv(userId: User.ID) = userTv has userId
-}
-
-object Member {
-  def apply(
-    channel: JsChannel,
-    user: Option[User],
-    color: Color,
-    playerIdOption: Option[String],
-    ip: IpAddress,
-    userTv: Option[User.ID]
-  ): Member = {
-    val userId = user map (_.id)
-    val troll = user.??(_.troll)
-    playerIdOption.fold[Member](Watcher(channel, userId, color, troll, ip, userTv)) { playerId =>
-      Owner(channel, userId, playerId, color, troll, ip)
-    }
-  }
-}
-
-case class Owner(
-    channel: JsChannel,
-    userId: Option[User.ID],
-    playerId: String,
-    color: Color,
-    troll: Boolean,
-    ip: IpAddress
-) extends Member {
-
-  val playerIdOption = playerId.some
-  val userTv = none
-}
-
-case class Watcher(
-    channel: JsChannel,
-    userId: Option[User.ID],
-    color: Color,
-    troll: Boolean,
-    ip: IpAddress,
-    userTv: Option[User.ID]
-) extends Member {
-
-  val playerIdOption = none
-}
-
-case class Join(
-    uid: Uid,
-    user: Option[User],
-    color: Color,
-    playerId: Option[String],
-    ip: IpAddress,
-    userTv: Option[User.ID]
-)
-case class Connected(enumerator: JsEnumerator, member: Member)
-case class Bye(color: Color)
-case class IsGone(color: Color)
-case object GetSocketStatus
+case class EventList(events: List[lila.game.Event])
+case class UserTv(userId: User.ID, reload: Fu[Boolean])
+case class ByePlayer(playerId: PlayerId)
+case class IsGone(color: Color, promise: Promise[Boolean])
+case class GetSocketStatus(promise: Promise[SocketStatus])
 case class SocketStatus(
-    version: Int,
+    version: SocketVersion,
     whiteOnGame: Boolean,
     whiteIsGone: Boolean,
     blackOnGame: Boolean,
@@ -93,19 +27,19 @@ case class SocketStatus(
   def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
+case class RoomCrowd(white: Boolean, black: Boolean)
 case class SetGame(game: Option[lila.game.Game])
-case object GetGame
+case class BotConnected(color: Color, v: Boolean)
 
 package round {
 
   case class HumanPlay(
-      playerId: String,
+      playerId: PlayerId,
       uci: Uci,
       blur: Boolean,
       moveMetrics: MoveMetrics = MoveMetrics(),
       promise: Option[Promise[Unit]] = None
   ) {
-
     val trace = lila.mon.round.move.trace.create
   }
 
@@ -115,24 +49,21 @@ package round {
   case object AbortForce
   case object Threefold
   case object ResignAi
-  case class ResignForce(playerId: String)
-  case class DrawForce(playerId: String)
-  case class DrawClaim(playerId: String)
-  case class DrawYes(playerId: String)
-  case class DrawNo(playerId: String)
-  case class TakebackYes(playerId: String)
-  case class TakebackNo(playerId: String)
-  case class Moretime(playerId: String)
+  case class ResignForce(playerId: PlayerId)
+  case class DrawForce(playerId: PlayerId)
+  case class DrawClaim(playerId: PlayerId)
+  case class DrawYes(playerId: PlayerId)
+  case class DrawNo(playerId: PlayerId)
+  case class TakebackYes(playerId: PlayerId)
+  case class TakebackNo(playerId: PlayerId)
+  case class Moretime(playerId: PlayerId)
   case object QuietFlag
-  case class ClientFlag(color: Color, fromPlayerId: Option[String])
+  case class ClientFlag(color: Color, fromPlayerId: Option[PlayerId])
   case object Abandon
   case class ForecastPlay(lastMove: chess.Move)
   case class Cheat(color: Color)
-  case class HoldAlert(playerId: String, mean: Int, sd: Int, ip: IpAddress)
+  case class HoldAlert(playerId: PlayerId, mean: Int, sd: Int, ip: IpAddress)
   case class GoBerserk(color: Color)
   case object NoStart
   case object TooManyPlies
 }
-
-private[round] case object GetNbRounds
-private[round] case object NotifyCrowd

@@ -96,22 +96,133 @@
   <string name="escapeWithTheKing">فرار با شاه!</string>
   <string name="theKingCannotEscapeButBlock">شاه نمی تواند فرار کند اما شما می توانید حمله را بلاک کنید!</string>
   <string name="youCanGetOutOfCheckByTaking">شما می توانید با زدن مهره ای که شما را کیش کرده، از کیش خارج شوید.</string>
+  <string name="thisKnightIsCheckingThroughYourDefenses">This knight is checking
+through your defences!</string>
   <string name="escapeOrBlock">یا شاهت رو فراری بده، و یا حمله رو بلاک کن!</string>
+  <string name="outOfCheckComplete">Congratulations! Your king can never be taken, make sure you can defend against a check!</string>
   <string name="mateInOne">مات در یک حرکت</string>
   <string name="defeatTheOpponentsKing">شاه حریف را شکست بده</string>
   <string name="mateInOneIntro">شما زمانی برنده می شوید که حریفتان در برابر کیش نمی تواند از خودش دفاع کند.</string>
+  <string name="attackYourOpponentsKing">Attack your opponent\'s king
+in a way that cannot be defended!</string>
   <string name="mateInOneComplete">تبریک میگم! این گونه شما در بازی شطرنج برنده می شوید!</string>
   <string name="intermediate">متوسط</string>
   <string name="boardSetup">چبدمان صفحه</string>
   <string name="howTheGameStarts">چگونه بازی شروع می شود</string>
+  <string name="boardSetupIntro">The two armies face each other, ready for the battle.</string>
+  <string name="thisIsTheInitialPosition">This is the initial position
+of every game of chess!
+Make any move to continue.</string>
+  <string name="firstPlaceTheRooks">First place the rooks!
+They go in the corners.</string>
+  <string name="thenPlaceTheKnights">Then place the knights!
+They go next to the rooks.</string>
+  <string name="placeTheBishops">Place the bishops!
+They go next to the knights.</string>
+  <string name="placeTheQueen">Place the queen!
+She goes on her own colour.</string>
+  <string name="placeTheKing">Place the king!
+Right next to his queen.</string>
+  <string name="pawnsFormTheFrontLine">Pawns form the front line.
+Make any move to continue.</string>
+  <string name="boardSetupComplete">Congratulations! You know how to set up the chess board.</string>
   <string name="castling">قلعه رفتن</string>
   <string name="theSpecialKingMove">پادشاه ویژه حرکت می کند</string>
+  <string name="castlingIntro">Bring your king to safety, and deploy your rook for attack!</string>
+  <string name="castleKingSide">Move your king two squares
+to castle king-side!</string>
+  <string name="castleQueenSide">Move your king two squares
+to castle queen-side!</string>
+  <string name="theKnightIsInTheWay">The knight is in the way!
+Move it, then castle king-side.</string>
+  <string name="castleKingSideMovePiecesFirst">Castle king-side!
+You need to move out pieces first.</string>
+  <string name="castleQueenSideMovePiecesFirst">Castle queen-side!
+You need to move out pieces first.</string>
+  <string name="youCannotCastleIfMoved">You cannot castle if
+the king has already moved
+or the rook has already moved.</string>
+  <string name="youCannotCastleIfAttacked">You cannot castle if
+the king is attacked on the way.
+Block the check then castle!</string>
   <string name="findAWayToCastleKingSide">پیدا کردن راهی برای قلعه سمت شاه!</string>
   <string name="findAWayToCastleQueenSide">پیدا کردن راهی برای قلعه سمت وزیر!</string>
   <string name="castlingComplete">تبریک میگم! شما تقریبا همیشه باید در بازی قلعه بروید.</string>
   <string name="enPassant">گرفتن در حین عبور</string>
+  <string name="theSpecialPawnMove">The special pawn move</string>
+  <string name="enPassantIntro">When the opponent pawn moved by two squares, you can take it like if it moved by one square.</string>
+  <string name="blackJustMovedThePawnByTwoSquares">Black just moved the pawn
+by two squares!
+Take it en passant.</string>
+  <string name="enPassantOnlyWorksImmediately">En passant only works
+immediately after the opponent
+moved the pawn.</string>
+  <string name="enPassantOnlyWorksOnFifthRank">En passant only works
+if your pawn is on the 5th rank.</string>
+  <string name="takeAllThePawnsEnPassant">Take all the pawns en passant!</string>
+  <string name="enPassantComplete">Congratulations! You can now take en passant.</string>
+  <string name="stalemate">پات</string>
+  <string name="theGameIsADraw">بازی مساوی است</string>
+  <string name="stalemateIntro">وقتی که بازیکن کیش نیست و هیچ حرکت قانونی ندارد بازی پات شده است. این بازی مساوی است.</string>
+  <string name="stalemateGoal">To stalemate black:
+- Black cannot move anywhere
+- There is no check.</string>
+  <string name="stalemateComplete">Congratulations! Better be stalemated than checkmated!</string>
+  <string name="advanced">Advanced</string>
+  <string name="pieceValue">Piece value</string>
+  <string name="evaluatePieceStrength">Evaluate piece strength</string>
+  <string name="pieceValueIntro">Pieces with high mobility have a higher value!
+Queen = 9
+Rook = 5
+Bishop = 3
+Knight = 3
+Pawn = 1
+The king is priceless! Losing it means losing the game.</string>
+  <string name="queenOverBishop">Take the piece
+with the highest value!
+Queen &gt; Bishop</string>
   <string name="takeThePieceWithTheHighestValue">با ارزش ترین مهره را بزن!</string>
+  <string name="pieceValueComplete">Congratulations! You know the value of material!
+Queen = 9
+Rook = 5
+Bishop = 3
+Knight = 3
+Pawn = 1</string>
+  <string name="checkInTwo">کیس در دو حرکت</string>
+  <string name="twoMovesToGiveCheck">Two moves to give a check</string>
+  <string name="checkInTwoIntro">Find the right combination of two moves that checks the opponent\'s king!</string>
+  <string name="checkInTwoGoal">به شاه حریف در دو حرکت حمله کنید!</string>
+  <string name="checkInTwoComplete">تبریک! شما به شاه حریف کیش دادید و حریف را مجبور به دفاع از شاه خود کردید!</string>
+  <string name="whatNext">گام بعدی چیست؟</string>
+  <string name="youKnowHowToPlayChess">اکنون شما می دانید چطور شطرنج بازی کنید, تبریک می گوییم! ایا می خواهید تبدیل به یک بازیکن قوی شوید؟</string>
+  <string name="register">نام نویسی</string>
+  <string name="getAFreeLichessAccount">یک حساب کاربری رایگان در لیچس دریافت کنید</string>
+  <string name="practice">تمرین</string>
+  <string name="learnCommonChessPositions">وضعیت های متداول شطرنج را یاد بگیرید</string>
+  <string name="puzzles">معما</string>
+  <string name="exerciseYourTacticalSkills">Exercise your tactical skills</string>
+  <string name="videos">ویدیو ها</string>
+  <string name="watchInstructiveChessVideos">Watch instructive chess videos</string>
+  <string name="playPeople">با مردم بازی کنید</string>
+  <string name="opponentsFromAroundTheWorld">Opponents from around the world</string>
+  <string name="playMachine">Play machine</string>
+  <string name="testYourSkillsWithTheComputer">Test your skills with the computer</string>
+  <string name="letsGo">Let\'s go!</string>
+  <string name="stageX">Stage %s</string>
+  <string name="awesome">Awesome!</string>
+  <string name="excellent">Excellent!</string>
+  <string name="greatJob">Great job!</string>
+  <string name="perfect">Perfect!</string>
+  <string name="outstanding">فوق العاده!</string>
+  <string name="wayToGo">Way to go!</string>
+  <string name="yesYesYes">Yes, yes, yes!</string>
+  <string name="youreGoodAtThis">You\'re good at this!</string>
+  <string name="nailedIt">Nailed it.</string>
+  <string name="rightOn">Right on!</string>
+  <string name="stageXComplete">Stage %s complete</string>
+  <string name="yourScore">امتیاز شما</string>
   <string name="next">بعدی</string>
   <string name="backToMenu">برگشت به منو</string>
+  <string name="puzzleFailed">Puzzle failed!</string>
   <string name="retry">تلاش مجدد</string>
 </resources>

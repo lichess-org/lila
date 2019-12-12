@@ -2,25 +2,26 @@ function toBlurArray(player) {
   return player.blurs && player.blurs.bits ? player.blurs.bits.split('') : [];
 }
 lichess.advantageChart = function(data, trans, el) {
-  lichess.loadScript('/assets/javascripts/chart/common.js').done(function() {
-    lichess.loadScript('/assets/javascripts/chart/division.js').done(function() {
+  lichess.loadScript('javascripts/chart/common.js').done(function() {
+    lichess.loadScript('javascripts/chart/division.js').done(function() {
       lichess.chartCommon('highchart').done(function() {
 
-        lichess.advantageChart.update = function(d, partial) {
-          $(el).highcharts().series[0].setData(makeSerieData(d, partial));
+        lichess.advantageChart.update = function(d) {
+          $(el).highcharts().series[0].setData(makeSerieData(d));
         };
 
         var blurs = [ toBlurArray(data.player), toBlurArray(data.opponent) ];
         if (data.player.color === 'white') blurs.reverse();
 
-        var makeSerieData = function(d, partial) {
+        var makeSerieData = function(d) {
+          var partial = !d.analysis || d.analysis.partial;
           return d.treeParts.slice(1).map(function(node, i) {
 
             var color = node.ply & 1, cp;
 
             if (node.eval && node.eval.mate) {
               cp = node.eval.mate > 0 ? Infinity : -Infinity;
-            } else if (node.san.indexOf('#') > 0) {
+            } else if (node.san.includes('#')) {
               cp = color === 1 ? Infinity : -Infinity;
               if (d.game.variant.key === 'antichess') cp = -cp;
             } else if (node.eval && typeof node.eval.cp !== 'undefined') {
@@ -89,7 +90,7 @@ lichess.advantageChart = function(data, trans, el) {
                 click: function(event) {
                   if (event.point) {
                     event.point.select();
-                    lichess.pubsub.emit('analysis.chart.click')(event.point.x);
+                    lichess.pubsub.emit('analysis.chart.click', event.point.x);
                   }
                 }
               },
@@ -145,7 +146,7 @@ lichess.advantageChart = function(data, trans, el) {
             }]
           }
         });
-        lichess.pubsub.emit('analysis.change.trigger')();
+        lichess.pubsub.emit('analysis.change.trigger');
       });
     });
   });

@@ -14,4 +14,5 @@
   <string name="welcome_text">Anda telah berhasil membuat akun pada https://lichess.org. Berikut adalah halaman profil Anda: %1$s. Anda dapat mempersonalisasikan itu pada %2$s. Selamat bermain, semoga bidak Anda selalu menemukan jalan mereka ke raja lawan Anda!</string>
   <string name="common_orPaste">(Klik tidak bekerja? Coba salinkan ke browser Anda!)</string>
   <string name="common_note">Ini adalah layanan email yang terkait dengan penggunaan %s.</string>
+  <string name="common_contact">Untuk menghubungi kami, harap gunakan %s.</string>
 </resources>

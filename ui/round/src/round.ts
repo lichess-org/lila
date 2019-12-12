@@ -5,7 +5,11 @@ export function firstPly(d: RoundData): number {
 }
 
 export function lastPly(d: RoundData): number {
-  return d.steps[d.steps.length - 1].ply;
+  return lastStep(d).ply;
+}
+
+export function lastStep(d: RoundData): Step {
+  return d.steps[d.steps.length - 1];
 }
 
 export function plyStep(d: RoundData, ply: number): Step {
@@ -21,7 +25,7 @@ export function massage(d: RoundData): void {
 
   if (d.correspondence) d.correspondence.showBar = d.pref.clockBar;
 
-  if (['horde', 'crazyhouse'].indexOf(d.game.variant.key) !== -1) d.pref.showCaptured = false;
+  if (['horde', 'crazyhouse'].includes(d.game.variant.key)) d.pref.showCaptured = false;
 
   if (d.expiration) d.expiration.movedAt = Date.now() - d.expiration.idleMillis;
 };

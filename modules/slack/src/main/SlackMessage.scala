@@ -5,4 +5,7 @@ private case class SlackMessage(
     text: String,
     icon: String,
     channel: String
-)
+) {
+
+  override def toString = s"[$channel] :$icon: @$username: $text"
+}

@@ -1,21 +1,22 @@
 package lila.explorer
 
-import scala.util.Random.nextFloat
-import scala.util.{ Try, Success, Failure }
+import chess.format.pgn.Tag
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.iteratee._
 import play.api.libs.ws.WS
 import play.api.Play.current
-import chess.format.pgn.Tag
+import scala.util.Random.nextFloat
+import scala.util.{ Try, Success, Failure }
 
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query, PgnDump, Player }
-import lila.user.UserRepo
+import lila.user.{ User, UserRepo }
 
 private final class ExplorerIndexer(
     gameColl: Coll,
+    getBotUserIds: () => Fu[Set[User.ID]],
     internalEndpoint: String
 ) {
 
@@ -33,7 +34,7 @@ private final class ExplorerIndexer(
 
   type GamePGN = (Game, String)
 
-  def apply(sinceStr: String): Funit =
+  def apply(sinceStr: String): Funit = getBotUserIds() flatMap { botUserIds =>
     parseDate(sinceStr).fold(fufail[Unit](s"Invalid date $sinceStr")) { since =>
       logger.info(s"Start indexing since $since")
       val query =
@@ -52,9 +53,7 @@ private final class ExplorerIndexer(
         .cursor[Game](ReadPreference.secondary)
         .enumerator(maxGames) &>
         Enumeratee.mapM[Game].apply[Option[GamePGN]] { game =>
-          makeFastPgn(game) map {
-            _ map { game -> _ }
-          }
+          makeFastPgn(game, botUserIds) map { _ map { game -> _ } }
         } &>
         Enumeratee.collect { case Some(el) => el } &>
         Enumeratee.grouped(Iteratee takeUpTo batchSize) |>>>
@@ -78,9 +77,12 @@ private final class ExplorerIndexer(
             } inject nowMillis
         } void
     }
+  }
 
-  def apply(game: Game): Funit = makeFastPgn(game) map {
-    _ foreach flowBuffer.apply
+  def apply(game: Game): Funit = getBotUserIds() flatMap { botUserIds =>
+    makeFastPgn(game, botUserIds) map {
+      _ foreach flowBuffer.apply
+    }
   }
 
   private object flowBuffer {
@@ -136,7 +138,7 @@ private final class ExplorerIndexer(
     }
   }
 
-  private def makeFastPgn(game: Game): Fu[Option[String]] = ~(for {
+  private def makeFastPgn(game: Game, botUserIds: Set[User.ID]): Fu[Option[String]] = ~(for {
     whiteRating <- stableRating(game.whitePlayer)
     blackRating <- stableRating(game.blackPlayer)
     minPlayerRating = if (game.variant.exotic) 1400 else 1500
@@ -146,6 +148,7 @@ private final class ExplorerIndexer(
     averageRating = (whiteRating + blackRating) / 2
     if averageRating >= minAverageRating
     if probability(game, averageRating) > nextFloat
+    if !game.userIds.exists(botUserIds.contains)
     if valid(game)
   } yield GameRepo initialFen game flatMap { initialFen =>
     UserRepo.usernamesByIds(game.userIds) map { usernames =>

@@ -5,8 +5,9 @@ import com.typesafe.config.Config
 import scala.concurrent.duration._
 
 import lila.common.paginator._
-import lila.hub.LateMultiThrottler
+import lila.common.Bus
 import lila.hub.actorApi.study.RemoveStudy
+import lila.hub.LateMultiThrottler
 import lila.search._
 import lila.study.Study
 import lila.user.User
@@ -41,7 +42,9 @@ final class Env(
         def query = Query(text, me.map(_.id))
         def nbResults = api count query
         def slice(offset: Int, length: Int) = api.search(query, From(offset), Size(length))
-      } mapFutureList studyEnv.pager.withChapters mapFutureList studyEnv.pager.withLiking(me),
+      } mapFutureList {
+        studyEnv.pager.withChapters(_, Study.maxChapters)
+      } mapFutureList studyEnv.pager.withLiking(me),
       currentPage = page,
       maxPerPage = lila.common.MaxPerPage(MaxPerPage)
     )
@@ -53,13 +56,10 @@ final class Env(
     }
   }
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    import lila.study.actorApi._
-    def receive = {
-      case SaveStudy(study) => api store study
-      case RemoveStudy(id, _) => client deleteById Id(id)
-    }
-  })), 'study)
+  Bus.subscribeFun('study) {
+    case lila.study.actorApi.SaveStudy(study) => api store study
+    case RemoveStudy(id, _) => client deleteById Id(id)
+  }
 }
 
 object Env {

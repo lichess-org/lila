@@ -19,11 +19,7 @@ case class Note(
 
 case class UserNotes(user: User, notes: List[Note])
 
-final class NoteApi(
-    coll: Coll,
-    timeline: akka.actor.ActorSelection,
-    bus: lila.common.Bus
-) {
+final class NoteApi(coll: Coll, timeline: akka.actor.ActorSelection) {
 
   import reactivemongo.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -71,12 +67,16 @@ final class NoteApi(
       timeline ! {
         Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
       }
-      bus.publish(lila.hub.actorApi.user.Note(
+      lila.common.Bus.publish(lila.hub.actorApi.user.Note(
         from = from.username,
         to = to.username,
         text = note.text,
         mod = modOnly
       ), 'userNote)
+    }
+  } >> {
+    modOnly ?? Title.fromUrl(text) flatMap {
+      _ ?? { UserRepo.addTitle(to.id, _) }
     }
   }
 

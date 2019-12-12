@@ -6,6 +6,8 @@
  */
 package org.goochjs.glicko2;
 
+import org.joda.time.DateTime;
+
 /**
  * Holds an individual's Glicko-2 rating.
  *
@@ -21,6 +23,7 @@ public class Rating {
 	private double ratingDeviation;
 	private double volatility;
 	private int numberOfResults; // the number of results from which the rating has been calculated
+	private DateTime lastRatingPeriodEndDate;
 
 	 // the following variables are used to hold values temporarily whilst running calculations
 	private double workingRating;
@@ -28,10 +31,15 @@ public class Rating {
 	private double workingVolatility;
 
 	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults) {
+		this(initRating, initRatingDeviation, initVolatility, nbResults, null);
+	}
+
+	public Rating(double initRating, double initRatingDeviation, double initVolatility, int nbResults, DateTime lastRatingPeriodEndDate) {
 		this.rating = initRating;
 		this.ratingDeviation = initRatingDeviation;
 		this.volatility = initVolatility;
-    this.numberOfResults = nbResults;
+		this.numberOfResults = nbResults;
+		this.lastRatingPeriodEndDate = lastRatingPeriodEndDate;
 	}
 
 	/**
@@ -80,6 +88,10 @@ public class Rating {
 
 	public void setRatingDeviation(double ratingDeviation) {
 		this.ratingDeviation = ratingDeviation;
+	}
+
+	public DateTime getLastRatingPeriodEndDate() {
+		return lastRatingPeriodEndDate;
 	}
 
 	/**

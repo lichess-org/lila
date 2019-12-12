@@ -2,6 +2,7 @@ package lila.security
 
 import com.roundeights.hasher.Algo
 import lila.common.String.base64
+import org.mindrot.BCrypt
 
 import StringToken.ValueChecker
 
@@ -24,7 +25,7 @@ private[security] final class StringToken[A](
   def read(token: String): Fu[Option[A]] = (base64 decode token) ?? {
     _ split separator match {
       case Array(payloadStr, hashed, checksum) =>
-        (makeHash(signPayload(payloadStr, hashed)) == checksum) ?? {
+        BCrypt.bytesEqualSecure(makeHash(signPayload(payloadStr, hashed)).getBytes("utf-8"), checksum.getBytes("utf-8")) ?? {
           val payload = serializer read payloadStr
           (valueChecker match {
             case ValueChecker.Same => hashCurrentValue(payload) map (hashed ==)

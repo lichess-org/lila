@@ -1,0 +1,25 @@
+.tour__featured {
+  @extend %box-neat-force, %flex-column;
+  &__player {
+    @extend %metal, %flex-center-nowrap;
+    > * {
+      padding: .3em 0;
+    }
+    & strong {
+      flex: 0 0 12.5%;
+      text-align: center;
+      background: $c-bg-box;
+      margin-right: 10px;
+    }
+    .user-link {
+      flex: 1 1 100%;
+    }
+    & i {
+      flex: 0 0 auto;
+      &::before {
+        color: $c-accent;
+        margin-right: 5px;
+      }
+    }
+  }
+}

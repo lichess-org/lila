@@ -6,16 +6,6 @@ import { PracticeCtrl, Comment } from './practiceCtrl';
 import AnalyseCtrl from '../ctrl';
 import { MaybeVNodes } from '../interfaces';
 
-function renderTitle(root: AnalyseCtrl): VNode {
-  return h('div.title', [
-    h('span', root.trans.noarg('practiceWithComputer')),
-    root.studyPractice ? null : h('span.close', {
-      attrs: { 'data-icon': 'L' },
-      hook: bind('click', root.togglePractice, root.redraw)
-    })
-  ]);
-}
-
 function commentBest(c: Comment, root: AnalyseCtrl, ctrl: PracticeCtrl): MaybeVNodes {
   return c.best ? root.trans.vdom(
     c.verdict === 'goodMove' ? 'anotherWasX' : 'bestWasX',
@@ -92,8 +82,8 @@ export default function(root: AnalyseCtrl): VNode | undefined {
   const comment: Comment | null = ctrl.comment();
   const running: boolean = ctrl.running();
   const end = ctrl.currentNode().threefold ? 'threefoldRepetition' : root.gameOver();
-  return h('div.practice_box.' + (comment ? comment.verdict : 'no-verdict'), [
-    renderTitle(root),
+  return h('div.practice-box.training-box.sub-box.' + (comment ? comment.verdict : 'no-verdict'), [
+    h('div.title', root.trans.noarg('practiceWithComputer')),
     h('div.feedback', !running ? renderOffTrack(root, ctrl) : (end ? renderEnd(root, end) : renderRunning(root, ctrl))),
     running ? h('div.comment', comment ? ([
       h('span.verdict', root.trans.noarg(comment.verdict)),

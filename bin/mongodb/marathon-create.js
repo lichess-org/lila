@@ -14,7 +14,7 @@ t.schedule.speed = 'blitz';
 t.startsAt = ISODate('2017-12-28');
 t.spotlight.description = 
   "Let's make this the biggest chess tournament in history. " + 
-  "24h of " + (t.clock.limit / 60) + "+" + t.increment + " " + t.schedule.speed + " chess: " +
+  "24h of " + (t.clock.limit / 60) + "+" + t.clock.increment + " " + t.schedule.speed + " chess: " +
   "top 100 players get a unique trophy!";
 
 // initialize values

@@ -4,52 +4,48 @@ import akka.actor._
 import scala.concurrent.Promise
 
 import lila.game.{ Game, Player, GameRepo }
-import lila.hub.Sequencer
+import lila.hub.FutureSequencer
 import lila.rating.Perf
 import lila.user.{ User, UserRepo }
 
 private final class GameStarter(
-    bus: lila.common.Bus,
     onStart: Game.ID => Unit,
-    sequencer: ActorRef
+    sequencer: FutureSequencer
 ) {
 
-  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = {
-    val promise = Promise[Unit]()
-    sequencer ! Sequencer.work(all(pool, couples), promise.some)
-    promise.future
-  }
+  import PoolApi._
 
-  private def all(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit =
-    couples.nonEmpty ?? {
+  def apply(pool: PoolConfig, couples: Vector[MatchMaking.Couple]): Funit = couples.nonEmpty ?? {
+    sequencer {
       val userIds = couples.flatMap(_.userIds)
       UserRepo.perfOf(userIds, pool.perfType) flatMap { perfs =>
-        couples.map(one(pool, perfs)).sequenceFu.void
+        couples.map(one(pool, perfs)).sequenceFu.map { pairings =>
+          lila.common.Bus.publish(Pairings(pairings.flatten.toList), 'poolPairings)
+        }
       }
     }
+  }
 
-  private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Funit = {
+  private def one(pool: PoolConfig, perfs: Map[User.ID, Perf])(couple: MatchMaking.Couple): Fu[Option[Pairing]] = {
     import couple._
     (perfs.get(p1.userId) |@| perfs.get(p2.userId)).tupled ?? {
       case (perf1, perf2) => for {
         p1White <- UserRepo.firstGetsWhite(p1.userId, p2.userId)
         (whitePerf, blackPerf) = if (p1White) perf1 -> perf2 else perf2 -> perf1
         (whiteMember, blackMember) = if (p1White) p1 -> p2 else p2 -> p1
-        game = makeGame(
+        game <- makeGame(
           pool,
           whiteMember.userId -> whitePerf,
           blackMember.userId -> blackPerf
-        ).start
+        ).start.withUniqueId
         _ <- GameRepo insertDenormalized game
       } yield {
-
-        bus.publish(PoolApi.Pairing(
-          game,
-          whiteUid = whiteMember.socketId,
-          blackUid = blackMember.socketId
-        ), 'poolGame)
-
         onStart(game.id)
+        Pairing(
+          game,
+          whiteSri = whiteMember.sri,
+          blackSri = blackMember.sri
+        ).some
       }
     }
   }

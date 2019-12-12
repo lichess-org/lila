@@ -6,10 +6,10 @@ import { Redraw, Close, bind, header } from './util'
 export interface BackgroundCtrl {
   list: Background[]
   set(k: string): void
-  get(): string
+    get(): string
   getImage(): string
   setImage(i: string): void
-  trans: Trans
+    trans: Trans
   close: Close
 }
 
@@ -58,7 +58,7 @@ export function view(ctrl: BackgroundCtrl): VNode {
 
   return h('div.sub.background', [
     header(ctrl.trans.noarg('background'), ctrl.close),
-    h('div.selector', ctrl.list.map(bg => {
+    h('div.selector.large', ctrl.list.map(bg => {
       return h('a.text', {
         class: { active: cur === bg.key },
         attrs: { 'data-icon': 'E' },
@@ -80,7 +80,7 @@ function imageInput(ctrl: BackgroundCtrl) {
       },
       hook: {
         insert: vnode => {
-          $(vnode.elm as HTMLElement).on('change keyup paste', window.lichess.fp.debounce(function(this: HTMLElement) {
+          $(vnode.elm as HTMLElement).on('change keyup paste', window.lichess.debounce(function(this: HTMLElement) {
             ctrl.setImage($(this).val());
           }, 200));
         }
@@ -93,21 +93,20 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
   const key = data.current;
 
-  $('body').removeClass(list.map(b => b.key).join(' ')).addClass(key === 'transp' ? 'transp dark' : key);
+  $('body')
+    .removeClass(list.map(b => b.key).join(' '))
+    .addClass(key === 'transp' ? 'transp dark' : key);
 
-  if ((key === 'dark' || key === 'transp') && !$('link[href*="dark.css"]').length) {
-
-    $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
-      $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'dark.css')).appendTo('head');
-    });
-  }
-
-  if (key === 'transp' && !$('link[href*="transp.css"]').length) {
-
-    $('link[href*="common.css"]').clone().each(function(this: HTMLElement) {
-      $(this).attr('href', $(this).attr('href').replace(/common\.css/, 'transp.css')).appendTo('head');
-    });
-  }
+  const prev = $('body').data('theme');
+  $('body').data('theme', key);
+  $('link[href*=".' + prev + '."]').each(function(this: HTMLElement) {
+    var link = document.createElement('link');
+    link.type = 'text/css';
+    link.rel = 'stylesheet';
+    link.href = $(this).attr('href').replace('.' + prev + '.', '.' + key + '.');
+    link.onload = () => setTimeout(() => this.remove(), 100);
+    document.head.appendChild(link);
+  });
 
   if (key === 'transp') {
     const bgData = document.getElementById('bg-data');
@@ -118,5 +117,4 @@ function applyBackground(data: BackgroundData, list: Background[]) {
 
 function reloadAllTheThings() {
   if (window.Highcharts) window.lichess.reload();
-  window.lichess.reloadOtherTabs();
 }

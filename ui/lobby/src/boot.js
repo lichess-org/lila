@@ -2,7 +2,7 @@ module.exports = function(cfg, element) {
   var pools = [{id:"1+0",lim:1,inc:0,perf:"Bullet"},{id:"2+1",lim:2,inc:1,perf:"Bullet"},{id:"3+0",lim:3,inc:0,perf:"Blitz"},{"id":"3+2","lim":3,"inc":2,"perf":"Blitz"},{id:"5+0",lim:5,inc:0,perf:"Blitz"},{"id":"5+3","lim":5,"inc":3,"perf":"Blitz"},{id:"10+0",lim:10,inc:0,perf:"Rapid"},{id:"15+15",lim:15,inc:15,perf:"Classical"}];
   var lobby;
   var nbRoundSpread = spreadNumber(
-    document.querySelector('#nb_games_in_play span'),
+    document.querySelector('#nb_games_in_play > strong'),
     8,
     function() {
       return lichess.socket.pingInterval();
@@ -31,15 +31,15 @@ module.exports = function(cfg, element) {
       return l.slice(0, 2).toLowerCase();
     });
     langs.push($('html').attr('lang'));
-    $('#streams_on_air').find('a').each(function() {
+    $('.lobby__streams a, .event-spotlight').each(function() {
       var match = $(this).text().match(/\[(\w{2})\]/mi);
-      if (match && langs.indexOf(match[1].toLowerCase()) === -1) $(this).hide();
+      if (match && !langs.includes(match[1].toLowerCase())) $(this).hide();
     });
   };
   filterStreams();
   lichess.socket = lichess.StrongSocket(
-    '/lobby/socket/v2',
-    cfg.data.version, {
+    '/lobby/socket/v4',
+    false, {
       receive: function(t, d) {
         lobby.socketReceive(t, d);
       },
@@ -52,20 +52,20 @@ module.exports = function(cfg, element) {
         },
         reload_timeline: function() {
           $.ajax({
-            url: $("#timeline").data('href'),
+            url: '/timeline',
             success: function(html) {
-              $('#timeline').html(html);
-              lichess.pubsub.emit('content_loaded')();
+              $('.timeline').html(html);
+              lichess.pubsub.emit('content_loaded');
             }
           });
         },
         streams: function(html) {
-          $('#streams_on_air').html(html);
+          $('.lobby__streams').html(html);
           filterStreams();
         },
         featured: function(o) {
-          $('#featured_game').html(o.html);
-          lichess.pubsub.emit('content_loaded')();
+          $('.lobby__tv').html(o.html);
+          lichess.pubsub.emit('content_loaded');
         },
         redirect: function(e) {
           lobby.leavePool();
@@ -74,11 +74,11 @@ module.exports = function(cfg, element) {
         },
         tournaments: function(data) {
           $("#enterable_tournaments").html(data);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         simuls: function(data) {
           $("#enterable_simuls").html(data).parent().toggle($('#enterable_simuls tr').length > 0);
-          lichess.pubsub.emit('content_loaded')();
+          lichess.pubsub.emit('content_loaded');
         },
         fen: function(e) {
           lichess.StrongSocket.defaults.events.fen(e);
@@ -97,11 +97,13 @@ module.exports = function(cfg, element) {
   cfg.pools = pools;
   lobby = LichessLobby.start(cfg);
 
-  var $startButtons = $('#start_buttons');
+  var blindMode = $('body').hasClass('blind-mode');
+
+  var $startButtons = $('.lobby__start');
 
   var sliderTimes = [
-    0, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15,
-    16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
+    0, 1/4, 1/2, 3/4, 1, 3/2, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14,
+    15, 16, 17, 18, 19, 20, 25, 30, 35, 40, 45, 60, 90, 120, 150, 180
   ];
 
   function sliderTime(v) {
@@ -161,47 +163,34 @@ module.exports = function(cfg, element) {
     }
   }
 
-  function hookToPoolMember(color, data, $ratings) {
-    var find = function(key) {
-      for (var i in data)
-        if (data[i].name === key) return data[i].value;
-    };
-    var valid = color == 'random' &&
-      find('variant') == 1 &&
-      find('mode') == 1 &&
-      find('timeMode') == 1;
-    if (!valid) return false;
-    var id = parseFloat(find('time')) + '+' + parseInt(find('increment'));
-    var exists = pools.filter(function(p) {
-      return p.id === id;
-    }).length;
-    if (!exists) return;
-    var rating = parseInt($ratings.find('strong:visible').text());
-    var range = find('ratingRange').split('-');
-    var ratingMin = parseInt(range[0]),
-      ratingMax = parseInt(range[1]);
-    var keepRange = (rating - ratingMin) < 300 || (ratingMax - rating) < 300;
-    return {
+  function hookToPoolMember(color, data) {
+    var hash = {};
+    for (var i in data) hash[data[i].name] = data[i].value;
+    var valid = color == 'random' && hash.variant == 1 && hash.mode == 1 && hash.timeMode == 1;
+    var id = parseFloat(hash.time) + '+' + parseInt(hash.increment);
+    var exists = pools.find(function(p) { return p.id === id; });
+    if (valid && exists) return {
       id: id,
-      range: keepRange ? range.join('-') : null
+      range: hash.ratingRange
     };
   }
 
-  function prepareForm() {
-    var $form = $('.lichess_overboard');
-    var $timeModeSelect = $form.find('#timeMode');
+  function prepareForm($modal) {
+    var $form = $modal.find('form');
+    var $timeModeSelect = $form.find('#sf_timeMode');
     var $modeChoicesWrap = $form.find('.mode_choice');
     var $modeChoices = $modeChoicesWrap.find('input');
     var $casual = $modeChoices.eq(0),
       $rated = $modeChoices.eq(1);
-    var $variantSelect = $form.find('#variant');
+    var $variantSelect = $form.find('#sf_variant');
     var $fenPosition = $form.find(".fen_position");
-    var $timeInput = $form.find('.time_choice input');
-    var $incrementInput = $form.find('.increment_choice input');
-    var $daysInput = $form.find('.days_choice input');
-    var isHook = $form.hasClass('game_config_hook');
-    var $ratings = $form.find('.ratings > div');
+    var $timeInput = $form.find('.time_choice [name=time]');
+    var $incrementInput = $form.find('.increment_choice [name=increment]');
+    var $daysInput = $form.find('.days_choice [name=days]');
+    var typ = $form.data('type');
+    var $ratings = $modal.find('.ratings > div');
     var randomColorVariants = $form.data('random-color-variants').split(',');
+    var $submits = $form.find('.color-submits__button');
     var toggleButtons = function() {
       var variantId = $variantSelect.val();
       var timeMode = $timeModeSelect.val();
@@ -211,26 +200,25 @@ module.exports = function(cfg, element) {
       // no rated variants with less than 30s on the clock
       var cantBeRated = (timeMode == '1' && variantId != '1' && limit < 0.5 && inc == 0) ||
         (variantId != '1' && timeMode != '1');
-      if (cantBeRated) {
-        if (rated) {
-          $casual.click();
-          return toggleButtons();
-        }
+      if (cantBeRated && rated) {
+        $casual.click();
+        return toggleButtons();
       }
       $rated.attr('disabled', cantBeRated).siblings('label').toggleClass('disabled', cantBeRated);
       var timeOk = timeMode != '1' || limit > 0 || inc > 0;
-      var ratedOk = !isHook || !rated || timeMode != '0';
-      if (timeOk && ratedOk) {
-        $form.find('.color_submits button').toggleClass('nope', false);
-        $form.find('.color_submits button:not(.random)').toggle(!rated || randomColorVariants.indexOf(variantId) === -1);
-      } else
-        $form.find('.color_submits button').toggleClass('nope', true);
+      var ratedOk = typ != 'hook' || !rated || timeMode != '0';
+      var aiOk = typ != 'ai' || variantId != '3' || limit >= 1;
+      if (timeOk && ratedOk && aiOk) {
+        $submits.toggleClass('nope', false);
+        $submits.filter(':not(.random)').toggle(!rated || !randomColorVariants.includes(variantId));
+      } else $submits.toggleClass('nope', true);
     };
     var showRating = function() {
       var timeMode = $timeModeSelect.val();
       var key;
       switch ($variantSelect.val()) {
         case '1':
+        case '3':
           if (timeMode == '1') {
             var time = $timeInput.val() * 60 + $incrementInput.val() * 40;
             if (time < 30) key = 'ultraBullet';
@@ -267,8 +255,7 @@ module.exports = function(cfg, element) {
       }
       $ratings.hide().filter('.' + key).show();
     };
-    if (isHook) {
-      var $formTag = $form.find('form');
+    if (typ == 'hook') {
       if ($form.data('anon')) {
         $timeModeSelect.val(1)
           .children('.timeMode_2, .timeMode_0')
@@ -276,11 +263,11 @@ module.exports = function(cfg, element) {
           .attr('title', cfg.trans('youNeedAnAccountToDoThat'));
       }
       var ajaxSubmit = function(color) {
-        var poolMember = hookToPoolMember(color, $formTag.serializeArray(), $ratings);
-        $form.find('a.close').click();
+        var poolMember = hookToPoolMember(color, $form.serializeArray());
+        $.modal.close();
         var call = {
-          url: $formTag.attr('action').replace(/uid-placeholder/, lichess.StrongSocket.sri),
-          data: $formTag.serialize() + "&color=" + color,
+          url: $form.attr('action').replace(/sri-placeholder/, lichess.StrongSocket.sri),
+          data: $form.serialize() + "&color=" + color,
           type: 'post'
         };
         if (poolMember) {
@@ -291,22 +278,27 @@ module.exports = function(cfg, element) {
         $.ajax(call);
         return false;
       };
-      $formTag.find('.color_submits button').click(function() {
+      $submits.click(function() {
         return ajaxSubmit($(this).val());
       }).attr('disabled', false);
-      $formTag.submit(function() {
+      $form.submit(function() {
         return ajaxSubmit('random');
       });
-    } else
-      $form.find('form').one('submit', function() {
-        $(this).find('.color_submits').find('button').hide().end().append(lichess.spinnerHtml);
+    } else $form.one('submit', function() {
+      $submits.hide().end().append(lichess.spinnerHtml);
+    });
+    if (blindMode) {
+      $variantSelect.focus();
+      $timeInput.add($incrementInput).on('change', function() {
+        toggleButtons();
+        showRating();
       });
-    lichess.slider().done(function() {
+    } else lichess.slider().done(function() {
       $timeInput.add($incrementInput).each(function() {
         var $input = $(this),
           $value = $input.siblings('span');
         var isTimeSlider = $input.parent().hasClass('time_choice');
-        $input.hide().after($('<div>').slider({
+        $input.after($('<div>').slider({
           value: sliderInitVal(parseFloat($input.val()), isTimeSlider ? sliderTime : sliderIncrement, 100),
           min: 0,
           max: isTimeSlider ? 34 : 30,
@@ -324,7 +316,7 @@ module.exports = function(cfg, element) {
       $daysInput.each(function() {
         var $input = $(this),
           $value = $input.siblings('span');
-        $input.hide().after($('<div>').slider({
+        $input.after($('<div>').slider({
           value: sliderInitVal(parseInt($input.val()), sliderDays, 20),
           min: 1,
           max: 7,
@@ -337,7 +329,7 @@ module.exports = function(cfg, element) {
           }
         }));
       });
-      $form.find('.rating_range').each(function() {
+      $form.find('.rating-range').each(function() {
         var $this = $(this);
         var $input = $this.find("input");
         var $span = $this.siblings("span.range");
@@ -368,7 +360,7 @@ module.exports = function(cfg, element) {
     }).trigger('change');
 
     var $fenInput = $fenPosition.find('input');
-    var validateFen = lichess.fp.debounce(function() {
+    var validateFen = lichess.debounce(function() {
       $fenInput.removeClass("success failure");
       var fen = $fenInput.val();
       if (fen) {
@@ -383,13 +375,13 @@ module.exports = function(cfg, element) {
             $fenPosition.find('a.board_editor').each(function() {
               $(this).attr('href', $(this).attr('href').replace(/editor\/.+$/, "editor/" + fen));
             });
-            $form.find('.color_submits button').removeClass('nope');
-            lichess.pubsub.emit('content_loaded')();
+            $submits.removeClass('nope');
+            lichess.pubsub.emit('content_loaded');
           },
           error: function() {
             $fenInput.addClass("failure");
             $fenPosition.find('.preview').html("");
-            $form.find('.color_submits button').addClass('nope');
+            $submits.addClass('nope');
           }
         });
       }
@@ -412,51 +404,46 @@ module.exports = function(cfg, element) {
 
     $form.find('div.level').each(function() {
       var $infos = $(this).find('.ai_info > div');
-      $(this).find('label').mouseenter(function() {
+      $(this).find('label').on('mouseenter', function() {
         $infos.hide().filter('.' + $(this).attr('for')).show();
       });
-      $(this).find('#config_level').mouseleave(function() {
+      $(this).find('#config_level').on('mouseleave', function() {
         var level = $(this).find('input:checked').val();
-        $infos.hide().filter('.level_' + level).show();
+        $infos.hide().filter('.sf_level_' + level).show();
       }).trigger('mouseout');
-    });
-
-    $form.find('a.close.icon').click(function() {
-      $form.remove();
-      $startButtons.find('a.active').removeClass('active');
-      return false;
     });
   }
 
-  $startButtons.find('a').not('.disabled').on('mousedown', function() {
-    lichess.loadCss('/assets/stylesheets/setup.css');
+  var clickEvent = blindMode ? 'click' : 'mousedown';
+
+  $startButtons.find('a:not(.disabled)').on(clickEvent, function() {
+    $(this).addClass('active').siblings().removeClass('active');
+    lichess.loadCssPath('lobby.setup');
     lobby.leavePool();
     $.ajax({
       url: $(this).attr('href'),
       success: function(html) {
-        $('.lichess_overboard').remove();
-        $('#hooks_wrap').prepend(html);
-        prepareForm();
-        lichess.pubsub.emit('content_loaded')();
+        prepareForm($.modal(html, 'game-setup', () => {
+          $startButtons.find('.active').removeClass('active');
+        }));
+        lichess.pubsub.emit('content_loaded');
       },
       error: function(res) {
         if (res.status == 400) alert(res.responseText);
         lichess.reload();
       }
     });
-    $(this).addClass('active').siblings().removeClass('active');
-    $('.lichess_overboard').remove();
     return false;
   }).on('click', function() {
     return false;
   });
 
-  if (['#ai', '#friend', '#hook'].indexOf(location.hash) !== -1) {
+  if (['#ai', '#friend', '#hook'].includes(location.hash)) {
     $startButtons
-      .find('a.config_' + location.hash.replace('#', ''))
+      .find('.config_' + location.hash.replace('#', ''))
       .each(function() {
         $(this).attr("href", $(this).attr("href") + location.search);
-      }).trigger('mousedown');
+      }).trigger(clickEvent);
 
     if (location.hash === '#hook') {
       if (/time=realTime/.test(location.search))
@@ -490,4 +477,4 @@ function spreadNumber(el, nbSteps, getDuration) {
     for (var i = 0; i < nbSteps; i++)
       timeouts.push(setTimeout(display.bind(null, prev, nb, i), Math.round(i * interv)));
   };
-};
+}

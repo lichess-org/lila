@@ -34,7 +34,6 @@ final class Env(
     modApi = modApi,
     reportApi = reportApi,
     notifyApi = notifyApi,
-    bus = system.lilaBus,
     mode = irwinModeSetting.get
   )
 
@@ -42,7 +41,7 @@ final class Env(
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
   }
   scheduler.future(15 minutes, "irwin leaderboards") {
-    userCache.getTop50Online flatMap api.requests.fromLeaderboard
+    api.requests fromLeaderboard userCache.getTop50Online
   }
 }
 

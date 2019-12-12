@@ -15,14 +15,10 @@ module.exports = function(element, opts) {
   var side = mapSide(opts, trans);
   var sideCtrl = side.controller();
 
-  opts.setStage = sideCtrl.setStage;
-
-  m.module(opts.sideElement, {
-    controller: function() {
-      return sideCtrl;
-    },
-    view: side.view
-  });
+  opts.side = {
+    ctrl: sideCtrl,
+    view: function() { return side.view(sideCtrl); }
+  };
 
   m.route(element, '/', {
     '/': map(opts, trans),

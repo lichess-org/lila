@@ -10,10 +10,10 @@ import reactivemongo.bson._
 import lila.db.BSON
 import lila.db.BSON.{ Reader, Writer }
 import lila.db.dsl._
+import lila.game.BSONHandlers.FENBSONHandler
 import lila.tree.Eval
 import lila.tree.Eval.Score
 import lila.tree.Node.{ Shape, Shapes, Comment, Comments, Gamebook }
-import lila.game.BSONHandlers.FENBSONHandler
 
 import lila.common.Iso
 import lila.common.Iso._
@@ -89,7 +89,7 @@ object BSONHandlers {
   private implicit val CommentTextBSONHandler = stringAnyValHandler[Comment.Text](_.value, Comment.Text.apply)
   implicit val CommentAuthorBSONHandler = new BSONHandler[BSONValue, Comment.Author] {
     def read(bsonValue: BSONValue): Comment.Author = bsonValue match {
-      case BSONString("lichess") => Comment.Author.Lichess
+      case BSONString(lila.user.User.lichessId | "l") => Comment.Author.Lichess
       case BSONString(name) => Comment.Author.External(name)
       case doc: Bdoc => {
         for {
@@ -169,7 +169,8 @@ object BSONHandlers {
       score = r.getO[Score]("e"),
       crazyData = r.getO[Crazyhouse.Data]("z"),
       clock = r.getO[Centis]("l"),
-      children = r.get[Node.Children]("n")
+      children = r.get[Node.Children]("n"),
+      forceVariation = r boolD "fv"
     )
     def writes(w: Writer, s: Node) = $doc(
       "i" -> s.id,
@@ -185,11 +186,12 @@ object BSONHandlers {
       "e" -> s.score,
       "l" -> s.clock,
       "z" -> s.crazyData,
-      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren)
+      "n" -> (if (s.ply < Node.MAX_PLIES) s.children else Node.emptyChildren),
+      "fv" -> w.boolO(s.forceVariation)
     )
   }
   import Node.Root
-  private implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
+  private[study] implicit def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
     def reads(r: Reader) = Root(
       ply = r int "p",
       fen = r.get[FEN]("f"),
@@ -274,15 +276,15 @@ object BSONHandlers {
     def read(b: BSONString) = StudyMember.Role.byId get b.value err s"Invalid role ${b.value}"
     def write(x: StudyMember.Role) = BSONString(x.id)
   }
-  private case class DbMember(role: StudyMember.Role, addedAt: DateTime)
+  private case class DbMember(role: StudyMember.Role) extends AnyVal
   private implicit val DbMemberBSONHandler = Macros.handler[DbMember]
   private[study] implicit val StudyMemberBSONWriter = new BSONWriter[StudyMember, Bdoc] {
-    def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role, x.addedAt)
+    def write(x: StudyMember) = DbMemberBSONHandler write DbMember(x.role)
   }
   private[study] implicit val MembersBSONHandler = new BSONHandler[Bdoc, StudyMembers] {
     private val mapHandler = BSON.MapDocument.MapHandler[String, DbMember]
     def read(b: Bdoc) = StudyMembers(mapHandler read b map {
-      case (id, dbMember) => id -> StudyMember(id, dbMember.role, dbMember.addedAt)
+      case (id, dbMember) => id -> StudyMember(id, dbMember.role)
     })
     def write(x: StudyMembers) = BSONDocument(x.members.mapValues(StudyMemberBSONWriter.write))
   }
@@ -319,7 +321,8 @@ object BSONHandlers {
       explorer = r.get[UserSelection]("explorer"),
       cloneable = r.getO[UserSelection]("cloneable") | Settings.init.cloneable,
       chat = r.getO[UserSelection]("chat") | Settings.init.chat,
-      sticky = r.getO[Boolean]("sticky") | Settings.init.sticky
+      sticky = r.getO[Boolean]("sticky") | Settings.init.sticky,
+      description = r.getO[Boolean]("description") | Settings.init.description
     )
     private val writer = Macros.writer[Settings]
     def writes(w: Writer, s: Settings) = writer write s
@@ -330,6 +333,7 @@ object BSONHandlers {
   import Study.Rank
   private[study] implicit val RankBSONHandler = dateIsoHandler[Rank](Iso[DateTime, Rank](Rank.apply, _.value))
 
+  // implicit val StudyBSONHandler = BSON.LoggingHandler(logger)(Macros.handler[Study])
   implicit val StudyBSONHandler = Macros.handler[Study]
 
   implicit val lightStudyBSONReader = new BSONDocumentReader[Study.LightStudy] {

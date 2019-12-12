@@ -8,17 +8,15 @@ object FormCompatLayer {
 
   private type FormData = Map[String, Seq[String]]
 
-  def apply(req: Request[_]): FormData =
-    moveTo("display", List(
-      "animation",
-      "captured",
-      "highlight",
-      "destination",
-      "coords",
-      "replay",
-      "pieceNotation",
-      "blindfold"
-    )) {
+  def apply(pref: Pref, req: Request[_]): FormData =
+    reqToFormData(req) |>
+      moveToAndRename("clock", List(
+        "clockTenths" -> "tenths",
+        "clockBar" -> "bar",
+        "clockSound" -> "sound",
+        "moretime" -> "moretime"
+      )) |>
+      addMissing("clock.moretime", pref.moretime.toString) |>
       moveTo("behavior", List(
         "moveEvent",
         "premove",
@@ -28,16 +26,29 @@ object FormCompatLayer {
         "submitMove",
         "confirmResign",
         "keyboardMove"
-      )) {
-        reqToFormData(req)
-      }
-    }
+      )) |>
+      moveTo("display", List(
+        "animation",
+        "captured",
+        "highlight",
+        "destination",
+        "coords",
+        "replay",
+        "pieceNotation",
+        "blindfold"
+      ))
 
-  private def moveTo(prefix: String, fields: List[String])(data: FormData): FormData =
+  private def addMissing(path: String, default: String)(data: FormData): FormData =
+    data.updated(path, data.get(path).filter(_.nonEmpty) | List(default))
+
+  private def moveTo(prefix: String, fields: List[String]) =
+    moveToAndRename(prefix, fields.map(f => (f, f))) _
+
+  private def moveToAndRename(prefix: String, fields: List[(String, String)])(data: FormData): FormData =
     fields.foldLeft(data) {
-      case (d, field) =>
-        val newField = s"$prefix.$field"
-        d + (newField -> ~d.get(newField).orElse(d.get(field)))
+      case (d, (orig, dest)) =>
+        val newField = s"$prefix.$dest"
+        d + (newField -> ~d.get(newField).orElse(d.get(orig)))
     }
 
   private def reqToFormData(req: Request[_]): FormData = {

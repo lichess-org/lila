@@ -10,11 +10,11 @@ import MoveOn from './moveOn';
 import { main as view } from './view/main';
 import * as chat from 'chat';
 import boot from './boot';
+import { menuHover } from 'common/menuHover';
 
 export interface RoundApi {
   socketReceive(typ: string, data: any): boolean;
   moveOn: MoveOn;
-  toggleZen(): void;
 }
 
 export interface RoundMain {
@@ -37,10 +37,13 @@ export function app(opts: RoundOpts): RoundApi {
   opts.element.innerHTML = '';
   vnode = patch(opts.element, blueprint);
 
+  window.addEventListener('resize', redraw); // col1 / col2+ transition
+
+  ctrl.isPlaying() && menuHover();
+
   return {
     socketReceive: ctrl.socket.receive,
-    moveOn: ctrl.moveOn,
-    toggleZen: ctrl.toggleZen
+    moveOn: ctrl.moveOn
   };
 };
 

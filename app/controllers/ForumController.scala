@@ -21,10 +21,6 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
     Env.team.api.owns(teamId, userId)
 
-  protected def CategGrantRead[A <: Result](categSlug: String)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
-    if (isGrantedRead(categSlug)) a
-    else fuccess(Forbidden("You cannot access to this category"))
-
   protected def CategGrantWrite[A <: Result](categSlug: String)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedWrite(categSlug) flatMap { granted =>
       if (granted) a

@@ -4,6 +4,7 @@ import akka.actor._
 import com.typesafe.config.Config
 
 import lila.simul.Simul
+import lila.user.User
 
 final class Env(
     config: Config,
@@ -14,6 +15,7 @@ final class Env(
     roundJsonView: lila.round.JsonView,
     noteApi: lila.round.NoteApi,
     forecastApi: lila.round.ForecastApi,
+    urgentGames: User => Fu[List[lila.game.Pov]],
     relationApi: lila.relation.RelationApi,
     bookmarkApi: lila.bookmark.BookmarkApi,
     getTourAndRanks: lila.game.Game => Fu[Option[lila.tournament.TourAndRanks]],
@@ -29,14 +31,14 @@ final class Env(
     getSimul: Simul.ID => Fu[Option[Simul]],
     getSimulName: Simul.ID => Fu[Option[String]],
     getTournamentName: String => Option[String],
-    isStreaming: lila.user.User.ID => Boolean,
-    isPlaying: lila.user.User.ID => Boolean,
+    isOnline: User.ID => Boolean,
+    isStreaming: User.ID => Boolean,
+    isPlaying: User.ID => Boolean,
+    setBotOnline: User.ID => Unit,
     pools: List[lila.pool.PoolConfig],
     challengeJsonView: lila.challenge.JsonView,
     val isProd: Boolean
 ) {
-
-  val CliUsername = config getString "cli.username"
 
   val apiToken = config getString "api.token"
 
@@ -51,6 +53,7 @@ final class Env(
     val SocketDomain = config getString "net.socket.domain"
     val Email = config getString "net.email"
     val Crawlable = config getBoolean "net.crawlable"
+    val RateLimit = config getBoolean "net.ratelimit"
   }
   val PrismicApiUrl = config getString "prismic.api_url"
   val EditorAnimationDuration = config duration "editor.animation.duration"
@@ -59,19 +62,6 @@ final class Env(
 
   private val InfluxEventEndpoint = config getString "api.influx_event.endpoint"
   private val InfluxEventEnv = config getString "api.influx_event.env"
-
-  val assetVersionSetting = settingStore[Int](
-    "assetVersion",
-    default = config getInt "net.asset.version",
-    text = "Assets version. Increment to force all clients to load a new version of static assets. Decrement to serve a previous revision of static assets.".some,
-    init = (config, db) => config.value max db.value
-  )
-
-  val cspEnabledSetting = settingStore[Boolean](
-    "cspEnabled",
-    default = true,
-    text = "Enable CSP for everyone.".some
-  )
 
   object Accessibility {
     val blindCookieName = config getString "accessibility.blind.cookie.name"
@@ -92,6 +82,7 @@ final class Env(
 
   val userApi = new UserApi(
     jsonView = userEnv.jsonView,
+    lightUserApi = userEnv.lightUserApi,
     makeUrl = makeUrl,
     relationApi = relationApi,
     bookmarkApi = bookmarkApi,
@@ -100,8 +91,10 @@ final class Env(
     gameCache = gameCache,
     isStreaming = isStreaming,
     isPlaying = isPlaying,
-    prefApi = prefApi
-  )
+    isOnline = isOnline,
+    prefApi = prefApi,
+    urgentGames = urgentGames
+  )(system)
 
   val gameApi = new GameApi(
     netBaseUrl = Net.BaseUrl,
@@ -118,7 +111,8 @@ final class Env(
 
   val userGameApi = new UserGameApi(
     bookmarkApi = bookmarkApi,
-    lightUser = userEnv.lightUserSync
+    lightUser = userEnv.lightUserSync,
+    getTournamentName = getTournamentName
   )
 
   val roundApi = new RoundApi(
@@ -134,23 +128,26 @@ final class Env(
     getFilter = setupEnv.filter,
     lightUserApi = userEnv.lightUserApi,
     seekApi = lobbyEnv.seekApi,
-    pools = pools
+    pools = pools,
+    urgentGames = urgentGames
   )
 
-  lazy val eventStream = new EventStream(system, challengeJsonView, userEnv.onlineUserIdMemo.put)
+  lazy val eventStream = new EventStream(system, challengeJsonView, setBotOnline)
 
   private def makeUrl(path: String): String = s"${Net.BaseUrl}/$path"
 
-  lazy val cli = new Cli(system.lilaBus)
+  lazy val cli = new Cli
 
-  KamonPusher.start(system) {
-    new KamonPusher(countUsers = () => userEnv.onlineUserIdMemo.count)
-  }
+  KamonPusher.start(system)
 
   if (InfluxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
     endpoint = InfluxEventEndpoint,
     env = InfluxEventEnv
   )), name = "influx-event")
+
+  system.registerOnTermination {
+    lila.common.Bus.publish(lila.hub.actorApi.Shutdown, 'shutdown)
+  }
 }
 
 object Env {
@@ -158,7 +155,7 @@ object Env {
   lazy val current = "api" boot new Env(
     config = lila.common.PlayApp.loadConfig,
     settingStore = lila.memo.Env.current.settingStore,
-    renderer = lila.hub.Env.current.actor.renderer,
+    renderer = lila.hub.Env.current.renderer,
     userEnv = lila.user.Env.current,
     annotator = lila.analyse.Env.current.annotator,
     lobbyEnv = lila.lobby.Env.current,
@@ -169,6 +166,7 @@ object Env {
     roundJsonView = lila.round.Env.current.jsonView,
     noteApi = lila.round.Env.current.noteApi,
     forecastApi = lila.round.Env.current.forecastApi,
+    urgentGames = lila.round.Env.current.proxy.urgentGames,
     relationApi = lila.relation.Env.current.api,
     bookmarkApi = lila.bookmark.Env.current.api,
     getTourAndRanks = lila.tournament.Env.current.tourAndRanks,
@@ -179,8 +177,10 @@ object Env {
     gameCache = lila.game.Env.current.cached,
     system = lila.common.PlayApp.system,
     scheduler = lila.common.PlayApp.scheduler,
+    isOnline = lila.socket.Env.current.isOnline,
     isStreaming = lila.streamer.Env.current.liveStreamApi.isStreaming,
     isPlaying = lila.relation.Env.current.online.isPlaying,
+    setBotOnline = lila.bot.Env.current.setOnline,
     pools = lila.pool.Env.current.api.configs,
     challengeJsonView = lila.challenge.Env.current.jsonView,
     isProd = lila.common.PlayApp.isProd

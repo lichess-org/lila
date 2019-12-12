@@ -1,23 +1,27 @@
 package lila.push
 
 import akka.actor._
-import akka.pattern.ask
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.Promise
 
 import chess.format.Forsyth
 import lila.challenge.Challenge
 import lila.common.LightUser
-import lila.game.{ Game, GameRepo, Pov, Namer }
-import lila.hub.actorApi.map.Ask
+import lila.game.{ Game, Pov, Namer }
+import lila.user.User
+import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ MoveEvent, IsOnGame }
 import lila.message.{ Thread, Post }
 
 private final class PushApi(
+    firebasePush: FirebasePush,
     oneSignalPush: OneSignalPush,
+    webPush: WebPush,
     implicit val lightUser: LightUser.GetterSync,
-    roundSocketHub: ActorSelection,
-    scheduler: lila.common.Scheduler
+    gameProxy: Game.ID => Fu[Option[Game]],
+    scheduler: lila.common.Scheduler,
+    system: ActorSystem
 ) {
 
   def finish(game: Game): Funit =
@@ -38,11 +42,7 @@ private final class PushApi(
               "userData" -> Json.obj(
                 "type" -> "gameFinish",
                 "gameId" -> game.id,
-                "fullId" -> pov.fullId,
-                "color" -> pov.color.name,
-                "fen" -> Forsyth.exportBoard(game.board),
-                "lastMove" -> game.lastMoveKeys,
-                "win" -> pov.win
+                "fullId" -> pov.fullId
               )
             )
           ))
@@ -51,7 +51,7 @@ private final class PushApi(
     }.sequenceFu.void
 
   def move(move: MoveEvent): Funit = scheduler.after(2 seconds) {
-    GameRepo game move.gameId flatMap {
+    gameProxy(move.gameId) flatMap {
       _.filter(_.playable) ?? { game =>
         val pov = Pov(game, game.player.color)
         game.player.userId ?? { userId =>
@@ -74,7 +74,7 @@ private final class PushApi(
   }
 
   def takebackOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
-    GameRepo game gameId flatMap {
+    gameProxy(gameId) flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
           case p if p.isProposingTakeback => Pov(game, game opponent p)
@@ -98,7 +98,7 @@ private final class PushApi(
   }
 
   def drawOffer(gameId: Game.ID): Funit = scheduler.after(1 seconds) {
-    GameRepo game gameId flatMap {
+    gameProxy(gameId) flatMap {
       _.filter(_.playable).?? { game =>
         game.players.collectFirst {
           case p if p.isOfferingDraw => Pov(game, game opponent p)
@@ -137,28 +137,26 @@ private final class PushApi(
   private def corresGameJson(pov: Pov, typ: String) = Json.obj(
     "type" -> typ,
     "gameId" -> pov.gameId,
-    "fullId" -> pov.fullId,
-    "color" -> pov.color.name,
-    "fen" -> Forsyth.exportBoard(pov.game.board),
-    "lastMove" -> pov.game.lastMoveKeys,
-    "secondsLeft" -> pov.remainingSeconds
+    "fullId" -> pov.fullId
   )
 
   def newMessage(t: Thread, p: Post): Funit =
     lightUser(t.visibleSenderOf(p)) ?? { sender =>
-      pushToAll(t.receiverOf(p), _.message, PushApi.Data(
-        title = s"${sender.titleName}: ${t.name}",
-        body = p.text take 140,
-        stacking = Stacking.NewMessage,
-        payload = Json.obj(
-          "userId" -> t.receiverOf(p),
-          "userData" -> Json.obj(
-            "type" -> "newMessage",
-            "threadId" -> t.id,
-            "sender" -> sender
+      lila.user.UserRepo.isKid(t receiverOf p) flatMap {
+        case true => funit
+        case _ => pushToAll(t receiverOf p, _.message, PushApi.Data(
+          title = s"${sender.titleName}: ${t.name}",
+          body = p.text take 140,
+          stacking = Stacking.NewMessage,
+          payload = Json.obj(
+            "userId" -> t.receiverOf(p),
+            "userData" -> Json.obj(
+              "type" -> "newMessage",
+              "threadId" -> t.id
+            )
           )
-        )
-      ))
+        ))
+      }
     }
 
   def challengeCreate(c: Challenge): Funit = c.destUser ?? { dest =>
@@ -191,8 +189,7 @@ private final class PushApi(
           "userId" -> challenger.id,
           "userData" -> Json.obj(
             "type" -> "challengeAccept",
-            "challengeId" -> c.id,
-            "joiner" -> lightJoiner
+            "challengeId" -> c.id
           )
         )
       ))
@@ -200,9 +197,12 @@ private final class PushApi(
 
   private type MonitorType = lila.mon.push.send.type => (String => Unit)
 
-  private def pushToAll(userId: String, monitor: MonitorType, data: PushApi.Data): Funit =
-    oneSignalPush(userId) {
+  private def pushToAll(userId: User.ID, monitor: MonitorType, data: PushApi.Data): Funit =
+    webPush(userId)(data) >> oneSignalPush(userId) {
       monitor(lila.mon.push.send)("onesignal")
+      data
+    } >> firebasePush(userId) {
+      monitor(lila.mon.push.send)("firebase")
       data
     }
 
@@ -219,13 +219,13 @@ private final class PushApi(
     ) mkString " • "
   }
 
-  private def IfAway(pov: Pov)(f: => Funit): Funit = {
-    import makeTimeout.short
-    roundSocketHub ? Ask(pov.gameId, IsOnGame(pov.color)) mapTo manifest[Boolean] flatMap {
+  private def IfAway(pov: Pov)(f: => Funit): Funit =
+    lila.common.Bus.ask[Boolean]('roundSocket) { p =>
+      Tell(pov.gameId, IsOnGame(pov.color, p))
+    }(system) flatMap {
       case true => funit
       case false => f
     }
-  }
 
   private def opponentName(pov: Pov) = Namer playerText pov.opponent
 

@@ -14,6 +14,7 @@ case class Thread(
     creatorId: User.ID,
     invitedId: User.ID,
     visibleByUserIds: List[User.ID],
+    deletedByUserIds: Option[List[User.ID]],
     mod: Option[Boolean]
 ) {
 
@@ -41,7 +42,13 @@ case class Thread(
 
   def isTooBig = nbPosts > 200
 
+  def isReplyable = !isTooBig && !isLichess
+
+  def isLichess = creatorId == User.lichessId
+
   def firstPost: Option[Post] = posts.headOption
+
+  def isFirstPost(post: Post) = firstPost contains post
 
   def firstPostUnreadBy(user: User): Option[Post] = posts find isPostUnreadBy(user)
 
@@ -61,19 +68,19 @@ case class Thread(
 
   def visibleOtherUserId(user: User) =
     if (isCreator(user)) invitedId
-    else if (asMod) Thread.lichess
+    else if (asMod) User.lichessId
     else creatorId
 
   def senderOf(post: Post) = if (post.isByCreator) creatorId else invitedId
 
   def visibleSenderOf(post: Post) =
-    if (post.isByCreator && asMod) Thread.lichess
+    if (post.isByCreator && asMod) User.lichessId
     else senderOf(post)
 
   def receiverOf(post: Post) = if (post.isByCreator) invitedId else creatorId
 
   def visibleReceiverOf(post: Post) =
-    if (!post.isByCreator && asMod) Thread.lichess
+    if (!post.isByCreator && asMod) User.lichessId
     else receiverOf(post)
 
   def isWrittenBy(post: Post, user: User) = post.isByCreator == isCreator(user)
@@ -81,12 +88,15 @@ case class Thread(
   def nonEmptyName = (name.trim.some filter (_.nonEmpty)) | "No subject"
 
   def deleteFor(user: User) = copy(
-    visibleByUserIds = visibleByUserIds filter (user.id !=)
+    visibleByUserIds = visibleByUserIds filter (user.id !=),
+    deletedByUserIds = Some(user.id :: ~deletedByUserIds)
   )
 
   def isVisibleBy(userId: User.ID) = visibleByUserIds contains userId
 
   def isVisibleByOther(user: User) = isVisibleBy(otherUserId(user))
+
+  def looksMuted = posts.length == 1 && (~deletedByUserIds).has(invitedId)
 
   def hasPostsWrittenBy(userId: User.ID) = posts exists (_.isByCreator == (creatorId == userId))
 
@@ -104,8 +114,6 @@ case class Thread(
 object Thread {
 
   val idSize = 8
-
-  private val lichess = "lichess"
 
   def make(
     name: String,
@@ -125,6 +133,7 @@ object Thread {
     creatorId = creatorId,
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId),
+    deletedByUserIds = None,
     mod = asMod option true
   )
 

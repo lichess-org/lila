@@ -389,10 +389,10 @@ Engine to GUI:
 			"option name UCI_EngineAbout type string default Shredder by Stefan Meyer-Kahlen, see www.shredderchess.com"
 		* <id> = UCI_ShredderbasesPath, type string
 			this is either the path to the folder on the hard disk containing the Shredder endgame databases or
-			the path and filename of one Shredder endgame datbase.
+			the path and filename of one Shredder endgame database.
 	   * <id> = UCI_SetPositionValue, type string
 	      the GUI can send this to the engine to tell the engine to use a certain value in centipawns from white's
-	      point of view if evaluating this specifix position. 
+	      point of view if evaluating this specific position. 
 	      The string can have the formats:
 	      <value> + <fen> | clear + <fen> | clearall
 	   		

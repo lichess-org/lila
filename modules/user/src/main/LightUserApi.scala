@@ -25,14 +25,18 @@ final class LightUserApi(coll: Coll)(implicit system: akka.actor.ActorSystem) {
 
   def isBotSync(id: User.ID) = sync(id).exists(_.isBot)
 
+  private val cacheName = "user.light"
+
   private val cache = new Syncache[User.ID, Option[LightUser]](
-    name = "user.light",
+    name = cacheName,
     compute = id => coll.find($id(id), projection).uno[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(10 millis),
     expireAfter = Syncache.ExpireAfterAccess(15 minutes),
     logger = logger branch "LightUserApi"
   )
+
+  def monitorCache = lila.mon.syncache.chmSize(cacheName)(cache.chmSize)
 }
 
 private object LightUserApi {

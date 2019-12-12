@@ -17,8 +17,8 @@ gamesToMigrate.forEach(function(game) {
     }
   });
 
-  var gameUids = game.uids || [];
-  if (gameUids.length != uids.length) {
+  var gameSris = game.uids || [];
+  if (gameSris.length != uids.length) {
     ++j;
     db.game4.update({_id: game['_id']}, {$set: {'uids': uids}});
   }

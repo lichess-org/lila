@@ -1,40 +1,44 @@
 import { h } from 'snabbdom'
-import { VNode, VNodeData } from 'snabbdom/vnode'
+import { VNode } from 'snabbdom/vnode'
 import * as round from '../round';
-import { throttle } from 'common';
-import { game, status, router, view as gameView } from 'game';
+import throttle from 'common/throttle';
+import * as game from 'game';
+import * as status from 'game/status';
+import { game as gameRoute } from 'game/router';
+import viewStatus from 'game/view/status';
 import * as util from '../util';
 import RoundController from '../ctrl';
 import { Step, MaybeVNodes, RoundData } from '../interfaces';
 
-function emptyMove() {
-  return h('move.empty', '...');
-}
-function nullMove() {
-  return h('move.empty', '');
-}
+const scrollMax = 99999, moveTag = 'm2';
 
-const autoScroll = throttle(100, (el: HTMLElement, ctrl: RoundController) => {
-  if (ctrl.data.steps.length < 7) return;
-  let st: number | undefined = undefined;
-  if (ctrl.ply < 3) st = 0;
-  else if (ctrl.ply >= round.lastPly(ctrl.data) - 1) st = 9999;
-  else {
-    const plyEl = el.querySelector('.active') as HTMLElement | undefined;
-    if (plyEl) st = plyEl.offsetTop - el.offsetHeight / 2 + plyEl.offsetHeight / 2;
-  }
-  if (st !== undefined) el.scrollTop = st;
-});
+const autoScroll = throttle(100, (movesEl: HTMLElement, ctrl: RoundController) =>
+  window.requestAnimationFrame(() => {
+    if (ctrl.data.steps.length < 7) return;
+    let st: number | undefined = undefined;
+    if (ctrl.ply < 3) st = 0;
+    else if (ctrl.ply == round.lastPly(ctrl.data)) st = scrollMax;
+    else {
+      const plyEl = movesEl.querySelector('.active') as HTMLElement | undefined;
+      if (plyEl) st = window.lichess.isCol1() ?
+        plyEl.offsetLeft - movesEl.offsetWidth / 2 + plyEl.offsetWidth / 2 :
+        plyEl.offsetTop - movesEl.offsetHeight / 2 + plyEl.offsetHeight / 2;
+    }
+    if (typeof st == 'number') {
+      if (st == scrollMax) movesEl.scrollLeft = movesEl.scrollTop = st;
+      else if (window.lichess.isCol1()) movesEl.scrollLeft = st;
+      else movesEl.scrollTop = st;
+    }
+  })
+);
 
-function renderMove(step: Step, curPly: number, orEmpty?: boolean) {
-  if (!step) return orEmpty ? emptyMove() : nullMove();
-  const san = step.san[0] === 'P' ? step.san.slice(1) : step.san.replace('x', 'х');
-  return h('move', {
+function renderMove(step: Step, curPly: number, orEmpty: boolean) {
+  return step ? h(moveTag, {
     class: { active: step.ply === curPly }
-  }, san);
+  }, step.san[0] === 'P' ? step.san.slice(1) : step.san) : (orEmpty ? h(moveTag, '…') : undefined);
 }
 
-function renderResult(ctrl: RoundController) {
+export function renderResult(ctrl: RoundController): VNode | undefined {
   let result;
   if (status.finished(ctrl.data)) switch (ctrl.data.game.winner) {
     case 'white':
@@ -47,19 +51,17 @@ function renderResult(ctrl: RoundController) {
       result = '½-½';
   }
   if (result || status.aborted(ctrl.data)) {
-    const winner = game.getPlayer(ctrl.data, ctrl.data.game.winner);
-    return h('div.result_wrap', [
-      result ? h('p.result', result) : null,
+    const winner = ctrl.data.game.winner;
+    return h('div.result-wrap', [
+      h('p.result', result || ''),
       h('p.status', {
-        hook: {
-          insert: _ => {
-            if (ctrl.autoScroll) ctrl.autoScroll();
-            else setTimeout(() => ctrl.autoScroll(), 200);
-          }
-        }
+        hook: util.onInsert(() => {
+          if (ctrl.autoScroll) ctrl.autoScroll();
+          else setTimeout(() => ctrl.autoScroll(), 200);
+        })
       }, [
-        h('div', gameView.status(ctrl)),
-        winner ? h('div', ctrl.trans.noarg(winner.color + 'IsVictorious')) : null
+        viewStatus(ctrl),
+        winner ? ' • ' + ctrl.trans.noarg(winner + 'IsVictorious') : ''
       ])
     ]);
   }
@@ -68,8 +70,8 @@ function renderResult(ctrl: RoundController) {
 
 function renderMoves(ctrl: RoundController): MaybeVNodes {
   const steps = ctrl.data.steps,
-  firstPly = round.firstPly(ctrl.data),
-  lastPly = round.lastPly(ctrl.data);
+    firstPly = round.firstPly(ctrl.data),
+    lastPly = round.lastPly(ctrl.data);
   if (typeof lastPly === 'undefined') return [];
 
   const pairs: Array<Array<any>> = [];
@@ -91,50 +93,25 @@ function renderMoves(ctrl: RoundController): MaybeVNodes {
   return els;
 }
 
-function analyseButton(ctrl: RoundController) {
-  const showInfo = ctrl.forecastInfo(),
-  forecastCount = ctrl.data.forecastCount;
-  const data: VNodeData = {
+export function analysisButton(ctrl: RoundController): VNode | undefined {
+  const forecastCount = ctrl.data.forecastCount;
+  return game.userAnalysable(ctrl.data) ? h('a.fbt.analysis', {
     class: {
-      'hint--top': !showInfo,
-      'hint--bottom': showInfo,
-      'glowed': showInfo,
       'text': !!forecastCount
     },
     attrs: {
-      'data-hint': ctrl.trans.noarg('analysis'),
-      href: router.game(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply
+      title: ctrl.trans.noarg('analysis'),
+      href: gameRoute(ctrl.data, ctrl.data.player.color) + '/analysis#' + ctrl.ply,
+      'data-icon': 'A'
     }
-  };
-  if (showInfo) data.hook = {
-    insert(vnode) {
-      setTimeout(() => {
-        $(vnode.elm as HTMLElement).powerTip({
-          closeDelay: 200,
-          placement: 'n'
-        }).data('powertipjq', $(vnode.elm as HTMLElement).siblings('.forecast-info').clone().removeClass('none')).powerTip('show');
-      }, 1000);
-    }
-  };
-  return [
-    h('a.fbt.analysis', data, [
-      h('span', {
-        attrs: { 'data-icon': 'A' },
-        class: {text: !!forecastCount}
-      }),
-      forecastCount ? '' + forecastCount : undefined
-    ]),
-    showInfo ? h('div.forecast-info.info.none', [
-      h('strong.title.text', util.justIcon(''), 'Speed up your game!'),
-      h('span.content', 'Use the analysis board to create conditional premoves.')
-    ]) : null
-  ];
+  }, forecastCount ? ['' + forecastCount] : []
+  ) : undefined
 }
 
 function renderButtons(ctrl: RoundController) {
   const d = ctrl.data,
-  firstPly = round.firstPly(d),
-  lastPly = round.lastPly(d);
+    firstPly = round.firstPly(d),
+    lastPly = round.lastPly(d);
   return h('div.buttons', {
     hook: util.bind('mousedown', e => {
       const target = e.target as HTMLElement;
@@ -144,22 +121,21 @@ function renderButtons(ctrl: RoundController) {
         const action = target.getAttribute('data-act') || (target.parentNode as HTMLElement).getAttribute('data-act');
         if (action === 'flip') {
           if (d.tv) location.href = '/tv/' + d.tv.channel + (d.tv.flip ? '' : '?flip=1');
-          else if (d.player.spectator) location.href = router.game(d, d.opponent.color);
+          else if (d.player.spectator) location.href = gameRoute(d, d.opponent.color);
           else ctrl.flipNow();
         }
       }
     }, ctrl.redraw)
   }, [
-    h('button.fbt.flip.hint--top', {
+    h('button.fbt.flip', {
       class: { active: ctrl.flip },
       attrs: {
-        'data-hint': ctrl.trans('flipBoard'),
-        'data-act': 'flip'
+        title: ctrl.trans.noarg('flipBoard'),
+        'data-act': 'flip',
+        'data-icon': 'B'
       }
-    }, [
-      h('span', util.justIcon('B'))
-    ]),
-    h('nav', [
+    }),
+    ...([
       ['W', firstPly],
       ['Y', ctrl.ply - 1],
       ['X', ctrl.ply + 1],
@@ -167,7 +143,7 @@ function renderButtons(ctrl: RoundController) {
     ].map((b, i) => {
       const enabled = ctrl.ply !== b[1] && b[1] >= firstPly && b[1] <= lastPly;
       return h('button.fbt', {
-        class: { glowed: i === 3 && ctrl.isLate() },
+        class: { glowing: i === 3 && ctrl.isLate() },
         attrs: {
           disabled: !enabled,
           'data-icon': b[0],
@@ -175,44 +151,65 @@ function renderButtons(ctrl: RoundController) {
         }
       });
     })),
-    ...(game.userAnalysable(d) ? analyseButton(ctrl) : [h('div.noop')])
+    analysisButton(ctrl) || h('div.noop')
   ]);
 }
 
-function racingKingsInit(d: RoundData) {
-  if (d.game.variant.key === 'racingKings' && d.game.turns === 0 && !d.player.spectator) {
-    const yourTurn = d.player.color === 'white' ? [h('br'), h('strong', "it's your turn!")] : [];
-    return h('div.message', util.justIcon(''), [
-      h('span', "You have the " + d.player.color + " pieces"),
-      ...yourTurn
-    ]);
-  }
-  return;
+function initMessage(d: RoundData) {
+  return (game.playable(d) && d.game.turns === 0 && !d.player.spectator) ?
+    h('div.message', util.justIcon(''), [
+      h('div', [
+        `You play the ${d.player.color} pieces`,
+        ...(d.player.color === 'white' ? [h('br'), h('strong', "It's your turn!")] : [])
+      ])
+    ]) : null;
 }
 
-export default function(ctrl: RoundController): VNode {
-  return h('div.replay', [
-    renderButtons(ctrl),
-    racingKingsInit(ctrl.data) || (ctrl.replayEnabledByPref() ? h('div.moves', {
-      hook: {
-        insert(vnode) {
-          (vnode.elm as HTMLElement).addEventListener('mousedown', e => {
-            let node = e.target as HTMLElement, offset = -2;
-            if (node.tagName !== 'MOVE') return;
-            while(node = node.previousSibling as HTMLElement) {
-              offset++;
-              if (node.tagName === 'INDEX') {
-                ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
-                ctrl.redraw();
-                break;
-              }
+function col1Button(ctrl: RoundController, dir: number, icon: string, disabled: boolean) {
+  return disabled ? null : h('button.fbt', {
+    attrs: {
+      disabled: disabled,
+      'data-icon': icon,
+      'data-ply': ctrl.ply + dir
+    },
+    hook: util.bind('mousedown', e => {
+      e.preventDefault();
+      ctrl.userJump(ctrl.ply + dir);
+      ctrl.redraw();
+    })
+  });
+}
+
+export function render(ctrl: RoundController): VNode | undefined {
+  const d = ctrl.data,
+    col1 = window.lichess.isCol1(),
+    moves = ctrl.replayEnabledByPref() && h('div.moves', {
+      hook: util.onInsert(el => {
+        el.addEventListener('mousedown', e => {
+          let node = e.target as HTMLElement, offset = -2;
+          if (node.tagName !== moveTag.toUpperCase()) return;
+          while(node = node.previousSibling as HTMLElement) {
+            offset++;
+            if (node.tagName === 'INDEX') {
+              ctrl.userJump(2 * parseInt(node.textContent || '') + offset);
+              ctrl.redraw();
+              break;
             }
-          });
-          ctrl.autoScroll = () => autoScroll(vnode.elm as HTMLElement, ctrl); ;
-          ctrl.autoScroll();
-          window.addEventListener('load', ctrl.autoScroll);
-        }
-      }
-    }, renderMoves(ctrl)) : renderResult(ctrl))
+          }
+        });
+        ctrl.autoScroll = () => autoScroll(el, ctrl);
+        ctrl.autoScroll();
+        window.addEventListener('load', ctrl.autoScroll);
+      })
+    }, renderMoves(ctrl));
+  return ctrl.nvui ? undefined : h('div.rmoves', [
+    renderButtons(ctrl),
+    initMessage(d) || (moves ? (
+      col1 ? h('div.col1-moves', [
+        col1Button(ctrl, -1, 'Y', ctrl.ply == round.firstPly(d)),
+        moves,
+        col1Button(ctrl, 1, 'X', ctrl.ply == round.lastPly(d))
+      ]) : moves
+    ) : renderResult(ctrl))
   ]);
 }

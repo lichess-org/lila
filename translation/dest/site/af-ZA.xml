@@ -15,7 +15,7 @@
   <string name="chat">Klets</string>
   <string name="resign">Gee oor</string>
   <string name="checkmate">Skaakmat</string>
-  <string name="stalemate">Pat</string>
+  <string name="stalemate">Dooiepunt</string>
   <string name="white">Wit</string>
   <string name="black">Swart</string>
   <string name="randomColor">Lukrake kant</string>
@@ -29,8 +29,8 @@
   <string name="newOpponent">Nuwe uitdager</string>
   <string name="yourOpponentWantsToPlayANewGameWithYou">Jou teenstander wil weer teen jou speel</string>
   <string name="joinTheGame">Sluit aan by spel</string>
-  <string name="whitePlays">Wit speel</string>
-  <string name="blackPlays">Swart speel</string>
+  <string name="whitePlays">Wit om te speel</string>
+  <string name="blackPlays">Swart om te speel</string>
   <string name="opponentLeftChoices">Ander speler het spel verlaat. Jy kan \'n oorwinning verklaar, gelykspel eis, of wag.</string>
   <string name="makeYourOpponentResign">Laat teenstander oorgee</string>
   <string name="forceResignation">Verklaar oorwinning</string>
@@ -46,10 +46,42 @@
   <string name="viewTheComputerAnalysis">Beskou die rekenaar analise</string>
   <string name="requestAComputerAnalysis">Versoek \'n rekenaar analise</string>
   <string name="computerAnalysis">Rekenaar ontleding</string>
+  <string name="computerAnalysisAvailable">Rekenaar analise beskikbaar</string>
   <string name="analysis">Ontleding bord</string>
+  <string name="depthX">Diepte %s</string>
+  <string name="usingServerAnalysis">Die gebruik van bediener analise</string>
+  <string name="loadingEngine">Enjin is besig om the laai ...</string>
+  <string name="cloudAnalysis">Wolkanalise</string>
+  <string name="goDeeper">Gaan dieper</string>
+  <string name="showThreat">Toon bedreiging</string>
+  <string name="inLocalBrowser">in plaaslike blaaier</string>
+  <string name="toggleLocalEvaluation">Verander plaaslike evaluering</string>
+  <string name="promoteVariation">Bevorder variasie</string>
+  <string name="makeMainLine">Maak hooflyn</string>
+  <string name="insufficientMaterial">Onvoldoende materiaal</string>
+  <string name="pawnMove">Pion skuif</string>
+  <string name="close">Maak toe</string>
+  <string name="drawn">Gelyk</string>
+  <string name="unknown">Onbekend</string>
+  <string name="database">Databasis</string>
+  <string name="whiteDrawBlack">Wit / Gelyk / Swart</string>
+  <string name="averageRatingX">Gemiddelde Elo: %s</string>
+  <string name="recentGames">Onlangse wedstryde</string>
+  <string name="topGames">Top spelle</string>
+  <string name="noGameFound">Geen spel gevind</string>
   <string name="openingExplorer">Die Opening explorer</string>
+  <string name="allSet">Gereed!</string>
+  <string name="delete">Skrap</string>
+  <string name="deleteThisImportedGame">Skrap hierdie ingevoerde spel?</string>
+  <string name="enable">Aktief</string>
+  <string name="bestMoveArrow">Beste skuif pyl</string>
+  <string name="evaluationGauge">Evaluering meter</string>
+  <string name="multipleLines">Aantal lyne</string>
+  <string name="cpus">CPU</string>
+  <string name="infiniteAnalysis">Oneindige analise</string>
   <string name="blunders">Flaters</string>
   <string name="mistakes">Foute</string>
+  <string name="inaccuracy">Onakkuraatheid</string>
   <string name="inaccuracies">Onakkuraathede</string>
   <string name="moveTimes">Skuif tye</string>
   <string name="flipBoard">Keer bord om</string>
@@ -73,7 +105,6 @@
   <string name="viewInFullSize">Sien vol-grootte</string>
   <string name="logOut">Teken uit</string>
   <string name="signIn">Teken in</string>
-  <string name="newToLichess">Nuut by Lichess?</string>
   <string name="youNeedAnAccountToDoThat">Jy het \'n rekening nodig om dit te doen</string>
   <string name="signUp">Registreer</string>
   <string name="computersAreNotAllowedToPlay">Rekenaars en rekenaargesteunde spelers word nie toegelaat om te speel. Moet asseblief nie die hulp van skaak enjins, databasisse, of uit ander spelers te kry, terwyl die speel van. Let ook daarop dat die maak van verskeie rekeninge is ten sterkste ontmoedig en oormatige multi-rekeningkunde sal lei tot verban.</string>
@@ -104,13 +135,13 @@
   <string name="username">Gebruiker naam</string>
   <string name="usernameOrEmail">Gebruiker</string>
   <string name="password">Wagwoord</string>
-  <string name="haveAnAccount">Klaar geregistreer?</string>
   <string name="changePassword">Verander wagwoord</string>
   <string name="changeEmail">Verander e-pos</string>
   <string name="email">E-pos</string>
   <string name="passwordReset">Wagwoord herstel</string>
   <string name="forgotPassword">vergeet my waagword</string>
   <string name="rank">Vlak</string>
+  <string name="rankX">Gradering: %s</string>
   <string name="gamesPlayed">Gespeel</string>
   <plurals name="nbGamesWithYou">
     <item quantity="one">%s spelle vir jou</item>
@@ -157,7 +188,7 @@
   <string name="send">Stuur</string>
   <string name="incrementInSeconds">Tel in sekondes</string>
   <string name="freeOnlineChess">Gratis Aanlyn Skaak</string>
-  <string name="spectators">Toeskouers</string>
+  <string name="spectators">Toeskouers:</string>
   <plurals name="nbWins">
     <item quantity="one">%s gewen</item>
     <item quantity="other">%s gewen</item>
@@ -176,6 +207,7 @@
     <item quantity="one">Gee %s sekondes</item>
     <item quantity="other">Gee %s sekondes</item>
   </plurals>
+  <string name="giveMoreTime">Gee meer tyd</string>
   <string name="thisPlayerUsesChessComputerAssistance">Hierdie speler gebruik skaak rekenaar hulp</string>
   <string name="thisPlayerArtificiallyIncreasesTheirRating">Hierdie speler verhoog/verlaag hul gradering kunsmatig</string>
   <string name="takeback">Terug-vat</string>
@@ -233,10 +265,8 @@
   <string name="thisIsAChessCaptcha">Dit is \'n skaak CAPTCHA</string>
   <string name="clickOnTheBoardToMakeYourMove">Kliek op die bord om jou skuif te maak, en te bewys jy is \'n mens</string>
   <string name="notACheckmate">Nie skaakmat nie</string>
-  <string name="colorPlaysCheckmateInOne">%s se skuif; mat in een</string>
   <string name="retry">Probeer weer</string>
   <string name="reconnecting">Konnekteer weer</string>
-  <string name="onlineFriends">Aanlyn vriende</string>
   <string name="noFriendsOnline">Geen vriende aanlyn</string>
   <string name="findFriends">Vind friende</string>
   <string name="follow">Volg</string>
@@ -267,11 +297,11 @@
     <item quantity="other">Minder as %s minute</item>
   </plurals>
   <string name="required">Vereiste.</string>
-  <string name="openTournaments">Oop tornooie</string>
+  <string name="openTournaments">Oop toernooie</string>
   <string name="duration">Duur</string>
   <string name="winner">Wenner</string>
   <string name="standing">Stand</string>
-  <string name="createANewTournament">Skep \'n nuwe tornooi</string>
+  <string name="createANewTournament">Skep \'n nuwe toernooi</string>
   <string name="join">Sluit aan</string>
   <string name="withdraw">Ontrek</string>
   <string name="points">Punte</string>
@@ -285,7 +315,7 @@
   <string name="startPosition">Begin posisie</string>
   <string name="clearBoard">Maak bord skoon</string>
   <string name="savePosition">Stoor posisie</string>
-  <string name="loadPosition">Laai positie</string>
+  <string name="loadPosition">Laai posisie</string>
   <string name="isPrivate">Privaat</string>
   <string name="reportXToModerators">Klik oor %s</string>
   <string name="profile">Profiel</string>
@@ -362,6 +392,7 @@
   <string name="troll">Trol</string>
   <string name="other">Ander</string>
   <string name="reportDescriptionHelp">Plak skakel na die spel(le) en verduidelik wat skort met die lid se gedrag.</string>
+  <string name="error.provideOneCheatedGameLink">Verskaf asseblief ten minste een skakel na \'n verkul spel.</string>
   <string name="by">deur %s</string>
   <string name="thisTopicIsNowClosed">Hierdie onderwerp is nou afgesluit.</string>
   <string name="theming">Versiering</string>
@@ -386,6 +417,7 @@
   <string name="pieceDestinations">Stuk bestemmings (geldige skuiwe en vooraf-skuiwe)</string>
   <string name="boardCoordinates">Bord koördinate (A-H, 1-8)</string>
   <string name="moveListWhilePlaying">Skuiflys tydens spel</string>
+  <string name="pgnLetter">Letter (K, Q, R, B, N)</string>
   <string name="chessClock">Skaakklok</string>
   <string name="tenthsOfSeconds">Tiendes van sekondes</string>
   <string name="never">Nooit</string>
@@ -393,6 +425,7 @@
   <string name="horizontalGreenProgressBars">Horisontale groen voortgangsbalkies</string>
   <string name="soundWhenTimeGetsCritical">Klank as tyd noop</string>
   <string name="gameBehavior">Spel gedrag</string>
+  <string name="howDoYouMovePieces">Hoe beweeg jy stukke?</string>
   <string name="premovesPlayingDuringOpponentTurn">Vooraf-skuiwe (speel tydens opponent se beurt)</string>
   <string name="takebacksWithOpponentApproval">Terug-vat (met goedkeuring van opponent)</string>
   <string name="promoteToQueenAutomatically">Promoveer outomaties tot Dame</string>
@@ -422,7 +455,6 @@
   <string name="xCommentedY">%1$s kommentaar %2$s</string>
   <string name="victory">Sukses!</string>
   <string name="timeline">Tydlyn</string>
-  <string name="seeAllTournaments">Bekyk alle toernooie</string>
   <string name="starting">Aanvang:</string>
   <string name="allInformationIsPublicAndOptional">Alle besonderhede is openbaar en nie-verpligtend</string>
   <string name="yourCityRegionOrDepartment">Jou stad, streek of provinsie.</string>
@@ -467,9 +499,7 @@
   <string name="menu">Kieslys</string>
   <string name="castling">Rokering</string>
   <string name="whiteCastlingKingside">Wit O-O</string>
-  <string name="whiteCastlingQueenside">Wit O-O-O</string>
   <string name="blackCastlingKingside">Swart O-O</string>
-  <string name="blackCastlingQueenside">Swart O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s Forum Boodskappe</item>
     <item quantity="other">%s Forum Boodskappe</item>
@@ -478,7 +508,6 @@
   <string name="watchGames">Hou spelle dop</string>
   <string name="tpTimeSpentOnTV">Tyd op TV: %s</string>
   <string name="watch">Toeskou</string>
-  <string name="internationalEvents">Internationale geleenthede</string>
   <string name="videoLibrary">Video biblioteek</string>
   <string name="mobileApp">Mobile App</string>
   <string name="webmasters">Webmeesters</string>

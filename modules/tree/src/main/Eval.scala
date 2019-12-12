@@ -56,7 +56,7 @@ object Eval {
     def invert = Cp(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
-    def compare(other: Cp) = value compare other.value
+    def compare(other: Cp) = Integer.compare(value, other.value)
 
     def signum: Int = Math.signum(value).toInt
   }
@@ -75,7 +75,7 @@ object Eval {
     def invert = Mate(value = -value)
     def invertIf(cond: Boolean) = if (cond) invert else this
 
-    def compare(other: Mate) = value compare other.value
+    def compare(other: Mate) = Integer.compare(value, other.value)
 
     def signum: Int = Math.signum(value).toInt
 

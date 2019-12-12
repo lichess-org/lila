@@ -17,6 +17,7 @@ case class Schedule(
 
   def name = freq match {
     case m @ Schedule.Freq.ExperimentalMarathon => m.name
+    case _ if variant == chess.variant.Crazyhouse && conditions.minRating.isDefined => "Elite Crazyhouse"
     case _ if variant.standard && position.initial =>
       (conditions.minRating, conditions.maxRating) match {
         case (None, None) => s"${freq.toString} ${speed.toString}"
@@ -44,6 +45,8 @@ case class Schedule(
 
   def sameMaxRating(other: Schedule) = conditions sameMaxRating other.conditions
 
+  def similarConditions(other: Schedule) = conditions similar other.conditions
+
   def sameDay(other: Schedule) = day == other.day
 
   def hasMaxRating = conditions.maxRating.isDefined
@@ -53,21 +56,31 @@ case class Schedule(
 
   def perfType = PerfType.byVariant(variant) | Schedule.Speed.toPerfType(speed)
 
-  def plan = Schedule.Plan(this, identity)
-  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build)
+  def plan = Schedule.Plan(this, None)
+  def plan(build: Tournament => Tournament) = Schedule.Plan(this, build.some)
 
   override def toString = s"$freq $variant $speed $conditions $at"
 }
 
 object Schedule {
 
-  case class Plan(schedule: Schedule, build: Tournament => Tournament)
+  case class Plan(schedule: Schedule, buildFunc: Option[Tournament => Tournament]) {
+
+    def build: Tournament = {
+      val t = Tournament.schedule(addCondition(schedule), durationFor(schedule))
+      buildFunc.foldRight(t) { _(_) }
+    }
+
+    def map(f: Tournament => Tournament) = copy(
+      buildFunc = buildFunc.fold(f)(f.compose).some
+    )
+  }
 
   sealed abstract class Freq(val id: Int, val importance: Int) extends Ordered[Freq] {
 
     val name = toString.toLowerCase
 
-    def compare(other: Freq) = importance compare other.importance
+    def compare(other: Freq) = Integer.compare(importance, other.importance)
 
     def isDaily = this == Schedule.Freq.Daily
     def isDailyOrBetter = this >= Schedule.Freq.Daily
@@ -93,7 +106,7 @@ object Schedule {
   }
 
   sealed abstract class Speed(val id: Int) {
-    def name = toString.toLowerCase
+    val name = lila.common.String lcfirst toString
   }
   object Speed {
     case object UltraBullet extends Speed(5)
@@ -106,7 +119,7 @@ object Schedule {
     case object Classical extends Speed(60)
     val all: List[Speed] = List(UltraBullet, HyperBullet, Bullet, HippoBullet, SuperBlitz, Blitz, Rapid, Classical)
     val mostPopular: List[Speed] = List(Bullet, Blitz, Rapid, Classical)
-    def apply(name: String) = all find (_.name == name)
+    def apply(name: String) = all.find(_.name == name) orElse all.find(_.name.toLowerCase == name.toLowerCase)
     def byId(id: Int) = all find (_.id == id)
     def similar(s1: Speed, s2: Speed) = (s1, s2) match {
       case (a, b) if a == b => true
@@ -163,6 +176,7 @@ object Schedule {
       case (Weekly, _, Rapid) => 60 * 4
       case (Weekly, _, Classical) => 60 * 5
 
+      case (Weekend, Crazyhouse, _) => 60 * 2
       case (Weekend, _, UltraBullet | HyperBullet | Bullet) => 90
       case (Weekend, _, HippoBullet | SuperBlitz) => 60 * 2
       case (Weekend, _, Blitz) => 60 * 3
@@ -200,6 +214,17 @@ object Schedule {
   private def standardInc(s: Schedule) = standardIncHours(s.at.getHourOfDay)
   private def zhInc(s: Schedule) = s.at.getHourOfDay % 2 == 0
 
+  private def zhEliteTc(s: Schedule) = {
+    val TC = chess.Clock.Config
+    s.at.getDayOfMonth / 7 match {
+      case 0 => TC(3 * 60, 0)
+      case 1 => TC(1 * 60, 1)
+      case 2 => TC(3 * 60, 2)
+      case 3 => TC(1 * 60, 0)
+      case _ => TC(2 * 60, 0) // for the sporadic 5th Saturday
+    }
+  }
+
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._
     import chess.variant._
@@ -208,6 +233,7 @@ object Schedule {
 
     (s.freq, s.variant, s.speed) match {
       // Special cases.
+      case (Weekend, Crazyhouse, Blitz) => zhEliteTc(s)
       case (Hourly, Crazyhouse, SuperBlitz) if zhInc(s) => TC(3 * 60, 1)
       case (Hourly, Crazyhouse, Blitz) if zhInc(s) => TC(4 * 60, 2)
       case (Hourly, Standard, Blitz) if standardInc(s) => TC(3 * 60, 2)
@@ -234,28 +260,20 @@ object Schedule {
 
       val nbRatedGame = (s.freq, s.speed) match {
 
-        case (_, UltraBullet) => 0
+        case (Hourly | Daily | Eastern, HyperBullet | Bullet) => 20
+        case (Hourly | Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
+        case (Hourly | Daily | Eastern, Rapid) => 10
 
-        case (Hourly, UltraBullet | HyperBullet | Bullet) => 20
-        case (Hourly, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Hourly, Rapid) => 10
-
-        case (Daily | Eastern, UltraBullet | HyperBullet | Bullet) => 20
-        case (Daily | Eastern, HippoBullet | SuperBlitz | Blitz) => 15
-        case (Daily | Eastern, Rapid) => 15
-
-        case (Weekly | Monthly | Shield, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekly | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
-        case (Weekly | Monthly | Shield, Rapid) => 15
-
-        case (Weekend, UltraBullet | HyperBullet | Bullet) => 30
-        case (Weekend, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Weekend | Monthly | Shield, HyperBullet | Bullet) => 30
+        case (Weekly | Weekend | Monthly | Shield, HippoBullet | SuperBlitz | Blitz) => 20
+        case (Weekly | Weekend | Monthly | Shield, Rapid) => 15
 
         case _ => 0
       }
 
-      val minRating = s.freq match {
-        case Weekend => 2200
+      val minRating = (s.freq, s.variant) match {
+        case (Weekend, chess.variant.Crazyhouse) => 2100
+        case (Weekend, _) => 2200
         case _ => 0
       }
 

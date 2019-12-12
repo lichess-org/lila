@@ -6,12 +6,13 @@ import chess.format.{ Forsyth, FEN }
 import chess.{ Color, Status }
 import org.joda.time.DateTime
 import reactivemongo.api.commands.GetLastError
-import reactivemongo.api.{ CursorProducer, ReadPreference }
+import reactivemongo.api.commands.WriteResult
+import reactivemongo.api.{ CursorProducer, Cursor, ReadPreference }
 import reactivemongo.bson.BSONDocument
 
 import lila.db.BSON.BSONJodaDateTimeHandler
-import lila.db.ByteArray
 import lila.db.dsl._
+import lila.db.{ ByteArray, isDuplicateKey }
 import lila.user.User
 
 object GameRepo {
@@ -21,6 +22,7 @@ object GameRepo {
 
   import BSONHandlers._
   import Game.{ ID, BSONFields => F }
+  import Player.holdAlertBSONHandler
 
   def game(gameId: ID): Fu[Option[Game]] = coll.byId[Game](gameId)
 
@@ -120,7 +122,7 @@ object GameRepo {
     sort: Bdoc,
     batchSize: Int = 0,
     readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  )(implicit cp: CursorProducer[Game]) = {
+  )(implicit cp: CursorProducer[Game]): cp.ProducedCursor = {
     val query = coll.find(selector).sort(sort)
     query.copy(options = query.options.batchSize(batchSize)).cursor[Game](readPreference)
   }
@@ -130,14 +132,16 @@ object GameRepo {
       s"${pov.color.fold(F.whitePlayer, F.blackPlayer)}.${Player.BSONFields.berserk}" -> true
     )).void
 
-  def save(progress: Progress): Funit =
-    GameDiff(progress.origin, progress.game) match {
-      case (Nil, Nil) => funit
-      case (sets, unsets) => coll.update(
-        $id(progress.origin.id),
-        nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
-      ).void
-    }
+  def update(progress: Progress): Funit =
+    saveDiff(progress.origin, GameDiff(progress.origin, progress.game))
+
+  private def saveDiff(origin: Game, diff: GameDiff.Diff): Funit = diff match {
+    case (Nil, Nil) => funit
+    case (sets, unsets) => coll.update(
+      $id(origin.id),
+      nonEmptyMod("$set", $doc(sets)) ++ nonEmptyMod("$unset", $doc(unsets))
+    ).void
+  }
 
   private def nonEmptyMod(mod: String, doc: Bdoc) =
     if (doc.isEmpty) $empty else $doc(mod -> doc)
@@ -148,38 +152,29 @@ object GameRepo {
       s"${F.blackPlayer}.${Player.BSONFields.ratingDiff}" -> diffs.black
     ))
 
-  def urgentGames(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map { games =>
-      val povs = games flatMap { Pov(_, user) }
-      try {
-        povs sortWith Pov.priority
-      } catch {
-        case e: IllegalArgumentException =>
-          povs sortBy (-_.game.movedAt.getSeconds)
-      }
-    }
-
-  // gets most urgent game to play
-  def mostUrgentGame(user: User): Fu[Option[Pov]] = urgentGames(user) map (_.headOption)
-
-  def playingRealtimeNoAi(user: User, nb: Int): Fu[List[Pov]] =
-    coll.find(Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true)).list[Game](nb) map {
+  // Use Env.round.proxy.urgentGames to get in-heap states!
+  def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map {
       _ flatMap { Pov(_, user) }
     }
 
-  // gets last recently played move game in progress
-  def lastPlayedPlaying(user: User): Fu[Option[Pov]] =
-    coll.find(Query recentlyPlaying user.id)
+  def playingRealtimeNoAi(user: User, nb: Int): Fu[List[Game.ID]] =
+    coll.distinct[Game.ID, List](F.id, Some(Query.nowPlaying(user.id) ++ Query.noAi ++ Query.clock(true)))
+
+  def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
+    coll.find(Query recentlyPlaying userId, $id(true))
       .sort(Query.sortMovedAtNoIndex)
-      .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
-      .uno
-      .map { _ flatMap { Pov(_, user) } }
+      .uno[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+      .map { _.flatMap(_.getAs[Game.ID](F.id)) }
+
+  def allPlaying(userId: User.ID): Fu[List[Pov]] =
+    coll.find(Query nowPlaying userId).list[Game]()
+      .map { _ flatMap { Pov.ofUserId(_, userId) } }
 
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.find(Query user user.id)
       .sort($sort desc F.createdAt)
-      .cursor[Game]()
-      .gather[List](20).map {
+      .list[Game](3).map {
         _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
       }
 
@@ -215,16 +210,43 @@ object GameRepo {
   def incBookmarks(id: ID, value: Int) =
     coll.update($id(id), $inc(F.bookmarks -> value)).void
 
-  def setHoldAlert(pov: Pov, mean: Int, sd: Int, ply: Option[Int] = None) = {
-    import Player.holdAlertBSONHandler
-    coll.updateField(
-      $id(pov.gameId),
-      s"p${pov.color.fold(0, 1)}.${Player.BSONFields.holdAlert}",
-      Player.HoldAlert(ply = ply | pov.game.turns, mean = mean, sd = sd)
-    ).void
-  }
+  def setHoldAlert(pov: Pov, alert: Player.HoldAlert) = coll.updateField(
+    $id(pov.gameId), holdAlertField(pov.color), alert
+  )
 
-  def setBorderAlert(pov: Pov) = setHoldAlert(pov, 0, 0, 20.some)
+  def setBorderAlert(pov: Pov) = setHoldAlert(pov, Player.HoldAlert(0, 0, 20))
+
+  def holdAlerts(game: Game): Fu[Player.HoldAlert.Map] =
+    coll.uno[Bdoc](
+      $doc(
+        F.id -> game.id,
+        $or(
+          holdAlertField(chess.White) $exists true,
+          holdAlertField(chess.Black) $exists true
+        )
+      ),
+      $doc(
+        F.id -> false,
+        holdAlertField(chess.White) -> true,
+        holdAlertField(chess.Black) -> true
+      )
+    ) map {
+        _.fold(Player.HoldAlert.emptyMap) { doc =>
+          def holdAlertOf(playerField: String) =
+            doc.getAs[Bdoc](playerField).flatMap(_.getAs[Player.HoldAlert](Player.BSONFields.holdAlert))
+          Color.Map(
+            white = holdAlertOf("p0"),
+            black = holdAlertOf("p1")
+          )
+        }
+      }
+
+  def hasHoldAlert(pov: Pov): Fu[Boolean] = coll.exists($doc(
+    $id(pov.gameId),
+    holdAlertField(pov.color) $exists true
+  ))
+
+  private def holdAlertField(color: Color) = s"p${color.fold(0, 1)}.${Player.BSONFields.holdAlert}"
 
   private val finishUnsets = $doc(
     F.positionHashes -> true,
@@ -284,7 +306,9 @@ object GameRepo {
       F.checkAt -> checkInHours.map(DateTime.now.plusHours),
       F.playingUids -> (g2.started && userIds.nonEmpty).option(userIds)
     )
-    coll insert bson void
+    coll insert bson addFailureEffect {
+      case wr: WriteResult if isDuplicateKey(wr) => lila.mon.game.idCollision()
+    } void
   } >>- {
     lila.mon.game.create.variant(g.variant.key)()
     lila.mon.game.create.source(g.source.fold("unknown")(_.name))()
@@ -308,15 +332,6 @@ object GameRepo {
   // used to make a compound sparse index
   def setImportCreatedAt(g: Game) =
     coll.update($id(g.id), $set("pgni.ca" -> g.createdAt)).void
-
-  def saveNext(game: Game, nextId: ID): Funit = coll.update(
-    $id(game.id),
-    $set(F.next -> nextId) ++
-      $unset(
-        "p0." + Player.BSONFields.isOfferingRematch,
-        "p1." + Player.BSONFields.isOfferingRematch
-      )
-  ).void
 
   def initialFen(gameId: ID): Fu[Option[FEN]] =
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
@@ -342,16 +357,6 @@ object GameRepo {
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] = games.map { game =>
     initialFen(game) map { game -> _ }
   }.sequenceFu
-
-  def featuredCandidates: Fu[List[Game]] = coll.list[Game](
-    Query.playable ++ Query.clock(true) ++ $doc(
-      F.createdAt $gt (DateTime.now minusMinutes 5),
-      F.movedAt $gt (DateTime.now minusSeconds 40)
-    ) ++ $or(
-        s"${F.whitePlayer}.${Player.BSONFields.rating}" $gt 1200,
-        s"${F.blackPlayer}.${Player.BSONFields.rating}" $gt 1200
-      )
-  )
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
 

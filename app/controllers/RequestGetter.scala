@@ -1,9 +1,9 @@
 package controllers
 
 import lila.api._
-import lila.socket.Socket.Uid
 import lila.user.UserContext
 import lila.common.Form.trueish
+import lila.common.IsMobile
 
 import play.api.mvc.RequestHeader
 
@@ -13,9 +13,6 @@ trait RequestGetter {
 
   protected def get(name: String, req: RequestHeader): Option[String] =
     req.queryString get name flatMap (_.headOption) filter (_.nonEmpty)
-
-  protected def getSocketUid(name: String)(implicit ctx: UserContext): Option[Uid] =
-    get(name) map Uid.apply
 
   protected def getInt(name: String)(implicit ctx: UserContext) =
     get(name) flatMap parseIntOption
@@ -40,4 +37,7 @@ trait RequestGetter {
 
   protected def getBoolOpt(name: String, req: RequestHeader) =
     (getInt(name, req) map (trueish)) orElse (get(name, req) map trueish)
+
+  protected def getMobile(implicit ctx: UserContext) =
+    IsMobile(getBool("mobile"))
 }

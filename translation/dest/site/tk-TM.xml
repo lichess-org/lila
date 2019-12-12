@@ -86,7 +86,7 @@
   </plurals>
   <string name="noGameFound">Oýun tapylmady</string>
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">Belkäm ileri tutmalar menýusyndan has köp oýun importirlenmeli?</string>
-  <string name="openingExplorer">Açylyşlar eksploreri &amp; tablisasy</string>
+  <string name="openingExplorer">Açylyşlar eksploreri</string>
   <string name="xOpeningExplorer">%s açylyşlar eksploreri</string>
   <string name="winPreventedBy50MoveRule">50-göçüm düzgüni zerarly gabzalan ýeňiş</string>
   <string name="lossSavedBy50MoveRule">50-göçüm düzgüni zerarly halas edilen utulyş</string>
@@ -134,7 +134,6 @@
   <string name="viewInFullSize">Doly ölçegde aç</string>
   <string name="logOut">Çykyş</string>
   <string name="signIn">Içeri gir</string>
-  <string name="newToLichess">Liçese täze geldiňizmi?</string>
   <string name="youNeedAnAccountToDoThat">Beýtmek üçin hasap gerekli</string>
   <string name="signUp">Registrasiýa</string>
   <string name="computersAreNotAllowedToPlay">Küşt Kompýuterleri we kompýuter kömekli oýunçylar oýuna kabul edilenok. Oýun dowamynda Küşt komplaryndan, databazalaryndan ýa-da beýleki oýunçylardan ýardam almaň. Birden köp hasap açmak hem güýçli derejede ýazgarylýandyr we has köp hasap eýesi bolmak banlanmagyňyza eltip biler.</string>
@@ -164,8 +163,10 @@
   <string name="ratingStats">Reýting statistikalary</string>
   <string name="username">Ulanyjy ady</string>
   <string name="usernameOrEmail">Ulanyjy ady ýa-da email</string>
+  <string name="changeUsername">Ulanyjy ady çalyş</string>
+  <string name="changeUsernameNotSame">Harplaryň diňe ululygy-kiçiligi özgerdilip biliner. Mysal üçin \"johndoe - JohnDoe.\"</string>
+  <string name="changeUsernameDescription">Ulanyjy adyňyzy üýtgediň. Bu diňe bir gezek amala aşyrlyp biliner we siz diňe ulanyjy adyňyzdaky harplaryň baş harp - kiçi harp hökmünde üýtgedip bilersiňiz.</string>
   <string name="password">Açarsöz</string>
-  <string name="haveAnAccount">Hasabyňyz barmy?</string>
   <string name="changePassword">Açarsözi üýtget</string>
   <string name="changeEmail">Email üýtget</string>
   <string name="email">Email</string>
@@ -173,7 +174,6 @@
   <string name="forgotPassword">Açarsözi unutdyňyz?</string>
   <string name="rank">Orun</string>
   <string name="rankX">Orun: %s</string>
-  <string name="rankIsUpdatedEveryXMinutes">Orunlar her %s minutdan täzelenýär</string>
   <plurals name="nbPuzzles">
     <item quantity="one">%s tapmaça</item>
     <item quantity="other">%s tapmaça</item>
@@ -304,6 +304,8 @@
   <string name="yourPerfRatingIsTooLow">%1$s reýtingiňiz (%2$s) aşa pes</string>
   <string name="ratedMoreThanInPerf">%2$s reýtingi ≥ %1$s bolmaly</string>
   <string name="ratedLessThanInPerf">%2$s reýtingi ≤ %1$s bolmaly</string>
+  <string name="mustBeInTeam">%s toparyna degişli bolmaly</string>
+  <string name="youAreNotInTeam">%s toparynda dälsiňiz</string>
   <string name="backToGame">Oýuna dolan</string>
   <string name="siteDescription">Mugt onlaýn Küşt serweri. Dury gurşawda küşt oýnaň. Registrasiýa ýok, mahabat ýok, goşundy ýok. Kompýutere garşy ýa-da dostlaryňyza ýa-da çem gelen birine garşy küşt oýnaň.</string>
   <string name="teams">Toparlar</string>
@@ -347,10 +349,8 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="clickOnTheBoardToMakeYourMove">Göçmek we ynsandygyňyzy subut etmek üçin tagta tyklaň.</string>
   <string name="captcha.fail">Küşt captcha-syny çözüň.</string>
   <string name="notACheckmate">Mat däl</string>
-  <string name="colorPlaysCheckmateInOne">%s göçýär; 1 göçümde mat</string>
   <string name="retry">Gaýta</string>
   <string name="reconnecting">Gaýtadan baglanylýar</string>
-  <string name="onlineFriends">Onlaýn dostlar</string>
   <string name="noFriendsOnline">Onlaýn dostuňyz ýok</string>
   <string name="findFriends">Dost gözle</string>
   <string name="favoriteOpponents">Iň ýygy garşydaşlar</string>
@@ -508,6 +508,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="troll">Trol</string>
   <string name="other">Başga</string>
   <string name="reportDescriptionHelp">Oýnyň çelgisini üpjün ediň we bu ulanyjynyň özüni alyp barşynda näme ýerliksizlik bardygyny hem düşündiriň. Diňe bir \"ol kezzaplyk edýär\" diýmek bilen çäklenmäň, nädip beýle netijä gelendigiňizem aýdyň. Iňlis dilinde ýazylan bolsa reportyňyz has çalt ýola goýular.</string>
+  <string name="error.provideOneCheatedGameLink">Iň az 1 kezzapçylykly oýna salgy beriň.</string>
   <string name="by">%s tarapyndan</string>
   <string name="thisTopicIsNowClosed">Bu mowzuk häzir ýapyk.</string>
   <string name="theming">Tema sazlama</string>
@@ -536,7 +537,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="moveListWhilePlaying">Oýun dowamynda göçüm sanawy</string>
   <string name="pgnPieceNotation">Göçüm notasiýasy</string>
   <string name="chessPieceSymbol">Küşt çöpi nyşany</string>
-  <string name="pgnLetter">Harp (Ş, W, R, P, A)</string>
+  <string name="pgnLetter">Harp (K, Q, R, B, N)</string>
   <string name="chessClock">Küşt sagady</string>
   <string name="tenthsOfSeconds">Sekundyň 10-da 1-i</string>
   <string name="never">Hiç wagt</string>
@@ -579,9 +580,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="xCommentedY">%1$s teswirledi: %2$s</string>
   <string name="victory">Ýeňiş</string>
   <string name="defeat">Utulyş</string>
-  <string name="xVsYinZ">%2$s garşy %3$s görnüşinde %1$s</string>
   <string name="timeline">Wagt akymy</string>
-  <string name="seeAllTournaments">Ähli bäsleşikleri gör</string>
   <string name="starting">Başlaýar:</string>
   <string name="allInformationIsPublicAndOptional">Ähli maglumatlar kommunaldyr we islege görädir.</string>
   <string name="yourCityRegionOrDepartment">Şäheriňiz, regionyňyz ýa-da welaýatyňyz.</string>
@@ -630,9 +629,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="menu">Menýu</string>
   <string name="castling">Rakirowka</string>
   <string name="whiteCastlingKingside">Aklar O-O</string>
-  <string name="whiteCastlingQueenside">Aklar O-O-O</string>
   <string name="blackCastlingKingside">Garalar O-O</string>
-  <string name="blackCastlingQueenside">Garalar O-O-O</string>
   <plurals name="nbForumPosts">
     <item quantity="one">%s forum neşiri</item>
     <item quantity="other">%s forum neşiri</item>
@@ -641,11 +638,13 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="watchGames">Oýunlara tomaşa et</string>
   <string name="tpTimeSpentOnTV">TW-de geçirlen wagt: %s</string>
   <string name="watch">Tomaşa et</string>
-  <string name="internationalEvents">Halkara wakalar</string>
   <string name="videoLibrary">Wideolar ambary</string>
   <string name="mobileApp">Mobil goýma</string>
   <string name="webmasters">Web ussatlary</string>
   <string name="about">Barada</string>
+  <string name="aboutX">%s barada</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s (%2$s) erkin, mahabatsyz we açyk çeşme küşt serweridir.</string>
+  <string name="really">hakykatdanam</string>
   <string name="contribute">Goşant goş</string>
   <string name="contact">Habarlar</string>
   <string name="termsOfService">Hyzmat düzgünleri</string>
@@ -749,6 +748,7 @@ kompýuter derňewi, oýun çäti we paýlaşmaga URL alýaňyz.</string>
   <string name="xHostsY">%1$s gurnaýar: %2$s</string>
   <string name="xJoinsY">%1$s gatnaşýar: %2$s</string>
   <string name="xLikesY">%1$s halady: %2$s</string>
+  <string name="xCreatesStudyY">%1$s %2$s gollanmasyny döretdi</string>
   <string name="quickPairing">Çalt jübütleşme</string>
   <string name="lobby">Eýwan</string>
   <string name="anonymous">Anonim</string>

@@ -36,39 +36,41 @@ function renderChildrenOf(ctx: Ctx, node: Tree.Node, opts: Opts): MaybeVNodes | 
   if (opts.isMainline) {
     const isWhite = main.ply % 2 === 1,
     commentTags = renderMainlineCommentsOf(ctx, main, conceal, true).filter(nonEmpty);
-    if (!cs[1] && empty(commentTags)) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
+    if (!cs[1] && empty(commentTags) && !main.forceVariation) return ((isWhite ? [moveView.renderIndex(main.ply, false)] : []) as MaybeVNodes).concat(
       renderMoveAndChildrenOf(ctx, main, {
         parentPath: opts.parentPath,
         isMainline: true,
         conceal
       }) || []
     );
-    const mainChildren = renderChildrenOf(ctx, main, {
+    const mainChildren = main.forceVariation ? undefined : renderChildrenOf(ctx, main, {
       parentPath: opts.parentPath + main.id,
       isMainline: true,
       conceal
     });
     const passOpts = {
       parentPath: opts.parentPath,
-      isMainline: true,
+      isMainline: !main.forceVariation,
       conceal
     };
-    return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat([
-      renderMoveOf(ctx, main, passOpts),
-      isWhite ? emptyMove(passOpts.conceal) : null,
-      h('interrupt', commentTags.concat(
-        renderLines(ctx, cs.slice(1), {
-          parentPath: opts.parentPath,
-          isMainline: true,
-          conceal,
-          noConceal: !conceal
-        })
-      ))
-    ] as MaybeVNodes).concat(
-      isWhite && mainChildren ? [
-        moveView.renderIndex(main.ply, false),
-        emptyMove(passOpts.conceal)
-      ] : []).concat(mainChildren || []);
+    return (isWhite ? [moveView.renderIndex(main.ply, false)] : [] as MaybeVNodes).concat(
+      main.forceVariation ? [] : [
+        renderMoveOf(ctx, main, passOpts),
+        isWhite ? emptyMove(passOpts.conceal) : null
+      ]).concat([
+        h('interrupt', commentTags.concat(
+          renderLines(ctx, main.forceVariation ? cs : cs.slice(1), {
+            parentPath: opts.parentPath,
+            isMainline: passOpts.isMainline,
+            conceal,
+            noConceal: !conceal
+          })
+        ))
+      ] as MaybeVNodes).concat(
+        isWhite && mainChildren ? [
+          moveView.renderIndex(main.ply, false),
+          emptyMove(passOpts.conceal)
+        ] : []).concat(mainChildren || []);
   }
   if (!cs[1]) return renderMoveAndChildrenOf(ctx, main, opts);
   return renderInlined(ctx, cs, opts) || [renderLines(ctx, cs, opts)];
@@ -168,14 +170,14 @@ function renderMainlineCommentsOf(ctx: Ctx, node: Tree.Node, conceal: Conceal, w
   return node.comments!.map(comment => {
     if (comment.by === 'lichess' && !ctx.showComputer) return;
     let sel = 'comment' + colorClass;
-    if (comment.text.indexOf('Inaccuracy.') === 0) sel += '.inaccuracy';
-    else if (comment.text.indexOf('Mistake.') === 0) sel += '.mistake';
-    else if (comment.text.indexOf('Blunder.') === 0) sel += '.blunder';
+    if (comment.text.startsWith('Inaccuracy.')) sel += '.inaccuracy';
+    else if (comment.text.startsWith('Mistake.')) sel += '.mistake';
+    else if (comment.text.startsWith('Blunder.')) sel += '.blunder';
     if (conceal) sel += '.' + conceal;
     const by = node.comments![1] ? `<span class="by">${commentAuthorText(comment.by)}</span>` : '',
     truncated = truncateComment(comment.text, 400, ctx);
     return h(sel, {
-      hook: innerHTML(truncated, text => by + enrichText(text, true))
+      hook: innerHTML(truncated, text => by + enrichText(text))
     });
   });
 }
@@ -192,11 +194,11 @@ export default function(ctrl: AnalyseCtrl, concealOf?: ConcealOf): VNode {
     concealOf: concealOf || emptyConcealOf,
     showComputer: ctrl.showComputer() && !ctrl.retro,
     showGlyphs: !!ctrl.study || ctrl.showComputer(),
-    showEval: !!ctrl.study || ctrl.showComputer(),
+    showEval: ctrl.showComputer(),
     currentPath: findCurrentPath(ctrl)
   };
   const commentTags = renderMainlineCommentsOf(ctx, root, false, false);
-  return h('div.tview2.column', {
+  return h('div.tview2.tview2-column', {
     hook: mainHook(ctrl)
   }, ([
     empty(commentTags) ? null : h('interrupt', commentTags),

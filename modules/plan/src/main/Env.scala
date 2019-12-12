@@ -1,6 +1,7 @@
 package lila.plan
 
 import com.typesafe.config.Config
+import lila.memo.SettingStore.{ StringReader, Formable }
 import scala.concurrent.duration._
 
 final class Env(
@@ -8,9 +9,10 @@ final class Env(
     db: lila.db.Env,
     hub: lila.hub.Env,
     notifyApi: lila.notify.NotifyApi,
-    bus: lila.common.Bus,
+    system: akka.actor.ActorSystem,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
+    settingStore: lila.memo.SettingStore.Builder,
     scheduler: lila.common.Scheduler
 ) {
 
@@ -18,7 +20,6 @@ final class Env(
 
   private val CollectionPatron = config getString "collection.patron"
   private val CollectionCharge = config getString "collection.charge"
-  private val MonthlyGoalCents = Usd(config getInt "monthly_goal").cents
 
   private lazy val patronColl = db(CollectionPatron)
   private lazy val chargeColl = db(CollectionCharge)
@@ -32,12 +33,18 @@ final class Env(
   private lazy val notifier = new PlanNotifier(
     notifyApi = notifyApi,
     scheduler = scheduler,
-    timeline = hub.actor.timeline
+    timeline = hub.timeline
   )
 
   private lazy val monthlyGoalApi = new MonthlyGoalApi(
-    goal = MonthlyGoalCents,
+    getGoal = () => Usd(donationGoalSetting.get()),
     chargeColl = chargeColl
+  )
+
+  val donationGoalSetting = settingStore[Int](
+    "donationGoal",
+    default = 10 * 1000,
+    text = "Monthly donation goal in USD from https://lichess.org/costs".some
   )
 
   lazy val api = new PlanApi(
@@ -46,11 +53,10 @@ final class Env(
     chargeColl = chargeColl,
     notifier = notifier,
     lightUserApi = lightUserApi,
-    bus = bus,
     asyncCache = asyncCache,
     payPalIpnKey = PayPalIpnKey(config getString "paypal.ipn_key"),
     monthlyGoalApi = monthlyGoalApi
-  )
+  )(system)
 
   private lazy val webhookHandler = new WebhookHandler(api)
 
@@ -66,6 +72,11 @@ final class Env(
     def process = {
       case "patron" :: "lifetime" :: user :: Nil =>
         lila.user.UserRepo named user flatMap { _ ?? api.setLifetime } inject "ok"
+      // someone donated while logged off.
+      // we cannot bind the charge to the user so they get their precious wings.
+      // instead, give them a free month.
+      case "patron" :: "month" :: user :: Nil =>
+        lila.user.UserRepo named user flatMap { _ ?? api.giveMonth } inject "ok"
     }
   }
 }
@@ -78,8 +89,9 @@ object Env {
     hub = lila.hub.Env.current,
     notifyApi = lila.notify.Env.current.api,
     lightUserApi = lila.user.Env.current.lightUserApi,
-    bus = lila.common.PlayApp.system.lilaBus,
+    system = lila.common.PlayApp.system,
     asyncCache = lila.memo.Env.current.asyncCache,
+    settingStore = lila.memo.Env.current.settingStore,
     scheduler = lila.common.PlayApp.scheduler
   )
 }

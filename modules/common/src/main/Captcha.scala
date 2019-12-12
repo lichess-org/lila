@@ -1,7 +1,6 @@
 package lila.common
 
-// import scalaz.NonEmptyList
-import scalaz._
+import scalaz.NonEmptyList
 
 case class Captcha(
     gameId: String,
@@ -25,4 +24,9 @@ object Captcha {
     solutions = NonEmptyList("c6 c8"),
     moves = Map("c6" -> "c8")
   )
+
+  val failMessage = "captcha.fail"
+
+  def isFailed(form: Form.FormLike) =
+    form.errors.exists { _.messages has failMessage }
 }

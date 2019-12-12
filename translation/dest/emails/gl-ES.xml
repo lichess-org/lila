@@ -18,4 +18,5 @@ Aquí está a túa páxina de perfil: %1$s. Podes personalizala en %2$s.
 Pásao ben, e que as túas pezas atopen sempre o seu camiño cara o rei rival!</string>
   <string name="common_orPaste">(Facer clic non funciona? Tenta copiar a dirección e pegala no teu navegador!)</string>
   <string name="common_note">Este é un correo automático sobre o uso de %s.</string>
+  <string name="common_contact">Para contactar con nós, por favor vai a %s.</string>
 </resources>

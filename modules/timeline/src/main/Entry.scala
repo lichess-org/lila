@@ -21,6 +21,10 @@ case class Entry(
 
   def similarTo(other: Entry) = typ == other.typ && data == other.data
 
+  case object Deprecated extends lila.base.LilaException {
+    val message = "Deprecated timeline entry"
+  }
+
   lazy val decode: Option[Atom] = Try(typ match {
     case "follow" => followHandler.read(data)
     case "team-join" => teamJoinHandler.read(data)
@@ -28,9 +32,6 @@ case class Entry(
     case "forum-post" => forumPostHandler.read(data)
     case "note-create" => noteCreateHandler.read(data)
     case "tour-join" => tourJoinHandler.read(data)
-    case "qa-question" => qaQuestionHandler.read(data)
-    case "qa-answer" => qaAnswerHandler.read(data)
-    case "qa-comment" => qaCommentHandler.read(data)
     case "game-end" => gameEndHandler.read(data)
     case "simul-create" => simulCreateHandler.read(data)
     case "simul-join" => simulJoinHandler.read(data)
@@ -39,9 +40,11 @@ case class Entry(
     case "plan-start" => planStartHandler.read(data)
     case "blog-post" => blogPostHandler.read(data)
     case "stream-start" => streamStartHandler.read(data)
+    case "qa-question" | "qa-answer" | "qa-comment" => throw Deprecated
     case _ => sys error s"Unhandled atom type: $typ"
   }) match {
     case Success(atom) => Some(atom)
+    case Failure(Deprecated) => none
     case Failure(err) =>
       lila.log("timeline").warn(err.getMessage)
       none
@@ -67,9 +70,6 @@ object Entry {
       case d: ForumPost => "forum-post" -> toBson(d)
       case d: NoteCreate => "note-create" -> toBson(d)
       case d: TourJoin => "tour-join" -> toBson(d)
-      case d: QaQuestion => "qa-question" -> toBson(d)
-      case d: QaAnswer => "qa-answer" -> toBson(d)
-      case d: QaComment => "qa-comment" -> toBson(d)
       case d: GameEnd => "game-end" -> toBson(d)
       case d: SimulCreate => "simul-create" -> toBson(d)
       case d: SimulJoin => "simul-join" -> toBson(d)
@@ -91,9 +91,6 @@ object Entry {
     implicit val forumPostHandler = Macros.handler[ForumPost]
     implicit val noteCreateHandler = Macros.handler[NoteCreate]
     implicit val tourJoinHandler = Macros.handler[TourJoin]
-    implicit val qaQuestionHandler = Macros.handler[QaQuestion]
-    implicit val qaAnswerHandler = Macros.handler[QaAnswer]
-    implicit val qaCommentHandler = Macros.handler[QaComment]
     implicit val gameEndHandler = Macros.handler[GameEnd]
     implicit val simulCreateHandler = Macros.handler[SimulCreate]
     implicit val simulJoinHandler = Macros.handler[SimulJoin]
@@ -111,9 +108,6 @@ object Entry {
     implicit val forumPostWrite = Json.writes[ForumPost]
     implicit val noteCreateWrite = Json.writes[NoteCreate]
     implicit val tourJoinWrite = Json.writes[TourJoin]
-    implicit val qaQuestionWrite = Json.writes[QaQuestion]
-    implicit val qaAnswerWrite = Json.writes[QaAnswer]
-    implicit val qaCommentWrite = Json.writes[QaComment]
     implicit val gameEndWrite = Json.writes[GameEnd]
     implicit val simulCreateWrite = Json.writes[SimulCreate]
     implicit val simulJoinWrite = Json.writes[SimulJoin]
@@ -129,9 +123,6 @@ object Entry {
       case d: ForumPost => forumPostWrite writes d
       case d: NoteCreate => noteCreateWrite writes d
       case d: TourJoin => tourJoinWrite writes d
-      case d: QaQuestion => qaQuestionWrite writes d
-      case d: QaAnswer => qaAnswerWrite writes d
-      case d: QaComment => qaCommentWrite writes d
       case d: GameEnd => gameEndWrite writes d
       case d: SimulCreate => simulCreateWrite writes d
       case d: SimulJoin => simulJoinWrite writes d

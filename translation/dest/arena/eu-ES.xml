@@ -30,8 +30,11 @@ Jokatu azkar, itzuli egongelara partida gehiago jokatu eta puntu gehiago irabazt
   <string name="howDoesItEnd">Nola bukatzen da?</string>
   <string name="howDoesItEndAnswer">Txapelketak atzerako kontagailua du. Zerora iristean, txapelketaren sailkapena bere horretan gordeko da eta irabazlea nor den jakinaraziko da. Jokoan daduden partidak bukatu egin beharko dira nahiz eta ez duten txapelketarako kontatuko.</string>
   <string name="otherRules">Beste arau garrantzitsu batzuk</string>
-  <string name="otherRulesAnswer">Zure lehenengo jokaldia zure txandaren lehenengo 20 segunduetan egin behar duzu. Hori ez baduzu egiten partida galdutzat emango zaizu.
-Partidaren lehenengo 10 jokaldietan berdintzen baduzue, jokalari batek ere ez du punturik irabaziko.</string>
+  <string name="thereIsACountdown">Lehenengo jokaldia egiteko denbora muga dago. Jokaldia denbora hori igaro aurretik egiten ez baduzu, partida galdutzat emango dizugu.</string>
+  <plurals name="drawingWithinNbMoves">
+    <item quantity="one">%s jokaldiaren aurretik partida berdintzean, jokalari batek ere ez du punturik lortuko.</item>
+    <item quantity="other">Lehenengo %s jokaldiren aurretik partida berdintzean, jokalari batek ere ez du punturik lortuko.</item>
+  </plurals>
   <string name="thisIsPrivate">Hau txapelketa pribatu bat da</string>
   <string name="shareUrl">Partekatu helbide hau jendeak parte har dezan: %s</string>
 </resources>

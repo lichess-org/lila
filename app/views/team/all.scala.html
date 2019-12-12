@@ -1,7 +1,0 @@
-@(teams: Paginator[lila.team.Team])(implicit ctx: Context)
-
-@team.list(
-name = trans.teams.txt(),
-teams = teams,
-next = teams.nextPage map { n => routes.Team.all(n) },
-tab = "all")

@@ -7,7 +7,7 @@
   <string name="gameOver">棋局结束</string>
   <string name="waitingForOpponent">等待对手</string>
   <string name="waiting">等待中</string>
-  <string name="yourTurn">该你走</string>
+  <string name="yourTurn">你的回合</string>
   <string name="aiNameLevelAiLevel">%1$s级別%2$s</string>
   <string name="level">级别</string>
   <string name="toggleTheChat">聊天开关</string>
@@ -15,7 +15,7 @@
   <string name="chat">聊天</string>
   <string name="resign">认输</string>
   <string name="checkmate">将死</string>
-  <string name="stalemate">僵持</string>
+  <string name="stalemate">逼和</string>
   <string name="white">白方</string>
   <string name="black">黑方</string>
   <string name="randomColor">随机选色</string>
@@ -59,12 +59,13 @@
   <string name="promoteVariation">提升变着</string>
   <string name="makeMainLine">做为主线</string>
   <string name="deleteFromHere">从此处开始删除</string>
+  <string name="forceVariation">Force 变着</string>
   <string name="move">走棋</string>
   <string name="variantLoss">因变体规则输棋</string>
   <string name="variantWin">因变体规则赢棋</string>
   <string name="insufficientMaterial">因棋子不够和棋</string>
   <string name="pawnMove">走兵</string>
-  <string name="capture">吃棋</string>
+  <string name="capture">吃子</string>
   <string name="close">关闭</string>
   <string name="winning">赢棋</string>
   <string name="losing">输棋</string>
@@ -86,12 +87,12 @@
   <string name="maybeIncludeMoreGamesFromThePreferencesMenu">请尝试在“选择”菜单内包括更多棋局。</string>
   <string name="openingExplorer">开局浏览器</string>
   <string name="xOpeningExplorer">%s开局浏览器</string>
-  <string name="winPreventedBy50MoveRule">本棋局本应取胜，但由于50回合规则导致和棋。</string>
-  <string name="lossSavedBy50MoveRule">本局面本应输棋，但因为50回合规则可以和棋。</string>
-  <string name="allSet">好了！</string>
+  <string name="winPreventedBy50MoveRule">因50步和棋规则未赢</string>
+  <string name="lossSavedBy50MoveRule">因50步和棋规则未输</string>
+  <string name="allSet">一切就绪！</string>
   <string name="importPgn">上传PGN</string>
   <string name="delete">删</string>
-  <string name="deleteThisImportedGame">删打开的盘？</string>
+  <string name="deleteThisImportedGame">删除此导入的棋局？</string>
   <string name="replayMode">重放模式</string>
   <string name="realtimeReplay">实时重放</string>
   <string name="byCPL">按错误严重度</string>
@@ -127,9 +128,8 @@
     <item quantity="other">书签里有%s盘棋</item>
   </plurals>
   <string name="viewInFullSize">在整个网页里观看棋局</string>
-  <string name="logOut">登出</string>
+  <string name="logOut">退出</string>
   <string name="signIn">登录</string>
-  <string name="newToLichess">新访客？</string>
   <string name="youNeedAnAccountToDoThat">请注册以完成该操作</string>
   <string name="signUp">注册</string>
   <string name="computersAreNotAllowedToPlay">电脑与电脑辅助棋手不允许参加对弈。在下棋时，请不要从国际象棋引擎、数据库或其他棋手那里得到帮助。另外，强烈建议您不要创建多个账号。过度使用多个帐号会导致帐户被封禁。</string>
@@ -157,8 +157,10 @@
   <string name="ratingStats">积分数据</string>
   <string name="username">用户名</string>
   <string name="usernameOrEmail">用户名 / 邮箱</string>
+  <string name="changeUsername">更改用户名</string>
+  <string name="changeUsernameNotSame">只能更改字母大小写。例如，将“johndoe”改为“JohnDoe”。</string>
+  <string name="changeUsernameDescription">更改用户名。注意只能更改一次，之后只能更改用户名字母的大小写。</string>
   <string name="password">密码</string>
-  <string name="haveAnAccount">有帐户吗？</string>
   <string name="changePassword">修改密码</string>
   <string name="changeEmail">更改电子邮件地址</string>
   <string name="email">电子邮箱</string>
@@ -166,7 +168,9 @@
   <string name="forgotPassword">忘记密码？</string>
   <string name="rank">排名</string>
   <string name="rankX">排名：%s</string>
-  <string name="rankIsUpdatedEveryXMinutes">每%s分钟更新排名</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">每%s分钟更新排名</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">训练题%s题</item>
   </plurals>
@@ -190,6 +194,7 @@
   <string name="playingRightNow">正在对局</string>
   <string name="eventInProgress">正在进行</string>
   <string name="finished">已结束</string>
+  <string name="finishesX">结束：%s</string>
   <string name="abortGame">中止本局</string>
   <string name="gameAborted">棋局已中止</string>
   <string name="standard">标准国际象棋</string>
@@ -202,6 +207,8 @@
   <string name="thisGameIsRated">这盘棋是有积分的</string>
   <string name="rematch">重赛</string>
   <string name="rematchOfferSent">重赛请求已发送</string>
+  <string name="rematchOfferSentWhite">白方请求重赛</string>
+  <string name="rematchOfferSentBlack">黑方请求重赛</string>
   <string name="rematchOfferAccepted">重赛请求被接受</string>
   <string name="rematchOfferCanceled">重赛请求被取消</string>
   <string name="rematchOfferDeclined">重赛请求被拒绝</string>
@@ -282,8 +289,10 @@
   <string name="yourPerfRatingIsTooLow">您的 %1$s 积分 (%2$s) 过低</string>
   <string name="ratedMoreThanInPerf">%2$s积分必须至少是%1$s</string>
   <string name="ratedLessThanInPerf">%2$s积分不得超过%1$s</string>
+  <string name="mustBeInTeam">您必须在队伍 %s 中</string>
+  <string name="youAreNotInTeam">您不在队伍 %s 中</string>
   <string name="backToGame">返回棋局</string>
-  <string name="siteDescription">界面清新的免费在线国际象棋平台。不用注册，没有广告，无需插件。快來与电脑、朋友和陌生人一起对战吧！</string>
+  <string name="siteDescription">界面简介且免费在线国际象棋平台。免注册，免广告，无插件。与电脑、朋友或随机的对手开始博弈吧。</string>
   <string name="teams">团队</string>
   <plurals name="nbMembers">
     <item quantity="other">%s位成员</item>
@@ -322,10 +331,13 @@
   <string name="clickOnTheBoardToMakeYourMove">点击棋盘走棋来证明你是人类。</string>
   <string name="captcha.fail">请解决国际象棋验证码。</string>
   <string name="notACheckmate">沒有将死</string>
-  <string name="colorPlaysCheckmateInOne">%s走棋；一步将死</string>
+  <string name="whiteCheckmatesInOneMove">白方一步将死</string>
+  <string name="blackCheckmatesInOneMove">黑方一步将死</string>
   <string name="retry">重试</string>
   <string name="reconnecting">重新连接中</string>
-  <string name="onlineFriends">在线好友</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">在线好友：%s</item>
+  </plurals>
   <string name="noFriendsOnline">没有好友在线</string>
   <string name="findFriends">好友建议</string>
   <string name="favoriteOpponents">最常对局的对手</string>
@@ -359,6 +371,15 @@
   <string name="winner">胜利者</string>
   <string name="standing">名次</string>
   <string name="createANewTournament">建立新的锦标赛</string>
+  <string name="tournamentCalendar">锦标赛日程表</string>
+  <string name="conditionOfEntry">参赛条件：</string>
+  <string name="advancedSettings">高级设置</string>
+  <string name="safeTournamentName">为锦标赛选择一个非常安全的名字。</string>
+  <string name="inappropriateNameWarning">即使是稍微违规的内容都可能导致您的账号被封禁。</string>
+  <string name="emptyTournamentName">如果这一栏留空，我们会用一个随机的大师的名字命名这个锦标赛。</string>
+  <string name="recommendNotTouching">我们建议您不要碰这些设置。</string>
+  <string name="fewerPlayers">如果您设置参赛条件，您的锦标赛的玩家将会更少。</string>
+  <string name="showAdvancedSettings">显示高级设置</string>
   <string name="join">参与锦标赛</string>
   <string name="withdraw">离开锦标赛</string>
   <string name="points">分数</string>
@@ -403,7 +424,7 @@
   <string name="country">国家</string>
   <string name="preferences">偏好设置</string>
   <string name="inlineNotation">棋谱无格式</string>
-  <string name="watchLichessTV">观看Lichess直播</string>
+  <string name="watchLichessTV">观看 Lichess TV</string>
   <string name="previouslyOnLichessTV">过去的Lichess直播</string>
   <string name="onlinePlayers">在线棋手</string>
   <string name="activeToday">本日活跃棋手</string>
@@ -429,6 +450,7 @@
   <string name="pleaseVotePuzzle">按上箭头键或下箭头键投票来帮助Lichess提高训练题质量：</string>
   <string name="thankYou">谢谢！</string>
   <string name="ratingX">积分：%s</string>
+  <string name="hidden">隐藏</string>
   <plurals name="playedXTimes">
     <item quantity="other">已被尝试%s次</item>
   </plurals>
@@ -469,6 +491,7 @@
   <string name="troll">捣乱</string>
   <string name="other">其他</string>
   <string name="reportDescriptionHelp">请附上棋局链接解释该用户的行为问题。例如如果您怀疑某用户作弊，请不要只说 “他／她作弊”。请解释为什么您认为他／她作弊。如果您用英语举报一个用户我们将会更快作出答复。</string>
+  <string name="error.provideOneCheatedGameLink">请至少提供至少一局作弊的游戏的链接。</string>
   <string name="by">来自%s</string>
   <string name="thisTopicIsNowClosed">本主题已关闭。</string>
   <string name="theming">主题</string>
@@ -486,6 +509,7 @@
   <string name="thisAccountIsClosed">此帐户已被关闭。</string>
   <string name="invalidUsernameOrPassword">用户名或密码错误</string>
   <string name="incorrectPassword">旧密码错误</string>
+  <string name="invalidAuthenticationCode">无效的验证码</string>
   <string name="emailMeALink">通过电子邮件给我发送链接</string>
   <string name="currentPassword">当前密码</string>
   <string name="newPassword">新密码</string>
@@ -496,7 +520,7 @@
   <string name="moveListWhilePlaying">对局进行时显示可走着</string>
   <string name="pgnPieceNotation">使用PGN字母(K,Q,R,B,N)或棋子图标来显示PGN棋谱</string>
   <string name="chessPieceSymbol">国际象棋件符号</string>
-  <string name="pgnLetter">字母 （K,Q,R,B,N）</string>
+  <string name="pgnLetter">字母 （K, Q, R, B, N）</string>
   <string name="chessClock">棋钟</string>
   <string name="tenthsOfSeconds">显示十分之一秒</string>
   <string name="never">从不</string>
@@ -539,9 +563,10 @@
   <string name="xCommentedY">%1$s 评论%2$s</string>
   <string name="victory">胜</string>
   <string name="defeat">负</string>
-  <string name="xVsYinZ">%1$s v.s. %2$s: %3$s</string>
+  <string name="victoryVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="defeatVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
+  <string name="drawVsYInZ">%1$s 和 %2$s 在 %3$s 对战</string>
   <string name="timeline">时间线</string>
-  <string name="seeAllTournaments">显示所有锦标赛</string>
   <string name="starting">开始时间：</string>
   <string name="allInformationIsPublicAndOptional">所有资料是公开的。同时它们是选填的。</string>
   <string name="yourCityRegionOrDepartment">您的城市、地区或省份。</string>
@@ -565,7 +590,7 @@
   <string name="playOnTheBoardOffline">面对面</string>
   <string name="playOfflineComputer">电脑</string>
   <string name="opponent">对手</string>
-  <string name="learnMenu">学</string>
+  <string name="learnMenu">学棋</string>
   <string name="community">社区</string>
   <string name="tools">工具</string>
   <string name="increment">加秒</string>
@@ -585,23 +610,26 @@
   <string name="inCorrespondenceGames">通信棋局</string>
   <string name="ifRatingIsPlusMinusX">允许积分范围±%s</string>
   <string name="onlyFriends">只允许朋友</string>
+  <string name="displayBoardResizeHandle">展示棋盘调整大小手柄</string>
+  <string name="onlyOnInitialPosition">仅初始位置</string>
   <string name="menu">菜单</string>
   <string name="castling">王车易位</string>
   <string name="whiteCastlingKingside">白方短易位</string>
-  <string name="whiteCastlingQueenside">白方长易位</string>
   <string name="blackCastlingKingside">黑方短易位</string>
-  <string name="blackCastlingQueenside">黑方长易位</string>
   <plurals name="nbForumPosts">
     <item quantity="other">发了%s个论坛帖子</item>
   </plurals>
   <string name="tpTimeSpentPlaying">花在下棋上的时间：%s</string>
   <string name="watchGames">观看对局</string>
   <string name="tpTimeSpentOnTV">在Lichess直播上的时间：%s</string>
-  <string name="watch">观看</string>
-  <string name="internationalEvents">国际赛事</string>
+  <string name="watch">观棋</string>
   <string name="videoLibrary">视频库</string>
   <string name="mobileApp">手机app</string>
   <string name="webmasters">网站管理员</string>
+  <string name="about">关于</string>
+  <string name="aboutX">关于 %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s 是一个免费 (%2$s)，自由，无广告的开源国际象棋服务器。</string>
+  <string name="really">不信？</string>
   <string name="contribute">协助我们</string>
   <string name="contact">联系我们</string>
   <string name="termsOfService">服务条款</string>
@@ -649,11 +677,14 @@
   <string name="yourPerfTypeRatingIsRating">您的%1$s积分是%2$s分。</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">您比%1$s的%2$s棋手更强。</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">您没有足够准确的%s积分。</string>
+  <string name="yourRating">你的排名</string>
+  <string name="cumulative">累计</string>
+  <string name="glicko2Rating">Glicko-2 排名</string>
   <string name="checkYourEmail">请查看您的电子邮件</string>
   <string name="weHaveSentYouAnEmailClickTheLink">一封电子邮件已发到您的邮箱。请点击邮件中的链接以激活您的帐户。</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">如果您没有收到我们的邮件, 请检查您的其他收件箱, 例如垃圾箱, 广告, 社交等.</string>
   <string name="weHaveSentYouAnEmailTo">我们给您的邮箱（%s）发了重置密码的链接。请点击链接来重置您的密码。</string>
-  <string name="byRegisteringYouAgreeToBeBoundByOur">您一注册我们就假定您同意尊重我们的使用规则（%s）。</string>
+  <string name="byRegisteringYouAgreeToBeBoundByOur">注册代表您同意我们的 %s 。</string>
   <string name="networkLagBetweenYouAndLichess">您和lichess 之间的网络延迟</string>
   <string name="timeToProcessAMoveOnLichessServer">Lichess 服务器上处理一步的时间</string>
   <string name="downloadAnnotated">下载有注释的PGN</string>
@@ -703,6 +734,7 @@
   <string name="xHostsY">%1$s 主持 %2$s</string>
   <string name="xJoinsY">%1$s 参加 %2$s</string>
   <string name="xLikesY">%1$s喜欢%2$s</string>
+  <string name="xCreatesStudyY">%1$s创建课程%2$s</string>
   <string name="quickPairing">快速配对</string>
   <string name="lobby">大厅</string>
   <string name="anonymous">匿名</string>
@@ -719,6 +751,9 @@
   <string name="pieceSet">棋子风格</string>
   <string name="embedInYourWebsite">嵌入到您的网站上</string>
   <string name="usernameAlreadyUsed">该用户名已被使用，请使用另一个。</string>
+  <string name="usernamePrefixInvalid">用户名必须以字母开头。</string>
+  <string name="usernameSuffixInvalid">用户名必须以字母或数字结尾。</string>
+  <string name="usernameCharsInvalid">用户名必须只包含字母、数字、下划线和连字符。</string>
   <string name="usernameUnacceptable">该用户名不被接受。</string>
   <string name="directlySupportLichess">向我们捐款</string>
   <string name="playChessInStyle">有型地下棋</string>
@@ -790,6 +825,26 @@
   <string name="noConditionalPremoves">没有条件预先走棋</string>
   <string name="playX">走%s</string>
   <plurals name="andSaveNbPremoveLines">
-    <item quantity="other">并保存%s条预先走棋线</item>
+    <item quantity="other">已保存 %s 条先前的走子</item>
   </plurals>
+  <string name="sorry">抱歉 :(</string>
+  <string name="weHadToTimeYouOutForAWhile">请稍候再试！</string>
+  <string name="timeoutExpires">剩余时间：%s</string>
+  <string name="why">原因</string>
+  <string name="pleasantChessExperience">我们致力于为所有人提供一个愉悦的下棋体验。</string>
+  <string name="goodPractice">因此，我们必须确保每个玩家都要遵循规范。</string>
+  <string name="potentialProblem">我们将会在检测到潜在问题时显示本信息。</string>
+  <string name="howToAvoidThis">如何避免这种情况？</string>
+  <string name="playEveryGame">认真下完每一盘棋。</string>
+  <string name="tryToWin">竭尽全力去赢每一场对弈。</string>
+  <string name="resignLostGames">重连掉线的游戏（不要浪费他人时间 ）。</string>
+  <string name="temporaryInconvenience">对此我们深表歉意，</string>
+  <string name="wishYouGreatGames">并期待你在 lichess.org 上展露风采。</string>
+  <string name="thankYouForReading">感谢你的阅读！</string>
+  <string name="lifetimeScore">最终分数</string>
+  <string name="currentMatchScore">当前比赛分数</string>
+  <string name="agreementAssistance">本人在游戏进行中不会接受任何帮助（包括来自电脑程序、书籍、残局库或其他人）。</string>
+  <string name="agreementNice">本人将尊重所有棋手。</string>
+  <string name="agreementAccount">本人不会创建多个账户。</string>
+  <string name="agreementPolicy">本人将遵守所有 Lichess 规范。</string>
 </resources>

@@ -1,18 +1,18 @@
+import { h } from 'snabbdom'
 import { Chessground } from 'chessground';
 import * as cg from 'chessground/types';
 import { Api as CgApi } from 'chessground/api';
 import { Config } from 'chessground/config'
+import resizeHandle from 'common/resize';
 import * as util from './util';
 import { plyStep } from './round';
 import RoundController from './ctrl';
 import { RoundData } from './interfaces';
 
-import { h } from 'snabbdom'
-
-function makeConfig(ctrl: RoundController): Config {
+export function makeConfig(ctrl: RoundController): Config {
   const data = ctrl.data, hooks = ctrl.makeCgHooks(),
-  step = plyStep(data, ctrl.ply),
-  playing = ctrl.isPlaying();
+    step = plyStep(data, ctrl.ply),
+    playing = ctrl.isPlaying();
   return {
     fen: step.fen,
     orientation: boardOrientation(data, ctrl.flip),
@@ -28,7 +28,10 @@ function makeConfig(ctrl: RoundController): Config {
     },
     events: {
       move: hooks.onMove,
-      dropNewPiece: hooks.onNewPiece
+      dropNewPiece: hooks.onNewPiece,
+      insert(elements) {
+        resizeHandle(elements, ctrl.data.pref.resizeHandle, ctrl.ply);
+      }
     },
     movable: {
       free: false,
@@ -98,13 +101,7 @@ export function boardOrientation(data: RoundData, flip: boolean): Color {
 }
 
 export function render(ctrl: RoundController) {
-  return h('div.cg-board-wrap', {
-    hook: {
-      insert(vnode) {
-        ctrl.setChessground(Chessground((vnode.elm as HTMLElement), makeConfig(ctrl)));
-      }
-    }
-  }, [
-    h('div.cg-board')
-  ]);
+  return h('div.cg-wrap', {
+    hook: util.onInsert(el => ctrl.setChessground(Chessground(el, makeConfig(ctrl))))
+  });
 };

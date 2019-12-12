@@ -11,14 +11,13 @@ import lila.hub.FutureSequencer
 
 final class FishnetApi(
     repo: FishnetRepo,
-    moveDb: MoveDB,
     analysisBuilder: AnalysisBuilder,
     analysisColl: Coll,
     sequencer: FutureSequencer,
     monitor: Monitor,
     sink: lila.analyse.Analyser,
     socketExists: String => Fu[Boolean],
-    clientVersion: ClientVersion,
+    clientVersion: Client.ClientVersion,
     offlineMode: Boolean,
     analysisNodes: Int
 )(implicit system: akka.actor.ActorSystem) {
@@ -41,15 +40,14 @@ final class FishnetApi(
   }
 
   def acquire(client: Client): Fu[Option[JsonApi.Work]] = (client.skill match {
-    case Skill.Move => acquireMove(client)
-    case Skill.Analysis => acquireAnalysis(client)
-    case Skill.All => acquireMove(client) orElse acquireAnalysis(client)
+    case Skill.Move => fufail(s"Can't acquire a move directly on lichess! $client")
+    case Skill.Analysis | Skill.All => acquireAnalysis(client)
   }).chronometer
     .mon(_.fishnet.acquire time client.skill.key)
     .logIfSlow(100, logger)(_ => s"acquire ${client.skill}")
     .result
     .recover {
-      case e: FutureSequencer.Timeout =>
+      case e: lila.hub.Duct.Timeout =>
         lila.mon.fishnet.acquire.timeout(client.skill.key)()
         logger.warn(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
@@ -57,9 +55,6 @@ final class FishnetApi(
         logger.error(s"[${client.skill}] Fishnet.acquire ${e.getMessage}")
         none
     }
-
-  private def acquireMove(client: Client): Fu[Option[JsonApi.Work]] =
-    moveDb.acquire(client) map { _ map JsonApi.moveFromWork }
 
   private def acquireAnalysis(client: Client): Fu[Option[JsonApi.Work]] = sequencer {
     analysisColl.find(
@@ -76,11 +71,6 @@ final class FishnetApi(
       }
   }.map { _ map JsonApi.analysisFromWork(analysisNodes) }
 
-  def postMove(workId: Work.Id, client: Client, data: JsonApi.Request.PostMove): Funit = fuccess {
-    val measurement = lila.mon.startMeasurement(_.fishnet.move.post)
-    moveDb.postResult(workId, client, data, measurement)
-  }
-
   def postAnalysis(workId: Work.Id, client: Client, data: JsonApi.Request.PostAnalysis): Fu[PostAnalysisResult] =
     repo.getAnalysis(workId).flatMap {
       case None =>
@@ -91,14 +81,14 @@ final class FishnetApi(
           case complete: CompleteAnalysis => {
             if (complete.weak && work.game.variant.standard) {
               Monitor.weak(work, client, complete)
-              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis)
+              repo.updateOrGiveUpAnalysis(work.weak) >> fufail(WeakAnalysis(client))
             } else analysisBuilder(client, work, complete.analysis) flatMap { analysis =>
               monitor.analysis(work, client, complete)
               repo.deleteAnalysis(work) inject PostAnalysisResult.Complete(analysis)
             }
           } recoverWith {
             case e: Exception =>
-              Monitor.failure(work, client)
+              Monitor.failure(work, client, e)
               repo.updateOrGiveUpAnalysis(work.invalid) >> fufail(e)
           }
           case partial: PartialAnalysis => {
@@ -135,8 +125,7 @@ final class FishnetApi(
     }
   }
 
-  def prioritaryAnalysisInProgress(gameId: String): Fu[Option[Work.InProgress]] =
-    repo.getAnalysisByGameId(gameId) map { _.flatMap(_.inProgress) }
+  def gameIdExists(gameId: String) = analysisColl.exists($doc("game.id" -> gameId))
 
   def status = repo.countAnalysis(acquired = false) map { queued =>
     import play.api.libs.json.Json
@@ -172,8 +161,8 @@ object FishnetApi {
 
   import lila.base.LilaException
 
-  case object WeakAnalysis extends LilaException {
-    val message = "Analysis nodes per move is too low"
+  case class WeakAnalysis(client: Client) extends LilaException {
+    val message = s"$client: Analysis nodes per move is too low"
   }
 
   case object WorkNotFound extends LilaException {

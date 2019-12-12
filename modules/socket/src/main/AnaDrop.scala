@@ -55,7 +55,6 @@ object AnaDrop {
     variant = chess.variant.Variant orDefault ~d.str("variant")
     fen ← d str "fen"
     path ← d str "path"
-    chapterId = d str "ch"
   } yield AnaDrop(
     role = role,
     pos = pos,

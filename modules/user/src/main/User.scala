@@ -2,7 +2,7 @@ package lila.user
 
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, EmailAddress }
+import lila.common.{ LightUser, EmailAddress, NormalizedEmailAddress }
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -21,7 +21,7 @@ case class User(
     booster: Boolean = false,
     toints: Int = 0,
     playTime: Option[User.PlayTime],
-    title: Option[String] = None,
+    title: Option[Title] = None,
     createdAt: DateTime,
     seenAt: Option[DateTime],
     kid: Boolean,
@@ -37,22 +37,26 @@ case class User(
     case _ => false
   }
 
+  override def hashCode: Int = id.hashCode
+
   override def toString =
     s"User $username(${perfs.bestRating}) games:${count.game}${troll ?? " troll"}${engine ?? " engine"}"
 
-  def light = LightUser(id = id, name = username, title = title, isPatron = isPatron)
+  def light = LightUser(id = id, name = username, title = title.map(_.value), isPatron = isPatron)
 
   def realNameOrUsername = profileOrDefault.nonEmptyRealName | username
 
   def langs = ("en" :: lang.toList).distinct.sorted
 
-  def compare(other: User) = id compare other.id
+  def compare(other: User) = id compareTo other.id
 
   def noTroll = !troll
 
   def canTeam = true
 
   def disabled = !enabled
+
+  def canPalantir = !kid && !troll
 
   def usernameWithBestRating = s"$username (${perfs.bestRating})"
 
@@ -68,7 +72,7 @@ case class User(
 
   def hasTitle = title.isDefined
 
-  lazy val seenRecently: Boolean = timeNoSee < 2.minutes
+  lazy val seenRecently: Boolean = timeNoSee < User.seenRecently
 
   def timeNoSee: Duration = seenAt.fold[Duration](Duration.Inf) { s =>
     (nowMillis - s.getMillis).millis
@@ -91,12 +95,9 @@ case class User(
       -(perfs(pt).nb * PerfType.totalTimeRoughEstimation.get(pt).fold(0)(_.roundSeconds))
     } take nb
 
-  private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
+  def best8Perfs: List[PerfType] = bestOf(User.firstRow, 4) ::: bestOf(User.secondRow, 4)
 
-  def best8Perfs: List[PerfType] = bestOf(firstRow, 4) ::: bestOf(secondRow, 4)
-
-  def best6Perfs: List[PerfType] = bestOf(firstRow ::: secondRow, 6)
+  def best6Perfs: List[PerfType] = bestOf(User.firstRow ::: User.secondRow, 6)
 
   def hasEstablishedRating(pt: PerfType) = perfs(pt).established
 
@@ -110,7 +111,7 @@ case class User(
 
   def is(name: String) = id == User.normalize(name)
 
-  def isBot = title has User.botTitle
+  def isBot = title has Title.BOT
   def noBot = !isBot
 
   def rankable = noBot && !rankban
@@ -150,6 +151,10 @@ object User {
 
   val anonymous = "Anonymous"
   val lichessId = "lichess"
+  val broadcasterId = "broadcaster"
+  def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
+
+  val seenRecently = 2.minutes
 
   case class GDPRErase(user: User) extends AnyVal
   case class Erased(value: Boolean) extends AnyVal
@@ -157,15 +162,20 @@ object User {
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
   case class LightCount(user: LightUser, count: Int)
 
-  case class Active(user: User)
-
-  case class Emails(current: Option[EmailAddress], previous: Option[EmailAddress])
+  case class Emails(current: Option[EmailAddress], previous: Option[NormalizedEmailAddress]) {
+    def list = current.toList ::: previous.toList
+  }
+  case class WithEmails(user: User, emails: Emails)
 
   case class ClearPassword(value: String) extends AnyVal {
     override def toString = "ClearPassword(****)"
   }
   case class TotpToken(value: String) extends AnyVal
   case class PasswordAndToken(password: ClearPassword, token: Option[TotpToken])
+
+  case class Speaker(username: String, title: Option[Title], enabled: Boolean, troll: Option[Boolean]) {
+    def isBot = title has Title.BOT
+  }
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
@@ -176,9 +186,10 @@ object User {
   implicit def playTimeHandler = reactivemongo.bson.Macros.handler[PlayTime]
 
   // what existing usernames are like
-  val historicalUsernameRegex = """(?i)[a-z0-9][\w-]*[a-z0-9]""".r
+  val historicalUsernameRegex = """(?i)[a-z0-9][\w-]{0,28}[a-z0-9]""".r
+
   // what new usernames should be like -- now split into further parts for clearer error messages
-  val newUsernameRegex = """(?i)[a-z][\w-]*[a-z0-9]""".r
+  val newUsernameRegex = """(?i)[a-z][\w-]{0,28}[a-z0-9]""".r
 
   val newUsernamePrefix = """(?i)[a-z].*""".r
 
@@ -186,30 +197,9 @@ object User {
 
   val newUsernameChars = """(?i)[\w-]*""".r
 
-  def couldBeUsername(str: User.ID) = historicalUsernameRegex.pattern.matcher(str).matches && str.size < 30
+  def couldBeUsername(str: User.ID) = historicalUsernameRegex.matches(str)
 
   def normalize(username: String) = username.toLowerCase
-
-  val titles = Seq(
-    "GM" -> "Grandmaster",
-    "WGM" -> "Woman Grandmaster",
-    "IM" -> "International Master",
-    "WIM" -> "Woman Intl. Master",
-    "FM" -> "FIDE Master",
-    "WFM" -> "Woman FIDE Master",
-    "NM" -> "National Master",
-    "CM" -> "Candidate Master",
-    "WCM" -> "Woman Candidate Master",
-    "WNM" -> "Woman National Master",
-    "LM" -> "Lichess Master",
-    "BOT" -> "Chess Robot"
-  )
-
-  val botTitle = LightUser.botTitle
-
-  val titlesMap = titles.toMap
-
-  def titleName(title: String) = titlesMap get title getOrElse title
 
   object BSONFields {
     val id = "_id"
@@ -233,6 +223,7 @@ object User {
     val title = "title"
     def glicko(perf: String) = s"$perfs.$perf.gl"
     val email = "email"
+    val verbatimEmail = "verbatimEmail"
     val mustConfirmEmail = "mustConfirmEmail"
     val prevEmail = "prevEmail"
     val colorIt = "colorIt"
@@ -243,10 +234,12 @@ object User {
     val bpass = "bpass"
     val sha512 = "sha512"
     val totpSecret = "totp"
+    val changedCase = "changedCase"
   }
 
   import lila.db.BSON
   import lila.db.dsl._
+  import Title.titleBsonHandler
 
   implicit val userBSONHandler = new BSON[User] {
 
@@ -276,7 +269,7 @@ object User {
       seenAt = r dateO seenAt,
       kid = r boolD kid,
       lang = r strO lang,
-      title = r strO title,
+      title = r.getO[Title](title),
       plan = r.getO[Plan](plan) | Plan.empty,
       reportban = r boolD reportban,
       rankban = r boolD rankban,
@@ -308,4 +301,9 @@ object User {
       totpSecret -> o.totpSecret
     )
   }
+
+  implicit val speakerHandler = reactivemongo.bson.Macros.handler[Speaker]
+
+  private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
+  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
 }

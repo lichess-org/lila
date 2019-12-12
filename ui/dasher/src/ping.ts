@@ -22,7 +22,7 @@ export function ctrl(trans: Trans, redraw: Redraw): PingCtrl {
 
   const hub = window.lichess.pubsub;
 
-  hub.emit('socket.send')('moveLat', true);
+  hub.emit('socket.send', 'moveLat', true);
   hub.on('socket.lag', lag => {
     data.ping = Math.round(lag);
     redraw();
@@ -46,26 +46,32 @@ function signalBars(d: PingData) {
   return h('signal.q' + lagRating, bars);
 }
 
+function showMillis(m: number): [string, VNode] {
+  return [
+    '' + Math.floor(m),
+    h('small', '.' + Math.round((m - Math.floor(m)) * 10))
+  ];
+}
+
 export function view(ctrl: PingCtrl): VNode {
 
   const d = ctrl.data;
 
   return h('a.status', { attrs: {href: '/lag'} }, [
     signalBars(d),
-    h('span.ping.hint--left', {
-      attrs: { 'data-hint': 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') }
+    h('span.ping', {
+      attrs: { title: 'PING: ' + ctrl.trans.noarg('networkLagBetweenYouAndLichess') }
     }, [
       h('em', 'PING'),
       h('strong', defined(d.ping) ? '' + d.ping : '?'),
       h('em', 'ms')
     ]),
-    h('span.server.hint--left', {
-      attrs: { 'data-hint': 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') }
+    h('span.server', {
+      attrs: { title: 'SERVER: ' + ctrl.trans.noarg('timeToProcessAMoveOnLichessServer') }
     }, [
       h('em', 'SERVER'),
-      h('strong', defined(d.server) ? '' + d.server : '?'),
+      h('strong', defined(d.server) ? showMillis(d.server) : ['?']),
       h('em', 'ms')
     ])
   ]);
 }
-

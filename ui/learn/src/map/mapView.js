@@ -68,8 +68,9 @@ function titleVerbosityClass(title) {
 }
 
 module.exports = function(ctrl) {
-  return m('div.learn.map',
-    m('div.stages', [
+  return m('div.learn.learn--map', [
+    m('div.learn__side', ctrl.opts.side.view()),
+    m('div.learn__main.learn-stages', [
       stages.categs.map(function(categ) {
         return m('div.categ', [
           m('h2', ctrl.trans.noarg(categ.name)),
@@ -102,5 +103,5 @@ module.exports = function(ctrl) {
       }),
       whatNext(ctrl)
     ])
-  );
+  ]);
 };

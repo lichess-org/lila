@@ -18,4 +18,5 @@ Jen via profilo: %1$s. Vi povas personecigi ĝin %2$s.
 Amuzi, kaj eble viaj pecoj ĉiam trovos sian vojon al la reĝo de via kontraŭulo!</string>
   <string name="common_orPaste">(Alklakanta ne funkcii? Provu pasi ĝin en vian retumilon!)</string>
   <string name="common_note">Ĉi tiu estas retpoŝta servo rilate al via uzo %s.</string>
+  <string name="common_contact">Por kontakti nin, bonvolu uzi %s.</string>
 </resources>

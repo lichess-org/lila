@@ -1,77 +1,98 @@
 package lila.common
 
-import akka.actor._
-import akka.event._
+import scala.concurrent.duration._
+import scala.concurrent.Promise
 
-// can only ever be instanciated once per actor system
-final class Bus private (system: ActorSystem) extends Extension with EventBus {
+import akka.actor.{ ActorRef, ActorSystem }
 
-  type Event = Bus.Event
+object Bus {
+
+  case class Event(payload: Any, channel: Symbol)
   type Classifier = Symbol
-  type Subscriber = ActorRef
+  type Subscriber = Tellable
 
   def publish(payload: Any, channel: Classifier): Unit = {
     publish(Bus.Event(payload, channel))
   }
 
-  /**
-   * Attempts to register the subscriber to the specified Classifier
-   * @return true if successful and false if not (because it was already subscribed to that Classifier, or otherwise)
-   */
-  def subscribe(subscriber: Subscriber, to: Classifier): Boolean = {
-    // log(s"subscribe $to $subscriber")
-    bus.subscribe(subscriber, to)
+  def subscribe = bus.subscribe _
+
+  def subscribe(ref: ActorRef, to: Classifier) = bus.subscribe(Tellable(ref), to)
+
+  def subscribe(subscriber: Tellable, to: Classifier*) = to foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Classifier*) = to foreach { bus.subscribe(Tellable(ref), _) }
+  def subscribe(ref: ActorRef, to: Iterable[Classifier]) = to foreach { bus.subscribe(Tellable(ref), _) }
+
+  def subscribeFun(to: Classifier*)(f: PartialFunction[Any, Unit]): Tellable = {
+    val t = lila.common.Tellable(f)
+    subscribe(t, to: _*)
+    t
   }
 
-  def subscribe(subscriber: Subscriber, to: Classifier*): Boolean = {
-    to foreach { subscribe(subscriber, _) }
-    true
+  def subscribeFuns(subscriptions: (Classifier, PartialFunction[Any, Unit])*): Unit =
+    subscriptions foreach {
+      case (classifier, subscriber) => subscribeFun(classifier)(subscriber)
+    }
+
+  def unsubscribe = bus.unsubscribe _
+  def unsubscribe(ref: ActorRef, from: Classifier) = bus.unsubscribe(Tellable(ref), from)
+
+  def unsubscribe(subscriber: Tellable, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(subscriber, _) }
+  def unsubscribe(ref: ActorRef, from: Iterable[Classifier]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
+
+  def publish(event: Event): Unit = bus.publish(event.payload, event.channel)
+
+  def ask[A](classifier: Classifier, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
+    implicit
+    system: ActorSystem
+  ): Fu[A] = {
+    val promise = Promise[A]
+    val msg = makeMsg(promise)
+    publish(msg, classifier)
+    promise.future.withTimeout(
+      timeout,
+      Bus.AskTimeout(s"Bus.ask timeout: $classifier $msg")
+    )
   }
 
-  /**
-   * Attempts to deregister the subscriber from the specified Classifier
-   * @return true if successful and false if not (because it wasn't subscribed to that Classifier, or otherwise)
-   */
-  def unsubscribe(subscriber: Subscriber, from: Classifier): Boolean = {
-    // log(s"[UN]subscribe $from $subscriber")
-    bus.unsubscribe(subscriber, from)
+  private val bus = new EventBus[Any, Classifier, Tellable](
+    initialCapacity = 65535,
+    publish = (tellable, event) => tellable ! event
+  )
+
+  def size = bus.size
+
+  case class AskTimeout(message: String) extends lila.base.LilaException
+
+  private final class EventBus[Event, Channel, Subscriber](
+      initialCapacity: Int,
+      publish: (Subscriber, Event) => Unit
+  ) {
+
+    import java.util.concurrent.ConcurrentHashMap
+
+    private val entries = new ConcurrentHashMap[Channel, Set[Subscriber]](initialCapacity)
+
+    def subscribe(subscriber: Subscriber, channel: Channel): Unit =
+      entries.compute(channel, (c: Channel, subs: Set[Subscriber]) => {
+        Option(subs).fold(Set(subscriber))(_ + subscriber)
+      })
+
+    def unsubscribe(subscriber: Subscriber, channel: Channel): Unit =
+      entries.computeIfPresent(channel, (c: Channel, subs: Set[Subscriber]) => {
+        val newSubs = subs - subscriber
+        if (newSubs.isEmpty) null
+        else newSubs
+      })
+
+    def publish(event: Event, channel: Channel): Unit =
+      Option(entries get channel) foreach {
+        _ foreach {
+          publish(_, event)
+        }
+      }
+
+    def size = entries.size
+    def sizeOf(channel: Channel) = Option(entries get channel).fold(0)(_.size)
   }
-
-  /**
-   * Attempts to deregister the subscriber from all Classifiers it may be subscribed to
-   */
-  def unsubscribe(subscriber: Subscriber): Unit = {
-    // log(s"[UN]subscribe ALL $subscriber")
-    bus unsubscribe subscriber
-  }
-
-  /**
-   * Publishes the specified Event to this bus
-   */
-  def publish(event: Event): Unit = {
-    // log(event.toString)
-    bus publish event
-  }
-
-  private val bus = new ActorEventBus with LookupClassification {
-
-    type Event = Bus.Event
-    type Classifier = Symbol
-
-    override protected val mapSize = 2048
-
-    def classify(event: Event): Symbol = event.channel
-
-    def publish(event: Event, subscriber: ActorRef) =
-      subscriber ! event.payload
-  }
-}
-
-object Bus extends ExtensionId[Bus] with ExtensionIdProvider {
-
-  case class Event(payload: Any, channel: Symbol)
-
-  override def lookup = Bus
-
-  override def createExtension(system: ExtendedActorSystem) = new Bus(system)
 }

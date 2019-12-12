@@ -7,6 +7,7 @@ import akka.actor._
 import akka.pattern.pipe
 
 import lila.user.User
+import lila.socket.Socket.{ Sri, Sris }
 
 private final class PoolActor(
     config: PoolConfig,
@@ -30,10 +31,10 @@ private final class PoolActor(
 
   def receive = {
 
-    case Join(joiner) =>
+    case Join(joiner, rageSit) =>
       members.find(joiner.is) match {
         case None =>
-          members = members :+ PoolMember(joiner, config)
+          members = members :+ PoolMember(joiner, config, rageSit)
           if (members.size >= config.wave.players.value) self ! FullWave
           monitor.join.count(monId)()
         case Some(member) if member.ratingRange != joiner.ratingRange =>
@@ -96,9 +97,9 @@ private final class PoolActor(
       scheduleWave
     }
 
-    case SocketIds(ids) =>
+    case Sris(sris) =>
       members = members.filter { m =>
-        ids contains m.socketId.value
+        sris contains m.sri
       }
   }
 
@@ -108,9 +109,8 @@ private final class PoolActor(
 
 private object PoolActor {
 
-  case class Join(joiner: PoolApi.Joiner) extends AnyVal
+  case class Join(joiner: PoolApi.Joiner, rageSit: lila.playban.RageSit)
   case class Leave(userId: User.ID) extends AnyVal
-  case class SocketIds(ids: Set[String])
 
   case object ScheduledWave
   case object FullWave

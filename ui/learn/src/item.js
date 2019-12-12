@@ -26,7 +26,7 @@ module.exports = {
         delete items[key];
       },
       hasItem: function(item) {
-        return list().indexOf(item) !== -1;
+        return list().includes(item);
       },
       appleKeys: function() {
         var keys = [];

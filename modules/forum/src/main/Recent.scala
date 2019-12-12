@@ -10,7 +10,7 @@ private[forum] final class Recent(
     ttl: FiniteDuration,
     nb: Int,
     asyncCache: lila.memo.AsyncCache.Builder,
-    publicCategIds: List[String]
+    categIds: List[String]
 ) {
 
   private type GetTeamIds = String => Fu[List[String]]
@@ -30,12 +30,10 @@ private[forum] final class Recent(
     (user.map(_.id) ?? getTeams).map { teamIds =>
       user.fold("en")(_.langs.mkString(",")) :: {
         (user.??(_.troll) ?? List("[troll]")) :::
-          (if (user ?? MasterGranter(Permission.StaffForum)) staffCategIds else publicCategIds) :::
+          categIds :::
           (teamIds.map(teamSlug)(scala.collection.breakOut): List[String])
       } mkString ";"
     }
-
-  private lazy val staffCategIds = Categ.staffId :: publicCategIds
 
   private val cache = asyncCache.clearable(
     name = "forum.recent",

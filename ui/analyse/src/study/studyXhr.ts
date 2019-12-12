@@ -1,3 +1,5 @@
+import { StudyChapterConfig } from './interfaces';
+
 const headers = {
   'Accept': 'application/vnd.lichess.v3+json'
 };
@@ -21,15 +23,15 @@ export function variants() {
 
 export function glyphs() {
   return $.ajax({
-    url: window.lichess.assetUrl('/assets/glyphs.json', { noVersion: true }),
+    url: window.lichess.assetUrl('glyphs.json', { noVersion: true }),
     headers,
     cache: true
   });
 }
 
-export function chapterConfig(studyId: string, chapterId: string) {
+export function chapterConfig(studyId: string, chapterId: string): JQueryPromise<StudyChapterConfig> {
   return $.ajax({
-    url: ['/study', studyId, chapterId, 'meta'].join('/'),
+    url: `/study/${studyId}/${chapterId}/meta`,
     headers
   });
 }
@@ -37,16 +39,23 @@ export function chapterConfig(studyId: string, chapterId: string) {
 export function practiceComplete(chapterId: string, nbMoves: number) {
   return $.ajax({
     method: 'POST',
-    url: ['/practice/complete', chapterId, nbMoves].join('/'),
+    url: `/practice/complete/${chapterId}/${nbMoves}`,
     headers
   });
 }
 
-export function importPgn(studyId: string, data: any) {
+export function importPgn(studyId: string, data: any, sri: string) {
   return $.ajax({
     method: 'POST',
-    url: `/study/${studyId}/import-pgn`,
+    url: `/study/${studyId}/import-pgn?sri=${sri}`,
     data: data,
+    headers
+  });
+}
+
+export function multiBoard(studyId: string, page: number, playing: boolean) {
+  return $.ajax({
+    url: `/study/${studyId}/multi-board?page=${page}&playing=${playing}`,
     headers
   });
 }

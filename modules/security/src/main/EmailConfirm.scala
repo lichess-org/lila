@@ -1,9 +1,8 @@
 package lila.security
 
-import play.api.i18n.Lang
-import play.twirl.api.Html
+import scalatags.Text.all._
 
-import lila.common.EmailAddress
+import lila.common.{ Lang, EmailAddress }
 import lila.i18n.I18nKeys.{ emails => trans }
 import lila.user.{ User, UserRepo }
 
@@ -13,16 +12,16 @@ trait EmailConfirm {
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit
 
-  def confirm(token: String): Fu[Option[User]]
+  def confirm(token: String): Fu[EmailConfirm.Result]
 }
 
 object EmailConfirmSkip extends EmailConfirm {
 
   def effective = false
 
-  def send(user: User, email: EmailAddress)(implicit lang: Lang) = UserRepo setEmailConfirmed user.id
+  def send(user: User, email: EmailAddress)(implicit lang: Lang) = UserRepo setEmailConfirmed user.id void
 
-  def confirm(token: String): Fu[Option[User]] = fuccess(none)
+  def confirm(token: String): Fu[EmailConfirm.Result] = fuccess(EmailConfirm.Result.NotFound)
 }
 
 final class EmailConfirmMailgun(
@@ -31,14 +30,16 @@ final class EmailConfirmMailgun(
     tokenerSecret: String
 ) extends EmailConfirm {
 
+  import Mailgun.html._
+
   def effective = true
 
   val maxTries = 3
 
   def send(user: User, email: EmailAddress)(implicit lang: Lang): Funit = tokener make user.id flatMap { token =>
-    lila.mon.email.confirmation()
+    lila.mon.email.types.confirmation()
     val url = s"$baseUrl/signup/confirm/$token"
-    lila.log("auth").info(s"Confirm URL ${user.username} $email $url")
+    lila.log("auth").info(s"Confirm URL ${user.username} ${email.value} $url")
     mailgun send Mailgun.Message(
       to = email,
       subject = trans.emailConfirm_subject.literalTxtTo(lang, List(user.username)),
@@ -52,29 +53,29 @@ ${trans.common_orPaste.literalTxtTo(lang)}
 ${Mailgun.txt.serviceNote}
 ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 """,
-      htmlBody = Html(s"""
-<div itemscope itemtype="http://schema.org/EmailMessage">
-  <p itemprop="description">${trans.emailConfirm_click.literalHtmlTo(lang)}</p>
-  <div itemprop="potentialAction" itemscope itemtype="http://schema.org/ViewAction">
-    <meta itemprop="name" content="Activate account">
-    ${Mailgun.html.url(url)}
-  </div>
-  <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-    <small>
-      ${trans.common_note.literalHtmlTo(lang, List(Mailgun.html.noteLink))}
-      ${trans.emailConfirm_ignore.literalHtmlTo(lang)}
-    </small>
-  </div>
-</div>""").some
+      htmlBody = emailMessage(
+        pDesc(trans.emailConfirm_click.literalTo(lang)),
+        potentialAction(metaName("Activate account"), Mailgun.html.url(url)),
+        publisher(
+          small(
+            trans.common_note.literalTo(lang, List(Mailgun.html.noteLink)),
+            " ",
+            trans.emailConfirm_ignore.literalTo(lang)
+          )
+        )
+      ).some
     )
   }
 
-  def confirm(token: String): Fu[Option[User]] = tokener read token flatMap {
-    _ ?? { userId =>
-      UserRepo.mustConfirmEmail(userId) flatMap {
-        _ ?? {
-          (UserRepo setEmailConfirmed userId) >> (UserRepo enabledById userId)
-        }
+  import EmailConfirm.Result
+
+  def confirm(token: String): Fu[Result] = tokener read token flatMap {
+    _ ?? UserRepo.enabledById
+  } flatMap {
+    _.fold[Fu[Result]](fuccess(Result.NotFound)) { user =>
+      UserRepo.mustConfirmEmail(user.id) flatMap {
+        case true => (UserRepo setEmailConfirmed user.id) inject Result.JustConfirmed(user)
+        case false => fuccess(Result.AlreadyConfirmed(user))
       }
     }
   }
@@ -86,6 +87,13 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 }
 
 object EmailConfirm {
+
+  sealed trait Result
+  object Result {
+    case class JustConfirmed(user: User) extends Result
+    case class AlreadyConfirmed(user: User) extends Result
+    case object NotFound extends Result
+  }
 
   case class UserEmail(username: String, email: EmailAddress)
 
@@ -141,4 +149,39 @@ object EmailConfirm {
         }
       }
     }
+
+  object Help {
+
+    sealed trait Status { val name: String }
+    case class NoSuchUser(name: String) extends Status
+    case class Closed(name: String) extends Status
+    case class Confirmed(name: String) extends Status
+    case class NoEmail(name: String) extends Status
+    case class EmailSent(name: String, email: EmailAddress) extends Status
+
+    import play.api.data._
+    import play.api.data.validation.Constraints
+    import play.api.data.Forms._
+
+    val helpForm = Form(
+      single("username" -> text.verifying(
+        Constraints minLength 2,
+        Constraints maxLength 30,
+        Constraints.pattern(regex = User.newUsernameRegex)
+      ))
+    )
+
+    def getStatus(username: String): Fu[Status] = UserRepo withEmails username flatMap {
+      case None => fuccess(NoSuchUser(username))
+      case Some(User.WithEmails(user, emails)) =>
+        if (!user.enabled) fuccess(Closed(username))
+        else UserRepo mustConfirmEmail user.id map {
+          case true => emails.current match {
+            case None => NoEmail(user.username)
+            case Some(email) => EmailSent(user.username, email)
+          }
+          case false => Confirmed(user.username)
+        }
+    }
+  }
 }

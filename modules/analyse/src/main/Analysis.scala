@@ -31,8 +31,8 @@ case class Analysis(
 
   lazy val advices: List[Advice] = infoAdvices.flatMap(_._2)
 
-  def summary: List[(Color, List[(Advice.Judgment, Int)])] = Color.all map { color =>
-    color -> (Advice.Judgment.all map { judgment =>
+  def summary: List[(Color, List[(Advice.Judgement, Int)])] = Color.all map { color =>
+    color -> (Advice.Judgement.all map { judgment =>
       judgment -> (advices count { adv =>
         adv.color == color && adv.judgment == judgment
       })
@@ -49,6 +49,8 @@ object Analysis {
 
   import lila.db.BSON
   import reactivemongo.bson._
+
+  case class Analyzed(game: lila.game.Game, analysis: Analysis)
 
   type ID = String
 

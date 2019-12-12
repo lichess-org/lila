@@ -1,4 +1,7 @@
-import { Prop, StoredProp, StoredBooleanProp } from 'common';
+import { Prop } from 'common';
+import { StoredProp, StoredBooleanProp } from 'common/storage';
+
+export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx' | 'pnacl';
 
 export interface Eval {
   cp?: number;
@@ -25,19 +28,18 @@ export interface Work {
 }
 
 export interface PoolOpts {
-  pnacl: string | false;
-  wasm: string | false;
+  technology: CevalTechnology;
+  pnacl: string;
+  wasm: string;
+  wasmx: string;
   asmjs: string;
-  onCrash: (err: any) => void;
 }
 
 export interface CevalOpts {
   storageKeyPrefix?: string;
-  failsafe: boolean;
   multiPvDefault?: number;
   possible: boolean;
   variant: Variant;
-  onCrash: (err: any) => void;
   emit: (ev: Tree.ClientEval, work: Work) => void;
   setAutoShapes: () => void;
   redraw(): void;
@@ -58,8 +60,7 @@ export interface CevalCtrl {
   goDeeper(): void;
   canGoDeeper(): boolean;
   effectiveMaxDepth(): number;
-  pnaclSupported: boolean;
-  wasmSupported: boolean;
+  technology: CevalTechnology;
   allowed: Prop<boolean>;
   enabled: Prop<boolean>;
   possible: boolean;
@@ -70,8 +71,9 @@ export interface CevalCtrl {
   multiPv: StoredProp<number>;
   start: (path: string, steps: Step[], threatMode: boolean, deeper: boolean) => void;
   stop(): void;
-  threads: StoredProp<number>;
-  hashSize: StoredProp<number>;
+  threads: StoredProp<number> | undefined;
+  hashSize: StoredProp<number> | undefined;
+  maxThreads: number;
   infinite: StoredBooleanProp;
   hovering: Prop<Hovering | null>;
   toggle(): void;
@@ -112,4 +114,12 @@ export interface Step {
   uci?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
+}
+
+export interface Watchdog {
+  arm(): void;
+  disarm(): void;
+  disarmSoon(): void;
+  fail(): void;
+  good(): boolean;
 }

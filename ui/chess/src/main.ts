@@ -23,7 +23,7 @@ export function readDests(lines?: string): Dests | null {
   if (typeof lines === 'undefined') return null;
   const dests: Dests = {};
   if (lines) lines.split(' ').forEach(line => {
-    dests[piotr[line[0]]] = line.split('').slice(1).map(c => piotr[c] as Key)
+    dests[piotr[line[0]]] = line.slice(1).split('').map(c => piotr[c] as Key)
   });
   return dests;
 }

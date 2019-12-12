@@ -29,6 +29,9 @@ final class ChapterRepo(coll: Coll) {
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
     coll.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
 
+  def existsByStudy(studyId: Study.Id): Fu[Boolean] =
+    coll exists $studyId(studyId)
+
   def orderedMetadataByStudy(studyId: Study.Id): Fu[List[Chapter.Metadata]] =
     coll.find(
       $studyId(studyId),
@@ -39,8 +42,7 @@ final class ChapterRepo(coll: Coll) {
   def orderedByStudy(studyId: Study.Id): Fu[List[Chapter]] =
     coll.find($studyId(studyId))
       .sort($sort asc "order")
-      .cursor[Chapter](readPreference = ReadPreference.secondaryPreferred)
-      .gather[List]()
+      .list[Chapter](none, readPreference = ReadPreference.secondaryPreferred)
 
   def relaysAndTagsByStudyId(studyId: Study.Id): Fu[List[Chapter.RelayAndTags]] =
     coll.find($doc("studyId" -> studyId), $doc("relay" -> true, "tags" -> true)).list[Bdoc]() map { docs =>
@@ -79,28 +81,23 @@ final class ChapterRepo(coll: Coll) {
   def setTagsFor(chapter: Chapter) =
     coll.updateField($id(chapter.id), "tags", chapter.tags).void
 
-  def setShapes(chapter: Chapter, path: Path, shapes: lila.tree.Node.Shapes): Funit =
-    setNodeValue(chapter, path, "h", shapes.value.nonEmpty option shapes)
+  def setShapes(shapes: lila.tree.Node.Shapes) = setNodeValue("h", shapes.value.nonEmpty option shapes) _
 
-  def setComments(chapter: Chapter, path: Path, comments: lila.tree.Node.Comments): Funit =
-    setNodeValue(chapter, path, "co", comments.value.nonEmpty option comments)
+  def setComments(comments: lila.tree.Node.Comments) = setNodeValue("co", comments.value.nonEmpty option comments) _
 
-  def setGamebook(chapter: Chapter, path: Path, gamebook: lila.tree.Node.Gamebook): Funit =
-    setNodeValue(chapter, path, "ga", gamebook.nonEmpty option gamebook)
+  def setGamebook(gamebook: lila.tree.Node.Gamebook) = setNodeValue("ga", gamebook.nonEmpty option gamebook) _
 
-  def setGlyphs(chapter: Chapter, path: Path, glyphs: chess.format.pgn.Glyphs): Funit =
-    setNodeValue(chapter, path, "g", glyphs.nonEmpty)
+  def setGlyphs(glyphs: chess.format.pgn.Glyphs) = setNodeValue("g", glyphs.nonEmpty) _
 
-  def setClock(chapter: Chapter, path: Path, clock: Option[chess.Centis]): Funit =
-    setNodeValue(chapter, path, "l", clock)
+  def setClock(clock: Option[chess.Centis]) = setNodeValue("l", clock) _
 
-  def setScore(chapter: Chapter, path: Path, score: Option[lila.tree.Eval.Score]): Funit =
-    setNodeValue(chapter, path, "e", score)
+  def forceVariation(force: Boolean) = setNodeValue("fv", force option true) _
 
-  def setChildren(chapter: Chapter, path: Path, children: Node.Children): Funit =
-    setNodeValue(chapter, path, "n", children.some)
+  def setScore(score: Option[lila.tree.Eval.Score]) = setNodeValue("e", score) _
 
-  private def setNodeValue[A: BSONValueWriter](chapter: Chapter, path: Path, field: String, value: Option[A]): Funit =
+  def setChildren(children: Node.Children) = setNodeValue("n", children.some) _
+
+  private def setNodeValue[A: BSONValueWriter](field: String, value: Option[A])(chapter: Chapter, path: Path): Funit =
     pathToField(chapter, path, field) match {
       case None =>
         logger.warn(s"Can't setNodeValue ${chapter.id} $path $field")
@@ -128,25 +125,36 @@ final class ChapterRepo(coll: Coll) {
         }
     }
 
-  private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id]): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
+  private[study] def idNamesByStudyIds(studyIds: Seq[Study.Id], nbChaptersPerStudy: Int): Fu[Map[Study.Id, Vector[Chapter.IdName]]] =
     coll.find(
       $doc("studyId" $in studyIds),
       $doc("studyId" -> true, "_id" -> true, "name" -> true)
-    ).sort($sort asc "order").list[Bdoc]().map { docs =>
+    ).sort($sort asc "order").list[Bdoc](nbChaptersPerStudy * studyIds.size).map { docs =>
         docs.foldLeft(Map.empty[Study.Id, Vector[Chapter.IdName]]) {
-          case (hash, doc) => {
-            for {
-              studyId <- doc.getAs[Study.Id]("studyId")
-              id <- doc.getAs[Chapter.Id]("_id")
-              name <- doc.getAs[Chapter.Name]("name")
-              idName = Chapter.IdName(id, name)
-            } yield hash + (studyId -> (hash.get(studyId) match {
-              case None => Vector(idName)
-              case Some(names) => names :+ idName
-            }))
-          } | hash
+          case (hash, doc) =>
+            doc.getAs[Study.Id]("studyId").fold(hash) { studyId =>
+              hash get studyId match {
+                case Some(chapters) if chapters.size >= nbChaptersPerStudy => hash
+                case maybe =>
+                  val chapters = ~maybe
+                  hash + (studyId -> readIdName(doc).fold(chapters)(chapters :+ _))
+              }
+            }
         }
       }
+
+  def idNames(studyId: Study.Id): Fu[List[Chapter.IdName]] =
+    coll.find(
+      $doc("studyId" -> studyId),
+      $doc("_id" -> true, "name" -> true)
+    ).sort($sort asc "order")
+      .list[Bdoc](Study.maxChapters * 2, ReadPreference.secondaryPreferred)
+      .map { _ flatMap readIdName }
+
+  private def readIdName(doc: Bdoc) = for {
+    id <- doc.getAs[Chapter.Id]("_id")
+    name <- doc.getAs[Chapter.Name]("name")
+  } yield Chapter.IdName(id, name)
 
   def startServerEval(chapter: Chapter) =
     coll.updateField($id(chapter.id), "serverEval", Chapter.ServerEval(

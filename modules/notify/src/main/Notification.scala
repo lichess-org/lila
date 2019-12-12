@@ -75,18 +75,6 @@ object PrivateMessage {
   case class Text(value: String) extends AnyVal with StringValue
 }
 
-case class QaAnswer(
-    answeredBy: QaAnswer.AnswererId,
-    question: QaAnswer.Question,
-    answerId: QaAnswer.AnswerId
-) extends NotificationContent("qaAnswer")
-
-object QaAnswer {
-  case class AnswererId(value: String) extends AnyVal with StringValue
-  case class Question(id: Int, slug: String, title: String)
-  case class AnswerId(value: Int) extends AnyVal
-}
-
 case class TeamJoined(
     id: TeamJoined.Id,
     name: TeamJoined.Name
@@ -106,8 +94,6 @@ object TeamMadeOwner {
   case class Id(value: String) extends AnyVal with StringValue
   case class Name(value: String) extends AnyVal with StringValue
 }
-
-case object LimitedTournamentInvitation extends NotificationContent("u")
 
 case class TitledTournamentInvitation(
     id: String,

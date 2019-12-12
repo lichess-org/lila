@@ -11,6 +11,7 @@ final class Env(
     blocks: (String, String) => Fu[Boolean],
     follows: (String, String) => Fu[Boolean],
     getPref: String => Fu[lila.pref.Pref],
+    spam: lila.security.Spam,
     system: ActorSystem,
     isOnline: lila.user.User.ID => Boolean,
     lightUser: lila.common.LightUser.GetterSync
@@ -36,21 +37,19 @@ final class Env(
     maxPerPage = lila.common.MaxPerPage(ThreadMaxPerPage),
     blocks = blocks,
     notifyApi = notifyApi,
-    security = security,
-    lilaBus = system.lilaBus
+    security = security
   )
 
   lazy val security = new MessageSecurity(
     follows = follows,
     blocks = blocks,
-    getPref = getPref
+    getPref = getPref,
+    spam = spam
   )
 
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.user.User.GDPRErase(user) => api erase user
-    }
-  })), 'gdprErase)
+  lila.common.Bus.subscribeFun('gdprErase) {
+    case lila.user.User.GDPRErase(user) => api erase user
+  }
 }
 
 object Env {
@@ -58,13 +57,14 @@ object Env {
   lazy val current = "message" boot new Env(
     config = lila.common.PlayApp loadConfig "message",
     db = lila.db.Env.current,
-    shutup = lila.hub.Env.current.actor.shutup,
+    shutup = lila.hub.Env.current.shutup,
     notifyApi = lila.notify.Env.current.api,
     blocks = lila.relation.Env.current.api.fetchBlocks,
     follows = lila.relation.Env.current.api.fetchFollows,
     getPref = lila.pref.Env.current.api.getPref,
+    spam = lila.security.Env.current.spam,
     system = lila.common.PlayApp.system,
-    isOnline = lila.user.Env.current.isOnline,
+    isOnline = lila.socket.Env.current.isOnline,
     lightUser = lila.user.Env.current.lightUserSync
   )
 }

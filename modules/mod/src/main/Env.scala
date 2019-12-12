@@ -24,9 +24,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
-    relationApi: lila.relation.RelationApi,
     noteApi: lila.user.NoteApi,
-    userJson: lila.user.JsonView,
     asyncCache: lila.memo.AsyncCache.Builder,
     emailValidator: lila.security.EmailAddressValidator
 ) {
@@ -36,18 +34,17 @@ final class Env(
     val CollectionBoosting = config getString "collection.boosting"
     val CollectionModlog = config getString "collection.modlog"
     val CollectionGamingHistory = config getString "collection.gaming_history"
-    val CollectionCheatList = config getString "collection.cheat_list"
     val ActorName = config getString "actor.name"
     val NbGamesToMark = config getInt "boosting.nb_games_to_mark"
     val RatioGamesToMark = config getDouble "boosting.ratio_games_to_mark"
   }
   import settings._
 
-  val ApiKey = config getString "api.key"
-
   private[mod] lazy val logColl = db(CollectionModlog)
 
   lazy val logApi = new ModlogApi(logColl)
+
+  lazy val impersonate = new ImpersonateApi
 
   private lazy val notifier = new ModNotifier(notifyApi, reportApi)
 
@@ -66,12 +63,11 @@ final class Env(
     logApi = logApi,
     userSpy = userSpy,
     firewall = firewall,
-    reporter = hub.actor.report,
+    reporter = hub.report,
     reportApi = reportApi,
     lightUserApi = lightUserApi,
     notifier = notifier,
-    refunder = ratingRefund,
-    lilaBus = system.lilaBus
+    refunder = ratingRefund
   )
 
   private lazy val boosting = new BoostingApi(
@@ -85,9 +81,8 @@ final class Env(
     collAssessments = db(CollectionPlayerAssessment),
     logApi = logApi,
     modApi = api,
-    reporter = hub.actor.report,
-    fishnet = hub.actor.fishnet,
-    userIdsSharingIp = securityApi.userIdsSharingIp
+    reporter = hub.report,
+    fishnet = hub.fishnet
   )
 
   lazy val gamify = new Gamify(
@@ -97,26 +92,20 @@ final class Env(
     historyColl = db(CollectionGamingHistory)
   )
 
-  lazy val search = new UserSearch(
-    securityApi = securityApi,
-    emailValidator = emailValidator
-  )
-
-  lazy val jsonView = new JsonView(
-    assessApi = assessApi,
-    relationApi = relationApi,
-    reportApi = reportApi,
-    userJson = userJson
-  )
+  lazy val search = lila.user.UserRepo.withColl { userColl =>
+    new UserSearch(
+      securityApi = securityApi,
+      emailValidator = emailValidator,
+      userColl = userColl
+    )
+  }
 
   lazy val inquiryApi = new InquiryApi(reportApi, noteApi, logApi)
-
-  lazy val cheatList = new CheatList(db(CollectionCheatList))
 
   lazy val stream = new ModStream(system)
 
   // api actor
-  system.lilaBus.subscribe(system.actorOf(Props(new Actor {
+  lila.common.Bus.subscribe(system.actorOf(Props(new Actor {
     def receive = {
       case lila.analyse.actorApi.AnalysisReady(game, analysis) =>
         assessApi.onAnalysisReady(game, analysis)
@@ -138,8 +127,10 @@ final class Env(
         reportApi getSuspect userId flatten s"No such suspect $userId" flatMap { sus =>
           api.garbageCollect(sus, ipBan) >> publicChat.delete(sus)
         }
+      case lila.hub.actorApi.mod.AutoWarning(userId, subject) =>
+        logApi.modMessage(User.lichessId, userId, subject)
     }
-  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect)
+  }), name = ActorName), 'finishGame, 'analysisReady, 'garbageCollect, 'playban, 'autoWarning)
 }
 
 object Env {
@@ -162,9 +153,7 @@ object Env {
     notifyApi = lila.notify.Env.current.api,
     historyApi = lila.history.Env.current.api,
     rankingApi = lila.user.Env.current.rankingApi,
-    relationApi = lila.relation.Env.current.api,
     noteApi = lila.user.Env.current.noteApi,
-    userJson = lila.user.Env.current.jsonView,
     asyncCache = lila.memo.Env.current.asyncCache,
     emailValidator = lila.security.Env.current.emailAddressValidator
   )

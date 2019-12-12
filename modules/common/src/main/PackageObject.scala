@@ -46,6 +46,9 @@ trait PackageObject extends Lilaisms {
   def parseLongOption(str: String): Option[Long] =
     Try(java.lang.Long.parseLong(str)).toOption
 
+  def parseDoubleOption(str: String): Option[Double] =
+    Try(java.lang.Double.parseDouble(str)).toOption
+
   def intBox(in: Range.Inclusive)(v: Int): Int =
     math.max(in.start, math.min(v, in.end))
 
@@ -71,5 +74,13 @@ trait PackageObject extends Lilaisms {
     def millis(s: Int): Timeout = Timeout(s.millis)
     def seconds(s: Int): Timeout = Timeout(s.seconds)
     def minutes(m: Int): Timeout = Timeout(m.minutes)
+  }
+
+  implicit def unaryOperator[A](f: A => A) = new java.util.function.UnaryOperator[A] {
+    override def apply(a: A): A = f(a)
+  }
+
+  implicit def biFunction[A, B, C](f: (A, B) => C) = new java.util.function.BiFunction[A, B, C] {
+    override def apply(a: A, b: B): C = f(a, b)
   }
 }

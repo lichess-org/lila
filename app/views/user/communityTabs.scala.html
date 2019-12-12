@@ -1,7 +1,0 @@
-@(active: String)(implicit ctx: Context)
-<div class="com_tabs">
-  <a class="@active.active("leaderboard")" href="@routes.User.list">@trans.leaderboard()</a>
-  <a class="@active.active("ratings")" href="@routes.Stat.ratingDistribution("blitz")">@trans.ratingStats()</a>
-  <a class="@active.active("tournament")" href="@routes.Tournament.leaderboard">@trans.tournamentWinners()</a>
-  <a class="@active.active("shield")" href="@routes.Tournament.shields">Shields</a>
-</div>

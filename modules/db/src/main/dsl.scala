@@ -130,6 +130,10 @@ trait dsl extends LowPriorityDsl {
     $doc("$unset" -> $doc((Seq(field) ++ fields).map(k => BSONElement(k, BSONString("")))))
   }
 
+  def $setBoolOrUnset(field: String, value: Boolean): BSONDocument = {
+    if (value) $set(field -> true) else $unset(field)
+  }
+
   def $min(item: Producer[BSONElement]): BSONDocument = {
     $doc("$min" -> $doc(item))
   }
@@ -220,6 +224,8 @@ trait dsl extends LowPriorityDsl {
   }
   // End ofTop Level Array Update Operators
   //**********************************************************************************************//
+
+  def Facet(doc: Bdoc) = reactivemongo.api.collections.bson.BSONBatchCommands.AggregationFramework.PipelineOperator($doc("$facet" -> doc))
 
   /**
    * Represents the initial state of the expression which has only the name of the field.
@@ -331,8 +337,8 @@ trait dsl extends LowPriorityDsl {
     def $regex(value: String, options: String = ""): SimpleExpression[BSONRegex] =
       SimpleExpression(field, BSONRegex(value, options))
 
-    def $startsWith(value: String): SimpleExpression[BSONRegex] =
-      $regex(s"^$value", "")
+    def $startsWith(value: String, options: String = ""): SimpleExpression[BSONRegex] =
+      $regex(s"^$value", options)
   }
 
   trait ArrayOperators { self: ElementBuilder =>

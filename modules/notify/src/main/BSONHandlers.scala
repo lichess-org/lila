@@ -29,12 +29,6 @@ private object BSONHandlers {
   implicit val PMTextHandler = stringAnyValHandler[Text](_.value, Text.apply)
   implicit val PrivateMessageHandler = Macros.handler[PrivateMessage]
 
-  import QaAnswer._
-  implicit val AnswererHandler = stringAnyValHandler[AnswererId](_.value, AnswererId.apply)
-  implicit val QuestionHandler = Macros.handler[Question]
-  implicit val AnswerIdHandler = intAnyValHandler[AnswerId](_.value, AnswerId.apply)
-  implicit val QaAnswerHandler = Macros.handler[QaAnswer]
-
   implicit val TeamIdHandler = stringAnyValHandler[TeamJoined.Id](_.value, TeamJoined.Id.apply)
   implicit val TeamNameHandler = stringAnyValHandler[TeamJoined.Name](_.value, TeamJoined.Name.apply)
   implicit val TeamJoinedHandler = Macros.handler[TeamJoined]
@@ -72,10 +66,8 @@ private object BSONHandlers {
         case InvitedToStudy(invitedBy, studyName, studyId) =>
           $doc("invitedBy" -> invitedBy, "studyName" -> studyName, "studyId" -> studyId)
         case p: PrivateMessage => PrivateMessageHandler.write(p)
-        case q: QaAnswer => QaAnswerHandler.write(q)
         case t: TeamJoined => TeamJoinedHandler.write(t)
         case o: TeamMadeOwner => TeamMadeOwnerHandler.write(o)
-        case LimitedTournamentInvitation => $empty
         case x: TitledTournamentInvitation => TitledTournamentInvitationHandler.write(x)
         case x: GameEnd => GameEndHandler.write(x)
         case x: PlanStart => PlanStartHandler.write(x)
@@ -111,10 +103,8 @@ private object BSONHandlers {
       case "mention" => readMentionedNotification(reader)
       case "invitedStudy" => readInvitedStudyNotification(reader)
       case "privateMessage" => PrivateMessageHandler read reader.doc
-      case "qaAnswer" => QaAnswerHandler read reader.doc
       case "teamJoined" => TeamJoinedHandler read reader.doc
       case "teamMadeOwner" => TeamMadeOwnerHandler read reader.doc
-      case "u" => LimitedTournamentInvitation
       case "titledTourney" => TitledTournamentInvitationHandler read reader.doc
       case "gameEnd" => GameEndHandler read reader.doc
       case "planStart" => PlanStartHandler read reader.doc
