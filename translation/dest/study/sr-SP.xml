@@ -81,9 +81,9 @@
   <string name="saveChapter">Сачувајте поглавље</string>
   <string name="clearAnnotations">Избришите анотације</string>
   <string name="deleteChapter">Избришите поглавље</string>
-  <string name="deleteThisChapter">Избриши ово поглавље? Нема повратка назад!</string>
-  <string name="clearAllCommentsInThisChapter">Избриши све коментаре, глифове и нацртане облике у овом поглављу?</string>
-  <string name="rightUnderTheBoard">Одмах испод даске</string>
+  <string name="deleteThisChapter">Избришите ово поглавље? Нема повратка назад!</string>
+  <string name="clearAllCommentsInThisChapter">Избришите све коментаре, глифове и нацртане облике у овом поглављу?</string>
+  <string name="rightUnderTheBoard">Одмах испод табле</string>
   <string name="noPinnedComment">Ниједан</string>
   <string name="normalAnalysis">Нормална анализа</string>
   <string name="hideNextMoves">Сакриј следеће потезе</string>
