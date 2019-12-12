@@ -21,15 +21,15 @@ a [mobile app](https://lichess.org/mobile),
 and a [shared analysis board](https://lichess.org/study).
 The UI is available in more than [130 languages](https://crowdin.com/project/lichess) thanks to the community.
 
-Lichess is written in [Scala 2.11](https://www.scala-lang.org/),
-and relies on the [Play 2.4](https://www.playframework.com/) framework.
+Lichess is written in [Scala 2.13](https://www.scala-lang.org/),
+and relies on the [Play 2.8](https://www.playframework.com/) framework.
 [scalatags](http://www.lihaoyi.com/scalatags/) is used for templating.
 Pure chess logic is contained in the [scalachess](https://github.com/ornicar/scalachess) submodule.
-The server is fully asynchronous, making heavy use of Scala Futures and [Akka 2 actors](http://akka.io).
-Some WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
+The server is fully asynchronous, making heavy use of Scala Futures and [Akka streams](http://akka.io).
+WebSocket connections are handled by a [seperate server](https://github.com/ornicar/lila-ws) that communicates using [redis](https://redis.io/).
 Lichess talks to [Stockfish](http://stockfishchess.org/) deployed in an [AI cluster](https://github.com/niklasf/fishnet) of donated servers.
-It uses [MongoDB](https://mongodb.org) to store more than 1 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
-HTTP requests and WebSocket connections are proxied by [nginx](http://nginx.org).
+It uses [MongoDB](https://mongodb.org) to store more than 1.7 billion games, which are indexed by [elasticsearch](http://elasticsearch.org).
+HTTP requests and WebSocket connections can be proxied by [nginx](http://nginx.org).
 The web client is written in [TypeScript](https://typescriptlang.org) and [snabbdom](https://github.com/snabbdom/snabbdom), using [Sass](https://sass-lang.com/) to generate CSS.
 The [blog](https://lichess.org/blog) uses a free open content plan from [prismic.io](https://prismic.io).
 All rated games are published in a [free PGN database](https://database.lichess.org).
@@ -48,8 +48,6 @@ Installation
 `run`
 
 The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
-
-The source code is available for learning and contribution, but please don't just setup a public Lichess clone. Don't expect developers to help you run your own instance. Questions about the installation and runtime issues will probably be ignored.
 
 HTTP API
 --------
