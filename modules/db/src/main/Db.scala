@@ -13,14 +13,14 @@ import lila.common.config.CollName
 final class AsyncDb(
     name: String,
     uri: MongoConnection.ParsedURI,
-    driver: MongoDriver
+    driver: AsyncDriver
 ) {
 
   private val dbName = uri.db | "lichess"
 
-  lazy val connection = Future fromTry driver.connection(uri, name.some, true)
+  lazy val connection: Future[MongoConnection] = driver.connect(uri, name.some)
 
-  private def db = connection.flatMap(_ database dbName)
+  private def db: Future[DefaultDB] = connection.flatMap(_ database dbName)
 
   def apply(name: CollName) = new AsyncColl(() => db.dmap(_(name.value)))
 }
@@ -28,17 +28,18 @@ final class AsyncDb(
 final class Db(
     name: String,
     uri: MongoConnection.ParsedURI,
-    driver: MongoDriver
+    driver: AsyncDriver
 ) {
 
   private val logger = lila.db.logger branch name
 
   private val dbName = uri.db | "lichess"
 
-  lazy val connection = driver.connection(uri, name.some, true).get
-
-  private lazy val db = Chronometer.syncEffect(
-    Await.result(connection database dbName, 5.seconds)
+  private lazy val db: DefaultDB = Chronometer.syncEffect(
+    Await.result(
+      driver.connect(uri, name.some).flatMap(_ database dbName),
+      5.seconds
+    )
   ) { lap =>
       logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
     }

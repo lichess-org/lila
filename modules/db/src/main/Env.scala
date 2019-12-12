@@ -10,7 +10,7 @@ final class Env(
     lifecycle: ApplicationLifecycle
 ) {
 
-  private lazy val driver = new MongoDriver(appConfig.get[Config]("mongodb").some)
+  private lazy val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 
   def asyncDb(name: String, uri: MongoConnection.ParsedURI) = new AsyncDb(
     name = name,
