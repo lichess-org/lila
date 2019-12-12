@@ -37,8 +37,8 @@ object mon {
     counter("caffeine.request").withTags(Map("name" -> name, "hit" -> false)).increment(stats.missCount)
     histogram("caffeine.hit.rate").withTag("name", name).record((stats.hitRate * 100000).toLong)
     if (stats.totalLoadTime > 0) {
-      counter("caffeine.load.count").withTags(Map("name" -> name, "success" -> true)).increment(stats.loadSuccessCount)
-      counter("caffeine.load.count").withTags(Map("name" -> name, "success" -> false)).increment(stats.loadFailureCount)
+      counter("caffeine.load.count").withTags(Map("name" -> name, "success" -> "success")).increment(stats.loadSuccessCount)
+      counter("caffeine.load.count").withTags(Map("name" -> name, "success" -> "failure")).increment(stats.loadFailureCount)
       timer("caffeine.loadTime.cumulated").withTag("name", name).record(stats.totalLoadTime / 1000000) // in millis; too much nanos for Kamon to handle)
       timer("caffeine.loadTime.penalty").withTag("name", name).record(stats.averageLoadPenalty.toLong)
     }
@@ -159,7 +159,7 @@ object mon {
   }
   object explorer {
     object index {
-      def count(success: Boolean) = counter("explorer.index.count").withTag("success", success)
+      def count(success: Boolean) = counter("explorer.index.count").withTag("success", successTag(success))
       val time = timer("explorer.index.time").withoutTags
     }
   }
@@ -172,7 +172,7 @@ object mon {
   }
   object search {
     def time(op: String, index: String, success: Boolean) = timer("search.client.time").withTags(Map(
-      "op" -> op, "index" -> index, "success" -> success
+      "op" -> op, "index" -> index, "success" -> successTag(success)
     ))
   }
   object user {
@@ -180,13 +180,13 @@ object mon {
     object register {
       def count(api: Option[ApiVersion]) = counter("user.register.count").withTag("api", apiTag(api))
       def mustConfirmEmail(v: String) = counter("user.register.mustConfirmEmail").withTag("type", v)
-      def confirmEmailResult(success: Boolean) = counter("user.register.confirmEmail").withTag("success", success)
+      def confirmEmailResult(success: Boolean) = counter("user.register.confirmEmail").withTag("success", successTag(success))
       val modConfirmEmail = counter("user.register.modConfirmEmail").withoutTags
     }
     object auth {
       val bcFullMigrate = counter("user.auth.bcFullMigrate").withoutTags
       val hashTime = timer("user.auth.hashTime").withoutTags
-      def count(success: Boolean) = counter("user.auth.count").withTag("success", success)
+      def count(success: Boolean) = counter("user.auth.count").withTag("success", successTag(success))
 
       def passwordResetRequest(s: String) = counter("user.auth.passwordResetRequest").withTag("type", s)
       def passwordResetConfirm(s: String) = counter("user.auth.passwordResetConfirm").withTag("type", s)
@@ -195,7 +195,7 @@ object mon {
       def magicLinkConfirm(s: String) = counter("user.auth.magicLinkConfirm").withTag("type", s)
     }
     object oauth {
-      def request(success: Boolean) = counter("user.oauth.request").withTag("success", success)
+      def request(success: Boolean) = counter("user.oauth.request").withTag("success", successTag(success))
     }
   }
   object trouper {
@@ -272,7 +272,7 @@ object mon {
     }
     object checkMailApi {
       def fetch(success: Boolean, block: Boolean) =
-        timer("checkMail.fetch").withTags(Map("success" -> success, "block" -> block))
+        timer("checkMail.fetch").withTags(Map("success" -> successTag(success), "block" -> block))
     }
     def usersAlikeTime(field: String) = timer("security.usersAlike.time").withTag("field", field)
     def usersAlikeFound(field: String) = histogram("security.usersAlike.found").withTag("field", field)
@@ -302,7 +302,7 @@ object mon {
     }
     val created = gauge("tournament.count").withTag("type", "created")
     val started = gauge("tournament.count").withTag("type", "started")
-    // val player = gauge("tournament.player").withoutTags
+    val waitingPlayers = histogram("tournament.waitingPlayers").withoutTags
     object startedOrganizer {
       val tick = future("tournament.startedOrganizer.tick")
       val waitingUsers = future("tournament.startedOrganizer.waitingUsers")
@@ -312,7 +312,7 @@ object mon {
     }
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(Map(
-        "partial" -> partial, "success" -> success, "client" -> client
+        "partial" -> partial, "success" -> successTag(success), "client" -> client
       ))
   }
   object plan {
@@ -467,7 +467,10 @@ object mon {
   type TimerPath = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter
 
-  private def future(name: String) = (success: Boolean) => timer(name).withTag("success", success)
+  private def future(name: String) = (success: Boolean) =>
+    timer(name).withTag("success", successTag(success))
+
+  private def successTag(success: Boolean) = if (success) "success" else "failure"
 
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
