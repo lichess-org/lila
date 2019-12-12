@@ -26,6 +26,9 @@ final class GameProxyRepo(
     if (game.finishedOrAborted) fuccess(game)
     else roundSocket updateIfPresent game
 
+  def updateIfPresent(pov: Pov): Fu[Pov] =
+    updateIfPresent(pov.game).dmap(_ pov pov.color)
+
   def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
     gameIfPresent(gameId) map2 { (g: Game) => Pov(g, color) }
 

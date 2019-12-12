@@ -30,12 +30,11 @@ final class User(
 
   def tv(username: String) = Open { implicit ctx =>
     OptionFuResult(env.user.repo named username) { user =>
-      currentlyPlaying(user) orElse
-        env.game.gameRepo.lastPlayed(user) flatMap {
-          _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
-            roundC.watch(pov, userTv = user.some)
-          }
+      currentlyPlaying(user) orElse lastPlayed(user) flatMap {
+        _.fold(fuccess(Redirect(routes.User.show(username)))) { pov =>
+          roundC.watch(pov, userTv = user.some)
         }
+      }
     }
   }
 
@@ -72,7 +71,8 @@ final class User(
         info <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
       } yield status(html.user.show.page.activity(u, as, info, social))
-    } else env.activity.read.recent(u) map { as =>
+    }
+    else env.activity.read.recent(u) map { as =>
       status(html.activity(u, as))
     }
 
@@ -166,7 +166,12 @@ final class User(
   }
 
   private def currentlyPlaying(user: UserModel): Fu[Option[Pov]] =
-    env.game.gameRepo.lastPlayedPlayingId(user.id).flatMap(_ ?? { env.round.proxyRepo.pov(_, user) })
+    env.game.gameRepo.lastPlayedPlayingId(user.id)
+      .flatMap(_ ?? { env.round.proxyRepo.pov(_, user) })
+
+  private def lastPlayed(user: UserModel): Fu[Option[Pov]] =
+    env.game.gameRepo.lastPlayed(user)
+      .flatMap(_ ?? { p => env.round.proxyRepo.updateIfPresent(p) dmap some })
 
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 500,

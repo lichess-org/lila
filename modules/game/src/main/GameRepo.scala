@@ -159,7 +159,7 @@ final class GameRepo(val coll: Coll) {
   def lastPlayedPlayingId(userId: User.ID): Fu[Option[Game.ID]] =
     coll.find(Query recentlyPlaying userId, $id(true).some)
       .sort(Query.sortMovedAtNoIndex)
-      .one[Bdoc](readPreference = ReadPreference.secondaryPreferred)
+      .one[Bdoc](readPreference = ReadPreference.primary)
       .map { _.flatMap(_.getAsOpt[Game.ID](F.id)) }
 
   def allPlaying(userId: User.ID): Fu[List[Pov]] =
@@ -169,7 +169,7 @@ final class GameRepo(val coll: Coll) {
   def lastPlayed(user: User): Fu[Option[Pov]] =
     coll.ext.find(Query user user.id)
       .sort($sort desc F.createdAt)
-      .list[Game](3).map {
+      .list[Game](3).dmap {
         _.sortBy(_.movedAt).lastOption flatMap { Pov(_, user) }
       }
 
