@@ -9,7 +9,7 @@ import lila.common.IpAddress
 
 final class GeoIP(config: GeoIP.Config) {
 
-  private val geoIp = MaxMindIpGeo(config.file, 0)
+  private lazy val geoIp = MaxMindIpGeo(config.file, 0)
 
   private val cache: LoadingCache[IpAddress, Option[Location]] = Scaffeine()
     .expireAfterAccess(config.cacheTtl)
