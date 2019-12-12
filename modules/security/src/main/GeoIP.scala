@@ -9,14 +9,22 @@ import lila.common.IpAddress
 
 final class GeoIP(config: GeoIP.Config) {
 
-  private lazy val geoIp = MaxMindIpGeo(config.file, 0)
+  private lazy val geoIp: Option[MaxMindIpGeo] = try {
+    val m = MaxMindIpGeo(config.file, 0)
+    logger.info("MaxMindIpGeo is enabled")
+    m.some
+  } catch {
+    case e: java.io.FileNotFoundException =>
+      logger.info("MaxMindIpGeo is disabled", e)
+      none
+  }
 
   private val cache: LoadingCache[IpAddress, Option[Location]] = Scaffeine()
     .expireAfterAccess(config.cacheTtl)
     .build(compute)
 
   private def compute(ip: IpAddress): Option[Location] =
-    geoIp getLocation ip.value map Location.apply
+    geoIp.flatMap(_ getLocation ip.value) map Location.apply
 
   def apply(ip: IpAddress): Option[Location] = cache get ip
 
