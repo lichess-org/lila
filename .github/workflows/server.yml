@@ -33,8 +33,10 @@ jobs:
       with:
         path: ~/.ivy2/cache
         key: ${{ runner.os }}-ivy2
-    - uses: olafurpg/setup-scala@6068b77a47ebd5c365972f14142aa0d1b6aa4ced
-    - run: ./bin/dev.default test:compile test stage
+    - uses: olafurpg/setup-scala@v7
+       with:
+         java-version: openjdk@1.13
+    - run: ./lila test:compile test stage
     - run: du -d2 -h ~
     - uses: actions/upload-artifact@v1
       with:
