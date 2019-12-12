@@ -10,9 +10,6 @@
 # We use .sbtopts instead
 export SBT_OPTS=""
 
-# For development without nginx
-export SERVE_ASSETS=1
-
 if [ ! -f "conf/application.conf" ]; then
   cp conf/application.conf.default conf/application.conf
 fi

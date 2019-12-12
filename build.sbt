@@ -32,12 +32,6 @@ libraryDependencies ++= Seq(
   scrimage, scaffeine, lettuce, epoll
 ) ++ silencer.bundle
 
-resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
-unmanagedResourceDirectories in Assets ++= {
-  if (scala.sys.env.get("SERVE_ASSETS").exists(_ == "1")) Seq(baseDirectory.value / "public")
-  else Nil
-}
-
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
 routesGenerator := LilaRoutesGenerator
