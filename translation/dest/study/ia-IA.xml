@@ -14,6 +14,10 @@
   <string name="recentlyUpdated">Actualisationes recente</string>
   <string name="mostPopular">Plus popular</string>
   <string name="addNewChapter">Adder un nove capitulo</string>
+  <plurals name="nbGames">
+    <item quantity="one">%s Partita</item>
+    <item quantity="other">%s Partitas</item>
+  </plurals>
   <string name="addMembers">Adder membros</string>
   <plurals name="nbMembers">
     <item quantity="one">%s Membro</item>
@@ -29,4 +33,13 @@
   <string name="previous">Previe</string>
   <string name="next">Sequente</string>
   <string name="last">Ultime</string>
+  <string name="empty">Vacue</string>
+  <string name="automatic">Automatic</string>
+  <string name="urlOfTheGame">URL del joco</string>
+  <string name="createStudy">Crear studio</string>
+  <string name="editStudy">Modificar studio</string>
+  <string name="visibility">Visibilitate</string>
+  <string name="public">Public</string>
+  <string name="save">Salveguardar</string>
+  <string name="deleteStudy">Deler studio</string>
 </resources>
