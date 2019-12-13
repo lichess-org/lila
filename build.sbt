@@ -3,11 +3,10 @@ import com.typesafe.sbt.packager.Keys.scriptClasspath
 import BuildSettings._
 import Dependencies._
 
+// enable both akka and netty, choose with config
+// akka is preferable for dev, netty for prod
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala, PlayAkkaHttpServer)
-  .disablePlugins(PlayNettyServer)
-  /* .enablePlugins(PlayScala, PlayNettyServer) */
-  /* .disablePlugins(PlayAkkaHttpServer) */
+  .enablePlugins(PlayScala, PlayAkkaHttpServer, PlayNettyServer)
   .dependsOn(api)
   .aggregate(api)
 
@@ -26,6 +25,8 @@ PlayKeys.externalizeResources := false
 scriptClasspath := Seq("*")
 // don't make an assets jar
 resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+// use akka-http for dev
+PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServerProvider"
 
 // format: off
 libraryDependencies ++= Seq(
