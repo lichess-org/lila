@@ -6,13 +6,14 @@ import reactivemongo.api.bson._
 
 object BSONHandlers {
 
-  import PracticeProgress.{ NbMoves, ChapterNbMoves }
+  import PracticeProgress.{ ChapterNbMoves, NbMoves }
 
-  private implicit val nbMovesHandler: BSONHandler[NbMoves] =
+  implicit private val nbMovesHandler: BSONHandler[NbMoves] =
     isoHandler(PracticeProgress.nbMovesIso)
-  private implicit val chapterNbMovesHandler: BSONHandler[ChapterNbMoves] =
+  implicit private val chapterNbMovesHandler: BSONHandler[ChapterNbMoves] =
     typedMapHandler[Chapter.Id, NbMoves](Chapter.idIso)
 
-  implicit val practiceProgressIdHandler = stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
+  implicit val practiceProgressIdHandler =
+    stringAnyValHandler[PracticeProgress.Id](_.value, PracticeProgress.Id.apply)
   implicit val practiceProgressHandler = Macros.handler[PracticeProgress]
 }

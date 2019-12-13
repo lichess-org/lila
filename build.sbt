@@ -1,5 +1,4 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 
 import BuildSettings._
 import Dependencies._
@@ -25,7 +24,10 @@ PlayKeys.playDefaultPort := 9663
 PlayKeys.externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
-// offline := true
+// don't make an assets jar
+resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+
+// format: off
 libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
@@ -34,12 +36,6 @@ libraryDependencies ++= Seq(
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce, epoll
 ) ++ silencer.bundle
-
-resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
-
-scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
-excludeFilter in scalariformFormat := "*Routes*"
-routesGenerator := LilaRoutesGenerator
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,

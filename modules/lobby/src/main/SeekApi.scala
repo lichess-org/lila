@@ -15,12 +15,13 @@ final class SeekApi(
 ) {
   import config._
 
-  private sealed trait CacheKey
+  sealed private trait CacheKey
   private object ForAnon extends CacheKey
   private object ForUser extends CacheKey
 
   private def allCursor =
-    coll.ext.find($empty)
+    coll.ext
+      .find($empty)
       .sort($doc("createdAt" -> -1))
       .cursor[Seek]()
 
@@ -54,33 +55,39 @@ final class SeekApi(
   }
 
   private def noDupsFor(user: LobbyUser, seeks: List[Seek]) =
-    seeks.foldLeft(List.empty[Seek] -> Set.empty[String]) {
-      case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
-      case ((res, h), seek) =>
-        val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","
-        if (h contains seekH) (res, h)
-        else (seek :: res, h + seekH)
-    }._1.reverse
+    seeks
+      .foldLeft(List.empty[Seek] -> Set.empty[String]) {
+        case ((res, h), seek) if seek.user.id == user.id => (seek :: res, h)
+        case ((res, h), seek) =>
+          val seekH = List(seek.variant, seek.daysPerTurn, seek.mode, seek.color, seek.user.id) mkString ","
+          if (h contains seekH) (res, h)
+          else (seek :: res, h + seekH)
+      }
+      ._1
+      .reverse
 
   def find(id: String): Fu[Option[Seek]] =
     coll.ext.find($id(id)).one[Seek]
 
-  def insert(seek: Seek) = coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
-    case seeks if maxPerUser >= seeks.size => funit
-    case seeks => seeks.drop(maxPerUser.value).map(remove).sequenceFu
-  }.void >>- cacheClear
+  def insert(seek: Seek) =
+    coll.insert.one(seek) >> findByUser(seek.user.id).flatMap {
+      case seeks if maxPerUser >= seeks.size => funit
+      case seeks                             => seeks.drop(maxPerUser.value).map(remove).sequenceFu
+    }.void >>- cacheClear
 
   def findByUser(userId: String): Fu[List[Seek]] =
-    coll.ext.find($doc("user.id" -> userId))
+    coll.ext
+      .find($doc("user.id" -> userId))
       .sort($doc("createdAt" -> -1))
-      .cursor[Seek]().gather[List]()
+      .cursor[Seek]()
+      .gather[List]()
 
   def remove(seek: Seek) =
     coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear
 
   def archive(seek: Seek, gameId: String) = {
     val archiveDoc = Seek.seekBSONHandler.writeTry(seek).get ++ $doc(
-      "gameId" -> gameId,
+      "gameId"     -> gameId,
       "archivedAt" -> DateTime.now
     )
     coll.delete.one($doc("_id" -> seek.id)).void >>-
@@ -92,10 +99,14 @@ final class SeekApi(
     archiveColl.ext.find($doc("gameId" -> gameId)).one[Seek]
 
   def removeBy(seekId: String, userId: String) =
-    coll.delete.one($doc(
-      "_id" -> seekId,
-      "user.id" -> userId
-    )).void >>- cacheClear
+    coll.delete
+      .one(
+        $doc(
+          "_id"     -> seekId,
+          "user.id" -> userId
+        )
+      )
+      .void >>- cacheClear
 
   def removeByUser(user: User) =
     coll.delete.one($doc("user.id" -> user.id)).void >>- cacheClear

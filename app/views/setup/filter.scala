@@ -20,7 +20,14 @@ object filter {
         tbody(
           tr(cls := "variant")(
             td(trans.variant()),
-            td(renderCheckboxes(form, "variant", filter.variant.map(_.id.toString), translatedVariantChoicesWithVariants))
+            td(
+              renderCheckboxes(
+                form,
+                "variant",
+                filter.variant.map(_.id.toString),
+                translatedVariantChoicesWithVariants
+              )
+            )
           ),
           tr(
             td(trans.timeControl()),
@@ -56,25 +63,26 @@ object filter {
   )
 
   def renderCheckboxes(
-    form: Form[_],
-    key: String,
-    checks: List[String],
-    options: Seq[(Any, String, Option[String])]
+      form: Form[_],
+      key: String,
+      checks: List[String],
+      options: Seq[(Any, String, Option[String])]
   ): Frag =
     options.zipWithIndex.map {
-      case ((value, text, hint), index) => div(cls := "checkable")(
-        renderCheckbox(form, key, index, value.toString, checks, raw(text), hint)
-      )
+      case ((value, text, hint), index) =>
+        div(cls := "checkable")(
+          renderCheckbox(form, key, index, value.toString, checks, raw(text), hint)
+        )
     }
 
   private def renderCheckbox(
-    form: Form[_],
-    key: String,
-    index: Int,
-    value: String,
-    checks: List[String],
-    content: Frag,
-    hint: Option[String]
+      form: Form[_],
+      key: String,
+      index: Int,
+      value: String,
+      checks: List[String],
+      content: Frag,
+      hint: Option[String]
   ) = label(title := hint)(
     input(
       tpe := "checkbox",

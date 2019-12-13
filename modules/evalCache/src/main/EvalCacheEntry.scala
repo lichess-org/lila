@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import chess.format.{ Forsyth, FEN, Uci }
+import chess.format.{ FEN, Forsyth, Uci }
 import chess.variant.Variant
 import org.joda.time.DateTime
 import scalaz.NonEmptyList
@@ -37,10 +37,10 @@ case class EvalCacheEntry(
 
 object EvalCacheEntry {
 
-  val MIN_KNODES = 3000
-  val MIN_DEPTH = 20
-  val MIN_PV_SIZE = 6
-  val MAX_PV_SIZE = 10
+  val MIN_KNODES   = 3000
+  val MIN_DEPTH    = 20
+  val MIN_PV_SIZE  = 6
+  val MAX_PV_SIZE  = 10
   val MAX_MULTI_PV = 5
 
   case class Eval(
@@ -83,7 +83,7 @@ object EvalCacheEntry {
   case class Pv(score: Score, moves: Moves) {
 
     def looksValid = score.mate match {
-      case None => moves.value.size > MIN_PV_SIZE
+      case None       => moves.value.size > MIN_PV_SIZE
       case Some(mate) => mate.value != 0 // sometimes we get #0. Dunno why.
     }
 
@@ -112,7 +112,7 @@ object EvalCacheEntry {
       }
       val str = variant match {
         case chess.variant.ThreeCheck => base + ~fen.value.split(' ').lift(6)
-        case _ => base
+        case _                        => base
       }
       new SmallFen(str)
     }

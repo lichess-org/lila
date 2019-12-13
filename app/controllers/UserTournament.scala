@@ -17,9 +17,10 @@ final class UserTournament(env: Env) extends LilaController(env) {
             env.tournament.leaderboardApi.bestByUser(user, page).map { entries =>
               Ok(html.userTournament.bits.best(user, entries))
             }
-          case "chart" => env.tournament.leaderboardApi.chart(user).map { data =>
-            Ok(html.userTournament.chart(user, data))
-          }
+          case "chart" =>
+            env.tournament.leaderboardApi.chart(user).map { data =>
+              Ok(html.userTournament.chart(user, data))
+            }
           case _ => notFound
         }
       }

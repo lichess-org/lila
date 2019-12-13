@@ -1,6 +1,6 @@
 package lila.lobby
 
-import chess.{ Mode, Clock, Speed }
+import chess.{ Clock, Mode, Speed }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 import play.api.libs.json._
@@ -13,7 +13,7 @@ import lila.socket.Socket.Sri
 // realtime chess, volatile
 case class Hook(
     id: String,
-    sri: Sri, // owner socket sri
+    sri: Sri,            // owner socket sri
     sid: Option[String], // owner cookie (used to prevent multiple hooks)
     variant: Int,
     clock: Clock.Config,
@@ -41,30 +41,32 @@ case class Hook(
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this) &&
       (userId.isEmpty || userId != h.userId)
 
-  private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) {
-    range => h.rating ?? range.contains
+  private def ratingRangeCompatibleWith(h: Hook) = realRatingRange.fold(true) { range =>
+    h.rating ?? range.contains
   }
 
   lazy val realRatingRange: Option[RatingRange] = isAuth ?? {
     RatingRange noneIfDefault ratingRange
   }
 
-  def userId = user.map(_.id)
+  def userId   = user.map(_.id)
   def username = user.fold(User.anonymous)(_.username)
-  def lame = user ?? (_.lame)
+  def lame     = user ?? (_.lame)
 
   lazy val perfType = PerfPicker.perfType(speed, realVariant, none)
 
   lazy val perf: Option[LobbyPerf] = for { u <- user; pt <- perfType } yield u perfAt pt
-  def rating: Option[Int] = perf.map(_.rating)
+  def rating: Option[Int]          = perf.map(_.rating)
 
-  lazy val render: JsObject = Json.obj(
-    "id" -> id,
-    "sri" -> sri,
-    "clock" -> clock.show,
-    "t" -> clock.estimateTotalSeconds,
-    "s" -> speed.id
-  ).add("prov" -> perf.map(_.provisional).filter(identity))
+  lazy val render: JsObject = Json
+    .obj(
+      "id"    -> id,
+      "sri"   -> sri,
+      "clock" -> clock.show,
+      "t"     -> clock.estimateTotalSeconds,
+      "s"     -> speed.id
+    )
+    .add("prov" -> perf.map(_.provisional).filter(identity))
     .add("u" -> user.map(_.username))
     .add("rating" -> rating)
     .add("variant" -> realVariant.exotic.option(realVariant.key))
@@ -103,15 +105,15 @@ object Hook {
   val idSize = 8
 
   def make(
-    sri: Sri,
-    variant: chess.variant.Variant,
-    clock: Clock.Config,
-    mode: Mode,
-    color: String,
-    user: Option[User],
-    sid: Option[String],
-    ratingRange: RatingRange,
-    blocking: Set[String]
+      sri: Sri,
+      variant: chess.variant.Variant,
+      clock: Clock.Config,
+      mode: Mode,
+      color: String,
+      user: Option[User],
+      sid: Option[String],
+      ratingRange: RatingRange,
+      blocking: Set[String]
   ): Hook = new Hook(
     id = Random nextString idSize,
     sri = sri,

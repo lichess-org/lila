@@ -10,16 +10,31 @@ import controllers.routes
 object widget {
 
   def titleName(c: lila.coach.Coach.WithUser) = frag(
-    c.user.title.map { t => s"$t " },
+    c.user.title.map { t =>
+      s"$t "
+    },
     c.user.realNameOrUsername
   )
 
   def pic(c: lila.coach.Coach.WithUser, size: Int) =
-    c.coach.picturePath.map { path =>
-      img(width := size, height := size, cls := "picture", src := dbImageUrl(path.value), alt := s"${c.user.titleUsername} lichess coach")
-    }.getOrElse {
-      img(width := size, height := size, cls := "default picture", src := staticUrl("images/placeholder.png"))
-    }
+    c.coach.picturePath
+      .map { path =>
+        img(
+          width := size,
+          height := size,
+          cls := "picture",
+          src := dbImageUrl(path.value),
+          alt := s"${c.user.titleUsername} lichess coach"
+        )
+      }
+      .getOrElse {
+        img(
+          width := size,
+          height := size,
+          cls := "default picture",
+          src := staticUrl("images/placeholder.png")
+        )
+      }
 
   def apply(c: lila.coach.Coach.WithUser, link: Boolean)(implicit ctx: Context) = {
     val profile = c.user.profileOrDefault
@@ -43,7 +58,8 @@ object widget {
                   frag(
                     span(cls := "country")(
                       img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
-                      " ", c.name
+                      " ",
+                      c.name
                     )
                   )
                 }

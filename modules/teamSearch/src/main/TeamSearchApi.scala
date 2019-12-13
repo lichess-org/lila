@@ -9,7 +9,8 @@ import lila.team.{ Team, TeamRepo }
 final class TeamSearchApi(
     client: ESClient,
     teamRepo: TeamRepo
-)(implicit mat: akka.stream.Materializer) extends SearchReadApi[Team, Query] {
+)(implicit mat: akka.stream.Materializer)
+    extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -21,26 +22,27 @@ final class TeamSearchApi(
   def store(team: Team) = client.store(Id(team.id), toDoc(team))
 
   private def toDoc(team: Team) = Json.obj(
-    Fields.name -> team.name,
+    Fields.name        -> team.name,
     Fields.description -> team.description.take(10000),
-    Fields.location -> team.location,
-    Fields.nbMembers -> team.nbMembers
+    Fields.location    -> team.location,
+    Fields.nbMembers   -> team.nbMembers
   )
 
   def reset = client match {
-    case c: ESClientHttp => c.putMapping >> {
+    case c: ESClientHttp =>
+      c.putMapping >> {
 
-      logger.info(s"Index to ${c.index.name}")
+        logger.info(s"Index to ${c.index.name}")
 
-      teamRepo.cursor
-        .documentSource()
-        .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
-        .map(t => Id(t.id) -> toDoc(t))
-        .grouped(200)
-        .mapAsync(1)(c.storeBulk)
-        .toMat(Sink.ignore)(Keep.right)
-        .run
-    } >> client.refresh
+        teamRepo.cursor
+          .documentSource()
+          .via(lila.common.LilaStream.logRate[Team]("team index")(logger))
+          .map(t => Id(t.id) -> toDoc(t))
+          .grouped(200)
+          .mapAsync(1)(c.storeBulk)
+          .toMat(Sink.ignore)(Keep.right)
+          .run
+      } >> client.refresh
     case _ => funit
   }
 }

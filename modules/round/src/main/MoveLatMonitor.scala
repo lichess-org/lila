@@ -8,7 +8,7 @@ private object MoveLatMonitor {
 
   private case class Latency(totalMicros: Long = 0, count: Int = 0) {
     def record(micros: Int) = copy(totalMicros + micros, count + 1)
-    def average = (totalMicros / count.atLeast(1)).toInt
+    def average             = (totalMicros / count.atLeast(1)).toInt
   }
   private val latency = new AtomicReference(Latency())
 

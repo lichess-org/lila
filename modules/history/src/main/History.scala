@@ -24,23 +24,23 @@ case class History(
 ) {
 
   def apply(perfType: PerfType): RatingsMap = perfType match {
-    case PerfType.Standard => standard
-    case PerfType.Bullet => bullet
-    case PerfType.Blitz => blitz
-    case PerfType.Rapid => rapid
-    case PerfType.Classical => classical
+    case PerfType.Standard       => standard
+    case PerfType.Bullet         => bullet
+    case PerfType.Blitz          => blitz
+    case PerfType.Rapid          => rapid
+    case PerfType.Classical      => classical
     case PerfType.Correspondence => correspondence
-    case PerfType.Chess960 => chess960
-    case PerfType.KingOfTheHill => kingOfTheHill
-    case PerfType.Antichess => antichess
-    case PerfType.ThreeCheck => threeCheck
-    case PerfType.Atomic => atomic
-    case PerfType.Horde => horde
-    case PerfType.RacingKings => racingKings
-    case PerfType.Crazyhouse => crazyhouse
-    case PerfType.Puzzle => puzzle
-    case PerfType.UltraBullet => ultraBullet
-    case x => sys error s"No history for perf $x"
+    case PerfType.Chess960       => chess960
+    case PerfType.KingOfTheHill  => kingOfTheHill
+    case PerfType.Antichess      => antichess
+    case PerfType.ThreeCheck     => threeCheck
+    case PerfType.Atomic         => atomic
+    case PerfType.Horde          => horde
+    case PerfType.RacingKings    => racingKings
+    case PerfType.Crazyhouse     => crazyhouse
+    case PerfType.Puzzle         => puzzle
+    case PerfType.UltraBullet    => ultraBullet
+    case x                       => sys error s"No history for perf $x"
   }
 }
 
@@ -48,14 +48,19 @@ object History {
 
   import reactivemongo.api.bson._
 
-  private[history] implicit val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
-    def readDocument(doc: BSONDocument) = Success(doc.elements.flatMap {
-      case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> v)
-      case _ => none[(Int, Int)]
-    }.sortBy(_._1) to List)
+  implicit private[history] val RatingsMapReader = new BSONDocumentReader[RatingsMap] {
+    def readDocument(doc: BSONDocument) =
+      Success(
+        doc.elements
+          .flatMap {
+            case BSONElement(k, BSONInteger(v)) => k.toIntOption map (_ -> v)
+            case _                              => none[(Int, Int)]
+          }
+          .sortBy(_._1) to List
+      )
   }
 
-  private[history] implicit val HistoryBSONReader = new BSONDocumentReader[History] {
+  implicit private[history] val HistoryBSONReader = new BSONDocumentReader[History] {
     def readDocument(doc: BSONDocument) = Success {
       def ratingsMap(key: String): RatingsMap = ~doc.getAsOpt[RatingsMap](key)
       History(

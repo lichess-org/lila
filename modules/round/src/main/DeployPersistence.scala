@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import lila.hub.actorApi.Deploy
 
-private final class DeployPersistence(system: ActorSystem) {
+final private class DeployPersistence(system: ActorSystem) {
 
   private var ongoing: Option[Cancellable] = None
 
@@ -14,10 +14,12 @@ private final class DeployPersistence(system: ActorSystem) {
   def enable(): Unit = {
     cancel()
     logger.warn("Enabling round persistence")
-    ongoing = system.scheduler.scheduleOnce(7.minutes) {
-      logger.warn("Expiring round persistence")
-      ongoing = none
-    }.some
+    ongoing = system.scheduler
+      .scheduleOnce(7.minutes) {
+        logger.warn("Expiring round persistence")
+        ongoing = none
+      }
+      .some
   }
 
   def cancel(): Unit = {

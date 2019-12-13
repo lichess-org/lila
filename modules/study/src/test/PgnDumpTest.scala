@@ -42,7 +42,8 @@ class PgnDumpTest extends Specification {
       val tree = root.copy(children = children(
         node(1, "e2e4", "e4"),
         node(1, "g1f3", "Nf3")
-      ))
+      )
+      )
       P.toTurns(tree) must beLike {
         case List(Turn(1, Some(move), None)) =>
           move.san must_== "e4"
@@ -55,11 +56,17 @@ class PgnDumpTest extends Specification {
     }
     "two moves and one variation" in {
       val tree = root.copy(children = children(
-        node(1, "e2e4", "e4", children(
-          node(2, "d7d5", "d5")
-        )),
+        node(
+          1,
+          "e2e4",
+          "e4",
+          children(
+            node(2, "d7d5", "d5")
+          )
+        ),
         node(1, "g1f3", "Nf3")
-      ))
+      )
+      )
       P.toTurns(tree) must beLike {
         case List(Turn(1, Some(white), Some(black))) =>
           white.san must_== "e4"
@@ -74,12 +81,18 @@ class PgnDumpTest extends Specification {
     }
     "two moves and two variations" in {
       val tree = root.copy(children = children(
-        node(1, "e2e4", "e4", children(
-          node(2, "d7d5", "d5"),
-          node(2, "g8f6", "Nf6")
-        )),
+        node(
+          1,
+          "e2e4",
+          "e4",
+          children(
+            node(2, "d7d5", "d5"),
+            node(2, "g8f6", "Nf6")
+          )
+        ),
         node(1, "g1f3", "Nf3")
-      ))
+      )
+      )
       P.toTurns(tree).mkString(" ").toString must_==
         "1. e4 (1. Nf3) 1... d5 (1... Nf6)"
 
@@ -101,29 +114,53 @@ class PgnDumpTest extends Specification {
     }
     "more moves and variations" in {
       val tree = root.copy(children = children(
-        node(1, "e2e4", "e4", children(
-          node(2, "d7d5", "d5", children(
-            node(3, "a2a3", "a3"),
-            node(3, "b2b3", "b3")
-          )),
-          node(2, "g8f6", "Nf6", children(
-            node(3, "h2h4", "h4")
-          ))
-        )),
-        node(1, "g1f3", "Nf3", children(
-          node(2, "a7a6", "a6"),
-          node(2, "b7b6", "b6", children(
-            node(3, "c2c4", "c4")
-          ))
-        ))
-      ))
+        node(
+          1,
+          "e2e4",
+          "e4",
+          children(
+            node(
+              2,
+              "d7d5",
+              "d5",
+              children(
+                node(3, "a2a3", "a3"),
+                node(3, "b2b3", "b3")
+              )
+            ),
+            node(
+              2,
+              "g8f6",
+              "Nf6",
+              children(
+                node(3, "h2h4", "h4")
+              )
+            )
+          )
+        ),
+        node(
+          1,
+          "g1f3",
+          "Nf3",
+          children(
+            node(2, "a7a6", "a6"),
+            node(
+              2,
+              "b7b6",
+              "b6",
+              children(
+                node(3, "c2c4", "c4")
+              )
+            )
+          )
+        )
+      )
+      )
       P.toTurns(tree).mkString(" ").toString must_==
         "1. e4 (1. Nf3 a6 (1... b6 2. c4)) 1... d5 (1... Nf6 2. h4) 2. a3 (2. b3)"
 
       P.toTurns(tree) must beLike {
-        case List(
-          Turn(1, Some(w1), Some(b1)),
-          Turn(2, Some(w2), None)) =>
+        case List(Turn(1, Some(w1), Some(b1)), Turn(2, Some(w2), None)) =>
           w1.san must_== "e4"
           w1.variations must beLike {
             case List(List(Turn(1, Some(w), Some(b)))) =>
@@ -131,18 +168,14 @@ class PgnDumpTest extends Specification {
               w.variations must beEmpty
               b.san must_== "a6"
               b.variations must beLike {
-                case List(List(
-                  Turn(1, None, Some(b)),
-                  Turn(2, Some(w), None))) =>
+                case List(List(Turn(1, None, Some(b)), Turn(2, Some(w), None))) =>
                   b.san must_== "b6"
                   w.san must_== "c4"
               }
           }
           b1.san must_== "d5"
           b1.variations must beLike {
-            case List(List(
-              Turn(1, None, Some(b)),
-              Turn(2, Some(w), None))) =>
+            case List(List(Turn(1, None, Some(b)), Turn(2, Some(w), None))) =>
               b.san must_== "Nf6"
               b.variations must beEmpty
               w.san must_== "h4"

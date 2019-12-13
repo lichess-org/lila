@@ -6,7 +6,7 @@ import scala.collection.mutable.AnyRefMap
 
 import org.joda.time.format._
 import org.joda.time.format.ISODateTimeFormat
-import org.joda.time.{ Period, PeriodType, DurationFieldType, DateTime, DateTimeZone }
+import org.joda.time.{ DateTime, DateTimeZone, DurationFieldType, Period, PeriodType }
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
@@ -14,11 +14,11 @@ import lila.app.ui.ScalatagsTemplate._
 trait DateHelper { self: I18nHelper =>
 
   private val dateTimeStyle = "MS"
-  private val dateStyle = "M-"
+  private val dateStyle     = "M-"
 
   private val dateTimeFormatters = AnyRefMap.empty[String, DateTimeFormatter]
-  private val dateFormatters = AnyRefMap.empty[String, DateTimeFormatter]
-  private val periodFormatters = AnyRefMap.empty[String, PeriodFormatter]
+  private val dateFormatters     = AnyRefMap.empty[String, DateTimeFormatter]
+  private val periodFormatters   = AnyRefMap.empty[String, PeriodFormatter]
   private val periodType = PeriodType forFields Array(
     DurationFieldType.days,
     DurationFieldType.hours,
@@ -87,7 +87,7 @@ trait DateHelper { self: I18nHelper =>
   def secondsFromNow(seconds: Int, alwaysRelative: Boolean = false) =
     momentFromNow(DateTime.now plusSeconds seconds, alwaysRelative)
 
-  private val atomDateFormatter = ISODateTimeFormat.dateTime
+  private val atomDateFormatter        = ISODateTimeFormat.dateTime
   def atomDate(date: DateTime): String = atomDateFormatter print date
   def atomDate(field: String)(doc: io.prismic.Document): Option[String] =
     doc getDate field map (_.value.toDateTimeAtStartOfDay) map atomDate

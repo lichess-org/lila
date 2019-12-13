@@ -16,25 +16,28 @@ import controllers.routes
 object page {
 
   def activity(
-    u: User,
-    activities: Vector[lila.activity.ActivityView],
-    info: UserInfo,
-    social: lila.app.mashup.UserInfo.Social
-  )(implicit ctx: Context) = views.html.base.layout(
-    title = s"${u.username} : ${trans.activity.activity.txt()}",
-    openGraph = lila.app.ui.OpenGraph(
-      image = staticUrl("images/large_tile.png").some,
-      title = u.titleUsernameWithBestRating,
-      url = s"$netBaseUrl${routes.User.show(u.username).url}",
-      description = describeUser(u)
-    ).some,
-    moreJs = moreJs(info),
-    moreCss = frag(
-      cssTag("user.show"),
-      isGranted(_.UserSpy) option cssTag("mod.user")
-    ),
-    robots = u.count.game >= 10
-  ) {
+      u: User,
+      activities: Vector[lila.activity.ActivityView],
+      info: UserInfo,
+      social: lila.app.mashup.UserInfo.Social
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = s"${u.username} : ${trans.activity.activity.txt()}",
+      openGraph = lila.app.ui
+        .OpenGraph(
+          image = staticUrl("images/large_tile.png").some,
+          title = u.titleUsernameWithBestRating,
+          url = s"$netBaseUrl${routes.User.show(u.username).url}",
+          description = describeUser(u)
+        )
+        .some,
+      moreJs = moreJs(info),
+      moreCss = frag(
+        cssTag("user.show"),
+        isGranted(_.UserSpy) option cssTag("mod.user")
+      ),
+      robots = u.count.game >= 10
+    ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(
@@ -45,22 +48,25 @@ object page {
     }
 
   def games(
-    u: User,
-    info: UserInfo,
-    games: Paginator[Game],
-    filters: lila.app.mashup.GameFilterMenu,
-    searchForm: Option[Form[_]],
-    social: lila.app.mashup.UserInfo.Social
-  )(implicit ctx: Context) = views.html.base.layout(
-    title = s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) "" else " - page " + games.currentPage}",
-    moreJs = moreJs(info, filters.current.name == "search"),
-    moreCss = frag(
-      cssTag("user.show"),
-      filters.current.name == "search" option cssTag("user.show.search"),
-      isGranted(_.UserSpy) option cssTag("mod.user")
-    ),
-    robots = u.count.game >= 10
-  ) {
+      u: User,
+      info: UserInfo,
+      games: Paginator[Game],
+      filters: lila.app.mashup.GameFilterMenu,
+      searchForm: Option[Form[_]],
+      social: lila.app.mashup.UserInfo.Social
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title =
+        s"${u.username} : ${userGameFilterTitleNoTag(u, info.nbs, filters.current)}${if (games.currentPage == 1) ""
+        else " - page " + games.currentPage}",
+      moreJs = moreJs(info, filters.current.name == "search"),
+      moreCss = frag(
+        cssTag("user.show"),
+        filters.current.name == "search" option cssTag("user.show.search"),
+        isGranted(_.UserSpy) option cssTag("mod.user")
+      ),
+      robots = u.count.game >= 10
+    ) {
       main(cls := "page-menu", dataUsername := u.username)(
         st.aside(cls := "page-menu__menu")(side(u, info.ranks, none)),
         div(cls := "page-menu__content box user-show")(

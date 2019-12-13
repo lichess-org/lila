@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import lila.memo._
 import lila.user.User
 
-private[tournament] final class Cached(
+final private[tournament] class Cached(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
@@ -17,7 +17,10 @@ private[tournament] final class Cached(
 
   val nameCache = new Syncache[Tournament.ID, Option[String]](
     name = "tournament.name",
-    compute = id => tournamentRepo byId id map2 { (tour: Tournament) => tour.fullName },
+    compute = id =>
+      tournamentRepo byId id map2 { (tour: Tournament) =>
+        tour.fullName
+      },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),

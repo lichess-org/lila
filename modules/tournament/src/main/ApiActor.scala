@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 
 import lila.game.actorApi.FinishGame
 
-private[tournament] final class ApiActor(
+final private[tournament] class ApiActor(
     api: TournamentApi,
     leaderboard: LeaderboardApi
 ) extends Actor {

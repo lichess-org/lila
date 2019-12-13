@@ -4,7 +4,7 @@ import scala.concurrent.Promise
 
 import lila.common.Bus
 
-private final class HookThieve()(implicit system: akka.actor.ActorSystem) {
+final private class HookThieve()(implicit system: akka.actor.ActorSystem) {
 
   import HookThieve._
 

@@ -6,25 +6,26 @@ import scala.concurrent.duration._
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-private final class EvalCacheTruster(
+final private class EvalCacheTruster(
     asyncCache: lila.memo.AsyncCache.Builder,
     userRepo: UserRepo
 ) {
 
   import EvalCacheEntry.{ Trust, TrustedUser }
 
-  private val LOWER = Trust(-9999)
+  private val LOWER  = Trust(-9999)
   private val HIGHER = Trust(9999)
 
   def apply(user: User): Trust =
     if (user.lameOrTroll) LOWER
     else if (Granter(_.SeeReport)(user)) HIGHER
-    else Trust {
-      seniorityBonus(user) +
-        patronBonus(user) +
-        titleBonus(user) +
-        nbGamesBonus(user)
-    }
+    else
+      Trust {
+        seniorityBonus(user) +
+          patronBonus(user) +
+          titleBonus(user) +
+          nbGamesBonus(user)
+      }
 
   private val userIdCache = asyncCache.multi[User.ID, Option[TrustedUser]](
     name = "evalCache.userIdTrustCache  ",

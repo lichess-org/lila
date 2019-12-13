@@ -7,13 +7,13 @@ import scala.concurrent.Promise
 
 import actorApi._
 import lila.common.config.Max
-import lila.common.{ Every, AtMost }
+import lila.common.{ AtMost, Every }
 import lila.game.Game
 import lila.hub.Trouper
 import lila.socket.Socket.{ Sri, Sris }
 import lila.user.User
 
-private final class LobbyTrouper(
+final private class LobbyTrouper(
     seekApi: SeekApi,
     biter: Biter,
     gameCache: lila.game.Cached,
@@ -37,7 +37,9 @@ private final class LobbyTrouper(
     case msg @ AddHook(hook) =>
       lila.mon.lobby.hook.create.increment()
       HookRepo bySri hook.sri foreach remove
-      hook.sid ?? { sid => HookRepo bySid sid foreach remove }
+      hook.sid ?? { sid =>
+        HookRepo bySid sid foreach remove
+      }
       !hook.compatibleWithPools ?? findCompatible(hook) match {
         case Some(h) => biteHook(h.id, hook.sri, hook.user)
         case None =>
@@ -49,36 +51,40 @@ private final class LobbyTrouper(
       lila.mon.lobby.seek.create.increment()
       findCompatible(seek) foreach {
         case Some(s) => this ! BiteSeek(s.id, seek.user)
-        case None => this ! SaveSeek(msg)
+        case None    => this ! SaveSeek(msg)
       }
 
-    case SaveSeek(msg) => (seekApi insert msg.seek) >>- {
-      socket ! msg
-    }
+    case SaveSeek(msg) =>
+      (seekApi insert msg.seek) >>- {
+        socket ! msg
+      }
 
     case CancelHook(sri) =>
       HookRepo bySri sri foreach remove
 
-    case CancelSeek(seekId, user) => seekApi.removeBy(seekId, user.id) >>- {
-      socket ! RemoveSeek(seekId)
-    }
+    case CancelSeek(seekId, user) =>
+      seekApi.removeBy(seekId, user.id) >>- {
+        socket ! RemoveSeek(seekId)
+      }
 
-    case BiteHook(hookId, sri, user) => NoPlayban(user) {
-      biteHook(hookId, sri, user)
-    }
+    case BiteHook(hookId, sri, user) =>
+      NoPlayban(user) {
+        biteHook(hookId, sri, user)
+      }
 
-    case BiteSeek(seekId, user) => NoPlayban(user.some) {
-      gameCache.nbPlaying(user.id) foreach { nbPlaying =>
-        if (maxPlaying > nbPlaying) {
-          lila.mon.lobby.seek.join.increment()
-          seekApi find seekId foreach {
-            _ foreach { seek =>
-              biter(seek, user) foreach this.!
+    case BiteSeek(seekId, user) =>
+      NoPlayban(user.some) {
+        gameCache.nbPlaying(user.id) foreach { nbPlaying =>
+          if (maxPlaying > nbPlaying) {
+            lila.mon.lobby.seek.join.increment()
+            seekApi find seekId foreach {
+              _ foreach { seek =>
+                biter(seek, user) foreach this.!
+              }
             }
           }
         }
       }
-    }
 
     case msg @ JoinHook(_, hook, game, _) =>
       onStart(game.id)
@@ -96,8 +102,12 @@ private final class LobbyTrouper(
 
     case Tick(promise) =>
       HookRepo.truncateIfNeeded
-      socket.ask[Sris](GetSrisP).chronometer
-        .logIfSlow(100, logger) { r => s"GetSris size=${r.sris.size}" }
+      socket
+        .ask[Sris](GetSrisP)
+        .chronometer
+        .logIfSlow(100, logger) { r =>
+          s"GetSris size=${r.sris.size}"
+        }
         .mon(_.lobby.socket.getSris)
         .result
         .logFailure(logger, err => s"broom cannot get sris from socket: $err")
@@ -131,9 +141,11 @@ private final class LobbyTrouper(
   }
 
   private def NoPlayban(user: Option[LobbyUser])(f: => Unit): Unit = {
-    user.?? { u => playbanApi.currentBan(u.id) } foreach {
+    user.?? { u =>
+      playbanApi.currentBan(u.id)
+    } foreach {
       case None => f
-      case _ =>
+      case _    =>
     }
   }
 
@@ -149,24 +161,26 @@ private final class LobbyTrouper(
 
   private def findCompatibleIn(hook: Hook, in: Vector[Hook]): Option[Hook] = in match {
     case Vector() => none
-    case h +: rest => if (biter.canJoin(h, hook.user) && !(
-      (h.user |@| hook.user).tupled ?? {
-        case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
-      }
-    )) h.some
-    else findCompatibleIn(hook, rest)
+    case h +: rest =>
+      if (biter.canJoin(h, hook.user) && !(
+            (h.user |@| hook.user).tupled ?? {
+              case (u1, u2) => recentlyAbortedUserIdPairs.exists(u1.id, u2.id)
+            }
+          )) h.some
+      else findCompatibleIn(hook, rest)
   }
 
   def registerAbortedGame(g: Game) = recentlyAbortedUserIdPairs register g
 
   private object recentlyAbortedUserIdPairs {
-    private val cache = new lila.memo.ExpireSetMemo(1 hour)
+    private val cache                                     = new lila.memo.ExpireSetMemo(1 hour)
     private def makeKey(u1: User.ID, u2: User.ID): String = if (u1 < u2) s"$u1/$u2" else s"$u2/$u1"
-    @silent def register(g: Game) = for {
-      w <- g.whitePlayer.userId
-      b <- g.blackPlayer.userId
-      if g.fromLobby
-    } cache.put(makeKey(w, b))
+    @silent def register(g: Game) =
+      for {
+        w <- g.whitePlayer.userId
+        b <- g.blackPlayer.userId
+        if g.fromLobby
+      } cache.put(makeKey(w, b))
     def exists(u1: User.ID, u2: User.ID) = cache.get(makeKey(u1, u2))
   }
 
@@ -190,8 +204,8 @@ private object LobbyTrouper {
   private case class WithPromise[A](value: A, promise: Promise[Unit])
 
   def start(
-    broomPeriod: FiniteDuration,
-    resyncIdsPeriod: FiniteDuration
+      broomPeriod: FiniteDuration,
+      resyncIdsPeriod: FiniteDuration
   )(makeTrouper: () => LobbyTrouper)(implicit system: akka.actor.ActorSystem) = {
     val trouper = makeTrouper()
     lila.common.Bus.subscribe(trouper, "lobbyTrouper")

@@ -20,7 +20,9 @@ object bits {
       )
     }
 
-  def api = raw("""<!DOCTYPE html>
+  def api =
+    raw(
+      """<!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
@@ -34,5 +36,6 @@ object bits {
     <redoc spec-url="https://raw.githubusercontent.com/lichess-org/api/master/doc/specs/lichess-api.yaml"></redoc>
     <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"></script>
   </body>
-</html>""")
+</html>"""
+    )
 }

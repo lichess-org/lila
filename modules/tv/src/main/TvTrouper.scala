@@ -9,7 +9,7 @@ import lila.common.{ Bus, LightUser }
 import lila.game.Game
 import lila.hub.Trouper
 
-private[tv] final class TvTrouper(
+final private[tv] class TvTrouper(
     renderer: lila.hub.actors.Renderer,
     lightUser: LightUser.GetterSync,
     recentTvGames: lila.round.RecentTvGames,
@@ -43,31 +43,32 @@ private[tv] final class TvTrouper(
 
     case GetChampions(promise) => promise success Tv.Champions(channelChampions)
 
-    case lila.game.actorApi.StartGame(g) => if (g.hasClock) {
-      val candidate = Tv.toCandidate(lightUser)(g)
-      channelTroupers collect {
-        case (chan, trouper) if chan filter candidate => trouper
-      } foreach (_ addCandidate g)
-    }
+    case lila.game.actorApi.StartGame(g) =>
+      if (g.hasClock) {
+        val candidate = Tv.toCandidate(lightUser)(g)
+        channelTroupers collect {
+          case (chan, trouper) if chan filter candidate => trouper
+        } foreach (_ addCandidate g)
+      }
 
     case s @ TvTrouper.Select => channelTroupers.foreach(_._2 ! s)
 
     case Selected(channel, game) =>
       import lila.socket.Socket.makeMessage
       val player = game.firstPlayer
-      val user = player.userId flatMap lightUser
+      val user   = player.userId flatMap lightUser
       (user |@| player.rating) apply {
         case (u, r) => channelChampions += (channel -> Tv.Champion(u, r, game.id))
       }
       recentTvGames.put(game)
       val data = Json.obj(
         "channel" -> channel.key,
-        "id" -> game.id,
-        "color" -> game.firstColor.name,
+        "id"      -> game.id,
+        "color"   -> game.firstColor.name,
         "player" -> user.map { u =>
           Json.obj(
-            "name" -> u.name,
-            "title" -> u.title,
+            "name"   -> u.name,
+            "title"  -> u.title,
             "rating" -> player.rating
           )
         }
@@ -79,11 +80,14 @@ private[tv] final class TvTrouper(
           case html: String =>
             val event = lila.hub.actorApi.game.ChangeFeatured(
               game.id,
-              makeMessage("featured", Json.obj(
-                "html" -> html,
-                "color" -> game.firstColor.name,
-                "id" -> game.id
-              ))
+              makeMessage(
+                "featured",
+                Json.obj(
+                  "html"  -> html,
+                  "color" -> game.firstColor.name,
+                  "id"    -> game.id
+                )
+              )
             )
             Bus.publish(event, "changeFeaturedGame")
         }

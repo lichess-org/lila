@@ -9,13 +9,13 @@ case class Crosstable(
 
   def user1 = users.user1
   def user2 = users.user2
-  def user = users.user _
+  def user  = users.user _
 
   def nonEmpty = results.nonEmpty option this
 
-  def nbGames = users.nbGames
-  def showScore = users.showScore _
-  def showOpponentScore = users.showOpponentScore _
+  def nbGames                 = users.nbGames
+  def showScore               = users.showScore _
+  def showOpponentScore       = users.showOpponentScore _
   def fromPov(userId: String) = copy(users = users fromPov userId)
 
   lazy val size = results.size
@@ -48,7 +48,7 @@ object Crosstable {
       val byTen = user(userId) ?? (_.score)
       s"${byTen / 10}${(byTen % 10 != 0).??("½")}" match {
         case "0½" => "½"
-        case x => x
+        case x    => x
       }
     }
 
@@ -71,7 +71,7 @@ object Crosstable {
 
   case class Matchup(users: Users) { // score is x10
     def fromPov(userId: String) = copy(users = users fromPov userId)
-    def nonEmpty = users.nbGames > 0
+    def nonEmpty                = users.nbGames > 0
   }
 
   case class WithMatchup(crosstable: Crosstable, matchup: Option[Matchup]) {
@@ -88,57 +88,59 @@ object Crosstable {
   import lila.db.dsl._
 
   object BSONFields {
-    val id = "_id"
-    val score1 = "s1"
-    val score2 = "s2"
-    val results = "r"
+    val id         = "_id"
+    val score1     = "s1"
+    val score2     = "s2"
+    val results    = "r"
     val lastPlayed = "d"
   }
 
-  private[game] implicit val crosstableBSONHandler = new BSON[Crosstable] {
+  implicit private[game] val crosstableBSONHandler = new BSON[Crosstable] {
 
     import BSONFields._
 
     def reads(r: BSON.Reader): Crosstable = r str id split '/' match {
-      case Array(u1Id, u2Id) => Crosstable(
-        users = Users(User(u1Id, r intD score1), User(u2Id, r intD score2)),
-        results = r.get[List[String]](results).map { r =>
-          r drop 8 match {
-            case "" => Result(r, Some(u1Id))
-            case "-" => Result(r take 8, Some(u2Id))
-            case "=" => Result(r take 8, none)
-            case _ => sys error s"Invalid result string $r"
+      case Array(u1Id, u2Id) =>
+        Crosstable(
+          users = Users(User(u1Id, r intD score1), User(u2Id, r intD score2)),
+          results = r.get[List[String]](results).map { r =>
+            r drop 8 match {
+              case ""  => Result(r, Some(u1Id))
+              case "-" => Result(r take 8, Some(u2Id))
+              case "=" => Result(r take 8, none)
+              case _   => sys error s"Invalid result string $r"
+            }
           }
-        }
-      )
+        )
       case x => sys error s"Invalid crosstable id $x"
     }
 
     def writeResult(result: Result, u1: String): String = {
       val flag = result.winnerId match {
         case Some(wid) if wid == u1 => ""
-        case Some(_) => "-"
-        case None => "="
+        case Some(_)                => "-"
+        case None                   => "="
       }
       s"${result.gameId}$flag"
     }
 
     def writes(w: BSON.Writer, o: Crosstable) = BSONDocument(
-      id -> makeKey(o.user1.id, o.user2.id),
-      score1 -> o.user1.score,
-      score2 -> o.user2.score,
+      id      -> makeKey(o.user1.id, o.user2.id),
+      score1  -> o.user1.score,
+      score2  -> o.user2.score,
       results -> o.results.map { writeResult(_, o.user1.id) }
     )
   }
 
-  private[game] implicit val MatchupBSONReader = new BSONDocumentReader[Matchup] {
+  implicit private[game] val MatchupBSONReader = new BSONDocumentReader[Matchup] {
     import BSONFields._
     def readDocument(doc: Bdoc) = {
       val r = new BSON.Reader(doc)
       r str id split '/' match {
-        case Array(u1Id, u2Id) => Success {
-          Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
-        }
+        case Array(u1Id, u2Id) =>
+          Success {
+            Matchup(Users(User(u1Id, r intD score1), User(u2Id, r intD score2)))
+          }
         case x => lila.db.BSON.handlerBadValue(s"Invalid crosstable id $x")
       }
     }

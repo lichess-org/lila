@@ -6,7 +6,7 @@ import play.api.libs.json._
 import reactivemongo.api.bson._
 
 import lila.db.dsl._
-import lila.study.{ StudyApi, Study, StudyMaker, Settings }
+import lila.study.{ Settings, Study, StudyApi, StudyMaker }
 import lila.user.User
 
 final class RelayApi(
@@ -37,13 +37,18 @@ final class RelayApi(
   def fresh(me: Option[User]): Fu[Relay.Fresh] =
     repo.scheduled.flatMap(withStudy andLiked me) zip
       repo.ongoing.flatMap(withStudy andLiked me) map {
-        case c ~ s => Relay.Fresh(c, s)
-      }
+      case c ~ s => Relay.Fresh(c, s)
+    }
 
-  private[relay] def toSync = repo.coll.ext.find($doc(
-    "sync.until" $exists true,
-    "sync.nextAt" $lt DateTime.now
-  )).list[Relay]()
+  private[relay] def toSync =
+    repo.coll.ext
+      .find(
+        $doc(
+          "sync.until" $exists true,
+          "sync.nextAt" $lt DateTime.now
+        )
+      )
+      .list[Relay]()
 
   def setLikes(id: Relay.Id, likes: lila.study.Study.Likes): Funit =
     repo.coll.updateField($id(id), "likes", likes).void
@@ -51,15 +56,20 @@ final class RelayApi(
   def create(data: RelayForm.Data, user: User): Fu[Relay] = {
     val relay = data make user
     repo.coll.insert.one(relay) >>
-      studyApi.importGame(StudyMaker.ImportGame(
-        id = relay.studyId.some,
-        name = Study.Name(relay.name).some,
-        settings = Settings.init.copy(
-          chat = Settings.UserSelection.Everyone,
-          sticky = false
-        ).some,
-        from = Study.From.Relay(none).some
-      ), user) inject relay
+      studyApi.importGame(
+        StudyMaker.ImportGame(
+          id = relay.studyId.some,
+          name = Study.Name(relay.name).some,
+          settings = Settings.init
+            .copy(
+              chat = Settings.UserSelection.Everyone,
+              sticky = false
+            )
+            .some,
+          from = Study.From.Relay(none).some
+        ),
+        user
+      ) inject relay
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
@@ -74,13 +84,14 @@ final class RelayApi(
       if (r.sync.upstream.url != from.sync.upstream.url) r.withSync(_.clearLog) else r
     }
     if (relay == from) fuccess(relay)
-    else repo.coll.update.one($id(relay.id), relay).void >> {
-      (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
-    } >>- {
-      relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
-        sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
-      }
-    } inject relay
+    else
+      repo.coll.update.one($id(relay.id), relay).void >> {
+        (relay.sync.playing != from.sync.playing) ?? publishRelay(relay)
+      } >>- {
+        relay.sync.log.events.lastOption.ifTrue(relay.sync.log != from.sync.log).foreach { event =>
+          sendToContributors(relay.id, "relayLog", JsonView.syncLogEventWrites writes event)
+        }
+      } inject relay
   }
 
   def reset(relay: Relay, by: User): Funit =
@@ -96,12 +107,16 @@ final class RelayApi(
     repo.coll.one[Relay]($doc("_id" -> id, "finished" -> false))
 
   private[relay] def autoStart: Funit =
-    repo.coll.ext.find($doc(
-      "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
-        $gt DateTime.now.minusDays(1), // bit late now
-      "startedAt" $exists false,
-      "sync.until" $exists false
-    )).list[Relay]() flatMap {
+    repo.coll.ext
+      .find(
+        $doc(
+          "startsAt" $lt DateTime.now.plusMinutes(30) // start 30 minutes early to fetch boards
+            $gt DateTime.now.minusDays(1),            // bit late now
+          "startedAt" $exists false,
+          "sync.until" $exists false
+        )
+      )
+      .list[Relay]() flatMap {
       _.map { relay =>
         logger.info(s"Automatically start $relay")
         requestPlay(relay.id, true)
@@ -109,15 +124,19 @@ final class RelayApi(
     }
 
   private[relay] def autoFinishNotSyncing: Funit =
-    repo.coll.ext.find($doc(
-      "sync.until" $exists false,
-      "finished" -> false,
-      "startedAt" $lt DateTime.now.minusHours(3),
-      $or(
-        "startsAt" $exists false,
-        "startsAt" $lt DateTime.now
+    repo.coll.ext
+      .find(
+        $doc(
+          "sync.until" $exists false,
+          "finished" -> false,
+          "startedAt" $lt DateTime.now.minusHours(3),
+          $or(
+            "startsAt" $exists false,
+            "startsAt" $lt DateTime.now
+          )
+        )
       )
-    )).list[Relay]() flatMap {
+      .list[Relay]() flatMap {
       _.map { relay =>
         logger.info(s"Automatically finish $relay")
         update(relay)(_.finish)

@@ -30,16 +30,22 @@ final class ThreadRepo(coll: Coll) {
 
   // super heavy. For GDPR only.
   private[message] def byAndForWithoutIndex(user: User): Fu[List[Thread]] =
-    coll.ext.find($or(
-      $doc("creatorId" -> user.id),
-      $doc("invitedId" -> user.id)
-    )).list[Thread](999, readPreference = ReadPreference.secondaryPreferred)
+    coll.ext
+      .find(
+        $or(
+          $doc("creatorId" -> user.id),
+          $doc("invitedId" -> user.id)
+        )
+      )
+      .list[Thread](999, readPreference = ReadPreference.secondaryPreferred)
 
   def setReadFor(user: User)(thread: Thread): Funit = {
     val indexes = thread.unreadIndexesBy(user)
-    indexes.nonEmpty ?? coll.update.one($id(thread.id), $doc("$set" -> indexes.foldLeft($empty) {
-      case (s, index) => s ++ $doc(s"posts.$index.isRead" -> true)
-    })).void
+    indexes.nonEmpty ?? coll.update
+      .one($id(thread.id), $doc("$set" -> indexes.foldLeft($empty) {
+        case (s, index) => s ++ $doc(s"posts.$index.isRead" -> true)
+      }))
+      .void
   }
 
   def setUnreadFor(user: User)(thread: Thread): Funit =
@@ -49,39 +55,54 @@ final class ThreadRepo(coll: Coll) {
 
   def unreadCount(userId: String): Fu[Int] = {
     import reactivemongo.api.bson.BSONNull
-    coll.aggregateWith(
-      readPreference = ReadPreference.secondaryPreferred
-    ) { framework =>
-      import framework._
-      Match($doc(
-        "visibleByUserIds" -> userId,
-        "updatedAt" $gt DateTime.now.minusMonths(1),
-        "posts.isRead" -> false
-      )) -> List(
-        Project($doc(
-          "m" -> $doc("$eq" -> $arr("$creatorId", userId)),
-          "posts.isByCreator" -> true,
-          "posts.isRead" -> true
-        )),
-        UnwindField("posts"),
-        Match($doc(
-          "posts.isRead" -> false
-        )),
-        Project($doc(
-          "u" -> $doc("$ne" -> $arr("$posts.isByCreator", "$m"))
-        )),
-        Match($doc(
-          "u" -> true
-        )),
-        Group(BSONNull)("nb" -> SumAll)
-      )
-    }.headOption.map {
-      ~_.flatMap(_ int "nb")
-    }
+    coll
+      .aggregateWith(
+        readPreference = ReadPreference.secondaryPreferred
+      ) { framework =>
+        import framework._
+        Match(
+          $doc(
+            "visibleByUserIds" -> userId,
+            "updatedAt" $gt DateTime.now.minusMonths(1),
+            "posts.isRead" -> false
+          )
+        ) -> List(
+          Project(
+            $doc(
+              "m"                 -> $doc("$eq" -> $arr("$creatorId", userId)),
+              "posts.isByCreator" -> true,
+              "posts.isRead"      -> true
+            )
+          ),
+          UnwindField("posts"),
+          Match(
+            $doc(
+              "posts.isRead" -> false
+            )
+          ),
+          Project(
+            $doc(
+              "u" -> $doc("$ne" -> $arr("$posts.isByCreator", "$m"))
+            )
+          ),
+          Match(
+            $doc(
+              "u" -> true
+            )
+          ),
+          Group(BSONNull)("nb" -> SumAll)
+        )
+      }
+      .headOption
+      .map {
+        ~_.flatMap(_ int "nb")
+      }
   }
 
   def deleteFor(user: ID)(thread: ID) =
-    coll.update.one($id(thread), $doc($pull("visibleByUserIds" -> user), $push("deletedByUserIds" -> user))).void
+    coll.update
+      .one($id(thread), $doc($pull("visibleByUserIds" -> user), $push("deletedByUserIds" -> user)))
+      .void
 
   def userQuery(user: String) = $doc("userIds" -> user)
 

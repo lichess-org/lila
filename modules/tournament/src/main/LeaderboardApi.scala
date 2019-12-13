@@ -27,42 +27,56 @@ final class LeaderboardApi(
   def bestByUser(user: User, page: Int) = paginator(user, page, $sort asc "w")
 
   def timeRange(userId: User.ID, range: (DateTime, DateTime)): Fu[List[Entry]] =
-    repo.coll.ext.find($doc(
-      "u" -> userId,
-      "d" $gt range._1 $lt range._2
-    )).sort($sort desc "d").list[Entry]()
+    repo.coll.ext
+      .find(
+        $doc(
+          "u" -> userId,
+          "d" $gt range._1 $lt range._2
+        )
+      )
+      .sort($sort desc "d")
+      .list[Entry]()
 
   def chart(user: User): Fu[ChartData] = {
-    repo.coll.aggregateList(
-      maxDocs = Int.MaxValue,
-      ReadPreference.secondaryPreferred
-    ) { framework =>
+    repo.coll
+      .aggregateList(
+        maxDocs = Int.MaxValue,
+        ReadPreference.secondaryPreferred
+      ) { framework =>
         import framework._
-        Match($doc("u" -> user.id)) -> List(
+        Match($doc("u"         -> user.id)) -> List(
           GroupField("v")("nb" -> SumAll, "points" -> PushField("s"), "ratios" -> PushField("w"))
         )
-      }.map {
+      }
+      .map {
         _ flatMap leaderboardAggregationResultBSONHandler.readOpt
-      }.map { aggs =>
+      }
+      .map { aggs =>
         ChartData {
-          aggs.flatMap { agg =>
-            PerfType.byId get agg._id map {
-              _ -> ChartData.PerfResult(
-                nb = agg.nb,
-                points = ChartData.Ints(agg.points),
-                rank = ChartData.Ints(agg.ratios)
-              )
+          aggs
+            .flatMap { agg =>
+              PerfType.byId get agg._id map {
+                _ -> ChartData.PerfResult(
+                  nb = agg.nb,
+                  points = ChartData.Ints(agg.points),
+                  rank = ChartData.Ints(agg.ratios)
+                )
+              }
             }
-          }.sortLike(PerfType.leaderboardable, _._1)
+            .sortLike(PerfType.leaderboardable, _._1)
         }
       }
   }
 
   def getAndDeleteRecent(userId: User.ID, since: DateTime): Fu[List[Tournament.ID]] =
-    repo.coll.ext.find($doc(
-      "u" -> userId,
-      "d" $gt since
-    )).list[Entry]() flatMap { entries =>
+    repo.coll.ext
+      .find(
+        $doc(
+          "u" -> userId,
+          "d" $gt since
+        )
+      )
+      .list[Entry]() flatMap { entries =>
       (entries.nonEmpty ?? repo.coll.delete.one($inIds(entries.map(_.id))).void) inject entries.map(_.tourId)
     }
 
@@ -111,13 +125,15 @@ object LeaderboardApi {
   case class ChartData(perfResults: List[(PerfType, ChartData.PerfResult)]) {
     import ChartData._
     lazy val allPerfResults: PerfResult = perfResults.map(_._2) match {
-      case head :: tail => tail.foldLeft(head) {
-        case (acc, res) => PerfResult(
-          nb = acc.nb + res.nb,
-          points = res.points ::: acc.points,
-          rank = res.rank ::: acc.rank
-        )
-      }
+      case head :: tail =>
+        tail.foldLeft(head) {
+          case (acc, res) =>
+            PerfResult(
+              nb = acc.nb + res.nb,
+              points = res.points ::: acc.points,
+              rank = res.rank ::: acc.rank
+            )
+        }
       case Nil => PerfResult(0, Ints(Nil), Ints(Nil))
     }
   }
@@ -125,16 +141,16 @@ object LeaderboardApi {
   object ChartData {
 
     case class Ints(v: List[Int]) {
-      def mean = Maths.mean(v)
-      def median = Maths.median(v)
-      def sum = v.sum
+      def mean         = Maths.mean(v)
+      def median       = Maths.median(v)
+      def sum          = v.sum
       def :::(i: Ints) = Ints(v ::: i.v)
     }
 
     case class PerfResult(nb: Int, points: Ints, rank: Ints) {
       private def rankPercent(n: Double) = (n * 100 / rankRatioMultiplier).toInt
-      def rankPercentMean = rank.mean map rankPercent
-      def rankPercentMedian = rank.median map rankPercent
+      def rankPercentMean                = rank.mean map rankPercent
+      def rankPercentMedian              = rank.median map rankPercent
     }
 
     case class AggregationResult(_id: Int, nb: Int, points: List[Int], ratios: List[Int])

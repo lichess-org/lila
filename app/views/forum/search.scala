@@ -17,37 +17,42 @@ object search {
       moreJs = infiniteScrollTag,
       moreCss = cssTag("forum")
     )(
-        main(cls := "box box search")(
-          div(cls := "box__top")(
-            h1(
-              a(href := routes.ForumCateg.index, dataIcon := "I", cls := "text"),
-              title
-            ),
-            bits.searchForm(text)
+      main(cls := "box box search")(
+        div(cls := "box__top")(
+          h1(
+            a(href := routes.ForumCateg.index, dataIcon := "I", cls := "text"),
+            title
           ),
-          strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
-          table(cls := "slist slist-pad search__results")(
-            if (pager.nbResults > 0) tbody(cls := "infinitescroll")(
+          bits.searchForm(text)
+        ),
+        strong(cls := "nb-results box__pad")(pager.nbResults, " posts found"),
+        table(cls := "slist slist-pad search__results")(
+          if (pager.nbResults > 0)
+            tbody(cls := "infinitescroll")(
               pagerNextTable(pager, n => routes.ForumPost.search(text, n).url) | tr,
               pager.currentPageResults.map { view =>
                 tr(cls := "paginated")(
                   td(
                     a(cls := "post", href := routes.ForumPost.redirect(view.post.id))(
-                      view.categ.name, " - ",
-                      view.topic.name, "#", view.post.number
+                      view.categ.name,
+                      " - ",
+                      view.topic.name,
+                      "#",
+                      view.post.number
                     ),
                     p(nl2br(shorten(view.post.text.replace("\n\n", "\n"), 200)))
                   ),
                   td(cls := "info")(
-                    momentFromNow(view.post.createdAt), br,
+                    momentFromNow(view.post.createdAt),
+                    br,
                     authorLink(view.post)
                   )
                 )
               }
             )
-            else tbody(tr(td("No forum post found")))
-          )
+          else tbody(tr(td("No forum post found")))
         )
       )
+    )
   }
 }

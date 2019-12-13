@@ -69,12 +69,13 @@ final class BotPlayer(
 
   def abort(pov: Pov): Funit =
     if (!pov.game.abortable) fufail("This game can no longer be aborted")
-    else fuccess {
-      Bus.publish(
-        Tell(pov.gameId, Abort(pov.playerId)),
-        "roundMapTell"
-      )
-    }
+    else
+      fuccess {
+        Bus.publish(
+          Tell(pov.gameId, Abort(pov.playerId)),
+          "roundMapTell"
+        )
+      }
 
   def resign(pov: Pov): Funit =
     if (pov.game.abortable) abort(pov)
@@ -83,8 +84,7 @@ final class BotPlayer(
         Tell(pov.gameId, Resign(pov.playerId)),
         "roundMapTell"
       )
-    }
-    else fufail("This game cannot be resigned")
+    } else fufail("This game cannot be resigned")
 
   def declineDraw(pov: Pov): Unit =
     if (pov.game.drawable && pov.opponent.isOfferingDraw)

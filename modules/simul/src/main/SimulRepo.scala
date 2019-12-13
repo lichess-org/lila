@@ -9,25 +9,25 @@ import lila.db.BSON
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
-private[simul] final class SimulRepo(simulColl: Coll) {
+final private[simul] class SimulRepo(simulColl: Coll) {
 
-  private implicit val SimulStatusBSONHandler = tryHandler[SimulStatus](
+  implicit private val SimulStatusBSONHandler = tryHandler[SimulStatus](
     { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },
     x => BSONInteger(x.id)
   )
-  private implicit val ChessStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
-  private implicit val VariantBSONHandler = tryHandler[Variant](
+  implicit private val ChessStatusBSONHandler = lila.game.BSONHandlers.StatusBSONHandler
+  implicit private val VariantBSONHandler = tryHandler[Variant](
     { case BSONInteger(v) => Variant(v) toTry s"No such variant: $v" },
     x => BSONInteger(x.id)
   )
-  private implicit val ClockBSONHandler = {
+  implicit private val ClockBSONHandler = {
     import chess.Clock.Config
     implicit val clockHandler = Macros.handler[Config]
     Macros.handler[SimulClock]
   }
-  private implicit val PlayerBSONHandler = Macros.handler[SimulPlayer]
-  private implicit val ApplicantBSONHandler = Macros.handler[SimulApplicant]
-  private implicit val SimulPairingBSONHandler = new BSON[SimulPairing] {
+  implicit private val PlayerBSONHandler    = Macros.handler[SimulPlayer]
+  implicit private val ApplicantBSONHandler = Macros.handler[SimulApplicant]
+  implicit private val SimulPairingBSONHandler = new BSON[SimulPairing] {
     def reads(r: BSON.Reader) = SimulPairing(
       player = r.get[SimulPlayer]("player"),
       gameId = r str "gameId",
@@ -36,20 +36,20 @@ private[simul] final class SimulRepo(simulColl: Coll) {
       hostColor = r.strO("hostColor").flatMap(chess.Color.apply) | chess.White
     )
     def writes(w: BSON.Writer, o: SimulPairing) = $doc(
-      "player" -> o.player,
-      "gameId" -> o.gameId,
-      "status" -> o.status,
-      "wins" -> o.wins,
+      "player"    -> o.player,
+      "gameId"    -> o.gameId,
+      "status"    -> o.status,
+      "wins"      -> o.wins,
       "hostColor" -> o.hostColor.name
     )
   }
 
-  private implicit val SimulBSONHandler = Macros.handler[Simul]
+  implicit private val SimulBSONHandler = Macros.handler[Simul]
 
-  private val createdSelect = $doc("status" -> SimulStatus.Created.id)
-  private val startedSelect = $doc("status" -> SimulStatus.Started.id)
-  private val finishedSelect = $doc("status" -> SimulStatus.Finished.id)
-  private val createdSort = $doc("createdAt" -> -1)
+  private val createdSelect  = $doc("status"    -> SimulStatus.Created.id)
+  private val startedSelect  = $doc("status"    -> SimulStatus.Started.id)
+  private val finishedSelect = $doc("status"    -> SimulStatus.Finished.id)
+  private val createdSort    = $doc("createdAt" -> -1)
 
   def find(id: Simul.ID): Fu[Option[Simul]] =
     simulColl.byId[Simul](id)
@@ -72,17 +72,29 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def allCreated: Fu[List[Simul]] =
     simulColl.ext.find(createdSelect).sort(createdSort).list[Simul]()
 
-  def allCreatedFeaturable: Fu[List[Simul]] = simulColl.ext.find(
-    createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(15))
-  ).sort(createdSort).list[Simul]()
+  def allCreatedFeaturable: Fu[List[Simul]] =
+    simulColl.ext
+      .find(
+        createdSelect ++ $doc("createdAt" $gte DateTime.now.minusMinutes(15))
+      )
+      .sort(createdSort)
+      .list[Simul]()
 
-  def allStarted: Fu[List[Simul]] = simulColl.ext.find(
-    startedSelect
-  ).sort(createdSort).list[Simul]()
+  def allStarted: Fu[List[Simul]] =
+    simulColl.ext
+      .find(
+        startedSelect
+      )
+      .sort(createdSort)
+      .list[Simul]()
 
-  def allFinished(max: Int): Fu[List[Simul]] = simulColl.ext.find(
-    finishedSelect
-  ).sort(createdSort).list[Simul](max)
+  def allFinished(max: Int): Fu[List[Simul]] =
+    simulColl.ext
+      .find(
+        finishedSelect
+      )
+      .sort(createdSort)
+      .list[Simul](max)
 
   def allNotFinished =
     simulColl.ext.find($doc("status" $ne SimulStatus.Finished.id)).list[Simul]()
@@ -96,20 +108,29 @@ private[simul] final class SimulRepo(simulColl: Coll) {
   def remove(simul: Simul) =
     simulColl.delete.one($id(simul.id)).void
 
-  def setHostGameId(simul: Simul, gameId: String) = simulColl.update.one(
-    $id(simul.id),
-    $set("hostGameId" -> gameId)
-  ).void
+  def setHostGameId(simul: Simul, gameId: String) =
+    simulColl.update
+      .one(
+        $id(simul.id),
+        $set("hostGameId" -> gameId)
+      )
+      .void
 
-  def setHostSeenNow(simul: Simul) = simulColl.update.one(
-    $id(simul.id),
-    $set("hostSeenAt" -> DateTime.now)
-  ).void
+  def setHostSeenNow(simul: Simul) =
+    simulColl.update
+      .one(
+        $id(simul.id),
+        $set("hostSeenAt" -> DateTime.now)
+      )
+      .void
 
-  def setText(simul: Simul, text: String) = simulColl.update.one(
-    $id(simul.id),
-    $set("text" -> text)
-  ).void
+  def setText(simul: Simul, text: String) =
+    simulColl.update
+      .one(
+        $id(simul.id),
+        $set("text" -> text)
+      )
+      .void
 
   def cleanup = simulColl.delete.one(
     createdSelect ++ $doc(

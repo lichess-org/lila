@@ -15,19 +15,25 @@ final class StreamerPager(
 
   import BsonHandlers._
 
-  def notLive(page: Int, live: LiveStreams, approvalRequested: Boolean = false): Fu[Paginator[Streamer.WithUser]] = {
+  def notLive(
+      page: Int,
+      live: LiveStreams,
+      approvalRequested: Boolean = false
+  ): Fu[Paginator[Streamer.WithUser]] = {
     val adapter = new Adapter[Streamer](
       collection = coll,
       selector =
-        if (approvalRequested) $doc(
-          "approval.requested" -> true,
-          "approval.ignored" -> false
-        )
-        else $doc(
-          "approval.granted" -> true,
-          "listed" -> Streamer.Listed(true),
-          "_id" $nin live.streams.map(_.streamer.id)
-        ),
+        if (approvalRequested)
+          $doc(
+            "approval.requested" -> true,
+            "approval.ignored"   -> false
+          )
+        else
+          $doc(
+            "approval.granted" -> true,
+            "listed"           -> Streamer.Listed(true),
+            "_id" $nin live.streams.map(_.streamer.id)
+          ),
       projection = none,
       sort = $doc("liveAt" -> -1)
     ) mapFutureList withUsers

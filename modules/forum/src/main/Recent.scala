@@ -11,7 +11,7 @@ final class Recent(
     categIds: List[String]
 ) {
   private val ttl: FiniteDuration = 1 hour
-  private val nb: Int = 12
+  private val nb: Int             = 12
 
   private type GetTeamIds = String => Fu[List[String]]
 
@@ -44,8 +44,9 @@ final class Recent(
 
   private def fetch(key: String): Fu[List[MiniForumPost]] =
     (key.split(";").toList match {
-      case langs :: "[troll]" :: categs => postRepo.withTroll(true).recentInCategs(nb)(categs, parseLangs(langs))
+      case langs :: "[troll]" :: categs =>
+        postRepo.withTroll(true).recentInCategs(nb)(categs, parseLangs(langs))
       case langs :: categs => postRepo.recentInCategs(nb)(categs, parseLangs(langs))
-      case categs => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
+      case categs          => postRepo.recentInCategs(nb)(categs, parseLangs("en"))
     }) flatMap postApi.miniPosts
 }

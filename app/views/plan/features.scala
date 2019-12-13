@@ -9,15 +9,18 @@ import controllers.routes
 
 object features {
 
-  def apply()(implicit ctx: Context) = views.html.base.layout(
-    title = title,
-    moreCss = cssTag("feature"),
-    openGraph = lila.app.ui.OpenGraph(
+  def apply()(implicit ctx: Context) =
+    views.html.base.layout(
       title = title,
-      url = s"$netBaseUrl${routes.Plan.features.url}",
-      description = "All of Lichess features are free for all and forever. We do it for the chess!"
-    ).some
-  ) {
+      moreCss = cssTag("feature"),
+      openGraph = lila.app.ui
+        .OpenGraph(
+          title = title,
+          url = s"$netBaseUrl${routes.Plan.features.url}",
+          description = "All of Lichess features are free for all and forever. We do it for the chess!"
+        )
+        .some
+    ) {
       main(cls := "box box-pad features")(
         table(
           header(h1(dataIcon := "")("Website")),
@@ -44,16 +47,24 @@ object features {
               s"Instant local $engineName analysis"
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")("Cloud engine analysis")
+              a(href := "https://lichess.org/blog/WN-gLzAAAKlI89Xn/thousands-of-stockfish-analysers")(
+                "Cloud engine analysis"
+              )
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")("Learn from your mistakes")
+              a(href := "https://lichess.org/blog/WFvLpiQAACMA8e9D/learn-from-your-mistakes")(
+                "Learn from your mistakes"
+              )
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")("Studies (shared and persistent analysis)")
+              a(href := "https://lichess.org/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+                "Studies (shared and persistent analysis)"
+              )
             ),
             tr(unlimited)(
-              a(href := "https://lichess.org/blog/VmZbaigAABACtXQC/chess-insights")("Chess insights (detailed analysis of your play)")
+              a(href := "https://lichess.org/blog/VmZbaigAABACtXQC/chess-insights")(
+                "Chess insights (detailed analysis of your play)"
+              )
             ),
             tr(check)(
               a(href := routes.Learn.index)("All chess basics lessons")
@@ -66,7 +77,9 @@ object features {
               " (62 million games!)"
             ),
             tr(unlimited)(
-              a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")("7-piece endgame tablebase")
+              a(href := s"${routes.UserAnalysis.parseArg("QN4n1/6r1/3k4/8/b2K4/8/8/8_b_-_-")}#explorer")(
+                "7-piece endgame tablebase"
+              )
             ),
             tr(check)(
               "Download/Upload any game as PGN"
@@ -155,7 +168,8 @@ object features {
           "That is because Lichess is built for the love of chess.",
           br,
           "We believe every chess player deserves the best, and so:",
-          br, br,
+          br,
+          br,
           strong("all features are free for everybody, forever!"),
           br,
           "If you love Lichess, ",

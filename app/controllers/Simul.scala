@@ -50,7 +50,7 @@ final class Simul(
     env.simul.repo find id flatMap {
       _.fold(simulNotFound.fuccess) { sim =>
         for {
-          team <- sim.team ?? env.team.api.team
+          team    <- sim.team ?? env.team.api.team
           version <- env.simul.version(sim.id)
           json <- env.simul.jsonView(sim, team.map { t =>
             lila.simul.SimulTeam(t.id, t.name, ctx.userId exists {
@@ -58,7 +58,9 @@ final class Simul(
             })
           })
           chat <- canHaveChat ?? env.chat.api.userChat.cached.findMine(Chat.Id(sim.id), ctx.me).map(some)
-          _ <- chat ?? { c => env.user.lightUserApi.preloadMany(c.chat.userIds) }
+          _ <- chat ?? { c =>
+            env.user.lightUserApi.preloadMany(c.chat.userIds)
+          }
           stream <- env.streamer.liveStreamApi one sim.hostId
         } yield html.simul.show(sim, version, json, chat, stream, team)
       }
@@ -66,7 +68,7 @@ final class Simul(
   }
 
   private[controllers] def canHaveChat(implicit ctx: Context): Boolean =
-    !ctx.kid && // no public chats for kids
+    !ctx.kid &&           // no public chats for kids
       ctx.me.fold(true) { // anon can see public chats
         env.chat.panic.allowed
       }
@@ -123,12 +125,14 @@ final class Simul(
     NoLameOrBot {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
-        err => apiC.teamsIBelongTo(me) map { teams =>
-          BadRequest(html.simul.form(err, teams))
-        },
-        setup => env.simul.api.create(setup, me) map { simul =>
-          Redirect(routes.Simul.show(simul.id))
-        }
+        err =>
+          apiC.teamsIBelongTo(me) map { teams =>
+            BadRequest(html.simul.form(err, teams))
+          },
+        setup =>
+          env.simul.api.create(setup, me) map { simul =>
+            Redirect(routes.Simul.show(simul.id))
+          }
       )
     }
   }
@@ -151,8 +155,8 @@ final class Simul(
 
   private def AsHost(simulId: Sim.ID)(f: Sim => Fu[Result])(implicit ctx: Context): Fu[Result] =
     env.simul.repo.find(simulId) flatMap {
-      case None => notFound
+      case None                                              => notFound
       case Some(simul) if ctx.userId.exists(simul.hostId ==) => f(simul)
-      case _ => fuccess(Unauthorized)
+      case _                                                 => fuccess(Unauthorized)
     }
 }

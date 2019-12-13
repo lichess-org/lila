@@ -5,7 +5,7 @@ import play.api.libs.json._
 import chess.format.FEN
 import chess.opening._
 import chess.variant.Variant
-import lila.tree.Node.{ openingWriter, destString }
+import lila.tree.Node.{ destString, openingWriter }
 
 case class AnaDests(
     variant: Variant,
@@ -28,20 +28,25 @@ case class AnaDests(
     FullOpeningDB findByFen fen.value
   }
 
-  def json = Json.obj(
-    "dests" -> dests,
-    "path" -> path
-  ).add("opening" -> opening).add("ch", chapterId)
+  def json =
+    Json
+      .obj(
+        "dests" -> dests,
+        "path"  -> path
+      )
+      .add("opening" -> opening)
+      .add("ch", chapterId)
 }
 
 object AnaDests {
 
   private val initialDests = "iqy muC gvx ltB bqs pxF jrz nvD ksA owE"
 
-  def parse(o: JsObject) = for {
-    d <- o obj "d"
-    variant = chess.variant.Variant orDefault ~d.str("variant")
-    fen <- d str "fen"
-    path <- d str "path"
-  } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = d str "ch")
+  def parse(o: JsObject) =
+    for {
+      d <- o obj "d"
+      variant = chess.variant.Variant orDefault ~d.str("variant")
+      fen  <- d str "fen"
+      path <- d str "path"
+    } yield AnaDests(variant = variant, fen = FEN(fen), path = path, chapterId = d str "ch")
 }

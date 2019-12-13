@@ -15,9 +15,11 @@ object StudyMember {
 
   sealed abstract class Role(val id: String, val canWrite: Boolean)
   object Role {
-    case object Read extends Role("r", false)
+    case object Read  extends Role("r", false)
     case object Write extends Role("w", true)
-    val byId = List(Read, Write).map { x => x.id -> x }.toMap
+    val byId = List(Read, Write).map { x =>
+      x.id -> x
+    }.toMap
   }
 }
 
@@ -26,15 +28,16 @@ case class StudyMembers(members: StudyMember.MemberMap) {
   def +(member: StudyMember) = copy(members = members + (member.id -> member))
 
   def contains(userId: User.ID): Boolean = members contains userId
-  def contains(user: User): Boolean = contains(user.id)
+  def contains(user: User): Boolean      = contains(user.id)
 
   def get = members.get _
 
   def ids = members.keys
 
-  def contributorIds: Set[User.ID] = members.view.collect {
-    case (id, member) if member.canContribute => id
-  }.toSet
+  def contributorIds: Set[User.ID] =
+    members.view.collect {
+      case (id, member) if member.canContribute => id
+    }.toSet
 }
 
 object StudyMembers {

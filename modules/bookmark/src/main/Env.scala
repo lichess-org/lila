@@ -9,7 +9,7 @@ import lila.common.config._
 import lila.hub.actorApi.bookmark._
 
 @Module
-private final class BookmarkConfig(
+final private class BookmarkConfig(
     @ConfigName("collection.bookmark") val bookmarkCollName: CollName,
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("actor.name") val actorName: String
@@ -33,7 +33,7 @@ final class Env(
   system.actorOf(Props(new Actor {
     def receive = {
       case Toggle(gameId, userId) => api.toggle(gameId, userId)
-      case Remove(gameId) => api removeByGameId gameId
+      case Remove(gameId)         => api removeByGameId gameId
     }
   }), name = config.actorName)
 }

@@ -1,6 +1,6 @@
 package lila.practice
 
-import lila.study.{ Study, Chapter }
+import lila.study.{ Chapter, Study }
 
 case class PracticeStructure(
     sections: List[PracticeSection]
@@ -10,9 +10,12 @@ case class PracticeStructure(
     sections.flatMap(_ study id).headOption
 
   lazy val studiesByIds: Map[Study.Id, PracticeStudy] =
-    sections.view.flatMap(_.studies).map { s =>
-      s.id -> s
-    }.toMap
+    sections.view
+      .flatMap(_.studies)
+      .map { s =>
+        s.id -> s
+      }
+      .toMap
 
   lazy val sectionsByStudyIds: Map[Study.Id, PracticeSection] =
     sections.view.flatMap { sec =>
@@ -72,9 +75,11 @@ object PracticeStructure {
               id = id,
               name = stu.name,
               desc = stu.desc,
-              chapters = chapters.get(id).??(_.filterNot { c =>
-                isChapterNameCommented(c.name)
-              }.toList)
+              chapters = chapters
+                .get(id)
+                .??(_.filterNot { c =>
+                  isChapterNameCommented(c.name)
+                }.toList)
             )
           }
         )

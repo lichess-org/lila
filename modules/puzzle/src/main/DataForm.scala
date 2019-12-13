@@ -5,11 +5,15 @@ import play.api.data.Forms._
 
 object DataForm {
 
-  val round = Form(single(
-    "win" -> number
-  ))
+  val round = Form(
+    single(
+      "win" -> number
+    )
+  )
 
-  val vote = Form(single(
-    "vote" -> number
-  ))
+  val vote = Form(
+    single(
+      "vote" -> number
+    )
+  )
 }

@@ -8,7 +8,7 @@ import scala.concurrent.duration._
 import lila.base.LilaException
 import lila.common.Domain
 
-private final class DnsApi(
+final private class DnsApi(
     ws: WSClient,
     config: SecurityConfig.DnsApi
 )(implicit system: akka.actor.ActorSystem) {
@@ -24,10 +24,11 @@ private final class DnsApi(
       fetch(domain, "mx") {
         _ flatMap { obj =>
           (obj \ "data").asOpt[String].map(_ split ' ') collect {
-            case Array(_, domain) => Domain {
-              if (domain endsWith ".") domain.init
-              else domain
-            }
+            case Array(_, domain) =>
+              Domain {
+                if (domain endsWith ".") domain.init
+                else domain
+              }
           }
         }
       }.monSuccess(_.security.dnsApi.mx)
@@ -38,9 +39,9 @@ private final class DnsApi(
       .withQueryStringParameters("name" -> domain.value, "type" -> tpe)
       .withHttpHeaders("Accept" -> "application/dns-json")
       .get withTimeout config.timeout map {
-        case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
-        case res => throw LilaException(s"Status ${res.status}")
-      }
+      case res if res.status == 200 || res.status == 404 => f(~(res.json \ "Answer").asOpt[List[JsObject]])
+      case res                                           => throw LilaException(s"Status ${res.status}")
+    }
 
   // if the DNS service fails, assume the best
   private def failsafe[A](domain: Domain.Lower, default: => A)(f: => Fu[A]): Fu[A] = f recover {

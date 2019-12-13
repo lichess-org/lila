@@ -3,7 +3,7 @@ package lila.practice
 import org.joda.time.DateTime
 
 import lila.user.User
-import lila.study.{ Study, Chapter }
+import lila.study.{ Chapter, Study }
 
 case class PracticeProgress(
     _id: PracticeProgress.Id,

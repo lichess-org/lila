@@ -5,7 +5,7 @@ import play.api.libs.json._
 import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 
-private final class ChallengeSocket(
+final private class ChallengeSocket(
     api: ChallengeApi,
     remoteSocketApi: lila.socket.RemoteSocket
 ) {
@@ -38,10 +38,11 @@ object ChallengeSocket {
 
       case class OwnerPings(ids: Iterable[String]) extends P.In
 
-      val reader: P.In.Reader = raw => raw.path match {
-        case "challenge/pings" => OwnerPings(P.In.commas(raw.args)).some
-        case _ => RP.In.reader(raw)
-      }
+      val reader: P.In.Reader = raw =>
+        raw.path match {
+          case "challenge/pings" => OwnerPings(P.In.commas(raw.args)).some
+          case _                 => RP.In.reader(raw)
+        }
     }
   }
 }

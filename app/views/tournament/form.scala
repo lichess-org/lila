@@ -13,14 +13,15 @@ import controllers.routes
 
 object form {
 
-  def apply(form: Form[_], me: User, teams: List[lila.hub.LightTeam])(implicit ctx: Context) = views.html.base.layout(
-    title = trans.newTournament.txt(),
-    moreCss = cssTag("tournament.form"),
-    moreJs = frag(
-      flatpickrTag,
-      jsTag("tournamentForm.js")
-    )
-  ) {
+  def apply(form: Form[_], me: User, teams: List[lila.hub.LightTeam])(implicit ctx: Context) =
+    views.html.base.layout(
+      title = trans.newTournament.txt(),
+      moreCss = cssTag("tournament.form"),
+      moreJs = frag(
+        flatpickrTag,
+        jsTag("tournamentForm.js")
+      )
+    ) {
       val isTeamBattle = form("teamBattleByTeam").value.nonEmpty
       main(cls := "page-small")(
         div(cls := "tour__form box box-pad")(
@@ -32,28 +33,47 @@ object form {
             DataForm.canPickName(me) ?? {
               form3.group(form("name"), trans.name()) { f =>
                 div(
-                  form3.input(f), " ", if (isTeamBattle) "Team Battle" else "Arena", br,
+                  form3.input(f),
+                  " ",
+                  if (isTeamBattle) "Team Battle" else "Arena",
+                  br,
                   small(cls := "form-help")(
-                    trans.safeTournamentName(), br,
-                    trans.inappropriateNameWarning(), br,
+                    trans.safeTournamentName(),
+                    br,
+                    trans.inappropriateNameWarning(),
+                    br,
                     trans.emptyTournamentName()
                   )
                 )
               }
             },
             form3.split(
-              form3.checkbox(form("rated"), trans.rated(), help = raw("Games are rated<br>and impact players ratings").some),
+              form3.checkbox(
+                form("rated"),
+                trans.rated(),
+                help = raw("Games are rated<br>and impact players ratings").some
+              ),
               st.input(tpe := "hidden", name := form("rated").name, value := "false"), // hack allow disabling rated
-              form3.group(form("variant"), trans.variant(), half = true)(form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2)))
+              form3.group(form("variant"), trans.variant(), half = true)(
+                form3.select(_, translatedVariantChoicesWithVariants.map(x => x._1 -> x._2))
+              )
             ),
             form3.group(form("position"), trans.startPosition(), klass = "position")(startingPosition(_)),
             form3.split(
-              form3.group(form("clockTime"), raw("Clock initial time"), half = true)(form3.select(_, DataForm.clockTimeChoices)),
-              form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(form3.select(_, DataForm.clockIncrementChoices))
+              form3.group(form("clockTime"), raw("Clock initial time"), half = true)(
+                form3.select(_, DataForm.clockTimeChoices)
+              ),
+              form3.group(form("clockIncrement"), raw("Clock increment"), half = true)(
+                form3.select(_, DataForm.clockIncrementChoices)
+              )
             ),
             form3.split(
-              form3.group(form("minutes"), trans.duration(), half = true)(form3.select(_, DataForm.minuteChoices)),
-              form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(form3.select(_, DataForm.waitMinuteChoices))
+              form3.group(form("minutes"), trans.duration(), half = true)(
+                form3.select(_, DataForm.minuteChoices)
+              ),
+              form3.group(form("waitMinutes"), trans.timeBeforeTournamentStarts(), half = true)(
+                form3.select(_, DataForm.waitMinuteChoices)
+              )
             ),
             form3.globalError(form),
             fieldset(cls := "conditions")(
@@ -68,10 +88,18 @@ object form {
               ),
               div(cls := "form")(
                 !isTeamBattle option
-                  form3.group(form("password"), trans.password(), help = raw("Make the tournament private, and restrict access with a password").some)(form3.input(_)),
+                  form3.group(
+                    form("password"),
+                    trans.password(),
+                    help = raw("Make the tournament private, and restrict access with a password").some
+                  )(form3.input(_)),
                 condition(form, auto = true, teams = teams),
                 input(tpe := "hidden", name := form("berserkable").name, value := "false"), // hack allow disabling berserk
-                form3.group(form("startDate"), raw("Custom start date"), help = raw("""This overrides the "Time before tournament starts" setting""").some)(form3.flatpickr(_))
+                form3.group(
+                  form("startDate"),
+                  raw("Custom start date"),
+                  help = raw("""This overrides the "Time before tournament starts" setting""").some
+                )(form3.flatpickr(_))
               )
             ),
             isTeamBattle option form3.hidden(form("teamBattleByTeam")),
@@ -91,28 +119,46 @@ object form {
 
   def condition(form: Form[_], auto: Boolean, teams: List[lila.hub.LightTeam])(implicit ctx: Context) = frag(
     form3.split(
-      form3.group(form("conditions.nbRatedGame.nb"), raw("Minimum rated games"), half = true)(form3.select(_, Condition.DataForm.nbRatedGameChoices)),
+      form3.group(form("conditions.nbRatedGame.nb"), raw("Minimum rated games"), half = true)(
+        form3.select(_, Condition.DataForm.nbRatedGameChoices)
+      ),
       autoField(auto, form("conditions.nbRatedGame.perf")) { field =>
-        form3.group(field, raw("In variant"), half = true)(form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices))
+        form3.group(field, raw("In variant"), half = true)(
+          form3.select(_, ("", "Any") :: Condition.DataForm.perfChoices)
+        )
       }
     ),
     form3.split(
-      form3.group(form("conditions.minRating.rating"), raw("Minimum rating"), half = true)(form3.select(_, Condition.DataForm.minRatingChoices)),
+      form3.group(form("conditions.minRating.rating"), raw("Minimum rating"), half = true)(
+        form3.select(_, Condition.DataForm.minRatingChoices)
+      ),
       autoField(auto, form("conditions.minRating.perf")) { field =>
         form3.group(field, raw("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
       }
     ),
     form3.split(
-      form3.group(form("conditions.maxRating.rating"), raw("Maximum weekly rating"), half = true)(form3.select(_, Condition.DataForm.maxRatingChoices)),
+      form3.group(form("conditions.maxRating.rating"), raw("Maximum weekly rating"), half = true)(
+        form3.select(_, Condition.DataForm.maxRatingChoices)
+      ),
       autoField(auto, form("conditions.maxRating.perf")) { field =>
         form3.group(field, raw("In variant"), half = true)(form3.select(_, Condition.DataForm.perfChoices))
       }
     ),
     form3.split(
       (ctx.me.exists(_.hasTitle) || isGranted(_.ManageTournament)) ?? {
-        form3.checkbox(form("conditions.titled"), raw("Only titled players"), help = raw("Require an official title to join the tournament").some, half = true)
+        form3.checkbox(
+          form("conditions.titled"),
+          raw("Only titled players"),
+          help = raw("Require an official title to join the tournament").some,
+          half = true
+        )
       },
-      form3.checkbox(form("berserkable"), raw("Allow Berserk"), help = raw("Let players halve their clock time to gain an extra point").some, half = true)
+      form3.checkbox(
+        form("berserkable"),
+        raw("Allow Berserk"),
+        help = raw("Let players halve their clock time to gain an extra point").some,
+        half = true
+      )
     ),
     (auto && teams.size > 0) option {
       form3.group(form("conditions.teamMember.teamId"), raw("Only members of team"), half = false)(
@@ -121,11 +167,12 @@ object form {
     }
   )
 
-  def startingPosition(field: Field) = st.select(
-    id := form3.id(field),
-    name := field.name,
-    cls := "form-control"
-  )(
+  def startingPosition(field: Field) =
+    st.select(
+      id := form3.id(field),
+      name := field.name,
+      cls := "form-control"
+    )(
       option(
         value := chess.StartingPosition.initial.fen,
         field.value.has(chess.StartingPosition.initial.fen) option selected

@@ -1,7 +1,7 @@
 package lila.simul
 
 import chess.variant.Variant
-import lila.user.{ User, Title }
+import lila.user.{ Title, User }
 import org.joda.time.DateTime
 import ornicar.scalalib.Random
 
@@ -56,7 +56,7 @@ case class Simul(
   def accept(userId: String, v: Boolean) = Created {
     copy(applicants = applicants map {
       case a if a is userId => a.copy(accepted = v)
-      case a => a
+      case a                => a
     })
   }
 
@@ -77,12 +77,13 @@ case class Simul(
     hostSeenAt = none
   )
 
-  def updatePairing(gameId: String, f: SimulPairing => SimulPairing) = copy(
-    pairings = pairings collect {
-      case p if p.gameId == gameId => f(p)
-      case p => p
-    }
-  ).finishIfDone
+  def updatePairing(gameId: String, f: SimulPairing => SimulPairing) =
+    copy(
+      pairings = pairings collect {
+        case p if p.gameId == gameId => f(p)
+        case p                       => p
+      }
+    ).finishIfDone
 
   def ejectCheater(userId: String): Option[Simul] =
     hasUser(userId) option removeApplicant(userId).removePairing(userId)
@@ -111,7 +112,7 @@ case class Simul(
   def variantRich = variants.size > 3
 
   def isHost(userOption: Option[User]): Boolean = userOption ?? isHost
-  def isHost(user: User): Boolean = user.id == hostId
+  def isHost(user: User): Boolean               = user.id == hostId
 
   def playingPairings = pairings filterNot (_.finished)
 
@@ -129,9 +130,9 @@ case class Simul(
       isCreated &&
       applicants.size < 80
 
-  def wins = pairings.count(p => p.finished && p.wins.has(false))
-  def draws = pairings.count(p => p.finished && p.wins.isEmpty)
-  def losses = pairings.count(p => p.finished && p.wins.has(true))
+  def wins    = pairings.count(p => p.finished && p.wins.has(false))
+  def draws   = pairings.count(p => p.finished && p.wins.isEmpty)
+  def losses  = pairings.count(p => p.finished && p.wins.has(true))
   def ongoing = pairings.count(_.ongoing)
 }
 
@@ -146,12 +147,12 @@ object Simul {
     else RandomName()
 
   def make(
-    host: User,
-    clock: SimulClock,
-    variants: List[Variant],
-    color: String,
-    text: String,
-    team: Option[String]
+      host: User,
+      clock: SimulClock,
+      variants: List[Variant],
+      color: String,
+      text: String,
+      team: Option[String]
   ): Simul = Simul(
     _id = Random nextString 8,
     name = makeName(host),

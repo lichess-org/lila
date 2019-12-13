@@ -12,7 +12,7 @@ final class ImpersonateApi(userRepo: UserRepo) {
 
   def start(mod: User, user: User): Unit = Granter(_.Impersonate)(mod) ?? {
     stop(user)
-    modToUser = modToUser + (mod.id -> user.id)
+    modToUser = modToUser + (mod.id  -> user.id)
     userToMod = userToMod + (user.id -> mod.id)
     logger.info(s"${mod.username} starts impersonating ${user.username}")
     Bus.publish(Impersonate(user.id, mod.id.some), "impersonate")

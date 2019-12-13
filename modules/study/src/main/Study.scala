@@ -41,9 +41,9 @@ case class Study(
   def rewindTo(c: Chapter.Like): Study =
     copy(position = Position.Ref(chapterId = c.id, path = Path.root))
 
-  def isPublic = visibility == Study.Visibility.Public
+  def isPublic   = visibility == Study.Visibility.Public
   def isUnlisted = visibility == Study.Visibility.Unlisted
-  def isPrivate = visibility == Study.Visibility.Private
+  def isPrivate  = visibility == Study.Visibility.Private
 
   def isNew = (nowSeconds - createdAt.getSeconds) < 4
 
@@ -91,10 +91,12 @@ object Study {
     lazy val key = toString.toLowerCase
   }
   object Visibility {
-    case object Private extends Visibility
+    case object Private  extends Visibility
     case object Unlisted extends Visibility
-    case object Public extends Visibility
-    val byKey = List(Private, Unlisted, Public).map { v => v.key -> v }.toMap
+    case object Public   extends Visibility
+    val byKey = List(Private, Unlisted, Public).map { v =>
+      v.key -> v
+    }.toMap
   }
 
   case class Likes(value: Int) extends AnyVal
@@ -113,9 +115,9 @@ object Study {
 
   sealed trait From
   object From {
-    case object Scratch extends From
-    case class Game(id: String) extends From
-    case class Study(id: Id) extends From
+    case object Scratch                      extends From
+    case class Game(id: String)              extends From
+    case class Study(id: Id)                 extends From
     case class Relay(clonedFrom: Option[Id]) extends From
   }
 
@@ -131,14 +133,15 @@ object Study {
   ) {
     import Settings._
     def vis = Visibility.byKey get visibility getOrElse Visibility.Public
-    def settings = for {
-      comp <- UserSelection.byKey get computer
-      expl <- UserSelection.byKey get explorer
-      clon <- UserSelection.byKey get cloneable
-      chat <- UserSelection.byKey get chat
-      stic = sticky == "true"
-      desc = description == "true"
-    } yield Settings(comp, expl, clon, chat, stic, desc)
+    def settings =
+      for {
+        comp <- UserSelection.byKey get computer
+        expl <- UserSelection.byKey get explorer
+        clon <- UserSelection.byKey get cloneable
+        chat <- UserSelection.byKey get chat
+        stic = sticky == "true"
+        desc = description == "true"
+      } yield Settings(comp, expl, clon, chat, stic, desc)
   }
 
   case class WithChapter(study: Study, chapter: Chapter)
@@ -157,7 +160,13 @@ object Study {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(user: User, from: From, id: Option[Study.Id] = None, name: Option[Name] = None, settings: Option[Settings] = None) = {
+  def make(
+      user: User,
+      from: From,
+      id: Option[Study.Id] = None,
+      name: Option[Name] = None,
+      settings: Option[Settings] = None
+  ) = {
     val owner = StudyMember(id = user.id, role = StudyMember.Role.Write)
     Study(
       _id = id | makeId,

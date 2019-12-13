@@ -1,7 +1,5 @@
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformPreferences
 import play.sbt.PlayImport._
 import sbt._, Keys._
-import scalariform.formatter.preferences._
 
 object BuildSettings {
 
@@ -19,29 +17,31 @@ object BuildSettings {
     // disable publishing the main API jar
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
-    publishArtifact in (Compile, packageSrc) := false,
-    scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
+    publishArtifact in (Compile, packageSrc) := false
   )
 
-  def scalariformPrefs(prefs: IFormattingPreferences) = prefs
-    .setPreference(DanglingCloseParenthesis, Force)
-    .setPreference(DoubleIndentConstructorArguments, true)
-
   def defaultLibs: Seq[ModuleID] = Seq(
-    play.api, scalaz, chess, scalalib, jodaTime, ws,
-    macwire.macros, macwire.util, autoconfig, specs2
+    play.api,
+    scalaz,
+    chess,
+    scalalib,
+    jodaTime,
+    ws,
+    macwire.macros,
+    macwire.util,
+    autoconfig,
+    specs2
   )
 
   def module(
-    name: String,
-    deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
-    libs: Seq[ModuleID]
+      name: String,
+      deps: Seq[sbt.ClasspathDep[sbt.ProjectReference]],
+      libs: Seq[ModuleID]
   ) =
     Project(
       name,
       file("modules/" + name)
-    )
-      .dependsOn(deps: _*)
+    ).dependsOn(deps: _*)
       .settings(
         libraryDependencies ++= defaultLibs ++ libs ++ silencer.bundle,
         buildSettings,
@@ -59,8 +59,10 @@ object BuildSettings {
     "-Ywarn-macros:after",
     "-Ywarn-unused:_",
     // "-Xfatal-warnings",
-    "-Xmaxerrs", "12",
-    "-Xmaxwarns", "12"
+    "-Xmaxerrs",
+    "12",
+    "-Xmaxwarns",
+    "12"
   )
 
   val srcMain = Seq(

@@ -24,14 +24,15 @@ object list {
     url = o => routes.Study.all(o)
   )
 
-  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) = layout(
-    title = trans.study.studiesCreatedByX.txt(owner.titleUsername),
-    active = "owner",
-    order = order,
-    pag = pag,
-    searchFilter = s"owner:${owner.username}",
-    url = o => routes.Study.byOwner(owner.username, o)
-  )
+  def byOwner(pag: Paginator[WithChaptersAndLiked], order: Order, owner: User)(implicit ctx: Context) =
+    layout(
+      title = trans.study.studiesCreatedByX.txt(owner.titleUsername),
+      active = "owner",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${owner.username}",
+      url = o => routes.Study.byOwner(owner.username, o)
+    )
 
   def mine(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
     title = trans.study.myStudies.txt(),
@@ -43,8 +44,8 @@ object list {
   )
 
   def mineLikes(
-    pag: Paginator[WithChaptersAndLiked],
-    order: Order
+      pag: Paginator[WithChaptersAndLiked],
+      order: Order
   )(implicit ctx: Context) = layout(
     title = trans.study.myFavoriteStudies.txt(),
     active = "mineLikes",
@@ -54,32 +55,35 @@ object list {
     url = o => routes.Study.mineLikes(o)
   )
 
-  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = trans.study.studiesIContributeTo.txt(),
-    active = "mineMember",
-    order = order,
-    pag = pag,
-    searchFilter = s"member:${me.username}",
-    url = o => routes.Study.mineMember(o)
-  )
+  def mineMember(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
+    layout(
+      title = trans.study.studiesIContributeTo.txt(),
+      active = "mineMember",
+      order = order,
+      pag = pag,
+      searchFilter = s"member:${me.username}",
+      url = o => routes.Study.mineMember(o)
+    )
 
-  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = trans.study.myPublicStudies.txt(),
-    active = "minePublic",
-    order = order,
-    pag = pag,
-    searchFilter = s"owner:${me.username}",
-    url = o => routes.Study.minePublic(o)
-  )
+  def minePublic(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
+    layout(
+      title = trans.study.myPublicStudies.txt(),
+      active = "minePublic",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${me.username}",
+      url = o => routes.Study.minePublic(o)
+    )
 
-  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) = layout(
-    title = trans.study.myPrivateStudies.txt(),
-    active = "minePrivate",
-    order = order,
-    pag = pag,
-    searchFilter = s"owner:${me.username}",
-    url = o => routes.Study.minePrivate(o)
-  )
+  def minePrivate(pag: Paginator[WithChaptersAndLiked], order: Order, me: User)(implicit ctx: Context) =
+    layout(
+      title = trans.study.myPrivateStudies.txt(),
+      active = "minePrivate",
+      order = order,
+      pag = pag,
+      searchFilter = s"owner:${me.username}",
+      url = o => routes.Study.minePrivate(o)
+    )
 
   def search(pag: Paginator[WithChaptersAndLiked], text: String)(implicit ctx: Context) =
     views.html.base.layout(
@@ -88,35 +92,39 @@ object list {
       wrapClass = "full-screen-force",
       moreJs = infiniteScrollTag
     ) {
-        main(cls := "page-menu")(
-          menu("search", Order.default),
-          main(cls := "page-menu__content study-index box")(
-            div(cls := "box__top")(
-              searchForm(trans.search.txt(), text),
-              bits.newForm()
-            ),
-            paginate(pag, routes.Study.search(text))
-          )
+      main(cls := "page-menu")(
+        menu("search", Order.default),
+        main(cls := "page-menu__content study-index box")(
+          div(cls := "box__top")(
+            searchForm(trans.search.txt(), text),
+            bits.newForm()
+          ),
+          paginate(pag, routes.Study.search(text))
         )
-      }
+      )
+    }
 
   private[study] def paginate(pager: Paginator[WithChaptersAndLiked], url: Call)(implicit ctx: Context) =
-    if (pager.currentPageResults.isEmpty) div(cls := "nostudies")(
-      iconTag("4"),
-      p(trans.study.noneYet())
-    )
-    else div(cls := "studies list infinitescroll")(
-      pager.currentPageResults.map { s =>
-        div(cls := "study paginated")(bits.widget(s))
-      },
-      pagerNext(pager, np => addQueryParameter(url.url, "page", np))
-    )
+    if (pager.currentPageResults.isEmpty)
+      div(cls := "nostudies")(
+        iconTag("4"),
+        p(trans.study.noneYet())
+      )
+    else
+      div(cls := "studies list infinitescroll")(
+        pager.currentPageResults.map { s =>
+          div(cls := "study paginated")(bits.widget(s))
+        },
+        pagerNext(pager, np => addQueryParameter(url.url, "page", np))
+      )
 
   private[study] def menu(active: String, order: Order)(implicit ctx: Context) =
     st.aside(cls := "page-menu__menu subnav")(
       a(cls := active.active("all"), href := routes.Study.all(order.key))(trans.study.allStudies()),
       ctx.isAuth option bits.authLinks(active, order),
-      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(trans.study.whatAreStudies())
+      a(cls := "text", dataIcon := "", href := "/blog/V0KrLSkAAMo3hsi4/study-chess-the-lichess-way")(
+        trans.study.whatAreStudies()
+      )
     )
 
   private[study] def searchForm(placeholder: String, value: String) =
@@ -126,18 +134,19 @@ object list {
     )
 
   private def layout(
-    title: String,
-    active: String,
-    order: Order,
-    pag: Paginator[WithChaptersAndLiked],
-    url: String => Call,
-    searchFilter: String
-  )(implicit ctx: Context) = views.html.base.layout(
-    title = title,
-    moreCss = cssTag("study.index"),
-    wrapClass = "full-screen-force",
-    moreJs = infiniteScrollTag
-  ) {
+      title: String,
+      active: String,
+      order: Order,
+      pag: Paginator[WithChaptersAndLiked],
+      url: String => Call,
+      searchFilter: String
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = title,
+      moreCss = cssTag("study.index"),
+      wrapClass = "full-screen-force",
+      moreJs = infiniteScrollTag
+    ) {
       main(cls := "page-menu")(
         menu(active, order),
         main(cls := "page-menu__content study-index box")(

@@ -43,19 +43,23 @@ final class RecaptchaGoogle(
       hostname: String
   )
 
-  private implicit val responseReader = Json.reads[Response]
+  implicit private val responseReader = Json.reads[Response]
 
   def verify(response: String, req: RequestHeader): Fu[Boolean] = {
-    ws.url(config.endpoint).post(Map(
-      "secret" -> config.privateKey.value,
-      "response" -> response,
-      "remoteip" -> HTTPRequest.lastRemoteAddress(req).value
-    )) flatMap {
+    ws.url(config.endpoint)
+      .post(
+        Map(
+          "secret"   -> config.privateKey.value,
+          "response" -> response,
+          "remoteip" -> HTTPRequest.lastRemoteAddress(req).value
+        )
+      ) flatMap {
       case res if res.status == 200 =>
         res.json.validate[Response] match {
-          case JsSuccess(res, _) => fuccess {
-            res.success && res.hostname == netDomain.value
-          }
+          case JsSuccess(res, _) =>
+            fuccess {
+              res.success && res.hostname == netDomain.value
+            }
           case JsError(err) =>
             fufail(s"$err ${~res.body.linesIterator.to(LazyList).headOption}")
         }

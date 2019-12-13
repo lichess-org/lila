@@ -21,7 +21,7 @@ final class PimpedOption[A](private val self: Option[A]) extends AnyVal {
 
   def |(a: => A): A = self getOrElse a
 
-  def unary_~(implicit z: Zero[A]): A = self getOrElse z.zero
+  def unary_~(implicit z: Zero[A]): A   = self getOrElse z.zero
   def orDefault(implicit z: Zero[A]): A = self getOrElse z.zero
 
   def toSuccess[E](e: => E): scalaz.Validation[E, A] = o.toSuccess(self)(e)
@@ -54,15 +54,15 @@ final class PimpedString(private val s: String) extends AnyVal {
 
 final class PimpedConfig(private val config: Config) extends AnyVal {
 
-  def millis(name: String): Int = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
-  def seconds(name: String): Int = config.getDuration(name, TimeUnit.SECONDS).toInt
+  def millis(name: String): Int              = config.getDuration(name, TimeUnit.MILLISECONDS).toInt
+  def seconds(name: String): Int             = config.getDuration(name, TimeUnit.SECONDS).toInt
   def duration(name: String): FiniteDuration = millis(name).millis
 }
 
 final class PimpedDateTime(private val date: DateTime) extends AnyVal {
   def getSeconds: Long = date.getMillis / 1000
-  def getCentis: Long = date.getMillis / 10
-  def toNow = new Duration(date, DateTime.now)
+  def getCentis: Long  = date.getMillis / 10
+  def toNow            = new Duration(date, DateTime.now)
 }
 
 final class PimpedValid[A](private val v: Valid[A]) extends AnyVal {
@@ -74,8 +74,8 @@ final class PimpedTry[A](private val v: Try[A]) extends AnyVal {
 
   def fold[B](fe: Exception => B, fa: A => B): B = v match {
     case scala.util.Failure(e: Exception) => fe(e)
-    case scala.util.Failure(e) => throw e
-    case scala.util.Success(a) => fa(a)
+    case scala.util.Failure(e)            => throw e
+    case scala.util.Success(a)            => fa(a)
   }
 
   def future: Fu[A] = fold(Future.failed, fuccess)
@@ -93,7 +93,7 @@ final class PimpedEither[A, B](private val v: Either[A, B]) extends AnyVal {
 
   def orElse(other: => Either[A, B]): Either[A, B] = v match {
     case scala.util.Right(res) => Right(res)
-    case scala.util.Left(_) => other
+    case scala.util.Left(_)    => other
   }
 }
 

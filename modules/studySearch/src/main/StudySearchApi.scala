@@ -11,7 +11,7 @@ import scala.concurrent.duration._
 import chess.format.pgn.Tag
 import lila.hub.LateMultiThrottler
 import lila.search._
-import lila.study.{ Study, Chapter, StudyRepo, ChapterRepo, RootOrNode }
+import lila.study.{ Chapter, ChapterRepo, RootOrNode, Study, StudyRepo }
 import lila.tree.Node.Comments
 
 final class StudySearchApi(
@@ -19,8 +19,8 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-
-)(implicit system: ActorSystem, mat: akka.stream.Materializer) extends SearchReadApi[Study, Query] {
+)(implicit system: ActorSystem, mat: akka.stream.Materializer)
+    extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) =
     client.search(query, from, size) flatMap { res =>
@@ -38,30 +38,39 @@ final class StudySearchApi(
   }
 
   private def doStore(study: Study) =
-    getChapters(study).flatMap { s =>
-      client.store(Id(s.study.id.value), toDoc(s))
-    }.prefixFailure(study.id.value)
+    getChapters(study)
+      .flatMap { s =>
+        client.store(Id(s.study.id.value), toDoc(s))
+      }
+      .prefixFailure(study.id.value)
 
   private def toDoc(s: Study.WithActualChapters) = Json.obj(
-    Fields.name -> s.study.name.value,
-    Fields.owner -> s.study.ownerId,
+    Fields.name    -> s.study.name.value,
+    Fields.owner   -> s.study.ownerId,
     Fields.members -> s.study.members.ids,
-    Fields.chapterNames -> s.chapters.collect {
-      case c if !Chapter.isDefaultName(c.name) => c.name.value
-    }.mkString(" "),
+    Fields.chapterNames -> s.chapters
+      .collect {
+        case c if !Chapter.isDefaultName(c.name) => c.name.value
+      }
+      .mkString(" "),
     Fields.chapterTexts -> noMultiSpace {
       (s.study.description.toList :+ s.chapters.flatMap(chapterText)).mkString(" ")
     },
     // Fields.createdAt -> study.createdAt)
     // Fields.updatedAt -> study.updatedAt,
-    Fields.likes -> s.study.likes.value,
+    Fields.likes  -> s.study.likes.value,
     Fields.public -> s.study.isPublic
   )
 
   private val relevantPgnTags: Set[chess.format.pgn.TagType] = Set(
-    Tag.Variant, Tag.Event, Tag.Round,
-    Tag.White, Tag.Black,
-    Tag.ECO, Tag.Opening, Tag.Annotator
+    Tag.Variant,
+    Tag.Event,
+    Tag.Round,
+    Tag.White,
+    Tag.Black,
+    Tag.ECO,
+    Tag.Opening,
+    Tag.Annotator
   )
 
   private def chapterText(c: Chapter): List[String] = {
@@ -70,12 +79,13 @@ final class StudySearchApi(
     } ::: extraText(c)
   }
 
-  private def extraText(c: Chapter): List[String] = List(
-    c.isPractice option "practice",
-    c.isConceal option "conceal puzzle",
-    c.isGamebook option "lesson",
-    c.description
-  ).flatten
+  private def extraText(c: Chapter): List[String] =
+    List(
+      c.isPractice option "practice",
+      c.isConceal option "conceal puzzle",
+      c.isGamebook option "lesson",
+      c.description
+    ).flatten
 
   private def nodeText(n: RootOrNode): String =
     commentsText(n.comments) + " " + n.children.nodes.map(nodeText).mkString(" ")
@@ -86,7 +96,7 @@ final class StudySearchApi(
   private def getChapters(s: Study): Fu[Study.WithActualChapters] =
     chapterRepo.orderedByStudy(s.id) map { Study.WithActualChapters(s, _) }
 
-  private val multiSpaceRegex = """\s{2,}""".r
+  private val multiSpaceRegex            = """\s{2,}""".r
   private def noMultiSpace(text: String) = multiSpaceRegex.replaceAllIn(text, " ")
 
   def reset(sinceStr: String) = client match {
@@ -110,7 +120,8 @@ final class StudySearchApi(
         .sortedCursor(
           $doc("createdAt" $gte since),
           sort = $sort asc "createdAt"
-        ).documentSource()
+        )
+        .documentSource()
         .via(lila.common.LilaStream.logRate[Study]("study index")(logger))
         .mapAsyncUnordered(8) { study =>
           lila.common.Future.retry(() => doStore(study), 5 seconds, 10, retryLogger.some)
@@ -122,7 +133,7 @@ final class StudySearchApi(
   }
 
   private def parseDate(str: String): Option[DateTime] = {
-    val datePattern = "yyyy-MM-dd"
+    val datePattern   = "yyyy-MM-dd"
     val dateFormatter = DateTimeFormat forPattern datePattern
     scala.util.Try(dateFormatter parseDateTime str).toOption
   }

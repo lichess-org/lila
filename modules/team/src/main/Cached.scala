@@ -33,8 +33,8 @@ final class Cached(
     logger = logger
   )
 
-  def syncTeamIds = teamIdsCache sync _
-  def teamIds = teamIdsCache async _
+  def syncTeamIds                            = teamIdsCache sync _
+  def teamIds                                = teamIdsCache async _
   def teamIdsList(userId: lila.user.User.ID) = teamIds(userId).dmap(_.toList)
 
   def invalidateTeamIds = teamIdsCache invalidate _

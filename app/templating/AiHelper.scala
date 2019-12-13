@@ -9,7 +9,9 @@ trait AiHelper { self: I18nHelper =>
   def aiName(level: Int, withRating: Boolean = true)(implicit ctx: UserContext): String = {
     val name = lila.i18n.I18nKeys.aiNameLevelAiLevel.txt("Stockfish AI", level)
     val rating = withRating ?? {
-      aiRating(level) ?? { r => s" ($r)" }
+      aiRating(level) ?? { r =>
+        s" ($r)"
+      }
     }
     s"$name$rating"
   }

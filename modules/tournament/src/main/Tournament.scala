@@ -4,7 +4,7 @@ import org.joda.time.{ DateTime, Duration, Interval }
 import ornicar.scalalib.Random
 
 import chess.Clock.{ Config => ClockConfig }
-import chess.{ Speed, Mode, StartingPosition }
+import chess.{ Mode, Speed, StartingPosition }
 import lila.game.PerfPicker
 import lila.rating.PerfType
 import lila.user.User
@@ -32,8 +32,8 @@ case class Tournament(
     spotlight: Option[Spotlight] = None
 ) {
 
-  def isCreated = status == Status.Created
-  def isStarted = status == Status.Started
+  def isCreated  = status == Status.Created
+  def isStarted  = status == Status.Started
   def isFinished = status == Status.Finished
 
   def isPrivate = password.isDefined
@@ -42,16 +42,17 @@ case class Tournament(
 
   def fullName =
     if (isTeamBattle) s"$name Team Battle"
-    else schedule.map(_.freq).fold(s"$name Arena") {
-      case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
-      case Schedule.Freq.Shield => s"$name Arena"
-      case _ if clock.hasIncrement => s"$name Inc Arena"
-      case _ => s"$name Arena"
-    }
+    else
+      schedule.map(_.freq).fold(s"$name Arena") {
+        case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon | Schedule.Freq.Unique => name
+        case Schedule.Freq.Shield                                                               => s"$name Arena"
+        case _ if clock.hasIncrement                                                            => s"$name Inc Arena"
+        case _                                                                                  => s"$name Arena"
+      }
 
   def isMarathon = schedule.map(_.freq) exists {
     case Schedule.Freq.ExperimentalMarathon | Schedule.Freq.Marathon => true
-    case _ => false
+    case _                                                           => false
   }
 
   def isShield = schedule.map(_.freq) has Schedule.Freq.Shield
@@ -92,13 +93,13 @@ case class Tournament(
 
   def similarTo(other: Tournament) = (schedule, other.schedule) match {
     case (Some(s1), Some(s2)) if s1 similarTo s2 => true
-    case _ => false
+    case _                                       => false
   }
 
   def speed = Speed(clock)
 
   def perfType: Option[PerfType] = PerfPicker.perfType(speed, variant, none)
-  def perfLens = PerfPicker.mainOrDefault(speed, variant, none)
+  def perfLens                   = PerfPicker.mainOrDefault(speed, variant, none)
 
   def durationString =
     if (minutes < 60) s"${minutes}m"
@@ -106,7 +107,9 @@ case class Tournament(
 
   def berserkable = !noBerserk && clock.berserkable
 
-  def clockStatus = secondsToFinish |> { s => "%02d:%02d".format(s / 60, s % 60) }
+  def clockStatus = secondsToFinish |> { s =>
+    "%02d:%02d".format(s / 60, s % 60)
+  }
 
   def schedulePair = schedule map { this -> _ }
 
@@ -135,18 +138,18 @@ object Tournament {
   val minPlayers = 2
 
   def make(
-    by: Either[User.ID, User],
-    name: Option[String],
-    clock: ClockConfig,
-    minutes: Int,
-    variant: chess.variant.Variant,
-    position: StartingPosition,
-    mode: Mode,
-    password: Option[String],
-    waitMinutes: Int,
-    startDate: Option[DateTime],
-    berserkable: Boolean,
-    teamBattle: Option[TeamBattle]
+      by: Either[User.ID, User],
+      name: Option[String],
+      clock: ClockConfig,
+      minutes: Int,
+      variant: chess.variant.Variant,
+      position: StartingPosition,
+      mode: Mode,
+      password: Option[String],
+      waitMinutes: Int,
+      startDate: Option[DateTime],
+      berserkable: Boolean,
+      teamBattle: Option[TeamBattle]
   ) = Tournament(
     id = makeId,
     name = name | {

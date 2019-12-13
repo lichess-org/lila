@@ -4,7 +4,7 @@ import play.api.mvc.AnyContentAsFormUrlEncoded
 
 import views._
 
-import lila.api.{ Context, BodyContext }
+import lila.api.{ BodyContext, Context }
 import lila.app._
 import lila.common.HTTPRequest
 import lila.report.{ Room, Report => ReportModel, Mod => AsMod, Reporter, Suspect }
@@ -19,7 +19,8 @@ final class Report(
   private def api = env.report.api
 
   def list = Secure(_.SeeReport) { implicit ctx => me =>
-    if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force")) fuccess(Forbidden(html.site.message.streamingMod))
+    if (env.streamer.liveStreamApi.isStreaming(me.id) && !getBool("force"))
+      fuccess(Forbidden(html.site.message.streamingMod))
     else renderList(env.report.modFilters.get(me).fold("all")(_.key))
   }
 
@@ -32,10 +33,10 @@ final class Report(
     api.openAndRecentWithFilter(12, Room(room)) zip
       api.countOpenByRooms zip
       env.streamer.api.approval.countRequests flatMap {
-        case reports ~ counts ~ streamers =>
-          (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
-            Ok(html.report.list(reports, room, counts, streamers))
-      }
+      case reports ~ counts ~ streamers =>
+        (env.user.lightUserApi preloadMany reports.flatMap(_.report.userIds)) inject
+          Ok(html.report.list(reports, room, counts, streamers))
+    }
 
   def inquiry(id: String) = Secure(_.SeeReport) { _ => me =>
     api.inquiries.toggle(AsMod(me), id) map { newInquiry =>
@@ -46,21 +47,21 @@ final class Report(
   private def onInquiryStart(inquiry: ReportModel) =
     inquiry.room match {
       case Room.Comm => Redirect(routes.Mod.communicationPrivate(inquiry.user))
-      case _ => modC.redirect(inquiry.user)
+      case _         => modC.redirect(inquiry.user)
     }
 
   protected[controllers] def onInquiryClose(
-    inquiry: Option[ReportModel],
-    me: UserModel,
-    goTo: Option[Suspect],
-    force: Boolean = false
+      inquiry: Option[ReportModel],
+      me: UserModel,
+      goTo: Option[Suspect],
+      force: Boolean = false
   )(implicit ctx: BodyContext[_]) = {
     goTo.ifTrue(HTTPRequest isXhr ctx.req) match {
       case Some(suspect) => userC.renderModZoneActions(suspect.user.username)
       case None =>
         val dataOpt = ctx.body.body match {
           case AnyContentAsFormUrlEncoded(data) => data.some
-          case _ => none
+          case _                                => none
         }
         inquiry match {
           case None =>
@@ -69,9 +70,9 @@ final class Report(
             }
           case Some(prev) =>
             def thenGoTo = dataOpt.flatMap(_ get "then").flatMap(_.headOption) flatMap {
-              case "back" => HTTPRequest referer ctx.req
+              case "back"    => HTTPRequest referer ctx.req
               case "profile" => modC.userUrl(prev.user, true).some
-              case url => url.some
+              case url       => url.some
             }
             thenGoTo match {
               case Some(url) => api.inquiries.toggle(AsMod(me), prev.id) inject Redirect(url)
@@ -84,11 +85,11 @@ final class Report(
                         _.fold(redirectToList)(onInquiryStart)
                       }
                     }
+                  } else if (force) userC.modZoneOrRedirect(prev.user)
+                else
+                  api.inquiries.toggle(AsMod(me), prev.id) map {
+                    _.fold(redirectToList)(onInquiryStart)
                   }
-                else if (force) userC.modZoneOrRedirect(prev.user)
-                else api.inquiries.toggle(AsMod(me), prev.id) map {
-                  _.fold(redirectToList)(onInquiryStart)
-                }
             }
         }
     }
@@ -125,15 +126,17 @@ final class Report(
   def create = AuthBody { implicit ctx => implicit me =>
     implicit val req = ctx.body
     env.report.forms.create.bindFromRequest.fold(
-      err => get("username") ?? env.user.repo.named flatMap { user =>
-        env.report.forms.anyCaptcha map { captcha =>
-          BadRequest(html.report.form(err, user, captcha))
-        }
-      },
+      err =>
+        get("username") ?? env.user.repo.named flatMap { user =>
+          env.report.forms.anyCaptcha map { captcha =>
+            BadRequest(html.report.form(err, user, captcha))
+          }
+        },
       data =>
         if (data.user == me) notFound
-        else api.create(data candidate lila.report.Reporter(me)) inject
-          Redirect(routes.Report.thanks(data.user.username))
+        else
+          api.create(data candidate lila.report.Reporter(me)) inject
+            Redirect(routes.Report.thanks(data.user.username))
     )
   }
 
@@ -141,12 +144,13 @@ final class Report(
     implicit val req = ctx.body
     env.report.forms.flag.bindFromRequest.fold(
       _ => BadRequest.fuccess,
-      data => env.user.repo named data.username flatMap {
-        _ ?? { user =>
-          if (user == me) BadRequest.fuccess
-          else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+      data =>
+        env.user.repo named data.username flatMap {
+          _ ?? { user =>
+            if (user == me) BadRequest.fuccess
+            else api.commFlag(Reporter(me), Suspect(user), data.resource, data.text) inject Ok
+          }
         }
-      }
     )
   }
 

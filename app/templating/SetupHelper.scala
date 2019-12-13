@@ -18,9 +18,40 @@ trait SetupHelper { self: I18nHelper =>
     ("0.5", "½", none),
     ("0.75", "¾", none)
   ) ::: List(
-      "1", "1.5", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
-      "17", "18", "19", "20", "25", "30", "35", "40", "45", "60", "90", "120", "150", "180"
-    ).map { v => (v.toString, v.toString, none) }
+    "1",
+    "1.5",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "25",
+    "30",
+    "35",
+    "40",
+    "45",
+    "60",
+    "90",
+    "120",
+    "150",
+    "180"
+  ).map { v =>
+    (v.toString, v.toString, none)
+  }
 
   val clockIncrementChoices: List[SelectChoice] = {
     (0 to 20).toList ::: List(25, 30, 35, 40, 45, 60, 90, 120, 150, 180)
@@ -194,9 +225,9 @@ trait SetupHelper { self: I18nHelper =>
     (Pref.Challenge.ALWAYS, trans.always.txt())
   )
 
-  def translatedMessageChoices(implicit ctx: Context) = privacyBaseChoices
+  def translatedMessageChoices(implicit ctx: Context)     = privacyBaseChoices
   def translatedStudyInviteChoices(implicit ctx: Context) = privacyBaseChoices
-  def translatedPalantirChoices(implicit ctx: Context) = privacyBaseChoices
+  def translatedPalantirChoices(implicit ctx: Context)    = privacyBaseChoices
 
   def privacyBaseChoices(implicit ctx: Context) = List(
     (Pref.StudyInvite.NEVER, trans.never.txt()),
@@ -217,7 +248,7 @@ trait SetupHelper { self: I18nHelper =>
   )
 
   def translatedBlindfoldChoices(implicit ctx: Context) = List(
-    Pref.Blindfold.NO -> trans.no.txt(),
+    Pref.Blindfold.NO  -> trans.no.txt(),
     Pref.Blindfold.YES -> trans.yes.txt()
   )
 }

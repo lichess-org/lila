@@ -18,7 +18,7 @@ class PasswordHasherTest extends Specification {
     def emptyArr(i: Int) = new Array[Byte](i)
 
     val aes = new Aes(secret)
-    val iv = Aes.iv(emptyArr(16))
+    val iv  = Aes.iv(emptyArr(16))
 
     "preserve size" in {
       aes.encrypt(iv, emptyArr(20)).size must_== 20
@@ -37,7 +37,7 @@ class PasswordHasherTest extends Specification {
 
   "hasher" should {
     val passHasher = new PasswordHasher(secret, 2)
-    val liHash = passHasher.hash(P("abc"))
+    val liHash     = passHasher.hash(P("abc"))
     "accept good" >> passHasher.check(liHash, P("abc"))
     "reject bad" >> !passHasher.check(liHash, P("abc "))
     "uniq hash" >> { liHash !== passHasher.hash(P("abc")) }

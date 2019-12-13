@@ -1,7 +1,7 @@
 package lila.mod
 
 import lila.db.dsl._
-import lila.report.{ Report, Mod, Suspect, ModId }
+import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 
 final class ModlogApi(repo: ModlogRepo) {
@@ -9,7 +9,7 @@ final class ModlogApi(repo: ModlogRepo) {
   private def coll = repo.coll
 
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
+  implicit private val ModlogBSONHandler = reactivemongo.api.bson.Macros.handler[Modlog]
 
   def streamerList(mod: Mod, streamerId: String, v: Boolean) = add {
     Modlog(mod.user.id, streamerId.some, if (v) Modlog.streamerList else Modlog.streamerUnlist)
@@ -47,8 +47,12 @@ final class ModlogApi(repo: ModlogRepo) {
   }
 
   def selfCloseAccount(user: String, openReports: List[Report]) = add {
-    Modlog(ModId.lichess.value, user.some, Modlog.selfCloseAccount,
-      details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty))
+    Modlog(
+      ModId.lichess.value,
+      user.some,
+      Modlog.selfCloseAccount,
+      details = openReports.map(r => s"${r.reason.name} report").mkString(", ").some.filter(_.nonEmpty)
+    )
   }
 
   def reopenAccount(mod: String, user: String) = add {
@@ -71,28 +75,54 @@ final class ModlogApi(repo: ModlogRepo) {
     Modlog(mod, none, Modlog.ipban, ip.some)
   }
 
-  def deletePost(mod: String, user: Option[String], author: Option[String], ip: Option[String], text: String) = add {
-    Modlog(mod, user, Modlog.deletePost, details = Some(
-      author.??(_ + " ") + ip.??(_ + " ") + text.take(400)
-    ))
+  def deletePost(
+      mod: String,
+      user: Option[String],
+      author: Option[String],
+      ip: Option[String],
+      text: String
+  ) = add {
+    Modlog(
+      mod,
+      user,
+      Modlog.deletePost,
+      details = Some(
+        author.??(_ + " ") + ip.??(_ + " ") + text.take(400)
+      )
+    )
   }
 
   def toggleCloseTopic(mod: String, categ: String, topic: String, closed: Boolean) = add {
-    Modlog(mod, none, if (closed) Modlog.closeTopic else Modlog.openTopic, details = Some(
-      categ + " / " + topic
-    ))
+    Modlog(
+      mod,
+      none,
+      if (closed) Modlog.closeTopic else Modlog.openTopic,
+      details = Some(
+        categ + " / " + topic
+      )
+    )
   }
 
   def toggleHideTopic(mod: String, categ: String, topic: String, hidden: Boolean) = add {
-    Modlog(mod, none, if (hidden) Modlog.hideTopic else Modlog.showTopic, details = Some(
-      categ + " / " + topic
-    ))
+    Modlog(
+      mod,
+      none,
+      if (hidden) Modlog.hideTopic else Modlog.showTopic,
+      details = Some(
+        categ + " / " + topic
+      )
+    )
   }
 
   def toggleStickyTopic(mod: String, categ: String, topic: String, sticky: Boolean) = add {
-    Modlog(mod, none, if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic, details = Some(
-      categ + " / " + topic
-    ))
+    Modlog(
+      mod,
+      none,
+      if (sticky) Modlog.stickyTopic else Modlog.unstickyTopic,
+      details = Some(
+        categ + " / " + topic
+      )
+    )
   }
 
   def deleteTeam(mod: String, name: String, desc: String) = add {
@@ -153,15 +183,21 @@ final class ModlogApi(repo: ModlogRepo) {
 
   def recent = coll.ext.find($empty).sort($sort naturalDesc).cursor[Modlog]().gather[List](100)
 
-  def wasUnengined(sus: Suspect) = coll.exists($doc(
-    "user" -> sus.user.id,
-    "action" -> Modlog.unengine
-  ))
+  def wasUnengined(sus: Suspect) =
+    coll.exists(
+      $doc(
+        "user"   -> sus.user.id,
+        "action" -> Modlog.unengine
+      )
+    )
 
-  def wasUnbooster(userId: String) = coll.exists($doc(
-    "user" -> userId,
-    "action" -> Modlog.unbooster
-  ))
+  def wasUnbooster(userId: String) =
+    coll.exists(
+      $doc(
+        "user"   -> userId,
+        "action" -> Modlog.unbooster
+      )
+    )
 
   def userHistory(userId: String): Fu[List[Modlog]] =
     coll.ext.find($doc("user" -> userId)).sort($sort desc "date").cursor[Modlog]().gather[List](30)

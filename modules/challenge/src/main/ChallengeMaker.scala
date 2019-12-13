@@ -39,8 +39,8 @@ final class ChallengeMaker(
         initialFen = initialFen,
         timeControl = (pov.game.clock, pov.game.daysPerTurn) match {
           case (Some(clock), _) => TimeControl.Clock(clock.config)
-          case (_, Some(days)) => TimeControl.Correspondence(days)
-          case _ => TimeControl.Unlimited
+          case (_, Some(days))  => TimeControl.Correspondence(days)
+          case _                => TimeControl.Unlimited
         },
         mode = pov.game.mode,
         color = (!pov.color).name,

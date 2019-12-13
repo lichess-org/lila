@@ -19,8 +19,8 @@ final class Streamer(
     val requests = getBool("requests") && isGranted(_.Streamers)
     for {
       liveStreams <- env.streamer.liveStreamApi.all
-      live <- api withUsers liveStreams
-      pager <- env.streamer.pager.notLive(page, liveStreams, requests)
+      live        <- api withUsers liveStreams
+      pager       <- env.streamer.pager.notLive(page, liveStreams, requests)
     } yield Ok(html.streamer.index(live, pager, requests))
   }
 
@@ -39,8 +39,8 @@ final class Streamer(
     OptionFuResult(api find username) { s =>
       WithVisibleStreamer(s) {
         for {
-          sws <- env.streamer.liveStreamApi of s
-          activity <- env.activity.read.recent(sws.user, 10)
+          sws       <- env.streamer.liveStreamApi of s
+          activity  <- env.activity.read.recent(sws.user, 10)
           following <- ctx.userId.??(env.relation.api.fetchFollows(_, sws.user.id))
         } yield Ok(html.streamer.show(sws, activity, following))
       }
@@ -52,7 +52,7 @@ final class Streamer(
       NoShadowban {
         api find me flatMap {
           case None => api.create(me) inject Redirect(routes.Streamer.edit)
-          case _ => Redirect(routes.Streamer.edit).fuccess
+          case _    => Redirect(routes.Streamer.edit).fuccess
         }
       }
     }
@@ -77,18 +77,23 @@ final class Streamer(
     AsStreamer { s =>
       env.streamer.liveStreamApi of s flatMap { sws =>
         implicit val req = ctx.body
-        StreamerForm.userForm(sws.streamer).bindFromRequest.fold(
-          error => modData(s.user) map { forMod =>
-            BadRequest(html.streamer.edit(sws, error, forMod))
-          },
-          data => api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
-            change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
-            change.feature foreach { env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
-            Redirect {
-              s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
-            }
-          }
-        )
+        StreamerForm
+          .userForm(sws.streamer)
+          .bindFromRequest
+          .fold(
+            error =>
+              modData(s.user) map { forMod =>
+                BadRequest(html.streamer.edit(sws, error, forMod))
+              },
+            data =>
+              api.update(sws.streamer, data, isGranted(_.Streamers)) map { change =>
+                change.list foreach { env.mod.logApi.streamerList(lila.report.Mod(me), s.user.id, _) }
+                change.feature foreach { env.mod.logApi.streamerFeature(lila.report.Mod(me), s.user.id, _) }
+                Redirect {
+                  s"${routes.Streamer.edit().url}${if (sws.streamer is me) "" else "?u=" + sws.user.id}"
+                }
+              }
+          )
       }
     }
   }
@@ -106,9 +111,10 @@ final class Streamer(
   def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => _ =>
     AsStreamer { s =>
       ctx.body.body.file("picture") match {
-        case Some(pic) => api.uploadPicture(s.streamer, pic) recover {
-          case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
-        } inject Redirect(routes.Streamer.edit)
+        case Some(pic) =>
+          api.uploadPicture(s.streamer, pic) recover {
+            case e: lila.base.LilaException => BadRequest(html.streamer.picture(s, e.message.some))
+          } inject Redirect(routes.Streamer.edit)
         case None => fuccess(Redirect(routes.Streamer.edit))
       }
     }

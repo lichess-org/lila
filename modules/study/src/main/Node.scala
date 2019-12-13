@@ -1,12 +1,12 @@
 package lila.study
 
 import chess.format.pgn.{ Glyph, Glyphs }
-import chess.format.{ Uci, UciCharPair, FEN }
+import chess.format.{ FEN, Uci, UciCharPair }
 import chess.variant.Crazyhouse
 
 import chess.Centis
 import lila.tree.Eval.Score
-import lila.tree.Node.{ Shapes, Comment, Comments, Gamebook }
+import lila.tree.Node.{ Comment, Comments, Gamebook, Shapes }
 
 sealed trait RootOrNode {
   val ply: Int
@@ -55,14 +55,14 @@ case class Node(
 
   def addChild(child: Node) = copy(children = children addNode child)
 
-  def withClock(centis: Option[Centis]) = copy(clock = centis)
+  def withClock(centis: Option[Centis])  = copy(clock = centis)
   def withForceVariation(force: Boolean) = copy(forceVariation = force)
 
   def isCommented = comments.value.nonEmpty
 
-  def setComment(comment: Comment) = copy(comments = comments set comment)
+  def setComment(comment: Comment)         = copy(comments = comments set comment)
   def deleteComment(commentId: Comment.Id) = copy(comments = comments delete commentId)
-  def deleteComments = copy(comments = Comments.empty)
+  def deleteComments                       = copy(comments = Comments.empty)
 
   def setGamebook(gamebook: Gamebook) = copy(gamebook = gamebook.some)
 
@@ -109,24 +109,25 @@ object Node {
 
   case class Children(nodes: Vector[Node]) extends AnyVal {
 
-    def first = nodes.headOption
+    def first      = nodes.headOption
     def variations = nodes drop 1
 
     def nodeAt(path: Path): Option[Node] = path.split flatMap {
       case (head, tail) if tail.isEmpty => get(head)
-      case (head, tail) => get(head) flatMap (_.children nodeAt tail)
+      case (head, tail)                 => get(head) flatMap (_.children nodeAt tail)
     }
 
     def nodesOn(path: Path): List[(Node, Path)] = path.split ?? {
-      case (head, tail) => get(head) ?? { first =>
-        (first, Path(List(head))) :: first.children.nodesOn(tail).map {
-          case (n, p) => (n, p prepend head)
+      case (head, tail) =>
+        get(head) ?? { first =>
+          (first, Path(List(head))) :: first.children.nodesOn(tail).map {
+            case (n, p) => (n, p prepend head)
+          }
         }
-      }
     }
 
     def addNodeAt(node: Node, path: Path): Option[Children] = path.split match {
-      case None => addNode(node).some
+      case None               => addNode(node).some
       case Some((head, tail)) => updateChildren(head, _.addNodeAt(node, tail))
     }
 
@@ -136,8 +137,8 @@ object Node {
 
     def deleteNodeAt(path: Path): Option[Children] = path.split flatMap {
       case (head, Path(Nil)) if has(head) => Children(nodes.filterNot(_.id == head)).some
-      case (_, Path(Nil)) => none
-      case (head, tail) => updateChildren(head, _.deleteNodeAt(tail))
+      case (_, Path(Nil))                 => none
+      case (head, tail)                   => updateChildren(head, _.deleteNodeAt(tail))
     }
 
     def promoteToMainlineAt(path: Path): Option[Children] = path.split match {
@@ -152,21 +153,22 @@ object Node {
 
     def promoteUpAt(path: Path): Option[(Children, Boolean)] = path.split match {
       case None => Some(this -> false)
-      case Some((head, tail)) => for {
-        node <- get(head)
-        mainlineNode <- nodes.headOption
-        (newChildren, isDone) <- node.children promoteUpAt tail
-        newNode = node.copy(children = newChildren)
-      } yield {
-        if (isDone) update(newNode) -> true
-        else if (newNode.id == mainlineNode.id) update(newNode) -> false
-        else Children(newNode +: nodes.filterNot(newNode ==)) -> true
-      }
+      case Some((head, tail)) =>
+        for {
+          node                  <- get(head)
+          mainlineNode          <- nodes.headOption
+          (newChildren, isDone) <- node.children promoteUpAt tail
+          newNode = node.copy(children = newChildren)
+        } yield {
+          if (isDone) update(newNode) -> true
+          else if (newNode.id == mainlineNode.id) update(newNode) -> false
+          else Children(newNode +: nodes.filterNot(newNode ==))   -> true
+        }
     }
 
     def updateAt(path: Path, f: Node => Node): Option[Children] = path.split flatMap {
       case (head, Path(Nil)) => updateWith(head, n => Some(f(n)))
-      case (head, tail) => updateChildren(head, _.updateAt(tail, f))
+      case (head, tail)      => updateChildren(head, _.updateAt(tail, f))
     }
 
     def get(id: UciCharPair): Option[Node] = nodes.find(_.id == id)
@@ -190,24 +192,27 @@ object Node {
     def updateChildren(id: UciCharPair, f: Children => Option[Children]): Option[Children] =
       updateWith(id, _ withChildren f)
 
-    def update(child: Node): Children = Children(nodes.map {
-      case n if child.id == n.id => child
-      case n => n
-    })
+    def update(child: Node): Children =
+      Children(nodes.map {
+        case n if child.id == n.id => child
+        case n                     => n
+      })
 
-    def updateMainline(f: Node => Node): Children = Children(nodes match {
-      case main +: others =>
-        val newNode = f(main)
-        newNode.copy(children = newNode.children.updateMainline(f)) +: others
-      case x => x
-    })
+    def updateMainline(f: Node => Node): Children =
+      Children(nodes match {
+        case main +: others =>
+          val newNode = f(main)
+          newNode.copy(children = newNode.children.updateMainline(f)) +: others
+        case x => x
+      })
 
     // List(0, 0, 1, 0, 2)
     def pathToIndexes(path: Path): Option[List[Int]] =
       path.split.fold(List.empty[Int].some) {
-        case (head, tail) => getNodeAndIndex(head) flatMap {
-          case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
-        }
+        case (head, tail) =>
+          getNodeAndIndex(head) flatMap {
+            case (node, index) => node.children.pathToIndexes(tail).map(rest => index :: rest)
+          }
       }
 
     def countRecursive: Int = nodes.foldLeft(nodes.size) {
@@ -290,11 +295,15 @@ object Node {
     def lastMainlinePly = Chapter.Ply(mainline.lastOption.??(_.ply))
 
     def lastMainlinePlyOf(path: Path) = Chapter.Ply {
-      mainline.zip(path.ids).takeWhile {
-        case (node, id) => node.id == id
-      }.lastOption.?? {
-        case (node, _) => node.ply
-      }
+      mainline
+        .zip(path.ids)
+        .takeWhile {
+          case (node, id) => node.id == id
+        }
+        .lastOption
+        .?? {
+          case (node, _) => node.ply
+        }
     }
 
     def mainlinePath = Path(mainline.map(_.id))

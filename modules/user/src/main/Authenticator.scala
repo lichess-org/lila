@@ -26,7 +26,10 @@ final class Authenticator(
   def authenticateById(id: User.ID, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
     loginCandidateById(id) map { _ flatMap { _ option passwordAndToken } }
 
-  def authenticateByEmail(email: NormalizedEmailAddress, passwordAndToken: PasswordAndToken): Fu[Option[User]] =
+  def authenticateByEmail(
+      email: NormalizedEmailAddress,
+      passwordAndToken: PasswordAndToken
+  ): Fu[Option[User]] =
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
@@ -39,10 +42,12 @@ final class Authenticator(
     loginCandidate($doc(F.email -> email))
 
   def setPassword(id: User.ID, p: ClearPassword): Funit =
-    userRepo.coll.update.one(
-      $id(id),
-      $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
-    ).void
+    userRepo.coll.update
+      .one(
+        $id(id),
+        $set(F.bpass -> passEnc(p).bytes) ++ $unset(F.salt, F.sha512)
+      )
+      .void
 
   private def authWithBenefits(auth: AuthData)(p: ClearPassword): Boolean = {
     val res = compare(auth, p)
@@ -52,7 +57,8 @@ final class Authenticator(
   }
 
   private def loginCandidate(select: Bdoc): Fu[Option[User.LoginCandidate]] =
-    userRepo.coll.one[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll.one[User](select) map {
+    userRepo.coll.one[AuthData](select, authProjection)(AuthDataBSONHandler) zip userRepo.coll
+      .one[User](select) map {
       case (Some(authData), Some(user)) if user.enabled =>
         User.LoginCandidate(user, authWithBenefits(authData)).some
       case _ => none
@@ -72,12 +78,12 @@ object Authenticator {
   }
 
   val authProjection = $doc(
-    F.bpass -> true,
-    F.salt -> true,
+    F.bpass  -> true,
+    F.salt   -> true,
     F.sha512 -> true
   )
 
-  private[user] implicit val HashedPasswordBsonHandler = quickHandler[HashedPassword](
+  implicit private[user] val HashedPasswordBsonHandler = quickHandler[HashedPassword](
     { case v: BSONBinary => HashedPassword(v.byteArray) },
     v => BSONBinary(v.bytes, Subtype.GenericBinarySubtype)
   )

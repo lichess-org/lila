@@ -2,7 +2,7 @@ package lila.simul
 
 import org.joda.time.DateTime
 
-private[simul] final class SimulCleaner(
+final private[simul] class SimulCleaner(
     repo: SimulRepo,
     api: SimulApi
 ) {
@@ -11,7 +11,7 @@ private[simul] final class SimulCleaner(
     _ foreach { simul =>
       val minutesAgo = DateTime.now.minusMinutes(2)
       if (simul.createdAt.isBefore(minutesAgo) &&
-        !simul.hostSeenAt.exists(_ isAfter minutesAgo)) api.abort(simul.id)
+          !simul.hostSeenAt.exists(_ isAfter minutesAgo)) api.abort(simul.id)
     }
   }
 

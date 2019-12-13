@@ -21,7 +21,7 @@ final class CoachPager(
     val adapter = new Adapter[Coach](
       collection = coll,
       selector = $doc(
-        "listed" -> Coach.Listed(true),
+        "listed"   -> Coach.Listed(true),
         "approved" -> Coach.Approved(true)
       ),
       projection = none,
@@ -53,13 +53,13 @@ object CoachPager {
   )
 
   object Order {
-    case object Login extends Order("login", "Last login", $sort desc "user.seenAt")
+    case object Login         extends Order("login", "Last login", $sort desc "user.seenAt")
     case object LichessRating extends Order("rating", "Lichess rating", $sort desc "user.rating")
-    case object NbReview extends Order("review", "User reviews", $sort desc "nbReviews")
-    case object Alphabetical extends Order("alphabetical", "Alphabetical", $sort asc "_id")
+    case object NbReview      extends Order("review", "User reviews", $sort desc "nbReviews")
+    case object Alphabetical  extends Order("alphabetical", "Alphabetical", $sort asc "_id")
 
-    val default = Login
-    val all = List(Login, LichessRating, NbReview, Alphabetical)
+    val default                   = Login
+    val all                       = List(Login, LichessRating, NbReview, Alphabetical)
     def apply(key: String): Order = all.find(_.key == key) | default
   }
 }

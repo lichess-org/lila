@@ -30,7 +30,7 @@ final class UciMemo(gameRepo: GameRepo, ttl: Duration) {
       moves.size.min(max) == game.pgnMoves.size.min(max)
     } match {
       case Some(moves) => fuccess(moves)
-      case _ => compute(game, max) addEffect { set(game, _) }
+      case _           => compute(game, max) addEffect { set(game, _) }
     }
 
   def drop(game: Game, nb: Int) = {
@@ -38,8 +38,9 @@ final class UciMemo(gameRepo: GameRepo, ttl: Duration) {
     cache.put(game.id, current.take(current.size - nb))
   }
 
-  private def compute(game: Game, max: Int): Fu[UciVector] = for {
-    fen <- gameRepo initialFen game
-    uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).future
-  } yield uciMoves.toVector
+  private def compute(game: Game, max: Int): Fu[UciVector] =
+    for {
+      fen      <- gameRepo initialFen game
+      uciMoves <- UciDump(game.pgnMoves.take(max), fen.map(_.value), game.variant).future
+    } yield uciMoves.toVector
 }

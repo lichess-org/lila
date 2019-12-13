@@ -7,9 +7,8 @@ import views._
 
 final class ForumPost(env: Env) extends LilaController(env) with ForumController {
 
-  private val CreateRateLimit = new lila.memo.RateLimit[IpAddress](4, 5 minutes,
-    name = "forum create post",
-    key = "forum.post")
+  private val CreateRateLimit =
+    new lila.memo.RateLimit[IpAddress](4, 5 minutes, name = "forum create post", key = "forum.post")
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
     NotForKids {
@@ -25,18 +24,24 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
         case (categ, topic, posts) =>
           if (topic.closed) fuccess(BadRequest("This topic is closed"))
           else if (topic.isOld) fuccess(BadRequest("This topic is archived"))
-          else forms.post.bindFromRequest.fold(
-            err => for {
-              captcha <- forms.anyCaptcha
-              unsub <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
-              canModCateg <- isGrantedMod(categ.slug)
-            } yield BadRequest(html.forum.topic.show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)),
-            data => CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-              postApi.makePost(categ, topic, data) map { post =>
-                Redirect(routes.ForumPost.redirect(post.id))
-              }
-            }
-          )
+          else
+            forms.post.bindFromRequest.fold(
+              err =>
+                for {
+                  captcha     <- forms.anyCaptcha
+                  unsub       <- ctx.userId ?? env.timeline.status(s"forum:${topic.id}")
+                  canModCateg <- isGrantedMod(categ.slug)
+                } yield BadRequest(
+                  html.forum.topic
+                    .show(categ, topic, posts, Some(err -> captcha), unsub, canModCateg = canModCateg)
+                ),
+              data =>
+                CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+                  postApi.makePost(categ, topic, data) map { post =>
+                    Redirect(routes.ForumPost.redirect(post.id))
+                  }
+                }
+            )
       }
     }
   }
@@ -45,11 +50,12 @@ final class ForumPost(env: Env) extends LilaController(env) with ForumController
     implicit val req = ctx.body
     forms.postEdit.bindFromRequest.fold(
       _ => Redirect(routes.ForumPost.redirect(postId)).fuccess,
-      data => CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
-        postApi.editPost(postId, data.changes, me).map { post =>
-          Redirect(routes.ForumPost.redirect(post.id))
+      data =>
+        CreateRateLimit(HTTPRequest lastRemoteAddress ctx.req) {
+          postApi.editPost(postId, data.changes, me).map { post =>
+            Redirect(routes.ForumPost.redirect(post.id))
+          }
         }
-      }
     )
   }
 

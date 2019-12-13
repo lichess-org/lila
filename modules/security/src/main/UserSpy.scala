@@ -2,7 +2,7 @@ package lila.security
 
 import org.joda.time.DateTime
 
-import lila.common.{ IpAddress, EmailAddress }
+import lila.common.{ EmailAddress, IpAddress }
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
 
@@ -41,21 +41,22 @@ final class UserSpyApi(
 
   import UserSpy._
 
-  def apply(user: User): Fu[UserSpy] = for {
-    infos <- store.chronoInfoByUser(user.id)
-    ips = distinctRecent(infos.map(_.datedIp))
-    prints = distinctRecent(infos.flatMap(_.datedFp))
-    sharingIp <- exploreSimilar("ip")(user)
-    sharingFingerprint <- exploreSimilar("fp")(user)
-  } yield UserSpy(
-    ips = ips map { ip =>
-      IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value)
-    },
-    uas = distinctRecent(infos.map(_.datedUa)),
-    prints = prints,
-    usersSharingIp = sharingIp,
-    usersSharingFingerprint = sharingFingerprint
-  )
+  def apply(user: User): Fu[UserSpy] =
+    for {
+      infos <- store.chronoInfoByUser(user.id)
+      ips    = distinctRecent(infos.map(_.datedIp))
+      prints = distinctRecent(infos.flatMap(_.datedFp))
+      sharingIp          <- exploreSimilar("ip")(user)
+      sharingFingerprint <- exploreSimilar("fp")(user)
+    } yield UserSpy(
+      ips = ips map { ip =>
+        IPData(ip, firewall blocksIp ip.value, geoIP orUnknown ip.value)
+      },
+      uas = distinctRecent(infos.map(_.datedUa)),
+      prints = prints,
+      usersSharingIp = sharingIp,
+      usersSharingFingerprint = sharingFingerprint
+    )
 
   private[security] def userHasPrint(u: User): Fu[Boolean] =
     store.coll.secondaryPreferred.exists(
@@ -68,12 +69,14 @@ final class UserSpyApi(
     }
 
   private def nextValues(field: String)(userId: User.ID): Fu[Set[Value]] =
-    store.coll.find(
-      $doc("user" -> userId),
-      $doc(field -> true).some
-    ).list[Bdoc]() map {
-        _.view.flatMap(_.getAsOpt[Value](field)).to(Set)
-      }
+    store.coll
+      .find(
+        $doc("user" -> userId),
+        $doc(field -> true).some
+      )
+      .list[Bdoc]() map {
+      _.view.flatMap(_.getAsOpt[Value](field)).to(Set)
+    }
 
   private def nextUsers(field: String)(values: Set[Value], user: User): Fu[Set[User]] =
     values.nonEmpty ?? {
@@ -84,22 +87,23 @@ final class UserSpyApi(
           "user" $ne user.id
         )
       ) flatMap { userIds =>
-          userIds.nonEmpty ?? (userRepo byIds userIds) map (_.toSet)
-        }
+        userIds.nonEmpty ?? (userRepo byIds userIds) map (_.toSet)
+      }
     }
 
-  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] = for {
-    ips <- nextValues("ip")(userId)
-    fps <- nextValues("fp")(userId)
-    users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
-      "user",
-      $doc(
-        "ip" $in ips,
-        "fp" $in fps,
-        "user" $ne userId
+  def getUserIdsWithSameIpAndPrint(userId: User.ID): Fu[Set[User.ID]] =
+    for {
+      ips <- nextValues("ip")(userId)
+      fps <- nextValues("fp")(userId)
+      users <- (ips.nonEmpty && fps.nonEmpty) ?? store.coll.secondaryPreferred.distinctEasy[User.ID, Set](
+        "user",
+        $doc(
+          "ip" $in ips,
+          "fp" $in fps,
+          "user" $ne userId
+        )
       )
-    )
-  } yield users
+    } yield users
 }
 
 object UserSpy {
@@ -111,10 +115,14 @@ object UserSpy {
   // distinct values, keeping the most recent of duplicated values
   // assumes all is sorted by most recent first
   def distinctRecent[V](all: List[Dated[V]]): List[Dated[V]] =
-    all.foldLeft(Map.empty[V, DateTime]) {
-      case (acc, Dated(v, _)) if acc.contains(v) => acc
-      case (acc, Dated(v, date)) => acc + (v -> date)
-    }.view.map { case (v, date) => Dated(v, date) }.to(List)
+    all
+      .foldLeft(Map.empty[V, DateTime]) {
+        case (acc, Dated(v, _)) if acc.contains(v) => acc
+        case (acc, Dated(v, date))                 => acc + (v -> date)
+      }
+      .view
+      .map { case (v, date) => Dated(v, date) }
+      .to(List)
 
   type Value = String
 
@@ -124,7 +132,11 @@ object UserSpy {
     def emailValueOf(u: User) = emails.get(u.id).map(_.value)
   }
 
-  def withMeSortedWithEmails(userRepo: UserRepo, me: User, others: Set[OtherUser]): Fu[WithMeSortedWithEmails] = {
+  def withMeSortedWithEmails(
+      userRepo: UserRepo,
+      me: User,
+      others: Set[OtherUser]
+  ): Fu[WithMeSortedWithEmails] = {
     val othersList = others.toList
     userRepo.emailMap(me.id :: othersList.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(

@@ -6,14 +6,16 @@ import scala.collection.Factory
 
 trait QueryBuilderExt { self: dsl =>
 
-  final implicit class ExtendQueryBuilder[P <: SerializationPack](@silent b: collections.GenericQueryBuilder[P]) {
+  implicit final class ExtendQueryBuilder[P <: SerializationPack](
+      @silent b: collections.GenericQueryBuilder[P]
+  ) {
 
     // like collect, but with stopOnError defaulting to false
     def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(
-      implicit
-      factory: Factory[A, M[A]],
-      reader: b.pack.Reader[A],
-      cp: CursorProducer[A]
+        implicit
+        factory: Factory[A, M[A]],
+        reader: b.pack.Reader[A],
+        cp: CursorProducer[A]
     ): Fu[M[A]] =
       b.cursor[A](readPreference = readPreference)(reader, cp)
         .collect[M](upTo, Cursor.ContOnError[M[A]]())

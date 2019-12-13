@@ -2,10 +2,10 @@ package lila.round
 
 import chess.Color
 
-import lila.game.{ Game, Pov, Event, Progress }
+import lila.game.{ Event, Game, Pov, Progress }
 import lila.pref.{ Pref, PrefApi }
 
-private final class Moretimer(
+final private class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi,
     duration: MoretimeDuration
@@ -15,11 +15,12 @@ private final class Moretimer(
   def apply(pov: Pov): Fu[Option[Progress]] = IfAllowed(pov.game) {
     (pov.game moretimeable !pov.color) ?? {
       if (pov.game.hasClock) give(pov.game, List(!pov.color), duration).some
-      else pov.game.hasCorrespondenceClock option {
-        messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
-        val p = pov.game.correspondenceGiveTime
-        p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
-      }
+      else
+        pov.game.hasCorrespondenceClock option {
+          messenger.system(pov.game, (_.untranslated(s"${!pov.color} gets more time")))
+          val p = pov.game.correspondenceGiveTime
+          p.game.correspondenceClock.map(Event.CorrespondenceClock.apply).fold(p)(p + _)
+        }
     }
   }
 
@@ -51,8 +52,9 @@ private final class Moretimer(
   private def IfAllowed[A](game: Game)(f: => A): Fu[A] =
     if (!game.playable) fufail(ClientError("[moretimer] game is over " + game.id))
     else if (game.isMandatory) fufail(ClientError("[moretimer] game disallows it " + game.id))
-    else isAllowedByPrefs(game) flatMap {
-      case true => fuccess(f)
-      case _ => fufail(ClientError("[moretimer] disallowed by preferences " + game.id))
-    }
+    else
+      isAllowedByPrefs(game) flatMap {
+        case true => fuccess(f)
+        case _    => fufail(ClientError("[moretimer] disallowed by preferences " + game.id))
+      }
 }

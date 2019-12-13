@@ -11,8 +11,8 @@ import lila.gameSearch.{ Query, Sorting }
 
 private object bits {
 
-  private val dateFormatter = DateTimeFormat.forPattern("YYYY-MM-dd");
-  private val dateMin = "2011-01-01"
+  private val dateFormatter              = DateTimeFormat.forPattern("YYYY-MM-dd");
+  private val dateMin                    = "2011-01-01"
   private def dateMinMax: List[Modifier] = List(min := dateMin, max := dateFormatter.print(DateTime.now))
 
   def of(form: Form[_])(implicit ctx: Context) = new {
@@ -52,7 +52,9 @@ private object bits {
     )
 
     def rating = tr(
-      th(label(trans.rating(), " ", span(cls := "help", title := "The average rating of both players")("(?)"))),
+      th(
+        label(trans.rating(), " ", span(cls := "help", title := "The average rating of both players")("(?)"))
+      ),
       td(
         div(cls := "half")("From ", form3.select(form("ratingMin"), Query.averageRatings, "".some)),
         div(cls := "half")("To ", form3.select(form("ratingMax"), Query.averageRatings, "".some))
@@ -60,7 +62,13 @@ private object bits {
     )
 
     def hasAi = tr(
-      th(label(`for` := form3.id(form("hasAi")))(trans.opponent(), " ", span(cls := "help", title := "Whether the player's opponent was human or a computer")("(?)"))),
+      th(
+        label(`for` := form3.id(form("hasAi")))(
+          trans.opponent(),
+          " ",
+          span(cls := "help", title := "Whether the player's opponent was human or a computer")("(?)")
+        )
+      ),
       td(cls := "single opponent")(form3.select(form("hasAi"), Query.hasAis, "".some))
     )
 
@@ -150,7 +158,12 @@ private object bits {
     def analysed = {
       val field = form("analysed")
       tr(
-        th(label(`for` := form3.id(field))("Analysis ", span(cls := "help", title := "Only games where a computer analysis is available")("(?)"))),
+        th(
+          label(`for` := form3.id(field))(
+            "Analysis ",
+            span(cls := "help", title := "Only games where a computer analysis is available")("(?)")
+          )
+        ),
         td(cls := "single")(
           st.input(
             tpe := "checkbox",

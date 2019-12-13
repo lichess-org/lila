@@ -12,7 +12,7 @@ private[team] case class Member(
 ) {
 
   def is(userId: String): Boolean = user == userId
-  def is(user: User): Boolean = is(user.id)
+  def is(user: User): Boolean     = is(user.id)
 
   def id = _id
 }

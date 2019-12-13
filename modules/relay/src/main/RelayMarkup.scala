@@ -9,7 +9,7 @@ import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 
-private final class RelayMarkup {
+final private class RelayMarkup {
 
   type Text = String
   type Html = String
@@ -18,7 +18,7 @@ private final class RelayMarkup {
   options.set(Parser.EXTENSIONS, Arrays.asList(TablesExtension.create(), StrikethroughExtension.create()))
   options.set(HtmlRenderer.SOFT_BREAK, "<br />\n")
   options.set(TablesExtension.CLASS_NAME, "slist")
-  private val parser = Parser.builder(options).build()
+  private val parser   = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 
   private val cache: Cache[Text, Html] = Scaffeine()

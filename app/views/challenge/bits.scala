@@ -15,14 +15,14 @@ object bits {
   def js(c: Challenge, json: play.api.libs.json.JsObject, owner: Boolean)(implicit ctx: Context) =
     frag(
       jsTag("challenge.js", defer = true),
-      embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = ${
-        safeJsonValue(Json.obj(
+      embedJsUnsafe(s"""lichess=window.lichess||{};customWs=true;lichess_challenge = ${safeJsonValue(
+        Json.obj(
           "socketUrl" -> s"/challenge/${c.id}/socket/v$apiVersion",
-          "xhrUrl" -> routes.Challenge.show(c.id).url,
-          "owner" -> owner,
-          "data" -> json
-        ))
-      }""")
+          "xhrUrl"    -> routes.Challenge.show(c.id).url,
+          "owner"     -> owner,
+          "data"      -> json
+        )
+      )}""")
     )
 
   def details(c: Challenge)(implicit ctx: Context) = div(cls := "details")(

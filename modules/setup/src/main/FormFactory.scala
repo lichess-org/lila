@@ -14,13 +14,15 @@ final class FormFactory(
   import Mappings._
 
   def filterFilled(implicit ctx: UserContext): Fu[(Form[FilterConfig], FilterConfig)] =
-    filterConfig map { f => filter.fill(f) -> f }
+    filterConfig map { f =>
+      filter.fill(f) -> f
+    }
 
   def filter = Form(
     mapping(
-      "variant" -> list(variantWithVariants),
-      "mode" -> list(rawMode(withRated = true)),
-      "speed" -> list(speed),
+      "variant"     -> list(variantWithVariants),
+      "mode"        -> list(rawMode(withRated = true)),
+      "speed"       -> list(speed),
       "ratingRange" -> ratingRange
     )(FilterConfig.<<)(_.>>)
   )
@@ -36,14 +38,14 @@ final class FormFactory(
 
   def ai = Form(
     mapping(
-      "variant" -> aiVariants,
-      "timeMode" -> timeMode,
-      "time" -> time,
+      "variant"   -> aiVariants,
+      "timeMode"  -> timeMode,
+      "time"      -> time,
       "increment" -> increment,
-      "days" -> days,
-      "level" -> level,
-      "color" -> color,
-      "fen" -> fen
+      "days"      -> days,
+      "level"     -> level,
+      "color"     -> color,
+      "fen"       -> fen
     )(AiConfig.<<)(_.>>)
       .verifying("invalidFen", _.validFen)
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
@@ -60,14 +62,14 @@ final class FormFactory(
 
   def friend(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithFenAndVariants,
-      "timeMode" -> timeMode,
-      "time" -> time,
+      "variant"   -> variantWithFenAndVariants,
+      "timeMode"  -> timeMode,
+      "time"      -> time,
       "increment" -> increment,
-      "days" -> days,
-      "mode" -> mode(withRated = ctx.isAuth),
-      "color" -> color,
-      "fen" -> fen
+      "days"      -> days,
+      "mode"      -> mode(withRated = ctx.isAuth),
+      "color"     -> color,
+      "fen"       -> fen
     )(FriendConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("invalidFen", _.validFen)
@@ -80,14 +82,14 @@ final class FormFactory(
 
   def hook(ctx: UserContext) = Form(
     mapping(
-      "variant" -> variantWithVariants,
-      "timeMode" -> timeMode,
-      "time" -> time,
-      "increment" -> increment,
-      "days" -> days,
-      "mode" -> mode(ctx.isAuth),
+      "variant"     -> variantWithVariants,
+      "timeMode"    -> timeMode,
+      "time"        -> time,
+      "increment"   -> increment,
+      "days"        -> days,
+      "mode"        -> mode(ctx.isAuth),
       "ratingRange" -> optional(ratingRange),
-      "color" -> color
+      "color"       -> color
     )(HookConfig.<<)(_.>>)
       .verifying("Invalid clock", _.validClock)
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
@@ -98,14 +100,16 @@ final class FormFactory(
   lazy val api = Form(
     mapping(
       "variant" -> optional(text.verifying(Variant.byKey.contains _)),
-      "clock" -> optional(mapping(
-        "limit" -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
-        "increment" -> increment
-      )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)),
-      "days" -> optional(days),
+      "clock" -> optional(
+        mapping(
+          "limit"     -> number.verifying(ApiConfig.clockLimitSeconds.contains _),
+          "increment" -> increment
+        )(chess.Clock.Config.apply)(chess.Clock.Config.unapply)
+      ),
+      "days"  -> optional(days),
       "rated" -> boolean,
       "color" -> optional(color),
-      "fen" -> fen
+      "fen"   -> fen
     )(ApiConfig.<<)(_.>>).verifying("invalidFen", _.validFen)
   )
 

@@ -39,7 +39,7 @@ final class Env(
 
   private val socket = wire[StudySocket]
 
-  lazy val studyRepo = new StudyRepo(db(CollName("study")))
+  lazy val studyRepo   = new StudyRepo(db(CollName("study")))
   lazy val chapterRepo = new ChapterRepo(db(CollName("study_chapter")))
 
   lazy val jsonView = wire[JsonView]
@@ -78,12 +78,16 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "study" :: "rank" :: "reset" :: Nil => api.resetAllRanks.map { count => s"$count done" }
+      case "study" :: "rank" :: "reset" :: Nil =>
+        api.resetAllRanks.map { count =>
+          s"$count done"
+        }
     }
   }
 
   lila.common.Bus.subscribeFun("gdprErase", "studyAnalysisProgress") {
     case lila.user.User.GDPRErase(user) => api erase user
-    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) => serverEvalMerger(analysis, complete)
+    case lila.analyse.actorApi.StudyAnalysisProgress(analysis, complete) =>
+      serverEvalMerger(analysis, complete)
   }
 }

@@ -31,25 +31,27 @@ object bits {
       views.html.userTournament.list(u, "recent", pager, pager.nbResults.toString)
     }
 
-  def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(body: Frag)(implicit ctx: Context) =
+  def layout(u: User, title: String, path: String, moreJs: Frag = emptyFrag)(
+      body: Frag
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("user-tournament"),
       moreJs = moreJs
     ) {
-        main(cls := "page-menu")(
-          st.nav(cls := "page-menu__menu subnav")(
-            a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
-              "Recently played"
-            ),
-            a(cls := path.active("best"), href := routes.UserTournament.path(u.username, "best"))(
-              "Best results"
-            ),
-            a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
-              "Stats"
-            )
+      main(cls := "page-menu")(
+        st.nav(cls := "page-menu__menu subnav")(
+          a(cls := path.active("recent"), href := routes.UserTournament.path(u.username, "recent"))(
+            "Recently played"
           ),
-          div(cls := "page-menu__content box")(body)
-        )
-      }
+          a(cls := path.active("best"), href := routes.UserTournament.path(u.username, "best"))(
+            "Best results"
+          ),
+          a(cls := path.active("chart"), href := routes.UserTournament.path(u.username, "chart"))(
+            "Stats"
+          )
+        ),
+        div(cls := "page-menu__content box")(body)
+      )
+    }
 }

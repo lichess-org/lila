@@ -50,11 +50,13 @@ final class CoachApi(
     }
 
   def update(c: Coach.WithUser, data: CoachProfileForm.Data): Funit =
-    coachColl.update.one(
-      $id(c.coach.id),
-      data(c.coach),
-      upsert = true
-    ).void
+    coachColl.update
+      .one(
+        $id(c.coach.id),
+        data(c.coach),
+        upsert = true
+      )
+      .void
 
   def setNbReviews(id: Coach.Id, nb: Int): Funit =
     coachColl.update.one($id(id), $set("nbReviews" -> nb)).void
@@ -64,9 +66,9 @@ final class CoachApi(
       $id(User.normalize(username)),
       $set("approved" -> value)
     ) map { result =>
-        if (result.n > 0) "Done!"
-        else "No such coach"
-      }
+      if (result.n > 0) "Done!"
+      else "No such coach"
+    }
 
   def remove(userId: User.ID) = coachColl.updateField($id(userId), "listed", false)
 
@@ -86,30 +88,34 @@ final class CoachApi(
       find(me, coach).flatMap { existing =>
         val id = CoachReview.makeId(me, coach)
         val review = existing match {
-          case None => CoachReview(
-            _id = id,
-            userId = me.id,
-            coachId = coach.id,
-            score = data.score,
-            text = data.text,
-            approved = false,
-            createdAt = DateTime.now,
-            updatedAt = DateTime.now
-          )
-          case Some(r) => r.copy(
-            score = data.score,
-            text = data.text,
-            approved = false,
-            updatedAt = DateTime.now
-          )
+          case None =>
+            CoachReview(
+              _id = id,
+              userId = me.id,
+              coachId = coach.id,
+              score = data.score,
+              text = data.text,
+              approved = false,
+              createdAt = DateTime.now,
+              updatedAt = DateTime.now
+            )
+          case Some(r) =>
+            r.copy(
+              score = data.score,
+              text = data.text,
+              approved = false,
+              updatedAt = DateTime.now
+            )
         }
         if (me.troll) fuccess(review)
         else {
           reviewColl.update.one($id(id), review, upsert = true) >>
-            notifyApi.addNotification(Notification.make(
-              notifies = Notification.Notifies(coach.id.value),
-              content = lila.notify.CoachReview
-            )) >> refreshCoachNbReviews(coach.id) inject review
+            notifyApi.addNotification(
+              Notification.make(
+                notifies = Notification.Notifies(coach.id.value),
+                content = lila.notify.CoachReview
+              )
+            ) >> refreshCoachNbReviews(coach.id) inject review
         }
       }
 
@@ -119,17 +125,24 @@ final class CoachApi(
       reviewColl.byId[CoachReview](CoachReview.makeId(user, coach))
 
     def approve(r: CoachReview, v: Boolean) = {
-      if (v) reviewColl.update.one(
-        $id(r.id),
-        $set("approved" -> v) ++ $unset("moddedAt")
-      ).void
+      if (v)
+        reviewColl.update
+          .one(
+            $id(r.id),
+            $set("approved" -> v) ++ $unset("moddedAt")
+          )
+          .void
       else reviewColl.delete.one($id(r.id)).void
     } >> refreshCoachNbReviews(r.coachId)
 
-    def mod(r: CoachReview) = reviewColl.update.one($id(r.id), $set(
-      "approved" -> false,
-      "moddedAt" -> DateTime.now
-    )) >> refreshCoachNbReviews(r.coachId)
+    def mod(r: CoachReview) =
+      reviewColl.update.one(
+        $id(r.id),
+        $set(
+          "approved" -> false,
+          "moddedAt" -> DateTime.now
+        )
+      ) >> refreshCoachNbReviews(r.coachId)
 
     private def refreshCoachNbReviews(id: Coach.Id): Funit =
       reviewColl.countSel($doc("coachId" -> id.value, "approved" -> true)) flatMap {
@@ -148,16 +161,18 @@ final class CoachApi(
     def allByCoach(c: Coach): Fu[CoachReview.Reviews] =
       findRecent($doc("coachId" -> c.id.value))
 
-    def deleteAllBy(userId: User.ID): Funit = for {
-      reviews <- reviewColl.ext.find($doc("userId" -> userId)).list[CoachReview]
-      _ <- reviews.map { review =>
-        reviewColl.delete.one($doc("userId" -> review.userId)).void
-      }.sequenceFu
-      _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
-    } yield ()
+    def deleteAllBy(userId: User.ID): Funit =
+      for {
+        reviews <- reviewColl.ext.find($doc("userId" -> userId)).list[CoachReview]
+        _ <- reviews.map { review =>
+          reviewColl.delete.one($doc("userId" -> review.userId)).void
+        }.sequenceFu
+        _ <- reviews.map(_.coachId).distinct.map(refreshCoachNbReviews).sequenceFu
+      } yield ()
 
     private def findRecent(selector: Bdoc): Fu[CoachReview.Reviews] =
-      reviewColl.ext.find(selector)
+      reviewColl.ext
+        .find(selector)
         .sort($sort desc "createdAt")
         .list[CoachReview](100) map CoachReview.Reviews.apply
   }

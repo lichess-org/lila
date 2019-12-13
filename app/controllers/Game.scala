@@ -17,21 +17,23 @@ final class Game(
 
   def delete(gameId: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.game.gameRepo game gameId) { game =>
-      if (game.pgnImport.flatMap(_.user) ?? (me.id==)) {
+      if (game.pgnImport.flatMap(_.user) ?? (me.id ==)) {
         env.hub.bookmark ! lila.hub.actorApi.bookmark.Remove(game.id)
         (env.game.gameRepo remove game.id) >>
           (env.analyse.analysisRepo remove game.id) >>
           env.game.cached.clearNbImportedByCache(me.id) inject
           Redirect(routes.User.show(me.username))
-      } else fuccess {
-        Redirect(routes.Round.watcher(game.id, game.firstColor.name))
-      }
+      } else
+        fuccess {
+          Redirect(routes.Round.watcher(game.id, game.firstColor.name))
+        }
     }
   }
 
   def exportOne(id: String) = Open { implicit ctx =>
     OptionFuResult(env.game.gameRepo game id) { game =>
-      if (game.playable) BadRequest("Only bots can access their games in progress. See https://lichess.org/api#tag/Chess-Bot").fuccess
+      if (game.playable)
+        BadRequest("Only bots can access their games in progress. See https://lichess.org/api#tag/Chess-Bot").fuccess
       else {
         val config = GameApiV2.OneConfig(
           format = if (HTTPRequest acceptsJson ctx.req) GameApiV2.Format.JSON else GameApiV2.Format.PGN,
@@ -84,15 +86,18 @@ final class Game(
                 ),
                 perSecond = MaxPerSecond(me match {
                   case Some(m) if m is user.id => 50
-                  case Some(_) if oauth => 25 // bonus for oauth logged in only (not for CSRF)
-                  case _ => 15
+                  case Some(_) if oauth        => 25 // bonus for oauth logged in only (not for CSRF)
+                  case _                       => 15
                 })
               )
               val date = DateTimeFormat forPattern "yyyy-MM-dd" print new DateTime
-              Ok.chunked(env.api.gameApiV2.exportByUser(config)).withHeaders(
-                noProxyBufferHeader,
-                CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
-              ).as(gameContentType(config)).fuccess
+              Ok.chunked(env.api.gameApiV2.exportByUser(config))
+                .withHeaders(
+                  noProxyBufferHeader,
+                  CONTENT_DISPOSITION -> s"attachment; filename=lichess_${user.username}_$date.${format.toString.toLowerCase}"
+                )
+                .as(gameContentType(config))
+                .fuccess
             }
           }
         }
@@ -107,19 +112,23 @@ final class Game(
         flags = requestPgnFlags(req, extended = false),
         perSecond = MaxPerSecond(20)
       )
-      Ok.chunked(env.api.gameApiV2.exportByIds(config)).withHeaders(
-        noProxyBufferHeader
-      ).as(gameContentType(config)).fuccess
+      Ok.chunked(env.api.gameApiV2.exportByIds(config))
+        .withHeaders(
+          noProxyBufferHeader
+        )
+        .as(gameContentType(config))
+        .fuccess
     }
   }
 
   private def WithVs(req: RequestHeader)(f: Option[lila.user.User] => Fu[Result]): Fu[Result] =
     get("vs", req) match {
       case None => f(none)
-      case Some(name) => env.user.repo named name flatMap {
-        case None => notFoundJson(s"No such opponent: $name")
-        case Some(user) => f(user.some)
-      }
+      case Some(name) =>
+        env.user.repo named name flatMap {
+          case None       => notFoundJson(s"No such opponent: $name")
+          case Some(user) => f(user.some)
+        }
     }
 
   private[controllers] def requestPgnFlags(req: RequestHeader, extended: Boolean) =
@@ -134,10 +143,11 @@ final class Game(
 
   private[controllers] def gameContentType(config: GameApiV2.Config) = config.format match {
     case GameApiV2.Format.PGN => pgnContentType
-    case GameApiV2.Format.JSON => config match {
-      case _: GameApiV2.OneConfig => JSON
-      case _ => ndJsonContentType
-    }
+    case GameApiV2.Format.JSON =>
+      config match {
+        case _: GameApiV2.OneConfig => JSON
+        case _                      => ndJsonContentType
+      }
   }
 
   private[controllers] def preloadUsers(game: GameModel): Funit =

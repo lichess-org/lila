@@ -33,9 +33,11 @@ final class Dev(env: Env) extends LilaController(env) {
     }
   }
 
-  private val commandForm = Form(single(
-    "command" -> nonEmptyText
-  ))
+  private val commandForm = Form(
+    single(
+      "command" -> nonEmptyText
+    )
+  )
 
   def cli = Secure(_.Cli) { implicit ctx => _ =>
     Ok(html.dev.cli(commandForm, none)).fuccess
@@ -45,9 +47,10 @@ final class Dev(env: Env) extends LilaController(env) {
     implicit val req = ctx.body
     commandForm.bindFromRequest.fold(
       err => BadRequest(html.dev.cli(err, "Invalid command".some)).fuccess,
-      command => runAs(me.id, command) map { res =>
-        Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
-      }
+      command =>
+        runAs(me.id, command) map { res =>
+          Ok(html.dev.cli(commandForm fill command, s"$command\n\n$res".some))
+        }
     )
   }
 

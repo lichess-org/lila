@@ -8,7 +8,7 @@ import lila.db.AsyncColl
 
 case class UserCache(
     _id: String, // user id
-    count: Int, // nb insight entries
+    count: Int,  // nb insight entries
     ecos: Set[String],
     date: DateTime
 ) {
@@ -16,9 +16,9 @@ case class UserCache(
   def id = _id
 }
 
-private final class UserCacheApi(coll: AsyncColl) {
+final private class UserCacheApi(coll: AsyncColl) {
 
-  private implicit val userCacheBSONHandler = Macros.handler[UserCache]
+  implicit private val userCacheBSONHandler = Macros.handler[UserCache]
 
   def find(id: String) = coll(_.one[UserCache]($id(id)))
 

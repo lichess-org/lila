@@ -12,18 +12,20 @@ object EventForm {
 
   import lila.common.Form.UTCDate._
 
-  val form = Form(mapping(
-    "title" -> text(minLength = 3, maxLength = 40),
-    "headline" -> text(minLength = 5, maxLength = 30),
-    "description" -> optional(text(minLength = 5, maxLength = 4000)),
-    "homepageHours" -> number(min = 0, max = 24),
-    "url" -> nonEmptyText,
-    "lang" -> text.verifying(l => LangList.choices.exists(_._1 == l)),
-    "enabled" -> boolean,
-    "startsAt" -> utcDate,
-    "finishesAt" -> utcDate,
-    "hostedBy" -> optional(lila.user.DataForm.historicalUsernameField)
-  )(Data.apply)(Data.unapply)) fill Data(
+  val form = Form(
+    mapping(
+      "title"         -> text(minLength = 3, maxLength = 40),
+      "headline"      -> text(minLength = 5, maxLength = 30),
+      "description"   -> optional(text(minLength = 5, maxLength = 4000)),
+      "homepageHours" -> number(min = 0, max = 24),
+      "url"           -> nonEmptyText,
+      "lang"          -> text.verifying(l => LangList.choices.exists(_._1 == l)),
+      "enabled"       -> boolean,
+      "startsAt"      -> utcDate,
+      "finishesAt"    -> utcDate,
+      "hostedBy"      -> optional(lila.user.DataForm.historicalUsernameField)
+    )(Data.apply)(Data.unapply)
+  ) fill Data(
     title = "",
     headline = "",
     description = none,

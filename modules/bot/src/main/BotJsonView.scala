@@ -4,7 +4,7 @@ import play.api.libs.json._
 
 import lila.common.Json.jodaWrites
 import lila.game.JsonView._
-import lila.game.{ Game, Pov, GameRepo }
+import lila.game.{ Game, GameRepo, Pov }
 
 final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
@@ -17,57 +17,60 @@ final class BotJsonView(
   def gameFull(wf: Game.WithInitialFen): Fu[JsObject] =
     gameState(wf) map { state =>
       gameImmutable(wf) ++ Json.obj(
-        "type" -> "gameFull",
+        "type"  -> "gameFull",
         "state" -> state
       )
     }
 
   def gameImmutable(wf: Game.WithInitialFen): JsObject = {
     import wf._
-    Json.obj(
-      "id" -> game.id,
-      "variant" -> game.variant,
-      "clock" -> game.clock.map(_.config),
-      "speed" -> game.speed.key,
-      "perf" -> game.perfType.map { p =>
-        Json.obj("name" -> p.name)
-      },
-      "rated" -> game.rated,
-      "createdAt" -> game.createdAt,
-      "white" -> playerJson(game.whitePov),
-      "black" -> playerJson(game.blackPov),
-      "initialFen" -> fen.fold("startpos")(_.value)
-    )
+    Json
+      .obj(
+        "id"      -> game.id,
+        "variant" -> game.variant,
+        "clock"   -> game.clock.map(_.config),
+        "speed"   -> game.speed.key,
+        "perf" -> game.perfType.map { p =>
+          Json.obj("name" -> p.name)
+        },
+        "rated"      -> game.rated,
+        "createdAt"  -> game.createdAt,
+        "white"      -> playerJson(game.whitePov),
+        "black"      -> playerJson(game.blackPov),
+        "initialFen" -> fen.fold("startpos")(_.value)
+      )
       .add("tournamentId" -> game.tournamentId)
   }
 
   def gameState(wf: Game.WithInitialFen): Fu[JsObject] = {
     import wf._
     chess.format.UciDump(game.pgnMoves, fen.map(_.value), game.variant).future map { uciMoves =>
-      Json.obj(
-        "type" -> "gameState",
-        "moves" -> uciMoves.mkString(" "),
-        "wtime" -> millisOf(game.whitePov),
-        "btime" -> millisOf(game.blackPov),
-        "winc" -> game.clock.??(_.config.increment.millis),
-        "binc" -> game.clock.??(_.config.increment.millis),
-        "bdraw" -> game.blackPlayer.isOfferingDraw,
-        "wdraw" -> game.whitePlayer.isOfferingDraw
-      )
+      Json
+        .obj(
+          "type"  -> "gameState",
+          "moves" -> uciMoves.mkString(" "),
+          "wtime" -> millisOf(game.whitePov),
+          "btime" -> millisOf(game.blackPov),
+          "winc"  -> game.clock.??(_.config.increment.millis),
+          "binc"  -> game.clock.??(_.config.increment.millis),
+          "bdraw" -> game.blackPlayer.isOfferingDraw,
+          "wdraw" -> game.whitePlayer.isOfferingDraw
+        )
         .add("rematch" -> rematches.of(game.id))
     }
   }
 
   def chatLine(username: String, text: String, player: Boolean) = Json.obj(
-    "type" -> "chatLine",
-    "room" -> (if (player) "player" else "spectator"),
+    "type"     -> "chatLine",
+    "room"     -> (if (player) "player" else "spectator"),
     "username" -> username,
-    "text" -> text
+    "text"     -> text
   )
 
   private def playerJson(pov: Pov) = {
     val light = pov.player.userId flatMap lightUserApi.sync
-    Json.obj()
+    Json
+      .obj()
       .add("aiLevel" -> pov.player.aiLevel)
       .add("id" -> light.map(_.id))
       .add("name" -> light.map(_.name))
@@ -79,9 +82,9 @@ final class BotJsonView(
   private def millisOf(pov: Pov): Int =
     pov.game.clock.fold(Int.MaxValue)(_.remainingTime(pov.color).millis.toInt)
 
-  private implicit val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
+  implicit private val clockConfigWriter: OWrites[chess.Clock.Config] = OWrites { c =>
     Json.obj(
-      "initial" -> c.limit.millis,
+      "initial"   -> c.limit.millis,
       "increment" -> c.increment.millis
     )
   }

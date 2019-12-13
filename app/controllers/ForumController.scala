@@ -10,8 +10,8 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
 
   protected def categApi = env.forum.categApi
   protected def topicApi = env.forum.topicApi
-  protected def postApi = env.forum.postApi
-  protected def forms = env.forum.forms
+  protected def postApi  = env.forum.postApi
+  protected def forms    = env.forum.forms
 
   protected def teamCache = env.team.cached
 
@@ -21,13 +21,17 @@ private[controllers] trait ForumController extends forum.Granter { self: LilaCon
   protected def userOwnsTeam(teamId: String, userId: String): Fu[Boolean] =
     env.team.api.owns(teamId, userId)
 
-  protected def CategGrantWrite[A <: Result](categSlug: String)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def CategGrantWrite[A <: Result](
+      categSlug: String
+  )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedWrite(categSlug) flatMap { granted =>
       if (granted) a
       else fuccess(Forbidden("You cannot post to this category"))
     }
 
-  protected def CategGrantMod[A <: Result](categSlug: String)(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+  protected def CategGrantMod[A <: Result](
+      categSlug: String
+  )(a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     isGrantedMod(categSlug) flatMap { granted =>
       if (granted | isGranted(_.ModerateForum)) a
       else fuccess(Forbidden("You cannot post to this category"))

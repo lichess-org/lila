@@ -25,14 +25,14 @@ object embed {
         cls := s"base ${config.board}",
         dataStreamUrl := routes.Tv.feed
       )(
-          div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
-            gameFenNoCtx(pov, tv = true, blank = true),
-            views.html.game.bits.vstext(pov)(none)
-          ),
-          jQueryTag,
-          jsAt("javascripts/vendor/chessground.min.js", false),
-          jsAt("compiled/tv.js", false)
-        )
+        div(id := "featured-game", cls := "embedded", title := "lichess.org TV")(
+          gameFenNoCtx(pov, tv = true, blank = true),
+          views.html.game.bits.vstext(pov)(none)
+        ),
+        jQueryTag,
+        jsAt("javascripts/vendor/chessground.min.js", false),
+        jsAt("compiled/tv.js", false)
+      )
     )
   )
 }

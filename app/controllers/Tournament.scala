@@ -20,17 +20,17 @@ final class Tournament(
     teamC: => Team
 ) extends LilaController(env) {
 
-  private def repo = env.tournament.tournamentRepo
-  private def api = env.tournament.api
+  private def repo     = env.tournament.tournamentRepo
+  private def api      = env.tournament.api
   private def jsonView = env.tournament.jsonView
-  private def forms = env.tournament.forms
+  private def forms    = env.tournament.forms
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
   private[controllers] val upcomingCache = env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
     name = "tournament.home",
     for {
-      visible <- api.fetchVisibleTournaments
+      visible   <- api.fetchVisibleTournaments
       scheduled <- repo.scheduledDedup
     } yield (visible, scheduled),
     expireAfter = _.ExpireAfterWrite(3 seconds)
@@ -43,25 +43,27 @@ final class Tournament(
         val finishedPaginator = repo.finishedPaginator(MaxPerPage(15), page = page)
         if (HTTPRequest isXhr ctx.req) for {
           pag <- finishedPaginator
-          _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
+          _   <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.winnerId)
         } yield Ok(html.tournament.finishedPaginator(pag))
-        else for {
-          (visible, scheduled) <- upcomingCache.get
-          finished <- finishedPaginator
-          winners <- env.tournament.winners.all
-          _ <- env.user.lightUserApi preloadMany {
-            finished.currentPageResults.flatMap(_.winnerId).toList :::
-              scheduled.flatMap(_.winnerId) ::: winners.userIds
+        else
+          for {
+            (visible, scheduled) <- upcomingCache.get
+            finished             <- finishedPaginator
+            winners              <- env.tournament.winners.all
+            _ <- env.user.lightUserApi preloadMany {
+              finished.currentPageResults.flatMap(_.winnerId).toList :::
+                scheduled.flatMap(_.winnerId) ::: winners.userIds
+            }
+            scheduleJson <- env.tournament apiJsonView visible
+          } yield NoCache {
+            Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
           }
-          scheduleJson <- env.tournament apiJsonView visible
-        } yield NoCache {
-          Ok(html.tournament.home(scheduled, finished, winners, scheduleJson))
-        }
       },
-      api = _ => for {
-        (visible, _) <- upcomingCache.get
-        scheduleJson <- env.tournament apiJsonView visible
-      } yield Ok(scheduleJson)
+      api = _ =>
+        for {
+          (visible, _) <- upcomingCache.get
+          scheduleJson <- env.tournament apiJsonView visible
+        } yield Ok(scheduleJson)
     )
   }
 
@@ -72,15 +74,15 @@ final class Tournament(
   def leaderboard = Open { implicit ctx =>
     for {
       winners <- env.tournament.winners.all
-      _ <- env.user.lightUserApi preloadMany winners.userIds
+      _       <- env.user.lightUserApi preloadMany winners.userIds
     } yield Ok(html.tournament.leaderboard(winners))
   }
 
   private[controllers] def canHaveChat(tour: Tour, json: Option[JsObject])(implicit ctx: Context): Boolean =
-    !ctx.kid && // no public chats for kids
-      ctx.me.fold(!tour.isPrivate) { u => // anon can see public chats, except for private tournaments
+    !ctx.kid &&                                            // no public chats for kids
+      ctx.me.fold(!tour.isPrivate) { u =>                  // anon can see public chats, except for private tournaments
         (!tour.isPrivate || json.fold(true)(jsonHasMe)) && // private tournament that I joined
-          env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
+        env.chat.panic.allowed(u, tighter = tour.variant == chess.variant.Antichess)
       }
 
   private def jsonHasMe(js: JsObject): Boolean = (js \ "me").toOption.isDefined
@@ -89,46 +91,57 @@ final class Tournament(
     val page = getInt("page")
     repo byId id flatMap { tourOption =>
       negotiate(
-        html = tourOption.fold(tournamentNotFound.fuccess) { tour =>
-          (for {
-            verdicts <- api.verdicts(tour, ctx.me, getUserTeamIds)
-            version <- env.tournament.version(tour.id)
-            json <- jsonView(
-              tour = tour,
-              page = page,
-              me = ctx.me,
-              getUserTeamIds = getUserTeamIds,
-              getTeamName = env.team.getTeamName,
-              playerInfoExt = none,
-              socketVersion = version.some,
-              partial = false,
-              lang = ctx.lang
-            )
-            chat <- canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached.findMine(Chat.Id(tour.id), ctx.me).map(some)
-            _ <- chat ?? { c => env.user.lightUserApi.preloadMany(c.chat.userIds) }
-            _ <- tour.teamBattle ?? { b => env.team.cached.preloadSet(b.teams) }
-            streamers <- streamerCache get tour.id
-            shieldOwner <- env.tournament.shieldApi currentOwner tour
-          } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
-        }.monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
-        api = _ => tourOption.fold(notFoundJson("No such tournament")) { tour =>
-          get("playerInfo").?? { api.playerInfo(tour, _) } zip
-            getBool("socketVersion").??(env.tournament version tour.id map some) flatMap {
-              case (playerInfoExt, socketVersion) =>
-                val partial = getBool("partial")
-                jsonView(
-                  tour = tour,
-                  page = page,
-                  me = ctx.me,
-                  getUserTeamIds = getUserTeamIds,
-                  getTeamName = env.team.getTeamName,
-                  playerInfoExt = playerInfoExt,
-                  socketVersion = socketVersion,
-                  partial = partial,
-                  lang = ctx.lang
-                )
-            } dmap { Ok(_) }
-        }.monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
+        html = tourOption
+          .fold(tournamentNotFound.fuccess) { tour =>
+            (for {
+              verdicts <- api.verdicts(tour, ctx.me, getUserTeamIds)
+              version  <- env.tournament.version(tour.id)
+              json <- jsonView(
+                tour = tour,
+                page = page,
+                me = ctx.me,
+                getUserTeamIds = getUserTeamIds,
+                getTeamName = env.team.getTeamName,
+                playerInfoExt = none,
+                socketVersion = version.some,
+                partial = false,
+                lang = ctx.lang
+              )
+              chat <- canHaveChat(tour, json.some) ?? env.chat.api.userChat.cached
+                .findMine(Chat.Id(tour.id), ctx.me)
+                .map(some)
+              _ <- chat ?? { c =>
+                env.user.lightUserApi.preloadMany(c.chat.userIds)
+              }
+              _ <- tour.teamBattle ?? { b =>
+                env.team.cached.preloadSet(b.teams)
+              }
+              streamers   <- streamerCache get tour.id
+              shieldOwner <- env.tournament.shieldApi currentOwner tour
+            } yield Ok(html.tournament.show(tour, verdicts, json, chat, streamers, shieldOwner)))
+          }
+          .monSuccess(_.tournament.apiShowPartial(false, HTTPRequest clientName ctx.req)),
+        api = _ =>
+          tourOption
+            .fold(notFoundJson("No such tournament")) { tour =>
+              get("playerInfo").?? { api.playerInfo(tour, _) } zip
+                getBool("socketVersion").??(env.tournament version tour.id map some) flatMap {
+                case (playerInfoExt, socketVersion) =>
+                  val partial = getBool("partial")
+                  jsonView(
+                    tour = tour,
+                    page = page,
+                    me = ctx.me,
+                    getUserTeamIds = getUserTeamIds,
+                    getTeamName = env.team.getTeamName,
+                    playerInfoExt = playerInfoExt,
+                    socketVersion = socketVersion,
+                    partial = partial,
+                    lang = ctx.lang
+                  )
+              } dmap { Ok(_) }
+            }
+            .monSuccess(_.tournament.apiShowPartial(getBool("partial"), HTTPRequest clientName ctx.req))
       ) dmap NoCache
     }
   }
@@ -181,14 +194,15 @@ final class Tournament(
     NoLameOrBot {
       NoPlayban {
         val password = ctx.body.body.\("p").asOpt[String]
-        val teamId = ctx.body.body.\("team").asOpt[String]
+        val teamId   = ctx.body.body.\("team").asOpt[String]
         api.joinWithResult(id, me, password, teamId, getUserTeamIds) flatMap { result =>
           negotiate(
             html = Redirect(routes.Tournament.show(id)).fuccess,
-            api = _ => fuccess {
-              if (result) jsonOkResult
-              else BadRequest(Json.obj("joined" -> false))
-            }
+            api = _ =>
+              fuccess {
+                if (result) jsonOkResult
+                else BadRequest(Json.obj("joined" -> false))
+              }
           )
         }
       }
@@ -255,10 +269,12 @@ final class Tournament(
           html = forms(me).bindFromRequest.fold(
             err => BadRequest(html.tournament.form(err, me, teams)).fuccess,
             setup => {
-              val cost = if (me.hasTitle ||
-                env.streamer.liveStreamApi.isStreaming(me.id) ||
-                isGranted(_.ManageTournament) ||
-                setup.password.isDefined) 1 else 4
+              val cost =
+                if (me.hasTitle ||
+                    env.streamer.liveStreamApi.isStreaming(me.id) ||
+                    isGranted(_.ManageTournament) ||
+                    setup.password.isDefined) 1
+                else 4
               CreateLimitPerUser(me.id, cost = cost) {
                 CreateLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
                   api.createTournament(setup, me, teams, getUserTeamIds) map { tour =>
@@ -283,11 +299,22 @@ final class Tournament(
   private def doApiCreate(me: lila.user.User)(implicit req: Request[_]): Fu[Result] =
     forms(me).bindFromRequest.fold(
       jsonFormErrorDefaultLang,
-      setup => teamC.teamsIBelongTo(me) flatMap { teams =>
-        api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
-          jsonView(tour, none, none, getUserTeamIds, env.team.getTeamName, none, none, partial = false, lila.i18n.defaultLang)
-        }
-      } map { Ok(_) }
+      setup =>
+        teamC.teamsIBelongTo(me) flatMap { teams =>
+          api.createTournament(setup, me, teams, getUserTeamIds) flatMap { tour =>
+            jsonView(
+              tour,
+              none,
+              none,
+              getUserTeamIds,
+              env.team.getTeamName,
+              none,
+              none,
+              partial = false,
+              lila.i18n.defaultLang
+            )
+          }
+        } map { Ok(_) }
     )
 
   def teamBattleEdit(id: String) = Auth { implicit ctx => me =>
@@ -298,7 +325,9 @@ final class Tournament(
             env.team.teamRepo.byOrderedIds(battle.sortedTeamIds) flatMap { teams =>
               env.user.lightUserApi.preloadMany(teams.map(_.createdBy)) >> {
                 val form = lila.tournament.TeamBattle.DataForm.edit(teams.map { t =>
-                  s"""${t.id} "${t.name}" by ${env.user.lightUserApi.sync(t.createdBy).fold(t.createdBy)(_.name)}"""
+                  s"""${t.id} "${t.name}" by ${env.user.lightUserApi
+                    .sync(t.createdBy)
+                    .fold(t.createdBy)(_.name)}"""
                 }, battle.nbLeaders)
                 Ok(html.tournament.teamBattle.edit(tour, form)).fuccess
               }
@@ -316,8 +345,9 @@ final class Tournament(
           implicit val req = ctx.body
           lila.tournament.TeamBattle.DataForm.empty.bindFromRequest.fold(
             err => BadRequest(html.tournament.teamBattle.edit(tour, err)).fuccess,
-            res => api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
-              Redirect(routes.Tournament.show(tour.id))
+            res =>
+              api.teamBattleUpdate(tour, res, env.team.api.filterExistingIds) inject
+                Redirect(routes.Tournament.show(tour.id))
           )
         case tour => Redirect(routes.Tournament.show(tour.id)).fuccess
       }
@@ -337,7 +367,7 @@ final class Tournament(
   def shields = Open { implicit ctx =>
     for {
       history <- env.tournament.shieldApi.history(5.some)
-      _ <- env.user.lightUserApi preloadMany history.userIds
+      _       <- env.user.lightUserApi preloadMany history.userIds
     } yield html.tournament.shields(history)
   }
 
@@ -357,11 +387,15 @@ final class Tournament(
 
   private val streamerCache = env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
     name = "tournament.streamers",
-    f = tourId => env.streamer.liveStreamApi.all.flatMap {
-      _.streams.map { stream =>
-        env.tournament.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
-      }.sequenceFu.map(_.flatten.toSet)
-    },
+    f = tourId =>
+      env.streamer.liveStreamApi.all.flatMap {
+        _.streams
+          .map { stream =>
+            env.tournament.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
+          }
+          .sequenceFu
+          .map(_.flatten.toSet)
+      },
     expireAfter = _.ExpireAfterWrite(15.seconds)
   )
 

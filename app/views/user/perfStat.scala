@@ -12,26 +12,27 @@ import controllers.routes
 object perfStat {
 
   def apply(
-    u: User,
-    rankMap: lila.rating.UserRankMap,
-    perfType: lila.rating.PerfType,
-    percentile: Option[Double],
-    stat: PerfStat,
-    ratingChart: Option[String]
-  )(implicit ctx: Context) = views.html.base.layout(
-    title = s"${u.username} ${perfType.name} stats",
-    robots = false,
-    moreJs = frag(
-      jsAt("compiled/user.js"),
-      ratingChart.map { rc =>
-        frag(
-          jsTag("chart/ratingHistory.js"),
-          embedJsUnsafe(s"lichess.ratingHistoryChart($rc,'${perfType.name}');")
-        )
-      }
-    ),
-    moreCss = cssTag("perf-stat")
-  ) {
+      u: User,
+      rankMap: lila.rating.UserRankMap,
+      perfType: lila.rating.PerfType,
+      percentile: Option[Double],
+      stat: PerfStat,
+      ratingChart: Option[String]
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = s"${u.username} ${perfType.name} stats",
+      robots = false,
+      moreJs = frag(
+        jsAt("compiled/user.js"),
+        ratingChart.map { rc =>
+          frag(
+            jsTag("chart/ratingHistory.js"),
+            embedJsUnsafe(s"lichess.ratingHistoryChart($rc,'${perfType.name}');")
+          )
+        }
+      ),
+      moreCss = cssTag("perf-stat")
+    ) {
       main(cls := s"page-menu")(
         st.aside(cls := "page-menu__menu")(show.side(u, rankMap, perfType.some)),
         div(cls := s"page-menu__content box perf-stat ${perfType.key}")(
@@ -46,7 +47,7 @@ object perfStat {
                 dataIcon := perfType.iconChar,
                 href := s"${routes.User.games(u.username, "search")}?perf=${perfType.id}"
               )("View the games"),
-              bits.perfTrophies(u, rankMap.view.filterKeys(perfType==).toMap)
+              bits.perfTrophies(u, rankMap.view.filterKeys(perfType ==).toMap)
             )
           ),
           ratingChart.isDefined option div(cls := "rating-history")(spinner),
@@ -65,37 +66,47 @@ object perfStat {
 
   private def decimal(v: Double) = lila.common.Maths.roundAt(v, 2)
 
-  private def glicko(perfType: PerfType, perf: Perf, percentile: Option[Double]): Frag = st.section(cls := "glicko")(
-    h2(
-      "Rating: ",
-      strong(title := "Yes, ratings have decimal accuracy.")(decimal(perf.glicko.rating).toString),
-      perf.glicko.provisional option frag(
-        " ", span(title := "Not enough rated games have been played to establish a reliable rating.", cls := "details")("(provisional)")
+  private def glicko(perfType: PerfType, perf: Perf, percentile: Option[Double]): Frag =
+    st.section(cls := "glicko")(
+      h2(
+        "Rating: ",
+        strong(title := "Yes, ratings have decimal accuracy.")(decimal(perf.glicko.rating).toString),
+        perf.glicko.provisional option frag(
+          " ",
+          span(
+            title := "Not enough rated games have been played to establish a reliable rating.",
+            cls := "details"
+          )("(provisional)")
+        ),
+        ". ",
+        percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
+          span(cls := "details")(
+            "Better than ",
+            a(href := routes.Stat.ratingDistribution(perfType.key))(
+              strong(percentile, "%"),
+              " of ",
+              perfType.name,
+              " players"
+            ),
+            "."
+          )
+        }
       ),
-      ". ",
-      percentile.filter(_ != 0.0 && !perf.glicko.provisional).map { percentile =>
-        span(cls := "details")(
-          "Better than ",
-          a(href := routes.Stat.ratingDistribution(perfType.key))(
-            strong(percentile, "%"), " of ", perfType.name, " players"
-          ),
-          "."
-        )
-      }
-    ),
-    p(
-      "Progression over the last twelve games: ",
-      span(cls := "progress")(
-        if (perf.progress > 0) tag("green")(dataIcon := "N")(perf.progress)
-        else if (perf.progress < 0) tag("red")(dataIcon := "M")(-perf.progress)
-        else frag("none")
-      ),
-      ". ",
-      "Rating deviation: ",
-      strong(title := "Lower value means the rating is more stable. Above 110, the rating is considered provisional.")(decimal(perf.glicko.deviation).toString),
-      "."
+      p(
+        "Progression over the last twelve games: ",
+        span(cls := "progress")(
+          if (perf.progress > 0) tag("green")(dataIcon := "N")(perf.progress)
+          else if (perf.progress < 0) tag("red")(dataIcon := "M")(-perf.progress)
+          else frag("none")
+        ),
+        ". ",
+        "Rating deviation: ",
+        strong(
+          title := "Lower value means the rating is more stable. Above 110, the rating is considered provisional."
+        )(decimal(perf.glicko.deviation).toString),
+        "."
+      )
     )
-  )
 
   private def pct(num: Int, denom: Int): String = {
     (denom != 0) ?? s"${Math.round(num * 100.0 / denom)}%"
@@ -128,7 +139,7 @@ object perfStat {
           count.seconds > 0 option tr(cls := "full")(
             th("Time spent playing"),
             td(colspan := "2") {
-              val hours = count.seconds / (60 * 60)
+              val hours   = count.seconds / (60 * 60)
               val minutes = (count.seconds % (60 * 60)) / 60
               s"${hours}h, ${minutes}m"
             }
@@ -171,10 +182,11 @@ object perfStat {
 
   private def highlowSide(title: String, opt: Option[lila.perfStat.RatingAt], color: String): Frag =
     opt match {
-      case Some(r) => div(
-        h2(title, ": ", strong(tag(color)(r.int))),
-        a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
-      )
+      case Some(r) =>
+        div(
+          h2(title, ": ", strong(tag(color)(r.int))),
+          a(cls := "glpt", href := routes.Round.watcher(r.gameId, "white"))(absClientDateTime(r.at))
+        )
       case None => div(h2(title), " ", span("Not enough games played"))
     }
 
@@ -185,27 +197,31 @@ object perfStat {
 
   private def fromTo(s: lila.perfStat.Streak): Frag =
     s.from match {
-      case Some(from) => frag(
-        "from ",
-        a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
-        " to ",
-        s.to match {
-          case Some(to) => a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientDateTime(to.at))
-          case None => frag("now")
-        }
-      )
+      case Some(from) =>
+        frag(
+          "from ",
+          a(cls := "glpt", href := routes.Round.watcher(from.gameId, "white"))(absClientDateTime(from.at)),
+          " to ",
+          s.to match {
+            case Some(to) =>
+              a(cls := "glpt", href := routes.Round.watcher(to.gameId, "white"))(absClientDateTime(to.at))
+            case None => frag("now")
+          }
+        )
       case None => nbsp
     }
 
-  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: String, color: String): Frag = div(cls := "streak")(
-    h3(
-      title, ": ",
-      if (s.v == 1) tag(color)(frag(strong(s.v), " game"))
-      else if (s.v > 0) tag(color)(frag(strong(s.v), " games"))
-      else frag("none")
-    ),
-    fromTo(s)
-  )
+  private def resultStreakSideStreak(s: lila.perfStat.Streak, title: String, color: String): Frag =
+    div(cls := "streak")(
+      h3(
+        title,
+        ": ",
+        if (s.v == 1) tag(color)(frag(strong(s.v), " game"))
+        else if (s.v > 0) tag(color)(frag(strong(s.v), " games"))
+        else frag("none")
+      ),
+      fromTo(s)
+    )
 
   private def resultStreakSide(s: lila.perfStat.Streaks, title: String, color: String): Frag = div(
     h2(title),
@@ -213,10 +229,11 @@ object perfStat {
     resultStreakSideStreak(s.cur, "Current", color)
   )
 
-  private def resultStreak(streak: lila.perfStat.ResultStreak): Frag = st.section(cls := "resultStreak split")(
-    resultStreakSide(streak.win, "Winning streak", "green"),
-    resultStreakSide(streak.loss, "Losing streak", "red")
-  )
+  private def resultStreak(streak: lila.perfStat.ResultStreak): Frag =
+    st.section(cls := "resultStreak split")(
+      resultStreakSide(streak.win, "Winning streak", "green"),
+      resultStreakSide(streak.loss, "Losing streak", "red")
+    )
 
   private def resultTable(results: lila.perfStat.Results, title: String): Frag = div(
     table(
@@ -244,7 +261,8 @@ object perfStat {
   private def playStreakNbStreak(s: lila.perfStat.Streak, title: String): Frag = div(
     div(cls := "streak")(
       h3(
-        title, ": ",
+        title,
+        ": ",
         if (s.v == 1) frag(strong(s.v), " game")
         else if (s.v > 0) frag(strong(s.v), " games")
         else frag("none")
@@ -266,9 +284,9 @@ object perfStat {
   private def playStreakTimeStreak(s: lila.perfStat.Streak, title: String): Frag = div(
     div(cls := "streak")(
       h3(
-        title, ": ",
-        {
-          val hours = s.v / (60 * 60)
+        title,
+        ": ", {
+          val hours   = s.v / (60 * 60)
           val minutes = (s.v % (60 * 60)) / 60
           s"${hours} hours, ${minutes} minutes"
         }

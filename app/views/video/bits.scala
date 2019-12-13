@@ -29,7 +29,9 @@ object bits {
       )
     )
 
-  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(implicit ctx: Context) =
+  def author(name: String, videos: Paginator[lila.video.VideoView], control: lila.video.UserControl)(
+      implicit ctx: Context
+  ) =
     layout(
       title = s"$name • Free Chess Videos",
       control = control
@@ -48,7 +50,9 @@ object bits {
         videos.currentPageResults.map { card(_, control) },
         videos.nextPage.map { next =>
           div(cls := "pager none")(
-            a(rel := "next", href := s"${routes.Video.author(name)}?${control.queryString}&page=${next}")("Next")
+            a(rel := "next", href := s"${routes.Video.author(name)}?${control.queryString}&page=${next}")(
+              "Next"
+            )
           )
         }
       )
@@ -61,8 +65,11 @@ object bits {
       ),
       div(cls := "not_found")(
         h1("Video Not Found!"),
-        br, br,
-        a(cls := "big button text", dataIcon := "i", href := routes.Video.index)("Return to the video library")
+        br,
+        br,
+        a(cls := "big button text", dataIcon := "i", href := routes.Video.index)(
+          "Return to the video library"
+        )
       )
     )
 
@@ -76,7 +83,9 @@ object bits {
       div(cls := "box__top")(
         h1(cls := "lichess_title")(
           a(cls := "text", dataIcon := "i", href := s"${routes.Video.index}?${control.queryString}")(
-            "All ", ts.size, " video tags"
+            "All ",
+            ts.size,
+            " video tags"
           )
         )
       ),

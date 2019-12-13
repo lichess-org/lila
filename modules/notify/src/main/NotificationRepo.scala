@@ -3,7 +3,7 @@ package lila.notify
 import lila.db.dsl._
 import org.joda.time.DateTime
 
-private final class NotificationRepo(val coll: Coll) {
+final private class NotificationRepo(val coll: Coll) {
 
   import BSONHandlers._
 
@@ -26,32 +26,42 @@ private final class NotificationRepo(val coll: Coll) {
     "read" -> false,
     "createdAt" $gt DateTime.now.minusDays(3)
   )
-  private def hasUnread = $doc( // recent, read
-    "createdAt" $gt DateTime.now.minusMinutes(10)
-  )
+  private def hasUnread =
+    $doc( // recent, read
+      "createdAt" $gt DateTime.now.minusMinutes(10)
+    )
   private def hasOldOrUnread =
     $doc("$or" -> List(hasOld, hasUnread))
 
   def hasRecentStudyInvitation(userId: Notification.Notifies, studyId: InvitedToStudy.StudyId): Fu[Boolean] =
-    coll.exists($doc(
-      "notifies" -> userId,
-      "content.type" -> "invitedStudy",
-      "content.studyId" -> studyId
-    ) ++ hasOldOrUnread)
+    coll.exists(
+      $doc(
+        "notifies"        -> userId,
+        "content.type"    -> "invitedStudy",
+        "content.studyId" -> studyId
+      ) ++ hasOldOrUnread
+    )
 
-  def hasRecentNotificationsInThread(userId: Notification.Notifies, topicId: MentionedInThread.TopicId): Fu[Boolean] =
-    coll.exists($doc(
-      "notifies" -> userId,
-      "content.type" -> "mention",
-      "content.topicId" -> topicId
-    ) ++ hasOldOrUnread)
+  def hasRecentNotificationsInThread(
+      userId: Notification.Notifies,
+      topicId: MentionedInThread.TopicId
+  ): Fu[Boolean] =
+    coll.exists(
+      $doc(
+        "notifies"        -> userId,
+        "content.type"    -> "mention",
+        "content.topicId" -> topicId
+      ) ++ hasOldOrUnread
+    )
 
   def hasRecentPrivateMessageFrom(userId: Notification.Notifies, thread: PrivateMessage.Thread): Fu[Boolean] =
-    coll.exists($doc(
-      "notifies" -> userId,
-      "content.type" -> "privateMessage",
-      "content.thread.id" -> thread.id
-    ) ++ hasOld)
+    coll.exists(
+      $doc(
+        "notifies"          -> userId,
+        "content.type"      -> "privateMessage",
+        "content.thread.id" -> thread.id
+      ) ++ hasOld
+    )
 
   def exists(notifies: Notification.Notifies, selector: Bdoc): Fu[Boolean] =
     coll.exists(userNotificationsQuery(notifies) ++ selector)
@@ -61,6 +71,7 @@ private final class NotificationRepo(val coll: Coll) {
   def userNotificationsQuery(userId: Notification.Notifies) = $doc("notifies" -> userId)
 
   private def unreadOnlyQuery(userId: Notification.Notifies) = $doc("notifies" -> userId, "read" -> false)
-  private def unreadOnlyQuery(userIds: Iterable[Notification.Notifies]) = $doc("notifies" $in userIds, "read" -> false)
+  private def unreadOnlyQuery(userIds: Iterable[Notification.Notifies]) =
+    $doc("notifies" $in userIds, "read" -> false)
 
 }

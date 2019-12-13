@@ -13,7 +13,12 @@ object post {
   def recent(posts: List[lila.forum.MiniForumPost]) = ol(
     posts map { p =>
       li(
-        a(dataIcon := p.isTeam.option("f"), cls := "post_link text", href := routes.ForumPost.redirect(p.postId), title := p.topicName)(
+        a(
+          dataIcon := p.isTeam.option("f"),
+          cls := "post_link text",
+          href := routes.ForumPost.redirect(p.postId),
+          title := p.topicName
+        )(
           shorten(p.topicName, 30)
         ),
         " ",
@@ -25,25 +30,27 @@ object post {
   )
 
   def show(
-    categ: lila.forum.Categ,
-    topic: lila.forum.Topic,
-    post: lila.forum.Post,
-    url: String,
-    canModCateg: Boolean
+      categ: lila.forum.Categ,
+      topic: lila.forum.Topic,
+      post: lila.forum.Post,
+      url: String,
+      canModCateg: Boolean
   )(implicit ctx: Context) = {
     st.article(cls := List("forum-post" -> true, "erased" -> post.erased), id := post.number)(
       div(cls := "forum-post__metas")(
         div(
           authorLink(post = post, cssClass = "author".some, modIcon = post.displayModIcon),
           a(href := url)(
-            post.updatedAt.map { updatedAt =>
-              frag(
-                span(cls := "post-edited")("edited "),
-                momentFromNow(updatedAt)
-              )
-            }.getOrElse {
-              momentFromNow(post.createdAt)
-            }
+            post.updatedAt
+              .map { updatedAt =>
+                frag(
+                  span(cls := "post-edited")("edited "),
+                  momentFromNow(updatedAt)
+                )
+              }
+              .getOrElse {
+                momentFromNow(post.createdAt)
+              }
           ),
           isGranted(_.IpBan) option span(cls := "mod postip")(post.ip),
           ctx.userId.fold(false)(post.shouldShowEditForm(_)) option
@@ -71,7 +78,11 @@ object post {
             required
           )(post.text),
           div(cls := "edit-buttons")(
-            a(cls := "edit-post-cancel", href := routes.ForumPost.redirect(post.id), style := "margin-left:20px")(
+            a(
+              cls := "edit-post-cancel",
+              href := routes.ForumPost.redirect(post.id),
+              style := "margin-left:20px"
+            )(
               trans.cancel()
             ),
             submitButton(cls := "button")(trans.apply())

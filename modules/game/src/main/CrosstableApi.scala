@@ -37,44 +37,53 @@ final class CrosstableApi(
     }
 
   def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
-    coll.find(
-      select(u1, u2),
-      $doc("s1" -> true, "s2" -> true).some
-    ).one[Bdoc] map { res =>
-        ~(for {
-          o <- res
-          s1 <- o.int("s1")
-          s2 <- o.int("s2")
-        } yield (s1 + s2) / 10)
-      }
+    coll
+      .find(
+        select(u1, u2),
+        $doc("s1" -> true, "s2" -> true).some
+      )
+      .one[Bdoc] map { res =>
+      ~(for {
+        o  <- res
+        s1 <- o.int("s1")
+        s2 <- o.int("s2")
+      } yield (s1 + s2) / 10)
+    }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
     case List(u1, u2) => {
-      val result = Result(game.id, game.winnerUserId)
+      val result     = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
       def incScore(userId: User.ID): Int = game.winnerUserId match {
         case Some(u) if u == userId => 10
-        case None => 5
-        case _ => 0
+        case None                   => 5
+        case _                      => 0
       }
       val inc1 = incScore(u1)
       val inc2 = incScore(u2)
-      val updateCrosstable = coll.update.one(select(u1, u2), $inc(
-        F.score1 -> inc1,
-        F.score2 -> inc2
-      ) ++ $push(
-          Crosstable.BSONFields.results -> $doc(
-            "$each" -> List(bsonResult),
-            "$slice" -> -Crosstable.maxGames
-          )
-        ))
-      val updateMatchup =
-        matchupColl.update.one(select(u1, u2), $inc(
+      val updateCrosstable = coll.update.one(
+        select(u1, u2),
+        $inc(
           F.score1 -> inc1,
           F.score2 -> inc2
-        ) ++ $set(
+        ) ++ $push(
+          Crosstable.BSONFields.results -> $doc(
+            "$each"  -> List(bsonResult),
+            "$slice" -> -Crosstable.maxGames
+          )
+        )
+      )
+      val updateMatchup =
+        matchupColl.update.one(
+          select(u1, u2),
+          $inc(
+            F.score1 -> inc1,
+            F.score2 -> inc2
+          ) ++ $set(
             F.lastPlayed -> DateTime.now
-          ), upsert = true)
+          ),
+          upsert = true
+        )
       updateCrosstable zip updateMatchup void
     }
     case _ => funit
@@ -108,32 +117,37 @@ final class CrosstableApi(
 
         import reactivemongo.api.ReadPreference
 
-        gameRepo.coll.find(selector, winnerProjection.some)
+        gameRepo.coll
+          .find(selector, winnerProjection.some)
           .sort($doc(GF.createdAt -> -1))
           .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
-          .gather[List]().map { docs =>
-
+          .gather[List]()
+          .map { docs =>
             val (s1, s2) = docs.foldLeft(0 -> 0) {
-              case ((s1, s2), doc) => doc.getAsOpt[User.ID](GF.winnerId) match {
-                case Some(u) if u == su1 => (s1 + 10, s2)
-                case Some(u) if u == su2 => (s1, s2 + 10)
-                case _ => (s1 + 5, s2 + 5)
-              }
+              case ((s1, s2), doc) =>
+                doc.getAsOpt[User.ID](GF.winnerId) match {
+                  case Some(u) if u == su1 => (s1 + 10, s2)
+                  case Some(u) if u == su2 => (s1, s2 + 10)
+                  case _                   => (s1 + 5, s2 + 5)
+                }
             }
             Crosstable(
               Crosstable.Users(
                 Crosstable.User(su1, s1),
                 Crosstable.User(su2, s2)
               ),
-              results = docs.take(Crosstable.maxGames).flatMap { doc =>
-                doc.string(GF.id).map { id =>
-                  Result(id, doc.getAsOpt[User.ID](GF.winnerId))
+              results = docs
+                .take(Crosstable.maxGames)
+                .flatMap { doc =>
+                  doc.string(GF.id).map { id =>
+                    Result(id, doc.getAsOpt[User.ID](GF.winnerId))
+                  }
                 }
-              }.reverse
+                .reverse
             )
           } flatMap { crosstable =>
-            coll.insert.one(crosstable) inject crosstable.some
-          }
+          coll.insert.one(crosstable) inject crosstable.some
+        }
 
       case _ => fuccess(none)
     }

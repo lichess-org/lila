@@ -19,7 +19,8 @@ final class Env(
     poolApi: lila.pool.PoolApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     remoteSocketApi: lila.socket.RemoteSocket
-)(implicit
+)(
+    implicit
     system: akka.actor.ActorSystem,
     idGenerator: lila.game.IdGenerator
 ) {
@@ -38,7 +39,9 @@ final class Env(
   private lazy val lobbyTrouper = LobbyTrouper.start(
     broomPeriod = 2 seconds,
     resyncIdsPeriod = 25 seconds
-  ) { () => wire[LobbyTrouper] }
+  ) { () =>
+    wire[LobbyTrouper]
+  }
 
   private lazy val abortListener = wire[AbortListener]
 

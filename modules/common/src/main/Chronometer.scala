@@ -1,7 +1,7 @@
 package lila.common
 
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ Future, ExecutionContext }
+import scala.concurrent.{ ExecutionContext, Future }
 import scala.util.Try
 
 object Chronometer {
@@ -41,12 +41,14 @@ object Chronometer {
     }
 
     def mon(path: lila.mon.TimerPath) = {
-      lap dforeach { l => path(lila.mon).record(l.nanos) }
+      lap dforeach { l =>
+        path(lila.mon).record(l.nanos)
+      }
       this
     }
 
-    def pp: Fu[A] = lap dmap (_.pp)
-    def pp(msg: String): Fu[A] = lap dmap (_ pp msg)
+    def pp: Fu[A]                                            = lap dmap (_.pp)
+    def pp(msg: String): Fu[A]                               = lap dmap (_ pp msg)
     def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap dmap (_.ppIfGt(msg, duration))
 
     def result = lap.dmap(_.result)
@@ -55,15 +57,16 @@ object Chronometer {
   case class FuLapTry[A](lap: Fu[LapTry[A]]) extends AnyVal {
 
     def mon(path: Try[A] => kamon.metric.Timer) = {
-      lap.dforeach {
-        l => path(l.result).record(l.nanos)
+      lap.dforeach { l =>
+        path(l.result).record(l.nanos)
       }
       this
     }
 
-    def result = lap.flatMap { l =>
-      Future.fromTry(l.result)
-    }(ExecutionContext.parasitic)
+    def result =
+      lap.flatMap { l =>
+        Future.fromTry(l.result)
+      }(ExecutionContext.parasitic)
   }
 
   def apply[A](f: Fu[A]): FuLap[A] = {
@@ -74,15 +77,15 @@ object Chronometer {
   def lapTry[A](f: Fu[A]): FuLapTry[A] = {
     val start = nowNanos
     FuLapTry {
-      f.transformWith {
-        r => fuccess(LapTry(r, nowNanos - start))
+      f.transformWith { r =>
+        fuccess(LapTry(r, nowNanos - start))
       }(ExecutionContext.parasitic)
     }
   }
 
   def sync[A](f: => A): Lap[A] = {
     val start = nowNanos
-    val res = f
+    val res   = f
     Lap(res, nowNanos - start)
   }
 
@@ -94,7 +97,7 @@ object Chronometer {
 
   def syncMon[A](path: lila.mon.TimerPath)(f: => A): A = {
     val timer = path(lila.mon).start
-    val res = f
+    val res   = f
     timer.stop()
     res
   }

@@ -6,7 +6,7 @@ import play.api.data.format.{ Formatter, JodaFormats }
 import play.api.data.Forms._
 import play.api.data.JodaForms._
 import play.api.data.validation.Constraint
-import play.api.data.{ Mapping, FormError, Field }
+import play.api.data.{ Field, FormError, Mapping }
 import scala.util.Try
 
 object Form {
@@ -59,11 +59,11 @@ object Form {
   object formatter {
     def stringFormatter[A](from: A => String, to: String => A): Formatter[A] = new Formatter[A] {
       def bind(key: String, data: Map[String, String]) = stringFormat.bind(key, data) map to
-      def unbind(key: String, value: A) = stringFormat.unbind(key, from(value))
+      def unbind(key: String, value: A)                = stringFormat.unbind(key, from(value))
     }
     def intFormatter[A](from: A => Int, to: Int => A): Formatter[A] = new Formatter[A] {
       def bind(key: String, data: Map[String, String]) = intFormat.bind(key, data) map to
-      def unbind(key: String, value: A) = intFormat.unbind(key, from(value))
+      def unbind(key: String, value: A)                = intFormat.unbind(key, from(value))
     }
     val tolerantBooleanFormatter: Formatter[Boolean] = new Formatter[Boolean] {
       override val format = Some(("format.boolean", Nil))
@@ -77,12 +77,14 @@ object Form {
 
   object constraint {
     import play.api.data.{ validation => V }
-    def minLength[A](from: A => String)(length: Int): Constraint[A] = Constraint[A]("constraint.minLength", length) { o =>
-      if (from(o).size >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
-    }
-    def maxLength[A](from: A => String)(length: Int): Constraint[A] = Constraint[A]("constraint.maxLength", length) { o =>
-      if (from(o).size <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
-    }
+    def minLength[A](from: A => String)(length: Int): Constraint[A] =
+      Constraint[A]("constraint.minLength", length) { o =>
+        if (from(o).size >= length) V.Valid else V.Invalid(V.ValidationError("error.minLength", length))
+      }
+    def maxLength[A](from: A => String)(length: Int): Constraint[A] =
+      Constraint[A]("constraint.maxLength", length) { o =>
+        if (from(o).size <= length) V.Valid else V.Invalid(V.ValidationError("error.maxLength", length))
+      }
   }
 
   def inTheFuture(m: Mapping[DateTime]) = m.verifying(
@@ -91,30 +93,34 @@ object Form {
   )
 
   object UTCDate {
-    val dateTimePattern = "yyyy-MM-dd HH:mm"
-    val utcDate = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    val dateTimePattern         = "yyyy-MM-dd HH:mm"
+    val utcDate                 = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODateTime {
-    val dateTimePattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
-    val formatter = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
-    val isoDateTime = jodaDate(dateTimePattern, DateTimeZone.UTC)
+    val dateTimePattern         = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+    val formatter               = JodaFormats.jodaDateTimeFormat(dateTimePattern, DateTimeZone.UTC)
+    val isoDateTime             = jodaDate(dateTimePattern, DateTimeZone.UTC)
     implicit val dateTimeFormat = JodaFormats.jodaDateTimeFormat(dateTimePattern)
   }
   object ISODate {
-    val datePattern = "yyyy-MM-dd"
-    val formatter = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
-    val isoDateTime = jodaDate(datePattern, DateTimeZone.UTC)
+    val datePattern         = "yyyy-MM-dd"
+    val formatter           = JodaFormats.jodaDateTimeFormat(datePattern, DateTimeZone.UTC)
+    val isoDateTime         = jodaDate(datePattern, DateTimeZone.UTC)
     implicit val dateFormat = JodaFormats.jodaDateTimeFormat(datePattern)
   }
   object Timestamp {
     val formatter = new Formatter[org.joda.time.DateTime] {
       def bind(key: String, data: Map[String, String]) =
-        stringFormat.bind(key, data).flatMap { str =>
-          Try(java.lang.Long.parseLong(str)).toEither.flatMap { long =>
-            Try(new DateTime(long)).toEither
+        stringFormat
+          .bind(key, data)
+          .flatMap { str =>
+            Try(java.lang.Long.parseLong(str)).toEither.flatMap { long =>
+              Try(new DateTime(long)).toEither
+            }
           }
-        }.left.map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
+          .left
+          .map(_ => Seq(FormError(key, "Invalid timestamp", Nil)))
       def unbind(key: String, value: org.joda.time.DateTime) = Map(key -> value.getMillis.toString)
     }
     val timestamp = of[org.joda.time.DateTime](formatter)

@@ -17,28 +17,30 @@ trait StringHelper { self: NumberHelper =>
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
 
   implicit def lilaRichString(str: String) = new {
-    def active(other: String, one: String = "active") = if (str == other) one else ""
+    def active(other: String, one: String = "active")  = if (str == other) one else ""
     def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None
   }
 
   def when(cond: Boolean, str: String) = cond ?? str
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
-  private val NumberLastRegex = """\s(\d++)$""".r.unanchored
+  private val NumberLastRegex  = """\s(\d++)$""".r.unanchored
 
   def splitNumber(s: Frag)(implicit ctx: UserContext): Frag = {
     val rendered = s.render
     rendered match {
-      case NumberFirstRegex(number, html) => frag(
-        strong((~number.toIntOption).localize),
-        br,
-        raw(html)
-      )
-      case NumberLastRegex(n) if rendered.length > n.length + 1 => frag(
-        raw(rendered.dropRight(n.length + 1)),
-        br,
-        strong((~n.toIntOption).localize)
-      )
+      case NumberFirstRegex(number, html) =>
+        frag(
+          strong((~number.toIntOption).localize),
+          br,
+          raw(html)
+        )
+      case NumberLastRegex(n) if rendered.length > n.length + 1 =>
+        frag(
+          raw(rendered.dropRight(n.length + 1)),
+          br,
+          strong((~n.toIntOption).localize)
+        )
       case h => raw(h.replaceIf('\n', "<br>"))
     }
   }
@@ -49,8 +51,11 @@ trait StringHelper { self: NumberHelper =>
     if (url contains "?") s"$url&$key=$value" else s"$url?$key=$value"
 
   def fragList(frags: List[Frag], separator: String = ", "): Frag = frags match {
-    case Nil => emptyFrag
+    case Nil        => emptyFrag
     case one :: Nil => one
-    case first :: rest => first :: rest.map { f => frag(separator, f) }
+    case first :: rest =>
+      first :: rest.map { f =>
+        frag(separator, f)
+      }
   }
 }

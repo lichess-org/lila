@@ -25,13 +25,15 @@ final class GameStateStream(
   def apply(init: Game.WithInitialFen, as: chess.Color): Source[Option[JsObject], _] =
     blueprint mapMaterializedValue { queue =>
       val actor = system.actorOf(Props(mkActor(init, as, queue)))
-      queue.watchCompletion.foreach { _ => actor ! PoisonPill }
+      queue.watchCompletion.foreach { _ =>
+        actor ! PoisonPill
+      }
     }
 
   private def mkActor(
-    init: Game.WithInitialFen,
-    as: chess.Color,
-    queue: SourceQueueWithComplete[Option[JsObject]]
+      init: Game.WithInitialFen,
+      as: chess.Color,
+      queue: SourceQueueWithComplete[Option[JsObject]]
   ) = new Actor {
 
     val id = init.game.id
@@ -40,7 +42,8 @@ final class GameStateStream(
 
     private val classifiers = List(
       MoveGameEvent makeChan id,
-      "finishGame", "abortGame",
+      "finishGame",
+      "abortGame",
       Chat chanOf Chat.Id(id),
       Chat chanOf Chat.Id(s"$id/w")
     )
@@ -72,7 +75,7 @@ final class GameStateStream(
       case MoveGameEvent(g, _, _) if g.id == id => pushState(g)
       case lila.chat.actorApi.ChatLine(chatId, UserLine(username, _, text, false, false)) =>
         pushChatLine(username, text, chatId.value.size == Game.gameIdSize)
-      case FinishGame(g, _, _) if g.id == id => onGameOver
+      case FinishGame(g, _, _) if g.id == id  => onGameOver
       case AbortedBy(pov) if pov.gameId == id => onGameOver
       case SetOnline =>
         context.system.scheduler.scheduleOnce(6 second) {

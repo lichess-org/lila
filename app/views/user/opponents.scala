@@ -23,15 +23,17 @@ object opponents {
               td(showBestPerf(r.user)),
               td(
                 r.nbGames.filter(_ > 0).map { nbGames =>
-                  a(href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}", title := "Games count over your last 1000 games")(
+                  a(
+                    href := s"${routes.User.games(u.username, "search")}?players.b=${r.user.username}",
+                    title := "Games count over your last 1000 games"
+                  )(
                     trans.nbGames.pluralSame(nbGames)
                   )
                 }
               ),
               td(relation.actions(r.user.id, r.relation, followable = r.followable, blocked = false))
             )
-          }
-          else tr(td("None found."))
+          } else tr(td("None found."))
         )
       )
     )

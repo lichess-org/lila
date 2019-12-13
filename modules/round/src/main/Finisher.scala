@@ -1,16 +1,16 @@
 package lila.round
 
-import chess.{ Status, DecayingStats, Color }
+import chess.{ Color, DecayingStats, Status }
 import com.github.ghik.silencer.silent
 
 import lila.common.{ Bus, Uptime }
-import lila.game.actorApi.{ FinishGame, AbortedBy }
-import lila.game.{ GameRepo, Game, Pov, RatingDiffs }
+import lila.game.actorApi.{ AbortedBy, FinishGame }
+import lila.game.{ Game, GameRepo, Pov, RatingDiffs }
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
 import lila.playban.PlaybanApi
 import lila.user.{ User, UserRepo }
 
-private final class Finisher(
+final private class Finisher(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     messenger: Messenger,
@@ -31,7 +31,9 @@ private final class Finisher(
 
   def rageQuit(game: Game, winner: Option[Color])(implicit proxy: GameProxy): Fu[Events] =
     apply(game, _.Timeout, winner) >>-
-      winner.?? { color => playban.rageQuit(game, !color) }
+      winner.?? { color =>
+        playban.rageQuit(game, !color)
+      }
 
   def outOfTime(game: Game)(implicit proxy: GameProxy): Fu[Events] = {
     if (!game.isCorrespondence && !Uptime.startedSinceSeconds(120) && game.movedAt.isBefore(Uptime.startedAt)) {
@@ -42,7 +44,9 @@ private final class Finisher(
         game.variant.insufficientWinningMaterial(game.board, color)
       }
       apply(game, _.Outoftime, winner) >>-
-        winner.?? { w => playban.flag(game, !w) }
+        winner.?? { w =>
+          playban.flag(game, !w)
+        }
     }
   }
 
@@ -55,59 +59,62 @@ private final class Finisher(
     }
 
   def other(
-    game: Game,
-    status: Status.type => Status,
-    winner: Option[Color],
-    message: Option[SelectI18nKey] = None
+      game: Game,
+      status: Status.type => Status,
+      winner: Option[Color],
+      message: Option[SelectI18nKey] = None
   )(implicit proxy: GameProxy): Fu[Events] =
     apply(game, status, winner, message) >>- playban.other(game, status, winner)
 
-  private def recordLagStats(game: Game): Unit = for {
-    clock <- game.clock
-    player <- clock.players.all
-    lt = player.lag
-    stats = lt.lagStats
-    moves = lt.moves if moves > 4
-    sd <- stats.stdDev
-    mean = stats.mean if mean > 0
-    uncompStats = lt.uncompStats
-    uncompAvg = Math.round(10 * uncompStats.mean)
-    compEstStdErr <- lt.compEstStdErr
-    quotaStr = f"${lt.quotaGain.centis / 10}%02d"
-    compEstOvers = lt.compEstOvers.centis
-  } {
-    import lila.mon.round.move.{ lag => lRec }
-    lRec.mean.record(Math.round(10 * mean))
-    lRec.stdDev.record(Math.round(10 * sd))
-    // wikipedia.org/wiki/Coefficient_of_variation#Estimation
-    lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
-    lRec.uncomped(quotaStr).record(uncompAvg)
-    uncompStats.stdDev foreach { v =>
-      lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
+  private def recordLagStats(game: Game): Unit =
+    for {
+      clock  <- game.clock
+      player <- clock.players.all
+      lt    = player.lag
+      stats = lt.lagStats
+      moves = lt.moves if moves > 4
+      sd <- stats.stdDev
+      mean        = stats.mean if mean > 0
+      uncompStats = lt.uncompStats
+      uncompAvg   = Math.round(10 * uncompStats.mean)
+      compEstStdErr <- lt.compEstStdErr
+      quotaStr     = f"${lt.quotaGain.centis / 10}%02d"
+      compEstOvers = lt.compEstOvers.centis
+    } {
+      import lila.mon.round.move.{ lag => lRec }
+      lRec.mean.record(Math.round(10 * mean))
+      lRec.stdDev.record(Math.round(10 * sd))
+      // wikipedia.org/wiki/Coefficient_of_variation#Estimation
+      lRec.coefVar.record(Math.round((1000f + 250f / moves) * sd / mean))
+      lRec.uncomped(quotaStr).record(uncompAvg)
+      uncompStats.stdDev foreach { v =>
+        lRec.uncompStdDev(quotaStr).record(Math.round(10 * v))
+      }
+      lt.lagEstimator match {
+        case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
+      }
+      lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
+      lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
     }
-    lt.lagEstimator match {
-      case h: DecayingStats => lRec.compDeviation.record(h.deviation.toInt)
-    }
-    lRec.compEstStdErr.record(Math.round(1000 * compEstStdErr))
-    lRec.compEstOverErr.record(Math.round(10f * compEstOvers / moves))
-  }
 
   private def apply(
-    game: Game,
-    makeStatus: Status.type => Status,
-    @silent winnerC: Option[Color] = None,
-    message: Option[SelectI18nKey] = None
+      game: Game,
+      makeStatus: Status.type => Status,
+      @silent winnerC: Option[Color] = None,
+      message: Option[SelectI18nKey] = None
   )(implicit proxy: GameProxy): Fu[Events] = {
     val status = makeStatus(Status)
-    val prog = game.finish(status, winnerC)
+    val prog   = game.finish(status, winnerC)
     if (game.nonAi && game.isCorrespondence) Color.all foreach notifier.gameEnd(prog.game)
-    lila.mon.game.finish(
-      variant = game.variant.key,
-      source = game.source.fold("unknown")(_.name),
-      speed = game.speed.name,
-      mode = game.mode.name,
-      status = status.name
-    ).increment
+    lila.mon.game
+      .finish(
+        variant = game.variant.key,
+        source = game.source.fold("unknown")(_.name),
+        speed = game.speed.name,
+        mode = game.mode.name,
+        status = status.name
+      )
+      .increment
     val g = prog.game
     recordLagStats(g)
     proxy.save(prog) >>
@@ -117,10 +124,12 @@ private final class Finisher(
         winnerId = winnerC flatMap (g.player(_).userId),
         status = prog.game.status
       ) >>
-      userRepo.pair(
-        g.whitePlayer.userId,
-        g.blackPlayer.userId
-      ).flatMap {
+      userRepo
+        .pair(
+          g.whitePlayer.userId,
+          g.blackPlayer.userId
+        )
+        .flatMap {
           case (whiteO, blackO) => {
             val finish = FinishGame(g, whiteO, blackO)
             updateCountAndPerfs(finish) map { ratingDiffs =>
@@ -145,20 +154,19 @@ private final class Finisher(
       } zip
         (finish.white ?? incNbGames(finish.game)) zip
         (finish.black ?? incNbGames(finish.game)) map {
-          case ratingDiffs ~ _ ~ _ => ratingDiffs
-        }
+        case ratingDiffs ~ _ ~ _ => ratingDiffs
+      }
     }
 
   private def incNbGames(game: Game)(user: User): Funit = game.finished ?? {
     val totalTime = (game.hasClock && user.playTime.isDefined) ?? game.durationSeconds
-    val tvTime = totalTime ifTrue isRecentTv(game.id)
+    val tvTime    = totalTime ifTrue isRecentTv(game.id)
     val result =
       if (game.winnerUserId has user.id) 1
       else if (game.loserUserId has user.id) -1
       else 0
-    userRepo.incNbGames(user.id, game.rated, game.hasAi,
-      result = result,
-      totalTime = totalTime,
-      tvTime = tvTime).void
+    userRepo
+      .incNbGames(user.id, game.rated, game.hasAi, result = result, totalTime = totalTime, tvTime = tvTime)
+      .void
   }
 }

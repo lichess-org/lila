@@ -17,28 +17,31 @@ object top {
     views.html.base.layout(
       title = title,
       moreCss = cssTag("slist"),
-      openGraph = lila.app.ui.OpenGraph(
-        title = s"Leaderboard of ${perfType.name}",
-        url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
-        description = s"The 200 best chess players in ${perfType.name}, sorted by rating"
-      ).some
+      openGraph = lila.app.ui
+        .OpenGraph(
+          title = s"Leaderboard of ${perfType.name}",
+          url = s"$netBaseUrl${routes.User.topNb(200, perfType.key).url}",
+          description = s"The 200 best chess players in ${perfType.name}, sorted by rating"
+        )
+        .some
     )(
-        main(cls := "page-small box")(
-          h1(a(href := routes.User.list, dataIcon := "I"), title),
-          table(cls := "slist slist-pad")(
-            tbody(
-              users.zipWithIndex.map {
-                case (u, i) => tr(
+      main(cls := "page-small box")(
+        h1(a(href := routes.User.list, dataIcon := "I"), title),
+        table(cls := "slist slist-pad")(
+          tbody(
+            users.zipWithIndex.map {
+              case (u, i) =>
+                tr(
                   td(i + 1),
                   td(lightUserLink(u.user)),
                   td(u.rating),
                   td(ratingProgress(u.progress))
                 )
-              }
-            )
+            }
           )
         )
       )
+    )
   }
 
 }

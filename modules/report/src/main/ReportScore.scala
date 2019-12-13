@@ -1,8 +1,8 @@
 package lila.report
 
-import lila.user.{ User, Title }
+import lila.user.{ Title, User }
 
-private final class ReportScore(
+final private class ReportScore(
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
 ) {
 
@@ -15,12 +15,12 @@ private final class ReportScore(
     } map
       impl.fixedAutoCommPrintScore(candidate) map
       impl.commFlagScore(candidate) map { score =>
-        candidate scored Report.Score(score atLeast 5 atMost 100)
-      }
+      candidate scored Report.Score(score atLeast 5 atMost 100)
+    }
 
   private object impl {
 
-    val baseScore = 30
+    val baseScore               = 30
     val baseScoreAboveThreshold = 50
 
     def accuracyScore(a: Option[Accuracy]): Double = a ?? { accuracy =>

@@ -8,7 +8,7 @@ import lila.user.User
 
 case class Report(
     _id: Report.ID, // also the url slug
-    user: User.ID, // the reportee
+    user: User.ID,  // the reportee
     reason: Reason,
     room: Room,
     atoms: NonEmptyList[Report.Atom], // most recent first
@@ -20,26 +20,30 @@ case class Report(
 
   import Report.{ Atom, Score }
 
-  private implicit val ordering = scala.math.Ordering.Double.TotalOrdering
+  implicit private val ordering = scala.math.Ordering.Double.TotalOrdering
 
-  def id = _id
+  def id   = _id
   def slug = _id
 
-  def closed = !open
+  def closed  = !open
   def suspect = SuspectId(user)
 
-  def add(atom: Atom) = atomBy(atom.by).fold(copy(atoms = atom <:: atoms)) { existing =>
-    if (existing.text contains atom.text) this
-    else copy(
-      atoms = {
-        existing.copy(
-          at = atom.at,
-          score = atom.score,
-          text = s"${existing.text}\n\n${atom.text}"
-        ) :: atoms.toList.filterNot(_.by == atom.by)
-      }.toNel | atoms
-    )
-  }.recomputeScore
+  def add(atom: Atom) =
+    atomBy(atom.by)
+      .fold(copy(atoms = atom <:: atoms)) { existing =>
+        if (existing.text contains atom.text) this
+        else
+          copy(
+            atoms = {
+              existing.copy(
+                at = atom.at,
+                score = atom.score,
+                text = s"${existing.text}\n\n${atom.text}"
+              ) :: atoms.toList.filterNot(_.by == atom.by)
+            }.toNel | atoms
+          )
+      }
+      .recomputeScore
 
   def recomputeScore = copy(
     score = atoms.toList.foldLeft(Score(0))(_ + _.score)
@@ -47,17 +51,18 @@ case class Report(
 
   def recentAtom: Atom = atoms.head
   def oldestAtom: Atom = atoms.last
-  def bestAtom: Atom = bestAtoms(1).headOption | recentAtom
-  def bestAtoms(nb: Int): List[Atom] = atoms.toList.sortBy { a =>
-    (-a.score.value, -a.at.getSeconds)
-  } take nb
-  def onlyAtom: Option[Atom] = atoms.tail.isEmpty option atoms.head
+  def bestAtom: Atom   = bestAtoms(1).headOption | recentAtom
+  def bestAtoms(nb: Int): List[Atom] =
+    atoms.toList.sortBy { a =>
+      (-a.score.value, -a.at.getSeconds)
+    } take nb
+  def onlyAtom: Option[Atom]                       = atoms.tail.isEmpty option atoms.head
   def atomBy(reporterId: ReporterId): Option[Atom] = atoms.toList.find(_.by == reporterId)
-  def bestAtomByHuman: Option[Atom] = bestAtoms(10).toList.find(_.byHuman)
+  def bestAtomByHuman: Option[Atom]                = bestAtoms(10).toList.find(_.byHuman)
 
   def unprocessedCheat = open && isCheat
   def unprocessedOther = open && isOther
-  def unprocessedComm = open && isComm
+  def unprocessedComm  = open && isComm
 
   def process(by: User) = copy(
     open = false,
@@ -66,12 +71,12 @@ case class Report(
 
   def userIds: List[User.ID] = user :: atoms.toList.map(_.by.value)
 
-  def isRecentComm = room == Room.Comm && open
+  def isRecentComm                 = room == Room.Comm && open
   def isRecentCommOf(sus: Suspect) = isRecentComm && user == sus.user.id
 
   def boostWith: Option[User.ID] = (reason == Reason.Boost) ?? {
     atoms.toList.filter(_.byLichess).map(_.text).flatMap(_.linesIterator).collectFirst {
-      case Report.farmWithRegex(userId) => userId
+      case Report.farmWithRegex(userId)    => userId
       case Report.sandbagWithRegex(userId) => userId
     }
   }
@@ -125,10 +130,10 @@ object Report {
       text: String
   ) extends Reason.WithReason {
     def scored(score: Score) = Candidate.Scored(this, score)
-    def isAutomatic = reporter.id == ReporterId.lichess
-    def isAutoComm = isAutomatic && isComm
-    def isCoachReview = isOther && text.contains("COACH REVIEW")
-    def isCommFlag = text contains Reason.Comm.flagText
+    def isAutomatic          = reporter.id == ReporterId.lichess
+    def isAutoComm           = isAutomatic && isComm
+    def isCoachReview        = isOther && text.contains("COACH REVIEW")
+    def isCommFlag           = text contains Reason.Comm.flagText
   }
 
   object Candidate {
@@ -146,19 +151,23 @@ object Report {
   private[report] val spontaneousText = "Spontaneous inquiry"
 
   def make(c: Candidate.Scored, existing: Option[Report]) = c match {
-    case c @ Candidate.Scored(candidate, score) => existing.fold(Report(
-      _id = Random nextString 8,
-      user = candidate.suspect.user.id,
-      reason = candidate.reason,
-      room = Room(candidate.reason),
-      atoms = NonEmptyList(c.atom),
-      score = score,
-      inquiry = none,
-      open = true,
-      processedBy = none
-    ))(_ add c.atom)
+    case c @ Candidate.Scored(candidate, score) =>
+      existing.fold(
+        Report(
+          _id = Random nextString 8,
+          user = candidate.suspect.user.id,
+          reason = candidate.reason,
+          room = Room(candidate.reason),
+          atoms = NonEmptyList(c.atom),
+          score = score,
+          inquiry = none,
+          open = true,
+          processedBy = none
+        )
+      )(_ add c.atom)
   }
 
   private val farmWithRegex = s""". points from @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
-  private val sandbagWithRegex = s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
+  private val sandbagWithRegex =
+    s""". winning player @(${User.historicalUsernameRegex.pattern}) """.r.unanchored
 }

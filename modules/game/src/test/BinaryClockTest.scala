@@ -7,18 +7,18 @@ import lila.db.ByteArray
 
 class BinaryClockTest extends Specification {
 
-  val _0_ = "00000000"
-  val since = org.joda.time.DateTime.now.minusHours(1)
+  val _0_                  = "00000000"
+  val since                = org.joda.time.DateTime.now.minusHours(1)
   def writeBytes(c: Clock) = BinaryFormat.clock(since) write c
   def readBytes(bytes: ByteArray, berserk: Boolean = false): Clock =
     (BinaryFormat.clock(since).read(bytes, berserk, false))(White)
   def isomorphism(c: Clock): Clock = readBytes(writeBytes(c))
 
   def write(c: Clock): List[String] = writeBytes(c).showBytes.split(',').toList
-  def read(bytes: List[String]) = readBytes(ByteArray.parseBytes(bytes))
+  def read(bytes: List[String])     = readBytes(ByteArray.parseBytes(bytes))
 
   "binary Clock" should {
-    val clock = Clock(120, 2)
+    val clock  = Clock(120, 2)
     val bits22 = List("00000010", "00000010")
     "write" in {
       write(clock) must_== {

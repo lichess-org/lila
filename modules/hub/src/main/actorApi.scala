@@ -7,7 +7,7 @@ import play.api.libs.json._
 import scala.concurrent.Promise
 
 sealed abstract class Deploy(val key: String)
-case object DeployPre extends Deploy("deployPre")
+case object DeployPre  extends Deploy("deployPre")
 case object DeployPost extends Deploy("deployPost")
 
 case object Shutdown // on actor system termination
@@ -65,9 +65,9 @@ package shutup {
 
   sealed trait PublicSource
   object PublicSource {
-    case class Tournament(id: String) extends PublicSource
-    case class Simul(id: String) extends PublicSource
-    case class Study(id: String) extends PublicSource
+    case class Tournament(id: String)  extends PublicSource
+    case class Simul(id: String)       extends PublicSource
+    case class Study(id: String)       extends PublicSource
     case class Watcher(gameId: String) extends PublicSource
   }
 }
@@ -105,10 +105,10 @@ package simul {
 
 package slack {
   sealed trait Event
-  case class Error(msg: String) extends Event
-  case class Warning(msg: String) extends Event
-  case class Info(msg: String) extends Event
-  case class Victory(msg: String) extends Event
+  case class Error(msg: String)                                                 extends Event
+  case class Warning(msg: String)                                               extends Event
+  case class Info(msg: String)                                                  extends Event
+  case class Victory(msg: String)                                               extends Event
   case class TournamentName(userName: String, tourId: String, tourName: String) extends Event
 }
 
@@ -127,7 +127,8 @@ package timeline {
   case class TeamCreate(userId: String, teamId: String) extends Atom("teamCreate", false) {
     def userIds = List(userId)
   }
-  case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String) extends Atom(s"forum:${~topicId}", false) {
+  case class ForumPost(userId: String, topicId: Option[String], topicName: String, postId: String)
+      extends Atom(s"forum:${~topicId}", false) {
     def userIds = List(userId)
   }
   case class NoteCreate(from: String, to: String) extends Atom("note", false) {
@@ -136,16 +137,19 @@ package timeline {
   case class TourJoin(userId: String, tourId: String, tourName: String) extends Atom("tournament", true) {
     def userIds = List(userId)
   }
-  case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String) extends Atom("gameEnd", true) {
+  case class GameEnd(playerId: String, opponent: Option[String], win: Option[Boolean], perf: String)
+      extends Atom("gameEnd", true) {
     def userIds = opponent.toList
   }
-  case class SimulCreate(userId: String, simulId: String, simulName: String) extends Atom("simulCreate", true) {
+  case class SimulCreate(userId: String, simulId: String, simulName: String)
+      extends Atom("simulCreate", true) {
     def userIds = List(userId)
   }
   case class SimulJoin(userId: String, simulId: String, simulName: String) extends Atom("simulJoin", true) {
     def userIds = List(userId)
   }
-  case class StudyCreate(userId: String, studyId: String, studyName: String) extends Atom("studyCreate", true) {
+  case class StudyCreate(userId: String, studyId: String, studyName: String)
+      extends Atom("studyCreate", true) {
     def userIds = List(userId)
   }
   case class StudyLike(userId: String, studyId: String, studyName: String) extends Atom("studyLike", true) {
@@ -164,21 +168,21 @@ package timeline {
   object propagation {
     sealed trait Propagation
     case class Users(users: List[String]) extends Propagation
-    case class Followers(user: String) extends Propagation
-    case class Friends(user: String) extends Propagation
-    case class ExceptUser(user: String) extends Propagation
-    case class ModsOnly(value: Boolean) extends Propagation
+    case class Followers(user: String)    extends Propagation
+    case class Friends(user: String)      extends Propagation
+    case class ExceptUser(user: String)   extends Propagation
+    case class ModsOnly(value: Boolean)   extends Propagation
   }
 
   import propagation._
 
   case class Propagate(data: Atom, propagations: List[Propagation] = Nil) {
-    def toUsers(ids: List[String]) = add(Users(ids))
-    def toUser(id: String) = add(Users(List(id)))
-    def toFollowersOf(id: String) = add(Followers(id))
-    def toFriendsOf(id: String) = add(Friends(id))
-    def exceptUser(id: String) = add(ExceptUser(id))
-    def modsOnly(value: Boolean) = add(ModsOnly(value))
+    def toUsers(ids: List[String])  = add(Users(ids))
+    def toUser(id: String)          = add(Users(List(id)))
+    def toFollowersOf(id: String)   = add(Followers(id))
+    def toFriendsOf(id: String)     = add(Friends(id))
+    def exceptUser(id: String)      = add(ExceptUser(id))
+    def modsOnly(value: Boolean)    = add(ModsOnly(value))
     private def add(p: Propagation) = copy(propagations = p :: propagations)
   }
 }
@@ -272,7 +276,13 @@ package relation {
 }
 
 package study {
-  case class StudyDoor(userId: String, studyId: String, contributor: Boolean, public: Boolean, enters: Boolean)
+  case class StudyDoor(
+      userId: String,
+      studyId: String,
+      contributor: Boolean,
+      public: Boolean,
+      enters: Boolean
+  )
   case class StudyBecamePrivate(studyId: String, contributors: Set[String])
   case class StudyBecamePublic(studyId: String, contributors: Set[String])
   case class StudyMemberGotWriteAccess(userId: String, studyId: String)

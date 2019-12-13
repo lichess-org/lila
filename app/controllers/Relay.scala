@@ -32,9 +32,10 @@ final class Relay(
     implicit val req = ctx.body
     env.relay.forms.create.bindFromRequest.fold(
       err => BadRequest(html.relay.form.create(err)).fuccess,
-      setup => env.relay.api.create(setup, me) map { relay =>
-        Redirect(showRoute(relay))
-      }
+      setup =>
+        env.relay.api.create(setup, me) map { relay =>
+          Redirect(showRoute(relay))
+        }
     )
   }
 
@@ -47,12 +48,16 @@ final class Relay(
   def update(@silent slug: String, id: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
       implicit val req = ctx.body
-      env.relay.forms.edit(relay).bindFromRequest.fold(
-        err => BadRequest(html.relay.form.edit(relay, err)).fuccess,
-        data => env.relay.api.update(relay) { data.update(_, me) } map { r =>
-          Redirect(showRoute(r))
-        }
-      )
+      env.relay.forms
+        .edit(relay)
+        .bindFromRequest
+        .fold(
+          err => BadRequest(html.relay.form.edit(relay, err)).fuccess,
+          data =>
+            env.relay.api.update(relay) { data.update(_, me) } map { r =>
+              Redirect(showRoute(r))
+            }
+        )
     }
   }
 
@@ -66,13 +71,13 @@ final class Relay(
     pageHit
     WithRelay(slug, id) { relay =>
       val sc =
-        if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap { chapters =>
-          chapters.find(_.looksAlive) orElse chapters.headOption match {
-            case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
-            case None => env.study.api byIdWithChapter relay.studyId
-          }
-        }
-        else env.study.api byIdWithChapter relay.studyId
+        if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
+          chapters =>
+            chapters.find(_.looksAlive) orElse chapters.headOption match {
+              case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+              case None          => env.study.api byIdWithChapter relay.studyId
+            }
+        } else env.study.api byIdWithChapter relay.studyId
       sc flatMap { _ ?? { doShow(relay, _) } }
     }
   }
@@ -93,25 +98,29 @@ final class Relay(
     }
   }
 
-  private def WithRelay(slug: String, id: String)(f: RelayModel => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def WithRelay(slug: String, id: String)(
+      f: RelayModel => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
     OptionFuResult(env.relay.api byId id) { relay =>
       if (relay.slug != slug) Redirect(showRoute(relay)).fuccess
       else f(relay)
     }
 
-  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(implicit ctx: Context): Fu[Result] =
+  private def doShow(relay: RelayModel, oldSc: lila.study.Study.WithChapter)(
+      implicit ctx: Context
+  ): Fu[Result] =
     studyC.CanViewResult(oldSc.study) {
       for {
         (sc, studyData) <- studyC.getJsonData(oldSc)
         data = env.relay.jsonView.makeData(relay, studyData)
-        chat <- studyC.chatOf(sc.study)
+        chat     <- studyC.chatOf(sc.study)
         sVersion <- env.study.version(sc.study.id)
-        streams <- studyC.streamsOf(sc.study)
+        streams  <- studyC.streamsOf(sc.study)
       } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
     }
 
   private def showRoute(r: RelayModel) = routes.Relay.show(r.slug, r.id.value)
 
-  private implicit def makeRelayId(id: String): RelayModel.Id = RelayModel.Id(id)
-  private implicit def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
+  implicit private def makeRelayId(id: String): RelayModel.Id           = RelayModel.Id(id)
+  implicit private def makeChapterId(id: String): lila.study.Chapter.Id = lila.study.Chapter.Id(id)
 }

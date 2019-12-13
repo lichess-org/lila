@@ -22,7 +22,8 @@ final class PuzzleActivity(
 
   def stream(config: Config): Source[String, _] = Source futureSource {
     roundColl.map {
-      _.ext.find($doc("_id" $startsWith config.user.id))
+      _.ext
+        .find($doc("_id" $startsWith config.user.id))
         .sort($sort desc "_id")
         .batchSize(config.perSecond.value)
         .cursor[Round](ReadPreference.secondaryPreferred)
@@ -32,7 +33,9 @@ final class PuzzleActivity(
         .throttle(1, 1 second)
         .mapAsync(1)(enrich)
         .mapConcat(identity)
-        .map { json => s"${Json.stringify(json)}\n" }
+        .map { json =>
+          s"${Json.stringify(json)}\n"
+        }
     }
   }
 
@@ -40,24 +43,25 @@ final class PuzzleActivity(
     _.primitiveMap[Int, Double](
       ids = rounds.map(_.id.puzzleId).toSeq,
       field = "perf.gl.r",
-      fieldExtractor = obj => for {
-        perf <- obj.child("perf")
-        gl <- perf.child("gl")
-        rating <- gl.double("r")
-      } yield rating
+      fieldExtractor = obj =>
+        for {
+          perf   <- obj.child("perf")
+          gl     <- perf.child("gl")
+          rating <- gl.double("r")
+        } yield rating
     ) map { ratings =>
-        rounds.toSeq flatMap { round =>
-          ratings get round.id.puzzleId map { puzzleRating =>
-            Json.obj(
-              "id" -> round.id.puzzleId,
-              "date" -> round.date,
-              "rating" -> round.rating,
-              "ratingDiff" -> round.ratingDiff,
-              "puzzleRating" -> puzzleRating.toInt
-            )
-          }
+      rounds.toSeq flatMap { round =>
+        ratings get round.id.puzzleId map { puzzleRating =>
+          Json.obj(
+            "id"           -> round.id.puzzleId,
+            "date"         -> round.date,
+            "rating"       -> round.rating,
+            "ratingDiff"   -> round.ratingDiff,
+            "puzzleRating" -> puzzleRating.toInt
+          )
         }
       }
+    }
   }
 }
 

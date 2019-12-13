@@ -3,7 +3,7 @@ package lila.tournament
 import lila.common.LightUser
 import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
-import lila.user.{ User, Perfs }
+import lila.user.{ Perfs, User }
 
 import ornicar.scalalib.Random
 
@@ -24,8 +24,8 @@ private[tournament] case class Player(
 
   def active = !withdraw
 
-  def is(uid: User.ID): Boolean = uid == userId
-  def is(user: User): Boolean = is(user.id)
+  def is(uid: User.ID): Boolean  = uid == userId
+  def is(user: User): Boolean    = is(user.id)
   def is(other: Player): Boolean = is(other.userId)
 
   def doWithdraw = copy(withdraw = true)
@@ -45,10 +45,10 @@ private[tournament] object Player {
   case class Result(player: Player, lightUser: LightUser, rank: Int)
 
   private[tournament] def make(
-    tourId: Tournament.ID,
-    user: User,
-    perfLens: Perfs => Perf,
-    team: Option[TeamID]
+      tourId: Tournament.ID,
+      user: User,
+      perfLens: Perfs => Perf,
+      team: Option[TeamID]
   ): Player = new Player(
     _id = Random.nextString(8),
     tourId = tourId,

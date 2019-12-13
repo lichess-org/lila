@@ -54,7 +54,7 @@ object MagicLink {
   import play.api.mvc.RequestHeader
   import ornicar.scalalib.Zero
   import lila.memo.RateLimit
-  import lila.common.{ IpAddress, HTTPRequest }
+  import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 5,

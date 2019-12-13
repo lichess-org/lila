@@ -14,12 +14,12 @@ object UrlList {
     private val UrlRegex = """(?:youtube\.com|youtu\.be)/(?:watch)?(?:\?v=)?([^"&?/ ]{11})""".r.unanchored
 
     /*
-   * https://www.youtube.com/watch?v=wEwoyYp_iw8
-   * https://www.youtube.com/embed/wEwoyYp_iw8
-   */
+     * https://www.youtube.com/watch?v=wEwoyYp_iw8
+     * https://www.youtube.com/embed/wEwoyYp_iw8
+     */
     private def toUrl(line: String): Option[Url] = line match {
       case UrlRegex(id) => Url(s"https://www.youtube.com/embed/$id").some
-      case _ => none
+      case _            => none
     }
   }
 
@@ -36,7 +36,7 @@ object UrlList {
 
     private def toId(line: String): Option[StudyId] = line match {
       case UrlRegex(id) => StudyId(id).some
-      case _ => none
+      case _            => none
     }
   }
 }

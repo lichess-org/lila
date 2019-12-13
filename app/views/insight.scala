@@ -13,12 +13,12 @@ import controllers.routes
 object insight {
 
   def index(
-    u: User,
-    cache: lila.insight.UserCache,
-    prefId: Int,
-    ui: play.api.libs.json.JsObject,
-    question: play.api.libs.json.JsObject,
-    stale: Boolean
+      u: User,
+      cache: lila.insight.UserCache,
+      prefId: Int,
+      ui: play.api.libs.json.JsObject,
+      question: play.api.libs.json.JsObject,
+      stale: Boolean
   )(implicit ctx: Context) =
     views.html.base.layout(
       title = s"${u.username}'s chess insights",
@@ -31,33 +31,35 @@ object insight {
         embedJsUnsafe(s"""
 $$(function() {
 lichess = lichess || {};
-lichess.insight = LichessInsight(document.getElementById('insight'), ${
-          safeJsonValue(Json.obj(
-            "ui" -> ui,
+lichess.insight = LichessInsight(document.getElementById('insight'), ${safeJsonValue(
+          Json.obj(
+            "ui"              -> ui,
             "initialQuestion" -> question,
-            "i18n" -> Json.obj(),
-            "myUserId" -> ctx.userId,
+            "i18n"            -> Json.obj(),
+            "myUserId"        -> ctx.userId,
             "user" -> Json.obj(
-              "id" -> u.id,
-              "name" -> u.username,
+              "id"      -> u.id,
+              "name"    -> u.username,
               "nbGames" -> cache.count,
-              "stale" -> stale,
+              "stale"   -> stale,
               "shareId" -> prefId
             ),
             "pageUrl" -> routes.Insight.index(u.username).url,
             "postUrl" -> routes.Insight.json(u.username).url
-          ))
-        });
+          )
+        )});
 });""")
       ),
       moreCss = cssTag("insight")
-    )(frag(
+    )(
+      frag(
         main(id := "insight"),
         stale option div(cls := "insight-stale none")(
           p("There are new games to learn from!"),
           refreshForm(u, "Update insights")
         )
-      ))
+      )
+    )
 
   def empty(u: User)(implicit ctx: Context) =
     views.html.base.layout(
@@ -65,12 +67,12 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${
       moreJs = jsTag("insight-refresh.js"),
       moreCss = cssTag("insight")
     )(
-        main(cls := "box box-pad page-small")(
-          h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),
-          p(userLink(u), " has no chess insights yet!"),
-          refreshForm(u, s"Generate ${u.username}'s chess insights")
-        )
+      main(cls := "box box-pad page-small")(
+        h1(cls := "text", dataIcon := "7")(u.username, " chess insights"),
+        p(userLink(u), " has no chess insights yet!"),
+        refreshForm(u, s"Generate ${u.username}'s chess insights")
       )
+    )
 
   def forbidden(u: User)(implicit ctx: Context) =
     views.html.site.message(

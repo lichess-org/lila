@@ -5,7 +5,7 @@ import scala.concurrent.duration.FiniteDuration
 import lila.game.{ Game, Pov }
 import lila.user.User
 
-private case class MoretimeDuration(value: FiniteDuration) extends AnyVal
+private case class MoretimeDuration(value: FiniteDuration)  extends AnyVal
 private case class AnimationDuration(value: FiniteDuration) extends AnyVal
 
 final class OnStart(f: Game.ID => Unit) extends (Game.ID => Unit) {
@@ -20,7 +20,7 @@ final class IsSimulHost(f: User.ID => Fu[Boolean]) extends (User.ID => Fu[Boolea
   def apply(u: User.ID) = f(u)
 }
 
-private final class ScheduleExpiration(f: Game => Unit) extends (Game => Unit) {
+final private class ScheduleExpiration(f: Game => Unit) extends (Game => Unit) {
   def apply(g: Game) = f(g)
 }
 

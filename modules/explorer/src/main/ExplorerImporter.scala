@@ -3,7 +3,7 @@ package lila.explorer
 import org.joda.time.DateTime
 
 import lila.game.{ Game, GameRepo }
-import lila.importer.{ Importer, ImportData }
+import lila.importer.{ ImportData, Importer }
 
 final class ExplorerImporter(
     endpoint: InternalEndpoint,
@@ -16,21 +16,24 @@ final class ExplorerImporter(
 
   def apply(id: Game.ID): Fu[Option[Game]] =
     gameRepo game id flatMap {
-      case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) => fuccess(game.some)
-      case _ => (gameRepo remove id) >> fetchPgn(id) flatMap {
-        case None => fuccess(none)
-        case Some(pgn) => gameImporter(
-          ImportData(pgn, none),
-          user = "lichess".some,
-          forceId = id.some
-        ) map some
-      }
+      case Some(game) if !game.isPgnImport || game.createdAt.isAfter(masterGameEncodingFixedAt) =>
+        fuccess(game.some)
+      case _ =>
+        (gameRepo remove id) >> fetchPgn(id) flatMap {
+          case None => fuccess(none)
+          case Some(pgn) =>
+            gameImporter(
+              ImportData(pgn, none),
+              user = "lichess".some,
+              forceId = id.some
+            ) map some
+        }
     }
 
   private def fetchPgn(id: String): Fu[Option[String]] = {
     ws.url(s"$endpoint/master/pgn/$id").get() map {
       case res if res.status == 200 => res.body.some
-      case _ => None
+      case _                        => None
     }
   }
 }

@@ -11,12 +11,13 @@ final class UserSearch(
     userRepo: UserRepo
 ) {
 
-  def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] = (~query.as match {
-    case _ => // "exact"
-      EmailAddress.from(query.q).map(searchEmail) orElse
-        IpAddress.from(query.q).map(searchIp) getOrElse
-        searchUsername(query.q)
-  }) flatMap userRepo.withEmailsU
+  def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] =
+    (~query.as match {
+      case _ => // "exact"
+        EmailAddress.from(query.q).map(searchEmail) orElse
+          IpAddress.from(query.q).map(searchIp) getOrElse
+          searchUsername(query.q)
+    }) flatMap userRepo.withEmailsU
 
   private def searchIp(ip: IpAddress) =
     securityApi recentUserIdsByIp ip map (_.reverse) flatMap userRepo.usersFromSecondary
@@ -42,8 +43,10 @@ object UserSearch {
 
   def exact(q: String) = Query(q, none)
 
-  val form = Form(mapping(
-    "q" -> nonEmptyText,
-    "as" -> optional(nonEmptyText.verifying(asValues contains _))
-  )(Query.apply)(Query.unapply))
+  val form = Form(
+    mapping(
+      "q"  -> nonEmptyText,
+      "as" -> optional(nonEmptyText.verifying(asValues contains _))
+    )(Query.apply)(Query.unapply)
+  )
 }

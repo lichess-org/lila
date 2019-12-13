@@ -10,13 +10,13 @@ import controllers.routes
 object mini {
 
   def apply(
-    u: User,
-    playing: Option[lila.game.Pov],
-    blocked: Boolean,
-    followable: Boolean,
-    rel: Option[lila.relation.Relation],
-    ping: Option[Int],
-    crosstable: Option[lila.game.Crosstable]
+      u: User,
+      playing: Option[lila.game.Pov],
+      blocked: Boolean,
+      followable: Boolean,
+      rel: Option[lila.relation.Relation],
+      ping: Option[Int],
+      crosstable: Option[lila.game.Crosstable]
   )(implicit ctx: Context) = frag(
     div(cls := "upt__info")(
       div(cls := "upt__info__top")(
@@ -28,9 +28,9 @@ object mini {
               cls := "upt__info__top__country",
               title := (!hasRoomForNameText).option(c.name)
             )(
-                img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
-                hasRoomForNameText option c.shortName
-              )
+              img(cls := "flag", src := staticUrl(s"images/flags/${c.code}.png")),
+              hasRoomForNameText option c.shortName
+            )
           }
         ),
         ping map bits.signalBars
@@ -43,10 +43,25 @@ object mini {
     ctx.userId map { myId =>
       frag(
         (myId != u.id && u.enabled) option div(cls := "upt__actions btn-rack")(
-          a(dataIcon := "1", cls := "btn-rack__btn", title := trans.watchGames.txt(), href := routes.User.tv(u.username)),
+          a(
+            dataIcon := "1",
+            cls := "btn-rack__btn",
+            title := trans.watchGames.txt(),
+            href := routes.User.tv(u.username)
+          ),
           !blocked option frag(
-            a(dataIcon := "c", cls := "btn-rack__btn", title := trans.chat.txt(), href := s"${routes.Message.form()}?user=${u.username}"),
-            a(dataIcon := "U", cls := "btn-rack__btn", title := trans.challengeToPlay.txt(), href := s"${routes.Lobby.home()}?user=${u.username}#friend")
+            a(
+              dataIcon := "c",
+              cls := "btn-rack__btn",
+              title := trans.chat.txt(),
+              href := s"${routes.Message.form()}?user=${u.username}"
+            ),
+            a(
+              dataIcon := "U",
+              cls := "btn-rack__btn",
+              title := trans.challengeToPlay.txt(),
+              href := s"${routes.Lobby.home()}?user=${u.username}#friend"
+            )
           ),
           views.html.relation.mini(u.id, blocked, followable, rel)
         ),
@@ -55,14 +70,16 @@ object mini {
             cls := "upt__score",
             href := s"${routes.User.games(u.username, "me")}#games",
             title := trans.nbGames.pluralTxt(cross.nbGames, cross.nbGames.localize)
-          )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross.showOpponentScore(myId)}</strong>""")))
+          )(trans.yourScore(raw(s"""<strong>${cross.showScore(myId)}</strong> - <strong>${~cross
+            .showOpponentScore(myId)}</strong>""")))
         }
       )
     },
     isGranted(_.UserSpy) option div(cls := "upt__mod")(
       span(
         trans.nbGames.plural(u.count.game, u.count.game.localize),
-        " ", momentFromNowOnce(u.createdAt)
+        " ",
+        momentFromNowOnce(u.createdAt)
       ),
       (u.lameOrTroll || u.disabled) option span(cls := "upt__mod__marks")(mod.userMarks(u, None))
     ),

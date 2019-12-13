@@ -8,7 +8,7 @@ import reactivemongo.api.bson._
 trait CursorExt { self: dsl =>
 
   // Can be refactor as CursorProducer
-  final implicit class ExtendCursor[A: BSONDocumentReader](val c: Cursor[A]) {
+  implicit final class ExtendCursor[A: BSONDocumentReader](val c: Cursor[A]) {
 
     // like collect, but with stopOnError defaulting to false
     def gather[M[_]](upTo: Int = Int.MaxValue)(implicit cbf: Factory[A, M[A]]): Fu[M[A]] =
@@ -21,8 +21,11 @@ trait CursorExt { self: dsl =>
     def list(): Fu[List[A]] = list(none)
 
     // like headOption, but with stopOnError defaulting to false
-    def uno: Fu[Option[A]] = c.collect[Iterable](
-      1, Cursor.ContOnError[Iterable[A]]()
-    ).map(_.headOption)
+    def uno: Fu[Option[A]] =
+      c.collect[Iterable](
+          1,
+          Cursor.ContOnError[Iterable[A]]()
+        )
+        .map(_.headOption)
   }
 }

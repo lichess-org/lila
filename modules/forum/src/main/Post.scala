@@ -26,7 +26,7 @@ case class Post(
     modIcon: Option[Boolean]
 ) {
 
-  private val permitEditsFor = 4 hours
+  private val permitEditsFor  = 4 hours
   private val showEditFormFor = 3 hours
 
   def id = _id
@@ -71,17 +71,17 @@ object Post {
   val idSize = 8
 
   def make(
-    topicId: String,
-    categId: String,
-    author: Option[String],
-    userId: Option[String],
-    ip: Option[String],
-    text: String,
-    number: Int,
-    lang: Option[String],
-    troll: Boolean,
-    hidden: Boolean,
-    modIcon: Option[Boolean]
+      topicId: String,
+      categId: String,
+      author: Option[String],
+      userId: Option[String],
+      ip: Option[String],
+      text: String,
+      number: Int,
+      lang: Option[String],
+      troll: Boolean,
+      hidden: Boolean,
+      modIcon: Option[Boolean]
   ): Post = {
 
     Post(

@@ -31,18 +31,22 @@ case class Path(ids: List[UciCharPair]) extends AnyVal {
 object Path {
 
   def apply(str: String): Path = Path {
-    str.grouped(2).flatMap { p =>
-      p lift 1 map { b =>
-        UciCharPair(p(0), b)
+    str
+      .grouped(2)
+      .flatMap { p =>
+        p lift 1 map { b =>
+          UciCharPair(p(0), b)
+        }
       }
-    }.toList
+      .toList
   }
 
   val root = Path("")
 
   def isMainline(node: RootOrNode, path: Path): Boolean = path.split.fold(true) {
-    case (id, rest) => node.children.first ?? { child =>
-      child.id == id && isMainline(child, rest)
-    }
+    case (id, rest) =>
+      node.children.first ?? { child =>
+        child.id == id && isMainline(child, rest)
+      }
   }
 }

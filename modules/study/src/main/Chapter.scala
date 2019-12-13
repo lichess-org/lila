@@ -2,11 +2,11 @@ package lila.study
 
 import chess.format.pgn.{ Glyph, Tags }
 import chess.variant.Variant
-import chess.{ Color, Centis }
+import chess.{ Centis, Color }
 import org.joda.time.DateTime
 
 import chess.opening.{ FullOpening, FullOpeningDB }
-import lila.tree.Node.{ Shapes, Comment, Gamebook }
+import lila.tree.Node.{ Comment, Gamebook, Shapes }
 import lila.user.User
 
 case class Chapter(
@@ -77,7 +77,7 @@ case class Chapter(
 
   def isPractice = ~practice
   def isGamebook = ~gamebook
-  def isConceal = conceal.isDefined
+  def isConceal  = conceal.isDefined
 
   def withoutChildren = copy(root = root.withoutChildren)
 
@@ -156,7 +156,7 @@ object Chapter {
   def defaultName(order: Int) = Name(s"Chapter $order")
 
   private val defaultNameRegex = """Chapter \d+""".r
-  def isDefaultName(n: Name) = n.value.isEmpty || defaultNameRegex.matches(n.value)
+  def isDefaultName(n: Name)   = n.value.isEmpty || defaultNameRegex.matches(n.value)
 
   def fixName(n: Name) = Name(n.value.trim take 80)
 
@@ -164,7 +164,19 @@ object Chapter {
 
   def makeId = Id(scala.util.Random.alphanumeric take idSize mkString)
 
-  def make(studyId: Study.Id, name: Name, setup: Setup, root: Node.Root, tags: Tags, order: Int, ownerId: User.ID, practice: Boolean, gamebook: Boolean, conceal: Option[Ply], relay: Option[Relay] = None) = Chapter(
+  def make(
+      studyId: Study.Id,
+      name: Name,
+      setup: Setup,
+      root: Node.Root,
+      tags: Tags,
+      order: Int,
+      ownerId: User.ID,
+      practice: Boolean,
+      gamebook: Boolean,
+      conceal: Option[Ply],
+      relay: Option[Relay] = None
+  ) = Chapter(
     _id = makeId,
     studyId = studyId,
     name = fixName(name),

@@ -8,7 +8,7 @@ import akka.actor.{ ActorRef, ActorSystem }
 object Bus {
 
   case class Event(payload: Any, channel: String)
-  type Channel = String
+  type Channel    = String
   type Subscriber = Tellable
 
   def publish(payload: Any, channel: Channel): Unit = {
@@ -19,8 +19,8 @@ object Bus {
 
   def subscribe(ref: ActorRef, to: Channel) = bus.subscribe(Tellable(ref), to)
 
-  def subscribe(subscriber: Tellable, to: Channel*) = to foreach { bus.subscribe(subscriber, _) }
-  def subscribe(ref: ActorRef, to: Channel*) = to foreach { bus.subscribe(Tellable(ref), _) }
+  def subscribe(subscriber: Tellable, to: Channel*)   = to foreach { bus.subscribe(subscriber, _) }
+  def subscribe(ref: ActorRef, to: Channel*)          = to foreach { bus.subscribe(Tellable(ref), _) }
   def subscribe(ref: ActorRef, to: Iterable[Channel]) = to foreach { bus.subscribe(Tellable(ref), _) }
 
   def subscribeFun(to: Channel*)(f: PartialFunction[Any, Unit]): Tellable = {
@@ -34,20 +34,22 @@ object Bus {
       case (channel, subscriber) => subscribeFun(channel)(subscriber)
     }
 
-  def unsubscribe = bus.unsubscribe _
+  def unsubscribe                               = bus.unsubscribe _
   def unsubscribe(ref: ActorRef, from: Channel) = bus.unsubscribe(Tellable(ref), from)
 
-  def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) = from foreach { bus.unsubscribe(subscriber, _) }
+  def unsubscribe(subscriber: Tellable, from: Iterable[Channel]) = from foreach {
+    bus.unsubscribe(subscriber, _)
+  }
   def unsubscribe(ref: ActorRef, from: Iterable[Channel]) = from foreach { bus.unsubscribe(Tellable(ref), _) }
 
   def publish(event: Event): Unit = bus.publish(event.payload, event.channel)
 
   def ask[A](channel: Channel, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
-    implicit
-    system: ActorSystem
+      implicit
+      system: ActorSystem
   ): Fu[A] = {
     val promise = Promise[A]
-    val msg = makeMsg(promise)
+    val msg     = makeMsg(promise)
     publish(msg, channel)
     promise.future.withTimeout(
       timeout,
@@ -65,7 +67,7 @@ object Bus {
   case class AskTimeout(message: String) extends lila.base.LilaException
 }
 
-private final class EventBus[E, C, Subscriber](
+final private class EventBus[E, C, Subscriber](
     initialCapacity: Int,
     publish: (Subscriber, E) => Unit
 ) {
@@ -93,6 +95,6 @@ private final class EventBus[E, C, Subscriber](
       }
     }
 
-  def size = entries.size
+  def size               = entries.size
   def sizeOf(channel: C) = Option(entries get channel).fold(0)(_.size)
 }

@@ -5,7 +5,7 @@ import lila.user.UserRepo
 
 import scala.util.Random
 
-private[tournament] final class PairingSystem(
+final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     userRepo: UserRepo
@@ -16,29 +16,32 @@ private[tournament] final class PairingSystem(
   // if waiting users can make pairings
   // then pair all users
   def createPairings(
-    tour: Tournament,
-    users: WaitingUsers,
-    ranking: Ranking
+      tour: Tournament,
+      users: WaitingUsers,
+      ranking: Ranking
   ): Fu[Pairings] = {
     for {
-      lastOpponents <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
-      onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? playerRepo.countActive(tour.id).map(2==)
+      lastOpponents        <- pairingRepo.lastOpponents(tour.id, users.all, Math.min(300, users.size * 4))
+      onlyTwoActivePlayers <- (tour.nbPlayers <= 20) ?? playerRepo.countActive(tour.id).map(2 ==)
       data = Data(tour, lastOpponents, ranking, onlyTwoActivePlayers)
       preps <- if (data.isFirstRound) evenOrAll(data, users)
-      else makePreps(data, users.waiting) flatMap {
-        case Nil => fuccess(Nil)
-        case _ => evenOrAll(data, users)
-      }
+      else
+        makePreps(data, users.waiting) flatMap {
+          case Nil => fuccess(Nil)
+          case _   => evenOrAll(data, users)
+        }
       pairings <- prepsToPairings(preps)
     } yield pairings
-  }.chronometer.logIfSlow(500, pairingLogger) { pairings =>
-    s"createPairings ${url(tour.id)} ${pairings.size} pairings"
-  }.result
+  }.chronometer
+    .logIfSlow(500, pairingLogger) { pairings =>
+      s"createPairings ${url(tour.id)} ${pairings.size} pairings"
+    }
+    .result
 
   private def evenOrAll(data: Data, users: WaitingUsers) =
     makePreps(data, users.evenNumber) flatMap {
       case Nil if users.isOdd => makePreps(data, users.all)
-      case x => fuccess(x)
+      case x                  => fuccess(x)
     }
 
   private val maxGroupSize = 44
@@ -46,18 +49,18 @@ private[tournament] final class PairingSystem(
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
-    else playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
-      if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) proximityPairings(tour, idles)
-      else if (idles.size > maxGroupSize) {
-        // make sure groupSize is even with / 4 * 2
-        val groupSize = (idles.size / 4 * 2) atMost maxGroupSize
-        smartPairings(data, idles take groupSize) :::
-          smartPairings(data, idles drop groupSize take groupSize)
-      } else if (idles.size > 1) smartPairings(data, idles)
-      else Nil
-    }
-  }
-    .monSuccess(_.tournament.pairing.prep)
+    else
+      playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+        if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) proximityPairings(tour, idles)
+        else if (idles.size > maxGroupSize) {
+          // make sure groupSize is even with / 4 * 2
+          val groupSize = (idles.size / 4 * 2) atMost maxGroupSize
+          smartPairings(data, idles take groupSize) :::
+            smartPairings(data, idles drop groupSize take groupSize)
+        } else if (idles.size > 1) smartPairings(data, idles)
+        else Nil
+      }
+  }.monSuccess(_.tournament.pairing.prep)
     .chronometer
     .logIfSlow(200, pairingLogger) { preps =>
       s"makePreps ${url(data.tour.id)} ${users.size} users, ${preps.size} preps"
@@ -76,9 +79,9 @@ private[tournament] final class PairingSystem(
     } toList
 
   private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
-    case x if x < 2 => Nil
+    case x if x < 2                              => Nil
     case x if x <= 10 && !data.tour.isTeamBattle => OrnicarPairing(data, players)
-    case _ => AntmaPairing(data, players)
+    case _                                       => AntmaPairing(data, players)
   }
 }
 

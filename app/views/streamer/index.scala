@@ -11,9 +11,9 @@ object index {
   private val dataDedup = attr("data-dedup")
 
   def apply(
-    live: List[lila.streamer.Streamer.WithUserAndStream],
-    pager: Paginator[lila.streamer.Streamer.WithUser],
-    requests: Boolean
+      live: List[lila.streamer.Streamer.WithUserAndStream],
+      pager: Paginator[lila.streamer.Streamer.WithUser],
+      requests: Boolean
   )(implicit ctx: Context) = {
 
     val title = if (requests) "Streamer approval requests" else "Lichess streamers"
@@ -70,33 +70,34 @@ object index {
       moreCss = cssTag("streamer.list"),
       moreJs = infiniteScrollTag
     ) {
-        main(cls := "page-menu")(
-          bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
-          div(cls := "page-menu__content box streamer-list")(
-            h1(dataIcon := "", cls := "text")(title),
-            !requests option div(cls := "list live")(
-              live.map { s =>
-                st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
-              }
-            ),
-            div(cls := "list infinitescroll")(
-              (live.size % 2 == 1) option div(cls := "none"),
-              pager.currentPageResults.map { s =>
-                st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
-              },
-              pagerNext(
-                pager,
-                np => addQueryParameter(
+      main(cls := "page-menu")(
+        bits.menu(if (requests) "requests" else "index", none)(ctx)(cls := " page-menu__menu"),
+        div(cls := "page-menu__content box streamer-list")(
+          h1(dataIcon := "", cls := "text")(title),
+          !requests option div(cls := "list live")(
+            live.map { s =>
+              st.article(cls := "streamer")(widget(s.withoutStream, s.stream))
+            }
+          ),
+          div(cls := "list infinitescroll")(
+            (live.size % 2 == 1) option div(cls := "none"),
+            pager.currentPageResults.map { s =>
+              st.article(cls := "streamer paginated", dataDedup := s.streamer.id.value)(widget(s, none))
+            },
+            pagerNext(
+              pager,
+              np =>
+                addQueryParameter(
                   addQueryParameter(routes.Streamer.index().url, "page", np),
                   "requests",
                   if (requests) 1 else 0
                 )
-              ).map {
-                  frag(_, div(cls := "none")) // don't break the even/odd CSS flow
-                }
-            )
+            ).map {
+              frag(_, div(cls := "none")) // don't break the even/odd CSS flow
+            }
           )
         )
-      }
+      )
+    }
   }
 }

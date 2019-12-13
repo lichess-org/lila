@@ -4,7 +4,7 @@ package actorApi
 import scala.concurrent.Promise
 
 import chess.format.Uci
-import chess.{ MoveMetrics, Color }
+import chess.{ Color, MoveMetrics }
 
 import lila.common.IpAddress
 import lila.game.Game.PlayerId
@@ -23,8 +23,8 @@ case class SocketStatus(
     blackOnGame: Boolean,
     blackIsGone: Boolean
 ) {
-  def onGame(color: Color) = color.fold(whiteOnGame, blackOnGame)
-  def isGone(color: Color) = color.fold(whiteIsGone, blackIsGone)
+  def onGame(color: Color)     = color.fold(whiteOnGame, blackOnGame)
+  def isGone(color: Color)     = color.fold(whiteIsGone, blackIsGone)
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
 case class RoomCrowd(white: Boolean, black: Boolean)

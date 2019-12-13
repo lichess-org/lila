@@ -13,7 +13,7 @@ case class Profile(
 ) {
 
   def nonEmptyRealName = List(ne(firstName), ne(lastName)).flatten match {
-    case Nil => none
+    case Nil   => none
     case names => (names mkString " ").some
   }
 

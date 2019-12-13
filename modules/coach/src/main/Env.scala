@@ -8,7 +8,7 @@ import lila.common.config._
 import lila.security.Permission
 
 @Module
-private final class CoachConfig(
+final private class CoachConfig(
     @ConfigName("collection.coach") val coachColl: CollName,
     @ConfigName("collection.review") val reviewColl: CollName
 )
@@ -57,7 +57,7 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "coach" :: "enable" :: username :: Nil => api.toggleApproved(username, true)
+      case "coach" :: "enable" :: username :: Nil  => api.toggleApproved(username, true)
       case "coach" :: "disable" :: username :: Nil => api.toggleApproved(username, false)
     }
   }

@@ -18,7 +18,8 @@ object admin {
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           p("Who do you want to make owner of this team?"),
-          br, br,
+          br,
+          br,
           postForm(cls := "kick", action := routes.Team.changeOwner(t.id))(
             userIds.toList.sorted.map { userId =>
               button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(
@@ -41,7 +42,8 @@ object admin {
         div(cls := "page-menu__content box box-pad")(
           h1(title),
           p("Who do you want to kick out of the team?"),
-          br, br,
+          br,
+          br,
           postForm(cls := "kick", action := routes.Team.kick(t.id))(
             userIds.toList.sorted.map { userId =>
               button(name := "userId", cls := "button button-empty button-no-upper confirm", value := userId)(

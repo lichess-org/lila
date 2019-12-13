@@ -19,9 +19,9 @@ object bits {
     )
 
   private[blog] def postCard(
-    post: MiniPost,
-    postClass: Option[String] = None,
-    header: Tag = h2
+      post: MiniPost,
+      postClass: Option[String] = None,
+      header: Tag = h2
   )(implicit ctx: Context) =
     a(cls := postClass)(href := routes.Blog.show(post.id, post.slug))(
       st.img(src := post.image),
@@ -32,7 +32,9 @@ object bits {
       )
     )
 
-  private[blog] def metas(doc: io.prismic.Document)(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
+  private[blog] def metas(
+      doc: io.prismic.Document
+  )(implicit ctx: Context, prismic: lila.blog.BlogApi.Context) =
     div(cls := "meta-headline")(
       div(cls := "meta")(
         doc.getDate("blog.date").map { date =>

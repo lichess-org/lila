@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 import lila.common.IpAddress
 import lila.db.dsl._
 
-private final class Limiter(
+final private class Limiter(
     analysisColl: Coll,
     requesterApi: lila.analyse.RequesterApi
 ) {
@@ -14,7 +14,7 @@ private final class Limiter(
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
     (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {
       case false => fuFalse
-      case true => perDayCheck(sender)
+      case true  => perDayCheck(sender)
     }
 
   private val RequestLimitPerIP = new lila.memo.RateLimit[IpAddress](
@@ -26,12 +26,18 @@ private final class Limiter(
 
   private def concurrentCheck(sender: Work.Sender) = sender match {
     case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-    case Work.Sender(Some(userId), _, _, _) => !analysisColl.exists($doc(
-      "sender.userId" -> userId
-    ))
-    case Work.Sender(_, Some(ip), _, _) => !analysisColl.exists($doc(
-      "sender.ip" -> ip
-    ))
+    case Work.Sender(Some(userId), _, _, _) =>
+      !analysisColl.exists(
+        $doc(
+          "sender.userId" -> userId
+        )
+      )
+    case Work.Sender(_, Some(ip), _, _) =>
+      !analysisColl.exists(
+        $doc(
+          "sender.ip" -> ip
+        )
+      )
     case _ => fuFalse
   }
 
@@ -39,10 +45,11 @@ private final class Limiter(
 
   private def perDayCheck(sender: Work.Sender) = sender match {
     case Work.Sender(_, _, mod, system) if mod || system => fuTrue
-    case Work.Sender(Some(userId), _, _, _) => requesterApi.countToday(userId) map (_ < maxPerDay)
-    case Work.Sender(_, Some(ip), _, _) => fuccess {
-      RequestLimitPerIP(ip, cost = 1)(true)
-    }
+    case Work.Sender(Some(userId), _, _, _)              => requesterApi.countToday(userId) map (_ < maxPerDay)
+    case Work.Sender(_, Some(ip), _, _) =>
+      fuccess {
+        RequestLimitPerIP(ip, cost = 1)(true)
+      }
     case _ => fuFalse
   }
 }

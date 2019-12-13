@@ -28,13 +28,14 @@ object AnnounceStore {
   // 20 seconds Cthulhu will awake
   def set(str: String): Option[Announce] = {
     set(str.split(" ").toList match {
-      case length :: unit :: rest => Try {
-        val msg = rest mkString " "
-        val date = DateTime.now plusSeconds Duration(s"$length $unit").toSeconds.toInt
-        val isoDate = ISODateTimeFormat.dateTime print date
-        val json = Json.obj("msg" -> msg, "date" -> isoDate)
-        Announce(msg, date, json)
-      }.toOption
+      case length :: unit :: rest =>
+        Try {
+          val msg     = rest mkString " "
+          val date    = DateTime.now plusSeconds Duration(s"$length $unit").toSeconds.toInt
+          val isoDate = ISODateTimeFormat.dateTime print date
+          val json    = Json.obj("msg" -> msg, "date" -> isoDate)
+          Announce(msg, date, json)
+        }.toOption
       case _ => none
     })
     get

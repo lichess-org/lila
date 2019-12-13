@@ -12,7 +12,7 @@ case class Note(
     mod: Boolean,
     date: DateTime
 ) {
-  def userIds = List(from, to)
+  def userIds            = List(from, to)
   def isFrom(user: User) = user.id == from
 }
 
@@ -26,30 +26,36 @@ final class NoteApi(
 
   import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler
-  private implicit val noteBSONHandler = Macros.handler[Note]
+  implicit private val noteBSONHandler = Macros.handler[Note]
 
   def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
-    coll.ext.find(
-      $doc("to" -> user.id) ++
-        (!me.troll ?? $doc("troll" -> false)) ++
-        (if (isMod) $or(
-          "from" $in (myFriendIds + me.id),
-          "mod" $eq true
-        )
-        else
-          $doc(
-            "from" $in (myFriendIds + me.id),
-            "mod" -> false
-          ))
-    ).sort($doc("date" -> -1)).list[Note](20)
+    coll.ext
+      .find(
+        $doc("to"                    -> user.id) ++
+          (!me.troll ?? $doc("troll" -> false)) ++
+          (if (isMod)
+             $or(
+               "from" $in (myFriendIds + me.id),
+               "mod" $eq true
+             )
+           else
+             $doc(
+               "from" $in (myFriendIds + me.id),
+               "mod" -> false
+             ))
+      )
+      .sort($doc("date" -> -1))
+      .list[Note](20)
 
   def forMod(id: User.ID): Fu[List[Note]] =
-    coll.ext.find($doc("to" -> id))
+    coll.ext
+      .find($doc("to" -> id))
       .sort($doc("date" -> -1))
       .list[Note](20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
-    coll.ext.find($doc("to" $in ids))
+    coll.ext
+      .find($doc("to" $in ids))
       .sort($doc("date" -> -1))
       .list[Note](50)
 
@@ -66,16 +72,19 @@ final class NoteApi(
     )
 
     coll.insert.one(note) >>- {
-      import lila.hub.actorApi.timeline.{ Propagate, NoteCreate }
+      import lila.hub.actorApi.timeline.{ NoteCreate, Propagate }
       timeline ! {
         Propagate(NoteCreate(note.from, note.to)) toFriendsOf from.id exceptUser note.to modsOnly note.mod
       }
-      lila.common.Bus.publish(lila.hub.actorApi.user.Note(
-        from = from.username,
-        to = to.username,
-        text = note.text,
-        mod = modOnly
-      ), "userNote")
+      lila.common.Bus.publish(
+        lila.hub.actorApi.user.Note(
+          from = from.username,
+          to = to.username,
+          text = note.text,
+          mod = modOnly
+        ),
+        "userNote"
+      )
     }
   } >> {
     modOnly ?? Title.fromUrl(text) flatMap {

@@ -5,12 +5,12 @@ import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
 
-private[team] final class PaginatorBuilder(
+final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     userRepo: lila.user.UserRepo
 ) {
-  private val maxPerPage = MaxPerPage(15)
+  private val maxPerPage     = MaxPerPage(15)
   private val maxUserPerPage = MaxPerPage(24)
 
   import BSONHandlers._
@@ -32,18 +32,23 @@ private[team] final class PaginatorBuilder(
     maxUserPerPage
   )
 
-  private final class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
+  final private class TeamAdapter(team: Team) extends AdapterLike[MemberWithUser] {
 
     val nbResults = fuccess(team.nbMembers)
 
-    def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] = for {
-      members <- memberRepo.coll.ext.find(selector)
-        .sort(sorting).skip(offset).cursor[Member]().gather[List](length)
-      users <- userRepo usersFromSecondary members.map(_.user)
-    } yield members zip users map {
-      case (member, user) => MemberWithUser(member, user)
-    }
+    def slice(offset: Int, length: Int): Fu[Seq[MemberWithUser]] =
+      for {
+        members <- memberRepo.coll.ext
+          .find(selector)
+          .sort(sorting)
+          .skip(offset)
+          .cursor[Member]()
+          .gather[List](length)
+        users <- userRepo usersFromSecondary members.map(_.user)
+      } yield members zip users map {
+        case (member, user) => MemberWithUser(member, user)
+      }
     private def selector = memberRepo teamQuery team.id
-    private def sorting = $sort desc "date"
+    private def sorting  = $sort desc "date"
   }
 }

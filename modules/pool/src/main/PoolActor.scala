@@ -9,7 +9,7 @@ import akka.pattern.pipe
 import lila.socket.Socket.Sris
 import lila.user.User
 
-private final class PoolActor(
+final private class PoolActor(
     config: PoolConfig,
     hookThieve: HookThieve,
     gameStarter: GameStarter
@@ -24,7 +24,8 @@ private final class PoolActor(
   def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
       config.wave.every + Random.nextInt(1000).millis,
-      self, ScheduledWave
+      self,
+      ScheduledWave
     )
 
   scheduleWave()
@@ -40,16 +41,17 @@ private final class PoolActor(
         case Some(member) if member.ratingRange != joiner.ratingRange =>
           members = members.map {
             case m if m == member => m withRange joiner.ratingRange
-            case m => m
+            case m                => m
           }
         case _ => // no change
       }
 
-    case Leave(userId) => members.find(_.userId == userId) foreach { member =>
-      members = members.filter(member !=)
-      monitor.leave.count(monId).increment()
-      monitor.leave.wait(monId).record(member.waitMillis)
-    }
+    case Leave(userId) =>
+      members.find(_.userId == userId) foreach { member =>
+        members = members.filter(member !=)
+        monitor.leave.count(monId).increment()
+        monitor.leave.wait(monId).record(member.waitMillis)
+      }
 
     case ScheduledWave =>
       monitor.wave.scheduled(monId).increment()
@@ -104,7 +106,7 @@ private final class PoolActor(
   }
 
   val monitor = lila.mon.lobby.pool
-  val monId = config.id.value.replace('+', '_')
+  val monId   = config.id.value.replace('+', '_')
 }
 
 private object PoolActor {

@@ -59,7 +59,7 @@ final class ChallengeApi(
   private[challenge] def ping(id: Challenge.ID): Funit = repo statusById id flatMap {
     case Some(Status.Created) => repo setSeen id
     case Some(Status.Offline) => (repo setSeenAgain id) >> byId(id).map { _ foreach uncacheAndNotify }
-    case _ => fuccess(socketReload(id))
+    case _                    => fuccess(socketReload(id))
   }
 
   def decline(c: Challenge) = (repo decline c) >>- uncacheAndNotify(c)
@@ -67,10 +67,11 @@ final class ChallengeApi(
   def accept(c: Challenge, user: Option[User]): Fu[Option[Pov]] =
     joiner(c, user).flatMap {
       case None => fuccess(None)
-      case Some(pov) => (repo accept c) >>- {
-        uncacheAndNotify(c)
-        Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
-      } inject pov.some
+      case Some(pov) =>
+        (repo accept c) >>- {
+          uncacheAndNotify(c)
+          Bus.publish(Event.Accept(c, user.map(_.id)), "challenge")
+        } inject pov.some
     }
 
   def sendRematchOf(game: Game, user: User): Fu[Boolean] =
@@ -90,9 +91,13 @@ final class ChallengeApi(
 
   private def isLimitedByMaxPlaying(c: Challenge) =
     if (c.hasClock) fuFalse
-    else c.userIds.map { userId =>
-      gameCache.nbPlaying(userId) map (maxPlaying <=)
-    }.sequenceFu.map(_ exists identity)
+    else
+      c.userIds
+        .map { userId =>
+          gameCache.nbPlaying(userId) map (maxPlaying <=)
+        }
+        .sequenceFu
+        .map(_ exists identity)
 
   private[challenge] def sweep: Funit =
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>
@@ -115,17 +120,18 @@ final class ChallengeApi(
   private def socketReload(id: Challenge.ID): Unit =
     socket foreach (_ reload id)
 
-  private def notify(userId: User.ID): Funit = for {
-    all <- allFor(userId)
-    lang <- userRepo langOf userId map {
-      _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
-    }
-  } yield Bus.publish(
-    SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
-    "socketUsers"
-  )
+  private def notify(userId: User.ID): Funit =
+    for {
+      all <- allFor(userId)
+      lang <- userRepo langOf userId map {
+        _ flatMap lila.i18n.I18nLangPicker.byStr getOrElse lila.i18n.defaultLang
+      }
+    } yield Bus.publish(
+      SendTo(userId, lila.socket.Socket.makeMessage("challenges", jsonView(all, lang))),
+      "socketUsers"
+    )
 
   // work around circular dependency
-  private var socket: Option[ChallengeSocket] = None
+  private var socket: Option[ChallengeSocket]               = None
   private[challenge] def registerSocket(s: ChallengeSocket) = { socket = s.some }
 }

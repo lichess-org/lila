@@ -1,6 +1,6 @@
 package lila.evalCache
 
-import play.api.libs.json.{ JsString, JsObject }
+import play.api.libs.json.{ JsObject, JsString }
 import scala.collection.mutable.AnyRefMap
 import scala.concurrent.duration._
 
@@ -13,11 +13,11 @@ import lila.memo.ExpireCallbackMemo
  * by remembering the last evalGet of each socket member,
  * and listening to new evals stored.
  */
-private final class EvalCacheUpgrade {
+final private class EvalCacheUpgrade {
   import EvalCacheUpgrade._
 
-  private val members = AnyRefMap.empty[SriString, WatchingMember]
-  private val evals = AnyRefMap.empty[SetupId, Set[SriString]]
+  private val members       = AnyRefMap.empty[SriString, WatchingMember]
+  private val evals         = AnyRefMap.empty[SetupId, Set[SriString]]
   private val expirableSris = new ExpireCallbackMemo(20 minutes, sri => unregister(Socket.Sri(sri)))
 
   private val upgradeMon = lila.mon.evalCache.upgrade
@@ -28,7 +28,7 @@ private final class EvalCacheUpgrade {
     }
     val setupId = makeSetupId(variant, fen, multiPv)
     members += (sri.value -> WatchingMember(push, setupId, path))
-    evals += (setupId -> (~evals.get(setupId) + sri.value))
+    evals += (setupId     -> (~evals.get(setupId) + sri.value))
     expirableSris put sri.value
   }
 
@@ -68,8 +68,8 @@ private final class EvalCacheUpgrade {
 private object EvalCacheUpgrade {
 
   private type SriString = String
-  private type SetupId = String
-  private type Push = JsObject => Unit
+  private type SetupId   = String
+  private type Push      = JsObject => Unit
 
   private def makeSetupId(variant: Variant, fen: FEN, multiPv: Int): SetupId =
     s"${variant.id}${EvalCacheEntry.SmallFen.make(variant, fen).value}^$multiPv"

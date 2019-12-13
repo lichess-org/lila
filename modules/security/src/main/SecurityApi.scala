@@ -10,7 +10,7 @@ import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ ApiVersion, IpAddress, EmailAddress }
+import lila.common.{ ApiVersion, EmailAddress, IpAddress }
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.oauth.OAuthServer
@@ -29,47 +29,58 @@ final class SecurityApi(
 
   val AccessUri = "access_uri"
 
-  lazy val usernameOrEmailForm = Form(single(
-    "username" -> nonEmptyText
-  ))
+  lazy val usernameOrEmailForm = Form(
+    single(
+      "username" -> nonEmptyText
+    )
+  )
 
-  lazy val loginForm = Form(tuple(
-    "username" -> nonEmptyText, // can also be an email
-    "password" -> nonEmptyText
-  ))
+  lazy val loginForm = Form(
+    tuple(
+      "username" -> nonEmptyText, // can also be an email
+      "password" -> nonEmptyText
+    )
+  )
 
-  private def loadedLoginForm(candidate: Option[LoginCandidate]) = Form(mapping(
-    "username" -> nonEmptyText, // can also be an email
-    "password" -> nonEmptyText,
-    "token" -> optional(nonEmptyText)
-  )(authenticateCandidate(candidate)) {
-      case LoginCandidate.Success(user) => (user.username, "", none).some
-      case _ => none
-    }.verifying(Constraint { (t: LoginCandidate.Result) =>
-      t match {
-        case LoginCandidate.Success(_) => FormValid
-        case LoginCandidate.InvalidUsernameOrPassword => Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
-        case err => Invalid(Seq(ValidationError(err.toString)))
-      }
-    }))
+  private def loadedLoginForm(candidate: Option[LoginCandidate]) =
+    Form(
+      mapping(
+        "username" -> nonEmptyText, // can also be an email
+        "password" -> nonEmptyText,
+        "token"    -> optional(nonEmptyText)
+      )(authenticateCandidate(candidate)) {
+        case LoginCandidate.Success(user) => (user.username, "", none).some
+        case _                            => none
+      }.verifying(Constraint { (t: LoginCandidate.Result) =>
+        t match {
+          case LoginCandidate.Success(_) => FormValid
+          case LoginCandidate.InvalidUsernameOrPassword =>
+            Invalid(Seq(ValidationError("invalidUsernameOrPassword")))
+          case err => Invalid(Seq(ValidationError(err.toString)))
+        }
+      })
+    )
 
   def loadLoginForm(str: String): Fu[Form[LoginCandidate.Result]] = {
     emailValidator.validate(EmailAddress(str)) match {
-      case Some(EmailAddressValidator.Acceptable(email)) => authenticator.loginCandidateByEmail(email.normalize)
+      case Some(EmailAddressValidator.Acceptable(email)) =>
+        authenticator.loginCandidateByEmail(email.normalize)
       case None if User.couldBeUsername(str) => authenticator.loginCandidateById(User normalize str)
-      case _ => fuccess(none)
+      case _                                 => fuccess(none)
     }
   } map loadedLoginForm _
 
   private def authenticateCandidate(candidate: Option[LoginCandidate])(
-    @silent _username: String,
-    password: String,
-    token: Option[String]
+      @silent _username: String,
+      password: String,
+      token: Option[String]
   ): LoginCandidate.Result = candidate.fold[LoginCandidate.Result](LoginCandidate.InvalidUsernameOrPassword) {
     _(User.PasswordAndToken(User.ClearPassword(password), token map User.TotpToken.apply))
   }
 
-  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(implicit req: RequestHeader): Fu[String] =
+  def saveAuthentication(userId: User.ID, apiVersion: Option[ApiVersion])(
+      implicit req: RequestHeader
+  ): Fu[String] =
     userRepo mustConfirmEmail userId flatMap {
       case true => fufail(SecurityApi MustConfirmEmail userId)
       case false =>
@@ -77,7 +88,9 @@ final class SecurityApi(
         store.save(sessionId, userId, req, apiVersion, up = true, fp = none) inject sessionId
     }
 
-  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(implicit req: RequestHeader): Funit = {
+  def saveSignup(userId: User.ID, apiVersion: Option[ApiVersion], fp: Option[FingerPrint])(
+      implicit req: RequestHeader
+  ): Funit = {
     val sessionId = Random secureString 22
     store.save(s"SIG-$sessionId", userId, req, apiVersion, up = false, fp = fp)
   }
@@ -94,13 +107,17 @@ final class SecurityApi(
       }
     }
 
-  def oauthScoped(req: RequestHeader, scopes: List[lila.oauth.OAuthScope], retries: Int = 2): Fu[lila.oauth.OAuthServer.AuthResult] =
+  def oauthScoped(
+      req: RequestHeader,
+      scopes: List[lila.oauth.OAuthScope],
+      retries: Int = 2
+  ): Fu[lila.oauth.OAuthServer.AuthResult] =
     tryOauthServer().flatMap {
       case None if retries > 0 =>
         lila.common.Future.delay(2 seconds) {
           oauthScoped(req, scopes, retries - 1)
         }
-      case None => fuccess(Left(OAuthServer.ServerOffline))
+      case None         => fuccess(Left(OAuthServer.ServerOffline))
       case Some(server) => server.auth(req, scopes)
     }
 
@@ -132,9 +149,12 @@ final class SecurityApi(
 
   def shareIpOrPrint(u1: User.ID, u2: User.ID): Fu[Boolean] =
     store.ipsAndFps(List(u1, u2), max = 100) map { ipsAndFps =>
-      val u1s: Set[String] = ipsAndFps.filter(_.user == u1).flatMap { x =>
-        List(x.ip.value, ~x.fp)
-      }.toSet
+      val u1s: Set[String] = ipsAndFps
+        .filter(_.user == u1)
+        .flatMap { x =>
+          List(x.ip.value, ~x.fp)
+        }
+        .toSet
       ipsAndFps.exists { x =>
         x.user == u2 && {
           u1s(x.ip.value) || x.fp.??(u1s.contains)

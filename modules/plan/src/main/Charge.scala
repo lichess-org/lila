@@ -28,10 +28,10 @@ case class Charge(
 object Charge {
 
   def make(
-    userId: Option[String],
-    stripe: Option[Charge.Stripe] = none,
-    payPal: Option[Charge.PayPal] = none,
-    cents: Cents
+      userId: Option[String],
+      stripe: Option[Charge.Stripe] = none,
+      payPal: Option[Charge.PayPal] = none,
+      cents: Cents
   ) = Charge(
     _id = Random nextString 8,
     userId = userId,

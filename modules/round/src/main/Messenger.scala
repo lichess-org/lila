@@ -4,7 +4,7 @@ import lila.chat.{ Chat, ChatApi, ChatTimeout }
 import lila.game.Game
 import lila.hub.actorApi.shutup.PublicSource
 import lila.i18n.I18nKey.{ Select => SelectI18nKey }
-import lila.i18n.{ I18nKeys, enLang }
+import lila.i18n.{ enLang, I18nKeys }
 import lila.user.User
 
 final class Messenger(api: ChatApi) {

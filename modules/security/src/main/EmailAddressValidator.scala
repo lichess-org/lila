@@ -7,8 +7,8 @@ import lila.common.EmailAddress
 import lila.user.{ User, UserRepo }
 
 /**
- * Validate and normalize emails
- */
+  * Validate and normalize emails
+  */
 final class EmailAddressValidator(
     userRepo: UserRepo,
     disposable: DisposableEmailDomain,
@@ -23,21 +23,21 @@ final class EmailAddressValidator(
     isAcceptable(email) option EmailAddressValidator.Acceptable(email)
 
   /**
-   * Returns true if an E-mail address is taken by another user.
-   * @param email The E-mail address to be checked
-   * @param forUser Optionally, the user the E-mail address field is to be assigned to.
-   *                If they already have it assigned, returns false.
-   * @return
-   */
+    * Returns true if an E-mail address is taken by another user.
+    * @param email The E-mail address to be checked
+    * @param forUser Optionally, the user the E-mail address field is to be assigned to.
+    *                If they already have it assigned, returns false.
+    * @return
+    */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
     userRepo.idByEmail(email.normalize) map (_ -> forUser) map {
-      case (None, _) => false
+      case (None, _)                  => false
       case (Some(userId), Some(user)) => userId != user.id
-      case (_, _) => true
+      case (_, _)                     => true
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize).map(1<)
+    userRepo.countRecentByPrevEmail(email.normalize).map(1 <)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isAcceptable(EmailAddress(e))) Valid
@@ -45,16 +45,17 @@ final class EmailAddressValidator(
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    val email = EmailAddress(e)
+    val email           = EmailAddress(e)
     val (taken, reused) = (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)) awaitSeconds 2
     if (taken || reused) Invalid(ValidationError("error.email_unique"))
     else Valid
   }
 
-  def differentConstraint(than: Option[EmailAddress]) = Constraint[String]("constraint.email_different") { e =>
-    if (than has EmailAddress(e))
-      Invalid(ValidationError("error.email_different"))
-    else Valid
+  def differentConstraint(than: Option[EmailAddress]) = Constraint[String]("constraint.email_different") {
+    e =>
+      if (than has EmailAddress(e))
+        Invalid(ValidationError("error.email_different"))
+      else Valid
   }
 
   // make sure the cache is warmed up, so next call can be synchronous
@@ -64,11 +65,11 @@ final class EmailAddressValidator(
   private def hasAcceptableDns(e: EmailAddress): Fu[Boolean] =
     if (isAcceptable(e)) e.domain.map(_.lower) ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
-      else dnsApi.mx(domain).map { domains =>
-        domains.nonEmpty && !domains.exists { disposable(_) }
-      } >>& checkMail(domain)
-    }
-    else fuccess(false)
+      else
+        dnsApi.mx(domain).map { domains =>
+          domains.nonEmpty && !domains.exists { disposable(_) }
+        } >>& checkMail(domain)
+    } else fuccess(false)
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>

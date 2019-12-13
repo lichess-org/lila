@@ -8,17 +8,17 @@ import lila.rating.PerfType
 
 final class PerfStatStorage(coll: Coll) {
 
-  private implicit val UserIdBSONHandler = stringAnyValHandler[UserId](_.value, UserId.apply)
-  private implicit val RatingAtBSONHandler = Macros.handler[RatingAt]
-  private implicit val ResultBSONHandler = Macros.handler[Result]
-  private implicit val ResultsBSONHandler = Macros.handler[Results]
-  private implicit val StreakBSONHandler = Macros.handler[Streak]
-  private implicit val StreaksBSONHandler = Macros.handler[Streaks]
-  private implicit val PlayStreakBSONHandler = Macros.handler[PlayStreak]
-  private implicit val ResultStreakBSONHandler = Macros.handler[ResultStreak]
-  private implicit val AvgBSONHandler = Macros.handler[Avg]
-  private implicit val CountBSONHandler = Macros.handler[Count]
-  private implicit val PerfStatBSONHandler = Macros.handler[PerfStat]
+  implicit private val UserIdBSONHandler       = stringAnyValHandler[UserId](_.value, UserId.apply)
+  implicit private val RatingAtBSONHandler     = Macros.handler[RatingAt]
+  implicit private val ResultBSONHandler       = Macros.handler[Result]
+  implicit private val ResultsBSONHandler      = Macros.handler[Results]
+  implicit private val StreakBSONHandler       = Macros.handler[Streak]
+  implicit private val StreaksBSONHandler      = Macros.handler[Streaks]
+  implicit private val PlayStreakBSONHandler   = Macros.handler[PlayStreak]
+  implicit private val ResultStreakBSONHandler = Macros.handler[ResultStreak]
+  implicit private val AvgBSONHandler          = Macros.handler[Avg]
+  implicit private val CountBSONHandler        = Macros.handler[Count]
+  implicit private val PerfStatBSONHandler     = Macros.handler[PerfStat]
 
   def find(userId: String, perfType: PerfType): Fu[Option[PerfStat]] =
     coll.byId[PerfStat](PerfStat.makeId(userId, perfType))
