@@ -2,7 +2,7 @@ package lila.fishnet
 
 import org.joda.time.DateTime
 
-import chess.format.{ Uci, FEN }
+import chess.format.{ FEN, Uci }
 import chess.variant.Variant
 import lila.common.IpAddress
 
@@ -18,12 +18,12 @@ sealed trait Work {
 
   def id = _id
 
-  def acquiredAt = acquired.map(_.date)
-  def acquiredByKey = acquired.map(_.clientKey)
+  def acquiredAt                   = acquired.map(_.date)
+  def acquiredByKey                = acquired.map(_.clientKey)
   def isAcquiredBy(client: Client) = acquiredByKey contains client.key
-  def isAcquired = acquired.isDefined
-  def nonAcquired = !isAcquired
-  def canAcquire(client: Client) = lastTryByKey.fold(true)(client.key !=)
+  def isAcquired                   = acquired.isDefined
+  def nonAcquired                  = !isAcquired
+  def canAcquire(client: Client)   = lastTryByKey.fold(true)(client.key !=)
 
   def acquiredBefore(date: DateTime) = acquiredAt.??(_ isBefore date)
 }
@@ -101,7 +101,7 @@ object Work {
 
     def timeout = copy(acquired = none)
     def invalid = copy(acquired = none)
-    def weak = copy(acquired = none)
+    def weak    = copy(acquired = none)
 
     def isOutOfTries = tries >= 2
 

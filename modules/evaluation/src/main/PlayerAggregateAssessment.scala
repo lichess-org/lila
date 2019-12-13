@@ -63,11 +63,11 @@ case class PlayerAggregateAssessment(
     )
 
     val actionable: Boolean = {
-      val difFlags = difs map (sigDif(10)_).tupled
+      val difFlags = difs map (sigDif(10) _).tupled
       difFlags.forall(_.isEmpty) || difFlags.exists(~_) || assessmentsCount < 50
     }
 
-    def exceptionalDif: Boolean = difs map (sigDif(30)_).tupled exists (~_)
+    def exceptionalDif: Boolean = difs map (sigDif(30) _).tupled exists (~_)
 
     if (actionable) {
       if (markable && bannable) EngineAndBan
@@ -90,17 +90,17 @@ case class PlayerAggregateAssessment(
     case 0 => 1
     case a => a
   }
-  val cheatingSum = countAssessmentValue(Cheating)
+  val cheatingSum       = countAssessmentValue(Cheating)
   val likelyCheatingSum = countAssessmentValue(LikelyCheating)
 
   // Some statistics
   def sfAvgGiven(predicate: PlayerAssessment => Boolean): Option[(Int, Int, Int)] = {
     val filteredAssessments = playerAssessments.filter(predicate)
-    val n = filteredAssessments.size
+    val n                   = filteredAssessments.size
     if (n < 2) none
     else {
       val filteredSfAvg = filteredAssessments.map(_.sfAvg)
-      val avg = listAverage(filteredSfAvg)
+      val avg           = listAverage(filteredSfAvg)
       // listDeviation does not apply Bessel's correction, so we do it here by using sqrt(n - 1) instead of sqrt(n)
       val width = listDeviation(filteredSfAvg) / sqrt(n - 1) * 1.96
       Some((avg.toInt, (avg - width).toInt, (avg + width).toInt))
@@ -108,15 +108,15 @@ case class PlayerAggregateAssessment(
   }
 
   // Average SF Avg and CI given blur rate
-  val sfAvgBlurs = sfAvgGiven(_.blurs > 70)
+  val sfAvgBlurs   = sfAvgGiven(_.blurs > 70)
   val sfAvgNoBlurs = sfAvgGiven(_.blurs <= 70)
 
   // Average SF Avg and CI given move time coef of variance
-  val sfAvgLowVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
+  val sfAvgLowVar  = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg < 0.5)
   val sfAvgHighVar = sfAvgGiven(a => a.mtSd.toDouble / a.mtAvg >= 0.5)
 
   // Average SF Avg and CI given bot
-  val sfAvgHold = sfAvgGiven(_.hold)
+  val sfAvgHold   = sfAvgGiven(_.hold)
   val sfAvgNoHold = sfAvgGiven(!_.hold)
 
   def isGreatUser = user.perfs.bestRating > 2200 && user.count.rated >= 100
@@ -126,9 +126,13 @@ case class PlayerAggregateAssessment(
   def isWorthLookingAt = user.count.rated >= 2
 
   def reportText(maxGames: Int = 10): String = {
-    val gameLinks: String = (playerAssessments.sortBy(-_.assessment.id).take(maxGames).map { a =>
-      a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
-    }).mkString("\n")
+    val gameLinks: String = (playerAssessments
+      .sortBy(-_.assessment.id)
+      .take(maxGames)
+      .map { a =>
+        a.assessment.emoticon + " lichess.org/" + a.gameId + "/" + a.color.name
+      })
+      .mkString("\n")
 
     s"""Cheating Games: $cheatingSum
     Likely Cheating Games: $likelyCheatingSum
@@ -173,14 +177,14 @@ object PlayerFlags {
     )
 
     def writes(w: BSON.Writer, o: PlayerFlags) = BSONDocument(
-      "ser" -> w.boolO(o.suspiciousErrorRate),
-      "aha" -> w.boolO(o.alwaysHasAdvantage),
-      "hbr" -> w.boolO(o.highBlurRate),
-      "mbr" -> w.boolO(o.moderateBlurRate),
+      "ser"  -> w.boolO(o.suspiciousErrorRate),
+      "aha"  -> w.boolO(o.alwaysHasAdvantage),
+      "hbr"  -> w.boolO(o.highBlurRate),
+      "mbr"  -> w.boolO(o.moderateBlurRate),
       "hcmt" -> w.boolO(o.highlyConsistentMoveTimes),
-      "cmt" -> w.boolO(o.moderatelyConsistentMoveTimes),
-      "nfm" -> w.boolO(o.noFastMoves),
-      "sha" -> w.boolO(o.suspiciousHoldAlert)
+      "cmt"  -> w.boolO(o.moderatelyConsistentMoveTimes),
+      "nfm"  -> w.boolO(o.noFastMoves),
+      "sha"  -> w.boolO(o.suspiciousHoldAlert)
     )
   }
 }

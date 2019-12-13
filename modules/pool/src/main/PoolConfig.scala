@@ -16,7 +16,7 @@ case class PoolConfig(
 
 object PoolConfig {
 
-  case class Id(value: String) extends AnyVal
+  case class Id(value: String)     extends AnyVal
   case class NbPlayers(value: Int) extends AnyVal
 
   case class Wave(every: FiniteDuration, players: NbPlayers)

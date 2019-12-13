@@ -1,12 +1,12 @@
 package lila.insight
 
 import chess.format.FEN
-import chess.{ Role, Board }
+import chess.{ Board, Role }
 import lila.analyse.{ Accuracy, Advice }
 import lila.game.{ Game, Pov }
 import scalaz.NonEmptyList
 
-private final class PovToEntry(
+final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo
 ) {
@@ -40,37 +40,46 @@ private final class PovToEntry(
 
   private def enrich(game: Game, userId: String, provisional: Boolean): Fu[Option[RichPov]] =
     if (removeWrongAnalysis(game)) fuccess(none)
-    else lila.game.Pov.ofUserId(game, userId) ?? { pov =>
-      gameRepo.initialFen(game) zip
-        (game.metadata.analysed ?? analysisRepo.byId(game.id)) map {
-          case (fen, an) => for {
-            boards <- chess.Replay.boards(
-              moveStrs = game.pgnMoves,
+    else
+      lila.game.Pov.ofUserId(game, userId) ?? { pov =>
+        gameRepo.initialFen(game) zip
+          (game.metadata.analysed ?? analysisRepo.byId(game.id)) map {
+          case (fen, an) =>
+            for {
+              boards <- chess.Replay
+                .boards(
+                  moveStrs = game.pgnMoves,
+                  initialFen = fen,
+                  variant = game.variant
+                )
+                .toOption
+                .flatMap(_.toNel)
+              movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths).toNel)
+            } yield RichPov(
+              pov = pov,
+              provisional = provisional,
               initialFen = fen,
-              variant = game.variant
-            ).toOption.flatMap(_.toNel)
-            movetimes <- game.moveTimes(pov.color).flatMap(_.map(_.roundTenths).toNel)
-          } yield RichPov(
-            pov = pov,
-            provisional = provisional,
-            initialFen = fen,
-            analysis = an,
-            division = chess.Divider(boards.toList),
-            moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
-            boards = boards,
-            movetimes = movetimes,
-            advices = an.?? { _.advices.view.map { a => a.info.ply -> a }.toMap }
-          )
+              analysis = an,
+              division = chess.Divider(boards.toList),
+              moveAccuracy = an.map { Accuracy.diffsList(pov, _) },
+              boards = boards,
+              movetimes = movetimes,
+              advices = an.?? {
+                _.advices.view.map { a =>
+                  a.info.ply -> a
+                }.toMap
+              }
+            )
         }
-    }
+      }
 
   private def pgnMoveToRole(pgn: String): Role = pgn.head match {
-    case 'N' => chess.Knight
-    case 'B' => chess.Bishop
-    case 'R' => chess.Rook
-    case 'Q' => chess.Queen
+    case 'N'       => chess.Knight
+    case 'B'       => chess.Bishop
+    case 'R'       => chess.Rook
+    case 'Q'       => chess.Queen
     case 'K' | 'O' => chess.King
-    case _ => chess.Pawn
+    case _         => chess.Pawn
   }
 
   private def makeMoves(from: RichPov): List[Move] = {
@@ -81,7 +90,7 @@ private final class PovToEntry(
       }
     }
     val movetimes = from.movetimes.toList
-    val roles = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
+    val roles     = from.pov.game.pgnMoves(from.pov.color) map pgnMoveToRole
     val boards = {
       val pivot = if (from.pov.color == from.pov.game.startColor) 0 else 1
       from.boards.toList.zipWithIndex.collect {
@@ -90,20 +99,22 @@ private final class PovToEntry(
     }
     movetimes.zip(roles).zip(boards).zipWithIndex.map {
       case tenths ~ role ~ board ~ i =>
-        val ply = i * 2 + from.pov.color.fold(1, 2)
+        val ply      = i * 2 + from.pov.color.fold(1, 2)
         val prevInfo = prevInfos lift i
         val opportunism = from.advices.get(ply - 1) flatMap {
-          case o if o.judgment.isBlunder => from.advices get ply match {
-            case Some(p) if p.judgment.isBlunder => false.some
-            case _ => true.some
-          }
+          case o if o.judgment.isBlunder =>
+            from.advices get ply match {
+              case Some(p) if p.judgment.isBlunder => false.some
+              case _                               => true.some
+            }
           case _ => none
         }
         val luck = from.advices.get(ply) flatMap {
-          case o if o.judgment.isBlunder => from.advices.get(ply + 1) match {
-            case Some(p) if p.judgment.isBlunder => true.some
-            case _ => false.some
-          }
+          case o if o.judgment.isBlunder =>
+            from.advices.get(ply + 1) match {
+              case Some(p) if p.judgment.isBlunder => true.some
+              case _                               => false.some
+            }
           case _ => none
         }
         Move(
@@ -122,9 +133,10 @@ private final class PovToEntry(
 
   private def queenTrade(from: RichPov) = QueenTrade {
     from.division.end.fold(from.boards.last.some)(from.boards.toList.lift) match {
-      case Some(board) => chess.Color.all.forall { color =>
-        !board.hasPiece(chess.Piece(color, chess.Queen))
-      }
+      case Some(board) =>
+        chess.Color.all.forall { color =>
+          !board.hasPiece(chess.Piece(color, chess.Queen))
+        }
       case _ =>
         logger.warn(s"https://lichess.org/${from.pov.gameId} missing endgame board")
         false
@@ -135,7 +147,7 @@ private final class PovToEntry(
     import from._
     import pov.game
     for {
-      myId <- pov.player.userId
+      myId     <- pov.player.userId
       myRating <- pov.player.rating
       opRating <- pov.opponent.rating
       perfType <- game.perfType
@@ -155,9 +167,9 @@ private final class PovToEntry(
       moves = makeMoves(from),
       queenTrade = queenTrade(from),
       result = game.winnerUserId match {
-        case None => Result.Draw
+        case None                 => Result.Draw
         case Some(u) if u == myId => Result.Win
-        case _ => Result.Loss
+        case _                    => Result.Loss
       },
       termination = Termination fromStatus game.status,
       ratingDiff = ~pov.player.ratingDiff,

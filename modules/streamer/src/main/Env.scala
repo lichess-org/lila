@@ -33,8 +33,8 @@ final class Env(
     imageRepo: lila.db.ImageRepo
 )(implicit system: ActorSystem) {
 
-  private implicit val keywordLoader = strLoader(Stream.Keyword.apply)
-  private val config = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
+  implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
+  private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)
 
   private lazy val streamerColl = db(config.streamerColl)
 
@@ -46,7 +46,8 @@ final class Env(
     settingStore[Strings](
       "streamerAlwaysFeatured",
       default = Strings(Nil),
-      text = "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
+      text =
+        "Twitch streamers who get featured without the keyword - lichess usernames separated by a comma".some
     )
   }
 
@@ -54,18 +55,22 @@ final class Env(
 
   lazy val pager = wire[StreamerPager]
 
-  private val streamingActor = system.actorOf(Props(new Streaming(
-    ws = ws,
-    renderer = renderer,
-    api = api,
-    isOnline = isOnline,
-    timeline = timeline,
-    keyword = config.keyword,
-    alwaysFeatured = alwaysFeaturedSetting.get _,
-    googleApiKey = config.googleApiKey,
-    twitchClientId = config.twitchClientId,
-    lightUserApi = lightUserApi
-  )))
+  private val streamingActor = system.actorOf(
+    Props(
+      new Streaming(
+        ws = ws,
+        renderer = renderer,
+        api = api,
+        isOnline = isOnline,
+        timeline = timeline,
+        keyword = config.keyword,
+        alwaysFeatured = alwaysFeaturedSetting.get _,
+        googleApiKey = config.googleApiKey,
+        twitchClientId = config.twitchClientId,
+        lightUserApi = lightUserApi
+      )
+    )
+  )
 
   lazy val liveStreamApi = wire[LiveStreamApi]
 
@@ -73,7 +78,7 @@ final class Env(
     case lila.hub.actorApi.mod.MarkCheater(userId, true) => api demote userId
   }
 
-  system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) {
-    () => api.autoDemoteFakes
+  system.scheduler.scheduleWithFixedDelay(1 hour, 1 day) { () =>
+    api.autoDemoteFakes
   }
 }

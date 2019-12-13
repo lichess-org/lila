@@ -32,17 +32,17 @@ case class Video(
 }
 
 object Target {
-  val BEGINNER = 1
+  val BEGINNER     = 1
   val INTERMEDIATE = 2
-  val ADVANCED = 3
-  val EXPERT = 4
+  val ADVANCED     = 3
+  val EXPERT       = 4
 
   def name(target: Int) = target match {
-    case BEGINNER => "beginner"
+    case BEGINNER     => "beginner"
     case INTERMEDIATE => "intermediate"
-    case ADVANCED => "advanced"
-    case EXPERT => "expert"
-    case _ => ""
+    case ADVANCED     => "advanced"
+    case EXPERT       => "expert"
+    case _            => ""
   }
 }
 

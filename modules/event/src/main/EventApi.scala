@@ -17,9 +17,9 @@ final class EventApi(
     promotable.get map {
       _.filter { event =>
         event.lang.language == lila.i18n.enLang.language ||
-          lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
-            _.language == event.lang.language
-          }
+        lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
+          _.language == event.lang.language
+        }
       }
     }
 
@@ -29,12 +29,19 @@ final class EventApi(
     expireAfter = _.ExpireAfterWrite(5 minutes)
   )
 
-  def fetchPromotable: Fu[List[Event]] = coll.ext.find($doc(
-    "enabled" -> true,
-    "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
-  )).sort($doc("startsAt" -> 1)).list[Event](10).map {
-    _.filter(_.featureNow) take 3
-  }
+  def fetchPromotable: Fu[List[Event]] =
+    coll.ext
+      .find(
+        $doc(
+          "enabled" -> true,
+          "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
+        )
+      )
+      .sort($doc("startsAt" -> 1))
+      .list[Event](10)
+      .map {
+        _.filter(_.featureNow) take 3
+      }
 
   def list = coll.ext.find($empty).sort($doc("startsAt" -> -1)).list[Event](50)
 

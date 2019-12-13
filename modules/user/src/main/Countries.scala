@@ -272,9 +272,15 @@ object Countries {
     C("ZW", "Zimbabwe")
   ).sortBy(_.name)
 
-  val allPairs = all map { c => c.code -> c.name }
+  val allPairs = all map { c =>
+    c.code -> c.name
+  }
 
-  val map: Map[String, Country] = all.view.map { c => c.code -> c }.to(Map)
+  val map: Map[String, Country] = all.view
+    .map { c =>
+      c.code -> c
+    }
+    .to(Map)
 
   val codeSet = map.keySet
 

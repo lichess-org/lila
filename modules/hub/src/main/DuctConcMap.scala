@@ -1,7 +1,7 @@
 package lila.hub
 
 import java.util.concurrent.ConcurrentHashMap
-import java.util.function.{ Function, BiFunction, Consumer }
+import java.util.function.{ BiFunction, Consumer, Function }
 import ornicar.scalalib.Zero
 import scala.concurrent.Promise
 
@@ -18,9 +18,10 @@ final class DuctConcMap[D <: Duct](
 
   def tellIfPresent(id: String, msg: Any): Unit = getIfPresent(id) foreach (_ ! msg)
 
-  def tellAll(msg: Any) = ducts.forEachValue(16, new Consumer[D] {
-    def accept(duct: D) = duct ! msg
-  })
+  def tellAll(msg: Any) =
+    ducts.forEachValue(16, new Consumer[D] {
+      def accept(duct: D) = duct ! msg
+    })
 
   def tellIds(ids: Seq[String], msg: Any): Unit = ids foreach { tell(_, msg) }
 
@@ -35,9 +36,10 @@ final class DuctConcMap[D <: Duct](
 
   def exists(id: String): Boolean = ducts.get(id) != null
 
-  def foreachKey(f: String => Unit): Unit = ducts.forEachKey(16, new Consumer[String] {
-    def accept(key: String) = f(key)
-  })
+  def foreachKey(f: String => Unit): Unit =
+    ducts.forEachKey(16, new Consumer[String] {
+      def accept(key: String) = f(key)
+    })
 
   def size: Int = ducts.size()
 

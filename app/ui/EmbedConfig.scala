@@ -11,7 +11,7 @@ case class EmbedConfig(bg: String, board: String, lang: Lang, req: RequestHeader
 object EmbedConfig {
 
   object implicits {
-    implicit def configLang(implicit config: EmbedConfig): Lang = config.lang
+    implicit def configLang(implicit config: EmbedConfig): Lang         = config.lang
     implicit def configReq(implicit config: EmbedConfig): RequestHeader = config.req
   }
 

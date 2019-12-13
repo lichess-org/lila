@@ -6,11 +6,11 @@ import lila.common.Bus
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actorApi.timeline.{ Propagate, ForumPost }
+import lila.hub.actorApi.timeline.{ ForumPost, Propagate }
 import lila.security.{ Granter => MasterGranter }
 import lila.user.{ User, UserContext }
 
-private[forum] final class TopicApi(
+final private[forum] class TopicApi(
     env: Env,
     indexer: lila.hub.actors.ForumSearch,
     maxPerPage: lila.common.config.MaxPerPage,
@@ -23,7 +23,12 @@ private[forum] final class TopicApi(
 
   import BSONHandlers._
 
-  def show(categSlug: String, slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Topic, Paginator[Post])]] =
+  def show(
+      categSlug: String,
+      slug: String,
+      page: Int,
+      troll: Boolean
+  ): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
       data <- (for {
         categ <- optionT(env.categRepo bySlug categSlug)
@@ -38,8 +43,8 @@ private[forum] final class TopicApi(
     } yield res
 
   def makeTopic(
-    categ: Categ,
-    data: DataForm.TopicData
+      categ: Categ,
+      data: DataForm.TopicData
   )(implicit ctx: UserContext): Fu[Topic] =
     env.topicRepo.nextSlug(categ, data.name) zip detectLanguage(data.post.text) flatMap {
       case (slug, lang) =>
@@ -75,14 +80,14 @@ private[forum] final class TopicApi(
               else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, text)
             }
           } >>- {
-            (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-              timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
-            }
-            lila.mon.forum.post.create.increment()
-          } >>- {
-            env.mentionNotifier.notifyMentionedUsers(post, topic)
-            Bus.publish(actorApi.CreatePost(post), "forumPost")
-          } inject topic
+          (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
+            timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).toFollowersOf(userId)
+          }
+          lila.mon.forum.post.create.increment()
+        } >>- {
+          env.mentionNotifier.notifyMentionedUsers(post, topic)
+          Bus.publish(actorApi.CreatePost(post), "forumPost")
+        } inject topic
     }
 
   def makeBlogDiscuss(categ: Categ, slug: String, name: String, url: String): Funit = {
@@ -174,18 +179,24 @@ private[forum] final class TopicApi(
         modLog.toggleStickyTopic(mod.id, categ.name, topic.name, topic.isSticky)
     }
 
-  def denormalize(topic: Topic): Funit = for {
-    nbPosts <- env.postRepo countByTopic topic
-    lastPost <- env.postRepo lastByTopic topic
-    nbPostsTroll <- env.postRepo withTroll true countByTopic topic
-    lastPostTroll <- env.postRepo withTroll true lastByTopic topic
-    _ <- env.topicRepo.coll.update.one($id(topic.id), topic.copy(
-      nbPosts = nbPosts,
-      lastPostId = lastPost ?? (_.id),
-      updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
-      nbPostsTroll = nbPostsTroll,
-      lastPostIdTroll = lastPostTroll ?? (_.id),
-      updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
-    )).void
-  } yield ()
+  def denormalize(topic: Topic): Funit =
+    for {
+      nbPosts       <- env.postRepo countByTopic topic
+      lastPost      <- env.postRepo lastByTopic topic
+      nbPostsTroll  <- env.postRepo withTroll true countByTopic topic
+      lastPostTroll <- env.postRepo withTroll true lastByTopic topic
+      _ <- env.topicRepo.coll.update
+        .one(
+          $id(topic.id),
+          topic.copy(
+            nbPosts = nbPosts,
+            lastPostId = lastPost ?? (_.id),
+            updatedAt = lastPost.fold(topic.updatedAt)(_.createdAt),
+            nbPostsTroll = nbPostsTroll,
+            lastPostIdTroll = lastPostTroll ?? (_.id),
+            updatedAtTroll = lastPostTroll.fold(topic.updatedAtTroll)(_.createdAt)
+          )
+        )
+        .void
+    } yield ()
 }

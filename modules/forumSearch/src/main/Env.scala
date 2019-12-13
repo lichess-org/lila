@@ -40,12 +40,15 @@ final class Env(
 
   private lazy val paginatorBuilder = wire[lila.search.PaginatorBuilder[lila.forum.PostView, Query]]
 
-  system.actorOf(Props(new Actor {
-    import lila.forum.actorApi._
-    def receive = {
-      case InsertPost(post) => api store post
-      case RemovePost(id) => client deleteById Id(id)
-      case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
-    }
-  }), name = config.actorName)
+  system.actorOf(
+    Props(new Actor {
+      import lila.forum.actorApi._
+      def receive = {
+        case InsertPost(post) => api store post
+        case RemovePost(id)   => client deleteById Id(id)
+        case RemovePosts(ids) => client deleteByIds ids.map(Id.apply)
+      }
+    }),
+    name = config.actorName
+  )
 }

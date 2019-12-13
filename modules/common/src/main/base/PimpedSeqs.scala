@@ -9,8 +9,8 @@ final class PimpedTryList[A](private val list: List[Try[A]]) extends AnyVal {
 }
 
 final class PimpedList[A](private val list: List[A]) extends AnyVal {
-  def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith {
-    (x, y) => other.indexOf(f(x)) < other.indexOf(f(y))
+  def sortLike[B](other: List[B], f: A => B): List[A] = list.sortWith { (x, y) =>
+    other.indexOf(f(x)) < other.indexOf(f(y))
   }
 }
 

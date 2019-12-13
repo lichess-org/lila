@@ -8,7 +8,7 @@ import lila.api.Context
 import lila.app._
 import lila.chat.Chat
 import lila.common.paginator.{ Paginator, PaginatorJson }
-import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.{ HTTPRequest, IpAddress }
 import lila.study.actorApi.Who
 import lila.study.JsonView.JsData
 import lila.study.Study.WithChapter
@@ -29,13 +29,13 @@ final class Study(
             html = Ok(html.study.list.all(pag, Order.default)).fuccess,
             api = _ => apiStudies(pag)
           )
+        } else
+        env.studySearch(ctx.me)(text, page) flatMap { pag =>
+          negotiate(
+            html = Ok(html.study.list.search(pag, text)).fuccess,
+            api = _ => apiStudies(pag)
+          )
         }
-      else env.studySearch(ctx.me)(text, page) flatMap { pag =>
-        negotiate(
-          html = Ok(html.study.list.search(pag, text)).fuccess,
-          api = _ => apiStudies(pag)
-        )
-      }
     }
   }
 
@@ -120,12 +120,16 @@ final class Study(
     implicit val pagerWriter = Writes[StudyModel.WithChaptersAndLiked] { s =>
       env.study.jsonView.pagerData(s)
     }
-    Ok(Json.obj(
-      "paginator" -> PaginatorJson(pager)
-    )).fuccess
+    Ok(
+      Json.obj(
+        "paginator" -> PaginatorJson(pager)
+      )
+    ).fuccess
   }
 
-  private def orRelay(id: String, chapterId: Option[String] = None)(f: => Fu[Result])(implicit ctx: Context): Fu[Result] =
+  private def orRelay(id: String, chapterId: Option[String] = None)(
+      f: => Fu[Result]
+  )(implicit ctx: Context): Fu[Result] =
     if (HTTPRequest isRedirectable ctx.req) env.relay.api.getOngoing(lila.relay.Relay.Id(id)) flatMap {
       _.fold(f) { relay =>
         fuccess(Redirect {
@@ -134,8 +138,7 @@ final class Study(
           }
         })
       }
-    }
-    else f
+    } else f
 
   private def showQuery(query: Fu[Option[WithChapter]])(implicit ctx: Context): Fu[Result] =
     OptionFuResult(query) { oldSc =>
@@ -144,50 +147,59 @@ final class Study(
           (sc, data) <- getJsonData(oldSc)
           res <- negotiate(
             html = for {
-              chat <- chatOf(sc.study)
+              chat     <- chatOf(sc.study)
               sVersion <- env.study.version(sc.study.id)
-              streams <- streamsOf(sc.study)
+              streams  <- streamsOf(sc.study)
             } yield Ok(html.study.show(sc.study, data, chat, sVersion, streams)),
-            api = _ => chatOf(sc.study).map { chatOpt =>
-              Ok(
-                Json.obj(
-                  "study" -> data.study.add("chat" -> chatOpt.map { c =>
-                    lila.chat.JsonView.mobile(
-                      chat = c.chat,
-                      writeable = ctx.userId.??(sc.study.canChat)
-                    )
-                  }),
-                  "analysis" -> data.analysis
+            api = _ =>
+              chatOf(sc.study).map { chatOpt =>
+                Ok(
+                  Json.obj(
+                    "study" -> data.study.add("chat" -> chatOpt.map { c =>
+                      lila.chat.JsonView.mobile(
+                        chat = c.chat,
+                        writeable = ctx.userId.??(sc.study.canChat)
+                      )
+                    }),
+                    "analysis" -> data.analysis
+                  )
                 )
-              )
-            }
+              }
           )
         } yield res
       }
     } map NoCache
 
-  private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] = for {
-    chapters <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
-    (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
-    chapter = resetToChapter | sc.chapter
-    _ <- env.user.lightUserApi preloadMany study.members.ids.toList
-    _ = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
-    pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
-    analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
-    division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
-    baseData = env.round.jsonView.userAnalysisJson(pov, ctx.pref, chapter.root.fen.some, chapter.setup.orientation,
-      owner = false,
-      me = ctx.me,
-      division = division)
-    studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
-  } yield WithChapter(study, chapter) -> JsData(
-    study = studyJson,
-    analysis = baseData.add(
-      "treeParts" -> partitionTreeJsonWriter.writes {
-        lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
-      }.some
-    ).add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
-  )
+  private[controllers] def getJsonData(sc: WithChapter)(implicit ctx: Context): Fu[(WithChapter, JsData)] =
+    for {
+      chapters                <- env.study.chapterRepo.orderedMetadataByStudy(sc.study.id)
+      (study, resetToChapter) <- env.study.api.resetIfOld(sc.study, chapters)
+      chapter = resetToChapter | sc.chapter
+      _ <- env.user.lightUserApi preloadMany study.members.ids.toList
+      _   = if (HTTPRequest isSynchronousHttp ctx.req) env.study.studyRepo.incViews(study)
+      pov = userAnalysisC.makePov(chapter.root.fen.some, chapter.setup.variant)
+      analysis <- chapter.serverEval.exists(_.done) ?? env.analyse.analyser.byId(chapter.id.value)
+      division = analysis.isDefined option env.study.serverEvalMerger.divisionOf(chapter)
+      baseData = env.round.jsonView.userAnalysisJson(
+        pov,
+        ctx.pref,
+        chapter.root.fen.some,
+        chapter.setup.orientation,
+        owner = false,
+        me = ctx.me,
+        division = division
+      )
+      studyJson <- env.study.jsonView(study, chapters, chapter, ctx.me)
+    } yield WithChapter(study, chapter) -> JsData(
+      study = studyJson,
+      analysis = baseData
+        .add(
+          "treeParts" -> partitionTreeJsonWriter.writes {
+            lila.study.TreeBuilder(chapter.root, chapter.setup.variant)
+          }.some
+        )
+        .add("analysis" -> analysis.map { lila.study.ServerEval.toJson(chapter, _) })
+    )
 
   def show(id: String) = Open { implicit ctx =>
     orRelay(id) {
@@ -210,10 +222,10 @@ final class Study(
   }
 
   private[controllers] def chatOf(study: lila.study.Study)(implicit ctx: Context) = {
-    !ctx.kid && // no public chats for kids
-      ctx.me.fold(true) { // anon can see public chats
-        env.chat.panic.allowed
-      }
+    !ctx.kid &&         // no public chats for kids
+    ctx.me.fold(true) { // anon can see public chats
+      env.chat.panic.allowed
+    }
   } ?? env.chat.api.userChat
     .findMine(Chat.Id(study.id.value), ctx.me)
     .dmap(some)
@@ -223,12 +235,13 @@ final class Study(
     implicit val req = ctx.body
     lila.study.DataForm.importGame.form.bindFromRequest.fold(
       _ => Redirect(routes.Study.byOwnerDefault(me.username)).fuccess,
-      data => for {
-        owner <- env.study.studyRepo.recentByOwner(me.id, 50)
-        contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
-        res <- if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
-        else Ok(html.study.create(data, owner, contrib)).fuccess
-      } yield res
+      data =>
+        for {
+          owner   <- env.study.studyRepo.recentByOwner(me.id, 50)
+          contrib <- env.study.studyRepo.recentByContributor(me.id, 50)
+          res <- if (owner.isEmpty && contrib.isEmpty) createStudy(data, me)
+          else Ok(html.study.create(data, owner, contrib)).fuccess
+        } yield res
     )
   }
 
@@ -240,7 +253,9 @@ final class Study(
     )
   }
 
-  private def createStudy(data: lila.study.DataForm.importGame.Data, me: lila.user.User)(implicit ctx: Context) =
+  private def createStudy(data: lila.study.DataForm.importGame.Data, me: lila.user.User)(
+      implicit ctx: Context
+  ) =
     env.study.api.importGame(lila.study.StudyMaker.ImportGame(data), me) flatMap {
       _.fold(notFound) { sc =>
         Redirect(routes.Study.show(sc.study.id.value)).fuccess
@@ -264,9 +279,12 @@ final class Study(
     get("sri") ?? { sri =>
       lila.study.DataForm.importPgn.form.bindFromRequest.fold(
         jsonFormError,
-        data => env.study.api.importPgns(
-          StudyModel.Id(id), data.toChapterDatas, sticky = data.sticky
-        )(Who(me.id, lila.socket.Socket.Sri(sri)))
+        data =>
+          env.study.api.importPgns(
+            StudyModel.Id(id),
+            data.toChapterDatas,
+            sticky = data.sticky
+          )(Who(me.id, lila.socket.Socket.Sri(sri)))
       )
     }
   }
@@ -274,26 +292,39 @@ final class Study(
   def embed(id: String, chapterId: String) = Action.async { implicit req =>
     env.study.api.byIdWithChapter(id, chapterId).map(_.filterNot(_.study.isPrivate)) flatMap {
       _.fold(embedNotFound) {
-        case WithChapter(study, chapter) => for {
-          chapters <- env.study.chapterRepo.idNames(study.id)
-          studyJson <- env.study.jsonView(study.copy(
-            members = lila.study.StudyMembers(Map.empty) // don't need no members
-          ), List(chapter.metadata), chapter, none)
-          setup = chapter.setup
-          initialFen = chapter.root.fen.some
-          pov = userAnalysisC.makePov(initialFen, setup.variant)
-          baseData = env.round.jsonView.userAnalysisJson(pov, lila.pref.Pref.default, initialFen, setup.orientation, owner = false, me = none)
-          analysis = baseData ++ Json.obj(
-            "treeParts" -> partitionTreeJsonWriter.writes {
-              lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
-            }
-          )
-          data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
-          result <- negotiate(
-            html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
-            api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
-          )
-        } yield result
+        case WithChapter(study, chapter) =>
+          for {
+            chapters <- env.study.chapterRepo.idNames(study.id)
+            studyJson <- env.study.jsonView(
+              study.copy(
+                members = lila.study.StudyMembers(Map.empty) // don't need no members
+              ),
+              List(chapter.metadata),
+              chapter,
+              none
+            )
+            setup      = chapter.setup
+            initialFen = chapter.root.fen.some
+            pov        = userAnalysisC.makePov(initialFen, setup.variant)
+            baseData = env.round.jsonView.userAnalysisJson(
+              pov,
+              lila.pref.Pref.default,
+              initialFen,
+              setup.orientation,
+              owner = false,
+              me = none
+            )
+            analysis = baseData ++ Json.obj(
+              "treeParts" -> partitionTreeJsonWriter.writes {
+                lila.study.TreeBuilder.makeRoot(chapter.root, setup.variant)
+              }
+            )
+            data = lila.study.JsonView.JsData(study = studyJson, analysis = analysis)
+            result <- negotiate(
+              html = Ok(html.study.embed(study, chapter, chapters, data)).fuccess,
+              api = _ => Ok(Json.obj("study" -> data.study, "analysis" -> data.analysis)).fuccess
+            )
+          } yield result
       }
     } map NoCache
   }
@@ -325,7 +356,7 @@ final class Study(
 
   def cloneApply(id: String) = Auth { implicit ctx => me =>
     implicit val default = ornicar.scalalib.Zero.instance[Fu[Result]](notFound)
-    val cost = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
+    val cost             = if (isGranted(_.Coach) || me.hasTitle) 1 else 3
     CloneLimitPerUser(me.id, cost = cost) {
       CloneLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
         OptionFuResult(env.study.api.byId(id)) { prev =>
@@ -367,12 +398,17 @@ final class Study(
     OnlyHumans {
       env.study.api.byIdWithChapter(id, chapterId) flatMap {
         _.fold(notFound) {
-          case WithChapter(study, chapter) => CanViewResult(study) {
-            lila.mon.export.pgn.studyChapter.increment()
-            Ok(env.study.pgnDump.ofChapter(study, chapter).toString).withHeaders(
-              CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump.filename(study, chapter)))
-            ).as(pgnContentType).fuccess
-          }
+          case WithChapter(study, chapter) =>
+            CanViewResult(study) {
+              lila.mon.export.pgn.studyChapter.increment()
+              Ok(env.study.pgnDump.ofChapter(study, chapter).toString)
+                .withHeaders(
+                  CONTENT_DISPOSITION -> ("attachment; filename=" + (env.study.pgnDump
+                    .filename(study, chapter)))
+                )
+                .as(pgnContentType)
+                .fuccess
+            }
         }
       }
     }
@@ -388,26 +424,35 @@ final class Study(
     }
   }
 
-  private[controllers] def CanViewResult(study: StudyModel)(f: => Fu[Result])(implicit ctx: lila.api.Context) =
+  private[controllers] def CanViewResult(
+      study: StudyModel
+  )(f: => Fu[Result])(implicit ctx: lila.api.Context) =
     if (canView(study)) f
-    else negotiate(
-      html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),
-      api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
-    )
+    else
+      negotiate(
+        html = fuccess(Unauthorized(html.site.message.privateStudy(study.ownerId))),
+        api = _ => fuccess(Unauthorized(jsonError("This study is now private")))
+      )
 
   private def canView(study: StudyModel)(implicit ctx: lila.api.Context) =
     !study.isPrivate || ctx.userId.exists(study.members.contains)
 
-  private implicit def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
-  private implicit def makeChapterId(id: String): Chapter.Id = Chapter.Id(id)
+  implicit private def makeStudyId(id: String): StudyModel.Id = StudyModel.Id(id)
+  implicit private def makeChapterId(id: String): Chapter.Id  = Chapter.Id(id)
 
-  private[controllers] def streamsOf(study: StudyModel)(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
+  private[controllers] def streamsOf(
+      study: StudyModel
+  )(implicit ctx: Context): Fu[List[lila.streamer.Stream]] =
     env.streamer.liveStreamApi.all.flatMap {
-      _.streams.filter { s =>
-        study.members.members.exists(m => s is m._2.id)
-      }.map { stream =>
-        (fuccess(ctx.me ?? stream.streamer.is) >>|
-          env.study.isConnected(study.id, stream.streamer.userId)) map { _ option stream }
-      }.sequenceFu.map(_.flatten)
+      _.streams
+        .filter { s =>
+          study.members.members.exists(m => s is m._2.id)
+        }
+        .map { stream =>
+          (fuccess(ctx.me ?? stream.streamer.is) >>|
+            env.study.isConnected(study.id, stream.streamer.userId)) map { _ option stream }
+        }
+        .sequenceFu
+        .map(_.flatten)
     }
 }

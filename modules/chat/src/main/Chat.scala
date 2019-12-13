@@ -67,10 +67,11 @@ case class MixedChat(
 
   def forUser(u: Option[User]): MixedChat =
     if (u.??(_.troll)) this
-    else copy(lines = lines filter {
-      case l: UserLine => !l.troll
-      case _: PlayerLine => true
-    })
+    else
+      copy(lines = lines filter {
+        case l: UserLine   => !l.troll
+        case _: PlayerLine => true
+      })
 
   def mapLines(f: Line => Line) = copy(lines = lines map f)
 
@@ -90,7 +91,7 @@ object Chat {
   case class MaxLines(value: Int) extends AnyVal with IntValue
 
   def tournamentSetup(tourId: String) = Setup(Id(tourId), PublicSource.Tournament(tourId))
-  def simulSetup(simulId: String) = Setup(Id(simulId), PublicSource.Simul(simulId))
+  def simulSetup(simulId: String)     = Setup(Id(simulId), PublicSource.Simul(simulId))
 
   // if restricted, only presets are available
   case class Restricted(chat: MixedChat, restricted: Boolean)
@@ -103,13 +104,13 @@ object Chat {
 
   import lila.db.BSON
 
-  def makeUser(id: Chat.Id) = UserChat(id, Nil)
+  def makeUser(id: Chat.Id)  = UserChat(id, Nil)
   def makeMixed(id: Chat.Id) = MixedChat(id, Nil)
 
   def chanOf(id: Chat.Id) = s"chat:$id"
 
   object BSONFields {
-    val id = "_id"
+    val id    = "_id"
     val lines = "l"
   }
 
@@ -117,7 +118,7 @@ object Chat {
   import reactivemongo.api.bson.BSONDocument
   import Line.{ lineBSONHandler, userLineBSONHandler }
 
-  implicit val chatIdIso = lila.common.Iso.string[Id](Id.apply, _.value)
+  implicit val chatIdIso         = lila.common.Iso.string[Id](Id.apply, _.value)
   implicit val chatIdBSONHandler = lila.db.BSON.stringIsoHandler(chatIdIso)
 
   implicit val mixedChatBSONHandler = new BSON[MixedChat] {
@@ -128,7 +129,7 @@ object Chat {
       )
     }
     def writes(w: BSON.Writer, o: MixedChat) = BSONDocument(
-      id -> o.id,
+      id    -> o.id,
       lines -> o.lines
     )
   }
@@ -141,7 +142,7 @@ object Chat {
       )
     }
     def writes(w: BSON.Writer, o: UserChat) = BSONDocument(
-      id -> o.id,
+      id    -> o.id,
       lines -> o.lines
     )
   }

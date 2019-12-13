@@ -9,15 +9,16 @@ import controllers.routes
 object layout {
 
   def apply(
-    title: String,
-    active: String,
-    evenMoreCss: Frag = emptyFrag,
-    evenMoreJs: Frag = emptyFrag
-  )(body: Frag)(implicit ctx: Context): Frag = views.html.base.layout(
-    title = title,
-    moreCss = frag(cssTag("account"), evenMoreCss),
-    moreJs = frag(jsTag("account.js"), evenMoreJs)
-  ) {
+      title: String,
+      active: String,
+      evenMoreCss: Frag = emptyFrag,
+      evenMoreJs: Frag = emptyFrag
+  )(body: Frag)(implicit ctx: Context): Frag =
+    views.html.base.layout(
+      title = title,
+      moreCss = frag(cssTag("account"), evenMoreCss),
+      moreJs = frag(jsTag("account.js"), evenMoreJs)
+    ) {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "account page-menu")(
         st.nav(cls := "page-menu__menu subnav")(

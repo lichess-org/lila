@@ -2,7 +2,7 @@ package lila.db
 
 import com.typesafe.config.Config
 import play.api.inject.ApplicationLifecycle
-import play.api.{ Configuration, ConfigLoader }
+import play.api.{ ConfigLoader, Configuration }
 import reactivemongo.api._
 
 final class Env(

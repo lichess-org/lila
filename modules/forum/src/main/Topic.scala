@@ -25,11 +25,11 @@ case class Topic(
   def id = _id
 
   def updatedAt(troll: Boolean): DateTime = if (troll) updatedAtTroll else updatedAt
-  def nbPosts(troll: Boolean): Int = if (troll) nbPostsTroll else nbPosts
-  def nbReplies(troll: Boolean): Int = nbPosts(troll) - 1
-  def lastPostId(troll: Boolean): String = if (troll) lastPostIdTroll else lastPostId
+  def nbPosts(troll: Boolean): Int        = if (troll) nbPostsTroll else nbPosts
+  def nbReplies(troll: Boolean): Int      = nbPosts(troll) - 1
+  def lastPostId(troll: Boolean): String  = if (troll) lastPostIdTroll else lastPostId
 
-  def open = !closed
+  def open          = !closed
   def visibleOnHome = !hidden
 
   def isSticky = ~sticky
@@ -58,11 +58,11 @@ object Topic {
   val idSize = 8
 
   def make(
-    categId: String,
-    slug: String,
-    name: String,
-    troll: Boolean,
-    hidden: Boolean
+      categId: String,
+      slug: String,
+      name: String,
+      troll: Boolean,
+      hidden: Boolean
   ): Topic = Topic(
     _id = Random nextString idSize,
     categId = categId,

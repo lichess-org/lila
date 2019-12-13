@@ -9,7 +9,7 @@ import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.user.User
 
-private[video] final class VideoApi(
+final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
     asyncCache: lila.memo.AsyncCache.Builder
@@ -17,24 +17,27 @@ private[video] final class VideoApi(
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
-  private implicit val YoutubeBSONHandler = {
+  implicit private val YoutubeBSONHandler = {
     import Youtube.Metadata
     Macros.handler[Metadata]
   }
-  private implicit val VideoBSONHandler = Macros.handler[Video]
-  private implicit val TagNbBSONHandler = Macros.handler[TagNb]
+  implicit private val VideoBSONHandler = Macros.handler[Video]
+  implicit private val TagNbBSONHandler = Macros.handler[TagNb]
   import View.viewBSONHandler
 
-  private def videoViews(userOption: Option[User])(videos: Seq[Video]): Fu[Seq[VideoView]] = userOption match {
-    case None => fuccess {
-      videos map { VideoView(_, false) }
+  private def videoViews(userOption: Option[User])(videos: Seq[Video]): Fu[Seq[VideoView]] =
+    userOption match {
+      case None =>
+        fuccess {
+          videos map { VideoView(_, false) }
+        }
+      case Some(user) =>
+        view.seenVideoIds(user, videos) map { ids =>
+          videos.map { v =>
+            VideoView(v, ids contains v.id)
+          }
+        }
     }
-    case Some(user) => view.seenVideoIds(user, videos) map { ids =>
-      videos.map { v =>
-        VideoView(v, ids contains v.id)
-      }
-    }
-  }
 
   object video {
 
@@ -44,7 +47,9 @@ private[video] final class VideoApi(
       videoColl.ext.find($id(id)).one[Video]
 
     def search(user: Option[User], query: String, page: Int): Fu[Paginator[VideoView]] = {
-      val q = query.split(' ').map { word => s""""$word"""" } mkString " "
+      val q = query.split(' ').map { word =>
+        s""""$word""""
+      } mkString " "
       val textScore = $doc("score" -> $doc("$meta" -> "textScore"))
       Paginator(
         adapter = new Adapter[Video](
@@ -62,21 +67,25 @@ private[video] final class VideoApi(
     }
 
     def save(video: Video): Funit =
-      videoColl.update.one(
-        $id(video.id),
-        $doc("$set" -> video),
-        upsert = true
-      ).void
+      videoColl.update
+        .one(
+          $id(video.id),
+          $doc("$set" -> video),
+          upsert = true
+        )
+        .void
 
     def removeNotIn(ids: List[Video.ID]) =
       videoColl.delete.one($doc("_id" $nin ids)).void
 
     def setMetadata(id: Video.ID, metadata: Youtube.Metadata) =
-      videoColl.update.one(
-        $id(id),
-        $doc("$set" -> $doc("metadata" -> metadata)),
-        upsert = false
-      ).void
+      videoColl.update
+        .one(
+          $id(id),
+          $doc("$set" -> $doc("metadata" -> metadata)),
+          upsert = false
+        )
+        .void
 
     def allIds: Fu[List[Video.ID]] =
       videoColl.distinctEasy[String, List]("_id", $empty)
@@ -95,17 +104,18 @@ private[video] final class VideoApi(
 
     def byTags(user: Option[User], tags: List[Tag], page: Int): Fu[Paginator[VideoView]] =
       if (tags.isEmpty) popular(user, page)
-      else Paginator(
-        adapter = new Adapter[Video](
-          collection = videoColl,
-          selector = $doc("tags" $all tags),
-          projection = none,
-          sort = $doc("metadata.likes" -> -1),
-          readPreference = ReadPreference.secondaryPreferred
-        ) mapFutureList videoViews(user),
-        currentPage = page,
-        maxPerPage = maxPerPage
-      )
+      else
+        Paginator(
+          adapter = new Adapter[Video](
+            collection = videoColl,
+            selector = $doc("tags" $all tags),
+            projection = none,
+            sort = $doc("metadata.likes" -> -1),
+            readPreference = ReadPreference.secondaryPreferred
+          ) mapFutureList videoViews(user),
+          currentPage = page,
+          maxPerPage = maxPerPage
+        )
 
     def byAuthor(user: Option[User], author: String, page: Int): Fu[Paginator[VideoView]] =
       Paginator(
@@ -121,29 +131,35 @@ private[video] final class VideoApi(
       )
 
     def similar(user: Option[User], video: Video, max: Int): Fu[Seq[VideoView]] =
-      videoColl.aggregateList(
-        maxDocs = max,
-        ReadPreference.secondaryPreferred
-      ) { framework =>
+      videoColl
+        .aggregateList(
+          maxDocs = max,
+          ReadPreference.secondaryPreferred
+        ) { framework =>
           import framework._
-          Match($doc(
-            "tags" $in video.tags,
-            "_id" $ne video.id
-          )) -> List(
-            AddFields($doc(
-              "int" -> $doc(
-                "$size" -> $doc(
-                  "$setIntersection" -> $arr("$tags", video.tags)
+          Match(
+            $doc(
+              "tags" $in video.tags,
+              "_id" $ne video.id
+            )
+          ) -> List(
+            AddFields(
+              $doc(
+                "int" -> $doc(
+                  "$size" -> $doc(
+                    "$setIntersection" -> $arr("$tags", video.tags)
+                  )
                 )
               )
-            )),
+            ),
             Sort(
               Descending("int"),
               Descending("metadata.likes")
             ),
             Limit(max)
           )
-        }.map(_.flatMap(_.asOpt[Video])) flatMap videoViews(user)
+        }
+        .map(_.flatMap(_.asOpt[Video])) flatMap videoViews(user)
 
     object count {
 
@@ -160,17 +176,24 @@ private[video] final class VideoApi(
   object view {
 
     def find(videoId: Video.ID, userId: String): Fu[Option[View]] =
-      viewColl.ext.find($doc(
-        View.BSONFields.id -> View.makeId(videoId, userId)
-      )).one[View]
+      viewColl.ext
+        .find(
+          $doc(
+            View.BSONFields.id -> View.makeId(videoId, userId)
+          )
+        )
+        .one[View]
 
-    def add(a: View) = (viewColl.insert.one(a)).void recover
-      lila.db.recoverDuplicateKey(_ => ())
+    def add(a: View) =
+      (viewColl.insert.one(a)).void recover
+        lila.db.recoverDuplicateKey(_ => ())
 
     def hasSeen(user: User, video: Video): Fu[Boolean] =
-      viewColl.countSel($doc(
-        View.BSONFields.id -> View.makeId(video.id, user.id)
-      )) map (0!=)
+      viewColl.countSel(
+        $doc(
+          View.BSONFields.id -> View.makeId(video.id, user.id)
+        )
+      ) map (0 !=)
 
     def seenVideoIds(user: User, videos: Seq[Video]): Fu[Set[Video.ID]] =
       viewColl.distinctEasy[String, Set](
@@ -195,17 +218,20 @@ private[video] final class VideoApi(
         val allPaths =
           if (filterTags.isEmpty) allPopular map { tags =>
             tags.filterNot(_.isNumeric)
-          }
-          else videoColl.aggregateList(
-            maxDocs = Int.MaxValue,
-            ReadPreference.secondaryPreferred
-          ) { framework =>
-              import framework._
-              Match($doc("tags" $all filterTags)) -> List(
-                Project($doc("tags" -> true)), UnwindField("tags"),
-                GroupField("tags")("nb" -> SumAll)
-              )
-            }.map { _.flatMap(_.asOpt[TagNb]) }
+          } else
+            videoColl
+              .aggregateList(
+                maxDocs = Int.MaxValue,
+                ReadPreference.secondaryPreferred
+              ) { framework =>
+                import framework._
+                Match($doc("tags" $all filterTags)) -> List(
+                  Project($doc("tags" -> true)),
+                  UnwindField("tags"),
+                  GroupField("tags")("nb" -> SumAll)
+                )
+              }
+              .map { _.flatMap(_.asOpt[TagNb]) }
 
         allPopular zip allPaths map {
           case (all, paths) =>
@@ -229,18 +255,21 @@ private[video] final class VideoApi(
 
     private val popularCache = asyncCache.single[List[TagNb]](
       name = "video.popular",
-      f = videoColl.aggregateList(
-        maxDocs = Int.MaxValue,
-        readPreference = ReadPreference.secondaryPreferred
-      ) { framework =>
-        import framework._
-        Project($doc("tags" -> true)) -> List(
-          UnwindField("tags"), GroupField("tags")("nb" -> SumAll),
-          Sort(Descending("nb"))
-        )
-      }.map {
-        _.flatMap(_.asOpt[TagNb])
-      },
+      f = videoColl
+        .aggregateList(
+          maxDocs = Int.MaxValue,
+          readPreference = ReadPreference.secondaryPreferred
+        ) { framework =>
+          import framework._
+          Project($doc("tags" -> true)) -> List(
+            UnwindField("tags"),
+            GroupField("tags")("nb" -> SumAll),
+            Sort(Descending("nb"))
+          )
+        }
+        .map {
+          _.flatMap(_.asOpt[TagNb])
+        },
       expireAfter = _.ExpireAfterWrite(1.day)
     )
   }

@@ -34,26 +34,29 @@ object BinaryFormat {
     }
 
     def readSide(start: Centis, ba: ByteArray, flagged: Boolean) = {
-      val decoded: Vector[Centis] = ClockEncoder.decode(ba.value, start.centis).view.map(Centis.apply).to(Vector)
+      val decoded: Vector[Centis] =
+        ClockEncoder.decode(ba.value, start.centis).view.map(Centis.apply).to(Vector)
       if (flagged) decoded :+ Centis(0) else decoded
     }
 
-    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) = Try {
-      ClockHistory(
-        readSide(start, bw, flagged has White),
-        readSide(start, bb, flagged has Black)
+    def read(start: Centis, bw: ByteArray, bb: ByteArray, flagged: Option[Color]) =
+      Try {
+        ClockHistory(
+          readSide(start, bw, flagged has White),
+          readSide(start, bb, flagged has Black)
+        )
+      }.fold(
+        e => { logger.warn(s"Exception decoding history", e); none },
+        some
       )
-    }.fold(
-      e => { logger.warn(s"Exception decoding history", e); none },
-      some
-    )
   }
 
   object moveTime {
 
     private type MT = Int // centiseconds
     private val size = 16
-    private val buckets = List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
+    private val buckets =
+      List(10, 50, 100, 150, 200, 300, 400, 500, 600, 800, 1000, 1500, 2000, 3000, 4000, 6000)
     private val encodeCutoffs = buckets zip buckets.tail map {
       case (i1, i2) => (i1 + i2) / 2
     } toVector
@@ -62,10 +65,14 @@ object BinaryFormat {
 
     def write(mts: Vector[Centis]): ByteArray = {
       def enc(mt: Centis) = encodeCutoffs.search(mt.centis).insertionPoint
-      (mts.grouped(2).map {
-        case Vector(a, b) => (enc(a) << 4) + enc(b)
-        case Vector(a) => enc(a) << 4
-      }).map(_.toByte).toArray
+      (mts
+        .grouped(2)
+        .map {
+          case Vector(a, b) => (enc(a) << 4) + enc(b)
+          case Vector(a)    => enc(a) << 4
+        })
+        .map(_.toByte)
+        .toArray
     }
 
     def read(ba: ByteArray, turns: Int): Vector[Centis] = {
@@ -104,15 +111,21 @@ object BinaryFormat {
 
       ia match {
         case Array(b1, b2, b3, b4, b5, b6, b7, b8, _*) => {
-          val config = Clock.Config(readClockLimit(b1), b2)
+          val config      = Clock.Config(readClockLimit(b1), b2)
           val legacyWhite = Centis(readSignedInt24(b3, b4, b5))
           val legacyBlack = Centis(readSignedInt24(b6, b7, b8))
           Clock(
             config = config,
             color = color,
             players = Color.Map(
-              ClockPlayer.withConfig(config).copy(berserk = whiteBerserk).setRemaining(computeRemaining(config, legacyWhite)),
-              ClockPlayer.withConfig(config).copy(berserk = blackBerserk).setRemaining(computeRemaining(config, legacyBlack))
+              ClockPlayer
+                .withConfig(config)
+                .copy(berserk = whiteBerserk)
+                .setRemaining(computeRemaining(config, legacyWhite)),
+              ClockPlayer
+                .withConfig(config)
+                .copy(berserk = blackBerserk)
+                .setRemaining(computeRemaining(config, legacyBlack))
             ),
             timer = timer
           )
@@ -162,7 +175,7 @@ object BinaryFormat {
 
       val castleInt = clmt.castles.toSeq.zipWithIndex.foldLeft(0) {
         case (acc, (false, _)) => acc
-        case (acc, (true, p)) => acc + (1 << (3 - p))
+        case (acc, (true, p))  => acc + (1 << (3 - p))
       }
 
       def posInt(pos: Pos): Int = ((pos.x - 1) << 3) + pos.y - 1
@@ -211,11 +224,15 @@ object BinaryFormat {
         Array(int >> 4, int & 0x0F)
       }
       def intPiece(int: Int): Option[Piece] =
-        intToRole(int & 7, variant) map { role => Piece(Color((int & 8) == 0), role) }
+        intToRole(int & 7, variant) map { role =>
+          Piece(Color((int & 8) == 0), role)
+        }
       val pieceInts = ba.value flatMap splitInts
-      (Pos.all zip pieceInts).view.flatMap {
-        case (pos, int) => intPiece(int) map (pos -> _)
-      }.to(Map)
+      (Pos.all zip pieceInts).view
+        .flatMap {
+          case (pos, int) => intPiece(int) map (pos -> _)
+        }
+        .to(Map)
     }
 
     // cache standard start position
@@ -230,13 +247,13 @@ object BinaryFormat {
       case 5 => Some(Bishop)
       // Legacy from when we used to have an 'Antiking' piece
       case 7 if variant.antichess => Some(King)
-      case _ => None
+      case _                      => None
     }
     private def roleToInt(role: Role): Int = role match {
-      case Pawn => 6
-      case King => 1
-      case Queen => 2
-      case Rook => 3
+      case Pawn   => 6
+      case King   => 1
+      case Queen  => 2
+      case Rook   => 3
       case Knight => 4
       case Bishop => 5
     }
@@ -263,8 +280,8 @@ object BinaryFormat {
 
     private val arrIndexes = 0 to 1
     private val bitIndexes = 0 to 7
-    private val whiteStd = Set(Pos.A1, Pos.H1)
-    private val blackStd = Set(Pos.A8, Pos.H8)
+    private val whiteStd   = Set(Pos.A1, Pos.H1)
+    private val blackStd   = Set(Pos.A8, Pos.H8)
 
     def read(ba: ByteArray) = UnmovedRooks {
       var set = Set.empty[Pos]
@@ -272,9 +289,10 @@ object BinaryFormat {
         val int = ba.value(i).toInt
         if (int != 0) {
           if (int == -127) set = if (i == 0) whiteStd else set ++ blackStd
-          else bitIndexes.foreach { j =>
-            if (bitAt(int, j) == 1) set = set + Pos.posAt(8 - j, 1 + 7 * i).get
-          }
+          else
+            bitIndexes.foreach { j =>
+              if (bitAt(int, j) == 1) set = set + Pos.posAt(8 - j, 1 + 7 * i).get
+            }
         }
       }
       set
@@ -302,7 +320,10 @@ object BinaryFormat {
   }
 
   def writeInt(i: Int) = Array(
-    (i >>> 24).toByte, (i >>> 16).toByte, (i >>> 8).toByte, i.toByte
+    (i >>> 24).toByte,
+    (i >>> 16).toByte,
+    (i >>> 8).toByte,
+    i.toByte
   )
 
   def readInt(b1: Int, b2: Int, b3: Int, b4: Int) = {

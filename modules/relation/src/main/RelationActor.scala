@@ -8,7 +8,7 @@ import lila.hub.actorApi.relation._
 import lila.hub.actorApi.socket.{ SendTo, SendTos }
 import lila.user.User
 
-private[relation] final class RelationActor(
+final private[relation] class RelationActor(
     lightUser: LightUser.GetterSync,
     api: RelationApi,
     online: OnlineDoing
@@ -30,7 +30,7 @@ private[relation] final class RelationActor(
   def receive = {
 
     case ComputeMovement =>
-      val curIds = online.userIds()
+      val curIds                      = online.userIds()
       val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
       val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
 
@@ -43,11 +43,12 @@ private[relation] final class RelationActor(
       previousOnlineIds = curIds
 
     // triggers following reloading for this user id
-    case ReloadOnlineFriends(userId) => online friendsOf userId foreach { res =>
-      // the mobile app requests this on every WS connection
-      // we can skip it if empty
-      if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), "socketUsers")
-    }
+    case ReloadOnlineFriends(userId) =>
+      online friendsOf userId foreach { res =>
+        // the mobile app requests this on every WS connection
+        // we can skip it if empty
+        if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), "socketUsers")
+      }
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
@@ -112,8 +113,8 @@ private[relation] final class RelationActor(
   }
 
   private def notifyFollowersFriendEnters(
-    friendsEntering: List[FriendEntering],
-    onlineUserIds: Set[User.ID]
+      friendsEntering: List[FriendEntering],
+      onlineUserIds: Set[User.ID]
   ) =
     friendsEntering foreach { entering =>
       api fetchFollowersFromSecondary entering.user.id map onlineUserIds.intersect foreach { ids =>
@@ -122,8 +123,8 @@ private[relation] final class RelationActor(
     }
 
   private def notifyFollowersFriendLeaves(
-    friendsLeaving: List[LightUser],
-    onlineUserIds: Set[User.ID]
+      friendsLeaving: List[LightUser],
+      onlineUserIds: Set[User.ID]
   ) =
     friendsLeaving foreach { leaving =>
       api fetchFollowersFromSecondary leaving.id map onlineUserIds.intersect foreach { ids =>

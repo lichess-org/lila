@@ -24,8 +24,9 @@ final class UnsubApi(coll: Coll) {
 
   def filterUnsub(channel: String, userIds: List[String]): Fu[List[String]] =
     canUnsub(channel) ?? coll.distinctEasy[String, List](
-      "_id", $inIds(userIds.map { makeId(channel, _) })
+      "_id",
+      $inIds(userIds.map { makeId(channel, _) })
     ) dmap { unsubs =>
-        userIds diff unsubs.map(_ takeWhile ('@' !=))
-      }
+      userIds diff unsubs.map(_ takeWhile ('@' !=))
+    }
 }

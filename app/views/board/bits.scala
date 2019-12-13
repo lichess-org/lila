@@ -12,13 +12,13 @@ import controllers.routes
 object bits {
 
   def jsData(
-    sit: chess.Situation,
-    fen: String,
-    animationDuration: Duration
+      sit: chess.Situation,
+      fen: String,
+      animationDuration: Duration
   )(implicit ctx: Context) = Json.obj(
-    "fen" -> fen.split(" ").take(4).mkString(" "),
+    "fen"     -> fen.split(" ").take(4).mkString(" "),
     "baseUrl" -> s"$netBaseUrl${routes.Editor.load("")}",
-    "color" -> sit.color.letter.toString,
+    "color"   -> sit.color.letter.toString,
     "castles" -> Json.obj(
       "K" -> (sit canCastle chess.White on chess.KingSide),
       "Q" -> (sit canCastle chess.White on chess.QueenSide),

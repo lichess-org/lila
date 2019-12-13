@@ -2,7 +2,7 @@ package lila.lobby
 
 import lila.game.Pov
 
-private final class AbortListener(
+final private class AbortListener(
     userRepo: lila.user.UserRepo,
     seekApi: SeekApi,
     lobbyTrouper: LobbyTrouper

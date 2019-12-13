@@ -36,11 +36,13 @@ final class ESClientHttp(
     HTTP(s"count/${index.name}", query, CountResponse.apply)
   }
 
-  def deleteById(id: lila.search.Id) = config.writeable ??
-    HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
+  def deleteById(id: lila.search.Id) =
+    config.writeable ??
+      HTTP(s"delete/id/${index.name}/${id.value}", Json.obj())
 
-  def deleteByIds(ids: List[lila.search.Id]) = config.writeable ??
-    HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
+  def deleteByIds(ids: List[lila.search.Id]) =
+    config.writeable ??
+      HTTP(s"delete/ids/${index.name}", Json.obj("ids" -> ids.map(_.value)))
 
   def putMapping =
     HTTP(s"mapping/${index.name}/${index.name}", Json.obj())
@@ -56,7 +58,7 @@ final class ESClientHttp(
   private[search] def HTTP[D: Writes, R](url: String, data: D, read: String => R): Fu[R] =
     ws.url(s"${config.endpoint}/$url").post(Json toJson data) flatMap {
       case res if res.status == 200 => fuccess(read(res.body))
-      case res => fufail(s"$url ${res.status}")
+      case res                      => fufail(s"$url ${res.status}")
     }
   private[search] def HTTP(url: String, data: JsObject): Funit = HTTP(url, data, _ => ())
 
@@ -67,11 +69,11 @@ final class ESClientHttp(
 final class ESClientStub extends ESClient {
   import com.github.ghik.silencer.silent
   @silent def search[Q: Writes](query: Q, from: From, size: Size) = fuccess(SearchResponse(Nil))
-  @silent def count[Q: Writes](query: Q) = fuccess(CountResponse(0))
-  @silent def store(id: Id, doc: JsObject) = funit
-  @silent def storeBulk(docs: Seq[(Id, JsObject)]) = funit
-  @silent def deleteById(id: Id) = funit
-  @silent def deleteByIds(ids: List[Id]) = funit
-  def putMapping = funit
-  def refresh = funit
+  @silent def count[Q: Writes](query: Q)                          = fuccess(CountResponse(0))
+  @silent def store(id: Id, doc: JsObject)                        = funit
+  @silent def storeBulk(docs: Seq[(Id, JsObject)])                = funit
+  @silent def deleteById(id: Id)                                  = funit
+  @silent def deleteByIds(ids: List[Id])                          = funit
+  def putMapping                                                  = funit
+  def refresh                                                     = funit
 }

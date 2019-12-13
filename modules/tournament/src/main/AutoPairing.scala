@@ -18,14 +18,15 @@ final class AutoPairing(
       variant = tour.ratingVariant,
       daysPerTurn = none
     )
-    val game = Game.make(
-      chess = chess.Game(
-        variantOption = Some {
-          if (tour.position.initial) tour.variant
-          else chess.variant.FromPosition
-        },
-        fen = tour.position.some.filterNot(_.initial).map(_.fen)
-      ) |> { g =>
+    val game = Game
+      .make(
+        chess = chess.Game(
+          variantOption = Some {
+            if (tour.position.initial) tour.variant
+            else chess.variant.FromPosition
+          },
+          fen = tour.position.some.filterNot(_.initial).map(_.fen)
+        ) |> { g =>
           val turns = g.player.fold(0, 1)
           g.copy(
             clock = clock.some,
@@ -33,12 +34,13 @@ final class AutoPairing(
             startedAtTurn = turns
           )
         },
-      whitePlayer = GamePlayer.make(chess.White, user1.some, perfPicker),
-      blackPlayer = GamePlayer.make(chess.Black, user2.some, perfPicker),
-      mode = tour.mode,
-      source = Source.Tournament,
-      pgnImport = None
-    ).withId(pairing.gameId)
+        whitePlayer = GamePlayer.make(chess.White, user1.some, perfPicker),
+        blackPlayer = GamePlayer.make(chess.Black, user2.some, perfPicker),
+        mode = tour.mode,
+        source = Source.Tournament,
+        pgnImport = None
+      )
+      .withId(pairing.gameId)
       .withTournamentId(tour.id)
       .start
     (gameRepo insertDenormalized game) >>- {

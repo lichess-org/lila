@@ -71,8 +71,8 @@ final class Env(
     notifier
   )
 
-  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) {
-    () => expiration.run
+  system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
+    expiration.run
   }
 
   def webhook = webhookHandler.apply _

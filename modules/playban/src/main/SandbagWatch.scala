@@ -8,7 +8,7 @@ import lila.game.Game
 import lila.message.{ MessageApi, ModPreset }
 import lila.user.{ User, UserRepo }
 
-private final class SandbagWatch(
+final private class SandbagWatch(
     userRepo: UserRepo,
     messenger: MessageApi
 ) {
@@ -16,24 +16,29 @@ private final class SandbagWatch(
   import SandbagWatch._
 
   def apply(game: Game, loser: Color): Fu[Boolean] = game.rated ?? {
-    game.userIds.map { userId =>
-      (records getIfPresent userId, isSandbag(game, loser, userId)) match {
-        case (None, false) => funit
-        case (Some(record), false) => updateRecord(userId, record + Good)
-        case (record, true) => updateRecord(userId, (record | newRecord) + Sandbag)
+    game.userIds
+      .map { userId =>
+        (records getIfPresent userId, isSandbag(game, loser, userId)) match {
+          case (None, false)         => funit
+          case (Some(record), false) => updateRecord(userId, record + Good)
+          case (record, true)        => updateRecord(userId, (record | newRecord) + Sandbag)
+        }
       }
-    }.sequenceFu.void inject isSandbag(game)
+      .sequenceFu
+      .void inject isSandbag(game)
   }
 
-  private def sendMessage(userId: User.ID): Funit = for {
-    mod <- userRepo.lichess
-    user <- userRepo byId userId
-  } yield (mod zip user).headOption.?? {
-    case (m, u) =>
-      lila.log("sandbag").info(s"https://lichess.org/@/${u.username}")
-      lila.common.Bus.publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sandbagAuto.subject), "autoWarning")
-      messenger.sendPreset(m, u, ModPreset.sandbagAuto).void
-  }
+  private def sendMessage(userId: User.ID): Funit =
+    for {
+      mod  <- userRepo.lichess
+      user <- userRepo byId userId
+    } yield (mod zip user).headOption.?? {
+      case (m, u) =>
+        lila.log("sandbag").info(s"https://lichess.org/@/${u.username}")
+        lila.common.Bus
+          .publish(lila.hub.actorApi.mod.AutoWarning(u.id, ModPreset.sandbagAuto.subject), "autoWarning")
+        messenger.sendPreset(m, u, ModPreset.sandbagAuto).void
+    }
 
   private def updateRecord(userId: User.ID, record: Record) =
     if (record.immaculate) fuccess(records invalidate userId)
@@ -60,7 +65,7 @@ private final class SandbagWatch(
 private object SandbagWatch {
 
   sealed trait Outcome
-  case object Good extends Outcome
+  case object Good    extends Outcome
   case object Sandbag extends Outcome
 
   val maxOutcomes = 7

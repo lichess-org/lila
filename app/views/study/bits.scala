@@ -18,9 +18,13 @@ object bits {
     def activeCls(c: String) = cls := (c == active).option("active")
     frag(
       a(activeCls("mine"), href := routes.Study.mine(order.key))(trans.study.myStudies()),
-      a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))(trans.study.studiesIContributeTo()),
+      a(activeCls("mineMember"), href := routes.Study.mineMember(order.key))(
+        trans.study.studiesIContributeTo()
+      ),
       a(activeCls("minePublic"), href := routes.Study.minePublic(order.key))(trans.study.myPublicStudies()),
-      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(trans.study.myPrivateStudies()),
+      a(activeCls("minePrivate"), href := routes.Study.minePrivate(order.key))(
+        trans.study.myPrivateStudies()
+      ),
       a(activeCls("mineLikes"), href := routes.Study.mineLikes(order.key))(trans.study.myFavoriteStudies())
     )
   }
@@ -52,8 +56,10 @@ object bits {
         }
       ),
       ol(cls := "members")(
-        s.study.members.members.values.take(4).map { m =>
-          li(cls := "text", dataIcon := (if (m.canContribute) "" else "v"))(usernameOrId(m.id))
+        s.study.members.members.values
+          .take(4)
+          .map { m =>
+            li(cls := "text", dataIcon := (if (m.canContribute) "" else "v"))(usernameOrId(m.id))
         } toList
       )
     )

@@ -35,10 +35,11 @@ final class OnlineDoing(
   def friendsOf(userId: User.ID): Fu[OnlineFriends] =
     api fetchFollowing userId map userIds().intersect map { friends =>
       if (friends.isEmpty) OnlineFriends.empty
-      else OnlineFriends(
-        users = friends.view.flatMap { lightUser(_) }.to(List),
-        playing = playing intersect friends,
-        studying = friends filter studying.getAllPresent(friends).contains
-      )
+      else
+        OnlineFriends(
+          users = friends.view.flatMap { lightUser(_) }.to(List),
+          playing = playing intersect friends,
+          studying = friends filter studying.getAllPresent(friends).contains
+        )
     }
 }

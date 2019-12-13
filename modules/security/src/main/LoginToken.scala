@@ -22,13 +22,15 @@ private object LoginToken {
     secret = secret,
     getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
     currentValueHashSize = none,
-    valueChecker = StringToken.ValueChecker.Custom(v => fuccess {
-      DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
-    })
+    valueChecker = StringToken.ValueChecker.Custom(v =>
+      fuccess {
+        DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
+      }
+    )
   )
 
   object DateStr {
     def toStr(date: DateTime) = date.getMillis.toString
-    def toDate(str: String) = str.toLongOption map { new DateTime(_) }
+    def toDate(str: String)   = str.toLongOption map { new DateTime(_) }
   }
 }

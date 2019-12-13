@@ -12,7 +12,8 @@ object bits {
     st.nav(cls := "page-menu__menu subnav")(
       (ctx.teamNbRequests > 0) option
         a(cls := tab.active("requests"), href := routes.Team.requests())(
-          ctx.teamNbRequests, " join requests"
+          ctx.teamNbRequests,
+          " join requests"
         ),
       ctx.me.exists(_.canTeam) option
         a(cls := tab.active("mine"), href := routes.Team.mine())(
@@ -30,10 +31,14 @@ object bits {
 
   private[team] def teamTr(t: lila.team.Team)(implicit ctx: Context) = tr(cls := "paginated")(
     td(cls := "subject")(
-      a(dataIcon := "f", cls := List(
-        "team-name text" -> true,
-        "mine" -> myTeam(t.id)
-      ), href := routes.Team.show(t.id))(t.name),
+      a(
+        dataIcon := "f",
+        cls := List(
+          "team-name text" -> true,
+          "mine"           -> myTeam(t.id)
+        ),
+        href := routes.Team.show(t.id)
+      )(t.name),
       shorten(t.description, 200)
     ),
     td(cls := "info")(
@@ -41,7 +46,9 @@ object bits {
     )
   )
 
-  private[team] def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(body: Frag)(implicit ctx: Context) =
+  private[team] def layout(title: String, openGraph: Option[lila.app.ui.OpenGraph] = None)(
+      body: Frag
+  )(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
       moreCss = cssTag("team"),

@@ -17,40 +17,53 @@ final class ChatTimeout(
   def add(chat: UserChat, mod: User, user: User, reason: Reason): Funit =
     isActive(chat.id, user.id) flatMap {
       case true => funit
-      case false => coll.insert.one($doc(
-        "_id" -> makeId,
-        "chat" -> chat.id,
-        "mod" -> mod.id,
-        "user" -> user.id,
-        "reason" -> reason,
-        "createdAt" -> DateTime.now,
-        "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
-      )).void
+      case false =>
+        coll.insert
+          .one(
+            $doc(
+              "_id"       -> makeId,
+              "chat"      -> chat.id,
+              "mod"       -> mod.id,
+              "user"      -> user.id,
+              "reason"    -> reason,
+              "createdAt" -> DateTime.now,
+              "expiresAt" -> DateTime.now.plusSeconds(duration.toSeconds.toInt)
+            )
+          )
+          .void
     }
 
   def isActive(chatId: Chat.Id, userId: User.ID): Fu[Boolean] =
-    coll.exists($doc(
-      "chat" -> chatId,
-      "user" -> userId,
-      "expiresAt" $exists true
-    ))
+    coll.exists(
+      $doc(
+        "chat" -> chatId,
+        "user" -> userId,
+        "expiresAt" $exists true
+      )
+    )
 
   def activeUserIds(chat: UserChat): Fu[List[User.ID]] =
-    coll.primitive[User.ID]($doc(
-      "chat" -> chat.id,
-      "expiresAt" $exists true
-    ), "user")
+    coll.primitive[User.ID](
+      $doc(
+        "chat" -> chat.id,
+        "expiresAt" $exists true
+      ),
+      "user"
+    )
 
   def history(user: User, nb: Int): Fu[List[UserEntry]] =
     coll.ext.find($doc("user" -> user.id)).sort($sort desc "createdAt").list[UserEntry](nb)
 
-  def checkExpired: Fu[List[Reinstate]] = coll.list[Reinstate]($doc(
-    "expiresAt" $lt DateTime.now
-  )) flatMap {
-    case Nil => fuccess(Nil)
-    case objs =>
-      coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
-  }
+  def checkExpired: Fu[List[Reinstate]] =
+    coll.list[Reinstate](
+      $doc(
+        "expiresAt" $lt DateTime.now
+      )
+    ) flatMap {
+      case Nil => fuccess(Nil)
+      case objs =>
+        coll.unsetField($inIds(objs.map(_._id)), "expiresAt", multi = true) inject objs
+    }
 
   private val idSize = 8
 
@@ -63,10 +76,10 @@ object ChatTimeout {
 
   object Reason {
     case object PublicShaming extends Reason("shaming", "public shaming; please use lichess.org/report")
-    case object Insult extends Reason("insult", "disrespecting other players")
-    case object Spam extends Reason("spam", "spamming the chat")
-    case object Other extends Reason("other", "inappropriate behavior")
-    val all: List[Reason] = List(PublicShaming, Insult, Spam, Other)
+    case object Insult        extends Reason("insult", "disrespecting other players")
+    case object Spam          extends Reason("spam", "spamming the chat")
+    case object Other         extends Reason("other", "inappropriate behavior")
+    val all: List[Reason]  = List(PublicShaming, Insult, Spam, Other)
     def apply(key: String) = all.find(_.key == key)
   }
   implicit val ReasonBSONHandler: BSONHandler[Reason] = tryHandler[Reason](

@@ -36,14 +36,17 @@ object form {
             tr(th("Client Secret"), td(app.clientSecret.value))
           )
         ),
-        br, br,
+        br,
+        br,
         postForm(cls := "form3", action := routes.OAuthApp.update(app.clientId.value))(
           div(cls := "form-group")(
             "Here's a ",
             a(href := "https://github.com/lichess-org/api/tree/master/example/oauth-authorization-code")(
               "lichess OAuth app example"
             ),
-            ", and the ", a(href := routes.Api.index)("API documentation"), "."
+            ", and the ",
+            a(href := routes.Api.index)("API documentation"),
+            "."
           ),
           inner(form)
         )
@@ -57,7 +60,12 @@ object form {
     form3.group(form("description"), raw("App description"))(form3.textarea(_)()),
     form3.split(
       form3.group(form("homepageUri"), raw("Homepage URL"), half = true)(form3.input(_, typ = "url")),
-      form3.group(form("redirectUri"), raw("Callback URL"), half = true, help = frag("It must match the URL in your code").some)(form3.input(_, typ = "url"))
+      form3.group(
+        form("redirectUri"),
+        raw("Callback URL"),
+        half = true,
+        help = frag("It must match the URL in your code").some
+      )(form3.input(_, typ = "url"))
     ),
     form3.actions(
       a(href := routes.OAuthApp.index)("Cancel"),

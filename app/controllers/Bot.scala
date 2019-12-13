@@ -31,30 +31,34 @@ final class Bot(
         env.user.repo.setBot(me) >>
           env.pref.api.setBot(me) >>-
           env.user.lightUserApi.invalidate(me.id) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
-          }
-      case Array("game", id, "chat") => WithBot(me) {
-        env.bot.form.chat.bindFromRequest.fold(
-          jsonFormErrorDefaultLang,
-          res => WithMyBotGame(id, me) { pov =>
-            env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
-          }
-        )
-      }
-      case Array("game", id, "abort") => WithBot(me) {
-        WithMyBotGame(id, me) { pov =>
-          env.bot.player.abort(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
+          case e: lila.base.LilaException => BadRequest(jsonError(e.getMessage))
+        }
+      case Array("game", id, "chat") =>
+        WithBot(me) {
+          env.bot.form.chat.bindFromRequest.fold(
+            jsonFormErrorDefaultLang,
+            res =>
+              WithMyBotGame(id, me) { pov =>
+                env.bot.player.chat(pov.gameId, me, res) inject jsonOkResult
+              }
+          )
+        }
+      case Array("game", id, "abort") =>
+        WithBot(me) {
+          WithMyBotGame(id, me) { pov =>
+            env.bot.player.abort(pov) inject jsonOkResult recover {
+              case e: lila.base.LilaException => BadRequest(e.getMessage)
+            }
           }
         }
-      }
-      case Array("game", id, "resign") => WithBot(me) {
-        WithMyBotGame(id, me) { pov =>
-          env.bot.player.resign(pov) inject jsonOkResult recover {
-            case e: lila.base.LilaException => BadRequest(e.getMessage)
+      case Array("game", id, "resign") =>
+        WithBot(me) {
+          WithMyBotGame(id, me) { pov =>
+            env.bot.player.resign(pov) inject jsonOkResult recover {
+              case e: lila.base.LilaException => BadRequest(e.getMessage)
+            }
           }
         }
-      }
       case _ => notFoundJson("No such command")
     }
   }
@@ -63,14 +67,20 @@ final class Bot(
     WithBot(me) {
       env.round.proxyRepo.game(lila.game.Game takeGameId anyId) flatMap {
         case None => NotFound(jsonError("No such game")).fuccess
-        case Some(game) => lila.game.Pov(game, me) match {
-          case None => NotFound(jsonError("Not your game")).fuccess
-          case Some(pov) => f(pov)
-        }
+        case Some(game) =>
+          lila.game.Pov(game, me) match {
+            case None      => NotFound(jsonError("Not your game")).fuccess
+            case Some(pov) => f(pov)
+          }
       }
     }
 
   private def WithBot(me: lila.user.User)(f: => Fu[Result]) =
-    if (!me.isBot) BadRequest(jsonError("This endpoint only works for bot accounts. See https://lichess.org/api#operation/botAccountUpgrade")).fuccess
+    if (!me.isBot)
+      BadRequest(
+        jsonError(
+          "This endpoint only works for bot accounts. See https://lichess.org/api#operation/botAccountUpgrade"
+        )
+      ).fuccess
     else f
 }

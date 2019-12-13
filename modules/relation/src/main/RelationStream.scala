@@ -16,19 +16,20 @@ final class RelationStream(
 
   import RelationStream._
 
-  def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User, _] = coll
-    .find(
-      $doc(selectField(direction) -> user.id, "r" -> Follow),
-      $doc(projectField(direction) -> true, "_id" -> false).some
-    )
-    .batchSize(perSecond.value)
-    .cursor[Bdoc](ReadPreference.secondaryPreferred)
-    .documentSource()
-    .grouped(perSecond.value)
-    .map(_.flatMap(_.getAsOpt[User.ID](projectField(direction))))
-    .throttle(1, 1 second)
-    .mapAsync(1)(userRepo.usersFromSecondary)
-    .mapConcat(identity)
+  def follow(user: User, direction: Direction, perSecond: MaxPerSecond): Source[User, _] =
+    coll
+      .find(
+        $doc(selectField(direction) -> user.id, "r" -> Follow),
+        $doc(projectField(direction) -> true, "_id" -> false).some
+      )
+      .batchSize(perSecond.value)
+      .cursor[Bdoc](ReadPreference.secondaryPreferred)
+      .documentSource()
+      .grouped(perSecond.value)
+      .map(_.flatMap(_.getAsOpt[User.ID](projectField(direction))))
+      .throttle(1, 1 second)
+      .mapAsync(1)(userRepo.usersFromSecondary)
+      .mapConcat(identity)
 
   private def selectField(d: Direction) = d match {
     case Direction.Following => "u1"

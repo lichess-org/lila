@@ -13,7 +13,7 @@ object JsonView {
 
   def apply(chat: AnyChat): JsValue = chat match {
     case c: MixedChat => mixedChatWriter writes c
-    case c: UserChat => userChatWriter writes c
+    case c: UserChat  => userChatWriter writes c
   }
 
   def apply(line: Line): JsObject = lineWriter writes line
@@ -24,7 +24,7 @@ object JsonView {
     )
 
   def mobile(chat: AnyChat, writeable: Boolean = true) = Json.obj(
-    "lines" -> apply(chat),
+    "lines"     -> apply(chat),
     "writeable" -> writeable
   )
 
@@ -36,12 +36,14 @@ object JsonView {
       Json.obj("key" -> r.key, "name" -> r.name)
     }
 
-    implicit def timeoutEntryWriter(implicit lightUser: LightUser.GetterSync): OWrites[ChatTimeout.UserEntry] =
+    implicit def timeoutEntryWriter(
+        implicit lightUser: LightUser.GetterSync
+    ): OWrites[ChatTimeout.UserEntry] =
       OWrites[ChatTimeout.UserEntry] { e =>
         Json.obj(
           "reason" -> e.reason.key,
-          "mod" -> lightUser(e.mod).fold("?")(_.name),
-          "date" -> e.createdAt
+          "mod"    -> lightUser(e.mod).fold("?")(_.name),
+          "date"   -> e.createdAt
         )
       }
 
@@ -53,19 +55,23 @@ object JsonView {
       JsArray(c.lines map userLineWriter.writes)
     }
 
-    private[chat] implicit val lineWriter: OWrites[Line] = OWrites[Line] {
-      case l: UserLine => userLineWriter writes l
+    implicit private[chat] val lineWriter: OWrites[Line] = OWrites[Line] {
+      case l: UserLine   => userLineWriter writes l
       case l: PlayerLine => playerLineWriter writes l
     }
 
-    private implicit val userLineWriter = OWrites[UserLine] { l =>
-      Json.obj(
-        "u" -> l.username,
-        "t" -> l.text
-      ).add("r" -> l.troll).add("d" -> l.deleted).add("title" -> l.title)
+    implicit private val userLineWriter = OWrites[UserLine] { l =>
+      Json
+        .obj(
+          "u" -> l.username,
+          "t" -> l.text
+        )
+        .add("r" -> l.troll)
+        .add("d" -> l.deleted)
+        .add("title" -> l.title)
     }
 
-    private implicit val playerLineWriter = OWrites[PlayerLine] { l =>
+    implicit private val playerLineWriter = OWrites[PlayerLine] { l =>
       Json.obj(
         "c" -> l.color.name,
         "t" -> l.text

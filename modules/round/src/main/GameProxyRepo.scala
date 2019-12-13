@@ -1,6 +1,6 @@
 package lila.round
 
-import lila.game.{ Game, Pov, PlayerRef }
+import lila.game.{ Game, PlayerRef, Pov }
 
 final class GameProxyRepo(
     gameRepo: lila.game.GameRepo,
@@ -13,7 +13,9 @@ final class GameProxyRepo(
     game(gameId) map { _ flatMap { Pov(_, user) } }
 
   def pov(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
-    game(gameId) map2 { (g: Game) => Pov(g, color) }
+    game(gameId) map2 { (g: Game) =>
+      Pov(g, color)
+    }
 
   def pov(fullId: Game.ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
@@ -30,7 +32,9 @@ final class GameProxyRepo(
     updateIfPresent(pov.game).dmap(_ pov pov.color)
 
   def povIfPresent(gameId: Game.ID, color: chess.Color): Fu[Option[Pov]] =
-    gameIfPresent(gameId) map2 { (g: Game) => Pov(g, color) }
+    gameIfPresent(gameId) map2 { (g: Game) =>
+      Pov(g, color)
+    }
 
   def povIfPresent(fullId: Game.ID): Fu[Option[Pov]] = povIfPresent(PlayerRef(fullId))
 
@@ -41,8 +45,9 @@ final class GameProxyRepo(
     _.map { pov =>
       gameIfPresent(pov.gameId) map { _.fold(pov)(pov.withGame) }
     }.sequenceFu map { povs =>
-      try { povs sortWith Pov.priority }
-      catch { case _: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
+      try {
+        povs sortWith Pov.priority
+      } catch { case _: IllegalArgumentException => povs sortBy (-_.game.movedAt.getSeconds) }
     }
   }
 }

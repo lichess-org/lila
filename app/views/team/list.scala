@@ -37,17 +37,19 @@ object list {
     }
 
   private def noTeam()(implicit ctx: Context) = tbody(
-    tr(td(colspan := "2")(
-      br,
-      trans.noTeamFound()
-    ))
+    tr(
+      td(colspan := "2")(
+        br,
+        trans.noTeamFound()
+      )
+    )
   )
 
   private def list(
-    name: String,
-    teams: Paginator[lila.team.Team],
-    nextPageUrl: Int => String,
-    search: String = ""
+      name: String,
+      teams: Paginator[lila.team.Team],
+      nextPageUrl: Int => String,
+      search: String = ""
   )(implicit ctx: Context) =
     bits.layout(title = "%s - page %d".format(name, teams.currentPage)) {
       main(cls := "team-list page-menu")(
@@ -62,11 +64,12 @@ object list {
             )
           ),
           table(cls := "slist slist-pad")(
-            if (teams.nbResults > 0) tbody(cls := "infinitescroll")(
-              pagerNext(teams, nextPageUrl),
-              tr,
-              teams.currentPageResults map { bits.teamTr(_) }
-            )
+            if (teams.nbResults > 0)
+              tbody(cls := "infinitescroll")(
+                pagerNext(teams, nextPageUrl),
+                tr,
+                teams.currentPageResults map { bits.teamTr(_) }
+              )
             else noTeam()
           )
         )

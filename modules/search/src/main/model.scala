@@ -5,8 +5,8 @@ case class Index(name: String) extends AnyVal
 case class Id(value: String) extends AnyVal
 
 case class StringQuery(value: String) extends AnyVal
-case class From(value: Int) extends AnyVal
-case class Size(value: Int) extends AnyVal
+case class From(value: Int)           extends AnyVal
+case class Size(value: Int)           extends AnyVal
 
 case class SearchResponse(ids: List[String]) extends AnyVal
 

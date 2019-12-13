@@ -23,7 +23,7 @@ object header {
             a(
               cls := List(
                 "service twitch" -> true,
-                "live" -> s.stream.exists(_.twitch)
+                "live"           -> s.stream.exists(_.twitch)
               ),
               href := twitch.fullUrl
             )(bits.svg.twitch, " ", twitch.minUrl)
@@ -32,7 +32,7 @@ object header {
             a(
               cls := List(
                 "service youTube" -> true,
-                "live" -> s.stream.exists(_.twitch)
+                "live"            -> s.stream.exists(_.twitch)
               ),
               href := youTube.fullUrl
             )(bits.svg.youTube, " ", youTube.minUrl)
@@ -58,10 +58,14 @@ object header {
         ),
         following.map { f =>
           (ctx.isAuth && !ctx.is(s.user)) option
-            submitButton(attr("data-user") := s.user.id, dataIcon := "h", cls := List(
-              "follow button text" -> true,
-              "active" -> f
-            ))(
+            submitButton(
+              attr("data-user") := s.user.id,
+              dataIcon := "h",
+              cls := List(
+                "follow button text" -> true,
+                "active"             -> f
+              )
+            )(
               span(cls := "active-no")(trans.follow()),
               span(cls := "active-yes")(trans.following())
             )

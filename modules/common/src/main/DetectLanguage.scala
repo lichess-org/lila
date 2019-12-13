@@ -16,7 +16,7 @@ final class DetectLanguage(
 
   import DetectLanguage.Detection
 
-  private implicit val DetectionReads = Json.reads[Detection]
+  implicit private val DetectionReads = Json.reads[Detection]
 
   private val messageMaxLength = 2000
 
@@ -24,23 +24,29 @@ final class DetectLanguage(
 
   def apply(message: String): Fu[Option[Lang]] =
     if (config.key.value.isEmpty) fuccess(defaultLang.some)
-    else ws.url(config.url).post(Map(
-      "key" -> config.key.value,
-      "q" -> message.take(messageMaxLength)
-    )) map { response =>
-      (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
-        case None =>
-          lila.log("DetectLanguage").warn(s"Invalide service response ${response.json}")
-          None
-        case Some(res) => res.filter(_.isReliable)
-          .sortBy(-_.confidence)
-          .headOption map (_.language) flatMap Lang.get
+    else
+      ws.url(config.url)
+        .post(
+          Map(
+            "key" -> config.key.value,
+            "q"   -> message.take(messageMaxLength)
+          )
+        ) map { response =>
+        (response.json \ "data" \ "detections").asOpt[List[Detection]] match {
+          case None =>
+            lila.log("DetectLanguage").warn(s"Invalide service response ${response.json}")
+            None
+          case Some(res) =>
+            res
+              .filter(_.isReliable)
+              .sortBy(-_.confidence)
+              .headOption map (_.language) flatMap Lang.get
+        }
+      } recover {
+        case e: Exception =>
+          lila.log("DetectLanguage").warn(e.getMessage, e)
+          defaultLang.some
       }
-    } recover {
-      case e: Exception =>
-        lila.log("DetectLanguage").warn(e.getMessage, e)
-        defaultLang.some
-    }
 }
 
 object DetectLanguage {
@@ -48,7 +54,7 @@ object DetectLanguage {
   final class Config(val url: String, val key: Secret)
   implicit val configLoader = AutoConfig.loader[Config]
 
-  private final case class Detection(
+  final private case class Detection(
       language: String,
       confidence: Float,
       isReliable: Boolean

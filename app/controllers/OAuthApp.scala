@@ -7,7 +7,7 @@ import views._
 final class OAuthApp(env: Env) extends LilaController(env) {
 
   private val appApi = env.oAuth.appApi
-  private val forms = env.oAuth.forms
+  private val forms  = env.oAuth.forms
 
   def index = Auth { implicit ctx => me =>
     appApi.list(me) map { apps =>
@@ -39,10 +39,14 @@ final class OAuthApp(env: Env) extends LilaController(env) {
   def update(id: String) = AuthBody { implicit ctx => me =>
     OptionFuResult(appApi.findBy(App.Id(id), me)) { app =>
       implicit val req = ctx.body
-      forms.app.edit(app).bindFromRequest.fold(
-        err => BadRequest(html.oAuth.app.form.edit(app, err)).fuccess,
-        data => appApi.update(app) { data.update(_) } inject Redirect(routes.OAuthApp.edit(app.clientId.value))
-      )
+      forms.app
+        .edit(app)
+        .bindFromRequest
+        .fold(
+          err => BadRequest(html.oAuth.app.form.edit(app, err)).fuccess,
+          data =>
+            appApi.update(app) { data.update(_) } inject Redirect(routes.OAuthApp.edit(app.clientId.value))
+        )
     }
   }
 

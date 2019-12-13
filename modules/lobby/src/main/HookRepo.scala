@@ -24,7 +24,9 @@ object HookRepo {
 
   def byId(id: String) = hooks find (_.id == id)
 
-  def byIds(ids: Set[String]) = hooks filter { h => ids contains h.id }
+  def byIds(ids: Set[String]) = hooks filter { h =>
+    ids contains h.id
+  }
 
   def bySri(sri: Sri) = hooks find (_.sri == sri)
 

@@ -1,14 +1,12 @@
 import com.typesafe.sbt.packager.Keys.scriptClasspath
-import com.typesafe.sbt.SbtScalariform.autoImport.scalariformFormat
 
 import BuildSettings._
 import Dependencies._
 
+// enable both akka and netty, choose with config
+// akka is preferable for dev, netty for prod
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala, PlayAkkaHttpServer)
-  .disablePlugins(PlayNettyServer)
-  /* .enablePlugins(PlayScala, PlayNettyServer) */
-  /* .disablePlugins(PlayAkkaHttpServer) */
+  .enablePlugins(PlayScala, PlayAkkaHttpServer, PlayNettyServer)
   .dependsOn(api)
   .aggregate(api)
 
@@ -25,7 +23,12 @@ PlayKeys.playDefaultPort := 9663
 PlayKeys.externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
-// offline := true
+// don't make an assets jar
+resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+// use akka-http for dev
+PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServerProvider"
+
+// format: off
 libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
@@ -34,12 +37,6 @@ libraryDependencies ++= Seq(
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce, epoll
 ) ++ silencer.bundle
-
-resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
-
-scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
-excludeFilter in scalariformFormat := "*Routes*"
-routesGenerator := LilaRoutesGenerator
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,

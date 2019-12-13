@@ -1,5 +1,6 @@
+.sbtopts
 conf/application.conf
-bin/dev
+
 logs
 project/project
 project/target

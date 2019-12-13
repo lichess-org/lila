@@ -7,7 +7,7 @@ import lila.room.RoomSocket.{ Protocol => RP, _ }
 import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage
 
-private final class SimulSocket(
+final private class SimulSocket(
     repo: SimulRepo,
     jsonView: JsonView,
     remoteSocketApi: lila.socket.RemoteSocket,
@@ -46,8 +46,7 @@ private final class SimulSocket(
 
   lazy val rooms = makeRoomMap(send, true)
 
-  private lazy val handler: Handler = roomHandler(rooms, chat, logger,
-    roomId => _.Simul(roomId.value).some)
+  private lazy val handler: Handler = roomHandler(rooms, chat, logger, roomId => _.Simul(roomId.value).some)
 
   private lazy val send: String => Unit = remoteSocketApi.makeSender("simul-out").apply _
 

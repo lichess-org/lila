@@ -51,17 +51,23 @@ final class BookmarkApi(
   def countByUser(user: User): Fu[Int] = coll.countSel(userIdQuery(user.id))
 
   def gamePaginatorByUser(user: User, page: Int) =
-    paginator.byUser(user, page) map2 { (b: Bookmark) => b.game }
+    paginator.byUser(user, page) map2 { (b: Bookmark) =>
+      b.game
+    }
 
   private def add(gameId: Game.ID, userId: User.ID, date: DateTime): Funit =
-    coll.insert.one($doc(
-      "_id" -> makeId(gameId, userId),
-      "g" -> gameId,
-      "u" -> userId,
-      "d" -> date
-    )).void
+    coll.insert
+      .one(
+        $doc(
+          "_id" -> makeId(gameId, userId),
+          "g"   -> gameId,
+          "u"   -> userId,
+          "d"   -> date
+        )
+      )
+      .void
 
-  private def userIdQuery(userId: User.ID) = $doc("u" -> userId)
-  private def makeId(gameId: Game.ID, userId: User.ID) = s"$gameId$userId"
+  private def userIdQuery(userId: User.ID)               = $doc("u" -> userId)
+  private def makeId(gameId: Game.ID, userId: User.ID)   = s"$gameId$userId"
   private def selectId(gameId: Game.ID, userId: User.ID) = $id(makeId(gameId, userId))
 }

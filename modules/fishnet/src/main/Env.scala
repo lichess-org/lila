@@ -42,7 +42,7 @@ final class Env(
   private lazy val redis = new FishnetRedis(
     RedisClient create RedisURI.create(config.redisUri),
     "fishnet-in",
-    "fishnet-out",
+    "fishnet-out"
   )
 
   private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
@@ -85,13 +85,16 @@ final class Env(
   wire[MainWatcher]
 
   // api actor
-  system.actorOf(Props(new Actor {
-    def receive = {
-      case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
-        analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
-      case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
-    }
-  }), name = config.actorName)
+  system.actorOf(
+    Props(new Actor {
+      def receive = {
+        case lila.hub.actorApi.fishnet.AutoAnalyse(gameId) =>
+          analyser(gameId, Work.Sender(userId = none, ip = none, mod = false, system = true))
+        case req: lila.hub.actorApi.fishnet.StudyChapterRequest => analyser study req
+      }
+    }),
+    name = config.actorName
+  )
 
   def cli = new lila.common.Cli {
     def process = {

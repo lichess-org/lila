@@ -12,7 +12,7 @@ import lila.rating.PerfType
 import lila.report.{ Suspect, Victim }
 import lila.user.{ User, UserRepo }
 
-private final class RatingRefund(
+final private class RatingRefund(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     scheduler: akka.actor.Scheduler,
@@ -30,25 +30,29 @@ private final class RatingRefund(
   private def apply(sus: Suspect): Unit = logApi.wasUnengined(sus) flatMap {
     case true => funit
     case false =>
-
       logger.info(s"Refunding ${sus.user.username} victims")
 
-      def lastGames = gameRepo.coll.ext.find(
-        Query.user(sus.user.id) ++ Query.rated ++ Query.createdSince(DateTime.now minusDays 3) ++ Query.finished
-      ).sort(Query.sortCreated)
-        .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
-        .list(40)
+      def lastGames =
+        gameRepo.coll.ext
+          .find(
+            Query.user(sus.user.id) ++ Query.rated ++ Query
+              .createdSince(DateTime.now minusDays 3) ++ Query.finished
+          )
+          .sort(Query.sortCreated)
+          .cursor[Game](readPreference = ReadPreference.secondaryPreferred)
+          .list(40)
 
       def makeRefunds(games: List[Game]) = games.foldLeft(Refunds(List.empty)) {
-        case (refs, g) => (for {
-          perf <- g.perfType
-          op <- g.playerByUserId(sus.user.id) map g.opponent
-          if !op.provisional
-          victim <- op.userId
-          diff <- op.ratingDiff
-          if diff < 0
-          rating <- op.rating
-        } yield refs.add(victim, perf, -diff, rating)) | refs
+        case (refs, g) =>
+          (for {
+            perf <- g.perfType
+            op   <- g.playerByUserId(sus.user.id) map g.opponent
+            if !op.provisional
+            victim <- op.userId
+            diff   <- op.ratingDiff
+            if diff < 0
+            rating <- op.rating
+          } yield refs.add(victim, perf, -diff, rating)) | refs
       }
 
       def pointsToRefund(ref: Refund, curRating: Int, perfs: PerfStat): Int = {
@@ -91,14 +95,14 @@ private object RatingRefund {
 
   case class Refund(victim: User.ID, perf: PerfType, diff: Int, topRating: Int) {
     def is(v: User.ID, p: PerfType): Boolean = v == victim && p == perf
-    def is(r: Refund): Boolean = is(r.victim, r.perf)
-    def add(d: Int, r: Int) = copy(diff = diff + d, topRating = topRating max r)
+    def is(r: Refund): Boolean               = is(r.victim, r.perf)
+    def add(d: Int, r: Int)                  = copy(diff = diff + d, topRating = topRating max r)
   }
 
   case class Refunds(all: List[Refund]) {
-    def add(victim: User.ID, perf: PerfType, diff: Int, rating: Int) = copy(all =
-      all.find(_.is(victim, perf)) match {
-        case None => Refund(victim, perf, diff, rating) :: all
+    def add(victim: User.ID, perf: PerfType, diff: Int, rating: Int) =
+      copy(all = all.find(_.is(victim, perf)) match {
+        case None    => Refund(victim, perf, diff, rating) :: all
         case Some(r) => r.add(diff, rating) :: all.filterNot(_ is r)
       })
   }

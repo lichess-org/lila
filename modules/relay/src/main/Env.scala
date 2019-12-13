@@ -41,7 +41,7 @@ final class Env(
   }
 
   lila.common.Bus.subscribeFun("studyLikes", "study", "relayToggle") {
-    case lila.study.actorApi.StudyLikes(id, likes) => api.setLikes(Relay.Id(id.value), likes)
+    case lila.study.actorApi.StudyLikes(id, likes)       => api.setLikes(Relay.Id(id.value), likes)
     case lila.hub.actorApi.study.RemoveStudy(studyId, _) => api.onStudyRemove(studyId)
     case lila.study.actorApi.RelayToggle(id, v, who) =>
       studyApi.isContributor(id, who.u) flatMap {

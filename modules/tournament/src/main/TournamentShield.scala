@@ -42,13 +42,18 @@ final class TournamentShieldApi(
   private val cache = asyncCache.single[History](
     name = "tournament.shield",
     expireAfter = _.ExpireAfterWrite(1 day),
-    f = tournamentRepo.coll.ext.find($doc(
-      "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
-      "status" -> statusBSONHandler.writeTry(Status.Finished).get
-    )).sort($sort asc "startsAt").list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
+    f = tournamentRepo.coll.ext
+      .find(
+        $doc(
+          "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
+          "status"        -> statusBSONHandler.writeTry(Status.Finished).get
+        )
+      )
+      .sort($sort asc "startsAt")
+      .list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
       for {
-        tour <- tours
-        categ <- Category of tour
+        tour   <- tours
+        categ  <- Category of tour
         winner <- tour.winnerId
       } yield Award(
         categ = categ,
@@ -96,11 +101,11 @@ object TournamentShield {
       val of: SpeedOrVariant,
       val iconChar: Char
   ) {
-    def key = of.fold(_.name, _.key)
+    def key  = of.fold(_.name, _.key)
     def name = of.fold(_.toString, _.name)
     def matches(tour: Tournament) =
       if (tour.variant.standard) ~(for {
-        tourSpeed <- tour.schedule.map(_.speed)
+        tourSpeed  <- tour.schedule.map(_.speed)
         categSpeed <- of.left.toOption
       } yield tourSpeed == categSpeed)
       else of.toOption.has(tour.variant)
@@ -108,82 +113,113 @@ object TournamentShield {
 
   object Category {
 
-    case object UltraBullet extends Category(
-      of = Left(Schedule.Speed.UltraBullet),
-      iconChar = '{'
-    )
+    case object UltraBullet
+        extends Category(
+          of = Left(Schedule.Speed.UltraBullet),
+          iconChar = '{'
+        )
 
-    case object HyperBullet extends Category(
-      of = Left(Schedule.Speed.HyperBullet),
-      iconChar = 'T'
-    )
+    case object HyperBullet
+        extends Category(
+          of = Left(Schedule.Speed.HyperBullet),
+          iconChar = 'T'
+        )
 
-    case object Bullet extends Category(
-      of = Left(Schedule.Speed.Bullet),
-      iconChar = 'T'
-    )
+    case object Bullet
+        extends Category(
+          of = Left(Schedule.Speed.Bullet),
+          iconChar = 'T'
+        )
 
-    case object SuperBlitz extends Category(
-      of = Left(Schedule.Speed.SuperBlitz),
-      iconChar = ')'
-    )
+    case object SuperBlitz
+        extends Category(
+          of = Left(Schedule.Speed.SuperBlitz),
+          iconChar = ')'
+        )
 
-    case object Blitz extends Category(
-      of = Left(Schedule.Speed.Blitz),
-      iconChar = ')'
-    )
+    case object Blitz
+        extends Category(
+          of = Left(Schedule.Speed.Blitz),
+          iconChar = ')'
+        )
 
-    case object Rapid extends Category(
-      of = Left(Schedule.Speed.Rapid),
-      iconChar = '#'
-    )
+    case object Rapid
+        extends Category(
+          of = Left(Schedule.Speed.Rapid),
+          iconChar = '#'
+        )
 
-    case object Classical extends Category(
-      of = Left(Schedule.Speed.Classical),
-      iconChar = '+'
-    )
+    case object Classical
+        extends Category(
+          of = Left(Schedule.Speed.Classical),
+          iconChar = '+'
+        )
 
-    case object Chess960 extends Category(
-      of = Right(chess.variant.Chess960),
-      iconChar = '\''
-    )
+    case object Chess960
+        extends Category(
+          of = Right(chess.variant.Chess960),
+          iconChar = '\''
+        )
 
-    case object KingOfTheHill extends Category(
-      of = Right(chess.variant.KingOfTheHill),
-      iconChar = '('
-    )
+    case object KingOfTheHill
+        extends Category(
+          of = Right(chess.variant.KingOfTheHill),
+          iconChar = '('
+        )
 
-    case object Antichess extends Category(
-      of = Right(chess.variant.Antichess),
-      iconChar = '@'
-    )
+    case object Antichess
+        extends Category(
+          of = Right(chess.variant.Antichess),
+          iconChar = '@'
+        )
 
-    case object Atomic extends Category(
-      of = Right(chess.variant.Atomic),
-      iconChar = '>'
-    )
+    case object Atomic
+        extends Category(
+          of = Right(chess.variant.Atomic),
+          iconChar = '>'
+        )
 
-    case object ThreeCheck extends Category(
-      of = Right(chess.variant.ThreeCheck),
-      iconChar = '.'
-    )
+    case object ThreeCheck
+        extends Category(
+          of = Right(chess.variant.ThreeCheck),
+          iconChar = '.'
+        )
 
-    case object Horde extends Category(
-      of = Right(chess.variant.Horde),
-      iconChar = '_'
-    )
+    case object Horde
+        extends Category(
+          of = Right(chess.variant.Horde),
+          iconChar = '_'
+        )
 
-    case object RacingKings extends Category(
-      of = Right(chess.variant.RacingKings),
-      iconChar = ''
-    )
+    case object RacingKings
+        extends Category(
+          of = Right(chess.variant.RacingKings),
+          iconChar = ''
+        )
 
-    case object Crazyhouse extends Category(
-      of = Right(chess.variant.Crazyhouse),
-      iconChar = ''
-    )
+    case object Crazyhouse
+        extends Category(
+          of = Right(chess.variant.Crazyhouse),
+          iconChar = ''
+        )
 
-    val all: List[Category] = List(Bullet, SuperBlitz, Blitz, Rapid, Classical, HyperBullet, UltraBullet, Crazyhouse, Chess960, KingOfTheHill, ThreeCheck, Antichess, Atomic, Horde, RacingKings)
+    val all: List[Category] = List(
+      Bullet,
+      SuperBlitz,
+      Blitz,
+      Rapid,
+      Classical,
+      HyperBullet,
+      UltraBullet,
+      Crazyhouse,
+      Chess960,
+      KingOfTheHill,
+      ThreeCheck,
+      Antichess,
+      Atomic,
+      Horde,
+      RacingKings
+    )
 
     def of(t: Tournament): Option[Category] = all.find(_ matches t)
 
@@ -193,7 +229,8 @@ object TournamentShield {
   def spotlight(name: String) = Spotlight(
     iconFont = "5".some,
     headline = s"Battle for the $name Shield",
-    description = s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
+    description =
+      s"""This [Shield trophy](https://lichess.org/blog/Wh36WiQAAMMApuRb/introducing-shield-tournaments) is unique.
 The winner keeps it for one month,
 then must defend it during the next $name Shield tournament!""",
     homepageHours = 6.some

@@ -23,22 +23,28 @@ final class RevolutionApi(
   private val cache = asyncCache.single[PerOwner](
     name = "tournament.shield",
     expireAfter = _.ExpireAfterWrite(1 day),
-    f = tournamentRepo.coll.ext.find($doc(
-      "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
-      "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
-      "name" $regex Revolution.namePattern,
-      "status" -> statusBSONHandler.writeTry(Status.Finished).get
-    ), $doc("winner" -> true, "variant" -> true)).list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
-      val awards = for {
-        doc <- docOpt
-        winner <- doc.getAsOpt[User.ID]("winner")
-        variant <- doc.int("variant") flatMap Variant.apply
-        id <- doc.getAsOpt[Tournament.ID]("_id")
-      } yield Award(
-        owner = winner,
-        variant = variant,
-        tourId = id
+    f = tournamentRepo.coll.ext
+      .find(
+        $doc(
+          "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Unique).get,
+          "startsAt" $lt DateTime.now $gt DateTime.now.minusYears(1).minusDays(1),
+          "name" $regex Revolution.namePattern,
+          "status" -> statusBSONHandler.writeTry(Status.Finished).get
+        ),
+        $doc("winner" -> true, "variant" -> true)
       )
+      .list[Bdoc](none, ReadPreference.secondaryPreferred) map { docOpt =>
+      val awards =
+        for {
+          doc     <- docOpt
+          winner  <- doc.getAsOpt[User.ID]("winner")
+          variant <- doc.int("variant") flatMap Variant.apply
+          id      <- doc.getAsOpt[Tournament.ID]("_id")
+        } yield Award(
+          owner = winner,
+          variant = variant,
+          tourId = id
+        )
       awards.groupBy(_.owner)
     }
   )
@@ -47,7 +53,7 @@ final class RevolutionApi(
 object Revolution {
 
   val namePattern = """ Revolution #\d+$"""
-  val nameRegex = namePattern.r
+  val nameRegex   = namePattern.r
 
   def is(tour: Tournament) = tour.isUnique && nameRegex.pattern.matcher(tour.name).find
 

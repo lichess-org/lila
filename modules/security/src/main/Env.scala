@@ -7,10 +7,10 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.common.{ Bus, Strings, EmailAddress }
+import lila.common.{ Bus, EmailAddress, Strings }
 import lila.memo.SettingStore.Strings._
 import lila.oauth.OAuthServer
-import lila.user.{ UserRepo, Authenticator }
+import lila.user.{ Authenticator, UserRepo }
 
 @Module
 final class Env(
@@ -29,7 +29,7 @@ final class Env(
 )(implicit system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[SecurityConfig]("security")(SecurityConfig.loader)
-  import net.{ domain, baseUrl }
+  import net.{ baseUrl, domain }
 
   val recaptchaPublicConfig = config.recaptcha.public
 
@@ -73,12 +73,13 @@ final class Env(
   private lazy val mailgun: Mailgun = wire[Mailgun]
 
   lazy val emailConfirm: EmailConfirm =
-    if (config.emailConfirm.enabled) new EmailConfirmMailgun(
-      userRepo = userRepo,
-      mailgun = mailgun,
-      baseUrl = baseUrl,
-      tokenerSecret = config.emailConfirm.secret
-    )
+    if (config.emailConfirm.enabled)
+      new EmailConfirmMailgun(
+        userRepo = userRepo,
+        mailgun = mailgun,
+        baseUrl = baseUrl,
+        tokenerSecret = config.emailConfirm.secret
+      )
     else wire[EmailConfirmSkip]
 
   lazy val passwordReset = {
@@ -124,13 +125,14 @@ final class Env(
 
   scheduler.scheduleOnce(30 seconds)(disposableEmailDomain.refresh)
   scheduler.scheduleWithFixedDelay(config.disposableEmail.refreshDelay, config.disposableEmail.refreshDelay) {
-    () => disposableEmailDomain.refresh
+    () =>
+      disposableEmailDomain.refresh
   }
 
   lazy val tor: Tor = wire[Tor]
   scheduler.scheduleOnce(31 seconds)(tor.refresh(_ => funit))
-  scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) {
-    () => tor.refresh(firewall.unblockIps)
+  scheduler.scheduleWithFixedDelay(config.tor.refreshDelay, config.tor.refreshDelay) { () =>
+    tor.refresh(firewall.unblockIps)
   }
 
   lazy val ipTrust: IpTrust = wire[IpTrust]

@@ -6,36 +6,45 @@ import play.api.data.Forms._
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
-private[message] final class DataForm(
+final private[message] class DataForm(
     userRepo: UserRepo,
     security: MessageSecurity
 ) {
 
   import DataForm._
 
-  def thread(me: User) = Form(mapping(
-    "username" -> lila.user.DataForm.historicalUsernameField
-      .verifying("Unknown username", { fetchUser(_).isDefined })
-      .verifying("Sorry, this player doesn't accept new messages", { name =>
-        Granter(_.MessageAnyone)(me) || {
-          security.canMessage(me.id, User normalize name) awaitSeconds 2 // damn you blocking API
-        }
-      }),
-    "subject" -> text(minLength = 3, maxLength = 100),
-    "text" -> text(minLength = 3, maxLength = 8000),
-    "mod" -> optional(nonEmptyText)
-  )({
-      case (username, subject, text, mod) => ThreadData(
-        user = fetchUser(username) err "Unknown username " + username,
-        subject = subject,
-        text = text,
-        asMod = mod.isDefined
-      )
-    })(_.export.some))
+  def thread(me: User) =
+    Form(
+      mapping(
+        "username" -> lila.user.DataForm.historicalUsernameField
+          .verifying("Unknown username", { fetchUser(_).isDefined })
+          .verifying(
+            "Sorry, this player doesn't accept new messages", { name =>
+              Granter(_.MessageAnyone)(me) || {
+                security.canMessage(me.id, User normalize name) awaitSeconds 2 // damn you blocking API
+              }
+            }
+          ),
+        "subject" -> text(minLength = 3, maxLength = 100),
+        "text"    -> text(minLength = 3, maxLength = 8000),
+        "mod"     -> optional(nonEmptyText)
+      )({
+        case (username, subject, text, mod) =>
+          ThreadData(
+            user = fetchUser(username) err "Unknown username " + username,
+            subject = subject,
+            text = text,
+            asMod = mod.isDefined
+          )
+      })(_.export.some)
+    )
 
-  def post = Form(single(
-    "text" -> text(minLength = 3)
-  ))
+  def post =
+    Form(
+      single(
+        "text" -> text(minLength = 3)
+      )
+    )
 
   private def fetchUser(username: String) = userRepo named username awaitSeconds 2
 }

@@ -35,8 +35,8 @@ case class Seek(
       (realColor compatibleWith h.realColor) &&
       ratingRangeCompatibleWith(h) && h.ratingRangeCompatibleWith(this)
 
-  private def ratingRangeCompatibleWith(s: Seek) = realRatingRange.fold(true) {
-    range => s.rating ?? range.contains
+  private def ratingRangeCompatibleWith(s: Seek) = realRatingRange.fold(true) { range =>
+    s.rating ?? range.contains
   }
 
   private def compatibilityProperties = (variant, mode, daysPerTurn)
@@ -47,23 +47,25 @@ case class Seek(
 
   def rating = perf.map(_.rating)
 
-  lazy val render: JsObject = Json.obj(
-    "id" -> _id,
-    "username" -> user.username,
-    "rating" -> rating,
-    "variant" -> Json.obj(
-      "key" -> realVariant.key,
-      "short" -> realVariant.shortName,
-      "name" -> realVariant.name
-    ),
-    "mode" -> realMode.id,
-    "days" -> daysPerTurn,
-    "color" -> chess.Color(color).??(_.name),
-    "perf" -> Json.obj(
-      "icon" -> perfType.map(_.iconChar.toString),
-      "name" -> perfType.map(_.name)
+  lazy val render: JsObject = Json
+    .obj(
+      "id"       -> _id,
+      "username" -> user.username,
+      "rating"   -> rating,
+      "variant" -> Json.obj(
+        "key"   -> realVariant.key,
+        "short" -> realVariant.shortName,
+        "name"  -> realVariant.name
+      ),
+      "mode"  -> realMode.id,
+      "days"  -> daysPerTurn,
+      "color" -> chess.Color(color).??(_.name),
+      "perf" -> Json.obj(
+        "icon" -> perfType.map(_.iconChar.toString),
+        "name" -> perfType.map(_.name)
+      )
     )
-  ).add("provisional" -> perf.map(_.provisional).filter(identity))
+    .add("provisional" -> perf.map(_.provisional).filter(identity))
 
   lazy val perfType = PerfPicker.perfType(Speed.Correspondence, realVariant, daysPerTurn)
 }
@@ -73,13 +75,13 @@ object Seek {
   val idSize = 8
 
   def make(
-    variant: chess.variant.Variant,
-    daysPerTurn: Option[Int],
-    mode: Mode,
-    color: String,
-    user: User,
-    ratingRange: RatingRange,
-    blocking: Set[String]
+      variant: chess.variant.Variant,
+      daysPerTurn: Option[Int],
+      mode: Mode,
+      color: String,
+      user: User,
+      ratingRange: RatingRange,
+      blocking: Set[String]
   ): Seek = new Seek(
     _id = Random nextString idSize,
     variant = variant.id,
@@ -109,6 +111,6 @@ object Seek {
       b => LobbyPerf(b.abs, b < 0),
       x => x.rating * (if (x.provisional) -1 else 1)
     )
-  private[lobby] implicit val lobbyUserBSONHandler = Macros.handler[LobbyUser]
-  private[lobby] implicit val seekBSONHandler = Macros.handler[Seek]
+  implicit private[lobby] val lobbyUserBSONHandler = Macros.handler[LobbyUser]
+  implicit private[lobby] val seekBSONHandler      = Macros.handler[Seek]
 }

@@ -9,47 +9,51 @@ object SemVer {
         import scala.util.control.Exception._
         allCatch opt bit.toLong match {
           case Some(long) => (long :: num, extra)
-          case None => (num, bit :: extra)
+          case None       => (num, bit :: extra)
         }
     }
     nums.reverse match {
-      case x :: y :: z :: Nil => SemVer(x, y, z, {
-        val e = extras.reverse ::: bits.drop(3).toList
-        if (e.isEmpty) None else Some(e.mkString("-"))
-      }, version)
-      case x :: y :: Nil => SemVer(x, y, 0, {
-        val e = extras.reverse ::: bits.drop(2).toList
-        if (e.isEmpty) None else Some(e.mkString("-"))
-      }, version)
-      case x :: Nil => SemVer(x, 0, 0, {
-        val e = extras.reverse ::: bits.drop(1).toList
-        if (e.isEmpty) None else Some(e.mkString("-"))
-      }, version)
+      case x :: y :: z :: Nil =>
+        SemVer(x, y, z, {
+          val e = extras.reverse ::: bits.drop(3).toList
+          if (e.isEmpty) None else Some(e.mkString("-"))
+        }, version)
+      case x :: y :: Nil =>
+        SemVer(x, y, 0, {
+          val e = extras.reverse ::: bits.drop(2).toList
+          if (e.isEmpty) None else Some(e.mkString("-"))
+        }, version)
+      case x :: Nil =>
+        SemVer(x, 0, 0, {
+          val e = extras.reverse ::: bits.drop(1).toList
+          if (e.isEmpty) None else Some(e.mkString("-"))
+        }, version)
       case _ =>
         sys.error("Cannot parse version: [%s]".format(version))
     }
   }
 
-  val Snapshot = "-SNAPSHOT"
+  val Snapshot                              = "-SNAPSHOT"
   def isSnapshotVersion(v: String): Boolean = v.trim.endsWith(Snapshot)
 
   def isIntegrationVersion(v: String): Boolean = {
     val Rx = """(\d+).(\d+).(\d+).(\d{14})""".r
     v match {
       case Rx(_, _, _, _) => true
-      case _ => false
+      case _              => false
     }
   }
 
   def isReleaseVersion(v: String): Boolean = !isSnapshotVersion(v) && !isIntegrationVersion(v)
 }
 
-case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], original: String) extends Ordered[SemVer] {
+case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], original: String)
+    extends Ordered[SemVer] {
 
   override def equals(obj: Any): Boolean = {
     obj match {
       case version: SemVer => this.compareTo(version) == 0
-      case _ => false
+      case _               => false
     }
   }
 
@@ -62,21 +66,26 @@ case class SemVer(major: Long, minor: Long, point: Long, extra: Option[String], 
       val thsNumPrefix: Option[Long] = allCatch opt extra.get.takeWhile(_.isDigit).toLong
       val thtNumPrefix: Option[Long] = allCatch opt o.extra.get.takeWhile(_.isDigit).toLong
       (extra, thsNumPrefix, o.extra, thtNumPrefix) match {
-        case (Some(ths), _, Some(tht), _) if ths == "SNAPSHOT" || tht == "SNAPSHOT" => 0 // At least one SNAPSHOT: Can't decide
-        case (Some(_), Some(thsNum), Some(_), Some(thtNum)) if thsNum < thtNum => -1 // Number prefixes compared
-        case (Some(_), Some(thsNum), Some(_), Some(thtNum)) if thsNum > thtNum => 1 // Number prefixes compared
-        case (Some(ths), Some(_), Some(tht), Some(_)) => ths.compareTo(tht) // Number prefixes same: Compare lexicographically
+        case (Some(ths), _, Some(tht), _) if ths == "SNAPSHOT" || tht == "SNAPSHOT" =>
+          0 // At least one SNAPSHOT: Can't decide
+        case (Some(_), Some(thsNum), Some(_), Some(thtNum)) if thsNum < thtNum =>
+          -1 // Number prefixes compared
+        case (Some(_), Some(thsNum), Some(_), Some(thtNum)) if thsNum > thtNum =>
+          1 // Number prefixes compared
+        case (Some(ths), Some(_), Some(tht), Some(_)) =>
+          ths.compareTo(tht) // Number prefixes same: Compare lexicographically
         case (Some(_), Some(_), Some(_), None) => 0 // One starts with number the other doesn't: Can't decide
         case (Some(_), None, Some(_), Some(_)) => 0 // One starts with number the other doesn't: Can't decide
-        case (Some(ths), None, Some(tht), None) => ths.compareTo(tht) // No number prefixes: Compare lexicographically
+        case (Some(ths), None, Some(tht), None) =>
+          ths.compareTo(tht) // No number prefixes: Compare lexicographically
         case (Some(_), _, None, _) => -1 // One has extra, the other doesn't
-        case (None, _, Some(_), _) => 1 // One has extra, the other doesn't
-        case _ => 0 // Both have no extra: They are the same
+        case (None, _, Some(_), _) => 1  // One has extra, the other doesn't
+        case _                     => 0  // Both have no extra: They are the same
       }
     }
   }
 
-  def isSnapshotVersion = SemVer.isSnapshotVersion(this.original)
+  def isSnapshotVersion    = SemVer.isSnapshotVersion(this.original)
   def isIntegrationVersion = SemVer.isIntegrationVersion(this.original)
-  def isReleaseVersion = SemVer.isReleaseVersion(this.original)
+  def isReleaseVersion     = SemVer.isReleaseVersion(this.original)
 }

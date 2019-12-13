@@ -1,7 +1,7 @@
 package lila.video
 
 import play.api.libs.ws.WSClient
-import play.api.{ Mode, Configuration }
+import play.api.{ Configuration, Mode }
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration

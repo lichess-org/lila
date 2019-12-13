@@ -23,17 +23,18 @@ final class EventStream(
     Source.queue[Option[JsObject]](32, akka.stream.OverflowStrategy.dropHead)
 
   def apply(
-    me: User,
-    gamesInProgress: List[Game],
-    challenges: List[Challenge]
+      me: User,
+      gamesInProgress: List[Game],
+      challenges: List[Challenge]
   ): Source[Option[JsObject], _] = blueprint mapMaterializedValue { queue =>
-
     gamesInProgress map toJson map some foreach queue.offer
     challenges map toJson map some foreach queue.offer
 
     val actor = system.actorOf(Props(mkActor(me, queue)))
 
-    queue.watchCompletion.foreach { _ => actor ! PoisonPill }
+    queue.watchCompletion.foreach { _ =>
+      actor ! PoisonPill
+    }
   }
 
   private def mkActor(me: User, queue: SourceQueueWithComplete[Option[JsObject]]) = new Actor {
@@ -71,11 +72,12 @@ final class EventStream(
       case lila.challenge.Event.Create(c) if c.destUserId has me.id => queue offer toJson(c).some
 
       // pretend like the rematch is a challenge
-      case lila.hub.actorApi.round.RematchOffer(gameId) => challengeMaker.makeRematchFor(gameId, me) foreach {
-        _ foreach { c =>
-          queue offer toJson(c.copy(_id = gameId)).some
+      case lila.hub.actorApi.round.RematchOffer(gameId) =>
+        challengeMaker.makeRematchFor(gameId, me) foreach {
+          _ foreach { c =>
+            queue offer toJson(c.copy(_id = gameId)).some
+          }
         }
-      }
     }
   }
 
@@ -84,7 +86,7 @@ final class EventStream(
     "game" -> Json.obj("id" -> game.id)
   )
   private def toJson(c: Challenge) = Json.obj(
-    "type" -> "challenge",
+    "type"      -> "challenge",
     "challenge" -> challengeJsonView(none)(c)
   )
 }

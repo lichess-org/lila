@@ -6,14 +6,14 @@ import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json._
-import scala.concurrent.{ Promise, Future }
+import scala.concurrent.{ Future, Promise }
 
 import lila.common.Bus
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
-import lila.hub.actorApi.socket.{ SendTo, SendTos, BotIsOnline }
+import lila.hub.actorApi.socket.{ BotIsOnline, SendTo, SendTos }
 import lila.hub.actorApi.Announce
 import Socket.Sri
 
@@ -45,9 +45,10 @@ final class RemoteSocket(
     case In.DisconnectUsers(userIds) =>
       onlineUserIds.getAndUpdate((x: UserIds) => x -- userIds)
     case In.NotifiedBatch(userIds) => notification ! lila.hub.actorApi.notify.NotifiedBatch(userIds)
-    case In.FriendsBatch(userIds) => userIds foreach { userId =>
-      Bus.publish(ReloadOnlineFriends(userId), "reloadOnlineFriends")
-    }
+    case In.FriendsBatch(userIds) =>
+      userIds foreach { userId =>
+        Bus.publish(ReloadOnlineFriends(userId), "reloadOnlineFriends")
+      }
     case In.Lags(lags) =>
       lags foreach (UserLagCache.put _).tupled
       // this shouldn't be necessary... ensure that users are known to be online
@@ -64,7 +65,18 @@ final class RemoteSocket(
       })
   }
 
-  Bus.subscribeFun("socketUsers", "deploy", "announce", "mlat", "sendToFlag", "remoteSocketOut", "accountClose", "shadowban", "impersonate", "botIsOnline") {
+  Bus.subscribeFun(
+    "socketUsers",
+    "deploy",
+    "announce",
+    "mlat",
+    "sendToFlag",
+    "remoteSocketOut",
+    "accountClose",
+    "shadowban",
+    "impersonate",
+    "botIsOnline"
+  ) {
     case SendTos(userIds, payload) =>
       val connectedUsers = userIds intersect onlineUserIds.get
       if (connectedUsers.nonEmpty) send(Out.tellUsers(connectedUsers, payload))
@@ -98,7 +110,7 @@ final class RemoteSocket(
       override def message(_channel: String, message: String): Unit =
         reader(RawMsg(message)) collect handler match {
           case Some(_) => // processed
-          case None => logger.warn(s"Unhandled $channel $message")
+          case None    => logger.warn(s"Unhandled $channel $message")
         }
     })
     val subPromise = Promise[Unit]
@@ -145,53 +157,64 @@ object RemoteSocket {
 
       type Reader = RawMsg => Option[In]
 
-      case object WsBoot extends In
-      case class ConnectUser(userId: String) extends In
-      case class DisconnectUsers(userId: Iterable[String]) extends In
-      case class ConnectSris(cons: Iterable[(Sri, Option[String])]) extends In
-      case class DisconnectSris(sris: Iterable[Sri]) extends In
-      case class NotifiedBatch(userIds: Iterable[String]) extends In
-      case class Lag(userId: String, lag: Centis) extends In
-      case class Lags(lags: Map[String, Centis]) extends In
-      case class FriendsBatch(userIds: Iterable[String]) extends In
+      case object WsBoot                                                               extends In
+      case class ConnectUser(userId: String)                                           extends In
+      case class DisconnectUsers(userId: Iterable[String])                             extends In
+      case class ConnectSris(cons: Iterable[(Sri, Option[String])])                    extends In
+      case class DisconnectSris(sris: Iterable[Sri])                                   extends In
+      case class NotifiedBatch(userIds: Iterable[String])                              extends In
+      case class Lag(userId: String, lag: Centis)                                      extends In
+      case class Lags(lags: Map[String, Centis])                                       extends In
+      case class FriendsBatch(userIds: Iterable[String])                               extends In
       case class TellSri(sri: Sri, userId: Option[String], typ: String, msg: JsObject) extends In
-      case class ReqResponse(reqId: Int, response: String) extends In
+      case class ReqResponse(reqId: Int, response: String)                             extends In
 
-      val baseReader: Reader = raw => raw.path match {
-        case "connect/user" => ConnectUser(raw.args).some
-        case "disconnect/users" => DisconnectUsers(commas(raw.args)).some
-        case "connect/sris" => ConnectSris {
-          commas(raw.args) map (_ split ' ') map { s =>
-            (Sri(s(0)), s lift 1)
-          }
-        }.some
-        case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
-        case "notified/batch" => NotifiedBatch(commas(raw.args)).some
-        case "lag" => raw.all |> { s => s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(s(0), _) } }
-        case "lags" => Lags(commas(raw.args).flatMap {
-          _ split ':' match {
-            case Array(user, l) => l.toIntOption map { lag => user -> Centis(lag) }
-            case _ => None
-          }
-        }.toMap).some
-        case "friends/batch" => FriendsBatch(commas(raw.args)).some
-        case "tell/sri" => raw.get(3)(tellSriMapper)
-        case "req/response" => raw.get(2) {
-          case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }
+      val baseReader: Reader = raw =>
+        raw.path match {
+          case "connect/user"     => ConnectUser(raw.args).some
+          case "disconnect/users" => DisconnectUsers(commas(raw.args)).some
+          case "connect/sris" =>
+            ConnectSris {
+              commas(raw.args) map (_ split ' ') map { s =>
+                (Sri(s(0)), s lift 1)
+              }
+            }.some
+          case "disconnect/sris" => DisconnectSris(commas(raw.args) map Sri.apply).some
+          case "notified/batch"  => NotifiedBatch(commas(raw.args)).some
+          case "lag" =>
+            raw.all |> { s =>
+              s lift 1 flatMap (_.toIntOption) map Centis.apply map { Lag(s(0), _) }
+            }
+          case "lags" =>
+            Lags(commas(raw.args).flatMap {
+              _ split ':' match {
+                case Array(user, l) =>
+                  l.toIntOption map { lag =>
+                    user -> Centis(lag)
+                  }
+                case _ => None
+              }
+            }.toMap).some
+          case "friends/batch" => FriendsBatch(commas(raw.args)).some
+          case "tell/sri"      => raw.get(3)(tellSriMapper)
+          case "req/response" =>
+            raw.get(2) {
+              case Array(reqId, response) => reqId.toIntOption map { ReqResponse(_, response) }
+            }
+          case "boot" => WsBoot.some
+          case _      => none
         }
-        case "boot" => WsBoot.some
-        case _ => none
-      }
 
       def tellSriMapper: PartialFunction[Array[String], Option[TellSri]] = {
-        case Array(sri, user, payload) => for {
-          obj <- Json.parse(payload).asOpt[JsObject]
-          typ <- obj str "t"
-        } yield TellSri(Sri(sri), optional(user), typ, obj)
+        case Array(sri, user, payload) =>
+          for {
+            obj <- Json.parse(payload).asOpt[JsObject]
+            typ <- obj str "t"
+          } yield TellSri(Sri(sri), optional(user), typ, obj)
       }
 
-      def commas(str: String): Array[String] = if (str == "-") Array.empty else str split ','
-      def boolean(str: String): Boolean = str == "+"
+      def commas(str: String): Array[String]    = if (str == "-") Array.empty else str split ','
+      def boolean(str: String): Boolean         = str == "+"
       def optional(str: String): Option[String] = if (str == "-") None else Some(str)
     }
 
@@ -219,14 +242,14 @@ object RemoteSocket {
       def boot = "boot"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
-      def boolean(v: Boolean): String = if (v) "+" else "-"
-      def color(c: chess.Color): String = c.fold("w", "b")
-      def optional(str: Option[String]) = str getOrElse "-"
+      def boolean(v: Boolean): String         = if (v) "+" else "-"
+      def color(c: chess.Color): String       = c.fold("w", "b")
+      def optional(str: Option[String])       = str getOrElse "-"
     }
   }
 
   type Channel = String
-  type Path = String
-  type Args = String
+  type Path    = String
+  type Args    = String
   type Handler = PartialFunction[Protocol.In, Unit]
 }

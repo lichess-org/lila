@@ -8,10 +8,10 @@ import lila.i18n.{ I18nKeys => trans }
 object userAnalysisI18n {
 
   def apply(
-    withCeval: Boolean = true,
-    withExplorer: Boolean = true,
-    withForecast: Boolean = false,
-    withAdvantageChart: Boolean = false
+      withCeval: Boolean = true,
+      withExplorer: Boolean = true,
+      withForecast: Boolean = false,
+      withAdvantageChart: Boolean = false
   )(implicit lang: Lang) = i18nJsObject(
     baseTranslations ++ {
       withCeval ?? cevalTranslations

@@ -3,7 +3,7 @@ package lila.security
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.common.{ IpAddress, EmailAddress }
+import lila.common.{ EmailAddress, IpAddress }
 
 final class IpIntel(
     ws: WSClient,

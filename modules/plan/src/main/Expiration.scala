@@ -5,7 +5,7 @@ import lila.user.UserRepo
 
 import org.joda.time.DateTime
 
-private final class Expiration(
+final private class Expiration(
     userRepo: UserRepo,
     patronColl: Coll,
     notifier: PlanNotifier
@@ -31,8 +31,11 @@ private final class Expiration(
     }
 
   private def getExpired =
-    patronColl.list[Patron]($doc(
-      "expiresAt" $lt DateTime.now,
-      "lifetime" $ne true
-    ), 50)
+    patronColl.list[Patron](
+      $doc(
+        "expiresAt" $lt DateTime.now,
+        "lifetime" $ne true
+      ),
+      50
+    )
 }

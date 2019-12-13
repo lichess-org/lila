@@ -3,7 +3,7 @@ package lila.study
 import play.api.libs.json._
 
 import chess.format.pgn.Glyphs
-import chess.format.{ Forsyth, FEN, Uci, UciCharPair }
+import chess.format.{ FEN, Forsyth, Uci, UciCharPair }
 import lila.analyse.{ Analysis, Info }
 import lila.hub.actorApi.fishnet.StudyChapterRequest
 import lila.{ tree => T }
@@ -24,11 +24,14 @@ object ServerEval {
           chapterId = chapter.id.value,
           initialFen = chapter.root.fen.some,
           variant = chapter.setup.variant,
-          moves = chess.format.UciDump(
-            moves = chapter.root.mainline.map(_.move.san),
-            initialFen = chapter.root.fen.value.some,
-            variant = chapter.setup.variant
-          ).toOption.map(_.map(chess.format.Uci.apply).flatten) | List.empty,
+          moves = chess.format
+            .UciDump(
+              moves = chapter.root.mainline.map(_.move.san),
+              initialFen = chapter.root.fen.value.some,
+              variant = chapter.setup.variant
+            )
+            .toOption
+            .map(_.map(chess.format.Uci.apply).flatten) | List.empty,
           userId = userId
         )
       }
@@ -42,44 +45,52 @@ object ServerEval {
       divider: lila.game.Divider
   ) {
 
-    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? { studyId =>
-      sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
-        case Study.WithChapter(_, chapter) =>
-          (complete ?? chapterRepo.completeServerEval(chapter)) >> {
-            lila.common.Future.fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
-              case (path, (node, (info, advOpt))) => info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
-                chapterRepo.setScore(score.some)(chapter, path + node) >>
-                  advOpt.?? { adv =>
-                    chapterRepo.setComments(node.comments + Comment(
-                      Comment.Id.make,
-                      Comment.Text(adv.makeComment(false, true)),
-                      Comment.Author.Lichess
-                    ))(chapter, path + node) >>
-                      chapterRepo.setGlyphs(
-                        node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
-                      )(chapter, path + node) >> {
-                          chapter.root.nodeAt(path).flatMap { parent =>
-                            analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
-                              parent.addChild(child).children.get(child.id)
-                            }
-                          } ?? { chapterRepo.setChild(chapter, path, _) }
+    def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? {
+      studyId =>
+        sequencer.sequenceStudyWithChapter(studyId, Chapter.Id(analysis.id)) {
+          case Study.WithChapter(_, chapter) =>
+            (complete ?? chapterRepo.completeServerEval(chapter)) >> {
+              lila.common.Future
+                .fold(chapter.root.mainline zip analysis.infoAdvices)(Path.root) {
+                  case (path, (node, (info, advOpt))) =>
+                    info.eval.score.ifTrue(node.score.isEmpty).?? { score =>
+                      chapterRepo.setScore(score.some)(chapter, path + node) >>
+                        advOpt.?? { adv =>
+                          chapterRepo.setComments(
+                            node.comments + Comment(
+                              Comment.Id.make,
+                              Comment.Text(adv.makeComment(false, true)),
+                              Comment.Author.Lichess
+                            )
+                          )(chapter, path + node) >>
+                            chapterRepo.setGlyphs(
+                              node.glyphs merge Glyphs.fromList(List(adv.judgment.glyph))
+                            )(chapter, path + node) >> {
+                            chapter.root.nodeAt(path).flatMap { parent =>
+                              analysisLine(parent, chapter.setup.variant, info) flatMap { child =>
+                                parent.addChild(child).children.get(child.id)
+                              }
+                            } ?? { chapterRepo.setChild(chapter, path, _) }
                         }
-                  }
-              } inject path + node
-            } void
-          } >>- {
-            chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
-              _ ?? { chapter =>
-                socket.onServerEval(studyId, ServerEval.Progress(
-                  chapterId = chapter.id,
-                  tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
-                  analysis = toJson(chapter, analysis),
-                  division = divisionOf(chapter)
-                ))
+                      }
+                  } inject path + node
+              } void
+            } >>- {
+              chapterRepo.byId(Chapter.Id(analysis.id)).foreach {
+                _ ?? { chapter =>
+                  socket.onServerEval(
+                    studyId,
+                    ServerEval.Progress(
+                      chapterId = chapter.id,
+                      tree = lila.study.TreeBuilder(chapter.root, chapter.setup.variant),
+                      analysis = toJson(chapter, analysis),
+                      division = divisionOf(chapter)
+                    )
+                  )
+                }
               }
-            }
-          } logFailure logger
-      }
+            } logFailure logger
+        }
     }
 
     def divisionOf(chapter: Chapter) = divider(
@@ -95,9 +106,10 @@ object ServerEval {
           error foreach { logger.info(_) }
           games.reverse match {
             case Nil => none
-            case (g, m) :: rest => rest.foldLeft(makeBranch(g, m)) {
-              case (node, (g, m)) => makeBranch(g, m) addChild node
-            } some
+            case (g, m) :: rest =>
+              rest.foldLeft(makeBranch(g, m)) {
+                case (node, (g, m)) => makeBranch(g, m) addChild node
+              } some
           }
       }
 

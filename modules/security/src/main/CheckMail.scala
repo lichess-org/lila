@@ -10,7 +10,7 @@ import lila.db.dsl._
 /* An expensive API detecting disposable email.
  * Only hit after trying everything else (DnsApi)
  * and save the result forever. */
-private final class CheckMail(
+final private class CheckMail(
     ws: WSClient,
     config: SecurityConfig.CheckMail,
     mongoCache: lila.memo.MongoCache.Builder
@@ -18,21 +18,23 @@ private final class CheckMail(
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if (config.key.value.isEmpty) fuccess(true)
-    else cache(domain)
-      .withTimeoutDefault(2.seconds, true)
-      .recover {
-        case e: Exception =>
-          logger.warn(s"CheckMail $domain ${e.getMessage}", e)
-          true
-      }
+    else
+      cache(domain)
+        .withTimeoutDefault(2.seconds, true)
+        .recover {
+          case e: Exception =>
+            logger.warn(s"CheckMail $domain ${e.getMessage}", e)
+            true
+        }
 
-  private[security] def fetchAllBlocked: Fu[List[String]] = cache.coll.distinctEasy[String, List](
-    "_id",
-    $doc(
-      "_id" $regex s"^$prefix:",
-      "v" -> false
-    )
-  ) map { ids =>
+  private[security] def fetchAllBlocked: Fu[List[String]] =
+    cache.coll.distinctEasy[String, List](
+      "_id",
+      $doc(
+        "_id" $regex s"^$prefix:",
+        "v" -> false
+      )
+    ) map { ids =>
       val dropSize = prefix.size + 1
       ids.map(_ drop dropSize)
     }
@@ -54,11 +56,11 @@ private final class CheckMail(
       .withTimeout(15.seconds)
       .map {
         case res if res.status == 200 =>
-          val valid = ~(res.json \ "valid").asOpt[Boolean]
-          val block = ~(res.json \ "block").asOpt[Boolean]
+          val valid      = ~(res.json \ "valid").asOpt[Boolean]
+          val block      = ~(res.json \ "block").asOpt[Boolean]
           val disposable = ~(res.json \ "disposable").asOpt[Boolean]
-          val reason = ~(res.json \ "reason").asOpt[String]
-          val ok = valid && !block && !disposable
+          val reason     = ~(res.json \ "reason").asOpt[String]
+          val ok         = valid && !block && !disposable
           logger.info(s"CheckMail $domain = $ok ($reason)")
           ok
         case res =>

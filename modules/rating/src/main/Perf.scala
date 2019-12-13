@@ -13,11 +13,11 @@ case class Perf(
     latest: Option[DateTime]
 ) {
 
-  def intRating = glicko.rating.toInt
+  def intRating    = glicko.rating.toInt
   def intDeviation = glicko.deviation.toInt
 
   def progress: Int = ~recent.headOption.flatMap { head =>
-    recent.lastOption map (head-)
+    recent.lastOption map (head -)
   }
 
   def add(g: Glicko, date: DateTime): Perf = copy(
@@ -32,11 +32,12 @@ case class Perf(
     glicko.sanityCheck option add(glicko, date)
   }
 
-  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating, date: DateTime): Perf = add(r, date) | {
-    lila.log("rating").error(s"Crazy Glicko2 $msg")
-    monitor(lila.mon).increment()
-    add(Glicko.default, date)
-  }
+  def addOrReset(monitor: lila.mon.CounterPath, msg: => String)(r: Rating, date: DateTime): Perf =
+    add(r, date) | {
+      lila.log("rating").error(s"Crazy Glicko2 $msg")
+      monitor(lila.mon).increment()
+      add(Glicko.default, date)
+    }
 
   def averageGlicko(other: Perf) = copy(
     glicko = glicko average other.glicko
@@ -62,18 +63,18 @@ case class Perf(
     latest.orNull
   )
 
-  def isEmpty = nb == 0
+  def isEmpty  = nb == 0
   def nonEmpty = !isEmpty
 
   def rankable(variant: chess.variant.Variant) = glicko.rankable(variant)
-  def provisional = glicko.provisional
-  def established = glicko.established
+  def provisional                              = glicko.provisional
+  def established                              = glicko.established
 }
 
 case object Perf {
 
   type Key = String
-  type ID = Int
+  type ID  = Int
 
   case class Typed(perf: Perf, perfType: PerfType)
 

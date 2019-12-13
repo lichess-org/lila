@@ -13,18 +13,22 @@ final class Learn(env: Env) extends LilaController(env) {
 
   def index = Open { implicit ctx =>
     pageHit
-    ctx.me.?? { me =>
-      env.learn.api.get(me) map { Json.toJson(_) } map some
-    }.map { progress =>
-      Ok(html.learn.index(progress))
-    }
+    ctx.me
+      .?? { me =>
+        env.learn.api.get(me) map { Json.toJson(_) } map some
+      }
+      .map { progress =>
+        Ok(html.learn.index(progress))
+      }
   }
 
-  private val scoreForm = Form(mapping(
-    "stage" -> nonEmptyText,
-    "level" -> number,
-    "score" -> number
-  )(Tuple3.apply)(Tuple3.unapply))
+  private val scoreForm = Form(
+    mapping(
+      "stage" -> nonEmptyText,
+      "level" -> number,
+      "score" -> number
+    )(Tuple3.apply)(Tuple3.unapply)
+  )
 
   def score = AuthBody { implicit ctx => me =>
     implicit val body = ctx.body

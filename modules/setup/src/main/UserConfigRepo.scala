@@ -5,15 +5,17 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-private final class UserConfigRepo(coll: Coll) {
+final private class UserConfigRepo(coll: Coll) {
 
   def update(user: User)(f: UserConfig => UserConfig): Funit =
     config(user) flatMap { config =>
-      coll.update.one(
-        $id(config.id),
-        f(config),
-        upsert = true
-      ).void
+      coll.update
+        .one(
+          $id(config.id),
+          f(config),
+          upsert = true
+        )
+        .void
     }
 
   def config(user: User): Fu[UserConfig] =

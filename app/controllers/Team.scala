@@ -18,8 +18,8 @@ final class Team(
     apiC: => Api
 ) extends LilaController(env) {
 
-  private def forms = env.team.forms
-  private def api = env.team.api
+  private def forms     = env.team.forms
+  private def api       = env.team.api
   private def paginator = env.team.paginator
 
   def all(page: Int) = Open { implicit ctx =>
@@ -28,7 +28,7 @@ final class Team(
 
   def home(page: Int) = Open { implicit ctx =>
     ctx.me.??(api.hasTeams) map {
-      case true => Redirect(routes.Team.mine)
+      case true  => Redirect(routes.Team.mine)
       case false => Redirect(routes.Team.all(page))
     }
   }
@@ -38,22 +38,24 @@ final class Team(
   }
 
   def search(text: String, page: Int) = OpenBody { implicit ctx =>
-    if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) }
-    else env.teamSearch(text, page) map { html.team.list.search(text, _) }
+    if (text.trim.isEmpty) paginator popularTeams page map { html.team.list.all(_) } else
+      env.teamSearch(text, page) map { html.team.list.search(text, _) }
   }
 
-  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) = for {
-    info <- env.teamInfo(team, ctx.me)
-    members <- paginator.teamMembers(team, page)
-    _ <- env.user.lightUserApi preloadMany info.userIds
-  } yield html.team.show(team, members, info)
+  private def renderTeam(team: TeamModel, page: Int = 1)(implicit ctx: Context) =
+    for {
+      info    <- env.teamInfo(team, ctx.me)
+      members <- paginator.teamMembers(team, page)
+      _       <- env.user.lightUserApi preloadMany info.userIds
+    } yield html.team.show(team, members, info)
 
   def users(teamId: String) = Action.async { req =>
     api.team(teamId) flatMap {
       _ ?? { team =>
         apiC.GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           apiC.jsonStream {
-            env.team.memberStream(team, MaxPerSecond(20))
+            env.team
+              .memberStream(team, MaxPerSecond(20))
               .map(env.api.userApi.one)
           } |> fuccess
         }
@@ -71,10 +73,13 @@ final class Team(
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.edit(team).bindFromRequest.fold(
-          err => BadRequest(html.team.form.edit(team, err)).fuccess,
-          data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id))
-        )
+        forms
+          .edit(team)
+          .bindFromRequest
+          .fold(
+            err => BadRequest(html.team.form.edit(team, err)).fuccess,
+            data => api.update(team, data, me) inject Redirect(routes.Team.show(team.id))
+          )
       }
     }
   }
@@ -93,7 +98,9 @@ final class Team(
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.kick(team, _, me) } inject Redirect(
+          routes.Team.show(team.id)
+        )
       }
     }
   }
@@ -120,7 +127,9 @@ final class Team(
     OptionFuResult(api team id) { team =>
       Owner(team) {
         implicit val req = ctx.body
-        forms.selectMember.bindFromRequest.value ?? { api.changeOwner(team, _, me) } inject Redirect(routes.Team.show(team.id))
+        forms.selectMember.bindFromRequest.value ?? { api.changeOwner(team, _, me) } inject Redirect(
+          routes.Team.show(team.id)
+        )
       }
     }
   }
@@ -145,12 +154,16 @@ final class Team(
     OnePerWeek(me) {
       implicit val req = ctx.body
       forms.create.bindFromRequest.fold(
-        err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.form.create(err, captcha))
-        },
-        data => api.create(data, me) ?? {
-          _ map { team => Redirect(routes.Team.show(team.id)): Result }
-        }
+        err =>
+          forms.anyCaptcha map { captcha =>
+            BadRequest(html.team.form.create(err, captcha))
+          },
+        data =>
+          api.create(data, me) ?? {
+            _ map { team =>
+              Redirect(routes.Team.show(team.id)): Result
+            }
+          }
       )
     }
   }
@@ -160,18 +173,23 @@ final class Team(
   }
 
   def join(id: String) = AuthOrScoped(_.Team.Write)(
-    auth = ctx => me => api.join(id, me) flatMap {
-      case Some(Joined(team)) => Redirect(routes.Team.show(team.id)).fuccess
-      case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
-      case _ => notFound(ctx)
-    },
-    scoped = req => me => env.oAuth.server.fetchAppAuthor(req) flatMap {
-      _ ?? { api.joinApi(id, me, _) }
-    } map {
-      case Some(Joined(_)) => jsonOkResult
-      case Some(Motivate(_)) => Forbidden(jsonError("This team requires confirmation, and is not owned by the oAuth app owner."))
-      case _ => NotFound(jsonError("Team not found"))
-    }
+    auth = ctx =>
+      me =>
+        api.join(id, me) flatMap {
+          case Some(Joined(team))   => Redirect(routes.Team.show(team.id)).fuccess
+          case Some(Motivate(team)) => Redirect(routes.Team.requestForm(team.id)).fuccess
+          case _                    => notFound(ctx)
+        },
+    scoped = req =>
+      me =>
+        env.oAuth.server.fetchAppAuthor(req) flatMap {
+          _ ?? { api.joinApi(id, me, _) }
+        } map {
+          case Some(Joined(_)) => jsonOkResult
+          case Some(Motivate(_)) =>
+            Forbidden(jsonError("This team requires confirmation, and is not owned by the oAuth app owner."))
+          case _ => NotFound(jsonError("Team not found"))
+        }
   )
 
   def requests = Auth { implicit ctx => me =>
@@ -189,9 +207,10 @@ final class Team(
     OptionFuResult(api.requestable(id, me)) { team =>
       implicit val req = ctx.body
       forms.request.bindFromRequest.fold(
-        err => forms.anyCaptcha map { captcha =>
-          BadRequest(html.team.request.requestForm(team, err, captcha))
-        },
+        err =>
+          forms.anyCaptcha map { captcha =>
+            BadRequest(html.team.request.requestForm(team, err, captcha))
+          },
         setup => api.createRequest(team, setup, me) inject Redirect(routes.Team.show(team.id))
       )
     }
@@ -200,7 +219,7 @@ final class Team(
   def requestProcess(requestId: String) = AuthBody { implicit ctx => me =>
     OptionFuRedirectUrl(for {
       requestOption <- api request requestId
-      teamOption <- requestOption.??(req => env.team.teamRepo.owned(req.team, me.id))
+      teamOption    <- requestOption.??(req => env.team.teamRepo.owned(req.team, me.id))
     } yield (teamOption |@| requestOption).tupled) {
       case (team, request) => {
         implicit val req = ctx.body
@@ -215,30 +234,35 @@ final class Team(
   }
 
   def quit(id: String) = AuthOrScoped(_.Team.Write)(
-    auth = ctx => me => OptionResult(api.quit(id, me)) { team =>
-      Redirect(routes.Team.show(team.id))
-    }(ctx),
-    scoped = _ => me => api.quit(id, me) flatMap {
-      _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
-    }
+    auth = ctx =>
+      me =>
+        OptionResult(api.quit(id, me)) { team =>
+          Redirect(routes.Team.show(team.id))
+        }(ctx),
+    scoped = _ =>
+      me =>
+        api.quit(id, me) flatMap {
+          _.fold(notFoundJson())(_ => jsonOkResult.fuccess)
+        }
   )
 
   def autocomplete = Action.async { req =>
     get("term", req).filter(_.nonEmpty) match {
       case None => BadRequest("No search term provided").fuccess
-      case Some(term) => for {
-        teams <- api.autocomplete(term, 10)
-        _ <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
-      } yield Ok {
-        JsArray(teams map { team =>
-          Json.obj(
-            "id" -> team.id,
-            "name" -> team.name,
-            "owner" -> env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
-            "members" -> team.nbMembers
-          )
-        })
-      } as JSON
+      case Some(term) =>
+        for {
+          teams <- api.autocomplete(term, 10)
+          _     <- env.user.lightUserApi preloadMany teams.map(_.createdBy)
+        } yield Ok {
+          JsArray(teams map { team =>
+            Json.obj(
+              "id"      -> team.id,
+              "name"    -> team.name,
+              "owner"   -> env.user.lightUserApi.sync(team.createdBy).fold(team.createdBy)(_.name),
+              "members" -> team.nbMembers
+            )
+          })
+        } as JSON
     }
   }
 

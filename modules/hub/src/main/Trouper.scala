@@ -29,8 +29,8 @@ trait Trouper extends lila.common.Tellable {
   }
 
   def !(msg: Any): Unit =
-    if (isAlive && stateRef.getAndUpdate(state =>
-      Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty) run(msg)
+    if (isAlive && stateRef.getAndUpdate(state => Some(state.fold(Queue.empty[Any])(_ enqueue msg))).isEmpty)
+      run(msg)
 
   def ask[A](makeMsg: Promise[A] => Any): Fu[A] = {
     val promise = Promise[A]
@@ -47,16 +47,17 @@ trait Trouper extends lila.common.Tellable {
    */
   private[this] val stateRef: AtomicReference[State] = new AtomicReference(None)
 
-  private[this] def run(msg: Any): Unit = Future {
-    process.applyOrElse(msg, fallback)
-  } onComplete postRun
+  private[this] def run(msg: Any): Unit =
+    Future {
+      process.applyOrElse(msg, fallback)
+    } onComplete postRun
 
   private[this] val postRun = (_: Any) =>
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
   private val fallback: Receive = {
     case Shutdown => stop()
-    case msg => lila.log("trouper").warn(s"unhandled msg: $msg")
+    case msg      => lila.log("trouper").warn(s"unhandled msg: $msg")
   }
 }
 

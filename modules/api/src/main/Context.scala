@@ -6,7 +6,7 @@ import play.api.i18n.Lang
 import lila.common.{ HTTPRequest, Nonce }
 import lila.pref.Pref
 import lila.relation.actorApi.OnlineFriends
-import lila.user.{ UserContext, HeaderUserContext, BodyUserContext }
+import lila.user.{ BodyUserContext, HeaderUserContext, UserContext }
 
 case class PageData(
     onlineFriends: OnlineFriends,
@@ -47,13 +47,13 @@ sealed trait Context extends lila.user.UserContextWrapper {
 
   def onlineFriends = pageData.onlineFriends
 
-  def teamNbRequests = pageData.teamNbRequests
-  def nbChallenges = pageData.nbChallenges
+  def teamNbRequests  = pageData.teamNbRequests
+  def nbChallenges    = pageData.nbChallenges
   def nbNotifications = pageData.nbNotifications
-  def pref = pageData.pref
-  def blind = pageData.blindMode
-  def noBlind = !blind
-  def nonce = pageData.nonce
+  def pref            = pageData.pref
+  def blind           = pageData.blindMode
+  def noBlind         = !blind
+  def nonce           = pageData.nonce
 
   def currentTheme = lila.pref.Theme(pref.theme)
 

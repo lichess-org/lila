@@ -3,7 +3,7 @@ package lila.i18n
 import com.github.ghik.silencer.silent
 import play.api.i18n.Lang
 
-private sealed trait I18nQuantity
+sealed private trait I18nQuantity
 
 /*
  * Ported from
@@ -14,11 +14,11 @@ private sealed trait I18nQuantity
  */
 private object I18nQuantity {
 
-  case object Zero extends I18nQuantity
-  case object One extends I18nQuantity
-  case object Two extends I18nQuantity
-  case object Few extends I18nQuantity
-  case object Many extends I18nQuantity
+  case object Zero  extends I18nQuantity
+  case object One   extends I18nQuantity
+  case object Two   extends I18nQuantity
+  case object Few   extends I18nQuantity
+  case object Many  extends I18nQuantity
   case object Other extends I18nQuantity
 
   type Language = String
@@ -44,7 +44,7 @@ private object I18nQuantity {
 
     def balkan(c: Count) = {
       val rem100 = c % 100
-      val rem10 = c % 10
+      val rem10  = c % 10
       if (rem10 == 1 && rem100 != 11) One
       else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) Few
       else if (rem10 == 0 || (rem10 >= 5 && rem10 <= 9) || (rem100 >= 11 && rem100 <= 14)) Many
@@ -58,7 +58,7 @@ private object I18nQuantity {
 
     def lithuanian(c: Count) = {
       val rem100 = c % 100;
-      val rem10 = c % 10;
+      val rem10  = c % 10;
       if (rem10 == 1 && !(rem100 >= 11 && rem100 <= 19)) One
       else if (rem10 >= 2 && rem10 <= 9 && !(rem100 >= 11 && rem100 <= 19)) Few
       else Other
@@ -66,7 +66,7 @@ private object I18nQuantity {
 
     def polish(c: Count) = {
       val rem100 = c % 100;
-      val rem10 = c % 10;
+      val rem10  = c % 10;
       if (c == 1) One
       else if (rem10 >= 2 && rem10 <= 4 && !(rem100 >= 12 && rem100 <= 14)) Few
       else Other
@@ -132,40 +132,44 @@ private object I18nQuantity {
 
   private val langMap: Map[Language, Selector] = LangList.all.map {
 
-    case (lang, _) => lang.language -> (lang.language match {
+    case (lang, _) =>
+      lang.language -> (lang.language match {
 
-      case "fr" | "ff" | "kab" => french _
+        case "fr" | "ff" | "kab" => french _
 
-      case "cs" | "sk" => czech _
+        case "cs" | "sk" => czech _
 
-      case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan _
+        case "hr" | "ru" | "sr" | "uk" | "be" | "bs" | "sh" => balkan _
 
-      case "lv" => latvian _
+        case "lv" => latvian _
 
-      case "lt" => lithuanian _
+        case "lt" => lithuanian _
 
-      case "pl" => polish _
+        case "pl" => polish _
 
-      case "ro" | "mo" => romanian _
+        case "ro" | "mo" => romanian _
 
-      case "sl" => slovenian _
+        case "sl" => slovenian _
 
-      case "ar" => arabic _
+        case "ar" => arabic _
 
-      case "mk" => macedonian _
+        case "mk" => macedonian _
 
-      case "cy" | "br" => welsh _
+        case "cy" | "br" => welsh _
 
-      case "mt" => maltese _
+        case "mt" => maltese _
 
-      case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
+        case "ga" | "se" | "sma" | "smi" | "smj" | "smn" | "sms" => two _
 
-      case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" => selectors.zero _
+        case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" =>
+          selectors.zero _
 
-      case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" | "tr" | "vi" | "wo" | "yo" | "zh" |
-        "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" | "tp" | "io" | "ia" => selectors.none _
+        case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" |
+            "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" |
+            "tp" | "io" | "ia" =>
+          selectors.none _
 
-      case _ => default _
-    })
+        case _ => default _
+      })
   }
 }

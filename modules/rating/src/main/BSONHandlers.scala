@@ -15,6 +15,6 @@ object BSONHandlers {
     to = pt => pt.key
   )
 
-  implicit val perfTypeIdHandler = intIsoHandler(perfTypeIdIso)
+  implicit val perfTypeIdHandler  = intIsoHandler(perfTypeIdIso)
   implicit val perfTypeKeyHandler = stringIsoHandler(perfTypeKeyIso)
 }

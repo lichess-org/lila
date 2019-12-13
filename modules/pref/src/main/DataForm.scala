@@ -14,42 +14,44 @@ object DataForm {
   private lazy val booleanNumber =
     number.verifying(Pref.BooleanPref.verify)
 
-  val pref = Form(mapping(
-    "display" -> mapping(
-      "animation" -> number.verifying(Set(0, 1, 2, 3) contains _),
-      "captured" -> booleanNumber,
-      "highlight" -> booleanNumber,
-      "destination" -> booleanNumber,
-      "coords" -> checkedNumber(Pref.Coords.choices),
-      "replay" -> checkedNumber(Pref.Replay.choices),
-      "pieceNotation" -> optional(booleanNumber),
-      "zen" -> optional(booleanNumber),
-      "resizeHandle" -> optional(checkedNumber(Pref.ResizeHandle.choices)),
-      "blindfold" -> checkedNumber(Pref.Blindfold.choices)
-    )(DisplayData.apply)(DisplayData.unapply),
-    "behavior" -> mapping(
-      "moveEvent" -> optional(number.verifying(Set(0, 1, 2) contains _)),
-      "premove" -> booleanNumber,
-      "takeback" -> checkedNumber(Pref.Takeback.choices),
-      "autoQueen" -> checkedNumber(Pref.AutoQueen.choices),
-      "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
-      "submitMove" -> checkedNumber(Pref.SubmitMove.choices),
-      "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
-      "keyboardMove" -> optional(booleanNumber),
-      "rookCastle" -> optional(booleanNumber)
-    )(BehaviorData.apply)(BehaviorData.unapply),
-    "clock" -> mapping(
-      "tenths" -> checkedNumber(Pref.ClockTenths.choices),
-      "bar" -> booleanNumber,
-      "sound" -> booleanNumber,
-      "moretime" -> checkedNumber(Pref.Moretime.choices)
-    )(ClockData.apply)(ClockData.unapply),
-    "follow" -> booleanNumber,
-    "challenge" -> checkedNumber(Pref.Challenge.choices),
-    "message" -> checkedNumber(Pref.Message.choices),
-    "studyInvite" -> optional(checkedNumber(Pref.StudyInvite.choices)),
-    "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
-  )(PrefData.apply)(PrefData.unapply))
+  val pref = Form(
+    mapping(
+      "display" -> mapping(
+        "animation"     -> number.verifying(Set(0, 1, 2, 3) contains _),
+        "captured"      -> booleanNumber,
+        "highlight"     -> booleanNumber,
+        "destination"   -> booleanNumber,
+        "coords"        -> checkedNumber(Pref.Coords.choices),
+        "replay"        -> checkedNumber(Pref.Replay.choices),
+        "pieceNotation" -> optional(booleanNumber),
+        "zen"           -> optional(booleanNumber),
+        "resizeHandle"  -> optional(checkedNumber(Pref.ResizeHandle.choices)),
+        "blindfold"     -> checkedNumber(Pref.Blindfold.choices)
+      )(DisplayData.apply)(DisplayData.unapply),
+      "behavior" -> mapping(
+        "moveEvent"     -> optional(number.verifying(Set(0, 1, 2) contains _)),
+        "premove"       -> booleanNumber,
+        "takeback"      -> checkedNumber(Pref.Takeback.choices),
+        "autoQueen"     -> checkedNumber(Pref.AutoQueen.choices),
+        "autoThreefold" -> checkedNumber(Pref.AutoThreefold.choices),
+        "submitMove"    -> checkedNumber(Pref.SubmitMove.choices),
+        "confirmResign" -> checkedNumber(Pref.ConfirmResign.choices),
+        "keyboardMove"  -> optional(booleanNumber),
+        "rookCastle"    -> optional(booleanNumber)
+      )(BehaviorData.apply)(BehaviorData.unapply),
+      "clock" -> mapping(
+        "tenths"   -> checkedNumber(Pref.ClockTenths.choices),
+        "bar"      -> booleanNumber,
+        "sound"    -> booleanNumber,
+        "moretime" -> checkedNumber(Pref.Moretime.choices)
+      )(ClockData.apply)(ClockData.unapply),
+      "follow"       -> booleanNumber,
+      "challenge"    -> checkedNumber(Pref.Challenge.choices),
+      "message"      -> checkedNumber(Pref.Message.choices),
+      "studyInvite"  -> optional(checkedNumber(Pref.StudyInvite.choices)),
+      "insightShare" -> number.verifying(Set(0, 1, 2) contains _)
+    )(PrefData.apply)(PrefData.unapply)
+  )
 
   case class DisplayData(
       animation: Int,
@@ -167,39 +169,57 @@ object DataForm {
 
   def prefOf(p: Pref): Form[PrefData] = pref fill PrefData(p)
 
-  val theme = Form(single(
-    "theme" -> text.verifying(Theme contains _)
-  ))
+  val theme = Form(
+    single(
+      "theme" -> text.verifying(Theme contains _)
+    )
+  )
 
-  val pieceSet = Form(single(
-    "set" -> text.verifying(PieceSet contains _)
-  ))
+  val pieceSet = Form(
+    single(
+      "set" -> text.verifying(PieceSet contains _)
+    )
+  )
 
-  val theme3d = Form(single(
-    "theme" -> text.verifying(Theme3d contains _)
-  ))
+  val theme3d = Form(
+    single(
+      "theme" -> text.verifying(Theme3d contains _)
+    )
+  )
 
-  val pieceSet3d = Form(single(
-    "set" -> text.verifying(PieceSet3d contains _)
-  ))
+  val pieceSet3d = Form(
+    single(
+      "set" -> text.verifying(PieceSet3d contains _)
+    )
+  )
 
-  val soundSet = Form(single(
-    "set" -> text.verifying(SoundSet contains _)
-  ))
+  val soundSet = Form(
+    single(
+      "set" -> text.verifying(SoundSet contains _)
+    )
+  )
 
-  val bg = Form(single(
-    "bg" -> text.verifying(List("light", "dark", "transp") contains _)
-  ))
+  val bg = Form(
+    single(
+      "bg" -> text.verifying(List("light", "dark", "transp") contains _)
+    )
+  )
 
-  val bgImg = Form(single(
-    "bgImg" -> nonEmptyText
-  ))
+  val bgImg = Form(
+    single(
+      "bgImg" -> nonEmptyText
+    )
+  )
 
-  val is3d = Form(single(
-    "is3d" -> text.verifying(List("true", "false") contains _)
-  ))
+  val is3d = Form(
+    single(
+      "is3d" -> text.verifying(List("true", "false") contains _)
+    )
+  )
 
-  val zen = Form(single(
-    "zen" -> text.verifying(Set("0", "1") contains _)
-  ))
+  val zen = Form(
+    single(
+      "zen" -> text.verifying(Set("0", "1") contains _)
+    )
+  )
 }

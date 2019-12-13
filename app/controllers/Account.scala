@@ -35,8 +35,10 @@ final class Account(
     FormFuResult(env.user.forms.username(me)) { err =>
       fuccess(html.account.username(me, err))
     } { username =>
-      env.user.repo.setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
-        case e => fuccess(html.account.username(me, env.user.forms.username(me).withGlobalError(e.getMessage)))
+      env.user.repo
+        .setUsernameCased(me.id, username) inject Redirect(routes.User show me.username) recoverWith {
+        case e =>
+          fuccess(html.account.username(me, env.user.forms.username(me).withGlobalError(e.getMessage)))
       }
     }
   }
@@ -51,20 +53,22 @@ final class Account(
           env.round.proxyRepo.urgentGames(me) zip
           env.challenge.api.countInFor.get(me.id) zip
           env.playban.api.currentBan(me.id) map {
-            case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
-              Ok {
-                import lila.pref.JsonView._
-                env.user.jsonView(me) ++ Json.obj(
-                  "prefs" -> prefs,
-                  "nowPlaying" -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
-                  "nbFollowing" -> nbFollowing,
-                  "nbFollowers" -> nbFollowers,
+          case nbFollowers ~ nbFollowing ~ prefs ~ povs ~ nbChallenges ~ playban =>
+            Ok {
+              import lila.pref.JsonView._
+              env.user.jsonView(me) ++ Json
+                .obj(
+                  "prefs"        -> prefs,
+                  "nowPlaying"   -> JsArray(povs take 50 map env.api.lobbyApi.nowPlaying),
+                  "nbFollowing"  -> nbFollowing,
+                  "nbFollowers"  -> nbFollowers,
                   "nbChallenges" -> nbChallenges
-                ).add("kid" -> me.kid)
-                  .add("troll" -> me.troll)
-                  .add("playban" -> playban)
-              }
-          }
+                )
+                .add("kid" -> me.kid)
+                .add("troll" -> me.troll)
+                .add("playban" -> playban)
+            }
+        }
       }
     )
   }
@@ -93,15 +97,16 @@ final class Account(
   def dasher = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => env.pref.api.getPref(me) map { prefs =>
-        Ok {
-          import lila.pref.JsonView._
-          lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
-            "coach" -> isGranted(_.Coach),
-            "prefs" -> prefs
-          )
+      api = _ =>
+        env.pref.api.getPref(me) map { prefs =>
+          Ok {
+            import lila.pref.JsonView._
+            lila.common.LightUser.lightUserWrites.writes(me.light) ++ Json.obj(
+              "coach" -> isGranted(_.Coach),
+              "prefs" -> prefs
+            )
+          }
         }
-      }
     )
   }
 
@@ -131,9 +136,10 @@ final class Account(
 
   def email = Auth { implicit ctx => me =>
     if (getBool("check")) Ok(renderCheckYourEmail).fuccess
-    else emailForm(me) map { form =>
-      Ok(html.account.email(form))
-    }
+    else
+      emailForm(me) map { form =>
+        Ok(html.account.email(form))
+      }
   }
 
   def apiEmail = Scoped(_.Email.Read) { _ => me =>
@@ -154,7 +160,8 @@ final class Account(
         FormFuResult(form) { err =>
           fuccess(html.account.email(err))
         } { data =>
-          val email = env.security.emailAddressValidator.validate(data.realEmail) err s"Invalid email ${data.email}"
+          val email = env.security.emailAddressValidator
+            .validate(data.realEmail) err s"Invalid email ${data.email}"
           val newUserEmail = lila.security.EmailConfirm.UserEmail(me.username, email.acceptable)
           auth.EmailConfirmRateLimit(newUserEmail, ctx.req) {
             env.security.emailChange.send(me, newUserEmail.email) inject Redirect {
@@ -187,9 +194,10 @@ final class Account(
         implicit val req = ctx.body
         helpForm.bindFromRequest.fold(
           err => BadRequest(html.account.emailConfirmHelp(err, none)).fuccess,
-          username => getStatus(env.user.repo, username) map { status =>
-            Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
-          }
+          username =>
+            getStatus(env.user.repo, username) map { status =>
+              Ok(html.account.emailConfirmHelp(helpForm fill username, status.some))
+            }
         )
     }
   }
@@ -198,8 +206,7 @@ final class Account(
     if (me.totpSecret.isDefined)
       env.security.forms.disableTwoFactor(me) map { form =>
         html.account.twoFactor.disable(me, form)
-      }
-    else
+      } else
       env.security.forms.setupTwoFactor(me) map { form =>
         html.account.twoFactor.setup(me, form)
       }
@@ -207,7 +214,7 @@ final class Account(
 
   def setupTwoFactor = AuthBody { implicit ctx => me =>
     auth.HasherRateLimit(me.username, ctx.req) { _ =>
-      implicit val req = ctx.body
+      implicit val req     = ctx.body
       val currentSessionId = ~env.security.api.reqSessionId(ctx.req)
       env.security.forms.setupTwoFactor(me) flatMap { form =>
         FormFuResult(form) { err =>
@@ -279,8 +286,8 @@ final class Account(
   def security = Auth { implicit ctx => me =>
     env.security.api.dedup(me.id, ctx.req) >>
       env.security.api.locatedOpenSessions(me.id, 50) map { sessions =>
-        Ok(html.account.security(me, sessions, currentSessionId))
-      }
+      Ok(html.account.security(me, sessions, currentSessionId))
+    }
   }
 
   def signout(sessionId: String) = Auth { implicit _ctx => me =>

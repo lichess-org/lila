@@ -5,7 +5,9 @@ import lila.app._
 final class Coordinate(env: Env) extends LilaController(env) {
 
   def home = Open { implicit ctx =>
-    ctx.userId ?? { userId => env.coordinate.api getScore userId map (_.some) } map { score =>
+    ctx.userId ?? { userId =>
+      env.coordinate.api getScore userId map (_.some)
+    } map { score =>
       views.html.coordinate.home(score)
     }
   }
@@ -16,20 +18,21 @@ final class Coordinate(env: Env) extends LilaController(env) {
       _ => fuccess(BadRequest),
       data => env.coordinate.api.addScore(me.id, data.isWhite, data.score)
     ) >> {
-        env.coordinate.api getScore me.id map { s =>
-          Ok(views.html.coordinate.scoreCharts(s))
-        }
+      env.coordinate.api getScore me.id map { s =>
+        Ok(views.html.coordinate.scoreCharts(s))
       }
+    }
   }
 
   def color = AuthBody { implicit ctx => me =>
     implicit val req = ctx.body
     env.coordinate.forms.color.bindFromRequest.fold(
       _ => fuccess(BadRequest),
-      value => env.pref.api.setPref(
-        me,
-        (p: lila.pref.Pref) => p.copy(coordColor = value)
-      ) inject Ok(())
+      value =>
+        env.pref.api.setPref(
+          me,
+          (p: lila.pref.Pref) => p.copy(coordColor = value)
+        ) inject Ok(())
     )
   }
 }

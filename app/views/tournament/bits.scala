@@ -13,24 +13,28 @@ object bits {
     views.html.base.layout(
       title = trans.tournamentNotFound.txt()
     ) {
-        main(cls := "page-small box box-pad")(
-          h1(trans.tournamentNotFound()),
-          p(trans.tournamentDoesNotExist()),
-          p(trans.tournamentMayHaveBeenCanceled()),
-          br,
-          br,
-          a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
-        )
-      }
+      main(cls := "page-small box box-pad")(
+        h1(trans.tournamentNotFound()),
+        p(trans.tournamentDoesNotExist()),
+        p(trans.tournamentMayHaveBeenCanceled()),
+        br,
+        br,
+        a(href := routes.Tournament.home())(trans.returnToTournamentsHomepage())
+      )
+    }
 
   def enterable(tours: List[lila.tournament.Tournament]) =
     table(cls := "tournaments")(
       tours map { tour =>
         tr(
           td(cls := "name")(
-            a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(tour.name)
+            a(cls := "text", dataIcon := tournamentIconChar(tour), href := routes.Tournament.show(tour.id))(
+              tour.name
+            )
           ),
-          tour.schedule.fold(td) { s => td(momentFromNow(s.at)) },
+          tour.schedule.fold(td) { s =>
+            td(momentFromNow(s.at))
+          },
           td(tour.durationString),
           td(dataIcon := "r", cls := "text")(tour.nbPlayers)
         )

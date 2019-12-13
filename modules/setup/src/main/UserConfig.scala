@@ -34,7 +34,7 @@ private[setup] object UserConfig {
   import HookConfig.hookConfigBSONHandler
   import FilterConfig.filterConfigBSONHandler
 
-  private[setup] implicit val userConfigBSONHandler = new BSON[UserConfig] {
+  implicit private[setup] val userConfigBSONHandler = new BSON[UserConfig] {
 
     def reads(r: BSON.Reader): UserConfig = UserConfig(
       id = r str "_id",
@@ -45,10 +45,10 @@ private[setup] object UserConfig {
     )
 
     def writes(w: BSON.Writer, o: UserConfig) = $doc(
-      "_id" -> o.id,
-      "ai" -> o.ai,
+      "_id"    -> o.id,
+      "ai"     -> o.ai,
       "friend" -> o.friend,
-      "hook" -> o.hook,
+      "hook"   -> o.hook,
       "filter" -> o.filter
     )
   }

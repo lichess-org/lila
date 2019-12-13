@@ -2,7 +2,7 @@ package lila.user
 
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, EmailAddress, NormalizedEmailAddress }
+import lila.common.{ EmailAddress, LightUser, NormalizedEmailAddress }
 
 import lila.rating.PerfType
 import org.joda.time.DateTime
@@ -34,7 +34,7 @@ case class User(
 
   override def equals(other: Any) = other match {
     case u: User => id == u.id
-    case _ => false
+    case _       => false
   }
 
   override def hashCode: Int = id.hashCode
@@ -134,8 +134,7 @@ object User {
           p.token.fold[Result](MissingTotpToken) { token =>
             if (tp verify token) Success(user) else InvalidTotpToken
           }
-        }
-        else InvalidUsernameOrPassword
+        } else InvalidUsernameOrPassword
       lila.mon.user.auth.count(res.success).increment()
       res
     }
@@ -145,20 +144,20 @@ object User {
     sealed abstract class Result(val toOption: Option[User]) {
       def success = toOption.isDefined
     }
-    case class Success(user: User) extends Result(user.some)
+    case class Success(user: User)        extends Result(user.some)
     case object InvalidUsernameOrPassword extends Result(none)
-    case object MissingTotpToken extends Result(none)
-    case object InvalidTotpToken extends Result(none)
+    case object MissingTotpToken          extends Result(none)
+    case object InvalidTotpToken          extends Result(none)
   }
 
-  val anonymous = "Anonymous"
-  val lichessId = "lichess"
-  val broadcasterId = "broadcaster"
+  val anonymous              = "Anonymous"
+  val lichessId              = "lichess"
+  val broadcasterId          = "broadcaster"
   def isOfficial(userId: ID) = userId == lichessId || userId == broadcasterId
 
   val seenRecently = 2.minutes
 
-  case class GDPRErase(user: User) extends AnyVal
+  case class GDPRErase(user: User)  extends AnyVal
   case class Erased(value: Boolean) extends AnyVal
 
   case class LightPerf(user: LightUser, perfKey: String, rating: Int, progress: Int)
@@ -181,8 +180,8 @@ object User {
 
   case class PlayTime(total: Int, tv: Int) {
     import org.joda.time.Period
-    def totalPeriod = new Period(total * 1000L)
-    def tvPeriod = new Period(tv * 1000L)
+    def totalPeriod      = new Period(total * 1000L)
+    def tvPeriod         = new Period(tv * 1000L)
     def nonEmptyTvPeriod = (tv > 0) option tvPeriod
   }
   implicit def playTimeHandler = reactivemongo.api.bson.Macros.handler[PlayTime]
@@ -204,39 +203,39 @@ object User {
   def normalize(username: String) = username.toLowerCase
 
   object BSONFields {
-    val id = "_id"
-    val username = "username"
-    val perfs = "perfs"
-    val count = "count"
-    val troll = "troll"
-    val ipBan = "ipBan"
-    val enabled = "enabled"
-    val roles = "roles"
-    val profile = "profile"
-    val engine = "engine"
-    val booster = "booster"
-    val toints = "toints"
-    val playTime = "time"
-    val createdAt = "createdAt"
-    val seenAt = "seenAt"
-    val kid = "kid"
+    val id                    = "_id"
+    val username              = "username"
+    val perfs                 = "perfs"
+    val count                 = "count"
+    val troll                 = "troll"
+    val ipBan                 = "ipBan"
+    val enabled               = "enabled"
+    val roles                 = "roles"
+    val profile               = "profile"
+    val engine                = "engine"
+    val booster               = "booster"
+    val toints                = "toints"
+    val playTime              = "time"
+    val createdAt             = "createdAt"
+    val seenAt                = "seenAt"
+    val kid                   = "kid"
     val createdWithApiVersion = "createdWithApiVersion"
-    val lang = "lang"
-    val title = "title"
-    def glicko(perf: String) = s"$perfs.$perf.gl"
-    val email = "email"
-    val verbatimEmail = "verbatimEmail"
-    val mustConfirmEmail = "mustConfirmEmail"
-    val prevEmail = "prevEmail"
-    val colorIt = "colorIt"
-    val plan = "plan"
-    val reportban = "reportban"
-    val rankban = "rankban"
-    val salt = "salt"
-    val bpass = "bpass"
-    val sha512 = "sha512"
-    val totpSecret = "totp"
-    val changedCase = "changedCase"
+    val lang                  = "lang"
+    val title                 = "title"
+    def glicko(perf: String)  = s"$perfs.$perf.gl"
+    val email                 = "email"
+    val verbatimEmail         = "verbatimEmail"
+    val mustConfirmEmail      = "mustConfirmEmail"
+    val prevEmail             = "prevEmail"
+    val colorIt               = "colorIt"
+    val plan                  = "plan"
+    val reportban             = "reportban"
+    val rankban               = "rankban"
+    val salt                  = "salt"
+    val bpass                 = "bpass"
+    val sha512                = "sha512"
+    val totpSecret            = "totp"
+    val changedCase           = "changedCase"
   }
 
   import lila.db.BSON
@@ -247,11 +246,11 @@ object User {
 
     import BSONFields._
     import reactivemongo.api.bson.BSONDocument
-    private implicit def countHandler = Count.countBSONHandler
-    private implicit def profileHandler = Profile.profileBSONHandler
-    private implicit def perfsHandler = Perfs.perfsBSONHandler
-    private implicit def planHandler = Plan.planBSONHandler
-    private implicit def totpSecretHandler = TotpSecret.totpSecretBSONHandler
+    implicit private def countHandler      = Count.countBSONHandler
+    implicit private def profileHandler    = Profile.profileBSONHandler
+    implicit private def perfsHandler      = Perfs.perfsBSONHandler
+    implicit private def planHandler       = Plan.planBSONHandler
+    implicit private def totpSecretHandler = TotpSecret.totpSecretBSONHandler
 
     def reads(r: BSON.Reader): User = User(
       id = r str id,
@@ -279,33 +278,44 @@ object User {
     )
 
     def writes(w: BSON.Writer, o: User) = BSONDocument(
-      id -> o.id,
-      username -> o.username,
-      perfs -> o.perfs,
-      count -> o.count,
-      troll -> w.boolO(o.troll),
-      ipBan -> w.boolO(o.ipBan),
-      enabled -> o.enabled,
-      roles -> o.roles.some.filter(_.nonEmpty),
-      profile -> o.profile,
-      engine -> w.boolO(o.engine),
-      booster -> w.boolO(o.booster),
-      toints -> w.intO(o.toints),
-      playTime -> o.playTime,
-      createdAt -> o.createdAt,
-      seenAt -> o.seenAt,
-      kid -> w.boolO(o.kid),
-      lang -> o.lang,
-      title -> o.title,
-      plan -> o.plan.nonEmpty,
-      reportban -> w.boolO(o.reportban),
-      rankban -> w.boolO(o.rankban),
+      id         -> o.id,
+      username   -> o.username,
+      perfs      -> o.perfs,
+      count      -> o.count,
+      troll      -> w.boolO(o.troll),
+      ipBan      -> w.boolO(o.ipBan),
+      enabled    -> o.enabled,
+      roles      -> o.roles.some.filter(_.nonEmpty),
+      profile    -> o.profile,
+      engine     -> w.boolO(o.engine),
+      booster    -> w.boolO(o.booster),
+      toints     -> w.intO(o.toints),
+      playTime   -> o.playTime,
+      createdAt  -> o.createdAt,
+      seenAt     -> o.seenAt,
+      kid        -> w.boolO(o.kid),
+      lang       -> o.lang,
+      title      -> o.title,
+      plan       -> o.plan.nonEmpty,
+      reportban  -> w.boolO(o.reportban),
+      rankban    -> w.boolO(o.rankban),
       totpSecret -> o.totpSecret
     )
   }
 
   implicit val speakerHandler = reactivemongo.api.bson.Macros.handler[Speaker]
 
-  private val firstRow: List[PerfType] = List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
-  private val secondRow: List[PerfType] = List(PerfType.UltraBullet, PerfType.Crazyhouse, PerfType.Chess960, PerfType.KingOfTheHill, PerfType.ThreeCheck, PerfType.Antichess, PerfType.Atomic, PerfType.Horde, PerfType.RacingKings)
+  private val firstRow: List[PerfType] =
+    List(PerfType.Bullet, PerfType.Blitz, PerfType.Rapid, PerfType.Classical, PerfType.Correspondence)
+  private val secondRow: List[PerfType] = List(
+    PerfType.UltraBullet,
+    PerfType.Crazyhouse,
+    PerfType.Chess960,
+    PerfType.KingOfTheHill,
+    PerfType.ThreeCheck,
+    PerfType.Antichess,
+    PerfType.Atomic,
+    PerfType.Horde,
+    PerfType.RacingKings
+  )
 }

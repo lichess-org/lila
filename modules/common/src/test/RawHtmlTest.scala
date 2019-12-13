@@ -11,7 +11,7 @@ class RawHtmlTest extends Specification {
   def copyLinkConsistency(text: String) = {
     // Plain text of linkified text should linkify to the same result.
     val firstHtml = addLinks(text)
-    val copyText = htmlTags.replaceAllIn(firstHtml, "")
+    val copyText  = htmlTags.replaceAllIn(firstHtml, "")
     firstHtml must_== addLinks(copyText)
   }
 
@@ -41,25 +41,25 @@ class RawHtmlTest extends Specification {
         s"""link to <a rel="nofollow" href="$url" target="_blank">$url</a> here"""
     }
     "detect direct giphy gif URL" in {
-      val url = "https://media.giphy.com/media/s0mE1d/giphy.gif"
+      val url    = "https://media.giphy.com/media/s0mE1d/giphy.gif"
       val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
       addLinks(s"""img to $url here""") must_==
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
     "detect indirect without tags giphy gif URL" in {
-      val url = "https://giphy.com/gifs/s0mE1d"
+      val url    = "https://giphy.com/gifs/s0mE1d"
       val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
       addLinks(s"""img to $url here""") must_==
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
     "detect indirect with tags giphy gif URL" in {
-      val url = "https://giphy.com/gifs/some-text-1-s0mE1d"
+      val url    = "https://giphy.com/gifs/some-text-1-s0mE1d"
       val picUrl = "https://media.giphy.com/media/s0mE1d/giphy.gif"
       addLinks(s"""img to $url here""") must_==
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
     }
     "detect imgur image URL" in {
-      val url = "https://imgur.com/NXy19Im"
+      val url    = "https://imgur.com/NXy19Im"
       val picUrl = "https://i.imgur.com/NXy19Im.jpg"
       addLinks(s"""img to $url here""") must_==
         s"""img to <img class="embed" src="$picUrl" alt="$url"/> here"""
@@ -123,7 +123,7 @@ class RawHtmlTest extends Specification {
 
     "pass through plain text (fast case)" in {
       val noUrl = "blah blah foobar"
-      addLinks(noUrl) must_== noUrl // eq
+      addLinks(noUrl) must_== noUrl  // eq
       addLinks(noUrl) must be(noUrl) // instance eq - fails in scala 2.13
     }
   }

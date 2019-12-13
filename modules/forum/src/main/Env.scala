@@ -12,7 +12,7 @@ import lila.notify.NotifyApi
 import lila.relation.RelationApi
 
 @Module
-private final class ForumConfig(
+final private class ForumConfig(
     @ConfigName("topic.max_per_page") val topicMaxPerPage: MaxPerPage,
     @ConfigName("post.max_per_page") val postMaxPerPage: MaxPerPage,
     @ConfigName("public_categ_ids") val publicCategIds: List[String]
@@ -39,7 +39,7 @@ final class Env(
 
   lazy val categRepo = new CategRepo(db(CollName("f_categ")))
   lazy val topicRepo = new TopicRepo(db(CollName("f_topic")))
-  lazy val postRepo = new PostRepo(db(CollName("f_post")))
+  lazy val postRepo  = new PostRepo(db(CollName("f_post")))
 
   lazy val categApi: CategApi = {
     val mk = (env: Env) => wire[CategApi]
@@ -57,11 +57,11 @@ final class Env(
   }
 
   lazy val mentionNotifier: MentionNotifier = wire[MentionNotifier]
-  lazy val forms = wire[DataForm]
-  lazy val recent = wire[Recent]
+  lazy val forms                            = wire[DataForm]
+  lazy val recent                           = wire[Recent]
 
   lila.common.Bus.subscribeFun("team", "gdprErase") {
-    case CreateTeam(id, name, _) => categApi.makeTeam(id, name)
+    case CreateTeam(id, name, _)        => categApi.makeTeam(id, name)
     case lila.user.User.GDPRErase(user) => postApi erase user
   }
 }

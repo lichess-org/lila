@@ -17,64 +17,71 @@ case class HookConfig(
     ratingRange: RatingRange
 ) extends HumanConfig {
 
-  def withinLimits(user: Option[User]): HookConfig = (for {
-    pt <- perfType
-    me <- user
-  } yield copy(
-    ratingRange = ratingRange.withinLimits(
-      rating = me.perfs(pt).intRating,
-      delta = 400,
-      multipleOf = 50
-    )
-  )) | this
+  def withinLimits(user: Option[User]): HookConfig =
+    (for {
+      pt <- perfType
+      me <- user
+    } yield copy(
+      ratingRange = ratingRange.withinLimits(
+        rating = me.perfs(pt).intRating,
+        delta = 400,
+        multipleOf = 50
+      )
+    )) | this
 
   private def perfType = lila.game.PerfPicker.perfType(chess.Speed(makeClock), variant, makeDaysPerTurn)
 
   def fixColor = copy(
-    color = if (mode == Mode.Rated &&
-      lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
-      color != Color.Random) Color.Random else color
+    color =
+      if (mode == Mode.Rated &&
+          lila.game.Game.variantsWhereWhiteIsBetter(variant) &&
+          color != Color.Random) Color.Random
+      else color
   )
 
-  def >> = (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
+  def >> =
+    (variant.id, timeMode.id, time, increment, days, mode.id.some, ratingRange.toString.some, color.name).some
 
   def withTimeModeString(tc: Option[String]) = tc match {
-    case Some("realTime") => copy(timeMode = TimeMode.RealTime)
+    case Some("realTime")       => copy(timeMode = TimeMode.RealTime)
     case Some("correspondence") => copy(timeMode = TimeMode.Correspondence)
-    case Some("unlimited") => copy(timeMode = TimeMode.Unlimited)
-    case _ => this
+    case Some("unlimited")      => copy(timeMode = TimeMode.Unlimited)
+    case _                      => this
   }
 
   def hook(
-    sri: lila.socket.Socket.Sri,
-    user: Option[User],
-    sid: Option[String],
-    blocking: Set[String]
+      sri: lila.socket.Socket.Sri,
+      user: Option[User],
+      sid: Option[String],
+      blocking: Set[String]
   ): Either[Hook, Option[Seek]] = timeMode match {
     case TimeMode.RealTime =>
       val clock = justMakeClock
-      Left(Hook.make(
-        sri = sri,
-        variant = variant,
-        clock = clock,
-        mode = if (lila.game.Game.allowRated(variant, clock.some)) mode else Mode.Casual,
-        color = color.name,
-        user = user,
-        blocking = blocking,
-        sid = sid,
-        ratingRange = ratingRange
-      ))
-    case _ => Right(user map { u =>
-      Seek.make(
-        variant = variant,
-        daysPerTurn = makeDaysPerTurn,
-        mode = mode,
-        color = color.name,
-        user = u,
-        blocking = blocking,
-        ratingRange = ratingRange
+      Left(
+        Hook.make(
+          sri = sri,
+          variant = variant,
+          clock = clock,
+          mode = if (lila.game.Game.allowRated(variant, clock.some)) mode else Mode.Casual,
+          color = color.name,
+          user = user,
+          blocking = blocking,
+          sid = sid,
+          ratingRange = ratingRange
+        )
       )
-    })
+    case _ =>
+      Right(user map { u =>
+        Seek.make(
+          variant = variant,
+          daysPerTurn = makeDaysPerTurn,
+          mode = mode,
+          color = color.name,
+          user = u,
+          blocking = blocking,
+          ratingRange = ratingRange
+        )
+      })
   }
 
   def noRatedUnlimited = mode.casual || hasClock || makeDaysPerTurn.isDefined
@@ -119,7 +126,7 @@ object HookConfig extends BaseHumanConfig {
   import lila.db.BSON
   import lila.db.dsl._
 
-  private[setup] implicit val hookConfigBSONHandler = new BSON[HookConfig] {
+  implicit private[setup] val hookConfigBSONHandler = new BSON[HookConfig] {
 
     def reads(r: BSON.Reader): HookConfig = HookConfig(
       variant = chess.variant.Variant orDefault (r int "v"),
@@ -133,13 +140,13 @@ object HookConfig extends BaseHumanConfig {
     )
 
     def writes(w: BSON.Writer, o: HookConfig) = $doc(
-      "v" -> o.variant.id,
+      "v"  -> o.variant.id,
       "tm" -> o.timeMode.id,
-      "t" -> o.time,
-      "i" -> o.increment,
-      "d" -> o.days,
-      "m" -> o.mode.id,
-      "e" -> o.ratingRange.toString
+      "t"  -> o.time,
+      "i"  -> o.increment,
+      "d"  -> o.days,
+      "m"  -> o.mode.id,
+      "e"  -> o.ratingRange.toString
     )
   }
 }

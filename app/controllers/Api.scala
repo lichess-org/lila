@@ -22,7 +22,7 @@ final class Api(
   private val userApi = env.api.userApi
   private val gameApi = env.api.gameApi
 
-  private[controllers] implicit val limitedDefault = Zero.instance[ApiResult](Limited)
+  implicit private[controllers] val limitedDefault = Zero.instance[ApiResult](Limited)
 
   private lazy val apiStatusJson = {
     val api = lila.api.Mobile.Api
@@ -31,8 +31,8 @@ final class Api(
         "current" -> api.currentVersion.value,
         "olds" -> api.oldVersions.map { old =>
           Json.obj(
-            "version" -> old.version.value,
-            "deprecatedAt" -> old.deprecatedAt,
+            "version"       -> old.version.value,
+            "deprecatedAt"  -> old.deprecatedAt,
             "unsupportedAt" -> old.unsupportedAt
           )
         }
@@ -41,7 +41,7 @@ final class Api(
   }
 
   val status = Action { req =>
-    val appVersion = get("v", req)
+    val appVersion  = get("v", req)
     val mustUpgrade = appVersion exists lila.api.Mobile.AppVersion.mustUpgrade _
     Ok(apiStatusJson.add("mustUpgrade", mustUpgrade)) as JSON
   }
@@ -70,8 +70,8 @@ final class Api(
 
   def usersByIds = Action.async(parse.tolerantText) { req =>
     val usernames = req.body.split(',').take(300).toList
-    val ip = HTTPRequest lastRemoteAddress req
-    val cost = usernames.size / 4
+    val ip        = HTTPRequest lastRemoteAddress req
+    val cost      = usernames.size / 4
     UsersRateLimitPerIP(ip, cost = cost) {
       UsersRateLimitGlobal("-", cost = cost, msg = ip.value) {
         lila.mon.api.users.increment(cost)
@@ -85,12 +85,13 @@ final class Api(
   def usersStatus = ApiRequest { req =>
     val ids = get("ids", req).??(_.split(',').take(50).toList map lila.user.User.normalize)
     env.user.lightUserApi asyncMany ids dmap (_.flatten) map { users =>
-      val actualIds = users.map(_.id)
-      val playingIds = env.relation.online.playing intersect actualIds
+      val actualIds    = users.map(_.id)
+      val playingIds   = env.relation.online.playing intersect actualIds
       val streamingIds = env.streamer.liveStreamApi.userIds
       toApiResult {
         users.map { u =>
-          lila.common.LightUser.lightUserWrites.writes(u)
+          lila.common.LightUser.lightUserWrites
+            .writes(u)
             .add("online" -> env.socket.isOnline(u.id))
             .add("playing" -> playingIds(u.id))
             .add("streaming" -> streamingIds(u.id))
@@ -160,7 +161,7 @@ final class Api(
   // for mobile app
   def userGames(name: String) = MobileApiRequest { req =>
     val page = (getInt("page", req) | 1) atLeast 1 atMost 200
-    val nb = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
+    val nb   = MaxPerPage((getInt("nb", req) | 10) atLeast 1 atMost 100)
     val cost = page * nb.value + 10
     UserGamesRateLimit(cost, req) {
       lila.mon.api.userGames.increment(cost)
@@ -245,9 +246,12 @@ final class Api(
             flags = gameC.requestPgnFlags(req, extended = false),
             perSecond = MaxPerSecond(20)
           )
-          Ok.chunked(env.api.gameApiV2.exportByTournament(config)).withHeaders(
-            noProxyBufferHeader
-          ).as(gameC.gameContentType(config)).fuccess
+          Ok.chunked(env.api.gameApiV2.exportByTournament(config))
+            .withHeaders(
+              noProxyBufferHeader
+            )
+            .as(gameC.gameContentType(config))
+            .fuccess
         }
       }
     }
@@ -260,7 +264,8 @@ final class Api(
           import lila.tournament.JsonView.playerResultWrites
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
-            env.tournament.api.resultStream(tour, MaxPerSecond(50), nb)
+            env.tournament.api
+              .resultStream(tour, MaxPerSecond(50), nb)
               .map(playerResultWrites.writes)
           }.fuccess
         }
@@ -274,7 +279,8 @@ final class Api(
         GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
           val nb = getInt("nb", req) | Int.MaxValue
           jsonStream {
-            env.tournament.api.byOwnerStream(user, MaxPerSecond(20), nb)
+            env.tournament.api
+              .byOwnerStream(user, MaxPerSecond(20), nb)
               .mapAsync(1)(env.tournament.apiJsonView.fullJson)
           }.fuccess
         }
@@ -330,19 +336,22 @@ final class Api(
     else fuccess(NotFound)
   }
 
-  lazy val tooManyRequests = Results.TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
+  lazy val tooManyRequests =
+    Results.TooManyRequests(jsonError("Error 429: Too many requests! Try again later."))
   def toApiResult(json: Option[JsValue]): ApiResult = json.fold[ApiResult](NoData)(Data.apply)
-  def toApiResult(json: Seq[JsValue]): ApiResult = Data(JsArray(json))
+  def toApiResult(json: Seq[JsValue]): ApiResult    = Data(JsArray(json))
 
   def toHttp(result: ApiResult): Result = result match {
-    case Limited => tooManyRequests
-    case NoData => NotFound
+    case Limited        => tooManyRequests
+    case NoData         => NotFound
     case Custom(result) => result
-    case Data(json) => Ok(json) as JSON
+    case Data(json)     => Ok(json) as JSON
   }
 
   def jsonStream(stream: Source[JsObject, _]): Result = jsonStringStream {
-    stream.map { o => Json.stringify(o) + "\n" }
+    stream.map { o =>
+      Json.stringify(o) + "\n"
+    }
   }
 
   def jsonOptionStream(stream: Source[Option[JsObject], _]): Result = jsonStringStream {
@@ -362,7 +371,9 @@ final class Api(
     key = "api.user",
     ttl = 6 hours
   )
-  private[controllers] def GlobalLinearLimitPerUserOption(user: Option[lila.user.User])(f: Fu[Result]): Fu[Result] =
+  private[controllers] def GlobalLinearLimitPerUserOption(
+      user: Option[lila.user.User]
+  )(f: Fu[Result]): Fu[Result] =
     user.fold(f) { u =>
       GlobalLinearLimitPerUser(u.id)(f)
     }
@@ -371,8 +382,8 @@ final class Api(
 private[controllers] object Api {
 
   sealed trait ApiResult
-  case class Data(json: JsValue) extends ApiResult
-  case object NoData extends ApiResult
-  case object Limited extends ApiResult
+  case class Data(json: JsValue)    extends ApiResult
+  case object NoData                extends ApiResult
+  case object Limited               extends ApiResult
   case class Custom(result: Result) extends ApiResult
 }

@@ -36,7 +36,7 @@ final class MemberRepo(val coll: Coll) {
   def countByTeam(teamId: ID): Fu[Int] =
     coll.countSel(teamQuery(teamId))
 
-  def teamQuery(teamId: ID) = $doc("team" -> teamId)
+  def teamQuery(teamId: ID)                    = $doc("team" -> teamId)
   private def selectId(teamId: ID, userId: ID) = $id(Member.makeId(teamId, userId))
-  private def userQuery(userId: ID) = $doc("user" -> userId)
+  private def userQuery(userId: ID)            = $doc("user" -> userId)
 }

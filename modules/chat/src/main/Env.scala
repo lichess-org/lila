@@ -30,8 +30,8 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit system: ActorSystem) {
 
-  private implicit val maxPerLineLoader = intLoader(Chat.MaxLines.apply)
-  private val config = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
+  implicit private val maxPerLineLoader = intLoader(Chat.MaxLines.apply)
+  private val config                    = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)
   import config._
 
   lazy val timeout = new ChatTimeout(
@@ -54,7 +54,7 @@ final class Env(
 
   lazy val panic = wire[ChatPanic]
 
-  system.scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) {
-    () => timeout.checkExpired foreach api.userChat.reinstate
+  system.scheduler.scheduleWithFixedDelay(timeoutCheckEvery, timeoutCheckEvery) { () =>
+    timeout.checkExpired foreach api.userChat.reinstate
   }
 }

@@ -45,12 +45,15 @@ final class Coach(env: Env) extends LilaController(env) {
         lila.coach.CoachReviewForm.form.bindFromRequest.fold(
           _ => Redirect(routes.Coach.show(c.user.username)).fuccess,
           data => {
-            if (data.score < 4 && !me.reportban) env.report.api.create(lila.report.Report.Candidate(
-              reporter = lila.report.Reporter(me),
-              suspect = lila.report.Suspect(c.user),
-              reason = lila.report.Reason.Other,
-              text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
-            ))
+            if (data.score < 4 && !me.reportban)
+              env.report.api.create(
+                lila.report.Report.Candidate(
+                  reporter = lila.report.Reporter(me),
+                  suspect = lila.report.Suspect(c.user),
+                  reason = lila.report.Reason.Other,
+                  text = s"[COACH REVIEW rating=${data.score}/5] ${data.text}"
+                )
+              )
             api.reviews.add(me, c.coach, data) inject
               Redirect(routes.Coach.show(c.user.username))
           }
@@ -63,7 +66,7 @@ final class Coach(env: Env) extends LilaController(env) {
     OptionFuResult(api.reviews.byId(id)) { review =>
       api.byId(review.coachId).map(_ ?? (_ is me)) flatMap {
         case false => notFound
-        case true => api.reviews.approve(review, getBool("v")) inject Ok
+        case true  => api.reviews.approve(review, getBool("v")) inject Ok
       }
     }
   }
@@ -90,10 +93,13 @@ final class Coach(env: Env) extends LilaController(env) {
   def editApply = SecureBody(_.Coach) { implicit ctx => me =>
     OptionFuResult(api findOrInit me) { c =>
       implicit val req = ctx.body
-      CoachProfileForm.edit(c.coach).bindFromRequest.fold(
-        _ => fuccess(BadRequest),
-        data => api.update(c, data) inject Ok
-      )
+      CoachProfileForm
+        .edit(c.coach)
+        .bindFromRequest
+        .fold(
+          _ => fuccess(BadRequest),
+          data => api.update(c, data) inject Ok
+        )
     }
   }
 
@@ -106,9 +112,10 @@ final class Coach(env: Env) extends LilaController(env) {
   def pictureApply = AuthBody(parse.multipartFormData) { implicit ctx => me =>
     OptionFuResult(api findOrInit me) { c =>
       ctx.body.body.file("picture") match {
-        case Some(pic) => api.uploadPicture(c, pic) recover {
-          case e: lila.base.LilaException => BadRequest(html.coach.picture(c, e.message.some))
-        } inject Redirect(routes.Coach.edit)
+        case Some(pic) =>
+          api.uploadPicture(c, pic) recover {
+            case e: lila.base.LilaException => BadRequest(html.coach.picture(c, e.message.some))
+          } inject Redirect(routes.Coach.edit)
         case None => fuccess(Redirect(routes.Coach.edit))
       }
     }

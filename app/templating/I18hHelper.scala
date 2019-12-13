@@ -5,7 +5,7 @@ import play.api.libs.json.JsObject
 import play.api.i18n.Lang
 
 import lila.app.ui.ScalatagsTemplate._
-import lila.i18n.{ LangList, I18nKey, Translator, I18nDb, JsDump, TimeagoLocales }
+import lila.i18n.{ I18nDb, I18nKey, JsDump, LangList, TimeagoLocales, Translator }
 import lila.user.UserContext
 
 trait I18nHelper extends HasEnv {
@@ -32,5 +32,5 @@ trait I18nHelper extends HasEnv {
 
   def langName = LangList.nameByStr _
 
-  def shortLangName(str: String) = langName(str).takeWhile(','!=)
+  def shortLangName(str: String) = langName(str).takeWhile(',' !=)
 }

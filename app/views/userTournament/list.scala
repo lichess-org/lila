@@ -10,7 +10,12 @@ import controllers.routes
 
 object list {
 
-  def apply(u: User, path: String, pager: Paginator[lila.tournament.LeaderboardApi.TourEntry], count: String) =
+  def apply(
+      u: User,
+      path: String,
+      pager: Paginator[lila.tournament.LeaderboardApi.TourEntry],
+      count: String
+  ) =
     if (pager.nbResults == 0) {
       div(cls := "box-pad")(u.username, " hasn't played in any tournament yet!")
     } else {
@@ -34,8 +39,10 @@ object list {
                   a(href := routes.Tournament.show(e.tour.id))(
                     span(cls := "name")(e.tour.fullName),
                     span(cls := "setup")(
-                      e.tour.clock.show, " • ",
-                      if (e.tour.variant.exotic) e.tour.variant.name else e.tour.perfType.map(_.name), " • ",
+                      e.tour.clock.show,
+                      " • ",
+                      if (e.tour.variant.exotic) e.tour.variant.name else e.tour.perfType.map(_.name),
+                      " • ",
                       momentFromNow(e.tour.startsAt)
                     )
                   )

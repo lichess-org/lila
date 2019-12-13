@@ -17,24 +17,25 @@ object MessageCompiler {
 
   private def doFile(db: String, sourceFile: File, destDir: File, compileTo: File): Seq[File] = {
     destDir.mkdirs()
-    val registry = ("en-GB" -> sourceFile) :: destDir.list.toList.map { f =>
-      f.takeWhile('.' !=) -> (destDir / f)
-    }.sortBy(_._1)
+    val registry = ("en-GB" -> sourceFile) :: destDir.list.toList
+      .map { f =>
+        f.takeWhile('.' !=) -> (destDir / f)
+      }
+      .sortBy(_._1)
     compileTo.mkdirs()
     var translatedLocales = Set.empty[String]
     val res = for {
       entry <- registry
       compilable <- {
         val (locale, file) = entry
-        val compileToFile = compileTo / s"$locale.scala"
+        val compileToFile  = compileTo / s"$locale.scala"
         if (!isFileEmpty(file)) {
           translatedLocales = translatedLocales + locale
           if (file.lastModified > compileToFile.lastModified) {
             printToFile(compileToFile)(render(db, locale, file))
           }
           Some(compileToFile)
-        }
-        else None
+        } else None
       }
     } yield compilable
     writeRegistry(db, compileTo, translatedLocales) :: res
@@ -77,25 +78,28 @@ private[i18n] object Registry {
   }
 
   private def render(db: String, locale: String, file: File): String = {
-    val xml = try {
-      XML.loadFile(file)
-    }
-    catch {
-      case e: Exception => println(file); throw e;
-    }
+    val xml =
+      try {
+        XML.loadFile(file)
+      } catch {
+        case e: Exception => println(file); throw e;
+      }
     def quote(msg: String) = s"""""\"$msg""\""""
     val content = xml.child.collect {
       case e if e.label == "string" =>
         val safe = escape(e.text)
         val translation = escapeHtmlOption(safe) match {
-          case None => s"""new Simple(\"\"\"$safe\"\"\")"""
+          case None          => s"""new Simple(\"\"\"$safe\"\"\")"""
           case Some(escaped) => s"""new Escaped(\"\"\"$safe\"\"\",\"\"\"$escaped\"\"\")"""
         }
         s"""m.put(${toKey(e)},$translation)"""
       case e if e.label == "plurals" =>
-        val items: Map[String, String] = e.child.filter(_.label == "item").map { i =>
-          ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
-        }.toMap
+        val items: Map[String, String] = e.child
+          .filter(_.label == "item")
+          .map { i =>
+            ucfirst(i.\("@quantity").toString) -> s"""\"\"\"${escape(i.text)}\"\"\""""
+          }
+          .toMap
         s"""m.put(${toKey(e)},new Plurals(${pluralMap(items)}))"""
     }
     s"""package lila.i18n
@@ -116,15 +120,14 @@ ${content mkString "\n"}
   }
 
   private def pluralMap(items: Map[String, String]): String =
-    if (items.size > 4) s"""Map(${items.map { case (k, v) => s"$k->$v" } mkString ","})"""
+    if (items.size > 4) s"""Map(${items.map { case (k, v)       => s"$k->$v" } mkString ","})"""
     else s"""new Map.Map${items.size}(${items.map { case (k, v) => s"$k,$v" } mkString ","})"""
-
 
   private val badChars = """[<>&"'\r\n]""".r.pattern
   private def escapeHtmlOption(s: String): Option[String] =
     if (badChars.matcher(s).find) Some {
       val sb = new java.lang.StringBuilder(s.size + 10) // wet finger style
-      var i = 0
+      var i  = 0
       while (i < s.length) {
         s.charAt(i) match {
           case '<'  => sb append "&lt;"
@@ -143,6 +146,10 @@ ${content mkString "\n"}
 
   private def printToFile(f: File)(content: String): Unit = {
     val p = new java.io.PrintWriter(f, "UTF-8")
-    try { content.foreach(p.print) } finally { p.close() }
+    try {
+      content.foreach(p.print)
+    } finally {
+      p.close()
+    }
   }
 }

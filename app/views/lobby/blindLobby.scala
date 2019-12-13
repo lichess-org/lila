@@ -14,12 +14,13 @@ object blindLobby {
   )
 
   private def ongoingGames(games: List[Pov])(implicit ctx: Context) = games.partition(_.isMyTurn) match {
-    case (myTurn, opTurn) => frag(
-      h3("My turn: ", myTurn.size, " games"),
-      ul(myTurn map renderGame),
-      h3("Opponent turn: ", opTurn.size, " games"),
-      ul(opTurn map renderGame)
-    )
+    case (myTurn, opTurn) =>
+      frag(
+        h3("My turn: ", myTurn.size, " games"),
+        ul(myTurn map renderGame),
+        h3("Opponent turn: ", opTurn.size, " games"),
+        ul(opTurn map renderGame)
+      )
   }
 
   private def renderGame(pov: Pov)(implicit ctx: Context) = li(

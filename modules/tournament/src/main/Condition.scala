@@ -6,7 +6,7 @@ import lila.hub.LightTeam._
 import lila.i18n.I18nKeys
 import lila.rating.BSONHandlers.perfTypeKeyHandler
 import lila.rating.PerfType
-import lila.user.{ User, Title }
+import lila.user.{ Title, User }
 
 sealed trait Condition {
 
@@ -25,7 +25,7 @@ object Condition {
   type GetMaxRating = PerfType => Fu[Int]
 
   sealed abstract class Verdict(val accepted: Boolean)
-  case object Accepted extends Verdict(true)
+  case object Accepted                       extends Verdict(true)
   case class Refused(reason: Lang => String) extends Verdict(false)
 
   case class WithVerdict(condition: Condition, verdict: Verdict)
@@ -41,21 +41,24 @@ object Condition {
 
     def apply(user: User) =
       if (user.hasTitle) Accepted
-      else perf match {
-        case Some(p) if user.perfs(p).nb >= nb => Accepted
-        case Some(p) => Refused { lang =>
-          val missing = nb - user.perfs(p).nb
-          I18nKeys.needNbMorePerfGames.pluralTxtTo(lang, missing, List(missing, p.name))
+      else
+        perf match {
+          case Some(p) if user.perfs(p).nb >= nb => Accepted
+          case Some(p) =>
+            Refused { lang =>
+              val missing = nb - user.perfs(p).nb
+              I18nKeys.needNbMorePerfGames.pluralTxtTo(lang, missing, List(missing, p.name))
+            }
+          case None if user.count.rated >= nb => Accepted
+          case None =>
+            Refused { lang =>
+              val missing = nb - user.count.rated
+              I18nKeys.needNbMoreGames.pluralTxtTo(lang, missing, List(missing))
+            }
         }
-        case None if user.count.rated >= nb => Accepted
-        case None => Refused { lang =>
-          val missing = nb - user.count.rated
-          I18nKeys.needNbMoreGames.pluralTxtTo(lang, missing, List(missing))
-        }
-      }
 
     def name(lang: Lang) = perf match {
-      case None => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb))
+      case None    => I18nKeys.moreThanNbRatedGames.pluralTxtTo(lang, nb, List(nb))
       case Some(p) => I18nKeys.moreThanNbPerfRatedGames.pluralTxtTo(lang, nb, List(nb, p.name))
     }
   }
@@ -69,12 +72,14 @@ object Condition {
       else if (user.perfs(perf).intRating > rating) fuccess(Refused { lang =>
         I18nKeys.yourPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, user.perfs(perf).intRating))
       })
-      else getMaxRating(perf) map {
-        case r if r <= rating => Accepted
-        case r => Refused { lang =>
-          I18nKeys.yourTopWeeklyPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, r))
+      else
+        getMaxRating(perf) map {
+          case r if r <= rating => Accepted
+          case r =>
+            Refused { lang =>
+              I18nKeys.yourTopWeeklyPerfRatingIsTooHigh.literalTxtTo(lang, List(perf.name, r))
+            }
         }
-      }
 
     def maybe(user: User): Boolean =
       !user.perfs(perf).provisional && user.perfs(perf).intRating <= rating
@@ -88,11 +93,9 @@ object Condition {
       if (user.hasTitle) Accepted
       else if (user.perfs(perf).provisional) Refused { lang =>
         I18nKeys.yourPerfRatingIsProvisional.literalTxtTo(lang, perf.name)
-      }
-      else if (user.perfs(perf).intRating < rating) Refused { lang =>
+      } else if (user.perfs(perf).intRating < rating) Refused { lang =>
         I18nKeys.yourPerfRatingIsTooLow.literalTxtTo(lang, List(perf.name, user.perfs(perf).intRating))
-      }
-      else Accepted
+      } else Accepted
 
     def name(lang: Lang) = I18nKeys.ratedMoreThanInPerf.literalTxtTo(lang, List(rating, perf.name))
   }
@@ -102,7 +105,10 @@ object Condition {
     def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]]) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
-        else Refused { lang => I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName)) }
+        else
+          Refused { lang =>
+            I18nKeys.youAreNotInTeam.literalTxtTo(lang, List(teamName))
+          }
       }
   }
 
@@ -120,10 +126,12 @@ object Condition {
 
     def ifNonEmpty = list.nonEmpty option this
 
-    def withVerdicts(getMaxRating: GetMaxRating)(user: User, getUserTeamIds: User => Fu[List[TeamID]]): Fu[All.WithVerdicts] =
+    def withVerdicts(
+        getMaxRating: GetMaxRating
+    )(user: User, getUserTeamIds: User => Fu[List[TeamID]]): Fu[All.WithVerdicts] =
       list.map {
-        case c: MaxRating => c(getMaxRating)(user) map c.withVerdict
-        case c: FlatCond => fuccess(c withVerdict c(user))
+        case c: MaxRating  => c(getMaxRating)(user) map c.withVerdict
+        case c: FlatCond   => fuccess(c withVerdict c(user))
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
       }.sequenceFu map All.WithVerdicts.apply
 
@@ -131,7 +139,7 @@ object Condition {
 
     def sameMaxRating(other: All) = maxRating.map(_.rating) == other.maxRating.map(_.rating)
     def sameMinRating(other: All) = minRating.map(_.rating) == other.minRating.map(_.rating)
-    def sameRatings(other: All) = sameMaxRating(other) && sameMinRating(other)
+    def sameRatings(other: All)   = sameMaxRating(other) && sameMinRating(other)
 
     def similar(other: All) = sameRatings(other) && titled == other.titled && teamMember == other.teamMember
 
@@ -165,15 +173,15 @@ object Condition {
   object BSONHandlers {
     import reactivemongo.api.bson._
     import lila.db.dsl._
-    private implicit val NbRatedGameHandler = Macros.handler[NbRatedGame]
-    private implicit val MaxRatingHandler = Macros.handler[MaxRating]
-    private implicit val MinRatingHandler = Macros.handler[MinRating]
-    private implicit val TitledHandler = quickHandler[Titled.type](
+    implicit private val NbRatedGameHandler = Macros.handler[NbRatedGame]
+    implicit private val MaxRatingHandler   = Macros.handler[MaxRating]
+    implicit private val MinRatingHandler   = Macros.handler[MinRating]
+    implicit private val TitledHandler = quickHandler[Titled.type](
       { case _: BSONValue => Titled },
       _ => BSONBoolean(true)
     )
-    private implicit val TeamMemberHandler = Macros.handler[TeamMember]
-    implicit val AllBSONHandler = Macros.handler[All]
+    implicit private val TeamMemberHandler = Macros.handler[TeamMember]
+    implicit val AllBSONHandler            = Macros.handler[All]
   }
 
   object JSONHandlers {
@@ -181,13 +189,14 @@ object Condition {
 
     def verdictsFor(verdicts: All.WithVerdicts, lang: Lang) = Json.obj(
       "list" -> verdicts.list.map {
-        case WithVerdict(cond, verd) => Json.obj(
-          "condition" -> (cond name lang),
-          "verdict" -> (verd match {
-            case Refused(reason) => reason(lang)
-            case Accepted => JsString("ok")
-          })
-        )
+        case WithVerdict(cond, verd) =>
+          Json.obj(
+            "condition" -> (cond name lang),
+            "verdict" -> (verd match {
+              case Refused(reason) => reason(lang)
+              case Accepted        => JsString("ok")
+            })
+          )
       },
       "accepted" -> verdicts.accepted
     )
@@ -203,11 +212,11 @@ object Condition {
     val nbRatedGames = Seq(0, 5, 10, 15, 20, 30, 40, 50, 75, 100, 150, 200)
     val nbRatedGameChoices = options(nbRatedGames, "%d rated game{s}") map {
       case (0, _) => (0, "No restriction")
-      case x => x
+      case x      => x
     }
     val nbRatedGame = mapping(
       "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
-      "nb" -> numberIn(nbRatedGameChoices)
+      "nb"   -> numberIn(nbRatedGameChoices)
     )(NbRatedGameSetup.apply)(NbRatedGameSetup.unapply)
     case class NbRatedGameSetup(perf: Option[String], nb: Int) {
       def convert(tourPerf: PerfType): Option[NbRatedGame] = nb > 0 option NbRatedGame(
@@ -232,14 +241,14 @@ object Condition {
     val maxRatingChoices = ("", "No restriction") ::
       options(maxRatings, "Max rating of %d").toList.map { case (k, v) => k.toString -> v }
     val maxRating = mapping(
-      "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "perf"   -> optional(text.verifying(perfChoices.toMap.contains _)),
       "rating" -> optional(numberIn(maxRatings))
     )(RatingSetup.apply)(RatingSetup.unapply)
     val minRatings = List(1500, 1600, 1700, 1800, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600)
     val minRatingChoices = ("", "No restriction") ::
       options(minRatings, "Min rating of %d").toList.map { case (k, v) => k.toString -> v }
     val minRating = mapping(
-      "perf" -> optional(text.verifying(perfChoices.toMap.contains _)),
+      "perf"   -> optional(text.verifying(perfChoices.toMap.contains _)),
       "rating" -> optional(numberIn(minRatings))
     )(RatingSetup.apply)(RatingSetup.unapply)
     val teamMember = mapping(
@@ -256,10 +265,10 @@ object Condition {
     }
     val all = mapping(
       "nbRatedGame" -> optional(nbRatedGame),
-      "maxRating" -> maxRating,
-      "minRating" -> minRating,
-      "titled" -> optional(boolean),
-      "teamMember" -> optional(teamMember)
+      "maxRating"   -> maxRating,
+      "minRating"   -> minRating,
+      "titled"      -> optional(boolean),
+      "teamMember"  -> optional(teamMember)
     )(AllSetup.apply)(AllSetup.unapply)
       .verifying("Invalid ratings", _.validRatings)
 
@@ -273,7 +282,7 @@ object Condition {
 
       def validRatings = (minRating.actualRating, maxRating.actualRating) match {
         case (Some(min), Some(max)) => min < max
-        case _ => true
+        case _                      => true
       }
 
       def convert(perf: PerfType, teams: Map[String, String]) = All(

@@ -5,7 +5,7 @@ import play.api.mvc.RequestHeader
 
 import lila.api.Context
 import lila.app.ui.ScalatagsTemplate._
-import lila.common.{ Nonce, AssetVersion, ContentSecurityPolicy }
+import lila.common.{ AssetVersion, ContentSecurityPolicy, Nonce }
 
 import scala.util.Random
 
@@ -14,8 +14,8 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   def isProd: Boolean
 
   def netDomain: lila.common.config.NetDomain
-  lazy val assetDomain = env.net.assetDomain
-  lazy val socketDomain = env.net.socketDomain
+  lazy val assetDomain    = env.net.assetDomain
+  lazy val socketDomain   = env.net.socketDomain
   lazy val vapidPublicKey = env.push.vapidPublicKey
 
   lazy val sameAssetDomain = netDomain.value == assetDomain.value
@@ -26,7 +26,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
 
   def assetUrl(path: String): String = s"$assetBaseUrl/assets/_$assetVersion/$path"
 
-  def cdnUrl(path: String) = s"$assetBaseUrl$path"
+  def cdnUrl(path: String)    = s"$assetBaseUrl$path"
   def staticUrl(path: String) = s"$assetBaseUrl/assets/$path"
 
   def dbImageUrl(path: String) = s"$assetBaseUrl/image/$path"
@@ -59,12 +59,14 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def roundTag = jsAt(s"compiled/lichess.round${isProd ?? (".min")}.js", defer = true)
-  def roundNvuiTag(implicit ctx: Context) = ctx.blind option
-    jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
+  def roundNvuiTag(implicit ctx: Context) =
+    ctx.blind option
+      jsAt(s"compiled/lichess.round.nvui.min.js", defer = true)
 
   def analyseTag = jsAt(s"compiled/lichess.analyse${isProd ?? (".min")}.js")
-  def analyseNvuiTag(implicit ctx: Context) = ctx.blind option
-    jsAt(s"compiled/lichess.analyse.nvui.min.js")
+  def analyseNvuiTag(implicit ctx: Context) =
+    ctx.blind option
+      jsAt(s"compiled/lichess.analyse.nvui.min.js")
 
   def captchaTag = jsAt(s"compiled/captcha.js")
 
@@ -105,7 +107,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
     val assets = if (req.secure) s"https://$assetDomain" else assetDomain.value
     val socket = {
       val protocol = if (req.secure) "wss://" else "ws://"
-      val port = if (socketDomain.contains(":")) "" else ":*"
+      val port     = if (socketDomain.contains(":")) "" else ":*"
       s"$protocol$socketDomain$port"
     }
     ContentSecurityPolicy(
@@ -134,7 +136,9 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
   }
 
   def embedJsUnsafe(js: String)(implicit ctx: Context): Frag = raw {
-    val nonce = ctx.nonce ?? { nonce => s""" nonce="$nonce"""" }
+    val nonce = ctx.nonce ?? { nonce =>
+      s""" nonce="$nonce""""
+    }
     s"""<script$nonce>$js</script>"""
   }
 

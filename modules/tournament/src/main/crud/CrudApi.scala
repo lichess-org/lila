@@ -46,12 +46,16 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
     startsAt = DateTime.now plusDays 7
   )
 
-  def paginator(page: Int) = Paginator[Tournament](adapter = new Adapter[Tournament](
-    collection = tournamentRepo.coll,
-    selector = tournamentRepo.selectUnique,
-    projection = none,
-    sort = $doc("startsAt" -> -1)
-  ), currentPage = page)
+  def paginator(page: Int) =
+    Paginator[Tournament](
+      adapter = new Adapter[Tournament](
+        collection = tournamentRepo.coll,
+        selector = tournamentRepo.selectUnique,
+        projection = none,
+        sort = $doc("startsAt" -> -1)
+      ),
+      currentPage = page
+    )
 
   private def empty = Tournament.make(
     by = Left(User.lichessId),
@@ -94,9 +98,9 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
       position = DataForm.startingPosition(data.position, realVariant),
       noBerserk = !data.berserkable
     ) |> { tour =>
-        tour.perfType.fold(tour) { perfType =>
-          tour.copy(conditions = data.conditions.convert(perfType, Map.empty)) // the CRUD form doesn't support team restrictions so Map.empty is fine
-        }
+      tour.perfType.fold(tour) { perfType =>
+        tour.copy(conditions = data.conditions.convert(perfType, Map.empty)) // the CRUD form doesn't support team restrictions so Map.empty is fine
       }
+    }
   }
 }

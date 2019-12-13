@@ -56,9 +56,9 @@ object Query {
   import play.api.libs.json._
 
   import Range.rangeJsonWriter
-  private implicit val sortingJsonWriter = Json.writes[Sorting]
-  private implicit val clockingJsonWriter = Json.writes[Clocking]
-  implicit val jsonWriter = Json.writes[Query]
+  implicit private val sortingJsonWriter  = Json.writes[Sorting]
+  implicit private val clockingJsonWriter = Json.writes[Clocking]
+  implicit val jsonWriter                 = Json.writes[Query]
 
   val durations: List[(Int, String)] =
     ((30, "30 seconds") ::
@@ -71,29 +71,58 @@ object Query {
     (0, "0 seconds"),
     (30, "30 seconds"),
     (45, "45 seconds")
-  ) ::: options(List(60 * 1, 60 * 2, 60 * 3, 60 * 5, 60 * 10, 60 * 15, 60 * 20, 60 * 30, 60 * 45, 60 * 60, 60 * 90, 60 * 120, 60 * 150, 60 * 180), _ / 60, "%d minute{s}").toList
+  ) ::: options(
+    List(
+      60 * 1,
+      60 * 2,
+      60 * 3,
+      60 * 5,
+      60 * 10,
+      60 * 15,
+      60 * 20,
+      60 * 30,
+      60 * 45,
+      60 * 60,
+      60 * 90,
+      60 * 120,
+      60 * 150,
+      60 * 180
+    ),
+    _ / 60,
+    "%d minute{s}"
+  ).toList
 
   val clockIncs =
     options(List(0, 1, 2, 3, 5, 10, 15, 20, 30, 45, 60, 90, 120, 150, 180), "%d second{s}").toList
 
   val winnerColors = List(1 -> "White", 2 -> "Black", 3 -> "None")
 
-  val perfs = lila.rating.PerfType.nonPuzzle map { v => v.id -> v.name }
+  val perfs = lila.rating.PerfType.nonPuzzle map { v =>
+    v.id -> v.name
+  }
 
-  val sources = lila.game.Source.searchable map { v => v.id -> v.name.capitalize }
+  val sources = lila.game.Source.searchable map { v =>
+    v.id -> v.name.capitalize
+  }
 
-  val modes = Mode.all map { mode => mode.id -> mode.name.capitalize }
+  val modes = Mode.all map { mode =>
+    mode.id -> mode.name.capitalize
+  }
 
   val turns = options(
     (1 to 5) ++ (10 to 45 by 5) ++ (50 to 90 by 10) ++ (100 to 300 by 25),
     "%d move{s}"
   )
 
-  val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e => e -> s"$e Rating" }
+  val averageRatings = (RatingRange.min to RatingRange.max by 100).toList map { e =>
+    e -> s"$e Rating"
+  }
 
   val hasAis = List(0 -> "Human opponent", 1 -> "Computer opponent")
 
-  val aiLevels = (1 to 8) map { l => l -> ("level " + l) }
+  val aiLevels = (1 to 8) map { l =>
+    l -> ("level " + l)
+  }
 
   val dates = List("0d" -> "Now") ++
     options(List(1, 2, 6), "h", "%d hour{s} ago") ++
@@ -103,11 +132,11 @@ object Query {
     options(1 to 5, "y", "%d year{s} ago")
 
   val statuses = Status.finishedNotCheated.map {
-    case s if s.is(_.Timeout) => none
-    case s if s.is(_.NoStart) => none
+    case s if s.is(_.Timeout)       => none
+    case s if s.is(_.NoStart)       => none
     case s if s.is(_.UnknownFinish) => none
-    case s if s.is(_.Outoftime) => Some(s.id -> "Clock Flag")
-    case s if s.is(_.VariantEnd) => Some(s.id -> "Variant End")
-    case s => Some(s.id -> s.toString)
+    case s if s.is(_.Outoftime)     => Some(s.id -> "Clock Flag")
+    case s if s.is(_.VariantEnd)    => Some(s.id -> "Variant End")
+    case s                          => Some(s.id -> s.toString)
   }.flatten
 }

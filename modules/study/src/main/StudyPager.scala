@@ -11,38 +11,60 @@ final class StudyPager(
     chapterRepo: ChapterRepo
 ) {
 
-  val maxPerPage = lila.common.config.MaxPerPage(16)
+  val maxPerPage                = lila.common.config.MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4
 
   import BSONHandlers._
-  import studyRepo.{ selectPublic, selectPrivateOrUnlisted, selectMemberId, selectOwnerId, selectLiker }
+  import studyRepo.{ selectLiker, selectMemberId, selectOwnerId, selectPrivateOrUnlisted, selectPublic }
 
   def all(me: Option[User], order: Order, page: Int) = paginator(
-    accessSelect(me), me, order, page, fuccess(9999).some
+    accessSelect(me),
+    me,
+    order,
+    page,
+    fuccess(9999).some
   )
 
   def byOwner(owner: User, me: Option[User], order: Order, page: Int) = paginator(
-    selectOwnerId(owner.id) ++ accessSelect(me), me, order, page
+    selectOwnerId(owner.id) ++ accessSelect(me),
+    me,
+    order,
+    page
   )
 
   def mine(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id), me.some, order, page
+    selectOwnerId(me.id),
+    me.some,
+    order,
+    page
   )
 
   def minePublic(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id) ++ selectPublic, me.some, order, page
+    selectOwnerId(me.id) ++ selectPublic,
+    me.some,
+    order,
+    page
   )
 
   def minePrivate(me: User, order: Order, page: Int) = paginator(
-    selectOwnerId(me.id) ++ selectPrivateOrUnlisted, me.some, order, page
+    selectOwnerId(me.id) ++ selectPrivateOrUnlisted,
+    me.some,
+    order,
+    page
   )
 
   def mineMember(me: User, order: Order, page: Int) = paginator(
-    selectMemberId(me.id) ++ $doc("ownerId" $ne me.id), me.some, order, page
+    selectMemberId(me.id) ++ $doc("ownerId" $ne me.id),
+    me.some,
+    order,
+    page
   )
 
   def mineLikes(me: User, order: Order, page: Int) = paginator(
-    selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id), me.some, order, page
+    selectLiker(me.id) ++ accessSelect(me.some) ++ $doc("ownerId" $ne me.id),
+    me.some,
+    order,
+    page
   )
 
   def accessSelect(me: Option[User]) =
@@ -51,20 +73,20 @@ final class StudyPager(
     }
 
   private def paginator(
-    selector: Bdoc,
-    me: Option[User],
-    order: Order,
-    page: Int,
-    nbResults: Option[Fu[Int]] = none
+      selector: Bdoc,
+      me: Option[User],
+      order: Order,
+      page: Int,
+      nbResults: Option[Fu[Int]] = none
   ): Fu[Paginator[Study.WithChaptersAndLiked]] = {
     val adapter = new Adapter[Study](
       collection = studyRepo.coll,
       selector = selector,
       projection = studyRepo.projection.some,
       sort = order match {
-        case Order.Hot => $sort desc "rank"
-        case Order.Newest => $sort desc "createdAt"
-        case Order.Oldest => $sort asc "createdAt"
+        case Order.Hot     => $sort desc "rank"
+        case Order.Newest  => $sort desc "createdAt"
+        case Order.Oldest  => $sort asc "createdAt"
         case Order.Updated => $sort desc "updatedAt"
         case Order.Popular => $sort desc "likes"
       }
@@ -79,14 +101,14 @@ final class StudyPager(
   }
 
   def withChaptersAndLiking(
-    me: Option[User],
-    nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
+      me: Option[User],
+      nbChaptersPerStudy: Int = defaultNbChaptersPerStudy
   )(studies: Seq[Study]): Fu[Seq[Study.WithChaptersAndLiked]] =
     withChapters(studies, nbChaptersPerStudy) flatMap withLiking(me)
 
   private def withChapters(
-    studies: Seq[Study],
-    nbChaptersPerStudy: Int
+      studies: Seq[Study],
+      nbChaptersPerStudy: Int
   ): Fu[Seq[Study.WithChapters]] =
     chapterRepo.idNamesByStudyIds(studies.map(_.id), nbChaptersPerStudy) map { chapters =>
       studies.map { study =>
@@ -94,8 +116,12 @@ final class StudyPager(
       }
     }
 
-  private def withLiking(me: Option[User])(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
-    me.?? { u => studyRepo.filterLiked(u, studies.map(_.study.id)) } map { liked =>
+  private def withLiking(
+      me: Option[User]
+  )(studies: Seq[Study.WithChapters]): Fu[Seq[Study.WithChaptersAndLiked]] =
+    me.?? { u =>
+      studyRepo.filterLiked(u, studies.map(_.study.id))
+    } map { liked =>
       studies.map {
         case Study.WithChapters(study, chapters) =>
           Study.WithChaptersAndLiked(study, chapters, liked(study.id))
@@ -106,15 +132,17 @@ final class StudyPager(
 sealed abstract class Order(val key: String, val name: Translated)
 
 object Order {
-  case object Hot extends Order("hot", trans.study.hot)
-  case object Newest extends Order("newest", trans.study.dateAddedNewest)
-  case object Oldest extends Order("oldest", trans.study.dateAddedOldest)
+  case object Hot     extends Order("hot", trans.study.hot)
+  case object Newest  extends Order("newest", trans.study.dateAddedNewest)
+  case object Oldest  extends Order("oldest", trans.study.dateAddedOldest)
   case object Updated extends Order("updated", trans.study.recentlyUpdated)
   case object Popular extends Order("popular", trans.study.mostPopular)
 
-  val default = Hot
-  val all = List(Hot, Newest, Oldest, Updated, Popular)
+  val default      = Hot
+  val all          = List(Hot, Newest, Oldest, Updated, Popular)
   val allButOldest = all filter (Oldest !=)
-  private val byKey: Map[String, Order] = all.map { o => o.key -> o }.toMap
+  private val byKey: Map[String, Order] = all.map { o =>
+    o.key -> o
+  }.toMap
   def apply(key: String): Order = byKey.getOrElse(key, default)
 }

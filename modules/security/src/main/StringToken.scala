@@ -8,7 +8,7 @@ import lila.common.config.Secret
 
 import StringToken.ValueChecker
 
-private[security] final class StringToken[A](
+final private[security] class StringToken[A](
     secret: Secret,
     getCurrentValue: A => Fu[String],
     valueChecker: ValueChecker = ValueChecker.Same,
@@ -18,19 +18,22 @@ private[security] final class StringToken[A](
 )(implicit serializer: StringToken.Serializable[A]) {
 
   def make(payload: A) = hashCurrentValue(payload) map { hashedValue =>
-    val signed = signPayload(serializer write payload, hashedValue)
+    val signed   = signPayload(serializer write payload, hashedValue)
     val checksum = makeHash(signed)
-    val token = s"$signed$separator$checksum"
+    val token    = s"$signed$separator$checksum"
     base64 encode token
   }
 
   def read(token: String): Fu[Option[A]] = (base64 decode token) ?? {
     _ split separator match {
       case Array(payloadStr, hashed, checksum) =>
-        BCrypt.bytesEqualSecure(makeHash(signPayload(payloadStr, hashed)).getBytes("utf-8"), checksum.getBytes("utf-8")) ?? {
+        BCrypt.bytesEqualSecure(
+          makeHash(signPayload(payloadStr, hashed)).getBytes("utf-8"),
+          checksum.getBytes("utf-8")
+        ) ?? {
           val payload = serializer read payloadStr
           (valueChecker match {
-            case ValueChecker.Same => hashCurrentValue(payload) map (hashed ==)
+            case ValueChecker.Same      => hashCurrentValue(payload) map (hashed ==)
             case ValueChecker.Custom(f) => f(hashed)
           }) map { _ option payload }
         }
@@ -56,12 +59,12 @@ private[security] object StringToken {
 
   implicit final val stringSerializable = new Serializable[String] {
     def read(str: String) = str
-    def write(a: String) = a
+    def write(a: String)  = a
   }
 
   sealed trait ValueChecker
   object ValueChecker {
-    case object Same extends ValueChecker
+    case object Same                            extends ValueChecker
     case class Custom(f: String => Fu[Boolean]) extends ValueChecker
   }
 }

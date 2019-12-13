@@ -27,7 +27,8 @@ final class Adapter[A: BSONDocumentReader](
   def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection.find(selector, projection)
+    collection
+      .find(selector, projection)
       .sort(sort)
       .skip(offset)
       .list[A](length, readPreference)
@@ -52,7 +53,8 @@ final class MapReduceAdapter[A: BSONDocumentReader](
   def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
   def slice(offset: Int, length: Int): Fu[List[A]] =
-    collection.find(selector, $id(true).some)
+    collection
+      .find(selector, $id(true).some)
       .sort(sort)
       .skip(offset)
       .list[Bdoc](length, readPreference)
@@ -61,13 +63,13 @@ final class MapReduceAdapter[A: BSONDocumentReader](
         runCommand(
           $doc(
             "mapreduce" -> collection.name,
-            "query" -> $inIds(ids),
-            "sort" -> sort,
-            "out" -> $doc("inline" -> true)
+            "query"     -> $inIds(ids),
+            "sort"      -> sort,
+            "out"       -> $doc("inline" -> true)
           ) ++ command,
           readPreference
         ) map { res =>
-            res.getAsOpt[List[Bdoc]]("results").??(_ flatMap implicitly[BSONDocumentReader[A]].readOpt)
-          }
+          res.getAsOpt[List[Bdoc]]("results").??(_ flatMap implicitly[BSONDocumentReader[A]].readOpt)
+        }
       }
 }

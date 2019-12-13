@@ -24,18 +24,20 @@ final class PrefApi(
   )
 
   def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
-    coll.update.one(
-      $id(user.id),
-      $set(s"tags.${tag(Pref.Tag)}" -> value),
-      upsert = true
-    ).void >>- { cache refresh user.id }
+    coll.update
+      .one(
+        $id(user.id),
+        $set(s"tags.${tag(Pref.Tag)}" -> value),
+        upsert = true
+      )
+      .void >>- { cache refresh user.id }
 
-  def getPrefById(id: String): Fu[Pref] = cache get id dmap (_ getOrElse Pref.create(id))
-  val getPref = getPrefById _
-  def getPref(user: User): Fu[Pref] = getPref(user.id)
+  def getPrefById(id: String): Fu[Pref]     = cache get id dmap (_ getOrElse Pref.create(id))
+  val getPref                               = getPrefById _
+  def getPref(user: User): Fu[Pref]         = getPref(user.id)
   def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
 
-  def getPref[A](user: User, pref: Pref => A): Fu[A] = getPref(user) map pref
+  def getPref[A](user: User, pref: Pref => A): Fu[A]     = getPref(user) map pref
   def getPref[A](userId: String, pref: Pref => A): Fu[A] = getPref(userId) map pref
 
   def getPref(user: User, req: RequestHeader): Fu[Pref] =
@@ -47,15 +49,20 @@ final class PrefApi(
     }
 
   def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
-    coll.distinctEasy[String, Set]("_id", ($inIds(userIds) ++ $doc(
-      "follow" -> false
-    )))
+    coll.distinctEasy[String, Set](
+      "_id",
+      ($inIds(userIds) ++ $doc(
+        "follow" -> false
+      ))
+    )
 
   def followableIds(userIds: List[String]): Fu[Set[String]] =
     unfollowableIds(userIds) map userIds.toSet.diff
 
   def followables(userIds: List[String]): Fu[List[Boolean]] =
-    followableIds(userIds) map { followables => userIds map followables.contains }
+    followableIds(userIds) map { followables =>
+      userIds map followables.contains
+    }
 
   def setPref(pref: Pref): Funit =
     coll.update.one($id(pref.id), pref, upsert = true).void >>- {
@@ -73,11 +80,15 @@ final class PrefApi(
       s"Bad pref ${user.id} $name -> $value" flatMap setPref
 
   def setBot(user: User): Funit =
-    setPref(user, (p: Pref) => p.copy(
-      takeback = Pref.Takeback.NEVER,
-      moretime = Pref.Moretime.NEVER,
-      insightShare = Pref.InsightShare.EVERYBODY
-    ))
+    setPref(
+      user,
+      (p: Pref) =>
+        p.copy(
+          takeback = Pref.Takeback.NEVER,
+          moretime = Pref.Moretime.NEVER,
+          insightShare = Pref.InsightShare.EVERYBODY
+        )
+    )
 
   def saveNewUserPrefs(user: User, req: RequestHeader): Funit = {
     val reqPref = RequestPref fromRequest req

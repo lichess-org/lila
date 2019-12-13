@@ -5,7 +5,7 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import lila.common.config._
-import lila.socket.Socket.{ SocketVersion, GetVersion }
+import lila.socket.Socket.{ GetVersion, SocketVersion }
 
 @Module
 final class Env(
@@ -45,7 +45,7 @@ final class Env(
 
   lazy val jsonView = wire[JsonView]
 
-  system.scheduler.scheduleWithFixedDelay(10 seconds, 3 seconds) {
-    () => api.sweep
+  system.scheduler.scheduleWithFixedDelay(10 seconds, 3 seconds) { () =>
+    api.sweep
   }
 }

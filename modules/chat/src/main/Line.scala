@@ -8,8 +8,8 @@ sealed trait Line {
   def text: String
   def author: String
   def deleted: Boolean
-  def isSystem = author == systemUserId
-  def isHuman = !isSystem
+  def isSystem    = author == systemUserId
+  def isHuman     = !isSystem
   def humanAuthor = isHuman option author
   def troll: Boolean
 }
@@ -35,25 +35,25 @@ case class PlayerLine(
     text: String
 ) extends Line {
   def deleted = false
-  def author = color.name
-  def troll = false
+  def author  = color.name
+  def troll   = false
 }
 
 object Line {
 
   val textMaxSize = 140
-  val titleSep = '~'
+  val titleSep    = '~'
 
   import reactivemongo.api.bson._
 
   private val invalidLine = UserLine("", None, "[invalid character]", troll = false, deleted = true)
 
-  private[chat] implicit val userLineBSONHandler = BSONStringHandler.as[UserLine](
+  implicit private[chat] val userLineBSONHandler = BSONStringHandler.as[UserLine](
     v => strToUserLine(v) getOrElse invalidLine,
     userLineToStr
   )
 
-  private[chat] implicit val lineBSONHandler = BSONStringHandler.as[Line](
+  implicit private[chat] val lineBSONHandler = BSONStringHandler.as[Line](
     v => strToLine(v) getOrElse invalidLine,
     lineToStr
   )
@@ -61,18 +61,19 @@ object Line {
   private val UserLineRegex = """(?s)([\w-~]{2,}+)([ !?])(.++)""".r
   private def strToUserLine(str: String): Option[UserLine] = str match {
     case UserLineRegex(username, sep, text) =>
-      val troll = sep == "!"
+      val troll   = sep == "!"
       val deleted = sep == "?"
       username split titleSep match {
         case Array(title, name) => UserLine(name, Some(title), text, troll = troll, deleted = deleted).some
-        case _ => UserLine(username, None, text, troll = troll, deleted = deleted).some
+        case _                  => UserLine(username, None, text, troll = troll, deleted = deleted).some
       }
     case _ => none
   }
   def userLineToStr(x: UserLine): String = {
-    val sep = if (x.troll) "!"
-    else if (x.deleted) "?"
-    else " "
+    val sep =
+      if (x.troll) "!"
+      else if (x.deleted) "?"
+      else " "
     val tit = x.title.??(_ + titleSep)
     s"$tit${x.username}$sep${x.text}"
   }
@@ -83,7 +84,7 @@ object Line {
     }
   }
   def lineToStr(x: Line) = x match {
-    case u: UserLine => userLineToStr(u)
+    case u: UserLine   => userLineToStr(u)
     case p: PlayerLine => s"${p.color.letter} ${p.text}"
   }
 }

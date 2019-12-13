@@ -11,11 +11,11 @@ object page {
       moreCss = cssTag("page"),
       title = s"${~doc.getText("doc.title")}"
     ) {
-        main(cls := "page-small box box-pad page")(
-          h1(doc.getText("doc.title")),
-          div(cls := "body")(
-            raw(~doc.getHtml("doc.content", resolver))
-          )
+      main(cls := "page-small box box-pad page")(
+        h1(doc.getText("doc.title")),
+        div(cls := "body")(
+          raw(~doc.getHtml("doc.content", resolver))
         )
-      }
+      )
+    }
 }

@@ -8,45 +8,49 @@ import play.api.data.Forms._
 import lila.common.Form._
 import lila.search.Range
 
-private[gameSearch] final class DataForm {
+final private[gameSearch] class DataForm {
 
-  val search = Form(mapping(
-    "players" -> mapping(
-      "a" -> optional(nonEmptyText),
-      "b" -> optional(nonEmptyText),
-      "winner" -> optional(nonEmptyText),
-      "loser" -> optional(nonEmptyText),
-      "white" -> optional(nonEmptyText),
-      "black" -> optional(nonEmptyText)
-    )(SearchPlayer.apply)(SearchPlayer.unapply),
-    "winnerColor" -> optional(numberIn(Query.winnerColors)),
-    "perf" -> optional(numberIn(Query.perfs)),
-    "source" -> optional(numberIn(Query.sources)),
-    "mode" -> optional(numberIn(Query.modes)),
-    "turnsMin" -> optional(numberIn(Query.turns)),
-    "turnsMax" -> optional(numberIn(Query.turns)),
-    "ratingMin" -> optional(numberIn(Query.averageRatings)),
-    "ratingMax" -> optional(numberIn(Query.averageRatings)),
-    "hasAi" -> optional(numberIn(Query.hasAis)),
-    "aiLevelMin" -> optional(numberIn(Query.aiLevels)),
-    "aiLevelMax" -> optional(numberIn(Query.aiLevels)),
-    "durationMin" -> optional(numberIn(Query.durations)),
-    "durationMax" -> optional(numberIn(Query.durations)),
-    "clock" -> mapping(
-      "initMin" -> optional(numberIn(Query.clockInits)),
-      "initMax" -> optional(numberIn(Query.clockInits)),
-      "incMin" -> optional(numberIn(Query.clockIncs)),
-      "incMax" -> optional(numberIn(Query.clockIncs))
-    )(SearchClock.apply)(SearchClock.unapply),
-    "dateMin" -> DataForm.dateField,
-    "dateMax" -> DataForm.dateField,
-    "status" -> optional(numberIn(Query.statuses)),
-    "analysed" -> optional(number),
-    "sort" -> optional(mapping(
-      "field" -> stringIn(Sorting.fields),
-      "order" -> stringIn(Sorting.orders)
-    )(SearchSort.apply)(SearchSort.unapply))
-  )(SearchData.apply)(SearchData.unapply)) fill SearchData()
+  val search = Form(
+    mapping(
+      "players" -> mapping(
+        "a"      -> optional(nonEmptyText),
+        "b"      -> optional(nonEmptyText),
+        "winner" -> optional(nonEmptyText),
+        "loser"  -> optional(nonEmptyText),
+        "white"  -> optional(nonEmptyText),
+        "black"  -> optional(nonEmptyText)
+      )(SearchPlayer.apply)(SearchPlayer.unapply),
+      "winnerColor" -> optional(numberIn(Query.winnerColors)),
+      "perf"        -> optional(numberIn(Query.perfs)),
+      "source"      -> optional(numberIn(Query.sources)),
+      "mode"        -> optional(numberIn(Query.modes)),
+      "turnsMin"    -> optional(numberIn(Query.turns)),
+      "turnsMax"    -> optional(numberIn(Query.turns)),
+      "ratingMin"   -> optional(numberIn(Query.averageRatings)),
+      "ratingMax"   -> optional(numberIn(Query.averageRatings)),
+      "hasAi"       -> optional(numberIn(Query.hasAis)),
+      "aiLevelMin"  -> optional(numberIn(Query.aiLevels)),
+      "aiLevelMax"  -> optional(numberIn(Query.aiLevels)),
+      "durationMin" -> optional(numberIn(Query.durations)),
+      "durationMax" -> optional(numberIn(Query.durations)),
+      "clock" -> mapping(
+        "initMin" -> optional(numberIn(Query.clockInits)),
+        "initMax" -> optional(numberIn(Query.clockInits)),
+        "incMin"  -> optional(numberIn(Query.clockIncs)),
+        "incMax"  -> optional(numberIn(Query.clockIncs))
+      )(SearchClock.apply)(SearchClock.unapply),
+      "dateMin"  -> DataForm.dateField,
+      "dateMax"  -> DataForm.dateField,
+      "status"   -> optional(numberIn(Query.statuses)),
+      "analysed" -> optional(number),
+      "sort" -> optional(
+        mapping(
+          "field" -> stringIn(Sorting.fields),
+          "order" -> stringIn(Sorting.orders)
+        )(SearchSort.apply)(SearchSort.unapply)
+      )
+    )(SearchData.apply)(SearchData.unapply)
+  ) fill SearchData()
 }
 
 private[gameSearch] object DataForm {
@@ -116,9 +120,9 @@ private[gameSearch] case class SearchPlayer(
   lazy val cleanA = clean(a)
   lazy val cleanB = clean(b)
   def cleanWinner = oneOf(winner)
-  def cleanLoser = oneOf(loser)
-  def cleanWhite = oneOf(white)
-  def cleanBlack = oneOf(black)
+  def cleanLoser  = oneOf(loser)
+  def cleanWhite  = oneOf(white)
+  def cleanBlack  = oneOf(black)
 
   private def oneOf(s: Option[String]) = clean(s).filter(List(cleanA, cleanB).flatten.contains)
   private def clean(s: Option[String]) = s map (_.trim.toLowerCase) filter (_.nonEmpty)

@@ -9,10 +9,11 @@ import controllers.routes
 
 object faq {
 
-  def page(implicit ctx: Context) = views.html.base.layout(
-    title = "Tournament FAQ",
-    moreCss = cssTag("page")
-  ) {
+  def page(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Tournament FAQ",
+      moreCss = cssTag("page")
+    ) {
       main(cls := "page-small box box-pad page")(
         h1(
           a(href := routes.Tournament.home(), dataIcon := "I", cls := "text"),
@@ -30,29 +31,22 @@ object faq {
       )
     },
     p(trans.arena.willBeNotified()),
-
     h2(trans.arena.isItRated()),
     rated match {
-      case Some(true) => p(trans.arena.isRated())
+      case Some(true)  => p(trans.arena.isRated())
       case Some(false) => p(trans.arena.isNotRated())
-      case None => p(trans.arena.someRated())
+      case None        => p(trans.arena.someRated())
     },
-
     h2(trans.arena.howAreScoresCalculated()),
     p(trans.arena.howAreScoresCalculatedAnswer()),
-
     h2(trans.arena.berserk()),
     p(trans.arena.berserkAnswer()),
-
     h2(trans.arena.howIsTheWinnerDecided()),
     p(trans.arena.howIsTheWinnerDecidedAnswer()),
-
     h2(trans.arena.howDoesPairingWork()),
     p(trans.arena.howDoesPairingWorkAnswer()),
-
     h2(trans.arena.howDoesItEnd()),
     p(trans.arena.howDoesItEndAnswer()),
-
     h2(trans.arena.otherRules()),
     p(trans.arena.thereIsACountdown()),
     p(trans.arena.drawingWithinNbMoves.pluralSame(10))

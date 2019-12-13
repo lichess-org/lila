@@ -5,7 +5,7 @@ import java.nio.file.Path
 final class Photographer(repo: ImageRepo, prefix: String) {
 
   import Photographer.uploadMaxMb
-  private val uploadMaxBytes = uploadMaxMb * 1024 * 1024
+  private val uploadMaxBytes        = uploadMaxMb * 1024 * 1024
   private def pictureId(id: String) = s"$prefix:$id:picture"
 
   def apply(id: String, uploaded: Photographer.Uploaded): Fu[DbImage] =

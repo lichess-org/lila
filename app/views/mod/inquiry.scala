@@ -12,17 +12,18 @@ object inquiry {
   // simul game study relay tournament
   private val commFlagRegex = """^\[FLAG\] (\w+)/(\w{8}) (.+)$""".r
 
-  def renderAtomText(atom: lila.report.Report.Atom) = richText(atom.simplifiedText match {
-    case commFlagRegex(resType, resId, text) =>
-      val path = resType match {
-        case "game" => routes.Round.watcher(resId, "white")
-        case "relay" => routes.Relay.show("-", resId)
-        case "simul" | "study" | "tournament" | "message" | "broadcast" => s"$resType/$resId"
-        case _ => s"$resType/$resId"
-      }
-      s"$netBaseUrl/$path $text"
-    case other => other
-  })
+  def renderAtomText(atom: lila.report.Report.Atom) =
+    richText(atom.simplifiedText match {
+      case commFlagRegex(resType, resId, text) =>
+        val path = resType match {
+          case "game"                                                     => routes.Round.watcher(resId, "white")
+          case "relay"                                                    => routes.Relay.show("-", resId)
+          case "simul" | "study" | "tournament" | "message" | "broadcast" => s"$resType/$resId"
+          case _                                                          => s"$resType/$resId"
+        }
+        s"$netBaseUrl/$path $text"
+      case other => other
+    })
 
   def apply(in: lila.mod.Inquiry)(implicit ctx: Context) = {
     def renderReport(r: lila.report.Report) =
@@ -32,8 +33,10 @@ object inquiry {
             h3(
               reportScore(atom.score),
               userIdLink(atom.by.value.some, withOnline = false),
-              " for ", strong(r.reason.name),
-              " ", momentFromNow(atom.at)
+              " for ",
+              strong(r.reason.name),
+              " ",
+              momentFromNow(atom.at)
             ),
             p(renderAtomText(atom))
           )
@@ -57,10 +60,12 @@ object inquiry {
             in.allReports.map(renderReport)
           )
         ),
-        div(cls := List(
-          "dropper counter history" -> true,
-          "empty" -> in.history.isEmpty
-        ))(
+        div(
+          cls := List(
+            "dropper counter history" -> true,
+            "empty"                   -> in.history.isEmpty
+          )
+        )(
           span(
             countTag(in.history.size),
             "Mod log"
@@ -70,16 +75,23 @@ object inquiry {
               in.history.map { e =>
                 li(
                   userIdLink(e.mod.some, withOnline = false),
-                  " ", b(e.showAction), " ", e.details, " ", momentFromNow(e.date)
+                  " ",
+                  b(e.showAction),
+                  " ",
+                  e.details,
+                  " ",
+                  momentFromNow(e.date)
                 )
               }
             )
           )
         ),
-        div(cls := List(
-          "dropper counter notes" -> true,
-          "empty" -> in.notes.isEmpty
-        ))(
+        div(
+          cls := List(
+            "dropper counter notes" -> true,
+            "empty"                 -> in.notes.isEmpty
+          )
+        )(
           span(
             countTag(in.notes.size),
             "Notes"
@@ -97,13 +109,19 @@ object inquiry {
         )
       ),
       div(cls := "links")(
-        in.report.boostWith.map { userId =>
-          a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")("View", br, "Games")
-        }.getOrElse {
-          in.report.bestAtomByHuman.map { atom =>
-            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${atom.by.value}")("View", br, "Games")
+        in.report.boostWith
+          .map { userId =>
+            a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${userId}")("View", br, "Games")
           }
-        },
+          .getOrElse {
+            in.report.bestAtomByHuman.map { atom =>
+              a(href := s"${routes.User.games(in.user.id, "search")}?players.b=${atom.by.value}")(
+                "View",
+                br,
+                "Games"
+              )
+            }
+          },
         isGranted(_.Shadowban) option
           a(href := routes.Mod.communicationPublic(in.user.id))("View", br, "Comms")
       ),
@@ -126,10 +144,13 @@ object inquiry {
         ),
         isGranted(_.MarkEngine) option {
           val url = routes.Mod.engine(in.user.username, !in.user.engine).url
-          def button(active: Boolean) = submitButton(cls := List(
-            "fbt icon" -> true,
-            "active" -> active
-          ))
+          def button(active: Boolean) =
+            submitButton(
+              cls := List(
+                "fbt icon" -> true,
+                "active"   -> active
+              )
+            )
           div(cls := "dropper engine buttons")(
             postForm(action := url, title := "Mark as cheat")(
               button(in.user.engine)(dataIcon := "n"),
@@ -140,10 +161,13 @@ object inquiry {
         },
         isGranted(_.MarkBooster) option {
           val url = routes.Mod.booster(in.user.username, !in.user.booster).url
-          def button(active: Boolean) = submitButton(cls := List(
-            "fbt icon" -> true,
-            "active" -> active
-          ))
+          def button(active: Boolean) =
+            submitButton(
+              cls := List(
+                "fbt icon" -> true,
+                "active"   -> active
+              )
+            )
           div(cls := "dropper booster buttons")(
             postForm(action := url, cls := "main", title := "Mark as booster or sandbagger")(
               button(in.user.booster)(dataIcon := "9"),
@@ -154,19 +178,22 @@ object inquiry {
         },
         isGranted(_.Shadowban) option {
           val url = routes.Mod.troll(in.user.username, !in.user.troll).url
-          def button(active: Boolean) = submitButton(cls := List(
-            "fbt icon" -> true,
-            "active" -> active
-          ))
+          def button(active: Boolean) =
+            submitButton(
+              cls := List(
+                "fbt icon" -> true,
+                "active"   -> active
+              )
+            )
           div(cls := "dropper shadowban buttons")(
             postForm(
               action := url,
               title := (if (in.user.troll) "Un-shadowban" else "Shadowban"),
               cls := "main"
             )(
-                button(in.user.troll)(dataIcon := "c"),
-                autoNextInput
-              ),
+              button(in.user.troll)(dataIcon := "c"),
+              autoNextInput
+            ),
             thenForms(url, button(false))
           )
         },
@@ -177,7 +204,9 @@ object inquiry {
               submitButton(cls := "fbt")("Notify Slack")
             ),
             postForm(action := routes.Report.xfiles(in.report.id))(
-              submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))("Move to X-Files"),
+              submitButton(cls := List("fbt" -> true, "active" -> (in.report.room.key == "xfiles")))(
+                "Move to X-Files"
+              ),
               autoNextInput
             )
           )
@@ -190,11 +219,19 @@ object inquiry {
             label(`for` := "auto-next")
           )
         ),
-        postForm(action := routes.Report.process(in.report.id), title := "Dismiss this report as processed.", cls := "process")(
+        postForm(
+          action := routes.Report.process(in.report.id),
+          title := "Dismiss this report as processed.",
+          cls := "process"
+        )(
           submitButton(dataIcon := "E", cls := "fbt"),
           autoNextInput
         ),
-        postForm(action := routes.Report.inquiry(in.report.id), title := "Cancel the inquiry, re-instore the report", cls := "cancel")(
+        postForm(
+          action := routes.Report.inquiry(in.report.id),
+          title := "Cancel the inquiry, re-instore the report",
+          cls := "cancel"
+        )(
           submitButton(dataIcon := "L", cls := "fbt")
         )
       )

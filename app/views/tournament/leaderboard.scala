@@ -20,18 +20,27 @@ object leaderboard {
     section(
       h2(cls := "text", dataIcon := perfType.iconChar)(name),
       ul(
-        fws.yearly.map { w => freqWinner(w, "Yearly") },
-        fws.monthly.map { w => freqWinner(w, "Monthly") },
-        fws.weekly.map { w => freqWinner(w, "Weekly") },
-        fws.daily.map { w => freqWinner(w, "Daily") }
+        fws.yearly.map { w =>
+          freqWinner(w, "Yearly")
+        },
+        fws.monthly.map { w =>
+          freqWinner(w, "Monthly")
+        },
+        fws.weekly.map { w =>
+          freqWinner(w, "Weekly")
+        },
+        fws.daily.map { w =>
+          freqWinner(w, "Daily")
+        }
       )
     )
 
-  def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) = views.html.base.layout(
-    title = "Tournament leaderboard",
-    moreCss = cssTag("tournament.leaderboard"),
-    wrapClass = "full-screen-force"
-  ) {
+  def apply(winners: lila.tournament.AllWinners)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Tournament leaderboard",
+      moreCss = cssTag("tournament.leaderboard"),
+      wrapClass = "full-screen-force"
+    ) {
       def eliteWinners = section(
         h2(cls := "text", dataIcon := "C")("Elite Arena"),
         ul(
@@ -50,7 +59,9 @@ object leaderboard {
           winners.marathon.map { w =>
             li(
               userIdLink(w.userId.some),
-              a(title := w.tourName, href := routes.Tournament.show(w.tourId))(w.tourName.replace(" Marathon", ""))
+              a(title := w.tourName, href := routes.Tournament.show(w.tourId))(
+                w.tourName.replace(" Marathon", "")
+              )
             )
           }
         )

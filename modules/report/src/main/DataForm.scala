@@ -6,7 +6,7 @@ import play.api.data.validation._
 
 import lila.user.{ User, UserRepo }
 
-private[report] final class DataForm(
+final private[report] class DataForm(
     userRepo: UserRepo,
     val captcher: lila.hub.actors.Captcher,
     domain: lila.common.config.NetDomain
@@ -18,29 +18,36 @@ private[report] final class DataForm(
       Invalid(Seq(ValidationError("error.provideOneCheatedGameLink")))
   })
 
-  val create = Form(mapping(
-    "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", { fetchUser(_).isDefined }),
-    "reason" -> text.verifying("error.required", Reason.keys contains _),
-    "text" -> text(minLength = 5, maxLength = 2000),
-    "gameId" -> text,
-    "move" -> text
-  )({
-      case (username, reason, text, gameId, move) => ReportSetup(
-        user = fetchUser(username) err "Unknown username " + username,
-        reason = reason,
-        text = text,
-        gameId = gameId,
-        move = move
-      )
-    })(_.export.some).verifying(captchaFailMessage, validateCaptcha _).verifying(cheatLinkConstraint))
+  val create = Form(
+    mapping(
+      "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
+        fetchUser(_).isDefined
+      }),
+      "reason" -> text.verifying("error.required", Reason.keys contains _),
+      "text"   -> text(minLength = 5, maxLength = 2000),
+      "gameId" -> text,
+      "move"   -> text
+    )({
+      case (username, reason, text, gameId, move) =>
+        ReportSetup(
+          user = fetchUser(username) err "Unknown username " + username,
+          reason = reason,
+          text = text,
+          gameId = gameId,
+          move = move
+        )
+    })(_.export.some).verifying(captchaFailMessage, validateCaptcha _).verifying(cheatLinkConstraint)
+  )
 
   def createWithCaptcha = withCaptcha(create)
 
-  val flag = Form(mapping(
-    "username" -> lila.user.DataForm.historicalUsernameField,
-    "resource" -> nonEmptyText,
-    "text" -> text(minLength = 3, maxLength = 140)
-  )(ReportFlag.apply)(ReportFlag.unapply))
+  val flag = Form(
+    mapping(
+      "username" -> lila.user.DataForm.historicalUsernameField,
+      "resource" -> nonEmptyText,
+      "text"     -> text(minLength = 3, maxLength = 140)
+    )(ReportFlag.apply)(ReportFlag.unapply)
+  )
 
   private def fetchUser(username: String) = userRepo named username awaitSeconds 2
 }

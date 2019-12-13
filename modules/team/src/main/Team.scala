@@ -40,7 +40,7 @@ object Team {
         value.contains(s"${IdsStr.separator}$teamId${IdsStr.separator}")
 
     def toArray: Array[String] = value.split(IdsStr.separator)
-    def toList = if (value.isEmpty) Nil else toArray.toList
+    def toList                 = if (value.isEmpty) Nil else toArray.toList
   }
 
   object IdsStr {
@@ -53,11 +53,11 @@ object Team {
   }
 
   def make(
-    name: String,
-    location: Option[String],
-    description: String,
-    open: Boolean,
-    createdBy: User
+      name: String,
+      location: Option[String],
+      description: String,
+      open: Boolean,
+      createdBy: User
   ): Team = new Team(
     _id = nameToId(name),
     name = name,

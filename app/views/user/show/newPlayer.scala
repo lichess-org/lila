@@ -16,14 +16,18 @@ object newPlayer {
         u.profile.isEmpty option frag(
           br,
           "Would you like to ",
-          a(href := routes.Account.profile)("improve it"), "?"
+          a(href := routes.Account.profile)("improve it"),
+          "?"
         )
       ),
       p(
         if (u.kid) "Kid mode is enabled."
-        else frag(
-          "Will a child use this account? You might want to enable ", a(href := routes.Account.kid)("Kid mode"), "."
-        )
+        else
+          frag(
+            "Will a child use this account? You might want to enable ",
+            a(href := routes.Account.kid)("Kid mode"),
+            "."
+          )
       ),
       p(
         "What now? Here are a few suggestions:"
@@ -35,8 +39,12 @@ object newPlayer {
         li(a(href := s"${routes.Lobby.home}#hook")("Play opponents from around the world")),
         li(a(href := routes.User.list)("Follow your friends on lichess")),
         li(a(href := routes.Tournament.home(1))("Play in tournaments")),
-        li("Learn from ", a(href := routes.Study.allDefault(1))("studies"),
-          " and ", a(href := routes.Video.index)("videos")),
+        li(
+          "Learn from ",
+          a(href := routes.Study.allDefault(1))("studies"),
+          " and ",
+          a(href := routes.Video.index)("videos")
+        ),
         li(a(href := routes.Pref.form("game-display"))("Configure lichess to your liking")),
         li("Explore the site and have fun :)")
       )

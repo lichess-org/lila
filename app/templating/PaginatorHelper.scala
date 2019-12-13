@@ -9,17 +9,17 @@ trait PaginatorHelper {
 
     def sliding(length: Int, showPost: Boolean = true): List[Option[Int]] = {
       val fromPage = 1 max (pager.currentPage - length)
-      val toPage = pager.nbPages min (pager.currentPage + length)
+      val toPage   = pager.nbPages min (pager.currentPage + length)
       val pre = fromPage match {
         case 1 => Nil
         case 2 => List(1.some)
         case _ => List(1.some, none)
       }
       val post = toPage match {
-        case x if x == pager.nbPages => Nil
+        case x if x == pager.nbPages     => Nil
         case x if x == pager.nbPages - 1 => List(pager.nbPages.some)
-        case _ if showPost => List(none, pager.nbPages.some)
-        case _ => List(none)
+        case _ if showPost               => List(none, pager.nbPages.some)
+        case _                           => List(none)
       }
       pre ::: (fromPage to toPage).view.map(some).toList ::: post
     }

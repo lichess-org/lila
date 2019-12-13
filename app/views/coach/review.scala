@@ -21,7 +21,10 @@ object review {
           div(cls := "content")(richText(r.text)),
           isGranted(_.DisapproveCoachReview) option
             postForm(cls := "disapprove", action := routes.Coach.modReview(r.id))(
-              submitButton(cls := "button button-empty button-red button-thin confirm", title := "Instructs the coach to reject the review, or to ask the author to rephrase it.")("Disapprove")
+              submitButton(
+                cls := "button button-empty button-red button-thin confirm",
+                title := "Instructs the coach to reject the review, or to ask the author to rephrase it."
+              )("Disapprove")
             )
         )
       }
@@ -31,9 +34,9 @@ object review {
     div(cls := "coach-review-form")(
       if (mine.exists(_.pendingApproval))
         div(cls := "approval")(
-        p("Thank you for the review!"),
-        p(c.user.realNameOrUsername, " will approve it very soon, or a moderator will have a look at it.")
-      )
+          p("Thank you for the review!"),
+          p(c.user.realNameOrUsername, " will approve it very soon, or a moderator will have a look at it.")
+        )
       else if (ctx.isAuth) a(cls := "button button-empty toggle")("Write a review")
       else a(href := s"${routes.Auth.login}?referrer=${ctx.req.path}", cls := "button")("Review this coach"),
       postForm(action := routes.Coach.review(c.user.username))(
@@ -57,11 +60,12 @@ object review {
           option(value := score, selected.contains(score) option st.selected)(score)
         }
       )
-    else div(cls := "br-wrapper")(
-      div(cls := "br-widget br-readonly")(
-        List(1, 2, 3, 4, 5).map { s =>
-          a(cls := List("br-selected" -> selected.exists(s.<=)))
-        }
+    else
+      div(cls := "br-wrapper")(
+        div(cls := "br-widget br-readonly")(
+          List(1, 2, 3, 4, 5).map { s =>
+            a(cls := List("br-selected" -> selected.exists(s.<=)))
+          }
+        )
       )
-    )
 }

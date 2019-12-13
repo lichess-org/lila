@@ -43,10 +43,10 @@ object Coach {
 
   case class WithUser(coach: Coach, user: lila.user.User)
 
-  case class Id(value: String) extends AnyVal with StringValue
-  case class Listed(value: Boolean) extends AnyVal
-  case class Available(value: Boolean) extends AnyVal
-  case class Approved(value: Boolean) extends AnyVal
+  case class Id(value: String)          extends AnyVal with StringValue
+  case class Listed(value: Boolean)     extends AnyVal
+  case class Available(value: Boolean)  extends AnyVal
+  case class Approved(value: Boolean)   extends AnyVal
   case class PicturePath(value: String) extends AnyVal with StringValue
   case class User(rating: Int, seenAt: DateTime)
 }

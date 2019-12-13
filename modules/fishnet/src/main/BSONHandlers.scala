@@ -8,10 +8,10 @@ import chess.variant.Variant
 
 private object BSONHandlers {
 
-  implicit val ClientKeyBSONHandler = stringAnyValHandler[Client.Key](_.value, Client.Key.apply)
+  implicit val ClientKeyBSONHandler     = stringAnyValHandler[Client.Key](_.value, Client.Key.apply)
   implicit val ClientVersionBSONHandler = stringAnyValHandler[Client.Version](_.value, Client.Version.apply)
-  implicit val ClientPythonBSONHandler = stringAnyValHandler[Client.Python](_.value, Client.Python.apply)
-  implicit val ClientUserIdBSONHandler = stringAnyValHandler[Client.UserId](_.value, Client.UserId.apply)
+  implicit val ClientPythonBSONHandler  = stringAnyValHandler[Client.Python](_.value, Client.Python.apply)
+  implicit val ClientUserIdBSONHandler  = stringAnyValHandler[Client.UserId](_.value, Client.UserId.apply)
 
   implicit val ClientSkillBSONHandler = tryHandler[Client.Skill](
     { case BSONString(v) => Client.Skill byKey v toTry s"Invalid client skill $v" },
@@ -19,7 +19,7 @@ private object BSONHandlers {
   )
 
   import Client.{ Engine, Engines }
-  implicit val EngineBSONHandler = Macros.handler[Engine]
+  implicit val EngineBSONHandler  = Macros.handler[Engine]
   implicit val EnginesBSONHandler = Macros.handler[Engines]
 
   import Client.Instance

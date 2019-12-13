@@ -14,16 +14,16 @@ final class RelayForm {
 
   val form = Form(
     mapping(
-      "name" -> text(minLength = 3, maxLength = 80),
+      "name"        -> text(minLength = 3, maxLength = 80),
       "description" -> text(minLength = 3, maxLength = 400),
-      "markup" -> optional(text(maxLength = 20000)),
-      "official" -> optional(boolean),
+      "markup"      -> optional(text(maxLength = 20000)),
+      "official"    -> optional(boolean),
       "syncUrl" -> nonEmptyText
         .verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
-      "credit" -> optional(nonEmptyText),
-      "startsAt" -> optional(utcDate),
-      "throttle" -> optional(number(min = 2, max = 60))
+      "credit"       -> optional(nonEmptyText),
+      "startsAt"     -> optional(utcDate),
+      "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
   )

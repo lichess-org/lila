@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 import lila.common.WorkQueues
 
-private final class StudySequencer(
+final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
 )(implicit mat: akka.stream.Materializer) {
@@ -18,7 +18,9 @@ private final class StudySequencer(
       }
     }
 
-  def sequenceStudyWithChapter(studyId: Study.Id, chapterId: Chapter.Id)(f: Study.WithChapter => Funit): Funit =
+  def sequenceStudyWithChapter(studyId: Study.Id, chapterId: Chapter.Id)(
+      f: Study.WithChapter => Funit
+  ): Funit =
     sequenceStudy(studyId) { study =>
       chapterRepo.byId(chapterId) flatMap {
         _ ?? { chapter =>

@@ -13,24 +13,30 @@ final class PerfStatIndexer(
   private val workQueue = new WorkQueue(64)
 
   def userPerf(user: User, perfType: PerfType): Funit = workQueue {
-    gameRepo.sortedCursor(
-      Query.user(user.id) ++
-        Query.finished ++
-        Query.turnsGt(2) ++
-        Query.variant(PerfType variantOf perfType),
-      Query.sortChronological
-    ).fold(PerfStat.init(user.id, perfType)) {
+    gameRepo
+      .sortedCursor(
+        Query.user(user.id) ++
+          Query.finished ++
+          Query.turnsGt(2) ++
+          Query.variant(PerfType variantOf perfType),
+        Query.sortChronological
+      )
+      .fold(PerfStat.init(user.id, perfType)) {
         case (perfStat, game) if game.perfType.contains(perfType) =>
           Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
         case (perfStat, _) => perfStat
       } flatMap storage.insert recover lila.db.recoverDuplicateKey(_ => ())
   }
 
-  def addGame(game: Game): Funit = game.players.flatMap { player =>
-    player.userId.map { userId =>
-      addPov(Pov(game, player), userId)
-    }
-  }.sequenceFu.void
+  def addGame(game: Game): Funit =
+    game.players
+      .flatMap { player =>
+        player.userId.map { userId =>
+          addPov(Pov(game, player), userId)
+        }
+      }
+      .sequenceFu
+      .void
 
   private def addPov(pov: Pov, userId: String): Funit = pov.game.perfType ?? { perfType =>
     storage.find(userId, perfType) flatMap {

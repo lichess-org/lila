@@ -35,25 +35,29 @@ final class Env(
 
   // api actor
   Bus.subscribe(
-    system.actorOf(Props(new Actor {
-      def receive = {
-        case lila.hub.actorApi.notify.Notified(userId) =>
-          api markAllRead Notification.Notifies(userId)
-        case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
-          api markAllRead userIds.map(Notification.Notifies.apply)
-        case lila.game.actorApi.CorresAlarmEvent(pov) => pov.player.userId ?? { userId =>
-          lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
-            api addNotification Notification.make(
-              Notification.Notifies(userId),
-              CorresAlarm(
-                gameId = pov.gameId,
-                opponent = opponent
-              )
-            )
-          }
+    system.actorOf(
+      Props(new Actor {
+        def receive = {
+          case lila.hub.actorApi.notify.Notified(userId) =>
+            api markAllRead Notification.Notifies(userId)
+          case lila.hub.actorApi.notify.NotifiedBatch(userIds) =>
+            api markAllRead userIds.map(Notification.Notifies.apply)
+          case lila.game.actorApi.CorresAlarmEvent(pov) =>
+            pov.player.userId ?? { userId =>
+              lila.game.Namer.playerText(pov.opponent)(getLightUser) foreach { opponent =>
+                api addNotification Notification.make(
+                  Notification.Notifies(userId),
+                  CorresAlarm(
+                    gameId = pov.gameId,
+                    opponent = opponent
+                  )
+                )
+              }
+            }
         }
-      }
-    }), name = config.actorName),
+      }),
+      name = config.actorName
+    ),
     "corresAlarm"
   )
 }

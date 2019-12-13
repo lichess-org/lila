@@ -33,5 +33,5 @@ case class CorrespondenceClock(
 private object CorrespondenceClock {
 
   private val hourSeconds = 60 * 60
-  private val daySeconds = 24 * hourSeconds
+  private val daySeconds  = 24 * hourSeconds
 }

@@ -6,7 +6,7 @@ import lila.api.Context
 import lila.app._
 import lila.common.config.MaxPerSecond
 import lila.common.HTTPRequest
-import lila.common.paginator.{ Paginator, AdapterLike, PaginatorJson }
+import lila.common.paginator.{ AdapterLike, Paginator, PaginatorJson }
 import lila.relation.Related
 import lila.relation.RelationStream._
 import lila.user.{ User => UserModel }
@@ -23,26 +23,38 @@ final class Relation(
     (ctx.userId ?? { api.fetchRelation(_, userId) }) zip
       (ctx.isAuth ?? { env.pref.api followable userId }) zip
       (ctx.userId ?? { api.fetchBlocks(userId, _) }) flatMap {
-        case relation ~ followable ~ blocked => negotiate(
+      case relation ~ followable ~ blocked =>
+        negotiate(
           html = fuccess(Ok {
-            if (mini) html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation)
-            else html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
+            if (mini)
+              html.relation.mini(userId, blocked = blocked, followable = followable, relation = relation)
+            else
+              html.relation.actions(userId, relation = relation, blocked = blocked, followable = followable)
           }),
-          api = _ => fuccess(Ok(Json.obj(
-            "followable" -> followable,
-            "following" -> relation.contains(true),
-            "blocking" -> relation.contains(false)
-          )))
+          api = _ =>
+            fuccess(
+              Ok(
+                Json.obj(
+                  "followable" -> followable,
+                  "following"  -> relation.contains(true),
+                  "blocking"   -> relation.contains(false)
+                )
+              )
+            )
         )
-      }
+    }
 
   def follow(userId: String) = Auth { implicit ctx => me =>
     api.reachedMaxFollowing(me.id) flatMap {
-      case true => env.message.api.sendPresetFromLichess(
-        me,
-        lila.message.ModPreset.maxFollow(me.username, env.relation.maxFollow.value)
-      ).void
-      case _ => api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
+      case true =>
+        env.message.api
+          .sendPresetFromLichess(
+            me,
+            lila.message.ModPreset.maxFollow(me.username, env.relation.maxFollow.value)
+          )
+          .void
+      case _ =>
+        api.follow(me.id, UserModel normalize userId).nevermind >> renderActions(userId, getBool("mini"))
     }
   }
 
@@ -110,11 +122,13 @@ final class Relation(
     import lila.user.JsonView.nameWrites
     import lila.relation.JsonView.relatedWrites
     Json.obj("paginator" -> PaginatorJson(pag.mapResults { r =>
-      relatedWrites.writes(r) ++ Json.obj(
-        "perfs" -> r.user.perfs.bestPerfType.map { best =>
-          lila.user.JsonView.perfs(r.user, best.some)
-        }
-      ).add("online" -> env.socket.isOnline(r.user.id))
+      relatedWrites.writes(r) ++ Json
+        .obj(
+          "perfs" -> r.user.perfs.bestPerfType.map { best =>
+            lila.user.JsonView.perfs(r.user, best.some)
+          }
+        )
+        .add("online" -> env.socket.isOnline(r.user.id))
     }))
   }
 

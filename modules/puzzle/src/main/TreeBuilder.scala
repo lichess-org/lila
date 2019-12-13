@@ -33,13 +33,15 @@ object TreeBuilder {
         }
         games.reverse match {
           case Nil => root
-          case (g, m) :: rest => root prependChild rest.foldLeft(makeBranch(g, m)) {
-            case (node, (g, m)) => makeBranch(g, m) prependChild node
-          }
+          case (g, m) :: rest =>
+            root prependChild rest.foldLeft(makeBranch(g, m)) {
+              case (node, (g, m)) => makeBranch(g, m) prependChild node
+            }
         }
     }
   }
 
-  private val logChessError = (id: Game.ID) => (err: String) =>
-    logger.warn(s"TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
+  private val logChessError = (id: Game.ID) =>
+    (err: String) =>
+      logger.warn(s"TreeBuilder https://lichess.org/$id ${err.linesIterator.toList.headOption}")
 }

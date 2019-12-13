@@ -11,7 +11,8 @@ import lila.common.config.MaxPerPage
 final class Blog(
     env: Env,
     prismicC: Prismic
-)(implicit ws: play.api.libs.ws.WSClient) extends LilaController(env) {
+)(implicit ws: play.api.libs.ws.WSClient)
+    extends LilaController(env) {
 
   import prismicC._
 
@@ -21,7 +22,7 @@ final class Blog(
     pageHit
     blogApi.recent(prismic, page, MaxPerPage(12), ref) flatMap {
       case Some(response) => fuccess(Ok(views.html.blog.index(response)))
-      case _ => notFound
+      case _              => notFound
     }
   }
 
@@ -30,7 +31,7 @@ final class Blog(
     blogApi.one(prismic, id) flatMap { maybeDocument =>
       checkSlug(maybeDocument, slug) {
         case Left(newSlug) => MovedPermanently(routes.Blog.show(id, newSlug, ref).url)
-        case Right(doc) => Ok(views.html.blog.show(doc))
+        case Right(doc)    => Ok(views.html.blog.show(doc))
       }
     } recoverWith {
       case e: RuntimeException if e.getMessage contains "Not Found" => notFound
@@ -40,7 +41,15 @@ final class Blog(
   def preview(token: String) = WithPrismic { _ => implicit prismic =>
     prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home.url) map { redirectUrl =>
       Redirect(redirectUrl)
-        .withCookies(Cookie(io.prismic.Prismic.previewCookie, token, path = "/", maxAge = Some(30 * 60 * 1000), httpOnly = false))
+        .withCookies(
+          Cookie(
+            io.prismic.Prismic.previewCookie,
+            token,
+            path = "/",
+            maxAge = Some(30 * 60 * 1000),
+            httpOnly = false
+          )
+        )
     }
   }
 
@@ -64,30 +73,30 @@ final class Blog(
     if (lila.blog.allYears contains year)
       blogApi.byYear(prismic, year) map { posts =>
         Ok(views.html.blog.index.byYear(year, posts))
-      }
-    else notFound
+      } else notFound
   }
 
   def discuss(id: String) = WithPrismic { _ => implicit prismic =>
     val categSlug = "general-chess-discussion"
     val topicSlug = s"blog-$id"
-    val redirect = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
+    val redirect  = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
     env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
       case true => fuccess(redirect)
-      case _ => blogApi.one(prismic.api, none, id) flatMap {
-        _ ?? { doc =>
-          env.forum.categRepo.bySlug(categSlug) flatMap {
-            _ ?? { categ =>
-              env.forum.topicApi.makeBlogDiscuss(
-                categ = categ,
-                slug = topicSlug,
-                name = doc.getText("blog.title") | "New blog post",
-                url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
-              )
-            }
-          } inject redirect
+      case _ =>
+        blogApi.one(prismic.api, none, id) flatMap {
+          _ ?? { doc =>
+            env.forum.categRepo.bySlug(categSlug) flatMap {
+              _ ?? { categ =>
+                env.forum.topicApi.makeBlogDiscuss(
+                  categ = categ,
+                  slug = topicSlug,
+                  name = doc.getText("blog.title") | "New blog post",
+                  url = s"${env.net.baseUrl}${routes.Blog.show(doc.id, doc.slug)}"
+                )
+              }
+            } inject redirect
+          }
         }
-      }
     }
   }
 
@@ -98,9 +107,11 @@ final class Blog(
   }
 
   // -- Helper: Check if the slug is valid and redirect to the most recent version id needed
-  private def checkSlug(document: Option[Document], slug: String)(callback: Either[String, Document] => Result)(implicit ctx: lila.api.Context) =
+  private def checkSlug(document: Option[Document], slug: String)(
+      callback: Either[String, Document] => Result
+  )(implicit ctx: lila.api.Context) =
     document.collect {
-      case document if document.slug == slug => fuccess(callback(Right(document)))
+      case document if document.slug == slug         => fuccess(callback(Right(document)))
       case document if document.slugs.contains(slug) => fuccess(callback(Left(document.slug)))
     } getOrElse notFound
 }

@@ -4,11 +4,11 @@ import play.api.i18n.Lang
 
 package object i18n extends PackageObject {
 
-  type Count = Int
+  type Count      = Int
   type MessageKey = String
 
   private[i18n] type MessageMap = java.util.Map[MessageKey, Translation]
-  private[i18n] type Messages = Map[Lang, MessageMap]
+  private[i18n] type Messages   = Map[Lang, MessageMap]
 
   private[i18n] def logger = lila.log("i18n")
 
@@ -19,6 +19,6 @@ package object i18n extends PackageObject {
     "tc" -> Lang("zh", "CN")
   )
 
-  val enLang = Lang("en", "GB")
+  val enLang      = Lang("en", "GB")
   val defaultLang = enLang
 }

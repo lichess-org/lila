@@ -3,7 +3,7 @@ package lila.api
 import lila.common.Bus
 import lila.hub.actorApi.Deploy
 
-private[api] final class Cli(
+final private[api] class Cli(
     userRepo: lila.user.UserRepo,
     security: lila.security.Env,
     i18n: lila.i18n.Env,
@@ -30,8 +30,8 @@ private[api] final class Cli(
   }
 
   def process = {
-    case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
-    case "deploy" :: "pre" :: Nil => remindDeploy(lila.hub.actorApi.DeployPre)
+    case "uptime" :: Nil           => fuccess(s"${lila.common.Uptime.seconds} seconds")
+    case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.DeployPre)
     case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       import lila.common.AssetVersion
@@ -39,7 +39,7 @@ private[api] final class Cli(
       fuccess(s"Changed to ${AssetVersion.current}")
     case "gdpr" :: "erase" :: username :: "forever" :: Nil =>
       userRepo named username map {
-        case None => "No such user."
+        case None                       => "No such user."
         case Some(user) if user.enabled => "That user account is not closed. Can't erase."
         case Some(user) =>
           Bus.publish(lila.user.User.GDPRErase(user), "gdprErase")
@@ -49,13 +49,16 @@ private[api] final class Cli(
       AnnounceStore set none
       Bus.publish(AnnounceStore.cancel, "announce")
       fuccess("Removed announce")
-    case "announce" :: msgWords => AnnounceStore.set(msgWords mkString " ") match {
-      case Some(announce) =>
-        Bus.publish(announce, "announce")
-        fuccess(announce.json.toString)
-      case None =>
-        fuccess("Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it")
-    }
+    case "announce" :: msgWords =>
+      AnnounceStore.set(msgWords mkString " ") match {
+        case Some(announce) =>
+          Bus.publish(announce, "announce")
+          fuccess(announce.json.toString)
+        case None =>
+          fuccess(
+            "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
+          )
+      }
   }
 
   private def remindDeploy(event: Deploy): Fu[String] = {

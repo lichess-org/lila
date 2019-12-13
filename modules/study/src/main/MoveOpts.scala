@@ -25,17 +25,18 @@ object MoveOpts {
 
   implicit val clockReader = Reads[Centis] {
     case JsNumber(centis) => JsSuccess(Centis(centis.toInt))
-    case JsString(str) => CommentParser.readCentis(str) match {
-      case None => JsError(JsonValidationError(s"Cannot parse clock from $str"))
-      case Some(centis) => JsSuccess(centis)
-    }
+    case JsString(str) =>
+      CommentParser.readCentis(str) match {
+        case None         => JsError(JsonValidationError(s"Cannot parse clock from $str"))
+        case Some(centis) => JsSuccess(centis)
+      }
     case x => JsError(JsonValidationError(s"Cannot read clock from $x"))
   }
 
-  private implicit val moveOptsReader: Reads[MoveOpts] = (
+  implicit private val moveOptsReader: Reads[MoveOpts] = (
     (__ \ "write").readNullable[Boolean].map(_ | default.write) and
-    (__ \ "sticky").readNullable[Boolean].map(_ | default.sticky) and
-    (__ \ "promote").readNullable[Boolean].map(_ | default.promoteToMainline) and
-    (__ \ "clock").readNullable[Centis]
+      (__ \ "sticky").readNullable[Boolean].map(_ | default.sticky) and
+      (__ \ "promote").readNullable[Boolean].map(_ | default.promoteToMainline) and
+      (__ \ "clock").readNullable[Centis]
   )(MoveOpts.apply _)
 }

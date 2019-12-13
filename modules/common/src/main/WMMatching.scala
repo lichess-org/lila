@@ -13,18 +13,19 @@ on non-bipartite graphs" by H.J. Gabow, Standford Ph.D. thesis, 1973.
 
 A C program for maximum weight matching by Ed Rothberg was used extensively
 to validate this new code.
-*/
+ */
 
 package lila.common
 
 import scala.annotation.tailrec
 import scala.util.Try
 
+// format: off
 object WMMatching {
 
   private trait TraversableIsh[A] {
 
-    import scala.util.control.Breaks.{ breakable, break }
+    import scala.util.control.Breaks.{ break, breakable }
 
     def foreach[U](f: A => U): Unit
 
@@ -86,7 +87,7 @@ object WMMatching {
     Many terms used in the comments (sub-blossom, T-vertex) come from
     the paper by Galil; read the paper before reading this code.
 
-    */
+     */
     val nedge = edges.length
     val nvertex = 1 + edges.view.map(x => x._1.max(x._2)).max
     // Find the maximum edge weight.
@@ -115,7 +116,7 @@ object WMMatching {
     If v is a vertex inside a T-blossom,
     label(v) is 2 iff v is reachable from an S-vertex outside the blossom.
     Labels are assigned during a stage and reset after each augmentation.
-    */
+     */
     val label: Array[Int] = Array.fill(2 * nvertex)(0)
     /*
     If b is a labeled top-level blossom,
@@ -124,7 +125,7 @@ object WMMatching {
     If v is a vertex inside a T-blossom and label(v) == 2,
     labelend(v) is the remote endpoint of the edge through which v is
     reachable from outside the blossom.
-    */
+     */
     val labelend: Array[Int] = Array.fill(2 * nvertex)(-1)
 
     /*
@@ -132,20 +133,20 @@ object WMMatching {
     If v is a top-level vertex, v is itself a blossom (a trivial blossom)
     and inblossom(v) == v.
     Initially all vertices are top-level trivial blossoms.
-    */
+     */
     val inblossom: Array[Int] = Array.range(0, nvertex)
 
     /*
     If b is a sub-blossom,
     blossomparent(b) is its immediate parent (sub-)blossom.
     If b is a top-level blossom, blossomparent(b) is -1.
-    */
+     */
     val blossomparent: Array[Int] = Array.fill(2 * nvertex)(-1)
     /*
     If b is a non-trivial (sub-)blossom,
     blossomchilds(b) is an ordered list of its sub-blossoms, starting with
     the base and going round the blossom.
-    */
+     */
     val blossomchilds: Array[Array[Int]] = new Array(2 * nvertex)
 
     // If b is a (sub-)blossom,
@@ -157,7 +158,7 @@ object WMMatching {
     blossomendps(b) is a list of endpoints on its connecting edges,
     such that blossomendps(b)(i) is the local endpoint of blossomchilds(b)(i)
     on the edge that connects it to blossomchilds(b)(wrap(i+1)).
-    */
+     */
     val blossomendps: Array[Array[Int]] = new Array(2 * nvertex)
 
     /*
@@ -168,7 +169,7 @@ object WMMatching {
     bestedge(b) is the least-slack edge to a different S-blossom,
     or -1 if there is no such edge.
     This is used for efficient computation of delta2 and delta3.
-    */
+     */
     val bestedge: Array[Int] = Array.fill(2 * nvertex)(-1)
 
     // If b is a non-trivial top-level S-blossom,
@@ -276,7 +277,7 @@ object WMMatching {
     Construct a new blossom with given base, containing edge k which
     connects a pair of S vertices. Label the new blossom as S; set its dual
     variable to zero; relabel its T-vertices to S and add them to the queue.
-    */
+     */
     def addBlossom(base: Int, k: Int) = {
       val (v, w, _) = edges(k)
       val bb = inblossom(base)
@@ -762,5 +763,5 @@ object WMMatching {
   }.toArray
 
   private def mateToEdges(mate: Array[Int]): List[(Int, Int)] =
-    (for (i <- 0 until mate.length; if (i < mate(i))) yield (i, mate(i))).toList
+    (for (i <- 0 until mate.length; if i < mate(i)) yield (i, mate(i))).toList
 }

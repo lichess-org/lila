@@ -14,22 +14,22 @@ object AggregationClusters {
   private def single[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     aggDocs flatMap { doc =>
       for {
-        x <- doc.getAsOpt[X]("_id")(question.dimension.bson)
+        x     <- doc.getAsOpt[X]("_id")(question.dimension.bson)
         value <- doc.double("v")
-        nb <- doc.int("nb")
-        ids <- doc.getAsOpt[List[String]]("ids")
+        nb    <- doc.int("nb")
+        ids   <- doc.getAsOpt[List[String]]("ids")
       } yield Cluster(x, Insight.Single(Point(value)), nb, ids)
     }
 
   private case class StackEntry(metric: BSONValue, v: BSONNumberLike)
-  private implicit val StackEntryBSONReader = Macros.reader[StackEntry]
+  implicit private val StackEntryBSONReader = Macros.reader[StackEntry]
 
   private def stacked[X](question: Question[X], aggDocs: List[Bdoc]): List[Cluster[X]] =
     aggDocs flatMap { doc =>
       val metricValues = Metric valuesOf question.metric
       // println(lila.db.BSON debug doc)
       for {
-        x <- doc.getAsOpt[X]("_id")(question.dimension.bson)
+        x     <- doc.getAsOpt[X]("_id")(question.dimension.bson)
         stack <- doc.getAsOpt[List[StackEntry]]("stack")
         points = metricValues.map {
           case Metric.MetricValue(id, name) =>
@@ -37,15 +37,16 @@ object AggregationClusters {
         }
         total = stack.map(_.v.toInt.get).sum
         percents = if (total == 0) points
-        else points.map {
-          case (n, p) => n -> Point(100 * p.y / total)
-        }
+        else
+          points.map {
+            case (n, p) => n -> Point(100 * p.y / total)
+          }
         ids <- doc.getAsOpt[List[String]]("ids")
       } yield Cluster(x, Insight.Stacked(percents), total, ids)
     }
 
   private def postSort[X](q: Question[X])(clusters: List[Cluster[X]]): List[Cluster[X]] = q.dimension match {
     case Dimension.Opening => clusters
-    case _ => clusters.sortLike(Dimension.valuesOf(q.dimension), _.x)
+    case _                 => clusters.sortLike(Dimension.valuesOf(q.dimension), _.x)
   }
 }

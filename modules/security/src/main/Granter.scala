@@ -12,12 +12,12 @@ object Granter {
 
   def canGrant(user: User, permission: Permission): Boolean = apply(_.SuperAdmin)(user) || {
     apply(_.ChangePermission)(user) &&
-      Set[Permission](
-        Permission.Coach,
-        Permission.Developer,
-        Permission.PublicMod,
-        Permission.Verified,
-        Permission.Prismic
-      ).contains(permission)
+    Set[Permission](
+      Permission.Coach,
+      Permission.Developer,
+      Permission.PublicMod,
+      Permission.Verified,
+      Permission.Prismic
+    ).contains(permission)
   }
 }

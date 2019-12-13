@@ -25,16 +25,20 @@ final class PaginatorBuilder(
 
     def nbResults: Fu[Int] = coll countSel selector
 
-    def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] = for {
-      gameIds <- coll.find(selector, $doc("g" -> true).some)
-        .sort(sorting)
-        .skip(offset)
-        .cursor[Bdoc]()
-        .gather[List](length) map { _ flatMap { _.string("g") } }
-      games <- gameRepo gamesFromSecondary gameIds
-    } yield games map { g => Bookmark(g, user) }
+    def slice(offset: Int, length: Int): Fu[Seq[Bookmark]] =
+      for {
+        gameIds <- coll
+          .find(selector, $doc("g" -> true).some)
+          .sort(sorting)
+          .skip(offset)
+          .cursor[Bdoc]()
+          .gather[List](length) map { _ flatMap { _.string("g") } }
+        games <- gameRepo gamesFromSecondary gameIds
+      } yield games map { g =>
+        Bookmark(g, user)
+      }
 
     private def selector = $doc("u" -> user.id)
-    private def sorting = $sort desc "d"
+    private def sorting  = $sort desc "d"
   }
 }

@@ -1,7 +1,7 @@
 package lila.security
 
 import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
-import com.sanoma.cda.geoip.{ MaxMindIpGeo, IpLocation }
+import com.sanoma.cda.geoip.{ IpLocation, MaxMindIpGeo }
 import io.methvin.play.autoconfig._
 import scala.concurrent.duration._
 
@@ -9,15 +9,16 @@ import lila.common.IpAddress
 
 final class GeoIP(config: GeoIP.Config) {
 
-  private lazy val geoIp: Option[MaxMindIpGeo] = try {
-    val m = MaxMindIpGeo(config.file, 0)
-    logger.info("MaxMindIpGeo is enabled")
-    m.some
-  } catch {
-    case e: java.io.FileNotFoundException =>
-      logger.info("MaxMindIpGeo is disabled", e)
-      none
-  }
+  private lazy val geoIp: Option[MaxMindIpGeo] =
+    try {
+      val m = MaxMindIpGeo(config.file, 0)
+      logger.info("MaxMindIpGeo is enabled")
+      m.some
+    } catch {
+      case e: java.io.FileNotFoundException =>
+        logger.info("MaxMindIpGeo is disabled", e)
+        none
+    }
 
   private val cache: LoadingCache[IpAddress, Option[Location]] = Scaffeine()
     .expireAfterAccess(config.cacheTtl)

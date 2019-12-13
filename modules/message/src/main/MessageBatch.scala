@@ -10,22 +10,28 @@ final class MessageBatch(
 
   def apply(me: User, action: String, ids: List[String]): Funit = ids.nonEmpty ?? {
     action match {
-      case "read" => markRead(me, ids)
+      case "read"   => markRead(me, ids)
       case "unread" => markUnread(me, ids)
       case "delete" => delete(me, ids)
-      case x => fufail(s"Invalid message batch action: $x")
+      case x        => fufail(s"Invalid message batch action: $x")
     }
   }
 
   def markRead(me: User, ids: List[String]): Funit =
-    threadRepo.visibleByUserByIds(me, ids).flatMap {
-      _.map(threadRepo.setReadFor(me)).sequenceFu
-    }.void
+    threadRepo
+      .visibleByUserByIds(me, ids)
+      .flatMap {
+        _.map(threadRepo.setReadFor(me)).sequenceFu
+      }
+      .void
 
   def markUnread(me: User, ids: List[String]): Funit =
-    threadRepo.visibleByUserByIds(me, ids).flatMap {
-      _.map(threadRepo.setUnreadFor(me)).sequenceFu
-    }.void
+    threadRepo
+      .visibleByUserByIds(me, ids)
+      .flatMap {
+        _.map(threadRepo.setUnreadFor(me)).sequenceFu
+      }
+      .void
 
   def delete(me: User, ids: List[String]): Funit =
     threadRepo.visibleByUserByIds(me, ids).flatMap {

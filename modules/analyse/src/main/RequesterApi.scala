@@ -11,13 +11,16 @@ final class RequesterApi(coll: Coll) {
 
   private def today = formatter.print(DateTime.now)
 
-  def save(analysis: Analysis): Funit = coll.update.one(
-    $id(analysis.uid | "anonymous"),
-    $inc("total" -> 1) ++
-      $inc(today -> 1) ++
-      $set("last" -> analysis.id),
-    upsert = true
-  ).void
+  def save(analysis: Analysis): Funit =
+    coll.update
+      .one(
+        $id(analysis.uid | "anonymous"),
+        $inc("total"  -> 1) ++
+          $inc(today  -> 1) ++
+          $set("last" -> analysis.id),
+        upsert = true
+      )
+      .void
 
   def countToday(userId: User.ID): Fu[Int] =
     coll.primitiveOne[Int]($id(userId), today) map (~_)

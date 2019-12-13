@@ -4,7 +4,7 @@ import actorApi._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.hub.actorApi.team.{ CreateTeam, JoinTeam }
-import lila.hub.actorApi.timeline.{ Propagate, TeamJoin, TeamCreate }
+import lila.hub.actorApi.timeline.{ Propagate, TeamCreate, TeamJoin }
 import lila.hub.LightTeam
 import lila.mod.ModlogApi
 import lila.user.{ User, UserRepo }
@@ -44,13 +44,13 @@ final class TeamApi(
     )
     teamRepo.coll.insert.one(team) >>
       memberRepo.add(team.id, me.id) >>- {
-        cached invalidateTeamIds me.id
-        indexer ! InsertTeam(team)
-        timeline ! Propagate(
-          TeamCreate(me.id, team.id)
-        ).toFollowersOf(me.id)
-        Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
-      } inject team
+      cached invalidateTeamIds me.id
+      indexer ! InsertTeam(team)
+      timeline ! Propagate(
+        TeamCreate(me.id, team.id)
+      ).toFollowersOf(me.id)
+      Bus.publish(CreateTeam(id = team.id, name = team.name, userId = me.id), "team")
+    } inject team
   }
 
   def update(team: Team, edit: TeamEdit, me: User): Funit = edit.trim |> { e =>
@@ -68,27 +68,31 @@ final class TeamApi(
   }
 
   def mine(me: User): Fu[List[Team]] =
-    cached teamIds me.id flatMap { ids => teamRepo.coll.byIds[Team](ids.toArray) }
+    cached teamIds me.id flatMap { ids =>
+      teamRepo.coll.byIds[Team](ids.toArray)
+    }
 
   def hasTeams(me: User): Fu[Boolean] = cached.teamIds(me.id).map(_.value.nonEmpty)
 
   def hasCreatedRecently(me: User): Fu[Boolean] =
     teamRepo.userHasCreatedSince(me.id, creationPeriod)
 
-  def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] = for {
-    requests <- requestRepo findByTeam team.id
-    users <- userRepo usersFromSecondary requests.map(_.user)
-  } yield requests zip users map {
-    case (request, user) => RequestWithUser(request, user)
-  }
+  def requestsWithUsers(team: Team): Fu[List[RequestWithUser]] =
+    for {
+      requests <- requestRepo findByTeam team.id
+      users    <- userRepo usersFromSecondary requests.map(_.user)
+    } yield requests zip users map {
+      case (request, user) => RequestWithUser(request, user)
+    }
 
-  def requestsWithUsers(user: User): Fu[List[RequestWithUser]] = for {
-    teamIds <- teamRepo teamIdsByCreator user.id
-    requests <- requestRepo findByTeams teamIds
-    users <- userRepo usersFromSecondary requests.map(_.user)
-  } yield requests zip users map {
-    case (request, user) => RequestWithUser(request, user)
-  }
+  def requestsWithUsers(user: User): Fu[List[RequestWithUser]] =
+    for {
+      teamIds  <- teamRepo teamIdsByCreator user.id
+      requests <- requestRepo findByTeams teamIds
+      users    <- userRepo usersFromSecondary requests.map(_.user)
+    } yield requests zip users map {
+      case (request, user) => RequestWithUser(request, user)
+    }
 
   def join(teamId: Team.ID, me: User): Fu[Option[Requesting]] =
     teamRepo.coll.byId[Team](teamId) flatMap {
@@ -106,15 +110,17 @@ final class TeamApi(
       }
     }
 
-  def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] = for {
-    teamOption <- teamRepo.coll.byId[Team](teamId)
-    able <- teamOption.??(requestable(_, user))
-  } yield teamOption filter (_ => able)
+  def requestable(teamId: Team.ID, user: User): Fu[Option[Team]] =
+    for {
+      teamOption <- teamRepo.coll.byId[Team](teamId)
+      able       <- teamOption.??(requestable(_, user))
+    } yield teamOption filter (_ => able)
 
-  def requestable(team: Team, user: User): Fu[Boolean] = for {
-    belongs <- belongsTo(team.id, user.id)
-    requested <- requestRepo.exists(team.id, user.id)
-  } yield !belongs && !requested
+  def requestable(team: Team, user: User): Fu[Boolean] =
+    for {
+      belongs   <- belongsTo(team.id, user.id)
+      requested <- requestRepo.exists(team.id, user.id)
+    } yield !belongs && !requested
 
   def createRequest(team: Team, setup: RequestSetup, user: User): Funit =
     requestable(team, user) flatMap {
@@ -124,13 +130,15 @@ final class TeamApi(
       }
     }
 
-  def processRequest(team: Team, request: Request, accept: Boolean): Funit = for {
-    _ <- requestRepo.coll.delete.one(request)
-    _ = cached.nbRequests invalidate team.createdBy
-    userOption <- userRepo byId request.user
-    _ <- userOption.filter(_ => accept).??(user =>
-      doJoin(team, user) >>- notifier.acceptRequest(team, request))
-  } yield ()
+  def processRequest(team: Team, request: Request, accept: Boolean): Funit =
+    for {
+      _ <- requestRepo.coll.delete.one(request)
+      _ = cached.nbRequests invalidate team.createdBy
+      userOption <- userRepo byId request.user
+      _ <- userOption
+        .filter(_ => accept)
+        .??(user => doJoin(team, user) >>- notifier.acceptRequest(team, request))
+    } yield ()
 
   def deleteRequestsByUserId(userId: lila.user.User.ID) =
     requestRepo.getByUserId(userId) flatMap {
@@ -144,10 +152,10 @@ final class TeamApi(
     _ ?? {
       memberRepo.add(team.id, user.id) >>
         teamRepo.incMembers(team.id, +1) >>- {
-          cached invalidateTeamIds user.id
-          timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
-          Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
-        }
+        cached invalidateTeamIds user.id
+        timeline ! Propagate(TeamJoin(user.id, team.id)).toFollowersOf(user.id)
+        Bus.publish(JoinTeam(id = team.id, userId = user.id), "team")
+      }
     } recover lila.db.recoverDuplicateKey(_ => ())
   }
 
@@ -208,18 +216,24 @@ final class TeamApi(
     teamRepo.coll.distinctEasy[Team.ID, Set]("_id", $doc("_id" $in ids))
 
   def autocomplete(term: String, max: Int): Fu[List[Team]] =
-    teamRepo.coll.ext.find($doc(
-      "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
-      "enabled" -> true
-    )).sort($sort desc "nbMembers").list[Team](max, ReadPreference.secondaryPreferred)
+    teamRepo.coll.ext
+      .find(
+        $doc(
+          "name".$startsWith(java.util.regex.Pattern.quote(term), "i"),
+          "enabled" -> true
+        )
+      )
+      .sort($sort desc "nbMembers")
+      .list[Team](max, ReadPreference.secondaryPreferred)
 
   def nbRequests(teamId: Team.ID) = cached.nbRequests get teamId
 
   def recomputeNbMembers =
-    teamRepo.coll.ext.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) { (_, team) =>
-      for {
-        nb <- memberRepo.countByTeam(team.id)
-        _ <- teamRepo.coll.updateField($id(team.id), "nbMembers", nb)
-      } yield Cursor.Cont({})
+    teamRepo.coll.ext.find($empty).cursor[Team](ReadPreference.secondaryPreferred).foldWhileM({}) {
+      (_, team) =>
+        for {
+          nb <- memberRepo.countByTeam(team.id)
+          _  <- teamRepo.coll.updateField($id(team.id), "nbMembers", nb)
+        } yield Cursor.Cont({})
     }
 }

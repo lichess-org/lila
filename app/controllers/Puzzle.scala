@@ -16,11 +16,11 @@ final class Puzzle(
 ) extends LilaController(env) {
 
   private def renderJson(
-    puzzle: PuzzleModel,
-    userInfos: Option[UserInfos],
-    mode: String,
-    voted: Option[Boolean],
-    round: Option[lila.puzzle.Round] = None
+      puzzle: PuzzleModel,
+      userInfos: Option[UserInfos],
+      mode: String,
+      voted: Option[Boolean],
+      round: Option[lila.puzzle.Round] = None
   )(implicit ctx: Context): Fu[JsObject] = env.puzzle.jsonView(
     puzzle = puzzle,
     userInfos = userInfos,
@@ -100,16 +100,17 @@ final class Puzzle(
         resultInt => {
           val result = Result(resultInt == 1)
           ctx.me match {
-            case Some(me) => for {
-              (round, mode) <- env.puzzle.finisher(puzzle, me, result, mobile = true)
-              me2 <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
-              infos <- env.puzzle userInfos me2
-              voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-              data <- renderJson(puzzle, infos.some, "view", voted = voted, round = round.some)
-            } yield {
-              val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
-              Ok(d2)
-            }
+            case Some(me) =>
+              for {
+                (round, mode) <- env.puzzle.finisher(puzzle, me, result, mobile = true)
+                me2           <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
+                infos         <- env.puzzle userInfos me2
+                voted         <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
+                data          <- renderJson(puzzle, infos.some, "view", voted = voted, round = round.some)
+              } yield {
+                val d2 = if (mode.rated) data else data ++ Json.obj("win" -> result.win)
+                Ok(d2)
+              }
             case None =>
               env.puzzle.finisher.incPuzzleAttempts(puzzle)
               renderJson(puzzle, none, "view", voted = none) map { data =>
@@ -130,26 +131,30 @@ final class Puzzle(
         lila.mon.puzzle.round.attempt(puzzle.mate, ctx.isAuth, "new")
         env.puzzle.forms.round.bindFromRequest.fold(
           jsonFormError,
-          resultInt => ctx.me match {
-            case Some(me) => for {
-              (round, mode) <- env.puzzle.finisher(
-                puzzle = puzzle,
-                user = me,
-                result = Result(resultInt == 1),
-                mobile = lila.api.Mobile.Api.requested(ctx.req)
-              )
-              me2 <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
-              infos <- env.puzzle userInfos me2
-              voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
-            } yield Ok(Json.obj(
-              "user" -> lila.puzzle.JsonView.infos(false)(infos),
-              "round" -> lila.puzzle.JsonView.round(round),
-              "voted" -> voted
-            ))
-            case None =>
-              env.puzzle.finisher.incPuzzleAttempts(puzzle)
-              Ok(Json.obj("user" -> false)).fuccess
-          }
+          resultInt =>
+            ctx.me match {
+              case Some(me) =>
+                for {
+                  (round, mode) <- env.puzzle.finisher(
+                    puzzle = puzzle,
+                    user = me,
+                    result = Result(resultInt == 1),
+                    mobile = lila.api.Mobile.Api.requested(ctx.req)
+                  )
+                  me2   <- if (mode.rated) env.user.repo byId me.id map (_ | me) else fuccess(me)
+                  infos <- env.puzzle userInfos me2
+                  voted <- ctx.me.?? { env.puzzle.api.vote.value(puzzle.id, _) }
+                } yield Ok(
+                  Json.obj(
+                    "user"  -> lila.puzzle.JsonView.infos(false)(infos),
+                    "round" -> lila.puzzle.JsonView.round(round),
+                    "voted" -> voted
+                  )
+                )
+              case None =>
+                env.puzzle.finisher.incPuzzleAttempts(puzzle)
+                Ok(Json.obj("user" -> false)).fuccess
+            }
         ) map (_ as JSON)
       }
     }
@@ -160,14 +165,15 @@ final class Puzzle(
       implicit val req = ctx.body
       env.puzzle.forms.vote.bindFromRequest.fold(
         jsonFormError,
-        vote => env.puzzle.api.vote.find(id, me) flatMap {
-          v => env.puzzle.api.vote.update(id, me, v, vote == 1)
-        } map {
-          case (p, a) =>
-            if (vote == 1) lila.mon.puzzle.vote.up.increment()
-            else lila.mon.puzzle.vote.down.increment()
-            Ok(Json.arr(a.value, p.vote.sum))
-        }
+        vote =>
+          env.puzzle.api.vote.find(id, me) flatMap { v =>
+            env.puzzle.api.vote.update(id, me, v, vote == 1)
+          } map {
+            case (p, a) =>
+              if (vote == 1) lila.mon.puzzle.vote.up.increment()
+              else lila.mon.puzzle.vote.down.increment()
+              Ok(Json.arr(a.value, p.vote.sum))
+          }
       ) map (_ as JSON)
     }
   }
@@ -176,49 +182,56 @@ final class Puzzle(
   def batchSelect = Auth { implicit ctx => me =>
     negotiate(
       html = notFound,
-      api = _ => for {
-        puzzles <- env.puzzle.batch.select(
-          me,
-          nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
-          after = getInt("after")
-        )
-        userInfo <- env.puzzle userInfos me
-        json <- env.puzzle.jsonView.batch(puzzles, userInfo)
-      } yield Ok(json) as JSON
+      api = _ =>
+        for {
+          puzzles <- env.puzzle.batch.select(
+            me,
+            nb = getInt("nb") getOrElse 50 atLeast 1 atMost 100,
+            after = getInt("after")
+          )
+          userInfo <- env.puzzle userInfos me
+          json     <- env.puzzle.jsonView.batch(puzzles, userInfo)
+        } yield Ok(json) as JSON
     )
   }
 
   /* Mobile API: tell the server about puzzles solved while offline */
   def batchSolve = AuthBody(parse.json) { implicit ctx => me =>
     import lila.puzzle.PuzzleBatch._
-    ctx.body.body.validate[SolveData].fold(
-      err => BadRequest(err.toString).fuccess,
-      data => negotiate(
-        html = notFound,
-        api = _ => for {
-          _ <- env.puzzle.batch.solve(me, data)
-          me2 <- env.user.repo byId me.id map (_ | me)
-          infos <- env.puzzle userInfos me2
-        } yield Ok(Json.obj(
-          "user" -> lila.puzzle.JsonView.infos(false)(infos)
-        ))
+    ctx.body.body
+      .validate[SolveData]
+      .fold(
+        err => BadRequest(err.toString).fuccess,
+        data =>
+          negotiate(
+            html = notFound,
+            api = _ =>
+              for {
+                _     <- env.puzzle.batch.solve(me, data)
+                me2   <- env.user.repo byId me.id map (_ | me)
+                infos <- env.puzzle userInfos me2
+              } yield Ok(
+                Json.obj(
+                  "user" -> lila.puzzle.JsonView.infos(false)(infos)
+                )
+              )
+          )
       )
-    )
   }
 
   /* For BC */
   def embed = Action { req =>
     Ok {
-      val bg = get("bg", req) | "light"
+      val bg    = get("bg", req) | "light"
       val theme = get("theme", req) | "brown"
-      val url = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
+      val url   = s"""${req.domain + routes.Puzzle.frame}?bg=$bg&theme=$theme"""
       s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-training-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
   def frame = Action.async { implicit req =>
     env.puzzle.daily.get map {
-      case None => NotFound
+      case None        => NotFound
       case Some(daily) => html.puzzle.embed(daily)
     }
   }
@@ -231,9 +244,12 @@ final class Puzzle(
           max = getInt("max", req) map (_ atLeast 1),
           perSecond = MaxPerSecond(20)
         )
-        Ok.chunked(env.puzzle.activity.stream(config)).withHeaders(
-          noProxyBufferHeader
-        ).as(ndJsonContentType).fuccess
+        Ok.chunked(env.puzzle.activity.stream(config))
+          .withHeaders(
+            noProxyBufferHeader
+          )
+          .as(ndJsonContentType)
+          .fuccess
       }
     }
   }

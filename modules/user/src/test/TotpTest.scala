@@ -13,7 +13,7 @@ class TotpTest extends Specification {
 
     "authenticate" in {
       val secret = TotpSecret.random
-      val token = secret.currentTotp
+      val token  = secret.currentTotp
       secret.verify(token) must beTrue
     }
 

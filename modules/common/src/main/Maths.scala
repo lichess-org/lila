@@ -13,7 +13,7 @@ object Maths {
       val arr = a.toArray
       Sorting.stableSort(arr)
       val size = arr.size
-      val mid = size / 2
+      val mid  = size / 2
       if (size % 2 == 0) n.toDouble(arr(mid) + arr(mid - 1)) / 2
       else n.toDouble(arr(mid))
     }
@@ -22,7 +22,7 @@ object Maths {
     BigDecimal(n).setScale(p, BigDecimal.RoundingMode.HALF_UP)
   }
 
-  def toInt(l: Long): Int = l.min(Int.MaxValue).max(Int.MinValue).toInt
+  def toInt(l: Long): Int                 = l.min(Int.MaxValue).max(Int.MinValue).toInt
   def toInt(l: Option[Long]): Option[Int] = l map toInt
 
   def closestMultipleOf(mult: Int, v: Int): Int =

@@ -3,10 +3,10 @@ package lila.user
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ LightUser, Every, AtMost }
+import lila.common.{ AtMost, Every, LightUser }
 import lila.memo.PeriodicRefreshCache
 import lila.rating.{ Perf, PerfType }
-import User.{ LightPerf, LightCount }
+import User.{ LightCount, LightPerf }
 
 final class Cached(
     userRepo: UserRepo,
@@ -16,9 +16,9 @@ final class Cached(
     rankingApi: RankingApi
 )(implicit system: akka.actor.ActorSystem) {
 
-  private implicit val LightUserBSONHandler = Macros.handler[LightUser]
-  private implicit val LightPerfBSONHandler = Macros.handler[LightPerf]
-  private implicit val LightCountBSONHandler = Macros.handler[LightCount]
+  implicit private val LightUserBSONHandler  = Macros.handler[LightUser]
+  implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]
+  implicit private val LightCountBSONHandler = Macros.handler[LightCount]
 
   val top10 = new PeriodicRefreshCache[Perfs.Leaderboards](
     Every(1 minute),
@@ -37,9 +37,12 @@ final class Cached(
 
   private val topWeekCache = mongoCache.single[List[User.LightPerf]](
     prefix = "user:top:week",
-    f = PerfType.leaderboardable.map { perf =>
-      rankingApi.topPerf(perf.id, 1)
-    }.sequenceFu.map(_.flatten),
+    f = PerfType.leaderboardable
+      .map { perf =>
+        rankingApi.topPerf(perf.id, 1)
+      }
+      .sequenceFu
+      .map(_.flatten),
     timeToLive = 9 minutes
   )
 

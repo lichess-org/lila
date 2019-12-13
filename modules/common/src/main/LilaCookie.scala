@@ -23,7 +23,9 @@ final class LilaCookie(baker: SessionCookieBaker) {
     baker.encode(baker.serialize(op(req.session)))
   )
 
-  def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(implicit req: RequestHeader): Cookie = Cookie(
+  def cookie(name: String, value: String, maxAge: Option[Int] = None, httpOnly: Option[Boolean] = None)(
+      implicit req: RequestHeader
+  ): Cookie = Cookie(
     name,
     value,
     maxAge orElse baker.maxAge orElse 86400.some,

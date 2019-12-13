@@ -6,7 +6,7 @@ import play.api.libs.ws.{ WSClient, WSResponse }
 import lila.common.config.Secret
 import lila.user.User
 
-private final class StripeClient(
+final private class StripeClient(
     ws: WSClient,
     config: StripeClient.Config
 ) {
@@ -17,18 +17,18 @@ private final class StripeClient(
   def createCustomer(user: User, data: Checkout, plan: StripePlan): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
-      "plan" -> plan.id,
-      "source" -> data.source.value,
-      "email" -> data.email,
+      "plan"        -> plan.id,
+      "source"      -> data.source.value,
+      "email"       -> data.email,
       "description" -> user.username
     )
 
   def createAnonCustomer(plan: StripePlan, data: Checkout): Fu[StripeCustomer] =
     postOne[StripeCustomer](
       "customers",
-      "plan" -> plan.id,
-      "source" -> data.source.value,
-      "email" -> data.email,
+      "plan"        -> plan.id,
+      "source"      -> data.source.value,
+      "email"       -> data.email,
       "description" -> "Anonymous"
     )
 
@@ -39,15 +39,19 @@ private final class StripeClient(
     postOne[StripeSubscription](
       "subscriptions",
       "customer" -> customer.id,
-      "plan" -> plan.id,
-      "source" -> source.value
+      "plan"     -> plan.id,
+      "source"   -> source.value
     )
 
-  def updateSubscription(sub: StripeSubscription, plan: StripePlan, source: Option[Source]): Fu[StripeSubscription] =
+  def updateSubscription(
+      sub: StripeSubscription,
+      plan: StripePlan,
+      source: Option[Source]
+  ): Fu[StripeSubscription] =
     postOne[StripeSubscription](
       s"subscriptions/${sub.id}",
-      "plan" -> plan.id,
-      "source" -> source.map(_.value),
+      "plan"    -> plan.id,
+      "source"  -> source.map(_.value),
       "prorate" -> false
     )
 
@@ -78,11 +82,11 @@ private final class StripeClient(
   def makePlan(cents: Cents, freq: Freq): Fu[StripePlan] =
     postOne[StripePlan](
       "plans",
-      "id" -> StripePlan.make(cents, freq).id,
-      "amount" -> cents.value,
+      "id"       -> StripePlan.make(cents, freq).id,
+      "amount"   -> cents.value,
       "currency" -> "usd",
       "interval" -> "month",
-      "name" -> StripePlan.make(cents, freq).name
+      "name"     -> StripePlan.make(cents, freq).name
     )
 
   //   def chargeAnonCard(data: Checkout): Funit =
@@ -98,10 +102,10 @@ private final class StripeClient(
   def addOneTime(customer: StripeCustomer, amount: Cents): Funit =
     postOne[StripeCharge](
       "charges",
-      "customer" -> customer.id.value,
-      "amount" -> amount.value,
-      "currency" -> "usd",
-      "description" -> "Monthly customer adds a one-time",
+      "customer"      -> customer.id.value,
+      "amount"        -> amount.value,
+      "currency"      -> "usd",
+      "description"   -> "Monthly customer adds a one-time",
       "receipt_email" -> customer.email
     ).void
 
@@ -119,7 +123,8 @@ private final class StripeClient(
 
   private def postOne[A: Reads](url: String, data: (String, Any)*): Fu[A] = post[A](url, data)
 
-  private def deleteOne[A: Reads](url: String, queryString: (String, Any)*): Fu[A] = delete[A](url, queryString)
+  private def deleteOne[A: Reads](url: String, queryString: (String, Any)*): Fu[A] =
+    delete[A](url, queryString)
 
   private def get[A: Reads](url: String, queryString: Seq[(String, Any)]): Fu[A] = {
     logger.info(s"GET $url ${debugInput(queryString)}")
@@ -140,41 +145,49 @@ private final class StripeClient(
     ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey}")
 
   private def response[A: Reads](res: WSResponse): Fu[A] = res.status match {
-    case 200 => (implicitly[Reads[A]] reads res.json).fold(
-      errs => fufail {
-        if (isDeleted(res.json)) new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
-        else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
-      },
-      fuccess
-    )
+    case 200 =>
+      (implicitly[Reads[A]] reads res.json).fold(
+        errs =>
+          fufail {
+            if (isDeleted(res.json))
+              new DeletedException(s"[stripe] Upstream resource was deleted: ${res.json}")
+            else new Exception(s"[stripe] Can't parse ${res.json} --- $errs")
+          },
+        fuccess
+      )
     case 404 => fufail { new NotFoundException(s"[stripe] Not found") }
-    case x if x >= 400 && x < 500 => (res.json \ "error" \ "message").asOpt[String] match {
-      case None => fufail { new InvalidRequestException(Json stringify res.json) }
-      case Some(error) => fufail { new InvalidRequestException(error) }
-    }
+    case x if x >= 400 && x < 500 =>
+      (res.json \ "error" \ "message").asOpt[String] match {
+        case None        => fufail { new InvalidRequestException(Json stringify res.json) }
+        case Some(error) => fufail { new InvalidRequestException(error) }
+      }
     case status => fufail { new StatusException(s"[stripe] Response status: $status") }
   }
 
   private def isDeleted(js: JsValue): Boolean =
-    (js.asOpt[JsObject] flatMap { o => (o \ "deleted").asOpt[Boolean] }) == Some(true)
+    (js.asOpt[JsObject] flatMap { o =>
+      (o \ "deleted").asOpt[Boolean]
+    }) == Some(true)
 
-  private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] = (in map {
-    case (name, Some(x)) => Some(name -> x.toString)
-    case (_, None) => None
-    case (name, x) => Some(name -> x.toString)
-  }).flatten
+  private def fixInput(in: Seq[(String, Any)]): Seq[(String, String)] =
+    (in map {
+      case (name, Some(x)) => Some(name -> x.toString)
+      case (_, None)       => None
+      case (name, x)       => Some(name -> x.toString)
+    }).flatten
 
   private def listReader[A: Reads]: Reads[List[A]] = (__ \ "data").read[List[A]]
 
-  private def debugInput(data: Seq[(String, Any)]) = fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
+  private def debugInput(data: Seq[(String, Any)]) =
+    fixInput(data) map { case (k, v) => s"$k=$v" } mkString " "
 }
 
 object StripeClient {
 
-  class StripeException(msg: String) extends Exception(msg)
-  class DeletedException(msg: String) extends StripeException(msg)
-  class StatusException(msg: String) extends StripeException(msg)
-  class NotFoundException(msg: String) extends StatusException(msg)
+  class StripeException(msg: String)         extends Exception(msg)
+  class DeletedException(msg: String)        extends StripeException(msg)
+  class StatusException(msg: String)         extends StripeException(msg)
+  class NotFoundException(msg: String)       extends StatusException(msg)
   class InvalidRequestException(msg: String) extends StatusException(msg)
 
   import io.methvin.play.autoconfig._
@@ -183,5 +196,5 @@ object StripeClient {
       @ConfigName("keys.public") publicKey: String,
       @ConfigName("keys.public") secretKey: Secret
   )
-  private[plan] implicit val configLoader = AutoConfig.loader[Config]
+  implicit private[plan] val configLoader = AutoConfig.loader[Config]
 }

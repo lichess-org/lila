@@ -29,12 +29,12 @@ object Request {
 }
 
 case class RequestWithUser(request: Request, user: User) {
-  def id = request.id
+  def id      = request.id
   def message = request.message
-  def date = request.date
-  def team = request.team
+  def date    = request.date
+  def team    = request.team
 }
 
 sealed trait Requesting
-case class Joined(team: Team) extends Requesting
+case class Joined(team: Team)   extends Requesting
 case class Motivate(team: Team) extends Requesting

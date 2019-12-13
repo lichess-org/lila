@@ -1,7 +1,7 @@
 package lila.tournament
 
 import chess.Color
-import lila.game.{ IdGenerator, Game }
+import lila.game.{ Game, IdGenerator }
 import lila.user.User
 
 case class Pairing(
@@ -18,11 +18,11 @@ case class Pairing(
 
   def gameId = id
 
-  def users = List(user1, user2)
-  def usersPair = user1 -> user2
-  def contains(user: User.ID): Boolean = user1 == user || user2 == user
+  def users                                       = List(user1, user2)
+  def usersPair                                   = user1 -> user2
+  def contains(user: User.ID): Boolean            = user1 == user || user2 == user
   def contains(u1: User.ID, u2: User.ID): Boolean = contains(u1) && contains(u2)
-  def notContains(user: User.ID) = !contains(user)
+  def notContains(user: User.ID)                  = !contains(user)
 
   def opponentOf(userId: User.ID) =
     if (userId == user1) user2.some
@@ -30,16 +30,16 @@ case class Pairing(
     else none
 
   def finished = status >= chess.Status.Mate
-  def playing = !finished
+  def playing  = !finished
 
-  def quickFinish = finished && turns.??(20 >)
-  def quickDraw = draw && turns.??(20 >)
+  def quickFinish      = finished && turns.??(20 >)
+  def quickDraw        = draw && turns.??(20 >)
   def notSoQuickFinish = finished && turns.??(14 <=)
 
-  def wonBy(user: User.ID): Boolean = winner.??(user ==)
-  def lostBy(user: User.ID): Boolean = winner.??(user !=)
+  def wonBy(user: User.ID): Boolean     = winner.??(user ==)
+  def lostBy(user: User.ID): Boolean    = winner.??(user !=)
   def notLostBy(user: User.ID): Boolean = winner.fold(true)(user ==)
-  def draw: Boolean = finished && winner.isEmpty
+  def draw: Boolean                     = finished && winner.isEmpty
 
   def colorOf(userId: User.ID): Option[Color] =
     if (userId == user1) Color.White.some
@@ -59,9 +59,9 @@ private[tournament] object Pairing {
   case class LastOpponents(hash: Map[User.ID, User.ID]) extends AnyVal
 
   private def make(
-    tourId: Tournament.ID,
-    u1: User.ID,
-    u2: User.ID
+      tourId: Tournament.ID,
+      u1: User.ID,
+      u2: User.ID
   )(implicit idGenerator: IdGenerator): Fu[Pairing] =
     idGenerator.game dmap { id =>
       new Pairing(
