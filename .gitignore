@@ -12,7 +12,6 @@ public/vendor/stockfish.pexe
 public/vendor/stockfish.js
 public/css/
 target
-bin/.translate_version
 data/
 dist/
 node_modules/
