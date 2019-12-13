@@ -20,6 +20,7 @@ sources in doc in Compile := List()
 publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
+PlayKeys.playDefaultPort := 9663
 // don't stage the conf dir
 PlayKeys.externalizeResources := false
 // shorter prod classpath
