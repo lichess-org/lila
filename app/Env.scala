@@ -158,7 +158,8 @@ final class EnvBoot(
 )(implicit system: ActorSystem, ws: WSClient) {
 
   lila.log("boot").info {
-    s"Java: ${System.getProperty("java.version")}, memory: ${Runtime.getRuntime().maxMemory() / 1024 / 1024}MB"
+    val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    s"lila 3 / java ${System.getProperty("java.version")}, memory: ${mem}MB"
   }
 
   implicit def scheduler = system.scheduler
