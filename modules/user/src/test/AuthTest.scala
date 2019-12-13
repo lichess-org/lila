@@ -4,11 +4,12 @@ import org.specs2.mutable.Specification
 import java.util.Base64
 import Authenticator.AuthData
 import User.{ ClearPassword => P }
+import lila.common.config.Secret
 
 class AuthTest extends Specification {
 
-  val secret = Array.fill(32)(1.toByte).toBase64
-  def getAuth(passHasher: PasswordHasher) = new Authenticator(
+  val secret = Secret(Array.fill(32)(1.toByte).toBase64)
+  final def getAuth(passHasher: PasswordHasher) = new Authenticator(
     passHasher = passHasher,
     userRepo = null
   )
@@ -27,7 +28,7 @@ class AuthTest extends Specification {
 
     // sanity check of aes encryption
     "wrong secret" >> !{
-      getAuth(new PasswordHasher((new Array[Byte](32)).toBase64, 2)).compare(
+      getAuth(new PasswordHasher(Secret((new Array[Byte](32)).toBase64), 2)).compare(
         bCryptUser, P("password")
       )
     }

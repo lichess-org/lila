@@ -1,17 +1,18 @@
 package lila.user
 
+import lila.common.config.Secret
 import org.specs2.mutable.Specification
 import User.{ ClearPassword => P }
 
 class PasswordHasherTest extends Specification {
 
   "bad secrets throw exceptions" in {
-    new Aes("") must throwA[IllegalArgumentException]
-    new PasswordHasher("", 12) must throwA[IllegalArgumentException]
-    new PasswordHasher("t=", 12) must throwA[IllegalArgumentException]
+    new Aes(Secret("")) must throwA[IllegalArgumentException]
+    new PasswordHasher(Secret(""), 12) must throwA[IllegalArgumentException]
+    new PasswordHasher(Secret("t="), 12) must throwA[IllegalArgumentException]
   }
 
-  val secret = Array.fill(16)(1.toByte).toBase64
+  val secret = Secret(Array.fill(16)(1.toByte).toBase64)
 
   "aes" should {
     def emptyArr(i: Int) = new Array[Byte](i)
