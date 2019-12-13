@@ -41,6 +41,15 @@
   <string name="editStudy">Modificar studio</string>
   <string name="visibility">Visibilitate</string>
   <string name="public">Public</string>
+  <string name="unlisted">Non listate</string>
+  <string name="inviteOnly">Solmente per invitation</string>
+  <string name="allowCloning">Permitter clonar</string>
+  <string name="nobody">Nulle persona</string>
+  <string name="onlyMe">Solmente io mesme</string>
+  <string name="contributors">Contributores</string>
+  <string name="members">Membros</string>
+  <string name="everyone">Tote le personas</string>
+  <string name="enableSync">Permitter synchronisation</string>
   <string name="save">Salveguardar</string>
   <string name="deleteStudy">Deler studio</string>
 </resources>
