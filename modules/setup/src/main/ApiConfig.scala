@@ -23,7 +23,9 @@ final case class ApiConfig(
   def perfType: Option[PerfType] = PerfPicker.perfType(chess.Speed(clock), variant, days)
 
   def validFen = variant != FromPosition || {
-    position ?? { f => ~(Forsyth <<< f.value).map(_.situation playable strictFen) }
+    position ?? { f =>
+      ~(Forsyth <<< f.value).map(_.situation playable strictFen)
+    }
   }
 
   def mode = chess.Mode(rated)
@@ -31,9 +33,16 @@ final case class ApiConfig(
 
 object ApiConfig extends BaseHumanConfig {
 
-  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60*).toSet
+  lazy val clockLimitSeconds: Set[Int] = Set(0, 15, 30, 45, 60, 90) ++ (2 to 180).view.map(60 *).toSet
 
-  def <<(v: Option[String], cl: Option[Clock.Config], d: Option[Int], r: Boolean, c: Option[String], pos: Option[String]) =
+  def <<(
+      v: Option[String],
+      cl: Option[Clock.Config],
+      d: Option[Int],
+      r: Boolean,
+      c: Option[String],
+      pos: Option[String]
+  ) =
     new ApiConfig(
       variant = chess.variant.Variant.orDefault(~v),
       clock = cl,

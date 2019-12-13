@@ -12,36 +12,37 @@ import controllers.routes
 object show {
 
   def apply(
-    sim: lila.simul.Simul,
-    socketVersion: lila.socket.Socket.SocketVersion,
-    data: play.api.libs.json.JsObject,
-    chatOption: Option[lila.chat.UserChat.Mine],
-    stream: Option[lila.streamer.Stream],
-    team: Option[lila.team.Team]
-  )(implicit ctx: Context) = views.html.base.layout(
-    moreCss = cssTag("simul.show"),
-    title = sim.fullName,
-    moreJs = frag(
-      jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),
-      embedJsUnsafe(s"""lichess.simul=${
-        safeJsonValue(Json.obj(
-          "data" -> data,
-          "i18n" -> bits.jsI18n(),
-          "socketVersion" -> socketVersion.value,
-          "userId" -> ctx.userId,
-          "chat" -> chatOption.map { c =>
-            views.html.chat.json(
-              c.chat,
-              name = trans.chatRoom.txt(),
-              timeout = c.timeout,
-              public = true,
-              resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}")
-            )
-          }
-        ))
-      }""")
-    )
-  ) {
+      sim: lila.simul.Simul,
+      socketVersion: lila.socket.Socket.SocketVersion,
+      data: play.api.libs.json.JsObject,
+      chatOption: Option[lila.chat.UserChat.Mine],
+      stream: Option[lila.streamer.Stream],
+      team: Option[lila.team.Team]
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      moreCss = cssTag("simul.show"),
+      title = sim.fullName,
+      moreJs = frag(
+        jsAt(s"compiled/lichess.simul${isProd ?? (".min")}.js"),
+        embedJsUnsafe(s"""lichess.simul=${safeJsonValue(
+          Json.obj(
+            "data"          -> data,
+            "i18n"          -> bits.jsI18n(),
+            "socketVersion" -> socketVersion.value,
+            "userId"        -> ctx.userId,
+            "chat" -> chatOption.map { c =>
+              views.html.chat.json(
+                c.chat,
+                name = trans.chatRoom.txt(),
+                timeout = c.timeout,
+                public = true,
+                resourceId = lila.chat.Chat.ResourceId(s"simul/${c.chat.id}")
+              )
+            }
+          )
+        )}""")
+      )
+    ) {
       main(cls := "simul")(
         st.aside(cls := "simul__side")(
           div(cls := "simul__meta")(
@@ -64,7 +65,7 @@ object show {
               trans.hostColorX(sim.color match {
                 case Some("white") => trans.white()
                 case Some("black") => trans.black()
-                case _ => trans.randomColor()
+                case _             => trans.randomColor()
               })
             ),
             trans.by(usernameOrId(sim.hostId)),

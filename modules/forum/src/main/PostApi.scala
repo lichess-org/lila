@@ -25,9 +25,9 @@ final class PostApi(
   import BSONHandlers._
 
   def makePost(
-    categ: Categ,
-    topic: Topic,
-    data: DataForm.PostData
+      categ: Categ,
+      topic: Topic,
+      data: DataForm.PostData
   )(implicit ctx: UserContext): Fu[Post] =
     lastNumberOf(topic) zip detectLanguage(data.text) zip userIds(topic) flatMap {
       case ((number, lang), topicUserIds) =>
@@ -49,8 +49,8 @@ final class PostApi(
           case _ =>
             env.postRepo.coll.insert.one(post) >>
               env.topicRepo.coll.update.one($id(topic.id), topic withPost post) >> {
-                shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
-              } >>
+              shouldHideOnPost(topic) ?? env.topicRepo.hide(topic.id, true)
+            } >>
               env.categRepo.coll.update.one($id(categ.id), categ withTopic post) >>-
               (!categ.quiet ?? (indexer ! InsertPost(post))) >>-
               (!categ.quiet ?? env.recent.invalidate) >>-
@@ -60,15 +60,15 @@ final class PostApi(
                   else lila.hub.actorApi.shutup.RecordPublicForumMessage(userId, post.text)
                 }
               } >>- {
-                (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
-                  timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
-                    prop toFollowersOf userId toUsers topicUserIds exceptUser userId
-                  }
+              (ctx.userId ifFalse post.troll ifFalse categ.quiet) ?? { userId =>
+                timeline ! Propagate(ForumPost(userId, topic.id.some, topic.name, post.id)).|> { prop =>
+                  prop toFollowersOf userId toUsers topicUserIds exceptUser userId
                 }
-                lila.mon.forum.post.create.increment()
-                env.mentionNotifier.notifyMentionedUsers(post, topic)
-                Bus.publish(actorApi.CreatePost(post), "forumPost")
-              } inject post
+              }
+              lila.mon.forum.post.create.increment()
+              env.mentionNotifier.notifyMentionedUsers(post, topic)
+              Bus.publish(actorApi.CreatePost(post), "forumPost")
+            } inject post
         }
     }
 
@@ -91,35 +91,37 @@ final class PostApi(
     topic.visibleOnHome && {
       (quickHideCategs(topic.categId) && topic.nbPosts == 1) || {
         topic.nbPosts == maxPerPage.value ||
-          topic.createdAt.isBefore(DateTime.now minusDays 5)
+        topic.createdAt.isBefore(DateTime.now minusDays 5)
       }
     }
 
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
     case Some((_, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
-    case Some((topic, post)) => env.postRepo.withTroll(troll).countBeforeNumber(topic.id, post.number) map { nb =>
-      val page = nb / maxPerPage.value + 1
-      PostUrlData(topic.categId, topic.slug, page, post.number).some
-    }
+    case Some((topic, post)) =>
+      env.postRepo.withTroll(troll).countBeforeNumber(topic.id, post.number) map { nb =>
+        val page = nb / maxPerPage.value + 1
+        PostUrlData(topic.categId, topic.slug, page, post.number).some
+      }
     case _ => fuccess(none)
   }
 
   def get(postId: String): Fu[Option[(Topic, Post)]] = {
     for {
-      post <- optionT(env.postRepo.coll.byId[Post](postId))
+      post  <- optionT(env.postRepo.coll.byId[Post](postId))
       topic <- optionT(env.topicRepo.coll.byId[Topic](post.topicId))
     } yield topic -> post
   } run
 
-  def views(posts: List[Post]): Fu[List[PostView]] = for {
-    topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
-    categs <- env.categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
-  } yield posts map { post =>
+  def views(posts: List[Post]): Fu[List[PostView]] =
     for {
-      topic <- topics find (_.id == post.topicId)
-      categ <- categs find (_.slug == topic.categId)
-    } yield PostView(post, topic, categ, lastPageOf(topic))
-  } flatten
+      topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
+      categs <- env.categRepo.coll.byIds[Categ](topics.map(_.categId).distinct)
+    } yield posts map { post =>
+      for {
+        topic <- topics find (_.id == post.topicId)
+        categ <- categs find (_.slug == topic.categId)
+      } yield PostView(post, topic, categ, lastPageOf(topic))
+    } flatten
 
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
     env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
@@ -141,20 +143,21 @@ final class PostApi(
   def liteView(post: Post): Fu[Option[PostLiteView]] =
     liteViews(List(post)) map (_.headOption)
 
-  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] = for {
-    topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
-  } yield posts flatMap { post =>
-    topics find (_.id == post.topicId) map { topic =>
-      MiniForumPost(
-        isTeam = post.isTeam,
-        postId = post.id,
-        topicName = topic.name,
-        userId = post.userId,
-        text = post.text take 200,
-        createdAt = post.createdAt
-      )
+  def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] =
+    for {
+      topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
+    } yield posts flatMap { post =>
+      topics find (_.id == post.topicId) map { topic =>
+        MiniForumPost(
+          isTeam = post.isTeam,
+          postId = post.id,
+          topicName = topic.name,
+          userId = post.userId,
+          text = post.text take 200,
+          createdAt = post.createdAt
+        )
+      }
     }
-  }
 
   def lastNumberOf(topic: Topic): Fu[Int] =
     env.postRepo lastByTopic topic map { _ ?? (_.number) }
@@ -173,21 +176,28 @@ final class PostApi(
     maxPerPage = maxPerPage
   )
 
-  def delete(categSlug: String, postId: String, mod: User): Funit = (for {
-    post <- optionT(env.postRepo.withTroll(true).byCategAndId(categSlug, postId))
-    view <- optionT(view(post))
-    _ <- optionT(for {
-      first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
-      _ <- if (first) env.topicApi.delete(view.categ, view.topic)
-      else env.postRepo.coll.delete.one(view.post) >>
-        (env.topicApi denormalize view.topic) >>
-        (env.categApi denormalize view.categ) >>-
-        env.recent.invalidate >>-
-        (indexer ! RemovePost(post.id))
-      _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(mod.id, post.userId, post.author, post.ip,
-        text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text))
-    } yield true.some)
-  } yield ()).run.void
+  def delete(categSlug: String, postId: String, mod: User): Funit =
+    (for {
+      post <- optionT(env.postRepo.withTroll(true).byCategAndId(categSlug, postId))
+      view <- optionT(view(post))
+      _ <- optionT(for {
+        first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
+        _ <- if (first) env.topicApi.delete(view.categ, view.topic)
+        else
+          env.postRepo.coll.delete.one(view.post) >>
+            (env.topicApi denormalize view.topic) >>
+            (env.categApi denormalize view.categ) >>-
+            env.recent.invalidate >>-
+            (indexer ! RemovePost(post.id))
+        _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
+          mod.id,
+          post.userId,
+          post.author,
+          post.ip,
+          text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
+        )
+      } yield true.some)
+    } yield ()).run.void
 
   def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 

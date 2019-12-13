@@ -74,23 +74,24 @@ final class NotifyApi(
   private def shouldSkip(notification: Notification) =
     userRepo.isKid(notification.notifies.value) >>| {
       notification.content match {
-        case MentionedInThread(_, _, topicId, _, _) => repo.hasRecentNotificationsInThread(notification.notifies, topicId)
+        case MentionedInThread(_, _, topicId, _, _) =>
+          repo.hasRecentNotificationsInThread(notification.notifies, topicId)
         case InvitedToStudy(_, _, studyId) => repo.hasRecentStudyInvitation(notification.notifies, studyId)
-        case PrivateMessage(_, thread, _) => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
-        case _ => fuFalse
+        case PrivateMessage(_, thread, _)  => repo.hasRecentPrivateMessageFrom(notification.notifies, thread)
+        case _                             => fuFalse
       }
     }
 
   /**
-   * Inserts notification into the repository.
-   *
-   * If the user already has an unread notification on the topic, discard it.
-   *
-   * If the user does not already have an unread notification on the topic, returns it unmodified.
-   */
+    * Inserts notification into the repository.
+    *
+    * If the user already has an unread notification on the topic, discard it.
+    *
+    * If the user does not already have an unread notification on the topic, returns it unmodified.
+    */
   private def insertOrDiscardNotification(notification: Notification): Fu[Option[Notification]] =
     shouldSkip(notification) flatMap {
-      case true => fuccess(none)
+      case true  => fuccess(none)
       case false => addNotificationWithoutSkipOrEvent(notification) inject notification.some
     }
 

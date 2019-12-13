@@ -55,22 +55,24 @@ final class Env(
     ratingFactors: () => lila.rating.RatingFactors
 )(implicit system: ActorSystem) {
 
-  private implicit val moretimeLoader = durationLoader(MoretimeDuration.apply)
-  private implicit val animationLoader = durationLoader(AnimationDuration.apply)
-  private val config = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
+  implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
+  implicit private val animationLoader = durationLoader(AnimationDuration.apply)
+  private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
   private lazy val deployPersistence: DeployPersistence = wire[DeployPersistence]
-  private val scheduler = system.scheduler
+  private val scheduler                                 = system.scheduler
 
-  private val defaultGoneWeight = fuccess(1f)
+  private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
   private val goneWeightsFor = (game: Game) =>
     if (!game.playable || !game.hasClock || game.hasAi) fuccess(1f -> 1f)
-    else game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
-      game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
+    else
+      game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
+        game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
 
-  private val isSimulHost = new IsSimulHost(userId =>
-    Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId))
+  private val isSimulHost = new IsSimulHost(
+    userId => Bus.ask[Set[User.ID]]("simulGetHosts")(GetHostIds).dmap(_ contains userId)
+  )
 
   private val scheduleExpiration = new ScheduleExpiration(game => {
     game.timeBeforeExpiration foreach { centis =>
@@ -94,11 +96,12 @@ final class Env(
       case msg => roundSocket.rounds.tellAll(msg)
     },
     "accountClose" -> {
-      case lila.hub.actorApi.security.CloseAccount(userId) => gameRepo.allPlaying(userId) map {
-        _ foreach { pov =>
-          tellRound(pov.gameId, Resign(pov.playerId))
+      case lila.hub.actorApi.security.CloseAccount(userId) =>
+        gameRepo.allPlaying(userId) map {
+          _ foreach { pov =>
+            tellRound(pov.gameId, Resign(pov.playerId))
+          }
         }
-      }
     },
     "gameStartId" -> {
       case Game.Id(gameId) => onStart(gameId)
@@ -109,17 +112,21 @@ final class Env(
     }
   )
 
-  lazy val tellRound: TellRound = new TellRound((gameId: Game.ID, msg: Any) =>
-    roundSocket.rounds.tell(gameId, msg))
+  lazy val tellRound: TellRound = new TellRound(
+    (gameId: Game.ID, msg: Any) => roundSocket.rounds.tell(gameId, msg)
+  )
 
-  lazy val onStart: OnStart = new OnStart((gameId: Game.ID) => proxyRepo game gameId foreach {
-    _ foreach { game =>
-      Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
-      game.userIds foreach { userId =>
-        Bus.publish(lila.game.actorApi.UserStartGame(userId, game), s"userStartGame:$userId")
+  lazy val onStart: OnStart = new OnStart(
+    (gameId: Game.ID) =>
+      proxyRepo game gameId foreach {
+        _ foreach { game =>
+          Bus.publish(lila.game.actorApi.StartGame(game), "startGame")
+          game.userIds foreach { userId =>
+            Bus.publish(lila.game.actorApi.UserStartGame(userId, game), s"userStartGame:$userId")
+          }
+        }
       }
-    }
-  })
+  )
 
   lazy val proxyRepo: GameProxyRepo = wire[GameProxyRepo]
 
@@ -154,8 +161,7 @@ final class Env(
 
   lazy val messenger = wire[Messenger]
 
-  lazy val getSocketStatus = (game: Game) =>
-    roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
+  lazy val getSocketStatus = (game: Game) => roundSocket.rounds.ask[SocketStatus](game.id)(GetSocketStatus)
 
   private def isUserPresent(game: Game, userId: lila.user.User.ID): Fu[Boolean] =
     roundSocket.rounds.askIfPresentOrZero[Boolean](game.id)(RoundDuct.HasUserId(userId, _))

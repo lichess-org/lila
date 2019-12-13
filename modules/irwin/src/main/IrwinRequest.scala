@@ -17,8 +17,8 @@ object IrwinRequest {
   }
 
   object Origin {
-    case object Moderator extends Origin
-    case object Tournament extends Origin
+    case object Moderator   extends Origin
+    case object Tournament  extends Origin
     case object Leaderboard extends Origin
   }
 }

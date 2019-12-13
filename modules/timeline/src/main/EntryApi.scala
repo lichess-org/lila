@@ -27,28 +27,36 @@ final class EntryApi(
     userEntries(userId, nb) flatMap broadcast.interleave
 
   private def userEntries(userId: User.ID, max: Max): Fu[Vector[Entry]] =
-    coll.find($doc(
-      "users" -> userId,
-      "date" $gt DateTime.now.minusWeeks(2)
-    ), projection.some)
+    coll
+      .find(
+        $doc(
+          "users" -> userId,
+          "date" $gt DateTime.now.minusWeeks(2)
+        ),
+        projection.some
+      )
       .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[Vector](max.value)
 
   def findRecent(typ: String, since: DateTime, max: Max) =
-    coll.find(
-      $doc("typ" -> typ, "date" $gt since),
-      projection.some
-    ).sort($sort desc "date")
+    coll
+      .find(
+        $doc("typ" -> typ, "date" $gt since),
+        projection.some
+      )
+      .sort($sort desc "date")
       .cursor[Entry](ReadPreference.secondaryPreferred)
       .gather[Vector](max.value)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
-    coll.countSel($doc(
-      "users" -> userId,
-      "chan" -> channel,
-      "date" $gt DateTime.now.minusDays(7)
-    )) map (0 !=)
+    coll.countSel(
+      $doc(
+        "users" -> userId,
+        "chan"  -> channel,
+        "date" $gt DateTime.now.minusDays(7)
+      )
+    ) map (0 !=)
 
   def insert(e: Entry.ForUsers) =
     coll.insert.one(EntryBSONHandler.writeTry(e.entry).get ++ $doc("users" -> e.userIds)) void
@@ -56,11 +64,13 @@ final class EntryApi(
   // can't remove from capped collection,
   // so we set a date in the past instead.
   private[timeline] def removeRecentFollowsBy(userId: User.ID): Funit =
-    coll.update.one(
-      $doc("typ" -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
-      $set("date" -> DateTime.now().minusDays(365)),
-      multi = true
-    ).void
+    coll.update
+      .one(
+        $doc("typ"  -> "follow", "data.u1" -> userId, "date" $gt DateTime.now().minusHours(1)),
+        $set("date" -> DateTime.now().minusDays(365)),
+        multi = true
+      )
+      .void
 
   // entries everyone can see
   // they have no db `users` field
@@ -72,14 +82,17 @@ final class EntryApi(
       expireAfter = _.ExpireAfterWrite(1 hour)
     )
 
-    private def fetch: Fu[Vector[Entry]] = coll.ext
-      .find($doc(
-        "users" $exists false,
-        "date" $gt DateTime.now.minusWeeks(2)
-      ))
-      .sort($sort desc "date")
-      .cursor[Entry]() // must be on primary for cache refresh to work
-      .gather[Vector](3)
+    private def fetch: Fu[Vector[Entry]] =
+      coll.ext
+        .find(
+          $doc(
+            "users" $exists false,
+            "date" $gt DateTime.now.minusWeeks(2)
+          )
+        )
+        .sort($sort desc "date")
+        .cursor[Entry]() // must be on primary for cache refresh to work
+        .gather[Vector](3)
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>

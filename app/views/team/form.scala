@@ -16,27 +16,30 @@ object form {
       moreCss = cssTag("team"),
       moreJs = frag(infiniteScrollTag, captchaTag)
     ) {
-        main(cls := "page-menu page-small")(
-          bits.menu("form".some),
-          div(cls := "page-menu__content box box-pad")(
-            h1(trans.newTeam()),
-            postForm(cls := "form3", action := routes.Team.create())(
-              form3.globalError(form),
-              form3.group(form("name"), trans.name())(form3.input(_)),
-              form3.group(form("open"), trans.joiningPolicy()) { _ =>
-                form3.select(form("open"), Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
-              },
-              form3.group(form("location"), trans.location())(form3.input(_)),
-              form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
-              views.html.base.captcha(form, captcha),
-              form3.actions(
-                a(href := routes.Team.home(1))(trans.cancel()),
-                form3.submit(trans.newTeam())
+      main(cls := "page-menu page-small")(
+        bits.menu("form".some),
+        div(cls := "page-menu__content box box-pad")(
+          h1(trans.newTeam()),
+          postForm(cls := "form3", action := routes.Team.create())(
+            form3.globalError(form),
+            form3.group(form("name"), trans.name())(form3.input(_)),
+            form3.group(form("open"), trans.joiningPolicy()) { _ =>
+              form3.select(
+                form("open"),
+                Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt())
               )
+            },
+            form3.group(form("location"), trans.location())(form3.input(_)),
+            form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
+            views.html.base.captcha(form, captcha),
+            form3.actions(
+              a(href := routes.Team.home(1))(trans.cancel()),
+              form3.submit(trans.newTeam())
             )
           )
         )
-      }
+      )
+    }
 
   def edit(t: lila.team.Team, form: Form[_])(implicit ctx: Context) = {
     val title = "Edit Team " + t.name
@@ -48,10 +51,15 @@ object form {
           postForm(cls := "form3", action := routes.Team.update(t.id))(
             div(cls := "form-group")(
               a(cls := "button button-empty", href := routes.Team.kick(t.id))("Kick someone out of the team"),
-              a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))("Appoint another team owner")
+              a(cls := "button button-empty", href := routes.Team.changeOwner(t.id))(
+                "Appoint another team owner"
+              )
             ),
             form3.group(form("open"), trans.joiningPolicy()) { f =>
-              form3.select(f, Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt()))
+              form3.select(
+                f,
+                Seq(0 -> trans.aConfirmationIsRequiredToJoin.txt(), 1 -> trans.anyoneCanJoin.txt())
+              )
             },
             form3.group(form("location"), trans.location())(form3.input(_)),
             form3.group(form("description"), trans.description())(form3.textarea(_)(rows := 10)),
@@ -63,8 +71,11 @@ object form {
           isGranted(_.ManageTeam) option frag(
             hr,
             postForm(cls := "inline", action := routes.Team.close(t.id))(
-              submitButton(dataIcon := "q", cls := "text button button-empty button-red confirm",
-                st.title := "Deletes the team and its memberships. Cannot be reverted!")("Delete")
+              submitButton(
+                dataIcon := "q",
+                cls := "text button button-empty button-red confirm",
+                st.title := "Deletes the team and its memberships. Cannot be reverted!"
+              )("Delete")
             )
           )
         )

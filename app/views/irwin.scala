@@ -12,13 +12,14 @@ object irwin {
     case p if p < 30 => "green"
     case p if p < 60 => "yellow"
     case p if p < 80 => "orange"
-    case _ => "red"
+    case _           => "red"
   }
 
-  def dashboard(dashboard: lila.irwin.IrwinDashboard)(implicit ctx: Context) = views.html.base.layout(
-    title = "Irwin dashboard",
-    moreCss = cssTag("mod.misc")
-  ) {
+  def dashboard(dashboard: lila.irwin.IrwinDashboard)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = "Irwin dashboard",
+      moreCss = cssTag("mod.misc")
+    ) {
       main(cls := "page-menu")(
         mod.menu("irwin"),
         div(cls := "irwin page-menu__content box")(
@@ -26,16 +27,20 @@ object irwin {
             h1(
               "Irwin status: ",
               if (dashboard.seenRecently) span(cls := "up")("Operational")
-              else span(cls := "down")(
-                dashboard.lastSeenAt.map { seenAt =>
-                  frag("Last seen ", momentFromNow(seenAt))
-                } getOrElse {
-                  frag("Unknown")
-                }
-              )
+              else
+                span(cls := "down")(
+                  dashboard.lastSeenAt.map { seenAt =>
+                    frag("Last seen ", momentFromNow(seenAt))
+                  } getOrElse {
+                    frag("Unknown")
+                  }
+                )
             ),
             div(cls := "box__top__actions")(
-              a(href := "https://monitor.lichess.ovh/dashboard/db/lichess-moderation", cls := "button button-empty")("Monitoring")
+              a(
+                href := "https://monitor.lichess.ovh/dashboard/db/lichess-moderation",
+                cls := "button button-empty"
+              )("Monitoring")
             )
           ),
           table(cls := "slist slist-pad")(
@@ -54,7 +59,10 @@ object irwin {
                   td(cls := "little completed")(momentFromNow(rep.date)),
                   td(rep.owner),
                   td(cls := s"little activation ${percentClass(rep.activation)}")(
-                    strong(rep.activation, "%"), " over ", rep.games.size, " games"
+                    strong(rep.activation, "%"),
+                    " over ",
+                    rep.games.size,
+                    " games"
                   )
                 )
               }
@@ -69,7 +77,9 @@ object irwin {
       header(
         a(cls := "title", href := routes.Irwin.dashboard)(
           img(src := staticUrl("images/icons/brain.blue.svg")),
-          " Irwin AI", br, "Hunter"
+          " Irwin AI",
+          br,
+          "Hunter"
         ),
         div(cls := "infos")(
           p("Updated ", momentFromNow(report.report.date))
@@ -97,10 +107,18 @@ object irwin {
                 ),
                 td(
                   a(href := routes.Round.watcher(pov.gameId, pov.color.name))(
-                    playerLink(pov.opponent, withRating = true, withDiff = true, withOnline = false, link = false),
+                    playerLink(
+                      pov.opponent,
+                      withRating = true,
+                      withDiff = true,
+                      withOnline = false,
+                      link = false
+                    ),
                     br,
                     pov.game.isTournament ?? frag(iconTag("g"), " "),
-                    pov.game.perfType.map { pt => iconTag(pt.iconChar) },
+                    pov.game.perfType.map { pt =>
+                      iconTag(pt.iconChar)
+                    },
                     shortClockName(pov.game.clock.map(_.config)),
                     " ",
                     momentFromNowOnce(pov.game.createdAt)
@@ -108,15 +126,16 @@ object irwin {
                 ),
                 td(
                   strong(cls := percentClass(gameReport.activation))(gameReport.activation, "%"),
-                  " ", em("assessment")
+                  " ",
+                  em("assessment")
                 ),
                 td {
                   val blurs = pov.game.playerBlurPercent(pov.color)
                   frag(strong(cls := percentClass(blurs))(blurs, "%"), " ", em("blurs"))
                 }
-              // td(
-              //   pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
-              // )
+                // td(
+                //   pov.player.holdAlert.exists(_.suspicious) option strong(cls := percentClass(50))("Bot?")
+                // )
               )
           }
         )

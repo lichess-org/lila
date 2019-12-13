@@ -13,10 +13,13 @@ object topnav {
 
   def apply()(implicit ctx: Context) = st.nav(id := "topnav", cls := "hover")(
     st.section(
-      linkTitle("/", frag(
-        span(cls := "play")(trans.play()),
-        span(cls := "home")("lichess.org")
-      )),
+      linkTitle(
+        "/",
+        frag(
+          span(cls := "play")(trans.play()),
+          span(cls := "home")("lichess.org")
+        )
+      ),
       div(role := "group")(
         if (ctx.noBot) a(href := "/?any#hook")(trans.createAGame())
         else a(href := "/?any#friend")(trans.playWithAFriend()),

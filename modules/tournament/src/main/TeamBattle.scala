@@ -9,7 +9,7 @@ case class TeamBattle(
     teams: Set[TeamID],
     nbLeaders: Int
 ) {
-  def hasEnoughTeams = teams.size > 1
+  def hasEnoughTeams     = teams.size > 1
   lazy val sortedTeamIds = teams.toList.sorted
 }
 
@@ -23,7 +23,7 @@ object TeamBattle {
       leaders: List[TeamLeader]
   ) {
     def magicScore = leaders.foldLeft(0)(_ + _.magicScore)
-    def score = leaders.foldLeft(0)(_ + _.score)
+    def score      = leaders.foldLeft(0)(_ + _.score)
   }
 
   case class TeamLeader(userId: User.ID, magicScore: Int) {
@@ -43,14 +43,18 @@ object TeamBattle {
     import play.api.data.Forms._
 
     val fields = mapping(
-      "teams" -> nonEmptyText,
+      "teams"     -> nonEmptyText,
       "nbLeaders" -> number(min = 1, max = 10)
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
-      .verifying("In this version of team battles, no more than 10 teams can be allowed.", s => s.potentialTeamIds.size <= 10)
+      .verifying(
+        "In this version of team battles, no more than 10 teams can be allowed.",
+        s => s.potentialTeamIds.size <= 10
+      )
 
-    def edit(teams: List[String], nbLeaders: Int) = Form(fields) fill
-      Setup(s"${teams mkString "\n"}\n", nbLeaders)
+    def edit(teams: List[String], nbLeaders: Int) =
+      Form(fields) fill
+        Setup(s"${teams mkString "\n"}\n", nbLeaders)
 
     def empty = Form(fields)
 

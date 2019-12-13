@@ -10,9 +10,10 @@ case class ByteArray(value: Array[Byte]) {
 
   def toHexStr = ByteArray.hex hex2Str value
 
-  def showBytes: String = value map { b =>
-    "%08d" format { b & 0xff }.toBinaryString.toInt
-  } mkString ","
+  def showBytes: String =
+    value map { b =>
+      "%08d" format { b & 0xff }.toBinaryString.toInt
+    } mkString ","
 
   override def toString = toHexStr
 }
@@ -34,14 +35,14 @@ object ByteArray {
   def parseBytes(s: List[String]) = ByteArray(s map parseByte toArray)
 
   private def parseByte(s: String): Byte = {
-    var i = s.length - 1
-    var sum = 0
+    var i    = s.length - 1
+    var sum  = 0
     var mult = 1
     while (i >= 0) {
       s.charAt(i) match {
         case '1' => sum += mult
         case '0' =>
-        case x => sys error s"invalid binary literal: $x in $s"
+        case x   => sys error s"invalid binary literal: $x in $s"
       }
       mult *= 2
       i -= 1
@@ -56,7 +57,7 @@ object ByteArray {
 
     /** Turns a hexadecimal String into an array of Byte. */
     def str2Hex(str: String): Array[Byte] = {
-      val sz = str.length / 2
+      val sz    = str.length / 2
       val bytes = new Array[Byte](sz)
 
       var i = 0

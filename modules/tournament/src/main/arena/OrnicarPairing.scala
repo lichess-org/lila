@@ -1,7 +1,7 @@
 package lila.tournament
 package arena
 
-import PairingSystem.{ Data, url }
+import PairingSystem.{ url, Data }
 
 private object OrnicarPairing {
 
@@ -10,13 +10,13 @@ private object OrnicarPairing {
   def apply(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.nonEmpty ?? {
     import data._
 
-    val startAt = nowMillis
-    val stopAt = startAt + smartPairingsMaxMillis
+    val startAt  = nowMillis
+    val stopAt   = startAt + smartPairingsMaxMillis
     def continue = nowMillis < stopAt
 
-    type Score = Int
+    type Score         = Int
     type RankedPairing = (RankedPlayer, RankedPlayer)
-    type Combination = List[RankedPairing]
+    type Combination   = List[RankedPairing]
 
     def justPlayedTogether(u1: String, u2: String): Boolean =
       lastOpponents.hash.get(u1).contains(u2) || lastOpponents.hash.get(u2).contains(u1)
@@ -34,11 +34,11 @@ private object OrnicarPairing {
           // lower is better
           i = i + Math.abs(a.rank - b.rank) * rankFactor(a, b) +
             Math.abs(a.player.rating - b.player.rating) + {
-              if (justPlayedTogether(a.player.userId, b.player.userId)) {
-                if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
-                else 8000 * 1000
-              } else 0
-            }
+            if (justPlayedTogether(a.player.userId, b.player.userId)) {
+              if (veryMuchJustPlayedTogether(a.player.userId, b.player.userId)) 9000 * 1000
+              else 8000 * 1000
+            } else 0
+          }
       }
       i
     }
@@ -47,56 +47,62 @@ private object OrnicarPairing {
       players.filterNot { p =>
         combo.exists(c => c._1 == p || c._2 == p)
       } match {
-        case a :: rest => rest.map { b =>
-          (a, b) :: combo
-        }
+        case a :: rest =>
+          rest.map { b =>
+            (a, b) :: combo
+          }
         case _ => Nil
       }
 
     sealed trait FindBetter
     case class Found(best: Combination) extends FindBetter
-    case object End extends FindBetter
-    case object NoBetter extends FindBetter
+    case object End                     extends FindBetter
+    case object NoBetter                extends FindBetter
 
     def findBetter(from: Combination, than: Score): FindBetter =
       nextCombos(from) match {
         case Nil => End
-        case nexts => nexts.foldLeft(none[Combination]) {
-          case (current, next) =>
-            val toBeat = current.fold(than)(score)
-            if (score(next) >= toBeat) current
-            else if (continue) findBetter(next, toBeat) match {
-              case Found(b) => b.some
-              case End => next.some
-              case NoBetter => current
-            }
-            else current
-        } match {
-          case Some(best) => Found(best)
-          case None => NoBetter
-        }
+        case nexts =>
+          nexts.foldLeft(none[Combination]) {
+            case (current, next) =>
+              val toBeat = current.fold(than)(score)
+              if (score(next) >= toBeat) current
+              else if (continue) findBetter(next, toBeat) match {
+                case Found(b) => b.some
+                case End      => next.some
+                case NoBetter => current
+              }
+              else current
+          } match {
+            case Some(best) => Found(best)
+            case None       => NoBetter
+          }
       }
 
     val preps = (players match {
-      case x if x.size < 2 => Nil
-      case List(p1, p2) if onlyTwoActivePlayers => List(p1.player -> p2.player)
+      case x if x.size < 2                                                        => Nil
+      case List(p1, p2) if onlyTwoActivePlayers                                   => List(p1.player -> p2.player)
       case List(p1, p2) if justPlayedTogether(p1.player.userId, p2.player.userId) => Nil
-      case List(p1, p2) => List(p1.player -> p2.player)
-      case _ => findBetter(Nil, Int.MaxValue) match {
-        case Found(best) => best map {
-          case (rp0, rp1) => rp0.player -> rp1.player
+      case List(p1, p2)                                                           => List(p1.player -> p2.player)
+      case _ =>
+        findBetter(Nil, Int.MaxValue) match {
+          case Found(best) =>
+            best map {
+              case (rp0, rp1) => rp0.player -> rp1.player
+            }
+          case _ =>
+            pairingLogger.warn("Could not make smart pairings for arena tournament")
+            players map (_.player) grouped 2 collect {
+              case List(p1, p2) => (p1, p2)
+            } toList
         }
-        case _ =>
-          pairingLogger.warn("Could not make smart pairings for arena tournament")
-          players map (_.player) grouped 2 collect {
-            case List(p1, p2) => (p1, p2)
-          } toList
-      }
     }) map {
       Pairing.prep(tour, _)
     }
     if (!continue)
-      pairingLogger.warn(s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps")
+      pairingLogger.warn(
+        s"smartPairings cutoff! [${nowMillis - startAt}ms] ${url(data.tour.id)} ${players.size} players, ${preps.size} preps"
+      )
     preps
   }
 }

@@ -19,17 +19,20 @@ class AuthTest extends Specification {
   "bcrypt checks" in {
     val bCryptUser = AuthData(
       "",
-      bpass = HashedPassword(Base64.getDecoder.decode(
-        "+p7ysDb8OU9yMQ/LuFxFNgJ0HBKH7iJy8tkowG65NWjPC3Y6CzYV"
-      ))
+      bpass = HashedPassword(
+        Base64.getDecoder.decode(
+          "+p7ysDb8OU9yMQ/LuFxFNgJ0HBKH7iJy8tkowG65NWjPC3Y6CzYV"
+        )
+      )
     )
     "correct" >> auth.compare(bCryptUser, P("password"))
     "wrong pass" >> !auth.compare(bCryptUser, P(""))
 
     // sanity check of aes encryption
-    "wrong secret" >> !{
+    "wrong secret" >> ! {
       getAuth(new PasswordHasher(Secret((new Array[Byte](32)).toBase64), 2)).compare(
-        bCryptUser, P("password")
+        bCryptUser,
+        P("password")
       )
     }
 

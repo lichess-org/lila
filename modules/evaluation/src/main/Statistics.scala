@@ -23,7 +23,7 @@ object Statistics {
 
   def moveTimeCoefVariation(pov: lila.game.Pov): Option[Float] =
     for {
-      mt <- moveTimes(pov)
+      mt   <- moveTimes(pov)
       coef <- moveTimeCoefVariation(mt)
     } yield coef
 
@@ -43,7 +43,8 @@ object Statistics {
 
   def slidingMoveTimesCvs(pov: lila.game.Pov): Option[Iterator[Float]] =
     moveTimes(pov) ?? { mt =>
-      mt.iterator.sliding(15)
+      mt.iterator
+        .sliding(15)
         .filter(_.count(instantaneous ==) < 4)
         .flatMap(a => moveTimeCoefVariationNoDrop(a.toList))
         .some

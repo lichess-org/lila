@@ -47,7 +47,8 @@ final class TrouperMap[T <: Trouper](
   def touchOrMake(id: String): Unit = troupers get id
 
   private[this] val troupers: LoadingCache[String, T] =
-    Caffeine.newBuilder()
+    Caffeine
+      .newBuilder()
       .recordStats
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {

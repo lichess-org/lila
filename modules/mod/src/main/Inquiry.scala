@@ -2,7 +2,7 @@ package lila.mod
 
 import lila.common.LightUser
 import lila.report.{ Report, ReportApi }
-import lila.user.{ User, UserRepo, Note, NoteApi }
+import lila.user.{ Note, NoteApi, User, UserRepo }
 
 case class Inquiry(
     mod: LightUser,
@@ -31,11 +31,11 @@ final class InquiryApi(
             userRepo.named(report.user) zip
             noteApi.forMod(report.user) zip
             logApi.userHistory(report.user) map {
-              case moreReports ~ userOption ~ notes ~ history =>
-                userOption ?? { user =>
-                  Inquiry(mod.light, report, moreReports, notes, history, user).some
-                }
-            }
+            case moreReports ~ userOption ~ notes ~ history =>
+              userOption ?? { user =>
+                Inquiry(mod.light, report, moreReports, notes, history, user).some
+              }
+          }
         }
       }
     }

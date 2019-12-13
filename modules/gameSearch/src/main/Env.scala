@@ -5,7 +5,7 @@ import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
 
-import lila.game.actorApi.{ InsertGame, FinishGame }
+import lila.game.actorApi.{ FinishGame, InsertGame }
 import lila.search._
 import lila.common.config._
 
@@ -37,6 +37,6 @@ final class Env(
 
   lila.common.Bus.subscribeFun("finishGame", "gameSearchInsert") {
     case FinishGame(game, _, _) if !game.aborted => api store game
-    case InsertGame(game) => api store game
+    case InsertGame(game)                        => api store game
   }
 }

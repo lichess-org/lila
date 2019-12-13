@@ -10,7 +10,7 @@ object Analyser {
       lower,
       (
         enBigRegex.findAllMatchIn(latinify(lower)).toList :::
-        ruBigRegex.findAllMatchIn(lower).toList
+          ruBigRegex.findAllMatchIn(lower).toList
       ).map(_.toString)
     )
   }
@@ -23,7 +23,7 @@ object Analyser {
     case 'к' => 'k'
     case 'Н' => 'h'
     case 'о' => 'o'
-    case c => c
+    case c   => c
   }
 
   private def enWordsRegexes =

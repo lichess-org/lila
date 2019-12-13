@@ -9,10 +9,11 @@ import controllers.routes
 
 object passwd {
 
-  def apply(form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = trans.changePassword.txt(),
-    active = "password"
-  ) {
+  def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
+    account.layout(
+      title = trans.changePassword.txt(),
+      active = "password"
+    ) {
       div(cls := "account box box-pad")(
         h1(
           trans.changePassword(),

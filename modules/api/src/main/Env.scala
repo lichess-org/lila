@@ -4,7 +4,7 @@ import akka.actor._
 import com.softwaremill.macwire._
 import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.WSClient
-import play.api.{ Mode, Configuration }
+import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
 import lila.common.config._
@@ -68,11 +68,17 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  if (config.influxEventEnv != "dev") system.actorOf(Props(new InfluxEvent(
-    ws = ws,
-    endpoint = config.influxEventEndpoint,
-    env = config.influxEventEnv
-  )), name = "influx-event")
+  if (config.influxEventEnv != "dev")
+    system.actorOf(
+      Props(
+        new InfluxEvent(
+          ws = ws,
+          endpoint = config.influxEventEndpoint,
+          env = config.influxEventEnv
+        )
+      ),
+      name = "influx-event"
+    )
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)

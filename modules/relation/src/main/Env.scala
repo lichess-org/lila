@@ -58,7 +58,7 @@ final class Env(
 
   private val actor = system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 
-  system.scheduler.scheduleWithFixedDelay(15 seconds, config.actorNotifyFreq) {
-    () => actor ! actorApi.ComputeMovement
+  system.scheduler.scheduleWithFixedDelay(15 seconds, config.actorNotifyFreq) { () =>
+    actor ! actorApi.ComputeMovement
   }
 }

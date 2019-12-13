@@ -17,35 +17,37 @@ final class JsonView(
   def inbox(me: User, threads: Paginator[Thread]): Result =
     Ok(PaginatorJson(threads.mapResults { t =>
       Json.obj(
-        "id" -> t.id,
-        "author" -> t.visibleOtherUserId(me),
-        "name" -> t.name,
+        "id"        -> t.id,
+        "author"    -> t.visibleOtherUserId(me),
+        "name"      -> t.name,
         "updatedAt" -> t.updatedAt,
-        "isUnread" -> t.isUnReadBy(me)
+        "isUnread"  -> t.isUnReadBy(me)
       )
     }))
 
   def thread(thread: Thread): Fu[JsValue] =
     fuccess(
       Json.obj(
-        "id" -> thread.id,
+        "id"   -> thread.id,
         "name" -> thread.name,
-        "posts" -> thread.posts.map { post => threadPost(thread, post) }
+        "posts" -> thread.posts.map { post =>
+          threadPost(thread, post)
+        }
       )
     )
 
   def threadPost(thread: Thread, post: Post): JsValue =
     Json.obj(
-      "sender" -> user(thread.visibleSenderOf(post)),
-      "receiver" -> user(thread.visibleReceiverOf(post)),
-      "text" -> post.text,
+      "sender"    -> user(thread.visibleSenderOf(post)),
+      "receiver"  -> user(thread.visibleReceiverOf(post)),
+      "text"      -> post.text,
       "createdAt" -> post.createdAt
     )
 
   private def user(userId: String) =
     lightUser(userId).map { l =>
       LightUser.lightUserWrites.writes(l) ++ Json.obj(
-        "online" -> isOnline(userId),
+        "online"   -> isOnline(userId),
         "username" -> l.name // for mobile app BC
       )
     }

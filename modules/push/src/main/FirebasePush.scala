@@ -1,6 +1,6 @@
 package lila.push
 
-import com.google.auth.oauth2.{ GoogleCredentials, AccessToken }
+import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 import lila.common.WorkQueue
 import lila.user.User
 
-private final class FirebasePush(
+final private class FirebasePush(
     credentialsOpt: Option[GoogleCredentials],
     deviceApi: DeviceApi,
     ws: WSClient,
@@ -24,16 +24,17 @@ private final class FirebasePush(
       deviceApi.findLastManyByUserId("firebase", 3)(userId) flatMap {
         case Nil => funit
         // access token has 1h lifetime and is requested only if expired
-        case devices => workQueue {
-          Future {
-            creds.refreshIfExpired()
-            creds.getAccessToken()
-          } withTimeout 10.seconds
-        }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
-          // TODO http batch request is possible using a multipart/mixed content
-          // unfortuntely it doesn't seem easily doable with play WS
-          devices.map(send(token, _, data)).sequenceFu.void
-        }
+        case devices =>
+          workQueue {
+            Future {
+              creds.refreshIfExpired()
+              creds.getAccessToken()
+            } withTimeout 10.seconds
+          }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
+            // TODO http batch request is possible using a multipart/mixed content
+            // unfortuntely it doesn't seem easily doable with play WS
+            devices.map(send(token, _, data)).sequenceFu.void
+          }
       }
     }
 
@@ -41,24 +42,26 @@ private final class FirebasePush(
     ws.url(config.url)
       .withHttpHeaders(
         "Authorization" -> s"Bearer ${token.getTokenValue}",
-        "Accept" -> "application/json",
-        "Content-type" -> "application/json; UTF-8"
+        "Accept"        -> "application/json",
+        "Content-type"  -> "application/json; UTF-8"
       )
-      .post(Json.obj(
-        "message" -> Json.obj(
-          "token" -> device._id,
-          // firebase doesn't support nested data object and we only use what is
-          // inside userData
-          "data" -> (data.payload \ "userData").asOpt[JsObject].map(transform(_)),
-          "notification" -> Json.obj(
-            "body" -> data.body,
-            "title" -> data.title
+      .post(
+        Json.obj(
+          "message" -> Json.obj(
+            "token" -> device._id,
+            // firebase doesn't support nested data object and we only use what is
+            // inside userData
+            "data" -> (data.payload \ "userData").asOpt[JsObject].map(transform(_)),
+            "notification" -> Json.obj(
+              "body"  -> data.body,
+              "title" -> data.title
+            )
           )
         )
-      )) flatMap {
-        case res if res.status == 200 => funit
-        case res => fufail(s"[push] firebase: ${res.status} ${res.body}")
-      }
+      ) flatMap {
+      case res if res.status == 200 => funit
+      case res                      => fufail(s"[push] firebase: ${res.status} ${res.body}")
+    }
 
   // filter out any non string value, otherwise Firebase API silently rejects
   // the request

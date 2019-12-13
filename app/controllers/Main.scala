@@ -18,10 +18,12 @@ final class Main(
     assetsC: Assets
 ) extends LilaController(env) {
 
-  private lazy val blindForm = Form(tuple(
-    "enable" -> nonEmptyText,
-    "redirect" -> nonEmptyText
-  ))
+  private lazy val blindForm = Form(
+    tuple(
+      "enable"   -> nonEmptyText,
+      "redirect" -> nonEmptyText
+    )
+  )
 
   def toggleBlindMode = OpenBody { implicit ctx =>
     implicit val req = ctx.body
@@ -80,8 +82,8 @@ final class Main(
   }
 
   /**
-   * Event monitoring endpoint
-   */
+    * Event monitoring endpoint
+    */
   def jsmon(event: String) = Action {
     lila.mon.http.jsmon(event).increment
     NoContent
@@ -90,11 +92,13 @@ final class Main(
   private lazy val glyphsResult: Result = {
     import chess.format.pgn.Glyph
     import lila.tree.Node.glyphWriter
-    Ok(Json.obj(
-      "move" -> (Glyph.MoveAssessment.display: List[Glyph]),
-      "position" -> (Glyph.PositionAssessment.display: List[Glyph]),
-      "observation" -> (Glyph.Observation.display: List[Glyph])
-    )) as JSON
+    Ok(
+      Json.obj(
+        "move"        -> (Glyph.MoveAssessment.display: List[Glyph]),
+        "position"    -> (Glyph.PositionAssessment.display: List[Glyph]),
+        "observation" -> (Glyph.Observation.display: List[Glyph])
+      )
+    ) as JSON
   }
   val glyphs = Action(glyphsResult)
 
@@ -129,7 +133,9 @@ Disallow: /games/export
   }
 
   def verifyTitle = Action {
-    Redirect("https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform")
+    Redirect(
+      "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform"
+    )
   }
 
   def contact = Open { implicit ctx =>
@@ -146,37 +152,38 @@ Disallow: /games/export
 
   def instantChess = Open { implicit ctx =>
     if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
-    else fuccess {
-      Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
-        env.lilaCookie.withSession { s =>
-          s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
-        }
-      )
-    }
+    else
+      fuccess {
+        Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
+          env.lilaCookie.withSession { s =>
+            s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
+          }
+        )
+      }
   }
 
   def legacyQaQuestion(id: Int, @silent slug: String) = Open { _ =>
     MovedPermanently {
       val faq = routes.Main.faq.url
       id match {
-        case 103 => s"$faq#acpl"
-        case 258 => s"$faq#marks"
-        case 13 => s"$faq#titles"
-        case 87 => routes.Stat.ratingDistribution("blitz").url
-        case 110 => s"$faq#name"
-        case 29 => s"$faq#titles"
+        case 103  => s"$faq#acpl"
+        case 258  => s"$faq#marks"
+        case 13   => s"$faq#titles"
+        case 87   => routes.Stat.ratingDistribution("blitz").url
+        case 110  => s"$faq#name"
+        case 29   => s"$faq#titles"
         case 4811 => s"$faq#lm"
-        case 216 => routes.Main.mobile.url
-        case 340 => s"$faq#trophies"
-        case 6 => s"$faq#ratings"
-        case 207 => s"$faq#hide-ratings"
-        case 547 => s"$faq#leaving"
-        case 259 => s"$faq#trophies"
-        case 342 => s"$faq#provisional"
-        case 50 => routes.Page.help.url
-        case 46 => s"$faq#name"
-        case 122 => s"$faq#marks"
-        case _ => faq
+        case 216  => routes.Main.mobile.url
+        case 340  => s"$faq#trophies"
+        case 6    => s"$faq#ratings"
+        case 207  => s"$faq#hide-ratings"
+        case 547  => s"$faq#leaving"
+        case 259  => s"$faq#trophies"
+        case 342  => s"$faq#provisional"
+        case 50   => routes.Page.help.url
+        case 46   => s"$faq#name"
+        case 122  => s"$faq#marks"
+        case _    => faq
       }
     }.fuccess
   }

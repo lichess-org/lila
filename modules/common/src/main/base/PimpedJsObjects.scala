@@ -51,10 +51,14 @@ final class PimpedJsObject(private val js: JsObject) extends AnyVal {
     else js
 
   def add[A: Writes](pair: (String, Option[A])): JsObject =
-    pair._2.fold(js) { a => js + (pair._1 -> Json.toJson(a)) }
+    pair._2.fold(js) { a =>
+      js + (pair._1 -> Json.toJson(a))
+    }
 
   def add[A: Writes](key: String, value: Option[A]): JsObject =
-    value.fold(js) { a => js + (key -> Json.toJson(a)) }
+    value.fold(js) { a =>
+      js + (key -> Json.toJson(a))
+    }
 }
 
 final class PimpedJsValue(private val js: JsValue) extends AnyVal {

@@ -11,30 +11,31 @@ import lila.common.String.html.safeJsonValue
 object show {
 
   def apply(
-    us: lila.practice.UserStudy,
-    data: lila.practice.JsonView.JsData
-  )(implicit ctx: Context) = views.html.base.layout(
-    title = us.practiceStudy.name,
-    moreCss = cssTag("analyse.practice"),
-    moreJs = frag(
-      analyseTag,
-      analyseNvuiTag,
-      embedJsUnsafe(s"""lichess=window.lichess||{};lichess.practice=${
-        safeJsonValue(Json.obj(
-          "practice" -> data.practice,
-          "study" -> data.study,
-          "data" -> data.analysis,
-          "i18n" -> board.userAnalysisI18n(),
-          "explorer" -> Json.obj(
-            "endpoint" -> explorerEndpoint,
-            "tablebaseEndpoint" -> tablebaseEndpoint
+      us: lila.practice.UserStudy,
+      data: lila.practice.JsonView.JsData
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = us.practiceStudy.name,
+      moreCss = cssTag("analyse.practice"),
+      moreJs = frag(
+        analyseTag,
+        analyseNvuiTag,
+        embedJsUnsafe(s"""lichess=window.lichess||{};lichess.practice=${safeJsonValue(
+          Json.obj(
+            "practice" -> data.practice,
+            "study"    -> data.study,
+            "data"     -> data.analysis,
+            "i18n"     -> board.userAnalysisI18n(),
+            "explorer" -> Json.obj(
+              "endpoint"          -> explorerEndpoint,
+              "tablebaseEndpoint" -> tablebaseEndpoint
+            )
           )
-        ))
-      }""")
-    ),
-    chessground = false,
-    zoomable = true
-  ) {
+        )}""")
+      ),
+      chessground = false,
+      zoomable = true
+    ) {
       main(cls := "analyse")
     }
 }

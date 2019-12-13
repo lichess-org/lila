@@ -27,15 +27,23 @@ object create {
             raw("Token description"),
             help = raw("For you to remember what this token is for").some
           )(form3.input(_)),
-          br, br,
+          br,
+          br,
           h2("Scopes define the access for personal tokens:"),
           div(cls := "scopes")(
             lila.oauth.OAuthScope.all.map { scope =>
               val disabled = me.noBot && scope == lila.oauth.OAuthScope.Bot.Play && me.count.game > 0
-              val id = s"oauth-scope-${scope.key.replace(":", "_")}"
+              val id       = s"oauth-scope-${scope.key.replace(":", "_")}"
               div(
                 span(
-                  input(st.id := id, cls := "cmn-toggle", tpe := "checkbox", name := s"${form("scopes").name}[]", value := scope.key, disabled option st.disabled),
+                  input(
+                    st.id := id,
+                    cls := "cmn-toggle",
+                    tpe := "checkbox",
+                    name := s"${form("scopes").name}[]",
+                    value := scope.key,
+                    disabled option st.disabled
+                  ),
                   label(`for` := id)
                 ),
                 label(`for` := id, st.title := disabled.option("You already have played games!"))(scope.name)

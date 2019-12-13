@@ -29,7 +29,7 @@ sealed trait UserContext {
 
   def ip = lila.common.HTTPRequest lastRemoteAddress req
 
-  def kid = me.??(_.kid)
+  def kid   = me.??(_.kid)
   def noKid = !kid
 }
 
@@ -48,25 +48,35 @@ sealed abstract class BaseUserContext(
 }
 
 final class BodyUserContext[A](val body: Request[A], m: Option[User], i: Option[User], l: Lang)
-  extends BaseUserContext(body, m, i, l)
+    extends BaseUserContext(body, m, i, l)
 
 final class HeaderUserContext(r: RequestHeader, m: Option[User], i: Option[User], l: Lang)
-  extends BaseUserContext(r, m, i, l)
+    extends BaseUserContext(r, m, i, l)
 
 trait UserContextWrapper extends UserContext {
   val userContext: UserContext
-  val req = userContext.req
-  val me = userContext.me
+  val req            = userContext.req
+  val me             = userContext.me
   val impersonatedBy = userContext.impersonatedBy
-  def isBot = me.exists(_.isBot)
-  def noBot = !isBot
+  def isBot          = me.exists(_.isBot)
+  def noBot          = !isBot
 }
 
 object UserContext {
 
-  def apply(req: RequestHeader, me: Option[User], impersonatedBy: Option[User], lang: Lang): HeaderUserContext =
+  def apply(
+      req: RequestHeader,
+      me: Option[User],
+      impersonatedBy: Option[User],
+      lang: Lang
+  ): HeaderUserContext =
     new HeaderUserContext(req, me, impersonatedBy, lang)
 
-  def apply[A](req: Request[A], me: Option[User], impersonatedBy: Option[User], lang: Lang): BodyUserContext[A] =
+  def apply[A](
+      req: Request[A],
+      me: Option[User],
+      impersonatedBy: Option[User],
+      lang: Lang
+  ): BodyUserContext[A] =
     new BodyUserContext(req, me, impersonatedBy, lang)
 }

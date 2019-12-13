@@ -1,6 +1,6 @@
 package lila.study
 
-import chess.format.pgn.{ Tag, Tags, TagType }
+import chess.format.pgn.{ Tag, TagType, Tags }
 
 object PgnTags {
 
@@ -27,13 +27,22 @@ object PgnTags {
   private val sortedTypes: List[TagType] = {
     import Tag._
     List(
-      White, WhiteElo, WhiteTitle, WhiteTeam,
-      Black, BlackElo, BlackTitle, BlackTeam,
+      White,
+      WhiteElo,
+      WhiteTitle,
+      WhiteTeam,
+      Black,
+      BlackElo,
+      BlackTitle,
+      BlackTeam,
       TimeControl,
       Date,
       Result,
       Termination,
-      Site, Event, Round, Annotator
+      Site,
+      Event,
+      Round,
+      Annotator
     )
   }
 

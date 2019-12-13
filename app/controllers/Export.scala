@@ -18,7 +18,10 @@ final class Export(env: Env) extends LilaController(env) {
 
   def png(id: String) = Open { implicit ctx =>
     OnlyHumansAndFacebookOrTwitter {
-      PngRateLimitGlobal("-", msg = s"${HTTPRequest.lastRemoteAddress(ctx.req).value} ${~HTTPRequest.userAgent(ctx.req)}") {
+      PngRateLimitGlobal(
+        "-",
+        msg = s"${HTTPRequest.lastRemoteAddress(ctx.req).value} ${~HTTPRequest.userAgent(ctx.req)}"
+      ) {
         lila.mon.export.png.game.increment()
         OptionFuResult(env.game.gameRepo game id) { game =>
           env.game.pngExport fromGame game map pngStream
@@ -45,8 +48,9 @@ final class Export(env: Env) extends LilaController(env) {
   }
 
   private def pngStream(stream: Source[ByteString, _]) =
-    Ok.chunked(stream).withHeaders(
-      noProxyBufferHeader,
-      CACHE_CONTROL -> "max-age=7200"
-    ) as "image/png"
+    Ok.chunked(stream)
+      .withHeaders(
+        noProxyBufferHeader,
+        CACHE_CONTROL -> "max-age=7200"
+      ) as "image/png"
 }

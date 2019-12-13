@@ -37,11 +37,12 @@ object event {
       )
     }
 
-  def show(e: lila.event.Event)(implicit ctx: Context) = views.html.base.layout(
-    title = e.title,
-    moreCss = cssTag("event"),
-    moreJs = jsTag("event-countdown.js")
-  ) {
+  def show(e: lila.event.Event)(implicit ctx: Context) =
+    views.html.base.layout(
+      title = e.title,
+      moreCss = cssTag("event"),
+      moreJs = jsTag("event-countdown.js")
+    ) {
       main(cls := "page-small event box box-pad")(
         h1(dataIcon := "", cls := "text")(e.title),
         h2(cls := "headline")(e.headline),
@@ -51,11 +52,12 @@ object event {
         if (e.isFinished) p(cls := "desc")("The event is finished.")
         else {
           if (e.isNow) a(href := e.url, cls := "button button-fat")(trans.eventInProgress())
-          else ul(cls := "countdown", dataSeconds := ~e.secondsToStart)(
-            List("Days", "Hours", "Minutes", "Seconds") map { t =>
-              li(span(cls := t.toLowerCase), t)
-            }
-          )
+          else
+            ul(cls := "countdown", dataSeconds := ~e.secondsToStart)(
+              List("Days", "Hours", "Minutes", "Seconds") map { t =>
+                li(span(cls := t.toLowerCase), t)
+              }
+            )
         }
       )
     }
@@ -82,10 +84,12 @@ object event {
           tbody(
             events.map { e =>
               tr(
-                td(a(href := routes.Event.edit(e.id))(
-                  strong(e.title),
-                  em(e.headline)
-                )),
+                td(
+                  a(href := routes.Event.edit(e.id))(
+                    strong(e.title),
+                    em(e.headline)
+                  )
+                ),
                 td(
                   showDateTimeUTC(e.startsAt),
                   momentFromNow(e.startsAt)
@@ -108,10 +112,24 @@ object event {
       form3.group(form("startsAt"), frag("Start date ", strong(utcLink)), half = true)(form3.flatpickr(_)),
       form3.group(form("finishesAt"), frag("End date ", strong(utcLink)), half = true)(form3.flatpickr(_))
     ),
-    form3.group(form("title"), raw("Short title"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_)),
-    form3.group(form("headline"), raw("Short headline"), help = raw("Keep it VERY short, so it fits on homepage").some)(form3.input(_)),
-    form3.group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(form3.textarea(_)()),
-    form3.group(form("url"), raw("External URL"), help = raw("What to redirect to when the event starts").some)(form3.input(_)),
+    form3.group(
+      form("title"),
+      raw("Short title"),
+      help = raw("Keep it VERY short, so it fits on homepage").some
+    )(form3.input(_)),
+    form3.group(
+      form("headline"),
+      raw("Short headline"),
+      help = raw("Keep it VERY short, so it fits on homepage").some
+    )(form3.input(_)),
+    form3.group(form("description"), raw("Possibly long description"), help = raw("Link: [text](url)").some)(
+      form3.textarea(_)()
+    ),
+    form3.group(
+      form("url"),
+      raw("External URL"),
+      help = raw("What to redirect to when the event starts").some
+    )(form3.input(_)),
     form3.split(
       form3.group(form("lang"), raw("Language"), half = true)(form3.select(_, lila.i18n.LangList.choices)),
       form3.group(
@@ -120,18 +138,23 @@ object event {
         help = raw("Username that must not be featured while the event is ongoing").some,
         half = true
       ) { f =>
-          input(
-            cls := "form-control user-autocomplete",
-            name := f.name,
-            id := form3.id(f),
-            value := f.value,
-            dataTag := "span"
-          )
-        }
+        input(
+          cls := "form-control user-autocomplete",
+          name := f.name,
+          id := form3.id(f),
+          value := f.value,
+          dataTag := "span"
+        )
+      }
     ),
     form3.split(
       form3.checkbox(form("enabled"), raw("Enabled"), help = raw("Display the event").some, half = true),
-      form3.group(form("homepageHours"), raw("Hours on homepage (0 to 24)"), half = true, help = raw("Ask on slack first!").some)(form3.input(_, typ = "number"))
+      form3.group(
+        form("homepageHours"),
+        raw("Hours on homepage (0 to 24)"),
+        half = true,
+        help = raw("Ask on slack first!").some
+      )(form3.input(_, typ = "number"))
     ),
     form3.action(form3.submit(trans.apply()))
   )
@@ -145,9 +168,9 @@ object event {
         delayFlatpickrStart
       )
     ) {
-        main(cls := "page-menu")(
-          mod.menu("event"),
-          body
-        )
-      }
+      main(cls := "page-menu")(
+        mod.menu("event"),
+        body
+      )
+    }
 }

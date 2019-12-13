@@ -27,23 +27,23 @@ case class TrophyKind(
 )
 
 object TrophyKind {
-  val marathonWinner = "marathonWinner"
-  val marathonTopTen = "marathonTopTen"
-  val marathonTopFifty = "marathonTopFifty"
+  val marathonWinner     = "marathonWinner"
+  val marathonTopTen     = "marathonTopTen"
+  val marathonTopFifty   = "marathonTopFifty"
   val marathonTopHundred = "marathonTopHundred"
-  val moderator = "moderator"
-  val developer = "developer"
-  val verified = "verified"
-  val zugMiracle = "zugMiracle"
+  val moderator          = "moderator"
+  val developer          = "developer"
+  val verified           = "verified"
+  val zugMiracle         = "zugMiracle"
 
-  object Unknown extends TrophyKind(
-    _id = "unknown",
-    name = "Unknown",
-    order = 0,
-    url = none,
-    icon = none,
-    klass = none,
-    withCustomImage = false
-  )
+  object Unknown
+      extends TrophyKind(
+        _id = "unknown",
+        name = "Unknown",
+        order = 0,
+        url = none,
+        icon = none,
+        klass = none,
+        withCustomImage = false
+      )
 }
-

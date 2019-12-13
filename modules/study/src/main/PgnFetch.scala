@@ -2,7 +2,7 @@ package lila.study
 
 import play.api.libs.ws.WSClient
 
-private final class PgnFetch(ws: WSClient) {
+final private class PgnFetch(ws: WSClient) {
 
   private type Pgn = String
   private val pgnContentType = "application/x-chess-pgn"
@@ -14,7 +14,7 @@ private final class PgnFetch(ws: WSClient) {
 
   def fromUrl(url: String): Fu[Option[Pgn]] = url match {
     case ChessbaseRegex(id) => id.toIntOption ?? downloadChessbase
-    case _ => fuccess(none)
+    case _                  => fuccess(none)
   }
 
   private def downloadChessbase(id: Int): Fu[Option[Pgn]] = {

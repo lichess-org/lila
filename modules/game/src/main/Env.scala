@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 
 import lila.common.config._
 
-private final class GameConfig(
+final private class GameConfig(
     @ConfigName("collection.game") val gameColl: CollName,
     @ConfigName("collection.crosstable") val crosstableColl: CollName,
     @ConfigName("collection.matchup") val matchupColl: CollName,
@@ -75,7 +75,7 @@ final class Env(
 
   // eargerly load captcher actor
   private val captcher = system.actorOf(Props(new Captcher(gameRepo)), name = config.captcherName)
-  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) {
-    () => captcher ! actorApi.NewCaptcha
+  scheduler.scheduleWithFixedDelay(config.captcherDuration, config.captcherDuration) { () =>
+    captcher ! actorApi.NewCaptcha
   }
 }

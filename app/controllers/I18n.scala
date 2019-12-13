@@ -29,8 +29,8 @@ final class I18n(env: Env) extends LilaController(env) {
               HTTPRequest.referer(ctx.req).fold(routes.Lobby.home.url) { str =>
                 try {
                   val pageUrl = new java.net.URL(str)
-                  val path = pageUrl.getPath
-                  val query = pageUrl.getQuery
+                  val path    = pageUrl.getPath
+                  val query   = pageUrl.getQuery
                   if (query == null) path
                   else path + "?" + query
                 } catch {

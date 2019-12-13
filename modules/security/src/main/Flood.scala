@@ -18,7 +18,7 @@ final class Flood(duration: Duration) {
     .build[User.ID, Messages]
 
   def allowMessage(uid: User.ID, text: String): Boolean = {
-    val msg = Message(text, Instant.now)
+    val msg  = Message(text, Instant.now)
     val msgs = ~cache.getIfPresent(uid)
     !duplicateMessage(msg, msgs) && !quickPost(msg, msgs) ~ {
       _ ?? cache.put(uid, msg :: msgs)

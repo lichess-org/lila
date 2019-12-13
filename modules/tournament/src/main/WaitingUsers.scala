@@ -25,7 +25,7 @@ private[tournament] case class WaitingUsers(
       clock.estimateTotalSeconds / 10 + 6
     } atMost 50 atLeast 15
 
-  lazy val all = hash.keys.toList
+  lazy val all  = hash.keys.toList
   lazy val size = hash.size
 
   def isOdd = size % 2 == 1

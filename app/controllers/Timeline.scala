@@ -16,16 +16,21 @@ final class Timeline(env: Env) extends LilaController(env) {
     negotiate(
       html =
         if (HTTPRequest.isXhr(ctx.req))
-          env.timeline.entryApi.userEntries(me.id)
-          .logTimeIfGt(s"timeline site entries for ${me.id}", 10 seconds)
-          .map { html.timeline.entries(_) }
-        else
-          env.timeline.entryApi.moreUserEntries(me.id, nb)
+          env.timeline.entryApi
+            .userEntries(me.id)
+            .logTimeIfGt(s"timeline site entries for ${me.id}", 10 seconds)
+            .map { html.timeline.entries(_) } else
+          env.timeline.entryApi
+            .moreUserEntries(me.id, nb)
             .logTimeIfGt(s"timeline site more entries ($nb) for ${me.id}", 10 seconds)
             .map { html.timeline.more(_) },
-      _ => env.timeline.entryApi.moreUserEntries(me.id, nb)
-        .logTimeIfGt(s"timeline mobile $nb for ${me.id}", 10 seconds)
-        .map { es => Ok(Json.obj("entries" -> es)) }
+      _ =>
+        env.timeline.entryApi
+          .moreUserEntries(me.id, nb)
+          .logTimeIfGt(s"timeline mobile $nb for ${me.id}", 10 seconds)
+          .map { es =>
+            Ok(Json.obj("entries" -> es))
+          }
     )
   }
 

@@ -14,25 +14,27 @@ object HTTPRequest {
   def isEventSource(req: RequestHeader): Boolean =
     req.headers get "Accept" contains "text/event-stream"
 
-  def isSafe(req: RequestHeader) = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
+  def isSafe(req: RequestHeader)   = req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS"
   def isUnsafe(req: RequestHeader) = !isSafe(req)
 
   def isRedirectable(req: RequestHeader) = isSynchronousHttp(req) && isSafe(req)
 
   def isProgrammatic(req: RequestHeader) =
-    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers.get(HeaderNames.ACCEPT).exists(_ startsWith "application/vnd.lichess.v")
+    !isSynchronousHttp(req) || isFishnet(req) || isApi(req) || req.headers
+      .get(HeaderNames.ACCEPT)
+      .exists(_ startsWith "application/vnd.lichess.v")
 
   private val appOrigins = Set(
     "capacitor://localhost", // ios
-    "ionic://localhost", // ios
-    "http://localhost", // android
+    "ionic://localhost",     // ios
+    "http://localhost",      // android
     "http://localhost:8080", // local dev
-    "file://" // old app
+    "file://"                // old app
   )
 
   def appOrigin(req: RequestHeader) = origin(req) filter appOrigins
 
-  def isApi(req: RequestHeader) = req.path startsWith "/api/"
+  def isApi(req: RequestHeader)      = req.path startsWith "/api/"
   def isApiOrApp(req: RequestHeader) = isApi(req) || appOrigin(req).isDefined
 
   def isAssets(req: RequestHeader) = req.path startsWith "/assets/"
@@ -40,11 +42,11 @@ object HTTPRequest {
   def userAgent(req: RequestHeader): Option[String] = req.headers get HeaderNames.USER_AGENT
 
   val isAndroid = UaMatcher("""(?i)android.+mobile""")
-  val isIOS = UaMatcher("""(?i)iphone|ipad|ipod""")
-  val isMobile = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
+  val isIOS     = UaMatcher("""(?i)iphone|ipad|ipod""")
+  val isMobile  = UaMatcher("""(?i)iphone|ipad|ipod|android.+mobile""")
 
   private def uaContains(req: RequestHeader, str: String) = userAgent(req).exists(_ contains str)
-  def isChrome(req: RequestHeader) = uaContains(req, "Chrome/")
+  def isChrome(req: RequestHeader)                        = uaContains(req, "Chrome/")
 
   def origin(req: RequestHeader): Option[String] = req.headers get HeaderNames.ORIGIN
 
@@ -86,12 +88,13 @@ object HTTPRequest {
 
   def printReq(req: RequestHeader) = s"${req.method} ${req.domain}${req.uri}"
 
-  def printClient(req: RequestHeader) = s"${lastRemoteAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
+  def printClient(req: RequestHeader) =
+    s"${lastRemoteAddress(req)} origin:${~origin(req)} referer:${~referer(req)} ua:${~userAgent(req)}"
 
   def isOAuth(req: RequestHeader) = req.headers.toMap.contains(HeaderNames.AUTHORIZATION)
 
   def acceptsNdJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/x-ndjson"
-  def acceptsJson(req: RequestHeader) = req.headers get HeaderNames.ACCEPT contains "application/json"
+  def acceptsJson(req: RequestHeader)   = req.headers get HeaderNames.ACCEPT contains "application/json"
 
   def actionName(req: RequestHeader): String =
     req.attrs.get(Router.Attrs.HandlerDef).fold("NoHandler") { handler =>
@@ -103,12 +106,15 @@ object HTTPRequest {
   def apiVersion(req: RequestHeader): Option[ApiVersion] = {
     req.headers.get(HeaderNames.ACCEPT) flatMap {
       case ApiVersionHeaderPattern(v) => v.toIntOption map ApiVersion.apply
-      case _ => none
+      case _                          => none
     }
   }
 
   def clientName(req: RequestHeader) =
     if (isXhr(req)) "xhr"
     else if (isCrawler(req)) "crawler"
-    else apiVersion(req).fold("browser") { v => s"api/$v" }
+    else
+      apiVersion(req).fold("browser") { v =>
+        s"api/$v"
+      }
 }

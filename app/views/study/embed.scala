@@ -16,10 +16,10 @@ object embed {
   import EmbedConfig.implicits._
 
   def apply(
-    s: lila.study.Study,
-    chapter: lila.study.Chapter,
-    chapters: List[lila.study.Chapter.IdName],
-    data: lila.study.JsonView.JsData
+      s: lila.study.Study,
+      chapter: lila.study.Chapter,
+      chapters: List[lila.study.Chapter.IdName],
+      data: lila.study.JsonView.JsData
   )(implicit config: EmbedConfig) = frag(
     layout.doctype,
     layout.htmlTag(config.lang)(
@@ -38,43 +38,52 @@ object embed {
         dataAssetVersion := assetVersion.value,
         dataTheme := config.bg
       )(
-          div(cls := "is2d")(
-            main(cls := "analyse")
-          ),
-          footer {
-            val url = routes.Study.chapter(s.id.value, chapter.id.value)
-            frag(
-              div(cls := "left")(
-                select(id := "chapter-selector")(chapters.map { c =>
-                  option(
-                    value := c.id.value,
-                    (c.id == chapter.id) option selected
-                  )(c.name.value)
-                }),
-                a(target := "_blank", href := url)(h1(s.name.value))
-              ),
-              a(target := "_blank", cls := "open", dataIcon := "=", href := url, title := trans.study.open.txt())
+        div(cls := "is2d")(
+          main(cls := "analyse")
+        ),
+        footer {
+          val url = routes.Study.chapter(s.id.value, chapter.id.value)
+          frag(
+            div(cls := "left")(
+              select(id := "chapter-selector")(chapters.map { c =>
+                option(
+                  value := c.id.value,
+                  (c.id == chapter.id) option selected
+                )(c.name.value)
+              }),
+              a(target := "_blank", href := url)(h1(s.name.value))
+            ),
+            a(
+              target := "_blank",
+              cls := "open",
+              dataIcon := "=",
+              href := url,
+              title := trans.study.open.txt()
             )
-          },
-          jQueryTag,
-          jsTag("vendor/mousetrap.js"),
-          jsAt("compiled/util.js"),
-          jsAt("compiled/trans.js"),
-          jsAt("compiled/embed-analyse.js"),
-          analyseTag,
-          embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
-            safeJsonValue(Json.obj(
-              "study" -> data.study,
-              "data" -> data.analysis,
-              "embed" -> true,
-              "i18n" -> views.html.board.userAnalysisI18n(),
+          )
+        },
+        jQueryTag,
+        jsTag("vendor/mousetrap.js"),
+        jsAt("compiled/util.js"),
+        jsAt("compiled/trans.js"),
+        jsAt("compiled/embed-analyse.js"),
+        analyseTag,
+        embedJsUnsafe(
+          s"""lichess.startEmbeddedAnalyse(${safeJsonValue(
+            Json.obj(
+              "study"  -> data.study,
+              "data"   -> data.analysis,
+              "embed"  -> true,
+              "i18n"   -> views.html.board.userAnalysisI18n(),
               "userId" -> none[String]
-            ))
-          });
+            )
+          )});
 document.getElementById('chapter-selector').onchange = function() {
   location.href = this.value + location.search;
-};""", config.nonce)
+};""",
+          config.nonce
         )
+      )
     )
   )
 

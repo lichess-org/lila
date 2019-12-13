@@ -11,9 +11,9 @@ import controllers.routes
 object side {
 
   def apply(
-    u: User,
-    rankMap: lila.rating.UserRankMap,
-    active: Option[lila.rating.PerfType]
+      u: User,
+      rankMap: lila.rating.UserRankMap,
+      active: Option[lila.rating.PerfType]
   )(implicit ctx: Context) = {
 
     def showNonEmptyPerf(perf: lila.rating.Perf, perfType: PerfType) =
@@ -25,8 +25,8 @@ object side {
         dataIcon := perfType.iconChar,
         title := perfType.title,
         cls := List(
-          "empty" -> perf.isEmpty,
-          "game" -> isGame,
+          "empty"  -> perf.isEmpty,
+          "game"   -> isGame,
           "active" -> active.has(perfType)
         ),
         href := isGame option routes.User.perfStat(u.username, perfType.key).url,
@@ -46,7 +46,9 @@ object side {
             )
           ),
           rankMap get perfType map { rank =>
-            span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(trans.rankX(rank.localize))
+            span(cls := "rank", title := trans.rankIsUpdatedEveryNbMinutes.pluralSameTxt(15))(
+              trans.rankX(rank.localize)
+            )
           }
         ),
         isGame option iconTag("G")

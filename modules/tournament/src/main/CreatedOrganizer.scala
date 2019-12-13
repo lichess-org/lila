@@ -6,11 +6,12 @@ import scala.concurrent.duration._
 
 import lila.common.LilaStream
 
-private final class CreatedOrganizer(
+final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
-)(implicit mat: akka.stream.Materializer) extends Actor {
+)(implicit mat: akka.stream.Materializer)
+    extends Actor {
 
   override def preStart: Unit = {
     context setReceiveTimeout 15.seconds
@@ -29,28 +30,30 @@ private final class CreatedOrganizer(
       pairingLogger.error(msg)
       throw new RuntimeException(msg)
 
-    case Tick => tournamentRepo
-      .startingSoonCursor(30)
-      .documentSource()
-      .mapAsync(1) { tour =>
-        tour.schedule match {
-          case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
-          case None => playerRepo count tour.id flatMap {
-            case 0 => api destroy tour
-            case nb if tour.hasWaitedEnough =>
-              if (nb >= Tournament.minPlayers) api start tour
-              else api destroy tour
-            case _ => funit
+    case Tick =>
+      tournamentRepo
+        .startingSoonCursor(30)
+        .documentSource()
+        .mapAsync(1) { tour =>
+          tour.schedule match {
+            case None if tour.isPrivate && tour.hasWaitedEnough => api start tour
+            case None =>
+              playerRepo count tour.id flatMap {
+                case 0 => api destroy tour
+                case nb if tour.hasWaitedEnough =>
+                  if (nb >= Tournament.minPlayers) api start tour
+                  else api destroy tour
+                case _ => funit
+              }
+            case Some(_) if tour.hasWaitedEnough => api start tour
+            case Some(_)                         => funit
           }
-          case Some(_) if tour.hasWaitedEnough => api start tour
-          case Some(_) => funit
         }
-      }
-      .log(getClass.getName)
-      .toMat(LilaStream.sinkCount)(Keep.right)
-      .run
-      .addEffect(lila.mon.tournament.created.update(_))
-      .monSuccess(_.tournament.createdOrganizer.tick)
-      .addEffectAnyway(scheduleNext)
+        .log(getClass.getName)
+        .toMat(LilaStream.sinkCount)(Keep.right)
+        .run
+        .addEffect(lila.mon.tournament.created.update(_))
+        .monSuccess(_.tournament.createdOrganizer.tick)
+        .addEffectAnyway(scheduleNext)
   }
 }

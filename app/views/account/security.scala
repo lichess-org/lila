@@ -9,7 +9,9 @@ import controllers.routes
 
 object security {
 
-  def apply(u: lila.user.User, sessions: List[lila.security.LocatedSession], curSessionId: String)(implicit ctx: Context) =
+  def apply(u: lila.user.User, sessions: List[lila.security.LocatedSession], curSessionId: String)(
+      implicit ctx: Context
+  ) =
     account.layout(title = s"${u.username} - ${trans.security.txt()}", active = "security") {
       div(cls := "account security box")(
         h1(trans.security()),

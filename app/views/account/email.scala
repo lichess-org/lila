@@ -9,10 +9,11 @@ import controllers.routes
 
 object email {
 
-  def apply(form: play.api.data.Form[_])(implicit ctx: Context) = account.layout(
-    title = trans.changeEmail.txt(),
-    active = "email"
-  ) {
+  def apply(form: play.api.data.Form[_])(implicit ctx: Context) =
+    account.layout(
+      title = trans.changeEmail.txt(),
+      active = "email"
+    ) {
       div(cls := "account box box-pad")(
         h1(
           trans.changeEmail(),

@@ -37,7 +37,8 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     trophyApi: lila.user.TrophyApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(implicit
+)(
+    implicit
     system: ActorSystem,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator
@@ -49,9 +50,9 @@ final class Env(
 
   lazy val forms = wire[DataForm]
 
-  lazy val tournamentRepo = new TournamentRepo(db(config.tournamentColl))
-  lazy val pairingRepo = new PairingRepo(db(config.pairingColl))
-  lazy val playerRepo = new PlayerRepo(db(config.playerColl))
+  lazy val tournamentRepo          = new TournamentRepo(db(config.tournamentColl))
+  lazy val pairingRepo             = new PairingRepo(db(config.pairingColl))
+  lazy val playerRepo              = new PlayerRepo(db(config.playerColl))
   private lazy val leaderboardRepo = new LeaderboardRepo(db(config.leaderboardColl))
 
   lazy val cached: Cached = wire[Cached]
@@ -102,15 +103,18 @@ final class Env(
 
   lila.common.Bus.subscribe(
     system.actorOf(Props(wire[ApiActor]), name = config.apiActorName),
-    "finishGame", "adjustCheater", "adjustBooster", "playban"
+    "finishGame",
+    "adjustCheater",
+    "adjustBooster",
+    "playban"
   )
 
   system.actorOf(Props(wire[CreatedOrganizer]))
   system.actorOf(Props(wire[StartedOrganizer]))
 
   private lazy val schedulerActor = system.actorOf(Props(wire[TournamentScheduler]))
-  scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) {
-    () => schedulerActor ! TournamentScheduler.ScheduleNow
+  scheduler.scheduleWithFixedDelay(1 minute, 5 minutes) { () =>
+    schedulerActor ! TournamentScheduler.ScheduleNow
   }
 
   def version(tourId: Tournament.ID): Fu[SocketVersion] =

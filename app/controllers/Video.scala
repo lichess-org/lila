@@ -3,7 +3,7 @@ package controllers
 import lila.api.Context
 import lila.app._
 import lila.common.HTTPRequest
-import lila.video.{ View, UserControl, Filter }
+import lila.video.{ Filter, UserControl, View }
 import views._
 
 final class Video(env: Env) extends LilaController(env) {
@@ -26,11 +26,13 @@ final class Video(env: Env) extends LilaController(env) {
     pageHit
     WithUserControl { control =>
       control.query match {
-        case Some(query) => api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>
-          Ok(html.video.search(videos, control))
-        }
-        case None => api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
-          api.video.count.apply map {
+        case Some(query) =>
+          api.video.search(ctx.me, query, getInt("page") | 1) map { videos =>
+            Ok(html.video.search(videos, control))
+          }
+        case None =>
+          api.video.byTags(ctx.me, control.filter.tags, getInt("page") | 1) zip
+            api.video.count.apply map {
             case (videos, count) =>
               Ok(html.video.index(videos, count, control))
           }
@@ -42,10 +44,11 @@ final class Video(env: Env) extends LilaController(env) {
     WithUserControl { control =>
       api.video.find(id) flatMap {
         case None => fuccess(NotFound(html.video.bits.notFound(control)))
-        case Some(video) => api.video.similar(ctx.me, video, 9) zip
-          ctx.userId.?? { userId =>
-            api.view.add(View.make(videoId = video.id, userId = userId))
-          } map {
+        case Some(video) =>
+          api.video.similar(ctx.me, video, 9) zip
+            ctx.userId.?? { userId =>
+              api.view.add(View.make(videoId = video.id, userId = userId))
+            } map {
             case (similar, _) =>
               Ok(html.video.show(video, similar, control))
           }

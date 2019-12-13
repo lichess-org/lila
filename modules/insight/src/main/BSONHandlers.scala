@@ -3,7 +3,7 @@ package lila.insight
 import reactivemongo.api.bson._
 
 import chess.opening.{ Ecopening, EcopeningDB }
-import chess.{ Role, Color }
+import chess.{ Color, Role }
 import lila.db.BSON
 import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
@@ -102,24 +102,24 @@ private object BSONHandlers {
       date = r.date(date)
     )
     def writes(w: BSON.Writer, e: Entry) = BSONDocument(
-      id -> e.id,
-      number -> e.number,
-      userId -> e.userId,
-      color -> e.color,
-      perf -> e.perf,
-      eco -> e.eco,
-      myCastling -> e.myCastling,
-      opponentRating -> e.opponentRating,
+      id               -> e.id,
+      number           -> e.number,
+      userId           -> e.userId,
+      color            -> e.color,
+      perf             -> e.perf,
+      eco              -> e.eco,
+      myCastling       -> e.myCastling,
+      opponentRating   -> e.opponentRating,
       opponentStrength -> e.opponentStrength,
       opponentCastling -> e.opponentCastling,
-      moves -> e.moves,
-      queenTrade -> e.queenTrade,
-      result -> e.result,
-      termination -> e.termination,
-      ratingDiff -> e.ratingDiff,
-      analysed -> w.boolO(e.analysed),
-      provisional -> w.boolO(e.provisional),
-      date -> e.date
+      moves            -> e.moves,
+      queenTrade       -> e.queenTrade,
+      result           -> e.result,
+      termination      -> e.termination,
+      ratingDiff       -> e.ratingDiff,
+      analysed         -> w.boolO(e.analysed),
+      provisional      -> w.boolO(e.provisional),
+      date             -> e.date
     )
   }
 }

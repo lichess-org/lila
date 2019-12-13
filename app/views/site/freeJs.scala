@@ -10,7 +10,26 @@ object freeJs {
 
   private def github(path: String) = a(href := s"https://github.com/ornicar/lila/tree/master/$path")(path)
 
-  private val uiModules = List("site", "chat", "cli", "challenge", "notify", "learn", "insight", "editor", "puzzle", "round", "analyse", "lobby", "tournament", "tournamentSchedule", "tournamentCalendar", "simul", "perfStat", "dasher")
+  private val uiModules = List(
+    "site",
+    "chat",
+    "cli",
+    "challenge",
+    "notify",
+    "learn",
+    "insight",
+    "editor",
+    "puzzle",
+    "round",
+    "analyse",
+    "lobby",
+    "tournament",
+    "tournamentSchedule",
+    "tournamentCalendar",
+    "simul",
+    "perfStat",
+    "dasher"
+  )
 
   def apply(): Frag = frag(
     div(cls := "box__top")(

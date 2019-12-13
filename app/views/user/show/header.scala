@@ -12,30 +12,37 @@ import controllers.routes
 object header {
 
   private val dataToints = attr("data-toints")
-  private val dataTab = attr("data-tab")
+  private val dataTab    = attr("data-tab")
 
   def apply(
-    u: User,
-    info: lila.app.mashup.UserInfo,
-    angle: lila.app.mashup.UserInfo.Angle,
-    social: lila.app.mashup.UserInfo.Social
+      u: User,
+      info: lila.app.mashup.UserInfo,
+      angle: lila.app.mashup.UserInfo.Angle,
+      social: lila.app.mashup.UserInfo.Social
   )(implicit ctx: Context) = frag(
     div(cls := "box__top user-show__header")(
       h1(cls := s"user-link ${if (isOnline(u.id)) "online" else "offline"}")(
-        if (u.isPatron) frag(
-          a(href := routes.Plan.index)(patronIcon),
-          userSpan(u, withPowerTip = false, withOnline = false)
-        )
+        if (u.isPatron)
+          frag(
+            a(href := routes.Plan.index)(patronIcon),
+            userSpan(u, withPowerTip = false, withOnline = false)
+          )
         else userSpan(u, withPowerTip = false)
       ),
-      div(cls := List(
-        "trophies" -> true,
-        "packed" -> (info.countTrophiesAndPerfCups > 7)
-      ))(
+      div(
+        cls := List(
+          "trophies" -> true,
+          "packed"   -> (info.countTrophiesAndPerfCups > 7)
+        )
+      )(
         views.html.user.bits.perfTrophies(u, info.ranks),
         otherTrophies(u, info),
         u.plan.active option
-          a(href := routes.Plan.index, cls := "trophy award patron icon3d", ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}"))(patronIconChar)
+          a(
+            href := routes.Plan.index,
+            cls := "trophy award patron icon3d",
+            ariaTitle(s"Patron since ${showDate(u.plan.sinceDate)}")
+          )(patronIconChar)
       ),
       u.disabled option span(cls := "closed")("CLOSED")
     ),
@@ -52,8 +59,8 @@ object header {
           cls := "nm-item tournament_stats",
           dataToints := u.toints
         )(
-            splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
-          ),
+          splitNumber(trans.nbTournamentPoints.pluralSame(u.toints))
+        ),
         a(href := routes.Study.byOwnerDefault(u.username), cls := "nm-item")(
           splitNumber(s"${info.nbStudies} studies")
         ),
@@ -61,43 +68,80 @@ object header {
           cls := "nm-item",
           href := ctx.noKid option routes.ForumPost.search("user:" + u.username, 1).url
         )(
-            splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
-          ),
+          splitNumber(trans.nbForumPosts.pluralSame(info.nbPosts))
+        ),
         (ctx.isAuth && ctx.noKid && !ctx.is(u)) option
           a(cls := "nm-item note-zone-toggle")(splitNumber(s"${social.notes.size} Notes"))
       ),
       div(cls := "user-actions btn-rack")(
         (ctx is u) option frag(
-          a(cls := "btn-rack__btn", href := routes.Account.profile, titleOrText(trans.editProfile.txt()), dataIcon := "%"),
-          a(cls := "btn-rack__btn", href := routes.Relation.blocks(), titleOrText(trans.listBlockedPlayers.txt()), dataIcon := "k")
+          a(
+            cls := "btn-rack__btn",
+            href := routes.Account.profile,
+            titleOrText(trans.editProfile.txt()),
+            dataIcon := "%"
+          ),
+          a(
+            cls := "btn-rack__btn",
+            href := routes.Relation.blocks(),
+            titleOrText(trans.listBlockedPlayers.txt()),
+            dataIcon := "k"
+          )
         ),
         isGranted(_.UserSpy) option
-          a(cls := "btn-rack__btn mod-zone-toggle", href := routes.User.mod(u.username), titleOrText("Mod zone"), dataIcon := ""),
-        a(cls := "btn-rack__btn", href := routes.User.tv(u.username), titleOrText(trans.watchGames.txt()), dataIcon := "1"),
+          a(
+            cls := "btn-rack__btn mod-zone-toggle",
+            href := routes.User.mod(u.username),
+            titleOrText("Mod zone"),
+            dataIcon := ""
+          ),
+        a(
+          cls := "btn-rack__btn",
+          href := routes.User.tv(u.username),
+          titleOrText(trans.watchGames.txt()),
+          dataIcon := "1"
+        ),
         (ctx.isAuth && !ctx.is(u)) option
-          views.html.relation.actions(u.id, relation = social.relation, followable = social.followable, blocked = social.blocked),
-        if (ctx is u) a(
-          cls := "btn-rack__btn",
-          href := routes.Game.exportByUser(u.username),
-          titleOrText(trans.exportGames.txt()),
-          dataIcon := "x"
-        )
-        else (ctx.isAuth && ctx.noKid) option a(
-          titleOrText(trans.reportXToModerators.txt(u.username)),
-          cls := "btn-rack__btn",
-          href := s"${routes.Report.form}?username=${u.username}",
-          dataIcon := "!"
-        )
+          views.html.relation.actions(
+            u.id,
+            relation = social.relation,
+            followable = social.followable,
+            blocked = social.blocked
+          ),
+        if (ctx is u)
+          a(
+            cls := "btn-rack__btn",
+            href := routes.Game.exportByUser(u.username),
+            titleOrText(trans.exportGames.txt()),
+            dataIcon := "x"
+          )
+        else
+          (ctx.isAuth && ctx.noKid) option a(
+            titleOrText(trans.reportXToModerators.txt(u.username)),
+            cls := "btn-rack__btn",
+            href := s"${routes.Report.form}?username=${u.username}",
+            dataIcon := "!"
+          )
       )
     ),
     (ctx.noKid && !ctx.is(u)) option div(cls := "note-zone")(
       postForm(action := s"${routes.User.writeNote(u.username)}?note")(
-        textarea(name := "text", placeholder := "Write a note about this user only you and your friends can read"),
+        textarea(
+          name := "text",
+          placeholder := "Write a note about this user only you and your friends can read"
+        ),
         submitButton(cls := "button")(trans.send()),
-        if (isGranted(_.ModNote)) label(style := "margin-left: 1em;")(
-          input(tpe := "checkbox", name := "mod", checked, value := "true", style := "vertical-align: middle;"),
-          "For moderators only"
-        )
+        if (isGranted(_.ModNote))
+          label(style := "margin-left: 1em;")(
+            input(
+              tpe := "checkbox",
+              name := "mod",
+              checked,
+              value := "true",
+              style := "vertical-align: middle;"
+            ),
+            "For moderators only"
+          )
         else input(tpe := "hidden", name := "mod", value := "false")
       ),
       social.notes.isEmpty option div("No note yet"),
@@ -111,7 +155,11 @@ object header {
             (ctx.me.exists(note.isFrom) && !note.mod) option frag(
               br,
               postForm(action := routes.User.deleteNote(note._id))(
-                submitButton(cls := "button-empty button-red confirm button text", style := "float:right", dataIcon := "q")("Delete")
+                submitButton(
+                  cls := "button-empty button-red confirm button text",
+                  style := "float:right",
+                  dataIcon := "q"
+                )("Delete")
               )
             )
           )
@@ -137,7 +185,9 @@ object header {
                   span(dataIcon := "j", cls := "is4"),
                   trans.thisPlayerUsesChessComputerAssistance()
                 ),
-                (u.booster && (u.count.game > 0 || isGranted(_.Hunter))) option div(cls := "warning engine_warning")(
+                (u.booster && (u.count.game > 0 || isGranted(_.Hunter))) option div(
+                  cls := "warning engine_warning"
+                )(
                   span(dataIcon := "j", cls := "is4"),
                   trans.thisPlayerArtificiallyIncreasesTheirRating(),
                   (u.count.game == 0) option """
@@ -217,7 +267,7 @@ It's useful against spambots. These marks are not visible to the public."""
         dataTab := "activity",
         cls := List(
           "nm-item to-activity" -> true,
-          "active" -> (angle == Angle.Activity)
+          "active"              -> (angle == Angle.Activity)
         ),
         href := routes.User.show(u.username)
       )(trans.activity.activity()),
@@ -225,16 +275,19 @@ It's useful against spambots. These marks are not visible to the public."""
         dataTab := "games",
         cls := List(
           "nm-item to-games" -> true,
-          "active" -> (angle.key == "games")
+          "active"           -> (angle.key == "games")
         ),
         href := routes.User.gamesAll(u.username)
       )(
-          trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
-          info.nbs.playing > 0 option
-            span(cls := "unread", title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize))(
-              info.nbs.playing
-            )
-        )
+        trans.nbGames.plural(info.user.count.game, info.user.count.game.localize),
+        info.nbs.playing > 0 option
+          span(
+            cls := "unread",
+            title := trans.nbPlaying.pluralTxt(info.nbs.playing, info.nbs.playing.localize)
+          )(
+            info.nbs.playing
+          )
+      )
     )
   )
 }

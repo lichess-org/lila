@@ -46,8 +46,8 @@ trait dsl {
     $id($doc("$in" -> ids))
 
   def $boolean(b: Boolean) = BSONBoolean(b)
-  def $string(s: String) = BSONString(s)
-  def $int(i: Int) = BSONInteger(i)
+  def $string(s: String)   = BSONString(s)
+  def $int(i: Int)         = BSONInteger(i)
 
   // End of Helpers
   //**********************************************************************************************//
@@ -149,11 +149,13 @@ trait dsl {
     def produce: BSONValue
   }
 
-  implicit final class BooleanCurrentDateValueProducer(value: Boolean) extends CurrentDateValueProducer[Boolean] {
+  implicit final class BooleanCurrentDateValueProducer(value: Boolean)
+      extends CurrentDateValueProducer[Boolean] {
     def produce: BSONValue = BSONBoolean(value)
   }
 
-  implicit final class StringCurrentDateValueProducer(value: String) extends CurrentDateValueProducer[String] {
+  implicit final class StringCurrentDateValueProducer(value: String)
+      extends CurrentDateValueProducer[String] {
     def isValid: Boolean = Seq("date", "timestamp") contains value
 
     def produce: BSONValue = {
@@ -204,9 +206,9 @@ trait dsl {
   //**********************************************************************************************//
 
   /**
-   * Represents the initial state of the expression which has only the name of the field.
-   * It does not know the value of the expression.
-   */
+    * Represents the initial state of the expression which has only the name of the field.
+    * It does not know the value of the expression.
+    */
   trait ElementBuilder {
     def field: String
     def append(value: Bdoc): Bdoc = value
@@ -219,31 +221,30 @@ trait dsl {
   }
 
   /*
-  * This type of expressions cannot be cascaded. Examples:
-  *
-  * {{{
-  * "price" $eq 10
-  * "price" $ne 1000
-  * "size" $in ("S", "M", "L")
-  * "size" $nin ("S", "XXL")
-  * }}}
-  *
-  */
-  case class SimpleExpression[V <: BSONValue](field: String, value: V)
-    extends Expression[V]
-
-  /**
-   * Expressions of this type can be cascaded. Examples:
+   * This type of expressions cannot be cascaded. Examples:
    *
    * {{{
-   *  "age" $gt 50 $lt 60
-   *  "age" $gte 50 $lte 60
+   * "price" $eq 10
+   * "price" $ne 1000
+   * "size" $in ("S", "M", "L")
+   * "size" $nin ("S", "XXL")
    * }}}
    *
    */
+  case class SimpleExpression[V <: BSONValue](field: String, value: V) extends Expression[V]
+
+  /**
+    * Expressions of this type can be cascaded. Examples:
+    *
+    * {{{
+    *  "age" $gt 50 $lt 60
+    *  "age" $gte 50 $lte 60
+    * }}}
+    *
+    */
   case class CompositeExpression(field: String, value: Bdoc)
-    extends Expression[Bdoc]
-    with ComparisonOperators {
+      extends Expression[Bdoc]
+      with ComparisonOperators {
     override def append(value: Bdoc): Bdoc = {
       this.value ++ value
     }
@@ -333,25 +334,25 @@ trait dsl {
 
   object $sort {
 
-    def asc(field: String) = $doc(field -> 1)
+    def asc(field: String)  = $doc(field -> 1)
     def desc(field: String) = $doc(field -> -1)
 
-    val naturalAsc = asc("$natural")
-    val naturalDesc = desc("$natural")
+    val naturalAsc   = asc("$natural")
+    val naturalDesc  = desc("$natural")
     val naturalOrder = naturalDesc
 
-    val createdAsc = asc("createdAt")
+    val createdAsc  = asc("createdAt")
     val createdDesc = desc("createdAt")
     val updatedDesc = desc("updatedAt")
   }
 
   implicit class ElementBuilderLike(val field: String)
-    extends ElementBuilder
-    with ComparisonOperators
-    with ElementOperators
-    with EvaluationOperators
-    with LogicalOperators
-    with ArrayOperators
+      extends ElementBuilder
+      with ComparisonOperators
+      with ElementOperators
+      with EvaluationOperators
+      with LogicalOperators
+      with ArrayOperators
 
   implicit def toBSONDocument[V: BSONWriter](expression: Expression[V]): Bdoc =
     $doc(expression.field -> expression.value)

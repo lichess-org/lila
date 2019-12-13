@@ -63,10 +63,14 @@ object otherTrophies {
       )
     },
     info.trophies.filter(_.kind.withCustomImage).map { t =>
-      a(awardCls(t), href := t.kind.url, ariaTitle(t.kind.name),
-        style := "width: 65px; margin: 0 3px!important;")(
-          img(src := staticUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
-        )
+      a(
+        awardCls(t),
+        href := t.kind.url,
+        ariaTitle(t.kind.name),
+        style := "width: 65px; margin: 0 3px!important;"
+      )(
+        img(src := staticUrl(s"images/trophy/${t.kind._id}.png"), width := 65, height := 80)
+      )
     },
     info.trophies.filter(_.kind.klass.has("icon3d")).sorted.map { trophy =>
       trophy.kind.icon.map { iconChar =>
@@ -88,7 +92,7 @@ object otherTrophies {
         href := routes.Streamer.show(u.username),
         cls := List(
           "trophy award icon3d streamer" -> true,
-          "streaming" -> isStreaming(u.id)
+          "streaming"                    -> isStreaming(u.id)
         ),
         ariaTitle(if (isStreaming(u.id)) "Live now!" else "Lichess Streamer")
       )("")

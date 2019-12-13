@@ -28,8 +28,8 @@ object SyncLog {
       error: Option[String],
       at: DateTime
   ) {
-    def isOk = error.isEmpty
-    def isKo = error.nonEmpty
+    def isOk      = error.isEmpty
+    def isKo      = error.nonEmpty
     def isTimeout = error has SyncResult.Timeout.getMessage
   }
 
@@ -37,7 +37,7 @@ object SyncLog {
     moves = moves,
     error = e map {
       case _: java.util.concurrent.TimeoutException => "Request timeout"
-      case e: Exception => e.getMessage take 100
+      case e: Exception                             => e.getMessage take 100
     },
     at = DateTime.now
   )

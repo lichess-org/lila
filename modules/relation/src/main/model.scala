@@ -19,7 +19,7 @@ private[relation] case class FriendEntering(user: LightUser, isPlaying: Boolean,
 
 object BSONHandlers {
 
-  private[relation] implicit val followerBSONHandler = Macros.handler[Follower]
-  private[relation] implicit val followedBSONHandler = Macros.handler[Followed]
-  private[relation] implicit val blockedBSONHandler = Macros.handler[Blocked]
+  implicit private[relation] val followerBSONHandler = Macros.handler[Follower]
+  implicit private[relation] val followedBSONHandler = Macros.handler[Followed]
+  implicit private[relation] val blockedBSONHandler  = Macros.handler[Blocked]
 }

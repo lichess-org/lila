@@ -31,8 +31,8 @@ final class Search(
     NotForBots {
       val page = p atLeast 1
       Reasonable(page, 100) {
-        val ip = HTTPRequest lastRemoteAddress ctx.req
-        val cost = scala.math.sqrt(page).toInt
+        val ip           = HTTPRequest lastRemoteAddress ctx.req
+        val cost         = scala.math.sqrt(page).toInt
         implicit def req = ctx.body
         env.game.cached.nbTotal flatMap { nbGames =>
           def limited = fuccess {
@@ -48,25 +48,31 @@ final class Search(
                 negotiate(
                   html = searchForm.bindFromRequest.fold(
                     failure => Ok(html.search.index(failure, none, nbGames)).fuccess,
-                    data => data.nonEmptyQuery ?? { query =>
-                      env.gameSearch.paginator(query, page) map (_.some)
-                    } map { pager =>
-                      Ok(html.search.index(searchForm fill data, pager, nbGames))
-                    }
+                    data =>
+                      data.nonEmptyQuery ?? { query =>
+                        env.gameSearch.paginator(query, page) map (_.some)
+                      } map { pager =>
+                        Ok(html.search.index(searchForm fill data, pager, nbGames))
+                      }
                   ),
-                  api = _ => searchForm.bindFromRequest.fold(
-                    _ => Ok(jsonError("Could not process search query")).fuccess,
-                    data => data.nonEmptyQuery ?? { query =>
-                      env.gameSearch.paginator(query, page) map (_.some)
-                    } flatMap {
-                      case Some(s) =>
-                        env.api.userGameApi.jsPaginator(s) map {
-                          Ok(_)
+                  api = _ =>
+                    searchForm.bindFromRequest.fold(
+                      _ =>
+                        Ok {
+                          jsonError("Could not process search query")
+                        }.fuccess,
+                      data =>
+                        data.nonEmptyQuery ?? { query =>
+                          env.gameSearch.paginator(query, page).dmap(_.some)
+                        } flatMap {
+                          case Some(s) =>
+                            env.api.userGameApi.jsPaginator(s) dmap {
+                              Ok(_)
+                            }
+                          case None =>
+                            BadRequest(jsonError("Could not process search query")).fuccess
                         }
-                      case None =>
-                        BadRequest(jsonError("Could not process search query")).fuccess
-                    }
-                  )
+                    )
                 )
               }
             }

@@ -9,6 +9,7 @@ object ModPreset {
    * Other lines are the message body.
    * The message body can contain several lines.
    */
+  // format: off
   val all = List("""
 
 Warning: Offensive language
@@ -86,6 +87,7 @@ In your game history, you have several games where you have left the game or jus
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
 
 """) flatMap toPreset
+  // format: on
 
   private def toPreset(txt: String) =
     txt.linesIterator.toList.map(_.trim).filter(_.nonEmpty) match {
@@ -97,7 +99,8 @@ This can be very annoying for your opponents. If this behavior continues to happ
 
   lazy val sandbagAuto = ModPreset(
     subject = "Warning: possible sandbagging",
-    text = """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
+    text =
+      """You have lost a couple games after a few moves. Please note that you MUST try to win every rated game.
 Losing rated games on purpose is called "sandbagging", and is not allowed on Lichess.
 
 Thank you for your understanding."""
@@ -105,7 +108,8 @@ Thank you for your understanding."""
 
   lazy val sittingAuto = ModPreset(
     subject = "Warning: leaving games / stalling on time",
-    text = """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
+    text =
+      """In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account."""
   )
 

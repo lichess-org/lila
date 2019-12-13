@@ -3,7 +3,7 @@ package lila.security
 import akka.actor.ActorSystem
 import io.methvin.play.autoconfig._
 import play.api.i18n.Lang
-import play.api.libs.ws.{ WSClient, WSAuthScheme }
+import play.api.libs.ws.{ WSAuthScheme, WSClient }
 import scala.concurrent.duration.{ span => _, _ }
 import scalatags.Text.all._
 
@@ -21,31 +21,35 @@ final class Mailgun(
     if (config.apiUrl.isEmpty) {
       println(msg -> "No mailgun API URL")
       funit
-    } else ws.url(s"${config.apiUrl}/messages")
-      .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC).post(Map(
-        "from" -> Seq(msg.from | config.sender),
-        "to" -> Seq(msg.to.value),
-        "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
-        "o:tag" -> msg.tag.toSeq,
-        "subject" -> Seq(msg.subject),
-        "text" -> Seq(msg.text)
-      ) ++ msg.htmlBody.?? { body =>
-          Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
-        })
-      .void
-      .addFailureEffect {
-        case _: java.net.ConnectException => lila.mon.email.send.timeout.increment()
-        case _ =>
-      }
-      .monSuccess(_.email.send.time)
-      .recoverWith {
-        case _ if msg.retriesLeft > 0 => {
-          lila.mon.email.send.retry.increment()
-          akka.pattern.after(15 seconds, system.scheduler) {
-            send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+    } else
+      ws.url(s"${config.apiUrl}/messages")
+        .withAuth("api", config.apiKey.value, WSAuthScheme.BASIC)
+        .post(
+          Map(
+            "from"       -> Seq(msg.from | config.sender),
+            "to"         -> Seq(msg.to.value),
+            "h:Reply-To" -> Seq(msg.replyTo | config.replyTo),
+            "o:tag"      -> msg.tag.toSeq,
+            "subject"    -> Seq(msg.subject),
+            "text"       -> Seq(msg.text)
+          ) ++ msg.htmlBody.?? { body =>
+            Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
+          }
+        )
+        .void
+        .addFailureEffect {
+          case _: java.net.ConnectException => lila.mon.email.send.timeout.increment()
+          case _                            =>
+        }
+        .monSuccess(_.email.send.time)
+        .recoverWith {
+          case _ if msg.retriesLeft > 0 => {
+            lila.mon.email.send.retry.increment()
+            akka.pattern.after(15 seconds, system.scheduler) {
+              send(msg.copy(retriesLeft = msg.retriesLeft - 1))
+            }
           }
         }
-      }
 }
 
 object Mailgun {
@@ -79,14 +83,15 @@ ${trans.common_contact.literalTo(lang, List("https://lichess.org/contact")).rend
 
   object html {
 
-    val itemscope = attr("itemscope").empty
-    val itemtype = attr("itemtype")
-    val itemprop = attr("itemprop")
+    val itemscope    = attr("itemscope").empty
+    val itemtype     = attr("itemtype")
+    val itemprop     = attr("itemprop")
     val emailMessage = div(itemscope, itemtype := "http://schema.org/EmailMessage")
-    val pDesc = p(itemprop := "description")
-    val potentialAction = div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
+    val pDesc        = p(itemprop := "description")
+    val potentialAction =
+      div(itemprop := "potentialAction", itemscope, itemtype := "http://schema.org/ViewAction")
     def metaName(cont: String) = meta(itemprop := "name", content := cont)
-    val publisher = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
+    val publisher              = div(itemprop := "publisher", itemscope, itemtype := "http://schema.org/Organization")
     val noteContact = a(itemprop := "url", href := "https://lichess.org/contact")(
       span(itemprop := "name")("lichess.org/contact")
     )

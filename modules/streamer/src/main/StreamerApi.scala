@@ -20,7 +20,7 @@ final class StreamerApi(
 
   def withColl[A](f: Coll => A): A = f(coll)
 
-  def byId(id: Streamer.Id): Fu[Option[Streamer]] = coll.byId[Streamer](id.value)
+  def byId(id: Streamer.Id): Fu[Option[Streamer]]           = coll.byId[Streamer](id.value)
   def byIds(ids: Iterable[Streamer.Id]): Fu[List[Streamer]] = coll.byIds[Streamer](ids.map(_.value))
 
   def find(username: String): Fu[Option[Streamer.WithUser]] =
@@ -37,7 +37,9 @@ final class StreamerApi(
 
   def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
     userRepo named s.streamer.userId map {
-      _ map { user => Streamer.WithUserAndStream(s.streamer, user, s.some) }
+      _ map { user =>
+        Streamer.WithUserAndStream(s.streamer, user, s.some)
+      }
     }
 
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
@@ -55,26 +57,28 @@ final class StreamerApi(
     coll.update.one($doc("_id" $in ids), $set("liveAt" -> DateTime.now), multi = true).void
 
   private[streamer] def mostRecentlySeenIds(ids: List[Streamer.Id], max: Int): Fu[Set[Streamer.Id]] =
-    coll.ext.find($inIds(ids))
+    coll.ext
+      .find($inIds(ids))
       .sort($doc("seenAt" -> -1))
       .list[Bdoc](max) map {
-        _ flatMap {
-          _.getAsOpt[Streamer.Id]("_id")
-        }
-      } map (_.toSet)
+      _ flatMap {
+        _.getAsOpt[Streamer.Id]("_id")
+      }
+    } map (_.toSet)
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
       listedIdsCache.refresh inject {
-        val modChange = Streamer.ModChange(
-          list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
-          feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
-        )
-        import lila.notify.Notification.Notifies
-        import lila.notify.Notification
-        ~modChange.list ??
-          notifyApi.addNotification(Notification.make(
+      val modChange = Streamer.ModChange(
+        list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
+        feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
+      )
+      import lila.notify.Notification.Notifies
+      import lila.notify.Notification
+      ~modChange.list ??
+        notifyApi.addNotification(
+          Notification.make(
             Notifies(streamer.userId),
             lila.notify.GenericLink(
               url = s"/streamer/edit",
@@ -82,20 +86,23 @@ final class StreamerApi(
               text = "Your streamer page is public".some,
               icon = ""
             )
-          ))
-        modChange
-      }
+          )
+        )
+      modChange
+    }
   }
 
   def demote(userId: User.ID): Funit =
-    coll.update.one(
-      $id(userId),
-      $set(
-        "approval.requested" -> false,
-        "approval.granted" -> false,
-        "approval.autoFeatured" -> false
+    coll.update
+      .one(
+        $id(userId),
+        $set(
+          "approval.requested"    -> false,
+          "approval.granted"      -> false,
+          "approval.autoFeatured" -> false
+        )
       )
-    ).void
+      .void
 
   def create(u: User): Funit =
     isStreamer(u) flatMap { exists =>
@@ -114,19 +121,21 @@ final class StreamerApi(
 
   // unapprove after a week if you never streamed
   def autoDemoteFakes: Funit =
-    coll.update.one(
-      $doc(
-        "liveAt" $exists false,
-        "approval.granted" -> true,
-        "approval.lastGrantedAt" $lt DateTime.now.minusWeeks(1)
-      ),
-      $set(
-        "approval.granted" -> false,
-        "approval.autoFeatured" -> false,
-        "demoted" -> true
-      ),
-      multi = true
-    ).void
+    coll.update
+      .one(
+        $doc(
+          "liveAt" $exists false,
+          "approval.granted" -> true,
+          "approval.lastGrantedAt" $lt DateTime.now.minusWeeks(1)
+        ),
+        $set(
+          "approval.granted"      -> false,
+          "approval.autoFeatured" -> false,
+          "demoted"               -> true
+        ),
+        multi = true
+      )
+      .void
 
   object approval {
 
@@ -136,16 +145,19 @@ final class StreamerApi(
       }
     }
 
-    def countRequests: Fu[Int] = coll.countSel($doc(
-      "approval.requested" -> true,
-      "approval.ignored" -> false
-    ))
+    def countRequests: Fu[Int] =
+      coll.countSel(
+        $doc(
+          "approval.requested" -> true,
+          "approval.ignored"   -> false
+        )
+      )
   }
 
   private def withUser(user: User)(streamer: Streamer) = Streamer.WithUser(streamer, user)
 
   private def selectListedApproved = $doc(
-    "listed" -> true,
+    "listed"           -> true,
     "approval.granted" -> true
   )
 

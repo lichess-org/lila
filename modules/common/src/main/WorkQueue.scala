@@ -17,7 +17,7 @@ import scala.util.chaining._
  */
 final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
 
-  type Task[A] = () => Fu[A]
+  type Task[A]                    = () => Fu[A]
   private type TaskWithPromise[A] = (Task[A], Promise[A])
 
   def apply[A](future: => Fu[A]): Fu[A] = run(() => future)
@@ -26,7 +26,7 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
     val promise = Promise[A]
     queue.offer(task -> promise) flatMap {
       case QueueOfferResult.Enqueued => promise.future
-      case result => Future failed new Exception(s"Can't enqueue: $result")
+      case result                    => Future failed new Exception(s"Can't enqueue: $result")
     }
   }
 

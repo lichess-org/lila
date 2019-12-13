@@ -2,7 +2,7 @@ package lila.fishnet
 
 import scala.concurrent.duration._
 
-private final class Monitor(
+final private class Monitor(
     repo: FishnetRepo
 )(implicit system: akka.actor.ActorSystem) {
 
@@ -10,7 +10,11 @@ private final class Monitor(
     case (acc, a) => acc + f(a).getOrElse(0)
   }
 
-  private[fishnet] def analysis(work: Work.Analysis, client: Client, result: JsonApi.Request.CompleteAnalysis) = {
+  private[fishnet] def analysis(
+      work: Work.Analysis,
+      client: Client,
+      result: JsonApi.Request.CompleteAnalysis
+  ) = {
     Monitor.success(work, client)
 
     val monitor = lila.mon.fishnet.analysis by client.userId.value
@@ -28,9 +32,10 @@ private final class Monitor(
     val metaMovesSample = sample(result.evaluations.drop(6).filterNot(_.mateFound), 100)
     def avgOf(f: JsonApi.Request.Evaluation => Option[Int]): Option[Int] = {
       val (sum, nb) = metaMovesSample.foldLeft(0 -> 0) {
-        case ((sum, nb), move) => f(move).fold(sum -> nb) { v =>
-          (sum + v, nb + 1)
-        }
+        case ((sum, nb), move) =>
+          f(move).fold(sum -> nb) { v =>
+            (sum + v, nb + 1)
+          }
       }
       (nb > 0) option (sum / nb)
     }
@@ -50,25 +55,25 @@ private final class Monitor(
   private def sample[A](elems: List[A], n: Int) =
     if (elems.size <= n) elems else scala.util.Random shuffle elems take n
 
-  private def monitorClients(): Unit = repo.allRecentClients map { clients =>
+  private def monitorClients(): Unit =
+    repo.allRecentClients map { clients =>
+      import lila.mon.fishnet.client._
 
-    import lila.mon.fishnet.client._
+      status(true).update(clients.count(_.enabled))
+      status(false).update(clients.count(_.disabled))
 
-    status(true).update(clients.count(_.enabled))
-    status(false).update(clients.count(_.disabled))
+      val instances = clients.flatMap(_.instance)
 
-    val instances = clients.flatMap(_.instance)
-
-    instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach {
-      case (v, nb) => version(v).update(nb)
-    }
-    instances.map(_.engines.stockfish.name).groupBy(identity).view.mapValues(_.size) foreach {
-      case (s, nb) => stockfish(s).update(nb)
-    }
-    instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
-      case (s, nb) => python(s).update(nb)
-    }
-  } addEffectAnyway scheduleClients
+      instances.map(_.version.value).groupBy(identity).view.mapValues(_.size) foreach {
+        case (v, nb) => version(v).update(nb)
+      }
+      instances.map(_.engines.stockfish.name).groupBy(identity).view.mapValues(_.size) foreach {
+        case (s, nb) => stockfish(s).update(nb)
+      }
+      instances.map(_.python.value).groupBy(identity).view.mapValues(_.size) foreach {
+        case (s, nb) => python(s).update(nb)
+      }
+    } addEffectAnyway scheduleClients
 
   private def monitorWork(): Unit = {
 
@@ -81,7 +86,7 @@ private final class Monitor(
   } addEffectAnyway scheduleWork
 
   private def scheduleClients = system.scheduler.scheduleOnce(1 minute)(monitorClients)
-  private def scheduleWork = system.scheduler.scheduleOnce(20 seconds)(monitorWork)
+  private def scheduleWork    = system.scheduler.scheduleOnce(20 seconds)(monitorWork)
 
   scheduleClients
   scheduleWork
@@ -106,7 +111,9 @@ object Monitor {
   }
 
   private[fishnet] def weak(work: Work, client: Client, data: JsonApi.Request.CompleteAnalysis) = {
-    logger.warn(s"Received weak analysis ${work.id} (nodes: ${~data.medianNodes}) for ${work.game.id} by ${client.fullId}")
+    logger.warn(
+      s"Received weak analysis ${work.id} (nodes: ${~data.medianNodes}) for ${work.game.id} by ${client.fullId}"
+    )
     lila.mon.fishnet.client.result(client.userId.value).weak.increment()
   }
 
@@ -122,7 +129,9 @@ object Monitor {
   }
 
   private[fishnet] def notAcquired(work: Work, client: Client) = {
-    logger.info(s"Received unacquired analysis ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}")
+    logger.info(
+      s"Received unacquired analysis ${work.id} for ${work.game.id} by ${client.fullId}. Work current tries: ${work.tries} acquired: ${work.acquired}"
+    )
     lila.mon.fishnet.client.result(client.userId.value).notAcquired.increment()
   }
 }

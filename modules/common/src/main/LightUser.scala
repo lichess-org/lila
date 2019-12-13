@@ -17,10 +17,12 @@ case class LightUser(
 object LightUser {
 
   implicit val lightUserWrites = OWrites[LightUser] { u =>
-    Json.obj(
-      "id" -> u.id,
-      "name" -> u.name
-    ).add("title" -> u.title)
+    Json
+      .obj(
+        "id"   -> u.id,
+        "name" -> u.name
+      )
+      .add("title" -> u.title)
       .add("patron" -> u.isPatron)
   }
 

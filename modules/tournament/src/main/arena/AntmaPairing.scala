@@ -18,10 +18,11 @@ private object AntmaPairing {
     def pairScore(a: RankedPlayer, b: RankedPlayer): Option[Int] =
       if (justPlayedTogether(a.player.userId, b.player.userId)) None
       else if (data.tour.isTeamBattle && a.player.team == b.player.team) None
-      else Some {
-        Math.abs(a.rank - b.rank) * rankFactor(a, b) +
-          Math.abs(a.player.rating - b.player.rating)
-      }
+      else
+        Some {
+          Math.abs(a.rank - b.rank) * rankFactor(a, b) +
+            Math.abs(a.player.rating - b.player.rating)
+        }
 
     WMMatching(players.toArray, pairScore).fold(
       err => {

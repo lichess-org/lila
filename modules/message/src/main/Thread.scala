@@ -104,9 +104,9 @@ case class Thread(
 
   def erase(user: User) = copy(
     posts = posts.map {
-      case p if p.isByCreator && user.id == creatorId => p.erase
+      case p if p.isByCreator && user.id == creatorId  => p.erase
       case p if !p.isByCreator && user.id == invitedId => p.erase
-      case p => p
+      case p                                           => p
     }
   )
 }
@@ -116,20 +116,22 @@ object Thread {
   val idSize = 8
 
   def make(
-    name: String,
-    text: String,
-    creatorId: String,
-    invitedId: String,
-    asMod: Boolean
+      name: String,
+      text: String,
+      creatorId: String,
+      invitedId: String,
+      asMod: Boolean
   ): Thread = Thread(
     _id = Random nextString idSize,
     name = name,
     createdAt = DateTime.now,
     updatedAt = DateTime.now,
-    posts = List(Post.make(
-      text = text,
-      isByCreator = true
-    )),
+    posts = List(
+      Post.make(
+        text = text,
+        isByCreator = true
+      )
+    ),
     creatorId = creatorId,
     invitedId = invitedId,
     visibleByUserIds = List(creatorId, invitedId),
@@ -139,6 +141,6 @@ object Thread {
 
   import lila.db.dsl.BSONJodaDateTimeHandler
   import Post.PostBSONHandler
-  private[message] implicit val ThreadBSONHandler =
+  implicit private[message] val ThreadBSONHandler =
     reactivemongo.api.bson.Macros.handler[Thread]
 }

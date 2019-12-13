@@ -16,8 +16,7 @@ final class AutoAnalysis(
       List(30, 90) foreach { minutes =>
         system.scheduler.scheduleOnce(minutes minutes) { doItNow(candidate) }
       }
-    }
-    else funit
+    } else funit
 
   private def doItNow(candidate: Report.Candidate) =
     gamesToAnalyse(candidate) map { games =>
@@ -31,10 +30,16 @@ final class AutoAnalysis(
 
   private def gamesToAnalyse(candidate: Report.Candidate): Fu[List[Game]] = {
     gameRepo.recentAnalysableGamesByUserId(candidate.suspect.user.id, 10) |+|
-      gameRepo.lastGamesBetween(candidate.suspect.user, candidate.reporter.user, DateTime.now.minusHours(2), 10)
+      gameRepo.lastGamesBetween(
+        candidate.suspect.user,
+        candidate.reporter.user,
+        DateTime.now.minusHours(2),
+        10
+      )
   }.map {
-    _.filter { g => g.analysable && !g.metadata.analysed }
-      .distinct
+    _.filter { g =>
+      g.analysable && !g.metadata.analysed
+    }.distinct
       .sortBy(-_.createdAt.getSeconds)
       .take(5)
   }

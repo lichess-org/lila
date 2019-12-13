@@ -39,10 +39,11 @@ final class MessageApi(
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 
-  def thread(id: String, me: User): Fu[Option[Thread]] = for {
-    threadOption <- coll.byId[Thread](id) map (_ filter (_ hasUser me))
-    _ <- threadOption.filter(_ isUnReadBy me).??(threadRepo.setReadFor(me))
-  } yield threadOption
+  def thread(id: String, me: User): Fu[Option[Thread]] =
+    for {
+      threadOption <- coll.byId[Thread](id) map (_ filter (_ hasUser me))
+      _            <- threadOption.filter(_ isUnReadBy me).??(threadRepo.setReadFor(me))
+    } yield threadOption
 
   def sendPreset(mod: User, user: User, preset: ModPreset): Fu[Thread] =
     makeThread(
@@ -73,7 +74,8 @@ final class MessageApi(
           sendUnlessBlocked(thread, fromMod) flatMap {
             _ ?? {
               val text = s"${data.subject} ${data.text}"
-              shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, invited.id, text, thread.looksMuted)
+              shutup ! lila.hub.actorApi.shutup
+                .RecordPrivateMessage(me.id, invited.id, text, thread.looksMuted)
               notify(thread)
             }
           } inject thread
@@ -84,9 +86,10 @@ final class MessageApi(
 
   private def sendUnlessBlocked(thread: Thread, fromMod: Boolean): Fu[Boolean] =
     if (fromMod) coll.insert.one(thread) inject true
-    else relationApi.fetchBlocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
-      ((!blocks) ?? coll.insert.one(thread).void) inject !blocks
-    }
+    else
+      relationApi.fetchBlocks(thread.invitedId, thread.creatorId) flatMap { blocks =>
+        ((!blocks) ?? coll.insert.one(thread).void) inject !blocks
+      }
 
   def makePost(thread: Thread, text: String, me: User): Fu[Thread] = {
     val post = Post.make(
@@ -94,16 +97,17 @@ final class MessageApi(
       isByCreator = thread isCreator me
     )
     if (thread endsWith post) fuccess(thread) // prevent duplicate post
-    else relationApi.fetchBlocks(thread receiverOf post, me.id) flatMap {
-      case true => fuccess(thread)
-      case false =>
-        val newThread = thread + post
-        coll.update.one($id(newThread.id), newThread) >> {
-          val toUserId = newThread otherUserId me
-          shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text, muted = false)
-          notify(thread, post)
-        } inject newThread
-    }
+    else
+      relationApi.fetchBlocks(thread receiverOf post, me.id) flatMap {
+        case true => fuccess(thread)
+        case false =>
+          val newThread = thread + post
+          coll.update.one($id(newThread.id), newThread) >> {
+            val toUserId = newThread otherUserId me
+            shutup ! lila.hub.actorApi.shutup.RecordPrivateMessage(me.id, toUserId, text, muted = false)
+            notify(thread, post)
+          } inject newThread
+      }
   }
 
   def deleteThread(id: String, me: User): Funit =

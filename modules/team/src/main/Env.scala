@@ -19,8 +19,8 @@ final class Env(
     db: lila.db.Db
 )(implicit system: ActorSystem) {
 
-  lazy val teamRepo = new TeamRepo(db(CollName("team")))
-  lazy val memberRepo = new MemberRepo(db(CollName("team_member")))
+  lazy val teamRepo    = new TeamRepo(db(CollName("team")))
+  lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))
   lazy val requestRepo = new RequestRepo(db(CollName("team_request")))
 
   lazy val forms = wire[DataForm]

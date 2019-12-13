@@ -4,10 +4,10 @@ import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
 
 import chess.Color
-import lila.game.{ Game, Progress, Pov, GameRepo }
+import lila.game.{ Game, GameRepo, Pov, Progress }
 import ornicar.scalalib.Zero
 
-private final class GameProxy(
+final private class GameProxy(
     id: Game.ID,
     dependencies: GameProxy.Dependencies
 ) {
@@ -52,7 +52,7 @@ private final class GameProxy(
   // internals
 
   private var dirtyProgress: Option[Progress] = None
-  private var scheduledFlush: Cancellable = emptyCancellable
+  private var scheduledFlush: Cancellable     = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
     alwaysPersist() || p.statusChanged || p.game.isSimul || (
@@ -88,7 +88,7 @@ private object GameProxy {
   private val scheduleDelay = 20.seconds
 
   private val emptyCancellable = new Cancellable {
-    def cancel() = true
+    def cancel()    = true
     def isCancelled = true
   }
 }

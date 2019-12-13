@@ -15,7 +15,7 @@ final class TournamentStatsApi(
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
     tournament.isFinished ?? cache(tournament.id).map(some)
 
-  private implicit val statsBSONHandler = Macros.handler[TournamentStats]
+  implicit private val statsBSONHandler = Macros.handler[TournamentStats]
 
   private val cache = mongoCache[String, TournamentStats](
     prefix = "tournament:stats",
@@ -25,10 +25,11 @@ final class TournamentStatsApi(
     timeToLiveMongo = 90.days.some
   )
 
-  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] = for {
-    rating <- playerRepo.averageRating(tournamentId)
-    rawStats <- pairingRepo.rawStats(tournamentId)
-  } yield TournamentStats.readAggregation(rating)(rawStats)
+  private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] =
+    for {
+      rating   <- playerRepo.averageRating(tournamentId)
+      rawStats <- pairingRepo.rawStats(tournamentId)
+    } yield TournamentStats.readAggregation(rating)(rawStats)
 }
 
 case class TournamentStats(

@@ -12,7 +12,7 @@ import lila.game.{ Game, GameRepo, Query }
 import lila.common.WorkQueue
 import lila.user.User
 
-private final class Indexer(
+final private class Indexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     storage: Storage
@@ -22,7 +22,7 @@ private final class Indexer(
 
   def all(user: User): Funit = workQueue {
     storage.fetchLast(user.id) flatMap {
-      case None => fromScratch(user)
+      case None    => fromScratch(user)
       case Some(e) => computeFrom(user, e.date plusSeconds 1, e.number + 1)
     }
   }
@@ -30,20 +30,23 @@ private final class Indexer(
   def update(game: Game, userId: String, previous: Entry): Funit =
     povToEntry(game, userId, previous.provisional) flatMap {
       case Right(e) => storage update e.copy(number = previous.number)
-      case _ => funit
+      case _        => funit
     }
 
   private def fromScratch(user: User): Funit =
     fetchFirstGame(user) flatMap {
-      _.?? { g => computeFrom(user, g.createdAt, 1) }
+      _.?? { g =>
+        computeFrom(user, g.createdAt, 1)
+      }
     }
 
-  private def gameQuery(user: User) = Query.user(user.id) ++
-    Query.rated ++
-    Query.finished ++
-    Query.turnsGt(2) ++
-    Query.notFromPosition ++
-    Query.notHordeOrSincePawnsAreWhite
+  private def gameQuery(user: User) =
+    Query.user(user.id) ++
+      Query.rated ++
+      Query.finished ++
+      Query.turnsGt(2) ++
+      Query.notFromPosition ++
+      Query.notHordeOrSincePawnsAreWhite
 
   private val maxGames = 10 * 1000
 
@@ -72,7 +75,8 @@ private final class Indexer(
         } map (_.toOption)
       }
       val query = gameQuery(user) ++ $doc(Game.BSONFields.createdAt $gte from)
-      gameRepo.sortedCursor(query, Query.sortChronological)
+      gameRepo
+        .sortedCursor(query, Query.sortChronological)
         .documentSource()
         .throttle(300, 1 second)
         .take(maxGames)

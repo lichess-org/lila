@@ -14,7 +14,7 @@ trait Granter {
     ctx.me.filter(isOldEnoughToForum) ?? { me =>
       categSlug match {
         case TeamSlugPattern(teamId) => userBelongsToTeam(teamId, me.id)
-        case _ => fuTrue
+        case _                       => fuTrue
       }
     }
 
@@ -26,7 +26,9 @@ trait Granter {
     categSlug match {
       case _ if (ctx.me ?? Master(Permission.ModerateForum)) => fuTrue
       case TeamSlugPattern(teamId) =>
-        ctx.me ?? { me => userOwnsTeam(teamId, me.id) }
+        ctx.me ?? { me =>
+          userOwnsTeam(teamId, me.id)
+        }
       case _ => fuFalse
     }
 }

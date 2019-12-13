@@ -16,43 +16,55 @@ final class PracticeApi(
 
   import BSONHandlers._
 
-  def get(user: Option[User]): Fu[UserPractice] = for {
-    struct <- structure.get
-    prog <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
-  } yield UserPractice(struct, prog)
+  def get(user: Option[User]): Fu[UserPractice] =
+    for {
+      struct <- structure.get
+      prog   <- user.fold(fuccess(PracticeProgress.anon))(progress.get)
+    } yield UserPractice(struct, prog)
 
-  def getStudyWithFirstOngoingChapter(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] = for {
-    up <- get(user)
-    chapters <- studyApi.chapterMetadatas(studyId)
-    chapter = up.progress firstOngoingIn chapters
-    studyOption <- chapter.fold(studyApi byIdWithFirstChapter studyId) { chapter =>
-      studyApi.byIdWithChapter(studyId, chapter.id)
-    }
-  } yield makeUserStudy(studyOption, up, chapters)
+  def getStudyWithFirstOngoingChapter(user: Option[User], studyId: Study.Id): Fu[Option[UserStudy]] =
+    for {
+      up       <- get(user)
+      chapters <- studyApi.chapterMetadatas(studyId)
+      chapter = up.progress firstOngoingIn chapters
+      studyOption <- chapter.fold(studyApi byIdWithFirstChapter studyId) { chapter =>
+        studyApi.byIdWithChapter(studyId, chapter.id)
+      }
+    } yield makeUserStudy(studyOption, up, chapters)
 
-  def getStudyWithChapter(user: Option[User], studyId: Study.Id, chapterId: Chapter.Id): Fu[Option[UserStudy]] = for {
-    up <- get(user)
-    chapters <- studyApi.chapterMetadatas(studyId)
-    studyOption <- studyApi.byIdWithChapter(studyId, chapterId)
-  } yield makeUserStudy(studyOption, up, chapters)
+  def getStudyWithChapter(
+      user: Option[User],
+      studyId: Study.Id,
+      chapterId: Chapter.Id
+  ): Fu[Option[UserStudy]] =
+    for {
+      up          <- get(user)
+      chapters    <- studyApi.chapterMetadatas(studyId)
+      studyOption <- studyApi.byIdWithChapter(studyId, chapterId)
+    } yield makeUserStudy(studyOption, up, chapters)
 
-  private def makeUserStudy(studyOption: Option[Study.WithChapter], up: UserPractice, chapters: List[Chapter.Metadata]) = for {
-    rawSc <- studyOption
-    sc = rawSc.copy(
-      study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
-      chapter = rawSc.chapter.withoutChildrenIfPractice
-    )
-    practiceStudy <- up.structure study sc.study.id
-    section <- up.structure findSection sc.study.id
-    publishedChapters = chapters.filterNot { c =>
-      PracticeStructure isChapterNameCommented c.name
-    }
-    if publishedChapters.exists(_.id == sc.chapter.id)
-  } yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
+  private def makeUserStudy(
+      studyOption: Option[Study.WithChapter],
+      up: UserPractice,
+      chapters: List[Chapter.Metadata]
+  ) =
+    for {
+      rawSc <- studyOption
+      sc = rawSc.copy(
+        study = rawSc.study.rewindTo(rawSc.chapter).withoutMembers,
+        chapter = rawSc.chapter.withoutChildrenIfPractice
+      )
+      practiceStudy <- up.structure study sc.study.id
+      section       <- up.structure findSection sc.study.id
+      publishedChapters = chapters.filterNot { c =>
+        PracticeStructure isChapterNameCommented c.name
+      }
+      if publishedChapters.exists(_.id == sc.chapter.id)
+    } yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 
   object config {
-    def get = configStore.get map (_ | PracticeConfig.empty)
-    def set = configStore.set _
+    def get  = configStore.get map (_ | PracticeConfig.empty)
+    def set  = configStore.set _
     def form = configStore.makeForm
   }
 
@@ -60,13 +72,13 @@ final class PracticeApi(
     private val cache = asyncCache.single[PracticeStructure](
       "practice.structure",
       f = for {
-        conf <- config.get
+        conf     <- config.get
         chapters <- studyApi.chapterIdNames(conf.studyIds)
       } yield PracticeStructure.make(conf, chapters),
       expireAfter = _.ExpireAfterAccess(3.hours)
     )
 
-    def get = cache.get
+    def get     = cache.get
     def clear() = cache.refresh
     def onSave(study: Study) = get foreach { structure =>
       if (structure.hasStudy(study.id)) clear
@@ -78,7 +90,9 @@ final class PracticeApi(
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.one[PracticeProgress]($id(user.id)) map { _ | PracticeProgress.empty(PracticeProgress.Id(user.id)) }
+      coll.one[PracticeProgress]($id(user.id)) map {
+        _ | PracticeProgress.empty(PracticeProgress.Id(user.id))
+      }
 
     private def save(p: PracticeProgress): Funit =
       coll.update.one($id(p.id), p, upsert = true).void

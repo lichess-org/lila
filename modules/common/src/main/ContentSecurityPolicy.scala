@@ -49,27 +49,30 @@ case class ContentSecurityPolicy(
     connectSrc = "wss://0.peerjs.com" :: connectSrc
   )
 
-  private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy = if (maybe) copy(
-    scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
-    frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,
-    connectSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: connectSrc
-  )
-  else this
+  private def withPrismicEditor(maybe: Boolean): ContentSecurityPolicy =
+    if (maybe)
+      copy(
+        scriptSrc = "https://static.cdn.prismic.io" :: scriptSrc,
+        frameSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: frameSrc,
+        connectSrc = "https://lichess.prismic.io" :: "https://lichess.cdn.prismic.io" :: connectSrc
+      )
+    else this
 
   def withPrismic(editor: Boolean): ContentSecurityPolicy = withPrismicEditor(editor).withTwitter
 
-  override def toString: String = List(
-    "default-src " -> defaultSrc,
-    "connect-src " -> connectSrc,
-    "style-src " -> styleSrc,
-    "font-src " -> fontSrc,
-    "frame-src " -> frameSrc,
-    "worker-src " -> workerSrc,
-    "img-src " -> imgSrc,
-    "script-src " -> scriptSrc,
-    "base-uri " -> baseUri,
-    "report-to " -> reportTo
-  ) collect {
+  override def toString: String =
+    List(
+      "default-src " -> defaultSrc,
+      "connect-src " -> connectSrc,
+      "style-src "   -> styleSrc,
+      "font-src "    -> fontSrc,
+      "frame-src "   -> frameSrc,
+      "worker-src "  -> workerSrc,
+      "img-src "     -> imgSrc,
+      "script-src "  -> scriptSrc,
+      "base-uri "    -> baseUri,
+      "report-to "   -> reportTo
+    ) collect {
       case (directive, sources) if sources.nonEmpty =>
         sources.mkString(directive, " ", ";")
     } mkString " "

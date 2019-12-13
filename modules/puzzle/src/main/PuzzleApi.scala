@@ -7,7 +7,7 @@ import lila.db.dsl._
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
-private[puzzle] final class PuzzleApi(
+final private[puzzle] class PuzzleApi(
     puzzleColl: AsyncColl,
     roundColl: AsyncColl,
     voteColl: AsyncColl,
@@ -26,7 +26,8 @@ private[puzzle] final class PuzzleApi(
       puzzleColl(_.optionsByOrderedIds[Puzzle, PuzzleId](ids)(_.id))
 
     def latest(nb: Int): Fu[List[Puzzle]] = puzzleColl {
-      _.ext.find($empty)
+      _.ext
+        .find($empty)
         .sort($doc(F.date -> -1))
         .list[Puzzle](nb)
     }
@@ -46,10 +47,12 @@ private[puzzle] final class PuzzleApi(
     // }.sequenceFu.map(_.flatten)
 
     def disable(id: PuzzleId): Funit = puzzleColl {
-      _.update.one(
-        $id(id),
-        $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
-      ).void
+      _.update
+        .one(
+          $id(id),
+          $doc("$set" -> $doc(F.vote -> AggregateVote.disable))
+        )
+        .void
     }
   }
 
@@ -60,9 +63,11 @@ private[puzzle] final class PuzzleApi(
     def upsert(a: Round) = roundColl(_.update.one($id(a.id), a, upsert = true))
 
     def reset(user: User) = roundColl {
-      _.delete.one($doc(
-        Round.BSONFields.id $startsWith s"${user.id}:"
-      ))
+      _.delete.one(
+        $doc(
+          Round.BSONFields.id $startsWith s"${user.id}:"
+        )
+      )
     }
   }
 
@@ -81,14 +86,16 @@ private[puzzle] final class PuzzleApi(
         case None => fufail(s"Can't vote for non existing puzzle ${id}")
         case Some(p1) =>
           val (p2, v2) = v1 match {
-            case Some(from) => (
-              (p1 withVote (_.change(from.value, v))),
-              from.copy(v = v)
-            )
-            case None => (
-              (p1 withVote (_ add v)),
-              Vote(Vote.makeId(id, user.id), v)
-            )
+            case Some(from) =>
+              (
+                (p1 withVote (_.change(from.value, v))),
+                from.copy(v = v)
+              )
+            case None =>
+              (
+                (p1 withVote (_ add v)),
+                Vote(Vote.makeId(id, user.id), v)
+              )
           }
           voteColl {
             _.update.one(

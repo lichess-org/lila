@@ -27,8 +27,8 @@ final class RequestRepo(val coll: Coll) {
     coll.list[Request](teamsQuery(teamIds))
 
   def selectId(teamId: ID, userId: ID) = $id(Request.makeId(teamId, userId))
-  def teamQuery(teamId: ID) = $doc("team" -> teamId)
-  def teamsQuery(teamIds: List[ID]) = $doc("team" $in teamIds)
+  def teamQuery(teamId: ID)            = $doc("team" -> teamId)
+  def teamsQuery(teamIds: List[ID])    = $doc("team" $in teamIds)
 
   def getByUserId(userId: lila.user.User.ID) =
     coll.ext.find($doc("user" -> userId)).list[Request]()

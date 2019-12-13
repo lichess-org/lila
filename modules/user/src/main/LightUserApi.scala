@@ -14,14 +14,14 @@ final class LightUserApi(repo: UserRepo)(implicit system: akka.actor.ActorSystem
   import LightUserApi._
 
   val async = new LightUser.Getter(cache.async)
-  val sync = new LightUser.GetterSync(cache.sync)
+  val sync  = new LightUser.GetterSync(cache.sync)
 
   def asyncMany = cache.asyncMany _
 
   def invalidate = cache invalidate _
 
-  def preloadOne = cache preloadOne _
-  def preloadMany = cache preloadMany _
+  def preloadOne              = cache preloadOne _
+  def preloadMany             = cache preloadMany _
   def preloadUser(user: User) = cache.setOneIfAbsent(user.id, user.light.some)
 
   private val cacheName = "user.light"
@@ -40,12 +40,15 @@ private object LightUserApi {
 
   implicit val lightUserBSONReader = new BSONDocumentReader[LightUser] {
 
-    def readDocument(doc: BSONDocument) = Success(LightUser(
-      id = doc.string(F.id) err "LightUser id missing",
-      name = doc.string(F.username) err "LightUser username missing",
-      title = doc.string(F.title),
-      isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
-    ))
+    def readDocument(doc: BSONDocument) =
+      Success(
+        LightUser(
+          id = doc.string(F.id) err "LightUser id missing",
+          name = doc.string(F.username) err "LightUser username missing",
+          title = doc.string(F.title),
+          isPatron = ~doc.child(F.plan).flatMap(_.getAsOpt[Boolean]("active"))
+        )
+      )
   }
 
   val projection = $doc(F.username -> true, F.title -> true, s"${F.plan}.active" -> true)

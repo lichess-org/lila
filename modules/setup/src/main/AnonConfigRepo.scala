@@ -5,16 +5,18 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-private final class AnonConfigRepo(coll: Coll) {
+final private class AnonConfigRepo(coll: Coll) {
 
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
       _ ?? { config =>
-        coll.update.one(
-          $id(config.id),
-          f(config),
-          upsert = true
-        ).void
+        coll.update
+          .one(
+            $id(config.id),
+            f(config),
+            upsert = true
+          )
+          .void
       }
     }
 
@@ -32,9 +34,10 @@ private final class AnonConfigRepo(coll: Coll) {
   private def configOption(req: RequestHeader): Fu[Option[UserConfig]] =
     sessionId(req).??(s => config(s) map (_.some))
 
-  def filter(req: RequestHeader): Fu[FilterConfig] = sessionId(req) ?? { sid =>
-    coll.primitiveOne[FilterConfig]($id(sid), "filter")
-  } map (_ | FilterConfig.default)
+  def filter(req: RequestHeader): Fu[FilterConfig] =
+    sessionId(req) ?? { sid =>
+      coll.primitiveOne[FilterConfig]($id(sid), "filter")
+    } map (_ | FilterConfig.default)
 
   private def sessionId(req: RequestHeader): Option[String] =
     lila.common.HTTPRequest sid req

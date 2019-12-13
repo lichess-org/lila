@@ -9,7 +9,7 @@ import play.api.libs.json._
 
 import lila.common.Bus
 
-private final class TvBroadcast extends Actor {
+final private class TvBroadcast extends Actor {
 
   private var queues = Set.empty[SourceQueueWithComplete[JsValue]]
 
@@ -20,10 +20,13 @@ private final class TvBroadcast extends Actor {
   def receive = {
 
     case TvBroadcast.Connect =>
-      sender ! Source.queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
+      sender ! Source
+        .queue[JsValue](8, akka.stream.OverflowStrategy.dropHead)
         .mapMaterializedValue { queue =>
           queues = queues + queue
-          queue.watchCompletion.foreach { _ => queues = queues - queue }
+          queue.watchCompletion.foreach { _ =>
+            queues = queues - queue
+          }
         }
 
     case ChangeFeatured(id, msg) =>
@@ -35,10 +38,13 @@ private final class TvBroadcast extends Actor {
       queues.foreach(_ offer msg)
 
     case MoveGameEvent(_, fen, move) if queues.nonEmpty =>
-      val msg = makeMessage("fen", Json.obj(
-        "fen" -> fen,
-        "lm" -> move
-      ))
+      val msg = makeMessage(
+        "fen",
+        Json.obj(
+          "fen" -> fen,
+          "lm"  -> move
+        )
+      )
       queues.foreach(_ offer msg)
   }
 }

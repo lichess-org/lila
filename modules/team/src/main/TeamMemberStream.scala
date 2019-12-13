@@ -15,8 +15,8 @@ final class TeamMemberStream(
 )(implicit mat: akka.stream.Materializer) {
 
   def apply(team: Team, perSecond: MaxPerSecond): Source[User, _] =
-    memberRepo.coll
-      .ext.find($doc("team" -> team.id), $doc("user" -> true))
+    memberRepo.coll.ext
+      .find($doc("team" -> team.id), $doc("user" -> true))
       .sort($sort desc "date")
       .batchSize(perSecond.value)
       .cursor[Bdoc](ReadPreference.secondaryPreferred)

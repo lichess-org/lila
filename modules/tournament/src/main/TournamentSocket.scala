@@ -12,7 +12,7 @@ import lila.socket.RemoteSocket.{ Protocol => P, _ }
 import lila.socket.Socket.makeMessage
 import lila.user.User
 
-private final class TournamentSocket(
+final private class TournamentSocket(
     remoteSocketApi: lila.socket.RemoteSocket,
     chat: lila.chat.ChatApi,
     system: ActorSystem
@@ -20,10 +20,14 @@ private final class TournamentSocket(
 
   private val allWaitingUsers = new ConcurrentHashMap[Tournament.ID, WaitingUsers.WithNext](64)
 
-  private val reloadThrottler = system.actorOf(Props(new LateMultiThrottler(
-    executionTimeout = 1.seconds.some,
-    logger = logger
-  )))
+  private val reloadThrottler = system.actorOf(
+    Props(
+      new LateMultiThrottler(
+        executionTimeout = 1.seconds.some,
+        logger = logger
+      )
+    )
+  )
 
   def reload(tourId: Tournament.ID): Unit =
     reloadThrottler ! LateMultiThrottler.work(
@@ -64,8 +68,8 @@ private final class TournamentSocket(
 
   lazy val rooms = makeRoomMap(send, true)
 
-  private lazy val handler: Handler = roomHandler(rooms, chat, logger,
-    roomId => _.Tournament(roomId.value).some)
+  private lazy val handler: Handler =
+    roomHandler(rooms, chat, logger, roomId => _.Tournament(roomId.value).some)
 
   private lazy val tourHandler: Handler = {
     case Protocol.In.WaitingUsers(roomId, users) =>
@@ -93,13 +97,15 @@ private final class TournamentSocket(
 
       val reader: P.In.Reader = raw => tourReader(raw) orElse RP.In.reader(raw)
 
-      val tourReader: P.In.Reader = raw => raw.path match {
-        case "tour/waiting" => raw.get(2) {
-          case Array(roomId, users) =>
-            WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
+      val tourReader: P.In.Reader = raw =>
+        raw.path match {
+          case "tour/waiting" =>
+            raw.get(2) {
+              case Array(roomId, users) =>
+                WaitingUsers(RoomId(roomId), P.In.commas(users).toSet).some
+            }
+          case _ => none
         }
-        case _ => none
-      }
     }
 
     object Out {

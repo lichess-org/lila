@@ -2,8 +2,8 @@ package lila.push
 
 import org.joda.time.DateTime
 
-private final case class Device(
-    _id: String, // Firebase token or OneSignal playerId
+final private case class Device(
+    _id: String,      // Firebase token or OneSignal playerId
     platform: String, // cordova platform (android, ios)
     userId: String,
     seenAt: DateTime
@@ -11,6 +11,6 @@ private final case class Device(
 
   def deviceId = platform match {
     case "ios" => _id.grouped(8).mkString("<", " ", ">")
-    case _ => _id
+    case _     => _id
   }
 }

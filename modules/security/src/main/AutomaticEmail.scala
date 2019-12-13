@@ -17,7 +17,7 @@ final class AutomaticEmail(
 
   def welcome(user: User, email: EmailAddress)(implicit lang: Lang): Funit = {
     val profileUrl = s"$baseUrl/@/${user.username}"
-    val editUrl = s"$baseUrl/account/profile"
+    val editUrl    = s"$baseUrl/account/profile"
     mailgun send Mailgun.Message(
       to = email,
       subject = trans.welcome_subject.literalTxtTo(lang, List(user.username)),
@@ -32,15 +32,16 @@ ${Mailgun.txt.serviceNote}
     )
   }
 
-  def onTitleSet(username: String)(implicit lang: Lang): Funit = for {
-    user <- userRepo named username orFail s"No such user $username"
-    emailOption <- userRepo email user.id
-  } yield for {
-    title <- user.title
-    email <- emailOption
-  } yield {
+  def onTitleSet(username: String)(implicit lang: Lang): Funit =
+    for {
+      user        <- userRepo named username orFail s"No such user $username"
+      emailOption <- userRepo email user.id
+    } yield for {
+      title <- user.title
+      email <- emailOption
+    } yield {
 
-    val body = s"""Hello,
+      val body = s"""Hello,
 
 Thank you for confirming your $title title on lichess.org.
 It is now visible on your profile page: ${baseUrl}/@/${user.username}.
@@ -50,17 +51,17 @@ Regards,
 The lichess team
 """
 
-    mailgun send Mailgun.Message(
-      to = email,
-      subject = s"$title title confirmed on lichess.org",
-      text = s"""
+      mailgun send Mailgun.Message(
+        to = email,
+        subject = s"$title title confirmed on lichess.org",
+        text = s"""
 $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = standardEmail(body).some
-    )
-  }
+        htmlBody = standardEmail(body).some
+      )
+    }
 
   def onBecomeCoach(user: User)(implicit lang: Lang): Funit =
     userRepo email user.id flatMap {
@@ -88,12 +89,12 @@ ${Mailgun.txt.serviceNote}
       }
     }
 
-  def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit = for {
-    user <- userRepo named userId orFail s"No such user $userId"
-    emailOption <- userRepo email user.id
-  } yield emailOption ?? { email =>
-
-    val body = s"""Hello,
+  def onFishnetKey(userId: User.ID, key: String)(implicit lang: Lang): Funit =
+    for {
+      user        <- userRepo named userId orFail s"No such user $userId"
+      emailOption <- userRepo email user.id
+    } yield emailOption ?? { email =>
+      val body = s"""Hello,
 
 Here is your private fishnet key:
 
@@ -111,15 +112,15 @@ Regards,
 The lichess team
 """
 
-    mailgun send Mailgun.Message(
-      to = email,
-      subject = "Your private fishnet key",
-      text = s"""
+      mailgun send Mailgun.Message(
+        to = email,
+        subject = "Your private fishnet key",
+        text = s"""
 $body
 
 ${Mailgun.txt.serviceNote}
 """,
-      htmlBody = standardEmail(body).some
-    )
-  }
+        htmlBody = standardEmail(body).some
+      )
+    }
 }

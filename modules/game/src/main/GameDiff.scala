@@ -1,6 +1,6 @@
 package lila.game
 
-import chess.{ Color, White, Black, Clock, CheckCount }
+import chess.{ Black, CheckCount, Clock, Color, White }
 import Game.BSONFields._
 import reactivemongo.api.bson._
 import scala.util.Try
@@ -13,7 +13,7 @@ import lila.db.ByteArray.ByteArrayBSONHandler
 
 object GameDiff {
 
-  private type Set = (String, BSONValue)
+  private type Set   = (String, BSONValue)
   private type Unset = (String, BSONValue)
 
   private type ClockHistorySide = (Centis, Vector[Centis], Boolean)
@@ -24,14 +24,14 @@ object GameDiff {
 
   def apply(a: Game, b: Game): Diff = {
 
-    val setBuilder = scala.collection.mutable.ListBuffer[Set]()
+    val setBuilder   = scala.collection.mutable.ListBuffer[Set]()
     val unsetBuilder = scala.collection.mutable.ListBuffer[Unset]()
 
     def d[A](name: String, getter: Game => A, toBson: A => BSONValue): Unit = {
       val vb = getter(b)
       if (getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
-        else setBuilder += name -> toBson(vb)
+        else setBuilder += name                                         -> toBson(vb)
       }
     }
 
@@ -39,10 +39,11 @@ object GameDiff {
       val vb = getter(b)
       if (getter(a) != vb) {
         if (vb == None || vb == null || vb == "") unsetBuilder += (name -> bTrue)
-        else toBson(vb) match {
-          case None => unsetBuilder += (name -> bTrue)
-          case Some(x) => setBuilder += name -> x
-        }
+        else
+          toBson(vb) match {
+            case None    => unsetBuilder += (name -> bTrue)
+            case Some(x) => setBuilder += name    -> x
+          }
       }
     }
 
@@ -51,10 +52,10 @@ object GameDiff {
 
     def getClockHistory(color: Color)(g: Game): Option[ClockHistorySide] =
       for {
-        clk <- g.clock
+        clk     <- g.clock
         history <- g.clockHistory
         curColor = g.turnColor
-        times = history(color)
+        times    = history(color)
       } yield (clk.limit, times, g.flagged has color)
 
     def clockHistoryToBytes(o: Option[ClockHistorySide]) = o.flatMap {
@@ -71,20 +72,33 @@ object GameDiff {
       dTry(castleLastMove, makeCastleLastMove, CastleLastMove.castleLastMoveBSONHandler.writeTry)
       // since variants are always OldBin
       if (a.variant.threeCheck)
-        dOpt(checkCount, _.history.checkCount, (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o })
+        dOpt(
+          checkCount,
+          _.history.checkCount,
+          (o: CheckCount) => o.nonEmpty ?? { BSONHandlers.checkCountWriter writeOpt o }
+        )
       if (a.variant.crazyhouse)
-        dOpt(crazyData, _.board.crazyData, (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write)
+        dOpt(
+          crazyData,
+          _.board.crazyData,
+          (o: Option[chess.variant.Crazyhouse.Data]) => o map BSONHandlers.crazyhouseDataBSONHandler.write
+        )
     }
     d(turns, _.turns, w.int)
     dOpt(moveTimes, _.binaryMoveTimes, (o: Option[ByteArray]) => o flatMap ByteArrayBSONHandler.writeOpt)
     dOpt(whiteClockHistory, getClockHistory(White), clockHistoryToBytes)
     dOpt(blackClockHistory, getClockHistory(Black), clockHistoryToBytes)
-    dOpt(clock, _.clock, (o: Option[Clock]) => o flatMap { c =>
-      BSONHandlers.clockBSONWrite(a.createdAt, c).toOption
-    })
+    dOpt(
+      clock,
+      _.clock,
+      (o: Option[Clock]) =>
+        o flatMap { c =>
+          BSONHandlers.clockBSONWrite(a.createdAt, c).toOption
+        }
+    )
     for (i <- 0 to 1) {
       import Player.BSONFields._
-      val name = s"p$i."
+      val name                   = s"p$i."
       val player: Game => Player = if (i == 0) (_.whitePlayer) else (_.blackPlayer)
       dOpt(s"$name$lastDrawOffer", player(_).lastDrawOffer, (l: Option[Int]) => l flatMap w.intO)
       dOpt(s"$name$isOfferingDraw", player(_).isOfferingDraw, w.boolO)

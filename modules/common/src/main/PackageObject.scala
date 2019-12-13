@@ -1,6 +1,6 @@
 package lila
 
-import scalaz.{ Monad, Monoid, OptionT, ~> }
+import scalaz.{ ~>, Monad, Monoid, OptionT }
 
 trait PackageObject extends Lilaisms {
 
@@ -8,7 +8,7 @@ trait PackageObject extends Lilaisms {
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
-  def nowNanos: Long = System.nanoTime()
+  def nowNanos: Long  = System.nanoTime()
   def nowMillis: Long = System.currentTimeMillis()
   def nowCentis: Long = nowMillis / 10
   def nowTenths: Long = nowMillis / 100
@@ -20,19 +20,23 @@ trait PackageObject extends Lilaisms {
   }
 
   implicit def fuMonoid[A: Monoid]: Monoid[Fu[A]] =
-    Monoid.instance((x, y) => x zip y map {
-      case (a, b) => a ⊹ b
-    }, fuccess(∅[A]))
+    Monoid.instance(
+      (x, y) =>
+        x zip y map {
+          case (a, b) => a ⊹ b
+        },
+      fuccess(∅[A])
+    )
 
   implicit lazy val monadFu = new Monad[Fu] {
     override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
-    def point[A](a: => A) = fuccess(a)
-    def bind[A, B](fa: Fu[A])(f: A => Fu[B]) = fa flatMap f
+    def point[A](a: => A)                        = fuccess(a)
+    def bind[A, B](fa: Fu[A])(f: A => Fu[B])     = fa flatMap f
   }
 
   type ~[+A, +B] = Tuple2[A, B]
   object ~ {
-    def apply[A, B](x: A, y: B) = Tuple2(x, y)
+    def apply[A, B](x: A, y: B)                              = Tuple2(x, y)
     def unapply[A, B](x: Tuple2[A, B]): Option[Tuple2[A, B]] = Some(x)
   }
 
@@ -50,16 +54,16 @@ trait PackageObject extends Lilaisms {
     import akka.util.Timeout
     import scala.concurrent.duration._
 
-    implicit val short = seconds(1)
-    implicit val large = seconds(5)
-    implicit val larger = seconds(30)
+    implicit val short     = seconds(1)
+    implicit val large     = seconds(5)
+    implicit val larger    = seconds(30)
     implicit val veryLarge = minutes(5)
 
     implicit val halfSecond = millis(500)
 
     def apply(duration: FiniteDuration) = Timeout(duration)
-    def millis(s: Int): Timeout = Timeout(s.millis)
-    def seconds(s: Int): Timeout = Timeout(s.seconds)
-    def minutes(m: Int): Timeout = Timeout(m.minutes)
+    def millis(s: Int): Timeout         = Timeout(s.millis)
+    def seconds(s: Int): Timeout        = Timeout(s.seconds)
+    def minutes(m: Int): Timeout        = Timeout(m.minutes)
   }
 }

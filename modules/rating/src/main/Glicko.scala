@@ -12,20 +12,20 @@ case class Glicko(
     volatility: Double
 ) {
 
-  def intRating = rating.toInt
-  def intDeviation = deviation.toInt
+  def intRating           = rating.toInt
+  def intDeviation        = deviation.toInt
   def intDeviationDoubled = (deviation * 2).toInt
 
   def intervalMin = (rating - deviation * 2).toInt
   def intervalMax = (rating + deviation * 2).toInt
-  def interval = intervalMin -> intervalMax
+  def interval    = intervalMin -> intervalMax
 
   def rankable(variant: chess.variant.Variant) = deviation <= {
     if (variant.standard) Glicko.standardRankableDeviation
     else Glicko.variantRankableDeviation
   }
-  def provisional = deviation >= Glicko.provisionalDeviation
-  def established = !provisional
+  def provisional          = deviation >= Glicko.provisionalDeviation
+  def established          = !provisional
   def establishedIntRating = established option intRating
 
   def refund(points: Int) = copy(rating = rating + points)
@@ -63,11 +63,11 @@ case object Glicko {
 
   val defaultIntRating = default.rating.toInt
 
-  val minDeviation = 47.5
-  val variantRankableDeviation = 65
+  val minDeviation              = 47.5
+  val variantRankableDeviation  = 65
   val standardRankableDeviation = 75
-  val provisionalDeviation = 110
-  val maxDeviation = 350
+  val provisionalDeviation      = 110
+  val maxDeviation              = 350
 
   // past this, it might not stabilize ever again
   val maxVolatility = 0.1d
@@ -75,7 +75,7 @@ case object Glicko {
   // Chosen so a typical player's RD goes from 60 -> 110 in 1 year
   val ratingPeriodsPerDay = 0.21436d
 
-  val tau = 0.75d
+  val tau    = 0.75d
   val system = new RatingCalculator(default.volatility, tau, ratingPeriodsPerDay)
 
   def range(rating: Double, deviation: Double) = (
@@ -106,8 +106,8 @@ case object Glicko {
     def negate: Result
   }
   object Result {
-    case object Win extends Result { def negate = Loss }
-    case object Loss extends Result { def negate = Win }
+    case object Win  extends Result { def negate = Loss }
+    case object Loss extends Result { def negate = Win  }
     case object Draw extends Result { def negate = Draw }
   }
 }

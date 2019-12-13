@@ -19,8 +19,8 @@ object PoolList {
 
   val clockStringSet: Set[String] = all.view.map(_.clock.show) to Set
 
-  private implicit class PimpedInt(self: Int) {
+  implicit private class PimpedInt(self: Int) {
     def ++(increment: Int) = chess.Clock.Config(self * 60, increment)
-    def players = NbPlayers(self)
+    def players            = NbPlayers(self)
   }
 }

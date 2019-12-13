@@ -9,14 +9,14 @@ import com.roundeights.hasher.Implicits._
 import lila.common.config.Secret
 
 /**
- * Encryption for bcrypt hashes.
- *
- * CTS reveals input length, which is fine for
- * this application.
- */
-private final class Aes(secret: Secret) {
+  * Encryption for bcrypt hashes.
+  *
+  * CTS reveals input length, which is fine for
+  * this application.
+  */
+final private class Aes(secret: Secret) {
   private val sKey = {
-    val sk = Base64.getDecoder.decode(secret.value)
+    val sk    = Base64.getDecoder.decode(secret.value)
     val kBits = sk.length * 8
     if (kBits != 128) {
       if (!(kBits == 192 || kBits == 256)) throw new IllegalArgumentException
@@ -32,7 +32,7 @@ private final class Aes(secret: Secret) {
     c.doFinal(b)
   }
 
-  import Cipher.{ ENCRYPT_MODE, DECRYPT_MODE }
+  import Cipher.{ DECRYPT_MODE, ENCRYPT_MODE }
   def encrypt(iv: Aes.InitVector, b: Array[Byte]) = run(ENCRYPT_MODE, iv, b)
   def decrypt(iv: Aes.InitVector, b: Array[Byte]) = run(DECRYPT_MODE, iv, b)
 }
@@ -47,7 +47,7 @@ case class HashedPassword(bytes: Array[Byte]) extends AnyVal {
   def parse = bytes.length == 39 option bytes.splitAt(16)
 }
 
-private final class PasswordHasher(
+final private class PasswordHasher(
     secret: Secret,
     logRounds: Int,
     hashTimer: (=> Array[Byte]) => Array[Byte] = x => x
@@ -56,7 +56,7 @@ private final class PasswordHasher(
   import User.ClearPassword
 
   private val prng = new SecureRandom()
-  private val aes = new Aes(secret)
+  private val aes  = new Aes(secret)
   private def bHash(salt: Array[Byte], p: ClearPassword) =
     hashTimer(BCrypt.hashpwRaw(p.value.sha512, 'a', logRounds, salt))
 
@@ -79,7 +79,7 @@ object PasswordHasher {
   import play.api.mvc.RequestHeader
   import ornicar.scalalib.Zero
   import lila.memo.RateLimit
-  import lila.common.{ IpAddress, HTTPRequest }
+  import lila.common.{ HTTPRequest, IpAddress }
 
   private lazy val rateLimitPerIP = new RateLimit[IpAddress](
     credits = 20 * 2, // double cost in case of hash check failure
@@ -109,10 +109,12 @@ object PasswordHasher {
     key = "password.hashes.global"
   )
 
-  def rateLimit[A: Zero](enforce: Boolean)(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
+  def rateLimit[A: Zero](
+      enforce: Boolean
+  )(username: String, req: RequestHeader)(run: RateLimit.Charge => Fu[A]): Fu[A] =
     if (enforce) {
       val cost = 1
-      val ip = HTTPRequest lastRemoteAddress req
+      val ip   = HTTPRequest lastRemoteAddress req
       rateLimitPerUser(User normalize username, cost = cost) {
         rateLimitPerIP.chargeable(ip, cost = cost) { charge =>
           rateLimitPerUA(~HTTPRequest.userAgent(req), cost = cost, msg = ip.value) {

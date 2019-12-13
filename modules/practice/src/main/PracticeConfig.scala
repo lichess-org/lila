@@ -14,9 +14,9 @@ final class PracticeConfig(
 object PracticeConfig {
   val empty = new PracticeConfig(Nil)
 
-  private implicit val studyLoader = AutoConfig.loader[PracticeConfigStudy]
-  private implicit val sectionLoader = AutoConfig.loader[PracticeConfigSection]
-  implicit val loader = AutoConfig.loader[PracticeConfig]
+  implicit private val studyLoader   = AutoConfig.loader[PracticeConfigStudy]
+  implicit private val sectionLoader = AutoConfig.loader[PracticeConfigSection]
+  implicit val loader                = AutoConfig.loader[PracticeConfig]
 }
 
 final class PracticeConfigSection(

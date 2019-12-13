@@ -25,8 +25,8 @@ object Post {
   val idSize = 8
 
   def make(
-    text: String,
-    isByCreator: Boolean
+      text: String,
+      isByCreator: Boolean
   ): Post = Post(
     id = Random nextString idSize,
     text = text,
@@ -36,5 +36,5 @@ object Post {
   )
 
   import lila.db.dsl.BSONJodaDateTimeHandler
-  private[message] implicit val PostBSONHandler = reactivemongo.api.bson.Macros.handler[Post]
+  implicit private[message] val PostBSONHandler = reactivemongo.api.bson.Macros.handler[Post]
 }

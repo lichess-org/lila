@@ -6,7 +6,7 @@ trait LilaException extends Exception {
   val message: String
 
   override def getMessage = message
-  override def toString = message
+  override def toString   = message
 }
 
 object LilaException extends scalaz.syntax.ToShowOps {

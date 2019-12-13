@@ -8,7 +8,7 @@ import lila.common.config._
 import lila.hub.actorApi.plan.ChargeEvent
 import lila.hub.actorApi.slack.Event
 import lila.hub.actorApi.user.Note
-import lila.hub.actorApi.{ DeployPre, DeployPost }
+import lila.hub.actorApi.{ DeployPost, DeployPre }
 
 @Module
 final class Env(
@@ -25,10 +25,10 @@ final class Env(
   lazy val api: SlackApi = wire[SlackApi]
 
   lila.common.Bus.subscribeFun("deploy", "slack", "plan", "userNote") {
-    case d: ChargeEvent => api charge d
-    case DeployPre => api.deployPre
-    case DeployPost => api.deployPost
+    case d: ChargeEvent                                => api charge d
+    case DeployPre                                     => api.deployPre
+    case DeployPost                                    => api.deployPost
     case Note(from, to, text, true) if from != "Irwin" => api.userModNote(from, to, text)
-    case e: Event => api publishEvent e
+    case e: Event                                      => api publishEvent e
   }
 }

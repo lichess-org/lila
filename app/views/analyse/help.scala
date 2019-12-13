@@ -15,7 +15,7 @@ object help {
     td(cls := "keys")(keys),
     td(cls := "desc")(desc)
   )
-  private val or = raw("""<or>/</or>""")
+  private val or             = raw("""<or>/</or>""")
   private def k(str: String) = raw(s"""<kbd>$str</kbd>""")
 
   def apply(isStudy: Boolean)(implicit ctx: Context) = frag(

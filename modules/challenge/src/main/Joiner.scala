@@ -2,11 +2,11 @@ package lila.challenge
 
 import chess.format.Forsyth
 import chess.format.Forsyth.SituationPlus
-import chess.{ Situation, Mode }
-import lila.game.{ Game, Pov, Source, Player }
+import chess.{ Mode, Situation }
+import lila.game.{ Game, Player, Pov, Source }
 import lila.user.User
 
-private[challenge] final class Joiner(
+final private[challenge] class Joiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
@@ -17,7 +17,6 @@ private[challenge] final class Joiner(
       case true => fuccess(None)
       case false =>
         c.challengerUserId.??(userRepo.byId) flatMap { challengerUser =>
-
           def makeChess(variant: chess.variant.Variant): chess.Game =
             chess.Game(situation = Situation(variant), clock = c.clock.map(_.config.toClock))
 
@@ -33,32 +32,37 @@ private[challenge] final class Joiner(
                 clock = c.clock.map(_.config.toClock)
               )
               if (Forsyth.>>(game) == Forsyth.initial) makeChess(chess.variant.Standard) -> none
-              else game -> baseState
+              else game                                                                  -> baseState
           }
           val perfPicker = (perfs: lila.user.Perfs) => perfs(c.perfType)
-          val game = Game.make(
-            chess = chessGame,
-            whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
-            blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
-            mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
-            source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Friend,
-            daysPerTurn = c.daysPerTurn,
-            pgnImport = None
-          ).withId(c.id).|> { g =>
+          val game = Game
+            .make(
+              chess = chessGame,
+              whitePlayer = Player.make(chess.White, c.finalColor.fold(challengerUser, destUser), perfPicker),
+              blackPlayer = Player.make(chess.Black, c.finalColor.fold(destUser, challengerUser), perfPicker),
+              mode = if (chessGame.board.variant.fromPosition) Mode.Casual else c.mode,
+              source = if (chessGame.board.variant.fromPosition) Source.Position else Source.Friend,
+              daysPerTurn = c.daysPerTurn,
+              pgnImport = None
+            )
+            .withId(c.id)
+            .|> { g =>
               state.fold(g) {
-                case sit @ SituationPlus(Situation(board, _), _) => g.copy(
-                  chess = g.chess.copy(
-                    situation = g.situation.copy(
-                      board = g.board.copy(
-                        history = board.history,
-                        variant = chess.variant.FromPosition
-                      )
-                    ),
-                    turns = sit.turns
+                case sit @ SituationPlus(Situation(board, _), _) =>
+                  g.copy(
+                    chess = g.chess.copy(
+                      situation = g.situation.copy(
+                        board = g.board.copy(
+                          history = board.history,
+                          variant = chess.variant.FromPosition
+                        )
+                      ),
+                      turns = sit.turns
+                    )
                   )
-                )
               }
-            }.start
+            }
+            .start
           (gameRepo insertDenormalized game) >>- onStart(game.id) inject Pov(game, !c.finalColor).some
         }
     }

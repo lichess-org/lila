@@ -1,7 +1,7 @@
 package views.html
 package round
 
-import chess.variant.{ Variant, Crazyhouse }
+import chess.variant.{ Crazyhouse, Variant }
 import lila.api.Context
 import lila.app.templating.Environment._
 import lila.app.ui.ScalatagsTemplate._
@@ -12,14 +12,14 @@ import controllers.routes
 object bits {
 
   def layout(
-    variant: Variant,
-    title: String,
-    moreJs: Frag = emptyFrag,
-    openGraph: Option[lila.app.ui.OpenGraph] = None,
-    moreCss: Frag = emptyFrag,
-    chessground: Boolean = true,
-    playing: Boolean = false,
-    robots: Boolean = false
+      variant: Variant,
+      title: String,
+      moreJs: Frag = emptyFrag,
+      openGraph: Option[lila.app.ui.OpenGraph] = None,
+      moreCss: Frag = emptyFrag,
+      chessground: Boolean = true,
+      playing: Boolean = false,
+      robots: Boolean = false
   )(body: Frag)(implicit ctx: Context) =
     views.html.base.layout(
       title = title,
@@ -49,12 +49,12 @@ object bits {
       aria.live := "off",
       aria.relevant := "additions removals text"
     )(
-        span(cls := "number")(nbsp),
-        " ",
-        trans.spectators.txt().replace(":", ""),
-        " ",
-        span(cls := "list")
-      ),
+      span(cls := "number")(nbsp),
+      " ",
+      trans.spectators.txt().replace(":", ""),
+      " ",
+      span(cls := "list")
+    ),
     isGranted(_.ViewBlurs) option div(cls := "round__mod")(
       game.players.filter(p => game.playerBlurPercent(p.color) > 30) map { p =>
         div(
@@ -63,14 +63,14 @@ object bits {
           strong(game.playerBlurPercent(p.color), "%")
         )
       }
-    // game.players flatMap { p => p.holdAlert.map(p ->) } map {
-    //   case (p, h) => div(
-    //     playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
-    //     "hold alert",
-    //     br,
-    //     s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
-    //   )
-    // }
+      // game.players flatMap { p => p.holdAlert.map(p ->) } map {
+      //   case (p, h) => div(
+      //     playerLink(p, cssClass = s"is color-icon ${p.color.name}".some, mod = true, withOnline = false),
+      //     "hold alert",
+      //     br,
+      //     s"(ply: ${h.ply}, mean: ${h.mean} ms, SD: ${h.sd})"
+      //   )
+      // }
     )
   )
 
@@ -79,10 +79,14 @@ object bits {
       simul.map { s =>
         span(cls := "simul")(
           a(href := routes.Simul.show(s.id))("SIMUL"),
-          span(cls := "win")(s.wins, " W"), " / ",
-          span(cls := "draw")(s.draws, " D"), " / ",
-          span(cls := "loss")(s.losses, " L"), " / ",
-          s.ongoing, " ongoing"
+          span(cls := "win")(s.wins, " W"),
+          " / ",
+          span(cls := "draw")(s.draws, " D"),
+          " / ",
+          span(cls := "loss")(s.losses, " L"),
+          " / ",
+          s.ongoing,
+          " ongoing"
         )
       } getOrElse trans.currentGames(),
       "round-toggle-autoswitch" |> { id =>
@@ -115,12 +119,12 @@ object bits {
   )
 
   private[round] def side(
-    pov: Pov,
-    data: play.api.libs.json.JsObject,
-    tour: Option[lila.tournament.TourMiniView],
-    simul: Option[lila.simul.Simul],
-    userTv: Option[lila.user.User] = None,
-    bookmarked: Boolean
+      pov: Pov,
+      data: play.api.libs.json.JsObject,
+      tour: Option[lila.tournament.TourMiniView],
+      simul: Option[lila.simul.Simul],
+      userTv: Option[lila.user.User] = None,
+      bookmarked: Boolean
   )(implicit ctx: Context) = views.html.game.side(
     pov,
     (data \ "game" \ "initialFen").asOpt[String].map(chess.format.FEN),

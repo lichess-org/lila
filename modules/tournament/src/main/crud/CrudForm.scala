@@ -16,23 +16,25 @@ object CrudForm {
 
   val maxHomepageHours = 72
 
-  lazy val apply = Form(mapping(
-    "name" -> text(minLength = 3, maxLength = 40),
-    "homepageHours" -> number(min = 0, max = maxHomepageHours),
-    "clockTime" -> numberInDouble(clockTimeChoices),
-    "clockIncrement" -> numberIn(clockIncrementChoices),
-    "minutes" -> number(min = 20, max = 1440),
-    "variant" -> number.verifying(Variant exists _),
-    "position" -> text.verifying(DataForm.positions contains _),
-    "date" -> utcDate,
-    "image" -> stringIn(imageChoices),
-    "headline" -> text(minLength = 5, maxLength = 30),
-    "description" -> text(minLength = 10, maxLength = 400),
-    "conditions" -> Condition.DataForm.all,
-    "berserkable" -> boolean
-  )(CrudForm.Data.apply)(CrudForm.Data.unapply)
-    .verifying("Invalid clock", _.validClock)
-    .verifying("Increase tournament duration, or decrease game clock", _.validTiming)) fill CrudForm.Data(
+  lazy val apply = Form(
+    mapping(
+      "name"           -> text(minLength = 3, maxLength = 40),
+      "homepageHours"  -> number(min = 0, max = maxHomepageHours),
+      "clockTime"      -> numberInDouble(clockTimeChoices),
+      "clockIncrement" -> numberIn(clockIncrementChoices),
+      "minutes"        -> number(min = 20, max = 1440),
+      "variant"        -> number.verifying(Variant exists _),
+      "position"       -> text.verifying(DataForm.positions contains _),
+      "date"           -> utcDate,
+      "image"          -> stringIn(imageChoices),
+      "headline"       -> text(minLength = 5, maxLength = 30),
+      "description"    -> text(minLength = 10, maxLength = 400),
+      "conditions"     -> Condition.DataForm.all,
+      "berserkable"    -> boolean
+    )(CrudForm.Data.apply)(CrudForm.Data.unapply)
+      .verifying("Invalid clock", _.validClock)
+      .verifying("Increase tournament duration, or decrease game clock", _.validTiming)
+  ) fill CrudForm.Data(
     name = "",
     homepageHours = 0,
     clockTime = clockTimeDefault,
@@ -74,10 +76,10 @@ object CrudForm {
   }
 
   val imageChoices = List(
-    "" -> "Lichess",
+    ""                   -> "Lichess",
     "chesswhiz.logo.png" -> "ChessWhiz",
-    "chessat3.logo.png" -> "Chessat3",
-    "bitchess.logo.png" -> "Bitchess"
+    "chessat3.logo.png"  -> "Chessat3",
+    "bitchess.logo.png"  -> "Bitchess"
   )
   val imageDefault = ""
 }

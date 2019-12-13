@@ -50,10 +50,11 @@ case class Relay(
 
   def hasStarted = startedAt.isDefined
 
-  def shouldGiveUp = !hasStarted && (startsAt match {
-    case Some(at) => at.isBefore(DateTime.now minusHours 3)
-    case None => createdAt.isBefore(DateTime.now minusDays 1)
-  })
+  def shouldGiveUp =
+    !hasStarted && (startsAt match {
+      case Some(at) => at.isBefore(DateTime.now minusHours 3)
+      case None     => createdAt.isBefore(DateTime.now minusDays 1)
+    })
 
   def withSync(f: Relay.Sync => Relay.Sync) = copy(sync = f(sync))
 
@@ -68,9 +69,9 @@ object Relay {
 
   case class Sync(
       upstream: Sync.Upstream,
-      until: Option[DateTime], // sync until then; resets on move
+      until: Option[DateTime],  // sync until then; resets on move
       nextAt: Option[DateTime], // when to run next sync
-      delay: Option[Int], // override time between two sync (rare)
+      delay: Option[Int],       // override time between two sync (rare)
       log: SyncLog
   ) {
 
@@ -87,15 +88,16 @@ object Relay {
       until = none
     )
 
-    def seconds: Option[Int] = until map { u =>
-      (u.getSeconds - nowSeconds).toInt
-    } filter (0<)
+    def seconds: Option[Int] =
+      until map { u =>
+        (u.getSeconds - nowSeconds).toInt
+      } filter (0 <)
 
     def playing = nextAt.isDefined
-    def paused = !playing
+    def paused  = !playing
 
     def addLog(event: SyncLog.Event) = copy(log = log add event)
-    def clearLog = copy(log = SyncLog.empty)
+    def clearLog                     = copy(log = SyncLog.empty)
 
     override def toString = upstream.toString
   }
@@ -105,7 +107,7 @@ object Relay {
       def isLocal = url.contains("://127.0.0.1") || url.contains("://localhost")
       def withRound = url.split(" ", 2) match {
         case Array(u, round) => UpstreamWithRound(u, round.toIntOption)
-        case _ => UpstreamWithRound(url, none)
+        case _               => UpstreamWithRound(url, none)
       }
     }
     case class UpstreamWithRound(url: String, round: Option[Int])

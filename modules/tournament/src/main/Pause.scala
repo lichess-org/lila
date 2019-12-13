@@ -13,7 +13,7 @@ import lila.user.User
  * (e.g. 20 seconds for second pause in 5+0) with maximum of 120 seconds.
  * After 20 minutes without any pause, the delay is reinitialized to 10s.
  */
-private final class Pause {
+final private class Pause {
 
   import Pause._
 

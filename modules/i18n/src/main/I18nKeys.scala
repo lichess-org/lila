@@ -1,7 +1,7 @@
 // Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ Site, Arena, Emails, Learn, Activity, Coordinates, Study }
+import I18nDb.{ Activity, Arena, Coordinates, Emails, Learn, Site, Study }
 
 // format: OFF
 object I18nKeys {

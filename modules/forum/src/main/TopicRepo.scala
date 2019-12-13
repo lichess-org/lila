@@ -8,9 +8,9 @@ final class TopicRepo(val coll: Coll, troll: Boolean = false) {
 
   import BSONHandlers.TopicBSONHandler
 
-  private val trollFilter = !troll ?? $doc("troll" -> false)
+  private val trollFilter         = !troll ?? $doc("troll" -> false)
   private lazy val notStickyQuery = $doc("sticky" $ne true)
-  private lazy val stickyQuery = $doc("sticky" -> true)
+  private lazy val stickyQuery    = $doc("sticky" -> true)
 
   def close(id: String, value: Boolean): Funit =
     coll.updateField($id(id), "closed", value).void
@@ -48,6 +48,6 @@ final class TopicRepo(val coll: Coll, troll: Boolean = false) {
   def incViews(topic: Topic) =
     coll.incFieldUnchecked($id(topic.id), "views")
 
-  def byCategQuery(categ: Categ) = $doc("categId" -> categ.slug) ++ trollFilter
+  def byCategQuery(categ: Categ)          = $doc("categId" -> categ.slug) ++ trollFilter
   def byCategNotStickyQuery(categ: Categ) = byCategQuery(categ) ++ notStickyQuery
 }

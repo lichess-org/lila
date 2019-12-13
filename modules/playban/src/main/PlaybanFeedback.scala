@@ -3,7 +3,7 @@ package lila.playban
 import lila.chat.{ Chat, ChatApi }
 import lila.game.Pov
 
-private final class PlaybanFeedback(
+final private class PlaybanFeedback(
     chatApi: ChatApi,
     lightUser: lila.common.LightUser.Getter
 ) {
@@ -16,7 +16,8 @@ private final class PlaybanFeedback(
 
   def rageQuit(pov: Pov): Unit = tell(pov, s"Warning, {user}. Leaving games without resigning $tempBan")
 
-  def sitting(pov: Pov): Unit = tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
+  def sitting(pov: Pov): Unit =
+    tell(pov, s"Warning, {user}. Letting time run out instead of resigning $tempBan")
 
   def sandbag(pov: Pov): Unit = tell(pov, s"Warning, {user}. Losing games on purpose will result in a ban.")
 

@@ -37,15 +37,15 @@ object Count {
     )
 
     def writes(w: BSON.Writer, o: Count) = BSONDocument(
-      "ai" -> w.int(o.ai),
-      "draw" -> w.int(o.draw),
+      "ai"    -> w.int(o.ai),
+      "draw"  -> w.int(o.draw),
       "drawH" -> w.int(o.drawH),
-      "game" -> w.int(o.game),
-      "loss" -> w.int(o.loss),
+      "game"  -> w.int(o.game),
+      "loss"  -> w.int(o.loss),
       "lossH" -> w.int(o.lossH),
       "rated" -> w.int(o.rated),
-      "win" -> w.int(o.win),
-      "winH" -> w.int(o.winH)
+      "win"   -> w.int(o.win),
+      "winH"  -> w.int(o.winH)
     )
   }
 

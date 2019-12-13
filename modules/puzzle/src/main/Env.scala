@@ -35,11 +35,11 @@ final class Env(
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
-  private lazy val db = mongo.asyncDb("puzzle", config.mongoUri)
+  private lazy val db    = mongo.asyncDb("puzzle", config.mongoUri)
   private def puzzleColl = db(config.puzzleColl)
-  private def roundColl = db(config.roundColl)
-  private def voteColl = db(config.voteColl)
-  private def headColl = db(config.headColl)
+  private def roundColl  = db(config.roundColl)
+  private def voteColl   = db(config.voteColl)
+  private def headColl   = db(config.headColl)
 
   private lazy val gameJson = wire[GameJson]
 
@@ -93,9 +93,10 @@ final class Env(
 
   def cli = new lila.common.Cli {
     def process = {
-      case "puzzle" :: "disable" :: id :: Nil => id.toIntOption ?? { id =>
-        api.puzzle disable id inject "Done"
-      }
+      case "puzzle" :: "disable" :: id :: Nil =>
+        id.toIntOption ?? { id =>
+          api.puzzle disable id inject "Done"
+        }
     }
   }
 }

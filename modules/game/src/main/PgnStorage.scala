@@ -23,7 +23,12 @@ private object PgnStorage {
 
   case object Huffman extends PgnStorage {
 
-    import org.lichess.compression.game.{ Encoder, Square => JavaSquare, Piece => JavaPiece, Role => JavaRole }
+    import org.lichess.compression.game.{
+      Encoder,
+      Square => JavaSquare,
+      Piece => JavaPiece,
+      Role => JavaRole
+    }
     import scala.jdk.CollectionConverters._
 
     def encode(pgnMoves: PgnMoves) = ByteArray {
@@ -32,7 +37,7 @@ private object PgnStorage {
       }
     }
     def decode(bytes: ByteArray, plies: Int): Decoded = monitor(_.game.pgn.decode("huffman")) {
-      val decoded = Encoder.decode(bytes.value, plies)
+      val decoded      = Encoder.decode(bytes.value, plies)
       val unmovedRooks = decoded.unmovedRooks.asScala.view.flatMap(chessPos).to(Set)
       Decoded(
         pgnMoves = decoded.pgnMoves.toVector,
@@ -51,14 +56,15 @@ private object PgnStorage {
       )
     }
 
-    private def chessPos(sq: Integer): Option[Pos] = Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
+    private def chessPos(sq: Integer): Option[Pos] =
+      Pos.posAt(JavaSquare.file(sq) + 1, JavaSquare.rank(sq) + 1)
     private def chessRole(role: JavaRole): Role = role match {
-      case JavaRole.PAWN => Pawn
+      case JavaRole.PAWN   => Pawn
       case JavaRole.KNIGHT => Knight
       case JavaRole.BISHOP => Bishop
-      case JavaRole.ROOK => Rook
-      case JavaRole.QUEEN => Queen
-      case JavaRole.KING => King
+      case JavaRole.ROOK   => Rook
+      case JavaRole.QUEEN  => Queen
+      case JavaRole.KING   => King
     }
     private def chessPiece(piece: JavaPiece): Piece = Piece(Color(piece.white), chessRole(piece.role))
   }
@@ -67,7 +73,7 @@ private object PgnStorage {
       pgnMoves: PgnMoves,
       pieces: PieceMap,
       positionHashes: PositionHash, // irrelevant after game ends
-      unmovedRooks: UnmovedRooks, // irrelevant after game ends
+      unmovedRooks: UnmovedRooks,   // irrelevant after game ends
       lastMove: Option[Uci],
       castles: Castles // irrelevant after game ends
   )

@@ -26,8 +26,9 @@ object Spotlight {
     -(t.schedule.??(_.freq.importance))
   }
 
-  private def select(tour: Tournament, user: User): Boolean = !tour.isFinished &&
-    tour.spotlight.fold(automatically(tour, user)) { manually(tour, _) }
+  private def select(tour: Tournament, user: User): Boolean =
+    !tour.isFinished &&
+      tour.spotlight.fold(automatically(tour, user)) { manually(tour, _) }
 
   private def manually(tour: Tournament, spotlight: Spotlight): Boolean =
     spotlight.homepageHours.exists { hours =>
@@ -40,19 +41,23 @@ object Spotlight {
         l.plusWeeks(weeks) isAfter DateTime.now
       }
       sched.freq match {
-        case Hourly => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
-        case Daily | Eastern => playedSinceWeeks(2)
-        case Weekly | Weekend => playedSinceWeeks(4)
-        case Unique => playedSinceWeeks(4)
+        case Hourly                               => canMaybeJoinLimited(tour, user) && playedSinceWeeks(2)
+        case Daily | Eastern                      => playedSinceWeeks(2)
+        case Weekly | Weekend                     => playedSinceWeeks(4)
+        case Unique                               => playedSinceWeeks(4)
         case Monthly | Shield | Marathon | Yearly => true
-        case ExperimentalMarathon => false
+        case ExperimentalMarathon                 => false
       }
     }
   }
 
   private def canMaybeJoinLimited(tour: Tournament, user: User): Boolean =
     tour.conditions.isRatingLimited &&
-      tour.conditions.nbRatedGame.fold(true) { c => c(user).accepted } &&
-      tour.conditions.minRating.fold(true) { c => c(user).accepted } &&
+      tour.conditions.nbRatedGame.fold(true) { c =>
+        c(user).accepted
+      } &&
+      tour.conditions.minRating.fold(true) { c =>
+        c(user).accepted
+      } &&
       tour.conditions.maxRating.fold(true)(_ maybe user)
 }

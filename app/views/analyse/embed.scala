@@ -1,6 +1,6 @@
 package views.html.analyse
 
-import play.api.libs.json.{ Json, JsObject }
+import play.api.libs.json.{ JsObject, Json }
 
 import lila.app.templating.Environment._
 import lila.app.ui.EmbedConfig
@@ -32,34 +32,37 @@ object embed {
         dataAssetVersion := assetVersion.value,
         dataTheme := config.bg
       )(
-          div(cls := "is2d")(
-            main(cls := "analyse")
-          ),
-          footer {
-            val url = routes.Round.watcher(pov.gameId, pov.color.name)
-            frag(
-              div(cls := "left")(
-                a(target := "_blank", href := url)(h1(titleGame(pov.game))),
-                " ",
-                em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
-              ),
-              a(target := "_blank", cls := "open", href := url)("Open")
-            )
-          },
-          jQueryTag,
-          jsTag("vendor/mousetrap.js"),
-          jsAt("compiled/util.js"),
-          jsAt("compiled/trans.js"),
-          jsAt("compiled/embed-analyse.js"),
-          analyseTag,
-          embedJsUnsafe(s"""lichess.startEmbeddedAnalyse(${
-            safeJsonValue(Json.obj(
-              "data" -> data,
+        div(cls := "is2d")(
+          main(cls := "analyse")
+        ),
+        footer {
+          val url = routes.Round.watcher(pov.gameId, pov.color.name)
+          frag(
+            div(cls := "left")(
+              a(target := "_blank", href := url)(h1(titleGame(pov.game))),
+              " ",
+              em("brought to you by ", a(target := "_blank", href := netBaseUrl)(netDomain))
+            ),
+            a(target := "_blank", cls := "open", href := url)("Open")
+          )
+        },
+        jQueryTag,
+        jsTag("vendor/mousetrap.js"),
+        jsAt("compiled/util.js"),
+        jsAt("compiled/trans.js"),
+        jsAt("compiled/embed-analyse.js"),
+        analyseTag,
+        embedJsUnsafe(
+          s"""lichess.startEmbeddedAnalyse(${safeJsonValue(
+            Json.obj(
+              "data"  -> data,
               "embed" -> true,
-              "i18n" -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
-            ))
-          })""", config.nonce)
+              "i18n"  -> views.html.board.userAnalysisI18n(withCeval = false, withExplorer = false)
+            )
+          )})""",
+          config.nonce
         )
+      )
     )
   )
 

@@ -44,8 +44,10 @@ Use [GitHub issues](https://github.com/ornicar/lila/issues) for bug reports and 
 Installation
 ------------
 
-`./lila`
-`run`
+```
+./lila # thin wrapper around sbt
+run
+```
 
 The Wiki describes [how to setup a development environment](https://github.com/ornicar/lila/wiki/Lichess-Development-Onboarding).
 

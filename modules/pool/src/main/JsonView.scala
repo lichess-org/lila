@@ -6,9 +6,9 @@ object JsonView {
 
   implicit val poolConfigJsonWriter = OWrites[PoolConfig] { p =>
     Json.obj(
-      "id" -> p.id.value,
-      "lim" -> p.clock.limitInMinutes,
-      "inc" -> p.clock.incrementSeconds,
+      "id"   -> p.id.value,
+      "lim"  -> p.clock.limitInMinutes,
+      "inc"  -> p.clock.incrementSeconds,
       "perf" -> p.perfType.name
     )
   }

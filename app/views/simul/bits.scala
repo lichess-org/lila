@@ -17,12 +17,12 @@ object bits {
     views.html.base.layout(
       title = trans.noSimulFound.txt()
     ) {
-        main(cls := "page-small box box-pad")(
-          h1(trans.noSimulFound()),
-          p(trans.noSimulExplanation()),
-          p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
-        )
-      }
+      main(cls := "page-small box box-pad")(
+        h1(trans.noSimulFound()),
+        p(trans.noSimulExplanation()),
+        p(a(href := routes.Simul.home())(trans.returnToSimulHomepage()))
+      )
+    }
 
   def homepageSpotlight(s: lila.simul.Simul)(implicit ctx: Context) =
     a(href := routes.Simul.show(s.id), cls := "tour-spotlight little id_@s.id")(

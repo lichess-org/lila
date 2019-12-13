@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
-import lila.common.{ Bus, EmailAddress, IpAddress, HTTPRequest }
+import lila.common.{ Bus, EmailAddress, HTTPRequest, IpAddress }
 import lila.user.User
 
 // codename UGC
@@ -32,47 +32,53 @@ final class GarbageCollector(
       system.scheduler.scheduleOnce(6 seconds) {
         val applyData = ApplyData(user, ip, email, req)
         logger.debug(s"delay $applyData")
-        lila.common.Future.retry(
-          () => ensurePrintAvailable(applyData),
-          delay = 10 seconds,
-          retries = 5,
-          logger = none
-        )(system).nevermind >> apply(applyData)
+        lila.common.Future
+          .retry(
+            () => ensurePrintAvailable(applyData),
+            delay = 10 seconds,
+            retries = 5,
+            logger = none
+          )(system)
+          .nevermind >> apply(applyData)
       }
     }
 
   private def ensurePrintAvailable(data: ApplyData): Funit =
     userSpy userHasPrint data.user flatMap {
       case false => fufail("No print available yet")
-      case _ => funit
+      case _     => funit
     }
 
   private def apply(data: ApplyData): Funit = data match {
-    case ApplyData(user, ip, email, req) => for {
-      spy <- userSpy(user)
-      ipSusp <- ipTrust isSuspicious ip
-    } yield {
-      val printOpt = spy.prints.headOption
-      logger.debug(s"apply ${data.user.username} print=${printOpt}")
-      Bus.publish(
-        lila.security.Signup(user, email, req, printOpt.map(_.value), ipSusp),
-        "userSignup"
-      )
-      printOpt.map(_.value) filter printBan.blocks match {
-        case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
-        case _ =>
-          badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
-            logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
-            lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
-              _ ?? collect(user, email,
-                ipBan = spy.usersSharingIp.forall { u =>
-                  isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
-                },
-                msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}")
+    case ApplyData(user, ip, email, req) =>
+      for {
+        spy    <- userSpy(user)
+        ipSusp <- ipTrust isSuspicious ip
+      } yield {
+        val printOpt = spy.prints.headOption
+        logger.debug(s"apply ${data.user.username} print=${printOpt}")
+        Bus.publish(
+          lila.security.Signup(user, email, req, printOpt.map(_.value), ipSusp),
+          "userSignup"
+        )
+        printOpt.map(_.value) filter printBan.blocks match {
+          case Some(print) => collect(user, email, ipBan = false, msg = s"Print ban: ${print.value}")
+          case _ =>
+            badOtherAccounts(spy.otherUsers.map(_.user)) ?? { others =>
+              logger.debug(s"other ${data.user.username} others=${others.map(_.username)}")
+              lila.common.Future.exists(spy.ips)(ipTrust.isSuspicious).map {
+                _ ?? collect(
+                  user,
+                  email,
+                  ipBan = spy.usersSharingIp.forall { u =>
+                    isBadAccount(u) || !u.seenAt.exists(DateTime.now.minusMonths(2).isBefore)
+                  },
+                  msg = s"Prev users: ${others.map(o => "@" + o.username).mkString(", ")}"
+                )
+              }
             }
-          }
+        }
       }
-    }
   }
 
   private def badOtherAccounts(accounts: Set[User]): Option[List[User]] = {
@@ -85,21 +91,23 @@ final class GarbageCollector(
 
   private def isBadAccount(user: User) = user.lameOrTroll
 
-  private def collect(user: User, email: EmailAddress, ipBan: Boolean, msg: => String): Funit = !done.get(user.id) ?? {
-    done put user.id
-    val armed = isArmed()
-    val wait = (30 + scala.util.Random.nextInt(300)).seconds
-    val message = s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
-    logger.info(message)
-    slack.garbageCollector(message) >>- {
-      if (armed) {
-        doInitialSb(user)
-        system.scheduler.scheduleOnce(wait) {
-          doCollect(user, ipBan)
+  private def collect(user: User, email: EmailAddress, ipBan: Boolean, msg: => String): Funit =
+    !done.get(user.id) ?? {
+      done put user.id
+      val armed = isArmed()
+      val wait  = (30 + scala.util.Random.nextInt(300)).seconds
+      val message =
+        s"Will dispose of @${user.username} in $wait. Email: ${email.value}. $msg${!armed ?? " [SIMULATION]"}"
+      logger.info(message)
+      slack.garbageCollector(message) >>- {
+        if (armed) {
+          doInitialSb(user)
+          system.scheduler.scheduleOnce(wait) {
+            doCollect(user, ipBan)
+          }
         }
       }
     }
-  }
 
   private def doInitialSb(user: User): Unit =
     Bus.publish(

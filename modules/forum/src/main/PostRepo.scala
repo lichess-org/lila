@@ -36,9 +36,12 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
     coll.ext.find(selectTopic(topic.id)).sort($sort.createdDesc).one[Post]
 
   def recentInCategs(nb: Int)(categIds: List[String], langs: List[String]): Fu[List[Post]] =
-    coll.ext.find(
-      selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
-    ).sort($sort.createdDesc).list[Post](nb)
+    coll.ext
+      .find(
+        selectCategs(categIds) ++ selectLangs(langs) ++ selectNotHidden
+      )
+      .sort($sort.createdDesc)
+      .list[Post](nb)
 
   def countByCateg(categ: Categ): Fu[Int] =
     coll.countSel(selectCateg(categ.id))
@@ -46,15 +49,18 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
   def removeByTopic(topicId: String): Funit =
     coll.delete.one(selectTopic(topicId)).void
 
-  def hideByTopic(topicId: String, value: Boolean): Funit = coll.update.one(
-    selectTopic(topicId),
-    $set("hidden" -> value),
-    multi = true
-  ).void
+  def hideByTopic(topicId: String, value: Boolean): Funit =
+    coll.update
+      .one(
+        selectTopic(topicId),
+        $set("hidden" -> value),
+        multi = true
+      )
+      .void
 
   def selectTopic(topicId: String) = $doc("topicId" -> topicId) ++ trollFilter
 
-  def selectCateg(categId: String) = $doc("categId" -> categId) ++ trollFilter
+  def selectCateg(categId: String)         = $doc("categId" -> categId) ++ trollFilter
   def selectCategs(categIds: List[String]) = $doc("categId" $in categIds) ++ trollFilter
 
   val selectNotHidden = $doc("hidden" -> false)
@@ -63,11 +69,14 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
     if (langs.isEmpty) $empty
     else $doc("lang" $in langs)
 
-  def findDuplicate(post: Post): Fu[Option[Post]] = coll.one[Post]($doc(
-    "createdAt" $gt DateTime.now.minusHours(1),
-    "userId" -> ~post.userId,
-    "text" -> post.text
-  ))
+  def findDuplicate(post: Post): Fu[Option[Post]] =
+    coll.one[Post](
+      $doc(
+        "createdAt" $gt DateTime.now.minusHours(1),
+        "userId" -> ~post.userId,
+        "text"   -> post.text
+      )
+    )
 
   def sortQuery = $sort.createdAsc
 
@@ -78,6 +87,7 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
     coll.distinctEasy[String, List]("_id", $doc("topicId" -> topicId))
 
   def cursor =
-    coll.ext.find($empty)
+    coll.ext
+      .find($empty)
       .cursor[Post](ReadPreference.secondaryPreferred)
 }

@@ -8,23 +8,23 @@ import scalatags.Text.Frag
 
 import lila.api.Context
 import lila.app._
-import lila.common.{ IpAddress, HTTPRequest }
+import lila.common.{ HTTPRequest, IpAddress }
 import lila.security.Granter
 import lila.user.{ User => UserModel }
 import views._
 
 final class Message(env: Env) extends LilaController(env) {
 
-  private def api = env.message.api
-  private def security = env.message.security
-  private def forms = env.message.forms
+  private def api         = env.message.api
+  private def security    = env.message.security
+  private def forms       = env.message.forms
   private def relationApi = env.relation.api
 
   def inbox(page: Int) = Auth { implicit ctx => me =>
     NotForKids {
       for {
         pag <- api.inbox(me, page)
-        _ <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
+        _   <- env.user.lightUserApi preloadMany pag.currentPageResults.flatMap(_.userIds)
         res <- negotiate(
           html = fuccess(html.message.inbox(me, pag)),
           api = _ => fuccess(env.message.jsonView.inbox(me, pag))
@@ -51,7 +51,10 @@ final class Message(env: Env) extends LilaController(env) {
             html.message.thread(thread, form, blocked)
           }
         } map NoCache,
-        api = _ => JsonOptionFuOk(api.thread(id, me)) { thread => env.message.jsonView.thread(thread) }
+        api = _ =>
+          JsonOptionFuOk(api.thread(id, me)) { thread =>
+            env.message.jsonView.thread(thread)
+          }
       )
     }
   }
@@ -61,17 +64,20 @@ final class Message(env: Env) extends LilaController(env) {
       implicit val req = ctx.body
       negotiate(
         html = forms.post.bindFromRequest.fold(
-          err => relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
-            BadRequest(html.message.thread(thread, err.some, blocked))
-          },
-          text => api.makePost(thread, text, me) inject Redirect {
-            s"${routes.Message.thread(thread.id)}#bottom"
-          }
+          err =>
+            relationApi.fetchBlocks(thread otherUserId me, me.id) map { blocked =>
+              BadRequest(html.message.thread(thread, err.some, blocked))
+            },
+          text =>
+            api.makePost(thread, text, me) inject Redirect {
+              s"${routes.Message.thread(thread.id)}#bottom"
+            }
         ),
-        api = _ => forms.post.bindFromRequest.fold(
-          _ => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
-          text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
-        )
+        api = _ =>
+          forms.post.bindFromRequest.fold(
+            _ => fuccess(BadRequest(Json.obj("err" -> "Malformed request"))),
+            text => api.makePost(thread, text, me) inject Ok(Json.obj("ok" -> true, "id" -> thread.id))
+          )
       )
     }
   }
@@ -96,7 +102,7 @@ final class Message(env: Env) extends LilaController(env) {
     key = "pm_thread.ip"
   )
 
-  private implicit val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
+  implicit private val rateLimited = ornicar.scalalib.Zero.instance[Fu[Result]] {
     fuccess(Redirect(routes.Message.inbox(1)))
   }
 
@@ -105,35 +111,46 @@ final class Message(env: Env) extends LilaController(env) {
       env.chat.panic.allowed(me) ?? {
         implicit val req = ctx.body
         negotiate(
-          html = forms.thread(me).bindFromRequest.fold(
-            err => renderForm(me, none, _ => err) map { BadRequest(_) },
-            data => {
-              val cost =
-                if (isGranted(_.ModMessage)) 0
-                else if (!me.createdSinceDays(3)) 2
-                else 1
-              ThreadLimitPerUser(me.id, cost = cost) {
-                ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
-                  api.makeThread(data, me) map { thread =>
-                    if (thread.asMod) env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
-                    Redirect(routes.Message.thread(thread.id))
+          html = forms
+            .thread(me)
+            .bindFromRequest
+            .fold(
+              err => renderForm(me, none, _ => err) map { BadRequest(_) },
+              data => {
+                val cost =
+                  if (isGranted(_.ModMessage)) 0
+                  else if (!me.createdSinceDays(3)) 2
+                  else 1
+                ThreadLimitPerUser(me.id, cost = cost) {
+                  ThreadLimitPerIP(HTTPRequest lastRemoteAddress ctx.req, cost = cost) {
+                    api.makeThread(data, me) map { thread =>
+                      if (thread.asMod)
+                        env.mod.logApi.modMessage(thread.creatorId, thread.invitedId, thread.name)
+                      Redirect(routes.Message.thread(thread.id))
+                    }
                   }
                 }
               }
-            }
-          ),
-          api = _ => forms.thread(me).bindFromRequest.fold(
-            jsonFormError,
-            data => api.makeThread(data, me) map { thread =>
-              Ok(Json.obj("ok" -> true, "id" -> thread.id))
-            }
-          )
+            ),
+          api = _ =>
+            forms
+              .thread(me)
+              .bindFromRequest
+              .fold(
+                jsonFormError,
+                data =>
+                  api.makeThread(data, me) map { thread =>
+                    Ok(Json.obj("ok" -> true, "id" -> thread.id))
+                  }
+              )
         )
       }
     }
   }
 
-  private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(implicit ctx: Context): Fu[Frag] =
+  private def renderForm(me: UserModel, title: Option[String], f: Form[_] => Form[_])(
+      implicit ctx: Context
+  ): Fu[Frag] =
     get("user") ?? env.user.repo.named flatMap { user =>
       user.fold(fuTrue)(u => security.canMessage(me.id, u.id)) map { canMessage =>
         html.message.form(

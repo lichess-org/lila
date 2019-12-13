@@ -19,10 +19,11 @@ final class EvalCacheApi(
   import EvalCacheEntry._
   import BSONHandlers._
 
-  def getEvalJson(variant: Variant, fen: FEN, multiPv: Int): Fu[Option[JsObject]] = getEval(
-    id = Id(variant, SmallFen.make(variant, fen)),
-    multiPv = multiPv
-  ) map {
+  def getEvalJson(variant: Variant, fen: FEN, multiPv: Int): Fu[Option[JsObject]] =
+    getEval(
+      id = Id(variant, SmallFen.make(variant, fen)),
+      multiPv = multiPv
+    ) map {
       _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Forsyth getPly fen.value foreach { ply =>
@@ -66,26 +67,27 @@ final class EvalCacheApi(
     case Some(error) =>
       logger.info(s"Invalid from ${trustedUser.user.username} $error ${input.fen}")
       funit
-    case None => getEntry(input.id) map {
-      case None =>
-        val entry = EvalCacheEntry(
-          _id = input.id,
-          nbMoves = destSize(input.fen),
-          evals = List(input.eval),
-          usedAt = DateTime.now
-        )
-        coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
-          cache.put(input.id, entry.some) >>-
-          upgrade.onEval(input, sri)
-      case Some(oldEntry) =>
-        val entry = oldEntry add input.eval
-        !(entry similarTo oldEntry) ?? {
-          coll.update.one($id(entry.id), entry, upsert = true).void >>-
+    case None =>
+      getEntry(input.id) map {
+        case None =>
+          val entry = EvalCacheEntry(
+            _id = input.id,
+            nbMoves = destSize(input.fen),
+            evals = List(input.eval),
+            usedAt = DateTime.now
+          )
+          coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
             cache.put(input.id, entry.some) >>-
             upgrade.onEval(input, sri)
-        }
+        case Some(oldEntry) =>
+          val entry = oldEntry add input.eval
+          !(entry similarTo oldEntry) ?? {
+            coll.update.one($id(entry.id), entry, upsert = true).void >>-
+              cache.put(input.id, entry.some) >>-
+              upgrade.onEval(input, sri)
+          }
 
-    }
+      }
   }
 
   private def destSize(fen: FEN): Int =

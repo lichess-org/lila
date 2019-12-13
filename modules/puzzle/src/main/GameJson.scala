@@ -4,9 +4,9 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.game.{ Game, GameRepo, PerfPicker }
-import lila.tree.Node.{ partitionTreeJsonWriter, minimalNodeJsonWriter }
+import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 
-private final class GameJson(
+final private class GameJson(
     gameRepo: GameRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi
@@ -37,25 +37,27 @@ private final class GameJson(
   private def generate(game: Game, plies: Int, onlyLast: Boolean): Fu[JsObject] =
     lightUserApi preloadMany game.userIds map { _ =>
       val perfType = lila.rating.PerfType orDefault PerfPicker.key(game)
-      val tree = TreeBuilder(game, plies)
-      Json.obj(
-        "id" -> game.id,
-        "perf" -> Json.obj(
-          "icon" -> perfType.iconChar.toString,
-          "name" -> perfType.name
-        ),
-        "rated" -> game.rated,
-        "players" -> JsArray(game.players.map { p =>
-          Json.obj(
-            "userId" -> p.userId,
-            "name" -> lila.game.Namer.playerTextBlocking(p, withRating = true)(lightUserApi.sync),
-            "color" -> p.color.name
-          )
-        }),
-        "treeParts" -> {
-          if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
-          else partitionTreeJsonWriter.writes(tree).some
-        }
-      ).add("clock", game.clock.map(_.config.show))
+      val tree     = TreeBuilder(game, plies)
+      Json
+        .obj(
+          "id" -> game.id,
+          "perf" -> Json.obj(
+            "icon" -> perfType.iconChar.toString,
+            "name" -> perfType.name
+          ),
+          "rated" -> game.rated,
+          "players" -> JsArray(game.players.map { p =>
+            Json.obj(
+              "userId" -> p.userId,
+              "name"   -> lila.game.Namer.playerTextBlocking(p, withRating = true)(lightUserApi.sync),
+              "color"  -> p.color.name
+            )
+          }),
+          "treeParts" -> {
+            if (onlyLast) tree.mainlineNodeList.lastOption.map(minimalNodeJsonWriter.writes)
+            else partitionTreeJsonWriter.writes(tree).some
+          }
+        )
+        .add("clock", game.clock.map(_.config.show))
     }
 }

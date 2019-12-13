@@ -30,19 +30,22 @@ final class Env(
   lazy val api = wire[ShutupApi]
 
   // api actor
-  system.actorOf(Props(new Actor {
-    import lila.hub.actorApi.shutup._
-    def receive = {
-      case RecordPublicForumMessage(userId, text) =>
-        api.publicForumMessage(userId, text)
-      case RecordTeamForumMessage(userId, text) =>
-        api.teamForumMessage(userId, text)
-      case RecordPrivateMessage(userId, toUserId, text, _) =>
-        api.privateMessage(userId, toUserId, text)
-      case RecordPrivateChat(chatId, userId, text) =>
-        api.privateChat(chatId, userId, text)
-      case RecordPublicChat(userId, text, source) =>
-        api.publicChat(userId, text, source)
-    }
-  }), name = config.actorName)
+  system.actorOf(
+    Props(new Actor {
+      import lila.hub.actorApi.shutup._
+      def receive = {
+        case RecordPublicForumMessage(userId, text) =>
+          api.publicForumMessage(userId, text)
+        case RecordTeamForumMessage(userId, text) =>
+          api.teamForumMessage(userId, text)
+        case RecordPrivateMessage(userId, toUserId, text, _) =>
+          api.privateMessage(userId, toUserId, text)
+        case RecordPrivateChat(chatId, userId, text) =>
+          api.privateChat(chatId, userId, text)
+        case RecordPublicChat(userId, text, source) =>
+          api.publicChat(userId, text, source)
+      }
+    }),
+    name = config.actorName
+  )
 }

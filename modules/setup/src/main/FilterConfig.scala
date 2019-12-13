@@ -10,18 +10,19 @@ case class FilterConfig(
     ratingRange: RatingRange
 ) {
 
-  def >> = (
-    variant map (_.id),
-    mode map (_.id),
-    speed map (_.id),
-    ratingRange.toString
-  ).some
+  def >> =
+    (
+      variant map (_.id),
+      mode map (_.id),
+      speed map (_.id),
+      ratingRange.toString
+    ).some
 
   def render = play.api.libs.json.Json.obj(
     "variant" -> variant.map(_.key),
-    "mode" -> mode.map(_.id),
-    "speed" -> speed.map(_.id),
-    "rating" -> ratingRange.notBroad.map(rr => List(rr.min, rr.max))
+    "mode"    -> mode.map(_.id),
+    "speed"   -> speed.map(_.id),
+    "rating"  -> ratingRange.notBroad.map(rr => List(rr.min, rr.max))
   )
 
   def nonEmpty = copy(
@@ -45,7 +46,7 @@ object FilterConfig {
     chess.variant.Crazyhouse
   )
 
-  val modes = Mode.all
+  val modes  = Mode.all
   val speeds = Speed.all
 
   val default = FilterConfig(
@@ -55,17 +56,18 @@ object FilterConfig {
     ratingRange = RatingRange.default
   )
 
-  def <<(v: List[Int], m: List[Int], s: List[Int], e: String) = new FilterConfig(
-    variant = v map chess.variant.Variant.apply flatten,
-    mode = m map Mode.apply flatten,
-    speed = s map Speed.apply flatten,
-    ratingRange = RatingRange orDefault e
-  ).nonEmpty
+  def <<(v: List[Int], m: List[Int], s: List[Int], e: String) =
+    new FilterConfig(
+      variant = v map chess.variant.Variant.apply flatten,
+      mode = m map Mode.apply flatten,
+      speed = s map Speed.apply flatten,
+      ratingRange = RatingRange orDefault e
+    ).nonEmpty
 
   import reactivemongo.api.bson._
   import lila.db.BSON
 
-  private[setup] implicit val filterConfigBSONHandler = new BSON[FilterConfig] {
+  implicit private[setup] val filterConfigBSONHandler = new BSON[FilterConfig] {
 
     def reads(r: BSON.Reader): FilterConfig = FilterConfig(
       variant = r intsD "v" flatMap { chess.variant.Variant(_) },

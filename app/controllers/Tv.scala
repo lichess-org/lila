@@ -38,17 +38,18 @@ final class Tv(
     OptionFuResult(env.tv.tv getGameAndHistory channel) {
       case (game, history) =>
         val flip = getBool("flip")
-        val pov = if (flip) Pov second game else Pov first game
+        val pov  = if (flip) Pov second game else Pov first game
         val onTv = lila.round.OnLichessTv(channel.key, flip)
         negotiate(
           html = {
             env.api.roundApi.watcher(pov, lila.api.Mobile.Api.currentVersion, tv = onTv.some) zip
               env.game.crosstableApi.withMatchup(game) zip
               env.tv.tv.getChampions map {
-                case data ~ cross ~ champions => NoCache {
+              case data ~ cross ~ champions =>
+                NoCache {
                   Ok(html.tv.index(channel, champions, pov, data, cross, history))
                 }
-              }
+            }
           },
           api = apiVersion => env.api.roundApi.watcher(pov, apiVersion, tv = onTv.some) map { Ok(_) }
         )
@@ -59,9 +60,10 @@ final class Tv(
   def gamesChannel(chanKey: String) = Open { implicit ctx =>
     (lila.tv.Tv.Channel.byKey get chanKey) ?? { channel =>
       env.tv.tv.getChampions zip env.tv.tv.getGames(channel, 15) map {
-        case (champs, games) => NoCache {
-          Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
-        }
+        case (champs, games) =>
+          NoCache {
+            Ok(html.tv.games(channel, games map lila.game.Pov.first, champs))
+          }
       }
     }
   }
@@ -73,22 +75,22 @@ final class Tv(
     import play.api.libs.EventSource
     env.round.tvBroadcast ? TvBroadcast.Connect mapTo
       manifest[TvBroadcast.SourceType] map { source =>
-        Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
-      }
+      Ok.chunked(source via EventSource.flow).as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
+    }
   }
 
   /* for BC */
   def embed = Action { req =>
     Ok {
       val config = ui.EmbedConfig(req)
-      val url = s"""${req.domain + routes.Tv.frame}?bg=${config.bg}&theme=${config.board}"""
+      val url    = s"""${req.domain + routes.Tv.frame}?bg=${config.bg}&theme=${config.board}"""
       s"""document.write("<iframe src='https://$url&embed=" + document.domain + "' class='lichess-tv-iframe' allowtransparency='true' frameborder='0' style='width: 224px; height: 264px;' title='Lichess free online chess'></iframe>");"""
     } as JAVASCRIPT withHeaders (CACHE_CONTROL -> "max-age=86400")
   }
 
   def frame = Action.async { implicit req =>
     env.tv.tv.getBestGame map {
-      case None => NotFound
+      case None       => NotFound
       case Some(game) => Ok(views.html.tv.embed(Pov first game))
     }
   }

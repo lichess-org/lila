@@ -53,11 +53,11 @@ ${Mailgun.txt.serviceNote}
 
   case class TokenPayload(userId: User.ID, email: EmailAddress)
 
-  private implicit final val payloadSerializable = new StringToken.Serializable[Option[TokenPayload]] {
+  implicit final private val payloadSerializable = new StringToken.Serializable[Option[TokenPayload]] {
     private val sep = ' '
     def read(str: String) = str.split(sep) match {
       case Array(id, email) => EmailAddress from email map { TokenPayload(id, _) }
-      case _ => none
+      case _                => none
     }
     def write(a: Option[TokenPayload]) = a ?? {
       case TokenPayload(userId, EmailAddress(email)) => s"$userId$sep$email"
@@ -66,8 +66,9 @@ ${Mailgun.txt.serviceNote}
 
   private val tokener = new StringToken[Option[TokenPayload]](
     secret = tokenerSecret,
-    getCurrentValue = p => p ?? {
-      case TokenPayload(userId, _) => userRepo email userId map (_.??(_.value))
-    }
+    getCurrentValue = p =>
+      p ?? {
+        case TokenPayload(userId, _) => userRepo email userId map (_.??(_.value))
+      }
   )
 }

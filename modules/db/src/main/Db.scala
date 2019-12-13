@@ -4,7 +4,7 @@ import com.github.ghik.silencer.silent
 import reactivemongo.api._
 import reactivemongo.api.commands.Command
 import scala.concurrent.duration._
-import scala.concurrent.{ Future, Await }
+import scala.concurrent.{ Await, Future }
 
 import dsl.Coll
 import lila.common.Chronometer
@@ -41,13 +41,13 @@ final class Db(
       5.seconds
     )
   ) { lap =>
-      logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
-    }
+    logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
+  }
 
   def apply(name: CollName): Coll = db(name.value)
 
   val runCommand = new RunCommand((command, readPreference) => {
-    val pack = reactivemongo.api.bson.collection.BSONSerializationPack
+    val pack           = reactivemongo.api.bson.collection.BSONSerializationPack
     @silent val runner = Command.run(pack, FailoverStrategy.strict)
     runner(db, runner.rawCommand(command)).one[dsl.Bdoc](readPreference)
   })

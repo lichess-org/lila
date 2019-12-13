@@ -47,7 +47,7 @@ object Query {
   def clockHistory(c: Boolean): Bdoc = F.whiteClockHistory $exists c
 
   def user(u: String): Bdoc = F.playerUids $eq u
-  def user(u: User): Bdoc = F.playerUids $eq u.id
+  def user(u: User): Bdoc   = F.playerUids $eq u.id
 
   val noAi: Bdoc = $doc(
     "p0.ai" $exists false,
@@ -74,7 +74,7 @@ object Query {
     F.status $in Status.finishedWithWinner.map(_.id),
     F.winnerId -> $doc(
       "$exists" -> true,
-      "$ne" -> u
+      "$ne"     -> u
     )
   )
 
@@ -120,14 +120,14 @@ object Query {
     F.createdAt $gt d
 
   def createdBetween(since: Option[DateTime], until: Option[DateTime]): Bdoc = (since, until) match {
-    case (Some(since), None) => createdSince(since)
-    case (None, Some(until)) => F.createdAt $lt until
+    case (Some(since), None)        => createdSince(since)
+    case (None, Some(until))        => F.createdAt $lt until
     case (Some(since), Some(until)) => F.createdAt $gt since $lt until
-    case _ => $empty
+    case _                          => $empty
   }
 
-  val sortCreated: Bdoc = $sort desc F.createdAt
-  val sortChronological: Bdoc = $sort asc F.createdAt
+  val sortCreated: Bdoc           = $sort desc F.createdAt
+  val sortChronological: Bdoc     = $sort asc F.createdAt
   val sortAntiChronological: Bdoc = $sort desc F.createdAt
-  val sortMovedAtNoIndex: Bdoc = $sort desc F.movedAt
+  val sortMovedAtNoIndex: Bdoc    = $sort desc F.movedAt
 }

@@ -2,7 +2,7 @@ package lila.security
 
 import lila.user.{ User, UserRepo }
 
-private[security] final class Cli(userRepo: UserRepo) extends lila.common.Cli {
+final private[security] class Cli(userRepo: UserRepo) extends lila.common.Cli {
 
   def process = {
 
@@ -12,8 +12,7 @@ private[security] final class Cli(userRepo: UserRepo) extends lila.common.Cli {
       }
 
     case "security" :: "grant" :: uid :: roles =>
-      perform(uid, user =>
-        userRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
+      perform(uid, user => userRepo.setRoles(user.id, roles map (_.toUpperCase)).void)
   }
 
   private def perform(username: String, op: User => Funit): Fu[String] =

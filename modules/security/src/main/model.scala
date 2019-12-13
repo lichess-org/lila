@@ -3,7 +3,7 @@ package lila.security
 import org.joda.time.DateTime
 import play.api.mvc.RequestHeader
 
-import lila.common.{ IpAddress, EmailAddress }
+import lila.common.{ EmailAddress, IpAddress }
 import lila.user.User
 
 case class FingerPrintedUser(user: User, fp: Option[FingerHash]) {

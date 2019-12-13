@@ -7,14 +7,16 @@ object DataForm {
 
   object importGame {
 
-    lazy val form = Form(mapping(
-      "gameId" -> optional(nonEmptyText),
-      "orientation" -> optional(nonEmptyText),
-      "fen" -> optional(nonEmptyText),
-      "pgn" -> optional(nonEmptyText),
-      "variant" -> optional(nonEmptyText),
-      "as" -> optional(nonEmptyText)
-    )(Data.apply)(Data.unapply))
+    lazy val form = Form(
+      mapping(
+        "gameId"      -> optional(nonEmptyText),
+        "orientation" -> optional(nonEmptyText),
+        "fen"         -> optional(nonEmptyText),
+        "pgn"         -> optional(nonEmptyText),
+        "variant"     -> optional(nonEmptyText),
+        "as"          -> optional(nonEmptyText)
+      )(Data.apply)(Data.unapply)
+    )
 
     case class Data(
         gameId: Option[String] = None,
@@ -29,7 +31,7 @@ object DataForm {
 
       def as: As = asStr match {
         case None | Some("study") => AsNewStudy
-        case Some(studyId) => AsChapterOf(Study.Id(studyId))
+        case Some(studyId)        => AsChapterOf(Study.Id(studyId))
       }
 
       def toChapterData = ChapterMaker.Data(
@@ -45,21 +47,23 @@ object DataForm {
     }
 
     sealed trait As
-    case object AsNewStudy extends As
+    case object AsNewStudy                    extends As
     case class AsChapterOf(studyId: Study.Id) extends As
   }
 
   object importPgn {
 
-    lazy val form = Form(mapping(
-      "name" -> text,
-      "orientation" -> optional(nonEmptyText),
-      "variant" -> optional(nonEmptyText),
-      "mode" -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
-      "initial" -> boolean,
-      "sticky" -> boolean,
-      "pgn" -> nonEmptyText
-    )(Data.apply)(Data.unapply))
+    lazy val form = Form(
+      mapping(
+        "name"        -> text,
+        "orientation" -> optional(nonEmptyText),
+        "variant"     -> optional(nonEmptyText),
+        "mode"        -> nonEmptyText.verifying(ChapterMaker.Mode(_).isDefined),
+        "initial"     -> boolean,
+        "sticky"      -> boolean,
+        "pgn"         -> nonEmptyText
+      )(Data.apply)(Data.unapply)
+    )
 
     case class Data(
         name: String,

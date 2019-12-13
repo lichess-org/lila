@@ -6,7 +6,7 @@ import lila.common.Bus
 import lila.hub.actorApi.slack.{ Victory, Warning }
 import lila.memo.ExpireSetMemo
 
-private final class MainWatcher(
+final private class MainWatcher(
     repo: FishnetRepo
 )(implicit system: akka.actor.ActorSystem) {
 

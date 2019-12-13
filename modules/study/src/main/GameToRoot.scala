@@ -24,7 +24,7 @@ private object GameToRoot {
     import lila.tree.Node.Comment
     val result = chess.Color.showResult(game.winnerColor)
     val status = lila.game.StatusText(game)
-    val text = s"$result $status"
+    val text   = s"$result $status"
     Comment(Comment.Id.make, Comment.Text(text), Comment.Author.Lichess)
   }
 }

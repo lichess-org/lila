@@ -92,7 +92,9 @@ else return 'other';
       """if (c == 1) return 'one'; else if (c == 2) return 'two'; else return 'other';"""
     case "ak" | "am" | "bh" | "fil" | "tl" | "guw" | "hi" | "ln" | "mg" | "nso" | "ti" | "wa" => // zero
       """return (c == 0 || c == 1) ? 'one' : 'other';"""
-    case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" | "tr" | "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" | "tp" | "io" | "ia" => // none
+    case "az" | "bm" | "fa" | "ig" | "hu" | "ja" | "kde" | "kea" | "ko" | "my" | "ses" | "sg" | "to" | "tr" |
+        "vi" | "wo" | "yo" | "zh" | "bo" | "dz" | "id" | "jv" | "ka" | "km" | "kn" | "ms" | "th" | "tp" |
+        "io" | "ia" => // none
       """return 'other';"""
     case _ => // other
       """return c == 1 ? 'one' : 'other';"""

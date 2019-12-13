@@ -5,23 +5,28 @@ import reactivemongo.api.bson._
 
 final class CoordinateApi(scoreColl: Coll) {
 
-  private implicit val scoreBSONHandler = Macros.handler[Score]
+  implicit private val scoreBSONHandler = Macros.handler[Score]
 
   def getScore(userId: String): Fu[Score] =
     scoreColl.byId[Score](userId) map (_ | Score(userId))
 
-  def addScore(userId: String, white: Boolean, hits: Int): Funit = scoreColl.update.one(
-    $id(userId),
-    $push($doc(
-      "white" -> BSONDocument(
-        "$each" -> (white ?? List(BSONInteger(hits))),
-        "$slice" -> -20
-      ),
-      "black" -> BSONDocument(
-        "$each" -> (!white ?? List(BSONInteger(hits))),
-        "$slice" -> -20
+  def addScore(userId: String, white: Boolean, hits: Int): Funit =
+    scoreColl.update
+      .one(
+        $id(userId),
+        $push(
+          $doc(
+            "white" -> BSONDocument(
+              "$each"  -> (white ?? List(BSONInteger(hits))),
+              "$slice" -> -20
+            ),
+            "black" -> BSONDocument(
+              "$each"  -> (!white ?? List(BSONInteger(hits))),
+              "$slice" -> -20
+            )
+          )
+        ),
+        upsert = true
       )
-    )),
-    upsert = true
-  ).void
+      .void
 }

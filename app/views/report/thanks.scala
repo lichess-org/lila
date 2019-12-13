@@ -32,7 +32,8 @@ $button.find('span').text('Blocked!');
       main(cls := "page-small box box-pad")(
         h1(title),
         p("The moderators will review it very soon, and take appropriate action."),
-        br, br,
+        br,
+        br,
         !blocked option p(
           "In the meantime, you can block this user: ",
           submitButton(
@@ -40,10 +41,11 @@ $button.find('span').text('Blocked!');
             cls := "report-block button",
             st.title := trans.block.txt()
           )(
-              span(cls := "text", dataIcon := "k")("Block ", usernameOrId(userId))
-            )
+            span(cls := "text", dataIcon := "k")("Block ", usernameOrId(userId))
+          )
         ),
-        br, br,
+        br,
+        br,
         p(
           a(href := routes.Lobby.home)("Return to lichess homepage")
         )

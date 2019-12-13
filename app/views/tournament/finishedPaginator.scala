@@ -12,15 +12,19 @@ object finishedPaginator {
   def apply(finished: lila.common.paginator.Paginator[Tournament])(implicit ctx: Context) =
     tbody(cls := "infinitescroll")(
       finished.nextPage.map { np =>
-        tr(th(cls := "pager none")(
-          a(rel := "next", href := routes.Tournament.home(np))("Next")
-        ))
+        tr(
+          th(cls := "pager none")(
+            a(rel := "next", href := routes.Tournament.home(np))("Next")
+          )
+        )
       },
       finished.currentPageResults.map { t =>
-        tr(cls := List(
-          "paginated" -> true,
-          "tour-scheduled" -> t.isScheduled
-        ))(
+        tr(
+          cls := List(
+            "paginated"      -> true,
+            "tour-scheduled" -> t.isScheduled
+          )
+        )(
           td(cls := "icon")(iconTag(tournamentIconChar(t))),
           td(cls := "header")(
             a(href := routes.Tournament.show(t.id))(

@@ -9,9 +9,9 @@ import controllers.routes
 object homeInner {
 
   def apply(
-    createds: List[lila.simul.Simul],
-    starteds: List[lila.simul.Simul],
-    finisheds: List[lila.simul.Simul]
+      createds: List[lila.simul.Simul],
+      starteds: List[lila.simul.Simul],
+      finisheds: List[lila.simul.Simul]
   )(implicit ctx: Context) =
     div(cls := "box")(
       h1(trans.simultaneousExhibitions()),
@@ -37,22 +37,24 @@ object homeInner {
             )
           )
         ),
-        starteds.nonEmpty option (frag(
-          thead(
-            tr(
-              th(trans.eventInProgress()),
-              th(cls := "host")(trans.host()),
-              th(cls := "players")(trans.players())
-            )
-          ),
-          starteds.map { sim =>
-            tr(
-              simTd(sim),
-              simHost(sim),
-              td(cls := "players text", dataIcon := "r")(sim.pairings.size)
-            )
-          }
-        )),
+        starteds.nonEmpty option (
+          frag(
+            thead(
+              tr(
+                th(trans.eventInProgress()),
+                th(cls := "host")(trans.host()),
+                th(cls := "players")(trans.players())
+              )
+            ),
+            starteds.map { sim =>
+              tr(
+                simTd(sim),
+                simHost(sim),
+                td(cls := "players text", dataIcon := "r")(sim.pairings.size)
+              )
+            }
+          )
+        ),
         thead(
           tr(
             th(trans.finished()),

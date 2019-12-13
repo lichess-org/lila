@@ -1,13 +1,13 @@
 package lila.study
 
 import chess.format.pgn.Tags
-import chess.format.{ Forsyth, FEN }
-import chess.variant.{ Variant, Crazyhouse }
+import chess.format.{ FEN, Forsyth }
+import chess.variant.{ Crazyhouse, Variant }
 import lila.chat.{ Chat, ChatApi }
 import lila.game.{ Game, Namer }
 import lila.user.User
 
-private final class ChapterMaker(
+final private class ChapterMaker(
     net: lila.common.config.NetConfig,
     lightUser: lila.user.LightUserApi,
     chatApi: ChatApi,
@@ -23,7 +23,7 @@ private final class ChapterMaker(
       case None =>
         data.game ?? pgnFetch.fromUrl flatMap {
           case Some(pgn) => fromFenOrPgnOrBlank(study, data.copy(pgn = pgn.some), order, userId)
-          case _ => fromFenOrPgnOrBlank(study, data, order, userId)
+          case _         => fromFenOrPgnOrBlank(study, data, order, userId)
         }
       case Some(game) => fromGame(study, game, data, order, userId)
     } map { (c: Chapter) =>
@@ -33,111 +33,119 @@ private final class ChapterMaker(
   def fromFenOrPgnOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
     data.pgn.filter(_.trim.nonEmpty) match {
       case Some(pgn) => fromPgn(study, pgn, data, order, userId)
-      case None => fuccess(fromFenOrBlank(study, data, order, userId))
+      case None      => fuccess(fromFenOrBlank(study, data, order, userId))
     }
 
-  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] = for {
-    contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
-    parsed <- PgnImport(pgn, contributors.flatten).future recoverWith {
-      case e: Exception => fufail(ValidationException(e.getMessage))
-    }
-  } yield Chapter.make(
-    studyId = study.id,
-    name = parsed.tags(_.White).flatMap { white =>
-      parsed.tags(_.Black).ifTrue {
-        data.name.value.isEmpty || Chapter.isDefaultName(data.name)
-      }.map {
-        black => Chapter.Name(s"$white - $black")
+  private def fromPgn(study: Study, pgn: String, data: Data, order: Int, userId: User.ID): Fu[Chapter] =
+    for {
+      contributors <- lightUser.asyncMany(study.members.contributorIds.toList)
+      parsed <- PgnImport(pgn, contributors.flatten).future recoverWith {
+        case e: Exception => fufail(ValidationException(e.getMessage))
       }
-    } | data.name,
-    setup = Chapter.Setup(
-      none,
-      parsed.variant,
-      data.realOrientation
-    ),
-    root = parsed.root,
-    tags = parsed.tags,
-    order = order,
-    ownerId = userId,
-    practice = data.isPractice,
-    gamebook = data.isGamebook,
-    conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
-  )
+    } yield Chapter.make(
+      studyId = study.id,
+      name = parsed.tags(_.White).flatMap { white =>
+        parsed
+          .tags(_.Black)
+          .ifTrue {
+            data.name.value.isEmpty || Chapter.isDefaultName(data.name)
+          }
+          .map { black =>
+            Chapter.Name(s"$white - $black")
+          }
+      } | data.name,
+      setup = Chapter.Setup(
+        none,
+        parsed.variant,
+        data.realOrientation
+      ),
+      root = parsed.root,
+      tags = parsed.tags,
+      order = order,
+      ownerId = userId,
+      practice = data.isPractice,
+      gamebook = data.isGamebook,
+      conceal = data.isConceal option Chapter.Ply(parsed.root.ply)
+    )
 
   private def fromFenOrBlank(study: Study, data: Data, order: Int, userId: User.ID): Chapter = {
     val variant = data.variant.flatMap(Variant.apply) | Variant.default
     (data.fen.map(_.trim).filter(_.nonEmpty).flatMap { fenStr =>
       Forsyth.<<<@(variant, fenStr)
     } match {
-      case Some(sit) => Node.Root(
-        ply = sit.turns,
-        fen = FEN(Forsyth.>>(sit)),
-        check = sit.situation.check,
-        clock = none,
-        crazyData = sit.situation.board.crazyData,
-        children = Node.emptyChildren
-      ) -> true
-      case None => Node.Root(
-        ply = 0,
-        fen = FEN(variant.initialFen),
-        check = false,
-        clock = none,
-        crazyData = variant.crazyhouse option Crazyhouse.Data.init,
-        children = Node.emptyChildren
-      ) -> false
+      case Some(sit) =>
+        Node.Root(
+          ply = sit.turns,
+          fen = FEN(Forsyth.>>(sit)),
+          check = sit.situation.check,
+          clock = none,
+          crazyData = sit.situation.board.crazyData,
+          children = Node.emptyChildren
+        ) -> true
+      case None =>
+        Node.Root(
+          ply = 0,
+          fen = FEN(variant.initialFen),
+          check = false,
+          clock = none,
+          crazyData = variant.crazyhouse option Crazyhouse.Data.init,
+          children = Node.emptyChildren
+        ) -> false
     }) match {
-      case (root, isFromFen) => Chapter.make(
-        studyId = study.id,
-        name = data.name,
-        setup = Chapter.Setup(
-          none,
-          variant,
-          data.realOrientation,
-          fromFen = isFromFen option true
-        ),
-        root = root,
-        tags = Tags.empty,
-        order = order,
-        ownerId = userId,
-        practice = data.isPractice,
-        gamebook = data.isGamebook,
-        conceal = None
-      )
+      case (root, isFromFen) =>
+        Chapter.make(
+          studyId = study.id,
+          name = data.name,
+          setup = Chapter.Setup(
+            none,
+            variant,
+            data.realOrientation,
+            fromFen = isFromFen option true
+          ),
+          root = root,
+          tags = Tags.empty,
+          order = order,
+          ownerId = userId,
+          practice = data.isPractice,
+          gamebook = data.isGamebook,
+          conceal = None
+        )
     }
   }
 
   private def fromGame(
-    study: Study,
-    game: Game,
-    data: Data,
-    order: Int,
-    userId: User.ID,
-    initialFen: Option[FEN] = None
-  ): Fu[Chapter] = for {
-    root <- game2root(game, initialFen)
-    tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
-    name <- {
-      if (Chapter isDefaultName data.name)
-        Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
-      else fuccess(data.name)
-    }
-    _ = notifyChat(study, game, userId)
-  } yield Chapter.make(
-    studyId = study.id,
-    name = name,
-    setup = Chapter.Setup(
-      !game.synthetic option game.id,
-      game.variant,
-      data.realOrientation
-    ),
-    root = root,
-    tags = PgnTags(tags),
-    order = order,
-    ownerId = userId,
-    practice = data.isPractice,
-    gamebook = data.isGamebook,
-    conceal = data.isConceal option Chapter.Ply(root.ply)
-  )
+      study: Study,
+      game: Game,
+      data: Data,
+      order: Int,
+      userId: User.ID,
+      initialFen: Option[FEN] = None
+  ): Fu[Chapter] =
+    for {
+      root <- game2root(game, initialFen)
+      tags <- pgnDump.tags(game, initialFen, none, withOpening = true)
+      name <- {
+        if (Chapter isDefaultName data.name)
+          Namer.gameVsText(game, withRatings = false)(lightUser.async) dmap Chapter.Name.apply
+        else fuccess(data.name)
+      }
+      _ = notifyChat(study, game, userId)
+    } yield Chapter.make(
+      studyId = study.id,
+      name = name,
+      setup = Chapter.Setup(
+        !game.synthetic option game.id,
+        game.variant,
+        data.realOrientation
+      ),
+      root = root,
+      tags = PgnTags(tags),
+      order = order,
+      ownerId = userId,
+      practice = data.isPractice,
+      gamebook = data.isGamebook,
+      conceal = data.isConceal option Chapter.Ply(root.ply)
+    )
 
   def notifyChat(study: Study, game: Game, userId: User.ID) =
     if (study.isPublic) List(game.id, s"${game.id}/w") foreach { chatId =>
@@ -162,8 +170,8 @@ private final class ChapterMaker(
   private def parseGame(str: String): Fu[Option[Game]] = str match {
     case s if s.size == Game.gameIdSize => gameRepo game s
     case s if s.size == Game.fullIdSize => gameRepo game Game.takeGameId(s)
-    case UrlRegex(id) => parseGame(id)
-    case _ => fuccess(none)
+    case UrlRegex(id)                   => parseGame(id)
+    case _                              => fuccess(none)
   }
 }
 
@@ -175,11 +183,11 @@ private[study] object ChapterMaker {
     def key = toString.toLowerCase
   }
   object Mode {
-    case object Normal extends Mode
+    case object Normal   extends Mode
     case object Practice extends Mode
     case object Gamebook extends Mode
-    case object Conceal extends Mode
-    val all = List(Normal, Practice, Gamebook, Conceal)
+    case object Conceal  extends Mode
+    val all                = List(Normal, Practice, Gamebook, Conceal)
     def apply(key: String) = all.find(_.key == key)
   }
 
@@ -187,9 +195,9 @@ private[study] object ChapterMaker {
     def orientation: String
     def mode: String
     def realOrientation = chess.Color(orientation) | chess.White
-    def isPractice = mode == Mode.Practice.key
-    def isGamebook = mode == Mode.Gamebook.key
-    def isConceal = mode == Mode.Conceal.key
+    def isPractice      = mode == Mode.Practice.key
+    def isGamebook      = mode == Mode.Gamebook.key
+    def isConceal       = mode == Mode.Conceal.key
   }
 
   case class Data(

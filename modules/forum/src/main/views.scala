@@ -8,9 +8,9 @@ case class CategView(
     troll: Boolean
 ) {
 
-  def nbTopics = categ nbTopics troll
-  def nbPosts = categ nbPosts troll
-  def lastPostId = categ lastPostId troll
+  def nbTopics       = categ nbTopics troll
+  def nbPosts        = categ nbPosts troll
+  def lastPostId     = categ lastPostId troll
   def lastPostUserId = lastPost.map(_._2).flatMap(_.userId)
 
   def slug = categ.slug
@@ -26,16 +26,16 @@ case class TopicView(
     troll: Boolean
 ) {
 
-  def updatedAt = topic updatedAt troll
-  def nbPosts = topic nbPosts troll
-  def nbReplies = topic nbReplies troll
-  def lastPostId = topic lastPostId troll
+  def updatedAt      = topic updatedAt troll
+  def nbPosts        = topic nbPosts troll
+  def nbReplies      = topic nbReplies troll
+  def lastPostId     = topic lastPostId troll
   def lastPostUserId = lastPost.flatMap(_.userId)
 
-  def id = topic.id
-  def slug = topic.slug
-  def name = topic.name
-  def views = topic.views
+  def id        = topic.id
+  def slug      = topic.slug
+  def name      = topic.name
+  def views     = topic.views
   def createdAt = topic.createdAt
 }
 

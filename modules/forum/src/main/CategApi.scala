@@ -7,16 +7,17 @@ final class CategApi(env: Env) {
 
   import BSONHandlers._
 
-  def list(teams: Iterable[String], troll: Boolean): Fu[List[CategView]] = for {
-    categs <- env.categRepo withTeams teams
-    views <- (categs map { categ =>
-      env.postApi get (categ lastPostId troll) map { topicPost =>
-        CategView(categ, topicPost map {
-          case (topic, post) => (topic, post, env.postApi lastPageOf topic)
-        }, troll)
-      }
-    }).sequenceFu
-  } yield views
+  def list(teams: Iterable[String], troll: Boolean): Fu[List[CategView]] =
+    for {
+      categs <- env.categRepo withTeams teams
+      views <- (categs map { categ =>
+        env.postApi get (categ lastPostId troll) map { topicPost =>
+          CategView(categ, topicPost map {
+            case (topic, post) => (topic, post, env.postApi lastPageOf topic)
+          }, troll)
+        }
+      }).sequenceFu
+    } yield views
 
   def teamNbPosts(slug: String): Fu[Int] = env.categRepo nbPosts teamSlug(slug)
 
@@ -66,20 +67,26 @@ final class CategApi(env: Env) {
       optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
     } run
 
-  def denormalize(categ: Categ): Funit = for {
-    nbTopics <- env.topicRepo countByCateg categ
-    nbPosts <- env.postRepo countByCateg categ
-    lastPost <- env.postRepo lastByCateg categ
-    nbTopicsTroll <- env.topicRepo withTroll true countByCateg categ
-    nbPostsTroll <- env.postRepo withTroll true countByCateg categ
-    lastPostTroll <- env.postRepo withTroll true lastByCateg categ
-    _ <- env.categRepo.coll.update.one($id(categ.id), categ.copy(
-      nbTopics = nbTopics,
-      nbPosts = nbPosts,
-      lastPostId = lastPost ?? (_.id),
-      nbTopicsTroll = nbTopicsTroll,
-      nbPostsTroll = nbPostsTroll,
-      lastPostIdTroll = lastPostTroll ?? (_.id)
-    )).void
-  } yield ()
+  def denormalize(categ: Categ): Funit =
+    for {
+      nbTopics      <- env.topicRepo countByCateg categ
+      nbPosts       <- env.postRepo countByCateg categ
+      lastPost      <- env.postRepo lastByCateg categ
+      nbTopicsTroll <- env.topicRepo withTroll true countByCateg categ
+      nbPostsTroll  <- env.postRepo withTroll true countByCateg categ
+      lastPostTroll <- env.postRepo withTroll true lastByCateg categ
+      _ <- env.categRepo.coll.update
+        .one(
+          $id(categ.id),
+          categ.copy(
+            nbTopics = nbTopics,
+            nbPosts = nbPosts,
+            lastPostId = lastPost ?? (_.id),
+            nbTopicsTroll = nbTopicsTroll,
+            nbPostsTroll = nbPostsTroll,
+            lastPostIdTroll = lastPostTroll ?? (_.id)
+          )
+        )
+        .void
+    } yield ()
 }

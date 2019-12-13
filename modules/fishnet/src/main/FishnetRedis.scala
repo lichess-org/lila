@@ -14,7 +14,7 @@ final class FishnetRedis(
     chanOut: String
 ) {
 
-  val connIn = client.connectPubSub()
+  val connIn  = client.connectPubSub()
   val connOut = client.connectPubSub()
 
   def request(work: Work.Move): Unit = connOut.async.publish(chanOut, writeWork(work))
@@ -26,26 +26,29 @@ final class FishnetRedis(
 
       case Array("start") => Bus.publish(FishnetStart, "roundMapTellAll")
 
-      case Array(gameId, plyS, uci) => for {
-        move <- Uci(uci)
-        ply <- plyS.toIntOption
-      } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
+      case Array(gameId, plyS, uci) =>
+        for {
+          move <- Uci(uci)
+          ply  <- plyS.toIntOption
+        } Bus.publish(Tell(gameId, FishnetPlay(move, ply)), "roundMapTell")
       case _ =>
     }
   })
 
-  private def writeWork(work: Work.Move): String = List(
-    work.game.id,
-    work.level,
-    work.clock ?? writeClock,
-    work.game.variant.some.filter(_.exotic).??(_.key),
-    work.game.initialFen.??(_.value),
-    work.game.moves
-  ) mkString ";"
+  private def writeWork(work: Work.Move): String =
+    List(
+      work.game.id,
+      work.level,
+      work.clock ?? writeClock,
+      work.game.variant.some.filter(_.exotic).??(_.key),
+      work.game.initialFen.??(_.value),
+      work.game.moves
+    ) mkString ";"
 
-  private def writeClock(clock: Work.Clock): String = List(
-    clock.wtime,
-    clock.btime,
-    clock.inc
-  ) mkString " "
+  private def writeClock(clock: Work.Clock): String =
+    List(
+      clock.wtime,
+      clock.btime,
+      clock.inc
+    ) mkString " "
 }

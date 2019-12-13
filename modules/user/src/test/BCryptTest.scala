@@ -6,7 +6,7 @@ import org.mindrot.BCrypt
 class BCryptTest extends Specification {
 
   // From jBcrypt test suite.
-  val pass = "abc"
+  val pass    = "abc"
   val b64Hash = "$2a$06$If6bvum7DFjUnE9p2uDeDu0YHzrHM6tf.iqN8.yx.jNN1ILEf7h0i"
 
   "bcrypt" should {

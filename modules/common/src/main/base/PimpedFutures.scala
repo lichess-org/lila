@@ -8,30 +8,36 @@ import ornicar.scalalib.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ Future, ExecutionContext }
+import scala.concurrent.{ ExecutionContext, Future }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
-  @inline def dmap[B](f: A => B): Fu[B] = fua.map(f)(ExecutionContext.parasitic)
+  @inline def dmap[B](f: A => B): Fu[B]       = fua.map(f)(ExecutionContext.parasitic)
   @inline def dforeach[B](f: A => Unit): Unit = fua.foreach(f)(ExecutionContext.parasitic)
 
   def >>-(sideEffect: => Unit): Fu[A] = fua andThen {
     case _ => sideEffect
   }
 
-  def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap { _ => fub }
+  def >>[B](fub: => Fu[B]): Fu[B] = fua flatMap { _ =>
+    fub
+  }
 
-  @inline def void: Fu[Unit] = dmap { _ => () }
+  @inline def void: Fu[Unit] = dmap { _ =>
+    ()
+  }
 
-  @inline def inject[B](b: => B): Fu[B] = dmap { _ => b }
+  @inline def inject[B](b: => B): Fu[B] = dmap { _ =>
+    b
+  }
 
   def injectAnyway[B](b: => B): Fu[B] = fold(_ => b, _ => b)
 
   def effectFold(fail: Exception => Unit, succ: A => Unit): Unit = {
     fua onComplete {
       case scala.util.Failure(e: Exception) => fail(e)
-      case scala.util.Failure(e) => throw e // Throwables
-      case scala.util.Success(e) => succ(e)
+      case scala.util.Failure(e)            => throw e // Throwables
+      case scala.util.Success(e)            => succ(e)
     }
   }
 
@@ -42,7 +48,9 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     fua flatMap succ recoverWith { case e: Exception => fail(e) }
 
   def logFailure(logger: => lila.log.Logger, msg: Throwable => String): Fu[A] =
-    addFailureEffect { e => logger.warn(msg(e), e) }
+    addFailureEffect { e =>
+      logger.warn(msg(e), e)
+    }
   def logFailure(logger: => lila.log.Logger): Fu[A] = logFailure(logger, _.toString)
 
   def addFailureEffect(effect: Throwable => Unit) = {
@@ -60,8 +68,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def addEffects(fail: Exception => Unit, succ: A => Unit): Fu[A] = {
     fua onComplete {
       case scala.util.Failure(e: Exception) => fail(e)
-      case scala.util.Failure(e) => throw e // Throwables
-      case scala.util.Success(e) => succ(e)
+      case scala.util.Failure(e)            => throw e // Throwables
+      case scala.util.Success(e)            => succ(e)
     }
     fua
   }
@@ -100,11 +108,12 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def await(duration: FiniteDuration): A =
     scala.concurrent.Await.result(fua, duration)
 
-  def awaitOrElse(duration: FiniteDuration, default: => A): A = try {
-    scala.concurrent.Await.result(fua, duration)
-  } catch {
-    case _: Exception => default
-  }
+  def awaitOrElse(duration: FiniteDuration, default: => A): A =
+    try {
+      scala.concurrent.Await.result(fua, duration)
+    } catch {
+      case _: Exception => default
+    }
 
   def awaitSeconds(seconds: Int): A =
     await(seconds.seconds)
@@ -129,20 +138,21 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def delay(duration: FiniteDuration)(implicit system: ActorSystem) =
     lila.common.Future.delay(duration)(fua)
 
-  def chronometer = lila.common.Chronometer(fua)
+  def chronometer    = lila.common.Chronometer(fua)
   def chronometerTry = lila.common.Chronometer.lapTry(fua)
 
-  def mon(path: lila.mon.TimerPath) = chronometer.mon(path).result
+  def mon(path: lila.mon.TimerPath)              = chronometer.mon(path).result
   def monTry(path: Try[A] => lila.mon.TimerPath) = chronometerTry.mon(r => path(r)(lila.mon)).result
-  def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer) = chronometerTry.mon {
-    r => path(lila.mon)(r.isSuccess)
-  }.result
+  def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer) =
+    chronometerTry.mon { r =>
+      path(lila.mon)(r.isSuccess)
+    }.result
 
-  def logTime(name: String) = chronometer pp name
+  def logTime(name: String)                               = chronometer pp name
   def logTimeIfGt(name: String, duration: FiniteDuration) = chronometer.ppIfGt(name, duration)
 
   def nevermind(implicit z: Zero[A]): Fu[A] = fua recover {
-    case _: LilaException => z.zero
+    case _: LilaException                         => z.zero
     case _: java.util.concurrent.TimeoutException => z.zero
     case e: Exception =>
       lila.log("common").warn("Future.nevermind", e)
@@ -172,7 +182,9 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
   }
 
   def orElse(other: => Fu[Option[A]]): Fu[Option[A]] = fua flatMap {
-    _.fold(other) { x => fuccess(Some(x)) }
+    _.fold(other) { x =>
+      fuccess(Some(x))
+    }
   }
 
   def getOrElse(other: => Fu[A]): Fu[A] = fua flatMap { _.fold(other)(fuccess) }

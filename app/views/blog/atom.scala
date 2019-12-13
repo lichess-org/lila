@@ -12,7 +12,9 @@ object atom {
 
   def apply(pager: Paginator[io.prismic.Document])(implicit req: RequestHeader) = frag(
     raw("""<?xml version="1.0" encoding="UTF-8"?>"""),
-    raw("""<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""),
+    raw(
+      """<feed xml:lang="en-US" xmlns="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/">"""
+    ),
     tag("id")(routes.Blog.index().absoluteURL(true)),
     link(rel := "alternate", tpe := "text/html", href := routes.Blog.index().absoluteURL(true)),
     link(rel := "self", tpe := "application/atom+xml", href := routes.Blog.atom().absoluteURL(true)),
@@ -23,7 +25,11 @@ object atom {
         tag("id")(routes.Blog.show(doc.id, doc.slug).absoluteURL(true)),
         tag("published")(atomDate("blog.date")(doc)),
         tag("updated")(atomDate("blog.date")(doc)),
-        link(rel := "alternate", tpe := "text/html", href := routes.Blog.show(doc.id, doc.slug).absoluteURL(true)),
+        link(
+          rel := "alternate",
+          tpe := "text/html",
+          href := routes.Blog.show(doc.id, doc.slug).absoluteURL(true)
+        ),
         tag("title")(doc.getText("blog.title")),
         tag("category")(
           tag("term")(doc.getText("blog.category")),

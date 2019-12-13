@@ -16,7 +16,7 @@ final class Env(
     gameCache: lila.game.Cached
 ) {
 
-  private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
+  private lazy val maxPlaying     = appConfig.get[Max]("setup.max_playing")
   private lazy val anonConfigRepo = new AnonConfigRepo(db(CollName("config")))
   private lazy val userConfigRepo = new UserConfigRepo(db(CollName("config_anon")))
 

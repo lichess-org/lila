@@ -3,16 +3,16 @@ package lila.forum
 import play.api.data._
 import play.api.data.Forms._
 
-private[forum] final class DataForm(
+final private[forum] class DataForm(
     val captcher: lila.hub.actors.Captcher
 ) extends lila.hub.CaptchedForm {
 
   import DataForm._
 
   val postMapping = mapping(
-    "text" -> text(minLength = 3),
-    "gameId" -> text,
-    "move" -> text,
+    "text"    -> text(minLength = 3),
+    "gameId"  -> text,
+    "move"    -> text,
     "modIcon" -> optional(boolean)
   )(PostData.apply)(PostData.unapply)
     .verifying(captchaFailMessage, validateCaptcha _)
@@ -23,10 +23,12 @@ private[forum] final class DataForm(
 
   def postWithCaptcha = withCaptcha(post)
 
-  val topic = Form(mapping(
-    "name" -> text(minLength = 3, maxLength = 100),
-    "post" -> postMapping
-  )(TopicData.apply)(TopicData.unapply))
+  val topic = Form(
+    mapping(
+      "name" -> text(minLength = 3, maxLength = 100),
+      "post" -> postMapping
+    )(TopicData.apply)(TopicData.unapply)
+  )
 }
 
 object DataForm {
@@ -55,7 +57,7 @@ object DataForm {
       getType(c) match {
         case UPPERCASE_LETTER => i + 1
         case LOWERCASE_LETTER => i - 2
-        case _ => i
+        case _                => i
       }
     } > 0
   }

@@ -12,20 +12,24 @@ import controllers.routes
 object list {
 
   def apply(
-    tourneyWinners: List[lila.tournament.Winner],
-    online: List[User],
-    leaderboards: lila.user.Perfs.Leaderboards,
-    nbAllTime: List[User.LightCount]
-  )(implicit ctx: Context) = views.html.base.layout(
-    title = trans.players.txt(),
-    moreCss = cssTag("user.list"),
-    wrapClass = "full-screen-force",
-    openGraph = lila.app.ui.OpenGraph(
-      title = "Chess players and leaderboards",
-      url = s"$netBaseUrl${routes.User.list.url}",
-      description = "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
-    ).some
-  ) {
+      tourneyWinners: List[lila.tournament.Winner],
+      online: List[User],
+      leaderboards: lila.user.Perfs.Leaderboards,
+      nbAllTime: List[User.LightCount]
+  )(implicit ctx: Context) =
+    views.html.base.layout(
+      title = trans.players.txt(),
+      moreCss = cssTag("user.list"),
+      wrapClass = "full-screen-force",
+      openGraph = lila.app.ui
+        .OpenGraph(
+          title = "Chess players and leaderboards",
+          url = s"$netBaseUrl${routes.User.list.url}",
+          description =
+            "Best chess players in bullet, blitz, rapid, classical, Chess960 and more chess variants"
+        )
+        .some
+    ) {
       main(cls := "page-menu")(
         bits.communityMenu("leaderboard"),
         div(cls := "community page-menu__content box box-pad")(
@@ -46,10 +50,8 @@ object list {
               userTopPerf(leaderboards.rapid, PerfType.Rapid),
               userTopPerf(leaderboards.classical, PerfType.Classical),
               userTopPerf(leaderboards.ultraBullet, PerfType.UltraBullet),
-
               userTopActive(nbAllTime, trans.activePlayers(), icon = 'U'.some),
               tournamentWinners(tourneyWinners),
-
               userTopPerf(leaderboards.crazyhouse, PerfType.Crazyhouse),
               userTopPerf(leaderboards.chess960, PerfType.Chess960),
               userTopPerf(leaderboards.antichess, PerfType.Antichess),
@@ -92,7 +94,9 @@ object list {
       })
     )
 
-  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(implicit ctx: Context) =
+  private def userTopActive(users: List[User.LightCount], hTitle: Frag, icon: Option[Char])(
+      implicit ctx: Context
+  ) =
     st.section(cls := "user-top")(
       h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
       ol(users map { u =>

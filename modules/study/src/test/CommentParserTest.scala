@@ -64,7 +64,9 @@ class CommentParserTest extends Specification {
       C("Hello there [%clk 2:10.33] something else").clock must_== Some(Centis(783300))
     }
     "TCEC" in {
-      C("d=29, pd=Bb7, mt=00:01:01, tl=00:37:47, s=27938 kN/s, n=1701874274, pv=e4 Bb7 exf5 exf5 d5 Qf6 Rab1 Rae8 g3 Bc8 Kg2 Rxe1 Rxe1, tb=0, R50=49, wv=0.45,").clock must_==
+      C(
+        "d=29, pd=Bb7, mt=00:01:01, tl=00:37:47, s=27938 kN/s, n=1701874274, pv=e4 Bb7 exf5 exf5 d5 Qf6 Rab1 Rae8 g3 Bc8 Kg2 Rxe1 Rxe1, tb=0, R50=49, wv=0.45,"
+      ).clock must_==
         Some(Centis(100 * 47 + 37 * 60 * 100))
     }
     "fractional second" in {

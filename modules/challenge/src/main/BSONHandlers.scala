@@ -12,25 +12,28 @@ private object BSONHandlers {
 
   import Challenge._
 
-  implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice]({
-    case 1 => ColorChoice.White
-    case 2 => ColorChoice.Black
-    case _ => ColorChoice.Random
-  }, {
-    case ColorChoice.White => 1
-    case ColorChoice.Black => 2
-    case ColorChoice.Random => 0
-  })
+  implicit val ColorChoiceBSONHandler = BSONIntegerHandler.as[ColorChoice](
+    {
+      case 1 => ColorChoice.White
+      case 2 => ColorChoice.Black
+      case _ => ColorChoice.Random
+    }, {
+      case ColorChoice.White  => 1
+      case ColorChoice.Black  => 2
+      case ColorChoice.Random => 0
+    }
+  )
   implicit val TimeControlBSONHandler = new BSON[TimeControl] {
-    def reads(r: Reader) = (r.intO("l") |@| r.intO("i")) {
-      case (limit, inc) => TimeControl.Clock(chess.Clock.Config(limit, inc))
-    } orElse {
-      r intO "d" map TimeControl.Correspondence.apply
-    } getOrElse TimeControl.Unlimited
+    def reads(r: Reader) =
+      (r.intO("l") |@| r.intO("i")) {
+        case (limit, inc) => TimeControl.Clock(chess.Clock.Config(limit, inc))
+      } orElse {
+        r intO "d" map TimeControl.Correspondence.apply
+      } getOrElse TimeControl.Unlimited
     def writes(w: Writer, t: TimeControl) = t match {
       case TimeControl.Clock(chess.Clock.Config(l, i)) => $doc("l" -> l, "i" -> i)
-      case TimeControl.Correspondence(d) => $doc("d" -> d)
-      case TimeControl.Unlimited => $empty
+      case TimeControl.Correspondence(d)               => $doc("d" -> d)
+      case TimeControl.Unlimited                       => $empty
     }
   }
   implicit val VariantBSONHandler = tryHandler[Variant](
@@ -53,7 +56,7 @@ private object BSONHandlers {
     def reads(r: Reader) = Registered(r.str("id"), r.get[Rating]("r"))
     def writes(w: Writer, r: Registered) = $doc(
       "id" -> r.id,
-      "r" -> r.rating
+      "r"  -> r.rating
     )
   }
   implicit val AnonymousBSONHandler = new BSON[Anonymous] {

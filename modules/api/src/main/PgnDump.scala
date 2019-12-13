@@ -17,8 +17,7 @@ final class PgnDump(
     dumper(game, initialFen, flags) flatMap { pgn =>
       if (flags.tags) (game.simulId ?? simulApi.idToName) map { simulName =>
         simulName.orElse(game.tournamentId flatMap getTournamentName).fold(pgn)(pgn.withEvent)
-      }
-      else fuccess(pgn)
+      } else fuccess(pgn)
     } map { pgn =>
       val evaled = analysis.ifTrue(flags.evals).fold(pgn)(addEvals(pgn, _))
       if (flags.literate) annotator(evaled, analysis, game.opening, game.winnerColor, game.status)
@@ -26,14 +25,22 @@ final class PgnDump(
     }
 
   private def addEvals(p: Pgn, analysis: Analysis): Pgn = analysis.infos.foldLeft(p) {
-    case (pgn, info) => pgn.updateTurn(info.turn, turn =>
-      turn.update(info.color, move => {
-        val comment = info.cp.map(_.pawns.toString)
-          .orElse(info.mate.map(m => s"#${m.value}"))
-        move.copy(
-          comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
-        )
-      }))
+    case (pgn, info) =>
+      pgn.updateTurn(
+        info.turn,
+        turn =>
+          turn.update(
+            info.color,
+            move => {
+              val comment = info.cp
+                .map(_.pawns.toString)
+                .orElse(info.mate.map(m => s"#${m.value}"))
+              move.copy(
+                comments = comment.map(c => s"[%eval $c]").toList ::: move.comments
+              )
+            }
+          )
+      )
   }
 
   def formatter(flags: WithFlags) =

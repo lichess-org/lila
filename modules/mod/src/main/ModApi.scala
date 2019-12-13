@@ -1,10 +1,10 @@
 package lila.mod
 
 import lila.common.{ Bus, EmailAddress }
-import lila.report.{ Mod, ModId, Suspect, SuspectId, Room }
-import lila.security.{ Permission, Granter }
+import lila.report.{ Mod, ModId, Room, Suspect, SuspectId }
+import lila.security.{ Granter, Permission }
 import lila.security.{ Firewall, Store => SecurityStore }
-import lila.user.{ User, UserRepo, Title, LightUserApi }
+import lila.user.{ LightUserApi, Title, User, UserRepo }
 
 final class ModApi(
     userRepo: UserRepo,
@@ -34,43 +34,45 @@ final class ModApi(
     }
   }
 
-  def autoMark(suspectId: SuspectId, modId: ModId): Funit = for {
-    sus <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
-    unengined <- logApi.wasUnengined(sus)
-    _ <- (!sus.user.isBot && !unengined) ?? {
-      reportApi.getMod(modId.value) flatMap {
-        _ ?? { mod =>
-          lila.mon.cheat.autoMark.count.increment()
-          setEngine(mod, sus, true)
+  def autoMark(suspectId: SuspectId, modId: ModId): Funit =
+    for {
+      sus       <- reportApi.getSuspect(suspectId.value) orFail s"No such suspect $suspectId"
+      unengined <- logApi.wasUnengined(sus)
+      _ <- (!sus.user.isBot && !unengined) ?? {
+        reportApi.getMod(modId.value) flatMap {
+          _ ?? { mod =>
+            lila.mon.cheat.autoMark.count.increment()
+            setEngine(mod, sus, true)
+          }
         }
       }
-    }
-  } yield ()
+    } yield ()
 
   def setBooster(mod: Mod, prev: Suspect, v: Boolean): Fu[Suspect] =
     if (prev.user.booster == v) fuccess(prev)
-    else for {
-      _ <- userRepo.setBooster(prev.user.id, v)
-      sus = prev.set(_.copy(booster = v))
-      _ <- reportApi.process(mod, sus, Set(Room.Other))
-      _ <- logApi.booster(mod, sus, v)
-    } yield {
-      if (v) {
-        Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
-        notifier.reporters(mod, sus)
+    else
+      for {
+        _ <- userRepo.setBooster(prev.user.id, v)
+        sus = prev.set(_.copy(booster = v))
+        _ <- reportApi.process(mod, sus, Set(Room.Other))
+        _ <- logApi.booster(mod, sus, v)
+      } yield {
+        if (v) {
+          Bus.publish(lila.hub.actorApi.mod.MarkBooster(sus.user.id), "adjustBooster")
+          notifier.reporters(mod, sus)
+        }
+        sus
       }
-      sus
-    }
 
   def autoBooster(winnerId: User.ID, loserId: User.ID): Funit =
     logApi.wasUnbooster(loserId) map {
       case false => reporter ! lila.hub.actorApi.report.Booster(winnerId, loserId)
-      case true => ()
+      case true  => ()
     }
 
   def setTroll(mod: Mod, prev: Suspect, value: Boolean): Fu[Suspect] = {
     val changed = value != prev.user.troll
-    val sus = prev.set(_.copy(troll = value))
+    val sus     = prev.set(_.copy(troll = value))
     changed ?? {
       userRepo.updateTroll(sus.user).void >>- {
         logApi.troll(mod, sus)
@@ -78,24 +80,26 @@ final class ModApi(
       }
     } >>
       reportApi.process(mod, sus, Set(Room.Comm)) >>- {
-        if (value) notifier.reporters(mod, sus)
-      } inject sus
+      if (value) notifier.reporters(mod, sus)
+    } inject sus
   }
 
-  def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit = for {
-    spy <- userSpyApi(prev.user)
-    sus = prev.set(_.copy(ipBan = value))
-    _ <- userRepo.setIpBan(sus.user.id, sus.user.ipBan)
-    _ <- logApi.ban(mod, sus)
-    _ <- if (sus.user.ipBan) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
-    else firewall unblockIps spy.rawIps
-  } yield ()
+  def setBan(mod: Mod, prev: Suspect, value: Boolean): Funit =
+    for {
+      spy <- userSpyApi(prev.user)
+      sus = prev.set(_.copy(ipBan = value))
+      _ <- userRepo.setIpBan(sus.user.id, sus.user.ipBan)
+      _ <- logApi.ban(mod, sus)
+      _ <- if (sus.user.ipBan) firewall.blockIps(spy.rawIps) >> securityStore.disconnect(sus.user.id)
+      else firewall unblockIps spy.rawIps
+    } yield ()
 
-  def garbageCollect(sus: Suspect, ipBan: Boolean): Funit = for {
-    mod <- reportApi.getLichessMod
-    _ <- setEngine(mod, sus, true)
-    _ <- ipBan ?? setBan(mod, sus, true)
-  } yield logApi.garbageCollect(mod, sus)
+  def garbageCollect(sus: Suspect, ipBan: Boolean): Funit =
+    for {
+      mod <- reportApi.getLichessMod
+      _   <- setEngine(mod, sus, true)
+      _   <- ipBan ?? setBan(mod, sus, true)
+    } yield logApi.garbageCollect(mod, sus)
 
   def disableTwoFactor(mod: String, username: String): Funit = withUser(username) { user =>
     (userRepo disableTwoFactor user.id) >> logApi.disableTwoFactor(mod, user.id)
@@ -114,11 +118,12 @@ final class ModApi(
           logApi.removeTitle(mod, user.id) >>-
           lightUserApi.invalidate(user.id)
       }
-      case Some(t) => Title.names.get(t) ?? { tFull =>
-        userRepo.addTitle(user.id, t) >>-
-          logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
-          lightUserApi.invalidate(user.id)
-      }
+      case Some(t) =>
+        Title.names.get(t) ?? { tFull =>
+          userRepo.addTitle(user.id, t) >>-
+            logApi.addTitle(mod, user.id, s"$t ($tFull)") >>-
+            lightUserApi.invalidate(user.id)
+        }
     }
   }
 
@@ -128,17 +133,21 @@ final class ModApi(
       logApi.setEmail(mod, user.id)
   }
 
-  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit = withUser(username) { user =>
-    val finalPermissions = Permission(user.roles).filter { p =>
-      // only remove permissions the mod can actually grant
-      permissions.contains(p) || !Granter.canGrant(mod.user, p)
-    } ++
-      // only add permissions the mod can actually grant
-      permissions.filter(Granter.canGrant(mod.user, _))
-    userRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
-      Bus.publish(lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList), "setPermissions")
-      logApi.setPermissions(mod, user.id, permissions.toList)
-    }
+  def setPermissions(mod: Mod, username: String, permissions: Set[Permission]): Funit = withUser(username) {
+    user =>
+      val finalPermissions = Permission(user.roles).filter { p =>
+        // only remove permissions the mod can actually grant
+        permissions.contains(p) || !Granter.canGrant(mod.user, p)
+      } ++
+        // only add permissions the mod can actually grant
+        permissions.filter(Granter.canGrant(mod.user, _))
+      userRepo.setRoles(user.id, finalPermissions.map(_.name).toList) >> {
+        Bus.publish(
+          lila.hub.actorApi.mod.SetPermissions(user.id, finalPermissions.map(_.name).toList),
+          "setPermissions"
+        )
+        logApi.setPermissions(mod, user.id, permissions.toList)
+      }
   }
 
   def setReportban(mod: Mod, sus: Suspect, v: Boolean): Funit = (sus.user.reportban != v) ?? {

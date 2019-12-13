@@ -4,7 +4,7 @@ import org.joda.time.DateTime
 
 object Uptime {
 
-  val startedAt = DateTime.now
+  val startedAt       = DateTime.now
   val startedAtMillis = nowMillis
 
   def seconds = nowSeconds - startedAt.getSeconds

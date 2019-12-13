@@ -26,15 +26,16 @@ case class OpenGraph(
 
     private val tupledTag = (tag _).tupled
 
-    def frags: List[Frag] = List(
-      "title" -> title,
-      "description" -> description,
-      "url" -> url,
-      "type" -> `type`,
-      "site_name" -> siteName
-    ).map(tupledTag) :::
-      image.map { tag("image", _) }.toList :::
-      more.map(tupledTag)
+    def frags: List[Frag] =
+      List(
+        "title"       -> title,
+        "description" -> description,
+        "url"         -> url,
+        "type"        -> `type`,
+        "site_name"   -> siteName
+      ).map(tupledTag) :::
+        image.map { tag("image", _) }.toList :::
+        more.map(tupledTag)
   }
 
   object twitter {
@@ -46,12 +47,13 @@ case class OpenGraph(
 
     private val tupledTag = (tag _).tupled
 
-    def frags: List[Frag] = List(
-      "card" -> "summary",
-      "title" -> title,
-      "description" -> description
-    ).map(tupledTag) :::
-      image.map { tag("image", _) }.toList :::
-      more.map(tupledTag)
+    def frags: List[Frag] =
+      List(
+        "card"        -> "summary",
+        "title"       -> title,
+        "description" -> description
+      ).map(tupledTag) :::
+        image.map { tag("image", _) }.toList :::
+        more.map(tupledTag)
   }
 }
