@@ -10,6 +10,10 @@
 # We use .sbtopts instead
 export SBT_OPTS=""
 
+if [ ! -f ".sbtopts" ]; then
+  cp .sbtopts.default .sbtopts
+fi
+
 if [ ! -f "conf/application.conf" ]; then
   cp conf/application.conf.default conf/application.conf
 fi
