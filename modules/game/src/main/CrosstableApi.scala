@@ -19,20 +19,20 @@ final class CrosstableApi(
   import Game.{ BSONFields => GF }
 
   def apply(game: Game): Fu[Option[Crosstable]] = game.twoUserIds ?? {
-    case (u1, u2) => apply(u1, u2) map some
+    case (u1, u2) => apply(u1, u2) dmap some
   }
 
   def withMatchup(game: Game): Fu[Option[Crosstable.WithMatchup]] = game.twoUserIds ?? {
-    case (u1, u2) => withMatchup(u1, u2) map some
+    case (u1, u2) => withMatchup(u1, u2) dmap some
   }
 
   def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable] =
-    coll.one[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) map {
+    coll.one[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) dmap {
       _ | Crosstable.empty(u1, u2)
     }
 
   def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable.WithMatchup] =
-    apply(u1, u2, timeout) zip getMatchup(u1, u2) map {
+    apply(u1, u2, timeout) zip getMatchup(u1, u2) dmap {
       case crosstable ~ matchup => Crosstable.WithMatchup(crosstable, matchup)
     }
 
@@ -42,7 +42,7 @@ final class CrosstableApi(
         select(u1, u2),
         $doc("s1" -> true, "s2" -> true).some
       )
-      .one[Bdoc] map { res =>
+      .one[Bdoc] dmap { res =>
       ~(for {
         o  <- res
         s1 <- o.int("s1")
@@ -102,13 +102,14 @@ final class CrosstableApi(
     name = "crosstable",
     f = (create _).tupled,
     resultTimeout = 29.second,
-    expireAfter = _.ExpireAfterWrite(30 seconds)
+    expireAfter = _.ExpireAfterWrite(30 seconds),
+    maxCapacity = 64
   )
 
   private val winnerProjection = $doc(GF.winnerId -> true)
 
   private def create(x1: User.ID, x2: User.ID): Fu[Option[Crosstable]] = {
-    userRepo.orderByGameCount(x1, x2) map (_ -> List(x1, x2).sorted) flatMap {
+    userRepo.orderByGameCount(x1, x2) dmap (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
           GF.playerUids $all List(u1, u2),
