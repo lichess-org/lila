@@ -16,11 +16,6 @@ trait StringHelper { self: NumberHelper =>
 
   def urlencode(str: String): String = java.net.URLEncoder.encode(str, "US-ASCII")
 
-  implicit def lilaRichString(str: String) = new {
-    def active(other: String, one: String = "active")  = if (str == other) one else ""
-    def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None
-  }
-
   def when(cond: Boolean, str: String) = cond ?? str
 
   private val NumberFirstRegex = """(\d++)\s(.+)""".r
@@ -58,4 +53,11 @@ trait StringHelper { self: NumberHelper =>
         frag(separator, f)
       }
   }
+
+  implicit def lilaRichString(str: String): LilaRichString = new LilaRichString(str)
+}
+
+final class LilaRichString(val str: String) extends AnyVal {
+  def active(other: String, one: String = "active")  = if (str == other) one else ""
+  def activeO(other: String, one: String = "active") = if (str == other) Some(one) else None
 }

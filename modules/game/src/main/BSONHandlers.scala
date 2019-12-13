@@ -219,7 +219,7 @@ object BSONHandlers {
       }
   }
 
-  implicit val lightGameBSONHandler = new lila.db.BSONReadOnly[LightGame] {
+  implicit object lightGameBSONHandler extends lila.db.BSONReadOnly[LightGame] {
 
     import Game.{ BSONFields => F }
     import Player.playerBSONHandler

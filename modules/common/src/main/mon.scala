@@ -437,16 +437,17 @@ object mon {
   }
   object fishnet {
     object client {
-      def result(client: String) = new {
-        private val c                         = counter("fishnet.client.result")
-        private def apply(r: String): Counter = c.withTags(Map("client" -> client, "result" -> r))
-        val success                           = apply("success")
-        val failure                           = apply("failure")
-        val weak                              = apply("weak")
-        val timeout                           = apply("timeout")
-        val notFound                          = apply("notFound")
-        val notAcquired                       = apply("notAcquired")
-        val abort                             = apply("abort")
+      object result {
+        private val c = counter("fishnet.client.result")
+        private def apply(r: String)(client: String): Counter =
+          c.withTags(Map("client" -> client, "result" -> r))
+        val success     = apply("success") _
+        val failure     = apply("failure") _
+        val weak        = apply("weak") _
+        val timeout     = apply("timeout") _
+        val notFound    = apply("notFound") _
+        val notAcquired = apply("notAcquired") _
+        val abort       = apply("abort") _
       }
       def status(enabled: Boolean) = gauge("fishnet.client.status").withTag("enabled", enabled)
       def version(v: String)       = gauge("fishnet.client.version").withTag("version", v)
@@ -461,19 +462,21 @@ object mon {
       val forUser  = gauge("fishnet.work.forUser").withoutTags
     }
     object analysis {
-      def by(client: String) = new {
-        val hash     = histogram("fishnet.analysis.hash").withTag("client", client)
-        val threads  = gauge("fishnet.analysis.threads").withTag("client", client)
-        val movetime = histogram("fishnet.analysis.movetime").withTag("client", client)
-        val node     = histogram("fishnet.analysis.node").withTag("client", client)
-        val nps      = histogram("fishnet.analysis.nps").withTag("client", client)
-        val depth    = histogram("fishnet.analysis.depth").withTag("client", client)
-        val pvSize   = histogram("fishnet.analysis.pvSize").withTag("client", client)
-        def pv(isLong: Boolean) =
+      object by {
+        def hash(client: String)     = histogram("fishnet.analysis.hash").withTag("client", client)
+        def threads(client: String)  = gauge("fishnet.analysis.threads").withTag("client", client)
+        def movetime(client: String) = histogram("fishnet.analysis.movetime").withTag("client", client)
+        def node(client: String)     = histogram("fishnet.analysis.node").withTag("client", client)
+        def nps(client: String)      = histogram("fishnet.analysis.nps").withTag("client", client)
+        def depth(client: String)    = histogram("fishnet.analysis.depth").withTag("client", client)
+        def pvSize(client: String)   = histogram("fishnet.analysis.pvSize").withTag("client", client)
+        def pv(client: String, isLong: Boolean) =
           counter("fishnet.analysis.pvs").withTags(Map("client" -> client, "long" -> isLong))
-        val totalMeganode = counter("fishnet.analysis.total.meganode").withTag("client", client)
-        val totalSecond   = counter("fishnet.analysis.total.second").withTag("client", client)
-        val totalPosition = counter("fishnet.analysis.total.position").withTag("client", client)
+        def totalMeganode(client: String) =
+          counter("fishnet.analysis.total.meganode").withTag("client", client)
+        def totalSecond(client: String) = counter("fishnet.analysis.total.second").withTag("client", client)
+        def totalPosition(client: String) =
+          counter("fishnet.analysis.total.position").withTag("client", client)
       }
       val post                      = timer("fishnet.analysis.post").withoutTags
       def requestCount(tpe: String) = counter("fishnet.analysis.request").withTag("type", tpe)

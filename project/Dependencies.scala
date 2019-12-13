@@ -12,10 +12,10 @@ object Dependencies {
   }
 
   val scalaz      = "org.scalaz"            %% "scalaz-core"                    % "7.2.29"
-  val scalalib    = "com.github.ornicar"    %% "scalalib"                       % "6.7"
+  val scalalib    = "com.github.ornicar"    %% "scalalib"                       % "6.8"
   val hasher      = "com.roundeights"       %% "hasher"                         % "1.2.1"
   val jodaTime    = "joda-time"             % "joda-time"                       % "2.10.5"
-  val chess       = "org.lichess"           %% "scalachess"                     % "9.0.27"
+  val chess       = "org.lichess"           %% "scalachess"                     % "9.1.0"
   val compression = "org.lichess"           %% "compression"                    % "1.5"
   val maxmind     = "com.sanoma.cda"        %% "maxmind-geoip2-scala"           % "1.3.1-THIB"
   val prismic     = "io.prismic"            %% "scala-kit"                      % "1.2.13-THIB213"
@@ -40,11 +40,9 @@ object Dependencies {
     val driver  = "org.reactivemongo" %% "reactivemongo" % version
     val bson    = "org.reactivemongo" %% "reactivemongo-bson-api" % version
     val stream  = "org.reactivemongo" %% "reactivemongo-akkastream" % version
-    // val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64" classifier "linux-x86_64"
-    val native = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
-    // #TODO remove compat
-    val compat = "org.reactivemongo" %% "reactivemongo-bson-compat" % version
-    def bundle = Seq(driver, bson, compat, stream)
+    val native  = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    val compat  = "org.reactivemongo" %% "reactivemongo-bson-compat" % version
+    def bundle  = Seq(driver, bson, compat, stream)
   }
 
   object play {

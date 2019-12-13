@@ -2,6 +2,7 @@ package views.html.base
 
 import lila.common.String.html.safeJsonValue
 import play.api.libs.json.Json
+import scala.language.reflectiveCalls
 
 import lila.api.Context
 import lila.app.templating.Environment._

@@ -19,7 +19,7 @@ trait NumberHelper { self: I18nHelper =>
 
   def showMillis(millis: Int)(implicit ctx: UserContext) = formatter.format((millis / 100).toDouble / 10)
 
-  implicit def richInt(number: Int) = new {
+  implicit final class RichInt(number: Int) {
     def localize(implicit ctx: UserContext): String = formatter format number
   }
 }

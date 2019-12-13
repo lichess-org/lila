@@ -95,7 +95,7 @@ object Crosstable {
     val lastPlayed = "d"
   }
 
-  implicit private[game] val crosstableBSONHandler = new BSON[Crosstable] {
+  implicit private[game] object crosstableBSONHandler extends BSON[Crosstable] {
 
     import BSONFields._
 

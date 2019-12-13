@@ -51,7 +51,6 @@ object BuildSettings {
   val compilerOptions = Seq(
     "-language:implicitConversions",
     "-language:postfixOps",
-    "-language:reflectiveCalls", // #TODO remove me for perfs
     "-feature",
     "-unchecked",
     "-deprecation",

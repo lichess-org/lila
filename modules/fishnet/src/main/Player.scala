@@ -6,7 +6,7 @@ import chess.{ Black, Clock, White }
 
 import lila.common.Future
 import lila.game.{ Game, GameRepo, UciMemo }
-import ornicar.scalalib.Random.approximatly
+import ornicar.scalalib.Random.approximately
 
 final class Player(
     redis: FishnetRedis,
@@ -40,7 +40,7 @@ final class Player(
         sleep = (delay * accel) atMost 500
         if sleep > 25
         millis     = sleep * 10
-        randomized = approximatly(0.5f)(millis)
+        randomized = approximately(0.5f)(millis)
         divided    = randomized / (if (g.turns > 9) 1 else 2)
       } yield divided.millis
 
