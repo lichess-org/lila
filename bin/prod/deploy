@@ -47,7 +47,8 @@ if [ $mode = "main" ]; then
   $CLI deploy pre
 fi
 
-./run stage
+rm -rf target/universal
+./lila stage
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
   exit 1
