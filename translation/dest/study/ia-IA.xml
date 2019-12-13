@@ -36,6 +36,7 @@
   <string name="empty">Vacue</string>
   <string name="automatic">Automatic</string>
   <string name="urlOfTheGame">URL del joco</string>
+  <string name="createChapter">Crear capitulo</string>
   <string name="createStudy">Crear studio</string>
   <string name="editStudy">Modificar studio</string>
   <string name="visibility">Visibilitate</string>
