@@ -603,7 +603,7 @@ POST  /jsmon/:event                    controllers.Main.jsmon(event: String)
 GET   /swag                            controllers.Main.movedPermanently(to: String = "https://shop.spreadshirt.com/lichess-org")
 
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, file)
-GET   /assets/*file                    controllers.Assets.at(v, file)
+GET   /assets/*file                    controllers.Assets.at(file)
 
 GET   /robots.txt                      controllers.Main.robots
 
