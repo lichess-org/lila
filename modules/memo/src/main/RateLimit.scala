@@ -6,8 +6,8 @@ import ornicar.scalalib.Zero
 import scala.concurrent.duration.Duration
 
 /**
- * side effect throttler that allows X ops per Y unit of time
- */
+  * side effect throttler that allows X ops per Y unit of time
+  */
 final class RateLimit[K](
     credits: Int,
     duration: Duration,
@@ -24,10 +24,12 @@ final class RateLimit[K](
 
   private def makeClearAt = nowMillis + duration.toMillis
 
-  private lazy val logger = lila.log("ratelimit").branch(name)
+  private lazy val logger  = lila.log("ratelimit").branch(name)
   private lazy val monitor = lila.mon.security.rateLimit(key)
 
-  def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(op: Charge => A)(implicit default: Zero[A]): A =
+  def chargeable[A](k: K, cost: Cost = 1, msg: => String = "")(
+      op: Charge => A
+  )(implicit default: Zero[A]): A =
     apply(k, cost, msg) { op(c => apply(k, c, s"charge: $msg")(())) }
 
   def apply[A](k: K, cost: Cost = 1, msg: => String = "")(op: => A)(implicit default: Zero[A]): A =
@@ -35,7 +37,7 @@ final class RateLimit[K](
       case None =>
         storage.put(k, cost -> makeClearAt)
         op
-      case Some((a, clearAt)) if a <= credits =>
+      case Some((a, clearAt)) if a < credits =>
         storage.put(k, (a + cost) -> clearAt)
         op
       case Some((_, clearAt)) if nowMillis > clearAt =>
@@ -53,7 +55,7 @@ final class RateLimit[K](
 object RateLimit {
 
   type Charge = Cost => Unit
-  type Cost = Int
+  type Cost   = Int
 
   private type ClearAt = Long
 }
