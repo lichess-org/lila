@@ -100,7 +100,10 @@ final private class RelayFetch(
   def continueRelay(r: Relay): Relay = {
     val seconds =
       if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
-        r.sync.log.events.lastOption.flatMap(_.error).ifTrue(r.official && r.hasStarted) foreach { error =>
+        r.sync.log.events.lastOption
+          .filterNot(_.isTimeout)
+          .flatMap(_.error)
+          .ifTrue(r.official && r.hasStarted) foreach { error =>
           slackApi.broadcastError(r.id.value, r.name, error)
         }
         60
