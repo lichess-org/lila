@@ -20,7 +20,6 @@ sources in doc in Compile := List()
 publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
-PlayKeys.playDefaultPort := 9663
 // don't stage the conf dir
 PlayKeys.externalizeResources := false
 // shorter prod classpath
@@ -34,6 +33,8 @@ libraryDependencies ++= Seq(
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce, epoll
 ) ++ silencer.bundle
+
+resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
 
 scalariformPreferences := scalariformPrefs(scalariformPreferences.value)
 excludeFilter in scalariformFormat := "*Routes*"
