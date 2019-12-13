@@ -32,10 +32,5 @@ export function render(ctrl: LobbyController) {
       (active && member!.range) ? renderRange(member!.range!) : h('div.perf', pool.perf),
       active ? spinner() : null
     ]);
-  }).concat(
-    h('div.custom', {
-      class: { transp: !!member },
-      attrs: { 'data-id': 'custom' }
-    }, ctrl.trans.noarg('custom'))
-  );
+  });
 }
