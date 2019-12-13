@@ -35,7 +35,7 @@ final private class RelationRepo(coll: Coll) {
   ): Fu[Set[ID]] =
     coll
       .withReadPreference(rp)
-      .distinctEasy[String, Set](
+      .distinctEasy[ID, Set](
         "u1",
         $doc(
           "u2" -> userId,
@@ -44,7 +44,7 @@ final private class RelationRepo(coll: Coll) {
       )
 
   private def relating(userId: ID, relation: Relation): Fu[Set[ID]] =
-    coll.distinctEasy[String, Set](
+    coll.distinctEasy[ID, Set](
       "u2",
       $doc(
         "u1" -> userId,
@@ -56,6 +56,9 @@ final private class RelationRepo(coll: Coll) {
   def unfollow(u1: ID, u2: ID): Funit = remove(u1, u2)
   def block(u1: ID, u2: ID): Funit    = save(u1, u2, Block)
   def unblock(u1: ID, u2: ID): Funit  = remove(u1, u2)
+
+  def unfollowMany(u1: ID, u2s: Iterable[ID]): Funit =
+    coll.delete.one($inIds(u2s map { makeId(u1, _) })).void
 
   def unfollowAll(u1: ID): Funit = coll.delete.one($doc("u1" -> u1)).void
 

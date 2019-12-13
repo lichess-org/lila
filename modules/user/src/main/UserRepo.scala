@@ -239,12 +239,13 @@ final class UserRepo(val coll: Coll) {
     coll.primitiveOne[User.PlayTime]($id(id), F.playTime)
 
   val enabledSelect             = $doc(F.enabled -> true)
-  def engineSelect(v: Boolean)  = $doc(F.engine  -> (if (v) $boolean(true) else $ne(true)))
-  def trollSelect(v: Boolean)   = $doc(F.troll   -> (if (v) $boolean(true) else $ne(true)))
+  val disabledSelect            = $doc(F.enabled -> false)
+  def engineSelect(v: Boolean)  = $doc(F.engine -> (if (v) $boolean(true) else $ne(true)))
+  def trollSelect(v: Boolean)   = $doc(F.troll -> (if (v) $boolean(true) else $ne(true)))
   def boosterSelect(v: Boolean) = $doc(F.booster -> (if (v) $boolean(true) else $ne(true)))
+  val goodLadSelect             = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   def stablePerfSelect(perf: String) =
     $doc(s"perfs.$perf.gl.d" -> $lt(lila.rating.Glicko.provisionalDeviation))
-  val goodLadSelect = enabledSelect ++ engineSelect(false) ++ boosterSelect(false)
   val goodLadSelectBson = $doc(
     F.enabled -> true,
     F.engine $ne true,
@@ -544,7 +545,7 @@ final class UserRepo(val coll: Coll) {
       .find(
         $doc(
           F.enabled -> true,
-          "seenAt" $gt since,
+          F.seenAt $gt since,
           "count.game" $gt 9,
           "kid" $ne true
         ),
@@ -606,6 +607,12 @@ final class UserRepo(val coll: Coll) {
     user.disabled ?? {
       coll.exists($id(user.id) ++ $doc("erasedAt" $exists true))
     } map User.Erased.apply
+
+  def filterClosedOrInactiveIds(since: DateTime)(ids: Iterable[ID]): Fu[List[ID]] =
+    coll.distinctEasy[ID, List](
+      F.id,
+      $inIds(ids) ++ $or(disabledSelect, F.seenAt $lt since)
+    )
 
   private def newUser(
       username: String,

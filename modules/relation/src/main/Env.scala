@@ -39,16 +39,7 @@ final class Env(
 
   private lazy val repo: RelationRepo = wire[RelationRepo]
 
-  lazy val api = new RelationApi(
-    coll = coll,
-    repo = repo,
-    actor = relation,
-    timeline = timeline,
-    prefApi = prefApi,
-    asyncCache = asyncCache,
-    maxFollow = config.maxFollow,
-    maxBlock = config.maxBlock
-  )
+  lazy val api: RelationApi = wire[RelationApi]
 
   lazy val stream = wire[RelationStream]
 

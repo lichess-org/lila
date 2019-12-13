@@ -3,10 +3,10 @@ package lila.relation
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
+import org.joda.time.DateTime
 
 import BSONHandlers._
 import lila.common.Bus
-import lila.common.config.Max
 import lila.db.dsl._
 import lila.db.paginator._
 import lila.hub.actors
@@ -20,8 +20,8 @@ final class RelationApi(
     timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,
     asyncCache: lila.memo.AsyncCache.Builder,
-    maxFollow: Max,
-    maxBlock: Max
+    userRepo: lila.user.UserRepo,
+    config: RelationConfig
 ) {
 
   import RelationRepo.makeId
@@ -80,7 +80,7 @@ final class RelationApi(
 
   def countFollowing(userId: ID) = countFollowingCache get userId
 
-  def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (maxFollow <=)
+  def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (config.maxFollow <=)
 
   private val countFollowersCache = asyncCache.clearable[ID, Int](
     name = "relation.count.followers",
@@ -135,7 +135,7 @@ final class RelationApi(
         case _ =>
           repo.follow(u1, u2) >> limitFollow(u1) >>- {
             countFollowersCache.update(u2, 1 +)
-            countFollowingCache.update(u1, prev => (prev + 1) atMost maxFollow.value)
+            countFollowingCache.update(u1, prev => (prev + 1) atMost config.maxFollow.value)
             reloadOnlineFriends(u1, u2)
             timeline ! Propagate(FollowUser(u1, u2)).toFriendsOf(u1).toUsers(List(u2))
             Bus.publish(lila.hub.actorApi.relation.Follow(u1, u2), "relation")
@@ -144,12 +144,28 @@ final class RelationApi(
       }
   }
 
+  private val limitFollowRateLimiter = new lila.memo.RateLimit[ID](
+    credits = 1,
+    duration = 1 hour,
+    name = "follow limit cleanup",
+    key = "follow.limit.cleanup"
+  )
+
   private def limitFollow(u: ID) = countFollowing(u) flatMap { nb =>
-    (maxFollow < nb) ?? repo.drop(u, true, nb - maxFollow.value)
+    (config.maxFollow < nb || true) ?? {
+      limitFollowRateLimiter(u) {
+        fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(DateTime.now.minusDays(90))
+      } flatMap {
+        case Nil => repo.drop(u, true, nb - config.maxFollow.value)
+        case inactiveIds =>
+          repo.unfollowMany(u, inactiveIds) >>-
+            countFollowingCache.update(u, _ - inactiveIds.size)
+      }
+    }
   }
 
   private def limitBlock(u: ID) = countBlocking(u) flatMap { nb =>
-    (maxBlock < nb) ?? repo.drop(u, false, nb - maxBlock.value)
+    (config.maxBlock < nb) ?? repo.drop(u, false, nb - config.maxBlock.value)
   }
 
   def block(u1: ID, u2: ID): Funit = (u1 != u2) ?? {
