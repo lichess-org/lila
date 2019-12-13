@@ -359,6 +359,10 @@
   <string name="blackCheckmatesInOneMove">Le nigro pote matar in un movimento</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Reconnectente</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amico in linea</item>
+    <item quantity="other">%s amicos in linea</item>
+  </plurals>
   <string name="noFriendsOnline">Nulle amicos in linea</string>
   <string name="findFriends">Cercar amicos</string>
   <string name="favoriteOpponents">Adversarios favorite</string>
