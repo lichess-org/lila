@@ -16,7 +16,7 @@ final private class InfluxEvent(
 
   override def preStart(): Unit = {
     Bus.subscribe(self, "deploy")
-    event("lila_start", s"Lila starts: $seed".pp)
+    event("lila_start", s"Lila starts: $seed")
   }
 
   def receive = {
