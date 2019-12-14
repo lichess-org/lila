@@ -47,7 +47,7 @@ final class EvalCacheApi(
   }
 
   private val cache = asyncCache.multi[Id, Option[EvalCacheEntry]](
-    name = "eval_cache",
+    name = "evalCache",
     f = fetchAndSetAccess,
     expireAfter = _.ExpireAfterAccess(10 minutes)
   )
