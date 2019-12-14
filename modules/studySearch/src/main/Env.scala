@@ -17,7 +17,7 @@ final class Env(
     chapterRepo: lila.study.ChapterRepo,
     pager: lila.study.StudyPager,
     makeClient: Index => ESClient
-)(implicit system: ActorSystem, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
 
   private val client = makeClient(Index("study"))
 

@@ -27,7 +27,7 @@ final class Env(
     db: lila.db.Db,
     net: lila.common.config.NetConfig,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: akka.actor.ActorSystem, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mat: akka.stream.Materializer) {
 
   def version(studyId: Study.Id): Fu[SocketVersion] =
     socket.rooms.ask[SocketVersion](studyId.value)(GetVersion)

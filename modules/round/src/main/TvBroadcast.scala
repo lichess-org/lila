@@ -17,6 +17,8 @@ final private class TvBroadcast extends Actor {
 
   Bus.subscribe(self, "changeFeaturedGame")
 
+  implicit def system = context.dispatcher
+
   def receive = {
 
     case TvBroadcast.Connect =>

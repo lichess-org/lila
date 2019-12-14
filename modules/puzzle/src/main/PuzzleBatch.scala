@@ -9,7 +9,7 @@ final private[puzzle] class PuzzleBatch(
     api: PuzzleApi,
     finisher: Finisher,
     puzzleIdMin: PuzzleId
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def solve(originalUser: User, data: PuzzleBatch.SolveData): Funit =
     for {

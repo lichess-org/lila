@@ -12,7 +12,8 @@ import scala.concurrent.duration._
 final class EarlyMultiThrottler(
     executionTimeout: Option[FiniteDuration] = None,
     logger: lila.log.Logger
-) extends Actor {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends Actor {
 
   import EarlyMultiThrottler._
 

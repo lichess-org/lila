@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 import lila.db.dsl._
 import lila.user.User
 
-final class ThreadRepo(coll: Coll) {
+final class ThreadRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   type ID = String
 

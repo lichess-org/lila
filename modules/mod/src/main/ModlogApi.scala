@@ -4,7 +4,7 @@ import lila.db.dsl._
 import lila.report.{ Mod, ModId, Report, Suspect }
 import lila.security.Permission
 
-final class ModlogApi(repo: ModlogRepo) {
+final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private def coll = repo.coll
 

@@ -35,7 +35,7 @@ final private[round] class RoundDuct(
     dependencies: RoundDuct.Dependencies,
     gameId: Game.ID,
     socketSend: String => Unit
-)(implicit proxy: GameProxy)
+)(implicit ec: scala.concurrent.ExecutionContext, proxy: GameProxy)
     extends Duct {
 
   import RoundSocket.Protocol

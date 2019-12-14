@@ -9,7 +9,7 @@ final class Env(
     appConfig: Configuration,
     lifecycle: play.api.inject.ApplicationLifecycle,
     notification: lila.hub.actors.Notification
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val RedisUri = appConfig.get[String]("socket.redis.uri")
 

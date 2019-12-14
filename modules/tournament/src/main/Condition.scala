@@ -65,7 +65,7 @@ object Condition {
 
   case class MaxRating(perf: PerfType, rating: Int) extends Condition {
 
-    def apply(getMaxRating: GetMaxRating)(user: User): Fu[Verdict] =
+    def apply(getMaxRating: GetMaxRating)(user: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[Verdict] =
       if (user.perfs(perf).provisional) fuccess(Refused { lang =>
         I18nKeys.yourPerfRatingIsProvisional.literalTxtTo(lang, perf.name)
       })
@@ -102,7 +102,7 @@ object Condition {
 
   case class TeamMember(teamId: TeamID, teamName: TeamName) extends Condition {
     def name(lang: Lang) = I18nKeys.mustBeInTeam.literalTxtTo(lang, List(teamName))
-    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]]) =
+    def apply(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit ec: scala.concurrent.ExecutionContext) =
       getUserTeamIds(user) map { userTeamIds =>
         if (userTeamIds contains teamId) Accepted
         else
@@ -128,12 +128,12 @@ object Condition {
 
     def withVerdicts(
         getMaxRating: GetMaxRating
-    )(user: User, getUserTeamIds: User => Fu[List[TeamID]]): Fu[All.WithVerdicts] =
+    )(user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit ec: scala.concurrent.ExecutionContext): Fu[All.WithVerdicts] =
       list.map {
         case c: MaxRating  => c(getMaxRating)(user) map c.withVerdict
         case c: FlatCond   => fuccess(c withVerdict c(user))
         case c: TeamMember => c(user, getUserTeamIds) map { c withVerdict _ }
-      }.sequenceFu map All.WithVerdicts.apply
+      }.sequenceFu dmap All.WithVerdicts.apply
 
     def accepted = All.WithVerdicts(list.map { WithVerdict(_, Accepted) })
 
@@ -162,12 +162,12 @@ object Condition {
   }
 
   final class Verify(historyApi: lila.history.HistoryApi) {
-    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]]): Fu[All.WithVerdicts] = {
+    def apply(all: All, user: User, getUserTeamIds: User => Fu[List[TeamID]])(implicit ec: scala.concurrent.ExecutionContext): Fu[All.WithVerdicts] = {
       val getMaxRating: GetMaxRating = perf => historyApi.lastWeekTopRating(user, perf)
       all.withVerdicts(getMaxRating)(user, getUserTeamIds)
     }
-    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(tour: Tournament): Fu[Boolean] =
-      apply(tour.conditions, user, getUserTeamIds).map(_.accepted)
+    def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(tour: Tournament)(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
+      apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted)
   }
 
   object BSONHandlers {

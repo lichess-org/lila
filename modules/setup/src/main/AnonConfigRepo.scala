@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-final private class AnonConfigRepo(coll: Coll) {
+final private class AnonConfigRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def update(req: RequestHeader)(f: UserConfig => UserConfig): Funit =
     configOption(req) flatMap {
@@ -29,7 +29,7 @@ final private class AnonConfigRepo(coll: Coll) {
         logger.warn("Can't load config", e)
         none[UserConfig]
       }
-    } map (_ | UserConfig.default(sid))
+    } dmap (_ | UserConfig.default(sid))
 
   private def configOption(req: RequestHeader): Fu[Option[UserConfig]] =
     sessionId(req).??(s => config(s) map (_.some))
@@ -37,7 +37,7 @@ final private class AnonConfigRepo(coll: Coll) {
   def filter(req: RequestHeader): Fu[FilterConfig] =
     sessionId(req) ?? { sid =>
       coll.primitiveOne[FilterConfig]($id(sid), "filter")
-    } map (_ | FilterConfig.default)
+    } dmap (_ | FilterConfig.default)
 
   private def sessionId(req: RequestHeader): Option[String] =
     lila.common.HTTPRequest sid req

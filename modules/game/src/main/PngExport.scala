@@ -10,7 +10,7 @@ final class PngExport(
     ws: WSClient,
     url: String,
     size: Int
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def fromGame(game: Game): Fu[Source[ByteString, _]] = apply(
     fen = FEN(Forsyth >> game.chess),

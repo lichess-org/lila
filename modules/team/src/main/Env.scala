@@ -17,7 +17,7 @@ final class Env(
     notifyApi: NotifyApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     db: lila.db.Db
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   lazy val teamRepo    = new TeamRepo(db(CollName("team")))
   lazy val memberRepo  = new MemberRepo(db(CollName("team_member")))

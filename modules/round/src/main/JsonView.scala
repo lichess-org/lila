@@ -27,7 +27,7 @@ final class JsonView(
     isOfferingRematch: Pov => Boolean,
     animation: AnimationDuration,
     moretime: MoretimeDuration
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 

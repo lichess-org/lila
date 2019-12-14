@@ -19,7 +19,7 @@ final private[forum] class TopicApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: lila.common.DetectLanguage
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -30,10 +30,13 @@ final private[forum] class TopicApi(
       troll: Boolean
   ): Fu[Option[(Categ, Topic, Paginator[Post])]] =
     for {
-      data <- (for {
-        categ <- optionT(env.categRepo bySlug categSlug)
-        topic <- optionT(env.topicRepo.withTroll(troll).byTree(categSlug, slug))
-      } yield categ -> topic).run
+      data <- env.categRepo bySlug categSlug flatMap {
+        _ ?? { categ =>
+          env.topicRepo.withTroll(troll).byTree(categSlug, slug) dmap {
+            _ map (categ -> _)
+          }
+        }
+      }
       res <- data ?? {
         case (categ, topic) =>
           lila.mon.forum.topic.view.increment()

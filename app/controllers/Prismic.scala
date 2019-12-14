@@ -7,7 +7,7 @@ import lila.app._
 
 final class Prismic(
     env: Env
-)(implicit ws: play.api.libs.ws.WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
 
   private val logger = lila.log("prismic")
 

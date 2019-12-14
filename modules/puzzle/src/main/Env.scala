@@ -31,7 +31,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[PuzzleConfig]("puzzle")(AutoConfig.loader)
 
@@ -89,7 +89,7 @@ final class Env(
   lazy val activity = new PuzzleActivity(
     puzzleColl = puzzleColl,
     roundColl = roundColl
-  )(system)
+  )
 
   def cli = new lila.common.Cli {
     def process = {

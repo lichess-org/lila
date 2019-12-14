@@ -9,7 +9,7 @@ import lila.db.dsl._
 final class EventApi(
     coll: Coll,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 

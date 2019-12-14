@@ -7,7 +7,7 @@ import lila.user.User
 final class ChallengeMaker(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def makeRematchFor(gameId: Game.ID, dest: User): Fu[Option[Challenge]] =
     gameRepo game gameId flatMap {
@@ -15,7 +15,7 @@ final class ChallengeMaker(
         game.opponentByUserId(dest.id).flatMap(_.userId) ?? userRepo.byId flatMap {
           _ ?? { challenger =>
             Pov(game, challenger) ?? { pov =>
-              makeRematch(pov, challenger, dest) map some
+              makeRematch(pov, challenger, dest) dmap some
             }
           }
         }
@@ -26,7 +26,7 @@ final class ChallengeMaker(
     Pov.ofUserId(game, challenger.id) ?? { pov =>
       pov.opponent.userId ?? userRepo.byId flatMap {
         _ ?? { dest =>
-          makeRematch(pov, challenger, dest) map some
+          makeRematch(pov, challenger, dest) dmap some
         }
       }
     }

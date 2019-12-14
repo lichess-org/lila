@@ -9,7 +9,7 @@ final class LastPostCache(
     notifier: Notifier,
     ttl: FiniteDuration,
     collection: String
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val cache = new Syncache[Boolean, List[MiniPost]](
     name = "blog.lastPost",

@@ -15,7 +15,7 @@ final class RankingApi(
     coll: Coll,
     mongoCache: lila.memo.MongoCache.Builder,
     lightUser: lila.common.LightUser.Getter
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import RankingApi._
   implicit private val rankingBSONHandler = Macros.handler[Ranking]

@@ -20,7 +20,7 @@ final private class Finisher(
     crosstableApi: lila.game.CrosstableApi,
     getSocketStatus: Game => Fu[actorApi.SocketStatus],
     isRecentTv: Game.ID => Boolean
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def abort(pov: Pov)(implicit proxy: GameProxy): Fu[Events] = apply(pov.game, _.Aborted, None) >>- {
     getSocketStatus(pov.game) foreach { ss =>

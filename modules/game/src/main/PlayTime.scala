@@ -10,9 +10,8 @@ import scala.concurrent.duration._
 final class PlayTimeApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    system: akka.actor.ActorSystem
-) {
+    asyncCache: lila.memo.AsyncCache.Builder
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Game.{ BSONFields => F }
 
@@ -24,7 +23,7 @@ final class PlayTimeApi(
   def randomlyCompute = scala.util.Random.nextInt(5) == 0
 
   private def compute(user: User): Fu[Option[User.PlayTime]] =
-    creationCache.get(user.id).withTimeoutDefault(1 second, none)(system)
+    creationCache.get(user.id).withTimeoutDefault(1 second, none)
 
   // to avoid creating it twice
   private val creationCache = asyncCache.multi[User.ID, Option[User.PlayTime]](

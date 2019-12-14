@@ -21,7 +21,7 @@ final class Env(
     getLightUser: lila.common.LightUser.Getter,
     getLightUserSync: lila.common.LightUser.GetterSync,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[NotifyConfig]("notify")(AutoConfig.loader)
 

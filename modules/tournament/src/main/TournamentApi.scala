@@ -41,7 +41,7 @@ final class TournamentApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit system: ActorSystem, mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueues(256, 1 minute)
 
@@ -271,7 +271,7 @@ final class TournamentApi(
   ): Fu[Boolean] = {
     val promise = Promise[Boolean]
     join(tourId, me, password, teamId, getUserTeamIds, promise.some)
-    promise.future.withTimeoutDefault(5.seconds, false)(system)
+    promise.future.withTimeoutDefault(5.seconds, false)
   }
 
   def pageOf(tour: Tournament, userId: User.ID): Fu[Option[Int]] =

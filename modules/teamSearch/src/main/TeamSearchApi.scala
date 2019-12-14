@@ -9,7 +9,7 @@ import lila.team.{ Team, TeamRepo }
 final class TeamSearchApi(
     client: ESClient,
     teamRepo: TeamRepo
-)(implicit mat: akka.stream.Materializer)
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
     extends SearchReadApi[Team, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -17,7 +17,7 @@ final class TeamSearchApi(
       teamRepo byOrderedIds res.ids
     }
 
-  def count(query: Query) = client.count(query) map (_.count)
+  def count(query: Query) = client.count(query) dmap (_.count)
 
   def store(team: Team) = client.store(Id(team.id), toDoc(team))
 

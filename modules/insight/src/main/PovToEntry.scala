@@ -9,7 +9,7 @@ import scalaz.NonEmptyList
 final private class PovToEntry(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type Ply = Int
 

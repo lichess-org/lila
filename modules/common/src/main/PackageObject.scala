@@ -1,10 +1,9 @@
 package lila
 
-import scalaz.{ ~>, Monad, Monoid, OptionT }
+import scalaz.Monoid
+import scala.concurrent.ExecutionContext
 
 trait PackageObject extends Lilaisms {
-
-  implicit val defaultExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
   def !![A](msg: String): Valid[A] = msg.failureNel[A]
 
@@ -14,12 +13,7 @@ trait PackageObject extends Lilaisms {
   def nowTenths: Long = nowMillis / 100
   def nowSeconds: Int = (nowMillis / 1000).toInt
 
-  // from scalaz. We don't want to import all OptionTFunctions, because of the clash with `some`
-  def optionT[M[_]] = new (({ type λ[α] = M[Option[α]] })#λ ~> ({ type λ[α] = OptionT[M, α] })#λ) {
-    def apply[A](a: M[Option[A]]) = new OptionT[M, A](a)
-  }
-
-  implicit def fuMonoid[A: Monoid]: Monoid[Fu[A]] =
+  implicit def fuMonoid[A: Monoid](implicit ec: ExecutionContext): Monoid[Fu[A]] =
     Monoid.instance(
       (x, y) =>
         x zip y map {
@@ -27,12 +21,6 @@ trait PackageObject extends Lilaisms {
         },
       fuccess(∅[A])
     )
-
-  implicit lazy val monadFu = new Monad[Fu] {
-    override def map[A, B](fa: Fu[A])(f: A => B) = fa map f
-    def point[A](a: => A)                        = fuccess(a)
-    def bind[A, B](fa: Fu[A])(f: A => Fu[B])     = fa flatMap f
-  }
 
   type ~[+A, +B] = Tuple2[A, B]
   object ~ {

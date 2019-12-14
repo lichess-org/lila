@@ -10,7 +10,7 @@ final private[report] class DataForm(
     userRepo: UserRepo,
     val captcher: lila.hub.actors.Captcher,
     domain: lila.common.config.NetDomain
-) extends lila.hub.CaptchedForm {
+)(implicit ec: scala.concurrent.ExecutionContext) extends lila.hub.CaptchedForm {
   val cheatLinkConstraint: Constraint[ReportSetup] = Constraint("constraints.cheatgamelink")({ setup =>
     if (setup.reason != "cheat" || (domain.value + """/(\w{8}|\w{12})""").r.findFirstIn(setup.text).isDefined)
       Valid

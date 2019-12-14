@@ -8,7 +8,7 @@ final class Tv(
     gameRepo: GameRepo,
     trouper: Trouper,
     gameProxyRepo: lila.round.GameProxyRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Tv._
   import ChannelTrouper._
@@ -28,7 +28,7 @@ final class Tv(
               roundProxyGame(id) orElse gameRepo.game(id)
             }
             .sequenceFu
-            .map(_.flatten)
+            .dmap(_.flatten)
           history = games map Pov.first
         } yield game map (_ -> history)
     }

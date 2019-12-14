@@ -10,7 +10,7 @@ import config._
 final class Env(
     appConfig: Configuration,
     ws: WSClient
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val netConfig = appConfig.get[NetConfig]("net")
   def netDomain = netConfig.domain

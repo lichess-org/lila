@@ -9,7 +9,7 @@ import scala.concurrent.Promise
  * Sequential like an actor, but for async functions,
  * and using an STM backend instead of akka actor.
  */
-trait Duct extends lila.common.Tellable {
+abstract class Duct(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Tellable {
 
   import Duct._
 

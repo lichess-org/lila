@@ -10,7 +10,7 @@ final private class CreatedOrganizer(
     api: TournamentApi,
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo
-)(implicit mat: akka.stream.Materializer)
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
     extends Actor {
 
   override def preStart: Unit = {

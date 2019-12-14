@@ -20,7 +20,7 @@ import lila.game.BSONHandlers.FENBSONHandler
 final class StudyMultiBoard(
     runCommand: lila.db.RunCommand,
     chapterRepo: ChapterRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
   private val maxPerPage = MaxPerPage(9)
 
   import StudyMultiBoard._
@@ -58,7 +58,7 @@ emit(this._id, result)""",
           "reduce" -> """function() {}""",
           "jsMode" -> true
         )
-      )(previewBSONReader),
+      )(previewBSONReader, ec),
       currentPage = page,
       maxPerPage = maxPerPage
     )

@@ -10,6 +10,8 @@ final private[tournament] class ApiActor(
     leaderboard: LeaderboardApi
 ) extends Actor {
 
+  implicit def ec = context.dispatcher
+
   def receive = {
 
     case FinishGame(game, _, _) => api finishGame game

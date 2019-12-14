@@ -12,7 +12,7 @@ final class BoostingApi(
     collBoosting: Coll,
     nbGamesToMark: Int,
     ratioGamesToMark: Double
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
   import BoostingApi._
 
   implicit private val boostingRecordBSONHandler = Macros.handler[BoostingRecord]

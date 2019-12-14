@@ -14,7 +14,7 @@ final class Env(
     getBotUserIds: lila.user.GetBotIds,
     settingStore: lila.memo.SettingStore.Builder,
     ws: play.api.libs.ws.WSClient
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private lazy val internalEndpoint = InternalEndpoint {
     appConfig.get[String]("explorer.internal_endpoint")

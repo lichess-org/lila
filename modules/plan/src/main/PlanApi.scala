@@ -20,7 +20,7 @@ final class PlanApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import BsonHandlers._
   import PatronHandlers._

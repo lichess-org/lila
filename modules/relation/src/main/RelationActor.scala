@@ -12,7 +12,7 @@ final private[relation] class RelationActor(
     lightUser: LightUser.GetterSync,
     api: RelationApi,
     online: OnlineDoing
-) extends Actor {
+)(implicit ec: scala.concurrent.ExecutionContext) extends Actor {
 
   private var previousOnlineIds = Set.empty[ID]
 

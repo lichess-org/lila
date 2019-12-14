@@ -28,7 +28,7 @@ final class TeamInfoApi(
     teamCached: lila.team.Cached,
     tournamentRepo: TournamentRepo,
     requestRepo: RequestRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(team: Team, me: Option[User]): Fu[TeamInfo] =
     for {

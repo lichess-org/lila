@@ -10,7 +10,7 @@ final private class Takebacker(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     prefApi: PrefApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def yes(
       situation: TakebackSituation
@@ -19,9 +19,9 @@ final private class Takebacker(
       case Pov(game, _) if pov.opponent.isProposingTakeback => {
         if (pov.opponent.proposeTakebackAt == pov.game.turns) single(game)
         else double(game)
-      } map (_ -> situation.reset)
-      case Pov(game, _) if pov.game.playableByAi => single(game) map (_ -> situation)
-      case Pov(game, _) if pov.opponent.isAi     => double(game) map (_ -> situation)
+      } dmap (_ -> situation.reset)
+      case Pov(game, _) if pov.game.playableByAi => single(game) dmap (_ -> situation)
+      case Pov(game, _) if pov.opponent.isAi     => double(game) dmap (_ -> situation)
       case Pov(game, color) if (game playerCanProposeTakeback color) && situation.offerable => {
         messenger.system(game, _.takebackPropositionSent)
         val progress = Progress(game) map { g =>
@@ -29,7 +29,7 @@ final private class Takebacker(
         }
         proxy.save(progress) >>- publishTakebackOffer(pov) inject
           List(Event.TakebackOffers(color.white, color.black))
-      } map (_ -> situation)
+      } dmap (_ -> situation)
       case _ => fufail(ClientError("[takebacker] invalid yes " + pov))
     }
   }
@@ -66,7 +66,7 @@ final private class Takebacker(
     else
       game.userIds.map {
         prefApi.getPref(_, (p: Pref) => p.takeback)
-      }.sequenceFu map {
+      }.sequenceFu dmap {
         _.forall { p =>
           p == Pref.Takeback.ALWAYS || (p == Pref.Takeback.CASUAL && game.casual)
         }
@@ -100,7 +100,7 @@ final private class Takebacker(
     for {
       fen   <- gameRepo initialFen game
       prog1 <- Rewind(game, fen).future
-      prog2 <- Rewind(prog1.game, fen).future map { progress =>
+      prog2 <- Rewind(prog1.game, fen).future dmap { progress =>
         prog1 withGame progress.game
       }
       _      <- fuccess { uciMemo.drop(game, 2) }

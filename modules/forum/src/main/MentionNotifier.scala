@@ -15,7 +15,7 @@ final class MentionNotifier(
     userRepo: UserRepo,
     notifyApi: NotifyApi,
     relationApi: RelationApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def notifyMentionedUsers(post: Post, topic: Topic): Funit =
     post.userId.ifFalse(post.troll) ?? { author =>

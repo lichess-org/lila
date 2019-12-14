@@ -15,7 +15,7 @@ final class ActivityReadApi(
     simulApi: lila.simul.SimulApi,
     studyApi: lila.study.StudyApi,
     tourLeaderApi: lila.tournament.LeaderboardApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import model._

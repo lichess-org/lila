@@ -16,6 +16,8 @@ final private[timeline] class Push(
     unsubApi: UnsubApi
 ) extends Actor {
 
+  implicit def ec = context.dispatcher
+
   def receive = {
 
     case Propagate(data, propagations) =>
@@ -30,20 +32,21 @@ final private[timeline] class Push(
   }
 
   private def propagate(propagations: List[Propagation]): Fu[List[User.ID]] =
-    propagations.map {
+    scala.concurrent.Future.traverse(propagations) {
       case Users(ids)    => fuccess(ids)
       case Followers(id) => relationApi.fetchFollowersFromSecondary(id)
       case Friends(id)   => relationApi.fetchFriends(id)
       case ExceptUser(_) => fuccess(Nil)
       case ModsOnly(_)   => fuccess(Nil)
-    }.sequence flatMap { users =>
+    } flatMap { users =>
       propagations.foldLeft(fuccess(users.flatten.distinct)) {
-        case (fus, ExceptUser(id)) => fus.map(_.filter(id !=))
+        case (fus, ExceptUser(id)) => fus.dmap(_.filter(id !=))
         case (fus, ModsOnly(true)) =>
-          for {
-            us      <- fus
-            userIds <- userRepo.userIdsWithRoles(modPermissions.map(_.name))
-          } yield us filter userIds.contains
+          fus flatMap { us =>
+            userRepo.userIdsWithRoles(modPermissions.map(_.name)) dmap { userIds =>
+              us filter userIds.contains
+            }
+          }
         case (fus, _) => fus
       }
     }

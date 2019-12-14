@@ -7,7 +7,7 @@ import reactivemongo.api.ReadPreference
 import lila.db.dsl._
 import lila.user.User
 
-final class PostRepo(val coll: Coll, troll: Boolean = false) {
+final class PostRepo(val coll: Coll, troll: Boolean = false)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def withTroll(t: Boolean) = if (t == troll) this else new PostRepo(coll, t)
 
@@ -24,7 +24,7 @@ final class PostRepo(val coll: Coll, troll: Boolean = false) {
     coll.countSel(selectTopic(topicId) ++ $doc("number" -> $lt(number)))
 
   def isFirstPost(topicId: String, postId: String): Fu[Boolean] =
-    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") map { _ contains postId }
+    coll.primitiveOne[String](selectTopic(topicId), $sort.createdAsc, "_id") dmap { _ contains postId }
 
   def countByTopic(topic: Topic): Fu[Int] =
     coll.countSel(selectTopic(topic.id))

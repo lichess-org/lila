@@ -25,7 +25,7 @@ final class SecurityApi(
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     tryOauthServer: lila.oauth.OAuthServer.Try
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   val AccessUri = "access_uri"
 

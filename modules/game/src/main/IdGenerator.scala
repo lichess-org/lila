@@ -6,7 +6,7 @@ import ornicar.scalalib.Random
 
 import java.security.SecureRandom
 
-final class IdGenerator(gameRepo: GameRepo) {
+final class IdGenerator(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import IdGenerator._
 

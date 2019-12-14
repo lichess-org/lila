@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 final class TrophyApi(
     coll: Coll,
     kindColl: Coll
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 

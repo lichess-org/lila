@@ -8,7 +8,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-final class TeamRepo(val coll: Coll) {
+final class TeamRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

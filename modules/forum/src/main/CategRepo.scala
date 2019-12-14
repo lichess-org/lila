@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.db.dsl._
 
-final class CategRepo(val coll: Coll) {
+final class CategRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.CategBSONHandler
 
@@ -21,8 +21,8 @@ final class CategRepo(val coll: Coll) {
       .gather[List]()
 
   def nextPosition: Fu[Int] =
-    coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") map (~_ + 1)
+    coll.primitiveOne[Int]($empty, $sort desc "pos", "pos") dmap (~_ + 1)
 
   def nbPosts(id: String): Fu[Int] =
-    coll.primitiveOne[Int]($id(id), "nbPosts") map (~_)
+    coll.primitiveOne[Int]($id(id), "nbPosts") dmap (~_)
 }

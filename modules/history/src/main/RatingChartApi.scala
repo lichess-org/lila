@@ -11,9 +11,9 @@ final class RatingChartApi(
     historyApi: HistoryApi,
     mongoCache: lila.memo.MongoCache.Builder,
     cacheTtl: FiniteDuration
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def apply(user: User): Fu[Option[String]] = cache(user) map { chart =>
+  def apply(user: User): Fu[Option[String]] = cache(user) dmap { chart =>
     chart.nonEmpty option chart
   }
 
@@ -24,7 +24,7 @@ final class RatingChartApi(
 
   private val cache = mongoCache[User, String](
     prefix = "history:rating",
-    f = user => build(user) map (~_),
+    f = user => build(user) dmap (~_),
     maxCapacity = 1024,
     timeToLive = cacheTtl,
     keyToString = _.id

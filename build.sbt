@@ -24,9 +24,10 @@ PlayKeys.externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
 // don't make an assets jar
-resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets"
+/* resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets" */
 // use akka-http for dev
 PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServerProvider"
+
 
 // format: off
 libraryDependencies ++= Seq(

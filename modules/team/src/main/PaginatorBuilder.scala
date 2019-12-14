@@ -9,7 +9,7 @@ final private[team] class PaginatorBuilder(
     teamRepo: TeamRepo,
     memberRepo: MemberRepo,
     userRepo: lila.user.UserRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
   private val maxPerPage     = MaxPerPage(15)
   private val maxUserPerPage = MaxPerPage(24)
 

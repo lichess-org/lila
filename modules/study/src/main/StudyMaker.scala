@@ -9,7 +9,7 @@ final private class StudyMaker(
     lightUserApi: lila.user.LightUserApi,
     gameRepo: lila.game.GameRepo,
     chapterMaker: ChapterMaker
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(data: StudyMaker.ImportGame, user: User): Fu[Study.WithChapter] =
     (data.form.gameId ?? gameRepo.gameWithInitialFen).flatMap {

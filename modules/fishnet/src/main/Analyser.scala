@@ -14,7 +14,7 @@ final class Analyser(
     uciMemo: UciMemo,
     evalCache: FishnetEvalCache,
     limiter: Limiter
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   val maxPlies = 200
 

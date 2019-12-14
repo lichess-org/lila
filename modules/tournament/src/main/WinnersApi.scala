@@ -61,7 +61,7 @@ final class WinnersApi(
     mongoCache: lila.memo.MongoCache.Builder,
     ttl: FiniteDuration,
     scheduler: akka.actor.Scheduler
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   implicit private val WinnerHandler      = reactivemongo.api.bson.Macros.handler[Winner]

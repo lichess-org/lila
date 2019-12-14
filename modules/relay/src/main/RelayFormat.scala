@@ -11,7 +11,7 @@ import lila.study.MultiPgn
 final private class RelayFormatApi(
     ws: WSClient,
     asyncCache: AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RelayFormat._
   import Relay.Sync.UpstreamWithRound
@@ -41,7 +41,7 @@ final private class RelayFormatApi(
           url.some,
           !url.path.parts.contains(mostCommonSingleFileName) option addPart(url, mostCommonSingleFileName)
         ).flatten.distinct
-      )(looksLikePgn) map2 { (u: Url) =>
+      )(looksLikePgn) dmap2 { (u: Url) =>
         SingleFile(pgnDoc(u))
       }
 
@@ -53,8 +53,8 @@ final private class RelayFormatApi(
           val jsonUrl = (n: Int) => jsonDoc(replaceLastPart(index, s"game-$n.json"))
           val pgnUrl  = (n: Int) => pgnDoc(replaceLastPart(index, s"game-$n.pgn"))
           looksLikeJson(jsonUrl(1).url).map(_ option jsonUrl) orElse
-            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) map2 { (gameUrl: GameNumberToDoc) =>
-            ManyFiles(index, gameUrl)
+            looksLikePgn(pgnUrl(1).url).map(_ option pgnUrl) dmap2 {
+            ManyFiles(index, _)
           }
         }
       }

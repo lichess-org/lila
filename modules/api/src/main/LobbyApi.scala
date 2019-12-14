@@ -14,7 +14,7 @@ final class LobbyApi(
     seekApi: SeekApi,
     pools: List[lila.pool.PoolConfig],
     gameProxyRepo: lila.round.GameProxyRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val poolsJson = Json toJson pools
 

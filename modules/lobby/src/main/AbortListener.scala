@@ -6,7 +6,7 @@ final private class AbortListener(
     userRepo: lila.user.UserRepo,
     seekApi: SeekApi,
     lobbyTrouper: LobbyTrouper
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(pov: Pov): Funit =
     (pov.game.isCorrespondence ?? recreateSeek(pov)) >>-

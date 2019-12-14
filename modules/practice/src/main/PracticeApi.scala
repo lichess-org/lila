@@ -12,7 +12,7 @@ final class PracticeApi(
     configStore: lila.memo.ConfigStore[PracticeConfig],
     asyncCache: lila.memo.AsyncCache.Builder,
     studyApi: lila.study.StudyApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -63,7 +63,7 @@ final class PracticeApi(
     } yield UserStudy(up, practiceStudy, publishedChapters, sc, section)
 
   object config {
-    def get  = configStore.get map (_ | PracticeConfig.empty)
+    def get  = configStore.get dmap (_ | PracticeConfig.empty)
     def set  = configStore.set _
     def form = configStore.makeForm
   }
@@ -90,7 +90,7 @@ final class PracticeApi(
     import PracticeProgress.NbMoves
 
     def get(user: User): Fu[PracticeProgress] =
-      coll.one[PracticeProgress]($id(user.id)) map {
+      coll.one[PracticeProgress]($id(user.id)) dmap {
         _ | PracticeProgress.empty(PracticeProgress.Id(user.id))
       }
 

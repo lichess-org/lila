@@ -39,6 +39,7 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket
 )(
     implicit
+    ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mat: akka.stream.Materializer,
     idGenerator: lila.game.IdGenerator

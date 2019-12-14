@@ -8,7 +8,7 @@ import lila.common.WorkQueue
 final class PerfStatIndexer(
     gameRepo: GameRepo,
     storage: PerfStatStorage
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueue(64)
 

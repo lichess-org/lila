@@ -8,7 +8,7 @@ trait QueryBuilderExt { self: dsl =>
 
   implicit final class ExtendQueryBuilder[P <: SerializationPack](
       @silent b: collections.GenericQueryBuilder[P]
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
 
     // like collect, but with stopOnError defaulting to false
     def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(
@@ -34,5 +34,8 @@ trait QueryBuilderExt { self: dsl =>
 
     def list[A: b.pack.Reader](limit: Int, readPreference: ReadPreference): Fu[List[A]] =
       gather[A, List](limit, readPreference)
+
+    def vector[A: b.pack.Reader](limit: Int, readPreference: ReadPreference): Fu[Vector[A]] =
+      gather[A, Vector](limit, readPreference)
   }
 }

@@ -34,7 +34,7 @@ final class ModStream {
       case signup: Signup => queue offer signup
     }
 
-    queue.watchCompletion foreach { _ =>
+    queue.watchCompletion dforeach { _ =>
       Bus.unsubscribe(sub, classifier)
     }
   }

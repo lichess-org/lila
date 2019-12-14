@@ -4,7 +4,7 @@ import chess.format.FEN
 
 import lila.game.{ Game, GameRepo }
 
-final class Importer(gameRepo: GameRepo) {
+final class Importer(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(data: ImportData, user: Option[String], forceId: Option[String] = None): Fu[Game] = {
 

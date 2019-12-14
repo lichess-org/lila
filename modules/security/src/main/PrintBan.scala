@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-final class PrintBan(coll: Coll) {
+final class PrintBan(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private var current: Set[String] = Set.empty
 

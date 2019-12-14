@@ -18,12 +18,12 @@ final class ChallengeApi(
     gameCache: lila.game.Cached,
     maxPlaying: Max,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Challenge._
 
   def allFor(userId: User.ID): Fu[AllChallenges] =
-    createdByDestId(userId) zip createdByChallengerId(userId) map (AllChallenges.apply _).tupled
+    createdByDestId(userId) zip createdByChallengerId(userId) dmap (AllChallenges.apply _).tupled
 
   // returns boolean success
   def create(c: Challenge): Fu[Boolean] = isLimitedByMaxPlaying(c) flatMap {
@@ -38,9 +38,9 @@ final class ChallengeApi(
 
   def byId = repo byId _
 
-  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).map(_.filter(_.active))
+  def activeByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.active))
 
-  def onlineByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).map(_.filter(_.online))
+  def onlineByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.online))
 
   val countInFor = asyncCache.clearable(
     name = "challenge.countInFor",
@@ -94,10 +94,10 @@ final class ChallengeApi(
     else
       c.userIds
         .map { userId =>
-          gameCache.nbPlaying(userId) map (maxPlaying <=)
+          gameCache.nbPlaying(userId) dmap (maxPlaying <=)
         }
         .sequenceFu
-        .map(_ exists identity)
+        .dmap(_ exists identity)
 
   private[challenge] def sweep: Funit =
     repo.realTimeUnseenSince(DateTime.now minusSeconds 10, max = 50).flatMap { cs =>

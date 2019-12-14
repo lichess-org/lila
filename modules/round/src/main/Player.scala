@@ -15,7 +15,7 @@ final private class Player(
     finisher: Finisher,
     scheduleExpiration: ScheduleExpiration,
     uciMemo: UciMemo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   sealed private trait MoveResult
   private case object Flagged                                          extends MoveResult

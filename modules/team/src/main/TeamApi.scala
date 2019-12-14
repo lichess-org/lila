@@ -21,7 +21,7 @@ final class TeamApi(
     timeline: lila.hub.actors.Timeline,
     indexer: lila.hub.actors.TeamSearch,
     modLog: ModlogApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

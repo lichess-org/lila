@@ -14,7 +14,8 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-) extends LilaController(env) {
+)
+    extends LilaController(env) {
 
   def requestAnalysis(id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.game.gameRepo game id) { game =>

@@ -12,7 +12,7 @@ object ResilientScheduler {
       every: Every,
       atMost: AtMost,
       initialDelay: FiniteDuration
-  )(f: => Funit)(implicit system: ActorSystem): Unit = {
+  )(f: => Funit)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem): Unit = {
     val run = () => f
     def runAndScheduleNext(): Unit =
       run() withTimeout atMost.value addEffectAnyway {

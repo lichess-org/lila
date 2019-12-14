@@ -7,7 +7,7 @@ import lila.db.AsyncColl
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-final private class Storage(val coll: AsyncColl) {
+final private class Storage(val coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Storage._
   import BSONHandlers._

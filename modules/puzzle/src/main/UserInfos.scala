@@ -8,12 +8,14 @@ import lila.user.User
 
 case class UserInfos(user: User, history: List[Round])
 
-final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Option[PuzzleId]]) {
+final class UserInfosApi(roundColl: AsyncColl, currentPuzzleId: User => Fu[Option[PuzzleId]])(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
   private val historySize = 15
   private val chartSize   = 15
 
-  def apply(user: Option[User]): Fu[Option[UserInfos]] = user ?? { apply(_) map (_.some) }
+  def apply(user: Option[User]): Fu[Option[UserInfos]] = user ?? { apply(_) dmap (_.some) }
 
   def apply(user: User): Fu[UserInfos] =
     for {

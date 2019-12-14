@@ -25,7 +25,7 @@ final class LobbySocket(
     relationApi: lila.relation.RelationApi,
     poolApi: PoolApi,
     system: akka.actor.ActorSystem
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import LobbySocket._
   import Protocol._

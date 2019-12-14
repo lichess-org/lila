@@ -4,7 +4,7 @@ import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
-final class OAuthAppApi(coll: AsyncColl) {
+final class OAuthAppApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import OAuthApp.{ AppIdHandler, AppBSONHandler }
   import OAuthApp.{ BSONFields => F }

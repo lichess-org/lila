@@ -7,7 +7,7 @@ import lila.api.Context
 import lila.app._
 import views._
 
-final class KeyPages(env: Env) {
+final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def home(status: Results.Status)(implicit ctx: Context): Fu[Result] =
     env

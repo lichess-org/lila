@@ -10,10 +10,10 @@ final class TournamentStatsApi(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     mongoCache: lila.memo.MongoCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished ?? cache(tournament.id).map(some)
+    tournament.isFinished ?? cache(tournament.id).dmap(some)
 
   implicit private val statsBSONHandler = Macros.handler[TournamentStats]
 

@@ -13,7 +13,7 @@ final private class StudyInvite(
     notifyApi: NotifyApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val notifyRateLimit = new lila.memo.RateLimit[User.ID](
     credits = 500,

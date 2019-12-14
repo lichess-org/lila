@@ -9,7 +9,7 @@ final private class Moretimer(
     messenger: Messenger,
     prefApi: PrefApi,
     duration: MoretimeDuration
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   // pov of the player giving more time
   def apply(pov: Pov): Fu[Option[Progress]] = IfAllowed(pov.game) {

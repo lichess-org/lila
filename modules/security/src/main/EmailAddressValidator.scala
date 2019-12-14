@@ -30,14 +30,14 @@ final class EmailAddressValidator(
     * @return
     */
   private def isTakenBySomeoneElse(email: EmailAddress, forUser: Option[User]): Fu[Boolean] =
-    userRepo.idByEmail(email.normalize) map (_ -> forUser) map {
+    userRepo.idByEmail(email.normalize) dmap (_ -> forUser) dmap {
       case (None, _)                  => false
       case (Some(userId), Some(user)) => userId != user.id
       case (_, _)                     => true
     }
 
   private def wasUsedTwiceRecently(email: EmailAddress): Fu[Boolean] =
-    userRepo.countRecentByPrevEmail(email.normalize).map(1 <)
+    userRepo.countRecentByPrevEmail(email.normalize).dmap(1 <)
 
   val acceptableConstraint = Constraint[String]("constraint.email_acceptable") { e =>
     if (isAcceptable(EmailAddress(e))) Valid
@@ -66,7 +66,7 @@ final class EmailAddressValidator(
     if (isAcceptable(e)) e.domain.map(_.lower) ?? { domain =>
       if (DisposableEmailDomain whitelisted domain) fuccess(true)
       else
-        dnsApi.mx(domain).map { domains =>
+        dnsApi.mx(domain).dmap { domains =>
           domains.nonEmpty && !domains.exists { disposable(_) }
         } >>& checkMail(domain)
     } else fuccess(false)

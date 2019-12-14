@@ -10,7 +10,7 @@ final class JsonView(
     gameJson: GameJson,
     gameRepo: GameRepo,
     animationDuration: scala.concurrent.duration.Duration
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(
       puzzle: Puzzle,
@@ -26,7 +26,7 @@ final class JsonView(
       gameId = puzzle.gameId,
       plies = puzzle.initialPly,
       onlyLast = isMobile
-    ) map some) map { gameJson =>
+    ) dmap some) map { gameJson =>
       Json
         .obj(
           "game"   -> gameJson,

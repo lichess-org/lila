@@ -11,7 +11,7 @@ final class SlackApi(
     client: SlackClient,
     mode: Mode,
     implicit val lightUser: LightUser.Getter
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SlackApi._
 

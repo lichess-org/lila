@@ -7,7 +7,7 @@ import reactivemongo.api._
 import lila.db.dsl._
 import lila.user.User
 
-final class StudyRepo(private[study] val coll: Coll) {
+final class StudyRepo(private[study] val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

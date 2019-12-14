@@ -22,7 +22,8 @@ final class ESClientHttp(
     ws: WSClient,
     config: SearchConfig,
     val index: Index
-) extends ESClient {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends ESClient {
 
   def store(id: Id, doc: JsObject) = config.writeable ?? monitor("store") {
     HTTP(s"store/${index.name}/${id.value}", doc)

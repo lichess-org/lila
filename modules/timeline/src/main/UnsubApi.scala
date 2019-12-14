@@ -4,7 +4,7 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-final class UnsubApi(coll: Coll) {
+final class UnsubApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private def makeId(channel: String, userId: String) = s"$userId@$channel"
 

@@ -9,7 +9,7 @@ import lila.user.User
 final class StudyPager(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val maxPerPage                = lila.common.config.MaxPerPage(16)
   val defaultNbChaptersPerStudy = 4

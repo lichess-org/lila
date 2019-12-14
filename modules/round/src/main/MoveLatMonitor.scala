@@ -12,7 +12,7 @@ private object MoveLatMonitor {
   }
   private val latency = new AtomicReference(Latency())
 
-  def start(scheduler: Scheduler) =
+  def start(scheduler: Scheduler)(implicit ec: scala.concurrent.ExecutionContext) =
     scheduler.scheduleWithFixedDelay(10 second, 2 second) { () =>
       lila.common.Bus.publish(
         lila.hub.actorApi.round.Mlat(latency.getAndSet(Latency()).average),

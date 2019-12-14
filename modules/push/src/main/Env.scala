@@ -28,7 +28,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     getLightUser: lila.common.LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[PushConfig]("push")(AutoConfig.loader)
 

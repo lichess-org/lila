@@ -19,7 +19,7 @@ final private class PushApi(
     userRepo: lila.user.UserRepo,
     implicit val lightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   def finish(game: Game): Funit =
     if (!game.isCorrespondence || game.hasAi) funit
@@ -271,7 +271,7 @@ final private class PushApi(
   private def IfAway(pov: Pov)(f: => Funit): Funit =
     lila.common.Bus.ask[Boolean]("roundSocket") { p =>
       Tell(pov.gameId, IsOnGame(pov.color, p))
-    }(system) flatMap {
+    } flatMap {
       case true  => funit
       case false => f
     }

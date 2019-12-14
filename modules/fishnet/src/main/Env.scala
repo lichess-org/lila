@@ -33,7 +33,7 @@ final class Env(
     db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder,
     sink: lila.analyse.Analyser
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
 

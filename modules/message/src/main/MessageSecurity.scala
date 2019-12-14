@@ -9,7 +9,7 @@ final private[message] class MessageSecurity(
     relationApi: lila.relation.RelationApi,
     prefApi: lila.pref.PrefApi,
     spam: lila.security.Spam
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import lila.pref.Pref.Message._
 

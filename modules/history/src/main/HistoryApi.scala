@@ -12,7 +12,7 @@ import lila.game.Game
 import lila.rating.{ Perf, PerfType }
 import lila.user.{ Perfs, User }
 
-final class HistoryApi(coll: Coll) {
+final class HistoryApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import History._
 

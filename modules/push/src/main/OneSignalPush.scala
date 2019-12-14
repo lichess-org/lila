@@ -8,7 +8,7 @@ final private class OneSignalPush(
     deviceApi: DeviceApi,
     ws: WSClient,
     config: OneSignalPush.Config
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import config._
 

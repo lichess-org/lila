@@ -12,7 +12,7 @@ import lila.common.config.Secret
 final class DetectLanguage(
     ws: WSClient,
     config: DetectLanguage.Config
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import DetectLanguage.Detection
 

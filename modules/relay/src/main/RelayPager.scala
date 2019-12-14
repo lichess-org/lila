@@ -11,7 +11,7 @@ import lila.user.User
 final class RelayPager(
     repo: RelayRepo,
     withStudy: RelayWithStudy
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

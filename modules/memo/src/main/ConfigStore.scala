@@ -7,7 +7,7 @@ import play.api.data.Form
 
 import lila.db.dsl._
 
-final class ConfigStore[A](coll: Coll, id: String, logger: lila.log.Logger)(implicit loader: ConfigLoader[A]) {
+final class ConfigStore[A](coll: Coll, id: String, logger: lila.log.Logger)(implicit ec: scala.concurrent.ExecutionContext, loader: ConfigLoader[A]) {
 
   private val mongoDocKey = "config"
 
@@ -59,7 +59,7 @@ final class ConfigStore[A](coll: Coll, id: String, logger: lila.log.Logger)(impl
 
 object ConfigStore {
 
-  final class Builder(db: lila.db.Db, config: MemoConfig) {
+  final class Builder(db: lila.db.Db, config: MemoConfig)(implicit ec: scala.concurrent.ExecutionContext) {
     val coll = db(config.configColl)
     def apply[A: ConfigLoader](id: String, logger: lila.log.Logger) =
       new ConfigStore[A](coll, id, logger branch "configStore")

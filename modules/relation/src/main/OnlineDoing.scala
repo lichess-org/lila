@@ -10,7 +10,7 @@ final class OnlineDoing(
     api: RelationApi,
     lightUser: lila.common.LightUser.GetterSync,
     val userIds: () => Set[lila.user.User.ID]
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type StudyId = String
 

@@ -18,7 +18,7 @@ final class MessageApi(
     relationApi: lila.relation.RelationApi,
     notifyApi: lila.notify.NotifyApi,
     security: MessageSecurity
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Thread.ThreadBSONHandler
 

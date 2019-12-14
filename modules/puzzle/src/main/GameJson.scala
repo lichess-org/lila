@@ -10,7 +10,7 @@ final private class GameJson(
     gameRepo: GameRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     lightUserApi: lila.user.LightUserApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(gameId: Game.ID, plies: Int, onlyLast: Boolean): Fu[JsObject] =
     cache get CacheKey(gameId, plies, onlyLast)

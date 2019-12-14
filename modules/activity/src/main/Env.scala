@@ -17,7 +17,7 @@ final class Env(
     tourLeaderApi: lila.tournament.LeaderboardApi,
     getTourName: lila.tournament.GetTourName,
     getTeamName: lila.team.GetTeamName
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private lazy val coll = db(CollName("activity"))
 

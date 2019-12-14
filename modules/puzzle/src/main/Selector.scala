@@ -11,7 +11,7 @@ final private[puzzle] class Selector(
     puzzleColl: AsyncColl,
     api: PuzzleApi,
     puzzleIdMin: Int
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Selector._
 

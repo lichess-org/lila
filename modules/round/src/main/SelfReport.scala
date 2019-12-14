@@ -12,7 +12,7 @@ final class SelfReport(
     userRepo: UserRepo,
     slackApi: lila.slack.SlackApi,
     proxyRepo: GameProxyRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val whitelist = Set("treehugger")
 

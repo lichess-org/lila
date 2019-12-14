@@ -8,7 +8,7 @@ import play.api.libs.ws.WSClient
 import lila.memo.RateLimit
 import lila.common.config.Secret
 
-final private class SlackClient(ws: WSClient, url: Secret) {
+final private class SlackClient(ws: WSClient, url: Secret)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val defaultChannel = "tavern"
 

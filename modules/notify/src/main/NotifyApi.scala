@@ -16,7 +16,7 @@ final class NotifyApi(
     userRepo: UserRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     maxPerPage: MaxPerPage
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.NotificationBSONHandler
   import jsonHandlers._

@@ -9,7 +9,7 @@ import lila.db.BSON
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
-final private[simul] class SimulRepo(simulColl: Coll) {
+final private[simul] class SimulRepo(simulColl: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val SimulStatusBSONHandler = tryHandler[SimulStatus](
     { case BSONInteger(v) => SimulStatus(v) toTry s"No such simul status: $v" },

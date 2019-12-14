@@ -13,7 +13,7 @@ final class ShutupApi(
     userRepo: UserRepo,
     relationApi: lila.relation.RelationApi,
     reporter: lila.hub.actors.Report
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val UserRecordBSONHandler = Macros.handler[UserRecord]
   import PublicLine.PublicLineBSONHandler

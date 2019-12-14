@@ -11,7 +11,7 @@ final class ForumSearchApi(
     client: ESClient,
     postApi: PostApi,
     postRepo: PostRepo
-)(implicit mat: akka.stream.Materializer)
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer)
     extends SearchReadApi[PostView, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -20,7 +20,7 @@ final class ForumSearchApi(
     }
 
   def count(query: Query) =
-    client.count(query) map (_.count)
+    client.count(query) dmap (_.count)
 
   def store(post: Post) = postApi liteView post flatMap {
     _ ?? { view =>

@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 
 import lila.hub.actorApi.Deploy
 
-final private class DeployPersistence(system: ActorSystem) {
+final private class DeployPersistence(system: ActorSystem)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private var ongoing: Option[Cancellable] = None
 

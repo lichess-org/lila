@@ -6,7 +6,7 @@ import org.joda.time.DateTime
 import lila.common.config.Max
 import lila.db.dsl._
 
-final private class ChallengeRepo(coll: Coll, maxPerUser: Max) {
+final private class ChallengeRepo(coll: Coll, maxPerUser: Max)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import Challenge._

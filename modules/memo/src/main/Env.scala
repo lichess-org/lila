@@ -15,7 +15,7 @@ final class MemoConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val config = appConfig.get[MemoConfig]("memo")(AutoConfig.loader)
 

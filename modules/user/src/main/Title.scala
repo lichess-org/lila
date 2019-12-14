@@ -55,7 +55,7 @@ object Title {
     }
 
     private def fromFideProfile(id: Int)(implicit ws: WSClient): Fu[Option[Title]] = {
-      ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().map(_.body) map {
+      ws.url(s"""http://ratings.fide.com/card.phtml?event=$id""").get().dmap(_.body) dmap {
         case FideProfileTitleRegex(name) => Title.fromNames get name
       }
     }

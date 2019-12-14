@@ -15,7 +15,7 @@ final private[puzzle] class Finisher(
     userRepo: UserRepo,
     historyApi: lila.history.HistoryApi,
     puzzleColl: AsyncColl
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(puzzle: Puzzle, user: User, result: Result, mobile: Boolean): Fu[(Round, Mode)] = {
     val formerUserRating = user.perfs.puzzle.intRating

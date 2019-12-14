@@ -9,7 +9,7 @@ import lila.db.dsl._
 final private class Limiter(
     analysisColl: Coll,
     requesterApi: lila.analyse.RequesterApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(sender: Work.Sender, ignoreConcurrentCheck: Boolean): Fu[Boolean] =
     (fuccess(ignoreConcurrentCheck) >>| concurrentCheck(sender)) flatMap {

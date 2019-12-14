@@ -10,7 +10,7 @@ final class Analyser(
     gameRepo: GameRepo,
     analysisRepo: AnalysisRepo,
     requesterApi: RequesterApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def get(game: Game): Fu[Option[Analysis]] =
     analysisRepo byGame game

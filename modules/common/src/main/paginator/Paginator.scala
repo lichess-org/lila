@@ -61,7 +61,7 @@ final class Paginator[A] private[paginator] (
   def mapResults[B](f: A => B): Paginator[B] =
     withCurrentPageResults(currentPageResults map f)
 
-  def mapFutureResults[B](f: A => Fu[B]): Fu[Paginator[B]] =
+  def mapFutureResults[B](f: A => Fu[B])(implicit ec: scala.concurrent.ExecutionContext): Fu[Paginator[B]] =
     currentPageResults.map(f).sequenceFu dmap withCurrentPageResults
 }
 
@@ -71,7 +71,7 @@ object Paginator {
       adapter: AdapterLike[A],
       currentPage: Int,
       maxPerPage: MaxPerPage = MaxPerPage(10)
-  ): Fu[Paginator[A]] =
+  )(implicit ec: scala.concurrent.ExecutionContext): Fu[Paginator[A]] =
     validate(adapter, currentPage, maxPerPage) | apply(adapter, 1, maxPerPage)
 
   def empty[A]: Paginator[A] = new Paginator(0, MaxPerPage(0), Nil, 0)
@@ -92,7 +92,7 @@ object Paginator {
       adapter: AdapterLike[A],
       currentPage: Int = 1,
       maxPerPage: MaxPerPage = MaxPerPage(10)
-  ): Valid[Fu[Paginator[A]]] =
+  )(implicit ec: scala.concurrent.ExecutionContext): Valid[Fu[Paginator[A]]] =
     if (currentPage < 1) !!("Max per page must be greater than zero")
     else if (maxPerPage.value <= 0) !!("Current page must be greater than zero")
     else

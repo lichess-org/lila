@@ -13,7 +13,7 @@ final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros

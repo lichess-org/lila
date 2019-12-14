@@ -9,7 +9,7 @@ final private[video] class Sheet(
     ws: WSClient,
     url: String,
     api: VideoApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Sheet._
 
@@ -21,7 +21,7 @@ final private[video] class Sheet(
   def select(entry: Entry) =
     entry.include && entry.lang == "en"
 
-  def fetchAll: Funit = fetch map (_ filter select) flatMap { entries =>
+  def fetchAll: Funit = fetch dmap (_ filter select) flatMap { entries =>
     Future
       .traverse(entries) { entry =>
         api.video

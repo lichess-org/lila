@@ -20,7 +20,7 @@ final class Env(
     notifyApi: lila.notify.NotifyApi,
     db: lila.db.Db,
     imageRepo: lila.db.ImageRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[CoachConfig]("coach")(AutoConfig.loader)
 

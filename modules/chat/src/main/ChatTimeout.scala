@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 final class ChatTimeout(
     coll: Coll,
     duration: FiniteDuration
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import ChatTimeout._
 

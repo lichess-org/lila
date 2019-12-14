@@ -20,7 +20,7 @@ final private class StudySocket(
     lightStudyCache: LightStudyCache,
     remoteSocketApi: lila.socket.RemoteSocket,
     chatApi: lila.chat.ChatApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import StudySocket._
 

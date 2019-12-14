@@ -24,7 +24,7 @@ final class GameApiV2(
     pairingRepo: lila.tournament.PairingRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     getLightUser: LightUser.Getter
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import GameApiV2._
 
@@ -35,7 +35,7 @@ final class GameApiV2(
         enrich(config.flags)(game) flatMap {
           case (game, initialFen, analysis) =>
             config.format match {
-              case Format.JSON => toJson(game, initialFen, analysis, config.flags) map Json.stringify
+              case Format.JSON => toJson(game, initialFen, analysis, config.flags) dmap Json.stringify
               case Format.PGN  => pgnDump.toPgnString(game, initialFen, analysis, config.flags)
             }
         }
@@ -104,7 +104,7 @@ final class GameApiV2(
 
   private def enrich(flags: WithFlags)(game: Game) =
     gameRepo initialFen game flatMap { initialFen =>
-      (flags.evals ?? analysisRepo.byGame(game)) map { analysis =>
+      (flags.evals ?? analysisRepo.byGame(game)) dmap { analysis =>
         (game, initialFen, analysis)
       }
     }
@@ -116,7 +116,7 @@ final class GameApiV2(
 
   private def jsonFormatter(flags: WithFlags) =
     (game: Game, initialFen: Option[FEN], analysis: Option[Analysis]) =>
-      toJson(game, initialFen, analysis, flags) map { json =>
+      toJson(game, initialFen, analysis, flags) dmap { json =>
         s"${Json.stringify(json)}\n"
       }
 

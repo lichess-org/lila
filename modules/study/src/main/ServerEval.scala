@@ -15,7 +15,7 @@ object ServerEval {
   final class Requester(
       fishnet: lila.hub.actors.Fishnet,
       chapterRepo: ChapterRepo
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
 
     def apply(study: Study, chapter: Chapter, userId: User.ID): Funit = chapter.serverEval.isEmpty ?? {
       chapterRepo.startServerEval(chapter) >>- {
@@ -43,7 +43,7 @@ object ServerEval {
       socket: StudySocket,
       chapterRepo: ChapterRepo,
       divider: lila.game.Divider
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
 
     def apply(analysis: Analysis, complete: Boolean): Funit = analysis.studyId.map(Study.Id.apply) ?? {
       studyId =>

@@ -44,7 +44,7 @@ final class Env(
     noteApi: lila.user.NoteApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     securityStore: lila.security.Store
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[ModConfig]("mod")(AutoConfig.loader)
 

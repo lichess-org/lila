@@ -15,7 +15,7 @@ final class Gamify(
     reportApi: lila.report.ReportApi,
     asyncCache: lila.memo.AsyncCache.Builder,
     historyRepo: HistoryRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Gamify._
   import lila.report.BSONHandlers.RoomBSONHandler

@@ -13,9 +13,8 @@ final class GarbageCollector(
     ipTrust: IpTrust,
     printBan: PrintBan,
     slack: lila.slack.SlackApi,
-    isArmed: () => Boolean,
-    system: akka.actor.ActorSystem
-) {
+    isArmed: () => Boolean
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val logger = lila.security.logger.branch("GarbageCollector")
 
@@ -38,7 +37,7 @@ final class GarbageCollector(
             delay = 10 seconds,
             retries = 5,
             logger = none
-          )(system)
+          )
           .nevermind >> apply(applyData)
       }
     }

@@ -10,7 +10,8 @@ import lila.common.paginator.AdapterLike
 final class CachedAdapter[A](
     adapter: AdapterLike[A],
     val nbResults: Fu[Int]
-) extends AdapterLike[A] {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
 
   def slice(offset: Int, length: Int): Fu[Seq[A]] =
     adapter.slice(offset, length)
@@ -22,7 +23,8 @@ final class Adapter[A: BSONDocumentReader](
     projection: Option[Bdoc],
     sort: Bdoc,
     readPreference: ReadPreference = ReadPreference.primary
-) extends AdapterLike[A] {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
 
   def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 
@@ -48,7 +50,8 @@ final class MapReduceAdapter[A: BSONDocumentReader](
     runCommand: RunCommand,
     command: Bdoc,
     readPreference: ReadPreference = ReadPreference.primary
-) extends AdapterLike[A] {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends AdapterLike[A] {
 
   def nbResults: Fu[Int] = collection.secondaryPreferred.countSel(selector)
 

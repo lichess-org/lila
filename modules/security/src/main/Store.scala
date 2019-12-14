@@ -10,7 +10,7 @@ import lila.common.{ ApiVersion, HTTPRequest, IpAddress }
 import lila.db.dsl._
 import lila.user.User
 
-final class Store(val coll: Coll, localIp: IpAddress) {
+final class Store(val coll: Coll, localIp: IpAddress)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Store._
 

@@ -19,6 +19,8 @@ final private class InfluxEvent(
     event("lila_start", s"Lila starts: $seed")
   }
 
+  implicit def ec = context.dispatcher
+
   def receive = {
     case DeployPre  => event("lila_deploy_pre", "Lila will soon restart")
     case DeployPost => event("lila_deploy_post", "Lila restarts for deploy now")

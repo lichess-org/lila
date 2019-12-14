@@ -6,7 +6,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-final private class DeviceApi(coll: Coll) {
+final private class DeviceApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val DeviceBSONHandler = Macros.handler[Device]
 
@@ -25,7 +25,7 @@ final private class DeviceApi(coll: Coll) {
       .list[Device](max)
 
   private[push] def findLastOneByUserId(platform: String)(userId: String): Fu[Option[Device]] =
-    findLastManyByUserId(platform, 1)(userId) map (_.headOption)
+    findLastManyByUserId(platform, 1)(userId) dmap (_.headOption)
 
   def register(user: User, platform: String, deviceId: String) = {
     lila.mon.push.register.in(platform).increment()

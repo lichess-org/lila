@@ -22,7 +22,7 @@ final class IrwinApi(
     reportApi: lila.report.ReportApi,
     notifyApi: lila.notify.NotifyApi,
     mode: lila.memo.SettingStore[String]
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val reportThreshold = 85
   val markThreshold   = 93
@@ -30,7 +30,7 @@ final class IrwinApi(
   import BSONHandlers._
 
   def dashboard: Fu[IrwinDashboard] =
-    reportColl.ext.find($empty).sort($sort desc "date").list[IrwinReport](20) map IrwinDashboard.apply
+    reportColl.ext.find($empty).sort($sort desc "date").list[IrwinReport](20) dmap IrwinDashboard.apply
 
   object reports {
 
@@ -46,7 +46,7 @@ final class IrwinApi(
 
     def withPovs(user: User): Fu[Option[IrwinReport.WithPovs]] = get(user) flatMap {
       _ ?? { report =>
-        gameRepo.gamesFromSecondary(report.games.map(_.gameId)) map { games =>
+        gameRepo.gamesFromSecondary(report.games.map(_.gameId)) dmap { games =>
           val povs = games.flatMap { g =>
             Pov(g, user) map { g.id -> _ }
           }.toMap
@@ -56,7 +56,7 @@ final class IrwinApi(
     }
 
     private def getSuspect(suspectId: User.ID) =
-      userRepo byId suspectId orFail s"suspect $suspectId not found" map Suspect.apply
+      userRepo byId suspectId orFail s"suspect $suspectId not found" dmap Suspect.apply
 
     private def markOrReport(report: IrwinReport): Funit =
       if (report.activation >= markThreshold && mode.get() == "mark")
@@ -64,7 +64,7 @@ final class IrwinApi(
           lila.mon.mod.irwin.mark.increment()
       else if (report.activation >= reportThreshold && mode.get() != "none") for {
         suspect <- getSuspect(report.suspectId.value)
-        irwin   <- userRepo byId "irwin" orFail s"Irwin user not found" map Mod.apply
+        irwin   <- userRepo byId "irwin" orFail s"Irwin user not found" dmap Mod.apply
         _ <- reportApi.create(
           Report.Candidate(
             reporter = Reporter(irwin.user),

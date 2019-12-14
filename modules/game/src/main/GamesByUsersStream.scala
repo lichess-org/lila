@@ -10,7 +10,7 @@ import lila.common.Json.jodaWrites
 import lila.game.Game
 import lila.user.User
 
-final class GamesByUsersStream(gameRepo: lila.game.GameRepo) {
+final class GamesByUsersStream(gameRepo: lila.game.GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val chans = List("startGame", "finishGame")
 

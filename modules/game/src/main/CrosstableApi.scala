@@ -12,7 +12,7 @@ final class CrosstableApi(
     gameRepo: GameRepo,
     userRepo: UserRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields => F }

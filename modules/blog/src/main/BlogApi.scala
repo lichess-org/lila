@@ -12,7 +12,7 @@ final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     prismicUrl: String,
     collection: String
-)(implicit ws: WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, ws: WSClient) {
 
   def recent(
       api: Api,
@@ -27,8 +27,8 @@ final class BlogApi(
       .pageSize(maxPerPage.value)
       .page(page)
       .submit()
-      .fold(_ => none, some _) map2 { (res: Response) =>
-      PrismicPaginator(res, page, maxPerPage)
+      .fold(_ => none, some _) dmap2 {
+      PrismicPaginator(_, page, maxPerPage)
     }
   def recent(
       prismic: BlogApi.Context,

@@ -6,7 +6,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 
-final class ChapterRepo(val coll: Coll) {
+final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

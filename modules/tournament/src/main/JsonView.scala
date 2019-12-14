@@ -27,7 +27,7 @@ final class JsonView(
     verify: Condition.Verify,
     duelStore: DuelStore,
     pause: Pause
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import JsonView._
 

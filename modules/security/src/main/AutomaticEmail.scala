@@ -11,7 +11,7 @@ final class AutomaticEmail(
     userRepo: UserRepo,
     mailgun: Mailgun,
     baseUrl: BaseUrl
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
 

@@ -14,7 +14,7 @@ final class EntryApi(
     coll: Coll,
     userMax: Max,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Entry._
 
@@ -36,8 +36,7 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max.value)
+      .vector[Entry](max.value, ReadPreference.secondaryPreferred)
 
   def findRecent(typ: String, since: DateTime, max: Max) =
     coll
@@ -46,8 +45,7 @@ final class EntryApi(
         projection.some
       )
       .sort($sort desc "date")
-      .cursor[Entry](ReadPreference.secondaryPreferred)
-      .gather[Vector](max.value)
+      .vector[Entry](max.value, ReadPreference.secondaryPreferred)
 
   def channelUserIdRecentExists(channel: String, userId: User.ID): Fu[Boolean] =
     coll.countSel(

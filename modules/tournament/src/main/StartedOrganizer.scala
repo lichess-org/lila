@@ -17,6 +17,8 @@ final private class StartedOrganizer(
     scheduleNext
   }
 
+  implicit def ec = context.dispatcher
+
   case object Tick
 
   def scheduleNext =

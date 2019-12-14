@@ -32,7 +32,7 @@ final class EmailConfirmMailgun(
     mailgun: Mailgun,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-) extends EmailConfirm {
+)(implicit ec: scala.concurrent.ExecutionContext) extends EmailConfirm {
 
   import Mailgun.html._
 
@@ -88,7 +88,7 @@ ${trans.emailConfirm_ignore.literalTxtTo(lang, List("https://lichess.org"))}
 
   private val tokener = new StringToken[User.ID](
     secret = tokenerSecret,
-    getCurrentValue = id => userRepo email id map (_.??(_.value))
+    getCurrentValue = id => userRepo email id dmap (_.??(_.value))
   )
 }
 
@@ -179,12 +179,12 @@ object EmailConfirm {
       )
     )
 
-    def getStatus(userRepo: UserRepo, username: String): Fu[Status] = userRepo withEmails username flatMap {
+    def getStatus(userRepo: UserRepo, username: String)(implicit ec: scala.concurrent.ExecutionContext): Fu[Status] = userRepo withEmails username flatMap {
       case None => fuccess(NoSuchUser(username))
       case Some(User.WithEmails(user, emails)) =>
         if (!user.enabled) fuccess(Closed(username))
         else
-          userRepo mustConfirmEmail user.id map {
+          userRepo mustConfirmEmail user.id dmap {
             case true =>
               emails.current match {
                 case None        => NoEmail(user.username)

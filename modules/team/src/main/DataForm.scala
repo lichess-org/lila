@@ -8,7 +8,7 @@ import lila.db.dsl._
 final private[team] class DataForm(
     teamRepo: TeamRepo,
     val captcher: lila.hub.actors.Captcher
-) extends lila.hub.CaptchedForm {
+)(implicit ec: scala.concurrent.ExecutionContext) extends lila.hub.CaptchedForm {
 
   private object Fields {
     val name        = "name"        -> text(minLength = 3, maxLength = 60)

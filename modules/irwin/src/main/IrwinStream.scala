@@ -24,7 +24,7 @@ final class IrwinStream {
         queue offer req
     }
 
-    queue.watchCompletion foreach { _ =>
+    queue.watchCompletion dforeach { _ =>
       Bus.unsubscribe(sub, classifier)
     }
   }

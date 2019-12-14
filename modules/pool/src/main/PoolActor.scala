@@ -21,6 +21,8 @@ final private class PoolActor(
 
   var nextWave: Cancellable = _
 
+  implicit def ec = context.dispatcher
+
   def scheduleWave() =
     nextWave = context.system.scheduler.scheduleOnce(
       config.wave.every + Random.nextInt(1000).millis,

@@ -15,7 +15,7 @@ import lila.user.User
 final class LeaderboardApi(
     repo: LeaderboardRepo,
     tournamentRepo: TournamentRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import LeaderboardApi._
   import BSONHandlers._

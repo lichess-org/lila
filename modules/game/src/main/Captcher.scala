@@ -1,7 +1,5 @@
 package lila.game
 
-import scala.concurrent.Future
-
 import akka.actor._
 import akka.pattern.pipe
 import chess.format.pgn.{ Sans, Tags }
@@ -9,13 +7,14 @@ import chess.format.{ pgn, Forsyth }
 import chess.{ Game => ChessGame }
 import scala.util.Success
 import scalaz.Validation.FlatMap._
-import scalaz.{ NonEmptyList, OptionT }
+import scalaz.NonEmptyList
 
 import lila.common.Captcha
 import lila.hub.actorApi.captcha._
 
 // only works with standard chess (not chess960)
-final private class Captcher(gameRepo: GameRepo) extends Actor {
+final private class Captcher(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext)
+    extends Actor {
 
   def receive = {
 
@@ -56,31 +55,32 @@ final private class Captcher(gameRepo: GameRepo) extends Actor {
     private def find(id: String): Option[Captcha] =
       challenges.list.find(_.gameId == id)
 
-    private def createFromDb: Fu[Option[Captcha]] = {
-      optionT(findCheckmateInDb(10) flatMap {
+    private def createFromDb: Fu[Option[Captcha]] =
+      findCheckmateInDb(10) flatMap {
         _.fold(findCheckmateInDb(1))(g => fuccess(g.some))
-      }) flatMap fromGame
-    }.run
+      } flatMap {
+        _ ?? fromGame
+      }
 
     private def findCheckmateInDb(distribution: Int): Fu[Option[Game]] =
       gameRepo findRandomStandardCheckmate distribution
 
     private def getFromDb(id: String): Fu[Option[Captcha]] =
-      optionT(gameRepo game id) flatMap fromGame run
+      gameRepo game id flatMap { _ ?? fromGame }
 
-    private def fromGame(game: Game): OptionT[Fu, Captcha] =
-      optionT(gameRepo getOptionPgn game.id) flatMap { makeCaptcha(game, _) }
+    private def fromGame(game: Game): Fu[Option[Captcha]] =
+      gameRepo getOptionPgn game.id map {
+        _ flatMap { makeCaptcha(game, _) }
+      }
 
-    private def makeCaptcha(game: Game, moves: PgnMoves): OptionT[Fu, Captcha] =
-      optionT(Future {
-        for {
-          rewinded  <- rewind(moves)
-          solutions <- solve(rewinded)
-          moves = rewinded.situation.destinations map {
-            case (from, dests) => from.key -> dests.mkString
-          }
-        } yield Captcha(game.id, fen(rewinded), rewinded.player.white, solutions, moves = moves)
-      })
+    private def makeCaptcha(game: Game, moves: PgnMoves): Option[Captcha] =
+      for {
+        rewinded  <- rewind(moves)
+        solutions <- solve(rewinded)
+        moves = rewinded.situation.destinations map {
+          case (from, dests) => from.key -> dests.mkString
+        }
+      } yield Captcha(game.id, fen(rewinded), rewinded.player.white, solutions, moves = moves)
 
     private def solve(game: ChessGame): Option[Captcha.Solutions] =
       game.situation.moves.view

@@ -30,7 +30,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
-)(implicit system: ActorSystem, ws: WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, ws: WSClient) {
 
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 

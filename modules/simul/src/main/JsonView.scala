@@ -10,7 +10,7 @@ final class JsonView(
     gameRepo: GameRepo,
     getLightUser: LightUser.Getter,
     proxyRepo: lila.round.GameProxyRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val colorWriter: Writes[chess.Color] = Writes { c =>
     JsString(c.name)

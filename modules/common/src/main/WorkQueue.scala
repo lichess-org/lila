@@ -4,7 +4,7 @@ import akka.stream.scaladsl._
 import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
 import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import scala.concurrent.duration.FiniteDuration
-import scala.concurrent.{ Future, Promise }
+import scala.concurrent.{ ExecutionContext, Future, Promise }
 import scala.util.chaining._
 
 /* Sequences async tasks, so that:
@@ -15,7 +15,7 @@ import scala.util.chaining._
  * If the buffer is full, the new task is dropped,
  * and `run` returns a failed future.
  */
-final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
+final class WorkQueue(buffer: Int)(implicit ec: ExecutionContext, mat: Materializer) {
 
   type Task[A]                    = () => Fu[A]
   private type TaskWithPromise[A] = (Task[A], Promise[A])
@@ -43,7 +43,10 @@ final class WorkQueue(buffer: Int)(implicit mat: Materializer) {
 }
 
 // Distributes tasks to many sequencers
-final class WorkQueues(buffer: Int, expiration: FiniteDuration)(implicit mat: Materializer) {
+final class WorkQueues(buffer: Int, expiration: FiniteDuration)(
+    implicit ec: ExecutionContext,
+    mat: Materializer
+) {
 
   def apply(key: String)(task: => Funit): Funit =
     queues.get(key).run(() => task)

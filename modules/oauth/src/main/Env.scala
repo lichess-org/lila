@@ -23,7 +23,7 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
@@ -40,7 +40,7 @@ final class Env(
 
   lazy val tryServer: OAuthServer.Try = () => scala.concurrent.Future {
     server.some
-  }.withTimeoutDefault(50 millis, none)(system) recover {
+  }.withTimeoutDefault(50 millis, none) recover {
     case e: Exception =>
       lila.log("security").warn("oauth", e)
       none

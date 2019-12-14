@@ -20,7 +20,7 @@ final class ChatApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     maxLinesPerChat: Chat.MaxLines,
     netDomain: NetDomain
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Chat.{ chanOf, chatIdBSONHandler, userChatBSONHandler }
 

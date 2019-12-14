@@ -32,6 +32,9 @@ final private class RelayFetch(
   def scheduleNext =
     context.system.scheduler.scheduleOnce(600 millis, self, Tick)
 
+  implicit def system = context.system
+  implicit def ec = context.dispatcher
+
   def receive = {
 
     case ReceiveTimeout =>
@@ -63,7 +66,7 @@ final private class RelayFetch(
       doProcess(relay)
         .flatMap { games =>
           sync(relay, games)
-            .withTimeout(1500 millis, SyncResult.Timeout)(context.system)
+            .withTimeout(1500 millis, SyncResult.Timeout)
             .monSuccess(_.relay.syncTime)
             .map { res =>
               res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
@@ -266,7 +269,7 @@ private object RelayFetch {
           case (acc, _) => acc
         }
         .future
-        .map(_._1.reverse)
+        .dmap(_._1.reverse)
 
     private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
       .expireAfterAccess(2 minutes)

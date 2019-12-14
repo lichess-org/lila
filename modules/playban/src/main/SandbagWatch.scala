@@ -11,7 +11,7 @@ import lila.user.{ User, UserRepo }
 final private class SandbagWatch(
     userRepo: UserRepo,
     messenger: MessageApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SandbagWatch._
 

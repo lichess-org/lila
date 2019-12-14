@@ -21,7 +21,7 @@ final class RemoteSocket(
     redisClient: RedisClient,
     notification: lila.hub.actors.Notification,
     lifecycle: play.api.inject.ApplicationLifecycle
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RemoteSocket._, Protocol._
 

@@ -23,7 +23,7 @@ final class InquiryApi(
     logApi: ModlogApi
 ) {
 
-  def forMod(mod: User): Fu[Option[Inquiry]] =
+  def forMod(mod: User)(implicit ec: scala.concurrent.ExecutionContext): Fu[Option[Inquiry]] =
     lila.security.Granter(_.Hunter)(mod).?? {
       reportApi.inquiries.ofModId(mod.id).flatMap {
         _ ?? { report =>
