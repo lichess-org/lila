@@ -9,12 +9,8 @@ import chess.{ Color, MoveMetrics }
 import lila.common.IpAddress
 import lila.game.Game.PlayerId
 import lila.socket.Socket.SocketVersion
-import lila.user.User
 
-case class EventList(events: List[lila.game.Event])
-case class UserTv(userId: User.ID, reload: Fu[Boolean])
 case class ByePlayer(playerId: PlayerId)
-case class IsGone(color: Color, promise: Promise[Boolean])
 case class GetSocketStatus(promise: Promise[SocketStatus])
 case class SocketStatus(
     version: SocketVersion,
@@ -28,7 +24,6 @@ case class SocketStatus(
   def colorsOnGame: Set[Color] = Color.all.filter(onGame).toSet
 }
 case class RoomCrowd(white: Boolean, black: Boolean)
-case class SetGame(game: Option[lila.game.Game])
 case class BotConnected(color: Color, v: Boolean)
 
 package round {
