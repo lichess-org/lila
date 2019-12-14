@@ -29,8 +29,7 @@ object BuildSettings {
     ws,
     macwire.macros,
     macwire.util,
-    autoconfig,
-    specs2
+    autoconfig
   )
 
   def module(
