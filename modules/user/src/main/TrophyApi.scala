@@ -16,6 +16,7 @@ final class TrophyApi(
 
   val kindCache = new Syncache[String, TrophyKind](
     name = "trophy.kind",
+    initialCapacity = 32,
     compute = id =>
       kindColl.byId(id)(trophyKindObjectBSONHandler) map { k =>
         k.getOrElse(TrophyKind.Unknown)

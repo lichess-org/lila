@@ -16,6 +16,7 @@ import lila.common.Uptime
   */
 final class Syncache[K, V](
     name: String,
+    initialCapacity: Int,
     compute: K => Fu[V],
     default: K => V,
     strategy: Syncache.Strategy,
@@ -27,28 +28,34 @@ final class Syncache[K, V](
   import Syncache._
 
   // sync cached values
-  private val cache: LoadingCache[K, Fu[V]] = {
-    val b1 = Caffeine.newBuilder().asInstanceOf[Caffeine[K, Fu[V]]]
-    val b2 = expireAfter match {
-      case ExpireAfterAccess(duration) => b1.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
-      case ExpireAfterWrite(duration)  => b1.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
-    }
-    b2.recordStats.build[K, Fu[V]](new CacheLoader[K, Fu[V]] {
-      def load(k: K) =
-        compute(k)
-          .withTimeout(
-            duration = resultTimeout,
-            error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
-          )
-          .mon(_ => recCompute) // monitoring: record async time
-          .recover {
-            case e: Exception =>
-              logger.branch(s"syncache $name").warn(s"key=$k", e)
-              cache invalidate k
-              default(k)
-          }
-    })
-  } tap {
+  private val cache: LoadingCache[K, Fu[V]] =
+    Caffeine
+      .newBuilder()
+      .asInstanceOf[Caffeine[K, Fu[V]]]
+      .initialCapacity(initialCapacity)
+      .pipe { c =>
+        expireAfter match {
+          case ExpireAfterAccess(duration) => c.expireAfterAccess(duration.toMillis, TimeUnit.MILLISECONDS)
+          case ExpireAfterWrite(duration)  => c.expireAfterWrite(duration.toMillis, TimeUnit.MILLISECONDS)
+        }
+      }
+      .recordStats
+      .build[K, Fu[V]](new CacheLoader[K, Fu[V]] {
+        def load(k: K) =
+          compute(k)
+            .withTimeout(
+              duration = resultTimeout,
+              error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
+            )
+            .mon(_ => recCompute) // monitoring: record async time
+            .recover {
+              case e: Exception =>
+                logger.branch(s"syncache $name").warn(s"key=$k", e)
+                cache invalidate k
+                default(k)
+            }
+      })
+  .tap {
     lila.memo.AsyncCache.startMonitoring(s"syncache.$name", _)
   }
 

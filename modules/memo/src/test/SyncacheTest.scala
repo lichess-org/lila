@@ -27,6 +27,7 @@ class MySpec()
       var computeCount = 0
       val cache = new Syncache[Int, String](
         name = "test",
+        initialCapacity = 64,
         compute = s =>
           Future {
             computeCount += 1

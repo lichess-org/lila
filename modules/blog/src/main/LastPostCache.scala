@@ -13,6 +13,7 @@ final class LastPostCache(
 
   private val cache = new Syncache[Boolean, List[MiniPost]](
     name = "blog.lastPost",
+    initialCapacity = 1,
     compute = _ => fetch,
     default = _ => Nil,
     expireAfter = Syncache.ExpireAfterWrite(ttl),

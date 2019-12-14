@@ -12,10 +12,11 @@ final class Cached(
 
   val nameCache = new Syncache[String, Option[String]](
     name = "team.name",
+    initialCapacity = 4096,
     compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(1 hour),
+    expireAfter = Syncache.ExpireAfterAccess(30 minutes),
     logger = logger
   )
 
@@ -23,9 +24,10 @@ final class Cached(
 
   def preloadSet = nameCache preloadSet _
 
-  // ~ 30k entries as of 04/02/17
+  // ~ 50k entries as of 14/12/19
   private val teamIdsCache = new Syncache[lila.user.User.ID, Team.IdsStr](
     name = "team.ids",
+    initialCapacity = 32768,
     compute = u => memberRepo.teamIdsByUser(u).dmap(Team.IdsStr.apply),
     default = _ => Team.IdsStr.empty,
     strategy = Syncache.WaitAfterUptime(20 millis),
