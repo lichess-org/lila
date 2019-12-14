@@ -7,9 +7,9 @@ import lila.user.User
 final class Share(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def getPrefId(insighted: User) = prefApi.getPrefById(insighted.id) map (_.insightShare)
+  def getPrefId(insighted: User) = prefApi.getPrefById(insighted.id) dmap (_.insightShare)
 
   def grant(insighted: User, to: Option[User]): Fu[Boolean] =
     if (to ?? Granter(_.SeeInsight)) fuTrue

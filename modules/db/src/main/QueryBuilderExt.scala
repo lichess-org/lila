@@ -34,5 +34,8 @@ trait QueryBuilderExt { self: dsl =>
 
     def list[A: b.pack.Reader](limit: Int, readPreference: ReadPreference): Fu[List[A]] =
       gather[A, List](limit, readPreference)
+
+    def vector[A: b.pack.Reader](limit: Int, readPreference: ReadPreference): Fu[Vector[A]] =
+      gather[A, Vector](limit, readPreference)
   }
 }

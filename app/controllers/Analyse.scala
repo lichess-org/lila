@@ -14,7 +14,7 @@ final class Analyse(
     env: Env,
     gameC: => Game,
     roundC: => Round
-)(implicit ec: scala.concurrent.ExecutionContext)
+)
     extends LilaController(env) {
 
   def requestAnalysis(id: String) = Auth { implicit ctx => me =>

@@ -14,7 +14,7 @@ final private[setup] class Processor(
     anonConfigRepo: AnonConfigRepo,
     userConfigRepo: UserConfigRepo,
     onStart: lila.round.OnStart
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def filter(config: FilterConfig)(implicit ctx: UserContext): Funit =
     saveConfig(_ withFilter config)
@@ -44,7 +44,7 @@ final private[setup] class Processor(
             Created(hook.id)
           }
         case Right(Some(seek)) =>
-          ctx.userId.??(gameCache.nbPlaying) map { nbPlaying =>
+          ctx.userId.??(gameCache.nbPlaying) dmap { nbPlaying =>
             if (maxPlaying <= nbPlaying) Refused
             else {
               Bus.publish(AddSeek(seek), "lobbyTrouper")

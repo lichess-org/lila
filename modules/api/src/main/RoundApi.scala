@@ -23,7 +23,7 @@ final private[api] class RoundApi(
     gameRepo: lila.game.GameRepo,
     tourApi: lila.tournament.TournamentApi,
     simulApi: lila.simul.SimulApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def player(pov: Pov, apiVersion: ApiVersion)(implicit ctx: Context): Fu[JsObject] =
     gameRepo

@@ -16,7 +16,7 @@ final class BotPlayer(
     chatApi: lila.chat.ChatApi,
     gameRepo: GameRepo,
     isOfferingRematch: lila.round.IsOfferingRematch
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   def apply(pov: Pov, me: User, uciStr: String, offeringDraw: Option[Boolean]): Funit =
     lila.common.Future.delay((pov.game.hasAi ?? 500) millis) {

@@ -19,7 +19,7 @@ final class StudySearchApi(
     indexThrottler: ActorRef,
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit system: ActorSystem, mat: akka.stream.Materializer)
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer)
     extends SearchReadApi[Study, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -27,7 +27,7 @@ final class StudySearchApi(
       studyRepo byOrderedIds res.ids.map(Study.Id.apply)
     }
 
-  def count(query: Query) = client.count(query) map (_.count)
+  def count(query: Query) = client.count(query) dmap (_.count)
 
   def store(study: Study) = fuccess {
     indexThrottler ! LateMultiThrottler.work(

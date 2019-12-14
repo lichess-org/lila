@@ -31,7 +31,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     db: lila.db.Db,
     imageRepo: lila.db.ImageRepo
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   implicit private val keywordLoader = strLoader(Stream.Keyword.apply)
   private val config                 = appConfig.get[StreamerConfig]("streamer")(AutoConfig.loader)

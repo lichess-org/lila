@@ -11,7 +11,7 @@ final class PgnDump(
     annotator: Annotator,
     simulApi: lila.simul.SimulApi,
     getTournamentName: lila.tournament.GetTourName
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags): Fu[Pgn] =
     dumper(game, initialFen, flags) flatMap { pgn =>
@@ -48,7 +48,7 @@ final class PgnDump(
       toPgnString(game, initialFen, analysis, flags)
 
   def toPgnString(game: Game, initialFen: Option[FEN], analysis: Option[Analysis], flags: WithFlags) =
-    apply(game, initialFen, analysis, flags).map { pgn =>
+    apply(game, initialFen, analysis, flags) dmap { pgn =>
       // merge analysis & eval comments
       // 1. e4 { [%eval 0.17] } { [%clk 0:00:30] }
       // 1. e4 { [%eval 0.17] [%clk 0:00:30] }

@@ -16,7 +16,7 @@ case class UserCache(
   def id = _id
 }
 
-final private class UserCacheApi(coll: AsyncColl) {
+final private class UserCacheApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val userCacheBSONHandler = Macros.handler[UserCache]
 

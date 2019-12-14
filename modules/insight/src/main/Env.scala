@@ -15,7 +15,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     mongo: lila.db.Env
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private lazy val db = mongo.asyncDb(
     "insight",

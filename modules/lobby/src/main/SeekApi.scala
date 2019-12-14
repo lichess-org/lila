@@ -12,7 +12,7 @@ final class SeekApi(
     biter: Biter,
     relationApi: lila.relation.RelationApi,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
   import config._
 
   sealed private trait CacheKey

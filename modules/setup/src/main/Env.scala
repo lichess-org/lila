@@ -14,7 +14,7 @@ final class Env(
     fishnetPlayer: lila.fishnet.Player,
     onStart: lila.round.OnStart,
     gameCache: lila.game.Cached
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val maxPlaying     = appConfig.get[Max]("setup.max_playing")
   private lazy val anonConfigRepo = new AnonConfigRepo(db(CollName("config")))

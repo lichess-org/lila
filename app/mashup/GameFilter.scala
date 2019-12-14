@@ -87,7 +87,7 @@ object GameFilterMenu {
       pag: lila.game.PaginatorBuilder,
       gameRepo: lila.game.GameRepo,
       bookmarkApi: lila.bookmark.BookmarkApi
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
 
     def apply(
         user: User,

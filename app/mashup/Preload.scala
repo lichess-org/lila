@@ -29,7 +29,7 @@ final class Preload(
     roundProxy: lila.round.GameProxyRepo,
     simulIsFeaturable: Simul => Boolean,
     lastPostCache: lila.blog.LastPostCache
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Preload._
 

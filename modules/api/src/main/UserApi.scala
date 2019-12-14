@@ -19,7 +19,7 @@ final private[api] class UserApi(
     onlineDoing: lila.relation.OnlineDoing,
     gameProxyRepo: lila.round.GameProxyRepo,
     net: NetConfig
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def pagerJson(pag: Paginator[User]): JsObject =
     Json.obj("paginator" -> PaginatorJson(pag mapResults one))
@@ -29,7 +29,7 @@ final private[api] class UserApi(
       Json.obj("url" -> makeUrl(s"@/${u.username}")) // for app BC
 
   def extended(username: String, as: Option[User]): Fu[Option[JsObject]] = userRepo named username flatMap {
-    _ ?? { extended(_, as) map some }
+    _ ?? { extended(_, as) dmap some }
   }
 
   def extended(u: User, as: Option[User]): Fu[JsObject] =
@@ -40,7 +40,7 @@ final private[api] class UserApi(
         "closed"   -> true
       )
     } else {
-      gameProxyRepo.urgentGames(u).map(_.headOption) zip
+      gameProxyRepo.urgentGames(u).dmap(_.headOption) zip
         (as.filter(u !=) ?? { me =>
           crosstableApi.nbGames(me.id, u.id)
         }) zip

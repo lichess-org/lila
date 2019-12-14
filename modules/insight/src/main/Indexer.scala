@@ -16,7 +16,7 @@ final private class Indexer(
     povToEntry: PovToEntry,
     gameRepo: GameRepo,
     storage: Storage
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueue(64)
 

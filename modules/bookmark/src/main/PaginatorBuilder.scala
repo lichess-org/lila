@@ -9,7 +9,7 @@ final class PaginatorBuilder(
     coll: Coll,
     gameRepo: GameRepo,
     maxPerPage: lila.common.config.MaxPerPage
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def byUser(user: User, page: Int): Fu[Paginator[Bookmark]] =
     paginator(new UserAdapter(user), page)
@@ -31,8 +31,7 @@ final class PaginatorBuilder(
           .find(selector, $doc("g" -> true).some)
           .sort(sorting)
           .skip(offset)
-          .cursor[Bdoc]()
-          .gather[List](length) map { _ flatMap { _.string("g") } }
+          .list[Bdoc](length) dmap { _ flatMap { _ string "g" } }
         games <- gameRepo gamesFromSecondary gameIds
       } yield games map { g =>
         Bookmark(g, user)

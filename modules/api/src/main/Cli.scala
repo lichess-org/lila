@@ -19,11 +19,11 @@ final private[api] class Cli(
     coach: lila.coach.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env
-) extends lila.common.Cli {
+)(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Cli {
 
   private val logger = lila.log("cli")
 
-  def apply(args: List[String]): Fu[String] = run(args).map(_ + "\n") ~ {
+  def apply(args: List[String]): Fu[String] = run(args).dmap(_ + "\n") ~ {
     _.logFailure(logger, _ => args mkString " ") foreach { output =>
       logger.info("%s\n%s".format(args mkString " ", output))
     }

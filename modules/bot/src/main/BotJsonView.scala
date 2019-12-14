@@ -10,7 +10,7 @@ final class BotJsonView(
     lightUserApi: lila.user.LightUserApi,
     gameRepo: GameRepo,
     rematches: lila.game.Rematches
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def gameFull(game: Game): Fu[JsObject] = gameRepo.withInitialFen(game) flatMap gameFull
 

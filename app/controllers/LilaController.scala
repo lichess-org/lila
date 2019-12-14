@@ -24,8 +24,8 @@ abstract private[controllers] class LilaController(val env: Env)
     with ResponseWriter {
 
   val controllerComponents = env.controllerComponents
-
-  implicit val executionContext = defaultExecutionContext
+  implicit val executionContext = env.executionContext
+  implicit val scheduler = env.scheduler
 
   implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
 

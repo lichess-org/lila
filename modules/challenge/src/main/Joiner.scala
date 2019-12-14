@@ -10,7 +10,7 @@ final private[challenge] class Joiner(
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     onStart: lila.round.OnStart
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(c: Challenge, destUser: Option[User]): Fu[Option[Pov]] =
     gameRepo exists c.id flatMap {

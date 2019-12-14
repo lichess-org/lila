@@ -59,7 +59,7 @@ object BuildSettings {
     "-Ywarn-unused:_",
     // "-Xfatal-warnings",
     "-Xmaxerrs",
-    "6",
+    "15",
     "-Xmaxwarns",
     "12"
   )

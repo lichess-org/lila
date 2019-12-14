@@ -81,7 +81,7 @@ final class Env(
     val rating: lila.rating.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
-)(implicit val system: ActorSystem) {
+)(implicit val system: ActorSystem, val executionContext: ExecutionContext) {
 
   val isProd            = mode == Mode.Prod
   val isDev             = mode == Mode.Dev

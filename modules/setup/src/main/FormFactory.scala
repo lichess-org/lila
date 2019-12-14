@@ -14,7 +14,7 @@ final class FormFactory(
   import Mappings._
 
   def filterFilled(implicit ctx: UserContext): Fu[(Form[FilterConfig], FilterConfig)] =
-    filterConfig map { f =>
+    filterConfig dmap { f =>
       filter.fill(f) -> f
     }
 
@@ -27,10 +27,10 @@ final class FormFactory(
     )(FilterConfig.<<)(_.>>)
   )
 
-  def filterConfig(implicit ctx: UserContext): Fu[FilterConfig] = savedConfig map (_.filter)
+  def filterConfig(implicit ctx: UserContext): Fu[FilterConfig] = savedConfig dmap (_.filter)
 
   def aiFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[AiConfig]] =
-    aiConfig map { config =>
+    aiConfig dmap { config =>
       ai fill fen.fold(config) { f =>
         config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
@@ -51,10 +51,10 @@ final class FormFactory(
       .verifying("Can't play that time control from a position", _.timeControlFromPosition)
   )
 
-  def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig map (_.ai)
+  def aiConfig(implicit ctx: UserContext): Fu[AiConfig] = savedConfig dmap (_.ai)
 
   def friendFilled(fen: Option[FEN])(implicit ctx: UserContext): Fu[Form[FriendConfig]] =
-    friendConfig map { config =>
+    friendConfig dmap { config =>
       friend(ctx) fill fen.fold(config) { f =>
         config.copy(fen = f.some, variant = chess.variant.FromPosition)
       }
@@ -75,10 +75,10 @@ final class FormFactory(
       .verifying("invalidFen", _.validFen)
   )
 
-  def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig map (_.friend)
+  def friendConfig(implicit ctx: UserContext): Fu[FriendConfig] = savedConfig dmap (_.friend)
 
   def hookFilled(timeModeString: Option[String])(implicit ctx: UserContext): Fu[Form[HookConfig]] =
-    hookConfig map (_ withTimeModeString timeModeString) map hook(ctx).fill
+    hookConfig dmap (_ withTimeModeString timeModeString) dmap hook(ctx).fill
 
   def hook(ctx: UserContext) = Form(
     mapping(
@@ -95,7 +95,7 @@ final class FormFactory(
       .verifying("Can't create rated unlimited in lobby", _.noRatedUnlimited)
   )
 
-  def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig map (_.hook)
+  def hookConfig(implicit ctx: UserContext): Fu[HookConfig] = savedConfig dmap (_.hook)
 
   lazy val api = Form(
     mapping(

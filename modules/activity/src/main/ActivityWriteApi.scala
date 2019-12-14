@@ -8,7 +8,7 @@ import lila.user.User
 final class ActivityWriteApi(
     coll: Coll,
     studyApi: lila.study.StudyApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Activity._
   import BSONHandlers._

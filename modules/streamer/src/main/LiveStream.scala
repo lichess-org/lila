@@ -47,7 +47,7 @@ object LiveStreams {
 final class LiveStreamApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     streamingActor: ActorRef
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache = asyncCache.single[LiveStreams](
     name = "streamer.liveStreams",

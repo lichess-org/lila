@@ -18,7 +18,7 @@ final class Env(
     appConfig: Configuration,
     makeClient: Index => ESClient,
     teamRepo: lila.team.TeamRepo
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[TeamSearchConfig]("teamSearch")(AutoConfig.loader)
 

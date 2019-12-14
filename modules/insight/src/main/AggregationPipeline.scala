@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-final private class AggregationPipeline(store: Storage) {
+final private class AggregationPipeline(store: Storage)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def aggregate[X](question: Question[X], user: User): Fu[List[Bdoc]] = store.coll {
     _.aggregateList(

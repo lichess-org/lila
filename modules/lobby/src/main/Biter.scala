@@ -10,7 +10,7 @@ import lila.user.User
 final private class Biter(
     userRepo: lila.user.UserRepo,
     gameRepo: lila.game.GameRepo
-)(implicit idGenerator: lila.game.IdGenerator) {
+)(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
 
   def apply(hook: Hook, sri: Sri, user: Option[LobbyUser]): Fu[JoinHook] =
     if (canJoin(hook, user)) join(hook, sri, user)

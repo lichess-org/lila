@@ -12,7 +12,7 @@ final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     prismicUrl: String,
     collection: String
-)(implicit ws: WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, ws: WSClient) {
 
   def recent(
       api: Api,

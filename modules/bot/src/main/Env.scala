@@ -9,7 +9,7 @@ final class Env(
     lightUserApi: lila.user.LightUserApi,
     rematches: lila.game.Rematches,
     isOfferingRematch: lila.round.IsOfferingRematch
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private def scheduler = system.scheduler
 

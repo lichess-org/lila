@@ -15,7 +15,7 @@ final private class FirebasePush(
     deviceApi: DeviceApi,
     ws: WSClient,
     config: OneSignalPush.Config
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val workQueue = new WorkQueue(512)
 

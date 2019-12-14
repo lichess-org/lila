@@ -45,7 +45,7 @@ final class Env(
     lifecycle: ApplicationLifecycle,
     ws: WSClient,
     val mode: Mode
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   val config = ApiConfig loadFrom appConfig
   import config.apiToken

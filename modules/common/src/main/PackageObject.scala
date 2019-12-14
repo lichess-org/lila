@@ -1,6 +1,6 @@
 package lila
 
-import scalaz.{ ~>, Monoid }
+import scalaz.Monoid
 import scala.concurrent.ExecutionContext
 
 trait PackageObject extends Lilaisms {

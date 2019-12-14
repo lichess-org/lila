@@ -11,7 +11,7 @@ final class InsightApi(
     userCacheApi: UserCacheApi,
     gameRepo: GameRepo,
     indexer: Indexer
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import InsightApi._
 

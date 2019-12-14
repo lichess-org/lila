@@ -14,7 +14,7 @@ final class StreamerApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     photographer: Photographer,
     notifyApi: lila.notify.NotifyApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
@@ -27,8 +27,8 @@ final class StreamerApi(
     userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(Streamer.Id(user.id)) flatMap {
-      _ ?? withUser(user)
+    byId(Streamer.Id(user.id)) dmap {
+      _ map { Streamer.WithUser(_, user) }
     }
 
   def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
@@ -38,14 +38,14 @@ final class StreamerApi(
     }
 
   def withUser(s: Stream): Fu[Option[Streamer.WithUserAndStream]] =
-    userRepo named s.streamer.userId map {
+    userRepo named s.streamer.userId dmap {
       _ map { user =>
         Streamer.WithUserAndStream(s.streamer, user, s.some)
       }
     }
 
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
-    live.streams.map(withUser).sequenceFu.map(_.flatten)
+    live.streams.map(withUser).sequenceFu.dmap(_.flatten)
 
   def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get
 
@@ -62,11 +62,11 @@ final class StreamerApi(
     coll.ext
       .find($inIds(ids))
       .sort($doc("seenAt" -> -1))
-      .list[Bdoc](max) map {
+      .list[Bdoc](max) dmap {
       _ flatMap {
         _.getAsOpt[Streamer.Id]("_id")
       }
-    } map (_.toSet)
+    } dmap (_.toSet)
 
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
@@ -155,8 +155,6 @@ final class StreamerApi(
         )
       )
   }
-
-  private def withUser(user: User)(streamer: Streamer) = Streamer.WithUser(streamer, user)
 
   private def selectListedApproved = $doc(
     "listed"           -> true,

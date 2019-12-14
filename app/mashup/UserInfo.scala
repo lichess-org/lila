@@ -61,7 +61,7 @@ object UserInfo {
       relationApi: RelationApi,
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(u: User, ctx: Context): Fu[Social] =
       ctx.userId.?? { relationApi.fetchRelation(_, u.id) } zip
         ctx.me.?? { me =>
@@ -87,10 +87,10 @@ object UserInfo {
       bookmarkApi: BookmarkApi,
       gameCached: lila.game.Cached,
       crosstableApi: lila.game.CrosstableApi
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(u: User, ctx: Context): Fu[NbGames] =
       (ctx.me.filter(u !=) ?? { me =>
-        crosstableApi.withMatchup(me.id, u.id) map some
+        crosstableApi.withMatchup(me.id, u.id) dmap some
       }) zip
         gameCached.nbPlaying(u.id) zip
         gameCached.nbImportedBy(u.id) zip
@@ -121,11 +121,11 @@ object UserInfo {
       insightShare: lila.insight.Share,
       playTimeApi: lila.game.PlayTimeApi,
       playbanApi: lila.playban.PlaybanApi
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
     def apply(user: User, nbs: NbGames, ctx: Context): Fu[UserInfo] =
       (ctx.noBlind ?? ratingChartApi(user)) zip
         relationApi.countFollowers(user.id) zip
-        (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) map (_.some) }) zip
+        (ctx.me ?? Granter(_.UserSpy) ?? { relationApi.countBlockers(user.id) dmap some }) zip
         postApi.nbByUser(user.id) zip
         studyRepo.countByOwner(user.id) zip
         trophyApi.findByUser(user) zip

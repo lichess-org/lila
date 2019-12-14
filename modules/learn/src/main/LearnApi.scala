@@ -3,12 +3,12 @@ package lila.learn
 import lila.db.dsl._
 import lila.user.User
 
-final class LearnApi(coll: Coll) {
+final class LearnApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
   def get(user: User): Fu[LearnProgress] =
-    coll.one[LearnProgress]($id(user.id)) map { _ | LearnProgress.empty(LearnProgress.Id(user.id)) }
+    coll.one[LearnProgress]($id(user.id)) dmap { _ | LearnProgress.empty(LearnProgress.Id(user.id)) }
 
   private def save(p: LearnProgress): Funit =
     coll.update.one($id(p.id), p, upsert = true).void

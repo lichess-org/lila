@@ -15,7 +15,7 @@ import scala.concurrent.duration._
 
 final class GameStateStream(
     jsonView: BotJsonView
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private case object SetOnline
 
@@ -86,7 +86,7 @@ final class GameStateStream(
     }
 
     def pushState(g: Game) =
-      jsonView gameState Game.WithInitialFen(g, init.fen) map some flatMap queue.offer
+      jsonView gameState Game.WithInitialFen(g, init.fen) dmap some flatMap queue.offer
 
     def pushChatLine(username: String, text: String, player: Boolean) =
       queue offer jsonView.chatLine(username, text, player).some

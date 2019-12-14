@@ -14,7 +14,7 @@ final class CoachApi(
     userRepo: UserRepo,
     photographer: Photographer,
     notifyApi: NotifyApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
@@ -24,8 +24,8 @@ final class CoachApi(
     userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
-    byId(Coach.Id(user.id)) flatMap {
-      _ ?? withUser(user)
+    byId(Coach.Id(user.id)) dmap {
+      _ map withUser(user)
     }
   }
 
@@ -67,7 +67,7 @@ final class CoachApi(
     coachColl.update.one(
       $id(User.normalize(username)),
       $set("approved" -> value)
-    ) map { result =>
+    ) dmap { result =>
       if (result.n > 0) "Done!"
       else "No such coach"
     }

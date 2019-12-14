@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 import lila.db.dsl._
 import lila.user.User
 
-final private class UserConfigRepo(coll: Coll) {
+final private class UserConfigRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def update(user: User)(f: UserConfig => UserConfig): Funit =
     config(user) flatMap { config =>
@@ -24,8 +24,8 @@ final private class UserConfigRepo(coll: Coll) {
         logger.warn("Can't load config", e)
         none[UserConfig]
       }
-    } map (_ | UserConfig.default(user.id))
+    } dmap (_ | UserConfig.default(user.id))
 
   def filter(user: User): Fu[FilterConfig] =
-    coll.primitiveOne[FilterConfig]($id(user.id), "filter") map (_ | FilterConfig.default)
+    coll.primitiveOne[FilterConfig]($id(user.id), "filter") dmap (_ | FilterConfig.default)
 }

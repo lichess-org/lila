@@ -11,7 +11,7 @@ final class StreamerPager(
     coll: Coll,
     userRepo: UserRepo,
     maxPerPage: lila.common.config.MaxPerPage
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 

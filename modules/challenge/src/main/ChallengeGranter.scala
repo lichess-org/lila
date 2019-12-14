@@ -43,7 +43,7 @@ final class ChallengeGranter(
 
   val ratingThreshold = 300
 
-  def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType]): Fu[Option[ChallengeDenied]] =
+  def apply(fromOption: Option[User], dest: User, perfType: Option[PerfType])(implicit ec: scala.concurrent.ExecutionContext): Fu[Option[ChallengeDenied]] =
     fromOption
       .fold[Fu[Option[ChallengeDenied.Reason]]](fuccess(YouAreAnon.some)) { from =>
         relationApi.fetchRelation(dest, from) zip

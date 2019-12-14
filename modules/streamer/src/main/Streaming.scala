@@ -30,6 +30,8 @@ final private class Streaming(
 
   private var liveStreams = LiveStreams(Nil)
 
+  implicit def ec = context.dispatcher
+
   def receive = {
 
     case Streaming.Get => sender ! liveStreams
