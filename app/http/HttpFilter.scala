@@ -13,8 +13,9 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
   private val logger  = lila.log("http")
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
-    if (HTTPRequest isAssets req) nextFilter(req)
-    else {
+    if (HTTPRequest isAssets req) nextFilter(req) dmap { result =>
+      result.withHeaders("Service-Worker-Allowed" -> "/")
+    } else {
       val startTime = nowMillis
       redirectWrongDomain(req) map fuccess getOrElse {
         nextFilter(req) dmap addApiResponseHeaders(req) dmap { result =>
