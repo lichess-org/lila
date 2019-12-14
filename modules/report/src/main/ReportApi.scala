@@ -28,6 +28,22 @@ final class ReportApi(
 
   private lazy val scorer = wire[ReportScore]
 
+  def create(data: ReportSetup, reporter: Reporter): Funit =
+    Reason(data.reason) ?? { reason =>
+      getSuspect(data.user.id) flatMap {
+        _ ?? { suspect =>
+          create(
+            Report.Candidate(
+              reporter,
+              suspect,
+              reason,
+              data.text
+            )
+          )
+        }
+      }
+    }
+
   def create(c: Candidate, score: Report.Score => Report.Score = identity): Funit =
     (!c.reporter.user.reportban && !isAlreadySlain(c)) ?? {
       scorer(c) map (_ withScore score) flatMap {

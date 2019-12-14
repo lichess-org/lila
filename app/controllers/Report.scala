@@ -133,10 +133,10 @@ final class Report(
           }
         },
       data =>
-        if (data.user == me) notFound
+        if (data.user.id == me.id) notFound
         else
-          api.create(data candidate lila.report.Reporter(me)) inject
-            Redirect(routes.Report.thanks(data.user.username))
+          api.create(data, Reporter(me)) inject
+            Redirect(routes.Report.thanks(data.user.name))
     )
   }
 

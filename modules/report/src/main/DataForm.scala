@@ -5,10 +5,10 @@ import play.api.data.Forms._
 import play.api.data.validation._
 import scala.concurrent.duration._
 
-import lila.user.{ User, UserRepo }
+import lila.common.LightUser
 
 final private[report] class DataForm(
-    userRepo: UserRepo,
+    lightUserAsync: LightUser.Getter,
     val captcher: lila.hub.actors.Captcher,
     domain: lila.common.config.NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext)
@@ -52,7 +52,7 @@ final private[report] class DataForm(
   )
 
   private def blockingFetchUser(username: String) =
-    userRepo.named(username).await(1.second, "reportUser")
+    lightUserAsync(username).await(1 second, "reportUser")
 }
 
 private[report] case class ReportFlag(
@@ -62,18 +62,14 @@ private[report] case class ReportFlag(
 )
 
 private[report] case class ReportSetup(
-    user: User,
+    user: LightUser,
     reason: String,
     text: String,
     gameId: String,
     move: String
 ) {
 
-  def suspect = Suspect(user)
+  def suspect = SuspectId(user.id)
 
-  def export = (user.username, reason, text, gameId, move)
-
-  def candidate(reporter: Reporter) = {
-    Report.Candidate(reporter, suspect, Reason(reason) err s"Invalid report reason ${reason}", text)
-  }
+  def export = (user.name, reason, text, gameId, move)
 }

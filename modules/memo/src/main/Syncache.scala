@@ -105,7 +105,7 @@ final class Syncache[K, V](
       }
   }
 
-  private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {
+  private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V =
     try {
       lila.common.Chronometer.syncMon(_ => recWait) {
         fu.await(duration, "syncache")
@@ -115,7 +115,6 @@ final class Syncache[K, V](
         incTimeout()
         default(k)
     }
-  }
 
   private val incMiss = lila.mon.syncache.miss(name).increment _
   private val incPreload = lila.mon.syncache.preload(name).increment _

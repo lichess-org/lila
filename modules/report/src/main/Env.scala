@@ -24,6 +24,7 @@ final class Env(
     db: lila.db.Db,
     isOnline: lila.socket.IsOnline,
     userRepo: lila.user.UserRepo,
+    lightUserAsync: lila.common.LightUser.Getter,
     gameRepo: lila.game.GameRepo,
     securityApi: lila.security.SecurityApi,
     userSpyApi: lila.security.UserSpyApi,
