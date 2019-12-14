@@ -28,6 +28,8 @@ object Dependencies {
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.43.Final" classifier "linux-x86_64"
   val markdown    = "com.vladsch.flexmark"  % "flexmark-all"                    % "0.50.44"
   val autoconfig  = "io.methvin.play"       %% "autoconfig-macros"              % "0.3.2-SNAPSHOT" % "provided"
+  val scalatest   = "org.scalatest"         %% "scalatest"                      % "3.1.0" % Test
+  val akkatestkit = "com.typesafe.akka"     %% "akka-testkit"                   % "2.6.1" % Test
 
   object macwire {
     val version = "2.3.3"

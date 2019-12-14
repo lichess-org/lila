@@ -149,7 +149,7 @@ lazy val db = module("db",
 
 lazy val memo = module("memo",
   Seq(common, db),
-  Seq(scaffeine) ++ reactivemongo.bundle
+  Seq(scaffeine, scalatest, akkatestkit) ++ reactivemongo.bundle
 )
 
 lazy val search = module("search",
