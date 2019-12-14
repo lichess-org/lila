@@ -36,7 +36,7 @@ jobs:
     - uses: olafurpg/setup-scala@49fc8c734ef6916b4e1da8ba8d81bb26a2b46a06
       with:
         java-version: openjdk@1.13
-    - run: ./lila test:compile test stage
+    - run: ./lila test stage
     - run: du -d2 -h ~
     - uses: actions/upload-artifact@v1
       with:
