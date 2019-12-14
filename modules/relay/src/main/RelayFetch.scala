@@ -22,6 +22,9 @@ final private class RelayFetch(
     ws: WSClient
 ) extends Actor {
 
+  implicit def system = context.system
+  implicit def ec     = context.dispatcher
+
   override def preStart: Unit = {
     context setReceiveTimeout 20.seconds
     context.system.scheduler.scheduleOnce(10.seconds)(scheduleNext)
@@ -31,9 +34,6 @@ final private class RelayFetch(
 
   def scheduleNext =
     context.system.scheduler.scheduleOnce(600 millis, self, Tick)
-
-  implicit def system = context.system
-  implicit def ec     = context.dispatcher
 
   def receive = {
 
