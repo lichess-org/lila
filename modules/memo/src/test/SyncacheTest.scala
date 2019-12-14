@@ -38,12 +38,12 @@ class MySpec()
         logger = lila.log("syncache"),
         resultTimeout = 5 seconds
       )
-      val threads = 10
-      val keys    = 30
+      val threads = 20
+      val keys    = 50
       (1 to threads) foreach { _ =>
         Future {
-            (1 to 5) foreach { _ =>
-          (1 to keys) foreach { i =>
+          (1 to 5) foreach { _ =>
+            (1 to keys) foreach { i =>
               cache.sync(i)
             }
           }

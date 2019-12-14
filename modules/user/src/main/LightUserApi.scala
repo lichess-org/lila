@@ -25,7 +25,7 @@ final class LightUserApi(repo: UserRepo)(
 
   def preloadOne              = cache preloadOne _
   def preloadMany             = cache preloadMany _
-  def preloadUser(user: User) = cache.setOneIfAbsent(user.id, user.light.some)
+  def preloadUser(user: User) = cache.set(user.id, user.light.some)
 
   private val cacheName = "user.light"
 

@@ -38,7 +38,6 @@ object mon {
   }
   object syncache {
     def miss(name: String)    = counter("syncache.miss").withTag("name", name)
-    def preload(name: String) = counter("syncache.preload").withTag("name", name)
     def timeout(name: String) = counter("syncache.timeout").withTag("name", name)
     def compute(name: String) = timer("syncache.compute").withTag("name", name)
     def wait(name: String)    = timer("syncache.wait").withTag("name", name)
