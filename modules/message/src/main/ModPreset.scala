@@ -86,6 +86,12 @@ Warning: leaving games / stalling on time
 In your game history, you have several games where you have left the game or just let the time run out instead of playing or resigning.
 This can be very annoying for your opponents. If this behavior continues to happen, we may be forced to terminate your account.
 
+""", /* ---------------------------------------------------------------*/ """
+
+Title Verification
+
+Unfortunately we had to reject your title verification. You are free to make another application with the appropriate documentation.
+
 """) flatMap toPreset
   // format: on
 
