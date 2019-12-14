@@ -46,6 +46,10 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   implicit def system = actorSystem
   implicit def ws     = wsClient
 
+  // dev assets
+  implicit def mimeTypes = fileMimeTypes
+  lazy val devAssetsController = wire[ExternalAssets]
+
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env      = boot.env
 

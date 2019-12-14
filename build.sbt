@@ -23,8 +23,10 @@ PlayKeys.playDefaultPort := 9663
 PlayKeys.externalizeResources := false
 // shorter prod classpath
 scriptClasspath := Seq("*")
+// give a fake assets dir to make sure they're not packaged
+resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
 // don't make an assets jar
-/* resourceDirectory in Assets := (sourceDirectory in Compile).value / "assets" */
+PlayKeys.generateAssetsJar := false
 // use akka-http for dev
 PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServerProvider"
 
