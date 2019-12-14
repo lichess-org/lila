@@ -605,6 +605,7 @@ GET   /swag                            controllers.Main.movedPermanently(to: Str
 GET   /assets/_$v<\w{6}>/*file         controllers.Main.devAsset(v, path="public", file)
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)
 
+GET   /manifest.json                   controllers.Main.manifest
 GET   /robots.txt                      controllers.Main.robots
 
 OPTIONS /                              controllers.Options.root
