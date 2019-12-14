@@ -29,6 +29,8 @@ resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
 PlayKeys.generateAssetsJar := false
 // use akka-http for dev
 PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServerProvider"
+// who needs JS routes right?
+routesGenerator := LilaRoutesGenerator
 
 
 // format: off
