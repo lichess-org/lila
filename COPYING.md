@@ -92,7 +92,7 @@ External services
 
 Lichess as deployed on https://lichess.org/ also uses these external services:
 
-* [Cloudflare](https://www.cloudflare.com/) to serve static assets
+* [Cloudflare](https://www.cloudflare.com/) to serve static assets, DNS lookups for email validation
 * [Mailgun](https://www.mailgun.com/) for transactional email
 * [prismic.io](https://prismic.io/) for help/documentation pages and the blog
 * [twitch](https://www.twitch.tv/) for featured livestreams
