@@ -11,24 +11,26 @@ object freeJs {
   private def github(path: String) = a(href := s"https://github.com/ornicar/lila/tree/master/$path")(path)
 
   private val uiModules = List(
-    "site",
+    "analyse",
+    "challenge",
     "chat",
     "cli",
-    "challenge",
-    "notify",
-    "learn",
-    "insight",
+    "dasher",
     "editor",
+    "insight",
+    "learn",
+    "lobby",
+    "notify",
+    "palantir",
     "puzzle",
     "round",
-    "analyse",
-    "lobby",
-    "tournament",
-    "tournamentSchedule",
-    "tournamentCalendar",
+    "serviceWorker",
     "simul",
-    "perfStat",
-    "dasher"
+    "site",
+    "speech",
+    "tournamentCalendar",
+    "tournament",
+    "tournamentSchedule"
   )
 
   def apply(): Frag = frag(
