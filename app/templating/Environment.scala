@@ -51,7 +51,7 @@ object Environment
 
   def isChatPanicEnabled = env.chat.panic.enabled
 
-  def blockingReportNbOpen: Int = env.report.api.nbOpen.awaitOrElse(10.millis, 0)
+  def blockingReportNbOpen: Int = env.report.api.nbOpen.awaitOrElse(10.millis, "nbReports", 0)
 
   def NotForKids(f: => Frag)(implicit ctx: Context) = if (ctx.kid) emptyFrag else f
 

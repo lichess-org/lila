@@ -2,6 +2,7 @@ package lila.message
 
 import play.api.data._
 import play.api.data.Forms._
+import scala.concurrent.duration._
 
 import lila.security.Granter
 import lila.user.{ User, UserRepo }
@@ -17,11 +18,11 @@ final private[message] class DataForm(
     Form(
       mapping(
         "username" -> lila.user.DataForm.historicalUsernameField
-          .verifying("Unknown username", { fetchUser(_).isDefined })
+          .verifying("Unknown username", { blockingFetchUser(_).isDefined })
           .verifying(
             "Sorry, this player doesn't accept new messages", { name =>
               Granter(_.MessageAnyone)(me) || {
-                security.canMessage(me.id, User normalize name) awaitSeconds 2 // damn you blocking API
+                security.canMessage(me.id, User normalize name).await(2 seconds, "pmAccept") // damn you blocking API
               }
             }
           ),
@@ -31,7 +32,7 @@ final private[message] class DataForm(
       )({
         case (username, subject, text, mod) =>
           ThreadData(
-            user = fetchUser(username) err "Unknown username " + username,
+            user = blockingFetchUser(username) err "Unknown username " + username,
             subject = subject,
             text = text,
             asMod = mod.isDefined
@@ -46,7 +47,7 @@ final private[message] class DataForm(
       )
     )
 
-  private def fetchUser(username: String) = userRepo named username awaitSeconds 2
+  private def blockingFetchUser(username: String) = userRepo.named(username).await(1 second, "pmUser")
 }
 
 object DataForm {

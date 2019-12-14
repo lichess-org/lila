@@ -3,11 +3,12 @@ package lila.base
 import akka.actor.ActorSystem
 import scala.util.Try
 
+import lila.common.Chronometer
 import LilaTypes._
 import ornicar.scalalib.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext => EC, Future }
+import scala.concurrent.{ ExecutionContext => EC, Future, Await, blocking }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
@@ -104,30 +105,39 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
     fua
   }
 
-  def await(duration: FiniteDuration): A =
-    scala.concurrent.Await.result(fua, duration)
+  def await(duration: FiniteDuration, name: String): A =
+    Chronometer.syncMon(_.blocking.time(name)) {
+      if (duration.toMillis >= 100) blocking {
+        Await.result(fua, duration)
+      } else {
+        Await.result(fua, duration)
+      }
+    }
 
-  def awaitOrElse(duration: FiniteDuration, default: => A): A =
+  def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
     try {
-      scala.concurrent.Await.result(fua, duration)
+      await(duration, name)
     } catch {
       case _: Exception => default
     }
 
-  def awaitSeconds(seconds: Int): A =
-    await(seconds.seconds)
-
   def withTimeout(duration: FiniteDuration)(implicit ec: EC, system: ActorSystem): Fu[A] =
     withTimeout(duration, LilaException(s"Future timed out after $duration"))
 
-  def withTimeout(duration: FiniteDuration, error: => Throwable)(implicit ec: EC, system: ActorSystem): Fu[A] = {
+  def withTimeout(
+      duration: FiniteDuration,
+      error: => Throwable
+  )(implicit ec: EC, system: ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
       akka.pattern.after(duration, system.scheduler)(Future failed error)
     )
   }
 
-  def withTimeoutDefault(duration: FiniteDuration, default: => A)(implicit ec: EC, system: ActorSystem): Fu[A] = {
+  def withTimeoutDefault(
+      duration: FiniteDuration,
+      default: => A
+  )(implicit ec: EC, system: ActorSystem): Fu[A] = {
     Future firstCompletedOf Seq(
       fua,
       akka.pattern.after(duration, system.scheduler)(Future(default))
@@ -137,8 +147,8 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
   def delay(duration: FiniteDuration)(implicit ec: EC, system: ActorSystem) =
     lila.common.Future.delay(duration)(fua)
 
-  def chronometer    = lila.common.Chronometer(fua)
-  def chronometerTry = lila.common.Chronometer.lapTry(fua)
+  def chronometer    = Chronometer(fua)
+  def chronometerTry = Chronometer.lapTry(fua)
 
   def mon(path: lila.mon.TimerPath)              = chronometer.mon(path).result
   def monTry(path: Try[A] => lila.mon.TimerPath) = chronometerTry.mon(r => path(r)(lila.mon)).result
@@ -189,7 +199,7 @@ final class PimpedFutureOption[A](private val fua: Fu[Option[A]]) extends AnyVal
   def getOrElse(other: => Fu[A])(implicit ec: EC): Fu[A] = fua flatMap { _.fold(other)(fuccess) }
 
   def map2[B](f: A => B)(implicit ec: EC): Fu[Option[B]] = fua.map(_ map f)
-  def dmap2[B](f: A => B): Fu[Option[B]] = fua.map(_ map f)(EC.parasitic)
+  def dmap2[B](f: A => B): Fu[Option[B]]                 = fua.map(_ map f)(EC.parasitic)
 }
 
 // final class PimpedFutureValid[A](private val fua: Fu[Valid[A]]) extends AnyVal {

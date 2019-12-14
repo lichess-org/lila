@@ -2,6 +2,7 @@ package lila.team
 
 import play.api.data._
 import play.api.data.Forms._
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 
@@ -28,7 +29,7 @@ final private[team] class DataForm(
       Fields.gameId,
       Fields.move
     )(TeamSetup.apply)(TeamSetup.unapply)
-      .verifying("This team already exists", d => !teamExists(d).awaitSeconds(2))
+      .verifying("This team already exists", d => !teamExists(d).await(2 seconds, "teamExists"))
       .verifying(captchaFailMessage, validateCaptcha _)
   )
 

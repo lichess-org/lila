@@ -3,6 +3,7 @@ package lila.report
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation._
+import scala.concurrent.duration._
 
 import lila.user.{ User, UserRepo }
 
@@ -21,7 +22,7 @@ final private[report] class DataForm(
   val create = Form(
     mapping(
       "username" -> lila.user.DataForm.historicalUsernameField.verifying("Unknown username", {
-        fetchUser(_).isDefined
+        blockingFetchUser(_).isDefined
       }),
       "reason" -> text.verifying("error.required", Reason.keys contains _),
       "text"   -> text(minLength = 5, maxLength = 2000),
@@ -30,7 +31,7 @@ final private[report] class DataForm(
     )({
       case (username, reason, text, gameId, move) =>
         ReportSetup(
-          user = fetchUser(username) err "Unknown username " + username,
+          user = blockingFetchUser(username) err "Unknown username " + username,
           reason = reason,
           text = text,
           gameId = gameId,
@@ -49,7 +50,8 @@ final private[report] class DataForm(
     )(ReportFlag.apply)(ReportFlag.unapply)
   )
 
-  private def fetchUser(username: String) = userRepo named username awaitSeconds 2
+  private def blockingFetchUser(username: String) =
+    userRepo.named(username).await(1.second, "reportUser")
 }
 
 private[report] case class ReportFlag(

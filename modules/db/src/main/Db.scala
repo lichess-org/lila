@@ -4,7 +4,7 @@ import com.github.ghik.silencer.silent
 import reactivemongo.api._
 import reactivemongo.api.commands.Command
 import scala.concurrent.duration._
-import scala.concurrent.{ Await, Future }
+import scala.concurrent.Future
 
 import dsl.Coll
 import lila.common.Chronometer
@@ -36,10 +36,10 @@ final class Db(
   private val dbName = uri.db | "lichess"
 
   private lazy val db: DefaultDB = Chronometer.syncEffect(
-    Await.result(
-      driver.connect(uri, name.some).flatMap(_ database dbName),
-      5.seconds
-    )
+    driver
+      .connect(uri, name.some)
+      .flatMap(_ database dbName)
+      .await(5.seconds, s"db:$name")
   ) { lap =>
     logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
   }

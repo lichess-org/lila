@@ -46,7 +46,7 @@ final class EmailAddressValidator(
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
     val email           = EmailAddress(e)
-    val (taken, reused) = (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)) awaitSeconds 2
+    val (taken, reused) = (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
     if (taken || reused) Invalid(ValidationError("error.email_unique"))
     else Valid
   }
@@ -73,7 +73,7 @@ final class EmailAddressValidator(
 
   // the DNS emails should have been preloaded
   private[security] val withAcceptableDns = Constraint[String]("constraint.email_acceptable") { e =>
-    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(100.millis, {
+    val ok = hasAcceptableDns(EmailAddress(e)).awaitOrElse(90.millis, "dns", {
       logger.warn(s"EmailAddressValidator.withAcceptableDns timeout! ${e} records should have been preloaded")
       true
     })

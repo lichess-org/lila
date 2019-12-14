@@ -5,7 +5,6 @@ import akka.stream.scaladsl._
 import org.joda.time.DateTime
 import org.joda.time.format.DateTimeFormat
 import play.api.libs.json._
-import scala.concurrent.Await
 import scala.concurrent.duration._
 
 import chess.format.pgn.Tag
@@ -110,7 +109,7 @@ final class StudySearchApi(
           date
         case _ =>
           logger.info("Reset study index")
-          Await.result(c.putMapping, 20 seconds)
+          c.putMapping.await(10.seconds, "studyMapping")
           parseDate("2011-01-01").get
       }
       logger.info(s"Index to ${c.index.name} since $since")

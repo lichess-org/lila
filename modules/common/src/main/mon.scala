@@ -506,6 +506,9 @@ object mon {
   object bus {
     val classifiers = gauge("bus.classifiers").withoutTags
   }
+  object blocking {
+    def time(name: String) = timer("blocking.time").withTag("name", name)
+  }
 
   type TimerPath   = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter

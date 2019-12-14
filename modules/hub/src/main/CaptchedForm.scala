@@ -2,6 +2,7 @@ package lila.hub
 
 import akka.pattern.ask
 import play.api.data._
+import scala.concurrent.duration._
 
 import actorApi.captcha._
 import lila.common.Captcha
@@ -28,7 +29,7 @@ trait CaptchedForm {
 
   import scala.language.reflectiveCalls
   def validateCaptcha(data: CaptchedData) =
-    getCaptcha(data.gameId) awaitSeconds 2 valid data.move.trim.toLowerCase
+    getCaptcha(data.gameId).await(2 seconds, "getCaptcha") valid data.move.trim.toLowerCase
 
   def captchaFailMessage = Captcha.failMessage
 }

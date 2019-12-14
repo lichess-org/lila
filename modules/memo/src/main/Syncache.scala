@@ -108,7 +108,7 @@ final class Syncache[K, V](
   private def waitForResult(k: K, fu: Fu[V], duration: FiniteDuration): V = {
     try {
       lila.common.Chronometer.syncMon(_ => recWait) {
-        fu await duration
+        fu.await(duration, "syncache")
       }
     } catch {
       case _: java.util.concurrent.TimeoutException =>

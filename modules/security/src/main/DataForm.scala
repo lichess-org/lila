@@ -3,6 +3,7 @@ package lila.security
 import play.api.data._
 import play.api.data.Forms._
 import play.api.data.validation.Constraints
+import scala.concurrent.duration._
 
 import lila.common.{ EmailAddress, LameName }
 import lila.user.{ TotpSecret, User, UserRepo }
@@ -14,7 +15,8 @@ final class DataForm(
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck
-)(implicit ec: scala.concurrent.ExecutionContext) extends lila.hub.CaptchedForm {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends lila.hub.CaptchedForm {
 
   import DataForm._
 
@@ -67,7 +69,7 @@ final class DataForm(
         )
       )
       .verifying("usernameUnacceptable", u => !lameNameCheck.value || !LameName.username(u))
-      .verifying("usernameAlreadyUsed", u => !userRepo.nameExists(u).awaitSeconds(4))
+      .verifying("usernameAlreadyUsed", u => !userRepo.nameExists(u).await(3 seconds, "signupUsername"))
 
     private val agreementBool = boolean.verifying(b => b)
 
