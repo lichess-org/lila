@@ -11,7 +11,7 @@ final private[round] class Drawer(
     finisher: Finisher,
     prefApi: PrefApi,
     isBotSync: lila.common.LightUser.IsBotSync
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def autoThreefold(game: Game): Fu[Option[Pov]] =
     Pov(game).map { pov =>

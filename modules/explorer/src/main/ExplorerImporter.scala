@@ -10,7 +10,7 @@ final class ExplorerImporter(
     gameRepo: GameRepo,
     gameImporter: Importer,
     ws: play.api.libs.ws.WSClient
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val masterGameEncodingFixedAt = new DateTime(2016, 3, 9, 0, 0)
 

@@ -11,7 +11,7 @@ import lila.hub.LightTeam.TeamID
 import lila.rating.Perf
 import lila.user.{ Perfs, User }
 
-final class PlayerRepo(coll: Coll) {
+final class PlayerRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private def selectId(id: Tournament.ID)       = $doc("_id" -> id)
   private def selectTour(tourId: Tournament.ID) = $doc("tid" -> tourId)

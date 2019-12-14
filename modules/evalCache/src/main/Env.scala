@@ -14,7 +14,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val coll = db(appConfig.get[CollName]("evalCache.collection.evalCache"))
 

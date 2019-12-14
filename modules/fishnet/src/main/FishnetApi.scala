@@ -18,7 +18,7 @@ final class FishnetApi(
     socketExists: String => Fu[Boolean],
     clientVersion: Client.ClientVersion,
     config: FishnetApi.Config
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   import FishnetApi._
   import JsonApi.Request.{ CompleteAnalysis, PartialAnalysis }

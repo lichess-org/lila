@@ -4,7 +4,7 @@ import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
 
-final class PersonalTokenApi(coll: AsyncColl) {
+final class PersonalTokenApi(coll: AsyncColl)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PersonalToken._
   import AccessToken.accessTokenIdHandler

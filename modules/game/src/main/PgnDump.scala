@@ -11,7 +11,7 @@ import lila.common.LightUser
 final class PgnDump(
     baseUrl: BaseUrl,
     getLightUser: LightUser.Getter
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PgnDump._
 

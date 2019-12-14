@@ -10,7 +10,7 @@ final class Cached(
     gameRepo: GameRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     mongoCache: MongoCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)
   def clearNbImportedByCache                = nbImportedCache remove _

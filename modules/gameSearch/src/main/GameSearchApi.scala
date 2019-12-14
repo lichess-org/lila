@@ -9,7 +9,7 @@ import lila.search._
 final class GameSearchApi(
     client: ESClient,
     gameRepo: GameRepo
-)(implicit system: akka.actor.ActorSystem)
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem)
     extends SearchReadApi[Game, Query] {
 
   def search(query: Query, from: From, size: Size) =
@@ -18,7 +18,7 @@ final class GameSearchApi(
     }
 
   def count(query: Query) =
-    client.count(query) map (_.count)
+    client.count(query) dmap (_.count)
 
   def ids(query: Query, max: Int): Fu[List[String]] =
     client.search(query, From(0), Size(max)).map(_.ids)

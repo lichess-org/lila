@@ -3,7 +3,7 @@ package lila.hub
 import java.util.concurrent.atomic.AtomicReference
 import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
-import scala.concurrent.{ Future, Promise }
+import scala.concurrent.{ ExecutionContext, Future, Promise }
 
 import lila.hub.actorApi.Shutdown
 
@@ -13,7 +13,7 @@ import lila.hub.actorApi.Shutdown
  * Has an unbounded (!) Queue of messages.
  * Like Duct, but for synchronous message processors.
  */
-trait Trouper extends lila.common.Tellable {
+abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellable {
 
   import Trouper._
 
@@ -74,7 +74,7 @@ object Trouper {
       }
   }
 
-  def stub = new Trouper {
+  def stub(implicit ec: ExecutionContext) = new Trouper {
     val process: Receive = {
       case msg => lila.log("trouper").warn(s"stub trouper received: $msg")
     }

@@ -12,7 +12,7 @@ final class PgnDump(
     chapterRepo: ChapterRepo,
     lightUserApi: lila.user.LightUserApi,
     net: lila.common.config.NetConfig
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PgnDump._
 

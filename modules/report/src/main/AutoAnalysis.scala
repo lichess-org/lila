@@ -8,7 +8,7 @@ import lila.game.{ Game, GameRepo }
 final class AutoAnalysis(
     gameRepo: GameRepo,
     fishnet: lila.hub.actors.Fishnet
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   def apply(candidate: Report.Candidate): Funit =
     if (candidate.isCheat) doItNow(candidate)

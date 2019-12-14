@@ -3,7 +3,7 @@ package lila.forum
 import lila.common.paginator._
 import lila.db.dsl._
 
-final class CategApi(env: Env) {
+final class CategApi(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -63,9 +63,11 @@ final class CategApi(env: Env) {
     }
 
   def show(slug: String, page: Int, troll: Boolean): Fu[Option[(Categ, Paginator[TopicView])]] =
-    optionT(env.categRepo bySlug slug) flatMap { categ =>
-      optionT(env.topicApi.paginator(categ, page, troll) map { (categ, _).some })
-    } run
+    env.categRepo bySlug slug flatMap {
+      _ ?? { categ =>
+        env.topicApi.paginator(categ, page, troll) dmap { (categ, _).some }
+      }
+    }
 
   def denormalize(categ: Categ): Funit =
     for {

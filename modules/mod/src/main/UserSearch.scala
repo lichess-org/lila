@@ -9,7 +9,7 @@ import lila.user.{ User, UserRepo }
 final class UserSearch(
     securityApi: lila.security.SecurityApi,
     userRepo: UserRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(query: UserSearch.Query): Fu[List[User.WithEmails]] =
     (~query.as match {

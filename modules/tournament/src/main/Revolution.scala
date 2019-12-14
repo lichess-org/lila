@@ -11,7 +11,7 @@ import lila.user.User
 final class RevolutionApi(
     tournamentRepo: TournamentRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Revolution._
   import BSONHandlers._

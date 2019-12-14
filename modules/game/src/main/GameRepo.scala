@@ -15,7 +15,7 @@ import lila.db.dsl._
 import lila.db.isDuplicateKey
 import lila.user.User
 
-final class GameRepo(val coll: Coll) {
+final class GameRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import Game.{ ID, BSONFields => F }
@@ -36,7 +36,7 @@ final class GameRepo(val coll: Coll) {
     def game(gameId: ID): Fu[Option[LightGame]] = coll.byId[LightGame](gameId, LightGame.projection)
 
     def pov(gameId: ID, color: Color): Fu[Option[LightPov]] =
-      game(gameId) map2 { (game: LightGame) =>
+      game(gameId) dmap2 { (game: LightGame) =>
         LightPov(game, game player color)
       }
 
@@ -57,12 +57,10 @@ final class GameRepo(val coll: Coll) {
     coll.one[Game]($id(gameId) ++ Query.finished)
 
   def player(gameId: ID, color: Color): Fu[Option[Player]] =
-    game(gameId) map2 { (game: Game) =>
-      game player color
-    }
+    game(gameId) dmap2 { _ player color }
 
   def player(gameId: ID, playerId: ID): Fu[Option[Player]] =
-    game(gameId) map { gameOption =>
+    game(gameId) dmap { gameOption =>
       gameOption flatMap { _ player playerId }
     }
 
@@ -70,7 +68,7 @@ final class GameRepo(val coll: Coll) {
     player(playerRef.gameId, playerRef.playerId)
 
   def pov(gameId: ID, color: Color): Fu[Option[Pov]] =
-    game(gameId) map2 { (game: Game) =>
+    game(gameId) dmap2 { (game: Game) =>
       Pov(game, game player color)
     }
 
@@ -78,7 +76,7 @@ final class GameRepo(val coll: Coll) {
     Color(color) ?? (pov(gameId, _))
 
   def pov(playerRef: PlayerRef): Fu[Option[Pov]] =
-    game(playerRef.gameId) map { _ flatMap { _ playerIdPov playerRef.playerId } }
+    game(playerRef.gameId) dmap { _ flatMap { _ playerIdPov playerRef.playerId } }
 
   def pov(fullId: ID): Fu[Option[Pov]] = pov(PlayerRef(fullId))
 
@@ -91,7 +89,7 @@ final class GameRepo(val coll: Coll) {
       user: User,
       readPreference: ReadPreference = ReadPreference.secondaryPreferred
   ): Fu[List[Pov]] =
-    coll.byOrderedIds[Game, ID](gameIds, readPreference = readPreference)(_.id) map {
+    coll.byOrderedIds[Game, ID](gameIds, readPreference = readPreference)(_.id) dmap {
       _.flatMap(g => Pov(g, user))
     }
 
@@ -181,7 +179,7 @@ final class GameRepo(val coll: Coll) {
 
   // Use Env.round.proxy.urgentGames to get in-heap states!
   def urgentPovsUnsorted(user: User): Fu[List[Pov]] =
-    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) map {
+    coll.list[Game](Query nowPlaying user.id, Game.maxPlayingRealtime) dmap {
       _ flatMap { Pov(_, user) }
     }
 
@@ -380,7 +378,7 @@ final class GameRepo(val coll: Coll) {
     coll.primitiveOne[FEN]($id(gameId), F.initialFen)
 
   def initialFen(game: Game): Fu[Option[FEN]] =
-    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) map {
+    if (game.imported || !game.variant.standardInitialPosition) initialFen(game.id) dmap {
       case None if game.variant == chess.variant.Chess960 => FEN(Forsyth.initial).some
       case fen                                            => fen
     }
@@ -388,18 +386,18 @@ final class GameRepo(val coll: Coll) {
 
   def gameWithInitialFen(gameId: ID): Fu[Option[(Game, Option[FEN])]] = game(gameId) flatMap {
     _ ?? { game =>
-      initialFen(game) map { fen =>
+      initialFen(game) dmap { fen =>
         Option(game -> fen)
       }
     }
   }
 
   def withInitialFen(game: Game): Fu[Game.WithInitialFen] =
-    initialFen(game) map { Game.WithInitialFen(game, _) }
+    initialFen(game) dmap { Game.WithInitialFen(game, _) }
 
   def withInitialFens(games: List[Game]): Fu[List[(Game, Option[FEN])]] =
     games.map { game =>
-      initialFen(game) map { game -> _ }
+      initialFen(game) dmap { game -> _ }
     }.sequenceFu
 
   def count(query: Query.type => Bdoc): Fu[Int] = coll countSel query(Query)
@@ -446,9 +444,7 @@ final class GameRepo(val coll: Coll) {
     $doc(s"${F.pgnImport}.h" -> PgnImport.hash(pgn))
   )
 
-  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) map2 { (g: Game) =>
-    g.pgnMoves
-  }
+  def getOptionPgn(id: ID): Fu[Option[PgnMoves]] = game(id) dmap2 { _.pgnMoves }
 
   def lastGameBetween(u1: String, u2: String, since: DateTime): Fu[Option[Game]] =
     coll.one[Game](
@@ -470,7 +466,7 @@ final class GameRepo(val coll: Coll) {
         .list[Game](nb, ReadPreference.secondaryPreferred)
 
   def getSourceAndUserIds(id: ID): Fu[(Option[Source], List[User.ID])] =
-    coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) map {
+    coll.one[Bdoc]($id(id), $doc(F.playerUids -> true, F.source -> true)) dmap {
       _.fold(none[Source] -> List.empty[User.ID]) { doc =>
         (doc.int(F.source) flatMap Source.apply, ~doc.getAsOpt[List[User.ID]](F.playerUids))
       }

@@ -19,7 +19,7 @@ final class ReportApi(
     isOnline: lila.socket.IsOnline,
     asyncCache: lila.memo.AsyncCache.Builder,
     thresholds: Thresholds
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import Report.Candidate
@@ -75,15 +75,15 @@ final class ReportApi(
       (candidate.isComm && candidate.suspect.user.troll)
 
   def getMod(username: String): Fu[Option[Mod]] =
-    userRepo named username map2 Mod.apply
+    userRepo named username dmap2 Mod.apply
 
-  def getLichessMod: Fu[Mod] = userRepo.lichess map2 Mod.apply orFail "User lichess is missing"
+  def getLichessMod: Fu[Mod] = userRepo.lichess dmap2 Mod.apply orFail "User lichess is missing"
   def getLichessReporter: Fu[Reporter] = getLichessMod map { l =>
     Reporter(l.user)
   }
 
   def getSuspect(username: String): Fu[Option[Suspect]] =
-    userRepo named username map2 Suspect.apply
+    userRepo named username dmap2 Suspect.apply
 
   def autoCheatPrintReport(userId: String): Funit =
     coll.exists(
@@ -338,7 +338,7 @@ final class ReportApi(
 
     private val cache = asyncCache.clearable[User.ID, Option[Int]](
       name = "reporterAccuracy",
-      f = a => forUser(a).map2((a: Accuracy) => a.value),
+      f = a => forUser(a).dmap2(_.value),
       expireAfter = _.ExpireAfterWrite(24 hours)
     )
 
@@ -365,7 +365,7 @@ final class ReportApi(
       }
 
     def of(reporter: ReporterId): Fu[Option[Accuracy]] =
-      cache get reporter.value map2 Accuracy.apply
+      cache get reporter.value dmap2 Accuracy.apply
 
     def apply(candidate: Candidate): Fu[Option[Accuracy]] =
       (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)

@@ -14,7 +14,7 @@ final private class ChapterMaker(
     gameRepo: lila.game.GameRepo,
     pgnFetch: PgnFetch,
     pgnDump: lila.game.PgnDump
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import ChapterMaker._
 

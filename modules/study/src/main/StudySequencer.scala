@@ -7,7 +7,7 @@ import lila.common.WorkQueues
 final private class StudySequencer(
     studyRepo: StudyRepo,
     chapterRepo: ChapterRepo
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueues(256, 10 minutes)
 

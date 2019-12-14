@@ -5,7 +5,7 @@ import org.joda.time._
 import lila.db.dsl._
 import lila.user.User
 
-final class RequesterApi(coll: Coll) {
+final class RequesterApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val formatter = format.DateTimeFormat.forPattern("YYYY-MM-dd")
 

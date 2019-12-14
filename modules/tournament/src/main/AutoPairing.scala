@@ -7,7 +7,7 @@ final class AutoPairing(
     gameRepo: GameRepo,
     duelStore: DuelStore,
     onStart: Game.ID => Unit
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(tour: Tournament, pairing: Pairing, usersMap: Map[User.ID, User], ranking: Ranking): Fu[Game] = {
     val user1 = usersMap get pairing.user1 err s"Missing pairing user1 $pairing"

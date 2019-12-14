@@ -16,6 +16,8 @@ final private class TournamentScheduler(
   import Schedule.Plan
   import chess.variant._
 
+  implicit def ec = context.dispatcher
+
   /* Month plan:
    * First week: Shield standard tournaments
    * Second week: Yearly tournament
@@ -471,7 +473,7 @@ Thank you all, you rock!"""
   def receive = {
 
     case TournamentScheduler.ScheduleNow =>
-      tournamentRepo.scheduledUnfinished map { tourneys =>
+      tournamentRepo.scheduledUnfinished dforeach { tourneys =>
         self ! ScheduleNowWith(tourneys)
       }
 

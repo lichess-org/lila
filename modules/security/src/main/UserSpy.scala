@@ -37,7 +37,7 @@ final class UserSpyApi(
     store: Store,
     userRepo: UserRepo,
     geoIP: GeoIP
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import UserSpy._
 
@@ -136,7 +136,7 @@ object UserSpy {
       userRepo: UserRepo,
       me: User,
       others: Set[OtherUser]
-  ): Fu[WithMeSortedWithEmails] = {
+  )(implicit ec: scala.concurrent.ExecutionContext): Fu[WithMeSortedWithEmails] = {
     val othersList = others.toList
     userRepo.emailMap(me.id :: othersList.map(_.user.id)) map { emailMap =>
       WithMeSortedWithEmails(

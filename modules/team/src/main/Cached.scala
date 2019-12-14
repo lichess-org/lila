@@ -8,7 +8,7 @@ final class Cached(
     memberRepo: MemberRepo,
     requestRepo: RequestRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   val nameCache = new Syncache[String, Option[String]](
     name = "team.name",

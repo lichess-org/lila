@@ -9,7 +9,7 @@ import lila.common.config.CollName
 final class Env(
     mongoCache: lila.memo.MongoCache.Builder,
     db: lila.db.Db
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cacheTtl = 30 minutes
 

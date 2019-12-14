@@ -8,7 +8,7 @@ import lila.memo.ExpireSetMemo
 
 final private class MainWatcher(
     repo: FishnetRepo
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val alerted = new ExpireSetMemo(12 hour)
 

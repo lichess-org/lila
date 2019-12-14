@@ -53,7 +53,7 @@ final class Env(
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
     ratingFactors: () => lila.rating.RatingFactors
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
   implicit private val animationLoader = durationLoader(AnimationDuration.apply)

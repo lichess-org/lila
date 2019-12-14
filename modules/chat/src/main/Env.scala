@@ -28,7 +28,7 @@ final class Env(
     shutup: lila.hub.actors.Shutup,
     mod: lila.hub.actors.Mod,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   implicit private val maxPerLineLoader = intLoader(Chat.MaxLines.apply)
   private val config                    = appConfig.get[ChatConfig]("chat")(AutoConfig.loader)

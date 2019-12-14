@@ -10,9 +10,9 @@ final private class RoundNotifier(
     timeline: lila.hub.actors.Timeline,
     isUserPresent: (Game, User.ID) => Fu[Boolean],
     notifyApi: NotifyApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def gameEnd(game: Game)(color: chess.Color) = {
+  def gameEnd(game: Game)(color: chess.Color) =
     if (!game.aborted) game.player(color).userId foreach { userId =>
       game.perfType foreach { perfType =>
         timeline ! (Propagate(
@@ -39,5 +39,4 @@ final private class RoundNotifier(
         case _ =>
       }
     }
-  }
 }

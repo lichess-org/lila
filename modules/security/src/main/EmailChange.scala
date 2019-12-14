@@ -12,7 +12,7 @@ final class EmailChange(
     mailgun: Mailgun,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
 
@@ -44,7 +44,7 @@ ${Mailgun.txt.serviceNote}
     }
 
   def confirm(token: String): Fu[Option[User]] =
-    tokener read token map (_.flatten) flatMap {
+    tokener read token dmap (_.flatten) flatMap {
       _ ?? {
         case TokenPayload(userId, email) =>
           userRepo.setEmail(userId, email).nevermind >> userRepo.byId(userId)
@@ -68,7 +68,7 @@ ${Mailgun.txt.serviceNote}
     secret = tokenerSecret,
     getCurrentValue = p =>
       p ?? {
-        case TokenPayload(userId, _) => userRepo email userId map (_.??(_.value))
+        case TokenPayload(userId, _) => userRepo email userId dmap (_.??(_.value))
       }
   )
 }

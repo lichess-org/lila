@@ -9,7 +9,7 @@ import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 import lila.rating.{ Perf, PerfType }
 
-final class UserRepo(val coll: Coll) {
+final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import User.userBSONHandler
 

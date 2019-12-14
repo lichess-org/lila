@@ -10,7 +10,7 @@ import lila.db.paginator._
 final class PaginatorBuilder(
     gameRepo: GameRepo,
     maxPerPage: MaxPerPage
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers.gameBSONHandler
 

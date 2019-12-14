@@ -10,7 +10,7 @@ import lila.user.User.{ ClearPassword, PasswordAndToken, BSONFields => F }
 final class Authenticator(
     passHasher: PasswordHasher,
     userRepo: UserRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
   import Authenticator._
 
   def passEnc(p: ClearPassword): HashedPassword = passHasher.hash(p)
@@ -33,7 +33,7 @@ final class Authenticator(
     loginCandidateByEmail(email) map { _ flatMap { _ option passwordAndToken } }
 
   def loginCandidate(u: User): Fu[User.LoginCandidate] =
-    loginCandidateById(u.id) map { _ | User.LoginCandidate(u, _ => false) }
+    loginCandidateById(u.id) dmap { _ | User.LoginCandidate(u, _ => false) }
 
   def loginCandidateById(id: User.ID): Fu[Option[User.LoginCandidate]] =
     loginCandidate($id(id))

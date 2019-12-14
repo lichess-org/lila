@@ -28,11 +28,11 @@ final class DuctConcMap[D <: Duct](
   def ask[A](id: String)(makeMsg: Promise[A] => Any): Fu[A] = getOrMake(id).ask(makeMsg)
 
   def askIfPresent[A](id: String)(makeMsg: Promise[A] => Any): Fu[Option[A]] = getIfPresent(id) ?? {
-    _ ask makeMsg map some
+    _ ask makeMsg dmap some
   }
 
   def askIfPresentOrZero[A: Zero](id: String)(makeMsg: Promise[A] => Any): Fu[A] =
-    askIfPresent(id)(makeMsg) map (~_)
+    askIfPresent(id)(makeMsg) dmap (~_)
 
   def exists(id: String): Boolean = ducts.get(id) != null
 

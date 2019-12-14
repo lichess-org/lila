@@ -22,7 +22,7 @@ final class RelationApi(
     asyncCache: lila.memo.AsyncCache.Builder,
     userRepo: lila.user.UserRepo,
     config: RelationConfig
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RelationRepo.makeId
 

@@ -4,7 +4,7 @@ import lila.user.{ Title, User }
 
 final private class ReportScore(
     getAccuracy: ReporterId => Fu[Option[Accuracy]]
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(candidate: Report.Candidate): Fu[Report.Candidate.Scored] =
     getAccuracy(candidate.reporter.id) map { accuracy =>

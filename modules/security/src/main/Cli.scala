@@ -2,12 +2,12 @@ package lila.security
 
 import lila.user.{ User, UserRepo }
 
-final private[security] class Cli(userRepo: UserRepo) extends lila.common.Cli {
+final private[security] class Cli(userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Cli {
 
   def process = {
 
     case "security" :: "roles" :: uid :: Nil =>
-      userRepo named uid map {
+      userRepo named uid dmap {
         _.fold("User %s not found" format uid)(_.roles mkString " ")
       }
 

@@ -14,7 +14,7 @@ final class Env(
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val playbanColl = db(
     CollName(appConfig.get[String]("playban.collection.playban"))

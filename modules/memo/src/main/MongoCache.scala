@@ -15,7 +15,7 @@ final class MongoCache[K, V: BSONHandler] private (
     val coll: Coll,
     f: K => Fu[V],
     keyToString: K => String
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private case class Entry(_id: String, v: V, e: DateTime)
 
@@ -59,7 +59,7 @@ object MongoCache {
     () => DateTime.now plusSeconds seconds
   }
 
-  final class Builder(db: lila.db.Db, config: MemoConfig) {
+  final class Builder(db: lila.db.Db, config: MemoConfig)(implicit ec: scala.concurrent.ExecutionContext) {
 
     val coll = db(config.cacheColl)
 

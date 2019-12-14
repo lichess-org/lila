@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Cache, Scaffeine }
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 final class AsyncCache[K, V](cache: AsyncLoadingCache[K, V], f: K => Fu[V]) {
 
@@ -18,7 +19,7 @@ final class AsyncCacheClearable[K, V](
     cache: Cache[K, Fu[V]],
     f: K => Fu[V],
     logger: lila.log.Logger
-) {
+)(implicit ec: ExecutionContext) {
 
   def get(k: K): Fu[V] = cache.get(k, (k: K) => {
     f(k).addFailureEffect { err =>
@@ -48,7 +49,7 @@ final class AsyncCacheSingle[V](cache: AsyncLoadingCache[Unit, V], f: Unit => Fu
 
 object AsyncCache {
 
-  final class Builder(implicit system: ActorSystem) {
+  final class Builder(implicit ec: ExecutionContext, system: ActorSystem) {
 
     def multi[K, V](
       name: String,
@@ -108,7 +109,7 @@ object AsyncCache {
     }
   }
 
-  private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit system: ActorSystem): Unit =
+  private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit ec: ExecutionContext, system: ActorSystem): Unit =
     system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       lila.mon.caffeineStats(cache, name)
     }

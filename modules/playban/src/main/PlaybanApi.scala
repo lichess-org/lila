@@ -20,7 +20,7 @@ final class PlaybanApi(
     userRepo: UserRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     messenger: MessageApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
   import reactivemongo.api.bson.Macros
@@ -39,7 +39,7 @@ final class PlaybanApi(
   private def blameable(game: Game): Fu[Boolean] =
     (game.source.exists(s => blameableSources(s)) && game.hasClock) ?? {
       if (game.rated) fuTrue
-      else userRepo.containsEngine(game.userIds) map (!_)
+      else userRepo.containsEngine(game.userIds) dmap (!_)
     }
 
   private def IfBlameable[A: ornicar.scalalib.Zero](game: Game)(f: => Fu[A]): Fu[A] =

@@ -13,7 +13,7 @@ final private[puzzle] class PuzzleApi(
     voteColl: AsyncColl,
     headColl: AsyncColl,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Puzzle.puzzleBSONHandler
 
@@ -122,7 +122,7 @@ final private[puzzle] class PuzzleApi(
     def addNew(user: User, puzzleId: PuzzleId) = set(PuzzleHead(user.id, puzzleId.some, puzzleId))
 
     def currentPuzzleId(user: User): Fu[Option[PuzzleId]] =
-      find(user) map2 { (h: PuzzleHead) =>
+      find(user) dmap2 { (h: PuzzleHead) =>
         h.current | h.last
       }
 

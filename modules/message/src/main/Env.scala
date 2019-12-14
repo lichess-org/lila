@@ -25,7 +25,7 @@ final class Env(
     spam: lila.security.Spam,
     isOnline: lila.socket.IsOnline,
     lightUser: lila.common.LightUser.GetterSync
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[MessageConfig]("message")(AutoConfig.loader)
 

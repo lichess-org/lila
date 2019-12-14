@@ -14,7 +14,7 @@ final class OAuthServer(
     userRepo: UserRepo,
     appApi: OAuthAppApi,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import AccessToken.accessTokenIdHandler
   import AccessToken.{ BSONFields => F }
@@ -28,7 +28,7 @@ final class OAuthServer(
           case None => fufail(NoSuchUser)
           case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
         }
-      } map Right.apply
+      } dmap Right.apply
     } recover {
       case e: AuthError => Left(e)
     }

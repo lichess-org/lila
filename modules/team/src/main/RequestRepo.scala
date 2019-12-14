@@ -2,7 +2,7 @@ package lila.team
 
 import lila.db.dsl._
 
-final class RequestRepo(val coll: Coll) {
+final class RequestRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

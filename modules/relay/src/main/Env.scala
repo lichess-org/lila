@@ -14,7 +14,7 @@ final class Env(
     chapterRepo: lila.study.ChapterRepo,
     asyncCache: lila.memo.AsyncCache.Builder,
     slackApi: lila.slack.SlackApi
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private lazy val coll = db(CollName("relay"))
 

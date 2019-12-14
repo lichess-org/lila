@@ -4,7 +4,7 @@ import scala.concurrent.duration._
 
 final private class Monitor(
     repo: FishnetRepo
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val monBy = lila.mon.fishnet.analysis.by
 

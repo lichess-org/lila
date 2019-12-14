@@ -15,7 +15,7 @@ final class RelayApi(
     withStudy: RelayWithStudy,
     jsonView: JsonView,
     formatApi: RelayFormatApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
   import lila.study.BSONHandlers.LikesBSONHandler
@@ -29,8 +29,8 @@ final class RelayApi(
   }
 
   def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] = WithRelay(id) { relay =>
-    studyApi.byId(relay.studyId) map2 { (study: Study) =>
-      Relay.WithStudy(relay, study)
+    studyApi.byId(relay.studyId) dmap2 { 
+      Relay.WithStudy(relay, _)
     }
   }
 

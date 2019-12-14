@@ -7,7 +7,7 @@ import play.api.libs.ws.WSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration._
-import scala.concurrent.Future
+import scala.concurrent.{ ExecutionContext, Future }
 
 import lila.common.Bus
 import lila.common.config._
@@ -158,7 +158,7 @@ final class EnvBoot(
     lifecycle: ApplicationLifecycle,
     controllerComponents: ControllerComponents,
     cookieBacker: SessionCookieBaker
-)(implicit system: ActorSystem, ws: WSClient) {
+)(implicit ec: ExecutionContext, system: ActorSystem, ws: WSClient) {
 
   lila.log("boot").info {
     val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024

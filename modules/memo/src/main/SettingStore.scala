@@ -14,7 +14,7 @@ final class SettingStore[A: BSONHandler: SettingStore.StringReader: SettingStore
     val text: Option[String],
     persist: Boolean,
     init: SettingStore.Init[A]
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import SettingStore.{ ConfigValue, DbValue, dbField }
 
@@ -47,7 +47,7 @@ object SettingStore {
 
   type Init[A] = (ConfigValue[A], DbValue[A]) => A
 
-  final class Builder(db: lila.db.Db, config: MemoConfig) {
+  final class Builder(db: lila.db.Db, config: MemoConfig)(implicit ec: scala.concurrent.ExecutionContext) {
     val coll = db(config.configColl)
     def apply[A: BSONHandler: StringReader: Formable](
       id: String,

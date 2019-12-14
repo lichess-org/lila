@@ -21,7 +21,7 @@ final private class RatingRefund(
     rankingApi: lila.user.RankingApi,
     logApi: ModlogApi,
     perfStat: lila.perfStat.Env
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RatingRefund._
 

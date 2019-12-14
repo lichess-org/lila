@@ -22,7 +22,7 @@ final class NoteApi(
     userRepo: UserRepo,
     coll: Coll,
     timeline: lila.hub.actors.Timeline
-)(implicit ws: play.api.libs.ws.WSClient) {
+)(implicit ec: scala.concurrent.ExecutionContext, ws: play.api.libs.ws.WSClient) {
 
   import reactivemongo.api.bson._
   import lila.db.BSON.BSONJodaDateTimeHandler

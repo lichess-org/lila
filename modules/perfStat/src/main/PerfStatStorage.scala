@@ -6,7 +6,7 @@ import lila.db.dsl._
 import lila.rating.BSONHandlers.perfTypeIdHandler
 import lila.rating.PerfType
 
-final class PerfStatStorage(coll: Coll) {
+final class PerfStatStorage(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val UserIdBSONHandler       = stringAnyValHandler[UserId](_.value, UserId.apply)
   implicit private val RatingAtBSONHandler     = Macros.handler[RatingAt]

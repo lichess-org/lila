@@ -12,7 +12,7 @@ import Forecast.Step
 import lila.game.Game.PlayerId
 import lila.game.{ Game, Pov }
 
-final class ForecastApi(coll: Coll, tellRound: TellRound) {
+final class ForecastApi(coll: Coll, tellRound: TellRound)(implicit ec: scala.concurrent.ExecutionContext) {
 
   implicit private val stepBSONHandler     = Macros.handler[Step]
   implicit private val forecastBSONHandler = Macros.handler[Forecast]

@@ -6,7 +6,7 @@ import scala.jdk.CollectionConverters._
 import play.api.libs.json.{ JsObject, JsString }
 import play.api.i18n.Lang
 
-final private[i18n] class JsDump(path: String) {
+final private[i18n] class JsDump(path: String)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply: Funit =
     Future {

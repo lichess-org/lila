@@ -9,7 +9,7 @@ import lila.user.User
 final private class StripeClient(
     ws: WSClient,
     config: StripeClient.Config
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import StripeClient._
   import JsonHandlers._
@@ -110,7 +110,7 @@ final private class StripeClient(
     ).void
 
   private def getOne[A: Reads](url: String, queryString: (String, Any)*): Fu[Option[A]] =
-    get[A](url, queryString) map Some.apply recover {
+    get[A](url, queryString) dmap Some.apply recover {
       case _: NotFoundException => None
       case e: DeletedException => {
         play.api.Logger("stripe").warn(e.getMessage)

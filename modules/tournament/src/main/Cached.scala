@@ -10,7 +10,7 @@ final private[tournament] class Cached(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val createdTtl = 2 seconds
   private val rankingTtl = 1 hour
@@ -18,9 +18,7 @@ final private[tournament] class Cached(
   val nameCache = new Syncache[Tournament.ID, Option[String]](
     name = "tournament.name",
     compute = id =>
-      tournamentRepo byId id map2 { (tour: Tournament) =>
-        tour.fullName
-      },
+      tournamentRepo byId id dmap2 { _.fullName },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),

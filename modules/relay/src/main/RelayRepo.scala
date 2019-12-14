@@ -5,7 +5,7 @@ import reactivemongo.api.bson._
 
 import lila.db.dsl._
 
-final private class RelayRepo(val coll: Coll) {
+final private class RelayRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

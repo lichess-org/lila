@@ -8,7 +8,7 @@ final class DisposableEmailDomain(
     ws: WSClient,
     providerUrl: String,
     checkMailBlocked: () => Fu[List[String]]
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val staticRegex = toRegexStr(DisposableEmailDomain.staticBlacklist.iterator)
 

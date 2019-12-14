@@ -10,7 +10,7 @@ final private class FishnetRepo(
     analysisColl: Coll,
     clientColl: Coll,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 

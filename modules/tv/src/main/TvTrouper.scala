@@ -15,7 +15,7 @@ final private[tv] class TvTrouper(
     recentTvGames: lila.round.RecentTvGames,
     gameProxyRepo: lila.round.GameProxyRepo,
     rematches: lila.game.Rematches
-) extends Trouper {
+)(implicit ec: scala.concurrent.ExecutionContext) extends Trouper {
 
   import TvTrouper._
 

@@ -31,7 +31,7 @@ final class RoundSocket(
     tournamentActor: lila.hub.actors.TournamentApi,
     messenger: Messenger,
     goneWeightsFor: Game => Fu[(Float, Float)]
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   import RoundSocket._
 
@@ -42,7 +42,7 @@ final class RoundSocket(
   def gameIfPresent(gameId: Game.ID): Fu[Option[Game]] = rounds.getIfPresent(gameId).??(_.getGame)
 
   def updateIfPresent(game: Game): Fu[Game] =
-    rounds.getIfPresent(game.id).fold(fuccess(game))(_.getGame.map(_ | game))
+    rounds.getIfPresent(game.id).fold(fuccess(game))(_.getGame.dmap(_ | game))
 
   val rounds = new DuctConcMap[RoundDuct](
     mkDuct = id => {
@@ -50,12 +50,12 @@ final class RoundSocket(
         dependencies = roundDependencies,
         gameId = id,
         socketSend = send
-      )(new GameProxy(id, proxyDependencies))
+      )(ec, new GameProxy(id, proxyDependencies))
       terminationDelay schedule Game.Id(id)
       duct.getGame foreach {
         _ foreach { game =>
           scheduleExpiration(game)
-          goneWeightsFor(game) map { RoundDuct.SetGameInfo(game, _) } foreach duct.!
+          goneWeightsFor(game) dmap { RoundDuct.SetGameInfo(game, _) } foreach duct.!
         }
       }
       duct
@@ -292,7 +292,7 @@ object RoundSocket {
       scheduler: Scheduler,
       duration: FiniteDuration,
       terminate: Game.Id => Unit
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
     import java.util.concurrent.ConcurrentHashMap
 
     private[this] val terminations = new ConcurrentHashMap[String, Cancellable](32768)

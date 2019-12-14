@@ -17,7 +17,7 @@ final class ModApi(
     lightUserApi: LightUserApi,
     refunder: RatingRefund,
     securityStore: SecurityStore
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def setEngine(mod: Mod, prev: Suspect, v: Boolean): Funit = (prev.user.engine != v) ?? {
     for {

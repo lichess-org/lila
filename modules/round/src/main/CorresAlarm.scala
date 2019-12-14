@@ -15,7 +15,7 @@ final private class CorresAlarm(
     coll: Coll,
     hasUserId: (Game, lila.user.User.ID) => Fu[Boolean],
     proxyGame: Game.ID => Fu[Option[Game]]
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private case class Alarm(
       _id: String,       // game id

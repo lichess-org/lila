@@ -5,7 +5,7 @@ import play.api.data.Forms._
 
 final private[forum] class DataForm(
     val captcher: lila.hub.actors.Captcher
-) extends lila.hub.CaptchedForm {
+)(implicit ec: scala.concurrent.ExecutionContext) extends lila.hub.CaptchedForm {
 
   import DataForm._
 

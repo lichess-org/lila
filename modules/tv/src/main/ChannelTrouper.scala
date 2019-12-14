@@ -12,7 +12,7 @@ final private[tv] class ChannelTrouper(
     onSelect: TvTrouper.Selected => Unit,
     proxyGame: Game.ID => Fu[Option[Game]],
     rematchOf: Game.ID => Option[Game.ID]
-) extends Trouper {
+)(implicit ec: scala.concurrent.ExecutionContext) extends Trouper {
 
   import ChannelTrouper._
 

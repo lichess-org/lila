@@ -2,7 +2,7 @@ package lila.forum
 
 import lila.db.dsl._
 
-final class TopicRepo(val coll: Coll, troll: Boolean = false) {
+final class TopicRepo(val coll: Coll, troll: Boolean = false)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def withTroll(t: Boolean) = if (t == troll) this else new TopicRepo(coll, t)
 

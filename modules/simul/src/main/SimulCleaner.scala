@@ -5,7 +5,7 @@ import org.joda.time.DateTime
 final private[simul] class SimulCleaner(
     repo: SimulRepo,
     api: SimulApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def cleanUp: Funit = repo.allCreated.map {
     _ foreach { simul =>

@@ -24,7 +24,9 @@ final class CoachApi(
     userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {
-    byId(Coach.Id(user.id)) map2 withUser(user)
+    byId(Coach.Id(user.id)) flatMap {
+      _ ?? withUser(user)
+    }
   }
 
   def findOrInit(user: User): Fu[Option[Coach.WithUser]] = Granter(_.Coach)(user) ?? {

@@ -29,7 +29,7 @@ final class Env(
     lightUserSync: lila.common.LightUser.GetterSync,
     prefApi: lila.pref.PrefApi,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)
 

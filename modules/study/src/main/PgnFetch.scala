@@ -18,7 +18,7 @@ final private class PgnFetch(ws: WSClient) {
   }
 
   private def downloadChessbase(id: Int): Fu[Option[Pgn]] = {
-    ws.url(s"""http://www.chessgames.com/pgn/any.pgn?gid=$id""").get().map { res =>
+    ws.url(s"""http://www.chessgames.com/pgn/any.pgn?gid=$id""").get().dmap { res =>
       res.header("Content-Type").contains(pgnContentType) option res.body
     }
   }

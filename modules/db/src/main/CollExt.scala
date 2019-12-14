@@ -9,7 +9,7 @@ import reactivemongo.api.commands.{ WriteConcern => CWC, FindAndModifyCommand =>
 
 trait CollExt { self: dsl with QueryBuilderExt =>
 
-  implicit final class ExtendColl(val coll: Coll) {
+  implicit final class ExtendColl(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
     def secondaryPreferred = coll withReadPreference ReadPreference.secondaryPreferred
     def secondary          = coll withReadPreference ReadPreference.secondary

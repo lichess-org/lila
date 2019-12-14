@@ -7,7 +7,7 @@ import lila.common.config.AppPath
 final class Env(
     appConfig: Configuration,
     appPath: AppPath
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val jsDump = new JsDump(
     path = s"${appPath}/${appConfig.get[String]("i18n.web_path.relative")}"

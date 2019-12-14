@@ -30,6 +30,7 @@ final private[round] class Titivate(
     context setReceiveTimeout 30.seconds
   }
 
+  implicit def ec = context.system.dispatcher
   def scheduler = context.system.scheduler
 
   def scheduleNext = scheduler.scheduleOnce(5 seconds, self, Run)

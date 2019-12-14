@@ -6,13 +6,13 @@ import JsonApi.Request.Evaluation
 
 final private class FishnetEvalCache(
     evalCacheApi: lila.evalCache.EvalCacheApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val maxPlies = 15
 
   // indexes of positions to skip
   def skipPositions(game: Work.Game): Fu[List[Int]] =
-    rawEvals(game).map(_.map(_._1))
+    rawEvals(game).dmap(_.map(_._1))
 
   def evals(work: Work.Analysis): Fu[Map[Int, Evaluation]] =
     rawEvals(work.game) map {
@@ -50,7 +50,7 @@ final private class FishnetEvalCache(
               evalCacheApi.getSinglePvEval(
                 game.variant,
                 FEN(Forsyth >> sit)
-              ) map2 { (eval: lila.evalCache.EvalCacheEntry.Eval) =>
+              ) dmap2 { (eval: lila.evalCache.EvalCacheEntry.Eval) =>
                 index -> eval
               }
           }

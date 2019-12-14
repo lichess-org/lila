@@ -27,7 +27,9 @@ final class StreamerApi(
     userRepo named username flatMap { _ ?? find }
 
   def find(user: User): Fu[Option[Streamer.WithUser]] =
-    byId(Streamer.Id(user.id)) map2 withUser(user)
+    byId(Streamer.Id(user.id)) flatMap {
+      _ ?? withUser(user)
+    }
 
   def findOrInit(user: User): Fu[Option[Streamer.WithUser]] =
     find(user) orElse {

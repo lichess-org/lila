@@ -14,7 +14,7 @@ final class Cached(
     mongoCache: lila.memo.MongoCache.Builder,
     asyncCache: lila.memo.AsyncCache.Builder,
     rankingApi: RankingApi
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   implicit private val LightUserBSONHandler  = Macros.handler[LightUser]
   implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]

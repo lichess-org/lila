@@ -14,7 +14,7 @@ final class MagicLink(
     userRepo: UserRepo,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Mailgun.html._
 

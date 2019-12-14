@@ -19,7 +19,7 @@ final class Syncache[K, V](
     expireAfter: Syncache.ExpireAfter,
     logger: lila.log.Logger,
     resultTimeout: FiniteDuration = 5 seconds
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Syncache._
 

@@ -8,7 +8,7 @@ import lila.user.{ User, UserRepo }
 final class BestOpponents(
     userRepo: UserRepo,
     gameRepo: GameRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val limit = 30
 

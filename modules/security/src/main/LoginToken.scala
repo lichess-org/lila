@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 import lila.common.config.Secret
 import lila.user.{ User, UserRepo }
 
-final class LoginToken(secret: Secret, userRepo: UserRepo) {
+final class LoginToken(secret: Secret, userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def generate(user: User): Fu[String] = tokener make user.id
 
@@ -18,7 +18,7 @@ final class LoginToken(secret: Secret, userRepo: UserRepo) {
 
 private object LoginToken {
 
-  def makeTokener(secret: Secret, lifetime: FiniteDuration) = new StringToken[User.ID](
+  def makeTokener(secret: Secret, lifetime: FiniteDuration)(implicit ec: scala.concurrent.ExecutionContext) = new StringToken[User.ID](
     secret = secret,
     getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
     currentValueHashSize = none,

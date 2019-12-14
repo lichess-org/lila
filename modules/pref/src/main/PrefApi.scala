@@ -11,7 +11,7 @@ final class PrefApi(
     coll: Coll,
     asyncCache: lila.memo.AsyncCache.Builder,
     cacheTtl: FiniteDuration
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PrefHandlers._
 

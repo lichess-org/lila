@@ -13,7 +13,7 @@ final class Player(
     gameRepo: GameRepo,
     uciMemo: UciMemo,
     val maxPlies: Int
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   def apply(game: Game): Funit =
     game.aiLevel ?? { level =>

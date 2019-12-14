@@ -13,7 +13,7 @@ import lila.db.paginator.{ Adapter, CachedAdapter }
 import lila.game.Game
 import lila.user.User
 
-final class TournamentRepo(val coll: Coll) {
+final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val enterableSelect             = $doc("status" $lt Status.Finished.id)
   private val createdSelect               = $doc("status" -> Status.Created.id)

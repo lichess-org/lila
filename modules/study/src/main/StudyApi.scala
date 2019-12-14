@@ -26,7 +26,7 @@ final class StudyApi(
     timeline: lila.hub.actors.Timeline,
     serverEvalRequester: ServerEval.Requester,
     lightStudyCache: LightStudyCache
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import sequencer._
 

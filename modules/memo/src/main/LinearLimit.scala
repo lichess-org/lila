@@ -14,7 +14,7 @@ final class LinearLimit[K](
     ttl: FiniteDuration,
     limitedDefault: Fu[Result] = fuccess(TooManyRequests(Json.obj("error" -> "Try again later"))),
     toString: K => String = (k: K) => k.toString
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
   private val storage = new ExpireSetMemo(ttl)
 
   private lazy val logger = lila.log("linearlimit").branch(name)

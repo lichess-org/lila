@@ -15,7 +15,7 @@ import lila.i18n.I18nKeys.{ emails => trans }
 final class Mailgun(
     ws: WSClient,
     config: Mailgun.Config
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   def send(msg: Mailgun.Message): Funit =
     if (config.apiUrl.isEmpty) {

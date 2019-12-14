@@ -8,7 +8,7 @@ trait QueryBuilderExt { self: dsl =>
 
   implicit final class ExtendQueryBuilder[P <: SerializationPack](
       @silent b: collections.GenericQueryBuilder[P]
-  ) {
+  )(implicit ec: scala.concurrent.ExecutionContext) {
 
     // like collect, but with stopOnError defaulting to false
     def gather[A, M[_]](upTo: Int, readPreference: ReadPreference = ReadPreference.primary)(

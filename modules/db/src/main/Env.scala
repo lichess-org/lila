@@ -8,7 +8,7 @@ import reactivemongo.api._
 final class Env(
     appConfig: Configuration,
     lifecycle: ApplicationLifecycle
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 

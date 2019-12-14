@@ -9,7 +9,7 @@ final private[tournament] class PairingSystem(
     pairingRepo: PairingRepo,
     playerRepo: PlayerRepo,
     userRepo: UserRepo
-)(implicit idGenerator: lila.game.IdGenerator) {
+)(implicit ec: scala.concurrent.ExecutionContext, idGenerator: lila.game.IdGenerator) {
 
   import PairingSystem._
 

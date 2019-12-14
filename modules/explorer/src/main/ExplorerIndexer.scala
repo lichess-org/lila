@@ -18,7 +18,7 @@ final private class ExplorerIndexer(
     getBotUserIds: lila.user.GetBotIds,
     ws: play.api.libs.ws.WSClient,
     internalEndpoint: InternalEndpoint
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val separator           = "\n\n\n"
   private val datePattern         = "yyyy-MM-dd"

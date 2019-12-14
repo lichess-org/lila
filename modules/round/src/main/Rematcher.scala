@@ -19,7 +19,7 @@ final private class Rematcher(
     messenger: Messenger,
     onStart: OnStart,
     rematches: Rematches
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Rematcher.Offers
 

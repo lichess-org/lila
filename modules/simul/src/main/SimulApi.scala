@@ -24,7 +24,7 @@ final class SimulApi(
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-)(implicit mat: akka.stream.Materializer) {
+)(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueues(128, 10 minutes)
 
@@ -182,9 +182,7 @@ final class SimulApi(
   }
 
   def idToName(id: Simul.ID): Fu[Option[String]] =
-    repo find id map2 { (simul: Simul) =>
-      simul.fullName
-    }
+    repo find id dmap2 { _.fullName }
 
   private def makeGame(simul: Simul, host: User)(pairing: SimulPairing): Fu[(Game, chess.Color)] =
     for {

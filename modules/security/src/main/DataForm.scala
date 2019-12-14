@@ -14,7 +14,7 @@ final class DataForm(
     authenticator: lila.user.Authenticator,
     emailValidator: EmailAddressValidator,
     lameNameCheck: LameNameCheck
-) extends lila.hub.CaptchedForm {
+)(implicit ec: scala.concurrent.ExecutionContext) extends lila.hub.CaptchedForm {
 
   import DataForm._
 

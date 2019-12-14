@@ -6,7 +6,7 @@ import lila.user.User
 final class MessageBatch(
     threadRepo: ThreadRepo,
     notifyApi: lila.notify.NotifyApi
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(me: User, action: String, ids: List[String]): Funit = ids.nonEmpty ?? {
     action match {

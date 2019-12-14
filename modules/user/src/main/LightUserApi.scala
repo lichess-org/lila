@@ -9,7 +9,7 @@ import lila.db.dsl._
 import lila.memo.Syncache
 import User.{ BSONFields => F }
 
-final class LightUserApi(repo: UserRepo)(implicit system: akka.actor.ActorSystem) {
+final class LightUserApi(repo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import LightUserApi._
 

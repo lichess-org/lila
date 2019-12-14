@@ -14,7 +14,7 @@ final class EvalCacheApi(
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import EvalCacheEntry._
   import BSONHandlers._

@@ -10,7 +10,7 @@ import lila.user.User
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import TournamentShield._
   import BSONHandlers._
@@ -65,7 +65,7 @@ final class TournamentShieldApi(
       _.foldLeft(Map.empty[Category, List[Award]]) {
         case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
       }
-    } map History.apply
+    } dmap History.apply
   )
 }
 

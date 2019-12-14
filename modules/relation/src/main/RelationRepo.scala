@@ -5,7 +5,7 @@ import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 
-final private class RelationRepo(coll: Coll) {
+final private class RelationRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RelationRepo._
 
@@ -80,7 +80,7 @@ final private class RelationRepo(coll: Coll) {
         $doc("_id" -> true).some
       )
       .list[Bdoc](nb)
-      .map {
+      .dmap {
         _.flatMap { _.string("_id") }
       } flatMap { ids =>
       coll.delete.one($inIds(ids)).void

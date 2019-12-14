@@ -16,7 +16,7 @@ final class Env(
     getLightUser: lila.common.LightUser.Getter,
     mode: play.api.Mode,
     ws: WSClient
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val incomingUrl = appConfig.get[Secret]("slack.incoming.url")
 

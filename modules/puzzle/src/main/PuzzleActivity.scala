@@ -15,7 +15,7 @@ import lila.user.User
 final class PuzzleActivity(
     puzzleColl: AsyncColl,
     roundColl: AsyncColl
-)(implicit system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import PuzzleActivity._
   import Round.RoundBSONHandler

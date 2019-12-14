@@ -13,7 +13,7 @@ final private[puzzle] class Daily(
     coll: AsyncColl,
     renderer: lila.hub.actors.Renderer,
     asyncCache: lila.memo.AsyncCache.Builder
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache =
     asyncCache.single[Option[DailyPuzzle]](

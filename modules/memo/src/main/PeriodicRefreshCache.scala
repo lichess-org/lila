@@ -11,14 +11,14 @@ final class PeriodicRefreshCache[A](
     f: () => Fu[A],
     default: A,
     initialDelay: FiniteDuration = 1.second
-)(implicit system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   def get: A = cache
 
   private var cache: A = default
 
   lila.common.ResilientScheduler(every, atMost, initialDelay) {
-    f() map { a =>
+    f() dmap { a =>
       cache = a
     }
   }

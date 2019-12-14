@@ -15,7 +15,7 @@ final private[security] class StringToken[A](
     fullHashSize: Int = 14,
     currentValueHashSize: Option[Int] = Some(6), // won't hash if None
     separator: Char = '|'
-)(implicit serializer: StringToken.Serializable[A]) {
+)(implicit ec: scala.concurrent.ExecutionContext, serializer: StringToken.Serializable[A]) {
 
   def make(payload: A) = hashCurrentValue(payload) map { hashedValue =>
     val signed   = signPayload(serializer write payload, hashedValue)

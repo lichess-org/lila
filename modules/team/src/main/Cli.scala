@@ -6,7 +6,7 @@ final private[team] class Cli(
     userRepo: lila.user.UserRepo,
     teamRepo: TeamRepo,
     api: TeamApi
-) extends lila.common.Cli {
+)(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Cli {
 
   import BSONHandlers._
 

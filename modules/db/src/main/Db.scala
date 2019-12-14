@@ -14,7 +14,7 @@ final class AsyncDb(
     name: String,
     uri: MongoConnection.ParsedURI,
     driver: AsyncDriver
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val dbName = uri.db | "lichess"
 
@@ -29,7 +29,7 @@ final class Db(
     name: String,
     uri: MongoConnection.ParsedURI,
     driver: AsyncDriver
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val logger = lila.db.logger branch name
 

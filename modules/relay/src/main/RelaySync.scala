@@ -9,7 +9,7 @@ import lila.study._
 final private class RelaySync(
     studyApi: StudyApi,
     chapterRepo: ChapterRepo
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private type NbMoves = Int
 
@@ -31,7 +31,7 @@ final private class RelaySync(
                     } inject chapter.root.mainline.size
                   }
               }
-            } map { _.foldLeft(0)(_ + _) } map { SyncResult.Ok(_, games) }
+            } map { _.foldLeft(0)(_ + _) } dmap { SyncResult.Ok(_, games) }
         }
       }
     }

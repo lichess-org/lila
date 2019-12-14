@@ -20,7 +20,7 @@ final class PostApi(
     timeline: lila.hub.actors.Timeline,
     shutup: lila.hub.actors.Shutup,
     detectLanguage: lila.common.DetectLanguage
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
@@ -105,12 +105,14 @@ final class PostApi(
     case _ => fuccess(none)
   }
 
-  def get(postId: String): Fu[Option[(Topic, Post)]] = {
-    for {
-      post  <- optionT(env.postRepo.coll.byId[Post](postId))
-      topic <- optionT(env.topicRepo.coll.byId[Topic](post.topicId))
-    } yield topic -> post
-  } run
+  def get(postId: String): Fu[Option[(Topic, Post)]] =
+    env.postRepo.coll.byId[Post](postId) flatMap {
+      _ ?? { post =>
+        env.topicRepo.coll.byId[Topic](post.topicId) dmap {
+          _ map (_ -> post)
+        }
+      }
+    }
 
   def views(posts: List[Post]): Fu[List[PostView]] =
     for {
@@ -126,7 +128,7 @@ final class PostApi(
   def viewsFromIds(postIds: Seq[Post.ID]): Fu[List[PostView]] =
     env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
 
-  def view(post: Post): Fu[Option[PostView]] =
+  def viewOf(post: Post): Fu[Option[PostView]] =
     views(List(post)) map (_.headOption)
 
   def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
@@ -177,27 +179,31 @@ final class PostApi(
   )
 
   def delete(categSlug: String, postId: String, mod: User): Funit =
-    (for {
-      post <- optionT(env.postRepo.withTroll(true).byCategAndId(categSlug, postId))
-      view <- optionT(view(post))
-      _ <- optionT(for {
-        first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
-        _ <- if (first) env.topicApi.delete(view.categ, view.topic)
-        else
-          env.postRepo.coll.delete.one(view.post) >>
-            (env.topicApi denormalize view.topic) >>
-            (env.categApi denormalize view.categ) >>-
-            env.recent.invalidate >>-
-            (indexer ! RemovePost(post.id))
-        _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
-          mod.id,
-          post.userId,
-          post.author,
-          post.ip,
-          text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
-        )
-      } yield true.some)
-    } yield ()).run.void
+    env.postRepo.withTroll(true).byCategAndId(categSlug, postId) flatMap {
+      _ ?? { post =>
+        viewOf(post) flatMap {
+          _ ?? { view =>
+            (for {
+              first <- env.postRepo.isFirstPost(view.topic.id, view.post.id)
+              _ <- if (first) env.topicApi.delete(view.categ, view.topic)
+              else
+                env.postRepo.coll.delete.one(view.post) >>
+                  (env.topicApi denormalize view.topic) >>
+                  (env.categApi denormalize view.categ) >>-
+                  env.recent.invalidate >>-
+                  (indexer ! RemovePost(post.id))
+              _ <- MasterGranter(_.ModerateForum)(mod) ?? modLog.deletePost(
+                mod.id,
+                post.userId,
+                post.author,
+                post.ip,
+                text = "%s / %s / %s".format(view.categ.name, view.topic.name, post.text)
+              )
+            } yield ())
+          }
+        }
+      }
+    }
 
   def nbByUser(userId: String) = env.postRepo.coll.countSel($doc("userId" -> userId))
 

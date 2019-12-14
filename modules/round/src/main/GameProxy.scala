@@ -10,7 +10,7 @@ import ornicar.scalalib.Zero
 final private class GameProxy(
     id: Game.ID,
     dependencies: GameProxy.Dependencies
-) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import GameProxy._
   import dependencies._

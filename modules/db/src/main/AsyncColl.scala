@@ -2,7 +2,7 @@ package lila.db
 
 import dsl._
 
-final class AsyncColl(resolve: () => Fu[Coll]) {
+final class AsyncColl(resolve: () => Fu[Coll])(implicit ec: scala.concurrent.ExecutionContext) {
 
   def get: Fu[Coll] = resolve()
 
