@@ -21,7 +21,8 @@ final private class LobbyTrouper(
     playbanApi: lila.playban.PlaybanApi,
     poolApi: lila.pool.PoolApi,
     onStart: lila.round.OnStart
-)(implicit ec: scala.concurrent.ExecutionContext) extends Trouper {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends Trouper {
 
   import LobbyTrouper._
 

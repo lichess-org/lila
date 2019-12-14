@@ -19,7 +19,8 @@ final private[api] class Cli(
     coach: lila.coach.Env,
     evalCache: lila.evalCache.Env,
     plan: lila.plan.Env
-)(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Cli {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends lila.common.Cli {
 
   private val logger = lila.log("cli")
 

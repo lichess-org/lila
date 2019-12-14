@@ -2,7 +2,8 @@ package lila.security
 
 import lila.user.{ User, UserRepo }
 
-final private[security] class Cli(userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext) extends lila.common.Cli {
+final private[security] class Cli(userRepo: UserRepo)(implicit ec: scala.concurrent.ExecutionContext)
+    extends lila.common.Cli {
 
   def process = {
 

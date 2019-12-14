@@ -18,16 +18,17 @@ final class LoginToken(secret: Secret, userRepo: UserRepo)(implicit ec: scala.co
 
 private object LoginToken {
 
-  def makeTokener(secret: Secret, lifetime: FiniteDuration)(implicit ec: scala.concurrent.ExecutionContext) = new StringToken[User.ID](
-    secret = secret,
-    getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
-    currentValueHashSize = none,
-    valueChecker = StringToken.ValueChecker.Custom(v =>
-      fuccess {
-        DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
-      }
+  def makeTokener(secret: Secret, lifetime: FiniteDuration)(implicit ec: scala.concurrent.ExecutionContext) =
+    new StringToken[User.ID](
+      secret = secret,
+      getCurrentValue = _ => fuccess(DateStr toStr DateTime.now),
+      currentValueHashSize = none,
+      valueChecker = StringToken.ValueChecker.Custom(v =>
+        fuccess {
+          DateStr.toDate(v) exists DateTime.now.minusSeconds(lifetime.toSeconds.toInt).isBefore
+        }
+      )
     )
-  )
 
   object DateStr {
     def toStr(date: DateTime) = date.getMillis.toString

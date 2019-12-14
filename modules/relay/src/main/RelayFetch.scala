@@ -33,7 +33,7 @@ final private class RelayFetch(
     context.system.scheduler.scheduleOnce(600 millis, self, Tick)
 
   implicit def system = context.system
-  implicit def ec = context.dispatcher
+  implicit def ec     = context.dispatcher
 
   def receive = {
 

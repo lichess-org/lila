@@ -36,7 +36,8 @@ final class RecaptchaGoogle(
     ws: WSClient,
     netDomain: NetDomain,
     config: Recaptcha.Config
-)(implicit ec: scala.concurrent.ExecutionContext) extends Recaptcha {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends Recaptcha {
 
   private case class Response(
       success: Boolean,

@@ -22,7 +22,9 @@ final private[message] class DataForm(
           .verifying(
             "Sorry, this player doesn't accept new messages", { name =>
               Granter(_.MessageAnyone)(me) || {
-                security.canMessage(me.id, User normalize name).await(2 seconds, "pmAccept") // damn you blocking API
+                security
+                  .canMessage(me.id, User normalize name)
+                  .await(2 seconds, "pmAccept") // damn you blocking API
               }
             }
           ),

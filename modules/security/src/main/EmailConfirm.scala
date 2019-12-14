@@ -32,7 +32,8 @@ final class EmailConfirmMailgun(
     mailgun: Mailgun,
     baseUrl: BaseUrl,
     tokenerSecret: Secret
-)(implicit ec: scala.concurrent.ExecutionContext) extends EmailConfirm {
+)(implicit ec: scala.concurrent.ExecutionContext)
+    extends EmailConfirm {
 
   import Mailgun.html._
 
@@ -179,7 +180,9 @@ object EmailConfirm {
       )
     )
 
-    def getStatus(userRepo: UserRepo, username: String)(implicit ec: scala.concurrent.ExecutionContext): Fu[Status] = userRepo withEmails username flatMap {
+    def getStatus(userRepo: UserRepo, username: String)(
+        implicit ec: scala.concurrent.ExecutionContext
+    ): Fu[Status] = userRepo withEmails username flatMap {
       case None => fuccess(NoSuchUser(username))
       case Some(User.WithEmails(user, emails)) =>
         if (!user.enabled) fuccess(Closed(username))

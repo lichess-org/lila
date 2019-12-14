@@ -29,7 +29,7 @@ final class RelayApi(
   }
 
   def byIdWithStudy(id: Relay.Id): Fu[Option[Relay.WithStudy]] = WithRelay(id) { relay =>
-    studyApi.byId(relay.studyId) dmap2 { 
+    studyApi.byId(relay.studyId) dmap2 {
       Relay.WithStudy(relay, _)
     }
   }

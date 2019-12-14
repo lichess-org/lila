@@ -9,7 +9,7 @@ final class IpIntel(
     ws: WSClient,
     asyncCache: lila.memo.AsyncCache.Builder,
     contactEmail: EmailAddress
-    )(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(ip: IpAddress): Fu[Int] = failable(ip) recover {
     case e: Exception =>

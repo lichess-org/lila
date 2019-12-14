@@ -31,7 +31,7 @@ final private[round] class Titivate(
   }
 
   implicit def ec = context.system.dispatcher
-  def scheduler = context.system.scheduler
+  def scheduler   = context.system.scheduler
 
   def scheduleNext = scheduler.scheduleOnce(5 seconds, self, Run)
 

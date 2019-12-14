@@ -32,7 +32,6 @@ PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServ
 // who needs JS routes right?
 routesGenerator := LilaRoutesGenerator
 
-
 // format: off
 libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,

@@ -46,7 +46,7 @@ object Bus {
 
   def ask[A](channel: Channel, timeout: FiniteDuration = 1.second)(makeMsg: Promise[A] => Any)(
       implicit
-ec: scala.concurrent.ExecutionContext,
+      ec: scala.concurrent.ExecutionContext,
       system: ActorSystem
   ): Fu[A] = {
     val promise = Promise[A]

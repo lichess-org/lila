@@ -17,8 +17,7 @@ final private[tournament] class Cached(
 
   val nameCache = new Syncache[Tournament.ID, Option[String]](
     name = "tournament.name",
-    compute = id =>
-      tournamentRepo byId id dmap2 { _.fullName },
+    compute = id => tournamentRepo byId id dmap2 { _.fullName },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
     expireAfter = Syncache.ExpireAfterAccess(1 hour),

@@ -45,8 +45,9 @@ final class EmailAddressValidator(
   }
 
   def uniqueConstraint(forUser: Option[User]) = Constraint[String]("constraint.email_unique") { e =>
-    val email           = EmailAddress(e)
-    val (taken, reused) = (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
+    val email = EmailAddress(e)
+    val (taken, reused) =
+      (isTakenBySomeoneElse(email, forUser) zip wasUsedTwiceRecently(email)).await(2 seconds, "emailUnique")
     if (taken || reused) Invalid(ValidationError("error.email_unique"))
     else Valid
   }
