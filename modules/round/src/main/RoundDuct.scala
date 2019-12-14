@@ -411,15 +411,6 @@ final private[round] class RoundDuct(
         }
       }
 
-    case AbortForMaintenance =>
-      handle { game =>
-        messenger.system(
-          game,
-          (_.untranslated("Game aborted for server maintenance. Sorry for the inconvenience!"))
-        )
-        game.playable ?? finisher.other(game, _.Aborted, None)
-      }
-
     case AbortForce =>
       handle { game =>
         game.playable ?? finisher.other(game, _.Aborted, None)
