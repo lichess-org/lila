@@ -10,7 +10,7 @@ final class PerfStatIndexer(
     storage: PerfStatStorage
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  private val workQueue = new WorkQueue(64)
+  private val workQueue = new WorkQueue(64, "perfStatIndexer")
 
   def userPerf(user: User, perfType: PerfType): Funit = workQueue {
     gameRepo

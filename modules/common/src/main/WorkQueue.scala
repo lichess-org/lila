@@ -15,7 +15,7 @@ import scala.util.chaining._
  * If the buffer is full, the new task is dropped,
  * and `run` returns a failed future.
  */
-final class WorkQueue(buffer: Int)(implicit ec: ExecutionContext, mat: Materializer) {
+final class WorkQueue(buffer: Int, name: String)(implicit ec: ExecutionContext, mat: Materializer) {
 
   type Task[A]                    = () => Fu[A]
   private type TaskWithPromise[A] = (Task[A], Promise[A])
@@ -26,7 +26,7 @@ final class WorkQueue(buffer: Int)(implicit ec: ExecutionContext, mat: Materiali
     val promise = Promise[A]
     queue.offer(task -> promise) flatMap {
       case QueueOfferResult.Enqueued => promise.future
-      case result                    => Future failed new Exception(s"Can't enqueue: $result")
+      case result                    => Future failed new Exception(s"Can't enqueue in $name: $result")
     }
   }
 
@@ -36,14 +36,14 @@ final class WorkQueue(buffer: Int)(implicit ec: ExecutionContext, mat: Materiali
       case (task, promise) => task() tap promise.completeWith
     }
     .recover {
-      case _: Exception => () // keep processing tasks
+      case e: Exception => () // keep processing tasks
     }
     .toMat(Sink.ignore)(Keep.left)
     .run
 }
 
 // Distributes tasks to many sequencers
-final class WorkQueues(buffer: Int, expiration: FiniteDuration)(
+final class WorkQueues(buffer: Int, expiration: FiniteDuration, name: String)(
     implicit ec: ExecutionContext,
     mat: Materializer
 ) {
@@ -53,5 +53,5 @@ final class WorkQueues(buffer: Int, expiration: FiniteDuration)(
 
   private val queues: LoadingCache[String, WorkQueue] = Scaffeine()
     .expireAfterAccess(expiration)
-    .build(_ => new WorkQueue(buffer))
+    .build(key => new WorkQueue(buffer, s"$name:$key"))
 }

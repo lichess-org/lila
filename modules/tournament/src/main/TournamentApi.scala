@@ -43,7 +43,7 @@ final class TournamentApi(
     proxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
 
-  private val workQueue = new WorkQueues(256, 1 minute)
+  private val workQueue = new WorkQueues(256, 1 minute, "tournament")
 
   def createTournament(
       setup: TournamentSetup,

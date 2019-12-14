@@ -26,7 +26,7 @@ final class SimulApi(
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
-  private val workQueue = new WorkQueues(128, 10 minutes)
+  private val workQueue = new WorkQueues(128, 10 minutes, "simulApi")
 
   def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
 

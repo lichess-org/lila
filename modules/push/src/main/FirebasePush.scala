@@ -17,7 +17,7 @@ final private class FirebasePush(
     config: OneSignalPush.Config
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
-  private val workQueue = new WorkQueue(512)
+  private val workQueue = new WorkQueue(512, "firebasePush")
 
   def apply(userId: User.ID)(data: => PushApi.Data): Funit =
     credentialsOpt ?? { creds =>

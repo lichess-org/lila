@@ -18,7 +18,7 @@ final class Analyser(
 
   val maxPlies = 200
 
-  private val workQueue = new WorkQueue(256)
+  private val workQueue = new WorkQueue(256, "fishnetAnalyser")
 
   def apply(game: Game, sender: Work.Sender): Fu[Boolean] =
     (game.metadata.analysed ?? analysisRepo.exists(game.id)) flatMap {
