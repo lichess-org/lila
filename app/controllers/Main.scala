@@ -124,7 +124,7 @@ Disallow: /games/export
     }
   }
 
-  def manifest = Action { req =>
+  def manifest = Action {
     Ok {
       Json.obj(
         "name"             -> env.net.domain.value,
