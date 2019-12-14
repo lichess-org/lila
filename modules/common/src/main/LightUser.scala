@@ -16,6 +16,8 @@ case class LightUser(
 
 object LightUser {
 
+  private type UserID = String
+
   implicit val lightUserWrites = OWrites[LightUser] { u =>
     Json
       .obj(
@@ -26,22 +28,22 @@ object LightUser {
       .add("patron" -> u.isPatron)
   }
 
-  def fallback(userId: String) = LightUser(
+  def fallback(userId: UserID) = LightUser(
     id = userId,
     name = userId,
     title = None,
     isPatron = false
   )
 
-  final class Getter(f: String => Fu[Option[LightUser]]) extends (String => Fu[Option[LightUser]]) {
-    def apply(u: String) = f(u)
+  final class Getter(f: UserID => Fu[Option[LightUser]]) extends (UserID => Fu[Option[LightUser]]) {
+    def apply(u: UserID) = f(u)
   }
 
-  final class GetterSync(f: String => Option[LightUser]) extends (String => Option[LightUser]) {
-    def apply(u: String) = f(u)
+  final class GetterSync(f: UserID => Option[LightUser]) extends (UserID => Option[LightUser]) {
+    def apply(u: UserID) = f(u)
   }
 
-  final class IsBotSync(f: String => Boolean) extends (String => Boolean) {
-    def apply(userId: String) = f(userId)
+  final class IsBotSync(f: UserID => Boolean) extends (UserID => Boolean) {
+    def apply(userId: UserID) = f(userId)
   }
 }
