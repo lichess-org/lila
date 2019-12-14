@@ -12,7 +12,6 @@ object bits {
     views.html.site.message(
       title = "Become a lichess streamer",
       icon = Some(""),
-      back = false,
       moreCss = cssTag("streamer.form").some
     )(
       postForm(cls := "streamer-new", action := routes.Streamer.create)(

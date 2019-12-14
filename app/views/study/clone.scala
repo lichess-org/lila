@@ -11,8 +11,7 @@ object clone {
   def apply(s: lila.study.Study)(implicit ctx: Context) =
     views.html.site.message(
       title = s"Clone ${s.name}",
-      icon = Some("4"),
-      back = false
+      icon = Some("4")
     ) {
       postForm(action := routes.Study.cloneApply(s.id.value))(
         p("This will create a new private study with the same chapters."),

@@ -77,8 +77,7 @@ lichess.insight = LichessInsight(document.getElementById('insight'), ${safeJsonV
   def forbidden(u: User)(implicit ctx: Context) =
     views.html.site.message(
       title = s"${u.username}'s chess insights are protected",
-      back = true,
-      icon = "7".some
+      back = routes.User.show(u.id).url.some
     )(
       p("Sorry, you cannot see ", userLink(u), "'s chess insights."),
       br,
