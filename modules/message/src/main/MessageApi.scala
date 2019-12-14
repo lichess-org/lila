@@ -48,7 +48,7 @@ final class MessageApi(
   def sendPreset(mod: User, user: User, preset: ModPreset): Fu[Thread] =
     makeThread(
       DataForm.ThreadData(
-        user = user,
+        user = user.light,
         subject = preset.subject,
         text = preset.text,
         asMod = true

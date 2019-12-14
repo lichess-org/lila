@@ -5,10 +5,11 @@ import play.api.data.Forms._
 import scala.concurrent.duration._
 
 import lila.security.Granter
-import lila.user.{ User, UserRepo }
+import lila.user.User
+import lila.common.LightUser
 
 final private[message] class DataForm(
-    userRepo: UserRepo,
+    lightUserAsync: LightUser.Getter,
     security: MessageSecurity
 ) {
 
@@ -49,18 +50,19 @@ final private[message] class DataForm(
       )
     )
 
-  private def blockingFetchUser(username: String) = userRepo.named(username).await(1 second, "pmUser")
+  private def blockingFetchUser(username: String) =
+    lightUserAsync(username).await(1 second, "pmUser")
 }
 
 object DataForm {
 
   case class ThreadData(
-      user: User,
+      user: LightUser,
       subject: String,
       text: String,
       asMod: Boolean
   ) {
 
-    def export = (user.username, subject, text, asMod option "1")
+    def export = (user.name, subject, text, asMod option "1")
   }
 }
