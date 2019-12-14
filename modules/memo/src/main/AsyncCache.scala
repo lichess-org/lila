@@ -21,12 +21,15 @@ final class AsyncCacheClearable[K, V](
     logger: lila.log.Logger
 )(implicit ec: ExecutionContext) {
 
-  def get(k: K): Fu[V] = cache.get(k, (k: K) => {
-    f(k).addFailureEffect { err =>
-      logger.warn(s"$k $err")
-      cache invalidate k
-    }
-  })
+  def get(k: K): Fu[V] =
+    cache.get(
+      k,
+      k =>
+        f(k).addFailureEffect { err =>
+          logger.warn(s"$k $err")
+          cache invalidate k
+        }
+    )
 
   def update(k: K, f: V => V): Unit =
     cache.getIfPresent(k) foreach { fu =>
@@ -52,16 +55,17 @@ object AsyncCache {
   final class Builder(implicit ec: ExecutionContext, system: ActorSystem) {
 
     def multi[K, V](
-      name: String,
-      f: K => Fu[V],
-      maxCapacity: Int = 32768,
-      expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds
+        name: String,
+        f: K => Fu[V],
+        maxCapacity: Int = 32768,
+        expireAfter: AsyncCache.type => ExpireAfter,
+        resultTimeout: FiniteDuration = 5 seconds
     ) = {
-      val safeF = (k: K) => f(k).withTimeout(
-        resultTimeout,
-        lila.base.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
-      )
+      val safeF = (k: K) =>
+        f(k).withTimeout(
+          resultTimeout,
+          lila.base.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
+        )
       val cache: AsyncLoadingCache[K, V] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
@@ -71,17 +75,18 @@ object AsyncCache {
     }
 
     def clearable[K, V](
-      name: String,
-      f: K => Fu[V],
-      maxCapacity: Int = 32768,
-      expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds
+        name: String,
+        f: K => Fu[V],
+        maxCapacity: Int = 32768,
+        expireAfter: AsyncCache.type => ExpireAfter,
+        resultTimeout: FiniteDuration = 5 seconds
     ) = {
       val fullName = s"AsyncCache.clearable $name"
-      val safeF = (k: K) => f(k).withTimeout(
-        resultTimeout,
-        lila.base.LilaException(s"$fullName key=$k timed out after $resultTimeout")
-      )
+      val safeF = (k: K) =>
+        f(k).withTimeout(
+          resultTimeout,
+          lila.base.LilaException(s"$fullName key=$k timed out after $resultTimeout")
+        )
       val cache: Cache[K, Fu[V]] = makeExpire(
         Scaffeine().maximumSize(maxCapacity),
         expireAfter
@@ -91,16 +96,17 @@ object AsyncCache {
     }
 
     def single[V](
-      name: String,
-      f: => Fu[V],
-      expireAfter: AsyncCache.type => ExpireAfter,
-      resultTimeout: FiniteDuration = 5 seconds,
-      monitor: Boolean = true
+        name: String,
+        f: => Fu[V],
+        expireAfter: AsyncCache.type => ExpireAfter,
+        resultTimeout: FiniteDuration = 5 seconds,
+        monitor: Boolean = true
     ) = {
-      val safeF = (_: Unit) => f.withTimeout(
-        resultTimeout,
-        lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
-      )
+      val safeF = (_: Unit) =>
+        f.withTimeout(
+          resultTimeout,
+          lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
+        )
       val builder = makeExpire(Scaffeine().maximumSize(1), expireAfter)
       if (monitor) builder.recordStats
       val cache: AsyncLoadingCache[Unit, V] = builder.buildAsyncFuture(safeF)
@@ -109,20 +115,23 @@ object AsyncCache {
     }
   }
 
-  private[memo] def startMonitoring(name: String, cache: CaffeineCache[_, _])(implicit ec: ExecutionContext, system: ActorSystem): Unit =
+  private[memo] def startMonitoring(
+      name: String,
+      cache: CaffeineCache[_, _]
+  )(implicit ec: ExecutionContext, system: ActorSystem): Unit =
     system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
       lila.mon.caffeineStats(cache, name)
     }
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter
-  case class ExpireAfterWrite(duration: FiniteDuration) extends ExpireAfter
+  case class ExpireAfterWrite(duration: FiniteDuration)  extends ExpireAfter
 
   private def makeExpire[K, V](
-    builder: Scaffeine[K, V],
-    expireAfter: AsyncCache.type => ExpireAfter
+      builder: Scaffeine[K, V],
+      expireAfter: AsyncCache.type => ExpireAfter
   ): Scaffeine[K, V] = expireAfter(AsyncCache) match {
     case ExpireAfterAccess(duration) => builder expireAfterAccess duration
-    case ExpireAfterWrite(duration) => builder expireAfterWrite duration
+    case ExpireAfterWrite(duration)  => builder expireAfterWrite duration
   }
 }
