@@ -156,6 +156,7 @@
   <string name="username">Anv implijer</string>
   <string name="usernameOrEmail">Anv implijer pe chomlec\'h postel</string>
   <string name="changeUsername">Cheñch anv implijer</string>
+  <string name="changeUsernameDescription">Cheñchit hoc\'h anv impllijer. Gallout a rit hen ober ur wech hepken ha ne c\'hallit kemm nemet ment al lizherennoù.</string>
   <string name="password">Ger-tremen</string>
   <string name="changePassword">Kemm ar ger-tremen</string>
   <string name="changeEmail">Kemm ar postel</string>
@@ -246,6 +247,7 @@
   <string name="teamRecentMembers">Izili nevez</string>
   <string name="settings">Arventennoù</string>
   <string name="apply">Enrollañ</string>
+  <string name="continueFromHere">Kenderc\'hel adalek amañ</string>
   <string name="toStudy">Studiañ</string>
   <string name="importGame">Enporzhiañ krogad</string>
   <string name="thisIsAChessCaptcha">Ur c\'hCAPTCHA echedoù an hini eo.</string>

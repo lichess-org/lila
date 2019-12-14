@@ -924,7 +924,7 @@
   <string name="lifetimeScore">Животни скор</string>
   <string name="currentMatchScore">Скор тренутног меча</string>
   <string name="agreementAssistance">Слажем се да никада нећу добијати помоћ током својих игара (од стране шаховског рачунара, књиге, базе података или неке друге особе).</string>
-  <string name="agreementNice">Слажем се да ћу увек бити учтив према другим играчима.</string>
+  <string name="agreementNice">Слажем се да ћу увек бити пун поштовања према другим играчима.</string>
   <string name="agreementAccount">Слажем се да нећу правити више налога.</string>
-  <string name="agreementPolicy">Слажем се да ћу поштовати све Lichess полисе.</string>
+  <string name="agreementPolicy">Слажем се да ћу поштовати све Личес полисе.</string>
 </resources>

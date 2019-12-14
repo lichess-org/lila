@@ -124,4 +124,5 @@
   <string name="deleteTheStudyChatHistory">Vuoi davvero eliminare la cronologia della chat? Sarà persa per sempre!</string>
   <string name="deleteStudy">Elimina studio</string>
   <string name="deleteTheEntireStudy">Vuoi davvero eliminare tutto lo studio? Sarà perso per sempre!</string>
+  <string name="whereDoYouWantToStudyThat">Dove vuoi creare lo studio?</string>
 </resources>

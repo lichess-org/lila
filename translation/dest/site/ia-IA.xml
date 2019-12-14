@@ -359,6 +359,10 @@
   <string name="blackCheckmatesInOneMove">Le nigro pote matar in un movimento</string>
   <string name="retry">Tentar de novo</string>
   <string name="reconnecting">Reconnectente</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s amico in linea</item>
+    <item quantity="other">%s amicos in linea</item>
+  </plurals>
   <string name="noFriendsOnline">Nulle amicos in linea</string>
   <string name="findFriends">Cercar amicos</string>
   <string name="favoriteOpponents">Adversarios favorite</string>
@@ -589,6 +593,9 @@
   <string name="xCommentedY">%1$s ha commentate %2$s</string>
   <string name="victory">Victoria</string>
   <string name="defeat">Defaite</string>
+  <string name="victoryVsYInZ">%1$s contra %2$s in %3$s</string>
+  <string name="defeatVsYInZ">%1$s contra %2$s in %3$s</string>
+  <string name="drawVsYInZ">%1$s contra %2$s in %3$s</string>
   <string name="timeline">Chronologia</string>
   <string name="starting">Initio:</string>
   <string name="allInformationIsPublicAndOptional">Tote information es public e optional.</string>
@@ -616,6 +623,8 @@
   <string name="playOfflineComputer">Computator</string>
   <string name="opponent">Adversario</string>
   <string name="learnMenu">Apprender</string>
+  <string name="studyMenu">Studio</string>
+  <string name="practice">Practica</string>
   <string name="community">Communitate</string>
   <string name="tools">Instrumentos</string>
   <string name="increment">Incremento</string>
