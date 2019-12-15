@@ -100,16 +100,11 @@ object mon {
         def withRange(id: String)  = histogram("lobby.pool.wave.withRange").withTag("pool", id)
       }
       object thieve {
-        def timeout(id: String)    = counter("lobby.pool.thieve.timeout").withTag("pool", id)
-        def candidates(id: String) = histogram("lobby.pool.thieve.candidates").withTag("pool", id)
-        def stolen(id: String)     = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
-      }
-      object join {
-        def count(id: String) = counter("lobby.pool.join.count").withTag("pool", id)
+        def timeout(id: String) = counter("lobby.pool.thieve.timeout").withTag("pool", id)
+        def stolen(id: String)  = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
       }
       object leave {
         def count(id: String) = counter("lobby.pool.leave.count").withTag("pool", id)
-        def wait(id: String)  = histogram("lobby.pool.leave.wait").withTag("pool", id)
       }
       object matchMaking {
         def duration(id: String) = timer("lobby.pool.matchMaking.duration").withTag("pool", id)
@@ -171,7 +166,7 @@ object mon {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban {
       val count = counter("playban.ban.count").withoutTags
-      val mins  = counter("playban.ban.mins").withoutTags
+      val mins  = timer("playban.ban.mins").withoutTags
     }
   }
   object explorer {
@@ -343,14 +338,8 @@ object mon {
       )
   }
   object plan {
-    object amount {
-      val paypal = counter("plan.amount").withTag("service", "paypal")
-      val stripe = counter("plan.amount").withTag("service", "stripe")
-    }
-    object count {
-      val paypal = counter("plan.count").withTag("service", "paypal")
-      val stripe = counter("plan.count").withTag("service", "stripe")
-    }
+    val paypal  = histogram("plan.amount").withTag("service", "paypal")
+    val stripe  = histogram("plan.amount").withTag("service", "stripe")
     val goal    = gauge("plan.goal").withoutTags
     val current = gauge("plan.current").withoutTags
     val percent = gauge("plan.percent").withoutTags

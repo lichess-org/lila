@@ -355,13 +355,8 @@ final class PlanApi(
         lila.mon.plan.goal.update(m.goal.value)
         lila.mon.plan.current.update(m.current.value)
         lila.mon.plan.percent.update(m.percent)
-        if (charge.isPayPal) {
-          lila.mon.plan.amount.paypal.increment(charge.cents.value)
-          lila.mon.plan.count.paypal.increment()
-        } else if (charge.isStripe) {
-          lila.mon.plan.amount.stripe.increment(charge.cents.value)
-          lila.mon.plan.count.stripe.increment()
-        }
+        if (charge.isPayPal) lila.mon.plan.paypal.record(charge.cents.value)
+        else if (charge.isStripe) lila.mon.plan.stripe.record(charge.cents.value)
       }
     }
 

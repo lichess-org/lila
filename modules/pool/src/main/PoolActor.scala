@@ -39,7 +39,6 @@ final private class PoolActor(
         case None =>
           members = members :+ PoolMember(joiner, config, rageSit)
           if (members.size >= config.wave.players.value) self ! FullWave
-          monitor.join.count(monId).increment()
         case Some(member) if member.ratingRange != joiner.ratingRange =>
           members = members.map {
             case m if m == member => m withRange joiner.ratingRange
@@ -52,7 +51,6 @@ final private class PoolActor(
       members.find(_.userId == userId) foreach { member =>
         members = members.filter(member !=)
         monitor.leave.count(monId).increment()
-        monitor.leave.wait(monId).record(member.waitMillis)
       }
 
     case ScheduledWave =>

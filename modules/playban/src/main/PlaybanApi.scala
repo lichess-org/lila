@@ -193,8 +193,7 @@ final class PlaybanApi(
 
   private val rageSitCache = asyncCache.multi[User.ID, RageSit](
     name = "playban.ragesit",
-    f = userId =>
-      coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty),
+    f = userId => coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty),
     expireAfter = _.ExpireAfterWrite(30 minutes)
   )
 
@@ -244,7 +243,7 @@ final class PlaybanApi(
     record.bannable(accCreatedAt) ?? { ban =>
       (!record.banInEffect) ?? {
         lila.mon.playban.ban.count.increment()
-        lila.mon.playban.ban.mins.increment(ban.mins)
+        lila.mon.playban.ban.mins.record(ban.mins)
         Bus.publish(lila.hub.actorApi.playban.Playban(record.userId, ban.mins), "playban")
         coll.update
           .one(
