@@ -13,7 +13,7 @@ final private class StartedOrganizer(
     extends Actor {
 
   override def preStart: Unit = {
-    context setReceiveTimeout 15.seconds
+    context setReceiveTimeout 20.seconds
     scheduleNext
   }
 
@@ -35,18 +35,12 @@ final private class StartedOrganizer(
       tournamentRepo.startedCursor
         .documentSource()
         .mapAsync(1) { tour =>
-          // pairingLogger.info(tour.toString)
-          if (tour.secondsToFinish <= 0) api finish tour inject 0
-          else {
-            def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour)
-            if (!tour.isScheduled && tour.nbPlayers < 40)
-              playerRepo nbActiveUserIds tour.id flatMap { nb =>
-                if (nb < 2) api finish tour inject 0
-                else pairIfStillTime
-              } else pairIfStillTime
+          processTour(tour) recover {
+            case e: Exception =>
+              logger.error(s"StartedOrganizer $tour", e)
+              0
           }
         }
-        .log(getClass.getName)
         .toMat(Sink.fold(0 -> 0) {
           case ((tours, users), tourUsers) => (tours + 1, users + tourUsers)
         })(Keep.right)
@@ -59,6 +53,17 @@ final private class StartedOrganizer(
         .monSuccess(_.tournament.startedOrganizer.tick)
         .addEffectAnyway(scheduleNext)
   }
+
+  private def processTour(tour: Tournament): Fu[Int] =
+    if (tour.secondsToFinish <= 0) api finish tour inject 0
+    else {
+      def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour)
+      if (!tour.isScheduled && tour.nbPlayers < 40)
+        playerRepo nbActiveUserIds tour.id flatMap { nb =>
+          if (nb < 2) api finish tour inject 0
+          else pairIfStillTime
+        } else pairIfStillTime
+    }
 
   // returns number of users actively awaiting a pairing
   private def startPairing(tour: Tournament): Fu[Int] =

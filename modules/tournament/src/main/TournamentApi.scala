@@ -89,8 +89,8 @@ final class TournamentApi(
       tournamentRepo.setTeamBattle(tour.id, TeamBattle(teamIds, data.nbLeaders))
     }
 
-  private[tournament] def makePairings(oldTour: Tournament, users: WaitingUsers): Funit =
-    Sequencing(oldTour.id)(tournamentRepo.startedById) { tour =>
+  private[tournament] def makePairings(forTour: Tournament, users: WaitingUsers): Funit =
+    Sequencing(forTour.id)(tournamentRepo.startedById) { tour =>
       cached
         .ranking(tour)
         .flatMap { ranking =>
@@ -105,7 +105,7 @@ final class TournamentApi(
                   }
                 }.sequenceFu >>
                   featureOneOf(tour, pairings, ranking) >>-
-                  lila.mon.tournament.pairing.count.increment(pairings.size)
+                  lila.mon.tournament.pairing.batchSize.record(pairings.size)
               }
           }
         }

@@ -131,9 +131,6 @@ final class PairingRepo(coll: Coll)(implicit ec: scala.concurrent.ExecutionConte
 
   def removePlaying(tourId: Tournament.ID) = coll.delete.one(selectTour(tourId) ++ selectPlaying).void
 
-  def findPlaying(tourId: Tournament.ID): Fu[Pairings] =
-    coll.ext.find(selectTour(tourId) ++ selectPlaying).list[Pairing]()
-
   def findPlaying(tourId: Tournament.ID, userId: User.ID): Fu[Option[Pairing]] =
     coll.ext.find(selectTourUser(tourId, userId) ++ selectPlaying).one[Pairing]
 

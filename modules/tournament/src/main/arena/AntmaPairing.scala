@@ -1,7 +1,7 @@
 package lila.tournament
 package arena
 
-import lila.common.WMMatching
+import lila.common.{ Chronometer, WMMatching }
 import PairingSystem.Data
 
 private object AntmaPairing {
@@ -24,14 +24,16 @@ private object AntmaPairing {
             Math.abs(a.player.rating - b.player.rating)
         }
 
-    WMMatching(players.toArray, pairScore).fold(
-      err => {
-        logger.error("WMMatching", err)
-        Nil
-      },
-      _ map {
-        case (a, b) => Pairing.prep(tour, a.player, b.player)
-      }
-    )
+    Chronometer.syncMon(_.tournament.pairing.wmmatching) {
+      WMMatching(players.toArray, pairScore).fold(
+        err => {
+          logger.error("WMMatching", err)
+          Nil
+        },
+        _ map {
+          case (a, b) => Pairing.prep(tour, a.player, b.player)
+        }
+      )
+    }
   }
 }
