@@ -27,6 +27,7 @@ else
   echo "Unknown deploy target $mode"
   exit 1
 fi
+stage="target/universal/stage"
 
 lilalog "Deploy to $mode server $REMOTE:$REMOTE_DIR"
 
@@ -47,7 +48,7 @@ if [ $mode = "main" ]; then
   $CLI deploy pre
 fi
 
-rm -rf target/universal
+rm -rf $stage
 ./lila stage
 if [ $? != 0 ]; then
   lilalog "Deploy canceled"
@@ -82,7 +83,6 @@ RSYNC_OPTIONS=" \
   --exclude node_modules"
 
 lilalog "Rsync scripts, binaries and assets"
-stage="target/universal/stage"
 include="bin $stage/bin $stage/lib public"
 rsync_command="rsync $RSYNC_OPTIONS $include $REMOTE:$REMOTE_DIR"
 echo "$rsync_command"
