@@ -177,7 +177,7 @@ object Condition {
     def canEnter(user: User, getUserTeamIds: User => Fu[List[TeamID]])(
         tour: Tournament
     )(implicit ec: scala.concurrent.ExecutionContext): Fu[Boolean] =
-      apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted)
+      apply(tour.conditions, user, getUserTeamIds).dmap(_.accepted || true)
   }
 
   object BSONHandlers {
