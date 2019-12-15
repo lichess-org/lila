@@ -15,6 +15,13 @@ case class Blocked(u2: String) {
   def userId = u2
 }
 
+case class Related(
+    user: lila.user.User,
+    nbGames: Option[Int],
+    followable: Boolean,
+    relation: Option[Relation]
+)
+
 private[relation] case class FriendEntering(user: LightUser, isPlaying: Boolean, isStudying: Boolean)
 
 object BSONHandlers {
