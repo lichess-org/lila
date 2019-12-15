@@ -33,9 +33,10 @@ final class WorkQueue(buffer: Int, name: String)(implicit ec: ExecutionContext, 
   private val queue = Source
     .queue[TaskWithPromise[_]](buffer, OverflowStrategy.dropNew)
     .mapAsync(1) {
-      case (task, promise) => task() tap promise.completeWith recover {
-        case e: Exception => lila.log(s"WorkQueue:$name").warn("task failed", e)
-      }
+      case (task, promise) =>
+        task() tap promise.completeWith recover {
+          case e: Exception => lila.log(s"WorkQueue:$name").warn("task failed", e)
+        }
     }
     .toMat(Sink.ignore)(Keep.left)
     .run
