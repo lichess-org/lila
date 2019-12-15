@@ -13,7 +13,9 @@ import lila.memo.ExpireCallbackMemo
  * by remembering the last evalGet of each socket member,
  * and listening to new evals stored.
  */
-final private class EvalCacheUpgrade {
+final private class EvalCacheUpgrade(scheduler: akka.actor.Scheduler)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
   import EvalCacheUpgrade._
 
   private val members       = AnyRefMap.empty[SriString, WatchingMember]
@@ -43,9 +45,6 @@ final private class EvalCacheUpgrade {
           wm.push(json + ("path" -> JsString(wm.path)))
         }
         upgradeMon.count.increment(wms.size)
-        upgradeMon.members.increment(members.size)
-        upgradeMon.evals.increment(evals.size)
-        upgradeMon.expirable.increment(expirableSris.count)
       }
     }
   }
@@ -63,6 +62,11 @@ final private class EvalCacheUpgrade {
       else evals += (setupId -> newSris)
     }
 
+  scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
+    upgradeMon.members.update(members.size)
+    upgradeMon.evals.update(evals.size)
+    upgradeMon.expirable.update(expirableSris.count)
+  }
 }
 
 private object EvalCacheUpgrade {

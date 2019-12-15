@@ -63,12 +63,12 @@ package shutup {
   case class RecordPrivateChat(chatId: String, userId: String, text: String)
   case class RecordPublicChat(userId: String, text: String, source: PublicSource)
 
-  sealed trait PublicSource
+  sealed abstract class PublicSource(val parentName: String)
   object PublicSource {
-    case class Tournament(id: String)  extends PublicSource
-    case class Simul(id: String)       extends PublicSource
-    case class Study(id: String)       extends PublicSource
-    case class Watcher(gameId: String) extends PublicSource
+    case class Tournament(id: String)  extends PublicSource("tournament")
+    case class Simul(id: String)       extends PublicSource("simul")
+    case class Study(id: String)       extends PublicSource("study")
+    case class Watcher(gameId: String) extends PublicSource("watcher")
   }
 }
 

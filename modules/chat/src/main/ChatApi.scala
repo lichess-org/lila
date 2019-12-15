@@ -85,6 +85,8 @@ final class ChatApi(
               }
             }
             publish(chatId, actorApi.ChatLine(chatId, line))
+            val parentName = publicSource.fold("player")(_.parentName)
+            lila.mon.chat.message(parentName, line.troll).increment()
           }
         }
       }
@@ -201,8 +203,10 @@ final class ChatApi(
 
     def write(chatId: Chat.Id, color: Color, text: String): Funit =
       makeLine(chatId, color, text) ?? { line =>
-        pushLine(chatId, line) >>-
+        pushLine(chatId, line) >>- {
           publish(chatId, actorApi.ChatLine(chatId, line))
+          lila.mon.chat.message("anonPlayer", false).increment()
+        }
       }
 
     private def makeLine(chatId: Chat.Id, color: Color, t1: String): Option[Line] =
@@ -233,7 +237,7 @@ final class ChatApi(
         ),
         upsert = true
       )
-      .void >>- lila.mon.chat.message(line.troll).increment()
+      .void
 
   private object Writer {
 

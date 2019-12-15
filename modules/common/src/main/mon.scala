@@ -395,8 +395,14 @@ object mon {
     val idCollision = counter("game.idCollision").withoutTags
   }
   object chat {
-    def message(troll: Boolean) = counter("chat.message").withTag("troll", troll)
-    def fetch(parent: String)   = timer("chat.fetch").withTag("parent", parent)
+    def message(parent: String, troll: Boolean) =
+      counter("chat.message").withTags(
+        Map(
+          "parent" -> parent,
+          "troll"  -> troll
+        )
+      )
+    def fetch(parent: String) = timer("chat.fetch").withTag("parent", parent)
   }
   object push {
     object register {
