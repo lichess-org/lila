@@ -31,25 +31,31 @@ final private[relation] class RelationActor(
   def receive = {
 
     case ComputeMovement =>
-      val curIds                      = online.userIds()
-      val leaveUsers: List[LightUser] = (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
-      val enterUsers: List[LightUser] = (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
+      lila.common.Chronometer.syncMon(_.relation.actor.computeMovementSync) {
+        val curIds = online.userIds()
+        val leaveUsers: List[LightUser] =
+          (previousOnlineIds diff curIds).view.flatMap { lightUser(_) }.to(List)
+        val enterUsers: List[LightUser] =
+          (curIds diff previousOnlineIds).view.flatMap { lightUser(_) }.to(List)
 
-      val friendsEntering = enterUsers map { u =>
-        FriendEntering(u, online.playing get u.id, online isStudying u.id)
+        val friendsEntering = enterUsers map { u =>
+          FriendEntering(u, online.playing get u.id, online isStudying u.id)
+        }
+
+        previousOnlineIds = curIds
+
+        notifyFollowersFriendEnters(friendsEntering, curIds)
+          .>>(notifyFollowersFriendLeaves(leaveUsers, curIds))
+          .mon(_.relation.actor.computeMovement)
       }
-
-      notifyFollowersFriendEnters(friendsEntering, curIds)
-      notifyFollowersFriendLeaves(leaveUsers, curIds)
-      previousOnlineIds = curIds
 
     // triggers following reloading for this user id
     case ReloadOnlineFriends(userId) =>
-      online friendsOf userId foreach { res =>
+      online friendsOf userId map { res =>
         // the mobile app requests this on every WS connection
         // we can skip it if empty
         if (!res.isEmpty) Bus.publish(SendTo(userId, JsonView writeOnlineFriends res), "socketUsers")
-      }
+      } mon (_.relation.actor.reloadFriends)
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
       val usersPlaying = game.userIds
@@ -116,32 +122,47 @@ final private[relation] class RelationActor(
   private def notifyFollowersFriendEnters(
       friendsEntering: List[FriendEntering],
       onlineUserIds: Set[User.ID]
-  ) =
-    friendsEntering foreach { entering =>
-      api fetchFollowersFromSecondary entering.user.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids, JsonView.writeFriendEntering(entering)), "socketUsers")
+  ): Funit =
+    friendsEntering
+      .map { entering =>
+        api fetchFollowersFromSecondary entering.user.id map onlineUserIds.intersect map { ids =>
+          if (ids.nonEmpty) Bus.publish(SendTos(ids, JsonView.writeFriendEntering(entering)), "socketUsers")
+        }
       }
-    }
+      .sequenceFu
+      .void
 
   private def notifyFollowersFriendLeaves(
       friendsLeaving: List[LightUser],
       onlineUserIds: Set[User.ID]
-  ) =
-    friendsLeaving foreach { leaving =>
-      api fetchFollowersFromSecondary leaving.id map onlineUserIds.intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids, "following_leaves", leaving.titleName), "socketUsers")
+  ): Funit =
+    friendsLeaving
+      .map { leaving =>
+        api fetchFollowersFromSecondary leaving.id map onlineUserIds.intersect map { ids =>
+          if (ids.nonEmpty) Bus.publish(SendTos(ids, "following_leaves", leaving.titleName), "socketUsers")
+        }
       }
-    }
+      .sequenceFu
+      .void
 
   private def notifyFollowersGameStateChanged(userIds: Iterable[ID], message: String) =
-    userIds foreach { userId =>
-      api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-        if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
+    userIds
+      .map { userId =>
+        api.fetchFollowersFromSecondary(userId) map online.userIds().intersect map { ids =>
+          if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
+        }
       }
-    }
+      .sequenceFu
+      .mon(_.relation.actor.gameStateChanged)
 
   private def notifyFollowersFriendInStudyStateChanged(userId: ID, message: String) =
-    api.fetchFollowersFromSecondary(userId) map online.userIds().intersect foreach { ids =>
-      if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
-    }
+    api
+      .fetchFollowersFromSecondary(userId)
+      .map {
+        online.userIds().intersect
+      }
+      .map { ids =>
+        if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
+      }
+      .mon(_.relation.actor.studyStateChanged)
 }

@@ -166,7 +166,7 @@ object mon {
     def outcome(out: String) = counter("playban.outcome").withTag("outcome", out)
     object ban {
       val count = counter("playban.ban.count").withoutTags
-      val mins  = timer("playban.ban.mins").withoutTags
+      val mins  = histogram("playban.ban.mins").withoutTags
     }
   }
   object explorer {
@@ -306,6 +306,13 @@ object mon {
     val unfollow  = c.withTag("type", "unfollow")
     val block     = c.withTag("type", "block")
     val unblock   = c.withTag("type", "unblock")
+    object actor {
+      val computeMovement     = timer("relation.actor.computeMovement.time").withoutTags
+      val computeMovementSync = timer("relation.actor.computeMovementSync.time").withoutTags
+      val reloadFriends       = timer("relation.actor.reloadFriends.time").withoutTags
+      val gameStateChanged    = timer("relation.actor.gameStateChanged.time").withoutTags
+      val studyStateChanged   = timer("relation.actor.studyStateChanged.time").withoutTags
+    }
   }
   object coach {
     object pageView {

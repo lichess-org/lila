@@ -12,7 +12,6 @@ import lila.hub.actors
 @Module
 private class RelationConfig(
     @ConfigName("collection.relation") val collection: CollName,
-    @ConfigName("actor.notify_freq") val actorNotifyFreq: FiniteDuration,
     @ConfigName("actor.name") val actorName: String,
     @ConfigName("limit.follow") val maxFollow: Max,
     @ConfigName("limit.block") val maxBlock: Max
@@ -49,7 +48,7 @@ final class Env(
 
   private val actor = system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 
-  system.scheduler.scheduleWithFixedDelay(15 seconds, config.actorNotifyFreq) { () =>
+  system.scheduler.scheduleWithFixedDelay(15 seconds, 2 seconds) { () =>
     actor ! actorApi.ComputeMovement
   }
 }
