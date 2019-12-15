@@ -44,20 +44,21 @@ final private[tournament] class PairingSystem(
       case x                  => fuccess(x)
     }
 
-  private val maxGroupSize = 44
+  private val maxGroupSize = 100
 
   private def makePreps(data: Data, users: List[String]): Fu[List[Pairing.Prep]] = {
     import data._
     if (users.size < 2) fuccess(Nil)
     else
       playerRepo.rankedByTourAndUserIds(tour.id, users, ranking) map { idles =>
+        val nbIdles = idles.size
         if (data.tour.isRecentlyStarted && !data.tour.isTeamBattle) proximityPairings(tour, idles)
-        else if (idles.size > maxGroupSize) {
+        else if (nbIdles > maxGroupSize) {
           // make sure groupSize is even with / 4 * 2
-          val groupSize = (idles.size / 4 * 2) atMost maxGroupSize
-          smartPairings(data, idles take groupSize) :::
-            smartPairings(data, idles drop groupSize take groupSize)
-        } else if (idles.size > 1) smartPairings(data, idles)
+          val groupSize = (nbIdles / 4 * 2) atMost maxGroupSize
+          bestPairings(data, idles take groupSize) :::
+            bestPairings(data, idles drop groupSize take groupSize)
+        } else if (nbIdles > 1) bestPairings(data, idles)
         else Nil
       }
   }.monSuccess(_.tournament.pairing.prep)
@@ -78,7 +79,7 @@ final private[tournament] class PairingSystem(
       case List(p1, p2) => Pairing.prep(tour, p1.player, p2.player)
     } toList
 
-  private def smartPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
+  private def bestPairings(data: Data, players: RankedPlayers): List[Pairing.Prep] = players.size match {
     case x if x < 2                              => Nil
     case x if x <= 10 && !data.tour.isTeamBattle => OrnicarPairing(data, players)
     case _                                       => AntmaPairing(data, players)
