@@ -84,8 +84,9 @@ object GameFilterMenu {
 
   final class PaginatorBuilder(
       userGameSearch: lila.gameSearch.UserGameSearch,
-      pag: lila.game.PaginatorBuilder,
+      pagBuilder: lila.game.PaginatorBuilder,
       gameRepo: lila.game.GameRepo,
+      gameProxyRepo: lila.round.GameProxyRepo,
       bookmarkApi: lila.bookmark.BookmarkApi
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -97,29 +98,36 @@ object GameFilterMenu {
         page: Int
     )(implicit req: Request[_]): Fu[Paginator[Game]] = {
       val nb               = cachedNbOf(user, nbs, filter)
-      def std(query: Bdoc) = pag.recentlyCreated(query, nb)(page)
+      def std(query: Bdoc) = pagBuilder.recentlyCreated(query, nb)(page)
       filter match {
         case Bookmark => bookmarkApi.gamePaginatorByUser(user, page)
         case Imported =>
-          pag.apply(
+          pagBuilder(
             selector = Query imported user.id,
             sort = $sort desc "pgni.ca",
             nb = nb
           )(page)
-        case All   => std(Query started user.id)
+        case All =>
+          std(Query started user.id) flatMap {
+            _.mapFutureResults(gameProxyRepo.updateIfPresent)
+          }
         case Me    => std(Query.opponents(user, me | user))
         case Rated => std(Query rated user.id)
         case Win   => std(Query win user.id)
         case Loss  => std(Query loss user.id)
         case Draw  => std(Query draw user.id)
         case Playing =>
-          pag(
+          pagBuilder(
             selector = Query nowPlaying user.id,
             sort = $empty,
             nb = nb
-          )(page) addEffect { p =>
-            p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids
-          }
+          )(page)
+            .flatMap {
+              _.mapFutureResults(gameProxyRepo.updateIfPresent)
+            }
+            .addEffect { p =>
+              p.currentPageResults.filter(_.finishedOrAborted) foreach gameRepo.unsetPlayingUids
+            }
         case Search => userGameSearch(user, page)
       }
     }
