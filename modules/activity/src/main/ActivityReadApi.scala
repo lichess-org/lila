@@ -1,6 +1,7 @@
 package lila.activity
 
 import org.joda.time.{ DateTime, Interval }
+import reactivemongo.api.ReadPreference
 
 import lila.db.dsl._
 import lila.game.LightPov
@@ -29,10 +30,10 @@ final class ActivityReadApi(
       allActivities <- coll.ext
         .find(regexId(u.id))
         .sort($sort desc "_id")
-        .gather[Activity, Vector](nb)
+        .vector[Activity](nb, ReadPreference.secondaryPreferred)
       activities = allActivities.filterNot(_.isEmpty)
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
-        practiceApi.structure.get map some
+        practiceApi.structure.get dmap some
       }
       views <- activities.map { one(practiceStructure) _ }.sequenceFu
     } yield addSignup(u.createdAt, views)
@@ -75,12 +76,12 @@ final class ActivityReadApi(
         .map(_ filter (_.nonEmpty))
       studies <- a.studies
         .?? { studies =>
-          studyApi publicIdNames studies.value map some
+          studyApi publicIdNames studies.value dmap some
         }
         .map(_ filter (_.nonEmpty))
       tours <- a.games.exists(_.hasNonCorres) ?? {
         val dateRange = a.date -> a.date.plusDays(1)
-        tourLeaderApi.timeRange(a.id.userId, dateRange) map { entries =>
+        tourLeaderApi.timeRange(a.id.userId, dateRange) dmap { entries =>
           entries.nonEmpty option ActivityView.Tours(
             nb = entries.size,
             best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
