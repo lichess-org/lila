@@ -121,10 +121,9 @@ final class RemoteSocket(
   }
 
   lifecycle.addStopHook { () =>
-    logger.info("Stopping the Redis pool...")
     Future {
       redisClient.shutdown()
-      logger.info("Stopped the Redis pool.")
+      logger.info("Stopped the socket redis pool.")
     }
   }
 }

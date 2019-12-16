@@ -38,10 +38,9 @@ final class FishnetRedis(
   })
 
   lifecycle.addStopHook { () =>
-    logger.info("Stopping the Redis pool...")
     Future {
       client.shutdown()
-      logger.info("Stopped the Redis pool.")
+      logger.info("Stopped the fishnet redis pool.")
     }
   }
 
