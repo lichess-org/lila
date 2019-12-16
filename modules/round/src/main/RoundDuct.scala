@@ -98,6 +98,19 @@ final private[round] class RoundDuct(
 
   val process: Duct.ReceiveAsync = {
 
+    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
+      fuccess {
+        whitePlayer.userId = game.player(White).userId
+        blackPlayer.userId = game.player(Black).userId
+        mightBeSimul = game.isSimul
+        chatIds = chatIds update game
+        gameSpeed = game.speed.some
+        whitePlayer.goneWeight = whiteGoneWeight
+        blackPlayer.goneWeight = blackGoneWeight
+        buscriptions.chat()
+        if (game.playableByAi) player.requestFishnet(game, this)
+      }
+
     // socket stuff
 
     case ByePlayer(playerId) =>
@@ -145,18 +158,6 @@ final private[round] class RoundDuct(
           (whitePlayer.userId.has(userId) && whitePlayer.isOnline) ||
           (blackPlayer.userId.has(userId) && blackPlayer.isOnline)
         }
-      }
-
-    case SetGameInfo(game, (whiteGoneWeight, blackGoneWeight)) =>
-      fuccess {
-        whitePlayer.userId = game.player(White).userId
-        blackPlayer.userId = game.player(Black).userId
-        mightBeSimul = game.isSimul
-        chatIds = chatIds update game
-        gameSpeed = game.speed.some
-        whitePlayer.goneWeight = whiteGoneWeight
-        blackPlayer.goneWeight = blackGoneWeight
-        buscriptions.chat()
       }
 
     // chat
