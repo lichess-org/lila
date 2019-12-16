@@ -1,11 +1,11 @@
 package lila.round
 
-import akka.actor.{ ActorSystem, Cancellable }
+import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
 
 import lila.hub.actorApi.Deploy
 
-final private class DeployPersistence(system: ActorSystem)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class DeployPersistence(scheduler: Scheduler)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private var ongoing: Option[Cancellable] = None
 
@@ -14,7 +14,7 @@ final private class DeployPersistence(system: ActorSystem)(implicit ec: scala.co
   def enable(): Unit = {
     cancel()
     logger.warn("Enabling round persistence")
-    ongoing = system.scheduler
+    ongoing = scheduler
       .scheduleOnce(7.minutes) {
         logger.warn("Expiring round persistence")
         ongoing = none
@@ -22,11 +22,12 @@ final private class DeployPersistence(system: ActorSystem)(implicit ec: scala.co
       .some
   }
 
-  def cancel(): Unit = {
-    logger.warn("Cancelling round persistence")
-    ongoing.foreach(_.cancel())
-    ongoing = none
-  }
+  def cancel(): Unit =
+    ongoing foreach { o =>
+      logger.warn("Cancelling round persistence")
+      o.cancel()
+      ongoing = none
+    }
 
   lila.common.Bus.subscribeFun("deploy") {
     case _: Deploy => enable()

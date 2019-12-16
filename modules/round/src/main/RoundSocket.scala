@@ -52,10 +52,12 @@ final class RoundSocket(
         socketSend = send
       )(ec, new GameProxy(id, proxyDependencies))
       terminationDelay schedule Game.Id(id)
-      duct.getGame foreach {
+      duct.getGame dforeach {
         _ foreach { game =>
           scheduleExpiration(game)
-          goneWeightsFor(game) dmap { RoundDuct.SetGameInfo(game, _) } foreach duct.!
+          goneWeightsFor(game) dforeach { w =>
+            duct ! RoundDuct.SetGameInfo(game, w)
+          }
         }
       }
       duct

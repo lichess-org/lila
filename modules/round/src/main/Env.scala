@@ -53,14 +53,13 @@ final class Env(
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
     ratingFactors: () => lila.rating.RatingFactors
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: akka.actor.Scheduler) {
 
   implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
   implicit private val animationLoader = durationLoader(AnimationDuration.apply)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
 
-  private lazy val deployPersistence: DeployPersistence = wire[DeployPersistence]
-  private val scheduler                                 = system.scheduler
+  private val deployPersistence: DeployPersistence = wire[DeployPersistence]
 
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
