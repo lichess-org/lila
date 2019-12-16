@@ -44,7 +44,7 @@ object TeamBattle {
 
     val fields = mapping(
       "teams"     -> nonEmptyText,
-      "nbLeaders" -> number(min = 1, max = 10)
+      "nbLeaders" -> number(min = 1, max = 20)
     )(Setup.apply)(Setup.unapply)
       .verifying("We need at least 2 teams", s => s.potentialTeamIds.size > 1)
       .verifying(
