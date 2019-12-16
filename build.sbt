@@ -3,8 +3,6 @@ import com.typesafe.sbt.packager.Keys.scriptClasspath
 import BuildSettings._
 import Dependencies._
 
-// enable both akka and netty, choose with config
-// akka is preferable for dev, netty for prod
 lazy val root = Project("lila", file("."))
   .enablePlugins(PlayScala, PlayNettyServer)
   .dependsOn(api)
