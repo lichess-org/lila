@@ -15,7 +15,10 @@ import scala.util.chaining._
  * If the buffer is full, the new task is dropped,
  * and `run` returns a failed future.
  */
-final class WorkQueue(buffer: Int, name: String)(implicit ec: ExecutionContext, mat: Materializer) {
+final class WorkQueue(buffer: Int, name: String, parallelism: Int = 1)(
+    implicit ec: ExecutionContext,
+    mat: Materializer
+) {
 
   type Task[A]                    = () => Fu[A]
   private type TaskWithPromise[A] = (Task[A], Promise[A])
@@ -32,7 +35,7 @@ final class WorkQueue(buffer: Int, name: String)(implicit ec: ExecutionContext, 
 
   private val queue = Source
     .queue[TaskWithPromise[_]](buffer, OverflowStrategy.dropNew)
-    .mapAsync(1) {
+    .mapAsync(parallelism) {
       case (task, promise) =>
         task() tap promise.completeWith recover {
           case e: Exception => lila.log(s"WorkQueue:$name").warn("task failed", e)

@@ -336,6 +336,7 @@ object mon {
     object createdOrganizer {
       val tick = future("tournament.createdOrganizer.tick")
     }
+    def standingOverload = counter("tournament.standing.overload").withoutTags
     def apiShowPartial(partial: Boolean, client: String)(success: Boolean) =
       timer("tournament.api.show").withTags(
         Map(
