@@ -39,7 +39,7 @@ final class TournamentStandingApi(
   )
   private val createdCache = asyncCache.clearable[(Tournament.ID, Int), JsObject](
     name = "tournament.page.createdCache",
-    { case (tourId, page) => compute(tourId, page) },
+    { case (tourId, page) => computeMaybe(tourId, page) },
     expireAfter = _.ExpireAfterWrite(15 second)
   )
 
