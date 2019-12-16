@@ -3,9 +3,9 @@
 # Starts a dev console to compile and run lichess.
 
 # Usage:
-# ./run
+# ./lila
 # Then in the sbt console:
-# ~run
+# run
 
 # We use .sbtopts instead
 export SBT_OPTS=""
