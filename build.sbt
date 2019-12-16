@@ -6,7 +6,7 @@ import Dependencies._
 // enable both akka and netty, choose with config
 // akka is preferable for dev, netty for prod
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala, PlayAkkaHttpServer, PlayNettyServer)
+  .enablePlugins(PlayScala, PlayNettyServer)
   .dependsOn(api)
   .aggregate(api)
 
@@ -27,8 +27,6 @@ scriptClasspath := Seq("*")
 resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
 // don't make an assets jar
 PlayKeys.generateAssetsJar := false
-// use akka-http for dev
-PlayKeys.devSettings += "play.server.provider" -> "play.core.server.AkkaHttpServerProvider"
 // who needs JS routes right?
 routesGenerator := LilaRoutesGenerator
 
