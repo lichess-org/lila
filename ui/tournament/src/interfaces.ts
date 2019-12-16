@@ -7,6 +7,15 @@ interface Untyped {
   [key: string]: any;
 }
 
+export interface StandingPlayer extends Untyped {
+}
+
+export interface Standing {
+  failed?: boolean;
+  page: number;
+  players: StandingPlayer[];
+}
+
 export interface TournamentOpts extends Untyped {
   element: HTMLElement;
   socketSend: SocketSend;
@@ -38,8 +47,7 @@ export interface TeamPlayer {
   score: number
 }
 
-export interface Page extends Untyped {
-}
+export type Page = StandingPlayer[];
 
 export interface Pages {
   [n: number]: Page

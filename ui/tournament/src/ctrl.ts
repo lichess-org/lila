@@ -3,7 +3,7 @@ import xhr from './xhr';
 import { myPage, players } from './pagination';
 import * as sound from './sound';
 import * as tour from './tournament';
-import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo } from './interfaces';
+import { TournamentData, TournamentOpts, Pages, PlayerInfo, TeamInfo, Standing } from './interfaces';
 import { TournamentSocket } from './socket';
 
 interface CtrlTeamInfo {
@@ -87,8 +87,8 @@ export default class TournamentController {
     }, delay);
   };
 
-  loadPage = (data: TournamentData) => {
-    this.pages[data.page] = data.players;
+  loadPage = (data: Standing) => {
+    if (!data.failed || !this.pages[data.page]) this.pages[data.page] = data.players;
   }
 
   setPage = (page: number) => {
