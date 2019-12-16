@@ -52,7 +52,7 @@ final class TournamentStandingApi(
     workQueue {
       compute(id, page)
     } recover {
-      case e: Exception =>
+      case _: Exception =>
         lila.mon.tournament.standingOverload.increment()
         Json.obj(
           "failed"  -> true,

@@ -9,7 +9,7 @@ import scala.concurrent.duration._
 import lila.db.dsl._
 import lila.game.BSONHandlers.gameBSONHandler
 import lila.game.{ Game, GameRepo, Query }
-import lila.common.WorkQueue
+import lila.common.{ LilaStream, WorkQueue }
 import lila.user.User
 
 final private class Indexer(
@@ -81,7 +81,7 @@ final private class Indexer(
         .throttle(300, 1 second)
         .take(maxGames)
         .mapAsync(4)(toEntry)
-        .mapConcat(_.toList)
+        .via(LilaStream.collect)
         .zipWithIndex
         .map { case (e, i) => e.copy(number = fromNumber + i.toInt) }
         .grouped(50)

@@ -7,7 +7,7 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.common.Bus
-import lila.common.LilaStream.sinkCount
+import lila.common.LilaStream
 import lila.db.dsl._
 import lila.game.{ Game, Pov }
 
@@ -66,7 +66,7 @@ final private class CorresAlarm(
       .documentSource()
       .take(200)
       .mapAsyncUnordered(4)(alarm => proxyGame(alarm._id))
-      .mapConcat(_.toList)
+      .via(LilaStream.collect)
       .mapAsyncUnordered(4) { game =>
         val pov = Pov(game, game.turnColor)
         pov.player.userId.fold(fuccess(true))(u => hasUserId(pov.game, u)).addEffect {
@@ -74,7 +74,7 @@ final private class CorresAlarm(
           case false => Bus.publish(lila.game.actorApi.CorresAlarmEvent(pov), "corresAlarm")
         } >> coll.delete.one($id(game.id))
       }
-      .toMat(sinkCount)(Keep.right)
+      .toMat(LilaStream.sinkCount)(Keep.right)
       .run
       .mon(_.round.alarm.time)
       .addEffectAnyway(scheduleNext)

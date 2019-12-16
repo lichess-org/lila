@@ -45,7 +45,7 @@ final private class ExplorerIndexer(
         .documentSource()
         .via(LilaStream.logRate[Game]("fetch")(logger))
         .mapAsyncUnordered(8) { makeFastPgn(_, botUserIds) }
-        .mapConcat(_.toList)
+        .via(LilaStream.collect)
         .via(LilaStream.logRate("index")(logger))
         .grouped(50)
         .map(_ mkString separator)

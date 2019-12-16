@@ -29,4 +29,8 @@ object LilaStream {
   val sinkCount = Sink.fold[Int, Any](0) {
     case (total, _) => total + 1
   }
+
+  def collect[A] = Flow[Option[A]] collect {
+    case Some(a) => a
+  }
 }
