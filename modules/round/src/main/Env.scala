@@ -182,11 +182,6 @@ final class Env(
 
   val tvBroadcast = system.actorOf(Props(classOf[TvBroadcast]))
 
-  def checkOutoftime(game: Game): Unit = {
-    if (game.playable && game.started && !game.isUnlimited)
-      tellRound(game.id, actorApi.round.QuietFlag)
-  }
-
   def resign(pov: Pov): Unit =
     if (pov.game.abortable) tellRound(pov.gameId, Abort(pov.playerId))
     else if (pov.game.resignable) tellRound(pov.gameId, Resign(pov.playerId))

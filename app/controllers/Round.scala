@@ -75,7 +75,6 @@ final class Round(
 
   def player(fullId: String) = Open { implicit ctx =>
     OptionFuResult(env.round.proxyRepo.pov(fullId)) { pov =>
-      env.round.checkOutoftime(pov.game)
       renderPlayer(pov)
     }
   }
@@ -133,7 +132,6 @@ final class Round(
                 Redirect(routes.Round.watcher(gameId, "white")).fuccess
             }
           case None => {
-            env.round.checkOutoftime(pov.game)
             watch(pov)
           }
         }
