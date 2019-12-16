@@ -35,7 +35,7 @@ final class WorkQueue(buffer: Int, name: String, parallelism: Int = 1)(
 
   private val queue = Source
     .queue[TaskWithPromise[_]](buffer, OverflowStrategy.dropNew)
-    .mapAsync(parallelism) {
+    .mapAsyncUnordered(parallelism) {
       case (task, promise) =>
         task() tap promise.completeWith recover {
           case e: Exception => lila.log(s"WorkQueue:$name").warn("task failed", e)

@@ -20,9 +20,9 @@ final class TournamentStandingApi(
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueue(
-    buffer = 256,
+    buffer = 512,
     name = "tournamentStandingApi",
-    parallelism = 16
+    parallelism = 8
   )
 
   def apply(tour: Tournament, page: Int): Fu[JsObject] =
@@ -39,7 +39,7 @@ final class TournamentStandingApi(
   )
   private val createdCache = asyncCache.clearable[(Tournament.ID, Int), JsObject](
     name = "tournament.page.createdCache",
-    { case (tourId, page) => computeMaybe(tourId, page) },
+    { case (tourId, page) => compute(tourId, page) },
     expireAfter = _.ExpireAfterWrite(15 second)
   )
 
@@ -53,7 +53,6 @@ final class TournamentStandingApi(
       compute(id, page)
     } recover {
       case e: Exception =>
-        logger.branch("standing").error(s"tour $id page $page", e)
         lila.mon.tournament.standingOverload.increment()
         Json.obj(
           "failed"  -> true,
@@ -70,12 +69,10 @@ final class TournamentStandingApi(
       rankedPlayers <- playerRepo.bestByTourWithRankByPage(tour.id, 10, page max 1)
       sheets <- rankedPlayers
         .map { p =>
-          cached.sheet(tour, p.player.userId) map { sheet =>
-            p.player.userId -> sheet
-          }
+          cached.sheet(tour, p.player.userId) dmap { p.player.userId -> _ }
         }
         .sequenceFu
-        .map(_.toMap)
+        .dmap(_.toMap)
       players <- rankedPlayers.map(JsonView.playerJson(lightUserApi, sheets)).sequenceFu
     } yield Json.obj(
       "page"    -> page,
