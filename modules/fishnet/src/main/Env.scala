@@ -32,7 +32,8 @@ final class Env(
     analysisRepo: lila.analyse.AnalysisRepo,
     db: lila.db.Db,
     asyncCache: lila.memo.AsyncCache.Builder,
-    sink: lila.analyse.Analyser
+    sink: lila.analyse.Analyser,
+    lifecycle: play.api.inject.ApplicationLifecycle
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
@@ -42,7 +43,8 @@ final class Env(
   private lazy val redis = new FishnetRedis(
     RedisClient create RedisURI.create(config.redisUri),
     "fishnet-in",
-    "fishnet-out"
+    "fishnet-out",
+    lifecycle
   )
 
   private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)

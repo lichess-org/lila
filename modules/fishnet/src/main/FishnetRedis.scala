@@ -3,6 +3,7 @@ package lila.fishnet
 import chess.format.Uci
 import io.lettuce.core._
 import io.lettuce.core.pubsub._
+import scala.concurrent.Future
 
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
@@ -11,8 +12,9 @@ import lila.common.Bus
 final class FishnetRedis(
     client: RedisClient,
     chanIn: String,
-    chanOut: String
-) {
+    chanOut: String,
+    lifecycle: play.api.inject.ApplicationLifecycle
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   val connIn  = client.connectPubSub()
   val connOut = client.connectPubSub()
@@ -34,6 +36,14 @@ final class FishnetRedis(
       case _ =>
     }
   })
+
+  lifecycle.addStopHook { () =>
+    logger.info("Stopping the Redis pool...")
+    Future {
+      client.shutdown()
+      logger.info("Stopped the Redis pool.")
+    }
+  }
 
   private def writeWork(work: Work.Move): String =
     List(
