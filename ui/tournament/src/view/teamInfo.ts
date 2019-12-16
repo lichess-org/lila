@@ -1,9 +1,9 @@
 import { h } from 'snabbdom'
 import { VNode } from 'snabbdom/vnode';
 
+import TournamentController from '../ctrl';
 import { bind, numberRow, spinner, dataIcon, player as renderPlayer } from './util';
 import { teamName } from './battle';
-import TournamentController from '../ctrl';
 
 export default function(ctrl: TournamentController): VNode | undefined {
   const battle = ctrl.data.teamBattle,
@@ -18,6 +18,7 @@ export default function(ctrl: TournamentController): VNode | undefined {
       spinner()
     ])
   ]);
+  const nbLeaders = ctrl.data.teamStanding?.find(s => s.id == data.id)?.players.length || 0;
 
   const setup = (vnode: VNode) => {
     window.lichess.powertip.manualUserIn(vnode.elm as HTMLElement);
@@ -58,7 +59,7 @@ export default function(ctrl: TournamentController): VNode | undefined {
         key: p.name
       }, [
         h('th', '' + (i + 1)),
-        h('td', renderPlayer(p, false, true, false)),
+        h('td', renderPlayer(p, false, true, false, i < nbLeaders)),
         h('td.total', [
           p.fire && !ctrl.data.isFinished ?
           h('strong.is-gold', { attrs: dataIcon('Q') }, '' + p.score) :

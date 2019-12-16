@@ -1,7 +1,7 @@
-import { h } from 'snabbdom'
-import { VNode } from 'snabbdom/vnode';
-import { Hooks } from 'snabbdom/hooks'
 import { Attrs } from 'snabbdom/modules/attributes'
+import { h } from 'snabbdom'
+import { Hooks } from 'snabbdom/hooks'
+import { VNode } from 'snabbdom/vnode';
 
 export function bind(eventName: string, f: (e: Event) => any, redraw?: () => void): Hooks {
   return onInsert(el =>
@@ -54,7 +54,7 @@ export function playerName(p) {
   return p.title ? [h('span.title', p.title), ' ' + p.name] : p.name;
 }
 
-export function player(p, asLink: boolean, withRating: boolean, defender: boolean) {
+export function player(p, asLink: boolean, withRating: boolean, defender: boolean = false, leader: boolean = false) {
 
   const fullName = playerName(p);
 
@@ -64,7 +64,11 @@ export function player(p, asLink: boolean, withRating: boolean, defender: boolea
       destroy: vnode => $.powerTip.destroy(vnode.elm as HTMLElement)
     }
   }, [
-    h('span.name' + (defender ? '.defender' : ''), defender ? { attrs: dataIcon('5') } : {}, fullName),
+    h(
+      'span.name' + (defender ? '.defender' : (leader ? '.leader' : '')),
+      defender ? { attrs: dataIcon('5') } : (
+        leader ? { attrs: dataIcon('8') } : {}
+      ), fullName),
     withRating ? h('span.rating', ' ' + p.rating + (p.provisional ? '?' : '')) : null
   ]);
 }

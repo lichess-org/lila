@@ -22,5 +22,11 @@
       font-style: italic;
       font-size: .8em;
     }
+    .leader {
+      &::before {
+        color: $c-brag;
+        margin-right: .15em;
+      }
+    }
   }
 }
