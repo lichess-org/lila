@@ -108,8 +108,14 @@ object crud {
         form3.select(_, DataForm.clockIncrementChoices)
       )
     ),
-    form3.group(form("position"), trans.startPosition())(tournament.form.startingPosition(_)),
-    hr,
+    form3.split(
+      form3.group(form("position"), trans.startPosition(), half = true)(tournament.form.startingPosition(_)),
+      form3.checkbox(
+        form("teamBattle"),
+        raw("Team battle"),
+        half = true
+      )
+    ),
     h2("Conditions of entry"),
     tournament.form.condition(form, auto = false, Nil),
     form3.action(form3.submit(trans.apply()))

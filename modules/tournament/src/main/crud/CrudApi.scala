@@ -28,7 +28,8 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
     headline = tour.spotlight.??(_.headline),
     description = tour.spotlight.??(_.description),
     conditions = Condition.DataForm.AllSetup(tour.conditions),
-    berserkable = !tour.noBerserk
+    berserkable = !tour.noBerserk,
+    teamBattle = tour.isTeamBattle
   )
 
   def update(old: Tournament, data: CrudForm.Data) =
@@ -96,7 +97,8 @@ final class CrudApi(tournamentRepo: TournamentRepo) {
         iconImg = image.some.filter(_.nonEmpty)
       ).some,
       position = DataForm.startingPosition(data.position, realVariant),
-      noBerserk = !data.berserkable
+      noBerserk = !data.berserkable,
+      teamBattle = data.teamBattle option (tour.teamBattle | TeamBattle(Set.empty, 10))
     ) |> { tour =>
       tour.perfType.fold(tour) { perfType =>
         tour.copy(conditions = data.conditions.convert(perfType, Map.empty)) // the CRUD form doesn't support team restrictions so Map.empty is fine
