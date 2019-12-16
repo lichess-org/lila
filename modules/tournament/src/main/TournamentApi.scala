@@ -518,8 +518,7 @@ final class TournamentApi(
   )(fetch: Tournament.ID => Fu[Option[Tournament]])(run: Tournament => Funit): Funit =
     workQueue(tourId) {
       fetch(tourId) flatMap {
-        case Some(t) => run(t)
-        case None    => fufail(s"Can't run sequenced operation on missing tournament $tourId")
+        _ ?? run
       }
     }
 
