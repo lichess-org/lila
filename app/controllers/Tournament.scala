@@ -148,7 +148,7 @@ final class Tournament(
 
   def standing(id: String, page: Int) = Open { implicit ctx =>
     OptionFuResult(repo byId id) { tour =>
-      jsonView.standing(tour, page) map { data =>
+      env.tournament.standingApi(tour, page) map { data =>
         Ok(data) as JSON
       }
     }
@@ -158,7 +158,7 @@ final class Tournament(
     OptionFuResult(repo byId id) { tour =>
       api.pageOf(tour, UserModel normalize userId) flatMap {
         _ ?? { page =>
-          jsonView.standing(tour, page) map { data =>
+          env.tournament.standingApi(tour, page) map { data =>
             Ok(data) as JSON
           }
         }

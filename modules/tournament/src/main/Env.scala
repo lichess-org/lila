@@ -96,6 +96,8 @@ final class Env(
 
   lazy val leaderboardApi = wire[LeaderboardApi]
 
+  lazy val standingApi = wire[TournamentStandingApi]
+
   private lazy val leaderboardIndexer: LeaderboardIndexer = wire[LeaderboardIndexer]
 
   private lazy val autoPairing = wire[AutoPairing]
