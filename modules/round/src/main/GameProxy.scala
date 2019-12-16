@@ -24,9 +24,6 @@ final private class GameProxy(
     else fuccess(scheduleFlushProgress)
   }
 
-  // ???
-  // def persist(f: GameRepo => Funit): Funit = f(gameRepo)
-
   private def set(game: Game): Unit = {
     cache = fuccess(game.some)
   }
