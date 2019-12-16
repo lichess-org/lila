@@ -143,7 +143,7 @@ final class JsonView(
     playerRepo.find(tour.id, me.id) flatMap {
       _ ?? { player =>
         fetchCurrentGameId(tour, me) flatMap { gameId =>
-          getOrGuessRank(tour, player) map { rank =>
+          getOrGuessRank(tour, player) dmap { rank =>
             MyInfo(rank + 1, player.withdraw, gameId).some
           }
         }
