@@ -192,7 +192,7 @@ import $ns.RoutesPrefix;
 
 public class routes {
 """ + controllers.map { controller =>
-            s"""public static final ${pack}.Reverse${controller} ${controller} = new ${pack}.Reverse${controller}(RoutesPrefix.byNamePrefix());
+            s"""public static final ${pack}.Reverse${controller} ${controller} = null;
 """
           }.mkString + """
 

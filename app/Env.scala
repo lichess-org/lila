@@ -17,94 +17,137 @@ final class Env(
     val config: Configuration,
     val mode: Mode,
     val common: lila.common.Env,
-    val imageRepo: lila.db.ImageRepo,
-    val api: lila.api.Env,
-    val user: lila.user.Env,
-    val security: lila.security.Env,
-    val hub: lila.hub.Env,
-    val socket: lila.socket.Env,
-    val memo: lila.memo.Env,
-    val message: lila.message.Env,
-    val i18n: lila.i18n.Env,
-    val game: lila.game.Env,
-    val bookmark: lila.bookmark.Env,
-    val search: lila.search.Env,
-    val gameSearch: lila.gameSearch.Env,
-    val timeline: lila.timeline.Env,
-    val forum: lila.forum.Env,
-    val forumSearch: lila.forumSearch.Env,
-    val team: lila.team.Env,
-    val teamSearch: lila.teamSearch.Env,
-    val analyse: lila.analyse.Env,
-    val mod: lila.mod.Env,
-    val notifyM: lila.notify.Env,
-    val round: lila.round.Env,
-    val lobby: lila.lobby.Env,
-    val setup: lila.setup.Env,
-    val importer: lila.importer.Env,
-    val tournament: lila.tournament.Env,
-    val simul: lila.simul.Env,
-    val relation: lila.relation.Env,
-    val report: lila.report.Env,
-    val pref: lila.pref.Env,
-    val chat: lila.chat.Env,
-    val puzzle: lila.puzzle.Env,
-    val coordinate: lila.coordinate.Env,
-    val tv: lila.tv.Env,
-    val blog: lila.blog.Env,
-    val history: lila.history.Env,
-    val video: lila.video.Env,
-    val playban: lila.playban.Env,
-    val shutup: lila.shutup.Env,
-    val insight: lila.insight.Env,
-    val push: lila.push.Env,
-    val perfStat: lila.perfStat.Env,
-    val slack: lila.slack.Env,
-    val challenge: lila.challenge.Env,
-    val explorer: lila.explorer.Env,
-    val fishnet: lila.fishnet.Env,
-    val study: lila.study.Env,
-    val studySearch: lila.studySearch.Env,
-    val learn: lila.learn.Env,
-    val plan: lila.plan.Env,
-    val event: lila.event.Env,
-    val coach: lila.coach.Env,
-    val pool: lila.pool.Env,
-    val practice: lila.practice.Env,
-    val irwin: lila.irwin.Env,
-    val activity: lila.activity.Env,
-    val relay: lila.relay.Env,
-    val streamer: lila.streamer.Env,
-    val oAuth: lila.oauth.Env,
-    val bot: lila.bot.Env,
-    val evalCache: lila.evalCache.Env,
-    val rating: lila.rating.Env,
+    // val imageRepo: lila.db.ImageRepo,
+    // val api: lila.api.Env,
+    // val user: lila.user.Env,
+    // val security: lila.security.Env,
+    // val hub: lila.hub.Env,
+    // val socket: lila.socket.Env,
+    // val memo: lila.memo.Env,
+    // val message: lila.message.Env,
+    // val i18n: lila.i18n.Env,
+    // val game: lila.game.Env,
+    // val bookmark: lila.bookmark.Env,
+    // val search: lila.search.Env,
+    // val gameSearch: lila.gameSearch.Env,
+    // val timeline: lila.timeline.Env,
+    // val forum: lila.forum.Env,
+    // val forumSearch: lila.forumSearch.Env,
+    // val team: lila.team.Env,
+    // val teamSearch: lila.teamSearch.Env,
+    // val analyse: lila.analyse.Env,
+    // val mod: lila.mod.Env,
+    // val notifyM: lila.notify.Env,
+    // val round: lila.round.Env,
+    // val lobby: lila.lobby.Env,
+    // val setup: lila.setup.Env,
+    // val importer: lila.importer.Env,
+    // val tournament: lila.tournament.Env,
+    // val simul: lila.simul.Env,
+    // val relation: lila.relation.Env,
+    // val report: lila.report.Env,
+    // val pref: lila.pref.Env,
+    // val chat: lila.chat.Env,
+    // val puzzle: lila.puzzle.Env,
+    // val coordinate: lila.coordinate.Env,
+    // val tv: lila.tv.Env,
+    // val blog: lila.blog.Env,
+    // val history: lila.history.Env,
+    // val video: lila.video.Env,
+    // val playban: lila.playban.Env,
+    // val shutup: lila.shutup.Env,
+    // val insight: lila.insight.Env,
+    // val push: lila.push.Env,
+    // val perfStat: lila.perfStat.Env,
+    // val slack: lila.slack.Env,
+    // val challenge: lila.challenge.Env,
+    // val explorer: lila.explorer.Env,
+    // val fishnet: lila.fishnet.Env,
+    // val study: lila.study.Env,
+    // val studySearch: lila.studySearch.Env,
+    // val learn: lila.learn.Env,
+    // val plan: lila.plan.Env,
+    // val event: lila.event.Env,
+    // val coach: lila.coach.Env,
+    // val pool: lila.pool.Env,
+    // val practice: lila.practice.Env,
+    // val irwin: lila.irwin.Env,
+    // val activity: lila.activity.Env,
+    // val relay: lila.relay.Env,
+    // val streamer: lila.streamer.Env,
+    // val oAuth: lila.oauth.Env,
+    // val bot: lila.bot.Env,
+    // val evalCache: lila.evalCache.Env,
+    // val rating: lila.rating.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
 )(implicit val system: ActorSystem, val executionContext: ExecutionContext) {
 
-  def isProd            = mode == Mode.Prod
-  def isDev             = mode == Mode.Dev
-  def isStage           = config.get[Boolean]("app.stage")
-  def explorerEndpoint  = config.get[String]("explorer.endpoint")
-  def tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
+  println("******************* Env")
 
-  def net = common.netConfig
+  val isProd            = mode == Mode.Prod
+  val isDev             = mode == Mode.Dev
+  val isStage           = config.get[Boolean]("app.stage")
+  val explorerEndpoint  = config.get[String]("explorer.endpoint")
+  val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
 
-  lazy val preloader: mashup.Preload                             = ???
-  lazy val socialInfo: mashup.UserInfo.SocialApi                 = ???
-  lazy val userNbGames: mashup.UserInfo.NbGamesApi               = ???
-  lazy val userInfo: mashup.UserInfo.UserInfoApi                 = ???
-  lazy val teamInfo: mashup.TeamInfoApi                          = ???
-  lazy val gamePaginator: mashup.GameFilterMenu.PaginatorBuilder = ???
+  // def net = common.netConfig
 
-  private val tryDailyPuzzle: lila.puzzle.Daily.Try = ???
+  // lazy val preloader     = wire[mashup.Preload]
+  // lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
+  // lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
+  // lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
+  // lazy val teamInfo      = wire[mashup.TeamInfoApi]
+  // lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
 
-  def scheduler = system.scheduler
+  // private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
+  //   Future {
+  //     puzzle.daily.get
+  //   }.flatMap(identity)
+  //     .withTimeoutDefault(50 millis, none) recover {
+  //     case e: Exception =>
+  //       lila.log("preloader").warn("daily puzzle", e)
+  //       none
+  //   }
 
-  def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit = ???
+  // def scheduler = system.scheduler
 
-  private def kill(userId: User.ID): Unit = ???
+  // def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
+  //   for {
+  //     u        <- user.repo byId userId orFail s"No such user $userId"
+  //     goodUser <- !u.lameOrTroll ?? { !playban.api.hasCurrentBan(u.id) }
+  //     _        <- user.repo.disable(u, keepEmail = !goodUser)
+  //     _ <- !goodUser ?? relation.api.fetchFollowing(u.id) flatMap {
+  //       activity.write.unfollowAll(u, _)
+  //     }
+  //     _ <- relation.api.unfollowAll(u.id)
+  //     _ <- user.rankingApi.remove(u.id)
+  //     _ <- team.api.quitAll(u.id)
+  //     _ = challenge.api.removeByUserId(u.id)
+  //     _ = tournament.api.withdrawAll(u)
+  //     _       <- plan.api.cancel(u).nevermind
+  //     _       <- lobby.seekApi.removeByUser(u)
+  //     _       <- security.store.disconnect(u.id)
+  //     _       <- push.webSubscriptionApi.unsubscribeByUser(u)
+  //     _       <- streamer.api.demote(u.id)
+  //     _       <- coach.api.remove(u.id)
+  //     reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
+  //     _       <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
+  //   } yield {
+  //     Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
+  //   }
+
+  // Bus.subscribeFun("garbageCollect") {
+  //   case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+  //     user.repo.isTroll(userId) foreach { troll =>
+  //       if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
+  //     }
+  // }
+
+  // private def kill(userId: User.ID): Unit =
+  //   scheduler.scheduleOnce(1 second) {
+  //     closeAccount(userId, self = false)
+  //   }
 
   // system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 
@@ -115,96 +158,102 @@ final class EnvBoot(
     config: Configuration,
     environment: Environment,
     lifecycle: ApplicationLifecycle,
-    controllerComponents: ControllerComponents
-)(implicit ec: ExecutionContext, system: ActorSystem) {
+    controllerComponents: ControllerComponents,
+    cookieBacker: SessionCookieBaker
+)(implicit ec: ExecutionContext, system: ActorSystem, ws: WSClient) {
 
-  // lila.log("boot").info {
-  //   val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024
-  //   s"lila 3 / java ${System.getProperty("java.version")}, memory: ${mem}MB"
-  // }
+  println("******************* EnvBoot")
 
-  // implicit def scheduler   = system.scheduler
-  // def appPath              = AppPath(environment.rootPath)
-  // def mode                 = environment.mode
-  // def baseUrl              = common.netConfig.baseUrl
-  // implicit def idGenerator = game.idGenerator
+  lila.log("boot").info {
+    val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    s"lila 3 / java ${System.getProperty("java.version")}, memory: ${mem}MB"
+  }
 
-  // import reactivemongo.api.MongoConnection.ParsedURI
-  // import lila.db.DbConfig.uriLoader
-  // lazy val mainDb: lila.db.Db           = ???
-  // lazy val imageRepo: lila.db.ImageRepo = ??? //          = new lila.db.ImageRepo(mainDb(CollName("image")))
+  implicit def scheduler   = system.scheduler
+  def appPath              = AppPath(environment.rootPath)
+  def mode                 = environment.mode
+  def baseUrl              = common.netConfig.baseUrl
+  implicit def idGenerator = game.idGenerator
+
+  import reactivemongo.api.MongoConnection.ParsedURI
+  import lila.db.DbConfig.uriLoader
+  lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[ParsedURI]("mongodb.uri"))
+  lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
+
+  val asyncDb: lila.db.AsyncDb = mongo.asyncDb("async", config.get[ParsedURI]("mongodb.uri"))
+  // asyncDb(CollName("nope"))
 
   // wire all the lila modules
-  // lazy val common: lila.common.Env           = ???
-  // lazy val memo: lila.memo.Env               = ???
-  // lazy val mongo: lila.db.Env                = ???
-  // lazy val user: lila.user.Env               = ???
-  // lazy val security: lila.security.Env       = ???
-  // lazy val hub: lila.hub.Env                 = ???
-  // lazy val socket: lila.socket.Env           = ???
-  // lazy val message: lila.message.Env         = ???
-  // lazy val i18n: lila.i18n.Env               = ???
-  // lazy val game: lila.game.Env               = ???
-  // lazy val bookmark: lila.bookmark.Env       = ???
-  // lazy val search: lila.search.Env           = ???
-  // lazy val gameSearch: lila.gameSearch.Env   = ???
-  // lazy val timeline: lila.timeline.Env       = ???
-  // lazy val forum: lila.forum.Env             = ???
-  // lazy val forumSearch: lila.forumSearch.Env = ???
-  // lazy val team: lila.team.Env               = ???
-  // lazy val teamSearch: lila.teamSearch.Env   = ???
-  // lazy val analyse: lila.analyse.Env         = ???
-  // lazy val mod: lila.mod.Env                 = ???
-  // lazy val notifyM: lila.notify.Env          = ???
-  // lazy val round: lila.round.Env             = ???
-  // lazy val lobby: lila.lobby.Env             = ???
-  // lazy val setup: lila.setup.Env             = ???
-  // lazy val importer: lila.importer.Env       = ???
-  // lazy val tournament: lila.tournament.Env   = ???
-  // lazy val simul: lila.simul.Env             = ???
-  // lazy val relation: lila.relation.Env       = ???
-  // lazy val report: lila.report.Env           = ???
-  // lazy val pref: lila.pref.Env               = ???
-  // lazy val chat: lila.chat.Env               = ???
-  // lazy val puzzle: lila.puzzle.Env           = ???
-  // lazy val coordinate: lila.coordinate.Env   = ???
-  // lazy val tv: lila.tv.Env                   = ???
-  // lazy val blog: lila.blog.Env               = ???
-  // lazy val history: lila.history.Env         = ???
-  // lazy val video: lila.video.Env             = ???
-  // lazy val playban: lila.playban.Env         = ???
-  // lazy val shutup: lila.shutup.Env           = ???
-  // lazy val insight: lila.insight.Env         = ???
-  // lazy val push: lila.push.Env               = ???
-  // lazy val perfStat: lila.perfStat.Env       = ???
-  // lazy val slack: lila.slack.Env             = ???
-  // lazy val challenge: lila.challenge.Env     = ???
-  // lazy val explorer: lila.explorer.Env       = ???
-  // lazy val fishnet: lila.fishnet.Env         = ???
-  // lazy val study: lila.study.Env             = ???
-  // lazy val studySearch: lila.studySearch.Env = ???
-  // lazy val learn: lila.learn.Env             = ???
-  // lazy val plan: lila.plan.Env               = ???
-  // lazy val event: lila.event.Env             = ???
-  // lazy val coach: lila.coach.Env             = ???
-  // lazy val pool: lila.pool.Env               = ???
-  // lazy val practice: lila.practice.Env       = ???
-  // lazy val irwin: lila.irwin.Env             = ???
-  // lazy val activity: lila.activity.Env       = ???
-  // lazy val relay: lila.relay.Env             = ???
-  // lazy val streamer: lila.streamer.Env       = ???
-  // lazy val oAuth: lila.oauth.Env             = ???
-  // lazy val bot: lila.bot.Env                 = ???
-  // lazy val evalCache: lila.evalCache.Env     = ???
-  // lazy val rating: lila.rating.Env           = ???
-  // lazy val api: lila.api.Env                 = ???
-  // lazy val cookie: lila.common.LilaCookie    = ???
+  lazy val common: lila.common.Env           = wire[lila.common.Env]
+  lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
+  lazy val mongo: lila.db.Env                = wire[lila.db.Env]
+  lazy val user: lila.user.Env               = wire[lila.user.Env]
+  lazy val security: lila.security.Env       = wire[lila.security.Env]
+  lazy val hub: lila.hub.Env                 = wire[lila.hub.Env]
+  lazy val socket: lila.socket.Env           = wire[lila.socket.Env]
+  lazy val message: lila.message.Env         = wire[lila.message.Env]
+  lazy val i18n: lila.i18n.Env               = wire[lila.i18n.Env]
+  lazy val game: lila.game.Env               = wire[lila.game.Env]
+  lazy val bookmark: lila.bookmark.Env       = wire[lila.bookmark.Env]
+  lazy val search: lila.search.Env           = wire[lila.search.Env]
+  lazy val gameSearch: lila.gameSearch.Env   = wire[lila.gameSearch.Env]
+  lazy val timeline: lila.timeline.Env       = wire[lila.timeline.Env]
+  lazy val forum: lila.forum.Env             = wire[lila.forum.Env]
+  lazy val forumSearch: lila.forumSearch.Env = wire[lila.forumSearch.Env]
+  lazy val team: lila.team.Env               = wire[lila.team.Env]
+  lazy val teamSearch: lila.teamSearch.Env   = wire[lila.teamSearch.Env]
+  lazy val analyse: lila.analyse.Env         = wire[lila.analyse.Env]
+  lazy val mod: lila.mod.Env                 = wire[lila.mod.Env]
+  lazy val notifyM: lila.notify.Env          = wire[lila.notify.Env]
+  lazy val round: lila.round.Env             = wire[lila.round.Env]
+  lazy val lobby: lila.lobby.Env             = wire[lila.lobby.Env]
+  lazy val setup: lila.setup.Env             = wire[lila.setup.Env]
+  lazy val importer: lila.importer.Env       = wire[lila.importer.Env]
+  lazy val tournament: lila.tournament.Env   = wire[lila.tournament.Env]
+  lazy val simul: lila.simul.Env             = wire[lila.simul.Env]
+  lazy val relation: lila.relation.Env       = wire[lila.relation.Env]
+  lazy val report: lila.report.Env           = wire[lila.report.Env]
+  lazy val pref: lila.pref.Env               = wire[lila.pref.Env]
+  lazy val chat: lila.chat.Env               = wire[lila.chat.Env]
+  lazy val puzzle: lila.puzzle.Env           = wire[lila.puzzle.Env]
+  lazy val coordinate: lila.coordinate.Env   = wire[lila.coordinate.Env]
+  lazy val tv: lila.tv.Env                   = wire[lila.tv.Env]
+  lazy val blog: lila.blog.Env               = wire[lila.blog.Env]
+  lazy val history: lila.history.Env         = wire[lila.history.Env]
+  lazy val video: lila.video.Env             = wire[lila.video.Env]
+  lazy val playban: lila.playban.Env         = wire[lila.playban.Env]
+  lazy val shutup: lila.shutup.Env           = wire[lila.shutup.Env]
+  lazy val insight: lila.insight.Env         = wire[lila.insight.Env]
+  lazy val push: lila.push.Env               = wire[lila.push.Env]
+  lazy val perfStat: lila.perfStat.Env       = wire[lila.perfStat.Env]
+  lazy val slack: lila.slack.Env             = wire[lila.slack.Env]
+  lazy val challenge: lila.challenge.Env     = wire[lila.challenge.Env]
+  lazy val explorer: lila.explorer.Env       = wire[lila.explorer.Env]
+  lazy val fishnet: lila.fishnet.Env         = wire[lila.fishnet.Env]
+  lazy val study: lila.study.Env             = wire[lila.study.Env]
+  lazy val studySearch: lila.studySearch.Env = wire[lila.studySearch.Env]
+  lazy val learn: lila.learn.Env             = wire[lila.learn.Env]
+  lazy val plan: lila.plan.Env               = wire[lila.plan.Env]
+  lazy val event: lila.event.Env             = wire[lila.event.Env]
+  lazy val coach: lila.coach.Env             = wire[lila.coach.Env]
+  lazy val pool: lila.pool.Env               = wire[lila.pool.Env]
+  lazy val practice: lila.practice.Env       = wire[lila.practice.Env]
+  lazy val irwin: lila.irwin.Env             = wire[lila.irwin.Env]
+  lazy val activity: lila.activity.Env       = wire[lila.activity.Env]
+  lazy val relay: lila.relay.Env             = wire[lila.relay.Env]
+  lazy val streamer: lila.streamer.Env       = wire[lila.streamer.Env]
+  lazy val oAuth: lila.oauth.Env             = wire[lila.oauth.Env]
+  lazy val bot: lila.bot.Env                 = wire[lila.bot.Env]
+  lazy val evalCache: lila.evalCache.Env     = wire[lila.evalCache.Env]
+  lazy val rating: lila.rating.Env           = wire[lila.rating.Env]
+  lazy val api: lila.api.Env                 = wire[lila.api.Env]
+  lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
-  // lazy val env: lila.app.Env = ???
-  // val c = lila.common.Chronometer.sync(wire[lila.app.Env])
-  // lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
-  // c.result
-  // }
+  lazy val env: lila.app.Env = {
+    val c = lila.common.Chronometer.sync(wire[lila.app.Env])
+    lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
+    c.result
+  }
 
   // templating.Environment setEnv env
 }

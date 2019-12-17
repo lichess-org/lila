@@ -32,6 +32,8 @@ final class Env(
     onlineIds: lila.socket.OnlineIds
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, ws: WSClient) {
 
+  println("************************** User")
+
   private val config = appConfig.get[UserConfig]("user")(AutoConfig.loader)
 
   val repo = new UserRepo(db(config.collectionUser))

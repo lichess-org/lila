@@ -3,13 +3,14 @@ package http
 
 import akka.stream.Materializer
 import play.api.mvc._
+import play.api.Mode
 
 import lila.common.HTTPRequest
+import lila.common.config.NetConfig
 
-final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter {
+final class HttpFilter(net: NetConfig, mode: Mode)(implicit val mat: Materializer) extends Filter {
 
   private val httpMon = lila.mon.http
-  private val net     = env.net
   private val logger  = lila.log("http")
 
   def apply(nextFilter: RequestHeader => Fu[Result])(req: RequestHeader): Fu[Result] =
@@ -29,7 +30,7 @@ final class HttpFilter(env: Env)(implicit val mat: Materializer) extends Filter 
     val actionName = HTTPRequest actionName req
     val reqTime    = nowMillis - startTime
     val statusCode = result.header.status
-    if (env.isDev) logger.info(s"$statusCode $req $actionName ${reqTime}ms")
+    if (mode == Mode.Dev) logger.info(s"$statusCode $req $actionName ${reqTime}ms")
     else {
       val client = HTTPRequest clientName req
       httpMon.time(actionName, client, req.method, statusCode).record(reqTime)

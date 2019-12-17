@@ -16,6 +16,8 @@ final class AsyncDb(
     driver: AsyncDriver
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  println(s"$name async DB")
+
   private val dbName = uri.db | "lichess"
 
   lazy val connection: Future[MongoConnection] = driver.connect(uri, name.some)
@@ -31,6 +33,8 @@ final class Db(
     driver: AsyncDriver
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
+  println(s"$name sync DB")
+
   private val logger = lila.db.logger branch name
 
   private val dbName = uri.db | "lichess"
@@ -41,6 +45,7 @@ final class Db(
       .flatMap(_ database dbName)
       .await(5.seconds, s"db:$name")
   ) { lap =>
+    println(s"$name sync DB connected")
     logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
   }
 

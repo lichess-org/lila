@@ -25,6 +25,7 @@ final class Env(
   )
 
   lifecycle.addStopHook { () =>
+    println("close driver")
     scala.concurrent.Future(driver.close())
   }
 }

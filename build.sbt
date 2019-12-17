@@ -26,7 +26,7 @@ resourceDirectory in Assets := baseDirectory.value / "public-nothanks"
 // don't make an assets jar
 PlayKeys.generateAssetsJar := false
 // who needs JS routes right?
-routesGenerator := LilaRoutesGenerator
+// routesGenerator := LilaRoutesGenerator
 
 // format: off
 libraryDependencies ++= Seq(
