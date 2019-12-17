@@ -52,7 +52,7 @@ object Dependencies {
     val json    = "com.typesafe.play" %% "play-json" % version
   }
   object kamon {
-    val core     = "io.kamon" %% "kamon-core"           % "2.0.3"
+    val core     = "io.kamon" %% "kamon-core"           % "2.0.4"
     val influxdb = "io.kamon" %% "kamon-influxdb"       % "2.0.1-LILA"
     val metrics  = "io.kamon" %% "kamon-system-metrics" % "2.0.1"
   }
