@@ -148,6 +148,7 @@ object mon {
       val client  = counter("round.error").withTag("from", "client")
       val fishnet = counter("round.error").withTag("from", "fishnet")
       val glicko  = counter("round.error").withTag("from", "glicko")
+      val other   = counter("round.error").withTag("from", "other")
     }
     object titivate {
       val time  = future("round.titivate.time")

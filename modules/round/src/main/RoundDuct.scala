@@ -114,9 +114,9 @@ final private[round] class RoundDuct(
     // socket stuff
 
     case ByePlayer(playerId) =>
-      proxy playerPov playerId.value map {
-        _ foreach { pov =>
-          getPlayer(pov.color).setBye
+      proxy.withPov(playerId) {
+        _ ?? { pov =>
+          fuccess(getPlayer(pov.color).setBye)
         }
       }
 
@@ -242,8 +242,9 @@ final private[round] class RoundDuct(
     // round stuff
 
     case p: HumanPlay =>
-      handlePov(proxy playerPov p.playerId.value) { pov =>
-        if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
+      handle(p.playerId) { pov =>
+        if (pov.player.isAi) fufail(s"player $pov can't play AI")
+        else if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else {
           recordLag(pov)
           player.human(p, this)(pov)
@@ -261,7 +262,7 @@ final private[round] class RoundDuct(
       )
 
     case p: BotPlay =>
-      val res = handleBotPlay(p) { pov =>
+      val res = handle(PlayerId(p.playerId)) { pov =>
         if (pov.game.outoftime(withGrace = true)) finisher.outOfTime(pov.game)
         else player.bot(p, this)(pov)
       }
@@ -284,7 +285,7 @@ final private[round] class RoundDuct(
       }
 
     case ResignAi =>
-      handleAi(proxy.game) { pov =>
+      handleAi { pov =>
         pov.game.resignable ?? finisher.other(pov.game, _.Resign, Some(!pov.color))
       }
 
@@ -482,36 +483,38 @@ final private[round] class RoundDuct(
       } UserLagCache.put(user, lag)
     }
 
-  private def notifyGone(color: Color, gone: Boolean): Unit = proxy pov color foreach {
-    _ foreach { notifyGone(_, gone) }
+  private def notifyGone(color: Color, gone: Boolean): Unit = proxy.withPov(color) { pov =>
+    fuccess(notifyGone(pov, gone))
   }
   private def notifyGone(pov: Pov, gone: Boolean): Unit =
     socketSend(Protocol.Out.gone(FullId(pov.fullId), gone))
 
-  private def handle[A](op: Game => Fu[Events]): Funit =
-    handleGame(proxy.game)(op)
+  private def handle(op: Game => Fu[Events]): Funit =
+    proxy.withGame { g =>
+      handleAndPublish(op(g))
+    }
 
   private def handle(playerId: PlayerId)(op: Pov => Fu[Events]): Funit =
-    handlePov(proxy playerPov playerId.value)(op)
-
-  private def handleBotPlay(p: BotPlay)(op: Pov => Fu[Events]): Funit =
-    handlePov(proxy playerPov p.playerId)(op)
+    proxy.withPov(playerId) {
+      _ ?? { pov =>
+        handleAndPublish(op(pov))
+      }
+    }
 
   private def handle(color: Color)(op: Pov => Fu[Events]): Funit =
-    handlePov(proxy pov color)(op)
+    proxy.withPov(color) { pov =>
+      handleAndPublish(op(pov))
+    }
 
-  private def handlePov(pov: Fu[Option[Pov]])(op: Pov => Fu[Events]): Funit =
-    pov orFail "pov not found" flatMap { p =>
-      (if (p.player.isAi) fufail(s"player $p can't play AI") else op(p)) map publish
-    } recover errorHandler("handlePov")
+  private def handleAndPublish(events: Fu[Events]): Funit =
+    events dmap publish recover errorHandler("handle")
 
-  private def handleAi(game: Fu[Option[Game]])(op: Pov => Fu[Events]): Funit =
-    game.map(_.flatMap(_.aiPov)) orFail "pov not found" flatMap op map publish recover errorHandler(
-      "handleAi"
-    )
-
-  private def handleGame(game: Fu[Option[Game]])(op: Game => Fu[Events]): Funit =
-    game orFail "game not found" flatMap op map publish recover errorHandler("handleGame")
+  private def handleAi(op: Pov => Fu[Events]): Funit =
+    proxy.withGame {
+      _.aiPov ?? { p =>
+        handleAndPublish(op(p))
+      }
+    }
 
   private def publish[A](events: Events): Unit =
     if (events.nonEmpty) {
@@ -534,7 +537,9 @@ final private[round] class RoundDuct(
     case e: FishnetError =>
       logger.info(s"Round fishnet error $name: ${e.getMessage}")
       lila.mon.round.error.fishnet.increment()
-    case e: Exception => logger.warn(s"$name: ${e.getMessage}")
+    case e: Exception =>
+      logger.warn(s"$name: ${e.getMessage}")
+      lila.mon.round.error.other.increment()
   }
 
   def roomId = RoomId(gameId)

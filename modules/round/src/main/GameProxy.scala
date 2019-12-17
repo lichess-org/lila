@@ -2,11 +2,12 @@ package lila.round
 
 import akka.actor.{ Cancellable, Scheduler }
 import scala.concurrent.duration._
+import scala.util.Success
 
 import chess.Color
 import lila.game.{ Game, GameRepo, Pov, Progress }
-import ornicar.scalalib.Zero
 
+// NOT thread safe
 final private class GameProxy(
     id: Game.ID,
     dependencies: GameProxy.Dependencies
@@ -36,15 +37,21 @@ final private class GameProxy(
 
   // convenience helpers
 
-  def pov(color: Color) = game.dmap {
-    _ map { Pov(_, color) }
-  }
+  def withPov[A](color: Color)(f: Pov => Fu[A]): Fu[A] =
+    withGame(g => f(Pov(g, color)))
 
-  def playerPov(playerId: String) = game.dmap {
-    _ flatMap { Pov(_, playerId) }
-  }
+  def withPov[A](playerId: Game.PlayerId)(f: Option[Pov] => Fu[A]): Fu[A] =
+    withGame(g => f(Pov(g, playerId.value)))
 
-  def withGame[A: Zero](f: Game => Fu[A]): Fu[A] = game.flatMap(_ ?? f)
+  def withGame[A](f: Game => Fu[A]): Fu[A] = cache.value match {
+    case Some(Success(Some(g))) => f(g)
+    case Some(Success(None))    => fufail(s"No proxy game: $id")
+    case _ =>
+      cache flatMap {
+        case None    => fufail(s"No proxy game: $id")
+        case Some(g) => f(g)
+      }
+  }
 
   // internals
 
