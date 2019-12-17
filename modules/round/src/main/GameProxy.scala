@@ -16,7 +16,7 @@ final private class GameProxy(
   import GameProxy._
   import dependencies._
 
-  def game: Fu[Option[Game]] = cache
+  private[round] def game: Fu[Option[Game]] = cache
 
   def save(progress: Progress): Funit = {
     set(progress.game)

@@ -424,16 +424,16 @@ final private[round] class RoundDuct(
       }
 
     case FishnetStart =>
-      proxy.game map {
-        _.filter(_.playableByAi) foreach {
-          player.requestFishnet(_, this)
-        }
+      proxy.withGame { g =>
+        g.playableByAi ?? player.requestFishnet(g, this)
       }
 
     case Tick =>
-      getGame map { g =>
-        if (g.exists(_.forceResignable)) Color.all.foreach { c =>
-          if (!getPlayer(c).isOnline) getPlayer(c).isLongGone foreach { _ ?? notifyGone(c, true) }
+      proxy.withGame { g =>
+        g.forceResignable ?? fuccess {
+          Color.all.foreach { c =>
+            if (!getPlayer(c).isOnline) getPlayer(c).isLongGone foreach { _ ?? notifyGone(c, true) }
+          }
         }
       }
 

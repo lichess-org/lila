@@ -46,11 +46,12 @@ final class RoundSocket(
 
   val rounds = new DuctConcMap[RoundDuct](
     mkDuct = id => {
+      val proxy = new GameProxy(id, proxyDependencies)
       val duct = new RoundDuct(
         dependencies = roundDependencies,
         gameId = id,
         socketSend = send
-      )(ec, new GameProxy(id, proxyDependencies))
+      )(ec, proxy)
       terminationDelay schedule Game.Id(id)
       duct.getGame dforeach {
         _ foreach { game =>
