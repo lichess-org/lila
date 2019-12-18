@@ -18,7 +18,7 @@ final class AsyncDb(
 
   private val dbName = uri.db | "lichess"
 
-  lazy val connection: Future[MongoConnection] = driver.connect(uri, name.some)
+  private lazy val connection: Future[MongoConnection] = driver.connect(uri, name.some)
 
   private def db: Future[DefaultDB] = connection.flatMap(_ database dbName)
 
