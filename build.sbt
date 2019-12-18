@@ -32,10 +32,10 @@ PlayKeys.generateAssetsJar := false
 libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
-  reactivemongo.driver, reactivemongo.bson, reactivemongo.native,
+  reactivemongo.driver, reactivemongo.bson,
   maxmind, prismic, markdown, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
-  scrimage, scaffeine, lettuce, epoll
+  scrimage, scaffeine, lettuce
 ) ++ silencer.bundle
 
 lazy val modules = Seq(
