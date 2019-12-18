@@ -35,8 +35,6 @@ final class Db(
 
   println(s"$name sync DB")
 
-  private val logger = lila.db.logger branch name
-
   private val dbName = uri.db | "lichess"
 
   private lazy val db: DefaultDB = Chronometer.syncEffect(
@@ -46,7 +44,7 @@ final class Db(
       .await(5.seconds, s"db:$name")
   ) { lap =>
     println(s"$name sync DB connected")
-    logger.info(s"MongoDB connected to $dbName in ${lap.showDuration}")
+    lila.db.logger.branch(name).info(s"MongoDB connected to $dbName in ${lap.showDuration}")
   }
 
   def apply(name: CollName): Coll = db(name.value)
