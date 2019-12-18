@@ -10,7 +10,7 @@ final class Env(
     lifecycle: ApplicationLifecycle
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private lazy val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
+  private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
 
   def asyncDb(name: String, uri: MongoConnection.ParsedURI) = new AsyncDb(
     name = name,
@@ -26,7 +26,7 @@ final class Env(
 
   lifecycle.addStopHook { () =>
     println("close driver")
-    scala.concurrent.Future(driver.close())
+    driver.close()
   }
 }
 
