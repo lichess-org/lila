@@ -152,7 +152,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def mon(path: lila.mon.TimerPath)              = chronometer.mon(path).result
   def monTry(path: Try[A] => lila.mon.TimerPath) = chronometerTry.mon(r => path(r)(lila.mon)).result
-  def monSuccess(path: lila.mon.type => Boolean => kamon.metric.Timer) =
+  def monSuccess(path: lila.mon.type => Boolean => lila.mon.Timer) =
     chronometerTry.mon { r =>
       path(lila.mon)(r.isSuccess)
     }.result
