@@ -1,13 +1,14 @@
 package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
-import kamon.Kamon._
-import kamon.metric.{ Counter, Timer }
+// import kamon.Kamon._
 import kamon.tag.TagSet
 
 import lila.common.ApiVersion
 
 object mon {
+
+  import kamonStub._
 
   object http {
     private val t = timer("http.time")
@@ -442,7 +443,7 @@ object mon {
     object client {
       object result {
         private val c = counter("fishnet.client.result")
-        private def apply(r: String)(client: String): Counter =
+        private def apply(r: String)(client: String) =
           c.withTags(Map("client" -> client, "result" -> r))
         val success     = apply("success") _
         val failure     = apply("failure") _
@@ -513,7 +514,9 @@ object mon {
     def time(name: String) = timer("blocking.time").withTag("name", name)
   }
 
+  type Timer       = kamonStub.MetricStub
   type TimerPath   = lila.mon.type => Timer
+  type Counter     = kamonStub.MetricStub
   type CounterPath = lila.mon.type => Counter
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
@@ -523,4 +526,25 @@ object mon {
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
+
+  object kamonStub {
+
+    final class MetricStub(name: String) {
+      def withoutTags                = this
+      def withTag(n: String, k: Any) = this
+      def withTags(set: TagSet)      = this
+      def increment(): Unit          = {}
+      def increment(a: Any): Unit    = {}
+      def record(a: Any): Unit       = {}
+      def update(a: Any): Unit       = {}
+      def start                      = this
+      def stop(): Unit               = {}
+    }
+
+    def timer(name: String)     = new MetricStub(name)
+    def counter(name: String)   = new MetricStub(name)
+    def gauge(name: String)     = new MetricStub(name)
+    def histogram(name: String) = new MetricStub(name)
+
+  }
 }
