@@ -1,6 +1,7 @@
 package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
+import com.github.ghik.silencer.silent
 // import kamon.Kamon._
 import kamon.tag.TagSet
 
@@ -530,7 +531,7 @@ object mon {
 
   object kamonStub {
 
-    final class MetricStub(name: String) {
+    @silent final class MetricStub(name: String) {
       def withoutTags                = this
       def withTag(n: String, k: Any) = this
       def withTags(set: TagSet)      = this
