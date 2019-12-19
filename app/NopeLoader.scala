@@ -92,7 +92,7 @@ final class NopeComponents(ctx: ApplicationLoader.Context)
   // lazy val plan: Plan                     = ???
   // lazy val practice: Practice             = ???
   // lazy val pref: Pref                     = ???
-  // lazy val prismic: Prismic               = ???
+  val prismic: Prismic = wire[Prismic]
   // lazy val push: Push                     = ???
   // lazy val puzzle: Puzzle                 = ???
   // lazy val relation: Relation             = ???

@@ -2,3 +2,5 @@ OPTIONS /                              controllers.Options.root
 OPTIONS /*url                          controllers.Options.all(url: String)
 
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)
+
+GET   /dasher                          controllers.Dasher.get
