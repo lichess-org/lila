@@ -109,7 +109,7 @@ object help {
             raw(s"""<iframe src="/study/embed/XtFCFYlM/GCUTf2Jk?bg=auto&theme=auto" $args></iframe>"""),
             p(
               "Create ",
-              a("")("a study"),
+              a(href := routes.Study.allDefault(1))("a study"),
               ", then click the share button to get the HTML code for the current chapter."
             ),
             parameters,
@@ -171,7 +171,23 @@ object help {
       def activeCls(c: String) = cls := active.activeO(c)
       main(cls := "page-menu")(
         st.nav(cls := "page-menu__menu subnav")(
-          ),
+          a(activeCls("about"), href := routes.Page.about)(trans.aboutX("lichess.org")),
+          a(activeCls("faq"), href := routes.Main.faq)("FAQ"),
+          a(activeCls("contact"), href := routes.Main.contact)(trans.contact()),
+          a(activeCls("tos"), href := routes.Page.tos)(trans.termsOfService()),
+          a(activeCls("privacy"), href := routes.Page.privacy)(trans.privacy()),
+          a(activeCls("master"), href := routes.Page.master)("Title verification"),
+          sep,
+          a(activeCls("source"), href := routes.Page.source)(trans.sourceCode()),
+          a(activeCls("help"), href := routes.Page.help)(trans.contribute()),
+          a(activeCls("thanks"), href := routes.Page.thanks)(trans.thankYou()),
+          sep,
+          a(activeCls("webmasters"), href := routes.Main.webmasters)(trans.webmasters()),
+          a(activeCls("database"), href := "https://database.lichess.org")(trans.database(), external),
+          a(activeCls("api"), href := routes.Api.index)("API", external),
+          sep,
+          a(activeCls("lag"), href := routes.Main.lag)("Is Lichess lagging?")
+        ),
         div(cls := s"page-menu__content $contentCls")(body)
       )
     }

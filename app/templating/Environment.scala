@@ -16,9 +16,13 @@ object Environment
     with FormHelper
     with SetupHelper
     with AiHelper
+    with GameHelper
+    with UserHelper
+    with ForumHelper
     with I18nHelper
     with SecurityHelper
     with TeamHelper
+    with TournamentHelper
     with ChessgroundHelper {
 
   // #TODO holy shit fix me

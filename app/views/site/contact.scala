@@ -41,7 +41,8 @@ object contact {
   private def howToReportBugs: Frag = frag(
     ul(
       li(
-        "In the "
+        "In the ",
+        a(href := routes.ForumCateg.show("lichess-feedback"))("Lichess Feedback Forum")
       ),
       li(
         "As a ",
@@ -79,6 +80,7 @@ object contact {
                 p(
                   "You signed up, but didn't receive your confirmation email?",
                   br,
+                  a(href := routes.Account.emailConfirmHelp)("Visit this page to solve the issue"),
                   "."
                 )
               )
@@ -89,6 +91,9 @@ object contact {
               frag(
                 p(
                   "To request a new password, ",
+                  a(href := routes.Auth.passwordReset)(
+                    "visit the password reset page"
+                  ),
                   "."
                 )
               )
@@ -99,6 +104,7 @@ object contact {
               frag(
                 p(
                   "You can ",
+                  a(href := routes.Auth.login)("login"),
                   " with the email address you signed up with."
                 )
               )
@@ -109,6 +115,7 @@ object contact {
               frag(
                 p(
                   "Do a ",
+                  a(href := routes.Auth.passwordReset)("password reset"),
                   " to remove your second factor."
                 )
               )
@@ -146,7 +153,7 @@ object contact {
               frag(
                 p(
                   "To show your title on your Lichess profile, and participate to Titled Arenas, ",
-                  a("")(
+                  a(href := routes.Page.master)(
                     "visit the title confirmation page"
                   ),
                   "."
@@ -159,7 +166,7 @@ object contact {
               frag(
                 p(
                   "You can close your account ",
-                  a("")("on this page"),
+                  a(href := routes.Account.close)("on this page"),
                   "."
                 ),
                 p("Do not ask us by email to close an account, we won't do it.")
@@ -196,7 +203,7 @@ object contact {
               frag(
                 p(
                   s"To report a player for $reason, ",
-                  a("")(strong("use the report form")),
+                  a(href := routes.Report.form)(strong("use the report form")),
                   "."
                 ),
                 p(
@@ -212,7 +219,7 @@ object contact {
                   " send us report emails.",
                   br,
                   "Only reporting players through ",
-                  a("")("the report form"),
+                  a(href := routes.Report.form)("the report form"),
                   " is effective."
                 )
               )
@@ -401,7 +408,7 @@ object contact {
                 p("If you are a European citizen, you may request the deletion of your Lichess account."),
                 p(
                   "First, ",
-                  a("")("close your account"),
+                  a(href := routes.Account.close)("close your account"),
                   "."
                 ),
                 p(

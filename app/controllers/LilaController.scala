@@ -25,11 +25,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   val controllerComponents      = env.controllerComponents
   implicit val executionContext = env.executionContext
-  // implicit val scheduler        = env.scheduler
-
-  implicit def ctxLang(implicit ctx: Context)         = ctx.lang
-  implicit def ctxReq(implicit ctx: Context)          = ctx.req
-  implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+  implicit val scheduler        = env.scheduler
 
   implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
@@ -44,14 +40,23 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val jsonOkBody   = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
 
-  protected val keyPages                              = new KeyPages(env)
-  protected def renderNotFound(implicit ctx: Context) = keyPages.notFound(ctx)
+  protected val keyPages       = new KeyPages(env)
+  protected val renderNotFound = keyPages.notFound _
 
-  implicit protected def LilaFunitToResult(@silent funit: Funit)(implicit ctx: Context): Fu[Result] =
+  implicit protected def LilaFunitToResult(@silent funit: Funit)(implicit req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)
-    )(ctx.req)
+    )
+
+  implicit def ctxLang(implicit ctx: Context)         = ctx.lang
+  implicit def ctxReq(implicit ctx: Context)          = ctx.req
+  implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+
+  protected def EnableSharedArrayBuffer(res: Result): Result = res.withHeaders(
+    "Cross-Origin-Opener-Policy"   -> "same-origin",
+    "Cross-Origin-Embedder-Policy" -> "require-corp"
+  )
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
@@ -230,10 +235,30 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def Firewall[A <: Result](
       a: => Fu[A],
-      or: => Fu[Result] = ???
+      or: => Fu[Result] = fuccess(Redirect(routes.Lobby.home()))
   )(implicit ctx: Context): Fu[Result] =
     if (env.security.firewall accepts ctx.req) a
     else or
+
+  protected def NoTor(res: => Fu[Result])(implicit ctx: Context) =
+    if (env.security.tor isExitNode HTTPRequest.lastRemoteAddress(ctx.req))
+      Unauthorized(views.html.auth.bits.tor()).fuccess
+    else res
+
+  protected def NoEngine[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    if (ctx.me.exists(_.engine)) Forbidden(views.html.site.message.noEngine).fuccess else a
+
+  protected def NoBooster[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    if (ctx.me.exists(_.booster)) Forbidden(views.html.site.message.noBooster).fuccess else a
+
+  protected def NoLame[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    NoEngine(NoBooster(a))
+
+  protected def NoBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    if (ctx.me.exists(_.isBot)) Forbidden(views.html.site.message.noBot).fuccess else a
+
+  protected def NoLameOrBot[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
+    NoLame(NoBot(a))
 
   protected def NoShadowban[A <: Result](a: => Fu[A])(implicit ctx: Context): Fu[Result] =
     if (ctx.me.exists(_.troll)) notFound else a
@@ -383,7 +408,8 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
     negotiate(
       html = fuccess {
-        ???
+        Redirect(routes.Auth.signup) withCookies env.lilaCookie
+          .session(env.security.api.AccessUri, ctx.req.uri)
       },
       api = _ =>
         env.lilaCookie
@@ -397,7 +423,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def authorizationFailed(implicit ctx: Context): Fu[Result] = negotiate(
     html = if (HTTPRequest isSynchronousHttp ctx.req) fuccess {
-      ???
+      Forbidden(views.html.site.message.authFailed)
     } else fuccess(Results.Forbidden("Authorization failed")),
     api = _ => fuccess(forbiddenJsonResult)
   )
@@ -497,7 +523,7 @@ abstract private[controllers] class LilaController(val env: Env)
 
   protected def XhrOrRedirectHome(res: => Fu[Result])(implicit ctx: Context) =
     if (HTTPRequest isXhr ctx.req) res
-    else ???
+    else Redirect(routes.Lobby.home).fuccess
 
   protected def Reasonable(
       page: Int,

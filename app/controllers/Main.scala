@@ -42,7 +42,7 @@ final class Main(
     }
   }
 
-  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map { renderNotFound(_) }
+  def handlerNotFound(req: RequestHeader) = reqToCtx(req) map renderNotFound
 
   def captchaCheck(id: String) = Open { implicit ctx =>
     env.hub.captcher.actor ? ValidCaptcha(id, ~get("solution")) map {
@@ -182,10 +182,10 @@ Disallow: /games/export
   }
 
   def instantChess = Open { implicit ctx =>
-    if (ctx.isAuth) fuccess(Redirect("/"))
+    if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
     else
       fuccess {
-        Redirect("/").withCookies(
+        Redirect(s"${routes.Lobby.home}#pool/10+0").withCookies(
           env.lilaCookie.withSession { s =>
             s + ("theme" -> "ic") + ("pieceSet" -> "icpieces")
           }
@@ -195,12 +195,12 @@ Disallow: /games/export
 
   def legacyQaQuestion(id: Int, @silent slug: String) = Open { _ =>
     MovedPermanently {
-      val faq = "/faq"
+      val faq = routes.Main.faq.url
       id match {
-        case 103 => s"$faq#acpl"
-        case 258 => s"$faq#marks"
-        case 13  => s"$faq#titles"
-        // case 87   => routes.Stat.ratingDistribution("blitz").url
+        case 103  => s"$faq#acpl"
+        case 258  => s"$faq#marks"
+        case 13   => s"$faq#titles"
+        case 87   => routes.Stat.ratingDistribution("blitz").url
         case 110  => s"$faq#name"
         case 29   => s"$faq#titles"
         case 4811 => s"$faq#lm"
@@ -211,6 +211,7 @@ Disallow: /games/export
         case 547  => s"$faq#leaving"
         case 259  => s"$faq#trophies"
         case 342  => s"$faq#provisional"
+        case 50   => routes.Page.help.url
         case 46   => s"$faq#name"
         case 122  => s"$faq#marks"
         case _    => faq

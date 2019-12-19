@@ -39,7 +39,7 @@ final class Blog(
   }
 
   def preview(token: String) = WithPrismic { _ => implicit prismic =>
-    prismic.api.previewSession(token, prismic.linkResolver, "/") map { redirectUrl =>
+    prismic.api.previewSession(token, prismic.linkResolver, routes.Lobby.home.url) map { redirectUrl =>
       Redirect(redirectUrl)
         .withCookies(
           Cookie(
@@ -79,7 +79,7 @@ final class Blog(
   def discuss(id: String) = WithPrismic { _ => implicit prismic =>
     val categSlug = "general-chess-discussion"
     val topicSlug = s"blog-$id"
-    val redirect  = Redirect(???)
+    val redirect  = Redirect(routes.ForumTopic.show(categSlug, topicSlug))
     env.forum.topicRepo.existsByTree(categSlug, topicSlug) flatMap {
       case true => fuccess(redirect)
       case _ =>

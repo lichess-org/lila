@@ -60,7 +60,7 @@ object layout {
     )}" sizes="32x32">""")
   }
   private def blindModeForm(implicit ctx: Context) =
-    raw(s"""<form id="blind-mode" action="${""}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind)
+    raw(s"""<form id="blind-mode" action="${routes.Main.toggleBlindMode}" method="POST"><input type="hidden" name="enable" value="${if (ctx.blind)
       0
     else
       1}"><input type="hidden" name="redirect" value="${ctx.req.path}"><button type="submit">Accessibility: ${if (ctx.blind)
@@ -97,7 +97,7 @@ object layout {
   </a>
   <div id="dasher_app" class="dropdown" data-playing="$playing"></div>
 </div>
-<a href="${""}?referrer=${ctx.req.path}" class="signin button button-empty">${trans
+<a href="${routes.Auth.login}?referrer=${ctx.req.path}" class="signin button button-empty">${trans
       .signIn()
       .render}</a>""")
 
@@ -176,7 +176,7 @@ object layout {
         noTranslate,
         openGraph.map(_.frags),
         link(
-          href := "",
+          href := routes.Blog.atom,
           `type` := "application/atom+xml",
           rel := "alternate",
           st.title := trans.blog.txt()
@@ -213,10 +213,10 @@ object layout {
         style := zoomable option s"--zoom:${ctx.zoom}"
       )(
         blindModeForm,
-        // ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
-        // ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
+        ctx.pageData.inquiry map { views.html.mod.inquiry(_) },
+        ctx.me ifTrue ctx.userContext.impersonatedBy.isDefined map { views.html.mod.impersonate(_) },
         isStage option views.html.base.bits.stage,
-        // lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
+        lila.security.EmailConfirm.cookie.get(ctx.req).map(views.html.auth.bits.checkYourEmailBanner(_)),
         playing option zenToggle,
         siteHeader(playing),
         div(
@@ -252,7 +252,7 @@ object layout {
               )
             )(
               span(trans.noFriendsOnline()),
-              a(cls := "find button", href := "")(
+              a(cls := "find button", href := routes.User.opponents)(
                 span(cls := "is3 text", dataIcon := "h")(trans.findFriends())
               )
             )
@@ -289,7 +289,7 @@ object layout {
         a(
           cls := "link data-count link-center",
           title := "Moderation",
-          href := "",
+          href := routes.Report.list,
           dataCount := blockingReportNbOpen,
           dataIcon := ""
         )
@@ -298,7 +298,7 @@ object layout {
       ctx.teamNbRequests > 0 option
         a(
           cls := "link data-count link-center",
-          href := "",
+          href := routes.Team.requests,
           dataCount := ctx.teamNbRequests,
           dataIcon := "f",
           title := trans.teams.txt()

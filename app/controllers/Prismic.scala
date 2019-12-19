@@ -28,9 +28,8 @@ final class Prismic(
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
-      case _ => ???
-      // case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
-      // case _         => routes.Lobby.home.url
+      case (link, _) => routes.Blog.show(link.id, link.slug, ref).url
+      case _         => routes.Lobby.home.url
     }
 
   def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>

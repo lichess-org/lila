@@ -41,7 +41,10 @@ object message {
   }
 
   def privateStudy(ownerId: User.ID)(implicit ctx: Context) =
-    apply("")("Sorry! This study is private, you cannot access it.")
+    apply(
+      title = s"${usernameOrId(ownerId)}'s study",
+      back = routes.Study.allDefault(1).url.some
+    )("Sorry! This study is private, you cannot access it.")
 
   def streamingMod(implicit ctx: Context) = apply("Disabled while streaming") {
     frag(
@@ -53,16 +56,17 @@ object message {
   def challengeDenied(msg: String)(implicit ctx: Context) =
     apply(
       title = trans.challengeToPlay.txt(),
-      back = "/".some
+      back = routes.Lobby.home.url.some
     )(msg)
 
   def insightNoGames(u: User)(implicit ctx: Context) =
     apply(
       title = s"${u.username} has not played a rated game yet!",
-      back = "/".some
+      back = routes.User.show(u.id).url.some
     )(
       frag(
         "Before using chess insights,",
+        userLink(u),
         " has to play at least one rated game."
       )
     )

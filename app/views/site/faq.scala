@@ -50,16 +50,16 @@ object faq {
         question(
           "contributing",
           "How can I contribute to Lichess?",
-          p("Lichess is powered by donations from patrons and the efforts of a team of volunteers.")
-          // p(
-          //   "You can find out more about ",
-          //   a(href := routes.Plan.index())("being a patron"),
-          //   " (including a ",
-          //   a(href := routes.Main.costs())("breakdown of our costs"),
-          //   "). If you want to help Lichess by volunteering your time and skills, there are many ",
-          //   a(href := routes.Page.help())("other ways to help"),
-          //   "."
-          // )
+          p("Lichess is powered by donations from patrons and the efforts of a team of volunteers."),
+          p(
+            "You can find out more about ",
+            a(href := routes.Plan.index())("being a patron"),
+            " (including a ",
+            a(href := routes.Main.costs())("breakdown of our costs"),
+            "). If you want to help Lichess by volunteering your time and skills, there are many ",
+            a(href := routes.Page.help())("other ways to help"),
+            "."
+          )
         ),
         question(
           "sites_based_on_Lichess",
@@ -123,6 +123,7 @@ object faq {
           "What variants can I play on Lichess?",
           p(
             "Lichess supports standard chess and ",
+            a(href := routes.Page.variantHome())("8 chess variants"),
             "."
           )
         ),
@@ -172,6 +173,7 @@ object faq {
           ),
           p(
             "See the ",
+            a(href := s"${routes.Learn.index()}#/15")("Lichess training"),
             " on this move for some practice with it."
           )
         ),
@@ -199,6 +201,7 @@ object faq {
           ),
           p(
             "If you have an OTB title, you can apply to have this displayed on your account by completing the ",
+            a(href := routes.Main.verifyTitle())("verification form"),
             ", including a clear image of an identifying document/card and a selfie of you holding the document/card."
           ),
           p("Verifying as a titled player on Lichess gives access to play in the Titled Arena events."),
@@ -283,6 +286,7 @@ object faq {
         question(
           "leaderboards",
           "How do ranks and leaderboards work?",
+          p("In order to get on the ", a(href := routes.User.list())("rating leaderboards"), ", you must:"),
           ol(
             li("have played at least 30 rated games in a given rating,"),
             li("have played a rated game within the last week for this rating,"),
@@ -308,6 +312,7 @@ object faq {
           "How to hide ratings while playing?",
           p(
             "Enable Zen-mode in the ",
+            a(href := routes.Pref.form("game-display"))("display preferences"),
             " or by pressing ",
             em("z"),
             " during a game."
