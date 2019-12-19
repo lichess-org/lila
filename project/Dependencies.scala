@@ -23,7 +23,7 @@ object Dependencies {
   val scaffeine   = "com.github.blemale"    %% "scaffeine"                      % "3.1.0" % "compile"
   val googleOAuth = "com.google.auth"       % "google-auth-library-oauth2-http" % "0.19.0"
   val scalaUri    = "io.lemonlabs"          %% "scala-uri"                      % "1.5.1"
-  val scalatags   = "com.lihaoyi"           %% "scalatags"                      % "0.7.0"
+  val scalatags   = "com.lihaoyi"           %% "scalatags"                      % "0.8.1"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.2.1.RELEASE"
   val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.43.Final" classifier "linux-x86_64"
   val markdown    = "com.vladsch.flexmark"  % "flexmark-all"                    % "0.50.44"
