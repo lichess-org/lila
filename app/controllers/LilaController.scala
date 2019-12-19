@@ -43,7 +43,7 @@ abstract private[controllers] class LilaController(val env: Env)
   protected val keyPages       = new KeyPages(env)
   protected val renderNotFound = keyPages.notFound _
 
-  implicit protected def LilaFunitToResult(@silent funit: Funit)(implicit ctx: Context): Fu[Result] =
+  implicit protected def LilaFunitToResult(@silent funit: Funit)(implicit req: RequestHeader): Fu[Result] =
     negotiate(
       html = fuccess(Ok("ok")),
       api = _ => fuccess(jsonOkResult)
@@ -52,6 +52,11 @@ abstract private[controllers] class LilaController(val env: Env)
   implicit def ctxLang(implicit ctx: Context)         = ctx.lang
   implicit def ctxReq(implicit ctx: Context)          = ctx.req
   implicit def reqConfig(implicit req: RequestHeader) = ui.EmbedConfig(req)
+
+  protected def EnableSharedArrayBuffer(res: Result): Result = res.withHeaders(
+    "Cross-Origin-Opener-Policy"   -> "same-origin",
+    "Cross-Origin-Embedder-Policy" -> "require-corp"
+  )
 
   protected def NoCache(res: Result): Result = res.withHeaders(
     CACHE_CONTROL -> "no-cache, no-store, must-revalidate",
