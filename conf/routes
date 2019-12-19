@@ -4,3 +4,26 @@ OPTIONS /*url                          controllers.Options.all(url: String)
 GET   /assets/*file                    controllers.ExternalAssets.at(path="public", file)
 
 GET   /dasher                          controllers.Dasher.get
+
+# Blog
+GET   /blog                            controllers.Blog.index(page: Int ?= 1, ref: Option[String] ?= None)
+GET   /blog/all                        controllers.Blog.all
+GET   /blog/:year                      controllers.Blog.year(year: Int)
+GET   /blog/discuss/:id                controllers.Blog.discuss(id: String)
+GET   /blog/:id/:slug                  controllers.Blog.show(id: String, slug: String, ref: Option[String] ?= None)
+GET   /blog.atom                       controllers.Blog.atom
+
+GET   /captcha/$id<\w{8}>              controllers.Main.captchaCheck(id: String)
+GET   /developers                      controllers.Main.webmasters
+GET   /mobile                          controllers.Main.mobile
+GET   /lag                             controllers.Main.lag
+GET   /get-fishnet                     controllers.Main.getFishnet
+GET   /costs                           controllers.Main.costs
+GET   /verify-title                    controllers.Main.verifyTitle
+GET   /InstantChess.com                controllers.Main.instantChess
+
+GET   /contact                         controllers.Main.contact
+GET   /faq                             controllers.Main.faq
+GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
+GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
+GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
