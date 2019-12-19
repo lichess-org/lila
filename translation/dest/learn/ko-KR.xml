@@ -104,12 +104,12 @@
   <string name="boardSetup">보드 준비</string>
   <string name="howTheGameStarts">체스 기물들의 위치</string>
   <string name="boardSetupIntro">전열을 가다듬어라!</string>
-  <string name="thisIsTheInitialPosition">이 배치는 체스의 기본적인 배치입니다.
+  <string name="thisIsTheInitialPosition">이 배치는 체스의 초기 배치입니다.
 아무 수나 두어 진행하십시오.</string>
-  <string name="firstPlaceTheRooks">일단 룩을 배치하세요.
-룩은 구석에 위치합니다.</string>
-  <string name="thenPlaceTheKnights">그럼 나이트를 배치하십시오.
-나이트는 룩 옆에 있습니다.</string>
+  <string name="firstPlaceTheRooks">우선 룩을 배치해봅시다.
+룩은 구석에 놓여요.</string>
+  <string name="thenPlaceTheKnights">그럼 나이트를 배치해봅시다!
+나이트는 룩 옆에 놓입니다.</string>
   <string name="placeTheBishops">이제 비숍을 배치하십시오.
 비숍은 나이트 옆에 있습니다.</string>
   <string name="placeTheQueen">퀸을 배치하십시오!
