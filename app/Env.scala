@@ -91,7 +91,7 @@ final class Env(
   val explorerEndpoint  = config.get[String]("explorer.endpoint")
   val tablebaseEndpoint = config.get[String]("explorer.tablebase.endpoint")
 
-  // def net = common.netConfig
+  def net = common.netConfig
 
   // lazy val preloader     = wire[mashup.Preload]
   // lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
@@ -255,8 +255,9 @@ final class EnvBoot(
   lifecycle.addStopHook { () =>
     println("destroying bus")
     lila.common.Bus.destroy()
+    templating.Environment.destroy()
     funit
   }
 
-  // templating.Environment setEnv env
+  templating.Environment setEnv env
 }
