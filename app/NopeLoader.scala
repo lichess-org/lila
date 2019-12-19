@@ -6,7 +6,6 @@ import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
 import play.api.libs.crypto.CookieSignerProvider
-import play.api.libs.ws.WSClient
 import router.Routes
 
 final class NopeLoader extends ApplicationLoader {
@@ -15,32 +14,30 @@ final class NopeLoader extends ApplicationLoader {
 
 final class NopeComponents(ctx: ApplicationLoader.Context)
     extends BuiltInComponentsFromContext(ctx)
+    with _root_.controllers.AssetsComponents
     with play.api.libs.ws.ahc.AhcWSComponents {
-  // with _root_.controllers.AssetsComponents
 
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
   }
-
-  import io.lettuce.core._
-
   import _root_.controllers._
 
-  // // we want to use the legacy session cookie baker
-  // // for compatibility with lila-ws
+  // we want to use the legacy session cookie baker
+  // for compatibility with lila-ws
   def cookieBaker = new LegacySessionCookieBaker(httpConfiguration.session, cookieSigner)
 
-  // override lazy val requestFactory: RequestFactory = {
-  //   val cookieSigner = new CookieSignerProvider(httpConfiguration.secret).get
-  //   new DefaultRequestFactory(
-  //     new DefaultCookieHeaderEncoding(httpConfiguration.cookies),
-  //     cookieBaker,
-  //     new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
-  //   )
-  // }
+  override lazy val requestFactory: RequestFactory = {
+    val cookieSigner = new CookieSignerProvider(httpConfiguration.secret).get
+    new DefaultRequestFactory(
+      new DefaultCookieHeaderEncoding(httpConfiguration.cookies),
+      cookieBaker,
+      new LegacyFlashCookieBaker(httpConfiguration.flash, httpConfiguration.secret, cookieSigner)
+    )
+  }
 
-  // // lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
-  lazy val httpFilters = Seq()
+  def netConfig        = env.net
+  def mode             = environment.mode
+  lazy val httpFilters = Seq(wire[lila.app.http.HttpFilter])
 
   override lazy val httpErrorHandler = {
     def someRouter = router.some
@@ -52,8 +49,8 @@ final class NopeComponents(ctx: ApplicationLoader.Context)
   implicit def ws     = wsClient
 
   // // dev assets
-  // implicit def mimeTypes                       = fileMimeTypes
-  // lazy val devAssetsController: ExternalAssets = wire[ExternalAssets]
+  implicit def mimeTypes                       = fileMimeTypes
+  lazy val devAssetsController: ExternalAssets = wire[ExternalAssets]
 
   val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   val env: lila.app.Env      = boot.env
@@ -68,7 +65,7 @@ final class NopeComponents(ctx: ApplicationLoader.Context)
   // lazy val challenge: Challenge           = ???
   // lazy val coach: Coach                   = ???
   // lazy val coordinate: Coordinate         = ???
-  // lazy val dasher: Dasher                 = ???
+  lazy val dasher: Dasher = wire[Dasher]
   // lazy val dev: Dev                       = ???
   // lazy val editor: Editor                 = ???
   // lazy val event: Event                   = ???

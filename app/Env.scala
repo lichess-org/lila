@@ -93,65 +93,65 @@ final class Env(
 
   def net = common.netConfig
 
-  // lazy val preloader     = wire[mashup.Preload]
-  // lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
-  // lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
-  // lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
-  // lazy val teamInfo      = wire[mashup.TeamInfoApi]
-  // lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
+  lazy val preloader     = wire[mashup.Preload]
+  lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
+  lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]
+  lazy val userInfo      = wire[mashup.UserInfo.UserInfoApi]
+  lazy val teamInfo      = wire[mashup.TeamInfoApi]
+  lazy val gamePaginator = wire[mashup.GameFilterMenu.PaginatorBuilder]
 
-  // private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
-  //   Future {
-  //     puzzle.daily.get
-  //   }.flatMap(identity)
-  //     .withTimeoutDefault(50 millis, none) recover {
-  //     case e: Exception =>
-  //       lila.log("preloader").warn("daily puzzle", e)
-  //       none
-  //   }
+  private val tryDailyPuzzle: lila.puzzle.Daily.Try = () =>
+    Future {
+      puzzle.daily.get
+    }.flatMap(identity)
+      .withTimeoutDefault(50 millis, none) recover {
+      case e: Exception =>
+        lila.log("preloader").warn("daily puzzle", e)
+        none
+    }
 
-  // def scheduler = system.scheduler
+  def scheduler = system.scheduler
 
-  // def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
-  //   for {
-  //     u        <- user.repo byId userId orFail s"No such user $userId"
-  //     goodUser <- !u.lameOrTroll ?? { !playban.api.hasCurrentBan(u.id) }
-  //     _        <- user.repo.disable(u, keepEmail = !goodUser)
-  //     _ <- !goodUser ?? relation.api.fetchFollowing(u.id) flatMap {
-  //       activity.write.unfollowAll(u, _)
-  //     }
-  //     _ <- relation.api.unfollowAll(u.id)
-  //     _ <- user.rankingApi.remove(u.id)
-  //     _ <- team.api.quitAll(u.id)
-  //     _ = challenge.api.removeByUserId(u.id)
-  //     _ = tournament.api.withdrawAll(u)
-  //     _       <- plan.api.cancel(u).nevermind
-  //     _       <- lobby.seekApi.removeByUser(u)
-  //     _       <- security.store.disconnect(u.id)
-  //     _       <- push.webSubscriptionApi.unsubscribeByUser(u)
-  //     _       <- streamer.api.demote(u.id)
-  //     _       <- coach.api.remove(u.id)
-  //     reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
-  //     _       <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
-  //   } yield {
-  //     Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
-  //   }
+  def closeAccount(userId: lila.user.User.ID, self: Boolean): Funit =
+    for {
+      u        <- user.repo byId userId orFail s"No such user $userId"
+      goodUser <- !u.lameOrTroll ?? { !playban.api.hasCurrentBan(u.id) }
+      _        <- user.repo.disable(u, keepEmail = !goodUser)
+      _ <- !goodUser ?? relation.api.fetchFollowing(u.id) flatMap {
+        activity.write.unfollowAll(u, _)
+      }
+      _ <- relation.api.unfollowAll(u.id)
+      _ <- user.rankingApi.remove(u.id)
+      _ <- team.api.quitAll(u.id)
+      _ = challenge.api.removeByUserId(u.id)
+      _ = tournament.api.withdrawAll(u)
+      _       <- plan.api.cancel(u).nevermind
+      _       <- lobby.seekApi.removeByUser(u)
+      _       <- security.store.disconnect(u.id)
+      _       <- push.webSubscriptionApi.unsubscribeByUser(u)
+      _       <- streamer.api.demote(u.id)
+      _       <- coach.api.remove(u.id)
+      reports <- report.api.processAndGetBySuspect(lila.report.Suspect(u))
+      _       <- self ?? mod.logApi.selfCloseAccount(u.id, reports)
+    } yield {
+      Bus.publish(lila.hub.actorApi.security.CloseAccount(u.id), "accountClose")
+    }
 
-  // Bus.subscribeFun("garbageCollect") {
-  //   case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
-  //     user.repo.isTroll(userId) foreach { troll =>
-  //       if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
-  //     }
-  // }
+  Bus.subscribeFun("garbageCollect") {
+    case lila.hub.actorApi.security.GarbageCollect(userId, _) =>
+      user.repo.isTroll(userId) foreach { troll =>
+        if (troll) kill(userId) // GC can be aborted by reverting the initial SB mark
+      }
+  }
 
-  // private def kill(userId: User.ID): Unit =
-  //   scheduler.scheduleOnce(1 second) {
-  //     closeAccount(userId, self = false)
-  //   }
+  private def kill(userId: User.ID): Unit =
+    scheduler.scheduleOnce(1 second) {
+      closeAccount(userId, self = false)
+    }
 
-  // system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
+  system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 
-  // scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
+  scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
 }
 
 final class EnvBoot(

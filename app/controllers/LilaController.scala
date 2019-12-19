@@ -23,6 +23,8 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   implicit val executionContext = env.executionContext
   // implicit val scheduler        = env.scheduler
 
+  implicit def reqOf(implicit ctx: Context): RequestHeader = ctx.req
+
   implicit protected val LilaResultZero = Zero.instance[Result](Results.NotFound)
 
   implicit final protected class LilaPimpedResult(result: Result) {
@@ -36,8 +38,9 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   protected val jsonOkBody   = Json.obj("ok" -> true)
   protected val jsonOkResult = Ok(jsonOkBody) as JSON
 
-  protected val keyPages       = new KeyPages(env)
-  protected val renderNotFound = keyPages.notFound _
+  protected val keyPages = new KeyPages(env)
+  // protected val renderNotFound        = keyPages.notFound _
+  def notFound(implicit ctx: Context) = fuccess(keyPages.notFound)
 
   // implicit protected def LilaFunitToResult(@silent funit: Funit)(implicit ctx: Context): Fu[Result] =
   //   negotiate(
@@ -54,11 +57,11 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   //   EXPIRES       -> "0"
   // )
 
-  // protected def Open(f: Context => Fu[Result]): Action[Unit] =
-  //   Open(parse.empty)(f)
+  protected def Open(f: Context => Fu[Result]): Action[Unit] =
+    Open(parse.empty)(f)
 
-  // protected def Open[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
-  //   Action.async(parser)(handleOpen(f, _))
+  protected def Open[A](parser: BodyParser[A])(f: Context => Fu[Result]): Action[A] =
+    Action.async(parser)(handleOpen(f, _))
 
   // protected def OpenBody(f: BodyContext[_] => Fu[Result]): Action[AnyContent] =
   //   OpenBody(parse.anyContent)(f)
@@ -78,10 +81,10 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   //   else handleOpen(open, req)
   // }
 
-  // private def handleOpen(f: Context => Fu[Result], req: RequestHeader): Fu[Result] =
-  //   CSRF(req) {
-  //     reqToCtx(req) flatMap f
-  //   }
+  private def handleOpen(f: Context => Fu[Result], req: RequestHeader): Fu[Result] =
+    CSRF(req) {
+      reqToCtx(req) flatMap f
+    }
 
   // protected def AnonOrScoped(selectors: OAuthScope.Selector*)(
   //     anon: RequestHeader => Fu[Result],
@@ -367,14 +370,14 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   // protected def notFoundReq(req: RequestHeader): Fu[Result] =
   //   reqToCtx(req) flatMap (x => notFound(x))
 
-  // protected def isGranted(permission: Permission.Selector, user: UserModel): Boolean =
-  //   Granter(permission(Permission))(user)
+  protected def isGranted(permission: Permission.Selector, user: UserModel): Boolean =
+    Granter(permission(Permission))(user)
 
-  // protected def isGranted(permission: Permission.Selector)(implicit ctx: Context): Boolean =
-  //   isGranted(permission(Permission))
+  protected def isGranted(permission: Permission.Selector)(implicit ctx: Context): Boolean =
+    isGranted(permission(Permission))
 
-  // protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
-  //   ctx.me ?? Granter(permission)
+  protected def isGranted(permission: Permission)(implicit ctx: Context): Boolean =
+    ctx.me ?? Granter(permission)
 
   // protected def authenticationFailed(implicit ctx: Context): Fu[Result] =
   //   negotiate(
@@ -398,21 +401,21 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   //   api = _ => fuccess(forbiddenJsonResult)
   // )
 
-  // protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(
-  //     implicit req: RequestHeader
-  // ): Fu[Result] =
-  //   lila.api.Mobile.Api
-  //     .requestVersion(req)
-  //     .fold(html) { v =>
-  //       api(v) dmap (_ as JSON)
-  //     }
-  //     .dmap(_.withHeaders("Vary" -> "Accept"))
+  protected def negotiate(html: => Fu[Result], api: ApiVersion => Fu[Result])(
+      implicit req: RequestHeader
+  ): Fu[Result] =
+    lila.api.Mobile.Api
+      .requestVersion(req)
+      .fold(html) { v =>
+        api(v) dmap (_ as JSON)
+      }
+      .dmap(_.withHeaders("Vary" -> "Accept"))
 
-  // protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
-  //   case (d, impersonatedBy) =>
-  //     val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
-  //     pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
-  // }
+  protected def reqToCtx(req: RequestHeader): Fu[HeaderContext] = restoreUser(req) flatMap {
+    case (d, impersonatedBy) =>
+      val ctx = UserContext(req, d.map(_.user), impersonatedBy, lila.i18n.I18nLangPicker(req, d.map(_.user)))
+      pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
+  }
 
   // protected def reqToCtx[A](req: Request[A]): Fu[BodyContext[A]] =
   //   restoreUser(req) flatMap {
@@ -422,71 +425,71 @@ abstract private[controllers] class LilaController(val env: Env) extends BaseCon
   //       pageDataBuilder(ctx, d.exists(_.hasFingerPrint)) dmap { Context(ctx, _) }
   //   }
 
-  // private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {
-  //   val isPage = HTTPRequest isSynchronousHttp ctx.req
-  //   val nonce  = isPage option Nonce.random
-  //   ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
-  //     import lila.relation.actorApi.OnlineFriends
-  //     env.pref.api.getPref(me, ctx.req) zip {
-  //       if (isPage) {
-  //         env.user.lightUserApi preloadUser me
-  //         env.relation.online.friendsOf(me.id) zip
-  //           env.team.api.nbRequests(me.id) zip
-  //           env.challenge.api.countInFor.get(me.id) zip
-  //           env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
-  //           env.mod.inquiryApi.forMod(me)
-  //       } else
-  //         fuccess {
-  //           ((((OnlineFriends.empty, 0), 0), 0), none)
-  //         }
-  //     } map {
-  //       case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)) =>
-  //         PageData(
-  //           onlineFriends,
-  //           teamNbRequests,
-  //           nbChallenges,
-  //           nbNotifications,
-  //           pref,
-  //           blindMode = blindMode(ctx),
-  //           hasFingerprint = hasFingerPrint,
-  //           inquiry = inquiry,
-  //           nonce = nonce
-  //         )
-  //     }
-  //   }
-  // }
+  private def pageDataBuilder(ctx: UserContext, hasFingerPrint: Boolean): Fu[PageData] = {
+    val isPage = HTTPRequest isSynchronousHttp ctx.req
+    val nonce  = isPage option Nonce.random
+    ctx.me.fold(fuccess(PageData.anon(ctx.req, nonce, blindMode(ctx)))) { me =>
+      import lila.relation.actorApi.OnlineFriends
+      env.pref.api.getPref(me, ctx.req) zip {
+        if (isPage) {
+          env.user.lightUserApi preloadUser me
+          env.relation.online.friendsOf(me.id) zip
+            env.team.api.nbRequests(me.id) zip
+            env.challenge.api.countInFor.get(me.id) zip
+            env.notifyM.api.unreadCount(Notifies(me.id)).dmap(_.value) zip
+            env.mod.inquiryApi.forMod(me)
+        } else
+          fuccess {
+            ((((OnlineFriends.empty, 0), 0), 0), none)
+          }
+      } map {
+        case (pref, (onlineFriends ~ teamNbRequests ~ nbChallenges ~ nbNotifications ~ inquiry)) =>
+          PageData(
+            onlineFriends,
+            teamNbRequests,
+            nbChallenges,
+            nbNotifications,
+            pref,
+            blindMode = blindMode(ctx),
+            hasFingerprint = hasFingerPrint,
+            inquiry = inquiry,
+            nonce = nonce
+          )
+      }
+    }
+  }
 
-  // private def blindMode(implicit ctx: UserContext) =
-  //   ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) ?? { c =>
-  //     c.value.nonEmpty && c.value == env.api.config.accessibility.hash
-  //   }
+  private def blindMode(implicit ctx: UserContext) =
+    ctx.req.cookies.get(env.api.config.accessibility.blindCookieName) ?? { c =>
+      c.value.nonEmpty && c.value == env.api.config.accessibility.hash
+    }
 
-  // // user, impersonatedBy
-  // type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
-  // private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
-  //   env.security.api restoreUser req dmap {
-  //     case Some(d) if !env.isProd =>
-  //       d.copy(user = d.user
-  //           .addRole(lila.security.Permission.Beta.name)
-  //           .addRole(lila.security.Permission.Prismic.name)
-  //         )
-  //         .some
-  //     case d => d
-  //   } flatMap {
-  //     case None => fuccess(None -> None)
-  //     case Some(d) =>
-  //       env.mod.impersonate.impersonating(d.user) map {
-  //         _.fold[RestoredUser](d.some -> None) { impersonated =>
-  //           FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
-  //         }
-  //       }
-  //   }
+  // user, impersonatedBy
+  type RestoredUser = (Option[FingerPrintedUser], Option[UserModel])
+  private def restoreUser(req: RequestHeader): Fu[RestoredUser] =
+    env.security.api restoreUser req dmap {
+      case Some(d) if !env.isProd =>
+        d.copy(user = d.user
+            .addRole(lila.security.Permission.Beta.name)
+            .addRole(lila.security.Permission.Prismic.name)
+          )
+          .some
+      case d => d
+    } flatMap {
+      case None => fuccess(None -> None)
+      case Some(d) =>
+        env.mod.impersonate.impersonating(d.user) map {
+          _.fold[RestoredUser](d.some -> None) { impersonated =>
+            FingerPrintedUser(impersonated, FingerHash.impersonate.some).some -> d.user.some
+          }
+        }
+    }
 
-  // protected val csrfCheck           = env.security.csrfRequestHandler.check _
-  // protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
+  protected val csrfCheck           = env.security.csrfRequestHandler.check _
+  protected val csrfForbiddenResult = Forbidden("Cross origin request forbidden").fuccess
 
-  // private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
-  //   if (csrfCheck(req)) f else csrfForbiddenResult
+  private def CSRF(req: RequestHeader)(f: => Fu[Result]): Fu[Result] =
+    if (csrfCheck(req)) f else csrfForbiddenResult
 
   // protected def XhrOnly(res: => Fu[Result])(implicit ctx: Context) =
   //   if (HTTPRequest isXhr ctx.req) res else notFound

@@ -22,7 +22,7 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
   //     env.lilaCookie.ensure(ctx.req)(status(html))
   //   }
 
-  def notFound(ctx: Context): Result = {
+  def notFound(implicit ctx: Context): Result = {
     ???
     // Results.NotFound(html.base.notFound()(ctx))
   }
