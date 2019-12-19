@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">친구와 게임하기</string>
   <string name="playWithTheMachine">체스 엔진과 게임하기</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대해 친구와 같이 체스를 두세요.</string>
   <string name="gameOver">게임 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
   <string name="waiting">기다리는 중</string>
