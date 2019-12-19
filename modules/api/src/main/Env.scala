@@ -47,6 +47,8 @@ final class Env(
     val mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
+  println("************************** Api")
+
   val config = ApiConfig loadFrom appConfig
   import config.apiToken
 

@@ -34,6 +34,8 @@ final class Env(
     asyncCache: lila.memo.AsyncCache.Builder
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
 
+  println("************************** Game")
+
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)
   import config.paginatorMaxPerPage
 
