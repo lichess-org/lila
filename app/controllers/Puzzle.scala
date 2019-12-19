@@ -33,7 +33,9 @@ final class Puzzle(
   private def renderShow(puzzle: PuzzleModel, mode: String)(implicit ctx: Context) =
     env.puzzle userInfos ctx.me flatMap { infos =>
       renderJson(puzzle = puzzle, userInfos = infos, mode = mode, voted = none) map { json =>
-        views.html.puzzle.show(puzzle, data = json, pref = env.puzzle.jsonView.pref(ctx.pref))
+        EnableSharedArrayBuffer(
+          Ok(views.html.puzzle.show(puzzle, data = json, pref = env.puzzle.jsonView.pref(ctx.pref)))
+        )
       }
     }
 
@@ -43,9 +45,9 @@ final class Puzzle(
         _.map(_.id) ?? env.puzzle.api.puzzle.find
       }) { puzzle =>
         negotiate(
-          html = renderShow(puzzle, "play") map { Ok(_) },
+          html = renderShow(puzzle, "play"),
           api = _ => puzzleJson(puzzle) map { Ok(_) }
-        ) map { NoCache(_) }
+        ) map NoCache
       }
     }
   }
@@ -53,14 +55,14 @@ final class Puzzle(
   def home = Open { implicit ctx =>
     NoBot {
       env.puzzle.selector(ctx.me) flatMap { puzzle =>
-        renderShow(puzzle, if (ctx.isAuth) "play" else "try") map { Ok(_) }
+        renderShow(puzzle, if (ctx.isAuth) "play" else "try")
       }
     }
   }
 
   def show(id: PuzzleId) = Open { implicit ctx =>
     NoBot {
-      OptionFuOk(env.puzzle.api.puzzle find id) { puzzle =>
+      OptionFuResult(env.puzzle.api.puzzle find id) { puzzle =>
         renderShow(puzzle, "play")
       }
     }

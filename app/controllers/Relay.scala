@@ -116,7 +116,7 @@ final class Relay(
         chat     <- studyC.chatOf(sc.study)
         sVersion <- env.study.version(sc.study.id)
         streams  <- studyC.streamsOf(sc.study)
-      } yield Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams))
+      } yield EnableSharedArrayBuffer(Ok(html.relay.show(relay, sc.study, data, chat, sVersion, streams)))
     }
 
   private def showRoute(r: RelayModel) = routes.Relay.show(r.slug, r.id.value)
