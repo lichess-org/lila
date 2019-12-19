@@ -1,7 +1,7 @@
 import { Prop } from 'common';
 import { StoredProp, StoredBooleanProp } from 'common/storage';
 
-export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx' | 'pnacl';
+export type CevalTechnology = 'asmjs' | 'wasm' | 'wasmx';
 
 export interface Eval {
   cp?: number;
@@ -29,7 +29,6 @@ export interface Work {
 
 export interface PoolOpts {
   technology: CevalTechnology;
-  pnacl: string;
   wasm: string;
   wasmx: string;
   asmjs: string;
@@ -114,12 +113,4 @@ export interface Step {
   uci?: string;
   threat?: Tree.ClientEval;
   ceval?: Tree.ClientEval;
-}
-
-export interface Watchdog {
-  arm(): void;
-  disarm(): void;
-  disarmSoon(): void;
-  fail(): void;
-  good(): boolean;
 }

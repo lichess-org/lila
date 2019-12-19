@@ -1,6 +1,6 @@
 import { CevalCtrl, CevalOpts, CevalTechnology, Work, Step, Hovering, Started } from './types';
 
-import { Pool, makeWatchdog } from './pool';
+import { Pool } from './pool';
 import { prop } from 'common';
 import { storedProp } from 'common/storage';
 import throttle from 'common/throttle';
@@ -68,10 +68,9 @@ export default function(opts: CevalOpts): CevalCtrl {
     return opts.storageKeyPrefix ? `${opts.storageKeyPrefix}.${k}` : k;
   };
 
-  // select pnacl > wasmx > wasm > asmjs
+  // select wasmx > wasm > asmjs
   let technology: CevalTechnology = 'asmjs';
-  if (makeWatchdog('pnacl').good() && 'application/x-pnacl' in navigator.mimeTypes) technology = 'pnacl';
-  else if (typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00))) {
+  if (typeof WebAssembly === 'object' && WebAssembly.validate(Uint8Array.of(0x0, 0x61, 0x73, 0x6d, 0x01, 0x00, 0x00, 0x00))) {
     technology = 'wasm';
     if (officialStockfish(opts.variant.key) && wasmThreadsSupported()) technology = 'wasmx';
   }
@@ -98,14 +97,13 @@ export default function(opts: CevalOpts): CevalCtrl {
   const pool = new Pool({
     technology,
     asmjs: 'vendor/stockfish.js/stockfish.js',
-    pnacl: 'vendor/stockfish.pexe/stockfish.nmf',
     wasm: 'vendor/stockfish.js/stockfish.wasm.js',
     wasmx: officialStockfish(opts.variant.key) ? 'vendor/stockfish.wasm/stockfish.js' : 'vendor/stockfish-mv.wasm/stockfish.js',
   }, {
     minDepth,
     variant: opts.variant.key,
-    threads: (technology == 'pnacl' || technology == 'wasmx') && threads,
-    hashSize: technology == 'pnacl' && hashSize
+    threads: technology == 'wasmx' && threads,
+    hashSize: false && hashSize,
   });
 
   // adjusts maxDepth based on nodes per second
@@ -240,8 +238,8 @@ export default function(opts: CevalOpts): CevalCtrl {
     possible: opts.possible,
     enabled,
     multiPv,
-    threads: (technology == 'pnacl' || technology == 'wasmx') ? threads : undefined,
-    hashSize: technology == 'pnacl' ? hashSize : undefined,
+    threads: (technology == 'wasmx') ? threads : undefined,
+    hashSize: undefined,
     maxThreads,
     infinite,
     hovering,
