@@ -7,6 +7,7 @@ import play.api.libs.ws.WSClient
 import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
+import lila.common.Bus
 import lila.common.config._
 
 @Module
@@ -84,6 +85,9 @@ final class Env(
     lila.mon.bus.classifiers.update(lila.common.Bus.size)
   }
   lifecycle.addStopHook { () =>
-    fuccess(lila.common.Bus.publish(lila.hub.actorApi.Shutdown, "shutdown"))
+    fuccess {
+      Bus.publish(lila.hub.actorApi.Shutdown, "shutdown")
+      Bus.destroy()
+    }
   }
 }
