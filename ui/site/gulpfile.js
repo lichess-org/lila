@@ -41,12 +41,6 @@ const ab = () => {
   }
 };
 
-const stockfishPexe = () => gulp.src([
-  require.resolve('stockfish.pexe/stockfish.nmf'),
-  require.resolve('stockfish.pexe/stockfish.pexe'),
-  require.resolve('stockfish.pexe/stockfish.bc')
-]).pipe(gulp.dest('../../public/vendor/stockfish.pexe'));
-
 const stockfishJs = () => gulp.src([
   require.resolve('stockfish.js/stockfish.wasm.js'),
   require.resolve('stockfish.js/stockfish.wasm'),
@@ -133,7 +127,7 @@ const userMod = () => browserify(browserifyOpts('./src/user-mod.js', false))
 
 const deps = makeDependencies('lichess.deps.js');
 
-const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, stockfishWasm, stockfishMvWasm, stockfishPexe, stockfishJs, deps];
+const tasks = [gitSha, jqueryFill, ab, standalonesJs, userMod, stockfishWasm, stockfishMvWasm, stockfishJs, deps];
 
 const dev = gulp.series(tasks.concat([devSource]));
 
