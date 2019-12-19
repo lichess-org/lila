@@ -15,6 +15,10 @@ case class ContentSecurityPolicy(
 
   def withNonce(nonce: Nonce) = copy(scriptSrc = nonce.scriptSrc :: scriptSrc)
 
+  def withWebAssembly = copy(
+    scriptSrc = "'unsafe-eval'" :: scriptSrc
+  )
+
   def withStripe = copy(
     connectSrc = "https://*.stripe.com" :: connectSrc,
     scriptSrc = "https://*.stripe.com" :: scriptSrc,

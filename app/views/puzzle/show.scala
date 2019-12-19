@@ -28,6 +28,7 @@ lichess.puzzle = ${safeJsonValue(
           )
         )}""")
       ),
+      csp = defaultCsp.withWebAssembly.some,
       chessground = false,
       openGraph = lila.app.ui
         .OpenGraph(

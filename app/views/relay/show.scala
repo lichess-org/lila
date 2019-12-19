@@ -57,7 +57,7 @@ object show {
       ),
       chessground = false,
       zoomable = true,
-      csp = defaultCsp.withTwitch.some,
+      csp = defaultCsp.withWebAssembly.withTwitch.some,
       openGraph = lila.app.ui
         .OpenGraph(
           title = r.name,

@@ -124,7 +124,7 @@ trait AssetHelper { self: I18nHelper with SecurityHelper =>
       frameSrc = List("'self'", assets, "https://www.youtube.com", "https://player.twitch.tv"),
       workerSrc = List("'self'", assets),
       imgSrc = List("data:", "*"),
-      scriptSrc = List("'self'", "'unsafe-eval'", assets), // unsafe-eval for WebAssembly (wasmx)
+      scriptSrc = List("'self'", assets),
       baseUri = List("'none'"),
       reportTo = if (Random.nextInt(1000) == 0) List("default") else Nil
     )
