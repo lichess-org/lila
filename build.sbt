@@ -4,7 +4,8 @@ import BuildSettings._
 import Dependencies._
 
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala, PlayNettyServer)
+  .enablePlugins(PlayScala)
+  /* .enablePlugins(PlayScala, PlayNettyServer) */
   .dependsOn(api)
   .aggregate(api)
 
