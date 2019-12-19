@@ -27,3 +27,10 @@ GET   /faq                             controllers.Main.faq
 GET   /qa                              controllers.Main.movedPermanently(to: String = "/faq")
 GET   /help                            controllers.Main.movedPermanently(to: String = "/contact")
 GET   /qa/:id/:slug                    controllers.Main.legacyQaQuestion(id: Int, slug: String)
+
+# Dev
+GET   /dev/cli                         controllers.Dev.cli
+POST  /dev/cli                         controllers.Dev.cliPost
+POST  /cli                             controllers.Dev.command
+GET   /dev/settings                    controllers.Dev.settings
+POST  /dev/settings/:id                controllers.Dev.settingsPost(id: String)

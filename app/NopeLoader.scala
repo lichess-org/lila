@@ -66,7 +66,7 @@ final class NopeComponents(ctx: ApplicationLoader.Context)
 //   lazy val coach: Coach                   = wire[Coach]
 //   lazy val coordinate: Coordinate         = wire[Coordinate]
   lazy val dasher: Dasher = wire[Dasher]
-//   lazy val dev: Dev                       = wire[Dev]
+  lazy val dev: Dev       = wire[Dev]
 //   lazy val editor: Editor                 = wire[Editor]
 //   lazy val event: Event                   = wire[Event]
 //   lazy val export: Export                 = wire[Export]
