@@ -5,6 +5,7 @@ import Dependencies._
 
 lazy val root = Project("lila", file("."))
   .enablePlugins(PlayScala, PlayNettyServer)
+  .disablePlugins(PlayAkkaHttpServer)
   .dependsOn(api)
   .aggregate(api)
 

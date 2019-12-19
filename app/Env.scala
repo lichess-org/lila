@@ -17,68 +17,68 @@ final class Env(
     val config: Configuration,
     val mode: Mode,
     val common: lila.common.Env,
-    // val imageRepo: lila.db.ImageRepo,
-    // val api: lila.api.Env,
-    // val user: lila.user.Env,
-    // val security: lila.security.Env,
-    // val hub: lila.hub.Env,
-    // val socket: lila.socket.Env,
-    // val memo: lila.memo.Env,
-    // val message: lila.message.Env,
-    // val i18n: lila.i18n.Env,
-    // val game: lila.game.Env,
-    // val bookmark: lila.bookmark.Env,
-    // val search: lila.search.Env,
-    // val gameSearch: lila.gameSearch.Env,
-    // val timeline: lila.timeline.Env,
-    // val forum: lila.forum.Env,
-    // val forumSearch: lila.forumSearch.Env,
-    // val team: lila.team.Env,
-    // val teamSearch: lila.teamSearch.Env,
-    // val analyse: lila.analyse.Env,
-    // val mod: lila.mod.Env,
-    // val notifyM: lila.notify.Env,
-    // val round: lila.round.Env,
-    // val lobby: lila.lobby.Env,
-    // val setup: lila.setup.Env,
-    // val importer: lila.importer.Env,
-    // val tournament: lila.tournament.Env,
-    // val simul: lila.simul.Env,
-    // val relation: lila.relation.Env,
-    // val report: lila.report.Env,
-    // val pref: lila.pref.Env,
-    // val chat: lila.chat.Env,
-    // val puzzle: lila.puzzle.Env,
-    // val coordinate: lila.coordinate.Env,
-    // val tv: lila.tv.Env,
-    // val blog: lila.blog.Env,
-    // val history: lila.history.Env,
-    // val video: lila.video.Env,
-    // val playban: lila.playban.Env,
-    // val shutup: lila.shutup.Env,
-    // val insight: lila.insight.Env,
-    // val push: lila.push.Env,
-    // val perfStat: lila.perfStat.Env,
-    // val slack: lila.slack.Env,
-    // val challenge: lila.challenge.Env,
-    // val explorer: lila.explorer.Env,
-    // val fishnet: lila.fishnet.Env,
-    // val study: lila.study.Env,
-    // val studySearch: lila.studySearch.Env,
-    // val learn: lila.learn.Env,
-    // val plan: lila.plan.Env,
-    // val event: lila.event.Env,
-    // val coach: lila.coach.Env,
-    // val pool: lila.pool.Env,
-    // val practice: lila.practice.Env,
-    // val irwin: lila.irwin.Env,
-    // val activity: lila.activity.Env,
-    // val relay: lila.relay.Env,
-    // val streamer: lila.streamer.Env,
-    // val oAuth: lila.oauth.Env,
-    // val bot: lila.bot.Env,
-    // val evalCache: lila.evalCache.Env,
-    // val rating: lila.rating.Env,
+    val imageRepo: lila.db.ImageRepo,
+    val api: lila.api.Env,
+    val user: lila.user.Env,
+    val security: lila.security.Env,
+    val hub: lila.hub.Env,
+    val socket: lila.socket.Env,
+    val memo: lila.memo.Env,
+    val message: lila.message.Env,
+    val i18n: lila.i18n.Env,
+    val game: lila.game.Env,
+    val bookmark: lila.bookmark.Env,
+    val search: lila.search.Env,
+    val gameSearch: lila.gameSearch.Env,
+    val timeline: lila.timeline.Env,
+    val forum: lila.forum.Env,
+    val forumSearch: lila.forumSearch.Env,
+    val team: lila.team.Env,
+    val teamSearch: lila.teamSearch.Env,
+    val analyse: lila.analyse.Env,
+    val mod: lila.mod.Env,
+    val notifyM: lila.notify.Env,
+    val round: lila.round.Env,
+    val lobby: lila.lobby.Env,
+    val setup: lila.setup.Env,
+    val importer: lila.importer.Env,
+    val tournament: lila.tournament.Env,
+    val simul: lila.simul.Env,
+    val relation: lila.relation.Env,
+    val report: lila.report.Env,
+    val pref: lila.pref.Env,
+    val chat: lila.chat.Env,
+    val puzzle: lila.puzzle.Env,
+    val coordinate: lila.coordinate.Env,
+    val tv: lila.tv.Env,
+    val blog: lila.blog.Env,
+    val history: lila.history.Env,
+    val video: lila.video.Env,
+    val playban: lila.playban.Env,
+    val shutup: lila.shutup.Env,
+    val insight: lila.insight.Env,
+    val push: lila.push.Env,
+    val perfStat: lila.perfStat.Env,
+    val slack: lila.slack.Env,
+    val challenge: lila.challenge.Env,
+    val explorer: lila.explorer.Env,
+    val fishnet: lila.fishnet.Env,
+    val study: lila.study.Env,
+    val studySearch: lila.studySearch.Env,
+    val learn: lila.learn.Env,
+    val plan: lila.plan.Env,
+    val event: lila.event.Env,
+    val coach: lila.coach.Env,
+    val pool: lila.pool.Env,
+    val practice: lila.practice.Env,
+    val irwin: lila.irwin.Env,
+    val activity: lila.activity.Env,
+    val relay: lila.relay.Env,
+    val streamer: lila.streamer.Env,
+    val oAuth: lila.oauth.Env,
+    val bot: lila.bot.Env,
+    val evalCache: lila.evalCache.Env,
+    val rating: lila.rating.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
 )(implicit val system: ActorSystem, val executionContext: ExecutionContext) {
@@ -177,11 +177,8 @@ final class EnvBoot(
 
   import reactivemongo.api.MongoConnection.ParsedURI
   import lila.db.DbConfig.uriLoader
-  lazy val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[ParsedURI]("mongodb.uri"))
-  lazy val imageRepo          = new lila.db.ImageRepo(mainDb(CollName("image")))
-
-  val asyncDb: lila.db.AsyncDb = mongo.asyncDb("async", config.get[ParsedURI]("mongodb.uri"))
-  // asyncDb(CollName("nope"))
+  val mainDb: lila.db.Db = mongo.blockingDb("main", config.get[ParsedURI]("mongodb.uri"))
+  lazy val imageRepo     = new lila.db.ImageRepo(mainDb(CollName("image")))
 
   // wire all the lila modules
   lazy val common: lila.common.Env           = wire[lila.common.Env]
@@ -249,10 +246,16 @@ final class EnvBoot(
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
-  lazy val env: lila.app.Env = {
+  val env: lila.app.Env = {
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
+  }
+
+  lifecycle.addStopHook { () =>
+    println("destroying bus")
+    lila.common.Bus.destroy()
+    funit
   }
 
   // templating.Environment setEnv env

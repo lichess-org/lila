@@ -18,9 +18,12 @@ final class NopeComponents(ctx: ApplicationLoader.Context)
     with play.api.libs.ws.ahc.AhcWSComponents {
   // with _root_.controllers.AssetsComponents
 
-  // LoggerConfigurator(ctx.environment.classLoader).foreach {
-  //   _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
-  // }
+  LoggerConfigurator(ctx.environment.classLoader).foreach {
+    _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
+  }
+
+  import io.lettuce.core._
+
   import _root_.controllers._
 
   // // we want to use the legacy session cookie baker

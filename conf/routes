@@ -1,2 +1,0 @@
-OPTIONS /                              controllers.Options.root
-OPTIONS /*url                          controllers.Options.all(url: String)

@@ -18,8 +18,7 @@ final class ErrorHandler(
     router: => Option[Router]
     // mainC: => controllers.Main,
     // lobbyC: => controllers.Lobby
-)(implicit ec: scala.concurrent.ExecutionContext)
-    extends DefaultHttpErrorHandler(environment, config, sourceMapper, router) {
+) extends DefaultHttpErrorHandler(environment, config, sourceMapper, router) {
 
   // override def onProdServerError(req: RequestHeader, exception: UsefulException) =
   //   Future {
