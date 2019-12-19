@@ -6,7 +6,7 @@
   <string name="menu">메뉴</string>
   <string name="progressX">진행도: %s</string>
   <string name="resetMyProgress">초기화</string>
-  <string name="youWillLoseAllYourProgress">당신의 모든 진행이 사라집니다!</string>
+  <string name="youWillLoseAllYourProgress">수정사항은 저장되지 않습니다. 괜찮으시겠어요?</string>
   <string name="play">시작하기!</string>
   <string name="chessPieces">체스 기물</string>
   <string name="theRook">루크</string>
@@ -110,8 +110,8 @@
 룩은 구석에 놓여요.</string>
   <string name="thenPlaceTheKnights">그럼 나이트를 배치해봅시다!
 나이트는 룩 옆에 놓입니다.</string>
-  <string name="placeTheBishops">이제 비숍을 배치하십시오.
-비숍은 나이트 옆에 있습니다.</string>
+  <string name="placeTheBishops">이제 비숍을 배치해봐요!
+비숍은 나이트 옆에 놓입니다.</string>
   <string name="placeTheQueen">퀸을 배치하십시오!
 퀸은 자신의 색의 칸 위에 위치합니다.</string>
   <string name="placeTheKing">킹을 놓읍시다!
@@ -186,12 +186,12 @@
   <string name="register">회원가입</string>
   <string name="getAFreeLichessAccount">무료 Lichess 계정 받기</string>
   <string name="practice">연습</string>
-  <string name="learnCommonChessPositions">일반적인 기보법을 배워봅시다</string>
+  <string name="learnCommonChessPositions">유용한 체스 전략들</string>
   <string name="puzzles">퍼즐</string>
-  <string name="exerciseYourTacticalSkills">당신의 전략을 더 향상시키세요</string>
+  <string name="exerciseYourTacticalSkills">대처능력 기르기</string>
   <string name="videos">동영상</string>
   <string name="watchInstructiveChessVideos">유익한 체스 동영상을 보세요</string>
-  <string name="playPeople">사람들이랑 플레이</string>
+  <string name="playPeople">다른 사람들과 플레이</string>
   <string name="opponentsFromAroundTheWorld">전세계인들과 체스를 두세요</string>
   <string name="playMachine">컴퓨터랑 게임하기</string>
   <string name="testYourSkillsWithTheComputer">컴퓨터로 실력 평가하기</string>
@@ -210,7 +210,7 @@
   <string name="stageXComplete">%s번 퍼즐 완료</string>
   <string name="yourScore">당신의 점수</string>
   <string name="next">다음</string>
-  <string name="backToMenu">다시 메뉴로</string>
-  <string name="puzzleFailed">퍼즐 실패</string>
+  <string name="backToMenu">메뉴로 돌아가기</string>
+  <string name="puzzleFailed">잘못된 수입니다</string>
   <string name="retry">다시하기</string>
 </resources>
