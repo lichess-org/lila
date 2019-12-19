@@ -24,7 +24,7 @@ final class Env(
     driver = driver
   )
 
-  lifecycle.addStopHook(driver.close)
+  lifecycle.addStopHook(() => driver.close())
 }
 
 object DbConfig {
