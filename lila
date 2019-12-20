@@ -18,6 +18,8 @@ if [ ! -f "conf/application.conf" ]; then
   cp conf/application.conf.default conf/application.conf
 fi
 
+java_env="-Dreactivemongo.api.bson.document.strict=true"
+
 echo "
    |\_    _ _      _
   /o \\\\  | (_) ___| |__   ___  ___ ___   ___  _ __ __ _
@@ -26,6 +28,8 @@ echo "
   )___(  |_|_|\___|_| |_|\___||___/___(_)___/|_|  \__, |
                                                   |___/"
 version=$(java -version 2>&1 | awk -F '"' '/version/ {print $2}')
-echo Java version: "$version"
+echo Java "$version"
 
-sbt "$@"
+command="sbt $java_env $@"
+echo $command
+$command
