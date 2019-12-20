@@ -25,7 +25,7 @@ final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
   def deleteByStudyIds(ids: List[Study.Id]): Funit = coll.delete.one($doc("studyId" $in ids)).void
 
   def byIdAndStudy(id: Chapter.Id, studyId: Study.Id): Fu[Option[Chapter]] =
-    coll.byId[Chapter, Chapter.Id](id).map { _.filter(_.studyId == studyId) }
+    coll.byId[Chapter, Chapter.Id](id).dmap { _.filter(_.studyId == studyId) }
 
   def firstByStudy(studyId: Study.Id): Fu[Option[Chapter]] =
     coll.ext.find($studyId(studyId)).sort($sort asc "order").one[Chapter]
@@ -78,7 +78,7 @@ final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
       $studyId(studyId),
       $sort desc "order",
       "order"
-    ) map { order =>
+    ) dmap { order =>
       ~order + 1
     }
 
@@ -180,7 +180,7 @@ final class ChapterRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionC
       )
       .sort($sort asc "order")
       .list[Bdoc](Study.maxChapters * 2, ReadPreference.secondaryPreferred)
-      .map { _ flatMap readIdName }
+      .dmap { _ flatMap readIdName }
 
   private def readIdName(doc: Bdoc) =
     for {
