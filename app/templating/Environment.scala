@@ -27,9 +27,10 @@ object Environment
 
   // #TODO holy shit fix me
   // requires injecting all the templates!!
-  private var envVar: Env = _
-  def setEnv(e: Env)      = { envVar = e }
-  def env: Env            = envVar
+  private var envVar: Option[Env] = None
+  def setEnv(e: Env)              = { envVar = Some(e) }
+  def destroy()                   = { envVar = None }
+  def env: Env                    = envVar.get
 
   type FormWithCaptcha = (play.api.data.Form[_], lila.common.Captcha)
 

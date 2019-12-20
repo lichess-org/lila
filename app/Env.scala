@@ -248,5 +248,11 @@ final class EnvBoot(
     c.result
   }
 
+  lifecycle.addStopHook { () =>
+    lila.common.Bus.destroy()
+    templating.Environment.destroy()
+    funit
+  }
+
   templating.Environment setEnv env
 }
