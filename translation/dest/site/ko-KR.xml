@@ -3,7 +3,7 @@
 <resources>
   <string name="playWithAFriend">친구와 게임하기</string>
   <string name="playWithTheMachine">체스 엔진과 게임하기</string>
-  <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대하세요</string>
+  <string name="toInviteSomeoneToPlayGiveThisUrl">이 URL로 친구를 초대해 친구와 같이 체스를 두세요.</string>
   <string name="gameOver">게임 종료</string>
   <string name="waitingForOpponent">상대를 기다리는 중</string>
   <string name="waiting">기다리는 중</string>
@@ -157,6 +157,7 @@
   <string name="username">아이디</string>
   <string name="usernameOrEmail">사용자 이름이나 이메일 주소</string>
   <string name="changeUsername">사용자명 변경</string>
+  <string name="changeUsernameDescription">닉네임 변경하기: 대/소문자의 변경만이 허용되며, 단 한번만 가능한 작업입니다.</string>
   <string name="password">비밀번호</string>
   <string name="changePassword">비밀번호 변경</string>
   <string name="changeEmail">메일 주소 변경</string>
@@ -165,6 +166,9 @@
   <string name="forgotPassword">비밀번호를 잊어버리셨나요?</string>
   <string name="rank">순위</string>
   <string name="rankX">랭킹: %s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="other">매 %s분 순위가 새로고침됩니다.</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="other">퍼즐 %s개</item>
   </plurals>
@@ -188,6 +192,7 @@
   <string name="playingRightNow">대국 중</string>
   <string name="eventInProgress">지금 대국 중</string>
   <string name="finished">종료</string>
+  <string name="finishesX">%s 남음</string>
   <string name="abortGame">게임 중단</string>
   <string name="gameAborted">게임 중단됨</string>
   <string name="standard">표준</string>
@@ -315,6 +320,7 @@
   <string name="pasteThePgnStringHere">PGN값을 붙여 넣으세요</string>
   <string name="fromPosition">정해진 보드판에서 시작</string>
   <string name="continueFromHere">여기서부터 시작</string>
+  <string name="toStudy">연구</string>
   <string name="importGame">게임 불러오기</string>
   <string name="importGameExplanation">게임의 PGN 을 붙여넣으면, 브라우저에서의 리플레이, 컴퓨터 해석, 게임챗, 공유가능 URL을 얻습니다.</string>
   <plurals name="nbImportedGames">
@@ -324,8 +330,13 @@
   <string name="clickOnTheBoardToMakeYourMove">보드를 클릭해서 체스 퍼즐을 풀고 당신이 사람임을 알려주세요.</string>
   <string name="captcha.fail">문제를 풀어 인간임을 증명해주세요.</string>
   <string name="notACheckmate">체크메이트가 아닙니다.</string>
+  <string name="whiteCheckmatesInOneMove">백이 한 수 만에 체크메이트하기</string>
+  <string name="blackCheckmatesInOneMove">흑이 한 수 만에 체크메이트하기</string>
   <string name="retry">재시도</string>
   <string name="reconnecting">연결 재시도 중</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="other">%s명의 친구들이 접속중</item>
+  </plurals>
   <string name="noFriendsOnline">접속 중인 친구가 없습니다</string>
   <string name="findFriends">친구 찾기</string>
   <string name="favoriteOpponents">관심있는 상대</string>
@@ -438,6 +449,7 @@
   <string name="pleaseVotePuzzle">위 또는 아래 화살표를 눌러 Lichess를 향상시켜 주세요</string>
   <string name="thankYou">감사합니다!</string>
   <string name="ratingX">레이팅: %s</string>
+  <string name="hidden">숨겨짐</string>
   <plurals name="playedXTimes">
     <item quantity="other">%s회 플레이</item>
   </plurals>
@@ -575,6 +587,7 @@
   <string name="playOfflineComputer">오프라인 컴퓨터와 대국하기</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
+  <string name="practice">연습</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
@@ -659,6 +672,7 @@
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
+  <string name="yourRating">당신의 레이팅</string>
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>
@@ -805,4 +819,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
+  <string name="sorry">죄송합니다 :(</string>
+  <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
+  <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
+  <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
 </resources>

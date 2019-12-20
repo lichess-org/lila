@@ -59,7 +59,7 @@
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
-  <string name="forceVariation">Dwingende variatie</string>
+  <string name="forceVariation">Forceer variatie</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
@@ -165,8 +165,8 @@
   <string name="username">Gebruikersnaam</string>
   <string name="usernameOrEmail">Gebruikersnaam of email</string>
   <string name="changeUsername">Wijzig gebruikersnaam</string>
-  <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen, bijvoorbeeld van \"johndoe\" naar \"JohnDoe\".</string>
-  <string name="changeUsernameDescription">Uw gebruikersnaam wijzigen. Dit kan alleen worden gedaan eenmaal en u mag alleen het hoofdlettergebruik van de letters in uw gebruikersnaam wijzigen.</string>
+  <string name="changeUsernameNotSame">Enkel de hoofdlettergevoeligheid van de letters kan veranderen. Bijvoorbeeld van \"janjansen\" naar \"JanJansen\".</string>
+  <string name="changeUsernameDescription">Wijze je gebruikersnaam. Dit kan slechts eenmaal worden gedaan en je kan alleen het hoofdlettergebruik van je gebruikersnaam veranderen.</string>
   <string name="password">Wachtwoord</string>
   <string name="changePassword">Wijzig wachtwoord</string>
   <string name="changeEmail">Verander email</string>
@@ -177,7 +177,7 @@
   <string name="rankX">Positie: %s</string>
   <plurals name="rankIsUpdatedEveryNbMinutes">
     <item quantity="one">Positie wordt elke minuut bijgewerkt</item>
-    <item quantity="other">Positie wordt elke \'%s\' minuten bijgewerkt</item>
+    <item quantity="other">Positie wordt elke %s minuten bijgewerkt</item>
   </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s puzzel</item>
