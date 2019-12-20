@@ -79,21 +79,13 @@ final class BlogApi(
       } getOrElse reqRef
     }
 
-  private val cache = BuiltInCache(200)
-  private val prismicLogger = (level: Symbol, message: String) =>
-    level match {
-      case Symbol("DEBUG") => logger debug message
-      case Symbol("ERROR") => logger error message
-      case _               => logger info message
-    }
-
-  private val fetchPrismicApi = asyncCache.single[Api](
+  private val prismicApiCache = asyncCache.single[Api](
     name = "blogApi.fetchPrismicApi",
-    f = Api.get(prismicUrl, cache = cache, logger = prismicLogger),
+    f = Api.get(prismicUrl),
     expireAfter = _.ExpireAfterWrite(15 seconds)
   )
 
-  def prismicApi = fetchPrismicApi.get
+  def prismicApi = prismicApiCache.get
 }
 
 object BlogApi {
