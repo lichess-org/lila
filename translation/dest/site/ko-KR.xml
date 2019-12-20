@@ -587,6 +587,7 @@
   <string name="playOfflineComputer">오프라인 컴퓨터와 대국하기</string>
   <string name="opponent">상대</string>
   <string name="learnMenu">배우기</string>
+  <string name="practice">연습</string>
   <string name="community">커뮤니티</string>
   <string name="tools">도구</string>
   <string name="increment">시간 증가</string>
@@ -671,6 +672,7 @@
   <string name="yourPerfTypeRatingIsRating">당신의 %1$s 레이팅은 %2$s입니다.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">당신은 %1$s의 %2$s 플레이어보다 더 뛰어납니다.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">아직 확정된 %s 레이팅을 갖지 않으셨습니다.</string>
+  <string name="yourRating">당신의 레이팅</string>
   <string name="checkYourEmail">메일을 확인해 주세요.</string>
   <string name="weHaveSentYouAnEmailClickTheLink">메일을 보냈습니다. 메일에서 링크를 클릭해서 계정을 활성화해 주세요.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">메일을 확인할 수 없다면, 스팸 메일함이나 다른 폴더에 메일이 있지 않은지 확인해 주세요.</string>
@@ -817,4 +819,8 @@
   <plurals name="andSaveNbPremoveLines">
     <item quantity="other">%s 종류의 조건 수를 설정</item>
   </plurals>
+  <string name="sorry">죄송합니다 :(</string>
+  <string name="temporaryInconvenience">일시적인 불편에 사과드리며,</string>
+  <string name="wishYouGreatGames">lichess.org에서 좋은 게임 즐기시기 바랍니다.</string>
+  <string name="thankYouForReading">읽어 주셔서 감사합니다!</string>
 </resources>
