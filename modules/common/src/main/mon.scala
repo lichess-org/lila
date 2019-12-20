@@ -235,6 +235,9 @@ object mon {
       def ownerReport(name: String)     = counter("mod.irwin.ownerReport").withTag("name", name)
       def streamEventType(name: String) = counter("mod.irwin.stream.eventType").withTag("name", name)
     }
+    object comm {
+      def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
+    }
   }
   object relay {
     val ongoing  = gauge("relay.ongoing").withoutTags

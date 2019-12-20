@@ -196,43 +196,61 @@ final class Mod(
       if (priv) perms.ViewPrivateComms else perms.Shadowban
     } { implicit ctx => me =>
       OptionFuOk(env.user.repo named username) { user =>
-        env.game.gameRepo.recentPovsByUserFromSecondary(user, 80) flatMap { povs =>
-          priv.?? {
-            env.chat.api.playerChat optionsByOrderedIds povs.map(_.gameId).map(Chat.Id.apply)
-          } zip
+        env.game.gameRepo
+          .recentPovsByUserFromSecondary(user, 80)
+          .mon(_.mod.comm.segment("recentPovs"))
+          .flatMap { povs =>
             priv.?? {
-              env.message.repo.visibleOrDeletedByUser(user.id, 60).map {
-                _ filter (_ hasPostsWrittenBy user.id) take 30
-              }
+              env.chat.api.playerChat
+                .optionsByOrderedIds(povs.map(_.gameId).map(Chat.Id.apply))
+                .mon(_.mod.comm.segment("playerChats"))
             } zip
-            (env.shutup.api getPublicLines user.id) zip
-            (env.security userSpy user) zip
-            env.user.noteApi.forMod(user.id) zip
-            env.mod.logApi.userHistory(user.id) zip
-            env.report.api.inquiries.ofModId(me.id) flatMap {
-            case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
-              lila.security.UserSpy.withMeSortedWithEmails(env.user.repo, user, spy.otherUsers) map {
-                othersWithEmail =>
-                  if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
-                    env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
-                  val povWithChats = (povs zip chats) collect {
-                    case (p, Some(c)) if c.nonEmpty => p -> c
-                  } take 15
-                  val filteredNotes = notes.filter(_.from != "irwin")
-                  html.mod.communication(
-                    user,
-                    povWithChats,
-                    threads,
-                    publicLines,
-                    spy,
-                    othersWithEmail,
-                    filteredNotes,
-                    history,
-                    priv
-                  )
-              }
+              priv.?? {
+                env.message.repo
+                  .visibleOrDeletedByUser(user.id, 60)
+                  .map {
+                    _ filter (_ hasPostsWrittenBy user.id) take 30
+                  }
+                  .mon(_.mod.comm.segment("pms"))
+              } zip
+              (env.shutup.api getPublicLines user.id)
+                .mon(_.mod.comm.segment("publicChats")) zip
+              (env.security userSpy user)
+                .mon(_.mod.comm.segment("userSpy")) zip
+              env.user.noteApi
+                .forMod(user.id)
+                .mon(_.mod.comm.segment("notes")) zip
+              env.mod.logApi
+                .userHistory(user.id)
+                .mon(_.mod.comm.segment("history")) zip
+              env.report.api.inquiries
+                .ofModId(me.id)
+                .mon(_.mod.comm.segment("inquiries")) flatMap {
+              case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
+                lila.security.UserSpy
+                  .withMeSortedWithEmails(env.user.repo, user, spy.otherUsers)
+                  .mon(_.mod.comm.segment("otherUsers"))
+                  .map { othersWithEmail =>
+                    if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
+                      env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
+                    val povWithChats = (povs zip chats) collect {
+                      case (p, Some(c)) if c.nonEmpty => p -> c
+                    } take 15
+                    val filteredNotes = notes.filter(_.from != "irwin")
+                    html.mod.communication(
+                      user,
+                      povWithChats,
+                      threads,
+                      publicLines,
+                      spy,
+                      othersWithEmail,
+                      filteredNotes,
+                      history,
+                      priv
+                    )
+                  }
+            }
           }
-        }
       }
     }
 
