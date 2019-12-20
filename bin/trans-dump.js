@@ -31,7 +31,7 @@ Promise.all(dbs.map(keyListFrom)).then(objs => {
   const code = `// Generated with bin/trans-dump.js
 package lila.i18n
 
-import I18nDb.{ ${dbs.map(ucfirst).join(', ')} }
+import I18nDb.{ ${dbs.map(ucfirst).sort().join(', ')} }
 
 // format: OFF
 object I18nKeys {
