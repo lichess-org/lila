@@ -11,16 +11,9 @@ final class Prismic(
 
   private val logger = lila.log("prismic")
 
-  val prismicLogger = (level: Symbol, message: String) =>
-    level match {
-      case Symbol("DEBUG") => logger debug message
-      case Symbol("ERROR") => logger error message
-      case _               => logger info message
-    }
-
   private val prismicApiCache = env.memo.asyncCache.single[PrismicApi](
     name = "prismic.fetchPrismicApi",
-    f = PrismicApi.get(env.api.config.prismicApiUrl, logger = prismicLogger),
+    f = PrismicApi.get(env.api.config.prismicApiUrl),
     expireAfter = _.ExpireAfterWrite(1 minute)
   )
 
