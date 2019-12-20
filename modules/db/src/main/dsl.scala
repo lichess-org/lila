@@ -30,11 +30,11 @@ trait dsl {
 
   //**********************************************************************************************//
   // Helpers
-  def $empty: Bdoc = document
+  val $empty: Bdoc = document.asStrict
 
-  def $doc(elements: ElementProducer*): Bdoc = BSONDocument(elements: _*)
+  def $doc(elements: ElementProducer*): Bdoc = BSONDocument.strict(elements: _*)
 
-  def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument(elements)
+  def $doc(elements: Iterable[(String, BSONValue)]): Bdoc = BSONDocument.strict(elements)
 
   def $arr(elements: Producer[BSONValue]*): Barr = {
     BSONArray(elements: _*)
