@@ -163,6 +163,7 @@ final class EnvBoot(
   implicit def scheduler   = system.scheduler
   def appPath              = AppPath(environment.rootPath)
   def mode                 = environment.mode
+  def baseUrl              = common.netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
 
   import reactivemongo.api.MongoConnection.ParsedURI
@@ -172,7 +173,6 @@ final class EnvBoot(
 
   // wire all the lila modules
   lazy val common: lila.common.Env           = wire[lila.common.Env]
-  lazy val baseUrl                           = common.netConfig.baseUrl
   lazy val memo: lila.memo.Env               = wire[lila.memo.Env]
   lazy val mongo: lila.db.Env                = wire[lila.db.Env]
   lazy val user: lila.user.Env               = wire[lila.user.Env]
@@ -237,7 +237,7 @@ final class EnvBoot(
   lazy val api: lila.api.Env                 = wire[lila.api.Env]
   lazy val lilaCookie                        = wire[lila.common.LilaCookie]
 
-  lazy val env: lila.app.Env = {
+  val env: lila.app.Env = {
     val c = lila.common.Chronometer.sync(wire[lila.app.Env])
     lila.log("boot").info(s"Loaded lila modules in ${c.showDuration}")
     c.result
