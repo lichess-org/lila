@@ -18,7 +18,7 @@ if [ ! -f "conf/application.conf" ]; then
   cp conf/application.conf.default conf/application.conf
 fi
 
-java_env="-Dreactivemongo.api.bson.document.strict=true"
+java_env="-Dreactivemongo.api.bson.document.strict=false"
 
 echo "
    |\_    _ _      _
