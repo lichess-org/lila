@@ -5,9 +5,9 @@ import io.methvin.play.autoconfig._
 import play.api.Configuration
 import scala.concurrent.duration.FiniteDuration
 
-@Module
 private class BlogConfig(
     @ConfigName("prismic.api_url") val apiUrl: String,
+    val collection: String,
     @ConfigName("last_post_cache.ttl") val lastPostTtl: FiniteDuration
 )
 
@@ -24,11 +24,7 @@ final class Env(
 
   private val config = appConfig.get[BlogConfig]("blog")(AutoConfig.loader)
 
-  lazy val api = new BlogApi(
-    prismicUrl = config.apiUrl,
-    asyncCache = asyncCache,
-    collection = "blog"
-  )
+  lazy val api = wire[BlogApi]
 
   private lazy val notifier = wire[Notifier]
 

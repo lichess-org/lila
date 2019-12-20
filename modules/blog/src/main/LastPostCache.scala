@@ -1,14 +1,11 @@
 package lila.blog
 
-import scala.concurrent.duration._
-
 import lila.memo.Syncache
 
 final class LastPostCache(
     api: BlogApi,
     notifier: Notifier,
-    ttl: FiniteDuration,
-    collection: String
+    config: BlogConfig
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val cache = new Syncache[Boolean, List[MiniPost]](
@@ -16,7 +13,7 @@ final class LastPostCache(
     initialCapacity = 1,
     compute = _ => fetch,
     default = _ => Nil,
-    expireAfter = Syncache.ExpireAfterWrite(ttl),
+    expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
     strategy = Syncache.NeverWait,
     logger = logger
   )
@@ -25,7 +22,7 @@ final class LastPostCache(
     api.prismicApi flatMap { prismic =>
       api.recent(prismic, page = 1, lila.common.config.MaxPerPage(3), none) map {
         _ ?? {
-          _.currentPageResults.toList flatMap MiniPost.fromDocument(collection)
+          _.currentPageResults.toList flatMap MiniPost.fromDocument(config.collection)
         }
       }
     }
@@ -39,5 +36,5 @@ final class LastPostCache(
       lastNotifiedId = last.id.some
     }
 
-  def apply = cache sync true
+  def apply: List[MiniPost] = cache sync true
 }

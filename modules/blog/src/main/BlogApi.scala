@@ -10,9 +10,10 @@ import lila.common.paginator._
 
 final class BlogApi(
     asyncCache: lila.memo.AsyncCache.Builder,
-    prismicUrl: String,
-    collection: String
+    config: BlogConfig
 )(implicit ec: scala.concurrent.ExecutionContext, ws: WSClient) {
+
+  private def collection = config.collection
 
   def recent(
       api: Api,
@@ -27,9 +28,8 @@ final class BlogApi(
       .pageSize(maxPerPage.value)
       .page(page)
       .submit()
-      .fold(_ => none, some _) dmap2 {
-      PrismicPaginator(_, page, maxPerPage)
-    }
+      .fold(_ => none, some _)
+      .dmap2 { PrismicPaginator(_, page, maxPerPage) }
   def recent(
       prismic: BlogApi.Context,
       page: Int,
@@ -81,7 +81,7 @@ final class BlogApi(
 
   private val prismicApiCache = asyncCache.single[Api](
     name = "blogApi.fetchPrismicApi",
-    f = Api.get(prismicUrl),
+    f = Api.get(config.apiUrl),
     expireAfter = _.ExpireAfterWrite(15 seconds)
   )
 
