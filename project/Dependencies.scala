@@ -26,11 +26,11 @@ object Dependencies {
   val scalaUri    = "io.lemonlabs"          %% "scala-uri"                      % "1.5.1"
   val scalatags   = "com.lihaoyi"           %% "scalatags"                      % "0.8.2"
   val lettuce     = "io.lettuce"            % "lettuce-core"                    % "5.2.1.RELEASE"
-  // val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
-  val markdown    = "com.vladsch.flexmark" % "flexmark-all"       % "0.50.44"
-  val autoconfig  = "io.methvin.play"      %% "autoconfig-macros" % "0.3.2" % "provided"
-  val scalatest   = "org.scalatest"        %% "scalatest"         % "3.1.0" % Test
-  val akkatestkit = "com.typesafe.akka"    %% "akka-testkit"      % "2.6.1" % Test
+  val epoll       = "io.netty"              % "netty-transport-native-epoll"    % "4.1.44.Final" classifier "linux-x86_64"
+  val markdown    = "com.vladsch.flexmark"  % "flexmark-all"                    % "0.50.44"
+  val autoconfig  = "io.methvin.play"       %% "autoconfig-macros"              % "0.3.2" % "provided"
+  val scalatest   = "org.scalatest"         %% "scalatest"                      % "3.1.0" % Test
+  val akkatestkit = "com.typesafe.akka"     %% "akka-testkit"                   % "2.6.1" % Test
 
   object macwire {
     val version = "2.3.3"
@@ -39,12 +39,12 @@ object Dependencies {
   }
 
   object reactivemongo {
-    val version = "0.19.4"
+    val version = "0.19.5"
     val driver  = "org.reactivemongo" %% "reactivemongo" % "0.20.0-SNAPSHOT"
     val bson    = "org.reactivemongo" %% "reactivemongo-bson-api" % version
     val stream  = "org.reactivemongo" %% "reactivemongo-akkastream" % version
-    // val native  = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
-    def bundle = Seq(driver, bson, stream)
+    val epoll   = "org.reactivemongo" % "reactivemongo-shaded-native" % s"$version-linux-x86-64"
+    def bundle  = Seq(driver, bson, stream)
   }
 
   object play {

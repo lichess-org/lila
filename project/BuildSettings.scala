@@ -7,14 +7,16 @@ object BuildSettings {
 
   val globalScalaVersion = "2.13.1"
 
+  val useEpoll = sys.props.get("epoll").fold(false)(_.toBoolean)
+  if (useEpoll) println("--- epoll build ---")
+
   def buildSettings = Defaults.coreDefaultSettings ++ Seq(
     version := "3.0",
     organization := "org.lichess",
     scalaVersion := globalScalaVersion,
     resolvers ++= Dependencies.Resolvers.commons,
     scalacOptions ++= compilerOptions,
-    sources in doc in Compile := List(),
-    // disable publishing the main API jar
+    sources in (Compile, doc) := Seq.empty,
     publishArtifact in (Compile, packageDoc) := false,
     // disable publishing the main sources jar
     publishArtifact in (Compile, packageSrc) := false

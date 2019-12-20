@@ -4,16 +4,16 @@ import BuildSettings._
 import Dependencies._
 
 lazy val root = Project("lila", file("."))
-  .enablePlugins(PlayScala)
-  /* .enablePlugins(PlayScala, PlayNettyServer) */
+  .enablePlugins(PlayScala, if (useEpoll) PlayNettyServer else PlayAkkaHttpServer)
+  .disablePlugins(if (useEpoll) PlayAkkaHttpServer else PlayNettyServer)
   .dependsOn(api)
   .aggregate(api)
 
 scalaVersion := globalScalaVersion
 resolvers ++= Dependencies.Resolvers.commons
 scalacOptions ++= compilerOptions :+ "-P:silencer:pathFilters=target/scala-2.13/routes"
-sources in doc in Compile := List()
-// disable publishing the main API jar
+// don't deploy doc
+sources in (Compile, doc) := Seq.empty
 publishArtifact in (Compile, packageDoc) := false
 // disable publishing the main sources jar
 publishArtifact in (Compile, packageSrc) := false
@@ -37,7 +37,10 @@ libraryDependencies ++= Seq(
   maxmind, prismic, markdown, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce
-) ++ silencer.bundle
+) ++ silencer.bundle ++ {
+  if (useEpoll) Seq(epoll, reactivemongo.epoll)
+  else Seq.empty
+}
 
 lazy val modules = Seq(
   common, db, rating, user, security, hub, socket,
