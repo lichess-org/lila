@@ -8,7 +8,7 @@ if [ -z $mode ]; then
   exit 1
 elif [ $mode = "main" ]; then
   REMOTE="keres"
-  REMOTE_DIR="/home/lichess-deploy"
+  REMOTE_DIR="/home/lichess3"
   FRONT_REMOTE="root@maple.lichess.ovh"
   FRONT_REMOTE_DIR="/home/lichess-deploy"
   CLI="bin/cli-prod"
@@ -55,11 +55,11 @@ if [ $? != 0 ]; then
   exit 1
 fi
 
-if [ $mode = "main" ]; then
-  lilalog "Backup production lichess dir"
-  BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
-  ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
-fi
+# if [ $mode = "main" ]; then
+#   lilalog "Backup production lichess dir"
+#   BACKUP_DIR=/home/backup/lichess-$(date +%Y-%m-%d_%H-%M)
+#   ssh $REMOTE "echo $BACKUP_DIR && cp -r $REMOTE_DIR $BACKUP_DIR && rm $BACKUP_DIR/RUNNING_PID && chown -R lichess:lichess $BACKUP_DIR"
+# fi
 
 # read -n 1 -p "Press [Enter] to rsync to $REMOTE:$REMOTE_DIR"
 
@@ -114,9 +114,9 @@ fi
 
 if [ $mode = "main" ]; then
   lilalog "Restart lichess"
-  RUN_DIR="/home/lichess"
-  # SSH_COMMAND="$START_DROPPING && rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess && $STOP_DROPPING"
-  SSH_COMMAND="rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess"
+  # RUN_DIR="/home/lichess"
+  # SSH_COMMAND="rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess"
+  SSH_COMMAND="systemctl restart lichess"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
 fi
