@@ -211,14 +211,14 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     ctrl.startCeval();
   };
 
-  function xhrReload() {
+  const xhrReload = throttle(700, () => {
     vm.loading = true;
     return xhr.reload(
       practice ? 'practice/load' : 'study',
       data.id,
       vm.mode.sticky ? undefined : vm.chapterId
     ).then(onReload, li.reload);
-  };
+  });
 
   const onSetPath = throttle(300, (path: Tree.Path) => {
     if (vm.mode.sticky && path !== data.position.path) makeChange("setPath", addChapterId({
