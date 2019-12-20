@@ -119,7 +119,7 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
     wire[Routes]
   }
 
-  if (configuration.get[String]("kamon.influxdb.hostname").nonEmpty) {
+  if (configuration.get[Boolean]("kamon.enabled")) {
     lila.log("boot").info("Kamon is enabled")
     kamon.Kamon.loadModules()
   }
