@@ -160,11 +160,6 @@ final class EnvBoot(
     cookieBacker: SessionCookieBaker
 )(implicit ec: ExecutionContext, system: ActorSystem, ws: WSClient) {
 
-  lila.log("boot").info {
-    val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024
-    s"lila 3 / java ${System.getProperty("java.version")}, memory: ${mem}MB"
-  }
-
   implicit def scheduler   = system.scheduler
   def appPath              = AppPath(environment.rootPath)
   def mode                 = environment.mode

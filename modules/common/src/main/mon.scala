@@ -8,12 +8,6 @@ import lila.common.ApiVersion
 
 object mon {
 
-  private val backend: kamon.metric.MetricBuilding =
-    if (sys.props.get("kamon.enabled").fold(false)(_.toBoolean)) kamon.Kamon
-    else new KamonStub
-
-  import backend.{ counter, gauge, histogram, timer }
-
   object http {
     private val t = timer("http.time")
     def time(action: String, client: String, method: String, code: Int) =
@@ -521,6 +515,16 @@ object mon {
 
   type TimerPath   = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter
+
+  private var backend: kamon.metric.MetricBuilding = _
+
+  def start(enabled: Boolean): Unit = {
+    backend = if (enabled) kamon.Kamon else new KamonStub
+  }
+  private def timer(name: String)     = backend.timer(name)
+  private def gauge(name: String)     = backend.gauge(name)
+  private def counter(name: String)   = backend.counter(name)
+  private def histogram(name: String) = backend.histogram(name)
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
 

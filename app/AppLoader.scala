@@ -20,6 +20,14 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   LoggerConfigurator(ctx.environment.classLoader).foreach {
     _.configure(ctx.environment, ctx.initialConfiguration, Map.empty)
   }
+
+  lila.log("boot").info {
+    val mem = Runtime.getRuntime().maxMemory() / 1024 / 1024
+    s"lila 3 / java ${System.getProperty("java.version")}, memory: ${mem}MB"
+  }
+
+  lila.mon.start(configuration.get[Boolean]("kamon.enabled"))
+
   import _root_.controllers._
 
   // we want to use the legacy session cookie baker
