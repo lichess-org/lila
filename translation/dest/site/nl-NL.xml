@@ -59,7 +59,7 @@
   <string name="promoteVariation">Promoveer variant</string>
   <string name="makeMainLine">Maak hoofdvariant</string>
   <string name="deleteFromHere">Verwijder vanaf hier</string>
-  <string name="forceVariation">Dwingende variatie</string>
+  <string name="forceVariation">Forceer variatie</string>
   <string name="move">Zet</string>
   <string name="variantLoss">Variantverlies</string>
   <string name="variantWin">Variantoverwinning</string>
