@@ -243,11 +243,13 @@ final class EnvBoot(
     c.result
   }
 
+  templating.Environment setEnv env
+
+  // free memory for reload workflow
   lifecycle.addStopHook { () =>
-    lila.common.Bus.destroy()
     templating.Environment.destroy()
+    lila.common.Bus.destroy()
+    lila.mon.destroy()
     funit
   }
-
-  templating.Environment setEnv env
 }

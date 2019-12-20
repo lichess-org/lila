@@ -524,6 +524,9 @@ object mon {
   def start(enabled: Boolean): Unit = {
     backend = if (enabled) kamon.Kamon else new KamonStub
   }
+  def destroy(): Unit = {
+    backend = null
+  }
   private def timer(name: String)     = backend.timer(name)
   private def gauge(name: String)     = backend.gauge(name)
   private def counter(name: String)   = backend.counter(name)
