@@ -26,8 +26,6 @@ trait dsl {
   type Bdoc = BSONDocument
   type Barr = BSONArray
 
-  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero.instance($empty)
-
   //**********************************************************************************************//
   // Helpers
   val $empty: Bdoc = document.asStrict
@@ -51,6 +49,8 @@ trait dsl {
 
   // End of Helpers
   //**********************************************************************************************//
+
+  implicit val LilaBSONDocumentZero: Zero[Bdoc] = Zero.instance($empty)
 
   //**********************************************************************************************//
   // Top Level Logical Operators
