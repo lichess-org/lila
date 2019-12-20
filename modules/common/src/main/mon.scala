@@ -1,15 +1,18 @@
 package lila
 
 import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
-import com.github.ghik.silencer.silent
-// import kamon.Kamon._
 import kamon.tag.TagSet
+import kamon.metric.{ Counter, Timer }
 
 import lila.common.ApiVersion
 
 object mon {
 
-  import kamonStub._
+  private val backend: kamon.metric.MetricBuilding =
+    if (sys.props.get("kamon.enabled").fold(false)(_.toBoolean)) kamon.Kamon
+    else new KamonStub
+
+  import backend.{ counter, gauge, histogram, timer }
 
   object http {
     private val t = timer("http.time")
@@ -516,9 +519,7 @@ object mon {
     def time(name: String) = timer("blocking.time").withTag("name", name)
   }
 
-  type Timer       = kamonStub.MetricStub
   type TimerPath   = lila.mon.type => Timer
-  type Counter     = kamonStub.MetricStub
   type CounterPath = lila.mon.type => Counter
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
@@ -528,25 +529,30 @@ object mon {
   private def apiTag(api: Option[ApiVersion]) = api.fold("-")(_.toString)
 
   implicit def mapToTags(m: Map[String, Any]): TagSet = TagSet from m
+}
 
-  object kamonStub {
+// because using kamon.Kamon in dev mode
+// causes leaks between reloads
+final class KamonStub extends kamon.metric.MetricBuilding {
 
-    @silent final class MetricStub(name: String) {
-      def withoutTags                = this
-      def withTag(n: String, k: Any) = this
-      def withTags(set: TagSet)      = this
-      def increment(): Unit          = {}
-      def increment(a: Any): Unit    = {}
-      def record(a: Any): Unit       = {}
-      def update(a: Any): Unit       = {}
-      def start                      = this
-      def stop(): Unit               = {}
-    }
+  import java.util.concurrent.{ Executors, ThreadFactory }
+  import java.util.concurrent.atomic.AtomicInteger
 
-    def timer(name: String)     = new MetricStub(name)
-    def counter(name: String)   = new MetricStub(name)
-    def gauge(name: String)     = new MetricStub(name)
-    def histogram(name: String) = new MetricStub(name)
-
-  }
+  protected val registry = new kamon.metric.MetricRegistry(
+    com.typesafe.config.ConfigFactory.load(kamon.ClassLoading.classLoader()),
+    Executors.newScheduledThreadPool(
+      1,
+      new ThreadFactory {
+        val count          = new AtomicInteger()
+        val defaultFactory = Executors.defaultThreadFactory()
+        override def newThread(r: Runnable): Thread = {
+          val thread = defaultFactory.newThread(r)
+          thread.setName("kamon-scheduler-" + count.incrementAndGet().toString)
+          thread.setDaemon(true)
+          thread
+        }
+      }
+    ),
+    new kamon.util.Clock.Anchored()
+  )
 }

@@ -56,7 +56,7 @@ object Chronometer {
 
   case class FuLapTry[A](lap: Fu[LapTry[A]]) extends AnyVal {
 
-    def mon(path: Try[A] => lila.mon.Timer) = {
+    def mon(path: Try[A] => kamon.metric.Timer) = {
       lap.dforeach { l =>
         path(l.result).record(l.nanos)
       }
