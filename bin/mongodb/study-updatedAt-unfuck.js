@@ -5,7 +5,7 @@
  *
  * only visible with mongoexport, but cause bugs when used with reactivemongo
  */
-db.study.find({updatedAt:{$gt:new Date() - 1000 * 3600 * 12}}).forEach(s1 => {
+db.study.find({updatedAt:{$gt:new Date(Date.now() - 1000 * 3600 * 12)}}).forEach(s1 => {
   let id = s1._id;
   let u1 = s1.updatedAt;
   db.study.update({_id: id},{$unset:{updatedAt:1}});
