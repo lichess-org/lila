@@ -27,7 +27,7 @@ final class EvalCacheApi(
       _.map { JsonHandlers.writeEval(_, fen) }
     } addEffect { res =>
       Forsyth getPly fen.value foreach { ply =>
-        lila.mon.evalCache.request(ply, res.isDefined)
+        lila.mon.evalCache.request(ply, res.isDefined).increment()
       }
     }
 
