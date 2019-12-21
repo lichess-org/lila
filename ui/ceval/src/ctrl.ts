@@ -48,7 +48,7 @@ function wasmThreadsSupported() {
 
   // Structured cloning
   try {
-    window.postMessage(new WebAssembly.Module(source), '*');
+    window.postMessage(mem, '*');
   } catch (e) {
     return false;
   }
