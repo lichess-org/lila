@@ -45,13 +45,13 @@ object form {
           else
             postForm(
               cls := "form3",
-              action := s"${routes.Message.create()}${reqUser.??(u => "?username=" + u.username)}"
+              action := s"${routes.Message.create()}${reqUser.??(u => "?user=" + u.username)}"
             )(
               form3.group(form("username"), trans.recipient()) { f =>
                 reqUser map { user =>
                   frag(
                     userLink(user),
-                    form3.hidden(f)
+                    form3.hidden(f.name, user.username)
                   )
                 } getOrElse input(
                   cls := "form-control user-autocomplete",

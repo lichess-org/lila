@@ -51,7 +51,7 @@ final private[message] class DataForm(
     )
 
   private def blockingFetchUser(username: String) =
-    lightUserAsync(username).await(1 second, "pmUser")
+    lightUserAsync(User normalize username).await(1 second, "pmUser")
 }
 
 object DataForm {
