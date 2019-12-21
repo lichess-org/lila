@@ -93,21 +93,30 @@ final class TournamentApi(
     Sequencing(forTour.id)(tournamentRepo.startedById) { tour =>
       cached
         .ranking(tour)
+        .monSuccess(_.tournament.pairing.createRanking)
         .flatMap { ranking =>
-          pairingSystem.createPairings(tour, users, ranking).flatMap {
-            case Nil => funit
-            case pairings =>
-              userRepo.idsMap(pairings.flatMap(_.users)) flatMap { users =>
-                pairings.map { pairing =>
-                  pairingRepo.insert(pairing) >>
-                    autoPairing(tour, pairing, users, ranking) map {
-                    socket.startGame(tour.id, _)
+          pairingSystem
+            .createPairings(tour, users, ranking)
+            .monSuccess(_.tournament.pairing.createPairings)
+            .flatMap {
+              case Nil => funit
+              case pairings =>
+                userRepo
+                  .idsMap(pairings.flatMap(_.users))
+                  .flatMap { users =>
+                    pairings.map { pairing =>
+                      pairingRepo.insert(pairing) >>
+                        autoPairing(tour, pairing, users, ranking)
+                          .monSuccess(_.tournament.pairing.createAutoPairing)
+                          .map {
+                            socket.startGame(tour.id, _)
+                          }
+                    }.sequenceFu >>
+                      featureOneOf(tour, pairings, ranking) >>-
+                      lila.mon.tournament.pairing.batchSize.record(pairings.size)
                   }
-                }.sequenceFu >>
-                  featureOneOf(tour, pairings, ranking) >>-
-                  lila.mon.tournament.pairing.batchSize.record(pairings.size)
-              }
-          }
+                  .monSuccess(_.tournament.pairing.createInserts)
+            }
         }
         .monSuccess(_.tournament.pairing.create)
         .chronometer
