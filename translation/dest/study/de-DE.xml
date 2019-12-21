@@ -70,7 +70,7 @@
   <string name="open">Öffnen</string>
   <string name="xBroughtToYouByY">%1$s präsentiert von %2$s</string>
   <string name="studyNotFound">Studie nicht gefunden</string>
-  <string name="editChapter">Kapitel editieren</string>
+  <string name="editChapter">Kapitel bearbeiten</string>
   <string name="newChapter">Neues Kapitel</string>
   <string name="orientation">Ausrichtung</string>
   <string name="analysisMode">Analysemodus</string>
@@ -83,13 +83,13 @@
   <string name="rightUnderTheBoard">Direkt unterhalb des Bretts</string>
   <string name="noPinnedComment">Keine</string>
   <string name="normalAnalysis">Normale Analyse</string>
-  <string name="hideNextMoves">Nächsten Zug ausblenden</string>
+  <string name="hideNextMoves">Nächste Züge ausblenden</string>
   <string name="interactiveLesson">Interaktive Übung</string>
   <string name="chapterX">Kapitel %s</string>
   <string name="empty">Leer</string>
-  <string name="startFromInitialPosition">Beginne mit der Ausgangsstellung</string>
+  <string name="startFromInitialPosition">Von Ausgangsstellung starten</string>
   <string name="editor">Editor</string>
-  <string name="startFromCustomPosition">Beginne mit einer benutzerdefinierten Stellung</string>
+  <string name="startFromCustomPosition">Von benutzerdefinierter Stellung starten</string>
   <string name="loadAGameByUrl">Lade eine Partie mittels URL</string>
   <string name="loadAPositionFromFen">Lade eine Partie mittels FEN</string>
   <string name="loadAGameFromPgn">Lade eine Partie mittels PGN</string>
