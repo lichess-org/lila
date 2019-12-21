@@ -7,7 +7,7 @@ import play.api.Configuration
 import scala.concurrent.duration._
 
 import actorApi.{ GetSocketStatus, SocketStatus }
-import lila.common.Bus
+import lila.common.{ Bus, Uptime }
 import lila.common.config._
 import lila.game.{ Game, GameRepo, Pov }
 import lila.hub.actorApi.map.Tell
@@ -64,7 +64,8 @@ final class Env(
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
   private val goneWeightsFor = (game: Game) =>
-    if (!game.playable || !game.hasClock || game.hasAi) fuccess(1f -> 1f)
+    if (!game.playable || !game.hasClock || game.hasAi || !Uptime.startedSinceMinutes(1))
+      fuccess(1f -> 1f)
     else
       game.whitePlayer.userId.fold(defaultGoneWeight)(goneWeight) zip
         game.blackPlayer.userId.fold(defaultGoneWeight)(goneWeight)
