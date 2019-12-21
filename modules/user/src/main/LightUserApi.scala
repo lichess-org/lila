@@ -31,11 +31,11 @@ final class LightUserApi(repo: UserRepo)(
 
   private val cache = new Syncache[User.ID, Option[LightUser]](
     name = cacheName,
-    initialCapacity = 65536,
+    initialCapacity = 131072,
     compute = id => repo.coll.find($id(id), projection.some).one[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(10 millis),
-    expireAfter = Syncache.ExpireAfterAccess(15 minutes),
+    expireAfter = Syncache.ExpireAfterWrite(15 minutes),
     logger = logger branch "LightUserApi"
   )
 }
