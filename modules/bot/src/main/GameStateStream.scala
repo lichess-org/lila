@@ -3,6 +3,7 @@ package lila.bot
 import akka.actor._
 import akka.stream.scaladsl._
 import play.api.libs.json._
+import ornicar.scalalib.Random
 
 import lila.chat.Chat
 import lila.chat.UserLine
@@ -24,7 +25,10 @@ final class GameStateStream(
 
   def apply(init: Game.WithInitialFen, as: chess.Color): Source[Option[JsObject], _] =
     blueprint mapMaterializedValue { queue =>
-      val actor = system.actorOf(Props(mkActor(init, as, queue)))
+      val actor = system.actorOf(
+        Props(mkActor(init, as, queue)),
+        name = s"GameStateStream:${init.game.id}:${Random nextString 8}"
+      )
       queue.watchCompletion.foreach { _ =>
         actor ! PoisonPill
       }
