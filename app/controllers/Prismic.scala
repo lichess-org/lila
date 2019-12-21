@@ -25,7 +25,7 @@ final class Prismic(
       case _         => routes.Lobby.home.url
     }
 
-  def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>
+  private def getDocument(id: String): Fu[Option[Document]] = prismicApi flatMap { api =>
     api
       .forms("everything")
       .query(s"""[[:d = at(document.id, "$id")]]""")

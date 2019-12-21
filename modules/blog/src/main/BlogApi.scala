@@ -30,6 +30,7 @@ final class BlogApi(
       .submit()
       .fold(_ => none, some _)
       .dmap2 { PrismicPaginator(_, page, maxPerPage) }
+
   def recent(
       prismic: BlogApi.Context,
       page: Int,
