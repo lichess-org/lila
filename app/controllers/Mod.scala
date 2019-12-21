@@ -1,5 +1,10 @@
 package controllers
 
+import play.api.data._
+import play.api.data.Forms._
+import com.github.ghik.silencer.silent
+import play.api.mvc._
+
 import com.github.ghik.silencer.silent
 import lila.api.{ BodyContext, Context }
 import lila.app._
@@ -11,10 +16,6 @@ import lila.security.{ FingerHash, Permission }
 import lila.user.{ User => UserModel, Title }
 import ornicar.scalalib.Zero
 import views._
-
-import play.api.data._
-import play.api.data.Forms._
-import play.api.mvc._
 
 final class Mod(
     env: Env,
@@ -283,18 +284,23 @@ final class Mod(
     }
   }
 
+  private def temporarilyDisabled(implicit ctx: Context) =
+    ServiceUnavailable(views.html.site.message.temporarilyDisabled).fuccess
+
   def gamify = Secure(_.SeeReport) { implicit ctx => _ =>
-    env.mod.gamify.leaderboards zip
-      env.mod.gamify.history(orCompute = true) map {
-      case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
-    }
+    temporarilyDisabled
+  // env.mod.gamify.leaderboards zip
+  //   env.mod.gamify.history(orCompute = true) map {
+  //   case (leaderboards, history) => Ok(html.mod.gamify.index(leaderboards, history))
+  // }
   }
-  def gamifyPeriod(periodStr: String) = Secure(_.SeeReport) { implicit ctx => _ =>
-    lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
-      env.mod.gamify.leaderboards map { leaderboards =>
-        Ok(html.mod.gamify.period(leaderboards, period))
-      }
-    }
+  def gamifyPeriod(@silent periodStr: String) = Secure(_.SeeReport) { implicit ctx => _ =>
+    temporarilyDisabled
+  // lila.mod.Gamify.Period(periodStr).fold(notFound) { period =>
+  //   env.mod.gamify.leaderboards map { leaderboards =>
+  //     Ok(html.mod.gamify.period(leaderboards, period))
+  //   }
+  // }
   }
 
   def search = SecureBody(_.UserSearch) { implicit ctx => _ =>
