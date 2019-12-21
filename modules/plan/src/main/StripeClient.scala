@@ -142,7 +142,7 @@ final private class StripeClient(
   }
 
   private def request(url: String) =
-    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey}")
+    ws.url(s"${config.endpoint}/$url").withHttpHeaders("Authorization" -> s"Bearer ${config.secretKey.value}")
 
   private def response[A: Reads](res: WSResponse): Fu[A] = res.status match {
     case 200 =>
