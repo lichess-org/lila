@@ -76,10 +76,10 @@ final private class RelayFetch(
           case e: Exception =>
             (e match {
               case SyncResult.Timeout =>
-                logger.info(s"Sync timeout $relay")
+                if (relay.official) logger.info(s"Sync timeout $relay")
                 SyncResult.Timeout
               case _ =>
-                logger.info(s"Sync error $relay ${e.getMessage take 80}")
+                if (relay.official) logger.info(s"Sync error $relay ${e.getMessage take 80}")
                 SyncResult.Error(e.getMessage)
             }) -> relay.withSync(_ addLog SyncLog.event(0, e.some))
         }

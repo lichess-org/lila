@@ -5,20 +5,25 @@ import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import lila.memo.AsyncCache
+import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import lila.study.MultiPgn
 
-final private class RelayFormatApi(
-    ws: WSClient,
-    asyncCache: AsyncCache.Builder
-)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class RelayFormatApi(ws: WSClient)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RelayFormat._
   import Relay.Sync.UpstreamWithRound
 
+  private val cache: LoadingCache[UpstreamWithRound, Fu[RelayFormat]] = Scaffeine()
+    .expireAfterWrite(10 minutes)
+    .build { (upstream: UpstreamWithRound) =>
+      guessFormat(upstream) addFailureEffect { _ =>
+        cache.invalidate(upstream)
+      }
+    }
+
   def get(upstream: UpstreamWithRound): Fu[RelayFormat] = cache get upstream
 
-  def refresh(upstream: UpstreamWithRound): Unit = cache refresh upstream
+  def refresh(upstream: UpstreamWithRound): Unit = cache invalidate upstream
 
   private def guessFormat(upstream: UpstreamWithRound): Fu[RelayFormat] = {
 
@@ -89,12 +94,6 @@ final private class RelayFormatApi(
       case _: Exception => false
     }
   private def looksLikeJson(url: Url): Fu[Boolean] = httpGet(url).map { _ exists looksLikeJson }
-
-  private val cache = asyncCache.multi[UpstreamWithRound, RelayFormat](
-    name = "relayFormat",
-    f = guessFormat,
-    expireAfter = _.ExpireAfterWrite(10 minutes)
-  )
 }
 
 sealed private trait RelayFormat
