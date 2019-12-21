@@ -44,7 +44,7 @@ final class LobbySocket(
 
       case GetSrisP(promise) =>
         promise success Sris(members.keySet.view.map(Sri.apply).toSet)
-        lila.mon.lobby.socket.idle.increment(idleSris.size)
+        lila.mon.lobby.socket.idle.update(idleSris.size)
         lila.mon.lobby.socket.hookSubscribers.update(hookSubscriberSris.size)
 
       case Cleanup =>
