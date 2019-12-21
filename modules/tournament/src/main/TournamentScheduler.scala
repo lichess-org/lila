@@ -239,11 +239,6 @@ Thank you all, you rock!"""
             Schedule(Weekend, speed, Standard, std, date |> orNextWeek).plan
           }
       },
-      List( // Saturday elite crazyhouse!
-        at(nextSaturday, 19) map { date =>
-          Schedule(Weekend, Blitz, Crazyhouse, std, date |> orNextWeek).plan
-        }
-      ).flatten,
       List( // daily tournaments!
         at(today, 16) map { date =>
           Schedule(Daily, Bullet, Standard, std, date |> orTomorrow).plan
