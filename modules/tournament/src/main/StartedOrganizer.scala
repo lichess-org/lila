@@ -13,7 +13,7 @@ final private class StartedOrganizer(
     extends Actor {
 
   override def preStart: Unit = {
-    context setReceiveTimeout 20.seconds
+    context setReceiveTimeout 30.seconds
     scheduleNext
   }
 
