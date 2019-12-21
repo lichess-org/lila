@@ -30,6 +30,6 @@ object bits {
       chessground = false,
       robots = false,
       zoomable = true,
-      csp = defaultCsp.withPeer.some
+      csp = defaultCsp.withWebAssembly.withPeer.some
     )(body)
 }
