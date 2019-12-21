@@ -1,7 +1,5 @@
 <configuration>
 
-  <conversionRule conversionWord="coloredLevel" converterClass="play.api.Logger$ColoredLevel" />
-
   <!-- STDOUT that accepts WARN and ERROR -->
   <!-- Exceptions yes, stacktraces no -->
   <appender name="STDOUT_WARN" class="ch.qos.logback.core.ConsoleAppender">
