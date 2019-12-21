@@ -19,9 +19,9 @@ final class LobbyApi(
   val poolsJson = Json toJson pools
 
   def apply(implicit ctx: Context): Fu[(JsObject, List[Pov])] =
-    ctx.me.fold(seekApi.forAnon)(seekApi.forUser) zip
-      (ctx.me ?? gameProxyRepo.urgentGames) zip
-      getFilter(ctx) flatMap {
+    ctx.me.fold(seekApi.forAnon)(seekApi.forUser).mon(_.lobby segment "seeks") zip
+      (ctx.me ?? gameProxyRepo.urgentGames).mon(_.lobby segment "urgentGames") zip
+      getFilter(ctx).mon(_.lobby segment "filter") flatMap {
       case seeks ~ povs ~ filter =>
         val displayedPovs = povs take 9
         lightUserApi.preloadMany(displayedPovs.flatMap(_.opponent.userId)) inject {

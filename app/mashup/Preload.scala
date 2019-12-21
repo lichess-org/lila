@@ -39,43 +39,46 @@ final class Preload(
       events: Fu[List[Event]],
       simuls: Fu[List[Simul]]
   )(implicit ctx: Context): Fu[Homepage] =
-    lobbyApi(ctx) zip
-      posts zip
-      tours zip
-      events zip
-      simuls zip
-      tv.getBestGame zip
-      (ctx.userId ?? timelineApi.userEntries) zip
-      userCached.topWeek(()) zip
-      tourWinners.all.dmap(_.top) zip
-      (ctx.noBot ?? dailyPuzzle()) zip
-      liveStreamApi.all.dmap(_.autoFeatured withTitles lightUserApi) zip
-      (ctx.userId ?? playbanApi.currentBan) zip
+    lobbyApi(ctx).mon(_.lobby segment "lobbyApi") zip
+      posts.mon(_.lobby segment "posts") zip
+      tours.mon(_.lobby segment "tours") zip
+      events.mon(_.lobby segment "events") zip
+      simuls.mon(_.lobby segment "simuls") zip
+      tv.getBestGame.mon(_.lobby segment "tvBestGame") zip
+      (ctx.userId ?? timelineApi.userEntries).mon(_.lobby segment "timeline") zip
+      userCached.topWeek(()).mon(_.lobby segment "userTopWeek") zip
+      tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
+      (ctx.noBot ?? dailyPuzzle()).mon(_.lobby segment "puzzle") zip
+      liveStreamApi.all.dmap(_.autoFeatured withTitles lightUserApi).mon(_.lobby segment "streams") zip
+      (ctx.userId ?? playbanApi.currentBan).mon(_.lobby segment "playban") zip
       (ctx.blind ?? ctx.me ?? roundProxy.urgentGames) flatMap {
       case (data, povs) ~ posts ~ tours ~ events ~ simuls ~ feat ~ entries ~ lead ~ tWinners ~ puzzle ~ streams ~ playban ~ blindGames =>
-        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _) flatMap { currentGame =>
-          lightUserApi.preloadMany {
-            tWinners.map(_.userId) :::
-              posts.flatMap(_.userId) :::
-              entries.flatMap(_.userIds).toList
-          } inject Homepage(
-            data,
-            entries,
-            posts,
-            tours,
-            events,
-            simuls,
-            feat,
-            lead,
-            tWinners,
-            puzzle,
-            streams.excludeUsers(events.flatMap(_.hostedBy)),
-            lastPostCache.apply,
-            playban,
-            currentGame,
-            simulIsFeaturable,
-            blindGames
-          )
+        (ctx.me ?? currentGameMyTurn(povs, lightUserApi.sync) _)
+          .mon(_.lobby segment "currentGame") zip
+          lightUserApi
+            .preloadMany {
+              tWinners.map(_.userId) ::: posts.flatMap(_.userId) ::: entries.flatMap(_.userIds).toList
+            }
+            .mon(_.lobby segment "lightUsers") map {
+          case (currentGame, _) =>
+            Homepage(
+              data,
+              entries,
+              posts,
+              tours,
+              events,
+              simuls,
+              feat,
+              lead,
+              tWinners,
+              puzzle,
+              streams.excludeUsers(events.flatMap(_.hostedBy)),
+              lastPostCache.apply,
+              playban,
+              currentGame,
+              simulIsFeaturable,
+              blindGames
+            )
         }
     }
 

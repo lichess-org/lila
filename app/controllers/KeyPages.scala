@@ -17,7 +17,12 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         events = env.event.api.promoteTo(ctx.req).nevermind,
         simuls = env.simul.allCreatedFeaturable.get.nevermind
       )
-      .map(h => html.lobby.home(h))
+      .mon(_.lobby segment "preloader")
+      .map { h =>
+        lila.mon.chronoSync(_.lobby segment "render") {
+          html.lobby.home(h)
+        }
+      }
       .dmap { (html: Frag) =>
         env.lilaCookie.ensure(ctx.req)(status(html))
       }

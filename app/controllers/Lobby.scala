@@ -20,7 +20,7 @@ final class Lobby(
   def home = Open { implicit ctx =>
     pageHit
     negotiate(
-      html = keyPages.home(Results.Ok).map(NoCache),
+      html = keyPages.home(Results.Ok).dmap(NoCache),
       api = _ =>
         fuccess {
           val expiration = 60 * 60 * 24 * 7 // set to one hour, one week before changing the pool config

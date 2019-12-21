@@ -112,6 +112,8 @@ object mon {
         def duration(id: String) = timer("lobby.pool.gameStart.duration").withTag("pool", id)
       }
     }
+    private val lobbySegment = timer("lobby.segment")
+    def segment(seg: String) = lobbySegment.withTag("segment", seg)
   }
   object rating {
     def distribution(perfKey: String, rating: Int) =
@@ -520,6 +522,8 @@ object mon {
   object blocking {
     def time(name: String) = timer("blocking.time").withTag("name", name)
   }
+
+  def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
 
   type TimerPath   = lila.mon.type => Timer
   type CounterPath = lila.mon.type => Counter
