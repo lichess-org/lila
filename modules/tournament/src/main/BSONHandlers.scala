@@ -48,7 +48,7 @@ object BSONHandlers {
   implicit private val leaderboardRatio =
     BSONIntegerHandler.as[LeaderboardApi.Ratio](
       i => LeaderboardApi.Ratio(i.toDouble / 100_000),
-      r => (r.value * 100_1000).toInt
+      r => (r.value * 100_000).toInt
     )
 
   import Condition.BSONHandlers.AllBSONHandler
