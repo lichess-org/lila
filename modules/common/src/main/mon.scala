@@ -217,6 +217,8 @@ object mon {
     object oauth {
       def request(success: Boolean) = counter("user.oauth.request").withTag("success", successTag(success))
     }
+    private val userSegment  = timer("user.segment")
+    def segment(seg: String) = userSegment.withTag("segment", seg)
   }
   object trouper {
     def queueSize(name: String) = gauge("trouper.queueSize").withTag("name", name)

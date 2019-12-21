@@ -27,21 +27,26 @@ final class ActivityReadApi(
 
   def recent(u: User, nb: Int = recentNb): Fu[Vector[ActivityView]] =
     for {
-      allActivities <- coll.ext
+      activities <- coll.ext
         .find(regexId(u.id))
         .sort($sort desc "_id")
         .vector[Activity](nb, ReadPreference.secondaryPreferred)
-      activities = allActivities.filterNot(_.isEmpty)
+        .dmap(_.filterNot(_.isEmpty))
+        .mon(_.user segment "activity.raws")
       practiceStructure <- activities.exists(_.practice.isDefined) ?? {
         practiceApi.structure.get dmap some
       }
-      views <- activities.map { one(practiceStructure) _ }.sequenceFu
+      views <- activities.map { a =>
+        one(practiceStructure, a).mon(_.user segment "activity.view")
+      }.sequenceFu
     } yield addSignup(u.createdAt, views)
 
-  private def one(practiceStructure: Option[PracticeStructure])(a: Activity): Fu[ActivityView] =
+  private def one(practiceStructure: Option[PracticeStructure], a: Activity): Fu[ActivityView] =
     for {
       posts <- a.posts ?? { p =>
-        postApi.liteViewsByIds(p.value.map(_.value)) dmap some
+        postApi
+          .liteViewsByIds(p.value.map(_.value))
+          .mon(_.user segment "activity.posts") dmap some
       }
       practice = (for {
         p      <- a.practice
@@ -81,12 +86,15 @@ final class ActivityReadApi(
         .map(_ filter (_.nonEmpty))
       tours <- a.games.exists(_.hasNonCorres) ?? {
         val dateRange = a.date -> a.date.plusDays(1)
-        tourLeaderApi.timeRange(a.id.userId, dateRange) dmap { entries =>
-          entries.nonEmpty option ActivityView.Tours(
-            nb = entries.size,
-            best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
-          )
-        }
+        tourLeaderApi
+          .timeRange(a.id.userId, dateRange)
+          .dmap { entries =>
+            entries.nonEmpty option ActivityView.Tours(
+              nb = entries.size,
+              best = entries.sortBy(_.rankRatio.value).take(activities.maxSubEntries)
+            )
+          }
+          .mon(_.user segment "activity.tours")
       }
     } yield ActivityView(
       interval = a.interval,

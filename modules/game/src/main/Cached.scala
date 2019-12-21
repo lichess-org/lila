@@ -22,7 +22,7 @@ final class Cached(
   private val countShortTtl = asyncCache.multi[Bdoc, Int](
     name = "game.countShortTtl",
     f = gameRepo.coll.countSel(_),
-    expireAfter = _.ExpireAfterWrite(5.seconds)
+    expireAfter = _.ExpireAfterWrite(10.seconds)
   )
 
   private val nbImportedCache = mongoCache[User.ID, Int](

@@ -15,7 +15,7 @@ final class PrefApi(
 
   import PrefHandlers._
 
-  private def fetchPref(id: String): Fu[Option[Pref]] = coll.ext.find($id(id)).one[Pref]
+  private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.ext.find($id(id)).one[Pref]
 
   private val cache = asyncCache.multi(
     name = "pref.fetchPref",
@@ -32,34 +32,34 @@ final class PrefApi(
       )
       .void >>- { cache refresh user.id }
 
-  def getPrefById(id: String): Fu[Pref]     = cache get id dmap (_ getOrElse Pref.create(id))
+  def getPrefById(id: User.ID): Fu[Pref]    = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref                               = getPrefById _
   def getPref(user: User): Fu[Pref]         = getPref(user.id)
   def getPref(user: Option[User]): Fu[Pref] = user.fold(fuccess(Pref.default))(getPref)
 
-  def getPref[A](user: User, pref: Pref => A): Fu[A]     = getPref(user) map pref
-  def getPref[A](userId: String, pref: Pref => A): Fu[A] = getPref(userId) map pref
+  def getPref[A](user: User, pref: Pref => A): Fu[A]      = getPref(user) dmap pref
+  def getPref[A](userId: User.ID, pref: Pref => A): Fu[A] = getPref(userId) dmap pref
 
   def getPref(user: User, req: RequestHeader): Fu[Pref] =
-    getPref(user) map RequestPref.queryParamOverride(req)
+    getPref(user) dmap RequestPref.queryParamOverride(req)
 
-  def followable(userId: String): Fu[Boolean] =
-    coll.ext.find($id(userId), $doc("follow" -> true)).one[Bdoc] map {
+  def followable(userId: User.ID): Fu[Boolean] =
+    coll.ext.find($id(userId), $doc("follow" -> true)).one[Bdoc] dmap {
       _ flatMap (_.getAsOpt[Boolean]("follow")) getOrElse Pref.default.follow
     }
 
-  def unfollowableIds(userIds: List[String]): Fu[Set[String]] =
-    coll.distinctEasy[String, Set](
+  def unfollowableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
+    coll.distinctEasy[User.ID, Set](
       "_id",
       ($inIds(userIds) ++ $doc(
         "follow" -> false
       ))
     )
 
-  def followableIds(userIds: List[String]): Fu[Set[String]] =
+  def followableIds(userIds: List[User.ID]): Fu[Set[User.ID]] =
     unfollowableIds(userIds) map userIds.toSet.diff
 
-  def followables(userIds: List[String]): Fu[List[Boolean]] =
+  def followables(userIds: List[User.ID]): Fu[List[Boolean]] =
     followableIds(userIds) map { followables =>
       userIds map followables.contains
     }
@@ -72,7 +72,7 @@ final class PrefApi(
   def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref
 
-  def setPref(userId: String, change: Pref => Pref): Funit =
+  def setPref(userId: User.ID, change: Pref => Pref): Funit =
     getPref(userId) map change flatMap setPref
 
   def setPrefString(user: User, name: String, value: String): Funit =

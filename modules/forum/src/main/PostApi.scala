@@ -34,11 +34,11 @@ final class PostApi(
         val post = Post.make(
           topicId = topic.id,
           author = none,
-          userId = ctx.me map (_.id),
+          userId = ctx.me.map(_.id),
           ip = ctx.req.remoteAddress.some,
           text = spam.replace(data.text),
           number = number + 1,
-          lang = lang map (_.language),
+          lang = lang.map(_.language),
           troll = ctx.troll,
           hidden = topic.hidden,
           categId = categ.id,
@@ -98,7 +98,7 @@ final class PostApi(
   def urlData(postId: String, troll: Boolean): Fu[Option[PostUrlData]] = get(postId) flatMap {
     case Some((_, post)) if (!troll && post.troll) => fuccess(none[PostUrlData])
     case Some((topic, post)) =>
-      env.postRepo.withTroll(troll).countBeforeNumber(topic.id, post.number) map { nb =>
+      env.postRepo.withTroll(troll).countBeforeNumber(topic.id, post.number) dmap { nb =>
         val page = nb / maxPerPage.value + 1
         PostUrlData(topic.categId, topic.slug, page, post.number).some
       }
@@ -108,9 +108,7 @@ final class PostApi(
   def get(postId: String): Fu[Option[(Topic, Post)]] =
     env.postRepo.coll.byId[Post](postId) flatMap {
       _ ?? { post =>
-        env.topicRepo.coll.byId[Topic](post.topicId) dmap {
-          _ map (_ -> post)
-        }
+        env.topicRepo.coll.byId[Topic](post.topicId) dmap2 { _ -> post }
       }
     }
 
@@ -129,40 +127,38 @@ final class PostApi(
     env.postRepo.coll.byOrderedIds[Post, Post.ID](postIds)(_.id) flatMap views
 
   def viewOf(post: Post): Fu[Option[PostView]] =
-    views(List(post)) map (_.headOption)
+    views(List(post)) dmap (_.headOption)
 
   def liteViews(posts: Seq[Post]): Fu[Seq[PostLiteView]] =
-    for {
-      topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
-    } yield posts flatMap { post =>
-      topics.find(_.id == post.topicId) map { topic =>
-        PostLiteView(post, topic)
+    env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+      posts flatMap { post =>
+        topics.find(_.id == post.topicId) map { PostLiteView(post, _) }
       }
     }
   def liteViewsByIds(postIds: Seq[Post.ID]): Fu[Seq[PostLiteView]] =
     env.postRepo.byIds(postIds) flatMap liteViews
 
   def liteView(post: Post): Fu[Option[PostLiteView]] =
-    liteViews(List(post)) map (_.headOption)
+    liteViews(List(post)) dmap (_.headOption)
 
   def miniPosts(posts: List[Post]): Fu[List[MiniForumPost]] =
-    for {
-      topics <- env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct)
-    } yield posts flatMap { post =>
-      topics find (_.id == post.topicId) map { topic =>
-        MiniForumPost(
-          isTeam = post.isTeam,
-          postId = post.id,
-          topicName = topic.name,
-          userId = post.userId,
-          text = post.text take 200,
-          createdAt = post.createdAt
-        )
+    env.topicRepo.coll.byIds[Topic](posts.map(_.topicId).distinct) map { topics =>
+      posts flatMap { post =>
+        topics find (_.id == post.topicId) map { topic =>
+          MiniForumPost(
+            isTeam = post.isTeam,
+            postId = post.id,
+            topicName = topic.name,
+            userId = post.userId,
+            text = post.text take 200,
+            createdAt = post.createdAt
+          )
+        }
       }
     }
 
   def lastNumberOf(topic: Topic): Fu[Int] =
-    env.postRepo lastByTopic topic map { _ ?? (_.number) }
+    env.postRepo lastByTopic topic dmap { _ ?? (_.number) }
 
   def lastPageOf(topic: Topic) =
     math.ceil(topic.nbPosts / maxPerPage.value.toFloat).toInt

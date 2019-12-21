@@ -70,7 +70,11 @@ final class User(
         nbs    <- env.userNbGames(u, ctx)
         info   <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
-      } yield status(html.user.show.page.activity(u, as, info, social))
+      } yield status {
+        lila.mon.chronoSync(_.user segment "render") {
+          html.user.show.page.activity(u, as, info, social)
+        }
+      }
     } else
       env.activity.read.recent(u) map { as =>
         status(html.activity(u, as))
