@@ -34,7 +34,7 @@ final class LightUserApi(repo: UserRepo)(
     initialCapacity = 131072,
     compute = id => repo.coll.find($id(id), projection).one[LightUser],
     default = id => LightUser(id, id, None, false).some,
-    strategy = Syncache.WaitAfterUptime(10 millis),
+    strategy = Syncache.WaitAfterUptime(8 millis),
     expireAfter = Syncache.ExpireAfterWrite(20 minutes),
     logger = logger branch "LightUserApi"
   )
