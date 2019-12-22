@@ -1,5 +1,6 @@
 package controllers
 
+import io.lemonlabs.uri.{ AbsoluteUrl, Url }
 import com.github.ghik.silencer.silent
 import ornicar.scalalib.Zero
 import play.api.data.{ Form, FormError }
@@ -32,15 +33,16 @@ final class Auth(
       }
     }
 
-  private val refRegex = """[\w@/\-=?]++""".r
-
-  // do not allow redirects to external sites,
-  // nor redirect back to /mobile (which is shown after logout)
+  // allow relative and absolute redirects only to the same domain or
+  // subdomains, excluding /mobile (which is shown after logout)
   private def goodReferrer(referrer: String): Boolean =
     referrer.nonEmpty &&
       referrer.stripPrefix("/") != "mobile" && {
-      (!referrer.contains("//") && refRegex.matches(referrer)) ||
-      referrer.startsWith(env.net.baseUrl.value)
+      val url = Url.parse(referrer)
+      url.schemeOption.all(scheme => scheme == "http" || scheme == "https") &&
+      url.hostOption.all(host =>
+        s".${host.value}".endsWith(s".${AbsoluteUrl.parse(env.net.baseUrl.value).host.value}")
+      )
     }
 
   def authenticateUser(u: UserModel, result: Option[String => Result] = None)(
