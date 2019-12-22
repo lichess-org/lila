@@ -71,7 +71,7 @@ final class User(
         info   <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
       } yield status {
-        lila.mon.chronoSync(_.user segment "render") {
+        lila.mon.chronoSync(_.user segment "renderSync") {
           html.user.show.page.activity(u, as, info, social)
         }
       }

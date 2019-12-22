@@ -17,9 +17,9 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
         events = env.event.api.promoteTo(ctx.req).nevermind,
         simuls = env.simul.allCreatedFeaturable.get.nevermind
       )
-      .mon(_.lobby segment "preloader")
+      .mon(_.lobby segment "preloader.total")
       .map { h =>
-        lila.mon.chronoSync(_.lobby segment "render") {
+        lila.mon.chronoSync(_.lobby segment "renderSync") {
           html.lobby.home(h)
         }
       }
