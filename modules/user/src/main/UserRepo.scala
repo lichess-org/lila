@@ -511,7 +511,7 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
         $doc(s"${F.perfs}.${perfType.key}" -> true)
       )
       .one[Bdoc]
-      .map {
+      .dmap {
         _.flatMap { docPerf(_, perfType) }
       }
 
