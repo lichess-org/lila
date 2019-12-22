@@ -8,7 +8,7 @@ import LilaTypes._
 import ornicar.scalalib.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
-import scala.concurrent.{ ExecutionContext => EC, Future, Await, blocking }
+import scala.concurrent.{ ExecutionContext => EC, Future, Await }
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
@@ -107,7 +107,11 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def await(duration: FiniteDuration, name: String): A =
     Chronometer.syncMon(_.blocking.time(name)) {
-      Await.result(fua, duration)
+      try {
+        Await.result(fua, duration)
+      } catch {
+        case e: Exception => throw new Exception(name, e)
+      }
     }
 
   def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
