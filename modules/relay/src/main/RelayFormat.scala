@@ -66,7 +66,7 @@ final private class RelayFormatApi(ws: WSClient)(implicit ec: scala.concurrent.E
 
     guessLcc(originalUrl) orElse
       guessSingleFile(originalUrl) orElse
-      guessManyFiles(originalUrl) orFail "Cannot find any DGT compatible files"
+      guessManyFiles(originalUrl) orFail "Cannot find any game there"
   } addEffect { format =>
     logger.info(s"guessed format of $upstream: $format")
   } addFailureEffect { err =>
