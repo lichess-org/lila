@@ -38,7 +38,7 @@ object signup {
               trans.byRegisteringYouAgreeToBeBoundByOur(a(href := routes.Page.tos)(trans.termsOfService()))
             )
           ),
-          agreement(form("agreement")),
+          agreement(form("agreement"), form.errors.exists(_.key startsWith "agreement.")),
           if (recaptcha.enabled)
             button(
               cls := "g-recaptcha submit button text big",
@@ -50,11 +50,17 @@ object signup {
       )
     }
 
-  private def agreement(form: play.api.data.Field)(implicit ctx: Context) = div(cls := "agreement")(
-    agreements.map {
-      case (field, i18n) => form3.checkbox(form(field), i18n())
-    }
-  )
+  private def agreement(form: play.api.data.Field, error: Boolean)(implicit ctx: Context) =
+    div(cls := "agreement")(
+      error option p(
+        strong(cls := "error")(
+          "You must agree to the Lichess policies listed below:"
+        )
+      ),
+      agreements.map {
+        case (field, i18n) => form3.checkbox(form(field), i18n())
+      }
+    )
 
   private val agreements = List(
     "assistance" -> trans.agreementAssistance,
