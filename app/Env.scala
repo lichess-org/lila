@@ -91,6 +91,12 @@ final class Env(
 
   def net = common.netConfig
 
+  lazy val apiTimelineSetting = memo.settingStore[Int](
+    "apiTimelineEntries",
+    default = 10,
+    text = "API timeline entries to serve".some
+  )
+
   lazy val preloader     = wire[mashup.Preload]
   lazy val socialInfo    = wire[mashup.UserInfo.SocialApi]
   lazy val userNbGames   = wire[mashup.UserInfo.NbGamesApi]

@@ -26,7 +26,7 @@ final class Timeline(env: Env) extends LilaController(env) {
             .map { html.timeline.more(_) },
       _ =>
         env.timeline.entryApi
-          .moreUserEntries(me.id, nb atMost 20)
+          .moreUserEntries(me.id, nb atMost env.apiTimelineSetting.get())
           .logTimeIfGt(s"timeline mobile $nb for ${me.id}", 10 seconds)
           .map { es =>
             Ok(Json.obj("entries" -> es))
