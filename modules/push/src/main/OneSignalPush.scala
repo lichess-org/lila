@@ -2,7 +2,7 @@ package lila.push
 
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
-import play.api.libs.ws.WSClient
+import play.api.libs.ws._
 
 final private class OneSignalPush(
     deviceApi: DeviceApi,
@@ -37,16 +37,18 @@ final private class OneSignalPush(
             )
           )
           .flatMap {
-            case res if res.status == 200 =>
-              (res.json \ "errors").asOpt[List[String]] match {
-                case Some(errors) =>
-                  println(errors mkString ",")
-                  fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${res.body}")
-                case None => funit
+            case res if res.status == 200 || res.status == 400 =>
+              readErrors(res).filterNot(_ contains "must have English language") match {
+                case Nil => funit
+                case errors =>
+                  fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${errors mkString ","}")
               }
             case res => fufail(s"[push] ${devices.map(_.deviceId)} $data ${res.status} ${res.body}")
           }
     }
+
+  private def readErrors(res: WSResponse): List[String] =
+    ~(res.json \ "errors").asOpt[List[String]]
 }
 
 private object OneSignalPush {
