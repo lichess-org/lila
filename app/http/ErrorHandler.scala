@@ -47,8 +47,12 @@ final class ErrorHandler(
       case 404 if canShowErrorPage(req) => mainC.handlerNotFound(req)
       case 404                          => fuccess(NotFound("404 - Resource not found"))
       case 403                          => lobbyC.handleStatus(req, Results.Forbidden)
-      case _ =>
+      case _ if req.attrs.contains(request.RequestAttrKey.Session) =>
         lobbyC.handleStatus(req, Results.BadRequest)
+      case _ =>
+        fuccess {
+          Results.BadRequest("Sorry, the request could not be processed")
+        }
     }
 
   private def canShowErrorPage(req: RequestHeader): Boolean =
