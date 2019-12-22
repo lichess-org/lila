@@ -4,7 +4,7 @@ import com.google.auth.oauth2.{ AccessToken, GoogleCredentials }
 import io.methvin.play.autoconfig._
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
-import scala.concurrent.Future
+import scala.concurrent.{ blocking, Future }
 import scala.concurrent.duration._
 
 import lila.common.WorkQueue
@@ -27,8 +27,10 @@ final private class FirebasePush(
         case devices =>
           workQueue {
             Future {
-              creds.refreshIfExpired()
-              creds.getAccessToken()
+              blocking {
+                creds.refreshIfExpired()
+                creds.getAccessToken()
+              }
             } withTimeout 10.seconds
           }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
             // TODO http batch request is possible using a multipart/mixed content
