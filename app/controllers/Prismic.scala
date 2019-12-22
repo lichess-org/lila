@@ -1,7 +1,5 @@
 package controllers
 
-import scala.concurrent.duration._
-
 import io.prismic.{ Api => PrismicApi, _ }
 import lila.app._
 
@@ -11,13 +9,7 @@ final class Prismic(
 
   private val logger = lila.log("prismic")
 
-  private val prismicApiCache = env.memo.asyncCache.single[PrismicApi](
-    name = "prismic.fetchPrismicApi",
-    f = PrismicApi.get(env.api.config.prismicApiUrl),
-    expireAfter = _.ExpireAfterWrite(1 minute)
-  )
-
-  def prismicApi = prismicApiCache.get
+  private def prismicApi = env.blog.api.prismicApi
 
   implicit def makeLinkResolver(prismicApi: PrismicApi, ref: Option[String] = None) =
     DocumentLinkResolver(prismicApi) {
@@ -30,13 +22,13 @@ final class Prismic(
       .forms("everything")
       .query(s"""[[:d = at(document.id, "$id")]]""")
       .ref(api.master.ref)
-      .submit() map {
+      .submit() dmap {
       _.results.headOption
     }
   }
 
   def getBookmark(name: String) =
-    prismicApiCache.get flatMap { api =>
+    prismicApi flatMap { api =>
       api.bookmarks.get(name) ?? getDocument map2 { (doc: io.prismic.Document) =>
         doc -> makeLinkResolver(api)
       }

@@ -81,9 +81,9 @@ final class BlogApi(
     }
 
   private val prismicApiCache = asyncCache.single[Api](
-    name = "blogApi.fetchPrismicApi",
+    name = "prismic.fetchPrismicApi",
     f = Api.get(config.apiUrl),
-    expireAfter = _.ExpireAfterWrite(15 seconds)
+    expireAfter = _.ExpireAfterWrite(5 seconds)
   )
 
   def prismicApi = prismicApiCache.get
