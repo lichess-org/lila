@@ -124,6 +124,9 @@ object mon {
       def micropoints(perfKey: String) = histogram("rating.regulator").withTag("perf", perfKey)
     }
   }
+  object perfStat {
+    def indexTime = timer("perfStat.indexTime").withoutTags
+  }
 
   object round {
     object api {

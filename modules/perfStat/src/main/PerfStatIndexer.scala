@@ -12,8 +12,8 @@ final class PerfStatIndexer(
 
   private val workQueue = new WorkQueue(64, "perfStatIndexer")
 
-  def userPerf(user: User, perfType: PerfType): Funit = workQueue {
-    gameRepo
+  private[perfStat] def userPerf(user: User, perfType: PerfType): Fu[PerfStat] = workQueue {
+    storage.find(user.id, perfType) getOrElse gameRepo
       .sortedCursor(
         Query.user(user.id) ++
           Query.finished ++
@@ -25,7 +25,11 @@ final class PerfStatIndexer(
         case (perfStat, game) if game.perfType.contains(perfType) =>
           Pov.ofUserId(game, user.id).fold(perfStat)(perfStat.agg)
         case (perfStat, _) => perfStat
-      } flatMap storage.insert recover lila.db.recoverDuplicateKey(_ => ())
+      }
+      .flatMap { ps =>
+        storage insert ps recover lila.db.recoverDuplicateKey(_ => ()) inject ps
+      }
+      .mon(_.perfStat.indexTime)
   }
 
   def addGame(game: Game): Funit =

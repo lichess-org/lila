@@ -22,9 +22,7 @@ final class Env(
   lazy val jsonView = wire[JsonView]
 
   def get(user: lila.user.User, perfType: lila.rating.PerfType): Fu[PerfStat] =
-    storage.find(user.id, perfType) orElse {
-      indexer.userPerf(user, perfType) >> storage.find(user.id, perfType)
-    } map (_ | PerfStat.init(user.id, perfType))
+    storage.find(user.id, perfType) getOrElse indexer.userPerf(user, perfType)
 
   lila.common.Bus.subscribeFun("finishGame") {
     case lila.game.actorApi.FinishGame(game, _, _) if !game.aborted =>
