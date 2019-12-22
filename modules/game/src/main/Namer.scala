@@ -34,7 +34,7 @@ object Namer {
 
   def gameVsText(game: Game, withRatings: Boolean = false)(implicit lightUser: LightUser.Getter): Fu[String] =
     game.whitePlayer.userId.??(lightUser) zip
-      game.whitePlayer.userId.??(lightUser) dmap {
+      game.blackPlayer.userId.??(lightUser) dmap {
       case (wu, bu) =>
         s"${playerTextUser(game.whitePlayer, wu, withRatings)} - ${playerTextUser(game.blackPlayer, bu, withRatings)}"
     }
