@@ -2,15 +2,14 @@ package lila.pref
 
 import play.api.mvc.RequestHeader
 import reactivemongo.api.bson._
-import scala.concurrent.duration.FiniteDuration
+import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.User
 
 final class PrefApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder,
-    cacheTtl: FiniteDuration
+    asyncCache: lila.memo.AsyncCache.Builder
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PrefHandlers._
@@ -20,7 +19,7 @@ final class PrefApi(
   private val cache = asyncCache.multi(
     name = "pref.fetchPref",
     f = fetchPref,
-    expireAfter = _.ExpireAfterAccess(cacheTtl)
+    expireAfter = _.ExpireAfterWrite(15 minutes)
   )
 
   def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
