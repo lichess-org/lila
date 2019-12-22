@@ -102,15 +102,18 @@ final class Main(
   }
   val glyphs = Action(glyphsResult)
 
-  def image(id: String, @silent hash: String, @silent name: String) = Action.async { req =>
-    env.imageRepo.fetch(id) map {
-      case None => NotFound
-      case Some(image) =>
-        lila.log("image").info(s"Serving ${image.path} to ${HTTPRequest printClient req}")
-        Ok(image.data).withHeaders(
-          CONTENT_DISPOSITION -> image.name
-        ) as image.contentType.getOrElse("image/jpeg")
-    }
+  def image(id: String, @silent hash: String, @silent name: String) = Action.async {
+    env.imageRepo
+      .fetch(id)
+      .map {
+        case None => NotFound
+        case Some(image) =>
+          lila.mon.http.image.bytes.record(image.size)
+          Ok(image.data).withHeaders(
+            CONTENT_DISPOSITION -> image.name
+          ) as image.contentType.getOrElse("image/jpeg")
+      }
+      .monSuccess(_.http.image.time)
   }
 
   val robots = Action { req =>
