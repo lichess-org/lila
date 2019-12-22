@@ -3,6 +3,7 @@ package lila.tournament
 import akka.actor._
 import akka.stream.scaladsl._
 import scala.concurrent.duration._
+import scala.util.Random
 
 final private class StartedOrganizer(
     api: TournamentApi,
@@ -56,21 +57,20 @@ final private class StartedOrganizer(
 
   private def processTour(tour: Tournament): Fu[Int] =
     if (tour.secondsToFinish <= 0) api finish tour inject 0
-    else {
-      def pairIfStillTime = (!tour.pairingsClosed && tour.nbPlayers > 1) ?? startPairing(tour)
-      if (!tour.isScheduled && tour.nbPlayers < 40)
-        playerRepo nbActiveUserIds tour.id flatMap { nb =>
-          if (nb < 2) api finish tour inject 0
-          else pairIfStillTime
-        } else pairIfStillTime
-    }
+    else if (!tour.isScheduled && tour.nbPlayers < 40 && Random.nextInt(10) == 0) {
+      playerRepo nbActiveUserIds tour.id flatMap { nb =>
+        if (nb < 2) api finish tour inject 0
+        else startPairing(tour)
+      }
+    } else startPairing(tour)
 
   // returns number of users actively awaiting a pairing
   private def startPairing(tour: Tournament): Fu[Int] =
-    socket
-      .getWaitingUsers(tour)
-      .monSuccess(_.tournament.startedOrganizer.waitingUsers)
-      .flatMap { waiting =>
-        api.makePairings(tour, waiting) inject waiting.size
-      }
+    (!tour.pairingsClosed && tour.nbPlayers > 1) ??
+      socket
+        .getWaitingUsers(tour)
+        .monSuccess(_.tournament.startedOrganizer.waitingUsers)
+        .flatMap { waiting =>
+          api.makePairings(tour, waiting) inject waiting.size
+        }
 }
