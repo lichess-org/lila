@@ -194,7 +194,7 @@ object StripeClient {
   private[plan] case class Config(
       endpoint: String,
       @ConfigName("keys.public") publicKey: String,
-      @ConfigName("keys.public") secretKey: Secret
+      @ConfigName("keys.secret") secretKey: Secret
   )
   implicit private[plan] val configLoader = AutoConfig.loader[Config]
 }
