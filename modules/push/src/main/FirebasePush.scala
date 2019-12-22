@@ -7,7 +7,7 @@ import play.api.libs.ws.WSClient
 import scala.concurrent.{ blocking, Future }
 import scala.concurrent.duration._
 
-import lila.common.WorkQueue
+import lila.common.{ Chronometer, WorkQueue }
 import lila.user.User
 
 final private class FirebasePush(
@@ -27,9 +27,11 @@ final private class FirebasePush(
         case devices =>
           workQueue {
             Future {
-              blocking {
-                creds.refreshIfExpired()
-                creds.getAccessToken()
+              Chronometer.syncMon(_.blocking time "firebase") {
+                blocking {
+                  creds.refreshIfExpired()
+                  creds.getAccessToken()
+                }
               }
             } withTimeout 10.seconds
           }.chronometer.mon(_.push.googleTokenTime).result flatMap { token =>
