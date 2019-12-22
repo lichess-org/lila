@@ -9,7 +9,6 @@ import lila.common.config.MaxPerPage
 import lila.common.paginator._
 
 final class BlogApi(
-    asyncCache: lila.memo.AsyncCache.Builder,
     config: BlogConfig
 )(implicit ec: scala.concurrent.ExecutionContext, ws: WSClient) {
 
@@ -80,13 +79,9 @@ final class BlogApi(
       } getOrElse reqRef
     }
 
-  private val prismicApiCache = asyncCache.single[Api](
-    name = "prismic.fetchPrismicApi",
-    f = Api.get(config.apiUrl),
-    expireAfter = _.ExpireAfterWrite(5 seconds)
-  )
+  private val prismicBuilder = new Prismic
 
-  def prismicApi = prismicApiCache.get
+  def prismicApi = prismicBuilder.get(config.apiUrl)
 }
 
 object BlogApi {

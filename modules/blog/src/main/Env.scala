@@ -14,7 +14,6 @@ private class BlogConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    asyncCache: lila.memo.AsyncCache.Builder,
     timelineApi: lila.timeline.EntryApi
 )(
     implicit ec: scala.concurrent.ExecutionContext,
