@@ -95,13 +95,25 @@ object Player {
   def make(
       color: Color,
       userPerf: (User.ID, lila.rating.Perf)
+  ): Player = make(
+    color = color,
+    userId = userPerf._1,
+    rating = userPerf._2.intRating,
+    provisional = userPerf._2.glicko.provisional
+  )
+
+  def make(
+      color: Color,
+      userId: User.ID,
+      rating: Int,
+      provisional: Boolean
   ): Player = Player(
     id = IdGenerator.player(color),
     color = color,
     aiLevel = none,
-    userId = userPerf._1.some,
-    rating = userPerf._2.intRating.some,
-    provisional = userPerf._2.glicko.provisional
+    userId = userId.some,
+    rating = rating.some,
+    provisional = provisional
   )
 
   def make(

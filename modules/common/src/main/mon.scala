@@ -333,7 +333,7 @@ object mon {
       val create            = future("tournament.pairing.create")
       val createRanking     = timer("tournament.pairing.create.ranking").withoutTags
       val createPairings    = timer("tournament.pairing.create.pairings").withoutTags
-      val createUserMap     = timer("tournament.pairing.create.userMap").withoutTags
+      val createPlayerMap   = timer("tournament.pairing.create.playerMap").withoutTags
       val createInserts     = timer("tournament.pairing.create.inserts").withoutTags
       val createFeature     = timer("tournament.pairing.create.feature").withoutTags
       val createAutoPairing = timer("tournament.pairing.create.autoPairing").withoutTags

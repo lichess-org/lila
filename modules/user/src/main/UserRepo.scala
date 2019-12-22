@@ -75,12 +75,6 @@ final class UserRepo(val coll: Coll)(implicit ec: scala.concurrent.ExecutionCont
   def byOrderedIds(ids: Seq[ID], readPreference: ReadPreference): Fu[List[User]] =
     coll.byOrderedIds[User, User.ID](ids, readPreference = readPreference)(_.id)
 
-  def idsMap(
-      ids: Seq[ID],
-      readPreference: ReadPreference = ReadPreference.secondaryPreferred
-  ): Fu[Map[User.ID, User]] =
-    coll.idsMap[User, User.ID](ids, readPreference)(_.id)
-
   def usersFromSecondary(userIds: Seq[ID]): Fu[List[User]] =
     byOrderedIds(userIds, ReadPreference.secondaryPreferred)
 

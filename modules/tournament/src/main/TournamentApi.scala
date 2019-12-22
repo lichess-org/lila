@@ -101,14 +101,19 @@ final class TournamentApi(
             .flatMap {
               case Nil => funit
               case pairings =>
-                userRepo
-                  .idsMap(pairings.flatMap(_.users))
-                  .mon(_.tournament.pairing.createUserMap)
-                  .flatMap { users =>
+                playerRepo
+                  .byTourAndUserIds(tour.id, pairings.flatMap(_.users))
+                  .map {
+                    _.view.map { player =>
+                      player.userId -> player
+                    }.toMap
+                  }
+                  .mon(_.tournament.pairing.createPlayerMap)
+                  .flatMap { playersMap =>
                     pairings
                       .map { pairing =>
                         pairingRepo.insert(pairing) >>
-                          autoPairing(tour, pairing, users, ranking)
+                          autoPairing(tour, pairing, playersMap, ranking)
                             .mon(_.tournament.pairing.createAutoPairing)
                             .map {
                               socket.startGame(tour.id, _)
