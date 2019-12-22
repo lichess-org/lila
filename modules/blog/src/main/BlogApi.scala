@@ -3,7 +3,6 @@ package lila.blog
 import io.prismic._
 import play.api.mvc.RequestHeader
 import play.api.libs.ws.WSClient
-import scala.concurrent.duration._
 
 import lila.common.config.MaxPerPage
 import lila.common.paginator._
