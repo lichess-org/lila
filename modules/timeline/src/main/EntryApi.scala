@@ -89,8 +89,7 @@ final class EntryApi(
           )
         )
         .sort($sort desc "date")
-        .cursor[Entry]() // must be on primary for cache refresh to work
-        .gather[Vector](3)
+        .vector[Entry](3, ReadPreference.primary) // must be on primary for cache refresh to work
 
     private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>
