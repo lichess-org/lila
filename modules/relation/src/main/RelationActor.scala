@@ -64,14 +64,16 @@ final private[relation] class RelationActor(
       } mon (_.relation.actor.reloadFriends)
 
     case lila.game.actorApi.FinishGame(game, _, _) if game.hasClock =>
-      val usersPlaying = game.userIds
-      online.playing removeAll usersPlaying
-      notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
+      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+        online.playing removeAll usersPlaying
+        notifyFollowersGameStateChanged(usersPlaying, "following_stopped_playing")
+      }
 
     case lila.game.actorApi.StartGame(game) if game.hasClock =>
-      val usersPlaying = game.userIds
-      online.playing putAll usersPlaying
-      notifyFollowersGameStateChanged(usersPlaying, "following_playing")
+      game.userIds.some.filter(_.nonEmpty) foreach { usersPlaying =>
+        online.playing putAll usersPlaying
+        notifyFollowersGameStateChanged(usersPlaying, "following_playing")
+      }
 
     case lila.hub.actorApi.study.StudyDoor(userId, studyId, contributor, public, true) =>
       online.studyingAll.put(userId, studyId)
