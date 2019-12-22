@@ -1,6 +1,7 @@
 package lila.relation
 
 import akka.actor.Actor
+import scala.concurrent.duration._
 
 import actorApi._
 import lila.common.{ Bus, LightUser }
@@ -21,12 +22,16 @@ final private[relation] class RelationActor(
 
   override def preStart(): Unit = {
     Bus.subscribe(self, subs)
+    context.system.scheduler.scheduleOnce(15 seconds, self, ComputeMovement)
   }
 
   override def postStop(): Unit = {
     super.postStop()
     Bus.unsubscribe(self, subs)
   }
+
+  def scheduleNext =
+    context.system.scheduler.scheduleOnce(2 seconds, self, ComputeMovement)
 
   def receive = {
 
@@ -47,6 +52,7 @@ final private[relation] class RelationActor(
         notifyFollowersFriendEnters(friendsEntering, curIds)
           .>>(notifyFollowersFriendLeaves(leaveUsers, curIds))
           .mon(_.relation.actor.computeMovement)
+          .addEffectAnyway(scheduleNext)
       }
 
     // triggers following reloading for this user id

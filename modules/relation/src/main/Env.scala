@@ -4,7 +4,6 @@ import akka.actor._
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
-import scala.concurrent.duration._
 
 import lila.common.config._
 import lila.hub.actors
@@ -46,9 +45,5 @@ final class Env(
 
   def isPlaying(userId: lila.user.User.ID): Boolean = online.playing.get(userId)
 
-  private val actor = system.actorOf(Props(wire[RelationActor]), name = config.actorName)
-
-  system.scheduler.scheduleWithFixedDelay(15 seconds, 2 seconds) { () =>
-    actor ! actorApi.ComputeMovement
-  }
+  system.actorOf(Props(wire[RelationActor]), name = config.actorName)
 }
