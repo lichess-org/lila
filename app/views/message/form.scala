@@ -45,7 +45,7 @@ object form {
           else
             postForm(
               cls := "form3",
-              action := s"${routes.Message.create()}${reqUser.??(u => "?user=" + u.username)}"
+              action := routes.Message.create()
             )(
               form3.group(form("username"), trans.recipient()) { f =>
                 reqUser map { user =>
