@@ -28,35 +28,27 @@ final class NoteApi(
   import lila.db.BSON.BSONJodaDateTimeHandler
   implicit private val noteBSONHandler = Macros.handler[Note]
 
-  def get(user: User, me: User, myFriendIds: Set[String], isMod: Boolean): Fu[List[Note]] =
+  def get(user: User, me: User, isMod: Boolean): Fu[List[Note]] =
     coll.ext
       .find(
-        $doc("to"                    -> user.id) ++
-          (!me.troll ?? $doc("troll" -> false)) ++
-          (if (isMod)
-             $or(
-               "from" $in (myFriendIds + me.id),
-               "mod" $eq true
-             )
-           else
-             $doc(
-               "from" $in (myFriendIds + me.id),
-               "mod" -> false
-             ))
+        $doc("to" -> user.id) ++ {
+          if (isMod) $doc("mod" -> true)
+          else $doc("from"      -> me.id)
+        }
       )
-      .sort($doc("date" -> -1))
+      .sort($sort desc "date")
       .list[Note](20)
 
   def forMod(id: User.ID): Fu[List[Note]] =
     coll.ext
-      .find($doc("to" -> id))
-      .sort($doc("date" -> -1))
+      .find($doc("to" -> id, "mod" -> true))
+      .sort($sort desc "date")
       .list[Note](20)
 
   def forMod(ids: List[User.ID]): Fu[List[Note]] =
     coll.ext
-      .find($doc("to" $in ids))
-      .sort($doc("date" -> -1))
+      .find($doc("to" $in ids, "mod" -> true))
+      .sort($sort desc "date")
       .list[Note](50)
 
   def write(to: User, text: String, from: User, modOnly: Boolean) = {

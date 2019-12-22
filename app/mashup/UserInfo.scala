@@ -61,16 +61,15 @@ object UserInfo {
       relationApi: RelationApi,
       noteApi: lila.user.NoteApi,
       prefApi: lila.pref.PrefApi
-  )(implicit ec: scala.concurrent.ExecutionContext) {
+  ) {
     def apply(u: User, ctx: Context): Fu[Social] =
       ctx.userId.?? {
         relationApi.fetchRelation(_, u.id).mon(_.user segment "relation")
       } zip
         ctx.me.?? { me =>
-          relationApi
-            .fetchFriends(me.id)
-            .flatMap { noteApi.get(u, me, _, ctx.me ?? Granter(_.ModNote)) }
-            .mon(_.user segment "friendNotes")
+          noteApi
+            .get(u, me, Granter(_.ModNote)(me))
+            .mon(_.user segment "notes")
         } zip
         ctx.isAuth.?? {
           prefApi.followable(u.id).mon(_.user segment "followable")
