@@ -107,11 +107,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def await(duration: FiniteDuration, name: String): A =
     Chronometer.syncMon(_.blocking.time(name)) {
-      if (duration.toMillis >= 100) blocking {
-        Await.result(fua, duration)
-      } else {
-        Await.result(fua, duration)
-      }
+      Await.result(fua, duration)
     }
 
   def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
