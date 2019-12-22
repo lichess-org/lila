@@ -8,7 +8,6 @@ case class Note(
     from: User.ID,
     to: User.ID,
     text: String,
-    troll: Boolean,
     mod: Boolean,
     date: DateTime
 ) {
@@ -58,7 +57,6 @@ final class NoteApi(
       from = from.id,
       to = to.id,
       text = text,
-      troll = from.troll,
       mod = modOnly,
       date = DateTime.now
     )
