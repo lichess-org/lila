@@ -152,7 +152,7 @@ final class RelationApi(
   )
 
   private def limitFollow(u: ID) = countFollowing(u) flatMap { nb =>
-    (config.maxFollow < nb || true) ?? {
+    (config.maxFollow < nb) ?? {
       limitFollowRateLimiter(u) {
         fetchFollowing(u) flatMap userRepo.filterClosedOrInactiveIds(DateTime.now.minusDays(90))
       } flatMap {
