@@ -527,6 +527,18 @@ object mon {
   object blocking {
     def time(name: String) = timer("blocking.time").withTag("name", name)
   }
+  object workQueue {
+    private val successCounter     = counter("workQueue.offerSuccess")
+    def offerSuccess(name: String) = successCounter.withTag("name", name)
+    def offerFail(name: String, result: String) =
+      counter("workQueue.offerFail").withTags(
+        Map(
+          "name"   -> name,
+          "result" -> result
+        )
+      )
+    def taskFail(name: String) = counter("workQueue.taskFail").withTag("name", name)
+  }
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
 

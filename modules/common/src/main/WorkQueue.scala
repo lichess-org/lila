@@ -28,8 +28,12 @@ final class WorkQueue(buffer: Int, name: String, parallelism: Int = 1)(
   def run[A](task: Task[A]): Fu[A] = {
     val promise = Promise[A]
     queue.offer(task -> promise) flatMap {
-      case QueueOfferResult.Enqueued => promise.future
-      case result                    => Future failed new Exception(s"Can't enqueue in $name: $result")
+      case QueueOfferResult.Enqueued =>
+        lila.mon.workQueue.offerSuccess(name).increment()
+        promise.future
+      case result =>
+        lila.mon.workQueue.offerFail(name, result.toString).increment()
+        Future failed new Exception(s"Can't enqueue in $name: $result")
     }
   }
 
@@ -38,7 +42,9 @@ final class WorkQueue(buffer: Int, name: String, parallelism: Int = 1)(
     .mapAsyncUnordered(parallelism) {
       case (task, promise) =>
         task() tap promise.completeWith recover {
-          case e: Exception => lila.log(s"WorkQueue:$name").warn("task failed", e)
+          case e: Exception =>
+            lila.mon.workQueue.taskFail(name).increment()
+            lila.log(s"WorkQueue:$name").warn("task failed", e)
         }
     }
     .toMat(Sink.ignore)(Keep.left)
