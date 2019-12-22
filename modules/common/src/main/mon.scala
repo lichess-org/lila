@@ -330,12 +330,13 @@ object mon {
   object tournament {
     object pairing {
       val batchSize         = histogram("tournament.pairing.batchSize").withoutTags
-      val ranking           = future("tournament.pairing.ranking")
       val create            = future("tournament.pairing.create")
-      val createRanking     = future("tournament.pairing.create.ranking")
-      val createPairings    = future("tournament.pairing.create.pairings")
-      val createInserts     = future("tournament.pairing.create.inserts")
-      val createAutoPairing = future("tournament.pairing.create.autoPairing")
+      val createRanking     = timer("tournament.pairing.create.ranking").withoutTags
+      val createPairings    = timer("tournament.pairing.create.pairings").withoutTags
+      val createUserMap     = timer("tournament.pairing.create.userMap").withoutTags
+      val createInserts     = timer("tournament.pairing.create.inserts").withoutTags
+      val createFeature     = timer("tournament.pairing.create.feature").withoutTags
+      val createAutoPairing = timer("tournament.pairing.create.autoPairing").withoutTags
       val prep              = future("tournament.pairing.prep")
       val wmmatching        = timer("tournament.pairing.wmmatching").withoutTags
     }
