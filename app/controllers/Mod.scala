@@ -216,8 +216,6 @@ final class Mod(
               } zip
               (env.shutup.api getPublicLines user.id)
                 .mon(_.mod.comm.segment("publicChats")) zip
-              (env.security userSpy user)
-                .mon(_.mod.comm.segment("userSpy")) zip
               env.user.noteApi
                 .forMod(user.id)
                 .mon(_.mod.comm.segment("notes")) zip
@@ -226,30 +224,21 @@ final class Mod(
                 .mon(_.mod.comm.segment("history")) zip
               env.report.api.inquiries
                 .ofModId(me.id)
-                .mon(_.mod.comm.segment("inquiries")) flatMap {
-              case chats ~ threads ~ publicLines ~ spy ~ notes ~ history ~ inquiry =>
-                lila.security.UserSpy
-                  .withMeSortedWithEmails(env.user.repo, user, spy.otherUsers)
-                  .mon(_.mod.comm.segment("otherUsers"))
-                  .map { othersWithEmail =>
-                    if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
-                      env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
-                    val povWithChats = (povs zip chats) collect {
-                      case (p, Some(c)) if c.nonEmpty => p -> c
-                    } take 15
-                    val filteredNotes = notes.filter(_.from != "irwin")
-                    html.mod.communication(
-                      user,
-                      povWithChats,
-                      threads,
-                      publicLines,
-                      spy,
-                      othersWithEmail,
-                      filteredNotes,
-                      history,
-                      priv
-                    )
-                  }
+                .mon(_.mod.comm.segment("inquiries")) map {
+              case chats ~ threads ~ publicLines ~ notes ~ history ~ inquiry =>
+                if (priv && !inquiry.??(_.isRecentCommOf(Suspect(user))))
+                  env.slack.api.commlog(mod = me, user = user, inquiry.map(_.oldestAtom.by.value))
+                html.mod.communication(
+                  user,
+                  (povs zip chats) collect {
+                    case (p, Some(c)) if c.nonEmpty => p -> c
+                  } take 15,
+                  threads,
+                  publicLines,
+                  notes.filter(_.from != "irwin"),
+                  history,
+                  priv
+                )
             }
           }
       }
