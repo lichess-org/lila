@@ -61,23 +61,25 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
-                EnableSharedArrayBuffer(Ok(
-                  html.analyse.replay(
-                    pov,
-                    data,
-                    initialFen,
-                    env.analyse
-                      .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
-                      .toString,
-                    analysis,
-                    analysisInProgress,
-                    simul,
-                    crosstable,
-                    userTv,
-                    chat,
-                    bookmarked = bookmarked
+                EnableSharedArrayBuffer(
+                  Ok(
+                    html.analyse.replay(
+                      pov,
+                      data,
+                      initialFen,
+                      env.analyse
+                        .annotator(pgn, analysis, pov.game.opening, pov.game.winnerColor, pov.game.status)
+                        .toString,
+                      analysis,
+                      analysisInProgress,
+                      simul,
+                      crosstable,
+                      userTv,
+                      chat,
+                      bookmarked = bookmarked
+                    )
                   )
-                ))
+                )
               }
           }
         }
