@@ -61,7 +61,7 @@ final class Analyse(
                   opening = true
                 )
               ) map { data =>
-                Ok(
+                EnableSharedArrayBuffer(Ok(
                   html.analyse.replay(
                     pov,
                     data,
@@ -77,7 +77,7 @@ final class Analyse(
                     chat,
                     bookmarked = bookmarked
                   )
-                )
+                ))
               }
           }
         }
