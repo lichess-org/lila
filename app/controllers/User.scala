@@ -67,7 +67,7 @@ final class User(
     if (HTTPRequest.isSynchronousHttp(ctx.req)) {
       for {
         as     <- env.activity.read.recent(u)
-        nbs    <- env.userNbGames(u, ctx)
+        nbs    <- env.userNbGames(u, ctx, withCrosstable = false)
         info   <- env.userInfo(u, nbs, ctx)
         social <- env.socialInfo(u, ctx)
       } yield status {
@@ -87,7 +87,7 @@ final class User(
       EnabledUser(username) { u =>
         negotiate(
           html = for {
-            nbs <- env.userNbGames(u, ctx)
+            nbs <- env.userNbGames(u, ctx, withCrosstable = true)
             filters = GameFilterMenu(u, nbs, filter)
             pag <- env.gamePaginator(
               user = u,
