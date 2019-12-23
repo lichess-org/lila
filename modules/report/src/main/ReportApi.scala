@@ -6,6 +6,7 @@ import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
 
 final class ReportApi(
@@ -17,7 +18,7 @@ final class ReportApi(
     playbanApi: lila.playban.PlaybanApi,
     slackApi: lila.slack.SlackApi,
     isOnline: lila.socket.IsOnline,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     thresholds: Thresholds
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -64,7 +65,7 @@ final class ReportApi(
                   prev.exists(_.score.value < thresholds.slack())) slackApi.commReportBurst(c.suspect.user)
               coll.update.one($id(report.id), report, upsert = true).void >>
                 autoAnalysis(candidate)
-            } >>- monitorOpen
+            } >>- nbOpenCache.invalidateUnit
       }
     }
 
@@ -77,13 +78,6 @@ final class ReportApi(
         s"${Reason.Comm.flagText} $resource ${text take 140}"
       )
     )
-
-  private def monitorOpen() = {
-    nbOpenCache.refresh
-    nbOpen foreach { nb =>
-      lila.mon.mod.report.unprocessed.increment(nb)
-    }
-  }
 
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
@@ -210,21 +204,24 @@ final class ReportApi(
     } yield res
 
   def process(mod: Mod, sus: Suspect, rooms: Set[Room], reportId: Option[Report.ID] = None): Funit =
-    inquiries.ofModId(mod.user.id) map (_.filter(_.user == sus.user.id)) flatMap { inquiry =>
-      val relatedSelector = $doc(
-        "user" -> sus.user.id,
-        "room" $in rooms,
-        "open" -> true
-      )
-      val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
-        $or($id(id), relatedSelector)
+    inquiries
+      .ofModId(mod.user.id)
+      .dmap(_.filter(_.user == sus.user.id))
+      .flatMap { inquiry =>
+        val relatedSelector = $doc(
+          "user" -> sus.user.id,
+          "room" $in rooms,
+          "open" -> true
+        )
+        val reportSelector = reportId.orElse(inquiry.map(_.id)).fold(relatedSelector) { id =>
+          $or($id(id), relatedSelector)
+        }
+        accuracy.invalidate(reportSelector) >>
+          doProcessReport(reportSelector, mod.id).void >>- {
+          nbOpenCache.invalidateUnit
+          lila.mon.mod.report.close.increment()
+        }
       }
-      accuracy.invalidate(reportSelector) >>
-        doProcessReport(reportSelector, mod.id).void >>- {
-        monitorOpen
-        lila.mon.mod.report.close.increment()
-      }
-    }
 
   private def doProcessReport(selector: Bdoc, by: ModId) = coll.update.one(
     selector,
@@ -235,7 +232,7 @@ final class ReportApi(
     multi = true
   )
 
-  def autoInsultReport(userId: String, text: String, major: Boolean): Funit = {
+  def autoInsultReport(userId: String, text: String, major: Boolean): Funit =
     getSuspect(userId) zip getLichessReporter flatMap {
       case (Some(suspect), reporter) =>
         create(
@@ -249,7 +246,6 @@ final class ReportApi(
         )
       case _ => funit
     }
-  } >>- monitorOpen
 
   def moveToXfiles(id: String): Funit =
     coll.update
@@ -271,12 +267,16 @@ final class ReportApi(
   private def selectOpenAvailableInRoom(room: Option[Room]) =
     $doc("open" -> true, "inquiry" $exists false) ++ roomSelect(room) ++ scoreThresholdSelect
 
-  val nbOpenCache = asyncCache.single[Int](
-    name = "report.nbOpen",
-    f = coll.countSel(selectOpenAvailableInRoom(none)),
-    expireAfter = _.ExpireAfterWrite(1 hour)
-  )
-  def nbOpen = nbOpenCache.get
+  private val nbOpenCache = cacheApi.scaffeine
+    .initialCapacity(1)
+    .refreshAfterWrite(5 minutes)
+    .buildAsyncFuture[Unit, Int] { _ =>
+      coll
+        .countSel(selectOpenAvailableInRoom(none))
+        .addEffect(lila.mon.mod.report.unprocessed.increment(_))
+    }
+
+  def nbOpen = nbOpenCache.getUnit
 
   def recent(
       suspect: Suspect,
@@ -352,36 +352,37 @@ final class ReportApi(
 
   object accuracy {
 
-    private val cache = asyncCache.clearable[User.ID, Option[Int]](
-      name = "reporterAccuracy",
-      f = a => forUser(a).dmap2(_.value),
-      expireAfter = _.ExpireAfterWrite(24 hours)
-    )
-
-    private def forUser(reporterId: User.ID): Fu[Option[Accuracy]] =
-      coll.ext
-        .find(
-          $doc(
-            "atoms.by" -> reporterId,
-            "room"     -> Room.Cheat.key,
-            "open"     -> false
-          )
-        )
-        .sort(sortLastAtomAt)
-        .list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
-        if (reports.size < 4) fuccess(none) // not enough data to know
-        else {
-          val userIds = reports.map(_.user).distinct
-          userRepo countEngines userIds map { nbEngines =>
-            Accuracy {
-              Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
-            }.some
+    private val cache =
+      cacheApi.asyncLoading[User.ID, Option[Accuracy]]("report.accuracy") {
+        _.refreshAfterWrite(24 hours)
+          .initialCapacity(512)
+          .maximumSize(8192)
+          .buildAsyncFuture { reporterId =>
+            coll.ext
+              .find(
+                $doc(
+                  "atoms.by" -> reporterId,
+                  "room"     -> Room.Cheat.key,
+                  "open"     -> false
+                )
+              )
+              .sort(sortLastAtomAt)
+              .list[Report](20, ReadPreference.secondaryPreferred) flatMap { reports =>
+              if (reports.size < 4) fuccess(none) // not enough data to know
+              else {
+                val userIds = reports.map(_.user).distinct
+                userRepo countEngines userIds map { nbEngines =>
+                  Accuracy {
+                    Math.round((nbEngines + 0.5f) / (userIds.length + 2f) * 100)
+                  }.some
+                }
+              }
+            }
           }
-        }
       }
 
     def of(reporter: ReporterId): Fu[Option[Accuracy]] =
-      cache get reporter.value dmap2 Accuracy.apply
+      cache get reporter.value
 
     def apply(candidate: Candidate): Fu[Option[Accuracy]] =
       (candidate.reason == Reason.Cheat) ?? of(candidate.reporter.id)

@@ -10,8 +10,7 @@ final class CacheApi(implicit ec: ExecutionContext, system: ActorSystem) {
 
   private type Builder = s.Scaffeine[Any, Any]
 
-  val scaffeine: Builder =
-    s.Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
+  val scaffeine: Builder = s.Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
 
   def asyncLoading[K, V](
       name: String
@@ -33,7 +32,10 @@ final class CacheApi(implicit ec: ExecutionContext, system: ActorSystem) {
 
 object CacheApi {
 
-  implicit def beafedAsync[K, V](cache: s.AsyncCache[K, V]) = new BeafedAsync[K, V](cache)
+  implicit def beafedAsync[K, V](cache: s.AsyncCache[K, V])     = new BeafedAsync[K, V](cache)
+  implicit def beafedAsyncUnit[V](cache: s.AsyncCache[Unit, V]) = new BeafedAsyncUnit[V](cache)
+  implicit def beafedAsyncLoadingUnit[V](cache: s.AsyncLoadingCache[Unit, V]) =
+    new BeafedAsyncLoadingUnit[V](cache)
 
   private[memo] def startMonitor(
       name: String,
@@ -44,7 +46,17 @@ object CacheApi {
     }
 }
 
-final class BeafedAsync[K, V](cache: s.AsyncCache[K, V]) {
+final class BeafedAsync[K, V](val cache: s.AsyncCache[K, V]) extends AnyVal {
 
   def invalidate(key: K): Unit = cache.underlying.synchronous invalidate key
+}
+
+final class BeafedAsyncUnit[V](val cache: s.AsyncCache[Unit, V]) extends AnyVal {
+
+  def invalidateUnit(): Unit = cache.underlying.synchronous.invalidate({})
+}
+
+final class BeafedAsyncLoadingUnit[V](val cache: s.AsyncLoadingCache[Unit, V]) extends AnyVal {
+
+  def getUnit: Fu[V] = cache.get({})
 }

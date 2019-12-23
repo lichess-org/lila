@@ -15,7 +15,6 @@ final class Env(
     userRepo: lila.user.UserRepo,
     modLog: ModlogApi,
     notifyApi: NotifyApi,
-    // asyncCache: lila.memo.AsyncCache.Builder,
     cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
