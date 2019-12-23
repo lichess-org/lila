@@ -35,12 +35,18 @@ final class CrosstableApi(
   }
 
   def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable] =
-    coll.one[Crosstable](select(u1, u2)) getOrElse createWithTimeout(u1, u2, timeout)
+    justFetch(u1, u2) getOrElse createWithTimeout(u1, u2, timeout)
 
   def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable.WithMatchup] =
     apply(u1, u2, timeout) zip getMatchup(u1, u2) dmap {
       case crosstable ~ matchup => Crosstable.WithMatchup(crosstable, matchup)
     }
+
+  def justFetch(u1: User.ID, u2: User.ID): Fu[Option[Crosstable]] =
+    coll.one[Crosstable](select(u1, u2))
+
+  def fetchOrEmpty(u1: User.ID, u2: User.ID): Fu[Crosstable] =
+    justFetch(u1, u2) dmap { _ | Crosstable.empty(u1, u2) }
 
   def nbGames(u1: User.ID, u2: User.ID): Fu[Int] =
     coll
@@ -114,7 +120,7 @@ final class CrosstableApi(
       case ((u1, u2), promise) =>
         create(u1, u2) recoverWith lila.db.recoverDuplicateKey { _ =>
           lila.mon.crosstable.duplicate.increment()
-          coll.one[Crosstable](select(u1, u2)) dmap { _ | Crosstable.empty(u1, u2) }
+          fetchOrEmpty(u1, u2)
         } recover {
           case e: Exception =>
             logger.error("CrosstableApi.create", e)

@@ -130,30 +130,31 @@ final class User(
 
   def showMini(username: String) = Open { implicit ctx =>
     OptionFuResult(env.user.repo named username) { user =>
-      if (user.enabled || isGranted(_.UserSpy)) for {
-        blocked    <- ctx.userId ?? { relationApi.fetchBlocks(user.id, _) }
-        crosstable <- ctx.userId ?? { env.game.crosstableApi(user.id, _) map some }
-        followable <- ctx.isAuth ?? { env.pref.api.followable(user.id) }
-        relation   <- ctx.userId ?? { relationApi.fetchRelation(_, user.id) }
-        ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
-        res <- negotiate(
-          html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
-            Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
-              .withHeaders(CACHE_CONTROL -> "max-age=5")
-          },
-          api = _ => {
-            import lila.game.JsonView.crosstableWrites
-            fuccess(
-              Ok(
-                Json.obj(
-                  "crosstable" -> crosstable,
-                  "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+      if (user.enabled || isGranted(_.UserSpy))
+        ctx.userId.?? { relationApi.fetchBlocks(user.id, _) } zip
+          ctx.userId.?? { env.game.crosstableApi.fetchOrEmpty(user.id, _) dmap some } zip
+          ctx.isAuth.?? { env.pref.api.followable(user.id) } zip
+          ctx.userId.?? { relationApi.fetchRelation(_, user.id) } flatMap {
+          case blocked ~ crosstable ~ followable ~ relation =>
+            val ping = env.socket.isOnline(user.id) ?? UserLagCache.getLagRating(user.id)
+            negotiate(
+              html = !ctx.is(user) ?? currentlyPlaying(user) map { pov =>
+                Ok(html.user.mini(user, pov, blocked, followable, relation, ping, crosstable))
+                  .withHeaders(CACHE_CONTROL -> "max-age=5")
+              },
+              api = _ => {
+                import lila.game.JsonView.crosstableWrites
+                fuccess(
+                  Ok(
+                    Json.obj(
+                      "crosstable" -> crosstable,
+                      "perfs"      -> lila.user.JsonView.perfs(user, user.best8Perfs)
+                    )
+                  )
                 )
-              )
+              }
             )
-          }
-        )
-      } yield res
+        }
       else fuccess(Ok(html.user.bits.miniClosed(user)))
     }
   }
