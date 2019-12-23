@@ -1,14 +1,14 @@
 package lila.base
 
 import akka.actor.ActorSystem
-import scala.util.Try
-
-import lila.common.Chronometer
-import LilaTypes._
 import ornicar.scalalib.Zero
 import scala.collection.BuildFrom
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext => EC, Future, Await }
+import scala.util.Try
+
+import lila.common.Chronometer
+import LilaTypes._
 
 final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
@@ -107,11 +107,7 @@ final class PimpedFuture[A](private val fua: Fu[A]) extends AnyVal {
 
   def await(duration: FiniteDuration, name: String): A =
     Chronometer.syncMon(_.blocking.time(name)) {
-      try {
-        Await.result(fua, duration)
-      } catch {
-        case e: Exception => throw new Exception(name, e)
-      }
+      Await.result(fua, duration)
     }
 
   def awaitOrElse(duration: FiniteDuration, name: String, default: => A): A =
