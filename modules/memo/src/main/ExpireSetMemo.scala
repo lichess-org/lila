@@ -1,6 +1,7 @@
 package lila.memo
 
 import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.ghik.silencer.silent
 import scala.concurrent.duration.Duration
 
 final class ExpireSetMemo(ttl: Duration) {
@@ -9,9 +10,7 @@ final class ExpireSetMemo(ttl: Duration) {
     .expireAfterWrite(ttl)
     .build[String, Boolean]
 
-  @inline private def isNotNull[A](a: A) = a != null
-
-  def get(key: String): Boolean = isNotNull(cache.underlying getIfPresent key)
+  @silent("comparing") def get(key: String): Boolean = cache.underlying.getIfPresent(key) != null
 
   def intersect(keys: Iterable[String]): Set[String] = keys.nonEmpty ?? {
     val res = cache getAllPresent keys
