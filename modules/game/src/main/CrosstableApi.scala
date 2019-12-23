@@ -35,9 +35,7 @@ final class CrosstableApi(
   }
 
   def apply(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable] =
-    coll.one[Crosstable](select(u1, u2)) orElse createWithTimeout(u1, u2, timeout) dmap {
-      _ | Crosstable.empty(u1, u2)
-    }
+    coll.one[Crosstable](select(u1, u2)) getOrElse createWithTimeout(u1, u2, timeout)
 
   def withMatchup(u1: User.ID, u2: User.ID, timeout: FiniteDuration = 1.second): Fu[Crosstable.WithMatchup] =
     apply(u1, u2, timeout) zip getMatchup(u1, u2) dmap {
@@ -102,20 +100,20 @@ final class CrosstableApi(
   private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
     matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
-  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration) = {
-    val promise = Promise[Option[Crosstable]]
+  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration): Fu[Crosstable] = {
+    val promise = Promise[Crosstable]
     creationQueue.offer((u1, u2) -> promise) flatMap {
       case QueueOfferResult.Enqueued =>
         lila.mon.crosstable.createOffer("success").increment()
-        promise.future.monSuccess(_.crosstable.create).withTimeoutDefault(timeout, none)
+        promise.future.monSuccess(_.crosstable.create).withTimeoutDefault(timeout, Crosstable.empty(u1, u2))
       case result =>
         lila.mon.crosstable.createOffer(result.toString).increment()
-        fuccess(none)
+        fuccess(Crosstable.empty(u1, u2))
     }
   }
 
   type UserPair = (User.ID, User.ID)
-  type Creation = (UserPair, Promise[Option[Crosstable]])
+  type Creation = (UserPair, Promise[Crosstable])
 
   private val creationQueue = Source
     .queue[Creation](512, OverflowStrategy.dropNew)
@@ -125,7 +123,7 @@ final class CrosstableApi(
         create(u1, u2) recover {
           case e: Exception =>
             logger.error("CrosstableApi.create", e)
-            none
+            Crosstable.empty(u1, u2)
         } tap promise.completeWith
     }
     .toMat(Sink.ignore)(Keep.left)
@@ -133,7 +131,7 @@ final class CrosstableApi(
 
   private val winnerProjection = $doc(GF.winnerId -> true)
 
-  private def create(x1: User.ID, x2: User.ID): Fu[Option[Crosstable]] =
+  private def create(x1: User.ID, x2: User.ID): Fu[Crosstable] =
     userRepo.orderByGameCount(x1, x2) dmap (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
@@ -173,10 +171,10 @@ final class CrosstableApi(
             )
           } flatMap { crosstable =>
           lila.mon.crosstable.createNbGames.record(crosstable.nbGames)
-          coll.insert.one(crosstable) inject crosstable.some
+          coll.insert.one(crosstable) inject crosstable
         }
 
-      case _ => fuccess(none)
+      case _ => fuccess(Crosstable.empty(x1, x2))
     }
 
   private def select(u1: User.ID, u2: User.ID) =
