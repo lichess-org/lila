@@ -1,7 +1,6 @@
 package lila.memo
 
 import akka.actor.ActorSystem
-import com.github.benmanes.caffeine.cache.{ Cache => CaffeineCache }
 import com.github.blemale.scaffeine.{ AsyncLoadingCache, Cache, Scaffeine }
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
@@ -52,7 +51,7 @@ final class AsyncCacheSingle[V](cache: AsyncLoadingCache[Unit, V], f: Unit => Fu
 
 object AsyncCache {
 
-  final class Builder(implicit ec: ExecutionContext, system: ActorSystem) {
+  final class Builder(api: CacheApi)(implicit ec: ExecutionContext, system: ActorSystem) {
 
     def multi[K, V](
         name: String,
@@ -67,10 +66,10 @@ object AsyncCache {
           lila.base.LilaException(s"AsyncCache.multi $name key=$k timed out after $resultTimeout")
         )
       val cache: AsyncLoadingCache[K, V] = makeExpire(
-        Scaffeine().maximumSize(maxCapacity),
+        api.scaffeine.maximumSize(maxCapacity),
         expireAfter
       ).recordStats.buildAsyncFuture(safeF)
-      startMonitoring(name, cache.underlying.synchronous)
+      api.monitor(name, cache.underlying.synchronous)
       new AsyncCache[K, V](cache, safeF)
     }
 
@@ -88,10 +87,10 @@ object AsyncCache {
           lila.base.LilaException(s"$fullName key=$k timed out after $resultTimeout")
         )
       val cache: Cache[K, Fu[V]] = makeExpire(
-        Scaffeine().maximumSize(maxCapacity),
+        api.scaffeine.maximumSize(maxCapacity),
         expireAfter
       ).recordStats.build[K, Fu[V]]
-      startMonitoring(name, cache.underlying)
+      api.monitor(name, cache.underlying)
       new AsyncCacheClearable[K, V](cache, safeF, logger = logger branch fullName)
     }
 
@@ -107,21 +106,13 @@ object AsyncCache {
           resultTimeout,
           lila.base.LilaException(s"AsyncCache.single $name single timed out after $resultTimeout")
         )
-      val builder = makeExpire(Scaffeine().maximumSize(1), expireAfter)
+      val builder = makeExpire(api.scaffeine.maximumSize(1), expireAfter)
       if (monitor) builder.recordStats
       val cache: AsyncLoadingCache[Unit, V] = builder.buildAsyncFuture(safeF)
-      if (monitor) startMonitoring(name, cache.underlying.synchronous)
+      if (monitor) api.monitor(name, cache.underlying.synchronous)
       new AsyncCacheSingle[V](cache, safeF)
     }
   }
-
-  private[memo] def startMonitoring(
-      name: String,
-      cache: CaffeineCache[_, _]
-  )(implicit ec: ExecutionContext, system: ActorSystem): Unit =
-    system.scheduler.scheduleWithFixedDelay(1 minute, 1 minute) { () =>
-      lila.mon.caffeineStats(cache, name)
-    }
 
   sealed trait ExpireAfter
   case class ExpireAfterAccess(duration: FiniteDuration) extends ExpireAfter

@@ -193,6 +193,7 @@ final class Team(
   )
 
   def requests = Auth { implicit ctx => me =>
+    import lila.memo.CacheApi._
     env.team.cached.nbRequests invalidate me.id
     api requestsWithUsers me map { html.team.request.all(_) }
   }

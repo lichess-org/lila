@@ -31,6 +31,7 @@ final class Syncache[K, V](
   private val cache: LoadingCache[K, Fu[V]] =
     Caffeine
       .newBuilder()
+      .scheduler(Scheduler.systemScheduler)
       .asInstanceOf[Caffeine[K, Fu[V]]]
       .initialCapacity(initialCapacity)
       .pipe { c =>
@@ -55,9 +56,9 @@ final class Syncache[K, V](
                 default(k)
             }
       })
-  .tap {
-    lila.memo.AsyncCache.startMonitoring(s"syncache.$name", _)
-  }
+      .tap {
+        lila.memo.CacheApi.startMonitor(s"syncache.$name", _)
+      }
 
   // get the value asynchronously, never blocks (preferred)
   def async(k: K): Fu[V] = cache get k
