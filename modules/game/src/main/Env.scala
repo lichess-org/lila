@@ -57,8 +57,7 @@ final class Env(
     coll = db(config.crosstableColl),
     matchupColl = db(config.matchupColl),
     userRepo = userRepo,
-    gameRepo = gameRepo,
-    asyncCache = asyncCache
+    gameRepo = gameRepo
   )
 
   lazy val playTime = wire[PlayTimeApi]

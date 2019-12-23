@@ -2,17 +2,25 @@ package lila.game
 
 import org.joda.time.DateTime
 import scala.concurrent.duration._
+import scala.concurrent.{ ExecutionContext, Promise }
+import akka.stream.scaladsl._
+import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
+import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
+import lila.common.LilaStream
 
 final class CrosstableApi(
     coll: Coll,
     matchupColl: Coll,
     gameRepo: GameRepo,
-    userRepo: UserRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+    userRepo: UserRepo
+)(
+    implicit ec: ExecutionContext,
+    system: akka.actor.ActorSystem,
+    mat: Materializer
+) {
 
   import Crosstable.{ Matchup, Result }
   import Crosstable.{ BSONFields => F }
@@ -94,21 +102,38 @@ final class CrosstableApi(
   private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
     matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
-  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration) =
-    creationCache.get(u1 -> u2).withTimeoutDefault(timeout, none)
+  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration) = {
+    val promise = Promise[Option[Crosstable]]
+    creationQueue.offer((u1, u2) -> promise) flatMap {
+      case QueueOfferResult.Enqueued =>
+        lila.mon.crosstable.createOffer("success").increment()
+        promise.future.monSuccess(_.crosstable.create).withTimeoutDefault(timeout, none)
+      case result =>
+        lila.mon.crosstable.createOffer(result.toString).increment()
+        fuccess(none)
+    }
+  }
 
-  // to avoid creating it twice during a new matchup
-  private val creationCache = asyncCache.multi[(User.ID, User.ID), Option[Crosstable]](
-    name = "crosstable",
-    f = (create _).tupled,
-    resultTimeout = 29.second,
-    expireAfter = _.ExpireAfterWrite(30 seconds),
-    maxCapacity = 64
-  )
+  type UserPair = (User.ID, User.ID)
+  type Creation = (UserPair, Promise[Option[Crosstable]])
+
+  private val creationQueue = Source
+    .queue[Creation](512, OverflowStrategy.dropNew)
+    .via(LilaStream dedup 10.minutes)
+    .mapAsyncUnordered(8) {
+      case ((u1, u2), promise) =>
+        create(u1, u2) recover {
+          case e: Exception =>
+            logger.error("CrosstableApi.create", e)
+            none
+        } tap promise.completeWith
+    }
+    .toMat(Sink.ignore)(Keep.left)
+    .run
 
   private val winnerProjection = $doc(GF.winnerId -> true)
 
-  private def create(x1: User.ID, x2: User.ID): Fu[Option[Crosstable]] = {
+  private def create(x1: User.ID, x2: User.ID): Fu[Option[Crosstable]] =
     userRepo.orderByGameCount(x1, x2) dmap (_ -> List(x1, x2).sorted) flatMap {
       case (Some((u1, u2)), List(su1, su2)) =>
         val selector = $doc(
@@ -147,18 +172,12 @@ final class CrosstableApi(
                 .reverse
             )
           } flatMap { crosstable =>
+          lila.mon.crosstable.createNbGames.record(crosstable.nbGames)
           coll.insert.one(crosstable) inject crosstable.some
         }
 
       case _ => fuccess(none)
     }
-  } recoverWith lila.db.recoverDuplicateKey { _ =>
-    coll.one[Crosstable](select(x1, x2))
-  } recover {
-    case e: Exception =>
-      logger.error("CrosstableApi.create", e)
-      none
-  }
 
   private def select(u1: User.ID, u2: User.ID) =
     $id(Crosstable.makeKey(u1, u2))

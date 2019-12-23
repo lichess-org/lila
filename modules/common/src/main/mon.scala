@@ -312,6 +312,11 @@ object mon {
       def present(n: String) = gauge("tv.streamer.present").withTag("name", n)
     }
   }
+  object crosstable {
+    val create                      = future("crosstable.create.time")
+    def createOffer(result: String) = counter("crosstable.create.offer").withTag("result", result)
+    val createNbGames               = histogram("crosstable.create.nbGames").withoutTags
+  }
   object relation {
     private val c = counter("relation.action")
     val follow    = c.withTag("type", "follow")
