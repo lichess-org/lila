@@ -31,7 +31,7 @@ final private[relation] class RelationActor(
   }
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(2 seconds, self, ComputeMovement)
+    context.system.scheduler.scheduleOnce(1 seconds, self, ComputeMovement)
 
   def receive = {
 
