@@ -2,6 +2,7 @@ package lila.tournament
 package arena
 
 import lila.common.{ Chronometer, WMMatching }
+import lila.user.User
 import PairingSystem.Data
 
 private object AntmaPairing {
@@ -11,7 +12,7 @@ private object AntmaPairing {
 
     def rankFactor = PairingSystem.rankFactorFor(players)
 
-    def justPlayedTogether(u1: String, u2: String) =
+    def justPlayedTogether(u1: User.ID, u2: User.ID) =
       lastOpponents.hash.get(u1).contains(u2) ||
         lastOpponents.hash.get(u2).contains(u1)
 
