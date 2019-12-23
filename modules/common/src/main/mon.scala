@@ -65,7 +65,7 @@ object mon {
   object evalCache {
     private val r = counter("evalCache.request")
     def request(ply: Int, isHit: Boolean) =
-      r.withTags(Map("ply" -> (if (ply < 13) ply.toString else "13+"), "hit" -> isHit))
+      r.withTags(Map("ply" -> (if (ply < 15) ply.toString else "15+"), "hit" -> isHit))
     object upgrade {
       val count     = counter("evalCache.upgrade.count").withoutTags
       val members   = gauge("evalCache.upgrade.members").withoutTags
