@@ -112,7 +112,10 @@ final class CrosstableApi(
     .queue[Creation](512, OverflowStrategy.dropNew)
     .mapAsyncUnordered(8) {
       case ((u1, u2), promise) =>
-        create(u1, u2) recover {
+        create(u1, u2) recoverWith lila.db.recoverDuplicateKey { _ =>
+          lila.mon.crosstable.duplicate.increment()
+          coll.one[Crosstable](select(u1, u2)) dmap { _ | Crosstable.empty(u1, u2) }
+        } recover {
           case e: Exception =>
             logger.error("CrosstableApi.create", e)
             Crosstable.empty(u1, u2)

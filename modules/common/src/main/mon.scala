@@ -315,6 +315,7 @@ object mon {
   object crosstable {
     val create                      = future("crosstable.create.time")
     def createOffer(result: String) = counter("crosstable.create.offer").withTag("result", result)
+    val duplicate                   = counter("crosstable.create.duplicate").withoutTags
     val createNbGames               = histogram("crosstable.create.nbGames").withoutTags
   }
   object relation {
