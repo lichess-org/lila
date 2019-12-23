@@ -545,7 +545,6 @@ object mon {
           "result" -> result
         )
       )
-    def taskFail(name: String) = counter("workQueue.taskFail").withTag("name", name)
   }
 
   def chronoSync[A] = lila.common.Chronometer.syncMon[A] _
