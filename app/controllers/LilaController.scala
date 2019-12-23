@@ -577,8 +577,10 @@ abstract private[controllers] class LilaController(val env: Env)
   protected def jsonFormErrorDefaultLang(err: Form[_]) =
     jsonFormError(err)(lila.i18n.defaultLang)
 
-  protected def pageHit(implicit ctx: lila.api.Context) =
-    if (HTTPRequest isHuman ctx.req) lila.mon.http.path(ctx.req.path).increment()
+  protected def pageHit(req: RequestHeader): Unit =
+    if (HTTPRequest isHuman req) lila.mon.http.path(req.path).increment()
+
+  protected def pageHit(implicit ctx: lila.api.Context): Unit = pageHit(ctx.req)
 
   protected val noProxyBufferHeader = "X-Accel-Buffering" -> "no"
   protected val noProxyBuffer       = (res: Result) => res.withHeaders(noProxyBufferHeader)

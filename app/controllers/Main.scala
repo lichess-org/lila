@@ -158,24 +158,29 @@ Disallow: /games/export
   }
 
   def getFishnet = Open { implicit ctx =>
+    pageHit
     Ok(html.site.bits.getFishnet()).fuccess
   }
 
-  def costs = Action {
+  def costs = Action { req =>
+    pageHit(req)
     Redirect("https://docs.google.com/spreadsheets/d/1CGgu-7aNxlZkjLl9l-OlL00fch06xp0Q7eCVDDakYEE/preview")
   }
 
-  def verifyTitle = Action {
+  def verifyTitle = Action { req =>
+    pageHit(req)
     Redirect(
       "https://docs.google.com/forms/d/e/1FAIpQLSd64rDqXOihJzPlBsQba75di5ioL-WMFhkInS2_vhVTvDtBag/viewform"
     )
   }
 
   def contact = Open { implicit ctx =>
+    pageHit
     Ok(html.site.contact()).fuccess
   }
 
   def faq = Open { implicit ctx =>
+    pageHit
     Ok(html.site.faq()).fuccess
   }
 
@@ -184,6 +189,7 @@ Disallow: /games/export
   }
 
   def instantChess = Open { implicit ctx =>
+    pageHit
     if (ctx.isAuth) fuccess(Redirect(routes.Lobby.home))
     else
       fuccess {

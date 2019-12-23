@@ -27,13 +27,11 @@ final class Practice(
   }
 
   def show(@silent sectionId: String, @silent studySlug: String, studyId: String) = Open { implicit ctx =>
-    pageHit
     OptionFuResult(api.getStudyWithFirstOngoingChapter(ctx.me, studyId))(showUserPractice)
   }
 
   def showChapter(@silent sectionId: String, @silent studySlug: String, studyId: String, chapterId: String) =
     Open { implicit ctx =>
-      pageHit
       OptionFuResult(api.getStudyWithChapter(ctx.me, studyId, chapterId))(showUserPractice)
     }
 
