@@ -1,15 +1,15 @@
 package lila.game
 
+import akka.stream.scaladsl._
+import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
+import com.github.blemale.scaffeine.Scaffeine
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Promise }
-import akka.stream.scaladsl._
-import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
 import scala.util.chaining._
 
 import lila.db.dsl._
 import lila.user.{ User, UserRepo }
-import lila.common.LilaStream
 
 final class CrosstableApi(
     coll: Coll,
@@ -100,24 +100,16 @@ final class CrosstableApi(
   private def getMatchup(u1: User.ID, u2: User.ID): Fu[Option[Matchup]] =
     matchupColl.find(select(u1, u2), matchupProjection.some).one[Matchup]
 
-  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration): Fu[Crosstable] = {
-    val promise = Promise[Crosstable]
-    creationQueue.offer((u1, u2) -> promise) flatMap {
-      case QueueOfferResult.Enqueued =>
-        lila.mon.crosstable.createOffer("success").increment()
-        promise.future.monSuccess(_.crosstable.create).withTimeoutDefault(timeout, Crosstable.empty(u1, u2))
-      case result =>
-        lila.mon.crosstable.createOffer(result.toString).increment()
-        fuccess(Crosstable.empty(u1, u2))
-    }
-  }
+  private def createWithTimeout(u1: User.ID, u2: User.ID, timeout: FiniteDuration): Fu[Crosstable] =
+    creationCache
+      .get(u1 -> u2)
+      .withTimeoutDefault(timeout, Crosstable.empty(u1, u2))
 
   type UserPair = (User.ID, User.ID)
   type Creation = (UserPair, Promise[Crosstable])
 
   private val creationQueue = Source
     .queue[Creation](512, OverflowStrategy.dropNew)
-    .via(LilaStream dedup 10.minutes)
     .mapAsyncUnordered(8) {
       case ((u1, u2), promise) =>
         create(u1, u2) recover {
@@ -129,7 +121,19 @@ final class CrosstableApi(
     .toMat(Sink.ignore)(Keep.left)
     .run
 
-  private val winnerProjection = $doc(GF.winnerId -> true)
+  private val creationCache = Scaffeine()
+    .expireAfterWrite(5 minutes)
+    .buildAsyncFuture[UserPair, Crosstable] { users =>
+      val promise = Promise[Crosstable]
+      creationQueue.offer(users -> promise) flatMap {
+        case QueueOfferResult.Enqueued =>
+          lila.mon.crosstable.createOffer("success").increment()
+          promise.future.monSuccess(_.crosstable.create)
+        case result =>
+          lila.mon.crosstable.createOffer(result.toString).increment()
+          fuccess(Crosstable.empty(users._1, users._2))
+      }
+    }
 
   private def create(x1: User.ID, x2: User.ID): Fu[Crosstable] =
     userRepo.orderByGameCount(x1, x2) dmap (_ -> List(x1, x2).sorted) flatMap {
@@ -142,7 +146,7 @@ final class CrosstableApi(
         import reactivemongo.api.ReadPreference
 
         gameRepo.coll
-          .find(selector, winnerProjection.some)
+          .find(selector, $doc(GF.winnerId -> true).some)
           .sort($doc(GF.createdAt -> -1))
           .cursor[Bdoc](readPreference = ReadPreference.secondaryPreferred)
           .gather[List]()
