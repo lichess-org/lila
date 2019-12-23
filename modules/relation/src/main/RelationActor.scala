@@ -153,15 +153,17 @@ final private[relation] class RelationActor(
       .sequenceFu
       .void
 
-  private def notifyFollowersGameStateChanged(userIds: Iterable[ID], message: String) =
+  private def notifyFollowersGameStateChanged(userIds: Iterable[ID], message: String) = {
+    val onlineIds = online.userIds()
     userIds
       .map { userId =>
-        api.fetchFollowersFromSecondary(userId) map online.userIds().intersect map { ids =>
+        api.fetchFollowersFromSecondary(userId) map onlineIds.intersect map { ids =>
           if (ids.nonEmpty) Bus.publish(SendTos(ids, message, userId), "socketUsers")
         }
       }
       .sequenceFu
       .mon(_.relation.actor.gameStateChanged)
+  }
 
   private def notifyFollowersFriendInStudyStateChanged(userId: ID, message: String) =
     api
