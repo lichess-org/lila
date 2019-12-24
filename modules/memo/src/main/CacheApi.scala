@@ -10,7 +10,7 @@ final class CacheApi(implicit ec: ExecutionContext, system: ActorSystem) {
 
   private type Builder = Scaffeine[Any, Any]
 
-  val scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
+  def scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
 
   def apply[K, V](name: String)(build: Builder => AsyncLoadingCache[K, V]): AsyncLoadingCache[K, V] = {
     val cache = build(scaffeine)
