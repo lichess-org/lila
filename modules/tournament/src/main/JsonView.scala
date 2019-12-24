@@ -10,6 +10,7 @@ import scala.concurrent.ExecutionContext
 import lila.common.{ LightUser, Uptime }
 import lila.game.{ Game, LightPov }
 import lila.hub.LightTeam.TeamID
+import lila.memo.CacheApi._
 import lila.quote.Quote.quoteWriter
 import lila.rating.PerfType
 import lila.socket.Socket.SocketVersion
@@ -23,7 +24,7 @@ final class JsonView(
     cached: Cached,
     statsApi: TournamentStatsApi,
     shieldApi: TournamentShieldApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     proxyRepo: lila.round.GameProxyRepo,
     verify: Condition.Verify,
     duelStore: DuelStore,
@@ -233,30 +234,30 @@ final class JsonView(
     "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
   )
 
-  private val cachableData = asyncCache.clearable[String, CachableData](
-    name = "tournament.json.cachable",
-    id =>
-      for {
-        tour <- tournamentRepo byId id
-        duels = duelStore.bestRated(id, 6)
-        jsonDuels <- duels.map(duelJson).sequenceFu
-        duelTeams <- tour.exists(_.isTeamBattle) ?? {
-          playerRepo.teamsOfPlayers(id, duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds)) map { teams =>
-            JsObject(teams map {
-              case (userId, teamId) => (userId, JsString(teamId))
-            }).some
+  private val cachableData = cacheApi[Tournament.ID, CachableData]("tournament.json.cachable") {
+    _.expireAfterWrite(1 second)
+      .buildAsyncFuture { id =>
+        for {
+          tour <- tournamentRepo byId id
+          duels = duelStore.bestRated(id, 6)
+          jsonDuels <- duels.map(duelJson).sequenceFu
+          duelTeams <- tour.exists(_.isTeamBattle) ?? {
+            playerRepo.teamsOfPlayers(id, duels.foldLeft(List.empty[User.ID])(_ ::: _.userIds)) map { teams =>
+              JsObject(teams map {
+                case (userId, teamId) => (userId, JsString(teamId))
+              }).some
+            }
           }
-        }
-        featured <- tour ?? fetchFeaturedGame
-        podium   <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
-      } yield CachableData(
-        duels = JsArray(jsonDuels),
-        duelTeams = duelTeams,
-        featured = featured map featuredJson,
-        podium = podium
-      ),
-    expireAfter = _.ExpireAfterWrite(1 second)
-  )
+          featured <- tour ?? fetchFeaturedGame
+          podium   <- tour.exists(_.isFinished) ?? podiumJsonCache.get(id)
+        } yield CachableData(
+          duels = JsArray(jsonDuels),
+          duelTeams = duelTeams,
+          featured = featured map featuredJson,
+          podium = podium
+        )
+      }
+  }
 
   private def featuredJson(featured: FeaturedGame) = {
     val game = featured.game
@@ -302,30 +303,30 @@ final class JsonView(
       .add("title" -> light.flatMap(_.title))
   }
 
-  private val podiumJsonCache = asyncCache.multi[Tournament.ID, Option[JsArray]](
-    name = "tournament.podiumJson",
-    id =>
-      tournamentRepo finishedById id flatMap {
-        _ ?? { tour =>
-          playerRepo.bestByTourWithRank(id, 3).flatMap {
-            _.map {
-              case rp @ RankedPlayer(_, player) =>
-                for {
-                  sheet <- cached.sheet(tour, player.userId)
-                  json  <- playerJson(lightUserApi, sheet.some, rp)
-                } yield json ++ Json
-                  .obj(
-                    "nb" -> sheetNbs(sheet)
-                  )
-                  .add("performance" -> player.performanceOption)
-            }.sequenceFu
-          } map { l =>
-            JsArray(l).some
+  private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]]("tournament.podiumJson") {
+    _.expireAfterWrite(10 seconds)
+      .buildAsyncFuture { id =>
+        tournamentRepo finishedById id flatMap {
+          _ ?? { tour =>
+            playerRepo.bestByTourWithRank(id, 3).flatMap {
+              _.map {
+                case rp @ RankedPlayer(_, player) =>
+                  for {
+                    sheet <- cached.sheet(tour, player.userId)
+                    json  <- playerJson(lightUserApi, sheet.some, rp)
+                  } yield json ++ Json
+                    .obj(
+                      "nb" -> sheetNbs(sheet)
+                    )
+                    .add("performance" -> player.performanceOption)
+              }.sequenceFu
+            } map { l =>
+              JsArray(l).some
+            }
           }
         }
-      },
-    expireAfter = _.ExpireAfterWrite(10 seconds)
-  )
+      }
+  }
 
   private def duelPlayerJson(p: Duel.DuelPlayer): Fu[JsObject] =
     lightUserApi.async(p.name.id) map { u =>
@@ -347,18 +348,18 @@ final class JsonView(
       "p"  -> Json.arr(u1, u2)
     )
 
-  private val teamStandingCache = asyncCache.clearable[Tournament.ID, JsArray](
-    name = "tournament.teamStanding",
-    id =>
-      tournamentRepo.teamBattleOf(id) flatMap {
-        _.fold(fuccess(JsArray())) { battle =>
-          playerRepo.bestTeamIdsByTour(id, battle) map { ranked =>
-            JsArray(ranked map teamBattleRankedWrites.writes)
+  private val teamStandingCache = cacheApi[Tournament.ID, JsArray]("tournament.teamStanding") {
+    _.expireAfterWrite(1 second)
+      .buildAsyncFuture { id =>
+        tournamentRepo.teamBattleOf(id) flatMap {
+          _.fold(fuccess(JsArray())) { battle =>
+            playerRepo.bestTeamIdsByTour(id, battle) map { ranked =>
+              JsArray(ranked map teamBattleRankedWrites.writes)
+            }
           }
         }
-      },
-    expireAfter = _.ExpireAfterWrite(1 second)
-  )
+      }
+  }
 
   private def getTeamStanding(tour: Tournament): Fu[Option[JsArray]] =
     tour.isTeamBattle ?? {
@@ -379,42 +380,39 @@ final class JsonView(
     )
   }
 
-  private val teamInfoCache = asyncCache.clearable[(Tournament.ID, TeamID), Option[JsObject]](
-    name = "tournament.teamInfo",
-    f = {
-      case (tourId, teamId) =>
-        tournamentRepo.teamBattleOf(tourId) flatMap {
-          _ ?? {
-            battle =>
-              playerRepo.teamInfo(tourId, teamId, battle) flatMap {
-                info =>
-                  lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
-                    .obj(
-                      "id"        -> teamId,
-                      "nbPlayers" -> info.nbPlayers,
-                      "rating"    -> info.avgRating,
-                      "perf"      -> info.avgPerf,
-                      "score"     -> info.avgScore,
-                      "topPlayers" -> info.topPlayers.flatMap { p =>
-                        lightUserApi.sync(p.userId) map { user =>
-                          Json
-                            .obj(
-                              "name"   -> user.name,
-                              "rating" -> p.rating,
-                              "score"  -> p.score
-                            )
-                            .add("fire" -> p.fire)
-                            .add("title" -> user.title)
-                        }
+  private val teamInfoCache = cacheApi[(Tournament.ID, TeamID), Option[JsObject]]("tournament.teamInfo") {
+    _.expireAfterWrite(1 second)
+      .buildAsyncFuture {
+        case (tourId, teamId) =>
+          tournamentRepo.teamBattleOf(tourId) flatMap {
+            _ ?? { battle =>
+              playerRepo.teamInfo(tourId, teamId, battle) flatMap { info =>
+                lightUserApi.preloadMany(info.topPlayers.map(_.userId)) inject Json
+                  .obj(
+                    "id"        -> teamId,
+                    "nbPlayers" -> info.nbPlayers,
+                    "rating"    -> info.avgRating,
+                    "perf"      -> info.avgPerf,
+                    "score"     -> info.avgScore,
+                    "topPlayers" -> info.topPlayers.flatMap { p =>
+                      lightUserApi.sync(p.userId) map { user =>
+                        Json
+                          .obj(
+                            "name"   -> user.name,
+                            "rating" -> p.rating,
+                            "score"  -> p.score
+                          )
+                          .add("fire" -> p.fire)
+                          .add("title" -> user.title)
                       }
-                    )
-                    .some
+                    }
+                  )
+                  .some
               }
+            }
           }
-        }
-    },
-    expireAfter = _.ExpireAfterWrite(1 second)
-  )
+      }
+  }
 
   def teamInfo(tour: Tournament, teamId: TeamID): Fu[Option[JsObject]] =
     tour.isTeamBattle ?? {

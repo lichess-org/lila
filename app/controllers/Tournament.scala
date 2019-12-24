@@ -11,6 +11,7 @@ import lila.chat.Chat
 import lila.common.config.MaxPerPage
 import lila.common.HTTPRequest
 import lila.hub.LightTeam._
+import lila.memo.CacheApi._
 import lila.tournament.{ VisibleTournaments, Tournament => Tour }
 import lila.user.{ User => UserModel }
 import views._
@@ -27,14 +28,15 @@ final class Tournament(
 
   private def tournamentNotFound(implicit ctx: Context) = NotFound(html.tournament.bits.notFound())
 
-  private[controllers] val upcomingCache = env.memo.asyncCache.single[(VisibleTournaments, List[Tour])](
-    name = "tournament.home",
-    for {
-      visible   <- api.fetchVisibleTournaments
-      scheduled <- repo.scheduledDedup
-    } yield (visible, scheduled),
-    expireAfter = _.ExpireAfterWrite(3 seconds)
-  )
+  private[controllers] val upcomingCache = env.memo.cacheApi.unit[(VisibleTournaments, List[Tour])] {
+    _.refreshAfterWrite(3 seconds)
+      .buildAsyncFuture { _ =>
+        for {
+          visible   <- api.fetchVisibleTournaments
+          scheduled <- repo.scheduledDedup
+        } yield (visible, scheduled)
+      }
+  }
 
   def home(page: Int) = Open { implicit ctx =>
     negotiate(
@@ -47,7 +49,7 @@ final class Tournament(
         } yield Ok(html.tournament.finishedPaginator(pag))
         else
           for {
-            (visible, scheduled) <- upcomingCache.get
+            (visible, scheduled) <- upcomingCache.getUnit
             finished             <- finishedPaginator
             winners              <- env.tournament.winners.all
             _ <- env.user.lightUserApi preloadMany {
@@ -61,7 +63,7 @@ final class Tournament(
       },
       api = _ =>
         for {
-          (visible, _) <- upcomingCache.get
+          (visible, _) <- upcomingCache.getUnit
           scheduleJson <- env.tournament apiJsonView visible
         } yield Ok(scheduleJson)
     )
@@ -360,7 +362,7 @@ final class Tournament(
     negotiate(
       html = notFound,
       api = _ =>
-        env.tournament.cached.promotable.get.nevermind map {
+        env.tournament.cached.promotable.getUnit.nevermind map {
           lila.tournament.Spotlight.select(_, ctx.me, 4)
         } flatMap env.tournament.apiJsonView.featured map { Ok(_) }
     )
@@ -387,19 +389,19 @@ final class Tournament(
     }
   }
 
-  private val streamerCache = env.memo.asyncCache.multi[Tour.ID, Set[UserModel.ID]](
-    name = "tournament.streamers",
-    f = tourId =>
-      env.streamer.liveStreamApi.all.flatMap {
-        _.streams
-          .map { stream =>
-            env.tournament.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
-          }
-          .sequenceFu
-          .map(_.flatten.toSet)
-      },
-    expireAfter = _.ExpireAfterWrite(15.seconds)
-  )
+  private val streamerCache = env.memo.cacheApi[Tour.ID, Set[UserModel.ID]]("tournament.streamers") {
+    _.refreshAfterWrite(15.seconds)
+      .buildAsyncFuture { tourId =>
+        env.streamer.liveStreamApi.all.flatMap {
+          _.streams
+            .map { stream =>
+              env.tournament.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
+            }
+            .sequenceFu
+            .dmap(_.flatten.toSet)
+        }
+      }
+  }
 
   private def getUserTeamIds(user: lila.user.User): Fu[List[TeamID]] =
     env.team.cached.teamIdsList(user.id)

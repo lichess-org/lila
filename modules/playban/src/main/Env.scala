@@ -13,7 +13,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     lightUser: lila.common.LightUser.Getter,
     db: lila.db.Db,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val playbanColl = db(

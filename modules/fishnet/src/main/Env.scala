@@ -31,7 +31,7 @@ final class Env(
     gameRepo: lila.game.GameRepo,
     analysisRepo: lila.analyse.AnalysisRepo,
     db: lila.db.Db,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     sink: lila.analyse.Analyser,
     lifecycle: play.api.inject.ApplicationLifecycle
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
@@ -52,7 +52,7 @@ final class Env(
   private lazy val repo = new FishnetRepo(
     analysisColl = analysisColl,
     clientColl = db(config.clientColl),
-    asyncCache = asyncCache
+    cacheApi = cacheApi
   )
 
   private lazy val monitor: Monitor = wire[Monitor]

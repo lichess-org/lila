@@ -31,7 +31,7 @@ final class Env(
     userRepo: lila.user.UserRepo,
     mongoCache: lila.memo.MongoCache.Builder,
     getLightUser: lila.common.LightUser.Getter,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {
 
   private val config = appConfig.get[GameConfig]("game")(AutoConfig.loader)

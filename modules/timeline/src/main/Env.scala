@@ -21,14 +21,14 @@ final class Env(
     db: lila.db.Db,
     userRepo: lila.user.UserRepo,
     relationApi: lila.relation.RelationApi,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[TimelineConfig]("timeline")(AutoConfig.loader)
 
   lazy val entryApi = new EntryApi(
     coll = db(config.entryColl),
-    asyncCache = asyncCache,
+    cacheApi = cacheApi,
     userMax = config.userDisplayMax
   )
 

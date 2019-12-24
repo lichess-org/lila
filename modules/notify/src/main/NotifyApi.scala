@@ -8,13 +8,14 @@ import lila.common.paginator.Paginator
 import lila.db.dsl._
 import lila.db.paginator.Adapter
 import lila.hub.actorApi.socket.SendTo
+import lila.memo.CacheApi._
 import lila.user.UserRepo
 
 final class NotifyApi(
     jsonHandlers: JSONHandlers,
     repo: NotificationRepo,
     userRepo: UserRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     maxPerPage: MaxPerPage
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -33,7 +34,7 @@ final class NotifyApi(
   )
 
   def getNotificationsAndCount(userId: Notification.Notifies, page: Int): Fu[Notification.AndUnread] =
-    getNotifications(userId, page) zip unreadCount(userId) map (Notification.AndUnread.apply _).tupled
+    getNotifications(userId, page) zip unreadCount(userId) dmap (Notification.AndUnread.apply _).tupled
 
   def markAllRead(userId: Notification.Notifies) =
     repo.markAllRead(userId) >>- unreadCountCache.put(userId, fuccess(0))
@@ -43,14 +44,13 @@ final class NotifyApi(
       unreadCountCache.put(_, fuccess(0))
     }
 
-  private val unreadCountCache = asyncCache.clearable(
-    name = "notify.unreadCountCache",
-    f = repo.unreadNotificationsCount,
-    expireAfter = _.ExpireAfterAccess(15 minutes)
-  )
+  private val unreadCountCache = cacheApi[Notification.Notifies, Int]("notify.unreadCountCache") {
+    _.expireAfterAccess(15 minutes)
+      .buildAsyncFuture(repo.unreadNotificationsCount)
+  }
 
   def unreadCount(userId: Notification.Notifies): Fu[Notification.UnreadCount] =
-    unreadCountCache get userId map Notification.UnreadCount.apply
+    unreadCountCache get userId dmap Notification.UnreadCount.apply
 
   def addNotification(notification: Notification): Funit =
     // Add to database and then notify any connected clients of the new notification

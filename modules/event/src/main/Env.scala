@@ -9,7 +9,7 @@ import lila.common.config._
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private lazy val eventColl = db(appConfig.get[CollName]("event.collection.event"))

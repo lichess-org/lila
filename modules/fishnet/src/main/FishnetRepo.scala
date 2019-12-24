@@ -5,28 +5,30 @@ import scala.concurrent.duration._
 
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
+import lila.memo.CacheApi._
 
 final private class FishnetRepo(
     analysisColl: Coll,
     clientColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BSONHandlers._
 
-  private val clientCache = asyncCache.clearable[Client.Key, Option[Client]](
-    name = "fishnet.client",
-    f = key => clientColl.one[Client](selectClient(key)),
-    expireAfter = _.ExpireAfterWrite(5 minutes)
-  )
+  private val clientCache = cacheApi[Client.Key, Option[Client]]("fishnet.client") {
+    _.initialCapacity(32)
+      .expireAfterWrite(10 minutes)
+      .buildAsyncFuture { key =>
+        clientColl.one[Client](selectClient(key))
+      }
+  }
 
   def getClient(key: Client.Key)        = clientCache get key
   def getEnabledClient(key: Client.Key) = getClient(key).map { _.filter(_.enabled) }
   def getOfflineClient: Fu[Client]      = getEnabledClient(Client.offline.key) getOrElse fuccess(Client.offline)
   def updateClient(client: Client): Funit =
-    clientColl.update.one(selectClient(client.key), client, upsert = true).void >>- clientCache.invalidate(
-      client.key
-    )
+    clientColl.update.one(selectClient(client.key), client, upsert = true).void >>-
+      clientCache.invalidate(client.key)
   def updateClientInstance(client: Client, instance: Client.Instance): Fu[Client] =
     client.updateInstance(instance).fold(fuccess(client)) { updated =>
       updateClient(updated) inject updated
@@ -42,8 +44,7 @@ final private class FishnetRepo(
           "instance.seenAt" $gt Client.Instance.recentSince
         )
       )
-      .cursor[Client]()
-      .gather[List]()
+      .list[Client]()
   def lichessClients =
     clientColl.ext
       .find(
@@ -52,8 +53,7 @@ final private class FishnetRepo(
           "userId" $startsWith "lichess-"
         )
       )
-      .cursor[Client]()
-      .gather[List]()
+      .list[Client]()
 
   def addAnalysis(ana: Work.Analysis)    = analysisColl.insert.one(ana).void
   def getAnalysis(id: Work.Id)           = analysisColl.ext.find(selectWork(id)).one[Work.Analysis]

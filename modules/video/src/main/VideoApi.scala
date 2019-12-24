@@ -7,12 +7,13 @@ import scala.concurrent.duration._
 import lila.common.paginator._
 import lila.db.dsl._
 import lila.db.paginator.Adapter
+import lila.memo.CacheApi._
 import lila.user.User
 
 final private[video] class VideoApi(
     videoColl: Coll,
     viewColl: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import lila.db.BSON.BSONJodaDateTimeHandler
@@ -163,13 +164,12 @@ final private[video] class VideoApi(
 
     object count {
 
-      private val cache = asyncCache.single(
-        name = "video.count",
-        f = videoColl.countAll,
-        expireAfter = _.ExpireAfterWrite(3 hours)
-      )
+      private val cache = cacheApi.unit[Int] {
+        _.refreshAfterWrite(3 hours)
+          .buildAsyncFuture(_ => videoColl.countAll)
+      }
 
-      def apply: Fu[Int] = cache.get
+      def apply: Fu[Int] = cache.getUnit
     }
   }
 
@@ -208,69 +208,69 @@ final private[video] class VideoApi(
 
     def paths(filterTags: List[Tag]): Fu[List[TagNb]] = pathsCache get filterTags.sorted
 
-    def allPopular: Fu[List[TagNb]] = popularCache.get
+    def allPopular: Fu[List[TagNb]] = popularCache.getUnit
 
     private val max = 25
 
-    private val pathsCache = asyncCache.clearable[List[Tag], List[TagNb]](
-      name = "video.paths",
-      f = filterTags => {
-        val allPaths =
-          if (filterTags.isEmpty) allPopular map { tags =>
-            tags.filterNot(_.isNumeric)
-          } else
-            videoColl
-              .aggregateList(
-                maxDocs = Int.MaxValue,
-                ReadPreference.secondaryPreferred
-              ) { framework =>
-                import framework._
-                Match($doc("tags" $all filterTags)) -> List(
-                  Project($doc("tags" -> true)),
-                  UnwindField("tags"),
-                  GroupField("tags")("nb" -> SumAll)
-                )
+    private val pathsCache = cacheApi[List[Tag], List[TagNb]]("video.paths") {
+      _.expireAfterAccess(10 minutes)
+        .buildAsyncFuture { filterTags =>
+          val allPaths =
+            if (filterTags.isEmpty) allPopular map { tags =>
+              tags.filterNot(_.isNumeric)
+            } else
+              videoColl
+                .aggregateList(
+                  maxDocs = Int.MaxValue,
+                  ReadPreference.secondaryPreferred
+                ) { framework =>
+                  import framework._
+                  Match($doc("tags" $all filterTags)) -> List(
+                    Project($doc("tags" -> true)),
+                    UnwindField("tags"),
+                    GroupField("tags")("nb" -> SumAll)
+                  )
+                }
+                .dmap { _.flatMap(_.asOpt[TagNb]) }
+
+          allPopular zip allPaths map {
+            case (all, paths) =>
+              val tags = all map { t =>
+                paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
+              } filterNot (_.empty) take max
+              val missing = filterTags filterNot { t =>
+                tags exists (_.tag == t)
               }
-              .map { _.flatMap(_.asOpt[TagNb]) }
+              val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
+                all find (_.tag == t)
+              }
+              list.sortBy { t =>
+                if (filterTags contains t.tag) Int.MinValue
+                else -t.nb
+              }
+          }
+        }
+    }
 
-        allPopular zip allPaths map {
-          case (all, paths) =>
-            val tags = all map { t =>
-              paths find (_._id == t._id) getOrElse TagNb(t._id, 0)
-            } filterNot (_.empty) take max
-            val missing = filterTags filterNot { t =>
-              tags exists (_.tag == t)
+    private val popularCache = cacheApi.unit[List[TagNb]] {
+      _.refreshAfterWrite(1.day)
+        .buildAsyncFuture { _ =>
+          videoColl
+            .aggregateList(
+              maxDocs = Int.MaxValue,
+              readPreference = ReadPreference.secondaryPreferred
+            ) { framework =>
+              import framework._
+              Project($doc("tags" -> true)) -> List(
+                UnwindField("tags"),
+                GroupField("tags")("nb" -> SumAll),
+                Sort(Descending("nb"))
+              )
             }
-            val list = tags.take(max - missing.size) ::: missing.flatMap { t =>
-              all find (_.tag == t)
-            }
-            list.sortBy { t =>
-              if (filterTags contains t.tag) Int.MinValue
-              else -t.nb
+            .dmap {
+              _.flatMap(_.asOpt[TagNb])
             }
         }
-      },
-      expireAfter = _.ExpireAfterAccess(10 minutes)
-    )
-
-    private val popularCache = asyncCache.single[List[TagNb]](
-      name = "video.popular",
-      f = videoColl
-        .aggregateList(
-          maxDocs = Int.MaxValue,
-          readPreference = ReadPreference.secondaryPreferred
-        ) { framework =>
-          import framework._
-          Project($doc("tags" -> true)) -> List(
-            UnwindField("tags"),
-            GroupField("tags")("nb" -> SumAll),
-            Sort(Descending("nb"))
-          )
-        }
-        .map {
-          _.flatMap(_.asOpt[TagNb])
-        },
-      expireAfter = _.ExpireAfterWrite(1.day)
-    )
+    }
   }
 }

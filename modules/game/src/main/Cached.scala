@@ -8,7 +8,7 @@ import lila.user.User
 
 final class Cached(
     gameRepo: GameRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     mongoCache: MongoCache.Builder
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -19,11 +19,10 @@ final class Cached(
 
   def nbTotal: Fu[Int] = countCache($empty)
 
-  private val countShortTtl = asyncCache.multi[Bdoc, Int](
-    name = "game.countShortTtl",
-    f = gameRepo.coll.countSel(_),
-    expireAfter = _.ExpireAfterWrite(10.seconds)
-  )
+  private val countShortTtl = cacheApi[Bdoc, Int]("game.countShortTtl") {
+    _.expireAfterWrite(10.seconds)
+      .buildAsyncFuture(gameRepo.coll.countSel)
+  }
 
   private val nbImportedCache = mongoCache[User.ID, Int](
     prefix = "game:imported",

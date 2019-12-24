@@ -27,7 +27,7 @@ final class Env(
     renderer: lila.hub.actors.Renderer,
     historyApi: lila.history.HistoryApi,
     lightUserApi: lila.user.LightUserApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
@@ -50,7 +50,7 @@ final class Env(
     roundColl = roundColl,
     voteColl = voteColl,
     headColl = headColl,
-    asyncCache = asyncCache
+    cacheApi = cacheApi
   )
 
   lazy val finisher = new Finisher(
@@ -83,7 +83,7 @@ final class Env(
   lazy val daily = new Daily(
     puzzleColl,
     renderer,
-    asyncCache = asyncCache
+    cacheApi = cacheApi
   )
 
   lazy val activity = new PuzzleActivity(

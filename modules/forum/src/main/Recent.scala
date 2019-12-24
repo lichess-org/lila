@@ -3,11 +3,12 @@ package lila.forum
 import scala.concurrent.duration._
 
 import lila.user.User
+import lila.memo.CacheApi._
 
 final class Recent(
     postApi: PostApi,
     postRepo: PostRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     categIds: List[String]
 )(implicit ec: scala.concurrent.ExecutionContext) {
   private val ttl: FiniteDuration = 1 hour
@@ -34,11 +35,10 @@ final class Recent(
       } mkString ";"
     }
 
-  private val cache = asyncCache.clearable(
-    name = "forum.recent",
-    f = fetch,
-    expireAfter = _.ExpireAfterAccess(ttl)
-  )
+  private val cache = cacheApi[String, List[MiniForumPost]]("forum.recent") {
+    _.expireAfterAccess(ttl)
+      .buildAsyncFuture(fetch)
+  }
 
   private def parseLangs(langStr: String) = langStr.split(",").toList filter (_.nonEmpty)
 

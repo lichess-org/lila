@@ -26,7 +26,7 @@ final class Env(
     onlineUserIds: lila.socket.OnlineIds,
     lightUserSync: lila.common.LightUser.GetterSync,
     prefApi: lila.pref.PrefApi,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[RelationConfig]("relation")(AutoConfig.loader)

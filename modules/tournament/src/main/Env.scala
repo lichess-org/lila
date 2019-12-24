@@ -25,7 +25,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,
     proxyRepo: lila.round.GameProxyRepo,

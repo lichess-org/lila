@@ -267,14 +267,14 @@ final class ReportApi(
   private def selectOpenAvailableInRoom(room: Option[Room]) =
     $doc("open" -> true, "inquiry" $exists false) ++ roomSelect(room) ++ scoreThresholdSelect
 
-  private val nbOpenCache = cacheApi.scaffeine
-    .initialCapacity(1)
-    .refreshAfterWrite(5 minutes)
-    .buildAsyncFuture[Unit, Int] { _ =>
-      coll
-        .countSel(selectOpenAvailableInRoom(none))
-        .addEffect(lila.mon.mod.report.unprocessed.increment(_))
-    }
+  private val nbOpenCache = cacheApi.unit[Int] {
+    _.refreshAfterWrite(5 minutes)
+      .buildAsyncFuture { _ =>
+        coll
+          .countSel(selectOpenAvailableInRoom(none))
+          .addEffect(lila.mon.mod.report.unprocessed.increment(_))
+      }
+  }
 
   def nbOpen = nbOpenCache.getUnit
 
@@ -353,7 +353,7 @@ final class ReportApi(
   object accuracy {
 
     private val cache =
-      cacheApi.asyncLoading[User.ID, Option[Accuracy]]("report.accuracy") {
+      cacheApi[User.ID, Option[Accuracy]]("report.accuracy") {
         _.refreshAfterWrite(24 hours)
           .initialCapacity(512)
           .maximumSize(8192)

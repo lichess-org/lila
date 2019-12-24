@@ -1,16 +1,17 @@
 package lila.relation
 
+import org.joda.time.DateTime
 import reactivemongo.api._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
-import org.joda.time.DateTime
 
 import BSONHandlers._
 import lila.common.Bus
 import lila.db.dsl._
 import lila.db.paginator._
-import lila.hub.actors
 import lila.hub.actorApi.timeline.{ Propagate, Follow => FollowUser }
+import lila.hub.actors
+import lila.memo.CacheApi._
 import lila.user.User
 
 final class RelationApi(
@@ -19,7 +20,7 @@ final class RelationApi(
     actor: actors.Relation,
     timeline: actors.Timeline,
     prefApi: lila.pref.PrefApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
     config: RelationConfig
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -72,21 +73,23 @@ final class RelationApi(
   def fetchAreFriends(u1: ID, u2: ID): Fu[Boolean] =
     fetchFollows(u1, u2) >>& fetchFollows(u2, u1)
 
-  private val countFollowingCache = asyncCache.clearable[ID, Int](
-    name = "relation.count.following",
-    f = userId => coll.countSel($doc("u1" -> userId, "r" -> Follow)),
-    expireAfter = _.ExpireAfterAccess(10 minutes)
-  )
+  private val countFollowingCache = cacheApi[ID, Int]("relation.count.following") {
+    _.expireAfterWrite(10 minutes)
+      .buildAsyncFuture { userId =>
+        coll.countSel($doc("u1" -> userId, "r" -> Follow))
+      }
+  }
 
   def countFollowing(userId: ID) = countFollowingCache get userId
 
   def reachedMaxFollowing(userId: ID): Fu[Boolean] = countFollowingCache get userId map (config.maxFollow <=)
 
-  private val countFollowersCache = asyncCache.clearable[ID, Int](
-    name = "relation.count.followers",
-    f = userId => coll.countSel($doc("u2" -> userId, "r" -> Follow)),
-    expireAfter = _.ExpireAfterAccess(10 minutes)
-  )
+  private val countFollowersCache = cacheApi[ID, Int]("relation.count.followers") {
+    _.expireAfterAccess(10 minutes)
+      .buildAsyncFuture { userId =>
+        coll.countSel($doc("u2" -> userId, "r" -> Follow))
+      }
+  }
 
   def countFollowers(userId: ID) = countFollowersCache get userId
 

@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import lila.common.config.Secret
 import lila.common.{ AtMost, Bus, Every }
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import lila.memo.PeriodicRefreshCache
 import lila.user.{ User, UserRepo }
 
@@ -17,7 +18,7 @@ final class PlanApi(
     notifier: PlanNotifier,
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
@@ -290,18 +291,19 @@ final class PlanApi(
       .void >>- lightUserApi.invalidate(user.id)
 
   private val recentChargeUserIdsNb = 100
-  private val recentChargeUserIdsCache = asyncCache.single[List[User.ID]](
-    name = "plan.recentChargeUserIds",
-    f = chargeColl.primitive[User.ID](
-      $empty,
-      sort = $doc("date" -> -1),
-      nb = recentChargeUserIdsNb * 3 / 2,
-      "userId"
-    ) flatMap filterUserIds map (_ take recentChargeUserIdsNb),
-    expireAfter = _.ExpireAfterWrite(1 hour)
-  )
+  private val recentChargeUserIdsCache = cacheApi.unit[List[User.ID]] {
+    _.refreshAfterWrite(30 minutes)
+      .buildAsyncFuture { _ =>
+        chargeColl.primitive[User.ID](
+          $empty,
+          sort = $doc("date" -> -1),
+          nb = recentChargeUserIdsNb * 3 / 2,
+          "userId"
+        ) flatMap filterUserIds dmap (_ take recentChargeUserIdsNb)
+      }
+  }
 
-  def recentChargeUserIds: Fu[List[User.ID]] = recentChargeUserIdsCache.get
+  def recentChargeUserIds: Fu[List[User.ID]] = recentChargeUserIdsCache.getUnit
 
   def recentChargesOf(user: User): Fu[List[Charge]] =
     chargeColl.ext.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
@@ -341,7 +343,7 @@ final class PlanApi(
 
   private def addCharge(charge: Charge): Funit =
     chargeColl.insert.one(charge).void >>- {
-      recentChargeUserIdsCache.refresh
+      recentChargeUserIdsCache.invalidateUnit()
       monthlyGoalApi.get foreach { m =>
         Bus.publish(
           lila.hub.actorApi.plan.ChargeEvent(

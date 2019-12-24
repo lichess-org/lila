@@ -24,7 +24,7 @@ final class Env(
     settingStore: lila.memo.SettingStore.Builder,
     renderer: lila.hub.actors.Renderer,
     isOnline: lila.socket.IsOnline,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     notifyApi: lila.notify.NotifyApi,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,

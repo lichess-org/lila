@@ -7,13 +7,14 @@ import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import lila.report.Room
 import lila.user.User.lichessId
 
 final class Gamify(
     logRepo: ModlogRepo,
     reportApi: lila.report.ReportApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     historyRepo: HistoryRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -69,17 +70,18 @@ final class Gamify(
       }
       .void
 
-  def leaderboards = leaderboardsCache.get
+  def leaderboards = leaderboardsCache.getUnit
 
-  private val leaderboardsCache = asyncCache.single[Leaderboards](
-    name = "mod.leaderboards",
-    f = mixedLeaderboard(DateTime.now minusDays 1, none) zip
-      mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
-      mixedLeaderboard(DateTime.now minusMonths 1, none) map {
-      case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
-    },
-    expireAfter = _.ExpireAfterWrite(60 seconds)
-  )
+  private val leaderboardsCache = cacheApi.unit[Leaderboards] {
+    _.expireAfterWrite(60 seconds)
+      .buildAsyncFuture { _ =>
+        mixedLeaderboard(DateTime.now minusDays 1, none) zip
+          mixedLeaderboard(DateTime.now minusWeeks 1, none) zip
+          mixedLeaderboard(DateTime.now minusMonths 1, none) map {
+          case ((daily, weekly), monthly) => Leaderboards(daily, weekly, monthly)
+        }
+      }
+  }
 
   private def mixedLeaderboard(after: DateTime, before: Option[DateTime]): Fu[List[ModMixed]] =
     actionLeaderboard(after, before) zip reportLeaderboard(after, before) map {

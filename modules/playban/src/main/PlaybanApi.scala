@@ -18,7 +18,7 @@ final class PlaybanApi(
     sandbag: SandbagWatch,
     feedback: PlaybanFeedback,
     userRepo: UserRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     messenger: MessageApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -191,12 +191,13 @@ final class PlaybanApi(
 
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
-  private val rageSitCache = asyncCache.multi[User.ID, RageSit](
-    name = "playban.ragesit",
-    f = userId =>
-      coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty),
-    expireAfter = _.ExpireAfterWrite(30 minutes)
-  )
+  private val rageSitCache = cacheApi[User.ID, RageSit]("playban.ragesit") {
+    _.expireAfterAccess(20 minutes)
+      .initialCapacity(32768)
+      .buildAsyncFuture { userId =>
+        coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty)
+      }
+  }
 
   private def save(outcome: Outcome, userId: User.ID, rageSitDelta: Int): Funit = {
     lila.mon.playban.outcome(outcome.key).increment()
@@ -222,7 +223,7 @@ final class PlaybanApi(
   }.void logFailure lila.log("playban")
 
   private def registerRageSit(record: UserRecord, delta: Int): Funit = {
-    rageSitCache.put(record.userId, record.rageSit)
+    rageSitCache.put(record.userId, fuccess(record.rageSit))
     (delta < 0) ?? {
       if (record.rageSit.isTerrible) {
         lila.log("ragesit").warn(s"Close https://lichess.org/@/${record.userId} ragesit=${record.rageSit}")

@@ -5,16 +5,17 @@ import play.api.mvc.RequestHeader
 import scala.concurrent.duration._
 
 import lila.db.dsl._
+import lila.memo.CacheApi._
 
 final class EventApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
 
   def promoteTo(req: RequestHeader): Fu[List[Event]] =
-    promotable.get map {
+    promotable.getUnit map {
       _.filter { event =>
         event.lang.language == lila.i18n.enLang.language ||
         lila.i18n.I18nLangPicker.allFromRequestHeaders(req).exists {
@@ -23,11 +24,10 @@ final class EventApi(
       }
     }
 
-  private val promotable = asyncCache.single(
-    name = "event.promotable",
-    fetchPromotable,
-    expireAfter = _.ExpireAfterWrite(5 minutes)
-  )
+  private val promotable = cacheApi.unit[List[Event]] {
+    _.refreshAfterWrite(5 minutes)
+      .buildAsyncFuture(_ => fetchPromotable)
+  }
 
   def fetchPromotable: Fu[List[Event]] =
     coll.ext
@@ -37,9 +37,9 @@ final class EventApi(
           "startsAt" $gt DateTime.now.minusDays(1) $lt DateTime.now.plusDays(1)
         )
       )
-      .sort($doc("startsAt" -> 1))
+      .sort($sort asc "startsAt")
       .list[Event](10)
-      .map {
+      .dmap {
         _.filter(_.featureNow) take 3
       }
 
@@ -54,13 +54,13 @@ final class EventApi(
   }
 
   def update(old: Event, data: EventForm.Data) =
-    coll.update.one($id(old.id), data update old) >>- promotable.refresh
+    coll.update.one($id(old.id), data update old) >>- promotable.invalidateUnit
 
   def createForm = EventForm.form
 
   def create(data: EventForm.Data, userId: String): Fu[Event] = {
     val event = data make userId
-    coll.insert.one(event) >>- promotable.refresh inject event
+    coll.insert.one(event) >>- promotable.invalidateUnit inject event
   }
 
   def clone(old: Event) = old.copy(

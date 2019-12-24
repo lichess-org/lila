@@ -10,7 +10,7 @@ import scala.concurrent.duration._
 final class PlayTimeApi(
     userRepo: UserRepo,
     gameRepo: GameRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   import Game.{ BSONFields => F }
@@ -26,12 +26,10 @@ final class PlayTimeApi(
     creationCache.get(user.id).withTimeoutDefault(1 second, none)
 
   // to avoid creating it twice
-  private val creationCache = asyncCache.multi[User.ID, Option[User.PlayTime]](
-    name = "playTime",
-    f = computeNow,
-    resultTimeout = 29.second,
-    expireAfter = _.ExpireAfterWrite(30 seconds)
-  )
+  private val creationCache = cacheApi[User.ID, Option[User.PlayTime]]("playTime") {
+    _.expireAfterWrite(5 minutes)
+      .buildAsyncFuture(computeNow)
+  }
 
   private def computeNow(userId: User.ID): Fu[Option[User.PlayTime]] =
     userRepo.getPlayTime(userId) orElse {

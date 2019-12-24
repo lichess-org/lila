@@ -42,7 +42,7 @@ final class Env(
     historyApi: lila.history.HistoryApi,
     rankingApi: lila.user.RankingApi,
     noteApi: lila.user.NoteApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     securityStore: lila.security.Store
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 

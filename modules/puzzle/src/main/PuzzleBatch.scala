@@ -3,6 +3,7 @@ package lila.puzzle
 import lila.db.AsyncColl
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.CacheApi._
 
 final private[puzzle] class PuzzleBatch(
     puzzleColl: AsyncColl,
@@ -48,7 +49,7 @@ final private[puzzle] class PuzzleBatch(
     ): Fu[List[Puzzle]] = {
       val rating = user.perfs.puzzle.intRating min 2300 max 900
       val step   = toleranceStepFor(rating, user.perfs.puzzle.nb)
-      api.puzzle.cachedLastId.get flatMap { maxId =>
+      api.puzzle.cachedLastId.getUnit flatMap { maxId =>
         val fromId = headOption match {
           case Some(PuzzleHead(_, _, l)) if l < maxId - 500 => after.fold(l)(_ atLeast l)
           case _                                            => puzzleIdMin

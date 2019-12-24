@@ -38,7 +38,7 @@ final class TournamentApi(
     verify: Condition.Verify,
     duelStore: DuelStore,
     pause: Pause,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
@@ -452,11 +452,12 @@ final class TournamentApi(
         socket.reload(tour.id) >>- publish()
     }
 
-  private val tournamentTopCache = asyncCache.multi[Tournament.ID, TournamentTop](
-    name = "tournament.top",
-    id => playerRepo.bestByTour(id, 20) map TournamentTop.apply,
-    expireAfter = _.ExpireAfterWrite(3 second)
-  )
+  private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop]("tournament.top") {
+    _.expireAfterWrite(3 second)
+      .buildAsyncFuture { id =>
+        playerRepo.bestByTour(id, 20) dmap TournamentTop.apply
+      }
+  }
 
   def tournamentTop(tourId: Tournament.ID): Fu[TournamentTop] =
     tournamentTopCache get tourId

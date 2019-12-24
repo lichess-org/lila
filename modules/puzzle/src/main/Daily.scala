@@ -7,22 +7,22 @@ import org.joda.time.DateTime
 
 import lila.db.AsyncColl
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import Puzzle.{ BSONFields => F }
 
 final private[puzzle] class Daily(
     coll: AsyncColl,
     renderer: lila.hub.actors.Renderer,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val cache =
-    asyncCache.single[Option[DailyPuzzle]](
-      name = "puzzle.daily",
-      f = find,
-      expireAfter = _.ExpireAfterWrite(10 minutes)
-    )
+    cacheApi.unit[Option[DailyPuzzle]] {
+      _.refreshAfterWrite(30 minutes)
+        .buildAsyncFuture(_ => find)
+    }
 
-  def get: Fu[Option[DailyPuzzle]] = cache.get
+  def get: Fu[Option[DailyPuzzle]] = cache.getUnit
 
   private def find: Fu[Option[DailyPuzzle]] =
     (findCurrent orElse findNew) recover {

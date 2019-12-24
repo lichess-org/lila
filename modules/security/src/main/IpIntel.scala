@@ -7,7 +7,7 @@ import lila.common.{ EmailAddress, IpAddress }
 
 final class IpIntel(
     ws: WSClient,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     contactEmail: EmailAddress
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -22,26 +22,25 @@ final class IpIntel(
     else if (contactEmail.value.isEmpty) fuccess(0)
     else cache get ip
 
-  private val cache = asyncCache.multi[IpAddress, Int](
-    name = "ipIntel",
-    f = ip => {
-      val url = s"https://check.getipintel.net/check.php?ip=$ip&contact=${contactEmail.value}"
-      ws.url(url)
-        .get()
-        .dmap(_.body)
-        .flatMap { str =>
-          str.toFloatOption.fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
-            if (ratio < 0) fufail(s"IpIntel error $ratio on $url")
-            else fuccess((ratio * 100).toInt)
+  private val cache = cacheApi[IpAddress, Int]("ipIntel") {
+    _.expireAfterWrite(3 days)
+      .buildAsyncFuture { ip =>
+        val url = s"https://check.getipintel.net/check.php?ip=$ip&contact=${contactEmail.value}"
+        ws.url(url)
+          .get()
+          .dmap(_.body)
+          .flatMap { str =>
+            str.toFloatOption.fold[Fu[Int]](fufail(s"Invalid ratio ${str.take(140)}")) { ratio =>
+              if (ratio < 0) fufail(s"IpIntel error $ratio on $url")
+              else fuccess((ratio * 100).toInt)
+            }
           }
-        }
-        .monSuccess(_.security.proxy.request)
-        .addEffect { percent =>
-          lila.mon.security.proxy.percent.record(percent max 0)
-        }
-    },
-    expireAfter = _.ExpireAfterAccess(3 days)
-  )
+          .monSuccess(_.security.proxy.request)
+          .addEffect { percent =>
+            lila.mon.security.proxy.percent.record(percent max 0)
+          }
+      }
+  }
 }
 
 object IpIntel {

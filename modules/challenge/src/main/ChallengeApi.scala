@@ -8,6 +8,7 @@ import lila.common.config.Max
 import lila.game.{ Game, Pov }
 import lila.hub.actorApi.socket.SendTo
 import lila.user.{ User, UserRepo }
+import lila.memo.CacheApi._
 
 final class ChallengeApi(
     repo: ChallengeRepo,
@@ -17,7 +18,7 @@ final class ChallengeApi(
     jsonView: JsonView,
     gameCache: lila.game.Cached,
     maxPlaying: Max,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Challenge._
@@ -42,11 +43,10 @@ final class ChallengeApi(
 
   def onlineByIdFor(id: Challenge.ID, dest: User) = repo.byIdFor(id, dest).dmap(_.filter(_.online))
 
-  val countInFor = asyncCache.clearable(
-    name = "challenge.countInFor",
-    f = repo.countCreatedByDestId,
-    expireAfter = _.ExpireAfterAccess(20 minutes)
-  )
+  val countInFor = cacheApi[User.ID, Int]("challenge.countInFor") {
+    _.expireAfterAccess(20 minutes)
+      .buildAsyncFuture(repo.countCreatedByDestId)
+  }
 
   def createdByChallengerId = repo createdByChallengerId _
 

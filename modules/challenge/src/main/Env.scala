@@ -17,7 +17,7 @@ final class Env(
     lightUser: lila.common.LightUser.GetterSync,
     isOnline: lila.socket.IsOnline,
     db: lila.db.Db,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket

@@ -10,6 +10,7 @@ import lila.common.{ Bus, Debouncer, WorkQueues }
 import lila.game.{ Game, GameRepo, PerfPicker }
 import lila.hub.actorApi.lobby.ReloadSimuls
 import lila.hub.actorApi.timeline.{ Propagate, SimulCreate, SimulJoin }
+import lila.memo.CacheApi._
 import lila.socket.Socket.SendToFlag
 import lila.user.{ User, UserRepo }
 import makeTimeout.short
@@ -23,21 +24,22 @@ final class SimulApi(
     renderer: lila.hub.actors.Renderer,
     timeline: lila.hub.actors.Timeline,
     repo: SimulRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueues(128, 10 minutes, "simulApi")
 
-  def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get
+  def currentHostIds: Fu[Set[String]] = currentHostIdsCache.get({})
 
   def find  = repo.find _
   def byIds = repo.byIds _
 
-  private val currentHostIdsCache = asyncCache.single[Set[String]](
-    name = "simul.currentHostIds",
-    f = repo.allStarted dmap (_.view.map(_.hostId).toSet),
-    expireAfter = _.ExpireAfterAccess(10 minutes)
-  )
+  private val currentHostIdsCache = cacheApi.unit[Set[User.ID]] {
+    _.refreshAfterWrite(5 minutes)
+      .buildAsyncFuture { _ =>
+        repo.allStarted dmap (_.view.map(_.hostId).toSet)
+      }
+  }
 
   def create(setup: SimulForm.Setup, me: User): Fu[Simul] = {
     val simul = Simul.make(
@@ -105,7 +107,7 @@ final class SimulApi(
             }
           } flatMap { s =>
             Bus.publish(Simul.OnStart(s), "startSimul")
-            update(s) >>- currentHostIdsCache.refresh
+            update(s) >>- currentHostIdsCache.invalidateUnit()
           }
         }
       }
@@ -151,7 +153,7 @@ final class SimulApi(
   }
 
   private def onComplete(simul: Simul): Unit = {
-    currentHostIdsCache.refresh
+    currentHostIdsCache.invalidateUnit()
     Bus.publish(
       lila.hub.actorApi.socket.SendTo(
         simul.hostId,

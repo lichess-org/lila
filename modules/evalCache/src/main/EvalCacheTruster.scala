@@ -7,7 +7,7 @@ import lila.security.Granter
 import lila.user.{ User, UserRepo }
 
 final private class EvalCacheTruster(
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     userRepo: UserRepo
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -27,12 +27,12 @@ final private class EvalCacheTruster(
           nbGamesBonus(user)
       }
 
-  private val userIdCache = asyncCache.multi[User.ID, Option[TrustedUser]](
-    name = "evalCache.userIdTrustCache  ",
-    f = userId => userRepo named userId map2 makeTrusted,
-    expireAfter = _.ExpireAfterWrite(10 minutes),
-    resultTimeout = 10 seconds
-  )
+  private val userIdCache = cacheApi[User.ID, Option[TrustedUser]]("evalCache.userIdTrustCache") {
+    _.expireAfterWrite(10 minutes)
+      .buildAsyncFuture { userId =>
+        userRepo named userId map2 makeTrusted
+      }
+  }
 
   def cachedTrusted(userId: User.ID): Fu[Option[TrustedUser]] = userIdCache get userId
 

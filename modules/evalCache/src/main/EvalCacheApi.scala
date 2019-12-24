@@ -7,13 +7,14 @@ import scala.concurrent.duration._
 import chess.format.{ FEN, Forsyth }
 import chess.variant.Variant
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import lila.socket.Socket
 
 final class EvalCacheApi(
     coll: Coll,
     truster: EvalCacheTruster,
     upgrade: EvalCacheUpgrade,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import EvalCacheEntry._
@@ -43,14 +44,13 @@ final class EvalCacheApi(
 
   private[evalCache] def drop(variant: Variant, fen: FEN): Funit = {
     val id = Id(chess.variant.Standard, SmallFen.make(variant, fen))
-    coll.delete.one($id(id)).void >>- cache.put(id, none)
+    coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 
-  private val cache = asyncCache.multi[Id, Option[EvalCacheEntry]](
-    name = "evalCache",
-    f = fetchAndSetAccess,
-    expireAfter = _.ExpireAfterAccess(10 minutes)
-  )
+  private val cache = cacheApi[Id, Option[EvalCacheEntry]]("evalCache") {
+    _.expireAfterAccess(10 minutes)
+      .buildAsyncFuture(fetchAndSetAccess)
+  }
 
   private def getEval(id: Id, multiPv: Int): Fu[Option[Eval]] = getEntry(id) map {
     _.flatMap(_ makeBestMultiPvEval multiPv)
@@ -77,13 +77,13 @@ final class EvalCacheApi(
             usedAt = DateTime.now
           )
           coll.insert.one(entry).recover(lila.db.recoverDuplicateKey(_ => ())) >>-
-            cache.put(input.id, entry.some) >>-
+            cache.put(input.id, fuccess(entry.some)) >>-
             upgrade.onEval(input, sri)
         case Some(oldEntry) =>
           val entry = oldEntry add input.eval
           !(entry similarTo oldEntry) ?? {
             coll.update.one($id(entry.id), entry, upsert = true).void >>-
-              cache.put(input.id, entry.some) >>-
+              cache.put(input.id, fuccess(entry.some)) >>-
               upgrade.onEval(input, sri)
           }
 

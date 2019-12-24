@@ -8,7 +8,7 @@ import lila.tree.Node.{ minimalNodeJsonWriter, partitionTreeJsonWriter }
 
 final private class GameJson(
     gameRepo: GameRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -20,12 +20,11 @@ final private class GameJson(
 
   private case class CacheKey(gameId: Game.ID, plies: Int, onlyLast: Boolean)
 
-  private val cache = asyncCache.multi[CacheKey, JsObject](
-    name = "puzzle.gameJson",
-    f = generate,
-    expireAfter = _.ExpireAfterAccess(1 hour),
-    maxCapacity = 1024
-  )
+  private val cache = cacheApi[CacheKey, JsObject]("puzzle.gameJson") {
+    _.expireAfterAccess(5 minutes)
+      .maximumSize(1024)
+      .buildAsyncFuture(generate)
+  }
 
   private def generate(ck: CacheKey): Fu[JsObject] = ck match {
     case CacheKey(gameId, plies, onlyLast) =>

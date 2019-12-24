@@ -12,7 +12,7 @@ final private[puzzle] class PuzzleApi(
     roundColl: AsyncColl,
     voteColl: AsyncColl,
     headColl: AsyncColl,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Puzzle.puzzleBSONHandler
@@ -32,11 +32,12 @@ final private[puzzle] class PuzzleApi(
         .list[Puzzle](nb)
     }
 
-    val cachedLastId = asyncCache.single(
-      name = "puzzle.lastId",
-      f = puzzleColl(lila.db.Util.findNextId) dmap (_ - 1),
-      expireAfter = _.ExpireAfterWrite(1 day)
-    )
+    val cachedLastId = cacheApi.unit[Int] {
+      _.refreshAfterWrite(1 day)
+        .buildAsyncFuture { _ =>
+          puzzleColl(lila.db.Util.findNextId) dmap (_ - 1)
+        }
+    }
 
     // def export(nb: Int): Fu[List[Puzzle]] = List(true, false).map { mate =>
     //   puzzleColl {

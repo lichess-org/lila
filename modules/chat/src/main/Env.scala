@@ -27,7 +27,7 @@ final class Env(
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     mod: lila.hub.actors.Mod,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   implicit private val maxPerLineLoader = intLoader(Chat.MaxLines.apply)
@@ -47,7 +47,7 @@ final class Env(
     spam = spam,
     shutup = shutup,
     modActor = mod,
-    asyncCache = asyncCache,
+    cacheApi = cacheApi,
     maxLinesPerChat = maxLines,
     netDomain = netDomain
   )

@@ -3,13 +3,14 @@ package lila.tournament
 import scala.concurrent.duration._
 
 import lila.memo._
+import lila.memo.CacheApi._
 import lila.user.User
 
 final private[tournament] class Cached(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val createdTtl = 2 seconds
@@ -25,29 +26,26 @@ final private[tournament] class Cached(
     logger = logger
   )
 
-  val promotable = asyncCache.single(
-    name = "tournament.promotable",
-    tournamentRepo.promotable,
-    expireAfter = _.ExpireAfterWrite(createdTtl)
-  )
+  val promotable = cacheApi.unit[List[Tournament]] {
+    _.refreshAfterWrite(createdTtl)
+      .buildAsyncFuture(_ => tournamentRepo.promotable)
+  }
 
   def ranking(tour: Tournament): Fu[Ranking] =
     if (tour.isFinished) finishedRanking get tour.id
     else ongoingRanking get tour.id
 
   // only applies to ongoing tournaments
-  private val ongoingRanking = asyncCache.multi[Tournament.ID, Ranking](
-    name = "tournament.ongoingRanking",
-    f = playerRepo.computeRanking,
-    expireAfter = _.ExpireAfterWrite(3.seconds)
-  )
+  private val ongoingRanking = cacheApi[Tournament.ID, Ranking]("tournament.ongoingRanking") {
+    _.expireAfterWrite(3 seconds)
+      .buildAsyncFuture(playerRepo.computeRanking)
+  }
 
   // only applies to finished tournaments
-  private val finishedRanking = asyncCache.multi[Tournament.ID, Ranking](
-    name = "tournament.finishedRanking",
-    f = playerRepo.computeRanking,
-    expireAfter = _.ExpireAfterAccess(rankingTtl)
-  )
+  private val finishedRanking = cacheApi[Tournament.ID, Ranking]("tournament.finishedRanking") {
+    _.expireAfterAccess(rankingTtl)
+      .buildAsyncFuture(playerRepo.computeRanking)
+  }
 
   private[tournament] object sheet {
 
@@ -60,7 +58,7 @@ final private[tournament] class Cached(
 
     def update(tour: Tournament, userId: User.ID): Fu[Sheet] = {
       val key = SheetKey(tour.id, userId)
-      cache.refresh(key)
+      cache.invalidate(key)
       cache.get(key)
     }
 
@@ -69,10 +67,9 @@ final private[tournament] class Cached(
         arena.Sheet(key.userId, _)
       }
 
-    private val cache = asyncCache.multi[SheetKey, Sheet](
-      name = "tournament.sheet",
-      f = compute,
-      expireAfter = _.ExpireAfterAccess(3.minutes)
-    )
+    private val cache = cacheApi[SheetKey, Sheet]("tournament.sheet") {
+      _.expireAfterAccess(3 minutes)
+        .buildAsyncFuture(compute)
+    }
   }
 }

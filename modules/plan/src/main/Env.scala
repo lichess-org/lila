@@ -22,7 +22,7 @@ final class Env(
     ws: WSClient,
     timeline: lila.hub.actors.Timeline,
     notifyApi: lila.notify.NotifyApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder
@@ -58,7 +58,7 @@ final class Env(
     notifier = notifier,
     userRepo = userRepo,
     lightUserApi = lightUserApi,
-    asyncCache = asyncCache,
+    cacheApi = cacheApi,
     payPalIpnKey = config.payPalIpnKey,
     monthlyGoalApi = monthlyGoalApi
   )

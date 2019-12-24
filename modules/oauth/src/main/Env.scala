@@ -20,16 +20,16 @@ private case class OauthConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     userRepo: lila.user.UserRepo,
     mongo: lila.db.Env
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[OauthConfig]("oauth")(AutoConfig.loader)
 
-  private lazy val db = mongo.asyncDb("oauth", config.mongoUri)
+  private lazy val db   = mongo.asyncDb("oauth", config.mongoUri)
   private def tokenColl = db(config.tokenColl)
-  private def appColl = db(config.appColl)
+  private def appColl   = db(config.appColl)
 
   lazy val appApi = new OAuthAppApi(appColl)
 
@@ -38,13 +38,16 @@ final class Env(
     mk(tokenColl)
   }
 
-  lazy val tryServer: OAuthServer.Try = () => scala.concurrent.Future {
-    server.some
-  }.withTimeoutDefault(50 millis, none) recover {
-    case e: Exception =>
-      lila.log("security").warn("oauth", e)
-      none
-  }
+  lazy val tryServer: OAuthServer.Try = () =>
+    scala.concurrent
+      .Future {
+        server.some
+      }
+      .withTimeoutDefault(50 millis, none) recover {
+      case e: Exception =>
+        lila.log("security").warn("oauth", e)
+        none
+    }
 
   lazy val tokenApi = new PersonalTokenApi(tokenColl)
 

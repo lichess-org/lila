@@ -4,9 +4,10 @@ import chess.Color
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
 import lila.common.config.NetDomain
+import lila.db.dsl._
 import lila.hub.actorApi.shutup.{ PublicSource, RecordPrivateChat, RecordPublicChat }
+import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
 
 final class ChatApi(
@@ -17,7 +18,7 @@ final class ChatApi(
     spam: lila.security.Spam,
     shutup: lila.hub.actors.Shutup,
     modActor: lila.hub.actors.Mod,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     maxLinesPerChat: Chat.MaxLines,
     netDomain: NetDomain
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -29,11 +30,10 @@ final class ChatApi(
     // only use for public, multi-user chats - tournaments, simuls
     object cached {
 
-      private val cache = asyncCache.clearable[Chat.Id, UserChat](
-        name = "chat.user",
-        f = find,
-        expireAfter = _.ExpireAfterAccess(1 minute)
-      )
+      private val cache = cacheApi[Chat.Id, UserChat]("chat.user") {
+        _.expireAfterAccess(1 minute)
+          .buildAsyncFuture(find)
+      }
 
       def invalidate = cache.invalidate _
 

@@ -2,15 +2,16 @@ package lila.practice
 
 import scala.concurrent.duration._
 
-import lila.db.dsl._
-import lila.study.{ Chapter, Study }
 import lila.common.Bus
+import lila.db.dsl._
+import lila.memo.CacheApi._
+import lila.study.{ Chapter, Study }
 import lila.user.User
 
 final class PracticeApi(
     coll: Coll,
     configStore: lila.memo.ConfigStore[PracticeConfig],
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     studyApi: lila.study.StudyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -69,19 +70,20 @@ final class PracticeApi(
   }
 
   object structure {
-    private val cache = asyncCache.single[PracticeStructure](
-      "practice.structure",
-      f = for {
-        conf     <- config.get
-        chapters <- studyApi.chapterIdNames(conf.studyIds)
-      } yield PracticeStructure.make(conf, chapters),
-      expireAfter = _.ExpireAfterAccess(3.hours)
-    )
+    private val cache = cacheApi.unit[PracticeStructure] {
+      _.expireAfterAccess(3.hours)
+        .buildAsyncFuture { _ =>
+          for {
+            conf     <- config.get
+            chapters <- studyApi.chapterIdNames(conf.studyIds)
+          } yield PracticeStructure.make(conf, chapters),
+        }
+    }
 
-    def get     = cache.get
-    def clear() = cache.refresh
+    def get     = cache.getUnit
+    def clear() = cache.invalidateUnit()
     def onSave(study: Study) = get foreach { structure =>
-      if (structure.hasStudy(study.id)) clear
+      if (structure.hasStudy(study.id)) clear()
     }
   }
 

@@ -7,6 +7,7 @@ import chess.Centis
 import chess.format.pgn.{ Glyph, Tags }
 import lila.chat.{ Chat, ChatApi }
 import lila.common.Bus
+import lila.memo.CacheApi._
 import lila.hub.actorApi.timeline.{ Propagate, StudyCreate, StudyLike }
 import lila.socket.Socket.Sri
 import lila.tree.Node.{ Comment, Gamebook, Shapes }
@@ -366,7 +367,7 @@ final class StudyApi(
   def isMember      = studyRepo.isMember _
 
   private def onMembersChange(study: Study) = {
-    lightStudyCache.refresh(study.id)
+    lightStudyCache.invalidate(study.id)
     studyRepo.membersById(study.id).foreach {
       _ foreach { members =>
         sendTo(study.id)(_.reloadMembers(members))
@@ -733,7 +734,7 @@ final class StudyApi(
         studyRepo.updateSomeFields(newStudy) >>-
           sendTo(study.id)(_.reloadAll) >>-
           indexStudy(study) >>-
-          lightStudyCache.put(studyId, newStudy.light.some)
+          lightStudyCache.put(studyId, fuccess(newStudy.light.some))
       }
     }
   }
@@ -742,7 +743,7 @@ final class StudyApi(
     studyRepo.delete(study) >>
       chapterRepo.deleteByStudy(study) >>-
       Bus.publish(lila.hub.actorApi.study.RemoveStudy(study.id.value, study.members.contributorIds), "study") >>-
-      lightStudyCache.put(study.id, none)
+      lightStudyCache.invalidate(study.id)
   }
 
   def like(studyId: Study.Id, v: Boolean)(who: Who): Funit =

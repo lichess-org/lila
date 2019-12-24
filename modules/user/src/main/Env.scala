@@ -26,7 +26,7 @@ final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     timeline: lila.hub.actors.Timeline,
     isOnline: lila.socket.IsOnline,
     onlineIds: lila.socket.OnlineIds
@@ -41,7 +41,7 @@ final class Env(
   val lightUserSync              = lightUserApi.sync
   val isBotSync                  = new LightUser.IsBotSync(id => lightUserApi.sync(id).exists(_.isBot))
 
-  lazy val botIds = new GetBotIds(() => cached.botIds.get)
+  lazy val botIds = new GetBotIds(() => cached.botIds.get({}))
 
   lazy val jsonView = wire[JsonView]
 

@@ -13,7 +13,6 @@ import lila.socket.Socket.{ GetVersion, SocketVersion }
 @Module
 private class SimulConfig(
     @ConfigName("collection.simul") val simulColl: CollName,
-    @ConfigName("created.cache.ttl") val createdCacheTtl: FiniteDuration,
     @ConfigName("feature.views") val featureViews: Max
 )
 
@@ -28,7 +27,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     lightUser: lila.common.LightUser.Getter,
     onGameStart: lila.round.OnStart,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     remoteSocketApi: lila.socket.RemoteSocket,
     proxyRepo: lila.round.GameProxyRepo
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
@@ -47,17 +46,15 @@ final class Env(
 
   val isHosting = new lila.round.IsSimulHost(u => api.currentHostIds dmap (_ contains u))
 
-  val allCreated = asyncCache.single(
-    name = "simul.allCreated",
-    repo.allCreated,
-    expireAfter = _.ExpireAfterWrite(config.createdCacheTtl)
-  )
+  val allCreated = cacheApi.unit[List[Simul]] {
+    _.refreshAfterWrite(3 seconds)
+      .buildAsyncFuture(_ => repo.allCreated)
+  }
 
-  val allCreatedFeaturable = asyncCache.single(
-    name = "simul.allCreatedFeaturable",
-    repo.allCreatedFeaturable,
-    expireAfter = _.ExpireAfterWrite(config.createdCacheTtl)
-  )
+  val allCreatedFeaturable = cacheApi.unit[List[Simul]] {
+    _.refreshAfterWrite(3 seconds)
+      .buildAsyncFuture(_ => repo.allCreatedFeaturable)
+  }
 
   val featurable = (simul: Simul) => featureLimiter(simul.hostId)(true)
 

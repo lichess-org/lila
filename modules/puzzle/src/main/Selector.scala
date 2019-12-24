@@ -4,6 +4,7 @@ import scala.util.Random
 
 import lila.db.AsyncColl
 import lila.db.dsl._
+import lila.memo.CacheApi._
 import lila.user.User
 import Puzzle.{ BSONFields => F }
 
@@ -43,7 +44,7 @@ final private[puzzle] class Selector(
             newPuzzleForUser(user, last) flatMap {
               // user played all puzzles. Reset rounds and start anew.
               case None =>
-                api.puzzle.cachedLastId.get flatMap { maxId =>
+                api.puzzle.cachedLastId.getUnit flatMap { maxId =>
                   (last > maxId - 1000) ?? {
                     api.round.reset(user) >> api.puzzle.find(puzzleIdMin)
                   }

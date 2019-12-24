@@ -6,9 +6,9 @@ import lila.common.config.CollName
 
 @Module
 final class Env(
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  lazy val api = new PrefApi(db(CollName("pref")), asyncCache)
+  lazy val api = new PrefApi(db(CollName("pref")), cacheApi)
 }

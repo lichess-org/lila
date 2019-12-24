@@ -13,7 +13,7 @@ final class OAuthServer(
     tokenColl: AsyncColl,
     userRepo: UserRepo,
     appApi: OAuthAppApi,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import AccessToken.accessTokenIdHandler
@@ -24,10 +24,11 @@ final class OAuthServer(
     reqToTokenId(req).fold[Fu[AuthResult]](fufail(MissingAuthorizationHeader)) { tokenId =>
       accessTokenCache.get(tokenId) orFailWith NoSuchToken flatMap {
         case at if scopes.nonEmpty && !scopes.exists(at.scopes.contains) => fufail(MissingScope(at.scopes))
-        case at => userRepo enabledById at.userId flatMap {
-          case None => fufail(NoSuchUser)
-          case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
-        }
+        case at =>
+          userRepo enabledById at.userId flatMap {
+            case None    => fufail(NoSuchUser)
+            case Some(u) => fuccess(OAuthScope.Scoped(u, at.scopes))
+          }
       } dmap Right.apply
     } recover {
       case e: AuthError => Left(e)
@@ -47,21 +48,24 @@ final class OAuthServer(
       case Array("Bearer", tokenStr) => AccessToken.Id(tokenStr)
     }
 
-  private val accessTokenCache = asyncCache.multi[AccessToken.Id, Option[AccessToken.ForAuth]](
-    name = "oauth.server.personal_access_token",
-    f = fetchAccessToken,
-    expireAfter = _.ExpireAfterWrite(3 minutes)
-  )
+  private val accessTokenCache = cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](
+    "oauth.server.personal_access_token"
+  ) {
+    _.expireAfterWrite(5 minutes)
+      .buildAsyncFuture(fetchAccessToken)
+  }
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     tokenColl {
-      _.ext.findAndUpdate(
-        selector = $doc(F.id -> tokenId),
-        update = $set(F.usedAt -> DateTime.now),
-        fields = AccessToken.forAuthProjection.some
-      ).map(_.value) map {
-          _ ?? AccessToken.ForAuthBSONReader.readOpt
-        }
+      _.ext
+        .findAndUpdate(
+          selector = $doc(F.id   -> tokenId),
+          update = $set(F.usedAt -> DateTime.now),
+          fields = AccessToken.forAuthProjection.some
+        )
+        .map(_.value) dmap {
+        _ ?? AccessToken.ForAuthBSONReader.readOpt
+      }
     }
 }
 
@@ -70,15 +74,17 @@ object OAuthServer {
   type AuthResult = Either[AuthError, OAuthScope.Scoped]
 
   sealed abstract class AuthError(val message: String) extends lila.base.LilaException
-  case object ServerOffline extends AuthError("OAuth server is offline! Try again soon.")
-  case object MissingAuthorizationHeader extends AuthError("Missing authorization header")
-  case object InvalidAuthorizationHeader extends AuthError("Invalid authorization header")
-  case object NoSuchToken extends AuthError("No such token")
-  case class MissingScope(scopes: List[OAuthScope]) extends AuthError("Missing scope")
-  case object NoSuchUser extends AuthError("No such user")
+  case object ServerOffline                            extends AuthError("OAuth server is offline! Try again soon.")
+  case object MissingAuthorizationHeader               extends AuthError("Missing authorization header")
+  case object InvalidAuthorizationHeader               extends AuthError("Invalid authorization header")
+  case object NoSuchToken                              extends AuthError("No such token")
+  case class MissingScope(scopes: List[OAuthScope])    extends AuthError("Missing scope")
+  case object NoSuchUser                               extends AuthError("No such user")
 
-  def responseHeaders(acceptedScopes: List[OAuthScope], availableScopes: List[OAuthScope])(res: Result): Result = res.withHeaders(
-    "X-OAuth-Scopes" -> OAuthScope.keyList(availableScopes),
+  def responseHeaders(acceptedScopes: List[OAuthScope], availableScopes: List[OAuthScope])(
+      res: Result
+  ): Result = res.withHeaders(
+    "X-OAuth-Scopes"          -> OAuthScope.keyList(availableScopes),
     "X-Accepted-OAuth-Scopes" -> OAuthScope.keyList(acceptedScopes)
   )
 

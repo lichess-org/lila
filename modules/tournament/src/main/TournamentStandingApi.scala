@@ -4,6 +4,7 @@ import play.api.libs.json._
 import scala.concurrent.duration._
 
 import lila.common.WorkQueue
+import lila.memo.CacheApi._
 
 /*
  * Getting a standing page of a tournament can be very expensive
@@ -16,7 +17,7 @@ final class TournamentStandingApi(
     tournamentRepo: TournamentRepo,
     playerRepo: PlayerRepo,
     cached: Cached,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, mat: akka.stream.Materializer) {
 
   private val workQueue = new WorkQueue(
@@ -32,16 +33,17 @@ final class TournamentStandingApi(
       else computeMaybe(tour.id, page)
     } else compute(tour, page)
 
-  private val first = asyncCache.clearable[Tournament.ID, JsObject](
-    name = "tournament.page.first",
-    id => compute(id, 1),
-    expireAfter = _.ExpireAfterWrite(1 second)
-  )
-  private val createdCache = asyncCache.clearable[(Tournament.ID, Int), JsObject](
-    name = "tournament.page.createdCache",
-    { case (tourId, page) => computeMaybe(tourId, page) },
-    expireAfter = _.ExpireAfterWrite(15 second)
-  )
+  private val first = cacheApi[Tournament.ID, JsObject]("tournament.page.first") {
+    _.expireAfterWrite(1 second)
+      .buildAsyncFuture { compute(_, 1) }
+  }
+
+  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject]("tournament.page.createdCache") {
+    _.expireAfterWrite(15 second)
+      .buildAsyncFuture {
+        case (tourId, page) => computeMaybe(tourId, page)
+      }
+  }
 
   def clearCache(tour: Tournament): Unit = {
     first invalidate tour.id

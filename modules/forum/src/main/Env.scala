@@ -32,7 +32,7 @@ final class Env(
     notifyApi: NotifyApi,
     relationApi: RelationApi,
     userRepo: lila.user.UserRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[ForumConfig]("forum")(AutoConfig.loader)

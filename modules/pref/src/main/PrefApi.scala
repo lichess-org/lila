@@ -6,21 +6,21 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.CacheApi._
 
 final class PrefApi(
     coll: Coll,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import PrefHandlers._
 
   private def fetchPref(id: User.ID): Fu[Option[Pref]] = coll.ext.find($id(id)).one[Pref]
 
-  private val cache = asyncCache.multi(
-    name = "pref.fetchPref",
-    f = fetchPref,
-    expireAfter = _.ExpireAfterWrite(15 minutes)
-  )
+  private val cache = cacheApi[User.ID, Option[Pref]]("pref.fetchPref") {
+    _.expireAfterAccess(10 minutes)
+      .buildAsyncFuture(fetchPref)
+  }
 
   def saveTag(user: User, tag: Pref.Tag.type => String, value: String) =
     coll.update
@@ -29,7 +29,7 @@ final class PrefApi(
         $set(s"tags.${tag(Pref.Tag)}" -> value),
         upsert = true
       )
-      .void >>- { cache refresh user.id }
+      .void >>- { cache invalidate user.id }
 
   def getPrefById(id: User.ID): Fu[Pref]    = cache get id dmap (_ getOrElse Pref.create(id))
   val getPref                               = getPrefById _
@@ -64,9 +64,8 @@ final class PrefApi(
     }
 
   def setPref(pref: Pref): Funit =
-    coll.update.one($id(pref.id), pref, upsert = true).void >>- {
-      cache refresh pref.id
-    }
+    coll.update.one($id(pref.id), pref, upsert = true).void >>-
+      cache.put(pref.id, fuccess(pref.some))
 
   def setPref(user: User, change: Pref => Pref): Funit =
     getPref(user) map change flatMap setPref

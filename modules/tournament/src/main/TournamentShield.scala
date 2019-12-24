@@ -6,25 +6,26 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.CacheApi._
 
 final class TournamentShieldApi(
     tournamentRepo: TournamentRepo,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import TournamentShield._
   import BSONHandlers._
 
-  def active(u: User): Fu[List[Award]] = cache.get map {
+  def active(u: User): Fu[List[Award]] = cache.getUnit dmap {
     _.value.values.flatMap(_.headOption.filter(_.owner.value == u.id)).toList
   }
 
-  def history(maxPerCateg: Option[Int]): Fu[History] = cache.get map { h =>
+  def history(maxPerCateg: Option[Int]): Fu[History] = cache.getUnit dmap { h =>
     maxPerCateg.fold(h)(h.take)
   }
 
   def byCategKey(k: String): Fu[Option[(Category, List[Award])]] = Category.byKey(k) ?? { categ =>
-    cache.get map {
+    cache.getUnit dmap {
       _.value get categ map {
         categ -> _
       }
@@ -37,36 +38,37 @@ final class TournamentShieldApi(
     }
   }
 
-  private[tournament] def clear() = cache.refresh
+  private[tournament] def clear() = cache.invalidateUnit()
 
-  private val cache = asyncCache.single[History](
-    name = "tournament.shield",
-    expireAfter = _.ExpireAfterWrite(1 day),
-    f = tournamentRepo.coll.ext
-      .find(
-        $doc(
-          "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
-          "status"        -> statusBSONHandler.writeTry(Status.Finished).get
-        )
-      )
-      .sort($sort asc "startsAt")
-      .list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
-      for {
-        tour   <- tours
-        categ  <- Category of tour
-        winner <- tour.winnerId
-      } yield Award(
-        categ = categ,
-        owner = OwnerId(winner),
-        date = tour.finishesAt,
-        tourId = tour.id
-      )
-    } map {
-      _.foldLeft(Map.empty[Category, List[Award]]) {
-        case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
+  private val cache = cacheApi.unit[History] {
+    _.refreshAfterWrite(1 day)
+      .buildAsyncFuture { _ =>
+        tournamentRepo.coll.ext
+          .find(
+            $doc(
+              "schedule.freq" -> scheduleFreqHandler.writeTry(Schedule.Freq.Shield).get,
+              "status"        -> statusBSONHandler.writeTry(Status.Finished).get
+            )
+          )
+          .sort($sort asc "startsAt")
+          .list[Tournament](none, ReadPreference.secondaryPreferred) map { tours =>
+          for {
+            tour   <- tours
+            categ  <- Category of tour
+            winner <- tour.winnerId
+          } yield Award(
+            categ = categ,
+            owner = OwnerId(winner),
+            date = tour.finishesAt,
+            tourId = tour.id
+          )
+        } map {
+          _.foldLeft(Map.empty[Category, List[Award]]) {
+            case (hist, entry) => hist + (entry.categ -> hist.get(entry.categ).fold(List(entry))(entry :: _))
+          }
+        } dmap History.apply
       }
-    } dmap History.apply
-  )
+  }
 }
 
 object TournamentShield {

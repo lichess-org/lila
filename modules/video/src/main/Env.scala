@@ -26,14 +26,14 @@ final class Env(
     ws: WSClient,
     scheduler: akka.actor.Scheduler,
     db: lila.db.Db,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val config = appConfig.get[VideoConfig]("video")(AutoConfig.loader)
 
   lazy val api = new VideoApi(
-    asyncCache = asyncCache,
+    cacheApi = cacheApi,
     videoColl = db(config.videoColl),
     viewColl = db(config.viewColl)
   )

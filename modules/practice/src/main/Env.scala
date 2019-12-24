@@ -8,7 +8,7 @@ import lila.common.config._
 final class Env(
     configStoreApi: lila.memo.ConfigStore.Builder,
     studyApi: lila.study.StudyApi,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext) {
 

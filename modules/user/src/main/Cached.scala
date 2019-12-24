@@ -12,7 +12,7 @@ final class Cached(
     userRepo: UserRepo,
     onlineUserIds: () => Set[User.ID],
     mongoCache: lila.memo.MongoCache.Builder,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
@@ -70,9 +70,8 @@ final class Cached(
     def apply(perf: PerfType) = rankingApi.weeklyRatingDistribution(perf)
   }
 
-  private[user] val botIds = asyncCache.single[Set[User.ID]](
-    name = "user.botIds",
-    f = userRepo.botIds,
-    expireAfter = _.ExpireAfterWrite(10 minutes)
-  )
+  private[user] val botIds = cacheApi.unit[Set[User.ID]] {
+    _.refreshAfterWrite(10 minutes)
+      .buildAsyncFuture(_ => userRepo.botIds)
+  }
 }

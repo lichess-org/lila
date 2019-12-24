@@ -5,6 +5,7 @@ import scalatags.Text.all.Frag
 
 import lila.api.Context
 import lila.app._
+import lila.memo.CacheApi._
 import views._
 
 final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
@@ -13,9 +14,9 @@ final class KeyPages(env: Env)(implicit ec: scala.concurrent.ExecutionContext) {
     env
       .preloader(
         posts = env.forum.recent(ctx.me, env.team.cached.teamIdsList).nevermind,
-        tours = env.tournament.cached.promotable.get.nevermind,
+        tours = env.tournament.cached.promotable.getUnit.nevermind,
         events = env.event.api.promoteTo(ctx.req).nevermind,
-        simuls = env.simul.allCreatedFeaturable.get.nevermind
+        simuls = env.simul.allCreatedFeaturable.get({}).nevermind
       )
       .mon(_.lobby segment "preloader.total")
       .map { h =>

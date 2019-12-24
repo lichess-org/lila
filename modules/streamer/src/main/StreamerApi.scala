@@ -6,12 +6,13 @@ import scala.concurrent.duration._
 
 import lila.db.dsl._
 import lila.db.Photographer
+import lila.memo.CacheApi._
 import lila.user.{ User, UserRepo }
 
 final class StreamerApi(
     coll: Coll,
     userRepo: UserRepo,
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     photographer: Photographer,
     notifyApi: lila.notify.NotifyApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
@@ -47,10 +48,10 @@ final class StreamerApi(
   def withUsers(live: LiveStreams): Fu[List[Streamer.WithUserAndStream]] =
     live.streams.map(withUser).sequenceFu.dmap(_.flatten)
 
-  def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.get
+  def allListedIds: Fu[Set[Streamer.Id]] = listedIdsCache.getUnit
 
   def setSeenAt(user: User): Funit =
-    listedIdsCache.get flatMap { ids =>
+    listedIdsCache.getUnit flatMap { ids =>
       ids.contains(Streamer.Id(user.id)) ??
         coll.update.one($id(user.id), $set("seenAt" -> DateTime.now)).void
     }
@@ -71,7 +72,7 @@ final class StreamerApi(
   def update(prev: Streamer, data: StreamerForm.UserData, asMod: Boolean): Fu[Streamer.ModChange] = {
     val streamer = data(prev, asMod)
     coll.update.one($id(streamer.id), streamer) >>-
-      listedIdsCache.refresh inject {
+      listedIdsCache.invalidateUnit inject {
       val modChange = Streamer.ModChange(
         list = prev.approval.granted != streamer.approval.granted option streamer.approval.granted,
         feature = prev.approval.autoFeatured != streamer.approval.autoFeatured option streamer.approval.autoFeatured
@@ -111,7 +112,7 @@ final class StreamerApi(
       !exists ?? coll.insert.one(Streamer make u).void
     }
 
-  def isStreamer(user: User): Fu[Boolean] = listedIdsCache.get.dmap(_ contains Streamer.Id(user.id))
+  def isStreamer(user: User): Fu[Boolean] = listedIdsCache.getUnit.dmap(_ contains Streamer.Id(user.id))
 
   def uploadPicture(s: Streamer, picture: Photographer.Uploaded): Funit =
     photographer(s.id.value, picture).flatMap { pic =>
@@ -161,14 +162,13 @@ final class StreamerApi(
     "approval.granted" -> true
   )
 
-  private val listedIdsCache = asyncCache.single[Set[Streamer.Id]](
-    name = "streamer.ids",
-    f = coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
-      "_id",
-      selectListedApproved
-    ),
-    expireAfter = _.ExpireAfterWrite(1 hour),
-    resultTimeout = 10.seconds,
-    monitor = false
-  )
+  private val listedIdsCache = cacheApi.unit[Set[Streamer.Id]] {
+    _.refreshAfterWrite(1 hour)
+      .buildAsyncFuture { _ =>
+        coll.secondaryPreferred.distinctEasy[Streamer.Id, Set](
+          "_id",
+          selectListedApproved
+        )
+      }
+  }
 }

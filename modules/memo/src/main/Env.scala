@@ -25,7 +25,5 @@ final class Env(
 
   lazy val settingStore = wire[SettingStore.Builder]
 
-  lazy val cache = wire[CacheApi]
-
-  lazy val asyncCache = wire[AsyncCache.Builder]
+  lazy val cacheApi = wire[CacheApi]
 }

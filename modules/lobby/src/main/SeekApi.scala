@@ -6,12 +6,13 @@ import scala.concurrent.duration._
 import lila.common.config._
 import lila.db.dsl._
 import lila.user.User
+import lila.memo.CacheApi._
 
 final class SeekApi(
     config: SeekApi.Config,
     biter: Biter,
     relationApi: lila.relation.RelationApi,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
   import config._
 
@@ -22,18 +23,17 @@ final class SeekApi(
   private def allCursor =
     coll.ext
       .find($empty)
-      .sort($doc("createdAt" -> -1))
+      .sort($sort desc "createdAt")
       .cursor[Seek]()
 
-  private val cache = asyncCache.clearable[CacheKey, List[Seek]](
-    name = "lobby.seek.list",
-    f = {
-      case ForAnon => allCursor.gather[List](maxPerPage.value)
-      case ForUser => allCursor.gather[List]()
-    },
-    maxCapacity = 2,
-    expireAfter = _.ExpireAfterWrite(3.seconds)
-  )
+  private val cache = cacheApi[CacheKey, List[Seek]]("lobby.seek.list") {
+    _.initialCapacity(2)
+      .refreshAfterWrite(3 seconds)
+      .buildAsyncFuture {
+        case ForAnon => allCursor.list(maxPerPage.value)
+        case ForUser => allCursor.list()
+      }
+  }
 
   private def cacheClear() = {
     cache invalidate ForAnon
@@ -78,9 +78,8 @@ final class SeekApi(
   def findByUser(userId: String): Fu[List[Seek]] =
     coll.ext
       .find($doc("user.id" -> userId))
-      .sort($doc("createdAt" -> -1))
-      .cursor[Seek]()
-      .gather[List]()
+      .sort($sort desc "createdAt")
+      .list[Seek]()
 
   def remove(seek: Seek) =
     coll.delete.one($doc("_id" -> seek.id)).void >>- cacheClear

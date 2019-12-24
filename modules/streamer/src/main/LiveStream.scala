@@ -6,6 +6,7 @@ import makeTimeout.short
 import scala.concurrent.duration._
 
 import lila.user.User
+import lila.memo.CacheApi._
 
 case class LiveStreams(streams: List[Stream]) {
 
@@ -45,20 +46,21 @@ object LiveStreams {
 }
 
 final class LiveStreamApi(
-    asyncCache: lila.memo.AsyncCache.Builder,
+    cacheApi: lila.memo.CacheApi,
     streamingActor: ActorRef
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val cache = asyncCache.single[LiveStreams](
-    name = "streamer.liveStreams",
-    f = streamingActor ? Streaming.Get mapTo manifest[LiveStreams] addEffect { liveStreams =>
-      userIdsCache = liveStreams.streams.map(_.streamer.userId).toSet
-    },
-    expireAfter = _.ExpireAfterWrite(2 seconds)
-  )
+  private val cache = cacheApi.unit[LiveStreams] {
+    _.refreshAfterWrite(2 seconds)
+      .buildAsyncFuture { _ =>
+        streamingActor ? Streaming.Get mapTo manifest[LiveStreams] addEffect { liveStreams =>
+          userIdsCache = liveStreams.streams.map(_.streamer.userId).toSet
+        }
+      }
+  }
   private var userIdsCache = Set.empty[User.ID]
 
-  def all: Fu[LiveStreams] = cache.get
+  def all: Fu[LiveStreams] = cache.getUnit
   // import org.joda.time.DateTime
   // def all: Fu[LiveStreams] = fuccess(LiveStreams(List(
   //   Stream.Twitch.Stream("thibault", "test stream on lichess.org", Streamer(

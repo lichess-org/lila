@@ -1,19 +1,20 @@
 package lila.timeline
 
 import org.joda.time.DateTime
-import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
+import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.db.dsl._
 import lila.common.config.Max
+import lila.db.dsl._
 import lila.hub.actorApi.timeline.Atom
+import lila.memo.CacheApi._
 import lila.user.User
 
 final class EntryApi(
     coll: Coll,
     userMax: Max,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Entry._
@@ -74,11 +75,10 @@ final class EntryApi(
   // they have no db `users` field
   object broadcast {
 
-    private val cache = asyncCache.single(
-      name = "timeline.broadcastCache",
-      f = fetch,
-      expireAfter = _.ExpireAfterWrite(1 hour)
-    )
+    private val cache = cacheApi.unit[Vector[Entry]] {
+      _.refreshAfterWrite(1 hour)
+        .buildAsyncFuture(_ => fetch)
+    }
 
     private def fetch: Fu[Vector[Entry]] =
       coll.ext
@@ -91,7 +91,7 @@ final class EntryApi(
         .sort($sort desc "date")
         .vector[Entry](3, ReadPreference.primary) // must be on primary for cache refresh to work
 
-    private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.get map { bcs =>
+    private[EntryApi] def interleave(entries: Vector[Entry]): Fu[Vector[Entry]] = cache.getUnit map { bcs =>
       bcs.headOption.fold(entries) { mostRecentBc =>
         val interleaved = {
           val oldestEntry = entries.lastOption
@@ -106,6 +106,6 @@ final class EntryApi(
       }
     }
 
-    def insert(atom: Atom): Funit = coll.delete.one(Entry make atom).void >>- cache.refresh
+    def insert(atom: Atom): Funit = coll.delete.one(Entry make atom).void >>- cache.invalidateUnit
   }
 }

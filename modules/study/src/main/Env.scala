@@ -26,7 +26,7 @@ final class Env(
     chatApi: lila.chat.ChatApi,
     db: lila.db.Db,
     net: lila.common.config.NetConfig,
-    asyncCache: lila.memo.AsyncCache.Builder
+    cacheApi: lila.memo.CacheApi
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
@@ -74,11 +74,11 @@ final class Env(
 
   lazy val pgnDump = wire[PgnDump]
 
-  lazy val lightStudyCache: LightStudyCache = asyncCache.multi(
-    name = "study.lightStudyCache",
-    f = studyRepo.lightById,
-    expireAfter = _.ExpireAfterWrite(20 minutes)
-  )
+  lazy val lightStudyCache: LightStudyCache =
+    cacheApi[Study.Id, Option[Study.LightStudy]]("study.lightStudyCache") {
+      _.expireAfterWrite(20 minutes)
+        .buildAsyncFuture(studyRepo.lightById)
+    }
 
   def cli = new lila.common.Cli {
     def process = {
