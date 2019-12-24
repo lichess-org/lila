@@ -13,13 +13,14 @@ import lila.db.dsl._
 final private class CheckMail(
     ws: WSClient,
     config: SecurityConfig.CheckMail,
-    mongoCache: lila.memo.MongoCache.Builder
+    mongoCache: lila.memo.MongoCache.Api
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   def apply(domain: Domain.Lower): Fu[Boolean] =
     if (config.key.value.isEmpty) fuccess(true)
     else
-      cache(domain)
+      cache
+        .get(domain)
         .withTimeoutDefault(2.seconds, true)
         .recover {
           case e: Exception =>
@@ -42,11 +43,14 @@ final private class CheckMail(
   private val prefix = "security:check_mail"
 
   private val cache = mongoCache[Domain.Lower, Boolean](
-    prefix = prefix,
-    f = fetch,
-    timeToLive = 1000 days,
-    keyToString = _.toString
-  )
+    512,
+    prefix,
+    1000 days,
+    _.toString
+  ) { loader =>
+    _.maximumSize(512)
+      .buildAsyncFuture(loader(fetch))
+  }
 
   private def fetch(domain: Domain.Lower): Fu[Boolean] =
     ws.url(config.url)

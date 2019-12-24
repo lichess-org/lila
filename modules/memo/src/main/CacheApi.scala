@@ -7,27 +7,29 @@ import play.api.Mode
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSystem) {
+final class CacheApi(
+    mode: Mode
+)(implicit ec: ExecutionContext, system: ActorSystem) {
 
   import CacheApi._
 
+  // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
       build: Builder => AsyncLoadingCache[K, V]
   ): AsyncLoadingCache[K, V] = {
-    val actualCapacity =
-      if (mode != Mode.Prod) math.sqrt(initialCapacity).toInt atLeast 1
-      else initialCapacity
     val cache = build {
-      scaffeine.recordStats.initialCapacity(actualCapacity)
+      scaffeine.recordStats.initialCapacity(actualCapacity(initialCapacity))
     }
     monitor(name, cache)
     cache
   }
 
+  // AsyncLoadingCache for a single entry
   def unit[V](build: Builder => AsyncLoadingCache[Unit, V]): AsyncLoadingCache[Unit, V] = {
     build(scaffeine initialCapacity 1)
   }
 
+  // AsyncLoadingCache with monitoring and a synchronous getter
   def sync[K, V](
       name: String,
       initialCapacity: Int,
@@ -52,11 +54,15 @@ final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSys
 
   def monitor(name: String, cache: caffeine.cache.Cache[_, _]): Unit =
     startMonitor(name, cache)
+
+  def actualCapacity(c: Int) =
+    if (mode != Mode.Prod) math.sqrt(c).toInt atLeast 1
+    else c
 }
 
 object CacheApi {
 
-  private type Builder = Scaffeine[Any, Any]
+  private[memo] type Builder = Scaffeine[Any, Any]
 
   def scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
 

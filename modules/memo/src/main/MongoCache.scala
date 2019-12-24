@@ -1,108 +1,104 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.Cache
+import com.github.blemale.scaffeine.AsyncLoadingCache
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
+import CacheApi._
 import lila.db.BSON.BSONJodaDateTimeHandler
 import lila.db.dsl._
 
+/**
+  * To avoid recomputing very expensive values after deploy
+  */
 final class MongoCache[K, V: BSONHandler] private (
-    prefix: String,
-    cache: Cache[K, Fu[V]],
-    mongoExpiresAt: () => DateTime,
-    val coll: Coll,
-    f: K => Fu[V],
-    keyToString: K => String
+    name: String,
+    dbTtl: FiniteDuration,
+    keyToString: K => String,
+    build: MongoCache.LoaderWrapper[K, V] => AsyncLoadingCache[K, V],
+    val coll: Coll
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private case class Entry(_id: String, v: V, e: DateTime)
 
   implicit private val entryBSONHandler = Macros.handler[Entry]
 
-  def apply(k: K): Fu[V] =
-    cache.get(
-      k,
-      k =>
-        coll.find($id(makeKey(k)), none[Bdoc]).one[Entry] flatMap {
-          case None =>
-            f(k) flatMap { v =>
-              persist(k, v) inject v
-            }
-          case Some(entry) => fuccess(entry.v)
-        }
-    )
-
-  def remove(k: K): Funit = {
-    val fut = f(k)
-    cache.put(k, fut)
-    fut flatMap { v =>
-      persist(k, v).void
+  private val cache = build { loader => k =>
+    val dbKey = makeDbKey(k)
+    coll.one[Entry]($id(dbKey)) flatMap {
+      case None =>
+        lila.mon.mongoCache.request(name, false)
+        loader(k)
+          .flatMap { v =>
+            coll.update.one(
+              $id(dbKey),
+              Entry(dbKey, v, DateTime.now.plusSeconds(dbTtl.toSeconds.toInt)),
+              upsert = true
+            ) inject v
+          }
+          .mon(_.mongoCache.compute(name))
+      case Some(entry) =>
+        lila.mon.mongoCache.request(name, false)
+        fuccess(entry.v)
     }
   }
 
-  private def makeKey(k: K) = s"$prefix:${keyToString(k)}"
+  def get = cache.get _
 
-  private def persist(k: K, v: V): Funit = {
-    val mongoKey = makeKey(k)
-    coll.update
-      .one(
-        $id(mongoKey),
-        Entry(mongoKey, v, mongoExpiresAt()),
-        upsert = true
-      )
-      .void
-  }
+  def invalidate(key: K): Funit =
+    coll.delete.one($id(makeDbKey(key))).void >>-
+      cache.invalidate(key)
+
+  private def makeDbKey(key: K) = s"$name:${keyToString(key)}"
 }
 
 object MongoCache {
 
-  // expire in mongo 3 seconds before in heap,
-  // to make sure the mongo cache is cleared
-  // when the heap value expires
-  private def mongoExpiresAt(ttl: FiniteDuration): () => DateTime = {
-    val seconds = ttl.toSeconds.toInt - 3
-    () => DateTime.now plusSeconds seconds
-  }
+  type Loader[K, V]        = K => Fu[V]
+  type LoaderWrapper[K, V] = Loader[K, V] => Loader[K, V]
 
-  final class Builder(db: lila.db.Db, config: MemoConfig)(implicit ec: scala.concurrent.ExecutionContext) {
+  final class Api(
+      db: lila.db.Db,
+      config: MemoConfig,
+      cacheApi: CacheApi
+  )(implicit ec: scala.concurrent.ExecutionContext) {
 
-    val coll = db(config.cacheColl)
+    private val coll = db(config.cacheColl)
 
+    // AsyncLoadingCache with monitoring and DB persistence
     def apply[K, V: BSONHandler](
-        prefix: String,
-        f: K => Fu[V],
-        maxCapacity: Int = 1024,
-        timeToLive: FiniteDuration,
-        timeToLiveMongo: Option[FiniteDuration] = None,
+        initialCapacity: Int,
+        name: String,
+        dbTtl: FiniteDuration,
         keyToString: K => String
-    ): MongoCache[K, V] = new MongoCache[K, V](
-      prefix = prefix,
-      cache = CacheApi.scaffeine
-        .expireAfterWrite(timeToLive)
-        .maximumSize(maxCapacity)
-        .build[K, Fu[V]],
-      mongoExpiresAt = mongoExpiresAt(timeToLiveMongo | timeToLive),
-      coll = coll,
-      f = f,
-      keyToString = keyToString
-    )
+    )(
+        build: LoaderWrapper[K, V] => Builder => AsyncLoadingCache[K, V]
+    ): MongoCache[K, V] = {
+      val cache = new MongoCache(
+        name,
+        dbTtl,
+        keyToString,
+        (wrapper: LoaderWrapper[K, V]) =>
+          build(wrapper)(scaffeine.recordStats.initialCapacity(cacheApi.actualCapacity(initialCapacity))),
+        coll
+      )
+      cacheApi.monitor(name, cache.cache)
+      cache
+    }
 
-    def single[V: BSONHandler](
-        prefix: String,
-        f: => Fu[V],
-        timeToLive: FiniteDuration
-    ) = new MongoCache[Unit, V](
-      prefix = prefix,
-      cache = CacheApi.scaffeine
-        .expireAfterWrite(timeToLive)
-        .maximumSize(1)
-        .build[Unit, Fu[V]],
-      mongoExpiresAt = mongoExpiresAt(timeToLive),
-      coll = coll,
-      f = _ => f,
-      keyToString = _.toString
+    // AsyncLoadingCache for single entry with DB persistence
+    def unit[V: BSONHandler](
+        name: String,
+        dbTtl: FiniteDuration
+    )(
+        build: LoaderWrapper[Unit, V] => Builder => AsyncLoadingCache[Unit, V]
+    ): MongoCache[Unit, V] = new MongoCache(
+      name,
+      dbTtl,
+      _ => "",
+      wrapper => build(wrapper)(scaffeine.initialCapacity(1)),
+      coll
     )
   }
 }

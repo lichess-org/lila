@@ -11,7 +11,7 @@ import User.{ LightCount, LightPerf }
 final class Cached(
     userRepo: UserRepo,
     onlineUserIds: () => Set[User.ID],
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     rankingApi: RankingApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
@@ -29,31 +29,49 @@ final class Cached(
   )
 
   val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
-    prefix = "user:top200:perf",
-    f = (perf: Perf.ID) => rankingApi.topPerf(perf, 200),
-    timeToLive = 16 minutes,
-    keyToString = _.toString
-  )
-
-  private val topWeekCache = mongoCache.single[List[User.LightPerf]](
-    prefix = "user:top:week",
-    f = PerfType.leaderboardable
-      .map { perf =>
-        rankingApi.topPerf(perf.id, 1)
+    PerfType.leaderboardable.size,
+    "user:top200:perf",
+    19 minutes,
+    _.toString
+  ) { loader =>
+    _.refreshAfterWrite(20 minutes)
+      .buildAsyncFuture {
+        loader {
+          rankingApi.topPerf(_, 200)
+        }
       }
-      .sequenceFu
-      .map(_.flatten),
-    timeToLive = 9 minutes
-  )
+  }
 
-  def topWeek = topWeekCache.apply _
+  private val topWeekCache = mongoCache.unit[List[User.LightPerf]](
+    "user:top:week",
+    9 minutes
+  ) { loader =>
+    _.refreshAfterWrite(10 minutes)
+      .buildAsyncFuture {
+        loader { _ =>
+          PerfType.leaderboardable
+            .map { perf =>
+              rankingApi.topPerf(perf.id, 1)
+            }
+            .sequenceFu
+            .dmap(_.flatten)
+        }
+      }
+  }
 
-  val topNbGame = mongoCache[Int, List[User.LightCount]](
-    prefix = "user:top:nbGame",
-    f = nb => userRepo topNbGame nb map { _ map (_.lightCount) },
-    timeToLive = 74 minutes,
-    keyToString = _.toString
-  )
+  def topWeek = topWeekCache.get({})
+
+  val top10NbGame = mongoCache.unit[List[User.LightCount]](
+    "user:top:nbGame",
+    74 minutes
+  ) { loader =>
+    _.refreshAfterWrite(75 minutes)
+      .buildAsyncFuture {
+        loader { _ =>
+          userRepo topNbGame 10 dmap (_.map(_.lightCount))
+        }
+      }
+  }
 
   private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
     every = Every(30 seconds),
@@ -65,10 +83,6 @@ final class Cached(
   def getTop50Online = top50OnlineCache.get
 
   def rankingsOf(userId: User.ID): Map[PerfType, Int] = rankingApi.weeklyStableRanking of userId
-
-  object ratingDistribution {
-    def apply(perf: PerfType) = rankingApi.weeklyRatingDistribution(perf)
-  }
 
   private[user] val botIds = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(10 minutes)

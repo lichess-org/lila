@@ -58,8 +58,7 @@ case class AllWinners(
 
 final class WinnersApi(
     tournamentRepo: TournamentRepo,
-    mongoCache: lila.memo.MongoCache.Builder,
-    ttl: FiniteDuration,
+    mongoCache: lila.memo.MongoCache.Api,
     scheduler: akka.actor.Scheduler
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
@@ -124,18 +123,20 @@ final class WinnersApi(
       )
     }
 
-  private val allCache = mongoCache.single[AllWinners](
-    prefix = "tournament:winner:all",
-    f = fetchAll,
-    timeToLive = ttl
-  )
+  private val allCache = mongoCache.unit[AllWinners](
+    "tournament:winner:all",
+    59 minutes
+  ) { loader =>
+    _.refreshAfterWrite(1 hour)
+      .buildAsyncFuture(loader(_ => fetchAll))
+  }
 
-  def all: Fu[AllWinners] = allCache(())
+  def all: Fu[AllWinners] = allCache.get({})
 
   // because we read on secondaries, delay cache clear
   def clearCache(tour: Tournament) =
     if (tour.schedule.exists(_.freq.isDailyOrBetter))
-      scheduler.scheduleOnce(5.seconds) { allCache.remove(()) }
+      scheduler.scheduleOnce(5.seconds) { allCache.invalidate({}) }
 
 }
 

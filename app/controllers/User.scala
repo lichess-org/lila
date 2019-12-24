@@ -227,12 +227,11 @@ final class User(
   }
 
   def list = Open { implicit ctx =>
-    val nb           = 10
     val leaderboards = env.user.cached.top10.get
     negotiate(
       html =
         for {
-          nbAllTime      <- env.user.cached topNbGame nb
+          nbAllTime      <- env.user.cached.top10NbGame.get({})
           tourneyWinners <- env.tournament.winners.all.map(_.top)
           _              <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
         } yield Ok(
@@ -269,7 +268,7 @@ final class User(
 
   def topNb(nb: Int, perfKey: String) = Open { implicit ctx =>
     PerfType(perfKey) ?? { perfType =>
-      env.user.cached top200Perf perfType.id map { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
+      env.user.cached.top200Perf get perfType.id dmap { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
         negotiate(
           html = Ok(html.user.top(perfType, users)).fuccess,
           api = _ =>
@@ -286,7 +285,7 @@ final class User(
     negotiate(
       html = notFound,
       api = _ =>
-        env.user.cached.topWeek(()).map { users =>
+        env.user.cached.topWeek.map { users =>
           Ok(Json toJson users.map(env.user.jsonView.lightPerfIsOnline))
         }
     )
@@ -431,7 +430,7 @@ final class User(
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
             ranks    = env.user.cached rankingsOf u.id
             distribution <- u.perfs(perfType).established ?? {
-              env.user.cached.ratingDistribution(perfType) map some
+              env.user.rankingApi.weeklyRatingDistribution(perfType) dmap some
             }
             percentile = distribution.map { distrib =>
               lila.user.Stat.percentile(distrib, u.perfs(perfType).intRating) match {

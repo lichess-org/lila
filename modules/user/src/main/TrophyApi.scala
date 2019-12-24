@@ -11,7 +11,7 @@ final class TrophyApi(
     coll: Coll,
     kindColl: Coll,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 

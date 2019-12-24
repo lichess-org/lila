@@ -9,21 +9,24 @@ import lila.db.dsl._
 final class TournamentStatsApi(
     playerRepo: PlayerRepo,
     pairingRepo: PairingRepo,
-    mongoCache: lila.memo.MongoCache.Builder
+    mongoCache: lila.memo.MongoCache.Api
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   def apply(tournament: Tournament): Fu[Option[TournamentStats]] =
-    tournament.isFinished ?? cache(tournament.id).dmap(some)
+    tournament.isFinished ?? cache.get(tournament.id).dmap(some)
 
   implicit private val statsBSONHandler = Macros.handler[TournamentStats]
 
-  private val cache = mongoCache[String, TournamentStats](
-    prefix = "tournament:stats",
-    keyToString = identity,
-    f = fetch,
-    timeToLive = 10 minutes,
-    timeToLiveMongo = 90.days.some
-  )
+  private val cache = mongoCache[Tournament.ID, TournamentStats](
+    32,
+    "tournament:stats",
+    30 days,
+    identity
+  ) { loader =>
+    _.expireAfterAccess(10 minutes)
+      .maximumSize(256)
+      .buildAsyncFuture(loader(fetch))
+  }
 
   private def fetch(tournamentId: Tournament.ID): Fu[TournamentStats] =
     for {

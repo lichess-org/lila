@@ -62,6 +62,16 @@ object mon {
     gauge("caffeine.eviction.count").withTag("name", name).update(stats.evictionCount)
     gauge("caffeine.entry.count").withTag("name", name).update(cache.estimatedSize)
   }
+  object mongoCache {
+    def request(name: String, hit: Boolean) =
+      counter("mongocache.request").withTags(
+        Map(
+          "name" -> name,
+          "hit"  -> hit
+        )
+      )
+    def compute(name: String) = timer("mongocache.compute").withTag("name", name)
+  }
   object evalCache {
     private val r = counter("evalCache.request")
     def request(ply: Int, isHit: Boolean) =

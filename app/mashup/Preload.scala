@@ -46,7 +46,7 @@ final class Preload(
       simuls.mon(_.lobby segment "simuls") zip
       tv.getBestGame.mon(_.lobby segment "tvBestGame") zip
       (ctx.userId ?? timelineApi.userEntries).mon(_.lobby segment "timeline") zip
-      userCached.topWeek(()).mon(_.lobby segment "userTopWeek") zip
+      userCached.topWeek.mon(_.lobby segment "userTopWeek") zip
       tourWinners.all.dmap(_.top).mon(_.lobby segment "tourWinners") zip
       (ctx.noBot ?? dailyPuzzle()).mon(_.lobby segment "puzzle") zip
       liveStreamApi.all.dmap(_.autoFeatured withTitles lightUserApi).mon(_.lobby segment "streams") zip

@@ -16,7 +16,6 @@ private class TournamentConfig(
     @ConfigName("collection.player") val playerColl: CollName,
     @ConfigName("collection.pairing") val pairingColl: CollName,
     @ConfigName("collection.leaderboard") val leaderboardColl: CollName,
-    @ConfigName("leaderboard.cache.ttl") val leaderboardCacheTtl: FiniteDuration,
     @ConfigName("api_actor.name") val apiActorName: String
 )
 
@@ -24,7 +23,7 @@ private class TournamentConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     gameRepo: lila.game.GameRepo,
     userRepo: lila.user.UserRepo,

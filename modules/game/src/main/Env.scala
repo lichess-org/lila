@@ -27,7 +27,7 @@ final class Env(
     db: lila.db.Db,
     baseUrl: BaseUrl,
     userRepo: lila.user.UserRepo,
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Api,
     getLightUser: lila.common.LightUser.Getter,
     cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: Scheduler) {

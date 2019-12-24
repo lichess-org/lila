@@ -13,7 +13,7 @@ import lila.rating.{ Glicko, Perf, PerfType }
 final class RankingApi(
     userRepo: UserRepo,
     coll: Coll,
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
@@ -160,14 +160,19 @@ final class RankingApi(
 
     private type NbUsers = Int
 
-    def apply(perf: PerfType) = cache(perf.id)
+    def apply(pt: PerfType) = cache.get(pt.id)
 
     private val cache = mongoCache[Perf.ID, List[NbUsers]](
-      prefix = "user:rating:distribution",
-      f = compute,
-      timeToLive = 3 hour,
-      keyToString = _.toString
-    )
+      PerfType.leaderboardable.size,
+      "user:rating:distribution",
+      179 minutes,
+      _.toString
+    ) { loader =>
+      _.refreshAfterWrite(180 minutes)
+        .buildAsyncFuture {
+          loader(compute)
+        }
+    }
 
     // from 600 to 2800 by Stat.group
     private def compute(perfId: Perf.ID): Fu[List[NbUsers]] =

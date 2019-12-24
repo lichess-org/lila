@@ -25,7 +25,7 @@ private class UserConfig(
 final class Env(
     appConfig: Configuration,
     db: lila.db.Db,
-    mongoCache: lila.memo.MongoCache.Builder,
+    mongoCache: lila.memo.MongoCache.Api,
     cacheApi: lila.memo.CacheApi,
     timeline: lila.hub.actors.Timeline,
     isOnline: lila.socket.IsOnline,
