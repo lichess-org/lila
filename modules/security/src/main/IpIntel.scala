@@ -23,7 +23,8 @@ final class IpIntel(
     else cache get ip
 
   private val cache = cacheApi[IpAddress, Int]("ipIntel") {
-    _.expireAfterWrite(3 days)
+    _.initialCapacity(8192)
+      .expireAfterWrite(3 days)
       .buildAsyncFuture { ip =>
         val url = s"https://check.getipintel.net/check.php?ip=$ip&contact=${contactEmail.value}"
         ws.url(url)

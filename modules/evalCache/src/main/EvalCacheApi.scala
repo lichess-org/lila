@@ -48,7 +48,8 @@ final class EvalCacheApi(
   }
 
   private val cache = cacheApi[Id, Option[EvalCacheEntry]]("evalCache") {
-    _.expireAfterAccess(10 minutes)
+    _.initialCapacity(65536)
+      .expireAfterAccess(5 minutes)
       .buildAsyncFuture(fetchAndSetAccess)
   }
 

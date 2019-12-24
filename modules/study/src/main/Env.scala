@@ -76,7 +76,8 @@ final class Env(
 
   lazy val lightStudyCache: LightStudyCache =
     cacheApi[Study.Id, Option[Study.LightStudy]]("study.lightStudyCache") {
-      _.expireAfterWrite(20 minutes)
+      _.initialCapacity(512)
+        .expireAfterWrite(20 minutes)
         .buildAsyncFuture(studyRepo.lightById)
     }
 

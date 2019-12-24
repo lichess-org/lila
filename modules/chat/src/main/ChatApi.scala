@@ -31,7 +31,8 @@ final class ChatApi(
     object cached {
 
       private val cache = cacheApi[Chat.Id, UserChat]("chat.user") {
-        _.expireAfterAccess(1 minute)
+        _.initialCapacity(128)
+          .expireAfterAccess(1 minute)
           .buildAsyncFuture(find)
       }
 

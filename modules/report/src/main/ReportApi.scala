@@ -354,9 +354,8 @@ final class ReportApi(
 
     private val cache =
       cacheApi[User.ID, Option[Accuracy]]("report.accuracy") {
-        _.refreshAfterWrite(24 hours)
+        _.expireAfterWrite(24 hours)
           .initialCapacity(512)
-          .maximumSize(8192)
           .buildAsyncFuture { reporterId =>
             coll.ext
               .find(

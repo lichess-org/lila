@@ -117,6 +117,9 @@ final class TournamentRepo(val coll: Coll)(implicit ec: scala.concurrent.Executi
     maxPerPage = maxPerPage
   )
 
+  def isUnfinished(tourId: Tournament.ID): Fu[Boolean] =
+    coll.exists($id(tourId) ++ unfinishedSelect)
+
   def clockById(id: Tournament.ID): Fu[Option[chess.Clock.Config]] =
     coll.primitiveOne[chess.Clock.Config]($id(id), "clock")
 

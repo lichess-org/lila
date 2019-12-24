@@ -28,7 +28,8 @@ final private class EvalCacheTruster(
       }
 
   private val userIdCache = cacheApi[User.ID, Option[TrustedUser]]("evalCache.userIdTrustCache") {
-    _.expireAfterWrite(10 minutes)
+    _.initialCapacity(256)
+      .expireAfterWrite(10 minutes)
       .buildAsyncFuture { userId =>
         userRepo named userId map2 makeTrusted
       }

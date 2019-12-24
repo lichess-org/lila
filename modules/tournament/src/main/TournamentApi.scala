@@ -453,7 +453,10 @@ final class TournamentApi(
     }
 
   private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop]("tournament.top") {
-    _.expireAfterWrite(3 second)
+    _.initialCapacity(16)
+      .refreshAfterWrite(3 second)
+      .expireAfterAccess(5 minutes)
+      .maximumSize(64)
       .buildAsyncFuture { id =>
         playerRepo.bestByTour(id, 20) dmap TournamentTop.apply
       }

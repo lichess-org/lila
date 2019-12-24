@@ -48,12 +48,12 @@ final class OAuthServer(
       case Array("Bearer", tokenStr) => AccessToken.Id(tokenStr)
     }
 
-  private val accessTokenCache = cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](
-    "oauth.server.personal_access_token"
-  ) {
-    _.expireAfterWrite(5 minutes)
-      .buildAsyncFuture(fetchAccessToken)
-  }
+  private val accessTokenCache =
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]]("oauth.server.personal_access_token") {
+      _.initialCapacity(16)
+        .expireAfterWrite(5 minutes)
+        .buildAsyncFuture(fetchAccessToken)
+    }
 
   private def fetchAccessToken(tokenId: AccessToken.Id): Fu[Option[AccessToken.ForAuth]] =
     tokenColl {

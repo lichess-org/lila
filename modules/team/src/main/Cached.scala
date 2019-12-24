@@ -43,7 +43,7 @@ final class Cached(
   def invalidateTeamIds = teamIdsCache invalidate _
 
   val nbRequests = cacheApi[User.ID, Int]("team.nbRequests") {
-    _.expireAfterAccess(30 minutes)
+    _.expireAfterAccess(25 minutes)
       .initialCapacity(32768)
       .maximumSize(65536)
       .buildAsyncFuture[User.ID, Int] { userId =>

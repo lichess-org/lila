@@ -12,16 +12,19 @@ final class Cached(
     mongoCache: MongoCache.Builder
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
-  def nbImportedBy(userId: String): Fu[Int] = nbImportedCache(userId)
-  def clearNbImportedByCache                = nbImportedCache remove _
-
-  def nbPlaying(userId: String): Fu[Int] = countShortTtl.get(Query nowPlaying userId)
+  def nbImportedBy(userId: User.ID): Fu[Int] = nbImportedCache(userId)
+  def clearNbImportedByCache                 = nbImportedCache remove _
 
   def nbTotal: Fu[Int] = countCache($empty)
 
-  private val countShortTtl = cacheApi[Bdoc, Int]("game.countShortTtl") {
-    _.expireAfterWrite(10.seconds)
-      .buildAsyncFuture(gameRepo.coll.countSel)
+  def nbPlaying = nbPlayingCache.get _
+
+  private val nbPlayingCache = cacheApi[User.ID, Int]("game.nbPlaying") {
+    _.initialCapacity(256)
+      .expireAfterAccess(15 seconds)
+      .buildAsyncFuture { userId =>
+        gameRepo.coll.countSel(Query nowPlaying userId)
+      }
   }
 
   private val nbImportedCache = mongoCache[User.ID, Int](

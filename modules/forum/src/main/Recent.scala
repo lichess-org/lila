@@ -11,8 +11,8 @@ final class Recent(
     cacheApi: lila.memo.CacheApi,
     categIds: List[String]
 )(implicit ec: scala.concurrent.ExecutionContext) {
-  private val ttl: FiniteDuration = 1 hour
-  private val nb: Int             = 12
+
+  private val nb: Int = 12
 
   private type GetTeamIds = String => Fu[List[String]]
 
@@ -36,7 +36,8 @@ final class Recent(
     }
 
   private val cache = cacheApi[String, List[MiniForumPost]]("forum.recent") {
-    _.expireAfterAccess(ttl)
+    _.initialCapacity(2048)
+      .expireAfterAccess(1 hour)
       .buildAsyncFuture(fetch)
   }
 

@@ -14,7 +14,6 @@ final private[tournament] class Cached(
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val createdTtl = 2 seconds
-  private val rankingTtl = 1 hour
 
   val nameCache = new Syncache[Tournament.ID, Option[String]](
     name = "tournament.name",
@@ -37,13 +36,16 @@ final private[tournament] class Cached(
 
   // only applies to ongoing tournaments
   private val ongoingRanking = cacheApi[Tournament.ID, Ranking]("tournament.ongoingRanking") {
-    _.expireAfterWrite(3 seconds)
+    _.initialCapacity(64)
+      .expireAfterWrite(3 seconds)
       .buildAsyncFuture(playerRepo.computeRanking)
   }
 
   // only applies to finished tournaments
   private val finishedRanking = cacheApi[Tournament.ID, Ranking]("tournament.finishedRanking") {
-    _.expireAfterAccess(rankingTtl)
+    _.initialCapacity(1024)
+      .expireAfterAccess(1 hour)
+      .maximumSize(2048)
       .buildAsyncFuture(playerRepo.computeRanking)
   }
 
@@ -68,7 +70,9 @@ final private[tournament] class Cached(
       }
 
     private val cache = cacheApi[SheetKey, Sheet]("tournament.sheet") {
-      _.expireAfterAccess(3 minutes)
+      _.initialCapacity(8192)
+        .expireAfterAccess(3 minutes)
+        .maximumSize(32768)
         .buildAsyncFuture(compute)
     }
   }

@@ -390,15 +390,21 @@ final class Tournament(
   }
 
   private val streamerCache = env.memo.cacheApi[Tour.ID, Set[UserModel.ID]]("tournament.streamers") {
-    _.refreshAfterWrite(15.seconds)
+    _.initialCapacity(64)
+      .refreshAfterWrite(15.seconds)
+      .maximumSize(64)
       .buildAsyncFuture { tourId =>
-        env.streamer.liveStreamApi.all.flatMap {
-          _.streams
-            .map { stream =>
-              env.tournament.hasUser(tourId, stream.streamer.userId) map (_ option stream.streamer.userId)
+        env.tournament.tournamentRepo.isUnfinished(tourId) flatMap {
+          _ ?? {
+            env.streamer.liveStreamApi.all.flatMap {
+              _.streams
+                .map { stream =>
+                  env.tournament.hasUser(tourId, stream.streamer.userId).dmap(_ option stream.streamer.userId)
+                }
+                .sequenceFu
+                .dmap(_.flatten.toSet)
             }
-            .sequenceFu
-            .dmap(_.flatten.toSet)
+          }
         }
       }
   }
