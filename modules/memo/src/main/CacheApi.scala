@@ -19,7 +19,9 @@ final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSys
     val actualCapacity =
       if (mode != Mode.Prod) math.sqrt(initialCapacity).toInt atLeast 1
       else initialCapacity
-    val cache = build(scaffeine initialCapacity actualCapacity)
+    val cache = build {
+      scaffeine.recordStats.initialCapacity(actualCapacity)
+    }
     monitor(name, cache)
     cache
   }
