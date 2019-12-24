@@ -14,10 +14,10 @@ private class BlogConfig(
 @Module
 final class Env(
     appConfig: Configuration,
-    timelineApi: lila.timeline.EntryApi
+    timelineApi: lila.timeline.EntryApi,
+    cacheApi: lila.memo.CacheApi
 )(
     implicit ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem,
     ws: play.api.libs.ws.WSClient
 ) {
 

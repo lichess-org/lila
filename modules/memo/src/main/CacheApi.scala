@@ -28,6 +28,22 @@ final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSys
     build(scaffeine initialCapacity 1)
   }
 
+  def sync[K, V](
+      name: String,
+      initialCapacity: Int,
+      compute: K => Fu[V],
+      default: K => V,
+      strategy: Syncache.Strategy,
+      expireAfter: Syncache.ExpireAfter
+  ): Syncache[K, V] = {
+    val actualCapacity =
+      if (mode != Mode.Prod) math.sqrt(initialCapacity).toInt atLeast 1
+      else initialCapacity
+    val cache = new Syncache(name, actualCapacity, compute, default, strategy, expireAfter)
+    monitor(name, cache.cache)
+    cache
+  }
+
   def monitor(name: String, cache: AsyncCache[_, _]): Unit =
     monitor(name, cache.underlying.synchronous)
 

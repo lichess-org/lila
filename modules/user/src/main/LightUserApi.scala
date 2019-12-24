@@ -6,13 +6,13 @@ import scala.util.Success
 
 import lila.common.LightUser
 import lila.db.dsl._
-import lila.memo.Syncache
+import lila.memo.{ CacheApi, Syncache }
 import User.{ BSONFields => F }
 
-final class LightUserApi(repo: UserRepo)(
-    implicit ec: scala.concurrent.ExecutionContext,
-    system: akka.actor.ActorSystem
-) {
+final class LightUserApi(
+    repo: UserRepo,
+    cacheApi: CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import LightUserApi._
 
@@ -27,16 +27,13 @@ final class LightUserApi(repo: UserRepo)(
   def preloadMany             = cache preloadMany _
   def preloadUser(user: User) = cache.set(user.id, user.light.some)
 
-  private val cacheName = "user.light"
-
-  private val cache = new Syncache[User.ID, Option[LightUser]](
-    name = cacheName,
+  private val cache = cacheApi.sync[User.ID, Option[LightUser]](
+    name = "user.light",
     initialCapacity = 131072,
     compute = id => repo.coll.find($id(id), projection).one[LightUser],
     default = id => LightUser(id, id, None, false).some,
     strategy = Syncache.WaitAfterUptime(8 millis),
-    expireAfter = Syncache.ExpireAfterWrite(20 minutes),
-    logger = logger branch "LightUserApi"
+    expireAfter = Syncache.ExpireAfterWrite(20 minutes)
   )
 }
 

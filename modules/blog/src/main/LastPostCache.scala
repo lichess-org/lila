@@ -1,21 +1,21 @@
 package lila.blog
 
-import lila.memo.Syncache
+import lila.memo.{ CacheApi, Syncache }
 
 final class LastPostCache(
     api: BlogApi,
     notifier: Notifier,
-    config: BlogConfig
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+    config: BlogConfig,
+    cacheApi: CacheApi
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val cache = new Syncache[Boolean, List[MiniPost]](
+  private val cache = cacheApi.sync[Boolean, List[MiniPost]](
     name = "blog.lastPost",
     initialCapacity = 1,
     compute = _ => fetch,
     default = _ => Nil,
     expireAfter = Syncache.ExpireAfterWrite(config.lastPostTtl),
-    strategy = Syncache.NeverWait,
-    logger = logger
+    strategy = Syncache.NeverWait
   )
 
   private def fetch: Fu[List[MiniPost]] = {

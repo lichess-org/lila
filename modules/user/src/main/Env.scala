@@ -50,7 +50,7 @@ final class Env(
     mk(db(config.collectionNote))
   }
 
-  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind))
+  lazy val trophyApi = new TrophyApi(db(config.collectionTrophy), db(config.collectionTrophyKind), cacheApi)
 
   lazy val rankingApi = {
     def mk = (coll: Coll) => wire[RankingApi]

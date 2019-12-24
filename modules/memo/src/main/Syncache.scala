@@ -14,21 +14,19 @@ import lila.common.Uptime
   * If none is available, it starts an async computation,
   * and either waits for the result or serves a default value.
   */
-final class Syncache[K, V](
+final private[memo] class Syncache[K, V](
     name: String,
     initialCapacity: Int,
     compute: K => Fu[V],
     default: K => V,
     strategy: Syncache.Strategy,
-    expireAfter: Syncache.ExpireAfter,
-    logger: lila.log.Logger,
-    resultTimeout: FiniteDuration = 5 seconds
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+    expireAfter: Syncache.ExpireAfter
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Syncache._
 
   // sync cached values
-  private val cache: LoadingCache[K, Fu[V]] =
+  private[memo] val cache: LoadingCache[K, Fu[V]] =
     Caffeine
       .newBuilder()
       .scheduler(Scheduler.systemScheduler)
@@ -44,10 +42,6 @@ final class Syncache[K, V](
       .build[K, Fu[V]](new CacheLoader[K, Fu[V]] {
         def load(k: K) =
           compute(k)
-            .withTimeout(
-              duration = resultTimeout,
-              error = lila.base.LilaException(s"Syncache $name $k timed out after $resultTimeout")
-            )
             .mon(_ => recCompute) // monitoring: record async time
             .recover {
               case e: Exception =>
@@ -56,9 +50,6 @@ final class Syncache[K, V](
                 default(k)
             }
       })
-      .tap {
-        lila.memo.CacheApi.startMonitor(s"syncache.$name", _)
-      }
 
   // get the value asynchronously, never blocks (preferred)
   def async(k: K): Fu[V] = cache get k

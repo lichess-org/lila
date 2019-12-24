@@ -9,12 +9,13 @@ import scala.concurrent.duration._
 
 final class TrophyApi(
     coll: Coll,
-    kindColl: Coll
+    kindColl: Coll,
+    cacheApi: CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 
   private val trophyKindObjectBSONHandler = Macros.handler[TrophyKind]
 
-  val kindCache = new Syncache[String, TrophyKind](
+  val kindCache = cacheApi.sync[String, TrophyKind](
     name = "trophy.kind",
     initialCapacity = 32,
     compute = id =>
@@ -23,8 +24,7 @@ final class TrophyApi(
       },
     default = _ => TrophyKind.Unknown,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterWrite(1 hour),
-    logger = logger
+    expireAfter = Syncache.ExpireAfterWrite(1 hour)
   )
 
   implicit private val trophyKindStringBSONHandler =

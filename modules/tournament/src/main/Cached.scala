@@ -11,22 +11,19 @@ final private[tournament] class Cached(
     pairingRepo: PairingRepo,
     tournamentRepo: TournamentRepo,
     cacheApi: CacheApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
-  private val createdTtl = 2 seconds
-
-  val nameCache = new Syncache[Tournament.ID, Option[String]](
+  val nameCache = cacheApi.sync[Tournament.ID, Option[String]](
     name = "tournament.name",
     initialCapacity = 16384,
     compute = id => tournamentRepo byId id dmap2 { _.fullName },
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(20 minutes),
-    logger = logger
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes)
   )
 
   val promotable = cacheApi.unit[List[Tournament]] {
-    _.refreshAfterWrite(createdTtl)
+    _.refreshAfterWrite(2 seconds)
       .buildAsyncFuture(_ => tournamentRepo.promotable)
   }
 
