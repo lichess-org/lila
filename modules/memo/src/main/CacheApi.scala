@@ -3,23 +3,29 @@ package lila.memo
 import akka.actor.ActorSystem
 import com.github.benmanes.caffeine
 import com.github.blemale.scaffeine._
+import play.api.Mode
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext
 
-final class CacheApi(implicit ec: ExecutionContext, system: ActorSystem) {
+final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSystem) {
 
   private type Builder = Scaffeine[Any, Any]
 
   def scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
 
-  def apply[K, V](name: String)(build: Builder => AsyncLoadingCache[K, V]): AsyncLoadingCache[K, V] = {
-    val cache = build(scaffeine)
+  def apply[K, V](initialCapacity: Int, name: String)(
+      build: Builder => AsyncLoadingCache[K, V]
+  ): AsyncLoadingCache[K, V] = {
+    val actualCapacity =
+      if (mode != Mode.Prod) math.sqrt(initialCapacity).toInt atLeast 1
+      else initialCapacity
+    val cache = build(scaffeine initialCapacity actualCapacity)
     monitor(name, cache)
     cache
   }
 
   def unit[V](build: Builder => AsyncLoadingCache[Unit, V]): AsyncLoadingCache[Unit, V] = {
-    build(scaffeine.initialCapacity(1))
+    build(scaffeine initialCapacity 1)
   }
 
   def monitor(name: String, cache: AsyncCache[_, _]): Unit =

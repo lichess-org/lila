@@ -30,9 +30,8 @@ final class ChatApi(
     // only use for public, multi-user chats - tournaments, simuls
     object cached {
 
-      private val cache = cacheApi[Chat.Id, UserChat]("chat.user") {
-        _.initialCapacity(128)
-          .expireAfterAccess(1 minute)
+      private val cache = cacheApi[Chat.Id, UserChat](128, "chat.user") {
+        _.expireAfterAccess(1 minute)
           .buildAsyncFuture(find)
       }
 

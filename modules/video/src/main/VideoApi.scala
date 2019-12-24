@@ -212,9 +212,8 @@ final private[video] class VideoApi(
 
     private val max = 25
 
-    private val pathsCache = cacheApi[List[Tag], List[TagNb]]("video.paths") {
-      _.initialCapacity(32)
-        .expireAfterAccess(10 minutes)
+    private val pathsCache = cacheApi[List[Tag], List[TagNb]](32, "video.paths") {
+      _.expireAfterAccess(10 minutes)
         .buildAsyncFuture { filterTags =>
           val allPaths =
             if (filterTags.isEmpty) allPopular map { tags =>

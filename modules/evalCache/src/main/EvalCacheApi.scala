@@ -47,9 +47,8 @@ final class EvalCacheApi(
     coll.delete.one($id(id)).void >>- cache.invalidate(id)
   }
 
-  private val cache = cacheApi[Id, Option[EvalCacheEntry]]("evalCache") {
-    _.initialCapacity(65536)
-      .expireAfterAccess(5 minutes)
+  private val cache = cacheApi[Id, Option[EvalCacheEntry]](65536, "evalCache") {
+    _.expireAfterAccess(5 minutes)
       .buildAsyncFuture(fetchAndSetAccess)
   }
 

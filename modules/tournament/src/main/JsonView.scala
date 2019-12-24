@@ -234,9 +234,8 @@ final class JsonView(
     "win"     -> s.scores.count(_.res == arena.Sheet.ResWin)
   )
 
-  private val cachableData = cacheApi[Tournament.ID, CachableData]("tournament.json.cachable") {
-    _.initialCapacity(16)
-      .expireAfterWrite(1 second)
+  private val cachableData = cacheApi[Tournament.ID, CachableData](16, "tournament.json.cachable") {
+    _.expireAfterWrite(1 second)
       .buildAsyncFuture { id =>
         for {
           tour <- tournamentRepo byId id
@@ -304,9 +303,8 @@ final class JsonView(
       .add("title" -> light.flatMap(_.title))
   }
 
-  private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]]("tournament.podiumJson") {
-    _.initialCapacity(32)
-      .expireAfterAccess(10 seconds)
+  private val podiumJsonCache = cacheApi[Tournament.ID, Option[JsArray]](32, "tournament.podiumJson") {
+    _.expireAfterAccess(10 seconds)
       .maximumSize(256)
       .buildAsyncFuture { id =>
         tournamentRepo finishedById id flatMap {
@@ -351,9 +349,8 @@ final class JsonView(
       "p"  -> Json.arr(u1, u2)
     )
 
-  private val teamStandingCache = cacheApi[Tournament.ID, JsArray]("tournament.teamStanding") {
-    _.initialCapacity(4)
-      .expireAfterWrite(1 second)
+  private val teamStandingCache = cacheApi[Tournament.ID, JsArray](4, "tournament.teamStanding") {
+    _.expireAfterWrite(1 second)
       .buildAsyncFuture { id =>
         tournamentRepo.teamBattleOf(id) flatMap {
           _.fold(fuccess(JsArray())) { battle =>
@@ -384,9 +381,8 @@ final class JsonView(
     )
   }
 
-  private val teamInfoCache = cacheApi[(Tournament.ID, TeamID), Option[JsObject]]("tournament.teamInfo") {
-    _.initialCapacity(4)
-      .expireAfterWrite(5 seconds)
+  private val teamInfoCache = cacheApi[(Tournament.ID, TeamID), Option[JsObject]](4, "tournament.teamInfo") {
+    _.expireAfterWrite(5 seconds)
       .maximumSize(32)
       .buildAsyncFuture {
         case (tourId, teamId) =>

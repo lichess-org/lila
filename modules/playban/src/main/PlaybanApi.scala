@@ -191,9 +191,8 @@ final class PlaybanApi(
 
   def getRageSit(userId: User.ID) = rageSitCache get userId
 
-  private val rageSitCache = cacheApi[User.ID, RageSit]("playban.ragesit") {
+  private val rageSitCache = cacheApi[User.ID, RageSit](32768, "playban.ragesit") {
     _.expireAfterAccess(20 minutes)
-      .initialCapacity(32768)
       .buildAsyncFuture { userId =>
         coll.primitiveOne[RageSit]($doc("_id" -> userId, "c" $exists true), "c").map(_ | RageSit.empty)
       }

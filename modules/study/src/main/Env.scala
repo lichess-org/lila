@@ -75,9 +75,8 @@ final class Env(
   lazy val pgnDump = wire[PgnDump]
 
   lazy val lightStudyCache: LightStudyCache =
-    cacheApi[Study.Id, Option[Study.LightStudy]]("study.lightStudyCache") {
-      _.initialCapacity(512)
-        .expireAfterWrite(20 minutes)
+    cacheApi[Study.Id, Option[Study.LightStudy]](512, "study.lightStudyCache") {
+      _.expireAfterWrite(20 minutes)
         .buildAsyncFuture(studyRepo.lightById)
     }
 

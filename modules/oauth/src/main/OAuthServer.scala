@@ -49,9 +49,8 @@ final class OAuthServer(
     }
 
   private val accessTokenCache =
-    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]]("oauth.server.personal_access_token") {
-      _.initialCapacity(16)
-        .expireAfterWrite(5 minutes)
+    cacheApi[AccessToken.Id, Option[AccessToken.ForAuth]](16, "oauth.server.personal_access_token") {
+      _.expireAfterWrite(5 minutes)
         .buildAsyncFuture(fetchAccessToken)
     }
 

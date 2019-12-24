@@ -26,9 +26,8 @@ final class SeekApi(
       .sort($sort desc "createdAt")
       .cursor[Seek]()
 
-  private val cache = cacheApi[CacheKey, List[Seek]]("lobby.seek.list") {
-    _.initialCapacity(2)
-      .refreshAfterWrite(3 seconds)
+  private val cache = cacheApi[CacheKey, List[Seek]](2, "lobby.seek.list") {
+    _.refreshAfterWrite(3 seconds)
       .buildAsyncFuture {
         case ForAnon => allCursor.list(maxPerPage.value)
         case ForUser => allCursor.list()

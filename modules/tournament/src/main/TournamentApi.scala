@@ -452,9 +452,8 @@ final class TournamentApi(
         socket.reload(tour.id) >>- publish()
     }
 
-  private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop]("tournament.top") {
-    _.initialCapacity(16)
-      .refreshAfterWrite(3 second)
+  private val tournamentTopCache = cacheApi[Tournament.ID, TournamentTop](16, "tournament.top") {
+    _.refreshAfterWrite(3 second)
       .expireAfterAccess(5 minutes)
       .maximumSize(64)
       .buildAsyncFuture { id =>

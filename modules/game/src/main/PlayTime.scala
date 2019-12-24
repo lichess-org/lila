@@ -26,7 +26,7 @@ final class PlayTimeApi(
     creationCache.get(user.id).withTimeoutDefault(1 second, none)
 
   // to avoid creating it twice
-  private val creationCache = cacheApi[User.ID, Option[User.PlayTime]]("playTime") {
+  private val creationCache = cacheApi[User.ID, Option[User.PlayTime]](64, "playTime") {
     _.expireAfterWrite(5 minutes)
       .buildAsyncFuture(computeNow)
   }

@@ -15,9 +15,8 @@ final private class FishnetRepo(
 
   import BSONHandlers._
 
-  private val clientCache = cacheApi[Client.Key, Option[Client]]("fishnet.client") {
-    _.initialCapacity(32)
-      .expireAfterWrite(10 minutes)
+  private val clientCache = cacheApi[Client.Key, Option[Client]](32, "fishnet.client") {
+    _.expireAfterWrite(10 minutes)
       .buildAsyncFuture { key =>
         clientColl.one[Client](selectClient(key))
       }

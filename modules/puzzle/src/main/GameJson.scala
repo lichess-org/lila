@@ -20,9 +20,8 @@ final private class GameJson(
 
   private case class CacheKey(gameId: Game.ID, plies: Int, onlyLast: Boolean)
 
-  private val cache = cacheApi[CacheKey, JsObject]("puzzle.gameJson") {
-    _.initialCapacity(1024)
-      .expireAfterAccess(5 minutes)
+  private val cache = cacheApi[CacheKey, JsObject](1024, "puzzle.gameJson") {
+    _.expireAfterAccess(5 minutes)
       .maximumSize(1024)
       .buildAsyncFuture(generate)
   }

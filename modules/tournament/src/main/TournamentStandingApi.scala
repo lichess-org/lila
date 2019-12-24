@@ -33,15 +33,13 @@ final class TournamentStandingApi(
       else computeMaybe(tour.id, page)
     } else compute(tour, page)
 
-  private val first = cacheApi[Tournament.ID, JsObject]("tournament.page.first") {
-    _.initialCapacity(16)
-      .expireAfterWrite(1 second)
+  private val first = cacheApi[Tournament.ID, JsObject](16, "tournament.page.first") {
+    _.expireAfterWrite(1 second)
       .buildAsyncFuture { compute(_, 1) }
   }
 
-  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject]("tournament.page.createdCache") {
-    _.initialCapacity(2)
-      .expireAfterWrite(15 second)
+  private val createdCache = cacheApi[(Tournament.ID, Int), JsObject](2, "tournament.page.createdCache") {
+    _.expireAfterWrite(15 second)
       .buildAsyncFuture {
         case (tourId, page) => computeMaybe(tourId, page)
       }

@@ -14,6 +14,7 @@ final class MemoConfig(
 @Module
 final class Env(
     appConfig: Configuration,
+    mode: play.api.Mode,
     db: lila.db.Db
 )(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
 

@@ -35,16 +35,14 @@ final private[tournament] class Cached(
     else ongoingRanking get tour.id
 
   // only applies to ongoing tournaments
-  private val ongoingRanking = cacheApi[Tournament.ID, Ranking]("tournament.ongoingRanking") {
-    _.initialCapacity(64)
-      .expireAfterWrite(3 seconds)
+  private val ongoingRanking = cacheApi[Tournament.ID, Ranking](64, "tournament.ongoingRanking") {
+    _.expireAfterWrite(3 seconds)
       .buildAsyncFuture(playerRepo.computeRanking)
   }
 
   // only applies to finished tournaments
-  private val finishedRanking = cacheApi[Tournament.ID, Ranking]("tournament.finishedRanking") {
-    _.initialCapacity(1024)
-      .expireAfterAccess(1 hour)
+  private val finishedRanking = cacheApi[Tournament.ID, Ranking](1024, "tournament.finishedRanking") {
+    _.expireAfterAccess(1 hour)
       .maximumSize(2048)
       .buildAsyncFuture(playerRepo.computeRanking)
   }
@@ -69,9 +67,8 @@ final private[tournament] class Cached(
         arena.Sheet(key.userId, _)
       }
 
-    private val cache = cacheApi[SheetKey, Sheet]("tournament.sheet") {
-      _.initialCapacity(8192)
-        .expireAfterAccess(3 minutes)
+    private val cache = cacheApi[SheetKey, Sheet](8192, "tournament.sheet") {
+      _.expireAfterAccess(3 minutes)
         .maximumSize(32768)
         .buildAsyncFuture(compute)
     }

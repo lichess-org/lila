@@ -35,9 +35,8 @@ final class Recent(
       } mkString ";"
     }
 
-  private val cache = cacheApi[String, List[MiniForumPost]]("forum.recent") {
-    _.initialCapacity(2048)
-      .expireAfterAccess(1 hour)
+  private val cache = cacheApi[String, List[MiniForumPost]](2048, "forum.recent") {
+    _.expireAfterAccess(1 hour)
       .buildAsyncFuture(fetch)
   }
 
