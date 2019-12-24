@@ -1,6 +1,6 @@
 package lila.game
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
 import chess.Division
@@ -9,7 +9,7 @@ import chess.format.FEN
 
 final class Divider {
 
-  private val cache: Cache[Game.ID, Division] = Scaffeine()
+  private val cache: Cache[Game.ID, Division] = lila.memo.CacheApi.scaffeine
     .expireAfterAccess(5 minutes)
     .build[Game.ID, Division]
 

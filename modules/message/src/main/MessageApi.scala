@@ -1,6 +1,5 @@
 package lila.message
 
-import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
 import scala.concurrent.duration._
 
 import lila.common.paginator._
@@ -17,7 +16,8 @@ final class MessageApi(
     maxPerPage: lila.common.config.MaxPerPage,
     relationApi: lila.relation.RelationApi,
     notifyApi: lila.notify.NotifyApi,
-    security: MessageSecurity
+    security: MessageSecurity,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   import Thread.ThreadBSONHandler
@@ -33,9 +33,10 @@ final class MessageApi(
     maxPerPage = maxPerPage
   )
 
-  private val unreadCountCache: AsyncLoadingCache[User.ID, Int] = Scaffeine()
-    .expireAfterWrite(1 minute)
-    .buildAsyncFuture[User.ID, Int](threadRepo.unreadCount _)
+  private val unreadCountCache = cacheApi[User.ID, Int](256, "message.unreadCount") {
+    _.expireAfterWrite(10 seconds)
+      .buildAsyncFuture[User.ID, Int](threadRepo.unreadCount _)
+  }
 
   def unreadCount(me: User): Fu[Int] = unreadCountCache.get(me.id)
 

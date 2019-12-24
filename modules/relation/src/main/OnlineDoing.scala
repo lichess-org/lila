@@ -1,10 +1,10 @@
 package lila.relation
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import scala.concurrent.duration._
 
 import actorApi.OnlineFriends
 import lila.user.User
+import lila.memo.CacheApi
 
 final class OnlineDoing(
     api: RelationApi,
@@ -19,12 +19,14 @@ final class OnlineDoing(
   def isPlaying(userId: User.ID) = playing get userId
 
   // people with write access in public studies
-  val studying: Cache[ID, StudyId] =
-    Scaffeine().expireAfterAccess(20 minutes).build[ID, StudyId]
+  val studying = CacheApi.scaffeine
+    .expireAfterAccess(20 minutes)
+    .build[ID, StudyId]
 
   // people with write or read access in public and private studies
-  val studyingAll: Cache[ID, StudyId] =
-    Scaffeine().expireAfterAccess(20 minutes).build[ID, StudyId]
+  val studyingAll = CacheApi.scaffeine
+    .expireAfterAccess(20 minutes)
+    .build[ID, StudyId]
 
   def isStudying(userId: User.ID) = studying.getIfPresent(userId).isDefined
 

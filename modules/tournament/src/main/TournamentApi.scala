@@ -563,10 +563,10 @@ final class TournamentApi(
   private object updateTournamentStanding {
 
     import lila.hub.EarlyMultiThrottler
-    import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 
     // last published top hashCode
-    private val lastPublished: Cache[Tournament.ID, Int] = Scaffeine()
+    private val lastPublished = lila.memo.CacheApi.scaffeine
+      .initialCapacity(16)
       .expireAfterWrite(2 minute)
       .build[Tournament.ID, Int]
 

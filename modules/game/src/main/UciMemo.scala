@@ -1,16 +1,16 @@
 package lila.game
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
 import chess.format.UciDump
 
-final class UciMemo(gameRepo: GameRepo, ttl: Duration)(implicit ec: scala.concurrent.ExecutionContext) {
+final class UciMemo(gameRepo: GameRepo)(implicit ec: scala.concurrent.ExecutionContext) {
 
   type UciVector = Vector[String]
 
-  private val cache: Cache[Game.ID, UciVector] = Scaffeine()
-    .expireAfterAccess(ttl)
+  private val cache: Cache[Game.ID, UciVector] = lila.memo.CacheApi.scaffeine
+    .expireAfterAccess(5 minutes)
     .build[Game.ID, UciVector]
 
   private val hardLimit = 300

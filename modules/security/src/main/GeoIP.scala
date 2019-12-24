@@ -1,6 +1,6 @@
 package lila.security
 
-import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
+import com.github.blemale.scaffeine.LoadingCache
 import com.sanoma.cda.geoip.{ IpLocation, MaxMindIpGeo }
 import io.methvin.play.autoconfig._
 import scala.concurrent.duration._
@@ -20,9 +20,10 @@ final class GeoIP(config: GeoIP.Config) {
         none
     }
 
-  private val cache: LoadingCache[IpAddress, Option[Location]] = Scaffeine()
-    .expireAfterAccess(config.cacheTtl)
-    .build(compute)
+  private val cache: LoadingCache[IpAddress, Option[Location]] =
+    lila.memo.CacheApi.scaffeine
+      .expireAfterAccess(config.cacheTtl)
+      .build(compute)
 
   private def compute(ip: IpAddress): Option[Location] =
     geoIp.flatMap(_ getLocation ip.value) map Location.apply

@@ -2,7 +2,6 @@ package lila.game
 
 import akka.stream.scaladsl._
 import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
-import com.github.blemale.scaffeine.Scaffeine
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Promise }
@@ -135,7 +134,7 @@ final class CrosstableApi(
     .toMat(Sink.ignore)(Keep.left)
     .run
 
-  private val creationCache = Scaffeine()
+  private val creationCache = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(5 minutes)
     .buildAsyncFuture[UserPair, Crosstable] { users =>
       val promise = Promise[Crosstable]

@@ -1,6 +1,5 @@
 package lila.tournament
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import org.joda.time.DateTime
 import scala.concurrent.duration._
 
@@ -17,7 +16,7 @@ final private class Pause {
 
   import Pause._
 
-  private val cache: Cache[User.ID, Record] = Scaffeine()
+  private val cache = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(20 minutes)
     .build[User.ID, Record]
 

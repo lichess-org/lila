@@ -12,6 +12,7 @@ final class Env(
     db: lila.db.Db,
     studyApi: lila.study.StudyApi,
     chapterRepo: lila.study.ChapterRepo,
+    cacheApi: lila.memo.CacheApi,
     slackApi: lila.slack.SlackApi
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 

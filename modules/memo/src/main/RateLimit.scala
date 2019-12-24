@@ -1,7 +1,5 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.Scaffeine
-
 import ornicar.scalalib.Zero
 import scala.concurrent.duration.Duration
 
@@ -18,7 +16,7 @@ final class RateLimit[K](
 ) {
   import RateLimit._
 
-  private val storage = Scaffeine()
+  private val storage = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(duration)
     .build[K, (Cost, ClearAt)]()
 

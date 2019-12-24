@@ -1,6 +1,6 @@
 package lila.study
 
-import com.github.blemale.scaffeine.{ AsyncLoadingCache, Scaffeine }
+import com.github.blemale.scaffeine.AsyncLoadingCache
 import play.api.libs.json._
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
@@ -31,9 +31,11 @@ final class StudyMultiBoard(
     else fetch(studyId, page, playing)
   } map { PaginatorJson(_) }
 
-  private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] = Scaffeine()
-    .expireAfterWrite(4 seconds)
-    .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, false) }
+  private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] =
+    lila.memo.CacheApi.scaffeine
+      .refreshAfterWrite(4 seconds)
+      .expireAfterAccess(10 minutes)
+      .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, false) }
 
   private def fetch(studyId: Study.Id, page: Int, playing: Boolean): Fu[Paginator[ChapterPreview]] = {
 

@@ -7,7 +7,7 @@ import com.vladsch.flexmark.parser.Parser
 import com.vladsch.flexmark.util.data.MutableDataSet
 import com.vladsch.flexmark.ext.tables.TablesExtension
 import com.vladsch.flexmark.ext.gfm.strikethrough.StrikethroughExtension
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 
 final private class RelayMarkup {
 
@@ -21,8 +21,9 @@ final private class RelayMarkup {
   private val parser   = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 
-  private val cache: Cache[Text, Html] = Scaffeine()
-    .expireAfterWrite(5 minutes)
+  private val cache: Cache[Text, Html] = lila.memo.CacheApi.scaffeine
+    .expireAfterAccess(5 minutes)
+    .maximumSize(1024)
     .build[Text, Html]
 
   private def compute(text: Text): Html =

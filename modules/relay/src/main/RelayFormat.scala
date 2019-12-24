@@ -5,21 +5,22 @@ import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 import lila.study.MultiPgn
+import lila.memo.CacheApi
+import lila.memo.CacheApi._
 
-final private class RelayFormatApi(ws: WSClient)(implicit ec: scala.concurrent.ExecutionContext) {
+final private class RelayFormatApi(ws: WSClient, cacheApi: CacheApi)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
   import RelayFormat._
   import Relay.Sync.UpstreamWithRound
 
-  private val cache: LoadingCache[UpstreamWithRound, Fu[RelayFormat]] = Scaffeine()
-    .expireAfterWrite(10 minutes)
-    .build { (upstream: UpstreamWithRound) =>
-      guessFormat(upstream) addFailureEffect { _ =>
-        cache.invalidate(upstream)
-      }
-    }
+  private val cache = cacheApi[UpstreamWithRound, RelayFormat](8, "relay.format") {
+    _.refreshAfterWrite(10 minutes)
+      .expireAfterAccess(20 minutes)
+      .buildAsyncFuture(guessFormat)
+  }
 
   def get(upstream: UpstreamWithRound): Fu[RelayFormat] = cache get upstream
 

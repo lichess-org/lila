@@ -1,6 +1,6 @@
 package lila.security
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import org.joda.time.Instant
 import scala.concurrent.duration.Duration
 
@@ -13,7 +13,7 @@ final class Flood(duration: Duration) {
 
   private val floodNumber = 4
 
-  private val cache: Cache[User.ID, Messages] = Scaffeine()
+  private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeine
     .expireAfterAccess(duration)
     .build[User.ID, Messages]
 

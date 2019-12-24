@@ -4,7 +4,8 @@ import chess.format.Forsyth
 import chess.variant._
 import chess.{ Game => ChessGame, Board, Color => ChessColor, Castles, Clock, Situation }
 import ChessColor.{ Black, White }
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
+import lila.memo.CacheApi
 import scala.concurrent.duration._
 
 import lila.common.Bus
@@ -23,8 +24,8 @@ final private class Rematcher(
 
   import Rematcher.Offers
 
-  private val offers: Cache[Game.ID, Offers] = Scaffeine()
-    .expireAfterWrite(30 minutes)
+  private val offers: Cache[Game.ID, Offers] = CacheApi.scaffeine
+    .expireAfterWrite(20 minutes)
     .build[Game.ID, Offers]
 
   private val chess960 = new ExpireSetMemo(3 hours)

@@ -1,7 +1,6 @@
 package lila.game
 
 import akka.actor._
-import com.github.blemale.scaffeine.Scaffeine
 import com.softwaremill.macwire._
 import io.methvin.play.autoconfig._
 import play.api.Configuration
@@ -17,7 +16,6 @@ final private class GameConfig(
     @ConfigName("paginator.max_per_page") val paginatorMaxPerPage: MaxPerPage,
     @ConfigName("captcher.name") val captcherName: String,
     @ConfigName("captcher.duration") val captcherDuration: FiniteDuration,
-    val uciMemoTtl: FiniteDuration,
     val pngUrl: String,
     val pngSize: Int
 )
@@ -49,7 +47,7 @@ final class Env(
 
   lazy val paginator = wire[PaginatorBuilder]
 
-  lazy val uciMemo = new UciMemo(gameRepo, config.uciMemoTtl)
+  lazy val uciMemo = wire[UciMemo]
 
   lazy val pgnDump = wire[PgnDump]
 
@@ -67,7 +65,9 @@ final class Env(
   lazy val bestOpponents = wire[BestOpponents]
 
   lazy val rematches = Rematches(
-    Scaffeine().expireAfterWrite(3 hour).build[Game.ID, Game.ID]
+    lila.memo.CacheApi.scaffeine
+      .expireAfterWrite(1 hour)
+      .build[Game.ID, Game.ID]
   )
 
   lazy val jsonView = wire[JsonView]

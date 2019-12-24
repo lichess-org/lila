@@ -1,6 +1,6 @@
 package lila.playban
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration._
 
 import chess.Color
@@ -47,7 +47,7 @@ final private class SandbagWatch(
       record.alert ?? sendMessage(userId)
     }
 
-  private val records: Cache[User.ID, Record] = Scaffeine()
+  private val records: Cache[User.ID, Record] = lila.memo.CacheApi.scaffeine
     .expireAfterWrite(3 hours)
     .build[User.ID, Record]
 

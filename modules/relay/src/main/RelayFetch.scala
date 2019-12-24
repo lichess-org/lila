@@ -1,15 +1,16 @@
 package lila.relay
 
 import akka.actor._
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import chess.format.pgn.Tags
+import com.github.blemale.scaffeine.{ Cache, LoadingCache }
 import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
 import play.api.libs.ws.WSClient
 import scala.concurrent.duration._
 
-import chess.format.pgn.Tags
 import lila.base.LilaException
+import lila.memo.CacheApi
 import lila.study.MultiPgn
 import lila.tree.Node.Comments
 import Relay.Sync.Upstream
@@ -133,7 +134,7 @@ final private class RelayFetch(
         games
     }
 
-  private val cache: Cache[Upstream, GamesSeenBy] = Scaffeine()
+  private val cache: Cache[Upstream, GamesSeenBy] = CacheApi.scaffeine
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
 
@@ -255,7 +256,6 @@ private object RelayFetch {
   private object multiPgnToGames {
 
     import scala.util.{ Failure, Success, Try }
-    import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
 
     def apply(multiPgn: MultiPgn): Fu[List[RelayGame]] =
       multiPgn.value
@@ -271,8 +271,9 @@ private object RelayFetch {
         .future
         .dmap(_._1.reverse)
 
-    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = Scaffeine()
+    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeine
       .expireAfterAccess(2 minutes)
+      .maximumSize(512)
       .build(compute)
 
     private def compute(pgn: String): Try[Int => RelayGame] =

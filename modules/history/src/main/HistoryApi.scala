@@ -1,6 +1,5 @@
 package lila.history
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
 import org.joda.time.{ DateTime, Days }
 import reactivemongo.api.ReadPreference
 import reactivemongo.api.bson._
@@ -10,9 +9,11 @@ import chess.Speed
 import lila.db.dsl._
 import lila.game.Game
 import lila.rating.{ Perf, PerfType }
-import lila.user.{ Perfs, User }
+import lila.user.{ Perfs, User, UserRepo }
 
-final class HistoryApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContext) {
+final class HistoryApi(coll: Coll, userRepo: UserRepo, cacheApi: lila.memo.CacheApi)(
+    implicit ec: scala.concurrent.ExecutionContext
+) {
 
   import History._
 
@@ -81,35 +82,33 @@ final class HistoryApi(coll: Coll)(implicit ec: scala.concurrent.ExecutionContex
 
   object lastWeekTopRating {
 
-    private case class CacheKey(userId: User.ID, perf: PerfType)
+    def apply(user: User, perf: PerfType): Fu[Int] = cache.get(user.id -> perf)
 
-    private val cache: Cache[CacheKey, Int] =
-      Scaffeine().expireAfterWrite(10 minutes).build[CacheKey, Int]
-
-    def apply(user: User, perf: PerfType): Fu[Int] = {
-      val key = CacheKey(user.id, perf)
-      cache.getIfPresent(key) match {
-        case Some(rating) => fuccess(rating)
-        case None =>
-          val currentRating = user.perfs(perf).intRating
-          val firstDay      = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
-          val days          = firstDay to (firstDay + 6) toList
-          val project = BSONDocument {
-            ("_id" -> BSONBoolean(false)) :: days.map { d =>
-              s"${perf.key}.$d" -> BSONBoolean(true)
-            }
-          }
-          coll.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
-            _.flatMap {
-              _.child(perf.key) map {
-                _.elements.foldLeft(currentRating) {
-                  case (max, BSONElement(_, BSONInteger(v))) if v > max => v
-                  case (max, _)                                         => max
+    private val cache = cacheApi[(User.ID, PerfType), Int](256, "lastWeekTopRating") {
+      _.expireAfterAccess(20 minutes)
+        .buildAsyncFuture {
+          case (userId, perf) =>
+            userRepo.byId(userId) orFail s"No such user: $userId" flatMap { user =>
+              val currentRating = user.perfs(perf).intRating
+              val firstDay      = daysBetween(user.createdAt, DateTime.now minusWeeks 1)
+              val days          = firstDay to (firstDay + 6) toList
+              val project = BSONDocument {
+                ("_id" -> BSONBoolean(false)) :: days.map { d =>
+                  s"${perf.key}.$d" -> BSONBoolean(true)
                 }
               }
+              coll.find($id(user.id), project.some).one[Bdoc](ReadPreference.secondaryPreferred).map {
+                _.flatMap {
+                  _.child(perf.key) map {
+                    _.elements.foldLeft(currentRating) {
+                      case (max, BSONElement(_, BSONInteger(v))) if v > max => v
+                      case (max, _)                                         => max
+                    }
+                  }
+                }
+              } dmap { _ | currentRating }
             }
-          } getOrElse fuccess(currentRating) addEffect { cache.put(key, _) }
-      }
+        }
     }
   }
 }

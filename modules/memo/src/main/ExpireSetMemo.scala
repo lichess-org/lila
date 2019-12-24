@@ -1,12 +1,12 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.{ Cache, Scaffeine }
+import com.github.blemale.scaffeine.Cache
 import com.github.ghik.silencer.silent
 import scala.concurrent.duration.Duration
 
 final class ExpireSetMemo(ttl: Duration) {
 
-  private val cache: Cache[String, Boolean] = Scaffeine()
+  private val cache: Cache[String, Boolean] = CacheApi.scaffeine
     .expireAfterWrite(ttl)
     .build[String, Boolean]
 

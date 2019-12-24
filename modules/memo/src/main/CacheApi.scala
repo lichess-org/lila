@@ -9,9 +9,7 @@ import scala.concurrent.ExecutionContext
 
 final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSystem) {
 
-  private type Builder = Scaffeine[Any, Any]
-
-  def scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
+  import CacheApi._
 
   def apply[K, V](initialCapacity: Int, name: String)(
       build: Builder => AsyncLoadingCache[K, V]
@@ -53,10 +51,14 @@ final class CacheApi(mode: Mode)(implicit ec: ExecutionContext, system: ActorSys
     monitor(name, cache.underlying)
 
   def monitor(name: String, cache: caffeine.cache.Cache[_, _]): Unit =
-    CacheApi.startMonitor(name, cache)
+    startMonitor(name, cache)
 }
 
 object CacheApi {
+
+  private type Builder = Scaffeine[Any, Any]
+
+  def scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
 
   implicit def beafedAsync[K, V](cache: AsyncCache[K, V])     = new BeafedAsync[K, V](cache)
   implicit def beafedAsyncUnit[V](cache: AsyncCache[Unit, V]) = new BeafedAsyncUnit[V](cache)

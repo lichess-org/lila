@@ -23,6 +23,7 @@ final class Env(
     userRepo: UserRepo,
     prefApi: lila.pref.PrefApi,
     spam: lila.security.Spam,
+    cacheApi: lila.memo.CacheApi,
     isOnline: lila.socket.IsOnline,
     lightUserSync: lila.common.LightUser.GetterSync,
     lightUserAsync: lila.common.LightUser.Getter

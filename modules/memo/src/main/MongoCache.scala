@@ -1,6 +1,6 @@
 package lila.memo
 
-import com.github.blemale.scaffeine.{ Scaffeine, Cache }
+import com.github.blemale.scaffeine.Cache
 import org.joda.time.DateTime
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
@@ -19,15 +19,20 @@ final class MongoCache[K, V: BSONHandler] private (
 
   private case class Entry(_id: String, v: V, e: DateTime)
 
-  private implicit val entryBSONHandler = Macros.handler[Entry]
+  implicit private val entryBSONHandler = Macros.handler[Entry]
 
-  def apply(k: K): Fu[V] = cache.get(k, k =>
-    coll.find($id(makeKey(k)), none[Bdoc]).one[Entry] flatMap {
-      case None => f(k) flatMap { v =>
-        persist(k, v) inject v
-      }
-      case Some(entry) => fuccess(entry.v)
-    })
+  def apply(k: K): Fu[V] =
+    cache.get(
+      k,
+      k =>
+        coll.find($id(makeKey(k)), none[Bdoc]).one[Entry] flatMap {
+          case None =>
+            f(k) flatMap { v =>
+              persist(k, v) inject v
+            }
+          case Some(entry) => fuccess(entry.v)
+        }
+    )
 
   def remove(k: K): Funit = {
     val fut = f(k)
@@ -41,11 +46,13 @@ final class MongoCache[K, V: BSONHandler] private (
 
   private def persist(k: K, v: V): Funit = {
     val mongoKey = makeKey(k)
-    coll.update.one(
-      $id(mongoKey),
-      Entry(mongoKey, v, mongoExpiresAt()),
-      upsert = true
-    ).void
+    coll.update
+      .one(
+        $id(mongoKey),
+        Entry(mongoKey, v, mongoExpiresAt()),
+        upsert = true
+      )
+      .void
   }
 }
 
@@ -64,15 +71,15 @@ object MongoCache {
     val coll = db(config.cacheColl)
 
     def apply[K, V: BSONHandler](
-      prefix: String,
-      f: K => Fu[V],
-      maxCapacity: Int = 1024,
-      timeToLive: FiniteDuration,
-      timeToLiveMongo: Option[FiniteDuration] = None,
-      keyToString: K => String
+        prefix: String,
+        f: K => Fu[V],
+        maxCapacity: Int = 1024,
+        timeToLive: FiniteDuration,
+        timeToLiveMongo: Option[FiniteDuration] = None,
+        keyToString: K => String
     ): MongoCache[K, V] = new MongoCache[K, V](
       prefix = prefix,
-      cache = Scaffeine()
+      cache = CacheApi.scaffeine
         .expireAfterWrite(timeToLive)
         .maximumSize(maxCapacity)
         .build[K, Fu[V]],
@@ -83,12 +90,12 @@ object MongoCache {
     )
 
     def single[V: BSONHandler](
-      prefix: String,
-      f: => Fu[V],
-      timeToLive: FiniteDuration
+        prefix: String,
+        f: => Fu[V],
+        timeToLive: FiniteDuration
     ) = new MongoCache[Unit, V](
       prefix = prefix,
-      cache = Scaffeine()
+      cache = CacheApi.scaffeine
         .expireAfterWrite(timeToLive)
         .maximumSize(1)
         .build[Unit, Fu[V]],

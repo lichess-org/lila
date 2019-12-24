@@ -60,6 +60,7 @@ final class WorkQueues(buffer: Int, expiration: FiniteDuration, name: String)(
     queues.get(key).run(() => task)
 
   private val queues: LoadingCache[String, WorkQueue] = Scaffeine()
+    .scheduler(com.github.benmanes.caffeine.cache.Scheduler.systemScheduler)
     .expireAfterAccess(expiration)
     .build(key => new WorkQueue(buffer, s"$name:$key"))
 }
