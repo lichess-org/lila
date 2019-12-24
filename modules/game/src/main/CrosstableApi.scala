@@ -63,7 +63,7 @@ final class CrosstableApi(
     }
 
   def add(game: Game): Funit = game.userIds.distinct.sorted match {
-    case List(u1, u2) => {
+    case List(u1, u2) =>
       val result     = Result(game.id, game.winnerUserId)
       val bsonResult = Crosstable.crosstableBSONHandler.writeResult(result, u1)
       def incScore(userId: User.ID): Int = game.winnerUserId match {
@@ -97,7 +97,6 @@ final class CrosstableApi(
           upsert = true
         )
       updateCrosstable zip updateMatchup void
-    }
     case _ => funit
   }
 
@@ -118,13 +117,19 @@ final class CrosstableApi(
     .queue[Creation](512, OverflowStrategy.dropNew)
     .mapAsyncUnordered(8) {
       case ((u1, u2), promise) =>
-        create(u1, u2) recoverWith lila.db.recoverDuplicateKey { _ =>
-          lila.mon.crosstable.duplicate.increment()
-          fetchOrEmpty(u1, u2)
-        } recover {
-          case e: Exception =>
-            logger.error("CrosstableApi.create", e)
-            Crosstable.empty(u1, u2)
+        justFetch(u1, u2) flatMap {
+          case Some(found) =>
+            lila.mon.crosstable.found.increment()
+            fuccess(found)
+          case _ =>
+            create(u1, u2) recoverWith lila.db.recoverDuplicateKey { _ =>
+              lila.mon.crosstable.duplicate.increment()
+              fetchOrEmpty(u1, u2)
+            } recover {
+              case e: Exception =>
+                logger.error("CrosstableApi.create", e)
+                Crosstable.empty(u1, u2)
+            }
         } tap promise.completeWith
     }
     .toMat(Sink.ignore)(Keep.left)
