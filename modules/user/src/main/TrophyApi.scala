@@ -23,7 +23,7 @@ final class TrophyApi(
       },
     default = _ => TrophyKind.Unknown,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(1 hour),
+    expireAfter = Syncache.ExpireAfterWrite(1 hour),
     logger = logger
   )
 

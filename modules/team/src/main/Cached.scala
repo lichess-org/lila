@@ -18,7 +18,7 @@ final class Cached(
     compute = teamRepo.name,
     default = _ => none,
     strategy = Syncache.WaitAfterUptime(20 millis),
-    expireAfter = Syncache.ExpireAfterAccess(30 minutes),
+    expireAfter = Syncache.ExpireAfterAccess(20 minutes),
     logger = logger
   )
 
