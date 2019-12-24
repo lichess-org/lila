@@ -90,8 +90,8 @@ case object Perf {
       val p = Perf(
         glicko = r.getO[Glicko]("gl") | Glicko.default,
         nb = r intD "nb",
-        latest = r dateO "la",
-        recent = r intsD "re"
+        recent = r intsD "re",
+        latest = r dateO "la"
       )
       p.copy(glicko = p.glicko.copy(deviation = Glicko.liveDeviation(p, false)))
     }
