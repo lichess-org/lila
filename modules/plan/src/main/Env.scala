@@ -23,6 +23,7 @@ final class Env(
     timeline: lila.hub.actors.Timeline,
     notifyApi: lila.notify.NotifyApi,
     cacheApi: lila.memo.CacheApi,
+    mongoCache: lila.memo.MongoCache.Api,
     lightUserApi: lila.user.LightUserApi,
     userRepo: lila.user.UserRepo,
     settingStore: lila.memo.SettingStore.Builder
@@ -59,6 +60,7 @@ final class Env(
     userRepo = userRepo,
     lightUserApi = lightUserApi,
     cacheApi = cacheApi,
+    mongoCache = mongoCache,
     payPalIpnKey = config.payPalIpnKey,
     monthlyGoalApi = monthlyGoalApi
   )

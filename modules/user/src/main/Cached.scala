@@ -3,8 +3,8 @@ package lila.user
 import reactivemongo.api.bson._
 import scala.concurrent.duration._
 
-import lila.common.{ AtMost, Every, LightUser }
-import lila.memo.PeriodicRefreshCache
+import lila.common.LightUser
+import lila.memo.CacheApi._
 import lila.rating.{ Perf, PerfType }
 import User.{ LightCount, LightPerf }
 
@@ -20,13 +20,15 @@ final class Cached(
   implicit private val LightPerfBSONHandler  = Macros.handler[LightPerf]
   implicit private val LightCountBSONHandler = Macros.handler[LightCount]
 
-  val top10 = new PeriodicRefreshCache[Perfs.Leaderboards](
-    Every(1 minute),
-    AtMost(1 minute),
-    f = () => rankingApi fetchLeaderboard 10,
-    default = Perfs.emptyLeaderboards,
-    initialDelay = 30 seconds
-  )
+  val top10 = cacheApi.unit[Perfs.Leaderboards] {
+    _.refreshAfterWrite(2 minutes)
+      .buildAsyncFuture { _ =>
+        rankingApi
+          .fetchLeaderboard(10)
+          .withTimeout(2 minutes)
+          .monSuccess(_.user.leaderboardCompute)
+      }
+  }
 
   val top200Perf = mongoCache[Perf.ID, List[User.LightPerf]](
     PerfType.leaderboardable.size,
@@ -73,16 +75,16 @@ final class Cached(
       }
   }
 
-  private val top50OnlineCache = new lila.memo.PeriodicRefreshCache[List[User]](
-    every = Every(30 seconds),
-    atMost = AtMost(30 seconds),
-    f = () => userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50),
-    default = Nil,
-    initialDelay = 15 seconds
-  )
-  def getTop50Online = top50OnlineCache.get
+  private val top50OnlineCache = cacheApi.unit[List[User]] {
+    _.refreshAfterWrite(1 minute)
+      .buildAsyncFuture { _ =>
+        userRepo.byIdsSortRatingNoBot(onlineUserIds(), 50)
+      }
+  }
 
-  def rankingsOf(userId: User.ID): Map[PerfType, Int] = rankingApi.weeklyStableRanking of userId
+  def getTop50Online = top50OnlineCache.getUnit
+
+  def rankingsOf(userId: User.ID): Fu[Map[PerfType, Int]] = rankingApi.weeklyStableRanking of userId
 
   private[user] val botIds = cacheApi.unit[Set[User.ID]] {
     _.refreshAfterWrite(10 minutes)

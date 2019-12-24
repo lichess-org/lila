@@ -36,6 +36,6 @@ final class Env(
     tournamentApi.allCurrentLeadersInStandard flatMap api.requests.fromTournamentLeaders
   }
   system.scheduler.scheduleWithFixedDelay(15 minutes, 15 minutes) { () =>
-    api.requests fromLeaderboard userCache.getTop50Online
+    userCache.getTop50Online flatMap api.requests.fromLeaderboard
   }
 }

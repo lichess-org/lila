@@ -52,8 +52,8 @@ final class Plan(env: Env) extends LilaController(env) {
   ): Fu[Result] =
     for {
       recentIds <- env.plan.api.recentChargeUserIds
-      bestIds = env.plan.api.topPatronUserIds
-      _ <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
+      bestIds   <- env.plan.api.topPatronUserIds
+      _         <- env.user.lightUserApi preloadMany { recentIds ::: bestIds }
     } yield Ok(
       html.plan.index(
         stripePublicKey = env.plan.stripePublicKey,

@@ -5,17 +5,17 @@ import reactivemongo.api.bson._
 import reactivemongo.api.ReadPreference
 import scala.concurrent.duration._
 
-import lila.common.{ AtMost, Every }
 import lila.db.dsl._
-import lila.memo.PeriodicRefreshCache
+import lila.memo.CacheApi._
 import lila.rating.{ Glicko, Perf, PerfType }
 
 final class RankingApi(
     userRepo: UserRepo,
     coll: Coll,
+    cacheApi: lila.memo.CacheApi,
     mongoCache: lila.memo.MongoCache.Api,
     lightUser: lila.common.LightUser.Getter
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import RankingApi._
   implicit private val rankingBSONHandler = Macros.handler[Ranking]
@@ -64,10 +64,9 @@ final class RankingApi(
       coll.ext
         .find($doc("perf" -> perfId, "stable" -> true))
         .sort($doc("rating" -> -1))
-        .cursor[Ranking](readPreference = ReadPreference.secondaryPreferred)
-        .gather[List](nb) flatMap { res =>
-        res
-          .map { r =>
+        .list[Ranking](nb, readPreference = ReadPreference.secondaryPreferred)
+        .flatMap {
+          _.map { r =>
             lightUser(r.user).map {
               _ map { light =>
                 User.LightPerf(
@@ -78,13 +77,12 @@ final class RankingApi(
                 )
               }
             }
-          }
-          .sequenceFu
-          .map(_.flatten)
-      }
+          }.sequenceFu
+            .dmap(_.flatten)
+        }
     }
 
-  def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
+  private[user] def fetchLeaderboard(nb: Int): Fu[Perfs.Leaderboards] =
     for {
       ultraBullet   <- topPerf(PerfType.UltraBullet.id, nb)
       bullet        <- topPerf(PerfType.Bullet.id, nb)
@@ -119,23 +117,23 @@ final class RankingApi(
 
     private type Rank = Int
 
-    def of(userId: User.ID): Map[PerfType, Rank] =
-      cache.get flatMap {
-        case (pt, ranking) => ranking get userId map (pt -> _)
-      } toMap
+    def of(userId: User.ID): Fu[Map[PerfType, Rank]] =
+      cache.getUnit map { all =>
+        all.flatMap {
+          case (pt, ranking) => ranking get userId map (pt -> _)
+        } toMap
+      }
 
-    private val cache = new PeriodicRefreshCache[Map[PerfType, Map[User.ID, Rank]]](
-      every = Every(15 minutes),
-      atMost = AtMost(3 minutes),
-      f = () =>
-        lila.common.Future
-          .traverseSequentially(PerfType.leaderboardable) { pt =>
-            compute(pt) map (pt -> _)
-          }
-          .map(_.toMap),
-      default = Map.empty,
-      initialDelay = 1 minute
-    )
+    private val cache = cacheApi.unit[Map[PerfType, Map[User.ID, Rank]]] {
+      _.refreshAfterWrite(15 minutes)
+        .buildAsyncFuture { _ =>
+          lila.common.Future
+            .traverseSequentially(PerfType.leaderboardable) { pt =>
+              compute(pt) dmap (pt -> _)
+            }
+            .dmap(_.toMap)
+        }
+    }
 
     private def compute(pt: PerfType): Fu[Map[User.ID, Rank]] =
       coll.ext

@@ -5,10 +5,9 @@ import reactivemongo.api._
 import scala.concurrent.duration._
 
 import lila.common.config.Secret
-import lila.common.{ AtMost, Bus, Every }
+import lila.common.Bus
 import lila.db.dsl._
 import lila.memo.CacheApi._
-import lila.memo.PeriodicRefreshCache
 import lila.user.{ User, UserRepo }
 
 final class PlanApi(
@@ -19,9 +18,10 @@ final class PlanApi(
     userRepo: UserRepo,
     lightUserApi: lila.user.LightUserApi,
     cacheApi: lila.memo.CacheApi,
+    mongoCache: lila.memo.MongoCache.Api,
     payPalIpnKey: Secret,
     monthlyGoalApi: MonthlyGoalApi
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext) {
 
   import BsonHandlers._
   import PatronHandlers._
@@ -309,30 +309,33 @@ final class PlanApi(
     chargeColl.ext.find($doc("userId" -> user.id)).sort($doc("date" -> -1)).list[Charge]()
 
   private val topPatronUserIdsNb = 300
-  private val topPatronUserIdsCache = new PeriodicRefreshCache[List[User.ID]](
-    every = Every(1 hour),
-    atMost = AtMost(1 minute),
-    f = () =>
-      chargeColl
-        .aggregateList(
-          maxDocs = topPatronUserIdsNb * 2,
-          readPreference = ReadPreference.secondaryPreferred
-        ) { framework =>
-          import framework._
-          Match($doc("userId" $exists true)) -> List(
-            GroupField("userId")("total" -> SumField("cents")),
-            Sort(Descending("total")),
-            Limit(topPatronUserIdsNb * 3 / 2)
-          )
+  private val topPatronUserIdsCache = mongoCache.unit[List[User.ID]](
+    "patron:top",
+    59 minutes
+  ) { loader =>
+    _.refreshAfterWrite(60 minutes)
+      .buildAsyncFuture {
+        loader { _ =>
+          chargeColl
+            .aggregateList(
+              maxDocs = topPatronUserIdsNb * 2,
+              readPreference = ReadPreference.secondaryPreferred
+            ) { framework =>
+              import framework._
+              Match($doc("userId" $exists true)) -> List(
+                GroupField("userId")("total" -> SumField("cents")),
+                Sort(Descending("total")),
+                Limit(topPatronUserIdsNb * 3 / 2)
+              )
+            }
+            .dmap {
+              _.flatMap { _.getAsOpt[User.ID]("_id") }
+            } flatMap filterUserIds dmap (_ take topPatronUserIdsNb)
         }
-        .dmap {
-          _.flatMap { _.getAsOpt[User.ID]("_id") }
-        } flatMap filterUserIds dmap (_ take topPatronUserIdsNb),
-    default = Nil,
-    initialDelay = 35 seconds
-  )
+      }
+  }
 
-  def topPatronUserIds: List[User.ID] = topPatronUserIdsCache.get
+  def topPatronUserIds: Fu[List[User.ID]] = topPatronUserIdsCache.get({})
 
   private def filterUserIds(ids: List[User.ID]): Fu[List[User.ID]] = {
     val dedup = ids.distinct

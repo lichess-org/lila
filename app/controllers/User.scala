@@ -164,10 +164,10 @@ final class User(
     negotiate(
       html = notFoundJson(),
       api = _ =>
-        fuccess {
+        env.user.cached.getTop50Online map { users =>
           Ok(
             Json.toJson(
-              env.user.cached.getTop50Online
+              users
                 .take(getInt("nb", req).fold(10)(_ min max))
                 .map(env.user.jsonView(_))
             )
@@ -227,43 +227,45 @@ final class User(
   }
 
   def list = Open { implicit ctx =>
-    val leaderboards = env.user.cached.top10.get
-    negotiate(
-      html =
-        for {
-          nbAllTime      <- env.user.cached.top10NbGame.get({})
-          tourneyWinners <- env.tournament.winners.all.map(_.top)
-          _              <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
-        } yield Ok(
-          html.user.list(
-            tourneyWinners = tourneyWinners,
-            online = env.user.cached.getTop50Online,
-            leaderboards = leaderboards,
-            nbAllTime = nbAllTime
-          )
-        ),
-      api = _ =>
-        fuccess {
-          implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
-          Ok(
-            Json.obj(
-              "bullet"        -> leaderboards.bullet,
-              "blitz"         -> leaderboards.blitz,
-              "rapid"         -> leaderboards.rapid,
-              "classical"     -> leaderboards.classical,
-              "ultraBullet"   -> leaderboards.ultraBullet,
-              "crazyhouse"    -> leaderboards.crazyhouse,
-              "chess960"      -> leaderboards.chess960,
-              "kingOfTheHill" -> leaderboards.kingOfTheHill,
-              "threeCheck"    -> leaderboards.threeCheck,
-              "antichess"     -> leaderboards.antichess,
-              "atomic"        -> leaderboards.atomic,
-              "horde"         -> leaderboards.horde,
-              "racingKings"   -> leaderboards.racingKings
+    env.user.cached.top10.get({}) flatMap { leaderboards =>
+      negotiate(
+        html =
+          for {
+            nbAllTime      <- env.user.cached.top10NbGame.get({})
+            tourneyWinners <- env.tournament.winners.all.map(_.top)
+            topOnline      <- env.user.cached.getTop50Online
+            _              <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
+          } yield Ok(
+            html.user.list(
+              tourneyWinners = tourneyWinners,
+              online = topOnline,
+              leaderboards = leaderboards,
+              nbAllTime = nbAllTime
             )
-          )
-        }
-    )
+          ),
+        api = _ =>
+          fuccess {
+            implicit val lpWrites = OWrites[UserModel.LightPerf](env.user.jsonView.lightPerfIsOnline)
+            Ok(
+              Json.obj(
+                "bullet"        -> leaderboards.bullet,
+                "blitz"         -> leaderboards.blitz,
+                "rapid"         -> leaderboards.rapid,
+                "classical"     -> leaderboards.classical,
+                "ultraBullet"   -> leaderboards.ultraBullet,
+                "crazyhouse"    -> leaderboards.crazyhouse,
+                "chess960"      -> leaderboards.chess960,
+                "kingOfTheHill" -> leaderboards.kingOfTheHill,
+                "threeCheck"    -> leaderboards.threeCheck,
+                "antichess"     -> leaderboards.antichess,
+                "atomic"        -> leaderboards.atomic,
+                "horde"         -> leaderboards.horde,
+                "racingKings"   -> leaderboards.racingKings
+              )
+            )
+          }
+      )
+    }
   }
 
   def topNb(nb: Int, perfKey: String) = Open { implicit ctx =>
@@ -426,9 +428,9 @@ final class User(
       else
         PerfType(perfKey).fold(notFound) { perfType =>
           for {
+            ranks       <- env.user.cached rankingsOf u.id
             oldPerfStat <- env.perfStat.get(u, perfType)
             perfStat = oldPerfStat.copy(playStreak = oldPerfStat.playStreak.checkCurrent)
-            ranks    = env.user.cached rankingsOf u.id
             distribution <- u.perfs(perfType).established ?? {
               env.user.rankingApi.weeklyRatingDistribution(perfType) dmap some
             }

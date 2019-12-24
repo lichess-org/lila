@@ -146,11 +146,12 @@ object UserInfo {
         (user.count.rated >= 10).??(insightShare.grant(user, ctx.me)) zip
         playTimeApi(user).mon(_.user segment "playTime") zip
         playbanApi.completionRate(user.id).mon(_.user segment "completion") zip
-        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") map {
-        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate ~ hasSimul =>
+        (nbs.playing > 0) ?? isHostingSimul(user.id).mon(_.user segment "simul") zip
+        userCached.rankingsOf(user.id) map {
+        case ratingChart ~ nbFollowers ~ nbBlockers ~ nbPosts ~ nbStudies ~ trophies ~ shields ~ revols ~ teamIds ~ isCoach ~ isStreamer ~ insightVisible ~ playTime ~ completionRate ~ hasSimul ~ ranks =>
           new UserInfo(
             user = user,
-            ranks = userCached.rankingsOf(user.id),
+            ranks = ranks,
             nbs = nbs,
             hasSimul = hasSimul,
             ratingChart = ratingChart,
