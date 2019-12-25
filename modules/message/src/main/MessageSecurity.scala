@@ -4,6 +4,7 @@ import org.joda.time.DateTime
 
 import lila.shutup.Analyser
 import lila.user.User
+import lila.hub.actorApi.report.AutoFlag
 
 final private[message] class MessageSecurity(
     relationApi: lila.relation.RelationApi,
@@ -32,8 +33,13 @@ final private[message] class MessageSecurity(
     } else if (creator.troll) !relationApi.fetchFollows(invited.id, creator.id)
     else if (Analyser(fullText).dirty && creator.createdAt.isAfter(DateTime.now.minusDays(30))) {
       relationApi.fetchFollows(invited.id, creator.id) map { f =>
-        if (!f)
+        if (!f) thread.firstPost.foreach { post =>
           logger.warn(s"Mute dirty thread ${creator.username} -> ${invited.username} ${fullText.take(140)}")
+          lila.common.Bus.publish(
+            AutoFlag(creator.id, s"message/${thread.id}", thread flaggableText post),
+            "autoFlag"
+          )
+        }
         !f
       }
     } else fuFalse

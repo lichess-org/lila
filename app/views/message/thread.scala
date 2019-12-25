@@ -51,7 +51,7 @@ object thread {
               (!thread.isLichess && !thread.isWrittenBy(post, me)) option views.html.report.form.flag(
                 username = thread otherUserId me,
                 resource = s"message/${thread.id}",
-                text = if (thread isFirstPost post) s"${thread.name} / ${post.text}" else post.text
+                text = thread.flaggableText(post)
               )
             ),
             div(cls := "message-thread__message__body")(richText(post.text))

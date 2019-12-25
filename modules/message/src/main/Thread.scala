@@ -109,6 +109,10 @@ case class Thread(
       case p                                           => p
     }
   )
+
+  def flaggableText(post: Post) =
+    if (isFirstPost(post)) s"${name} / ${post.text}"
+    else post.text
 }
 
 object Thread {

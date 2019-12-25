@@ -79,6 +79,22 @@ final class ReportApi(
       )
     )
 
+  def autoCommFlag(suspectId: SuspectId, resource: String, text: String) =
+    getLichessReporter flatMap { reporter =>
+      getSuspect(suspectId.value) flatMap {
+        _ ?? { suspect =>
+          create(
+            Candidate(
+              reporter,
+              suspect,
+              Reason.Comm,
+              s"${Reason.Comm.flagText} $resource ${text take 140}"
+            )
+          )
+        }
+      }
+    }
+
   private def isAlreadySlain(candidate: Candidate) =
     (candidate.isCheat && candidate.suspect.user.engine) ||
       (candidate.isAutomatic && candidate.isOther && candidate.suspect.user.troll) ||
