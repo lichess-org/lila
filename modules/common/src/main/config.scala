@@ -15,7 +15,9 @@ object config {
 
   case class BaseUrl(value: String) extends AnyVal with StringValue
 
-  case class AppPath(value: java.io.File) extends AnyVal
+  case class AppPath(value: java.io.File) extends AnyVal {
+    override def toString = value.toString
+  }
 
   case class Max(value: Int) extends AnyVal with IntValue with Ordered[Int] {
     def compare(other: Int) = Integer.compare(value, other)

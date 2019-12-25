@@ -10,7 +10,7 @@ final class Env(
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   lazy val jsDump = new JsDump(
-    path = s"${appPath}/${appConfig.get[String]("i18n.web_path.relative")}"
+    path = s"$appPath/${appConfig.get[String]("i18n.web_path.relative")}"
   )
 
   def cli = new lila.common.Cli {
