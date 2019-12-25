@@ -33,6 +33,8 @@ case class Thread(
 
   def isUnReadBy(user: User) = !isReadBy(user)
 
+  def isNeverRead = firstPost.fold(true)(_.isUnRead)
+
   private def isPostUnreadBy(user: User)(post: Post) =
     post.isUnRead && post.isByCreator != isCreator(user)
 

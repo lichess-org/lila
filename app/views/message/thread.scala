@@ -64,7 +64,7 @@ object thread {
               " blocks you. You cannot reply."
             )
           else {
-            if (!thread.isVisibleByOther(me) && !me.troll)
+            if (!thread.isVisibleByOther(me) && !me.troll && !thread.isNeverRead)
               p(cls := "end")(
                 userIdLink(thread.visibleOtherUserId(me).some),
                 " has closed this thread. ",
