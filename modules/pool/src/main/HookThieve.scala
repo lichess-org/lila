@@ -12,11 +12,10 @@ final private class HookThieve()(
   import HookThieve._
 
   def candidates(clock: chess.Clock.Config, monId: String): Fu[PoolHooks] =
-    Bus.ask[PoolHooks]("lobbyTrouper")(GetCandidates(clock, _)) recover {
-      case _ =>
-        lila.mon.lobby.pool.thieve.timeout(monId).increment()
-        PoolHooks(Vector.empty)
-    }
+    Bus
+      .ask[PoolHooks]("lobbyTrouper")(GetCandidates(clock, _))
+      .logFailure(logger)
+      .nevermind(PoolHooks(Vector.empty))
 
   def stolen(poolHooks: Vector[PoolHook], monId: String) = {
     lila.mon.lobby.pool.thieve.stolen(monId).record(poolHooks.size)

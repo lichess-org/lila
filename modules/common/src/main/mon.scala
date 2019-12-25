@@ -111,17 +111,7 @@ object mon {
         def withRange(id: String)  = histogram("lobby.pool.wave.withRange").withTag("pool", id)
       }
       object thieve {
-        def timeout(id: String) = counter("lobby.pool.thieve.timeout").withTag("pool", id)
-        def stolen(id: String)  = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
-      }
-      object leave {
-        def count(id: String) = counter("lobby.pool.leave.count").withTag("pool", id)
-      }
-      object matchMaking {
-        def duration(id: String) = timer("lobby.pool.matchMaking.duration").withTag("pool", id)
-      }
-      object gameStart {
-        def duration(id: String) = timer("lobby.pool.gameStart.duration").withTag("pool", id)
+        def stolen(id: String) = histogram("lobby.pool.thieve.stolen").withTag("pool", id)
       }
     }
     private val lobbySegment = timer("lobby.segment")

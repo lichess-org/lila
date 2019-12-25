@@ -50,15 +50,14 @@ final private class PoolActor(
     case Leave(userId) =>
       members.find(_.userId == userId) foreach { member =>
         members = members.filter(member !=)
-        monitor.leave.count(monId).increment()
       }
 
     case ScheduledWave =>
-      monitor.wave.scheduled(monId).increment()
+      monitor.scheduled(monId).increment()
       self ! RunWave
 
     case FullWave =>
-      monitor.wave.full(monId).increment()
+      monitor.full(monId).increment()
       self ! RunWave
 
     case RunWave =>
@@ -67,13 +66,11 @@ final private class PoolActor(
 
     case HookThieve.PoolHooks(hooks) => {
 
-      monitor.wave.withRange(monId).record(members.count(_.hasRange))
+      monitor.withRange(monId).record(members.count(_.hasRange))
 
       val candidates = members ++ hooks.map(_.member)
 
-      val pairings = lila.common.Chronometer.syncMon(_.lobby.pool.matchMaking.duration(monId)) {
-        MatchMaking(candidates)
-      }
+      val pairings = MatchMaking(candidates)
 
       val pairedMembers = pairings.flatMap(_.members)
 
@@ -83,17 +80,16 @@ final private class PoolActor(
 
       members = members.diff(pairedMembers).map(_.incMisses)
 
-      if (pairings.nonEmpty)
-        gameStarter(config, pairings).mon(_.lobby.pool.gameStart.duration(monId))
+      if (pairings.nonEmpty) gameStarter(config, pairings)
 
-      monitor.wave.candidates(monId).record(candidates.size)
-      monitor.wave.paired(monId).record(pairedMembers.size)
-      monitor.wave.missed(monId).record(members.size)
+      monitor.candidates(monId).record(candidates.size)
+      monitor.paired(monId).record(pairedMembers.size)
+      monitor.missed(monId).record(members.size)
       pairedMembers.foreach { m =>
-        monitor.wave.wait(monId).record(m.waitMillis)
+        monitor.wait(monId).record(m.waitMillis)
       }
       pairings.foreach { p =>
-        monitor.wave.ratingDiff(monId).record(p.ratingDiff)
+        monitor.ratingDiff(monId).record(p.ratingDiff)
       }
 
       scheduleWave()
@@ -105,7 +101,7 @@ final private class PoolActor(
       }
   }
 
-  val monitor = lila.mon.lobby.pool
+  val monitor = lila.mon.lobby.pool.wave
   val monId   = config.id.value.replace('+', '_')
 }
 
