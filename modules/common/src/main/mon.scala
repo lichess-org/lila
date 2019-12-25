@@ -231,10 +231,9 @@ object mon {
   }
   object mod {
     object report {
-      val unprocessed             = gauge("mod.report.unprocessed").withoutTags
-      val close                   = counter("mod.report.close").withoutTags
-      def create(reason: String)  = counter("mod.report.create").withTag("reason", reason)
-      def discard(reason: String) = counter("mod.report.discard").withTag("reason", reason)
+      val unprocessed            = gauge("mod.report.unprocessed").withoutTags
+      val close                  = counter("mod.report.close").withoutTags
+      def create(reason: String) = counter("mod.report.create").withTag("reason", reason)
     }
     object log {
       val create = counter("mod.log.create").withoutTags
@@ -259,29 +258,22 @@ object mon {
     def chats(username: String) = counter("bot.chats").withTag("name", username)
   }
   object cheat {
-    val cssBot    = counter("cheat.cssBot").withoutTags
-    val holdAlert = counter("cheat.holdAlert").withoutTags
-    object autoAnalysis {
-      def reason(r: String) = counter("cheat.autoAnalysis").withTag("reason", r)
-    }
-    object autoMark {
-      val count = counter("cheat.autoMark.count").withoutTags
-    }
-    object autoReport {
-      val count = counter("cheat.autoReport.count").withoutTags
-    }
+    val cssBot                       = counter("cheat.cssBot").withoutTags
+    val holdAlert                    = counter("cheat.holdAlert").withoutTags
+    def autoAnalysis(reason: String) = counter("cheat.autoAnalysis").withTag("reason", reason)
+    val autoMark                     = counter("cheat.autoMark.count").withoutTags
+    val autoReport                   = counter("cheat.autoReport.count").withoutTags
   }
   object email {
     object send {
-      private val c     = counter("email.send")
-      val resetPassword = c.withTag("type", "resetPassword")
-      val magicLink     = c.withTag("type", "magicLink")
-      val fix           = c.withTag("type", "fix")
-      val change        = c.withTag("type", "change")
-      val confirmation  = c.withTag("type", "confirmation")
-      val time          = future("email.send.time")
-      val retry         = counter("email.retry").withoutTags
-      val timeout       = counter("email.timeout").withoutTags
+      private val c           = counter("email.send")
+      val resetPassword       = c.withTag("type", "resetPassword")
+      val magicLink           = c.withTag("type", "magicLink")
+      val fix                 = c.withTag("type", "fix")
+      val change              = c.withTag("type", "change")
+      val confirmation        = c.withTag("type", "confirmation")
+      val time                = timer("email.send.time").withoutTags
+      def error(name: String) = counter("email.error").withTag("name", name)
     }
     val disposableDomain = gauge("email.disposableDomain").withoutTags
   }

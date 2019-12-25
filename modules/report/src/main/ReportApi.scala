@@ -139,7 +139,7 @@ final class ReportApi(
       getLichessReporter zip
       findRecent(1, selectRecent(SuspectId(userId), Reason.Cheat)).map(_.flatMap(_.atoms.toList)) flatMap {
       case Some(suspect) ~ reporter ~ atoms if atoms.forall(_.byHuman) =>
-        lila.mon.cheat.autoReport.count.increment()
+        lila.mon.cheat.autoReport.increment()
         create(
           Candidate(
             reporter = reporter,
@@ -288,7 +288,7 @@ final class ReportApi(
       .buildAsyncFuture { _ =>
         coll
           .countSel(selectOpenAvailableInRoom(none))
-          .addEffect(lila.mon.mod.report.unprocessed.increment(_))
+          .addEffect(lila.mon.mod.report.unprocessed.update(_))
       }
   }
 

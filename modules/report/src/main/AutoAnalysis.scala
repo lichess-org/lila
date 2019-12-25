@@ -23,7 +23,7 @@ final class AutoAnalysis(
       if (games.nonEmpty)
         logger.info(s"Auto-analyse ${games.size} games after report by ${candidate.reporter.user.id}")
       games foreach { game =>
-        lila.mon.cheat.autoAnalysis.reason("Report").increment()
+        lila.mon.cheat.autoAnalysis("Report").increment()
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }

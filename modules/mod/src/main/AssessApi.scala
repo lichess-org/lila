@@ -221,7 +221,7 @@ final class AssessApi(
 
     shouldAnalyse map {
       _ ?? { reason =>
-        lila.mon.cheat.autoAnalysis.reason(reason.toString).increment()
+        lila.mon.cheat.autoAnalysis(reason.toString).increment()
         fishnet ! lila.hub.actorApi.fishnet.AutoAnalyse(game.id)
       }
     }

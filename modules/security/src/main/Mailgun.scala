@@ -36,19 +36,22 @@ final class Mailgun(
             Map("html" -> Seq(Mailgun.html.wrap(msg.subject, body).render))
           }
         )
-        .void
         .addFailureEffect {
-          case _: java.net.ConnectException => lila.mon.email.send.timeout.increment()
+          case _: java.net.ConnectException => lila.mon.email.send.error("timeout").increment()
           case _                            =>
         }
-        .monSuccess(_.email.send.time)
+        .flatMap {
+          case res if res.status >= 300 =>
+            lila.mon.email.send.error(res.status.toString).increment()
+            fufail(s"Can't send to mailgun: ${res.status}")
+          case _ => funit
+        }
+        .mon(_.email.send.time)
         .recoverWith {
-          case _ if msg.retriesLeft > 0 => {
-            lila.mon.email.send.retry.increment()
+          case _ if msg.retriesLeft > 0 =>
             akka.pattern.after(15 seconds, system.scheduler) {
               send(msg.copy(retriesLeft = msg.retriesLeft - 1))
             }
-          }
         }
 }
 
