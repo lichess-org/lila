@@ -39,7 +39,7 @@ final class MongoCache[K, V: BSONHandler] private (
           }
           .mon(_.mongoCache.compute(name))
       case Some(entry) =>
-        lila.mon.mongoCache.request(name, false).increment()
+        lila.mon.mongoCache.request(name, true).increment()
         fuccess(entry.v)
     }
   }
