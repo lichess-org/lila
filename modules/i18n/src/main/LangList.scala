@@ -23,6 +23,7 @@ object LangList {
     Lang("be", "BY")  -> "Беларуская",
     Lang("bg", "BG")  -> "български език",
     Lang("bn", "BD")  -> "বাংলা",
+    Lang("br", "FR")  -> "Brezhoneg",
     Lang("bs", "BA")  -> "bosanski",
     Lang("ca", "ES")  -> "Català, valencià",
     Lang("cs", "CZ")  -> "čeština",
