@@ -1,47 +1,317 @@
 @mixin coords-colors {
   .blue {
-    coord { text-shadow: none; }
+    coords { text-shadow: none; }
     .orientation-white .files coords:nth-child(2n+1),
     .orientation-white .ranks coords:nth-child(2n),
     .orientation-black .files coords:nth-child(2n),
     .orientation-black .ranks coords:nth-child(2n+1) {
       color: #DEE3E6;
     }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
       color: #788a94;
     }
   }
+  .blue2 {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #97b2c7;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #546f82;
+    }
+  }
+  .blue3 {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #d9e0e6;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #315991;
+    }
+  }
+  .canvas {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #d7daeb;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #547388;
+    }
+  }
+  .wood {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #d8a45b;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #9b4d0f;
+    }
+  }
+  .wood2 {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #a38b5d;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #6c5017;
+    }
+  }
+  .wood3 {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #d0ceca;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #755839;
+    }
+  }
+  .maple {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #e8ceab;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #bc7944;
+    }
+  }
   .brown {
-    coord { text-shadow: none; }
-    .orientation-white .files coord:nth-child(2n+1),
-    .orientation-white .ranks coord:nth-child(2n),
-    .orientation-black .files coord:nth-child(2n),
-    .orientation-black .ranks coord:nth-child(2n+1) {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
       color: #F0D9B5;
     }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
       color: #946f51;
     }
   }
+  .leather {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #d1d1c9;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #c28e16;
+    }
+  }
   .green {
-    coord { text-shadow: none; }
+    coords { text-shadow: none; }
     .orientation-white .files coords:nth-child(2n+1),
     .orientation-white .ranks coords:nth-child(2n),
     .orientation-black .files coords:nth-child(2n),
     .orientation-black .ranks coords:nth-child(2n+1) {
       color: #FFFFDD;
     }
-    .orientation-white .files coord:nth-child(2n),
-    .orientation-white .ranks coord:nth-child(2n+1),
-    .orientation-black .files coord:nth-child(2n+1),
-    .orientation-black .ranks coord:nth-child(2n) {
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
       color: #6d8753;
+    }
+  }
+  .marble {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #93ab91;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #4f644e;
+    }
+  }
+  .green-plastic {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #f2f9bb;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #59935d;
+    }
+  }
+  .green-glass {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #fafa97;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #e4a836;
+    }
+  }
+  .grey {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #b8b8b8;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #7d7d7d;
+    }
+  }
+  .metal {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #c9c9c9;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #727272;
+    }
+  }
+  .olive {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #b8b19f;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #6d6655;
+    }
+  }
+  .newspaper {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #ededed;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #8d8d8d;
+    }
+  }
+  .purple {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #9f90b0;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #7d4a8d;
+    }
+  }
+  .pink {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #f1f1c9;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #f07272;
+    }
+  }
+  .ic {
+    coords { text-shadow: none; }
+    .orientation-white .files coords:nth-child(2n+1),
+    .orientation-white .ranks coords:nth-child(2n),
+    .orientation-black .files coords:nth-child(2n),
+    .orientation-black .ranks coords:nth-child(2n+1) {
+      color: #ececec;
+    }
+    .orientation-white .files coords:nth-child(2n),
+    .orientation-white .ranks coords:nth-child(2n+1),
+    .orientation-black .files coords:nth-child(2n+1),
+    .orientation-black .ranks coords:nth-child(2n) {
+      color: #c1c18e;
     }
   }
 }
