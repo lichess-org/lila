@@ -114,7 +114,7 @@ final class CrosstableApi(
 
   private val creationQueue = Source
     .queue[Creation](512, OverflowStrategy.dropNew)
-    .mapAsyncUnordered(8) {
+    .mapAsyncUnordered(12) {
       case ((u1, u2), promise) =>
         justFetch(u1, u2) flatMap {
           case Some(found) =>
