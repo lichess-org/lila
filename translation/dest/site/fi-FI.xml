@@ -871,4 +871,22 @@
   </plurals>
   <string name="sorry">Pahoittelumme :(</string>
   <string name="weHadToTimeYouOutForAWhile">Meidän täytyi komentaa sinut jäähylle hetkeksi.</string>
+  <string name="timeoutExpires">Jäähy päättyy %s.</string>
+  <string name="why">Miksi?</string>
+  <string name="pleasantChessExperience">Haluamme tarjota mukavan shakkielämyksen kaikille.</string>
+  <string name="goodPractice">Siksi meidän tulee huolehtia siitä, että kaikki käyttäytyvät asiallisesti.</string>
+  <string name="potentialProblem">Kun mahdollinen ongelma havaitaan, näytämme tämän viestin.</string>
+  <string name="howToAvoidThis">Miten tämän välttää?</string>
+  <string name="playEveryGame">Pelaa pelit loppuun jotka aloitat.</string>
+  <string name="tryToWin">Yritä voittaa (tai edes pelata tasan) joka peli jonka pelaat.</string>
+  <string name="resignLostGames">Luovuta hävityt pelit (äläkä juoksuta kelloa loppuun).</string>
+  <string name="temporaryInconvenience">Pahoittelemme tilapäistä harmia,</string>
+  <string name="wishYouGreatGames">ja toivotamme hyviä pelejä lichess.org -sivustolla.</string>
+  <string name="thankYouForReading">Kiitos kun luit!</string>
+  <string name="lifetimeScore">Kaikkien aikojen yhteistilanne</string>
+  <string name="currentMatchScore">Nykyisen ottelun tilanne</string>
+  <string name="agreementAssistance">Vakuutan etten ota vastaan ulkopuolista apua pelieni aikana (shakkitietokoneilta, kirjoilta, tietokannoilta enkä muilta ihmisiltä).</string>
+  <string name="agreementNice">Vakuutan että käyttäydyn aina muita pelaajia kunnioittaen.</string>
+  <string name="agreementAccount">Vakuutan etten luo useita tunnuksia.</string>
+  <string name="agreementPolicy">Vakuutan että noudatan Lichessin sääntöjä.</string>
 </resources>
