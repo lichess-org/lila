@@ -247,6 +247,7 @@ object mon {
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
     }
+    def zoneSegment(name: String) = future("mod.zone.segment")
   }
   object relay {
     val ongoing  = gauge("relay.ongoing").withoutTags

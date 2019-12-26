@@ -8,6 +8,7 @@ import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
 import scala.language.existentials
+import scalatags.Text.Frag
 
 import lila.api.{ BodyContext, Context }
 import lila.app._
@@ -302,9 +303,12 @@ final class User(
     if (HTTPRequest isEventSource ctx.req) renderModZone(username)
     else fuccess(modC.redirect(username))
 
-  private def futureToSource[A](fu: Fu[Option[A]]): Source[A, _] = Source futureSource {
-    fu.map(_.fold(Source.empty[A])(Source.single))
-  }
+  private def modZoneSegment[A](fu: Fu[Option[A]], name: String, user: UserModel): Source[A, _] =
+    Source futureSource {
+      fu.monSuccess(_.mod zoneSegment name)
+        .logFailure(lila.log("modZoneSegment").branch(s"$name ${user.id}"))
+        .map(_.fold(Source.empty[A])(Source.single))
+    }
 
   protected[controllers] def renderModZone(username: String)(implicit ctx: Context): Fu[Result] = {
     env.user.repo withEmails username orFail s"No such user $username" map {
@@ -348,15 +352,15 @@ final class User(
               .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
           }
         }
-        implicit val extractor = EventSource.EventDataExtractor[scalatags.Text.Frag](_.render)
+        implicit val extractor = EventSource.EventDataExtractor[Frag](_.render)
         Ok.chunked {
             Source.single(html.user.mod.menu(user)) merge
-              futureToSource(parts.logTimeIfGt(s"$username parts", 2 seconds)) merge
-              futureToSource(actions.logTimeIfGt(s"$username actions", 2 seconds)) merge
-              futureToSource(others.logTimeIfGt(s"$username others", 2 seconds)) merge
-              futureToSource(identification.logTimeIfGt(s"$username identification", 2 seconds)) merge
-              futureToSource(irwin.logTimeIfGt(s"$username irwin", 2 seconds)) merge
-              futureToSource(assess.logTimeIfGt(s"$username assess", 2 seconds)) via
+              modZoneSegment(parts, "parts", user) merge
+              modZoneSegment(actions, "actions", user) merge
+              modZoneSegment(others, "others", user) merge
+              modZoneSegment(identification, "identification", user) merge
+              modZoneSegment(irwin, "irwin", user) merge
+              modZoneSegment(assess, "assess", user) via
               EventSource.flow
           }
           .as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
