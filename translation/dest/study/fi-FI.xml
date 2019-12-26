@@ -83,6 +83,24 @@
   <string name="rightUnderTheBoard">Heti laudan alla</string>
   <string name="noPinnedComment">Ei</string>
   <string name="normalAnalysis">Tavallinen analyysi</string>
+  <string name="hideNextMoves">Piilota tulevat siirrot</string>
+  <string name="interactiveLesson">Interaktiivinen oppitunti</string>
+  <string name="chapterX">Luku %s</string>
+  <string name="empty">Tyhjä</string>
+  <string name="startFromInitialPosition">Aloita alkuasemasta</string>
+  <string name="editor">Editori</string>
+  <string name="startFromCustomPosition">Aloita haluamastasi asemasta</string>
+  <string name="loadAGameByUrl">Lataa peli URL:stä</string>
+  <string name="loadAPositionFromFen">Lataa asema FEN:istä</string>
+  <string name="loadAGameFromPgn">Ota peli PGN:stä</string>
+  <string name="automatic">Automaattinen</string>
+  <plurals name="pasteYourPgnTextHereUpToNbGames">
+    <item quantity="one">Liitä PGN tähän, enintään %s peli</item>
+    <item quantity="other">Liitä PGN tähän, enintään %s peliä</item>
+  </plurals>
+  <string name="urlOfTheGame">URL peliin</string>
+  <string name="loadAGameFromXOrY">Lataa peli lähteestä %1$s tai %2$s</string>
+  <string name="createChapter">Aloita luku</string>
   <string name="everyone">Kaikki</string>
   <string name="enableSync">Sync käyttöön</string>
   <string name="yesKeepEveryoneOnTheSamePosition">Kyllä: pidä kaikki samassa asemassa</string>
