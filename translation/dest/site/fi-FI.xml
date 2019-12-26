@@ -59,6 +59,7 @@
   <string name="promoteVariation">Nosta muunnelmaa</string>
   <string name="makeMainLine">Päämuunnelmaksi</string>
   <string name="deleteFromHere">Poista tästä alkaen</string>
+  <string name="forceVariation">Pakota muunnelmaksi</string>
   <string name="move">Siirto</string>
   <string name="variantLoss">Variantin tappio</string>
   <string name="variantWin">Variantin voitto</string>
@@ -203,6 +204,7 @@
   <string name="playingRightNow">Pelaamassa juuri nyt</string>
   <string name="eventInProgress">Pelataan paraikaa</string>
   <string name="finished">Päättynyt</string>
+  <string name="finishesX">päättyy %s</string>
   <string name="abortGame">Keskeytä peli</string>
   <string name="gameAborted">Peli keskeytetty</string>
   <string name="standard">Tavallinen</string>
@@ -342,6 +344,7 @@
   <string name="pasteThePgnStringHere">Liitä PGN-merkkijono tähän</string>
   <string name="fromPosition">Asemasta</string>
   <string name="continueFromHere">Jatka tästä</string>
+  <string name="toStudy">Tutki</string>
   <string name="importGame">Tuo peli</string>
   <string name="importGameExplanation">Kun liität pelin PGN:n, voit selata peliä, näet tietokoneen analyysin ja pelille luodaan chat sekä URL, jonka voi jakaa.</string>
   <plurals name="nbImportedGames">
@@ -352,6 +355,7 @@
   <string name="clickOnTheBoardToMakeYourMove">Tee siirtosi todistaaksesi olevasi ihminen.</string>
   <string name="captcha.fail">Ratkaise shakki-captcha.</string>
   <string name="notACheckmate">Siirto ei ole shakkimatti</string>
+  <string name="whiteCheckmatesInOneMove">Valkean yhden siirron matti</string>
   <string name="retry">Yritä uudelleen</string>
   <string name="reconnecting">Yhdistetään uudelleen</string>
   <string name="noFriendsOnline">Ei kavereita paikalla</string>
