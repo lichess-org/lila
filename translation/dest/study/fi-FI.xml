@@ -12,4 +12,27 @@
   <string name="studiesCreatedByX">%s luomat tutkielmat</string>
   <string name="noneYet">Ei mitään.</string>
   <string name="hot">Kuumat</string>
+  <string name="dateAddedNewest">Luotu (uusin)</string>
+  <string name="dateAddedOldest">Luotu (vanhin)</string>
+  <string name="recentlyUpdated">Viimeksi päivitetyt</string>
+  <string name="mostPopular">Suosituimmat</string>
+  <string name="addNewChapter">Lisää uusi luku</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s luku</item>
+    <item quantity="other">%s lukua</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s peli</item>
+    <item quantity="other">%s peliä</item>
+  </plurals>
+  <string name="addMembers">Lisää jäseniä</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s jäsen</item>
+    <item quantity="other">%s jäsentä</item>
+  </plurals>
+  <string name="inviteToTheStudy">Kutsu tutkielmaan</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">Kutsu vain ihmisiä jotka tunnet ja jotka aktiivisesti haluavat osallistua.</string>
+  <string name="searchByUsername">Etsi käyttäjätunnuksella</string>
+  <string name="spectator">Katsoja</string>
+  <string name="contributor">Osallistuja</string>
 </resources>
