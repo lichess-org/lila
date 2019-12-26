@@ -3,6 +3,7 @@ package controllers
 import akka.stream.scaladsl._
 import play.api.data.Form
 import play.api.http.ContentTypes
+import play.api.libs.EventSource
 import play.api.libs.json._
 import play.api.mvc._
 import scala.concurrent.duration._
@@ -347,16 +348,15 @@ final class User(
               .preloadMany(as.games.flatMap(_.userIds)) inject html.user.mod.assessments(as).some
           }
         }
-        import play.api.libs.EventSource
         implicit val extractor = EventSource.EventDataExtractor[scalatags.Text.Frag](_.render)
         Ok.chunked {
-            (Source.single(html.user.mod.menu(user)) merge
+            Source.single(html.user.mod.menu(user)) merge
               futureToSource(parts.logTimeIfGt(s"$username parts", 2 seconds)) merge
               futureToSource(actions.logTimeIfGt(s"$username actions", 2 seconds)) merge
               futureToSource(others.logTimeIfGt(s"$username others", 2 seconds)) merge
               futureToSource(identification.logTimeIfGt(s"$username identification", 2 seconds)) merge
               futureToSource(irwin.logTimeIfGt(s"$username irwin", 2 seconds)) merge
-              futureToSource(assess.logTimeIfGt(s"$username assess", 2 seconds))) via
+              futureToSource(assess.logTimeIfGt(s"$username assess", 2 seconds)) via
               EventSource.flow
           }
           .as(ContentTypes.EVENT_STREAM) |> noProxyBuffer
