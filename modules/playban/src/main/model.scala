@@ -87,7 +87,7 @@ object TempBan {
 
   private def make(minutes: Int) = TempBan(
     DateTime.now,
-    minutes atMost 48 * 60
+    minutes atMost 3 * 24 * 60
   )
 
   private val baseMinutes = 10
