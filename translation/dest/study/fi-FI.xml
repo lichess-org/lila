@@ -44,4 +44,16 @@
   <string name="newTag">Uusi tunniste</string>
   <string name="commentThisPosition">Kommentoi asemaa</string>
   <string name="commentThisMove">Kommentoi siirtoa</string>
+  <string name="annotateWithGlyphs">Arvioi symbolein</string>
+  <string name="theChapterIsTooShortToBeAnalysed">Luku on liian lyhyt analysoitavaksi.</string>
+  <string name="onlyContributorsCanRequestAnalysis">Vain tutkielman osallistujat voivat pyytää tietokoneanalyysin.</string>
+  <string name="getAFullComputerAnalysis">Hanki palvelimen päässä tehtävä täysi tietokoneanalyysi päälinjasta.</string>
+  <string name="makeSureTheChapterIsComplete">Varmistu että luku on valmis. Voit pyytää analyysiä vain kerran.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">Kaikki SYNC-jäsenet pysyvät samassa asemassa</string>
+  <string name="shareChanges">Anna katsojien nähdä muutokset ja tallenna ne palvelimelle</string>
+  <string name="playing">Meneillään</string>
+  <string name="first">Alkuun</string>
+  <string name="previous">Edellinen</string>
+  <string name="next">Seuraava</string>
+  <string name="last">Loppuun</string>
 </resources>
