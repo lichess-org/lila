@@ -10,4 +10,5 @@
   <string name="whatAreStudies">Mitä ovat tutkielmat?</string>
   <string name="allStudies">Kaikki tutkielmat</string>
   <string name="studiesCreatedByX">%s luomat tutkielmat</string>
+  <string name="noneYet">Ei mitään.</string>
 </resources>
