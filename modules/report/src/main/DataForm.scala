@@ -6,6 +6,7 @@ import play.api.data.validation._
 import scala.concurrent.duration._
 
 import lila.common.LightUser
+import lila.user.User
 
 final private[report] class DataForm(
     lightUserAsync: LightUser.Getter,
@@ -52,7 +53,7 @@ final private[report] class DataForm(
   )
 
   private def blockingFetchUser(username: String) =
-    lightUserAsync(username).await(1 second, "reportUser")
+    lightUserAsync(User normalize username).await(1 second, "reportUser")
 }
 
 private[report] case class ReportFlag(

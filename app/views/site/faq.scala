@@ -84,7 +84,7 @@ object faq {
           "marks",
           "Why am I flagged for artificial rating manipulation (sandbagging and boosting) or computer assistance?",
           p(
-            "Lichess has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing contact@lichess.org, but decisions are rarely overturned."
+            s"Lichess has strong detection methods and a very thorough process for reviewing all the evidence and making a decision. The process often involves many moderators and can take a long time. Other than the mark itself, we will not go into details about evidence or the decision making process for individual cases. Doing so would make it easier to avoid detection in the future, and be an invitation to unproductive debates. That time and effort is better spent on other important cases. Users can appeal by emailing $contactEmail, but decisions are rarely overturned."
           )
         ),
         question(

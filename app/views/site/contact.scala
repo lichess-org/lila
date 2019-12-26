@@ -30,8 +30,7 @@ object contact {
         p(
           s"Send an email to $contactEmail ",
           strong("from the same email address that you used to create the account"),
-          ".",
-          br,
+          ". ",
           "This is required so we know that you indeed own the account."
         ),
         p("Don't forget to mention your username.")
