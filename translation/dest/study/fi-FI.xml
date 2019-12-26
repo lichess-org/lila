@@ -35,4 +35,13 @@
   <string name="searchByUsername">Etsi käyttäjätunnuksella</string>
   <string name="spectator">Katsoja</string>
   <string name="contributor">Osallistuja</string>
+  <string name="kick">Poista</string>
+  <string name="leaveTheStudy">Jätä tutkielma</string>
+  <string name="youAreNowAContributor">Olet nyt osallistuja</string>
+  <string name="youAreNowASpectator">Olet nyt katsoja</string>
+  <string name="pgnTags">PGN-tunnisteet</string>
+  <string name="like">Tykkää</string>
+  <string name="newTag">Uusi tunniste</string>
+  <string name="commentThisPosition">Kommentoi asemaa</string>
+  <string name="commentThisMove">Kommentoi siirtoa</string>
 </resources>
