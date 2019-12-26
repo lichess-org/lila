@@ -56,4 +56,26 @@
   <string name="previous">Edellinen</string>
   <string name="next">Seuraava</string>
   <string name="last">Loppuun</string>
+  <string name="shareAndExport">Jaa &amp; vie</string>
+  <string name="cloneStudy">Kloonaa</string>
+  <string name="studyPgn">Tutkielman PGN</string>
+  <string name="chapterPgn">Luvun PGN</string>
+  <string name="studyUrl">Tutkielman URL</string>
+  <string name="currentChapterUrl">Nykyisen luvun URL</string>
+  <string name="youCanPasteThisInTheForumToEmbedTheChapter">Voit upottaa kappaleen foorumille liittämällä tämän</string>
+  <string name="startAtInitialPosition">Aloita alkuperäisestä asemasta</string>
+  <string name="startAtX">Aloita siirrosta %s</string>
+  <string name="embedThisChapter">Upota luku verkkosivustollesi tai blogiin</string>
+  <string name="everyone">Kaikki</string>
+  <string name="enableSync">Sync käyttöön</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">Kyllä: pidä kaikki samassa asemassa</string>
+  <string name="noLetPeopleBrowseFreely">Ei: anna ihmisten selata vapaasti</string>
+  <string name="pinnedStudyComment">Kiinnitetty tutkielmakommentti</string>
+  <string name="start">Aloita</string>
+  <string name="save">Tallenna</string>
+  <string name="clearChat">Tyhjennä chatti</string>
+  <string name="deleteTheStudyChatHistory">Poista tutkielman chattihistoria? Paluuta ei ole!</string>
+  <string name="deleteStudy">Poista tutkielma</string>
+  <string name="deleteTheEntireStudy">Poista koko tutkielma? Paluuta ei ole!</string>
+  <string name="whereDoYouWantToStudyThat">Missä haluat tutkia?</string>
 </resources>
