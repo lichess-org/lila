@@ -18,4 +18,5 @@ Tässä profiilisivusi: %1$s. Voit muokata sitä täällä: %2$s.
 Pidä hauskaa. Löytäköön nappulasi tien vastustajan kuninkaan luo!</string>
   <string name="common_orPaste">(Klikkaus ei tomi? Kokeile liittää osoite selaimeesi!)</string>
   <string name="common_note">Tämä sähköposti liittyy %s käyttämiseen.</string>
+  <string name="common_contact">Jos haluat ottaa yhteyttä, käytä sivua %s.</string>
 </resources>
