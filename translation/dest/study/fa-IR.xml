@@ -45,4 +45,14 @@
   <string name="chapterPgn">PGN فصل</string>
   <string name="studyUrl">URL درس</string>
   <string name="currentChapterUrl">URL فصل فعلی</string>
+  <string name="embedThisChapter">این فصل را در وبسایت یا وبلاگ خود قرار دهید</string>
+  <string name="readMoreAboutEmbeddingAStudyChapter">درباره قرار دادن یک فصلِ درس در سایت بیشتر بخوانید</string>
+  <string name="members">اعضا</string>
+  <string name="everyone">همه</string>
+  <string name="enableSync">فعال کردن همگام سازی</string>
+  <string name="yesKeepEveryoneOnTheSamePosition">بله: همه را در پوزیسیونی یکسان نگه دار</string>
+  <string name="noLetPeopleBrowseFreely">خیر: به مردم اجازه جستجوی آزادانه بده</string>
+  <string name="start">شروع</string>
+  <string name="save">ذخیره</string>
+  <string name="clearChat">پاک کردن گفتگو</string>
 </resources>
