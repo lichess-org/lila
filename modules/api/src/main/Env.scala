@@ -66,17 +66,12 @@ final class Env(
 
   lazy val cli = wire[Cli]
 
-  if (config.influxEventEnv != "dev")
-    system.actorOf(
-      Props(
-        new InfluxEvent(
-          ws = ws,
-          endpoint = config.influxEventEndpoint,
-          env = config.influxEventEnv
-        )
-      ),
-      name = "influx-event"
-    )
+  private lazy val influxEvent = new InfluxEvent(
+    ws = ws,
+    endpoint = config.influxEventEndpoint,
+    env = config.influxEventEnv
+  )
+  if (mode == Mode.Prod) system.scheduler.scheduleOnce(5 seconds)(influxEvent.start)
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)
