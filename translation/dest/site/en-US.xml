@@ -457,7 +457,7 @@ computer analysis, game chat and shareable URL.</string>
   <string name="previouslyOnLichessTV">Previously on Lichess TV</string>
   <string name="onlinePlayers">Online players</string>
   <string name="activeToday">Active today</string>
-  <string name="activePlayers">Active players</string>
+  <string name="activePlayers">Games played</string>
   <string name="bewareTheGameIsRatedButHasNoClock">Beware, the game is rated but has no clock!</string>
   <string name="training">Puzzles</string>
   <string name="yourPuzzleRatingX">Your puzzle rating: %s</string>
