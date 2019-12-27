@@ -14,7 +14,19 @@
   <string name="recentlyUpdated">اخیرا به روز شده</string>
   <string name="mostPopular">محبوب‌ترین‌</string>
   <string name="addNewChapter">افزودن فصل جدید</string>
+  <plurals name="nbChapters">
+    <item quantity="one">%s فصل</item>
+    <item quantity="other">%s فصل ها</item>
+  </plurals>
+  <plurals name="nbGames">
+    <item quantity="one">%s بازی</item>
+    <item quantity="other">%s بازی ها</item>
+  </plurals>
   <string name="addMembers">افزودن اعضا</string>
+  <plurals name="nbMembers">
+    <item quantity="one">%s عضو</item>
+    <item quantity="other">%s اعضا</item>
+  </plurals>
   <string name="inviteToTheStudy">دعوت به این درس</string>
   <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها افرادی که میشناسید, و یا کسانی که میخواهند فعالانه به این درس بپیوندند را اضافه کنید.</string>
   <string name="searchByUsername">جستجو بر اساس نام کاربری</string>
@@ -55,4 +67,8 @@
   <string name="start">شروع</string>
   <string name="save">ذخیره</string>
   <string name="clearChat">پاک کردن گفتگو</string>
+  <string name="deleteTheStudyChatHistory">آیا سابقه گفتگو پاک شود? امکان بازگشت وجود ندارد!</string>
+  <string name="deleteStudy">پاک کردن درس</string>
+  <string name="deleteTheEntireStudy">آیا تمام درس پاک شود? امکان بازگشت وجود ندارد!</string>
+  <string name="whereDoYouWantToStudyThat">کجا میخواهید آنرا مطالعه کنید?</string>
 </resources>
