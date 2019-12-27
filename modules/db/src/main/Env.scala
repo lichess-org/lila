@@ -5,6 +5,8 @@ import com.typesafe.config.Config
 import play.api.{ ConfigLoader, Configuration }
 import reactivemongo.api._
 
+import lila.common.Lilakka
+
 final class Env(
     appConfig: Configuration,
     shutdown: CoordinatedShutdown
@@ -24,7 +26,7 @@ final class Env(
     driver = driver
   )
 
-  shutdown.addTask(CoordinatedShutdown.PhaseServiceStop, "Closing mongodb driver") { () =>
+  Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Closing mongodb driver") { () =>
     driver.close() inject akka.Done
   }
 }

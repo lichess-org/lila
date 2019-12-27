@@ -10,7 +10,7 @@ import play.api.libs.json._
 import scala.concurrent.{ Future, Promise }
 import scala.concurrent.duration._
 
-import lila.common.Bus
+import lila.common.{ Bus, Lilakka }
 import lila.hub.actorApi.Announce
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
@@ -69,7 +69,6 @@ final class RemoteSocket(
 
   Bus.subscribeFun(
     "socketUsers",
-    "deploy",
     "announce",
     "mlat",
     "sendToFlag",
@@ -122,23 +121,17 @@ final class RemoteSocket(
     subPromise.future
   }
 
-  shutdown.addTask(CoordinatedShutdown.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
+  Lilakka.shutdown(shutdown, _.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
     request[Unit](
       id => send(Protocol.Out.stop(id)),
       res => logger.info(s"lila-ws says: $res")
     ).withTimeout(1 second)
       .addFailureEffect(e => logger.error("lila-ws stop", e))
       .nevermind
-      .inject(akka.Done)
   }
 
-  shutdown.addTask(CoordinatedShutdown.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>
-    logger.info("Stopping the socket redis pool...")
-    Future {
-      redisClient.shutdown()
-      logger.info("Stopped the socket redis pool.")
-      akka.Done
-    }
+  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>
+    Future { redisClient.shutdown() }
   }
 }
 

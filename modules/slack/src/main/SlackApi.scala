@@ -180,19 +180,6 @@ final class SlackApi(
       )
     )
 
-  def publishRestart =
-    if (isProd) publishInfo("Lichess has restarted!")
-    else
-      client(
-        SlackMessage(
-          username = stage.name,
-          icon = stage.icon,
-          text = "stage has restarted.",
-          channel = rooms.devNoise
-        )
-      )
-
-  private val isProd                                  = mode == Mode.Prod
   private def link(url: String, name: String)         = s"<$url|$name>"
   private def lichessLink(path: String, name: String) = s"<https://lichess.org$path|$name>"
   private def userLink(name: String): String          = lichessLink(s"/@/$name?mod", name)
@@ -229,45 +216,15 @@ final class SlackApi(
       )
     )
 
-  def deployPre: Funit =
-    if (isProd)
-      client(
-        SlackMessage(
-          username = "deployment",
-          icon = "rocket",
-          text = "Lichess will be updated in a minute! Fasten your seatbelts.",
-          channel = rooms.general
-        )
+  def stop(): Funit =
+    client(
+      SlackMessage(
+        username = "deployment",
+        icon = "rocket",
+        text = "Lichess is being updated! Brace for impact.",
+        channel = rooms.general
       )
-    else
-      client(
-        SlackMessage(
-          username = stage.name,
-          icon = stage.icon,
-          text = "stage will be updated in a minute.",
-          channel = rooms.general
-        )
-      )
-
-  def deployPost: Funit =
-    if (isProd)
-      client(
-        SlackMessage(
-          username = "deployment",
-          icon = "rocket",
-          text = "Lichess is being updated! Brace for impact.",
-          channel = rooms.general
-        )
-      )
-    else
-      client(
-        SlackMessage(
-          username = "stage.lichess.org",
-          icon = "volcano",
-          text = "stage has been updated!",
-          channel = rooms.devNoise
-        )
-      )
+    )
 
   def signup(user: User, email: EmailAddress, ip: IpAddress, fp: Option[String], susp: Boolean) =
     client(

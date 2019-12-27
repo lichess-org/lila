@@ -6,10 +6,6 @@ import org.joda.time.DateTime
 import play.api.libs.json._
 import scala.concurrent.Promise
 
-sealed abstract class Deploy(val key: String)
-case object DeployPre  extends Deploy("deployPre")
-case object DeployPost extends Deploy("deployPost")
-
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)
 

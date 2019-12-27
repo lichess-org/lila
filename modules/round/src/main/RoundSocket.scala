@@ -1,18 +1,18 @@
 package lila.round
 
-import akka.actor.{ ActorSystem, Cancellable, Scheduler }
+import akka.actor.{ ActorSystem, Cancellable, CoordinatedShutdown, Scheduler }
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 import actorApi._
 import actorApi.round._
 import chess.format.Uci
 import chess.{ Black, Centis, Color, MoveMetrics, Speed, White }
 import lila.chat.Chat
-import lila.common.{ Bus, IpAddress }
+import lila.common.{ Bus, IpAddress, Lilakka }
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Event, Game }
-import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.map.{ Exists, Tell, TellIfExists }
 import lila.hub.actorApi.round.{ Abort, Berserk, RematchNo, RematchYes, Resign, TourStanding }
 import lila.hub.actorApi.socket.remote.TellSriIn
@@ -30,10 +30,20 @@ final class RoundSocket(
     scheduleExpiration: ScheduleExpiration,
     tournamentActor: lila.hub.actors.TournamentApi,
     messenger: Messenger,
-    goneWeightsFor: Game => Fu[(Float, Float)]
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
+    goneWeightsFor: Game => Fu[(Float, Float)],
+    shutdown: CoordinatedShutdown
+)(implicit ec: ExecutionContext, system: ActorSystem) {
 
   import RoundSocket._
+
+  private var stopping = false
+
+  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stop round socket") { () =>
+    stopping = true
+    rounds.tellAllWithAck(RoundDuct.LilaStop.apply) dmap { nb =>
+      logger.info(s"$nb round ducts have stopped")
+    }
+  }
 
   def getGame(gameId: Game.ID): Fu[Option[Game]] = rounds.getOrMake(gameId).getGame addEffect { g =>
     if (!g.isDefined) finishRound(Game.Id(gameId))
@@ -69,7 +79,9 @@ final class RoundSocket(
   def tellRound(gameId: Game.Id, msg: Any): Unit = rounds.tell(gameId.value, msg)
 
   private lazy val roundHandler: Handler = {
-    case Protocol.In.PlayerDo(id, tpe) =>
+    case Protocol.In.PlayerMove(fullId, uci, blur, lag) if !stopping =>
+      tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
+    case Protocol.In.PlayerDo(id, tpe) if !stopping =>
       tpe match {
         case "moretime"     => tellRound(id.gameId, Moretime(id.playerId))
         case "rematch-yes"  => tellRound(id.gameId, RematchYes(id.playerId.value))
@@ -92,8 +104,6 @@ final class RoundSocket(
       messenger.watcher(Chat.Id(gameId.value), userId, msg)
     case RP.In.ChatTimeout(roomId, modId, suspect, reason) =>
       messenger.timeout(Chat.Id(s"$roomId/w"), modId, suspect, reason)
-    case Protocol.In.PlayerMove(fullId, uci, blur, lag) =>
-      tellRound(fullId.gameId, HumanPlay(fullId.playerId, uci, blur, lag, none))
     case Protocol.In.Berserk(gameId, userId) => tournamentActor ! Berserk(gameId.value, userId)
     case Protocol.In.PlayerOnlines(onlines) =>
       onlines foreach {
@@ -122,7 +132,7 @@ final class RoundSocket(
       rounds foreachKey { id =>
         terminationDelay schedule Game.Id(id)
       }
-      rounds.tellAll(DeployPost)
+      rounds.tellAll(RoundDuct.WsBoot)
   }
 
   private def finishRound(gameId: Game.Id): Unit =

@@ -52,14 +52,13 @@ final class Env(
     remoteSocketApi: lila.socket.RemoteSocket,
     isBotSync: lila.common.LightUser.IsBotSync,
     slackApi: lila.slack.SlackApi,
-    ratingFactors: () => lila.rating.RatingFactors
+    ratingFactors: () => lila.rating.RatingFactors,
+    shutdown: akka.actor.CoordinatedShutdown
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, scheduler: akka.actor.Scheduler) {
 
   implicit private val moretimeLoader  = durationLoader(MoretimeDuration.apply)
   implicit private val animationLoader = durationLoader(AnimationDuration.apply)
   private val config                   = appConfig.get[RoundConfig]("round")(AutoConfig.loader)
-
-  private val deployPersistence: DeployPersistence = wire[DeployPersistence]
 
   private val defaultGoneWeight                      = fuccess(1f)
   private def goneWeight(userId: User.ID): Fu[Float] = playban.getRageSit(userId).dmap(_.goneWeight)
@@ -83,7 +82,7 @@ final class Env(
   })
 
   private lazy val proxyDependencies =
-    new GameProxy.Dependencies(gameRepo, deployPersistence.isEnabled _, scheduler)
+    new GameProxy.Dependencies(gameRepo, scheduler)
   private lazy val roundDependencies = wire[RoundDuct.Dependencies]
 
   lazy val roundSocket: RoundSocket = wire[RoundSocket]

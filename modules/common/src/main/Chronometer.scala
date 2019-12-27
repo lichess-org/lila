@@ -47,9 +47,9 @@ object Chronometer {
       this
     }
 
-    def pp: Fu[A]                                            = lap dmap (_.pp)
-    def pp(msg: String): Fu[A]                               = lap dmap (_ pp msg)
-    def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap dmap (_.ppIfGt(msg, duration))
+    def pp: Fu[A]                                            = lap.dmap(_.pp)
+    def pp(msg: String): Fu[A]                               = lap.dmap(_ pp msg)
+    def ppIfGt(msg: String, duration: FiniteDuration): Fu[A] = lap.dmap(_.ppIfGt(msg, duration))
 
     def result = lap.dmap(_.result)
   }

@@ -8,7 +8,7 @@ import play.api.{ Configuration, Environment, Mode }
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Future }
 
-import lila.common.Bus
+import lila.common.{ Bus, Lilakka }
 import lila.common.config._
 import lila.user.User
 
@@ -153,8 +153,6 @@ final class Env(
     }
 
   system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
-
-  scheduler.scheduleOnce(5 seconds) { slack.api.publishRestart }
 }
 
 final class EnvBoot(
@@ -252,7 +250,7 @@ final class EnvBoot(
 
   // free memory for reload workflow
   if (env.isDev)
-    shutdown.addTask(CoordinatedShutdown.PhaseBeforeActorSystemTerminate, "Freeing dev memory") { () =>
+    Lilakka.shutdown(shutdown, _.PhaseBeforeActorSystemTerminate, "Freeing dev memory") { () =>
       templating.Environment.destroy()
       lila.common.Bus.destroy()
       lila.mon.destroy()

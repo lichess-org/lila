@@ -7,7 +7,7 @@ import scala.concurrent.Future
 
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
-import lila.common.Bus
+import lila.common.{ Bus, Lilakka }
 import akka.actor.CoordinatedShutdown
 
 final class FishnetRedis(
@@ -38,12 +38,8 @@ final class FishnetRedis(
     }
   })
 
-  shutdown.addTask(CoordinatedShutdown.PhaseServiceUnbind, "Stopping the fishnet redis pool") { () =>
-    Future {
-      client.shutdown()
-      logger.info("Stopped the fishnet redis pool.")
-      akka.Done
-    }
+  Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the fishnet redis pool") { () =>
+    Future { client.shutdown() }
   }
 
   private def writeWork(work: Work.Move): String =

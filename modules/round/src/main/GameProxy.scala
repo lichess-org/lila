@@ -25,6 +25,12 @@ final private class GameProxy(
     else fuccess(scheduleFlushProgress)
   }
 
+  private[round] def saveAndFlush(progress: Progress): Funit = {
+    set(progress.game)
+    dirtyProgress = dirtyProgress.fold(progress.dropEvents)(_ withGame progress.game).some
+    flushProgress
+  }
+
   private def set(game: Game): Unit = {
     cache = fuccess(game.some)
   }
@@ -59,7 +65,7 @@ final private class GameProxy(
   private var scheduledFlush: Cancellable     = emptyCancellable
 
   private def shouldFlushProgress(p: Progress) =
-    alwaysPersist() || p.statusChanged || p.game.isSimul || (
+    p.statusChanged || p.game.isSimul || (
       p.game.hasCorrespondenceClock && !p.game.hasAi && p.game.rated
     )
 
@@ -84,7 +90,6 @@ private object GameProxy {
 
   class Dependencies(
       val gameRepo: GameRepo,
-      val alwaysPersist: () => Boolean,
       val scheduler: Scheduler
   )
 

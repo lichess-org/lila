@@ -1,7 +1,6 @@
 package lila.api
 
 import lila.common.Bus
-import lila.hub.actorApi.Deploy
 
 final private[api] class Cli(
     userRepo: lila.user.UserRepo,
@@ -31,9 +30,7 @@ final private[api] class Cli(
   }
 
   def process = {
-    case "uptime" :: Nil           => fuccess(s"${lila.common.Uptime.seconds} seconds")
-    case "deploy" :: "pre" :: Nil  => remindDeploy(lila.hub.actorApi.DeployPre)
-    case "deploy" :: "post" :: Nil => remindDeploy(lila.hub.actorApi.DeployPost)
+    case "uptime" :: Nil => fuccess(s"${lila.common.Uptime.seconds} seconds")
     case "change" :: ("asset" | "assets") :: "version" :: Nil =>
       import lila.common.AssetVersion
       AssetVersion.change
@@ -60,11 +57,6 @@ final private[api] class Cli(
             "Invalid announce. Format: `announce <length> <unit> <words...>` or just `announce cancel` to cancel it"
           )
       }
-  }
-
-  private def remindDeploy(event: Deploy): Fu[String] = {
-    Bus.publish(event, "deploy")
-    fuccess("Deploy in progress")
   }
 
   private def run(args: List[String]): Fu[String] = {

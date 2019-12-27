@@ -5,6 +5,7 @@ import ornicar.scalalib.Zero
 import play.api.libs.json._
 import scala.concurrent.duration._
 import scala.concurrent.Promise
+import scala.util.chaining._
 
 import actorApi._, round._
 import chess.{ Black, Color, Speed, White }
@@ -13,7 +14,6 @@ import lila.common.Bus
 import lila.game.actorApi.UserStartGame
 import lila.game.Game.{ FullId, PlayerId }
 import lila.game.{ Game, GameRepo, Pov, Event, Player => GamePlayer }
-import lila.hub.actorApi.DeployPost
 import lila.hub.actorApi.round.{
   Abort,
   BotPlay,
@@ -404,7 +404,14 @@ final private[round] class RoundDuct(
         }
       }
 
-    case DeployPost =>
+    case LilaStop(promise) =>
+      proxy.withGame { g =>
+        g.playable ?? {
+          proxy saveAndFlush moretimer.give(g, Color.all, MoretimeDuration(20 seconds))
+        }
+      } tap promise.completeWith
+
+    case WsBoot =>
       handle { game =>
         game.playable ?? {
           messenger.system(game, (_.untranslated("Lichess has been updated! Sorry for the inconvenience.")))
@@ -551,6 +558,8 @@ object RoundDuct {
   case class SetGameInfo(game: lila.game.Game, goneWeights: (Float, Float))
   case object Tick
   case object Stop
+  case object WsBoot
+  case class LilaStop(promise: Promise[Unit])
 
   case class ChatIds(priv: Either[Chat.Id, Chat.Setup], pub: Chat.Id) {
     def allIds = Seq(priv.fold(identity, _.id), pub)
