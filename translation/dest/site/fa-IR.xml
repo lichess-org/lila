@@ -162,6 +162,7 @@
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
   <string name="changeUsername">تغییر نام کاربری</string>
   <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="password">رمز عبور</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
@@ -170,6 +171,10 @@
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">رتبه در هر دقیقه بروز می‌شود</item>
+    <item quantity="other">رتبه در هر %s دقیقه به روز می‌شود</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s معما</item>
     <item quantity="other">%s معما</item>
@@ -195,6 +200,7 @@
   <string name="playingRightNow">بازی در حال انجام</string>
   <string name="eventInProgress">بازی در حال انجام</string>
   <string name="finished">تمام شده</string>
+  <string name="finishesX">به پایان می‌رسد %s</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
   <string name="standard">استاندارد</string>
@@ -334,6 +340,7 @@
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="fromPosition">شروع از پوزیشن</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
+  <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <plurals name="nbImportedGames">
@@ -344,8 +351,14 @@
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">عدم کیش و مات</string>
+  <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
+  <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s دوست آنلاین</item>
+    <item quantity="other">%s دوست آنلاین</item>
+  </plurals>
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
@@ -461,6 +474,7 @@
   <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
   <string name="thankYou">ممنون!</string>
   <string name="ratingX">امتیاز: %s</string>
+  <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
     <item quantity="one">این جدول%s بار بازی شده است</item>
     <item quantity="other">این جدول%s بار بازی شده است</item>
