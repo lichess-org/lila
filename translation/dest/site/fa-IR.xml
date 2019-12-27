@@ -589,6 +589,9 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
+  <string name="victoryVsYInZ">پیروزی مقابل %2$s در %3$s</string>
+  <string name="defeatVsYInZ">شکست در برابر %2$s در %3$s</string>
+  <string name="drawVsYInZ">تساوی با %2$s در %3$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
@@ -616,6 +619,7 @@
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
+  <string name="practice">تمرین کردن</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -648,6 +652,8 @@
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
+  <string name="streamersMenu">استریم کنندگان</string>
+  <string name="broadcastsMenu">پخش ها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
