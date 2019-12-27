@@ -59,6 +59,7 @@
   <string name="promoteVariation">ارتقای واریانت</string>
   <string name="makeMainLine">به شاخه اصلی تبدیل شود</string>
   <string name="deleteFromHere">از اینجا به بعد حذف شود</string>
+  <string name="forceVariation">تحمیل واریانت</string>
   <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
@@ -159,6 +160,8 @@
   <string name="ratingStats">آمار ریتنگ</string>
   <string name="username">نام کاربری</string>
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
+  <string name="changeUsername">تغییر نام کاربری</string>
+  <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
   <string name="password">رمز عبور</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
