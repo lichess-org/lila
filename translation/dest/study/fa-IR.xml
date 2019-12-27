@@ -16,4 +16,12 @@
   <string name="addNewChapter">افزودن فصل جدید</string>
   <string name="addMembers">افزودن اعضا</string>
   <string name="inviteToTheStudy">دعوت به این درس</string>
+  <string name="pleaseOnlyInvitePeopleYouKnow">لطفا تنها افرادی که میشناسید, و یا کسانی که میخواهند فعالانه به این درس بپیوندند را اضافه کنید.</string>
+  <string name="searchByUsername">جستجو بر اساس نام کاربری</string>
+  <string name="spectator">تماشاگر</string>
+  <string name="contributor">مشارکت کننده</string>
+  <string name="kick">اخراج</string>
+  <string name="leaveTheStudy">خروج از درس</string>
+  <string name="youAreNowAContributor">شما یک مشارکت کننده جدید هستید</string>
+  <string name="youAreNowASpectator">شما حالا یک تماشاگرید</string>
 </resources>
