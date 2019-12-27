@@ -102,7 +102,7 @@ object list {
       ol(users map { u =>
         li(
           lightUserLink(u.user),
-          span(title := trans.gamesPlayed.txt())(s"#${u.count.localize}")
+          span(title := trans.gamesPlayed.txt())(s"${u.count.localize}")
         )
       })
     )
