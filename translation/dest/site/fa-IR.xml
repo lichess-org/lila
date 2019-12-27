@@ -36,7 +36,7 @@
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند.</string>
   <string name="whiteResigned">بازیکن سفید تسلیم شد</string>
   <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">بازیکن سفید بازی را ترک کرد</string>
@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">نمایش تحلیل رایانه ای</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
-  <string name="computerAnalysisAvailable">تحلیل کامپیوتری در دسترس است.</string>
+  <string name="computerAnalysisAvailable">تحلیل کامپیوتری در دسترس است</string>
   <string name="analysis">تحلیل</string>
   <string name="depthX">عمق بررسی: %s حرکت</string>
   <string name="usingServerAnalysis">با استفاده از تحلیل سرور</string>
@@ -658,6 +658,7 @@
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s یک سرور شطرنج رایگان (واقعا!), آزاد, بدون تبلیغات و منبع باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
@@ -707,6 +708,7 @@
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
+  <string name="yourRating">ریتینگ شما</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
