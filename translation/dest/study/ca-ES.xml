@@ -48,8 +48,7 @@
   <string name="theChapterIsTooShortToBeAnalysed">El capítol és massa curt per ser analitzat.</string>
   <string name="onlyContributorsCanRequestAnalysis">Només els contribuïdors de l’estudi poden demanar un anàlisis computeritzat.</string>
   <string name="getAFullComputerAnalysis">Obté un anàlisi complert desde el servidor de la línia principal.</string>
-  <string name="makeSureTheChapterIsComplete">Ase
-Segura’t que el capítol és complert. Només pots requerir l’anàlisi una sola vegada.</string>
+  <string name="makeSureTheChapterIsComplete">Segura’t que el capítol és complert. Només pots requerir l’anàlisi una sola vegada.</string>
   <string name="allSyncMembersRemainOnTheSamePosition">Tots els membres sincronitzats es mantenen a la mateixa posició</string>
   <string name="shareChanges">Comparteix els canvis amb els espectadors i guarda’ls al servidor</string>
   <string name="playing">Jugant</string>
