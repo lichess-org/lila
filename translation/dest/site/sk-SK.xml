@@ -224,6 +224,17 @@
   <string name="playingRightNow">Práve hrajú</string>
   <string name="eventInProgress">Práve sa hrá</string>
   <string name="finished">Ukončené</string>
+  <string name="finishesX">ukončenia%s
+
+ukončenia X
+%s je zostávajúci čas do skončenia turnaja.
+
+Objaví sa, keď sa končia zaujimavé (dôležité) turnaje, rovnako ako sezónna Lichess aréna.
+
+Príklad: „Letná aréna skončí o 3 minúty“
+
+Upozorňujeme, že prezentáciu času spracúva externá knižnica timeago. js (kus softvéru), ktorú používa Lichess. Ak máte nejaké znalosti programovania a zdá sa, že niečo nie je v poriadku, odošlite im akékoľvek opravy na ich stránke tu:
+https://timeago. org/</string>
   <string name="abortGame">Zrušiť hru</string>
   <string name="gameAborted">Hra bola zrušená</string>
   <string name="standard">Štandard</string>
