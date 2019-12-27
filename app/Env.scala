@@ -250,10 +250,11 @@ final class EnvBoot(
 
   // free memory for reload workflow
   if (env.isDev)
-    Lilakka.shutdown(shutdown, _.PhaseBeforeActorSystemTerminate, "Freeing dev memory") { () =>
-      templating.Environment.destroy()
-      lila.common.Bus.destroy()
-      lila.mon.destroy()
-      fuccess(akka.Done)
+    Lilakka.shutdown(shutdown, _.PhaseServiceStop, "Freeing dev memory") { () =>
+      Future {
+        templating.Environment.destroy()
+        lila.common.Bus.destroy()
+        lila.mon.destroy()
+      }
     }
 }
