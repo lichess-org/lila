@@ -285,6 +285,19 @@ final class User(
     }
   }
 
+  def topNbActive(nb: Int) = Open { implicit ctx =>
+    env.user.cached.top10NbGame.get({}) dmap { _ take (nb atLeast 1 atMost 10) } flatMap { users =>
+      negotiate(
+        html = Ok(html.user.topActivePlayers(users)).fuccess,
+        api = _ =>
+          fuccess {
+            // Ok(Json.obj("users" -> users))
+            Ok("ok")
+          }
+      )
+    }
+  }
+
   def topWeek = Open { implicit ctx =>
     negotiate(
       html = notFound,
