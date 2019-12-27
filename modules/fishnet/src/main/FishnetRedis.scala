@@ -8,12 +8,13 @@ import scala.concurrent.Future
 import lila.hub.actorApi.map.Tell
 import lila.hub.actorApi.round.{ FishnetPlay, FishnetStart }
 import lila.common.Bus
+import akka.actor.CoordinatedShutdown
 
 final class FishnetRedis(
     client: RedisClient,
     chanIn: String,
     chanOut: String,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    shutdown: CoordinatedShutdown
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   val connIn  = client.connectPubSub()
@@ -37,10 +38,11 @@ final class FishnetRedis(
     }
   })
 
-  lifecycle.addStopHook { () =>
+  shutdown.addTask(CoordinatedShutdown.PhaseServiceUnbind, "Stopping the fishnet redis pool") { () =>
     Future {
       client.shutdown()
       logger.info("Stopped the fishnet redis pool.")
+      akka.Done
     }
   }
 

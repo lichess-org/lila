@@ -2,12 +2,10 @@ package lila.api
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.WSClient
 import play.api.{ Configuration, Mode }
 import scala.concurrent.duration._
 
-import lila.common.Bus
 import lila.common.config._
 
 @Module
@@ -43,7 +41,6 @@ final class Env(
     onlineBots: lila.bot.OnlineBots,
     pools: List[lila.pool.PoolConfig],
     challengeEnv: lila.challenge.Env,
-    lifecycle: ApplicationLifecycle,
     ws: WSClient,
     val mode: Mode
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
@@ -83,11 +80,5 @@ final class Env(
 
   system.scheduler.scheduleWithFixedDelay(20 seconds, 10 seconds) { () =>
     lila.mon.bus.classifiers.update(lila.common.Bus.size)
-  }
-  lifecycle.addStopHook { () =>
-    fuccess {
-      Bus.publish(lila.hub.actorApi.Shutdown, "shutdown")
-      Bus.destroy()
-    }
   }
 }

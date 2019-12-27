@@ -5,8 +5,6 @@ import java.util.function.UnaryOperator
 import scala.collection.immutable.Queue
 import scala.concurrent.{ ExecutionContext, Future, Promise }
 
-import lila.hub.actorApi.Shutdown
-
 /*
  * Like an actor, but not an actor.
  * Uses an Atomic Reference backend for sequentiality.
@@ -56,8 +54,7 @@ abstract class Trouper(implicit ec: ExecutionContext) extends lila.common.Tellab
     stateRef.getAndUpdate(postRunUpdate) flatMap (_.headOption) foreach run
 
   private val fallback: Receive = {
-    case Shutdown => stop()
-    case msg      => lila.log("trouper").warn(s"unhandled msg: $msg")
+    case msg => lila.log("trouper").warn(s"unhandled msg: $msg")
   }
 }
 

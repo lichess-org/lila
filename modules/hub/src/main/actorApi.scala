@@ -10,8 +10,6 @@ sealed abstract class Deploy(val key: String)
 case object DeployPre  extends Deploy("deployPre")
 case object DeployPost extends Deploy("deployPost")
 
-case object Shutdown // on actor system termination
-
 // announce something to all clients
 case class Announce(msg: String, date: DateTime, json: JsObject)
 

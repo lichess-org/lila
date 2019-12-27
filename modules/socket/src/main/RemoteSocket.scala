@@ -1,5 +1,6 @@
 package lila.socket
 
+import akka.actor.{ ActorSystem, CoordinatedShutdown }
 import chess.Centis
 import io.lettuce.core._
 import io.lettuce.core.pubsub.StatefulRedisPubSubConnection
@@ -7,21 +8,22 @@ import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.ConcurrentHashMap
 import play.api.libs.json._
 import scala.concurrent.{ Future, Promise }
+import scala.concurrent.duration._
 
 import lila.common.Bus
+import lila.hub.actorApi.Announce
 import lila.hub.actorApi.relation.ReloadOnlineFriends
 import lila.hub.actorApi.round.Mlat
 import lila.hub.actorApi.security.CloseAccount
 import lila.hub.actorApi.socket.remote.{ TellSriIn, TellSriOut }
 import lila.hub.actorApi.socket.{ BotIsOnline, SendTo, SendTos }
-import lila.hub.actorApi.Announce
 import Socket.Sri
 
 final class RemoteSocket(
     redisClient: RedisClient,
     notification: lila.hub.actors.Notification,
-    lifecycle: play.api.inject.ApplicationLifecycle
-)(implicit ec: scala.concurrent.ExecutionContext) {
+    shutdown: CoordinatedShutdown
+)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   import RemoteSocket._, Protocol._
 
@@ -120,10 +122,22 @@ final class RemoteSocket(
     subPromise.future
   }
 
-  lifecycle.addStopHook { () =>
+  shutdown.addTask(CoordinatedShutdown.PhaseBeforeServiceUnbind, "Telling lila-ws we're stopping") { () =>
+    request[Unit](
+      id => send(Protocol.Out.stop(id)),
+      res => logger.info(s"lila-ws says: $res")
+    ).withTimeout(1 second)
+      .addFailureEffect(e => logger.error("lila-ws stop", e))
+      .nevermind
+      .inject(akka.Done)
+  }
+
+  shutdown.addTask(CoordinatedShutdown.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>
+    logger.info("Stopping the socket redis pool...")
     Future {
       redisClient.shutdown()
       logger.info("Stopped the socket redis pool.")
+      akka.Done
     }
   }
 }
@@ -238,7 +252,8 @@ object RemoteSocket {
         s"mod/troll/set $userId ${boolean(v)}"
       def impersonate(userId: String, by: Option[String]) =
         s"mod/impersonate $userId ${optional(by)}"
-      def boot = "boot"
+      def boot             = "boot"
+      def stop(reqId: Int) = s"lila/stop $reqId"
 
       def commas(strs: Iterable[Any]): String = if (strs.isEmpty) "-" else strs mkString ","
       def boolean(v: Boolean): String         = if (v) "+" else "-"

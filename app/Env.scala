@@ -2,7 +2,6 @@ package lila.app
 
 import akka.actor._
 import com.softwaremill.macwire._
-import play.api.inject.ApplicationLifecycle
 import play.api.libs.ws.WSClient
 import play.api.mvc.{ ControllerComponents, SessionCookieBaker }
 import play.api.{ Configuration, Environment, Mode }
@@ -161,9 +160,9 @@ final class Env(
 final class EnvBoot(
     config: Configuration,
     environment: Environment,
-    lifecycle: ApplicationLifecycle,
     controllerComponents: ControllerComponents,
-    cookieBacker: SessionCookieBaker
+    cookieBacker: SessionCookieBaker,
+    shutdown: CoordinatedShutdown
 )(implicit ec: ExecutionContext, system: ActorSystem, ws: WSClient) {
 
   implicit def scheduler   = system.scheduler
@@ -252,10 +251,11 @@ final class EnvBoot(
   templating.Environment setEnv env
 
   // free memory for reload workflow
-  lifecycle.addStopHook { () =>
-    templating.Environment.destroy()
-    lila.common.Bus.destroy()
-    lila.mon.destroy()
-    funit
-  }
+  if (env.isDev)
+    shutdown.addTask(CoordinatedShutdown.PhaseBeforeActorSystemTerminate, "Freeing dev memory") { () =>
+      templating.Environment.destroy()
+      lila.common.Bus.destroy()
+      lila.mon.destroy()
+      fuccess(akka.Done)
+    }
 }

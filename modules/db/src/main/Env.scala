@@ -1,13 +1,13 @@
 package lila.db
 
+import akka.actor.CoordinatedShutdown
 import com.typesafe.config.Config
-import play.api.inject.ApplicationLifecycle
 import play.api.{ ConfigLoader, Configuration }
 import reactivemongo.api._
 
 final class Env(
     appConfig: Configuration,
-    lifecycle: ApplicationLifecycle
+    shutdown: CoordinatedShutdown
 )(implicit ec: scala.concurrent.ExecutionContext) {
 
   private val driver = new AsyncDriver(appConfig.get[Config]("mongodb").some)
@@ -24,7 +24,9 @@ final class Env(
     driver = driver
   )
 
-  lifecycle.addStopHook(() => driver.close())
+  shutdown.addTask(CoordinatedShutdown.PhaseServiceStop, "Closing mongodb driver") { () =>
+    driver.close() inject akka.Done
+  }
 }
 
 object DbConfig {

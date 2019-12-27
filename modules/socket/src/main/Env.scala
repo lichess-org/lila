@@ -1,5 +1,6 @@
 package lila.socket
 
+import akka.actor._
 import com.softwaremill.macwire._
 import io.lettuce.core._
 import play.api.Configuration
@@ -7,9 +8,9 @@ import play.api.Configuration
 @Module
 final class Env(
     appConfig: Configuration,
-    lifecycle: play.api.inject.ApplicationLifecycle,
+    shutdown: CoordinatedShutdown,
     notification: lila.hub.actors.Notification
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, akka: ActorSystem) {
 
   private val RedisUri = appConfig.get[String]("socket.redis.uri")
 

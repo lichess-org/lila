@@ -1,11 +1,12 @@
 package lila.app
 
+import akka.actor.CoordinatedShutdown
 import com.softwaremill.macwire._
 import play.api._
+import play.api.libs.crypto.CookieSignerProvider
 import play.api.mvc._
 import play.api.mvc.request._
 import play.api.routing.Router
-import play.api.libs.crypto.CookieSignerProvider
 import router.Routes
 
 final class AppLoader extends ApplicationLoader {
@@ -57,6 +58,8 @@ final class LilaComponents(ctx: ApplicationLoader.Context)
   // dev assets
   implicit def mimeTypes       = fileMimeTypes
   lazy val devAssetsController = wire[ExternalAssets]
+
+  lazy val shutdown = CoordinatedShutdown(system)
 
   lazy val boot: lila.app.EnvBoot = wire[lila.app.EnvBoot]
   lazy val env: lila.app.Env      = boot.env

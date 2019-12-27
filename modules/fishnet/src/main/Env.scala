@@ -33,7 +33,7 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     sink: lila.analyse.Analyser,
-    lifecycle: play.api.inject.ApplicationLifecycle
+    shutdown: akka.actor.CoordinatedShutdown
 )(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem) {
 
   private val config = appConfig.get[FishnetConfig]("fishnet")(AutoConfig.loader)
@@ -44,7 +44,7 @@ final class Env(
     RedisClient create RedisURI.create(config.redisUri),
     "fishnet-in",
     "fishnet-out",
-    lifecycle
+    shutdown
   )
 
   private lazy val clientVersion = new Client.ClientVersion(config.clientMinVersion)
