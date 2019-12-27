@@ -2,7 +2,7 @@ package lila.common
 
 import akka.stream.scaladsl._
 import akka.stream.{ Materializer, OverflowStrategy, QueueOfferResult }
-import com.github.blemale.scaffeine.{ LoadingCache, Scaffeine }
+import com.github.blemale.scaffeine.LoadingCache
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.{ ExecutionContext, Future, Promise }
 import scala.util.chaining._
@@ -53,14 +53,16 @@ final class WorkQueue(buffer: Int, name: String, parallelism: Int = 1)(
 // Distributes tasks to many sequencers
 final class WorkQueues(buffer: Int, expiration: FiniteDuration, name: String)(
     implicit ec: ExecutionContext,
-    mat: Materializer
+    mat: Materializer,
+    mode: play.api.Mode
 ) {
 
   def apply(key: String)(task: => Funit): Funit =
     queues.get(key).run(() => task)
 
-  private val queues: LoadingCache[String, WorkQueue] = Scaffeine()
-    .scheduler(com.github.benmanes.caffeine.cache.Scheduler.systemScheduler)
-    .expireAfterAccess(expiration)
-    .build(key => new WorkQueue(buffer, s"$name:$key"))
+  private val queues: LoadingCache[String, WorkQueue] =
+    LilaCache
+      .scaffeine(mode)
+      .expireAfterAccess(expiration)
+      .build(key => new WorkQueue(buffer, s"$name:$key"))
 }

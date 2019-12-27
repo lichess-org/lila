@@ -16,7 +16,7 @@ final private class Pause {
 
   import Pause._
 
-  private val cache = lila.memo.CacheApi.scaffeine
+  private val cache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
     .build[User.ID, Record]
 

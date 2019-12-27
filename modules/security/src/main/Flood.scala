@@ -13,7 +13,7 @@ final class Flood(duration: Duration) {
 
   private val floodNumber = 4
 
-  private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeine
+  private val cache: Cache[User.ID, Messages] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(duration)
     .build[User.ID, Messages]
 

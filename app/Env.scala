@@ -14,7 +14,6 @@ import lila.user.User
 
 final class Env(
     val config: Configuration,
-    val mode: Mode,
     val common: lila.common.Env,
     val imageRepo: lila.db.ImageRepo,
     val api: lila.api.Env,
@@ -80,7 +79,7 @@ final class Env(
     val rating: lila.rating.Env,
     val lilaCookie: lila.common.LilaCookie,
     val controllerComponents: ControllerComponents
-)(implicit val system: ActorSystem, val executionContext: ExecutionContext) {
+)(implicit val system: ActorSystem, val executionContext: ExecutionContext, val mode: play.api.Mode) {
 
   val isProd            = mode == Mode.Prod
   val isDev             = mode == Mode.Dev
@@ -164,8 +163,8 @@ final class EnvBoot(
 )(implicit ec: ExecutionContext, system: ActorSystem, ws: WSClient) {
 
   implicit def scheduler   = system.scheduler
+  implicit def mode        = environment.mode
   def appPath              = AppPath(environment.rootPath)
-  def mode                 = environment.mode
   def baseUrl              = common.netConfig.baseUrl
   implicit def idGenerator = game.idGenerator
 

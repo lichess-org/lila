@@ -6,7 +6,7 @@ import scala.concurrent.duration._
 
 object UserLagCache {
 
-  private val cache: Cache[String, Centis] = lila.memo.CacheApi.scaffeine
+  private val cache: Cache[String, Centis] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(15 minutes)
     .build[String, Centis]
 

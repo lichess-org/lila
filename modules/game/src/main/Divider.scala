@@ -9,7 +9,7 @@ import chess.format.FEN
 
 final class Divider {
 
-  private val cache: Cache[Game.ID, Division] = lila.memo.CacheApi.scaffeine
+  private val cache: Cache[Game.ID, Division] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
     .build[Game.ID, Division]
 

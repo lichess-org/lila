@@ -134,7 +134,7 @@ final class CrosstableApi(
     .toMat(Sink.ignore)(Keep.left)
     .run
 
-  private val creationCache = lila.memo.CacheApi.scaffeine
+  private val creationCache = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(5 minutes)
     .buildAsyncFuture[UserPair, Crosstable] { users =>
       val promise = Promise[Crosstable]

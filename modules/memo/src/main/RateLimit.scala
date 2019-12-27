@@ -16,7 +16,7 @@ final class RateLimit[K](
 ) {
   import RateLimit._
 
-  private val storage = lila.memo.CacheApi.scaffeine
+  private val storage = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterWrite(duration)
     .build[K, (Cost, ClearAt)]()
 

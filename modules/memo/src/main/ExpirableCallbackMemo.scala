@@ -4,9 +4,10 @@ import com.github.blemale.scaffeine.Cache
 import scala.concurrent.duration.Duration
 
 // calls a function when a key expires
-final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit) {
+final class ExpireCallbackMemo(ttl: Duration, callback: String => Unit)(implicit mode: play.api.Mode) {
 
-  private val cache: Cache[String, Boolean] = lila.memo.CacheApi.scaffeine
+  private val cache: Cache[String, Boolean] = lila.memo.CacheApi
+    .scaffeine(mode)
     .expireAfterWrite(ttl)
     .removalListener((key: String, _: Boolean, _) => callback(key))
     .build[String, Boolean]

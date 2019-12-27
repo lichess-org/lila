@@ -134,7 +134,7 @@ final private class RelayFetch(
         games
     }
 
-  private val cache: Cache[Upstream, GamesSeenBy] = CacheApi.scaffeine
+  private val cache: Cache[Upstream, GamesSeenBy] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
 
@@ -271,7 +271,7 @@ private object RelayFetch {
         .future
         .dmap(_._1.reverse)
 
-    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeine
+    private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)
       .maximumSize(512)
       .build(compute)

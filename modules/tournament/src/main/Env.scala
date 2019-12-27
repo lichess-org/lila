@@ -41,7 +41,8 @@ final class Env(
     ec: scala.concurrent.ExecutionContext,
     system: ActorSystem,
     mat: akka.stream.Materializer,
-    idGenerator: lila.game.IdGenerator
+    idGenerator: lila.game.IdGenerator,
+    mode: play.api.Mode
 ) {
 
   private val config = appConfig.get[TournamentConfig]("tournament")(AutoConfig.loader)

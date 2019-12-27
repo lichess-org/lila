@@ -21,7 +21,7 @@ final class Env(
     prefApi: lila.pref.PrefApi,
     relationApi: lila.relation.RelationApi,
     remoteSocketApi: lila.socket.RemoteSocket
-)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem) {
+)(implicit ec: scala.concurrent.ExecutionContext, system: akka.actor.ActorSystem, mode: play.api.Mode) {
 
   private lazy val maxPlaying = appConfig.get[Max]("setup.max_playing")
 

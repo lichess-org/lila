@@ -21,7 +21,7 @@ final class GeoIP(config: GeoIP.Config) {
     }
 
   private val cache: LoadingCache[IpAddress, Option[Location]] =
-    lila.memo.CacheApi.scaffeine
+    lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterAccess(config.cacheTtl)
       .build(compute)
 

@@ -11,6 +11,7 @@ import lila.user.User
 
 import play.api.libs.json._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext
 
 object RoomSocket {
 
@@ -23,7 +24,7 @@ object RoomSocket {
   case class RoomChat(classifier: String)
 
   final class RoomState(roomId: RoomId, send: Send, chat: Option[RoomChat])(
-      implicit ec: scala.concurrent.ExecutionContext
+      implicit ec: ExecutionContext
   ) extends Trouper {
 
     private var version = SocketVersion(0)
@@ -56,7 +57,10 @@ object RoomSocket {
     }
   }
 
-  def makeRoomMap(send: Send, chatBus: Boolean)(implicit ec: scala.concurrent.ExecutionContext) = new TrouperMap(
+  def makeRoomMap(send: Send, chatBus: Boolean)(
+      implicit ec: ExecutionContext,
+      mode: play.api.Mode
+  ) = new TrouperMap(
     mkTrouper = roomId =>
       new RoomState(
         RoomId(roomId),
@@ -72,7 +76,7 @@ object RoomSocket {
       logger: Logger,
       publicSource: RoomId => PublicSource.type => Option[PublicSource],
       localTimeout: Option[(RoomId, User.ID, User.ID) => Fu[Boolean]] = None
-  )(implicit ec: scala.concurrent.ExecutionContext): Handler =
+  )(implicit ec: ExecutionContext): Handler =
     ({
       case Protocol.In.ChatSay(roomId, userId, msg) =>
         chat.userChat.write(Chat.Id(roomId.value), userId, msg, publicSource(roomId)(PublicSource))

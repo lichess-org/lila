@@ -19,12 +19,12 @@ final class OnlineDoing(
   def isPlaying(userId: User.ID) = playing get userId
 
   // people with write access in public studies
-  val studying = CacheApi.scaffeine
+  val studying = CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .build[ID, StudyId]
 
   // people with write or read access in public and private studies
-  val studyingAll = CacheApi.scaffeine
+  val studyingAll = CacheApi.scaffeineNoScheduler
     .expireAfterAccess(20 minutes)
     .build[ID, StudyId]
 

@@ -29,7 +29,6 @@ final private[memo] class Syncache[K, V](
   private[memo] val cache: LoadingCache[K, Fu[V]] =
     Caffeine
       .newBuilder()
-      .scheduler(Scheduler.systemScheduler)
       .asInstanceOf[Caffeine[K, Fu[V]]]
       .initialCapacity(initialCapacity)
       .pipe { c =>

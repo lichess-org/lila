@@ -1,17 +1,17 @@
 package lila.hub
 
 import com.github.benmanes.caffeine.cache._
-import ornicar.scalalib.Zero
-
 import java.util.concurrent.TimeUnit
-import scala.jdk.CollectionConverters._
+import ornicar.scalalib.Zero
+import play.api.Mode
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Promise
+import scala.jdk.CollectionConverters._
 
 final class TrouperMap[T <: Trouper](
     mkTrouper: String => T,
     accessTimeout: FiniteDuration
-) {
+)(implicit mode: Mode) {
 
   def getOrMake(id: String): T = troupers get id
 
@@ -47,9 +47,8 @@ final class TrouperMap[T <: Trouper](
   def touchOrMake(id: String): Unit = troupers get id
 
   private[this] val troupers: LoadingCache[String, T] =
-    Caffeine
-      .newBuilder()
-      .scheduler(Scheduler.systemScheduler)
+    lila.common.LilaCache
+      .caffeine(mode)
       .recordStats
       .expireAfterAccess(accessTimeout.toMillis, TimeUnit.MILLISECONDS)
       .removalListener(new RemovalListener[String, T] {

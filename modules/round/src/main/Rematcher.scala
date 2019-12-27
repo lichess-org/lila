@@ -24,7 +24,7 @@ final private class Rematcher(
 
   import Rematcher.Offers
 
-  private val offers: Cache[Game.ID, Offers] = CacheApi.scaffeine
+  private val offers: Cache[Game.ID, Offers] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(20 minutes)
     .build[Game.ID, Offers]
 

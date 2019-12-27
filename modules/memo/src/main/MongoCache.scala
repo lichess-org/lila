@@ -61,7 +61,8 @@ object MongoCache {
   final class Api(
       db: lila.db.Db,
       config: MemoConfig,
-      cacheApi: CacheApi
+      cacheApi: CacheApi,
+      mode: play.api.Mode
   )(implicit ec: scala.concurrent.ExecutionContext) {
 
     private val coll = db(config.cacheColl)
@@ -80,7 +81,9 @@ object MongoCache {
         dbTtl,
         keyToString,
         (wrapper: LoaderWrapper[K, V]) =>
-          build(wrapper)(scaffeine.recordStats.initialCapacity(cacheApi.actualCapacity(initialCapacity))),
+          build(wrapper)(
+            scaffeine(mode).recordStats.initialCapacity(cacheApi.actualCapacity(initialCapacity))
+          ),
         coll
       )
       cacheApi.monitor(name, cache.cache)
@@ -97,7 +100,7 @@ object MongoCache {
       name,
       dbTtl,
       _ => "",
-      wrapper => build(wrapper)(scaffeine.initialCapacity(1)),
+      wrapper => build(wrapper)(scaffeine(mode).initialCapacity(1)),
       coll
     )
   }

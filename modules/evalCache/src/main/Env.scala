@@ -15,7 +15,7 @@ final class Env(
     db: lila.db.Db,
     cacheApi: lila.memo.CacheApi,
     scheduler: akka.actor.Scheduler
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
   private lazy val coll = db(appConfig.get[CollName]("evalCache.collection.evalCache"))
 

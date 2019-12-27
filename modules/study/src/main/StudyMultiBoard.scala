@@ -19,7 +19,8 @@ import lila.game.BSONHandlers.FENBSONHandler
 
 final class StudyMultiBoard(
     runCommand: lila.db.RunCommand,
-    chapterRepo: ChapterRepo
+    chapterRepo: ChapterRepo,
+    cacheApi: lila.memo.CacheApi
 )(implicit ec: scala.concurrent.ExecutionContext) {
   private val maxPerPage = MaxPerPage(9)
 
@@ -32,7 +33,7 @@ final class StudyMultiBoard(
   } map { PaginatorJson(_) }
 
   private val firstPageCache: AsyncLoadingCache[Study.Id, Paginator[ChapterPreview]] =
-    lila.memo.CacheApi.scaffeine
+    cacheApi.scaffeine
       .refreshAfterWrite(4 seconds)
       .expireAfterAccess(10 minutes)
       .buildAsyncFuture[Study.Id, Paginator[ChapterPreview]] { fetch(_, 1, false) }

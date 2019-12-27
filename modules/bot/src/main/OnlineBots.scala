@@ -8,7 +8,7 @@ import lila.memo.ExpireCallbackMemo
 
 final class OnlineBots(
     scheduler: akka.actor.Scheduler
-)(implicit ec: scala.concurrent.ExecutionContext) {
+)(implicit ec: scala.concurrent.ExecutionContext, mode: play.api.Mode) {
 
   private val cache = new ExpireCallbackMemo(
     10.seconds,

@@ -11,7 +11,7 @@ final private class HookThieve()(
 
   import HookThieve._
 
-  def candidates(clock: chess.Clock.Config, monId: String): Fu[PoolHooks] =
+  def candidates(clock: chess.Clock.Config): Fu[PoolHooks] =
     Bus
       .ask[PoolHooks]("lobbyTrouper")(GetCandidates(clock, _))
       .logFailure(logger)

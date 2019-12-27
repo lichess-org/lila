@@ -65,7 +65,7 @@ final class Env(
   lazy val bestOpponents = wire[BestOpponents]
 
   lazy val rematches = Rematches(
-    lila.memo.CacheApi.scaffeine
+    lila.memo.CacheApi.scaffeineNoScheduler
       .expireAfterWrite(1 hour)
       .build[Game.ID, Game.ID]
   )

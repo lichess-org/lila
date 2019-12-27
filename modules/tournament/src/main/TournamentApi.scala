@@ -41,7 +41,12 @@ final class TournamentApi(
     cacheApi: lila.memo.CacheApi,
     lightUserApi: lila.user.LightUserApi,
     proxyRepo: lila.round.GameProxyRepo
-)(implicit ec: scala.concurrent.ExecutionContext, system: ActorSystem, mat: akka.stream.Materializer) {
+)(
+    implicit ec: scala.concurrent.ExecutionContext,
+    system: ActorSystem,
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
+) {
 
   private val workQueue = new WorkQueues(256, 1 minute, "tournament")
 
@@ -565,7 +570,7 @@ final class TournamentApi(
     import lila.hub.EarlyMultiThrottler
 
     // last published top hashCode
-    private val lastPublished = lila.memo.CacheApi.scaffeine
+    private val lastPublished = lila.memo.CacheApi.scaffeineNoScheduler
       .initialCapacity(16)
       .expireAfterWrite(2 minute)
       .build[Tournament.ID, Int]

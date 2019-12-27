@@ -21,7 +21,7 @@ final private class RelayMarkup {
   private val parser   = Parser.builder(options).build()
   private val renderer = HtmlRenderer.builder(options).build()
 
-  private val cache: Cache[Text, Html] = lila.memo.CacheApi.scaffeine
+  private val cache: Cache[Text, Html] = lila.memo.CacheApi.scaffeineNoScheduler
     .expireAfterAccess(5 minutes)
     .maximumSize(1024)
     .build[Text, Html]

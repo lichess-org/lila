@@ -30,7 +30,8 @@ final class Env(
 )(
     implicit ec: scala.concurrent.ExecutionContext,
     system: akka.actor.ActorSystem,
-    mat: akka.stream.Materializer
+    mat: akka.stream.Materializer,
+    mode: play.api.Mode
 ) {
 
   def version(studyId: Study.Id): Fu[SocketVersion] =

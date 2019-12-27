@@ -6,7 +6,7 @@ import scala.concurrent.duration.Duration
 
 final class ExpireSetMemo(ttl: Duration) {
 
-  private val cache: Cache[String, Boolean] = CacheApi.scaffeine
+  private val cache: Cache[String, Boolean] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(ttl)
     .build[String, Boolean]
 

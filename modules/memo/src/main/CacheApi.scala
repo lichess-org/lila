@@ -13,6 +13,8 @@ final class CacheApi(
 
   import CacheApi._
 
+  def scaffeine: Builder = CacheApi.scaffeine(mode)
+
   // AsyncLoadingCache with monitoring
   def apply[K, V](initialCapacity: Int, name: String)(
       build: Builder => AsyncLoadingCache[K, V]
@@ -64,7 +66,9 @@ object CacheApi {
 
   private[memo] type Builder = Scaffeine[Any, Any]
 
-  def scaffeine: Builder = Scaffeine().scheduler(caffeine.cache.Scheduler.systemScheduler)
+  def scaffeine(mode: Mode): Builder = lila.common.LilaCache scaffeine mode
+
+  def scaffeineNoScheduler: Builder = Scaffeine()
 
   implicit def beafedAsync[K, V](cache: AsyncCache[K, V])     = new BeafedAsync[K, V](cache)
   implicit def beafedAsyncUnit[V](cache: AsyncCache[Unit, V]) = new BeafedAsyncUnit[V](cache)

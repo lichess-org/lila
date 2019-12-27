@@ -62,7 +62,7 @@ final private class PoolActor(
 
     case RunWave =>
       nextWave.cancel()
-      hookThieve.candidates(config.clock, monId) pipeTo self
+      hookThieve.candidates(config.clock) pipeTo self
 
     case HookThieve.PoolHooks(hooks) => {
 
