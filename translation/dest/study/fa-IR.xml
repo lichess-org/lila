@@ -31,4 +31,6 @@
   <string name="commentThisMove">نظر دادن به این حرکت</string>
   <string name="annotateWithGlyphs">نشان کردن با علامت ها</string>
   <string name="theChapterIsTooShortToBeAnalysed">این فصل برای تحلیل شدن بسیار کوتاه است.</string>
+  <string name="onlyContributorsCanRequestAnalysis">تنها مشارکت کنندگان این درس میتوانند درخواست تحلیل کامپیوتری دهند.</string>
+  <string name="allSyncMembersRemainOnTheSamePosition">تمام اعضای همگام شده در پوزیسیون یکسان باقی می‌مانند</string>
 </resources>
