@@ -27,7 +27,9 @@ final class RemoteSocket(
 
   import RemoteSocket._, Protocol._
 
-  type UserIds = Set[String]
+  private var stopping = false
+
+  private type UserIds = Set[String]
 
   private val requests = new ConcurrentHashMap[Int, Promise[String]](32)
 
@@ -101,7 +103,12 @@ final class RemoteSocket(
       onlineUserIds.getAndUpdate((x: UserIds) => { if (value) x + userId else x - userId })
   }
 
-  def makeSender(channel: Channel): Sender = new Sender(redisClient.connectPubSub(), channel)
+  final class StoppableSender(conn: StatefulRedisPubSubConnection[String, String], channel: Channel)
+      extends Sender {
+    def apply(msg: String): Unit = if (!stopping) conn.async.publish(channel, msg)
+  }
+
+  def makeSender(channel: Channel): Sender = new StoppableSender(redisClient.connectPubSub(), channel)
 
   private val send: Send = makeSender("site-out").apply _
 
@@ -131,7 +138,10 @@ final class RemoteSocket(
   }
 
   Lilakka.shutdown(shutdown, _.PhaseServiceUnbind, "Stopping the socket redis pool") { () =>
-    Future { redisClient.shutdown() }
+    Future {
+      stopping = true
+      redisClient.shutdown()
+    }
   }
 }
 
@@ -141,9 +151,8 @@ object RemoteSocket {
 
   type Send = String => Unit
 
-  final class Sender(conn: StatefulRedisPubSubConnection[String, String], channel: Channel) {
-
-    def apply(msg: String): Unit = conn.async.publish(channel, msg)
+  trait Sender {
+    def apply(msg: String): Unit
   }
 
   object Protocol {

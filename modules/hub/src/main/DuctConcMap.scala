@@ -38,11 +38,13 @@ final class DuctConcMap[D <: Duct](
     ducts.forEachKey(16, k => f(k))
 
   def tellAllWithAck(makeMsg: Promise[Unit] => Any): Fu[Int] =
-    ducts.reduce[Fu[Int]](
-      16,
-      (_, d) => d ask makeMsg inject 1,
-      (acc, fu) => acc.flatMap(nb => fu.dmap(_ => nb + 1))(ExecutionContext.parasitic)
-    )
+    if (ducts.isEmpty) fuccess(0)
+    else
+      ducts.reduce[Fu[Int]](
+        16,
+        (_, d) => d ask makeMsg inject 1,
+        (acc, fu) => acc.flatMap(nb => fu.dmap(_ => nb + 1))(ExecutionContext.parasitic)
+      )
 
   def size: Int = ducts.size()
 
