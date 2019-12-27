@@ -14,9 +14,37 @@
     <item quantity="one">%1$s بازی %2$s بازی کرد</item>
     <item quantity="other">%1$s بازی %2$s بازی کرد</item>
   </plurals>
+  <plurals name="postedNbMessages">
+    <item quantity="one">%1$s پیام را در %2$s پست کرد</item>
+    <item quantity="other">%1$s پیام را در %2$s پست کرد</item>
+  </plurals>
+  <plurals name="playedNbMoves">
+    <item quantity="one">%1$s حرکت انجام داد</item>
+    <item quantity="other">%1$s حرکت انجام داد</item>
+  </plurals>
+  <plurals name="inNbCorrespondenceGames">
+    <item quantity="one">در %1$s بازی مکاتبه‌ای</item>
+    <item quantity="other">در %1$s بازی مکاتبه‌ای</item>
+  </plurals>
+  <plurals name="completedNbGames">
+    <item quantity="one">%s بازی مکاتبه‌ای را به پایان رساند</item>
+    <item quantity="other">%s بازی مکاتبه‌ای را به پایان رساند</item>
+  </plurals>
+  <plurals name="followedNbPlayers">
+    <item quantity="one">%s بازیکن را دنبال کرد</item>
+    <item quantity="other">%s بازیکن را دنبال کرد</item>
+  </plurals>
+  <plurals name="gainedNbFollowers">
+    <item quantity="one">%s دنبال کننده دریافت کرد</item>
+    <item quantity="other">%s دنبال کننده دریافت کرد</item>
+  </plurals>
   <plurals name="joinedNbSimuls">
     <item quantity="one">در %s سیمولتانه ای شرکت کرده است</item>
     <item quantity="other">در %s سیمولتانه ای شرکت کرده است</item>
+  </plurals>
+  <plurals name="createdNbStudies">
+    <item quantity="one">%s درس جدید ساخت</item>
+    <item quantity="other">%s درس جدید ساخت</item>
   </plurals>
   <string name="signedUp">در لیچس ثبت نام کرد</string>
   <plurals name="joinedNbTeams">
