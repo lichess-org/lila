@@ -54,12 +54,12 @@ object Theme extends ThemeObject {
     "green",
     "marble",
     "green-plastic",
-    "green-glass",
     "grey",
     "metal",
     "olive",
     "newspaper",
     "purple",
+    "purple-diag",
     "pink",
     "ic"
   ) map { name =>
