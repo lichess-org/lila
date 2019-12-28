@@ -91,13 +91,13 @@ lichess.checkout = function(publicKey) {
   var stripeHandler = StripeCheckout.configure({
     key: publicKey,
     name: 'lichess.org',
-    image: 'https://s3.amazonaws.com/stripe-uploads/acct_18J612Fj1uHKxNqMmerchant-icon-1465200826114-logo.512.png',
+    image: 'https://lichess1.org/assets/logo/lichess-favicon-512.png',
     locale: 'auto',
     allowRememberMe: false,
     zipCode: false,
     billingAddress: false,
     currency: 'usd',
-    token: function(token) {
+    token: function (token) {
       $checkout.find('.service').html(lichess.spinnerHtml);
       $stripeForm.find('.token').val(token.id);
       $stripeForm.find('.email').val(token.email);
