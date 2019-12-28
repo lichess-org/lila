@@ -1,9 +1,6 @@
 package lila.api
 
-import akka.actor._
 import play.api.libs.ws.WSClient
-
-import lila.common.Bus
 
 final private class InfluxEvent(
     ws: WSClient,
