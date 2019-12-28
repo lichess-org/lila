@@ -233,7 +233,7 @@ final class User(
       negotiate(
         html =
           for {
-            nbAllTime      <- env.user.cached.top10NbGame.get({})
+            nbAllTime      <- env.user.cached.top200NbGame.get({})
             tourneyWinners <- env.tournament.winners.all.map(_.top)
             topOnline      <- env.user.cached.getTop50Online
             _              <- env.user.lightUserApi preloadMany tourneyWinners.map(_.userId)
@@ -286,7 +286,7 @@ final class User(
   }
 
   def topNbActive(nb: Int) = Open { implicit ctx =>
-    env.user.cached.top10NbGame.get({}) dmap { _ take (nb atLeast 1 atMost 10) } flatMap { users =>
+    env.user.cached.top200NbGame.get({}) dmap { _ take (nb atLeast 1 atMost 200) } flatMap { users =>
       negotiate(
         html = Ok(html.user.topActivePlayers(users)).fuccess,
         api = _ =>

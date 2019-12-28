@@ -63,14 +63,14 @@ final class Cached(
 
   def topWeek = topWeekCache.get({})
 
-  val top10NbGame = mongoCache.unit[List[User.LightCount]](
+  val top200NbGame = mongoCache.unit[List[User.LightCount]](
     "user:top:nbGame",
     74 minutes
   ) { loader =>
     _.refreshAfterWrite(75 minutes)
       .buildAsyncFuture {
         loader { _ =>
-          userRepo topNbGame 10 dmap (_.map(_.lightCount))
+          userRepo topNbGame 200 dmap (_.map(_.lightCount))
         }
       }
   }
