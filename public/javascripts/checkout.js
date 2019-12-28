@@ -1,4 +1,4 @@
-lichess.checkout = function (publicKey) {
+lichess.checkout = function (publicKey, logo) {
 
   var $checkout = $('div.plan_checkout');
   var lifetime = {
@@ -91,7 +91,7 @@ lichess.checkout = function (publicKey) {
   var stripeHandler = StripeCheckout.configure({
     key: publicKey,
     name: 'lichess.org',
-    image: 'https://lichess1.org/assets/logo/lichess-favicon-512.png',
+    image: logo,
     locale: 'auto',
     allowRememberMe: false,
     zipCode: false,
