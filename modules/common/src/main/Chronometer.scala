@@ -12,7 +12,11 @@ object Chronometer {
     def micros = (nanos / 1000).toInt
 
     def logIfSlow(threshold: Int, logger: lila.log.Logger)(msg: A => String) = {
-      if (millis >= threshold) logger.debug(s"<${millis}ms> ${msg(result)}")
+      if (millis >= threshold) log(logger)(msg)
+      else this
+    }
+    def log(logger: lila.log.Logger)(msg: A => String) = {
+      logger.info(s"<${millis}ms> ${msg(result)}")
       this
     }
 
@@ -44,6 +48,11 @@ object Chronometer {
       lap dforeach { l =>
         path(lila.mon).record(l.nanos)
       }
+      this
+    }
+
+    def log(logger: lila.log.Logger)(msg: A => String) = {
+      lap.dforeach(_.log(logger)(msg))
       this
     }
 
