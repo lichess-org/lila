@@ -2,12 +2,13 @@ package lidraughts.tournament
 
 import akka.actor._
 import akka.pattern.pipe
-import org.joda.time.{ DateTime, DateTimeZone }
+import org.joda.time.DateTime
 import org.joda.time.DateTimeConstants._
 import scala.concurrent.duration._
 
 import actorApi._
 import draughts.StartingPosition
+import Schedule.offsetCET
 
 private final class TournamentScheduler private (api: TournamentApi) extends Actor {
 
@@ -87,8 +88,6 @@ private final class TournamentScheduler private (api: TournamentApi) extends Act
       val birthdayThisYear = birthday.withYear(today.getYear)
 
       // schedule daily and longer CET, others UTC
-      val zoneCET = DateTimeZone.forID("Europe/Amsterdam")
-      def offsetCET(day: DateTime) = day.withTime(12, 0, 0, 0).withZone(zoneCET).getHourOfDay - 12
       val todayCET = offsetCET(today)
 
       val nextPlans: List[Schedule.Plan] = List(
@@ -218,12 +217,13 @@ Thank you all, you rock!"""
         (0 to 6).toList.flatMap { hourDelta =>
           val date = rightNow plusHours hourDelta
           val hour = date.getHourOfDay
-          val bulletType = if (hour % 6 == 1) HyperBullet else if (hour % 3 == 2) HippoBullet else Bullet
+          val bulletType = if (hour % 3 == 2) HippoBullet else Bullet
+          //Frisian bullet, not during daily frisian or daily/eastern bullet
+          val bulletVariant = if (hour % 3 == 1 && hour != 21 - todayCET && hour != 17 - todayCET && hour != 5 - todayCET) Frisian else Standard
           val blitzType = if (hour % 6 == 0) Blitz else SuperBlitz
           List(
-            //Frisian bullet, not during daily frisian or daily/eastern bullet
-            at(date, hour) map { date => Schedule(Hourly, bulletType, if (hour % 3 == 0 && hour != 21 - todayCET && hour != 17 - todayCET && hour != 5 - todayCET) Frisian else Standard, std, date).plan },
-            at(date, hour, 30) collect { case date if bulletType != HippoBullet => Schedule(Hourly, Bullet, Standard, std, date).plan },
+            at(date, hour) map { date => Schedule(Hourly, bulletType, bulletVariant, std, date).plan },
+            at(date, hour, 30) collect { case date if bulletType != HippoBullet => Schedule(Hourly, if (hour % 6 == 1) HyperBullet else Bullet, Standard, std, date).plan },
             //no hourly blitz during frisian blitz, except at daily frisian
             at(date, hour) collect { case date if hour % 3 != 2 || hour == 21 - todayCET => Schedule(Hourly, blitzType, Standard, std, date).plan }
           ).flatten

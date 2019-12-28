@@ -2,7 +2,7 @@ package lidraughts.tournament
 
 import draughts.StartingPosition
 import draughts.variant.Variant
-import org.joda.time.DateTime
+import org.joda.time.{ DateTime, DateTimeZone }
 
 import lidraughts.rating.PerfType
 
@@ -198,8 +198,11 @@ object Schedule {
     }
   }
 
-  private def standardInc(s: Schedule) = s.at.getHourOfDay % 3 == 1
-  private def bulletInc(s: Schedule) = s.at.getHourOfDay % 3 == 1
+  private val timeZoneCET = DateTimeZone.forID("Europe/Amsterdam")
+  def offsetCET(day: DateTime) = day.withTime(12, 0, 0, 0).withZone(timeZoneCET).getHourOfDay - 12
+
+  private def standardInc(s: Schedule) = s.at.getHourOfDay % 3 == 1 || s.at.getHourOfDay == 21 - offsetCET(s.at)
+  private def bulletInc(s: Schedule) = s.at.getHourOfDay % 3 == 0
 
   private[tournament] def clockFor(s: Schedule) = {
     import Freq._, Speed._

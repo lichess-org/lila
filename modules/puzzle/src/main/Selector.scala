@@ -96,17 +96,14 @@ private[puzzle] final class Selector(
     step: Int,
     idRange: Range,
     idStep: Int
-  ): Fu[Option[Puzzle]] = {
-    println(s"tryRange rating=$rating, tolerance=$tolerance, step=$step, idRange=$idRange")
-    puzzleColl(variant).find(rangeSelector(
-      rating = rating,
-      tolerance = tolerance,
-      idRange = idRange
-    )).sort($sort asc F.id).uno[Puzzle] flatMap {
-      case None if (tolerance + step) <= toleranceMax =>
-        tryRange(variant, rating, tolerance + step, step, Range(idRange.min, idRange.max + idStep), idStep) //original + 100
-      case res => fuccess(res)
-    }
+  ): Fu[Option[Puzzle]] = puzzleColl(variant).find(rangeSelector(
+    rating = rating,
+    tolerance = tolerance,
+    idRange = idRange
+  )).sort($sort asc F.id).uno[Puzzle] flatMap {
+    case None if (tolerance + step) <= toleranceMax =>
+      tryRange(variant, rating, tolerance + step, step, Range(idRange.min, idRange.max + idStep), idStep) //original + 100
+    case res => fuccess(res)
   }
 }
 
