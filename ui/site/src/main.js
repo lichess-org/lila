@@ -219,10 +219,6 @@
     // delay so round starts first (just for perceived perf)
     lichess.requestIdleCallback(function() {
 
-      $('#reconnecting').on('click', function() {
-        window.location.reload();
-      });
-
       $('#friend_box').friends();
 
       $('#main-wrap')
