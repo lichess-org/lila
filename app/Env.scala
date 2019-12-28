@@ -151,7 +151,7 @@ final class Env(
       closeAccount(userId, self = false)
     }
 
-  system.actorOf(Props(new actor.Renderer), name = config.get[String]("renderer.name"))
+  system.actorOf(Props(new actor.Renderer), name = config.get[String]("app.renderer.name"))
 }
 
 final class EnvBoot(
