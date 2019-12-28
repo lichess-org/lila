@@ -33,12 +33,11 @@ routesGenerator := LilaRoutesGenerator
 libraryDependencies ++= Seq(
   macwire.macros, macwire.util, play.json, jodaForms, ws,
   scalaz, chess, compression, scalalib, hasher,
-  reactivemongo.driver, reactivemongo.bson,
-  maxmind, prismic, markdown, scalatags,
+  reactivemongo.driver, maxmind, prismic, markdown, scalatags,
   kamon.core, kamon.influxdb, kamon.metrics,
   scrimage, scaffeine, lettuce
 ) ++ silencer.bundle ++ {
-  if (useEpoll) Seq(epoll, reactivemongo.epoll)
+  if (useEpoll) Seq(epoll)
   else Seq.empty
 }
 
