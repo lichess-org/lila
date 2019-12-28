@@ -168,7 +168,7 @@ object BSONHandlers {
       })
   )
 
-  implicit def NodeBSONHandler: BSON[Node] = new BSON[Node] {
+  implicit lazy val NodeBSONHandler: BSON[Node] = new BSON[Node] {
     def reads(r: Reader) = Node(
       id = r.get[UciCharPair]("i"),
       ply = r int "p",
@@ -204,7 +204,7 @@ object BSONHandlers {
     )
   }
   import Node.Root
-  implicit private[study] def NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
+  implicit private[study] lazy val NodeRootBSONHandler: BSON[Root] = new BSON[Root] {
     def reads(r: Reader) = Root(
       ply = r int "p",
       fen = r.get[FEN]("f"),
