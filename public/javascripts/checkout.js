@@ -1,4 +1,4 @@
-lichess.checkout = function(publicKey) {
+lichess.checkout = function (publicKey) {
 
   var $checkout = $('div.plan_checkout');
   var lifetime = {
@@ -11,16 +11,16 @@ lichess.checkout = function(publicKey) {
   if (location.hash === '#onetime') $('#freq_onetime').click();
   if (location.hash === '#lifetime') $('#freq_lifetime').click();
 
-  var getFreq = function() {
+  var getFreq = function () {
     return $checkout.find('group.freq input:checked').val();
   };
 
   // Other is selected but no amount specified
   // happens with backward button
   if (!$checkout.find('.amount_choice group.amount input:checked').data('amount'))
-  $checkout.find('#plan_monthly_1000').click();
+    $checkout.find('#plan_monthly_1000').click();
 
-  var selectAmountGroup = function() {
+  var selectAmountGroup = function () {
     var freq = getFreq();
     $checkout.find('.amount_fixed').toggle(freq == 'lifetime');
     $checkout.find('.amount_choice').toggle(freq != 'lifetime');
@@ -29,7 +29,7 @@ lichess.checkout = function(publicKey) {
 
   $checkout.find('group.freq input').on('change', selectAmountGroup);
 
-  $checkout.find('group.amount .other label').on('click', function() {
+  $checkout.find('group.amount .other label').on('click', function () {
     var amount;
     var raw = prompt("Please enter an amount in USD");
     try {
@@ -50,7 +50,7 @@ lichess.checkout = function(publicKey) {
     $(this).siblings('input').data('amount', cents).data('usd', usd);
   });
 
-  $checkout.find('button.paypal').on('click', function() {
+  $checkout.find('button.paypal').on('click', function () {
     var freq = getFreq(), cents;
     if (freq == 'lifetime') {
       cents = lifetime.cents;
@@ -65,7 +65,7 @@ lichess.checkout = function(publicKey) {
     $checkout.find('.service').html(lichess.spinnerHtml);
   });
 
-  $checkout.find('button.stripe').on('click', function() {
+  $checkout.find('button.stripe').on('click', function () {
     var freq = getFreq(), usd, amount;
     if (freq == 'lifetime') {
       usd = lifetime.usd;
@@ -105,7 +105,7 @@ lichess.checkout = function(publicKey) {
     }
   });
   // Close Checkout on page navigation:
-  $(window).on('popstate', function() {
+  $(window).on('popstate', function () {
     stripeHandler.close();
   });
 };
