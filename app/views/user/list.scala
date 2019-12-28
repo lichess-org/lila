@@ -98,7 +98,9 @@ object list {
       implicit ctx: Context
   ) =
     st.section(cls := "user-top")(
-      h2(cls := "text", dataIcon := icon.map(_.toString))(hTitle),
+      h2(cls := "text", dataIcon := icon.map(_.toString))(
+        a(href := routes.User.topNbActive(200))(hTitle)
+      ),
       ol(users map { u =>
         li(
           lightUserLink(u.user),
