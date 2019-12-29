@@ -247,7 +247,7 @@ object mon {
     object comm {
       def segment(seg: String) = timer("mod.comm.segmentLat").withTag("segment", seg)
     }
-    def zoneSegment(name: String) = future("mod.zone.segment")
+    def zoneSegment(name: String) = future("mod.zone.segment", name)
   }
   object relay {
     val ongoing  = gauge("relay.ongoing").withoutTags
@@ -562,6 +562,11 @@ object mon {
   private def histogram(name: String) = backend.histogram(name)
 
   private def future(name: String) = (success: Boolean) => timer(name).withTag("success", successTag(success))
+  private def future(name: String, segment: String) =
+    (success: Boolean) =>
+      timer(name).withTags(
+        Map("success" -> successTag(success), "segment" -> segment)
+      )
 
   private def successTag(success: Boolean) = if (success) "success" else "failure"
 
