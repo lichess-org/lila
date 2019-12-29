@@ -43,11 +43,6 @@ if [ "$2" = "asset" ]; then
   ./ui/build prod
 fi
 
-if [ $mode = "main" ]; then
-  lilalog "Notify pre deploy"
-  $CLI deploy pre
-fi
-
 rm -rf $stage
 ./lila -Depoll=true stage
 if [ $? != 0 ]; then
@@ -102,20 +97,7 @@ fi
 read -n 1 -p "Press [Enter] to complete deployment to $mode server $REMOTE:$REMOTE_DIR"
 
 if [ $mode = "main" ]; then
-  lilalog "Notify post deploy"
-  $CLI deploy post
-  sleep 1
-fi
-
-# start dropping packets. Run `bin/prod/iptables-drop 0` on the server to resume normal traffic.
-# START_DROPPING="$REMOTE_DIR/bin/prod/iptables-drop 0.9"
-# STOP_DROPPING="sleep 7 && $REMOTE_DIR/bin/prod/iptables-drop 0.75 && sleep 6 && $REMOTE_DIR/bin/prod/iptables-drop 0"
-# STOP_DROPPING="echo \"not resuming traffic\""
-
-if [ $mode = "main" ]; then
   lilalog "Restart lichess"
-  # RUN_DIR="/home/lichess"
-  # SSH_COMMAND="rm $RUN_DIR && ln -s $REMOTE_DIR $RUN_DIR && systemctl restart lichess"
   SSH_COMMAND="chown -R lichess:lichess $REMOTE_DIR && systemctl restart lichess3"
   echo $SSH_COMMAND
   ssh $REMOTE $SSH_COMMAND
