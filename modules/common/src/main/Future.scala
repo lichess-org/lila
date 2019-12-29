@@ -1,6 +1,7 @@
 package lila.common
 
 import akka.actor.{ ActorSystem, Scheduler }
+import scala.collection.BuildFrom
 import scala.concurrent.duration._
 import scala.concurrent.{ ExecutionContext, Promise, Future => ScalaFu }
 
@@ -43,16 +44,16 @@ object Future {
   )(f: A => Fu[Boolean])(implicit ec: ExecutionContext): Fu[List[A]] =
     filter(list)(a => !f(a))
 
-  def traverseSequentially[A, B](
-      list: List[A]
-  )(f: A => Fu[B])(implicit ec: ExecutionContext): Fu[List[B]] =
-    list match {
-      case h :: t =>
-        f(h).flatMap { r =>
-          traverseSequentially(t)(f) dmap (r +: _)
+  def linear[A, B, M[B] <: Iterable[B]](
+      in: M[A]
+  )(f: A => Fu[B])(implicit cbf: BuildFrom[M[A], B, M[B]], ec: ExecutionContext): Fu[M[B]] = {
+    in.foldLeft(fuccess(cbf.newBuilder(in))) { (fr, a) =>
+        fr flatMap { r =>
+          f(a).dmap(r += _)
         }
-      case Nil => fuccess(Nil)
-    }
+      }
+      .dmap(_.result())
+  }
 
   def applySequentially[A](
       list: List[A]

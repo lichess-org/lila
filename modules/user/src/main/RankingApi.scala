@@ -128,7 +128,7 @@ final class RankingApi(
       _.refreshAfterWrite(15 minutes)
         .buildAsyncFuture { _ =>
           lila.common.Future
-            .traverseSequentially(PerfType.leaderboardable) { pt =>
+            .linear(PerfType.leaderboardable) { pt =>
               compute(pt) dmap (pt -> _)
             }
             .dmap(_.toMap)
