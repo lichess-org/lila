@@ -12,7 +12,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
 
   const readAllStorage = li.storage.make('notify-read-all');
 
-  readAllStorage.listen(() => {
+  readAllStorage.listen(_ => {
     if (data) {
       data.unread = 0;
       opts.setCount(0);
@@ -25,7 +25,7 @@ export default function ctrl(opts: NotifyOpts, redraw: Redraw): Ctrl {
     if (data.pager.currentPage === 1 && data.unread && opts.isVisible()) {
       opts.setNotified();
       data.unread = 0;
-      readAllStorage.set('' + Math.random()); // tell other tabs
+      readAllStorage.fire();
     }
     initiating = false;
     scrolling = false;

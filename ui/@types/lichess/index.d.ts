@@ -5,6 +5,7 @@ interface Lichess {
   requestIdleCallback(f: () => void): void;
   dispatchEvent(el: HTMLElement | Window, eventName: string): void;
   hasTouchEvents: boolean;
+  sri: string;
   isCol1(): boolean;
   storage: LichessStorageHelper;
   tempStorage: LichessStorageHelper; // TODO: unused
@@ -47,7 +48,6 @@ interface Lichess {
 
   // socket.js
   StrongSocket: {
-    sri: string
     (url: string, version: number, cfg: any): any;
   }
 
@@ -124,6 +124,7 @@ interface LichessStorageHelper {
   makeBoolean(k: string): LichessBooleanStorage;
   get(k: string): string | null;
   set(k: string, v: string): void;
+  fire(k: string, v?: string): void;
   remove(k: string): void;
 }
 
@@ -131,13 +132,20 @@ interface LichessStorage {
   get(): string | null;
   set(v: any): void;
   remove(): void;
-  listen(f: (e: StorageEvent) => void): void;
+  listen(f: (e: LichessStorageEvent) => void): void;
+  fire(v?: string): void;
 }
 
 interface LichessBooleanStorage {
   get(): boolean;
   set(v: boolean): boolean;
   toggle(): void;
+}
+
+interface LichessStorageEvent {
+  sri: string;
+  nonce: number;
+  value?: string;
 }
 
 interface Window {

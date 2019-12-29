@@ -20,7 +20,7 @@ module.exports = function(cfg, element) {
   var onFirstConnect = function() {
     var gameId = getParameterByName('hook_like');
     if (!gameId) return;
-    $.post('/setup/hook/' + lichess.StrongSocket.sri + '/like/' + gameId);
+    $.post('/setup/hook/' + lichess.sri + '/like/' + gameId);
     lobby.setTab('real_time');
     history.replaceState(null, null, '/');
   };
@@ -266,7 +266,7 @@ module.exports = function(cfg, element) {
         var poolMember = hookToPoolMember(color, $form.serializeArray());
         $.modal.close();
         var call = {
-          url: $form.attr('action').replace(/sri-placeholder/, lichess.StrongSocket.sri),
+          url: $form.attr('action').replace(/sri-placeholder/, lichess.sri),
           data: $form.serialize() + "&color=" + color,
           type: 'post'
         };

@@ -8,6 +8,13 @@ lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName)
 
 lichess.hasTouchEvents = 'ontouchstart' in window;
 
+try {
+  const data = window.crypto.getRandomValues(new Uint8Array(9));
+  lichess.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
+} catch(_) {
+  lichess.sri = Math.random().toString(36).slice(2, 12);
+}
+
 lichess.isCol1 = (() => {
   let isCol1Cache = 'init'; // 'init' | 'rec' | boolean
   return () => {
@@ -28,15 +35,22 @@ lichess.isCol1 = (() => {
     const api = {
       get: k => storage.getItem(k),
       set: (k, v) => storage.setItem(k, v),
+      fire: (k, v) => storage.setItem(k, JSON.stringify({sri: lichess.sri, nonce: Math.random(), value: v})),
       remove: k => storage.removeItem(k),
       make: k => ({
         get: () => api.get(k),
         set: v => api.set(k, v),
+        fire: v => api.fire(k, v),
         remove: () => api.remove(k),
         listen: f => window.addEventListener('storage', e => {
-          if (e.key === k &&
-            e.storageArea === storage &&
-            e.newValue !== null) f(e);
+          if (e.key !== k || e.storageArea !== storage || e.newValue === null) return;
+          let parsed;
+          try {
+            parsed = JSON.parse(e.newValue);
+          } catch(_) {
+            return;
+          }
+          if (parsed.sri && parsed.sri !== lichess.sri) f(parsed);
         })
       }),
       makeBoolean: k => ({

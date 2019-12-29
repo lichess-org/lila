@@ -269,13 +269,6 @@ lichess.StrongSocket = function(url, version, settings) {
   };
 };
 
-try {
-  const data = window.crypto.getRandomValues(new Uint8Array(9));
-  lichess.StrongSocket.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
-} catch(_) {
-  lichess.StrongSocket.sri = Math.random().toString(36).slice(2, 12);
-}
-
 lichess.StrongSocket.defaults = {
   events: {
     fen: function(e) {
@@ -291,7 +284,7 @@ lichess.StrongSocket.defaults = {
     }
   },
   params: {
-    sri: lichess.StrongSocket.sri
+    sri: lichess.sri
   },
   options: {
     name: "unnamed",

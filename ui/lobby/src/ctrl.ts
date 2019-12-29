@@ -53,7 +53,7 @@ export default class LobbyController {
       this.trans = opts.trans;
 
     this.poolInStorage = li.storage.make('lobby.pool-in');
-    this.poolInStorage.listen(() => { // when another tab joins a pool
+    this.poolInStorage.listen(_ => { // when another tab joins a pool
       this.leavePool();
       redraw();
     });
@@ -186,7 +186,7 @@ export default class LobbyController {
 
   poolIn = () => {
     if (!this.poolMember) return;
-    this.poolInStorage.set(li.StrongSocket.sri);
+    this.poolInStorage.fire();
     this.socket.poolIn(this.poolMember);
   };
 
