@@ -912,4 +912,7 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="timeoutExpires">Privremena zabrana ističe %s.</string>
   <string name="why">Zašto?</string>
   <string name="pleasantChessExperience">Naš cilj je da svima pružimo ugodno šahovsko iskustvo.</string>
+  <string name="goodPractice">Zbog toga, moramo osigurati da svi igrači ispravno postupaju.</string>
+  <string name="potentialProblem">Kada se otkrije potencijalni problem, prikazujemo ovu poruku.</string>
+  <string name="howToAvoidThis">Kako to izbjeći?</string>
 </resources>
