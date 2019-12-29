@@ -1,8 +1,8 @@
 <svg width="50mm" height="50mm" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 50 50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
  <defs>
-  <linearGradient id="linearGradient7449-6" x1="1765.6" x2="1791.1" y1="1045.8" y2="1045.8" gradientTransform="matrix(1.0162 0 0 .97459 -1782.1 -984.83)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5681"/>
-  <linearGradient id="linearGradient7453-6" x1="1771.3" x2="1785.4" y1="1028.2" y2="1028.2" gradientTransform="matrix(1.0162 0 0 .97459 -1782.1 -984.06)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5681"/>
-  <linearGradient id="linearGradient7451-3" x1="6553" x2="6616.7" y1="3964.9" y2="3964.9" gradientTransform="matrix(.21991 0 0 .16959 -1423.1 -646.85)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5681"/>
+  <linearGradient id="linearGradient7449-6" x1="1765.6" x2="1791.1" y1="1045.8" y2="1045.8" gradientTransform="matrix(1.0162 0 0 .97459 -1782.1 -984.83)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5687"/>
+  <linearGradient id="linearGradient7453-6" x1="1771.3" x2="1785.4" y1="1028.2" y2="1028.2" gradientTransform="matrix(1.0162 0 0 .97459 -1782.1 -984.06)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5687"/>
+  <linearGradient id="linearGradient7451-3" x1="6553" x2="6616.7" y1="3964.9" y2="3964.9" gradientTransform="matrix(.21991 0 0 .16959 -1423.1 -646.85)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5687"/>
   <linearGradient id="linearGradient7463-7" x1="1772.2" x2="1777.5" y1="1026.5" y2="1026.5" gradientTransform="matrix(1.0162 0 0 .97459 -1782.1 -984.06)" gradientUnits="userSpaceOnUse">
    <stop style="stop-color:#ffffff" offset="0"/>
    <stop style="stop-color:#000000;stop-opacity:0" offset="1"/>
@@ -15,10 +15,10 @@
    <stop style="stop-color:#ffffff" offset="0"/>
    <stop style="stop-color:#ffffff;stop-opacity:0" offset="1"/>
   </linearGradient>
-  <linearGradient id="linearGradient9360-9-6-75-6-4-7" x1="1922.3" x2="1944.6" y1="942.55" y2="942.55" gradientTransform="matrix(.94747 0 0 .75531 -1806.9 -667.96)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5681"/>
-  <linearGradient id="linearGradient5681">
-   <stop style="stop-color:#352a1b" offset="0"/>
-   <stop style="stop-color:#52483e" offset="1"/>
+  <linearGradient id="linearGradient9360-9-6-75-6-4-7" x1="1922.3" x2="1944.6" y1="942.55" y2="942.55" gradientTransform="matrix(.94747 0 0 .75531 -1806.9 -667.96)" gradientUnits="userSpaceOnUse" xlink:href="#linearGradient5687"/>
+  <linearGradient id="linearGradient5687">
+   <stop style="stop-color:#31251f" offset="0"/>
+   <stop style="stop-color:#5d5247" offset="1"/>
   </linearGradient>
  </defs>
  <path d="m21.428 25.578c0.0752 10.045-9.0211 14.137-9.0211 14.137l0.82472 3.5715h23.537l0.82441-3.5715s-9.0958-4.0922-9.0208-14.137z" style="fill:url(#linearGradient7449-6);stroke-width:.7;stroke:#000000"/>
@@ -29,5 +29,5 @@
  <path d="m18.979 20.523c-0.39793-0.11676-1.6635-6.5583 4.9087-8.2181-3.3364 0.56624-4.887 6.0997-4.9087 8.2181z" style="fill:url(#linearGradient7463-7);opacity:.25"/>
  <path d="m18.843 26.105c0.11889-1.2538 7.9392-1.5384 7.9392-1.5384l-6.8611-0.07894c-0.82665 0.09259-1.6107 0.84273-1.078 1.6173z" style="fill:url(#linearGradient7465-5);opacity:.25"/>
  <path d="m21.775 27.462c-0.52914 8.1948-8.8557 12.446-8.8557 12.446l0.63216 2.9281 0.29855-2.6914c5.981-2.9763 8.7279-9.1303 7.925-12.683z" style="fill:url(#linearGradient7467-7);opacity:.25"/>
- <path d="m14.767 43.286v1.3591s4.86e-4 5.29e-4 4.86e-4 5.29e-4h20.466s4.86e-4 -5.29e-4 4.86e-4 -5.29e-4v-1.3591h-4.86e-4 -20.466-4.86e-4z" style="fill:url(#linearGradient9360-9-6-75-6-4-7);paint-order:normal;stroke-linecap:round;stroke-linejoin:round;stroke-width:.7;stroke:#000000"/>
+ <path d="m14.767 43.286v1.3591s4.86e-4 5.29e-4 4.86e-4 5.29e-4h20.466s4.86e-4 -5.29e-4 4.86e-4 -5.29e-4v-1.3591h-20.467z" style="fill:url(#linearGradient9360-9-6-75-6-4-7);paint-order:normal;stroke-linecap:round;stroke-linejoin:round;stroke-width:.7;stroke:#000000"/>
 </svg>
