@@ -45,7 +45,9 @@ final private class RelayFetch(
 
     case Tick =>
       api.toSync.flatMap { relays =>
-        lila.mon.relay.ongoing.update(relays.size)
+        List(true, false) foreach { official =>
+          lila.mon.relay.ongoing(official).update(relays.count(_.official == official))
+        }
         relays.map { relay =>
           if (relay.sync.ongoing) processRelay(relay) flatMap { newRelay =>
             api.update(relay)(_ => newRelay)
@@ -67,8 +69,8 @@ final private class RelayFetch(
       doProcess(relay)
         .flatMap { games =>
           sync(relay, games)
-            .withTimeout(1500 millis, SyncResult.Timeout)
-            .monSuccess(_.relay.syncTime)
+            .withTimeout(5 seconds, SyncResult.Timeout)
+            .mon(_.relay.syncTime(relay.official, relay.slug))
             .map { res =>
               res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
             }
@@ -96,7 +98,7 @@ final private class RelayFetch(
           relay.finish
         } else continueRelay(relay)
       case SyncResult.Ok(nbMoves, _) =>
-        lila.mon.relay.moves.increment(nbMoves)
+        lila.mon.relay.moves(relay.official, relay.slug).increment(nbMoves)
         continueRelay(relay.ensureStarted.resume)
       case _ => continueRelay(relay)
     }

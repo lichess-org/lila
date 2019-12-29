@@ -250,9 +250,14 @@ object mon {
     def zoneSegment(name: String) = future("mod.zone.segment", name)
   }
   object relay {
-    val ongoing  = gauge("relay.ongoing").withoutTags
-    val moves    = counter("relay.moves").withoutTags
-    val syncTime = future("relay.sync.time")
+    private def by(official: Boolean) = if (official) "official" else "user"
+    def ongoing(official: Boolean)    = gauge("relay.ongoing").withTag("by", by(official))
+    def moves(official: Boolean, slug: String) = counter("relay.moves").withTags(
+      Map("by" -> by(official), "slug" -> slug)
+    )
+    def syncTime(official: Boolean, slug: String) = timer("relay.sync.time").withTags(
+      Map("by" -> by(official), "slug" -> slug)
+    )
   }
   object bot {
     def moves(username: String) = counter("bot.moves").withTag("name", username)
