@@ -907,4 +907,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
     <item quantity="few">i uštedi %s predpoteza</item>
     <item quantity="other">i uštedi %s predpoteza</item>
   </plurals>
+  <string name="sorry">Izvinjavamo se :(</string>
+  <string name="weHadToTimeYouOutForAWhile">Morali smo Vam staviti privremenu zabranu na igranje.</string>
+  <string name="timeoutExpires">Privremena zabrana ističe %s.</string>
+  <string name="why">Zašto?</string>
+  <string name="pleasantChessExperience">Naš cilj je da svima pružimo ugodno šahovsko iskustvo.</string>
 </resources>
