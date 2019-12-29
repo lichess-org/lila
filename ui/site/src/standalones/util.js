@@ -8,6 +8,9 @@ lichess.dispatchEvent = (el, eventName) => el.dispatchEvent(new Event(eventName)
 
 lichess.hasTouchEvents = 'ontouchstart' in window;
 
+// Unique id for the current document/navigation. Should be different after
+// each page load and for each tab. Should be unpredictable and secret while
+// in use.
 try {
   const data = window.crypto.getRandomValues(new Uint8Array(9));
   lichess.sri = btoa(String.fromCharCode(...data)).replace(/[/+]/g, '_');
@@ -35,7 +38,11 @@ lichess.isCol1 = (() => {
     const api = {
       get: k => storage.getItem(k),
       set: (k, v) => storage.setItem(k, v),
-      fire: (k, v) => storage.setItem(k, JSON.stringify({sri: lichess.sri, nonce: Math.random(), value: v})),
+      fire: (k, v) => storage.setItem(k, JSON.stringify({
+        sri: lichess.sri,
+        nonce: Math.random(), // ensure item changes
+        value: v
+      })),
       remove: k => storage.removeItem(k),
       make: k => ({
         get: () => api.get(k),
@@ -50,6 +57,8 @@ lichess.isCol1 = (() => {
           } catch(_) {
             return;
           }
+          // check sri, because Safari fires events also in the original
+          // document when there are multiple tabs
           if (parsed.sri && parsed.sri !== lichess.sri) f(parsed);
         })
       }),
