@@ -31,8 +31,6 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
   const send = ctrl.socket.send;
   const redraw = ctrl.redraw;
 
-  const sri: string = li.StrongSocket ? li.StrongSocket.sri : '';
-
   const vm: StudyVm = (() => {
     const isManualChapter = data.chapter.id !== data.position.chapterId;
     const sticked = data.features.sticky && !ctrl.initialPath && !isManualChapter && !practiceData;
@@ -294,7 +292,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         return xhrReload();
       }
       data.position.path = position.path;
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       ctrl.userJump(position.path);
       redraw();
     },
@@ -310,7 +308,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         if (sticky && !vm.mode.sticky) redraw();
         return;
       }
-      if (sticky && who && who.s === sri) {
+      if (sticky && who && who.s === li.sri) {
         data.position.path = position.path + node.id;
         return;
       }
@@ -331,7 +329,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       setMemberActive(who);
       if (wrongChapter(d)) return;
       // deleter already has it done
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.deleteNodeAt(position.path);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
@@ -342,7 +340,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       if (!ctrl.tree.pathExists(d.p.path)) return xhrReload();
       ctrl.tree.promoteAt(position.path, d.toMainline);
       if (vm.mode.sticky) ctrl.jump(ctrl.path);
@@ -362,7 +360,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     descChapter(d) {
       setMemberActive(d.w);
-      if (d.w && d.w.s === sri) return;
+      if (d.w && d.w.s === li.sri) return;
       if (data.chapter.id === d.chapterId) {
         data.chapter.description = d.desc;
         chapterDesc.set(d.desc);
@@ -371,7 +369,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     descStudy(d) {
       setMemberActive(d.w);
-      if (d.w && d.w.s === sri) return;
+      if (d.w && d.w.s === li.sri) return;
       data.description = d.desc;
       studyDesc.set(d.desc);
       redraw();
@@ -380,7 +378,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       setMemberActive(d.w);
       if (d.s && !vm.mode.sticky) vm.behind++;
       if (d.s) data.position = d.p;
-      else if (d.w && d.w.s === sri) {
+      else if (d.w && d.w.s === li.sri) {
         vm.mode.write = true;
         vm.chapterId = d.p.chapterId;
       }
@@ -404,7 +402,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
         who = d.w;
       setMemberActive(who);
       if (wrongChapter(d)) return;
-      if (who && who.s === sri) return;
+      if (who && who.s === li.sri) return;
       ctrl.tree.setShapes(d.s, ctrl.path);
       if (ctrl.path === position.path) ctrl.withCg(cg => cg.setShapes(d.s));
       redraw();
@@ -465,7 +463,7 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
     },
     liking(d) {
       data.likes = d.l.likes;
-      if (d.w && d.w.s === sri) data.liked = d.l.me;
+      if (d.w && d.w.s === li.sri) data.liked = d.l.me;
       redraw();
     },
     following_onlines: members.inviteForm.setFollowings,
@@ -606,6 +604,5 @@ export default function(data: StudyData, ctrl: AnalyseCtrl, tagTypes: TagTypes, 
       }
       return !!relay && relay.socketHandler(t, d);
     },
-    sri
   };
 };

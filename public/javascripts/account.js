@@ -13,7 +13,7 @@ $(function() {
         ...lichess.formAjax($form),
         success: function() {
           $form.find('.saved').fadeIn();
-          lichess.storage.set('reload-round-tabs', Math.random());
+          lichess.storage.fire('reload-round-tabs');
         }
       });
     });

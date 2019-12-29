@@ -143,7 +143,7 @@ export default function(opts: CevalOpts): CevalCtrl {
     opts.emit(ev, work);
     if (ev.fen !== lastEmitFen) {
       lastEmitFen = ev.fen;
-      li.storage.set('ceval.fen', ev.fen);
+      li.storage.fire('ceval.fen', ev.fen);
     }
   });
 
@@ -222,7 +222,7 @@ export default function(opts: CevalOpts): CevalCtrl {
 
   // ask other tabs if a game is in progress
   if (enabled()) {
-    li.storage.set('ceval.fen', 'start:' + Math.random());
+    li.storage.fire('ceval.fen', 'start');
     li.storage.make('round.ongoing').listen(_ => {
       enabled(false);
       opts.redraw();

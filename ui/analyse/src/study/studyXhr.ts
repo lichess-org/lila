@@ -44,10 +44,10 @@ export function practiceComplete(chapterId: string, nbMoves: number) {
   });
 }
 
-export function importPgn(studyId: string, data: any, sri: string) {
+export function importPgn(studyId: string, data: any) {
   return $.ajax({
     method: 'POST',
-    url: `/study/${studyId}/import-pgn?sri=${sri}`,
+    url: `/study/${studyId}/import-pgn?sri=${window.lichess.sri}`,
     data: data,
     headers
   });
