@@ -143,7 +143,8 @@ final private class RelayFetch(
   // The goal of this is to make sure that an upstream used by several broadcast
   // is only pulled from as many times as necessary, and not more.
   private val cache: Cache[Upstream, GamesSeenBy] = CacheApi.scaffeineNoScheduler
-    .expireAfterWrite(30.seconds)
+    .initialCapacity(4)
+    .maximumSize(16)
     .build[Upstream, GamesSeenBy]
     .underlying
 
