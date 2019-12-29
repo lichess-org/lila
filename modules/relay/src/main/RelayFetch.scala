@@ -2,7 +2,7 @@ package lila.relay
 
 import akka.actor._
 import chess.format.pgn.Tags
-import com.github.blemale.scaffeine.{ Cache, LoadingCache }
+import com.github.blemale.scaffeine.LoadingCache
 import io.lemonlabs.uri.Url
 import org.joda.time.DateTime
 import play.api.libs.json._
@@ -123,22 +123,29 @@ final private class RelayFetch(
     }
   }
 
+  import com.github.benmanes.caffeine.cache.Cache
   import RelayFetch.GamesSeenBy
 
   private def doProcess(relay: Relay): Fu[RelayGames] =
-    cache getIfPresent relay.sync.upstream match {
-      case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
-        cache.put(relay.sync.upstream, GamesSeenBy(games, seenBy + relay.id))
-        games
-      case _ =>
-        val games = doFetch(relay.sync.upstream, RelayFetch.maxChapters(relay))
-        cache.put(relay.sync.upstream, GamesSeenBy(games, Set(relay.id)))
-        games
-    }
+    cache.asMap
+      .compute(
+        relay.sync.upstream,
+        (_, v) =>
+          Option(v) match {
+            case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
+              GamesSeenBy(games, seenBy + relay.id)
+            case _ =>
+              GamesSeenBy(doFetch(relay.sync.upstream, RelayFetch.maxChapters(relay)), Set(relay.id))
+          }
+      )
+      .games
 
+  // The goal of this is to make sure that an upstream used by several broadcast
+  // is only pulled from as many times as necessary, and not more.
   private val cache: Cache[Upstream, GamesSeenBy] = CacheApi.scaffeineNoScheduler
     .expireAfterWrite(30.seconds)
     .build[Upstream, GamesSeenBy]
+    .underlying
 
   private def doFetch(upstream: Upstream, max: Int): Fu[RelayGames] = {
     import RelayFetch.DgtJson._
