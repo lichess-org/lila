@@ -141,6 +141,7 @@ export class Pool {
   };
 
   start = (work: Work) => {
+    console.log('sending ceval.pool.start');
     window.lichess.storage.set('ceval.pool.start', Date.now().toString());
     this.getWorker().then(function(worker) {
       worker.start(work);
