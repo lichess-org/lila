@@ -589,9 +589,9 @@ final class TournamentApi(
     private val throttler = system.actorOf(Props(new EarlyMultiThrottler(logger = logger)))
 
     def apply(tourId: Tournament.ID): Unit =
-      throttler ! EarlyMultiThrottler.work(
+      throttler ! EarlyMultiThrottler.Work(
         id = tourId,
-        run = publishNow(tourId),
+        run = () => publishNow(tourId),
         cooldown = 15.seconds
       )
   }
