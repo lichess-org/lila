@@ -135,8 +135,8 @@ final class Relay(
   }
 
   private def asJson(relay: RelayModel) = Json.obj(
-    "relay" -> env.relay.jsonView.apiShow(relay),
-    "url"   -> s"${env.net.baseUrl}${showRoute(relay)}"
+    "broadcast" -> env.relay.jsonView.apiShow(relay),
+    "url"       -> s"${env.net.baseUrl}${showRoute(relay)}"
   )
 
   private def WithRelay(slug: String, id: String)(

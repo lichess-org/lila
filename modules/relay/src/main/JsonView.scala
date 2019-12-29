@@ -35,6 +35,7 @@ final class JsonView(markup: RelayMarkup) {
       .add("startsAt" -> r.startsAt)
       .add("startedAt" -> r.startedAt)
       .add("official" -> r.official.option(true))
+      .add("throttle" -> r.sync.delay)
 }
 
 object JsonView {

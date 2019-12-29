@@ -10,7 +10,7 @@ import lila.user.User
 final class RelayForm {
 
   import RelayForm._
-  import lila.common.Form.UTCDate._
+  import lila.common.Form.{ inTheFuture, ISODateTimeOrTimestamp }
 
   val form = Form(
     mapping(
@@ -22,7 +22,7 @@ final class RelayForm {
         .verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
-      "startsAt"     -> optional(utcDate),
+      "startsAt"     -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
       "throttle"     -> optional(number(min = 2, max = 60))
     )(Data.apply)(Data.unapply)
       .verifying("This source requires a round number. See the new form field below.", !_.roundMissing)
@@ -65,17 +65,17 @@ object RelayForm {
       description = description,
       markup = markup,
       official = ~official && Granter(_.Relay)(user),
-      sync = makeSync,
+      sync = makeSync(user),
       credit = credit,
       startsAt = startsAt,
       finished = relay.finished && startsAt.fold(true)(_.isBefore(DateTime.now))
     )
 
-    def makeSync = Relay.Sync(
+    def makeSync(user: User) = Relay.Sync(
       upstream = Relay.Sync.Upstream(s"$cleanUrl${syncUrlRound.??(" " +)}"),
       until = none,
       nextAt = none,
-      delay = throttle,
+      delay = throttle ifTrue Granter(_.Relay)(user),
       log = SyncLog.empty
     )
 
@@ -85,7 +85,7 @@ object RelayForm {
       description = description,
       markup = markup,
       ownerId = user.id,
-      sync = makeSync,
+      sync = makeSync(user),
       credit = credit,
       likes = lila.study.Study.Likes(1),
       createdAt = DateTime.now,

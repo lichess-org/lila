@@ -59,8 +59,11 @@ object form {
         form("markup"),
         raw("Full event description"),
         help = frag(
-          a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank")("Markdown"),
-          " is available"
+          "Optional long description of the broadcast. ",
+          a(href := "https://guides.github.com/features/mastering-markdown/", target := "_blank")(
+            "Markdown"
+          ),
+          " is available. Length must be less than 20,000 characters."
         ).some
       )(form3.textarea(_)(rows := 10)),
       if (isGranted(_.Relay))
@@ -70,7 +73,13 @@ object form {
           help = raw("Feature on /broadcast - for admins only").some
         )
       else form3.hidden(form("official")),
-      form3.group(form("syncUrl"), raw("Source URL"))(form3.input(_, typ = "url")),
+      form3.group(
+        form("syncUrl"),
+        raw("Source URL"),
+        help = raw(
+          "URL that Lichess will poll to get PGN updates. It must be publicly accessible from the Internet."
+        ).some
+      )(form3.input(_, typ = "url")),
       form("syncUrl").value.exists(LccRegex.matches) option {
         form3.group(form("syncUrlRound"), raw("Round number"))(
           form3.input(_, typ = "number")(required := true)
@@ -79,10 +88,7 @@ object form {
       form3.split(
         form3.group(
           form("startsAt"),
-          frag(
-            "Start date ",
-            strong(utcLink)
-          ),
+          frag("Start date in your own timezone"),
           help = raw("Optional, if you know when the event starts").some,
           half = true
         )(form3.flatpickr(_)),
