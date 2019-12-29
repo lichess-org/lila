@@ -31,16 +31,30 @@ final class Relay(
     }
   }
 
-  def create = AuthBody { implicit ctx => me =>
-    implicit val req = ctx.body
-    env.relay.forms.create.bindFromRequest.fold(
-      err => BadRequest(html.relay.form.create(err)).fuccess,
-      setup =>
-        env.relay.api.create(setup, me) map { relay =>
-          Redirect(showRoute(relay))
-        }
-    )
-  }
+  def create = AuthOrScopedBody(_.Study.Write)(
+    auth = implicit ctx =>
+      me =>
+        env.relay.forms.create
+          .bindFromRequest()(ctx.body)
+          .fold(
+            err => BadRequest(html.relay.form.create(err)).fuccess,
+            setup =>
+              env.relay.api.create(setup, me) map { relay =>
+                Redirect(showRoute(relay))
+              }
+          ),
+    scoped = req =>
+      me =>
+        env.relay.forms.create
+          .bindFromRequest()(req)
+          .fold(
+            err => BadRequest(apiFormError(err)).fuccess,
+            setup =>
+              env.relay.api.create(setup, me) map { relay =>
+                Ok(asJson(relay)) as JSON
+              }
+          )
+  )
 
   def edit(@silent slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
