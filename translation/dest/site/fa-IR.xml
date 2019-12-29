@@ -36,7 +36,7 @@
   <string name="forceResignation">ادعای پیروزی</string>
   <string name="forceDraw">اعلام تساوی</string>
   <string name="talkInChat">لطفا در گپ زدن مودب باشید!</string>
-  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند</string>
+  <string name="theFirstPersonToComeOnThisUrlWillPlayWithYou">نخستین کسی که به این لینک بیاید با شما بازی می کند.</string>
   <string name="whiteResigned">بازیکن سفید تسلیم شد</string>
   <string name="blackResigned">بازیکن سیاه تسلیم شد</string>
   <string name="whiteLeftTheGame">بازیکن سفید بازی را ترک کرد</string>
@@ -46,7 +46,7 @@
   <string name="viewTheComputerAnalysis">نمایش تحلیل رایانه ای</string>
   <string name="requestAComputerAnalysis">درخواست تحلیل رایانه ای</string>
   <string name="computerAnalysis">تجزيه تحليل رایانه ای</string>
-  <string name="computerAnalysisAvailable">تحلیل کامپیوتری در دسترس است.</string>
+  <string name="computerAnalysisAvailable">تحلیل کامپیوتری در دسترس است</string>
   <string name="analysis">تحلیل</string>
   <string name="depthX">عمق بررسی: %s حرکت</string>
   <string name="usingServerAnalysis">با استفاده از تحلیل سرور</string>
@@ -59,6 +59,7 @@
   <string name="promoteVariation">ارتقای واریانت</string>
   <string name="makeMainLine">به شاخه اصلی تبدیل شود</string>
   <string name="deleteFromHere">از اینجا به بعد حذف شود</string>
+  <string name="forceVariation">تحمیل واریانت</string>
   <string name="move">حرکت</string>
   <string name="variantLoss">حرکت بازنده</string>
   <string name="variantWin">حرکت برنده</string>
@@ -159,6 +160,9 @@
   <string name="ratingStats">آمار ریتنگ</string>
   <string name="username">نام کاربری</string>
   <string name="usernameOrEmail">نام کاربری یا ایمیل</string>
+  <string name="changeUsername">تغییر نام کاربری</string>
+  <string name="changeUsernameNotSame">تنها اندازه حروف میتوانند تغییر کنند. برای مثال \"johndoe\" به \"JohnDoe\".</string>
+  <string name="changeUsernameDescription">نام کاربری خود را تغییر دهید. این تنها یک بار انجام پذیر است و شما تنها مجازید اندازه حروف نام کاربری‌تان را تغییر دهید.</string>
   <string name="password">رمز عبور</string>
   <string name="changePassword">تغییر کلمه عبور</string>
   <string name="changeEmail">تغییر ایمیل</string>
@@ -167,6 +171,10 @@
   <string name="forgotPassword">آیا کلمه عبور را فراموش کرده اید؟</string>
   <string name="rank">رتبه</string>
   <string name="rankX">رتبه:%s</string>
+  <plurals name="rankIsUpdatedEveryNbMinutes">
+    <item quantity="one">رتبه در هر دقیقه بروز می‌شود</item>
+    <item quantity="other">رتبه در هر %s دقیقه به روز می‌شود</item>
+  </plurals>
   <plurals name="nbPuzzles">
     <item quantity="one">%s معما</item>
     <item quantity="other">%s معما</item>
@@ -192,6 +200,7 @@
   <string name="playingRightNow">بازی در حال انجام</string>
   <string name="eventInProgress">بازی در حال انجام</string>
   <string name="finished">تمام شده</string>
+  <string name="finishesX">به پایان می‌رسد %s</string>
   <string name="abortGame">انصراف از بازی</string>
   <string name="gameAborted">بازی لغو شد</string>
   <string name="standard">استاندارد</string>
@@ -331,6 +340,7 @@
   <string name="pasteThePgnStringHere">متن PGN را در این قسمت وارد کنید</string>
   <string name="fromPosition">شروع از پوزیشن</string>
   <string name="continueFromHere">از اینجا ادامه دهید</string>
+  <string name="toStudy">مطالعه</string>
   <string name="importGame">بارگذاری بازی</string>
   <string name="importGameExplanation">در صورت بارگذاری فایل PGN،آنالیز کامپیوتری و لینک قابل به اشتراک گذاری در اختیار شما قرار خواهد گرفت.</string>
   <plurals name="nbImportedGames">
@@ -341,8 +351,14 @@
   <string name="clickOnTheBoardToMakeYourMove">برای اثبات اینکه کامپیوتر نیستید، روی صفحه کلیک کنید تا حرکت خود را انجام دهید</string>
   <string name="captcha.fail">لطفا captcha را حل کنید</string>
   <string name="notACheckmate">عدم کیش و مات</string>
+  <string name="whiteCheckmatesInOneMove">سفید در یک حرکت مات می‌کند</string>
+  <string name="blackCheckmatesInOneMove">سیاه در یک حرکت مات می‌کند</string>
   <string name="retry">تلاش دوباره</string>
   <string name="reconnecting">در حال اتصال دوباره</string>
+  <plurals name="nbFriendsOnline">
+    <item quantity="one">%s دوست آنلاین</item>
+    <item quantity="other">%s دوست آنلاین</item>
+  </plurals>
   <string name="noFriendsOnline">هیچ دوستی آنلاین نیست</string>
   <string name="findFriends">پیدا کردن دوست</string>
   <string name="favoriteOpponents">رقبای مورد علاقه</string>
@@ -458,6 +474,7 @@
   <string name="pleaseVotePuzzle">با رای دادن مثبت یا منفی به پیشرفت لیچس کمک کنید</string>
   <string name="thankYou">ممنون!</string>
   <string name="ratingX">امتیاز: %s</string>
+  <string name="hidden">پنهان</string>
   <plurals name="playedXTimes">
     <item quantity="one">این جدول%s بار بازی شده است</item>
     <item quantity="other">این جدول%s بار بازی شده است</item>
@@ -572,6 +589,9 @@
   <string name="xCommentedY">%1$s به %2$s پیام داد.</string>
   <string name="victory">پیروزی!</string>
   <string name="defeat">شکست!</string>
+  <string name="victoryVsYInZ">پیروزی مقابل %2$s در %3$s</string>
+  <string name="defeatVsYInZ">شکست در برابر %2$s در %3$s</string>
+  <string name="drawVsYInZ">تساوی با %2$s در %3$s</string>
   <string name="timeline">جدول زمانی</string>
   <string name="starting">شروع</string>
   <string name="allInformationIsPublicAndOptional">تمامی اطلاعات عمومی و اختیاری است.</string>
@@ -599,6 +619,7 @@
   <string name="playOfflineComputer">بازی آفلاین با رایانه</string>
   <string name="opponent">حریف</string>
   <string name="learnMenu">یادگیری</string>
+  <string name="practice">تمرین کردن</string>
   <string name="community">انجمن</string>
   <string name="tools">ابزارها</string>
   <string name="increment">افزایش زمان</string>
@@ -631,10 +652,13 @@
   <string name="tpTimeSpentOnTV">مدت زمان سپری شده در تلویزیون: %s</string>
   <string name="watch">نگاه کردن</string>
   <string name="videoLibrary">فیلم ها</string>
+  <string name="streamersMenu">استریم کنندگان</string>
+  <string name="broadcastsMenu">پخش ها</string>
   <string name="mobileApp">برنامه ی موبایل</string>
   <string name="webmasters">وب مستر ها</string>
   <string name="about">درباره ما</string>
   <string name="aboutX">درباره %s</string>
+  <string name="xIsAFreeYLibreOpenSourceChessServer">%1$s یک سرور شطرنج رایگان (واقعا!), آزاد, بدون تبلیغات و منبع باز است.</string>
   <string name="really">واقعاً</string>
   <string name="contribute">مشارکت</string>
   <string name="contact">تماس</string>
@@ -684,6 +708,7 @@
   <string name="yourPerfTypeRatingIsRating">.است %1$s شما %2$s ریتینگ</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">شما بهتر از %1$s بازیکن ها در %2$s هستید.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">. ندارید %s چرا شما ریتینگ پایدار برای</string>
+  <string name="yourRating">ریتینگ شما</string>
   <string name="checkYourEmail">ایمیل خود را چک کنید</string>
   <string name="weHaveSentYouAnEmailClickTheLink">ما به شما ایمیل فرستادیم. روی لینکی که در ایمیل است کلیک کنید</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">اگر ایمیل را مشاهده نمی کنید پوشه ی اسپم را بررسی کنید</string>
