@@ -692,6 +692,8 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="tpTimeSpentOnTV">Vrijeme na TV-u: %s</string>
   <string name="watch">Gledaj</string>
   <string name="videoLibrary">Video knjižnica</string>
+  <string name="streamersMenu">Emiteri</string>
+  <string name="broadcastsMenu">Emitovanje</string>
   <string name="mobileApp">Mobilna aplikacija</string>
   <string name="webmasters">Webmasteri</string>
   <string name="about">Više o</string>
@@ -747,6 +749,9 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="yourPerfTypeRatingIsRating">Tvoj %1$s rejting je %2$s.</string>
   <string name="youAreBetterThanPercentOfPerfTypePlayers">Bolji si od %1$s %2$s igrača.</string>
   <string name="youDoNotHaveAnEstablishedPerfTypeRating">Nemaš službeni %s rejting.</string>
+  <string name="yourRating">Tvoj rejting</string>
+  <string name="cumulative">Kumulativno</string>
+  <string name="glicko2Rating">Glicko-2 rejting</string>
   <string name="checkYourEmail">Provjeri svoj email</string>
   <string name="weHaveSentYouAnEmailClickTheLink">Poslali smo ti email. Klikni na link u emailu da aktiviraš svoj račun.</string>
   <string name="ifYouDoNotSeeTheEmailCheckOtherPlaces">Ako ne vidiš email, pogledaj na drugim mjestima (otpad/smeće, neželjena pošta, društvene mreže ili druge mape).</string>
