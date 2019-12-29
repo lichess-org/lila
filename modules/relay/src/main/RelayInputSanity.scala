@@ -36,7 +36,7 @@ private object RelayInputSanity {
 
   // TCEC style has one game per file, and reuses the file for all games
   private def isValidTCEC(chapters: List[Chapter], games: RelayGames) = games match {
-    case List(onlyGame) =>
+    case Vector(onlyGame) =>
       chapters.lastOption.exists { c =>
         onlyGame staticTagsMatch c.tags
       }

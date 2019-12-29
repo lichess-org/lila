@@ -19,7 +19,7 @@ final private class RelaySync(
         RelayInputSanity(chapters, games) match {
           case Some(fail) => fufail(fail.msg)
           case None =>
-            lila.common.Future.traverseSequentially(games) { game =>
+            lila.common.Future.linear(games) { game =>
               findCorrespondingChapter(game, chapters, games.size) match {
                 case Some(chapter) => updateChapter(study, chapter, game)
                 case None =>

@@ -34,7 +34,7 @@ final private class RelayFetch(
   case object Tick
 
   def scheduleNext =
-    context.system.scheduler.scheduleOnce(600 millis, self, Tick)
+    context.system.scheduler.scheduleOnce(500 millis, self, Tick)
 
   def receive = {
 
@@ -66,10 +66,12 @@ final private class RelayFetch(
   def processRelay(relay: Relay): Fu[Relay] =
     if (!relay.sync.playing) fuccess(relay.withSync(_.play))
     else
-      doProcess(relay)
+      fetchGames(relay)
+        .mon(_.relay.fetchTime(relay.official, relay.slug))
+        .addEffect(gs => lila.mon.relay.games(relay.official, relay.slug).update(gs.size))
         .flatMap { games =>
           sync(relay, games)
-            .withTimeout(5 seconds, SyncResult.Timeout)
+            .withTimeout(7 seconds, SyncResult.Timeout)
             .mon(_.relay.syncTime(relay.official, relay.slug))
             .map { res =>
               res -> relay.withSync(_ addLog SyncLog.event(res.moves, none))
@@ -126,7 +128,7 @@ final private class RelayFetch(
   import com.github.benmanes.caffeine.cache.Cache
   import RelayFetch.GamesSeenBy
 
-  private def doProcess(relay: Relay): Fu[RelayGames] =
+  private def fetchGames(relay: Relay): Fu[RelayGames] =
     cache.asMap
       .compute(
         relay.sync.upstream,
@@ -267,19 +269,19 @@ private object RelayFetch {
 
     import scala.util.{ Failure, Success, Try }
 
-    def apply(multiPgn: MultiPgn): Fu[List[RelayGame]] =
+    def apply(multiPgn: MultiPgn): Fu[Vector[RelayGame]] =
       multiPgn.value
-        .foldLeft[Try[(List[RelayGame], Int)]](Success(List.empty -> 0)) {
+        .foldLeft[Try[(Vector[RelayGame], Int)]](Success(Vector.empty -> 0)) {
           case (Success((acc, index)), pgn) =>
             pgnCache.get(pgn) flatMap { f =>
               val game = f(index)
               if (game.isEmpty) Failure(LilaException(s"Found an empty PGN at index $index"))
-              else Success((game :: acc, index + 1))
+              else Success((acc :+ game, index + 1))
             }
           case (acc, _) => acc
         }
         .future
-        .dmap(_._1.reverse)
+        .dmap(_._1)
 
     private val pgnCache: LoadingCache[String, Try[Int => RelayGame]] = CacheApi.scaffeineNoScheduler
       .expireAfterAccess(2 minutes)
