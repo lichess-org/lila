@@ -584,6 +584,9 @@ abstract private[controllers] class LilaController(val env: Env)
     json validate jsonGlobalErrorRenamer getOrElse json
   }
 
+  protected def apiFormError(form: Form[_]): JsObject =
+    Json.obj("error" -> errorsAsJson(form)(lila.i18n.defaultLang))
+
   protected def jsonFormError(err: Form[_])(implicit lang: Lang) =
     fuccess(BadRequest(ridiculousBackwardCompatibleJsonError(errorsAsJson(err))))
 

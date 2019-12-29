@@ -27,6 +27,14 @@ final class JsonView(markup: RelayMarkup) {
     study = studyData.study,
     analysis = studyData.analysis
   )
+
+  def apiShow(r: Relay) =
+    relayWrites
+      .writes(r)
+      .add("markdown" -> r.markup)
+      .add("startsAt" -> r.startsAt)
+      .add("startedAt" -> r.startedAt)
+      .add("official" -> r.official.option(true))
 }
 
 object JsonView {

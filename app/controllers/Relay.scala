@@ -3,6 +3,7 @@ package controllers
 import com.github.ghik.silencer.silent
 import play.api.mvc._
 import play.api.data.Form
+import play.api.libs.json._
 
 import lila.api.Context
 import lila.app._
@@ -62,12 +63,12 @@ final class Relay(
         },
     scoped = req =>
       me =>
-        doUpdate(id, me)(req) flatMap {
-          case None => NotFound(jsonError("No such broadcast")).fuccess
+        doUpdate(id, me)(req) map {
+          case None => NotFound(jsonError("No such broadcast"))
           case Some(res) =>
             res.fold(
-              { case (_, err) => jsonFormErrorDefaultLang(err) },
-              relay => ???
+              { case (_, err) => BadRequest(apiFormError(err)) },
+              relay => Ok(asJson(relay)) as JSON
             )
         }
   )
@@ -93,20 +94,29 @@ final class Relay(
     }
   }
 
-  def show(slug: String, id: String) = Open { implicit ctx =>
-    pageHit
-    WithRelay(slug, id) { relay =>
-      val sc =
-        if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
-          chapters =>
-            chapters.find(_.looksAlive) orElse chapters.headOption match {
-              case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
-              case None          => env.study.api byIdWithChapter relay.studyId
-            }
-        } else env.study.api byIdWithChapter relay.studyId
-      sc flatMap { _ ?? { doShow(relay, _) } }
-    }
-  }
+  def show(slug: String, id: String) = OpenOrScoped(_.Study.Read)(
+    open = implicit ctx => {
+      pageHit
+      WithRelay(slug, id) {
+        relay =>
+          val sc =
+            if (relay.sync.ongoing) env.study.chapterRepo relaysAndTagsByStudyId relay.studyId flatMap {
+              chapters =>
+                chapters.find(_.looksAlive) orElse chapters.headOption match {
+                  case Some(chapter) => env.study.api.byIdWithChapter(relay.studyId, chapter.id)
+                  case None          => env.study.api byIdWithChapter relay.studyId
+                }
+            } else env.study.api byIdWithChapter relay.studyId
+          sc flatMap { _ ?? { doShow(relay, _) } }
+      }
+    },
+    scoped = _ =>
+      me =>
+        env.relay.api.byIdAndContributor(id, me) map {
+          case None        => NotFound(jsonError("No such broadcast"))
+          case Some(relay) => Ok(asJson(relay)) as JSON
+        }
+  )
 
   def chapter(slug: String, id: String, chapterId: String) = Open { implicit ctx =>
     WithRelay(slug, id) { relay =>
@@ -123,6 +133,11 @@ final class Relay(
       }
     }
   }
+
+  private def asJson(relay: RelayModel) = Json.obj(
+    "relay" -> env.relay.jsonView.apiShow(relay),
+    "url"   -> s"${env.net.baseUrl}${showRoute(relay)}"
+  )
 
   private def WithRelay(slug: String, id: String)(
       f: RelayModel => Fu[Result]
