@@ -108,6 +108,19 @@ abstract private[controllers] class LilaController(val env: Env)
     else handleAuth(auth, req)
   }
 
+  protected def AuthOrScopedBody(selectors: OAuthScope.Selector*)(
+      auth: BodyContext[_] => UserModel => Fu[Result],
+      scoped: Request[_] => UserModel => Fu[Result]
+  ): Action[AnyContent] = AuthOrScopedBody(parse.anyContent)(selectors)(auth, scoped)
+
+  protected def AuthOrScopedBody[A](parser: BodyParser[A])(selectors: Seq[OAuthScope.Selector])(
+      auth: BodyContext[A] => UserModel => Fu[Result],
+      scoped: Request[A] => UserModel => Fu[Result]
+  ): Action[A] = Action.async(parser) { req =>
+    if (HTTPRequest isOAuth req) ScopedBody(parser)(selectors)(scoped)(req)
+    else AuthBody(parser)(auth)(req)
+  }
+
   protected def Auth(f: Context => UserModel => Fu[Result]): Action[Unit] =
     Auth(parse.empty)(f)
 

@@ -2,10 +2,12 @@ package controllers
 
 import com.github.ghik.silencer.silent
 import play.api.mvc._
+import play.api.data.Form
 
 import lila.api.Context
 import lila.app._
-import lila.relay.{ Relay => RelayModel }
+import lila.relay.{ Relay => RelayModel, RelayForm }
+import lila.user.{ User => UserModel }
 import views._
 
 final class Relay(
@@ -45,21 +47,45 @@ final class Relay(
     }
   }
 
-  def update(@silent slug: String, id: String) = AuthBody { implicit ctx => me =>
-    OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
-      implicit val req = ctx.body
-      env.relay.forms
-        .edit(relay)
-        .bindFromRequest
-        .fold(
-          err => BadRequest(html.relay.form.edit(relay, err)).fuccess,
-          data =>
-            env.relay.api.update(relay) { data.update(_, me) } map { r =>
-              Redirect(showRoute(r))
-            }
-        )
+  def update(@silent slug: String, id: String) = AuthOrScopedBody(_.Study.Write)(
+    auth = implicit ctx =>
+      me =>
+        doUpdate(id, me)(ctx.body) flatMap {
+          case None => notFound
+          case Some(res) =>
+            res
+              .fold(
+                { case (old, err) => BadRequest(html.relay.form.edit(old, err)) },
+                relay => Redirect(showRoute(relay))
+              )
+              .fuccess
+        },
+    scoped = req =>
+      me =>
+        doUpdate(id, me)(req) flatMap {
+          case None => NotFound(jsonError("No such broadcast")).fuccess
+          case Some(res) =>
+            res.fold(
+              { case (_, err) => jsonFormErrorDefaultLang(err) },
+              relay => ???
+            )
+        }
+  )
+
+  private def doUpdate(id: String, me: UserModel)(
+      implicit req: Request[_]
+  ): Fu[Option[Either[(RelayModel, Form[RelayForm.Data]), RelayModel]]] =
+    env.relay.api.byIdAndContributor(id, me) flatMap {
+      _ ?? { relay =>
+        env.relay.forms
+          .edit(relay)
+          .bindFromRequest
+          .fold(
+            err => fuccess(Left(relay -> err)),
+            data => env.relay.api.update(relay) { data.update(_, me) } dmap Right.apply
+          ) dmap some
+      }
     }
-  }
 
   def reset(@silent slug: String, id: String) = Auth { implicit ctx => me =>
     OptionFuResult(env.relay.api.byIdAndContributor(id, me)) { relay =>
