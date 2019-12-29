@@ -7,7 +7,7 @@ sealed abstract class OAuthScope(val key: String, val name: String) {
 object OAuthScope {
 
   object Preference {
-    case object Read extends OAuthScope("preference:read", "Read preferences")
+    case object Read  extends OAuthScope("preference:read", "Read preferences")
     case object Write extends OAuthScope("preference:write", "Write preferences")
   }
 
@@ -16,8 +16,13 @@ object OAuthScope {
   }
 
   object Challenge {
-    case object Read extends OAuthScope("challenge:read", "Read incoming challenges")
+    case object Read  extends OAuthScope("challenge:read", "Read incoming challenges")
     case object Write extends OAuthScope("challenge:write", "Create, accept, decline challenges")
+  }
+
+  object Study {
+    case object Read  extends OAuthScope("study:read", "Read private studies and broadcasts")
+    case object Write extends OAuthScope("study:write", "Create, update, delete studies and broadcasts")
   }
 
   object Tournament {
@@ -41,16 +46,22 @@ object OAuthScope {
   type Selector = OAuthScope.type => OAuthScope
 
   val all = List(
-    Preference.Read, Preference.Write,
+    Preference.Read,
+    Preference.Write,
     Email.Read,
-    Challenge.Read, Challenge.Write,
+    Challenge.Read,
+    Challenge.Write,
+    Study.Read,
+    Study.Write,
     Tournament.Write,
     Puzzle.Read,
     Team.Write,
     Bot.Play
   )
 
-  val byKey: Map[String, OAuthScope] = all.map { s => s.key -> s } toMap
+  val byKey: Map[String, OAuthScope] = all.map { s =>
+    s.key -> s
+  } toMap
 
   def keyList(scopes: Iterable[OAuthScope]) = scopes.map(_.key) mkString ", "
 
@@ -58,7 +69,7 @@ object OAuthScope {
 
   import reactivemongo.api.bson._
   import lila.db.dsl._
-  private[oauth] implicit val scopeHandler = tryHandler[OAuthScope](
+  implicit private[oauth] val scopeHandler = tryHandler[OAuthScope](
     { case b: BSONString => OAuthScope.byKey.get(b.value) toTry s"No such scope: ${b.value}" },
     s => BSONString(s.key)
   )
