@@ -100,22 +100,6 @@ final class Api(
     }
   }
 
-  def titledUsers = Action {
-    ServiceUnavailable("This API is disabled at the moment.")
-  }
-
-  // def titledUsers = Action.async { req =>
-  //   val titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList)
-  //   GlobalLinearLimitPerIP(HTTPRequest lastRemoteAddress req) {
-  //     val config = UserApi.Titled(
-  //       titles = lila.user.Title get get("titles", req).??(_.split(',').take(20).toList),
-  //       online = getBool("online", req),
-  //       perSecond = MaxPerSecond(50)
-  //     )
-  //     jsonStream(userApi.exportTitled(config)).fuccess
-  //   }
-  // }
-
   private val UserGamesRateLimitPerIP = new lila.memo.RateLimit[IpAddress](
     credits = 10 * 1000,
     duration = 10 minutes,

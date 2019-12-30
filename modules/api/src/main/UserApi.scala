@@ -102,12 +102,3 @@ final private[api] class UserApi(
 
   private def makeUrl(path: String): String = s"${net.baseUrl}/$path"
 }
-
-object UserApi {
-
-  case class Titled(
-      titles: List[lila.user.Title],
-      online: Boolean,
-      perSecond: MaxPerSecond
-  )
-}
