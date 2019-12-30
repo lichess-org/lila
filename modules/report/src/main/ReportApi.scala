@@ -194,6 +194,17 @@ final class ReportApi(
       _ <- doProcessReport($inIds(open.map(_.id)), ModId.lichess)
     } yield open
 
+  def reopenReports(suspect: Suspect): Funit =
+    for {
+      all <- recent(suspect, 10)
+      closed = all.filter(_.processedBy has ModId.lichess.value)
+      _ <- coll.update.one(
+        $inIds(closed.map(_.id)),
+        $set("open" -> true) ++ $unset("processedBy"),
+        multi = true
+      )
+    } yield ()
+
   def autoBoostReport(winnerId: User.ID, loserId: User.ID): Funit =
     securityApi.shareIpOrPrint(winnerId, loserId) zip
       userRepo.byId(winnerId) zip userRepo.byId(loserId) zip getLichessReporter flatMap {

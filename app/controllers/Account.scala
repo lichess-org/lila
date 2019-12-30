@@ -348,7 +348,8 @@ final class Account(
         notFound
       }
       case Some(user) =>
-        auth.authenticateUser(user) >>-
+        env.report.api.reopenReports(lila.report.Suspect(user)) >>
+          auth.authenticateUser(user) >>-
           lila.mon.user.auth.reopenConfirm("success").increment()
     }
   }
