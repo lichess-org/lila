@@ -318,7 +318,7 @@ final class Account(
         },
       data =>
         env.security.reopen
-          .prepare(data.username, data.realEmail, env.mod.logApi.hasSelfClosedOnce _) flatMap {
+          .prepare(data.username, data.realEmail, env.mod.logApi.hasModClose _) flatMap {
           case Left((code, msg)) =>
             lila.mon.user.auth.reopenRequest(code.pp).increment()
             env.security.forms.reopenWithCaptcha map {

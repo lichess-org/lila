@@ -21,7 +21,7 @@ final class Reopen(
   def prepare(
       username: String,
       email: EmailAddress,
-      hasSelfClosedOnce: User.ID => Fu[Boolean]
+      hasModClose: User.ID => Fu[Boolean]
   ): Fu[Either[(String, String), User]] =
     userRepo.enabledWithEmail(email.normalize) flatMap {
       case Some(_) =>
@@ -42,9 +42,9 @@ final class Reopen(
               case Some(prevEmail) if !email.similarTo(prevEmail) =>
                 fuccess(Left("differentEmail" -> "That account has a different email address."))
               case _ =>
-                hasSelfClosedOnce(user.id) map {
-                  case false => Left("nope" -> "Sorry, that account can no longer be reopened.")
-                  case _     => Right(user)
+                hasModClose(user.id) map {
+                  case true => Left("nope" -> "Sorry, that account can no longer be reopened.")
+                  case _    => Right(user)
                 }
             }
         }

@@ -56,8 +56,8 @@ final class ModlogApi(repo: ModlogRepo)(implicit ec: scala.concurrent.ExecutionC
     )
   }
 
-  def hasSelfClosedOnce(user: User.ID): Fu[Boolean] =
-    coll.countSel($doc("user" -> user, "action" -> "selfCloseAccount")) dmap (1 ==)
+  def hasModClose(user: User.ID): Fu[Boolean] =
+    coll.exists($doc("user" -> user, "action" -> Modlog.closeAccount))
 
   def reopenAccount(mod: User.ID, user: User.ID) = add {
     Modlog(mod, user.some, Modlog.reopenAccount)
