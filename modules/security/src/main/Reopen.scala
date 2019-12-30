@@ -30,7 +30,7 @@ final class Reopen(
         val userId = User normalize username
         userRepo.byId(userId) flatMap {
           case None =>
-            fuccess(Left("noUser" -> "No account has even been created with this username."))
+            fuccess(Left("noUser" -> "No account has ever been created with this username."))
           case Some(user) if user.enabled =>
             fuccess(Left("alreadyActive" -> "This account is already active."))
           case Some(user) =>
