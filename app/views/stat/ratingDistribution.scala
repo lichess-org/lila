@@ -67,7 +67,7 @@ object ratingDistribution {
                     trans.yourPerfTypeRatingIsRating(perfType.name, raw(s"""<strong>$rating</strong>""")),
                     br,
                     trans.youAreBetterThanPercentOfPerfTypePlayers(
-                      raw(s"""<strong>${"%.1f" format under * 100.0 / sum}%</strong>"""),
+                      raw(s"""<strong>${(under * 100.0 / sum).round}%</strong>"""),
                       perfType.name
                     )
                   )
