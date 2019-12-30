@@ -19,7 +19,7 @@ final class Mailgun(
 
   def send(msg: Mailgun.Message): Funit =
     if (config.apiUrl.isEmpty) {
-      println(msg -> "No mailgun API URL")
+      logger.info(s"$msg -> No mailgun API URL")
       funit
     } else
       ws.url(s"${config.apiUrl}/messages")
@@ -43,7 +43,7 @@ final class Mailgun(
         .flatMap {
           case res if res.status >= 300 =>
             lila.mon.email.send.error(res.status.toString).increment()
-            fufail(s"Can't send to mailgun: ${res.status}")
+            fufail(s"Can't send to mailgun: ${res.status} ${res.body take 500}")
           case _ => funit
         }
         .mon(_.email.send.time)
