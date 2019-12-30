@@ -105,42 +105,45 @@ final private class RelayFetch(
       case _ => continueRelay(relay)
     }
 
-  def continueRelay(r: Relay): Relay = {
-    val seconds =
-      if (r.sync.log.alwaysFails && !r.sync.upstream.isLocal) {
-        r.sync.log.events.lastOption
-          .filterNot(_.isTimeout)
-          .flatMap(_.error)
-          .ifTrue(r.official && r.hasStarted) foreach { error =>
-          slackApi.broadcastError(r.id.value, r.name, error)
-        }
-        60
-      } else r.sync.delay getOrElse 7
-    r.withSync {
-      _.copy(
-        nextAt = DateTime.now plusSeconds {
-          seconds atLeast { if (r.sync.log.justTimedOut) 10 else 2 }
-        } some
-      )
+  def continueRelay(r: Relay): Relay =
+    r.sync.upstream.fold(r) { upstream =>
+      val seconds =
+        if (r.sync.log.alwaysFails && !upstream.isLocal) {
+          r.sync.log.events.lastOption
+            .filterNot(_.isTimeout)
+            .flatMap(_.error)
+            .ifTrue(r.official && r.hasStarted) foreach { error =>
+            slackApi.broadcastError(r.id.value, r.name, error)
+          }
+          60
+        } else r.sync.delay getOrElse 7
+      r.withSync {
+        _.copy(
+          nextAt = DateTime.now plusSeconds {
+            seconds atLeast { if (r.sync.log.justTimedOut) 10 else 2 }
+          } some
+        )
+      }
     }
-  }
 
   import com.github.benmanes.caffeine.cache.Cache
   import RelayFetch.GamesSeenBy
 
   private def fetchGames(relay: Relay): Fu[RelayGames] =
-    cache.asMap
-      .compute(
-        relay.sync.upstream,
-        (_, v) =>
-          Option(v) match {
-            case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
-              GamesSeenBy(games, seenBy + relay.id)
-            case _ =>
-              GamesSeenBy(doFetch(relay.sync.upstream, RelayFetch.maxChapters(relay)), Set(relay.id))
-          }
-      )
-      .games
+    relay.sync.upstream ?? { upstream =>
+      cache.asMap
+        .compute(
+          upstream,
+          (_, v) =>
+            Option(v) match {
+              case Some(GamesSeenBy(games, seenBy)) if !seenBy(relay.id) =>
+                GamesSeenBy(games, seenBy + relay.id)
+              case _ =>
+                GamesSeenBy(doFetch(upstream, RelayFetch.maxChapters(relay)), Set(relay.id))
+            }
+        )
+        .games
+    }
 
   // The goal of this is to make sure that an upstream used by several broadcast
   // is only pulled from as many times as necessary, and not more.
@@ -265,7 +268,7 @@ private object RelayFetch {
     implicit val gameReads = Json.reads[GameJson]
   }
 
-  private object multiPgnToGames {
+  object multiPgnToGames {
 
     import scala.util.{ Failure, Success, Try }
 

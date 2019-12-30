@@ -18,8 +18,10 @@ final class RelayForm {
       "description" -> text(minLength = 3, maxLength = 400),
       "markup"      -> optional(text(maxLength = 20000)),
       "official"    -> optional(boolean),
-      "syncUrl" -> nonEmptyText
-        .verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u)),
+      "syncUrl" -> optional {
+        nonEmptyText
+          .verifying("Lichess tournaments can't be used as broadcast source", u => !isTournamentApi(u))
+      },
       "syncUrlRound" -> optional(number(min = 1, max = 999)),
       "credit"       -> optional(nonEmptyText),
       "startsAt"     -> optional(inTheFuture(ISODateTimeOrTimestamp.isoDateTimeOrTimestamp)),
@@ -43,19 +45,19 @@ object RelayForm {
       description: String,
       markup: Option[String],
       official: Option[Boolean],
-      syncUrl: String,
+      syncUrl: Option[String],
       syncUrlRound: Option[Int],
       credit: Option[String],
       startsAt: Option[DateTime],
       throttle: Option[Int]
   ) {
 
-    def requiresRound = Relay.Sync.LccRegex matches syncUrl
+    def requiresRound = syncUrl exists Relay.Sync.LccRegex.matches
 
     def roundMissing = requiresRound && syncUrlRound.isEmpty
 
-    def cleanUrl = {
-      val trimmed = syncUrl.trim
+    def cleanUrl: Option[String] = syncUrl.map { u =>
+      val trimmed = u.trim
       if (trimmed endsWith "/") trimmed.take(trimmed.size - 1)
       else trimmed
     }
@@ -72,7 +74,9 @@ object RelayForm {
     )
 
     def makeSync(user: User) = Relay.Sync(
-      upstream = Relay.Sync.Upstream(s"$cleanUrl${syncUrlRound.??(" " +)}"),
+      upstream = cleanUrl map { u =>
+        Relay.Sync.Upstream(s"$u${syncUrlRound.??(" " +)}")
+      },
       until = none,
       nextAt = none,
       delay = throttle ifTrue Granter(_.Relay)(user),
@@ -103,8 +107,8 @@ object RelayForm {
       description = relay.description,
       markup = relay.markup,
       official = relay.official option true,
-      syncUrl = relay.sync.upstream.withRound.url,
-      syncUrlRound = relay.sync.upstream.withRound.round,
+      syncUrl = relay.sync.upstream.map(_.withRound.url),
+      syncUrlRound = relay.sync.upstream.flatMap(_.withRound.round),
       credit = relay.credit,
       startsAt = relay.startsAt,
       throttle = relay.sync.delay

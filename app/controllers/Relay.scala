@@ -148,6 +148,14 @@ final class Relay(
     }
   }
 
+  def push(@silent slug: String, id: String) = ScopedBody(parse.tolerantText)(Seq(_.Study.Write)) {
+    req => me =>
+      env.relay.api.byIdAndContributor(id, me) flatMap {
+        case None        => notFoundJson()
+        case Some(relay) => env.relay.push(relay, req.body) inject jsonOkResult
+      }
+  }
+
   private def asJson(relay: RelayModel) = Json.obj(
     "broadcast" -> env.relay.jsonView.apiShow(relay),
     "url"       -> s"${env.net.baseUrl}${showRoute(relay)}"

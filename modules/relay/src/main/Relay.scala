@@ -68,21 +68,25 @@ object Relay {
   def makeId = Id(ornicar.scalalib.Random nextString 8)
 
   case class Sync(
-      upstream: Sync.Upstream,
-      until: Option[DateTime],  // sync until then; resets on move
-      nextAt: Option[DateTime], // when to run next sync
-      delay: Option[Int],       // override time between two sync (rare)
+      upstream: Option[Sync.Upstream], // if empty, needs a client to push PGN
+      until: Option[DateTime],         // sync until then; resets on move
+      nextAt: Option[DateTime],        // when to run next sync
+      delay: Option[Int],              // override time between two sync (rare)
       log: SyncLog
   ) {
 
-    def renew = copy(
-      until = DateTime.now.plusHours(1).some
-    )
+    def hasUpstream = upstream.isDefined
+
+    def renew =
+      if (hasUpstream) copy(until = DateTime.now.plusHours(1).some)
+      else pause
+
     def ongoing = until ?? DateTime.now.isBefore
 
-    def play = renew.copy(
-      nextAt = nextAt orElse DateTime.now.plusSeconds(3).some
-    )
+    def play =
+      if (hasUpstream) renew.copy(nextAt = nextAt orElse DateTime.now.plusSeconds(3).some)
+      else pause
+
     def pause = copy(
       nextAt = none,
       until = none

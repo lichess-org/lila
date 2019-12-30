@@ -52,7 +52,7 @@ object JsonView {
     Json.obj(
       "ongoing" -> s.ongoing,
       "log"     -> s.log.events,
-      "url"     -> s.upstream.url
+      "url"     -> s.upstream.map(_.url)
     )
   }
 }

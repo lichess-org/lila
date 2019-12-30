@@ -73,7 +73,7 @@ final class RelayApi(
   }
 
   def requestPlay(id: Relay.Id, v: Boolean): Funit = WithRelay(id) { relay =>
-    formatApi.refresh(relay.sync.upstream.withRound)
+    relay.sync.upstream.map(_.withRound) foreach formatApi.refresh
     update(relay) { r =>
       if (v) r.withSync(_.play) else r.withSync(_.pause)
     } void
@@ -81,7 +81,7 @@ final class RelayApi(
 
   def update(from: Relay)(f: Relay => Relay): Fu[Relay] = {
     val relay = f(from) |> { r =>
-      if (r.sync.upstream.url != from.sync.upstream.url) r.withSync(_.clearLog) else r
+      if (r.sync.upstream != from.sync.upstream) r.withSync(_.clearLog) else r
     }
     if (relay == from) fuccess(relay)
     else

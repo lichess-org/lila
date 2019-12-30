@@ -17,7 +17,7 @@ export default function(ctrl: RelayCtrl): VNode | undefined {
         }
       })
     ]),
-    (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl),
+    ctrl.data.sync.url ? (ctrl.data.sync.ongoing ? stateOn : stateOff)(ctrl) : null,
     renderLog(ctrl)
   ]);
 }

@@ -30,6 +30,8 @@ final class Env(
 
   lazy val pager = wire[RelayPager]
 
+  lazy val push = wire[RelayPush]
+
   private lazy val sync = wire[RelaySync]
 
   private lazy val formatApi = wire[RelayFormatApi]
