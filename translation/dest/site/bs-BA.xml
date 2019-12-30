@@ -76,7 +76,7 @@
   <string name="averageRatingX">Prosječni rejting: %s</string>
   <string name="recentGames">Nedavne partije</string>
   <string name="topGames">Najjače partije</string>
-  <string name="masterDbExplanation">Dva milijuna OTB partija FIDE rangiranih igrača (%1$s+ FIDE rejting) igranih od %2$s. do %3$s. godine</string>
+  <string name="masterDbExplanation">Dva miliona OTB partija igranih od %1$s+ FIDE rangiranih igrača od %2$s do %3$s godine</string>
   <plurals name="mateInXHalfMoves">
     <item quantity="one">Mat u %s međupotezu</item>
     <item quantity="few">Mat u %s međupoteza</item>
@@ -921,4 +921,10 @@ računalnu analizu, chat partije i URL za dijeljenje.</string>
   <string name="temporaryInconvenience">Izvinjavamo se zbog privremene neugodnosti,</string>
   <string name="wishYouGreatGames">i želimo Vam odlične partije na lichess.org.</string>
   <string name="thankYouForReading">Hvala Vam na čitanju!</string>
+  <string name="lifetimeScore">Ukupni rezultat</string>
+  <string name="currentMatchScore">Rezultat sadašnjeg meča</string>
+  <string name="agreementAssistance">Slažem se da ni u jednom trenutku neću primati pomoć za vrijeme svojih igara (od šahovskog računara, knjige, baze podataka ili neke druge osobe).</string>
+  <string name="agreementNice">Slažem se da ću uvijek poštovati druge igrače.</string>
+  <string name="agreementAccount">Slažem se da neću kreirati više profila.</string>
+  <string name="agreementPolicy">Slažem se da ću se pridržavati svih Lichess pravila.</string>
 </resources>
